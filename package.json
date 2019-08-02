@@ -1,0 +1,54 @@
+{
+  "name": "telnyx",
+  "version": "1.0.0",
+  "description": "Telnyx API Node SDK",
+  "keywords": [
+    "telnyx",
+    "sms",
+    "sip trunking",
+    "phone numbers",
+    "api",
+    "sdk"
+  ],
+  "homepage": "https://developers.telnyx.com",
+  "author": "Telnyx <support@telnyx.com> (https://www.telnyx.com/)",
+  "contributors": [
+    "Gabriel Taylor Russ <gabriel@telnyx.com> (http://www.telnyx.com/)",
+    "Lucas Rosa <lucas@telnyx.com> (http://www.telnyx.com/)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/team-telnyx/telnyx-node.git"
+  },
+  "bugs:": "https://github.com/team-telnyx/telnyx-node/issues",
+  "engines": {
+    "node": "^6 || >=8"
+  },
+  "main": "lib/telnyx.js",
+  "devDependencies": {
+    "chai": "~4.1.2",
+    "chai-as-promised": "~7.1.1",
+    "coveralls": "^3.0.0",
+    "debug": "^4.1.1",
+    "eslint": "^4.19.1",
+    "eslint-plugin-chai-friendly": "^0.4.0",
+    "mocha": "~5.0.5",
+    "nock": "^9.0.0",
+    "nyc": "^14.1.1"
+  },
+  "dependencies": {
+    "lodash.isplainobject": "^4.0.6",
+    "qs": "^6.6.0",
+    "safe-buffer": "^5.1.1",
+    "uuid": "^3.3.2"
+  },
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
+    "mocha": "nyc mocha",
+    "test": "npm run lint && npm run mocha",
+    "lint": "eslint .",
+    "report": "nyc -r text -r lcov report",
+    "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  }
+}
