@@ -51,5 +51,11 @@
     "report": "nyc -r text -r lcov report",
     "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "release": "telnyx-npm-release"
+  },
+  "nyc": {
+    "exclude": [
+      "testUtils/**/*",
+      "test/**/*"
+    ]
   }
 }
