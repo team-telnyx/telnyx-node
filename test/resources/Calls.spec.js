@@ -1,6 +1,7 @@
 'use strict';
 
 var telnyx = require('../../testUtils').getTelnyxMock();
+var utils = require('../../lib/utils');
 var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = 'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo';
@@ -22,7 +23,6 @@ var COMMANDS = [
   'send_dtmf',
   'transfer',
 ];
-
 
 describe('Calls Resource', function() {
   describe('Call Information', function() {
@@ -136,10 +136,15 @@ describe('Calls Resource', function() {
 
     COMMANDS.forEach(function(command) {
       describe(command, function() {
+        const camelCaseCommand = utils.snakeToCamelCase(command);
+
         it('Sends the correct request', function() {
           return telnyx.calls.create(callCreateData)
             .then(function(response) {
               const call = response.data;
+              call[utils.snakeToCamelCase(command)](callCommandsData[command] || {})
+                .then(responseFn);
+
               return call[command](callCommandsData[command] || {})
                 .then(responseFn);
             })
@@ -148,10 +153,36 @@ describe('Calls Resource', function() {
           return telnyx.calls.create(callCreateData)
             .then(function(response) {
               const call = response.data;
+              call[utils.snakeToCamelCase(command)](callCommandsData[command] || {}, TEST_AUTH_KEY)
+                .then(responseFn);
+
               return call[command](callCommandsData[command] || {}, TEST_AUTH_KEY)
                 .then(responseFn);
             })
         });
+
+        if (camelCaseCommand !== command) {
+          describe(camelCaseCommand, function() {
+            it('Sends the correct request', function() {
+              return telnyx.calls.create(callCreateData)
+                .then(function(response) {
+                  const call = response.data;
+
+                  return call[camelCaseCommand](callCommandsData[command] || {})
+                    .then(responseFn);
+                })
+            });
+            it('Sends the correct request [with specified auth]', function() {
+              return telnyx.calls.create(callCreateData)
+                .then(function(response) {
+                  const call = response.data;
+
+                  return call[camelCaseCommand](callCommandsData[command] || {}, TEST_AUTH_KEY)
+                    .then(responseFn);
+                })
+            });
+          })
+        }
       });
     });
   });

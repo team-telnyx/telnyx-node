@@ -1,6 +1,7 @@
 'use strict';
 
 var telnyx = require('../../testUtils').getTelnyxMock();
+var utils = require('../../lib/utils');
 var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = 'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo';
@@ -73,15 +74,6 @@ describe('MessagingProfiles Resource', function() {
         })
     });
   });
-
-  // describe('del', function() {
-  //   it('Sends the correct request', function() {
-  //     return telnyx.messagingProfiles.del('123')
-  //       .then(function(response) {
-  //         expect(response.data).to.include({id: '123'});
-  //       })
-  //   });
-  // });
 
   describe('list', function() {
     function responseFn(response) {
@@ -212,6 +204,8 @@ describe('MessagingProfiles Resource', function() {
 
     METHODS.forEach(function(action) {
       describe(action, function() {
+        const camelCaseAction = utils.snakeToCamelCase(action);
+
         it('Sends the correct request', function() {
           return telnyx.messagingProfiles.create({name: 'Summer Campaign'})
             .then(function(response) {
@@ -227,6 +221,26 @@ describe('MessagingProfiles Resource', function() {
               return mp[action](TEST_AUTH_KEY)
                 .then(responseFn);
             })
+        });
+
+        describe(camelCaseAction, function() {
+          it('Sends the correct request', function() {
+            return telnyx.messagingProfiles.create({name: 'Summer Campaign'})
+              .then(function(response) {
+                const mp = response.data;
+                return mp[camelCaseAction]()
+                  .then(responseFn);
+              })
+          });
+          it('Sends the correct request [with specified auth]', function() {
+            return telnyx.messagingProfiles.create({name: 'Summer Campaign'})
+              .then(function(response) {
+                const mp = response.data;
+                return mp[camelCaseAction](TEST_AUTH_KEY)
+                  .then(responseFn);
+              })
+          });
+
         });
       });
     });
