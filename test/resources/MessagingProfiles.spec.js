@@ -9,6 +9,7 @@ var METHODS = [
   'phone_numbers',
   'sender_ids',
   'short_codes',
+  'del',
 ];
 
 describe('MessagingProfiles Resource', function() {
@@ -73,14 +74,14 @@ describe('MessagingProfiles Resource', function() {
     });
   });
 
-  describe('del', function() {
-    it('Sends the correct request', function() {
-      return telnyx.messagingProfiles.del('123')
-        .then(function(response) {
-          expect(response.data).to.include({id: '123'});
-        })
-    });
-  });
+  // describe('del', function() {
+  //   it('Sends the correct request', function() {
+  //     return telnyx.messagingProfiles.del('123')
+  //       .then(function(response) {
+  //         expect(response.data).to.include({id: '123'});
+  //       })
+  //   });
+  // });
 
   describe('list', function() {
     function responseFn(response) {
@@ -200,9 +201,13 @@ describe('MessagingProfiles Resource', function() {
 
   describe('Nested', function() {
     function responseFn(response) {
-      expect(response.data[0]).to.have.property('id');
-      expect(response.data[0]).to.have.property('record_type');
-      expect(response.data[0]).to.have.property('messaging_profile_id');
+      if (response.data.length) {
+        expect(response.data[0]).to.have.property('id');
+        expect(response.data[0]).to.have.property('record_type');
+        expect(response.data[0]).to.have.property('messaging_profile_id');
+      } else {
+        expect(response.data).to.have.property('id');
+      }
     }
 
     METHODS.forEach(function(action) {
