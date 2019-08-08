@@ -84,6 +84,10 @@ describe('Webhooks', function() {
       }).to.throw(expectedMessage);
 
       expect(function() {
+        telnyx.webhooks.signature.verifySignature(EVENT_PAYLOAD_STRING, undefined, timestamp, PUBLIC_KEY);
+      }).to.throw(expectedMessage);
+
+      expect(function() {
         telnyx.webhooks.signature.verifySignature(EVENT_PAYLOAD_STRING, Buffer.from('foo', 'ascii'), timestamp, PUBLIC_KEY);
       }).to.throw(expectedMessage);
     });
