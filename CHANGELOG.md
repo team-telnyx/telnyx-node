@@ -1,6 +1,18 @@
 # CHANGELOG
 
-### v1.0.0 (2019-8-2)
+### v1.1.0 (2019-8-9)
+
+##### New Features
+
+* **webhooks:** validation algorithm update to ed25519
+
+##### Bug Fixes
+
+* **resources:** nested resources custom attributes assign
+
+* **error-handling:** prevent undefined message on error handling
+
+## v1.0.0 (2019-8-2)
 
 ##### New Features
 
