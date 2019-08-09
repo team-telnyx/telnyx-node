@@ -11,7 +11,7 @@ describe('MessagingShortCodes Resource', function() {
       expect(response.data).to.include({
         id: '123',
         messaging_profile_id: '123',
-        record_type: 'messaging_short_code'
+        record_type: 'short_code'
       });
     }
     it('Sends the correct request', function() {
@@ -32,7 +32,7 @@ describe('MessagingShortCodes Resource', function() {
           expect(response.data).to.include({
             id: '123',
             short_code: '54321',
-            record_type: 'messaging_short_code'
+            record_type: 'short_code'
           });
         })
     });
@@ -42,7 +42,7 @@ describe('MessagingShortCodes Resource', function() {
     function responseFn(response) {
       expect(response.data[0]).to.have.property('id');
       expect(response.data[0]).to.have.property('short_code');
-      expect(response.data[0]).to.include({record_type: 'messaging_short_code'});
+      expect(response.data[0]).to.include({record_type: 'short_code'});
     }
 
     it('Sends the correct request', function() {

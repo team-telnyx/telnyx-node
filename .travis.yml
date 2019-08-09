@@ -14,7 +14,7 @@ cache:
 env:
   global:
     # If changing this number, please also look it at tests config.
-    - TELNYX_MOCK_VERSION=0.3.1
+    - TELNYX_MOCK_VERSION=0.4.0
 
 before_install:
   # Unpack and start telnyx-mock so that the test suite can talk to it
