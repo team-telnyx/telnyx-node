@@ -8,11 +8,11 @@ const Express = require('express');
  * makes this really easy.
  *
  * To run this file, just provide your Secret API Key and Webhook Secret, like so:
- * TELNYX_API_KEY=KEYXXX PUBLIC_KEY=ZZZXXX node express.js
+ * TELNYX_API_KEY=KEYXXX TELNYX_PUBLIC_KEY=ZZZXXX node express.js
  */
 
 const apiKey = process.env.TELNYX_API_KEY;
-const publicKey = process.env.WEBHOOK_SECRET;
+const publicKey = process.env.TELNYX_PUBLIC_KEY;
 
 const telnyx = Telnyx(apiKey);
 
