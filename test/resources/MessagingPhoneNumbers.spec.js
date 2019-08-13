@@ -8,7 +8,7 @@ var TEST_AUTH_KEY = 'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo'
 describe('MessagingPhoneNumbers Resource', function() {
   describe('retrieve', function() {
     function responseFn(response) {
-      expect(response.data).to.include({id: '123', phone_number: '123', record_type: 'messaging_phone_number'});
+      expect(response.data).to.include({id: '123', record_type: 'messaging_phone_number'});
     }
 
     it('Sends the correct request', function() {
@@ -51,7 +51,6 @@ describe('MessagingPhoneNumbers Resource', function() {
         .then(function(response) {
           expect(response.data).to.include({
             id: '123',
-            phone_number: '123',
             organization_id: '3fa85f64-5717-4562-b331-2c963f66afa6',
             record_type: 'messaging_phone_number',
           });
