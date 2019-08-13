@@ -84,6 +84,21 @@ describe('Calls Resource', function() {
                 .then(responseFn);
             })
         });
+
+        it('Sends the correct request [with empty resource instance]', function() {
+          const conference = new telnyx.Conference();
+          conference.call_control_id = '891510ac-f3e4-11e8-af5b-de00688a4901';
+
+          return conference[action](callConferencesData[action] || {})
+            .then(responseFn);
+        });
+        it('Sends the correct request [with empty resource instance and specified auth]', function() {
+          const conference = new telnyx.Conference();
+          conference.call_control_id = '891510ac-f3e4-11e8-af5b-de00688a4901';
+
+          return conference[action](callConferencesData[action] || {}, TEST_AUTH_KEY)
+            .then(responseFn);
+        });
       });
     });
   });

@@ -161,6 +161,28 @@ describe('Calls Resource', function() {
             })
         });
 
+        it('Sends the correct method request [with empty resource instance]', function() {
+          const call = new telnyx.Call();
+          call.call_control_id = '3fa85f55-5717-4562-b3fc-2c963f63vga6';
+
+          call[utils.snakeToCamelCase(command)](callCommandsData[command] || {})
+            .then(responseFn);
+
+          return call[command](callCommandsData[command] || {})
+            .then(responseFn);
+        });
+
+        it('Sends the correct method request [with empty resource instance and specified auth]', function() {
+          const call = new telnyx.Call();
+          call.call_control_id = '3fa85f55-5717-4562-b3fc-2c963f63vga6';
+
+          call[utils.snakeToCamelCase(command)](callCommandsData[command] || {}, TEST_AUTH_KEY)
+            .then(responseFn);
+
+          return call[command](callCommandsData[command] || {}, TEST_AUTH_KEY)
+            .then(responseFn);
+        });
+
         if (camelCaseCommand !== command) {
           describe(camelCaseCommand, function() {
             it('Sends the correct request', function() {
