@@ -1,5 +1,15 @@
 # CHANGELOG
 
+### v1.2.0 (2019-8-19)
+
+##### New Features
+
+* **resources:** empty constructors on resources names, for Calls and Conferences
+
+* **resources:** nested resources
+
+* **resources:** new Aplhanumeric Sender ID endpoints
+
 ### v1.1.0 (2019-8-9)
 
 ##### New Features
