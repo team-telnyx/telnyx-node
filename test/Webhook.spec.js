@@ -4,7 +4,7 @@ var telnyx = require('../testUtils').getSpyableTelnyx();
 var expect = require('chai').expect;
 var Buffer = require('safe-buffer').Buffer;
 var crypto = require('crypto');
-var ed25519 = require('ed25519');
+var nacl = require('tweetnacl');
 
 var EVENT_PAYLOAD = {
   data: {
@@ -144,6 +144,5 @@ function generateSignature(opts) {
 
   var payload = Buffer.from(`${opts.timestamp}|${opts.payload}`, 'utf8');
 
-  // eslint-disable-next-line new-cap
-  return ed25519.Sign(payload, ed25519.MakeKeypair(Buffer.from(PUBLIC_KEY, 'base64')));
+  return nacl.sign.detached(payload, nacl.sign.keyPair.fromSeed(Buffer.from(PUBLIC_KEY, 'base64')).secretKey);
 }
