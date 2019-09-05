@@ -1,5 +1,13 @@
 # CHANGELOG
 
+#### v1.2.1 (2019-9-5)
+
+##### Bug Fixes
+
+* **webhooks:** replace c compiled ed25519 package with node tweetnacl
+
+* **package:** fix install for node v12
+
 ### v1.2.0 (2019-8-19)
 
 ##### New Features
