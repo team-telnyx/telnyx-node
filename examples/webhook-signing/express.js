@@ -50,8 +50,8 @@ router.post('/webhooks', addRawBody, function(request, response) {
     // Try adding the Event as `request.event`
     event = telnyx.webhooks.constructEvent(
       request.rawBody,
-      request.headers['telnyx-signature'],
-      request.headers['telnyx-timestamp'],
+      request.header('telnyx-signature-ed25519'),
+      request.header('telnyx-timestamp'),
       publicKey
     );
   } catch (e) {
@@ -61,10 +61,10 @@ router.post('/webhooks', addRawBody, function(request, response) {
     return response.status(400).send('Webhook Error:' + e.message);
   }
 
-  console.log('Success', event.id);
+  console.log('Success', event.data.id);
 
   // Event was 'constructed', so we can respond with a 200 OK
-  response.status(200).send('Signed Webhook Received: ' + event.id);
+  response.status(200).send('Signed Webhook Received: ' + event.data.id);
 });
 
 // You could either create this app, or just return the `Router` for use in an
