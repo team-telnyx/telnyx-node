@@ -1,5 +1,11 @@
 # CHANGELOG
 
+#### v1.2.2 (2019-9-9)
+
+##### Bug Fixes
+
+* **webhooks:** fix signature verification with tweetnacl
+
 #### v1.2.1 (2019-9-5)
 
 ##### Bug Fixes
