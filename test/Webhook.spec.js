@@ -29,7 +29,8 @@ var EVENT_PAYLOAD = {
 };
 var EVENT_PAYLOAD_STRING = JSON.stringify(EVENT_PAYLOAD, null, 2);
 
-var PUBLIC_KEY = crypto.randomBytes(32);
+var KEY_PAIR = nacl.sign.keyPair.fromSeed(crypto.randomBytes(32));
+var PUBLIC_KEY = KEY_PAIR.publicKey;
 
 describe('Webhooks', function() {
   describe('.constructEvent', function() {
@@ -144,5 +145,5 @@ function generateSignature(opts) {
 
   var payload = Buffer.from(`${opts.timestamp}|${opts.payload}`, 'utf8');
 
-  return nacl.sign.detached(payload, nacl.sign.keyPair.fromSeed(Buffer.from(PUBLIC_KEY, 'base64')).secretKey);
+  return nacl.sign.detached(payload, KEY_PAIR.secretKey);
 }
