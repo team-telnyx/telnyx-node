@@ -4,7 +4,7 @@ const Telnyx = require('telnyx');
 const Express = require('express');
 
 /**
- * You'll need to make sure this is externally accessible.  ngrok (https://ngrok.com/)
+ * You'll need to make sure this is externally accessible. ngrok (https://ngrok.com/)
  * makes this really easy.
  *
  * To run this file, just provide your Secret API Key and Webhook Secret, like so:
@@ -35,19 +35,10 @@ function addRawBody(req, res, next) {
   });
 }
 
-/**
- * You can either `use()` addRawBody on the Router...
- */
-// router.use(addRawBody);
-
-/**
- * ...or add it directly as middleware to the route.
- */
 router.post('/webhooks', addRawBody, function(request, response) {
   var event;
 
   try {
-    // Try adding the Event as `request.event`
     event = telnyx.webhooks.constructEvent(
       request.rawBody,
       request.header('telnyx-signature-ed25519'),
@@ -67,8 +58,10 @@ router.post('/webhooks', addRawBody, function(request, response) {
   response.status(200).send('Signed Webhook Received: ' + event.data.id);
 });
 
-// You could either create this app, or just return the `Router` for use in an
-// existing Express app - up to you!
+/**
+ * You could either create this app, or just return the `Router` for use in an
+ * existing Express app - up to you!
+ */
 
 const app = Express();
 app.use(router);
