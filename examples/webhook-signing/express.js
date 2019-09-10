@@ -2,6 +2,8 @@
 
 const Telnyx = require('telnyx');
 const Express = require('express');
+const bodyParser = require('body-parser');
+const app = Express();
 
 /**
  * You'll need to make sure this is externally accessible. ngrok (https://ngrok.com/)
@@ -16,55 +18,30 @@ const publicKey = process.env.TELNYX_PUBLIC_KEY;
 
 const telnyx = Telnyx(apiKey);
 
-const router = Express.Router();
-
-// Add the raw text body of the request to the `request` object
-function addRawBody(req, res, next) {
-  req.setEncoding('utf8');
-
-  var data = '';
-
-  req.on('data', function(chunk) {
-    data += chunk;
-  });
-
-  req.on('end', function() {
-    req.rawBody = data;
-
-    next();
-  });
-}
-
-router.post('/webhooks', addRawBody, function(request, response) {
+app.post('/webhooks', bodyParser.json(), function(req, res) {
   var event;
 
   try {
     event = telnyx.webhooks.constructEvent(
-      request.rawBody,
-      request.header('telnyx-signature-ed25519'),
-      request.header('telnyx-timestamp'),
+      // webhook data needs to be passed raw for verification
+      JSON.stringify(req.body, null, 2),
+      req.header('telnyx-signature-ed25519'),
+      req.header('telnyx-timestamp'),
       publicKey
     );
   } catch (e) {
     // If `constructEvent` throws an error, respond with the message and return.
     console.log('Error', e.message);
 
-    return response.status(400).send('Webhook Error:' + e.message);
+    return res.status(400).send('Webhook Error:' + e.message);
   }
 
   console.log('Success', event.data.id);
 
   // Event was 'constructed', so we can respond with a 200 OK
-  response.status(200).send('Signed Webhook Received: ' + event.data.id);
+  res.status(200).send('Signed Webhook Received: ' + event.data.id);
 });
 
-/**
- * You could either create this app, or just return the `Router` for use in an
- * existing Express app - up to you!
- */
-
-const app = Express();
-app.use(router);
 app.listen(3000, function() {
-  console.log('Example app listening on port 3000!')
+  console.log('Example app listening on port 3000!');
 });
