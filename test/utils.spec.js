@@ -51,7 +51,7 @@ describe('utils', function() {
           {b: 'c'},
           {b: 'd'},
         ],
-      })).to.equal('a[0][b]=c&a[1][b]=d');
+      })).to.equal('a[][b]=c&a[][b]=d');
     })
 
     it('Handles indexed arrays', function() {
