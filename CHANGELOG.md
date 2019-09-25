@@ -1,5 +1,11 @@
 # CHANGELOG
 
+#### v1.2.3 (2019-9-25)
+
+##### Bug Fixes
+
+* **query-string:** fix query parameter array format. Use 'brackets'
+
 #### v1.2.2 (2019-9-9)
 
 ##### Bug Fixes
