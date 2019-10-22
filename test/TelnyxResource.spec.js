@@ -17,12 +17,33 @@ describe('TelnyxResource', function() {
 
   describe('_defaultHeaders', function() {
     it('sets the Authorization header with Bearer auth using the global API key', function() {
-      var headers = telnyx.messagingProfiles._defaultHeaders(null, 0, null);
+      var headers = telnyx.messagingProfiles._defaultHeaders(null, '');
       expect(headers.Authorization).to.equal('Bearer fakeAuthToken');
     });
     it('sets the Authorization header with Bearer auth using the specified API key', function() {
-      var headers = telnyx.messagingProfiles._defaultHeaders('anotherFakeAuthToken', 0, null);
+      var headers = telnyx.messagingProfiles._defaultHeaders('anotherFakeAuthToken', '');
       expect(headers.Authorization).to.equal('Bearer anotherFakeAuthToken');
+    });
+
+    it('sets the content length for empty body', function() {
+      var headers = telnyx.messagingProfiles._defaultHeaders(null, '');
+      expect(headers['Content-Length']).to.equal(0);
+    });
+
+    it('sets the content length for UTF-8 body', function() {
+      var headers = telnyx.messagingProfiles._defaultHeaders(
+        null,
+        '"{\"messaging_profile_id\":\"uuid\",\"text\":\"Hi There! This is Collin with Polling \",\"to\":\"+18332784547\"}"'
+      );
+      expect(headers['Content-Length']).to.equal(101);
+    });
+
+    it('sets the content length for UTF-8 body with multi-bytes chars', function() {
+      var headers = telnyx.messagingProfiles._defaultHeaders(
+        null,
+        '"{\"messaging_profile_id\":\"uuid\",\"text\":\"Hi There! This is Collin with Polling – ‣\",\"to\":\"+18332784547\"}"'
+      );
+      expect(headers['Content-Length']).to.equal(108);
     });
   });
 
