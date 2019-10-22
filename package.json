@@ -1,6 +1,6 @@
 {
   "name": "telnyx",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Telnyx API Node SDK",
   "keywords": [
     "telnyx",
