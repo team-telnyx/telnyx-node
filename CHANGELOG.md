@@ -1,5 +1,13 @@
 # CHANGELOG
 
+#### v1.2.4 (2019-10-22)
+
+##### Bug Fixes
+
+* **resources:** fix content-length header calculation on requestData
+  * account for multi-byte chars on getting request data length (e.g.: `en dash`)
+  * improve specs
+
 #### v1.2.3 (2019-9-25)
 
 ##### Bug Fixes
