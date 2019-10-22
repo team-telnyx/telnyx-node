@@ -82,17 +82,6 @@ describe('utils', function() {
     });
   });
 
-  describe('stringifyRequestBodyData', function() {
-    it('Handles EM Dash', function() {
-      expect(utils.stringifyRequestBodyData({
-        from: 'NUMBER',
-        text: 'Hi Susan! This is Collin with Polling for Progress – do you ?',
-        to: 'NUMBER',
-        webhook_url: ''
-      })).to.equal('{"from":"NUMBER","text":"Hi Susan! This is Collin with Polling for Progress - do you ?","to":"NUMBER","webhook_url":""}');
-    });
-  });
-
   describe('protoExtend', function() {
     it('Provides an extension mechanism', function() {
       function A() {}
