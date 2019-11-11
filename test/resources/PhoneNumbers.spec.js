@@ -5,22 +5,18 @@ var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = 'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo';
 
-describe.only('PhoneNumbers Resource', function() {
+describe('PhoneNumbers Resource', function() {
   describe('update', function() {
     it('Sends the correct request', function() {
-      return telnyx.phoneNumbers.update('123', {name: 'Foo "baz"'})
+      return telnyx.phoneNumbers.update('123', {status: 'active'})
         .then(function(response) {
-          // eslint-disable-next-line no-console
-          console.log(response);
-          expect(response.data).to.include({id: '123', name: 'Foo "baz"'});
+          expect(response.data).to.include({id: '123', phone_number: '+19705555098', record_type: 'phone_number'});
         })
     });
   });
 
-  describe.only('list', function() {
+  describe('list', function() {
     function responseFn(response) {
-      // eslint-disable-next-line no-console
-      console.log(response);
       expect(response.data[0]).to.have.property('id');
       expect(response.data[0]).to.have.property('phone_number');
       expect(response.data[0]).to.include({record_type: 'phone_number'});
@@ -39,20 +35,20 @@ describe.only('PhoneNumbers Resource', function() {
 
   describe('Voice methods', function() {
     function responseFn(response) {
-      expect(response.data[0]).to.have.property('id');
-      expect(response.data[0]).to.have.property('translated_number');
-      expect(response.data[0]).to.have.property('connection_id');
-      expect(response.data[0]).to.include({record_type: 'voice_settings'});
+      expect(response.data).to.have.property('id');
+      expect(response.data).to.have.property('translated_number');
+      expect(response.data).to.have.property('connection_id');
+      expect(response.data).to.include({record_type: 'voice_settings'});
     }
 
-    describe('listVoiceSettings', function() {
+    describe('retrieveVoiceSettings', function() {
       it('Sends the correct request', function() {
-        return telnyx.phoneNumbers.listVoiceSettings('123')
+        return telnyx.phoneNumbers.retrieveVoiceSettings('123')
           .then(responseFn);
       });
 
       it('Sends the correct request [with specified auth]', function() {
-        return telnyx.phoneNumbers.listVoiceSettings('123', TEST_AUTH_KEY)
+        return telnyx.phoneNumbers.retrieveVoiceSettings('123', TEST_AUTH_KEY)
           .then(responseFn);
       });
     });
@@ -69,20 +65,20 @@ describe.only('PhoneNumbers Resource', function() {
 
   describe('Messaging methods', function() {
     function responseFn(response) {
-      expect(response.data[0]).to.have.property('id');
-      expect(response.data[0]).to.have.property('phone_number');
-      expect(response.data[0]).to.have.property('messaging_profile_id');
-      expect(response.data[0]).to.include({record_type: 'messaging_settings'});
+      expect(response.data).to.have.property('id');
+      expect(response.data).to.have.property('phone_number');
+      expect(response.data).to.have.property('messaging_profile_id');
+      expect(response.data).to.include({record_type: 'messaging_settings'});
     }
 
-    describe('listMessagingSettings', function() {
+    describe('retrieveMessagingSettings', function() {
       it('Sends the correct request', function() {
-        return telnyx.phoneNumbers.listMessagingSettings('123')
+        return telnyx.phoneNumbers.retrieveMessagingSettings('123')
           .then(responseFn);
       });
 
       it('Sends the correct request [with specified auth]', function() {
-        return telnyx.phoneNumbers.listMessagingSettings('123', TEST_AUTH_KEY)
+        return telnyx.phoneNumbers.retrieveMessagingSettings('123', TEST_AUTH_KEY)
           .then(responseFn);
       });
     });
