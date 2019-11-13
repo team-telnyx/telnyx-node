@@ -46,12 +46,12 @@ describe('MessagingPhoneNumbers Resource', function() {
   describe('update', function() {
     it('Sends the correct request', function() {
       return telnyx.messagingPhoneNumbers.update('123', {
-        organization_id: '3fa85f64-5717-4562-b331-2c963f66afa6'
+        messaging_product: 'P2P'
       })
         .then(function(response) {
           expect(response.data).to.include({
             id: '123',
-            organization_id: '3fa85f64-5717-4562-b331-2c963f66afa6',
+            messaging_product: 'P2P',
             record_type: 'messaging_phone_number',
           });
         });
