@@ -15,6 +15,15 @@ describe('PhoneNumbers Resource', function() {
     });
   });
 
+  describe('del', function() {
+    it('Sends the correct request', function() {
+      return telnyx.phoneNumbers.del('123')
+        .then(function(response) {
+          expect(response.data).to.include({id: '123', phone_number: '+19705555098', record_type: 'phone_number'});
+        });
+    });
+  });
+
   describe('list', function() {
     function responseFn(response) {
       expect(response.data[0]).to.have.property('id');
