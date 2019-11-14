@@ -1,5 +1,13 @@
 # CHANGELOG
 
+### v1.3.0 (2019-11-14)
+
+##### New Features
+
+* **resources:** SIM Cards
+
+* **resources:** Phone Numbers
+
 #### v1.2.4 (2019-10-22)
 
 ##### Bug Fixes
