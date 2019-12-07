@@ -38,6 +38,13 @@ app.post('/webhooks', bodyParser.json(), function(req, res) {
 
   console.log('Success', event.data.id);
 
+  // inbound call control
+  if (event.data.event_type === 'call.initiated') {
+    const call = new telnyx.Call({call_control_id: event.data.payload.call_control_id});
+
+    call.answer();
+  }
+
   // Event was 'constructed', so we can respond with a 200 OK
   res.status(200).send('Signed Webhook Received: ' + event.data.id);
 });
