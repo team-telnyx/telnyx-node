@@ -6,8 +6,6 @@ require('mocha');
 // Ensure we are using the 'as promised' libs before any tests are run:
 require('chai').use(require('chai-as-promised'));
 
-var ResourceNamespace = require('../lib/ResourceNamespace').ResourceNamespace;
-
 var utils = module.exports = {
 
   getUserTelnyxKey: function() {
@@ -32,12 +30,6 @@ var utils = module.exports = {
     function makeInstanceSpyable(telnyxInstance, thisInstance) {
       if (thisInstance instanceof telnyx.TelnyxResource) {
         patchRequest(telnyxInstance, thisInstance);
-      } else if (thisInstance instanceof ResourceNamespace) {
-        var namespace = thisInstance;
-
-        for (var j in namespace) {
-          makeInstanceSpyable(telnyxInstance, namespace[j]);
-        }
       }
     }
 
