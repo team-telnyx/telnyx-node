@@ -110,7 +110,6 @@ describe('Calls Resource', function() {
       }
     }
 
-
     function responseFn(response) {
       expect(response.data).to.include({result: 'ok'});
     }
@@ -137,9 +136,15 @@ describe('Calls Resource', function() {
     COMMANDS.forEach(function(command) {
       describe(command, function() {
         const camelCaseCommand = utils.snakeToCamelCase(command);
+        let telnyxInstance;
+
+        this.beforeEach(() => {
+          // make specs independent
+          telnyxInstance = require('../../testUtils').getTelnyxMock();
+        });
 
         it('Sends the correct request', function() {
-          return telnyx.calls.create(callCreateData)
+          return telnyxInstance.calls.create(callCreateData)
             .then(function(response) {
               const call = response.data;
               call[utils.snakeToCamelCase(command)](callCommandsData[command] || {})
@@ -150,7 +155,7 @@ describe('Calls Resource', function() {
             })
         });
         it('Sends the correct request [with specified auth]', function() {
-          return telnyx.calls.create(callCreateData)
+          return telnyxInstance.calls.create(callCreateData)
             .then(function(response) {
               const call = response.data;
               call[utils.snakeToCamelCase(command)](callCommandsData[command] || {}, TEST_AUTH_KEY)
@@ -162,31 +167,29 @@ describe('Calls Resource', function() {
         });
 
         it('Sends the correct method request [with empty resource instance]', function() {
-          const call = new telnyx.Call();
-          call.call_control_id = '3fa85f55-5717-4562-b3fc-2c963f63vga6';
+          const call = new telnyxInstance.Call({call_control_id: '3fa85f55-5717-4562-b3fc-2c963f63vga6'});
 
           call[utils.snakeToCamelCase(command)](callCommandsData[command] || {})
+            .then(responseFn);
+
+          call[utils.snakeToCamelCase(command)](callCommandsData[command] || {}, TEST_AUTH_KEY)
+            .then(responseFn);
+        });
+
+        it('Sends the correct method request [with empty resource instance and specified auth]', function() {
+          const call = new telnyxInstance.Call({call_control_id: '3fa85f55-5717-4562-b3fc-2c963f63vga6'});
+
+          call[command](callCommandsData[command] || {}, TEST_AUTH_KEY)
             .then(responseFn);
 
           return call[command](callCommandsData[command] || {})
             .then(responseFn);
         });
 
-        it('Sends the correct method request [with empty resource instance and specified auth]', function() {
-          const call = new telnyx.Call();
-          call.call_control_id = '3fa85f55-5717-4562-b3fc-2c963f63vga6';
-
-          call[utils.snakeToCamelCase(command)](callCommandsData[command] || {}, TEST_AUTH_KEY)
-            .then(responseFn);
-
-          return call[command](callCommandsData[command] || {}, TEST_AUTH_KEY)
-            .then(responseFn);
-        });
-
         if (camelCaseCommand !== command) {
           describe(camelCaseCommand, function() {
             it('Sends the correct request', function() {
-              return telnyx.calls.create(callCreateData)
+              return telnyxInstance.calls.create(callCreateData)
                 .then(function(response) {
                   const call = response.data;
 
@@ -195,7 +198,7 @@ describe('Calls Resource', function() {
                 })
             });
             it('Sends the correct request [with specified auth]', function() {
-              return telnyx.calls.create(callCreateData)
+              return telnyxInstance.calls.create(callCreateData)
                 .then(function(response) {
                   const call = response.data;
 

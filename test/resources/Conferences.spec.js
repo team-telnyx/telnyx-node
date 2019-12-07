@@ -68,8 +68,15 @@ describe('Calls Resource', function() {
 
     CONFERENCES.forEach(function(action) {
       describe(action, function() {
+        let telnyxInstance;
+
+        this.beforeEach(() => {
+          // make specs independent
+          telnyxInstance = require('../../testUtils').getTelnyxMock();
+        });
+
         it('Sends the correct request', function() {
-          return telnyx.conferences.create(conferenceCreateData)
+          return telnyxInstance.conferences.create(conferenceCreateData)
             .then(function(response) {
               const conference = response.data;
               return conference[action](callConferencesData[action] || {})
@@ -77,7 +84,7 @@ describe('Calls Resource', function() {
             })
         });
         it('Sends the correct request [with specified auth]', function() {
-          return telnyx.conferences.create(conferenceCreateData)
+          return telnyxInstance.conferences.create(conferenceCreateData)
             .then(function(response) {
               const conference = response.data;
               return conference[action](callConferencesData[action] || {}, TEST_AUTH_KEY)
@@ -86,15 +93,13 @@ describe('Calls Resource', function() {
         });
 
         it('Sends the correct request [with empty resource instance]', function() {
-          const conference = new telnyx.Conference();
-          conference.call_control_id = '891510ac-f3e4-11e8-af5b-de00688a4901';
+          const conference = new telnyxInstance.Conference({id: '891510ac-f3e4-11e8-af5b-de00688a4901'});
 
           return conference[action](callConferencesData[action] || {})
             .then(responseFn);
         });
         it('Sends the correct request [with empty resource instance and specified auth]', function() {
-          const conference = new telnyx.Conference();
-          conference.call_control_id = '891510ac-f3e4-11e8-af5b-de00688a4901';
+          const conference = new telnyxInstance.Conference({id: '891510ac-f3e4-11e8-af5b-de00688a4901'});
 
           return conference[action](callConferencesData[action] || {}, TEST_AUTH_KEY)
             .then(responseFn);
