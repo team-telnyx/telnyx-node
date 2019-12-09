@@ -36,17 +36,23 @@ app.post('/webhooks', bodyParser.json(), function(req, res) {
     return res.status(400).send('Webhook Error:' + e.message);
   }
 
-  console.log('Success', event.data.id);
-
-  // inbound call control
+  /**
+   * Inbound Call Control:
+   * first we listen for an initiation event and then answer the call
+   */
   if (event.data.event_type === 'call.initiated') {
-    const call = new telnyx.Call({call_control_id: event.data.payload.call_control_id});
+    console.log('Call Initiated. Answering call with call control id: ' + event.data.payload.call_control_id);
 
-    call.answer();
+    const call = new telnyx.Call({call_control_id: event.data.payload.call_control_id});
+    call.answer(apiKey);
+  }
+  if (event.data.event_type === 'call.answered') {
+    console.log('Call answered through webhook signing: ' + event.data.id);
+    console.log(event.data.payload);
   }
 
   // Event was 'constructed', so we can respond with a 200 OK
-  res.status(200).send('Signed Webhook Received: ' + event.data.id);
+  res.status(200).send(`Signed Webhook Received: ${event.data.event_type}, ${event.data.id}`);
 });
 
 app.listen(3000, function() {
