@@ -1,5 +1,13 @@
 # CHANGELOG
 
+### v1.4.0 (2019-12-12)
+
+##### New Features
+
+* **resources:** Billing Groups
+
+* **webhooks:** Inbound Call Control example
+
 ### v1.3.0 (2019-11-14)
 
 ##### New Features
