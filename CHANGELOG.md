@@ -1,5 +1,15 @@
 # CHANGELOG
 
+### v1.5.0 (2019-12-16)
+
+##### New Features
+
+* **resources:** Credential Connections
+
+* **resources:** FQDN Connections
+
+* **resources:** IP Connections
+
 ### v1.4.0 (2019-12-12)
 
 ##### New Features
