@@ -9,7 +9,6 @@ describe('NumberOrderDocuments Resource', function() {
   describe('retrieve', function() {
     function responseFn(response) {
       expect(response.data).to.include({
-        id: '387d1e31-a218-4375-8151-103f2d5e2d2c',
         record_type: 'number_order_document'
       });
       expect(response.data).to.have.property('file_id');
