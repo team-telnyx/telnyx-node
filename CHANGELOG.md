@@ -1,5 +1,13 @@
 # CHANGELOG
 
+### v1.6.0 (2019-12-18)
+
+##### New Features
+
+* **resources:** Number Order Regulatory Requirements
+
+* **resources:** Number Order Documents
+
 ### v1.5.0 (2019-12-16)
 
 ##### New Features
