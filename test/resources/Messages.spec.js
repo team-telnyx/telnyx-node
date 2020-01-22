@@ -11,7 +11,7 @@ describe('Messages Resource', function() {
       return telnyx.messages.retrieve('123')
         .then(function(response) {
           expect(response.data).to.include({id: '123'});
-          expect(response.data).to.include.keys(['carrier', 'cost', 'from', 'text', 'to', 'type']);
+          expect(response.data).to.include.keys(['record_type', 'direction', 'messaging_profile_id', 'from', 'text', 'to', 'type']);
         })
     });
 
@@ -19,7 +19,7 @@ describe('Messages Resource', function() {
       return telnyx.messages.retrieve('123', TEST_AUTH_KEY)
         .then(function(response) {
           expect(response.data).to.include({id: '123'});
-          expect(response.data).to.include.keys(['carrier', 'cost', 'from', 'text', 'to', 'type']);
+          expect(response.data).to.include.keys(['record_type', 'direction', 'messaging_profile_id', 'from', 'text', 'to', 'type']);
         })
     });
   });

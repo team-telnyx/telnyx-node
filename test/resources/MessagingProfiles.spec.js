@@ -34,12 +34,6 @@ describe('MessagingProfiles Resource', function() {
       expect(response.data).to.include({name: 'Summer Campaign', record_type: 'messaging_profile'});
     }
 
-    function responseFnNoBody(response) {
-      expect(response.data).to.have.property('id');
-      expect(response.data).to.have.property('name');
-      expect(response.data).to.have.property('record_type');
-    }
-
     it('Sends the correct request', function() {
       return telnyx.messagingProfiles.create({name: 'Summer Campaign'})
         .then(responseFn);
@@ -50,19 +44,9 @@ describe('MessagingProfiles Resource', function() {
         .then(responseFn);
     });
 
-    it('Sends the correct request [with specified auth and no body]', function() {
-      return telnyx.messagingProfiles.create(TEST_AUTH_KEY)
-        .then(responseFnNoBody);
-    });
-
     it('Sends the correct request [with specified auth in options]', function() {
       return telnyx.messagingProfiles.create({name: 'Summer Campaign'}, {api_key: TEST_AUTH_KEY})
         .then(responseFn);
-    });
-
-    it('Sends the correct request [with specified auth in options and no body]', function() {
-      return telnyx.messagingProfiles.create({api_key: TEST_AUTH_KEY})
-        .then(responseFnNoBody);
     });
   });
 
