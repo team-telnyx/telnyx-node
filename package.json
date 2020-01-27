@@ -56,7 +56,8 @@
   "nyc": {
     "exclude": [
       "testUtils/**/*",
-      "test/**/*"
+      "test/**/*",
+      "lib/TelnyxMethod.basic.js"
     ]
   }
 }

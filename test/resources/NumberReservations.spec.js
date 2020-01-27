@@ -13,7 +13,7 @@ describe('NumberReservations Resource', function() {
     function responseFn(response) {
       expect(response.data).to.include({
         id: '123',
-        record_type: 'number_reservation'
+        record_type: 'phone_number_reservation'
       });
     }
 
@@ -33,7 +33,7 @@ describe('NumberReservations Resource', function() {
       expect(response.data[0]).to.have.property('id');
       expect(response.data[0]).to.have.property('status');
       expect(response.data[0]).to.have.property('phone_numbers');
-      expect(response.data[0]).to.include({record_type: 'number_reservation'});
+      expect(response.data[0]).to.include({record_type: 'phone_number_reservation'});
     }
 
     it('Sends the correct request', function() {
@@ -53,7 +53,7 @@ describe('NumberReservations Resource', function() {
       expect(response.data).to.have.property('status');
       expect(response.data).to.have.property('phone_numbers');
 
-      expect(response.data.record_type).to.be.eq('number_reservation');
+      expect(response.data.record_type).to.be.eq('phone_number_reservation');
       expect(response.data.phone_numbers[0]).to.include({
         phone_number: '+18665552368'
       });
@@ -75,7 +75,7 @@ describe('NumberReservations Resource', function() {
       expect(response.data).to.have.property('id');
       expect(response.data).to.have.property('status');
       expect(response.data).to.have.property('phone_numbers');
-      expect(response.data).to.include({record_type: 'number_reservation'});
+      expect(response.data).to.include({record_type: 'phone_number_reservation'});
     }
 
     it('Sends the correct request', function() {

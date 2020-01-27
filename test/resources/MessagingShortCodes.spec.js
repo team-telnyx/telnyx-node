@@ -27,11 +27,11 @@ describe('MessagingShortCodes Resource', function() {
 
   describe('update', function() {
     it('Sends the correct request', function() {
-      return telnyx.messagingShortCodes.update('123', {short_code: '54321'})
+      return telnyx.messagingShortCodes.update('123', {messaging_profile_id: '12345'})
         .then(function(response) {
           expect(response.data).to.include({
             id: '123',
-            short_code: '54321',
+            short_code: '12345',
             record_type: 'short_code'
           });
         })

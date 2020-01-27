@@ -11,7 +11,7 @@ describe('PhoneNumberRegulatoryRequirements Resource', function() {
       expect(response.data[0]).to.have.property('phone_number');
       expect(response.data[0]).to.have.property('regulatory_group_id');
       expect(response.data[0]).to.have.property('regulatory_requirements');
-      expect(response.data[0]).to.include({record_type: 'phone_number_regulatory_requirement'});
+      expect(response.data[0]).to.include({record_type: 'phone_number_regulatory_group'});
       expect(response.data[0].regulatory_requirements[0]).to.have.property('requirement_type');
       expect(response.data[0].regulatory_requirements[0]).to.have.property('label');
       expect(response.data[0].regulatory_requirements[0]).to.have.property('field_type');
