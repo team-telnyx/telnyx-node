@@ -12,6 +12,9 @@ describe('RegulatoryRequirements Resource', function() {
       expect(response.data).to.have.property('label');
       expect(response.data).to.have.property('description');
       expect(response.data).to.have.property('field_type');
+      expect(response.data).to.include({
+        record_type: 'regulatory_requirement'
+      });
     }
 
     it('Sends the correct request', function() {
@@ -31,6 +34,9 @@ describe('RegulatoryRequirements Resource', function() {
       expect(response.data[0]).to.have.property('label');
       expect(response.data[0]).to.have.property('description');
       expect(response.data[0]).to.have.property('field_type');
+      expect(response.data[0]).to.include({
+        record_type: 'regulatory_requirement'
+      });
     }
 
     it('Sends the correct request', function() {
