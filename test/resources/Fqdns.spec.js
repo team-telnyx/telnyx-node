@@ -5,7 +5,7 @@ var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = 'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo';
 
-describe.only('Fqdns Resource', function() {
+describe('Fqdns Resource', function() {
   describe('retrieve', function() {
     function responseFn(response) {
       expect(response.data).to.include({id: '123'});

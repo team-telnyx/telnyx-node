@@ -5,7 +5,7 @@ var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = 'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo';
 
-describe.only('Ips Resource', function() {
+describe('Ips Resource', function() {
   describe('retrieve', function() {
     function responseFn(response) {
       expect(response.data).to.include({id: '123'});
@@ -25,6 +25,7 @@ describe.only('Ips Resource', function() {
     function responseFn(response) {
       expect(response.data).to.have.property('id');
       expect(response.data).to.have.property('connection_id');
+      expect(response.data).to.have.property('ip_address');
       expect(response.data).to.have.property('record_type');
       expect(response.data).to.include({connection_id: 'Central BSD-1', record_type: 'ip'});
     }
@@ -48,6 +49,7 @@ describe.only('Ips Resource', function() {
   describe('list', function() {
     function responseFn(response) {
       expect(response.data[0]).to.have.property('id');
+      expect(response.data[0]).to.have.property('ip_address');
       expect(response.data[0]).to.have.property('connection_id');
       expect(response.data[0]).to.include({record_type: 'ip'});
     }
@@ -67,6 +69,7 @@ describe.only('Ips Resource', function() {
     function responseFn(response) {
       if (response.data) {
         expect(response.data).to.have.property('id');
+        expect(response.data).to.have.property('ip_address');
         expect(response.data).to.have.property('connection_id');
         expect(response.data).to.include({record_type: 'ip'});
       }
