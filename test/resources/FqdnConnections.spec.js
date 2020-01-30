@@ -1,9 +1,10 @@
 'use strict';
 
-var telnyx = require('../../testUtils').getTelnyxMock();
+var utils = require('../../testUtils');
+var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
 
-var TEST_AUTH_KEY = 'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo';
+var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 
 describe('FqdnConnections Resource', function() {
   describe('retrieve', function() {
