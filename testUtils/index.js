@@ -9,7 +9,7 @@ require('chai').use(require('chai-as-promised'));
 var utils = module.exports = {
 
   getUserTelnyxKey: function() {
-    var key = process.env.TELNYX_TEST_API_KEY || 'tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I';
+    var key = process.env.TELNYX_TEST_API_KEY || 'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo';
 
     return key;
   },
