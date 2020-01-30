@@ -1,5 +1,15 @@
 # CHANGELOG
 
+### v1.7.0 (2020-01-30)
+
+##### New Features
+
+* **resources:** Connections
+
+* **resources:** Ips
+
+* **resources:** FQDNs
+
 ### v1.6.0 (2019-12-18)
 
 ##### New Features
