@@ -37,6 +37,13 @@ app.post('/webhooks', bodyParser.json(), function(req, res) {
   }
 
   /**
+   * Messaging:
+   */
+  if (event.data.event_type === 'message.finalized') {
+    console.log('Message Finalized.Status: ' + event.data.payload.call_control_id);
+  }
+
+  /**
    * Inbound Call Control:
    * first we listen for an initiation event and then answer the call
    */
@@ -44,11 +51,15 @@ app.post('/webhooks', bodyParser.json(), function(req, res) {
     console.log('Call Initiated. Answering call with call control id: ' + event.data.payload.call_control_id);
 
     const call = new telnyx.Call({call_control_id: event.data.payload.call_control_id});
-    call.answer(apiKey);
+
+    call.answer();
   }
   if (event.data.event_type === 'call.answered') {
-    console.log('Call answered through webhook signing: ' + event.data.id);
-    console.log(event.data.payload);
+    console.log('Call Answered. Gather audio with the call control id: ' + event.data.payload.call_control_id);
+
+    const call = new telnyx.Call({call_control_id: event.data.payload.call_control_id});
+
+    call.gather_using_audio({audio_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'});
   }
 
   // Event was 'constructed', so we can respond with a 200 OK
