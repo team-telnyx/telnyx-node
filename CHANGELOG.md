@@ -1,5 +1,13 @@
 # CHANGELOG
 
+#### v1.7.1 (2020-01-30)
+
+##### Bug Fixes
+
+* **resources:** Clear leftover state in nested methods
+
+* **webhook:** Update examples
+
 ### v1.7.0 (2020-01-30)
 
 ##### New Features
