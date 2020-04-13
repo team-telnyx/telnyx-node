@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 'use strict';
 
 var utils = require('../../testUtils');
@@ -10,23 +12,24 @@ describe('NumberReservations Resource', function() {
   const numberReservationCreateData = {
     phone_numbers: [{phone_number: '+18665552368'}]
   }
+
   describe('retrieve', function() {
-    // function responseFn(response) {
-    //   expect(response.data).to.include({
-    //     id: '123',
-    //     record_type: 'phone_number_reservation'
-    //   });
-    // }
+    function responseFn(response) {
+      expect(response.data).to.include({
+        id: '123',
+        record_type: 'number_reservation'
+      });
+    }
 
-    // it('Sends the correct request', function() {
-    //   return telnyx.numberReservations.retrieve('123')
-    //     .then(responseFn);
-    // });
+    it('Sends the correct request', function() {
+      return telnyx.numberReservations.retrieve('123')
+        .then(responseFn);
+    });
 
-    // it('Sends the correct request [with specified auth]', function() {
-    //   return telnyx.numberReservations.retrieve('123', TEST_AUTH_KEY)
-    //     .then(responseFn);
-    // });
+    it('Sends the correct request [with specified auth]', function() {
+      return telnyx.numberReservations.retrieve('123', TEST_AUTH_KEY)
+        .then(responseFn);
+    });
   });
 
   describe('list', function() {

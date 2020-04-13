@@ -70,15 +70,11 @@ describe('SimCards Resource', function() {
 
   ['activate', 'deactivate'].forEach(function(command) {
     function responseFn(response) {
-      // eslint-disable-next-line no-console
-      console.log('response',response);
       expect(response.data.record_type).to.be.eq('sim_card');
     }
 
     describe(command, function() {
       const camelCaseCommand = utils.snakeToCamelCase(command);
-      // eslint-disable-next-line no-console
-      console.log('AAAAAA',camelCaseCommand);
       it('Sends the correct request', function() {
         return telnyx.simCards.retrieve('123')
           .then(function(response) {
