@@ -24,6 +24,9 @@ describe('Calls Resource', function() {
       join: {
         call_control_id: ''
       },
+      unhold: {
+        call_control_ids: ['891510ac-f3e4-11e8-af5b-de00688a4901']
+      }
     }
 
     function responseFn(response) {
