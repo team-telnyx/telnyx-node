@@ -3,7 +3,7 @@
 var telnyx = require('../../testUtils').getTelnyxMock();
 var expect = require('chai').expect;
 
-describe('PublicKey Resource', function() {
+describe.skip('PublicKey Resource', function() {
   describe('retrieve', function() {
     it('Sends the correct request', function() {
       return telnyx.publicKey.retrieve()

@@ -6,7 +6,7 @@ var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 
-describe('Messages Alphanumeric Sender Ids Resource', function() {
+describe.skip('Messages Alphanumeric Sender Ids Resource', function() {
   const createData = {
     text: 'Hello, World!',
     from: '+18665552368',
