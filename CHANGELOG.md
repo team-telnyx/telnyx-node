@@ -1,5 +1,15 @@
 # CHANGELOG
 
+### v1.7.2 (2020-04-20)
+
+##### New Features
+
+* **resources:** Inbound Channels
+
+* **resources:** Call Control Application
+
+* **resources:** Outbound Voice Profiles
+
 #### v1.7.1 (2020-01-30)
 
 ##### Bug Fixes
