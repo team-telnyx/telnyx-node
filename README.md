@@ -5,6 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/team-telnyx/telnyx-node/badge.svg?branch=master)](https://coveralls.io/github/team-telnyx/telnyx-node?branch=master)
 [![Downloads](https://img.shields.io/npm/dm/telnyx.svg)](https://www.npmjs.com/package/telnyx)
 [![Try on RunKit](https://badge.runkitcdn.com/telnyx.svg)](https://runkit.com/npm/telnyx)
+[![Join Slack](https://img.shields.io/badge/join-slack-infomational)](https://joinslack.telnyx.com/)
 
 The Telnyx Node library provides convenient access to the Telnyx API from
 applications written in server-side JavaScript.
