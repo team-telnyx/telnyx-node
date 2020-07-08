@@ -4,9 +4,9 @@ var telnyx = require('../../testUtils').getTelnyxMock();
 var expect = require('chai').expect;
 
 describe('Balance Resource', function() {
-  describe('get', function() {
+  describe('retrieve', function() {
     it('Sends the correct request', function() {
-      return telnyx.balance.get()
+      return telnyx.balance.retrieve()
         .then(function(response) {
           expect(response.data).to.include({record_type: 'balance'});
           expect(response.data).to.have.property('balance');
