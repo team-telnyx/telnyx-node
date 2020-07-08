@@ -9,8 +9,8 @@ var TEST_AUTH_KEY = 'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo'
 describe('SimCards Resource', function() {
   describe('retrieve', function() {
     function responseFn(response) {
+      expect(response.data).to.have.property('id');
       expect(response.data).to.include({
-        id: '123',
         record_type: 'sim_card'
       });
     }
