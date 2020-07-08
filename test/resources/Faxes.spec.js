@@ -59,6 +59,32 @@ describe('Faxes Resource', function () {
     });
   });
 
+  describe('send', function () {
+    function responseFn(response) {
+      // expect(response.data).to.have.property('fax_id');
+      expect(response.data).to.have.property('connection_id');
+      expect(response.data).to.have.property('media_url');
+      expect(response.data).to.have.property('to');
+      // expect(response.data).to.include({record_type: 'fax'});
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.faxes.send(faxCreateData).then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.faxes
+        .send(faxCreateData, TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth in options]', function () {
+      return telnyx.faxes
+        .send(faxCreateData, {api_key: TEST_AUTH_KEY})
+        .then(responseFn);
+    });
+  });
+
   describe('list', function () {
     function responseFn(response) {
       // expect(response.data[0]).to.have.property('fax_id');
