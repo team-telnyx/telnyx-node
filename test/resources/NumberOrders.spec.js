@@ -31,8 +31,8 @@ describe('NumberOrders Resource', function() {
       expect(response.data[0]).to.have.property('id');
       expect(response.data[0]).to.have.property('status');
       expect(response.data[0]).to.have.property('customer_reference');
-      expect(response.data[0]).to.have.property('connection_id');
-      expect(response.data[0]).to.have.property('messaging_profile_id');
+      expect(response.data[0]).to.have.property('requirements_met');
+      expect(response.data[0]).to.have.property('phone_numbers_count');
       expect(response.data[0]).to.include({record_type: 'number_order'});
     }
 
@@ -63,14 +63,16 @@ describe('NumberOrders Resource', function() {
   describe('create', function() {
     function responseFn(response) {
       expect(response.data).to.include({
-        connection_id: '442191469269222625',
         record_type: 'number_order',
       });
+      expect(response.data).to.have.property('requirements_met');
+      expect(response.data).to.have.property('phone_numbers_count');
     }
 
     function responseFnNoBody(response) {
       expect(response.data).to.have.property('id');
-      expect(response.data).to.have.property('connection_id');
+      expect(response.data).to.have.property('requirements_met');
+      expect(response.data).to.have.property('phone_numbers_count');
       expect(response.data).to.include({record_type: 'number_order'});
     }
 

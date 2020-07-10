@@ -32,10 +32,8 @@ describe('Messages Resource', function() {
         to: [{address: '+18665552367'}],
       })
         .then(function(response) {
-          expect(response.data).to.include({
-            text: 'Hello, World!',
-            from: '+18665552368',
-          });
+          expect(response.data).to.include.keys(['from', 'text']);
+          expect(response.data.from).to.include.keys(['carrier', 'line_type', 'phone_number']);
           expect(response.data.to[0]).to.include({address: '+18665552367'});
         })
     });
@@ -47,10 +45,8 @@ describe('Messages Resource', function() {
         to: [{address: '+18665552367'}],
       }, TEST_AUTH_KEY)
         .then(function(response) {
-          expect(response.data).to.include({
-            text: 'Hello, World!',
-            from: '+18665552368'
-          });
+          expect(response.data).to.include.keys(['from', 'text']);
+          expect(response.data.from).to.include.keys(['carrier', 'line_type', 'phone_number']);
           expect(response.data.to[0]).to.include({address: '+18665552367'});
         })
     });
@@ -62,9 +58,8 @@ describe('Messages Resource', function() {
         to: [{address: '+18665552367'}],
       }, {api_key: TEST_AUTH_KEY})
         .then(function(response) {
-          expect(response.data).to.include({
-            text: 'Hello, World!',
-            from: '+18665552368'});
+          expect(response.data).to.include.keys(['from', 'text']);
+          expect(response.data.from).to.include.keys(['carrier', 'line_type', 'phone_number']);
           expect(response.data.to[0]).to.include({address: '+18665552367'});
         })
     });
