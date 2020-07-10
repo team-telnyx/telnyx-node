@@ -3,7 +3,7 @@
 var telnyx = require('../../testUtils').getTelnyxMock();
 var expect = require('chai').expect;
 
-describe.skip('MobileOperatorNetworks Resource', function () {
+describe('MobileOperatorNetworks Resource', function () {
   describe('list', function () {
     it('Sends the correct request', function () {
       return telnyx.mobileOperatorNetworks.list().then(function (response) {
