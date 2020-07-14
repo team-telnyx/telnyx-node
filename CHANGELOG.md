@@ -1,6 +1,26 @@
 # CHANGELOG
 
-### v1.7.2 (2020-04-20)
+### v1.8.0 (2020-07-14)
+
+##### New Features
+
+* **resources:** OTA Updates
+
+* **resources:** SIM Card Groups
+
+* **resources:** Mobile Operator Networks
+
+* **resources:** SIM Card Network Preferences Methods
+
+* **resources:** Number Lookup
+
+* **resources:** Balance
+
+* **resources:** Addresses
+
+* **resources:** Faxes
+
+#### v1.7.2 (2020-04-20)
 
 ##### New Features
 
