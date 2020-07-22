@@ -28,8 +28,6 @@ describe('Phone Numbers Inbound Channels', function() {
   describe('update', function() {
     function responseFn(response) {
       if (response.data) {
-        // eslint-disable-next-line no-console
-        console.log('response', response);
         expect(response.data).to.include({channels: 7});
         expect(response.data).to.include({record_type: 'inbound_channels'});
       }
