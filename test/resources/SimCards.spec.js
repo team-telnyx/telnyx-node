@@ -8,6 +8,11 @@ var TEST_AUTH_KEY =
   'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo';
 
 describe('SimCards Resource', function () {
+  const simCardUpdateData = {
+    tags: ['personal'],
+  };
+
+
   describe('retrieve', function () {
     function responseFn(response) {
       expect(response.data).to.have.property('id');
@@ -43,10 +48,6 @@ describe('SimCards Resource', function () {
   });
 
   describe('update', function () {
-    const simCardData = {
-      status: 'inactive',
-    };
-
     function responseFn(response) {
       expect(response.data).to.have.property('id');
       expect(response.data).to.have.property('status');
@@ -55,12 +56,12 @@ describe('SimCards Resource', function () {
     }
 
     it('Sends the correct request', function () {
-      return telnyx.simCards.update('123', simCardData).then(responseFn);
+      return telnyx.simCards.update('123', simCardUpdateData).then(responseFn);
     });
 
     it('Sends the correct request [with specified auth]', function () {
       return telnyx.simCards
-        .update('123', simCardData, TEST_AUTH_KEY)
+        .update('123', simCardUpdateData, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
@@ -78,7 +79,7 @@ describe('SimCards Resource', function () {
     it('Sends the correct request', function () {
       return telnyx.simCards.retrieve('123').then(function (response) {
         const simCard = response.data;
-        return simCard.save({status: 'inactive'}).then(responseFn);
+        return simCard.save(simCardUpdateData).then(responseFn);
       });
     });
   });
@@ -101,7 +102,7 @@ describe('SimCards Resource', function () {
     });
   });
 
-  ['activate', 'deactivate'].forEach(function (command) {
+  ['activate', 'deactivate', 'enable', 'disable'].forEach(function (command) {
     function responseFn(response) {
       expect(response.data.record_type).to.be.eq('sim_card');
     }
@@ -153,8 +154,6 @@ describe('SimCards Resource', function () {
 
   describe('setNetworkPreferences', function () {
     function responseFn(response) {
-      // eslint-disable-next-line no-console
-      console.log(response);
       expect(response.data.record_type).to.be.eq(
         'sim_card_network_preferences'
       );
