@@ -1,5 +1,11 @@
 # CHANGELOG
 
+### v1.9.0 (2020-07-22)
+
+##### New Features
+
+* **resources:** SIM Card Enable/Disable Methods
+
 ### v1.8.0 (2020-07-14)
 
 ##### New Features
