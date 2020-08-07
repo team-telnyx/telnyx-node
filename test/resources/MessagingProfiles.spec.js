@@ -170,5 +170,57 @@ describe('MessagingProfiles Resource', function() {
         });
       });
     });
+
+    describe.skip('Metrics methods', function() {
+      function metricsResponseFn(response) {
+        expect(response.data[0]).to.have.property('inbound');
+        expect(response.data[0]).to.have.property('outbound');
+        expect(response.data[0]).to.have.property('phone_numbers');
+        expect(response.data[0]).to.have.property('messaging_profile_id');
+        expect(response.data[0]).to.include({record_type: 'messaging_profile_metrics'});
+      }
+
+      function metricsNestedResponseFn(response) {
+        expect(response.data).to.have.property('id');
+        expect(response.data).to.have.property('detailed');
+        expect(response.data).to.have.property('overview');
+        expect(response.data.overview).to.have.property('inbound');
+        expect(response.data.overview).to.have.property('outbound');
+        expect(response.data.overview).to.have.property('phone_numbers');
+        expect(response.data.overview).to.have.property('messaging_profile_id');
+        expect(response.data.overview).to.include({record_type: 'messaging_profile_metrics'});
+      }
+
+      describe('retrieveMetrics', function() {
+        it('Sends the correct request', function() {
+          return telnyx.messagingProfiles.retrieveMetrics('123')
+            .then(metricsResponseFn);
+        });
+
+        it('Sends the correct request [with specified auth]', function() {
+          return telnyx.messagingProfiles.retrieveMetrics('123', TEST_AUTH_KEY)
+            .then(metricsResponseFn);
+        });
+      });
+
+      describe.skip('nested metrics', function() {
+        it('Sends the correct request', function() {
+          return telnyx.messagingProfiles.create({name: 'Summer Campaign'})
+            .then(function(response) {
+              const mp = response.data;
+              return mp.metrics()
+                .then(metricsNestedResponseFn);
+            })
+        });
+        it('Sends the correct request [with retrieve]', function() {
+          return telnyx.messagingProfiles.retrie({name: 'Summer Campaign'})
+            .then(function(response) {
+              const mp = response.data;
+              return mp.metrics()
+                .then(metricsNestedResponseFn);
+            })
+        });
+      });
+    })
   })
 });
