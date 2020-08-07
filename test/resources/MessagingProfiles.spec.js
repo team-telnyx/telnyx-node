@@ -171,7 +171,7 @@ describe('MessagingProfiles Resource', function() {
       });
     });
 
-    describe.skip('Metrics methods', function() {
+    describe('Metrics methods', function() {
       function metricsResponseFn(response) {
         expect(response.data[0]).to.have.property('inbound');
         expect(response.data[0]).to.have.property('outbound');
@@ -203,7 +203,7 @@ describe('MessagingProfiles Resource', function() {
         });
       });
 
-      describe.skip('nested metrics', function() {
+      describe('nested metrics', function() {
         it('Sends the correct request', function() {
           return telnyx.messagingProfiles.create({name: 'Summer Campaign'})
             .then(function(response) {
@@ -213,7 +213,7 @@ describe('MessagingProfiles Resource', function() {
             })
         });
         it('Sends the correct request [with retrieve]', function() {
-          return telnyx.messagingProfiles.retrie({name: 'Summer Campaign'})
+          return telnyx.messagingProfiles.retrieve({name: 'Summer Campaign'})
             .then(function(response) {
               const mp = response.data;
               return mp.metrics()
