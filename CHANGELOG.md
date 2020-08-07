@@ -1,5 +1,13 @@
 # CHANGELOG
 
+### v1.10.0 (2020-08-07)
+
+##### New Features
+
+* **resources:** Messaging Profile Metrics
+
+* **resources:** Short Codes
+
 ### v1.9.0 (2020-07-22)
 
 ##### New Features
