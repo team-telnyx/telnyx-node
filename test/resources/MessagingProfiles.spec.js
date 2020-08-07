@@ -170,5 +170,49 @@ describe('MessagingProfiles Resource', function() {
         });
       });
     });
+
+    describe('Metrics methods', function() {
+      function metricsNestedResponseFn(response) {
+        expect(response.data).to.have.property('detailed');
+        expect(response.data).to.have.property('overview');
+        expect(response.data.overview).to.have.property('inbound');
+        expect(response.data.overview).to.have.property('outbound');
+        expect(response.data.overview).to.have.property('phone_numbers');
+        expect(response.data.overview).to.have.property('messaging_profile_id');
+        expect(response.data.overview).to.include({record_type: 'messaging_profile_metrics'});
+        expect(response.data.detailed[0]).to.have.property('metrics');
+      }
+
+      describe('retrieveMetrics', function() {
+        it('Sends the correct request', function() {
+          return telnyx.messagingProfiles.retrieveMetrics('123')
+            .then(metricsNestedResponseFn);
+        });
+
+        it('Sends the correct request [with specified auth]', function() {
+          return telnyx.messagingProfiles.retrieveMetrics('123', TEST_AUTH_KEY)
+            .then(metricsNestedResponseFn);
+        });
+      });
+
+      describe('nested metrics', function() {
+        it('Sends the correct request', function() {
+          return telnyx.messagingProfiles.create({name: 'Summer Campaign'})
+            .then(function(response) {
+              const mp = response.data;
+              return mp.metrics()
+                .then(metricsNestedResponseFn);
+            })
+        });
+        it('Sends the correct request [with specified auth]', function() {
+          return telnyx.messagingProfiles.retrieve('123')
+            .then(function(response) {
+              const mp = response.data;
+              return mp.metrics(TEST_AUTH_KEY)
+                .then(metricsNestedResponseFn);
+            })
+        });
+      });
+    })
   })
 });

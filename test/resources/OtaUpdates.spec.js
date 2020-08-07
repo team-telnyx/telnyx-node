@@ -7,7 +7,7 @@ var expect = require('chai').expect;
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 
 describe('OtaUpdates Resource', function() {
-  describe.skip('retrieve', function() {
+  describe('retrieve', function() {
     function responseFn(response) {
       expect(response.data).to.include.keys(['id', 'sim_card_id', 'status', 'settings']);
       expect(response.data).to.include({
