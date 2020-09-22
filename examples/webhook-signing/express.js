@@ -59,7 +59,17 @@ app.post('/webhooks', bodyParser.json(), function(req, res) {
 
     const call = new telnyx.Call({call_control_id: event.data.payload.call_control_id});
 
-    call.gather_using_audio({audio_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'});
+    call.gather_using_audio({audio_url: 'https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3'});
+  }
+  if (event.data.event_type === 'call.gather.ended') {
+    console.log('Call Gathered with Audio. Hanging up call control id: ' + event.data.payload.call_control_id);
+
+    const call = new telnyx.Call({call_control_id: event.data.payload.call_control_id});
+
+    call.hangup();
+  }
+  if (event.data.event_type === 'call.hangup') {
+    console.log('Call Hangup. call control id: ' + event.data.payload.call_control_id);
   }
 
   // Event was 'constructed', so we can respond with a 200 OK
