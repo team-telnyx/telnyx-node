@@ -11,4 +11,8 @@ const apiKey = process.env.TELNYX_API_KEY;
 
 const telnyx = Telnyx(apiKey);
 
-telnyx.calls.create({connection_id: 'uuid', to: '+1111111111111', from: '+1111111111111'});
+try {
+  telnyx.calls.create({connection_id: 'uuid', to: '+1111111111111', from: '+1111111111111'});
+} catch (e) {
+  console.error(e);
+}

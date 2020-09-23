@@ -119,7 +119,7 @@ describe('Calls Resource', function() {
         expect(response.data).to.have.property('call_session_id');
         expect(response.data).to.have.property('call_leg_id');
         expect(response.data).to.have.property('call_control_id');
-        expect(response.data).to.include({record_type: 'call', is_alive: true});
+        expect(response.data).to.include({record_type: 'call', is_alive: false});
       }
 
       it('Sends the correct request', function() {
