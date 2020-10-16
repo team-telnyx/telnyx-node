@@ -43,6 +43,24 @@ describe('PhoneNumbers Resource', function() {
     });
   });
 
+  describe('retrieve', function() {
+    function responseFn(response) {
+      expect(response.data).to.have.property('id');
+      expect(response.data).to.have.property('phone_number');
+      expect(response.data).to.include({record_type: 'phone_number'});
+    }
+
+    it('Sends the correct request', function() {
+      return telnyx.phoneNumbers.retrieve('123')
+        .then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function() {
+      return telnyx.phoneNumbers.retrieve('123', TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
+
   describe('Voice methods', function() {
     function responseFn(response) {
       expect(response.data).to.have.property('id');
