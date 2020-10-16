@@ -1,5 +1,11 @@
 # CHANGELOG
 
+#### v1.10.2 (2020-10-16)
+
+##### Bug Fixes
+
+- **resources:** Add Phone Numbers Retrieve Method
+
 #### v1.10.1 (2020-09-24)
 
 ##### Bug Fixes
