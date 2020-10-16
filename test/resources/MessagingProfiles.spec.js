@@ -81,7 +81,7 @@ describe('MessagingProfiles Resource', function() {
       expect(response.data[0]).to.have.property('id');
       expect(response.data[0]).to.have.property('phone_number');
       expect(response.data[0]).to.have.property('messaging_profile_id');
-      expect(response.data[0]).to.include({record_type: 'messaging_phone_number'});
+      expect(response.data[0]).to.include({record_type: 'messaging_settings'});
     }
 
     describe('listPhoneNumbers', function() {

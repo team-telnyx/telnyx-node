@@ -79,6 +79,9 @@ describe('Calls Resource', function() {
       bridge: {
         call_control_id: ''
       },
+      reject: {
+        cause: 'USER_BUSY'
+      },
       speak: {
         payload: 'Hello',
         voice: 'female',

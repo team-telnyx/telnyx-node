@@ -6,7 +6,7 @@ var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 
-describe('MessagingPhoneNumbers Resource', function() {
+describe.skip('MessagingPhoneNumbers Resource', function() {
   describe('retrieve', function() {
     function responseFn(response) {
       expect(response.data).to.include({id: '123', record_type: 'messaging_phone_number'});
