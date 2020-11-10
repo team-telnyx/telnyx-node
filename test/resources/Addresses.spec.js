@@ -18,6 +18,7 @@ var addressData = {
   last_name: 'Foster',
   locality: 'Chicago',
   postal_code: '2904',
+  street_address: '311 W Superior Street'
 };
 
 describe('Addresses Resource', function () {
