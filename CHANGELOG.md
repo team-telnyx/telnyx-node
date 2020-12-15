@@ -1,5 +1,15 @@
 # CHANGELOG
 
+#### v1.10.3 (2020-12-15)
+
+##### Bug Fixes
+
+- **resources:** Add function `tryParseJSON` to avoid parse invalid objects.
+
+##### New Features
+
+- **resources:** Telephony Credentials
+
 #### v1.10.2 (2020-10-16)
 
 ##### Bug Fixes
