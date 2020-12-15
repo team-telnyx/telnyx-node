@@ -32,17 +32,31 @@ describe('Credential Resource', function() {
     }
 
     it('Sends the correct request', function() {
-      return telnyx.credentialConnections.create({connection_name: 'Central BSD-1'})
+      return telnyx.credentialConnections.create({
+        connection_name: 'Central BSD-1',
+        user_name: 'test',
+        password: '***'
+      })
         .then(responseFn);
     })
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.credentialConnections.create({connection_name: 'Central BSD-1'}, TEST_AUTH_KEY)
+      return telnyx.credentialConnections.create({
+        connection_name: 'Central BSD-1',
+        user_name: 'test',
+        password: '***'
+      }, TEST_AUTH_KEY)
         .then(responseFn);
     });
 
     it('Sends the correct request [with specified auth in options]', function() {
-      return telnyx.credentialConnections.create({connection_name: 'Central BSD-1'}, {api_key: TEST_AUTH_KEY})
+      return telnyx.credentialConnections.create({
+        connection_name: 'Central BSD-1',
+        user_name: 'test',
+        password: '***'
+      }, {
+        api_key: TEST_AUTH_KEY
+      })
         .then(responseFn);
     });
   });
@@ -78,18 +92,22 @@ describe('Credential Resource', function() {
 
     describe('del', function() {
       it('Sends the correct request', function() {
-        return telnyx.credentialConnections.create({connection_name: 'Central BSD-1'})
+        return telnyx.credentialConnections.create({
+          connection_name: 'Central BSD-1',
+          user_name: 'test',
+          password: '***'
+        })
           .then(function(response) {
-            const mp = response.data;
-            return mp.del()
+            const connection = response.data;
+            return connection.del()
               .then(responseFn);
           })
       });
       it('Sends the correct request [with specified auth]', function() {
         return telnyx.credentialConnections.retrieve('123')
           .then(function(response) {
-            const mp = response.data;
-            return mp.del(TEST_AUTH_KEY)
+            const connection = response.data;
+            return connection.del(TEST_AUTH_KEY)
               .then(responseFn);
           })
       });
@@ -97,18 +115,22 @@ describe('Credential Resource', function() {
 
     describe('update', function() {
       it('Sends the correct request', function() {
-        return telnyx.credentialConnections.create({connection_name: 'Central BSD-1'})
+        return telnyx.credentialConnections.create({
+          connection_name: 'Central BSD-1',
+          user_name: 'test',
+          password: '***'
+        })
           .then(function(response) {
-            const mp = response.data;
-            return mp.update({connection_name: 'Western BSD-2'})
+            const connection = response.data;
+            return connection.update({connection_name: 'Western BSD-2'})
               .then(responseFn);
           })
       });
       it('Sends the correct request [with specified auth]', function() {
         return telnyx.credentialConnections.retrieve('123')
           .then(function(response) {
-            const mp = response.data;
-            return mp.update({connection_name: 'Western BSD-2'}, TEST_AUTH_KEY)
+            const connection = response.data;
+            return connection.update({connection_name: 'Western BSD-2'}, TEST_AUTH_KEY)
               .then(responseFn);
           })
       });
