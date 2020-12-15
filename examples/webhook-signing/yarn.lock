@@ -377,10 +377,10 @@ setprototypeof@1.1.1:
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
 
-telnyx@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/telnyx/-/telnyx-1.8.0.tgz#80e43affd7540bdc63a29e624c18abbba6cab2d0"
-  integrity sha512-Q/5Kmqp+POG8o5TKU8914qMguQ9DJOzQXjGldDpPyWskSRHaOrz1IPXPiO2nSJcy4NacNefjzLFHDB/ilc0OyA==
+telnyx@^1.10.2:
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/telnyx/-/telnyx-1.10.2.tgz#67deaca6cb6004e7ba37a422f94bc1b5601eb1ac"
+  integrity sha512-pap5CGO0Ja2NENVrgS//wLbPVzoBXeza4C/rBx5LZUUm6GcHQRVURj6ueU8RDDW6p/qglvCx5QtobsdEAdgEqA==
   dependencies:
     lodash.isplainobject "^4.0.6"
     qs "^6.6.0"
