@@ -1,5 +1,15 @@
 # CHANGELOG
 
+### v1.11.0 (2020-12-18)
+
+##### New Features
+
+- **resources:** Verify Profiles
+
+- **resources:** Verifications
+
+- **build:** Github Actions
+
 #### v1.10.3 (2020-12-15)
 
 ##### Bug Fixes
