@@ -1,7 +1,7 @@
 # Telnyx Node.js Library
 
 [![Version](https://img.shields.io/npm/v/telnyx.svg)](https://www.npmjs.org/package/telnyx)
-[![Build Status](https://travis-ci.org/team-telnyx/telnyx-node.svg?branch=master)](https://travis-ci.org/team-telnyx/telnyx-node)
+[![Build Status](https://github.com/team-telnyx/telnyx-node/workflows/CI/badge.svg)](https://github.com/team-telnyx/telnyx-node/actions)
 [![Coverage Status](https://coveralls.io/repos/github/team-telnyx/telnyx-node/badge.svg?branch=master)](https://coveralls.io/github/team-telnyx/telnyx-node?branch=master)
 [![Downloads](https://img.shields.io/npm/dm/telnyx.svg)](https://www.npmjs.com/package/telnyx)
 [![Try on RunKit](https://badge.runkitcdn.com/telnyx.svg)](https://runkit.com/npm/telnyx)
@@ -288,7 +288,7 @@ const allMessagingProfiles = await telnyx.messagingProfiles.list()
 The test suite depends on [telnyx-mock], so make sure to fetch and run it locally from a
 background terminal. The default `PORT` used is `12111`. If you want
 to target a different one, pass the environment variable `TELNYX_MOCK_PORT`.
-([telnyx-mock's README][telnyx-mock] also contains 
+([telnyx-mock's README][telnyx-mock] also contains
 instructions for installing via Homebrew and other methods):
 
     go get -u github.com/team-telnyx/telnyx-mock
