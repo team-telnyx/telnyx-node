@@ -32,17 +32,17 @@ describe('Fqdns Resource', function() {
     }
 
     it('Sends the correct request', function() {
-      return telnyx.fqdns.create({connection_id: 'Central BSD-1', fqdn: 'example.com'})
+      return telnyx.fqdns.create({connection_id: 'Central BSD-1', fqdn: 'example.com', dns_record_type: 'a'})
         .then(responseFn);
     })
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.fqdns.create({connection_id: 'Central BSD-1', fqdn: 'example.com'}, TEST_AUTH_KEY)
+      return telnyx.fqdns.create({connection_id: 'Central BSD-1', fqdn: 'example.com', dns_record_type: 'a'}, TEST_AUTH_KEY)
         .then(responseFn);
     });
 
     it('Sends the correct request [with specified auth in options]', function() {
-      return telnyx.fqdns.create({connection_id: 'Central BSD-1', fqdn: 'example.com'}, {api_key: TEST_AUTH_KEY})
+      return telnyx.fqdns.create({connection_id: 'Central BSD-1', fqdn: 'example.com', dns_record_type: 'a'}, {api_key: TEST_AUTH_KEY})
         .then(responseFn);
     });
   });
@@ -78,7 +78,7 @@ describe('Fqdns Resource', function() {
 
     describe('del', function() {
       it('Sends the correct request', function() {
-        return telnyx.fqdns.create({connection_id: 'Central BSD-1', fqdn: 'example.com'})
+        return telnyx.fqdns.create({connection_id: 'Central BSD-1', fqdn: 'example.com', dns_record_type: 'a'})
           .then(function(response) {
             const fqdn = response.data;
             return fqdn.del()
@@ -97,7 +97,7 @@ describe('Fqdns Resource', function() {
 
     describe('update', function() {
       it('Sends the correct request', function() {
-        return telnyx.fqdns.create({connection_id: 'Central BSD-1', fqdn: 'example.com'})
+        return telnyx.fqdns.create({connection_id: 'Central BSD-1', fqdn: 'example.com', dns_record_type: 'a'})
           .then(function(response) {
             const fqdn = response.data;
             return fqdn.update({connection_id: 'Western BSD-2'})
