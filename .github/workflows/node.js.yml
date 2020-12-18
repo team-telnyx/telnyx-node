@@ -29,7 +29,8 @@ jobs:
       run: source ./.github/scripts/before_install.sh
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
+    - name: Node ${{ matrix.node-version }}
+      run: npm test
     - name: Report
       run: npm run report
     - name: Coveralls Parallel
