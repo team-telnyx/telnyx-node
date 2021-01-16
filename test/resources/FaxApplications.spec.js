@@ -28,7 +28,7 @@ describe('Fax Application List list', function() {
   describe('create', function() {
     function responseFn(response) {
       expect(response.data).to.have.property('id');
-      expect(response.data).to.include({record_type: 'fax_applications'});
+      expect(response.data).to.include({record_type: 'fax_application'});
     }
 
     it('Sends the correct request', function() {
@@ -50,7 +50,7 @@ describe('Fax Application List list', function() {
   describe('list', function() {
     function responseFn(response) {
       expect(response.data[0]).to.have.property('id');
-      expect(response.data[0]).to.include({record_type: 'fax_applications'});
+      expect(response.data[0]).to.include({record_type: 'fax_application'});
     }
 
     it('Sends the correct request', function() {
@@ -69,7 +69,7 @@ describe('Fax Application List list', function() {
     function responseFn(response) {
       if (response.data) {
         expect(response.data).to.have.property('id');
-        expect(response.data).to.include({record_type: 'fax_applications'});
+        expect(response.data).to.include({record_type: 'fax_application'});
       }
     }
 
