@@ -1,4 +1,9 @@
 # CHANGELOG
+### v1.11.1 (2021-01-19)
+
+##### New Features
+
+- **resources:** Fax Applications
 
 ### v1.11.0 (2020-12-18)
 

@@ -9,7 +9,7 @@ var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 describe('SimCardGroups Resource', function() {
   describe('retrieve', function() {
     function responseFn(response) {
-      expect(response.data).to.include.keys(['id', 'name', 'data_enabled', 'data_limit', 'consumed_data']);
+      expect(response.data).to.include.keys(['id', 'name', 'data_limit', 'consumed_data']);
       expect(response.data).to.include({record_type: 'sim_card_group'});
       expect(response.data.consumed_data).to.include.keys(['amount', 'unit']);
     }
@@ -26,7 +26,7 @@ describe('SimCardGroups Resource', function() {
 
   describe('create', function() {
     function responseFn(response) {
-      expect(response.data).to.include.keys(['id', 'name', 'data_enabled', 'data_limit', 'consumed_data']);
+      expect(response.data).to.include.keys(['id', 'name', 'data_limit', 'consumed_data']);
       expect(response.data).to.include({record_type: 'sim_card_group'});
       expect(response.data.consumed_data).to.include.keys(['amount', 'unit']);
     }
@@ -49,7 +49,7 @@ describe('SimCardGroups Resource', function() {
 
   describe('list', function() {
     function responseFn(response) {
-      expect(response.data[0]).to.include.keys(['id', 'name', 'data_enabled', 'data_limit', 'consumed_data']);
+      expect(response.data[0]).to.include.keys(['id', 'name', 'data_limit', 'consumed_data']);
       expect(response.data[0]).to.include({record_type: 'sim_card_group'});
       expect(response.data[0].consumed_data).to.include.keys(['amount', 'unit']);
     }
@@ -68,7 +68,7 @@ describe('SimCardGroups Resource', function() {
   describe('Nested', function() {
     function responseFn(response) {
       if (response.data) {
-        expect(response.data).to.include.keys(['id', 'name', 'data_enabled', 'data_limit', 'consumed_data']);
+        expect(response.data).to.include.keys(['id', 'name', 'data_limit', 'consumed_data']);
         expect(response.data).to.include({record_type: 'sim_card_group'});
         expect(response.data.consumed_data).to.include.keys(['amount', 'unit']);
       }
