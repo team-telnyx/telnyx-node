@@ -33,17 +33,29 @@ describe('Outbound list', function() {
     }
 
     it('Sends the correct request', function() {
-      return telnyx.outboundVoiceProfiles.create({billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58', concurrent_call_limit: 10})
+      return telnyx.outboundVoiceProfiles.create({
+        billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+        concurrent_call_limit: 10,
+        name: 'name'
+      })
         .then(responseFn);
     })
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.outboundVoiceProfiles.create({billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58', concurrent_call_limit: 10}, TEST_AUTH_KEY)
+      return telnyx.outboundVoiceProfiles.create({
+        billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+        concurrent_call_limit: 10,
+        name: 'name'
+      }, TEST_AUTH_KEY)
         .then(responseFn);
     });
 
     it('Sends the correct request [with specified auth in options]', function() {
-      return telnyx.outboundVoiceProfiles.create({billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58', concurrent_call_limit: 10}, {api_key: TEST_AUTH_KEY})
+      return telnyx.outboundVoiceProfiles.create({
+        billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+        concurrent_call_limit: 10,
+        name: 'name'
+      }, {api_key: TEST_AUTH_KEY})
         .then(responseFn);
     });
   });
@@ -77,7 +89,7 @@ describe('Outbound list', function() {
     }
 
     it('Sends the correct request', function() {
-      return telnyx.outboundVoiceProfiles.create({billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58'})
+      return telnyx.outboundVoiceProfiles.create({billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58', name: 'name'})
         .then(function(response) {
           const outboundVoiceProfiles = response.data;
           return outboundVoiceProfiles.del()
@@ -103,10 +115,14 @@ describe('Outbound list', function() {
     }
 
     it('Sends the correct request', function() {
-      return telnyx.outboundVoiceProfiles.create({billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58', concurrent_call_limit: 10})
+      return telnyx.outboundVoiceProfiles.create({
+        billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+        concurrent_call_limit: 10,
+        name: 'name'
+      })
         .then(function(response) {
           const ip = response.data;
-          return ip.update({billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c59' ,concurrent_call_limit: 12})
+          return ip.update({billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c59', concurrent_call_limit: 12})
             .then(responseFn);
         })
     });
