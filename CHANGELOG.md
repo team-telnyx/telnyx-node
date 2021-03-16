@@ -1,4 +1,10 @@
 # CHANGELOG
+
+### v1.12.0 (2021-03-15)
+
+- **bug fix** PhoneNumberRegulatoryRequirements now hits `phone_numbers_regulatory_requirements`
+- **resources** Fax support
+
 ### v1.11.1 (2021-01-19)
 
 ##### New Features
