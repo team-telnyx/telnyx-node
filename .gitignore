@@ -3,3 +3,5 @@ node_modules
 tags
 .nyc_output
 coverage
+package.json
+npm-shrinkwrap.json
