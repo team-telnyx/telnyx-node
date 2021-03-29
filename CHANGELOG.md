@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### v1.13.0 (2021-03-29)
+
+- **resources** Hosted Messaging Support
+
 ### v1.12.0 (2021-03-15)
 
 - **bug fix** PhoneNumberRegulatoryRequirements now hits `phone_numbers_regulatory_requirements`
