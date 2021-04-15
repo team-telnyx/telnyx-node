@@ -11,7 +11,7 @@ var roomCreateData = {
   max_participants: 20
 }
 
-describe('Rooms Resource', function () {
+describe.skip('Rooms Resource', function () {
   describe('retrieve', function () {
     function responseFn(response) {
       expect(response.data).to.have.property('id');
@@ -36,7 +36,7 @@ describe('Rooms Resource', function () {
     }
 
     it('Sends the correct request', function () {
-      return telnyx.rooms.create(faxCreateData).then(responseFn);
+      return telnyx.rooms.create(roomCreateData).then(responseFn);
     });
 
     it('Sends the correct request [with specified auth]', function () {
