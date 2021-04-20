@@ -8,29 +8,33 @@ var fakeRefreshToken = 'eyJhbGciOiJFZDI1NTE5IiwidHlwIjoiSldUIn0.eyJhdWQiOiJ0ZWxu
 
 describe('AccessTokens Resource', function () {
   describe.skip('create', function () {
-    return telnyx.accessTokens.create({
-      grants: [
-        {
-          actions: ['join'],
-          resources: ['telnyx:video:rooms:cd3a4197-c9c6-49f4-8ad7-7aab833286cc'],
-        }
-      ],
-      ttl_secs: 600,
-      refresh_token_ttl_secs: 86400
-    }).then((response) => {
-      expect(response.data).to.have.property('access_token');
-      expect(response.data).to.have.property('access_token_expires_at');
-      expect(response.data).to.have.property('refresh_token');
-      expect(response.data).to.have.property('refresh_token_expires_at');
+    it('Sends the correct request', function () {
+      return telnyx.accessTokens.create({
+        grants: [
+          {
+            actions: ['join'],
+            resources: ['telnyx:video:rooms:cd3a4197-c9c6-49f4-8ad7-7aab833286cc'],
+          }
+        ],
+        ttl_secs: 600,
+        refresh_token_ttl_secs: 86400
+      }).then((response) => {
+        expect(response.data).to.have.property('access_token');
+        expect(response.data).to.have.property('access_token_expires_at');
+        expect(response.data).to.have.property('refresh_token');
+        expect(response.data).to.have.property('refresh_token_expires_at');
+      });
     });
   })
 
   describe.skip('refresh', function () {
-    return telnyx.accessTokens
-      .refresh({refresh_token: fakeRefreshToken}).then((response) => {
-        expect(response.data).to.have.property('access_token');
-        expect(response.data).to.have.property('access_token_expires_at');
-      });
+    it('Sends the correct request', function () {
+      return telnyx.accessTokens
+        .refresh({refresh_token: fakeRefreshToken}).then((response) => {
+          expect(response.data).to.have.property('access_token');
+          expect(response.data).to.have.property('access_token_expires_at');
+        });
+    });
   })
 
   describe('video grant', function () {
