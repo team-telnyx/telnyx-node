@@ -16,12 +16,18 @@ var COMMANDS = [
   'fork_stop',
   'gather_using_audio',
   'gather_using_speak',
+  'gather_stop',
   'playback_start',
   'playback_stop',
   'record_start',
   'record_stop',
+  'record_pause',
+  'record_resume',
+  'refer',
   'send_dtmf',
   'transfer',
+  'transcription_start',
+  'transcription_stop',
 ];
 
 describe('Calls Resource', function() {
@@ -110,6 +116,9 @@ describe('Calls Resource', function() {
       },
       transfer: {
         to: '+13129457420'
+      },
+      refer: {
+        sip_address: 'sip:username@sip.non-telnyx-address.com'
       }
     }
 

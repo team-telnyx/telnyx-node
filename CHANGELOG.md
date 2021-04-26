@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### v1.15.0 (2021-04-26)
+
+- **call control** added `gather_stop`, `record_pause`, `refer`, `record_resume`, `transcription_start`, `transcription_stop`
+
 ### v1.13.0 (2021-03-29)
 
 - **resources** Hosted Messaging Support
