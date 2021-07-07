@@ -52,8 +52,8 @@ describe('Verifications Resource', function() {
         verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
         phone_number: '+13035551234',
         amount: '99.99',
-        currency: "USD",
-        payee: "Acme Corp"
+        currency: 'USD',
+        payee: 'Acme Corp'
       })
         .then((response) => {
           responseItemFn(response.data);
@@ -62,7 +62,7 @@ describe('Verifications Resource', function() {
   });
   describe('create', function() {
     it('Sends the correct request', function() {
-      return telnyx.verifications.call,create({
+      return telnyx.verifications.call.create({
         verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
         phone_number: '+13035551234',
       })
