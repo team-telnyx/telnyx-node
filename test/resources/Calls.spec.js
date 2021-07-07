@@ -124,7 +124,7 @@ describe('Calls Resource', function() {
       },
       enqueue: {
         queue_name: 'tier_1_support'
-      }
+      },
     }
 
     function responseFn(response) {
