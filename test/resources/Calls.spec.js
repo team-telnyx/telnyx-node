@@ -28,6 +28,8 @@ var COMMANDS = [
   'transfer',
   'transcription_start',
   'transcription_stop',
+  'enqueue',
+  'leave_queue'
 ];
 
 describe('Calls Resource', function() {
@@ -119,6 +121,9 @@ describe('Calls Resource', function() {
       },
       refer: {
         sip_address: 'sip:username@sip.non-telnyx-address.com'
+      },
+      enqueue: {
+        queue_name: 'tier_1_support'
       }
     }
 
