@@ -1,3 +1,4 @@
+TELNYX_MOCK_VERSION=0.8.13
 if [ ! -d "telnyx-mock/${TELNYX_MOCK_VERSION}" ]; then
   mkdir -p telnyx-mock/${TELNYX_MOCK_VERSION}
   curl -L "https://github.com/team-telnyx/telnyx-mock/releases/download/v${TELNYX_MOCK_VERSION}/telnyx-mock_${TELNYX_MOCK_VERSION}_linux_amd64.tar.gz" -o "telnyx-mock/${TELNYX_MOCK_VERSION}_linux_amd64.tar.gz"
