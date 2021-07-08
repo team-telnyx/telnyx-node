@@ -1,20 +1,19 @@
 'use strict';
 
+
 var utils = require('../../testUtils');
 var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
 
-var TEST_AUTH_KEY = utils.getUserTelnyxKey();
-
-describe('Verifications SMS Resource', function() {
-  function responseFn(response) {
-    expect(response.data[0]).to.include({
-      record_type: 'verification',
-    });
-    expect(response.data[0]).to.have.property('id');
-    expect(response.data[0]).to.have.property('phone_number');
-    expect(response.data[0]).to.have.property('verification_type');
-  }
+describe('Verifications Resource', function() {
+    function responseItemFn(verification) {
+        expect(verification).to.have.property('id');
+        expect(verification).to.have.property('type');
+        expect(verification).to.have.property('status');
+        expect(verification).to.have.property('phone_number');
+        expect(verification).to.have.property('timeout_secs');
+        expect(verification).to.include({record_type: 'verification'});
+    }
 
   describe('create', function() {
     it('Sends the correct request', function() {
