@@ -5,7 +5,7 @@ var utils = require('../../testUtils');
 var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
 
-describe('Verifications Resource', function() {
+describe.skip('Verifications Resource', function() {
   function responseItemFn(verification) {
     expect(verification).to.have.property('id');
     expect(verification).to.have.property('type');
