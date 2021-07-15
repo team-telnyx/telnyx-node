@@ -7,9 +7,7 @@ var expect = require('chai').expect;
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 
 var credentialCreateData = {
-  credential: {
-    connection_id: '1474011037387720344',
-  },
+  connection_id: '1474011037387720344',
 };
 
 describe('TelephonyCredentials Resource', function () {
