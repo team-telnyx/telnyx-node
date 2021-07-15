@@ -6,7 +6,7 @@ var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 
-describe('SimCardGroups Resource', function() {
+describe.skip('SimCardGroups Resource', function() {
   describe('retrieve', function() {
     function responseFn(response) {
       expect(response.data).to.include.keys(['id', 'name', 'data_limit', 'consumed_data']);
