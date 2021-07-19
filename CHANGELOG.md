@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### v1.17.0 (2021-07-19)
+
+- **SMS Verification** add support for BySMS Verification Codes
+
 ### v1.16.0 (2021-07-15)
 
 - **call control** added enqueuing
