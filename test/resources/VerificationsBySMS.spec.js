@@ -8,7 +8,6 @@ var expect = require('chai').expect;
 describe('Verifications Resource', function() {
   function responseItemFn(verification) {
     expect(verification).to.have.property('id');
-    expect(verification).to.have.property('type');
     expect(verification).to.have.property('status');
     expect(verification).to.have.property('phone_number');
     expect(verification).to.have.property('timeout_secs');
