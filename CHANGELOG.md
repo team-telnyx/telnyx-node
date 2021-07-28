@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### v1.18.0 (2021-07-28)
+
+- **resources** Additional support for Telephony Credentials (WebRTC)
+
 ### v1.17.0 (2021-07-19)
 
 - **SMS Verification** add support for BySMS Verification Codes
