@@ -24,7 +24,7 @@ describe('PortingOrders Resource', function() {
   }
 
   const newPortingOrderParams = {
-    phone_numbers: ['+15555555555', '+16666666666']
+    phone_numbers: ['+15555555555', '+16666666667']
   };
 
   describe('list', function() {
