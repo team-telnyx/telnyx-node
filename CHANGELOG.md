@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### v1.19.0 (2021-08-26)
+
+- **DetailRecords** added detail records endpoint
+
 ### v1.18.0 (2021-07-28)
 
 - **resources** Additional support for Telephony Credentials (WebRTC)

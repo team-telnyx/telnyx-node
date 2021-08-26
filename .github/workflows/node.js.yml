@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TELNYX_MOCK_VERSION: ${{secrets.TELNYX_MOCK_VERSION}}
+      TELNYX_MOCK_OPEN_API_URI: https://raw.githubusercontent.com/team-telnyx/openapi/fd9b0c3e9939cf58beb6990a050cef6334e3ae68/openapi/spec3.json
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x]
