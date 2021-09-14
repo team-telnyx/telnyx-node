@@ -4,15 +4,14 @@ var telnyx = require('../../testUtils').getTelnyxMock();
 var expect = require('chai').expect;
 
 describe('DetailRecords Resource', function () {
-  // eslint-disable-next-line
-  // TODO -- update spec (at the moment, current telnyx-mock response is empty list)
   function responseFn(response) {
-    expect(response.error).to.be.undefined
+    expect(response.data[0]).to.have.property('record_type');
+    expect(response.data[0]).to.have.property('uuid');
   }
 
   describe('query', function () {
     it('Sends the correct request', function () {
-      return telnyx.detailRecords.query({filter: {record_type: 'message_detail_record'}}).then(responseFn);
+      return telnyx.detailRecords.query({filter: {record_type: 'message'}}).then(responseFn);
     });
   });
 });
