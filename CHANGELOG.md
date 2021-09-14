@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### v1.20.0 (2021-09-14)
+
+- **PortingOrders** added porting orders endpoint
+
 ### v1.19.0 (2021-08-26)
 
 - **DetailRecords** added detail records endpoint
