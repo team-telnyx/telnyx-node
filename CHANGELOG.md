@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### v1.21.0 (2021-09-15)
+
+- **Conference** added `retrieve`, `participants`, `speak`, `play`, `stop`, `record_start`, `record_stop`, `update`, `leave`
+
 ### v1.20.0 (2021-09-14)
 
 - **PortingOrders** added porting orders endpoint
