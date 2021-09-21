@@ -8,10 +8,10 @@ var expect = require('chai').expect;
 describe('Verifications Resource', function() {
   function responseItemFn(verification) {
     expect(verification).to.have.property('id');
-    expect(verification).to.have.property('type');
     expect(verification).to.have.property('status');
     expect(verification).to.have.property('phone_number');
     expect(verification).to.have.property('timeout_secs');
+    expect(verification).to.have.property('verification_type');
     expect(verification).to.include({record_type: 'verification'});
   }
   describe('retrieve', function() {
@@ -23,7 +23,7 @@ describe('Verifications Resource', function() {
     })
   });
 
-  describe('create', function() {
+  describe.skip('create', function() {
     it('Sends the correct request', function() {
       return telnyx.verifications.create({
         verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
