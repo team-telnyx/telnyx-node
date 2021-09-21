@@ -5,7 +5,7 @@ var utils = require('../../testUtils');
 var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
 
-describe.skip('VerifyProfiles Resource', function() {
+describe('VerifyProfiles Resource', function() {
   function responseItemFn(profile) {
     expect(profile).to.have.property('name');
     expect(profile).to.have.property('id');
