@@ -31,4 +31,24 @@ describe('VerificationsByPhoneNumbers Resource', function() {
         });
     })
   });
+
+  describe('create', function() {
+    it('Sends the correct request', function() {
+      return telnyx.verifications.byPhoneNumber.create('+13035551234', {code: '17686'})
+        .then((response) => {
+          expect(response.data).to.have.property('phone_number');
+          expect(response.data).to.have.property('response_code');
+        });
+    })
+  });
+
+  describe('verify', function() {
+    it('Sends the correct request', function() {
+      return telnyx.verifications.byPhoneNumber.verify('+13035551234', {code: '17686'})
+        .then((response) => {
+          expect(response.data).to.have.property('phone_number');
+          expect(response.data).to.have.property('response_code');
+        });
+    })
+  });
 });
