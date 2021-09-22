@@ -35,4 +35,62 @@ describe('Verifications Resource', function() {
         });
     })
   });
+  describe('create sms', function() {
+    it('Sends the correct request', function() {
+      return telnyx.verifications.sms.create({
+        verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
+        phone_number: '+13035551234'
+      })
+        .then((response) => {
+          responseItemFn(response.data);
+        });
+    })
+  });
+  describe('create', function() {
+    it('Sends the correct request', function() {
+      return telnyx.verifications.psd2.create({
+        verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
+        phone_number: '+13035551234',
+        amount: '99.99',
+        currency: 'USD',
+        payee: 'Acme Corp'
+      })
+        .then((response) => {
+          responseItemFn(response.data);
+        });
+    })
+  });
+  describe('create', function() {
+    it('Sends the correct request', function() {
+      return telnyx.verifications.call.create({
+        verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
+        phone_number: '+13035551234',
+      })
+        .then((response) => {
+          responseItemFn(response.data);
+        });
+    })
+  });
+  describe('create', function() {
+    it('Sends the correct request', function() {
+      return telnyx.verifications.flashcall.create({
+        verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
+        phone_number: '+13035551234',
+      })
+        .then((response) => {
+          responseItemFn(response.data);
+        });
+    })
+  });
+  describe('create', function() {
+    it('Sends the correct request', function() {
+      return telnyx.verifications.whatsapp.create({
+        verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
+        phone_number: '+13035551234',
+      })
+        .then((response) => {
+          responseItemFn(response.data);
+        });
+    })
+  });
 });
