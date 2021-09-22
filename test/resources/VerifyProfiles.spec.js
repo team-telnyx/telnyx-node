@@ -5,15 +5,11 @@ var utils = require('../../testUtils');
 var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
 
-describe.skip('VerifyProfiles Resource', function() {
+describe('VerifyProfiles Resource', function() {
   function responseItemFn(profile) {
     expect(profile).to.have.property('name');
     expect(profile).to.have.property('id');
-    expect(profile).to.have.property('rcs_enabled');
-    expect(profile).to.have.property('messaging_enabled');
-    expect(profile).to.have.property('messaging_template');
-    expect(profile).to.have.property('default_timeout_secs');
-    expect(profile).to.include({record_type: 'verify_profile'});
+    expect(profile).to.include({record_type: 'verification_profile'});
   }
 
   describe('list', function() {
