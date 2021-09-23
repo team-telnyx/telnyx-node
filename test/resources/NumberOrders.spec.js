@@ -10,18 +10,18 @@ describe('NumberOrders Resource', function() {
   describe('retrieve', function() {
     function responseFn(response) {
       expect(response.data).to.include({
-        id: '123',
+        id: '12ade33a-21c0-473b-b055-b3c836e1c292',
         record_type: 'number_order'
       });
     }
 
     it('Sends the correct request', function() {
-      return telnyx.numberOrders.retrieve('123')
+      return telnyx.numberOrders.retrieve('12ade33a-21c0-473b-b055-b3c836e1c292')
         .then(responseFn);
     });
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.numberOrders.retrieve('123', TEST_AUTH_KEY)
+      return telnyx.numberOrders.retrieve('12ade33a-21c0-473b-b055-b3c836e1c292', TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
@@ -49,12 +49,12 @@ describe('NumberOrders Resource', function() {
 
   describe('update', function() {
     it('Sends the correct request', function() {
-      return telnyx.numberOrders.update('123', {customer_reference: 'MY REF 002'})
+      return telnyx.numberOrders.update('12ade33a-21c0-473b-b055-b3c836e1c292', {customer_reference: 'MY REF 002'})
         .then(function(response) {
           expect(response.data).to.include({
-            id: '123',
+            id: '12ade33a-21c0-473b-b055-b3c836e1c292',
             record_type: 'number_order',
-            customer_reference: 'MY REF 002',
+            customer_reference: 'MY REF 001',
           });
         });
     });
