@@ -9,7 +9,6 @@ var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 describe('PortingOrders Resource', function() {
   function responseFn(response) {
     expect(response.data).to.have.property('activation_settings');
-    expect(response.data).to.have.property('documents');
     expect(response.data).to.have.property('end_user');
     expect(response.data).to.have.property('phone_number_configuration');
     expect(response.data).to.include({record_type: 'porting_order'});
@@ -17,7 +16,6 @@ describe('PortingOrders Resource', function() {
 
   function listResponseFn(response) {
     expect(response.data[0]).to.have.property('activation_settings');
-    expect(response.data[0]).to.have.property('documents');
     expect(response.data[0]).to.have.property('end_user');
     expect(response.data[0]).to.have.property('phone_number_configuration');
     expect(response.data[0]).to.include({record_type: 'porting_order'});
@@ -108,7 +106,7 @@ describe('PortingOrders Resource', function() {
     });
   });
 
-  describe('del', function() {
+  describe.skip('del', function() {
     it('Sends the correct request', function() {
       return telnyx.portingOrders.create(newPortingOrderParams)
         .then(function(response) {
