@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### v1.22.0 (2021-09-23)
+
+- **resources** Additional support for Verification endpoint
+
 ### v1.21.0 (2021-09-15)
 
 - **Conference** added `retrieve`, `participants`, `speak`, `play`, `stop`, `record_start`, `record_stop`, `update`, `leave`
