@@ -61,6 +61,25 @@ describe('PhoneNumbers Resource', function() {
     });
   });
 
+  describe('setEmergencySettings', function() {
+    function responseFn(response) {
+      expect(response.data).to.have.property('id');
+      expect(response.data).to.include({record_type: 'voice_settings'});
+      expect(response.data).to.have.property('emergency');
+      expect(response.data.emergency).to.include({emergency_enabled: true, emergency_address_id: '1315261609962112019'});
+    }
+
+    it('Sends the correct request', function() {
+      return telnyx.phoneNumbers.setEmergencySettings('123', {emergency_enabled: true, emergency_address_id: '1315261609962112019'})
+        .then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function() {
+      return telnyx.phoneNumbers.setEmergencySettings('123', {emergency_enabled: true, emergency_address_id: '1315261609962112019'}, TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
+
   describe('Voice methods', function() {
     function responseFn(response) {
       expect(response.data).to.have.property('id');
