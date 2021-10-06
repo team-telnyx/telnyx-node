@@ -218,8 +218,8 @@ describe('SimCards Resource', function () {
         });
       });
     });
-  
-    describe('set', function () {  
+
+    describe('set', function () {
       it('Sends the correct request', function () {
         return telnyx.simCards.retrieve('123').then(function (response) {
           const simCard = response.data;
@@ -227,7 +227,7 @@ describe('SimCards Resource', function () {
         });
       });
     });
-  
+
     describe('delete', function () {
       it('Sends the correct request', function () {
         return telnyx.simCards.retrieve('123').then(function (response) {
