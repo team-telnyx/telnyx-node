@@ -7,7 +7,7 @@ var expect = require('chai').expect;
 var TEST_AUTH_KEY =
   'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo';
 
-describe.skip('SimCards Resource', function () {
+describe('SimCards Resource', function () {
   const simCardUpdateData = {
     tags: ['personal'],
   };
@@ -102,7 +102,7 @@ describe.skip('SimCards Resource', function () {
     });
   });
 
-  ['activate', 'deactivate', 'enable', 'disable'].forEach(function (command) {
+  ['activate', 'deactivate', 'enable', 'disable', 'set_standby'].forEach(function (command) {
     function responseFn(response) {
       expect(response.data.record_type).to.be.eq('sim_card');
     }
@@ -195,6 +195,45 @@ describe.skip('SimCards Resource', function () {
       return telnyx.simCards.retrieve('123').then(function (response) {
         const simCard = response.data;
         return simCard.deleteNetworkPreferences().then(responseFn);
+      });
+    });
+  });
+
+  describe('PublicIP', function() {
+    function responseFn(response) {
+      expect(response.data.record_type).to.be.eq(
+        'sim_card_public_ip'
+      );
+      expect(response.data).to.include.keys([
+        'sim_card_id',
+        'status',
+      ]);
+    }
+
+    describe('retrieve', function () {
+      it('Sends the correct request', function () {
+        return telnyx.simCards.retrieve('123').then(function (response) {
+          const simCard = response.data;
+          return simCard.retrievePublicIP().then(responseFn);
+        });
+      });
+    });
+  
+    describe('set', function () {  
+      it('Sends the correct request', function () {
+        return telnyx.simCards.retrieve('123').then(function (response) {
+          const simCard = response.data;
+          return simCard.setPublicIP().then(responseFn);
+        });
+      });
+    });
+  
+    describe('delete', function () {
+      it('Sends the correct request', function () {
+        return telnyx.simCards.retrieve('123').then(function (response) {
+          const simCard = response.data;
+          return simCard.deletePublicIP().then(responseFn);
+        });
       });
     });
   });
