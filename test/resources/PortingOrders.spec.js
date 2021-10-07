@@ -15,10 +15,7 @@ describe('PortingOrders Resource', function() {
   }
 
   function listResponseFn(response) {
-    expect(response.data[0]).to.have.property('activation_settings');
-    expect(response.data[0]).to.have.property('end_user');
-    expect(response.data[0]).to.have.property('phone_number_configuration');
-    expect(response.data[0]).to.include({record_type: 'porting_order'});
+    return responseFn({data: response.data[0]});
   }
 
   const newPortingOrderParams = {
@@ -56,6 +53,57 @@ describe('PortingOrders Resource', function() {
     it('Sends the correct request [with specified auth]', function() {
       return telnyx.portingOrders.retrieve('id', TEST_AUTH_KEY)
         .then(responseFn);
+    });
+  });
+
+  describe('listExceptionTypes', function() {
+    function responseFn(response) {
+      expect(response.data[0]).to.have.property('code');
+      expect(response.data[0]).to.have.property('description');
+    }
+
+    it('Sends the correct request', function() {
+      return telnyx.portingOrders.listExceptionTypes().then(responseFn);
+    })
+
+    it('Sends the correct request [with specified auth]', function() {
+      return telnyx.portingOrders.listExceptionTypes(TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
+
+  describe('listActivationJobs', function() {
+    function responseFn(response) {
+      expect(response.data[0]).to.have.property('id');
+      expect(response.data[0]).to.have.property('status');
+      expect(response.data[0]).to.have.include({record_type: 'porting_activation_job'});
+    }
+
+    it('Sends the correct request', function() {
+      return telnyx.portingOrders.listActivationJobs('123').then(responseFn);
+    })
+
+    it('Sends the correct request [with specified auth]', function() {
+      return telnyx.portingOrders.listActivationJobs('123', TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
+
+  describe('cancelOrder', function() {
+    it('Sends the correct request', function() {
+      return telnyx.portingOrders.cancelOrder('123').then(responseFn);
+    })
+  }); 
+ 
+  describe('listAllowedFocWindows', function() {
+    function responseFn(response) {
+      expect(response.data[0]).to.have.property('started_at');
+      expect(response.data[0]).to.have.property('ended_at');
+      expect(response.data[0]).to.have.include({record_type: 'porting_order'});
+    }
+
+    it('Sends the correct request', function() {
+      return telnyx.portingOrders.listAllowedFocWindows('123').then(responseFn);
     });
   });
 
