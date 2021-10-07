@@ -93,8 +93,8 @@ describe('PortingOrders Resource', function() {
     it('Sends the correct request', function() {
       return telnyx.portingOrders.cancelOrder('123').then(responseFn);
     })
-  }); 
- 
+  });
+
   describe('listAllowedFocWindows', function() {
     function responseFn(response) {
       expect(response.data[0]).to.have.property('started_at');
