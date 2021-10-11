@@ -31,17 +31,32 @@ describe('DynamicEmergencyAddresses Resource', function() {
   });
 
   describe('retrieve', function() {
-    function responseFn(response) {
-      expect(response.data).to.include({id: '0ccc7b54-4df3-4bca-a65a-3da1ecc777f1'});
-    }
-
     it('Sends the correct request', function() {
-      return telnyx.dynamicEmergencyAddresses.retrieve('0ccc7b54-4df3-4bca-a65a-3da1ecc777f1').then(responseFn);
+      return telnyx.dynamicEmergencyAddresses.retrieve('123').then(responseFn);
     })
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.dynamicEmergencyAddresses.retrieve('0ccc7b54-4df3-4bca-a65a-3da1ecc777f1', TEST_AUTH_KEY)
+      return telnyx.dynamicEmergencyAddresses.retrieve('123', TEST_AUTH_KEY)
         .then(responseFn);
+    });
+  });
+
+  describe('create', function() {
+    it('Sends the correct request', function() {
+      return telnyx.dynamicEmergencyAddresses.create({
+        administrative_area: 'IL',
+        house_number: '311',
+        locality: 'Chicago',
+        postal_code: '60654',
+        street_name: 'Superior',
+        country_code: 'US'
+      }).then(responseFn);
+    });
+  });
+
+  describe('del', function() {
+    it('Sends the correct request', function() {
+      return telnyx.dynamicEmergencyAddresses.del('123').then(responseFn);
     });
   });
 });
