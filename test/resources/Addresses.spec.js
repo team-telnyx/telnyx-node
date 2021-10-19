@@ -91,6 +91,31 @@ describe('Addresses Resource', function () {
     });
   });
 
+  describe('validate', function () {
+    function responseFn(response) {
+      expect(response.data).to.have.property('errors');
+      expect(response.data).to.have.property('suggested');
+      expect(response.data).to.have.property('result');
+      expect(response.data).to.include({record_type: 'address_validation'});
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.addresses.validate({
+        country_code: 'US',
+        postal_code: '60654',
+        street_address: '311 W Superior Street'
+      }).then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.addresses.validate({
+        country_code: 'US',
+        postal_code: '60654',
+        street_address: '311 W Superior Street'
+      }, TEST_AUTH_KEY).then(responseFn);
+    });
+  });
+
   describe('Nested', function () {
     function responseFn(response) {
       if (response.data) {
