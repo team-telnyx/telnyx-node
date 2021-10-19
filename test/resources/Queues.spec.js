@@ -39,4 +39,17 @@ describe('Queues Resource', function() {
         .then(responseFn);
     });
   });
+
+  describe('retrieve_call', function() {
+    function responseFn(response) {
+      expect(response.data).to.have.property('call_control_id');
+      expect(response.data).to.have.property('queue_position');
+      expect(response.data).to.include({record_type: 'queue_call'});
+    }
+
+    it('Sends the correct request', function() {
+      return telnyx.queues.retrieve_call('queue_id', 'call_control_id')
+        .then(responseFn);
+    });
+  });
 });
