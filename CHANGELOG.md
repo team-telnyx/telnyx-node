@@ -1,5 +1,19 @@
 # CHANGELOG
 
+### v1.23.0 (2021-10-19)
+- **Addresses** added `validate`
+- **AuthenticationProvider** added `list`, `create`, `retrieve`, `update`, `del`
+- **DynamicEmergency** (for `endpoints` and `addresses`) added `list`, `retrieve`, `create`, `del`
+- **InventoryCoverage** added `request`
+- **NumberBackgroundJobs** added `list`, `retrieve`, `updateEmergencySettings`, `updateNumbers`, `deleteNumbers`
+- **PhoneNumbers** added `setEmergencySettings`
+- **PortabilityChecks** added `run`
+- **PortingOrders** added `listExceptionTypes`, `listActivationJobs`, `cancelOrder`, `listAllowedFocWindows`
+- **PortingPhoneNumber** added `list`
+- **PortoutRequests** added `list`, `retrieve`, `updateStatus`, `listComments`, `createComment`
+- **SimCards** added `setStandby`, `retrievePublicIP`, `setPublicIP`, `deletePublicIP`
+- **WirelessDetailRecordReports** added `list`, `create`, `retrieve`, `del`
+
 ### v1.22.0 (2021-09-23)
 
 - **resources** Additional support for Verification endpoint
