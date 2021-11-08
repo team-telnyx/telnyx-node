@@ -22,6 +22,16 @@ describe('Faxes Resource', function () {
     expect(response.data).to.have.property('to');
   }
 
+  describe('list', function () {
+    function listResponseFn(response) {
+      return responseFn({data: response.data[0]})
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.faxes.list().then(listResponseFn);
+    });
+  });
+
   describe('retrieve', function () {
     it('Sends the correct request', function () {
       return telnyx.faxes.retrieve(TEST_UUID).then(responseFn);
@@ -68,17 +78,13 @@ describe('Faxes Resource', function () {
     });
   });
 
-  describe('list', function () {
-    function listResponseFn(response) {
-      return responseFn({data: response.data[0]});
+  describe.skip('refresh', function () {
+    function responseFn(response) {
+      expect(response.data).to.include({result: 'ok'});
     }
 
     it('Sends the correct request', function () {
-      return telnyx.faxes.list().then(listResponseFn);
-    });
-
-    it('Sends the correct request [with specified auth]', function () {
-      return telnyx.faxes.list(TEST_AUTH_KEY).then(listResponseFn);
+      return telnyx.faxes.refresh('123').then(responseFn);
     });
   });
 
@@ -96,6 +102,7 @@ describe('Faxes Resource', function () {
             return fax.del().then(responseFn);
           });
       });
+
       it('Sends the correct request [with specified auth]', function () {
         return telnyx.faxes.retrieve(TEST_UUID).then(function (response) {
           const fax = response.data;
