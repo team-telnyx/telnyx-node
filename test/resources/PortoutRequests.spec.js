@@ -77,4 +77,36 @@ describe('PortoutRequests Resource', function () {
       });
     });
   });
+
+  describe('Supporting Documents', function () {
+    function responseFn(response) {
+      expect(response.data).to.have.property('document_id');
+      expect(response.data).to.have.property('portout_id');
+      expect(response.data).to.have.property('type');
+      expect(response.data).to.include({record_type: 'supporting_document'});
+    }
+
+    function listResponseFn(response) {
+      return responseFn({data: response.data[0]});
+    }
+
+    describe('listSupportingDocuments', function() {
+      it('Sends the correct request', function () {
+        return telnyx.portoutRequests.listSupportingDocuments('123').then(listResponseFn);
+      });
+    });
+
+    describe('createSupportingDocuments', function() {
+      it('Sends the correct request', function () {
+        return telnyx.portoutRequests.createSupportingDocuments('123', {
+          documents: [
+            {
+              document_id: '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
+              type: 'loa'
+            }
+          ]
+        }).then(listResponseFn);
+      });
+    });
+  });
 });
