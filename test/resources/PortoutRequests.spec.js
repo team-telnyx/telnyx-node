@@ -5,6 +5,7 @@ var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
+var TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
 
 describe('PortoutRequests Resource', function () {
   function responseFn(response) {
@@ -32,21 +33,21 @@ describe('PortoutRequests Resource', function () {
 
   describe('retrieve', function () {
     it('Sends the correct request', function () {
-      return telnyx.portoutRequests.retrieve('123').then(responseFn);
+      return telnyx.portoutRequests.retrieve(TEST_UUID).then(responseFn);
     });
 
     it('Sends the correct request [with specified auth]', function () {
-      return telnyx.portoutRequests.retrieve('123', TEST_AUTH_KEY).then(responseFn);
+      return telnyx.portoutRequests.retrieve(TEST_UUID, TEST_AUTH_KEY).then(responseFn);
     });
   });
 
   describe('updateStatus', function () {
     it('Sends the correct authorization request to authorize', function () {
-      return telnyx.portoutRequests.updateStatus('123', 'authorized').then(responseFn);
+      return telnyx.portoutRequests.updateStatus(TEST_UUID, 'authorized').then(responseFn);
     });
 
     it('Sends the correct request to reject', function () {
-      return telnyx.portoutRequests.updateStatus('123', 'rejected').then(responseFn);
+      return telnyx.portoutRequests.updateStatus(TEST_UUID, 'rejected-pending').then(responseFn);
     });
   });
 
@@ -65,13 +66,13 @@ describe('PortoutRequests Resource', function () {
       }
 
       it('Sends the correct request', function () {
-        return telnyx.portoutRequests.listComments('123').then(listResponseFn);
+        return telnyx.portoutRequests.listComments(TEST_UUID).then(listResponseFn);
       });
     });
 
     describe('create', function () {
       it('Sends the correct request', function () {
-        return telnyx.portoutRequests.createComment('123',{body: 'much approve'})
+        return telnyx.portoutRequests.createComment(TEST_UUID,{body: 'much approve'})
           .then(responseFn);
       });
     });

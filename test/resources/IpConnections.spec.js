@@ -5,31 +5,27 @@ var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
+var TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
 
 describe('IpConnections Resource', function() {
-  describe('retrieve', function() {
-    function responseFn(response) {
-      expect(response.data).to.include({id: '123'});
-    }
+  function responseFn(response) {
+    expect(response.data).to.have.property('id');
+    expect(response.data).to.have.property('connection_name');
+    expect(response.data).to.include({record_type: 'ip_connection'});
+  }
 
+  describe('retrieve', function() {
     it('Sends the correct request', function() {
-      return telnyx.ipConnections.retrieve('123').then(responseFn);
+      return telnyx.ipConnections.retrieve(TEST_UUID).then(responseFn);
     })
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.ipConnections.retrieve('123', TEST_AUTH_KEY)
+      return telnyx.ipConnections.retrieve(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
 
   describe('create', function() {
-    function responseFn(response) {
-      expect(response.data).to.have.property('id');
-      expect(response.data).to.have.property('connection_name');
-      expect(response.data).to.have.property('record_type');
-      expect(response.data).to.include({connection_name: 'Central BSD-1', record_type: 'ip_connection'});
-    }
-
     it('Sends the correct request', function() {
       return telnyx.ipConnections.create({connection_name: 'Central BSD-1'})
         .then(responseFn);
@@ -47,20 +43,18 @@ describe('IpConnections Resource', function() {
   });
 
   describe('list', function() {
-    function responseFn(response) {
-      expect(response.data[0]).to.have.property('id');
-      expect(response.data[0]).to.have.property('connection_name');
-      expect(response.data[0]).to.include({record_type: 'ip_connection'});
+    function listResponseFn(response) {
+      return responseFn({data: response.data[0]});
     }
 
     it('Sends the correct request', function() {
       return telnyx.ipConnections.list()
-        .then(responseFn);
+        .then(listResponseFn);
     });
 
     it('Sends the correct request [with specified auth]', function() {
       return telnyx.ipConnections.list(TEST_AUTH_KEY)
-        .then(responseFn);
+        .then(listResponseFn);
     });
   });
 
@@ -83,7 +77,7 @@ describe('IpConnections Resource', function() {
           })
       });
       it('Sends the correct request [with specified auth]', function() {
-        return telnyx.ipConnections.retrieve('123')
+        return telnyx.ipConnections.retrieve(TEST_UUID)
           .then(function(response) {
             const ipConnection = response.data;
             return ipConnection.del(TEST_AUTH_KEY)
@@ -102,7 +96,7 @@ describe('IpConnections Resource', function() {
           })
       });
       it('Sends the correct request [with specified auth]', function() {
-        return telnyx.ipConnections.retrieve('123')
+        return telnyx.ipConnections.retrieve(TEST_UUID)
           .then(function(response) {
             const ipConnection = response.data;
             return ipConnection.update({connection_name: 'Western BSD-2'}, TEST_AUTH_KEY)

@@ -103,11 +103,11 @@ describe('Calls Resource', function() {
 
     describe('create', function() {
       function responseFn(response) {
-        expect(response.data).to.include({
-          record_type: 'conference',
-          name: 'Business',
-        });
         expect(response.data).to.have.property('id');
+        expect(response.data).to.have.property('name');
+        expect(response.data).to.include({
+          record_type: 'conference'
+        });
       }
 
       it('Sends the correct request', function() {

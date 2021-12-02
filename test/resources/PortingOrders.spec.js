@@ -5,6 +5,7 @@ var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
+var TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
 
 describe('PortingOrders Resource', function() {
   function responseFn(response) {
@@ -47,11 +48,11 @@ describe('PortingOrders Resource', function() {
 
   describe('retrieve', function() {
     it('Sends the correct request', function() {
-      return telnyx.portingOrders.retrieve('id').then(responseFn);
+      return telnyx.portingOrders.retrieve(TEST_UUID).then(responseFn);
     })
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.portingOrders.retrieve('id', TEST_AUTH_KEY)
+      return telnyx.portingOrders.retrieve(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
@@ -80,18 +81,18 @@ describe('PortingOrders Resource', function() {
     }
 
     it('Sends the correct request', function() {
-      return telnyx.portingOrders.listActivationJobs('123').then(responseFn);
+      return telnyx.portingOrders.listActivationJobs(TEST_UUID).then(responseFn);
     })
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.portingOrders.listActivationJobs('123', TEST_AUTH_KEY)
+      return telnyx.portingOrders.listActivationJobs(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
 
   describe('cancelOrder', function() {
     it('Sends the correct request', function() {
-      return telnyx.portingOrders.cancelOrder('123').then(responseFn);
+      return telnyx.portingOrders.cancelOrder(TEST_UUID).then(responseFn);
     })
   });
 
@@ -103,7 +104,7 @@ describe('PortingOrders Resource', function() {
     }
 
     it('Sends the correct request', function() {
-      return telnyx.portingOrders.listAllowedFocWindows('123').then(responseFn);
+      return telnyx.portingOrders.listAllowedFocWindows(TEST_UUID).then(responseFn);
     });
   });
 
@@ -113,22 +114,22 @@ describe('PortingOrders Resource', function() {
     }
 
     it('Sends the correct request', function() {
-      return telnyx.portingOrders.retrieveLoaTemplate('id').then(responseFn);
+      return telnyx.portingOrders.retrieveLoaTemplate(TEST_UUID).then(responseFn);
     });
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.portingOrders.retrieveLoaTemplate('id', TEST_AUTH_KEY)
+      return telnyx.portingOrders.retrieveLoaTemplate(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
 
   describe('confirmOrder', function() {
     it('Sends the correct request', function() {
-      return telnyx.portingOrders.confirmOrder('id').then(responseFn);
+      return telnyx.portingOrders.confirmOrder(TEST_UUID).then(responseFn);
     })
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.portingOrders.confirmOrder('id', TEST_AUTH_KEY)
+      return telnyx.portingOrders.confirmOrder(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
@@ -145,7 +146,7 @@ describe('PortingOrders Resource', function() {
         })
     });
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.portingOrders.retrieve('id')
+      return telnyx.portingOrders.retrieve(TEST_UUID)
         .then(function(response) {
           const po = response.data;
           return po.update({documents: {invoice: INVOICE_ID}}, TEST_AUTH_KEY)

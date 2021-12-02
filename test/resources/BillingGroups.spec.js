@@ -6,7 +6,7 @@ var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 
-describe('BillingGroups Resource', function() {
+describe.skip('BillingGroups Resource', function() {
   describe('retrieve', function() {
     function responseFn(response) {
       expect(response.data).to.include({id: '123'});

@@ -1,9 +1,10 @@
 'use strict';
 
-
 var utils = require('../../testUtils');
 var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
+
+var TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
 
 describe('Verifications', function() {
   function responseItemFn(verification) {
@@ -14,9 +15,10 @@ describe('Verifications', function() {
     expect(verification).to.have.property('verification_type');
     expect(verification).to.include({record_type: 'verification'});
   }
+
   describe('retrieve', function() {
     it('Sends the correct request', function() {
-      return telnyx.verifications.retrieve('123')
+      return telnyx.verifications.retrieve(TEST_UUID)
         .then((response) => {
           responseItemFn(response.data);
         });

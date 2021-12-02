@@ -7,11 +7,15 @@ var expect = require('chai').expect;
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 
 describe('Credential Resource', function() {
-  describe('retrieve', function() {
-    function responseFn(response) {
-      expect(response.data).to.include({id: '123'});
-    }
+  function responseFn(response) {
+    expect(response.data).to.have.property('id');
+    expect(response.data).to.have.property('connection_name');
+    expect(response.data).to.have.property('user_name');
+    expect(response.data).to.have.property('record_type');
+    expect(response.data).to.include({record_type: 'credential_connection'});
+  }
 
+  describe('retrieve', function() {
     it('Sends the correct request', function() {
       return telnyx.credentialConnections.retrieve('123').then(responseFn);
     })
@@ -23,14 +27,6 @@ describe('Credential Resource', function() {
   });
 
   describe('create', function() {
-    function responseFn(response) {
-      expect(response.data).to.have.property('id');
-      expect(response.data).to.have.property('connection_name');
-      expect(response.data).to.have.property('user_name');
-      expect(response.data).to.have.property('record_type');
-      expect(response.data).to.include({connection_name: 'Central BSD-1', record_type: 'credential_connection'});
-    }
-
     it('Sends the correct request', function() {
       return telnyx.credentialConnections.create({
         connection_name: 'Central BSD-1',
@@ -62,21 +58,18 @@ describe('Credential Resource', function() {
   });
 
   describe('list', function() {
-    function responseFn(response) {
-      expect(response.data[0]).to.have.property('id');
-      expect(response.data[0]).to.have.property('user_name');
-      expect(response.data[0]).to.have.property('connection_name');
-      expect(response.data[0]).to.include({record_type: 'credential_connection'});
+    function listResponseFn(response) {
+      return responseFn({data: response.data[0]});
     }
 
     it('Sends the correct request', function() {
       return telnyx.credentialConnections.list()
-        .then(responseFn);
+        .then(listResponseFn);
     });
 
     it('Sends the correct request [with specified auth]', function() {
       return telnyx.credentialConnections.list(TEST_AUTH_KEY)
-        .then(responseFn);
+        .then(listResponseFn);
     });
   });
 

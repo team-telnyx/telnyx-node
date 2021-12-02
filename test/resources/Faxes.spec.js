@@ -5,6 +5,7 @@ var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
+var TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
 
 var faxCreateData = {
   connection_id: 'c-1',
@@ -15,29 +16,23 @@ var faxCreateData = {
 }
 
 describe('Faxes Resource', function () {
-  describe('retrieve', function () {
-    function responseFn(response) {
-      expect(response.data).to.have.property('connection_id');
-      expect(response.data).to.have.property('media_url');
-      expect(response.data).to.have.property('to');
-    }
+  function responseFn(response) {
+    expect(response.data).to.have.property('connection_id');
+    expect(response.data).to.have.property('media_url');
+    expect(response.data).to.have.property('to');
+  }
 
+  describe('retrieve', function () {
     it('Sends the correct request', function () {
-      return telnyx.faxes.retrieve('123').then(responseFn);
+      return telnyx.faxes.retrieve(TEST_UUID).then(responseFn);
     });
 
     it('Sends the correct request [with specified auth]', function () {
-      return telnyx.faxes.retrieve('123', TEST_AUTH_KEY).then(responseFn);
+      return telnyx.faxes.retrieve(TEST_UUID, TEST_AUTH_KEY).then(responseFn);
     });
   });
 
   describe('create', function () {
-    function responseFn(response) {
-      expect(response.data).to.have.property('connection_id');
-      expect(response.data).to.have.property('media_url');
-      expect(response.data).to.have.property('to');
-    }
-
     it('Sends the correct request', function () {
       return telnyx.faxes.create(faxCreateData).then(responseFn);
     });
@@ -56,12 +51,6 @@ describe('Faxes Resource', function () {
   });
 
   describe('send', function () {
-    function responseFn(response) {
-      expect(response.data).to.have.property('connection_id');
-      expect(response.data).to.have.property('media_url');
-      expect(response.data).to.have.property('to');
-    }
-
     it('Sends the correct request', function () {
       return telnyx.faxes.send(faxCreateData).then(responseFn);
     });
@@ -80,28 +69,22 @@ describe('Faxes Resource', function () {
   });
 
   describe('list', function () {
-    function responseFn(response) {
-      expect(response.data[0]).to.have.property('connection_id');
-      expect(response.data[0]).to.have.property('media_url');
-      expect(response.data[0]).to.have.property('to');
+    function listResponseFn(response) {
+      return responseFn({data: response.data[0]});
     }
 
     it('Sends the correct request', function () {
-      return telnyx.faxes.list().then(responseFn);
+      return telnyx.faxes.list().then(listResponseFn);
     });
 
     it('Sends the correct request [with specified auth]', function () {
-      return telnyx.faxes.list(TEST_AUTH_KEY).then(responseFn);
+      return telnyx.faxes.list(TEST_AUTH_KEY).then(listResponseFn);
     });
   });
 
-  describe('Nested', function () {
+  describe.skip('Nested', function () {
     function responseFn(response) {
-      if (response.data) {
-        expect(response.data).to.have.property('connection_id');
-        expect(response.data).to.have.property('media_url');
-        expect(response.data).to.have.property('to');
-      }
+      expect(response.statusCode).to.equal(204);
     }
 
     describe('del', function () {
@@ -114,7 +97,7 @@ describe('Faxes Resource', function () {
           });
       });
       it('Sends the correct request [with specified auth]', function () {
-        return telnyx.faxes.retrieve('123').then(function (response) {
+        return telnyx.faxes.retrieve(TEST_UUID).then(function (response) {
           const fax = response.data;
           return fax.del(TEST_AUTH_KEY).then(responseFn);
         });

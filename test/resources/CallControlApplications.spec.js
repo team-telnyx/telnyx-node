@@ -10,7 +10,7 @@ var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 describe('Call Control List list', function() {
   describe('retrieve', function() {
     function responseFn(response) {
-      expect(response.data).to.include({id: '123'});
+      expect(response.data).to.have.property('id');
     }
 
     it('Sends the correct request', function() {
@@ -32,17 +32,17 @@ describe('Call Control List list', function() {
     }
 
     it('Sends the correct request', function() {
-      return telnyx.callControlApplications.create({'application_name': 'test', 'webhook_event_url': '123123'})
+      return telnyx.callControlApplications.create({'application_name': 'test', 'webhook_event_url': 'https://fakeurl.org/123123'})
         .then(responseFn);
     })
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.callControlApplications.create({'application_name': 'test', 'webhook_event_url': '123123'}, TEST_AUTH_KEY)
+      return telnyx.callControlApplications.create({'application_name': 'test', 'webhook_event_url': 'https://fakeurl.org/123123'}, TEST_AUTH_KEY)
         .then(responseFn);
     });
 
     it('Sends the correct request [with specified auth in options]', function() {
-      return telnyx.callControlApplications.create({'application_name': 'test', 'webhook_event_url': '123123'}, {api_key: TEST_AUTH_KEY})
+      return telnyx.callControlApplications.create({'application_name': 'test', 'webhook_event_url': 'https://fakeurl.org/123123'}, {api_key: TEST_AUTH_KEY})
         .then(responseFn);
     });
   });
@@ -74,7 +74,7 @@ describe('Call Control List list', function() {
     }
 
     it('Sends the correct request', function() {
-      return telnyx.callControlApplications.create({'application_name': 'test', 'webhook_event_url': '123123'})
+      return telnyx.callControlApplications.create({'application_name': 'test', 'webhook_event_url': 'https://fakeurl.org/123123'})
         .then(function(response) {
           const callControlApplications = response.data;
           return callControlApplications.del()
@@ -95,15 +95,15 @@ describe('Call Control List list', function() {
     function responseFn(response) {
       if (response.data) {
         expect(response.data).to.have.property('id');
-        expect(response.data).to.include({application_name: 'test updated'});
+        expect(response.data).to.have.property('application_name');
       }
     }
 
     it('Sends the correct request', function() {
-      return telnyx.callControlApplications.create({'application_name': 'test', 'webhook_event_url': '123123'})
+      return telnyx.callControlApplications.create({'application_name': 'test', 'webhook_event_url': 'https://fakeurl.org/123123'})
         .then(function(response) {
           const ip = response.data;
-          return ip.update({'application_name': 'test updated', 'webhook_event_url': '123123'})
+          return ip.update({'application_name': 'test updated', 'webhook_event_url': 'https://fakeurl.org/123123'})
             .then(responseFn);
         })
     });
@@ -111,7 +111,7 @@ describe('Call Control List list', function() {
       return telnyx.callControlApplications.retrieve('123')
         .then(function(response) {
           const ip = response.data;
-          return ip.update({'application_name': 'test updated', 'webhook_event_url': '123123'}, TEST_AUTH_KEY)
+          return ip.update({'application_name': 'test updated', 'webhook_event_url': 'https://fakeurl.org/123123'}, TEST_AUTH_KEY)
             .then(responseFn);
         })
     });
