@@ -70,7 +70,7 @@ describe('NumberReservations Resource', function() {
     });
   });
 
-  describe('extend', function() {
+  describe.skip('extend', function() {
     function responseFn(response) {
       expect(response.data).to.have.property('id');
       expect(response.data).to.have.property('status');

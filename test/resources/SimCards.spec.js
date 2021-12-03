@@ -103,23 +103,25 @@ describe('SimCards Resource', function () {
     });
   });
 
-  ['activate', 'deactivate', 'enable', 'disable', 'set_standby'].forEach(function (command) {
-    function responseFn(response) {
-      expect(response.data.record_type).to.be.eq('sim_card');
-    }
+  describe.skip('Nested', function() {
+    ['activate', 'deactivate', 'enable', 'disable', 'set_standby'].forEach(function (command) {
+      function responseFn(response) {
+        expect(response.data.record_type).to.be.eq('sim_card');
+      }
 
-    describe(command, function () {
-      const camelCaseCommand = utils.snakeToCamelCase(command);
-      it('Sends the correct request', function () {
-        return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
-          const simCard = response.data;
-          return simCard[camelCaseCommand]({}).then(responseFn);
+      describe(command, function () {
+        const camelCaseCommand = utils.snakeToCamelCase(command);
+        it('Sends the correct request', function () {
+          return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
+            const simCard = response.data;
+            return simCard[camelCaseCommand]().then(responseFn);
+          });
         });
-      });
-      it('Sends the correct request [with specified auth]', function () {
-        return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
-          const simCard = response.data;
-          return simCard[camelCaseCommand]({}, TEST_AUTH_KEY).then(responseFn);
+        it('Sends the correct request [with specified auth]', function () {
+          return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
+            const simCard = response.data;
+            return simCard[camelCaseCommand](TEST_AUTH_KEY).then(responseFn);
+          });
         });
       });
     });
@@ -200,7 +202,7 @@ describe('SimCards Resource', function () {
     });
   });
 
-  describe('PublicIP', function() {
+  describe.skip('PublicIP', function() {
     function responseFn(response) {
       expect(response.data.record_type).to.be.eq(
         'sim_card_public_ip'

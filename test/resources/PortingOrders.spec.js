@@ -90,7 +90,7 @@ describe('PortingOrders Resource', function() {
     });
   });
 
-  describe('cancelOrder', function() {
+  describe.skip('cancelOrder', function() {
     it('Sends the correct request', function() {
       return telnyx.portingOrders.cancelOrder(TEST_UUID).then(responseFn);
     })
@@ -123,7 +123,7 @@ describe('PortingOrders Resource', function() {
     });
   });
 
-  describe('confirmOrder', function() {
+  describe.skip('confirmOrder', function() {
     it('Sends the correct request', function() {
       return telnyx.portingOrders.confirmOrder(TEST_UUID).then(responseFn);
     })
