@@ -5,6 +5,7 @@ var utils = require('../../lib/utils');
 var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = 'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo';
+var TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
 
 var METHODS = [
   'phone_numbers',
@@ -13,26 +14,23 @@ var METHODS = [
 ];
 
 describe('MessagingProfiles Resource', function() {
-  describe('retrieve', function() {
-    function responseFn(response) {
-      expect(response.data).to.include({id: '123'});
-    }
+  function responseFn(response) {
+    expect(response.data).to.have.property('name');
+    expect(response.data).to.include({record_type: 'messaging_profile'});
+  }
 
+  describe('retrieve', function() {
     it('Sends the correct request', function() {
-      return telnyx.messagingProfiles.retrieve('123').then(responseFn);
+      return telnyx.messagingProfiles.retrieve(TEST_UUID).then(responseFn);
     })
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.messagingProfiles.retrieve('123', TEST_AUTH_KEY)
+      return telnyx.messagingProfiles.retrieve(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
 
   describe('create', function() {
-    function responseFn(response) {
-      expect(response.data).to.include({name: 'Summer Campaign', record_type: 'messaging_profile'});
-    }
-
     it('Sends the correct request', function() {
       return telnyx.messagingProfiles.create({name: 'Summer Campaign'})
         .then(responseFn);
@@ -51,10 +49,8 @@ describe('MessagingProfiles Resource', function() {
 
   describe('update', function() {
     it('Sends the correct request', function() {
-      return telnyx.messagingProfiles.update('123', {name: 'Foo "baz"'})
-        .then(function(response) {
-          expect(response.data).to.include({id: '123', name: 'Foo "baz"'});
-        })
+      return telnyx.messagingProfiles.update(TEST_UUID, {name: 'Foo "baz"'})
+        .then(responseFn)
     });
   });
 
@@ -86,12 +82,12 @@ describe('MessagingProfiles Resource', function() {
 
     describe('listPhoneNumbers', function() {
       it('Sends the correct request', function() {
-        return telnyx.messagingProfiles.listPhoneNumbers('123')
+        return telnyx.messagingProfiles.listPhoneNumbers(TEST_UUID)
           .then(responseFn);
       });
 
       it('Sends the correct request [with specified auth]', function() {
-        return telnyx.messagingProfiles.listPhoneNumbers('123', TEST_AUTH_KEY)
+        return telnyx.messagingProfiles.listPhoneNumbers(TEST_UUID, TEST_AUTH_KEY)
           .then(responseFn);
       });
     });
@@ -107,12 +103,12 @@ describe('MessagingProfiles Resource', function() {
 
     describe('listShortCodes', function() {
       it('Sends the correct request', function() {
-        return telnyx.messagingProfiles.listShortCodes('123')
+        return telnyx.messagingProfiles.listShortCodes(TEST_UUID)
           .then(responseFn);
       });
 
       it('Sends the correct request [with specified auth]', function() {
-        return telnyx.messagingProfiles.listShortCodes('123', TEST_AUTH_KEY)
+        return telnyx.messagingProfiles.listShortCodes(TEST_UUID, TEST_AUTH_KEY)
           .then(responseFn);
       });
     });
@@ -185,12 +181,12 @@ describe('MessagingProfiles Resource', function() {
 
       describe('retrieveMetrics', function() {
         it('Sends the correct request', function() {
-          return telnyx.messagingProfiles.retrieveMetrics('123')
+          return telnyx.messagingProfiles.retrieveMetrics(TEST_UUID)
             .then(metricsNestedResponseFn);
         });
 
         it('Sends the correct request [with specified auth]', function() {
-          return telnyx.messagingProfiles.retrieveMetrics('123', TEST_AUTH_KEY)
+          return telnyx.messagingProfiles.retrieveMetrics(TEST_UUID, TEST_AUTH_KEY)
             .then(metricsNestedResponseFn);
         });
       });
@@ -205,7 +201,7 @@ describe('MessagingProfiles Resource', function() {
             })
         });
         it('Sends the correct request [with specified auth]', function() {
-          return telnyx.messagingProfiles.retrieve('123')
+          return telnyx.messagingProfiles.retrieve(TEST_UUID)
             .then(function(response) {
               const mp = response.data;
               return mp.metrics(TEST_AUTH_KEY)

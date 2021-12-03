@@ -6,66 +6,66 @@ var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
+var TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
 
 describe('Fax Applications list', function() {
-  describe('retrieve', function() {
-    function responseFn(response) {
-      expect(response.data).to.include({id: '123'});
-    }
+  function responseFn(response) {
+    expect(response.data).to.have.property('id');
+    expect(response.data).to.include({record_type: 'fax_application'});
+  }
 
+  const createFaxData = {
+    'application_name': 'test',
+    'webhook_event_url': 'https://fakeurl.com/123123'
+  };
+
+  describe('retrieve', function() {
     it('Sends the correct request', function() {
-      return telnyx.faxApplications.retrieve('123').then((response) => {
+      return telnyx.faxApplications.retrieve(TEST_UUID).then((response) => {
         responseFn(response)
       });
     })
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.faxApplications.retrieve('123', TEST_AUTH_KEY)
+      return telnyx.faxApplications.retrieve(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
 
   describe('create', function() {
-    function responseFn(response) {
-      expect(response.data).to.have.property('id');
-      expect(response.data).to.include({record_type: 'fax_application'});
-    }
-
     it('Sends the correct request', function() {
-      return telnyx.faxApplications.create({'application_name': 'test', 'webhook_event_url': '123123'})
+      return telnyx.faxApplications.create(createFaxData)
         .then(responseFn);
     })
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.faxApplications.create({'application_name': 'test', 'webhook_event_url': '123123'}, TEST_AUTH_KEY)
+      return telnyx.faxApplications.create(createFaxData, TEST_AUTH_KEY)
         .then(responseFn);
     });
 
     it('Sends the correct request [with specified auth in options]', function() {
-      return telnyx.faxApplications.create({'application_name': 'test', 'webhook_event_url': '123123'}, {api_key: TEST_AUTH_KEY})
+      return telnyx.faxApplications.create(createFaxData, {api_key: TEST_AUTH_KEY})
         .then(responseFn);
     });
   });
 
   describe('list', function() {
-    function responseFn(response) {
-      expect(response.data[0]).to.have.property('id');
-      expect(response.data[0]).to.include({record_type: 'fax_application'});
+    function listResponseFn(response) {
+      return responseFn({data: response.data[0]});
     }
 
     it('Sends the correct request', function() {
       return telnyx.faxApplications.list()
-        .then(responseFn);
+        .then(listResponseFn);
     });
 
     it('Sends the correct request [with specified auth]', function() {
       return telnyx.faxApplications.list(TEST_AUTH_KEY)
-        .then(responseFn);
+        .then(listResponseFn);
     });
   });
 
   describe('del', function() {
-
     function responseFn(response) {
       if (response.data) {
         expect(response.data).to.have.property('id');
@@ -74,7 +74,7 @@ describe('Fax Applications list', function() {
     }
 
     it('Sends the correct request', function() {
-      return telnyx.faxApplications.create({'application_name': 'test', 'webhook_event_url': '123123'})
+      return telnyx.faxApplications.create(createFaxData)
         .then(function(response) {
           const faxApplications = response.data;
           return faxApplications.del()
@@ -92,26 +92,19 @@ describe('Fax Applications list', function() {
   });
 
   describe('update', function() {
-    function responseFn(response) {
-      if (response.data) {
-        expect(response.data).to.have.property('id');
-        expect(response.data).to.include({application_name: 'test updated'});
-      }
-    }
-
     it('Sends the correct request', function() {
-      return telnyx.faxApplications.create({'application_name': 'test', 'webhook_event_url': '123123'})
+      return telnyx.faxApplications.create(createFaxData)
         .then(function(response) {
           const ip = response.data;
-          return ip.update({'application_name': 'test updated', 'webhook_event_url': '123123'})
+          return ip.update(createFaxData)
             .then(responseFn);
         })
     });
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.faxApplications.retrieve('123')
+      return telnyx.faxApplications.retrieve(TEST_UUID)
         .then(function(response) {
           const ip = response.data;
-          return ip.update({'application_name': 'test updated', 'webhook_event_url': '123123'}, TEST_AUTH_KEY)
+          return ip.update(createFaxData, TEST_AUTH_KEY)
             .then(responseFn);
         })
     });

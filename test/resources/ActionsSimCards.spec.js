@@ -6,7 +6,7 @@ var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 
-describe('SimCards Actions Resource', function () {
+describe.skip('SimCards Actions Resource', function () {
   const registerData = {
     registration_codes: ['2578318790'],
     sim_card_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',

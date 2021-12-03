@@ -5,6 +5,8 @@ var utils = require('../../testUtils');
 var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
 
+var TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
+
 describe('VerifyProfiles Resource', function() {
   function responseItemFn(profile) {
     expect(profile).to.have.property('name');
@@ -23,7 +25,7 @@ describe('VerifyProfiles Resource', function() {
 
   describe('retrieve', function() {
     it('Sends the correct request', function() {
-      return telnyx.verifyProfiles.retrieve('123')
+      return telnyx.verifyProfiles.retrieve(TEST_UUID)
         .then((response) => {
           responseItemFn(response.data);
         });
@@ -52,7 +54,7 @@ describe('VerifyProfiles Resource', function() {
     });
 
     it('Sends the correct request with retrieve', function() {
-      return telnyx.verifyProfiles.retrieve('123')
+      return telnyx.verifyProfiles.retrieve(TEST_UUID)
         .then(function(response) {
           const verifyProfile = response.data;
           return verifyProfile.del()
@@ -75,7 +77,7 @@ describe('VerifyProfiles Resource', function() {
         })
     });
     it('Sends the correct request  with retrieve', function() {
-      return telnyx.verifyProfiles.retrieve('123')
+      return telnyx.verifyProfiles.retrieve(TEST_UUID)
         .then(function(response) {
           const verifyProfile = response.data;
           return verifyProfile.update({name: 'test two', messaging_enabled: false})

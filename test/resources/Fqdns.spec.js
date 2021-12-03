@@ -7,11 +7,15 @@ var expect = require('chai').expect;
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 
 describe('Fqdns Resource', function() {
-  describe('retrieve', function() {
-    function responseFn(response) {
-      expect(response.data).to.include({id: '123'});
-    }
+  function responseFn(response) {
+    expect(response.data).to.have.property('id');
+    expect(response.data).to.have.property('connection_id');
+    expect(response.data).to.have.property('fqdn');
+    expect(response.data).to.have.property('record_type');
+    expect(response.data).to.include({record_type: 'fqdn'});
+  }
 
+  describe('retrieve', function() {
     it('Sends the correct request', function() {
       return telnyx.fqdns.retrieve('123').then(responseFn);
     })
@@ -23,14 +27,6 @@ describe('Fqdns Resource', function() {
   });
 
   describe('create', function() {
-    function responseFn(response) {
-      expect(response.data).to.have.property('id');
-      expect(response.data).to.have.property('connection_id');
-      expect(response.data).to.have.property('fqdn');
-      expect(response.data).to.have.property('record_type');
-      expect(response.data).to.include({connection_id: 'Central BSD-1', record_type: 'fqdn'});
-    }
-
     it('Sends the correct request', function() {
       return telnyx.fqdns.create({connection_id: 'Central BSD-1', fqdn: 'example.com', dns_record_type: 'a'})
         .then(responseFn);
@@ -48,21 +44,18 @@ describe('Fqdns Resource', function() {
   });
 
   describe('list', function() {
-    function responseFn(response) {
-      expect(response.data[0]).to.have.property('id');
-      expect(response.data[0]).to.have.property('connection_id');
-      expect(response.data).to.have.property('fqdn');
-      expect(response.data[0]).to.include({record_type: 'fqdn'});
+    function listResponseFn(response) {
+      return responseFn({data: response.data[0]});
     }
 
     it('Sends the correct request', function() {
       return telnyx.fqdns.list()
-        .then(responseFn);
+        .then(listResponseFn);
     });
 
     it('Sends the correct request [with specified auth]', function() {
       return telnyx.fqdns.list(TEST_AUTH_KEY)
-        .then(responseFn);
+        .then(listResponseFn);
     });
   });
 

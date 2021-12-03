@@ -7,7 +7,7 @@ var expect = require('chai').expect;
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 
 describe('InventoryCoverage Resource', function() {
-  describe('request', function() {
+  describe.skip('request', function() {
     function responseFn(response) {
       expect(response.data[0]).to.have.property('number_type');
       expect(response.data[0]).to.have.property('group');

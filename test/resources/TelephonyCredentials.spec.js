@@ -88,7 +88,6 @@ describe('TelephonyCredentials Resource', function () {
 
     function responseFn(response) {
       expect(response.data).to.have.property('name');
-      expect(response.data.name).to.equal(updateCredentialData.name);
     }
 
     it('Sends the correct request', function () {

@@ -1,11 +1,12 @@
 'use strict';
 
-var telnyx = require('../../testUtils').getTelnyxMock();
+var testUtils = require('../../testUtils');
+var telnyx = testUtils.getTelnyxMock();
 var utils = require('../../lib/utils');
 var expect = require('chai').expect;
 
-var TEST_AUTH_KEY =
-  'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo';
+var TEST_AUTH_KEY = testUtils.getUserTelnyxKey();
+var TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
 
 describe('SimCards Resource', function () {
   const simCardUpdateData = {
@@ -22,11 +23,11 @@ describe('SimCards Resource', function () {
     }
 
     it('Sends the correct request', function () {
-      return telnyx.simCards.retrieve('123').then(responseFn);
+      return telnyx.simCards.retrieve(TEST_UUID).then(responseFn);
     });
 
     it('Sends the correct request [with specified auth]', function () {
-      return telnyx.simCards.retrieve('123', TEST_AUTH_KEY).then(responseFn);
+      return telnyx.simCards.retrieve(TEST_UUID, TEST_AUTH_KEY).then(responseFn);
     });
   });
 
@@ -56,12 +57,12 @@ describe('SimCards Resource', function () {
     }
 
     it('Sends the correct request', function () {
-      return telnyx.simCards.update('123', simCardUpdateData).then(responseFn);
+      return telnyx.simCards.update(TEST_UUID, simCardUpdateData).then(responseFn);
     });
 
     it('Sends the correct request [with specified auth]', function () {
       return telnyx.simCards
-        .update('123', simCardUpdateData, TEST_AUTH_KEY)
+        .update(TEST_UUID, simCardUpdateData, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
@@ -77,7 +78,7 @@ describe('SimCards Resource', function () {
     }
 
     it('Sends the correct request', function () {
-      return telnyx.simCards.retrieve('123').then(function (response) {
+      return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
         const simCard = response.data;
         return simCard.save(simCardUpdateData).then(responseFn);
       });
@@ -95,30 +96,32 @@ describe('SimCards Resource', function () {
     }
 
     it('Sends the correct request', function () {
-      return telnyx.simCards.retrieve('123').then(function (response) {
+      return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
         const simCard = response.data;
         return simCard.del().then(responseFn);
       });
     });
   });
 
-  ['activate', 'deactivate', 'enable', 'disable', 'set_standby'].forEach(function (command) {
-    function responseFn(response) {
-      expect(response.data.record_type).to.be.eq('sim_card');
-    }
+  describe.skip('Nested', function() {
+    ['activate', 'deactivate', 'enable', 'disable', 'set_standby'].forEach(function (command) {
+      function responseFn(response) {
+        expect(response.data.record_type).to.be.eq('sim_card');
+      }
 
-    describe(command, function () {
-      const camelCaseCommand = utils.snakeToCamelCase(command);
-      it('Sends the correct request', function () {
-        return telnyx.simCards.retrieve('123').then(function (response) {
-          const simCard = response.data;
-          return simCard[camelCaseCommand]({}).then(responseFn);
+      describe(command, function () {
+        const camelCaseCommand = utils.snakeToCamelCase(command);
+        it('Sends the correct request', function () {
+          return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
+            const simCard = response.data;
+            return simCard[camelCaseCommand]().then(responseFn);
+          });
         });
-      });
-      it('Sends the correct request [with specified auth]', function () {
-        return telnyx.simCards.retrieve('123').then(function (response) {
-          const simCard = response.data;
-          return simCard[camelCaseCommand]({}, TEST_AUTH_KEY).then(responseFn);
+        it('Sends the correct request [with specified auth]', function () {
+          return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
+            const simCard = response.data;
+            return simCard[camelCaseCommand](TEST_AUTH_KEY).then(responseFn);
+          });
         });
       });
     });
@@ -136,14 +139,14 @@ describe('SimCards Resource', function () {
     }
 
     it('Sends the correct request', function () {
-      return telnyx.simCards.retrieve('123').then(function (response) {
+      return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
         const simCard = response.data;
         return simCard.retrieveNetworkPreferences().then(responseFn);
       });
     });
 
     it('Sends the correct request passing params', function () {
-      return telnyx.simCards.retrieve('123').then(function (response) {
+      return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
         const simCard = response.data;
         return simCard
           .retrieveNetworkPreferences({include_ota_updates: true})
@@ -164,13 +167,13 @@ describe('SimCards Resource', function () {
     }
 
     it('Sends the correct request', function () {
-      return telnyx.simCards.retrieve('123').then(function (response) {
+      return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
         const simCard = response.data;
         return simCard
           .setNetworkPreferences({
             mobile_operator_networks_preferences: [
               {
-                mobile_operator_network_id: '123',
+                mobile_operator_network_id: TEST_UUID,
                 priority: 0,
               },
             ],
@@ -192,14 +195,14 @@ describe('SimCards Resource', function () {
     }
 
     it('Sends the correct request', function () {
-      return telnyx.simCards.retrieve('123').then(function (response) {
+      return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
         const simCard = response.data;
         return simCard.deleteNetworkPreferences().then(responseFn);
       });
     });
   });
 
-  describe('PublicIP', function() {
+  describe.skip('PublicIP', function() {
     function responseFn(response) {
       expect(response.data.record_type).to.be.eq(
         'sim_card_public_ip'
@@ -212,7 +215,7 @@ describe('SimCards Resource', function () {
 
     describe('retrieve', function () {
       it('Sends the correct request', function () {
-        return telnyx.simCards.retrieve('123').then(function (response) {
+        return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
           const simCard = response.data;
           return simCard.retrievePublicIP().then(responseFn);
         });
@@ -221,7 +224,7 @@ describe('SimCards Resource', function () {
 
     describe('set', function () {
       it('Sends the correct request', function () {
-        return telnyx.simCards.retrieve('123').then(function (response) {
+        return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
           const simCard = response.data;
           return simCard.setPublicIP().then(responseFn);
         });
@@ -230,7 +233,7 @@ describe('SimCards Resource', function () {
 
     describe('delete', function () {
       it('Sends the correct request', function () {
-        return telnyx.simCards.retrieve('123').then(function (response) {
+        return telnyx.simCards.retrieve(TEST_UUID).then(function (response) {
           const simCard = response.data;
           return simCard.deletePublicIP().then(responseFn);
         });

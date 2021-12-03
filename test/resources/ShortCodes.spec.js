@@ -5,6 +5,7 @@ var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
+var TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
 
 describe('ShortCodes Resource', function() {
   describe('retrieve', function() {
@@ -17,11 +18,11 @@ describe('ShortCodes Resource', function() {
     }
 
     it('Sends the correct request', function() {
-      return telnyx.shortCodes.retrieve('123').then(responseFn);
+      return telnyx.shortCodes.retrieve(TEST_UUID).then(responseFn);
     })
 
     it('Sends the correct request [with specified auth]', function() {
-      return telnyx.shortCodes.retrieve('123', TEST_AUTH_KEY)
+      return telnyx.shortCodes.retrieve(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
@@ -60,7 +61,7 @@ describe('ShortCodes Resource', function() {
 
     describe('update', function() {
       it('Sends the correct request', function() {
-        return telnyx.shortCodes.retrieve('123')
+        return telnyx.shortCodes.retrieve(TEST_UUID)
           .then(function(response) {
             const mp = response.data;
             return mp.update({messaging_profile_id: 'uuid'})
@@ -68,7 +69,7 @@ describe('ShortCodes Resource', function() {
           })
       });
       it('Sends the correct request [with specified auth]', function() {
-        return telnyx.shortCodes.retrieve('123')
+        return telnyx.shortCodes.retrieve(TEST_UUID)
           .then(function(response) {
             const mp = response.data;
             return mp.update({messaging_profile_id: 'uuid'}, TEST_AUTH_KEY)
