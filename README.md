@@ -285,16 +285,38 @@ const allMessagingProfiles = await telnyx.messagingProfiles.list()
 
 ## Development
 
-The test suite depends on [telnyx-mock], so make sure to fetch and run it locally from a
-background terminal. The default `PORT` used is `12111`. If you want
-to target a different one, pass the environment variable `TELNYX_MOCK_PORT`.
-([telnyx-mock's README][telnyx-mock] also contains
-instructions for installing via Homebrew and other methods):
+### Setup
+The test suite depends on the [Prism Mock Server](https://github.com/stoplightio/prism).
 
-    go get -u github.com/team-telnyx/telnyx-mock
-    telnyx-mock
+```bash
+npm install -g @stoplight/prism-cli
 
-Run all tests:
+# OR
+
+yarn global add @stoplight/prism-cli
+```
+
+Once installed, start the prism mock service with the following command:
+
+```bash
+prism mock https://raw.githubusercontent.com/team-telnyx/openapi/master/openapi/spec3.json
+```
+
+--------
+
+One final step -- because the Node SDK originally expected to reach the legacy `telnyx-mock` service at port 12111 (in addition to providing a `/v2/` base path), we need to setup the [Telnyx mock proxy server](https://github.com/team-telnyx/telnyx-mock-server-proxy) to modify the request path and forward along to the prism mock server.
+
+```bash
+# In new terminal window
+
+git clone git@github.com:team-telnyx/telnyx-mock-server-proxy.git
+cd telnyx-mock-server-proxy
+
+yarn install
+node index.js
+```
+
+### Running Tests
 
 ```bash
 $ npm install
