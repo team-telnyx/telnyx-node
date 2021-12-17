@@ -309,8 +309,8 @@ One final step -- because the Node SDK originally expected to reach the legacy `
 ```bash
 # In new terminal window
 
-git clone git@github.com:team-telnyx/telnyx-mock-server-proxy.git
-cd telnyx-mock-server-proxy
+git clone git@github.com:team-telnyx/telnyx-prism-mock.git
+cd telnyx-prism-mock/proxy
 
 yarn install
 node index.js
