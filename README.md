@@ -180,6 +180,29 @@ const event = telnyx.webhooks.constructEvent(
 );
 ```
 
+#### TeXML Signature
+
+TeXML sends webhooks as form-encoded payloads instead of JSON. To validate the signature, use the `telnyx.webhooks.signature.verifySignature` method.
+
+You can find an example of how to use this with [Express](https://expressjs.com/) in the [`examples/webhook-signing`](examples/webhook-signing) folder.
+
+```js
+const timeToleranceInSeconds = 300; // Will validate signatures of webhooks up to 5 minutes after Telnyx sent the request
+try {
+  telnyx.webhooks.signature.verifySignature(
+    webhookRawBody,
+    webhookTelnyxSignatureHeader,
+    webhookTelnyxTimestampHeader,
+    publicKey,
+    timeToleranceInSeconds
+  );
+} catch (e) {
+  console.log("Failed to validate the signature")
+  console.log(e);
+}
+
+```
+
 ### Writing a Plugin
 
 If you're writing a plugin that uses the library, we'd appreciate it if you identified using `telnyx.setAppInfo()`:
