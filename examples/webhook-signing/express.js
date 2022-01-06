@@ -104,6 +104,6 @@ app.post('/texml', bodyParser.text({type: '*/*'}), function(req, res) {
 </Response>`);
 });
 
-app.listen(8000, function() {
+app.listen(3000, function() {
   console.log('Example app listening on port 3000!');
 });
