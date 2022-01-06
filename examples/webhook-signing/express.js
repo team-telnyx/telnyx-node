@@ -76,6 +76,34 @@ app.post('/webhooks', bodyParser.json(), function(req, res) {
   res.status(200).send(`Signed Webhook Received: ${event.data.event_type}, ${event.data.id}`);
 });
 
+
+app.post('/texml', bodyParser.text({type: '*/*'}), function(req, res) {
+  const timeToleranceInSeconds = 300; // Will validate signatures of webhooks up to 5 minutes after Telnyx sent the request
+  const webhookTelnyxSignatureHeader = req.header('telnyx-signature-ed25519');
+  const webhookTelnyxTimestampHeader = req.header('telnyx-timestamp');
+  const webhookRawBody = req.body;
+  console.log(req.body);
+  try {
+    telnyx.webhooks.signature.verifySignature(
+      webhookRawBody,
+      webhookTelnyxSignatureHeader,
+      webhookTelnyxTimestampHeader,
+      publicKey,
+      timeToleranceInSeconds
+    );
+  } catch (e) {
+    console.log("Failed to validate the signature")
+    console.log(e.message);
+    res.send(400);
+    return;
+  }
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Say>Webhook Validated</Say>
+    <Hangup />
+</Response>`);
+});
+
 app.listen(3000, function() {
   console.log('Example app listening on port 3000!');
 });
