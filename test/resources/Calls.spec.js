@@ -29,7 +29,9 @@ var COMMANDS = [
   'transcription_start',
   'transcription_stop',
   'enqueue',
-  'leave_queue'
+  'leave_queue',
+  'streaming_start',
+  'streaming_stop'
 ];
 
 describe('Calls Resource', function() {
