@@ -1,6 +1,6 @@
 {
   "name": "telnyx",
-  "version": "1.23.0",
+  "version": "1.30.0",
   "description": "Telnyx API Node SDK",
   "keywords": [
     "telnyx",
@@ -15,7 +15,8 @@
   "contributors": [
     "Gabriel Taylor Russ <gabriel@telnyx.com> (http://www.telnyx.com/)",
     "Lucas Rosa <lucas@telnyx.com> (http://www.telnyx.com/)",
-    "Rômulo Garofalo <romulo@telnyx.com> (http://www.telnyx.com/)"
+    "Rômulo Garofalo <romulo@telnyx.com> (http://www.telnyx.com/)",
+    "Vlad Ionash <vladi@telnyx.com> (http://www.telnyx.com/)"
   ],
   "repository": {
     "type": "git",
@@ -31,9 +32,9 @@
     "chai-as-promised": "~7.1.1",
     "coveralls": "^3.0.0",
     "debug": "^4.1.1",
-    "eslint": "^4.19.1",
+    "eslint": "^8.27.0",
     "eslint-plugin-chai-friendly": "^0.4.0",
-    "mocha": "~5.0.5",
+    "mocha": "^10.1.0",
     "nock": "^9.0.0",
     "nyc": "^14.1.1"
   },

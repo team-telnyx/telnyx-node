@@ -1,4 +1,6 @@
 # CHANGELOG
+### v1.30.0 (2022-11-09)
+- **Security update and package fixes
 
 ### v1.23.0 (2021-10-19)
 - **Addresses** added `validate`
