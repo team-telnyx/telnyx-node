@@ -3,7 +3,7 @@ module.exports = {
     ecmaVersion: 6,
   },
   rules: {
-    "new-cap": "off",
-    "no-console": "off",
+    'new-cap': 'off',
+    'no-console': 'off',
   },
 };

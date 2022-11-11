@@ -92,7 +92,7 @@ app.post('/texml', bodyParser.text({type: '*/*'}), function(req, res) {
       timeToleranceInSeconds
     );
   } catch (e) {
-    console.log("Failed to validate the signature")
+    console.log('Failed to validate the signature')
     console.log(e.message);
     res.send(400);
     return;
