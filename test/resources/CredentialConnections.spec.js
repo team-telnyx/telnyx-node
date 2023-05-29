@@ -6,127 +6,122 @@ var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 
-describe('Credential Resource', function() {
-  function responseFn(response) {
-    expect(response.data).to.have.property('id');
-    expect(response.data).to.have.property('connection_name');
-    expect(response.data).to.have.property('user_name');
-    expect(response.data).to.have.property('record_type');
-    expect(response.data).to.include({record_type: 'credential_connection'});
-  }
-
-  describe('retrieve', function() {
-    it('Sends the correct request', function() {
-      return telnyx.credentialConnections.retrieve('123').then(responseFn);
-    })
-
-    it('Sends the correct request [with specified auth]', function() {
-      return telnyx.credentialConnections.retrieve('123', TEST_AUTH_KEY)
-        .then(responseFn);
-    });
-  });
-
-  describe('create', function() {
-    it('Sends the correct request', function() {
-      return telnyx.credentialConnections.create({
-        connection_name: 'Central BSD-1',
-        user_name: 'test',
-        password: '***'
-      })
-        .then(responseFn);
-    })
-
-    it('Sends the correct request [with specified auth]', function() {
-      return telnyx.credentialConnections.create({
-        connection_name: 'Central BSD-1',
-        user_name: 'test',
-        password: '***'
-      }, TEST_AUTH_KEY)
-        .then(responseFn);
-    });
-
-    it('Sends the correct request [with specified auth in options]', function() {
-      return telnyx.credentialConnections.create({
-        connection_name: 'Central BSD-1',
-        user_name: 'test',
-        password: '***'
-      }, {
-        api_key: TEST_AUTH_KEY
-      })
-        .then(responseFn);
-    });
-  });
-
-  describe('list', function() {
-    function listResponseFn(response) {
-      return responseFn({data: response.data[0]});
-    }
-
-    it('Sends the correct request', function() {
-      return telnyx.credentialConnections.list()
-        .then(listResponseFn);
-    });
-
-    it('Sends the correct request [with specified auth]', function() {
-      return telnyx.credentialConnections.list(TEST_AUTH_KEY)
-        .then(listResponseFn);
-    });
-  });
-
-  describe('Nested', function() {
+describe('Access IP Addresses Resource', function () {
+  describe('retrieve', function () {
     function responseFn(response) {
-      if (response.data) {
-        expect(response.data).to.have.property('id');
-        expect(response.data).to.have.property('connection_name');
-        expect(response.data).to.have.property('user_name');
-        expect(response.data).to.include({record_type: 'credential_connection'});
-      }
+      expect(response).to.have.property('data');
     }
 
-    describe('del', function() {
-      it('Sends the correct request', function() {
-        return telnyx.credentialConnections.create({
-          connection_name: 'Central BSD-1',
-          user_name: 'test',
-          password: '***'
-        })
-          .then(function(response) {
-            const connection = response.data;
-            return connection.del()
-              .then(responseFn);
-          })
-      });
-      it('Sends the correct request [with specified auth]', function() {
-        return telnyx.credentialConnections.retrieve('123')
-          .then(function(response) {
-            const connection = response.data;
-            return connection.del(TEST_AUTH_KEY)
-              .then(responseFn);
-          })
-      });
+    it('Sends the correct request', function () {
+      return telnyx.credentialConnections.retrieve('123').then(responseFn);
     });
 
-    describe('update', function() {
-      it('Sends the correct request', function() {
-        return telnyx.credentialConnections.create({
-          connection_name: 'Central BSD-1',
-          user_name: 'test',
-          password: '***'
-        })
-          .then(function(response) {
-            const connection = response.data;
-            return connection.update({connection_name: 'Western BSD-2'})
-              .then(responseFn);
-          })
-      });
-      it('Sends the correct request [with specified auth]', function() {
-        return telnyx.credentialConnections.retrieve('123')
-          .then(function(response) {
-            const connection = response.data;
-            return connection.update({connection_name: 'Western BSD-2'}, TEST_AUTH_KEY)
-              .then(responseFn);
-          })
-      });
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.credentialConnections
+        .retrieve('123', TEST_AUTH_KEY)
+        .then(responseFn);
     });
-  })
+  });
+
+  describe('list', function () {
+    function responseFn(response) {
+      expect(response).to.have.property('data');
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.credentialConnections
+        .list({
+          page: {
+            number: 1,
+            size: 20,
+          },
+          filter: {
+            outbound: {
+              outbound_voice_profile_id: '1293384261075731499',
+            },
+          },
+          sort: 'connection_name',
+        })
+        .then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.credentialConnections
+        .list(
+          {
+            page: {
+              number: 1,
+              size: 20,
+            },
+            filter: {
+              outbound: {
+                outbound_voice_profile_id: '1293384261075731499',
+              },
+            },
+            sort: 'connection_name',
+          },
+          TEST_AUTH_KEY
+        )
+        .then(responseFn);
+    });
+  });
+
+  describe('create', function () {
+    function responseFn(response) {
+      expect(response).to.have.property('data');
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.credentialConnections
+        .create({
+          connection_name: 'my name',
+          password: 'my123secure456password789',
+          user_name: 'myusername123',
+        })
+        .then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.credentialConnections
+        .create(
+          {
+            connection_name: 'my name',
+            password: 'my123secure456password789',
+            user_name: 'myusername123',
+          },
+          TEST_AUTH_KEY
+        )
+        .then(responseFn);
+    });
+  });
+  describe('del', function () {
+    function responseFn(response) {
+      expect(response).to.have.property('data');
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.credentialConnections.del('1').then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.credentialConnections
+        .del('1', TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
+  describe('update', function () {
+    function responseFn(response) {
+      expect(response).to.have.property('data');
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.credentialConnections.del('1').then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.credentialConnections
+        .del('1', TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
 });

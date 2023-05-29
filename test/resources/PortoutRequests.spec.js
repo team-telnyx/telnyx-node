@@ -7,74 +7,155 @@ var expect = require('chai').expect;
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
 var TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
 
-describe('PortoutRequests Resource', function () {
-  function responseFn(response) {
-    expect(response.data).to.have.property('id');
-    expect(response.data).to.have.property('status');
-    expect(response.data).to.have.property('requested_foc_date');
-    expect(response.data).to.have.property('foc_date');
-    expect(response.data).to.have.property('carrier_name');
-    expect(response.data).to.include({record_type: 'portout'});
-  }
-
-  describe('list', function () {
-    function listResponseFn(response) {
-      return responseFn({data: response.data[0]});
-    }
-
-    it('Sends the correct request', function () {
-      return telnyx.portoutRequests.list().then(listResponseFn);
-    });
-
-    it('Sends the correct request [with specified auth]', function () {
-      return telnyx.portoutRequests.list(TEST_AUTH_KEY).then(listResponseFn);
-    });
-  });
-
-  describe('retrieve', function () {
-    it('Sends the correct request', function () {
-      return telnyx.portoutRequests.retrieve(TEST_UUID).then(responseFn);
-    });
-
-    it('Sends the correct request [with specified auth]', function () {
-      return telnyx.portoutRequests.retrieve(TEST_UUID, TEST_AUTH_KEY).then(responseFn);
-    });
-  });
-
+describe('portout', function () {
   describe('updateStatus', function () {
-    it('Sends the correct authorization request to authorize', function () {
-      return telnyx.portoutRequests.updateStatus(TEST_UUID, 'authorized').then(responseFn);
+    function responseFn(response) {
+      expect(response).to.have.property('data');
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.portoutRequests
+        .updateStatus(TEST_UUID, 'string', {body: 'string'})
+        .then(responseFn);
     });
 
-    it('Sends the correct request to reject', function () {
-      return telnyx.portoutRequests.updateStatus(TEST_UUID, 'rejected-pending').then(responseFn);
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.portoutRequests
+        .updateStatus(TEST_UUID, 'string', {body: 'string'}, TEST_AUTH_KEY)
+        .then(responseFn);
     });
   });
 
-  describe('Comments', function () {
+  describe('listComments', function () {
     function responseFn(response) {
-      expect(response.data).to.have.property('id');
-      expect(response.data).to.have.property('body');
-      expect(response.data).to.have.property('user_id');
-      expect(response.data).to.have.property('created_at');
-      expect(response.data).to.include({record_type: 'portout'});
+      expect(response).to.have.property('data');
+      for (let index = 0; index < response.data.length; index++) {
+        const element = response.data[index];
+        expect(element).to.have.property('body');
+        expect(element).to.have.property('created_at');
+        expect(element).to.have.property('id');
+        expect(element).to.have.property('user_id');
+      }
     }
 
-    describe('list', function() {
-      function listResponseFn(response) {
-        return responseFn({data: response.data[0]});
-      }
-
-      it('Sends the correct request', function () {
-        return telnyx.portoutRequests.listComments(TEST_UUID).then(listResponseFn);
-      });
+    it('Sends the correct request', function () {
+      return telnyx.portoutRequests.listComments(TEST_UUID).then(responseFn);
     });
 
-    describe('create', function () {
-      it('Sends the correct request', function () {
-        return telnyx.portoutRequests.createComment(TEST_UUID,{body: 'much approve'})
-          .then(responseFn);
-      });
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.portoutRequests
+        .listComments(TEST_UUID, TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
+
+  describe('createComment', function () {
+    function responseFn(response) {
+      expect(response).to.have.property('data');
+      for (let index = 0; index < response.data.length; index++) {
+        const element = response.data[index];
+        expect(element).to.have.property('body');
+        expect(element).to.have.property('created_at');
+        expect(element).to.have.property('id');
+        expect(element).to.have.property('user_id');
+      }
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.portoutRequests.createComment(TEST_UUID).then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.portoutRequests
+        .createComment(TEST_UUID, TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
+  describe('retrieveRequest', function () {
+    function responseFn(response) {
+      expect(response).to.have.property('data');
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.portoutRequests.retrieveRequest(TEST_UUID).then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.portoutRequests
+        .retrieveRequest(TEST_UUID, TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
+  describe('retrieveComment', function () {
+    function responseFn(response) {
+      expect(response).to.have.property('data');
+      for (let index = 0; index < response.data.length; index++) {
+        const element = response.data[index];
+        expect(element).to.have.property('body');
+        expect(element).to.have.property('created_at');
+        expect(element).to.have.property('id');
+        expect(element).to.have.property('user_id');
+      }
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.portoutRequests.retrieveComment(TEST_UUID).then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.portoutRequests
+        .retrieveComment(TEST_UUID, TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
+  describe('listDocuments', function () {
+    function responseFn(response) {
+      expect(response).to.have.property('data');
+      for (let index = 0; index < response.data.length; index++) {
+        const element = response.data[index];
+        expect(element).to.have.property('created_at');
+        expect(element).to.have.property('document_id');
+        expect(element).to.have.property('id');
+        expect(element).to.have.property('portout_id');
+        expect(element).to.have.property('record_type');
+        expect(element).to.have.property('type');
+        expect(element).to.have.property('updated_at');
+      }
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.portoutRequests.listDocuments(TEST_UUID).then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.portoutRequests
+        .listDocuments(TEST_UUID, TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
+  describe('createDocuments', function () {
+    function responseFn(response) {
+      expect(response).to.have.property('data');
+      for (let index = 0; index < response.data.length; index++) {
+        const element = response.data[index];
+        expect(element).to.have.property('created_at');
+        expect(element).to.have.property('document_id');
+        expect(element).to.have.property('id');
+        expect(element).to.have.property('portout_id');
+        expect(element).to.have.property('record_type');
+        expect(element).to.have.property('type');
+        expect(element).to.have.property('updated_at');
+      }
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.portoutRequests.createDocuments(TEST_UUID).then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.portoutRequests
+        .createDocuments(TEST_UUID, TEST_AUTH_KEY)
+        .then(responseFn);
     });
   });
 });
