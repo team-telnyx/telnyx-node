@@ -49,7 +49,6 @@
   "scripts": {
     "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
     "mocha": "nyc mocha",
-    "mocha2": "mocha --reporter dot --color ./test/resources/*.spec.js",
     "test": "npm run lint && npm run mocha",
     "lint": "eslint .",
     "report": "nyc -r text -r lcov report",
