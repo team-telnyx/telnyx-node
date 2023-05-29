@@ -15,7 +15,8 @@
   "contributors": [
     "Gabriel Taylor Russ <gabriel@telnyx.com> (http://www.telnyx.com/)",
     "Lucas Rosa <lucas@telnyx.com> (http://www.telnyx.com/)",
-    "Rômulo Garofalo <romulo@telnyx.com> (http://www.telnyx.com/)"
+    "Rômulo Garofalo <romulo@telnyx.com> (http://www.telnyx.com/)",
+    "Khalil Mohammad <khalilmohammadmirza@gmail.com> (https://khalilmohammadmirza.com)"
   ],
   "repository": {
     "type": "git",
@@ -34,7 +35,7 @@
     "eslint": "^8.27.0",
     "eslint-plugin-chai-friendly": "^0.4.0",
     "mocha": "^10.1.0",
-    "nock": "^9.0.0",
+    "nock": "^13.3.1",
     "nyc": "^14.1.1"
   },
   "dependencies": {
