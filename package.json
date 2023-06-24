@@ -50,7 +50,7 @@
     "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
     "mocha": "nyc mocha",
     "test": "npm run lint && npm run mocha",
-    "lint": "eslint .",
+    "lint": "eslint . --fix",
     "report": "nyc -r text -r lcov report",
     "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "release": "telnyx-npm-release"
