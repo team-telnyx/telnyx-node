@@ -5,110 +5,130 @@ var telnyx = utils.getTelnyxMock();
 var expect = require('chai').expect;
 
 var TEST_AUTH_KEY = utils.getUserTelnyxKey();
+var TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
 
-describe.skip('BillingGroups Resource', function() {
-  describe('retrieve', function() {
+describe('Billing Groups', function () {
+  describe('list', function () {
     function responseFn(response) {
-      expect(response.data).to.include({id: '123'});
-    }
-
-    it('Sends the correct request', function() {
-      return telnyx.billingGroups.retrieve('123').then(responseFn);
-    })
-
-    it('Sends the correct request [with specified auth]', function() {
-      return telnyx.billingGroups.retrieve('123', TEST_AUTH_KEY)
-        .then(responseFn);
-    });
-  });
-
-  describe('create', function() {
-    function responseFn(response) {
-      expect(response.data).to.have.property('id');
-      expect(response.data).to.have.property('name');
-      expect(response.data).to.have.property('record_type');
-      expect(response.data).to.include({name: 'Summer Campaign', record_type: 'billing_group'});
-    }
-
-    it('Sends the correct request', function() {
-      return telnyx.billingGroups.create({name: 'Summer Campaign'})
-        .then(responseFn);
-    })
-
-    it('Sends the correct request [with specified auth]', function() {
-      return telnyx.billingGroups.create({name: 'Summer Campaign'}, TEST_AUTH_KEY)
-        .then(responseFn);
-    });
-
-    it('Sends the correct request [with specified auth in options]', function() {
-      return telnyx.billingGroups.create({name: 'Summer Campaign'}, {api_key: TEST_AUTH_KEY})
-        .then(responseFn);
-    });
-  });
-
-  describe('list', function() {
-    function responseFn(response) {
+      expect(response).to.have.property('data');
+      expect(response.data[0]).to.have.property('created_at');
+      expect(response.data[0]).to.have.property('deleted_at');
       expect(response.data[0]).to.have.property('id');
       expect(response.data[0]).to.have.property('name');
-      expect(response.data[0]).to.include({record_type: 'billing_group'});
+      expect(response.data[0]).to.have.property('organization_id');
+      expect(response.data[0]).to.have.property('record_type');
+      expect(response.data[0]).to.have.property('updated_at');
+      expect(response).to.have.property('meta');
+      expect(response.meta).to.have.property('page_number');
+      expect(response.meta).to.have.property('page_size');
+      expect(response.meta).to.have.property('total_pages');
+      expect(response.meta).to.have.property('total_results');
     }
 
-    it('Sends the correct request', function() {
-      return telnyx.billingGroups.list()
+    it('Sends the correct request', function () {
+      return telnyx.billingGroups
+        .list({
+          page: {
+            number: 1,
+            size: 20,
+          },
+        })
         .then(responseFn);
     });
 
-    it('Sends the correct request [with specified auth]', function() {
-      return telnyx.billingGroups.list(TEST_AUTH_KEY)
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.billingGroups
+        .list(
+          {
+            page: {
+              number: 1,
+              size: 20,
+            },
+          },
+          TEST_AUTH_KEY
+        )
         .then(responseFn);
     });
   });
 
-  describe('Nested', function() {
+  describe('create', function () {
     function responseFn(response) {
-      if (response.data) {
-        expect(response.data).to.have.property('id');
-        expect(response.data).to.have.property('name');
-        expect(response.data).to.include({record_type: 'billing_group'});
-      }
+      expect(response).to.have.property('data');
     }
 
-    describe('del', function() {
-      it('Sends the correct request', function() {
-        return telnyx.billingGroups.create({name: 'Summer Campaign'})
-          .then(function(response) {
-            const mp = response.data;
-            return mp.del()
-              .then(responseFn);
-          })
-      });
-      it('Sends the correct request [with specified auth]', function() {
-        return telnyx.billingGroups.retrieve('123')
-          .then(function(response) {
-            const mp = response.data;
-            return mp.del(TEST_AUTH_KEY)
-              .then(responseFn);
-          })
-      });
+    it('Sends the correct request', function () {
+      return telnyx.billingGroups
+        .create({
+          name: 'name',
+        })
+        .then(responseFn);
     });
 
-    describe('update', function() {
-      it('Sends the correct request', function() {
-        return telnyx.billingGroups.create({name: 'Summer Campaign'})
-          .then(function(response) {
-            const mp = response.data;
-            return mp.update({name: 'Winter Campaign'})
-              .then(responseFn);
-          })
-      });
-      it('Sends the correct request [with specified auth]', function() {
-        return telnyx.billingGroups.retrieve('123')
-          .then(function(response) {
-            const mp = response.data;
-            return mp.update({name: 'Winter Campaign'}, TEST_AUTH_KEY)
-              .then(responseFn);
-          })
-      });
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.billingGroups
+        .create(
+          {
+            name: 'name',
+          },
+          TEST_AUTH_KEY
+        )
+        .then(responseFn);
     });
-  })
+  });
+
+  describe('retrieve', function () {
+    function responseFn(response) {
+      expect(response).to.have.property('data');
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.billingGroups.retrieve(TEST_UUID).then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.billingGroups
+        .retrieve(TEST_UUID, TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
+  describe('del', function () {
+    function responseFn(response) {
+      expect(response).to.have.property('data');
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.billingGroups.del(TEST_UUID).then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.billingGroups
+        .del(TEST_UUID, TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
+  describe('update', function () {
+    function responseFn(response) {
+      expect(response).to.have.property('data');
+    }
+
+    it('Sends the correct request', function () {
+      return telnyx.billingGroups
+        .update(TEST_UUID, {
+          name: 'string',
+        })
+        .then(responseFn);
+    });
+
+    it('Sends the correct request [with specified auth]', function () {
+      return telnyx.billingGroups
+        .update(
+          TEST_UUID,
+          {
+            name: 'string',
+          },
+          TEST_AUTH_KEY
+        )
+        .then(responseFn);
+    });
+  });
 });
