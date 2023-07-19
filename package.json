@@ -1,6 +1,6 @@
 {
   "name": "telnyx",
-  "version": "1.24.0",
+  "version": "1.25.1",
   "description": "Telnyx API Node SDK",
   "keywords": [
     "telnyx",
@@ -13,6 +13,7 @@
   "homepage": "https://developers.telnyx.com",
   "author": "Telnyx <support@telnyx.com> (https://www.telnyx.com/)",
   "contributors": [
+    "Vlad Ionash <vladi@telnyx.com> (http://www.telnyx.com/)",
     "Gabriel Taylor Russ <gabriel@telnyx.com> (http://www.telnyx.com/)",
     "Lucas Rosa <lucas@telnyx.com> (http://www.telnyx.com/)",
     "Rômulo Garofalo <romulo@telnyx.com> (http://www.telnyx.com/)",

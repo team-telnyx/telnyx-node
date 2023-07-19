@@ -1,5 +1,5 @@
 # CHANGELOG
-### v1.24.0
+### v1.25.1
 - Security Updates + API Additions
 
 ### v1.23.0 (2021-10-19)
