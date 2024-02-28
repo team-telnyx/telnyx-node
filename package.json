@@ -29,22 +29,22 @@
   },
   "main": "lib/telnyx.js",
   "devDependencies": {
-    "chai": "~4.1.2",
+    "chai": "~4.4.1",
     "chai-as-promised": "~7.1.1",
-    "coveralls": "^3.0.0",
-    "debug": "^4.1.1",
-    "eslint": "^8.27.0",
-    "eslint-plugin-chai-friendly": "^0.4.0",
-    "mocha": "^10.1.0",
-    "nock": "^13.3.1",
-    "nyc": "^14.1.1"
+    "coveralls": "^3.1.1",
+    "debug": "^4.3.4",
+    "eslint": "^8.57.0",
+    "eslint-plugin-chai-friendly": "^0.7.4",
+    "mocha": "^10.3.0",
+    "nock": "^13.5.4",
+    "nyc": "^15.1.0"
   },
   "dependencies": {
     "lodash.isplainobject": "^4.0.6",
-    "qs": "^6.6.0",
-    "safe-buffer": "^5.1.1",
-    "tweetnacl": "^1.0.1",
-    "uuid": "^3.3.2"
+    "qs": "^6.11.2",
+    "safe-buffer": "^5.2.1",
+    "tweetnacl": "^1.0.3",
+    "uuid": "^9.0.1"
   },
   "license": "MIT",
   "scripts": {
