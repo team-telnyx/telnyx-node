@@ -37,7 +37,8 @@
     "eslint-plugin-chai-friendly": "^0.7.4",
     "mocha": "^10.3.0",
     "nock": "^13.5.4",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "ts-migrate": "^0.1.35"
   },
   "dependencies": {
     "lodash.isplainobject": "^4.0.6",
