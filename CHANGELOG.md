@@ -1,4 +1,12 @@
 # CHANGELOG
+
+##
+
+### v1.26.0
+- Endpoint additions
+- Package upgrades
+- Preparation for typescript migration/support
+
 ### v1.25.5
 - Security Updates + API Additions
 
@@ -60,13 +68,9 @@
 
 ### v1.11.1 (2021-01-19)
 
-##### New Features
-
 - **resources:** Fax Applications
 
 ### v1.11.0 (2020-12-18)
-
-##### New Features
 
 - **resources:** Verify Profiles
 
@@ -98,21 +102,15 @@
 
 ### v1.10.0 (2020-08-07)
 
-##### New Features
-
 - **resources:** Messaging Profile Metrics
 
 - **resources:** Short Codes
 
 ### v1.9.0 (2020-07-22)
 
-##### New Features
-
 - **resources:** SIM Card Enable/Disable Methods
 
 ### v1.8.0 (2020-07-14)
-
-##### New Features
 
 - **resources:** OTA Updates
 
