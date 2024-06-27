@@ -1,12 +1,12 @@
 {
   "name": "telnyx",
-  "version": "1.26.0",
+  "version": "1.26.1",
   "lockfileVersion": 3,
   "requires": true,
   "packages": {
     "": {
       "name": "telnyx",
-      "version": "1.26.0",
+      "version": "1.26.1",
       "license": "MIT",
       "dependencies": {
         "lodash.isplainobject": "^4.0.6",

@@ -2,6 +2,9 @@
 
 ##
 
+### v1.26.1
+- Fix porting comments
+
 ### v1.26.0
 - Endpoint additions
 - Package upgrades
