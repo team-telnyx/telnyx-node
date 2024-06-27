@@ -745,8 +745,8 @@ supports-color@^5.5.0:
     has-flag "^3.0.0"
 
 telnyx@^1.25.5:
-  version "1.26.1"
-  resolved "https://registry.yarnpkg.com/telnyx/-/telnyx-1.26.1.tgz#7db7766d2651ae5ca06d818b57a8ae2d852dc6f2"
+  version "1.26.2"
+  resolved "https://registry.yarnpkg.com/telnyx/-/telnyx-1.2621.tgz#7db7766d2651ae5ca06d818b57a8ae2d852dc6f2"
   integrity sha512-a38cYuXyxIUADqV9A1HIrAiJ3a3rEM5lPZAp0/OyUwpu9lvhkzGwU+UhAaSBmitW21TkL34FryMJ0OB8pPSHVg==
   dependencies:
     lodash.isplainobject "^4.0.6"

@@ -25,7 +25,6 @@
         "mocha": "^10.3.0",
         "nock": "^13.5.4",
         "nyc": "^15.1.0",
-        "ts-migrate": "^0.1.35"
       },
       "engines": {
         "node": "^6 || >=8"
@@ -3109,7 +3108,7 @@
       ],
       "dependencies": {
         "anymatch": "~3.1.2",
-        "braces": "~3.0.2",
+        "braces": "~3.0.3",
         "glob-parent": "~5.1.2",
         "is-binary-path": "~2.1.0",
         "is-glob": "~4.0.1",
@@ -3384,7 +3383,7 @@
         "lcov-parse": "^1.0.0",
         "log-driver": "^1.2.7",
         "minimist": "^1.2.5",
-        "request": "^2.88.2"
+        "request": "^3.0.0"
       },
       "bin": {
         "coveralls": "bin/coveralls.js"
@@ -4120,7 +4119,7 @@
       "integrity": "sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA==",
       "dev": true,
       "dependencies": {
-        "braces": "^3.0.2",
+        "braces": "^3.0.3",
         "picomatch": "^2.3.1"
       },
       "engines": {
@@ -5538,7 +5537,7 @@
       "dependencies": {
         "arr-diff": "^4.0.0",
         "array-unique": "^0.3.2",
-        "braces": "^2.3.1",
+        "braces": "^3.0.3",
         "define-property": "^2.0.2",
         "extend-shallow": "^3.0.2",
         "extglob": "^2.0.4",
@@ -7799,20 +7798,6 @@
         "node": ">=0.8"
       }
     },
-    "node_modules/ts-migrate": {
-      "version": "0.1.35",
-      "resolved": "https://registry.npmjs.org/ts-migrate/-/ts-migrate-0.1.35.tgz",
-      "integrity": "sha512-EmXahqwIP0a6fE1BLKKVMgJEeYn9V+CxJ19qFJ/DzkPL4PjDI/FcgPo8D519amBPy2nnlc/x1V6R6aIeHdD87w==",
-      "dev": true,
-      "dependencies": {
-        "create-jest-runner": "^0.5.3",
-        "json5": "^2.1.1",
-        "json5-writer": "^0.1.8",
-        "ts-migrate-plugins": "^0.1.35",
-        "ts-migrate-server": "^0.1.33",
-        "updatable-log": "^0.2.0",
-        "yargs": "^15.0.2"
-      },
       "bin": {
         "ts-migrate": "build/cli.js",
         "ts-migrate-full": "bin/ts-migrate-full.sh"

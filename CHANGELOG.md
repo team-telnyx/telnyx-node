@@ -2,6 +2,10 @@
 
 ##
 
+### v1.26.2
+- Fix Brand and Campaign redirects
+- Update security
+
 ### v1.26.1
 - Fix porting comments
 
