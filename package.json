@@ -1,6 +1,6 @@
 {
   "name": "telnyx",
-  "version": "1.26.2",
+  "version": "1.27.0",
   "description": "Telnyx API Node SDK",
   "keywords": [
     "telnyx",
@@ -43,6 +43,7 @@
     "lodash.isplainobject": "^4.0.6",
     "qs": "^6.11.2",
     "safe-buffer": "^5.2.1",
+    "telnyx": "^1.26.2",
     "tweetnacl": "^1.0.3",
     "uuid": "^9.0.1"
   },

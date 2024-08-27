@@ -1,17 +1,18 @@
 {
   "name": "telnyx",
-  "version": "1.26.2",
+  "version": "1.27.0",
   "lockfileVersion": 3,
   "requires": true,
   "packages": {
     "": {
       "name": "telnyx",
-      "version": "1.26.2",
+      "version": "1.27.0",
       "license": "MIT",
       "dependencies": {
         "lodash.isplainobject": "^4.0.6",
         "qs": "^6.11.2",
         "safe-buffer": "^5.2.1",
+        "telnyx": "^1.26.2",
         "tweetnacl": "^1.0.3",
         "uuid": "^9.0.1"
       },
@@ -3776,6 +3777,21 @@
       },
       "engines": {
         "node": ">=8"
+      }
+    },
+    "node_modules/telnyx": {
+      "version": "1.26.2",
+      "resolved": "https://registry.npmjs.org/telnyx/-/telnyx-1.26.2.tgz",
+      "integrity": "sha512-c/IU4dmtxEhflD+A3cYlbetEfy6832JCr2pZ4+6A2gEAVhfFeWbWt/IAV7KJxAyAdOJJ46IMFFmaHVufMHMyEw==",
+      "dependencies": {
+        "lodash.isplainobject": "^4.0.6",
+        "qs": "^6.11.2",
+        "safe-buffer": "^5.2.1",
+        "tweetnacl": "^1.0.3",
+        "uuid": "^9.0.1"
+      },
+      "engines": {
+        "node": "^6 || >=8"
       }
     },
     "node_modules/test-exclude": {
