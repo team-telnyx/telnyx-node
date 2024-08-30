@@ -14,28 +14,28 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 18
+          node-version: 20
   test:
     runs-on: ubuntu-latest
     env:
       TELNYX_MOCK_OPEN_API_URI: https://raw.githubusercontent.com/team-telnyx/openapi/master/openapi/spec3.json
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [18.x, 20.x, 22.x]
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: setup-telnyx-prism-mock
-      run: source ./.github/scripts/before_install.sh
-    - run: npm ci
-    - run: npm run build --if-present
-    - name: Node ${{ matrix.node-version }}
-      run: npm test
-    - name: Report
-      run: npm run report
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: setup-telnyx-prism-mock
+        run: source ./.github/scripts/before_install.sh
+      - run: npm ci
+      - run: npm run build --if-present
+      - name: Node ${{ matrix.node-version }}
+        run: npm test
+      - name: Report
+        run: npm run report
 
   publish-npm:
     needs: [build, test]
@@ -44,7 +44,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 18
+          node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm publish

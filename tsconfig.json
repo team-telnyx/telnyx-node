@@ -1,0 +1,17 @@
+{
+  "include": ["src/**/*", "test/**/*.ts"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "lib": ["ES2023"],
+    "module": "node16",
+    "target": "ES2022",
+    "checkJs": false,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strict": true,
+    "strictFunctionTypes": true,
+    "types": [ "node" ],
+    "esModuleInterop": false,
+  },
+}

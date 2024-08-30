@@ -23,11 +23,13 @@
     "type": "git",
     "url": "git://github.com/team-telnyx/telnyx-node.git"
   },
-  "bugs:": "https://github.com/team-telnyx/telnyx-node/issues",
+  "bugs": "https://github.com/team-telnyx/telnyx-node/issues",
   "engines": {
-    "node": "^6 || >=8"
+    "node": "^18 || >=20"
   },
-  "main": "lib/telnyx.js",
+  "main": "dist/telnyx.js",
+  "type": "module",
+  "types": "types/index.d.ts",
   "devDependencies": {
     "chai": "~4.4.1",
     "chai-as-promised": "~7.1.1",
@@ -35,27 +37,34 @@
     "debug": "^4.3.4",
     "eslint": "^8.57.0",
     "eslint-plugin-chai-friendly": "^0.7.4",
+    "eslint-plugin-prettier": "^5.2.1",
+    "lodash.isplainobject": "^4.0.6",
     "mocha": "^10.3.0",
     "nock": "^13.5.4",
-    "nyc": "^15.1.0"
-  },
-  "dependencies": {
-    "lodash.isplainobject": "^4.0.6",
+    "nyc": "^15.1.0",
+    "prettier": "^3.0.0",
     "qs": "^6.11.2",
     "safe-buffer": "^5.2.1",
     "telnyx": "^1.26.2",
+    "typescript": "^5.5.4",
     "tweetnacl": "^1.0.3",
     "uuid": "^9.0.1"
   },
+  "dependencies": {
+    "@types/node": "^20.0.0",
+    "@types/qs": "^6.9.15"
+  },
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
+    "build": "tsc",
+    "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage ./dist",
+    "prepack": "npm install && npm run build",
     "mocha": "nyc mocha",
     "test": "npm run lint && npm run mocha",
-    "lint": "eslint . --fix",
+    "lint": "eslint --ext .js,.ts .",
+    "fix": "npm run lint --fix",
     "report": "nyc -r text -r lcov report",
-    "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "release": "telnyx-npm-release"
+    "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "nyc": {
     "exclude": [
