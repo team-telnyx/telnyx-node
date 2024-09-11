@@ -36,6 +36,7 @@
     "coveralls": "^3.1.1",
     "debug": "^4.3.4",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-chai-friendly": "^0.7.4",
     "eslint-plugin-prettier": "^5.2.1",
     "lodash.isplainobject": "^4.0.6",
@@ -46,8 +47,8 @@
     "qs": "^6.11.2",
     "safe-buffer": "^5.2.1",
     "telnyx": "^1.26.2",
-    "typescript": "^5.5.4",
     "tweetnacl": "^1.0.3",
+    "typescript": "^5.5.4",
     "uuid": "^9.0.1"
   },
   "dependencies": {
@@ -61,7 +62,7 @@
     "prepack": "npm install && npm run build",
     "mocha": "nyc mocha",
     "test": "npm run lint && npm run mocha",
-    "lint": "eslint --ext .js,.ts .",
+    "lint": "eslint .",
     "fix": "npm run lint --fix",
     "report": "nyc -r text -r lcov report",
     "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"

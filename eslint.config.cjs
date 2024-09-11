@@ -2,11 +2,7 @@ const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommen
 
 module.exports = [
   {
-    env: {
-      node: true,
-      es6: true,
-    },
-    extends: 'eslint:recommended',
+    files: ['./src/**/*.ts'],
     rules: {
       'accessor-pairs': 'error',
       'array-bracket-spacing': ['error', 'never'],
@@ -254,5 +250,5 @@ module.exports = [
       yoda: ['error', 'never'],
     },
   },
-  eslintPluginPrettierRecommended,
+  {...eslintPluginPrettierRecommended, files: ['./src/**/*.ts']},
 ];
