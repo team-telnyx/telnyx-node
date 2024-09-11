@@ -1,23 +1,41 @@
 # CHANGELOG
 
-##
+## v2
+
+### v2.0.0-alpha.0
+
+- Add Typescript default config, linter and dependencies
+- Bump default Node version to `20`
+- Update README on [Development](./README.md#development) instructions
+- Remove `yarn` in favor of `npm` 10
+- Convert SDK files to typescript
+- Use ES Modules syntax
+- Update package `main` entrypoint to be compiled version of [src telnyx.ts](./src/telnyx.ts)
+- Make `setApiKey` TelnyxObject prototype method private
+
+## v1
 
 ### v1.26.2
+
 - Fix Brand and Campaign redirects
 - Update security
 
 ### v1.26.1
+
 - Fix porting comments
 
 ### v1.26.0
+
 - Endpoint additions
 - Package upgrades
 - Preparation for typescript migration/support
 
 ### v1.25.5
+
 - Security Updates + API Additions
 
 ### v1.23.0 (2021-10-19)
+
 - **Addresses** added `validate`
 - **AuthenticationProvider** added `list`, `create`, `retrieve`, `update`, `del`
 - **DynamicEmergency** (for `endpoints` and `addresses`) added `list`, `retrieve`, `create`, `del`
