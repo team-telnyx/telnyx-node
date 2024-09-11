@@ -6,6 +6,21 @@ export function isObject(obj: unknown): boolean {
   return (type === 'function' || type === 'object') && !!obj;
 }
 
+export function toSingular(name: string): string {
+  if (name.endsWith('s')) {
+    return name.slice(0, -1);
+  }
+
+  return name;
+}
+
+/**
+ * Allow for special capitalization cases (such as OAuth)
+ */
+export function pascalToCamelCase(name: string): string {
+  return name[0].toLowerCase() + name.substring(1);
+}
+
 export function stringifyRequestData(data: RequestData | string): string {
   return (
     qs

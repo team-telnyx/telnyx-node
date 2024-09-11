@@ -1,6 +1,6 @@
 {
-  "include": ["src/**/*", "test/**/*.ts"],
   "compilerOptions": {
+    "rootDir": "./src",
     "outDir": "./dist",
     "lib": ["ES2023"],
     "module": "node16",
@@ -13,5 +13,6 @@
     "strictFunctionTypes": true,
     "types": [ "node" ],
     "esModuleInterop": false,
+    "resolveJsonModule": true,
   },
 }
