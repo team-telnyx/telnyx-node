@@ -9,6 +9,14 @@ export type BufferedFile = {
   file: {data: Uint8Array};
 };
 
+export interface HttpClientResponseInterface {
+  getStatusCode: () => number;
+  getHeaders: () => ResponseHeaders;
+  getRawResponse: () => unknown;
+  toStream: (streamCompleteCallback: () => void) => unknown;
+  toJSON: () => Promise<any>;
+}
+
 /**
  * Interface encapsulating various utility functions whose
  * implementations depend on the platform / JS runtime.
@@ -97,7 +105,59 @@ export type TypedData = {
 
 export type RequestData = Record<string, any>;
 
+export type ResponseHeaderValue = string | string[];
+export type ResponseHeaders = Record<string, ResponseHeaderValue>;
+
+export type MethodSpec = {
+  method: string;
+  methodType?: string;
+  urlParams?: Array<string>;
+  path?: string;
+  fullPath?: string;
+  encode?: (data: RequestData) => RequestData;
+  validator?: (data: RequestData, options: {headers: RequestHeaders}) => void;
+  headers?: Record<string, string>;
+  streaming?: boolean;
+  host?: string;
+  transformResponseData?: (response: HttpClientResponseInterface) => any;
+  usage?: Array<string>;
+  paramsNames: Array<string>;
+  paramsValues?: Array<string>;
+};
+
 export type MultipartRequestData = RequestData | StreamingFile | BufferedFile;
 export type TelnyxResourceObject = {
   _telnyx: TelnyxObject;
+  _urlData: RequestData;
+  includeBasic: Array<string>;
+  nestedResources: {
+    [key: string]: new (...args: any[]) => TelnyxResourceObject;
+  };
+  basePath: UrlInterpolator;
+  path: UrlInterpolator;
+  resourcePath: string;
+  createResourcePathWithSymbols: (path: string | null | undefined) => string;
+  createFullPath: (
+    interpolator: UrlInterpolator,
+    urlData: RequestData,
+  ) => string;
+  initialize: (...args: Array<any>) => void;
 };
+
+export type TelnyxRawError = {
+  message?: string;
+  type?: string;
+  headers?: {[header: string]: string};
+  statusCode?: number;
+  requestId?: string;
+  responseBody?: unknown;
+  code?: string;
+  detail?: string | Error;
+  errors?: Array<{
+    code: string;
+    detail: string;
+    title: string;
+  }>;
+};
+
+export type UrlInterpolator = (params: Record<string, unknown>) => string;

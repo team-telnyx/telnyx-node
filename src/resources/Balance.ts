@@ -1,5 +1,4 @@
-// @ts-ignore - TODO: convert to ts
-import {TelnyxResource} from '../../lib/TelnyxResource.js';
+import TelnyxResource from '../TelnyxResource.js';
 export const Balance = TelnyxResource.extend({
   path: 'balance',
 

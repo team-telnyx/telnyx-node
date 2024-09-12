@@ -7,13 +7,9 @@ import {AppInfo, TelnyxObject} from './Types.js';
 import * as utils from './utils.js';
 // TODO: convert other resources to ts
 import {Balance} from './resources/Balance.js';
-
-// @ts-ignore - TODO: convert to ts
-import TelnyxResource from '../lib/TelnyxResource.js';
-// @ts-ignore - TODO: convert to ts
-import Error from '../lib/Error.js';
-// @ts-ignore - TODO: convert to ts
-import Webhooks from '../lib/Webhooks.js';
+import TelnyxResource from './TelnyxResource.js';
+import * as _Error from './Error.js';
+import Webhooks from './Webhooks.js';
 
 export function createTelnyx(): typeof Telnyx {
   Telnyx.DEFAULT_HOST = process.env.TELNYX_API_BASE || 'api.telnyx.com';
@@ -79,13 +75,13 @@ export function createTelnyx(): typeof Telnyx {
     this._setApiKey(key);
     this._prepResources();
 
-    this.errors = Error;
+    this.errors = _Error;
     this.webhooks = Webhooks;
 
     this._prevRequestMetrics = [];
   }
 
-  Telnyx.errors = Error;
+  Telnyx.errors = _Error;
   Telnyx.webhooks = Webhooks;
 
   Telnyx.prototype = {
