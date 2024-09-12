@@ -9,14 +9,6 @@ export type BufferedFile = {
   file: {data: Uint8Array};
 };
 
-export interface HttpClientResponseInterface {
-  getStatusCode: () => number;
-  getHeaders: () => ResponseHeaders;
-  getRawResponse: () => unknown;
-  toStream: (streamCompleteCallback: () => void) => unknown;
-  toJSON: () => Promise<any>;
-}
-
 /**
  * Interface encapsulating various utility functions whose
  * implementations depend on the platform / JS runtime.
@@ -103,10 +95,18 @@ export type TypedData = {
   type: string;
 };
 
+export type RequestArgs = Array<any>;
 export type RequestData = Record<string, any>;
-
+export type RequestOptions = {
+  auth: string | null;
+  headers: Record<string, unknown>;
+};
+export type ResponsePayload = {data: any; [key: string]: any};
 export type ResponseHeaderValue = string | string[];
 export type ResponseHeaders = Record<string, ResponseHeaderValue>;
+type PromiseCache = {
+  currentPromise: Promise<any> | undefined | null;
+};
 
 export type MethodSpec = {
   method: string;
@@ -119,9 +119,12 @@ export type MethodSpec = {
   headers?: Record<string, string>;
   streaming?: boolean;
   host?: string;
-  transformResponseData?: (response: HttpClientResponseInterface) => any;
+  transformResponseData?: (
+    response: ResponsePayload,
+    telnyxObject: TelnyxObject,
+  ) => any;
   usage?: Array<string>;
-  paramsNames: Array<string>;
+  paramsNames?: Array<string>;
   paramsValues?: Array<string>;
 };
 
@@ -129,6 +132,15 @@ export type MultipartRequestData = RequestData | StreamingFile | BufferedFile;
 export type TelnyxResourceObject = {
   _telnyx: TelnyxObject;
   _urlData: RequestData;
+  _request: (
+    requestMethod: MethodSpec['method'],
+    host: MethodSpec['host'] | null,
+    requestPath: MethodSpec['path'],
+    requestData: RequestData,
+    auth: RequestOptions['auth'],
+    options: {headers: RequestOptions['headers']} | {},
+    callback: (err: any, response: ResponsePayload) => void,
+  ) => Promise<ResponsePayload>;
   includeBasic: Array<string>;
   nestedResources: {
     [key: string]: new (...args: any[]) => TelnyxResourceObject;
@@ -138,9 +150,10 @@ export type TelnyxResourceObject = {
   resourcePath: string;
   createResourcePathWithSymbols: (path: string | null | undefined) => string;
   createFullPath: (
-    interpolator: UrlInterpolator,
+    interpolator: string | UrlInterpolator,
     urlData: RequestData,
   ) => string;
+  createUrlData: () => RequestData;
   initialize: (...args: Array<any>) => void;
 };
 
@@ -152,7 +165,7 @@ export type TelnyxRawError = {
   requestId?: string;
   responseBody?: unknown;
   code?: string;
-  detail?: string | Error;
+  detail?: string | Error | any;
   errors?: Array<{
     code: string;
     detail: string;

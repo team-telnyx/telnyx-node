@@ -1,11 +1,7 @@
-'use strict';
-
 import {MethodSpec, TelnyxResourceObject} from './Types.js';
-
-var utils = require('./utils');
-var makeRequest = require('./makeRequest');
-var makeAutoPaginationMethods =
-  require('./autoPagination').makeAutoPaginationMethods;
+import * as utils from './utils.js';
+import makeRequest from './makeRequest.js';
+import {makeAutoPaginationMethods} from './autoPagination.js';
 
 /**
  * Create an API method from the declared spec.
@@ -28,21 +24,21 @@ var makeAutoPaginationMethods =
  */
 function telnyxMethod(spec: MethodSpec): (...args: any[]) => Promise<any> {
   return function (this: TelnyxResourceObject, ...args: any[]): Promise<any> {
-    var self = this;
+    const self = this;
 
     if (spec.paramsValues) {
       populateUrlParamsWithResource(self, args, spec);
     }
 
-    var callback = typeof args[args.length - 1] == 'function' && args.pop();
+    const callback = typeof args[args.length - 1] == 'function' && args.pop();
 
-    var requestPromise = utils.callbackifyPromiseWithTimeout(
+    const requestPromise = utils.callbackifyPromiseWithTimeout(
       makeRequest(self, args, spec, {}),
       callback,
     );
 
     if (spec.methodType === 'list') {
-      var autoPaginationMethods = makeAutoPaginationMethods(
+      const autoPaginationMethods = makeAutoPaginationMethods(
         self,
         args,
         spec,
@@ -66,7 +62,10 @@ function populateUrlParamsWithResource(
 ) {
   // if url params is not in resource response data.
   if (spec.paramsValues && !spec.paramsValues[0]) {
-    const paramsValues = spec.paramsNames.reduce(function (result, name) {
+    const paramsValues = (spec.paramsNames || []).reduce(function (
+      result,
+      name,
+    ) {
       // @ts-ignore TODO: cast name to index of self
       if (self[name]) {
         // @ts-ignore TODO: cast name to index of self
@@ -81,4 +80,4 @@ function populateUrlParamsWithResource(
   }
 }
 
-module.exports = telnyxMethod;
+export default telnyxMethod;

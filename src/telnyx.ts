@@ -11,7 +11,7 @@ import TelnyxResource from './TelnyxResource.js';
 import * as _Error from './Error.js';
 import Webhooks from './Webhooks.js';
 
-export function createTelnyx(): typeof Telnyx {
+export function createTelnyx() {
   Telnyx.DEFAULT_HOST = process.env.TELNYX_API_BASE || 'api.telnyx.com';
   Telnyx.DEFAULT_PORT = '443';
   Telnyx.DEFAULT_BASE_PATH = '/v2/';
@@ -44,9 +44,9 @@ export function createTelnyx(): typeof Telnyx {
   Telnyx.TelnyxResource = TelnyxResource;
   Telnyx.resources = resources;
 
-  function Telnyx(this: TelnyxObject, key: string, version: string) {
+  function Telnyx(this: TelnyxObject, key: string, version?: string): void {
     if (!(this instanceof Telnyx)) {
-      return new (Telnyx as any)(key, version); // TS7009
+      return new (Telnyx as any)(key, version);
     }
 
     Object.defineProperty(this, '_emitter', {
@@ -343,7 +343,3 @@ export function createTelnyx(): typeof Telnyx {
 
   return Telnyx;
 }
-// expose constructor as a named property to enable mocking with Sinon.JS
-export const Telnyx = createTelnyx();
-
-export default Telnyx;

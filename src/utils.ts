@@ -1,15 +1,57 @@
 import * as qs from 'qs';
 import {
   MultipartRequestData,
+  RequestArgs,
   RequestData,
+  RequestOptions,
   TelnyxResourceObject,
   UrlInterpolator,
 } from './Types.js';
 import TelnyxResource from './TelnyxResource.js';
 
+const OPTIONS_KEYS = ['api_key'];
+
+export function isAuthKey(key: string) {
+  return (
+    typeof key == 'string' && /^KEY[A-Z0-9]{32}_[a-zA-Z0-9]{22}$/.test(key)
+  );
+}
+
 export function isObject(obj: unknown): boolean {
   const type = typeof obj;
   return (type === 'function' || type === 'object') && !!obj;
+}
+
+// const utils = {
+export function isOptionsHash(o: unknown): boolean | unknown {
+  return (
+    o &&
+    typeof o === 'object' &&
+    OPTIONS_KEYS.some((prop) => Object.prototype.hasOwnProperty.call(o, prop))
+  );
+}
+
+export function callbackifyPromiseWithTimeout<T>(
+  promise: Promise<T>,
+  callback: ((error: unknown, result: T | null) => void) | null,
+): Promise<T | void> {
+  if (callback) {
+    // Ensure callback is called outside of promise stack.
+    return promise.then(
+      (res) => {
+        setTimeout(() => {
+          callback(null, res);
+        }, 0);
+      },
+      (err) => {
+        setTimeout(() => {
+          callback(err, null);
+        }, 0);
+      },
+    );
+  }
+
+  return promise;
 }
 
 /**
@@ -34,6 +76,86 @@ export function createNestedMethods(
   });
 
   return methods;
+}
+
+/**
+ * Return the data argument from a list of arguments
+ *
+ * @param {object[]} args
+ * @returns {object}
+ */
+export function getDataFromArgs(args: RequestArgs): RequestData {
+  if (!Array.isArray(args) || !args[0] || typeof args[0] !== 'object') {
+    return {};
+  }
+
+  if (!isOptionsHash(args[0])) {
+    return args.shift();
+  }
+
+  const argKeys = Object.keys(args[0]);
+
+  const optionKeysInArgs = argKeys.filter((key) => OPTIONS_KEYS.includes(key));
+
+  // In some cases options may be the provided as the first argument.
+  // Here we're detecting a case where there are two distinct arguments
+  // (the first being args and the second options) and with known
+  // option keys in the first so that we can warn the user about it.
+  if (
+    optionKeysInArgs.length > 0 &&
+    optionKeysInArgs.length !== argKeys.length
+  ) {
+    emitWarning(
+      `Options found in arguments (${optionKeysInArgs.join(
+        ', ',
+      )}). Did you mean to pass an options object? See https://github.com/stripe/stripe-node/wiki/Passing-Options.`,
+    );
+  }
+
+  return {};
+}
+
+/**
+ * Return the options hash from a list of arguments
+ */
+export function getOptionsFromArgs(args: RequestArgs): RequestOptions {
+  var opts = {
+    auth: null,
+    headers: {},
+  };
+  if (args.length > 0) {
+    var arg = args[args.length - 1];
+    if (isAuthKey(arg)) {
+      opts.auth = args.pop();
+    } else if (isOptionsHash(arg)) {
+      var params = args.pop();
+
+      var extraKeys = Object.keys(params).filter(function (key) {
+        return OPTIONS_KEYS.indexOf(key) == -1;
+      });
+
+      if (extraKeys.length) {
+        emitWarning(
+          'Invalid options found (' + extraKeys.join(', ') + '); ignoring.',
+        );
+      }
+
+      if (params.api_key) {
+        opts.auth = params.api_key;
+      }
+    }
+  }
+  return opts;
+}
+
+export function emitWarning(warning: string): void {
+  if (typeof process.emitWarning !== 'function') {
+    return console.warn(
+      `Stripe: ${warning}`,
+    ); /* eslint-disable-line no-console */
+  }
+
+  return process.emitWarning(warning, 'Stripe');
 }
 
 export function toSingular(name: string): string {
