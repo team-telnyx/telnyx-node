@@ -17,7 +17,7 @@ type MultipartCallback = (
 // Mostly taken from Fermata.js
 // https://github.com/natevw/fermata/blob/5d9732a33d776ce925013a265935facd1626cc88/fermata.js#L315-L343
 function multipartDataGenerator(
-  method: string,
+  _method: string,
   data: MultipartRequestData,
   headers: RequestHeaders | undefined = {},
 ): Uint8Array {

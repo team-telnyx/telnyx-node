@@ -54,7 +54,7 @@ const Webhooks = {
           Buffer.from(signatureHeader, 'base64') as unknown as Uint8Array,
           Buffer.from(publicKey, 'base64') as unknown as Uint8Array,
         );
-      } catch (err) {
+      } catch (_e) {
         throwSignatureVerificationError(
           payload,
           signatureHeader,

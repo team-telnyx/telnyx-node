@@ -133,12 +133,15 @@ function makeRequest(
       return;
     }
 
-    function requestCallback(err: any, response: ResponsePayload): void {
+    function requestCallback(
+      err: unknown,
+      response: ResponsePayload | null,
+    ): void {
       if (err) {
         reject(err);
       } else {
         resolve(
-          spec.transformResponseData && response.data
+          spec.transformResponseData && response?.data
             ? spec.transformResponseData(response, self._telnyx)
             : response,
         );

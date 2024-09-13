@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import {Agent} from 'http';
 
 declare module 'telnyx' {
@@ -12,7 +10,7 @@ declare module 'telnyx' {
     }
 
     export class TelnyxResource {
-      static extend<T extends {[prop: string]: any}>(
+      static extend<T extends {[prop: string]: unknown}>(
         spec: T,
       ): TelnyxResourceExtension<T>;
       static method<ResponseObject = object>(spec: {
@@ -20,7 +18,7 @@ declare module 'telnyx' {
         path?: string;
         // Please note, methodType === 'list' uses autoPagination
         methodType?: 'list' | 'retrieve' | 'create';
-      }): (...args: any[]) => Response<ResponseObject>;
+      }): (...args: unknown[]) => Response<ResponseObject>;
       static MAX_BUFFERED_REQUEST_METRICS: number;
     }
     export type HttpAgent = Agent;

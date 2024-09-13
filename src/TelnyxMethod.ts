@@ -22,24 +22,28 @@ import {makeAutoPaginationMethods} from './autoPagination.js';
  * @param [spec.host] Hostname for the request.
  * @param [spec.transformResponseData]   mutates response data to decorate with any util functions or info.
  */
-function telnyxMethod(spec: MethodSpec): (...args: any[]) => Promise<any> {
-  return function (this: TelnyxResourceObject, ...args: any[]): Promise<any> {
-    const self = this;
-
+function telnyxMethod(
+  spec: MethodSpec,
+): (...args: unknown[]) => Promise<unknown> {
+  return function (
+    this: TelnyxResourceObject,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ...args: any[] // needs to be any since callback is extracted from these args and there's no easy way to type all args
+  ): Promise<unknown> {
     if (spec.paramsValues) {
-      populateUrlParamsWithResource(self, args, spec);
+      populateUrlParamsWithResource(this, args, spec);
     }
 
     const callback = typeof args[args.length - 1] == 'function' && args.pop();
 
     const requestPromise = utils.callbackifyPromiseWithTimeout(
-      makeRequest(self, args, spec, {}),
+      makeRequest(this, args, spec, {}),
       callback,
     );
 
     if (spec.methodType === 'list') {
       const autoPaginationMethods = makeAutoPaginationMethods(
-        self,
+        this,
         args,
         spec,
         requestPromise,
@@ -57,7 +61,7 @@ function telnyxMethod(spec: MethodSpec): (...args: any[]) => Promise<any> {
  */
 function populateUrlParamsWithResource(
   self: TelnyxResourceObject,
-  args: any[],
+  args: unknown[],
   spec: MethodSpec,
 ) {
   // if url params is not in resource response data.
@@ -66,9 +70,9 @@ function populateUrlParamsWithResource(
       result,
       name,
     ) {
-      // @ts-ignore TODO: cast name to index of self
+      // @ts-expect-error TODO: cast name to index of self
       if (self[name]) {
-        // @ts-ignore TODO: cast name to index of self
+        // @ts-expect-error TODO: cast name to index of self
         result.push(self[name]);
       }
       return result;

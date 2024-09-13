@@ -11,7 +11,7 @@ declare module 'telnyx' {
         timestampHeader: WebhookHeader,
         publicKey: string,
         tolerance: number,
-      ) => any;
+      ) => unknown;
       signature: {
         verifySignature: (
           payload: string,

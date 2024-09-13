@@ -24,7 +24,7 @@ export function isJsonString(str: string) {
       return false;
     }
     JSON.parse(str);
-  } catch (e) {
+  } catch (_e) {
     return false;
   }
   return true;
@@ -98,10 +98,11 @@ export function createNestedMethods(
   names: Array<string>,
   spec: (methodName: string) => MethodSpec,
 ) {
-  const methods: {[name: string]: (...args: any[]) => Promise<any>} = {};
+  const methods: {[name: string]: (...args: unknown[]) => Promise<unknown>} =
+    {};
 
   names.forEach(function (name) {
-    // @ts-ignore
+    // @ts-expect-error TODO: type name key by method names
     methods[name] = methods[utils.snakeToCamelCase(name)] = telnyxMethod(
       spec(name),
     );
@@ -122,7 +123,7 @@ export function getDataFromArgs(args: RequestArgs): RequestData {
   }
 
   if (!isOptionsHash(args[0])) {
-    return args.shift();
+    return args.shift() as RequestData;
   }
 
   const argKeys = Object.keys(args[0]);
@@ -157,10 +158,10 @@ export function getOptionsFromArgs(args: RequestArgs): RequestOptions {
   };
   if (args.length > 0) {
     const arg = args[args.length - 1];
-    if (isAuthKey(arg)) {
-      opts.auth = args.pop();
+    if (isAuthKey(arg as string)) {
+      opts.auth = args.pop() as string;
     } else if (isOptionsHash(arg)) {
-      const params = args.pop();
+      const params = {...(args.pop() as Record<string, unknown>)};
 
       const extraKeys = Object.keys(params).filter(function (key) {
         return OPTIONS_KEYS.indexOf(key) == -1;
@@ -173,7 +174,7 @@ export function getOptionsFromArgs(args: RequestArgs): RequestOptions {
       }
 
       if (params.api_key) {
-        opts.auth = params.api_key;
+        opts.auth = params.apiKey as string;
       }
     }
   }
@@ -235,10 +236,10 @@ export function flattenAndStringify(
           !Object.prototype.hasOwnProperty.call(value, 'data')
         ) {
           // Non-buffer non-file Objects are recursively flattened
-          return step(value, newKey);
+          return step(value as MultipartRequestData, newKey);
         } else {
           // Buffers and file objects are stored without modification
-          result[newKey] = value;
+          result[newKey] = value as string;
         }
       } else {
         // Primitives are converted to strings
@@ -268,8 +269,8 @@ export const makeURLInterpolator = ((): ((s: string) => UrlInterpolator) => {
   return (str: string): UrlInterpolator => {
     const cleanString = str.replace(/["\n\r\u2028\u2029]/g, ($0) => rc[$0]);
     return (outputs: Record<string, unknown>): string => {
-      return cleanString.replace(/\{([\s\S]+?)\}/g, ($0, $1) =>
-        // @ts-ignore
+      return cleanString.replace(/\{([\s\S]+?)\}/g, (_$0, $1) =>
+        // @ts-expect-error TODO: cast outputs to string
         encodeURIComponent(outputs[$1] || ''),
       );
     };
@@ -281,15 +282,20 @@ export const makeURLInterpolator = ((): ((s: string) => UrlInterpolator) => {
  * <!-- Public API accessible via Telnyx.TelnyxResource.extend -->
  */
 export function protoExtend(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   this: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sub: any,
 ): {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   new (...args: any[]): TelnyxResourceObject;
 } {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
   const Super = this;
   const Constructor = Object.prototype.hasOwnProperty.call(sub, 'constructor')
     ? sub.constructor
-    : function (this: TelnyxResourceObject, ...args: any[]): void {
+    : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      function (this: TelnyxResourceObject, ...args: any[]): void {
         Super.apply(this, args);
       };
 
@@ -311,7 +317,7 @@ export function protoExtend(
  *
  * @param [jsonString]  Response object
  */
-export function tryParseJSON(jsonString: string): {[key: string]: any} {
+export function tryParseJSON(jsonString: string): {[key: string]: unknown} {
   try {
     if (jsonString === '') {
       const defaultValue = {
@@ -322,7 +328,7 @@ export function tryParseJSON(jsonString: string): {[key: string]: any} {
     }
 
     return JSON.parse(jsonString);
-  } catch (e) {
+  } catch (_e) {
     const defaultValue = {
       data: jsonString,
     };

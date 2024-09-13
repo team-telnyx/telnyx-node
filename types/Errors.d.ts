@@ -8,7 +8,7 @@ declare module 'telnyx' {
       requestId?: string;
       responseBody?: unknown;
       code?: string;
-      detail?: string | Error | any;
+      detail?: string | Error | unknown;
       errors?: Array<{
         code: string;
         detail: string;

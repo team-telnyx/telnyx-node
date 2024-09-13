@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/triple-slash-reference */
+
 ///<reference path='./lib.d.ts' />
 ///<reference path='./Webhooks.d.ts' />
 ///<reference path='./Errors.d.ts' />

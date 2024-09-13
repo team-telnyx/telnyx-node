@@ -46,6 +46,8 @@ export function createTelnyx() {
 
   function Telnyx(this: TelnyxObject, key: string, version?: string): void {
     if (!(this instanceof Telnyx)) {
+      // needed for this constructor to be used without `new`
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return new (Telnyx as any)(key, version);
     }
 
@@ -149,7 +151,7 @@ export function createTelnyx() {
 
       info = info || {};
 
-      const appInfo = APP_INFO_PROPERTIES.reduce<Record<string, any>>(
+      const appInfo = APP_INFO_PROPERTIES.reduce<Record<string, unknown>>(
         function (accum, prop) {
           if (typeof info[prop] == 'string') {
             accum = accum || {};
@@ -158,14 +160,14 @@ export function createTelnyx() {
           }
 
           return accum;
-        }, // @ts-ignore
+        }, // @ts-expect-error force default of appInfo to be undefined with default param
         undefined,
       );
 
       // Kill the cached UA string because it may no longer be valid
       Telnyx.USER_AGENT_SERIALIZED = null;
 
-      this._appInfo = appInfo;
+      this._appInfo = appInfo as unknown as AppInfo;
     },
 
     setHttpAgent: function (agent: https.Agent | http.Agent) {
@@ -267,10 +269,10 @@ export function createTelnyx() {
       seed: Record<string, string | boolean | null>,
       cb: (userAgent: string) => void,
     ) {
-      const self = this;
-
-      exec('uname -a', function (err, uname) {
-        const userAgent: Record<string, string> = {};
+      exec('uname -a', (_err, uname) => {
+        const userAgent: Record<string, string> & {
+          application?: TelnyxObject['_appInfo'];
+        } = {};
         for (const field in seed) {
           userAgent[field] = encodeURIComponent(seed[field] ?? 'null');
         }
@@ -278,8 +280,8 @@ export function createTelnyx() {
         // URI-encode in case there are unusual characters in the system's uname.
         userAgent.uname = encodeURIComponent(uname) || 'UNKNOWN';
 
-        if (self._appInfo) {
-          userAgent.application = self._appInfo;
+        if (this._appInfo) {
+          userAgent.application = this._appInfo;
         }
 
         cb(JSON.stringify(userAgent));
@@ -316,7 +318,7 @@ export function createTelnyx() {
       for (const name in resources) {
         this._instantiateResource(name, this);
 
-        // @ts-ignore - TODO: infer this from resources object
+        // @ts-expect-error - TODO: infer this from resources object
         this[utils.toSingular(name)] = this._createConstructor(name, this);
       }
     },
@@ -324,10 +326,10 @@ export function createTelnyx() {
     _instantiateResource: function (name: string, self) {
       const camelCaseName = utils.pascalToCamelCase(name);
 
-      // @ts-ignore - TODO: infer this from resources object
+      // @ts-expect-error - TODO: infer this from resources object
       self[camelCaseName] = new resources[name](self);
 
-      // @ts-ignore - TODO: infer this from resources object
+      // @ts-expect-error - TODO: infer this from resources object
       return self[camelCaseName];
     },
 

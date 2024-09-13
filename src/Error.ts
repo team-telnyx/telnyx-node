@@ -1,4 +1,4 @@
-export type TelnyxRawError = {
+export interface TelnyxRawError {
   message?: string;
   type?: string;
   headers?: {[header: string]: string | string[] | undefined};
@@ -6,13 +6,13 @@ export type TelnyxRawError = {
   requestId?: string;
   responseBody?: unknown;
   code?: string;
-  detail?: string | Error | any;
+  detail?: string | Error | unknown;
   errors?: Array<{
     code: string;
     detail: string;
     title: string;
   }>;
-};
+}
 
 export const generate = (rawTelnyxError: TelnyxRawError): TelnyxError => {
   switch (rawTelnyxError.statusCode) {
@@ -52,7 +52,7 @@ export class TelnyxError extends Error {
   readonly raw: unknown;
   readonly headers?: TelnyxRawError['headers'];
   readonly requestId?: string;
-  readonly detail?: string | Error;
+  readonly detail?: string | Error | unknown;
 
   readonly code?: string;
   readonly statusCode?: number;
@@ -69,7 +69,7 @@ export class TelnyxError extends Error {
     this.requestId = raw.requestId;
     this.statusCode = raw.statusCode;
     this.responseBody = raw.responseBody;
-    // @ts-ignore
+    // @ts-expect-error message needs to be required here
     this.message = raw.message;
   }
 

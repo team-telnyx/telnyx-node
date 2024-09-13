@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   MethodSpec,
   PromiseCache,
@@ -55,7 +56,7 @@ export function makeAutoPaginationMethods(
   spec: MethodSpec,
   firstPagePromise: Promise<any>,
 ) {
-  const promiseCache: PromiseCache = {currentPromise: null};
+  const promiseCache: PromiseCache<IterationResult> = {currentPromise: null};
   let listPromise = firstPagePromise;
   let i = 0;
 
@@ -113,9 +114,12 @@ export function makeAutoPaginationMethods(
   // }
 
   function asyncIteratorNext(): Promise<any> {
-    return memoizedPromise(promiseCache, function (resolve, reject) {
-      return listPromise.then(iterate).then(resolve).catch(reject);
-    });
+    return memoizedPromise<IterationResult>(
+      promiseCache,
+      function (resolve, reject) {
+        return listPromise.then(iterate).then(resolve).catch(reject);
+      },
+    );
   }
 
   const autoPagingEach = makeAutoPagingEach(asyncIteratorNext);
@@ -227,7 +231,7 @@ function getItemCallback(args: Array<any>): IterationItemCallback | undefined {
  * to prevent page-turning race conditions.
  */
 function memoizedPromise<T>(
-  promiseCache: PromiseCache,
+  promiseCache: PromiseCache<T>,
   cb: (resolve: (value: T) => void, reject: (reason?: any) => void) => void,
 ): Promise<T> {
   if (promiseCache.currentPromise) {
@@ -243,8 +247,7 @@ function memoizedPromise<T>(
 function makeAutoPagingEach(
   asyncIteratorNext: () => Promise<IterationResult>,
 ): AutoPagingEach {
-  return function autoPagingEach(/* onItem?, onDone? */): Promise<void> {
-    const args = [].slice.call(arguments);
+  return function autoPagingEach(...args): Promise<void> {
     const onItem = getItemCallback(args);
     const onDone = getDoneCallback(args);
     if (args.length > 2) {
@@ -253,7 +256,7 @@ function makeAutoPagingEach(
 
     const autoPagePromise = wrapAsyncIteratorWithCallback(
       asyncIteratorNext,
-      // @ts-ignore we might need a null check
+      // @ts-expect-error we might need a null check
       onItem,
     );
     return utils.callbackifyPromiseWithTimeout(autoPagePromise, onDone);

@@ -43,24 +43,24 @@ function TelnyxResource(
   this._urlData = urlData || {};
 
   this.basePath = utils.makeURLInterpolator(
-    // @ts-ignore changing type of basePath
+    // @ts-expect-error changing type of basePath
     this.basePath || telnyx.getApiField('basePath'),
   );
-  // @ts-ignore changing type of path
+  // @ts-expect-error changing type of path
   this.resourcePath = this.path;
-  // @ts-ignore changing type of path
+  // @ts-expect-error changing type of path
   this.path = utils.makeURLInterpolator(this.path);
 
   if (this.includeBasic) {
     this.includeBasic.forEach((methodName) => {
-      // @ts-ignore TODO: cast `methodName` to `BASIC_METHODS` values
+      // @ts-expect-error TODO: cast `methodName` to `BASIC_METHODS` values
       this[methodName] = TelnyxResource.BASIC_METHODS[methodName];
     }, this);
   }
 
   if (this.nestedResources) {
     for (const resource in this.nestedResources) {
-      // @ts-ignore TODO: cast `resource` to  `nestedResources` values
+      // @ts-expect-error TODO: cast `resource` to  `nestedResources` values
       this[utils.pascalToCamelCase(resource)] = new this.nestedResources[
         resource
       ](telnyx);
@@ -77,7 +77,7 @@ function TelnyxResource(
 TelnyxResource.prototype = {
   _telnyx: null as TelnyxObject | null,
   _urlData: null as RequestData | null,
-  // @ts-ignore the type of path changes in ctor
+  // @ts-expect-error the type of path changes in ctor
   path: '' as UrlInterpolator,
   resourcePath: '',
 
@@ -139,15 +139,14 @@ TelnyxResource.prototype = {
     req: ReqTimeoutHandler,
     callback: RequestCallback,
   ) {
-    const self = this;
-    return function () {
+    return () => {
       const timeoutErr = new Error('ETIMEDOUT');
 
       req._isAborted = true;
       req.abort();
 
       callback.call(
-        self,
+        this,
         new TelnyxError.TelnyxConnectionError({
           message:
             'Request aborted due to timeout being reached (' + timeout + 'ms)',
@@ -159,6 +158,7 @@ TelnyxResource.prototype = {
   },
 
   _responseHandler(req: ReqHandler, callback: RequestCallback) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     return function (res: ResponsePayload) {
       let response = '';
@@ -193,11 +193,12 @@ TelnyxResource.prototype = {
           if (responseBody.errors) {
             const error = {} as TelnyxError.TelnyxRawError;
 
-            error.errors = responseBody.errors;
+            error.errors =
+              responseBody.errors as TelnyxError.TelnyxRawError['errors'];
 
             error.headers = headers;
             error.statusCode = res.statusCode;
-            error.requestId = res.requestId;
+            error.requestId = res.requestId as string;
 
             const err = self._buildError(error, res.statusCode);
 
@@ -210,7 +211,7 @@ TelnyxResource.prototype = {
               message: 'Invalid JSON received from the Telnyx API',
               responseBody: response,
               detail: e,
-              requestId: res.requestId,
+              requestId: res.requestId as string,
             }),
             null,
           );
@@ -222,7 +223,8 @@ TelnyxResource.prototype = {
           writable: false,
           value: res,
         });
-        callback.call(self, null, response);
+        // parsed json and found no errors so this is a valid response payload
+        callback.call(self, null, response as unknown as ResponsePayload);
       });
     };
   },
@@ -287,16 +289,15 @@ TelnyxResource.prototype = {
     requestRetries: number,
     callback: RequestCallback,
   ) {
-    const self = this;
-    return function (error: Error) {
+    return (error: Error) => {
       if (req._isAborted) {
         // already handled
         return;
       }
       callback.call(
-        self,
+        this,
         new TelnyxError.TelnyxConnectionError({
-          message: self._generateConnectionErrorMessage(requestRetries),
+          message: this._generateConnectionErrorMessage(requestRetries),
           responseBody: error,
         }),
         null,
@@ -304,7 +305,7 @@ TelnyxResource.prototype = {
     };
   },
 
-  _shouldRetry: function (res: ResponsePayload | null, numRetries: number) {
+  _shouldRetry: function (res: ResponsePayload, numRetries: number) {
     // Do not retry if we are out of retries.
     if (numRetries >= this._telnyx.getMaxNetworkRetries()) {
       return false;
@@ -324,7 +325,7 @@ TelnyxResource.prototype = {
     if (
       res.statusCode &&
       res.statusCode >= 500 &&
-      res.req._requestEvent.method !== 'POST'
+      res.req._requestEvent?.method !== 'POST'
     ) {
       return true;
     }
@@ -381,13 +382,14 @@ TelnyxResource.prototype = {
 
   _request: function (
     method: MethodSpec['method'],
-    host: MethodSpec['host'] | null,
+    _host: MethodSpec['host'] | null,
     path: MethodSpec['path'],
     data: RequestData,
     auth: RequestOptions['auth'],
     options: {headers?: RequestOptions['headers']},
-    callback: (err: any, response?: ResponsePayload) => void,
+    callback: (err: unknown, response?: ResponsePayload | null) => void,
   ): void {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     let requestData: string;
 
@@ -395,7 +397,7 @@ TelnyxResource.prototype = {
       error: Error | null,
       data: Uint8Array | string | null,
     ) {
-      let headers: RequestHeaders;
+      let headers: RequestHeaders = {};
 
       if (error) {
         return callback(error);
@@ -510,7 +512,7 @@ TelnyxResource.prototype = {
 
       req.setTimeout(timeout, self._timeoutHandler(timeout, req, callback));
 
-      req.on('response', function (res) {
+      req.on('response', function (res: ResponsePayload) {
         if (self._shouldRetry(res, requestRetries)) {
           return retryRequest(makeRequest, headers, requestRetries);
         } else {
