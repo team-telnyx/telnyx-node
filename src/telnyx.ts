@@ -91,7 +91,7 @@ export function createTelnyx() {
     off: null!,
     once: null!,
     VERSION: null!,
-    StripeResource: null!,
+    TelnyxResource: null!,
     webhooks: null!,
     errors: null!,
     _api: null!,

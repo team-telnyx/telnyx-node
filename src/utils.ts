@@ -140,7 +140,7 @@ export function getDataFromArgs(args: RequestArgs): RequestData {
     emitWarning(
       `Options found in arguments (${optionKeysInArgs.join(
         ', ',
-      )}). Did you mean to pass an options object? See https://github.com/stripe/stripe-node/wiki/Passing-Options.`,
+      )}). Did you mean to pass an options object?`,
     );
   }
 
@@ -183,11 +183,11 @@ export function getOptionsFromArgs(args: RequestArgs): RequestOptions {
 export function emitWarning(warning: string): void {
   if (typeof process.emitWarning !== 'function') {
     return console.warn(
-      `Stripe: ${warning}`,
+      `Telnyx: ${warning}`,
     ); /* eslint-disable-line no-console */
   }
 
-  return process.emitWarning(warning, 'Stripe');
+  return process.emitWarning(warning, 'Telnyx');
 }
 
 export function toSingular(name: string): string {
@@ -278,7 +278,7 @@ export const makeURLInterpolator = ((): ((s: string) => UrlInterpolator) => {
 
 /**
  * Provide simple "Class" extension mechanism.
- * <!-- Public API accessible via Stripe.StripeResource.extend -->
+ * <!-- Public API accessible via Telnyx.TelnyxResource.extend -->
  */
 export function protoExtend(
   this: any,
@@ -297,7 +297,7 @@ export function protoExtend(
   // divergent JS implementations like the one found in Qt. See here for more
   // context:
   //
-  // https://github.com/stripe/stripe-node/pull/334
+  // https://github.com/team-telnyx/telnyx-node/pull/179
   Object.assign(Constructor, Super);
   Constructor.prototype = Object.create(Super.prototype);
   Object.assign(Constructor.prototype, sub);
