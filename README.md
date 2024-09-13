@@ -313,10 +313,6 @@ The test suite depends on the [Prism Mock Server](https://github.com/stoplightio
 
 ```bash
 npm install -g @stoplight/prism-cli
-
-# OR
-
-yarn global add @stoplight/prism-cli
 ```
 
 Once installed, start the prism mock service with the following command:
@@ -335,7 +331,7 @@ One final step -- because the Node SDK originally expected to reach the legacy `
 git clone git@github.com:team-telnyx/telnyx-prism-mock.git
 cd telnyx-prism-mock/proxy
 
-yarn install
+npm install
 node index.js
 ```
 
@@ -393,6 +389,24 @@ To view verbose debugging for `nock` run the tests with:
 
 ```bash
 $ DEBUG=nock.* npm test
+```
+
+### Typescript
+
+Run:
+
+```bash
+npm run build
+```
+
+Then check output in [dist](./dist) folder
+
+### Linter (Prettier)
+
+Add an [editor integration](https://prettier.io/docs/en/editors.html) or:
+
+```bash
+$ npm run fix
 ```
 
 ## Acknowledgements
