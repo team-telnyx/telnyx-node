@@ -1,4 +1,18 @@
-import {TelnyxRawError} from './Types.js';
+export type TelnyxRawError = {
+  message?: string;
+  type?: string;
+  headers?: {[header: string]: string | string[] | undefined};
+  statusCode?: number;
+  requestId?: string;
+  responseBody?: unknown;
+  code?: string;
+  detail?: string | Error | any;
+  errors?: Array<{
+    code: string;
+    detail: string;
+    title: string;
+  }>;
+};
 
 export const generate = (rawTelnyxError: TelnyxRawError): TelnyxError => {
   switch (rawTelnyxError.statusCode) {

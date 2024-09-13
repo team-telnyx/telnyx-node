@@ -1,6 +1,7 @@
 import {EventEmitter} from 'events';
 import {ClientRequest, Agent as HttpAgent, IncomingMessage} from 'http';
 import {Agent as HttpsAgent} from 'https';
+import {TelnyxRawError} from './Error.ts';
 
 export type AppInfo = {name?: string} & Record<string, unknown>;
 export type BufferedFile = {
@@ -191,22 +192,6 @@ export type TelnyxResourceObject = {
   createUrlData: () => RequestData;
   initialize: (...args: Array<any>) => void;
   requestDataProcessor: RequestDataProcessor | null;
-};
-
-export type TelnyxRawError = {
-  message?: string;
-  type?: string;
-  headers?: {[header: string]: string | string[] | undefined};
-  statusCode?: number;
-  requestId?: string;
-  responseBody?: unknown;
-  code?: string;
-  detail?: string | Error | any;
-  errors?: Array<{
-    code: string;
-    detail: string;
-    title: string;
-  }>;
 };
 
 export type ReqHandler = ClientRequest & {

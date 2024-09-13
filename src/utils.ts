@@ -5,8 +5,6 @@ import {
   RequestArgs,
   RequestData,
   RequestOptions,
-  ResponsePayload,
-  TelnyxRawError,
   TelnyxResourceObject,
   UrlInterpolator,
 } from './Types.js';
@@ -153,7 +151,7 @@ export function getDataFromArgs(args: RequestArgs): RequestData {
  * Return the options hash from a list of arguments
  */
 export function getOptionsFromArgs(args: RequestArgs): RequestOptions {
-  const opts = {
+  const opts: RequestOptions = {
     auth: null,
     headers: {},
   };
@@ -288,7 +286,6 @@ export function protoExtend(
 ): {
   new (...args: any[]): TelnyxResourceObject;
 } {
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
   const Super = this;
   const Constructor = Object.prototype.hasOwnProperty.call(sub, 'constructor')
     ? sub.constructor

@@ -13,7 +13,6 @@
     "strictFunctionTypes": true,
     "types": [ "node" ],
     "esModuleInterop": false,
-    "resolveJsonModule": true,
-    "declaration": true
+    "resolveJsonModule": true
   },
 }

@@ -18,7 +18,6 @@ import {
   RequestOptions,
   ResponsePayload,
   TelnyxObject,
-  TelnyxRawError,
   TelnyxResourceObject,
 } from './Types.js';
 
@@ -60,7 +59,7 @@ function TelnyxResource(
   }
 
   if (this.nestedResources) {
-    for (var resource in this.nestedResources) {
+    for (const resource in this.nestedResources) {
       // @ts-ignore TODO: cast `resource` to  `nestedResources` values
       this[utils.pascalToCamelCase(resource)] = new this.nestedResources[
         resource
@@ -160,7 +159,7 @@ TelnyxResource.prototype = {
   },
 
   _responseHandler(req: ReqHandler, callback: RequestCallback) {
-    var self = this;
+    const self = this;
     return function (res: ResponsePayload) {
       let response = '';
 
@@ -192,7 +191,7 @@ TelnyxResource.prototype = {
           const responseBody = utils.tryParseJSON(response);
 
           if (responseBody.errors) {
-            const error = {} as TelnyxRawError;
+            const error = {} as TelnyxError.TelnyxRawError;
 
             error.errors = responseBody.errors;
 
@@ -229,7 +228,7 @@ TelnyxResource.prototype = {
   },
 
   _buildError: function (
-    error: TelnyxRawError,
+    error: TelnyxError.TelnyxRawError,
     statusCode: number | undefined,
   ) {
     let err;
@@ -334,13 +333,13 @@ TelnyxResource.prototype = {
   },
 
   _getSleepTimeInMS: function (numRetries) {
-    var initialNetworkRetryDelay = this._telnyx.getInitialNetworkRetryDelay();
-    var maxNetworkRetryDelay = this._telnyx.getMaxNetworkRetryDelay();
+    const initialNetworkRetryDelay = this._telnyx.getInitialNetworkRetryDelay();
+    const maxNetworkRetryDelay = this._telnyx.getMaxNetworkRetryDelay();
 
     // Apply exponential backoff with initialNetworkRetryDelay on the
     // number of numRetries so far as inputs. Do not allow the number to exceed
     // maxNetworkRetryDelay.
-    var sleepSeconds = Math.min(
+    let sleepSeconds = Math.min(
       initialNetworkRetryDelay * Math.pow(numRetries - 1, 2),
       maxNetworkRetryDelay,
     );
@@ -389,7 +388,7 @@ TelnyxResource.prototype = {
     options: {headers?: RequestOptions['headers']},
     callback: (err: any, response?: ResponsePayload) => void,
   ): void {
-    var self = this;
+    const self = this;
     let requestData: string;
 
     function makeRequestWithData(

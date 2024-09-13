@@ -56,8 +56,8 @@ export function makeAutoPaginationMethods(
   firstPagePromise: Promise<any>,
 ) {
   const promiseCache: PromiseCache = {currentPromise: null};
-  var listPromise = firstPagePromise;
-  var i = 0;
+  let listPromise = firstPagePromise;
+  let i = 0;
 
   function iterate(
     listResult: ListResult,
@@ -75,14 +75,14 @@ export function makeAutoPaginationMethods(
     }
 
     if (i < listResult.data.length) {
-      var value = listResult.data[i];
+      const value = listResult.data[i];
       i += 1;
       return {value: value, done: false};
     } else if (hasMore(listResult)) {
       // Reset counter, request next page, and recurse.
       i = 0;
-      var nextPageNumber = getNextPageNumber(listResult);
-      var pageSize = getPageSize(listResult);
+      const nextPageNumber = getNextPageNumber(listResult);
+      const pageSize = getPageSize(listResult);
       listPromise = makeRequest(self, requestArgs, spec, {
         page: {number: nextPageNumber, size: pageSize},
       });
@@ -156,7 +156,7 @@ function getDoneCallback(args: Array<any>): IterationDoneCallback | null {
   if (args.length < 2) {
     return null;
   }
-  var onDone = args[1];
+  const onDone = args[1];
   if (typeof onDone !== 'function') {
     throw Error(
       'The second argument to autoPagingEach, if present, must be a callback function; receieved ' +
@@ -181,7 +181,7 @@ function getItemCallback(args: Array<any>): IterationItemCallback | undefined {
   if (args.length === 0) {
     return undefined;
   }
-  var onItem = args[0];
+  const onItem = args[0];
   if (typeof onItem !== 'function') {
     throw Error(
       'The first argument to autoPagingEach, if present, must be a callback function; receieved ' +
@@ -206,15 +206,15 @@ function getItemCallback(args: Array<any>): IterationItemCallback | undefined {
   // 2. `.autoPagingEach(async (item) => { await doSomething(item); return false; });`
   // 3. `.autoPagingEach((item) => doSomething(item).then(() => false));`
   return function _onItem(item, next) {
-    var shouldContinue = onItem(item);
+    const shouldContinue = onItem(item);
     next(shouldContinue);
   };
 }
 
 // function getLastId(listResult) {
-//   var lastIdx = listResult.data.length - 1;
-//   var lastItem = listResult.data[lastIdx];
-//   var lastId = lastItem && lastItem.id;
+//   const lastIdx = listResult.data.length - 1;
+//   const lastItem = listResult.data[lastIdx];
+//   const lastId = lastItem && lastItem.id;
 //   if (!lastId) {
 //     throw Error('Unexpected: No `id` found on the last item while auto-paging a list.');
 //   }

@@ -5,7 +5,7 @@ import * as TelnyxError from './Error.js';
 type WebhookPayload = string;
 type WebhookHeader = string;
 
-const Webhook = {
+const Webhooks = {
   DEFAULT_TOLERANCE: 300, // 5 minutes
 
   constructEvent: function (
@@ -20,10 +20,10 @@ const Webhook = {
       signatureHeader,
       timestampHeader,
       publicKey,
-      tolerance || Webhook.DEFAULT_TOLERANCE,
+      tolerance || Webhooks.DEFAULT_TOLERANCE,
     );
 
-    var jsonPayload = JSON.parse(payload);
+    const jsonPayload = JSON.parse(payload);
     return jsonPayload;
   },
 
@@ -40,9 +40,12 @@ const Webhook = {
         ? timestampHeader.toString('utf8')
         : timestampHeader;
 
-      var payloadBuffer = Buffer.from(`${timestampHeader}|${payload}`, 'utf8');
+      const payloadBuffer = Buffer.from(
+        `${timestampHeader}|${payload}`,
+        'utf8',
+      );
 
-      var verification;
+      let verification;
 
       try {
         // TODO: this cast is a workaround as the types are not compatible and this `method` is outdated
@@ -67,7 +70,7 @@ const Webhook = {
         );
       }
 
-      var timestampAge =
+      const timestampAge =
         Math.floor(Date.now() / 1000) - parseInt(timestampHeader, 10);
 
       if (tolerance > 0 && timestampAge > tolerance) {
@@ -101,4 +104,4 @@ function throwSignatureVerificationError(
   });
 }
 
-export default Webhook;
+export default Webhooks;
