@@ -22,7 +22,20 @@ declare module 'telnyx' {
        */
       class TelnyxError extends Error {
         readonly message: string;
-        readonly type: string;
+        readonly type:
+          | 'TelnyxInvalidRequestError'
+          | 'TelnyxAPIError'
+          | 'TelnyxAuthenticationError'
+          | 'TelnyxPermissionError'
+          | 'TelnyxResourceNotFoundError'
+          | 'TelnyxMethodNotSupportedError'
+          | 'TelnyxTimeoutError'
+          | 'TelnyxUnsupportedMediaTypeError'
+          | 'TelnyxInvalidParametersError'
+          | 'TelnyxRateLimitError'
+          | 'TelnyxServiceUnavailableError'
+          | 'TelnyxConnectionError'
+          | 'TelnyxSignatureVerificationError';
         readonly raw: unknown;
         readonly headers?: TelnyxRawError['headers'];
         readonly requestId?: string;
