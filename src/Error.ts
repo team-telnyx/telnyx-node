@@ -36,7 +36,7 @@ export class TelnyxError extends Error {
   readonly message: string;
   readonly type: string;
   readonly raw: unknown;
-  readonly headers?: {[header: string]: string};
+  readonly headers?: TelnyxRawError['headers'];
   readonly requestId?: string;
   readonly detail?: string | Error;
 

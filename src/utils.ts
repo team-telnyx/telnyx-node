@@ -1,9 +1,12 @@
 import * as qs from 'qs';
 import {
+  MethodSpec,
   MultipartRequestData,
   RequestArgs,
   RequestData,
   RequestOptions,
+  ResponsePayload,
+  TelnyxRawError,
   TelnyxResourceObject,
   UrlInterpolator,
 } from './Types.js';
@@ -15,6 +18,18 @@ export function isAuthKey(key: string) {
   return (
     typeof key == 'string' && /^KEY[A-Z0-9]{32}_[a-zA-Z0-9]{22}$/.test(key)
   );
+}
+
+export function isJsonString(str: string) {
+  try {
+    if (!str || str.includes('filter[tag]=')) {
+      return false;
+    }
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }
 
 export function isObject(obj: unknown): boolean {
@@ -29,6 +44,25 @@ export function isOptionsHash(o: unknown): boolean | unknown {
     typeof o === 'object' &&
     OPTIONS_KEYS.some((prop) => Object.prototype.hasOwnProperty.call(o, prop))
   );
+}
+
+/**
+ * Remove empty values from an object
+ */
+export function removeEmpty(
+  obj: Record<string, unknown>,
+): Record<string, unknown> {
+  if (typeof obj !== 'object') {
+    throw new Error('Argument must be an object');
+  }
+
+  Object.keys(obj).forEach(function (key) {
+    if (obj[key] === null || obj[key] === undefined) {
+      delete obj[key];
+    }
+  });
+
+  return obj;
 }
 
 export function callbackifyPromiseWithTimeout<T>(
@@ -64,9 +98,9 @@ export function callbackifyPromiseWithTimeout<T>(
 export function createNestedMethods(
   telnyxMethod: typeof TelnyxResource.method,
   names: Array<string>,
-  spec: any,
+  spec: (methodName: string) => MethodSpec,
 ) {
-  var methods = {};
+  const methods: {[name: string]: (...args: any[]) => Promise<any>} = {};
 
   names.forEach(function (name) {
     // @ts-ignore
@@ -119,18 +153,18 @@ export function getDataFromArgs(args: RequestArgs): RequestData {
  * Return the options hash from a list of arguments
  */
 export function getOptionsFromArgs(args: RequestArgs): RequestOptions {
-  var opts = {
+  const opts = {
     auth: null,
     headers: {},
   };
   if (args.length > 0) {
-    var arg = args[args.length - 1];
+    const arg = args[args.length - 1];
     if (isAuthKey(arg)) {
       opts.auth = args.pop();
     } else if (isOptionsHash(arg)) {
-      var params = args.pop();
+      const params = args.pop();
 
-      var extraKeys = Object.keys(params).filter(function (key) {
+      const extraKeys = Object.keys(params).filter(function (key) {
         return OPTIONS_KEYS.indexOf(key) == -1;
       });
 
@@ -272,4 +306,30 @@ export function protoExtend(
   Object.assign(Constructor.prototype, sub);
 
   return Constructor;
+}
+
+/**
+ * tryParseJSON used to only parse JSON response,
+ * if it is not a JSON response sends the value inside a data object to keep the standard.
+ *
+ * @param [jsonString]  Response object
+ */
+export function tryParseJSON(jsonString: string): {[key: string]: any} {
+  try {
+    if (jsonString === '') {
+      const defaultValue = {
+        data: jsonString,
+      };
+
+      return defaultValue;
+    }
+
+    return JSON.parse(jsonString);
+  } catch (e) {
+    const defaultValue = {
+      data: jsonString,
+    };
+
+    return defaultValue;
+  }
 }

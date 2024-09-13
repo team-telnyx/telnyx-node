@@ -1,5 +1,5 @@
 import {EventEmitter} from 'events';
-import {Agent as HttpAgent} from 'http';
+import {ClientRequest, Agent as HttpAgent, IncomingMessage} from 'http';
 import {Agent as HttpsAgent} from 'https';
 
 export type AppInfo = {name?: string} & Record<string, unknown>;
@@ -96,12 +96,20 @@ export type TypedData = {
 };
 
 export type RequestArgs = Array<any>;
+type RequestCallback = (
+  this: TelnyxResourceObject | void,
+  error: Error | null,
+  response?: any,
+) => RequestCallbackReturn;
+type RequestCallbackReturn = any;
 export type RequestData = Record<string, any>;
 export type RequestOptions = {
   auth: string | null;
-  headers: Record<string, unknown>;
+  headers: RequestHeaders;
 };
-export type ResponsePayload = {data: any; [key: string]: any};
+export type ResponsePayload = IncomingMessage & {
+  [key: string]: any;
+};
 export type ResponseHeaderValue = string | string[];
 export type ResponseHeaders = Record<string, ResponseHeaderValue>;
 type PromiseCache = {
@@ -138,12 +146,39 @@ export type TelnyxResourceObject = {
     requestPath: MethodSpec['path'],
     requestData: RequestData,
     auth: RequestOptions['auth'],
-    options: {headers: RequestOptions['headers']} | {},
+    options: {headers?: RequestOptions['headers']},
     callback: (err: any, response: ResponsePayload) => void,
-  ) => Promise<ResponsePayload>;
+  ) => void;
+  _buildError: (error: TelnyxRawError, statusCode: number | undefined) => Error;
+  _generateConnectionErrorMessage: (
+    requestRetries: number,
+  ) => string | undefined;
+  _shouldRetry: (res: ResponsePayload | null, numRetries: number) => boolean;
+  _getSleepTimeInMS: (numRetries: number) => number;
+  _defaultHeaders: (
+    auth: RequestOptions['auth'],
+    requestData: string,
+  ) => RequestHeaders;
+  _timeoutHandler: (
+    timeout: number,
+    req: ReqTimeoutHandler,
+    callback: RequestCallback,
+  ) => () => void;
+  _responseHandler: (
+    req: ReqTimeoutHandler,
+    callback: RequestCallback,
+  ) => (res: ResponsePayload) => void;
+  _errorHandler: (
+    req: ReqTimeoutHandler,
+    requestRetries: number,
+    callback: RequestCallback,
+  ) => (error: Error) => void;
   includeBasic: Array<string>;
   nestedResources: {
     [key: string]: new (...args: any[]) => TelnyxResourceObject;
+  };
+  instanceMethods: {
+    [key: string]: (...args: any[]) => Promise<any>;
   };
   basePath: UrlInterpolator;
   path: UrlInterpolator;
@@ -155,12 +190,13 @@ export type TelnyxResourceObject = {
   ) => string;
   createUrlData: () => RequestData;
   initialize: (...args: Array<any>) => void;
+  requestDataProcessor: RequestDataProcessor | null;
 };
 
 export type TelnyxRawError = {
   message?: string;
   type?: string;
-  headers?: {[header: string]: string};
+  headers?: {[header: string]: string | string[] | undefined};
   statusCode?: number;
   requestId?: string;
   responseBody?: unknown;
@@ -172,5 +208,26 @@ export type TelnyxRawError = {
     title: string;
   }>;
 };
+
+export type ReqHandler = ClientRequest & {
+  _requestStart: number;
+  _requestEvent: Record<string, unknown>;
+};
+
+export type ReqTimeoutHandler = ClientRequest & {
+  _isAborted?: boolean;
+  _requestStart?: number;
+  _requestEvent?: Record<string, unknown>;
+};
+
+export type RequestDataProcessor = (
+  method: string,
+  data: RequestData,
+  headers: RequestHeaders | undefined,
+  prepareAndMakeRequest: (
+    error: Error | null,
+    data: Uint8Array | string | null,
+  ) => void,
+) => void;
 
 export type UrlInterpolator = (params: Record<string, unknown>) => string;

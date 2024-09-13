@@ -19,7 +19,7 @@ type MultipartCallback = (
 function multipartDataGenerator(
   method: string,
   data: MultipartRequestData,
-  headers: RequestHeaders,
+  headers: RequestHeaders | undefined = {},
 ): Uint8Array {
   const segno = (
     Math.round(Math.random() * 1e16) + Math.round(Math.random() * 1e16)
@@ -80,7 +80,7 @@ export function multipartRequestDataProcessor(
   this: TelnyxResourceObject,
   method: string,
   data: RequestData,
-  headers: RequestHeaders,
+  headers: RequestHeaders | undefined,
   callback: MultipartCallback,
 ): MultipartCallbackReturn {
   data = data || {};

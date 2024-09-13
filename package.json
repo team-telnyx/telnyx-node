@@ -71,7 +71,7 @@
     "exclude": [
       "testUtils/**/*",
       "test/**/*",
-      "lib/TelnyxMethod.basic.js"
+      "src/TelnyxMethod.basic.js"
     ]
   }
 }

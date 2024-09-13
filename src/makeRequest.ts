@@ -15,34 +15,34 @@ function _getRequestOpts(
   overrideData: RequestData,
 ) {
   // Extract spec values with defaults.
-  var commandPath =
+  const commandPath =
     typeof spec.path == 'function'
       ? spec.path
       : utils.makeURLInterpolator(spec.path || '');
-  var requestMethod = (spec.method || 'GET').toUpperCase();
-  var urlParams = spec.urlParams || [];
-  var encode =
+  const requestMethod = (spec.method || 'GET').toUpperCase();
+  const urlParams = spec.urlParams || [];
+  const encode =
     spec.encode ||
     function (data) {
       return data;
     };
-  var host = spec.host;
+  const host = spec.host;
 
   // Don't mutate args externally.
-  var args = [].slice.call(requestArgs);
+  const args = [].slice.call(requestArgs);
 
   // Generate and validate url params.
-  var urlData = self.createUrlData();
-  for (var i = 0, l = urlParams.length; i < l; ++i) {
-    var path;
+  const urlData = self.createUrlData();
+  for (let i = 0, l = urlParams.length; i < l; ++i) {
+    let path;
 
     // Note that we shift the args array after every iteration so this just
     // grabs the "next" argument for use as a URL parameter.
-    var arg = args[0];
+    const arg = args[0];
 
-    var param = urlParams[i];
+    let param = urlParams[i];
 
-    var isOptional = OPTIONAL_REGEX.test(param);
+    const isOptional = OPTIONAL_REGEX.test(param);
     param = param.replace(OPTIONAL_REGEX, '');
 
     if (param == 'id' && typeof arg !== 'string') {
@@ -82,13 +82,13 @@ function _getRequestOpts(
   }
 
   // Pull request data and options (headers, auth) from args.
-  var dataFromArgs = utils.getDataFromArgs(args);
-  var data = encode(Object.assign({}, dataFromArgs, overrideData));
-  var options = utils.getOptionsFromArgs(args);
+  const dataFromArgs = utils.getDataFromArgs(args);
+  const data = encode(Object.assign({}, dataFromArgs, overrideData));
+  const options = utils.getOptionsFromArgs(args);
 
   // Validate that there are no more args.
   if (args.length) {
-    path = self.createResourcePathWithSymbols(spec.path);
+    const path = self.createResourcePathWithSymbols(spec.path);
     throw new Error(
       'Telnyx: Unknown arguments (' +
         args +
@@ -101,8 +101,8 @@ function _getRequestOpts(
     );
   }
 
-  var requestPath = self.createFullPath(commandPath, urlData);
-  var headers = Object.assign(options.headers, spec.headers);
+  const requestPath = self.createFullPath(commandPath, urlData);
+  const headers = Object.assign(options.headers, spec.headers);
 
   if (spec.validator) {
     spec.validator(data, {headers: headers});
@@ -125,8 +125,9 @@ function makeRequest(
   overrideData: RequestData,
 ) {
   return new Promise(function (resolve, reject) {
+    let opts;
     try {
-      var opts = _getRequestOpts(self, requestArgs, spec, overrideData);
+      opts = _getRequestOpts(self, requestArgs, spec, overrideData);
     } catch (err) {
       reject(err);
       return;
