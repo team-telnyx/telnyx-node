@@ -13,6 +13,7 @@
     "strictFunctionTypes": true,
     "types": [ "node" ],
     "esModuleInterop": false,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "noUncheckedIndexedAccess": true
   },
 }

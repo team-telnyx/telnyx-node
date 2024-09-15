@@ -203,7 +203,7 @@ export function toSingular(name: string): string {
  * Allow for special capitalization cases (such as OAuth)
  */
 export function pascalToCamelCase(name: string): string {
-  return name[0].toLowerCase() + name.substring(1);
+  return name[0]?.toLowerCase() + name.substring(1);
 }
 
 export function stringifyRequestData(data: RequestData | string): string {
@@ -267,7 +267,10 @@ export const makeURLInterpolator = ((): ((s: string) => UrlInterpolator) => {
     '\u2029': '\\u2029',
   } as Record<string, string>;
   return (str: string): UrlInterpolator => {
-    const cleanString = str.replace(/["\n\r\u2028\u2029]/g, ($0) => rc[$0]);
+    const cleanString = str.replace(
+      /["\n\r\u2028\u2029]/g,
+      ($0) => rc[$0] || '',
+    );
     return (outputs: Record<string, unknown>): string => {
       return cleanString.replace(/\{([\s\S]+?)\}/g, (_$0, $1) =>
         // @ts-expect-error TODO: cast outputs to string

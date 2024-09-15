@@ -68,7 +68,7 @@ function multipartDataGenerator(
     } else {
       push('Content-Disposition: form-data; name=' + q(k));
       push('');
-      push(v);
+      push(v || '');
     }
   }
   push('--' + segno + '--');

@@ -40,7 +40,7 @@ function _getRequestOpts(
     // grabs the "next" argument for use as a URL parameter.
     const arg = args[0];
 
-    let param = urlParams[i];
+    let param = urlParams[i] || '';
 
     const isOptional = OPTIONAL_REGEX.test(param);
     param = param.replace(OPTIONAL_REGEX, '');
