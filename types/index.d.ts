@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/triple-slash-reference */
 
 ///<reference path='./lib.d.ts' />
+///<reference path='./TelnyxAPI.d.ts' />
 ///<reference path='./Webhooks.d.ts' />
 ///<reference path='./Errors.d.ts' />
 
 // Imports: The beginning of the section generated from our OpenAPI spec
-// TODO: Add the resources
+///<reference path='./BalanceResource.d.ts' />
 // Imports: The end of the section generated from our OpenAPI spec
 
 declare module 'telnyx' {
@@ -22,7 +23,7 @@ declare module 'telnyx' {
     TelnyxResource: Telnyx.TelnyxResource;
 
     // Fields: The beginning of the section generated from our OpenAPI spec
-    // TODO: Add the resources
+    balance: Telnyx.BalanceResource;
     // Fields: The end of the section generated from our OpenAPI spec
     webhooks: Telnyx.Webhooks;
     /**
