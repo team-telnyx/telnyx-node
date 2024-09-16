@@ -1,5 +1,10 @@
 import {EventEmitter} from 'events';
-import {ClientRequest, Agent as HttpAgent, IncomingMessage} from 'http';
+import {
+  ClientRequest,
+  Agent as HttpAgent,
+  IncomingHttpHeaders,
+  IncomingMessage,
+} from 'http';
 import {Agent as HttpsAgent} from 'https';
 import {TelnyxRawError} from './Error.ts';
 
@@ -13,6 +18,10 @@ export type BufferedFile = {
   file: {data: Uint8Array};
 };
 
+export type TelnyxIncomingHttpHeaders = IncomingHttpHeaders & {
+  'request-id'?: string | undefined;
+  'x-request-id'?: string | undefined;
+};
 /**
  * Interface encapsulating various utility functions whose
  * implementations depend on the platform / JS runtime.
@@ -113,6 +122,7 @@ export type RequestOptions = {
 };
 export type ResponsePayload = IncomingMessage & {
   [key: string]: unknown;
+  requestId: string;
 } & {req: ReqTimeoutHandler};
 export type ResponseHeaderValue = string | string[];
 export type ResponseHeaders = Record<string, ResponseHeaderValue>;

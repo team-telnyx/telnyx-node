@@ -19,5 +19,11 @@ export default tseslint.config({
         ignoreRestSiblings: true,
       },
     ],
+    '@typescript-eslint/no-empty-object-type': [
+      'error',
+      {
+        allowInterfaces: 'always',
+      },
+    ],
   },
 });

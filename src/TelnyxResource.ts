@@ -17,6 +17,7 @@ import {
   RequestHeaders,
   RequestOptions,
   ResponsePayload,
+  TelnyxIncomingHttpHeaders,
   TelnyxObject,
   TelnyxResourceObject,
 } from './Types.js';
@@ -168,7 +169,7 @@ TelnyxResource.prototype = {
         response += chunk;
       });
       res.on('end', function () {
-        const headers = res.headers || {};
+        const headers: TelnyxIncomingHttpHeaders = res.headers || {};
         // NOTE: Telnyx responds with lowercase header names/keys.
 
         // For convenience, make Request-Id easily accessible on
