@@ -135,7 +135,7 @@ function makeRequest(
 
     function requestCallback(
       err: unknown,
-      response: ResponsePayload | null,
+      response?: ResponsePayload | null,
     ): void {
       if (err) {
         reject(err);

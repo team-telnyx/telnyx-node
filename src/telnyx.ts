@@ -20,6 +20,8 @@ export function createTelnyx() {
   Telnyx.DEFAULT_TIMEOUT = http.createServer().timeout;
 
   Telnyx.PACKAGE_VERSION = version;
+  Telnyx.REQUESTS = [] as Array<unknown>;
+  Telnyx.LAST_REQUEST = null as unknown;
 
   Telnyx.USER_AGENT = {
     bindings_version: Telnyx.PACKAGE_VERSION,

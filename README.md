@@ -26,25 +26,25 @@ The package needs to be configured with your account's API key which is
 available in your the [Telnyx Mission Control Portal][api-keys]. Require it with the key's
 value:
 
-``` js
+```js
 const telnyx = require('telnyx')('KEY123456...');
 
 const messagingProfile = await telnyx.messagingProfiles.create({
-  name: 'Summer Campaign'
+  name: 'Summer Campaign',
 });
 ```
 
 Or with versions of Node.js prior to v7.9:
 
-``` js
+```js
 var telnyx = require('telnyx')('KEY123456...');
 
 telnyx.messagingProfiles.create(
-  { name: 'Summer Campaign' },
-  function(err, messagingProfile) {
+  {name: 'Summer Campaign'},
+  function (err, messagingProfile) {
     err; // null if no error occurred
     messagingProfile; // the created messaging profile object
-  }
+  },
 );
 ```
 
@@ -64,24 +64,23 @@ callback:
 ```js
 // Create a new messaging profile and then send a message using that profile:
 telnyx.MessagingProfiles.create({
-  name: 'Summer Campaign'
-}).then((messagingProfile) => {
-  return telnyx.MessagingPhoneNumbers.update(
-    '+18005554000',
-    {
-      'messaging_profile_id': messagingProfile.data.id
-    }
-  );
-}).catch((err) => {
-  // Deal with an error
-});
+  name: 'Summer Campaign',
+})
+  .then((messagingProfile) => {
+    return telnyx.MessagingPhoneNumbers.update('+18005554000', {
+      messaging_profile_id: messagingProfile.data.id,
+    });
+  })
+  .catch((err) => {
+    // Deal with an error
+  });
 ```
 
 ### Configuring Timeout
 
 Request timeout is configurable (the default is Node's default of 120 seconds):
 
-``` js
+```js
 telnyx.setTimeout(20000); // in ms (this is 20 seconds)
 ```
 
@@ -90,7 +89,7 @@ telnyx.setTimeout(20000); // in ms (this is 20 seconds)
 An [https-proxy-agent][https-proxy-agent] can be configured with
 `setHttpAgent`.
 
-To use telnyx behind a proxy you can pass  to sdk:
+To use telnyx behind a proxy you can pass to sdk:
 
 ```js
 if (process.env.http_proxy) {
@@ -116,20 +115,20 @@ Some information about the response which generated a resource is available
 with the `lastResponse` property:
 
 ```js
-messagingProfile.lastResponse.requestId // see: https://telnyx.com/docs/api/node#request_ids
-messagingProfile.lastResponse.statusCode
+messagingProfile.lastResponse.requestId; // see: https://telnyx.com/docs/api/node#request_ids
+messagingProfile.lastResponse.statusCode;
 ```
 
 ### `request` and `response` events
 
-The Telnyx object emits `request` and `response` events.  You can use them like this:
+The Telnyx object emits `request` and `response` events. You can use them like this:
 
 ```js
 const telnyx = require('telnyx')('KEY...');
 
 const onRequest = (request) => {
   // Do something.
-}
+};
 
 // Add the event handler function:
 telnyx.on('request', onRequest);
@@ -139,6 +138,7 @@ telnyx.off('request', onRequest);
 ```
 
 #### `request` object
+
 ```js
 {
   method: 'POST',
@@ -147,6 +147,7 @@ telnyx.off('request', onRequest);
 ```
 
 #### `response` object
+
 ```js
 {
   method: 'POST',
@@ -176,7 +177,7 @@ const event = telnyx.webhooks.constructEvent(
   webhookRawBody,
   webhookTelnyxSignatureHeader,
   webhookTelnyxTimestampHeader,
-  publicKey
+  publicKey,
 );
 ```
 
@@ -194,13 +195,12 @@ try {
     webhookTelnyxSignatureHeader,
     webhookTelnyxTimestampHeader,
     publicKey,
-    timeToleranceInSeconds
+    timeToleranceInSeconds,
   );
 } catch (e) {
-  console.log("Failed to validate the signature")
+  console.log('Failed to validate the signature');
   console.log(e);
 }
-
 ```
 
 ### Writing a Plugin
@@ -221,7 +221,6 @@ This information is passed along when the library makes calls to the Telnyx API.
 
 You can auto-paginate list methods. We provide a few different APIs for this to
 aid with a variety of node versions and styles.
-
 
 #### Async iterators (`for-await-of`)
 
@@ -244,27 +243,33 @@ If you are in a Node environment that has support for `await`, such as Node 7.9 
 you may pass an async function to `.autoPagingEach`:
 
 ```js
-await telnyx.messagingProfiles.list().autoPagingEach(async (messagingProfile) => {
-  await doSomething(messagingProfile);
-  if (shouldBreak()) {
-    return false;
-  }
-})
+await telnyx.messagingProfiles
+  .list()
+  .autoPagingEach(async (messagingProfile) => {
+    await doSomething(messagingProfile);
+    if (shouldBreak()) {
+      return false;
+    }
+  });
 console.log('Done iterating.');
 ```
 
 Equivalently, without `await`, you may return a Promise, which can resolve to `false` to break:
 
 ```js
-telnyx.messagingProfiles.list().autoPagingEach((messagingProfile) => {
-  return doSomething(messagingProfile).then(() => {
-    if (shouldBreak()) {
-      return false;
-    }
-  });
-}).then(() => {
-  console.log('Done iterating.');
-}).catch(handleError);
+telnyx.messagingProfiles
+  .list()
+  .autoPagingEach((messagingProfile) => {
+    return doSomething(messagingProfile).then(() => {
+      if (shouldBreak()) {
+        return false;
+      }
+    });
+  })
+  .then(() => {
+    console.log('Done iterating.');
+  })
+  .catch(handleError);
 ```
 
 If you prefer callbacks to promises, you may also use a `next` callback and a second `onDone` callback:
@@ -272,7 +277,7 @@ If you prefer callbacks to promises, you may also use a `next` callback and a se
 ```js
 telnyx.messagingProfiles.list().autoPagingEach(
   function onItem(messagingProfile, next) {
-    doSomething(messagingProfile, function(err, result) {
+    doSomething(messagingProfile, function (err, result) {
       if (shouldStop(result)) {
         next(false); // Passing `false` breaks out of the loop.
       } else {
@@ -286,8 +291,8 @@ telnyx.messagingProfiles.list().autoPagingEach(
     } else {
       console.log('Done iterating.');
     }
-  }
-)
+  },
+);
 ```
 
 If your `onItem` function does not accept a `next` callback parameter _or_ return a Promise,
@@ -302,13 +307,15 @@ to prevent runaway list growth from consuming too much memory.
 Returns a promise of an array of all items across pages for a list request.
 
 ```js
-const allMessagingProfiles = await telnyx.messagingProfiles.list()
+const allMessagingProfiles = await telnyx.messagingProfiles
+  .list()
   .autoPagingToArray({limit: 10000});
 ```
 
 ## Development
 
 ### Setup
+
 The test suite depends on the [Prism Mock Server](https://github.com/stoplightio/prism).
 
 ```bash
@@ -321,7 +328,7 @@ Once installed, start the prism mock service with the following command:
 prism mock https://raw.githubusercontent.com/team-telnyx/openapi/master/openapi/spec3.json
 ```
 
---------
+---
 
 One final step -- because the Node SDK originally expected to reach the legacy `telnyx-mock` service at port 12111 (in addition to providing a `/v2/` base path), we need to setup the [Telnyx mock proxy server](https://github.com/team-telnyx/telnyx-mock-server-proxy) to modify the request path and forward along to the prism mock server.
 
@@ -351,16 +358,16 @@ $ TELNYX_MOCK_PORT=12000 npm test
 Run a single test suite:
 
 ```bash
-$ npm run mocha -- test/Error.spec.js
+$ npm test -- test/Error.spec.js
 ```
 
 Run a single test (case sensitive):
 
 ```bash
-$ npm run mocha -- test/Error.spec.js --grep 'Populates with type'
+$ npm test -- test/Error.spec.js -t 'Populates with type'
 ```
 
-If you wish, you may run tests using your Telnyx *Test* API key by setting the
+If you wish, you may run tests using your Telnyx _Test_ API key by setting the
 environment variable `TELNYX_TEST_API_KEY` before running the tests:
 
 ```bash
@@ -374,9 +381,9 @@ $ npm test
 To inspect values in tests first import debug:
 
 ```js
-var debug = require('debug')('foo');
+const debug = require('debug')('foo');
 //...
-debug(result)
+debug(result);
 ```
 
 Then run the tests with:

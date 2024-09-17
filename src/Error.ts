@@ -11,6 +11,12 @@ export interface TelnyxRawError {
     code: string;
     detail: string;
     title: string;
+    meta?: {
+      url: string;
+    };
+    source?: {
+      pointer: string;
+    };
   }>;
 }
 

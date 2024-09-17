@@ -88,6 +88,7 @@ export type TelnyxObject = {
   getApiField: <K extends keyof TelnyxObject['_api']>(
     key: K,
   ) => TelnyxObject['_api'][K];
+  setHost: (host: string, port: string, protocol: string) => void;
   setPort: (port: string) => void;
   setProtocol: (protocol: string) => void;
   _appInfo: AppInfo;
@@ -117,7 +118,7 @@ type RequestCallback = (
 type RequestCallbackReturn = unknown;
 export type RequestData = Record<string, unknown>;
 export type RequestOptions = {
-  auth: string | null;
+  auth?: string | null;
   headers: RequestHeaders;
 };
 export type ResponsePayload = IncomingMessage & {
@@ -160,8 +161,8 @@ export type TelnyxResourceObject = {
     requestPath: MethodSpec['path'],
     requestData: RequestData,
     auth: RequestOptions['auth'],
-    options: {headers?: RequestOptions['headers']},
-    callback: (err: unknown, response: ResponsePayload | null) => void,
+    options: RequestOptions,
+    callback: RequestCallback,
   ) => void;
   _buildError: (error: TelnyxRawError, statusCode: number | undefined) => Error;
   _generateConnectionErrorMessage: (

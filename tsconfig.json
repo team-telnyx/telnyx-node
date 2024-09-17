@@ -16,4 +16,8 @@
     "resolveJsonModule": true,
     "noUncheckedIndexedAccess": true
   },
+  "exclude": [
+    "./src/test",
+    "./dist"
+  ]
 }
