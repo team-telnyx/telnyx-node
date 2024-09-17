@@ -1,5 +1,3 @@
-'use strict';
-
 import {
   MultipartRequestData,
   RequestData,
@@ -19,9 +17,9 @@ type MultipartCallback = (
 // Mostly taken from Fermata.js
 // https://github.com/natevw/fermata/blob/5d9732a33d776ce925013a265935facd1626cc88/fermata.js#L315-L343
 function multipartDataGenerator(
-  method: string,
+  _method: string,
   data: MultipartRequestData,
-  headers: RequestHeaders,
+  headers: RequestHeaders | undefined = {},
 ): Uint8Array {
   const segno = (
     Math.round(Math.random() * 1e16) + Math.round(Math.random() * 1e16)
@@ -70,7 +68,7 @@ function multipartDataGenerator(
     } else {
       push('Content-Disposition: form-data; name=' + q(k));
       push('');
-      push(v);
+      push(v || '');
     }
   }
   push('--' + segno + '--');
@@ -82,7 +80,7 @@ export function multipartRequestDataProcessor(
   this: TelnyxResourceObject,
   method: string,
   data: RequestData,
-  headers: RequestHeaders,
+  headers: RequestHeaders | undefined,
   callback: MultipartCallback,
 ): MultipartCallbackReturn {
   data = data || {};
