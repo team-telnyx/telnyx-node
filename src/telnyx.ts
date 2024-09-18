@@ -102,6 +102,8 @@ export function createTelnyx() {
     _emitter: null!,
     _requestSender: null!,
     _platformFunctions: null!,
+    REQUESTS: null!,
+    LAST_REQUEST: null!,
 
     setHost: function (host: string, port: string, protocol: string) {
       this._setApiField('host', host);

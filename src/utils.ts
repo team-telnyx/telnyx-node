@@ -47,9 +47,9 @@ export function isOptionsHash(o: unknown): boolean | unknown {
 /**
  * Remove empty values from an object
  */
-export function removeEmpty(
-  obj: Record<string, unknown>,
-): Record<string, unknown> {
+export function removeEmpty<T = unknown>(
+  obj: Record<string, T>,
+): Record<string, T> {
   if (typeof obj !== 'object') {
     throw new Error('Argument must be an object');
   }

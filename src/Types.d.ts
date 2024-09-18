@@ -7,8 +7,9 @@ import {
 } from 'http';
 import {Agent as HttpsAgent} from 'https';
 import {TelnyxRawError} from './Error';
+import Webhooks from './Webhooks';
 
-export type AppInfo = {name: string; version: string; url: string} & Record<
+export type AppInfo = {name?: string; version?: string; url?: string} & Record<
   string,
   unknown
 >;
@@ -70,7 +71,7 @@ export type TelnyxObject = {
     self: TelnyxObject,
   ) => (args: Record<string, unknown>) => Record<string, unknown>;
   _setApiKey: (apiKey: string) => void;
-  _setAppInfo: (appInfo: AppInfo) => void;
+  _setAppInfo: (appInfo?: AppInfo) => void;
   getClientUserAgentSeeded: (
     seed: Record<string, string | boolean | null>,
     callback: (userAgent: string) => void,
@@ -83,7 +84,7 @@ export type TelnyxObject = {
   getConstant: <T = string>(name: string) => T;
   _setApiField: <K extends keyof TelnyxObject['_api']>(
     name: K,
-    value: TelnyxObject['_api'][K],
+    value: TelnyxObject['_api'][K] | null,
   ) => void;
   getApiField: <K extends keyof TelnyxObject['_api']>(
     key: K,
@@ -91,14 +92,19 @@ export type TelnyxObject = {
   setHost: (host: string, port: string, protocol: string) => void;
   setPort: (port: string) => void;
   setProtocol: (protocol: string) => void;
+  setHttpAgent: (agent: HttpAgent | HttpsAgent) => void;
+  setTimeout: (timeout: number | null | undefined) => void;
+  setMaxNetworkRetries: (maxNetworkRetries: number) => void;
   _appInfo: AppInfo;
   _clientId?: string;
-  on: unknown;
-  off: unknown;
+  on: (event: string, listener: (...args: Array<unknown>) => void) => void;
+  off: (event: string, listener: (...args: Array<unknown>) => void) => void;
   once: unknown;
   VERSION: string;
+  REQUESTS: Array<unknown>;
+  LAST_REQUEST: unknown;
   errors: unknown;
-  webhooks: unknown;
+  webhooks: typeof Webhooks;
 };
 
 export type RequestHeaders = Record<string, string | number | string[]>;

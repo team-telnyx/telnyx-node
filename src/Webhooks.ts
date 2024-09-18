@@ -13,7 +13,7 @@ const Webhooks = {
     signatureHeader: WebhookHeader,
     timestampHeader: WebhookHeader,
     publicKey: string,
-    tolerance: number,
+    tolerance?: number,
   ) {
     this.signature.verifySignature(
       payload,
@@ -29,11 +29,11 @@ const Webhooks = {
 
   signature: {
     verifySignature: function (
-      payload: string,
+      payload: string | Buffer,
       signatureHeader: WebhookHeader = '',
       timestampHeader: WebhookHeader = '',
       publicKey: string,
-      tolerance: number,
+      tolerance?: number,
     ) {
       payload = Buffer.isBuffer(payload) ? payload.toString('utf8') : payload;
       timestampHeader = Buffer.isBuffer(timestampHeader)
@@ -73,7 +73,7 @@ const Webhooks = {
       const timestampAge =
         Math.floor(Date.now() / 1000) - parseInt(timestampHeader, 10);
 
-      if (tolerance > 0 && timestampAge > tolerance) {
+      if (tolerance && tolerance > 0 && timestampAge > tolerance) {
         throw new TelnyxError.TelnyxSignatureVerificationError({
           message: 'Timestamp outside the tolerance zone',
           detail: {

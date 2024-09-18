@@ -1,8 +1,8 @@
-export const awaitUntil = async function awaitUntil(
-  iterator: AsyncIterator<unknown>,
+export async function awaitUntil<T = unknown>(
+  iterator: AsyncIterator<T>,
   limit: number,
 ) {
-  const items: Array<unknown> = [];
+  const items: Array<T> = [];
   // eslint-disable-next-line no-constant-condition
   while (true) {
     const {value, done} = await iterator.next();

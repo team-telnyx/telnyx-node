@@ -33,7 +33,7 @@ export const utils = {
 
     // needed for constructor
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const telnyxInstance: typeof TelnyxNode = new (TelnyxNode as any)(
+    const telnyxInstance: (typeof TelnyxNode)['prototype'] = new (TelnyxNode as any)(
       'fakeAuthToken',
     );
 
@@ -49,7 +49,7 @@ export const utils = {
     }
 
     function makeInstanceSpyable(
-      telnyxInstance: typeof TelnyxNode,
+      telnyxInstance: typeof TelnyxNode['prototype'],
       thisInstance: typeof TelnyxNode.TelnyxResource,
     ) {
       if (thisInstance instanceof TelnyxNode.TelnyxResource) {
@@ -58,7 +58,7 @@ export const utils = {
     }
 
     function patchRequest(
-      telnyxInstance: typeof TelnyxNode,
+      telnyxInstance: typeof TelnyxNode['prototype'],
       instance: TelnyxResourceObject,
     ) {
       instance._request = function (
