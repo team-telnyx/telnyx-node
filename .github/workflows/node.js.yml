@@ -30,5 +30,3 @@ jobs:
       - run: npm run build --if-present
       - name: Node ${{ matrix.node-version }}
         run: npm test
-      - name: Report
-        run: npm run report

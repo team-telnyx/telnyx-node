@@ -1,6 +1,6 @@
 import {Buffer} from 'safe-buffer';
 import nacl from 'tweetnacl';
-import * as TelnyxError from './Error.js';
+import * as TelnyxError from './Error';
 
 type WebhookPayload = string;
 type WebhookHeader = string;

@@ -1,4 +1,4 @@
-import {createTelnyx} from './telnyx.js';
+import {createTelnyx} from './telnyx';
 
 export const Telnyx = createTelnyx();
 

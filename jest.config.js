@@ -11,4 +11,6 @@ export default {
     '/TelnyxMethod.basic/',
   ],
   coverageDirectory: 'coverage',
+  reporters: ['default', ['github-actions', {silent: false}], 'summary'],
+  roots: ['<rootDir>/src/'],
 };

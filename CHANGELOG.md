@@ -11,7 +11,11 @@
 - Convert SDK files to typescript
 - Use ES Modules syntax
 - Update package `main` entrypoint to be compiled version of [src telnyx.ts](./src/telnyx.ts)
+- Added `Jest` and create tests in `Typescript`
 - Make `setApiKey` TelnyxObject prototype method private
+- Moved to `moduleResolution` Bundler to support better imports and tests with `Jest`
+- Enabled `esModuleInterop` for Jest
+- Update files included when publishing
 
 ## v1
 

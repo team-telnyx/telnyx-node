@@ -11,3 +11,6 @@
 !/package.json
 !/src/**/*
 !/types/**/*
+
+# Omit test files
+/src/test/**/*

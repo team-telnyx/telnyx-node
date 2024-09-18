@@ -32,8 +32,8 @@
   "types": "dist/types/index.d.ts",
   "devDependencies": {
     "@eslint/js": "^9.10.0",
-    "@jest/globals": "^29.7.0",
     "@types/eslint__js": "^8.42.3",
+    "@types/jest": "^29.5.13",
     "@types/qs": "^6.9.15",
     "chai": "~4.4.1",
     "chai-as-promised": "~7.1.1",
@@ -52,6 +52,7 @@
     "safe-buffer": "^5.2.1",
     "telnyx": "^1.26.2",
     "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "tweetnacl": "^1.0.3",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.5.0",
@@ -66,7 +67,7 @@
     "build": "tsc && cp -r types dist/types",
     "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage ./dist",
     "prepack": "npm install && npm run build",
-    "test": "npm run lint && jest",
+    "test": "jest",
     "lint": "rm -rf ./dist && eslint .",
     "fix": "npm run lint --fix"
   }

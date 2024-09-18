@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-import {describe, expect, test} from '@jest/globals';
-
-import {utils} from '../utils/index.js';
+import {utils} from '../utils';
 
 const telnyx = utils.getTelnyxMock();
 

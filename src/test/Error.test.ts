@@ -1,7 +1,5 @@
-import '../testUtils';
-import {describe, expect, test} from '@jest/globals';
-
-import * as TelnyxErrors from '../Error.js';
+import * as TelnyxErrors from '../Error';
+import './utils';
 
 describe('Error', function () {
   test('Populates with type and message params', function () {

@@ -4,8 +4,8 @@ import {
   RequestHeaders,
   TelnyxResourceObject,
   TypedData,
-} from './Types.js';
-import {flattenAndStringify, stringifyRequestData} from './utils.js';
+} from './Types';
+import {flattenAndStringify, stringifyRequestData} from './utils';
 
 type MultipartCallbackReturn = unknown;
 type MultipartCallback = (

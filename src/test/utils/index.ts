@@ -1,12 +1,12 @@
 // NOTE: testUtils should be require'd before anything else in each spec file!
 
-import TelnyxNode from '../../telnyx.node.js';
+import TelnyxNode from '../../telnyx.node';
 import {
   RequestCallback,
   RequestData,
   RequestHeaders,
   TelnyxResourceObject,
-} from '../../Types.js';
+} from '../../Types';
 
 type LastRequest = {
   method: string;
@@ -98,13 +98,15 @@ export const utils = {
     // Provide a telnyx-mock like instance
     // That is, with telnyx-mock requests built in
 
-    // needed for constructor
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const telnyxInstance: typeof TelnyxNode = new (TelnyxNode as any)(
-      'KEYSUPERSECRET', // testmode secret API KEY
-    );
+    // needed for constructor, using prototype as constructor type is not directly exported from TelnyxNode
+    const telnyxInstance: (typeof TelnyxNode)['prototype'] =
+      // constructor type is not directly exported from TelnyxNode
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      new (TelnyxNode as any)(
+        'KEYSUPERSECRET', // testmode secret API KEY
+      );
 
-    telnyxInstance.prototype.setHost(
+    telnyxInstance.setHost(
       'localhost',
       process.env.TELNYX_MOCK_PORT || '12111',
       'http',

@@ -1,12 +1,11 @@
 import * as http from 'http';
 import * as https from 'https';
 import * as path from 'path';
-import {Buffer} from 'safe-buffer';
 
-import * as utils from './utils.js';
-import * as TelnyxError from './Error.js';
-import TelnyxMethod from './TelnyxMethod.js';
-import * as basicMethods from './TelnyxMethod.basic.js';
+import * as utils from './utils';
+import * as TelnyxError from './Error';
+import TelnyxMethod from './TelnyxMethod';
+import * as basicMethods from './TelnyxMethod.basic';
 import {
   MethodSpec,
   ReqHandler,
@@ -20,7 +19,7 @@ import {
   TelnyxIncomingHttpHeaders,
   TelnyxObject,
   TelnyxResourceObject,
-} from './Types.js';
+} from './Types';
 
 const hasOwn = {}.hasOwnProperty;
 

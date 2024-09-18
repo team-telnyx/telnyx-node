@@ -6,7 +6,7 @@ import {
   IncomingMessage,
 } from 'http';
 import {Agent as HttpsAgent} from 'https';
-import {TelnyxRawError} from './Error.ts';
+import {TelnyxRawError} from './Error';
 
 export type AppInfo = {name: string; version: string; url: string} & Record<
   string,
