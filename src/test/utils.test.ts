@@ -123,7 +123,7 @@ describe('utils', function () {
 
           done();
         },
-        function (message) {
+        function (message: string) {
           throw new Error('Should not have warned, but did: ' + message);
         },
       );
@@ -135,7 +135,7 @@ describe('utils', function () {
         function () {
           utils.getDataFromArgs(args);
         },
-        function (message) {
+        function (message: string) {
           expect(message).toBe(
             'Telnyx: Options found in arguments (api_key).' +
               ' Did you mean to pass an options object? See https://github.com/telnyx/telnyx-node/wiki/Passing-Options.',
@@ -199,7 +199,7 @@ describe('utils', function () {
         function () {
           utils.getOptionsFromArgs(args);
         },
-        function (message) {
+        function (message: string) {
           expect(message).toBe(
             'Telnyx: Invalid options found (fishsticks, custard); ignoring.',
           );
@@ -233,7 +233,10 @@ describe('utils', function () {
   });
 });
 
-function handleWarnings(doWithShimmedConsoleWarn, onWarn) {
+function handleWarnings(
+  doWithShimmedConsoleWarn: () => void,
+  onWarn: (message: string) => void,
+) {
   if (typeof process.emitWarning !== 'function') {
     /* eslint-disable no-console */
 
@@ -248,7 +251,7 @@ function handleWarnings(doWithShimmedConsoleWarn, onWarn) {
 
     /* eslint-enable no-console */
   } else {
-    function onProcessWarn(warning) {
+    function onProcessWarn(warning: {name: string; message: string}) {
       /* eslint-disable-line no-inner-declarations */
       onWarn(warning.name + ': ' + warning.message);
     }

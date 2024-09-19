@@ -5,6 +5,8 @@ import {
   RequestArgs,
   RequestData,
   RequestOptions,
+  ResponsePayload,
+  TelnyxObject,
   TelnyxResourceObject,
   UrlInterpolator,
 } from './Types';
@@ -84,6 +86,38 @@ export function callbackifyPromiseWithTimeout<T>(
   }
 
   return promise;
+}
+
+/**
+ * Add TelnyxResource to API response data
+ *
+ * @param [response] Resource response object
+ * @param [telnyx] Telnyx SDK
+ * @param [resourceName] Resource name in camelCase
+ * @param [methods] resource methods to include
+ */
+export function addResourceToResponseData<T>(
+  response: ResponsePayload<T>,
+  telnyx: TelnyxObject,
+  resourceName: string,
+  methods: {
+    [name: string]: (...args: unknown[]) => Promise<unknown>;
+  },
+) {
+  if (response && response.data && typeof response.data === 'object') {
+    /*
+     * make nested methods. e.g.: call.bridge();
+     * nested methods should be used from basic methods response. See specs for an example
+     */
+    const resourceFulData = telnyx[resourceName as keyof TelnyxObject] as T &
+      TelnyxResourceObject;
+
+    Object.assign(resourceFulData, response.data, methods);
+
+    response.data = resourceFulData;
+  }
+
+  return response;
 }
 
 /**

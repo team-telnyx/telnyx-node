@@ -7,8 +7,8 @@ import TelnyxNode from '../telnyx.node';
 
 const telnyx = testUtils.getSpyableTelnyx();
 
-type Record = {
-  id: number;
+type TelnyxRecord = {
+  id: string;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,17 +20,19 @@ const LIMIT = 3;
 const TOTAL_OBJECTS = 3;
 
 describe('auto pagination', function () {
-  this.timeout(20000);
-
-  let realMessagingProfileIds: number[];
+  let realMessagingProfileIds: string[];
+  jest.setTimeout(20000);
 
   describe('callbacks', function () {
     test('lets you call `next()` to iterate and `next(false)` to break', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
-          const messagingProfileIds: number[] = [];
-          function onMessagingProfile(messagingProfile: Record, next) {
+          realMessagingProfileIds = ['1', '2', '3'];
+          const messagingProfileIds: string[] = [];
+          function onMessagingProfile(
+            messagingProfile: TelnyxRecord,
+            next: (iterate?: boolean) => void,
+          ) {
             messagingProfileIds.push(messagingProfile.id);
             if (messagingProfileIds.length === LIMIT) {
               next(false);
@@ -39,7 +41,7 @@ describe('auto pagination', function () {
               next();
             }
           }
-          function onDone(err) {
+          function onDone(err: unknown) {
             if (err) {
               reject(err);
             } else {
@@ -81,9 +83,9 @@ describe('auto pagination', function () {
     test('lets you ignore the second arg and `return false` to break', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
-          const messagingProfileIds: number[] = [];
-          function onMessagingProfile(messagingProfile) {
+          realMessagingProfileIds = ['1', '2', '3'];
+          const messagingProfileIds: string[] = [];
+          function onMessagingProfile(messagingProfile: TelnyxRecord) {
             messagingProfileIds.push(messagingProfile.id);
             if (messagingProfileIds.length === LIMIT) {
               return false;
@@ -91,7 +93,7 @@ describe('auto pagination', function () {
               expect(messagingProfileIds.length).toBeLessThan(LIMIT);
             }
           }
-          function onDone(err) {
+          function onDone(err: unknown) {
             if (err) {
               reject(err);
             } else {
@@ -133,9 +135,9 @@ describe('auto pagination', function () {
     test('lets you ignore the second arg and return a Promise which returns `false` to break', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
-          const messagingProfileIds: number[] = [];
-          function onMessagingProfile(messagingProfile) {
+          realMessagingProfileIds = ['1', '2', '3'];
+          const messagingProfileIds: string[] = [];
+          function onMessagingProfile(messagingProfile: TelnyxRecord) {
             messagingProfileIds.push(messagingProfile.id);
             if (messagingProfileIds.length === LIMIT) {
               return Promise.resolve(false);
@@ -144,7 +146,7 @@ describe('auto pagination', function () {
               return Promise.resolve();
             }
           }
-          function onDone(err) {
+          function onDone(err: Error) {
             if (err) {
               reject(err);
             } else {
@@ -186,9 +188,9 @@ describe('auto pagination', function () {
     test('can use a promise instead of a callback for onDone', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
-          const messagingProfileIds: number[] = [];
-          function onMessagingProfile(messagingProfile) {
+          realMessagingProfileIds = ['1', '2', '3'];
+          const messagingProfileIds: string[] = [];
+          function onMessagingProfile(messagingProfile: TelnyxRecord) {
             messagingProfileIds.push(messagingProfile.id);
           }
           function onDone() {
@@ -231,8 +233,8 @@ describe('auto pagination', function () {
     test('handles the end of a list properly when the last page is full', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3, 4];
-          const messagingProfileIds: number[] = [];
+          realMessagingProfileIds = ['1', '2', '3', '4'];
+          const messagingProfileIds: string[] = [];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -260,7 +262,7 @@ describe('auto pagination', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           return realTelnyx.messagingProfiles
             .list({page: {size: 2}})
-            .autoPagingEach(function (messagingProfile) {
+            .autoPagingEach(function (messagingProfile: TelnyxRecord) {
               messagingProfileIds.push(messagingProfile.id);
             })
             .catch(reject)
@@ -274,8 +276,8 @@ describe('auto pagination', function () {
     test('handles the end of a list properly when the last page is not full', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
-          const messagingProfileIds: number[] = [];
+          realMessagingProfileIds = ['1', '2', '3'];
+          const messagingProfileIds: string[] = [];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -299,7 +301,7 @@ describe('auto pagination', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           return realTelnyx.messagingProfiles
             .list({page: {size: 2}})
-            .autoPagingEach(function (messagingProfile) {
+            .autoPagingEach(function (messagingProfile: TelnyxRecord) {
               messagingProfileIds.push(messagingProfile.id);
             })
             .catch(reject)
@@ -313,8 +315,8 @@ describe('auto pagination', function () {
     test('handles a list which is shorter than the page size properly', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2];
-          const messagingProfileIds: number[] = [];
+          realMessagingProfileIds = ['1', '2'];
+          const messagingProfileIds: string[] = [];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -337,7 +339,7 @@ describe('auto pagination', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           return realTelnyx.messagingProfiles
             .list({page: {size: TOTAL_OBJECTS + 2}})
-            .autoPagingEach(function (messagingProfile) {
+            .autoPagingEach(function (messagingProfile: TelnyxRecord) {
               messagingProfileIds.push(messagingProfile.id);
             })
             .catch(reject)
@@ -359,7 +361,7 @@ describe('auto pagination', function () {
             }
           }
 
-          realMessagingProfileIds = [1, 2, 3];
+          realMessagingProfileIds = ['1', '2', '3'];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -384,7 +386,7 @@ describe('auto pagination', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           return realTelnyx.messagingProfiles
             .list({page: {size: 2}})
-            .autoPagingEach(onmessagingProfile, function (err) {
+            .autoPagingEach(onmessagingProfile, function (err: Error) {
               if (err) {
                 resolve(err.message);
               } else {
@@ -405,7 +407,7 @@ describe('auto pagination', function () {
               throw Error('Simulated error');
             }
           }
-          realMessagingProfileIds = [1, 2, 3];
+          realMessagingProfileIds = ['1', '2', '3'];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -433,8 +435,8 @@ describe('auto pagination', function () {
             .then(function () {
               reject(Error('Expected an error, did not get one.'));
             })
-            .catch(function (err) {
-              resolve(err.message);
+            .catch(function (err: unknown) {
+              resolve((err as Error)?.message);
             });
         }),
       ).toBe('Simulated error');
@@ -445,7 +447,7 @@ describe('auto pagination', function () {
     test('works with `for await` when that feature exists (user break)', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
+          realMessagingProfileIds = ['1', '2', '3'];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -467,14 +469,16 @@ describe('auto pagination', function () {
               meta: {total_pages: 2, page_number: 2, page_size: 2},
             });
 
-          forAwaitUntil<Record>(
+          forAwaitUntil<TelnyxRecord>(
             // @ts-expect-error TODO: import .d.ts files under src/test folder
             realTelnyx.messagingProfiles.list({page: {size: 2}}),
             LIMIT,
           )
-            .then(function (messagingProfiles) {
+            .then(function (messagingProfiles: TelnyxRecord[]) {
               resolve(
-                messagingProfiles.map(function (messagingProfile) {
+                messagingProfiles.map(function (
+                  messagingProfile: TelnyxRecord,
+                ) {
                   return messagingProfile.id;
                 }),
               );
@@ -487,7 +491,7 @@ describe('auto pagination', function () {
     test('works with `for await` when that feature exists (end of list)', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
+          realMessagingProfileIds = ['1', '2', '3'];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -509,14 +513,16 @@ describe('auto pagination', function () {
               meta: {total_pages: 2, page_number: 2, page_size: 2},
             });
 
-          forAwaitUntil<Record>(
+          forAwaitUntil<TelnyxRecord>(
             // @ts-expect-error TODO: import .d.ts files under src/test folder
             realTelnyx.messagingProfiles.list({page: {size: 2}}),
             TOTAL_OBJECTS + 1,
           )
-            .then(function (messagingProfiles) {
+            .then(function (messagingProfiles: TelnyxRecord[]) {
               resolve(
-                messagingProfiles.map(function (messagingProfile) {
+                messagingProfiles.map(function (
+                  messagingProfile: TelnyxRecord,
+                ) {
                   return messagingProfile.id;
                 }),
               );
@@ -529,7 +535,7 @@ describe('auto pagination', function () {
     test('works with `await` and a while loop when await exists', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
+          realMessagingProfileIds = ['1', '2', '3'];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -551,14 +557,16 @@ describe('auto pagination', function () {
               meta: {total_pages: 2, page_number: 2, page_size: 2},
             });
 
-          awaitUntil<Record>(
+          awaitUntil<TelnyxRecord>(
             // @ts-expect-error TODO: import .d.ts files under src/test folder
             realTelnyx.messagingProfiles.list({page: {size: 2}}),
             LIMIT,
           )
-            .then(function (messagingProfiles) {
+            .then(function (messagingProfiles: TelnyxRecord[]) {
               resolve(
-                messagingProfiles.map(function (messagingProfile) {
+                messagingProfiles.map(function (
+                  messagingProfile: TelnyxRecord,
+                ) {
                   return messagingProfile.id;
                 }),
               );
@@ -571,7 +579,7 @@ describe('auto pagination', function () {
     test('returns an empty object from .return() so that `break;` works in for-await', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
+          realMessagingProfileIds = ['1', '2', '3'];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -595,8 +603,8 @@ describe('auto pagination', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           const iter = realTelnyx.messagingProfiles.list({page: {size: 2}});
 
-          const messagingProfileIds: number[] = [];
-          function handleIter(result) {
+          const messagingProfileIds: string[] = [];
+          function handleIter(result: {value: TelnyxRecord}) {
             messagingProfileIds.push(result.value.id);
             expect(iter.return()).toBe({});
           }
@@ -615,7 +623,7 @@ describe('auto pagination', function () {
     test('works when you call it sequentially', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
+          realMessagingProfileIds = ['1', '2', '3'];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -640,8 +648,8 @@ describe('auto pagination', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           const iter = realTelnyx.messagingProfiles.list({page: {size: 2}});
 
-          const messagingProfileIds: number[] = [];
-          function handleIter(result) {
+          const messagingProfileIds: string[] = [];
+          function handleIter(result: {value: TelnyxRecord}) {
             messagingProfileIds.push(result.value.id);
             if (messagingProfileIds.length < 3) {
               return iter.next().then(handleIter);
@@ -661,7 +669,7 @@ describe('auto pagination', function () {
     test('gives you the same result each time when you call it multiple times in parallel', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3, 4];
+          realMessagingProfileIds = ['1', '2', '3', '4'];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -701,9 +709,8 @@ describe('auto pagination', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           const iter = realTelnyx.messagingProfiles.list({page: {size: 3}});
 
-          const messagingProfileIds = [];
-          function handleIter(result) {
-            // @ts-expect-error TODO: import .d.ts files under src/test folder
+          const messagingProfileIds: string[] = [];
+          function handleIter(result: {value: TelnyxRecord}) {
             messagingProfileIds.push(result.value.id);
           }
 
@@ -737,7 +744,7 @@ describe('auto pagination', function () {
             .catch(reject);
         }),
       ).toBe(
-        realMessagingProfileIds.reduce(function (acc: number[], x) {
+        realMessagingProfileIds.reduce(function (acc: string[], x) {
           acc.push(x);
           acc.push(x);
           return acc;
@@ -750,7 +757,7 @@ describe('auto pagination', function () {
     test('can go to the end', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
+          realMessagingProfileIds = ['1', '2', '3'];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -776,8 +783,10 @@ describe('auto pagination', function () {
           realTelnyx.messagingProfiles
             .list({page: {size: 2}})
             .autoPagingToArray({limit: LIMIT})
-            .then(function (messagingProfiles) {
-              return messagingProfiles.map(function (messagingProfile) {
+            .then(function (messagingProfiles: TelnyxRecord[]) {
+              return messagingProfiles.map(function (
+                messagingProfile: TelnyxRecord,
+              ) {
                 return messagingProfile.id;
               });
             })
@@ -790,7 +799,7 @@ describe('auto pagination', function () {
     test('returns a promise of an array', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
+          realMessagingProfileIds = ['1', '2', '3'];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -816,8 +825,10 @@ describe('auto pagination', function () {
           realTelnyx.messagingProfiles
             .list({page: {size: 2}})
             .autoPagingToArray({limit: LIMIT})
-            .then(function (messagingProfiles) {
-              return messagingProfiles.map(function (messagingProfile) {
+            .then(function (messagingProfiles: TelnyxRecord[]) {
+              return messagingProfiles.map(function (
+                messagingProfile: TelnyxRecord,
+              ) {
                 return messagingProfile.id;
               });
             })
@@ -830,18 +841,20 @@ describe('auto pagination', function () {
     test('accepts an onDone callback, passing an array', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          function onDone(err, messagingProfiles) {
+          function onDone(err: unknown, messagingProfiles: TelnyxRecord[]) {
             if (err) {
               reject(err);
             } else {
               resolve(
-                messagingProfiles.map(function (messagingProfile) {
+                messagingProfiles.map(function (
+                  messagingProfile: TelnyxRecord,
+                ) {
                   return messagingProfile.id;
                 }),
               );
             }
           }
-          realMessagingProfileIds = [1, 2, 3];
+          realMessagingProfileIds = ['1', '2', '3'];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -874,7 +887,7 @@ describe('auto pagination', function () {
     test('enforces a `limit` arg', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
+          realMessagingProfileIds = ['1', '2', '3'];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -902,8 +915,8 @@ describe('auto pagination', function () {
               .list({page: {size: 3}})
               .autoPagingToArray();
             reject(Error('Should have thrown.'));
-          } catch (err) {
-            resolve(err.message);
+          } catch (err: unknown) {
+            resolve((err as Error)?.message);
           }
         }),
       ).toBe(
@@ -920,8 +933,8 @@ describe('auto pagination', function () {
               .list({page: {size: 3}})
               .autoPagingToArray({limit: 1000000});
             reject(Error('Should have thrown.'));
-          } catch (err) {
-            resolve(err.message);
+          } catch (err: unknown) {
+            resolve((err as Error)?.message);
           }
         }),
       ).toBe(
@@ -934,7 +947,7 @@ describe('auto pagination', function () {
     test('lets you listen to the first request as its own promise, and separately each item, but only sends one request for the first page.', function () {
       return expect(
         new Promise(function (resolve, reject) {
-          realMessagingProfileIds = [1, 2, 3];
+          realMessagingProfileIds = ['1', '2', '3'];
           const options = {
             host: telnyx.getConstant('DEFAULT_HOST'),
             path: '/v2/messaging_profiles',
@@ -962,12 +975,12 @@ describe('auto pagination', function () {
           }
           realTelnyx.on('request', onRequest);
 
-          const messagingProfileIds: number[] = [];
+          const messagingProfileIds: string[] = [];
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           const p = realTelnyx.messagingProfiles.list({page: {size: 2}});
           Promise.all([
             p,
-            p.autoPagingEach(function (messagingProfile) {
+            p.autoPagingEach(function (messagingProfile: TelnyxRecord) {
               messagingProfileIds.push(messagingProfile.id);
             }),
           ])
@@ -976,7 +989,9 @@ describe('auto pagination', function () {
               expect(reqCount).toBe(2); // not 3.
 
               resolve({
-                firstReq: results[0].data.map(function (messagingProfile) {
+                firstReq: results[0].data.map(function (
+                  messagingProfile: TelnyxRecord,
+                ) {
                   return messagingProfile.id;
                 }),
                 paginated: messagingProfileIds,

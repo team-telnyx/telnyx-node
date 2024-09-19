@@ -7,6 +7,7 @@
 
 // Imports: The beginning of the section generated from our OpenAPI spec
 ///<reference path='./BalanceResource.d.ts' />
+///<reference path='./MessagingProfilesResource.d.ts' />
 // Imports: The end of the section generated from our OpenAPI spec
 
 declare module 'telnyx' {
@@ -24,6 +25,7 @@ declare module 'telnyx' {
 
     // Fields: The beginning of the section generated from our OpenAPI spec
     balance: Telnyx.BalanceResource;
+    messagingProfiles: Telnyx.MessagingProfilesResource;
     // Fields: The end of the section generated from our OpenAPI spec
     webhooks: Telnyx.Webhooks;
     /**

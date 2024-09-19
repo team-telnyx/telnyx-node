@@ -32,10 +32,9 @@ export const utils = {
     // That is, with mock-requests built in and hookable
 
     // needed for constructor
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const telnyxInstance: (typeof TelnyxNode)['prototype'] = new (TelnyxNode as any)(
-      'fakeAuthToken',
-    );
+    const telnyxInstance: (typeof TelnyxNode)['prototype'] =
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      new (TelnyxNode as any)('fakeAuthToken');
 
     telnyxInstance.REQUESTS = [];
 
@@ -43,13 +42,13 @@ export const utils = {
       makeInstanceSpyable(
         telnyxInstance,
         telnyxInstance[
-          i as keyof typeof TelnyxNode
+          i as keyof (typeof TelnyxNode)['prototype']
         ] as typeof TelnyxNode.TelnyxResource,
       );
     }
 
     function makeInstanceSpyable(
-      telnyxInstance: typeof TelnyxNode['prototype'],
+      telnyxInstance: (typeof TelnyxNode)['prototype'],
       thisInstance: typeof TelnyxNode.TelnyxResource,
     ) {
       if (thisInstance instanceof TelnyxNode.TelnyxResource) {
@@ -58,7 +57,7 @@ export const utils = {
     }
 
     function patchRequest(
-      telnyxInstance: typeof TelnyxNode['prototype'],
+      telnyxInstance: (typeof TelnyxNode)['prototype'],
       instance: TelnyxResourceObject,
     ) {
       instance._request = function (

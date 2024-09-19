@@ -127,10 +127,16 @@ export type RequestOptions = {
   auth?: string | null;
   headers: RequestHeaders;
 };
-export type ResponsePayload = IncomingMessage & {
-  [key: string]: unknown;
-  requestId: string;
-} & {req: ReqTimeoutHandler};
+export type ResponsePayload<
+  T = {
+    [key: string]: unknown;
+  },
+> = IncomingMessage &
+  T & {
+    data: T & {};
+    requestId: string;
+    req: ReqTimeoutHandler;
+  };
 export type ResponseHeaderValue = string | string[];
 export type ResponseHeaders = Record<string, ResponseHeaderValue>;
 type PromiseCache<T> = {

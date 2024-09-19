@@ -206,7 +206,7 @@ describe('Webhooks', function () {
   });
 });
 
-function generateSignature(opts) {
+function generateSignature(opts: {payload?: string; timestamp?: string}) {
   opts = opts || {};
 
   opts.timestamp = opts.timestamp || Math.floor(Date.now() / 1000).toString();

@@ -1,6 +1,7 @@
 import nock from 'nock';
 import {utils as testUtils} from './utils';
 import TelnyxNode from '../telnyx.node';
+import {ResponsePayload} from '../Types';
 
 // Use a real instance of telnyx as we're mocking the http.request responses.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -62,11 +63,11 @@ describe('TelnyxResource', function () {
   });
 
   describe('Parameter encoding', function () {
-    before(() => {
+    beforeAll(() => {
       nock.disableNetConnect();
     });
 
-    after(function () {
+    afterAll(function () {
       nock.cleanAll();
       nock.enableNetConnect();
     });
@@ -89,7 +90,7 @@ describe('TelnyxResource', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         realTelnyx.messagingProfiles.list(
           options.data,
-          function (_err, _response) {
+          function (_err: unknown, _response: unknown) {
             done();
             scope.done();
           },
@@ -115,7 +116,7 @@ describe('TelnyxResource', function () {
         realTelnyx.messagingProfiles.update(
           '123',
           options.data,
-          function (_err, _response) {
+          function (_err: unknown, _response: unknown) {
             done();
             scope.done();
           },
@@ -139,7 +140,7 @@ describe('TelnyxResource', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         realTelnyx.messagingProfiles.create(
           options.data,
-          function (_err, _response) {
+          function (_err: unknown, _response: unknown) {
             done();
             scope.done();
           },
@@ -167,11 +168,11 @@ describe('TelnyxResource', function () {
       telnyx.setMaxNetworkRetries(0);
     });
 
-    before(() => {
+    beforeAll(() => {
       nock.disableNetConnect();
     });
 
-    after(function () {
+    afterAll(function () {
       nock.cleanAll();
       nock.enableNetConnect();
     });
@@ -232,7 +233,7 @@ describe('TelnyxResource', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         realTelnyx.messagingProfiles.create(
           options.data,
-          function (_err, response) {
+          function (_err: unknown, response: ResponsePayload) {
             expect(response.data.id).toBe('123');
             expect(nock.isDone());
             done();
@@ -306,7 +307,7 @@ describe('TelnyxResource', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         realTelnyx.messagingProfiles.create(
           options.data,
-          function (_err, response) {
+          function (_err: unknown, response: ResponsePayload) {
             expect(response.data.id).toBe('123');
             expect(nock.isDone());
             done();
@@ -338,7 +339,7 @@ describe('TelnyxResource', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         realTelnyx.messagingProfiles.retrieve(
           '123',
-          function (_err, messagingProfile) {
+          function (_err: unknown, messagingProfile: ResponsePayload) {
             expect(messagingProfile.data.id).toBe('123');
             expect(nock.isDone());
             done();

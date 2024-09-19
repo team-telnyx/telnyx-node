@@ -4,8 +4,12 @@ import {EventEmitter} from 'events';
 import {exec} from 'child_process';
 import {AppInfo, TelnyxObject} from './Types';
 import * as utils from './utils';
+
 // TODO: convert other resources to ts
 import {Balance} from './resources/Balance';
+import {MessagingProfiles} from './resources/MessagingProfiles';
+//
+
 import TelnyxResource from './TelnyxResource';
 import * as _Error from './Error';
 import Webhooks from './Webhooks';
@@ -38,9 +42,12 @@ export function createTelnyx() {
 
   const APP_INFO_PROPERTIES = ['name', 'version', 'url', 'partner_id'];
 
+  // TODO: convert other resources to ts
   const resources = {
     Balance,
+    MessagingProfiles,
   };
+  //
 
   Telnyx.TelnyxResource = TelnyxResource;
   Telnyx.resources = resources;

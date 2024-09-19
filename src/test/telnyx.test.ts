@@ -1,6 +1,6 @@
 import nock from 'nock';
-import http from 'http';
-import https from 'https';
+import http, {Agent as HttpAgent} from 'http';
+import https, {Agent as HttpsAgent} from 'https';
 
 import {utils as testUtils} from './utils';
 import TelnyxNode from '../telnyx.node';
@@ -20,7 +20,7 @@ const MESSAGING_PROFILE_DETAILS: Record = {
 };
 
 describe('Telnyx Module', function () {
-  this.timeout(20000);
+  jest.setTimeout(20000);
 
   describe('setApiKey', function () {
     test('uses Bearer auth', function () {
@@ -31,7 +31,7 @@ describe('Telnyx Module', function () {
   });
 
   describe('setHttpAgent', function () {
-    let origHttpAgent, origHttpsAgent;
+    let origHttpAgent: HttpAgent, origHttpsAgent: HttpsAgent;
     beforeEach(function () {
       origHttpAgent = realTelnyx.getApiField('http_agent');
       origHttpsAgent = realTelnyx.getApiField('https_agent');
@@ -225,7 +225,7 @@ describe('Telnyx Module', function () {
             // @ts-expect-error TODO: import .d.ts files under src/test folder
             realTelnyx.messagingProfiles.create(
               MESSAGING_PROFILE_DETAILS,
-              function (_err, _mp) {
+              function (_err: unknown, _mp: unknown) {
                 resolve('Called!');
               },
             );
@@ -251,7 +251,10 @@ describe('Telnyx Module', function () {
             // @ts-expect-error TODO: import .d.ts files under src/test folder
             realTelnyx.messagingProfiles.create(
               MESSAGING_PROFILE_DETAILS,
-              function (_err, mp) {
+              function (
+                _err: unknown,
+                mp: {lastResponse: {headers: object; statusCode: number}},
+              ) {
                 const headers = mp.lastResponse.headers;
                 expect(headers).toHaveProperty('request-id');
 
@@ -271,7 +274,7 @@ describe('Telnyx Module', function () {
             // @ts-expect-error TODO: import .d.ts files under src/test folder
             realTelnyx.messagingProfiles.create(
               MESSAGING_PROFILE_DETAILS,
-              function (err, _messagingProfile) {
+              function (err: unknown, _messagingProfile: unknown) {
                 if (err) {
                   resolve('ErrorWasPassed');
                 } else {
