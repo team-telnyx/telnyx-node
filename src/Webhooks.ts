@@ -1,9 +1,8 @@
-import {Buffer} from 'safe-buffer';
 import nacl from 'tweetnacl';
 import * as TelnyxError from './Error';
 
-type WebhookPayload = string;
-type WebhookHeader = string;
+type WebhookPayload = string | Uint8Array;
+type WebhookHeader = string | Uint8Array;
 
 const Webhooks = {
   DEFAULT_TOLERANCE: 300, // 5 minutes
@@ -23,13 +22,17 @@ const Webhooks = {
       tolerance || Webhooks.DEFAULT_TOLERANCE,
     );
 
-    const jsonPayload = JSON.parse(payload);
+    const jsonPayload =
+      payload instanceof Uint8Array
+        ? JSON.parse(new TextDecoder('utf8').decode(payload))
+        : JSON.parse(payload);
+
     return jsonPayload;
   },
 
   signature: {
     verifySignature: function (
-      payload: string | Buffer,
+      payload: WebhookPayload,
       signatureHeader: WebhookHeader = '',
       timestampHeader: WebhookHeader = '',
       publicKey: string,
@@ -48,12 +51,25 @@ const Webhooks = {
       let verification;
 
       try {
-        // TODO: this cast is a workaround as the types are not compatible and this `method` is outdated
-        verification = nacl.sign.detached.verify(
-          payloadBuffer as unknown as Uint8Array,
-          Buffer.from(signatureHeader, 'base64') as unknown as Uint8Array,
-          Buffer.from(publicKey, 'base64') as unknown as Uint8Array,
-        );
+        // https://bun.sh/guides/binary/buffer-to-typedarray
+        if (signatureHeader instanceof Uint8Array) {
+          // TODO: this cast is a workaround as the types are not compatible and this `method` is outdated
+          verification = nacl.sign.detached.verify(
+            payloadBuffer,
+            Buffer.from(
+              new TextDecoder('utf8').decode(signatureHeader),
+              'base64',
+            ),
+            Buffer.from(publicKey, 'base64'),
+          );
+        } else {
+          // TODO: this cast is a workaround as the types are not compatible and this `method` is outdated
+          verification = nacl.sign.detached.verify(
+            payloadBuffer,
+            Buffer.from(signatureHeader, 'base64'),
+            Buffer.from(publicKey, 'base64'),
+          );
+        }
       } catch (_e) {
         throwSignatureVerificationError(
           payload,
@@ -71,7 +87,13 @@ const Webhooks = {
       }
 
       const timestampAge =
-        Math.floor(Date.now() / 1000) - parseInt(timestampHeader, 10);
+        Math.floor(Date.now() / 1000) -
+        parseInt(
+          timestampHeader instanceof Uint8Array
+            ? new TextDecoder('utf8').decode(timestampHeader)
+            : timestampHeader,
+          10,
+        );
 
       if (tolerance && tolerance > 0 && timestampAge > tolerance) {
         throw new TelnyxError.TelnyxSignatureVerificationError({
@@ -91,8 +113,8 @@ const Webhooks = {
 
 function throwSignatureVerificationError(
   payload: unknown,
-  signatureHeader: string,
-  timestampHeader: string,
+  signatureHeader: WebhookHeader,
+  timestampHeader: WebhookHeader,
 ) {
   throw new TelnyxError.TelnyxSignatureVerificationError({
     message: 'Signature is invalid and does not match the payload',
