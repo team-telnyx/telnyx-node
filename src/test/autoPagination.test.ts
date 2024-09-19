@@ -1,5 +1,3 @@
-/* eslint-disable callback-return */
-
 import nock from 'nock';
 import {utils as testUtils} from './utils';
 import {forAwaitUntil} from './utils/forAwait.node10';
@@ -27,7 +25,7 @@ describe('auto pagination', function () {
   let realMessagingProfileIds: number[];
 
   describe('callbacks', function () {
-    it('lets you call `next()` to iterate and `next(false)` to break', function () {
+    test('lets you call `next()` to iterate and `next(false)` to break', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];
@@ -80,7 +78,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds.slice(0, LIMIT));
     });
 
-    it('lets you ignore the second arg and `return false` to break', function () {
+    test('lets you ignore the second arg and `return false` to break', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];
@@ -132,7 +130,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds.slice(0, LIMIT));
     });
 
-    it('lets you ignore the second arg and return a Promise which returns `false` to break', function () {
+    test('lets you ignore the second arg and return a Promise which returns `false` to break', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];
@@ -185,7 +183,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds.slice(0, LIMIT));
     });
 
-    it('can use a promise instead of a callback for onDone', function () {
+    test('can use a promise instead of a callback for onDone', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];
@@ -230,7 +228,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds);
     });
 
-    it('handles the end of a list properly when the last page is full', function () {
+    test('handles the end of a list properly when the last page is full', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3, 4];
@@ -273,7 +271,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds);
     });
 
-    it('handles the end of a list properly when the last page is not full', function () {
+    test('handles the end of a list properly when the last page is not full', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];
@@ -312,7 +310,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds);
     });
 
-    it('handles a list which is shorter than the page size properly', function () {
+    test('handles a list which is shorter than the page size properly', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2];
@@ -350,7 +348,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds);
     });
 
-    it('handles errors after the first page correctly (callback)', function () {
+    test('handles errors after the first page correctly (callback)', function () {
       return expect(
         new Promise(function (resolve, reject) {
           let i = 0;
@@ -397,7 +395,7 @@ describe('auto pagination', function () {
       ).toBe('Simulated error');
     });
 
-    it('handles errors after the first page correctly (promise)', function () {
+    test('handles errors after the first page correctly (promise)', function () {
       return expect(
         new Promise(function (resolve, reject) {
           let i = 0;
@@ -444,7 +442,7 @@ describe('auto pagination', function () {
   });
 
   describe('async iterators', function () {
-    it('works with `for await` when that feature exists (user break)', function () {
+    test('works with `for await` when that feature exists (user break)', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];
@@ -486,7 +484,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds.slice(0, LIMIT));
     });
 
-    it('works with `for await` when that feature exists (end of list)', function () {
+    test('works with `for await` when that feature exists (end of list)', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];
@@ -528,7 +526,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds);
     });
 
-    it('works with `await` and a while loop when await exists', function () {
+    test('works with `await` and a while loop when await exists', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];
@@ -570,7 +568,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds.slice(0, LIMIT));
     });
 
-    it('returns an empty object from .return() so that `break;` works in for-await', function () {
+    test('returns an empty object from .return() so that `break;` works in for-await', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];
@@ -614,7 +612,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds.slice(0, 1));
     });
 
-    it('works when you call it sequentially', function () {
+    test('works when you call it sequentially', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];
@@ -660,7 +658,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds.slice(0, LIMIT));
     });
 
-    it('gives you the same result each time when you call it multiple times in parallel', function () {
+    test('gives you the same result each time when you call it multiple times in parallel', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3, 4];
@@ -749,7 +747,7 @@ describe('auto pagination', function () {
   });
 
   describe('autoPagingToArray', function () {
-    it('can go to the end', function () {
+    test('can go to the end', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];
@@ -789,7 +787,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds);
     });
 
-    it('returns a promise of an array', function () {
+    test('returns a promise of an array', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];
@@ -829,7 +827,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds.slice(0, LIMIT));
     });
 
-    it('accepts an onDone callback, passing an array', function () {
+    test('accepts an onDone callback, passing an array', function () {
       return expect(
         new Promise(function (resolve, reject) {
           function onDone(err, messagingProfiles) {
@@ -873,7 +871,7 @@ describe('auto pagination', function () {
       ).toBe(realMessagingProfileIds.slice(0, LIMIT));
     });
 
-    it('enforces a `limit` arg', function () {
+    test('enforces a `limit` arg', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];
@@ -913,7 +911,7 @@ describe('auto pagination', function () {
       );
     });
 
-    it('caps the `limit` arg to a reasonable ceiling', function () {
+    test('caps the `limit` arg to a reasonable ceiling', function () {
       return expect(
         new Promise(function (resolve, reject) {
           try {
@@ -933,7 +931,7 @@ describe('auto pagination', function () {
   });
 
   describe('api compat edge cases', function () {
-    it('lets you listen to the first request as its own promise, and separately each item, but only sends one request for the first page.', function () {
+    test('lets you listen to the first request as its own promise, and separately each item, but only sends one request for the first page.', function () {
       return expect(
         new Promise(function (resolve, reject) {
           realMessagingProfileIds = [1, 2, 3];

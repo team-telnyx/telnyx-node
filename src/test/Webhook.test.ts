@@ -34,7 +34,7 @@ const PUBLIC_KEY = new TextDecoder('utf8').decode(KEY_PAIR.publicKey);
 
 describe('Webhooks', function () {
   describe('.constructEvent', function () {
-    it('should return an Event instance from a valid JSON payload and valid signature header', function () {
+    test('should return an Event instance from a valid JSON payload and valid signature header', function () {
       const timestamp = Math.floor(Date.now() / 1000).toString();
       const signature = generateSignature({
         payload: EVENT_PAYLOAD_STRING,
@@ -51,7 +51,7 @@ describe('Webhooks', function () {
       expect(event.data.id).toBe(EVENT_PAYLOAD.data.id);
     });
 
-    it('should raise a JSON error from invalid JSON payload', function () {
+    test('should raise a JSON error from invalid JSON payload', function () {
       const timestamp = Math.floor(Date.now() / 1000).toString();
       const signature = generateSignature({
         payload: '} I am not valid JSON; 123][',
@@ -67,7 +67,7 @@ describe('Webhooks', function () {
       }).toThrow(/Unexpected token/);
     });
 
-    it('should raise a SignatureVerificationError from a valid JSON payload and an invalid signature header', function () {
+    test('should raise a SignatureVerificationError from a valid JSON payload and an invalid signature header', function () {
       const signature = 'bad_header';
       const timestamp = Math.floor(Date.now() / 1000).toString();
 
@@ -83,7 +83,7 @@ describe('Webhooks', function () {
   });
 
   describe('.verifySignature', function () {
-    it('should raise a SignatureVerificationError when there are no valid signatures for the payload', function () {
+    test('should raise a SignatureVerificationError when there are no valid signatures for the payload', function () {
       const signature = "I'm not even a real signature header";
       const timestamp = Math.floor(Date.now() / 1000).toString();
 
@@ -127,7 +127,7 @@ describe('Webhooks', function () {
       }).toThrow(expectedMessage);
     });
 
-    it('should raise a SignatureVerificationError when the timestamp is not within the tolerance', function () {
+    test('should raise a SignatureVerificationError when the timestamp is not within the tolerance', function () {
       const timestamp = (Date.now() / 1000 - 15).toString();
       const signature = generateSignature({
         timestamp: timestamp,
@@ -144,7 +144,7 @@ describe('Webhooks', function () {
       }).toThrow(/Timestamp outside the tolerance zone/);
     });
 
-    it(
+    test(
       'should return true when the header contains a valid signature and ' +
         'the timestamp is within the tolerance',
       function () {
@@ -165,7 +165,7 @@ describe('Webhooks', function () {
       },
     );
 
-    it(
+    test(
       'should return true when the header contains a valid signature ' +
         'and the timestamp is off but no tolerance is provided',
       function () {
@@ -187,7 +187,7 @@ describe('Webhooks', function () {
       },
     );
 
-    it('should accept Buffer instances for the payload and header', function () {
+    test('should accept Buffer instances for the payload and header', function () {
       const timestamp = Math.floor(Date.now() / 1000).toString();
       const signature = generateSignature({
         timestamp: timestamp,
