@@ -2,7 +2,7 @@
 
 [![Version](https://img.shields.io/npm/v/telnyx.svg)](https://www.npmjs.org/package/telnyx)
 [![Build Status](https://github.com/team-telnyx/telnyx-node/workflows/CI/badge.svg)](https://github.com/team-telnyx/telnyx-node/actions)
-[![Coverage Status](https://coveralls.io/repos/github/team-telnyx/telnyx-node/badge.svg?branch=master)](https://coveralls.io/github/team-telnyx/telnyx-node?branch=master)
+Coverage Status: Pending
 [![Downloads](https://img.shields.io/npm/dm/telnyx.svg)](https://www.npmjs.com/package/telnyx)
 [![Try on RunKit](https://badge.runkitcdn.com/telnyx.svg)](https://runkit.com/npm/telnyx)
 [![Join Slack](https://img.shields.io/badge/join-slack-infomational)](https://joinslack.telnyx.com/)
