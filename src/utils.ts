@@ -65,6 +65,17 @@ export function removeEmpty<T = unknown>(
   return obj;
 }
 
+/**
+ * snake_case to camelCase
+ */
+export function snakeToCamelCase(name: string) {
+  const words = name.split('_');
+
+  return words.reduce(function (acc, nextWord) {
+    return acc + nextWord.charAt(0).toUpperCase() + nextWord.slice(1);
+  });
+}
+
 export function callbackifyPromiseWithTimeout<T>(
   promise: Promise<T>,
   callback: ((error: unknown, result: T | null) => void) | null,

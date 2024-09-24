@@ -30,7 +30,6 @@ const EVENT_PAYLOAD = {
 const EVENT_PAYLOAD_STRING = JSON.stringify(EVENT_PAYLOAD, null, 2);
 
 const KEY_PAIR = nacl.sign.keyPair.fromSeed(crypto.randomBytes(32));
-const PUBLIC_KEY = new TextDecoder('utf8').decode(KEY_PAIR.publicKey);
 
 describe('Webhooks', function () {
   describe('.constructEvent', function () {
@@ -45,7 +44,7 @@ describe('Webhooks', function () {
         EVENT_PAYLOAD_STRING,
         signature,
         timestamp,
-        PUBLIC_KEY,
+        KEY_PAIR.publicKey,
       );
 
       expect(event.data.id).toBe(EVENT_PAYLOAD.data.id);
@@ -62,7 +61,7 @@ describe('Webhooks', function () {
           '} I am not valid JSON; 123][',
           signature,
           timestamp,
-          PUBLIC_KEY,
+          KEY_PAIR.publicKey,
         );
       }).toThrow(/Unexpected token/);
     });
@@ -74,9 +73,9 @@ describe('Webhooks', function () {
       expect(function () {
         telnyx.webhooks.constructEvent(
           EVENT_PAYLOAD_STRING,
-          signature,
+          Buffer.from(signature),
           timestamp,
-          PUBLIC_KEY,
+          KEY_PAIR.publicKey,
         );
       }).toThrow(/Signature is invalid and does not match the payload/);
     });
@@ -93,18 +92,9 @@ describe('Webhooks', function () {
       expect(function () {
         telnyx.webhooks.signature.verifySignature(
           EVENT_PAYLOAD_STRING,
-          signature,
+          Buffer.from(signature),
           timestamp,
-          PUBLIC_KEY,
-        );
-      }).toThrow(expectedMessage);
-
-      expect(function () {
-        telnyx.webhooks.signature.verifySignature(
-          EVENT_PAYLOAD_STRING,
-          '',
-          timestamp,
-          PUBLIC_KEY,
+          KEY_PAIR.publicKey,
         );
       }).toThrow(expectedMessage);
 
@@ -113,7 +103,7 @@ describe('Webhooks', function () {
           EVENT_PAYLOAD_STRING,
           undefined,
           timestamp,
-          PUBLIC_KEY,
+          KEY_PAIR.publicKey,
         );
       }).toThrow(expectedMessage);
 
@@ -122,7 +112,7 @@ describe('Webhooks', function () {
           EVENT_PAYLOAD_STRING,
           Buffer.from('foo', 'ascii'),
           timestamp,
-          PUBLIC_KEY,
+          KEY_PAIR.publicKey,
         );
       }).toThrow(expectedMessage);
     });
@@ -138,7 +128,7 @@ describe('Webhooks', function () {
           EVENT_PAYLOAD_STRING,
           signature,
           timestamp,
-          PUBLIC_KEY,
+          KEY_PAIR.publicKey,
           10,
         );
       }).toThrow(/Timestamp outside the tolerance zone/);
@@ -158,7 +148,7 @@ describe('Webhooks', function () {
             EVENT_PAYLOAD_STRING,
             signature,
             timestamp,
-            PUBLIC_KEY,
+            KEY_PAIR.publicKey,
             10,
           ),
         ).toBe(true);
@@ -181,28 +171,11 @@ describe('Webhooks', function () {
             EVENT_PAYLOAD_STRING,
             signature,
             timestamp,
-            PUBLIC_KEY,
+            KEY_PAIR.publicKey,
           ),
         ).toBe(true);
       },
     );
-
-    test('should accept Buffer instances for the payload and header', function () {
-      const timestamp = Math.floor(Date.now() / 1000).toString();
-      const signature = generateSignature({
-        timestamp: timestamp,
-      });
-
-      expect(
-        telnyx.webhooks.signature.verifySignature(
-          Buffer.from(EVENT_PAYLOAD_STRING),
-          Buffer.from(signature),
-          Buffer.from(timestamp),
-          PUBLIC_KEY,
-          10,
-        ),
-      ).toBe(true);
-    });
   });
 });
 

@@ -1,17 +1,18 @@
 import nacl from 'tweetnacl';
 import * as TelnyxError from './Error';
 
-type WebhookPayload = string | Uint8Array;
-type WebhookHeader = string | Uint8Array;
+type WebhookPayload = string;
+type WebhookHeader = Uint8Array;
 
 const Webhooks = {
   DEFAULT_TOLERANCE: 300, // 5 minutes
+  decoder: new TextDecoder('utf8'),
 
   constructEvent: function (
     payload: WebhookPayload,
-    signatureHeader: WebhookHeader,
-    timestampHeader: WebhookHeader,
-    publicKey: string,
+    signatureHeader: WebhookHeader | undefined,
+    timestampHeader: string | undefined = '',
+    publicKey: Uint8Array,
     tolerance?: number,
   ) {
     this.signature.verifySignature(
@@ -22,10 +23,7 @@ const Webhooks = {
       tolerance || Webhooks.DEFAULT_TOLERANCE,
     );
 
-    const jsonPayload =
-      payload instanceof Uint8Array
-        ? JSON.parse(new TextDecoder('utf8').decode(payload))
-        : JSON.parse(payload);
+    const jsonPayload = JSON.parse(payload);
 
     return jsonPayload;
   },
@@ -33,67 +31,38 @@ const Webhooks = {
   signature: {
     verifySignature: function (
       payload: WebhookPayload,
-      signatureHeader: WebhookHeader = '',
-      timestampHeader: WebhookHeader = '',
-      publicKey: string,
+      signatureHeader: WebhookHeader | undefined,
+      timestampHeader: string,
+      publicKey: Uint8Array,
       tolerance?: number,
     ) {
-      payload = Buffer.isBuffer(payload) ? payload.toString('utf8') : payload;
-      timestampHeader = Buffer.isBuffer(timestampHeader)
-        ? timestampHeader.toString('utf8')
-        : timestampHeader;
-
       const payloadBuffer = Buffer.from(
         `${timestampHeader}|${payload}`,
         'utf8',
       );
+      const signature = signatureHeader || Buffer.from('', 'base64');
 
       let verification;
 
       try {
         // https://bun.sh/guides/binary/buffer-to-typedarray
-        if (signatureHeader instanceof Uint8Array) {
-          // TODO: this cast is a workaround as the types are not compatible and this `method` is outdated
-          verification = nacl.sign.detached.verify(
-            payloadBuffer,
-            Buffer.from(
-              new TextDecoder('utf8').decode(signatureHeader),
-              'base64',
-            ),
-            Buffer.from(publicKey, 'base64'),
-          );
-        } else {
-          // TODO: this cast is a workaround as the types are not compatible and this `method` is outdated
-          verification = nacl.sign.detached.verify(
-            payloadBuffer,
-            Buffer.from(signatureHeader, 'base64'),
-            Buffer.from(publicKey, 'base64'),
-          );
-        }
-      } catch (_e) {
-        throwSignatureVerificationError(
-          payload,
-          signatureHeader,
-          timestampHeader,
+        verification = nacl.sign.detached.verify(
+          payloadBuffer,
+          signature,
+          publicKey,
         );
+      } catch (_e) {
+        console.log(_e);
+
+        throwSignatureVerificationError(payload, signature, timestampHeader);
       }
 
       if (!verification) {
-        throwSignatureVerificationError(
-          payload,
-          signatureHeader,
-          timestampHeader,
-        );
+        throwSignatureVerificationError(payload, signature, timestampHeader);
       }
 
       const timestampAge =
-        Math.floor(Date.now() / 1000) -
-        parseInt(
-          timestampHeader instanceof Uint8Array
-            ? new TextDecoder('utf8').decode(timestampHeader)
-            : timestampHeader,
-          10,
-        );
+        Math.floor(Date.now() / 1000) - parseInt(timestampHeader);
 
       if (tolerance && tolerance > 0 && timestampAge > tolerance) {
         throw new TelnyxError.TelnyxSignatureVerificationError({
@@ -114,7 +83,7 @@ const Webhooks = {
 function throwSignatureVerificationError(
   payload: unknown,
   signatureHeader: WebhookHeader,
-  timestampHeader: WebhookHeader,
+  timestampHeader: string,
 ) {
   throw new TelnyxError.TelnyxSignatureVerificationError({
     message: 'Signature is invalid and does not match the payload',

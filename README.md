@@ -358,13 +358,13 @@ $ TELNYX_MOCK_PORT=12000 npm test
 Run a single test suite:
 
 ```bash
-$ npm test -- test/Error.spec.js
+$ npm test -- test/Error.test.ts
 ```
 
 Run a single test (case sensitive):
 
 ```bash
-$ npm test -- test/Error.spec.js -t 'Populates with type'
+$ npm test -- test/Error.test.ts -t 'Populates with type'
 ```
 
 If you wish, you may run tests using your Telnyx _Test_ API key by setting the

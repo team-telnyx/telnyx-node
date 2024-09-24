@@ -8,6 +8,7 @@
 // Imports: The beginning of the section generated from our OpenAPI spec
 ///<reference path='./BalanceResource.d.ts' />
 ///<reference path='./MessagingProfilesResource.d.ts' />
+///<reference path='./MessagingProfileMetricsResource.d.ts' />
 // Imports: The end of the section generated from our OpenAPI spec
 
 declare module 'telnyx' {

@@ -7,6 +7,7 @@ import * as utils from './utils';
 
 // TODO: convert other resources to ts
 import {Balance} from './resources/Balance';
+import {MessagingProfileMetrics} from './resources/MessagingProfileMetrics';
 import {MessagingProfiles} from './resources/MessagingProfiles';
 //
 
@@ -45,6 +46,7 @@ export function createTelnyx() {
   // TODO: convert other resources to ts
   const resources = {
     Balance,
+    MessagingProfileMetrics,
     MessagingProfiles,
   };
   //

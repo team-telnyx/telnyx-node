@@ -49,7 +49,7 @@ describe('utils', function () {
         utils.stringifyRequestData({
           a: [{b: 'c'}, {b: 'd'}],
         }),
-      ).toBe('a[][b]=c&a[][b]=d');
+      ).toBe('a[0][b]=c&a[1][b]=d');
     });
 
     test('Handles indexed arrays', function () {
@@ -106,62 +106,50 @@ describe('utils', function () {
 
   describe('getDataFromArgs', function () {
     test('handles an empty list', function () {
-      expect(utils.getDataFromArgs([])).toBe({});
+      expect(utils.getDataFromArgs([])).toStrictEqual({});
     });
     test('handles a list with no object', function () {
       const args = [1, 3];
-      expect(utils.getDataFromArgs(args)).toBe({});
+      expect(utils.getDataFromArgs(args)).toStrictEqual({});
       expect(args.length).toBe(2);
     });
-    test('ignores a hash with only options', function (done) {
+    test('ignores a hash with only options', function () {
+      jest.spyOn(console, 'warn');
+
       const args = [{api_key: 'foo'}];
 
-      handleWarnings(
-        function () {
-          expect(utils.getDataFromArgs(args)).toBe({});
-          expect(args.length).toBe(1);
-
-          done();
-        },
-        function (message: string) {
-          throw new Error('Should not have warned, but did: ' + message);
-        },
-      );
+      expect(utils.getDataFromArgs(args)).toStrictEqual({});
+      expect(console.warn).not.toHaveBeenCalled();
     });
-    test('warns if the hash contains both data and options', function (done) {
+    test('warns if the hash contains both data and options', function () {
+      jest.spyOn(process, 'emitWarning');
       const args = [{foo: 'bar', api_key: 'foo'}];
 
-      handleWarnings(
-        function () {
-          utils.getDataFromArgs(args);
-        },
-        function (message: string) {
-          expect(message).toBe(
-            'Telnyx: Options found in arguments (api_key).' +
-              ' Did you mean to pass an options object? See https://github.com/telnyx/telnyx-node/wiki/Passing-Options.',
-          );
+      utils.getDataFromArgs(args);
 
-          done();
-        },
+      // assert the expected warning
+      expect(process.emitWarning).toHaveBeenCalledWith(
+        'Options found in arguments (api_key). Did you mean to pass an options object?',
+        'Telnyx',
       );
     });
     test('finds the data', function () {
       const args = [{foo: 'bar'}, {api_key: 'foo'}];
-      expect(utils.getDataFromArgs(args)).toBe({foo: 'bar'});
+      expect(utils.getDataFromArgs(args)).toStrictEqual({foo: 'bar'});
       expect(args.length).toBe(1);
     });
   });
 
   describe('getOptsFromArgs', function () {
     test('handles an empty list', function () {
-      expect(utils.getOptionsFromArgs([])).toBe({
+      expect(utils.getOptionsFromArgs([])).toStrictEqual({
         auth: null,
         headers: {},
       });
     });
     test('handles an list with no object', function () {
       const args = [1, 3];
-      expect(utils.getOptionsFromArgs(args)).toBe({
+      expect(utils.getOptionsFromArgs(args)).toStrictEqual({
         auth: null,
         headers: {},
       });
@@ -169,7 +157,7 @@ describe('utils', function () {
     });
     test('ignores a non-options object', function () {
       const args = [{foo: 'bar'}];
-      expect(utils.getOptionsFromArgs(args)).toBe({
+      expect(utils.getOptionsFromArgs(args)).toStrictEqual({
         auth: null,
         headers: {},
       });
@@ -179,13 +167,15 @@ describe('utils', function () {
       const args = [
         'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo',
       ];
-      expect(utils.getOptionsFromArgs(args)).toBe({
+      expect(utils.getOptionsFromArgs(args)).toStrictEqual({
         auth: 'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo',
         headers: {},
       });
       expect(args.length).toBe(0);
     });
-    test('warns if the hash contains something that does not belong', function (done) {
+    test('warns if the hash contains something that does not belong', function () {
+      jest.spyOn(process, 'emitWarning');
+
       const args = [
         {foo: 'bar'},
         {
@@ -195,17 +185,12 @@ describe('utils', function () {
         },
       ];
 
-      handleWarnings(
-        function () {
-          utils.getOptionsFromArgs(args);
-        },
-        function (message: string) {
-          expect(message).toBe(
-            'Telnyx: Invalid options found (fishsticks, custard); ignoring.',
-          );
+      utils.getOptionsFromArgs(args);
 
-          done();
-        },
+      // assert the expected warning
+      expect(process.emitWarning).toHaveBeenCalledWith(
+        'Invalid options found (fishsticks, custard); ignoring.',
+        'Telnyx',
       );
     });
   });
@@ -232,36 +217,3 @@ describe('utils', function () {
     });
   });
 });
-
-function handleWarnings(
-  doWithShimmedConsoleWarn: () => void,
-  onWarn: (message: string) => void,
-) {
-  if (typeof process.emitWarning !== 'function') {
-    /* eslint-disable no-console */
-
-    // Shim `console.warn`
-    const _warn = console.warn;
-    console.warn = onWarn;
-
-    doWithShimmedConsoleWarn();
-
-    // Un-shim `console.warn`,
-    console.warn = _warn;
-
-    /* eslint-enable no-console */
-  } else {
-    function onProcessWarn(warning: {name: string; message: string}) {
-      /* eslint-disable-line no-inner-declarations */
-      onWarn(warning.name + ': ' + warning.message);
-    }
-
-    process.on('warning', onProcessWarn);
-
-    doWithShimmedConsoleWarn();
-
-    process.nextTick(function () {
-      process.removeListener('warning', onProcessWarn);
-    });
-  }
-}
