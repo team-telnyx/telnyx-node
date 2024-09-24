@@ -6,9 +6,10 @@ import {
   IncomingMessage,
 } from 'http';
 import {Agent as HttpsAgent} from 'https';
-import {TelnyxRawError} from './Error.ts';
+import {TelnyxRawError} from './Error';
+import Webhooks from './Webhooks';
 
-export type AppInfo = {name: string; version: string; url: string} & Record<
+export type AppInfo = {name?: string; version?: string; url?: string} & Record<
   string,
   unknown
 >;
@@ -70,7 +71,7 @@ export type TelnyxObject = {
     self: TelnyxObject,
   ) => (args: Record<string, unknown>) => Record<string, unknown>;
   _setApiKey: (apiKey: string) => void;
-  _setAppInfo: (appInfo: AppInfo) => void;
+  _setAppInfo: (appInfo?: AppInfo) => void;
   getClientUserAgentSeeded: (
     seed: Record<string, string | boolean | null>,
     callback: (userAgent: string) => void,
@@ -83,21 +84,27 @@ export type TelnyxObject = {
   getConstant: <T = string>(name: string) => T;
   _setApiField: <K extends keyof TelnyxObject['_api']>(
     name: K,
-    value: TelnyxObject['_api'][K],
+    value: TelnyxObject['_api'][K] | null,
   ) => void;
   getApiField: <K extends keyof TelnyxObject['_api']>(
     key: K,
   ) => TelnyxObject['_api'][K];
+  setHost: (host: string, port: string, protocol: string) => void;
   setPort: (port: string) => void;
   setProtocol: (protocol: string) => void;
+  setHttpAgent: (agent: HttpAgent | HttpsAgent) => void;
+  setTimeout: (timeout: number | null | undefined) => void;
+  setMaxNetworkRetries: (maxNetworkRetries: number) => void;
   _appInfo: AppInfo;
   _clientId?: string;
-  on: unknown;
-  off: unknown;
+  on: (event: string, listener: (...args: Array<unknown>) => void) => void;
+  off: (event: string, listener: (...args: Array<unknown>) => void) => void;
   once: unknown;
   VERSION: string;
+  REQUESTS: Array<unknown>;
+  LAST_REQUEST: unknown;
   errors: unknown;
-  webhooks: unknown;
+  webhooks: typeof Webhooks;
 };
 
 export type RequestHeaders = Record<string, string | number | string[]>;
@@ -117,13 +124,19 @@ type RequestCallback = (
 type RequestCallbackReturn = unknown;
 export type RequestData = Record<string, unknown>;
 export type RequestOptions = {
-  auth: string | null;
+  auth?: string | null;
   headers: RequestHeaders;
 };
-export type ResponsePayload = IncomingMessage & {
-  [key: string]: unknown;
-  requestId: string;
-} & {req: ReqTimeoutHandler};
+export type ResponsePayload<
+  T = {
+    [key: string]: unknown;
+  },
+> = IncomingMessage &
+  T & {
+    data: T & {};
+    requestId: string;
+    req: ReqTimeoutHandler;
+  };
 export type ResponseHeaderValue = string | string[];
 export type ResponseHeaders = Record<string, ResponseHeaderValue>;
 type PromiseCache<T> = {
@@ -160,8 +173,8 @@ export type TelnyxResourceObject = {
     requestPath: MethodSpec['path'],
     requestData: RequestData,
     auth: RequestOptions['auth'],
-    options: {headers?: RequestOptions['headers']},
-    callback: (err: unknown, response: ResponsePayload | null) => void,
+    options: RequestOptions,
+    callback: RequestCallback,
   ) => void;
   _buildError: (error: TelnyxRawError, statusCode: number | undefined) => Error;
   _generateConnectionErrorMessage: (

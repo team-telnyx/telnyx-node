@@ -1,7 +1,7 @@
-import {MethodSpec, TelnyxResourceObject} from './Types.js';
-import * as utils from './utils.js';
-import makeRequest from './makeRequest.js';
-import {makeAutoPaginationMethods} from './autoPagination.js';
+import {MethodSpec, TelnyxResourceObject} from './Types';
+import * as utils from './utils';
+import makeRequest from './makeRequest';
+import {makeAutoPaginationMethods} from './autoPagination';
 
 /**
  * Create an API method from the declared spec.

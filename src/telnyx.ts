@@ -2,14 +2,17 @@ import * as http from 'http';
 import * as https from 'https';
 import {EventEmitter} from 'events';
 import {exec} from 'child_process';
-import {version} from '../package.json';
-import {AppInfo, TelnyxObject} from './Types.js';
-import * as utils from './utils.js';
+import {AppInfo, TelnyxObject} from './Types';
+import * as utils from './utils';
+
 // TODO: convert other resources to ts
-import {Balance} from './resources/Balance.js';
-import TelnyxResource from './TelnyxResource.js';
-import * as _Error from './Error.js';
-import Webhooks from './Webhooks.js';
+import {Balance} from './resources/Balance';
+import {MessagingProfiles} from './resources/MessagingProfiles';
+//
+
+import TelnyxResource from './TelnyxResource';
+import * as _Error from './Error';
+import Webhooks from './Webhooks';
 
 export function createTelnyx() {
   Telnyx.DEFAULT_HOST = process.env.TELNYX_API_BASE || 'api.telnyx.com';
@@ -19,7 +22,9 @@ export function createTelnyx() {
   // Use node's default timeout:
   Telnyx.DEFAULT_TIMEOUT = http.createServer().timeout;
 
-  Telnyx.PACKAGE_VERSION = version;
+  Telnyx.PACKAGE_VERSION = process.env.npm_package_version || '2.x';
+  Telnyx.REQUESTS = [] as Array<unknown>;
+  Telnyx.LAST_REQUEST = null as unknown;
 
   Telnyx.USER_AGENT = {
     bindings_version: Telnyx.PACKAGE_VERSION,
@@ -37,9 +42,12 @@ export function createTelnyx() {
 
   const APP_INFO_PROPERTIES = ['name', 'version', 'url', 'partner_id'];
 
+  // TODO: convert other resources to ts
   const resources = {
     Balance,
+    MessagingProfiles,
   };
+  //
 
   Telnyx.TelnyxResource = TelnyxResource;
   Telnyx.resources = resources;
@@ -101,6 +109,8 @@ export function createTelnyx() {
     _emitter: null!,
     _requestSender: null!,
     _platformFunctions: null!,
+    REQUESTS: null!,
+    LAST_REQUEST: null!,
 
     setHost: function (host: string, port: string, protocol: string) {
       this._setApiField('host', host);

@@ -29,26 +29,25 @@
   },
   "main": "dist/telnyx.node.js",
   "type": "module",
-  "types": "types/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "devDependencies": {
     "@eslint/js": "^9.10.0",
     "@types/eslint__js": "^8.42.3",
+    "@types/jest": "^29.5.13",
     "@types/qs": "^6.9.15",
-    "chai": "~4.4.1",
-    "chai-as-promised": "~7.1.1",
-    "coveralls": "^3.1.1",
     "debug": "^4.3.4",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-chai-friendly": "^0.7.4",
     "eslint-plugin-prettier": "^5.2.1",
-    "mocha": "^10.3.0",
+    "jest": "^29.7.0",
     "nock": "^13.5.4",
     "nyc": "^15.1.0",
     "prettier": "^3.0.0",
     "qs": "^6.11.2",
-    "safe-buffer": "^5.2.1",
     "telnyx": "^1.26.2",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "tweetnacl": "^1.0.3",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.5.0",
@@ -59,21 +58,12 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "prebuild": "rm -rf ./dist",
+    "build": "tsc && cp -r types dist/types",
     "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage ./dist",
     "prepack": "npm install && npm run build",
-    "mocha": "nyc mocha",
-    "test": "npm run lint && npm run mocha",
+    "test": "jest",
     "lint": "rm -rf ./dist && eslint .",
-    "fix": "npm run lint --fix",
-    "report": "nyc -r text -r lcov report",
-    "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
-  },
-  "nyc": {
-    "exclude": [
-      "testUtils/**/*",
-      "test/**/*",
-      "src/TelnyxMethod.basic.js"
-    ]
+    "fix": "npm run lint --fix"
   }
 }

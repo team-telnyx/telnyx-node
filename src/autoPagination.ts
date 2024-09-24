@@ -4,9 +4,9 @@ import {
   PromiseCache,
   RequestArgs,
   TelnyxResourceObject,
-} from './Types.js';
-import makeRequest from './makeRequest.js';
-import * as utils from './utils.js';
+} from './Types';
+import makeRequest from './makeRequest';
+import * as utils from './utils';
 
 type IterationResult = {
   done: boolean;

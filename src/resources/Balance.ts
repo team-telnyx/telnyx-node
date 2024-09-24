@@ -1,4 +1,4 @@
-import TelnyxResource from '../TelnyxResource.js';
+import TelnyxResource from '../TelnyxResource';
 export const Balance = TelnyxResource.extend({
   path: 'balance',
 
