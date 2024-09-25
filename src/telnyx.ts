@@ -236,6 +236,7 @@ export function createTelnyx() {
     setMaxNetworkRetries: function (maxNetworkRetries: number) {
       if (
         (maxNetworkRetries && typeof maxNetworkRetries !== 'number') ||
+        typeof maxNetworkRetries === 'undefined' ||
         arguments.length < 1
       ) {
         throw new Error('maxNetworkRetries must be a number.');

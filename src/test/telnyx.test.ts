@@ -61,38 +61,43 @@ describe('Telnyx Module', function () {
   });
 
   describe('GetClientUserAgent', function () {
-    test('Should return a user-agent serialized JSON object', function () {
-      return expect(
-        new Promise(function (resolve, _reject) {
-          realTelnyx.getClientUserAgent(function (c) {
-            resolve(JSON.parse(c));
-          });
-        }),
-      ).toHaveProperty('lang', 'node');
+    test('Should return a user-agent serialized JSON object', function (done) {
+      realTelnyx.getClientUserAgent(function (c) {
+        try {
+          expect(JSON.parse(c)).toHaveProperty('lang', 'node');
+          done();
+        } catch (err: unknown) {
+          done(err);
+        }
+      });
     });
   });
 
   describe('GetClientUserAgentSeeded', function () {
-    test('Should return a user-agent serialized JSON object', function () {
+    test('Should return a user-agent serialized JSON object', function (done) {
       const userAgent = {lang: 'node'};
-      return expect(
-        new Promise(function (resolve, _reject) {
-          realTelnyx.getClientUserAgentSeeded(userAgent, function (c) {
-            resolve(JSON.parse(c));
-          });
-        }),
-      ).toHaveProperty('lang', 'node');
+
+      realTelnyx.getClientUserAgentSeeded(userAgent, function (c) {
+        try {
+          expect(JSON.parse(c)).toHaveProperty('lang', 'node');
+          done();
+        } catch (err: unknown) {
+          done(err);
+        }
+      });
     });
 
-    test('Should URI-encode user-agent fields', function () {
+    test('Should URI-encode user-agent fields', function (done) {
       const userAgent = {lang: 'ï'};
-      return expect(
-        new Promise(function (resolve, _reject) {
-          realTelnyx.getClientUserAgentSeeded(userAgent, function (c) {
-            resolve(JSON.parse(c));
-          });
-        }),
-      ).toHaveProperty('lang', '%C3%AF');
+
+      realTelnyx.getClientUserAgentSeeded(userAgent, function (c) {
+        try {
+          expect(JSON.parse(c)).toHaveProperty('lang', '%C3%AF');
+          done();
+        } catch (err: unknown) {
+          done(err);
+        }
+      });
     });
   });
 
@@ -206,84 +211,82 @@ describe('Telnyx Module', function () {
       realTelnyx._setAppInfo(appInfo);
 
       realTelnyx.getClientUserAgent(function (uaString) {
-        expect(JSON.parse(uaString).application).toMatchObject(appInfo);
+        try {
+          expect(JSON.parse(uaString).application).toMatchObject(appInfo);
 
-        expect(realTelnyx.getAppInfoAsString()).toMatchObject(
-          appInfo.name + '/' + appInfo.version + ' (' + appInfo.url + ')',
-        );
+          expect(realTelnyx.getAppInfoAsString()).toBe(
+            appInfo.name + '/' + appInfo.version + ' (' + appInfo.url + ')',
+          );
 
-        done();
+          done();
+        } catch (err: unknown) {
+          done(err);
+        }
       });
     });
   });
 
   describe('Callback support', function () {
     describe('Any given endpoint', function () {
-      test('Will call a callback if successful', function () {
-        return expect(
-          new Promise(function (resolve, _reject) {
-            // @ts-expect-error TODO: import .d.ts files under src/test folder
-            realTelnyx.messagingProfiles.create(
-              MESSAGING_PROFILE_DETAILS,
-              function (_err: unknown, _mp: unknown) {
-                resolve('Called!');
-              },
-            );
-          }),
-        ).toBe('Called!');
+      test('Will call a callback if successful', function (done) {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        realTelnyx.messagingProfiles.create(
+          MESSAGING_PROFILE_DETAILS,
+          function (_err: unknown, _mp: unknown) {
+            try {
+              done();
+            } catch (err: unknown) {
+              done(err);
+            }
+          },
+        );
       });
 
-      test('Will expose HTTP response object', function () {
-        return expect(
-          new Promise(function (resolve, _reject) {
-            const options = {
-              host: realTelnyx.getConstant('DEFAULT_HOST'),
-              path: '/v2/messaging_profiles',
-            };
-            nock('https://' + options.host + ':443')
-              .post(options.path)
-              .reply(
-                200,
-                {data: {record_type: 'messaging_profile', id: 1}},
-                {'request-id': 'foo'},
-              );
+      test('Will expose HTTP response object', function (done) {
+        const options = {
+          host: realTelnyx.getConstant('DEFAULT_HOST'),
+          path: '/v2/messaging_profiles',
+        };
+        nock('https://' + options.host + ':443')
+          .post(options.path)
+          .reply(
+            200,
+            {data: {record_type: 'messaging_profile', id: 1}},
+            {'request-id': 'foo'},
+          );
 
-            // @ts-expect-error TODO: import .d.ts files under src/test folder
-            realTelnyx.messagingProfiles.create(
-              MESSAGING_PROFILE_DETAILS,
-              function (
-                _err: unknown,
-                mp: {lastResponse: {headers: object; statusCode: number}},
-              ) {
-                const headers = mp.lastResponse.headers;
-                expect(headers).toHaveProperty('request-id');
-
-                expect(mp.lastResponse.statusCode).toBe(200);
-                expect(nock.isDone());
-
-                resolve('Called!');
-              },
-            );
-          }),
-        ).toBe('Called!');
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        realTelnyx.messagingProfiles.create(
+          MESSAGING_PROFILE_DETAILS,
+          function (
+            _err: unknown,
+            mp: {lastResponse: {headers: object; statusCode: number}},
+          ) {
+            try {
+              const headers = mp.lastResponse.headers;
+              expect(headers).toHaveProperty('request-id');
+              expect(mp.lastResponse.statusCode).toBe(200);
+              expect(nock.isDone());
+              done();
+            } catch (err: unknown) {
+              done(err);
+            }
+          },
+        );
       });
 
-      test('Given an error the callback will receive it', function () {
-        return expect(
-          new Promise(function (resolve, reject) {
-            // @ts-expect-error TODO: import .d.ts files under src/test folder
-            realTelnyx.messagingProfiles.create(
-              MESSAGING_PROFILE_DETAILS,
-              function (err: unknown, _messagingProfile: unknown) {
-                if (err) {
-                  resolve('ErrorWasPassed');
-                } else {
-                  reject(new Error('NoErrorPassed'));
-                }
-              },
-            );
-          }),
-        ).toBe('ErrorWasPassed');
+      test('Given an error the callback will receive it', function (done) {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        realTelnyx.messagingProfiles.create(
+          MESSAGING_PROFILE_DETAILS,
+          function (err: unknown, _messagingProfile: unknown) {
+            if (err) {
+              done();
+            } else {
+              done(new Error('NoErrorPassed'));
+            }
+          },
+        );
       });
     });
   });
@@ -300,7 +303,7 @@ describe('Telnyx Module', function () {
 
   describe('setMaxNetworkRetries', function () {
     describe('when given an empty or non-number variable', function () {
-      test('should error', function () {
+      test('should throw an error', function () {
         expect(function () {
           realTelnyx.setMaxNetworkRetries('foo' as unknown as number);
         }).toThrow(/maxNetworkRetries must be a number/);
