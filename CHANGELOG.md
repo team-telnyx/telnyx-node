@@ -8,15 +8,17 @@
 - Bump default Node version to `20`
 - Update README on [Development](./README.md#development) instructions
 - Remove `yarn` in favor of `npm` 10
-- Convert SDK files to typescript
+- Convert SDK files to Typescript
+- Convert Resources to Typescript
 - Use ES Modules syntax
 - Update package `main` entrypoint to be compiled version of [src telnyx.ts](./src/telnyx.ts)
-- Added `Jest` and create tests in `Typescript`
+- Added `Jest` and create tests in Typescript
 - Make `setApiKey` TelnyxObject prototype method private
 - Moved to `moduleResolution` Bundler to support better imports and tests with `Jest`
 - Enabled `esModuleInterop` for Jest
 - Update files included when publishing
 - Remove custom resource get `generateAccessTokenFromCredential` from `TelephonyCredentials`
+- Update `AutoRechargePreferences` resource to match API spec
 
 ## v1
 
