@@ -12,13 +12,13 @@ const ACTIONS = [
   'metrics',
 ];
 
-function getSpec(messagingProfileId: string) {
+function getSpec(messagingProfileId?: string) {
   return function (methodName: string) {
     return {
       method: 'GET',
       path: `/{messagingProfileId}/${methodName}`,
       urlParams: ['messagingProfileId'],
-      paramsValues: [messagingProfileId],
+      paramsValues: [messagingProfileId as string],
       paramsNames: ['id'],
       methodType: 'list',
     };

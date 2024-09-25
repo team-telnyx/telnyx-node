@@ -16,6 +16,7 @@
 - Moved to `moduleResolution` Bundler to support better imports and tests with `Jest`
 - Enabled `esModuleInterop` for Jest
 - Update files included when publishing
+- Remove custom resource get `generateAccessTokenFromCredential` from `TelephonyCredentials`
 
 ## v1
 

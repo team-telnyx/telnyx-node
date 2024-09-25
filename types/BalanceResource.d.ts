@@ -5,7 +5,7 @@ declare module 'telnyx' {
     type BalanceRetrieveParams =
       paths['/balance']['get']['parameters']['query'];
 
-    type Balance =
+    type BalanceRetrieveResponse =
       paths['/balance']['get']['responses']['200']['content']['application/json']['data'];
 
     class BalanceResource {
@@ -13,7 +13,7 @@ declare module 'telnyx' {
       retrieve(
         params?: BalanceRetrieveParams,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.Balance>>;
+      ): Promise<Telnyx.Response<Telnyx.BalanceRetrieveResponse>>;
     }
   }
 }
