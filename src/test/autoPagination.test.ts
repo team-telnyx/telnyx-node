@@ -24,6 +24,10 @@ describe('auto pagination', function () {
   jest.setTimeout(20000);
 
   describe('callbacks', function () {
+    beforeAll(() => {
+      nock.cleanAll();
+    });
+
     test('lets you call `next()` to iterate and `next(false)` to break', function (done) {
       realMessagingProfileIds = ['1', '2', '3'];
       const messagingProfileIds: string[] = [];
@@ -475,6 +479,10 @@ describe('auto pagination', function () {
   });
 
   describe('async iterators', function () {
+    beforeAll(() => {
+      nock.cleanAll();
+    });
+
     test('works with `for await` when that feature exists (user break)', function (done) {
       realMessagingProfileIds = ['1', '2', '3'];
       const options = {
@@ -801,6 +809,10 @@ describe('auto pagination', function () {
   });
 
   describe('autoPagingToArray', function () {
+    beforeAll(() => {
+      nock.cleanAll();
+    });
+
     test('can go to the end', function (done) {
       realMessagingProfileIds = ['1', '2', '3'];
       const options = {
@@ -978,6 +990,22 @@ describe('auto pagination', function () {
     });
 
     test('caps the `limit` arg to a reasonable ceiling', function (done) {
+      const options = {
+        host: telnyx.getConstant('DEFAULT_HOST'),
+        path: '/v2/messaging_profiles',
+      };
+      nock('https://' + options.host + ':443')
+        .get(options.path)
+        .query({page: {size: 3}})
+        .reply(200, {
+          data: [
+            {record_type: 'messaging_profile', id: '1'},
+            {record_type: 'messaging_profile', id: '2'},
+            {record_type: 'messaging_profile', id: '3'},
+          ],
+          meta: {total_pages: 1, page_number: 1, page_size: 3},
+        });
+
       try {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         realTelnyx.messagingProfiles
@@ -994,8 +1022,10 @@ describe('auto pagination', function () {
   });
 
   describe('api compat edge cases', function () {
-    // TODO: fix throwing TelnyxError.TelnyxConnectionError
-    test.skip('lets you listen to the first request as its own promise, and separately each item, but only sends one request for the first page.', function (done) {
+    beforeAll(() => {
+      nock.cleanAll();
+    });
+    test('lets you listen to the first request as its own promise, and separately each item, but only sends one request for the first page.', function (done) {
       realMessagingProfileIds = ['1', '2', '3'];
       const options = {
         host: telnyx.getConstant('DEFAULT_HOST'),
