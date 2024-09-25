@@ -37,7 +37,6 @@ export function isObject(obj: unknown): boolean {
   return (type === 'function' || type === 'object') && !!obj;
 }
 
-// const utils = {
 export function isOptionsHash(o: unknown): boolean | unknown {
   return (
     o &&
@@ -147,10 +146,7 @@ export function createNestedMethods(
     {};
 
   names.forEach(function (name) {
-    // @ts-expect-error TODO: type name key by method names
-    methods[name] = methods[utils.snakeToCamelCase(name)] = telnyxMethod(
-      spec(name),
-    );
+    methods[name] = methods[snakeToCamelCase(name)] = telnyxMethod(spec(name));
   });
 
   return methods;

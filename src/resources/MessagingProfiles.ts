@@ -53,7 +53,7 @@ const transformResponseData = (
 
 export const MessagingProfiles = TelnyxResource.extend({
   path: 'messaging_profiles',
-  includeBasic: ['list', 'del'],
+  includeBasic: ['list', 'del', 'update'],
 
   create: telnyxMethod({
     method: 'POST',

@@ -14,11 +14,20 @@ declare module 'telnyx' {
     type MessagingProfilesDeleteParams =
       paths['/messaging_profiles/{id}']['delete']['parameters']['query'];
 
+    type MessagingProfilesUpdateId =
+      paths['/messaging_profiles/{id}']['patch']['parameters']['path']['id'];
+
+    type MessagingProfilesUpdateParams =
+      paths['/messaging_profiles/{id}']['patch']['requestBody']['content']['application/json'];
+
     type MessagingProfilesRetrieveResponse =
       paths['/messaging_profiles/{id}']['get']['responses']['200']['content']['application/json']['data'];
 
     type MessagingProfilesDeleteResponse =
       paths['/messaging_profiles/{id}']['delete']['responses']['200']['content']['application/json']['data'];
+
+    type MessagingProfilesUpdateResponse =
+      paths['/messaging_profiles/{id}']['patch']['responses']['200']['content']['application/json']['data'];
 
     type MessagingProfilesListParams =
       paths['/messaging_profiles']['get']['parameters']['query'];
@@ -60,9 +69,15 @@ declare module 'telnyx' {
       ): Promise<Telnyx.Response<Telnyx.MessagingProfilesCreateResponse>>;
 
       del(
-        params?: MessagingProfilesDeleteParams,
+        id?: MessagingProfilesDeleteId,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.MessagingProfilesDeleteResponse>>;
+
+      update(
+        id?: MessagingProfilesUpdateId,
+        params?: MessagingProfilesUpdateParams,
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.MessagingProfilesUpdateResponse>>;
 
       retrieve(
         id?: MessagingProfilesRetrieveId,

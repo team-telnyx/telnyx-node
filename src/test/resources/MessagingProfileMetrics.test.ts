@@ -3,9 +3,19 @@ import {utils as testUtils} from '../utils';
 const telnyx = testUtils.getTelnyxMock();
 const TEST_AUTH_KEY = testUtils.getUserTelnyxKey();
 
+type ResponsePayloadList = {
+  data: {
+    record_type: string;
+    messaging_profile_id: string;
+    inbound: object;
+    outbound: object;
+    phone_numbers: number;
+  }[];
+};
+
 describe('MessagingProfileMetrics Resource', function () {
   describe('list', function () {
-    function responseFn(response) {
+    function responseFn(response: ResponsePayloadList) {
       expect(response.data[0]).toHaveProperty('inbound');
       expect(response.data[0]).toHaveProperty('outbound');
       expect(response.data[0]).toHaveProperty('phone_numbers');
