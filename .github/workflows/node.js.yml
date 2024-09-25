@@ -15,6 +15,7 @@ jobs:
     env:
       TELNYX_MOCK_OPEN_API_URI: https://raw.githubusercontent.com/team-telnyx/openapi/master/openapi/spec3.json
     strategy:
+      max-parallel: 1 # to make sure proxy server doesn't cause timeout on each individual run
       matrix:
         node-version: [18.x, 20.x, 22.x]
 
