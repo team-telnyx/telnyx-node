@@ -106,7 +106,7 @@ export const utils = {
       );
 
     telnyxInstance.setHost(
-      'localhost',
+      '127.0.0.1', // Node 18.x only recognizes this as localhost
       process.env.TELNYX_MOCK_PORT || '12111',
       'http',
     );
