@@ -187,8 +187,13 @@ TelnyxResource.prototype = {
 
         self._telnyx._emitter.emit('response', responseEvent);
 
+        let responseBody:
+          | {
+              [key: string]: unknown;
+            }
+          | undefined;
         try {
-          const responseBody = utils.tryParseJSON(response);
+          responseBody = utils.tryParseJSON(response);
 
           if (responseBody.errors) {
             const error = {} as TelnyxError.TelnyxRawError;
@@ -218,13 +223,13 @@ TelnyxResource.prototype = {
         }
 
         // Expose res object
-        Object.defineProperty(response, 'lastResponse', {
+        Object.defineProperty(responseBody, 'lastResponse', {
           enumerable: false,
           writable: false,
           value: res,
         });
         // parsed json and found no errors so this is a valid response payload
-        callback.call(self, null, response as unknown as ResponsePayload);
+        callback.call(self, null, responseBody as unknown as ResponsePayload);
       });
     };
   },

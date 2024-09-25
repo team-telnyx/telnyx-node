@@ -4,3 +4,4 @@ dist
 tags
 .nyc_output
 coverage
+.env

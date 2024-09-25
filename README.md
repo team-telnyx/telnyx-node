@@ -316,16 +316,20 @@ const allMessagingProfiles = await telnyx.messagingProfiles
 
 ### Setup
 
-The test suite depends on the [Prism Mock Server](https://github.com/stoplightio/prism).
+Run the following scripts to setup your envs
 
 ```bash
-npm install -g @stoplight/prism-cli
+cp .env.local .env
 ```
 
-Once installed, start the prism mock service with the following command:
+> Don't forget to update your local envs accordingly.
+
+The test suite depends on the [Prism Mock Server](https://github.com/stoplightio/prism).
+
+Start the prism mock service with the following command:
 
 ```bash
-prism mock https://raw.githubusercontent.com/team-telnyx/openapi/master/openapi/spec3.json
+npx prism mock https://raw.githubusercontent.com/team-telnyx/openapi/master/openapi/spec3.json
 ```
 
 ---
@@ -352,7 +356,7 @@ $ npm test
 Run all tests with a custom `telnyx-mock` port:
 
 ```bash
-$ TELNYX_MOCK_PORT=12000 npm test
+$ TELNYX_MOCK_PORT=12111 npm test
 ```
 
 Run a single test suite:

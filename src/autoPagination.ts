@@ -109,10 +109,6 @@ export function makeAutoPaginationMethods(
     return listResult.meta.page_size;
   }
 
-  // function getNextPageToken(listResult) {
-  //   return listResult.meta.next_page_token;
-  // }
-
   function asyncIteratorNext(): Promise<any> {
     return memoizedPromise<IterationResult>(
       promiseCache,
@@ -214,16 +210,6 @@ function getItemCallback(args: Array<any>): IterationItemCallback | undefined {
     next(shouldContinue);
   };
 }
-
-// function getLastId(listResult) {
-//   const lastIdx = listResult.data.length - 1;
-//   const lastItem = listResult.data[lastIdx];
-//   const lastId = lastItem && lastItem.id;
-//   if (!lastId) {
-//     throw Error('Unexpected: No `id` found on the last item while auto-paging a list.');
-//   }
-//   return lastId;
-// }
 
 /**
  * If a user calls `.next()` multiple times in parallel,

@@ -32,6 +32,7 @@
   "types": "dist/types/index.d.ts",
   "devDependencies": {
     "@eslint/js": "^9.10.0",
+    "@stoplight/prism-cli": "^5.10.0",
     "@types/eslint__js": "^8.42.3",
     "@types/jest": "^29.5.13",
     "@types/qs": "^6.9.15",

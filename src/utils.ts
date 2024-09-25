@@ -255,6 +255,7 @@ export function stringifyRequestData(data: RequestData | string): string {
   return (
     qs
       .stringify(data, {
+        arrayFormat: 'brackets',
         serializeDate: (d: Date) => Math.floor(d.getTime() / 1000).toString(),
       })
       // Don't use strict form encoding by changing the square bracket control

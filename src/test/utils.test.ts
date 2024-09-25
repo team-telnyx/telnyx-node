@@ -49,7 +49,7 @@ describe('utils', function () {
         utils.stringifyRequestData({
           a: [{b: 'c'}, {b: 'd'}],
         }),
-      ).toBe('a[0][b]=c&a[1][b]=d');
+      ).toBe('a[][b]=c&a[][b]=d');
     });
 
     test('Handles indexed arrays', function () {
