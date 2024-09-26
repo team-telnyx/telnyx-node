@@ -2,7 +2,11 @@
 
 // @ts-nocheck - needed due to dynamic method testing: mp[action]
 
-import {utils as testUtils} from '../utils';
+import {
+  type ResponsePayloadList,
+  type ResponsePayload,
+  utils as testUtils,
+} from '../utils';
 import * as utils from '../../utils';
 
 const telnyx = testUtils.getTelnyxMock();
@@ -12,17 +16,6 @@ const TEST_AUTH_KEY =
 const TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
 
 const METHODS = ['phone_numbers', 'short_codes', 'del'];
-
-type ResponsePayloadList = {
-  data: {id: string; name: string}[];
-};
-
-type ResponsePayload = {
-  data: {
-    id: string;
-    name: string;
-  };
-};
 
 type ResponsePayloadMetrics = {
   data: {
@@ -46,7 +39,7 @@ describe('MessagingProfiles Resource', function () {
   }
 
   describe('retrieve', function () {
-    it('Sends the correct request', function () {
+    test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.messagingProfiles
         .retrieve(TEST_UUID)
@@ -54,7 +47,7 @@ describe('MessagingProfiles Resource', function () {
         .catch(errorFn);
     });
 
-    it('Sends the correct request [with specified auth]', function () {
+    test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.messagingProfiles
         .retrieve(TEST_UUID, TEST_AUTH_KEY)
@@ -64,7 +57,7 @@ describe('MessagingProfiles Resource', function () {
   });
 
   describe('create', function () {
-    it('Sends the correct request', function () {
+    test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.messagingProfiles
         .create({name: 'Summer Campaign', whitelisted_destinations: ['US']})
@@ -72,7 +65,7 @@ describe('MessagingProfiles Resource', function () {
         .catch(errorFn);
     });
 
-    it('Sends the correct request [with specified auth]', function () {
+    test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.messagingProfiles
         .create(
@@ -83,7 +76,7 @@ describe('MessagingProfiles Resource', function () {
         .catch(errorFn);
     });
 
-    it('Sends the correct request [with specified auth in options]', function () {
+    test('Sends the correct request [with specified auth in options]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.messagingProfiles
         .create(
@@ -96,7 +89,7 @@ describe('MessagingProfiles Resource', function () {
   });
 
   describe('update', function () {
-    it('Sends the correct request', function () {
+    test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.messagingProfiles
         .update(TEST_UUID, {name: 'Foo "baz"'})
@@ -114,12 +107,12 @@ describe('MessagingProfiles Resource', function () {
       });
     }
 
-    it('Sends the correct request', function () {
+    test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.messagingProfiles.list().then(responseFn).catch(errorFn);
     });
 
-    it('Sends the correct request [with specified auth]', function () {
+    test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.messagingProfiles
         .list(TEST_AUTH_KEY)
@@ -139,7 +132,7 @@ describe('MessagingProfiles Resource', function () {
     }
 
     describe('listPhoneNumbers', function () {
-      it('Sends the correct request', function () {
+      test('Sends the correct request', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         return telnyx.messagingProfiles
           .listPhoneNumbers(TEST_UUID)
@@ -147,7 +140,7 @@ describe('MessagingProfiles Resource', function () {
           .catch(errorFn);
       });
 
-      it('Sends the correct request [with specified auth]', function () {
+      test('Sends the correct request [with specified auth]', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         return telnyx.messagingProfiles
           .listPhoneNumbers(TEST_UUID, TEST_AUTH_KEY)
@@ -166,7 +159,7 @@ describe('MessagingProfiles Resource', function () {
     }
 
     describe('listShortCodes', function () {
-      it('Sends the correct request', function () {
+      test('Sends the correct request', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         return telnyx.messagingProfiles
           .listShortCodes(TEST_UUID)
@@ -174,7 +167,7 @@ describe('MessagingProfiles Resource', function () {
           .catch(errorFn);
       });
 
-      it('Sends the correct request [with specified auth]', function () {
+      test('Sends the correct request [with specified auth]', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         return telnyx.messagingProfiles
           .listShortCodes(TEST_UUID, TEST_AUTH_KEY)
@@ -199,7 +192,7 @@ describe('MessagingProfiles Resource', function () {
       describe(action, function () {
         const camelCaseAction = utils.snakeToCamelCase(action);
 
-        it('Sends the correct request', function () {
+        test('Sends the correct request', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           return telnyx.messagingProfiles
             .create({name: 'Summer Campaign', whitelisted_destinations: ['US']})
@@ -209,7 +202,7 @@ describe('MessagingProfiles Resource', function () {
               return mp[action]().then(responseFn).catch(errorFn);
             });
         });
-        it('Sends the correct request [with specified auth]', function () {
+        test('Sends the correct request [with specified auth]', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           return telnyx.messagingProfiles
             .create({name: 'Summer Campaign', whitelisted_destinations: ['US']})
@@ -222,7 +215,7 @@ describe('MessagingProfiles Resource', function () {
         });
 
         describe(camelCaseAction, function () {
-          it('Sends the correct request', function () {
+          test('Sends the correct request', function () {
             // @ts-expect-error TODO: import .d.ts files under src/test folder
             return telnyx.messagingProfiles
               .create({
@@ -236,7 +229,7 @@ describe('MessagingProfiles Resource', function () {
                 return mp[camelCaseAction]().then(responseFn).catch(errorFn);
               });
           });
-          it('Sends the correct request [with specified auth]', function () {
+          test('Sends the correct request [with specified auth]', function () {
             // @ts-expect-error TODO: import .d.ts files under src/test folder
             return telnyx.messagingProfiles
               .create({
@@ -271,14 +264,14 @@ describe('MessagingProfiles Resource', function () {
       }
 
       describe('retrieveMetrics', function () {
-        it('Sends the correct request', function () {
+        test('Sends the correct request', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           return telnyx.messagingProfiles
             .retrieveMetrics(TEST_UUID)
             .then(metricsNestedResponseFn);
         });
 
-        it('Sends the correct request [with specified auth]', function () {
+        test('Sends the correct request [with specified auth]', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           return telnyx.messagingProfiles
             .retrieveMetrics(TEST_UUID, TEST_AUTH_KEY)
@@ -287,7 +280,7 @@ describe('MessagingProfiles Resource', function () {
       });
 
       describe('nested metrics', function () {
-        it('Sends the correct request', function () {
+        test('Sends the correct request', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           return telnyx.messagingProfiles
             .create({name: 'Summer Campaign', whitelisted_destinations: ['US']})
@@ -297,7 +290,7 @@ describe('MessagingProfiles Resource', function () {
               return mp.metrics().then(metricsNestedResponseFn);
             });
         });
-        it('Sends the correct request [with specified auth]', function () {
+        test('Sends the correct request [with specified auth]', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           return telnyx.messagingProfiles.retrieve(TEST_UUID).then(function (
             response: ResponsePayload,

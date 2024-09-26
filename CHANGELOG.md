@@ -13,12 +13,22 @@
 - Use ES Modules syntax
 - Update package `main` entrypoint to be compiled version of [src telnyx.ts](./src/telnyx.ts)
 - Added `Jest` and create tests in Typescript
+- Update tests expect matchers according to limitations with `prism mock`
+- Add `nock` cleanup setup
 - Make `setApiKey` TelnyxObject prototype method private
 - Moved to `moduleResolution` Bundler to support better imports and tests with `Jest`
 - Enabled `esModuleInterop` for Jest
 - Update files included when publishing
 - Remove custom resource get `generateAccessTokenFromCredential` from `TelephonyCredentials`
 - Update `AutoRechargePreferences` resource to match API spec
+- Remove `RegisterCall` according to API spec
+- Remove `ProgrammableFaxCommants` specs
+- Remove `BulkCreation` according to API sepc
+- Update `TexmlApplications` resource to match API spec
+- Remove `Conferences` `dial_participant` action according to API sepc
+- Remove `SimCards` `deletePublicIp` and `setPublicIp` according to API sepc
+- Update `Queues` method names to camelCase
+- Remove `VerifiedCallsDisplayProfile` resource according to API spec
 
 ## v1
 

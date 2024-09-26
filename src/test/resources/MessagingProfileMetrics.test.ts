@@ -1,17 +1,7 @@
-import {utils as testUtils} from '../utils';
+import {type ResponsePayloadList, utils as testUtils} from '../utils';
 
 const telnyx = testUtils.getTelnyxMock();
 const TEST_AUTH_KEY = testUtils.getUserTelnyxKey();
-
-type ResponsePayloadList = {
-  data: {
-    record_type: string;
-    messaging_profile_id: string;
-    inbound: object;
-    outbound: object;
-    phone_numbers: number;
-  }[];
-};
 
 describe('MessagingProfileMetrics Resource', function () {
   describe('list', function () {
@@ -25,11 +15,11 @@ describe('MessagingProfileMetrics Resource', function () {
       });
     }
 
-    it('Sends the correct request', function () {
+    test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.messagingProfileMetrics.list().then(responseFn);
     });
-    it('Sends the correct request [with specified auth]', function () {
+    test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.messagingProfileMetrics
         .list(TEST_AUTH_KEY)

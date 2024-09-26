@@ -50,7 +50,7 @@ export const Queues = TelnyxResource.extend({
     transformResponseData: transformResponseData,
   }),
 
-  list_calls: telnyxMethod({
+  listCalls: telnyxMethod({
     method: 'GET',
     path: '/{queue_name}/calls',
     urlParams: ['queue_name'],
@@ -58,7 +58,7 @@ export const Queues = TelnyxResource.extend({
     transformResponseData: transformResponseData,
   }),
 
-  retrieve_call: telnyxMethod({
+  retrieveCall: telnyxMethod({
     method: 'GET',
     path: '/{queue_name}/calls/{call_control_id}',
     urlParams: ['queue_name', 'call_control_id'],

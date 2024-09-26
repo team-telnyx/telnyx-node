@@ -20,7 +20,8 @@ function transformResponseData(
 }
 
 export const Addresses = TelnyxResource.extend({
-  path: 'account/addresses',
+  path: 'addresses',
+  includeBasic: ['del'],
 
   list: telnyxMethod({
     method: 'GET',

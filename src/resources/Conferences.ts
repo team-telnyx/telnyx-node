@@ -15,7 +15,6 @@ const CONFERENCES = [
   'record_stop',
   'update',
   'leave',
-  'dial_participant',
   'resume',
 ];
 

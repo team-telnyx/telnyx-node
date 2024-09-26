@@ -23,7 +23,6 @@ import {BillingGroups} from './resources/BillingGroups';
 import {Brands} from './resources/Brands';
 import {Bucket} from './resources/Bucket';
 import {BucketUsage} from './resources/BucketUsage';
-import {BulkCreation} from './resources/BulkCreation';
 import {BulkCredentials} from './resources/BulkCredentials';
 import {BulkPhoneNumberCampaigns} from './resources/BulkPhoneNumberCampaigns';
 import {BulkPhoneNumberOperations} from './resources/BulkPhoneNumberOperations';
@@ -96,7 +95,6 @@ import {NumberReservations} from './resources/NumberReservations';
 import {NumbersFeatures} from './resources/NumbersFeatures';
 import {Object as ObjectResource} from './resources/Object';
 import {OtaUpdates} from './resources/OtaUpdates';
-import {Outbound} from './resources/Outbound';
 import {OutboundVoiceProfiles} from './resources/OutboundVoiceProfiles';
 import {Payment} from './resources/Payment';
 import {PhoneNumberAssignmentByProfile} from './resources/PhoneNumberAssignmentByProfile';
@@ -122,7 +120,6 @@ import {PushCredentials} from './resources/PushCredentials';
 import {Queues} from './resources/Queues';
 import {RecordingsCommands} from './resources/RecordingsCommands';
 import {Regions} from './resources/Regions';
-import {RegisterCall} from './resources/RegisterCall';
 import {RegulatoryRequirements} from './resources/RegulatoryRequirements';
 import {Reporting} from './resources/Reporting';
 import {Reports} from './resources/Reports';
@@ -145,11 +142,9 @@ import {SimCardOrders} from './resources/SimCardOrders';
 import {SimCards} from './resources/SimCards';
 import {SslCertificates} from './resources/SslCertificates';
 import {TelephonyCredentials} from './resources/TelephonyCredentials';
-import {TeXMLApplication} from './resources/TeXMLApplication';
+import {TexmlApplications} from './resources/TexmlApplications';
 import {UpdateClientState} from './resources/UpdateClientState';
 import {Verifications} from './resources/Verifications';
-import {VerifiedCallsDisplayProfile} from './resources/VerifiedCallsDisplayProfile';
-import {VerifiedCallsDisplayProfiles} from './resources/VerifiedCallsDisplayProfiles';
 import {VerifiedNumbers} from './resources/VerifiedNumbers';
 import {Verify} from './resources/Verify';
 import {VerifyProfiles} from './resources/VerifyProfiles';
@@ -211,7 +206,6 @@ export function createTelnyx() {
     Brands,
     Bucket,
     BucketUsage,
-    BulkCreation,
     BulkCredentials,
     BulkPhoneNumberCampaigns,
     BulkPhoneNumberOperations,
@@ -282,9 +276,8 @@ export function createTelnyx() {
     NumberPortouts,
     NumberReservations,
     NumbersFeatures,
-    Object: ObjectResource,
+    ObjectApi: ObjectResource,
     OtaUpdates,
-    Outbound,
     OutboundVoiceProfiles,
     Payment,
     PhoneNumberAssignmentByProfile,
@@ -310,7 +303,6 @@ export function createTelnyx() {
     Queues,
     RecordingsCommands,
     Regions,
-    RegisterCall,
     RegulatoryRequirements,
     Reporting,
     Reports,
@@ -333,17 +325,15 @@ export function createTelnyx() {
     SimCards,
     SslCertificates,
     TelephonyCredentials,
-    TeXMLApplication,
+    TexmlApplications,
     UpdateClientState,
     Verifications,
-    VerifiedCallsDisplayProfile,
-    VerifiedCallsDisplayProfiles,
     VerifiedNumbers,
     Verify,
     VerifyProfiles,
     VirtualCrossConnects,
     WdrDetailReports,
-    Webhooks: WebhooksResource,
+    WebhooksApi: WebhooksResource,
     WireguardInterfaces,
     WirelessDetailRecordReports,
   };

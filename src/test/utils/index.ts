@@ -8,6 +8,27 @@ import {
   TelnyxResourceObject,
 } from '../../Types';
 
+export type ResponsePayloadListRecords = {
+  records: {id: string; name: string}[];
+  meta: object;
+};
+
+export type ResponsePayloadList = {
+  data: {id: string; name: string; record_type: string}[];
+  meta: object;
+};
+
+export type ResponsePayload = {
+  data: {
+    id: string;
+    name: string;
+    record_type: string;
+  };
+  lastResponse?: {
+    statusCode: number;
+  };
+};
+
 type LastRequest = {
   method: string;
   url?: string;

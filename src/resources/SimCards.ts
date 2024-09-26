@@ -96,22 +96,6 @@ function transformResponseData(
       paramsValues: [response.data.id as string],
       paramsNames: ['id'],
     }),
-
-    setPublicIP: telnyxMethod({
-      method: 'POST',
-      path: '/{sim_card_id}/public_ip',
-      urlParams: ['sim_card_id'],
-      paramsValues: [response.data.id as string],
-      paramsNames: ['id'],
-    }),
-
-    deletePublicIP: telnyxMethod({
-      method: 'DELETE',
-      path: '/{sim_card_id}/public_ip',
-      urlParams: ['sim_card_id'],
-      paramsValues: [response.data.id as string],
-      paramsNames: ['id'],
-    }),
   });
 }
 
