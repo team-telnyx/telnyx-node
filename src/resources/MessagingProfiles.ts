@@ -5,12 +5,7 @@ import * as utils from '../utils';
 
 const telnyxMethod = TelnyxResource.method;
 
-const ACTIONS = [
-  'phone_numbers',
-  'alphanumeric_sender_ids',
-  'short_codes',
-  'metrics',
-];
+const ACTIONS = ['phone_numbers', 'short_codes', 'metrics'];
 
 function getSpec(messagingProfileId?: string) {
   return function (methodName: string) {
@@ -91,19 +86,6 @@ export const MessagingProfiles = TelnyxResource.extend({
   shortCodes: telnyxMethod({
     method: 'GET',
     path: '/{messagingProfileId}/short_codes',
-    urlParams: ['messagingProfileId'],
-  }),
-
-  listSenderIds: telnyxMethod({
-    method: 'GET',
-    path: '/{messagingProfileId}/alphanumeric_sender_ids',
-    urlParams: ['messagingProfileId'],
-    methodType: 'list',
-  }),
-
-  senderIds: telnyxMethod({
-    method: 'GET',
-    path: '/{messagingProfileId}/alphanumeric_sender_ids',
     urlParams: ['messagingProfileId'],
   }),
 

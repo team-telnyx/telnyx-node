@@ -8,10 +8,10 @@ declare module 'telnyx' {
     type MessagingProfilesRetrieveParams =
       paths['/messaging_profiles/{id}']['get']['parameters']['query'];
 
-    type MessagingProfilesDeleteId =
+    type MessagingProfilesDelId =
       paths['/messaging_profiles/{id}']['delete']['parameters']['path']['id'];
 
-    type MessagingProfilesDeleteParams =
+    type MessagingProfilesDelParams =
       paths['/messaging_profiles/{id}']['delete']['parameters']['query'];
 
     type MessagingProfilesUpdateId =
@@ -23,7 +23,7 @@ declare module 'telnyx' {
     type MessagingProfilesRetrieveResponse =
       paths['/messaging_profiles/{id}']['get']['responses']['200']['content']['application/json']['data'];
 
-    type MessagingProfilesDeleteResponse =
+    type MessagingProfilesDelResponse =
       paths['/messaging_profiles/{id}']['delete']['responses']['200']['content']['application/json']['data'];
 
     type MessagingProfilesUpdateResponse =
@@ -62,27 +62,44 @@ declare module 'telnyx' {
     type MessagingProfilesRetrieveMetricsResponse =
       paths['/messaging_profiles/{id}/metrics']['get']['responses']['200']['content']['application/json']['data'];
 
+    type MessagingProfilesNestedMethods = {
+      del: MessagingProfilesResource['del'];
+      phoneNumbers: MessagingProfilesResource['listPhoneNumbers'];
+      shortCodes: MessagingProfilesResource['listShortCodes'];
+      metrics: MessagingProfilesResource['retrieveMetrics'];
+    };
+
     class MessagingProfilesResource {
       create(
-        params?: MessagingProfilesCreateParams,
+        params: MessagingProfilesCreateParams,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.MessagingProfilesCreateResponse>>;
+      ): Promise<
+        Telnyx.Response<
+          Telnyx.MessagingProfilesCreateResponse &
+            MessagingProfilesNestedMethods
+        >
+      >;
 
       del(
-        id?: MessagingProfilesDeleteId,
+        id: MessagingProfilesDelId,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.MessagingProfilesDeleteResponse>>;
+      ): Promise<Telnyx.Response<Telnyx.MessagingProfilesDelResponse>>;
 
       update(
-        id?: MessagingProfilesUpdateId,
-        params?: MessagingProfilesUpdateParams,
+        id: MessagingProfilesUpdateId,
+        params: MessagingProfilesUpdateParams,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.MessagingProfilesUpdateResponse>>;
 
       retrieve(
-        id?: MessagingProfilesRetrieveId,
+        id: MessagingProfilesRetrieveId,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.MessagingProfilesRetrieveResponse>>;
+      ): Promise<
+        Telnyx.Response<
+          Telnyx.MessagingProfilesRetrieveResponse &
+            MessagingProfilesNestedMethods
+        >
+      >;
 
       list(
         params?: MessagingProfilesListParams,
