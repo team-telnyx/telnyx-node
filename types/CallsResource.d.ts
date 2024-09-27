@@ -168,7 +168,14 @@ declare module 'telnyx' {
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.CallsRetrieveResponse>>;
 
-      Create(
+      create(
+        params: CallsCreateParams,
+        options?: RequestOptions,
+      ): Promise<
+        Telnyx.Response<Telnyx.CallsCreateResponse & CallsNestedMethods>
+      >;
+
+      dial(
         params: CallsCreateParams,
         options?: RequestOptions,
       ): Promise<

@@ -5,11 +5,11 @@
 ///<reference path='./Webhooks.d.ts' />
 ///<reference path='./Errors.d.ts' />
 
-// Imports: The beginning of the section generated from our OpenAPI spec
+// Resources Imports
 ///<reference path='./BalanceResource.d.ts' />
 ///<reference path='./MessagingProfilesResource.d.ts' />
 ///<reference path='./MessagingProfileMetricsResource.d.ts' />
-// Imports: The end of the section generated from our OpenAPI spec
+//
 
 declare module 'telnyx' {
   // Added to in other modules, referenced above.
@@ -24,10 +24,11 @@ declare module 'telnyx' {
 
     TelnyxResource: Telnyx.TelnyxResource;
 
-    // Fields: The beginning of the section generated from our OpenAPI spec
+    // Resources
     balance: Telnyx.BalanceResource;
+    calls: Telnyx.CallsResource;
     messagingProfiles: Telnyx.MessagingProfilesResource;
-    // Fields: The end of the section generated from our OpenAPI spec
+    //
     webhooks: Telnyx.Webhooks;
     /**
      * API Errors
