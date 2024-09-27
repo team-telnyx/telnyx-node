@@ -7,6 +7,7 @@
 
 // Resources Imports
 ///<reference path='./BalanceResource.d.ts' />
+///<reference path='./CallsResource.d.ts' />
 ///<reference path='./MessagingProfilesResource.d.ts' />
 ///<reference path='./MessagingProfileMetricsResource.d.ts' />
 //

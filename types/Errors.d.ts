@@ -13,6 +13,12 @@ declare module 'telnyx' {
         code: string;
         detail: string;
         title: string;
+        meta?: {
+          url: string;
+        };
+        source?: {
+          pointer: string;
+        };
       }>;
     };
     namespace errors {

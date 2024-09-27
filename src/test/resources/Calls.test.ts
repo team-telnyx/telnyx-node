@@ -165,6 +165,30 @@ describe('Calls Resource', function () {
       });
     });
 
+    describe('dial', function () {
+      function responseFn(response: ResponsePayload) {
+        expect(response.data).toHaveProperty('call_session_id');
+        expect(response.data).toHaveProperty('call_leg_id');
+        expect(response.data).toHaveProperty('call_control_id');
+        expect(response.data).toMatchObject({
+          record_type: 'call',
+          is_alive: false,
+        });
+      }
+
+      test('Sends the correct request', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyx.calls.create(callCreateData).then(responseFn);
+      });
+
+      test('Sends the correct request [with specified auth]', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyx.calls
+          .dial(callCreateData, TEST_AUTH_KEY)
+          .then(responseFn);
+      });
+    });
+
     COMMANDS.forEach(function (command) {
       describe(command, function () {
         const camelCaseCommand = utils.snakeToCamelCase(command);

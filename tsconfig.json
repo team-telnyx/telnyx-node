@@ -18,6 +18,7 @@
   },
   "exclude": [
     "./dist",
+    "./examples",
     "./src/test",
     "./node_modules"
   ],
