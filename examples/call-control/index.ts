@@ -1,6 +1,6 @@
 /**
  * To run this file, just provide your Secret API Key, like so:
- * TELNYX_API_KEY=KEYXXX node index.js
+ * TELNYX_API_KEY=KEY... node index.js
  */
 
 import Telnyx from 'telnyx';

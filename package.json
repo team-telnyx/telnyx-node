@@ -11,12 +11,12 @@
     "sdk"
   ],
   "homepage": "https://developers.telnyx.com",
-  "author": "Telnyx <support@telnyx.com> (https://www.telnyx.com/)",
+  "author": "Telnyx <support@telnyx.com> (https://telnyx.com)",
   "contributors": [
-    "Vlad Ionash <vladi@telnyx.com> (http://www.telnyx.com/)",
-    "Gabriel Taylor Russ <gabriel@telnyx.com> (http://www.telnyx.com/)",
-    "Lucas Rosa <lucas@telnyx.com> (http://www.telnyx.com/)",
-    "Rômulo Garofalo <romulo@telnyx.com> (http://www.telnyx.com/)",
+    "Vlad Ionash <vladi@telnyx.com> (http://telnyx.com)",
+    "Gabriel Taylor Russ <gabriel@telnyx.com> (http://telnyx.com)",
+    "Lucas Rosa <lucas@telnyx.com> (http://telnyx.com)",
+    "Rômulo Garofalo <romulo@telnyx.com> (http://telnyx.com)",
     "Khalil Mohammad <khalilmohammadmirza@gmail.com> (https://khalilmohammadmirza.com)"
   ],
   "repository": {

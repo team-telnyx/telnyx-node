@@ -1,4 +1,4 @@
-# Node SDK Example - Call Control
+# Node SDK Example - Messaging
 
 To test this run `npm install` and then run the main script in `package.json` with `ts-node`:
 
