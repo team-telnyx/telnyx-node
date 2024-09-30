@@ -29,6 +29,7 @@
 - Remove `SimCards` `deletePublicIp` and `setPublicIp` according to API sepc
 - Update `Queues` method names to camelCase
 - Remove `VerifiedCallsDisplayProfile` resource according to API spec
+- Update examples to Typescript
 
 ## v1
 
