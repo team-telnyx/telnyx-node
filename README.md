@@ -316,13 +316,21 @@ const allMessagingProfiles = await telnyx.messagingProfiles
 
 ### Setup
 
-Run the following scripts to setup your envs
+Run the following to create your env file
 
 ```bash
 cp .env.local .env
 ```
 
-> Don't forget to update your local envs accordingly.
+> Don't forget to update your `.env` values accordingly.
+
+Now inject envs into terminal:
+
+```bash
+. ./setup_env.sh
+```
+
+> Feel free to use Node `--env-file` parameter to [setup envs](https://nodejs.org/en/learn/command-line/how-to-read-environment-variables-from-nodejs) if you prefer
 
 The test suite depends on the [Prism Mock Server](https://github.com/stoplightio/prism).
 
