@@ -2,6 +2,10 @@
 
 ## v2
 
+### v2.0.0-alpha.3
+
+- Update typing on Nested Resources
+
 ### v2.0.0-alpha.2
 
 - Fix `AI` resource methods and created nested structure

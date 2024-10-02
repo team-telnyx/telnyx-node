@@ -76,7 +76,10 @@ declare module 'telnyx' {
       ): Promise<
         Telnyx.Response<
           Telnyx.MessagingProfilesCreateResponse &
-            MessagingProfilesNestedMethods
+            NestedResponseData<
+              MessagingProfilesCreateResponse['data'],
+              MessagingProfilesNestedMethods
+            >
         >
       >;
 
@@ -97,7 +100,10 @@ declare module 'telnyx' {
       ): Promise<
         Telnyx.Response<
           Telnyx.MessagingProfilesRetrieveResponse &
-            MessagingProfilesNestedMethods
+            NestedResponseData<
+              MessagingProfilesRetrieveResponse['data'],
+              MessagingProfilesNestedMethods
+            >
         >
       >;
 

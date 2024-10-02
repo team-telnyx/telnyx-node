@@ -33,6 +33,8 @@ declare module 'telnyx' {
       headers?: Record<string, string | number | string[]>;
     }
 
+    export type NestedResponseData<T, N> = {data?: T & N};
+
     export type Response<T> = T & {
       lastResponse: {
         headers: Record<string, string | number | string[]>;

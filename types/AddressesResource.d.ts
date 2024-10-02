@@ -48,7 +48,11 @@ declare module 'telnyx' {
         options?: RequestOptions,
       ): Promise<
         Telnyx.Response<
-          Telnyx.AddressesRetrieveResponse & AddressesNestedMethods
+          Telnyx.AddressesRetrieveResponse &
+            NestedResponseData<
+              AddressesRetrieveResponse['data'],
+              AddressesNestedMethods
+            >
         >
       >;
 
@@ -56,7 +60,13 @@ declare module 'telnyx' {
         params: AddressesCreateParams,
         options?: RequestOptions,
       ): Promise<
-        Telnyx.Response<Telnyx.AddressesCreateResponse & AddressesNestedMethods>
+        Telnyx.Response<
+          Telnyx.AddressesCreateResponse &
+            NestedResponseData<
+              AddressesCreateResponse['data'],
+              AddressesNestedMethods
+            >
+        >
       >;
 
       validate(

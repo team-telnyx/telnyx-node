@@ -172,14 +172,20 @@ declare module 'telnyx' {
         params: CallsCreateParams,
         options?: RequestOptions,
       ): Promise<
-        Telnyx.Response<Telnyx.CallsCreateResponse & CallsNestedMethods>
+        Telnyx.Response<
+          Telnyx.CallsCreateResponse &
+            NestedResponseData<CallsCreateResponse['data'], CallsNestedMethods>
+        >
       >;
 
       dial(
         params: CallsCreateParams,
         options?: RequestOptions,
       ): Promise<
-        Telnyx.Response<Telnyx.CallsCreateResponse & CallsNestedMethods>
+        Telnyx.Response<
+          Telnyx.CallsCreateResponse &
+            NestedResponseData<CallsCreateResponse['data'], CallsNestedMethods>
+        >
       >;
 
       answer(

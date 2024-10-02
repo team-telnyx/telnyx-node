@@ -4,6 +4,7 @@
 [![Build Status](https://github.com/team-telnyx/telnyx-node/workflows/CI/badge.svg)](https://github.com/team-telnyx/telnyx-node/actions)
 [![Downloads](https://img.shields.io/npm/dm/telnyx.svg)](https://www.npmjs.com/package/telnyx)
 [![Try on RunKit](https://badge.runkitcdn.com/telnyx.svg)](https://runkit.com/npm/telnyx)
+[![Code Style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier")
 [![Join Slack](https://img.shields.io/badge/join-slack-infomational)](https://joinslack.telnyx.com/)
 
 The Telnyx Node library provides convenient access to the Telnyx API from
