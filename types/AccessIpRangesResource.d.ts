@@ -12,7 +12,7 @@ declare module 'telnyx' {
       paths['/access_ip_ranges']['get']['parameters']['query'];
 
     type AccessIpRangesListResponse =
-      paths['/access_ip_ranges']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/access_ip_ranges']['get']['responses']['200']['content']['application/json'];
 
     type AccessIpRangesDelId =
       paths['/access_ip_ranges/{access_ip_range_id}']['delete']['parameters']['path']['access_ip_range_id'];

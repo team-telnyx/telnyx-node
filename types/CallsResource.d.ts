@@ -9,13 +9,13 @@ declare module 'telnyx' {
       paths['/calls/{call_control_id}']['get']['parameters']['query'];
 
     type CallsRetrieveResponse =
-      paths['/calls/{call_control_id}']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}']['get']['responses']['200']['content']['application/json'];
 
     type CallsCreateParams =
       paths['/calls']['post']['requestBody']['content']['application/json'];
 
     type CallsCreateResponse =
-      paths['/calls']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls']['post']['responses']['200']['content']['application/json'];
 
     type CallsAnswerParams =
       paths['/calls/{call_control_id}/actions/answer']['post']['requestBody']['content']['application/json'];
@@ -75,61 +75,61 @@ declare module 'telnyx' {
       paths['/calls/{call_control_id}/actions/leave_queue']['post']['requestBody']['content']['application/json'];
 
     type CallsAnswerResponse =
-      paths['/calls/{call_control_id}/actions/answer']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/answer']['post']['responses']['200']['content']['application/json'];
     type CallsRejectResponse =
-      paths['/calls/{call_control_id}/actions/reject']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/reject']['post']['responses']['200']['content']['application/json'];
     type CallsHangupResponse =
-      paths['/calls/{call_control_id}/actions/hangup']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/hangup']['post']['responses']['200']['content']['application/json'];
     type CallsBridgeResponse =
-      paths['/calls/{call_control_id}/actions/bridge']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/bridge']['post']['responses']['200']['content']['application/json'];
     type CallsSpeakResponse =
-      paths['/calls/{call_control_id}/actions/speak']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/speak']['post']['responses']['200']['content']['application/json'];
     type CallsForkStartResponse =
-      paths['/calls/{call_control_id}/actions/fork_start']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/fork_start']['post']['responses']['200']['content']['application/json'];
     type CallsForkStopResponse =
-      paths['/calls/{call_control_id}/actions/fork_stop']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/fork_stop']['post']['responses']['200']['content']['application/json'];
     type CallsGatherResponse =
-      paths['/calls/{call_control_id}/actions/gather']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/gather']['post']['responses']['200']['content']['application/json'];
     type CallsGatherUsingAudioResponse =
-      paths['/calls/{call_control_id}/actions/gather_using_audio']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/gather_using_audio']['post']['responses']['200']['content']['application/json'];
     type CallsGatherUsingSpeakResponse =
-      paths['/calls/{call_control_id}/actions/gather_using_speak']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/gather_using_speak']['post']['responses']['200']['content']['application/json'];
     type CallsGatherStopResponse =
-      paths['/calls/{call_control_id}/actions/gather_stop']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/gather_stop']['post']['responses']['200']['content']['application/json'];
     type CallsPlaybackStartResponse =
-      paths['/calls/{call_control_id}/actions/playback_start']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/playback_start']['post']['responses']['200']['content']['application/json'];
     type CallsPlaybackStopResponse =
-      paths['/calls/{call_control_id}/actions/playback_stop']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/playback_stop']['post']['responses']['200']['content']['application/json'];
     type CallsRecordStartResponse =
-      paths['/calls/{call_control_id}/actions/record_start']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/record_start']['post']['responses']['200']['content']['application/json'];
     type CallsRecordStopResponse =
-      paths['/calls/{call_control_id}/actions/record_stop']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/record_stop']['post']['responses']['200']['content']['application/json'];
     type CallsRecordPauseResponse =
-      paths['/calls/{call_control_id}/actions/record_pause']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/record_pause']['post']['responses']['200']['content']['application/json'];
     type CallsRecordResumeResponse =
-      paths['/calls/{call_control_id}/actions/record_resume']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/record_resume']['post']['responses']['200']['content']['application/json'];
     type CallsReferResponse =
-      paths['/calls/{call_control_id}/actions/refer']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/refer']['post']['responses']['200']['content']['application/json'];
     type CallsSendDtmfResponse =
-      paths['/calls/{call_control_id}/actions/send_dtmf']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/send_dtmf']['post']['responses']['200']['content']['application/json'];
     type CallsStreamingStartResponse =
-      paths['/calls/{call_control_id}/actions/streaming_start']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/streaming_start']['post']['responses']['200']['content']['application/json'];
     type CallsStreamingStopResponse =
-      paths['/calls/{call_control_id}/actions/streaming_stop']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/streaming_stop']['post']['responses']['200']['content']['application/json'];
     type CallsSuppressionStartResponse =
-      paths['/calls/{call_control_id}/actions/suppression_start']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/suppression_start']['post']['responses']['200']['content']['application/json'];
     type CallsSuppressionStopResponse =
-      paths['/calls/{call_control_id}/actions/suppression_stop']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/suppression_stop']['post']['responses']['200']['content']['application/json'];
     type CallsTransferResponse =
-      paths['/calls/{call_control_id}/actions/transfer']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/transfer']['post']['responses']['200']['content']['application/json'];
     type CallsTranscriptionStartResponse =
-      paths['/calls/{call_control_id}/actions/transcription_start']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/transcription_start']['post']['responses']['200']['content']['application/json'];
     type CallsTranscriptionStopResponse =
-      paths['/calls/{call_control_id}/actions/transcription_stop']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/transcription_stop']['post']['responses']['200']['content']['application/json'];
     type CallsEnqueueResponse =
-      paths['/calls/{call_control_id}/actions/enqueue']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/enqueue']['post']['responses']['200']['content']['application/json'];
     type CallsLeaveQueueResponse =
-      paths['/calls/{call_control_id}/actions/leave_queue']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/calls/{call_control_id}/actions/leave_queue']['post']['responses']['200']['content']['application/json'];
 
     type CallsNestedMethods = {
       answer: CallsResource['answer'];

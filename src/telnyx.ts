@@ -13,7 +13,14 @@ import {ActionsSimCards} from './resources/ActionsSimCards';
 import {ActivateDeactivateBulkCredentials} from './resources/ActivateDeactivateBulkCredentials';
 import {Addresses} from './resources/Addresses';
 import {AutorespConfigs} from './resources/AutorespConfigs';
-import {AI} from './resources/AI';
+import {AiAssistants} from './resources/AiAssistants';
+import {AiAudioTranscriptions} from './resources/AiAudioTranscriptions';
+import {AiChatCompletions} from './resources/AiChatCompletions';
+import {AiEmbeddings} from './resources/AiEmbeddings';
+import {AiEmbeddingsBuckets} from './resources/AiEmbeddingsBuckets';
+import {AiEmbeddingsSimilaritySearch} from './resources/AiEmbeddingsSimilaritySearch';
+import {AiModels} from './resources/AiModels';
+import {AiSummarize} from './resources/AiSummarize';
 import {AuthenticationProviders} from './resources/AuthenticationProviders';
 import {AvailablePhoneNumbers} from './resources/AvailablePhoneNumbers';
 import {Balance} from './resources/Balance';
@@ -190,7 +197,14 @@ export function createTelnyx() {
     ActivateDeactivateBulkCredentials,
     Addresses,
     AutorespConfigs,
-    AI,
+    AiAssistants,
+    AiAudioTranscriptions,
+    AiChatCompletions,
+    AiEmbeddings,
+    AiEmbeddingsBuckets,
+    AiEmbeddingsSimilaritySearch,
+    AiModels,
+    AiSummarize,
     AuthenticationProviders,
     AvailablePhoneNumbers,
     Balance,

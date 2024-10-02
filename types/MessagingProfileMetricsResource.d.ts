@@ -6,7 +6,7 @@ declare module 'telnyx' {
       paths['/messaging_profile_metrics']['get']['parameters']['query'];
 
     type MessagingProfilesListMetricsResponse =
-      paths['/messaging_profile_metrics']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/messaging_profile_metrics']['get']['responses']['200']['content']['application/json'];
 
     class MessagingProfileMetricsResource {
       listMetrics(

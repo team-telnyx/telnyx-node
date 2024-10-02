@@ -33,7 +33,7 @@ declare module 'telnyx' {
       headers?: Record<string, string | number | string[]>;
     }
 
-    export type Response<T> = {data: T} & {
+    export type Response<T> = T & {
       lastResponse: {
         headers: Record<string, string | number | string[]>;
         requestId: string;

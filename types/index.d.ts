@@ -6,6 +6,15 @@
 ///<reference path='./Errors.d.ts' />
 
 // Resources Imports
+///<reference path='./AiAssistantsResource.d.ts' />
+///<reference path='./AiAudioTranscriptionsResource.d.ts' />
+///<reference path='./AiChatCompletionsResource.d.ts' />
+///<reference path='./AiEmbeddingsResource.d.ts' />
+///<reference path='./AiEmbeddingsBucketsResource.d.ts' />
+///<reference path='./AiEmbeddingsSimilaritySearchResource.d.ts' />
+///<reference path='./AiModelsResource.d.ts' />
+///<reference path='./AiSummarizeResource.d.ts' />
+///<reference path='./AccessIpAddressResource.d.ts' />
 ///<reference path='./AccessIpAddressResource.d.ts' />
 ///<reference path='./AccessIpRangesResource.d.ts' />
 ///<reference path='./AutorespConfigsResource.d.ts' />
@@ -35,6 +44,14 @@ declare module 'telnyx' {
     TelnyxResource: Telnyx.TelnyxResource;
 
     // Resources
+    aiAssistants: Telnyx.AiAssistantsResource;
+    aiAudioTranscriptions: Telnyx.AiAudioTranscriptionsResource;
+    aiChatCompletions: Telnyx.AiChatCompletionsResource;
+    aiEmbeddings: Telnyx.AiEmbeddingsResource;
+    aiEmbeddingsBuckets: Telnyx.AiEmbeddingsBucketsResource;
+    aiEmbeddingsSimilaritySearch: Telnyx.AiEmbeddingsSimilaritySearchResource;
+    aiModels: Telnyx.AiModelsResource;
+    aiSummarize: Telnyx.AiSummarizeResource;
     accessIpAddress: Telnyx.AccessIpAddressResource;
     accessIpRanges: Telnyx.AccessIpRangesResource;
     autorespConfigs: Telnyx.AutorespConfigsResource;

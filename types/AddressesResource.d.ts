@@ -9,25 +9,25 @@ declare module 'telnyx' {
       paths['/addresses/{id}']['get']['parameters']['query'];
 
     type AddressesRetrieveResponse =
-      paths['/addresses/{id}']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/addresses/{id}']['get']['responses']['200']['content']['application/json'];
 
     type AddressesCreateParams =
       paths['/addresses']['post']['requestBody']['content']['application/json'];
 
     type AddressesCreateResponse =
-      paths['/addresses']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/addresses']['post']['responses']['200']['content']['application/json'];
 
     type AddressesValidateParams =
       paths['/addresses/actions/validate']['post']['requestBody']['content']['application/json'];
 
     type AddressesValidateResponse =
-      paths['/addresses/actions/validate']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/addresses/actions/validate']['post']['responses']['200']['content']['application/json'];
 
     type AddressesListParams =
       paths['/addresses']['get']['parameters']['query'];
 
     type AddressesListResponse =
-      paths['/addresses']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/addresses']['get']['responses']['200']['content']['application/json'];
 
     type AddressesDelId =
       paths['/addresses/{id}']['delete']['parameters']['path']['id'];
@@ -36,7 +36,7 @@ declare module 'telnyx' {
       paths['/addresses/{id}']['delete']['parameters']['query'];
 
     type AddressesDelResponse =
-      paths['/addresses/{id}']['delete']['responses']['200']['content']['application/json']['data'];
+      paths['/addresses/{id}']['delete']['responses']['200']['content']['application/json'];
 
     type AddressesNestedMethods = {
       del: AddressesResource['del'];

@@ -54,7 +54,6 @@ export const Conferences = TelnyxResource.extend({
 
   participants: telnyxMethod({
     method: 'GET',
-
     path: '/{conferenceId}/participants',
     urlParams: ['conferenceId'],
   }),

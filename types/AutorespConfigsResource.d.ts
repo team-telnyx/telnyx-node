@@ -6,7 +6,7 @@ declare module 'telnyx' {
       paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['get']['parameters']['path'];
 
     type AutorespConfigsRetrieveResponse =
-      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['get']['responses']['200']['content']['application/json'];
 
     type AutorespConfigsCreatePathParams =
       paths['/messaging_profiles/{profile_id}/autoresp_configs']['post']['parameters']['path'];
@@ -15,7 +15,7 @@ declare module 'telnyx' {
       paths['/messaging_profiles/{profile_id}/autoresp_configs']['post']['requestBody']['content']['application/json'];
 
     type AutorespConfigsCreateResponse =
-      paths['/messaging_profiles/{profile_id}/autoresp_configs']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/messaging_profiles/{profile_id}/autoresp_configs']['post']['responses']['200']['content']['application/json'];
 
     type AutorespConfigsListPathParams =
       paths['/messaging_profiles/{profile_id}/autoresp_configs']['get']['parameters']['path'];
@@ -24,7 +24,7 @@ declare module 'telnyx' {
       paths['/messaging_profiles/{profile_id}/autoresp_configs']['get']['parameters']['query'];
 
     type AutorespConfigsListResponse =
-      paths['/messaging_profiles/{profile_id}/autoresp_configs']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/messaging_profiles/{profile_id}/autoresp_configs']['get']['responses']['200']['content']['application/json'];
 
     type AutorespConfigsDelPathParams =
       paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['delete']['parameters']['path'];
@@ -39,7 +39,7 @@ declare module 'telnyx' {
       paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['put']['requestBody']['content']['application/json'];
 
     type AutorespConfigsUpdateResponse =
-      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['put']['responses']['200']['content']['application/json']['data'];
+      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['put']['responses']['200']['content']['application/json'];
 
     class AutorespConfigsResource {
       retrieve(

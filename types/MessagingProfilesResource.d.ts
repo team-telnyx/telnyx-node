@@ -21,37 +21,37 @@ declare module 'telnyx' {
       paths['/messaging_profiles/{id}']['patch']['requestBody']['content']['application/json'];
 
     type MessagingProfilesRetrieveResponse =
-      paths['/messaging_profiles/{id}']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/messaging_profiles/{id}']['get']['responses']['200']['content']['application/json'];
 
     type MessagingProfilesDelResponse =
-      paths['/messaging_profiles/{id}']['delete']['responses']['200']['content']['application/json']['data'];
+      paths['/messaging_profiles/{id}']['delete']['responses']['200']['content']['application/json'];
 
     type MessagingProfilesUpdateResponse =
-      paths['/messaging_profiles/{id}']['patch']['responses']['200']['content']['application/json']['data'];
+      paths['/messaging_profiles/{id}']['patch']['responses']['200']['content']['application/json'];
 
     type MessagingProfilesListParams =
       paths['/messaging_profiles']['get']['parameters']['query'];
 
     type MessagingProfilesListResponse =
-      paths['/messaging_profiles']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/messaging_profiles']['get']['responses']['200']['content']['application/json'];
 
     type MessagingProfilesCreateParams =
       paths['/messaging_profiles']['post']['requestBody']['content']['application/json'];
 
     type MessagingProfilesCreateResponse =
-      paths['/messaging_profiles']['post']['responses']['200']['content']['application/json']['data'];
+      paths['/messaging_profiles']['post']['responses']['200']['content']['application/json'];
 
     type MessagingProfilesListPhoneNumbersParams =
       paths['/messaging_profiles/{id}/phone_numbers']['get']['parameters']['query'];
 
     type MessagingProfilesListPhoneNumbersResponse =
-      paths['/messaging_profiles/{id}/phone_numbers']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/messaging_profiles/{id}/phone_numbers']['get']['responses']['200']['content']['application/json'];
 
     type MessagingProfilesListShortCodesParams =
       paths['/messaging_profiles/{id}/short_codes']['get']['parameters']['query'];
 
     type MessagingProfilesListShortCodesResponse =
-      paths['/messaging_profiles/{id}/short_codes']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/messaging_profiles/{id}/short_codes']['get']['responses']['200']['content']['application/json'];
 
     type MessagingProfilesRetrieveMetricsId =
       paths['/messaging_profiles/{id}/metrics']['get']['parameters']['path']['id'];
@@ -60,7 +60,7 @@ declare module 'telnyx' {
       paths['/messaging_profiles/{id}/metrics']['get']['parameters']['query'];
 
     type MessagingProfilesRetrieveMetricsResponse =
-      paths['/messaging_profiles/{id}/metrics']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/messaging_profiles/{id}/metrics']['get']['responses']['200']['content']['application/json'];
 
     type MessagingProfilesNestedMethods = {
       del: MessagingProfilesResource['del'];

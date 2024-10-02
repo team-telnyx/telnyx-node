@@ -6,13 +6,13 @@ declare module 'telnyx' {
       paths['/storage/buckets/{bucketName}/usage/storage']['get']['parameters']['path']['bucketName'];
 
     type StorageBucketsUsageResponse =
-      paths['/storage/buckets/{bucketName}/usage/storage']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/storage/buckets/{bucketName}/usage/storage']['get']['responses']['200']['content']['application/json'];
 
     type StorageBucketsAPIUsageName =
       paths['/storage/buckets/{bucketName}/usage/api']['get']['parameters']['path']['bucketName'];
 
     type StorageBucketsAPIUsageResponse =
-      paths['/storage/buckets/{bucketName}/usage/api']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/storage/buckets/{bucketName}/usage/api']['get']['responses']['200']['content']['application/json'];
 
     type StorageBucketsSSLCertificateName =
       paths['/storage/buckets/{bucketName}/ssl_certificate']['get']['parameters']['path']['bucketName'];
@@ -35,13 +35,13 @@ declare module 'telnyx' {
         : never;
 
     type StorageBucketsSSLCertificateResponse =
-      paths['/storage/buckets/{bucketName}/ssl_certificate']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/storage/buckets/{bucketName}/ssl_certificate']['get']['responses']['200']['content']['application/json'];
 
     type StorageBucketsAddSSLCertificateResponse =
-      paths['/storage/buckets/{bucketName}/ssl_certificate']['put']['responses']['200']['content']['application/json']['data'];
+      paths['/storage/buckets/{bucketName}/ssl_certificate']['put']['responses']['200']['content']['application/json'];
 
     type StorageBucketsDelSSLCertificateResponse =
-      paths['/storage/buckets/{bucketName}/ssl_certificate']['delete']['responses']['200']['content']['application/json']['data'];
+      paths['/storage/buckets/{bucketName}/ssl_certificate']['delete']['responses']['200']['content']['application/json'];
 
     class StorageBucketsResource {
       usage(

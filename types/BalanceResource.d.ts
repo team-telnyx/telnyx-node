@@ -6,7 +6,7 @@ declare module 'telnyx' {
       paths['/balance']['get']['parameters']['query'];
 
     type BalanceRetrieveResponse =
-      paths['/balance']['get']['responses']['200']['content']['application/json']['data'];
+      paths['/balance']['get']['responses']['200']['content']['application/json'];
 
     class BalanceResource {
       /** Get user balance details */

@@ -2,6 +2,10 @@
 
 ## v2
 
+### v2.0.0-alpha.2
+
+- Fix `AI` resource methods and created nested structure
+
 ### v2.0.0-alpha.1
 
 - Update actions workflow versions to v4 and `.npmignore` to v2
@@ -42,7 +46,6 @@
 - Move `BucketUsage` resource to `StorageBuckets`
 - Remove duplicated `BulkPhoneNumberCampaigns` resource
 - Remove duplicated `BulkPhoneNumberOperations` resource
-
 
 ## v1
 
