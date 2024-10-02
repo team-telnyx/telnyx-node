@@ -2,6 +2,11 @@
 
 ## v2
 
+### v2.0.0-alpha.1
+
+- Update actions workflow versions to v4 and `.npmignore` to v2
+- Update examples dependencies
+
 ### v2.0.0-alpha.0
 
 - Add Typescript default config, linter and dependencies
@@ -37,8 +42,7 @@
 - Move `BucketUsage` resource to `StorageBuckets`
 - Remove duplicated `BulkPhoneNumberCampaigns` resource
 - Remove duplicated `BulkPhoneNumberOperations` resource
-- Update actions workflow versions to v4 and `.npmignore` to v2
-- Update examples dependencies
+
 
 ## v1
 
