@@ -2,6 +2,10 @@
 
 ## v2
 
+### v2.0.0-alpha.4
+
+- Add `Addresses` example
+
 ### v2.0.0-alpha.3
 
 - Update typing on Nested Resources
