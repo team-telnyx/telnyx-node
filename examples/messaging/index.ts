@@ -5,8 +5,7 @@
 
 import Telnyx from 'telnyx';
 
-const apiKey = String(process.env.TELNYX_API_KEY || '');
-const telnyx = new Telnyx(apiKey);
+const telnyx = new Telnyx(process.env.TELNYX_API_KEY || '');
 
 const params: Telnyx.MessagingProfilesCreateParams = {
   name: 'Node SDK MP',

@@ -5,9 +5,7 @@
 
 import Telnyx from 'telnyx';
 
-const apiKey = String(process.env.TELNYX_API_KEY || '');
-
-const telnyx = new Telnyx(apiKey);
+const telnyx = new Telnyx(process.env.TELNYX_API_KEY || '');
 
 const params: Telnyx.CallsCreateParams = {
   to: '+18005550100 or sip:username@sip.telnyx.com',
@@ -78,7 +76,7 @@ const params: Telnyx.CallsCreateParams = {
   try {
     const {data: call} = await telnyx.calls.dial(params);
 
-    const {data: playback} = await call.playbackStart({
+    const {data: playback} = await call!.playbackStart({
       audio_url: 'http://www.example.com/sounds/greeting.wav',
       loop: 'infinity',
       overlay: true,
@@ -90,7 +88,7 @@ const params: Telnyx.CallsCreateParams = {
       audio_type: 'mp3',
     });
 
-    console.log(playback?.result);
+    console.log(playback);
   } catch (e: unknown) {
     console.error(e);
 
