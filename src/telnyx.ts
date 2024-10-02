@@ -8,24 +8,18 @@ import * as utils from './utils';
 //#region Resources
 import {AccessIpAddress} from './resources/AccessIpAddress';
 import {AccessIpRanges} from './resources/AccessIpRanges';
-import {AccessTokens} from './resources/AccessTokens';
 import {Actions} from './resources/Actions';
 import {ActionsSimCards} from './resources/ActionsSimCards';
 import {ActivateDeactivateBulkCredentials} from './resources/ActivateDeactivateBulkCredentials';
 import {Addresses} from './resources/Addresses';
-import {AdvancedOptinoptout} from './resources/AdvancedOptinoptout';
+import {AutorespConfigs} from './resources/AutorespConfigs';
 import {AI} from './resources/AI';
 import {AuthenticationProviders} from './resources/AuthenticationProviders';
 import {AvailablePhoneNumbers} from './resources/AvailablePhoneNumbers';
 import {Balance} from './resources/Balance';
-import {Billing} from './resources/Billing';
 import {BillingGroups} from './resources/BillingGroups';
 import {Brands} from './resources/Brands';
-import {Bucket} from './resources/Bucket';
-import {BucketUsage} from './resources/BucketUsage';
 import {BulkCredentials} from './resources/BulkCredentials';
-import {BulkPhoneNumberCampaigns} from './resources/BulkPhoneNumberCampaigns';
-import {BulkPhoneNumberOperations} from './resources/BulkPhoneNumberOperations';
 import {BulkSoleProprietorCreation} from './resources/BulkSoleProprietorCreation';
 import {BulkTelephonyCredentials} from './resources/BulkTelephonyCredentials';
 import {BusinessIdentity} from './resources/BusinessIdentity';
@@ -140,7 +134,7 @@ import {SimCardGroupActions} from './resources/SimCardGroupActions';
 import {SimCardGroups} from './resources/SimCardGroups';
 import {SimCardOrders} from './resources/SimCardOrders';
 import {SimCards} from './resources/SimCards';
-import {SslCertificates} from './resources/SslCertificates';
+import {StorageBuckets} from './resources/StorageBuckets';
 import {TelephonyCredentials} from './resources/TelephonyCredentials';
 import {TexmlApplications} from './resources/TexmlApplications';
 import {UpdateClientState} from './resources/UpdateClientState';
@@ -191,24 +185,18 @@ export function createTelnyx() {
   const resources = {
     AccessIpAddress,
     AccessIpRanges,
-    AccessTokens,
     Actions,
     ActionsSimCards,
     ActivateDeactivateBulkCredentials,
     Addresses,
-    AdvancedOptinoptout,
+    AutorespConfigs,
     AI,
     AuthenticationProviders,
     AvailablePhoneNumbers,
     Balance,
-    Billing,
     BillingGroups,
     Brands,
-    Bucket,
-    BucketUsage,
     BulkCredentials,
-    BulkPhoneNumberCampaigns,
-    BulkPhoneNumberOperations,
     BulkSoleProprietorCreation,
     BulkTelephonyCredentials,
     BusinessIdentity,
@@ -323,7 +311,7 @@ export function createTelnyx() {
     SimCardGroups,
     SimCardOrders,
     SimCards,
-    SslCertificates,
+    StorageBuckets,
     TelephonyCredentials,
     TexmlApplications,
     UpdateClientState,

@@ -56,6 +56,7 @@ declare module 'telnyx' {
             options?: RequestOptions,
           ): Promise<Telnyx.Response<Telnyx.{{pascalCase ../name}}{{pascalCase .}}Response>>;
         {{/if}}
+
         {{#if (ifEquals . "create")}}
           {{.}}(
             params: {{pascalCase ../name}}{{pascalCase .}}Params,
@@ -69,6 +70,7 @@ declare module 'telnyx' {
             options?: RequestOptions,
           ): Promise<Telnyx.Response<Telnyx.{{pascalCase ../name}}{{pascalCase .}}Response>>;
         {{/if}}
+
         {{#if (ifEquals . "update")}}
           {{.}}(
             id: {{pascalCase ../name}}{{pascalCase .}}Id,
@@ -76,6 +78,7 @@ declare module 'telnyx' {
             options?: RequestOptions,
           ): Promise<Telnyx.Response<Telnyx.{{pascalCase ../name}}{{pascalCase .}}Response>>;
         {{/if}}
+
         {{#if (ifEquals . "del")}}
           {{.}}(
             id: {{pascalCase ../name}}{{pascalCase .}}Id,

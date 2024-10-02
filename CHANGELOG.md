@@ -20,16 +20,23 @@
 - Enabled `esModuleInterop` for Jest
 - Update files included when publishing
 - Remove custom resource get `generateAccessTokenFromCredential` from `TelephonyCredentials`
-- Update `AutoRechargePreferences` resource to match API spec
-- Remove `RegisterCall` according to API spec
+- Update `AutoRechargePreferences` resource
+- Remove `RegisterCall` resource
 - Remove `ProgrammableFaxCommants` specs
-- Remove `BulkCreation` according to API sepc
-- Update `TexmlApplications` resource to match API spec
-- Remove `Conferences` `dial_participant` action according to API sepc
-- Remove `SimCards` `deletePublicIp` and `setPublicIp` according to API sepc
+- Remove `BulkCreation` resource
+- Update `TexmlApplications` resource
+- Remove `Conferences` `dial_participant` action
+- Remove `SimCards` `deletePublicIp` and `setPublicIp`
 - Update `Queues` method names to camelCase
-- Remove `VerifiedCallsDisplayProfile` resource according to API spec
+- Remove `VerifiedCallsDisplayProfile` resource
 - Update examples to Typescript
+- Remove duplicated `AccessTokens` resource
+- Move custom `AdvancedOptinoptout` resource to be `AutoRespConfigs` resource
+- Remove `Billing` resource
+- Remove inexistent `Bucket` resource
+- Move `BucketUsage` resource to `StorageBuckets`
+- Remove duplicated `BulkPhoneNumberCampaigns` resource
+- Remove duplicated `BulkPhoneNumberOperations` resource
 
 ## v1
 

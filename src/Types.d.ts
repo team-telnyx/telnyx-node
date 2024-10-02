@@ -200,7 +200,7 @@ export type TelnyxResourceObject = {
     requestRetries: number,
     callback: RequestCallback,
   ) => (error: Error) => void;
-  includeBasic: Array<string>;
+  includeBasic: Array<'list' | 'create' | 'retrieve' | 'update' | 'del'>;
   nestedResources: {
     [key: string]: new (...args: unknown[]) => TelnyxResourceObject;
   };

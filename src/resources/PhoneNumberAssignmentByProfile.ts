@@ -40,9 +40,25 @@ export const PhoneNumberAssignmentByProfile = TelnyxResource.extend({
     transformResponseData: transformResponseData,
   }),
 
+  retrieve: telnyxMethod({
+    method: 'GET',
+    path: '/{taskId}',
+    urlParams: ['taskId'],
+
+    transformResponseData: transformResponseData,
+  }),
+
   retrieveTaskStatus: telnyxMethod({
     method: 'GET',
     path: '/{taskId}',
+    urlParams: ['taskId'],
+
+    transformResponseData: transformResponseData,
+  }),
+
+  phoneNumbers: telnyxMethod({
+    method: 'GET',
+    path: '/{taskId}/phoneNumbers',
     urlParams: ['taskId'],
 
     transformResponseData: transformResponseData,

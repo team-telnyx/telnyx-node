@@ -26,6 +26,12 @@ type ResponsePayloadMetrics = {
   };
 };
 
+type ResponsePayloadAutorespConfig = {
+  data: {
+    id: string;
+  };
+};
+
 describe('MessagingProfiles Resource', function () {
   function responseFn(response: ResponsePayload) {
     expect(response.data).toHaveProperty('name');
@@ -298,6 +304,59 @@ describe('MessagingProfiles Resource', function () {
             const mp = response.data;
             // @ts-expect-error TODO: import .d.ts files under src/test folder
             return mp.metrics(TEST_AUTH_KEY).then(metricsNestedResponseFn);
+          });
+        });
+      });
+    });
+
+    describe('AutorespConfigs methods', function () {
+      function autorespConfigNestedResponseFn(
+        response: ResponsePayloadAutorespConfig,
+      ) {
+        expect(response.data[0]).toHaveProperty('country_code');
+        expect(response.data[0]).toHaveProperty('resp_text');
+        expect(response.data[0]).toHaveProperty('keywords');
+        expect(response.data[0]).toHaveProperty('op');
+        expect(response.data[0]).toHaveProperty('id');
+      }
+
+      describe('autorespConfigs', function () {
+        test('Sends the correct request', function () {
+          // @ts-expect-error TODO: import .d.ts files under src/test folder
+          return telnyx.messagingProfiles
+            .listAutorespConfigs(TEST_UUID)
+            .then(autorespConfigNestedResponseFn);
+        });
+
+        test('Sends the correct request [with specified auth]', function () {
+          // @ts-expect-error TODO: import .d.ts files under src/test folder
+          return telnyx.messagingProfiles
+            .listAutorespConfigs(TEST_UUID, TEST_AUTH_KEY)
+            .then(autorespConfigNestedResponseFn);
+        });
+      });
+
+      describe('nested autoresp_configs', function () {
+        test('Sends the correct request', function () {
+          // @ts-expect-error TODO: import .d.ts files under src/test folder
+          return telnyx.messagingProfiles
+            .create({name: 'Summer Campaign', whitelisted_destinations: ['US']})
+            .then(function (response: ResponsePayload) {
+              const mp = response.data;
+              // @ts-expect-error TODO: import .d.ts files under src/test folder
+              return mp.autorespConfigs().then(autorespConfigNestedResponseFn);
+            });
+        });
+        test('Sends the correct request [with specified auth]', function () {
+          // @ts-expect-error TODO: import .d.ts files under src/test folder
+          return telnyx.messagingProfiles.retrieve(TEST_UUID).then(function (
+            response: ResponsePayload,
+          ) {
+            const mp = response.data;
+            // @ts-expect-error TODO: import .d.ts files under src/test folder
+            return mp
+              .autorespConfigs(TEST_AUTH_KEY)
+              .then(autorespConfigNestedResponseFn);
           });
         });
       });

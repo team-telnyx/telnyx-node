@@ -5,7 +5,7 @@ import * as utils from '../utils';
 
 const telnyxMethod = TelnyxResource.method;
 
-const ACTIONS = ['phone_numbers', 'short_codes', 'metrics'];
+const ACTIONS = ['phone_numbers', 'short_codes', 'metrics', 'autoresp_configs'];
 
 function getSpec(messagingProfileId?: string) {
   return function (methodName: string) {
@@ -94,5 +94,19 @@ export const MessagingProfiles = TelnyxResource.extend({
     path: '/{messagingProfileId}/metrics',
     urlParams: ['messagingProfileId'],
     methodType: 'retrieve',
+  }),
+
+  autorespConfigs: telnyxMethod({
+    method: 'GET',
+    path: '/{messagingProfileId}/autoresp_configs',
+    urlParams: ['messagingProfileId'],
+    methodType: 'list',
+  }),
+
+  listAutorespConfigs: telnyxMethod({
+    method: 'GET',
+    path: '/{messagingProfileId}/autoresp_configs',
+    urlParams: ['messagingProfileId'],
+    methodType: 'list',
   }),
 });
