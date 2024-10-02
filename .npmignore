@@ -9,8 +9,7 @@
 !/README.md
 !/VERSION
 !/package.json
-!/src/**/*
-!/types/**/*
+!/dist/**/*
 
 # Omit test files
 /src/test/**/*
