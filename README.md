@@ -26,34 +26,14 @@ The package needs to be configured with your account's API key which is
 available in your the [Telnyx Mission Control Portal][api-keys]. Require it with the key's
 value:
 
-```js
-const telnyx = require('telnyx')('KEY123456...');
+```typescript
+import Telnyx from 'telnyx';
+
+const telnyx = new Telnyx('KEY123456...');
 
 const messagingProfile = await telnyx.messagingProfiles.create({
   name: 'Summer Campaign',
 });
-```
-
-Or with versions of Node.js prior to v7.9:
-
-```js
-var telnyx = require('telnyx')('KEY123456...');
-
-telnyx.messagingProfiles.create(
-  {name: 'Summer Campaign'},
-  function (err, messagingProfile) {
-    err; // null if no error occurred
-    messagingProfile; // the created messaging profile object
-  },
-);
-```
-
-Or using ES modules, this looks more like:
-
-```js
-import Telnyx from 'telnyx';
-const telnyx = Telnyx('KEY...');
-//…
 ```
 
 ### Using Promises
@@ -61,13 +41,13 @@ const telnyx = Telnyx('KEY...');
 Every method returns a chainable promise which can be used instead of a regular
 callback:
 
-```js
+```typescript
 // Create a new messaging profile and then send a message using that profile:
-telnyx.MessagingProfiles.create({
+telnyx.,essagingProfiles.create({
   name: 'Summer Campaign',
 })
   .then((messagingProfile) => {
-    return telnyx.MessagingPhoneNumbers.update('+18005554000', {
+    return telnyx.messagingPhoneNumbers.update('+18005554000', {
       messaging_profile_id: messagingProfile.data.id,
     });
   })
@@ -80,7 +60,7 @@ telnyx.MessagingProfiles.create({
 
 Request timeout is configurable (the default is Node's default of 120 seconds):
 
-```js
+```typescript
 telnyx.setTimeout(20000); // in ms (this is 20 seconds)
 ```
 
@@ -91,9 +71,10 @@ An [https-proxy-agent][https-proxy-agent] can be configured with
 
 To use telnyx behind a proxy you can pass to sdk:
 
-```js
+```typescript
+import ProxyAgent from 'https-proxy-agent';
+
 if (process.env.http_proxy) {
-  const ProxyAgent = require('https-proxy-agent');
   telnyx.setHttpAgent(new ProxyAgent(process.env.http_proxy));
 }
 ```
@@ -104,7 +85,7 @@ Automatic network retries can be enabled with `setMaxNetworkRetries`. This will
 retry requests `n` times with exponential backoff if they fail due to an
 intermittent network problem.
 
-```js
+```typescript
 // Retry a request once before giving up
 telnyx.setMaxNetworkRetries(1);
 ```
@@ -114,7 +95,7 @@ telnyx.setMaxNetworkRetries(1);
 Some information about the response which generated a resource is available
 with the `lastResponse` property:
 
-```js
+```typescript
 messagingProfile.lastResponse.requestId; // see: https://telnyx.com/docs/api/node#request_ids
 messagingProfile.lastResponse.statusCode;
 ```
@@ -123,8 +104,10 @@ messagingProfile.lastResponse.statusCode;
 
 The Telnyx object emits `request` and `response` events. You can use them like this:
 
-```js
-const telnyx = require('telnyx')('KEY...');
+```typescript
+import Telnyx from 'telnyx';
+
+const telnyx = new Telnyx('KEY...');
 
 const onRequest = (request) => {
   // Do something.
@@ -139,7 +122,7 @@ telnyx.off('request', onRequest);
 
 #### `request` object
 
-```js
+```typescript
 {
   method: 'POST',
   path: '/v2/messaging_profiles'
@@ -148,7 +131,7 @@ telnyx.off('request', onRequest);
 
 #### `response` object
 
-```js
+```typescript
 {
   method: 'POST',
   path: '/v2/messaging_profiles',
@@ -172,7 +155,7 @@ You can find an example of how to use this with [Express](https://expressjs.com/
 in the [`examples/webhook-signing`](examples/webhook-signing) folder, but here's
 what it looks like:
 
-```js
+```typescript
 const event = telnyx.webhooks.constructEvent(
   webhookRawBody,
   webhookTelnyxSignatureHeader,
@@ -187,7 +170,7 @@ TeXML sends webhooks as form-encoded payloads instead of JSON. To validate the s
 
 You can find an example of how to use this with [Express](https://expressjs.com/) in the [`examples/webhook-signing`](examples/webhook-signing) folder.
 
-```js
+```typescript
 const timeToleranceInSeconds = 300; // Will validate signatures of webhooks up to 5 minutes after Telnyx sent the request
 try {
   telnyx.webhooks.signature.verifySignature(
@@ -207,7 +190,7 @@ try {
 
 If you're writing a plugin that uses the library, we'd appreciate it if you identified using `telnyx.setAppInfo()`:
 
-```js
+```typescript
 telnyx.setAppInfo({
   name: 'MyAwesomePlugin',
   version: '1.2.34', // Optional
@@ -228,7 +211,7 @@ If you are in a Node environment that has support for [async iteration](https://
 such as Node 10+ or [babel](https://babeljs.io/docs/en/babel-plugin-transform-async-generator-functions),
 the following will auto-paginate:
 
-```js
+```typescript
 for await (const messagingProfile of telnyx.messagingProfiles.list()) {
   doSomething(messagingProfile);
   if (shouldStop()) {
@@ -242,7 +225,7 @@ for await (const messagingProfile of telnyx.messagingProfiles.list()) {
 If you are in a Node environment that has support for `await`, such as Node 7.9 and greater,
 you may pass an async function to `.autoPagingEach`:
 
-```js
+```typescript
 await telnyx.messagingProfiles
   .list()
   .autoPagingEach(async (messagingProfile) => {
@@ -256,7 +239,7 @@ console.log('Done iterating.');
 
 Equivalently, without `await`, you may return a Promise, which can resolve to `false` to break:
 
-```js
+```typescript
 telnyx.messagingProfiles
   .list()
   .autoPagingEach((messagingProfile) => {
@@ -274,7 +257,7 @@ telnyx.messagingProfiles
 
 If you prefer callbacks to promises, you may also use a `next` callback and a second `onDone` callback:
 
-```js
+```typescript
 telnyx.messagingProfiles.list().autoPagingEach(
   function onItem(messagingProfile, next) {
     doSomething(messagingProfile, function (err, result) {
@@ -306,7 +289,7 @@ to prevent runaway list growth from consuming too much memory.
 
 Returns a promise of an array of all items across pages for a list request.
 
-```js
+```typescript
 const allMessagingProfiles = await telnyx.messagingProfiles
   .list()
   .autoPagingToArray({limit: 10000});
@@ -392,8 +375,10 @@ $ npm test
 
 To inspect values in tests first import debug:
 
-```js
-const debug = require('debug')('foo');
+```typescript
+import Debug from 'debug';
+
+const debug = Debug('foo');
 //...
 debug(result);
 ```
