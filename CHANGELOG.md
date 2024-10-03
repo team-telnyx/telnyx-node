@@ -2,6 +2,16 @@
 
 ## v2
 
+### v2.0.0-alpha.5
+
+- Remove `ClientStateUpdate` resource
+- Remove `MessagesAlphanumericSenderId` resource
+- Remove `MessagingHostedNumber` resource
+- Remove `MessagingPhoneNumbers` resource
+- Remove `MessagingSenderIds` resource
+- Remove `PublicKey` resource
+- Remove `UpdateClientState` resource
+
 ### v2.0.0-alpha.4
 
 - Add `Addresses` example
