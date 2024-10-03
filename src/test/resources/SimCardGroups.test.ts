@@ -20,7 +20,6 @@ type ResponsePayloadSimCardGroups = ResponsePayload & {
   };
 };
 
-// describe.skip('SimCardGroups Resource', function () {
 describe('SimCardGroups Resource', function () {
   describe('retrieve', function () {
     function responseFn(response: ResponsePayloadSimCardGroups) {

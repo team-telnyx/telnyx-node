@@ -5,7 +5,7 @@ export const InboundChannels = TelnyxResource.extend({
   path: 'inbound_channels',
   includeBasic: ['list', 'retrieve'],
 
-  ListInboundChannels: telnyxMethod({
+  listInboundChannels: telnyxMethod({
     method: 'GET',
     path: '/phone_numbers/inbound_channels',
   }),

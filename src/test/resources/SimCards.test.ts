@@ -122,7 +122,6 @@ describe('SimCards Resource', function () {
     });
   });
 
-  // describe.skip('Nested', function () {
   describe('Nested', function () {
     ['activate', 'deactivate', 'enable', 'disable', 'set_standby'].forEach(
       function (command) {
@@ -247,7 +246,6 @@ describe('SimCards Resource', function () {
     });
   });
 
-  // describe.skip('PublicIP', function () {
   describe('PublicIP', function () {
     function responseFn(response: ResponsePayload) {
       expect(response.data.record_type).toBe('sim_card_public_ip');

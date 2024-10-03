@@ -5,7 +5,7 @@ const TEST_AUTH_KEY = testUtils.getUserTelnyxKey();
 
 describe('InventoryCoverage Resource', function () {
   // not included in the spec
-  describe.skip('request', function () {
+  describe('request', function () {
     function responseFn(response: ResponsePayloadList) {
       expect(response.data[0]).toHaveProperty('number_type');
       expect(response.data[0]).toHaveProperty('group');
@@ -22,7 +22,9 @@ describe('InventoryCoverage Resource', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.inventoryCoverage
         .request({
-          filter: {npa: '318', nxx: '202', country_code: 'US', groupBy: 'nxx'},
+          filter: {npa: '318', nxx: '202', country_code: 'US', groupBy: 'npa'},
+          // this is due to https://github.com/stoplightio/prism/issues/2443
+          'filter%5bgroupby%5d': 'npa',
         })
         .then(responseFn);
     });
@@ -36,8 +38,10 @@ describe('InventoryCoverage Resource', function () {
               npa: '318',
               nxx: '202',
               country_code: 'US',
-              groupBy: 'nxx',
+              groupBy: 'npa',
             },
+            // this is due to https://github.com/stoplightio/prism/issues/2443
+            'filter%5bgroupby%5d': 'npa',
           },
           TEST_AUTH_KEY,
         )

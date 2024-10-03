@@ -24938,14 +24938,13 @@ export interface components {
        */
       command_id?: string;
     };
-    /** @example [
+    /** @example
      *       {
      *         "record_type": "messaging_hosted_number",
      *         "id": "bf6307bd-884d-4c1f-b6ea-c62b8c495d3c",
      *         "phone_number": "+18665550001",
      *         "status": "successful"
-     *       }
-     *     ] */
+     *       } */
     HostedNumber: {
       /** @example messaging_hosted_number */
       record_type?: string;

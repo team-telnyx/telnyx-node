@@ -3,6 +3,7 @@ const telnyx = testUtils.getTelnyxMock();
 
 const TEST_AUTH_KEY = testUtils.getUserTelnyxKey();
 
+// not found in API Spec https://stoplight.io/prism/errors#NO_PATH_MATCHED_ERROR: Route not resolved, no path matched
 describe.skip('SimCards Actions Resource', function () {
   const registerData = {
     registration_codes: ['2578318790'],

@@ -34,13 +34,7 @@ function transformResponseData(
 
 export const OutboundVoiceProfiles = TelnyxResource.extend({
   path: 'outbound_voice_profiles',
-
-  list: telnyxMethod({
-    method: 'GET',
-    methodType: 'list',
-
-    transformResponseData: transformResponseData,
-  }),
+  includeBasic: ['list', 'update', 'del'],
 
   create: telnyxMethod({
     method: 'POST',
@@ -54,10 +48,5 @@ export const OutboundVoiceProfiles = TelnyxResource.extend({
     urlParams: ['id'],
 
     transformResponseData: transformResponseData,
-  }),
-
-  del: telnyxMethod({
-    method: 'DELETE',
-    path: '/{id}',
   }),
 });

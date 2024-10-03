@@ -17,17 +17,8 @@ function transformResponseData(
 }
 
 export const VerifyProfiles = TelnyxResource.extend({
-  path: 'sim_cards',
-  includeBasic: ['update'],
-
-  delete: telnyxMethod({
-    method: 'DELETE',
-    path: '/{verify_profile_id}',
-    urlParams: ['verify_profile_id'],
-    paramsNames: ['id'],
-
-    transformResponseData: transformResponseData,
-  }),
+  path: 'verify_profiles',
+  includeBasic: ['list', 'update', 'del'],
 
   save: telnyxMethod({
     method: 'PATCH',
@@ -43,13 +34,6 @@ export const VerifyProfiles = TelnyxResource.extend({
     path: '/{verify_profile_id}',
     urlParams: ['verify_profile_id'],
     paramsNames: ['id'],
-
-    transformResponseData: transformResponseData,
-  }),
-
-  list: telnyxMethod({
-    method: 'GET',
-    methodType: 'list',
 
     transformResponseData: transformResponseData,
   }),

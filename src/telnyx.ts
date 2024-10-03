@@ -37,7 +37,6 @@ import {Campaign} from './resources/Campaign';
 import {CampaignBuilder} from './resources/CampaignBuilder';
 import {CdrUsageReports} from './resources/CdrUsageReports';
 import {Channelzones} from './resources/Channelzones';
-import {ClientStateUpdate} from './resources/ClientStateUpdate';
 import {Conferences} from './resources/Conferences';
 import {Connections} from './resources/Connections';
 import {CredentialConnections} from './resources/CredentialConnections';
@@ -70,14 +69,10 @@ import {MdrDetailReports} from './resources/MdrDetailReports';
 import {MdrUsageReports} from './resources/MdrUsageReports';
 import {MediaStorageApi} from './resources/MediaStorageApi';
 import {Messages} from './resources/Messages';
-import {MessagesAlphanumericSenderId} from './resources/MessagesAlphanumericSenderId';
-import {MessagingHostedNumber} from './resources/MessagingHostedNumber';
 import {MessagingHostedNumberOrders} from './resources/MessagingHostedNumberOrders';
 import {MessagingHostedNumbers} from './resources/MessagingHostedNumbers';
-import {MessagingPhoneNumbers} from './resources/MessagingPhoneNumbers';
 import {MessagingProfileMetrics} from './resources/MessagingProfileMetrics';
 import {MessagingProfiles} from './resources/MessagingProfiles';
-import {MessagingSenderIds} from './resources/MessagingSenderIds';
 import {MessagingShortCodes} from './resources/MessagingShortCodes';
 import {MessagingTollfreeVerification} from './resources/MessagingTollfreeVerification';
 import {MessagingUrlDomains} from './resources/MessagingUrlDomains';
@@ -113,7 +108,6 @@ import {PortoutRequests} from './resources/PortoutRequests';
 import {PresignedObjectUrls} from './resources/PresignedObjectUrls';
 import {PrivateWirelessGateways} from './resources/PrivateWirelessGateways';
 import {PublicInternetGateways} from './resources/PublicInternetGateways';
-import {PublicKey} from './resources/PublicKey';
 import {PushCredentials} from './resources/PushCredentials';
 import {Queues} from './resources/Queues';
 import {RecordingsCommands} from './resources/RecordingsCommands';
@@ -141,7 +135,6 @@ import {SimCards} from './resources/SimCards';
 import {StorageBuckets} from './resources/StorageBuckets';
 import {TelephonyCredentials} from './resources/TelephonyCredentials';
 import {TexmlApplications} from './resources/TexmlApplications';
-import {UpdateClientState} from './resources/UpdateClientState';
 import {Verifications} from './resources/Verifications';
 import {VerifiedNumbers} from './resources/VerifiedNumbers';
 import {Verify} from './resources/Verify';
@@ -218,7 +211,6 @@ export function createTelnyx() {
     CampaignBuilder,
     CdrUsageReports,
     Channelzones,
-    ClientStateUpdate,
     Conferences,
     Connections,
     CredentialConnections,
@@ -251,14 +243,10 @@ export function createTelnyx() {
     MdrUsageReports,
     MediaStorageApi,
     Messages,
-    MessagesAlphanumericSenderId,
-    MessagingHostedNumber,
     MessagingHostedNumberOrders,
     MessagingHostedNumbers,
-    MessagingPhoneNumbers,
     MessagingProfileMetrics,
     MessagingProfiles,
-    MessagingSenderIds,
     MessagingShortCodes,
     MessagingTollfreeVerification,
     MessagingUrlDomains,
@@ -294,7 +282,6 @@ export function createTelnyx() {
     PresignedObjectUrls,
     PrivateWirelessGateways,
     PublicInternetGateways,
-    PublicKey,
     PushCredentials,
     Queues,
     RecordingsCommands,
@@ -322,7 +309,6 @@ export function createTelnyx() {
     StorageBuckets,
     TelephonyCredentials,
     TexmlApplications,
-    UpdateClientState,
     Verifications,
     VerifiedNumbers,
     Verify,

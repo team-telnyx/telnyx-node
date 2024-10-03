@@ -154,7 +154,6 @@ describe('PortingOrders Resource', function () {
     });
   });
 
-  // describe.skip('confirmOrder', function () {
   describe('confirmOrder', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder

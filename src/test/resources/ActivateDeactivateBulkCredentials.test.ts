@@ -3,8 +3,8 @@ const telnyx = testUtils.getTelnyxMock();
 
 const TEST_AUTH_KEY = testUtils.getUserTelnyxKey();
 
-// prism mock can figure this dynamic path param match
-// [HTTP SERVER] post /actions/activate/telephony_credentials ✖  error     Request terminated with error: https://stoplight.io/prism/errors#NO_PATH_MATCHED_ERROR: Route not resolved, no path matched
+// prism mock can't figure out this dynamic path param match
+// [HTTP SERVER] post /actions/activate/telephony_credentials ✖ error Request terminated with error: https://stoplight.io/prism/errors#NO_PATH_MATCHED_ERROR: Route not resolved, no path matched
 describe.skip('ActivateDeactivateBulkCredentials', function () {
   describe('create', function () {
     function responseFn(response: ResponsePayload) {

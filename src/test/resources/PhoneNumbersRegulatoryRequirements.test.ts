@@ -9,8 +9,6 @@ type ResponsePayloadPhoneNumberRegulatoryRequirements = ResponsePayloadList & {
   }[];
 };
 
-// Skip tests as path out of sync with mock for now
-// describe.skip('PhoneNumberRegulatoryRequirements Resource', function () {
 describe('PhoneNumberRegulatoryRequirements Resource', function () {
   describe('list', function () {
     function responseFn(

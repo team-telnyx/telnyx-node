@@ -86,6 +86,12 @@ export const Calls = TelnyxResource.extend({
     },
   }),
 
+  updateClientState: telnyxMethod({
+    path: '/{call_control_id}/actions/client_state_update',
+    urlParams: ['call_control_id'],
+    method: 'PUT',
+  }),
+
   instanceMethods: utils.createNestedMethods(
     telnyxMethod,
     CALL_COMMANDS,
