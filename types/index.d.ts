@@ -5,7 +5,7 @@
 ///<reference path='./Webhooks.d.ts' />
 ///<reference path='./Errors.d.ts' />
 
-// Resources Imports
+// Resources imports
 ///<reference path='./AiAssistantsResource.d.ts' />
 ///<reference path='./AiAudioTranscriptionsResource.d.ts' />
 ///<reference path='./AiChatCompletionsResource.d.ts' />
@@ -17,6 +17,7 @@
 ///<reference path='./AccessIpAddressResource.d.ts' />
 ///<reference path='./AccessIpAddressResource.d.ts' />
 ///<reference path='./AccessIpRangesResource.d.ts' />
+///<reference path='./AuthenticationProvidersResource.d.ts' />
 ///<reference path='./AutorespConfigsResource.d.ts' />
 ///<reference path='./AddressesResource.d.ts' />
 ///<reference path='./AvailablePhoneNumbersResource.d.ts' />
@@ -24,9 +25,20 @@
 ///<reference path='./BillingGroupsResource.d.ts' />
 ///<reference path='./BrandsResource.d.ts' />
 ///<reference path='./CallsResource.d.ts' />
+///<reference path='./CallControlApplicationsResource.d.ts' />
+///<reference path='./CallEventsResource.d.ts' />
+///<reference path='./CallRecordingsResource.d.ts' />
+///<reference path='./CdrUsageReportsResource.d.ts' />
+///<reference path='./ChannelzonesResource.d.ts' />
+///<reference path='./ConferencesResource.d.ts' />
+///<reference path='./ConnectionsResource.d.ts' />
+///<reference path='./CredentialConnectionsResource.d.ts' />
+///<reference path='./DocumentLinksResource.d.ts' />
+///<reference path='./DocumentsResource.d.ts' />
 ///<reference path='./MessagingProfilesResource.d.ts' />
 ///<reference path='./MessagingProfileMetricsResource.d.ts' />
 ///<reference path='./PhoneNumberAssignmentByProfileResource.d.ts' />
+///<reference path='./TelephonyCredentialsResource.d.ts' />
 ///<reference path='./StorageBucketsResource.d.ts' />
 //
 
@@ -54,6 +66,7 @@ declare module 'telnyx' {
     aiSummarize: Telnyx.AiSummarizeResource;
     accessIpAddress: Telnyx.AccessIpAddressResource;
     accessIpRanges: Telnyx.AccessIpRangesResource;
+    authenticationProviders: Telnyx.AuthenticationProvidersResource;
     autorespConfigs: Telnyx.AutorespConfigsResource;
     addresses: Telnyx.AddressesResource;
     availablePhoneNumbers: Telnyx.AvailablePhoneNumbersResource;
@@ -61,6 +74,17 @@ declare module 'telnyx' {
     brands: Telnyx.BrandsResource;
     billingGroups: Telnyx.BillingGroupsResource;
     calls: Telnyx.CallsResource;
+    callControlApplications: Telnyx.CallControlApplicationsResource;
+    callEvents: Telnyx.CallEventsResource;
+    callRecordings: Telnyx.CallRecordingsResource;
+    cdrUsageReports: Telnyx.CdrUsageReportsResource;
+    channelzones: Telnyx.ChannelzonesResource;
+    conferences: Telnyx.ConferencesResource;
+    connections: Telnyx.ConnectionsResource;
+    credentialConnections: Telnyx.CredentialConnectionsResource;
+    documentLinks: Telnyx.DocumentLinksResource;
+    documents: Telnyx.DocumentsResource;
+    telephonyCredentials: Telnyx.TelephonyCredentialsResource;
     messagingProfiles: Telnyx.MessagingProfilesResource;
     phoneNumberAssignmentByProfileResource: Telnyx.PhoneNumberAssignmentByProfileResource;
     storageBuckets: Telnyx.StorageBucketsResource;

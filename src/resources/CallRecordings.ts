@@ -3,22 +3,22 @@ const telnyxMethod = TelnyxResource.method;
 
 export const CallRecordings = TelnyxResource.extend({
   path: 'recordings',
-  includeBasic: ['list', 'retrieve', 'del'],
+  includeBasic: ['list'],
 
-  GetRecordings: telnyxMethod({
+  retrieve: telnyxMethod({
     method: 'GET',
-    path: '/recordings',
+    path: '/{recording_id}',
+    urlParams: ['recording_id'],
   }),
-  DeleteRecording: telnyxMethod({
+
+  del: telnyxMethod({
     method: 'DELETE',
-    path: '/recordings/{recording/id}',
+    path: '/{recording_id}',
+    urlParams: ['recording_id'],
   }),
-  DeleteRecordings: telnyxMethod({
+
+  bulkDel: telnyxMethod({
     method: 'DELETE',
     path: '/recordings/actions/delete',
-  }),
-  DeleteCustomStorageCredentials: telnyxMethod({
-    method: 'DELETE',
-    path: '/custom/storage/credentials/{connection/id}',
   }),
 });

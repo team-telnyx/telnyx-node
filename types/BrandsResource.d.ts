@@ -55,17 +55,26 @@ declare module 'telnyx' {
     type BrandsExportExternalVettingsPathParams =
       paths['/brand/{brandId}/externalVetting']['put']['parameters']['path'];
 
+    type BrandsExportExternalVettingsParams =
+      paths['/brand/{brandId}/externalVetting']['put']['requestBody']['content']['application/json'];
+
     type BrandsExportExternalVettingsResponse =
       paths['/brand/{brandId}/externalVetting']['put']['responses']['200']['content']['application/json'];
 
     type BrandsOrderExternalVettingsPathParams =
       paths['/brand/{brandId}/externalVetting']['post']['parameters']['path'];
 
+    type BrandsOrderExternalVettingsParams =
+      paths['/brand/{brandId}/externalVetting']['post']['requestBody']['content']['application/json'];
+
     type BrandsOrderExternalVettingsResponse =
       paths['/brand/{brandId}/externalVetting']['post']['responses']['200']['content']['application/json'];
 
     type BrandsRevetPathParams =
       paths['/brand/{brandId}/revet']['put']['parameters']['path'];
+
+    type BrandsRevetParams =
+      paths['/brand/{brandId}/externalVetting']['put']['requestBody']['content']['application/json'];
 
     type BrandsRevetResponse =
       paths['/brand/{brandId}/revet']['put']['responses']['200']['content']['application/json'];
@@ -108,11 +117,6 @@ declare module 'telnyx' {
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.BrandsResend2faEmailResponse>>;
 
-      externalVettings(
-        params?: BrandsListExternalVettingsPathParams,
-        options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.BrandsListExternalVettingsResponse>>;
-
       listExternalVettings(
         pathParams: BrandsListExternalVettingsPathParams,
         options?: RequestOptions,
@@ -120,16 +124,19 @@ declare module 'telnyx' {
 
       exportExternalVettings(
         pathParams: BrandsExportExternalVettingsPathParams,
+        params: BrandsExportExternalVettingsParams,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.BrandsExportExternalVettingsResponse>>;
 
       orderExternalVettings(
         pathParams: BrandsOrderExternalVettingsPathParams,
+        params: BrandsOrderExternalVettingsParams,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.BrandsOrderExternalVettingsResponse>>;
 
       revet(
         pathParams: BrandsRevetPathParams,
+        params: BrandsRevetParams,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.BrandsRevetResponse>>;
 

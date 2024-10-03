@@ -30,16 +30,11 @@ export const Brands = TelnyxResource.extend({
     urlParams: ['brandId'],
   }),
 
-  externalVettings: telnyxMethod({
-    method: 'GET',
-    path: '/brand/{brandId}/externalVetting',
-    urlParams: ['brandId'],
-  }),
-
   listExternalVettings: telnyxMethod({
     method: 'GET',
     path: '/brand/{brandId}/externalVetting',
     urlParams: ['brandId'],
+    methodType: 'list',
   }),
 
   exportExternalVettings: telnyxMethod({

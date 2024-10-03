@@ -5,6 +5,11 @@
 ### v2.0.0-alpha.4
 
 - Add `Addresses` example
+- Remove `BusinessIdentity` resource
+- Remove `CallInformation` resource
+- Remove duplicated `Credentials` resource
+- Fixed `Conferences`, `Documents` and `TelephonyCredentials` method names
+- Add missing resource types defs
 
 ### v2.0.0-alpha.3
 

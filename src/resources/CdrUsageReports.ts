@@ -2,11 +2,11 @@ import TelnyxResource from '../TelnyxResource';
 const telnyxMethod = TelnyxResource.method;
 
 export const CdrUsageReports = TelnyxResource.extend({
-  path: 'cdr_usage_reports',
-  includeBasic: ['list', 'retrieve'],
+  path: 'reports/cdr_usage_reports',
 
-  GetUsageReportSync: telnyxMethod({
+  retrieveUsageReportSync: telnyxMethod({
+    path: '/sync',
     method: 'GET',
-    path: '/reports/cdr_usage_reports/sync',
+    urlParams: [],
   }),
 });

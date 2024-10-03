@@ -15,7 +15,8 @@ const CONFERENCES = [
   'record_stop',
   'update',
   'leave',
-  'resume',
+  'record_resume',
+  'record_pause',
 ];
 
 function getSpec(conferenceId?: string) {
@@ -33,7 +34,26 @@ function getSpec(conferenceId?: string) {
 
 export const Conferences = TelnyxResource.extend({
   path: 'conferences',
-  includeBasic: ['list', 'retrieve'],
+  includeBasic: ['list'],
+
+  retrieve: telnyxMethod({
+    method: 'GET',
+    path: '/{id}',
+    urlParams: ['id'],
+
+    transformResponseData: function (response, telnyx) {
+      return utils.addResourceToResponseData(
+        response,
+        telnyx,
+        'conferences',
+        utils.createNestedMethods(
+          telnyxMethod,
+          CONFERENCES,
+          getSpec(response.data.id as string),
+        ),
+      );
+    },
+  }),
 
   create: telnyxMethod({
     method: 'POST',

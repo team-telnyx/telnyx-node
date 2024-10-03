@@ -77,13 +77,13 @@ describe('Documents', function () {
     }
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.documents.retrieveDocumentId(TEST_UUID).then(responseFn);
+      return telnyx.documents.retrieve(TEST_UUID).then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.documents
-        .retrieveDocumentId(TEST_UUID, TEST_AUTH_KEY)
+        .retrieve(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
@@ -93,15 +93,13 @@ describe('Documents', function () {
     }
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.documents
-        .retrieveDownloadDocument(TEST_UUID)
-        .then(responseFn);
+      return telnyx.documents.download(TEST_UUID).then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.documents
-        .retrieveDownloadDocument(TEST_UUID, TEST_AUTH_KEY)
+        .download(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });

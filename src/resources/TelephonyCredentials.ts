@@ -24,7 +24,7 @@ function transformResponseData(
   );
 }
 
-const telephonyCredentialResource = {
+export const TelephonyCredentials = TelnyxResource.extend({
   path: 'telephony_credentials',
 
   includeBasic: ['del', 'list', 'update'],
@@ -36,22 +36,21 @@ const telephonyCredentialResource = {
   }),
 
   retrieve: telnyxMethod({
-    method: 'POST',
-    path: '/{id}/token',
-    urlParams: ['id'],
-
-    transformResponseData: transformResponseData,
-  }),
-
-  retrieveCredential: telnyxMethod({
     method: 'GET',
     path: '/{id}',
     urlParams: ['id'],
 
     transformResponseData: transformResponseData,
   }),
-};
 
-export const TelephonyCredentials = TelnyxResource.extend(
-  telephonyCredentialResource,
-);
+  createToken: telnyxMethod({
+    method: 'POST',
+    path: '/{id}/token',
+    urlParams: ['id'],
+  }),
+
+  listTags: telnyxMethod({
+    method: 'GET',
+    path: '/tags',
+  }),
+});

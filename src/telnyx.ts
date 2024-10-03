@@ -29,10 +29,8 @@ import {Brands} from './resources/Brands';
 import {BulkCredentials} from './resources/BulkCredentials';
 import {BulkSoleProprietorCreation} from './resources/BulkSoleProprietorCreation';
 import {BulkTelephonyCredentials} from './resources/BulkTelephonyCredentials';
-import {BusinessIdentity} from './resources/BusinessIdentity';
 import {CallControlApplications} from './resources/CallControlApplications';
 import {CallEvents} from './resources/CallEvents';
-import {CallInformation} from './resources/CallInformation';
 import {CallRecordings} from './resources/CallRecordings';
 import {Calls} from './resources/Calls';
 import {Campaign} from './resources/Campaign';
@@ -43,7 +41,6 @@ import {ClientStateUpdate} from './resources/ClientStateUpdate';
 import {Conferences} from './resources/Conferences';
 import {Connections} from './resources/Connections';
 import {CredentialConnections} from './resources/CredentialConnections';
-import {Credentials} from './resources/Credentials';
 import {CsvDownloads} from './resources/CsvDownloads';
 import {CustomerServiceRecord} from './resources/CustomerServiceRecord';
 import {Debugging} from './resources/Debugging';
@@ -213,10 +210,8 @@ export function createTelnyx() {
     BulkCredentials,
     BulkSoleProprietorCreation,
     BulkTelephonyCredentials,
-    BusinessIdentity,
     CallControlApplications,
     CallEvents,
-    CallInformation,
     CallRecordings,
     Calls,
     Campaign,
@@ -227,7 +222,6 @@ export function createTelnyx() {
     Conferences,
     Connections,
     CredentialConnections,
-    Credentials,
     CsvDownloads,
     CustomerServiceRecord,
     Debugging,

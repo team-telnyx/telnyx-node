@@ -31,20 +31,20 @@ declare module 'telnyx' {
       {{/if}}
 
       {{#if (ifEquals . "list")}}
-        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}']['get']['responses']['200']['content']['application/json']['data'];
+        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}']['get']['responses']['200']['content']['application/json'];
       {{/if}}
       {{#if (ifEquals . "create")}}
-        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}']['post']['responses']['200']['content']['application/json']['data'];
+        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}']['post']['responses']['200']['content']['application/json'];
       {{/if}}
 
       {{#if (ifEquals . "retrieve")}}
-        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}/{{../path-param}}']['get']['responses']['200']['content']['application/json']['data'];
+        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}/{{../path-param}}']['get']['responses']['200']['content']['application/json'];
       {{/if}}
       {{#if (ifEquals . "update")}}
-        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}/{{../path-param}}']['patch']['responses']['200']['content']['application/json']['data'];
+        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}/{{../path-param}}']['patch']['responses']['200']['content']['application/json'];
       {{/if}}
       {{#if (ifEquals . "del")}}
-        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}/{{../path-param}}']['delete']['responses']['200']['content']['application/json']['data'];
+        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}/{{../path-param}}']['delete']['responses']['200']['content']['application/json'];
       {{/if}}
     {{/each}}
 

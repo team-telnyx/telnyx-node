@@ -50,10 +50,6 @@ describe('TelephonyCredentials Resource', function () {
   });
 
   describe('retrieve', function () {
-    function responseFn(response: ResponsePayload) {
-      expect(response.data).not.toBeNull();
-    }
-
     describe('retrieve', function () {
       test('Sends the correct request', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
@@ -71,25 +67,29 @@ describe('TelephonyCredentials Resource', function () {
     });
   });
 
-  describe('retrieveCredential', function () {
+  describe('createToken', function () {
+    function responseFn(response: ResponsePayload) {
+      expect(response.data).not.toBeNull();
+    }
+
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.telephonyCredentials
-        .retrieveCredential(retrieveCredentialId)
+        .createToken(retrieveCredentialId)
         .then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.telephonyCredentials
-        .retrieveCredential(retrieveCredentialId, TEST_AUTH_KEY)
+        .createToken(retrieveCredentialId, TEST_AUTH_KEY)
         .then(responseFn);
     });
 
     test('Sends the correct request [with specified auth in options]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.telephonyCredentials
-        .retrieveCredential(retrieveCredentialId, {api_key: TEST_AUTH_KEY})
+        .createToken(retrieveCredentialId, {api_key: TEST_AUTH_KEY})
         .then(responseFn);
     });
   });
@@ -156,13 +156,13 @@ describe('TelephonyCredentials Resource', function () {
     });
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.telephonyCredentials
-        .retrieveCredential('123')
-        .then(function (response: ResponsePayload) {
-          const tc = response.data;
-          // @ts-expect-error TODO: import .d.ts files under src/test folder
-          return tc.del(TEST_AUTH_KEY).then(responseFn);
-        });
+      return telnyx.telephonyCredentials.retrieve('123').then(function (
+        response: ResponsePayload,
+      ) {
+        const tc = response.data;
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return tc.del(TEST_AUTH_KEY).then(responseFn);
+      });
     });
   });
 });

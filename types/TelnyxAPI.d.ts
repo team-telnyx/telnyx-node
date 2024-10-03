@@ -60827,7 +60827,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['MdrGetSyncUsageReportResponse'];
+          'application/json': components['schemas']['CdrGetSyncUsageReportResponse'];
         };
       };
     };
