@@ -3,71 +3,88 @@ const telnyxMethod = TelnyxResource.method;
 
 export const ExternalConnections = TelnyxResource.extend({
   path: 'external_connections',
-  includeBasic: ['list', 'retrieve', 'create', 'delete'],
+  includeBasic: ['list', 'retrieve', 'create', 'update', 'del'],
 
-  GetExternalConnectionUploadsStatus: telnyxMethod({
+  listLogMessages: telnyxMethod({
     method: 'GET',
-    path: '/external_connections/{id}/uploads/status',
+    path: '/log/messages',
   }),
-  ListExternalConnectionReleases: telnyxMethod({
+
+  retrieveLogMessage: telnyxMethod({
     method: 'GET',
-    path: '/external_connections/{id}/releases',
+    path: '/log/messages/{id}',
+    urlParams: ['id'],
   }),
-  RetryUpload: telnyxMethod({
-    method: 'POST',
-    path: '/external_connections/{id}/uploads/{ticketIid}/retry',
-  }),
-  DeleteExternalConnection: telnyxMethod({
+
+  delLogMessage: telnyxMethod({
     method: 'DELETE',
-    path: '/external_connections/{id}',
+    path: '/log/messages/{id}',
+    urlParams: ['id'],
   }),
-  updateLocation: telnyxMethod({
-    method: 'PATCH',
-    path: '/v2/external_connections/{id}/locations/{location_id}',
-    urlParams: ['id', 'location_id'],
-  }),
-  DeleteExternalConnectionLogMessage: telnyxMethod({
-    method: 'DELETE',
-    path: '/external_connections/log/messages/{id}',
-  }),
-  GetExternalConnectionCivicAddress: telnyxMethod({
+
+  listCivicAddresses: telnyxMethod({
     method: 'GET',
-    path: '/external_connections/{id}/civic/addresses/{address_id}',
+    path: '/{id}/civic_addresses',
+    urlParams: ['id'],
   }),
-  ListExternalConnectionPhoneNumbers: telnyxMethod({
+
+  retrieveCivicAddress: telnyxMethod({
     method: 'GET',
-    path: '/external_connections/{id}/phone/numbers',
+    path: '/{id}/civic_addresses/{address_id}',
+    urlParams: ['id', 'address_id'],
   }),
-  ListExternalConnections: telnyxMethod({
+
+  listPhoneNumbers: telnyxMethod({
     method: 'GET',
-    path: '/external_connections',
+    path: '/{id}/phone_numbers',
+    urlParams: ['id'],
   }),
-  GetExternalConnectionPhoneNumber: telnyxMethod({
+
+  retrievePhoneNumber: telnyxMethod({
     method: 'GET',
-    path: '/external_connections/{id}/phone/numbers/{phone_number_id}',
+    path: '/{id}/phone_numbers/{phone_number_id}',
+    urlParams: ['id', 'phone_number_id'],
   }),
-  ListCivicAddresses: telnyxMethod({
+
+  listReleases: telnyxMethod({
     method: 'GET',
-    path: '/external_connections/{id}/civic_addresses',
+    path: '/{id}/releases',
+    urlParams: ['id'],
   }),
-  ListExternalConnectionLogMessages: telnyxMethod({
+
+  retrieveRelease: telnyxMethod({
     method: 'GET',
-    path: '/external_connections/log/messages',
+    path: '/{id}/releases/{release_id}',
+    urlParams: ['id', 'release_id'],
   }),
-  GetExternalConnectionUpload: telnyxMethod({
+
+  listUploads: telnyxMethod({
     method: 'GET',
-    path: '/external_connections/{id}/uploads/{ticket_id}',
+    path: '/{id}/uploads',
+    urlParams: ['id'],
   }),
-  RefreshExternalConnectionUploads: telnyxMethod({
+
+  retrieveUpload: telnyxMethod({
+    method: 'GET',
+    path: '/{id}/uploads/{ticket_id}',
+    urlParams: ['id', 'ticket_id'],
+  }),
+
+  refreshUploads: telnyxMethod({
     method: 'POST',
-    path: '/external_connections/{id}/uploads/refresh',
+    path: '/{id}/uploads/refresh',
+    urlParams: ['id'],
   }),
-  GetExternalConnectionRelease: telnyxMethod({
+
+  retrieveUploadsStatus: telnyxMethod({
     method: 'GET',
-    path: '/external_connections/{id}/releases/{release_id}',
+    path: '/{id}/uploads/status',
+    urlParams: ['id'],
   }),
-  ListExternalConnectionUploads: telnyxMethod({
-    method: 'GET',
-    path: '/external_connections/{id}/uploads',
+
+  retryUpload: telnyxMethod({
+    method: 'POST',
+    path: '/{id}/uploads/{ticket_id}/retry',
+    urlParams: ['id', 'ticket_id'],
   }),
 });

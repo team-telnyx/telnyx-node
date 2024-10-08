@@ -14,6 +14,7 @@
 ///<reference path='./AiEmbeddingsSimilaritySearchResource.d.ts' />
 ///<reference path='./AiModelsResource.d.ts' />
 ///<reference path='./AiSummarizeResource.d.ts' />
+///<reference path='./AuditEventsResource.d.ts' />
 ///<reference path='./AccessIpAddressResource.d.ts' />
 ///<reference path='./AccessIpAddressResource.d.ts' />
 ///<reference path='./AccessIpRangesResource.d.ts' />
@@ -33,12 +34,25 @@
 ///<reference path='./ConferencesResource.d.ts' />
 ///<reference path='./ConnectionsResource.d.ts' />
 ///<reference path='./CredentialConnectionsResource.d.ts' />
+///<reference path='./CustomerServiceRecordsResource.d.ts' />
+///<reference path='./DetailRecordsResource.d.ts' />
+///<reference path='./DialogflowConnectionsResource.d.ts' />
 ///<reference path='./DocumentLinksResource.d.ts' />
 ///<reference path='./DocumentsResource.d.ts' />
+///<reference path='./DynamicEmergencyResource.d.ts' />
+///<reference path='./DynamicEmergencyAddressesResource.d.ts' />
+///<reference path='./DynamicEmergencyEndpointsResource.d.ts' />
+///<reference path='./ExternalConnectionsResource.d.ts' />
+///<reference path='./FaxApplicationsResource.d.ts' />
 ///<reference path='./MessagingProfilesResource.d.ts' />
 ///<reference path='./MessagingProfileMetricsResource.d.ts' />
+///<reference path='./NotificationEventsResource.d.ts' />
 ///<reference path='./PhoneNumberAssignmentByProfileResource.d.ts' />
+///<reference path='./PhoneNumbersCsvDownloadsResource.d.ts' />
+///<reference path='./PortingEventsResource.d.ts' />
+///<reference path='./PortoutEventsResource.d.ts' />
 ///<reference path='./TelephonyCredentialsResource.d.ts' />
+///<reference path='./TexmlApplicationsResource.d.ts' />
 ///<reference path='./StorageBucketsResource.d.ts' />
 //
 
@@ -64,6 +78,7 @@ declare module 'telnyx' {
     aiEmbeddingsSimilaritySearch: Telnyx.AiEmbeddingsSimilaritySearchResource;
     aiModels: Telnyx.AiModelsResource;
     aiSummarize: Telnyx.AiSummarizeResource;
+    auditEvents: Telnyx.AuditEventsResource;
     accessIpAddress: Telnyx.AccessIpAddressResource;
     accessIpRanges: Telnyx.AccessIpRangesResource;
     authenticationProviders: Telnyx.AuthenticationProvidersResource;
@@ -79,14 +94,27 @@ declare module 'telnyx' {
     callRecordings: Telnyx.CallRecordingsResource;
     cdrUsageReports: Telnyx.CdrUsageReportsResource;
     channelzones: Telnyx.ChannelzonesResource;
+    customerServiceRecords: Telnyx.CustomerServiceRecordsResource;
     conferences: Telnyx.ConferencesResource;
     connections: Telnyx.ConnectionsResource;
     credentialConnections: Telnyx.CredentialConnectionsResource;
+    detailRecords: Telnyx.DetailRecordsResource;
+    dialogflowConnections: Telnyx.DialogflowConnectionsResource;
     documentLinks: Telnyx.DocumentLinksResource;
     documents: Telnyx.DocumentsResource;
-    telephonyCredentials: Telnyx.TelephonyCredentialsResource;
+    dynamicEmergency: Telnyx.DynamicEmergencyResource;
+    dynamicEmergencyAddresses: Telnyx.DynamicEmergencyAddressesResource;
+    dynamicEmergencyEndpoints: Telnyx.DynamicEmergencyEndpointsResource;
+    externalConnections: Telnyx.ExternalConnectionsResource;
+    faxApplications: Telnyx.FaxApplicationsResource;
     messagingProfiles: Telnyx.MessagingProfilesResource;
-    phoneNumberAssignmentByProfileResource: Telnyx.PhoneNumberAssignmentByProfileResource;
+    notificationEvents: Telnyx.NotificationEventsResource;
+    phoneNumberAssignmentByProfile: Telnyx.PhoneNumberAssignmentByProfileResource;
+    phoneNumbersCsvDownloads: Telnyx.PhoneNumbersCsvDownloadsResource;
+    portingEvents: Telnyx.PortingEventsResource;
+    portoutEvents: Telnyx.PortoutEventsResource;
+    telephonyCredentials: Telnyx.TelephonyCredentialsResource;
+    texmlApplications: Telnyx.TexmlApplicationsResource;
     storageBuckets: Telnyx.StorageBucketsResource;
     //
 

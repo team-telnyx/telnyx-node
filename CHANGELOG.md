@@ -2,6 +2,12 @@
 
 ## v2
 
+### v2.0.0-alpha.6
+
+- Remove `Debugging` dupe resource
+- Update syntax on `Events` resources
+- Update `ExternalConnections` resource
+
 ### v2.0.0-alpha.5
 
 - Remove `ClientStateUpdate` resource

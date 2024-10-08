@@ -40,29 +40,24 @@ import {Channelzones} from './resources/Channelzones';
 import {Conferences} from './resources/Conferences';
 import {Connections} from './resources/Connections';
 import {CredentialConnections} from './resources/CredentialConnections';
-import {CsvDownloads} from './resources/CsvDownloads';
-import {CustomerServiceRecord} from './resources/CustomerServiceRecord';
-import {Debugging} from './resources/Debugging';
+import {PhoneNumbersCsvDownloads} from './resources/PhoneNumbersCsvDownloads';
+import {CustomerServiceRecords} from './resources/CustomerServiceRecords';
 import {DetailRecords} from './resources/DetailRecords';
-import {DialogflowIntegration} from './resources/DialogflowIntegration';
+import {DialogflowConnections} from './resources/DialogflowConnections';
 import {DocumentLinks} from './resources/DocumentLinks';
 import {Documents} from './resources/Documents';
 import {DynamicEmergency} from './resources/DynamicEmergency';
 import {DynamicEmergencyAddresses} from './resources/DynamicEmergencyAddresses';
 import {DynamicEmergencyEndpoints} from './resources/DynamicEmergencyEndpoints';
-import {Events} from './resources/Events';
+import {AuditEvents} from './resources/AuditEvents';
 import {ExternalConnections} from './resources/ExternalConnections';
 import {FaxApplications} from './resources/FaxApplications';
 import {Faxes} from './resources/Faxes';
 import {FqdnConnections} from './resources/FqdnConnections';
 import {Fqdns} from './resources/Fqdns';
 import {GlobalIps} from './resources/GlobalIps';
-import {InboundChannels} from './resources/InboundChannels';
 import {InventoryCoverage} from './resources/InventoryCoverage';
-import {InventoryLevel} from './resources/InventoryLevel';
-import {IpAddresses} from './resources/IpAddresses';
 import {IpConnections} from './resources/IpConnections';
-import {IpRanges} from './resources/IpRanges';
 import {Ips} from './resources/Ips';
 import {ManagedAccounts} from './resources/ManagedAccounts';
 import {MdrDetailReports} from './resources/MdrDetailReports';
@@ -79,6 +74,7 @@ import {MessagingUrlDomains} from './resources/MessagingUrlDomains';
 import {MobileNetworkOperators} from './resources/MobileNetworkOperators';
 import {MobileOperatorNetworks} from './resources/MobileOperatorNetworks';
 import {Networks} from './resources/Networks';
+import {NotificationEvents} from './resources/NotificationEvents';
 import {NumberBackgroundJobs} from './resources/NumberBackgroundJobs';
 import {NumberLookup} from './resources/NumberLookup';
 import {NumberOrderDocuments} from './resources/NumberOrderDocuments';
@@ -102,6 +98,8 @@ import {PhoneNumbersInboundChannels} from './resources/PhoneNumbersInboundChanne
 import {PhoneNumbersMessaging} from './resources/PhoneNumbersMessaging';
 import {PhoneNumbersVoice} from './resources/PhoneNumbersVoice';
 import {PortabilityChecks} from './resources/PortabilityChecks';
+import {PortingEvents} from './resources/PortingEvents';
+import {PortoutEvents} from './resources/PortoutEvents';
 import {PortingOrders} from './resources/PortingOrders';
 import {PortingPhoneNumbers} from './resources/PortingPhoneNumbers';
 import {PortoutRequests} from './resources/PortoutRequests';
@@ -214,29 +212,23 @@ export function createTelnyx() {
     Conferences,
     Connections,
     CredentialConnections,
-    CsvDownloads,
-    CustomerServiceRecord,
-    Debugging,
+    CustomerServiceRecords,
     DetailRecords,
-    DialogflowIntegration,
+    DialogflowConnections,
     DocumentLinks,
     Documents,
     DynamicEmergency,
     DynamicEmergencyAddresses,
     DynamicEmergencyEndpoints,
-    Events,
+    AuditEvents,
     ExternalConnections,
     FaxApplications,
     Faxes,
     FqdnConnections,
     Fqdns,
     GlobalIps,
-    InboundChannels,
     InventoryCoverage,
-    InventoryLevel,
-    IpAddresses,
     IpConnections,
-    IpRanges,
     Ips,
     ManagedAccounts,
     MdrDetailReports,
@@ -253,6 +245,7 @@ export function createTelnyx() {
     MobileNetworkOperators,
     MobileOperatorNetworks,
     Networks,
+    NotificationEvents,
     NumberBackgroundJobs,
     NumberLookup,
     NumberOrderDocuments,
@@ -275,6 +268,9 @@ export function createTelnyx() {
     PhoneNumbersInboundChannels,
     PhoneNumbersMessaging,
     PhoneNumbersVoice,
+    PhoneNumbersCsvDownloads,
+    PortingEvents,
+    PortoutEvents,
     PortabilityChecks,
     PortingOrders,
     PortingPhoneNumbers,

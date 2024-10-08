@@ -70,9 +70,9 @@ declare module 'telnyx' {
         options?: RequestOptions,
       ): Promise<
         Telnyx.Response<
-          Telnyx.CallControlApplicationsCreateResponse &
+          Telnyx.CallControlApplicationsRetrieveResponse &
             NestedResponseData<
-              CallControlApplicationsCreateResponse['data'],
+              CallControlApplicationsRetrieveResponse['data'],
               CallControlApplicationsNestedMethods
             >
         >

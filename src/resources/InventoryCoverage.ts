@@ -4,7 +4,7 @@ const telnyxMethod = TelnyxResource.method;
 export const InventoryCoverage = TelnyxResource.extend({
   path: 'inventory_coverage',
 
-  retrieve: telnyxMethod({
+  list: telnyxMethod({
     method: 'GET',
     methodType: 'list',
   }),

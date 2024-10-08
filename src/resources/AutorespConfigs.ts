@@ -7,7 +7,7 @@ export const AutorespConfigs = TelnyxResource.extend({
 
   update: telnyxMethod({
     method: 'PUT',
-    path: '/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}',
+    path: '/{autoresp_cfg_id}',
     urlParams: ['profile_id', 'autoresp_cfg_id'],
   }),
 });

@@ -4,7 +4,7 @@ const telnyxMethod = TelnyxResource.method;
 export const DetailRecords = TelnyxResource.extend({
   path: 'detail_records',
 
-  query: telnyxMethod({
+  search: telnyxMethod({
     method: 'GET',
     methodType: 'list',
   }),
