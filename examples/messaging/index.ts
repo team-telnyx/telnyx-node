@@ -16,7 +16,7 @@ const params: Telnyx.MessagingProfilesCreateParams = {
   webhook_api_version: '2',
 };
 
-(async function callControl() {
+(async function messaging() {
   try {
     const {data: mp} = await telnyx.messagingProfiles.create(params);
 
