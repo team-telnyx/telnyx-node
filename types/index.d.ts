@@ -43,7 +43,13 @@
 ///<reference path='./DynamicEmergencyAddressesResource.d.ts' />
 ///<reference path='./DynamicEmergencyEndpointsResource.d.ts' />
 ///<reference path='./ExternalConnectionsResource.d.ts' />
+///<reference path='./FaxesResource.d.ts' />
 ///<reference path='./FaxApplicationsResource.d.ts' />
+///<reference path='./FqdnConnectionsResource.d.ts' />
+///<reference path='./FqdnsResource.d.ts' />
+///<reference path='./InventoryCoverageResource.d.ts' />
+///<reference path='./IpConnectionsResource.d.ts' />
+///<reference path='./IpsResource.d.ts' />
 ///<reference path='./MessagesResource.d.ts' />
 ///<reference path='./MessagingProfilesResource.d.ts' />
 ///<reference path='./MessagingProfileMetricsResource.d.ts' />
@@ -107,7 +113,13 @@ declare module 'telnyx' {
     dynamicEmergencyAddresses: Telnyx.DynamicEmergencyAddressesResource;
     dynamicEmergencyEndpoints: Telnyx.DynamicEmergencyEndpointsResource;
     externalConnections: Telnyx.ExternalConnectionsResource;
+    faxes: Telnyx.FaxesResource;
     faxApplications: Telnyx.FaxApplicationsResource;
+    fqdnConnections: Telnyx.FqdnConnectionsResource;
+    fqdns: Telnyx.FqdnsResource;
+    inventoryCoverage: Telnyx.InventoryCoverageResource;
+    ipConnections: Telnyx.IpConnectionsResource;
+    ips: Telnyx.IpsResource;
     messages: Telnyx.MessagesResource;
     messagingProfileMetrics: Telnyx.MessagingProfileMetricsResource;
     messagingProfiles: Telnyx.MessagingProfilesResource;
