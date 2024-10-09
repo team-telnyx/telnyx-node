@@ -2,6 +2,10 @@
 
 ## v2
 
+### v2.0.0-alpha.7
+
+- Export API callback `events` type definitions
+
 ### v2.0.0-alpha.6
 
 - Update optional types on `Webhooks`

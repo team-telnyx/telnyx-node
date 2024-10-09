@@ -3,6 +3,7 @@
 ///<reference path='./lib.d.ts' />
 ///<reference path='./TelnyxAPI.d.ts' />
 ///<reference path='./Webhooks.d.ts' />
+///<reference path='./Events.d.ts' />
 ///<reference path='./Errors.d.ts' />
 
 // Resources imports
