@@ -10,11 +10,11 @@ declare module 'telnyx' {
     type FqdnsDelResponse =
       paths['/fqdns/{id}']['delete']['responses']['200']['content']['application/json'];
 
-    type FqdnsCreateParams =
-      | NonNullable<
-          paths['/fqdns']['post']['requestBody']
-        >['content']['application/json']
-      | Record<string, never>;
+    type FqdnsCreateOptionalParams = NonNullable<
+      paths['/fqdns']['post']['requestBody']
+    >['content']['application/json'];
+
+    type FqdnsCreateParams = FqdnsCreateOptionalParams | Record<string, never>;
 
     type FqdnsCreateResponse =
       paths['/fqdns']['post']['responses']['201']['content']['application/json'];
@@ -36,11 +36,11 @@ declare module 'telnyx' {
     type FqdnsUpdateId =
       paths['/fqdns/{id}']['patch']['parameters']['path']['id'];
 
-    type FqdnsUpdateParams =
-      | NonNullable<
-          paths['/fqdns/{id}']['patch']['requestBody']
-        >['content']['application/json']
-      | Record<string, never>;
+    type FqdnsUpdateOptionalParams = NonNullable<
+      paths['/fqdns/{id}']['patch']['requestBody']
+    >['content']['application/json'];
+
+    type FqdnsUpdateParams = FqdnsUpdateOptionalParams | Record<string, never>;
 
     type FqdnsUpdateResponse =
       paths['/fqdns/{id}']['patch']['responses']['200']['content']['application/json'];

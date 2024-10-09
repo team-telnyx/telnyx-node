@@ -23,16 +23,13 @@ declare module 'telnyx' {
     type StorageBucketsDelSSLCertificateName =
       paths['/storage/buckets/{bucketName}/ssl_certificate']['delete']['parameters']['path']['bucketName'];
 
-    type StorageBucketsAddSSLCertificateOptionalParam =
-      paths['/storage/buckets/{bucketName}/ssl_certificate']['put']['requestBody'];
+    type StorageBucketsAddSSLCertificateOptionalParams = NonNullable<
+      paths['/storage/buckets/{bucketName}/ssl_certificate']['put']['requestBody']
+    >['content']['multipart/form-data'];
 
-    type StorageBucketsAddSSLCertificateParam<
-      T extends StorageBucketsAddSSLCertificateOptionalParam,
-    > = T extends undefined
-      ? undefined
-      : T extends {content: {'multipart/form-data': infer U}}
-        ? U
-        : never;
+    type StorageBucketsAddSSLCertificateParams =
+      | StorageBucketsAddSSLCertificateOptionalParams
+      | Record<string, never>;
 
     type StorageBucketsSSLCertificateResponse =
       paths['/storage/buckets/{bucketName}/ssl_certificate']['get']['responses']['200']['content']['application/json'];
@@ -59,9 +56,9 @@ declare module 'telnyx' {
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.StorageBucketsSSLCertificateResponse>>;
 
-      addSslCertificate<T extends StorageBucketsAddSSLCertificateOptionalParam>(
+      addSslCertificate(
         bucketName: StorageBucketsSSLCertificateName,
-        params: StorageBucketsAddSSLCertificateParam<T>,
+        params: StorageBucketsAddSSLCertificateParams,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.StorageBucketsSSLCertificateResponse>>;
 

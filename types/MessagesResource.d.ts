@@ -2,10 +2,12 @@ import {paths} from './TelnyxAPI.js';
 
 declare module 'telnyx' {
   namespace Telnyx {
+    type MessagesCreateOptionalParams = NonNullable<
+      paths['/messages']['post']['requestBody']
+    >['content']['application/json'];
+
     type MessagesCreateParams =
-      | NonNullable<
-          paths['/messages']['post']['requestBody']
-        >['content']['application/json']
+      | MessagesCreateOptionalParams
       | Record<string, never>;
 
     type MessagesCreateResponse =
@@ -17,37 +19,45 @@ declare module 'telnyx' {
     type MessagesRetrieveResponse =
       paths['/messages/{id}']['get']['responses']['200']['content']['application/json'];
 
+    type MessagesGroupMmsCreateOptionalParams = NonNullable<
+      paths['/messages/group_mms']['post']['requestBody']
+    >['content']['application/json'];
+
     type MessagesGroupMmsCreateParams =
-      | NonNullable<
-          paths['/messages/group_mms']['post']['requestBody']
-        >['content']['application/json']
+      | MessagesGroupMmsCreateOptionalParams
       | Record<string, never>;
 
     type MessagesGroupMmsCreateResponse =
       paths['/messages/group_mms']['post']['responses']['200']['content']['application/json'];
 
+    type MessagesLongCodeCreateOptionalParams = NonNullable<
+      paths['/messages/long_code']['post']['requestBody']
+    >['content']['application/json'];
+
     type MessagesLongCodeCreateParams =
-      | NonNullable<
-          paths['/messages/long_code']['post']['requestBody']
-        >['content']['application/json']
+      | MessagesLongCodeCreateOptionalParams
       | Record<string, never>;
 
     type MessagesLongCodeCreateResponse =
       paths['/messages/long_code']['post']['responses']['200']['content']['application/json'];
 
+    type MessagesShortCodeCreateOptionalParams = NonNullable<
+      paths['/messages/short_code']['post']['requestBody']
+    >['content']['application/json'];
+
     type MessagesShortCodeCreateParams =
-      | NonNullable<
-          paths['/messages/short_code']['post']['requestBody']
-        >['content']['application/json']
+      | MessagesShortCodeCreateOptionalParams
       | Record<string, never>;
 
     type MessagesShortCodeCreateResponse =
       paths['/messages/short_code']['post']['responses']['200']['content']['application/json'];
 
+    type MessagesNumberPoolCreateOptionalParams = NonNullable<
+      paths['/messages/number_pool']['post']['requestBody']
+    >['content']['application/json'];
+
     type MessagesNumberPoolCreateParams =
-      | NonNullable<
-          paths['/messages/number_pool']['post']['requestBody']
-        >['content']['application/json']
+      | MessagesNumberPoolCreateOptionalParams
       | Record<string, never>;
 
     type MessagesNumberPoolCreateResponse =

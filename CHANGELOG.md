@@ -2,6 +2,11 @@
 
 ## v2
 
+### v2.0.0-alpha.6
+
+- Update optional types on `Webhooks`
+- Make optional types on `Fqdns`, `Ips`, `Messages` and `StorageBuckets` resources more strict
+
 ### v2.0.0-alpha.5
 
 - Remove `ClientStateUpdate` resource

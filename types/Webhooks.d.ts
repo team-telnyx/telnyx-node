@@ -7,18 +7,18 @@ declare module 'telnyx' {
       DEFAULT_TOLERANCE: number;
       constructEvent: (
         payload: WebhookPayload,
-        signatureHeader: WebhookHeader,
-        timestampHeader: WebhookHeader,
-        publicKey: string,
-        tolerance: number,
+        signatureHeader: WebhookHeader | undefined,
+        timestampHeader: string | undefined,
+        publicKey: Uint8Array,
+        tolerance?: number,
       ) => unknown;
       signature: {
         verifySignature: (
-          payload: string,
+          payload: WebhookPayload,
           signatureHeader: WebhookHeader | undefined,
-          timestampHeader: WebhookHeader | undefined,
-          publicKey: string,
-          tolerance: number,
+          timestampHeader: string,
+          publicKey: Uint8Array,
+          tolerance?: number,
         ) => boolean;
       };
     }
