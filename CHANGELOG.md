@@ -2,17 +2,6 @@
 
 ## v2
 
-### v2.0.0-alpha.6
-
-- Remove `Debugging` dupe resource
-- Update syntax on `Events` resources
-- Update `ExternalConnections` stale resource
-- Update `Messages` stale resource
-- Update `Ip`s stale resources
-- Update `AutorespConfigs` stale resource
-- Update `DetailRecords` stale resource
-- Update `InventoryCoverage` stale resource
-
 ### v2.0.0-alpha.5
 
 - Remove `ClientStateUpdate` resource
@@ -22,6 +11,14 @@
 - Remove `MessagingSenderIds` resource
 - Remove `PublicKey` resource
 - Remove `UpdateClientState` resource
+- Remove `Debugging` dupe resource
+- Update syntax on `Events` resources
+- Update `ExternalConnections` stale resource
+- Update `Messages` stale resource
+- Update `Ip`s stale resources
+- Update `AutorespConfigs` stale resource
+- Update `DetailRecords` stale resource
+- Update `InventoryCoverage` stale resource
 
 ### v2.0.0-alpha.4
 
