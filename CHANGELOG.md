@@ -6,7 +6,12 @@
 
 - Remove `Debugging` dupe resource
 - Update syntax on `Events` resources
-- Update `ExternalConnections` resource
+- Update `ExternalConnections` stale resource
+- Update `Messages` stale resource
+- Update `Ip`s stale resources
+- Update `AutorespConfigs` stale resource
+- Update `DetailRecords` stale resource
+- Update `InventoryCoverage` stale resource
 
 ### v2.0.0-alpha.5
 
