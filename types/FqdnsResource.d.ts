@@ -14,7 +14,7 @@ declare module 'telnyx' {
       | NonNullable<
           paths['/fqdns']['post']['requestBody']
         >['content']['application/json']
-      | object;
+      | Record<string, never>;
 
     type FqdnsCreateResponse =
       paths['/fqdns']['post']['responses']['201']['content']['application/json'];
@@ -40,7 +40,7 @@ declare module 'telnyx' {
       | NonNullable<
           paths['/fqdns/{id}']['patch']['requestBody']
         >['content']['application/json']
-      | object;
+      | Record<string, never>;
 
     type FqdnsUpdateResponse =
       paths['/fqdns/{id}']['patch']['responses']['200']['content']['application/json'];

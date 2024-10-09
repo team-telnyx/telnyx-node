@@ -9,9 +9,11 @@ declare module 'telnyx' {
     type IpsDelResponse =
       paths['/ips/{id}']['delete']['responses']['200']['content']['application/json'];
 
-    type IpsCreateParams = NonNullable<
-      paths['/ips']['post']['requestBody']
-    >['content']['application/json'];
+    type IpsCreateParams =
+      | NonNullable<
+          paths['/ips']['post']['requestBody']
+        >['content']['application/json']
+      | Record<string, never>;
 
     type IpsCreateResponse =
       paths['/ips']['post']['responses']['201']['content']['application/json'];
@@ -30,9 +32,11 @@ declare module 'telnyx' {
 
     type IpsUpdateId = paths['/ips/{id}']['patch']['parameters']['path']['id'];
 
-    type IpsUpdateParams = NonNullable<
-      paths['/ips/{id}']['patch']['requestBody']
-    >['content']['application/json'];
+    type IpsUpdateParams =
+      | NonNullable<
+          paths['/ips/{id}']['patch']['requestBody']
+        >['content']['application/json']
+      | Record<string, never>;
 
     type IpsUpdateResponse =
       paths['/ips/{id}']['patch']['responses']['200']['content']['application/json'];

@@ -44,6 +44,7 @@
 ///<reference path='./DynamicEmergencyEndpointsResource.d.ts' />
 ///<reference path='./ExternalConnectionsResource.d.ts' />
 ///<reference path='./FaxApplicationsResource.d.ts' />
+///<reference path='./MessagesResource.d.ts' />
 ///<reference path='./MessagingProfilesResource.d.ts' />
 ///<reference path='./MessagingProfileMetricsResource.d.ts' />
 ///<reference path='./NotificationEventsResource.d.ts' />
@@ -107,6 +108,8 @@ declare module 'telnyx' {
     dynamicEmergencyEndpoints: Telnyx.DynamicEmergencyEndpointsResource;
     externalConnections: Telnyx.ExternalConnectionsResource;
     faxApplications: Telnyx.FaxApplicationsResource;
+    messages: Telnyx.MessagesResource;
+    messagingProfileMetrics: Telnyx.MessagingProfileMetricsResource;
     messagingProfiles: Telnyx.MessagingProfilesResource;
     notificationEvents: Telnyx.NotificationEventsResource;
     phoneNumberAssignmentByProfile: Telnyx.PhoneNumberAssignmentByProfileResource;
