@@ -43,7 +43,7 @@ callback:
 
 ```typescript
 // Create a new messaging profile and then send a message using that profile:
-telnyx.,essagingProfiles.create({
+telnyx.messagingProfiles.create({
   name: 'Summer Campaign',
 })
   .then((messagingProfile) => {
