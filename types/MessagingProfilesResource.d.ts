@@ -41,11 +41,17 @@ declare module 'telnyx' {
     type MessagingProfilesCreateResponse =
       paths['/messaging_profiles']['post']['responses']['200']['content']['application/json'];
 
+    type MessagingProfilesListPhoneNumbersId =
+      paths['/messaging_profiles/{id}/phone_numbers']['get']['parameters']['path']['id'];
+
     type MessagingProfilesListPhoneNumbersParams =
       paths['/messaging_profiles/{id}/phone_numbers']['get']['parameters']['query'];
 
     type MessagingProfilesListPhoneNumbersResponse =
       paths['/messaging_profiles/{id}/phone_numbers']['get']['responses']['200']['content']['application/json'];
+
+    type MessagingProfilesListShortCodesId =
+      paths['/messaging_profiles/{id}/short_codes']['get']['parameters']['path']['id'];
 
     type MessagingProfilesListShortCodesParams =
       paths['/messaging_profiles/{id}/short_codes']['get']['parameters']['query'];
@@ -62,11 +68,84 @@ declare module 'telnyx' {
     type MessagingProfilesRetrieveMetricsResponse =
       paths['/messaging_profiles/{id}/metrics']['get']['responses']['200']['content']['application/json'];
 
+    type MessagingProfilesListAutorespConfigsId =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs']['get']['parameters']['path']['profile_id'];
+
+    type MessagingProfilesListAutorespConfigsParams =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs']['get']['parameters']['query'];
+
+    type MessagingProfilesListAutorespConfigsResponse =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs']['get']['responses']['200']['content']['application/json'];
+
+    type MessagingProfilesRetrieveAutorespConfigId =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['get']['parameters']['path']['profile_id'];
+
+    type MessagingProfilesRetrieveAutorespConfigAutorespConfigId =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['get']['parameters']['path']['autoresp_cfg_id'];
+
+    type MessagingProfilesRetrieveAutorespConfigResponse =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['get']['responses']['200']['content']['application/json'];
+
+    type MessagingProfilesCreateAutorespConfigsId =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs']['post']['parameters']['path']['profile_id'];
+
+    type MessagingProfilesCreateAutorespConfigsParams =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs']['post']['requestBody']['content']['application/json'];
+
+    type MessagingProfilesCreateAutorespConfigsResponse =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs']['post']['responses']['200']['content']['application/json'];
+
+    type MessagingProfilesDelAutorespConfigId =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['delete']['parameters']['path']['profile_id'];
+
+    type MessagingProfilesDelAutorespConfigAutorespConfigId =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['delete']['parameters']['path']['autoresp_cfg_id'];
+
+    type MessagingProfilesDelAutorespConfigResponse =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['delete']['responses']['200']['content']['application/json'];
+
+    type MessagingProfilesUpdateAutorespConfigId =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['put']['parameters']['path']['profile_id'];
+
+    type MessagingProfilesUpdateAutorespConfigAutorespConfigId =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['put']['parameters']['path']['autoresp_cfg_id'];
+
+    type MessagingProfilesUpdateAutorespConfigParams =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['put']['requestBody']['content']['application/json'];
+
+    type MessagingProfilesUpdateAutorespConfigResponse =
+      paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['put']['responses']['200']['content']['application/json'];
+
     type MessagingProfilesNestedMethods = {
       del: MessagingProfilesResource['del'];
-      phoneNumbers: MessagingProfilesResource['listPhoneNumbers'];
-      shortCodes: MessagingProfilesResource['listShortCodes'];
-      metrics: MessagingProfilesResource['retrieveMetrics'];
+
+      phoneNumbers(
+        params: MessagingProfilesListPhoneNumbersParams,
+        options?: RequestOptions,
+      ): Promise<
+        Telnyx.Response<Telnyx.MessagingProfilesListPhoneNumbersResponse>
+      >;
+
+      shortCodes(
+        params: MessagingProfilesListShortCodesParams,
+        options?: RequestOptions,
+      ): Promise<
+        Telnyx.Response<Telnyx.MessagingProfilesListShortCodesResponse>
+      >;
+
+      autorespConfigs(
+        params: MessagingProfilesListAutorespConfigsParams,
+        options?: RequestOptions,
+      ): Promise<
+        Telnyx.Response<Telnyx.MessagingProfilesListAutorespConfigsResponse>
+      >;
+
+      retrieveMetrics(
+        params: MessagingProfilesRetrieveMetricsParams,
+        options?: RequestOptions,
+      ): Promise<
+        Telnyx.Response<Telnyx.MessagingProfilesRetrieveMetricsResponse>
+      >;
     };
 
     class MessagingProfilesResource {
@@ -108,30 +187,73 @@ declare module 'telnyx' {
       >;
 
       list(
-        params?: MessagingProfilesListParams,
+        params: MessagingProfilesListParams,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.MessagingProfilesListResponse>>;
 
       listPhoneNumbers(
-        params?: MessagingProfilesListPhoneNumbersParams,
+        id: MessagingProfilesListPhoneNumbersId,
+        params: MessagingProfilesListPhoneNumbersParams,
         options?: RequestOptions,
       ): Promise<
         Telnyx.Response<Telnyx.MessagingProfilesListPhoneNumbersResponse>
       >;
 
       listShortCodes(
-        params?: MessagingProfilesListShortCodesParams,
+        id: MessagingProfilesListShortCodesId,
+        params: MessagingProfilesListShortCodesParams,
         options?: RequestOptions,
       ): Promise<
         Telnyx.Response<Telnyx.MessagingProfilesListShortCodesResponse>
       >;
 
       retrieveMetrics(
-        id?: MessagingProfilesRetrieveMetricsId,
-        params?: MessagingProfilesRetrieveMetricsParams,
+        id: MessagingProfilesRetrieveMetricsId,
+        params: MessagingProfilesRetrieveMetricsParams,
         options?: RequestOptions,
       ): Promise<
         Telnyx.Response<Telnyx.MessagingProfilesRetrieveMetricsResponse>
+      >;
+
+      listAutorespConfigs(
+        id: MessagingProfilesListAutorespConfigsId,
+        params: MessagingProfilesListAutorespConfigsParams,
+        options?: RequestOptions,
+      ): Promise<
+        Telnyx.Response<Telnyx.MessagingProfilesListAutorespConfigsResponse>
+      >;
+
+      createAutorespConfig(
+        id: MessagingProfilesCreateAutorespConfigsId,
+        params: MessagingProfilesCreateAutorespConfigsParams,
+        options?: RequestOptions,
+      ): Promise<
+        Telnyx.Response<Telnyx.MessagingProfilesCreateAutorespConfigsResponse>
+      >;
+
+      delAutorespConfig(
+        id: MessagingProfilesDelAutorespConfigId,
+        autorespConfigId: MessagingProfilesDelAutorespConfigAutorespConfigId,
+        options?: RequestOptions,
+      ): Promise<
+        Telnyx.Response<Telnyx.MessagingProfilesDelAutorespConfigResponse>
+      >;
+
+      retrieveAutorespConfig(
+        id: MessagingProfilesRetrieveAutorespConfigId,
+        autorespConfigId: MessagingProfilesRetrieveAutorespConfigAutorespConfigId,
+        options?: RequestOptions,
+      ): Promise<
+        Telnyx.Response<Telnyx.MessagingProfilesRetrieveAutorespConfigResponse>
+      >;
+
+      updateAutorespConfig(
+        id: MessagingProfilesUpdateAutorespConfigId,
+        autorespConfigId: MessagingProfilesUpdateAutorespConfigAutorespConfigId,
+        params: MessagingProfilesUpdateAutorespConfigParams,
+        options?: RequestOptions,
+      ): Promise<
+        Telnyx.Response<Telnyx.MessagingProfilesUpdateAutorespConfigResponse>
       >;
     }
   }

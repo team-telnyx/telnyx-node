@@ -12,7 +12,6 @@ import {Actions} from './resources/Actions';
 import {ActionsSimCards} from './resources/ActionsSimCards';
 import {ActivateDeactivateBulkCredentials} from './resources/ActivateDeactivateBulkCredentials';
 import {Addresses} from './resources/Addresses';
-import {AutorespConfigs} from './resources/AutorespConfigs';
 import {AiAssistants} from './resources/AiAssistants';
 import {AiAudioTranscriptions} from './resources/AiAudioTranscriptions';
 import {AiChatCompletions} from './resources/AiChatCompletions';
@@ -184,7 +183,6 @@ export function createTelnyx() {
     ActionsSimCards,
     ActivateDeactivateBulkCredentials,
     Addresses,
-    AutorespConfigs,
     AiAssistants,
     AiAudioTranscriptions,
     AiChatCompletions,

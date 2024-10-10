@@ -195,7 +195,10 @@ TelnyxResource.prototype = {
         try {
           responseBody = utils.tryParseJSON(response);
 
-          if (responseBody.errors) {
+          // JSON response might be empty on deletion operations
+          if (!responseBody) {
+            responseBody = {};
+          } else if (responseBody.errors) {
             const error = {} as TelnyxError.TelnyxRawError;
 
             error.errors =

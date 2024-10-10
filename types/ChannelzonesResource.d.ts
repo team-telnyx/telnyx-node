@@ -26,7 +26,7 @@ declare module 'telnyx' {
     type ChannelzonesRetrieveResponse =
       paths['/channel_zones/{channel_zone_id}']['get']['responses']['200']['content']['application/json'];
 
-    type ChannelzonesPhoneNumbersListId =
+    type ChannelzonesPhoneNumbersListChannelzoneId =
       paths['/channel_zones/{channel_zone_id}/channel_zone_phone_numbers']['get']['parameters']['path']['channel_zone_id'];
 
     type ChannelzonesPhoneNumbersListParams =
@@ -35,8 +35,8 @@ declare module 'telnyx' {
     type ChannelzonesPhoneNumbersListResponse =
       paths['/channel_zones/{channel_zone_id}/channel_zone_phone_numbers']['get']['responses']['200']['content']['application/json'];
 
-    type ChannelzonesPhoneNumbersCreatePathParams =
-      paths['/channel_zones/{channel_zone_id}/channel_zone_phone_numbers']['post']['parameters']['path'];
+    type ChannelzonesPhoneNumbersCreateChannelZoneId =
+      paths['/channel_zones/{channel_zone_id}/channel_zone_phone_numbers']['post']['parameters']['path']['channel_zone_id'];
 
     type ChannelzonesPhoneNumbersCreateParams =
       paths['/channel_zones/{channel_zone_id}/channel_zone_phone_numbers']['post']['requestBody']['content']['application/json'];
@@ -44,8 +44,11 @@ declare module 'telnyx' {
     type ChannelzonesPhoneNumbersCreateResponse =
       paths['/channel_zones/{channel_zone_id}/channel_zone_phone_numbers']['post']['responses']['200']['content']['application/json'];
 
-    type ChannelzonesPhoneNumbersDeletePathParams =
-      paths['/channel_zones/{channel_zone_id}/channel_zone_phone_numbers/{phone_number}']['delete']['parameters']['path'];
+    type ChannelzonesPhoneNumbersDeleteChannelzoneId =
+      paths['/channel_zones/{channel_zone_id}/channel_zone_phone_numbers/{phone_number}']['delete']['parameters']['path']['channel_zone_id'];
+
+    type ChannelzonesPhoneNumbersDeletePhoneNumber =
+      paths['/channel_zones/{channel_zone_id}/channel_zone_phone_numbers/{phone_number}']['delete']['parameters']['path']['phone_number'];
 
     type ChannelzonesPhoneNumbersDeleteResponse =
       paths['/channel_zones/{channel_zone_id}/channel_zone_phone_numbers/{phone_number}']['delete']['responses']['200']['content'];
@@ -68,13 +71,13 @@ declare module 'telnyx' {
       ): Promise<Telnyx.Response<Telnyx.ChannelzonesRetrieveResponse>>;
 
       listPhoneNumbers(
-        id: ChannelzonesPhoneNumbersListId,
+        id: ChannelzonesPhoneNumbersListChannelzoneId,
         params?: ChannelzonesPhoneNumbersListParams,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.ChannelzonesPhoneNumbersListResponse>>;
 
       createPhoneNumber(
-        pathParams: ChannelzonesPhoneNumbersCreatePathParams,
+        id: ChannelzonesPhoneNumbersCreateChannelZoneId,
         params: ChannelzonesPhoneNumbersCreateParams,
         options?: RequestOptions,
       ): Promise<
@@ -82,7 +85,8 @@ declare module 'telnyx' {
       >;
 
       delPhoneNumber(
-        pathParams: ChannelzonesPhoneNumbersDeletePathParams,
+        id: ChannelzonesPhoneNumbersDeleteChannelzoneId,
+        phoneNumber: ChannelzonesPhoneNumbersDeletePhoneNumber,
         options?: RequestOptions,
       ): Promise<
         Telnyx.Response<Telnyx.ChannelzonesPhoneNumbersDeleteResponse>

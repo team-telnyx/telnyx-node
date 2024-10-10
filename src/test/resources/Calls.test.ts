@@ -225,7 +225,7 @@ describe('Calls Resource', function () {
           telnyxInstance = testUtils.getTelnyxMock();
         });
 
-        test('Sends the correct request', function () {
+        test('Sends the correct request [nested]', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           return telnyxInstance.calls
             .create(callCreateData)
@@ -243,7 +243,8 @@ describe('Calls Resource', function () {
               );
             });
         });
-        test('Sends the correct request [with specified auth]', function () {
+
+        test('Sends the correct request [nested with specified auth]', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
           return telnyxInstance.calls
             .create(callCreateData)
@@ -263,43 +264,30 @@ describe('Calls Resource', function () {
             });
         });
 
-        test('Sends the correct method request [with empty resource instance]', async function () {
+        test('Sends the correct method request [without resource instance]', async function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
-          const call = new telnyxInstance.Call({
-            call_control_id: '3fa85f55-5717-4562-b3fc-2c963f63vga6',
-          });
-
-          // @ts-expect-error TODO: import .d.ts files under src/test folder
-          await call[utils.snakeToCamelCase(command)](
+          return telnyxInstance.calls[utils.snakeToCamelCase(command)](
+            '3fa85f55-5717-4562-b3fc-2c963f63vga6',
             callCommandsData[command] || {'': ''}, // need to pass string due to telnyx mock parse
-          ).then(responseFn);
-
-          // @ts-expect-error TODO: import .d.ts files under src/test folder
-          return call[utils.snakeToCamelCase(command)](
-            callCommandsData[command] || {'': ''}, // need to pass string due to telnyx mock parse
-            TEST_AUTH_KEY,
           ).then(responseFn);
         });
 
-        test('Sends the correct method request [with empty resource instance and specified auth]', async function () {
-          // @ts-expect-error TODO: import .d.ts files under src/test folder
-          const call = new telnyxInstance.Call({
-            call_control_id: '3fa85f55-5717-4562-b3fc-2c963f63vga6',
-          });
-
+        test('Sends the correct method request [without resource instance and specified auth]', async function () {
           //  @ts-expect-error TODO: import .d.ts files under src/test folder
-          await call[command](
+          return telnyxInstance.calls[command](
+            '3fa85f55-5717-4562-b3fc-2c963f63vga6',
             callCommandsData[command] || {'': ''}, // need to pass string due to telnyx mock parse
             TEST_AUTH_KEY,
           ).then(responseFn);
-          // @ts-expect-error TODO: import .d.ts files under src/test folder
-          return call[command](callCommandsData[command] || {'': ''}).then(
-            responseFn,
-          );
         });
 
         if (camelCaseCommand !== command) {
           describe(camelCaseCommand, function () {
+            beforeEach(() => {
+              // make specs independent
+              telnyxInstance = testUtils.getTelnyxMock();
+            });
+
             test('Sends the correct request', function () {
               // @ts-expect-error TODO: import .d.ts files under src/test folder
               return telnyxInstance.calls.create(callCreateData).then(function (

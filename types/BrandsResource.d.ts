@@ -40,29 +40,29 @@ declare module 'telnyx' {
     type BrandsUpdateResponse =
       paths['/brand/{brandId}']['put']['responses']['200']['content']['application/json'];
 
-    type BrandsResend2faEmailPathParams =
-      paths['/brand/{brandId}/2faEmail']['post']['parameters']['path'];
+    type BrandsResend2faEmailId =
+      paths['/brand/{brandId}/2faEmail']['post']['parameters']['path']['brandId'];
 
     type BrandsResend2faEmailResponse =
       paths['/brand/{brandId}/2faEmail']['post']['responses']['200']['content'];
 
-    type BrandsListExternalVettingsPathParams =
-      paths['/brand/{brandId}/externalVetting']['get']['parameters']['path'];
+    type BrandsListExternalVettingsId =
+      paths['/brand/{brandId}/externalVetting']['get']['parameters']['path']['brandId'];
 
     type BrandsListExternalVettingsResponse =
       paths['/brand/{brandId}/externalVetting']['get']['responses']['200']['content']['application/json'];
 
-    type BrandsExportExternalVettingsPathParams =
-      paths['/brand/{brandId}/externalVetting']['put']['parameters']['path'];
+    type BrandsImportExternalVettingsId =
+      paths['/brand/{brandId}/externalVetting']['put']['parameters']['path']['brandId'];
 
-    type BrandsExportExternalVettingsParams =
+    type BrandsImportExternalVettingsParams =
       paths['/brand/{brandId}/externalVetting']['put']['requestBody']['content']['application/json'];
 
-    type BrandsExportExternalVettingsResponse =
+    type BrandsImportExternalVettingsResponse =
       paths['/brand/{brandId}/externalVetting']['put']['responses']['200']['content']['application/json'];
 
-    type BrandsOrderExternalVettingsPathParams =
-      paths['/brand/{brandId}/externalVetting']['post']['parameters']['path'];
+    type BrandsOrderExternalVettingsId =
+      paths['/brand/{brandId}/externalVetting']['post']['parameters']['path']['brandId'];
 
     type BrandsOrderExternalVettingsParams =
       paths['/brand/{brandId}/externalVetting']['post']['requestBody']['content']['application/json'];
@@ -70,8 +70,8 @@ declare module 'telnyx' {
     type BrandsOrderExternalVettingsResponse =
       paths['/brand/{brandId}/externalVetting']['post']['responses']['200']['content']['application/json'];
 
-    type BrandsRevetPathParams =
-      paths['/brand/{brandId}/revet']['put']['parameters']['path'];
+    type BrandsRevetid =
+      paths['/brand/{brandId}/revet']['put']['parameters']['path']['brandId'];
 
     type BrandsRevetParams =
       paths['/brand/{brandId}/externalVetting']['put']['requestBody']['content']['application/json'];
@@ -79,10 +79,10 @@ declare module 'telnyx' {
     type BrandsRevetResponse =
       paths['/brand/{brandId}/revet']['put']['responses']['200']['content']['application/json'];
 
-    type BrandsFeedbackPathParams =
-      paths['/brand/feedback/{brandId}']['get']['parameters']['path'];
+    type BrandsFeedbackRetrieveId =
+      paths['/brand/feedback/{brandId}']['get']['parameters']['path']['brandId'];
 
-    type BrandsFeedbackResponse =
+    type BrandsFeedbackRetrieveResponse =
       paths['/brand/feedback/{brandId}']['get']['responses']['200']['content']['application/json'];
 
     class BrandsResource {
@@ -113,37 +113,37 @@ declare module 'telnyx' {
       ): Promise<Telnyx.Response<Telnyx.BrandsUpdateResponse>>;
 
       resend2faEmail(
-        pathParams: BrandsResend2faEmailPathParams,
+        id: BrandsResend2faEmailId,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.BrandsResend2faEmailResponse>>;
 
       listExternalVettings(
-        pathParams: BrandsListExternalVettingsPathParams,
+        id: BrandsListExternalVettingsId,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.BrandsListExternalVettingsResponse>>;
 
-      exportExternalVettings(
-        pathParams: BrandsExportExternalVettingsPathParams,
-        params: BrandsExportExternalVettingsParams,
+      importExternalVettings(
+        id: BrandsImportExternalVettingsId,
+        params: BrandsImportExternalVettingsParams,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.BrandsExportExternalVettingsResponse>>;
+      ): Promise<Telnyx.Response<Telnyx.BrandsImportExternalVettingsResponse>>;
 
       orderExternalVettings(
-        pathParams: BrandsOrderExternalVettingsPathParams,
+        id: BrandsOrderExternalVettingsId,
         params: BrandsOrderExternalVettingsParams,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.BrandsOrderExternalVettingsResponse>>;
 
       revet(
-        pathParams: BrandsRevetPathParams,
+        id: BrandsRevetid,
         params: BrandsRevetParams,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.BrandsRevetResponse>>;
 
-      feedback(
-        pathParams: BrandsFeedbackPathParams,
+      retrieveFeedback(
+        id: BrandsFeedbackRetrieveId,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.BrandsFeedbackResponse>>;
+      ): Promise<Telnyx.Response<Telnyx.BrandsFeedbackRetrieveResponse>>;
     }
   }
 }

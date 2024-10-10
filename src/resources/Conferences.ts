@@ -1,8 +1,9 @@
 import TelnyxResource from '../TelnyxResource';
+import {ResponsePayload, TelnyxObject} from '../Types';
 import * as utils from '../utils';
 const telnyxMethod = TelnyxResource.method;
 
-const CONFERENCES = [
+const CONFERENCES_COMMANDS = [
   'join',
   'mute',
   'unmute',
@@ -20,17 +21,53 @@ const CONFERENCES = [
 ];
 
 function getSpec(conferenceId?: string) {
+  if (conferenceId) {
+    return function (methodName: string) {
+      return {
+        method: 'POST',
+        path: `/{conferenceId}/actions/${methodName}`,
+        urlParams: ['conferenceId'],
+        paramsValues: [conferenceId],
+        paramsNames: ['conferenceId'],
+        methodType: 'create',
+      };
+    };
+  }
+
   return function (methodName: string) {
     return {
       method: 'POST',
       path: `/{conferenceId}/actions/${methodName}`,
       urlParams: ['conferenceId'],
-      paramsValues: [conferenceId as string],
-      paramsNames: ['id'],
+      paramsNames: ['conferenceId'],
       methodType: 'create',
     };
   };
 }
+
+const transformResponseData = (
+  response: ResponsePayload,
+  telnyx: TelnyxObject,
+) => {
+  const methods = utils.createNestedMethods(
+    telnyxMethod,
+    CONFERENCES_COMMANDS,
+    getSpec(response.data.id as string),
+  );
+
+  methods.listParticipants = telnyxMethod({
+    method: 'GET',
+    path: '/{conferenceId}/participants',
+    urlParams: ['conferenceId'],
+  });
+
+  return utils.addResourceToResponseData(
+    response,
+    telnyx,
+    'conferences',
+    methods,
+  );
+};
 
 export const Conferences = TelnyxResource.extend({
   path: 'conferences',
@@ -40,39 +77,15 @@ export const Conferences = TelnyxResource.extend({
     method: 'GET',
     path: '/{id}',
     urlParams: ['id'],
-
-    transformResponseData: function (response, telnyx) {
-      return utils.addResourceToResponseData(
-        response,
-        telnyx,
-        'conferences',
-        utils.createNestedMethods(
-          telnyxMethod,
-          CONFERENCES,
-          getSpec(response.data.id as string),
-        ),
-      );
-    },
+    transformResponseData: transformResponseData,
   }),
 
   create: telnyxMethod({
     method: 'POST',
-
-    transformResponseData: function (response, telnyx) {
-      return utils.addResourceToResponseData(
-        response,
-        telnyx,
-        'conferences',
-        utils.createNestedMethods(
-          telnyxMethod,
-          CONFERENCES,
-          getSpec(response.data.id as string),
-        ),
-      );
-    },
+    transformResponseData: transformResponseData,
   }),
 
-  participants: telnyxMethod({
+  listParticipants: telnyxMethod({
     method: 'GET',
     path: '/{conferenceId}/participants',
     urlParams: ['conferenceId'],
@@ -80,7 +93,7 @@ export const Conferences = TelnyxResource.extend({
 
   instanceMethods: utils.createNestedMethods(
     telnyxMethod,
-    CONFERENCES,
+    CONFERENCES_COMMANDS,
     getSpec(),
   ),
 });

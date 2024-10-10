@@ -9,8 +9,6 @@ import {
 } from '../utils';
 import * as utils from '../../utils';
 
-const telnyx = testUtils.getTelnyxMock();
-
 const TEST_AUTH_KEY =
   'KEY187557EC22404DB39975C43ACE661A58_9QdDI7XD5bvyahtaWx1YQo';
 const TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
@@ -29,10 +27,23 @@ type ResponsePayloadMetrics = {
 type ResponsePayloadAutorespConfig = {
   data: {
     id: string;
+  }[];
+};
+
+type ResponsePayloadCreateAutorespConfig = {
+  data: {
+    id: string;
   };
 };
 
 describe('MessagingProfiles Resource', function () {
+  let telnyxInstance: TelnyxObject;
+
+  beforeEach(() => {
+    // make specs independent
+    telnyxInstance = testUtils.getTelnyxMock();
+  });
+
   function responseFn(response: ResponsePayload) {
     expect(response.data).toHaveProperty('name');
     expect(response.data).toMatchObject({record_type: 'messaging_profile'});
@@ -47,7 +58,7 @@ describe('MessagingProfiles Resource', function () {
   describe('retrieve', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.messagingProfiles
+      return telnyxInstance.messagingProfiles
         .retrieve(TEST_UUID)
         .then(responseFn)
         .catch(errorFn);
@@ -55,7 +66,7 @@ describe('MessagingProfiles Resource', function () {
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.messagingProfiles
+      return telnyxInstance.messagingProfiles
         .retrieve(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn)
         .catch(errorFn);
@@ -65,7 +76,7 @@ describe('MessagingProfiles Resource', function () {
   describe('create', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.messagingProfiles
+      return telnyxInstance.messagingProfiles
         .create({name: 'Summer Campaign', whitelisted_destinations: ['US']})
         .then(responseFn)
         .catch(errorFn);
@@ -73,7 +84,7 @@ describe('MessagingProfiles Resource', function () {
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.messagingProfiles
+      return telnyxInstance.messagingProfiles
         .create(
           {name: 'Summer Campaign', whitelisted_destinations: ['US']},
           TEST_AUTH_KEY,
@@ -84,7 +95,7 @@ describe('MessagingProfiles Resource', function () {
 
     test('Sends the correct request [with specified auth in options]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.messagingProfiles
+      return telnyxInstance.messagingProfiles
         .create(
           {name: 'Summer Campaign', whitelisted_destinations: ['US']},
           {api_key: TEST_AUTH_KEY},
@@ -97,7 +108,7 @@ describe('MessagingProfiles Resource', function () {
   describe('update', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.messagingProfiles
+      return telnyxInstance.messagingProfiles
         .update(TEST_UUID, {name: 'Foo "baz"'})
         .then(responseFn)
         .catch(errorFn);
@@ -115,12 +126,15 @@ describe('MessagingProfiles Resource', function () {
 
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.messagingProfiles.list().then(responseFn).catch(errorFn);
+      return telnyxInstance.messagingProfiles
+        .list()
+        .then(responseFn)
+        .catch(errorFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.messagingProfiles
+      return telnyxInstance.messagingProfiles
         .list(TEST_AUTH_KEY)
         .then(responseFn)
         .catch(errorFn);
@@ -140,16 +154,16 @@ describe('MessagingProfiles Resource', function () {
     describe('listPhoneNumbers', function () {
       test('Sends the correct request', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
-        return telnyx.messagingProfiles
-          .listPhoneNumbers(TEST_UUID)
+        return telnyxInstance.messagingProfiles
+          .listPhoneNumbers(TEST_UUID, {})
           .then(responseFn)
           .catch(errorFn);
       });
 
       test('Sends the correct request [with specified auth]', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
-        return telnyx.messagingProfiles
-          .listPhoneNumbers(TEST_UUID, TEST_AUTH_KEY)
+        return telnyxInstance.messagingProfiles
+          .listPhoneNumbers(TEST_UUID, {}, TEST_AUTH_KEY)
           .then(responseFn)
           .catch(errorFn);
       });
@@ -167,16 +181,16 @@ describe('MessagingProfiles Resource', function () {
     describe('listShortCodes', function () {
       test('Sends the correct request', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
-        return telnyx.messagingProfiles
-          .listShortCodes(TEST_UUID)
+        return telnyxInstance.messagingProfiles
+          .listShortCodes(TEST_UUID, {})
           .then(responseFn)
           .catch(errorFn);
       });
 
       test('Sends the correct request [with specified auth]', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
-        return telnyx.messagingProfiles
-          .listShortCodes(TEST_UUID, TEST_AUTH_KEY)
+        return telnyxInstance.messagingProfiles
+          .listShortCodes(TEST_UUID, {}, TEST_AUTH_KEY)
           .then(responseFn)
           .catch(errorFn);
       });
@@ -200,7 +214,7 @@ describe('MessagingProfiles Resource', function () {
 
         test('Sends the correct request', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
-          return telnyx.messagingProfiles
+          return telnyxInstance.messagingProfiles
             .create({name: 'Summer Campaign', whitelisted_destinations: ['US']})
             .then(function (response: ResponsePayload) {
               const mp = response.data;
@@ -210,7 +224,7 @@ describe('MessagingProfiles Resource', function () {
         });
         test('Sends the correct request [with specified auth]', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
-          return telnyx.messagingProfiles
+          return telnyxInstance.messagingProfiles
             .create({name: 'Summer Campaign', whitelisted_destinations: ['US']})
             .then(function (response: ResponsePayload) {
               const mp = response.data;
@@ -223,7 +237,7 @@ describe('MessagingProfiles Resource', function () {
         describe(camelCaseAction, function () {
           test('Sends the correct request', function () {
             // @ts-expect-error TODO: import .d.ts files under src/test folder
-            return telnyx.messagingProfiles
+            return telnyxInstance.messagingProfiles
               .create({
                 name: 'Summer Campaign',
                 whitelisted_destinations: ['US'],
@@ -237,7 +251,7 @@ describe('MessagingProfiles Resource', function () {
           });
           test('Sends the correct request [with specified auth]', function () {
             // @ts-expect-error TODO: import .d.ts files under src/test folder
-            return telnyx.messagingProfiles
+            return telnyxInstance.messagingProfiles
               .create({
                 name: 'Summer Campaign',
                 whitelisted_destinations: ['US'],
@@ -254,110 +268,368 @@ describe('MessagingProfiles Resource', function () {
         });
       });
     });
+  });
 
-    describe('Metrics methods', function () {
-      function metricsNestedResponseFn(response: ResponsePayloadMetrics) {
-        expect(response.data).toHaveProperty('detailed');
-        expect(response.data).toHaveProperty('overview');
-        expect(response.data.overview).toHaveProperty('inbound');
-        expect(response.data.overview).toHaveProperty('outbound');
-        expect(response.data.overview).toHaveProperty('phone_numbers');
-        expect(response.data.overview).toHaveProperty('messaging_profile_id');
-        expect(response.data.overview).toMatchObject({
-          record_type: 'messaging_profile_metrics',
-        });
-        expect(response.data.detailed[0]).toHaveProperty('metrics');
-      }
+  describe('Metrics methods', function () {
+    function metricsNestedResponseFn(response: ResponsePayloadMetrics) {
+      expect(response.data).toHaveProperty('detailed');
+      expect(response.data).toHaveProperty('overview');
+      expect(response.data.overview).toHaveProperty('inbound');
+      expect(response.data.overview).toHaveProperty('outbound');
+      expect(response.data.overview).toHaveProperty('phone_numbers');
+      expect(response.data.overview).toHaveProperty('messaging_profile_id');
+      expect(response.data.overview).toMatchObject({
+        record_type: 'messaging_profile_metrics',
+      });
+      expect(response.data.detailed[0]).toHaveProperty('metrics');
+    }
 
-      describe('retrieveMetrics', function () {
-        test('Sends the correct request', function () {
-          // @ts-expect-error TODO: import .d.ts files under src/test folder
-          return telnyx.messagingProfiles
-            .retrieveMetrics(TEST_UUID)
-            .then(metricsNestedResponseFn);
-        });
-
-        test('Sends the correct request [with specified auth]', function () {
-          // @ts-expect-error TODO: import .d.ts files under src/test folder
-          return telnyx.messagingProfiles
-            .retrieveMetrics(TEST_UUID, TEST_AUTH_KEY)
-            .then(metricsNestedResponseFn);
-        });
+    describe('retrieveMetrics', function () {
+      test('Sends the correct request', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles
+          .retrieveMetrics(TEST_UUID, {})
+          .then(metricsNestedResponseFn);
       });
 
-      describe('nested metrics', function () {
+      test('Sends the correct request [with specified auth]', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles
+          .retrieveMetrics(TEST_UUID, {}, TEST_AUTH_KEY)
+          .then(metricsNestedResponseFn);
+      });
+    });
+
+    describe('nested metrics', function () {
+      test('Sends the correct request', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles
+          .create({name: 'Summer Campaign', whitelisted_destinations: ['US']})
+          .then(function (response: ResponsePayload) {
+            const mp = response.data;
+            // @ts-expect-error TODO: import .d.ts files under src/test folder
+            return mp.retrieveMetrics({}).then(metricsNestedResponseFn);
+          });
+      });
+      test('Sends the correct request [with specified auth]', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles
+          .retrieve(TEST_UUID)
+          .then(function (response: ResponsePayload) {
+            const mp = response.data;
+            // @ts-expect-error TODO: import .d.ts files under src/test folder
+            return mp
+              .retrieveMetrics({}, TEST_AUTH_KEY)
+              .then(metricsNestedResponseFn);
+          });
+      });
+    });
+  });
+
+  describe('AutorespConfigs methods', function () {
+    function autorespConfigNestedResponseFn(
+      response: ResponsePayloadAutorespConfig,
+    ) {
+      expect(response.data[0]).toHaveProperty('country_code');
+      expect(response.data[0]).toHaveProperty('resp_text');
+      expect(response.data[0]).toHaveProperty('keywords');
+      expect(response.data[0]).toHaveProperty('op');
+      expect(response.data[0]).toHaveProperty('id');
+    }
+
+    function autorespConfigCreatedNestedResponseFn(
+      response: ResponsePayloadCreateAutorespConfig,
+    ) {
+      expect(response.data).toHaveProperty('country_code');
+      expect(response.data).toHaveProperty('resp_text');
+      expect(response.data).toHaveProperty('keywords');
+      expect(response.data).toHaveProperty('op');
+      expect(response.data).toHaveProperty('id');
+    }
+
+    describe('listAutorespConfigs', function () {
+      test('Sends the correct request', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles
+          .listAutorespConfigs(TEST_UUID, {})
+          .then(autorespConfigNestedResponseFn);
+      });
+
+      test('Sends the correct request [with specified auth]', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles
+          .listAutorespConfigs(TEST_UUID, {}, TEST_AUTH_KEY)
+          .then(autorespConfigNestedResponseFn);
+      });
+
+      describe('nested listAutorespConfigs', function () {
         test('Sends the correct request', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
-          return telnyx.messagingProfiles
-            .create({name: 'Summer Campaign', whitelisted_destinations: ['US']})
+          return telnyxInstance.messagingProfiles
+            .create({
+              name: 'Summer Campaign',
+              whitelisted_destinations: ['US'],
+            })
             .then(function (response: ResponsePayload) {
               const mp = response.data;
               // @ts-expect-error TODO: import .d.ts files under src/test folder
-              return mp.metrics().then(metricsNestedResponseFn);
+              return mp
+                .listAutorespConfigs()
+                .then(autorespConfigNestedResponseFn);
             });
         });
         test('Sends the correct request [with specified auth]', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
-          return telnyx.messagingProfiles.retrieve(TEST_UUID).then(function (
-            response: ResponsePayload,
-          ) {
-            const mp = response.data;
-            // @ts-expect-error TODO: import .d.ts files under src/test folder
-            return mp.metrics(TEST_AUTH_KEY).then(metricsNestedResponseFn);
-          });
+          return telnyxInstance.messagingProfiles
+            .retrieve(TEST_UUID)
+            .then(function (response: ResponsePayload) {
+              const mp = response.data;
+              // @ts-expect-error TODO: import .d.ts files under src/test folder
+              return mp
+                .listAutorespConfigs(TEST_AUTH_KEY)
+                .then(autorespConfigNestedResponseFn);
+            });
         });
       });
     });
 
-    describe('AutorespConfigs methods', function () {
-      function autorespConfigNestedResponseFn(
-        response: ResponsePayloadAutorespConfig,
-      ) {
-        expect(response.data[0]).toHaveProperty('country_code');
-        expect(response.data[0]).toHaveProperty('resp_text');
-        expect(response.data[0]).toHaveProperty('keywords');
-        expect(response.data[0]).toHaveProperty('op');
-        expect(response.data[0]).toHaveProperty('id');
-      }
-
-      describe('autorespConfigs', function () {
-        test('Sends the correct request', function () {
-          // @ts-expect-error TODO: import .d.ts files under src/test folder
-          return telnyx.messagingProfiles
-            .listAutorespConfigs(TEST_UUID)
-            .then(autorespConfigNestedResponseFn);
-        });
-
-        test('Sends the correct request [with specified auth]', function () {
-          // @ts-expect-error TODO: import .d.ts files under src/test folder
-          return telnyx.messagingProfiles
-            .listAutorespConfigs(TEST_UUID, TEST_AUTH_KEY)
-            .then(autorespConfigNestedResponseFn);
-        });
+    describe('createAutorespConfig', function () {
+      test('Sends the correct request', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles
+          .createAutorespConfig(TEST_UUID, {
+            op: 'start',
+            keywords: ['test'],
+            country_code: 'US',
+          })
+          .then(autorespConfigCreatedNestedResponseFn);
       });
 
-      describe('nested autoresp_configs', function () {
+      test('Sends the correct request [with specified auth]', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles
+          .createAutorespConfig(
+            TEST_UUID,
+            {
+              op: 'start',
+              keywords: ['test'],
+              country_code: 'US',
+            },
+            TEST_AUTH_KEY,
+          )
+          .then(autorespConfigCreatedNestedResponseFn);
+      });
+
+      describe('nested createAutorespConfig', function () {
         test('Sends the correct request', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
-          return telnyx.messagingProfiles
-            .create({name: 'Summer Campaign', whitelisted_destinations: ['US']})
+          return telnyxInstance.messagingProfiles
+            .create({
+              name: 'Summer Campaign',
+              whitelisted_destinations: ['US'],
+            })
             .then(function (response: ResponsePayload) {
               const mp = response.data;
               // @ts-expect-error TODO: import .d.ts files under src/test folder
-              return mp.autorespConfigs().then(autorespConfigNestedResponseFn);
+              return mp
+                .createAutorespConfig({
+                  op: 'start',
+                  keywords: ['test'],
+                  country_code: 'US',
+                })
+                .then(autorespConfigCreatedNestedResponseFn);
             });
         });
         test('Sends the correct request [with specified auth]', function () {
           // @ts-expect-error TODO: import .d.ts files under src/test folder
-          return telnyx.messagingProfiles.retrieve(TEST_UUID).then(function (
-            response: ResponsePayload,
-          ) {
-            const mp = response.data;
-            // @ts-expect-error TODO: import .d.ts files under src/test folder
-            return mp
-              .autorespConfigs(TEST_AUTH_KEY)
-              .then(autorespConfigNestedResponseFn);
-          });
+          return telnyxInstance.messagingProfiles
+            .retrieve(TEST_UUID)
+            .then(function (response: ResponsePayload) {
+              const mp = response.data;
+              // @ts-expect-error TODO: import .d.ts files under src/test folder
+              return mp
+                .createAutorespConfig(
+                  {
+                    op: 'start',
+                    keywords: ['test'],
+                    country_code: 'US',
+                  },
+                  TEST_AUTH_KEY,
+                )
+                .then(autorespConfigCreatedNestedResponseFn);
+            });
+        });
+      });
+    });
+
+    describe('retrieveAutorespConfig', function () {
+      const autoResponseConfigId = '123e4567-e89b-12d3-a456-000014179999';
+
+      test('Sends the correct request', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles
+          .retrieveAutorespConfig(TEST_UUID, autoResponseConfigId)
+          .then(autorespConfigCreatedNestedResponseFn);
+      });
+
+      test('Sends the correct request [with specified auth]', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles
+          .retrieveAutorespConfig(
+            TEST_UUID,
+            autoResponseConfigId,
+            TEST_AUTH_KEY,
+          )
+          .then(autorespConfigCreatedNestedResponseFn);
+      });
+
+      describe('nested retrieveAutorespConfig', function () {
+        test('Sends the correct request', function () {
+          // @ts-expect-error TODO: import .d.ts files under src/test folder
+          return telnyxInstance.messagingProfiles
+            .create({
+              name: 'Summer Campaign',
+              whitelisted_destinations: ['US'],
+            })
+            .then(function (response: ResponsePayload) {
+              const mp = response.data;
+              // @ts-expect-error TODO: import .d.ts files under src/test folder
+              return mp
+                .retrieveAutorespConfig(autoResponseConfigId)
+                .then(autorespConfigCreatedNestedResponseFn);
+            });
+        });
+        test('Sends the correct request [with specified auth]', function () {
+          // @ts-expect-error TODO: import .d.ts files under src/test folder
+          return telnyxInstance.messagingProfiles
+            .retrieve(TEST_UUID)
+            .then(function (response: ResponsePayload) {
+              const mp = response.data;
+              // @ts-expect-error TODO: import .d.ts files under src/test folder
+              return mp
+                .retrieveAutorespConfig(autoResponseConfigId, TEST_AUTH_KEY)
+                .then(autorespConfigCreatedNestedResponseFn);
+            });
+        });
+      });
+    });
+
+    describe('delAutorespConfig', function () {
+      const autoResponseConfigId = '123e4567-e89b-12d3-a456-000014179999';
+
+      test('Sends the correct request', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles.delAutorespConfig(
+          TEST_UUID,
+          autoResponseConfigId,
+        );
+      });
+
+      test('Sends the correct request [with specified auth]', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles.delAutorespConfig(
+          TEST_UUID,
+          autoResponseConfigId,
+          TEST_AUTH_KEY,
+        );
+      });
+
+      describe('nested delAutorespConfig', function () {
+        test('Sends the correct request', function () {
+          // @ts-expect-error TODO: import .d.ts files under src/test folder
+          return telnyxInstance.messagingProfiles
+            .create({
+              name: 'Summer Campaign',
+              whitelisted_destinations: ['US'],
+            })
+            .then(function (response: ResponsePayload) {
+              const mp = response.data;
+              // @ts-expect-error TODO: import .d.ts files under src/test folder
+              return mp.delAutorespConfig(autoResponseConfigId);
+            });
+        });
+        test('Sends the correct request [with specified auth]', function () {
+          // @ts-expect-error TODO: import .d.ts files under src/test folder
+          return telnyxInstance.messagingProfiles
+            .retrieve(TEST_UUID)
+            .then(function (response: ResponsePayload) {
+              const mp = response.data;
+              // @ts-expect-error TODO: import .d.ts files under src/test folder
+              return mp.delAutorespConfig(autoResponseConfigId, TEST_AUTH_KEY);
+            });
+        });
+      });
+    });
+
+    describe('updateAutorespConfig', function () {
+      const autoResponseConfigId = '123e4567-e89b-12d3-a456-000014179999';
+
+      test('Sends the correct request', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles
+          .updateAutorespConfig(TEST_UUID, autoResponseConfigId, {
+            op: 'start',
+            keywords: ['test'],
+            country_code: 'US',
+          })
+          .then(autorespConfigCreatedNestedResponseFn);
+      });
+
+      test('Sends the correct request [with specified auth]', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.messagingProfiles
+          .updateAutorespConfig(
+            TEST_UUID,
+            autoResponseConfigId,
+            {
+              op: 'start',
+              keywords: ['test'],
+              country_code: 'US',
+            },
+            TEST_AUTH_KEY,
+          )
+          .then(autorespConfigCreatedNestedResponseFn);
+      });
+
+      describe('nested updateAutorespConfig', function () {
+        test('Sends the correct request', function () {
+          // @ts-expect-error TODO: import .d.ts files under src/test folder
+          return telnyxInstance.messagingProfiles
+            .create({
+              name: 'Summer Campaign',
+              whitelisted_destinations: ['US'],
+            })
+            .then(function (response: ResponsePayload) {
+              const mp = response.data;
+              // @ts-expect-error TODO: import .d.ts files under src/test folder
+              return mp
+                .updateAutorespConfig(autoResponseConfigId, {
+                  op: 'start',
+                  keywords: ['test'],
+                  country_code: 'US',
+                })
+                .then(autorespConfigCreatedNestedResponseFn);
+            });
+        });
+        test('Sends the correct request [with specified auth]', function () {
+          // @ts-expect-error TODO: import .d.ts files under src/test folder
+          return telnyxInstance.messagingProfiles
+            .retrieve(TEST_UUID)
+            .then(function (response: ResponsePayload) {
+              const mp = response.data;
+              // @ts-expect-error TODO: import .d.ts files under src/test folder
+              return mp
+                .updateAutorespConfig(
+                  autoResponseConfigId,
+                  {
+                    op: 'start',
+                    keywords: ['test'],
+                    country_code: 'US',
+                  },
+                  TEST_AUTH_KEY,
+                )
+                .then(autorespConfigCreatedNestedResponseFn);
+            });
         });
       });
     });

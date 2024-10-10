@@ -34,12 +34,24 @@ const CALL_COMMANDS = [
 ];
 
 function getSpec(callControlId?: string) {
+  if (callControlId) {
+    return function (methodName: string) {
+      return {
+        method: 'POST',
+        path: `/{call_control_id}/actions/${methodName}`,
+        urlParams: ['call_control_id'],
+        paramsValues: [callControlId],
+        paramsNames: ['call_control_id'],
+        methodType: 'create',
+      };
+    };
+  }
+
   return function (methodName: string) {
     return {
       method: 'POST',
       path: `/{call_control_id}/actions/${methodName}`,
       urlParams: ['call_control_id'],
-      paramsValues: [callControlId as string],
       paramsNames: ['call_control_id'],
       methodType: 'create',
     };

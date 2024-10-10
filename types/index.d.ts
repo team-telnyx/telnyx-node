@@ -20,7 +20,6 @@
 ///<reference path='./AccessIpAddressResource.d.ts' />
 ///<reference path='./AccessIpRangesResource.d.ts' />
 ///<reference path='./AuthenticationProvidersResource.d.ts' />
-///<reference path='./AutorespConfigsResource.d.ts' />
 ///<reference path='./AddressesResource.d.ts' />
 ///<reference path='./AvailablePhoneNumbersResource.d.ts' />
 ///<reference path='./BalanceResource.d.ts' />
@@ -90,7 +89,6 @@ declare module 'telnyx' {
     accessIpAddress: Telnyx.AccessIpAddressResource;
     accessIpRanges: Telnyx.AccessIpRangesResource;
     authenticationProviders: Telnyx.AuthenticationProvidersResource;
-    autorespConfigs: Telnyx.AutorespConfigsResource;
     addresses: Telnyx.AddressesResource;
     availablePhoneNumbers: Telnyx.AvailablePhoneNumbersResource;
     balance: Telnyx.BalanceResource;

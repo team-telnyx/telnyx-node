@@ -43,7 +43,7 @@ describe('Call Conferences', function () {
     },
     speak: {
       language: 'en-US',
-      payload: 'Say this to participants',
+      payload: 'Say this to listParticipants',
       voice: 'female',
     },
     play: {
@@ -129,7 +129,7 @@ describe('Call Conferences', function () {
     });
   });
 
-  describe('participants', function () {
+  describe('listParticipants', function () {
     function responseFn(response: ResponsePayloadList) {
       expect(response.data[0]).toMatchObject({
         record_type: 'participant',
@@ -144,15 +144,41 @@ describe('Call Conferences', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.conferences
-        .participants(CONFERENCE_ID, {filter: {muted: true}})
+        .listParticipants(CONFERENCE_ID, {filter: {muted: true}})
         .then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.conferences
-        .participants(CONFERENCE_ID, TEST_AUTH_KEY)
+        .listParticipants(CONFERENCE_ID, TEST_AUTH_KEY)
         .then(responseFn);
+    });
+
+    test('Sends the correct request [nested without resource instance]', function () {
+      return telnyx.conferences.retrieve(CONFERENCE_ID).then(function (
+        response: ResponsePayload,
+      ) {
+        const conference = response.data;
+
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return conference
+          .listParticipants({filter: {muted: true}})
+          .then(responseFn);
+      });
+    });
+
+    test('Sends the correct request [nested without resource instance with specified auth]', function () {
+      return telnyx.conferences.retrieve(CONFERENCE_ID).then(function (
+        response: ResponsePayload,
+      ) {
+        const conference = response.data;
+
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return conference
+          .listParticipants({filter: {muted: true}}, TEST_AUTH_KEY)
+          .then(responseFn);
+      });
     });
   });
 
@@ -165,7 +191,7 @@ describe('Call Conferences', function () {
         telnyxInstance = testUtils.getTelnyxMock();
       });
 
-      test('Sends the correct request', function () {
+      test('Sends the correct request [nested]', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         return telnyxInstance.conferences
           .create(conferenceCreateData)
@@ -177,39 +203,33 @@ describe('Call Conferences', function () {
             ).then(responseFn);
           });
       });
-      test('Sends the correct request [with specified auth]', function () {
+      test('Sends the correct request [nested with specified auth]', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         return telnyxInstance.conferences
           .create(conferenceCreateData)
           .then(function (response: ResponsePayload) {
             const conference = response.data;
+            // // @ts-expect-error TODO: import .d.ts files under src/test folder
             return conference[action](
-              // // @ts-expect-error TODO: import .d.ts files under src/test folder
               callConferencesData[action] || {'': ''}, // need to pass string due to telnyx mock parse
               TEST_AUTH_KEY,
             ).then(responseFn);
           });
       });
 
-      test('Sends the correct request [with empty resource instance]', function () {
-        // @ts-expect-error TODO: import .d.ts files under src/test folder
-        const conference = new telnyxInstance.Conference({
-          id: '891510ac-f3e4-11e8-af5b-de00688a4901',
-        });
-
-        return conference[action](callConferencesData[action] || {'': ''}).then(
+      test('Sends the correct request [without resource instance]', function () {
+        return telnyxInstance.conferences[action](
+          '891510ac-f3e4-11e8-af5b-de00688a4901',
+          callConferencesData[action] || {'': ''},
+        ).then(
           // need to pass string due to telnyx mock parse
           responseFn,
         );
       });
-      test('Sends the correct request [with empty resource instance and specified auth]', function () {
-        // @ts-expect-error TODO: import .d.ts files under src/test folder
-        const conference = new telnyxInstance.Conference({
-          id: '891510ac-f3e4-11e8-af5b-de00688a4901',
-        });
-
-        return conference[action](
-          // // @ts-expect-error TODO: import .d.ts files under src/test folder
+      test('Sends the correct request [without resource instance and specified auth]', function () {
+        // // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyxInstance.conferences[action](
+          '891510ac-f3e4-11e8-af5b-de00688a4901',
           callConferencesData[action] || {'': ''}, // need to pass string due to telnyx mock parse
           TEST_AUTH_KEY,
         ).then(responseFn);

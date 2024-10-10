@@ -1,11 +1,11 @@
-import telnyx from 'telnyx';
+import Telnyx from 'telnyx';
 import TelnyxResource from '../TelnyxResource';
 import {ResponsePayload, TelnyxObject} from '../Types';
 import * as utils from '../utils';
 
 const telnyxMethod = TelnyxResource.method;
 
-const ACTIONS = ['phone_numbers', 'short_codes', 'metrics', 'autoresp_configs'];
+const MESSAGING_PROFILES_COMMANDS = ['phone_numbers', 'short_codes'];
 
 function getSpec(messagingProfileId?: string) {
   return function (methodName: string) {
@@ -14,19 +14,19 @@ function getSpec(messagingProfileId?: string) {
       path: `/{messagingProfileId}/${methodName}`,
       urlParams: ['messagingProfileId'],
       paramsValues: [messagingProfileId as string],
-      paramsNames: ['id'],
+      paramsNames: ['messagingProfileId'],
       methodType: 'list',
     };
   };
 }
 
 const transformResponseData = (
-  response: ResponsePayload<telnyx.MessagingProfilesCreateResponse>,
+  response: ResponsePayload<Telnyx.MessagingProfilesCreateResponse>,
   telnyx: TelnyxObject,
 ) => {
   const methods = utils.createNestedMethods(
     telnyxMethod,
-    ACTIONS,
+    MESSAGING_PROFILES_COMMANDS,
     getSpec(response.data.id as string),
   );
 
@@ -35,7 +35,59 @@ const transformResponseData = (
     path: '/{messagingProfileId}',
     urlParams: ['messagingProfileId'],
     paramsValues: [response.data.id as string],
-    paramsNames: ['id'],
+    paramsNames: ['messagingProfileId'],
+  });
+
+  methods.listAutorespConfigs = telnyxMethod({
+    method: 'GET',
+    path: '/{profileId}/autoresp_configs',
+    urlParams: ['profileId'],
+    paramsValues: [response.data.id as string],
+    paramsNames: ['profileId'],
+    methodType: 'list',
+  });
+
+  methods.createAutorespConfig = telnyxMethod({
+    method: 'POST',
+    path: '/{profileId}/autoresp_configs',
+    urlParams: ['profileId'],
+    paramsValues: [response.data.id as string],
+    paramsNames: ['profileId'],
+    methodType: 'create',
+  });
+
+  methods.delAutorespConfig = telnyxMethod({
+    method: 'DELETE',
+    path: '/{profileId}/autoresp_configs/{autorespCfgId}',
+    paramsValues: [response.data.id as string],
+    urlParams: ['profileId', 'autorespCfgId'],
+    paramsNames: ['profileId', 'autorespCfgId'],
+  });
+
+  methods.retrieveAutorespConfig = telnyxMethod({
+    method: 'GET',
+    path: '/{profileId}/autoresp_configs/{autorespCfgId}',
+    paramsValues: [response.data.id as string],
+    urlParams: ['profileId', 'autorespCfgId'],
+    paramsNames: ['profileId', 'autorespCfgId'],
+    methodType: 'retrieve',
+  });
+
+  methods.updateAutorespConfig = telnyxMethod({
+    method: 'PUT',
+    path: '/{profileId}/autoresp_configs/{autorespCfgId}',
+    paramsValues: [response.data.id as string],
+    urlParams: ['profileId', 'autorespCfgId'],
+    paramsNames: ['profileId', 'autorespCfgId'],
+  });
+
+  methods.retrieveMetrics = telnyxMethod({
+    method: 'GET',
+    path: '/{messagingProfileId}/metrics',
+    urlParams: ['messagingProfileId'],
+    paramsValues: [response.data.id as string],
+    paramsNames: ['messagingProfileId'],
+    methodType: 'retrieve',
   });
 
   return utils.addResourceToResponseData(
@@ -70,12 +122,6 @@ export const MessagingProfiles = TelnyxResource.extend({
     methodType: 'list',
   }),
 
-  phoneNumbers: telnyxMethod({
-    method: 'GET',
-    path: '/{messagingProfileId}/phone_numbers',
-    urlParams: ['messagingProfileId'],
-  }),
-
   listShortCodes: telnyxMethod({
     method: 'GET',
     path: '/{messagingProfileId}/short_codes',
@@ -83,30 +129,48 @@ export const MessagingProfiles = TelnyxResource.extend({
     methodType: 'list',
   }),
 
-  shortCodes: telnyxMethod({
+  listAutorespConfigs: telnyxMethod({
     method: 'GET',
-    path: '/{messagingProfileId}/short_codes',
-    urlParams: ['messagingProfileId'],
+    path: '/{profileId}/autoresp_configs',
+    urlParams: ['profileId'],
+    paramsNames: ['profileId'],
+    methodType: 'list',
+  }),
+
+  createAutorespConfig: telnyxMethod({
+    method: 'POST',
+    path: '/{profileId}/autoresp_configs',
+    urlParams: ['profileId'],
+    paramsNames: ['profileId'],
+    methodType: 'create',
+  }),
+
+  delAutorespConfig: telnyxMethod({
+    method: 'DELETE',
+    path: '/{profileId}/autoresp_configs/{autorespCfgId}',
+    urlParams: ['profileId', 'autorespCfgId'],
+    paramsNames: ['profileId', 'autorespCfgId'],
+  }),
+
+  retrieveAutorespConfig: telnyxMethod({
+    method: 'GET',
+    path: '/{profileId}/autoresp_configs/{autorespCfgId}',
+    urlParams: ['profileId', 'autorespCfgId'],
+    paramsNames: ['profileId', 'autorespCfgId'],
+    methodType: 'retrieve',
+  }),
+
+  updateAutorespConfig: telnyxMethod({
+    method: 'PUT',
+    path: '/{profileId}/autoresp_configs/{autorespCfgId}',
+    urlParams: ['profileId', 'autorespCfgId'],
+    paramsNames: ['profileId', 'autorespCfgId'],
   }),
 
   retrieveMetrics: telnyxMethod({
     method: 'GET',
-    path: '/{messagingProfileId}/metrics',
-    urlParams: ['messagingProfileId'],
+    path: '/{id}/metrics',
+    urlParams: ['id'],
     methodType: 'retrieve',
-  }),
-
-  autorespConfigs: telnyxMethod({
-    method: 'GET',
-    path: '/{messagingProfileId}/autoresp_configs',
-    urlParams: ['messagingProfileId'],
-    methodType: 'list',
-  }),
-
-  listAutorespConfigs: telnyxMethod({
-    method: 'GET',
-    path: '/{messagingProfileId}/autoresp_configs',
-    urlParams: ['messagingProfileId'],
-    methodType: 'list',
   }),
 });

@@ -2,6 +2,15 @@
 
 ## v2
 
+### v2.0.0-alpha.8
+
+- Move `AutorespConfigs` resource to be nested in `MessagingProfiles`
+- Fix nested resources in `Calls`, `MessagingProfiles` and `Conferences` ID usage instead of using constructors data
+- Fix nested resources `Calls`, `MessagingProfiles` and `Conferences` method names
+- Fix `Brand` resources method name
+- Fix bug on `DELETE` operations empty `responseBody` JSON Parsing
+- Update types on resources methods with multiple urlParams
+
 ### v2.0.0-alpha.7
 
 - Export API callback `events` type definitions
