@@ -7,6 +7,7 @@ import Telnyx from 'telnyx';
 
 const telnyx = new Telnyx(process.env.TELNYX_API_KEY || '');
 
+// update these params accordingly
 const params: Telnyx.CallsCreateParams = {
   to: '+18005550100 or sip:username@sip.telnyx.com',
   from: '+18005550101',

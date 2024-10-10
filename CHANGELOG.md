@@ -2,7 +2,7 @@
 
 ## v2
 
-### v2.0.0-alpha.8
+### v2.0.0-beta.0
 
 - Move `AutorespConfigs` resource to be nested in `MessagingProfiles`
 - Fix nested resources in `Calls`, `MessagingProfiles` and `Conferences` ID usage instead of using constructors data
@@ -10,6 +10,7 @@
 - Fix `Brand` resources method name
 - Fix bug on `DELETE` operations empty `responseBody` JSON Parsing
 - Update types on resources methods with multiple urlParams
+- FIX: README Typo by @mpareja-godaddy in https://github.com/team-telnyx/telnyx-node/pull/186
 
 ### v2.0.0-alpha.7
 
