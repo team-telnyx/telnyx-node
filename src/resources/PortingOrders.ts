@@ -14,7 +14,7 @@ function transformResponseData(
       path: '/{portingOrderId}',
       urlParams: ['portingOrderId'],
       paramsValues: [response.data.id as string],
-      paramsNames: ['id'],
+      paramsNames: ['portingOrderId'],
     }),
 
     update: telnyxMethod({
@@ -22,7 +22,7 @@ function transformResponseData(
       path: '/{portingOrderId}',
       urlParams: ['portingOrderId'],
       paramsValues: [response.data.id as string],
-      paramsNames: ['id'],
+      paramsNames: ['portingOrderId'],
     }),
   });
 }
@@ -33,15 +33,11 @@ export const PortingOrders = TelnyxResource.extend({
   list: telnyxMethod({
     method: 'GET',
     methodType: 'list',
-
-    transformResponseData: transformResponseData,
   }),
 
   create: telnyxMethod({
     method: 'POST',
     methodType: 'create',
-
-    transformResponseData: transformResponseData,
   }),
 
   // include_phone_numbers query param
@@ -68,8 +64,10 @@ export const PortingOrders = TelnyxResource.extend({
 
   cancelOrder: telnyxMethod({
     method: 'POST',
-    path: '/{id}/actions/cancel',
-    urlParams: ['id'],
+    path: '/{orderId}/actions/cancel',
+    urlParams: ['orderId'],
+    paramsNames: ['orderId'],
+    methodType: 'create',
   }),
 
   listAllowedFocWindows: telnyxMethod({

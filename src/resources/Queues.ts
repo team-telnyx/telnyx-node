@@ -28,12 +28,12 @@ function transformResponseData(
     getSpec(response.data.name as string),
   );
 
-  methods.retrieve = telnyxMethod({
+  methods.retrieveCall = telnyxMethod({
     method: 'GET',
-    path: '/{call_control_id}',
-    urlParams: ['call_control_id'],
-    paramsValues: [response.data.call_control_id as string],
-    paramsNames: ['call_control_id'],
+    path: '/{queue_name}/calls/{call_control_id}',
+    urlParams: ['queue_name', 'call_control_id'],
+    paramsValues: [response.data.queue_name as string],
+    paramsNames: ['queue_name', 'call_control_id'],
   });
 
   return utils.addResourceToResponseData(response, telnyx, 'queues', methods);
@@ -54,15 +54,13 @@ export const Queues = TelnyxResource.extend({
     method: 'GET',
     path: '/{queue_name}/calls',
     urlParams: ['queue_name'],
-
-    transformResponseData: transformResponseData,
   }),
 
   retrieveCall: telnyxMethod({
     method: 'GET',
     path: '/{queue_name}/calls/{call_control_id}',
     urlParams: ['queue_name', 'call_control_id'],
-
-    transformResponseData: transformResponseData,
+    paramsNames: ['queue_name', 'call_control_id'],
+    methodType: 'retrieve',
   }),
 });

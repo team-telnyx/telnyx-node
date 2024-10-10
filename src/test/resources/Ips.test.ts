@@ -88,7 +88,7 @@ describe('Ips Resource', function () {
       }
     }
 
-    describe.skip('del', function () {
+    describe('del', function () {
       test('Sends the correct request', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         return telnyx.ips
@@ -101,7 +101,7 @@ describe('Ips Resource', function () {
       });
       test('Sends the correct request [with specified auth]', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
-        return telnyx.ips.retrieve('123').then(function (
+        return telnyx.ips.retrieve(TEST_UUID).then(function (
           response: ResponsePayload,
         ) {
           const ip = response.data;
@@ -129,16 +129,19 @@ describe('Ips Resource', function () {
             );
           });
       });
-      it.skip('Sends the correct request [with specified auth]', function () {
+      it('Sends the correct request [with specified auth]', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
-        return telnyx.ips.retrieve('123').then(function (
+        return telnyx.ips.retrieve(TEST_UUID).then(function (
           response: ResponsePayload,
         ) {
           const ip = response.data;
           return (
             ip
               // @ts-expect-error TODO: import .d.ts files under src/test folder
-              .update({connection_id: 'Western BSD-2'}, TEST_AUTH_KEY)
+              .update(
+                {connection_id: 'Western BSD-2', ip_address: '192.168.0.0'},
+                TEST_AUTH_KEY,
+              )
               .then(responseFn)
           );
         });

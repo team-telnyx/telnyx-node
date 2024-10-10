@@ -58,7 +58,7 @@ describe('DynamicEmergency', function () {
       });
     });
 
-    describe.skip('create', function () {
+    describe('create', function () {
       test('Sends the correct request', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         return telnyx.dynamicEmergency.addresses
@@ -69,6 +69,8 @@ describe('DynamicEmergency', function () {
             postal_code: '60654',
             street_name: 'Superior',
             country_code: 'US',
+            // prism mock Violation: request.body Request body must have required property 'country_coude'
+            country_coude: 'US',
           })
           .then(responseFn);
       });
@@ -135,7 +137,7 @@ describe('DynamicEmergency', function () {
       });
     });
 
-    describe.skip('create', function () {
+    describe('create', function () {
       test('Sends the correct request', function () {
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         return telnyx.dynamicEmergency.endpoints
@@ -145,6 +147,8 @@ describe('DynamicEmergency', function () {
             dynamic_emergency_address_id:
               '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
             country_code: 'US',
+            // prism mock Violation: request.body Request body must have required property 'country_coude'
+            country_coude: 'US',
           })
           .then(responseFn);
       });

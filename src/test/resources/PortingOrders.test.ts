@@ -1,14 +1,21 @@
+import {TelnyxObject} from '../../Types';
 import {
   type ResponsePayload,
   type ResponsePayloadList,
   utils as testUtils,
 } from '../utils';
-const telnyx = testUtils.getTelnyxMock();
 
 const TEST_AUTH_KEY = testUtils.getUserTelnyxKey();
 const TEST_UUID = '123e4567-e89b-12d3-a456-426614174000';
 
 describe('PortingOrders Resource', function () {
+  let telnyxInstance: TelnyxObject;
+
+  beforeEach(() => {
+    // make specs independent
+    telnyxInstance = testUtils.getTelnyxMock();
+  });
+
   function responseFn(response: ResponsePayload) {
     expect(response.data).toHaveProperty('activation_settings');
     expect(response.data).toHaveProperty('end_user');
@@ -30,26 +37,26 @@ describe('PortingOrders Resource', function () {
   describe('list', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders.list().then(listResponseFn);
+      return telnyxInstance.portingOrders.list().then(listResponseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders.list().then(listResponseFn);
+      return telnyxInstance.portingOrders.list().then(listResponseFn);
     });
   });
 
   describe('create', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders
+      return telnyxInstance.portingOrders
         .create(newPortingOrderParams)
         .then(listResponseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders
+      return telnyxInstance.portingOrders
         .create(newPortingOrderParams, TEST_AUTH_KEY)
         .then(listResponseFn);
     });
@@ -58,12 +65,12 @@ describe('PortingOrders Resource', function () {
   describe('retrieve', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders.retrieve(TEST_UUID).then(responseFn);
+      return telnyxInstance.portingOrders.retrieve(TEST_UUID).then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders
+      return telnyxInstance.portingOrders
         .retrieve(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
@@ -77,12 +84,12 @@ describe('PortingOrders Resource', function () {
 
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders.listExceptionTypes().then(responseFn);
+      return telnyxInstance.portingOrders.listExceptionTypes().then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders
+      return telnyxInstance.portingOrders
         .listExceptionTypes(TEST_AUTH_KEY)
         .then(responseFn);
     });
@@ -99,23 +106,25 @@ describe('PortingOrders Resource', function () {
 
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders
+      return telnyxInstance.portingOrders
         .listActivationJobs(TEST_UUID)
         .then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders
+      return telnyxInstance.portingOrders
         .listActivationJobs(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
 
-  describe.skip('cancelOrder', function () {
+  describe('cancelOrder', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders.cancelOrder(TEST_UUID).then(responseFn);
+      return telnyxInstance.portingOrders
+        .cancelOrder(TEST_UUID)
+        .then(responseFn);
     });
   });
 
@@ -128,7 +137,7 @@ describe('PortingOrders Resource', function () {
 
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders
+      return telnyxInstance.portingOrders
         .listAllowedFocWindows(TEST_UUID)
         .then(responseFn);
     });
@@ -141,14 +150,14 @@ describe('PortingOrders Resource', function () {
 
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders
+      return telnyxInstance.portingOrders
         .retrieveLoaTemplate(TEST_UUID)
         .then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders
+      return telnyxInstance.portingOrders
         .retrieveLoaTemplate(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
@@ -157,33 +166,38 @@ describe('PortingOrders Resource', function () {
   describe('confirmOrder', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders.confirmOrder(TEST_UUID).then(responseFn);
+      return telnyxInstance.portingOrders
+        .confirmOrder(TEST_UUID)
+        .then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders
+      return telnyxInstance.portingOrders
         .confirmOrder(TEST_UUID, TEST_AUTH_KEY)
         .then(responseFn);
     });
   });
 
+  // must use retrieve for nested since create endpoint returns a list instead of object data
   describe('update', function () {
     const INVOICE_ID = '35146afd-df93-4963-b1e9-1a085e2ae875';
 
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders.create(newPortingOrderParams).then(function (
+      return telnyxInstance.portingOrders.retrieve(TEST_UUID).then(function (
         response: ResponsePayload,
       ) {
         const po = response.data;
+
         // @ts-expect-error TODO: import .d.ts files under src/test folder
         return po.update({documents: {invoice: INVOICE_ID}}).then(responseFn);
       });
     });
+
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders.retrieve(TEST_UUID).then(function (
+      return telnyxInstance.portingOrders.retrieve(TEST_UUID).then(function (
         response: ResponsePayload,
       ) {
         const po = response.data;
@@ -197,25 +211,26 @@ describe('PortingOrders Resource', function () {
     });
   });
 
-  describe.skip('del', function () {
+  // must use retrieve for nested since create endpoint returns a list instead of object data
+  describe('del', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders.create(newPortingOrderParams).then(function (
+      return telnyxInstance.portingOrders.retrieve(TEST_UUID).then(function (
         response: ResponsePayload,
       ) {
         const po = response.data;
         // @ts-expect-error TODO: import .d.ts files under src/test folder
-        return po.del().then(responseFn);
+        return po.del();
       });
     });
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.portingOrders.retrieve('id').then(function (
+      return telnyxInstance.portingOrders.retrieve(TEST_UUID).then(function (
         response: ResponsePayload,
       ) {
         const po = response.data;
         // @ts-expect-error TODO: import .d.ts files under src/test folder
-        return po.del(TEST_AUTH_KEY).then(responseFn);
+        return po.del(TEST_AUTH_KEY);
       });
     });
   });

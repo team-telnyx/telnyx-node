@@ -88,7 +88,7 @@ describe('NumberReservations Resource', function () {
     });
   });
 
-  describe.skip('extend', function () {
+  describe('extend', function () {
     function responseFn(response: ResponsePayload) {
       expect(response.data).toHaveProperty('id');
       expect(response.data).toHaveProperty('status');

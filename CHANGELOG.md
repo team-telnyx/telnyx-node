@@ -2,6 +2,12 @@
 
 ## v2
 
+### v2.0.0-beta.1
+
+- Fix `Queues` resource nested methods
+- Fix `PortingOrders` and `Ips` resource nested methods param names
+- Update legacy skipped tests
+
 ### v2.0.0-beta.0
 
 - Move `AutorespConfigs` resource to be nested in `MessagingProfiles`

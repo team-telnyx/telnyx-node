@@ -14,7 +14,7 @@ function transformResponseData(
       path: '/{ipId}',
       urlParams: ['ipId'],
       paramsValues: [response.data.id as string],
-      paramsNames: ['id'],
+      paramsNames: ['ipId'],
     }),
 
     update: telnyxMethod({
@@ -22,7 +22,7 @@ function transformResponseData(
       path: '/{ipId}',
       urlParams: ['ipId'],
       paramsValues: [response.data.id as string],
-      paramsNames: ['id'],
+      paramsNames: ['ipId'],
     }),
   });
 }
