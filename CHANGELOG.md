@@ -2,6 +2,10 @@
 
 ## v2
 
+### v2.0.0-beta.2
+
+- Add missing `Texml` resource methods
+
 ### v2.0.0-beta.1
 
 - Fix `Queues` resource nested methods

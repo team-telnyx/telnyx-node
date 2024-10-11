@@ -59,6 +59,7 @@
 ///<reference path='./PortingEventsResource.d.ts' />
 ///<reference path='./PortoutEventsResource.d.ts' />
 ///<reference path='./TelephonyCredentialsResource.d.ts' />
+///<reference path='./TexmlResource.d.ts' />
 ///<reference path='./TexmlApplicationsResource.d.ts' />
 ///<reference path='./StorageBucketsResource.d.ts' />
 ///<reference path='./VerificationsResource.d.ts' />
@@ -131,6 +132,7 @@ declare module 'telnyx' {
     portingEvents: Telnyx.PortingEventsResource;
     portoutEvents: Telnyx.PortoutEventsResource;
     telephonyCredentials: Telnyx.TelephonyCredentialsResource;
+    texml: Telnyx.TexmlResource;
     texmlApplications: Telnyx.TexmlApplicationsResource;
     storageBuckets: Telnyx.StorageBucketsResource;
     verifications: Telnyx.VerificationsResource;

@@ -131,6 +131,7 @@ import {SimCardOrders} from './resources/SimCardOrders';
 import {SimCards} from './resources/SimCards';
 import {StorageBuckets} from './resources/StorageBuckets';
 import {TelephonyCredentials} from './resources/TelephonyCredentials';
+import {Texml} from './resources/Texml';
 import {TexmlApplications} from './resources/TexmlApplications';
 import {Verifications} from './resources/Verifications';
 import {VerifiedNumbers} from './resources/VerifiedNumbers';
@@ -301,6 +302,7 @@ export function createTelnyx() {
     SimCards,
     StorageBuckets,
     TelephonyCredentials,
+    Texml,
     TexmlApplications,
     Verifications,
     VerifiedNumbers,

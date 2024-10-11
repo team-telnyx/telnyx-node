@@ -41,6 +41,17 @@ declare module 'telnyx' {
     type TexmlApplicationsUpdateResponse =
       paths['/texml_applications/{id}']['patch']['responses']['200']['content']['application/json'];
 
+    type TexmlApplicationsNestedMethods = {
+      del(
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.TexmlApplicationsDelResponse>>;
+
+      update(
+        params: TexmlApplicationsUpdateParams,
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.TexmlApplicationsUpdateResponse>>;
+    };
+
     class TexmlApplicationsResource {
       del(
         id: TexmlApplicationsDelId,
@@ -50,12 +61,29 @@ declare module 'telnyx' {
       create(
         params: TexmlApplicationsCreateParams,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.TexmlApplicationsCreateResponse>>;
+      ): Promise<
+        Telnyx.Response<
+          Telnyx.TexmlApplicationsCreateResponse &
+            NestedResponseData<
+              TexmlApplicationsCreateResponse['data'],
+              TexmlApplicationsNestedMethods
+            >
+        >
+      >;
 
       retrieve(
         id: TexmlApplicationsRetrieveId,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.TexmlApplicationsRetrieveResponse>>;
+      ): Promise<
+        Telnyx.Response<
+          Telnyx.TexmlApplicationsRetrieveResponse &
+            NestedResponseData<
+              TexmlApplicationsRetrieveResponse['data'],
+              TexmlApplicationsNestedMethods
+            >
+        >
+      >;
+      // ): Promise<Telnyx.Response<Telnyx.TexmlApplicationsRetrieveResponse>>;
 
       list(
         params?: TexmlApplicationsListParams,

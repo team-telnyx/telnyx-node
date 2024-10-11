@@ -34,7 +34,7 @@ function transformResponseData(
 
 export const CallControlApplications = TelnyxResource.extend({
   path: 'call_control_applications',
-  includeBasic: ['list', 'update'],
+  includeBasic: ['list', 'update', 'del'],
 
   create: telnyxMethod({
     method: 'POST',
