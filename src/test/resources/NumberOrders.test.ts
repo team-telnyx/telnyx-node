@@ -1,13 +1,20 @@
+import {TelnyxObject} from '../../Types';
 import {
   type ResponsePayloadList,
   type ResponsePayload,
   utils as testUtils,
 } from '../utils';
-const telnyx = testUtils.getTelnyxMock();
 
 const TEST_AUTH_KEY = testUtils.getUserTelnyxKey();
 
 describe('NumberOrders Resource', function () {
+  let telnyxInstance: TelnyxObject;
+
+  beforeEach(() => {
+    // make specs independent
+    telnyxInstance = testUtils.getTelnyxMock();
+  });
+
   describe('retrieve', function () {
     function responseFn(response: ResponsePayload) {
       expect(response.data).toMatchObject({
@@ -18,14 +25,14 @@ describe('NumberOrders Resource', function () {
 
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.numberOrders
+      return telnyxInstance.numberOrders
         .retrieve('12ade33a-21c0-473b-b055-b3c836e1c292')
         .then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.numberOrders
+      return telnyxInstance.numberOrders
         .retrieve('12ade33a-21c0-473b-b055-b3c836e1c292', TEST_AUTH_KEY)
         .then(responseFn);
     });
@@ -43,19 +50,19 @@ describe('NumberOrders Resource', function () {
 
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.numberOrders.list().then(responseFn);
+      return telnyxInstance.numberOrders.list().then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.numberOrders.list(TEST_AUTH_KEY).then(responseFn);
+      return telnyxInstance.numberOrders.list(TEST_AUTH_KEY).then(responseFn);
     });
   });
 
   describe('update', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.numberOrders
+      return telnyxInstance.numberOrders
         .update('12ade33a-21c0-473b-b055-b3c836e1c292', {
           customer_reference: 'MY REF 002',
         })
@@ -92,7 +99,7 @@ describe('NumberOrders Resource', function () {
         requirements_id: '36aaf27d-986b-493c-bd1b-de16af2e4292',
       };
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.numberOrders.create(requestBody).then(responseFn);
+      return telnyxInstance.numberOrders.create(requestBody).then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
@@ -102,14 +109,14 @@ describe('NumberOrders Resource', function () {
         requirements_id: '36aaf27d-986b-493c-bd1b-de16af2e4292',
       };
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.numberOrders
+      return telnyxInstance.numberOrders
         .create(requestBody, TEST_AUTH_KEY)
         .then(responseFn);
     });
 
     test('Sends the correct request [with specified auth and no body]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.numberOrders
+      return telnyxInstance.numberOrders
         .create({'': ''}, TEST_AUTH_KEY)
         .then(responseFnNoBody);
     });

@@ -90,11 +90,11 @@ import {PhoneNumberBlockOrders} from './resources/PhoneNumberBlockOrders';
 import {PhoneNumberBlocksBackgroundJobs} from './resources/PhoneNumberBlocksBackgroundJobs';
 import {PhoneNumberCampaigns} from './resources/PhoneNumberCampaigns';
 import {PhoneNumberOrderDocuments} from './resources/PhoneNumberOrderDocuments';
-import {PhoneNumberRegulatoryRequirements} from './resources/PhoneNumberRegulatoryRequirements';
 import {PhoneNumbers} from './resources/PhoneNumbers';
-import {PhoneNumberSearch} from './resources/PhoneNumberSearch';
 import {PhoneNumbersInboundChannels} from './resources/PhoneNumbersInboundChannels';
 import {PhoneNumbersMessaging} from './resources/PhoneNumbersMessaging';
+import {PhoneNumbersRegulatoryRequirements} from './resources/PhoneNumbersRegulatoryRequirements';
+import {PhoneNumbersSlim} from './resources/PhoneNumbersSlim';
 import {PhoneNumbersVoice} from './resources/PhoneNumbersVoice';
 import {PortabilityChecks} from './resources/PortabilityChecks';
 import {PortingEvents} from './resources/PortingEvents';
@@ -146,6 +146,7 @@ import {WirelessDetailRecordReports} from './resources/WirelessDetailRecordRepor
 import TelnyxResource from './TelnyxResource';
 import * as _Error from './Error';
 import Webhooks from './Webhooks';
+import {AvailablePhoneNumbersBlocks} from './resources/AvailablePhoneNumbersBlocks';
 
 export function createTelnyx() {
   Telnyx.DEFAULT_HOST = process.env.TELNYX_API_BASE || 'api.telnyx.com';
@@ -193,6 +194,7 @@ export function createTelnyx() {
     AiSummarize,
     AuthenticationProviders,
     AvailablePhoneNumbers,
+    AvailablePhoneNumbersBlocks,
     Balance,
     BillingGroups,
     Brands,
@@ -260,9 +262,9 @@ export function createTelnyx() {
     PhoneNumberBlocksBackgroundJobs,
     PhoneNumberCampaigns,
     PhoneNumberOrderDocuments,
-    PhoneNumberRegulatoryRequirements,
+    PhoneNumbersRegulatoryRequirements,
+    PhoneNumbersSlim,
     PhoneNumbers,
-    PhoneNumberSearch,
     PhoneNumbersInboundChannels,
     PhoneNumbersMessaging,
     PhoneNumbersVoice,

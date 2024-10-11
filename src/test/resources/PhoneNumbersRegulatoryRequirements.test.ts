@@ -36,7 +36,7 @@ describe('PhoneNumberRegulatoryRequirements Resource', function () {
     test('Sends the correct request', function () {
       return (
         // @ts-expect-error TODO: import .d.ts files under src/test folder
-        telnyx.phoneNumberRegulatoryRequirements
+        telnyx.phoneNumbersRegulatoryRequirements
           // this is due to https://github.com/stoplightio/prism/issues/2443
           .list({'filter%5bphone_number%5d': '5120000000'})
           .then(responseFn)
@@ -46,7 +46,7 @@ describe('PhoneNumberRegulatoryRequirements Resource', function () {
     test('Sends the correct request [with specified auth]', function () {
       return (
         // @ts-expect-error TODO: import .d.ts files under src/test folder
-        telnyx.phoneNumberRegulatoryRequirements
+        telnyx.phoneNumbersRegulatoryRequirements
           // this is due to https://github.com/stoplightio/prism/issues/2443
           .list({'filter%5bphone_number%5d': '5120000000'}, TEST_AUTH_KEY)
           .then(responseFn)

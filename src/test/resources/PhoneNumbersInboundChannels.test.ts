@@ -4,7 +4,7 @@ const telnyx = testUtils.getTelnyxMock();
 const TEST_AUTH_KEY = testUtils.getUserTelnyxKey();
 
 describe('Phone Numbers Inbound Channels', function () {
-  describe('retrieve', function () {
+  describe('list', function () {
     function responseFn(response: ResponsePayload) {
       expect(response.data).toMatchObject({
         record_type: 'inbound_channels',
@@ -13,13 +13,13 @@ describe('Phone Numbers Inbound Channels', function () {
 
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.phoneNumbersInboundChannels.retrieve().then(responseFn);
+      return telnyx.phoneNumbersInboundChannels.list().then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.phoneNumbersInboundChannels
-        .retrieve(TEST_AUTH_KEY)
+        .list(TEST_AUTH_KEY)
         .then(responseFn);
     });
   });

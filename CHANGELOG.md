@@ -5,6 +5,8 @@
 ### v2.0.0-beta.2
 
 - Add missing `Texml` resource methods
+- Add missing `PhoneNumbers`, `NumberOrders` and `RegulatoryRequirements` resource methods
+- Update types on stale resources methods
 
 ### v2.0.0-beta.1
 

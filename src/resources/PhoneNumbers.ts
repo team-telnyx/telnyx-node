@@ -1,13 +1,39 @@
 import TelnyxResource from '../TelnyxResource';
-const telnyxMethod = TelnyxResource.method;
+import {ResponsePayload, TelnyxObject} from '../Types';
+import * as utils from '../utils';
 
 import {PhoneNumbersMessaging} from './PhoneNumbersMessaging';
 import {PhoneNumbersVoice} from './PhoneNumbersVoice';
 import {PhoneNumbersInboundChannels} from './PhoneNumbersInboundChannels';
 
+const telnyxMethod = TelnyxResource.method;
+
+function transformResponseData(
+  response: ResponsePayload,
+  telnyx: TelnyxObject,
+) {
+  return utils.addResourceToResponseData(response, telnyx, 'phoneNumbers', {
+    del: telnyxMethod({
+      method: 'DELETE',
+      path: '/{intId}',
+      urlParams: ['intId'],
+      paramsValues: [response.data.id as string],
+      paramsNames: ['intId'],
+    }),
+
+    update: telnyxMethod({
+      method: 'PATCH',
+      path: '/{intId}',
+      urlParams: ['intId'],
+      paramsValues: [response.data.id as string],
+      paramsNames: ['intId'],
+    }),
+  });
+}
+
 export const PhoneNumbers = TelnyxResource.extend({
   path: 'phone_numbers',
-  includeBasic: ['list', 'retrieve', 'update', 'del'],
+  includeBasic: ['list', 'update', 'del'],
 
   nestedResources: {
     Messaging: PhoneNumbersMessaging,
@@ -15,35 +41,70 @@ export const PhoneNumbers = TelnyxResource.extend({
     Inbound: PhoneNumbersInboundChannels,
   },
 
+  retrieve: telnyxMethod({
+    method: 'GET',
+    path: '/{id}',
+    urlParams: ['id'],
+
+    transformResponseData: transformResponseData,
+  }),
+
   retrieveVoiceSettings: telnyxMethod({
     method: 'GET',
-    path: '/{id}/voice',
-    urlParams: ['id'],
+    path: '/{intId}/voice',
+    urlParams: ['intId'],
+    paramsNames: ['intId'],
     methodType: 'retrieve',
   }),
 
   updateVoiceSettings: telnyxMethod({
     method: 'PATCH',
-    path: '/{id}/voice',
-    urlParams: ['id'],
+    path: '/{intId}/voice',
+    urlParams: ['intId'],
+    paramsNames: ['intId'],
   }),
 
   retrieveMessagingSettings: telnyxMethod({
     method: 'GET',
-    path: '/{id}/messaging',
-    urlParams: ['id'],
+    path: '/{intId}/messaging',
+    urlParams: ['intId'],
+    paramsNames: ['intId'],
     methodType: 'retrieve',
   }),
 
   updateMessagingSettings: telnyxMethod({
     method: 'PATCH',
-    path: '/{id}/messaging',
-    urlParams: ['id'],
+    path: '/{intId}/messaging',
+    urlParams: ['intId'],
+    paramsNames: ['intId'],
   }),
 
-  setEmergencySettings: telnyxMethod({
+  enableEmergencySettings: telnyxMethod({
     method: 'POST',
-    path: '/{id}/actions/enable_emergency',
-    urlParams: ['id'],
+    path: '/{intId}/actions/enable_emergency',
+    urlParams: ['intId'],
+    paramsNames: ['intId'],
+  }),
+
+  retrieveVoicemail: telnyxMethod({
+    method: 'GET',
+    path: '/{phone_number_id}/voicemail',
+    urlParams: ['phone_number_id'],
+    paramsNames: ['phone_number_id'],
+    methodType: 'retrieve',
+  }),
+
+  createVoicemail: telnyxMethod({
+    method: 'POST',
+    path: '/{phone_number_id}/voicemail',
+    urlParams: ['phone_number_id'],
+    paramsNames: ['phone_number_id'],
+  }),
+
+  updateVoicemail: telnyxMethod({
+    method: 'PATCH',
+    path: '/{phone_number_id}/voicemail',
+    urlParams: ['phone_number_id'],
+    paramsNames: ['phone_number_id'],
   }),
 });

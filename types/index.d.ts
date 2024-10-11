@@ -22,6 +22,7 @@
 ///<reference path='./AuthenticationProvidersResource.d.ts' />
 ///<reference path='./AddressesResource.d.ts' />
 ///<reference path='./AvailablePhoneNumbersResource.d.ts' />
+///<reference path='./AvailablePhoneNumbersBlocksResource.d.ts' />
 ///<reference path='./BalanceResource.d.ts' />
 ///<reference path='./BillingGroupsResource.d.ts' />
 ///<reference path='./BrandsResource.d.ts' />
@@ -54,10 +55,18 @@
 ///<reference path='./MessagingProfilesResource.d.ts' />
 ///<reference path='./MessagingProfileMetricsResource.d.ts' />
 ///<reference path='./NotificationEventsResource.d.ts' />
+///<reference path='./NumberOrdersResource.d.ts' />
 ///<reference path='./PhoneNumberAssignmentByProfileResource.d.ts' />
 ///<reference path='./PhoneNumbersCsvDownloadsResource.d.ts' />
+///<reference path='./PhoneNumbersInboundChannelsResource.d.ts' />
+///<reference path='./PhoneNumbersMessagingResource.d.ts' />
+///<reference path='./PhoneNumbersVoiceResource.d.ts' />
+///<reference path='./PhoneNumbersSlimResource.d.ts' />
+///<reference path='./PhoneNumbersRegulatoryRequirementsResource.d.ts' />
+///<reference path='./PhoneNumbersResource.d.ts' />
 ///<reference path='./PortingEventsResource.d.ts' />
 ///<reference path='./PortoutEventsResource.d.ts' />
+///<reference path='./RegulatoryRequirementsResource.d.ts' />
 ///<reference path='./TelephonyCredentialsResource.d.ts' />
 ///<reference path='./TexmlResource.d.ts' />
 ///<reference path='./TexmlApplicationsResource.d.ts' />
@@ -95,6 +104,7 @@ declare module 'telnyx' {
     authenticationProviders: Telnyx.AuthenticationProvidersResource;
     addresses: Telnyx.AddressesResource;
     availablePhoneNumbers: Telnyx.AvailablePhoneNumbersResource;
+    availablePhoneNumbersBlocks: Telnyx.AvailablePhoneNumbersBlocksResource;
     balance: Telnyx.BalanceResource;
     brands: Telnyx.BrandsResource;
     billingGroups: Telnyx.BillingGroupsResource;
@@ -127,10 +137,18 @@ declare module 'telnyx' {
     messagingProfileMetrics: Telnyx.MessagingProfileMetricsResource;
     messagingProfiles: Telnyx.MessagingProfilesResource;
     notificationEvents: Telnyx.NotificationEventsResource;
+    numberOrders: Telnyx.NumberOrdersResource;
     phoneNumberAssignmentByProfile: Telnyx.PhoneNumberAssignmentByProfileResource;
     phoneNumbersCsvDownloads: Telnyx.PhoneNumbersCsvDownloadsResource;
+    phoneNumbersInboundChannels: Telnyx.PhoneNumbersInboundChannelsResource;
+    phoneNumbersMessaging: Telnyx.PhoneNumbersMessagingResource;
+    phoneNumbersVoice: Telnyx.PhoneNumbersVoiceResource;
+    phoneNumbersSlim: Telnyx.PhoneNumbersSlimResource;
+    phoneNumbersRegulatoryRequirements: Telnyx.PhoneNumbersRegulatoryRequirementsResource;
+    phoneNumbers: Telnyx.PhoneNumbersResource;
     portingEvents: Telnyx.PortingEventsResource;
     portoutEvents: Telnyx.PortoutEventsResource;
+    regulatoryRequirements: Telnyx.RegulatoryRequirementsResource;
     telephonyCredentials: Telnyx.TelephonyCredentialsResource;
     texml: Telnyx.TexmlResource;
     texmlApplications: Telnyx.TexmlApplicationsResource;
