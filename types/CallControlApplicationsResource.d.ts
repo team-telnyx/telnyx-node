@@ -42,8 +42,14 @@ declare module 'telnyx' {
       paths['/call_control_applications/{id}']['delete']['responses']['200']['content']['application/json'];
 
     type CallControlApplicationsNestedMethods = {
-      create: MessagingProfilesResource['create'];
-      del: MessagingProfilesResource['del'];
+      del(
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.CallControlApplicationsDelResponse>>;
+
+      update(
+        params: CallControlApplicationsUpdateParams,
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.CallControlApplicationsUpdateResponse>>;
     };
 
     class CallControlApplicationsResource {

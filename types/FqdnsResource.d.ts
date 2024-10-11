@@ -46,15 +46,21 @@ declare module 'telnyx' {
       paths['/fqdns/{id}']['patch']['responses']['200']['content']['application/json'];
 
     type FqdnsNestedMethods = {
-      create: FqdnsResource['create'];
-      del: FqdnsResource['del'];
+      del(
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.FqdnsDelResponse>>;
+
+      update(
+        params: FqdnsUpdateParams,
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.FqdnsUpdateResponse>>;
     };
 
     class FqdnsResource {
-      del(
-        id: FqdnsDelId,
+      list(
+        params?: FqdnsListParams,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.FqdnsDelResponse>>;
+      ): Promise<Telnyx.Response<Telnyx.FqdnsListResponse>>;
 
       create(
         params: FqdnsCreateParams,
@@ -79,10 +85,10 @@ declare module 'telnyx' {
         >
       >;
 
-      list(
-        params?: FqdnsListParams,
+      del(
+        id: FqdnsDelId,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.FqdnsListResponse>>;
+      ): Promise<Telnyx.Response<Telnyx.FqdnsDelResponse>>;
 
       update(
         id: FqdnsUpdateId,

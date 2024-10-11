@@ -191,22 +191,26 @@ declare module 'telnyx' {
         id: ConferencesRetrieveId,
         options?: RequestOptions,
       ): Promise<
-        Telnyx.Response<Telnyx.ConferencesRetrieveResponse> &
-          NestedResponseData<
-            ConferencesRetrieveResponse['data'],
-            ConferencesNestedMethods
-          >
+        Telnyx.Response<
+          Telnyx.ConferencesRetrieveResponse &
+            NestedResponseData<
+              ConferencesRetrieveResponse['data'],
+              ConferencesNestedMethods
+            >
+        >
       >;
 
       create(
         params: ConferencesCreateParams,
         options?: RequestOptions,
       ): Promise<
-        Telnyx.Response<Telnyx.ConferencesCreateResponse> &
-          NestedResponseData<
-            ConferencesCreateResponse['data'],
-            ConferencesNestedMethods
-          >
+        Telnyx.Response<
+          Telnyx.ConferencesCreateResponse &
+            NestedResponseData<
+              ConferencesCreateResponse['data'],
+              ConferencesNestedMethods
+            >
+        >
       >;
 
       join(

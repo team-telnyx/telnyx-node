@@ -7,6 +7,9 @@
 - Fix `Queues` resource nested methods
 - Fix `PortingOrders` and `Ips` resource nested methods param names
 - Update legacy skipped tests
+- Fix `Verifications`, `VerifyProfiles` and `VerifiedNumbers` resources method naming and params
+- Remove dupe `Verify` resource
+- Update nested methods types to match param values usage
 
 ### v2.0.0-beta.0
 

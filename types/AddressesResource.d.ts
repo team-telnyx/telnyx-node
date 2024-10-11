@@ -39,7 +39,9 @@ declare module 'telnyx' {
       paths['/addresses/{id}']['delete']['responses']['200']['content']['application/json'];
 
     type AddressesNestedMethods = {
-      del: AddressesResource['del'];
+      del(
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.AddressesDelResponse>>;
     };
 
     class AddressesResource {

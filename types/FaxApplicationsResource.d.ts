@@ -2,14 +2,11 @@ import {paths} from './TelnyxAPI.js';
 
 declare module 'telnyx' {
   namespace Telnyx {
-    type FaxApplicationsDelId =
-      paths['/fax_applications/{id}']['delete']['parameters']['path']['id'];
+    type FaxApplicationsListParams =
+      paths['/fax_applications']['get']['parameters']['query'];
 
-    type FaxApplicationsDelParams =
-      paths['/fax_applications/{id}']['delete']['parameters']['query'];
-
-    type FaxApplicationsDelResponse =
-      paths['/fax_applications/{id}']['delete']['responses']['200']['content']['application/json'];
+    type FaxApplicationsListResponse =
+      paths['/fax_applications']['get']['responses']['200']['content']['application/json'];
 
     type FaxApplicationsCreateParams =
       paths['/fax_applications']['post']['requestBody']['content']['application/json'];
@@ -26,11 +23,14 @@ declare module 'telnyx' {
     type FaxApplicationsRetrieveResponse =
       paths['/fax_applications/{id}']['get']['responses']['200']['content']['application/json'];
 
-    type FaxApplicationsListParams =
-      paths['/fax_applications']['get']['parameters']['query'];
+    type FaxApplicationsDelId =
+      paths['/fax_applications/{id}']['delete']['parameters']['path']['id'];
 
-    type FaxApplicationsListResponse =
-      paths['/fax_applications']['get']['responses']['200']['content']['application/json'];
+    type FaxApplicationsDelParams =
+      paths['/fax_applications/{id}']['delete']['parameters']['query'];
+
+    type FaxApplicationsDelResponse =
+      paths['/fax_applications/{id}']['delete']['responses']['200']['content']['application/json'];
 
     type FaxApplicationsUpdateId =
       paths['/fax_applications/{id}']['patch']['parameters']['path']['id'];
@@ -42,15 +42,21 @@ declare module 'telnyx' {
       paths['/fax_applications/{id}']['patch']['responses']['200']['content']['application/json'];
 
     type FaxApplicationsNestedMethods = {
-      create: FaxApplicationsResource['create'];
-      del: FaxApplicationsResource['del'];
+      del(
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.FaxApplicationsDelResponse>>;
+
+      update(
+        params: FaxApplicationsUpdateParams,
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.FaxApplicationsUpdateResponse>>;
     };
 
     class FaxApplicationsResource {
-      del(
-        id: FaxApplicationsDelId,
+      list(
+        params?: FaxApplicationsListParams,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.FaxApplicationsDelResponse>>;
+      ): Promise<Telnyx.Response<Telnyx.FaxApplicationsListResponse>>;
 
       create(
         params: FaxApplicationsCreateParams,
@@ -78,10 +84,10 @@ declare module 'telnyx' {
         >
       >;
 
-      list(
-        params?: FaxApplicationsListParams,
+      del(
+        id: FaxApplicationsDelId,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.FaxApplicationsListResponse>>;
+      ): Promise<Telnyx.Response<Telnyx.FaxApplicationsDelResponse>>;
 
       update(
         id: FaxApplicationsUpdateId,

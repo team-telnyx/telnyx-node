@@ -134,7 +134,6 @@ import {TelephonyCredentials} from './resources/TelephonyCredentials';
 import {TexmlApplications} from './resources/TexmlApplications';
 import {Verifications} from './resources/Verifications';
 import {VerifiedNumbers} from './resources/VerifiedNumbers';
-import {Verify} from './resources/Verify';
 import {VerifyProfiles} from './resources/VerifyProfiles';
 import {VirtualCrossConnects} from './resources/VirtualCrossConnects';
 import {WdrDetailReports} from './resources/WdrDetailReports';
@@ -305,7 +304,6 @@ export function createTelnyx() {
     TexmlApplications,
     Verifications,
     VerifiedNumbers,
-    Verify,
     VerifyProfiles,
     VirtualCrossConnects,
     WdrDetailReports,

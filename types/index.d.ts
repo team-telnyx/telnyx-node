@@ -61,6 +61,9 @@
 ///<reference path='./TelephonyCredentialsResource.d.ts' />
 ///<reference path='./TexmlApplicationsResource.d.ts' />
 ///<reference path='./StorageBucketsResource.d.ts' />
+///<reference path='./VerificationsResource.d.ts' />
+///<reference path='./VerifiedNumbersResource.d.ts' />
+///<reference path='./VerifyProfilesResource.d.ts' />
 //
 
 declare module 'telnyx' {
@@ -130,6 +133,9 @@ declare module 'telnyx' {
     telephonyCredentials: Telnyx.TelephonyCredentialsResource;
     texmlApplications: Telnyx.TexmlApplicationsResource;
     storageBuckets: Telnyx.StorageBucketsResource;
+    verifications: Telnyx.VerificationsResource;
+    verifiedNumbers: Telnyx.VerifiedNumbersResource;
+    verifyProfiles: Telnyx.VerifyProfilesResource;
     //
 
     webhooks: Telnyx.Webhooks;

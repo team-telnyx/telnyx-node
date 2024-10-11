@@ -31,14 +31,16 @@ declare module 'telnyx' {
       paths['/faxes']['get']['responses']['200']['content']['application/json'];
 
     type FaxesNestedMethods = {
-      del: FaxApplicationsResource['del'];
+      del(
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.FaxesDelResponse>>;
     };
 
     class FaxesResource {
-      del(
-        id: FaxesDelId,
+      list(
+        params?: FaxesListParams,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.FaxesDelResponse>>;
+      ): Promise<Telnyx.Response<Telnyx.FaxesListResponse>>;
 
       create(
         params: FaxesCreateParams,
@@ -73,10 +75,10 @@ declare module 'telnyx' {
         >
       >;
 
-      list(
-        params?: FaxesListParams,
+      del(
+        id: FaxesDelId,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.FaxesListResponse>>;
+      ): Promise<Telnyx.Response<Telnyx.FaxesDelResponse>>;
     }
   }
 }

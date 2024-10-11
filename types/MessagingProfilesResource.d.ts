@@ -117,7 +117,9 @@ declare module 'telnyx' {
       paths['/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}']['put']['responses']['200']['content']['application/json'];
 
     type MessagingProfilesNestedMethods = {
-      del: MessagingProfilesResource['del'];
+      del(
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.MessagingProfilesDelResponse>>;
 
       phoneNumbers(
         params: MessagingProfilesListPhoneNumbersParams,

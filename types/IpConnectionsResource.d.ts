@@ -42,15 +42,21 @@ declare module 'telnyx' {
       paths['/ip_connections/{id}']['patch']['responses']['200']['content']['application/json'];
 
     type IpConnectionsNestedMethods = {
-      create: FqdnsResource['create'];
-      del: FqdnsResource['del'];
+      del(
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.IpConnectionsDelResponse>>;
+
+      update(
+        params: IpConnectionsUpdateParams,
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.IpConnectionsUpdateResponse>>;
     };
 
     class IpConnectionsResource {
-      del(
-        id: IpConnectionsDelId,
+      list(
+        params?: IpConnectionsListParams,
         options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.IpConnectionsDelResponse>>;
+      ): Promise<Telnyx.Response<Telnyx.IpConnectionsListResponse>>;
 
       create(
         params: IpConnectionsCreateParams,
@@ -77,17 +83,6 @@ declare module 'telnyx' {
             >
         >
       >;
-
-      list(
-        params?: IpConnectionsListParams,
-        options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.IpConnectionsListResponse>>;
-
-      update(
-        id: IpConnectionsUpdateId,
-        params: IpConnectionsUpdateParams,
-        options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.IpConnectionsUpdateResponse>>;
     }
   }
 }
