@@ -14,6 +14,10 @@ applications written in server-side JavaScript.
 
 See the [Node API docs](https://developers.telnyx.com/docs/api/v2/overview?lang=node#getting-started).
 
+## Versions
+
+`telnyx-node` uses a slightly modified version of [Semantic Versioning](https://semver.org) for all changes. [See this document](VERSIONS.md) for details.
+
 ## Installation
 
 Install the package with:
@@ -43,9 +47,10 @@ callback:
 
 ```typescript
 // Create a new messaging profile and then send a message using that profile:
-telnyx.messagingProfiles.create({
-  name: 'Summer Campaign',
-})
+telnyx.messagingProfiles
+  .create({
+    name: 'Summer Campaign',
+  })
   .then((messagingProfile) => {
     return telnyx.messagingPhoneNumbers.update('+18005554000', {
       messaging_profile_id: messagingProfile.data.id,
