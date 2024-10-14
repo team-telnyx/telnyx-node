@@ -42,7 +42,7 @@ declare module 'telnyx' {
           | 'TelnyxServiceUnavailableError'
           | 'TelnyxConnectionError'
           | 'TelnyxSignatureVerificationError';
-        readonly raw: unknown;
+        readonly raw: TelnyxRawError;
         readonly headers?: TelnyxRawError['headers'];
         readonly requestId?: string;
         readonly detail?: string | Error;
