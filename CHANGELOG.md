@@ -2,6 +2,12 @@
 
 ## v2
 
+### v2.0.0-beta.3
+
+- Add `Errors` type declaration
+- Add `VERSIONS.md` information
+- Update package dependencies for runtime usage
+
 ### v2.0.0-beta.2
 
 - Add missing `Texml` resource methods
