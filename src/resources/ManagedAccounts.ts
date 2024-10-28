@@ -22,7 +22,6 @@ export const ManagedAccounts = TelnyxResource.extend({
   path: '/managed_accounts',
   list: telnyxMethod({
     method: 'GET',
-    transformResponseData: transformResponseData,
   }),
   create: telnyxMethod({
     method: 'POST',

@@ -6,6 +6,7 @@
 
 - Add `CONTRIBUTING.md` guidelines
 - Update `README.md`
+- Fix `tranformResponseData` misusage on `list` resource methods
 
 ### v2.0.0-beta.3
 

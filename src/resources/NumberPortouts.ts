@@ -31,7 +31,6 @@ export const NumberPortouts = TelnyxResource.extend({
   path: 'portouts',
   list: telnyxMethod({
     method: 'GET',
-    transformResponseData: transformResponseData,
   }),
   retrieve: telnyxMethod({
     method: 'GET',
