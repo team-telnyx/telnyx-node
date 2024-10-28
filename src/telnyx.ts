@@ -98,6 +98,8 @@ import {PhoneNumbersSlim} from './resources/PhoneNumbersSlim';
 import {PhoneNumbersVoice} from './resources/PhoneNumbersVoice';
 import {PortabilityChecks} from './resources/PortabilityChecks';
 import {PortingEvents} from './resources/PortingEvents';
+import {PortingLoaConfigurations} from './resources/PortingLoaConfigurations';
+import {PortingReports} from './resources/PortingReports';
 import {PortoutEvents} from './resources/PortoutEvents';
 import {PortingOrders} from './resources/PortingOrders';
 import {PortingPhoneNumbers} from './resources/PortingPhoneNumbers';
@@ -272,7 +274,9 @@ export function createTelnyx() {
     PortingEvents,
     PortoutEvents,
     PortabilityChecks,
+    PortingLoaConfigurations,
     PortingOrders,
+    PortingReports,
     PortingPhoneNumbers,
     PortoutRequests,
     PresignedObjectUrls,

@@ -7,6 +7,7 @@
 - Add `CONTRIBUTING.md` guidelines
 - Update `README.md`
 - Fix `tranformResponseData` misusage on `list` resource methods
+- Update stale types on Portability, Porting and Portout resources methods
 
 ### v2.0.0-beta.3
 

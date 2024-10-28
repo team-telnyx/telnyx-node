@@ -29,6 +29,11 @@ declare module 'telnyx' {
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.PortingEventsListResponse>>;
 
+      show(
+        id: PortingEventsRetrieveId,
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.PortingEventsRetrieveResponse>>;
+
       retrieve(
         id: PortingEventsRetrieveId,
         options?: RequestOptions,

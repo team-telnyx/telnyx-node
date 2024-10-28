@@ -64,7 +64,12 @@
 ///<reference path='./PhoneNumbersSlimResource.d.ts' />
 ///<reference path='./PhoneNumbersRegulatoryRequirementsResource.d.ts' />
 ///<reference path='./PhoneNumbersResource.d.ts' />
+///<reference path='./PortabilityChecksResource.d.ts' />
 ///<reference path='./PortingEventsResource.d.ts' />
+///<reference path='./PortingLoaConfigurationsResource.d.ts' />
+///<reference path='./PortingPhoneNumbersResource.d.ts' />
+///<reference path='./PortingOrdersResource.d.ts' />
+///<reference path='./PortingReportsResource.d.ts' />
 ///<reference path='./PortoutEventsResource.d.ts' />
 ///<reference path='./RegulatoryRequirementsResource.d.ts' />
 ///<reference path='./TelephonyCredentialsResource.d.ts' />
@@ -146,7 +151,12 @@ declare module 'telnyx' {
     phoneNumbersSlim: Telnyx.PhoneNumbersSlimResource;
     phoneNumbersRegulatoryRequirements: Telnyx.PhoneNumbersRegulatoryRequirementsResource;
     phoneNumbers: Telnyx.PhoneNumbersResource;
+    portabilityChecks: Telnyx.PortabilityChecksResource;
     portingEvents: Telnyx.PortingEventsResource;
+    portingLoaConfigurations: Telnyx.PortingLoaConfigurationsResource;
+    portingPhoneNumbers: Telnyx.PortingPhoneNumbersResource;
+    portingOrders: Telnyx.PortingOrdersResource;
+    portingReports: Telnyx.PortingReportsResource;
     portoutEvents: Telnyx.PortoutEventsResource;
     regulatoryRequirements: Telnyx.RegulatoryRequirementsResource;
     telephonyCredentials: Telnyx.TelephonyCredentialsResource;

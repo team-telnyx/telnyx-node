@@ -56,7 +56,6 @@ export const NumberPortouts = TelnyxResource.extend({
     method: 'GET',
     path: '/{id}/supporting_documents',
     urlParams: ['id'],
-    transformResponseData: transformResponseData,
   }),
   createListOfSupportingDocuments: telnyxMethod({
     method: 'POST',

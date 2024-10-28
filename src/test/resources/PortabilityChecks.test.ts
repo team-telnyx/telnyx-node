@@ -17,6 +17,22 @@ describe('PortabilityChecks Resource', function () {
     phone_numbers: ['+15555555555', '+16666666667'],
   };
 
+  describe('create', function () {
+    test('Sends the correct request', function () {
+      // @ts-expect-error TODO: import .d.ts files under src/test folder
+      return telnyx.portabilityChecks
+        .create(portabilityChecksParams)
+        .then(responseFn);
+    });
+
+    test('Sends the correct request [with specified auth]', function () {
+      // @ts-expect-error TODO: import .d.ts files under src/test folder
+      return telnyx.portabilityChecks
+        .create(portabilityChecksParams, TEST_AUTH_KEY)
+        .then(responseFn);
+    });
+  });
+
   describe('run', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder

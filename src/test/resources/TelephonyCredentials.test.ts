@@ -69,7 +69,7 @@ describe('TelephonyCredentials Resource', function () {
 
   describe('createToken', function () {
     function responseFn(response: ResponsePayload) {
-      expect(response.data).not.toBeNull();
+      expect(response.data).toBeDefined();
     }
 
     test('Sends the correct request', function () {
