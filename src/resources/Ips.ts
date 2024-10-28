@@ -33,8 +33,6 @@ export const Ips = TelnyxResource.extend({
   list: telnyxMethod({
     method: 'GET',
     methodType: 'list',
-
-    transformResponseData: transformResponseData,
   }),
 
   create: telnyxMethod({

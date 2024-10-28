@@ -2,6 +2,11 @@
 
 ## v2
 
+### v2.0.0-beta.4
+
+- Add `CONTRIBUTING.md` guidelines
+- Update `README.md`
+
 ### v2.0.0-beta.3
 
 - Add `Errors` type declaration

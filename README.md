@@ -12,7 +12,7 @@ applications written in server-side JavaScript.
 
 ## Documentation
 
-See the [Node API docs](https://developers.telnyx.com/docs/api/v2/overview?lang=node#getting-started).
+See the [Node API docs](https://developers.telnyx.com/api#get-started).
 
 ## Versions
 
@@ -150,7 +150,7 @@ telnyx.off('request', onRequest);
 
 Telnyx signs the webhook events it sends to your endpoint, allowing you to
 validate that they were not sent by a third-party. You can read more about it
-[here](https://developers.telnyx.com/docs/v2/call-control/receiving-webhooks).
+[here](https://developers.telnyx.com/docs/voice/programmable-voice/receiving-webhooks).
 
 Please note that you must pass the _raw_ request body, exactly as received from
 Telnyx, to the `constructEvent()` function; this will not work with a parsed
@@ -299,6 +299,20 @@ const allMessagingProfiles = await telnyx.messagingProfiles
   .list()
   .autoPagingToArray({limit: 10000});
 ```
+
+## Getting help
+
+If you need help installing or using the library, please check the [Telnyx Documentation](https://developers.telnyx.com) first, and [contact Telnyx support](https://telnyx.com/contact-us) if you don't find an answer to your question.
+
+If you've instead found a bug in the library or would like new features added, go ahead and open issues or pull requests against this repo!
+
+## Contributing
+
+Bug fixes, docs, and library improvements are always welcome. Please refer to our [Contributing Guide](CONTRIBUTING.md) for detailed information on how you can contribute.
+
+> Note: Please be aware that a good share of the files are auto-generated. You are welcome to suggest changes and submit PRs illustrating the changes. However, we'll have to make the changes in the underlying tool. You can find more info about this in the [Contributing Guide](CONTRIBUTING.md).
+
+If you're not familiar with the GitHub pull request/contribution process, [this is a nice tutorial](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
 
 ## Development
 
