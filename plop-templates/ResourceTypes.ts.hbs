@@ -1,0 +1,91 @@
+import {paths} from './TelnyxAPI.js';
+
+declare module 'telnyx' {
+  namespace Telnyx {
+    {{#each methods}}
+      {{#if (ifEquals . "retrieve")}}
+        type {{pascalCase ../name}}{{pascalCase .}}Id = paths['{{../path}}/{{../path-param}}']['get']['parameters']['path']['id'];
+      {{/if}}
+      {{#if (ifEquals . "del")}}
+        type {{pascalCase ../name}}{{pascalCase .}}Id = paths['{{../path}}/{{../path-param}}']['delete']['parameters']['path']['id'];
+      {{/if}}
+      {{#if (ifEquals . "update")}}
+        type {{pascalCase ../name}}{{pascalCase .}}Id = paths['{{../path}}/{{../path-param}}']['patch']['parameters']['path']['id'];
+      {{/if}}
+
+      {{#if (ifEquals . "list")}}
+        type {{pascalCase ../name}}{{pascalCase .}}Params = paths['{{../path}}']['get']['parameters']['query'];
+      {{/if}}
+      {{#if (ifEquals . "create")}}
+        type {{pascalCase ../name}}{{pascalCase .}}Params = paths['{{../path}}']['post']['requestBody']['content']['application/json'];
+      {{/if}}
+
+      {{#if (ifEquals . "retrieve")}}
+        type {{pascalCase ../name}}{{pascalCase .}}Params = paths['{{../path}}/{{../path-param}}']['get']['parameters']['query'];
+      {{/if}}
+      {{#if (ifEquals . "update")}}
+        type {{pascalCase ../name}}{{pascalCase .}}Params = paths['{{../path}}/{{../path-param}}']['patch']['requestBody']['content']['application/json'];
+      {{/if}}
+      {{#if (ifEquals . "del")}}
+        type {{pascalCase ../name}}{{pascalCase .}}Params = paths['{{../path}}/{{../path-param}}']['delete']['parameters']['query'];
+      {{/if}}
+
+      {{#if (ifEquals . "list")}}
+        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}']['get']['responses']['200']['content']['application/json'];
+      {{/if}}
+      {{#if (ifEquals . "create")}}
+        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}']['post']['responses']['200']['content']['application/json'];
+      {{/if}}
+
+      {{#if (ifEquals . "retrieve")}}
+        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}/{{../path-param}}']['get']['responses']['200']['content']['application/json'];
+      {{/if}}
+      {{#if (ifEquals . "update")}}
+        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}/{{../path-param}}']['patch']['responses']['200']['content']['application/json'];
+      {{/if}}
+      {{#if (ifEquals . "del")}}
+        type {{pascalCase ../name}}{{pascalCase .}}Response = paths['{{../path}}/{{../path-param}}']['delete']['responses']['200']['content']['application/json'];
+      {{/if}}
+    {{/each}}
+
+    class {{pascalCase name}}Resource {
+      {{#each methods}}
+        {{#if (ifEquals . "list")}}
+          {{.}}(
+            params?: {{pascalCase ../name}}{{pascalCase .}}Params,
+            options?: RequestOptions,
+          ): Promise<Telnyx.Response<Telnyx.{{pascalCase ../name}}{{pascalCase .}}Response>>;
+        {{/if}}
+
+        {{#if (ifEquals . "create")}}
+          {{.}}(
+            params: {{pascalCase ../name}}{{pascalCase .}}Params,
+            options?: RequestOptions,
+          ): Promise<Telnyx.Response<Telnyx.{{pascalCase ../name}}{{pascalCase .}}Response>>;
+        {{/if}}
+
+        {{#if (ifEquals . "retrieve")}}
+          {{.}}(
+            id: {{pascalCase ../name}}{{pascalCase .}}Id,
+            options?: RequestOptions,
+          ): Promise<Telnyx.Response<Telnyx.{{pascalCase ../name}}{{pascalCase .}}Response>>;
+        {{/if}}
+
+        {{#if (ifEquals . "update")}}
+          {{.}}(
+            id: {{pascalCase ../name}}{{pascalCase .}}Id,
+            params: {{pascalCase ../name}}{{pascalCase .}}Params,
+            options?: RequestOptions,
+          ): Promise<Telnyx.Response<Telnyx.{{pascalCase ../name}}{{pascalCase .}}Response>>;
+        {{/if}}
+
+        {{#if (ifEquals . "del")}}
+          {{.}}(
+            id: {{pascalCase ../name}}{{pascalCase .}}Id,
+            options?: RequestOptions,
+          ): Promise<Telnyx.Response<Telnyx.{{pascalCase ../name}}{{pascalCase .}}Response>>;
+        {{/if}}
+      {{/each}}
+    }
+  }
+}

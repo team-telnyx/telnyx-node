@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "lib": ["ES2023"],
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+    "checkJs": false,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strict": true,
+    "strictFunctionTypes": true,
+    "types": [ "node", "jest" ],
+    "esModuleInterop": true,
+    "noUncheckedIndexedAccess": true
+  },
+  "exclude": [
+    "./dist",
+    "./examples",
+    "./src/test",
+    "./node_modules"
+  ],
+}
