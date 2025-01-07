@@ -116,56 +116,6 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/actions/bulk/telephony_credentials': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Creates several credentials
-     * @description Creates several credentials in bulk.
-     */
-    post: operations['CreateBulkTelephonyCredentials'];
-    /**
-     * Delete several credentials
-     * @description Delete several credentials in bulk.
-     */
-    delete: operations['DeleteTelephonyCredentials'];
-    options?: never;
-    head?: never;
-    /**
-     * Update several credentials
-     * @description Update several credentials in bulk.
-     */
-    patch: operations['UpdateBulkTelephonyCredential'];
-    trace?: never;
-  };
-  '/actions/network_preferences/sim_cards': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    /**
-     * Bulk Network Preferences for SIM cards
-     * @description This API allows dispatching the same operation described for the PUT sim_cards/:id/network_preferences API for multiple SIM cards at once.<br/><br/>
-     *     Although, a SIM card network preference may fail individually under any validation triggered as a consequence of its state. For example, a SIM can't have an in-progress OTA update for applying a Network Preference, so they'll fail when requested in this API. In that scenario, the specific error will be present in the response along with the successful definitions in the "errors" response node.
-     *
-     */
-    put: operations['BulkSimCardNetworkPreferences'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
   '/actions/purchase/esims': {
     parameters: {
       query?: never;
@@ -204,26 +154,6 @@ export interface paths {
      *
      */
     post: operations['RegisterSimCards'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/actions/{action}/telephony_credentials': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Perform activate or deactivate action on all credentials filtered by the provided tag.
-     * @description Perform activate or deactivate action on all credentials filtered by the provided tag. Activate action will change the status to active, making it possible to connect calls with the credential. Deactivate action will change the status to inactive, making it impossible to connect calls with the credential.
-     */
-    post: operations['BulkCredentialAction'];
     delete?: never;
     options?: never;
     head?: never;
@@ -315,6 +245,41 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/advanced_orders': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** List Advanced Orders */
+    get: operations['list_advanced_orders_v2'];
+    put?: never;
+    /** Create Advanced Order */
+    post: operations['create_advanced_order_v2'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/advanced_orders/{order_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get Advanced Order */
+    get: operations['get_advanced_order_v2'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/ai/assistants': {
     parameters: {
       query?: never;
@@ -377,7 +342,7 @@ export interface paths {
     get?: never;
     put?: never;
     /**
-     * Transcribe speech to text (BETA)
+     * Transcribe speech to text
      * @description Transcribe speech to text. This endpoint is consistent with the [OpenAI Transcription API](https://platform.openai.com/docs/api-reference/audio/createTranscription) and may be used with the OpenAI JS or Python SDK.
      */
     post: operations['audio_public_audio_transcriptions_post'];
@@ -547,6 +512,70 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/ai/fine_tuning/jobs': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List fine tuning jobs
+     * @description Retrieve a list of all fine tuning jobs created by the user.
+     */
+    get: operations['get_finetuningjob_public_finetuning_get'];
+    put?: never;
+    /**
+     * Create a fine tuning job
+     * @description Create a new fine tuning job.
+     */
+    post: operations['create_new_finetuningjob_public_finetuning_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/fine_tuning/jobs/{job_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get a fine tuning job
+     * @description Retrieve a fine tuning job by `job_id`.
+     */
+    get: operations['get_finetuningjob_public_finetuning__job_id__get'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/fine_tuning/jobs/{job_id}/cancel': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Cancel a fine tuning job
+     * @description Cancel a fine tuning job.
+     */
+    post: operations['cancel_new_finetuningjob_public_finetuning_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/ai/models': {
     parameters: {
       query?: never;
@@ -612,6 +641,12 @@ export interface paths {
           'page[number]'?: components['parameters']['PageNumber'];
           /** @description The size of the page */
           'page[size]'?: components['parameters']['PageSize'];
+          /** @description Filter for audit events created before a specific date. */
+          'filter[created_before]'?: components['parameters']['FilterCreatedBefore'];
+          /** @description Filter for audit events created after a specific date. */
+          'filter[created_after]'?: components['parameters']['FilterCreatedAfter'];
+          /** @description Set how the results will be ordered by the creation date. */
+          sort?: components['parameters']['Sort'];
         };
         header?: never;
         path?: never;
@@ -1022,9 +1057,9 @@ export interface paths {
     };
     /**
      * List call events
-     * @description Filters call events by given filter parameters. Events are ordered by `event_timestamp`. If filter for `call_leg_id` or `call_session_id` is not present, it only filters events from the last 24 hours.
+     * @description Filters call events by given filter parameters. Events are ordered by `occurred_at`. If filter for `leg_id` or `application_session_id` is not present, it only filters events from the last 24 hours.
      *
-     *     **Note**: Only one `filter[event_timestamp]` can be passed.
+     *     **Note**: Only one `filter[occurred_at]` can be passed.
      *
      */
     get: operations['ListCallEvents'];
@@ -1049,7 +1084,7 @@ export interface paths {
      * Dial
      * @description Dial a number or SIP URI from a given connection. A successful response will include a `call_leg_id` which can be used to correlate the command with subsequent webhooks.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [schema](https://developers.telnyx.com/api/call-control/dial-call#callbacks) below):**
      *
      *     - `call.initiated`
      *     - `call.answered` or `call.hangup`
@@ -1087,6 +1122,46 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/calls/{call_control_id}/actions/ai_assistant_start': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Start AI Assistant (BETA)
+     * @description **BETA** - Start an AI assistant on the call.
+     */
+    post: operations['CallStartAIAssistant'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/calls/{call_control_id}/actions/ai_assistant_stop': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Stop AI Assistant (BETA)
+     * @description **BETA** - Stop an AI assistant on the call.
+     */
+    post: operations['CallStopAIAssistant'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/calls/{call_control_id}/actions/answer': {
     parameters: {
       query?: never;
@@ -1100,7 +1175,7 @@ export interface paths {
      * Answer call
      * @description Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/answer-call#callbacks) below):**
      *
      *     - `call.answered`
      *     - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url` was set
@@ -1126,7 +1201,7 @@ export interface paths {
      * Bridge calls
      * @description Bridge two call control calls.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/bridge-call#callbacks) below):**
      *
      *     - `call.bridged` for Leg A
      *     - `call.bridged` for Leg B
@@ -1195,82 +1270,11 @@ export interface paths {
      *     variety of use cases, including fraud detection, or the creation of AI-generated audio responses.
      *     Requests must specify either the `target` attribute or the `rx` and `tx` attributes.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-fork#callbacks) below):**
      *
      *     - `call.fork.started`
      *     - `call.fork.stopped`
      *
-     *     **Simple Telnyx RTP Encapsulation Protocol (STREP)**
-     *
-     *     *Note: This header/encapsulation is not used when the `rx` and `tx`
-     *     parameters have been specified; it only applies when media is forked
-     *     using the `target` attribute.*
-     *
-     *     If the destination for forked media is specified using the "target"
-     *     attribute, the RTP will be encapsulated in an extra Telnyx protocol,
-     *     which adds a 24 byte header to the RTP payload in each packet. The STREP
-     *     header includes the Call Control `call_leg_id` for stream
-     *     identification, along with bits that represent the direction (inbound or
-     *     outbound) of the media. This 24-byte header sits between the UDP header
-     *     and the RTP header.
-     *
-     *     The STREP header makes it possible to fork RTP for multiple calls (or
-     *     two RTP streams for the same call) to the same IP:port, where the
-     *     streams can be demultiplexed by your application using the information
-     *     in the header. Of course, it's still possible to ignore this header
-     *     completely, for example, if sending forked media for different calls to
-     *     different ports or IP addresses. In this case, simply strip 24 bytes
-     *     (or use the second byte to find the header length) from the received UDP
-     *     payload to get the RTP (RTP header and payload).
-     *
-     *     ```
-     *     STREP Specification
-     *
-     *       0                   1                   2                   3
-     *       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-     *      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     *      |1 1|Version|L|D|    HeaderLen  |  reserved (2 bytes)           |
-     *      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     *      |       reserved (4 bytes, for UDP ports or anything else)      |
-     *      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     *      |               The call_leg_id                                 |
-     *      |                   from Call Control                           |
-     *      |                       (128 bits / 16 bytes)                   |
-     *      |                           (this is binary data)               |
-     *      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     *
-     *      11
-     *        Static bits 11, always set to 11 to easily distinguish forked media
-     *        from RTP (10) and T.38 media (usually 00) and SIP (which begins
-     *        with a capital letter, so begins with bits 01). This is a magic number.
-     *
-     *      Version
-     *        Four bits to indicate the version number of the protocol, starting at 0001.
-     *
-     *      L
-     *        One bit to represent the leg of the call (A or B).
-     *        0 represents the A (first) leg of the call.
-     *        1 represents the B (second) leg of the call.
-     *
-     *      D
-     *        One bit to represent the direction of this RTP stream.
-     *        0 represents media received by Telnyx.
-     *        1 represents media transmitted by Telnyx.
-     *
-     *      HeaderLen (1 byte)
-     *        The length of the header in bytes.
-     *        Note that this value does not include the length of the payload. The total
-     *        size of the RTP can be calculated by subtracting the HeaderLen from the UDP
-     *        length (minus 8 for the UDP header).
-     *        In version 1, this value will always be 24.
-     *
-     *      Reserved (6 bytes)
-     *        Reserved for future use and to make sure that the header is a multiple of 32 bits
-     *
-     *      Call Leg ID
-     *        A 128-bit identifier for the call leg.
-     *        This is the call_leg_id from Call Control.
-     *     ```
      *
      */
     post: operations['StartCallFork'];
@@ -1293,7 +1297,7 @@ export interface paths {
      * Forking stop
      * @description Stop forking a call.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-fork#callbacks) below):**
      *
      *     - `call.fork.stopped`
      *
@@ -1320,7 +1324,7 @@ export interface paths {
      *
      *     You can pass a list of valid digits. The `Answer` command must be issued before the `gather` command.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/gather-call#callbacks) below):**
      *
      *     - `call.dtmf.received` (you may receive many of these webhooks)
      *     - `call.gather.ended`
@@ -1346,7 +1350,7 @@ export interface paths {
      * Gather stop
      * @description Stop current gather.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-gather#callbacks) below):**
      *
      *     - `call.gather.ended`
      *
@@ -1373,7 +1377,7 @@ export interface paths {
      *
      *      You can pass parameters described as a JSON Schema object and the voice assistant will attempt to gather these informations. At the moment only English is supported.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks) below):**
      *
      *     - `call.ai_gather.ended`
      *
@@ -1400,7 +1404,7 @@ export interface paths {
      *
      *     You can pass a list of valid digits along with an 'invalid_audio_url', which will be played back at the beginning of each prompt. Playback will be interrupted when a DTMF signal is received. The `Answer command must be issued before the `gather_using_audio` command.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/gather-using-audio#callbacks) below):**
      *
      *     - `call.playback.started`
      *     - `call.playback.ended`
@@ -1430,7 +1434,7 @@ export interface paths {
      *
      *     You can pass a list of valid digits along with an 'invalid_payload', which will be played back at the beginning of each prompt. Speech will be interrupted when a DTMF signal is received. The `Answer` command must be issued before the `gather_using_speak` command.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/gather-using-speak#callbacks) below):**
      *
      *     - `call.dtmf.received` (you may receive many of these webhooks)
      *     - `call.gather.ended`
@@ -1456,7 +1460,7 @@ export interface paths {
      * Hangup call
      * @description Hang up the call.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/hangup-call#callbacks) below):**
      *
      *     - `call.hangup`
      *     - `call.recording.saved`
@@ -1508,7 +1512,7 @@ export interface paths {
      *     - When `overlay` is enabled, `target_legs` is limited to `self`.
      *     - A customer cannot Play Audio with `overlay=true` unless there is a Play Audio with `overlay=false` actively playing.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-playback#callbacks) below):**
      *
      *     - `call.playback.started`
      *     - `call.playback.ended`
@@ -1534,7 +1538,7 @@ export interface paths {
      * Stop audio playback
      * @description Stop audio being played on the call.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-playback#callbacks) below):**
      *
      *     - `call.playback.ended` or `call.speak.ended`
      *
@@ -1609,7 +1613,7 @@ export interface paths {
      * Recording start
      * @description Start recording the call. Recording will stop on call hang-up, or can be initiated via the Stop Recording command.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-record#callbacks) below):**
      *
      *     - `call.recording.saved`
      *
@@ -1634,7 +1638,7 @@ export interface paths {
      * Recording stop
      * @description Stop recording the call.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-recording#callbacks) below):**
      *
      *     - `call.recording.saved`
      *
@@ -1659,7 +1663,7 @@ export interface paths {
      * SIP Refer a call
      * @description Initiate a SIP Refer on a Call Control call. You can initiate a SIP Refer at any point in the duration of a call.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/refer-call#callbacks) below):**
      *
      *     - `call.refer.started`
      *     - `call.refer.completed`
@@ -1686,7 +1690,7 @@ export interface paths {
      * Reject a call
      * @description Reject an incoming call.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/reject-call#callbacks) below):**
      *
      *     - `call.hangup`
      *
@@ -1748,6 +1752,58 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/calls/{call_control_id}/actions/siprec_start': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * SIPREC start
+     * @description Start siprec session to configured in SIPREC connector SRS.
+     *
+     *     **Expected Webhooks:**
+     *
+     *     - `siprec.started`
+     *     - `siprec.stopped`
+     *     - `siprec.failed`
+     *
+     */
+    post: operations['StartSiprecSession'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/calls/{call_control_id}/actions/siprec_stop': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * SIPREC stop
+     * @description Stop SIPREC session.
+     *
+     *     **Expected Webhooks:**
+     *
+     *     - `siprec.stopped`
+     *
+     */
+    post: operations['StopSiprecSession'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/calls/{call_control_id}/actions/speak': {
     parameters: {
       query?: never;
@@ -1761,7 +1817,7 @@ export interface paths {
      * Speak text
      * @description Convert text to speech and play it back on the call. If multiple speak text commands are issued consecutively, the audio files will be placed in a queue awaiting playback.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/speak-call#callbacks) below):**
      *
      *     - `call.speak.started`
      *     - `call.speak.ended`
@@ -1787,147 +1843,7 @@ export interface paths {
      * Streaming start
      * @description Start streaming the media from a call to a specific WebSocket address or Dialogflow connection in near-realtime. Audio will be delivered as base64-encoded RTP payload (raw audio), wrapped in JSON payloads.
      *
-     *     **Example: Starting a stream to a Websocket address**
-     *
-     *      The `stream_url` param is mandatory.
-     *
-     *     ```
-     *     curl -X POST \
-     *       --header "Content-Type: application/json" \
-     *       --header "Accept: application/json" \
-     *       --header "Authorization: Bearer YOUR_API_KEY" \
-     *       --data '{
-     *      "stream_url": "wss://www.example.com/websocket",\
-     *     "client_state":"aGF2ZSBhIG5pY2UgZGF5ID1d",\
-     *     "command_id":"891510ac-f3e4-11e8-af5b-de00688a4901" \
-     *     }' \
-     *       https://api.telnyx.com/v2/calls/{call_control_id}/actions/streaming_start
-     *     ```
-     *
-     *      **Example: Starting a stream to a Dialogflow connection**
-     *
-     *      Enable the Dialogflow integration by sending `"enable_dialogflow": true` in the request. You need to have a Dialogflow connection associated with your Call Control application first, [click here for instructions](https://developers.telnyx.com/docs/voice/programmable-voice/dialogflow-es).
-     *     ```
-     *     curl -X POST \
-     *       --header "Content-Type: application/json" \
-     *       --header "Accept: application/json" \
-     *       --header "Authorization: Bearer YOUR_API_KEY" \
-     *       --data '{
-     *      "client_state":"aGF2ZSBhIG5pY2UgZGF5ID1d", \
-     *     "command_id":"891510ac-f3e4-11e8-af5b-de00688a4901", \
-     *     "enable_dialogflow": true \
-     *     }' \
-     *       https://api.telnyx.com/v2/calls/{call_control_id}/actions/streaming_start
-     *     ```
-     *
-     *     **Expected Webhooks:**
-     *
-     *     - `streaming.started`
-     *     - `streaming.stopped`
-     *     - `streaming.failed`
-     *
-     *     **WebSocket events**
-     *
-     *     When the WebSocket connection is established, the following event is being sent over it:
-     *     ```
-     *     {
-     *       "event": "connected",
-     *       "version": "1.0.0"
-     *     }
-     *     ```
-     *     And when the call is started, an event which contains information about the encoding and `stream_id` that identifies a particular stream:
-     *     ```
-     *     {
-     *       "event": "start",
-     *       "sequence_number": "1",
-     *       "start": {
-     *         "user_id": "3e6f995f-85f7-4705-9741-53b116d28237",
-     *         "call_control_id": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg",
-     *         "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
-     *         "media_format": {
-     *           "encoding": "audio/x-mulaw",
-     *           "sample_rate": 8000,
-     *           "channels": 1
-     *         }
-     *       },
-     *       "stream_id": "32de0dea-53cb-4b21-89a4-9e1819c043bc"
-     *     }
-     *     ```
-     *     The start event is followed by the following media events that contain base64-encoded RTP payload (raw audio, no RTP headers) (:
-     *     ```
-     *     {
-     *       "event": "media",
-     *       "sequence_number": "4",
-     *       "media": {
-     *         "track": "inbound/outbound",
-     *         "chunk": "2",
-     *         "timestamp": "5",
-     *         "payload": "no+JhoaJjpzSHxAKBgYJD...IsSbjomGhoqQn1Ic"
-     *       },
-     *       "stream_id": "32de0dea-53cb-4b21-89a4-9e1819c043bc"
-     *     }
-     *     ```
-     *     Please note that the order of events is not guaranteed and the chunk number can be used to reorder the events.
-     *
-     *     When the call ends, the stop event over WebSockets connection is sent:
-     *     ```
-     *     {
-     *       "event": "stop",
-     *       "sequence_number": "5",
-     *       "stop": {
-     *         "user_id": "3e6f995f-85f7-4705-9741-53b116d28237",
-     *         "call_control_id": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ"
-     *        },
-     *         "stream_id": "32de0dea-53cb-4b21-89a4-9e1819c043bc"
-     *      }
-     *     ```
-     *
-     *     **Bidirectional Media Streaming**
-     *
-     *     Media can be sent back to the call through the websocket as well. This is done in a way very similar to the [playback_start](https://developers.telnyx.com/api/call-control/start-call-playback)
-     *     command, when using a base64 encoded mp3 file in the payload. Simply send a packet to the websocket connection as follows:
-     *
-     *     ```
-     *     {
-     *       "event": "media",
-     *       "media": {
-     *         "payload" : <your base64 encoded mp3 file>
-     *       }
-     *     }
-     *     ```
-     *
-     *     The payload, which is a base64-encoded mp3 file, will be played on the call.
-     *
-     *     Some limitations to be aware of:
-     *
-     *     - Media payloads can only be submitted once per second.
-     *     - Media _must_ be base64 encoded mp3
-     *
-     *     **Stream Errors**
-     *
-     *     Any errors in the media packet, including when a rate limit is reached, will result in an error frame being
-     *     sent to your websocket server. The error frame will appear as follows:
-     *
-     *     ```
-     *     {
-     *       "stream_id": "32de0dea-53cb-4b21-89a4-9e1819c043bc",
-     *       "event": "error",
-     *       "sequence_number": "6",
-     *       "error": {
-     *         "title": "rate_limit_reached",
-     *         "code": "100005",
-     *         "detail": "Too many requests"
-     *       }
-     *     }
-     *     ```
-     *
-     *     Possible errors are as follows:
-     *
-     *     - Error 100002: `"unknown_error"`
-     *     - Error 100003: `"malformed_frame"`
-     *     - Error 100004: `"invalid_media"`
-     *     - Error 100005: `"rate_limit_reached"`
-     *
+     *     Please find more details about media streaming messages specification under the [link](https://developers.telnyx.com/docs/voice/programmable-voice/media-streaming).
      */
     post: operations['StartCallStreaming'];
     delete?: never;
@@ -1949,7 +1865,7 @@ export interface paths {
      * Streaming stop
      * @description Stop streaming a call to a WebSocket.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-streaming#callbacks) below):**
      *
      *     - `streaming.stopped`
      *
@@ -2008,7 +1924,7 @@ export interface paths {
      * Transcription start
      * @description Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-transcription#callbacks) below):**
      *
      *     - `call.transcription`
      *
@@ -2053,7 +1969,7 @@ export interface paths {
      * Transfer call
      * @description Transfer a call to a new destination. If the transfer is unsuccessful, a `call.hangup` webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/transfer-call#callbacks) below):**
      *
      *     - `call.initiated`
      *     - `call.bridged` to Leg B
@@ -2435,7 +2351,7 @@ export interface paths {
      * Create conference
      * @description Create a conference from an existing call leg using a `call_control_id` and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/create-conference#callbacks) below):**
      *
      *     - `conference.created`
      *     - `conference.participant.joined`
@@ -2525,7 +2441,7 @@ export interface paths {
      * Join a conference
      * @description Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the `call_control_id` of the leg you wish to join to the conference as an attribute. The conference can have up to a certain amount of active participants, as set by the `max_participants` parameter in conference creation request.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/join-conference#callbacks) below):**
      *
      *     - `conference.participant.joined`
      *     - `conference.participant.left`
@@ -2549,7 +2465,9 @@ export interface paths {
     put?: never;
     /**
      * Leave a conference
-     * @description Removes a call leg from a conference and moves it back to parked state. **Expected Webhooks:**
+     * @description Removes a call leg from a conference and moves it back to parked state.
+     *
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/leave-conference#callbacks) below):**
      *
      *     - `conference.participant.left`
      *
@@ -2654,7 +2572,7 @@ export interface paths {
      * Conference recording start
      * @description Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-conference-recording#callbacks) below):**
      *
      *     - `conference.recording.saved`
      */
@@ -2678,7 +2596,7 @@ export interface paths {
      * Conference recording stop
      * @description Stop recording the conference.
      *
-     *     **Expected Webhooks:**
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-conference-recording#callbacks) below):**
      *
      *     - `conference.recording.saved`
      *
@@ -3911,6 +3829,7 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
+    /** Global IP Assignment Health Check Metrics */
     get: operations['GetGlobalIpAssignmentHealth'];
     put?: never;
     post?: never;
@@ -3979,6 +3898,7 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
+    /** Global IP Assignment Usage Metrics */
     get: operations['GetGlobalIpAssignmentUsage'];
     put?: never;
     post?: never;
@@ -4063,6 +3983,7 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
+    /** Global IP Latency Metrics */
     get: operations['GetGlobalIpLatency'];
     put?: never;
     post?: never;
@@ -4099,6 +4020,7 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
+    /** Global IP Usage Metrics */
     get: operations['GetGlobalIpUsage'];
     put?: never;
     post?: never;
@@ -4151,6 +4073,50 @@ export interface paths {
      * @description Delete a Global IP.
      */
     delete: operations['DeleteGlobalIp'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/integration_secrets': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List integration secrets
+     * @description Retrieve a list of all integration secrets configured by the user.
+     */
+    get: operations['list_integration_secrets'];
+    put?: never;
+    /**
+     * Create a secret
+     * @description Create a new secret with an associated identifier that can be used to securely integrate with other services.
+     */
+    post: operations['create_integration_secret'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/integration_secrets/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * Delete an integration secret
+     * @description Delete an integration secret given its ID.
+     */
+    delete: operations['delete_integration_secret'];
     options?: never;
     head?: never;
     patch?: never;
@@ -4947,6 +4913,48 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/messsages/rcs': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Send an RCS message */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      /** @description RCS message body */
+      requestBody: {
+        content: {
+          'application/json': components['schemas']['RCSMessage'];
+        };
+      };
+      responses: {
+        /** @description Successful operation */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['RCSResponse'];
+          };
+        };
+        default: components['responses']['GenericErrorResponse'];
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/mobile_network_operators': {
     parameters: {
       query?: never;
@@ -5391,54 +5399,6 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/number_order_documents': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List number order documents
-     * @description Gets a paginated list of number order documents.
-     */
-    get: operations['ListNumberOrderDocuments'];
-    put?: never;
-    /**
-     * Create a number order document
-     * @description Upload a phone number order document.
-     */
-    post: operations['CreateNumberOrderDocument'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/number_order_documents/{number_order_document_id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Retrieve a number order document
-     * @description Gets a single number order document.
-     */
-    get: operations['RetrieveNumberOrderDocument'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * Update a number order document
-     * @description Updates a number order document.
-     */
-    patch: operations['UpdateNumberOrderDocument'];
-    trace?: never;
-  };
   '/number_order_phone_numbers': {
     parameters: {
       query?: never;
@@ -5453,6 +5413,23 @@ export interface paths {
     get: operations['RetrieveOrderPhoneNumbers'];
     put?: never;
     post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/number_order_phone_numbers/{id}/requirement_group': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Update requirement group for a phone number order */
+    post: operations['updateNumberOrderPhoneNumberRequirementGroup'];
     delete?: never;
     options?: never;
     head?: never;
@@ -5745,6 +5722,52 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/partner_campaigns': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List Shared Campaigns
+     * @description Retrieve all partner campaigns you have shared to Telnyx in a paginated fashion.
+     *
+     *     This endpoint is currently limited to only returning shared campaigns that Telnyx has accepted. In other words, shared but pending campaigns are currently omitted from the response from this endpoint.
+     */
+    get: operations['GetSharedCampaigns'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/partner_campaigns/{campaignId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Single Shared Campaign
+     * @description Retrieve campaign details by `campaignId`.
+     */
+    get: operations['GetSharedCampaign'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Update Single Shared Campaign
+     * @description Update campaign details by `campaignId`. **Please note:** Only webhook urls are editable.
+     */
+    patch: operations['UpdateSharedCampaign'];
+    trace?: never;
+  };
   '/payment/auto_recharge_prefs': {
     parameters: {
       query?: never;
@@ -5824,58 +5847,6 @@ export interface paths {
     put?: never;
     post?: never;
     delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/phoneNumberCampaign': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Retrieve All Phone Number Campaigns
-     * @description Retrieve all of your organization's phone number/campaign assignments.
-     */
-    get: operations['GetAllPhoneNumberCampaignsCamelCase'];
-    put?: never;
-    /**
-     * Create New Phone Number Campaign
-     * @description Assign an individual phone number to campaign.
-     */
-    post: operations['CreatePhoneNumberCampaignCamelCase'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/phoneNumberCampaign/{phoneNumber}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Single Phone Number Campaign
-     * @description Retrieve an individual phone number/campaign assignment by `phoneNumber`.
-     */
-    get: operations['GetPhoneNumberCampaign'];
-    /**
-     * Create New Phone Number Campaign
-     * @description This endpoint allows you to assign a different campaign to a supplied `phoneNumber`.
-     */
-    put: operations['CreatePhoneNumberCampaignCamelCasePut'];
-    post?: never;
-    /**
-     * Delete Phone Number Campaign
-     * @description This endpoint allows you to remove a campaign assignment from the supplied `phoneNumber`.
-     */
-    delete: operations['DeletePhoneNumberCampaignCamelCase'];
     options?: never;
     head?: never;
     patch?: never;
@@ -6219,6 +6190,23 @@ export interface paths {
     head?: never;
     /** Update a phone number */
     patch: operations['UpdatePhoneNumber'];
+    trace?: never;
+  };
+  '/phone_numbers/{id}/actions/bundle_status_change': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Change the bundle status for a phone number (set to being in a bundle or remove from a bundle) */
+    patch: operations['PhoneNumberBundleStatusChange'];
     trace?: never;
   };
   '/phone_numbers/{id}/actions/enable_emergency': {
@@ -6846,7 +6834,7 @@ export interface paths {
      * Create a comment for a porting order
      * @description Creates a new comment for a porting order.
      */
-    post: operations['CreateComment'];
+    post: operations['CreatePortingOrderComment'];
     delete?: never;
     options?: never;
     head?: never;
@@ -7081,7 +7069,27 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/portout/events': {
+  '/portouts': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List portout requests
+     * @description Returns the portout requests according to filters
+     */
+    get: operations['ListPortoutRequest'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/portouts/events': {
     parameters: {
       query?: never;
       header?: never;
@@ -7101,7 +7109,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/portout/events/{id}': {
+  '/portouts/events/{id}': {
     parameters: {
       query?: never;
       header?: never;
@@ -7121,7 +7129,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/portout/events/{id}/republish': {
+  '/portouts/events/{id}/republish': {
     parameters: {
       query?: never;
       header?: never;
@@ -7141,7 +7149,27 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/portout/reports': {
+  '/portouts/rejections/{portout_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List eligible port-out rejection codes for a specific order
+     * @description Given a port-out ID, list rejection codes that are eligible for that port-out
+     */
+    get: operations['ListPortoutRejections'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/portouts/reports': {
     parameters: {
       query?: never;
       header?: never;
@@ -7165,7 +7193,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/portout/reports/{id}': {
+  '/portouts/reports/{id}': {
     parameters: {
       query?: never;
       header?: never;
@@ -7177,26 +7205,6 @@ export interface paths {
      * @description Retrieve a specific report generated.
      */
     get: operations['GetPortingReport'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/portouts': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List portout requests
-     * @description Returns the portout requests according to filters
-     */
-    get: operations['ListPortoutRequest'];
     put?: never;
     post?: never;
     delete?: never;
@@ -7308,7 +7316,7 @@ export interface paths {
     put?: never;
     /**
      * Create a Private Wireless Gateway
-     * @description Asynchronously create a Private Wireless Gateway for SIM cards for a previously created network.
+     * @description Asynchronously create a Private Wireless Gateway for SIM cards for a previously created network. This operation may take several minutes so you can check the Private Wireless Gateway status at the section Get a Private Wireless Gateway.
      */
     post: operations['CreatePrivateWirelessGateway'];
     delete?: never;
@@ -7735,6 +7743,23 @@ export interface paths {
     patch: operations['UpdateRequirementGroup'];
     trace?: never;
   };
+  '/requirement_groups/{id}/submit_for_approval': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Submit a Requirement Group for Approval */
+    post: operations['SubmitRequirementGroup'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/requirement_types': {
     parameters: {
       query?: never;
@@ -8043,7 +8068,7 @@ export interface paths {
       cookie?: never;
     };
     /** View a list of room participants. */
-    get: operations['ListRoomParticipants'];
+    get: operations['RetrieveListRoomParticipants'];
     put?: never;
     post?: never;
     delete?: never;
@@ -8146,7 +8171,7 @@ export interface paths {
       cookie?: never;
     };
     /** View a list of room sessions. */
-    get: operations['ListRoomSessions'];
+    get: operations['RetrieveListRoomSessions'];
     put?: never;
     post?: never;
     delete?: never;
@@ -8501,28 +8526,6 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/sim_cards/actions/bulk_set_network_preferences': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Request bulk setting of network preferences for SIM cards.
-     * @description This API triggers an asynchronous operation to set network preferences for each of the specified SIM cards.<br/>
-     *     For each SIM Card a SIM Card Action will be generated. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API.
-     *
-     */
-    post: operations['SetNetworkPreferencesBulk'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
   '/sim_cards/actions/bulk_set_public_ips': {
     parameters: {
       query?: never;
@@ -8595,28 +8598,6 @@ export interface paths {
     patch: operations['UpdateSimCard'];
     trace?: never;
   };
-  '/sim_cards/{id}/actions/delete_network_preferences': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Delete network preferences for a SIM card
-     * @description This API deletes network preferences for a SIM card.<br/>
-     *     The API will trigger an asynchronous operation called a SIM Card Action. Creating network preferences may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API.
-     *
-     */
-    post: operations['DeleteNetworkPreferences'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
   '/sim_cards/{id}/actions/disable': {
     parameters: {
       query?: never;
@@ -8683,30 +8664,6 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/sim_cards/{id}/actions/set_network_preferences': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Create or update network preferences for a SIM card
-     * @description This API sets network preferences for a SIM card.<br/>
-     *     Every SIM card has default network preferences defined on Telnyx. These preferences will determine how a SIMCard will connect to the network by considering a list of preferable operators.<br/><br/>
-     *     The SIM card needs to be attached to the network so this can connect and SMS must be available, otherwise, the operation will fail. This preference will only be respected if the network is available, otherwise the strongest signal will be used. <br/><br/>
-     *     The API will trigger an asynchronous operation called a SIM Card Action. Creating network preferences may take a period of time. The status of the SIM Card Action can be followed through the [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions) API.
-     *
-     */
-    post: operations['SetNetworkPreference'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
   '/sim_cards/{id}/actions/set_public_ip': {
     parameters: {
       query?: never;
@@ -8760,8 +8717,8 @@ export interface paths {
       cookie?: never;
     };
     /**
-     * Get activation QR code for an eSIM
-     * @description It returns the contents for the activation QR code for an eSIM.<br/><br/>
+     * Get activation code for an eSIM
+     * @description It returns the activation code for an eSIM.<br/><br/>
      *      This API is only available for eSIMs. If the given SIM is a physical SIM card, or has already been installed, an error will be returned.
      *
      */
@@ -8790,39 +8747,6 @@ export interface paths {
     put?: never;
     post?: never;
     delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/sim_cards/{id}/network_preferences': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get network preferences
-     * @description It returns the network preferences currently applied in the SIM card.
-     *
-     */
-    get: operations['GetSimCardNetworkPreferences'];
-    /**
-     * Set network preferences
-     * @description This API allows setting or updating a SIM card network preference. <br/><br/>
-     *     Every SIM card has default network preferences defined on Telnyx. These preferences will determine how a SIMCard will connect to the network by considering a list of preferable operators.<br/><br/>
-     *     There can be multiple scenarios where an operator can be preferred over another, for example, when a specific mobile operator can provide better network latency or better pricing.
-     *
-     */
-    put: operations['PutSimCardNetworkPreferences'];
-    post?: never;
-    /**
-     * Delete network preferences
-     * @description This API asynchronously removes the custom-defined network preferences settings. After this operation is done the Telnyx default settings, the same applied for an unaltered SIM card, will be in place.
-     *
-     */
-    delete: operations['DeleteSIMCardNetworkPreferences'];
     options?: never;
     head?: never;
     patch?: never;
@@ -8864,6 +8788,38 @@ export interface paths {
     put?: never;
     post?: never;
     delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/siprec_connectors': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Retrieve stored Siprec Connection
+     * @description Return details of the Siprec connection.
+     */
+    get: operations['GetSiprecConnection'];
+    /**
+     * Update stored SIPREC connector
+     * @description Updates a stored SIPREC connector
+     */
+    put: operations['UpdateSiprecConnector'];
+    /**
+     * Creates a siprec connector
+     * @description Saves a siprec connector configuration.
+     */
+    post: operations['CreateSiprecConnector'];
+    /**
+     * Delete stored Siprec Connection
+     * @description Deletes a stored Siprec Connection.
+     */
+    delete: operations['DeleteSiprecConnection'];
     options?: never;
     head?: never;
     patch?: never;
@@ -9091,6 +9047,23 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/sub_number_orders/{id}/requirement_group': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Update requirement group for a sub number order */
+    post: operations['updateSubNumberOrderRequirementGroup'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/sub_number_orders/{sub_number_order_id}': {
     parameters: {
       query?: never;
@@ -9159,26 +9132,6 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/telephony_credentials/tags': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List all tags
-     * @description Returns a list of tags used on Credentials
-     */
-    get: operations['ListTags'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
   '/telephony_credentials/{id}': {
     parameters: {
       query?: never;
@@ -9205,26 +9158,6 @@ export interface paths {
      * @description Update an existing credential.
      */
     patch: operations['UpdateTelephonyCredential'];
-    trace?: never;
-  };
-  '/telephony_credentials/{id}/actions/{action}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Perform activate or deactivate action on provided Credential
-     * @description Perform activate or deactivate action on provided Credential. Activate action will change the status to active, making it possible to connect calls with the credential. Deactivate action will change the status to inactive, making it impossible to connect calls with the credential.
-     */
-    post: operations['PerformCredentialAction'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
     trace?: never;
   };
   '/telephony_credentials/{id}/token': {
@@ -9333,6 +9266,46 @@ export interface paths {
      * @description Updates recording resource for particular call.
      */
     post: operations['UpdateTeXMLCallRecording'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/texml/Accounts/{account_sid}/Calls/{call_sid}/Siprec.json': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Request siprec session for a call
+     * @description Starts siprec session with specified parameters for call idientified by call_sid.
+     */
+    post: operations['StartTeXMLSiprecSession'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/texml/Accounts/{account_sid}/Calls/{call_sid}/Siprec/{siprec_sid}.json': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Updates siprec session for a call
+     * @description Updates siprec session identified by siprec_sid.
+     */
+    post: operations['UpdateTeXMLSiprecSession'];
     delete?: never;
     options?: never;
     head?: never;
@@ -9747,6 +9720,41 @@ export interface paths {
      * @description Get the Usage Reports options for querying usage, including the products available and their respective metrics and dimensions
      */
     get: operations['ListUsageReportsOptions'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/user_tags': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List User Tags
+     * @description List all user tags.
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Filter tags by prefix */
+          'filter[starts_with]'?: string;
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        200: components['responses']['ListUserTagsResponse'];
+        401: components['responses']['UnauthenticatedResponse'];
+      };
+    };
     put?: never;
     post?: never;
     delete?: never;
@@ -10297,6 +10305,26 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/wireless/regions': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get all wireless regions
+     * @description Retrieve all wireless regions for the given product.
+     */
+    get: operations['WirelessRegionsGetAll'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/{bucketName}': {
     parameters: {
       query?: never;
@@ -10389,6 +10417,57 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
+    AIAssistantStartRequest: {
+      /** @description AI Assistant configuration */
+      assistant?: {
+        /** @description The identifier of the AI assistant to use */
+        id?: string;
+        /** @description Reference to the OpenAI API key. Required only when using OpenAI models */
+        openai_api_key_ref?: string;
+      };
+      voice?: components['schemas']['VoiceConfig'];
+      /** @description The settings associated with the voice selected */
+      voice_settings?:
+        | components['schemas']['ElevenLabsVoiceSettings']
+        | components['schemas']['TelnyxVoiceSettings']
+        | components['schemas']['AWSVoiceSettings'];
+      /**
+       * @description Text that will be played when the assistant starts, if none then nothing will be played when the assistant starts. The greeting can be text for any voice or SSML for `AWS.Polly.<voice_id>` voices. There is a 3,000 character limit.
+       * @example Hello, can you tell me your age and where you live?
+       */
+      greeting?: string;
+      interruption_settings?: components['schemas']['InterruptionSettings'];
+      transcription?: components['schemas']['TranscriptionConfig'];
+      /**
+       * @description Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
+       * @example aGF2ZSBhIG5pY2UgZGF5ID1d
+       */
+      client_state?: string;
+      /**
+       * @description Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.
+       * @example 891510ac-f3e4-11e8-af5b-de00688a4901
+       */
+      command_id?: string;
+    };
+    /**
+     * AI Assistant Stop Request
+     * @example {
+     *       "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+     *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
+     *     }
+     */
+    AIAssistantStopRequest: {
+      /**
+       * @description Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
+       * @example aGF2ZSBhIG5pY2UgZGF5ID1d
+       */
+      client_state?: string;
+      /**
+       * @description Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.
+       * @example 891510ac-f3e4-11e8-af5b-de00688a4901
+       */
+      command_id?: string;
+    };
     /** AWS Voice Settings */
     AWSVoiceSettings: Record<string, never>;
     AcceptSuggestionsRequest: {
@@ -10587,6 +10666,38 @@ export interface components {
         record_type?: 'address_suggestion';
       };
     };
+    /** AdvancedOrderRequest */
+    AdvancedOrderRequest: {
+      /**
+       * Country Code
+       * @default US
+       */
+      country_code: string;
+      /**
+       * Comments
+       * @default
+       */
+      comments: string;
+      /**
+       * Quantity
+       * @default 1
+       */
+      quantity: number;
+      /**
+       * Area Code
+       * @default
+       */
+      area_code: string;
+      /** @default  */
+      phone_number_type: unknown;
+      /** Features */
+      features?: ('sms' | 'mms' | 'voice' | 'fax' | 'emergency')[];
+      /**
+       * Customer Reference
+       * @default
+       */
+      customer_reference: string;
+    };
     /**
      * AltBusinessIdType
      * @description An enumeration.
@@ -10766,6 +10877,7 @@ export interface components {
       stream_track: 'inbound_track' | 'outbound_track' | 'both_tracks';
       stream_bidirectional_mode?: components['schemas']['StreamBidirectionalMode'];
       stream_bidirectional_codec?: components['schemas']['StreamBidirectionalCodec'];
+      stream_bidirectional_target_legs?: components['schemas']['StreamBidirectionalTargetLegs'];
       /**
        * @description Generate silence RTP packets when no transmission available.
        * @default false
@@ -10791,6 +10903,58 @@ export interface components {
        */
       transcription: boolean;
       transcription_config?: components['schemas']['TranscriptionStartRequest'];
+      /**
+       * @description Start recording automatically after an event. Disabled by default.
+       * @example record-from-answer
+       * @enum {string}
+       */
+      record?: 'record-from-answer';
+      /**
+       * @description Defines which channel should be recorded ('single' or 'dual') when `record` is specified.
+       * @default dual
+       * @example single
+       * @enum {string}
+       */
+      record_channels: 'single' | 'dual';
+      /**
+       * @description Defines the format of the recording ('wav' or 'mp3') when `record` is specified.
+       * @default mp3
+       * @example wav
+       * @enum {string}
+       */
+      record_format: 'wav' | 'mp3';
+      /**
+       * Format: int32
+       * @description Defines the maximum length for the recording in seconds when `record` is specified. The minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).
+       * @default 0
+       * @example 1000
+       */
+      record_max_length: number;
+      /**
+       * Format: int32
+       * @description The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when `record` is specified. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite).
+       * @default 0
+       * @example 100
+       */
+      record_timeout_secs: number;
+      /**
+       * @description The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only single track is specified (`inbound`, `outbound`), `channels` configuration is ignored and it will be recorded as mono (single channel).
+       * @default both
+       * @example outbound
+       * @enum {string}
+       */
+      record_track: 'both' | 'inbound' | 'outbound';
+      /**
+       * @description When set to `trim-silence`, silence will be removed from the beginning and end of the recording.
+       * @example trim-silence
+       * @enum {string}
+       */
+      record_trim?: 'trim-silence';
+      /**
+       * @description The custom recording file name to be used instead of the default `call_leg_id`. Telnyx will still add a Unix timestamp suffix.
+       * @example my_recording_file_name
+       */
+      record_custom_file_name?: string;
     };
     /**
      * Application Name
@@ -10931,15 +11095,21 @@ export interface components {
     AudioTranscriptionRequest: {
       /**
        * Format: binary
-       * @description The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. File uploads are limited to 100 MB.
+       * @description The audio file object to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot be used together with `file_url`
        */
-      file: string;
+      file?: string;
       /**
-       * @description ID of the model to use. Only `distil-whisper/distil-large-v2` is currently available.
+       * @description Link to audio file in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. Support for hosted files is limited to 100MB. Cannot be used together with `file`
+       * @example https://example.com/file.mp3
+       */
+      file_url?: string;
+      /**
+       * @description ID of the model to use. `distil-whisper/distil-large-v2` is lower latency but English-only. `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher latency.
+       * @default distil-whisper/distil-large-v2
        * @example distil-whisper/distil-large-v2
        * @enum {string}
        */
-      model: 'distil-whisper/distil-large-v2';
+      model: 'distil-whisper/distil-large-v2' | 'openai/whisper-large-v3-turbo';
       /**
        * @description The format of the transcript output. Use `verbose_json` to take advantage of timestamps.
        * @default json
@@ -11525,7 +11695,7 @@ export interface components {
        * @description Date and time that the brand was created at.
        * @example 2021-03-08T17:57:48.801186
        */
-      createAt?: string;
+      createdAt?: string;
       /**
        * @description Date and time that the brand was last updated at.
        * @example 2021-03-08T17:57:48.801186
@@ -11928,6 +12098,105 @@ export interface components {
        * @example true
        */
       play_ringtone: boolean;
+      /**
+       * @description Specifies which country ringtone to play when `play_ringtone` is set to `true`. If not set, the US ringtone will be played.
+       * @default us
+       * @example pl
+       * @enum {string}
+       */
+      ringtone:
+        | 'at'
+        | 'au'
+        | 'be'
+        | 'bg'
+        | 'br'
+        | 'ch'
+        | 'cl'
+        | 'cn'
+        | 'cz'
+        | 'de'
+        | 'dk'
+        | 'ee'
+        | 'es'
+        | 'fi'
+        | 'fr'
+        | 'gr'
+        | 'hu'
+        | 'il'
+        | 'in'
+        | 'it'
+        | 'jp'
+        | 'lt'
+        | 'mx'
+        | 'my'
+        | 'nl'
+        | 'no'
+        | 'nz'
+        | 'ph'
+        | 'pl'
+        | 'pt'
+        | 'ru'
+        | 'se'
+        | 'sg'
+        | 'th'
+        | 'tw'
+        | 'uk'
+        | 'us-old'
+        | 'us'
+        | 've'
+        | 'za';
+      /**
+       * @description Start recording automatically after an event. Disabled by default.
+       * @example record-from-answer
+       * @enum {string}
+       */
+      record?: 'record-from-answer';
+      /**
+       * @description Defines which channel should be recorded ('single' or 'dual') when `record` is specified.
+       * @default dual
+       * @example single
+       * @enum {string}
+       */
+      record_channels: 'single' | 'dual';
+      /**
+       * @description Defines the format of the recording ('wav' or 'mp3') when `record` is specified.
+       * @default mp3
+       * @example wav
+       * @enum {string}
+       */
+      record_format: 'wav' | 'mp3';
+      /**
+       * Format: int32
+       * @description Defines the maximum length for the recording in seconds when `record` is specified. The minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).
+       * @default 0
+       * @example 1000
+       */
+      record_max_length: number;
+      /**
+       * Format: int32
+       * @description The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when `record` is specified. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite).
+       * @default 0
+       * @example 100
+       */
+      record_timeout_secs: number;
+      /**
+       * @description The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only single track is specified (`inbound`, `outbound`), `channels` configuration is ignored and it will be recorded as mono (single channel).
+       * @default both
+       * @example outbound
+       * @enum {string}
+       */
+      record_track: 'both' | 'inbound' | 'outbound';
+      /**
+       * @description When set to `trim-silence`, silence will be removed from the beginning and end of the recording.
+       * @example trim-silence
+       * @enum {string}
+       */
+      record_trim?: 'trim-silence';
+      /**
+       * @description The custom recording file name to be used instead of the default `call_leg_id`. Telnyx will still add a Unix timestamp suffix.
+       * @example my_recording_file_name
+       */
+      record_custom_file_name?: string;
     };
     /**
      * @description Name of the bucket to be used to store recording files.
@@ -12038,36 +12307,6 @@ export interface components {
        * @example 2020-01-01T00:00:00Z
        */
       timestamp?: string;
-    };
-    /**
-     * Bulk Credential Request
-     * @example {
-     *       "name": "Default Name",
-     *       "tag": "My Credentials",
-     *       "connection_id": "804252963366242252"
-     *     }
-     */
-    BulkCredentialRequest: {
-      /**
-       * @description A default name for all credentials.
-       * @example Default Credentials
-       */
-      name?: string;
-      /**
-       * @description Tags a credential for bulk operations. A single tag can hold at maximum 1000 credentials.
-       * @example My Credentials
-       */
-      tag: string;
-      /**
-       * @description Amount of credentials to be created. A single tag can hold at maximum 1000 credentials
-       * @example 100
-       */
-      amount?: number;
-      /**
-       * @description Identifies the connection this credential is associated with.
-       * @example 1234567890
-       */
-      connection_id: string;
     };
     /** @example {
      *       "record_type": "messaging_numbers_bulk_update",
@@ -12423,6 +12662,20 @@ export interface components {
          */
         custom_headers?: components['schemas']['CustomSipHeader'][];
         /**
+         * @description User-to-User and Diversion headers from sip invite.
+         * @example [
+         *       {
+         *         "name": "User-to-User",
+         *         "value": "1234"
+         *       },
+         *       {
+         *         "name": "Diversion",
+         *         "value": "<sip:111@192.168.1.1>"
+         *       }
+         *     ]
+         */
+        sip_headers?: components['schemas']['SipHeader'][];
+        /**
          * @description Number or SIP URI placing the call.
          * @example +35319605860
          */
@@ -12444,6 +12697,14 @@ export interface components {
          * @enum {string}
          */
         state?: 'answered';
+        /**
+         * @description Array of tags associated to number.
+         * @example [
+         *       "tag-01",
+         *       "tag-02"
+         *     ]
+         */
+        tags?: string[];
       };
     };
     /** Call Answered Event */
@@ -12530,12 +12791,6 @@ export interface components {
          * @example +13129457420
          */
         to?: string;
-        /**
-         * @description State received from a command.
-         * @example bridged
-         * @enum {string}
-         */
-        state?: 'bridged';
       };
     };
     /** Call Bridged Event */
@@ -13002,6 +13257,11 @@ export interface components {
          * @example 7
          */
         current_position?: number;
+        /**
+         * @description Average time call spends in the queue in seconds.
+         * @example 60
+         */
+        queue_avg_wait_time_secs?: number;
       };
     };
     /** Call Enqueued Event */
@@ -13125,10 +13385,10 @@ export interface components {
         client_state?: string;
         /**
          * @description Type of media streamed. It can be either 'raw' or 'decrypted'.
-         * @example raw
+         * @example decrypted
          * @enum {string}
          */
-        stream_type?: 'raw' | 'decrypted';
+        stream_type?: 'decrypted';
       };
     };
     /** Call Fork Started Event */
@@ -13205,10 +13465,10 @@ export interface components {
         client_state?: string;
         /**
          * @description Type of media streamed. It can be either 'raw' or 'decrypted'.
-         * @example raw
+         * @example decrypted
          * @enum {string}
          */
-        stream_type?: 'raw' | 'decrypted';
+        stream_type?: 'decrypted';
       };
     };
     /** Call Fork Stopped Event */
@@ -13418,6 +13678,34 @@ export interface components {
          */
         client_state?: string;
         /**
+         * @description Custom headers set on answer command
+         * @example [
+         *       {
+         *         "name": "head_1",
+         *         "value": "val_1"
+         *       },
+         *       {
+         *         "name": "head_2",
+         *         "value": "val_2"
+         *       }
+         *     ]
+         */
+        custom_headers?: components['schemas']['CustomSipHeader'][];
+        /**
+         * @description User-to-User and Diversion headers from sip invite.
+         * @example [
+         *       {
+         *         "name": "User-to-User",
+         *         "value": "1234"
+         *       },
+         *       {
+         *         "name": "Diversion",
+         *         "value": "<sip:111@192.168.1.1>"
+         *       }
+         *     ]
+         */
+        sip_headers?: components['schemas']['SipHeader'][];
+        /**
          * @description Number or SIP URI placing the call.
          * @example +35319605860
          */
@@ -13439,6 +13727,14 @@ export interface components {
          * @enum {string}
          */
         state?: 'hangup';
+        /**
+         * @description Array of tags associated to number.
+         * @example [
+         *       "tag-01",
+         *       "tag-02"
+         *     ]
+         */
+        tags?: string[];
         /**
          * @description The reason the call was ended (`call_rejected`, `normal_clearing`, `originator_cancel`, `timeout`, `time_limit`, `user_busy`, `not_found` or `unspecified`).
          * @example call_rejected
@@ -13527,6 +13823,16 @@ export interface components {
          */
         connection_id?: string;
         /**
+         * @description The list of comma-separated codecs enabled for the connection.
+         * @example G722,PCMU,PCMA
+         */
+        connection_codecs?: string;
+        /**
+         * @description The list of comma-separated codecs offered by caller.
+         * @example G722,PCMU,PCMA
+         */
+        offered_codecs?: string;
+        /**
          * @description ID that is unique to the call and can be used to correlate webhook events.
          * @example 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
          */
@@ -13546,6 +13852,30 @@ export interface components {
          */
         custom_headers?: components['schemas']['CustomSipHeader'][];
         /**
+         * @description User-to-User and Diversion headers from sip invite.
+         * @example [
+         *       {
+         *         "name": "User-to-User",
+         *         "value": "1234"
+         *       },
+         *       {
+         *         "name": "Diversion",
+         *         "value": "<sip:111@192.168.1.1>"
+         *       }
+         *     ]
+         */
+        sip_headers?: components['schemas']['SipHeader'][];
+        /**
+         * @description SHAKEN/STIR attestation level.
+         * @example A
+         */
+        shaken_stir_attestation?: string;
+        /**
+         * @description Whether attestation was successfully validated or not.
+         * @example true
+         */
+        shaken_stir_validated?: boolean;
+        /**
          * @description ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
          * @example 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
          */
@@ -13555,6 +13885,16 @@ export interface components {
          * @example aGF2ZSBhIG5pY2UgZGF5ID1d
          */
         client_state?: string;
+        /**
+         * @description Caller id.
+         * @example +35319605860
+         */
+        caller_id_name?: string;
+        /**
+         * @description Call screening result.
+         * @example spam_likely
+         */
+        call_screening_result?: string;
         /**
          * @description Number or SIP URI placing the call.
          * @example +35319605860
@@ -13577,6 +13917,20 @@ export interface components {
          * @enum {string}
          */
         state?: 'parked' | 'bridging';
+        /**
+         * Format: date-time
+         * @description ISO 8601 datetime of when the call started.
+         * @example 2018-02-02T22:25:27.521992Z
+         */
+        start_time?: string;
+        /**
+         * @description Array of tags associated to number.
+         * @example [
+         *       "tag-01",
+         *       "tag-02"
+         *     ]
+         */
+        tags?: string[];
       };
     };
     /** Call Initiated Event */
@@ -13674,6 +14028,11 @@ export interface components {
           | 'hangup'
           | 'leave'
           | 'timeout';
+        /**
+         * @description Time call spent in the queue in seconds.
+         * @example 60
+         */
+        wait_time_secs?: number;
       };
     };
     /** Call Left Queue Event */
@@ -13855,7 +14214,7 @@ export interface components {
          * @example ended
          * @enum {string}
          */
-        result?: 'ended' | 'not_sure';
+        result?: 'beep_detected' | 'ended' | 'not_sure';
       };
     };
     /** Call Machine Greeting Ended Event */
@@ -13951,7 +14310,8 @@ export interface components {
           | 'human_business'
           | 'machine'
           | 'silence'
-          | 'fax_detected';
+          | 'fax_detected'
+          | 'not_sure';
       };
     };
     /** Call Machine Premium Detection Ended Event */
@@ -14042,7 +14402,7 @@ export interface components {
          * @example beep_detected
          * @enum {string}
          */
-        result?: 'beep_detected';
+        result?: 'beep_detected' | 'no_beep_detected';
       };
     };
     /** Call Machine Premium Greeting Ended Event */
@@ -14143,10 +14503,15 @@ export interface components {
           | 'file_not_found'
           | 'call_hangup'
           | 'unknown'
-          | 'failed'
+          | 'cancelled'
           | 'cancelled_amd'
           | 'completed'
           | 'failed';
+        /**
+         * @description Provides details in case of failure.
+         * @example Received curl error 22 HTTP error code 404 trying to fetch http://mediaurl.com.
+         */
+        status_detail?: string;
       };
     };
     /** Call Playback Ended Event */
@@ -14754,7 +15119,7 @@ export interface components {
       preferred_codecs?: string;
       /**
        * Format: int32
-       * @description The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being called. If the timeout is reached before an answer is received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 120 seconds.
+       * @description The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being called. If the timeout is reached before an answer is received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.
        * @default 30
        * @example 60
        */
@@ -14864,6 +15229,12 @@ export interface components {
          * @example telnyx-conference
          */
         conference_name?: string;
+        /**
+         * @description Controls the moment when dialled call is joined into conference. If set to `true` user will be joined as soon as media is available (ringback). If `false` user will be joined when call is answered. Defaults to `true`
+         * @default true
+         * @example false
+         */
+        early_media: boolean;
         /**
          * @description Whether the conference should end and all remaining participants be hung up after the participant leaves the conference. Defaults to "false".
          * @example true
@@ -15001,6 +15372,7 @@ export interface components {
       stream_track: 'inbound_track' | 'outbound_track' | 'both_tracks';
       stream_bidirectional_mode?: components['schemas']['StreamBidirectionalMode'];
       stream_bidirectional_codec?: components['schemas']['StreamBidirectionalCodec'];
+      stream_bidirectional_target_legs?: components['schemas']['StreamBidirectionalTargetLegs'];
       /**
        * @description Generate silence RTP packets when no transmission available.
        * @default false
@@ -15053,6 +15425,13 @@ export interface components {
        * @example 100
        */
       record_timeout_secs: number;
+      /**
+       * @description The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only single track is specified (`inbound`, `outbound`), `channels` configuration is ignored and it will be recorded as mono (single channel).
+       * @default both
+       * @example outbound
+       * @enum {string}
+       */
+      record_track: 'both' | 'inbound' | 'outbound';
       /**
        * @description When set to `trim-silence`, silence will be removed from the beginning and end of the recording.
        * @example trim-silence
@@ -15254,6 +15633,237 @@ export interface components {
        * @example /v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls.json?Page=0&PageSize=1
        */
       uri?: string;
+    };
+    /**
+     * Siprec Failed
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "siprec.failed",
+     *       "id": "25dc3731-e51e-4927-a50d-a61cc25984b1",
+     *       "occurred_at": "2021-12-15T14:11:24.613295Z",
+     *       "payload": {
+     *         "call_control_id": "31f19208-5db0-11ec-9ea7-02420a0d3a69",
+     *         "connection_id": "7267xxxxxxxxxxxxxx",
+     *         "call_leg_id": "31f19208-5db0-11ec-9ea7-02420a0d3a69",
+     *         "call_session_id": "31f19208-5db0-11ec-9ea7-02420a0d3a69",
+     *         "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+     *         "failure_cause": "no_answer"
+     *       }
+     *     }
+     */
+    CallSiprecFailed: {
+      /**
+       * @description Identifies the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example siprec.failed
+       * @enum {string}
+       */
+      event_type?: 'siprec.failed';
+      /**
+       * Format: uuid
+       * @description Identifies the type of resource.
+       * @example 25dc3731-e51e-4927-a50d-a61cc25984b1
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2021-12-15T14:11:24.613295Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * @description Call ID used to issue commands via Call Control API.
+         * @example 31f19208-5db0-11ec-9ea7-02420a0d3a69
+         */
+        call_control_id?: string;
+        /**
+         * @description Call Control App ID (formerly Telnyx connection ID) used in the call.
+         * @example 7267xxxxxxxxxxxxxx
+         */
+        connection_id?: string;
+        /**
+         * @description ID that is unique to the call and can be used to correlate webhook events.
+         * @example 31f19208-5db0-11ec-9ea7-02420a0d3a69
+         */
+        call_leg_id?: string;
+        /**
+         * @description ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
+         * @example 31f19208-5db0-11ec-9ea7-02420a0d3a69
+         */
+        call_session_id?: string;
+        /**
+         * @description State received from a command.
+         * @example aGF2ZSBhIG5pY2UgZGF5ID1d
+         */
+        client_state?: string;
+        /**
+         * @description Q850 reason why siprec session failed.
+         * @example no_answer
+         */
+        failure_cause?: string;
+      };
+    };
+    /** Siprec Failed Event */
+    CallSiprecFailedEvent: {
+      data?: components['schemas']['CallSiprecFailed'];
+    };
+    /**
+     * Siprec Started
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "siprec.started",
+     *       "id": "7d743d69-f7e8-4761-b7d4-8cacf9d3c031",
+     *       "occurred_at": "2021-12-15T14:06:32.059436Z",
+     *       "payload": {
+     *         "call_control_id": "31f19208-5db0-11ec-9ea7-02420a0d3a69",
+     *         "connection_id": "7267xxxxxxxxxxxxxx",
+     *         "call_leg_id": "31f19208-5db0-11ec-9ea7-02420a0d3a69",
+     *         "call_session_id": "31f19208-5db0-11ec-9ea7-02420a0d3a69",
+     *         "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d"
+     *       }
+     *     }
+     */
+    CallSiprecStarted: {
+      /**
+       * @description Identifies the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example siprec.started
+       * @enum {string}
+       */
+      event_type?: 'siprec.started';
+      /**
+       * Format: uuid
+       * @description Identifies the type of resource.
+       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2021-12-15T14:06:32.059436Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * @description Call ID used to issue commands via Call Control API.
+         * @example 31f19208-5db0-11ec-9ea7-02420a0d3a69
+         */
+        call_control_id?: string;
+        /**
+         * @description Call Control App ID (formerly Telnyx connection ID) used in the call.
+         * @example 7267xxxxxxxxxxxxxx
+         */
+        connection_id?: string;
+        /**
+         * @description ID that is unique to the call and can be used to correlate webhook events.
+         * @example 31f19208-5db0-11ec-9ea7-02420a0d3a69
+         */
+        call_leg_id?: string;
+        /**
+         * @description ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
+         * @example 31f19208-5db0-11ec-9ea7-02420a0d3a69
+         */
+        call_session_id?: string;
+        /**
+         * @description State received from a command.
+         * @example aGF2ZSBhIG5pY2UgZGF5ID1d
+         */
+        client_state?: string;
+      };
+    };
+    /** Siprec Started Event */
+    CallSiprecStartedEvent: {
+      data?: components['schemas']['CallSiprecStarted'];
+    };
+    /**
+     * Siprec Stopped
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "siprec.stopped",
+     *       "id": "25dc3731-e51e-4927-a50d-a61cc25984b1",
+     *       "occurred_at": "2021-12-15T14:11:24.613295Z",
+     *       "payload": {
+     *         "call_control_id": "31f19208-5db0-11ec-9ea7-02420a0d3a69",
+     *         "connection_id": "7267xxxxxxxxxxxxxx",
+     *         "call_leg_id": "31f19208-5db0-11ec-9ea7-02420a0d3a69",
+     *         "call_session_id": "31f19208-5db0-11ec-9ea7-02420a0d3a69",
+     *         "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+     *         "hangup_cause": "normal_clearing"
+     *       }
+     *     }
+     */
+    CallSiprecStopped: {
+      /**
+       * @description Identifies the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example siprec.stopped
+       * @enum {string}
+       */
+      event_type?: 'siprec.stopped';
+      /**
+       * Format: uuid
+       * @description Identifies the type of resource.
+       * @example 25dc3731-e51e-4927-a50d-a61cc25984b1
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2021-12-15T14:11:24.613295Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * @description Call ID used to issue commands via Call Control API.
+         * @example 31f19208-5db0-11ec-9ea7-02420a0d3a69
+         */
+        call_control_id?: string;
+        /**
+         * @description Call Control App ID (formerly Telnyx connection ID) used in the call.
+         * @example 7267xxxxxxxxxxxxxx
+         */
+        connection_id?: string;
+        /**
+         * @description ID that is unique to the call and can be used to correlate webhook events.
+         * @example 31f19208-5db0-11ec-9ea7-02420a0d3a69
+         */
+        call_leg_id?: string;
+        /**
+         * @description ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
+         * @example 31f19208-5db0-11ec-9ea7-02420a0d3a69
+         */
+        call_session_id?: string;
+        /**
+         * @description State received from a command.
+         * @example aGF2ZSBhIG5pY2UgZGF5ID1d
+         */
+        client_state?: string;
+        /**
+         * @description Q850 reason why the SIPREC session was stopped.
+         * @example normal_clearing
+         */
+        hangup_cause?: string;
+      };
+    };
+    /** Siprec Stopped Event */
+    CallSiprecStoppedEvent: {
+      data?: components['schemas']['CallSiprecStopped'];
     };
     /**
      * Call Speak Ended
@@ -15872,10 +16482,10 @@ export interface components {
     };
     /** CampaignRecordSet_CSP */
     CampaignRecordSet_CSP: {
-      /** Page */
-      page?: number;
       /** Records */
       records?: components['schemas']['TelnyxCampaignWithAssignedCount_CSP'][];
+      /** Page */
+      page?: number;
       /** Totalrecords */
       totalRecords?: number;
     };
@@ -16034,6 +16644,21 @@ export interface components {
        * @description Is terms and conditions accepted?
        */
       termsAndConditions?: boolean;
+      /**
+       * PrivacyPolicyLink
+       * @description Link to the campaign's privacy policy.
+       */
+      privacyPolicyLink?: string;
+      /**
+       * TermsAndConditionsLink
+       * @description Link to the campaign's terms and conditions.
+       */
+      termsAndConditionsLink?: string;
+      /**
+       * EmbeddedLinkSample
+       * @description Sample of an embedded link that will be sent to subscribers.
+       */
+      embeddedLinkSample?: string;
       /**
        * Usecase
        * @description Campaign usecase. Must be of defined valid types. Use `/registry/enum/usecase` operation to retrieve usecases available for given brand.
@@ -16228,26 +16853,6 @@ export interface components {
         | 'DID_VS_TOLL_FREE'
         | 'COUNTRY'
         | 'DID_VS_TOLL_FREE_PER_COUNTRY';
-    };
-    /** Function */
-    ChatCompletionMessageToolCallFunctionParam: {
-      /** Arguments */
-      arguments: string;
-      /** Name */
-      name: string;
-    };
-    /** ChatCompletionMessageToolCallParam */
-    ChatCompletionMessageToolCallParam: {
-      /** Id */
-      id: string;
-      function: components['schemas']['ChatCompletionMessageToolCallFunctionParam'];
-      /** Type */
-      type: string;
-    };
-    /** Function */
-    ChatCompletionNamedToolChoiceFunctionParam: {
-      /** Name */
-      name: string;
     };
     /** ChatCompletionRequest */
     ChatCompletionRequest: {
@@ -16487,10 +17092,7 @@ export interface components {
        * @example sub_number_order
        * @enum {string}
        */
-      comment_record_type?:
-        | 'number_order'
-        | 'sub_number_order'
-        | 'number_order_phone_number';
+      comment_record_type?: 'sub_number_order' | 'requirement_group';
       /**
        * Format: uuid
        * @example 8ffb3622-7c6b-4ccc-b65f-7a3dc0099576
@@ -16577,101 +17179,6 @@ export interface components {
        * @example 2018-02-02T22:25:27.521Z
        */
       readonly updated_at?: string;
-    };
-    /**
-     * Composition Completed
-     * @example {
-     *       "record_type": "event",
-     *       "event_type": "video.room.composition.completed",
-     *       "id": "d51754fc-6888-4b0e-8f29-fc3ae41250cd",
-     *       "occurred_at": "2022-03-02 04:47:29.980874Z",
-     *       "payload": {
-     *         "composition_id": "5970ce77-4aeb-4e18-ac8c-3effca0c145a",
-     *         "download_url": "https://www.example.com",
-     *         "duration_secs": 53,
-     *         "format": "mp4",
-     *         "resolution": "1280x720",
-     *         "room_id": "2fbf2c0d-b6aa-463f-aeed-83ce298be978",
-     *         "session_id": "7c4da191-2600-4df6-a35e-0ecae6caa5d3",
-     *         "size_mb": 2.6
-     *       }
-     *     }
-     */
-    CompositionCompleted: {
-      /**
-       * @description An identifier for the type of the resource.
-       * @example event
-       * @enum {string}
-       */
-      record_type?: 'event';
-      /**
-       * @description The type of event being delivered.
-       * @example video.room.composition.completed
-       * @enum {string}
-       */
-      event_type?: 'video.room.composition.completed';
-      /**
-       * Format: uuid
-       * @description Uniquely identify the event.
-       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-       */
-      id?: string;
-      /**
-       * Format: date-time
-       * @description ISO 8601 datetime of when the event occurred.
-       * @example 2018-02-02T22:25:27.521992Z
-       */
-      occurred_at?: string;
-      payload?: {
-        /**
-         * Format: uuid
-         * @description Composition ID that identifies the room composition.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        composition_id?: string;
-        /**
-         * @description Url to download the room composition.
-         * @example https://www.example.com
-         */
-        download_url?: string;
-        /**
-         * @description Room composition duration in seconds.
-         * @example 67
-         */
-        duration_secs?: number;
-        /**
-         * @description Format of the room composition.
-         * @example mp4
-         */
-        format?: string;
-        /**
-         * @description Format of the room composition.
-         * @example 1280x720
-         */
-        resolution?: string;
-        /**
-         * Format: uuid
-         * @description Room ID associated with the room composition.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        room_id?: string;
-        /**
-         * Format: uuid
-         * @description Session ID associated with the room composition.
-         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-         */
-        session_id?: string;
-        /**
-         * Format: float
-         * @description Room composition size in MB.
-         * @example 10.5
-         */
-        size_mb?: number;
-      };
-    };
-    /** Composition Completed Event */
-    CompositionCompletedEvent: {
-      data?: components['schemas']['CompositionCompleted'];
     };
     /**
      * Conference
@@ -18447,11 +18954,20 @@ export interface components {
        */
       payload_type: 'text' | 'ssml';
       /**
-       * @description The gender of the voice used to speak back the text or the specific Amazon Polly voice to be used in the form of `Polly.<voice>`, e.g. `Polly.Brian`. All standard Amazon Polly voices are supported.
-       * @example female
-       * @enum {string}
+       * @description Specifies the voice used in speech synthesis.
+       *
+       *     - Define voices using the format `<Provider>.<Model>.<VoiceId>`.
+       *
+       *      **Supported Providers:**
+       *     -**AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility.
+       *     -**ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+       *
+       *     For service_level basic, you may define the gender of the speaker (male or female).
+       * @example AWS.Polly.Joanna-Neural
        */
-      voice: 'male' | 'female';
+      voice: string;
+      /** @description The settings associated with the voice selected */
+      voice_settings?: components['schemas']['ElevenLabsVoiceSettings'];
       /**
        * @description The language you want spoken. This parameter is ignored when a `Polly.*` voice is specified.
        * @example en-US
@@ -18988,7 +19504,7 @@ export interface components {
       isReseller: boolean;
       /**
        * Mock
-       * @description Mock brand for testing purposes
+       * @description Mock brand for testing purposes. Defaults to false.
        * @default false
        */
       mock: boolean;
@@ -19459,6 +19975,23 @@ export interface components {
         outbound_voice_profile_id?: components['schemas']['OutboundVoiceProfileId'];
       };
     };
+    /** CreateFineTuningJobRequest */
+    CreateFineTuningJobRequest: {
+      /** @description The base model that is being fine-tuned. */
+      model: string;
+      /** @description The storage bucket or object used for training. */
+      training_file: string;
+      /** @description Optional suffix to append to the fine tuned model's name. */
+      suffix?: string;
+      /** @description The hyperparameters used for the fine-tuning job. */
+      hyperparameters?: {
+        /**
+         * @description The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset. 'auto' decides the optimal number of epochs based on the size of the dataset. If setting the number manually, we support any number between 1 and 50 epochs.
+         * @default 3
+         */
+        n_epochs?: number;
+      };
+    };
     /**
      * Create FQDN Connection Request
      * @example {
@@ -19748,6 +20281,19 @@ export interface components {
        * @default false
        */
       shaken_stir_enabled: boolean;
+    };
+    /** CreateIntegrationSecretRequest */
+    CreateIntegrationSecretRequest: {
+      /**
+       * Identifier
+       * @description The unique identifier of the secret.
+       */
+      identifier: string;
+      /**
+       * Value
+       * @description The value of the secret.
+       */
+      value: string;
     };
     /** Create iOS push credential request */
     CreateIosPushCredentialRequest: {
@@ -21016,8 +21562,6 @@ export interface components {
      * @example 2018-02-02T22:25:27.521Z
      */
     CreatedAt: string;
-    /** Format: date-time */
-    CreationDate: string;
     /**
      * CreationStatus
      * @description An enumeration.
@@ -21104,7 +21648,7 @@ export interface components {
       /** @description Defaults to true */
       active?: boolean;
       /**
-       * @description The user name to be used as part of the credentials. Must be 4-32 characters long and alphanumeric values only (no spaces or special characters).
+       * @description The user name to be used as part of the credentials. Must be 4-32 characters long and alphanumeric values only (no spaces or special characters). At least one of the first 5 characters must be a letter.
        * @example myusername123
        */
       user_name?: string;
@@ -21710,7 +22254,7 @@ export interface components {
        * @description Network ID.
        * @example e66c496d-4a85-423b-8b2a-8e63fac20320
        */
-      network_id?: string;
+      readonly network_id?: string;
       /**
        * Format: uuid
        * @description Wireguard peer ID.
@@ -22173,6 +22717,21 @@ export interface components {
         locality_limit?: string;
         /** @description Specifies the list of strictly possible values for the requirement. Ignored when empty */
         acceptable_values?: string[];
+        /**
+         * @description Maximum length allowed for the value
+         * @example 20
+         */
+        max_length?: number;
+        /**
+         * @description Minimum length allowed for the value
+         * @example 16
+         */
+        min_length?: number;
+        /**
+         * @description Specifies the allowed characters as a string
+         * @example abcdef0123456789
+         */
+        acceptable_characters?: string;
       };
       /**
        * @description Describes the requirement type
@@ -22471,6 +23030,16 @@ export interface components {
        */
       tags?: string[];
       /**
+       * @description Type of product to be purchased, specify "whitelabel" to use a custom SPN
+       * @example whitelabel
+       */
+      product?: string;
+      /**
+       * @description Service Provider Name (SPN) for the Whitelabel eSIM product. It will be displayed as the mobile service name by operating systems of smartphones. This parameter must only contain letters, numbers and whitespaces.
+       * @example Custom SPN
+       */
+      whitelabel_name?: string;
+      /**
        * @description The amount of eSIMs to be purchased.
        * @example 10
        */
@@ -22486,7 +23055,7 @@ export interface components {
     /** ElevenLabs Voice Settings */
     ElevenLabsVoiceSettings: {
       /**
-       * @description The reference to the ElevenLabs API key to be used for the voice assistant. The API key must be added to the account text-to-speech secrets `/v2/text-to-speech/secrets`.
+       * @description The `identifier` for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your ElevenLabs API key. Warning: Free plans are unlikely to work with this integration.
        * @example my_elevenlabs_api_key
        */
       api_key_ref?: string;
@@ -22621,7 +23190,8 @@ export interface components {
      * @description The emergency services settings for a phone number.
      * @example {
      *       "emergency_enabled": true,
-     *       "emergency_address_id": "1315261609962112019"
+     *       "emergency_address_id": "1315261609962112019",
+     *       "emergency_status": "active"
      *     }
      */
     EmergencySettings: {
@@ -22644,7 +23214,8 @@ export interface components {
         | 'disabled'
         | 'active'
         | 'provisioning'
-        | 'deprovisioning';
+        | 'deprovisioning'
+        | 'provisioning-failed';
     };
     /**
      * @description Enable use of SRTP for encryption. Cannot be set if the transport_portocol is TLS.
@@ -22667,7 +23238,7 @@ export interface components {
        * @description The name of the queue the call should be put in. If a queue with a given name doesn't exist yet it will be created.
        * @example tier_1_support
        */
-      queue_name?: string;
+      queue_name: string;
       /**
        * @description Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
        * @example aGF2ZSBhIG5pY2UgZGF5ID1d
@@ -22752,8 +23323,10 @@ export interface components {
       source?: components['schemas']['SourceResponse'];
       meta?: components['schemas']['MetaResponse'];
     };
+    /** ErrorResponse */
     ErrorResponse: {
-      errors?: components['schemas']['ErrorRecord'][];
+      /** Errors */
+      errors?: components['schemas']['Error'][];
     };
     Errors: {
       errors?: components['schemas']['Error'][];
@@ -23151,7 +23724,7 @@ export interface components {
       store_media?: boolean;
       /** @description If store_media was set to true, this is a link to temporary location. Link expires after 10 minutes. */
       stored_media_url?: string;
-      /** @description If store_preview was set to true, this is a link to temporary location. Link expires after 10 minutes. */
+      /** @description If `store_preview` was set to `true`, this is a link to temporary location. Link expires after 10 minutes. */
       preview_url?: string;
       /**
        * @description State received from a command.
@@ -23553,6 +24126,43 @@ export interface components {
       billing_group?: string;
     };
     /**
+     * FineTuningJob
+     * @description The `fine_tuning.job` object represents a fine-tuning job that has been created through the API.
+     */
+    FineTuningJob: {
+      /** @description The name of the fine-tuned model that is being created. */
+      id: string;
+      /** @description The Unix timestamp (in seconds) for when the fine-tuning job was created. */
+      created_at: number;
+      /** @description The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running. */
+      finished_at: number | null;
+      /** @description The hyperparameters used for the fine-tuning job. */
+      hyperparameters: {
+        /**
+         * @description The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset.
+         * @default 3
+         */
+        n_epochs: number;
+      };
+      /** @description The base model that is being fine-tuned. */
+      model: string;
+      /** @description The organization that owns the fine-tuning job. */
+      organization_id: string;
+      /**
+       * @description The current status of the fine-tuning job.
+       * @enum {string}
+       */
+      status: 'queued' | 'running' | 'succeeded' | 'failed' | 'cancelled';
+      /** @description The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running. */
+      trained_tokens: number | null;
+      /** @description The storage bucket or object used for training. */
+      training_file: string;
+    };
+    /** FineTuningJobListData */
+    FineTuningJobsListData: {
+      data: components['schemas']['FineTuningJob'][];
+    };
+    /**
      * First Command Timeout
      * @description Specifies whether calls to phone numbers associated with this connection should hangup after timing out.
      * @default false
@@ -23781,51 +24391,11 @@ export interface components {
      * @example +13125790015
      */
     From: string;
-    /** FunctionCall */
-    FunctionCall: {
-      /** Arguments */
-      arguments: string;
-      /** Name */
-      name: string;
-    };
     /** FunctionDefinition */
     FunctionDefinition: {
       name: string;
       description?: string;
       parameters?: Record<string, never>;
-    };
-    /** FunctionDetail */
-    'FunctionDetail-Input': {
-      /** Name */
-      name: string;
-      /**
-       * Description
-       * @default
-       */
-      description: string;
-      parameters?: components['schemas']['FunctionParameters'];
-    };
-    /** FunctionDetail */
-    'FunctionDetail-Output': {
-      /** Name */
-      name: string;
-      /**
-       * Description
-       * @default
-       */
-      description: string;
-      parameters?: components['schemas']['FunctionParameters'];
-    };
-    /** FunctionParameters */
-    FunctionParameters: {
-      /** Type */
-      type: string;
-      /** Properties */
-      properties: {
-        [key: string]: components['schemas']['ParameterProperties'];
-      };
-      /** Required */
-      required: string[];
     };
     /** Google Cloud Storage Configuration Data */
     GCSConfigurationData: {
@@ -23958,22 +24528,19 @@ export interface components {
        *     }
        */
       parameters: Record<string, never>;
-      /**
-       * @description The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx and AWS voices only, for ElevenLabs voices you can pass the voice as `ElevenLabs.<model_id>.<voice_id>`, for Telnyx voices you can pass the voice as `Telnyx.<model_id>.<voice_id>`, for AWS Polly voices you can pass the voice as `AWS.Polly.<voice_id>`
-       * @default Telnyx.LibriTTS.0
-       * @example Telnyx.LibriTTS.0
-       */
-      voice: string;
+      transcription?: components['schemas']['TranscriptionConfig'];
+      voice?: components['schemas']['VoiceConfig'];
       /** @description The settings associated with the voice selected */
       voice_settings?:
         | components['schemas']['ElevenLabsVoiceSettings']
         | components['schemas']['TelnyxVoiceSettings']
         | components['schemas']['AWSVoiceSettings'];
       /**
-       * @description Text that will be played when the gathering starts, if none then nothing will be played when the gathering starts. The greeting can be text or SSML. There is a 3,000 character limit.
+       * @description Text that will be played when the gathering starts, if none then nothing will be played when the gathering starts. The greeting can be text for any voice or SSML for `AWS.Polly.<voice_id>` voices. There is a 3,000 character limit.
        * @example Hello, can you tell me your age and where you live?
        */
       greeting?: string;
+      assistant?: components['schemas']['Assistant'];
       /** @description The message history you want the voice assistant to be aware of, this can be useful to keep the context of the conversation, or to pass additional information to the voice assistant. */
       message_history?: {
         /**
@@ -23998,6 +24565,7 @@ export interface components {
        * @example 891510ac-f3e4-11e8-af5b-de00688a4901
        */
       command_id?: string;
+      interruption_settings?: components['schemas']['InterruptionSettings'];
     };
     /**
      * Gather Using Audio Request
@@ -24137,11 +24705,20 @@ export interface components {
        */
       service_level: 'basic' | 'premium';
       /**
-       * @description The gender of the voice used to speak back the text or the specific Amazon Polly voice to be used in the form of `Polly.<voice>`, e.g. `Polly.Brian`. All standard Amazon Polly voices are supported.
-       * @example female
-       * @enum {string}
+       * @description Specifies the voice used in speech synthesis.
+       *
+       *     - Define voices using the format `<Provider>.<Model>.<VoiceId>`.
+       *
+       *      **Supported Providers:**
+       *     -**AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility.
+       *     -**ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+       *
+       *     For service_level basic, you may define the gender of the speaker (male or female).
+       * @example AWS.Polly.Joanna-Neural
        */
-      voice: 'male' | 'female';
+      voice: string;
+      /** @description The settings associated with the voice selected */
+      voice_settings?: components['schemas']['ElevenLabsVoiceSettings'];
       /**
        * @description The language you want spoken. This parameter is ignored when a `Polly.*` voice is specified.
        * @example en-US
@@ -24938,13 +25515,14 @@ export interface components {
        */
       command_id?: string;
     };
-    /** @example
+    /** @example [
      *       {
      *         "record_type": "messaging_hosted_number",
      *         "id": "bf6307bd-884d-4c1f-b6ea-c62b8c495d3c",
      *         "phone_number": "+18665550001",
      *         "status": "successful"
-     *       } */
+     *       }
+     *     ] */
     HostedNumber: {
       /** @example messaging_hosted_number */
       record_type?: string;
@@ -24967,16 +25545,6 @@ export interface components {
      * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
      */
     Id: string;
-    /** ImageURL */
-    ImageURL: {
-      /** Url */
-      url: string;
-      /**
-       * Detail
-       * @enum {string}
-       */
-      detail?: 'auto' | 'low' | 'high';
-    };
     /** @example [1234567890L, 9876543210L] */
     ImmutableSetLong: number[];
     /** ImportExternalVetting */
@@ -25562,44 +26130,6 @@ export interface components {
       /** @description These errors may point at addressees when referring to unsuccessful/unconfirmed delivery statuses. */
       errors?: components['schemas']['Error'][];
     };
-    /** InferenceRequest */
-    InferenceRequest: {
-      /** Text */
-      text: string[];
-      /** @default mistralai/Mistral-7B-Instruct-v0.1 */
-      model: components['schemas']['ModelNamespace'];
-      /** Bucket */
-      bucket?: string;
-      /** Openai Api Key */
-      openai_api_key?: string;
-      /**
-       * Max Tokens
-       * @default 128
-       */
-      max_tokens: number;
-      /**
-       * Temperature
-       * @default 0.9
-       */
-      temperature: number;
-    };
-    /** InferenceResponse */
-    InferenceResponse: {
-      /** Answer */
-      answer: string[];
-    };
-    /** InferenceResponseData */
-    InferenceResponseData: {
-      data: components['schemas']['InferenceResponse'];
-    };
-    /** InferenceResponseStreamData */
-    InferenceResponseStreamData: {
-      data: components['schemas']['InferenceStreamResponse'];
-    };
-    /** InferenceStreamResponse */
-    InferenceStreamResponse: {
-      token?: string;
-    };
     /**
      * Initiate Call Request
      * @example {
@@ -25622,6 +26152,11 @@ export interface components {
        * @example +16175551212
        */
       From: string;
+      /**
+       * @description To be used as the caller id name (SIP From Display Name) presented to the destination (`To` number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and `-_~!.+` special characters. If ommited, the display name will be the same as the number in the `From` field.
+       * @example Info
+       */
+      CallerId?: string;
       /**
        * @description The URL from which Telnyx will retrieve the TeXML call instructions.
        * @example https://www.example.com/instructions.xml
@@ -25810,6 +26345,37 @@ export interface components {
      * @example 1293384261075731499
      */
     IntId: string;
+    /** IntegrationSecret */
+    IntegrationSecret: {
+      /**
+       * Record Type
+       * @example integration_secret
+       */
+      record_type: string;
+      /** Id */
+      id: string;
+      /** Identifier */
+      identifier: string;
+      /**
+       * Created At
+       * Format: date-time
+       */
+      created_at: string;
+      /**
+       * Updated At
+       * Format: date-time
+       */
+      updated_at?: string;
+    };
+    /** IntegrationSecretCreatedResponse */
+    IntegrationSecretCreatedResponse: {
+      data: components['schemas']['IntegrationSecret'];
+    };
+    /** SecretsListData */
+    IntegrationSecretsListData: {
+      /** Data */
+      data: components['schemas']['IntegrationSecret'][];
+    };
     Interface: {
       /**
        * Format: uuid
@@ -25830,6 +26396,14 @@ export interface components {
      * @enum {string}
      */
     InterfaceStatus: 'created' | 'provisioning' | 'provisioned' | 'deleting';
+    /** @description Settings for handling user interruptions during assistant speech */
+    InterruptionSettings: {
+      /**
+       * @description When true, allows users to interrupt the assistant while speaking
+       * @default true
+       */
+      enable: boolean;
+    };
     /** @example {
      *       "group": "318",
      *       "group_type": "npa",
@@ -26181,8 +26755,6 @@ export interface components {
        */
       beep_enabled?: 'always' | 'never' | 'on_enter' | 'on_exit';
     };
-    /** Format: date-time */
-    LastModified: string;
     /**
      * Leave Conference Request
      * @example {
@@ -27631,19 +28203,6 @@ export interface components {
       /** Owned By */
       owned_by: string;
     };
-    /**
-     * ModelNamespace
-     * @description Provide a namespace to our supported models.
-     * @enum {string}
-     */
-    ModelNamespace:
-      | 'meta-llama/Llama-2-13b-chat-hf'
-      | 'mistralai/Mistral-7B-Instruct-v0.1'
-      | 'Trelis/Llama-2-7b-chat-hf-function-calling-v2'
-      | 'openai/gpt-3.5-turbo'
-      | 'openai/gpt-3.5-turbo-16k'
-      | 'openai/gpt-4'
-      | 'openai/gpt-4-32k';
     /** ModelsResponse */
     ModelsResponse: {
       /**
@@ -28361,6 +28920,55 @@ export interface components {
         | 'requirement-info-under-review';
       /** @example false */
       is_block_number?: boolean;
+    };
+    NumberOrderPhoneNumberRequirementGroupResponse: {
+      /** @example pending */
+      status?: string;
+      /**
+       * Format: uuid
+       * @example a11d58fe-88a4-494a-b752-8dea411993c6
+       */
+      order_request_id?: string;
+      /** @example AT */
+      country_code?: string;
+      /** @example false */
+      is_block_number?: boolean;
+      regulatory_requirements?: {
+        /** Format: uuid */
+        requirement_id?: string;
+        /** @example 1234567890 */
+        field_value?: string;
+        /** @example textual */
+        field_type?: string;
+        /** @example pending-approval */
+        status?: string;
+      }[];
+      /** @example AUSTRIA */
+      locality?: string;
+      /** @example toll_free */
+      phone_number_type?: string;
+      /** Format: uuid */
+      bundle_id?: string | null;
+      /**
+       * Format: uuid
+       * @example f826ed66-b27c-4340-9dc0-57dc3459f1bd
+       */
+      sub_number_order_id?: string;
+      /** Format: date-time */
+      deadline?: string;
+      /** @example requirement-info-under-review */
+      requirements_status?: string;
+      /**
+       * Format: uuid
+       * @example 613d517a-0432-4bae-a785-c11033bd0985
+       */
+      id?: string;
+      /** @example +43800300238 */
+      phone_number?: string;
+      /** @example false */
+      requirements_met?: boolean;
+      /** @example number_order_phone_number */
+      record_type?: string;
     };
     /** NumberOrder */
     NumberOrderWithPhoneNumbers: {
@@ -29264,18 +29872,6 @@ export interface components {
       /** @example 55 */
       total_results?: number;
     };
-    /** ParameterProperties */
-    ParameterProperties: {
-      /** Type */
-      type: string;
-      /**
-       * Description
-       * @default
-       */
-      description: string;
-      /** Enum */
-      enum?: string[];
-    };
     /**
      * Participant
      * @example {
@@ -29378,158 +29974,6 @@ export interface components {
        * @example true
        */
       on_hold: boolean;
-    };
-    /**
-     * Participant Joined
-     * @example {
-     *       "record_type": "event",
-     *       "event_type": "video.room.session.started",
-     *       "id": "6b61621f-62e0-4aad-ab11-9fd19e272e73",
-     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
-     *       "payload": {
-     *         "session_id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
-     *         "room_id": "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
-     *         "participant_id": "5ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
-     *         "context": "Alice"
-     *       }
-     *     }
-     */
-    ParticipantJoined: {
-      /**
-       * @description An identifier for the type of the resource.
-       * @example event
-       * @enum {string}
-       */
-      record_type?: 'event';
-      /**
-       * @description The type of event being delivered.
-       * @example video.room.participant.joined
-       * @enum {string}
-       */
-      event_type?: 'video.room.participant.joined';
-      /**
-       * Format: uuid
-       * @description Uniquely identify the event.
-       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-       */
-      id?: string;
-      /**
-       * Format: date-time
-       * @description ISO 8601 datetime of when the event occurred.
-       * @example 2018-02-02T22:25:27.521992Z
-       */
-      occurred_at?: string;
-      payload?: {
-        /**
-         * Format: uuid
-         * @description Session ID that identifies the session where the participant joined.
-         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-         */
-        session_id?: string;
-        /**
-         * Format: uuid
-         * @description Room ID that identifies the room where the participant joined.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        room_id?: string;
-        /**
-         * @description Context provided to the given participant through the client SDK
-         * @example Alice
-         */
-        context?: string;
-        /**
-         * Format: uuid
-         * @description Participant ID that identifies the participant that joined.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        participant_id?: string;
-      };
-    };
-    /** Participant Joined Event */
-    ParticipantJoinedEvent: {
-      data?: components['schemas']['ParticipantJoined'];
-    };
-    /**
-     * Participant Left
-     * @example {
-     *       "record_type": "event",
-     *       "event_type": "video.room.session.started",
-     *       "id": "6b61621f-62e0-4aad-ab11-9fd19e272e73",
-     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
-     *       "payload": {
-     *         "session_id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
-     *         "room_id": "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
-     *         "participant_id": "5ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
-     *         "context": "Alice",
-     *         "duration_secs": 34,
-     *         "left_reason": "kick"
-     *       }
-     *     }
-     */
-    ParticipantLeft: {
-      /**
-       * @description An identifier for the type of the resource.
-       * @example event
-       * @enum {string}
-       */
-      record_type?: 'event';
-      /**
-       * @description The type of event being delivered.
-       * @example video.room.participant.left
-       * @enum {string}
-       */
-      event_type?: 'video.room.participant.left';
-      /**
-       * Format: uuid
-       * @description Uniquely identify the event.
-       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-       */
-      id?: string;
-      /**
-       * Format: date-time
-       * @description ISO 8601 datetime of when the event occurred.
-       * @example 2018-02-02T22:25:27.521992Z
-       */
-      occurred_at?: string;
-      payload?: {
-        /**
-         * Format: uuid
-         * @description Session ID that identifies the session where the participant left.
-         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-         */
-        session_id?: string;
-        /**
-         * Format: uuid
-         * @description Room ID that identifies the room where the participant left.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        room_id?: string;
-        /**
-         * @description Context provided to the given participant through the client SDK
-         * @example Alice
-         */
-        context?: string;
-        /**
-         * Format: uuid
-         * @description Participant ID that identifies the participant that left.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        participant_id?: string;
-        /**
-         * @description The duration in seconds of the participant in the session
-         * @example 245
-         */
-        duration_secs?: number;
-        /**
-         * @description The reason why the participant left
-         * @example kicked
-         */
-        left_reason?: string;
-      };
-    };
-    /** Participant Left Event */
-    ParticipantLeftEvent: {
-      data?: components['schemas']['ParticipantLeft'];
     };
     /**
      * Participant resource
@@ -29891,6 +30335,13 @@ export interface components {
        */
       id?: string;
     };
+    /** @example {
+     *       "bundle_id": "5194d8fc-87e6-4188-baa9-1c434bbe861b"
+     *     } */
+    PhoneNumberBundleStatusChangeRequest: {
+      /** @description The new bundle_id setting for the number. If you are assigning the number to a bundle, this is the unique ID of the bundle you wish to use. If you are removing the number from a bundle, this must be null. You cannot assign a number from one bundle to another directly. You must first remove it from a bundle, and then assign it to a new bundle. */
+      bundle_id: string;
+    };
     /** PhoneNumberCampaign */
     PhoneNumberCampaign: {
       /**
@@ -30121,6 +30572,7 @@ export interface components {
      *       "billing_group_id": "86f58db9-0fe3-4adc-9d1f-46e66e6e9323",
      *       "emergency_enabled": true,
      *       "emergency_address_id": "1315261609962112019",
+     *       "emergency_status": "active",
      *       "call_forwarding_enabled": true,
      *       "cnam_listing_enabled": true,
      *       "caller_id_name_enabled": true,
@@ -30190,6 +30642,16 @@ export interface components {
        * @description Identifies the emergency address associated with the phone number.
        */
       readonly emergency_address_id?: string;
+      /**
+       * @description Indicates the status of the provisioning of emergency services for the phone number. This field contains information about activity that may be ongoing for a number where it either is being provisioned or deprovisioned but is not yet enabled/disabled.
+       * @enum {string}
+       */
+      emergency_status?:
+        | 'active'
+        | 'deprovisioning'
+        | 'disabled'
+        | 'provisioning'
+        | 'provisioning-failed';
       /**
        * @description Indicates if call forwarding will be enabled for this number if forwards_to and forwarding_type are filled in. Defaults to true for backwards compatibility with APIV1 use of numbers endpoints.
        * @default true
@@ -30387,7 +30849,8 @@ export interface components {
      *       },
      *       "emergency": {
      *         "emergency_enabled": true,
-     *         "emergency_address_id": "1315261609962112019"
+     *         "emergency_address_id": "1315261609962112019",
+     *         "emergency_status": "active"
      *       },
      *       "usage_payment_method": "pay-per-minute",
      *       "media_features": {
@@ -30682,6 +31145,8 @@ export interface components {
       connection_id?: string;
       /** @description Identifies the billing group associated with the phone number. */
       billing_group_id?: string;
+      /** @description Indicates whether to enable or disable HD Voice on each phone number. HD Voice is a paid feature and may not be available for all phone numbers, more details about it can be found in the Telnyx support documentation. */
+      hd_voice_enabled?: boolean;
       voice?: components['schemas']['UpdatePhoneNumberVoiceSettingsRequest'];
     };
     /**
@@ -31716,6 +32181,18 @@ export interface components {
        */
       user_type?: 'admin' | 'user' | 'system';
       /**
+       * Format: uuid
+       * @description The ID of the user who created this comment
+       * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+       */
+      user_id?: string;
+      /**
+       * Format: email
+       * @description The email address of the user who created this comment
+       * @example user@example.com
+       */
+      user_email?: string;
+      /**
        * @description Identifies the type of the resource.
        * @example porting_comment
        */
@@ -32175,6 +32652,11 @@ export interface components {
        */
       reason?: string;
       /**
+       * @description The rejection code for one of the valid rejections to reject a port out order
+       * @example 1002
+       */
+      rejection_code?: number;
+      /**
        * @description First line of billing address (street address)
        * @example 000 Example Street
        */
@@ -32296,6 +32778,14 @@ export interface components {
        */
       updated_at?: string;
     };
+    PortoutRejection: {
+      /** @example 1002 */
+      code?: number;
+      /** @example Invalid PIN */
+      description?: string;
+      /** @example false */
+      reason_required?: boolean;
+    };
     PortoutReport: {
       /**
        * Format: uuid
@@ -32360,6 +32850,12 @@ export interface components {
        */
       ttl?: number;
     };
+    /**
+     * @description The format for the preview file in case the `store_preview` is `true`.
+     * @default tiff
+     * @enum {string}
+     */
+    PreviewFormat: 'pdf' | 'tiff';
     PrivateWirelessGateway: {
       /**
        * Format: uuid
@@ -32391,9 +32887,9 @@ export interface components {
        */
       name?: string;
       /**
-       * @description The geographical region where the Private Wireless Gateway is deployed to.
-       * @default ashburn-va
-       * @example ashburn-va
+       * @description The name of the region where the Private Wireless Gateway is deployed.
+       * @default null
+       * @example dc2
        */
       region_code: string;
       status?: components['schemas']['PrivateWirelessGatewayStatus'];
@@ -32405,23 +32901,6 @@ export interface components {
       readonly ip_range: string;
       /** @description A list of the resources that have been assigned to the Private Wireless Gateway. */
       assigned_resources?: components['schemas']['PWGAssignedResourcesSummary'][];
-    };
-    /** @example {
-     *       "network_id": "6a09cdc3-8948-47f0-aa62-74ac943d6c58",
-     *       "name": "My private wireless gateway"
-     *     } */
-    PrivateWirelessGatewayRequest: {
-      /**
-       * Format: uuid
-       * @description The identification of the related network resource.
-       * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
-       */
-      network_id?: string;
-      /**
-       * @description The private wireless gateway name.
-       * @example My private wireless gateway
-       */
-      name?: string;
     };
     /** @description The current status or failure details of the Private Wireless Gateway. */
     PrivateWirelessGatewayStatus: {
@@ -32700,6 +33179,315 @@ export interface components {
        */
       queue_id: string;
     };
+    /** @description When tapped, initiates the corresponding native action on the device. */
+    RCSAction: {
+      /**
+       * @description Text that is shown in the suggested action. Maximum 25 characters.
+       * @example Hello world
+       */
+      text?: string;
+      /** @description Payload (base64 encoded) that will be sent to the agent in the user event that results when the user taps the suggested action. Maximum 2048 characters. */
+      postback_data?: string;
+      /**
+       * Format: url
+       * @description Fallback URL to use if a client doesn't support a suggested action. Fallback URLs open in new browser windows. Maximum 2048 characters.
+       */
+      fallback_url?: string;
+      dial_action?: components['schemas']['RCSDialAction'];
+      view_location_action?: components['schemas']['RCSViewLocationAction'];
+      create_calendar_event_action?: components['schemas']['RCSCreateCalendarEventAction'];
+      open_url_action?: components['schemas']['RCSOpenUrlAction'];
+      share_location_action?: components['schemas']['RCSShareLocationAction'];
+      compose_action?: components['schemas']['RCSComposeAction'];
+    };
+    RCSAgentMessage: {
+      content_message?: components['schemas']['RCSContentMessage'];
+      event?: components['schemas']['RCSEvent'];
+      /**
+       * Format: date-time
+       * @description Timestamp in UTC of when this message is considered expired
+       * @example 2024-10-02T15:01:23Z
+       */
+      expire_time?: string;
+      /**
+       * @description Duration in seconds ending with 's'
+       * @example 10.5s
+       */
+      ttl?: string;
+    };
+    RCSCardContent: {
+      /**
+       * @description Title of the card (at most 200 characters)
+       * @example Elephant
+       */
+      title?: string;
+      /** @description Description of the card (at most 2000 characters) */
+      description?: string;
+      media?: components['schemas']['RCSMedia'];
+      /** @description List of suggestions to include in the card. Maximum 10 suggestions. */
+      suggestions?: components['schemas']['RCSSuggestion'][];
+    };
+    /** @description Carousel of cards. */
+    RCSCarouselCard: {
+      /**
+       * @description The width of the cards in the carousel.
+       * @example SMALL
+       * @enum {string}
+       */
+      card_width?: 'CARD_WIDTH_UNSPECIFIED' | 'SMALL' | 'MEDIUM';
+      /** @description The list of contents for each card in the carousel. A carousel can have a minimum of 2 cards and a maximum 10 cards. */
+      card_contents?: components['schemas']['RCSCardContent'][];
+    };
+    /** @description Compose and send a message to a destination predefined by chatbot. */
+    RCSComposeAction: {
+      compose_text_message?: components['schemas']['RCSComposeTextMessage'];
+      compose_recording_message?: components['schemas']['RCSComposeRecordingMessage'];
+    };
+    /** @description Initiate the recording and sending of an audio or video message. */
+    RCSComposeRecordingMessage: {
+      /**
+       * @description phone number in +E.164 format
+       * @example +13125551234
+       */
+      phone_number?: string;
+      /**
+       * @description The type of the recording action.
+       * @enum {string}
+       */
+      type:
+        | 'COMPOSE_RECORDING_ACTION_TYPE_UNSPECIFIED'
+        | 'ACTION_TYPE_AUDIO'
+        | 'ACTION_TYPE_VIDEO';
+    };
+    /** @description Compose and send a text message. */
+    RCSComposeTextMessage: {
+      /**
+       * @description phone number in +E.164 format
+       * @example +13125551234
+       */
+      phone_number: string;
+      /** @description Draft to go into the send message text field. */
+      text?: string;
+    };
+    RCSContentInfo: {
+      /**
+       * Format: url
+       * @description Publicly reachable URL of the file.
+       * @example https://example.com/elephant.jpg
+       */
+      file_url?: string;
+      /**
+       * Format: url
+       * @description Publicly reachable URL of the thumbnail. Maximum size of 100 kB.
+       */
+      thumbnail_url?: string;
+      force_refresh?: boolean;
+    };
+    RCSContentMessage: {
+      /** @description List of suggested actions and replies */
+      suggestions?: components['schemas']['RCSSuggestion'][];
+      /**
+       * @description Text (maximum 3072 characters)
+       * @example Hello world!
+       */
+      text?: string;
+      rich_card?: components['schemas']['RCSRichCard'];
+      content_info?: components['schemas']['RCSContentInfo'];
+    };
+    /** @description Opens the user's default calendar app and starts the new calendar event flow with the agent-specified event data pre-filled. */
+    RCSCreateCalendarEventAction: {
+      /**
+       * Format: date-time
+       * @example 2024-10-02T15:01:23Z
+       */
+      start_time?: string;
+      /**
+       * Format: date-time
+       * @example 2024-10-02T15:02:31Z
+       */
+      end_time?: string;
+      /** @description Event title. Maximum 100 characters. */
+      title?: string;
+      /** @description Event description. Maximum 500 characters. */
+      description?: string;
+    };
+    /** @description Opens the user's default dialer app with the agent-specified phone number filled in. */
+    RCSDialAction: {
+      /**
+       * @description Phone number in +E.164 format
+       * @example +13125551234
+       */
+      phone_number: string;
+    };
+    /** @description RCS Event to send to the recipient */
+    RCSEvent: {
+      /**
+       * @example IS_TYPING
+       * @enum {string}
+       */
+      event_type?: 'TYPE_UNSPECIFIED' | 'IS_TYPING' | 'READ';
+    };
+    RCSFrom: {
+      /**
+       * @description bot ID
+       * @example Botman123
+       */
+      bot_id?: string;
+      /** @example Telnyx */
+      carrier?: string;
+      /** @example Wireless */
+      line_type?: string;
+    };
+    RCSLatLng: {
+      /**
+       * @description The latitude in degrees. It must be in the range [-90.0, +90.0].
+       * @example 41.8
+       */
+      latitude: number;
+      /**
+       * @description The longitude in degrees. It must be in the range [-180.0, +180.0].
+       * @example -87.6
+       */
+      longitude: number;
+    };
+    /** @description A media file within a rich card. */
+    RCSMedia: {
+      /**
+       * @description The height of the media within a rich card with a vertical layout. For a standalone card with horizontal layout, height is not customizable, and this field is ignored.
+       * @example MEDIUM
+       * @enum {string}
+       */
+      height?: 'HEIGHT_UNSPECIFIED' | 'SHORT' | 'MEDIUM' | 'TALL';
+      content_info?: components['schemas']['RCSContentInfo'];
+    };
+    RCSMessage: {
+      /**
+       * @description RCS Bot ID
+       * @example Botman123
+       */
+      bot_id: string;
+      /**
+       * @description Phone number in +E.164 format
+       * @example +13125551234
+       */
+      to: string;
+      /** @description A valid messaging profile ID */
+      messaging_profile_id: string;
+      /**
+       * @description Message type - must be set to "RCS"
+       * @example RCS
+       * @enum {string}
+       */
+      type?: 'RCS';
+      agent_message: components['schemas']['RCSAgentMessage'];
+    };
+    /** @description Opens the user's default web browser app to the specified URL. */
+    RCSOpenUrlAction: {
+      /**
+       * Format: url
+       * @example http://example.com
+       */
+      url: string;
+      /**
+       * @description URL open application, browser or webview.
+       * @example BROWSER
+       * @enum {string}
+       */
+      application: 'OPEN_URL_APPLICATION_UNSPECIFIED' | 'BROWSER' | 'WEBVIEW';
+      /**
+       * @example HALF
+       * @enum {string}
+       */
+      webview_view_mode:
+        | 'WEBVIEW_VIEW_MODE_UNSPECIFIED'
+        | 'FULL'
+        | 'HALF'
+        | 'TALL';
+      /** @description Accessbility description for webview. */
+      description?: string;
+    };
+    RCSReply: {
+      /** @description Text that is shown in the suggested reply (maximum 25 characters) */
+      text?: string;
+      postback_data?: string;
+    };
+    RCSResponse: {
+      data?: {
+        /** @example message */
+        record_type?: string;
+        /** @example outbound */
+        direction?: string;
+        /**
+         * @description message ID
+         * @example 4031938e-60e4-4235-a8dd-0b1c55a23e7a
+         */
+        id?: string;
+        /** @example RCS */
+        type?: string;
+        /** @example 9f61d8e1-7687-4d6d-9cae-9ff682985983 */
+        organization_id?: string;
+        /** @example 4001781e-626f-4a41-a914-b1b682150f94 */
+        messaging_profile_id?: string;
+        from?: components['schemas']['RCSFrom'];
+        to?: components['schemas']['RCSTo'];
+        body?: components['schemas']['RCSAgentMessage'];
+        /** @example utf-8 */
+        encoding?: string;
+        /** Format: date-time */
+        received_at?: string;
+      };
+    };
+    RCSRichCard: {
+      carousel_card?: components['schemas']['RCSCarouselCard'];
+      standalone_card?: components['schemas']['RCSStandaloneCard'];
+    };
+    /** @description Opens the RCS app's location chooser so the user can pick a location to send back to the agent. */
+    RCSShareLocationAction: Record<string, never>;
+    /** @description Standalone card */
+    RCSStandaloneCard: {
+      /**
+       * @description Orientation of the card.
+       * @example HORIZONTAL
+       * @enum {string}
+       */
+      card_orientation:
+        | 'CARD_ORIENTATION_UNSPECIFIED'
+        | 'HORIZONTAL'
+        | 'VERTICAL';
+      /**
+       * @description Image preview alignment for standalone cards with horizontal layout.
+       * @example LEFT
+       * @enum {string}
+       */
+      thumbnail_image_alignment:
+        | 'THUMBNAIL_IMAGE_ALIGNMENT_UNSPECIFIED'
+        | 'LEFT'
+        | 'RIGHT';
+      card_content: components['schemas']['RCSCardContent'];
+    };
+    RCSSuggestion: {
+      reply?: components['schemas']['RCSReply'];
+      action?: components['schemas']['RCSAction'];
+    };
+    RCSTo: components['schemas']['RCSToItem'][];
+    RCSToItem: {
+      /** @example +13125551234 */
+      phone_number?: string;
+      /** @example queued */
+      status?: string;
+      /** @example Verizon Wireless */
+      carrier?: string;
+      /** @example Wireless */
+      line_type?: string;
+    };
+    /** @description Opens the user's default map app and selects the agent-specified location. */
+    RCSViewLocationAction: {
+      lat_long?: components['schemas']['RCSLatLng'];
+      /** @description The label of the pin dropped */
+      label?: string;
+      /** @description query string (Android only) */
+      query?: string;
+    };
     ReadComment: components['schemas']['Comment'];
     Record: {
       /**
@@ -32741,109 +33529,6 @@ export interface components {
        * @example ['cost', 'billed_sec']
        */
       product_metrics?: string[];
-    };
-    /**
-     * Recording Completed
-     * @example {
-     *       "record_type": "event",
-     *       "event_type": "video.room.recording.started",
-     *       "id": "6b61621f-62e0-4aad-ab11-9fd19e272e73",
-     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
-     *       "payload": {
-     *         "session_id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
-     *         "room_id": "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
-     *         "participant_id": "5ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
-     *         "recording_id": "1ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
-     *         "type": "audio",
-     *         "download_url": "https://www.example.com",
-     *         "duration_secs": 3660,
-     *         "size_mb": 5.6,
-     *         "codec": "opus"
-     *       }
-     *     }
-     */
-    RecordingCompleted: {
-      /**
-       * @description An identifier for the type of the resource.
-       * @example event
-       * @enum {string}
-       */
-      record_type?: 'event';
-      /**
-       * @description The type of event being delivered.
-       * @example video.room.recording.completed
-       * @enum {string}
-       */
-      event_type?: 'video.room.recording.completed';
-      /**
-       * Format: uuid
-       * @description Uniquely identify the event.
-       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-       */
-      id?: string;
-      /**
-       * Format: date-time
-       * @description ISO 8601 datetime of when the event occurred.
-       * @example 2018-02-02T22:25:27.521992Z
-       */
-      occurred_at?: string;
-      payload?: {
-        /**
-         * Format: uuid
-         * @description Session ID associated with the recording.
-         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-         */
-        session_id?: string;
-        /**
-         * Format: uuid
-         * @description Room ID associated with the recording.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        room_id?: string;
-        /**
-         * Format: uuid
-         * @description Participant ID associated with the recording.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        participant_id?: string;
-        /**
-         * Format: uuid
-         * @description Recording ID that identifies the recording.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        recording_id?: string;
-        /**
-         * @description Type of the recording.
-         * @example audio
-         * @enum {string}
-         */
-        type?: 'audio' | 'video';
-        /**
-         * Format: float
-         * @description Recording size in MB.
-         * @example 10.5
-         */
-        size_mb?: number;
-        /**
-         * @description Url to download the recording.
-         * @example https://www.example.com
-         */
-        download_url?: string;
-        /**
-         * @description Codec used for the recording.
-         * @example opus
-         */
-        codec?: string;
-        /**
-         * @description Recording duration in seconds.
-         * @example 67
-         */
-        duration_secs?: number;
-      };
-    };
-    /** Recording Completed Event */
-    RecordingCompletedEvent: {
-      data?: components['schemas']['RecordingCompleted'];
     };
     /** RecordingResponse */
     RecordingResponse: {
@@ -32945,84 +33630,6 @@ export interface components {
       | 'Conference'
       | 'RecordVerb'
       | 'Trunking';
-    /**
-     * Recording Started
-     * @example {
-     *       "record_type": "event",
-     *       "event_type": "video.room.recording.started",
-     *       "id": "6b61621f-62e0-4aad-ab11-9fd19e272e73",
-     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
-     *       "payload": {
-     *         "session_id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
-     *         "room_id": "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
-     *         "participant_id": "5ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
-     *         "recording_id": "1ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
-     *         "type": "audio"
-     *       }
-     *     }
-     */
-    RecordingStarted: {
-      /**
-       * @description An identifier for the type of the resource.
-       * @example event
-       * @enum {string}
-       */
-      record_type?: 'event';
-      /**
-       * @description The type of event being delivered.
-       * @example video.room.recording.started
-       * @enum {string}
-       */
-      event_type?: 'video.room.recording.started';
-      /**
-       * Format: uuid
-       * @description Uniquely identify the event.
-       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-       */
-      id?: string;
-      /**
-       * Format: date-time
-       * @description ISO 8601 datetime of when the event occurred.
-       * @example 2018-02-02T22:25:27.521992Z
-       */
-      occurred_at?: string;
-      payload?: {
-        /**
-         * Format: uuid
-         * @description Session ID associated with the recording.
-         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-         */
-        session_id?: string;
-        /**
-         * Format: uuid
-         * @description Room ID associated with the recording.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        room_id?: string;
-        /**
-         * Format: uuid
-         * @description Participant ID associated with the recording.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        participant_id?: string;
-        /**
-         * Format: uuid
-         * @description Recording ID associated with the recording.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        recording_id?: string;
-        /**
-         * @description Type of the recording.
-         * @example audio
-         * @enum {string}
-         */
-        type?: 'audio' | 'video';
-      };
-    };
-    /** Recording Started Event */
-    RecordingStartedEvent: {
-      data?: components['schemas']['RecordingStarted'];
-    };
     /**
      * @description The changes to the recording's state that should generate a call to `RecoridngStatusCallback`. Can be: `in-progress`, `completed` and `absent`. Separate multiple values with a space. Defaults to `completed`.
      * @example in-progress completed absent
@@ -33143,11 +33750,29 @@ export interface components {
        */
       refresh_token: string;
     };
-    /**
-     * @description Region where the bucket is located.
-     * @example us-east-1
-     */
-    Region: string;
+    /** Region */
+    Region: {
+      /**
+       * @description The unique code of the region.
+       * @example dc2
+       */
+      code: string;
+      /**
+       * @description The name of the region.
+       * @example Washington DC, US
+       */
+      name: string;
+      /**
+       * Format: date-time
+       * @description Timestamp when the region was inserted.
+       */
+      inserted_at?: string;
+      /**
+       * Format: date-time
+       * @description Timestamp when the region was last updated.
+       */
+      updated_at?: string;
+    };
     RegionIn: {
       /**
        * @description The region the interface should be deployed to.
@@ -33192,6 +33817,12 @@ export interface components {
         readonly record_type?: string;
       };
     };
+    RegulatoryRequirement: {
+      record_type?: string;
+      /** Format: uuid */
+      requirement_id?: string;
+      field_type?: string;
+    };
     RegulatoryRequirements: {
       /** @example DE */
       readonly country_code?: string;
@@ -33224,7 +33855,7 @@ export interface components {
           case_sensitive?: string;
           /** @example Characters that can be included in field value */
           acceptable_characters?: string;
-          acceptable_values?: unknown[];
+          acceptable_values?: string[];
           /** @example 10 */
           max_length?: string;
           /** @example 5 */
@@ -33476,11 +34107,6 @@ export interface components {
       /** @enum {string} */
       type: 'retrieval';
       retrieval: components['schemas']['BucketIds'];
-    };
-    /** RetrievalDetail */
-    RetrievalDetail: {
-      /** Bucket Ids */
-      bucket_ids: string[];
     };
     /** RetrieveVerificationResponse */
     RetrieveVerificationResponse: {
@@ -34133,7 +34759,7 @@ export interface components {
        * @description A JSON object representation of the action params.
        * @example {}
        */
-      readonly settings?: Record<string, never>;
+      readonly settings?: Record<string, never> | null;
       created_at?: components['schemas']['CreatedAt'];
       updated_at?: components['schemas']['UpdatedAt'];
     };
@@ -34324,49 +34950,6 @@ export interface components {
         unit?: string;
       };
     };
-    /** SIMCardNetworkPreference */
-    SIMCardNetworkPreference: {
-      /** @example sim_card_network_preferences */
-      readonly record_type?: string;
-      /**
-       * Format: uuid
-       * @example 6b14e151-8493-4fa1-8664-1cc4e6d14158
-       */
-      sim_card_id?: string;
-      mobile_network_operators_preferences?: components['schemas']['MobileNetworkOperatorsPreferencesResponse'];
-      /**
-       * @description ISO 8601 formatted date-time indicating when the resource was created.
-       * @example 2018-02-02T22:25:27.521Z
-       */
-      readonly created_at?: string;
-      /**
-       * @description ISO 8601 formatted date-time indicating when the resource was updated.
-       * @example 2018-02-02T22:25:27.521Z
-       */
-      readonly updated_at?: string;
-    };
-    /** SIMCardNetworkPreferenceWithOTAUpdates */
-    SIMCardNetworkPreferenceWithOTAUpdates: {
-      /** @example sim_card_network_preferences */
-      readonly record_type?: string;
-      /**
-       * Format: uuid
-       * @example 6b14e151-8493-4fa1-8664-1cc4e6d14158
-       */
-      sim_card_id?: string;
-      mobile_network_operators_preferences?: components['schemas']['MobileNetworkOperatorsPreferencesResponse'];
-      ota_updates?: components['schemas']['CompleteOTAUpdate'][];
-      /**
-       * @description ISO 8601 formatted date-time indicating when the resource was created.
-       * @example 2018-02-02T22:25:27.521Z
-       */
-      readonly created_at?: string;
-      /**
-       * @description ISO 8601 formatted date-time indicating when the resource was updated.
-       * @example 2018-02-02T22:25:27.521Z
-       */
-      readonly updated_at?: string;
-    };
     /** SIMCardOrder */
     SIMCardOrder: {
       /**
@@ -34555,6 +35138,8 @@ export interface components {
     SIMCardPublicIP: {
       /** @example sim_card_public_ip */
       readonly record_type?: string;
+      /** @example dc2 */
+      readonly region_code?: string;
       /**
        * Format: uuid
        * @example 6b14e151-8493-4fa1-8664-1cc4e6d14158
@@ -34852,6 +35437,12 @@ export interface components {
        */
       store_preview: boolean;
       /**
+       * @description The format for the preview file in case the `store_preview` is `true`.
+       * @default tiff
+       * @enum {string}
+       */
+      preview_format: 'pdf' | 'tiff';
+      /**
        * @description Use this field to override the URL to which Telnyx will send subsequent webhooks for this fax.
        * @example https://www.example.com/server-b/
        */
@@ -34900,132 +35491,6 @@ export interface components {
      * @enum {string}
      */
     ServicePlan: 'global';
-    /**
-     * Session Ended
-     * @example {
-     *       "record_type": "event",
-     *       "event_type": "video.room.session.ended",
-     *       "id": "6b61621f-62e0-4aad-ab11-9fd19e272e73",
-     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
-     *       "payload": {
-     *         "session_id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
-     *         "room_id": "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
-     *         "duration_secs": 235,
-     *         "ended_reason": "stale"
-     *       }
-     *     }
-     */
-    SessionEnded: {
-      /**
-       * @description An identifier for the type of the resource.
-       * @example event
-       * @enum {string}
-       */
-      record_type?: 'event';
-      /**
-       * @description The type of event being delivered.
-       * @example video.room.session.ended
-       * @enum {string}
-       */
-      event_type?: 'video.room.session.ended';
-      /**
-       * Format: uuid
-       * @description Uniquely identify the event.
-       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-       */
-      id?: string;
-      /**
-       * Format: date-time
-       * @description ISO 8601 datetime of when the event occurred.
-       * @example 2018-02-02T22:25:27.521992Z
-       */
-      occurred_at?: string;
-      payload?: {
-        /**
-         * Format: uuid
-         * @description Session ID that identifies the session that ended.
-         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-         */
-        session_id?: string;
-        /**
-         * Format: uuid
-         * @description Room ID that identifies the room where the session ended.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        room_id?: string;
-        /**
-         * @description The duration in seconds of the session
-         * @example 245
-         */
-        duration_secs?: number;
-        /**
-         * @description The reason why the session ended
-         * @example stale
-         */
-        ended_reason?: string;
-      };
-    };
-    /** Session Ended Event */
-    SessionEndedEvent: {
-      data?: components['schemas']['SessionEnded'];
-    };
-    /**
-     * Session Started
-     * @example {
-     *       "record_type": "event",
-     *       "event_type": "video.room.session.started",
-     *       "id": "6b61621f-62e0-4aad-ab11-9fd19e272e73",
-     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
-     *       "payload": {
-     *         "session_id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
-     *         "room_id": "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0"
-     *       }
-     *     }
-     */
-    SessionStarted: {
-      /**
-       * @description An identifier for the type of the resource.
-       * @example event
-       * @enum {string}
-       */
-      record_type?: 'event';
-      /**
-       * @description The type of event being delivered.
-       * @example video.room.session.started
-       * @enum {string}
-       */
-      event_type?: 'video.room.session.started';
-      /**
-       * Format: uuid
-       * @description Uniquely identify the event.
-       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-       */
-      id?: string;
-      /**
-       * Format: date-time
-       * @description ISO 8601 datetime of when the event occurred.
-       * @example 2018-02-02T22:25:27.521992Z
-       */
-      occurred_at?: string;
-      payload?: {
-        /**
-         * Format: uuid
-         * @description Session ID that identifies the session that started.
-         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
-         */
-        session_id?: string;
-        /**
-         * Format: uuid
-         * @description Room ID that identifies the room where the session started.
-         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
-         */
-        room_id?: string;
-      };
-    };
-    /** Session Started Event */
-    SessionStartedEvent: {
-      data?: components['schemas']['SessionStarted'];
-    };
     /** SettingsDataErrorMessage */
     SettingsDataErrorMessage: {
       /** Message */
@@ -35472,6 +35937,75 @@ export interface components {
        */
       value: string;
     };
+    /**
+     * SIPREC connector configuration
+     * @example {
+     *       "host": "siprec.telnyx.com",
+     *       "port": 5060,
+     *       "name": "my-siprec-connector",
+     *       "app_subdomain": "my-app"
+     *     }
+     */
+    SiprecConnector: {
+      /**
+       * @description Hostname/IPv4 address of SIPREC SRS to be used
+       * @example siprec.telnyx.com
+       */
+      host: string;
+      /**
+       * @description Port for SIPREC SRS to be used
+       * @example 5060
+       */
+      port: number;
+      /**
+       * @description Name for the siprec connector resource.
+       * @example my-siprec-connector
+       */
+      name: string;
+      /**
+       * @description Sip subdomain to route the call when using Telnyx SRS. Not required if non-Telnyx SRS is used.
+       * @example my-app-domain
+       */
+      app_subdomain?: string;
+    };
+    /** Siprec Connector Response */
+    SiprecConnectorResponse: {
+      /** Siprec Connector */
+      data: {
+        /** @example siprec_connector */
+        record_type?: string;
+        /**
+         * @description Name for the siprec connector resource.
+         * @example siprec-connector
+         */
+        name?: string;
+        /**
+         * @description Hostname/IPv4 address of SIPREC SRS to be used
+         * @example siprec.telnyx.com
+         */
+        host?: string;
+        /**
+         * @description Port for SIPREC SRS to be used
+         * @example 5060
+         */
+        port?: number;
+        /**
+         * @description Sip subdomain to route the call when using Telnyx SRS Not required if non-Telnyx SRS is used.
+         * @example my-app-domain
+         */
+        app_subdomain?: string;
+        /**
+         * @description ISO 8601 formatted date of when the resource was created
+         * @example 2024-01-23T18:10:02.574Z
+         */
+        created_at?: string;
+        /**
+         * @description ISO 8601 formatted date of when the resource was last updated
+         * @example 2024-01-23T18:10:02.574Z
+         */
+        updated_at?: string;
+      };
+    };
     /** @example {
      *       "id": "1293384261075731499",
      *       "record_type": "phone_number",
@@ -35483,6 +36017,7 @@ export interface components {
      *       "billing_group_id": "86f58db9-0fe3-4adc-9d1f-46e66e6e9323",
      *       "emergency_enabled": true,
      *       "emergency_address_id": "1315261609962112019",
+     *       "emergency_status": "active",
      *       "call_forwarding_enabled": true,
      *       "cnam_listing_enabled": true,
      *       "caller_id_name_enabled": true,
@@ -35541,6 +36076,16 @@ export interface components {
        * @description Identifies the emergency address associated with the phone number.
        */
       readonly emergency_address_id?: string;
+      /**
+       * @description Indicates the status of the provisioning of emergency services for the phone number. This field contains information about activity that may be ongoing for a number where it either is being provisioned or deprovisioned but is not yet enabled/disabled.
+       * @enum {string}
+       */
+      emergency_status?:
+        | 'active'
+        | 'deprovisioning'
+        | 'disabled'
+        | 'provisioning'
+        | 'provisioning-failed';
       /**
        * @description Indicates if call forwarding will be enabled for this number if forwards_to and forwarding_type are filled in. Defaults to true for backwards compatibility with APIV1 use of numbers endpoints.
        * @default true
@@ -35673,11 +36218,20 @@ export interface components {
        */
       stop?: string;
       /**
-       * @description The gender of the voice used to speak back the text or the specific Amazon Polly voice to be used in the form of `Polly.<voice>`, e.g. `Polly.Brian`. All standard Amazon Polly voices are supported.
-       * @example female
-       * @enum {string}
+       * @description Specifies the voice used in speech synthesis.
+       *
+       *     - Define voices using the format `<Provider>.<Model>.<VoiceId>`.
+       *
+       *      **Supported Providers:**
+       *     -**AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility.
+       *     -**ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+       *
+       *     For service_level basic, you may define the gender of the speaker (male or female).
+       * @example AWS.Polly.Joanna-Neural
        */
-      voice: 'male' | 'female';
+      voice: string;
+      /** @description The settings associated with the voice selected */
+      voice_settings?: components['schemas']['ElevenLabsVoiceSettings'];
       /**
        * @description The language you want spoken. This parameter is ignored when a `Polly.*` voice is specified.
        * @example en-US
@@ -35764,7 +36318,6 @@ export interface components {
     /**
      * Start Forking Request
      * @example {
-     *       "target": "udp:192.0.2.1:9000",
      *       "rx": "udp:192.0.2.1:9000",
      *       "tx": "udp:192.0.2.1:9001",
      *       "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
@@ -35773,22 +36326,17 @@ export interface components {
      */
     StartForkingRequest: {
       /**
-       * @description The network target, <udp:ip_address:port>, where the call's RTP media packets should be forwarded. Both incoming and outgoing media packets will be delivered to the specified target, and information about the stream will be included in the encapsulation protocol header, including the direction (0 = inbound; 1 = outbound), leg (0 = A-leg; 1 = B-leg), and call_leg_id.
-       * @example udp:192.0.2.1:9000
-       */
-      target?: string;
-      /**
        * @description The network target, <udp:ip_address:port>, where the call's incoming RTP media packets should be forwarded.
        * @example udp:192.0.2.1:9000
        */
       rx?: string;
       /**
        * @description Optionally specify a media type to stream. If `decrypted` selected, Telnyx will decrypt incoming SIP media before forking to the target. `rx` and `tx` are required fields if `decrypted` selected.
-       * @default raw
+       * @default decrypted
        * @example decrypted
        * @enum {string}
        */
-      stream_type: 'raw' | 'decrypted';
+      stream_type: 'decrypted';
       /**
        * @description The network target, <udp:ip_address:port>, where the call's outgoing RTP media packets should be forwarded.
        * @example udp:192.0.2.1:9001
@@ -35814,7 +36362,10 @@ export interface components {
      *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901",
      *       "play_beep": true,
      *       "max_length": 0,
-     *       "timeout_secs": 0
+     *       "timeout_secs": 0,
+     *       "transcription": true,
+     *       "transcription_engine": "B",
+     *       "transcription_language": "en-US"
      *     }
      */
     StartRecordingRequest: {
@@ -35877,6 +36428,94 @@ export interface components {
        * @example my_recording_file_name
        */
       custom_file_name?: string;
+      /**
+       * @description Enable post recording transcription. The default value is false.
+       * @default false
+       * @example true
+       */
+      transcription: boolean;
+      /**
+       * @description Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`.
+       * @default A
+       * @example A
+       * @enum {string}
+       */
+      transcription_engine: 'A' | 'B';
+      transcription_language?:
+        | components['schemas']['GoogleTranscriptionLanguage']
+        | components['schemas']['TelnyxTranscriptionLanguage'];
+      /**
+       * @description Enables profanity_filter. Applies to `google` engine only.
+       * @default false
+       * @example true
+       */
+      transcription_profanity_filter: boolean;
+      /**
+       * @description Enables speaker diarization. Applies to `google` engine only.
+       * @default false
+       * @example true
+       */
+      transcription_speaker_diarization: boolean;
+      /**
+       * Format: int32
+       * @description Defines minimum number of speakers in the conversation. Applies to `google` engine only.
+       * @default 2
+       * @example 4
+       */
+      transcription_min_speaker_count: number;
+      /**
+       * Format: int32
+       * @description Defines maximum number of speakers in the conversation. Applies to `google` engine only.
+       * @default 6
+       * @example 4
+       */
+      transcription_max_speaker_count: number;
+    };
+    /**
+     * Start Siprec Request
+     * @example {
+     *       "connector_name": "my-siprec-connector",
+     *       "siprec_track": "both_tracks",
+     *       "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+     *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
+     *     }
+     */
+    StartSiprecRequest: {
+      /**
+       * @description Name of configured SIPREC connector to be used.
+       * @example my-siprec-connector
+       */
+      connector_name?: string;
+      /**
+       * @description Specifies which track should be sent on siprec session.
+       * @default both_tracks
+       * @example outbound_track
+       * @enum {string}
+       */
+      siprec_track: 'inbound_track' | 'outbound_track' | 'both_tracks';
+      /**
+       * @description When set, custom parameters will be added as metadata (recording.session.ExtensionParameters). Otherwise, they’ll be added to sip headers.
+       * @example true
+       * @enum {boolean}
+       */
+      include_metadata_custom_headers?: true | false;
+      /**
+       * @description Controls whether to encrypt media sent to your SRS using SRTP and TLS. When set you need to configure SRS port in your connector to 5061.
+       * @example true
+       * @enum {boolean}
+       */
+      secure?: true | false;
+      /**
+       * @description Sets `Session-Expires` header to the INVITE. A reinvite is sent every half the value set. Usefull for session keep alive. Minimum value is 90, set to 0 to disable.
+       * @default 1800
+       * @example 900
+       */
+      session_timeout_secs: number;
+      /**
+       * @description Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
+       * @example aGF2ZSBhIG5pY2UgZGF5ID1d
+       */
+      client_state?: string;
     };
     /**
      * Start Streaming Request
@@ -35907,6 +36546,7 @@ export interface components {
       stream_track: 'inbound_track' | 'outbound_track' | 'both_tracks';
       stream_bidirectional_mode?: components['schemas']['StreamBidirectionalMode'];
       stream_bidirectional_codec?: components['schemas']['StreamBidirectionalCodec'];
+      stream_bidirectional_target_legs?: components['schemas']['StreamBidirectionalTargetLegs'];
       /**
        * @description Enables Dialogflow for the current call. The default value is false.
        * @default false
@@ -36028,6 +36668,25 @@ export interface components {
       command_id?: string;
     };
     /**
+     * Stop Siprec Request
+     * @example {
+     *       "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+     *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
+     *     }
+     */
+    StopSiprecRequest: {
+      /**
+       * @description Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
+       * @example aGF2ZSBhIG5pY2UgZGF5ID1d
+       */
+      client_state?: string;
+      /**
+       * @description Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.
+       * @example 891510ac-f3e4-11e8-af5b-de00688a4901
+       */
+      command_id?: string;
+    };
+    /**
      * Stop Streaming Request
      * @example {
      *       "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
@@ -36084,6 +36743,14 @@ export interface components {
      * @enum {string}
      */
     StreamBidirectionalMode: 'mp3' | 'rtp';
+    /**
+     * Stream Bidirectional Target Legs
+     * @description Specifies which call legs should receive the bidirectional stream audio.
+     * @default opposite
+     * @example both
+     * @enum {string}
+     */
+    StreamBidirectionalTargetLegs: 'both' | 'self' | 'opposite';
     /**
      * @description The user specified name of Stream.
      * @example My stream
@@ -36173,6 +36840,26 @@ export interface components {
        */
       readonly is_block_sub_number_order?: boolean;
     };
+    SubNumberOrderPhoneNumber: {
+      /** Format: uuid */
+      id?: string;
+      phone_number?: string;
+      country_code?: string;
+      phone_number_type?: string;
+      requirements_met?: boolean;
+      requirements_status?: string;
+      status?: string;
+      record_type?: string;
+      /** Format: uuid */
+      bundle_id?: string;
+      regulatory_requirements?: {
+        /** Format: uuid */
+        requirement_id?: string;
+        field_type?: string;
+        field_value?: string;
+        status?: string;
+      }[];
+    };
     SubNumberOrderRegulatoryRequirement: {
       /** @example phone_number_regulatory_requirement */
       readonly record_type?: string;
@@ -36207,6 +36894,72 @@ export interface components {
        * @example 45f45a04-b4be-4592-95b1-9306b9db2b21
        */
       field_value?: string;
+    };
+    /** @example {
+     *       "data": {
+     *         "country_code": "AT",
+     *         "created_at": "2018-01-01T00:00:00.000000Z",
+     *         "updated_at": "2018-01-01T00:00:00.000000Z",
+     *         "regulatory_requirements": [
+     *           {
+     *             "record_type": "phone_number_regulatory_requirement",
+     *             "requirement_id": "2708e569-696a-4fc7-9305-5fdb3eb9c7dd",
+     *             "field_type": "textual"
+     *           }
+     *         ],
+     *         "phone_numbers_count": 1,
+     *         "phone_numbers": [
+     *           {
+     *             "country_code": "AT",
+     *             "regulatory_requirements": [
+     *               {
+     *                 "field_value": "4804570924",
+     *                 "requirement_id": "2708e569-696a-4fc7-9305-5fdb3eb9c7dd",
+     *                 "field_type": "textual",
+     *                 "status": "pending-approval"
+     *               }
+     *             ],
+     *             "bundle_id": null,
+     *             "requirements_status": "requirement-info-under-review",
+     *             "phone_number_type": "toll_free",
+     *             "requirements_met": false,
+     *             "record_type": "number_order_phone_number",
+     *             "status": "pending",
+     *             "id": "613d517a-0432-4bae-a785-c11033bd0985",
+     *             "phone_number": "+43800300238"
+     *           }
+     *         ],
+     *         "is_block_sub_number_order": false,
+     *         "phone_number_type": "toll_free",
+     *         "requirements_met": false,
+     *         "id": "f826ed66-b27c-4340-9dc0-57dc3459f1bd",
+     *         "order_request_id": "a11d58fe-88a4-494a-b752-8dea411993c6",
+     *         "status": "pending",
+     *         "customer_reference": "missing",
+     *         "record_type": "sub_number_order"
+     *       }
+     *     } */
+    SubNumberOrderRequirementGroupResponse: {
+      data?: {
+        /** Format: uuid */
+        id?: string;
+        /** Format: uuid */
+        order_request_id?: string;
+        country_code?: string;
+        phone_number_type?: string;
+        phone_numbers_count?: number;
+        requirements_met?: boolean;
+        is_block_sub_number_order?: boolean;
+        status?: string;
+        customer_reference?: string;
+        /** Format: date-time */
+        created_at?: string;
+        /** Format: date-time */
+        updated_at?: string;
+        record_type?: string;
+        regulatory_requirements?: components['schemas']['RegulatoryRequirement'][];
+        phone_numbers?: components['schemas']['SubNumberOrderPhoneNumber'][];
+      };
     };
     /** SummaryRequest */
     SummaryRequest: {
@@ -36257,66 +37010,78 @@ export interface components {
     TFVerificationRequest: {
       /**
        * Businessname
+       * @description Name of the business; there are no specific formatting requirements
        * @example Telnyx LLC
        */
       businessName: string;
       /**
        * Corporatewebsite
+       * @description A URL, including the scheme, pointing to the corporate website
        * @example http://example.com
        */
       corporateWebsite: string;
       /**
        * Businessaddr1
+       * @description Line 1 of the business address
        * @example 311 W Superior St
        */
       businessAddr1: string;
       /**
        * Businessaddr2
+       * @description Line 2 of the business address
        * @example 121 W Superior St
        */
       businessAddr2?: string;
       /**
        * Businesscity
+       * @description The city of the business address; the first letter should be capitalized
        * @example Chicago
        */
       businessCity: string;
       /**
        * Businessstate
+       * @description The full name of the state (not the 2 letter code) of the business address; the first letter should be capitalized
        * @example Illinois
        */
       businessState: string;
       /**
        * Businesszip
+       * @description The ZIP code of the business address
        * @example 60654
        */
       businessZip: string;
       /**
        * Businesscontactfirstname
+       * @description First name of the business contact; there are no specific requirements on formatting
        * @example John
        */
       businessContactFirstName: string;
       /**
        * Businesscontactlastname
+       * @description Last name of the business contact; there are no specific requirements on formatting
        * @example Doe
        */
       businessContactLastName: string;
       /**
        * Businesscontactemail
+       * @description The email address of the business contact
        * @example email@example.com
        */
       businessContactEmail: string;
       /**
        * Businesscontactphone
+       * @description The phone number of the business contact in E.164 format
        * @example +18005550100
        */
       businessContactPhone: string;
       /**
-       * @description One of the following exact values: 10; 100; 1,000; 10,000; 100,000; 250,000; 500,000; 750,000; 1,000,000; 5,000,000; 10,000,000+
+       * @description Estimated monthly volume of messages from the given phone numbers
        * @example 100,000
        */
       messageVolume: components['schemas']['Volume'];
       /**
        * Phonenumbers
+       * @description The phone numbers to request the verification of
        * @example [
        *       {
        *         "phoneNumber": "+18773554398"
@@ -36327,25 +37092,32 @@ export interface components {
        *     ]
        */
       phoneNumbers: components['schemas']['TFPhoneNumber'][];
-      /** @example 2FA */
+      /**
+       * @description Machine-readable use-case for the phone numbers
+       * @example 2FA
+       */
       useCase: components['schemas']['UseCaseCategories'];
       /**
        * Usecasesummary
+       * @description Human-readable summary of the desired use-case
        * @example This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal
        */
       useCaseSummary: string;
       /**
        * Productionmessagecontent
+       * @description An example of a message that will be sent from the given phone numbers
        * @example Your Telnyx OTP is XXXX
        */
       productionMessageContent: string;
       /**
        * Optinworkflow
+       * @description Human-readable description of how end users will opt into receiving messages from the given phone numbers
        * @example User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset
        */
       optInWorkflow: string;
       /**
        * Optinworkflowimageurls
+       * @description Images showing the opt-in workflow
        * @example [
        *       {
        *         "url": "https://telnyx.com/sign-up"
@@ -36358,16 +37130,17 @@ export interface components {
       optInWorkflowImageURLs: components['schemas']['Url'][];
       /**
        * Additionalinformation
-       * @example This is for security purposes, blah blah blah
+       * @description Any additional information
        */
       additionalInformation: string;
       /**
        * Isvreseller
-       * @example Yes
+       * @description ISV name
        */
       isvReseller: string;
       /**
        * Webhookurl
+       * @description URL that should receive webhooks relating to this verification request
        * @example http://example-webhook.com
        */
       webhookUrl?: string;
@@ -36478,7 +37251,7 @@ export interface components {
     TelephonyCredentialCreateRequest: {
       name?: string;
       /**
-       * @description Tags a credential to filter for bulk operations. A single tag can hold at maximum 1000 credentials.
+       * @description Tags a credential. A single tag can hold at maximum 1000 credentials.
        * @example some_tag
        */
       tag?: string;
@@ -36503,7 +37276,7 @@ export interface components {
     TelephonyCredentialUpdateRequest: {
       name?: string;
       /**
-       * @description Tags a credential to filter for bulk operations. A single tag can hold at maximum 1000 credentials.
+       * @description Tags a credential. A single tag can hold at maximum 1000 credentials.
        * @example some_tag
        */
       tag?: string;
@@ -36698,6 +37471,16 @@ export interface components {
        */
       webhookFailoverURL?: string;
       /**
+       * @description Date and time that the brand was created at.
+       * @example 2021-03-08T17:57:48.801186
+       */
+      createdAt?: string;
+      /**
+       * @description Date and time that the brand was last updated at.
+       * @example 2021-03-08T17:57:48.801186
+       */
+      updatedAt?: string;
+      /**
        * status
        * @description Status of the brand
        * @enum {unknown}
@@ -36717,7 +37500,288 @@ export interface components {
        */
       assignedCampaignsCount?: number;
     };
-    TelnyxCampaignWithAssignedCount_CSP: components['schemas']['TelnyxCampaign_CSP'] & {
+    /** TelnyxCampaignWithAssignedCount_CSP */
+    TelnyxCampaignWithAssignedCount_CSP: {
+      /**
+       * Affiliatemarketing
+       * @deprecated
+       * @description Does message content controlled by affiliate marketing other than the brand?
+       *
+       *     This field is deprecated.
+       */
+      affiliateMarketing?: boolean;
+      /**
+       * Agegated
+       * @description Age gated content in campaign.
+       */
+      ageGated?: boolean;
+      /**
+       * Autorenewal
+       * @description Campaign subscription auto-renewal status.
+       */
+      autoRenewal?: boolean;
+      /**
+       * Billeddate
+       * @description Campaign recent billed date.
+       */
+      billedDate?: string;
+      /**
+       * Brandid
+       * @description Unique identifier assigned to the brand.
+       * @example d2ca9d69-641b-4131-83fa-5d0744f4c8a9
+       */
+      brandId?: string;
+      /**
+       * Branddisplayname
+       * @description Display or marketing name of the brand.
+       * @example ABC Mobile
+       */
+      brandDisplayName?: unknown;
+      /**
+       * Campaignid
+       * @description Unique identifier for a campaign.
+       * @example 823d6b1a-6ed6-41a3-9c50-c8ff41b682ba
+       */
+      campaignId?: string;
+      /**
+       * TcrBrandid
+       * @description Unique identifier assigned to the brand by the registry.
+       * @example BBRAND1
+       */
+      tcrBrandId?: string;
+      /**
+       * TcrCampaignid
+       * @description Unique identifier assigned to the campaign by the registry.
+       * @example CCAMP1
+       */
+      tcrCampaignId?: string;
+      /**
+       * Createdate
+       * @description Unix timestamp when campaign was created.
+       */
+      createDate?: string;
+      /**
+       * Cspid
+       * @description Alphanumeric identifier of the CSP associated with this campaign.
+       */
+      cspId?: string;
+      /**
+       * Description
+       * @description Summary description of this campaign.
+       */
+      description?: string;
+      /** Directlending */
+      directLending?: boolean;
+      /**
+       * Embeddedlink
+       * @description Does message generated by the campaign include URL link in SMS?
+       */
+      embeddedLink?: boolean;
+      /**
+       * Embeddedphone
+       * @description Does message generated by the campaign include phone number in SMS?
+       */
+      embeddedPhone?: boolean;
+      /**
+       * Helpkeywords
+       * @description Subscriber help keywords. Multiple keywords are comma separated without space.
+       */
+      helpKeywords?: string;
+      /**
+       * Helpmessage
+       * @description Help message of the campaign.
+       */
+      helpMessage?: string;
+      /**
+       * Messageflow
+       * @description Message flow description.
+       */
+      messageFlow?: string;
+      /**
+       * Mock
+       * @description Campaign created from mock brand. Mocked campaign cannot be shared with an upstream CNP.
+       */
+      mock?: boolean;
+      /**
+       * Nextrenewalorexpirationdate
+       * @description When the campaign would be due for its next renew/bill date.
+       */
+      nextRenewalOrExpirationDate?: string;
+      /**
+       * Numberpool
+       * @description Does campaign utilize pool of phone numbers?
+       */
+      numberPool?: boolean;
+      /**
+       * Optinkeywords
+       * @description Subscriber opt-in keywords. Multiple keywords are comma separated without space.
+       */
+      optinKeywords?: string;
+      /**
+       * Optinmessage
+       * @description Subscriber opt-in message.
+       */
+      optinMessage?: string;
+      /**
+       * Optoutkeywords
+       * @description Subscriber opt-out keywords. Multiple keywords are comma separated without space.
+       */
+      optoutKeywords?: string;
+      /**
+       * Optoutmessage
+       * @description Subscriber opt-out message.
+       */
+      optoutMessage?: string;
+      /**
+       * Referenceid
+       * @description Caller supplied campaign reference ID. If supplied, the value must be unique across all submitted campaigns. Can be used to prevent duplicate campaign registrations.
+       */
+      referenceId?: string;
+      /**
+       * Resellerid
+       * @description Alphanumeric identifier of the reseller that you want to associate with this campaign.
+       */
+      resellerId?: string;
+      /**
+       * Sample1
+       * @description Message sample. Some campaign tiers require 1 or more message samples.
+       */
+      sample1?: string;
+      /**
+       * Sample2
+       * @description Message sample. Some campaign tiers require 2 or more message samples.
+       */
+      sample2?: string;
+      /**
+       * Sample3
+       * @description Message sample. Some campaign tiers require 3 or more message samples.
+       */
+      sample3?: string;
+      /**
+       * Sample4
+       * @description Message sample. Some campaign tiers require 4 or more message samples.
+       */
+      sample4?: string;
+      /**
+       * Sample5
+       * @description Message sample. Some campaign tiers require 5 or more message samples.
+       */
+      sample5?: string;
+      /**
+       * Status
+       * @description Current campaign status. Possible values: ACTIVE, EXPIRED. A newly created campaign defaults to ACTIVE status.
+       */
+      status?: string;
+      /**
+       * Subusecases
+       * @description Campaign sub-usecases. Must be of defined valid sub-usecase types. Use `/registry/enum/usecase` operation to retrieve list of valid sub-usecases
+       */
+      subUsecases?: string[];
+      /**
+       * Subscriberhelp
+       * @description Does campaign responds to help keyword(s)?
+       */
+      subscriberHelp?: boolean;
+      /**
+       * Subscriberoptin
+       * @description Does campaign require subscriber to opt-in before SMS is sent to subscriber?
+       */
+      subscriberOptin?: boolean;
+      /**
+       * Subscriberoptout
+       * @description Does campaign support subscriber opt-out keyword(s)?
+       */
+      subscriberOptout?: boolean;
+      /**
+       * Termsandconditions
+       * @description Is terms & conditions accepted?
+       */
+      termsAndConditions?: boolean;
+      /**
+       * Usecase
+       * @description Campaign usecase. Must be of defined valid types. Use `/registry/enum/usecase` operation to retrieve usecases available for given brand.
+       */
+      usecase?: string;
+      /**
+       * Vertical
+       * @deprecated
+       * @description Business/industry segment of this campaign (Deprecated). Must be of defined valid types. Use `/registry/enum/vertical` operation to retrieve verticals available for given brand, vertical combination.
+       *
+       *     This field is deprecated.
+       */
+      vertical?: string;
+      /**
+       * WebhookURL
+       * @description Webhook to which campaign status updates are sent.
+       * @example https://example.com/webhook
+       */
+      webhookURL?: string;
+      /**
+       * WebhookFailoverURL
+       * @description Failover webhook to which campaign status updates are sent.
+       * @example https://example.com/failover-webhook
+       */
+      webhookFailoverURL?: string;
+      /**
+       * IsTMobileRegistered
+       * @description Indicates whether the campaign is registered with T-Mobile.
+       */
+      isTMobileRegistered?: boolean;
+      /**
+       * isTMobileSuspended
+       * @description Indicates whether the campaign is suspended with T-Mobile.
+       */
+      isTMobileSuspended?: boolean;
+      /**
+       * isTMobileNumberPoolingEnabled
+       * @description Indicates whether the campaign has a T-Mobile number pool ID associated with it.
+       */
+      isTMobileNumberPoolingEnabled?: boolean;
+      /**
+       * failureReasons
+       * @description Failure reasons if campaign submission failed
+       */
+      failureReasons?: unknown;
+      /**
+       * submissionStatus
+       * @description Campaign submission status
+       * @enum {unknown}
+       */
+      submissionStatus?: 'CREATED' | 'FAILED' | 'PENDING';
+      /**
+       * campaignStatus
+       * @description Campaign status
+       * @example TCR_ACCEPTED
+       * @enum {unknown}
+       */
+      campaignStatus?:
+        | 'TCR_PENDING'
+        | 'TCR_SUSPENDED'
+        | 'TCR_EXPIRED'
+        | 'TCR_ACCEPTED'
+        | 'TCR_FAILED'
+        | 'TELNYX_ACCEPTED'
+        | 'TELNYX_FAILED'
+        | 'MNO_PENDING'
+        | 'MNO_ACCEPTED'
+        | 'MNO_REJECTED'
+        | 'MNO_PROVISIONED'
+        | 'MNO_PROVISIONING_FAILED';
+      /**
+       * PrivacyPolicyLink
+       * @description Link to the campaign's privacy policy.
+       */
+      privacyPolicyLink?: string;
+      /**
+       * TermsAndConditionsLink
+       * @description Link to the campaign's terms and conditions.
+       */
+      termsAndConditionsLink?: string;
+      /**
+       * EmbeddedLinkSample
+       * @description Sample of an embedded link that will be sent to subscribers.
+       */
+      embeddedLinkSample?: string;
       /**
        * AssignedPhoneNumbersCount
        * @description Number of phone numbers associated with the campaign
@@ -36759,6 +37823,12 @@ export interface components {
        * @example d2ca9d69-641b-4131-83fa-5d0744f4c8a9
        */
       brandId: string;
+      /**
+       * Branddisplayname
+       * @description Display or marketing name of the brand.
+       * @example ABC Mobile
+       */
+      brandDisplayName?: unknown;
       /**
        * Campaignid
        * @description Unique identifier for a campaign.
@@ -36970,6 +38040,260 @@ export interface components {
        * @enum {unknown}
        */
       submissionStatus?: 'CREATED' | 'FAILED' | 'PENDING';
+      /**
+       * campaignStatus
+       * @description Campaign status
+       * @example TCR_ACCEPTED
+       * @enum {unknown}
+       */
+      campaignStatus?:
+        | 'TCR_PENDING'
+        | 'TCR_SUSPENDED'
+        | 'TCR_EXPIRED'
+        | 'TCR_ACCEPTED'
+        | 'TCR_FAILED'
+        | 'TELNYX_ACCEPTED'
+        | 'TELNYX_FAILED'
+        | 'MNO_PENDING'
+        | 'MNO_ACCEPTED'
+        | 'MNO_REJECTED'
+        | 'MNO_PROVISIONED'
+        | 'MNO_PROVISIONING_FAILED';
+      /**
+       * PrivacyPolicyLink
+       * @description Link to the campaign's privacy policy.
+       */
+      privacyPolicyLink?: string;
+      /**
+       * TermsAndConditionsLink
+       * @description Link to the campaign's terms and conditions.
+       */
+      termsAndConditionsLink?: string;
+      /**
+       * EmbeddedLinkSample
+       * @description Sample of an embedded link that will be sent to subscribers.
+       */
+      embeddedLinkSample?: string;
+    };
+    /**
+     * TelnyxDownstreamCampaign
+     * @description Campaign is generated by the 10DLC registry once the corresponding campaign request is approved. Each campaign is assigned a unique identifier - **campaignId**. Once a campaign is activated, limited information is published to the NetNumber OSR service for consumption by members of the ecosystem. When a campaign is suspended(reversible) or expired(non-reversible), campaign data is deleted from the OSR service.
+     */
+    TelnyxDownstreamCampaign: {
+      /**
+       * AgeGated
+       * @description Age gated content in campaign.
+       */
+      ageGated?: boolean;
+      /**
+       * AssignedPhoneNumbersCount
+       * @description Number of phone numbers associated with the campaign
+       * @example 3
+       */
+      assignedPhoneNumbersCount?: number;
+      /**
+       * Branddisplayname
+       * @description Display or marketing name of the brand.
+       * @example ABC Mobile
+       */
+      brandDisplayName?: unknown;
+      /**
+       * campaignStatus
+       * @description Campaign status
+       * @example TCR_ACCEPTED
+       * @enum {unknown}
+       */
+      campaignStatus?:
+        | 'TCR_PENDING'
+        | 'TCR_SUSPENDED'
+        | 'TCR_EXPIRED'
+        | 'TCR_ACCEPTED'
+        | 'TCR_FAILED'
+        | 'TELNYX_ACCEPTED'
+        | 'TELNYX_FAILED'
+        | 'MNO_PENDING'
+        | 'MNO_ACCEPTED'
+        | 'MNO_REJECTED'
+        | 'MNO_PROVISIONED'
+        | 'MNO_PROVISIONING_FAILED';
+      /**
+       * Description
+       * @description Summary description of this campaign.
+       */
+      description?: string;
+      /**
+       * Directlending
+       * @description Direct lending or loan arrangement.
+       */
+      directLending?: boolean;
+      /**
+       * Embeddedlink
+       * @description Does message generated by the campaign include URL link in SMS?
+       */
+      embeddedLink?: boolean;
+      /**
+       * EmbeddedLinkSample
+       * @description Sample of an embedded link that will be sent to subscribers.
+       */
+      embeddedLinkSample?: string;
+      /**
+       * Embeddedphone
+       * @description Does message generated by the campaign include phone number in SMS?
+       */
+      embeddedPhone?: boolean;
+      /**
+       * failureReasons
+       * @description Failure reasons if campaign submission failed
+       */
+      failureReasons?: unknown;
+      /**
+       * Helpkeywords
+       * @description Subscriber help keywords. Multiple keywords are comma separated without space.
+       */
+      helpKeywords?: string;
+      /**
+       * Helpmessage
+       * @description Help message of the campaign.
+       */
+      helpMessage?: string;
+      /**
+       * isNumberPoolingEnabled
+       * @description Indicates whether the campaign has a T-Mobile number pool ID associated with it.
+       */
+      isNumberPoolingEnabled?: boolean;
+      /**
+       * Messageflow
+       * @description Message flow description.
+       */
+      messageFlow?: string;
+      /**
+       * Numberpool
+       * @description Does campaign utilize pool of phone numbers?
+       */
+      numberPool?: boolean;
+      /**
+       * Optinkeywords
+       * @description Subscriber opt-in keywords. Multiple keywords are comma separated without space.
+       */
+      optinKeywords?: string;
+      /**
+       * Optinmessage
+       * @description Subscriber opt-in message.
+       */
+      optinMessage?: string;
+      /**
+       * Optoutkeywords
+       * @description Subscriber opt-out keywords. Multiple keywords are comma separated without space.
+       */
+      optoutKeywords?: string;
+      /**
+       * Optoutmessage
+       * @description Subscriber opt-out message.
+       */
+      optoutMessage?: string;
+      /**
+       * PrivacyPolicyLink
+       * @description Link to the campaign's privacy policy.
+       */
+      privacyPolicyLink?: string;
+      /**
+       * Usecase
+       * @description Campaign usecase. Must be of defined valid types. Use `/registry/enum/usecase` operation to retrieve usecases available for given brand.
+       */
+      usecase?: string;
+      /**
+       * Sample1
+       * @description Message sample. Some campaign tiers require 1 or more message samples.
+       */
+      sample1?: string;
+      /**
+       * Sample2
+       * @description Message sample. Some campaign tiers require 2 or more message samples.
+       */
+      sample2?: string;
+      /**
+       * Sample3
+       * @description Message sample. Some campaign tiers require 3 or more message samples.
+       */
+      sample3?: string;
+      /**
+       * Sample4
+       * @description Message sample. Some campaign tiers require 4 or more message samples.
+       */
+      sample4?: string;
+      /**
+       * Sample5
+       * @description Message sample. Some campaign tiers require 5 or more message samples.
+       */
+      sample5?: string;
+      /**
+       * Subusecases
+       * @description Campaign sub-usecases. Must be of defined valid sub-usecase types. Use `/registry/enum/usecase` operation to retrieve list of valid sub-usecases
+       */
+      subUsecases?: string[];
+      /**
+       * Subscriberoptin
+       * @description Does campaign require subscriber to opt-in before SMS is sent to subscriber?
+       */
+      subscriberOptin?: boolean;
+      /**
+       * Subscriberoptout
+       * @description Does campaign support subscriber opt-out keyword(s)?
+       */
+      subscriberOptout?: boolean;
+      /**
+       * TcrBrandid
+       * @description Unique identifier assigned to the brand by the registry.
+       * @example BBRAND1
+       */
+      tcrBrandId: string;
+      /**
+       * TcrCampaignid
+       * @description Unique identifier assigned to the campaign by the registry.
+       * @example CCAMP1
+       */
+      tcrCampaignId: string;
+      /**
+       * Termsandconditions
+       * @description Is terms & conditions accepted?
+       */
+      termsAndConditions?: boolean;
+      /**
+       * TermsAndConditionsLink
+       * @description Link to the campaign's terms and conditions.
+       */
+      termsAndConditionsLink?: string;
+      /**
+       * WebhookURL
+       * @description Webhook to which campaign status updates are sent.
+       * @example https://example.com/webhook
+       */
+      webhookURL?: string;
+      /**
+       * WebhookFailoverURL
+       * @description Failover webhook to which campaign status updates are sent.
+       * @example https://example.com/failover-webhook
+       */
+      webhookFailoverURL?: string;
+      /**
+       * @description Date and time that the brand was created at.
+       * @example 2021-03-08T17:57:48.801186
+       */
+      createdAt?: string;
+      /**
+       * @description Date and time that the brand was last updated at.
+       * @example 2021-03-08T17:57:48.801186
+       */
+      updatedAt?: string;
+    };
+    /** TelnyxDownstreamCampaignRecordSet */
+    TelnyxDownstreamCampaignRecordSet: {
+      /** Records */
+      records?: components['schemas']['TelnyxDownstreamCampaign'][];
+      /** Page */
+      page?: number;
+      /** Totalrecords */
+      totalRecords?: number;
     };
     /**
      * Telnyx transcription engine list of languages
@@ -37205,6 +38529,22 @@ export interface components {
       created_at?: components['schemas']['CreatedAt'];
       updated_at?: components['schemas']['UpdatedAt'];
     };
+    /**
+     * Stream Bidirectional Codec
+     * @description Indicates codec for bidirectional streaming RTP payloads. Used only with stream_bidirectional_mode=rtp. Case sensitive.
+     * @default PCMU
+     * @example G722
+     * @enum {string}
+     */
+    TexmlBidirectionalStreamCodec: 'PCMU' | 'PCMA' | 'G722';
+    /**
+     * Stream Bidirectional Mode
+     * @description Configures method of bidirectional streaming (mp3, rtp).
+     * @default mp3
+     * @example rtp
+     * @enum {string}
+     */
+    TexmlBidirectionalStreamMode: 'mp3' | 'rtp';
     /** Texml Create Call Recording Request Body */
     TexmlCreateCallRecordingRequestBody: {
       PlayBeep?: components['schemas']['PlayBeep'];
@@ -37242,6 +38582,9 @@ export interface components {
       StatusCallbackMethod?: components['schemas']['TexmlStatusCallbackMethod'];
       Track?: components['schemas']['StreamTrack'];
       Name?: components['schemas']['StreamName'];
+      BidirectionalMode?: components['schemas']['TexmlBidirectionalStreamMode'];
+      BidirectionalCodec?: components['schemas']['TexmlBidirectionalStreamCodec'];
+      Url?: components['schemas']['TexmlStreamUrl'];
     };
     /** Texml Create Call Streaming Response Body */
     TexmlCreateCallStreamingResponseBody: {
@@ -37265,6 +38608,104 @@ export interface components {
        * @example /v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls/v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA/Streams/b08f0fa1-a32c-4218-b3b5-9cf78941ccac.json
        */
       uri?: string;
+    };
+    /** Create Siprec Session Request */
+    TexmlCreateSiprecSessionRequestBody: {
+      /**
+       * @description The name of the connector to use for the SIPREC session.
+       * @example my_connector
+       */
+      ConnectorName?: string;
+      /**
+       * @description The track to be used for siprec session. Can be `both_tracks`, `inbound_track` or `outbound_track`. Defaults to `both_tracks`.
+       * @example both_tracks
+       * @enum {string}
+       */
+      Track?: 'both_tracks' | 'inbound_track' | 'outbound_track';
+      /**
+       * @description When set, custom parameters will be added as metadata (recording.session.ExtensionParameters). Otherwise, they’ll be added to sip headers.
+       * @example true
+       * @enum {boolean}
+       */
+      IncludeMetadataCustomHeaders?: true | false;
+      /**
+       * @description Controls whether to encrypt media sent to your SRS using SRTP and TLS. When set you need to configure SRS port in your connector to 5061.
+       * @example true
+       * @enum {boolean}
+       */
+      Secure?: true | false;
+      /**
+       * @description Sets `Session-Expires` header to the INVITE. A reinvite is sent every half the value set. Usefull for session keep alive. Minimum value is 90, set to 0 to disable.
+       * @default 1800
+       * @example 900
+       */
+      SessionTimeoutSecs: number;
+      /**
+       * @description URL destination for Telnyx to send status callback events to for the siprec session.
+       * @example https://www.example.com/callback
+       */
+      StatusCallback?: string;
+      /**
+       * @description HTTP request type used for `StatusCallback`.
+       * @example GET
+       * @enum {string}
+       */
+      StatusCallbackMethod?: 'GET' | 'POST';
+    };
+    /** Create Siprec Session Response */
+    TexmlCreateSiprecSessionResponseBody: {
+      /**
+       * @description The id of the account the resource belongs to.
+       * @example 61bf923e-5e4d-4595-a110-56190ea18a1b
+       */
+      account_sid?: string;
+      /**
+       * @description The id of the call the resource belongs to.
+       * @example v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ
+       */
+      call_sid?: string;
+      /**
+       * @description The SID of the siprec session.
+       * @example 61bf923e-5e4d-4595-a110-56190ea18123
+       */
+      sid?: string;
+      /**
+       * @description The date and time the siprec session was created.
+       * @example Fri, 11 Aug 2023 19:12:11 +0000
+       */
+      date_created?: string;
+      /**
+       * @description The date and time the siprec session was last updated.
+       * @example Fri, 11 Aug 2023 19:12:11 +0000
+       */
+      date_updated?: string;
+      /**
+       * @description The date and time the siprec session was started.
+       * @example Fri, 11 Aug 2023 19:12:11 +0000
+       */
+      start_time?: string;
+      /**
+       * @description The status of the siprec session.
+       * @example in-progress
+       * @enum {string}
+       */
+      status?: 'in-progress' | 'stopped';
+      /**
+       * @description The track used for the siprec session.
+       * @example both_tracks
+       * @enum {string}
+       */
+      track?: 'both_tracks' | 'inbound_track' | 'outbound_track';
+      /**
+       * @description The URI of the siprec session.
+       * @example https://api.telnyx.com/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18123/Calls/v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-ai/Siprec/61bf923e-5e4d-4595-a110-56190ea18123
+       */
+      uri?: string;
+      /**
+       * @description The error code of the siprec session.
+       * @example null
+       */
+      error_code?: string;
     };
     /** @example null */
     TexmlErrorCode: string | null;
@@ -37428,6 +38869,12 @@ export interface components {
      * @enum {string}
      */
     TexmlStatusCallbackMethod: 'GET' | 'POST';
+    /**
+     * Stream destination URL
+     * @description The destination WebSocket address where the stream is going to be delivered.
+     * @example wss://www.example.com/websocket
+     */
+    TexmlStreamUrl: string;
     /** Texml Create Call Recording Request Body */
     TexmlUpdateCallRecordingRequestBody: {
       /**
@@ -37457,6 +38904,54 @@ export interface components {
        * @example /v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Calls/v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA/Streams/b08f0fa1-a32c-4218-b3b5-9cf78941ccac.json
        */
       uri?: string;
+    };
+    /** Update Siprec Session Request */
+    TexmlUpdateSiprecSessionRequestBody: {
+      /**
+       * @description The new status of the resource. Specifying `stopped` will end the siprec session.
+       * @example stopped
+       * @enum {string}
+       */
+      Status?: 'stopped';
+    };
+    /** Update Siprec Session Response */
+    TexmlUpdateSiprecSessionResponseBody: {
+      /**
+       * @description The id of the account the resource belongs to.
+       * @example 61bf923e-5e4d-4595-a110-56190ea18a1b
+       */
+      account_sid?: string;
+      /**
+       * @description The id of the call the resource belongs to.
+       * @example v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ
+       */
+      call_sid?: string;
+      /**
+       * @description The SID of the siprec session.
+       * @example 61bf923e-5e4d-4595-a110-56190ea18123
+       */
+      sid?: string;
+      /**
+       * @description The date and time the siprec session was last updated.
+       * @example Fri, 11 Aug 2023 19:12:11 +0000
+       */
+      date_updated?: string;
+      /**
+       * @description The status of the siprec session.
+       * @example in-progress
+       * @enum {string}
+       */
+      status?: 'in-progress' | 'stopped';
+      /**
+       * @description The URI of the siprec session.
+       * @example https://api.telnyx.com/v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18123/Calls/v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-ai/Siprec/61bf923e-5e4d-4595-a110-56190ea18123
+       */
+      uri?: string;
+      /**
+       * @description The error code of the siprec session.
+       * @example null
+       */
+      error_code?: string;
     };
     /** TnReleaseEntry */
     TnReleaseEntry: {
@@ -37531,22 +39026,6 @@ export interface components {
      * @example +E.164
      */
     ToNumber: string;
-    /** Tool */
-    Tool: {
-      /** Tool Id */
-      tool_id: string;
-      /**
-       * Type
-       * @enum {string}
-       */
-      type: 'retrieval' | 'function';
-      /** Name */
-      name?: string;
-      /** Description */
-      description?: string;
-      function?: components['schemas']['FunctionDetail-Output'];
-      retrieval?: components['schemas']['RetrievalDetail'];
-    };
     /**
      * @description Specifies the type of traffic allowed in this profile.
      * @default conversational
@@ -37646,6 +39125,15 @@ export interface components {
         };
       };
     };
+    /** @description The settings associated with speech to text for the voice assistant. This is only relevant if the assistant uses a text-to-text language model. Any assistant using a model with native audio support (e.g. `fixie-ai/ultravox-v0_4`) will ignore this field. */
+    TranscriptionConfig: {
+      /**
+       * @description The speech to text model to be used by the voice assistant. `distil-whisper/distil-large-v2` is lower latency but English-only. `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher latency.
+       * @default distil-whisper/distil-large-v2
+       * @example distil-whisper/distil-large-v2
+       */
+      model: string;
+    };
     /** Transcription Event */
     TranscriptionEvent: {
       data?: components['schemas']['Transcription'];
@@ -37660,7 +39148,7 @@ export interface components {
      */
     TranscriptionStartRequest: {
       /**
-       * @description Engine to use for speech recognition. `A` - `google`, `B` - `telnyx`.
+       * @description Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`.
        * @default A
        * @example A
        * @enum {string}
@@ -37675,6 +39163,26 @@ export interface components {
        * @example true
        */
       interim_results: boolean;
+      /**
+       * @description Enables speaker diarization. Applies to `google` engine only.
+       * @default false
+       * @example true
+       */
+      enable_speaker_diarization: boolean;
+      /**
+       * Format: int32
+       * @description Defines minimum number of speakers in the conversation. Applies to `google` engine only.
+       * @default 2
+       * @example 4
+       */
+      min_speaker_count: number;
+      /**
+       * Format: int32
+       * @description Defines maximum number of speakers in the conversation. Applies to `google` engine only.
+       * @default 6
+       * @example 4
+       */
+      max_speaker_count: number;
       /**
        * @description Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
        * @example aGF2ZSBhIG5pY2UgZGF5ID1d
@@ -37747,6 +39255,7 @@ export interface components {
      *       ],
      *       "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
      *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901",
+     *       "early_media": true,
      *       "media_encryption": "SRTP",
      *       "sip_auth_username": "username",
      *       "sip_auth_password": "password",
@@ -37783,13 +39292,19 @@ export interface components {
        */
       audio_url?: string;
       /**
+       * @description If set to false, early media will not be passed to the originating leg.
+       * @default true
+       * @example false
+       */
+      early_media: boolean;
+      /**
        * @description The media_name of a file to be played back when the transfer destination answers before bridging the call. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.
        * @example my_media_uploaded_to_media_storage_api
        */
       media_name?: string;
       /**
        * Format: int32
-       * @description The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being transferred. If the timeout is reached before an answer is received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 120 seconds.
+       * @description The number of seconds that Telnyx will wait for the call to be answered by the destination to which it is being transferred. If the timeout is reached before an answer is received, the call will hangup and a `call.hangup` webhook with a `hangup_cause` of `timeout` will be sent. Minimum value is 5 seconds. Maximum value is 600 seconds.
        * @default 30
        * @example 60
        */
@@ -39577,6 +41092,21 @@ export interface components {
        */
       billing_group_id: string | null;
     };
+    /** UpdateCampaignRequest */
+    UpdatePartnerCampaignRequest: {
+      /**
+       * WebhookURL
+       * @description Webhook to which campaign status updates are sent.
+       * @example https://webhook.com/67ea78a8-9f32-4d04-b62d-f9502e8e5f93
+       */
+      webhookURL?: string;
+      /**
+       * WebhookURL
+       * @description Webhook failover to which campaign status updates are sent.
+       * @example https://webhook.com/9010a453-4df8-4be6-a551-1070892888d6
+       */
+      webhookFailoverURL?: string;
+    };
     /** @example {
      *       "messaging_profile_id": "dd50eba1-a0c0-4563-9925-b25e842a7cb6",
      *       "messaging_product": "P2P"
@@ -40367,10 +41897,14 @@ export interface components {
       /** @enum {string} */
       status?: 'approved' | 'unapproved' | 'pending-approval' | 'declined';
       /** Format: date-time */
+      expires_at?: string;
+      /** Format: date-time */
       created_at?: string;
       /** Format: date-time */
       updated_at?: string;
     };
+    /** @description A list of your tags on the given resource type. NOTE: The casing of the tags returned will not necessarily match the casing of the tags when they were added to a resource. This is because the tags will have the casing of the first time they were used within the Telnyx system regardless of source. */
+    UserTagList: string[];
     ValidateAddress: {
       street_address?: components['schemas']['street_address'];
       extended_address?: components['schemas']['extended_address'];
@@ -40982,7 +42516,13 @@ export interface components {
        * @description This is the code the user submits for verification.
        * @example 17686
        */
-      code: string;
+      code?: string;
+      /**
+       * @description Identifies if the verification code has been accepted or rejected. Only permitted if custom_code was used for the verification.
+       * @example accepted
+       * @enum {string}
+       */
+      status?: 'accepted' | 'rejected';
     };
     /** VerifyVerificationCodeRequestByPhoneNumber */
     VerifyVerificationCodeRequestByPhoneNumber: {
@@ -41257,6 +42797,18 @@ export interface components {
        */
       secondary_cloud_ip?: string;
     };
+    /**
+     * @description The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx and AWS voices.
+     *
+     *      **Supported Providers:**
+     *      - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility.
+     *
+     *      - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration secret under `"voice_settings": {"api_key_ref": "<secret_id>"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+     *      - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+     * @default Telnyx.LibriTTS.0
+     * @example Telnyx.LibriTTS.0
+     */
+    VoiceConfig: string;
     /** @example {
      *       "enabled": "true",
      *       "pin": "1234"
@@ -41874,20 +43426,6 @@ export interface components {
          */
         readonly private_key?: string;
       };
-    WireguardPeerAllowedIP: components['schemas']['Record'] & {
-      /**
-       * @description Identifies the type of the resource.
-       * @example wireguard_allowed_ip
-       */
-      readonly record_type?: string;
-      /**
-       * @description The IP address to add to the Wireguard Interface's AllowedIP list.
-       * @example 198.51.100.1
-       */
-      ip_address?: string;
-    };
-    WireguardPeerAllowedIPCreate: components['schemas']['WireguardPeerAllowedIP'] &
-      Record<string, never>;
     WireguardPeerCreate: components['schemas']['WireguardPeer'] &
       Record<string, never>;
     /** WireguardPeerPatch */
@@ -42529,6 +44067,53 @@ export interface components {
         };
       };
     };
+    /** @description An Advanced Order Response */
+    AdvancedOrderResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          /**
+           * Country Code
+           * @default US
+           */
+          country_code: string;
+          /**
+           * Comments
+           * @default
+           */
+          comments: string;
+          /**
+           * Quantity
+           * @default 1
+           */
+          quantity: number;
+          /**
+           * Area Code
+           * @default
+           */
+          area_code: string;
+          /** @default  */
+          phone_number_type: unknown;
+          /** Features */
+          features?: ('sms' | 'mms' | 'voice' | 'fax' | 'emergency')[];
+          /**
+           * Customer Reference
+           * @default
+           */
+          customer_reference: string;
+          /**
+           * Id
+           * Format: uuid
+           */
+          id?: string;
+          status?: unknown;
+          /** Orders */
+          orders?: string[];
+        };
+      };
+    };
     /** @description Successful response */
     AuthenticationProviderResponse: {
       headers: {
@@ -42580,23 +44165,6 @@ export interface components {
         'application/json': {
           data?: components['schemas']['BucketUsage'][];
           meta?: components['schemas']['PaginationMetaSimple'];
-        };
-      };
-    };
-    /** @description Successful response for Bulk credential requests */
-    BulkCredentialResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: {
-            /**
-             * @description Amount of credentials affected
-             * @example 0
-             */
-            credentials?: number;
-          };
         };
       };
     };
@@ -42659,18 +44227,6 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['BulkSIMCardAction'];
-        };
-      };
-    };
-    BulkSIMCardNetworkPreferenceResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          /** @description Multi requested SIM cards network preferences. */
-          data?: components['schemas']['SIMCardNetworkPreferenceWithOTAUpdates'][];
-          errors?: components['schemas']['Error'][];
         };
       };
     };
@@ -43059,18 +44615,6 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['CsvDownload'][];
-        };
-      };
-    };
-    /** @description A successful network preferences deletion response. <br/><br/>
-     *     The delete won't be done right away - this is an asynchronous operation. The request will return the resource with an in-progress OTA update resource (in the ota_updates node) representing the delete operation. Similarly to the PUT API, the resource will only be deleted when the OTA updated is successfully completed. */
-    DELETESIMCardNetworkPreferenceResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['SIMCardNetworkPreferenceWithOTAUpdates'];
         };
       };
     };
@@ -43964,6 +45508,17 @@ export interface components {
         };
       };
     };
+    /** @description An array of Advanced Order Responses */
+    ListAdvancedOrderResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['responses']['AdvancedOrderResponse'][];
+        };
+      };
+    };
     /** @description Successful response */
     ListAllowedFocWindows: {
       headers: {
@@ -44723,6 +46278,17 @@ export interface components {
       };
     };
     /** @description Successful response */
+    ListPortoutRejections: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['PortoutRejection'][];
+        };
+      };
+    };
+    /** @description Successful response */
     ListPortoutReports: {
       headers: {
         [name: string]: unknown;
@@ -44885,23 +46451,6 @@ export interface components {
         };
       };
     };
-    /** @description Successful response with multiple tags */
-    ListTagsResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: {
-            /** @example a_tag */
-            tag?: string;
-            /** @example 1 */
-            amount?: number;
-          }[];
-          meta?: components['schemas']['PaginationMeta'];
-        };
-      };
-    };
     /** @description Successful response */
     ListUploadsResponse: {
       headers: {
@@ -44911,6 +46460,20 @@ export interface components {
         'application/json': {
           data?: components['schemas']['Upload'][];
           meta?: components['schemas']['PaginationMeta'];
+        };
+      };
+    };
+    /** @description A list of your tags */
+    ListUserTagsResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: {
+            outbound_profile_tags?: components['schemas']['UserTagList'];
+            number_tags?: components['schemas']['UserTagList'];
+          };
         };
       };
     };
@@ -45173,23 +46736,6 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['OutboundVoiceProfile'];
-        };
-      };
-    };
-    /** @description A successful network preferences definition response. <br/><br/>
-     *     The sent mobile_network_operators_preferences parameter won't be applied to the main resource right away - this is an asynchronous operation. While interacting with this API, you will face the following scenarios:
-     *
-     *       * The first request for this API will return an empty mobile_network_operators_preferences with an in-progress OTA update resource in the ota_updates node containing the exact sent parameters to indicate the operation progress. The value will be applied to the principal object when the OTA update finishes its processing, thus indicating the SIM card network preference current state.
-     *       * The subsequent requests will contain the current state, that is what's applied to the SIM card settings, and return the related OTA update in the ota_updates node.
-     *
-     *     The returned OTA updated (present in the ota_updates node) will, by default, be the resource related to the operation, not all of them. */
-    PUTSIMCardNetworkPreferenceResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['SIMCardNetworkPreferenceWithOTAUpdates'];
         };
       };
     };
@@ -45604,17 +47150,6 @@ export interface components {
         };
       };
     };
-    /** @description Expected portout response to a valid request */
-    RetrievePortoutResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['PortoutDetails'];
-        };
-      };
-    };
     /** @description Successful Response */
     SIMCardActionResponse: {
       headers: {
@@ -45656,28 +47191,6 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['SIMCardGroupAction'];
-        };
-      };
-    };
-    /** @description A successful network preferences definition response. */
-    SIMCardNetworkPreferenceResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['SIMCardNetworkPreference'];
-        };
-      };
-    };
-    /** @description A successful network preferences definition response. */
-    SIMCardNetworkPreferenceWithOTAUpdatesResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['SIMCardNetworkPreferenceWithOTAUpdates'];
         };
       };
     };
@@ -45966,17 +47479,6 @@ export interface components {
         };
       };
     };
-    /** @description Successful response */
-    SimpleSimCardResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['SimpleSIMCard'];
-        };
-      };
-    };
     /** @description Successful Response */
     SinglePhoneNumberCampaign: {
       headers: {
@@ -45984,6 +47486,15 @@ export interface components {
       };
       content: {
         'application/json': components['schemas']['PhoneNumberCampaign'];
+      };
+    };
+    /** @description Return details of the SIPREC connector associated with the given name. */
+    SiprecConnectorResponseBody: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['SiprecConnectorResponse'];
       };
     };
     /** @description Successful response with a list of phone numbers. */
@@ -46069,6 +47580,15 @@ export interface components {
       };
       content: {
         'application/json': components['schemas']['TexmlCreateCallStreamingResponseBody'];
+      };
+    };
+    /** @description Successful SIPREC session create response */
+    TexmlCreateSiprecSessionResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['TexmlCreateSiprecSessionResponseBody'];
       };
     };
     /** @description Retrieves call recording resource. */
@@ -46158,6 +47678,15 @@ export interface components {
       };
       content: {
         'application/json': components['schemas']['TexmlUpdateCallStreamingResponseBody'];
+      };
+    };
+    /** @description Successful SIPREC session update response */
+    TexmlUpdateSiprecSessionResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['TexmlUpdateSiprecSessionResponseBody'];
       };
     };
     /** @description Unauthorized */
@@ -46292,17 +47821,6 @@ export interface components {
             /** @description Link to list all phone numbers */
             phone_numbers_url?: string;
           };
-        };
-      };
-    };
-    /** @description Expected portout response to a valid request */
-    UpdatePortoutResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['PortoutDetails'];
         };
       };
     };
@@ -46562,8 +48080,6 @@ export interface components {
     CallSid: string;
     /** @description Filter by the id of a channel type */
     ChannelTypeId: 'webhook' | 'sms' | 'email' | 'voice';
-    /** @description Identifies the child resource */
-    ChildId: string;
     /** @description The ConferenceSid that uniquely identifies a conference. */
     ConferenceSid: string;
     /**
@@ -46708,23 +48224,25 @@ export interface components {
     FilterByTelnyxBrandID: string;
     /** @description Filter results by the Telnyx Campaign id */
     FilterByTelnyxCampaignID: string;
-    /** @description Event status */
-    FilterCallEventStatus: 'delivered' | 'failed';
-    /** @description Event timestamp: equal */
-    FilterCallEventTimestampEqualTo: string;
-    /** @description Event timestamp: greater than */
-    FilterCallEventTimestampGreaterThan: string;
-    /** @description Event timestamp: greater than or equal */
-    FilterCallEventTimestampGreaterThanOrEqualTo: string;
-    /** @description Event timestamp: lower than */
-    FilterCallEventTimestampLessThan: string;
-    /** @description Event timestamp: lower than or equal */
-    FilterCallEventTimestampLessThanOrEqualTo: string;
+    /** @description Delivery failed or not. */
+    FilterCallEventFailed: boolean;
+    /** @description Event name */
+    FilterCallEventName: string;
+    /** @description Event occurred_at: equal */
+    FilterCallEventOccurredAtEqualTo: string;
+    /** @description Event occurred_at: greater than */
+    FilterCallEventOccurredAtGreaterThan: string;
+    /** @description Event occurred_at: greater than or equal */
+    FilterCallEventOccurredAtGreaterThanOrEqualTo: string;
+    /** @description Event occurred_at: lower than */
+    FilterCallEventOccurredAtLessThan: string;
+    /** @description Event occurred_at: lower than or equal */
+    FilterCallEventOccurredAtLessThanOrEqualTo: string;
     /** @description Event type */
     FilterCallEventType: 'command' | 'webhook';
     /** @description The unique identifier of an individual call leg. */
     FilterCallLegId: string;
-    /** @description The unique identifier of the call control session. A session may include multiple call leg events. */
+    /** @description The unique identifier of the call session. A session may include multiple call leg events. */
     FilterCallSessionId: string;
     /** @description The civic address ID to filter by */
     FilterCivicAddressId: string;
@@ -46732,14 +48250,20 @@ export interface components {
     FilterConferenceName: string;
     /** @description If present, conferences will be filtered by status. */
     FilterConferenceStatus: 'init' | 'in_progress' | 'completed';
+    /** @description The unique identifier of the conection. */
+    FilterConnectionId: string;
     /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
     FilterConnectionName: string;
     /** @description The total monetary amount of the order. */
     FilterCostByAmount: string;
     /** @description Filter by ISO 4217 currency string. */
     FilterCostByCurrency: string;
+    /** @description Filter for audit events created after a specific date. */
+    FilterCreatedAfter: string;
     /** @description Filter by ISO 8601 formatted date-time string matching resource creation date-time. */
     FilterCreatedAt: string;
+    /** @description Filter for audit events created before a specific date. */
+    FilterCreatedBefore: string;
     /** @description If present, addresses with <code>customer_reference</code> containing the given value will be returned. Matching is not case-sensitive. */
     FilterCustomerReferenceContains: string;
     /** @description Filter addresses via the customer reference set. Matching is not case-sensitive. */
@@ -46754,6 +48278,8 @@ export interface components {
     FilterExternalSipConnection: 'zoom' | 'operator_connect';
     /** @description If present, connections with an `fqdn` that equals the given value will be returned. Matching is case-sensitive, and the full string must match. */
     FilterFqdn: string;
+    /** @description Filter by From number. */
+    FilterFrom: string;
     /** @description If present, connections with <code>id</code> matching the given value will be returned. */
     FilterId: string;
     /** @description Identifies the associated outbound voice profile. */
@@ -46778,10 +48304,10 @@ export interface components {
     FilterPhoneNumberLogMessageContains: string;
     /** @description The phone number to filter log messages for or "null" to filter for logs without a phone number */
     FilterPhoneNumberLogMessageEq: string;
+    /** @description Filter by product. */
+    FilterProduct: 'call_control' | 'fax' | 'texml';
     /** @description Filter orders by how many SIM cards were ordered. */
     FilterQuantity: number;
-    /** @description Returns orders with <code>quantity</code> lower than the specified argument. */
-    FilterQuantityLessThan: number;
     /** @description The status of the release to filter by */
     FilterReleaseStatus: (
       | 'pending_upload'
@@ -46804,6 +48330,8 @@ export interface components {
     FilterStatus: string;
     /** @description If present, addresses with <code>street_address</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
     FilterStreetAddress: string;
+    /** @description Filter by To number. */
+    FilterTo: string;
     /** @description Filter by ISO 8601 formatted date-time string matching resource last update date-time. */
     FilterUpdatedAt: string;
     /** @description The status of the upload to filter by */
@@ -46836,6 +48364,8 @@ export interface components {
     Id: string;
     /** @description Specifies if cancelled accounts should be included in the results. */
     IncludeCancelledAccounts: boolean;
+    /** @description It includes a list of associated ICCIDs. */
+    IncludeICCIDs: boolean;
     /** @description It includes the associated OTA update objects in the response when present. */
     IncludeOTAUpdates: boolean;
     /** @description It includes the associated SIM card group object in the response when present. */
@@ -46919,8 +48449,6 @@ export interface components {
     RecordingTranscriptionId: string;
     /** @description Uniquely identifies the recording transcription by id. */
     RecordingTranscriptionSid: string;
-    /** @description Filter by tag, required by bulk operations. */
-    RequiredTag: string;
     /** @description Identifies the resource. */
     ResourceId: string;
     /** @description Identifies the SIM group. */
@@ -46929,19 +48457,10 @@ export interface components {
     SIMCardId: string;
     /** @description The id of the short code */
     ShortCodeId: string;
-    /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
-     *     That is: <ul>
-     *       <li>
-     *         <code>email</code>: sorts the result by the
-     *         <code>email</code> field in ascending order.
-     *       </li>
-     *
-     *       <li>
-     *         <code>-email</code>: sorts the result by the
-     *         <code>email</code> field in descending order.
-     *       </li>
-     *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
-    Sort: 'created_at' | 'email';
+    /** @description Uniquely identifies a SIPREC connector */
+    SiprecConnectorName: string;
+    /** @description Set how the results will be ordered by the creation date. */
+    Sort: 'asc' | 'desc';
     /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
      *     That is: <ul>
      *       <li>
@@ -47348,6 +48867,12 @@ export interface components {
         };
       };
     };
+    /** @description The params expected to create/update a SIPREC connector */
+    SiprecConnectorRequest: {
+      content: {
+        'application/json': components['schemas']['SiprecConnector'];
+      };
+    };
     /** @description Starts call recording on a call. */
     TexmlCreateCallRecordingRequest: {
       content: {
@@ -47360,6 +48885,12 @@ export interface components {
         'application/x-www-form-urlencoded': components['schemas']['TexmlCreateCallStreamingRequestBody'];
       };
     };
+    /** @description Starts a SIPREC session. */
+    TexmlCreateSiprecSessionRequest: {
+      content: {
+        'application/x-www-form-urlencoded': components['schemas']['TexmlCreateSiprecSessionRequestBody'];
+      };
+    };
     /** @description Update call recording on a call. */
     TexmlUpdateCallRecordingRequest: {
       content: {
@@ -47370,6 +48901,12 @@ export interface components {
     TexmlUpdateCallStreamingRequest: {
       content: {
         'application/x-www-form-urlencoded': components['schemas']['TexmlUpdateCallStreamingRequestBody'];
+      };
+    };
+    /** @description Updates a SIPREC session. */
+    TexmlUpdateSiprecSessionRequest: {
+      content: {
+        'application/x-www-form-urlencoded': components['schemas']['TexmlUpdateSiprecSessionRequestBody'];
       };
     };
     UpdatePortingOrdersActivationJob: {
@@ -47426,6 +48963,13 @@ export interface operations {
         content: {
           'text/xml': components['schemas']['ListBucketsResponse'];
         };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
       };
     };
   };
@@ -47613,103 +49157,6 @@ export interface operations {
       };
     };
   };
-  CreateBulkTelephonyCredentials: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description Requested parameters to create credentials on bulk */
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['BulkCredentialRequest'];
-      };
-    };
-    responses: {
-      201: components['responses']['BulkCredentialResponse'];
-      /** @description Bad request */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
-  DeleteTelephonyCredentials: {
-    parameters: {
-      query: {
-        /** @description Filter by tag, required by bulk operations. */
-        'filter[tag]': components['parameters']['RequiredTag'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      201: components['responses']['BulkCredentialResponse'];
-      /** @description Bad request */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
-  UpdateBulkTelephonyCredential: {
-    parameters: {
-      query: {
-        /** @description Filter by tag, required by bulk operations. */
-        'filter[tag]': components['parameters']['RequiredTag'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description Parameters to update credentials on bulk */
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['BulkCredentialRequest'];
-      };
-    };
-    responses: {
-      201: components['responses']['BulkCredentialResponse'];
-      /** @description Bad request */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
-  BulkSimCardNetworkPreferences: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: {
-      content: {
-        'application/json': {
-          /** @example [
-           *       "6b14e151-8493-4fa1-8664-1cc4e6d14158",
-           *       "6b14e151-8493-4fa1-8664-1cc4e6d14158"
-           *     ] */
-          sim_card_ids?: string[];
-          mobile_network_operators_preferences?: components['schemas']['MobileNetworkOperatorsPreferencesRequest'];
-        };
-      };
-    };
-    responses: {
-      202: components['responses']['BulkSIMCardNetworkPreferenceResponse'];
-      422: components['responses']['UnprocessableEntity'];
-    };
-  };
   PurchaseESim: {
     parameters: {
       query?: never;
@@ -47724,6 +49171,13 @@ export interface operations {
     };
     responses: {
       202: components['responses']['RegisterSimCardsResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
     };
   };
   RegisterSimCards: {
@@ -47740,40 +49194,8 @@ export interface operations {
     };
     responses: {
       202: components['responses']['RegisterSimCardsResponse'];
-    };
-  };
-  BulkCredentialAction: {
-    parameters: {
-      query: {
-        /** @description Filter by tag, required by bulk operations. */
-        'filter[tag]': components['parameters']['RequiredTag'];
-      };
-      header?: never;
-      path: {
-        /** @description Identifies the action to be taken. Activate will change the status to active. Deactivate will change the status to inactive. */
-        action: 'activate' | 'deactivate';
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: components['responses']['BulkCredentialResponse'];
       /** @description Unauthorized */
       401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Resource not found */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Bad request */
-      422: {
         headers: {
           [name: string]: unknown;
         };
@@ -48003,6 +49425,72 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['ResourceNotFoundError'];
+        };
+      };
+    };
+  };
+  list_advanced_orders_v2: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['responses']['ListAdvancedOrderResponse'];
+        };
+      };
+    };
+  };
+  create_advanced_order_v2: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AdvancedOrderRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['responses']['AdvancedOrderResponse'];
+        };
+      };
+    };
+  };
+  get_advanced_order_v2: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        order_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['responses']['AdvancedOrderResponse'];
         };
       };
     };
@@ -48458,6 +49946,130 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['TaskStatusResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_finetuningjob_public_finetuning_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['FineTuningJobsListData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  create_new_finetuningjob_public_finetuning_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateFineTuningJobRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['FineTuningJob'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_finetuningjob_public_finetuning__job_id__get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        job_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['FineTuningJob'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  cancel_new_finetuningjob_public_finetuning_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        job_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['FineTuningJob'];
         };
       };
       /** @description Validation Error */
@@ -49298,6 +50910,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['BulkSIMCardActionCollectionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -49314,6 +50933,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['BulkSIMCardActionDetailedResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -49489,23 +51115,33 @@ export interface operations {
     parameters: {
       query?: {
         /** @description The unique identifier of an individual call leg. */
-        'filter[call_leg_id]'?: components['parameters']['FilterCallLegId'];
-        /** @description The unique identifier of the call control session. A session may include multiple call leg events. */
-        'filter[call_session_id]'?: components['parameters']['FilterCallSessionId'];
-        /** @description Event status */
-        'filter[status]'?: components['parameters']['FilterCallEventStatus'];
+        'filter[leg_id]'?: components['parameters']['FilterCallLegId'];
+        /** @description The unique identifier of the call session. A session may include multiple call leg events. */
+        'filter[application_session_id]'?: components['parameters']['FilterCallSessionId'];
+        /** @description The unique identifier of the conection. */
+        'filter[connection_id]'?: components['parameters']['FilterConnectionId'];
+        /** @description Filter by product. */
+        'filter[product]'?: components['parameters']['FilterProduct'];
+        /** @description Filter by From number. */
+        'filter[from]'?: components['parameters']['FilterFrom'];
+        /** @description Filter by To number. */
+        'filter[to]'?: components['parameters']['FilterTo'];
+        /** @description Delivery failed or not. */
+        'filter[failed]'?: components['parameters']['FilterCallEventFailed'];
         /** @description Event type */
         'filter[type]'?: components['parameters']['FilterCallEventType'];
-        /** @description Event timestamp: greater than */
-        'filter[event_timestamp][gt]'?: components['parameters']['FilterCallEventTimestampGreaterThan'];
-        /** @description Event timestamp: greater than or equal */
-        'filter[event_timestamp][gte]'?: components['parameters']['FilterCallEventTimestampGreaterThanOrEqualTo'];
-        /** @description Event timestamp: lower than */
-        'filter[event_timestamp][lt]'?: components['parameters']['FilterCallEventTimestampLessThan'];
-        /** @description Event timestamp: lower than or equal */
-        'filter[event_timestamp][lte]'?: components['parameters']['FilterCallEventTimestampLessThanOrEqualTo'];
-        /** @description Event timestamp: equal */
-        'filter[event_timestamp][eq]'?: components['parameters']['FilterCallEventTimestampEqualTo'];
+        /** @description Event name */
+        'filter[name]'?: components['parameters']['FilterCallEventName'];
+        /** @description Event occurred_at: greater than */
+        'filter[occurred_at][gt]'?: components['parameters']['FilterCallEventOccurredAtGreaterThan'];
+        /** @description Event occurred_at: greater than or equal */
+        'filter[occurred_at][gte]'?: components['parameters']['FilterCallEventOccurredAtGreaterThanOrEqualTo'];
+        /** @description Event occurred_at: lower than */
+        'filter[occurred_at][lt]'?: components['parameters']['FilterCallEventOccurredAtLessThan'];
+        /** @description Event occurred_at: lower than or equal */
+        'filter[occurred_at][lte]'?: components['parameters']['FilterCallEventOccurredAtLessThanOrEqualTo'];
+        /** @description Event occurred_at: equal */
+        'filter[occurred_at][eq]'?: components['parameters']['FilterCallEventOccurredAtEqualTo'];
         /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
         /** @description The size of the page */
@@ -49552,6 +51188,48 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['RetrieveCallStatusResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  CallStartAIAssistant: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Unique identifier and token for controlling the call */
+        call_control_id: components['parameters']['CallControlId'];
+      };
+      cookie?: never;
+    };
+    /** @description AI Assistant request */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AIAssistantStartRequest'];
+      };
+    };
+    responses: {
+      200: components['responses']['CallControlCommandResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  CallStopAIAssistant: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Unique identifier and token for controlling the call */
+        call_control_id: components['parameters']['CallControlId'];
+      };
+      cookie?: never;
+    };
+    /** @description AI Assistant request */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AIAssistantStopRequest'];
+      };
+    };
+    responses: {
+      200: components['responses']['CallControlCommandResponse'];
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -50038,6 +51716,48 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
+  StartSiprecSession: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Unique identifier and token for controlling the call */
+        call_control_id: components['parameters']['CallControlId'];
+      };
+      cookie?: never;
+    };
+    /** @description Start siprec session to configured in SIPREC connector SRS. */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['StartSiprecRequest'];
+      };
+    };
+    responses: {
+      200: components['responses']['CallControlCommandResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  StopSiprecSession: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Unique identifier and token for controlling the call */
+        call_control_id: components['parameters']['CallControlId'];
+      };
+      cookie?: never;
+    };
+    /** @description Stop siprec session */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['StopSiprecRequest'];
+      };
+    };
+    responses: {
+      200: components['responses']['CallControlCommandResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
   SpeakCall: {
     parameters: {
       query?: never;
@@ -50221,6 +51941,8 @@ export interface operations {
         sort?:
           | 'assignedPhoneNumbersCount'
           | '-assignedPhoneNumbersCount'
+          | 'campaignId'
+          | '-campaignId'
           | 'createdAt'
           | '-createdAt'
           | 'status'
@@ -50738,8 +52460,8 @@ export interface operations {
   ListComments: {
     parameters: {
       query: {
-        /** @description Record type that the comment relates to i.e number_order, sub_number_order or number_order_phone_number */
-        'filter[comment_record_type]': string;
+        /** @description Record type that the comment relates to */
+        'filter[comment_record_type]': 'sub_number_order' | 'requirement_group';
         /** @description ID of the record the comments relate to */
         'filter[comment_record_id]': string;
       };
@@ -50750,6 +52472,23 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['listCommentsResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  CreateComment: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Comment'];
+      };
+    };
+    responses: {
+      200: components['responses']['CommentResponse'];
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -51586,14 +53325,26 @@ export interface operations {
       query: {
         /** @description Filter by the given record type. */
         'filter[record_type]':
+          | 'ai-voice-assistant'
           | 'amd'
+          | 'call-control'
           | 'conference'
           | 'conference-participant'
+          | 'embedding'
+          | 'fax'
+          | 'inference'
+          | 'inference-speech-to-text'
           | 'media_storage'
+          | 'media-streaming'
           | 'messaging'
+          | 'noise-suppression'
+          | 'recording'
+          | 'sip-trunking'
+          | 'siprec-client'
+          | 'stt'
+          | 'tts'
           | 'verify'
-          | 'whatsapp'
-          | 'whatsapp-conversation'
+          | 'webrtc'
           | 'wireless';
         /** @description Filter by the given user-friendly date range. You can specify one of the following enum values, or a dynamic one using this format: last_N_days. */
         'filter[date_range]'?:
@@ -53875,6 +55626,92 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
+  list_integration_secrets: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['IntegrationSecretsListData'];
+        };
+      };
+    };
+  };
+  create_integration_secret: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        /** @example {
+         *       "identifier": "my_secret",
+         *       "value": "my_secret_value"
+         *     } */
+        'application/json': components['schemas']['CreateIntegrationSecretRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['IntegrationSecretCreatedResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse'];
+        };
+      };
+    };
+  };
+  delete_integration_secret: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description The resource was deleted successfully. */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Secret Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse'];
+        };
+      };
+    };
+  };
   CreateInventoryCoverage: {
     parameters: {
       query: {
@@ -54221,18 +56058,7 @@ export interface operations {
         'filter[organization_name][contains]'?: components['parameters']['FilterOrganizationEmailContains'];
         /** @description If present, only returns results with the <code>organization_name</code> matching exactly the value given. */
         'filter[organization_name][eq]'?: components['parameters']['FilterOrganizationEmailEq'];
-        /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
-         *     That is: <ul>
-         *       <li>
-         *         <code>email</code>: sorts the result by the
-         *         <code>email</code> field in ascending order.
-         *       </li>
-         *
-         *       <li>
-         *         <code>-email</code>: sorts the result by the
-         *         <code>email</code> field in descending order.
-         *       </li>
-         *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
+        /** @description Set how the results will be ordered by the creation date. */
         sort?: components['parameters']['Sort'];
         /** @description Specifies if cancelled accounts should be included in the results. */
         include_cancelled_accounts?: components['parameters']['IncludeCancelledAccounts'];
@@ -55258,6 +57084,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SearchMobileNetworkOperatorsResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -56203,83 +58036,6 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
-  ListNumberOrderDocuments: {
-    parameters: {
-      query?: {
-        /** @description Filter number order documents by `requirement_id`. */
-        'filter[requirement_id]'?: string;
-        /** @description Filter number order documents after this datetime. */
-        'filter[created_at][gt]'?: string;
-        /** @description Filter number order documents from before this datetime. */
-        'filter[created_at][lt]'?: string;
-        /** @description The page number to load */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
-        'page[size]'?: components['parameters']['PageSize'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: components['responses']['ListNumberOrderDocumentsResponse'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  CreateNumberOrderDocument: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CreateNumberOrderDocumentRequest'];
-      };
-    };
-    responses: {
-      200: components['responses']['NumberOrderDocumentResponse'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  RetrieveNumberOrderDocument: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description The number order document ID. */
-        number_order_document_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: components['responses']['NumberOrderDocumentResponse'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  UpdateNumberOrderDocument: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description The number order document ID. */
-        number_order_document_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['UpdateNumberOrderDocumentRequest'];
-      };
-    };
-    responses: {
-      200: components['responses']['NumberOrderDocumentResponse'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
   RetrieveOrderPhoneNumbers: {
     parameters: {
       query?: {
@@ -56293,6 +58049,42 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListNumberOrderPhoneNumbersResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  updateNumberOrderPhoneNumberRequirementGroup: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The unique identifier of the number order phone number */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': {
+          /**
+           * Format: uuid
+           * @description The ID of the requirement group to associate
+           */
+          requirement_group_id: string;
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response with updated phone number order details */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['NumberOrderPhoneNumberRequirementGroupResponse'];
+          };
+        };
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -56545,6 +58337,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SearchOTAUpdateResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -56561,6 +58360,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['OTAUpdateResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -56829,6 +58635,123 @@ export interface operations {
       };
     };
   };
+  GetSharedCampaigns: {
+    parameters: {
+      query?: {
+        /** @description The 1-indexed page number to get. The default value is `1`. */
+        page?: number;
+        /** @description The amount of records per page, limited to between 1 and 500 inclusive. The default value is `10`. */
+        recordsPerPage?: number;
+        /**
+         * @description Specifies the sort order for results. If not given, results are sorted by createdAt in descending order.
+         * @example -assignedPhoneNumbersCount
+         */
+        sort?:
+          | 'assignedPhoneNumbersCount'
+          | '-assignedPhoneNumbersCount'
+          | 'brandDisplayName'
+          | '-brandDisplayName'
+          | 'tcrBrandId'
+          | '-tcrBranId'
+          | 'tcrCampaignId'
+          | '-tcrCampaignId'
+          | 'createdAt'
+          | '-createdAt'
+          | 'campaignStatus'
+          | '-campaignStatus';
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TelnyxDownstreamCampaignRecordSet'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  GetSharedCampaign: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        campaignId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TelnyxDownstreamCampaign'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  UpdateSharedCampaign: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        campaignId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdatePartnerCampaignRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TelnyxDownstreamCampaign'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
   GetAutoRechargePrefs: {
     parameters: {
       query?: never;
@@ -56973,128 +58896,6 @@ export interface operations {
           'application/json': components['schemas']['PhoneNumberStatusResponsePaginated'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  GetAllPhoneNumberCampaignsCamelCase: {
-    parameters: {
-      query?: {
-        recordsPerPage?: unknown;
-        page?: unknown;
-        /** @description Filter results by the Telnyx Campaign id */
-        'filter[telnyx_campaign_id]'?: components['parameters']['FilterByTelnyxCampaignID'];
-        /** @description Filter results by the Telnyx Brand id */
-        'filter[telnyx_brand_id]'?: components['parameters']['FilterByTelnyxBrandID'];
-        /** @description Filter results by the TCR Campaign id */
-        'filter[tcr_campaign_id]'?: components['parameters']['FilterByTCRCampaignID'];
-        /** @description Filter results by the TCR Brand id */
-        'filter[tcr_brand_id]'?: components['parameters']['FilterByTCRBrandID'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['PhoneNumberCampaignPaginated'];
-        };
-      };
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  CreatePhoneNumberCampaignCamelCase: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['PhoneNumberCampaignCreate'];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['PhoneNumberCampaign'];
-        };
-      };
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  GetPhoneNumberCampaign: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        phoneNumber: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['PhoneNumberCampaign'];
-        };
-      };
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  CreatePhoneNumberCampaignCamelCasePut: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        phoneNumber: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['PhoneNumberCampaignCreate'];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['PhoneNumberCampaign'];
-        };
-      };
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  DeletePhoneNumberCampaignCamelCase: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        phoneNumber: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: components['responses']['SinglePhoneNumberCampaign'];
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -57349,6 +59150,13 @@ export interface operations {
         'filter[emergency_address_id]'?: string;
         /** @description Filter numbers via the customer_reference set. */
         'filter[customer_reference]'?: string;
+        /** @description Filter phone numbers by phone number type. */
+        'filter[number_type][eq]'?:
+          | 'local'
+          | 'national'
+          | 'toll_free'
+          | 'mobile'
+          | 'shared_cost';
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?:
           | 'purchased_at'
@@ -57824,6 +59632,13 @@ export interface operations {
         'filter[emergency_address_id]'?: string;
         /** @description Filter numbers via the customer_reference set. */
         'filter[customer_reference]'?: string;
+        /** @description Filter phone numbers by phone number type. */
+        'filter[number_type][eq]'?:
+          | 'local'
+          | 'national'
+          | 'toll_free'
+          | 'mobile'
+          | 'shared_cost';
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?:
           | 'purchased_at'
@@ -57924,6 +59739,36 @@ export interface operations {
     };
     responses: {
       200: components['responses']['PhoneNumberResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  PhoneNumberBundleStatusChange: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Identifies the resource. */
+        id: components['parameters']['IntId'];
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PhoneNumberBundleStatusChangeRequest'];
+      };
+    };
+    responses: {
+      /** @description Phone number bundle status change success */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['PhoneNumberWithVoiceSettings'];
+          };
+        };
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -58589,6 +60434,35 @@ export interface operations {
       201: components['responses']['CreatePortingReport'];
       /** @description Unprocessable entity. Check message field in response for details. */
       422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Internal server error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GetPortingReport: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Identifies a report. */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['ShowPortingReport'];
+      /** @description Resource not found */
+      404: {
         headers: {
           [name: string]: unknown;
         };
@@ -59316,7 +61190,7 @@ export interface operations {
         };
         content?: never;
       };
-      /** @description Unprocessable entity. Check message field in response for details. */
+      /** @description Unprocessable entity. Check message field in res`ponse for details. */
       422: {
         headers: {
           [name: string]: unknown;
@@ -59325,7 +61199,7 @@ export interface operations {
       };
     };
   };
-  CreateComment: {
+  CreatePortingOrderComment: {
     parameters: {
       query?: never;
       header?: never;
@@ -59844,6 +61718,79 @@ export interface operations {
       };
     };
   };
+  ListPortoutRequest: {
+    parameters: {
+      query?: {
+        /** @description Filter by new carrier name. */
+        'filter[carrier_name]'?: string;
+        /** @description Filter by new carrier spid. */
+        'filter[spid]'?: string;
+        /** @description Filter by portout status. */
+        'filter[status]'?:
+          | 'pending'
+          | 'authorized'
+          | 'ported'
+          | 'rejected'
+          | 'rejected-pending'
+          | 'canceled';
+        /** @description Filter by a list of portout statuses */
+        'filter[status_in]'?: (
+          | 'pending'
+          | 'authorized'
+          | 'ported'
+          | 'rejected'
+          | 'rejected-pending'
+          | 'canceled'
+        )[];
+        /** @description Filter by ported_out_at date greater than or equal. */
+        'filter[ported_out_at][gte]'?: string;
+        /** @description Filter by ported_out_at date less than or equal. */
+        'filter[ported_out_at][lte]'?: string;
+        /** @description Filter by inserted_at date greater than or equal. */
+        'filter[inserted_at][gte]'?: string;
+        /** @description Filter by inserted_at date less than or equal. */
+        'filter[inserted_at][lte]'?: string;
+        /** @description Filter by foc_date. Matches all portouts with the same date */
+        'filter[foc_date]'?: string;
+        /** @description Filter by a phone number on the portout. Matches all portouts with the phone number */
+        'filter[phone_number]'?: string;
+        /** @description Filter by the portout's support_key */
+        'filter[support_key]'?: string;
+        /** @description The page number to load */
+        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description The size of the page */
+        'page[size]'?: components['parameters']['PageSize'];
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['ListPortoutResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Resource not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unprocessable entity. Check message field in response for details. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
   listPortoutEvents: {
     parameters: {
       query?: {
@@ -59943,6 +61890,47 @@ export interface operations {
       };
     };
   };
+  ListPortoutRejections: {
+    parameters: {
+      query?: {
+        /** @description Filter rejections of a specific code */
+        'filter[code]'?: number;
+        /** @description Filter rejections in a list of codes */
+        'filter[code][in]'?: number[];
+      };
+      header?: never;
+      path: {
+        /** @description Identifies a port out order. */
+        portout_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['ListPortoutRejections'];
+      /** @description Resource not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unprocessable entity. Check message field in response for details. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Internal server error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
   ListPortoutReports: {
     parameters: {
       query?: {
@@ -60026,79 +62014,6 @@ export interface operations {
       };
       /** @description Internal server error */
       500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
-  ListPortoutRequest: {
-    parameters: {
-      query?: {
-        /** @description Filter by new carrier name. */
-        'filter[carrier_name]'?: string;
-        /** @description Filter by new carrier spid. */
-        'filter[spid]'?: string;
-        /** @description Filter by portout status. */
-        'filter[status]'?:
-          | 'pending'
-          | 'authorized'
-          | 'ported'
-          | 'rejected'
-          | 'rejected-pending'
-          | 'canceled';
-        /** @description Filter by a list of portout statuses */
-        'filter[status_in]'?: (
-          | 'pending'
-          | 'authorized'
-          | 'ported'
-          | 'rejected'
-          | 'rejected-pending'
-          | 'canceled'
-        )[];
-        /** @description Filter by ported_out_at date greater than or equal. */
-        'filter[ported_out_at][gte]'?: string;
-        /** @description Filter by ported_out_at date less than or equal. */
-        'filter[ported_out_at][lte]'?: string;
-        /** @description Filter by inserted_at date greater than or equal. */
-        'filter[inserted_at][gte]'?: string;
-        /** @description Filter by inserted_at date less than or equal. */
-        'filter[inserted_at][lte]'?: string;
-        /** @description Filter by foc_date. Matches all portouts with the same date */
-        'filter[foc_date]'?: string;
-        /** @description Filter by a phone number on the portout. Matches all portouts with the phone number */
-        'filter[phone_number]'?: string;
-        /** @description Filter by the portout's support_key */
-        'filter[support_key]'?: string;
-        /** @description The page number to load */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
-        'page[size]'?: components['parameters']['PageSize'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: components['responses']['ListPortoutResponse'];
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Resource not found */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Unprocessable entity. Check message field in response for details. */
-      422: {
         headers: {
           [name: string]: unknown;
         };
@@ -60373,7 +62288,7 @@ export interface operations {
         'filter[ip_range]'?: string;
         /**
          * @description The name of the region where the Private Wireless Gateway is deployed.
-         * @example ashburn-va
+         * @example dc2
          */
         'filter[region_code]'?: string;
         /**
@@ -60394,6 +62309,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetAllPrivateWirelessGatewaysResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -60418,6 +62340,11 @@ export interface operations {
            * @example My private wireless gateway
            */
           name: string;
+          /**
+           * @description The code of the region where the private wireless gateway will be assigned. A list of available regions can be found at the regions endpoint
+           * @example dc2
+           */
+          region_code?: string;
         };
       };
     };
@@ -60756,6 +62683,40 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
+  GetUsageReportSync: {
+    parameters: {
+      query: {
+        start_date?: string;
+        end_date?: string;
+        aggregation_type:
+          | 'NO_AGGREGATION'
+          | 'CONNECTION'
+          | 'TAG'
+          | 'BILLING_GROUP';
+        product_breakdown:
+          | 'NO_BREAKDOWN'
+          | 'DID_VS_TOLL_FREE'
+          | 'COUNTRY'
+          | 'DID_VS_TOLL_FREE_PER_COUNTRY';
+        connections?: number[];
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CdrGetSyncUsageReportResponse'];
+        };
+      };
+    };
+  };
   GetUsageReports: {
     parameters: {
       query?: {
@@ -60826,7 +62787,29 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CdrGetSyncUsageReportResponse'];
+          'application/json': components['schemas']['MdrGetSyncUsageReportResponse'];
+        };
+      };
+    };
+  };
+  GetUsageReport: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['MdrGetUsageReportsByIdResponse'];
         };
       };
     };
@@ -60944,6 +62927,12 @@ export interface operations {
           | 'shared_cost';
         /** @description Filter requirement groups by action type */
         'filter[action]'?: 'ordering' | 'porting' | 'action';
+        /** @description Filter requirement groups by status */
+        'filter[status]'?:
+          | 'approved'
+          | 'unapproved'
+          | 'pending-approval'
+          | 'declined';
         /** @description Filter requirement groups by customer reference */
         'filter[customer_reference]'?: string;
       };
@@ -60994,6 +62983,7 @@ export interface operations {
            * @enum {string}
            */
           action: 'ordering' | 'porting';
+          /** @example My Requirement Group */
           customer_reference?: string;
           regulatory_requirements?: {
             requirement_id?: string;
@@ -61095,6 +63085,29 @@ export interface operations {
     };
     responses: {
       /** @description Updated requirement group */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['RequirementGroup'];
+        };
+      };
+    };
+  };
+  SubmitRequirementGroup: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID of the requirement group to submit */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description A single requirement group */
       200: {
         headers: {
           [name: string]: unknown;
@@ -61268,6 +63281,45 @@ export interface operations {
         content?: never;
       };
       404: components['responses']['ResourceNotFound'];
+    };
+  };
+  ListRoomParticipants: {
+    parameters: {
+      query?: {
+        /** @description ISO 8601 date for filtering room participants that joined on that date. */
+        'filter[date_joined_at][eq]'?: string;
+        /** @description ISO 8601 date for filtering room participants that joined after that date. */
+        'filter[date_joined_at][gte]'?: string;
+        /** @description ISO 8601 date for filtering room participants that joined before that date. */
+        'filter[date_joined_at][lte]'?: string;
+        /** @description ISO 8601 date for filtering room participants updated on that date. */
+        'filter[date_updated_at][eq]'?: string;
+        /** @description ISO 8601 date for filtering room participants updated after that date. */
+        'filter[date_updated_at][gte]'?: string;
+        /** @description ISO 8601 date for filtering room participants updated before that date. */
+        'filter[date_updated_at][lte]'?: string;
+        /** @description ISO 8601 date for filtering room participants that left on that date. */
+        'filter[date_left_at][eq]'?: string;
+        /** @description ISO 8601 date for filtering room participants that left after that date. */
+        'filter[date_left_at][gte]'?: string;
+        /** @description ISO 8601 date for filtering room participants that left before that date. */
+        'filter[date_left_at][lte]'?: string;
+        /** @description Filter room participants based on the context. */
+        'filter[context]'?: string;
+        /** @description Session_id for filtering room participants. */
+        'filter[session_id]'?: string;
+        /** @description The size of the page */
+        'page[size]'?: components['parameters']['PageSize'];
+        /** @description The page number to load */
+        'page[number]'?: components['parameters']['PageNumber'];
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['ListRoomParticipantsResponse'];
     };
   };
   ViewRoomParticipant: {
@@ -61550,7 +63602,7 @@ export interface operations {
       200: components['responses']['ActionSuccessResponse'];
     };
   };
-  ListRoomParticipants: {
+  RetrieveListRoomParticipants: {
     parameters: {
       query?: {
         /** @description ISO 8601 date for filtering room participants that joined on that date. */
@@ -61753,6 +63805,48 @@ export interface operations {
       403: components['responses']['Forbidden'];
     };
   };
+  RetrieveListRoomSessions: {
+    parameters: {
+      query?: {
+        /** @description ISO 8601 date for filtering room sessions created on that date. */
+        'filter[date_created_at][eq]'?: string;
+        /** @description ISO 8601 date for filtering room sessions created after that date. */
+        'filter[date_created_at][gte]'?: string;
+        /** @description ISO 8601 date for filtering room sessions created before that date. */
+        'filter[date_created_at][lte]'?: string;
+        /** @description ISO 8601 date for filtering room sessions updated on that date. */
+        'filter[date_updated_at][eq]'?: string;
+        /** @description ISO 8601 date for filtering room sessions updated after that date. */
+        'filter[date_updated_at][gte]'?: string;
+        /** @description ISO 8601 date for filtering room sessions updated before that date. */
+        'filter[date_updated_at][lte]'?: string;
+        /** @description ISO 8601 date for filtering room sessions ended on that date. */
+        'filter[date_ended_at][eq]'?: string;
+        /** @description ISO 8601 date for filtering room sessions ended after that date. */
+        'filter[date_ended_at][gte]'?: string;
+        /** @description ISO 8601 date for filtering room sessions ended before that date. */
+        'filter[date_ended_at][lte]'?: string;
+        /** @description Filter active or inactive room sessions. */
+        'filter[active]'?: boolean;
+        /** @description To decide if room participants should be included in the response. */
+        include_participants?: boolean;
+        /** @description The size of the page */
+        'page[size]'?: components['parameters']['PageSize'];
+        /** @description The page number to load */
+        'page[number]'?: components['parameters']['PageNumber'];
+      };
+      header?: never;
+      path: {
+        /** @description The unique identifier of a room. */
+        room_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['ListRoomSessionsResponse'];
+    };
+  };
   ListShortCodes: {
     parameters: {
       query?: {
@@ -61839,6 +63933,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SimCardActionCollectionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -61855,6 +63956,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SIMCardActionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -61875,6 +63983,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SimCardDataUsageNotificationCollectionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -61912,6 +64027,13 @@ export interface operations {
     };
     responses: {
       201: components['responses']['CreateSimCardDataUsageNotificationResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -61945,6 +64067,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DeleteSimCardDataUsageNotificationResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -61965,6 +64094,13 @@ export interface operations {
     };
     responses: {
       200: components['responses']['UpdateSimCardDataUsageNotificationResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -61991,6 +64127,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SimCardGroupActionCollectionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62007,6 +64150,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SIMCardGroupActionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62029,6 +64179,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetAllSimCardGroupsResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62046,12 +64203,22 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CreateSimCardGroupResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
   GetSimCardGroup: {
     parameters: {
-      query?: never;
+      query?: {
+        /** @description It includes a list of associated ICCIDs. */
+        include_iccids?: components['parameters']['IncludeICCIDs'];
+      };
       header?: never;
       path: {
         /** @description Identifies the SIM group. */
@@ -62062,6 +64229,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetSimCardGroupResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62078,6 +64252,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DeleteSimCardGroupResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62098,6 +64279,13 @@ export interface operations {
     };
     responses: {
       200: components['responses']['UpdateSimCardGroupResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62114,6 +64302,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       202: components['responses']['SIMCardGroupActionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62141,6 +64336,13 @@ export interface operations {
     };
     responses: {
       202: components['responses']['SIMCardGroupActionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62212,6 +64414,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetAllSimCardOrdersResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62229,6 +64438,13 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CreateSimCardOrderResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62293,29 +64509,14 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SearchSimCardsResponse'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  SetNetworkPreferencesBulk: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: {
-      content: {
-        'application/json': {
-          /** @example [
-           *       "6b14e151-8493-4fa1-8664-1cc4e6d14158"
-           *     ] */
-          sim_card_ids: components['schemas']['Id'][];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
         };
+        content?: never;
       };
-    };
-    responses: {
-      202: components['responses']['BulkSIMCardActionResponse'];
-      422: components['responses']['UnprocessableEntity'];
+      default: components['responses']['GenericErrorResponse'];
     };
   };
   SetPublicIPsBulk: {
@@ -62364,6 +64565,13 @@ export interface operations {
           'application/json': components['schemas']['SIMCardRegistrationCodeValidations'];
         };
       };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62383,6 +64591,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetSimCardResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62399,6 +64614,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DeleteSimCardResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62419,23 +64641,13 @@ export interface operations {
     };
     responses: {
       200: components['responses']['UpdateSimCardResponse'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  DeleteNetworkPreferences: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Identifies the SIM. */
-        id: components['parameters']['SIMCardId'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
       };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      202: components['responses']['SIMCardActionResponse'];
-      422: components['responses']['UnprocessableEntity'];
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62452,6 +64664,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       202: components['responses']['SIMCardActionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62485,29 +64704,22 @@ export interface operations {
     requestBody?: never;
     responses: {
       202: components['responses']['SIMCardActionResponse'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  SetNetworkPreference: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Identifies the SIM. */
-        id: components['parameters']['SIMCardId'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
       };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      202: components['responses']['SIMCardActionResponse'];
-      422: components['responses']['UnprocessableEntity'];
       default: components['responses']['GenericErrorResponse'];
     };
   };
   SetSimCardPublicIp: {
     parameters: {
-      query?: never;
+      query?: {
+        /** @description The code of the region where the public IP should be assigned. A list of available regions can be found at the regions endpoint */
+        region_code?: string;
+      };
       header?: never;
       path: {
         /** @description Identifies the SIM. */
@@ -62518,6 +64730,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       202: components['responses']['SIMCardActionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62534,6 +64753,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       202: components['responses']['SIMCardActionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62550,6 +64776,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SIMCardActivationCodeResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62566,64 +64799,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SIMCardDeviceDetailsResponse'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  GetSimCardNetworkPreferences: {
-    parameters: {
-      query?: {
-        /** @description It includes the associated OTA update objects in the response when present. */
-        include_ota_updates?: components['parameters']['IncludeOTAUpdates'];
-      };
-      header?: never;
-      path: {
-        /** @description Identifies the SIM. */
-        id: components['parameters']['SIMCardId'];
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: components['responses']['SIMCardNetworkPreferenceWithOTAUpdatesResponse'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  PutSimCardNetworkPreferences: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Identifies the SIM. */
-        id: components['parameters']['SIMCardId'];
-      };
-      cookie?: never;
-    };
-    requestBody?: {
-      content: {
-        'application/json': {
-          /** @description A list of mobile network operators and the priority that should be applied when the SIM is connecting to the network. */
-          mobile_network_operators_preferences?: components['schemas']['MobileNetworkOperatorPreferencesRequest'][];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
         };
+        content?: never;
       };
-    };
-    responses: {
-      202: components['responses']['PUTSIMCardNetworkPreferenceResponse'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  DeleteSIMCardNetworkPreferences: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Identifies the SIM. */
-        id: components['parameters']['SIMCardId'];
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      202: components['responses']['DELETESIMCardNetworkPreferenceResponse'];
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62640,6 +64822,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SIMCardPublicIPResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62661,6 +64850,80 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['WirelessConnectivityLogCollectionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  GetSiprecConnection: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Uniquely identifies a SIPREC connector */
+        connector_name: components['parameters']['SiprecConnectorName'];
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['SiprecConnectorResponseBody'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  UpdateSiprecConnector: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Uniquely identifies a SIPREC connector */
+        connector_name: components['parameters']['SiprecConnectorName'];
+      };
+      cookie?: never;
+    };
+    requestBody: components['requestBodies']['SiprecConnectorRequest'];
+    responses: {
+      200: components['responses']['SiprecConnectorResponseBody'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  CreateSiprecConnector: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: components['requestBodies']['SiprecConnectorRequest'];
+    responses: {
+      201: components['responses']['SiprecConnectorResponseBody'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  DeleteSiprecConnection: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Uniquely identifies a SIPREC connector */
+        connector_name: components['parameters']['SiprecConnectorName'];
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description The SIPREC connector was deleted successfully. */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -62921,8 +65184,6 @@ export interface operations {
         'filter[phone_number_type]'?: string;
         /** @description Amount of numbers in the sub number order */
         'filter[phone_numbers_count]'?: number;
-        /** @description Include the first 50 phone number objects for each sub order in the results. Note: use of this filter could produce unexpected results due to payload size. */
-        'filter[include_phone_numbers]'?: boolean;
       };
       header?: never;
       path?: never;
@@ -62931,6 +65192,43 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListSubNumberOrdersResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  updateSubNumberOrderRequirementGroup: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the sub number order */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        /** @example {
+         *       "requirement_group_id": "a4b201f9-8646-4e54-a7d2-b2e403eeaf8c"
+         *     } */
+        'application/json': {
+          /**
+           * Format: uuid
+           * @description The ID of the requirement group to associate
+           */
+          requirement_group_id: string;
+        };
+      };
+    };
+    responses: {
+      /** @description Sub number order requirement group updated successfully */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubNumberOrderRequirementGroupResponse'];
+        };
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -63061,44 +65359,6 @@ export interface operations {
       };
     };
   };
-  ListTags: {
-    parameters: {
-      query?: {
-        /** @description The page number to load */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
-        'page[size]'?: components['parameters']['PageSize'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: components['responses']['ListTagsResponse'];
-      /** @description Bad request */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Resource not found */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
   GetTelephonyCredential: {
     parameters: {
       query?: never;
@@ -63212,44 +65472,6 @@ export interface operations {
       };
     };
   };
-  PerformCredentialAction: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Identifies the resource. */
-        id: string;
-        /** @description Identifies the action to be taken. */
-        action: 'activate' | 'deactivate';
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: components['responses']['TelephonyCredentialResponse'];
-      /** @description Bad request */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Resource not found */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
   CreateTelephonyCredentialToken: {
     parameters: {
       query?: never;
@@ -63351,6 +65573,26 @@ export interface operations {
       404: components['responses']['NotFoundResponse'];
     };
   };
+  InitiateTexmlCall: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The id of the account the resource belongs to. */
+        account_sid: components['parameters']['AccountSid'];
+      };
+      cookie?: never;
+    };
+    /** @description Iniatiate Call request object */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['InitiateCallRequest'];
+      };
+    };
+    responses: {
+      200: components['responses']['InitiateCallResponse'];
+    };
+  };
   GetTexmlCall: {
     parameters: {
       query?: never;
@@ -63367,6 +65609,28 @@ export interface operations {
     responses: {
       200: components['responses']['GetCallResponse'];
       404: components['responses']['NotFoundResponse'];
+    };
+  };
+  UpdateTexmlCall: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The CallSid that identifies the call to update. */
+        call_sid: components['parameters']['CallSid'];
+        /** @description The id of the account the resource belongs to. */
+        account_sid: components['parameters']['AccountSid'];
+      };
+      cookie?: never;
+    };
+    /** @description Update Call request object */
+    requestBody: {
+      content: {
+        'application/x-www-form-urlencoded': components['schemas']['UpdateCallRequest'];
+      };
+    };
+    responses: {
+      200: components['responses']['GetCallResponse'];
     };
   };
   FetchTeXMLCallRecordings: {
@@ -63422,6 +65686,42 @@ export interface operations {
     requestBody?: components['requestBodies']['TexmlUpdateCallRecordingRequest'];
     responses: {
       200: components['responses']['TexmlCreateCallRecordingResponse'];
+      404: components['responses']['NotFoundResponse'];
+    };
+  };
+  StartTeXMLSiprecSession: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The id of the account the resource belongs to. */
+        account_sid: components['parameters']['AccountSid'];
+        /** @description The CallSid that identifies the call to update. */
+        call_sid: components['parameters']['CallSid'];
+      };
+      cookie?: never;
+    };
+    requestBody?: components['requestBodies']['TexmlCreateSiprecSessionRequest'];
+    responses: {
+      200: components['responses']['TexmlCreateSiprecSessionResponse'];
+      404: components['responses']['NotFoundResponse'];
+    };
+  };
+  UpdateTeXMLSiprecSession: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The id of the account the resource belongs to. */
+        account_sid: components['parameters']['AccountSid'];
+        /** @description The CallSid that identifies the call to update. */
+        call_sid: components['parameters']['CallSid'];
+      };
+      cookie?: never;
+    };
+    requestBody?: components['requestBodies']['TexmlUpdateSiprecSessionRequest'];
+    responses: {
+      200: components['responses']['TexmlUpdateSiprecSessionResponse'];
       404: components['responses']['NotFoundResponse'];
     };
   };
@@ -64970,10 +67270,7 @@ export interface operations {
         'filter[wireguard_interface_id]'?: string;
       };
       header?: never;
-      path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['ResourceId'];
-      };
+      path?: never;
       cookie?: never;
     };
     requestBody?: never;
@@ -65095,6 +67392,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetWdrReportsResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -65146,6 +67450,33 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DeleteWdrReportResponse'];
+      404: components['responses']['ResourceNotFound'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  WirelessRegionsGetAll: {
+    parameters: {
+      query: {
+        /** @description The product for which to list regions (e.g., 'public_ips', 'private_wireless_gateways'). */
+        product: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description A list of wireless regions */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['Region'][];
+          };
+        };
+      };
       404: components['responses']['ResourceNotFound'];
       default: components['responses']['GenericErrorResponse'];
     };
@@ -65243,6 +67574,13 @@ export interface operations {
           'text/xml': components['schemas']['DeleteObjectsResponse'];
         };
       };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
     };
   };
   DeleteBucket: {
@@ -65259,6 +67597,13 @@ export interface operations {
     responses: {
       /** @description Success */
       204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unauthorized */
+      401: {
         headers: {
           [name: string]: unknown;
         };
@@ -65358,6 +67703,13 @@ export interface operations {
         };
         content?: never;
       };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
     };
   };
   DeleteObject: {
@@ -65376,6 +67728,13 @@ export interface operations {
     responses: {
       /** @description Success */
       204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unauthorized */
+      401: {
         headers: {
           [name: string]: unknown;
         };
