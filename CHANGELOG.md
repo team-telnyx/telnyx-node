@@ -2,6 +2,15 @@
 
 ## v2
 
+### v2.0.0-beta.5
+
+- Update `TelnyxAPI.d.ts` types
+- Add missing `Events` and remove unused ones
+- Remove `/tags` endpoint from `TelephonyCredentials` resource
+- Update `ManagedAccounts` resource tests
+- Remove network preferences endpoints from `SimCards` resource
+- Remove unused `NumberOrderDocuments` resource
+
 ### v2.0.0-beta.4
 
 - Add `CONTRIBUTING.md` guidelines
