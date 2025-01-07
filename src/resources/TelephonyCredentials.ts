@@ -48,9 +48,4 @@ export const TelephonyCredentials = TelnyxResource.extend({
     path: '/{id}/token',
     urlParams: ['id'],
   }),
-
-  listTags: telnyxMethod({
-    method: 'GET',
-    path: '/tags',
-  }),
 });

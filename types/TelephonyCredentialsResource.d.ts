@@ -50,12 +50,6 @@ declare module 'telnyx' {
     type TelephonyCredentialsCreateTokenResponse =
       paths['/telephony_credentials/{id}/token']['post']['responses']['201']['content']['text/plain'];
 
-    type TelephonyCredentialsListTagsParams =
-      paths['/telephony_credentials/tags']['get']['parameters']['query'];
-
-    type TelephonyCredentialsListTagsResponse =
-      paths['/telephony_credentials/tags']['get']['responses']['200']['content']['application/json'];
-
     class TelephonyCredentialsResource {
       list(
         params?: TelephonyCredentialsListParams,
@@ -89,11 +83,6 @@ declare module 'telnyx' {
       ): Promise<
         Telnyx.Response<Telnyx.TelephonyCredentialsCreateTokenResponse>
       >;
-
-      listTags(
-        params?: TelephonyCredentialsListTagsParams,
-        options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.TelephonyCredentialsListTagsResponse>>;
     }
   }
 }
