@@ -4,8 +4,8 @@ import {
   RequestData,
   ResponsePayload,
   TelnyxResourceObject,
-} from './Types';
-import * as utils from './utils';
+} from './Types.js';
+import * as utils from './utils.js';
 const OPTIONAL_REGEX = /^optional!/;
 
 function _getRequestOpts(

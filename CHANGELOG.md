@@ -10,6 +10,8 @@
 - Update `ManagedAccounts` resource tests
 - Remove network preferences endpoints from `SimCards` resource
 - Remove unused `NumberOrderDocuments` resource
+- Update `tsconfig.json` to use `Node16` module
+- Update relative lib files to include js extension according to [moduleResolution](https://www.typescriptlang.org/tsconfig/#Modules_6244) config
 
 ### v2.0.0-beta.4
 

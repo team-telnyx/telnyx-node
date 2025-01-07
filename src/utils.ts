@@ -9,8 +9,8 @@ import {
   TelnyxObject,
   TelnyxResourceObject,
   UrlInterpolator,
-} from './Types';
-import TelnyxResource from './TelnyxResource';
+} from './Types.js';
+import TelnyxResource from './TelnyxResource.js';
 
 const OPTIONS_KEYS = ['api_key'];
 

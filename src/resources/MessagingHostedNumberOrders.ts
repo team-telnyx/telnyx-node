@@ -1,4 +1,4 @@
-import TelnyxResource from '../TelnyxResource';
+import TelnyxResource from '../TelnyxResource.js';
 
 export const MessagingHostedNumberOrders = TelnyxResource.extend({
   path: 'messaging_hosted_number_orders',

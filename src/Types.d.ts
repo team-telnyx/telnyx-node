@@ -6,8 +6,8 @@ import {
   IncomingMessage,
 } from 'http';
 import {Agent as HttpsAgent} from 'https';
-import {TelnyxRawError} from './Error';
-import Webhooks from './Webhooks';
+import {TelnyxRawError} from './Error.js';
+import Webhooks from './Webhooks.js';
 
 export type AppInfo = {name?: string; version?: string; url?: string} & Record<
   string,

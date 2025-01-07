@@ -1,5 +1,5 @@
-import TelnyxResource from '../TelnyxResource';
-import * as utils from '../utils';
+import TelnyxResource from '../TelnyxResource.js';
+import * as utils from '../utils.js';
 const telnyxMethod = TelnyxResource.method;
 
 const CALL_COMMANDS = [

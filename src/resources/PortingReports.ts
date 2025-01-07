@@ -1,4 +1,4 @@
-import TelnyxResource from '../TelnyxResource';
+import TelnyxResource from '../TelnyxResource.js';
 
 export const PortingReports = TelnyxResource.extend({
   path: 'porting/reports',

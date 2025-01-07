@@ -1,8 +1,8 @@
-import TelnyxResource from '../TelnyxResource';
-import * as utils from '../utils';
+import TelnyxResource from '../TelnyxResource.js';
+import * as utils from '../utils.js';
 const telnyxMethod = TelnyxResource.method;
 
-import {ResponsePayload, TelnyxObject} from '../Types';
+import {ResponsePayload, TelnyxObject} from '../Types.js';
 
 const transformResponseData = (
   response: ResponsePayload,

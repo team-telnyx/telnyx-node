@@ -13,4 +13,8 @@ export default {
   coverageDirectory: 'coverage',
   reporters: ['default', ['github-actions', {silent: false}], 'summary'],
   roots: ['<rootDir>/src/'],
+  moduleNameMapper: {
+    '(.+)\\.js': '$1',
+  },
+  extensionsToTreatAsEsm: ['.ts'],
 };

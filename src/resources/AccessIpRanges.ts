@@ -1,4 +1,4 @@
-import TelnyxResource from '../TelnyxResource';
+import TelnyxResource from '../TelnyxResource.js';
 
 export const AccessIpRanges = TelnyxResource.extend({
   path: 'access_ip_ranges',

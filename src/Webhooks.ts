@@ -1,5 +1,5 @@
 import nacl from 'tweetnacl';
-import * as TelnyxError from './Error';
+import * as TelnyxError from './Error.js';
 
 type WebhookPayload = string;
 type WebhookHeader = Uint8Array;

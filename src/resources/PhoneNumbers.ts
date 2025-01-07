@@ -1,10 +1,10 @@
-import TelnyxResource from '../TelnyxResource';
-import {ResponsePayload, TelnyxObject} from '../Types';
-import * as utils from '../utils';
+import TelnyxResource from '../TelnyxResource.js';
+import {ResponsePayload, TelnyxObject} from '../Types.js';
+import * as utils from '../utils.js';
 
-import {PhoneNumbersMessaging} from './PhoneNumbersMessaging';
-import {PhoneNumbersVoice} from './PhoneNumbersVoice';
-import {PhoneNumbersInboundChannels} from './PhoneNumbersInboundChannels';
+import {PhoneNumbersMessaging} from './PhoneNumbersMessaging.js';
+import {PhoneNumbersVoice} from './PhoneNumbersVoice.js';
+import {PhoneNumbersInboundChannels} from './PhoneNumbersInboundChannels.js';
 
 const telnyxMethod = TelnyxResource.method;
 

@@ -1,4 +1,4 @@
-import telnyxMethod from './TelnyxMethod';
+import telnyxMethod from './TelnyxMethod.js';
 
 export const create = telnyxMethod({
   method: 'POST',

@@ -1,4 +1,4 @@
-import TelnyxResource from '../TelnyxResource';
+import TelnyxResource from '../TelnyxResource.js';
 
 export const AiEmbeddingsSimilaritySearch = TelnyxResource.extend({
   path: 'ai/embeddings/similarity-search',

@@ -1,4 +1,4 @@
-import TelnyxResource from '../TelnyxResource';
+import TelnyxResource from '../TelnyxResource.js';
 const telnyxMethod = TelnyxResource.method;
 
 export const PresignedObjectUrls = TelnyxResource.extend({
