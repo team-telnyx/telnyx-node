@@ -7204,7 +7204,7 @@ export interface paths {
      * Retrieve a report
      * @description Retrieve a specific report generated.
      */
-    get: operations['GetPortingReport'];
+    get: operations['GetPortoutReport'];
     put?: never;
     post?: never;
     delete?: never;
@@ -7610,7 +7610,7 @@ export interface paths {
       cookie?: never;
     };
     /** @description Generate and fetch voice usage report synchronously. This endpoint will both generate and fetch the voice report over a specified time period. No polling is necessary but the response may take up to a couple of minutes.  */
-    get: operations['GetUsageReportSync'];
+    get: operations['CdrGetUsageReportSync'];
     put?: never;
     post?: never;
     delete?: never;
@@ -7662,7 +7662,7 @@ export interface paths {
       cookie?: never;
     };
     /** @description Fetch a single messaging usage report by id */
-    get: operations['GetUsageReport'];
+    get: operations['MdrGetUsageReport'];
     put?: never;
     post?: never;
     /** @description Delete messaging usage report by id */
@@ -9197,7 +9197,7 @@ export interface paths {
      * Initiate an outbound call
      * @description Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request URL configured for the connection in the Mission Control Portal.
      */
-    post: operations['InitiateTexmlCall'];
+    post: operations['InitiateTexmlCallAccountSid'];
     delete?: never;
     options?: never;
     head?: never;
@@ -9221,7 +9221,7 @@ export interface paths {
      * Update call
      * @description Update TeXML call. Please note that the keys present in the payload MUST BE formatted in CamelCase as specified in the example.
      */
-    post: operations['UpdateTexmlCall'];
+    post: operations['UpdateTexmlCallAccountSid'];
     delete?: never;
     options?: never;
     head?: never;
@@ -61992,7 +61992,7 @@ export interface operations {
       };
     };
   };
-  GetPortingReport: {
+  GetPortoutReport: {
     parameters: {
       query?: never;
       header?: never;
@@ -62683,7 +62683,7 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
-  GetUsageReportSync: {
+  CdrGetUsageReportSync: {
     parameters: {
       query: {
         start_date?: string;
@@ -62792,7 +62792,7 @@ export interface operations {
       };
     };
   };
-  GetUsageReport: {
+  MdrGetUsageReport: {
     parameters: {
       query?: never;
       header?: never;
@@ -65573,7 +65573,7 @@ export interface operations {
       404: components['responses']['NotFoundResponse'];
     };
   };
-  InitiateTexmlCall: {
+  InitiateTexmlCallAccountSid: {
     parameters: {
       query?: never;
       header?: never;
@@ -65611,7 +65611,7 @@ export interface operations {
       404: components['responses']['NotFoundResponse'];
     };
   };
-  UpdateTexmlCall: {
+  UpdateTexmlCallAccountSid: {
     parameters: {
       query?: never;
       header?: never;
