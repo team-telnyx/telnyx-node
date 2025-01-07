@@ -76,7 +76,6 @@ import {Networks} from './resources/Networks';
 import {NotificationEvents} from './resources/NotificationEvents';
 import {NumberBackgroundJobs} from './resources/NumberBackgroundJobs';
 import {NumberLookup} from './resources/NumberLookup';
-import {NumberOrderDocuments} from './resources/NumberOrderDocuments';
 import {NumberOrders} from './resources/NumberOrders';
 import {NumberPortouts} from './resources/NumberPortouts';
 import {NumberReservations} from './resources/NumberReservations';
@@ -89,7 +88,6 @@ import {PhoneNumberAssignmentByProfile} from './resources/PhoneNumberAssignmentB
 import {PhoneNumberBlockOrders} from './resources/PhoneNumberBlockOrders';
 import {PhoneNumberBlocksBackgroundJobs} from './resources/PhoneNumberBlocksBackgroundJobs';
 import {PhoneNumberCampaigns} from './resources/PhoneNumberCampaigns';
-import {PhoneNumberOrderDocuments} from './resources/PhoneNumberOrderDocuments';
 import {PhoneNumbers} from './resources/PhoneNumbers';
 import {PhoneNumbersInboundChannels} from './resources/PhoneNumbersInboundChannels';
 import {PhoneNumbersMessaging} from './resources/PhoneNumbersMessaging';
@@ -250,7 +248,6 @@ export function createTelnyx() {
     NotificationEvents,
     NumberBackgroundJobs,
     NumberLookup,
-    NumberOrderDocuments,
     NumberOrders,
     NumberPortouts,
     NumberReservations,
@@ -263,7 +260,6 @@ export function createTelnyx() {
     PhoneNumberBlockOrders,
     PhoneNumberBlocksBackgroundJobs,
     PhoneNumberCampaigns,
-    PhoneNumberOrderDocuments,
     PhoneNumbersRegulatoryRequirements,
     PhoneNumbersSlim,
     PhoneNumbers,
