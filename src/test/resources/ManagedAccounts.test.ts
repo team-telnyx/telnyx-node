@@ -39,7 +39,7 @@ describe('Managed Accounts', function () {
               eq: 'null',
             },
           },
-          sort: 'email',
+          sort: 'asc',
           include_cancelled_accounts: 'true',
         })
         .then(responseFn);
@@ -60,7 +60,7 @@ describe('Managed Accounts', function () {
                 eq: 'null',
               },
             },
-            sort: 'email',
+            sort: 'asc',
             include_cancelled_accounts: 'true',
           },
           TEST_AUTH_KEY,
