@@ -65,30 +65,6 @@ function transformResponseData(
       paramsNames: ['id'],
     }),
 
-    retrieveNetworkPreferences: telnyxMethod({
-      method: 'GET',
-      path: '/{sim_card_id}/network_preferences',
-      urlParams: ['sim_card_id'],
-      paramsValues: [response.data.id as string],
-      paramsNames: ['id'],
-    }),
-
-    setNetworkPreferences: telnyxMethod({
-      method: 'PUT',
-      path: '/{sim_card_id}/network_preferences',
-      urlParams: ['sim_card_id'],
-      paramsValues: [response.data.id as string],
-      paramsNames: ['id'],
-    }),
-
-    deleteNetworkPreferences: telnyxMethod({
-      method: 'DELETE',
-      path: '/{sim_card_id}/network_preferences',
-      urlParams: ['sim_card_id'],
-      paramsValues: [response.data.id as string],
-      paramsNames: ['id'],
-    }),
-
     retrievePublicIP: telnyxMethod({
       method: 'GET',
       path: '/{sim_card_id}/public_ip',
