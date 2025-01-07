@@ -3,7 +3,7 @@ import TelnyxResource from '../TelnyxResource';
 const telnyxMethod = TelnyxResource.method;
 
 export const PortoutEvents = TelnyxResource.extend({
-  path: 'portout/events',
+  path: 'portouts/events',
   includeBasic: ['list', 'retrieve'],
 
   republish: telnyxMethod({
