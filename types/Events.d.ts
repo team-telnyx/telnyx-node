@@ -49,8 +49,12 @@ declare module 'telnyx' {
         components['schemas']['CallStreamingStoppedEvent'];
       type CampaignStatusUpdateEvent =
         components['schemas']['CampaignStatusUpdateEvent'];
-      type CompositionCompletedEvent =
-        components['schemas']['CompositionCompletedEvent'];
+      type CallSiprecFailedEvent =
+        components['schemas']['CallSiprecFailedEvent'];
+      type CallSiprecStartedEvent =
+        components['schemas']['CallSiprecStartedEvent'];
+      type CallSiprecStoppedEvent =
+        components['schemas']['CallSiprecStoppedEvent'];
       type ConferenceCreatedEvent =
         components['schemas']['ConferenceCreatedEvent'];
       type ConferenceEndedEvent = components['schemas']['ConferenceEndedEvent'];
@@ -81,21 +85,16 @@ declare module 'telnyx' {
       type CustomerServiceRecordStatusChangedEvent =
         components['schemas']['CustomerServiceRecordStatusChangedEvent'];
       type InboundMessageEvent = components['schemas']['InboundMessageEvent'];
+      type NotificationEvent = components['schemas']['NotificationEvent'];
       type NumberOrderBlockEvent =
         components['schemas']['NumberOrderBlockEvent'];
       type NumberOrderedEvent = components['schemas']['NumberOrderedEvent'];
       type OutboundMessageEvent = components['schemas']['OutboundMessageEvent'];
-      type ParticipantJoinedEvent =
-        components['schemas']['ParticipantJoinedEvent'];
-      type ParticipantLeftEvent = components['schemas']['ParticipantLeftEvent'];
-      type RecordingCompletedEvent =
-        components['schemas']['RecordingCompletedEvent'];
-      type RecordingStartedEvent =
-        components['schemas']['RecordingStartedEvent'];
+      type PortingEvent = components['schemas']['PortingEvent'];
+      type PortoutEvent = components['schemas']['PortoutEvent'];
+      type RCSEvent = components['schemas']['RCSEvent'];
       type ReplacedLinkClickEvent =
         components['schemas']['ReplacedLinkClickEvent'];
-      type SessionEndedEvent = components['schemas']['SessionEndedEvent'];
-      type SessionStartedEvent = components['schemas']['SessionStartedEvent'];
       type TranscriptionEvent = components['schemas']['TranscriptionEvent'];
     }
   }
