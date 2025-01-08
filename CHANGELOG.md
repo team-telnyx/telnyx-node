@@ -2,6 +2,10 @@
 
 ## v2
 
+### v2.0.0-beta.6
+
+- Add `connections` example
+
 ### v2.0.0-beta.5
 
 - Update `TelnyxAPI.d.ts` types
