@@ -14,7 +14,7 @@
     "node": "^18 || >=20"
   },
   "dependencies": {
-    "telnyx": "2.0.0-beta.4"
+    "telnyx": "2.0.0-beta.5"
   },
   "devDependencies": {
     "@types/node": "^22.7.4",
