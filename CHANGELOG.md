@@ -5,6 +5,8 @@
 ### v2.0.0-beta.6
 
 - Add `connections` example
+- Add `numbers` example
+- Fix `WebhookHeader` type mismatch
 
 ### v2.0.0-beta.5
 
