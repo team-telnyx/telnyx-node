@@ -1,5 +1,5 @@
 type WebhookPayload = string;
-type WebhookHeader = string;
+type WebhookHeader = Uint8Array;
 
 declare module 'telnyx' {
   namespace Telnyx {
