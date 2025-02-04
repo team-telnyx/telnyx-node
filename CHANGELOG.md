@@ -1,23 +1,175 @@
 # CHANGELOG
 
-##
+## v2
+
+
+### v2.0.0
+
+- Typescript Support! :tada:
+
+### v2.0.0-beta.6
+
+- Add `connections` example
+- Add `numbers` example
+- Fix `WebhookHeader` type mismatch
+
+### v2.0.0-beta.5
+
+- Update `TelnyxAPI.d.ts` types
+- Add missing `Events` and remove unused ones
+- Remove `/tags` endpoint from `TelephonyCredentials` resource
+- Update `ManagedAccounts` resource tests
+- Remove network preferences endpoints from `SimCards` resource
+- Remove unused `NumberOrderDocuments` resource
+- Update `tsconfig.json` to use `Node16` module
+- Update relative lib files to include js extension according to [moduleResolution](https://www.typescriptlang.org/tsconfig/#Modules_6244) config
+
+### v2.0.0-beta.4
+
+- Add `CONTRIBUTING.md` guidelines
+- Update `README.md`
+- Fix `tranformResponseData` misusage on `list` resource methods
+- Update stale types on Portability, Porting and Portout resources methods
+
+### v2.0.0-beta.3
+
+- Add `Errors` type declaration
+- Add `VERSIONS.md` information
+- Update package dependencies for runtime usage
+
+### v2.0.0-beta.2
+
+- Add missing `Texml` resource methods
+- Add missing `PhoneNumbers`, `NumberOrders` and `RegulatoryRequirements` resource methods
+- Update types on stale resources methods
+
+### v2.0.0-beta.1
+
+- Fix `Queues` resource nested methods
+- Fix `PortingOrders` and `Ips` resource nested methods param names
+- Update legacy skipped tests
+- Fix `Verifications`, `VerifyProfiles` and `VerifiedNumbers` resources method naming and params
+- Remove dupe `Verify` resource
+- Update nested methods types to match param values usage
+
+### v2.0.0-beta.0
+
+- Move `AutorespConfigs` resource to be nested in `MessagingProfiles`
+- Fix nested resources in `Calls`, `MessagingProfiles` and `Conferences` ID usage instead of using constructors data
+- Fix nested resources `Calls`, `MessagingProfiles` and `Conferences` method names
+- Fix `Brand` resources method name
+- Fix bug on `DELETE` operations empty `responseBody` JSON Parsing
+- Update types on resources methods with multiple urlParams
+- FIX: README Typo by @mpareja-godaddy in https://github.com/team-telnyx/telnyx-node/pull/186
+
+### v2.0.0-alpha.7
+
+- Export API callback `events` type definitions
+
+### v2.0.0-alpha.6
+
+- Update optional types on `Webhooks`
+- Make optional types on `Fqdns`, `Ips`, `Messages` and `StorageBuckets` resources more strict
+
+### v2.0.0-alpha.5
+
+- Remove `ClientStateUpdate` resource
+- Remove `MessagesAlphanumericSenderId` resource
+- Remove `MessagingHostedNumber` resource
+- Remove `MessagingPhoneNumbers` resource
+- Remove `MessagingSenderIds` resource
+- Remove `PublicKey` resource
+- Remove `UpdateClientState` resource
+- Remove `Debugging` dupe resource
+- Update syntax on `Events` resources
+- Update `ExternalConnections` stale resource
+- Update `Messages` stale resource
+- Update `Ip`s stale resources
+- Update `AutorespConfigs` stale resource
+- Update `DetailRecords` stale resource
+- Update `InventoryCoverage` stale resource
+
+### v2.0.0-alpha.4
+
+- Add `Addresses` example
+- Remove `BusinessIdentity` resource
+- Remove `CallInformation` resource
+- Remove duplicated `Credentials` resource
+- Fixed `Conferences`, `Documents` and `TelephonyCredentials` method names
+- Add missing resource types defs
+
+### v2.0.0-alpha.3
+
+- Update typing on Nested Resources
+
+### v2.0.0-alpha.2
+
+- Fix `AI` resource methods and created nested structure
+
+### v2.0.0-alpha.1
+
+- Update actions workflow versions to v4 and `.npmignore` to v2
+- Update examples dependencies
+
+### v2.0.0-alpha.0
+
+- Add Typescript default config, linter and dependencies
+- Bump default Node version to `20`
+- Update README on [Development](./README.md#development) instructions
+- Remove `yarn` in favor of `npm` 10
+- Convert SDK files to Typescript
+- Convert Resources to Typescript
+- Use ES Modules syntax
+- Update package `main` entrypoint to be compiled version of [src telnyx.ts](./src/telnyx.ts)
+- Added `Jest` and create tests in Typescript
+- Update tests expect matchers according to limitations with `prism mock`
+- Add `nock` cleanup setup
+- Make `setApiKey` TelnyxObject prototype method private
+- Moved to `moduleResolution` Bundler to support better imports and tests with `Jest`
+- Enabled `esModuleInterop` for Jest
+- Update files included when publishing
+- Remove custom resource get `generateAccessTokenFromCredential` from `TelephonyCredentials`
+- Update `AutoRechargePreferences` resource
+- Remove `RegisterCall` resource
+- Remove `ProgrammableFaxCommants` specs
+- Remove `BulkCreation` resource
+- Update `TexmlApplications` resource
+- Remove `Conferences` `dial_participant` action
+- Remove `SimCards` `deletePublicIp` and `setPublicIp`
+- Update `Queues` method names to camelCase
+- Remove `VerifiedCallsDisplayProfile` resource
+- Update examples to Typescript
+- Remove duplicated `AccessTokens` resource
+- Move custom `AdvancedOptinoptout` resource to be `AutoRespConfigs` resource
+- Remove `Billing` resource
+- Remove inexistent `Bucket` resource
+- Move `BucketUsage` resource to `StorageBuckets`
+- Remove duplicated `BulkPhoneNumberCampaigns` resource
+- Remove duplicated `BulkPhoneNumberOperations` resource
+
+## v1
 
 ### v1.26.2
+
 - Fix Brand and Campaign redirects
 - Update security
 
 ### v1.26.1
+
 - Fix porting comments
 
 ### v1.26.0
+
 - Endpoint additions
 - Package upgrades
 - Preparation for typescript migration/support
 
 ### v1.25.5
+
 - Security Updates + API Additions
 
 ### v1.23.0 (2021-10-19)
+
 - **Addresses** added `validate`
 - **AuthenticationProvider** added `list`, `create`, `retrieve`, `update`, `del`
 - **DynamicEmergency** (for `endpoints` and `addresses`) added `list`, `retrieve`, `create`, `del`
@@ -247,7 +399,7 @@
 
 - **error-handling:** prevent undefined message on error handling
 
-## v1.0.0 (2019-8-2)
+### v1.0.0 (2019-8-2)
 
 ##### New Features
 

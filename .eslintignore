@@ -1,3 +1,4 @@
 *.node*.js
+dist
 node_modules
-lib/Error.js
+tsconfig.json

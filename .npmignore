@@ -9,4 +9,7 @@
 !/README.md
 !/VERSION
 !/package.json
-!/lib/**/*
+!/dist/**/*
+
+# Omit test files
+/src/test/**/*
