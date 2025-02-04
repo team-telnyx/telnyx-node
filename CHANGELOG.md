@@ -2,6 +2,11 @@
 
 ## v2
 
+
+### v2.0.0
+
+- Typescript Support! :tada:
+
 ### v2.0.0-beta.6
 
 - Add `connections` example
@@ -394,7 +399,7 @@
 
 - **error-handling:** prevent undefined message on error handling
 
-## v1.0.0 (2019-8-2)
+### v1.0.0 (2019-8-2)
 
 ##### New Features
 
