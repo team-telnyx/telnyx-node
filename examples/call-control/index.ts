@@ -16,6 +16,7 @@ const params: Telnyx.CallsCreateParams = {
   conference_config: {
     conference_name: 'telnyx-conference',
     start_conference_on_enter: true,
+    early_media: false,
   },
   audio_url: 'http://www.example.com/sounds/greeting.wav',
   timeout_secs: 60,
@@ -71,6 +72,7 @@ const params: Telnyx.CallsCreateParams = {
   record_max_length: 0,
   record_timeout_secs: 0,
   transcription: true,
+  record_track: 'both',
 };
 
 (async function callControl() {
