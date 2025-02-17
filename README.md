@@ -157,15 +157,16 @@ Telnyx, to the `constructEvent()` function; this will not work with a parsed
 (i.e., JSON) request body.
 
 You can find an example of how to use this with [Express](https://expressjs.com/)
-in the [`examples/webhook-signing`](examples/webhook-signing) folder, but here's
+in the [`examples/messaging-inbound-webhook`](examples/messaging-inbound-webhook) folder, but here's
 what it looks like:
 
 ```typescript
 const event = telnyx.webhooks.constructEvent(
-  webhookRawBody,
-  webhookTelnyxSignatureHeader,
+  webhookRawBody, // JSON stringified
+  webhookTelnyxSignatureHeader, // Buffer from base 64 encoded signature
   webhookTelnyxTimestampHeader,
-  publicKey,
+  publicKey, // Buffer from base 64 encoded public key
+  timeToleranceInSeconds, // Optional, defaults to 300 seconds
 );
 ```
 
@@ -179,11 +180,11 @@ You can find an example of how to use this with [Express](https://expressjs.com/
 const timeToleranceInSeconds = 300; // Will validate signatures of webhooks up to 5 minutes after Telnyx sent the request
 try {
   telnyx.webhooks.signature.verifySignature(
-    webhookRawBody,
-    webhookTelnyxSignatureHeader,
+    webhookRawBody, // JSON stringified
+    webhookTelnyxSignatureHeader, // Buffer from base 64 encoded signature
     webhookTelnyxTimestampHeader,
-    publicKey,
-    timeToleranceInSeconds,
+    publicKey, // Buffer from base 64 encoded public key
+    timeToleranceInSeconds, // Optional, defaults to 300 seconds
   );
 } catch (e) {
   console.log('Failed to validate the signature');
