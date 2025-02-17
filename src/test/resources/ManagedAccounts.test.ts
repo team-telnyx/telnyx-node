@@ -204,14 +204,18 @@ describe('Managed Accounts', function () {
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.managedAccounts
-        .enableAccount('f65ceda4-6522-4ad6-aede-98de83385123')
+        .enableAccount('f65ceda4-6522-4ad6-aede-98de83385123', {'': ''}) // need to pass string due to telnyx mock parse
         .then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.managedAccounts
-        .enableAccount('f65ceda4-6522-4ad6-aede-98de83385123', TEST_AUTH_KEY)
+        .enableAccount(
+          'f65ceda4-6522-4ad6-aede-98de83385123',
+          {'': ''}, // need to pass string due to telnyx mock parse
+          TEST_AUTH_KEY,
+        )
         .then(responseFn);
     });
   });
