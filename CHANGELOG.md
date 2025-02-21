@@ -2,6 +2,9 @@
 
 ## v2
 
+### v2.0.1
+
+- Add Messaging Inbound Webhook example
 
 ### v2.0.0
 

@@ -1,0 +1,28 @@
+{
+  "name": "telnyx-messaging-inbound-webhook-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsx index.ts",
+    "type-check": "tsc"
+  },
+  "author": "Telnyx <support@telnyx.com> (https://telnyx.com)",
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": {
+    "node": "^18 || >=20"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "telnyx": "2.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.4",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.8.0"
+  }
+}
