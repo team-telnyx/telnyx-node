@@ -77,7 +77,6 @@ describe('Campaign', function () {
   });
   describe('Get My Campaign', function () {
     function responseFn(response: ResponsePayload) {
-      expect(response).toHaveProperty('affiliateMarketing');
       expect(response).toHaveProperty('ageGated');
       expect(response).toHaveProperty('autoRenewal');
       expect(response).toHaveProperty('billedDate');

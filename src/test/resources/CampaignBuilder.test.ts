@@ -8,7 +8,6 @@ describe.skip('Campaign Builder', function () {
   describe('create', function () {
     function responseFn(response: ResponsePayload) {
       if (Object.keys(response).length > 0) {
-        expect(response).toHaveProperty('affiliateMarketing');
         expect(response).toHaveProperty('ageGated');
         expect(response).toHaveProperty('autoRenewal');
         expect(response).toHaveProperty('billedDate');
@@ -43,7 +42,6 @@ describe.skip('Campaign Builder', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
       return telnyx.campaignBuilder
         .create({
-          affiliateMarketing: true,
           ageGated: true,
           autoRenewal: true,
           brandId: 'string',
@@ -83,7 +81,6 @@ describe.skip('Campaign Builder', function () {
       return telnyx.campaignBuilder
         .create(
           {
-            affiliateMarketing: true,
             ageGated: true,
             autoRenewal: true,
             brandId: 'string',
