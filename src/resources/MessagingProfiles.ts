@@ -1,4 +1,3 @@
-import Telnyx from 'telnyx';
 import TelnyxResource from '../TelnyxResource.js';
 import {ResponsePayload, TelnyxObject} from '../Types.js';
 import * as utils from '../utils.js';
@@ -21,7 +20,7 @@ function getSpec(messagingProfileId?: string) {
 }
 
 const transformResponseData = (
-  response: ResponsePayload<Telnyx.MessagingProfilesCreateResponse>,
+  response: ResponsePayload,
   telnyx: TelnyxObject,
 ) => {
   const methods = utils.createNestedMethods(
@@ -165,12 +164,5 @@ export const MessagingProfiles = TelnyxResource.extend({
     path: '/{profileId}/autoresp_configs/{autorespCfgId}',
     urlParams: ['profileId', 'autorespCfgId'],
     paramsNames: ['profileId', 'autorespCfgId'],
-  }),
-
-  retrieveMetrics: telnyxMethod({
-    method: 'GET',
-    path: '/{id}/metrics',
-    urlParams: ['id'],
-    methodType: 'retrieve',
   }),
 });

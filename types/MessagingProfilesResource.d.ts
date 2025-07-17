@@ -59,15 +59,6 @@ declare module 'telnyx' {
     type MessagingProfilesListShortCodesResponse =
       paths['/messaging_profiles/{id}/short_codes']['get']['responses']['200']['content']['application/json'];
 
-    type MessagingProfilesRetrieveMetricsId =
-      paths['/messaging_profiles/{id}/metrics']['get']['parameters']['path']['id'];
-
-    type MessagingProfilesRetrieveMetricsParams =
-      paths['/messaging_profiles/{id}/metrics']['get']['parameters']['query'];
-
-    type MessagingProfilesRetrieveMetricsResponse =
-      paths['/messaging_profiles/{id}/metrics']['get']['responses']['200']['content']['application/json'];
-
     type MessagingProfilesListAutorespConfigsId =
       paths['/messaging_profiles/{profile_id}/autoresp_configs']['get']['parameters']['path']['profile_id'];
 
@@ -141,13 +132,6 @@ declare module 'telnyx' {
       ): Promise<
         Telnyx.Response<Telnyx.MessagingProfilesListAutorespConfigsResponse>
       >;
-
-      retrieveMetrics(
-        params: MessagingProfilesRetrieveMetricsParams,
-        options?: RequestOptions,
-      ): Promise<
-        Telnyx.Response<Telnyx.MessagingProfilesRetrieveMetricsResponse>
-      >;
     };
 
     class MessagingProfilesResource {
@@ -207,14 +191,6 @@ declare module 'telnyx' {
         options?: RequestOptions,
       ): Promise<
         Telnyx.Response<Telnyx.MessagingProfilesListShortCodesResponse>
-      >;
-
-      retrieveMetrics(
-        id: MessagingProfilesRetrieveMetricsId,
-        params: MessagingProfilesRetrieveMetricsParams,
-        options?: RequestOptions,
-      ): Promise<
-        Telnyx.Response<Telnyx.MessagingProfilesRetrieveMetricsResponse>
       >;
 
       listAutorespConfigs(
