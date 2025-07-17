@@ -2,8 +2,8 @@ import TelnyxResource from '../TelnyxResource.js';
 
 const telnyxMethod = TelnyxResource.method;
 
-export const PhoneNumbersInboundChannels = TelnyxResource.extend({
-  path: 'phone_numbers/inbound_channels',
+export const InboundChannels = TelnyxResource.extend({
+  path: 'inbound_channels',
   includeBasic: ['list'],
 
   update: telnyxMethod({

@@ -13,12 +13,12 @@ describe('Phone Numbers Inbound Channels', function () {
 
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.phoneNumbersInboundChannels.list().then(responseFn);
+      return telnyx.inboundChannels.list().then(responseFn);
     });
 
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.phoneNumbersInboundChannels
+      return telnyx.inboundChannels
         .list(TEST_AUTH_KEY)
         .then(responseFn);
     });
@@ -34,13 +34,13 @@ describe('Phone Numbers Inbound Channels', function () {
 
     test('Sends the correct request', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.phoneNumbersInboundChannels
+      return telnyx.inboundChannels
         .update({channels: 8})
         .then(responseFn);
     });
     test('Sends the correct request [with specified auth]', function () {
       // @ts-expect-error TODO: import .d.ts files under src/test folder
-      return telnyx.phoneNumbersInboundChannels
+      return telnyx.inboundChannels
         .update({channels: 8}, TEST_AUTH_KEY)
         .then(responseFn);
     });
