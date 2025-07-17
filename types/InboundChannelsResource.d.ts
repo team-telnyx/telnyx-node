@@ -14,7 +14,7 @@ declare module 'telnyx' {
     type PhoneNumbersInboundChannelsUpdateResponse =
       paths['/inbound_channels']['patch']['responses']['200']['content']['application/json'];
 
-    class PhoneNumbersInboundChannelsResource {
+    class InboundChannelsResource {
       list(
         params?: PhoneNumbersInboundChannelsListParams,
         options?: RequestOptions,
