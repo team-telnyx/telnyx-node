@@ -304,6 +304,166 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/ai/assistants/import': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Import assistants from external provider
+     * @description Import assistants from external providers. Any assistant that has already been imported will be overwritten with its latest version from the importing provider.
+     */
+    post: operations['import_assistants_public_assistants_import_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/tests': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List assistant tests with pagination
+     * @description Retrieves a paginated list of assistant tests with optional filtering capabilities
+     */
+    get: operations['get_assistant_tests_public_assistants_tests_get'];
+    put?: never;
+    /**
+     * Create a new assistant test
+     * @description Creates a comprehensive test configuration for evaluating AI assistant performance
+     */
+    post: operations['create_assistant_test_public_assistants_tests_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/tests/test-suites': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get all test suite names
+     * @description Retrieves a list of all distinct test suite names available to the current user
+     */
+    get: operations['fetch_test_suites_public_assistants_tests_test_suites_get'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/tests/test-suites/{suite_name}/runs': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get test suite run history
+     * @description Retrieves paginated history of test runs for a specific test suite with filtering options
+     */
+    get: operations['get_test_suite_runs_for_test_public_assistants_tests_test_suites__suite_name__runs_get'];
+    put?: never;
+    /**
+     * Trigger test suite execution
+     * @description Executes all tests within a specific test suite as a batch operation
+     */
+    post: operations['trigger_test_suite_runs_public_assistants_tests_test_suites__suite_name__runs_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/tests/{test_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get assistant test by ID
+     * @description Retrieves detailed information about a specific assistant test
+     */
+    get: operations['get_assistant_test_public_assistants_tests__test_id__get'];
+    /**
+     * Update an assistant test
+     * @description Updates an existing assistant test configuration with new settings
+     */
+    put: operations['update_assistant_test_public_assistants_tests__test_id__put'];
+    post?: never;
+    /**
+     * Delete an assistant test
+     * @description Permanently removes an assistant test and all associated data
+     */
+    delete: operations['delete_assistant_test_public_assistants_tests__test_id__delete'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/tests/{test_id}/runs': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get test run history for a specific test
+     * @description Retrieves paginated execution history for a specific assistant test with filtering options
+     */
+    get: operations['get_test_runs_for_test_public_assistants_tests__test_id__runs_get'];
+    put?: never;
+    /**
+     * Trigger a manual test run
+     * @description Initiates immediate execution of a specific assistant test
+     */
+    post: operations['trigger_test_run_public_assistants_tests__test_id__runs_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/tests/{test_id}/runs/{run_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get specific test run details
+     * @description Retrieves detailed information about a specific test run execution
+     */
+    get: operations['get_test_run_public_assistants_tests__test_id__runs__run_id__get'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/ai/assistants/{assistant_id}': {
     parameters: {
       query?: never;
@@ -327,6 +487,241 @@ export interface paths {
      * @description Delete an AI Assistant by `assistant_id`.
      */
     delete: operations['delete_assistant_public_assistants__assistant_id__delete'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/{assistant_id}/canary-deploys': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Canary Deploy
+     * @description Endpoint to get a canary deploy configuration for an assistant.
+     *
+     *     Retrieves the current canary deploy configuration with all version IDs and their
+     *     traffic percentages for the specified assistant.
+     */
+    get: operations['get_canary_deploy_assistants__assistant_id__canary_deploys_get'];
+    /**
+     * Update Canary Deploy
+     * @description Endpoint to update a canary deploy configuration for an assistant.
+     *
+     *     Updates the existing canary deploy configuration with new version IDs and percentages.
+     *       All old versions and percentages are replaces by new ones from this request.
+     */
+    put: operations['update_canary_deploy_assistants__assistant_id__canary_deploys_put'];
+    /**
+     * Create Canary Deploy
+     * @description Endpoint to create a canary deploy configuration for an assistant.
+     *
+     *     Creates a new canary deploy configuration with multiple version IDs and their traffic
+     *     percentages for A/B testing or gradual rollouts of assistant versions.
+     */
+    post: operations['create_canary_deploy_assistants__assistant_id__canary_deploys_post'];
+    /**
+     * Delete Canary Deploy
+     * @description Endpoint to delete a canary deploy configuration for an assistant.
+     *
+     *     Removes all canary deploy configurations for the specified assistant.
+     */
+    delete: operations['delete_canary_deploy_assistants__assistant_id__canary_deploys_delete'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/{assistant_id}/chat': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Assistant Chat (BETA)
+     * @description This endpoint allows a client to send a chat message to a specific AI Assistant. The assistant processes the message and returns a relevant reply based on the current conversation context. Refer to the Conversation API to [create a conversation](https://developers.telnyx.com/api/inference/inference-embedding/create-new-conversation-public-conversations-post), [filter existing conversations](https://developers.telnyx.com/api/inference/inference-embedding/get-conversations-public-conversations-get), [fetch messages for a conversation](https://developers.telnyx.com/api/inference/inference-embedding/get-conversations-public-conversation-id-messages-get), and [manually add messages to a conversation](https://developers.telnyx.com/api/inference/inference-embedding/add-new-message).
+     */
+    post: operations['assistant_chat_public_assistants__assistant_id__chat_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/{assistant_id}/clone': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Clone Assistant
+     * @description Clone an existing assistant, excluding telephony and messaging settings.
+     */
+    post: operations['clone_assistant_public_assistants__assistant_id__clone_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/{assistant_id}/scheduled_events': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List scheduled events
+     * @description Get scheduled events for an assistant with pagination and filtering
+     */
+    get: operations['get_scheduled_events'];
+    put?: never;
+    /**
+     * Create a scheduled event
+     * @description Create a scheduled event for an assistant
+     */
+    post: operations['create_scheduled_event'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/{assistant_id}/scheduled_events/{event_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get a scheduled event
+     * @description Retrieve a scheduled event by event ID
+     */
+    get: operations['get_scheduled_event'];
+    put?: never;
+    post?: never;
+    /**
+     * Delete a scheduled event
+     * @description If the event is pending, this will cancel the event. Otherwise, this will simply remove the record of the event.
+     */
+    delete: operations['delete_scheduled_event'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/{assistant_id}/texml': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get assistant texml
+     * @description Get an assistant texml by `assistant_id`.
+     */
+    get: operations['get_assistant_texml_public_assistants__assistant_id__texml_get'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/{assistant_id}/tools/{tool_id}/test': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Test Assistant Tool
+     * @description Test a webhook tool for an assistant
+     */
+    post: operations['test_assistant_tool_public_assistants__assistant_id__tools__tool_id__test_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/{assistant_id}/versions': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get all versions of an assistant
+     * @description Retrieves all versions of a specific assistant with complete configuration and metadata
+     */
+    get: operations['get_assistant_versions_public_assistants__assistant_id__versions_get'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/{assistant_id}/versions/{version_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Update a specific assistant version
+     * @description Updates the configuration of a specific assistant version. Can not update main version
+     */
+    post: operations['update_assistant_version_public_assistants__assistant_id__versions__version_id__post'];
+    /**
+     * Delete a specific assistant version
+     * @description Permanently removes a specific version of an assistant. Can not delete main version
+     */
+    delete: operations['delete_assistant_version_public_assistants__assistant_id__versions__version_id__delete'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/assistants/{assistant_id}/versions/{version_id}/promote': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Promote an assistant version to main
+     * @description Promotes a specific version to be the main/current version of the assistant
+     */
+    post: operations['promote_assistant_version_public_assistants__assistant_id__versions__version_id__promote_post'];
+    delete?: never;
     options?: never;
     head?: never;
     patch?: never;
@@ -366,6 +761,302 @@ export interface paths {
      * @description Chat with a language model. This endpoint is consistent with the [OpenAI Chat Completions API](https://platform.openai.com/docs/api-reference/chat) and may be used with the OpenAI JS or Python SDK.
      */
     post: operations['chat_public_chat_completions_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/clusters': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** List all clusters */
+    get: operations['list_all_requested_clusters_public_text_clusters_get'];
+    put?: never;
+    /**
+     * Compute new clusters
+     * @description Starts a background task to compute how the data in an [embedded storage bucket](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) is clustered. This helps identify common themes and patterns in the data.
+     */
+    post: operations['compute_new_cluster_public_text_clusters_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/clusters/{task_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Fetch a cluster */
+    get: operations['fetch_cluster_by_task_id_public_text_clusters__task_id__get'];
+    put?: never;
+    post?: never;
+    /** Delete a cluster */
+    delete: operations['delete_cluster_by_task_id_public_text_clusters__task_id__delete'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/clusters/{task_id}/graph': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Fetch a cluster visualization */
+    get: operations['fetch_cluster_image_by_task_id_public_text_clusters__task_id__image_get'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/conversations': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List conversations
+     * @description Retrieve a list of all AI conversations configured by the user. Supports [PostgREST-style query parameters](https://postgrest.org/en/stable/api.html#horizontal-filtering-rows) for filtering. Examples are included for the standard metadata fields, but you can filter on any field in the metadata JSON object. For example, to filter by a custom field `metadata->custom_field`, use `metadata->custom_field=eq.value`.
+     */
+    get: operations['get_conversations_public_conversations_get'];
+    put?: never;
+    /**
+     * Create a conversation
+     * @description Create a new AI Conversation.
+     */
+    post: operations['create_new_conversation_public_conversations_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/conversations/insight-groups': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Insight Template Groups
+     * @description Get all insight groups
+     */
+    get: operations['get_all_insight_groups'];
+    put?: never;
+    /**
+     * Create Insight Template Group
+     * @description Create a new insight group
+     */
+    post: operations['create_insight_group'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/conversations/insight-groups/{group_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Insight Template Group
+     * @description Get insight group by ID
+     */
+    get: operations['get_insight_group_by_id'];
+    /**
+     * Update Insight Template Group
+     * @description Update an insight template group
+     */
+    put: operations['update_insight_group_by_id'];
+    post?: never;
+    /**
+     * Delete Insight Template Group
+     * @description Delete insight group by ID
+     */
+    delete: operations['delete_insight_group_by_id'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/conversations/insight-groups/{group_id}/insights/{insight_id}/assign': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Assign Insight Template To Group
+     * @description Assign an insight to a group
+     */
+    post: operations['assign_insight_to_group'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/conversations/insight-groups/{group_id}/insights/{insight_id}/unassign': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * Unassign Insight Template From Group
+     * @description Remove an insight from a group
+     */
+    delete: operations['unassign_insight_from_group'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/conversations/insights': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Insight Templates
+     * @description Get all insights
+     */
+    get: operations['get_all_insights'];
+    put?: never;
+    /**
+     * Create Insight Template
+     * @description Create a new insight
+     */
+    post: operations['create_insight'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/conversations/insights/{insight_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Insight Template
+     * @description Get insight by ID
+     */
+    get: operations['get_insight_by_id'];
+    /**
+     * Update Insight Template
+     * @description Update an insight template
+     */
+    put: operations['update_insight_by_id'];
+    post?: never;
+    /**
+     * Delete Insight Template
+     * @description Delete insight by ID
+     */
+    delete: operations['delete_insight_by_id'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/conversations/{conversation_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get a conversation
+     * @description Retrieve a specific AI conversation by its ID.
+     */
+    get: operations['get_conversation_by_id_public_conversations_get'];
+    /**
+     * Update conversation metadata
+     * @description Update metadata for a specific conversation.
+     */
+    put: operations['update_conversation_by_id_public_conversations_put'];
+    post?: never;
+    /**
+     * Delete a conversation
+     * @description Delete a specific conversation by its ID.
+     */
+    delete: operations['delete_conversation_by_id_public_conversations_delete'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/conversations/{conversation_id}/conversations-insights': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get insights for a conversation
+     * @description Retrieve insights for a specific conversation
+     */
+    get: operations['get_conversations_public__conversation_id__insights_get'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/conversations/{conversation_id}/messages': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get conversation messages
+     * @description Retrieve messages for a specific conversation, including tool calls made by the assistant.
+     */
+    get: operations['get_conversations_public__conversation_id__messages_get'];
+    put?: never;
+    /**
+     * Create Message
+     * @description Add a new message to the conversation. Used to insert a new messages to a conversation manually ( without using chat endpoint )
+     */
+    post: operations['add_new_message'];
     delete?: never;
     options?: never;
     head?: never;
@@ -481,6 +1172,26 @@ export interface paths {
      *     `loader_metadata` field.
      */
     post: operations['PostEmbeddingSimilaritySearch'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ai/embeddings/url': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Embed URL content
+     * @description Embed website content from a specified URL, including child pages up to 5 levels deep within the same domain. The process crawls and loads content from the main URL and its linked pages into a Telnyx Cloud Storage bucket. As soon as each webpage is added to the bucket, its content is immediately processed for embeddings, that can be used for [similarity search](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding-similarity-search) and [clustering](https://developers.telnyx.com/docs/inference/clusters).
+     */
+    post: operations['PostEmbeddingUrl'];
     delete?: never;
     options?: never;
     head?: never;
@@ -632,31 +1343,9 @@ export interface paths {
     };
     /**
      * List Audit Logs
-     * @description List all audit log entries. Audit logs are a best-effort, eventually consistent record of significant account related changes.
+     * @description Retrieve a list of audit log entries. Audit logs are a best-effort, eventually consistent record of significant account-related changes.
      */
-    get: {
-      parameters: {
-        query?: {
-          /** @description The page number to load */
-          'page[number]'?: components['parameters']['PageNumber'];
-          /** @description The size of the page */
-          'page[size]'?: components['parameters']['PageSize'];
-          /** @description Filter for audit events created before a specific date. */
-          'filter[created_before]'?: components['parameters']['FilterCreatedBefore'];
-          /** @description Filter for audit events created after a specific date. */
-          'filter[created_after]'?: components['parameters']['FilterCreatedAfter'];
-          /** @description Set how the results will be ordered by the creation date. */
-          sort?: components['parameters']['Sort'];
-        };
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        200: components['responses']['ListAuditLogsResponse'];
-      };
-    };
+    get: operations['ListAuditLogs'];
     put?: never;
     post?: never;
     delete?: never;
@@ -711,7 +1400,7 @@ export interface paths {
     options?: never;
     head?: never;
     /**
-     * Update a authentication provider
+     * Update an authentication provider
      * @description Updates settings of an existing authentication provider.
      */
     patch: operations['UpdateAuthenticationProvider'];
@@ -996,6 +1685,150 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/bundle_pricing/billing_bundles': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Retrieve Bundles
+     * @description Get all allowed bundles.
+     */
+    get: operations['GetUserBillingBundles'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/bundle_pricing/billing_bundles/{bundle_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Bundle By Id
+     * @description Get a single bundle by ID.
+     */
+    get: operations['GetBillingBundleById'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/bundle_pricing/user_bundles': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get User Bundles
+     * @description Get a paginated list of user bundles.
+     */
+    get: operations['GetUserBundles'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/bundle_pricing/user_bundles/bulk': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Create User Bundles
+     * @description Creates multiple user bundles for the user.
+     */
+    post: operations['CreateUserBundlesBulk'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/bundle_pricing/user_bundles/unused': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Unused User Bundles
+     * @description Returns all user bundles that aren't in use.
+     */
+    get: operations['GetUnusedUserBundles'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/bundle_pricing/user_bundles/{user_bundle_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get User Bundle by Id
+     * @description Retrieves a user bundle by its ID.
+     */
+    get: operations['GetUserBundleById'];
+    put?: never;
+    post?: never;
+    /**
+     * Deactivate User Bundle
+     * @description Deactivates a user bundle by its ID.
+     */
+    delete: operations['DeactivateUserBundle'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/bundle_pricing/user_bundles/{user_bundle_id}/resources': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get User Bundle Resources
+     * @description Retrieves the resources of a user bundle by its ID.
+     */
+    get: operations['GetUserBundleResources'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/call_control_applications': {
     parameters: {
       query?: never;
@@ -1094,6 +1927,8 @@ export interface paths {
      *     - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected
      *     - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url` was set
      *
+     *     When the `record` parameter is set to `record-from-answer`, the response will include a `recording_id` field.
+     *
      */
     post: operations['DialCall'];
     delete?: never;
@@ -1132,8 +1967,14 @@ export interface paths {
     get?: never;
     put?: never;
     /**
-     * Start AI Assistant (BETA)
-     * @description **BETA** - Start an AI assistant on the call.
+     * Start AI Assistant
+     * @description Start an AI assistant on the call.
+     *
+     *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/call-start-ai-assistant#callbacks) below):**
+     *
+     *     - `call.conversation.ended`
+     *     - `call.conversation_insights.generated`
+     *
      */
     post: operations['CallStartAIAssistant'];
     delete?: never;
@@ -1152,8 +1993,8 @@ export interface paths {
     get?: never;
     put?: never;
     /**
-     * Stop AI Assistant (BETA)
-     * @description **BETA** - Stop an AI assistant on the call.
+     * Stop AI Assistant
+     * @description Stop an AI assistant on the call.
      */
     post: operations['CallStopAIAssistant'];
     delete?: never;
@@ -1179,6 +2020,8 @@ export interface paths {
      *
      *     - `call.answered`
      *     - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url` was set
+     *
+     *     When the `record` parameter is set to `record-from-answer`, the response will include a `recording_id` field.
      *
      */
     post: operations['AnswerCall'];
@@ -1372,14 +2215,17 @@ export interface paths {
     get?: never;
     put?: never;
     /**
-     * Gather using AI (BETA)
-     * @description **BETA** Gather parameters defined in the request payload using a voice assistant.
+     * Gather using AI
+     * @description Gather parameters defined in the request payload using a voice assistant.
      *
-     *      You can pass parameters described as a JSON Schema object and the voice assistant will attempt to gather these informations. At the moment only English is supported.
+     *      You can pass parameters described as a JSON Schema object and the voice assistant will attempt to gather these informations.
      *
      *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks) below):**
      *
      *     - `call.ai_gather.ended`
+     *     - `call.conversation.ended`
+     *     - `call.ai_gather.partial_results` (if `send_partial_results` is set to `true`)
+     *     - `call.ai_gather.message_history_updated` (if `send_message_history_updates` is set to `true`)
      *
      */
     post: operations['callGatherUsingAI'];
@@ -1616,6 +2462,8 @@ export interface paths {
      *     **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-record#callbacks) below):**
      *
      *     - `call.recording.saved`
+     *     - `call.recording.transcription.saved`
+     *     - `call.recording.error`
      *
      */
     post: operations['StartCallRecord'];
@@ -1742,7 +2590,7 @@ export interface paths {
      *
      *     **Expected Webhooks:**
      *
-     *     There are no webhooks associated with this command.
+     *     - `call.sip_info.received` (to be received on the target call leg)
      *
      */
     post: operations['SendSIPInfo'];
@@ -1905,6 +2753,26 @@ export interface paths {
     put?: never;
     /** Noise Suppression Stop (BETA) */
     post: operations['noiseSuppressionStop'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/calls/{call_control_id}/actions/switch_supervisor_role': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Switch supervisor role
+     * @description Switch the supervisor role for a bridged call. This allows switching between different supervisor modes during an active call
+     */
+    post: operations['SwitchSupervisorRole'];
     delete?: never;
     options?: never;
     head?: never;
@@ -2194,8 +3062,8 @@ export interface paths {
       cookie?: never;
     };
     /**
-     * Get list of channel zones
-     * @description List of channel zones with their countries
+     * List your voice channels for non-US zones
+     * @description Returns the non-US voice channels for your account. voice channels allow you to use Channel Billing for calls to your Telnyx phone numbers. Please check the <a href="https://support.telnyx.com/en/articles/8428806-global-channel-billing">Telnyx Support Articles</a> section for full information and examples of how to utilize Channel Billing.
      */
     get: operations['GetChannelZones'];
     put?: never;
@@ -2216,67 +3084,14 @@ export interface paths {
       };
       cookie?: never;
     };
-    /**
-     * Get a specific channel zone
-     * @description Get a specific channel zone
-     */
-    get: operations['GetChannelZone'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * Patch a channel zone
-     * @description Change the amount of reserved channels at a given channel zone
-     */
-    patch: operations['PatchChannelZone'];
-    trace?: never;
-  };
-  '/channel_zones/{channel_zone_id}/channel_zone_phone_numbers': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Channel zone identifier */
-        channel_zone_id: components['parameters']['GcbChannelZoneId'];
-      };
-      cookie?: never;
-    };
-    /**
-     * Get the list of phone numbers assigned to a channel zone
-     * @description Retrieve the assigned phone numbers in a channel zone. Phone numbers assigned to a channel zone can receive concurrent calls up to the quantity reserved in that channel zone. Additional concurrent calls are rejected with a busy signal.
-     */
-    get: operations['GetPhoneNumbers'];
-    put?: never;
-    /**
-     * Assign a phone number to a channel zone
-     * @description You should own the phone number being assigned to the channel zone. Remember that you should reserve channels in this channel zone, otherwise you won't be able to receive incoming calls.
-     */
-    post: operations['AssignPhoneNumber'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/channel_zones/{channel_zone_id}/channel_zone_phone_numbers/{phone_number}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Channel zone identifier */
-        channel_zone_id: components['parameters']['GcbChannelZoneId'];
-        /** @description The phone number to be looked up */
-        phone_number: components['parameters']['GcbPhoneNumber'];
-      };
-      cookie?: never;
-    };
     get?: never;
-    put?: never;
+    /**
+     * Update voice channels for non-US Zones
+     * @description Update the number of Voice Channels for the Non-US Zones. This allows your account to handle multiple simultaneous inbound calls to Non-US numbers. Use this endpoint to increase or decrease your capacity based on expected call volume.
+     */
+    put: operations['PatchChannelZone'];
     post?: never;
-    /** Unassign a phone number from a channel zone */
-    delete: operations['UnassignPhoneNumber'];
+    delete?: never;
     options?: never;
     head?: never;
     patch?: never;
@@ -2871,8 +3686,8 @@ export interface paths {
     get?: never;
     put?: never;
     /**
-     * Update a credential connection registration status
-     * @description Updates the registration_status for a credential connection, this endpoint also updates the `registration_status` and `registration_status_updated_at` fields in the credential connection
+     * Check a Credential Connection Registration Status
+     * @description Checks the registration_status for a credential connection, (`registration_status`) as well as the timestamp for the last SIP registration event (`registration_status_updated_at`)
      */
     post: operations['CheckRegistrationStatus'];
     delete?: never;
@@ -3368,6 +4183,23 @@ export interface paths {
     options?: never;
     head?: never;
     patch?: never;
+    trace?: never;
+  };
+  '/external_connections/{id}/locations/{location_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Update a location's static emergency address */
+    patch: operations['updateLocation'];
     trace?: never;
   };
   '/external_connections/{id}/phone_numbers': {
@@ -4078,6 +4910,30 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/inbound_channels': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List your voice channels for US Zone
+     * @description Returns the US Zone voice channels for your account. voice channels allows you to use Channel Billing for calls to your Telnyx phone numbers. Please check the <a href="https://support.telnyx.com/en/articles/8428806-global-channel-billing">Telnyx Support Articles</a> section for full information and examples of how to utilize Channel Billing.
+     */
+    get: operations['ListInboundChannels'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Update voice channels for US Zone
+     * @description Update the number of Voice Channels for the US Zone. This allows your account to handle multiple simultaneous inbound calls to US numbers. Use this endpoint to increase or decrease your capacity based on expected call volume.
+     */
+    patch: operations['UpdateOutboundChannels'];
+    trace?: never;
+  };
   '/integration_secrets': {
     parameters: {
       query?: never;
@@ -4134,6 +4990,103 @@ export interface paths {
      * @description Creates an inventory coverage request. If locality, npa or national_destination_code is used in groupBy, and no region or locality filters are used, the whole paginated set is returned.
      */
     get: operations['CreateInventoryCoverage'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/invoices': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List invoices
+     * @description Retrieve a paginated list of invoices.
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The page number to load */
+          'page[number]'?: number;
+          /** @description The size of the page */
+          'page[size]'?: number;
+          /** @description Specifies the sort order for results. */
+          sort?: 'period_start' | '-period_start';
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description List of invoices */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': {
+              meta?: {
+                /** @example 20 */
+                total_results?: number;
+                /** @example 1 */
+                total_pages?: number;
+                /** @example 1 */
+                page_number?: number;
+                /** @example 20 */
+                page_size?: number;
+              };
+              data?: components['schemas']['Invoice'][];
+            };
+          };
+        };
+        default: components['responses']['GenericErrorResponse'];
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/invoices/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get invoice by ID
+     * @description Retrieve a single invoice by its unique identifier.
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Invoice action */
+          action?: 'json' | 'link';
+        };
+        header?: never;
+        path: {
+          /** @description Invoice UUID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        200: components['responses']['InvoiceDetailResponse'];
+        default: components['responses']['GenericErrorResponse'];
+      };
+    };
     put?: never;
     post?: never;
     delete?: never;
@@ -4272,6 +5225,46 @@ export interface paths {
     };
     /** Get a ledger billing group report */
     get: operations['GetBillingGroupReport'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/list': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List All Numbers using Channel Billing
+     * @description Retrieve a list of all phone numbers using Channel Billing, grouped by Zone.
+     */
+    get: operations['GetAllNumbersChannelZones'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/list/{channel_zone_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List Numbers using Channel Billing for a specific Zone
+     * @description Retrieve a list of phone numbers using Channel Billing for a specific Zone.
+     */
+    get: operations['GetNumbersChannelZones'];
     put?: never;
     post?: never;
     delete?: never;
@@ -4556,6 +5549,31 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/messages/schedule': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Schedule a message
+     * @description Schedule a message with a Phone Number, Alphanumeric Sender ID, Short Code or Number Pool.
+     *
+     *     This endpoint allows you to schedule a message with any messaging resource.
+     *     Current messaging resources include: long-code, short-code, number-pool, and
+     *     alphanumeric-sender-id.
+     *
+     */
+    post: operations['ScheduleMessage'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/messages/short_code': {
     parameters: {
       query?: never;
@@ -4587,6 +5605,97 @@ export interface paths {
     get: operations['GetMessage'];
     put?: never;
     post?: never;
+    /**
+     * Cancel a scheduled message
+     * @description Cancel a scheduled message that has not yet been sent. Only messages with `status=scheduled` and `send_at` more than a minute from now can be cancelled.
+     */
+    delete: operations['CancelMessage'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/messaging/rcs/capabilities/{agent_id}/{phone_number}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** List RCS capabilities of a phone number */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description RCS agent ID */
+          agent_id: string;
+          /** @description Phone number in E164 format */
+          phone_number: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Successful response */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['RCSCapabilitiesSingle'];
+          };
+        };
+        default: components['responses']['GenericErrorResponse'];
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/messaging/rcs/test_number_invite/{id}/{phone_number}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /**
+     * Invite a test number to an RCS agent
+     * @description Adds a test phone number to an RCS agent for testing purposes.
+     */
+    put: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description RCS agent ID */
+          id: string;
+          /** @description Phone number in E164 format to invite for testing */
+          phone_number: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Test number successfully invited to RCS agent */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['RCSTestNumberInviteResponse'];
+          };
+        };
+        default: components['responses']['GenericErrorResponse'];
+      };
+    };
+    post?: never;
     delete?: never;
     options?: never;
     head?: never;
@@ -4605,6 +5714,23 @@ export interface paths {
     put?: never;
     /** Create a messaging hosted number order */
     post: operations['CreateMessagingHostedNumberOrder'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/messaging_hosted_number_orders/eligibility_numbers_check': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Check eligibility of phone numbers for hosted messaging */
+    post: operations['CheckEligibilityNumbers'];
     delete?: never;
     options?: never;
     head?: never;
@@ -4639,6 +5765,46 @@ export interface paths {
     put?: never;
     /** Upload file required for a messaging hosted number order */
     post: operations['UploadMessagingHostedNumberOrderFile'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/messaging_hosted_number_orders/{id}/validation_codes': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Validate the verification codes for the hosted numbers order
+     * @description Validate the verification codes sent to the numbers of the hosted order. The verification codes must be created in the verification codes endpoint.
+     */
+    post: operations['ValidateVerificationCodesForMessagingHostedNumberOrder'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/messaging_hosted_number_orders/{id}/verification_codes': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Create verification codes for the hosted numbers order
+     * @description Create verification codes to validate numbers of the hosted order. The verification codes will be sent to the numbers of the hosted order.
+     */
+    post: operations['CreateVerificationCodesForMessagingHostedNumberOrder'];
     delete?: never;
     options?: never;
     head?: never;
@@ -4696,15 +5862,18 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/messaging_profile_metrics': {
+  '/messaging_optouts': {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: never;
     };
-    /** List messaging profile metrics */
-    get: operations['ListProfileMetrics'];
+    /**
+     * List opt-outs
+     * @description Retrieve a list of opt-out blocks.
+     */
+    get: operations['ListOptOuts'];
     put?: never;
     post?: never;
     delete?: never;
@@ -4748,23 +5917,6 @@ export interface paths {
     head?: never;
     /** Update a messaging profile */
     patch: operations['UpdateMessagingProfile'];
-    trace?: never;
-  };
-  '/messaging_profiles/{id}/metrics': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Retrieve messaging profile metrics */
-    get: operations['GetMessagingProfileMetrics'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
     trace?: never;
   };
   '/messaging_profiles/{id}/phone_numbers': {
@@ -5592,6 +6744,26 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/operator_connect/actions/refresh': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Refresh Operator Connect integration
+     * @description This endpoint will make an asynchronous request to refresh the Operator Connect integration with Microsoft Teams for the current user. This will create new external connections on the user's account if needed, and/or report the integration results as [log messages](https://developers.telnyx.com/api/external-voice-integrations/list-external-connection-log-messages).
+     */
+    post: operations['OperatorConnectRefresh'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/ota_updates': {
     parameters: {
       query?: never;
@@ -6001,30 +7173,6 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/phone_numbers/inbound_channels': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List your inbound channels
-     * @description Returns the inbound channels for your account. Inbound channels allows you to use Channel Billing for calls to your Telnyx phone numbers. Please check the Telnyx Support Articles section for full information and examples of how to utilize Channel Billing.
-     */
-    get: operations['ListInboundChannels'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * Update inbound channels
-     * @description Update the inbound channels for the account
-     */
-    patch: operations['UpdateOutboundChannels'];
-    trace?: never;
-  };
   '/phone_numbers/jobs': {
     parameters: {
       query?: never;
@@ -6093,7 +7241,7 @@ export interface paths {
     put?: never;
     /**
      * Update a batch of numbers
-     * @description Creates a new background job to update a batch of numbers. At most one thousand numbers can be updated per API call. At least one of the updateable fields must be submitted.
+     * @description Creates a new background job to update a batch of numbers. At most one thousand numbers can be updated per API call. At least one of the updateable fields must be submitted. IMPORTANT: You must either specify filters (using the filter parameters) or specific phone numbers (using the phone_numbers parameter in the request body). If you specify filters, ALL phone numbers that match the given filters (up to 1000 at a time) will be updated. If you want to update only specific numbers, you must use the phone_numbers parameter in the request body. When using the phone_numbers parameter, ensure you follow the correct format as shown in the example (either phone number IDs or phone numbers in E164 format).
      */
     post: operations['CreateUpdatePhoneNumbersJob'];
     delete?: never;
@@ -7457,6 +8605,116 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/rcs_agents': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** List all RCS agents */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The page number to load. */
+          'page[number]'?: components['parameters']['PageNumber'];
+          /** @description The size of the page. */
+          'page[size]'?: components['parameters']['PageSize'];
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Successful reponse with the list of RCS agents */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['RCSAgentsResponse'];
+          };
+        };
+        default: components['responses']['GenericErrorResponse'];
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rcs_agents/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Retrieve an RCS agent */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description RCS agent ID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Successful response with the RCS agent */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['RCSAgentResponse'];
+          };
+        };
+        default: components['responses']['GenericErrorResponse'];
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Modify an RCS agent */
+    patch: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description RCS agent ID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          'application/json': components['schemas']['RCSAgentUpdate'];
+        };
+      };
+      responses: {
+        /** @description Successful response with the updated RCS agent */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['RCSAgentResponse'];
+          };
+        };
+        default: components['responses']['GenericErrorResponse'];
+      };
+    };
+    trace?: never;
+  };
   '/recording_transcriptions': {
     parameters: {
       query?: never;
@@ -7486,7 +8744,7 @@ export interface paths {
     };
     /**
      * Retrieve a recording transcription
-     * @description Retrieves the details of an existing recording transcription
+     * @description Retrieves the details of an existing recording transcription.
      */
     get: operations['getRecordingTranscription'];
     put?: never;
@@ -7609,8 +8867,11 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    /** @description Generate and fetch voice usage report synchronously. This endpoint will both generate and fetch the voice report over a specified time period. No polling is necessary but the response may take up to a couple of minutes.  */
-    get: operations['CdrGetUsageReportSync'];
+    /**
+     * Generates and fetches CDR Usage Reports
+     * @description Generate and fetch voice usage report synchronously. This endpoint will both generate and fetch the voice report over a specified time period. No polling is necessary but the response may take up to a couple of minutes.
+     */
+    get: operations['GetCDRUsageReportSync'];
     put?: never;
     post?: never;
     delete?: never;
@@ -7626,10 +8887,16 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    /** @description Fetch all messaging usage reports. Usage reports are aggregated messaging data for specified time period and breakdown */
-    get: operations['GetUsageReports'];
+    /**
+     * Fetch all Messaging usage reports
+     * @description Fetch all messaging usage reports. Usage reports are aggregated messaging data for specified time period and breakdown
+     */
+    get: operations['GetMdrUsageReports'];
     put?: never;
-    /** @description Submit request for new new messaging usage report. This endpoint will pull and aggregate messaging data in specified time period.  */
+    /**
+     * Create MDR Usage Report
+     * @description Submit request for new new messaging usage report. This endpoint will pull and aggregate messaging data in specified time period.
+     */
     post: operations['SubmitUsageReport'];
     delete?: never;
     options?: never;
@@ -7644,8 +8911,11 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    /** @description Generate and fetch messaging usage report synchronously. This endpoint will both generate and fetch the messaging report over a specified time period. No polling is necessary but the response may take up to a couple of minutes.  */
-    get: operations['GetUsageReportSync'];
+    /**
+     * Generate and fetch MDR Usage Report
+     * @description Generate and fetch messaging usage report synchronously. This endpoint will both generate and fetch the messaging report over a specified time period. No polling is necessary but the response may take up to a couple of minutes.
+     */
+    get: operations['GetMDRUsageReportSync'];
     put?: never;
     post?: never;
     delete?: never;
@@ -7661,11 +8931,17 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    /** @description Fetch a single messaging usage report by id */
-    get: operations['MdrGetUsageReport'];
+    /**
+     * Retrieve messaging report
+     * @description Fetch a single messaging usage report by id
+     */
+    get: operations['GetUsageReport'];
     put?: never;
     post?: never;
-    /** @description Delete messaging usage report by id */
+    /**
+     * Delete MDR Usage Report
+     * @description Delete messaging usage report by id
+     */
     delete: operations['DeleteUsageReport'];
     options?: never;
     head?: never;
@@ -7679,7 +8955,10 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    /** @description Fetch all Mdr records  */
+    /**
+     * Fetch all Mdr records
+     * @description Fetch all Mdr records
+     */
     get: operations['GetPaginatedMdrs'];
     put?: never;
     post?: never;
@@ -7696,7 +8975,10 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    /** @description Fetch all Wdr records  */
+    /**
+     * Fetches all Wdr records
+     * @description Fetch all Wdr records
+     */
     get: operations['GetPaginatedWdrs'];
     put?: never;
     post?: never;
@@ -7788,7 +9070,7 @@ export interface paths {
       cookie?: never;
     };
     /**
-     * Retrieve a requirement types
+     * Retrieve a requirement type
      * @description Retrieve a requirement type by id
      */
     get: operations['RetrieveRequirementType'];
@@ -8172,6 +9454,26 @@ export interface paths {
     };
     /** View a list of room sessions. */
     get: operations['RetrieveListRoomSessions'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/seti/black_box_test_results': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Retrieve Black Box Test Results
+     * @description Returns the results of the various black box tests
+     */
+    get: operations['GetBlackBoxTestResults'];
     put?: never;
     post?: never;
     delete?: never;
@@ -8800,26 +10102,42 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
+    get?: never;
+    put?: never;
     /**
-     * Retrieve stored Siprec Connection
-     * @description Return details of the Siprec connection.
+     * Create a SIPREC connector
+     * @description Creates a new SIPREC connector configuration.
      */
-    get: operations['GetSiprecConnection'];
+    post: operations['createSiprecConnector'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/siprec_connectors/{connector_name}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
     /**
-     * Update stored SIPREC connector
-     * @description Updates a stored SIPREC connector
+     * Retrieve a SIPREC connector
+     * @description Returns details of a stored SIPREC connector.
      */
-    put: operations['UpdateSiprecConnector'];
+    get: operations['getSiprecConnector'];
     /**
-     * Creates a siprec connector
-     * @description Saves a siprec connector configuration.
+     * Update a SIPREC connector
+     * @description Updates a stored SIPREC connector configuration.
      */
-    post: operations['CreateSiprecConnector'];
+    put: operations['updateSiprecConnector'];
+    post?: never;
     /**
-     * Delete stored Siprec Connection
-     * @description Deletes a stored Siprec Connection.
+     * Delete a SIPREC connector
+     * @description Deletes a stored SIPREC connector.
      */
-    delete: operations['DeleteSiprecConnection'];
+    delete: operations['deleteSiprecConnector'];
     options?: never;
     head?: never;
     patch?: never;
@@ -9108,6 +10426,66 @@ export interface paths {
     patch: operations['CancelSubNumberOrder'];
     trace?: never;
   };
+  '/sub_number_orders_report': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Create a sub number orders report
+     * @description Create a CSV report for sub number orders. The report will be generated asynchronously and can be downloaded once complete.
+     */
+    post: operations['CreateSubNumberOrdersReport'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/sub_number_orders_report/{report_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Retrieve a sub number orders report
+     * @description Get the status and details of a sub number orders report.
+     */
+    get: operations['GetSubNumberOrdersReport'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/sub_number_orders_report/{report_id}/download': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Download a sub number orders report
+     * @description Download the CSV file for a completed sub number orders report. The report status must be 'success' before the file can be downloaded.
+     */
+    get: operations['DownloadSubNumberOrdersReport'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/telephony_credentials': {
     parameters: {
       query?: never;
@@ -9197,7 +10575,7 @@ export interface paths {
      * Initiate an outbound call
      * @description Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request URL configured for the connection in the Mission Control Portal.
      */
-    post: operations['InitiateTexmlCallAccountSid'];
+    post: operations['InitiateTexmlCall'];
     delete?: never;
     options?: never;
     head?: never;
@@ -9221,7 +10599,7 @@ export interface paths {
      * Update call
      * @description Update TeXML call. Please note that the keys present in the payload MUST BE formatted in CamelCase as specified in the example.
      */
-    post: operations['UpdateTexmlCallAccountSid'];
+    post: operations['UpdateTexmlCall'];
     delete?: never;
     options?: never;
     head?: never;
@@ -9420,7 +10798,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid}': {
+  '/texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid_or_participant_label}': {
     parameters: {
       query?: never;
       header?: never;
@@ -9586,10 +10964,10 @@ export interface paths {
     get?: never;
     put?: never;
     /**
-     * Initiate an outbound call
+     * (Deprecated) Initiate an outbound call
      * @description Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request URL configured for the connection in the Mission Control Portal.
      */
-    post: operations['InitiateTexmlCall'];
+    post: operations['DeprecatedInitiateTexmlCall'];
     delete?: never;
     options?: never;
     head?: never;
@@ -9606,10 +10984,10 @@ export interface paths {
     get?: never;
     put?: never;
     /**
-     * Update call
+     * (Deprecated) Update call
      * @description Update TeXML call. Please note that the keys present in the payload MUST BE formatted in CamelCase as specified in the example.
      */
-    post: operations['UpdateTexmlCall'];
+    post: operations['DeprecatedUpdateTexmlCall'];
     delete?: never;
     options?: never;
     head?: never;
@@ -9688,6 +11066,46 @@ export interface paths {
     patch: operations['UpdateTexmlApplication'];
     trace?: never;
   };
+  '/text-to-speech/speech': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Generate speech from text
+     * @description Converts the provided text to speech using the specified voice and returns audio data
+     */
+    post: operations['generateTextToSpeech'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/text-to-speech/voices': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List available text to speech voices
+     * @description Returns a list of voices that can be used with the text to speech commands.
+     */
+    get: operations['listTextToSpeechVoices'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/usage_reports': {
     parameters: {
       query?: never;
@@ -9699,7 +11117,7 @@ export interface paths {
      * Get Telnyx product usage data (BETA)
      * @description Get Telnyx usage data by product, broken out by the specified dimensions
      */
-    get: operations['GetUsageReport'];
+    get: operations['GetUsageReports'];
     put?: never;
     post?: never;
     delete?: never;
@@ -9728,6 +11146,50 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/user_addresses': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List all user addresses
+     * @description Returns a list of your user addresses.
+     */
+    get: operations['FindUserAddress'];
+    put?: never;
+    /**
+     * Creates a user address
+     * @description Creates a user address.
+     */
+    post: operations['CreateUserAddress'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/user_addresses/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Retrieve a user address
+     * @description Retrieves the details of an existing user address.
+     */
+    get: operations['GetUserAddress'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/user_tags': {
     parameters: {
       query?: never;
@@ -9739,45 +11201,13 @@ export interface paths {
      * List User Tags
      * @description List all user tags.
      */
-    get: {
-      parameters: {
-        query?: {
-          /** @description Filter tags by prefix */
-          'filter[starts_with]'?: string;
-        };
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        200: components['responses']['ListUserTagsResponse'];
-        401: components['responses']['UnauthenticatedResponse'];
-      };
-    };
+    get: operations['GetUserTags'];
     put?: never;
     post?: never;
     delete?: never;
     options?: never;
     head?: never;
     patch?: never;
-    trace?: never;
-  };
-  '/v2/external_connections/{id}/locations/{location_id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /** Update a location's static emergency address */
-    patch: operations['updateLocation'];
     trace?: never;
   };
   '/verifications/by_phone_number/{phone_number}': {
@@ -10424,6 +11854,11 @@ export interface components {
         id?: string;
         /** @description Reference to the OpenAI API key. Required only when using OpenAI models */
         openai_api_key_ref?: string;
+        /**
+         * @description The system instructions that the voice assistant uses during the start assistant command. This will overwrite the instructions set in the assistant configuration.
+         * @example You are a friendly voice assistant.
+         */
+        instructions?: string;
       };
       voice?: components['schemas']['VoiceConfig'];
       /** @description The settings associated with the voice selected */
@@ -10688,8 +12123,17 @@ export interface components {
        * @default
        */
       area_code: string;
-      /** @default  */
-      phone_number_type: unknown;
+      /**
+       * @default local
+       * @enum {string}
+       */
+      phone_number_type:
+        | 'local'
+        | 'mobile'
+        | 'toll_free'
+        | 'shared_cost'
+        | 'national'
+        | 'landline';
       /** Features */
       features?: ('sms' | 'mms' | 'voice' | 'fax' | 'emergency')[];
       /**
@@ -10697,6 +12141,56 @@ export interface components {
        * @default
        */
       customer_reference: string;
+    };
+    /** @description An Advanced Order Response */
+    AdvancedOrderResponse: {
+      /**
+       * Country Code
+       * @default US
+       */
+      country_code: string;
+      /**
+       * Comments
+       * @default
+       */
+      comments: string;
+      /**
+       * Quantity
+       * @default 1
+       */
+      quantity: number;
+      /**
+       * Area Code
+       * @default
+       */
+      area_code: string;
+      /**
+       * @default
+       * @enum {string}
+       */
+      phone_number_type:
+        | 'local'
+        | 'mobile'
+        | 'toll_free'
+        | 'shared_cost'
+        | 'national'
+        | 'landline';
+      /** Features */
+      features?: ('sms' | 'mms' | 'voice' | 'fax' | 'emergency')[];
+      /**
+       * Customer Reference
+       * @default
+       */
+      customer_reference: string;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id?: string;
+      /** @enum {string} */
+      status?: 'pending' | 'processing' | 'ordered';
+      /** Orders */
+      orders?: string[];
     };
     /**
      * AltBusinessIdType
@@ -10875,6 +12369,7 @@ export interface components {
        * @enum {string}
        */
       stream_track: 'inbound_track' | 'outbound_track' | 'both_tracks';
+      stream_codec?: components['schemas']['StreamCodec'];
       stream_bidirectional_mode?: components['schemas']['StreamBidirectionalMode'];
       stream_bidirectional_codec?: components['schemas']['StreamBidirectionalCodec'];
       stream_bidirectional_target_legs?: components['schemas']['StreamBidirectionalTargetLegs'];
@@ -11010,12 +12505,6 @@ export interface components {
        */
       taskId: string;
     };
-    /**
-     * AssignmentStatus
-     * @description An enumeration.
-     * @enum {string}
-     */
-    AssignmentStatus: 'pending' | 'assigned' | 'failed';
     /** AssignmentTaskStatusResponse */
     AssignmentTaskStatusResponse: {
       /** Taskid */
@@ -11036,43 +12525,64 @@ export interface components {
        */
       updatedAt?: string;
     };
-    /** Assistant */
     Assistant: {
-      /** Id */
       id: string;
-      /** Name */
       name: string;
-      /**
-       * Created At
-       * Format: date-time
-       */
+      /** Format: date-time */
       created_at: string;
-      /**
-       * Description
-       * @default
-       */
-      description: string;
-      /** Model */
+      description?: string;
+      /** @description ID of the model to use. You can use the [Get models API](https://developers.telnyx.com/api/inference/inference-embedding/get-models-public-models-get) to see all of your available models, */
       model: string;
-      /** Instructions */
+      /** @description System instructions for the assistant. These may be templated with [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) */
       instructions: string;
+      tools?: components['schemas']['AssistantTools'];
+      /** @description Text that the assistant will use to start the conversation. This may be templated with [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) */
+      greeting?: string;
+      /** @description This is only needed when using third-party inference providers. The `identifier` for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your LLM provider's API key. Warning: Free plans are unlikely to work with this integration. */
+      llm_api_key_ref?: string;
+      voice_settings?: components['schemas']['VoiceSettings'];
+      transcription?: components['schemas']['TranscriptionSettings'];
+      telephony_settings?: components['schemas']['TelephonySettings'];
+      messaging_settings?: components['schemas']['MessagingSettings'];
+      /** Enabled Features */
+      enabled_features?: components['schemas']['EnabledFeatures'][];
+      insight_settings?: components['schemas']['InsightSettings'];
+      privacy_settings?: components['schemas']['PrivacySettings'];
+      /** @description If the dynamic_variables_webhook_url is set for the assistant, we will send a request at the start of the conversation. See our [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for more information. */
+      dynamic_variables_webhook_url?: string;
+      /** @description Map of dynamic variables and their values */
+      dynamic_variables?: Record<string, never>;
+      import_metadata?: components['schemas']['ImportMetadata'];
+    };
+    /** AssistantChatReq */
+    AssistantChatReq: {
       /**
-       * Tools
-       * @default [
-       *       {
-       *         "type": "retrieval",
-       *         "retrieval": {
-       *           "bucket_ids": [
-       *             "my_bucket_id_1"
-       *           ]
-       *         }
-       *       }
-       *     ]
+       * Content
+       * @description The message content sent by the client to the assistant
+       * @example Tell me a joke about cats
        */
-      tools: (
-        | components['schemas']['ChatCompletionToolParam']
-        | components['schemas']['Retrieval']
-      )[];
+      content: string;
+      /**
+       * Name
+       * @description The optional display name of the user sending the message
+       * @example Charlie
+       */
+      name?: string;
+      /**
+       * Conversation Id
+       * @description A unique identifier for the conversation thread, used to maintain context
+       * @example 42b20469-1215-4a9a-8964-c36f66b406f4
+       */
+      conversation_id: string;
+    };
+    /** AssistantChatResponse */
+    AssistantChatResponse: {
+      /**
+       * Content
+       * @description The assistant's generated response based on the input message and context.
+       * @example Why did the cat sit on the computer? Because it wanted to keep an eye on the mouse!
+       */
+      content: string;
     };
     /**
      * AssistantDeletedResponse
@@ -11087,6 +12597,96 @@ export interface components {
       /** Deleted */
       deleted: boolean;
     };
+    /**
+     * AssistantTestResponse
+     * @description Response model containing complete assistant test information.
+     *
+     *     Returns all test configuration details including evaluation criteria,
+     *     scheduling, and metadata. Used when retrieving individual tests or
+     *     after creating/updating tests.
+     */
+    AssistantTestResponse: {
+      /**
+       * Test Id
+       * Format: uuid
+       * @description Unique identifier for the assistant test.
+       * @example 123e4567-e89b-12d3-a456-426614174000
+       */
+      test_id: string;
+      /**
+       * Name
+       * @description Human-readable name of the test.
+       * @example Customer Support Bot Test
+       */
+      name: string;
+      /**
+       * Description
+       * @description Detailed description of the test's purpose and scope.
+       */
+      description?: string;
+      /**
+       * @description Communication channel used for test execution.
+       * @example web_chat
+       */
+      telnyx_conversation_channel: components['schemas']['TelnyxConversationChannel'];
+      /**
+       * Destination
+       * @description Target destination for test conversations.
+       */
+      destination?: string;
+      /**
+       * Max Duration Seconds
+       * @description Maximum allowed duration for test execution in seconds.
+       */
+      max_duration_seconds?: number;
+      /**
+       * Test Suite
+       * @description Test suite grouping for organizational purposes.
+       */
+      test_suite?: string;
+      /**
+       * Instructions
+       * @description Detailed test scenario instructions and objectives.
+       */
+      instructions?: string;
+      /**
+       * Rubric
+       * @description Evaluation criteria used to assess test performance.
+       * @example [
+       *       [
+       *         {
+       *           "criteria": "Responds within 30 seconds",
+       *           "name": "Response Time"
+       *         }
+       *       ]
+       *     ]
+       */
+      rubric: {
+        /** @description Label for the evaluation criterion, e.g., Empathy, Accuracy, Clarity. */
+        name: string;
+        /** @description Specific guidance on how to assess the assistant’s performance for this rubric item. */
+        criteria: string;
+      }[];
+      /**
+       * Created At
+       * Format: date-time
+       * @description Timestamp when the test was created.
+       * @example [
+       *       "2024-01-15T09:00:00Z"
+       *     ]
+       */
+      created_at: string;
+    };
+    /** @description The tools that the assistant can use. These may be templated with [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) */
+    AssistantTools: (
+      | components['schemas']['WebhookTool']
+      | components['schemas']['RetrievalTool']
+      | components['schemas']['HandoffTool']
+      | components['schemas']['HangupTool']
+      | components['schemas']['TransferTool']
+      | components['schemas']['SIPReferTool']
+      | components['schemas']['DTMFTool']
+    )[];
     /** AssistantsListData */
     AssistantsListData: {
       /** Data */
@@ -11142,61 +12742,103 @@ export interface components {
       /** @description Text content of the segment. */
       text: string;
     };
-    AuditLogEntry: {
+    /**
+     * Audit Event Changes
+     * @description Details of the changes made to a resource.
+     */
+    AuditEventChanges: {
+      /**
+       * @description The name of the field that was changed. May use the dot notation to indicate nested fields.
+       * @example nested.field.name
+       */
+      field?: string;
+      /**
+       * @description The new value of the field. Can be any JSON type.
+       * @example 12345
+       */
+      to?:
+        | (string | number | boolean | Record<string, never> | unknown[])
+        | null;
+      /**
+       * @description The previous value of the field. Can be any JSON type.
+       * @example 54321
+       */
+      from?:
+        | (string | number | boolean | Record<string, never> | unknown[])
+        | null;
+    };
+    /** Audit Log Entry */
+    AuditLog: {
       /**
        * Format: uuid
-       * @description Unique identifier for the audit log entry
+       * @description Unique identifier for the audit log entry.
+       * @example 550e8400-e29b-41d4-a716-446655440000
        */
       id?: string;
       /**
        * Format: uuid
-       * @description Unique identifier for the user who made the change
+       * @description Unique identifier for the user who made the change.
+       * @example 550e8400-e29b-41d4-a716-446655440001
        */
       user_id?: string;
       /**
-       * @description Identifies the type of the resource.
+       * @description The type of the resource being audited.
        * @example audit_event
        */
       record_type?: string;
-      /** @description Unique identifier for the resource that was changed */
+      /**
+       * @description Unique identifier for the resource that was changed.
+       * @example 550e8400-e29b-41d4-a716-446655440002
+       */
       resource_id?: string;
       /**
-       * Format: uuid
-       * @description Unique identifier for the organization that owns the resource
+       * @description An alternate identifier for a resource which may be considered unique enough to identify the resource but is not the primary identifier for the resource. For example, this field could be used to store the phone number value for a phone number when the primary database identifier is a separate distinct value.
+       * @example +14155551234
        */
-      organization_id?: string;
-      changes?:
-        | {
-            /**
-             * @description Identifies the name of the field that was changed
-             * @example inbound.timeout_1xx_secs
-             */
-            field?: string;
-            /** @description Value of the field before the change was made. This field can be any JSON type. */
-            from?: unknown;
-            /** @description Value of the field after the change was made. This field can be any JSON type. */
-            to?: unknown;
-          }[]
-        | null;
+      alternate_resource_id?: string | null;
       /**
-       * @description Indicates what type of user made the change
+       * @description Indicates if the change was made by Telnyx on your behalf, the organization owner, a member of your organization, or in the case of managed accounts, the account manager.
+       * @example organization_owner
        * @enum {string}
        */
       change_made_by?:
-        | 'account_owner'
-        | 'organization_member'
+        | 'telnyx'
         | 'account_manager'
-        | 'telnyx';
-      /** @description Identifies the type of the resource that was changed */
-      resource_type?: string;
-      /** @description Identifies the type of change that was made */
+        | 'account_owner'
+        | 'organization_member';
+      /**
+       * @description Details of the changes made to the resource.
+       * @example [
+       *       {
+       *         "field": "field.name",
+       *         "to": "old value",
+       *         "from": "new value"
+       *       }
+       *     ]
+       */
+      changes?: components['schemas']['AuditEventChanges'][] | null;
+      /**
+       * Format: uuid
+       * @description Unique identifier for the organization that owns the resource.
+       * @example 550e8400-e29b-41d4-a716-446655440003
+       */
+      organization_id?: string;
+      /**
+       * @description The type of change that occurred.
+       * @example update
+       */
       change_type?: string;
       /**
        * Format: date-time
-       * @description ISO 8601 formatted date indicating when the change was made
-       * @example 2020-01-01T00:00:00Z
+       * @description ISO 8601 formatted date indicating when the change occurred.
+       * @example 2023-01-01T00:00:00Z
        */
       created_at?: string;
+    };
+    /** Audit Log List */
+    AuditLogList: {
+      data?: components['schemas']['AuditLog'][];
+      meta?: components['schemas']['PaginationMeta'];
     };
     /** AuthenticationProvider */
     AuthenticationProvider: {
@@ -11218,21 +12860,25 @@ export interface components {
       /** @description The settings associated with the authentication provider. */
       settings?: {
         /**
+         * Format: uri
          * @description The Assertion Consumer Service URL for the service provider (Telnyx).
          * @example https://api.telnyx.com/sso/saml/auth/myorg
          */
         assertion_consumer_service_url?: string;
         /**
+         * Format: uri
          * @description The Entity ID for the service provider (Telnyx).
          * @example https://api.telnyx.com/sso/saml/metadata/myorg
          */
         service_provider_entity_id?: string;
         /**
+         * Format: uri
          * @description The Entity ID for the identity provider (IdP).
          * @example https://myorg.myidp.com/saml/metadata
          */
         idp_entity_id?: string;
         /**
+         * Format: uri
          * @description The SSO target url for the identity provider (IdP).
          * @example https://myorg.myidp.com/trust/saml2/http-post/sso
          */
@@ -11256,11 +12902,13 @@ export interface components {
         name_identifier_format?: string;
       };
       /**
+       * Format: date-time
        * @description ISO 8601 formatted date indicating when the resource was created.
        * @example 2018-02-02T22:25:27.521Z
        */
       created_at?: string;
       /**
+       * Format: date-time
        * @description ISO 8601 formatted date indicating when the resource was updated.
        * @example 2018-02-02T22:25:27.521Z
        */
@@ -11540,12 +13188,12 @@ export interface components {
      */
     AwsSecretAccessKey: string;
     /**
-     * @description Azure Blob Storage account key
+     * @description Azure Blob Storage account key.
      * @example bPxRfiCYEXAMPLEKEY
      */
     AzureAccountKey: string;
     /**
-     * @description Azure Blob Storage account name
+     * @description Azure Blob Storage account name.
      * @example my-account
      */
     AzureAccountName: string;
@@ -11593,6 +13241,117 @@ export interface components {
       /** Data */
       data: components['schemas']['BackgroundTasksQueryResponse'][];
     };
+    /** BillingBundleResponse */
+    BillingBundleResponse: {
+      data: components['schemas']['BillingBundleSchema'];
+    };
+    /** BillingBundleSchema */
+    BillingBundleSchema: {
+      /**
+       * Id
+       * Format: uuid
+       * @description Bundle's ID, this is used to identify the bundle in the API.
+       * @example 7ecd040e-6bac-4139-9160-3c0427d98fea
+       */
+      id: string;
+      /**
+       * Name
+       * @description Bundle's name, this is used to identify the bundle in the UI.
+       * @example Australia Basic
+       */
+      name: string;
+      /**
+       * Slug
+       * @description Slugified version of the bundle's name.
+       * @example basic-au-e4f8
+       */
+      slug?: string;
+      /**
+       * Cost Code
+       * @description Bundle's cost code, this is used to identify the bundle in the billing system.
+       * @example BUNDLE-PRICING-BASIC-MRC
+       */
+      cost_code: string;
+      /**
+       * Active
+       * @description If that bundle is active or not.
+       */
+      active: boolean;
+      /**
+       * Is Public
+       * @description Available to all customers or only to specific customers.
+       */
+      is_public: boolean;
+      /**
+       * Created At
+       * Format: date
+       * @description Date the bundle was created.
+       */
+      created_at: string;
+      /** Bundle Limits */
+      bundle_limits: components['schemas']['BundleLimitSchema'][];
+    };
+    /** BillingBundleSummary */
+    BillingBundleSummary: {
+      /**
+       * Id
+       * Format: uuid
+       * @description Bundle's ID, this is used to identify the bundle in the API.
+       * @example 7ecd040e-6bac-4139-9160-3c0427d98fea
+       */
+      id: string;
+      /**
+       * Name
+       * @description Bundle's name, this is used to identify the bundle in the UI.
+       * @example Australia Basic
+       */
+      name: string;
+      /**
+       * Slug
+       * @description Slugified version of the bundle's name.
+       * @example basic-au-e4f8
+       */
+      slug?: string;
+      /**
+       * Cost Code
+       * @description Bundle's cost code, this is used to identify the bundle in the billing system.
+       * @example BUNDLE-PRICING-BASIC-MRC
+       */
+      cost_code: string;
+      /**
+       * Is Public
+       * @description Available to all customers or only to specific customers.
+       */
+      is_public: boolean;
+      /**
+       * Created At
+       * Format: date
+       * @description Date the bundle was created.
+       */
+      created_at: string;
+      /**
+       * Mrc Price
+       * Format: float
+       * @description Monthly recurring charge price.
+       * @example 2
+       */
+      mrc_price?: number;
+      /**
+       * Currency
+       * @description Bundle's currency code.
+       * @example USD
+       */
+      currency?: string;
+      /**
+       * Specs
+       * @example [
+       *       "1 AU Number",
+       *       "Emergency Calling",
+       *       "All inbound and outbound calling billed pay-as-you-go"
+       *     ]
+       */
+      specs?: string[];
+    };
     /** @example {
      *       "record_type": "billing_group",
      *       "id": "f5586561-8ff0-4291-a0ac-84fe544797bd",
@@ -11622,7 +13381,6 @@ export interface components {
        */
       organization_id?: string;
       /**
-       * Format: string
        * @description A user-specified name for the billing group
        * @example My billing group name
        */
@@ -11644,7 +13402,51 @@ export interface components {
        * @description ISO 8601 formatted date indicating when the resource was removed.
        * @example null
        */
-      deleted_at?: string;
+      deleted_at?: string | null;
+    };
+    BlackBoxTestResult: {
+      /** @example black_box_test */
+      record_type?: string;
+      /**
+       * @description The name of the black box test.
+       * @example msg_overview_outbound_sms
+       */
+      id?: string;
+      /**
+       * @description The average result of the black box test over the last hour.
+       * @example 0.999
+       */
+      result?: number;
+    };
+    BlackBoxTestResultSet: {
+      /** @example black_box_test_result */
+      record_type?: string;
+      /**
+       * @description The product associated with the black box test group.
+       * @example cloud_storage
+       */
+      product?: string;
+      black_box_tests?: components['schemas']['BlackBoxTestResult'][];
+    };
+    /** BookAppointmentTool */
+    BookAppointmentTool: {
+      /** @enum {string} */
+      type: 'book_appointment';
+      book_appointment: components['schemas']['BookAppointmentToolParams'];
+    };
+    /** BookAppointmentToolParams */
+    BookAppointmentToolParams: {
+      /** @description Event Type ID for which slots are being fetched. [cal.com](https://cal.com/docs/api-reference/v2/bookings/create-a-booking#body-event-type-id) */
+      event_type_id: number;
+      /**
+       * @description Reference to an integration secret that contains your Cal.com API key. You would pass the `identifier` for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your Cal.com API key.
+       * @example my_calcom_api_key
+       */
+      api_key_ref: string;
+      /** @description The name of the attendee [cal.com](https://cal.com/docs/api-reference/v2/bookings/create-a-booking#body-attendee-name). If not provided, the assistant will ask for the attendee's name. */
+      attendee_name?: string;
+      /** @description The timezone of the attendee [cal.com](https://cal.com/docs/api-reference/v2/bookings/create-a-booking#body-attendee-timezone). If not provided, the assistant will ask for the attendee's timezone. */
+      attendee_timezone?: string;
     };
     /** ListedBrand */
     BrandBasic: {
@@ -11796,256 +13598,6 @@ export interface components {
       | 'MEDIUM_ACCOUNT'
       | 'LARGE_ACCOUNT'
       | 'KEY_ACCOUNT';
-    /** Brand */
-    BrandRequest: {
-      entityType: components['schemas']['EntityType'];
-      /**
-       * Cspid
-       * @description Unique identifier assigned to the csp by the registry.
-       */
-      cspId?: string;
-      /**
-       * Brandid
-       * @description Unique identifier assigned to the brand.
-       * @example 4b206179-f731-8ab7-f19c-34e19d22ide9
-       */
-      brandId?: string;
-      /**
-       * Displayname
-       * @description Display or marketing name of the brand.
-       * @example Example Company
-       */
-      displayName: string;
-      /**
-       * Companyname
-       * @description (Required for Non-profit/private/public) Legal company name.
-       * @example Example Company Inc.
-       */
-      companyName?: string;
-      /**
-       * Ein
-       * @description (Required for Non-profit/private/public) Government assigned corporate tax ID. EIN is 9-digits in U.S. The only entity type which does not require an EIN is a Sole Proprietor.
-       * @example 142536893
-       */
-      ein?: string;
-      /**
-       * Phone
-       * @description Valid phone number in e.164 international format.
-       * @example +13259390512
-       */
-      phone?: string;
-      /**
-       * Street
-       * @description Street number and name.
-       * @example 123 Example St.
-       */
-      street?: string;
-      /**
-       * City
-       * @description City name
-       * @example Chicago
-       */
-      city?: string;
-      /**
-       * State
-       * @description State. Must be 2 letters code for United States.
-       * @example IL
-       */
-      state?: string;
-      /**
-       * Postalcode
-       * @description Postal codes. Use 5 digit zipcode for United States
-       * @example 60654
-       */
-      postalCode?: string;
-      /**
-       * Country
-       * @description ISO2 2 characters country code. Example: US - United States
-       * @example US
-       */
-      country: string;
-      /**
-       * Email
-       * @description Valid email address of brand support contact.
-       * @example examplename@examplecompany.com
-       */
-      email: string;
-      /**
-       * Stocksymbol
-       * @description (Required for public company) stock symbol.
-       * @example ABC
-       */
-      stockSymbol?: string;
-      stockExchange?: components['schemas']['StockExchange'];
-      /**
-       * Ipaddress
-       * @description IP address of the browser requesting to create brand identity.
-       */
-      ipAddress?: string;
-      /**
-       * Website
-       * @description Brand website URL.
-       * @example www.examplecompany.com
-       */
-      website?: string;
-      vertical: components['schemas']['Vertical'];
-      /**
-       * Altbusinessid
-       * @description Alternate business identifier such as DUNS, LEI, or GIIN
-       */
-      altBusinessId?: string;
-      altBusinessIdType?: components['schemas']['AltBusinessIdType'];
-      /**
-       * Universalein
-       * @description Universal EIN of Brand, Read Only.
-       */
-      universalEin?: string;
-    };
-    /** Brand */
-    BrandResponse: {
-      entityType: components['schemas']['EntityType'];
-      /**
-       * Cspid
-       * @description Unique identifier assigned to the csp by the registry.
-       */
-      cspId?: string;
-      /**
-       * Brandid
-       * @description Unique identifier assigned to the brand.
-       * @example 4b206179-f731-8ab7-f19c-34e19d22ide9
-       */
-      brandId?: string;
-      /**
-       * Displayname
-       * @description Display or marketing name of the brand.
-       * @example Example Company
-       */
-      displayName: string;
-      /**
-       * Companyname
-       * @description (Required for Non-profit/private/public) Legal company name.
-       * @example Example Company Inc.
-       */
-      companyName?: string;
-      /**
-       * Ein
-       * @description (Required for Non-profit/private/public) Government assigned corporate tax ID. EIN is 9-digits in U.S. The only entity type which does not require an EIN is a Sole Proprietor.
-       * @example 142536893
-       */
-      ein?: string;
-      /**
-       * Phone
-       * @description Valid phone number in e.164 international format.
-       * @example +13259390512
-       */
-      phone?: string;
-      /**
-       * Street
-       * @description Street number and name.
-       * @example 123 Example St.
-       */
-      street?: string;
-      /**
-       * City
-       * @description City name
-       * @example Chicago
-       */
-      city?: string;
-      /**
-       * State
-       * @description State. Must be 2 letters code for United States.
-       * @example IL
-       */
-      state?: string;
-      /**
-       * Postalcode
-       * @description Postal codes. Use 5 digit zipcode for United States
-       * @example 60654
-       */
-      postalCode?: string;
-      /**
-       * Country
-       * @description ISO2 2 characters country code. Example: US - United States
-       * @example US
-       */
-      country: string;
-      /**
-       * Email
-       * @description Valid email address of brand support contact.
-       * @example examplename@examplecompany.com
-       */
-      email: string;
-      /**
-       * Stocksymbol
-       * @description (Required for public company) stock symbol.
-       * @example ABC
-       */
-      stockSymbol?: string;
-      stockExchange?: components['schemas']['StockExchange'];
-      /**
-       * Ipaddress
-       * @description IP address of the browser requesting to create brand identity.
-       */
-      ipAddress?: string;
-      /**
-       * Website
-       * @description Brand website URL.
-       * @example www.examplecompany.com
-       */
-      website?: string;
-      brandRelationship?: components['schemas']['BrandRelationship'];
-      vertical: components['schemas']['Vertical'];
-      /**
-       * Altbusinessid
-       * @description Alternate business identifier such as DUNS, LEI, or GIIN
-       */
-      altBusinessId?: string;
-      altBusinessIdType?: components['schemas']['AltBusinessIdType'];
-      /**
-       * Universalein
-       * @description Universal EIN of Brand, Read Only.
-       */
-      universalEin?: string;
-      /**
-       * identityStatus
-       * @description TCR assessment of the brand identification status.
-       * @example VERIFIED
-       */
-      identityStatus?: string;
-    };
-    /** BrandStatus */
-    BrandStatus: {
-      /**
-       * Displayname
-       * @description The display name of the brand submitted via bulk creation.
-       * @example John's Donuts
-       */
-      displayName: string;
-      /**
-       * @description The current status of the brand.
-       * @example pending
-       */
-      status: components['schemas']['CreationStatus'];
-      /**
-       * Brandid
-       * @description The ID of the brand created via bulk creation. This brand will only have a brandId after the brand has been created.
-       * @example 4b20017a-2f50-4c90-c9e6-5f67304cbde9
-       */
-      brandId?: string;
-      /**
-       * Created At
-       * Format: date-time
-       * @description The date and time that the brand was created.
-       * @example 2021-06-30T10:49:04-07:00
-       */
-      created_at?: string;
-      /**
-       * Error
-       * @description Errors related to a brand creation failure.
-       * @example Missing firstName attribute.
-       */
-      error?: string;
-    };
     /**
      * Bridge Request
      * @example {
@@ -12197,6 +13749,13 @@ export interface components {
        * @example my_recording_file_name
        */
       record_custom_file_name?: string;
+      /**
+       * @description When enabled, DTMF tones are not passed to the call participant. The webhooks containing the DTMF information will be sent.
+       * @default none
+       * @example opposite
+       * @enum {string}
+       */
+      mute_dtmf: 'none' | 'both' | 'self' | 'opposite';
     };
     /**
      * @description Name of the bucket to be used to store recording files.
@@ -12209,13 +13768,15 @@ export interface components {
       /**
        * Format: date-time
        * @description The time the usage was recorded
-       * @example 2020-01-01T00:00:00Z
+       * @example [
+       *       "2020-01-01T00:00:00Z"
+       *     ]
        */
       timestamp?: string;
     };
     /** BucketIds */
     BucketIds: {
-      /** Bucket Ids */
+      /** @description List of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) to use for retrieval-augmented generation. */
       bucket_ids: string[];
       /** @description The maximum number of results to retrieve as context for the language model. */
       max_num_results?: number;
@@ -12228,27 +13789,37 @@ export interface components {
     BucketOps: {
       /**
        * @description The number of bytes sent
-       * @example 123456
+       * @example [
+       *       123456
+       *     ]
        */
       bytes_sent?: number;
       /**
        * @description The number of bytes received
-       * @example 123456
+       * @example [
+       *       123456
+       *     ]
        */
       bytes_received?: number;
       /**
        * @description The number of operations
-       * @example 123456
+       * @example [
+       *       123456
+       *     ]
        */
       ops?: number;
       /**
        * @description The number of successful operations
-       * @example 123456
+       * @example [
+       *       123456
+       *     ]
        */
       successful_ops?: number;
       /**
        * @description The category of the bucket operation
-       * @example put_obj
+       * @example [
+       *       "put_obj"
+       *     ]
        * @enum {string}
        */
       category?:
@@ -12266,45 +13837,61 @@ export interface components {
     BucketOpsTotal: {
       /**
        * @description The number of bytes sent
-       * @example 123456
+       * @example [
+       *       123456
+       *     ]
        */
       bytes_sent?: number;
       /**
        * @description The number of bytes received
-       * @example 123456
+       * @example [
+       *       123456
+       *     ]
        */
       bytes_received?: number;
       /**
        * @description The number of operations
-       * @example 123456
+       * @example [
+       *       123456
+       *     ]
        */
       ops?: number;
       /**
        * @description The number of successful operations
-       * @example 123456
+       * @example [
+       *       123456
+       *     ]
        */
       successful_ops?: number;
     };
     BucketUsage: {
       /**
        * @description The size of the bucket in bytes
-       * @example 123456
+       * @example [
+       *       123456
+       *     ]
        */
       size?: number;
       /**
        * @description The size of the bucket in kilobytes
-       * @example 123456
+       * @example [
+       *       123456
+       *     ]
        */
       size_kb?: number;
       /**
        * @description The number of objects in the bucket
-       * @example 123456
+       * @example [
+       *       123456
+       *     ]
        */
       num_objects?: number;
       /**
        * Format: date-time
        * @description The time the snapshot was taken
-       * @example 2020-01-01T00:00:00Z
+       * @example [
+       *       "2020-01-01T00:00:00Z"
+       *     ]
        */
       timestamp?: string;
     };
@@ -12400,6 +13987,75 @@ export interface components {
       updated_at?: components['schemas']['UpdatedAt'];
     };
     /**
+     * BundleLimitDirection
+     * @description An enumeration.
+     * @enum {string}
+     */
+    BundleLimitDirection: 'inbound' | 'outbound';
+    /** BundleLimitSchema */
+    BundleLimitSchema: {
+      /**
+       * Id
+       * Format: uuid
+       * @example e6a32ea9-953b-4622-bbba-9f7bcf7e6717
+       */
+      id: string;
+      /**
+       * Service
+       * @example E911
+       */
+      service: string;
+      /**
+       * Metric
+       * @example number
+       */
+      metric: string;
+      /**
+       * Limit
+       * @example 1
+       */
+      limit?: number;
+      /**
+       * Rate
+       * @example 5
+       */
+      rate?: string;
+      /**
+       * Country Iso
+       * @example AU
+       */
+      country_iso?: string;
+      /**
+       * Country Code
+       * @example 61
+       */
+      country_code?: number;
+      /**
+       * Country
+       * @deprecated
+       * @description Use country_iso instead
+       */
+      country?: string;
+      direction?: components['schemas']['BundleLimitDirection'];
+      /** Types */
+      types?: string[];
+      /**
+       * Created At
+       * Format: date
+       */
+      created_at: string;
+      /**
+       * Updated At
+       * Format: date
+       */
+      updated_at: string;
+      /**
+       * Billing Service
+       * @example emergency
+       */
+      billing_service?: string;
+    };
+    /**
      * Call
      * @example {
      *       "call_control_id": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg",
@@ -12408,6 +14064,8 @@ export interface components {
      *       "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
      *       "is_alive": false,
      *       "call_duration": 50,
+     *       "start_time": "2019-01-23T18:10:02.574Z",
+     *       "end_time": "2019-01-23T18:11:52.574Z",
      *       "record_type": "call"
      *     }
      */
@@ -12447,6 +14105,16 @@ export interface components {
        * @example 50
        */
       call_duration?: number;
+      /**
+       * @description ISO 8601 formatted date indicating when the call started
+       * @example 2019-01-23T18:10:02.574Z
+       */
+      start_time?: string;
+      /**
+       * @description ISO 8601 formatted date indicating when the call ended. Only present when the call is not alive
+       * @example 2019-01-23T18:11:52.574Z
+       */
+      end_time?: string;
     };
     /**
      * Call AI Gather Ended
@@ -12575,6 +14243,236 @@ export interface components {
     /** Call AI Gather Ended Event */
     CallAIGatherEndedEvent: {
       data?: components['schemas']['CallAIGatherEnded'];
+    };
+    /**
+     * Call AI Gather Message History Updated
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "call.ai_gather.message_history_updated",
+     *       "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
+     *       "payload": {
+     *         "call_control_id": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ",
+     *         "connection_id": "7267xxxxxxxxxxxxxx",
+     *         "call_leg_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+     *         "call_session_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+     *         "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+     *         "from": "+35319605860",
+     *         "to": "+35319605860",
+     *         "message_history": [
+     *           {
+     *             "content": "Hello, can you tell me your age and where you live?",
+     *             "role": "assistant"
+     *           },
+     *           {
+     *             "content": "Hello, I'm 29 and I live in Paris?",
+     *             "role": "user"
+     *           }
+     *         ]
+     *       }
+     *     }
+     */
+    CallAIGatherMessageHistoryUpdated: {
+      /**
+       * @description Identifies the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example call.ai_gather.message_history_updated
+       * @enum {string}
+       */
+      event_type?: 'call.ai_gather.message_history_updated';
+      /**
+       * Format: uuid
+       * @description Identifies the type of resource.
+       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2018-02-02T22:25:27.521992Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * @description Call ID used to issue commands via Call Control API.
+         * @example v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+         */
+        call_control_id?: string;
+        /**
+         * @description Telnyx connection ID used in the call.
+         * @example 7267xxxxxxxxxxxxxx
+         */
+        connection_id?: string;
+        /**
+         * @description ID that is unique to the call and can be used to correlate webhook events.
+         * @example 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+         */
+        call_leg_id?: string;
+        /**
+         * @description ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
+         * @example 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+         */
+        call_session_id?: string;
+        /**
+         * @description State received from a command.
+         * @example aGF2ZSBhIG5pY2UgZGF5ID1d
+         */
+        client_state?: string;
+        /**
+         * @description Number or SIP URI placing the call.
+         * @example +35319605860
+         */
+        from?: string;
+        /**
+         * @description Destination number or SIP URI of the call.
+         * @example +13129457420
+         */
+        to?: string;
+        /** @description The history of the messages exchanged during the AI gather */
+        message_history?: {
+          /**
+           * @description The content of the message
+           * @example Hello, I'm 29 and I live in Paris.
+           */
+          content?: string;
+          /**
+           * @description The role of the message sender
+           * @example user
+           * @enum {string}
+           */
+          role?: 'assistant' | 'user';
+        }[];
+      };
+    };
+    /** Call AI Gather Message History Updated Event */
+    CallAIGatherMessageHistoryUpdatedEvent: {
+      data?: components['schemas']['CallAIGatherMessageHistoryUpdated'];
+    };
+    /**
+     * Call AI Gather Partial Results
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "call.ai_gather.partial_results",
+     *       "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
+     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
+     *       "payload": {
+     *         "call_control_id": "v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ",
+     *         "connection_id": "7267xxxxxxxxxxxxxx",
+     *         "call_leg_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+     *         "call_session_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+     *         "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+     *         "from": "+35319605860",
+     *         "to": "+35319605860",
+     *         "message_history": [
+     *           {
+     *             "content": "Hello, can you tell me your age and where you live?",
+     *             "role": "assistant"
+     *           },
+     *           {
+     *             "content": "Hello, I'm 29 and I live in Paris?",
+     *             "role": "user"
+     *           }
+     *         ],
+     *         "partial_results": {
+     *           "age": 29,
+     *           "city": "Paris"
+     *         }
+     *       }
+     *     }
+     */
+    CallAIGatherPartialResults: {
+      /**
+       * @description Identifies the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example call.ai_gather.partial_results
+       * @enum {string}
+       */
+      event_type?: 'call.ai_gather.partial_results';
+      /**
+       * Format: uuid
+       * @description Identifies the type of resource.
+       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2018-02-02T22:25:27.521992Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * @description Call ID used to issue commands via Call Control API.
+         * @example v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ
+         */
+        call_control_id?: string;
+        /**
+         * @description Telnyx connection ID used in the call.
+         * @example 7267xxxxxxxxxxxxxx
+         */
+        connection_id?: string;
+        /**
+         * @description ID that is unique to the call and can be used to correlate webhook events.
+         * @example 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+         */
+        call_leg_id?: string;
+        /**
+         * @description ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
+         * @example 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+         */
+        call_session_id?: string;
+        /**
+         * @description State received from a command.
+         * @example aGF2ZSBhIG5pY2UgZGF5ID1d
+         */
+        client_state?: string;
+        /**
+         * @description Number or SIP URI placing the call.
+         * @example +35319605860
+         */
+        from?: string;
+        /**
+         * @description Destination number or SIP URI of the call.
+         * @example +13129457420
+         */
+        to?: string;
+        /** @description The history of the messages exchanged during the AI gather */
+        message_history?: {
+          /**
+           * @description The content of the message
+           * @example Hello, I'm 29 and I live in Paris.
+           */
+          content?: string;
+          /**
+           * @description The role of the message sender
+           * @example user
+           * @enum {string}
+           */
+          role?: 'assistant' | 'user';
+        }[];
+        /**
+         * @description The partial result of the AI gather, its type depends of the `parameters` provided in the command
+         * @example {
+         *       "age": 29,
+         *       "city": "Paris"
+         *     }
+         */
+        partial_results?: Record<string, never>;
+      };
+    };
+    /** Call AI Gather Partial Results Event */
+    CallAIGatherPartialResultsEvent: {
+      data?: components['schemas']['CallAIGatherPartialResults'];
     };
     /**
      * Call Answered
@@ -12823,7 +14721,8 @@ export interface components {
      *       "webhook_api_version": "1",
      *       "webhook_event_failover_url": "https://failover.example.com",
      *       "webhook_event_url": "https://example.com",
-     *       "webhook_timeout_secs": 25
+     *       "webhook_timeout_secs": 25,
+     *       "redact_dtmf_debug_logging": true
      *     }
      */
     CallControlApplication: {
@@ -12873,6 +14772,8 @@ export interface components {
        * @example 10
        */
       first_command_timeout_secs: number;
+      /** @description Tags assigned to the Call Control Application. */
+      tags?: string[];
       /**
        * Format: int64
        * @example 1293384261075731499
@@ -12915,6 +14816,12 @@ export interface components {
        * @example 25
        */
       webhook_timeout_secs: number | null;
+      /**
+       * @description When enabled, DTMF digits entered by users will be redacted in debug logs to protect PII data entered through IVR interactions.
+       * @default false
+       * @example true
+       */
+      redact_dtmf_debug_logging: boolean;
     };
     /** Call Control Application Inbound */
     CallControlApplicationInbound: {
@@ -12968,6 +14875,23 @@ export interface components {
     CallControlCommandResult: {
       /** @example ok */
       result?: string;
+    };
+    /**
+     * Call Control Command Result With Recording ID
+     * @example {
+     *       "result": "ok",
+     *       "recording_id": "d7e9c1d4-8b2a-4b8f-b3a7-9a671c9e9b0a"
+     *     }
+     */
+    CallControlCommandResultWithRecordingId: {
+      /** @example ok */
+      result?: string;
+      /**
+       * Format: uuid
+       * @description The ID of the recording. Only present when the record parameter is set to record-from-answer.
+       * @example d7e9c1d4-8b2a-4b8f-b3a7-9a671c9e9b0a
+       */
+      recording_id?: string;
     };
     /** @example v3:KBnLO0ZK3DhKM5s7bE9VluaSmKsOchKht_fUYvxcp8ysbmzCCtpkmA */
     CallControlId: string;
@@ -13497,7 +15421,7 @@ export interface components {
        * @example always
        * @enum {string}
        */
-      forwarding_type?: 'always' | 'on_failure';
+      forwarding_type?: 'always' | 'on-failure';
     };
     /**
      * Call Gather Ended
@@ -13622,7 +15546,20 @@ export interface components {
      *         "state": "hangup",
      *         "hangup_cause": "call_rejected",
      *         "hangup_source": "caller",
-     *         "sip_hangup_cause": "603"
+     *         "sip_hangup_cause": "603",
+     *         "call_quality_stats": {
+     *           "inbound": {
+     *             "jitter_max_variance": "2.74",
+     *             "jitter_packet_count": "0",
+     *             "mos": "4.50",
+     *             "packet_count": "591",
+     *             "skip_packet_count": "9"
+     *           },
+     *           "outbound": {
+     *             "packet_count": "0",
+     *             "skip_packet_count": "0"
+     *           }
+     *         }
      *       }
      *     }
      */
@@ -13760,6 +15697,65 @@ export interface components {
          * @example 603
          */
         sip_hangup_cause?: string;
+        /**
+         * @description Call quality statistics aggregated from the CHANNEL_HANGUP_COMPLETE event. Only includes metrics that are available (filters out nil values). Returns nil if no metrics are available.
+         * @example {
+         *       "inbound": {
+         *         "jitter_max_variance": "2.74",
+         *         "jitter_packet_count": "0",
+         *         "mos": "4.50",
+         *         "packet_count": "591",
+         *         "skip_packet_count": "9"
+         *       },
+         *       "outbound": {
+         *         "packet_count": "0",
+         *         "skip_packet_count": "0"
+         *       }
+         *     }
+         */
+        call_quality_stats?: {
+          /** @description Inbound call quality statistics. */
+          inbound?: {
+            /**
+             * @description Maximum jitter variance for inbound audio.
+             * @example 2.74
+             */
+            jitter_max_variance?: string;
+            /**
+             * @description Number of packets used for jitter calculation on inbound audio.
+             * @example 0
+             */
+            jitter_packet_count?: string;
+            /**
+             * @description Mean Opinion Score (MOS) for inbound audio quality.
+             * @example 4.50
+             */
+            mos?: string;
+            /**
+             * @description Total number of inbound audio packets.
+             * @example 591
+             */
+            packet_count?: string;
+            /**
+             * @description Number of skipped inbound packets (packet loss).
+             * @example 9
+             */
+            skip_packet_count?: string;
+          };
+          /** @description Outbound call quality statistics. */
+          outbound?: {
+            /**
+             * @description Total number of outbound audio packets.
+             * @example 0
+             */
+            packet_count?: string;
+            /**
+             * @description Number of skipped outbound packets (packet loss).
+             * @example 0
+             */
+            skip_packet_count?: string;
+          };
+        } | null;
       };
     };
     /** Call Hangup Event */
@@ -15067,6 +17063,7 @@ export interface components {
      *       "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
      *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901",
      *       "link_to": "ilditnZK_eVysupV21KzmzN_sM29ygfauQojpm4BgFtfX5hXAcjotg==",
+     *       "bridge_intent": true,
      *       "media_encryption": "SRTP",
      *       "sip_auth_username": "username",
      *       "sip_auth_password": "password",
@@ -15332,11 +17329,17 @@ export interface components {
        */
       link_to?: string;
       /**
+       * @description Indicates the intent to bridge this call with the call specified in link_to. When bridge_intent is true, link_to becomes required and the from number will be overwritten by the from number from the linked call.
+       * @default false
+       * @example true
+       */
+      bridge_intent: boolean;
+      /**
        * @description Defines whether media should be encrypted on the call.
        * @default disabled
        * @enum {string}
        */
-      media_encryption: 'disabled' | 'SRTP';
+      media_encryption: 'disabled' | 'SRTP' | 'DTLS';
       /** @description SIP Authentication username used for SIP challenges. */
       sip_auth_username?: string;
       /** @description SIP Authentication password used for SIP challenges. */
@@ -15370,9 +17373,17 @@ export interface components {
        * @enum {string}
        */
       stream_track: 'inbound_track' | 'outbound_track' | 'both_tracks';
+      stream_codec?: components['schemas']['StreamCodec'];
       stream_bidirectional_mode?: components['schemas']['StreamBidirectionalMode'];
       stream_bidirectional_codec?: components['schemas']['StreamBidirectionalCodec'];
       stream_bidirectional_target_legs?: components['schemas']['StreamBidirectionalTargetLegs'];
+      stream_bidirectional_sampling_rate?: components['schemas']['StreamBidirectionalSamplingRate'];
+      /**
+       * @description Establish websocket connection before dialing the destination. This is useful for cases where the websocket connection takes a long time to establish.
+       * @default false
+       * @example true
+       */
+      stream_establish_before_call_originate: boolean;
       /**
        * @description Generate silence RTP packets when no transmission available.
        * @default false
@@ -15443,6 +17454,17 @@ export interface components {
        * @example my_recording_file_name
        */
       record_custom_file_name?: string;
+      /**
+       * @description The call leg which will be supervised by the new call.
+       * @example v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg
+       */
+      supervise_call_control_id?: string;
+      /**
+       * @description The role of the supervisor call. 'barge' means that supervisor call hears and is being heard by both ends of the call (caller & callee). 'whisper' means that only supervised_call_control_id hears supervisor but supervisor can hear everything. 'monitor' means that nobody can hear supervisor call, but supervisor can hear everything on the call.
+       * @default barge
+       * @enum {string}
+       */
+      supervisor_role: 'barge' | 'whisper' | 'monitor';
       /**
        * @description Enables Dialogflow for the current call. The default value is false.
        * @default false
@@ -16288,6 +18310,74 @@ export interface components {
     CallStreamingStoppedEvent: {
       data?: components['schemas']['CallStreamingStopped'];
     };
+    /**
+     * Call With Recording ID
+     * @example {
+     *       "call_control_id": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg",
+     *       "call_leg_id": "2dc6fc34-f9e0-11ea-b68e-02420a0f7768",
+     *       "call_session_id": "2dc1b3c8-f9e0-11ea-bc5a-02420a0f7768",
+     *       "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+     *       "is_alive": false,
+     *       "call_duration": 50,
+     *       "record_type": "call",
+     *       "recording_id": "d7e9c1d4-8b2a-4b8f-b3a7-9a671c9e9b0a",
+     *       "start_time": "2019-01-23T18:10:02.574Z",
+     *       "end_time": "2019-01-23T18:11:52.574Z"
+     *     }
+     */
+    CallWithRecordingId: {
+      /**
+       * @example call
+       * @enum {string}
+       */
+      record_type: 'call';
+      /**
+       * @description ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call
+       * @example 428c31b6-7af4-4bcb-b68e-5013ef9657c1
+       */
+      call_session_id: string;
+      /**
+       * @description ID that is unique to the call and can be used to correlate webhook events
+       * @example 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+       */
+      call_leg_id: string;
+      /**
+       * @description Unique identifier and token for controlling the call.
+       * @example v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg
+       */
+      call_control_id: string;
+      /**
+       * @description Indicates whether the call is alive or not. For Dial command it will always be `false` (dialing is asynchronous).
+       * @example true
+       */
+      is_alive: boolean;
+      /**
+       * @description State received from a command.
+       * @example aGF2ZSBhIG5pY2UgZGF5ID1d
+       */
+      client_state?: string;
+      /**
+       * @description Indicates the duration of the call in seconds
+       * @example 50
+       */
+      call_duration?: number;
+      /**
+       * Format: uuid
+       * @description The ID of the recording. Only present when the record parameter is set to record-from-answer.
+       * @example d7e9c1d4-8b2a-4b8f-b3a7-9a671c9e9b0a
+       */
+      recording_id?: string;
+      /**
+       * @description ISO 8601 formatted date indicating when the call started
+       * @example 2019-01-23T18:10:02.574Z
+       */
+      start_time?: string;
+      /**
+       * @description ISO 8601 formatted date indicating when the call ended. Only present when the call is not alive
+       * @example 2019-01-23T18:11:52.574Z
+       */
+      end_time?: string;
+    };
     CallbackWebhookMeta: {
       /**
        * @description The number of times the callback webhook has been attempted.
@@ -16312,139 +18402,6 @@ export interface components {
        */
       error_code?: string;
     };
-    /** CampaignCSP */
-    CampaignCSP: {
-      /**
-       * Campaignid
-       * @description Alphanumeric identifier assigned by the registry for a campaign. This identifier is required by the NetNumber OSR SMS enabling process of 10DLC.
-       * @example 4b30017a-15eb-6a25-2e3f-59b6422cud79
-       */
-      campaignId?: string;
-      /**
-       * Resellerid
-       * @description Alphanumeric identifier of the reseller that you want to associate with this campaign.
-       * @example RPQFAOY
-       */
-      resellerId?: string;
-      /** @description Current campaign status. Possible values: ACTIVE, EXPIRED. A newly created campaign defaults to ACTIVE status. */
-      status?: components['schemas']['Status'];
-      /**
-       * Createdate
-       * Format: date-time
-       * @description Unix timestamp when campaign was created.
-       */
-      createDate?: string;
-      /**
-       * Autorenewal
-       * @description Campaign subscription auto-renewal status.
-       */
-      autoRenewal?: boolean;
-      /**
-       * Billeddate
-       * Format: date-time
-       * @description Campaign recent billed date.
-       */
-      billedDate?: string;
-      /**
-       * Brandid
-       * @description Alphanumeric identifier of the brand associated with this campaign.
-       * @example 4b206179-f731-8ab7-f19c-34e19d22ide9
-       */
-      brandId: string;
-      vertical: components['schemas']['Vertical'];
-      usecase: components['schemas']['Usecase'];
-      subUsecases?: components['schemas']['Usecase'];
-      /**
-       * Description
-       * @description Summary description of this campaign.
-       * @example Campaign description goes here.
-       */
-      description: string;
-      /**
-       * Embeddedlink
-       * @description Does message generated by the campaign include URL link in SMS?
-       * @default false
-       */
-      embeddedLink: boolean;
-      /**
-       * Embeddedphone
-       * @description Does message generated by the campaign include phone number in SMS?
-       * @default false
-       */
-      embeddedPhone: boolean;
-      /**
-       * Affiliatemarketing
-       * @description Does message content controlled by affiliate marketing other than the brand?
-       */
-      affiliateMarketing?: boolean;
-      /**
-       * Numberpool
-       * @description Does campaign utilize pool of phone nubers?
-       * @default false
-       */
-      numberPool: boolean;
-      /**
-       * Agegated
-       * @description Age gated content in campaign.
-       */
-      ageGated?: boolean;
-      /** Directlending */
-      directLending?: boolean;
-      /**
-       * Subscriberoptin
-       * @description Does campaign require subscriber to opt-in before SMS is sent to subscriber?
-       * @default false
-       */
-      subscriberOptin: boolean;
-      /**
-       * Subscriberoptout
-       * @description Does campaign support subscriber opt-out keyword(s)?
-       * @default false
-       */
-      subscriberOptout: boolean;
-      /**
-       * Subscriberhelp
-       * @description Does campaign responds to help keyword(s)?
-       * @default false
-       */
-      subscriberHelp: boolean;
-      /**
-       * Sample1
-       * @description Message sample. Some campaign tiers require 1 or more message samples.
-       * @example This is a sample message associated with your campaign!
-       */
-      sample1?: string;
-      /**
-       * Sample2
-       * @description Message sample. Some campaign tiers require 2 or more message samples.
-       */
-      sample2?: string;
-      /**
-       * Sample3
-       * @description Message sample. Some campaign tiers require 3 or more message samples.
-       */
-      sample3?: string;
-      /**
-       * Sample4
-       * @description Message sample. Some campaign tiers require 4 or more message samples.
-       */
-      sample4?: string;
-      /**
-       * Sample5
-       * @description Message sample. Some campaign tiers require 5 or more message samples.
-       */
-      sample5?: string;
-      /**
-       * Messageflow
-       * @description Message flow description.
-       */
-      messageFlow?: string;
-      /**
-       * Helpmessage
-       * @description Help message of the campaign.
-       */
-      helpMessage?: string;
-    };
     /** CampaignCost */
     CampaignCost: {
       /** Campaignusecase */
@@ -16465,21 +18422,6 @@ export interface components {
       /** Message */
       message?: string;
     };
-    /** CampaignRecordSetCSP */
-    CampaignRecordSetCSP: {
-      /** Records */
-      records?: components['schemas']['CampaignCSP'][];
-      /**
-       * Page
-       * @example 1
-       */
-      page?: number;
-      /**
-       * Totalrecords
-       * @example 1
-       */
-      totalRecords?: number;
-    };
     /** CampaignRecordSet_CSP */
     CampaignRecordSet_CSP: {
       /** Records */
@@ -16494,11 +18436,6 @@ export interface components {
      * @description CampaignRequest object describes the campaign to be submitted via '/campaignBuilder/brand/{brandId}/usecase/{usecase}' operation. It is also used in operations for retrieving status of campaign request and for updating a pending request.
      */
     CampaignRequest: {
-      /**
-       * Affiliatemarketing
-       * @description Does message content controlled by affiliate marketing other than the brand?
-       */
-      affiliateMarketing?: boolean;
       /**
        * Agegated
        * @description Age gated message content in campaign.
@@ -16695,39 +18632,6 @@ export interface components {
       /** Upstreamcnpid */
       upstreamCnpId?: string;
     };
-    /** CampaignStatus */
-    CampaignStatus: {
-      /**
-       * Description
-       * @description The campaign description.
-       * @example This campaign belongs to John's Donuts and will be used for marketing.
-       */
-      description: string;
-      /**
-       * @description The current status of the campaign.
-       * @example pending
-       */
-      status: components['schemas']['CreationStatus'];
-      /**
-       * Campaignid
-       * @description The ID of the campaign created via bulk creation. This campaign will only have a campaignId after the campaign has been created.
-       * @example 4b30017a-2f50-4c90-c9e6-5f67304cbde7
-       */
-      campaignId?: string;
-      /**
-       * Created At
-       * Format: date-time
-       * @description The date and time that the campaign was created.
-       * @example 2021-06-30T10:49:04-07:00
-       */
-      created_at?: string;
-      /**
-       * Error
-       * @description Errors related to a campaign creation failure.
-       * @example More sample messages required for some mobile network operators.
-       */
-      error?: string;
-    };
     /** Campaign Status Update Event */
     CampaignStatusUpdateEvent: {
       /**
@@ -16757,6 +18661,37 @@ export interface components {
        * @description Indicates whether the campaign is registered with T-Mobile.
        */
       isTMobileRegistered?: boolean;
+    };
+    /**
+     * CanaryDeployRequest
+     * @description Request model for creating or updating canary deploys.
+     */
+    CanaryDeployRequest: {
+      /**
+       * Versions
+       * @description List of version configurations
+       */
+      versions: components['schemas']['VersionConfig'][];
+    };
+    /**
+     * CanaryDeployResponse
+     * @description Response model for canary deploy operations.
+     */
+    CanaryDeployResponse: {
+      /** Assistant Id */
+      assistant_id: string;
+      /** Versions */
+      versions: components['schemas']['VersionConfig'][];
+      /**
+       * Created At
+       * Format: date-time
+       */
+      created_at: string;
+      /**
+       * Updated At
+       * Format: date-time
+       */
+      updated_at: string;
     };
     Carrier: {
       /**
@@ -16875,6 +18810,8 @@ export interface components {
        * @default meta-llama/Meta-Llama-3.1-8B-Instruct
        */
       model: string;
+      /** @description If you are using an external inference provider like xAI or OpenAI, this field allows you to pass along a reference to your API key. After creating an [integration secret](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for you API key, pass the secret's `identifier` in this field. */
+      api_key_ref?: string;
       /**
        * @description Whether or not to stream data-only server-sent events as they become available.
        * @default false
@@ -16942,8 +18879,6 @@ export interface components {
       presence_penalty: number;
       /** @description An alternative or complement to `temperature`. This adjusts how many of the top possibilities to consider. */
       top_p?: number;
-      /** @description If you are using OpenAI models using our API, this is how you pass along your OpenAI API key. */
-      openai_api_key?: string;
     };
     /** ChatCompletionResponseFormatParam */
     ChatCompletionResponseFormatParam: {
@@ -16969,37 +18904,53 @@ export interface components {
       type: 'function';
       function: components['schemas']['FunctionDefinition'];
     };
+    /** CheckAvailabilityTool */
+    CheckAvailabilityTool: {
+      /** @enum {string} */
+      type: 'check_availability';
+      check_availability: components['schemas']['CheckAvailabilityToolParams'];
+    };
+    /** CheckAvailabilityToolParams */
+    CheckAvailabilityToolParams: {
+      /** @description Event Type ID for which slots are being fetched. [cal.com](https://cal.com/docs/api-reference/v2/slots/get-available-slots#parameter-event-type-id) */
+      event_type_id: number;
+      /**
+       * @description Reference to an integration secret that contains your Cal.com API key. You would pass the `identifier` for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your Cal.com API key.
+       * @example my_calcom_api_key
+       */
+      api_key_ref: string;
+    };
     /**
      * Civic Address
      * @example {
      *       "id": "07a4dc5d-9b3b-4ba2-88a4-6ba172316c65",
      *       "record_type": "civic_address",
-     *       "city_or_town": "Chicago",
+     *       "city_or_town": "Austin",
      *       "city_or_town_alias": null,
      *       "company_name": "Telnyx",
      *       "country": "US",
      *       "county_or_district": "US",
      *       "default_location_id": "18ded4bb-b694-44c1-a89b-a35b7acd4c9e",
-     *       "description": "Chicago Office",
-     *       "house_number": "311",
+     *       "description": "Austin Office",
+     *       "house_number": "600",
      *       "house_number_suffix": null,
      *       "locations": [
      *         {
      *           "id": "18ded4bb-b694-44c1-a89b-a35b7acd4c9e",
      *           "additional_info": null,
-     *           "description": "Chicago Office",
+     *           "description": "Austin Office",
      *           "is_default": true
      *         },
      *         {
      *           "id": "d420a57f-c4ae-4697-87e1-fbefd9e86f72",
-     *           "additional_info": "Main building, Suite 504",
+     *           "additional_info": "14th Floor",
      *           "description": null,
      *           "is_default": false
      *         }
      *       ],
-     *       "postal_or_zip_code": "60654",
-     *       "state_or_province": "IL",
-     *       "street_name": "West Superior Street",
+     *       "postal_or_zip_code": "78701",
+     *       "state_or_province": "TX",
+     *       "street_name": "Congress Street",
      *       "street_suffix": null
      *     }
      */
@@ -17024,17 +18975,18 @@ export interface components {
        * @description Identifies what is the default location in the list of locations.
        */
       default_location_id?: string;
-      /** @example Chicago Office */
+      /** @example Texas Office */
       description?: string;
-      /** @example 311 */
+      /** @example 600 */
       house_number?: string;
       house_number_suffix?: string;
-      /** @example 60654 */
+      /** @example 78701 */
       postal_or_zip_code?: string;
-      /** @example IL */
+      /** @example TX */
       state_or_province?: string;
-      /** @example West Superior Street */
+      /** @example Congress */
       street_name?: string;
+      /** @example St */
       street_suffix?: string;
       locations?: components['schemas']['Location'][];
     };
@@ -17057,6 +19009,40 @@ export interface components {
      * @enum {string}
      */
     CloudflareSyncStatus: 'pending' | 'added';
+    /** ClusterNode */
+    ClusterNode: {
+      /** @description The corresponding source file of your embedded storage bucket that the node is from. */
+      filename: string;
+      /** @description The text of the node. */
+      text: string;
+    };
+    /** ClusteringRequestInfo */
+    ClusteringRequestInfo: {
+      task_id: string;
+      status: components['schemas']['TaskStatus'];
+      bucket: string;
+      /** Format: date-time */
+      created_at: string;
+      /** Format: date-time */
+      finished_at: string;
+      min_cluster_size: number;
+      min_subcluster_size: number;
+    };
+    /** ClusteringRequestInfoData */
+    ClusteringRequestInfoData: {
+      data: components['schemas']['ClusteringRequestInfo'][];
+      meta: components['schemas']['Meta'];
+    };
+    /** ClusteringStatusResponse */
+    ClusteringStatusResponse: {
+      status: components['schemas']['TaskStatus'];
+      bucket: string;
+      clusters: components['schemas']['RecursiveCluster'][];
+    };
+    /** ClusteringStatusResponseData */
+    ClusteringStatusResponseData: {
+      data: components['schemas']['ClusteringStatusResponse'];
+    };
     /**
      * @description The CNAM listing settings for a phone number.
      * @example {
@@ -18956,14 +20942,16 @@ export interface components {
       /**
        * @description Specifies the voice used in speech synthesis.
        *
-       *     - Define voices using the format `<Provider>.<Model>.<VoiceId>`.
+       *     - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the provider will give default values for voice_id and model_id.
        *
        *      **Supported Providers:**
-       *     -**AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility.
-       *     -**ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+       *     - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility.
+       *     - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+       *     - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+       *      - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
        *
        *     For service_level basic, you may define the gender of the speaker (male or female).
-       * @example AWS.Polly.Joanna-Neural
+       * @example Telnyx.KokoroTTS.af
        */
       voice: string;
       /** @description The settings associated with the voice selected */
@@ -19168,6 +21156,14 @@ export interface components {
        */
       webhook_api_version: '1' | '2';
       outbound_voice_profile_id?: components['schemas']['OutboundVoiceProfileId'];
+      /**
+       * @description Tags associated with the connection.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
     };
     /**
      * Connection Active
@@ -19188,6 +21184,11 @@ export interface components {
      * @example 234423
      */
     ConnectionId: string;
+    /**
+     * @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource.
+     * @example 1234567890
+     */
+    ConnectionIdCredentials: string;
     /**
      * Ios Push Credential Id
      * @description The uuid of the push credential for Ios
@@ -19245,11 +21246,119 @@ export interface components {
        */
       amount?: string;
     };
+    Conversation: {
+      /**
+       * Format: uuid
+       * @example 3fa85f64-5717-4562-b3fc-2c963f66afa6
+       */
+      id: string;
+      /** @example  */
+      name?: string;
+      /**
+       * Format: date-time
+       * @description The datetime the conversation was created.
+       * @example 2025-04-15T13:07:28.764Z
+       */
+      created_at: string;
+      /**
+       * @description Metadata associated with the conversation. Telnyx provides several pieces of metadata, but customers can also add their own.
+       * @example {
+       *       "telnyx_conversation_channel": "phone_call",
+       *       "telnyx_agent_target": "+13128675309",
+       *       "telnyx_end_user_target": "+13128675309",
+       *       "assistant_id": "assistant-123"
+       *     }
+       */
+      metadata: {
+        [key: string]: string;
+      };
+      /**
+       * Format: date-time
+       * @description The datetime of the latest message in the conversation.
+       * @example 2025-04-15T13:07:28.764Z
+       */
+      last_message_at: string;
+    };
     /**
-     * Format: binary
-     * @description The file you want to upload. The maximum allowed size is 20 MB. contents and media_name/media_url can't be submitted together.
+     * ConversationChannelType
+     * @enum {string}
      */
-    Contents: string;
+    ConversationChannelType: 'phone_call' | 'sms_chat';
+    ConversationInsight: {
+      /** @description Unique identifier for the conversation insight. */
+      id: string;
+      /**
+       * @description Current status of the insight generation for the conversation.
+       * @enum {string}
+       */
+      status: 'pending' | 'in_progress' | 'completed' | 'failed';
+      /**
+       * Format: date-time
+       * @description Timestamp of when the object was created.
+       */
+      created_at: string;
+      /** @description List of insights extracted from the conversation. */
+      conversation_insights: {
+        /** @description Insight result from the conversation. If the insight has a JSON schema, this will be stringified JSON object. */
+        result: string;
+        /** @description Unique identifier for the insight configuration. */
+        insight_id: string;
+      }[];
+    };
+    /** ConversationInsightListData */
+    ConversationInsightListData: {
+      /** Data */
+      data: components['schemas']['ConversationInsight'][];
+      meta: components['schemas']['Meta'];
+    };
+    ConversationMessage: {
+      /**
+       * @description The role of the message sender.
+       * @enum {string}
+       */
+      role: 'user' | 'assistant' | 'tool';
+      /** @description The message content. Can be null for tool calls. */
+      text: string;
+      /** @description Optional tool calls made by the assistant. */
+      tool_calls?: {
+        /** @description Unique identifier for the tool call. */
+        id: string;
+        /**
+         * @description Type of the tool call.
+         * @enum {string}
+         */
+        type: 'function';
+        function: {
+          /** @description Name of the function to call. */
+          name: string;
+          /** @description JSON-formatted arguments to pass to the function. */
+          arguments: string;
+        };
+      }[];
+      /**
+       * Format: date-time
+       * @description The datetime the message was created on the conversation. This does not necesarily correspond to the time the message was sent. The best field to use to determine the time the end user experienced the message is `sent_at`.
+       * @example 2025-04-15T13:07:28.764Z
+       */
+      created_at?: string;
+      /**
+       * Format: date-time
+       * @description The datetime the message was sent to the end user.
+       * @example 2025-04-15T13:07:28.764Z
+       */
+      sent_at?: string;
+    };
+    /** ConversationMessageListData */
+    ConversationMessageListData: {
+      /** Data */
+      data: components['schemas']['ConversationMessage'][];
+      meta: components['schemas']['Meta'];
+    };
+    /** ConversationsListData */
+    ConversationsListData: {
+      /** Data */
+      data: components['schemas']['Conversation'][];
+    };
     /** @example {
      *       "upfront_cost": "3.21",
      *       "monthly_cost": "6.54",
@@ -19381,22 +21490,110 @@ export interface components {
     };
     /** CreateAssistantRequest */
     CreateAssistantRequest: {
-      /** Name */
       name: string;
-      /** Model */
+      /** @description ID of the model to use. You can use the [Get models API](https://developers.telnyx.com/api/inference/inference-embedding/get-models-public-models-get) to see all of your available models, */
       model: string;
+      /** @description System instructions for the assistant. These may be templated with [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) */
+      instructions: string;
+      tools?: components['schemas']['AssistantTools'];
+      description?: string;
+      /** @description Text that the assistant will use to start the conversation. This may be templated with [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) */
+      greeting?: string;
+      /** @description This is only needed when using third-party inference providers. The `identifier` for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your LLM provider's API key. Warning: Free plans are unlikely to work with this integration. */
+      llm_api_key_ref?: string;
+      voice_settings?: components['schemas']['VoiceSettings'];
+      transcription?: components['schemas']['TranscriptionSettings'];
+      telephony_settings?: components['schemas']['TelephonySettings'];
+      messaging_settings?: components['schemas']['MessagingSettings'];
+      enabled_features?: components['schemas']['EnabledFeatures'][];
+      insight_settings?: components['schemas']['InsightSettings'];
+      privacy_settings?: components['schemas']['PrivacySettings'];
+      /** @description If the dynamic_variables_webhook_url is set for the assistant, we will send a request at the start of the conversation. See our [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for more information. */
+      dynamic_variables_webhook_url?: string;
+      /** @description Map of dynamic variables and their default values */
+      dynamic_variables?: Record<string, never>;
+    };
+    /**
+     * CreateAssistantTestRequest
+     * @description Request model for creating a new assistant test.
+     *
+     *     This model defines all the required and optional parameters needed to create
+     *     a comprehensive test for an AI assistant, including test configuration,
+     *     evaluation criteria, and scheduling options.
+     */
+    CreateAssistantTestRequest: {
+      /**
+       * Name
+       * @description A descriptive name for the assistant test. This will be used to identify the test in the UI and reports.
+       * @example [
+       *       "Customer Support Bot Test",
+       *       "Sales Assistant Evaluation"
+       *     ]
+       */
+      name: string;
       /**
        * Description
-       * @default
+       * @description Optional detailed description of what this test evaluates and its purpose. Helps team members understand the test's objectives.
        */
-      description: string;
-      /** Instructions */
+      description?: string;
+      /**
+       * @description The communication channel through which the test will be conducted. Determines how the assistant will receive and respond to test messages.
+       * @default web_chat
+       * @example [
+       *       "web_chat",
+       *       "sms_chat"
+       *     ]
+       */
+      telnyx_conversation_channel: components['schemas']['TelnyxConversationChannel'];
+      /**
+       * Destination
+       * @description The target destination for the test conversation. Format depends on the channel: phone number for SMS/voice, webhook URL for web chat, etc.
+       * @example [
+       *       "+15551234567",
+       *       "assistant-id"
+       *     ]
+       */
+      destination: string;
+      /**
+       * Max Duration Seconds
+       * @description Maximum duration in seconds that the test conversation should run before timing out. If not specified, uses system default timeout.
+       */
+      max_duration_seconds?: number;
+      /**
+       * Test Suite
+       * @description Optional test suite name to group related tests together. Useful for organizing tests by feature, team, or release cycle.
+       */
+      test_suite?: string;
+      /**
+       * Instructions
+       * @description Detailed instructions that define the test scenario and what the assistant should accomplish. This guides the test execution and evaluation.
+       * @example [
+       *       "Act as a frustrated customer who received a damaged product. Ask for a refund and escalate if not satisfied with the initial response."
+       *     ]
+       */
       instructions: string;
-      /** @description The `function` tool type follows the same schema as the [OpenAI Assistants API](https://platform.openai.com/docs/api-reference/assistants/createAssistant). The `retrieval` tool type is unique to Telnyx. You may pass a list of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) for retrieval-augmented generation. */
-      tools?: (
-        | components['schemas']['ChatCompletionToolParam']
-        | components['schemas']['Retrieval']
-      )[];
+      /**
+       * Rubric
+       * @description Evaluation criteria used to assess the assistant's performance. Each rubric item contains a name and specific criteria for evaluation.
+       * @example [
+       *       [
+       *         {
+       *           "criteria": "Assistant responds within 30 seconds",
+       *           "name": "Response Time"
+       *         },
+       *         {
+       *           "criteria": "Provides correct product information",
+       *           "name": "Accuracy"
+       *         }
+       *       ]
+       *     ]
+       */
+      rubric: {
+        /** @description Label for the evaluation criterion, e.g., Empathy, Accuracy, Clarity. */
+        name: string;
+        /** @description Specific guidance on how to assess the assistant’s performance for this rubric item. */
+        criteria: string;
+      }[];
     };
     /** CreateBrand */
     CreateBrand: {
@@ -19560,7 +21757,8 @@ export interface components {
      *       },
      *       "webhook_api_version": "1",
      *       "webhook_event_failover_url": "https://failover.example.com",
-     *       "webhook_timeout_secs": 25
+     *       "webhook_timeout_secs": 25,
+     *       "redact_dtmf_debug_logging": true
      *     }
      */
     CreateCallControlApplicationRequest: {
@@ -19633,6 +21831,12 @@ export interface components {
        * @example 25
        */
       webhook_timeout_secs: number | null;
+      /**
+       * @description When enabled, DTMF digits entered by users will be redacted in debug logs to protect PII data entered through IVR interactions.
+       * @default false
+       * @example true
+       */
+      redact_dtmf_debug_logging: boolean;
     };
     /**
      * Create Conference Request
@@ -19708,6 +21912,14 @@ export interface components {
        */
       start_conference_on_create?: boolean;
     };
+    /** CreateConversationRequest */
+    CreateConversationRequest: {
+      name?: string;
+      /** @description Metadata associated with the conversation. */
+      metadata?: {
+        [key: string]: string;
+      };
+    };
     /**
      * Create Credential Connection Request
      * @example {
@@ -19742,7 +21954,6 @@ export interface components {
      *         "generate_ringback_tone": true,
      *         "isup_headers_enabled": true,
      *         "prack_enabled": true,
-     *         "privacy_zone_enabled": true,
      *         "sip_compact_headers_enabled": true,
      *         "timeout_1xx_secs": 10,
      *         "timeout_2xx_secs": 20,
@@ -19825,13 +22036,18 @@ export interface components {
        * @example 25
        */
       webhook_timeout_secs: number | null;
+      /**
+       * @description Tags associated with the connection.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       rtcp_settings?: components['schemas']['ConnectionRtcpSettings'];
       inbound?: components['schemas']['CredentialInbound'];
       outbound?: components['schemas']['CredentialOutbound'];
     };
-    CreateDocServiceDocumentRequest:
-      | components['schemas']['DocServiceDocumentUploadURL']
-      | components['schemas']['DocServiceDocumentUploadInline'];
     /**
      * Create External Connection Request
      * @example {
@@ -19845,6 +22061,14 @@ export interface components {
     CreateExternalConnectionRequest: {
       active?: components['schemas']['ConnectionActive'];
       external_sip_connection: components['schemas']['ExternalSipConnectionZoomOnly'];
+      /**
+       * @description Tags associated with the connection.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       /**
        * Format: url
        * @description The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.
@@ -19926,6 +22150,10 @@ export interface components {
      *       "webhook_event_url": "https://example.com",
      *       "webhook_event_failover_url": "https://failover.example.com",
      *       "webhook_timeout_secs": 25,
+     *       "tags": [
+     *         "tag1",
+     *         "tag2"
+     *       ],
      *       "inbound": {
      *         "channel_limit": 10,
      *         "sip_subdomain": "example",
@@ -19944,6 +22172,15 @@ export interface components {
       webhook_event_url: components['schemas']['WebhookEventUrl'];
       webhook_event_failover_url?: components['schemas']['WebhookEventFailoverUrl'];
       webhook_timeout_secs?: components['schemas']['WebhookTimeoutSecs'];
+      /**
+       * @description Tags associated with the Fax Application.
+       * @default []
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags: string[];
       inbound?: {
         /**
          * @description When set, this will limit the number of concurrent inbound calls to phone numbers associated with this connection.
@@ -20010,6 +22247,10 @@ export interface components {
      *       "webhook_event_failover_url": "https://failover.example.com",
      *       "webhook_api_version": "1",
      *       "webhook_timeout_secs": 25,
+     *       "tags": [
+     *         "tag1",
+     *         "tag2"
+     *       ],
      *       "rtcp_settings": {
      *         "port": "rtcp-mux",
      *         "capture_enabled": true,
@@ -20026,7 +22267,6 @@ export interface components {
      *         "generate_ringback_tone": true,
      *         "isup_headers_enabled": true,
      *         "prack_enabled": true,
-     *         "privacy_zone_enabled": true,
      *         "sip_compact_headers_enabled": true,
      *         "sip_region": "US",
      *         "sip_subdomain": "string",
@@ -20085,6 +22325,14 @@ export interface components {
        * @default false
        */
       onnet_t38_passthrough_enabled: boolean;
+      /**
+       * @description Tags associated with the connection.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       ios_push_credential_id?: components['schemas']['ConnectionIosPushCredentialId'];
       android_push_credential_id?: components['schemas']['ConnectionAndroidPushCredentialId'];
       webhook_event_url?: components['schemas']['WebhookEventUrl'];
@@ -20117,7 +22365,7 @@ export interface components {
        * @default 5060
        * @example 5060
        */
-      port: number;
+      port: number | null;
       /**
        * @description The DNS record type for the FQDN. For cases where a port is not set, the DNS record type must be 'srv'. For cases where a port is set, the DNS record type must be 'a'. If the DNS record type is 'a' and a port is not specified, 5060 will be used.
        * @example a
@@ -20180,7 +22428,6 @@ export interface components {
      *       "generate_ringback_tone": true,
      *       "isup_headers_enabled": true,
      *       "prack_enabled": true,
-     *       "privacy_zone_enabled": true,
      *       "sip_compact_headers_enabled": true,
      *       "sip_region": "US",
      *       "sip_subdomain": "test",
@@ -20244,11 +22491,6 @@ export interface components {
        */
       prack_enabled: boolean;
       /**
-       * @description By default, Telnyx does not send caller-id information when the caller has chosen to hide this information. When this option is enabled, Telnyx will send the SIP header Privacy:id plus the caller-id information so that the receiver side can choose when to hide it.
-       * @default false
-       */
-      privacy_zone_enabled: boolean;
-      /**
        * @description Defaults to true.
        * @default true
        */
@@ -20290,10 +22532,26 @@ export interface components {
        */
       identifier: string;
       /**
-       * Value
-       * @description The value of the secret.
+       * Type
+       * @description The type of secret.
+       * @enum {string}
        */
-      value: string;
+      type: 'bearer' | 'basic';
+      /**
+       * Token
+       * @description The token for the secret. Required for bearer type secrets, ignored otherwise.
+       */
+      token?: string;
+      /**
+       * Username
+       * @description The username for the secret. Required for basic type secrets, ignored otherwise.
+       */
+      username?: string;
+      /**
+       * Password
+       * @description The password for the secret. Required for basic type secrets, ignored otherwise.
+       */
+      password?: string;
     };
     /** Create iOS push credential request */
     CreateIosPushCredentialRequest: {
@@ -20336,6 +22594,10 @@ export interface components {
      *       "webhook_event_failover_url": "https://failover.example.com",
      *       "webhook_api_version": "1",
      *       "webhook_timeout_secs": 25,
+     *       "tags": [
+     *         "tag1",
+     *         "tag2"
+     *       ],
      *       "rtcp_settings": {
      *         "port": "rtcp-mux",
      *         "capture_enabled": true,
@@ -20353,7 +22615,6 @@ export interface components {
      *         "generate_ringback_tone": true,
      *         "isup_headers_enabled": true,
      *         "prack_enabled": true,
-     *         "privacy_zone_enabled": true,
      *         "sip_compact_headers_enabled": true,
      *         "sip_region": "US",
      *         "sip_subdomain": "test",
@@ -20442,6 +22703,14 @@ export interface components {
        * @example 25
        */
       webhook_timeout_secs: number | null;
+      /**
+       * @description Tags associated with the connection.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       rtcp_settings?: components['schemas']['ConnectionRtcpSettings'];
       inbound?: components['schemas']['CreateInboundIpRequest'];
       outbound?: components['schemas']['OutboundIp'];
@@ -20626,6 +22895,11 @@ export interface components {
        * @default false
        */
       auto_detect: boolean;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date indicating when to send the message - accurate up till a minute.
+       */
+      send_at?: string | null;
     };
     /** @example {
      *       "messaging_profile_id": "dc8f39ac-953d-4520-b93b-786ae87db0da",
@@ -20695,18 +22969,51 @@ export interface components {
       url_shortener_settings?: components['schemas']['UrlShortenerSettings'];
       /** @description The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID. */
       alpha_sender?: string | null;
+      /** @description The maximum amount of money (in USD) that can be spent by this profile before midnight UTC. */
+      daily_spend_limit?: string;
+      /** @description Whether to enforce the value configured by `daily_spend_limit`. */
+      daily_spend_limit_enabled?: boolean;
+      /**
+       * @description enables SMS fallback for MMS messages.
+       * @default false
+       */
+      mms_fall_back_to_sms: boolean;
+      /**
+       * @description enables automated resizing of MMS media.
+       * @default false
+       */
+      mms_transcoding: boolean;
     };
-    CreateMultiPartDocServiceDocumentRequest: {
+    /** CreateMsgReq */
+    CreateMsgReq: {
+      /** Role */
+      role: string;
       /**
-       * Format: binary
-       * @description The file you are uploading.
+       * Content
+       * @default
        */
-      file?: string;
+      content: string;
+      /** Name */
+      name?: string;
+      /** Tool Choice */
+      tool_choice?: string | Record<string, never>;
+      /** Tool Calls */
+      tool_calls?: Record<string, never>[];
+      /** Tool Call Id */
+      tool_call_id?: string;
       /**
-       * @description Optional reference string for customer tracking.
-       * @example MY REF 001
+       * Sent At
+       * Format: date-time
        */
-      customer_reference?: string;
+      sent_at?: string;
+      /** Metadata */
+      metadata?: {
+        [key: string]:
+          | string
+          | number
+          | boolean
+          | (string | number | boolean)[];
+      };
     };
     /** @example {
      *       "starting_number": "+19705555000",
@@ -20778,50 +23085,6 @@ export interface components {
        * @example Number is already on hold
        */
       readonly errors?: string;
-    };
-    /** @example {
-     *       "id": "387d1e31-a218-4375-8151-103f2d5e2d2c",
-     *       "record_type": "number_order_document",
-     *       "file_id": "1e3c5822-0362-4702-8e46-5a129f0d3976",
-     *       "requirements_id": "36aaf27d-986b-493c-bd1b-de16af2e4292",
-     *       "customer_reference": "MY REF 001",
-     *       "requirement_type": "address_proof",
-     *       "created_at": "2018-01-01T00:00:00.000000Z"
-     *     } */
-    CreateNumberOrderDocumentRequest: {
-      /**
-       * Format: uuid
-       * @example 387d1e31-a218-4375-8151-103f2d5e2d2c
-       */
-      readonly id?: string;
-      /** @example number_order_document */
-      readonly record_type?: string;
-      /**
-       * @description The id of the file to associate as a number order document.
-       * @example 1e3c5822-0362-4702-8e46-5a129f0d3976
-       */
-      file_id?: string;
-      /**
-       * @description Unique id for a requirement.
-       * @example 36aaf27d-986b-493c-bd1b-de16af2e4292
-       */
-      requirements_id?: string;
-      /**
-       * @description A customer reference string for customer look ups.
-       * @example MY REF 001
-       */
-      customer_reference?: string;
-      /** @enum {string} */
-      readonly requirement_type?:
-        | 'address_proof'
-        | 'identification'
-        | 'reg_form';
-      /**
-       * Format: datetime
-       * @description An ISO 8901 datetime string denoting when the number order document was uploaded.
-       * @example 2018-01-01T00:00:00.000000Z
-       */
-      readonly created_at?: string;
     };
     /** @example {
      *       "phone_numbers": [
@@ -21108,13 +23371,13 @@ export interface components {
        * @default mp4
        * @example mp4
        */
-      format: string;
+      format: string | null;
       /**
        * @description The desired resolution (width/height in pixels) of the resulting video of the room composition. Both width and height are required to be between 16 and 1280; and width * height should not exceed 1280 * 720
        * @default 1280x720
        * @example 800x600
        */
-      resolution: string;
+      resolution: string | null;
       /**
        * Format: uuid
        * @description id of the room session associated with the room composition.
@@ -21183,6 +23446,104 @@ export interface components {
        */
       webhook_timeout_secs: number | null;
     };
+    /** CreateScheduledEventRequest */
+    CreateScheduledEventRequest: {
+      telnyx_conversation_channel: components['schemas']['ConversationChannelType'];
+      /**
+       * Telnyx End User Target
+       * @description The phone number, SIP URI, to schedule the call or text to.
+       */
+      telnyx_end_user_target: string;
+      /**
+       * Telnyx Agent Target
+       * @description The phone number, SIP URI, to schedule the call or text from.
+       */
+      telnyx_agent_target: string;
+      /**
+       * Scheduled At Fixed Datetime
+       * Format: date-time
+       * @description The datetime at which the event should be scheduled. Formatted as ISO 8601.
+       * @example 2025-04-15T13:07:28.764Z
+       */
+      scheduled_at_fixed_datetime: string;
+      /** @description Required for sms scheduled events. The text to be sent to the end user. */
+      text?: string;
+      /**
+       * Conversation Metadata
+       * @description Metadata associated with the conversation. Telnyx provides several pieces of metadata, but customers can also add their own.
+       */
+      conversation_metadata?: {
+        [key: string]: string | number | boolean;
+      };
+    };
+    /** @example {
+     *       "from": "+18445550001",
+     *       "messaging_profile_id": "abc85f64-5717-4562-b3fc-2c9600000000",
+     *       "to": "+18445550001",
+     *       "text": "Hello, World!",
+     *       "subject": "From Telnyx!",
+     *       "webhook_url": "http://example.com/webhooks",
+     *       "webhook_failover_url": "https://backup.example.com/hooks",
+     *       "use_profile_webhooks": true,
+     *       "type": "SMS",
+     *       "send_at": "2019-01-23T18:30:00Z"
+     *     } */
+    CreateScheduledMessageRequest: {
+      /**
+       * Format: address
+       * @description Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).
+       *
+       *     **Required if sending with a phone number, short code, or alphanumeric sender ID.**
+       *
+       */
+      from?: string;
+      /** @description Unique identifier for a messaging profile.
+       *
+       *     **Required if sending via number pool or with an alphanumeric sender ID.**
+       *      */
+      messaging_profile_id?: string;
+      to: components['schemas']['ToNumber'];
+      /** @description Message body (i.e., content) as a non-empty string.
+       *
+       *     **Required for SMS** */
+      text?: string;
+      /** @description Subject of multimedia message */
+      subject?: string;
+      /** @description A list of media URLs. The total media size must be less than 1 MB.
+       *
+       *     **Required for MMS** */
+      media_urls?: string[];
+      /**
+       * Format: url
+       * @description The URL where webhooks related to this message will be sent.
+       */
+      webhook_url?: string;
+      /**
+       * Format: url
+       * @description The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.
+       */
+      webhook_failover_url?: string;
+      /**
+       * @description If the profile this number is associated with has webhooks, use them for delivery notifications. If webhooks are also specified on the message itself, they will be attempted first, then those on the profile.
+       * @default true
+       */
+      use_profile_webhooks: boolean;
+      /**
+       * @description The protocol for sending the message, either SMS or MMS.
+       * @enum {string}
+       */
+      type?: 'SMS' | 'MMS';
+      /**
+       * @description Automatically detect if an SMS message is unusually long and exceeds a recommended limit of message parts.
+       * @default false
+       */
+      auto_detect: boolean;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date indicating when to send the message - accurate up till a minute.
+       */
+      send_at?: string;
+    };
     /** @example {
      *       "from": "+18445550001",
      *       "to": "+18445550001",
@@ -21239,6 +23600,50 @@ export interface components {
        */
       auto_detect: boolean;
     };
+    /** @example {
+     *       "status": "success",
+     *       "country_code": "US",
+     *       "created_at_gt": "2023-04-05T10:22:08.230549Z",
+     *       "created_at_lt": "2025-06-05T10:22:08.230549Z",
+     *       "order_request_id": "12ade33a-21c0-473b-b055-b3c836e1c293",
+     *       "customer_reference": "STRING"
+     *     } */
+    CreateSubNumberOrdersReportRequest: {
+      /**
+       * @description Filter by order status
+       * @example success
+       * @enum {string}
+       */
+      status?: 'pending' | 'success' | 'failure';
+      /**
+       * @description Filter by country code
+       * @example US
+       */
+      country_code?: string;
+      /**
+       * Format: date-time
+       * @description Filter for orders created after this date
+       * @example 2023-04-05T10:22:08.230549Z
+       */
+      created_at_gt?: string;
+      /**
+       * Format: date-time
+       * @description Filter for orders created before this date
+       * @example 2025-06-05T10:22:08.230549Z
+       */
+      created_at_lt?: string;
+      /**
+       * Format: uuid
+       * @description Filter by specific order request ID
+       * @example 12ade33a-21c0-473b-b055-b3c836e1c293
+       */
+      order_request_id?: string;
+      /**
+       * @description Filter by customer reference
+       * @example STRING
+       */
+      customer_reference?: string;
+    };
     /**
      * Create TeXML Secret request
      * @example {
@@ -21288,6 +23693,10 @@ export interface components {
      *       "voice_method": "get",
      *       "status_callback": "https://example.com",
      *       "status_callback_method": "get",
+     *       "tags": [
+     *         "tag1",
+     *         "tag2"
+     *       ],
      *       "inbound": {
      *         "channel_limit": 10,
      *         "shaken_stir_enabled": true,
@@ -21307,6 +23716,14 @@ export interface components {
       dtmf_type?: components['schemas']['DtmfType'];
       first_command_timeout?: components['schemas']['FirstCommandTimeout'];
       first_command_timeout_secs?: components['schemas']['FirstCommandTimeoutSecs'];
+      /**
+       * @description Tags associated with the Texml Application.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       /**
        * Format: url
        * @description URL to which Telnyx will deliver your XML Translator webhooks.
@@ -21377,6 +23794,24 @@ export interface components {
         channel_limit: number;
         outbound_voice_profile_id?: components['schemas']['OutboundVoiceProfileId'];
       };
+    };
+    CreateUserBundlesBulkRequest: {
+      /**
+       * Format: uuid
+       * @description Idempotency key for the request. Can be any UUID, but should always be unique for each request.
+       * @example 12ade33a-21c0-473b-b055-b3c836e1c292
+       */
+      idempotency_key?: string;
+      items?: {
+        /**
+         * Format: uuid
+         * @description Quantity of user bundles to order.
+         * @example 12ade33a-21c0-473b-b055-b3c836e1c292
+         */
+        billing_bundle_id: string;
+        /** @description Quantity of user bundles to order. */
+        quantity: number;
+      }[];
     };
     /**
      * CreateVerificationRequestCall
@@ -21535,7 +23970,7 @@ export interface components {
        * @description The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.
        * @default Telnyx
        */
-      alpha_sender: string;
+      alpha_sender: string | null;
       /**
        * @description The length of the verify code to generate.
        * @default 5
@@ -21558,16 +23993,45 @@ export interface components {
       default_verification_timeout_secs: number;
     };
     /**
-     * @description ISO 8601 formatted date-time indicating when the resource was created.
-     * @example 2018-02-02T22:25:27.521Z
+     * Created At
+     * @description ISO 8601 formatted date indicating when the resource was created.
+     * @example 2020-02-02T22:25:27.521Z
      */
     CreatedAt: string;
-    /**
-     * CreationStatus
-     * @description An enumeration.
-     * @enum {string}
-     */
-    CreationStatus: 'pending' | 'created' | 'failed';
+    /** CreatedUserBundlesResponse */
+    CreatedUserBundlesResponse: {
+      data: components['schemas']['UserBundle'][];
+    };
+    CreatedVerificationCodesResponse: {
+      data: (
+        | {
+            /**
+             * Format: +E.164
+             * @description Phone number for which the verification code was created
+             */
+            phone_number: string;
+            /**
+             * Format: uuid
+             * @description Unique identifier for the verification code
+             */
+            verification_code_id: string;
+            /**
+             * @description Type of verification method used
+             * @enum {string}
+             */
+            type: 'sms' | 'call' | 'flashcall';
+          }
+        | {
+            /**
+             * Format: +E.164
+             * @description Phone number for which the verification code creation failed
+             */
+            phone_number: string;
+            /** @description Error message describing why the verification code creation failed */
+            error: string;
+          }
+      )[];
+    };
     /**
      * Credential Active
      * @description If the credential associated with this service is active.
@@ -21599,6 +24063,10 @@ export interface components {
      *       "webhook_event_failover_url": "https://failover.example.com",
      *       "webhook_api_version": "1",
      *       "webhook_timeout_secs": 25,
+     *       "tags": [
+     *         "tag1",
+     *         "tag2"
+     *       ],
      *       "rtcp_settings": {
      *         "port": "rtp+1",
      *         "capture_enabled": true,
@@ -21614,7 +24082,6 @@ export interface components {
      *         "generate_ringback_tone": true,
      *         "isup_headers_enabled": true,
      *         "prack_enabled": true,
-     *         "privacy_zone_enabled": true,
      *         "sip_compact_headers_enabled": true,
      *         "timeout_1xx_secs": 10,
      *         "timeout_2xx_secs": 15,
@@ -21718,6 +24185,14 @@ export interface components {
        * @example 25
        */
       webhook_timeout_secs: number | null;
+      /**
+       * @description Tags associated with the connection.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       rtcp_settings?: components['schemas']['ConnectionRtcpSettings'];
       inbound?: components['schemas']['CredentialInbound'];
       outbound?: components['schemas']['CredentialOutbound'];
@@ -21733,7 +24208,6 @@ export interface components {
      *       "generate_ringback_tone": true,
      *       "isup_headers_enabled": true,
      *       "prack_enabled": true,
-     *       "privacy_zone_enabled": true,
      *       "sip_compact_headers_enabled": true,
      *       "timeout_1xx_secs": 10,
      *       "timeout_2xx_secs": 20,
@@ -21789,11 +24263,6 @@ export interface components {
        */
       prack_enabled: boolean;
       /**
-       * @description By default, Telnyx does not send caller-id information when the caller has chosen to hide this information. When this option is enabled, Telnyx will send the SIP header Privacy:id plus the caller-id information so that the receiver side can choose when to hide it.
-       * @default false
-       */
-      privacy_zone_enabled: boolean;
-      /**
        * @description Defaults to true.
        * @default true
        */
@@ -21807,7 +24276,7 @@ export interface components {
        * @description Time(sec) before aborting if call is unanswered (min: 1, max: 600).
        * @default 90
        */
-      timeout_2xx_secs: string;
+      timeout_2xx_secs: number;
       /**
        * @description When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport.
        * @default false
@@ -21888,7 +24357,7 @@ export interface components {
     /** CredentialsResponse */
     CredentialsResponse: {
       data: components['schemas']['CustomStorageConfiguration'];
-      connection_id: components['parameters']['ConnectionId'];
+      connection_id: components['schemas']['ConnectionIdCredentials'];
       record_type: components['schemas']['RecordType'];
     };
     /** @example {
@@ -21921,13 +24390,6 @@ export interface components {
        */
       status: 'pending' | 'complete' | 'failed' | 'expired';
     };
-    /**
-     * Currencies
-     * @description The supported currencies.
-     * @example USD
-     * @enum {string}
-     */
-    Currencies: 'USD' | 'EUR' | 'GBP' | 'AUD' | 'CAD';
     Cursor: {
       /**
        * @description Opaque identifier of next page.
@@ -22225,24 +24687,17 @@ export interface components {
        */
       record_type?: 'event';
     };
+    /** DTMFTool */
+    DTMFTool: {
+      /** @enum {string} */
+      type: 'send_dtmf';
+      send_dtmf: Record<string, never>;
+    };
     /**
      * Format: datetime-rfc2822
      * @example Fri, 11 Aug 2023 19:12:11 +0000
      */
     DateTimeRFC2822: string;
-    /** Dca */
-    Dca: {
-      /**
-       * Id
-       * @description Unique identifier of the direct connect aggregator
-       */
-      id: string;
-      /**
-       * Displayname
-       * @description Display name of the direct connect aggregator.
-       */
-      displayName: string;
-    };
     DefaultGateway: components['schemas']['Record'] & {
       /**
        * @description Identifies the type of the resource.
@@ -22267,13 +24722,201 @@ export interface components {
       Key?: string;
     }[];
     DeleteObjectsResponse: Record<string, never>;
+    /**
+     * Initiate Call Request
+     * @example {
+     *       "To": "+13121230000",
+     *       "From": "+13120001234",
+     *       "Url": "https://www.example.com/texml.xml",
+     *       "StatusCallback": "https://www.example.com/statuscallback-listener"
+     *     }
+     */
+    DeprecatedInitiateCallRequest: {
+      /**
+       * @description The phone number of the called party. Phone numbers are formatted with a `+` and country code.
+       * @example +16175551212
+       */
+      To: string;
+      /**
+       * @description The phone number of the party that initiated the call. Phone numbers are formatted with a `+` and country code.
+       * @example +16175551212
+       */
+      From: string;
+      /**
+       * @description To be used as the caller id name (SIP From Display Name) presented to the destination (`To` number). The string should have a maximum of 128 characters, containing only letters, numbers, spaces, and `-_~!.+` special characters. If ommited, the display name will be the same as the number in the `From` field.
+       * @example Info
+       */
+      CallerId?: string;
+      /**
+       * @description The URL from which Telnyx will retrieve the TeXML call instructions.
+       * @example https://www.example.com/instructions.xml
+       */
+      Url?: string;
+      /**
+       * @description HTTP request type used for `Url`. The default value is inherited from TeXML Application setting.
+       * @default POST
+       * @example GET
+       * @enum {string}
+       */
+      UrlMethod: 'GET' | 'POST';
+      /**
+       * @description A failover URL for which Telnyx will retrieve the TeXML call instructions if the `Url` is not responding.
+       * @example https://www.example.com/instructions-fallback.xml
+       */
+      FallbackUrl?: string;
+      /**
+       * @description URL destination for Telnyx to send status callback events to for the call.
+       * @example https://www.example.com/callback
+       */
+      StatusCallback?: string;
+      /**
+       * @description HTTP request type used for `StatusCallback`.
+       * @default POST
+       * @example GET
+       * @enum {string}
+       */
+      StatusCallbackMethod: 'GET' | 'POST';
+      /**
+       * @description The call events for which Telnyx should send a webhook. Multiple events can be defined when separated by a space.
+       * @default completed
+       * @example iniated ringing
+       * @enum {string}
+       */
+      StatusCallbackEvent: 'initiated' | 'ringing' | 'answered' | 'completed';
+      /**
+       * @description Enables Answering Machine Detection.
+       * @default Disable
+       * @example Enable
+       * @enum {string}
+       */
+      MachineDetection: 'Enable' | 'Disable' | 'DetectMessageEnd';
+      /**
+       * @description Allows you to chose between Premium and Standard detections.
+       * @default Regular
+       * @example Premium
+       * @enum {string}
+       */
+      DetectionMode: 'Premium' | 'Regular';
+      /**
+       * @description Select whether to perform answering machine detection in the background. By default execution is blocked until Answering Machine Detection is completed.
+       * @default false
+       * @example true
+       */
+      AsyncAmd: boolean;
+      /**
+       * @description URL destination for Telnyx to send AMD callback events to for the call.
+       * @example https://www.example.com/callback
+       */
+      AsyncAmdStatusCallback?: string;
+      /**
+       * @description HTTP request type used for `AsyncAmdStatusCallback`. The default value is inherited from TeXML Application setting.
+       * @default POST
+       * @example GET
+       * @enum {string}
+       */
+      AsyncAmdStatusCallbackMethod: 'GET' | 'POST';
+      /**
+       * @description Maximum timeout threshold in milliseconds for overall detection.
+       * @default 30000
+       * @example 5000
+       */
+      MachineDetectionTimeout: number;
+      /**
+       * @description Maximum threshold of a human greeting. If greeting longer than this value, considered machine. Ignored when `premium` detection is used.
+       * @default 3500
+       * @example 2000
+       */
+      MachineDetectionSpeechThreshold: number;
+      /**
+       * @description Silence duration threshold after a greeting message or voice for it be considered human. Ignored when `premium` detection is used.
+       * @default 800
+       * @example 2000
+       */
+      MachineDetectionSpeechEndThreshold: number;
+      /**
+       * @description If initial silence duration is greater than this value, consider it a machine. Ignored when `premium` detection is used.
+       * @default 3500
+       * @example 2000
+       */
+      MachineDetectionSilenceTimeout: number;
+      /**
+       * @description Whether to cancel ongoing playback on `machine` detection. Defaults to `true`.
+       * @default true
+       * @example false
+       */
+      CancelPlaybackOnMachineDetection: boolean;
+      /**
+       * @description Whether to cancel ongoing playback on `greeting ended` detection. Defaults to `true`.
+       * @default true
+       * @example false
+       */
+      CancelPlaybackOnDetectMessageEnd: boolean;
+      /**
+       * @description The list of comma-separated codecs to be offered on a call.
+       * @example PCMA,PCMU
+       */
+      PreferredCodecs?: string;
+      /**
+       * @description Whether to record the entire participant's call leg. Defaults to `false`.
+       * @example false
+       */
+      Record?: boolean;
+      /**
+       * @description The number of channels in the final recording. Defaults to `mono`.
+       * @example dual
+       * @enum {string}
+       */
+      RecordingChannels?: 'mono' | 'dual';
+      /**
+       * @description The URL the recording callbacks will be sent to.
+       * @example https://example.com/recording_status_callback
+       */
+      RecordingStatusCallback?: string;
+      /**
+       * @description HTTP request type used for `RecordingStatusCallback`. Defaults to `POST`.
+       * @example GET
+       * @enum {string}
+       */
+      RecordingStatusCallbackMethod?: 'GET' | 'POST';
+      /**
+       * @description The changes to the recording's state that should generate a call to `RecoridngStatusCallback`. Can be: `in-progress`, `completed` and `absent`. Separate multiple values with a space. Defaults to `completed`.
+       * @example in-progress completed absent
+       */
+      RecordingStatusCallbackEvent?: string;
+      /**
+       * @description The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected. The timer only starts when the speech is detected. Please note that the transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite)
+       * @default 0
+       * @example 5
+       */
+      RecordingTimeout: number;
+      /**
+       * @description The audio track to record for the call. The default is `both`.
+       * @example inbound
+       * @enum {string}
+       */
+      RecordingTrack?: 'inbound' | 'outbound' | 'both';
+      /**
+       * @description The password to use for SIP authentication.
+       * @example 1234
+       */
+      SipAuthPassword?: string;
+      /**
+       * @description The username to use for SIP authentication.
+       * @example user
+       */
+      SipAuthUsername?: string;
+      /**
+       * @description Whether to trim any leading and trailing silence from the recording. Defaults to `trim-silence`.
+       * @example false
+       * @enum {string}
+       */
+      Trim?: 'trim-silence' | 'do-not-trim';
+    };
     /** @description An object following one of the schemas published in https://developers.telnyx.com/docs/api/v2/detail-records */
     DetailRecord:
       | components['schemas']['MessageDetailRecord']
       | components['schemas']['ConferenceDetailRecord']
       | components['schemas']['ConferenceParticipantDetailRecord']
-      | components['schemas']['WhatsAppDetailRecord']
-      | components['schemas']['WhatsAppConversationDetailRecord']
       | components['schemas']['AmdDetailRecord']
       | components['schemas']['VerifyDetailRecord']
       | components['schemas']['SimCardUsageDetailRecord']
@@ -22281,33 +24924,6 @@ export interface components {
     DetailRecordsSearchResponse: {
       data?: components['schemas']['DetailRecord'][];
       meta?: components['schemas']['PaginationMeta'];
-    };
-    /** DetailedTaskStatus */
-    DetailedTaskStatus: {
-      /**
-       * Taskid
-       * @description The ID of the task associated with bulk Sole Proprietor brand and campaign creation.
-       * @example 4b60017a-2f50-4c90-c9e6-5f67304cbde2
-       */
-      taskId: string;
-      /**
-       * Referenceid
-       * @description A user generated unique identifier that keeps track of sole proprietor brand/campaign combinations submitted during bulk creation.
-       * @example 4q90017a-2f50-4c90-c9e6-5f67304cbde9
-       */
-      referenceId: string;
-      /**
-       * Brand
-       * @description The status of the individual brand submitted via bulk creation.
-       */
-      brand: components['schemas']['BrandStatus'][];
-      /**
-       * Campaign
-       * @description The status of the individual campaign submitted via bulk creation.
-       */
-      campaign: components['schemas']['CampaignStatus'][];
-      /** Phonenumbers */
-      phoneNumbers: components['schemas']['PhoneNumberStatus'][];
     };
     /**
      * Create Conference Participant Request
@@ -22598,7 +25214,7 @@ export interface components {
        */
       service_account: Record<string, never>;
       /**
-       * @description Determin which Dialogflow will be used.
+       * @description Determine which Dialogflow will be used.
        * @default es
        * @example cx
        * @enum {string}
@@ -22732,6 +25348,16 @@ export interface components {
          * @example abcdef0123456789
          */
         acceptable_characters?: string;
+        /**
+         * @description Specifies whether string matching should be case sensitive
+         * @example true
+         */
+        case_sensitive?: boolean;
+        /**
+         * @description A regular expression pattern that the value must match
+         * @example ^[A-Z0-9]+$
+         */
+        regex?: string;
       };
       /**
        * @description Describes the requirement type
@@ -22739,7 +25365,7 @@ export interface components {
        */
       description?: string;
       /**
-       * @description Provides one or more examples of acceptable documents
+       * @description Provides one or more example of acceptable documents
        * @example Utility bill, internet bill, phone bill, or lease
        */
       example?: string;
@@ -22846,41 +25472,6 @@ export interface components {
        */
       readonly linked_resource_id?: string;
     };
-    DocServiceDocumentUploadInline: {
-      /**
-       * Format: byte
-       * @description The Base64 encoded contents of the file you are uploading.
-       * @example [Base64 encoded content]
-       */
-      file: string;
-      /**
-       * @description The filename of the document.
-       * @example test-document.pdf
-       */
-      filename?: string;
-      /**
-       * @description A customer reference string for customer look ups.
-       * @example MY REF 001
-       */
-      customer_reference?: string;
-    };
-    DocServiceDocumentUploadURL: {
-      /**
-       * @description If the file is already hosted publicly, you can provide a URL and have the documents service fetch it for you.
-       * @example https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
-       */
-      url: string;
-      /**
-       * @description The filename of the document.
-       * @example test-document.pdf
-       */
-      filename?: string;
-      /**
-       * @description Optional reference string for customer tracking.
-       * @example MY REF 001
-       */
-      customer_reference?: string;
-    };
     DocServiceRecord: {
       /**
        * Format: uuid
@@ -22944,21 +25535,21 @@ export interface components {
        * @enum {string}
        */
       readonly status?: 'pending' | 'activated' | 'rejected';
-      /** @example 311 */
+      /** @example 600 */
       house_number: string;
       house_suffix?: string;
-      /** @example W */
       street_pre_directional?: string;
-      /** @example Superior */
+      /** @example Congress */
       street_name: string;
+      /** @example St */
       street_suffix?: string;
       street_post_directional?: string;
       extended_address?: string;
-      /** @example Chicago */
+      /** @example Austin */
       locality: string;
-      /** @example IL */
+      /** @example TX */
       administrative_area: string;
-      /** @example 60654 */
+      /** @example 78701 */
       postal_code: string;
       /**
        * @example US
@@ -23060,6 +25651,39 @@ export interface components {
        */
       api_key_ref?: string;
     };
+    EligibilityNumberResponse: {
+      /** @description Detailed information about the eligibility status. */
+      detail?: string;
+      /** @description The phone number in e164 format. */
+      phone_number?: string;
+      /** @description Whether the phone number is eligible for hosted messaging. */
+      eligible?: boolean;
+      /**
+       * @description The eligibility status of the phone number.
+       * @enum {string}
+       */
+      eligible_status?:
+        | 'NUMBER_CAN_NOT_BE_REPEATED'
+        | 'NUMBER_CAN_NOT_BE_VALIDATED'
+        | 'NUMBER_CAN_NOT_BE_WIRELESS'
+        | 'NUMBER_CAN_NOT_BE_ACTIVE_IN_YOUR_ACCOUNT'
+        | 'NUMBER_CAN_NOT_HOSTED_WITH_A_TELNYX_SUBSCRIBER'
+        | 'NUMBER_CAN_NOT_BE_IN_TELNYX'
+        | 'NUMBER_IS_NOT_A_US_NUMBER'
+        | 'NUMBER_IS_NOT_A_VALID_ROUTING_NUMBER'
+        | 'NUMBER_IS_NOT_IN_E164_FORMAT'
+        | 'BILLING_ACCOUNT_CHECK_FAILED'
+        | 'BILLING_ACCOUNT_IS_ABOLISHED'
+        | 'ELIGIBLE';
+    };
+    EligibilityNumbersRequest: {
+      /** @description List of phone numbers to check eligibility */
+      phone_numbers: string[];
+    };
+    EligibilityNumbersResponse: {
+      /** @description List of phone numbers with their eligibility status. */
+      phone_numbers?: components['schemas']['EligibilityNumberResponse'][];
+    };
     /** EmbeddingBucketRequest */
     EmbeddingBucketRequest: {
       /** Bucket Name */
@@ -23157,6 +25781,19 @@ export interface components {
       /** Data */
       data: components['schemas']['EmbeddingSimilaritySearchDocument'][];
     };
+    /** EmbeddingUrlRequest */
+    EmbeddingUrlRequest: {
+      /**
+       * URL
+       * @description The URL of the webpage to embed
+       */
+      url: string;
+      /**
+       * Bucket Name
+       * @description Name of the bucket to store the embeddings. This bucket must already exist.
+       */
+      bucket_name: string;
+    };
     /** EmbeddingsBucketFiles */
     EmbeddingsBucketFiles: {
       /** Filename */
@@ -23218,6 +25855,11 @@ export interface components {
         | 'provisioning-failed';
     };
     /**
+     * @description If `telephony` is enabled, the assistant will be able to make and receive calls. If `messaging` is enabled, the assistant will be able to send and receive messages.
+     * @enum {string}
+     */
+    EnabledFeatures: 'telephony' | 'messaging';
+    /**
      * @description Enable use of SRTP for encryption. Cannot be set if the transport_portocol is TLS.
      * @example SRTP
      * @enum {string|null}
@@ -23271,7 +25913,6 @@ export interface components {
       | 'PRIVATE_PROFIT'
       | 'PUBLIC_PROFIT'
       | 'NON_PROFIT'
-      | 'SOLE_PROPRIETOR'
       | 'GOVERNMENT';
     /**
      * EnumListResponse
@@ -23299,7 +25940,10 @@ export interface components {
          * @description JSON pointer (RFC6901) to the offending entity.
          */
         pointer?: string;
-        /** @description Indicates which query parameter caused the error. */
+        /**
+         * @description Indicates which query parameter caused the error.
+         * @example +15617819942
+         */
         parameter?: string;
       };
       meta?: Record<string, never>;
@@ -23323,45 +25967,28 @@ export interface components {
       source?: components['schemas']['SourceResponse'];
       meta?: components['schemas']['MetaResponse'];
     };
-    /** ErrorResponse */
     ErrorResponse: {
-      /** Errors */
-      errors?: components['schemas']['Error'][];
+      errors?: {
+        code?: string;
+        detail?: string;
+        meta?: {
+          /** Format: uri */
+          url?: string;
+        };
+        title?: string;
+        source?: {
+          pointer?: string;
+        };
+      }[];
     };
     Errors: {
       errors?: components['schemas']['Error'][];
     };
     /**
-     * Exchange
-     * @description An enumeration.
-     * @enum {unknown}
+     * EventStatus
+     * @enum {string}
      */
-    Exchange:
-      | 'NONE'
-      | 'NASDAQ'
-      | 'NYSE'
-      | 'AMEX'
-      | 'AMX'
-      | 'ASX'
-      | 'B3'
-      | 'BME'
-      | 'BSE'
-      | 'FRA'
-      | 'ICEX'
-      | 'JPX'
-      | 'JSE'
-      | 'KRX'
-      | 'LON'
-      | 'NSE'
-      | 'OMX'
-      | 'SEHK'
-      | 'SSE'
-      | 'STO'
-      | 'SWX'
-      | 'SZSE'
-      | 'TSX'
-      | 'TWSE'
-      | 'VSE';
+    EventStatus: 'pending' | 'in_progress' | 'completed' | 'failed';
     /** @description The parameters for generating a porting orders CSV report. */
     ExportPortingOrdersCSVReport: {
       /** @description The filters to apply to the export porting order CSV report. */
@@ -23425,19 +26052,6 @@ export interface components {
         created_at__gt?: string;
       };
     };
-    /** ExtVettingProvider */
-    ExtVettingProvider: {
-      /** Evpid */
-      evpId?: string;
-      /** Displayname */
-      displayName?: string;
-      /** Tcrbillable */
-      tcrBillable?: boolean;
-      /** Vettingclasses */
-      vettingClasses?: string[];
-      /** Vettinginstruction */
-      vettingInstruction?: string;
-    };
     /**
      * External Connection
      * @example {
@@ -23463,6 +26077,14 @@ export interface components {
       active?: components['schemas']['ConnectionActive'];
       credential_active?: components['schemas']['CredentialActive'];
       external_sip_connection?: components['schemas']['ExternalSipConnection'];
+      /**
+       * @description Tags associated with the connection.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       /**
        * Format: url
        * @description The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.
@@ -23661,6 +26283,10 @@ export interface components {
       data?: components['schemas']['ExternalWdrDetailRecordDto'][];
       meta?: components['schemas']['PaginationMeta'];
     };
+    /** FailClusteringProcessRequest */
+    FailClusteringProcessRequest: {
+      error: string;
+    };
     /** @example {
      *       "record_type": "fax",
      *       "id": "0ccc7b54-4df3-4bca-a65a-3da1ecc777f0",
@@ -23779,6 +26405,15 @@ export interface components {
       webhook_event_url?: components['schemas']['WebhookEventUrl'];
       webhook_event_failover_url?: components['schemas']['WebhookEventFailoverUrl'];
       webhook_timeout_secs?: components['schemas']['WebhookTimeoutSecs'];
+      /**
+       * @description Tags associated with the Fax Application.
+       * @default []
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags: string[];
       inbound?: {
         /**
          * @description When set, this will limit the number of concurrent inbound calls to phone numbers associated with this connection.
@@ -24109,22 +26744,6 @@ export interface components {
       /** @example sms */
       name?: string;
     };
-    Filter: {
-      /** @enum {string} */
-      filter_type?: 'and' | 'or';
-      /** @example +13129457420 */
-      cli?: string;
-      /** @enum {string} */
-      cli_filter?: 'contains' | 'starts_with' | 'ends_with';
-      /** @example +13129457420 */
-      cld?: string;
-      /** @enum {string} */
-      cld_filter?: 'contains' | 'starts_with' | 'ends_with';
-      /** @example tag1 */
-      tags_list?: string;
-      /** @example adfaa016-f921-4b6c-97bb-e4c1dad231c5 */
-      billing_group?: string;
-    };
     /**
      * FineTuningJob
      * @description The `fine_tuning.job` object represents a fine-tuning job that has been created through the API.
@@ -24262,6 +26881,10 @@ export interface components {
      *       "webhook_event_failover_url": "https://failover.example.com",
      *       "webhook_api_version": "1",
      *       "webhook_timeout_secs": 25,
+     *       "tags": [
+     *         "tag1",
+     *         "tag2"
+     *       ],
      *       "rtcp_settings": {
      *         "port": "rtcp-mux",
      *         "capture_enabled": true,
@@ -24280,7 +26903,6 @@ export interface components {
      *         "generate_ringback_tone": true,
      *         "isup_headers_enabled": true,
      *         "prack_enabled": true,
-     *         "privacy_zone_enabled": true,
      *         "sip_compact_headers_enabled": true,
      *         "sip_region": "US",
      *         "sip_subdomain": "string",
@@ -24370,6 +26992,14 @@ export interface components {
       txt_value?: string;
       /** @description The time to live for the TXT record associated with the FQDN connection. */
       txt_ttl?: number;
+      /**
+       * @description Tags associated with the connection.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       webhook_event_url?: components['schemas']['WebhookEventUrl'];
       webhook_event_failover_url?: components['schemas']['WebhookEventFailoverUrl'];
       webhook_api_version?: components['schemas']['WebhookApiVersion'];
@@ -24487,11 +27117,10 @@ export interface components {
      *         ],
      *         "type": "object"
      *       },
-     *       "voice": "Telnyx.LibriTTS.0",
-     *       "voice_settings": {
-     *         "voice_speed": 1.25
-     *       },
+     *       "voice": "Telnyx.KokoroTTS.af",
      *       "greeting": "Hello, can you tell me your age and where you live?",
+     *       "send_partial_results": true,
+     *       "send_message_history_updates": true,
      *       "message_history": [
      *         {
      *           "content": "Hello, what's your name?",
@@ -24503,7 +27132,8 @@ export interface components {
      *         }
      *       ],
      *       "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
-     *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
+     *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901",
+     *       "user_response_timeout_ms": 5000
      *     }
      */
     GatherUsingAIRequest: {
@@ -24528,7 +27158,9 @@ export interface components {
        *     }
        */
       parameters: Record<string, never>;
+      assistant?: components['schemas']['Assistant'];
       transcription?: components['schemas']['TranscriptionConfig'];
+      language?: components['schemas']['GoogleTranscriptionLanguage'];
       voice?: components['schemas']['VoiceConfig'];
       /** @description The settings associated with the voice selected */
       voice_settings?:
@@ -24540,7 +27172,16 @@ export interface components {
        * @example Hello, can you tell me your age and where you live?
        */
       greeting?: string;
-      assistant?: components['schemas']['Assistant'];
+      /**
+       * @description Default is `false`. If set to `true`, the voice assistant will send partial results via the `call.ai_gather.partial_results` [callback](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks) in real time as individual fields are gathered. If set to `false`, the voice assistant will only send the final result via the `call.ai_gather.ended` callback.
+       * @example false
+       */
+      send_partial_results?: boolean;
+      /**
+       * @description Default is `false`. If set to `true`, the voice assistant will send updates to the message history via the `call.ai_gather.message_history_updated` [callback](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks) in real time as the message history is updated.
+       * @example false
+       */
+      send_message_history_updates?: boolean;
       /** @description The message history you want the voice assistant to be aware of, this can be useful to keep the context of the conversation, or to pass additional information to the voice assistant. */
       message_history?: {
         /**
@@ -24566,6 +27207,12 @@ export interface components {
        */
       command_id?: string;
       interruption_settings?: components['schemas']['InterruptionSettings'];
+      /**
+       * @description The number of milliseconds to wait for a user response before the voice assistant times out and check if the user is still there.
+       * @default 10000
+       * @example 5000
+       */
+      user_response_timeout_ms: number;
     };
     /**
      * Gather Using Audio Request
@@ -24707,14 +27354,16 @@ export interface components {
       /**
        * @description Specifies the voice used in speech synthesis.
        *
-       *     - Define voices using the format `<Provider>.<Model>.<VoiceId>`.
+       *     - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the provider will give default values for voice_id and model_id.
        *
        *      **Supported Providers:**
-       *     -**AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility.
-       *     -**ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+       *     - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility.
+       *     - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+       *     - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+       *      - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
        *
        *     For service_level basic, you may define the gender of the speaker (male or female).
-       * @example AWS.Polly.Joanna-Neural
+       * @example Telnyx.KokoroTTS.af
        */
       voice: string;
       /** @description The settings associated with the voice selected */
@@ -24909,6 +27558,18 @@ export interface components {
         parameter?: string;
       };
       meta?: Record<string, never>;
+    };
+    /** GetInsightTemplateGroupsRespData */
+    GetInsightTemplateGroupsRespData: {
+      /** Data */
+      data: components['schemas']['InsightTemplateGroupResp'][];
+      meta: components['schemas']['Meta'];
+    };
+    /** GetInsightTemplatesRespData */
+    GetInsightTemplatesRespData: {
+      /** Data */
+      data: components['schemas']['InsightTemplateResp'][];
+      meta: components['schemas']['Meta'];
     };
     GetSubRequestByPortingOrder: {
       /**
@@ -25491,10 +28152,193 @@ export interface components {
       | 'vi'
       | 'xh'
       | 'zu';
+    /**
+     * Google transcription engine list of languages
+     * @description Language to use for speech recognition
+     * @default en-US
+     * @example en-US
+     * @enum {string}
+     */
+    GoogleTranscriptionLanguageLong:
+      | 'af-ZA'
+      | 'am-ET'
+      | 'ar-AE'
+      | 'ar-BH'
+      | 'ar-DZ'
+      | 'ar-EG'
+      | 'ar-IL'
+      | 'ar-IQ'
+      | 'ar-JO'
+      | 'ar-KW'
+      | 'ar-LB'
+      | 'ar-MA'
+      | 'ar-MR'
+      | 'ar-OM'
+      | 'ar-PS'
+      | 'ar-QA'
+      | 'ar-SA'
+      | 'ar-TN'
+      | 'ar-YE'
+      | 'az-AZ'
+      | 'bg-BG'
+      | 'bn-BD'
+      | 'bn-IN'
+      | 'bs-BA'
+      | 'ca-ES'
+      | 'cs-CZ'
+      | 'da-DK'
+      | 'de-AT'
+      | 'de-CH'
+      | 'de-DE'
+      | 'el-GR'
+      | 'en-AU'
+      | 'en-CA'
+      | 'en-GB'
+      | 'en-GH'
+      | 'en-HK'
+      | 'en-IE'
+      | 'en-IN'
+      | 'en-KE'
+      | 'en-NG'
+      | 'en-NZ'
+      | 'en-PH'
+      | 'en-PK'
+      | 'en-SG'
+      | 'en-TZ'
+      | 'en-US'
+      | 'en-ZA'
+      | 'es-AR'
+      | 'es-BO'
+      | 'es-CL'
+      | 'es-CO'
+      | 'es-CR'
+      | 'es-DO'
+      | 'es-EC'
+      | 'es-ES'
+      | 'es-GT'
+      | 'es-HN'
+      | 'es-MX'
+      | 'es-NI'
+      | 'es-PA'
+      | 'es-PE'
+      | 'es-PR'
+      | 'es-PY'
+      | 'es-SV'
+      | 'es-US'
+      | 'es-UY'
+      | 'es-VE'
+      | 'et-EE'
+      | 'eu-ES'
+      | 'fa-IR'
+      | 'fi-FI'
+      | 'fil-PH'
+      | 'fr-BE'
+      | 'fr-CA'
+      | 'fr-CH'
+      | 'fr-FR'
+      | 'gl-ES'
+      | 'gu-IN'
+      | 'hi-IN'
+      | 'hr-HR'
+      | 'hu-HU'
+      | 'hy-AM'
+      | 'id-ID'
+      | 'is-IS'
+      | 'it-CH'
+      | 'it-IT'
+      | 'iw-IL'
+      | 'ja-JP'
+      | 'jv-ID'
+      | 'ka-GE'
+      | 'kk-KZ'
+      | 'km-KH'
+      | 'kn-IN'
+      | 'ko-KR'
+      | 'lo-LA'
+      | 'lt-LT'
+      | 'lv-LV'
+      | 'mk-MK'
+      | 'ml-IN'
+      | 'mn-MN'
+      | 'mr-IN'
+      | 'ms-MY'
+      | 'my-MM'
+      | 'ne-NP'
+      | 'nl-BE'
+      | 'nl-NL'
+      | 'no-NO'
+      | 'pa-Guru-IN'
+      | 'pl-PL'
+      | 'pt-BR'
+      | 'pt-PT'
+      | 'ro-RO'
+      | 'ru-RU'
+      | 'rw-RW'
+      | 'si-LK'
+      | 'sk-SK'
+      | 'sl-SI'
+      | 'sq-AL'
+      | 'sr-RS'
+      | 'ss-latn-za'
+      | 'st-ZA'
+      | 'su-ID'
+      | 'sv-SE'
+      | 'sw-KE'
+      | 'sw-TZ'
+      | 'ta-IN'
+      | 'ta-LK'
+      | 'ta-MY'
+      | 'ta-SG'
+      | 'te-IN'
+      | 'th-TH'
+      | 'tn-latn-za'
+      | 'tr-TR'
+      | 'ts-ZA'
+      | 'uk-UA'
+      | 'ur-IN'
+      | 'ur-PK'
+      | 'uz-UZ'
+      | 've-ZA'
+      | 'vi-VN'
+      | 'xh-ZA'
+      | 'yue-Hant-HK'
+      | 'zh'
+      | 'zh-TW'
+      | 'zu-ZA';
     /** HTTPValidationError */
     HTTPValidationError: {
       /** Detail */
       detail?: components['schemas']['ValidationError'][];
+    };
+    /**
+     * HandoffTool
+     * @description The handoff tool allows the assistant to hand off control of the conversation to another AI assistant. By default, this will happen transparently to the end user.
+     */
+    HandoffTool: {
+      /** @enum {string} */
+      type: 'handoff';
+      handoff: components['schemas']['HandoffToolParams'];
+    };
+    /** HandoffToolParams */
+    HandoffToolParams: {
+      /**
+       * @description With the unified voice mode all assistants share the same voice, making the handoff transparent to the user. With the distinct voice mode all assistants retain their voice configuration, providing the experience of a conference call with a team of assistants.
+       * @enum {string}
+       */
+      voice_mode?: 'unified' | 'distinct';
+      /** @description List of possible assistants that can receive a handoff. */
+      ai_assistants: {
+        /**
+         * @description Helpful name for giving context on when to handoff to the assistant.
+         * @example Scheduling Specialist
+         */
+        name: string;
+        /**
+         * @description The ID of the assistant to hand off to.
+         * @example assistant-1234567890abcdef
+         */
+        id: string;
+      }[];
     };
     /**
      * Hangup Request
@@ -25514,6 +28358,20 @@ export interface components {
        * @example 891510ac-f3e4-11e8-af5b-de00688a4901
        */
       command_id?: string;
+    };
+    /** HangupTool */
+    HangupTool: {
+      /** @enum {string} */
+      type: 'hangup';
+      hangup: components['schemas']['HangupToolParams'];
+    };
+    /** HangupToolParams */
+    HangupToolParams: {
+      /**
+       * @description The description of the function that will be passed to the assistant.
+       * @default This tool is used to hang up the call.
+       */
+      description: string;
     };
     /** @example [
      *       {
@@ -25545,8 +28403,16 @@ export interface components {
      * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
      */
     Id: string;
-    /** @example [1234567890L, 9876543210L] */
-    ImmutableSetLong: number[];
+    /** ImportAssistantsRequest */
+    ImportAssistantsRequest: {
+      /**
+       * @description The external provider to import assistants from.
+       * @enum {string}
+       */
+      provider: 'elevenlabs' | 'vapi';
+      /** @description Integration secret pointer that refers to the API key for the external provider. This should be an identifier for an integration secret created via /v2/integration_secrets. */
+      api_key_ref: string;
+    };
     /** ImportExternalVetting */
     ImportExternalVetting: {
       /**
@@ -25565,6 +28431,15 @@ export interface components {
        */
       vettingToken?: string;
     };
+    ImportMetadata: {
+      /**
+       * @description Provider the assistant was imported from.
+       * @enum {string}
+       */
+      import_provider?: 'elevenlabs' | 'vapi';
+      /** @description ID of the assistant in the provider's system. */
+      import_id?: string;
+    };
     /**
      * Inbound FQDN
      * @example {
@@ -25581,7 +28456,6 @@ export interface components {
      *       "generate_ringback_tone": true,
      *       "isup_headers_enabled": true,
      *       "prack_enabled": true,
-     *       "privacy_zone_enabled": true,
      *       "sip_compact_headers_enabled": true,
      *       "sip_region": "US",
      *       "sip_subdomain": "test",
@@ -25624,7 +28498,7 @@ export interface components {
        * @default sequential
        * @enum {string|null}
        */
-      default_routing_method: 'sequential' | 'round-robin';
+      default_routing_method: 'sequential' | 'round-robin' | null;
       /**
        * Format: int64
        * @description The default primary FQDN to use for the number. Only settable if the connection is
@@ -25666,11 +28540,6 @@ export interface components {
        * @default false
        */
       prack_enabled: boolean;
-      /**
-       * @description By default, Telnyx does not send caller-id information when the caller has chosen to hide this information. When this option is enabled, Telnyx will send the SIP header Privacy:id plus the caller-id information so that the receiver side can choose when to hide it.
-       * @default false
-       */
-      privacy_zone_enabled: boolean;
       /**
        * @description Defaults to true.
        * @default true
@@ -25723,7 +28592,6 @@ export interface components {
      *       "generate_ringback_tone": true,
      *       "isup_headers_enabled": true,
      *       "prack_enabled": true,
-     *       "privacy_zone_enabled": true,
      *       "sip_compact_headers_enabled": true,
      *       "sip_region": "US",
      *       "sip_subdomain": "test",
@@ -25806,11 +28674,6 @@ export interface components {
        */
       prack_enabled: boolean;
       /**
-       * @description By default, Telnyx does not send caller-id information when the caller has chosen to hide this information. When this option is enabled, Telnyx will send the SIP header Privacy:id plus the caller-id information so that the receiver side can choose when to hide it.
-       * @default false
-       */
-      privacy_zone_enabled: boolean;
-      /**
        * @description Defaults to true.
        * @default true
        */
@@ -25869,6 +28732,7 @@ export interface components {
      *             "line_type": "VoIP"
      *           }
      *         ],
+     *         "cc": [],
      *         "text": "Hello, World!",
      *         "subject": "From Telnyx!",
      *         "media": [],
@@ -25879,7 +28743,23 @@ export interface components {
      *         "tags": [
      *           "Greetings"
      *         ],
-     *         "cost": null,
+     *         "cost": {
+     *           "amount": 0.0051,
+     *           "currency": "USD"
+     *         },
+     *         "cost_breakdown": {
+     *           "carrier_fee": {
+     *             "amount": 0.00305,
+     *             "currency": "USD"
+     *           },
+     *           "rate": {
+     *             "amount": 0.00205,
+     *             "currency": "USD"
+     *           }
+     *         },
+     *         "tcr_campaign_id": "TCPA3X7",
+     *         "tcr_campaign_billable": true,
+     *         "tcr_campaign_registered": "REGISTERED",
      *         "received_at": "2019-01-23T18:10:02.574Z",
      *         "sent_at": null,
      *         "completed_at": null,
@@ -25936,6 +28816,7 @@ export interface components {
      *           "line_type": "VoIP"
      *         }
      *       ],
+     *       "cc": [],
      *       "text": "Hello, World!",
      *       "subject": "From Telnyx!",
      *       "media": [],
@@ -25946,7 +28827,23 @@ export interface components {
      *       "tags": [
      *         "Greetings"
      *       ],
-     *       "cost": null,
+     *       "cost": {
+     *         "amount": 0.0051,
+     *         "currency": "USD"
+     *       },
+     *       "cost_breakdown": {
+     *         "carrier_fee": {
+     *           "amount": 0.00305,
+     *           "currency": "USD"
+     *         },
+     *         "rate": {
+     *           "amount": 0.00205,
+     *           "currency": "USD"
+     *         }
+     *       },
+     *       "tcr_campaign_id": "TCPA3X7",
+     *       "tcr_campaign_billable": true,
+     *       "tcr_campaign_registered": "REGISTERED",
      *       "received_at": "2019-01-23T18:10:02.574Z",
      *       "sent_at": null,
      *       "completed_at": null,
@@ -26107,6 +29004,42 @@ export interface components {
          */
         currency?: string;
       } | null;
+      /** @description Detailed breakdown of the message cost components. */
+      cost_breakdown?: {
+        carrier_fee?: {
+          /**
+           * Format: decimal
+           * @description The carrier fee amount.
+           */
+          amount?: string;
+          /**
+           * Format: iso4217
+           * @description The ISO 4217 currency identifier.
+           */
+          currency?: string;
+        };
+        rate?: {
+          /**
+           * Format: decimal
+           * @description The rate amount applied.
+           */
+          amount?: string;
+          /**
+           * Format: iso4217
+           * @description The ISO 4217 currency identifier.
+           */
+          currency?: string;
+        };
+      } | null;
+      /** @description The Campaign Registry (TCR) campaign ID associated with the message. */
+      tcr_campaign_id?: string | null;
+      /** @description Indicates whether the TCR campaign is billable. */
+      tcr_campaign_billable?: boolean;
+      /**
+       * @description The registration status of the TCR campaign.
+       * @example REGISTERED
+       */
+      tcr_campaign_registered?: string | null;
       /**
        * Format: date-time
        * @description ISO 8601 formatted date indicating when the message request was received.
@@ -26305,6 +29238,7 @@ export interface components {
        * @enum {string}
        */
       RecordingTrack?: 'inbound' | 'outbound' | 'both';
+      SendRecordingUrl?: components['schemas']['SendRecordingUrl'];
       /**
        * @description The password to use for SIP authentication.
        * @example 1234
@@ -26337,6 +29271,123 @@ export interface components {
       to?: string;
       /** @example accepted */
       status?: string;
+    };
+    InsightSettings: {
+      /** @description Reference to an Insight Group. Insights in this group will be run automatically for all the assistant's conversations. */
+      insight_group_id?: string;
+    };
+    /** InsightTemplateCreateReq */
+    InsightTemplateCreateReq: {
+      /** Instructions */
+      instructions: string;
+      /** Name */
+      name: string;
+      /**
+       * Webhook
+       * @default
+       */
+      webhook: string;
+      /**
+       * Json Schema
+       * @description If specified, the output will follow the JSON schema.
+       */
+      json_schema?: string | Record<string, never>;
+    };
+    /** InsightTemplateDetailRespData */
+    InsightTemplateDetailRespData: {
+      data: components['schemas']['InsightTemplateResp'];
+    };
+    /** InsightTemplateGroupCreateReq */
+    InsightTemplateGroupCreateReq: {
+      /** Name */
+      name: string;
+      /** Description */
+      description?: string;
+      /**
+       * Webhook
+       * @default
+       */
+      webhook: string;
+    };
+    /** InsightTemplateGroupDetailRespData */
+    InsightTemplateGroupDetailRespData: {
+      data: components['schemas']['InsightTemplateGroupResp'];
+    };
+    /** InsightTemplateGroupResp */
+    InsightTemplateGroupResp: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Name */
+      name: string;
+      /** Description */
+      description?: string;
+      /**
+       * Created At
+       * Format: date-time
+       */
+      created_at: string;
+      /** Insights */
+      insights?: components['schemas']['InsightTemplateResp'][];
+      /**
+       * Webhook
+       * @default
+       */
+      webhook: string;
+    };
+    /** InsightTemplateGroupUpdateReq */
+    InsightTemplateGroupUpdateReq: {
+      /** Name */
+      name?: string;
+      /** Description */
+      description?: string;
+      /** Webhook */
+      webhook?: string;
+    };
+    /** InsightTemplateResp */
+    InsightTemplateResp: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Instructions */
+      instructions: string;
+      /**
+       * Created At
+       * Format: date-time
+       */
+      created_at: string;
+      /** @default custom */
+      insight_type: components['schemas']['TemplateType'];
+      /**
+       * Name
+       * @default
+       */
+      name: string;
+      /**
+       * Webhook
+       * @default
+       */
+      webhook: string;
+      /**
+       * Json Schema
+       * @description If specified, the output will follow the JSON schema.
+       */
+      json_schema?: string | Record<string, never>;
+    };
+    /** InsightTemplateUpdateReq */
+    InsightTemplateUpdateReq: {
+      /** Instructions */
+      instructions?: string;
+      /** Name */
+      name?: string;
+      /** Webhook */
+      webhook?: string;
+      /** Json Schema */
+      json_schema?: string | Record<string, never>;
     };
     /**
      * Int ID
@@ -26375,6 +29426,7 @@ export interface components {
     IntegrationSecretsListData: {
       /** Data */
       data: components['schemas']['IntegrationSecret'][];
+      meta: components['schemas']['Metadata'];
     };
     Interface: {
       /**
@@ -26463,6 +29515,70 @@ export interface components {
       /** @example 25 */
       total_results?: number;
     };
+    Invoice: {
+      /**
+       * Format: uuid
+       * @example 48eff763-ea80-4345-b688-78249eb165a8
+       */
+      invoice_id?: string;
+      /**
+       * Format: uuid
+       * @example 454ea3b0-9eaa-4fa9-992e-6d9f31c0a37e
+       */
+      file_id?: string;
+      /**
+       * Format: date
+       * @example 2023-11-01
+       */
+      period_start?: string;
+      /**
+       * Format: date
+       * @example 2023-11-30
+       */
+      period_end?: string;
+      /** @example true */
+      paid?: boolean;
+      /**
+       * Format: uri
+       * @example https://api.telnyx.com:443/v2/invoices/48eff763-ea80-4345-b688-78249eb165a8
+       */
+      url?: string;
+    };
+    InvoiceDetail: {
+      /**
+       * Format: uuid
+       * @example 48eff763-ea80-4345-b688-78249eb165a8
+       */
+      invoice_id?: string;
+      /**
+       * Format: uuid
+       * @example 454ea3b0-9eaa-4fa9-992e-6d9f31c0a37e
+       */
+      file_id?: string;
+      /**
+       * Format: date
+       * @example 2023-11-01
+       */
+      period_start?: string;
+      /**
+       * Format: date
+       * @example 2023-11-30
+       */
+      period_end?: string;
+      /** @example true */
+      paid?: boolean;
+      /**
+       * Format: uri
+       * @example https://api.telnyx.com:443/v2/invoices/48eff763-ea80-4345-b688-78249eb165a8
+       */
+      url?: string;
+      /**
+       * Format: uri
+       * @description Present only if the query parameter `action=link` is set.
+       * @example https://us-east-1.telnyxstorage.com/porting-documents/telnyx/...
+       */
+      download_url?: string;
+    };
     /**
      * Ip
      * @example {
@@ -26536,6 +29652,10 @@ export interface components {
      *         "capture_enabled": true,
      *         "report_frequency_secs": 10
      *       },
+     *       "tags": [
+     *         "tag1",
+     *         "tag2"
+     *       ],
      *       "created_at": "2018-02-02T22:25:27.521Z",
      *       "updated_at": "2018-02-02T22:25:27.521Z",
      *       "inbound": {
@@ -26552,7 +29672,6 @@ export interface components {
      *         "generate_ringback_tone": true,
      *         "isup_headers_enabled": true,
      *         "prack_enabled": true,
-     *         "privacy_zone_enabled": true,
      *         "sip_compact_headers_enabled": true,
      *         "sip_region": "US",
      *         "sip_subdomain": "string",
@@ -26661,6 +29780,14 @@ export interface components {
        * @example 2018-02-02T22:25:27.521Z
        */
       updated_at?: string;
+      /**
+       * @description Tags associated with the connection.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       inbound?: components['schemas']['InboundIp'];
       outbound?: components['schemas']['OutboundIp'];
     };
@@ -26825,13 +29952,12 @@ export interface components {
        */
       organization_id?: string;
       /**
-       * Format: string
        * @description Status of the ledger billing group report
        * @enum {string}
        */
       status?: 'pending' | 'complete' | 'failed' | 'deleted';
       /**
-       * Format: string
+       * Format: uri
        * @description External url of the ledger billing group report, if the status is complete
        */
       report_url?: string | null;
@@ -26845,6 +29971,10 @@ export interface components {
        * @description ISO 8601 formatted date indicating when the resource was updated.
        */
       updated_at?: string;
+    };
+    /** @description An array of Advanced Order Responses */
+    ListAdvancedOrderResponse: {
+      data?: components['schemas']['AdvancedOrderResponse'][];
     };
     ListBucketsResponse: {
       Buckets?: {
@@ -26861,6 +29991,11 @@ export interface components {
         /** Format: date-time */
         LastModified?: string;
       }[];
+    };
+    /** @description Mobile mobile push credentials */
+    ListPushCredentialsResponse: {
+      data?: components['schemas']['PushCredential'][];
+      meta?: components['schemas']['PaginationMeta'];
     };
     /** ListVerificationsResponse */
     ListVerificationsResponse: {
@@ -26892,13 +30027,31 @@ export interface components {
     };
     /** Location */
     Location: {
-      id?: components['schemas']['UUID'];
-      /** @example Main building, Suite 504 */
-      additional_info?: string;
-      /** @example Chicago Office */
-      description?: string;
-      /** @description Represents whether the location is the default or not. */
-      is_default?: boolean;
+      /**
+       * @description Identifies the geographical region of location.
+       * @example AMER
+       */
+      region?: string;
+      /**
+       * @description Site of location.
+       * @example ORD
+       */
+      site?: string;
+      /**
+       * @description Point of presence of location.
+       * @example CH1
+       */
+      pop?: string;
+      /**
+       * @description Location code.
+       * @example chicago-il
+       */
+      code?: string;
+      /**
+       * @description Human readable name of location.
+       * @example Chicago IL, US
+       */
+      name?: string;
     };
     LocationResponse: {
       data?: {
@@ -26948,6 +30101,25 @@ export interface components {
       };
     };
     Loopcount: string | number;
+    MMSFallback: {
+      /**
+       * @description Phone number in +E.164 format
+       * @example +13125551234
+       */
+      from?: string;
+      /**
+       * @description Subject of the message
+       * @example Test Message
+       */
+      subject?: string;
+      /** @description List of media URLs */
+      media_urls?: string[];
+      /**
+       * @description Text
+       * @example Hello world!
+       */
+      text?: string;
+    };
     /** ManagedAccount */
     ManagedAccount: {
       /**
@@ -27140,52 +30312,8 @@ export interface components {
        */
       total_global_channels_allocated?: number;
     };
-    MdrDeleteDetailReportResponse: {
-      data?: components['schemas']['MdrDetailReportResponse'];
-    };
     MdrDeleteUsageReportsResponse: {
       data?: components['schemas']['MdrUsageReportResponse'];
-    };
-    MdrDetailReportResponse: {
-      /**
-       * Format: uuid
-       * @description Identifies the resource
-       */
-      id?: string;
-      /**
-       * Format: date-time
-       * @example 2020-07-01T00:00:00-06:00
-       */
-      start_date?: string;
-      /**
-       * Format: date-time
-       * @example 2020-07-01T00:00:00-06:00
-       */
-      end_date?: string;
-      directions?: ('INBOUND' | 'OUTBOUND')[];
-      record_types?: ('INCOMPLETE' | 'COMPLETED' | 'ERRORS')[];
-      connections?: number[];
-      /** @example report_name_8hvb45Gu */
-      report_name?: string;
-      /** @enum {string} */
-      status?: 'PENDING' | 'COMPLETE' | 'FAILED' | 'EXPIRED';
-      /** @example http://portal.telnyx.com/downloads/report_name_8hvb45Gu.csv */
-      report_url?: string;
-      filters?: components['schemas']['Filter'][];
-      /**
-       * Format: date-time
-       * @example 2020-07-01T00:00:00-06:00
-       */
-      created_at?: string;
-      /**
-       * Format: date-time
-       * @example 2020-07-01T00:00:00-06:00
-       */
-      updated_at?: string;
-      /** @example My profile */
-      profiles?: string;
-      /** @example mdr_report */
-      record_type?: string;
     };
     MdrDetailResponse: {
       /**
@@ -27262,13 +30390,6 @@ export interface components {
       /** @example mdr_report */
       record_type?: string;
     };
-    MdrGetDetailReportByIdResponse: {
-      data?: components['schemas']['MdrDetailReportResponse'];
-    };
-    MdrGetDetailReportResponse: {
-      data?: components['schemas']['MdrDetailReportResponse'][];
-      meta?: components['schemas']['PaginationMeta'];
-    };
     MdrGetDetailResponse: {
       data?: components['schemas']['MdrDetailResponse'][];
       meta?: components['schemas']['PaginationMeta'];
@@ -27282,30 +30403,6 @@ export interface components {
     MdrGetUsageReportsResponse: {
       data?: components['schemas']['MdrUsageReportResponse'][];
       meta?: components['schemas']['PaginationMeta'];
-    };
-    MdrPostDetailReportRequest: {
-      /**
-       * Format: date-time
-       * @example 2020-07-01T00:00:00-06:00
-       */
-      start_date: string;
-      /**
-       * Format: date-time
-       * @example 2020-07-01T00:00:00-06:00
-       */
-      end_date: string;
-      directions?: ('INBOUND' | 'OUTBOUND')[];
-      record_types?: ('INCOMPLETE' | 'COMPLETED' | 'ERRORS')[];
-      connections?: number[];
-      report_name?: string;
-      /** @example true */
-      include_message_body?: boolean;
-      filters?: components['schemas']['Filter'][];
-      /** @example My profile */
-      profiles?: string;
-    };
-    MdrPostDetailReportResponse: {
-      data?: components['schemas']['MdrDetailReportResponse'];
     };
     MdrPostUsageReportRequest: {
       /**
@@ -27792,7 +30889,14 @@ export interface components {
      *         "replace_blacklist_only": true,
      *         "send_webhooks": false
      *       },
-     *       "v1_secret": "rP1VamejkU2v0qIUxntqLW2c"
+     *       "v1_secret": "rP1VamejkU2v0qIUxntqLW2c",
+     *       "health_webhook_url": null,
+     *       "mms_fall_back_to_sms": false,
+     *       "mms_transcoding": false,
+     *       "daily_spend_limit": "100.00",
+     *       "daily_spend_limit_enabled": false,
+     *       "redaction_enabled": false,
+     *       "redaction_level": 2
      *     } */
     MessagingProfile: {
       /**
@@ -27805,6 +30909,16 @@ export interface components {
        * @description Identifies the type of resource.
        */
       readonly id?: string;
+      /**
+       * @description enables SMS fallback for MMS messages.
+       * @default false
+       */
+      mms_fall_back_to_sms: boolean;
+      /**
+       * @description enables automated resizing of MMS media.
+       * @default false
+       */
+      mms_transcoding: boolean;
       /** @description A user friendly name for the messaging profile. */
       name?: string;
       /** @description Specifies whether the messaging profile is enabled or not. */
@@ -27842,6 +30956,10 @@ export interface components {
       url_shortener_settings?: components['schemas']['UrlShortenerSettings'];
       /** @description The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID. */
       alpha_sender?: string | null;
+      /** @description The maximum amount of money (in USD) that can be spent by this profile before midnight UTC. */
+      daily_spend_limit?: string;
+      /** @description Whether to enforce the value configured by `daily_spend_limit`. */
+      daily_spend_limit_enabled?: boolean;
     };
     MessagingProfileDetailedMetric: {
       /**
@@ -27943,6 +31061,12 @@ export interface components {
       /** @description The number of inbound messages received. */
       readonly received?: number;
     };
+    MessagingSettings: {
+      /** @description Default Messaging Profile used for messaging exchanges with your assistant. This will be created automatically on assistant creation. */
+      default_messaging_profile_id?: string;
+      /** @description The URL where webhooks related to delivery statused for assistant messages will be sent. */
+      delivery_status_webhook_url?: string;
+    };
     /** @example {
      *       "record_type": "messaging_url_domain",
      *       "id": "464bd54e-a328-4b11-a131-28e6793cb6f2",
@@ -27955,15 +31079,12 @@ export interface components {
       url_domain?: string;
       use_case?: string;
     };
+    /** Meta */
     Meta: {
-      /** @example 3 */
-      total_pages?: number;
-      /** @example 55 */
-      total_results?: number;
-      /** @example 2 */
-      page_number?: number;
-      /** @example 25 */
-      page_size?: number;
+      total_pages: number;
+      total_results: number;
+      page_number: number;
+      page_size: number;
     };
     MetaResponse: {
       /**
@@ -28013,7 +31134,9 @@ export interface components {
       /**
        * Format: date-time
        * @description Time when data migration was last copied from the source.
-       * @example 2020-01-01T00:00:00Z
+       * @example [
+       *       "2020-01-01T00:00:00Z"
+       *     ]
        */
       readonly last_copy?: string;
       /**
@@ -28036,13 +31159,17 @@ export interface components {
       /**
        * Format: date-time
        * @description Estimated time the migration will complete.
-       * @example 2020-01-01T00:00:00Z
+       * @example [
+       *       "2020-01-01T00:00:00Z"
+       *     ]
        */
       readonly eta?: string;
       /**
        * Format: date-time
        * @description Time when data migration was created
-       * @example 2020-01-01T00:00:00Z
+       * @example [
+       *       "2020-01-01T00:00:00Z"
+       *     ]
        */
       readonly created_at?: string;
     };
@@ -28059,36 +31186,20 @@ export interface components {
       /** @description Unique identifier for the data migration source. */
       readonly id?: string;
       /**
-       * @description Cloud provider from which to migrate data.
+       * @description Cloud provider from which to migrate data. Use 'telnyx' if you want to migrate data from one Telnyx bucket to another.
        * @enum {string}
        */
-      provider: 'aws';
+      provider: 'aws' | 'telnyx';
+      /** @description For intra-Telnyx buckets migration, specify the source bucket region in this field. */
+      source_region?: string;
       provider_auth: {
-        /** @description AWS Access Key. */
+        /** @description AWS Access Key. For Telnyx-to-Telnyx migrations, use your Telnyx API key here. */
         access_key?: string;
-        /** @description AWS Secret Access Key. */
+        /** @description AWS Secret Access Key. For Telnyx-to-Telnyx migrations, use your Telnyx API key here as well. */
         secret_access_key?: string;
       };
       /** @description Bucket name to migrate the data from. */
       bucket_name: string;
-    };
-    /** Mno */
-    Mno: {
-      /**
-       * Networkid
-       * @description Unique network identifier assigned to MNO.
-       */
-      networkId: number;
-      /**
-       * Displayname
-       * @description Display name of the mobile network operator.
-       */
-      displayName: string;
-      /**
-       * Osrbitmaskindex
-       * @description NetNumber OSR 'campaign_id' property's 'status' attribute holds individual MNO campaign operation status. The 'status' attribute leverages bitmasking technique to store multiple MNOs' operating status. The campaign operation status is reduced to '1' or '0' value where '1' indicate an 'ACTIVE' status and '0' represents every other non-active statuses, including REVIEW, REJECT and SUSPEND. The 'osrBitmaskIndex' holds the bitmask index of the MNO. For example, T-Mobile's bitmask index is 2, which implies T-Mobile's campaign operation status is stored in bit #2, or 3rd bit when counting from right.
-       */
-      osrBitmaskIndex: number;
     };
     /** MnoMetadata */
     MnoMetadata: {
@@ -28154,19 +31265,6 @@ export interface components {
        */
       readonly network_preferences_enabled?: boolean;
     };
-    MobileNetworkOperatorPreferencesRequest: {
-      /**
-       * Format: uuid
-       * @description The mobile network operator resource identification UUID.
-       * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
-       */
-      mobile_network_operator_id?: string;
-      /**
-       * @description It determines what is the priority of a specific network operator that should be assumed by a SIM card when connecting to a network. The highest priority is 0, the second highest is 1 and so on.
-       * @example 0
-       */
-      priority?: number;
-    };
     MobileNetworkOperatorPreferencesResponse: {
       /**
        * Format: uuid
@@ -28185,8 +31283,6 @@ export interface components {
        */
       priority?: number;
     };
-    /** @description A list of mobile network operators and the priority that should be applied when the SIM is connecting to the network. */
-    MobileNetworkOperatorsPreferencesRequest: components['schemas']['MobileNetworkOperatorPreferencesRequest'][];
     /** @description A list of mobile network operators and the priority that should be applied when the SIM is connecting to the network. */
     MobileNetworkOperatorsPreferencesResponse: components['schemas']['MobileNetworkOperatorPreferencesResponse'][];
     /** ModelMetadata */
@@ -28803,50 +31899,6 @@ export interface components {
     NumberOrderBlockEvent: {
       data?: components['schemas']['NumberBlockOrder'];
     };
-    /** @example {
-     *       "id": "387d1e31-a218-4375-8151-103f2d5e2d2c",
-     *       "record_type": "number_order_document",
-     *       "file_id": "1e3c5822-0362-4702-8e46-5a129f0d3976",
-     *       "requirements_id": "36aaf27d-986b-493c-bd1b-de16af2e4292",
-     *       "customer_reference": "MY REF 001",
-     *       "requirement_type": "address_proof",
-     *       "created_at": "2018-01-01T00:00:00.000000Z"
-     *     } */
-    NumberOrderDocument: {
-      /**
-       * Format: uuid
-       * @example 387d1e31-a218-4375-8151-103f2d5e2d2c
-       */
-      readonly id?: string;
-      /** @example number_order_document */
-      readonly record_type?: string;
-      /**
-       * @description The id of the file to associate as a number order document.
-       * @example 1e3c5822-0362-4702-8e46-5a129f0d3976
-       */
-      file_id?: string;
-      /**
-       * @description Unique id for a requirement.
-       * @example 36aaf27d-986b-493c-bd1b-de16af2e4292
-       */
-      requirements_id?: string;
-      /**
-       * @description A customer reference string for customer look ups.
-       * @example MY REF 001
-       */
-      customer_reference?: string;
-      /** @enum {string} */
-      readonly requirement_type?:
-        | 'address_proof'
-        | 'identification'
-        | 'reg_form';
-      /**
-       * Format: datetime
-       * @description An ISO 8901 datetime string denoting when the number order document was uploaded.
-       * @example 2018-01-01T00:00:00.000000Z
-       */
-      readonly created_at?: string;
-    };
     NumberOrderPhoneNumber: {
       /**
        * Format: uuid
@@ -28999,7 +32051,7 @@ export interface components {
        * @example abc85f64-5717-4562-b3fc-2c9600
        */
       billing_group_id?: string;
-      phone_numbers?: components['schemas']['PhoneNumber'][];
+      phone_numbers?: components['schemas']['NumberOrderPhoneNumber'][];
       sub_number_orders_ids?: string[];
       /**
        * @description The status of the order.
@@ -29028,35 +32080,6 @@ export interface components {
        * @example true
        */
       readonly requirements_met?: boolean;
-    };
-    /** Number Order Event Data */
-    NumberOrdered: {
-      /**
-       * @description Identifies the type of the resource.
-       * @example event
-       * @enum {string}
-       */
-      record_type?: 'event';
-      /**
-       * Format: uuid
-       * @description Identifies the type of resource.
-       */
-      id?: string;
-      /**
-       * @description The type of event being delivered.
-       * @example number_order.complete
-       */
-      event_type?: string;
-      /**
-       * Format: date-time
-       * @description ISO 8601 formatted date indicating when the resource was created.
-       */
-      occurred_at?: string;
-      payload?: components['schemas']['NumberOrder'];
-    };
-    /** Number Order Event */
-    NumberOrderedEvent: {
-      data?: components['schemas']['NumberOrdered'];
     };
     /**
      * @description Number Pool allows you to send messages from a pool of numbers of different types, assigning
@@ -29169,6 +32192,31 @@ export interface components {
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly updated_at?: string;
+    };
+    OptOutItem: {
+      /**
+       * Format: address
+       * @description Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).
+       */
+      from?: string;
+      to?: components['schemas']['ToNumber'];
+      /** @description Unique identifier for a messaging profile. */
+      messaging_profile_id?: string | null;
+      /**
+       * @description The keyword that triggered the opt-out.
+       * @example STOP
+       */
+      keyword?: string | null;
+      /**
+       * Format: date-time
+       * @description The timestamp when the opt-out was created
+       * @example 2025-04-28 12:00:38.631252
+       */
+      created_at?: string;
+    };
+    OptOutListResponse: {
+      data?: components['schemas']['OptOutItem'][];
+      meta?: components['schemas']['PaginationMeta'];
     };
     /** OrderExternalVetting */
     OrderExternalVetting: {
@@ -29405,6 +32453,7 @@ export interface components {
      *             "line_type": "Wireless"
      *           }
      *         ],
+     *         "cc": [],
      *         "text": "Hello, World!",
      *         "subject": "From Telnyx!",
      *         "media": [
@@ -29422,7 +32471,23 @@ export interface components {
      *         "tags": [
      *           "Greetings"
      *         ],
-     *         "cost": null,
+     *         "cost": {
+     *           "amount": 0.0051,
+     *           "currency": "USD"
+     *         },
+     *         "cost_breakdown": {
+     *           "carrier_fee": {
+     *             "amount": 0.00305,
+     *             "currency": "USD"
+     *           },
+     *           "rate": {
+     *             "amount": 0.00205,
+     *             "currency": "USD"
+     *           }
+     *         },
+     *         "tcr_campaign_id": "TCPA3X7",
+     *         "tcr_campaign_billable": true,
+     *         "tcr_campaign_registered": "REGISTERED",
      *         "received_at": "2019-01-23T18:10:02.574Z",
      *         "sent_at": null,
      *         "completed_at": null,
@@ -29491,6 +32556,7 @@ export interface components {
      *           "line_type": "Wireless"
      *         }
      *       ],
+     *       "cc": [],
      *       "text": "Hello, World!",
      *       "subject": "From Telnyx!",
      *       "media": [
@@ -29508,7 +32574,23 @@ export interface components {
      *       "tags": [
      *         "Greetings"
      *       ],
-     *       "cost": null,
+     *       "cost": {
+     *         "amount": 0.0051,
+     *         "currency": "USD"
+     *       },
+     *       "cost_breakdown": {
+     *         "carrier_fee": {
+     *           "amount": 0.00305,
+     *           "currency": "USD"
+     *         },
+     *         "rate": {
+     *           "amount": 0.00205,
+     *           "currency": "USD"
+     *         }
+     *       },
+     *       "tcr_campaign_id": "TCPA3X7",
+     *       "tcr_campaign_billable": true,
+     *       "tcr_campaign_registered": "REGISTERED",
      *       "received_at": "2019-01-23T18:10:02.574Z",
      *       "sent_at": null,
      *       "completed_at": null,
@@ -29648,6 +32730,281 @@ export interface components {
          */
         currency?: string;
       } | null;
+      /** @description Detailed breakdown of the message cost components. */
+      cost_breakdown?: {
+        carrier_fee?: {
+          /**
+           * Format: decimal
+           * @description The carrier fee amount.
+           */
+          amount?: string;
+          /**
+           * Format: iso4217
+           * @description The ISO 4217 currency identifier.
+           */
+          currency?: string;
+        };
+        rate?: {
+          /**
+           * Format: decimal
+           * @description The rate amount applied.
+           */
+          amount?: string;
+          /**
+           * Format: iso4217
+           * @description The ISO 4217 currency identifier.
+           */
+          currency?: string;
+        };
+      } | null;
+      /** @description The Campaign Registry (TCR) campaign ID associated with the message. */
+      tcr_campaign_id?: string | null;
+      /** @description Indicates whether the TCR campaign is billable. */
+      tcr_campaign_billable?: boolean;
+      /**
+       * @description The registration status of the TCR campaign.
+       * @example REGISTERED
+       */
+      tcr_campaign_registered?: string | null;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date indicating when the message request was received.
+       */
+      received_at?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date indicating when the message was sent.
+       */
+      sent_at?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date indicating when the message was finalized.
+       */
+      completed_at?: string;
+      /**
+       * Format: date-time
+       * @description Message must be out of the queue by this time or else it will be discarded and marked as 'sending_failed'. Once the message moves out of the queue, this field will be nulled
+       */
+      valid_until?: string | null;
+      /** @description These errors may point at addressees when referring to unsuccessful/unconfirmed delivery statuses. */
+      errors?: components['schemas']['Error'][];
+    };
+    /** @example {
+     *       "record_type": "message",
+     *       "direction": "outbound",
+     *       "id": "40385f64-5717-4562-b3fc-2c963f66afa6",
+     *       "type": "SMS",
+     *       "messaging_profile_id": "4000eba1-a0c0-4563-9925-b25e842a7cb6",
+     *       "organization_id": "b448f9cc-a842-4784-98e9-03c1a5872950",
+     *       "from": {
+     *         "phone_number": "+18445550001",
+     *         "carrier": "TELNYX LLC",
+     *         "line_type": "VoIP"
+     *       },
+     *       "to": [
+     *         {
+     *           "phone_number": "+18665550001",
+     *           "status": "cancelled",
+     *           "carrier": "T-MOBILE USA, INC.",
+     *           "line_type": "Wireless"
+     *         }
+     *       ],
+     *       "cc": [],
+     *       "text": "Hello, World!",
+     *       "subject": "From Telnyx!",
+     *       "media": [],
+     *       "webhook_url": "https://www.example.com/hooks",
+     *       "webhook_failover_url": "https://backup.example.com/hooks",
+     *       "encoding": "GSM-7",
+     *       "parts": 1,
+     *       "tags": [
+     *         "Greetings"
+     *       ],
+     *       "cost": {
+     *         "amount": 0,
+     *         "currency": null
+     *       },
+     *       "cost_breakdown": null,
+     *       "tcr_campaign_id": "TCPA3X7",
+     *       "tcr_campaign_billable": true,
+     *       "tcr_campaign_registered": "REGISTERED",
+     *       "received_at": "2019-01-23T18:10:02.574Z",
+     *       "sent_at": null,
+     *       "completed_at": null,
+     *       "valid_until": null,
+     *       "errors": []
+     *     } */
+    OutboundMessagePayloadCancelled: {
+      /**
+       * @description Identifies the type of the resource.
+       * @example message
+       * @enum {string}
+       */
+      record_type?: 'message';
+      /**
+       * @description The direction of the message. Inbound messages are sent to you whereas outbound messages are sent from you.
+       * @example outbound
+       * @enum {string}
+       */
+      direction?: 'outbound';
+      /**
+       * Format: uuid
+       * @description Identifies the type of resource.
+       */
+      id?: string;
+      /**
+       * @description The type of message.
+       * @enum {string}
+       */
+      type?: 'SMS' | 'MMS';
+      /** @description Unique identifier for a messaging profile. */
+      messaging_profile_id?: string;
+      /**
+       * Format: uuid
+       * @description The id of the organization the messaging profile belongs to.
+       */
+      organization_id?: string;
+      from?: {
+        /**
+         * Format: address
+         * @description Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code).
+         */
+        phone_number?: string;
+        /** @description The carrier of the receiver. */
+        carrier?: string;
+        /**
+         * @description The line-type of the receiver.
+         * @enum {string}
+         */
+        line_type?:
+          | 'Wireline'
+          | 'Wireless'
+          | 'VoWiFi'
+          | 'VoIP'
+          | 'Pre-Paid Wireless'
+          | '';
+      };
+      to?: {
+        /**
+         * Format: address
+         * @description Receiving address (+E.164 formatted phone number or short code).
+         */
+        phone_number?: string;
+        /**
+         * @description The delivery status of the message.
+         * @enum {string}
+         */
+        status?:
+          | 'scheduled'
+          | 'queued'
+          | 'sending'
+          | 'sent'
+          | 'cancelled'
+          | 'expired'
+          | 'sending_failed'
+          | 'delivery_unconfirmed'
+          | 'delivered'
+          | 'delivery_failed';
+        /** @description The carrier of the receiver. */
+        carrier?: string;
+        /**
+         * @description The line-type of the receiver.
+         * @enum {string}
+         */
+        line_type?:
+          | 'Wireline'
+          | 'Wireless'
+          | 'VoWiFi'
+          | 'VoIP'
+          | 'Pre-Paid Wireless'
+          | '';
+      }[];
+      /** @description Message body (i.e., content) as a non-empty string.
+       *
+       *     **Required for SMS** */
+      text?: string;
+      /** @description Subject of multimedia message */
+      subject?: string | null;
+      media?: {
+        /**
+         * Format: url
+         * @description The url of the media requested to be sent.
+         */
+        url?: string;
+        /**
+         * Format: mime-type
+         * @description The MIME type of the requested media.
+         */
+        content_type?: string | null;
+        /** @description The SHA256 hash of the requested media. */
+        sha256?: string | null;
+        /** @description The size of the requested media. */
+        size?: number | null;
+      }[];
+      /**
+       * Format: url
+       * @description The URL where webhooks related to this message will be sent.
+       */
+      webhook_url?: string | null;
+      /**
+       * Format: url
+       * @description The failover URL where webhooks related to this message will be sent if sending to the primary URL fails.
+       */
+      webhook_failover_url?: string | null;
+      /** @description Encoding scheme used for the message body. */
+      encoding?: string;
+      /** @description Number of parts into which the message's body must be split. */
+      parts?: number;
+      /** @description Tags associated with the resource. */
+      tags?: string[];
+      cost?: {
+        /**
+         * Format: decimal
+         * @description The amount deducted from your account.
+         */
+        amount?: string;
+        /**
+         * Format: iso4217
+         * @description The ISO 4217 currency identifier.
+         */
+        currency?: string;
+      } | null;
+      /** @description Detailed breakdown of the message cost components. */
+      cost_breakdown?: {
+        carrier_fee?: {
+          /**
+           * Format: decimal
+           * @description The carrier fee amount.
+           */
+          amount?: string;
+          /**
+           * Format: iso4217
+           * @description The ISO 4217 currency identifier.
+           */
+          currency?: string;
+        };
+        rate?: {
+          /**
+           * Format: decimal
+           * @description The rate amount applied.
+           */
+          amount?: string;
+          /**
+           * Format: iso4217
+           * @description The ISO 4217 currency identifier.
+           */
+          currency?: string;
+        };
+      } | null;
+      /** @description The Campaign Registry (TCR) campaign ID associated with the message. */
+      tcr_campaign_id?: string | null;
+      /** @description Indicates whether the TCR campaign is billable. */
+      tcr_campaign_billable?: boolean;
+      /**
+       * @description The registration status of the TCR campaign.
+       * @example REGISTERED
+       */
+      tcr_campaign_registered?: string | null;
       /**
        * Format: date-time
        * @description ISO 8601 formatted date indicating when the message request was received.
@@ -29813,6 +33170,59 @@ export interface components {
       readonly count?: number;
     };
     /**
+     * PaginatedAssistantTestList
+     * @description Paginated list of assistant tests with metadata.
+     *
+     *     Returns a subset of tests based on pagination parameters along with
+     *     metadata for implementing pagination controls in the UI.
+     */
+    PaginatedAssistantTestList: {
+      /** @description Pagination metadata including total counts and current page info. */
+      meta: components['schemas']['Meta'];
+      /**
+       * Data
+       * @description Array of assistant test objects for the current page.
+       */
+      data: components['schemas']['AssistantTestResponse'][];
+    };
+    /** PaginatedBillingBundlesResponse */
+    PaginatedBillingBundlesResponse: {
+      meta: components['schemas']['PaginationResponse'];
+      /** Data */
+      data: components['schemas']['BillingBundleSummary'][];
+    };
+    /** PaginatedScheduledEventList */
+    PaginatedScheduledEventList: {
+      meta: components['schemas']['Meta'];
+      /** Data */
+      data: (
+        | components['schemas']['ScheduledPhoneCallEventResponse']
+        | components['schemas']['ScheduledSmsEventResponse']
+      )[];
+    };
+    /**
+     * PaginatedTestRunList
+     * @description Paginated list of test runs with metadata.
+     *
+     *     Returns test run execution results with pagination support for
+     *     handling large numbers of test executions.
+     */
+    PaginatedTestRunList: {
+      /** @description Pagination metadata including total counts and current page info. */
+      meta: components['schemas']['Meta'];
+      /**
+       * Data
+       * @description Array of test run objects for the current page.
+       */
+      data: components['schemas']['TestRunResponse'][];
+    };
+    /** PaginatedUserBundlesResponse */
+    PaginatedUserBundlesResponse: {
+      meta: components['schemas']['PaginationResponse'];
+      /** Data */
+      data: components['schemas']['UserBundle'][];
+    };
+    /**
      * Paginated[VerificationRequestStatus]
      * @description A paginated response
      */
@@ -29863,14 +33273,49 @@ export interface components {
       page_size?: number;
     };
     PaginationMetaSimple: {
-      /** @example 2 */
+      /** @example [
+       *       2
+       *     ] */
       page_number?: number;
-      /** @example 25 */
+      /** @example [
+       *       25
+       *     ] */
       page_size?: number;
-      /** @example 3 */
+      /** @example [
+       *       3
+       *     ] */
       total_pages?: number;
-      /** @example 55 */
+      /** @example [
+       *       55
+       *     ] */
       total_results?: number;
+    };
+    /** PaginationResponse */
+    PaginationResponse: {
+      /**
+       * Total Results
+       * @description Total number of results returned.
+       * @example 55
+       */
+      total_results: number;
+      /**
+       * Total Pages
+       * @description Total number of pages from the results.
+       * @example 3
+       */
+      total_pages: number;
+      /**
+       * Page Number
+       * @description The current page number.
+       * @example 2
+       */
+      page_number: number;
+      /**
+       * Page Size
+       * @description The number of results per page.
+       * @example 25
+       */
+      page_size: number;
     };
     /**
      * Participant
@@ -30182,79 +33627,12 @@ export interface components {
        * @example 891510ac-f3e4-11e8-af5b-de00688a4901
        */
       command_id?: string;
-    };
-    /** @example {
-     *       "id": "dc8e4d67-33a0-4cbb-af74-7b58f05bd494",
-     *       "record_type": "number_order_phone_number",
-     *       "phone_number": "+19705555098",
-     *       "bundle_id": "bc8e4d67-33a0-4cbb-af74-7b58f05bd474",
-     *       "regulatory_requirements": [
-     *         {
-     *           "record_type": "phone_number_regulatory_requirement",
-     *           "requirement_id": "8ffb3622-7c6b-4ccc-b65f-7a3dc0099576",
-     *           "field_value": "45f45a04-b4be-4592-95b1-9306b9db2b21",
-     *           "field_type": "address"
-     *         }
-     *       ],
-     *       "requirements_met": true,
-     *       "status": "success"
-     *     } */
-    PhoneNumber: {
       /**
        * Format: uuid
-       * @example dc8e4d67-33a0-4cbb-af74-7b58f05bd494
+       * @description Uniquely identifies the resource.
+       * @example 6e00ab49-9487-4364-8ad6-23965965afb2
        */
-      readonly id?: string;
-      /** @example number_order_phone_number */
-      readonly record_type?: string;
-      /**
-       * Format: e164_phone_number
-       * @example +19705555098
-       */
-      phone_number?: string;
-      regulatory_requirements?: components['schemas']['SubNumberOrderRegulatoryRequirementWithValue'][];
-      /**
-       * @description True if all requirements are met for a phone number, false otherwise.
-       * @example true
-       */
-      readonly requirements_met?: boolean;
-      /**
-       * @description Status of document requirements (if applicable)
-       * @enum {string}
-       */
-      readonly requirements_status?:
-        | 'pending'
-        | 'approved'
-        | 'cancelled'
-        | 'deleted'
-        | 'requirement-info-exception'
-        | 'requirement-info-pending'
-        | 'requirement-info-under-review';
-      /**
-       * @description The status of the phone number in the order.
-       * @enum {string}
-       */
-      readonly status?: 'pending' | 'success' | 'failure';
-      /**
-       * Format: uuid
-       * @example bc8e4d67-33a0-4cbb-af74-7b58f05bd494
-       */
-      readonly bundle_id?: string;
-      /**
-       * @description Phone number type
-       * @enum {string}
-       */
-      readonly phone_number_type?:
-        | 'local'
-        | 'mobile'
-        | 'national'
-        | 'shared_cost'
-        | 'toll_free';
-      /**
-       * @description Country code of the phone number
-       * @example US
-       */
-      readonly country_code?: string;
+      recording_id?: string;
     };
     /** @example {
      *       "id": "42587e44-3a3e-46de-9255-0c9a7a1d1ec7",
@@ -30394,12 +33772,12 @@ export interface components {
       failureReasons?: unknown;
       /**
        * Createdat
-       * Format: date-time
+       * @example 2021-03-08T17:57:48.801186
        */
       createdAt: string;
       /**
        * Updatedat
-       * Format: date-time
+       * @example 2021-03-08T17:57:48.801186
        */
       updatedAt: string;
     };
@@ -30427,14 +33805,6 @@ export interface components {
       /** Totalrecords */
       totalRecords: number;
     };
-    /** PhoneNumberCampaignUpdate */
-    PhoneNumberCampaignUpdate: {
-      /**
-       * Campaignid
-       * @example 4b300178-131c-d902-d54e-72d90ba1620j
-       */
-      campaignId: string;
-    };
     /** @example {
      *       "id": "1293384261075731499",
      *       "record_type": "phone_number",
@@ -30458,7 +33828,6 @@ export interface components {
      *       "caller_id_name_enabled": true,
      *       "call_recording_enabled": true,
      *       "t38_fax_gateway_enabled": true,
-     *       "number_level_routing": "disabled",
      *       "phone_number_type": "local",
      *       "purchased_at": "2019-10-23T18:10:00.000Z",
      *       "created_at": "2019-10-23T18:10:00.000Z",
@@ -30537,12 +33906,6 @@ export interface components {
       /** @description ISO 8601 formatted date indicating when the resource was updated. */
       readonly updated_at?: string;
       /**
-       * @description Deprecated field, the only value for this is 'disabled'. All routing for numbers should be configured via connection settings.
-       * @default disabled
-       * @enum {string}
-       */
-      number_level_routing: 'disabled';
-      /**
        * @description The phone number's type.
        * @enum {string}
        */
@@ -30558,6 +33921,7 @@ export interface components {
      *       "id": "1293384261075731499",
      *       "record_type": "phone_number",
      *       "phone_number": "+19705555098",
+     *       "country_iso_alpha2": "US",
      *       "status": "active",
      *       "tags": [
      *         "tag_1",
@@ -30578,13 +33942,13 @@ export interface components {
      *       "caller_id_name_enabled": true,
      *       "call_recording_enabled": true,
      *       "t38_fax_gateway_enabled": true,
-     *       "number_level_routing": "disabled",
      *       "phone_number_type": "local",
      *       "inbound_call_screening": "disabled",
      *       "purchased_at": "2019-10-23T18:10:00.000Z",
      *       "created_at": "2019-10-23T18:10:00.000Z",
      *       "updated_at": "2019-10-24T18:10:00.000Z",
-     *       "hd_voice_enabled": true
+     *       "hd_voice_enabled": true,
+     *       "source_type": "number_order"
      *     } */
     PhoneNumberDetailed: {
       id?: components['schemas']['IntId'];
@@ -30595,6 +33959,11 @@ export interface components {
       readonly record_type?: string;
       /** @description The +E.164-formatted phone number associated with this record. */
       readonly phone_number?: string;
+      /**
+       * @description The ISO 3166-1 alpha-2 country code of the phone number.
+       * @example US
+       */
+      readonly country_iso_alpha2?: string;
       /**
        * @description The phone number's current status.
        * @enum {string}
@@ -30670,12 +34039,6 @@ export interface components {
       /** @description ISO 8601 formatted date indicating when the resource was created. */
       readonly created_at?: string;
       /**
-       * @description Deprecated field, the only value for this is 'disabled'. All routing for numbers should be configured via connection settings.
-       * @default disabled
-       * @enum {string}
-       */
-      number_level_routing: 'disabled';
-      /**
        * @description The phone number's type.
        *     Note: For numbers purchased prior to July 2023 or when fetching a number's details immediately after a purchase completes, the legacy values `tollfree`, `shortcode` or `longcode` may be returned instead.
        * @enum {string}
@@ -30696,6 +34059,11 @@ export interface components {
        * @enum {string}
        */
       inbound_call_screening: 'disabled' | 'reject_calls' | 'flag_calls';
+      /**
+       * @description Indicates if the phone number was purchased or ported in. For some numbers this information may not be available.
+       * @enum {string|null}
+       */
+      readonly source_type?: 'number_order' | 'port_request' | null;
     };
     /** @example {
      *       "emergency_enabled": true,
@@ -30709,33 +34077,6 @@ export interface components {
        * @description Identifies the address to be used with emergency services.
        */
       emergency_address_id: string;
-    };
-    /** PhoneNumberStatus */
-    PhoneNumberStatus: {
-      /**
-       * Phonenumber
-       * @description A phone number that is intended to be linked to a campaign.
-       * @example +12193849584
-       */
-      phoneNumber: string;
-      /**
-       * @description The current status of the phone number.
-       * @example pending
-       */
-      status: components['schemas']['AssignmentStatus'];
-      /**
-       * Assigned At
-       * Format: date-time
-       * @description The date and time that the this phone number was assigned.
-       * @example 2021-06-30T10:49:04-07:00
-       */
-      assigned_at?: string;
-      /**
-       * Error
-       * @description Errors related to an individual phone number assignment.
-       * @example Detailed error description here.
-       */
-      error?: string;
     };
     /** PhoneNumberStatusResponsePaginated */
     PhoneNumberStatusResponsePaginated: {
@@ -30922,14 +34263,6 @@ export interface components {
        */
       inbound_call_screening: 'disabled' | 'reject_calls' | 'flag_calls';
     };
-    PhoneNumbersBulkUpdateError: {
-      /**
-       * Format: e164
-       * @description The phone number in e164 format.
-       */
-      phone_number?: string;
-      errors?: components['schemas']['Error'][];
-    };
     /** @example {
      *       "id": "42587e44-3a3e-46de-9255-0c9a7a1d1ec7",
      *       "record_type": "phone_numbers_job",
@@ -31101,13 +34434,13 @@ export interface components {
      *     } */
     PhoneNumbersJobUpdateEmergencySettingsRequest: {
       phone_numbers: string[];
-      /** @description Indicates whether to enable emergency services on this number. */
+      /** @description Indicates whether to enable or disable emergency services on the numbers. */
       emergency_enabled: boolean;
       /**
        * Format: int64
-       * @description Identifies the address to be used with emergency services.
+       * @description Identifies the address to be used with emergency services. Required if emergency_enabled is true, must be null or omitted if emergency_enabled is false.
        */
-      emergency_address_id: string;
+      emergency_address_id?: string | null;
     };
     /** @example {
      *       "phone_numbers": [
@@ -31130,7 +34463,7 @@ export interface components {
      *       }
      *     } */
     PhoneNumbersJobUpdatePhoneNumbersRequest: {
-      /** @description Array of phone number ids and/or phone numbers in E164 format to update */
+      /** @description Array of phone number ids and/or phone numbers in E164 format to update. This parameter is required if no filter parameters are provided. If you want to update specific numbers rather than all numbers matching a filter, you must use this parameter. Each item must be either a valid phone number ID or a phone number in E164 format (e.g., '+13127367254'). */
       phone_numbers: string[];
       /** @description A list of user-assigned tags to help organize phone numbers. */
       tags?: string[];
@@ -31562,27 +34895,27 @@ export interface components {
       address?: {
         /**
          * @description The street address of the company
-         * @example 311 W. Superior St
+         * @example 600 Congress Avenue
          */
         street_address?: string;
         /**
          * @description The extended address of the company
-         * @example Suite 504
+         * @example 14th Floor
          */
         extended_address?: string;
         /**
          * @description The locality of the company
-         * @example Chicago
+         * @example Austin
          */
         city?: string;
         /**
          * @description The administrative area of the company
-         * @example IL
+         * @example TX
          */
         state?: string;
         /**
          * @description The postal code of the company
-         * @example 60654
+         * @example 78701
          */
         zip_code?: string;
         /**
@@ -31814,27 +35147,27 @@ export interface components {
     PortingOrderEndUserLocation: {
       /**
        * @description First line of billing address
-       * @example 311 W. Superior St
+       * @example 600 Congress Avenue
        */
       street_address?: string;
       /**
        * @description Second line of billing address
-       * @example Suite 504
+       * @example 14th Floor
        */
       extended_address?: string;
       /**
        * @description City or municipality of billing address
-       * @example Chicago
+       * @example Austin
        */
       locality?: string;
       /**
        * @description State, province, or similar of billing address
-       * @example IL
+       * @example TX
        */
       administrative_area?: string;
       /**
        * @description Postal Code of billing address
-       * @example 60654
+       * @example 78701
        */
       postal_code?: string;
       /**
@@ -32725,6 +36058,12 @@ export interface components {
        * @example 2018-02-02T22:25:27.521Z
        */
       updated_at?: string;
+      /**
+       * @description Indicates whether messaging services should be maintained with Telnyx after the port out completes
+       * @default false
+       * @example false
+       */
+      host_messaging: boolean;
     };
     PortoutEvent: {
       /**
@@ -32846,16 +36185,16 @@ export interface components {
     PresignedObjectUrlParams: {
       /**
        * @description The time to live of the token in seconds
-       * @example 60
+       * @example [
+       *       60
+       *     ]
        */
       ttl?: number;
     };
-    /**
-     * @description The format for the preview file in case the `store_preview` is `true`.
-     * @default tiff
-     * @enum {string}
-     */
-    PreviewFormat: 'pdf' | 'tiff';
+    PrivacySettings: {
+      /** @description If true, conversation history and insights will be stored. If false, they will not be stored. This in‑tool toggle governs solely the retention of conversation history and insights via the AI assistant. It has no effect on any separate recording, transcription, or storage configuration that you have set at the account, number, or application level. All such external settings remain in force regardless of your selection here. */
+      data_retention?: boolean;
+    };
     PrivateWirelessGateway: {
       /**
        * Format: uuid
@@ -32955,27 +36294,6 @@ export interface components {
        */
       status: string;
     };
-    /** PublicCompany */
-    PublicCompany: {
-      /** Symbol */
-      symbol?: string;
-      exchange?: components['schemas']['Exchange'];
-      /** Iso2 */
-      iso2?: string;
-      /** Isin */
-      isin?: string;
-      /** Displayname */
-      displayName?: string;
-    };
-    /** PublicCompanyRecordSet */
-    PublicCompanyRecordSet: {
-      /** Records */
-      records?: components['schemas']['PublicCompany'][];
-      /** Page */
-      page?: number;
-      /** Totalrecords */
-      totalRecords?: number;
-    };
     PublicInternetGateway: components['schemas']['Record'] &
       components['schemas']['Interface'] & {
         /**
@@ -32994,6 +36312,25 @@ export interface components {
       Record<string, never>;
     PublicInternetGatewayRead: components['schemas']['PublicInternetGateway'] &
       components['schemas']['RegionOut'];
+    /** PublicTextClusteringRequest */
+    PublicTextClusteringRequest: {
+      /** @description The embedded storage bucket to compute the clusters from. The bucket must already be [embedded](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding). */
+      bucket: string;
+      /** @description Prefix to filter whcih files in the buckets are included. */
+      prefix?: string;
+      /** @description Array of files to filter which are included. */
+      files?: string[];
+      /**
+       * @description Smallest number of related text chunks to qualify as a cluster. Top-level clusters should be thought of as identifying broad themes in your data.
+       * @default 25
+       */
+      min_cluster_size: number;
+      /**
+       * @description Smallest number of related text chunks to qualify as a sub-cluster. Sub-clusters should be thought of as identifying more specific topics within a broader theme.
+       * @default 5
+       */
+      min_subcluster_size: number;
+    };
     /** Successful response with details about a push credential */
     PushCredential: {
       /**
@@ -33043,6 +36380,10 @@ export interface components {
        * @example 2021-03-26T17:51:59.588408Z
        */
       updated_at: string;
+    };
+    /** @description Success response with details about a push credential */
+    PushCredentialResponse: {
+      data?: components['schemas']['PushCredential'];
     };
     /**
      * @description The quality of the fax. The `ultra` settings provides the highest quality available, but also present longer fax processing times. `ultra_light` is best suited for images, wihle `ultra_dark` is best suited for text.
@@ -33198,7 +36539,58 @@ export interface components {
       create_calendar_event_action?: components['schemas']['RCSCreateCalendarEventAction'];
       open_url_action?: components['schemas']['RCSOpenUrlAction'];
       share_location_action?: components['schemas']['RCSShareLocationAction'];
-      compose_action?: components['schemas']['RCSComposeAction'];
+    };
+    RCSAgent: {
+      /**
+       * @description RCS Agent ID
+       * @example TestAgent
+       */
+      agent_id?: string;
+      /**
+       * @description User ID associated with the RCS Agent
+       * @example 2ecf295b-36c6-4d43-ad05-71eb1e560518
+       */
+      user_id?: string;
+      /**
+       * Format: uuid
+       * @description Messaging profile ID associated with the RCS Agent
+       * @example 4001932a-b8a3-42fc-9389-021be6388909
+       */
+      profile_id?: string | null;
+      /**
+       * Format: url
+       * @description URL to receive RCS events
+       * @example http://example.com
+       */
+      webhook_url?: string | null;
+      /**
+       * Format: url
+       * @description Failover URL to receive RCS events
+       * @example http://example.com
+       */
+      webhook_failover_url?: string | null;
+      /**
+       * @description Human readable agent name
+       * @example Test Agent
+       */
+      agent_name?: string;
+      /**
+       * @description Specifies whether the agent is enabled
+       * @example true
+       */
+      enabled?: boolean;
+      /**
+       * Format: date-time
+       * @description Date and time when the resource was created
+       * @example 2024-01-01T12:00:00.000Z
+       */
+      created_at?: string;
+      /**
+       * Format: date-time
+       * @description Date and time when the resource was updated
+       * @example 2024-01-01T12:00:00.000Z
+       */
+      updated_at?: string;
     };
     RCSAgentMessage: {
       content_message?: components['schemas']['RCSContentMessage'];
@@ -33214,6 +36606,60 @@ export interface components {
        * @example 10.5s
        */
       ttl?: string;
+    };
+    RCSAgentResponse: {
+      data?: components['schemas']['RCSAgent'];
+    };
+    RCSAgentUpdate: {
+      /**
+       * Format: uuid
+       * @description Messaging profile ID associated with the RCS Agent
+       * @example 4001932a-b8a3-42fc-9389-021be6388909
+       */
+      profile_id?: string | null;
+      /**
+       * Format: url
+       * @description URL to receive RCS events
+       * @example http://example.com
+       */
+      webhook_url?: string | null;
+      /**
+       * Format: url
+       * @description Failover URL to receive RCS events
+       * @example http://example.com
+       */
+      webhook_failover_url?: string | null;
+    };
+    RCSAgentsResponse: {
+      data?: components['schemas']['RCSAgent'][];
+      meta?: components['schemas']['PaginationMeta'];
+    };
+    RCSCapabilitiesSingle: {
+      data?: {
+        /**
+         * @description Identifies the type of the resource
+         * @example rcs.capabilities
+         * @enum {string}
+         */
+        record_type?: 'rcs.capabilities';
+        /**
+         * @description Phone number
+         * @example +13125551234
+         */
+        phone_number?: string;
+        /**
+         * @description RCS agent ID
+         * @example TestAgent
+         */
+        agent_id?: string;
+        /**
+         * @description RCS agent name
+         * @example Testing agent
+         */
+        agent_name?: string;
+        /** @description List of RCS capabilities */
+        features?: string[];
+      };
     };
     RCSCardContent: {
       /**
@@ -33234,14 +36680,9 @@ export interface components {
        * @example SMALL
        * @enum {string}
        */
-      card_width?: 'CARD_WIDTH_UNSPECIFIED' | 'SMALL' | 'MEDIUM';
+      card_width: 'CARD_WIDTH_UNSPECIFIED' | 'SMALL' | 'MEDIUM';
       /** @description The list of contents for each card in the carousel. A carousel can have a minimum of 2 cards and a maximum 10 cards. */
-      card_contents?: components['schemas']['RCSCardContent'][];
-    };
-    /** @description Compose and send a message to a destination predefined by chatbot. */
-    RCSComposeAction: {
-      compose_text_message?: components['schemas']['RCSComposeTextMessage'];
-      compose_recording_message?: components['schemas']['RCSComposeRecordingMessage'];
+      card_contents: components['schemas']['RCSCardContent'][];
     };
     /** @description Initiate the recording and sending of an audio or video message. */
     RCSComposeRecordingMessage: {
@@ -33249,7 +36690,7 @@ export interface components {
        * @description phone number in +E.164 format
        * @example +13125551234
        */
-      phone_number?: string;
+      phone_number: string;
       /**
        * @description The type of the recording action.
        * @enum {string}
@@ -33275,12 +36716,13 @@ export interface components {
        * @description Publicly reachable URL of the file.
        * @example https://example.com/elephant.jpg
        */
-      file_url?: string;
+      file_url: string;
       /**
        * Format: url
        * @description Publicly reachable URL of the thumbnail. Maximum size of 100 kB.
        */
       thumbnail_url?: string;
+      /** @description If set the URL content will not be cached. */
       force_refresh?: boolean;
     };
     RCSContentMessage: {
@@ -33329,14 +36771,14 @@ export interface components {
     };
     RCSFrom: {
       /**
-       * @description bot ID
-       * @example Botman123
+       * @description agent ID
+       * @example Agent007
        */
-      bot_id?: string;
+      agent_id?: string;
       /** @example Telnyx */
       carrier?: string;
-      /** @example Wireless */
-      line_type?: string;
+      /** @example Test Agent */
+      agent_name?: string;
     };
     RCSLatLng: {
       /**
@@ -33362,10 +36804,10 @@ export interface components {
     };
     RCSMessage: {
       /**
-       * @description RCS Bot ID
-       * @example Botman123
+       * @description RCS Agent ID
+       * @example Agent007
        */
-      bot_id: string;
+      agent_id: string;
       /**
        * @description Phone number in +E.164 format
        * @example +13125551234
@@ -33379,7 +36821,14 @@ export interface components {
        * @enum {string}
        */
       type?: 'RCS';
+      /**
+       * Format: url
+       * @description The URL where webhooks related to this message will be sent.
+       */
+      webhook_url?: string;
       agent_message: components['schemas']['RCSAgentMessage'];
+      sms_fallback?: components['schemas']['SMSFallback'];
+      mms_fallback?: components['schemas']['MMSFallback'];
     };
     /** @description Opens the user's default web browser app to the specified URL. */
     RCSOpenUrlAction: {
@@ -33409,6 +36858,7 @@ export interface components {
     RCSReply: {
       /** @description Text that is shown in the suggested reply (maximum 25 characters) */
       text?: string;
+      /** @description Payload (base64 encoded) that will be sent to the agent in the user event that results when the user taps the suggested action. Maximum 2048 characters. */
       postback_data?: string;
     };
     RCSResponse: {
@@ -33469,6 +36919,31 @@ export interface components {
       reply?: components['schemas']['RCSReply'];
       action?: components['schemas']['RCSAction'];
     };
+    RCSTestNumberInviteResponse: {
+      data: {
+        /**
+         * @description Identifies the type of the resource
+         * @example rcs.test_number_invite
+         * @enum {string}
+         */
+        record_type?: 'rcs.test_number_invite';
+        /**
+         * @description RCS agent ID
+         * @example TestAgent
+         */
+        agent_id?: string;
+        /**
+         * @description Phone number that was invited for testing
+         * @example +13125551234
+         */
+        phone_number?: string;
+        /**
+         * @description Status of the test number invitation
+         * @example PENDING
+         */
+        status?: string;
+      };
+    };
     RCSTo: components['schemas']['RCSToItem'][];
     RCSToItem: {
       /** @example +13125551234 */
@@ -33488,7 +36963,6 @@ export interface components {
       /** @description query string (Android only) */
       query?: string;
     };
-    ReadComment: components['schemas']['Comment'];
     Record: {
       /**
        * Format: uuid
@@ -33512,24 +36986,11 @@ export interface components {
        */
       readonly updated_at?: string;
     };
-    /** @description An object following one of the schemas published in https://developers.telnyx.com/docs/api/v2/detail-records */
-    RecordType: {
-      /**
-       * @description Telnyx Product type
-       * @example conversation_event
-       */
-      record_type?: string;
-      /**
-       * @description Telnyx Product Dimensions
-       * @example ['direction', 'currency', 'message_type']
-       */
-      product_dimensions?: string[];
-      /**
-       * @description Telnyx Product Metrics
-       * @example ['cost', 'billed_sec']
-       */
-      product_metrics?: string[];
-    };
+    /**
+     * @description Identifies record type.
+     * @enum {string}
+     */
+    RecordType: 'custom_storage_credentials';
     /** RecordingResponse */
     RecordingResponse: {
       data?: components['schemas']['RecordingResponseData'];
@@ -33542,7 +37003,7 @@ export interface components {
        */
       call_control_id?: string;
       /**
-       * @description ID that is unique to the call and can be used to correlate webhook events.
+       * @description ID unique to the call leg (used to correlate webhook events).
        * @example 84a97d76-e40f-11ed-9074-02420a0daa69
        */
       call_leg_id?: string;
@@ -33552,7 +37013,7 @@ export interface components {
        */
       call_session_id?: string;
       /**
-       * @description When `dual`, final audio file has the first leg on channel A, and the rest on channel B.
+       * @description When `dual`, the final audio file has the first leg on channel A, and the rest on channel B.
        * @example dual
        * @enum {string}
        */
@@ -33567,7 +37028,7 @@ export interface components {
        * @example 2018-02-02T22:25:27.521Z
        */
       created_at?: string;
-      /** @description The links to download the recording files. */
+      /** @description Links to download the recording files. */
       download_urls?: {
         /** @description Link to download the recording in mp3 format. */
         mp3?: string;
@@ -33607,7 +37068,7 @@ export interface components {
        */
       source?: 'conference' | 'call';
       /**
-       * @description The status of the recording. Only resources for `completed` recordings are currently supported.
+       * @description The status of the recording. Only `completed` recordings are currently supported.
        * @example completed
        * @enum {string}
        */
@@ -33670,13 +37131,13 @@ export interface components {
        */
       record_type?: 'recording_transcription';
       /**
-       * @description The status of the recording transcriptions. The transcription text will be available only when the status is completed.
+       * @description The status of the recording transcription. Only `completed` has transcription text available.
        * @example completed
        * @enum {string}
        */
       status?: 'in-progress' | 'completed';
       /**
-       * @description The recording's transcribed text
+       * @description The recording's transcribed text.
        * @example Good morning, how may I help you?
        */
       transcription_text?: string;
@@ -33685,6 +37146,15 @@ export interface components {
        * @example 2018-02-02T22:25:27.521Z
        */
       updated_at?: string;
+    };
+    /** RecursiveCluster */
+    RecursiveCluster: {
+      cluster_id: string;
+      cluster_header?: string;
+      cluster_summary: string;
+      nodes?: components['schemas']['ClusterNode'][];
+      total_number_of_nodes: number;
+      subclusters?: components['schemas']['RecursiveCluster'][];
     };
     /**
      * Refer request
@@ -33838,7 +37308,7 @@ export interface components {
          * @example 12ade33a-21c0-473b-b055-b3c836e1c292
          */
         readonly id?: string;
-        /** @example 311 W Superior St, Chicago, IL 60654 */
+        /** @example 600 Congress Avenue, 14th Floor, Austin, TX 78701 */
         readonly example?: string;
         /** @example Address matching the DID area code */
         name?: string;
@@ -33884,7 +37354,7 @@ export interface components {
          * @example 12ade33a-21c0-473b-b055-b3c836e1c292
          */
         readonly id?: string;
-        /** @example 311 W Superior St, Chicago, IL 60654 */
+        /** @example 600 Congress Avenue, 14th Floor, Austin, TX 78701 */
         readonly example?: string;
         /** @example Address matching the DID area code */
         label?: string;
@@ -34059,21 +37529,19 @@ export interface components {
        */
       readonly expired_at?: string;
     };
+    /**
+     * Resource not found
+     * @example {
+     *       "errors": [
+     *         {
+     *           "detail": "Resource not found"
+     *         }
+     *       ]
+     *     }
+     */
     ResourceNotFoundError: {
       errors?: {
-        /** @description Error code identifying the error type. */
-        code?: string;
-        /** @description A human-readable explanation of the error. */
         detail?: string;
-        meta?: {
-          /**
-           * Format: uri
-           * @description A URL to the detailed documentation for the error.
-           */
-          url?: string;
-        };
-        /** @description A short, human-readable summary of the problem. */
-        title?: string;
       }[];
     };
     /** Pause Recording Request */
@@ -34089,7 +37557,7 @@ export interface components {
        */
       recording_id?: string;
     };
-    /** Pause Recording Request */
+    /** Resume Recording Request */
     ResumeRecordingRequest: {
       /**
        * @description Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
@@ -34101,9 +37569,21 @@ export interface components {
        * @example 891510ac-f3e4-11e8-af5b-de00688a4901
        */
       command_id?: string;
+      /**
+       * Format: uuid
+       * @description Uniquely identifies the resource.
+       * @example 6e00ab49-9487-4364-8ad6-23965965afb2
+       */
+      recording_id?: string;
     };
     /** Retrieval */
     Retrieval: {
+      /** @enum {string} */
+      type: 'retrieval';
+      retrieval: components['schemas']['BucketIds'];
+    };
+    /** RetrievalTool */
+    RetrievalTool: {
       /** @enum {string} */
       type: 'retrieval';
       retrieval: components['schemas']['BucketIds'];
@@ -34711,6 +38191,29 @@ export interface components {
        * @enum {string}
        */
       readonly live_data_session?: 'connected' | 'disconnected' | 'unknown';
+      /** @description PIN and PUK codes for the SIM card. Only available when include_pin_puk_codes=true is set in the request. */
+      readonly pin_puk_codes?: {
+        /**
+         * @description The primary Personal Identification Number (PIN) for the SIM card. This is a 4-digit code used to protect the SIM card from unauthorized use.
+         * @example 1234
+         */
+        readonly pin1?: string;
+        /**
+         * @description The secondary Personal Identification Number (PIN2) for the SIM card. This is a 4-digit code used for additional security features.
+         * @example 5678
+         */
+        readonly pin2?: string;
+        /**
+         * @description The primary Personal Unblocking Key (PUK1) for the SIM card. This is an 8-digit code used to unlock the SIM card if PIN1 is entered incorrectly multiple times.
+         * @example 12345678
+         */
+        readonly puk1?: string;
+        /**
+         * @description The secondary Personal Unblocking Key (PUK2) for the SIM card. This is an 8-digit code used to unlock the SIM card if PIN2 is entered incorrectly multiple times.
+         * @example 87654321
+         */
+        readonly puk2?: string;
+      };
     };
     /**
      * SIMCardAction
@@ -34992,12 +38495,12 @@ export interface components {
        * @description An object representing the address information from when the order was submitted.
        * @example {
        *       "id": "1293384261075731499",
-       *       "street_address": "311 W Superior St",
-       *       "extended_address": "Suite 504",
-       *       "locality": "Chicago",
-       *       "administrative_area": "IL",
+       *       "street_address": "600 Congress Avenue",
+       *       "extended_address": "14th Floor",
+       *       "locality": "Austin",
+       *       "administrative_area": "TX",
        *       "country_code": "US",
-       *       "postal_code": "60654"
+       *       "postal_code": "78701"
        *     }
        */
       readonly order_address?: {
@@ -35024,22 +38527,22 @@ export interface components {
         business_name?: string;
         /**
          * @description The name of the street where the address is located.
-         * @example 311 W Superior St
+         * @example 600 Congress Avenue
          */
         street_address?: string;
         /**
          * @description Supplemental field for address information.
-         * @example Suite 504
+         * @example 14th Floor
          */
         extended_address?: string;
         /**
          * @description The name of the city where the address is located.
-         * @example Chicago
+         * @example Austin
          */
         locality?: string;
         /**
          * @description State or province where the address is located.
-         * @example IL
+         * @example TX
          */
         administrative_area?: string;
         /**
@@ -35049,7 +38552,7 @@ export interface components {
         country_code?: string;
         /**
          * @description Postal code for the address.
-         * @example 60654
+         * @example 78701
          */
         postal_code?: string;
       };
@@ -35254,6 +38757,57 @@ export interface components {
        */
       readonly reason?: string;
     };
+    /** SIPReferTool */
+    SIPReferTool: {
+      /** @enum {string} */
+      type: 'refer';
+      refer: components['schemas']['SIPReferToolParams'];
+    };
+    /** SIPReferToolParams */
+    SIPReferToolParams: {
+      /** @description The different possible targets of the SIP refer. The assistant will be able to choose one of the targets to refer the call to. */
+      targets: {
+        /**
+         * @description The name of the target.
+         * @example Support
+         */
+        name: string;
+        /**
+         * @description The SIP URI to which the call will be referred.
+         * @example sip:username@sip.non-telnyx-address.com
+         */
+        sip_address: string;
+        /** @description SIP Authentication username used for SIP challenges. */
+        sip_auth_username?: string;
+        /** @description SIP Authentication password used for SIP challenges. */
+        sip_auth_password?: string;
+      }[];
+      /** @description SIP headers to be added to the SIP REFER. Currently only User-to-User and Diversion headers are supported. */
+      sip_headers?: {
+        /** @enum {string} */
+        name?: 'User-to-User' | 'Diversion';
+        /** @description The value of the header. Note that we support mustache templating for the value. For example you can use `{{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of the integration secret. */
+        value?: string;
+      }[];
+      /** @description Custom headers to be added to the SIP REFER. */
+      custom_headers?: {
+        name?: string;
+        /** @description The value of the header. Note that we support mustache templating for the value. For example you can use `{{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of the integration secret. */
+        value?: string;
+      }[];
+    };
+    SMSFallback: {
+      /**
+       * @description Phone number in +E.164 format
+       * @example +13125551234
+       */
+      from?: string;
+      /**
+       * @description Text (maximum 3072 characters)
+       * @example Hello world!
+       */
+      text?: string;
+    };
     SSLCertificate: {
       /** @description Unique identifier for the SSL certificate */
       id?: string;
@@ -35276,21 +38830,112 @@ export interface components {
       /**
        * Format: date-time
        * @description The time the certificate is valid from
-       * @example 2020-01-01T00:00:00Z
+       * @example [
+       *       "2020-01-01T00:00:00Z"
+       *     ]
        */
       valid_from?: string;
       /**
        * Format: date-time
        * @description The time the certificate is valid to
-       * @example 2020-01-01T00:00:00Z
+       * @example [
+       *       "2020-01-01T00:00:00Z"
+       *     ]
        */
       valid_to?: string;
       /**
        * Format: date-time
        * @description Time when SSL certificate was uploaded
-       * @example 2020-01-01T00:00:00Z
+       * @example [
+       *       "2020-01-01T00:00:00Z"
+       *     ]
        */
       created_at?: string;
+    };
+    /**
+     * ScheduledEventResponse
+     * @description Union type for different scheduled event response types
+     */
+    ScheduledEventResponse:
+      | components['schemas']['ScheduledPhoneCallEventResponse']
+      | components['schemas']['ScheduledSmsEventResponse'];
+    /** ScheduledPhoneCallEventResponse */
+    ScheduledPhoneCallEventResponse: {
+      telnyx_conversation_channel: components['schemas']['ConversationChannelType'];
+      /** Telnyx End User Target */
+      telnyx_end_user_target: string;
+      /** Telnyx Agent Target */
+      telnyx_agent_target: string;
+      /**
+       * Scheduled At Fixed Datetime
+       * Format: date-time
+       */
+      scheduled_at_fixed_datetime: string;
+      /** Assistant Id */
+      assistant_id: string;
+      /**
+       * Retry Count
+       * @default 0
+       */
+      retry_count: number;
+      /** Retry Attempts */
+      retry_attempts?: number;
+      /** Scheduled Event Id */
+      scheduled_event_id?: string;
+      /** Conversation Id */
+      conversation_id?: string;
+      /**
+       * Created At
+       * Format: date-time
+       */
+      created_at?: string;
+      /** @default pending */
+      status: components['schemas']['EventStatus'];
+      /** Conversation Metadata */
+      conversation_metadata?: {
+        [key: string]: string | number | boolean;
+      };
+      /** Errors */
+      errors?: string[];
+    };
+    /** ScheduledSmsEventResponse */
+    ScheduledSmsEventResponse: {
+      telnyx_conversation_channel: components['schemas']['ConversationChannelType'];
+      /** Telnyx End User Target */
+      telnyx_end_user_target: string;
+      /** Telnyx Agent Target */
+      telnyx_agent_target: string;
+      /**
+       * Scheduled At Fixed Datetime
+       * Format: date-time
+       */
+      scheduled_at_fixed_datetime: string;
+      /** Assistant Id */
+      assistant_id: string;
+      /**
+       * Retry Count
+       * @default 0
+       */
+      retry_count: number;
+      /** Text */
+      text: string;
+      /** Scheduled Event Id */
+      scheduled_event_id?: string;
+      /** Conversation Id */
+      conversation_id?: string;
+      /**
+       * Created At
+       * Format: date-time
+       */
+      created_at?: string;
+      /** @default pending */
+      status: components['schemas']['EventStatus'];
+      /** Conversation Metadata */
+      conversation_metadata?: {
+        [key: string]: string | number | boolean;
+      };
+      /** Errors */
+      errors?: string[];
     };
     /** SIMCardGroup */
     SearchedSIMCardGroup: {
@@ -35453,6 +39098,12 @@ export interface components {
        */
       client_state?: string;
     };
+    /**
+     * @description Whether to send RecordingUrl in webhooks.
+     * @default true
+     * @example false
+     */
+    SendRecordingUrl: boolean;
     /**
      * Send SIP Info Request
      * @example {
@@ -35948,59 +39599,59 @@ export interface components {
      */
     SiprecConnector: {
       /**
-       * @description Hostname/IPv4 address of SIPREC SRS to be used
+       * @description Hostname/IPv4 address of the SIPREC SRS.
        * @example siprec.telnyx.com
        */
       host: string;
       /**
-       * @description Port for SIPREC SRS to be used
+       * @description Port for the SIPREC SRS.
        * @example 5060
        */
       port: number;
       /**
-       * @description Name for the siprec connector resource.
+       * @description Name for the SIPREC connector resource.
        * @example my-siprec-connector
        */
       name: string;
       /**
-       * @description Sip subdomain to route the call when using Telnyx SRS. Not required if non-Telnyx SRS is used.
+       * @description Subdomain to route the call when using Telnyx SRS (optional for non-Telnyx SRS).
        * @example my-app-domain
        */
       app_subdomain?: string;
     };
-    /** Siprec Connector Response */
+    /** SIPREC Connector Response */
     SiprecConnectorResponse: {
-      /** Siprec Connector */
+      /** SIPREC Connector */
       data: {
         /** @example siprec_connector */
         record_type?: string;
         /**
-         * @description Name for the siprec connector resource.
+         * @description Name for the SIPREC connector resource.
          * @example siprec-connector
          */
         name?: string;
         /**
-         * @description Hostname/IPv4 address of SIPREC SRS to be used
+         * @description Hostname/IPv4 address of the SIPREC SRS.
          * @example siprec.telnyx.com
          */
         host?: string;
         /**
-         * @description Port for SIPREC SRS to be used
+         * @description Port for the SIPREC SRS.
          * @example 5060
          */
         port?: number;
         /**
-         * @description Sip subdomain to route the call when using Telnyx SRS Not required if non-Telnyx SRS is used.
+         * @description Subdomain to route calls when using Telnyx SRS (optional).
          * @example my-app-domain
          */
         app_subdomain?: string;
         /**
-         * @description ISO 8601 formatted date of when the resource was created
+         * @description ISO 8601 formatted date/time of creation.
          * @example 2024-01-23T18:10:02.574Z
          */
         created_at?: string;
         /**
-         * @description ISO 8601 formatted date of when the resource was last updated
+         * @description ISO 8601 formatted date/time of last update.
          * @example 2024-01-23T18:10:02.574Z
          */
         updated_at?: string;
@@ -36010,6 +39661,7 @@ export interface components {
      *       "id": "1293384261075731499",
      *       "record_type": "phone_number",
      *       "phone_number": "+19705555098",
+     *       "country_iso_alpha2": "US",
      *       "status": "active",
      *       "external_pin": "1234",
      *       "connection_id": "1293384261075731499",
@@ -36023,7 +39675,6 @@ export interface components {
      *       "caller_id_name_enabled": true,
      *       "call_recording_enabled": true,
      *       "t38_fax_gateway_enabled": true,
-     *       "number_level_routing": "disabled",
      *       "phone_number_type": "local",
      *       "inbound_call_screening": "disabled",
      *       "purchased_at": "2019-10-23T18:10:00.000Z",
@@ -36040,6 +39691,11 @@ export interface components {
       readonly record_type?: string;
       /** @description The +E.164-formatted phone number associated with this record. */
       readonly phone_number?: string;
+      /**
+       * @description The ISO 3166-1 alpha-2 country code of the phone number.
+       * @example US
+       */
+      readonly country_iso_alpha2?: string;
       /**
        * @description The phone number's current status.
        * @enum {string}
@@ -36103,12 +39759,6 @@ export interface components {
       readonly purchased_at?: string;
       /** @description ISO 8601 formatted date indicating when the resource was created. */
       readonly created_at?: string;
-      /**
-       * @description Deprecated field, the only value for this is 'disabled'. All routing for numbers should be configured via connection settings.
-       * @default disabled
-       * @enum {string}
-       */
-      number_level_routing: 'disabled';
       /**
        * @description The phone number's type.
        *     Note: For numbers purchased prior to July 2023 or when fetching a number's details immediately after a purchase completes, the legacy values `tollfree`, `shortcode` or `longcode` may be returned instead.
@@ -36220,14 +39870,16 @@ export interface components {
       /**
        * @description Specifies the voice used in speech synthesis.
        *
-       *     - Define voices using the format `<Provider>.<Model>.<VoiceId>`.
+       *     - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only the provider will give default values for voice_id and model_id.
        *
        *      **Supported Providers:**
-       *     -**AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility.
-       *     -**ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+       *     - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility.
+       *     - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+       *     - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration identifier secret in `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+       *      - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
        *
        *     For service_level basic, you may define the gender of the speaker (male or female).
-       * @example AWS.Polly.Joanna-Neural
+       * @example Telnyx.KokoroTTS.af
        */
       voice: string;
       /** @description The settings associated with the voice selected */
@@ -36435,15 +40087,12 @@ export interface components {
        */
       transcription: boolean;
       /**
-       * @description Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`.
+       * @description Engine to use for speech recognition. `A` - `Google`
        * @default A
        * @example A
-       * @enum {string}
        */
-      transcription_engine: 'A' | 'B';
-      transcription_language?:
-        | components['schemas']['GoogleTranscriptionLanguage']
-        | components['schemas']['TelnyxTranscriptionLanguage'];
+      transcription_engine: string;
+      transcription_language?: components['schemas']['GoogleTranscriptionLanguageLong'];
       /**
        * @description Enables profanity_filter. Applies to `google` engine only.
        * @default false
@@ -36486,6 +40135,13 @@ export interface components {
        * @example my-siprec-connector
        */
       connector_name?: string;
+      /**
+       * @description Specifies SIP transport protocol.
+       * @default udp
+       * @example tcp
+       * @enum {string}
+       */
+      sip_transport: 'udp' | 'tcp' | 'tls';
       /**
        * @description Specifies which track should be sent on siprec session.
        * @default both_tracks
@@ -36544,6 +40200,7 @@ export interface components {
        * @enum {string}
        */
       stream_track: 'inbound_track' | 'outbound_track' | 'both_tracks';
+      stream_codec?: components['schemas']['StreamCodec'];
       stream_bidirectional_mode?: components['schemas']['StreamBidirectionalMode'];
       stream_bidirectional_codec?: components['schemas']['StreamBidirectionalCodec'];
       stream_bidirectional_target_legs?: components['schemas']['StreamBidirectionalTargetLegs'];
@@ -36565,12 +40222,6 @@ export interface components {
        */
       command_id?: string;
     };
-    /**
-     * Status
-     * @description An enumeration.
-     * @enum {unknown}
-     */
-    Status: 'ACTIVE' | 'EXPIRED';
     /**
      * StockExchange
      * @description (Required for public company) stock exchange.
@@ -36652,7 +40303,8 @@ export interface components {
      * Stop Recording Request
      * @example {
      *       "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
-     *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901"
+     *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901",
+     *       "recording_id": "6e00ab49-9487-4364-8ad6-23965965afb2"
      *     }
      */
     StopRecordingRequest: {
@@ -36666,6 +40318,12 @@ export interface components {
        * @example 891510ac-f3e4-11e8-af5b-de00688a4901
        */
       command_id?: string;
+      /**
+       * Format: uuid
+       * @description Uniquely identifies the resource.
+       * @example 6e00ab49-9487-4364-8ad6-23965965afb2
+       */
+      recording_id?: string;
     };
     /**
      * Stop Siprec Request
@@ -36723,20 +40381,15 @@ export interface components {
      */
     StorePreview: boolean;
     /**
-     * @description Should fax media be stored on temporary URL. It does not support media_name, they can't be submitted together.
-     * @default false
-     */
-    StoredMedia: boolean;
-    /**
-     * Stream Bidirectional Codec
+     * Bidirectional Stream Codec
      * @description Indicates codec for bidirectional streaming RTP payloads. Used only with stream_bidirectional_mode=rtp. Case sensitive.
      * @default PCMU
      * @example G722
      * @enum {string}
      */
-    StreamBidirectionalCodec: 'PCMU' | 'PCMA' | 'G722';
+    StreamBidirectionalCodec: 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB';
     /**
-     * Stream Bidirectional Mode
+     * Bidirectional Stream Mode
      * @description Configures method of bidirectional streaming (mp3, rtp).
      * @default mp3
      * @example rtp
@@ -36744,13 +40397,28 @@ export interface components {
      */
     StreamBidirectionalMode: 'mp3' | 'rtp';
     /**
-     * Stream Bidirectional Target Legs
+     * Bidirectional Stream Sampling Rate
+     * @description Audio sampling rate.
+     * @default 8000
+     * @example 16000
+     * @enum {integer}
+     */
+    StreamBidirectionalSamplingRate: 8000 | 16000 | 48000;
+    /**
+     * Bidirectional Stream Target Legs
      * @description Specifies which call legs should receive the bidirectional stream audio.
      * @default opposite
      * @example both
      * @enum {string}
      */
     StreamBidirectionalTargetLegs: 'both' | 'self' | 'opposite';
+    /**
+     * @description Specifies the codec to be used for the streamed audio. When set to 'default' or when transcoding is not possible, the codec from the call will be used. Currently, transcoding is only supported between PCMU and PCMA codecs.
+     * @default default
+     * @example PCMA
+     * @enum {string}
+     */
+    StreamCodec: 'PCMA' | 'PCMU' | 'default';
     /**
      * @description The user specified name of Stream.
      * @example My stream
@@ -36961,10 +40629,92 @@ export interface components {
         phone_numbers?: components['schemas']['SubNumberOrderPhoneNumber'][];
       };
     };
+    /** @example {
+     *       "order_type": "sub_number_order",
+     *       "filters": {
+     *         "status": "success",
+     *         "country_code": "US",
+     *         "created_at_gt": "2023-04-05T10:22:08.230549Z",
+     *         "created_at_lt": "2025-06-05T10:22:08.230549Z",
+     *         "order_request_id": "991b8ff5-4daf-4826-9a22-e3991b444a9c",
+     *         "customer_reference": "STRING"
+     *       },
+     *       "status": "pending",
+     *       "created_at": "2025-06-11T13:21:40.967339+00:00",
+     *       "user_id": "0d7ef697-df19-413a-b724-56b0539f5397",
+     *       "updated_at": "2025-06-11T13:21:45.753260+00:00",
+     *       "id": "cada7e84-122b-4b47-bc66-58c7c3becd40"
+     *     } */
+    SubNumberOrdersReport: {
+      /**
+       * Format: uuid
+       * @description Identifies the resource.
+       * @example cada7e84-122b-4b47-bc66-58c7c3becd40
+       */
+      readonly id?: string;
+      /**
+       * @description The type of order report.
+       * @example sub_number_order
+       */
+      readonly order_type?: string;
+      /** @description The filters that were applied to generate this report */
+      filters?: {
+        /** @example success */
+        status?: string;
+        /** @example US */
+        country_code?: string;
+        /**
+         * Format: date-time
+         * @example 2023-04-05T10:22:08.230549Z
+         */
+        created_at_gt?: string;
+        /**
+         * Format: date-time
+         * @example 2025-06-05T10:22:08.230549Z
+         */
+        created_at_lt?: string;
+        /**
+         * Format: uuid
+         * @example 991b8ff5-4daf-4826-9a22-e3991b444a9c
+         */
+        order_request_id?: string;
+        /** @example STRING */
+        customer_reference?: string;
+      };
+      /**
+       * @description Indicates the completion level of the sub number orders report. The report must have a status of 'success' before it can be downloaded.
+       * @default pending
+       * @example pending
+       * @enum {string}
+       */
+      status: 'pending' | 'success' | 'failed' | 'expired';
+      /**
+       * Format: uuid
+       * @description The ID of the user who created the report.
+       * @example 0d7ef697-df19-413a-b724-56b0539f5397
+       */
+      readonly user_id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date indicating when the resource was created.
+       * @example 2025-06-11T13:21:40.967339+00:00
+       */
+      readonly created_at?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date indicating when the resource was updated.
+       * @example 2025-06-11T13:21:45.753260+00:00
+       */
+      readonly updated_at?: string;
+    };
     /** SummaryRequest */
     SummaryRequest: {
+      /** @description The name of the bucket that contains the file to be summarized. */
       bucket: string;
+      /** @description The name of the file to be summarized. */
       filename: string;
+      /** @description A system prompt to guide the summary generation. */
+      system_prompt?: string;
     };
     /** SummaryResponse */
     SummaryResponse: {
@@ -36988,8 +40738,21 @@ export interface components {
      */
     SupportedEmbeddingModels:
       | 'thenlper/gte-large'
-      | 'intfloat/multilingual-e5-large'
-      | 'sentence-transformers/all-mpnet-base-v2';
+      | 'intfloat/multilingual-e5-large';
+    /**
+     * Switch Supervisor Role Request
+     * @example {
+     *       "role": "barge"
+     *     }
+     */
+    SwitchSupervisorRoleRequest: {
+      /**
+       * @description The supervisor role to switch to. 'barge' allows speaking to both parties, 'whisper' allows speaking to caller only, 'monitor' allows listening only.
+       * @example barge
+       * @enum {string}
+       */
+      role: 'barge' | 'whisper' | 'monitor';
+    };
     /**
      * @description The flag to disable the T.38 protocol.
      * @default true
@@ -37023,31 +40786,31 @@ export interface components {
       /**
        * Businessaddr1
        * @description Line 1 of the business address
-       * @example 311 W Superior St
+       * @example 600 Congress Avenue
        */
       businessAddr1: string;
       /**
        * Businessaddr2
        * @description Line 2 of the business address
-       * @example 121 W Superior St
+       * @example 14th Floor
        */
       businessAddr2?: string;
       /**
        * Businesscity
        * @description The city of the business address; the first letter should be capitalized
-       * @example Chicago
+       * @example Austin
        */
       businessCity: string;
       /**
        * Businessstate
        * @description The full name of the state (not the 2 letter code) of the business address; the first letter should be capitalized
-       * @example Illinois
+       * @example Texas
        */
       businessState: string;
       /**
        * Businesszip
        * @description The ZIP code of the business address
-       * @example 60654
+       * @example 78701
        */
       businessZip: string;
       /**
@@ -37155,13 +40918,13 @@ export interface components {
       | 'Rejected'
       | 'Waiting For Vendor'
       | 'Waiting For Customer'
+      | 'Waiting For Telnyx'
       | 'In Progress';
     /**
      * TaskStatus
-     * @description An enumeration.
      * @enum {string}
      */
-    TaskStatus: 'pending' | 'processing' | 'completed' | 'failed';
+    TaskStatus: 'pending' | 'starting' | 'running' | 'completed' | 'failed';
     /** TaskStatusResponse */
     TaskStatusResponse: {
       data: {
@@ -37290,6 +41053,11 @@ export interface components {
        * @example 2018-02-02T22:25:27.521Z
        */
       expires_at?: string;
+    };
+    /** TelephonySettings */
+    TelephonySettings: {
+      /** @description Default Texml App used for voice calls with your assistant. This will be created automatically on assistant creation. */
+      default_texml_app_id?: string;
     };
     /**
      * TelnyxBrand
@@ -37502,14 +41270,6 @@ export interface components {
     };
     /** TelnyxCampaignWithAssignedCount_CSP */
     TelnyxCampaignWithAssignedCount_CSP: {
-      /**
-       * Affiliatemarketing
-       * @deprecated
-       * @description Does message content controlled by affiliate marketing other than the brand?
-       *
-       *     This field is deprecated.
-       */
-      affiliateMarketing?: boolean;
       /**
        * Agegated
        * @description Age gated content in campaign.
@@ -37795,14 +41555,6 @@ export interface components {
      */
     TelnyxCampaign_CSP: {
       /**
-       * Affiliatemarketing
-       * @deprecated
-       * @description Does message content controlled by affiliate marketing other than the brand?
-       *
-       *     This field is deprecated.
-       */
-      affiliateMarketing?: boolean;
-      /**
        * Agegated
        * @description Age gated content in campaign.
        */
@@ -38075,6 +41827,15 @@ export interface components {
        */
       embeddedLinkSample?: string;
     };
+    /**
+     * TelnyxConversationChannel
+     * @enum {string}
+     */
+    TelnyxConversationChannel:
+      | 'phone_call'
+      | 'web_call'
+      | 'sms_chat'
+      | 'web_chat';
     /**
      * TelnyxDownstreamCampaign
      * @description Campaign is generated by the 10DLC registry once the corresponding campaign request is approved. Each campaign is assigned a unique identifier - **campaignId**. Once a campaign is activated, limited information is published to the NetNumber OSR service for consumption by members of the ecosystem. When a campaign is suspended(reversible) or expired(non-reversible), campaign data is deleted from the OSR service.
@@ -38414,6 +42175,175 @@ export interface components {
       voice_speed: number;
     };
     /**
+     * TemplateType
+     * @enum {string}
+     */
+    TemplateType: 'custom' | 'default';
+    /** TestRunDetailResult */
+    TestRunDetailResult: {
+      /** Name */
+      name: string;
+      status: components['schemas']['TestStatus'];
+    };
+    /**
+     * TestRunResponse
+     * @description Response model containing test run execution details and results.
+     *
+     *     Provides comprehensive information about a test execution including
+     *     status, timing, logs, and detailed evaluation results.
+     */
+    TestRunResponse: {
+      /**
+       * Run Id
+       * Format: uuid
+       * @description Unique identifier for this specific test run execution.
+       * @example 987fcdeb-51a2-43d1-b456-426614174000
+       */
+      run_id: string;
+      /**
+       * Test Id
+       * Format: uuid
+       * @description Identifier of the assistant test that was executed.
+       * @example 123e4567-e89b-12d3-a456-426614174000
+       */
+      test_id: string;
+      status: components['schemas']['TestStatus'];
+      /**
+       * Triggered By
+       * @description How this test run was initiated (manual, scheduled, or API).
+       * @example [
+       *       "manual",
+       *       "cron"
+       *     ]
+       */
+      triggered_by: string;
+      /**
+       * Completed At
+       * Format: date-time
+       * @description Timestamp when the test run finished execution.
+       */
+      completed_at?: string;
+      /**
+       * Logs
+       * @description Detailed execution logs and debug information.
+       */
+      logs?: string;
+      /**
+       * Conversation Id
+       * @description Identifier of the conversation created during test execution.
+       */
+      conversation_id?: string;
+      /**
+       * Conversation Insights Id
+       * @description Identifier for conversation analysis and insights data.
+       */
+      conversation_insights_id?: string;
+      /**
+       * Test Suite Run Id
+       * Format: uuid
+       * @description Identifier linking this run to a test suite execution batch.
+       */
+      test_suite_run_id?: string;
+      /**
+       * Created At
+       * Format: date-time
+       * @description Timestamp when the test run was created and queued.
+       * @example [
+       *       "2024-01-15T10:30:00Z"
+       *     ]
+       */
+      created_at: string;
+      /**
+       * Updated At
+       * Format: date-time
+       * @description Timestamp of the last update to this test run.
+       */
+      updated_at?: string;
+      /**
+       * Detail Status
+       * @description Detailed evaluation results for each rubric criteria. Name is name of the criteria from the rubric and status is the result of the evaluation. This list will have a result for every criteria in the rubric section.
+       */
+      detail_status?: components['schemas']['TestRunDetailResult'][];
+    };
+    /**
+     * TestStatus
+     * @description Represents the lifecycle of a test:
+     *       - 'pending': Test is waiting to be executed.
+     *       - 'starting': Test execution is initializing.
+     *       - 'running': Test is currently executing.
+     *       - 'passed': Test completed successfully.
+     *       - 'failed': Test executed but did not pass.
+     *       - 'error': An error occurred during test execution.
+     * @enum {string}
+     */
+    TestStatus:
+      | 'pending'
+      | 'starting'
+      | 'running'
+      | 'passed'
+      | 'failed'
+      | 'error';
+    /**
+     * TestSuitesResponse
+     * @description Response containing all available test suite names.
+     *
+     *     Returns a list of distinct test suite names that can be used for
+     *     filtering and organizing tests.
+     */
+    TestSuitesResponse: {
+      /**
+       * Data
+       * @description Array of unique test suite names available to the user.
+       * @example [
+       *       [
+       *         "customer-support",
+       *         "sales-flow",
+       *         "onboarding"
+       *       ]
+       *     ]
+       */
+      data: string[];
+    };
+    /**
+     * TestWebhookToolRequest
+     * @description Request model for testing a webhook tool
+     */
+    TestWebhookToolRequest: {
+      /**
+       * Arguments
+       * @description Key-value arguments to use for the webhook test
+       */
+      arguments?: Record<string, never>;
+      /**
+       * Dynamic Variables
+       * @description Key-value dynamic variables to use for the webhook test
+       */
+      dynamic_variables?: Record<string, never>;
+    };
+    /**
+     * TestWebhookToolResponse
+     * @description Response model for webhook tool test results
+     */
+    TestWebhookToolResponse: {
+      /** Success */
+      success: boolean;
+      /** Status Code */
+      status_code: number;
+      /** Content Type */
+      content_type: string;
+      /** Response */
+      response: string;
+      /** Request */
+      request: Record<string, never>;
+    };
+    /**
+     * TestWebhookToolResponseData
+     * @description Response model for webhook tool test results
+     */
+    TestWebhookToolResponseData: {
+      data: components['schemas']['TestWebhookToolResponse'];
+    };
+    /**
      * Texml Application
      * @example {
      *       "id": "1293384261075731499",
@@ -38429,6 +42359,10 @@ export interface components {
      *       "voice_method": "get",
      *       "status_callback": "https://example.com",
      *       "status_callback_method": "get",
+     *       "tags": [
+     *         "tag1",
+     *         "tag2"
+     *       ],
      *       "inbound": {
      *         "channel_limit": 10,
      *         "shaken_stir_enabled": true,
@@ -38490,6 +42424,14 @@ export interface components {
        * @enum {string}
        */
       status_callback_method: 'get' | 'post';
+      /**
+       * @description Tags associated with the Texml Application.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       inbound?: {
         /**
          * @description When set, this will limit the total number of inbound calls to phone numbers associated with this connection.
@@ -38553,6 +42495,7 @@ export interface components {
       RecordingStatusCallbackMethod?: components['schemas']['TexmlStatusCallbackMethod'];
       RecordingChannels?: components['schemas']['TexmlRecordingChannels'];
       RecordingTrack?: components['schemas']['RecordingTrack'];
+      SendRecordingUrl?: components['schemas']['SendRecordingUrl'];
     };
     /** Texml Create Call Recording Response Body */
     TexmlCreateCallRecordingResponseBody: {
@@ -38617,6 +42560,11 @@ export interface components {
        */
       ConnectorName?: string;
       /**
+       * @description Name of the SIPREC session. May be used to stop the SIPREC session from TeXML instruction.
+       * @example my_siprec_session
+       */
+      Name?: string;
+      /**
        * @description The track to be used for siprec session. Can be `both_tracks`, `inbound_track` or `outbound_track`. Defaults to `both_tracks`.
        * @example both_tracks
        * @enum {string}
@@ -38640,6 +42588,13 @@ export interface components {
        * @example 900
        */
       SessionTimeoutSecs: number;
+      /**
+       * @description Specifies SIP transport protocol.
+       * @default udp
+       * @example tcp
+       * @enum {string}
+       */
+      SipTransport: 'udp' | 'tcp' | 'tls';
       /**
        * @description URL destination for Telnyx to send status callback events to for the siprec session.
        * @example https://www.example.com/callback
@@ -38953,6 +42908,14 @@ export interface components {
        */
       error_code?: string;
     };
+    /** TextClusteringResponse */
+    TextClusteringResponse: {
+      task_id: string;
+    };
+    /** TextClusteringResponseData */
+    TextClusteringResponseData: {
+      data: components['schemas']['TextClusteringResponse'];
+    };
     /** TnReleaseEntry */
     TnReleaseEntry: {
       /** @description Phone number in E164 format. */
@@ -39122,21 +43085,141 @@ export interface components {
            * @example hello this is a test speech
            */
           transcript?: string;
+          /**
+           * @description Indicates which leg of the call has been transcribed. This is only available when `transcription_engine` is set to `B`.
+           * @example inbound
+           * @enum {string}
+           */
+          transcription_track?: 'inbound' | 'outbound';
         };
       };
     };
     /** @description The settings associated with speech to text for the voice assistant. This is only relevant if the assistant uses a text-to-text language model. Any assistant using a model with native audio support (e.g. `fixie-ai/ultravox-v0_4`) will ignore this field. */
     TranscriptionConfig: {
       /**
-       * @description The speech to text model to be used by the voice assistant. `distil-whisper/distil-large-v2` is lower latency but English-only. `openai/whisper-large-v3-turbo` is multi-lingual but slightly higher latency.
+       * @description The speech to text model to be used by the voice assistant.
+       *
+       *     - `distil-whisper/distil-large-v2` is lower latency but English-only.
+       *     - `openai/whisper-large-v3-turbo` is multi-lingual with automatic language detection but slightly higher latency.
+       *     - `google` is a multi-lingual option, please describe the language in the `language` field.
        * @default distil-whisper/distil-large-v2
        * @example distil-whisper/distil-large-v2
        */
       model: string;
     };
+    /** Transcription engine A config */
+    TranscriptionEngineAConfig: {
+      language?: components['schemas']['GoogleTranscriptionLanguage'];
+      /**
+       * @description Whether to send also interim results. If set to false, only final results will be sent.
+       * @default false
+       * @example true
+       */
+      interim_results: boolean;
+      /**
+       * @description Enables speaker diarization.
+       * @default false
+       * @example true
+       */
+      enable_speaker_diarization: boolean;
+      /**
+       * Format: int32
+       * @description Defines minimum number of speakers in the conversation.
+       * @default 2
+       * @example 4
+       */
+      min_speaker_count: number;
+      /**
+       * Format: int32
+       * @description Defines maximum number of speakers in the conversation.
+       * @default 6
+       * @example 4
+       */
+      max_speaker_count: number;
+      /**
+       * @description Enables profanity_filter.
+       * @default false
+       * @example true
+       */
+      profanity_filter: boolean;
+      /**
+       * @description Enables enhanced transcription, this works for models `phone_call` and `video`.
+       * @default false
+       * @example true
+       */
+      use_enhanced: boolean;
+      /**
+       * @description The model to use for transcription.
+       * @enum {string}
+       */
+      model?:
+        | 'latest_long'
+        | 'latest_short'
+        | 'command_and_search'
+        | 'phone_call'
+        | 'video'
+        | 'default'
+        | 'medical_conversation'
+        | 'medical_dictation';
+      /**
+       * @description Hints to improve transcription accuracy.
+       * @default []
+       * @example [
+       *       "Telnyx"
+       *     ]
+       */
+      hints: string[];
+      /** @description Speech context to improve transcription accuracy. */
+      speech_context?: {
+        /**
+         * @default []
+         * @example [
+         *       "Telnyx"
+         *     ]
+         */
+        phrases: string[];
+        /**
+         * @description Boost factor for the speech context.
+         * @default 1
+         * @example 1
+         */
+        boost: number;
+      }[];
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      transcription_engine: 'A';
+    };
+    /** Transcription engine B config */
+    TranscriptionEngineBConfig: {
+      language?: components['schemas']['TelnyxTranscriptionLanguage'];
+      /**
+       * @description The model to use for transcription.
+       * @default openai/whisper-tiny
+       * @enum {string}
+       */
+      transcription_model:
+        | 'openai/whisper-tiny'
+        | 'openai/whisper-large-v3-turbo';
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      transcription_engine: 'B';
+    };
     /** Transcription Event */
     TranscriptionEvent: {
       data?: components['schemas']['Transcription'];
+    };
+    TranscriptionSettings: {
+      /** @description The speech to text model to be used by the voice assistant.
+       *
+       *     - `distil-whisper/distil-large-v2` is lower latency but English-only.
+       *     - `openai/whisper-large-v3-turbo` is multi-lingual with automatic language detection but slightly higher latency. */
+      model?: string;
+      /** @description The language of the audio to be transcribed. This is only applicable for `openai/whisper-large-v3-turbo` model. If not set, of if set to `auto`, the model will automatically detect the language. For the full list of supported languages, see the [whisper tokenizer](https://github.com/openai/whisper/blob/main/whisper/tokenizer.py). */
+      language?: string;
     };
     /**
      * Transcription start request
@@ -39154,35 +43237,9 @@ export interface components {
        * @enum {string}
        */
       transcription_engine: 'A' | 'B';
-      language?:
-        | components['schemas']['GoogleTranscriptionLanguage']
-        | components['schemas']['TelnyxTranscriptionLanguage'];
-      /**
-       * @description Whether to send also interim results. If set to false, only final results will be sent. Applies to `google` engine only.
-       * @default false
-       * @example true
-       */
-      interim_results: boolean;
-      /**
-       * @description Enables speaker diarization. Applies to `google` engine only.
-       * @default false
-       * @example true
-       */
-      enable_speaker_diarization: boolean;
-      /**
-       * Format: int32
-       * @description Defines minimum number of speakers in the conversation. Applies to `google` engine only.
-       * @default 2
-       * @example 4
-       */
-      min_speaker_count: number;
-      /**
-       * Format: int32
-       * @description Defines maximum number of speakers in the conversation. Applies to `google` engine only.
-       * @default 6
-       * @example 4
-       */
-      max_speaker_count: number;
+      transcription_engine_config?:
+        | components['schemas']['TranscriptionEngineAConfig']
+        | components['schemas']['TranscriptionEngineBConfig'];
       /**
        * @description Use this field to add state to every subsequent webhook. It must be a valid Base-64 encoded string.
        * @example aGF2ZSBhIG5pY2UgZGF5ID1d
@@ -39435,7 +43492,7 @@ export interface components {
        * @default disabled
        * @enum {string}
        */
-      media_encryption: 'disabled' | 'SRTP';
+      media_encryption: 'disabled' | 'SRTP' | 'DTLS';
       /**
        * @description SIP Authentication username used for SIP challenges.
        * @example username
@@ -39475,6 +43532,74 @@ export interface components {
        * @enum {string}
        */
       webhook_url_method: 'POST' | 'GET';
+      /**
+       * @description When enabled, DTMF tones are not passed to the call participant. The webhooks containing the DTMF information will be sent.
+       * @default none
+       * @example opposite
+       * @enum {string}
+       */
+      mute_dtmf: 'none' | 'both' | 'self' | 'opposite';
+    };
+    /** TransferTool */
+    TransferTool: {
+      /** @enum {string} */
+      type: 'transfer';
+      transfer: components['schemas']['TransferToolParams'];
+    };
+    /** TransferToolParams */
+    TransferToolParams: {
+      /** @description The different possible targets of the transfer. The assistant will be able to choose one of the targets to transfer the call to. */
+      targets: {
+        /**
+         * @description The name of the target.
+         * @example Support
+         */
+        name?: string;
+        /**
+         * @description The destination number or SIP URI of the call.
+         * @example +13129457420
+         */
+        to?: string;
+      }[];
+      /**
+       * @description Number or SIP URI placing the call.
+       * @example +35319605860
+       */
+      from: string;
+      /** @description Custom headers to be added to the SIP INVITE for the transfer command. */
+      custom_headers?: {
+        name?: string;
+        /** @description The value of the header. Note that we support mustache templating for the value. For example you can use `{{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of the integration secret. */
+        value?: string;
+      }[];
+    };
+    /**
+     * TriggerTestRunRequest
+     * @description Request model for triggering a single test run.
+     *
+     *     Optional request body for the trigger test run endpoint.
+     */
+    TriggerTestRunRequest: {
+      /**
+       * Destination Version Id
+       * @description Optional assistant version ID to use for this test run. If provided, the version must exist or a 400 error will be returned. If not provided, test will run on main version
+       * @example 123e4567-e89b-12d3-a456-426614174000
+       */
+      destination_version_id?: string;
+    };
+    /**
+     * TriggerTestSuiteRunsRequest
+     * @description Request model for triggering test suite runs.
+     *
+     *     Optional request body for the trigger test suite runs endpoint.
+     */
+    TriggerTestSuiteRunsRequest: {
+      /**
+       * Destination Version Id
+       * @description Optional assistant version ID to use for all test runs in this suite. If provided, the version must exist or a 400 error will be returned. If not provided, test will run on main version
+       * @example 123e4567-e89b-12d3-a456-426614174000
+       */
+      destination_version_id?: string;
     };
     /**
      * @default 2
@@ -39513,37 +43638,122 @@ export interface components {
         url?: string;
       };
     };
-    UnprocessableEntityError: components['schemas']['GenericError'] & {
-      /** @example 10002 */
-      code?: unknown;
-      /** @example Invalid phone number */
-      title?: unknown;
-      /** @example The phone number is invalid. */
-      detail?: unknown;
+    UnprocessableEntityError: {
+      /** Format: int */
+      code: string;
+      title: string;
+      detail?: string;
       source?: {
-        /** @example /phone_numbers */
+        /**
+         * Format: json-pointer
+         * @description JSON pointer (RFC6901) to the offending entity.
+         */
         pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
       };
-      meta?: {
-        /** @example https://developers.telnyx.com/docs/overview/errors/10002 */
-        url?: string;
-      };
+      meta?: Record<string, never>;
+    };
+    /** UnusedUserBundlesResponse */
+    UnusedUserBundlesResponse: {
+      /** Data */
+      data: components['schemas']['UnusedUserBundlesSchema'][];
+    };
+    /** UnusedUserBundlesSchema */
+    UnusedUserBundlesSchema: {
+      billing_bundle: components['schemas']['BillingBundleSummary'];
+      /**
+       * User Bundle Ids
+       * @description List of user bundle IDs for given bundle.
+       * @example [
+       *       "1e650b96-4c6a-4d6f-b8ed-87c3fcacf595",
+       *       "53beb701-1231-4548-8abf-c802f38b14aa"
+       *     ]
+       */
+      user_bundle_ids: string[];
     };
     /** UpdateAssistantRequest */
     UpdateAssistantRequest: {
-      /** Name */
       name?: string;
-      /** Model */
+      /** @description ID of the model to use. You can use the [Get models API](https://developers.telnyx.com/api/inference/inference-embedding/get-models-public-models-get) to see all of your available models, */
       model?: string;
-      /** Description */
-      description?: string;
-      /** Instructions */
+      /** @description System instructions for the assistant. These may be templated with [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) */
       instructions?: string;
-      /** @description The `function` tool type follows the same schema as the [OpenAI Assistants API](https://platform.openai.com/docs/api-reference/assistants/modifyAssistant). The `retrieval` tool type is unique to Telnyx. You may pass a list of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) for retrieval-augmented generation. */
-      tools?: (
-        | components['schemas']['ChatCompletionToolParam']
-        | components['schemas']['Retrieval']
-      )[];
+      tools?: components['schemas']['AssistantTools'];
+      description?: string;
+      /** @description Text that the assistant will use to start the conversation. This may be templated with [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) */
+      greeting?: string;
+      /** @description This is only needed when using third-party inference providers. The `identifier` for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your LLM provider's API key. Warning: Free plans are unlikely to work with this integration. */
+      llm_api_key_ref?: string;
+      voice_settings?: components['schemas']['VoiceSettings'];
+      transcription?: components['schemas']['TranscriptionSettings'];
+      telephony_settings?: components['schemas']['TelephonySettings'];
+      messaging_settings?: components['schemas']['MessagingSettings'];
+      enabled_features?: components['schemas']['EnabledFeatures'][];
+      insight_settings?: components['schemas']['InsightSettings'];
+      privacy_settings?: components['schemas']['PrivacySettings'];
+      /** @description If the dynamic_variables_webhook_url is set for the assistant, we will send a request at the start of the conversation. See our [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for more information. */
+      dynamic_variables_webhook_url?: string;
+      /** @description Map of dynamic variables and their default values */
+      dynamic_variables?: Record<string, never>;
+    };
+    UpdateAssistantRequestWithPromotion: components['schemas']['UpdateAssistantRequest'] & {
+      /**
+       * @description Indicates whether the assistant should be promoted to the main version. Defaults to true.
+       * @default true
+       */
+      promote_to_main: boolean;
+    };
+    /**
+     * UpdateAssistantTestRequest
+     * @description Request model for updating an existing assistant test.
+     *
+     *     All fields are optional, allowing partial updates of test configuration.
+     *     Only provided fields will be updated, others remain unchanged.
+     */
+    UpdateAssistantTestRequest: {
+      /**
+       * Name
+       * @description Updated name for the assistant test. Must be unique and descriptive.
+       */
+      name?: string;
+      /**
+       * Description
+       * @description Updated description of the test's purpose and evaluation criteria.
+       */
+      description?: string;
+      /** @description Updated communication channel for the test execution. */
+      telnyx_conversation_channel?: components['schemas']['TelnyxConversationChannel'];
+      /**
+       * Destination
+       * @description Updated target destination for test conversations.
+       */
+      destination?: string;
+      /**
+       * Max Duration Seconds
+       * @description Updated maximum test duration in seconds.
+       */
+      max_duration_seconds?: number;
+      /**
+       * Test Suite
+       * @description Updated test suite assignment for better organization.
+       */
+      test_suite?: string;
+      /**
+       * Instructions
+       * @description Updated test scenario instructions and objectives.
+       */
+      instructions?: string;
+      /**
+       * Rubric
+       * @description Updated evaluation criteria for assessing assistant performance.
+       */
+      rubric?: {
+        /** @description Label for the evaluation criterion, e.g., Empathy, Accuracy, Clarity. */
+        name: string;
+        /** @description Specific guidance on how to assess the assistant’s performance for this rubric item. */
+        criteria: string;
+      }[];
     };
     /**
      * Update Authentication Provider Request
@@ -39702,186 +43912,6 @@ export interface components {
        */
       webhookFailoverURL?: string;
     };
-    /** UpdateBrand */
-    UpdateBrandRequest: {
-      entityType: components['schemas']['EntityType'];
-      /**
-       * Displayname
-       * @description Display or marketing name of the brand.
-       * @example Example Company Updated
-       */
-      displayName: string;
-      /**
-       * Companyname
-       * @description (Required for Non-profit/private/public) Legal company name.
-       * @example Example Company Inc.
-       */
-      companyName?: string;
-      /**
-       * Ein
-       * @description (Required for Non-profit/private/public) Government assigned corporate tax ID. EIN is 9-digits in U.S. The only entity type which does not require an EIN is a Sole Proprietor.
-       * @example 142536893
-       */
-      ein?: string;
-      /**
-       * Phone
-       * @description Valid phone number in e.164 international format.
-       * @example +13259390512
-       */
-      phone?: string;
-      /**
-       * Street
-       * @description Street number and name.
-       * @example 123 Example St.
-       */
-      street?: string;
-      /**
-       * City
-       * @description City name
-       * @example San Francisco
-       */
-      city?: string;
-      /**
-       * State
-       * @description State. Must be 2 letters code for United States.
-       * @example CA
-       */
-      state?: string;
-      /**
-       * Postalcode
-       * @description Postal codes. Use 5 digit zipcode for United States
-       * @example 94016
-       */
-      postalCode?: string;
-      /**
-       * Country
-       * @description ISO2 2 characters country code. Example: US - United States
-       * @example US
-       */
-      country: string;
-      /**
-       * Email
-       * @description Valid email address of brand support contact.
-       * @example examplename@examplecompanyupdated.com
-       */
-      email: string;
-      /**
-       * Stocksymbol
-       * @description (Required for public company) stock symbol.
-       * @example EXCOUP
-       */
-      stockSymbol?: string;
-      stockExchange?: components['schemas']['StockExchange'];
-      /**
-       * Ipaddress
-       * @description IP address of the browser requesting to create brand identity.
-       */
-      ipAddress?: string;
-      /**
-       * Website
-       * @description Brand website URL.
-       * @example www.examplecompanyupdated.com
-       */
-      website?: string;
-      vertical: components['schemas']['Vertical'];
-      /**
-       * Altbusinessid
-       * @description Alternate business identifier such as DUNS, LEI, or GIIN
-       */
-      altBusinessId?: string;
-      altBusinessIdType?: components['schemas']['AltBusinessIdType'];
-    };
-    /** UpdateBrand */
-    UpdateBrandResponse: {
-      entityType: components['schemas']['EntityType'];
-      /**
-       * Displayname
-       * @description Display or marketing name of the brand.
-       * @example Example Company Updated
-       */
-      displayName: string;
-      /**
-       * Companyname
-       * @description (Required for Non-profit/private/public) Legal company name.
-       * @example Example Company Inc.
-       */
-      companyName?: string;
-      /**
-       * Ein
-       * @description (Required for Non-profit/private/public) Government assigned corporate tax ID. EIN is 9-digits in U.S. The only entity type which does not require an EIN is a Sole Proprietor.
-       * @example 142536893
-       */
-      ein?: string;
-      /**
-       * Phone
-       * @description Valid phone number in e.164 international format.
-       * @example +13259390512
-       */
-      phone?: string;
-      /**
-       * Street
-       * @description Street number and name.
-       * @example 123 Example St.
-       */
-      street?: string;
-      /**
-       * City
-       * @description City name
-       * @example San Francisco
-       */
-      city?: string;
-      /**
-       * State
-       * @description State. Must be 2 letters code for United States.
-       * @example CA
-       */
-      state?: string;
-      /**
-       * Postalcode
-       * @description Postal codes. Use 5 digit zipcode for United States
-       * @example 94016
-       */
-      postalCode?: string;
-      /**
-       * Country
-       * @description ISO2 2 characters country code. Example: US - United States
-       * @example US
-       */
-      country: string;
-      /**
-       * Email
-       * @description Valid email address of brand support contact.
-       * @example examplename@examplecompanyupdated.com
-       */
-      email: string;
-      /**
-       * Stocksymbol
-       * @description (Required for public company) stock symbol.
-       * @example EXCOUP
-       */
-      stockSymbol?: string;
-      stockExchange?: components['schemas']['StockExchange'];
-      /**
-       * Ipaddress
-       * @description IP address of the browser requesting to create brand identity.
-       */
-      ipAddress?: string;
-      /**
-       * Website
-       * @description Brand website URL.
-       * @example www.examplecompanyupdated.com
-       */
-      website?: string;
-      brandRelationship: components['schemas']['BrandRelationship'];
-      vertical: components['schemas']['Vertical'];
-      /**
-       * Altbusinessid
-       * @description Alternate business identifier such as DUNS, LEI, or GIIN
-       */
-      altBusinessId?: string;
-      altBusinessIdType?: components['schemas']['AltBusinessIdType'];
-      identityStatus?: components['schemas']['BrandIdentityStatus'];
-    };
     /**
      * Update Call Control Application Request
      * @example {
@@ -39904,7 +43934,8 @@ export interface components {
      *       },
      *       "webhook_api_version": "1",
      *       "webhook_event_failover_url": "https://failover.example.com",
-     *       "webhook_timeout_secs": 25
+     *       "webhook_timeout_secs": 25,
+     *       "redact_dtmf_debug_logging": true
      *     }
      */
     UpdateCallControlApplicationRequest: {
@@ -39955,6 +43986,14 @@ export interface components {
        * @example 10
        */
       first_command_timeout_secs: number;
+      /**
+       * @description Tags assigned to the Call Control Application.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       inbound?: components['schemas']['CallControlApplicationInbound'];
       outbound?: components['schemas']['CallControlApplicationOutbound'];
       /**
@@ -39977,6 +44016,12 @@ export interface components {
        * @example 25
        */
       webhook_timeout_secs: number | null;
+      /**
+       * @description When enabled, DTMF digits entered by users will be redacted in debug logs to protect PII data entered through IVR interactions.
+       * @default false
+       * @example true
+       */
+      redact_dtmf_debug_logging: boolean;
     };
     /**
      * Update Call Request
@@ -40088,148 +44133,8 @@ export interface components {
        */
       webhookFailoverURL?: string;
     };
-    /** UpdateCampaignResponse */
-    UpdateCampaignResponse: {
-      /**
-       * Campaignid
-       * @description Alphanumeric identifier assigned by the registry for a campaign. This identifier is required by the NetNumber OSR SMS enabling process of 10DLC.
-       * @example 4b30017a-15eb-6a25-2e3f-59b6422cud79
-       */
-      campaignId?: string;
-      /**
-       * Cspid
-       * @description Alphanumeric identifier of the CSP associated with this campaign.
-       */
-      cspId?: string;
-      /**
-       * Resellerid
-       * @description Alphanumeric identifier of the reseller that you want to associate with this campaign.
-       * @example RPQFAOY
-       */
-      resellerId?: string;
-      /** @description Current campaign status. Possible values: ACTIVE, EXPIRED. A newly created campaign defaults to ACTIVE status. */
-      status?: components['schemas']['Status'];
-      /**
-       * Createdate
-       * Format: date-time
-       * @description Unix timestamp when campaign was created.
-       */
-      createDate?: string;
-      /**
-       * Autorenewal
-       * @description Campaign subscription auto-renewal status.
-       */
-      autoRenewal?: boolean;
-      /**
-       * Billeddate
-       * Format: date-time
-       * @description Campaign recent billed date.
-       */
-      billedDate?: string;
-      /**
-       * Brandid
-       * @description Alphanumeric identifier of the brand associated with this campaign.
-       * @example 4b206179-f731-8ab7-f19c-34e19d22ide9
-       */
-      brandId: string;
-      vertical: components['schemas']['Vertical'];
-      usecase: components['schemas']['Usecase'];
-      subUsecases?: components['schemas']['Usecase'];
-      /**
-       * Description
-       * @description Summary description of this campaign.
-       * @example Campaign description goes here.
-       */
-      description: string;
-      /**
-       * Embeddedlink
-       * @description Does message generated by the campaign include URL link in SMS?
-       * @default false
-       */
-      embeddedLink: boolean;
-      /**
-       * Embeddedphone
-       * @description Does message generated by the campaign include phone number in SMS?
-       * @default false
-       */
-      embeddedPhone: boolean;
-      /**
-       * Affiliatemarketing
-       * @description Does message content controlled by affiliate marketing other than the brand?
-       */
-      affiliateMarketing?: boolean;
-      /**
-       * Numberpool
-       * @description Does campaign utilize pool of phone nubers?
-       * @default false
-       */
-      numberPool: boolean;
-      /**
-       * Agegated
-       * @description Age gated content in campaign.
-       */
-      ageGated?: boolean;
-      /** Directlending */
-      directLending?: boolean;
-      /**
-       * Subscriberoptin
-       * @description Does campaign require subscriber to opt-in before SMS is sent to subscriber?
-       * @default false
-       */
-      subscriberOptin: boolean;
-      /**
-       * Subscriberoptout
-       * @description Does campaign support subscriber opt-out keyword(s)?
-       * @default false
-       */
-      subscriberOptout: boolean;
-      /**
-       * Subscriberhelp
-       * @description Does campaign responds to help keyword(s)?
-       * @default false
-       */
-      subscriberHelp: boolean;
-      /**
-       * Sample1
-       * @description Message sample. Some campaign tiers require 1 or more message samples.
-       * @example This is a an updated message!
-       */
-      sample1?: string;
-      /**
-       * Sample2
-       * @description Message sample. Some campaign tiers require 2 or more message samples.
-       * @example This is a newly created message!
-       */
-      sample2?: string;
-      /**
-       * Sample3
-       * @description Message sample. Some campaign tiers require 3 or more message samples.
-       * @example This is a newly created message!
-       */
-      sample3?: string;
-      /**
-       * Sample4
-       * @description Message sample. Some campaign tiers require 4 or more message samples.
-       */
-      sample4?: string;
-      /**
-       * Sample5
-       * @description Message sample. Some campaign tiers require 5 or more message samples.
-       */
-      sample5?: string;
-      /**
-       * Messageflow
-       * @description Message flow description.
-       */
-      messageFlow?: string;
-      /**
-       * Helpmessage
-       * @description Help message of the campaign.
-       */
-      helpMessage?: string;
-    };
     /**
-     * Update Call Result
+     * TeXml REST Update Command Result
      * @example {
      *       "sid": "c46e06d7-b78f-4b13-96b6-c576af9640ff",
      *       "status": "accepted"
@@ -40330,6 +44235,13 @@ export interface components {
        */
       AnnounceMethod?: 'GET' | 'POST';
     };
+    /** UpdateConversationRequest */
+    UpdateConversationRequest: {
+      /** @description Metadata associated with the conversation. */
+      metadata?: {
+        [key: string]: string;
+      };
+    };
     /**
      * Update Credential Connection Request
      * @example {
@@ -40350,6 +44262,10 @@ export interface components {
      *       "webhook_event_failover_url": "https://failover.example.com",
      *       "webhook_api_version": "1",
      *       "webhook_timeout_secs": 25,
+     *       "tags": [
+     *         "tag1",
+     *         "tag2"
+     *       ],
      *       "rtcp_settings": {
      *         "port": "rtcp-mux",
      *         "capture_enabled": true,
@@ -40364,7 +44280,6 @@ export interface components {
      *         "generate_ringback_tone": true,
      *         "isup_headers_enabled": true,
      *         "prack_enabled": true,
-     *         "privacy_zone_enabled": true,
      *         "sip_compact_headers_enabled": true,
      *         "timeout_1xx_secs": 10,
      *         "timeout_2xx_secs": 20,
@@ -40447,6 +44362,14 @@ export interface components {
        * @example 25
        */
       webhook_timeout_secs: number | null;
+      /**
+       * @description Tags associated with the connection.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       rtcp_settings?: components['schemas']['ConnectionRtcpSettings'];
       inbound?: components['schemas']['CredentialInbound'];
       outbound?: components['schemas']['CredentialOutbound'];
@@ -40484,6 +44407,14 @@ export interface components {
        */
       webhook_event_failover_url: string | null;
       /**
+       * @description Tags associated with the connection.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
+      /**
        * @description Specifies how many seconds to wait before timing out a webhook.
        * @default null
        * @example 25
@@ -40516,6 +44447,10 @@ export interface components {
      *       "webhook_event_url": "https://example.com",
      *       "webhook_event_failover_url": "https://failover.example.com",
      *       "webhook_timeout_secs": 25,
+     *       "tags": [
+     *         "tag1",
+     *         "tag2"
+     *       ],
      *       "inbound": {
      *         "channel_limit": 10,
      *         "sip_subdomain": "example",
@@ -40535,6 +44470,14 @@ export interface components {
       webhook_event_failover_url?: components['schemas']['WebhookEventFailoverUrl'];
       webhook_timeout_secs?: components['schemas']['WebhookTimeoutSecs'];
       fax_email_recipient?: components['schemas']['FaxEmailRecipient'];
+      /**
+       * @description Tags associated with the Fax Application.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       inbound?: {
         /**
          * @description When set, this will limit the number of concurrent inbound calls to phone numbers associated with this connection.
@@ -40584,6 +44527,10 @@ export interface components {
      *       "webhook_event_failover_url": "https://failover.example.com",
      *       "webhook_api_version": "1",
      *       "webhook_timeout_secs": 25,
+     *       "tags": [
+     *         "tag1",
+     *         "tag2"
+     *       ],
      *       "rtcp_settings": {
      *         "port": "rtcp-mux",
      *         "capture_enabled": true,
@@ -40600,7 +44547,6 @@ export interface components {
      *         "generate_ringback_tone": true,
      *         "isup_headers_enabled": true,
      *         "prack_enabled": true,
-     *         "privacy_zone_enabled": true,
      *         "sip_compact_headers_enabled": true,
      *         "sip_region": "US",
      *         "sip_subdomain": "string",
@@ -40634,6 +44580,14 @@ export interface components {
        * @default false
        */
       onnet_t38_passthrough_enabled: boolean;
+      /**
+       * @description Tags associated with the connection.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       ios_push_credential_id?: components['schemas']['ConnectionIosPushCredentialId'];
       android_push_credential_id?: components['schemas']['ConnectionAndroidPushCredentialId'];
       webhook_event_url?: components['schemas']['WebhookEventUrl'];
@@ -40666,7 +44620,7 @@ export interface components {
        * @default 5060
        * @example 5060
        */
-      port: number;
+      port: number | null;
       /**
        * @description The DNS record type for the FQDN. For cases where a port is not set, the DNS record type must be 'srv'. For cases where a port is set, the DNS record type must be 'a'. If the DNS record type is 'a' and a port is not specified, 5060 will be used.
        * @example a
@@ -40691,6 +44645,10 @@ export interface components {
      *       "webhook_event_failover_url": "https://failover.example.com",
      *       "webhook_api_version": "1",
      *       "webhook_timeout_secs": 25,
+     *       "tags": [
+     *         "tag1",
+     *         "tag2"
+     *       ],
      *       "rtcp_settings": {
      *         "port": "rtcp-mux",
      *         "capture_enabled": true,
@@ -40708,7 +44666,6 @@ export interface components {
      *         "generate_ringback_tone": true,
      *         "isup_headers_enabled": true,
      *         "prack_enabled": true,
-     *         "privacy_zone_enabled": true,
      *         "sip_compact_headers_enabled": true,
      *         "sip_region": "US",
      *         "sip_subdomain": "test",
@@ -40789,6 +44746,14 @@ export interface components {
        * @example 25
        */
       webhook_timeout_secs: number | null;
+      /**
+       * @description Tags associated with the connection.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       rtcp_settings?: components['schemas']['ConnectionRtcpSettings'];
       inbound?: components['schemas']['InboundIp'];
       outbound?: components['schemas']['OutboundIp'];
@@ -40954,50 +44919,20 @@ export interface components {
       url_shortener_settings?: components['schemas']['UrlShortenerSettings'];
       /** @description The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID. */
       alpha_sender?: string | null;
-    };
-    /** @example {
-     *       "id": "387d1e31-a218-4375-8151-103f2d5e2d2c",
-     *       "record_type": "number_order_document",
-     *       "file_id": "1e3c5822-0362-4702-8e46-5a129f0d3976",
-     *       "requirements_id": "36aaf27d-986b-493c-bd1b-de16af2e4292",
-     *       "customer_reference": "MY REF 001",
-     *       "requirement_type": "address_proof",
-     *       "created_at": "2018-01-01T00:00:00.000000Z"
-     *     } */
-    UpdateNumberOrderDocumentRequest: {
+      /** @description The maximum amount of money (in USD) that can be spent by this profile before midnight UTC. */
+      daily_spend_limit?: string;
+      /** @description Whether to enforce the value configured by `daily_spend_limit`. */
+      daily_spend_limit_enabled?: boolean;
       /**
-       * Format: uuid
-       * @example 387d1e31-a218-4375-8151-103f2d5e2d2c
+       * @description enables SMS fallback for MMS messages.
+       * @default false
        */
-      readonly id?: string;
-      /** @example number_order_document */
-      readonly record_type?: string;
+      mms_fall_back_to_sms: boolean;
       /**
-       * @description The id of the file to associate as a number order document.
-       * @example 1e3c5822-0362-4702-8e46-5a129f0d3976
+       * @description enables automated resizing of MMS media.
+       * @default false
        */
-      file_id?: string;
-      /**
-       * @description Unique id for a requirement.
-       * @example 36aaf27d-986b-493c-bd1b-de16af2e4292
-       */
-      requirements_id?: string;
-      /**
-       * @description A customer reference string for customer look ups.
-       * @example MY REF 001
-       */
-      customer_reference?: string;
-      /** @enum {string} */
-      readonly requirement_type?:
-        | 'address_proof'
-        | 'identification'
-        | 'reg_form';
-      /**
-       * Format: datetime
-       * @description An ISO 8901 datetime string denoting when the number order document was uploaded.
-       * @example 2018-01-01T00:00:00.000000Z
-       */
-      readonly created_at?: string;
+      mms_transcoding: boolean;
     };
     UpdateNumberOrderPhoneNumberRequest: {
       regulatory_requirements?: components['schemas']['UpdateRegulatoryRequirement'][];
@@ -41112,10 +45047,17 @@ export interface components {
      *       "messaging_product": "P2P"
      *     } */
     UpdatePhoneNumberMessagingSettingsRequest: {
-      /** @description Unique identifier for a messaging profile. */
+      /** @description Configure the messaging profile this phone number is assigned to:
+       *
+       *     * Omit this field or set its value to `null` to keep the current value.
+       *     * Set this field to `""` to unassign the number from its messaging profile
+       *     * Set this field to a quoted UUID of a messaging profile to assign this number to that messaging profile */
       messaging_profile_id?: string;
       /**
-       * @description The requested messaging product the number should be on
+       * @description Configure the messaging product for this number:
+       *
+       *     * Omit this field or set its value to `null` to keep the current value.
+       *     * Set this field to a quoted product ID to set this phone number to that product
        * @example P2P
        */
       messaging_product?: string;
@@ -41130,7 +45072,6 @@ export interface components {
      *       "customer_reference": "customer-reference",
      *       "connection_id": "dc8e4d67-33a0-4cbb-af74-7b58f05bd494",
      *       "billing_group_id": "dc8e4d67-33a0-4cbb-af74-7b58f05bd494",
-     *       "number_level_routing": "disabled",
      *       "hd_voice_enabled": true
      *     } */
     UpdatePhoneNumberRequest: {
@@ -41154,12 +45095,6 @@ export interface components {
       connection_id?: string;
       /** @description Identifies the billing group associated with the phone number. */
       billing_group_id?: string;
-      /**
-       * @description Deprecated field, the only value for this is 'disabled'. All routing for numbers should be configured via connection settings.
-       * @default enabled
-       * @enum {string}
-       */
-      number_level_routing: 'disabled';
     };
     /** @example {
      *       "tech_prefix_enabled": true,
@@ -41301,6 +45236,10 @@ export interface components {
      *       "voice_method": "get",
      *       "status_callback": "https://example.com",
      *       "status_callback_method": "get",
+     *       "tags": [
+     *         "tag1",
+     *         "tag2"
+     *       ],
      *       "inbound": {
      *         "channel_limit": 10,
      *         "shaken_stir_enabled": true,
@@ -41354,6 +45293,14 @@ export interface components {
        * @enum {string}
        */
       status_callback_method: 'get' | 'post';
+      /**
+       * @description Tags associated with the Texml Application.
+       * @example [
+       *       "tag1",
+       *       "tag2"
+       *     ]
+       */
+      tags?: string[];
       inbound?: {
         /**
          * @description When set, this will limit the total number of inbound calls to phone numbers associated with this connection.
@@ -41459,7 +45406,7 @@ export interface components {
        * @description The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.
        * @default Telnyx
        */
-      alpha_sender: string;
+      alpha_sender: string | null;
       /**
        * @description The length of the verify code to generate.
        * @default 5
@@ -41482,8 +45429,9 @@ export interface components {
       default_verification_timeout_secs: number;
     };
     /**
-     * @description ISO 8601 formatted date-time indicating when the resource was updated.
-     * @example 2018-02-02T22:25:27.521Z
+     * Updated At
+     * @description ISO 8601 formatted date indicating when the resource was updated.
+     * @example 2020-02-03T22:25:27.521Z
      */
     UpdatedAt: string;
     UplinkData: {
@@ -41761,36 +45709,6 @@ export interface components {
       | 'Waitlist Alerts'
       | 'Webinar Reminders'
       | 'Workshop Alerts';
-    /**
-     * Usecase
-     * @description Campaign usecase. Must be of defined valid types. For more details, send a GET request to https://api.telnyx.com/10dlc/enum/usecase
-     * @example MARKETING
-     * @enum {unknown}
-     */
-    Usecase:
-      | '2FA'
-      | 'ACCOUNT_NOTIFICATION'
-      | 'AGENTS_FRANCHISES'
-      | 'CARRIER_EXEMPT'
-      | 'CHARITY'
-      | 'CONVERSATIONAL'
-      | 'CUSTOMER_CARE'
-      | 'DELIVERY_NOTIFICATION'
-      | 'EMERGENCY'
-      | 'FRAUD_ALERT'
-      | 'HIGHER_EDUCATION'
-      | 'LOW_VOLUME'
-      | 'MARKETING'
-      | 'MANUFACTURING'
-      | 'MIXED'
-      | 'POLITICAL'
-      | 'POLLING_VOTING'
-      | 'PUBLIC_SERVICE_ANNOUNCEMENT'
-      | 'SECURITY_ALERT'
-      | 'SOCIAL'
-      | 'SWEEPSTAKE'
-      | 'SOLE_PROPRIETOR'
-      | 'TRIAL';
     /** UsecaseMetadata */
     UsecaseMetadata: {
       /**
@@ -41828,6 +45746,59 @@ export interface components {
        * @description Campaign usecase
        */
       usecase?: string;
+    };
+    /** UserAddress */
+    UserAddress: {
+      /**
+       * Format: uuid
+       * @description Uniquely identifies the user address.
+       * @example c3527e69-dc5a-4b3e-8f44-99d209f83c1d
+       */
+      id?: string;
+      /**
+       * @description Identifies the type of the resource.
+       * @example user_address
+       */
+      record_type?: string;
+      customer_reference?: components['schemas']['customer_reference'];
+      first_name?: components['schemas']['first_name'];
+      last_name?: components['schemas']['last_name'];
+      business_name?: components['schemas']['business_name'];
+      phone_number?: components['schemas']['phone_number'];
+      street_address?: components['schemas']['street_address'];
+      extended_address?: components['schemas']['extended_address'];
+      locality?: components['schemas']['locality'];
+      administrative_area?: components['schemas']['administrative_area'];
+      neighborhood?: components['schemas']['neighborhood'];
+      borough?: components['schemas']['borough'];
+      postal_code?: components['schemas']['postal_code'];
+      country_code?: components['schemas']['country_code'];
+      /**
+       * @description ISO 8601 formatted date indicating when the resource was created.
+       * @example 2018-02-02T22:25:27.521Z
+       */
+      created_at?: string;
+      /**
+       * @description ISO 8601 formatted date indicating when the resource was updated.
+       * @example 2018-02-02T22:25:27.521Z
+       */
+      updated_at?: string;
+    };
+    UserAddressCreate: {
+      customer_reference?: components['schemas']['customer_reference'];
+      first_name: components['schemas']['first_name'];
+      last_name: components['schemas']['last_name'];
+      business_name: components['schemas']['business_name'];
+      phone_number?: components['schemas']['phone_number'];
+      street_address: components['schemas']['street_address'];
+      extended_address?: components['schemas']['extended_address'];
+      locality: components['schemas']['locality'];
+      administrative_area?: components['schemas']['administrative_area'];
+      neighborhood?: components['schemas']['neighborhood'];
+      borough?: components['schemas']['borough'];
+      postal_code?: components['schemas']['postal_code'];
+      country_code: components['schemas']['country_code'];
+      skip_address_verification?: components['schemas']['skip_address_verification'];
     };
     /** @example {
      *       "record_type": "balance",
@@ -41875,6 +45846,117 @@ export interface components {
        */
       currency?: string;
     };
+    UserBundle: {
+      /**
+       * Format: uuid
+       * @description User bundle's ID, this is used to identify the user bundle in the API.
+       * @example ca1d2263-d1f1-43ac-ba53-248e7a4bb26a
+       */
+      id: string;
+      /**
+       * @description Status of the user bundle.
+       * @example true
+       */
+      active: boolean;
+      /**
+       * Format: uuid
+       * @description The customer's ID that owns this user bundle.
+       * @example 16856d8c-cd59-4b08-9ac2-1ebb01d419e1
+       */
+      user_id: string;
+      /**
+       * Format: date
+       * @description Date the user bundle was created.
+       * @example 2025-01-20
+       */
+      created_at: string;
+      /**
+       * Format: date
+       * @description Date the user bundle was last updated.
+       * @example 2025-01-20
+       */
+      updated_at?: string | null;
+      billing_bundle: components['schemas']['BillingBundleSummary'];
+      /** @example [] */
+      resources: components['schemas']['UserBundleResourceSchema'][];
+    };
+    /** UserBundleCreateRequest */
+    UserBundleCreateRequest: {
+      /**
+       * Billing Bundle Id
+       * Format: uuid
+       */
+      billing_bundle_id: string;
+    };
+    /** UserBundleCreateResponse */
+    UserBundleCreateResponse: {
+      data: components['schemas']['UserBundle'];
+    };
+    /** UserBundleResourceSchema */
+    UserBundleResourceSchema: {
+      /**
+       * Format: uuid
+       * @description Resource's ID.
+       * @example ca1d2263-d1f1-43ac-ba53-248e7a4bb26a
+       */
+      id: string;
+      /**
+       * @description The resource itself (usually a phone number).
+       * @example +15617819942
+       */
+      resource: string;
+      /**
+       * @description The type of the resource (usually 'number').
+       * @example number
+       */
+      resource_type: string;
+      /**
+       * Format: date
+       * @description Date the resource was created.
+       * @example 2025-01-20
+       */
+      created_at: string;
+      /**
+       * Format: date
+       * @description Date the resource was last updated.
+       * @example 2025-01-20
+       */
+      updated_at?: string | null;
+    };
+    /** UserBundleResourcesResponse */
+    UserBundleResourcesResponse: {
+      /** Data */
+      data: components['schemas']['UserBundleResourceSchema'][];
+    };
+    /** UserBundleResponse */
+    UserBundleResponse: {
+      data: components['schemas']['UserBundle'];
+    };
+    /** UserBundleSummary */
+    UserBundleSummary: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Active */
+      active: boolean;
+      /** User Id */
+      user_id: string;
+      /**
+       * Created At
+       * Format: date
+       */
+      created_at: string;
+      /**
+       * Updated At
+       * Format: date
+       */
+      updated_at?: string;
+      billing_bundle: components['schemas']['BillingBundleSummary'];
+      /** Resources */
+      resources: components['schemas']['UserBundleResourceSchema'][];
+    };
     /** UserEmbeddedBuckets */
     UserEmbeddedBuckets: {
       /** Buckets */
@@ -41905,7 +45987,7 @@ export interface components {
     };
     /** @description A list of your tags on the given resource type. NOTE: The casing of the tags returned will not necessarily match the casing of the tags when they were added to a resource. This is because the tags will have the casing of the first time they were used within the Telnyx system regardless of source. */
     UserTagList: string[];
-    ValidateAddress: {
+    ValidateAddressField: {
       street_address?: components['schemas']['street_address'];
       extended_address?: components['schemas']['extended_address'];
       locality?: components['schemas']['locality'];
@@ -41930,13 +46012,30 @@ export interface components {
        */
       result: 'valid' | 'invalid';
       /** @description Provides normalized address when available. */
-      suggested: components['schemas']['ValidateAddress'];
+      suggested: components['schemas']['ValidateAddressField'];
       /**
        * @description Identifies the type of the resource.
        * @example address_validation
        */
       record_type?: string;
       errors?: components['schemas']['Error'][];
+    };
+    ValidationCodes: {
+      phone_numbers: {
+        /** Format: +E.164 */
+        phone_number: string;
+        /** @enum {string} */
+        status: 'verified' | 'rejected' | 'already_verified';
+      }[];
+      /** Format: uuid */
+      order_id: string;
+    };
+    ValidationCodesRequest: {
+      verification_codes: {
+        /** Format: +E.164 */
+        phone_number: string;
+        code: string;
+      }[];
     };
     /** ValidationError */
     ValidationError: {
@@ -41984,6 +46083,11 @@ export interface components {
       /** @example 2020-09-14T17:03:32.965812 */
       updated_at?: string;
     };
+    VerificationCodesRequest: {
+      phone_numbers: string[];
+      /** @enum {string} */
+      verification_method: 'sms' | 'call' | 'flashcall';
+    };
     /**
      * VerificationProfileRecordType
      * @description The possible verification profile record types.
@@ -42015,27 +46119,27 @@ export interface components {
       corporateWebsite: string;
       /**
        * Businessaddr1
-       * @example 311 W Superior St
+       * @example 600 Congress Avenue
        */
       businessAddr1: string;
       /**
        * Businessaddr2
-       * @example 121 W Superior St
+       * @example 14th Floor
        */
       businessAddr2?: string;
       /**
        * Businesscity
-       * @example Chicago
+       * @example Austin
        */
       businessCity: string;
       /**
        * Businessstate
-       * @example Illinois
+       * @example Texas
        */
       businessState: string;
       /**
        * Businesszip
-       * @example 60654
+       * @example 78701
        */
       businessZip: string;
       /**
@@ -42146,27 +46250,27 @@ export interface components {
       corporateWebsite: string;
       /**
        * Businessaddr1
-       * @example 311 W Superior St
+       * @example 600 Congress Avenue
        */
       businessAddr1: string;
       /**
        * Businessaddr2
-       * @example 121 W Superior St
+       * @example 14th Floor
        */
       businessAddr2?: string;
       /**
        * Businesscity
-       * @example Chicago
+       * @example Austin
        */
       businessCity: string;
       /**
        * Businessstate
-       * @example Illinois
+       * @example Texas
        */
       businessState: string;
       /**
        * Businesszip
-       * @example 60654
+       * @example 78701
        */
       businessZip: string;
       /**
@@ -42343,12 +46447,11 @@ export interface components {
        *     ------------------- | -----------------
        *     sms, psd2           | messaging_id
        *     call, flashcall     | call_control_id
-       *     whatsapp            | messaging_whatsapp_id
        *     ---
        *
        * @enum {string}
        */
-      verify_channel_type?: 'sms' | 'psd2' | 'call' | 'flashcall' | 'whatsapp';
+      verify_channel_type?: 'sms' | 'psd2' | 'call' | 'flashcall';
       /**
        * Format: uuid
        * @example 5b7a8365-91f3-420a-befc-498d1efd6c20
@@ -42488,7 +46591,7 @@ export interface components {
        * @description The alphanumeric sender ID to use when sending to destinations that require an alphanumeric sender ID.
        * @default Telnyx
        */
-      alpha_sender: string;
+      alpha_sender: string | null;
       /**
        * @description The length of the verify code to generate.
        * @default 5
@@ -42555,6 +46658,22 @@ export interface components {
       };
     };
     /**
+     * VersionConfig
+     * @description Configuration for a single version in canary deploy.
+     */
+    VersionConfig: {
+      /**
+       * Version Id
+       * @description Version ID string that references assistant_versions.version_id
+       */
+      version_id: string;
+      /**
+       * Percentage
+       * @description Percentage of traffic for this version [1-99]
+       */
+      percentage: number;
+    };
+    /**
      * Vertical
      * @description Vertical or industry segment of the brand or campaign.
      * @example TECHNOLOGY
@@ -42578,31 +46697,6 @@ export interface components {
       | 'GOVERNMENT'
       | 'TECHNOLOGY'
       | 'COMMUNICATION';
-    /** VettingClass */
-    VettingClass: {
-      /** Id */
-      id?: string;
-      /** Enabled */
-      enabled?: boolean;
-      /** Displayname */
-      displayName?: string;
-      /** Description */
-      description?: string;
-      /** Validitymonths */
-      validityMonths?: number;
-    };
-    /**
-     * VettingStatus
-     * @description An enumeration.
-     * @enum {string}
-     */
-    VettingStatus:
-      | 'PENDING'
-      | 'ACTIVE'
-      | 'EXPIRED'
-      | 'ERROR'
-      | 'CONTACT_VENDOR'
-      | 'SIMULATION';
     VideoRegion: {
       /**
        * @description X axis value (in pixels) of the region's upper left corner relative to the upper left corner of the whole room composition viewport.
@@ -42801,14 +46895,26 @@ export interface components {
      * @description The voice to be used by the voice assistant. Currently we support ElevenLabs, Telnyx and AWS voices.
      *
      *      **Supported Providers:**
-     *      - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility.
-     *
-     *      - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration secret under `"voice_settings": {"api_key_ref": "<secret_id>"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+     *     - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural voices, which provide more realistic, human-like speech, append `-Neural` to the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html) for compatibility.
+     *     - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural, Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural, Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+     *     - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g., `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an integration secret under `"voice_settings": {"api_key_ref": "<secret_id>"}`. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. Check [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
      *      - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-     * @default Telnyx.LibriTTS.0
-     * @example Telnyx.LibriTTS.0
+     * @default Telnyx.KokoroTTS.af
+     * @example Telnyx.KokoroTTS.af
      */
     VoiceConfig: string;
+    VoiceSettings: {
+      /** @description The voice to be used by the voice assistant. Check the full list of [available voices](https://developers.telnyx.com/api/call-control/list-text-to-speech-voices) via our voices API.
+       *     To use ElevenLabs, you must reference your ElevenLabs API key as an integration secret under the `api_key_ref` field. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. For Telnyx voices, use `Telnyx.<model_id>.<voice_id>` (e.g. Telnyx.KokoroTTS.af_heart) */
+      voice: string;
+      /**
+       * @description The speed of the voice in the range [0.25, 2.0]. 1.0 is deafult speed. Larger numbers make the voice faster, smaller numbers make it slower. This is only applicable for Telnyx Natural voices.
+       * @default 1
+       */
+      voice_speed: number;
+      /** @description The `identifier` for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your ElevenLabs API key. Warning: Free plans are unlikely to work with this integration. */
+      api_key_ref?: string;
+    };
     /** @example {
      *       "enabled": "true",
      *       "pin": "1234"
@@ -43223,156 +47329,109 @@ export interface components {
      * @example 25
      */
     WebhookTimeoutSecs: number | null;
-    WhatsAppConversationDetailRecord: {
-      /**
-       * @description CLDR two-letter region-code of recipient
-       * @example US
-       */
-      recipient_region_code?: string;
-      /**
-       * @description Telnyx account currency used to describe monetary values, including billing cost
-       * @example USD
-       */
-      currency?: string;
-      /**
-       * Format: date-time
-       * @description UTC time when the message was created
-       * @example 2021-08-06T03:32:01.125Z
-       */
-      created_at?: string;
-      /**
-       * @description Currency amount for WhatsApp cost
-       * @example 0.003
-       */
-      whatsapp_fee?: string;
-      /**
-       * @description Whatsapp Conversation ID
-       * @example f44ae083-c800-4433-baac-b439e5270aa4
-       */
-      conversation_id?: string;
-      /**
-       * @description Whatsapp Conversation Origin
-       * @enum {string}
-       */
-      conversation_origin?:
-        | 'business_initiated'
-        | 'user_initiated'
-        | 'referral_conversion';
-      /**
-       * @description Whatsapp Business Account ID
-       * @example 421452453
-       */
-      whatsapp_business_account_id?: string;
-      /**
-       * @description discriminator enum property added by openapi-typescript
-       * @enum {string}
-       */
-      record_type: 'WhatsAppConversationDetailRecord';
+    /** WebhookTool */
+    WebhookTool: {
+      /** @enum {string} */
+      type: 'webhook';
+      webhook: components['schemas']['WebhookToolParams'];
     };
-    WhatsAppDetailRecord: {
+    /** WebhookToolParams */
+    WebhookToolParams: {
+      /** @description The name of the tool. */
+      name: string;
+      /** @description The description of the tool. */
+      description: string;
       /**
-       * @description WhatsApp Message Id
-       * @example gBOGyfgaqtrewgpRTGqKuHKaTRhP
+       * @description The URL of the external tool to be called. This URL is going to be used by the assistant. The URL can be templated like: `https://example.com/api/v1/{id}`, where `{id}` is a placeholder for a value that will be provided by the assistant if `path_parameters` are provided with the `id` attribute.
+       * @example https://example.com/api/v1/function
        */
-      id?: string;
+      url: string;
       /**
-       * @description WhatsApp API Version
-       * @example v0.1.0
-       */
-      version?: string;
-      /**
-       * @description WhatsApp Sender Id
-       * @example 18336512500
-       */
-      sender_id?: string;
-      /**
-       * @description WhatsApp Recipient Id
-       * @example 18336512500
-       */
-      recipient_id?: string;
-      /**
-       * @description WhatsApp Message Type. Consult WhatsApp API documentation to see all available types
-       * @example session
+       * @description The HTTP method to be used when calling the external tool.
+       * @default POST
        * @enum {string}
        */
-      message_type?: 'session' | 'template';
+      method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+      /** @description The headers to be sent to the external tool. */
+      headers?: {
+        name?: string;
+        /** @description The value of the header. Note that we support mustache templating for the value. For example you can use `Bearer {{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of the integration secret as the bearer token. */
+        value?: string;
+      }[];
       /**
-       * @description WhatsApp Message Status. Consult WhatsApp API documentation to see all available status
-       * @example delivered
-       * @enum {string}
+       * @description The body parameters the webhook tool accepts, described as a JSON Schema object. These parameters will be passed to the webhook as the body of the request. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema) for documentation about the format
+       * @example {
+       *       "properties": {
+       *         "age": {
+       *           "description": "The age of the customer.",
+       *           "type": "integer"
+       *         },
+       *         "location": {
+       *           "description": "The location of the customer.",
+       *           "type": "string"
+       *         }
+       *       },
+       *       "required": [
+       *         "age",
+       *         "location"
+       *       ],
+       *       "type": "object"
+       *     }
        */
-      message_status?: 'sent' | 'delivered' | 'read' | 'failed' | 'deleted';
+      body_parameters?: {
+        /** @description The properties of the body parameters. */
+        properties?: Record<string, never>;
+        /** @description The required properties of the body parameters. */
+        required?: string[];
+        /** @enum {string} */
+        type?: 'object';
+      };
       /**
-       * @description Logical direction of the message from the Telnyx customer's perspective. It's inbound when the Telnyx customer receives the message, or outbound otherwise
-       * @example inbound
-       * @enum {string}
+       * @description The path parameters the webhook tool accepts, described as a JSON Schema object. These parameters will be passed to the webhook as the path of the request if the URL contains a placeholder for a value. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema) for documentation about the format
+       * @example {
+       *       "properties": {
+       *         "id": {
+       *           "description": "The id of the customer.",
+       *           "type": "string"
+       *         }
+       *       },
+       *       "required": [
+       *         "id"
+       *       ],
+       *       "type": "object"
+       *     }
        */
-      direction?: 'inbound' | 'outbound';
+      path_parameters?: {
+        /** @description The properties of the path parameters. */
+        properties?: Record<string, never>;
+        /** @description The required properties of the path parameters. */
+        required?: string[];
+        /** @enum {string} */
+        type?: 'object';
+      };
       /**
-       * @description CLDR two-letter region-code of recipient
-       * @example US
+       * @description The query parameters the webhook tool accepts, described as a JSON Schema object. These parameters will be passed to the webhook as the query of the request. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema) for documentation about the format
+       * @example {
+       *       "properties": {
+       *         "page": {
+       *           "description": "The page number.",
+       *           "type": "integer"
+       *         }
+       *       },
+       *       "required": [
+       *         "page"
+       *       ],
+       *       "type": "object"
+       *     }
        */
-      recipient_region_code?: string;
-      /**
-       * @description Telnyx account currency used to describe monetary values, including billing cost
-       * @example USD
-       */
-      currency?: string;
-      /**
-       * @description A string representing Whatsapp error code. Consult WhatsApp API documentation to see all available error codes
-       * @example 490
-       */
-      whatsapp_error_code?: string;
-      /**
-       * Format: date-time
-       * @description UTC time when the message was created
-       * @example 2021-08-06T03:32:01.125Z
-       */
-      created_at?: string;
-      /**
-       * Format: date-time
-       * @description UTC time when the webhook was received
-       * @example 2021-08-06T03:32:01.125Z
-       */
-      webhook_received_at?: string;
-      /**
-       * @description UUID representation of the webhook unique identifier
-       * @example 3ca7bd3d-7d82-4e07-9df4-009123068320
-       */
-      webhook_id?: string;
-      /**
-       * @description Currency amount for Telnyx billing cost
-       * @example 0.003
-       */
-      telnyx_fee?: string;
-      /**
-       * @description Currency amount for WhatsApp cost
-       * @example 0.003
-       */
-      whatsapp_fee?: string;
-      /**
-       * @description Whatsapp Conversation ID
-       * @example f44ae083-c800-4433-baac-b439e5270aa4
-       */
-      conversation_id?: string;
-      /**
-       * @description Whatsapp Conversation Origin
-       * @enum {string}
-       */
-      conversation_origin?:
-        | 'business_initiated'
-        | 'user_initiated'
-        | 'referral_conversion';
-      /**
-       * @description Whatsapp Business Account ID
-       * @example 421452453
-       */
-      whatsapp_business_account_id?: string;
-      /**
-       * @description discriminator enum property added by openapi-typescript
-       * @enum {string}
-       */
-      record_type: 'WhatsAppDetailRecord';
+      query_parameters?: {
+        /** @description The properties of the query parameters. */
+        properties?: Record<string, never>;
+        /** @description The required properties of the query parameters. */
+        required?: string[];
+        /** @enum {string} */
+        type?: 'object';
+      };
     };
     WireguardInterface: components['schemas']['Record'] &
       components['schemas']['Interface'] & {
@@ -43577,7 +47636,7 @@ export interface components {
     address_book: boolean;
     /**
      * @description The locality of the address. For US addresses, this corresponds to the state of the address.
-     * @example IL
+     * @example TX
      */
     administrative_area: string;
     /**
@@ -43682,6 +47741,254 @@ export interface components {
      */
     business_name: string;
     /**
+     * Call Conversation Ended
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "call.conversation.ended",
+     *       "id": "eb8775a6-634f-48b0-b177-d5465a8a8e9f",
+     *       "occurred_at": "2025-05-29T13:35:38.817785Z",
+     *       "created_at": "2025-05-29T13:35:38.927621Z",
+     *       "payload": {
+     *         "assistant_id": "assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d",
+     *         "call_control_id": "v3:HDR1vQHx697hpP9xZ0bhlbUOWPFPDtPcxw-nuSMuC6mGVpb0euoklQ",
+     *         "call_leg_id": "cc29cce6-3c91-11f0-a8e5-02420aef3d20",
+     *         "call_session_id": "cc29c8d6-3c91-11f0-aa7c-02420aef3d20",
+     *         "calling_party_type": "sip",
+     *         "client_state": "g3QAAAACbQAAAAtkYXRhX2NlbnRlcm0AAAADY2gxbQAAAApkZXBsb3ltZW50bQAAAARiYXNl",
+     *         "connection_id": "2694492062593582591",
+     *         "conversation_id": "0424805b-adc1-4ff8-9f95-e1de6883ecbe",
+     *         "duration_sec": 3,
+     *         "from": "+13124287921",
+     *         "to": "jamesw@assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d.sip.telnyx.com",
+     *         "llm_model": "openai/gpt-4o",
+     *         "stt_model": "distil-whisper/distil-large-v2",
+     *         "tts_model_id": "Natural",
+     *         "tts_provider": "telnyx",
+     *         "tts_voice_id": "Marissa"
+     *       }
+     *     }
+     */
+    callConversationEnded: {
+      /**
+       * @description Identifies the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example call.conversation.ended
+       * @enum {string}
+       */
+      event_type?: 'call.conversation.ended';
+      /**
+       * Format: uuid
+       * @description Unique identifier for the event.
+       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2018-02-02T22:25:27.521992Z
+       */
+      occurred_at?: string;
+      /**
+       * Format: date-time
+       * @description Timestamp when the event was created in the system.
+       * @example 2025-05-29T13:35:38.927621Z
+       */
+      created_at?: string;
+      payload?: {
+        /**
+         * @description Unique identifier of the assistant involved in the call.
+         * @example assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d
+         */
+        assistant_id?: string;
+        /**
+         * @description Call ID used to issue commands via Call Control API.
+         * @example v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg
+         */
+        call_control_id?: string;
+        /**
+         * @description Call Control App ID (formerly Telnyx connection ID) used in the call.
+         * @example 7267xxxxxxxxxxxxxx
+         */
+        connection_id?: string;
+        /**
+         * @description ID that is unique to the call leg.
+         * @example cc29cce6-3c91-11f0-a8e5-02420aef3d20
+         */
+        call_leg_id?: string;
+        /**
+         * @description ID that is unique to the call session (group of related call legs).
+         * @example cc29c8d6-3c91-11f0-aa7c-02420aef3d20
+         */
+        call_session_id?: string;
+        /**
+         * @description Base64-encoded state received from a command.
+         * @example g3QAAAACbQAAAAtkYXRhX2NlbnRlcm0AAAADY2gxbQAAAApkZXBsb3ltZW50bQAAAARiYXNl
+         */
+        client_state?: string;
+        /**
+         * @description The type of calling party connection.
+         * @example sip
+         * @enum {string}
+         */
+        calling_party_type?: 'pstn' | 'sip';
+        /**
+         * @description ID unique to the conversation or insight group generated for the call.
+         * @example 0424805b-adc1-4ff8-9f95-e1de6883ecbe
+         */
+        conversation_id?: string;
+        /**
+         * @description Duration of the conversation in seconds.
+         * @example 3
+         */
+        duration_sec?: number;
+        /**
+         * @description The caller's number or identifier.
+         * @example +13124287921
+         */
+        from?: string;
+        /**
+         * @description The callee's number or SIP address.
+         * @example jamesw@assistant-d9082b56-ba2d-4ad1-a50c-58661eb1463d.sip.telnyx.com
+         */
+        to?: string;
+        /**
+         * @description The large language model used during the conversation.
+         * @example openai/gpt-4o
+         */
+        llm_model?: string;
+        /**
+         * @description The speech-to-text model used in the conversation.
+         * @example distil-whisper/distil-large-v2
+         */
+        stt_model?: string;
+        /**
+         * @description The text-to-speech provider used in the call.
+         * @example telnyx
+         */
+        tts_provider?: string;
+        /**
+         * @description The model ID used for text-to-speech synthesis.
+         * @example Natural
+         */
+        tts_model_id?: string;
+        /**
+         * @description Voice ID used for TTS.
+         * @example Marissa
+         */
+        tts_voice_id?: string;
+      };
+    };
+    /** Call Conversation Ended Event */
+    callConversationEndedEvent: {
+      data?: components['schemas']['callConversationEnded'];
+    };
+    /**
+     * Call Conversation Insights Generated
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "call.conversation_insights.generated",
+     *       "id": "898e96ef-be63-45aa-9e7d-01332bff9a97",
+     *       "occurred_at": "2025-02-19T17:02:49.371454Z",
+     *       "payload": {
+     *         "call_control_id": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg",
+     *         "connection_id": "7267xxxxxxxxxxxxxx",
+     *         "call_leg_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+     *         "call_session_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+     *         "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+     *         "calling_party_type": "pstn",
+     *         "insight_group_id": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+     *         "results": [
+     *           {
+     *             "insight_id": "428c31b6-abf3-3bc1-b7f4-5013ef9657c1",
+     *             "result": "The user inquired about the menu at Ember & Oak. The menu offers various options, including vegetarian, vegan, and gluten-free dishes, as well as a children's menu. The restaurant also has a daily happy hour from 4 PM to 6 PM and offers takeaway and delivery services. The user found the information helpful but had to leave without making any further decisions or requests. No specific preferences or goals were expressed beyond inquiring about the menu."
+     *           }
+     *         ]
+     *       }
+     *     }
+     */
+    callConversationInsightsGenerated: {
+      /**
+       * @description Identifies the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example call.conversation_insights.generated
+       * @enum {string}
+       */
+      event_type?: 'call.conversation_insights.generated';
+      /**
+       * Format: uuid
+       * @description Identifies the type of resource.
+       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2018-02-02T22:25:27.521992Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * @description Call ID used to issue commands via Call Control API.
+         * @example v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg
+         */
+        call_control_id?: string;
+        /**
+         * @description Call Control App ID (formerly Telnyx connection ID) used in the call.
+         * @example 7267xxxxxxxxxxxxxx
+         */
+        connection_id?: string;
+        /**
+         * @description ID that is unique to the call and can be used to correlate webhook events.
+         * @example 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+         */
+        call_leg_id?: string;
+        /**
+         * @description ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
+         * @example 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+         */
+        call_session_id?: string;
+        /**
+         * @description State received from a command.
+         * @example aGF2ZSBhIG5pY2UgZGF5ID1d
+         */
+        client_state?: string;
+        /**
+         * @description The type of calling party connection.
+         * @example pstn
+         * @enum {string}
+         */
+        calling_party_type?: 'pstn' | 'sip';
+        /**
+         * @description ID that is unique to the insight group being generated for the call.
+         * @example 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+         */
+        insight_group_id?: string;
+        /** @description Array of insight results being generated for the call. */
+        results?: {
+          /**
+           * @description ID that is unique to the insight result being generated for the call.
+           * @example 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+           */
+          insight_id?: string;
+          result?: Record<string, never> | string;
+        }[];
+      };
+    };
+    /** Call Conversation Insights Generated Event */
+    callConversationInsightsGeneratedEvent: {
+      data?: components['schemas']['callConversationInsightsGenerated'];
+    };
+    /**
      * Call Recording Error
      * @example {
      *       "record_type": "event",
@@ -43765,6 +48072,111 @@ export interface components {
       data?: components['schemas']['callRecordingError'];
     };
     /**
+     * Call Recording Transcription Saved
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "call.recording.transcription.saved",
+     *       "id": "898e96ef-be63-45aa-9e7d-01332bff9a97",
+     *       "occurred_at": "2025-02-19T17:02:49.371454Z",
+     *       "payload": {
+     *         "call_control_id": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg",
+     *         "connection_id": "7267xxxxxxxxxxxxxx",
+     *         "call_leg_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+     *         "call_session_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+     *         "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
+     *         "calling_party_type": "pstn",
+     *         "recording_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+     *         "recording_transcription_id": "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+     *         "status": "completed",
+     *         "transcription_text": "Hi!"
+     *       }
+     *     }
+     */
+    callRecordingTranscriptionSaved: {
+      /**
+       * @description Identifies the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example call.recording.transcription.saved
+       * @enum {string}
+       */
+      event_type?: 'call.recording.transcription.saved';
+      /**
+       * Format: uuid
+       * @description Identifies the type of resource.
+       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2018-02-02T22:25:27.521992Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * @description Call ID used to issue commands via Call Control API.
+         * @example v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg
+         */
+        call_control_id?: string;
+        /**
+         * @description Call Control App ID (formerly Telnyx connection ID) used in the call.
+         * @example 7267xxxxxxxxxxxxxx
+         */
+        connection_id?: string;
+        /**
+         * @description ID that is unique to the call and can be used to correlate webhook events.
+         * @example 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+         */
+        call_leg_id?: string;
+        /**
+         * @description ID that is unique to the call session and can be used to correlate webhook events. Call session is a group of related call legs that logically belong to the same phone call, e.g. an inbound and outbound leg of a transferred call.
+         * @example 428c31b6-abf3-3bc1-b7f4-5013ef9657c1
+         */
+        call_session_id?: string;
+        /**
+         * @description State received from a command.
+         * @example aGF2ZSBhIG5pY2UgZGF5ID1d
+         */
+        client_state?: string;
+        /**
+         * @description The type of calling party connection.
+         * @example pstn
+         * @enum {string}
+         */
+        calling_party_type?: 'pstn' | 'sip';
+        /**
+         * @description ID that is unique to the recording session and can be used to correlate webhook events.
+         * @example 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+         */
+        recording_id?: string;
+        /**
+         * @description ID that is unique to the transcription process and can be used to correlate webhook events.
+         * @example 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+         */
+        recording_transcription_id?: string;
+        /**
+         * @description The transcription status.
+         * @example completed
+         * @enum {string}
+         */
+        status?: 'completed';
+        /**
+         * @description The transcribed text
+         * @example Hi!
+         */
+        transcription_text?: string;
+      };
+    };
+    /** Call Recording Transcription Saved Event */
+    callRecordingTranscriptionSavedEvent: {
+      data?: components['schemas']['callRecordingTranscriptionSaved'];
+    };
+    /**
      * @description The two-character (ISO 3166-1 alpha-2) country code of the address.
      * @example US
      */
@@ -43774,15 +48186,9 @@ export interface components {
      * @example MY REF 001
      */
     customer_reference: string;
-    error: {
-      /** Format: int */
-      code?: string;
-      title?: string;
-      detail?: string;
-    };
     /**
      * @description Additional street address information about the address such as, but not limited to, unit number or apartment number.
-     * @example #504
+     * @example 14th Floor
      */
     extended_address: string;
     /**
@@ -43824,7 +48230,7 @@ export interface components {
     last_name: string;
     /**
      * @description The locality of the address. For US addresses, this corresponds to the city of the address.
-     * @example Chicago
+     * @example Austin
      */
     locality: string;
     /**
@@ -43850,17 +48256,19 @@ export interface components {
     phone_number: string;
     /**
      * @description The postal code of the address.
-     * @example 60654
+     * @example 78701
      */
     postal_code: string;
     /** @description The settings associated with the authentication provider. */
     settings: {
       /**
+       * Format: uri
        * @description The Entity ID for the identity provider (IdP).
        * @example https://myorg.myidp.com/saml/metadata
        */
       idp_entity_id: string;
       /**
+       * Format: uri
        * @description The SSO target url for the identity provider (IdP).
        * @example https://myorg.myidp.com/trust/saml2/http-post/sso
        */
@@ -43879,6 +48287,7 @@ export interface components {
       idp_cert_fingerprint_algorithm: 'sha1' | 'sha256' | 'sha384' | 'sha512';
     };
     /**
+     * Format: uri
      * @description The URL for the identity provider metadata file to populate the settings automatically. If the settings attribute is provided, that will be used instead.
      * @example https://myorg.myidp.com/saml/metadata
      */
@@ -43889,8 +48298,13 @@ export interface components {
      */
     short_name: string;
     /**
+     * @description An optional boolean value specifying if verification of the address should be skipped or not. UserAddresses are generally used for shipping addresses, and failure to validate your shipping address will likely result in a failure to deliver SIM cards or other items ordered from Telnyx. Do not use this parameter unless you are sure that the address is correct even though it cannot be validated. If this is set to any value other than true, verification of the address will be attempted, and the user address will not be allowed if verification fails. If verification fails but suggested values are available that might make the address correct, they will be present in the response as well. If this value is set to true, then the verification will not be attempted. Defaults to false (verification will be performed).
+     * @default false
+     */
+    skip_address_verification: string;
+    /**
      * @description The primary street address information about the address.
-     * @example 311 W Superior Street
+     * @example 600 Congress Avenue
      */
     street_address: string;
     /**
@@ -44067,62 +48481,13 @@ export interface components {
         };
       };
     };
-    /** @description An Advanced Order Response */
-    AdvancedOrderResponse: {
+    /** @description A list of audit log entries. */
+    AuditLogListResponse: {
       headers: {
         [name: string]: unknown;
       };
       content: {
-        'application/json': {
-          /**
-           * Country Code
-           * @default US
-           */
-          country_code: string;
-          /**
-           * Comments
-           * @default
-           */
-          comments: string;
-          /**
-           * Quantity
-           * @default 1
-           */
-          quantity: number;
-          /**
-           * Area Code
-           * @default
-           */
-          area_code: string;
-          /** @default  */
-          phone_number_type: unknown;
-          /** Features */
-          features?: ('sms' | 'mms' | 'voice' | 'fax' | 'emergency')[];
-          /**
-           * Customer Reference
-           * @default
-           */
-          customer_reference: string;
-          /**
-           * Id
-           * Format: uuid
-           */
-          id?: string;
-          status?: unknown;
-          /** Orders */
-          orders?: string[];
-        };
-      };
-    };
-    /** @description Successful response */
-    AuthenticationProviderResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['AuthenticationProvider'];
-        };
+        'application/json': components['schemas']['AuditLogList'];
       };
     };
     /** @description Successful response */
@@ -44145,26 +48510,14 @@ export interface components {
         'application/json': components['schemas']['ErrorResponse'];
       };
     };
-    /** @description Bucket Usage */
-    BucketAPIUsageResponse: {
+    /** @description A list of black box test results. */
+    BlackBoxTestResultsResponse: {
       headers: {
         [name: string]: unknown;
       };
       content: {
         'application/json': {
-          data?: components['schemas']['BucketAPIUsageResponse'][];
-        };
-      };
-    };
-    /** @description Bucket Storage Usage */
-    BucketUsageResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['BucketUsage'][];
-          meta?: components['schemas']['PaginationMetaSimple'];
+          data?: components['schemas']['BlackBoxTestResultSet'][];
         };
       };
     };
@@ -44230,17 +48583,6 @@ export interface components {
         };
       };
     };
-    /** @description Successful response */
-    BulkUploadDocServiceDocumentsResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['DocServiceDocument'][];
-        };
-      };
-    };
     /** @description Successful response with details about a call control application. */
     CallControlApplicationResponse: {
       headers: {
@@ -44260,6 +48602,17 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['CallControlCommandResult'];
+        };
+      };
+    };
+    /** @description Successful response upon making a call control command that includes recording_id. */
+    CallControlCommandResponseWithRecordingId: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['CallControlCommandResultWithRecordingId'];
         };
       };
     };
@@ -44360,17 +48713,6 @@ export interface components {
         };
       };
     };
-    /** @description Expected billing group response to a valid request */
-    CreateBillingGroupResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['BillingGroup'];
-        };
-      };
-    };
     /** @description Successful Response */
     CreateCustomerServiceRecord: {
       headers: {
@@ -44379,17 +48721,6 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['CustomerServiceRecord'];
-        };
-      };
-    };
-    /** @description Expected ledger billing group report response to a valid request */
-    CreateLedgerBillingGroupReportResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['LedgerBillingGroupReport'];
         };
       };
     };
@@ -44598,7 +48929,7 @@ export interface components {
         };
       };
     };
-    /** @description A response with credentials resource. */
+    /** @description A response containing a credentials resource. */
     CredentialsResponseBody: {
       headers: {
         [name: string]: unknown;
@@ -44627,17 +48958,6 @@ export interface components {
         'application/json': {
           data?: components['schemas']['DefaultGateway'][];
           meta?: components['schemas']['PaginationMeta'];
-        };
-      };
-    };
-    /** @description Expected billing group response to a valid request */
-    DeleteBillingGroupResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['BillingGroup'];
         };
       };
     };
@@ -44707,6 +49027,17 @@ export interface components {
         };
       };
     };
+    /** @description Successful response upon initiating a TeXML call. */
+    DeprecatedInitiateCallResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['InitiateCallResult'];
+        };
+      };
+    };
     /** @description New participant resource. */
     DialParticipantResponse: {
       headers: {
@@ -44723,60 +49054,6 @@ export interface components {
       };
       content: {
         'application/json': components['schemas']['DialogflowConnectionResponse'];
-      };
-    };
-    /** @description Successful response */
-    DocReqsListRequirementTypesResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['DocReqsRequirementTypeList'];
-          meta?: components['schemas']['PaginationMeta'];
-        };
-      };
-    };
-    /** @description Successful response */
-    DocReqsRequirementResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['DocReqsRequirement'];
-        };
-      };
-    };
-    /** @description Successful response */
-    DocReqsRequirementTypeResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['DocReqsRequirementType'];
-        };
-      };
-    };
-    /** @description Successful response */
-    DocServiceDocumentResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['DocServiceDocument'];
-        };
-      };
-    };
-    /** @description Successful response */
-    DownloadDocServiceDocumentResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        '*': string;
       };
     };
     /** @description Successful response */
@@ -44903,18 +49180,6 @@ export interface components {
       };
     };
     /** @description Successful response */
-    GetAllAuthenticationProviderResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['AuthenticationProvider'][];
-          meta?: components['schemas']['PaginationMeta'];
-        };
-      };
-    };
-    /** @description Successful response */
     GetAllCivicAddressesResponse: {
       headers: {
         [name: string]: unknown;
@@ -45005,6 +49270,18 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['TexmlApplication'][];
+          meta?: components['schemas']['PaginationMeta'];
+        };
+      };
+    };
+    /** @description Successful response */
+    GetAllUserAddressResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['UserAddress'][];
           meta?: components['schemas']['PaginationMeta'];
         };
       };
@@ -45104,6 +49381,31 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['GcbChannelZone'][];
+          meta?: components['schemas']['PaginationMeta'];
+        };
+      };
+    };
+    /** @description A list of numbers using GCB, grouped by channel zone */
+    GetGcbNumbersResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: {
+            /** @example Euro channel zone */
+            zone_name?: string;
+            /** @example 1653e6a1-4bfd-4857-97c6-6a51e1c34477 */
+            zone_id?: string;
+            /** @example 7 */
+            number_of_channels?: number;
+            numbers?: {
+              /** @example +15554441234 */
+              number?: string;
+              /** @example FR */
+              country?: string;
+            }[];
+          }[];
           meta?: components['schemas']['PaginationMeta'];
         };
       };
@@ -45486,6 +49788,17 @@ export interface components {
         };
       };
     };
+    /** @description Get invoice details */
+    InvoiceDetailResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['InvoiceDetail'];
+        };
+      };
+    };
     /** @description Successful response with details about an IP connection. */
     IpConnectionResponse: {
       headers: {
@@ -45508,17 +49821,6 @@ export interface components {
         };
       };
     };
-    /** @description An array of Advanced Order Responses */
-    ListAdvancedOrderResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['responses']['AdvancedOrderResponse'][];
-        };
-      };
-    };
     /** @description Successful response */
     ListAllowedFocWindows: {
       headers: {
@@ -45527,18 +49829,6 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['PortingOrdersAllowedFocWindow'][];
-          meta?: components['schemas']['PaginationMeta'];
-        };
-      };
-    };
-    /** @description List of audit log entries */
-    ListAuditLogsResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['AuditLogEntry'][];
           meta?: components['schemas']['PaginationMeta'];
         };
       };
@@ -45564,18 +49854,6 @@ export interface components {
         'application/json': {
           data?: components['schemas']['AvailablePhoneNumber'][];
           meta?: components['schemas']['AvailablePhoneNumbersMetadata'];
-        };
-      };
-    };
-    /** @description A paginated array of billing groups */
-    ListBillingGroupsResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['BillingGroup'][];
-          meta?: components['schemas']['PaginationMeta'];
         };
       };
     };
@@ -45670,30 +49948,6 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['CustomerServiceRecord'][];
-          meta?: components['schemas']['PaginationMeta'];
-        };
-      };
-    };
-    /** @description Successful response */
-    ListDocServiceDocumentLinksResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['DocServiceDocumentLink'][];
-          meta?: components['schemas']['PaginationMeta'];
-        };
-      };
-    };
-    /** @description Successful response */
-    ListDocServiceDocumentsResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['DocServiceDocument'][];
           meta?: components['schemas']['PaginationMeta'];
         };
       };
@@ -45845,18 +50099,6 @@ export interface components {
         };
       };
     };
-    /** @description Successful response with a list of messaging profile metrics. */
-    ListMessagingProfileMetrics: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['MessagingProfileHighLevelMetrics'][];
-          meta?: components['schemas']['PaginationMeta'];
-        };
-      };
-    };
     /** @description Successful response with a list of messaging profile phone numbers. */
     ListMessagingProfilePhoneNumbersResponse: {
       headers: {
@@ -45905,42 +50147,6 @@ export interface components {
         };
       };
     };
-    /** @description List Migrations Response */
-    ListMigrationResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['MigrationParams'][];
-          meta?: components['schemas']['PaginationMetaSimple'];
-        };
-      };
-    };
-    /** @description List Migrations Source Coverage Response */
-    ListMigrationSourceCoverageResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['MigrationSourceCoverageParams'][];
-          meta?: components['schemas']['PaginationMetaSimple'];
-        };
-      };
-    };
-    /** @description List Migration Sources Response */
-    ListMigrationSourceResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['MigrationSourceParams'][];
-          meta?: components['schemas']['PaginationMetaSimple'];
-        };
-      };
-    };
     /** @description Successful response with a list of number block orders. */
     ListNumberBlockOrdersResponse: {
       headers: {
@@ -45949,18 +50155,6 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['NumberBlockOrder'][];
-          meta?: components['schemas']['PaginationMeta'];
-        };
-      };
-    };
-    /** @description Successful response with a list of number order documents. */
-    ListNumberOrderDocumentsResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['NumberOrderDocument'][];
           meta?: components['schemas']['PaginationMeta'];
         };
       };
@@ -46312,13 +50506,6 @@ export interface components {
         };
       };
     };
-    /** @description Mobile mobile push credentials */
-    ListPushCredentialsResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content?: never;
-    };
     /** @description Successful response with a list of calls in a queue. */
     ListQueueCallsResponse: {
       headers: {
@@ -46331,7 +50518,7 @@ export interface components {
         };
       };
     };
-    /** @description A response listing recording transcriptions */
+    /** @description A response listing multiple recording transcriptions. */
     ListRecordingTranscriptionsResponse: {
       headers: {
         [name: string]: unknown;
@@ -46351,18 +50538,6 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['Release'][];
-          meta?: components['schemas']['PaginationMeta'];
-        };
-      };
-    };
-    /** @description Successful response */
-    ListRequirementsResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['DocReqsRequirementList'];
           meta?: components['schemas']['PaginationMeta'];
         };
       };
@@ -46564,28 +50739,6 @@ export interface components {
         };
       };
     };
-    /** @description Create Migration Response */
-    MigrationResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['MigrationParams'];
-        };
-      };
-    };
-    /** @description Create Migration Source Response */
-    MigrationSourceResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['MigrationSourceParams'];
-        };
-      };
-    };
     /** @description Successful response */
     NetworkCoverageListResponse: {
       headers: {
@@ -46642,8 +50795,17 @@ export interface components {
         'application/json': components['schemas']['Errors'];
       };
     };
-    /** @description The requested resource doesn't exist. */
+    /** @description Resource not found */
     NotFoundResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['ResourceNotFoundError'];
+      };
+    };
+    /** @description The requested resource doesn't exist. */
+    NotFoundResponseApp: {
       headers: {
         [name: string]: unknown;
       };
@@ -46670,17 +50832,6 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['NumberLookupRecord'];
-        };
-      };
-    };
-    /** @description Successful response with details about a number order document. */
-    NumberOrderDocumentResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['NumberOrderDocument'];
         };
       };
     };
@@ -46770,7 +50921,7 @@ export interface components {
         };
       };
     };
-    /** @description Successful response with details about a phone number including voice settings. */
+    /** @description Successful response with details about a phone number including messaging settings. */
     PhoneNumberWithMessagingSettingsResponse: {
       headers: {
         [name: string]: unknown;
@@ -46845,15 +50996,6 @@ export interface components {
         'application/json': components['schemas']['GcbPhoneNumber'];
       };
     };
-    /** @description Presigned URL Object Response */
-    PresignedObjectUrlResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': components['schemas']['PresignedObjectUrl'];
-      };
-    };
     /** @description Successful response */
     PublicInternetGatewayListResponse: {
       headers: {
@@ -46876,13 +51018,6 @@ export interface components {
           data?: components['schemas']['PublicInternetGatewayRead'];
         };
       };
-    };
-    /** @description Success response with details about a push credential */
-    PushCredentialResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content?: never;
     };
     /** @description Successful response with details about a call in a queue. */
     QueueCallResponse: {
@@ -46913,11 +51048,11 @@ export interface components {
       };
       content: {
         'application/json': {
-          data?: components['schemas']['ReadComment'] & Record<string, never>;
+          data?: components['schemas']['Comment'] & Record<string, never>;
         };
       };
     };
-    /** @description A response with recording resource. */
+    /** @description A response with a single recording resource. */
     RecordingResponseBody: {
       headers: {
         [name: string]: unknown;
@@ -46926,7 +51061,7 @@ export interface components {
         'application/json': components['schemas']['RecordingResponse'];
       };
     };
-    /** @description A response with a recording transcription resource. */
+    /** @description A response with a single recording transcription resource. */
     RecordingTranscriptionResponse: {
       headers: {
         [name: string]: unknown;
@@ -46937,14 +51072,14 @@ export interface components {
         };
       };
     };
-    /** @description A response with recordings. */
+    /** @description A response containing multiple recordings. */
     RecordingsResponseBody: {
       headers: {
         [name: string]: unknown;
       };
       content: {
         'application/json': {
-          data?: components['schemas']['RecordingResponse'][];
+          data?: components['schemas']['RecordingResponseData'][];
           meta?: components['schemas']['PaginationMeta'];
         };
       };
@@ -47106,17 +51241,6 @@ export interface components {
         };
       };
     };
-    /** @description Expected billing group response to a valid request */
-    RetrieveBillingGroupResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['BillingGroup'];
-        };
-      };
-    };
     /** @description Successful response with details about a call status. */
     RetrieveCallStatusResponse: {
       headers: {
@@ -47128,25 +51252,14 @@ export interface components {
         };
       };
     };
-    /** @description Expected ledger billing group report response to a valid request */
-    RetrieveLedgerBillingGroupReportResponse: {
+    /** @description Successful response with details about a call status that includes recording_id. */
+    RetrieveCallStatusResponseWithRecordingId: {
       headers: {
         [name: string]: unknown;
       };
       content: {
         'application/json': {
-          data?: components['schemas']['LedgerBillingGroupReport'];
-        };
-      };
-    };
-    /** @description Successful response with details about a messaging profile's metrics. */
-    RetrieveMessagingProfileMetrics: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['MessagingProfileDetailedMetrics'];
+          data?: components['schemas']['CallWithRecordingId'];
         };
       };
     };
@@ -47216,17 +51329,6 @@ export interface components {
         };
       };
     };
-    /** @description SSL Certificate Response */
-    SSLCertificateResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['SSLCertificate'];
-        };
-      };
-    };
     /** @description Successful Response */
     SearchMobileNetworkOperatorsResponse: {
       headers: {
@@ -47280,6 +51382,19 @@ export interface components {
         [name: string]: unknown;
       };
       content: {
+        /** @example {
+         *       "id": "03a35311-ad92-46b3-95d7-8ad6dccf2d7c",
+         *       "porting_order_id": "fd4b86c8-497d-4c6d-9609-a789e4e14cfe",
+         *       "expires_in_seconds": 3600,
+         *       "permissions": [
+         *         "porting_order.document.read",
+         *         "porting_order.document.update"
+         *       ],
+         *       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODk4OTQ2NzcsImlzdCI6MTY4OTg5MTA3NywicGVybWlzc2lvbnMiOlsicG9ydGluZ19vcmRlci5kb2N1bWVudC5yZWFkIl0sInBvcnRpbmdfb3JkZXJfaWQiOiJmZDRiODZjOC00OTdkLTRjNmQtOTYwOS1hNzg5ZTRlMTRjZmUifQ.CT0HRF6OLj7VPZ8p5Y_0S8rOL8SEUznwJJkR-YReKwc",
+         *       "record_type": "porting_order_sharing_token",
+         *       "expires_at": "2023-07-20T23:11:17Z",
+         *       "created_at": "2023-07-20T22:11:17.292573Z"
+         *     } */
         'application/json': {
           data?: components['schemas']['PortingOrderSharingToken'];
         };
@@ -47488,7 +51603,7 @@ export interface components {
         'application/json': components['schemas']['PhoneNumberCampaign'];
       };
     };
-    /** @description Return details of the SIPREC connector associated with the given name. */
+    /** @description Return details of the SIPREC connector. */
     SiprecConnectorResponseBody: {
       headers: {
         [name: string]: unknown;
@@ -47528,6 +51643,17 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['SubNumberOrder'];
+        };
+      };
+    };
+    /** @description Sub number orders report response */
+    SubNumberOrdersReportResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['SubNumberOrdersReport'];
         };
       };
     };
@@ -47718,7 +51844,7 @@ export interface components {
         'application/json': components['schemas']['Errors'];
       };
     };
-    /** @description Unauthorized */
+    /** @description Unauthenticated response. Happens when the current user cannot be authenticated. */
     UnauthorizedResponse: {
       headers: {
         [name: string]: unknown;
@@ -47756,14 +51882,12 @@ export interface components {
         };
       };
     };
-    /** @description The request was well-formed but was unable to be followed due to semantic errors. */
+    /** @description Unprocessable entity */
     UnprocessableEntityResponse: {
       headers: {
         [name: string]: unknown;
       };
-      content: {
-        'application/json': components['schemas']['ErrorResponse'];
-      };
+      content?: never;
     };
     /** @description Unprocessable entity. Check the 'detail' field in response for details. */
     UnprocessableManagedAccountEntity: {
@@ -47773,17 +51897,6 @@ export interface components {
       content: {
         'application/json': {
           errors?: components['schemas']['UnprocessableEntityError'][];
-        };
-      };
-    };
-    /** @description Expected billing group response to a valid request */
-    UpdateBillingGroupResponse: {
-      headers: {
-        [name: string]: unknown;
-      };
-      content: {
-        'application/json': {
-          data?: components['schemas']['BillingGroup'];
         };
       };
     };
@@ -47868,6 +51981,17 @@ export interface components {
         };
       };
     };
+    /** @description Successful response */
+    UserAddressResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['UserAddress'];
+        };
+      };
+    };
     /** @description Get user balance details */
     UserBalanceResponse: {
       headers: {
@@ -47887,6 +52011,17 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['ValidateAddressResult'];
+        };
+      };
+    };
+    /** @description Successful response with the phone numbers and their respective status of the validation codes. */
+    ValidationCodesResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['ValidationCodes'];
         };
       };
     };
@@ -48072,12 +52207,15 @@ export interface components {
     ApplicationId: string;
     /** @description Filter by the associated record type */
     AssociatedRecordType: 'account' | 'phone_number';
-    /** @description The id of the billing group */
-    BillingGroupId: string;
+    /** @description Format: Bearer <TOKEN> */
+    AuthorizationBearer: string;
+    BillingBundleId: string;
     /** @description Unique identifier and token for controlling the call */
     CallControlId: string;
     /** @description The CallSid that identifies the call to update. */
     CallSid: string;
+    /** @description CallSid or Label of the Participant to update. */
+    CallSidOrParticipantLabel: string;
     /** @description Filter by the id of a channel type */
     ChannelTypeId: 'webhook' | 'sms' | 'email' | 'voice';
     /** @description The ConferenceSid that uniquely identifies a conference. */
@@ -48103,61 +52241,21 @@ export interface components {
      * @example >=2023-05-22
      */
     DateUpdated: string;
-    /** @description Filters requirements to those applying to a specific action. */
-    DocReqsActionFilter: 'ordering' | 'porting';
-    /** @description Filters results to those applying to a 2-character (ISO 3166-1 alpha-2) country code */
-    DocReqsCountryFilter: string;
-    /** @description Filters results to those applying to a specific `phone_number_type` */
-    DocReqsPhoneNumberTypeFilter: 'local' | 'national' | 'toll-free';
-    /**
-     * @description Uniquely identifies the requirement_type record
-     * @example a9dad8d5-fdbd-49d7-aa23-39bb08a5ebaa
-     */
-    DocReqsRequirementId: string;
-    /**
-     * @description Uniquely identifies the requirement_type record
-     * @example a38c217a-8019-48f8-bff6-0fdd9939075b
-     */
-    DocReqsRequirementTypeId: string;
-    /** @description Filters requirement types to those whose name contains a certain string. */
-    DocReqsRequirementTypeNameFilter: string;
-    /** @description Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a `-` in front of the field name. */
-    DocReqsRequirementTypesSort: 'created_at' | 'name' | 'updated_at';
-    /** @description Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a `-` in front of the field name. */
-    DocReqsRequirementsSort:
-      | 'action'
-      | 'country_code'
-      | 'locality'
-      | 'phone_number_type';
-    /** @description Identifies the associated document to filter on. */
-    DocServiceDocumentIdFilter: string;
-    /** @description Filter by created at greater than provided value. */
-    DocumentsCreatedAtGreaterThanFilter: string;
-    /** @description Filter by created at less than provided value. */
-    DocumentsCreatedAtLessThanFilter: string;
-    /** @description Filter documents by a customer references. */
-    DocumentsCustomerReferenceEqFilter: string;
-    /** @description Filter documents by a list of customer references. */
-    DocumentsCustomerReferenceInFilter: string;
-    /** @description Filter by string matching part of filename. */
-    DocumentsFilenameContainsFilter: string;
-    /** @description Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a `-` in front of the field name. */
-    DocumentsSort: 'filename' | 'created_at' | 'updated_at';
     /**
      * @description Filters calls by their end date. Expected format is YYYY-MM-DD
      * @example 2023-05-22
      */
     EndTime: string;
     /**
-     * @description Filters calls by their end date (before). Expected format is YYYY-MM-DD
-     * @example 2023-05-22
-     */
-    'EndTime<': string;
-    /**
      * @description Filters calls by their end date (after). Expected format is YYYY-MM-DD
      * @example 2023-05-22
      */
-    'EndTime>': string;
+    EndTime_gt: string;
+    /**
+     * @description Filters calls by their end date (before). Expected format is YYYY-MM-DD
+     * @example 2023-05-22
+     */
+    EndTime_lt: string;
     /** @description If present, only returns results with the <code>address_book</code> flag set to the given value. */
     FilterAddressBook: string;
     /** @description Filter by state or province where the address is located. */
@@ -48258,6 +52356,10 @@ export interface components {
     FilterCostByAmount: string;
     /** @description Filter by ISO 4217 currency string. */
     FilterCostByCurrency: string;
+    /** @description The country (or countries) to filter addresses by. */
+    FilterCountry: string[];
+    /** @description Filter by country code. */
+    FilterCountryIso: string[];
     /** @description Filter for audit events created after a specific date. */
     FilterCreatedAfter: string;
     /** @description Filter by ISO 8601 formatted date-time string matching resource creation date-time. */
@@ -48357,37 +52459,27 @@ export interface components {
      */
     From: string;
     /** @description Channel zone identifier */
+    GcbChannelNumberZoneId: string;
+    /** @description Channel zone identifier */
     GcbChannelZoneId: string;
     /** @description The phone number to be looked up */
     GcbPhoneNumber: string;
-    /** @description Identifies the resource. */
+    /** @description The id of the resource. */
     Id: string;
     /** @description Specifies if cancelled accounts should be included in the results. */
     IncludeCancelledAccounts: boolean;
     /** @description It includes a list of associated ICCIDs. */
     IncludeICCIDs: boolean;
-    /** @description It includes the associated OTA update objects in the response when present. */
-    IncludeOTAUpdates: boolean;
     /** @description It includes the associated SIM card group object in the response when present. */
     IncludeSIMCardGroup: boolean;
     /** @description Identifies the resource. */
     IntId: string;
     /** @description Identifies the type of resource. */
     IpId: string;
-    /** @description The id of the ledger billing group report */
-    LedgerBillingGroupReportId: string;
-    /** @description The `linked_record_type` of the document to filter on. */
-    LinkedRecordTypeFilter: string;
-    /** @description The `linked_resource_id` of the document to filter on. */
-    LinkedResourceIdFilter: string;
     /** @description Uniquely identifies a media resource. */
     MediaName: string;
     /** @description The id of the messaging profile to retrieve */
     MessagingProfileId: string;
-    /** @description The id of the messaging profile(s) to retrieve */
-    MessagingProfileMetric: string;
-    /** @description The timeframe for which you'd like to retrieve metrics. */
-    MessagingProfileMetricTimeFrame: '1h' | '3h' | '24h' | '3d' | '7d' | '30d';
     /** @description Optional filter on outbound voice profile name. */
     NameFilter: string;
     /** @description Filter by the id of a notification channel */
@@ -48411,10 +52503,12 @@ export interface components {
     PageBefore: string;
     /** @description Limit of records per single page */
     PageLimit: number;
-    /** @description The page number to load */
+    /** @description The page number to load. */
     PageNumber: number;
-    /** @description The size of the page */
+    /** @description The size of the page. */
     PageSize: number;
+    /** @description The size of the page */
+    PageSizeApp: number;
     /**
      * @description The number of records to be displayed on a page
      * @example 10
@@ -48446,6 +52540,7 @@ export interface components {
     RecordingId: string;
     /** @description Uniquely identifies the recording by id. */
     RecordingSid: string;
+    /** @description Uniquely identifies the recording transcription by id. */
     RecordingTranscriptionId: string;
     /** @description Uniquely identifies the recording transcription by id. */
     RecordingTranscriptionSid: string;
@@ -48457,10 +52552,23 @@ export interface components {
     SIMCardId: string;
     /** @description The id of the short code */
     ShortCodeId: string;
-    /** @description Uniquely identifies a SIPREC connector */
+    /** @description Uniquely identifies a SIPREC connector. */
     SiprecConnectorName: string;
-    /** @description Set how the results will be ordered by the creation date. */
-    Sort: 'asc' | 'desc';
+    /** @description The SiprecSid that uniquely identifies the Sip Recording. */
+    SiprecSid: string;
+    /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
+     *     That is: <ul>
+     *       <li>
+     *         <code>email</code>: sorts the result by the
+     *         <code>email</code> field in ascending order.
+     *       </li>
+     *
+     *       <li>
+     *         <code>-email</code>: sorts the result by the
+     *         <code>email</code> field in descending order.
+     *       </li>
+     *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
+    Sort: 'created_at' | 'email';
     /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
      *     That is: <ul>
      *       <li>
@@ -48492,29 +52600,6 @@ export interface components {
      *       </li>
      *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
     SortApplication: 'created_at' | 'friendly_name' | 'active';
-    /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
-     *     That is: <ul>
-     *       <li>
-     *         <code>name</code>: sorts the result by the
-     *         <code>name</code> field in ascending order.
-     *       </li>
-     *
-     *       <li>
-     *         <code>-name</code>: sorts the result by the
-     *         <code>name</code> field in descending order.
-     *       </li>
-     *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
-    SortAuthenticationProvider:
-      | 'name'
-      | '-name'
-      | 'short_name'
-      | '-short_name'
-      | 'active'
-      | '-active'
-      | 'created_at'
-      | '-created_at'
-      | 'updated_at'
-      | '-updated_at';
     /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
      *     That is: <ul>
      *       <li>
@@ -48553,21 +52638,39 @@ export interface components {
       | '-traffic_type'
       | 'usage_payment_method'
       | '-usage_payment_method';
+    /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
+     *     That is: <ul>
+     *       <li>
+     *         <code>street_address</code>: sorts the result by the
+     *         <code>street_address</code> field in ascending order.
+     *       </li>
+     *
+     *       <li>
+     *         <code>-street_address</code>: sorts the result by the
+     *         <code>street_address</code> field in descending order.
+     *       </li>
+     *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
+    SortUserAddress:
+      | 'created_at'
+      | 'first_name'
+      | 'last_name'
+      | 'business_name'
+      | 'street_address';
     /**
      * @description Filters calls by their start date. Expected format is YYYY-MM-DD.
      * @example 2023-05-22
      */
     StartTime: string;
     /**
-     * @description Filters calls by their start date (before). Expected format is YYYY-MM-DD
-     * @example 2023-05-22
-     */
-    'StartTime<': string;
-    /**
      * @description Filters calls by their start date (after). Expected format is YYYY-MM-DD
      * @example 2023-05-22
      */
-    'StartTime>': string;
+    StartTime_gt: string;
+    /**
+     * @description Filters calls by their start date (before). Expected format is YYYY-MM-DD
+     * @example 2023-05-22
+     */
+    StartTime_lt: string;
     /**
      * @description Filters calls by status.
      * @example no-answer
@@ -48590,6 +52693,9 @@ export interface components {
      * @example +1312345678
      */
     To: string;
+    UserBundleId: string;
+    /** @description User identifier */
+    UserId: string;
     /** @description Identifies a civic address or a location. */
     address_id: string;
     /** @description Identifies the resource. */
@@ -48602,7 +52708,7 @@ export interface components {
     ticket_id: string;
   };
   requestBodies: {
-    /** @description Creates new credentials resource for given connection_id. */
+    /** @description Creates new credentials resource for the specified connection_id. */
     CreateCredentialsRequest: {
       content: {
         'application/json': components['schemas']['CustomStorageConfiguration'];
@@ -48669,27 +52775,27 @@ export interface components {
           address: {
             /**
              * @description The street address of the company
-             * @example 311 W. Superior St
+             * @example 600 Congress Avenue
              */
             street_address: string;
             /**
              * @description The extended address of the company
-             * @example Suite 504
+             * @example 14th Floor
              */
             extended_address?: string;
             /**
              * @description The locality of the company
-             * @example Chicago
+             * @example Austin
              */
             city?: string;
             /**
              * @description The administrative area of the company
-             * @example IL
+             * @example TX
              */
             state?: string;
             /**
              * @description The postal code of the company
-             * @example 60654
+             * @example 78701
              */
             zip_code?: string;
             /**
@@ -48830,7 +52936,7 @@ export interface components {
         };
       };
     };
-    /** @description Deletes recordings for given ids. */
+    /** @description Deletes recordings for the given list of IDs. */
     DeleteRecordingsRequest: {
       content: {
         'application/json': string[];
@@ -48867,7 +52973,7 @@ export interface components {
         };
       };
     };
-    /** @description The params expected to create/update a SIPREC connector */
+    /** @description The parameters required to create or update a SIPREC connector. */
     SiprecConnectorRequest: {
       content: {
         'application/json': components['schemas']['SiprecConnector'];
@@ -49206,9 +53312,9 @@ export interface operations {
   FindAddresses: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter addresses via the customer reference set. Matching is not case-sensitive. */
         'filter[customer_reference][eq]'?: components['parameters']['FilterCustomerReferenceEquals'];
@@ -49444,7 +53550,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['responses']['ListAdvancedOrderResponse'];
+          'application/json': components['schemas']['ListAdvancedOrderResponse'];
         };
       };
     };
@@ -49468,7 +53574,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['responses']['AdvancedOrderResponse'];
+          'application/json': components['schemas']['AdvancedOrderResponse'];
         };
       };
     };
@@ -49490,7 +53596,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['responses']['AdvancedOrderResponse'];
+          'application/json': components['schemas']['AdvancedOrderResponse'];
         };
       };
     };
@@ -49557,9 +53663,426 @@ export interface operations {
       };
     };
   };
-  get_assistant_public_assistants__assistant_id__get: {
+  import_assistants_public_assistants_import_post: {
     parameters: {
       query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ImportAssistantsRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AssistantsListData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_assistant_tests_public_assistants_tests_get: {
+    parameters: {
+      query?: {
+        /** @description Number of tests to return per page (1-100) */
+        'page[size]'?: number;
+        /** @description Page number to retrieve (1-based indexing) */
+        'page[number]'?: number;
+        /** @description Filter tests by test suite name */
+        test_suite?: string;
+        /** @description Filter tests by communication channel (e.g., 'web_chat', 'sms') */
+        telnyx_conversation_channel?: string;
+        /** @description Filter tests by destination (phone number, webhook URL, etc.) */
+        destination?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Returns paginated test list with metadata for navigation and filtering */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PaginatedAssistantTestList'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  create_assistant_test_public_assistants_tests_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateAssistantTestRequest'];
+      };
+    };
+    responses: {
+      /** @description Returns the created test configuration with assigned test ID */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AssistantTestResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  fetch_test_suites_public_assistants_tests_test_suites_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Returns an array of unique test suite names for filtering and organization */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TestSuitesResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_test_suite_runs_for_test_public_assistants_tests_test_suites__suite_name__runs_get: {
+    parameters: {
+      query?: {
+        /** @description Filter runs by execution status (pending, running, completed, failed, timeout) */
+        status?: string;
+        /** @description Filter runs by specific suite execution batch ID */
+        test_suite_run_id?: string;
+        /** @description Number of test runs to return per page (1-100) */
+        'page[size]'?: number;
+        /** @description Page number to retrieve (1-based indexing) */
+        'page[number]'?: number;
+      };
+      header?: never;
+      path: {
+        suite_name: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Returns paginated list of test runs within the specified suite */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PaginatedTestRunList'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  trigger_test_suite_runs_public_assistants_tests_test_suites__suite_name__runs_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        suite_name: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['TriggerTestSuiteRunsRequest'];
+      };
+    };
+    responses: {
+      /** @description Returns array of created test runs for all tests in the suite */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TestRunResponse'][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_assistant_test_public_assistants_tests__test_id__get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        test_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Returns complete test configuration including rubric, schedule, and metadata */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AssistantTestResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  update_assistant_test_public_assistants_tests__test_id__put: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        test_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateAssistantTestRequest'];
+      };
+    };
+    responses: {
+      /** @description Returns the updated test configuration with all changes applied */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AssistantTestResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  delete_assistant_test_public_assistants_tests__test_id__delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        test_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Returns success status when test is successfully deleted */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_test_runs_for_test_public_assistants_tests__test_id__runs_get: {
+    parameters: {
+      query?: {
+        /** @description Filter runs by execution status (pending, running, completed, failed, timeout) */
+        status?: string;
+        /** @description Number of test runs to return per page (1-100) */
+        'page[size]'?: number;
+        /** @description Page number to retrieve (1-based indexing) */
+        'page[number]'?: number;
+      };
+      header?: never;
+      path: {
+        test_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Returns paginated list of test runs for the specified test */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PaginatedTestRunList'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  trigger_test_run_public_assistants_tests__test_id__runs_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        test_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['TriggerTestRunRequest'];
+      };
+    };
+    responses: {
+      /** @description Returns the created test run with execution details and status */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TestRunResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_test_run_public_assistants_tests__test_id__runs__run_id__get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        test_id: string;
+        run_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Returns complete test run details including results, logs, and performance metrics */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TestRunResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_assistant_public_assistants__assistant_id__get: {
+    parameters: {
+      query?: {
+        fetch_dynamic_variables_from_webhook?: boolean;
+        from?: string;
+        to?: string;
+        call_control_id?: string;
+      };
       header?: never;
       path: {
         assistant_id: string;
@@ -49599,7 +54122,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['UpdateAssistantRequest'];
+        'application/json': components['schemas']['UpdateAssistantRequestWithPromotion'];
       };
     };
     responses: {
@@ -49641,6 +54164,534 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['AssistantDeletedResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_canary_deploy_assistants__assistant_id__canary_deploys_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CanaryDeployResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  update_canary_deploy_assistants__assistant_id__canary_deploys_put: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CanaryDeployRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CanaryDeployResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  create_canary_deploy_assistants__assistant_id__canary_deploys_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CanaryDeployRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CanaryDeployResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  delete_canary_deploy_assistants__assistant_id__canary_deploys_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  assistant_chat_public_assistants__assistant_id__chat_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AssistantChatReq'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AssistantChatResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  clone_assistant_public_assistants__assistant_id__clone_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Assistant'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_scheduled_events: {
+    parameters: {
+      query?: {
+        'page[size]'?: number;
+        'page[number]'?: number;
+        from_date?: string;
+        to_date?: string;
+        conversation_channel?: components['schemas']['ConversationChannelType'];
+      };
+      header?: never;
+      path: {
+        assistant_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PaginatedScheduledEventList'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  create_scheduled_event: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateScheduledEventRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ScheduledEventResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_scheduled_event: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+        event_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ScheduledEventResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  delete_scheduled_event: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+        event_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_assistant_texml_public_assistants__assistant_id__texml_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': string;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  test_assistant_tool_public_assistants__assistant_id__tools__tool_id__test_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+        tool_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['TestWebhookToolRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TestWebhookToolResponseData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_assistant_versions_public_assistants__assistant_id__versions_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Returns list of assistant versions ordered by creation date (newest first) */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AssistantsListData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  update_assistant_version_public_assistants__assistant_id__versions__version_id__post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+        version_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateAssistantRequest'];
+      };
+    };
+    responses: {
+      /** @description Returns the updated assistant version configuration */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Assistant'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  delete_assistant_version_public_assistants__assistant_id__versions__version_id__delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+        version_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Returns HTTP 204 No Content on successful deletion */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  promote_assistant_version_public_assistants__assistant_id__versions__version_id__promote_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assistant_id: string;
+        version_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Returns the promoted assistant configuration */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Assistant'];
         };
       };
       /** @description Validation Error */
@@ -49709,6 +54760,879 @@ export interface operations {
          *       ]
          *     } */
         'application/json': components['schemas']['ChatCompletionRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  list_all_requested_clusters_public_text_clusters_get: {
+    parameters: {
+      query?: {
+        'page[number]'?: number;
+        'page[size]'?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ClusteringRequestInfoData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  compute_new_cluster_public_text_clusters_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PublicTextClusteringRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['TextClusteringResponseData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  fetch_cluster_by_task_id_public_text_clusters__task_id__get: {
+    parameters: {
+      query?: {
+        /** @description The number of nodes in the cluster to return in the response. Nodes will be sorted by their centrality within the cluster. */
+        top_n_nodes?: number;
+        /** @description Whether or not to include subclusters and their nodes in the response. */
+        show_subclusters?: boolean;
+      };
+      header?: never;
+      path: {
+        task_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ClusteringStatusResponseData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  delete_cluster_by_task_id_public_text_clusters__task_id__delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        task_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  fetch_cluster_image_by_task_id_public_text_clusters__task_id__image_get: {
+    parameters: {
+      query?: {
+        cluster_id?: number;
+      };
+      header?: never;
+      path: {
+        task_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_conversations_public_conversations_get: {
+    parameters: {
+      query?: {
+        /** @description Filter by conversation ID (e.g. id=eq.123) */
+        id?: string;
+        /** @description Filter by conversation Name (e.g. `name=like.Voice%`) */
+        name?: string;
+        /** @description Filter by creation datetime (e.g., `created_at=gte.2025-01-01`) */
+        created_at?: string;
+        /** @description Filter by last message datetime (e.g., `last_message_at=lte.2025-06-01`) */
+        last_message_at?: string;
+        /** @description Filter by assistant ID (e.g., `metadata->assistant_id=eq.assistant-123`) */
+        'metadata->assistant_id'?: string;
+        /** @description Filter by call control ID (e.g., `metadata->call_control_id=eq.v3:123`) */
+        'metadata->call_control_id'?: string;
+        /** @description Filter by the phone number, SIP URI, or other identifier for the agent (e.g., `metadata->telnyx_agent_target=eq.+13128675309`) */
+        'metadata->telnyx_agent_target'?: string;
+        /** @description Filter by the phone number, SIP URI, or other identifier for the end user (e.g., `metadata->telnyx_end_user_target=eq.+13128675309`) */
+        'metadata->telnyx_end_user_target'?: string;
+        /** @description Filter by conversation channel (e.g., `metadata->telnyx_conversation_channel=eq.phone_call`) */
+        'metadata->telnyx_conversation_channel'?: string;
+        /** @description Limit the number of returned conversations (e.g., `limit=10`) */
+        limit?: number;
+        /** @description Order the results by specific fields (e.g., `order=created_at.desc` or `order=last_message_at.asc`) */
+        order?: string;
+        /** @description Apply OR conditions using PostgREST syntax (e.g., `or=(created_at.gte.2025-04-01,last_message_at.gte.2025-04-01)`) */
+        or?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ConversationsListData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  create_new_conversation_public_conversations_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateConversationRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Conversation'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_all_insight_groups: {
+    parameters: {
+      query?: {
+        /** @description Page number (0-based) */
+        'page[number]'?: number;
+        /** @description Number of items per page */
+        'page[size]'?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['GetInsightTemplateGroupsRespData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  create_insight_group: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['InsightTemplateGroupCreateReq'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InsightTemplateGroupDetailRespData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_insight_group_by_id: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the insight group */
+        group_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InsightTemplateGroupDetailRespData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  update_insight_group_by_id: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the insight group */
+        group_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['InsightTemplateGroupUpdateReq'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InsightTemplateGroupDetailRespData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  delete_insight_group_by_id: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the insight group */
+        group_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  assign_insight_to_group: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the insight group */
+        group_id: string;
+        /** @description The ID of the insight */
+        insight_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  unassign_insight_from_group: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the insight group */
+        group_id: string;
+        /** @description The ID of the insight */
+        insight_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_all_insights: {
+    parameters: {
+      query?: {
+        /** @description Page number (0-based) */
+        'page[number]'?: number;
+        /** @description Number of items per page */
+        'page[size]'?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['GetInsightTemplatesRespData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  create_insight: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['InsightTemplateCreateReq'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InsightTemplateDetailRespData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_insight_by_id: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the insight */
+        insight_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InsightTemplateDetailRespData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  update_insight_by_id: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the insight */
+        insight_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['InsightTemplateUpdateReq'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InsightTemplateDetailRespData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  delete_insight_by_id: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the insight */
+        insight_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_conversation_by_id_public_conversations_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the conversation to retrieve */
+        conversation_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['Conversation'];
+          };
+        };
+      };
+      /** @description Conversation Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  update_conversation_by_id_public_conversations_put: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the conversation to update */
+        conversation_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateConversationRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Update */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['Conversation'];
+          };
+        };
+      };
+      /** @description Conversation Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  delete_conversation_by_id_public_conversations_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the conversation to delete */
+        conversation_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Conversation Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_conversations_public__conversation_id__insights_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        conversation_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ConversationInsightListData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_conversations_public__conversation_id__messages_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        conversation_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ConversationMessageListData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  add_new_message: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the conversation */
+        conversation_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateMsgReq'];
       };
     };
     responses: {
@@ -49915,6 +55839,39 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['EmbeddingSimilaritySearchResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  PostEmbeddingUrl: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['EmbeddingUrlRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['EmbeddingResponse'];
         };
       };
       /** @description Validation Error */
@@ -50145,26 +56102,30 @@ export interface operations {
       };
     };
   };
-  FindAuthenticationProviders: {
+  ListAuditLogs: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
+        /** @description Filter for audit events created before a specific date. */
+        'filter[created_before]'?: components['parameters']['FilterCreatedBefore'];
+        /** @description Filter for audit events created after a specific date. */
+        'filter[created_after]'?: components['parameters']['FilterCreatedAfter'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
-         *         <code>name</code>: sorts the result by the
-         *         <code>name</code> field in ascending order.
+         *         <code>email</code>: sorts the result by the
+         *         <code>email</code> field in ascending order.
          *       </li>
          *
          *       <li>
-         *         <code>-name</code>: sorts the result by the
-         *         <code>name</code> field in descending order.
+         *         <code>-email</code>: sorts the result by the
+         *         <code>email</code> field in descending order.
          *       </li>
          *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
-        sort?: components['parameters']['SortAuthenticationProvider'];
+        sort?: components['parameters']['Sort'];
       };
       header?: never;
       path?: never;
@@ -50172,27 +56133,84 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['GetAllAuthenticationProviderResponse'];
+      200: components['responses']['AuditLogListResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  FindAuthenticationProviders: {
+    parameters: {
+      query?: {
+        /** @description The page number to load */
+        'page[number]'?: number;
+        /** @description The size of the page */
+        'page[size]'?: number;
+        /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code>-</code> prefix.<br/><br/>
+         *     That is: <ul>
+         *       <li>
+         *         <code>name</code>: sorts the result by the
+         *         <code>name</code> field in ascending order.
+         *       </li>
+         *       <li>
+         *         <code>-name</code>: sorts the result by the
+         *         <code>name</code> field in descending order.
+         *       </li>
+         *     </ul><br/>If not given, results are sorted by <code>created_at</code> in descending order. */
+        sort?:
+          | 'name'
+          | '-name'
+          | 'short_name'
+          | '-short_name'
+          | 'active'
+          | '-active'
+          | 'created_at'
+          | '-created_at'
+          | 'updated_at'
+          | '-updated_at';
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['AuthenticationProvider'][];
+            meta?: components['schemas']['PaginationMeta'];
+          };
+        };
+      };
       /** @description Bad request */
       400: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          'application/json': Record<string, never>;
+        };
       };
       /** @description Unauthorized */
       401: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          'application/json': Record<string, never>;
+        };
       };
       /** @description Resource not found */
       404: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          'application/json': Record<string, never>;
+        };
       };
     };
   };
@@ -50203,20 +56221,31 @@ export interface operations {
       path?: never;
       cookie?: never;
     };
-    /** @description Parameters that can be defined during authentication provider creation */
     requestBody: {
       content: {
         'application/json': components['schemas']['AuthenticationProviderCreate'];
       };
     };
     responses: {
-      200: components['responses']['AuthenticationProviderResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['AuthenticationProvider'];
+          };
+        };
+      };
       /** @description Bad request */
       422: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          'application/json': Record<string, never>;
+        };
       };
     };
   };
@@ -50232,27 +56261,43 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['AuthenticationProviderResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['AuthenticationProvider'];
+          };
+        };
+      };
       /** @description Unauthorized */
       401: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          'application/json': Record<string, never>;
+        };
       };
       /** @description Resource not found */
       404: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          'application/json': Record<string, never>;
+        };
       };
       /** @description Bad request */
       422: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          'application/json': Record<string, never>;
+        };
       };
     };
   };
@@ -50268,27 +56313,43 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['AuthenticationProviderResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['AuthenticationProvider'];
+          };
+        };
+      };
       /** @description Unauthorized */
       401: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          'application/json': Record<string, never>;
+        };
       };
       /** @description Resource not found */
       404: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          'application/json': Record<string, never>;
+        };
       };
       /** @description Bad request */
       422: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          'application/json': Record<string, never>;
+        };
       };
     };
   };
@@ -50302,34 +56363,60 @@ export interface operations {
       };
       cookie?: never;
     };
-    /** @description Parameters that can be updated in a authentication provider */
     requestBody: {
       content: {
+        /** @example {
+         *       "name": "Okta",
+         *       "short_name": "myorg",
+         *       "active": true,
+         *       "settings": {
+         *         "idp_entity_id": "https://myorg.myidp.com/saml/metadata",
+         *         "idp_sso_target_url": "https://myorg.myidp.com/trust/saml2/http-post/sso",
+         *         "idp_cert_fingerprint": "13:38:C7:BB:C9:FF:4A:70:38:3A:E3:D9:5C:CD:DB:2E:50:1E:80:A7",
+         *         "idp_cert_fingerprint_algorithm": "sha1"
+         *       }
+         *     } */
         'application/json': components['schemas']['UpdateAuthenticationProviderRequest'];
       };
     };
     responses: {
-      200: components['responses']['AuthenticationProviderResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['AuthenticationProvider'];
+          };
+        };
+      };
       /** @description Unauthorized */
       401: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          'application/json': Record<string, never>;
+        };
       };
       /** @description Resource not found */
       404: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          'application/json': Record<string, never>;
+        };
       };
       /** @description Bad request */
       422: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          'application/json': Record<string, never>;
+        };
       };
     };
   };
@@ -50435,9 +56522,9 @@ export interface operations {
     parameters: {
       query?: {
         /** @description The page number to load */
-        'page[number]'?: components['parameters']['PageNumber'];
+        'page[number]'?: number;
         /** @description The size of the page */
-        'page[size]'?: components['parameters']['PageSize'];
+        'page[size]'?: number;
       };
       header?: never;
       path?: never;
@@ -50445,8 +56532,27 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['ListBillingGroupsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description A paginated array of billing groups */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['BillingGroup'][];
+            meta?: components['schemas']['PaginationMeta'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   CreateBillingGroup: {
@@ -50456,15 +56562,35 @@ export interface operations {
       path?: never;
       cookie?: never;
     };
-    /** @description New billing group object */
     requestBody: {
       content: {
+        /** @example {
+         *       "name": "string"
+         *     } */
         'application/json': components['schemas']['NewBillingGroup'];
       };
     };
     responses: {
-      200: components['responses']['CreateBillingGroupResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Expected billing group response to a valid request */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['BillingGroup'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   GetBillingGroup: {
@@ -50472,15 +56598,36 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The id of the billing group */
-        id: components['parameters']['BillingGroupId'];
+        /**
+         * @description The id of the billing group
+         * @example f5586561-8ff0-4291-a0ac-84fe544797bd
+         */
+        id: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['RetrieveBillingGroupResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Expected billing group response to a valid request */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['BillingGroup'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   DeleteBillingGroup: {
@@ -50488,15 +56635,36 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The id of the billing group */
-        id: components['parameters']['BillingGroupId'];
+        /**
+         * @description The id of the billing group
+         * @example f5586561-8ff0-4291-a0ac-84fe544797bd
+         */
+        id: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['DeleteBillingGroupResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Expected billing group response to a valid request */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['BillingGroup'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   UpdateBillingGroup: {
@@ -50504,20 +56672,43 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The id of the billing group */
-        id: components['parameters']['BillingGroupId'];
+        /**
+         * @description The id of the billing group
+         * @example f5586561-8ff0-4291-a0ac-84fe544797bd
+         */
+        id: string;
       };
       cookie?: never;
     };
-    /** @description Update billing group object */
     requestBody: {
       content: {
+        /** @example {
+         *       "name": "string"
+         *     } */
         'application/json': components['schemas']['UpdateBillingGroup'];
       };
     };
     responses: {
-      200: components['responses']['UpdateBillingGroupResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Expected billing group response to a valid request */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['BillingGroup'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   GetBrands: {
@@ -50896,9 +57087,9 @@ export interface operations {
   ListBulkSimCardActions: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by action type. */
         'filter[action_type]'?: 'bulk_set_public_ips';
@@ -50943,12 +57134,325 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
+  GetUserBillingBundles: {
+    parameters: {
+      query?: {
+        /** @description Filter by country code. */
+        'filter[country_iso]'?: components['parameters']['FilterCountryIso'];
+        /** @description The page number to load. */
+        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description The size of the page. */
+        'page[size]'?: components['parameters']['PageSize'];
+      };
+      header?: {
+        /** @description Format: Bearer <TOKEN> */
+        authorization_bearer?: components['parameters']['AuthorizationBearer'];
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PaginatedBillingBundlesResponse'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GetBillingBundleById: {
+    parameters: {
+      query?: never;
+      header?: {
+        /** @description Format: Bearer <TOKEN> */
+        authorization_bearer?: components['parameters']['AuthorizationBearer'];
+      };
+      path: {
+        bundle_id: components['parameters']['BillingBundleId'];
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BillingBundleResponse'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Resource not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GetUserBundles: {
+    parameters: {
+      query?: {
+        /** @description Filter by country code. */
+        'filter[country_iso]'?: components['parameters']['FilterCountryIso'];
+        /** @description Filter by resource. */
+        'filter[resource]'?: string[];
+        /** @description The page number to load. */
+        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description The size of the page. */
+        'page[size]'?: components['parameters']['PageSize'];
+      };
+      header?: {
+        /** @description Format: Bearer <TOKEN> */
+        authorization_bearer?: components['parameters']['AuthorizationBearer'];
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PaginatedUserBundlesResponse'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CreateUserBundlesBulk: {
+    parameters: {
+      query?: never;
+      header?: {
+        /** @description Format: Bearer <TOKEN> */
+        authorization_bearer?: components['parameters']['AuthorizationBearer'];
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateUserBundlesBulkRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreatedUserBundlesResponse'];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GetUnusedUserBundles: {
+    parameters: {
+      query?: {
+        /** @description Filter by country code. */
+        'filter[country_iso]'?: components['parameters']['FilterCountryIso'];
+      };
+      header?: {
+        /** @description Format: Bearer <TOKEN> */
+        authorization_bearer?: components['parameters']['AuthorizationBearer'];
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UnusedUserBundlesResponse'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GetUserBundleById: {
+    parameters: {
+      query?: never;
+      header?: {
+        /** @description Format: Bearer <TOKEN> */
+        authorization_bearer?: components['parameters']['AuthorizationBearer'];
+      };
+      path: {
+        user_bundle_id: components['parameters']['UserBundleId'];
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserBundleResponse'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DeactivateUserBundle: {
+    parameters: {
+      query?: never;
+      header?: {
+        /** @description Format: Bearer <TOKEN> */
+        authorization_bearer?: components['parameters']['AuthorizationBearer'];
+      };
+      path: {
+        user_bundle_id: components['parameters']['UserBundleId'];
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserBundleCreateResponse'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GetUserBundleResources: {
+    parameters: {
+      query?: never;
+      header?: {
+        /** @description Format: Bearer <TOKEN> */
+        authorization_bearer?: components['parameters']['AuthorizationBearer'];
+      };
+      path: {
+        user_bundle_id: components['parameters']['UserBundleId'];
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserBundleResourcesResponse'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
   ListCallControlApplications: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[application_name][contains]'?: components['parameters']['FilterApplicationName'];
@@ -51142,9 +57646,9 @@ export interface operations {
         'filter[occurred_at][lte]'?: components['parameters']['FilterCallEventOccurredAtLessThanOrEqualTo'];
         /** @description Event occurred_at: equal */
         'filter[occurred_at][eq]'?: components['parameters']['FilterCallEventOccurredAtEqualTo'];
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -51171,7 +57675,7 @@ export interface operations {
       };
     };
     responses: {
-      200: components['responses']['RetrieveCallStatusResponse'];
+      200: components['responses']['RetrieveCallStatusResponseWithRecordingId'];
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -51250,7 +57754,7 @@ export interface operations {
       };
     };
     responses: {
-      200: components['responses']['CallControlCommandResponse'];
+      200: components['responses']['CallControlCommandResponseWithRecordingId'];
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -51863,6 +58367,27 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
+  SwitchSupervisorRole: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Unique identifier and token for controlling the call */
+        call_control_id: components['parameters']['CallControlId'];
+      };
+      cookie?: never;
+    };
+    /** @description Switch supervisor role request */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['SwitchSupervisorRoleRequest'];
+      };
+    };
+    responses: {
+      200: components['responses']['CallControlCommandResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
   StartCallTranscription: {
     parameters: {
       query?: never;
@@ -52332,9 +58857,9 @@ export interface operations {
   GetChannelZones: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -52344,22 +58869,6 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetGcbChannelZonesRequestResponse'];
-    };
-  };
-  GetChannelZone: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Channel zone identifier */
-        channel_zone_id: components['parameters']['GcbChannelZoneId'];
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: components['responses']['GetGcbChannelZoneRequestResponse'];
-      default: components['responses']['GenericErrorResponse'];
     };
   };
   PatchChannelZone: {
@@ -52372,88 +58881,20 @@ export interface operations {
       };
       cookie?: never;
     };
-    /** @description Quantity of reserved channels */
+    /** @description Quantity of reserved channels and organizational update option */
     requestBody: {
       content: {
         'application/json': {
-          /** Format: int64 */
-          channels?: number;
+          /**
+           * Format: int64
+           * @description The number of reserved channels
+           */
+          channels: number;
         };
       };
     };
     responses: {
       200: components['responses']['PatchGcbChannelZoneRequestResponse'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  GetPhoneNumbers: {
-    parameters: {
-      query?: {
-        /** @description The page number to load */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
-        'page[size]'?: components['parameters']['PageSize'];
-      };
-      header?: never;
-      path: {
-        /** @description Channel zone identifier */
-        channel_zone_id: components['parameters']['GcbChannelZoneId'];
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: components['responses']['GetGcbPhoneNumbersRequestResponse'];
-    };
-  };
-  AssignPhoneNumber: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Channel zone identifier */
-        channel_zone_id: components['parameters']['GcbChannelZoneId'];
-      };
-      cookie?: never;
-    };
-    /** @description Phone number to assign to the channel zone. The phone number should be in E.164 format. */
-    requestBody: {
-      content: {
-        'application/json': {
-          /**
-           * Format: +E.164
-           * @example +15554441234
-           */
-          phone_number: string;
-        };
-      };
-    };
-    responses: {
-      200: components['responses']['PostGcbPhoneNumberRequestResponse'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  UnassignPhoneNumber: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Channel zone identifier */
-        channel_zone_id: components['parameters']['GcbChannelZoneId'];
-        /** @description The phone number to be looked up */
-        phone_number: components['parameters']['GcbPhoneNumber'];
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description The phone number is successfully deleted */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -52531,9 +58972,9 @@ export interface operations {
         'filter[name]'?: components['parameters']['FilterConferenceName'];
         /** @description If present, conferences will be filtered by status. */
         'filter[status]'?: components['parameters']['FilterConferenceStatus'];
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -52575,9 +59016,9 @@ export interface operations {
         'filter[on_hold]'?: boolean;
         /** @description If present, participants will be filtered to those who are whispering or are not */
         'filter[whispering]'?: boolean;
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -52923,9 +59364,9 @@ export interface operations {
   ListConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
@@ -53031,9 +59472,9 @@ export interface operations {
   ListCredentialConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
@@ -53239,9 +59680,9 @@ export interface operations {
   ListCustomerServiceRecords: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         'sort[]'?: 'created_at' | '-created_at';
@@ -53253,8 +59694,10 @@ export interface operations {
         'filter[status][eq]'?: components['parameters']['StatusEqFilter'];
         /** @description Filters records to those with a least one status in the list. */
         'filter[status][in][]'?: components['parameters']['StatusInFilter'];
+        /** @description Filters records to those created before a specific date. */
+        'filter[created_at][lt]'?: components['parameters']['CreatedAtLtFilter'];
         /** @description Filters records to those created after a specific date. */
-        'filter[created_at][lt]'?: components['parameters']['CreatedAtGtFilter'];
+        'filter[created_at][gt]'?: components['parameters']['CreatedAtGtFilter'];
       };
       header?: never;
       path?: never;
@@ -53459,15 +59902,15 @@ export interface operations {
     parameters: {
       query?: {
         /** @description The page number to load */
-        'page[number]'?: components['parameters']['PageNumber'];
+        'page[number]'?: number;
         /** @description The size of the page */
-        'page[size]'?: components['parameters']['PageSize'];
+        'page[size]'?: number;
         /** @description Identifies the associated document to filter on. */
-        'filter[document_id]'?: components['parameters']['DocServiceDocumentIdFilter'];
+        'filter[document_id]'?: string;
         /** @description The `linked_record_type` of the document to filter on. */
-        'filter[linked_record_type]'?: components['parameters']['LinkedRecordTypeFilter'];
+        'filter[linked_record_type]'?: string;
         /** @description The `linked_resource_id` of the document to filter on. */
-        'filter[linked_resource_id]'?: components['parameters']['LinkedResourceIdFilter'];
+        'filter[linked_resource_id]'?: string;
       };
       header?: never;
       path?: never;
@@ -53475,29 +59918,48 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['ListDocServiceDocumentLinksResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['DocServiceDocumentLink'][];
+            meta?: components['schemas']['PaginationMeta'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   ListDocuments: {
     parameters: {
       query?: {
         /** @description Filter by string matching part of filename. */
-        'filter[filename][contains]'?: components['parameters']['DocumentsFilenameContainsFilter'];
+        'filter[filename][contains]'?: string;
         /** @description Filter documents by a customer references. */
-        'filter[customer_reference][eq]'?: components['parameters']['DocumentsCustomerReferenceEqFilter'];
+        'filter[customer_reference][eq]'?: string;
         /** @description Filter documents by a list of customer references. */
-        'filter[customer_reference][in][]'?: components['parameters']['DocumentsCustomerReferenceInFilter'];
+        'filter[customer_reference][in][]'?: string;
         /** @description Filter by created at greater than provided value. */
-        'filter[created_at][gt]'?: components['parameters']['DocumentsCreatedAtGreaterThanFilter'];
+        'filter[created_at][gt]'?: string;
         /** @description Filter by created at less than provided value. */
-        'filter[created_at][lt]'?: components['parameters']['DocumentsCreatedAtLessThanFilter'];
+        'filter[created_at][lt]'?: string;
         /** @description Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a `-` in front of the field name. */
-        'sort[]'?: components['parameters']['DocumentsSort'];
+        'sort[]'?: 'filename' | 'created_at' | 'updated_at';
         /** @description The page number to load */
-        'page[number]'?: components['parameters']['PageNumber'];
+        'page[number]'?: number;
         /** @description The size of the page */
-        'page[size]'?: components['parameters']['PageSize'];
+        'page[size]'?: number;
       };
       header?: never;
       path?: never;
@@ -53505,8 +59967,27 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['ListDocServiceDocumentsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['DocServiceDocument'][];
+            meta?: components['schemas']['PaginationMeta'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   CreateDocument: {
@@ -53518,14 +59999,87 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['CreateDocServiceDocumentRequest'];
-        'multipart/form-data': components['schemas']['CreateMultiPartDocServiceDocumentRequest'];
+        'application/json':
+          | {
+              /**
+               * @description If the file is already hosted publicly, you can provide a URL and have the documents service fetch it for you.
+               * @example https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+               */
+              url: string;
+              /**
+               * @description The filename of the document.
+               * @example test-document.pdf
+               */
+              filename?: string;
+              /**
+               * @description Optional reference string for customer tracking.
+               * @example MY REF 001
+               */
+              customer_reference?: string;
+            }
+          | {
+              /**
+               * Format: byte
+               * @description The Base64 encoded contents of the file you are uploading.
+               * @example [Base64 encoded content]
+               */
+              file: string;
+              /**
+               * @description The filename of the document.
+               * @example test-document.pdf
+               */
+              filename?: string;
+              /**
+               * @description A customer reference string for customer look ups.
+               * @example MY REF 001
+               */
+              customer_reference?: string;
+            };
+        'multipart/form-data': {
+          /**
+           * Format: binary
+           * @description The file you are uploading.
+           * @example
+           */
+          file?: string;
+          /**
+           * @description Optional reference string for customer tracking.
+           * @example MY REF 001
+           */
+          customer_reference?: string;
+        };
       };
     };
     responses: {
-      200: components['responses']['DocServiceDocumentResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['DocServiceDocument'];
+          };
+        };
+      };
+      /** @description Unprocessable entity. Check the 'detail' field in response for details. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   RetrieveDocument: {
@@ -53533,15 +60087,36 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['Id'];
+        /**
+         * @description Identifies the resource.
+         * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+         */
+        id: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['DocServiceDocumentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['DocServiceDocument'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   DeleteDocument: {
@@ -53549,15 +60124,36 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['Id'];
+        /**
+         * @description Identifies the resource.
+         * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+         */
+        id: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['DocServiceDocumentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['DocServiceDocument'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   UpdateDocument: {
@@ -53565,19 +60161,40 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['Id'];
+        /**
+         * @description Identifies the resource.
+         * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+         */
+        id: string;
       };
       cookie?: never;
     };
-    requestBody: {
+    requestBody?: {
       content: {
         'application/json': components['schemas']['DocServiceDocument'];
       };
     };
     responses: {
-      200: components['responses']['DocServiceDocumentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['DocServiceDocument'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   DownloadDocument: {
@@ -53585,15 +60202,34 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['Id'];
+        /**
+         * @description Identifies the resource.
+         * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+         */
+        id: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['DownloadDocServiceDocumentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': Record<string, never>;
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   ListDynamicEmergencyAddresses: {
@@ -53603,9 +60239,9 @@ export interface operations {
         'filter[status]'?: 'pending' | 'activated' | 'rejected';
         /** @description Filter by country code. */
         'filter[country_code]'?: string;
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -53754,9 +60390,9 @@ export interface operations {
         'filter[status]'?: 'pending' | 'activated' | 'rejected';
         /** @description Filter by country code. */
         'filter[country_code]'?: string;
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -53951,9 +60587,9 @@ export interface operations {
   ListExternalConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
@@ -53964,7 +60600,7 @@ export interface operations {
         /** @description Filter by ISO 8601 formatted date-time string matching resource creation date-time. */
         'filter[created_at]'?: components['parameters']['FilterCreatedAt'];
         /** @description If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. */
-        'filter[phone_number][contains]'?: components['parameters']['FilterPhoneNumber'];
+        'filter[phone_number][eq]'?: components['parameters']['FilterPhoneNumber'];
       };
       header?: never;
       path?: never;
@@ -54023,9 +60659,9 @@ export interface operations {
   ListExternalConnectionLogMessages: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The external connection ID to filter by or "null" to filter for logs without an external connection ID */
         'filter[external_connection_id]'?: components['parameters']['FilterExternalConnectionId'];
@@ -54241,7 +60877,10 @@ export interface operations {
   };
   ListCivicAddresses: {
     parameters: {
-      query?: never;
+      query?: {
+        /** @description The country (or countries) to filter addresses by. */
+        'filter[country]'?: components['parameters']['FilterCountry'];
+      };
       header?: never;
       path: {
         /** @description Identifies the resource. */
@@ -54327,17 +60966,79 @@ export interface operations {
       };
     };
   };
+  updateLocation: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the external connection */
+        id: string;
+        /** @description The ID of the location to update */
+        location_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': {
+          /**
+           * Format: uuid
+           * @description A new static emergency address ID to update the location with
+           */
+          static_emergency_address_id: string;
+        };
+      };
+    };
+    responses: {
+      /** @description Location successfully updated with no associated orders to process */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['LocationResponse'];
+        };
+      };
+      /** @description Location update accepted; associated orders being processed */
+      202: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['LocationResponse'];
+        };
+      };
+      /** @description Location or external connection not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description Unprocessable Entity - Location already has an accepted emergency address */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse'];
+        };
+      };
+    };
+  };
   ListExternalConnectionPhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The phone number to filter by */
         'filter[phone_number][eq]'?: components['parameters']['FilterPhoneNumberEq'];
-        /** @description If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. */
-        'filter[phone_number][contains]'?: components['parameters']['FilterPhoneNumber'];
+        /** @description The partial phone number to filter by. Requires 3-15 digits. */
+        'filter[phone_number][contains]'?: components['parameters']['FilterPhoneNumberContains'];
         /** @description The civic address ID to filter by */
         'filter[civic_address_id][eq]'?: components['parameters']['FilterCivicAddressId'];
         /** @description The location ID to filter by */
@@ -54453,9 +61154,9 @@ export interface operations {
   ListExternalConnectionReleases: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The status of the release to filter by */
         'filter[status][eq]'?: components['parameters']['FilterReleaseStatus'];
@@ -54535,9 +61236,9 @@ export interface operations {
   ListExternalConnectionUploads: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The status of the upload to filter by */
         'filter[status][eq]'?: components['parameters']['FilterUploadStatus'];
@@ -54809,9 +61510,9 @@ export interface operations {
   ListFaxApplications: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[application_name][contains]'?: components['parameters']['FilterApplicationName'];
@@ -55052,9 +61753,9 @@ export interface operations {
   ListFqdnConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
@@ -55175,9 +61876,9 @@ export interface operations {
   ListFqdns: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description ID of the FQDN connection to which the FQDN belongs. */
         'filter[connection_id]'?: string;
@@ -55317,9 +62018,9 @@ export interface operations {
   ListGlobalIpAssignments: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -55440,9 +62141,9 @@ export interface operations {
   ListGlobalIpHealthChecks: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -55561,9 +62262,9 @@ export interface operations {
   ListGlobalIps: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -55626,9 +62327,137 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
-  list_integration_secrets: {
+  ListInboundChannels: {
     parameters: {
       query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description voice channels Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: {
+              /**
+               * @description The current number of concurrent channels set for the account
+               * @example 7
+               */
+              channels?: number;
+              /**
+               * @description Identifies the type of the response
+               * @example inbound_channels
+               */
+              record_type?: string;
+            };
+          };
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Resource not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unprocessable entity. Check message field in response for details. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UpdateOutboundChannels: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Voice channels update */
+    requestBody: {
+      content: {
+        'application/json': {
+          /**
+           * @description The new number of concurrent channels for the account
+           * @example 7
+           */
+          channels: number;
+        };
+      };
+    };
+    responses: {
+      /** @description Expected Update response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: {
+              /**
+               * @description The number of channels set for the account
+               * @example 7
+               */
+              channels?: number;
+              /**
+               * @description Identifies the type of the response
+               * @example inbound_channels
+               */
+              record_type?: string;
+            };
+          };
+        };
+      };
+      /** @description Unexpected error */
+      default: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            errors?: {
+              /** Format: int */
+              code: string;
+              title: string;
+              detail?: string;
+              source?: {
+                /**
+                 * Format: json-pointer
+                 * @description JSON pointer (RFC6901) to the offending entity.
+                 */
+                pointer?: string;
+                /** @description Indicates which query parameter caused the error. */
+                parameter?: string;
+              };
+              meta?: Record<string, never>;
+            }[];
+          };
+        };
+      };
+    };
+  };
+  list_integration_secrets: {
+    parameters: {
+      query?: {
+        'page[size]'?: number;
+        'page[number]'?: number;
+        'filter[type]'?: 'bearer' | 'basic';
+      };
       header?: never;
       path?: never;
       cookie?: never;
@@ -55655,10 +62484,6 @@ export interface operations {
     };
     requestBody: {
       content: {
-        /** @example {
-         *       "identifier": "my_secret",
-         *       "value": "my_secret_value"
-         *     } */
         'application/json': components['schemas']['CreateIntegrationSecretRequest'];
       };
     };
@@ -55787,9 +62612,9 @@ export interface operations {
   ListIpConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
@@ -55906,9 +62731,9 @@ export interface operations {
   ListIps: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description ID of the IP Connection to which this IP should be attached. */
         'filter[connection_id]'?: string;
@@ -56016,15 +62841,36 @@ export interface operations {
       path?: never;
       cookie?: never;
     };
-    /** @description New ledger billing group report parameters */
     requestBody: {
       content: {
+        /** @example {
+         *       "year": 2019,
+         *       "month": 10
+         *     } */
         'application/json': components['schemas']['NewLedgerBillingGroupReport'];
       };
     };
     responses: {
-      200: components['responses']['CreateLedgerBillingGroupReportResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Expected ledger billing group report response to a valid request */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['LedgerBillingGroupReport'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   GetBillingGroupReport: {
@@ -56032,23 +62878,71 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The id of the ledger billing group report */
-        id: components['parameters']['LedgerBillingGroupReportId'];
+        /**
+         * @description The id of the ledger billing group report
+         * @example f5586561-8ff0-4291-a0ac-84fe544797bd
+         */
+        id: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['RetrieveLedgerBillingGroupReportResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Expected ledger billing group report response to a valid request */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['LedgerBillingGroupReport'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
+    };
+  };
+  GetAllNumbersChannelZones: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['GetGcbNumbersResponse'];
+    };
+  };
+  GetNumbersChannelZones: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Channel zone identifier */
+        channel_zone_id: components['parameters']['GcbChannelNumberZoneId'];
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['GetGcbNumbersResponse'];
     };
   };
   ListManagedAccounts: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, email containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[email][contains]'?: components['parameters']['FilterEmailContains'];
@@ -56058,7 +62952,18 @@ export interface operations {
         'filter[organization_name][contains]'?: components['parameters']['FilterOrganizationEmailContains'];
         /** @description If present, only returns results with the <code>organization_name</code> matching exactly the value given. */
         'filter[organization_name][eq]'?: components['parameters']['FilterOrganizationEmailEq'];
-        /** @description Set how the results will be ordered by the creation date. */
+        /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
+         *     That is: <ul>
+         *       <li>
+         *         <code>email</code>: sorts the result by the
+         *         <code>email</code> field in ascending order.
+         *       </li>
+         *
+         *       <li>
+         *         <code>-email</code>: sorts the result by the
+         *         <code>email</code> field in descending order.
+         *       </li>
+         *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
         sort?: components['parameters']['Sort'];
         /** @description Specifies if cancelled accounts should be included in the results. */
         include_cancelled_accounts?: components['parameters']['IncludeCancelledAccounts'];
@@ -56430,6 +63335,24 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
+  ScheduleMessage: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Message payload with send_at set */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['CreateScheduledMessageRequest'];
+      };
+    };
+    responses: {
+      200: components['responses']['MessageResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
   CreateShortCodeMessage: {
     parameters: {
       query?: never;
@@ -56476,12 +63399,54 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
+  CancelMessage: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The id of the message to cancel */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['OutboundMessagePayloadCancelled'];
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Not found. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
   ListMessagingHostedNumberOrders: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -56510,6 +63475,49 @@ export interface operations {
     responses: {
       200: components['responses']['MessagingHostedNumberOrderResponse'];
       default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  CheckEligibilityNumbers: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Phone numbers to check eligibility */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['EligibilityNumbersRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['EligibilityNumbersResponse'];
+        };
+      };
+      /** @description Bad request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
     };
   };
   GetMessagingHostedNumberOrder: {
@@ -56546,6 +63554,56 @@ export interface operations {
     };
     responses: {
       200: components['responses']['MessagingHostedNumberOrderResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  ValidateVerificationCodesForMessagingHostedNumberOrder: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Order ID related to the validation codes. */
+        id: string;
+      };
+      cookie?: never;
+    };
+    /** @description Message payload */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['ValidationCodesRequest'];
+      };
+    };
+    responses: {
+      200: components['responses']['ValidationCodesResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  CreateVerificationCodesForMessagingHostedNumberOrder: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Order ID to have a verification code created. */
+        id: string;
+      };
+      cookie?: never;
+    };
+    /** @description Message payload */
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['VerificationCodesRequest'];
+      };
+    };
+    responses: {
+      /** @description Verification codes created and sent to the phone numbers of the hosted order. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreatedVerificationCodesResponse'];
+        };
+      };
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -56598,17 +63656,26 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
-  ListProfileMetrics: {
+  ListOptOuts: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The ID of the messaging profile to retrieve opt-outs for */
+        'filter[messaging_profile_id]'?: string;
+        /** @description Filter opt-outs created after this date (ISO-8601 format) */
+        'created_at[gte]'?: string;
+        /** @description The sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code) to retrieve opt-outs for */
+        'filter[from]'?: string;
+        /** @description Filter opt-outs created before this date (ISO-8601 format) */
+        'created_at[lte]'?: string;
+        /**
+         * @description If receiving address (+E.164 formatted phone number) should be redacted
+         * @example +447766****
+         */
+        redaction_enabled?: string;
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The id of the messaging profile(s) to retrieve */
-        id?: components['parameters']['MessagingProfileMetric'];
-        /** @description The timeframe for which you'd like to retrieve metrics. */
-        time_frame?: components['parameters']['MessagingProfileMetricTimeFrame'];
       };
       header?: never;
       path?: never;
@@ -56616,16 +63683,41 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['ListMessagingProfileMetrics'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Successful response with opt-out list data */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['OptOutListResponse'];
+        };
+      };
+      /** @description Bad request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
     };
   };
   ListMessagingProfiles: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by name */
         'filter[name]'?: string;
@@ -56711,31 +63803,12 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
-  GetMessagingProfileMetrics: {
-    parameters: {
-      query?: {
-        /** @description The timeframe for which you'd like to retrieve metrics. */
-        time_frame?: components['parameters']['MessagingProfileMetricTimeFrame'];
-      };
-      header?: never;
-      path: {
-        /** @description The id of the messaging profile to retrieve */
-        id: components['parameters']['MessagingProfileId'];
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: components['responses']['RetrieveMessagingProfileMetrics'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
   ListProfilePhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -56754,9 +63827,9 @@ export interface operations {
   ListProfileShortCodes: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -56795,6 +63868,51 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
+          /** @example {
+           *       "data": [
+           *         {
+           *           "op": "start",
+           *           "keywords": [
+           *             "START",
+           *             "BEGIN"
+           *           ],
+           *           "resp_text": "Thank you for subscribing US customer.",
+           *           "country_code": "US",
+           *           "id": "677ec1cb-949e-4aeb-a1c3-6d9ddffc1409",
+           *           "created_at": "2023-03-21T23:37:45.858535+00:00",
+           *           "updated_at": "2023-03-21T23:37:45.858535+00:00"
+           *         },
+           *         {
+           *           "op": "stop",
+           *           "keywords": [
+           *             "END",
+           *             "STOP"
+           *           ],
+           *           "resp_text": "You have unsubscribed.",
+           *           "country_code": "US",
+           *           "id": "54b7e19f-98a8-416f-81d1-a2782eade48b",
+           *           "created_at": "2023-03-10T21:54:46.293380+00:00",
+           *           "updated_at": "2023-03-10T21:54:46.293380+00:00"
+           *         },
+           *         {
+           *           "op": "start",
+           *           "keywords": [
+           *             "START"
+           *           ],
+           *           "resp_text": "Thank you for subscribing.",
+           *           "country_code": "*",
+           *           "id": "cfe07be1-2369-433f-be00-eb176008e834",
+           *           "created_at": "2023-03-14T14:46:21.097735+00:00",
+           *           "updated_at": "2023-03-14T14:46:21.097735+00:00"
+           *         }
+           *       ],
+           *       "meta": {
+           *         "page_number": 1,
+           *         "page_size": 5,
+           *         "total_pages": 1,
+           *         "total_results": 3
+           *       }
+           *     } */
           'application/json': components['schemas']['AutorespConfigsResponseSchema'];
         };
       };
@@ -56822,6 +63940,19 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
+          /** @example {
+           *       "data": {
+           *         "op": "start",
+           *         "keywords": [
+           *           "START"
+           *         ],
+           *         "resp_text": "Hello there!",
+           *         "country_code": "US",
+           *         "id": "c2298f86-a4dc-4cac-b6b6-4a3d01c290fa",
+           *         "created_at": "2023-03-22T00:06:49.068817+00:00",
+           *         "updated_at": "2023-03-22T00:06:49.068817+00:00"
+           *       }
+           *     } */
           'application/json': components['schemas']['AutorespConfigResponseSchema'];
         };
       };
@@ -56846,6 +63977,19 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
+          /** @example {
+           *       "data": {
+           *         "op": "start",
+           *         "keywords": [
+           *           "UNSTOP"
+           *         ],
+           *         "resp_text": "Hello there!",
+           *         "country_code": "US",
+           *         "id": "adc37adf-d110-4355-9e9a-262847e68e89",
+           *         "created_at": "2023-03-13T17:51:03.826453+00:00",
+           *         "updated_at": "2023-03-13T17:51:03.826453+00:00"
+           *       }
+           *     } */
           'application/json': components['schemas']['AutorespConfigResponseSchema'];
         };
       };
@@ -56874,6 +64018,20 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
+          /** @example {
+           *       "data": {
+           *         "op": "start",
+           *         "keywords": [
+           *           "START",
+           *           "BEGIN"
+           *         ],
+           *         "resp_text": "Hello there!",
+           *         "country_code": "*",
+           *         "id": "54b7e19f-98a8-416f-81d1-a2782eade48b",
+           *         "created_at": "2023-03-10T21:54:46.293380+00:00",
+           *         "updated_at": "2023-03-10T21:54:46.293380+00:00"
+           *       }
+           *     } */
           'application/json': components['schemas']['AutorespConfigResponseSchema'];
         };
       };
@@ -57038,9 +64196,9 @@ export interface operations {
   ListMessagingUrlDomains: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -57056,9 +64214,9 @@ export interface operations {
   GetMobileNetworkOperators: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by name starting with. */
         'filter[name][starts_with]'?: string;
@@ -57101,9 +64259,9 @@ export interface operations {
         'filter[type]'?: 'ios' | 'android';
         /** @description Unique mobile push credential alias */
         'filter[alias]'?: string;
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -57118,7 +64276,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['responses']['ListPushCredentialsResponse'];
+          'application/json': components['schemas']['ListPushCredentialsResponse'];
         };
       };
       /** @description Unauthorized request */
@@ -57154,7 +64312,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['responses']['PushCredentialResponse'];
+          'application/json': components['schemas']['PushCredentialResponse'];
         };
       };
       /** @description Unauthorized request */
@@ -57195,7 +64353,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['responses']['PushCredentialResponse'];
+          'application/json': components['schemas']['PushCredentialResponse'];
         };
       };
       /** @description Unauthorized request */
@@ -57278,9 +64436,9 @@ export interface operations {
   ListNetworkCoverage: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The region of associated location to filter on. */
         'filters[available_services][contains]'?: components['schemas']['AvailableService'];
@@ -57306,9 +64464,9 @@ export interface operations {
   ListNetworks: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The network name to filter on. */
         'filter[name]'?: string;
@@ -57448,9 +64606,9 @@ export interface operations {
   ListNetworkInterfaces: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The interface name to filter on. */
         'filter[name]'?: string;
@@ -57475,9 +64633,9 @@ export interface operations {
   ListNotificationChannels: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by the id of a channel type */
         'filter[channel_type_id][eq]'?: components['parameters']['ChannelTypeId'];
@@ -57536,7 +64694,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
+        /** @description The id of the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -57562,7 +64720,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
+        /** @description The id of the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -57588,7 +64746,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
+        /** @description The id of the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -57617,9 +64775,9 @@ export interface operations {
   FindNotificationsEventsConditions: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by the associated record type */
         'filter[associated_record_type][eq]'?: components['parameters']['AssociatedRecordType'];
@@ -57648,9 +64806,9 @@ export interface operations {
   FindNotificationsEvents: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -57677,9 +64835,9 @@ export interface operations {
   FindNotificationsProfiles: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -57736,7 +64894,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
+        /** @description The id of the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -57762,7 +64920,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
+        /** @description The id of the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -57788,7 +64946,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
+        /** @description The id of the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -57817,9 +64975,9 @@ export interface operations {
   ListNotificationSettings: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by the id of a notification profile */
         'filter[notification_profile_id][eq]'?: components['parameters']['NotificationProfileId'];
@@ -57899,7 +65057,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
+        /** @description The id of the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -57925,7 +65083,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
+        /** @description The id of the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -57968,9 +65126,9 @@ export interface operations {
         'filter[created_at][lt]'?: string;
         /** @description Filter number block  orders having these phone numbers. */
         'filter[phone_numbers.starting_number]'?: string;
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -58139,9 +65297,9 @@ export interface operations {
         'filter[customer_reference]'?: string;
         /** @description Filter number orders by requirements met. */
         'filter[requirements_met]'?: boolean;
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -58220,9 +65378,9 @@ export interface operations {
         'filter[phone_numbers.phone_number]'?: string;
         /** @description Filter number reservations via the customer reference set. */
         'filter[customer_reference]'?: string;
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -58316,12 +65474,70 @@ export interface operations {
       };
     };
   };
+  OperatorConnectRefresh: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            /**
+             * @description Describes wether or not the operation was successful
+             * @example true
+             */
+            success?: boolean;
+            /**
+             * @description A message describing the result of the operation
+             * @example Operator connect refresh already in progress
+             */
+            message?: string;
+          };
+        };
+      };
+      /** @description Successful response */
+      202: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            /**
+             * @description Describes wether or not the operation was successful
+             * @example true
+             */
+            success?: boolean;
+            /**
+             * @description A message describing the result of the operation
+             * @example Operator connect refresh started
+             */
+            message?: string;
+          };
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
   ListOtaUpdates: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by a specific status of the resource's lifecycle. */
         'filter[status]'?: components['parameters']['FilterBasicStatusLifecycle'];
@@ -58373,9 +65589,9 @@ export interface operations {
   ListOutboundVoiceProfiles: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Optional filter on outbound voice profile name. */
         'filter[name][contains]'?: components['parameters']['NameFilter'];
@@ -58906,9 +66122,9 @@ export interface operations {
         'filter[type]'?: 'delete_phone_number_block';
         /** @description Filter the phone number blocks jobs by status. */
         'filter[status]'?: 'pending' | 'in_progress' | 'completed' | 'failed';
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?: 'created_at';
@@ -59112,9 +66328,9 @@ export interface operations {
   ListPhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by phone number tags. */
         'filter[tag]'?: string;
@@ -59123,15 +66339,17 @@ export interface operations {
         'filter[phone_number]'?: string;
         /** @description Filter by phone number status. */
         'filter[status]'?:
-          | 'purchase_pending'
-          | 'purchase_failed'
-          | 'port_pending'
+          | 'purchase-pending'
+          | 'purchase-failed'
+          | 'port-pending'
           | 'active'
           | 'deleted'
-          | 'port_failed'
-          | 'emergency_only'
-          | 'ported_out'
-          | 'port_out_pending';
+          | 'port-failed'
+          | 'emergency-only'
+          | 'ported-out'
+          | 'port-out-pending';
+        /** @description Filter by phone number country ISO alpha-2 code. Can be a single value or an array of values. */
+        'filter[country_iso_alpha2]'?: string | string[];
         /** @description Filter by connection_id. */
         'filter[connection_id]'?: string;
         /** @description Filter contains connection name. Requires at least three characters. */
@@ -59157,6 +66375,8 @@ export interface operations {
           | 'toll_free'
           | 'mobile'
           | 'shared_cost';
+        /** @description Filter phone numbers by their source. Use 'ported' for numbers ported from other carriers, or 'purchased' for numbers bought directly from Telnyx. */
+        'filter[source]'?: 'ported' | 'purchased';
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?:
           | 'purchased_at'
@@ -59177,9 +66397,9 @@ export interface operations {
   ListCsvDownloads: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -59194,7 +66414,40 @@ export interface operations {
   };
   CreateCsvDownload: {
     parameters: {
-      query?: never;
+      query?: {
+        /** @description Which format to use when generating the CSV file. The default for backwards compatibility is 'V1' */
+        csv_format?: 'V1' | 'V2';
+        /** @description Filter by phone number that have bundles. */
+        'filter[has_bundle]'?: string;
+        /** @description Filter by phone number tags. */
+        'filter[tag]'?: string;
+        /** @description Filter by connection_id. */
+        'filter[connection_id]'?: string;
+        /** @description Filter by phone number. Requires at least three digits.
+         *                  Non-numerical characters will result in no values being returned. */
+        'filter[phone_number]'?: string;
+        /** @description Filter by phone number status. */
+        'filter[status]'?:
+          | 'purchase-pending'
+          | 'purchase-failed'
+          | 'port-pending'
+          | 'active'
+          | 'deleted'
+          | 'port-failed'
+          | 'emergency-only'
+          | 'ported-out'
+          | 'port-out-pending';
+        /** @description Filter contains connection name. Requires at least three characters. */
+        'filter[voice.connection_name][contains]'?: string;
+        /** @description Filter by usage_payment_method. */
+        'filter[voice.usage_payment_method]'?: 'pay-per-minute' | 'channel';
+        /** @description Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'. */
+        'filter[billing_group_id]'?: string;
+        /** @description Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'. */
+        'filter[emergency_address_id]'?: string;
+        /** @description Filter numbers via the customer_reference set. */
+        'filter[customer_reference]'?: string;
+      };
       header?: never;
       path?: never;
       cookie?: never;
@@ -59221,130 +66474,6 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
-  ListInboundChannels: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Inbound Channels Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': {
-            data?: {
-              /**
-               * @description The current number of concurrent channels set for the account
-               * @example 7
-               */
-              channels?: number;
-              /**
-               * @description Identifies the type of the response
-               * @example inbound_channels
-               */
-              record_type?: string;
-            };
-          };
-        };
-      };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Resource not found */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Unprocessable entity. Check message field in response for details. */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
-  UpdateOutboundChannels: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description Inbound channels update */
-    requestBody: {
-      content: {
-        'application/json': {
-          /**
-           * @description The new number of concurrent channels for the account
-           * @example 7
-           */
-          channels: number;
-        };
-      };
-    };
-    responses: {
-      /** @description Expected Update response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': {
-            data?: {
-              /**
-               * @description The number of channels set for the account
-               * @example 7
-               */
-              channels?: number;
-              /**
-               * @description Identifies the type of the response
-               * @example inbound_channels
-               */
-              record_type?: string;
-            };
-          };
-        };
-      };
-      /** @description Unexpected error */
-      default: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': {
-            errors?: {
-              /** Format: int */
-              code: string;
-              title: string;
-              detail?: string;
-              source?: {
-                /**
-                 * Format: json-pointer
-                 * @description JSON pointer (RFC6901) to the offending entity.
-                 */
-                pointer?: string;
-                /** @description Indicates which query parameter caused the error. */
-                parameter?: string;
-              };
-              meta?: Record<string, never>;
-            }[];
-          };
-        };
-      };
-    };
-  };
   ListPhoneNumbersJobs: {
     parameters: {
       query?: {
@@ -59353,9 +66482,9 @@ export interface operations {
           | 'update_emergency_settings'
           | 'delete_phone_numbers'
           | 'update_phone_numbers';
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?: 'created_at';
@@ -59470,15 +66599,15 @@ export interface operations {
         'filter[phone_number]'?: string;
         /** @description Filter by phone number status. */
         'filter[status]'?:
-          | 'purchase_pending'
-          | 'purchase_failed'
-          | 'port_pending'
+          | 'purchase-pending'
+          | 'purchase-failed'
+          | 'port-pending'
           | 'active'
           | 'deleted'
-          | 'port_failed'
-          | 'emergency_only'
-          | 'ported_out'
-          | 'port_out_pending';
+          | 'port-failed'
+          | 'emergency-only'
+          | 'ported-out'
+          | 'port-out-pending';
         /** @description Filter contains connection name. Requires at least three characters. */
         'filter[voice.connection_name][contains]'?: string;
         /** @description Filter by usage_payment_method. */
@@ -59572,9 +66701,9 @@ export interface operations {
   ListPhoneNumbersWithMessagingSettings: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -59590,9 +66719,9 @@ export interface operations {
   SlimListPhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Include the connection associated with the phone number. */
         include_connection?: boolean;
@@ -59605,15 +66734,17 @@ export interface operations {
         'filter[phone_number]'?: string;
         /** @description Filter by phone number status. */
         'filter[status]'?:
-          | 'purchase_pending'
-          | 'purchase_failed'
-          | 'port_pending'
+          | 'purchase-pending'
+          | 'purchase-failed'
+          | 'port-pending'
           | 'active'
           | 'deleted'
-          | 'port_failed'
-          | 'emergency_only'
-          | 'ported_out'
-          | 'port_out_pending';
+          | 'port-failed'
+          | 'emergency-only'
+          | 'ported-out'
+          | 'port-out-pending';
+        /** @description Filter by phone number country ISO alpha-2 code. Can be a single value or an array of values. */
+        'filter[country_iso_alpha2]'?: string | string[];
         /** @description Filter by connection_id. */
         'filter[connection_id]'?: string;
         /** @description Filter contains connection name. Requires at least three characters and the include_connection param. */
@@ -59639,6 +66770,8 @@ export interface operations {
           | 'toll_free'
           | 'mobile'
           | 'shared_cost';
+        /** @description Filter phone numbers by their source. Use 'ported' for numbers ported from other carriers, or 'purchased' for numbers bought directly from Telnyx. */
+        'filter[source]'?: 'ported' | 'purchased';
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?:
           | 'purchased_at'
@@ -59659,9 +66792,9 @@ export interface operations {
   ListPhoneNumbersWithVoiceSettings: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by phone number. Requires at least three digits.
          *                  Non-numerical characters will result in no values being returned. */
@@ -60075,9 +67208,9 @@ export interface operations {
   listPortingEvents: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by event type. */
         'filter[type]'?:
@@ -60204,9 +67337,9 @@ export interface operations {
   ListLoaConfigurations: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -60390,9 +67523,9 @@ export interface operations {
   ListPortingReports: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter reports of a specific type */
         'filter[report_type]'?: 'export_porting_orders_csv';
@@ -60480,9 +67613,9 @@ export interface operations {
   ListPortingOrders: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Include the first 50 phone number objects in the results */
         include_phone_numbers?: components['parameters']['QueryIncludePhoneNumbers'];
@@ -60634,9 +67767,9 @@ export interface operations {
   ListPhoneNumberConfigurations: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter results by porting order id */
         'filter[porting_order_id]'?: components['parameters']['FilterByPortingOrderID'];
@@ -60937,9 +68070,9 @@ export interface operations {
   ListPortingOrderActivationJobs: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -61033,9 +68166,9 @@ export interface operations {
   ListAdditionalDocuments: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter additional documents of a specific document type */
         'filter[document_type]'?: 'loa' | 'invoice' | 'csr' | 'other';
@@ -61168,9 +68301,9 @@ export interface operations {
   ListPortingOrderComments: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -61190,7 +68323,7 @@ export interface operations {
         };
         content?: never;
       };
-      /** @description Unprocessable entity. Check message field in res`ponse for details. */
+      /** @description Unprocessable entity. Check message field in response for details. */
       422: {
         headers: {
           [name: string]: unknown;
@@ -61263,9 +68396,9 @@ export interface operations {
   ListPortingOrderRequirements: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -61326,9 +68459,9 @@ export interface operations {
   ListVerificationCodes: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter results by phone number */
         'filter[phone_number]'?: components['parameters']['FilterByPhoneNumber'];
@@ -61452,9 +68585,9 @@ export interface operations {
         'filter[phone_number][in][]'?: components['parameters']['FilterByPhoneNumberIn'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order */
         'sort[]'?: '-created_at' | 'created_at';
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -61563,9 +68696,9 @@ export interface operations {
         'filter[porting_phone_number_id][in][]'?: string;
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order */
         'sort[]'?: '-created_at' | 'created_at';
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -61664,9 +68797,9 @@ export interface operations {
   ListPortingPhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter results by porting order id */
         'filter[porting_order_id]'?: components['parameters']['FilterByPortingOrderID'];
@@ -61723,6 +68856,8 @@ export interface operations {
       query?: {
         /** @description Filter by new carrier name. */
         'filter[carrier_name]'?: string;
+        /** @description Filter by Port Order Number (PON). */
+        'filter[pon]'?: string;
         /** @description Filter by new carrier spid. */
         'filter[spid]'?: string;
         /** @description Filter by portout status. */
@@ -61756,9 +68891,9 @@ export interface operations {
         'filter[phone_number]'?: string;
         /** @description Filter by the portout's support_key */
         'filter[support_key]'?: string;
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -61794,9 +68929,9 @@ export interface operations {
   listPortoutEvents: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by event type. */
         'filter[event_type]'?:
@@ -61934,9 +69069,9 @@ export interface operations {
   ListPortoutReports: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter reports of a specific type */
         'filter[report_type]'?: 'export_portouts_csv';
@@ -62240,7 +69375,13 @@ export interface operations {
            * @description Provide a reason if rejecting the port out request
            * @example I do not recognize this transaction
            */
-          reason?: string;
+          reason: string;
+          /**
+           * @description Indicates whether messaging services should be maintained with Telnyx after the port out completes
+           * @default false
+           * @example false
+           */
+          host_messaging?: boolean;
         };
       };
     };
@@ -62272,9 +69413,9 @@ export interface operations {
   GetPrivateWirelessGateways: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /**
          * @description The name of the Private Wireless Gateway.
@@ -62391,9 +69532,9 @@ export interface operations {
   ListPublicInternetGateways: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The associated network id to filter on. */
         'filter[network_id]'?: string;
@@ -62477,9 +69618,9 @@ export interface operations {
   ListQueueCalls: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -62531,6 +69672,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
+        /** @description Uniquely identifies the recording transcription by id. */
         recording_transcription_id: components['parameters']['RecordingTranscriptionId'];
       };
       cookie?: never;
@@ -62546,6 +69688,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
+        /** @description Uniquely identifies the recording transcription by id. */
         recording_transcription_id: components['parameters']['RecordingTranscriptionId'];
       };
       cookie?: never;
@@ -62559,25 +69702,25 @@ export interface operations {
   GetRecordings: {
     parameters: {
       query?: {
-        /** @description Returns only recordings associated with a given conference */
+        /** @description Returns only recordings associated with a given conference. */
         'filter[conference_id]'?: string;
-        /** @description Returns only recordings created later than or at given ISO 8601 datetime */
+        /** @description Returns only recordings created later than or at given ISO 8601 datetime. */
         'filter[created_at][gte]'?: string;
-        /** @description Returns only recordings created earlier than or at given ISO 8601 datetime */
+        /** @description Returns only recordings created earlier than or at given ISO 8601 datetime. */
         'filter[created_at][lte]'?: string;
         /** @description If present, recordings will be filtered to those with a matching call_leg_id. */
         'filter[call_leg_id]'?: string;
         /** @description If present, recordings will be filtered to those with a matching call_session_id. */
         'filter[call_session_id]'?: string;
-        /** @description If present, recordings will be filtered to those with a matching `from` attribute. Matching is case-sensitive */
+        /** @description If present, recordings will be filtered to those with a matching `from` attribute (case-sensitive). */
         'filter[from]'?: string;
-        /** @description If present, recordings will be filtered to those with a matching `to` attribute. Matching is case-sensitive */
+        /** @description If present, recordings will be filtered to those with a matching `to` attribute (case-sensitive). */
         'filter[to]'?: string;
-        /** @description If present, recordings will be filtered to those with a matching `connection_id` attribute. Matching is case-sensitive */
+        /** @description If present, recordings will be filtered to those with a matching `connection_id` attribute (case-sensitive). */
         'filter[connection_id]'?: string;
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -62683,7 +69826,7 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
-  CdrGetUsageReportSync: {
+  GetCDRUsageReportSync: {
     parameters: {
       query: {
         start_date?: string;
@@ -62717,7 +69860,7 @@ export interface operations {
       };
     };
   };
-  GetUsageReports: {
+  GetMdrUsageReports: {
     parameters: {
       query?: {
         /** @description Page number */
@@ -62767,7 +69910,7 @@ export interface operations {
       };
     };
   };
-  GetUsageReportSync: {
+  GetMDRUsageReportSync: {
     parameters: {
       query: {
         start_date?: string;
@@ -62792,7 +69935,7 @@ export interface operations {
       };
     };
   };
-  MdrGetUsageReport: {
+  GetUsageReport: {
     parameters: {
       query?: never;
       header?: never;
@@ -63122,9 +70265,9 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Filters requirement types to those whose name contains a certain string. */
-        'filter[name][contains]'?: components['parameters']['DocReqsRequirementTypeNameFilter'];
+        'filter[name][contains]'?: string;
         /** @description Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a `-` in front of the field name. */
-        'sort[]'?: components['parameters']['DocReqsRequirementTypesSort'];
+        'sort[]'?: 'created_at' | 'name' | 'updated_at';
       };
       header?: never;
       path?: never;
@@ -63132,8 +70275,27 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['DocReqsListRequirementTypesResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['DocReqsRequirementTypeList'];
+            meta?: components['schemas']['PaginationMeta'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   RetrieveRequirementType: {
@@ -63145,31 +70307,49 @@ export interface operations {
          * @description Uniquely identifies the requirement_type record
          * @example a38c217a-8019-48f8-bff6-0fdd9939075b
          */
-        id: components['parameters']['DocReqsRequirementTypeId'];
+        id: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['DocReqsRequirementTypeResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['DocReqsRequirementType'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   ListRequirements: {
     parameters: {
       query?: {
         /** @description Filters results to those applying to a 2-character (ISO 3166-1 alpha-2) country code */
-        'filter[country_code]'?: components['parameters']['DocReqsCountryFilter'];
+        'filter[country_code]'?: string;
         /** @description Filters results to those applying to a specific `phone_number_type` */
-        'filter[phone_number_type]'?: components['parameters']['DocReqsPhoneNumberTypeFilter'];
+        'filter[phone_number_type]'?: 'local' | 'national' | 'toll_free';
         /** @description Filters requirements to those applying to a specific action. */
-        'filter[action]'?: components['parameters']['DocReqsActionFilter'];
+        'filter[action]'?: 'ordering' | 'porting';
         /** @description Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a `-` in front of the field name. */
-        'sort[]'?: components['parameters']['DocReqsRequirementsSort'];
+        'sort[]'?: 'action' | 'country_code' | 'locality' | 'phone_number_type';
         /** @description The page number to load */
-        'page[number]'?: components['parameters']['PageNumber'];
+        'page[number]'?: number;
         /** @description The size of the page */
-        'page[size]'?: components['parameters']['PageSize'];
+        'page[size]'?: number;
       };
       header?: never;
       path?: never;
@@ -63177,8 +70357,27 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['ListRequirementsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['DocReqsRequirementList'];
+            meta?: components['schemas']['PaginationMeta'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   RetrieveDocumentRequirements: {
@@ -63190,14 +70389,32 @@ export interface operations {
          * @description Uniquely identifies the requirement_type record
          * @example a9dad8d5-fdbd-49d7-aa23-39bb08a5ebaa
          */
-        id: components['parameters']['DocReqsRequirementId'];
+        id: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['DocReqsRequirementResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      /** @description Successful response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['DocReqsRequirement'];
+          };
+        };
+      };
+      /** @description Unexpected error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
     };
   };
   ListRoomCompositions: {
@@ -63213,9 +70430,9 @@ export interface operations {
         'filter[session_id]'?: string;
         /** @description The status for filtering room compositions. */
         'filter[status]'?: 'completed' | 'processing' | 'enqueued';
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -63308,9 +70525,9 @@ export interface operations {
         'filter[context]'?: string;
         /** @description Session_id for filtering room participants. */
         'filter[session_id]'?: string;
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -63369,9 +70586,9 @@ export interface operations {
         'filter[duration_secs][lte]'?: number;
         /** @description duration_secs greater or equal for filtering room recordings. */
         'filter[duration_secs][gte]'?: number;
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -63414,9 +70631,9 @@ export interface operations {
         'filter[duration_secs][lte]'?: number;
         /** @description duration_secs greater or equal for filtering room recordings. */
         'filter[duration_secs][gte]'?: number;
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -63494,9 +70711,9 @@ export interface operations {
         'filter[active]'?: boolean;
         /** @description To decide if room participants should be included in the response. */
         include_participants?: boolean;
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -63625,9 +70842,9 @@ export interface operations {
         'filter[date_left_at][lte]'?: string;
         /** @description Filter room participants based on the context. */
         'filter[context]'?: string;
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -63661,9 +70878,9 @@ export interface operations {
         'filter[unique_name]'?: string;
         /** @description To decide if room sessions should be included in the response. */
         include_sessions?: boolean;
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -63830,9 +71047,9 @@ export interface operations {
         'filter[active]'?: boolean;
         /** @description To decide if room participants should be included in the response. */
         include_participants?: boolean;
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -63847,12 +71064,27 @@ export interface operations {
       200: components['responses']['ListRoomSessionsResponse'];
     };
   };
+  GetBlackBoxTestResults: {
+    parameters: {
+      query?: {
+        /** @description Filter results for a specific product. */
+        'filter[product]'?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['BlackBoxTestResultsResponse'];
+    };
+  };
   ListShortCodes: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by Messaging Profile ID. Use the string `null` for phone numbers without assigned profiles. A synonym for the `/messaging_profiles/{id}/short_codes` endpoint when querying about an extant profile. */
         'filter[messaging_profile_id]'?: string;
@@ -63907,9 +71139,9 @@ export interface operations {
   ListSimCardActions: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description A valid SIM card ID. */
         'filter[sim_card_id]'?: components['parameters']['FilterSIMCardId'];
@@ -63969,9 +71201,9 @@ export interface operations {
   ListDataUsageNotifications: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description A valid SIM card ID. */
         'filter[sim_card_id]'?: components['parameters']['FilterSIMCardId'];
@@ -64107,9 +71339,9 @@ export interface operations {
   GetSimCardGroupActions: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description A valid SIM card group ID. */
         'filter[sim_card_group_id]'?: components['parameters']['FilterSIMCardGroupId'];
@@ -64163,9 +71395,9 @@ export interface operations {
   GetAllSimCardGroups: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description A valid SIM card group name. */
         'filter[name]'?: string;
@@ -64402,9 +71634,9 @@ export interface operations {
         'filter[address.country_code]'?: components['parameters']['FilterAddressByCountryCode'];
         /** @description Filter by postal code for the address. */
         'filter[address.postal_code]'?: components['parameters']['FilterAddressByPostalCode'];
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -64468,9 +71700,9 @@ export interface operations {
   GetSimCards: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description It includes the associated SIM card group object in the response when present. */
         include_sim_card_group?: components['parameters']['IncludeSIMCardGroup'];
@@ -64580,6 +71812,8 @@ export interface operations {
       query?: {
         /** @description It includes the associated SIM card group object in the response when present. */
         include_sim_card_group?: components['parameters']['IncludeSIMCardGroup'];
+        /** @description When set to true, includes the PIN and PUK codes in the response. These codes are used for SIM card security and unlocking purposes. Available for both physical SIM cards and eSIMs. */
+        include_pin_puk_codes?: boolean;
       };
       header?: never;
       path: {
@@ -64603,7 +71837,10 @@ export interface operations {
   };
   DeleteSimCard: {
     parameters: {
-      query?: never;
+      query?: {
+        /** @description Enables deletion of disabled eSIMs that can't be uninstalled from a device. This is irreversible and the eSIM cannot be re-registered. */
+        report_lost?: boolean;
+      };
       header?: never;
       path: {
         /** @description Identifies the SIM. */
@@ -64835,9 +72072,9 @@ export interface operations {
   GetWirelessConnectivityLogs: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -64860,39 +72097,7 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
-  GetSiprecConnection: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Uniquely identifies a SIPREC connector */
-        connector_name: components['parameters']['SiprecConnectorName'];
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: components['responses']['SiprecConnectorResponseBody'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  UpdateSiprecConnector: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Uniquely identifies a SIPREC connector */
-        connector_name: components['parameters']['SiprecConnectorName'];
-      };
-      cookie?: never;
-    };
-    requestBody: components['requestBodies']['SiprecConnectorRequest'];
-    responses: {
-      200: components['responses']['SiprecConnectorResponseBody'];
-      default: components['responses']['GenericErrorResponse'];
-    };
-  };
-  CreateSiprecConnector: {
+  createSiprecConnector: {
     parameters: {
       query?: never;
       header?: never;
@@ -64905,12 +72110,44 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
-  DeleteSiprecConnection: {
+  getSiprecConnector: {
     parameters: {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a SIPREC connector */
+        /** @description Uniquely identifies a SIPREC connector. */
+        connector_name: components['parameters']['SiprecConnectorName'];
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['SiprecConnectorResponseBody'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  updateSiprecConnector: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Uniquely identifies a SIPREC connector. */
+        connector_name: components['parameters']['SiprecConnectorName'];
+      };
+      cookie?: never;
+    };
+    requestBody: components['requestBodies']['SiprecConnectorRequest'];
+    responses: {
+      200: components['responses']['SiprecConnectorResponseBody'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  deleteSiprecConnector: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Uniquely identifies a SIPREC connector. */
         connector_name: components['parameters']['SiprecConnectorName'];
       };
       cookie?: never;
@@ -64932,14 +72169,27 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The name of the bucket */
+        /**
+         * @description The name of the bucket
+         * @example
+         */
         bucketName: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['SSLCertificateResponse'];
+      /** @description SSL Certificate Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['SSLCertificate'];
+          };
+        };
+      };
     };
   };
   AddStorageSSLCertificate: {
@@ -64947,7 +72197,10 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The name of the bucket */
+        /**
+         * @description The name of the bucket
+         * @example
+         */
         bucketName: string;
       };
       cookie?: never;
@@ -64958,18 +72211,30 @@ export interface operations {
           /**
            * Format: binary
            * @description The SSL certificate file
+           * @example
            */
           certificate?: string;
           /**
            * Format: binary
            * @description The private key file
+           * @example
            */
           private_key?: string;
         };
       };
     };
     responses: {
-      200: components['responses']['SSLCertificateResponse'];
+      /** @description SSL Certificate Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['SSLCertificate'];
+          };
+        };
+      };
     };
   };
   RemoveStorageSSLCertificate: {
@@ -64977,34 +72242,66 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Bucket Name */
+        /**
+         * @description Bucket Name
+         * @example
+         */
         bucketName: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['SSLCertificateResponse'];
+      /** @description SSL Certificate Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['SSLCertificate'];
+          };
+        };
+      };
     };
   };
   GetStorageAPIUsage: {
     parameters: {
       query: {
-        /** @description The start time of the period to filter the usage (ISO microsecond format) */
+        /**
+         * @description The start time of the period to filter the usage (ISO microsecond format)
+         * @example 2020-01-01T00:00:00.000Z
+         */
         'filter[start_time]': string;
-        /** @description The end time of the period to filter the usage (ISO microsecond format) */
+        /**
+         * @description The end time of the period to filter the usage (ISO microsecond format)
+         * @example 2020-01-01T00:00:00.000Z
+         */
         'filter[end_time]': string;
       };
       header?: never;
       path: {
-        /** @description The name of the bucket */
+        /**
+         * @description The name of the bucket
+         * @example
+         */
         bucketName: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['BucketAPIUsageResponse'];
+      /** @description Bucket Usage */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['BucketAPIUsageResponse'][];
+          };
+        };
+      };
     };
   };
   GetBucketUsage: {
@@ -65012,14 +72309,28 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The name of the bucket */
+        /**
+         * @description The name of the bucket
+         * @example
+         */
         bucketName: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['BucketUsageResponse'];
+      /** @description Bucket Storage Usage */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['BucketUsage'][];
+            meta?: components['schemas']['PaginationMetaSimple'];
+          };
+        };
+      };
     };
   };
   CreatePresignedObjectUrl: {
@@ -65027,9 +72338,15 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The name of the bucket */
+        /**
+         * @description The name of the bucket
+         * @example
+         */
         bucketName: string;
-        /** @description The name of the object */
+        /**
+         * @description The name of the object
+         * @example
+         */
         objectName: string;
       };
       cookie?: never;
@@ -65040,7 +72357,15 @@ export interface operations {
       };
     };
     responses: {
-      200: components['responses']['PresignedObjectUrlResponse'];
+      /** @description Presigned URL Object Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PresignedObjectUrl'];
+        };
+      };
     };
   };
   ListMigrationSourceCoverage: {
@@ -65052,7 +72377,18 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['ListMigrationSourceCoverageResponse'];
+      /** @description List Migrations Source Coverage Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['MigrationSourceCoverageParams'][];
+            meta?: components['schemas']['PaginationMetaSimple'];
+          };
+        };
+      };
     };
   };
   ListMigrationSources: {
@@ -65064,7 +72400,18 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['ListMigrationSourceResponse'];
+      /** @description List Migration Sources Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['MigrationSourceParams'][];
+            meta?: components['schemas']['PaginationMetaSimple'];
+          };
+        };
+      };
     };
   };
   CreateMigrationSource: {
@@ -65080,7 +72427,17 @@ export interface operations {
       };
     };
     responses: {
-      200: components['responses']['MigrationSourceResponse'];
+      /** @description Create Migration Source Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['MigrationSourceParams'];
+          };
+        };
+      };
     };
   };
   GetMigrationSource: {
@@ -65088,14 +72445,27 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Unique identifier for the data migration source. */
+        /**
+         * @description Unique identifier for the data migration source.
+         * @example
+         */
         id: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['MigrationSourceResponse'];
+      /** @description Create Migration Source Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['MigrationSourceParams'];
+          };
+        };
+      };
     };
   };
   DeleteMigrationSource: {
@@ -65103,14 +72473,27 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Unique identifier for the data migration source. */
+        /**
+         * @description Unique identifier for the data migration source.
+         * @example
+         */
         id: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['MigrationSourceResponse'];
+      /** @description Create Migration Source Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['MigrationSourceParams'];
+          };
+        };
+      };
     };
   };
   ListMigrations: {
@@ -65122,7 +72505,18 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['ListMigrationResponse'];
+      /** @description List Migrations Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['MigrationParams'][];
+            meta?: components['schemas']['PaginationMetaSimple'];
+          };
+        };
+      };
     };
   };
   CreateMigration: {
@@ -65138,7 +72532,17 @@ export interface operations {
       };
     };
     responses: {
-      200: components['responses']['MigrationResponse'];
+      /** @description Create Migration Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['MigrationParams'];
+          };
+        };
+      };
     };
   };
   GetMigration: {
@@ -65146,14 +72550,27 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Unique identifier for the data migration. */
+        /**
+         * @description Unique identifier for the data migration.
+         * @example
+         */
         id: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['MigrationResponse'];
+      /** @description Create Migration Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['MigrationParams'];
+          };
+        };
+      };
     };
   };
   StopMigration: {
@@ -65161,14 +72578,27 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Unique identifier for the data migration. */
+        /**
+         * @description Unique identifier for the data migration.
+         * @example
+         */
         id: string;
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['MigrationResponse'];
+      /** @description Create Migration Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['MigrationParams'];
+          };
+        };
+      };
     };
   };
   ListSubNumberOrders: {
@@ -65287,12 +72717,77 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
+  CreateSubNumberOrdersReport: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['CreateSubNumberOrdersReportRequest'];
+      };
+    };
+    responses: {
+      202: components['responses']['SubNumberOrdersReportResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  GetSubNumberOrdersReport: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /**
+         * @description The unique identifier of the sub number orders report
+         * @example 12ade33a-21c0-473b-b055-b3c836e1c293
+         */
+        report_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['SubNumberOrdersReportResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  DownloadSubNumberOrdersReport: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /**
+         * @description The unique identifier of the sub number orders report
+         * @example 12ade33a-21c0-473b-b055-b3c836e1c293
+         */
+        report_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description CSV file download */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          /** @example id,order_request_id,is_block_sub_number_order,status,phone_number_type,requirements_met,phone_numbers_count,country_code,user_id,customer_reference,created_at,updated_at
+           *     1758d6ed-61a0-4d7a-bf57-b5dced413d33,f486fc2c-4fdf-4849-930d-b3045373e839,False,success,local,True,1,US,0d7ef697-df19-413a-b724-56b0539f5397,STRING,2025-05-23 14:33:12.376686,2025-05-23 14:33:15.624916 */
+          'text/csv': string;
+        };
+      };
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
   FindTelephonyCredentials: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by tag */
         'filter[tag]'?: components['parameters']['OptionalTag'];
@@ -65510,7 +73005,7 @@ export interface operations {
          * @example 1
          */
         Page?: components['parameters']['Page'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Used to request the next page of results. */
         PageToken?: components['parameters']['PageToken'];
@@ -65538,12 +73033,12 @@ export interface operations {
          * @description Filters calls by their start date (after). Expected format is YYYY-MM-DD
          * @example 2023-05-22
          */
-        'StartTime>'?: components['parameters']['StartTime>'];
+        StartTime_gt?: components['parameters']['StartTime_gt'];
         /**
          * @description Filters calls by their start date (before). Expected format is YYYY-MM-DD
          * @example 2023-05-22
          */
-        'StartTime<'?: components['parameters']['StartTime<'];
+        StartTime_lt?: components['parameters']['StartTime_lt'];
         /**
          * @description Filters calls by their end date. Expected format is YYYY-MM-DD
          * @example 2023-05-22
@@ -65553,12 +73048,12 @@ export interface operations {
          * @description Filters calls by their end date (after). Expected format is YYYY-MM-DD
          * @example 2023-05-22
          */
-        'EndTime>'?: components['parameters']['EndTime>'];
+        EndTime_gt?: components['parameters']['EndTime_gt'];
         /**
          * @description Filters calls by their end date (before). Expected format is YYYY-MM-DD
          * @example 2023-05-22
          */
-        'EndTime<'?: components['parameters']['EndTime<'];
+        EndTime_lt?: components['parameters']['EndTime_lt'];
       };
       header?: never;
       path: {
@@ -65573,7 +73068,7 @@ export interface operations {
       404: components['responses']['NotFoundResponse'];
     };
   };
-  InitiateTexmlCallAccountSid: {
+  InitiateTexmlCall: {
     parameters: {
       query?: never;
       header?: never;
@@ -65611,7 +73106,7 @@ export interface operations {
       404: components['responses']['NotFoundResponse'];
     };
   };
-  UpdateTexmlCallAccountSid: {
+  UpdateTexmlCall: {
     parameters: {
       query?: never;
       header?: never;
@@ -65716,6 +73211,8 @@ export interface operations {
         account_sid: components['parameters']['AccountSid'];
         /** @description The CallSid that identifies the call to update. */
         call_sid: components['parameters']['CallSid'];
+        /** @description The SiprecSid that uniquely identifies the Sip Recording. */
+        siprec_sid: components['parameters']['SiprecSid'];
       };
       cookie?: never;
     };
@@ -65771,7 +73268,7 @@ export interface operations {
          * @example 1
          */
         Page?: components['parameters']['Page'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Used to request the next page of results. */
         PageToken?: components['parameters']['PageToken'];
@@ -65900,8 +73397,8 @@ export interface operations {
         account_sid: components['parameters']['AccountSid'];
         /** @description The ConferenceSid that uniquely identifies a conference. */
         conference_sid: components['parameters']['ConferenceSid'];
-        /** @description The CallSid that identifies the call to update. */
-        call_sid: components['parameters']['CallSid'];
+        /** @description CallSid or Label of the Participant to update. */
+        call_sid_or_participant_label: components['parameters']['CallSidOrParticipantLabel'];
       };
       cookie?: never;
     };
@@ -65920,8 +73417,8 @@ export interface operations {
         account_sid: components['parameters']['AccountSid'];
         /** @description The ConferenceSid that uniquely identifies a conference. */
         conference_sid: components['parameters']['ConferenceSid'];
-        /** @description The CallSid that identifies the call to update. */
-        call_sid: components['parameters']['CallSid'];
+        /** @description CallSid or Label of the Participant to update. */
+        call_sid_or_participant_label: components['parameters']['CallSidOrParticipantLabel'];
       };
       cookie?: never;
     };
@@ -65945,8 +73442,8 @@ export interface operations {
         account_sid: components['parameters']['AccountSid'];
         /** @description The ConferenceSid that uniquely identifies a conference. */
         conference_sid: components['parameters']['ConferenceSid'];
-        /** @description The CallSid that identifies the call to update. */
-        call_sid: components['parameters']['CallSid'];
+        /** @description CallSid or Label of the Participant to update. */
+        call_sid_or_participant_label: components['parameters']['CallSidOrParticipantLabel'];
       };
       cookie?: never;
     };
@@ -66074,7 +73571,7 @@ export interface operations {
       query?: {
         /** @description Used to request the next page of results. */
         PageToken?: components['parameters']['PageToken'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -66132,7 +73629,7 @@ export interface operations {
       404: components['responses']['NotFoundResponse'];
     };
   };
-  InitiateTexmlCall: {
+  DeprecatedInitiateTexmlCall: {
     parameters: {
       query?: never;
       header?: never;
@@ -66145,14 +73642,14 @@ export interface operations {
     /** @description Iniatiate Call request object */
     requestBody: {
       content: {
-        'application/json': components['schemas']['InitiateCallRequest'];
+        'application/json': components['schemas']['DeprecatedInitiateCallRequest'];
       };
     };
     responses: {
-      200: components['responses']['InitiateCallResponse'];
+      200: components['responses']['DeprecatedInitiateCallResponse'];
     };
   };
-  UpdateTexmlCall: {
+  DeprecatedUpdateTexmlCall: {
     parameters: {
       query?: never;
       header?: never;
@@ -66193,10 +73690,10 @@ export interface operations {
   FindTexmlApplications: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
         /** @description The size of the page */
-        'page[size]'?: components['parameters']['PageSize'];
+        'page[size]'?: components['parameters']['PageSizeApp'];
         /** @description If present, applications with <code>friendly_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[friendly_name][contains]'?: string;
         /** @description Identifies the associated outbound voice profile. */
@@ -66264,7 +73761,7 @@ export interface operations {
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
       403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['NotFoundResponseApp'];
     };
   };
   DeleteTexmlApplication: {
@@ -66283,7 +73780,7 @@ export interface operations {
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
       403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['NotFoundResponseApp'];
     };
   };
   UpdateTexmlApplication: {
@@ -66307,11 +73804,93 @@ export interface operations {
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
       403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['NotFoundResponseApp'];
       422: components['responses']['UnprocessableEntityResponse'];
     };
   };
-  GetUsageReport: {
+  generateTextToSpeech: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': {
+          /** @description The voice ID in the format Provider.ModelId.VoiceId.
+           *
+           *     Examples:
+           *     - AWS.Polly.Joanna-Neural
+           *     - Azure.en-US-AvaMultilingualNeural
+           *     - ElevenLabs.eleven_multilingual_v2.Rachel
+           *     - Telnyx.KokoroTTS.af
+           *
+           *     Use the `GET /text-to-speech/voices` endpoint to get a complete list of available voices. */
+          voice: string;
+          /** @description The text to convert to speech */
+          text: string;
+        };
+      };
+    };
+    responses: {
+      /** @description Audio data generated from the provided text */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'audio/mpeg': Record<string, never>;
+        };
+      };
+      401: components['responses']['UnauthorizedResponse'];
+      /** @description Invalid request parameters */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  listTextToSpeechVoices: {
+    parameters: {
+      query?: {
+        /** @description Filter voices by provider */
+        provider?: 'aws' | 'azure' | 'elevenlabs' | 'telnyx';
+        /** @description Reference to your ElevenLabs API key stored in the Telnyx Portal */
+        elevenlabs_api_key_ref?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful response with list of available voices */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            voices?: {
+              id?: string;
+              name?: string;
+              provider?: string;
+              label?: string;
+              accent?: string;
+              gender?: string;
+              age?: string;
+              language?: string;
+            }[];
+          };
+        };
+      };
+      401: components['responses']['UnauthorizedResponse'];
+    };
+  };
+  GetUsageReports: {
     parameters: {
       query: {
         /** @description Telnyx product */
@@ -66338,7 +73917,7 @@ export interface operations {
         format?: 'csv' | 'json';
       };
       header?: {
-        'Authorization: Bearer <TOKEN>'?: string;
+        authorization_bearer?: string;
       };
       path?: never;
       cookie?: never;
@@ -66382,7 +73961,7 @@ export interface operations {
         product?: string;
       };
       header?: {
-        'Authorization: Bearer <TOKEN>'?: string;
+        authorization_bearer?: string;
       };
       path?: never;
       cookie?: never;
@@ -66418,66 +73997,137 @@ export interface operations {
       };
     };
   };
-  updateLocation: {
+  FindUserAddress: {
     parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description The ID of the external connection */
-        id: string;
-        /** @description The ID of the location to update */
-        location_id: string;
+      query?: {
+        /** @description The page number to load. */
+        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description The size of the page. */
+        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Filter addresses via the customer reference set. Matching is not case-sensitive. */
+        'filter[customer_reference][eq]'?: components['parameters']['FilterCustomerReferenceEquals'];
+        /** @description If present, addresses with <code>customer_reference</code> containing the given value will be returned. Matching is not case-sensitive. */
+        'filter[customer_reference][contains]'?: components['parameters']['FilterCustomerReferenceContains'];
+        /** @description If present, addresses with <code>street_address</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
+        'filter[street_address][contains]'?: components['parameters']['FilterStreetAddress'];
+        /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
+         *     That is: <ul>
+         *       <li>
+         *         <code>street_address</code>: sorts the result by the
+         *         <code>street_address</code> field in ascending order.
+         *       </li>
+         *
+         *       <li>
+         *         <code>-street_address</code>: sorts the result by the
+         *         <code>street_address</code> field in descending order.
+         *       </li>
+         *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
+        sort?: components['parameters']['SortUserAddress'];
       };
+      header?: never;
+      path?: never;
       cookie?: never;
     };
-    requestBody: {
-      content: {
-        'application/json': {
-          /**
-           * Format: uuid
-           * @description A new static emergency address ID to update the location with
-           */
-          static_emergency_address_id: string;
-        };
-      };
-    };
+    requestBody?: never;
     responses: {
-      /** @description Location successfully updated with no associated orders to process */
-      200: {
+      200: components['responses']['GetAllUserAddressResponse'];
+      /** @description Bad request */
+      400: {
         headers: {
           [name: string]: unknown;
         };
-        content: {
-          'application/json': components['schemas']['LocationResponse'];
-        };
+        content?: never;
       };
-      /** @description Location update accepted; associated orders being processed */
-      202: {
+      /** @description Unauthorized */
+      401: {
         headers: {
           [name: string]: unknown;
         };
-        content: {
-          'application/json': components['schemas']['LocationResponse'];
-        };
+        content?: never;
       };
-      /** @description Location or external connection not found */
+      /** @description Resource not found */
       404: {
         headers: {
           [name: string]: unknown;
         };
-        content: {
-          'application/json': components['schemas']['ErrorResponse'];
-        };
+        content?: never;
       };
-      /** @description Unprocessable Entity - Location already has an accepted emergency address */
+    };
+  };
+  CreateUserAddress: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Parameters that can be defined during user address creation */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UserAddressCreate'];
+      };
+    };
+    responses: {
+      200: components['responses']['UserAddressResponse'];
+      /** @description Bad request */
       422: {
         headers: {
           [name: string]: unknown;
         };
-        content: {
-          'application/json': components['schemas']['ErrorResponse'];
-        };
+        content?: never;
       };
+    };
+  };
+  GetUserAddress: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description user address ID */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['UserAddressResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Resource not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad request */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GetUserTags: {
+    parameters: {
+      query?: {
+        /** @description Filter tags by prefix */
+        'filter[starts_with]'?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['ListUserTagsResponse'];
+      401: components['responses']['UnauthenticatedResponse'];
     };
   };
   ListVerifications: {
@@ -66980,9 +74630,9 @@ export interface operations {
   ListVirtualCrossConnects: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The associated network id to filter on. */
         'filter[network_id]'?: string;
@@ -67071,9 +74721,9 @@ export interface operations {
   ListVirtualCrossConnectCoverage: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /**
          * @description The available bandwidth to filter on.
@@ -67122,9 +74772,9 @@ export interface operations {
         'filter[finished_at][gte]'?: string;
         /** @description Return only webhook_deliveries whose delivery finished earlier than or at given ISO 8601 datetime */
         'filter[finished_at][lte]'?: string;
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -67192,9 +74842,9 @@ export interface operations {
   ListWireguardInterfaces: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The associated network id to filter on. */
         'filter[network_id]'?: string;
@@ -67262,9 +74912,9 @@ export interface operations {
   ListWireguardPeers: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The id of the associated WireGuard interface to filter on. */
         'filter[wireguard_interface_id]'?: string;
@@ -67283,10 +74933,7 @@ export interface operations {
     parameters: {
       query?: never;
       header?: never;
-      path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['ResourceId'];
-      };
+      path?: never;
       cookie?: never;
     };
     requestBody: {
@@ -67380,9 +75027,9 @@ export interface operations {
   GetWdrReports: {
     parameters: {
       query?: {
-        /** @description The page number to load */
+        /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
+        /** @description The size of the page. */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;

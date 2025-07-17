@@ -5,6 +5,10 @@
 ### v2.0.1
 
 - Add Messaging Inbound Webhook example
+- Add Calls `clientStateUpdate` method
+- Remove usage of `ResponsePayload` generic type with specific types from types definitions, since required types are not accepted
+- Remove `MessagingProfiles` resource `metrics` method
+- Unnest `PhoneNumbers` resource `inboundChannels` method
 
 ### v2.0.0
 

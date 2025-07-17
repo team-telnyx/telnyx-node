@@ -129,6 +129,10 @@ declare module 'telnyx' {
       paths['/calls/{call_control_id}/actions/leave_queue']['post']['parameters']['path']['call_control_id'];
     type CallsLeaveQueueParams =
       paths['/calls/{call_control_id}/actions/leave_queue']['post']['requestBody']['content']['application/json'];
+    type CallsClientStateUpdateId =
+      paths['/calls/{call_control_id}/actions/client_state_update']['put']['parameters']['path']['call_control_id'];
+    type CallsClientStateUpdateParams =
+      paths['/calls/{call_control_id}/actions/client_state_update']['put']['requestBody']['content']['application/json'];
 
     type CallsAnswerResponse =
       paths['/calls/{call_control_id}/actions/answer']['post']['responses']['200']['content']['application/json'];
@@ -186,6 +190,8 @@ declare module 'telnyx' {
       paths['/calls/{call_control_id}/actions/enqueue']['post']['responses']['200']['content']['application/json'];
     type CallsLeaveQueueResponse =
       paths['/calls/{call_control_id}/actions/leave_queue']['post']['responses']['200']['content']['application/json'];
+    type CallsClientStateUpdateResponse =
+      paths['/calls/{call_control_id}/actions/client_state_update']['put']['responses']['200']['content']['application/json'];
 
     type CallsNestedMethods = {
       answer(
@@ -300,6 +306,10 @@ declare module 'telnyx' {
         params: CallsLeaveQueueParams,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.CallsLeaveQueueResponse>>;
+      clientStateUpdate(
+        params: CallsClientStateUpdateParams,
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.CallsClientStateUpdateResponse>>;
     };
 
     class CallsResource {
@@ -468,6 +478,11 @@ declare module 'telnyx' {
         params: CallsLeaveQueueParams,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.CallsLeaveQueueResponse>>;
+      clientStateUpdate(
+        id: CallsClientStateUpdateId,
+        params: CallsClientStateUpdateParams,
+        options?: RequestOptions,
+      ): Promise<Telnyx.Response<Telnyx.CallsClientStateUpdateResponse>>;
     }
   }
 }
