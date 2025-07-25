@@ -73,6 +73,10 @@ const params: Telnyx.CallsCreateParams = {
   record_timeout_secs: 0,
   transcription: true,
   record_track: 'both',
+  bridge_intent: false,
+  bridge_on_answer: false,
+  stream_establish_before_call_originate: false,
+  supervisor_role: 'barge'
 };
 
 (async function callControl() {
