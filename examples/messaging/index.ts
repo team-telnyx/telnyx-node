@@ -14,6 +14,8 @@ const params: Telnyx.MessagingProfilesCreateParams = {
   webhook_url: null,
   webhook_failover_url: null,
   webhook_api_version: '2',
+  mms_fall_back_to_sms: false,
+  mms_transcoding: false
 };
 
 (async function messaging() {
