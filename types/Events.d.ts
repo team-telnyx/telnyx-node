@@ -55,6 +55,16 @@ declare module 'telnyx' {
         components['schemas']['CallSiprecStartedEvent'];
       type CallSiprecStoppedEvent =
         components['schemas']['CallSiprecStoppedEvent'];
+      type CallAIGatherMessageHistoryUpdatedEvent = 
+        components['schemas']['CallAIGatherMessageHistoryUpdatedEvent'];
+      type CallAIGatherPartialResultsEvent =
+        components['schemas']['CallAIGatherPartialResultsEvent'];
+      type CallConversationEndedEvent =
+        components['schemas']['callConversationEndedEvent'];
+      type CallConversationInsightsGeneratedEvent =
+        components['schemas']['callConversationInsightsGeneratedEvent'];
+      type CallRecordingTranscriptionSavedEvent =
+        components['schemas']['callRecordingTranscriptionSavedEvent'];
       type ConferenceCreatedEvent =
         components['schemas']['ConferenceCreatedEvent'];
       type ConferenceEndedEvent = components['schemas']['ConferenceEndedEvent'];
@@ -88,7 +98,6 @@ declare module 'telnyx' {
       type NotificationEvent = components['schemas']['NotificationEvent'];
       type NumberOrderBlockEvent =
         components['schemas']['NumberOrderBlockEvent'];
-      type NumberOrderedEvent = components['schemas']['NumberOrderedEvent'];
       type OutboundMessageEvent = components['schemas']['OutboundMessageEvent'];
       type PortingEvent = components['schemas']['PortingEvent'];
       type PortoutEvent = components['schemas']['PortoutEvent'];

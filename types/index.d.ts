@@ -53,12 +53,11 @@
 ///<reference path='./IpsResource.d.ts' />
 ///<reference path='./MessagesResource.d.ts' />
 ///<reference path='./MessagingProfilesResource.d.ts' />
-///<reference path='./MessagingProfileMetricsResource.d.ts' />
 ///<reference path='./NotificationEventsResource.d.ts' />
 ///<reference path='./NumberOrdersResource.d.ts' />
 ///<reference path='./PhoneNumberAssignmentByProfileResource.d.ts' />
 ///<reference path='./PhoneNumbersCsvDownloadsResource.d.ts' />
-///<reference path='./PhoneNumbersInboundChannelsResource.d.ts' />
+///<reference path='./InboundChannelsResource.d.ts' />
 ///<reference path='./PhoneNumbersMessagingResource.d.ts' />
 ///<reference path='./PhoneNumbersVoiceResource.d.ts' />
 ///<reference path='./PhoneNumbersSlimResource.d.ts' />
@@ -135,17 +134,16 @@ declare module 'telnyx' {
     faxApplications: Telnyx.FaxApplicationsResource;
     fqdnConnections: Telnyx.FqdnConnectionsResource;
     fqdns: Telnyx.FqdnsResource;
+    inboundChannels: Telnyx.InboundChannelsResource;
     inventoryCoverage: Telnyx.InventoryCoverageResource;
     ipConnections: Telnyx.IpConnectionsResource;
     ips: Telnyx.IpsResource;
     messages: Telnyx.MessagesResource;
-    messagingProfileMetrics: Telnyx.MessagingProfileMetricsResource;
     messagingProfiles: Telnyx.MessagingProfilesResource;
     notificationEvents: Telnyx.NotificationEventsResource;
     numberOrders: Telnyx.NumberOrdersResource;
     phoneNumberAssignmentByProfile: Telnyx.PhoneNumberAssignmentByProfileResource;
     phoneNumbersCsvDownloads: Telnyx.PhoneNumbersCsvDownloadsResource;
-    phoneNumbersInboundChannels: Telnyx.PhoneNumbersInboundChannelsResource;
     phoneNumbersMessaging: Telnyx.PhoneNumbersMessagingResource;
     phoneNumbersVoice: Telnyx.PhoneNumbersVoiceResource;
     phoneNumbersSlim: Telnyx.PhoneNumbersSlimResource;

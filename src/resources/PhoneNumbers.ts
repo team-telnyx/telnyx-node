@@ -4,7 +4,6 @@ import * as utils from '../utils.js';
 
 import {PhoneNumbersMessaging} from './PhoneNumbersMessaging.js';
 import {PhoneNumbersVoice} from './PhoneNumbersVoice.js';
-import {PhoneNumbersInboundChannels} from './PhoneNumbersInboundChannels.js';
 
 const telnyxMethod = TelnyxResource.method;
 
@@ -38,7 +37,6 @@ export const PhoneNumbers = TelnyxResource.extend({
   nestedResources: {
     Messaging: PhoneNumbersMessaging,
     Voice: PhoneNumbersVoice,
-    Inbound: PhoneNumbersInboundChannels,
   },
 
   retrieve: telnyxMethod({

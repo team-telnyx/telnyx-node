@@ -189,6 +189,34 @@ describe('Calls Resource', function () {
       });
     });
 
+    describe('clientStateUpdate', function () {
+      function responseFn(response: ResponsePayload) {
+        expect(response).toHaveProperty('data');
+      }
+
+      test('Sends the correct request', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyx.calls
+          .clientStateUpdate('891510ac-f3e4-11e8-af5b-de00688a4901', {
+            client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+          })
+          .then(responseFn);
+      });
+
+      test('Sends the correct request [with specified auth]', function () {
+        // @ts-expect-error TODO: import .d.ts files under src/test folder
+        return telnyx.calls
+          .clientStateUpdate(
+            '891510ac-f3e4-11e8-af5b-de00688a4901',
+            {
+              client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+            },
+            TEST_AUTH_KEY,
+          )
+          .then(responseFn);
+      });
+    });
+
     describe('updateClientState', function () {
       function responseFn(response: ResponsePayload) {
         expect(response).toHaveProperty('data');

@@ -60,7 +60,25 @@ function getSpec(callControlId?: string) {
 
 export const Calls = TelnyxResource.extend({
   path: 'calls',
-  includeBasic: ['retrieve'], // status method
+
+  retrieve: telnyxMethod({
+    method: 'GET',
+    path: '/{call_control_id}',
+    urlParams: ['call_control_id'],
+
+    transformResponseData: function (response, telnyx) {
+      return utils.addResourceToResponseData(
+        response,
+        telnyx,
+        'calls',
+        utils.createNestedMethods(
+          telnyxMethod,
+          CALL_COMMANDS,
+          getSpec(response.data.call_control_id as string),
+        ),
+      );
+    },
+  }),
 
   dial: telnyxMethod({
     // dial method
@@ -96,6 +114,12 @@ export const Calls = TelnyxResource.extend({
         ),
       );
     },
+  }),
+
+  clientStateUpdate: telnyxMethod({
+    path: '/{call_control_id}/actions/client_state_update',
+    urlParams: ['call_control_id'],
+    method: 'PUT',
   }),
 
   updateClientState: telnyxMethod({

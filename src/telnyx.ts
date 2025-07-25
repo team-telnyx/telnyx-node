@@ -65,7 +65,6 @@ import {MediaStorageApi} from './resources/MediaStorageApi.js';
 import {Messages} from './resources/Messages.js';
 import {MessagingHostedNumberOrders} from './resources/MessagingHostedNumberOrders.js';
 import {MessagingHostedNumbers} from './resources/MessagingHostedNumbers.js';
-import {MessagingProfileMetrics} from './resources/MessagingProfileMetrics.js';
 import {MessagingProfiles} from './resources/MessagingProfiles.js';
 import {MessagingShortCodes} from './resources/MessagingShortCodes.js';
 import {MessagingTollfreeVerification} from './resources/MessagingTollfreeVerification.js';
@@ -89,7 +88,7 @@ import {PhoneNumberBlockOrders} from './resources/PhoneNumberBlockOrders.js';
 import {PhoneNumberBlocksBackgroundJobs} from './resources/PhoneNumberBlocksBackgroundJobs.js';
 import {PhoneNumberCampaigns} from './resources/PhoneNumberCampaigns.js';
 import {PhoneNumbers} from './resources/PhoneNumbers.js';
-import {PhoneNumbersInboundChannels} from './resources/PhoneNumbersInboundChannels.js';
+import {InboundChannels} from './resources/InboundChannels.js';
 import {PhoneNumbersMessaging} from './resources/PhoneNumbersMessaging.js';
 import {PhoneNumbersRegulatoryRequirements} from './resources/PhoneNumbersRegulatoryRequirements.js';
 import {PhoneNumbersSlim} from './resources/PhoneNumbersSlim.js';
@@ -227,6 +226,7 @@ export function createTelnyx() {
     FqdnConnections,
     Fqdns,
     GlobalIps,
+    InboundChannels,
     InventoryCoverage,
     IpConnections,
     Ips,
@@ -237,7 +237,6 @@ export function createTelnyx() {
     Messages,
     MessagingHostedNumberOrders,
     MessagingHostedNumbers,
-    MessagingProfileMetrics,
     MessagingProfiles,
     MessagingShortCodes,
     MessagingTollfreeVerification,
@@ -263,7 +262,6 @@ export function createTelnyx() {
     PhoneNumbersRegulatoryRequirements,
     PhoneNumbersSlim,
     PhoneNumbers,
-    PhoneNumbersInboundChannels,
     PhoneNumbersMessaging,
     PhoneNumbersVoice,
     PhoneNumbersCsvDownloads,

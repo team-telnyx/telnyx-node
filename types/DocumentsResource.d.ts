@@ -24,7 +24,7 @@ declare module 'telnyx' {
       paths['/documents/{id}']['patch']['parameters']['path']['id'];
 
     type DocumentsUpdateParams =
-      paths['/documents/{id}']['patch']['requestBody']['content']['application/json'];
+      NonNullable<paths['/documents/{id}']['patch']['requestBody']>['content']['application/json'];
 
     type DocumentsUpdateResponse =
       paths['/documents/{id}']['patch']['responses']['200']['content']['application/json'];
@@ -42,7 +42,7 @@ declare module 'telnyx' {
       paths['/documents/{id}/download']['get']['parameters']['path']['id'];
 
     type DocumentsDownloadResponse =
-      paths['/documents/{id}/download']['get']['responses']['200']['content']['*'];
+      paths['/documents/{id}/download']['get']['responses']['200']['content']['*/*'];
 
     class DocumentsResource {
       list(
