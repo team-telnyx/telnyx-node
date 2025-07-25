@@ -690,7 +690,11 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    get?: never;
+    /**
+     * Get a specific assistant version
+     * @description Retrieves a specific version of an assistant by assistant_id and version_id
+     */
+    get: operations['get_assistant_version_public_assistants__assistant_id__versions__version_id__get'];
     put?: never;
     /**
      * Update a specific assistant version
@@ -718,7 +722,7 @@ export interface paths {
     put?: never;
     /**
      * Promote an assistant version to main
-     * @description Promotes a specific version to be the main/current version of the assistant
+     * @description Promotes a specific version to be the main/current version of the assistant. This will delete any existing canary deploy configuration and send all live production traffic to this version.
      */
     post: operations['promote_assistant_version_public_assistants__assistant_id__versions__version_id__promote_post'];
     delete?: never;
@@ -3090,6 +3094,60 @@ export interface paths {
      * @description Update the number of Voice Channels for the Non-US Zones. This allows your account to handle multiple simultaneous inbound calls to Non-US numbers. Use this endpoint to increase or decrease your capacity based on expected call volume.
      */
     put: operations['PatchChannelZone'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/charges_summary': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get monthly charges summary
+     * @description Retrieve a summary of monthly charges for a specified date range. The date range cannot exceed 31 days to prevent large queries that could cause timeouts.
+     */
+    get: {
+      parameters: {
+        query: {
+          /** @description Start date for the charges summary in ISO date format (YYYY-MM-DD) */
+          start_date: string;
+          /** @description End date for the charges summary in ISO date format (YYYY-MM-DD). The interval between start_date and end_date cannot exceed 31 days. */
+          end_date: string;
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Monthly charges summary */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['MonthlyChargesSummaryResponse'];
+          };
+        };
+        /** @description Bad request - invalid date range or parameters */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['Errors'];
+          };
+        };
+        default: components['responses']['GenericErrorResponse'];
+      };
+    };
+    put?: never;
     post?: never;
     delete?: never;
     options?: never;
@@ -8616,9 +8674,9 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description The page number to load. */
+          /** @description The page number to load */
           'page[number]'?: components['parameters']['PageNumber'];
-          /** @description The size of the page. */
+          /** @description The size of the page */
           'page[size]'?: components['parameters']['PageSize'];
         };
         header?: never;
@@ -12101,6 +12159,24 @@ export interface components {
         record_type?: 'address_suggestion';
       };
     };
+    AdjustmentLine: {
+      /**
+       * @description Adjustment amount as decimal string
+       * @example -10.00
+       */
+      amount: string;
+      /**
+       * @description Description of the adjustment
+       * @example Credit for service outage
+       */
+      description: string;
+      /**
+       * Format: date
+       * @description Date when the adjustment occurred
+       * @example 2025-05-15
+       */
+      event_date: string;
+    };
     /** AdvancedOrderRequest */
     AdvancedOrderRequest: {
       /**
@@ -14877,6 +14953,23 @@ export interface components {
       result?: string;
     };
     /**
+     * Call Control Command Result With Conversation ID
+     * @example {
+     *       "result": "ok",
+     *       "conversation_id": "d7e9c1d4-8b2a-4b8f-b3a7-9a671c9e9b0a"
+     *     }
+     */
+    CallControlCommandResultWithConversationId: {
+      /** @example ok */
+      result?: string;
+      /**
+       * Format: uuid
+       * @description The ID of the conversation created by the command.
+       * @example d7e9c1d4-8b2a-4b8f-b3a7-9a671c9e9b0a
+       */
+      conversation_id?: string;
+    };
+    /**
      * Call Control Command Result With Recording ID
      * @example {
      *       "result": "ok",
@@ -17064,6 +17157,7 @@ export interface components {
      *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901",
      *       "link_to": "ilditnZK_eVysupV21KzmzN_sM29ygfauQojpm4BgFtfX5hXAcjotg==",
      *       "bridge_intent": true,
+     *       "bridge_on_answer": true,
      *       "media_encryption": "SRTP",
      *       "sip_auth_username": "username",
      *       "sip_auth_password": "password",
@@ -17334,6 +17428,12 @@ export interface components {
        * @example true
        */
       bridge_intent: boolean;
+      /**
+       * @description Whether to automatically bridge answered call to the call specified in link_to. When bridge_on_answer is true, link_to becomes required.
+       * @default false
+       * @example true
+       */
+      bridge_on_answer: boolean;
       /**
        * @description Defines whether media should be encrypted on the call.
        * @default disabled
@@ -19102,6 +19202,25 @@ export interface components {
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly updated_at?: string;
+    };
+    ComparativeLine: {
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      type: 'ComparativeLine';
+      /**
+       * @description Service name
+       * @example Local DIDs
+       */
+      name: string;
+      /**
+       * @description Service alias
+       * @example local
+       */
+      alias: string;
+      new_this_month: components['schemas']['MonthDetail'];
+      existing_this_month: components['schemas']['MonthDetail'];
     };
     /**
      * OTAUpdate
@@ -23993,9 +24112,8 @@ export interface components {
       default_verification_timeout_secs: number;
     };
     /**
-     * Created At
-     * @description ISO 8601 formatted date indicating when the resource was created.
-     * @example 2020-02-02T22:25:27.521Z
+     * @description ISO 8601 formatted date-time indicating when the resource was created.
+     * @example 2018-02-02T22:25:27.521Z
      */
     CreatedAt: string;
     /** CreatedUserBundlesResponse */
@@ -24405,14 +24523,16 @@ export interface components {
     /** Cursor Pagination Meta */
     CursorPaginationMeta: {
       cursors?: components['schemas']['Cursor'];
+      /** @example 50 */
+      total_items?: number;
       /**
        * @description Path to next page.
-       * @example /v2/recording_transcriptions?page[after]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=
+       * @example /v2/connections/1234567890/active_calls?page[after]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=
        */
       next?: string;
       /**
        * @description Path to previous page.
-       * @example /v2/recording_transcriptions?page[before]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=
+       * @example /v2/connections/1234567890/active_calls?page[before]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=
        */
       previous?: string;
     };
@@ -25930,8 +26050,8 @@ export interface components {
      */
     EnumPaginatedResponse: Record<string, never>;
     Error: {
-      /** Format: int */
-      code: string;
+      /** Format: int32 */
+      code: number;
       title: string;
       detail?: string;
       source?: {
@@ -25940,10 +26060,7 @@ export interface components {
          * @description JSON pointer (RFC6901) to the offending entity.
          */
         pointer?: string;
-        /**
-         * @description Indicates which query parameter caused the error.
-         * @example +15617819942
-         */
+        /** @description Indicates which query parameter caused the error. */
         parameter?: string;
       };
       meta?: Record<string, never>;
@@ -28399,8 +28516,8 @@ export interface components {
     };
     /**
      * Format: uuid
-     * @description Identifies the resource.
-     * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+     * @description Identifies the type of resource.
+     * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
      */
     Id: string;
     /** ImportAssistantsRequest */
@@ -31096,29 +31213,25 @@ export interface components {
     /** Metadata */
     Metadata: {
       /**
-       * Format: double
-       * @description Total number of pages based on pagination settings
-       * @example 13
+       * Page Size
+       * @example 25
        */
-      total_pages?: number;
+      page_size: number;
       /**
-       * Format: double
-       * @description Total number of results
-       * @example 13
-       */
-      total_results?: number;
-      /**
-       * Format: double
-       * @description Current Page based on pagination settings (included when defaults are used.)
-       * @example 3
-       */
-      page_number?: number;
-      /**
-       * Format: double
-       * @description Number of results to return per page based on pagination settings (included when defaults are used.)
+       * Page Number
        * @example 1
        */
-      page_size?: number;
+      page_number: number;
+      /**
+       * Total Pages
+       * @example 10
+       */
+      total_pages: number;
+      /**
+       * Total Items
+       * @example 250
+       */
+      total_results: number;
     };
     MigrationParams: {
       /** @description Unique identifier for the data migration. */
@@ -31314,6 +31427,26 @@ export interface components {
      * @default false
      */
     Monochrome: boolean;
+    MonthDetail: {
+      /**
+       * @description Number of items
+       * @example 10
+       */
+      quantity: number;
+      /**
+       * @description Monthly recurring charge amount as decimal string
+       * @example 25.50
+       */
+      mrc: string;
+      /**
+       * @description One-time charge amount as decimal string
+       * @example 5.00
+       */
+      otc?: string | null;
+    };
+    MonthlyChargesSummaryResponse: {
+      data: components['schemas']['SummaryAndTotal'];
+    };
     Network: components['schemas']['Record'] & {
       /**
        * @description Identifies the type of the resource.
@@ -33273,21 +33406,13 @@ export interface components {
       page_size?: number;
     };
     PaginationMetaSimple: {
-      /** @example [
-       *       2
-       *     ] */
+      /** @example 2 */
       page_number?: number;
-      /** @example [
-       *       25
-       *     ] */
+      /** @example 25 */
       page_size?: number;
-      /** @example [
-       *       3
-       *     ] */
+      /** @example 3 */
       total_pages?: number;
-      /** @example [
-       *       55
-       *     ] */
+      /** @example 55 */
       total_results?: number;
     };
     /** PaginationResponse */
@@ -36987,10 +37112,11 @@ export interface components {
       readonly updated_at?: string;
     };
     /**
-     * @description Identifies record type.
+     * @description Identifies the type of the resource.
+     * @example event
      * @enum {string}
      */
-    RecordType: 'custom_storage_credentials';
+    RecordType: 'event';
     /** RecordingResponse */
     RecordingResponse: {
       data?: components['schemas']['RecordingResponseData'];
@@ -37529,20 +37655,17 @@ export interface components {
        */
       readonly expired_at?: string;
     };
-    /**
-     * Resource not found
-     * @example {
-     *       "errors": [
-     *         {
-     *           "detail": "Resource not found"
-     *         }
-     *       ]
-     *     }
-     */
-    ResourceNotFoundError: {
-      errors?: {
-        detail?: string;
-      }[];
+    ResourceNotFoundError: components['schemas']['GenericError'] & {
+      /** @example 10005 */
+      code?: unknown;
+      /** @example Resource not found */
+      title?: unknown;
+      /** @example The requested resource or URL could not be found. */
+      detail?: unknown;
+      meta?: {
+        /** @example https://developers.telnyx.com/docs/overview/errors/10005 */
+        url?: string;
+      };
     };
     /** Pause Recording Request */
     ResumeConferenceRecordingRequest: {
@@ -39395,6 +39518,33 @@ export interface components {
        */
       record_type: 'SimCardUsageDetailRecord';
     };
+    SimpleLine: {
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      type: 'SimpleLine';
+      /**
+       * @description Service name
+       * @example Port Out
+       */
+      name: string;
+      /**
+       * @description Service alias
+       * @example port_out
+       */
+      alias: string;
+      /**
+       * @description Number of items
+       * @example 100
+       */
+      quantity: number;
+      /**
+       * @description Total amount as decimal string
+       * @example 15.75
+       */
+      amount: string;
+    };
     /** SIMCard */
     SimpleSIMCard: {
       /**
@@ -40413,6 +40563,7 @@ export interface components {
      */
     StreamBidirectionalTargetLegs: 'both' | 'self' | 'opposite';
     /**
+     * Stream Codec
      * @description Specifies the codec to be used for the streamed audio. When set to 'default' or when transcoding is not possible, the codec from the call will be used. Currently, transcoding is only supported between PCMU and PCMA codecs.
      * @default default
      * @example PCMA
@@ -40707,6 +40858,47 @@ export interface components {
        */
       readonly updated_at?: string;
     };
+    Summary: {
+      /** @description List of charge summary lines */
+      lines: components['schemas']['SummaryLine'][];
+      /** @description List of billing adjustments */
+      adjustments: components['schemas']['AdjustmentLine'][];
+    };
+    SummaryAndTotal: {
+      /**
+       * @description User identifier
+       * @example 0db0b4aa-a83d-4d4f-ad9b-3ba7c1ac2ce8
+       */
+      user_id: string;
+      /**
+       * Format: date
+       * @description Start date of the summary period
+       * @example 2025-05-01
+       */
+      start_date: string;
+      /**
+       * Format: date
+       * @description End date of the summary period
+       * @example 2025-06-01
+       */
+      end_date: string;
+      /**
+       * Format: email
+       * @description User email address
+       * @example user@example.com
+       */
+      user_email: string;
+      /**
+       * @description Currency code
+       * @example USD
+       */
+      currency: string;
+      summary: components['schemas']['Summary'];
+      total: components['schemas']['TotalSummary'];
+    };
+    SummaryLine:
+      | components['schemas']['ComparativeLine']
+      | components['schemas']['SimpleLine'];
     /** SummaryRequest */
     SummaryRequest: {
       /** @description The name of the bucket that contains the file to be summarized. */
@@ -42989,6 +43181,43 @@ export interface components {
      * @example +E.164
      */
     ToNumber: string;
+    TotalSummary: {
+      /**
+       * @description Total new monthly recurring charges as decimal string
+       * @example 50.00
+       */
+      new_mrc: string;
+      /**
+       * @description Total new one-time charges as decimal string
+       * @example 25.00
+       */
+      new_otc: string;
+      /**
+       * @description Total existing monthly recurring charges as decimal string
+       * @example 100.00
+       */
+      existing_mrc: string;
+      /**
+       * @description Other charges as decimal string
+       * @example 10.00
+       */
+      other: string;
+      /**
+       * @description Total credits as decimal string
+       * @example -5.00
+       */
+      credits: string;
+      /**
+       * @description Ledger adjustments as decimal string
+       * @example 0.00
+       */
+      ledger_adjustments: string;
+      /**
+       * @description Grand total of all charges as decimal string
+       * @example 180.00
+       */
+      grand_total: string;
+    };
     /**
      * @description Specifies the type of traffic allowed in this profile.
      * @default conversational
@@ -43374,6 +43603,11 @@ export interface components {
        */
       time_limit_secs: number;
       /**
+       * @description Specifies behavior after the bridge ends (i.e. the opposite leg either hangs up or is transferred). If supplied with the value `self`, the current leg will be parked after unbridge. If not set, the default behavior is to hang up the leg.
+       * @example self
+       */
+      park_after_unbridge?: string;
+      /**
        * @description Enables Answering Machine Detection. When a call is answered, Telnyx runs real-time detection to determine if it was picked up by a human or a machine and sends an `call.machine.detection.ended` webhook with the analysis result. If 'greeting_end' or 'detect_words' is used and a 'machine' is detected, you will receive another 'call.machine.greeting.ended' webhook when the answering machine greeting ends with a beep or silence. If `detect_beep` is used, you will only receive 'call.machine.greeting.ended' if a beep is detected.
        * @default disabled
        * @enum {string}
@@ -43638,21 +43872,21 @@ export interface components {
         url?: string;
       };
     };
-    UnprocessableEntityError: {
-      /** Format: int */
-      code: string;
-      title: string;
-      detail?: string;
+    UnprocessableEntityError: components['schemas']['GenericError'] & {
+      /** @example 10002 */
+      code?: unknown;
+      /** @example Invalid phone number */
+      title?: unknown;
+      /** @example The phone number is invalid. */
+      detail?: unknown;
       source?: {
-        /**
-         * Format: json-pointer
-         * @description JSON pointer (RFC6901) to the offending entity.
-         */
+        /** @example /phone_numbers */
         pointer?: string;
-        /** @description Indicates which query parameter caused the error. */
-        parameter?: string;
       };
-      meta?: Record<string, never>;
+      meta?: {
+        /** @example https://developers.telnyx.com/docs/overview/errors/10002 */
+        url?: string;
+      };
     };
     /** UnusedUserBundlesResponse */
     UnusedUserBundlesResponse: {
@@ -44214,26 +44448,40 @@ export interface components {
     /**
      * Update Conference Request
      * @example {
-     *       "Status": "completed"
+     *       "call_control_id": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg",
+     *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901",
+     *       "supervisor_role": "whisper",
+     *       "whisper_call_control_ids": [
+     *         "v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ",
+     *         "v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw"
+     *       ]
      *     }
      */
     UpdateConferenceRequest: {
       /**
-       * @description The new status of the resource. Specifying `completed` will end the conference and hang up all participants.
-       * @example completed
+       * @description Unique identifier and token for controlling the call
+       * @example v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQczRrZvZakpWxBlpw48KyZQ==
        */
-      Status?: string;
+      call_control_id: string;
       /**
-       * @description The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-       * @example https://www.example.com/announce.xml
+       * @description Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same `command_id` as one that has already been executed.
+       * @example 891510ac-f3e4-11e8-af5b-de00688a4901
        */
-      AnnounceUrl?: string;
+      command_id?: string;
       /**
-       * @description The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.
-       * @example GET
+       * @description Sets the participant as a supervisor for the conference. A conference can have multiple supervisors. "barge" means the supervisor enters the conference as a normal participant. This is the same as "none". "monitor" means the supervisor is muted but can hear all participants. "whisper" means that only the specified "whisper_call_control_ids" can hear the supervisor. Defaults to "none".
+       * @example whisper
        * @enum {string}
        */
-      AnnounceMethod?: 'GET' | 'POST';
+      supervisor_role: 'barge' | 'monitor' | 'none' | 'whisper';
+      /**
+       * @description Array of unique call_control_ids the supervisor can whisper to. If none provided, the supervisor will join the conference as a monitoring participant only.
+       * @example [
+       *       "v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ",
+       *       "v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw"
+       *     ]
+       */
+      whisper_call_control_ids?: string[];
     };
     /** UpdateConversationRequest */
     UpdateConversationRequest: {
@@ -45429,9 +45677,8 @@ export interface components {
       default_verification_timeout_secs: number;
     };
     /**
-     * Updated At
-     * @description ISO 8601 formatted date indicating when the resource was updated.
-     * @example 2020-02-03T22:25:27.521Z
+     * @description ISO 8601 formatted date-time indicating when the resource was updated.
+     * @example 2018-02-02T22:25:27.521Z
      */
     UpdatedAt: string;
     UplinkData: {
@@ -48605,6 +48852,17 @@ export interface components {
         };
       };
     };
+    /** @description Successful response upon making a call control command that includes conversation_id. */
+    CallControlCommandResponseWithConversationId: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['CallControlCommandResultWithConversationId'];
+        };
+      };
+    };
     /** @description Successful response upon making a call control command that includes recording_id. */
     CallControlCommandResponseWithRecordingId: {
       headers: {
@@ -49129,12 +49387,14 @@ export interface components {
         };
       };
     };
-    /** @description Unauthorized response. Happens when the current user is not authorized to access the endpoint. */
+    /** @description Forbidden */
     ForbiddenResponse: {
       headers: {
         [name: string]: unknown;
       };
-      content?: never;
+      content: {
+        'application/json': components['schemas']['Errors'];
+      };
     };
     /** @description Successful response with details about an FQDN connection. */
     FqdnConnectionResponse: {
@@ -50795,14 +51055,12 @@ export interface components {
         'application/json': components['schemas']['Errors'];
       };
     };
-    /** @description Resource not found */
+    /** @description Fax does not exist */
     NotFoundResponse: {
       headers: {
         [name: string]: unknown;
       };
-      content: {
-        'application/json': components['schemas']['ResourceNotFoundError'];
-      };
+      content?: never;
     };
     /** @description The requested resource doesn't exist. */
     NotFoundResponseApp: {
@@ -51844,7 +52102,7 @@ export interface components {
         'application/json': components['schemas']['Errors'];
       };
     };
-    /** @description Unauthenticated response. Happens when the current user cannot be authenticated. */
+    /** @description Unauthorized */
     UnauthorizedResponse: {
       headers: {
         [name: string]: unknown;
@@ -52225,7 +52483,7 @@ export interface components {
      * @example in-progress
      */
     ConferenceStatus: 'init' | 'in-progress' | 'completed';
-    /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+    /** @description Telnyx connection id */
     ConnectionId: string;
     /** @description Filters records to those created after a specific date. */
     CreatedAtGtFilter: string;
@@ -52503,9 +52761,9 @@ export interface components {
     PageBefore: string;
     /** @description Limit of records per single page */
     PageLimit: number;
-    /** @description The page number to load. */
+    /** @description The page number to load */
     PageNumber: number;
-    /** @description The size of the page. */
+    /** @description The size of the page */
     PageSize: number;
     /** @description The size of the page */
     PageSizeApp: number;
@@ -52556,19 +52814,8 @@ export interface components {
     SiprecConnectorName: string;
     /** @description The SiprecSid that uniquely identifies the Sip Recording. */
     SiprecSid: string;
-    /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
-     *     That is: <ul>
-     *       <li>
-     *         <code>email</code>: sorts the result by the
-     *         <code>email</code> field in ascending order.
-     *       </li>
-     *
-     *       <li>
-     *         <code>-email</code>: sorts the result by the
-     *         <code>email</code> field in descending order.
-     *       </li>
-     *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
-    Sort: 'created_at' | 'email';
+    /** @description Set the order of the results by the creation date. */
+    Sort: 'asc' | 'desc';
     /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
      *     That is: <ul>
      *       <li>
@@ -52590,16 +52837,16 @@ export interface components {
     /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
      *     That is: <ul>
      *       <li>
-     *         <code>friendly_name</code>: sorts the result by the
-     *         <code>friendly_name</code> field in ascending order.
+     *         <code>application_name</code>: sorts the result by the
+     *         <code>application_name</code> field in ascending order.
      *       </li>
      *
      *       <li>
-     *         <code>-friendly_name</code>: sorts the result by the
-     *         <code>friendly_name</code> field in descending order.
+     *         <code>-application_name</code>: sorts the result by the
+     *         <code>application_name</code> field in descending order.
      *       </li>
      *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
-    SortApplication: 'created_at' | 'friendly_name' | 'active';
+    SortApplication: 'created_at' | 'application_name' | 'active';
     /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
      *     That is: <ul>
      *       <li>
@@ -52671,11 +52918,16 @@ export interface components {
      * @example 2023-05-22
      */
     StartTime_lt: string;
-    /**
-     * @description Filters calls by status.
-     * @example no-answer
-     */
-    Status: 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
+    /** @description The status of a notification setting */
+    Status:
+      | 'enabled'
+      | 'enable-received'
+      | 'enable-pending'
+      | 'enable-submtited'
+      | 'delete-received'
+      | 'delete-pending'
+      | 'delete-submitted'
+      | 'deleted';
     /** @description Filters records to those with a specific status. */
     StatusEqFilter: 'pending' | 'completed' | 'failed';
     /** @description Filters records to those with a least one status in the list. */
@@ -53312,9 +53564,9 @@ export interface operations {
   FindAddresses: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter addresses via the customer reference set. Matching is not case-sensitive. */
         'filter[customer_reference][eq]'?: components['parameters']['FilterCustomerReferenceEquals'];
@@ -54594,6 +54846,40 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['AssistantsListData'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_assistant_version_public_assistants__assistant_id__versions__version_id__get: {
+    parameters: {
+      query?: {
+        include_mcp_servers?: boolean;
+      };
+      header?: never;
+      path: {
+        assistant_id: string;
+        version_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Returns the specific assistant version configuration */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Assistant'];
         };
       };
       /** @description Validation Error */
@@ -56105,26 +56391,15 @@ export interface operations {
   ListAuditLogs: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter for audit events created before a specific date. */
         'filter[created_before]'?: components['parameters']['FilterCreatedBefore'];
         /** @description Filter for audit events created after a specific date. */
         'filter[created_after]'?: components['parameters']['FilterCreatedAfter'];
-        /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
-         *     That is: <ul>
-         *       <li>
-         *         <code>email</code>: sorts the result by the
-         *         <code>email</code> field in ascending order.
-         *       </li>
-         *
-         *       <li>
-         *         <code>-email</code>: sorts the result by the
-         *         <code>email</code> field in descending order.
-         *       </li>
-         *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
+        /** @description Set the order of the results by the creation date. */
         sort?: components['parameters']['Sort'];
       };
       header?: never;
@@ -57087,9 +57362,9 @@ export interface operations {
   ListBulkSimCardActions: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by action type. */
         'filter[action_type]'?: 'bulk_set_public_ips';
@@ -57139,9 +57414,9 @@ export interface operations {
       query?: {
         /** @description Filter by country code. */
         'filter[country_iso]'?: components['parameters']['FilterCountryIso'];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: {
@@ -57217,9 +57492,9 @@ export interface operations {
         'filter[country_iso]'?: components['parameters']['FilterCountryIso'];
         /** @description Filter by resource. */
         'filter[resource]'?: string[];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: {
@@ -57450,9 +57725,9 @@ export interface operations {
   ListCallControlApplications: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[application_name][contains]'?: components['parameters']['FilterApplicationName'];
@@ -57646,9 +57921,9 @@ export interface operations {
         'filter[occurred_at][lte]'?: components['parameters']['FilterCallEventOccurredAtLessThanOrEqualTo'];
         /** @description Event occurred_at: equal */
         'filter[occurred_at][eq]'?: components['parameters']['FilterCallEventOccurredAtEqualTo'];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -57712,7 +57987,7 @@ export interface operations {
       };
     };
     responses: {
-      200: components['responses']['CallControlCommandResponse'];
+      200: components['responses']['CallControlCommandResponseWithConversationId'];
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -57922,7 +58197,7 @@ export interface operations {
       };
     };
     responses: {
-      200: components['responses']['CallControlCommandResponse'];
+      200: components['responses']['CallControlCommandResponseWithConversationId'];
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -58857,9 +59132,9 @@ export interface operations {
   GetChannelZones: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -58972,9 +59247,9 @@ export interface operations {
         'filter[name]'?: components['parameters']['FilterConferenceName'];
         /** @description If present, conferences will be filtered by status. */
         'filter[status]'?: components['parameters']['FilterConferenceStatus'];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -59016,9 +59291,9 @@ export interface operations {
         'filter[on_hold]'?: boolean;
         /** @description If present, participants will be filtered to those who are whispering or are not */
         'filter[whispering]'?: boolean;
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -59364,9 +59639,9 @@ export interface operations {
   ListConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
@@ -59410,7 +59685,7 @@ export interface operations {
       };
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -59472,9 +59747,9 @@ export interface operations {
   ListCredentialConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
@@ -59612,7 +59887,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -59628,7 +59903,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -59644,7 +59919,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -59660,7 +59935,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -59680,9 +59955,9 @@ export interface operations {
   ListCustomerServiceRecords: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         'sort[]'?: 'created_at' | '-created_at';
@@ -59833,7 +60108,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -59849,7 +60124,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -59865,7 +60140,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -59881,7 +60156,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -60239,9 +60514,9 @@ export interface operations {
         'filter[status]'?: 'pending' | 'activated' | 'rejected';
         /** @description Filter by country code. */
         'filter[country_code]'?: string;
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -60390,9 +60665,9 @@ export interface operations {
         'filter[status]'?: 'pending' | 'activated' | 'rejected';
         /** @description Filter by country code. */
         'filter[country_code]'?: string;
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -60587,9 +60862,9 @@ export interface operations {
   ListExternalConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
@@ -60659,9 +60934,9 @@ export interface operations {
   ListExternalConnectionLogMessages: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The external connection ID to filter by or "null" to filter for logs without an external connection ID */
         'filter[external_connection_id]'?: components['parameters']['FilterExternalConnectionId'];
@@ -61031,9 +61306,9 @@ export interface operations {
   ListExternalConnectionPhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The phone number to filter by */
         'filter[phone_number][eq]'?: components['parameters']['FilterPhoneNumberEq'];
@@ -61154,9 +61429,9 @@ export interface operations {
   ListExternalConnectionReleases: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The status of the release to filter by */
         'filter[status][eq]'?: components['parameters']['FilterReleaseStatus'];
@@ -61236,9 +61511,9 @@ export interface operations {
   ListExternalConnectionUploads: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The status of the upload to filter by */
         'filter[status][eq]'?: components['parameters']['FilterUploadStatus'];
@@ -61510,9 +61785,9 @@ export interface operations {
   ListFaxApplications: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[application_name][contains]'?: components['parameters']['FilterApplicationName'];
@@ -61521,13 +61796,13 @@ export interface operations {
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
-         *         <code>friendly_name</code>: sorts the result by the
-         *         <code>friendly_name</code> field in ascending order.
+         *         <code>application_name</code>: sorts the result by the
+         *         <code>application_name</code> field in ascending order.
          *       </li>
          *
          *       <li>
-         *         <code>-friendly_name</code>: sorts the result by the
-         *         <code>friendly_name</code> field in descending order.
+         *         <code>-application_name</code>: sorts the result by the
+         *         <code>application_name</code> field in descending order.
          *       </li>
          *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
         sort?: components['parameters']['SortApplication'];
@@ -61753,9 +62028,9 @@ export interface operations {
   ListFqdnConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
@@ -61876,9 +62151,9 @@ export interface operations {
   ListFqdns: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description ID of the FQDN connection to which the FQDN belongs. */
         'filter[connection_id]'?: string;
@@ -62018,9 +62293,9 @@ export interface operations {
   ListGlobalIpAssignments: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -62141,9 +62416,9 @@ export interface operations {
   ListGlobalIpHealthChecks: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -62262,9 +62537,9 @@ export interface operations {
   ListGlobalIps: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -62612,9 +62887,9 @@ export interface operations {
   ListIpConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
@@ -62731,9 +63006,9 @@ export interface operations {
   ListIps: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description ID of the IP Connection to which this IP should be attached. */
         'filter[connection_id]'?: string;
@@ -62940,9 +63215,9 @@ export interface operations {
   ListManagedAccounts: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description If present, email containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
         'filter[email][contains]'?: components['parameters']['FilterEmailContains'];
@@ -62952,18 +63227,7 @@ export interface operations {
         'filter[organization_name][contains]'?: components['parameters']['FilterOrganizationEmailContains'];
         /** @description If present, only returns results with the <code>organization_name</code> matching exactly the value given. */
         'filter[organization_name][eq]'?: components['parameters']['FilterOrganizationEmailEq'];
-        /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
-         *     That is: <ul>
-         *       <li>
-         *         <code>email</code>: sorts the result by the
-         *         <code>email</code> field in ascending order.
-         *       </li>
-         *
-         *       <li>
-         *         <code>-email</code>: sorts the result by the
-         *         <code>email</code> field in descending order.
-         *       </li>
-         *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
+        /** @description Set the order of the results by the creation date. */
         sort?: components['parameters']['Sort'];
         /** @description Specifies if cancelled accounts should be included in the results. */
         include_cancelled_accounts?: components['parameters']['IncludeCancelledAccounts'];
@@ -63444,9 +63708,9 @@ export interface operations {
   ListMessagingHostedNumberOrders: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -63672,9 +63936,9 @@ export interface operations {
          * @example +447766****
          */
         redaction_enabled?: string;
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -63715,9 +63979,9 @@ export interface operations {
   ListMessagingProfiles: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by name */
         'filter[name]'?: string;
@@ -63806,9 +64070,9 @@ export interface operations {
   ListProfilePhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -63827,9 +64091,9 @@ export interface operations {
   ListProfileShortCodes: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -64196,9 +64460,9 @@ export interface operations {
   ListMessagingUrlDomains: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -64214,9 +64478,9 @@ export interface operations {
   GetMobileNetworkOperators: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by name starting with. */
         'filter[name][starts_with]'?: string;
@@ -64259,9 +64523,9 @@ export interface operations {
         'filter[type]'?: 'ios' | 'android';
         /** @description Unique mobile push credential alias */
         'filter[alias]'?: string;
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -64436,9 +64700,9 @@ export interface operations {
   ListNetworkCoverage: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The region of associated location to filter on. */
         'filters[available_services][contains]'?: components['schemas']['AvailableService'];
@@ -64464,9 +64728,9 @@ export interface operations {
   ListNetworks: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The network name to filter on. */
         'filter[name]'?: string;
@@ -64606,9 +64870,9 @@ export interface operations {
   ListNetworkInterfaces: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The interface name to filter on. */
         'filter[name]'?: string;
@@ -64633,9 +64897,9 @@ export interface operations {
   ListNotificationChannels: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by the id of a channel type */
         'filter[channel_type_id][eq]'?: components['parameters']['ChannelTypeId'];
@@ -64775,9 +65039,9 @@ export interface operations {
   FindNotificationsEventsConditions: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by the associated record type */
         'filter[associated_record_type][eq]'?: components['parameters']['AssociatedRecordType'];
@@ -64806,9 +65070,9 @@ export interface operations {
   FindNotificationsEvents: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -64835,9 +65099,9 @@ export interface operations {
   FindNotificationsProfiles: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -64975,9 +65239,9 @@ export interface operations {
   ListNotificationSettings: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by the id of a notification profile */
         'filter[notification_profile_id][eq]'?: components['parameters']['NotificationProfileId'];
@@ -64987,11 +65251,8 @@ export interface operations {
         'filter[notification_event_condition_id][eq]'?: components['parameters']['NotificationEventConditionId'];
         /** @description Filter by the associated record type */
         'filter[associated_record_type][eq]'?: components['parameters']['AssociatedRecordType'];
-        /**
-         * @description Filters calls by status.
-         * @example no-answer
-         */
-        Status?: components['parameters']['Status'];
+        /** @description The status of a notification setting */
+        'filter[status][eq]'?: components['parameters']['Status'];
       };
       header?: never;
       path?: never;
@@ -65126,9 +65387,9 @@ export interface operations {
         'filter[created_at][lt]'?: string;
         /** @description Filter number block  orders having these phone numbers. */
         'filter[phone_numbers.starting_number]'?: string;
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -65297,9 +65558,9 @@ export interface operations {
         'filter[customer_reference]'?: string;
         /** @description Filter number orders by requirements met. */
         'filter[requirements_met]'?: boolean;
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -65378,9 +65639,9 @@ export interface operations {
         'filter[phone_numbers.phone_number]'?: string;
         /** @description Filter number reservations via the customer reference set. */
         'filter[customer_reference]'?: string;
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -65535,9 +65796,9 @@ export interface operations {
   ListOtaUpdates: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by a specific status of the resource's lifecycle. */
         'filter[status]'?: components['parameters']['FilterBasicStatusLifecycle'];
@@ -65589,9 +65850,9 @@ export interface operations {
   ListOutboundVoiceProfiles: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Optional filter on outbound voice profile name. */
         'filter[name][contains]'?: components['parameters']['NameFilter'];
@@ -66122,9 +66383,9 @@ export interface operations {
         'filter[type]'?: 'delete_phone_number_block';
         /** @description Filter the phone number blocks jobs by status. */
         'filter[status]'?: 'pending' | 'in_progress' | 'completed' | 'failed';
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?: 'created_at';
@@ -66328,9 +66589,9 @@ export interface operations {
   ListPhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by phone number tags. */
         'filter[tag]'?: string;
@@ -66397,9 +66658,9 @@ export interface operations {
   ListCsvDownloads: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -66482,9 +66743,9 @@ export interface operations {
           | 'update_emergency_settings'
           | 'delete_phone_numbers'
           | 'update_phone_numbers';
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?: 'created_at';
@@ -66701,9 +66962,9 @@ export interface operations {
   ListPhoneNumbersWithMessagingSettings: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -66719,9 +66980,9 @@ export interface operations {
   SlimListPhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Include the connection associated with the phone number. */
         include_connection?: boolean;
@@ -66792,9 +67053,9 @@ export interface operations {
   ListPhoneNumbersWithVoiceSettings: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by phone number. Requires at least three digits.
          *                  Non-numerical characters will result in no values being returned. */
@@ -67208,9 +67469,9 @@ export interface operations {
   listPortingEvents: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by event type. */
         'filter[type]'?:
@@ -67337,9 +67598,9 @@ export interface operations {
   ListLoaConfigurations: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -67523,9 +67784,9 @@ export interface operations {
   ListPortingReports: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter reports of a specific type */
         'filter[report_type]'?: 'export_porting_orders_csv';
@@ -67613,9 +67874,9 @@ export interface operations {
   ListPortingOrders: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Include the first 50 phone number objects in the results */
         include_phone_numbers?: components['parameters']['QueryIncludePhoneNumbers'];
@@ -67767,9 +68028,9 @@ export interface operations {
   ListPhoneNumberConfigurations: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter results by porting order id */
         'filter[porting_order_id]'?: components['parameters']['FilterByPortingOrderID'];
@@ -68070,9 +68331,9 @@ export interface operations {
   ListPortingOrderActivationJobs: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -68166,9 +68427,9 @@ export interface operations {
   ListAdditionalDocuments: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter additional documents of a specific document type */
         'filter[document_type]'?: 'loa' | 'invoice' | 'csr' | 'other';
@@ -68301,9 +68562,9 @@ export interface operations {
   ListPortingOrderComments: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -68396,9 +68657,9 @@ export interface operations {
   ListPortingOrderRequirements: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -68459,9 +68720,9 @@ export interface operations {
   ListVerificationCodes: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter results by phone number */
         'filter[phone_number]'?: components['parameters']['FilterByPhoneNumber'];
@@ -68585,9 +68846,9 @@ export interface operations {
         'filter[phone_number][in][]'?: components['parameters']['FilterByPhoneNumberIn'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order */
         'sort[]'?: '-created_at' | 'created_at';
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -68696,9 +68957,9 @@ export interface operations {
         'filter[porting_phone_number_id][in][]'?: string;
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order */
         'sort[]'?: '-created_at' | 'created_at';
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -68797,9 +69058,9 @@ export interface operations {
   ListPortingPhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter results by porting order id */
         'filter[porting_order_id]'?: components['parameters']['FilterByPortingOrderID'];
@@ -68891,9 +69152,9 @@ export interface operations {
         'filter[phone_number]'?: string;
         /** @description Filter by the portout's support_key */
         'filter[support_key]'?: string;
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -68929,9 +69190,9 @@ export interface operations {
   listPortoutEvents: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by event type. */
         'filter[event_type]'?:
@@ -69069,9 +69330,9 @@ export interface operations {
   ListPortoutReports: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter reports of a specific type */
         'filter[report_type]'?: 'export_portouts_csv';
@@ -69413,9 +69674,9 @@ export interface operations {
   GetPrivateWirelessGateways: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /**
          * @description The name of the Private Wireless Gateway.
@@ -69532,9 +69793,9 @@ export interface operations {
   ListPublicInternetGateways: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The associated network id to filter on. */
         'filter[network_id]'?: string;
@@ -69618,9 +69879,9 @@ export interface operations {
   ListQueueCalls: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -69718,9 +69979,9 @@ export interface operations {
         'filter[to]'?: string;
         /** @description If present, recordings will be filtered to those with a matching `connection_id` attribute (case-sensitive). */
         'filter[connection_id]'?: string;
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -70430,9 +70691,9 @@ export interface operations {
         'filter[session_id]'?: string;
         /** @description The status for filtering room compositions. */
         'filter[status]'?: 'completed' | 'processing' | 'enqueued';
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -70525,9 +70786,9 @@ export interface operations {
         'filter[context]'?: string;
         /** @description Session_id for filtering room participants. */
         'filter[session_id]'?: string;
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -70586,9 +70847,9 @@ export interface operations {
         'filter[duration_secs][lte]'?: number;
         /** @description duration_secs greater or equal for filtering room recordings. */
         'filter[duration_secs][gte]'?: number;
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -70631,9 +70892,9 @@ export interface operations {
         'filter[duration_secs][lte]'?: number;
         /** @description duration_secs greater or equal for filtering room recordings. */
         'filter[duration_secs][gte]'?: number;
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -70711,9 +70972,9 @@ export interface operations {
         'filter[active]'?: boolean;
         /** @description To decide if room participants should be included in the response. */
         include_participants?: boolean;
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -70842,9 +71103,9 @@ export interface operations {
         'filter[date_left_at][lte]'?: string;
         /** @description Filter room participants based on the context. */
         'filter[context]'?: string;
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -70878,9 +71139,9 @@ export interface operations {
         'filter[unique_name]'?: string;
         /** @description To decide if room sessions should be included in the response. */
         include_sessions?: boolean;
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -71047,9 +71308,9 @@ export interface operations {
         'filter[active]'?: boolean;
         /** @description To decide if room participants should be included in the response. */
         include_participants?: boolean;
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
       };
       header?: never;
@@ -71082,9 +71343,9 @@ export interface operations {
   ListShortCodes: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by Messaging Profile ID. Use the string `null` for phone numbers without assigned profiles. A synonym for the `/messaging_profiles/{id}/short_codes` endpoint when querying about an extant profile. */
         'filter[messaging_profile_id]'?: string;
@@ -71139,9 +71400,9 @@ export interface operations {
   ListSimCardActions: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description A valid SIM card ID. */
         'filter[sim_card_id]'?: components['parameters']['FilterSIMCardId'];
@@ -71201,9 +71462,9 @@ export interface operations {
   ListDataUsageNotifications: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description A valid SIM card ID. */
         'filter[sim_card_id]'?: components['parameters']['FilterSIMCardId'];
@@ -71339,9 +71600,9 @@ export interface operations {
   GetSimCardGroupActions: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description A valid SIM card group ID. */
         'filter[sim_card_group_id]'?: components['parameters']['FilterSIMCardGroupId'];
@@ -71395,9 +71656,9 @@ export interface operations {
   GetAllSimCardGroups: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description A valid SIM card group name. */
         'filter[name]'?: string;
@@ -71634,9 +71895,9 @@ export interface operations {
         'filter[address.country_code]'?: components['parameters']['FilterAddressByCountryCode'];
         /** @description Filter by postal code for the address. */
         'filter[address.postal_code]'?: components['parameters']['FilterAddressByPostalCode'];
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -71700,9 +71961,9 @@ export interface operations {
   GetSimCards: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description It includes the associated SIM card group object in the response when present. */
         include_sim_card_group?: components['parameters']['IncludeSIMCardGroup'];
@@ -72072,9 +72333,9 @@ export interface operations {
   GetWirelessConnectivityLogs: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -72785,9 +73046,9 @@ export interface operations {
   FindTelephonyCredentials: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter by tag */
         'filter[tag]'?: components['parameters']['OptionalTag'];
@@ -73005,7 +73266,7 @@ export interface operations {
          * @example 1
          */
         Page?: components['parameters']['Page'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Used to request the next page of results. */
         PageToken?: components['parameters']['PageToken'];
@@ -73019,11 +73280,8 @@ export interface operations {
          * @example +1312345678
          */
         From?: components['parameters']['From'];
-        /**
-         * @description Filters calls by status.
-         * @example no-answer
-         */
-        Status?: components['parameters']['Status'];
+        /** @description The status of a notification setting */
+        'filter[status][eq]'?: components['parameters']['Status'];
         /**
          * @description Filters calls by their start date. Expected format is YYYY-MM-DD.
          * @example 2023-05-22
@@ -73268,7 +73526,7 @@ export interface operations {
          * @example 1
          */
         Page?: components['parameters']['Page'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Used to request the next page of results. */
         PageToken?: components['parameters']['PageToken'];
@@ -73571,7 +73829,7 @@ export interface operations {
       query?: {
         /** @description Used to request the next page of results. */
         PageToken?: components['parameters']['PageToken'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -73690,7 +73948,7 @@ export interface operations {
   FindTexmlApplications: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
         /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSizeApp'];
@@ -73701,13 +73959,13 @@ export interface operations {
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
-         *         <code>friendly_name</code>: sorts the result by the
-         *         <code>friendly_name</code> field in ascending order.
+         *         <code>application_name</code>: sorts the result by the
+         *         <code>application_name</code> field in ascending order.
          *       </li>
          *
          *       <li>
-         *         <code>-friendly_name</code>: sorts the result by the
-         *         <code>friendly_name</code> field in descending order.
+         *         <code>-application_name</code>: sorts the result by the
+         *         <code>application_name</code> field in descending order.
          *       </li>
          *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
         sort?: components['parameters']['SortApplication'];
@@ -74000,9 +74258,9 @@ export interface operations {
   FindUserAddress: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description Filter addresses via the customer reference set. Matching is not case-sensitive. */
         'filter[customer_reference][eq]'?: components['parameters']['FilterCustomerReferenceEquals'];
@@ -74630,9 +74888,9 @@ export interface operations {
   ListVirtualCrossConnects: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The associated network id to filter on. */
         'filter[network_id]'?: string;
@@ -74721,9 +74979,9 @@ export interface operations {
   ListVirtualCrossConnectCoverage: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /**
          * @description The available bandwidth to filter on.
@@ -74772,9 +75030,9 @@ export interface operations {
         'filter[finished_at][gte]'?: string;
         /** @description Return only webhook_deliveries whose delivery finished earlier than or at given ISO 8601 datetime */
         'filter[finished_at][lte]'?: string;
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
@@ -74842,9 +75100,9 @@ export interface operations {
   ListWireguardInterfaces: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The associated network id to filter on. */
         'filter[network_id]'?: string;
@@ -74912,9 +75170,9 @@ export interface operations {
   ListWireguardPeers: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
         /** @description The id of the associated WireGuard interface to filter on. */
         'filter[wireguard_interface_id]'?: string;
@@ -75027,9 +75285,9 @@ export interface operations {
   GetWdrReports: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
+        /** @description The page number to load */
         'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
+        /** @description The size of the page */
         'page[size]'?: components['parameters']['PageSize'];
       };
       header?: never;
