@@ -1,6 +1,6 @@
 {
   "name": "telnyx",
-  "version": "2.1.0-beta.0",
+  "version": "2.1.0-beta.1",
   "description": "Telnyx API Node SDK",
   "keywords": [
     "telnyx",
@@ -31,14 +31,9 @@
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/telnyx.node.js"
-      },
-      "require": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/telnyx.node.js"
-      }
+      "import": "./dist/telnyx.node.js",
+      "require": "./dist/telnyx.node.js",
+      "types": "./dist/types/index.d.ts"
     }
   },
   "devDependencies": {
