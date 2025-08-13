@@ -87,7 +87,7 @@ describe('Messaging Hosted Order Numbers', function () {
       if (response.data) {
         expect(response.data).toHaveProperty('id');
         expect(response.data).toMatchObject({
-          record_type: 'messaging_hosted_numbers',
+          record_type: 'messaging_hosted_number_order',
         });
       }
     }

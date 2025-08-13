@@ -13,6 +13,8 @@
     "strictFunctionTypes": true,
     "types": [ "node", "jest" ],
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node16",
     "noUncheckedIndexedAccess": true
   },
   "exclude": [

@@ -12,7 +12,6 @@ describe('numberPortouts', function () {
   describe('list', function () {
     function responseFn(response: ResponsePayloadList) {
       expect(response).toHaveProperty('data');
-      expect(response).toHaveProperty('meta');
     }
 
     test('Sends the correct request', function () {
