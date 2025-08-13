@@ -18,7 +18,9 @@ describe('DetailRecords Resource', function () {
       return telnyx.detailRecords
         .search({
           // limitation on prism mock
-          'filter%5brecord_type%5d': 'messaging',
+          filter: {
+            record_type: 'messaging',
+          },
         })
         .then(responseFn);
     });

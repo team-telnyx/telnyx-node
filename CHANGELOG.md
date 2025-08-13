@@ -2,6 +2,11 @@
 
 ## v2
 
+### v2.1.0
+
+- Add dual package support for both CommonJS and ES modules
+- Maintain backward compatibility with existing code
+
 ### v2.0.1
 
 - Add Messaging Inbound Webhook example

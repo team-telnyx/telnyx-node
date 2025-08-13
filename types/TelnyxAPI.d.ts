@@ -2944,6 +2944,26 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/campaign/{campaignId}/appeal': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Submit campaign appeal for manual review
+     * @description Submits an appeal for rejected native campaigns in TELNYX_FAILED or MNO_REJECTED status. The appeal is recorded for manual compliance team review and the campaign status is reset to TCR_ACCEPTED. Note: Appeal forwarding is handled manually to allow proper review before incurring upstream charges.
+     */
+    post: operations['AppealCampaign'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/campaign/{campaignId}/mnoMetadata': {
     parameters: {
       query?: never;
@@ -3101,6 +3121,63 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/charges_breakdown': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get monthly charges breakdown
+     * @description Retrieve a detailed breakdown of monthly charges for phone numbers in a specified date range. The date range cannot exceed 31 days.
+     */
+    get: {
+      parameters: {
+        query: {
+          /** @description Start date for the charges breakdown in ISO date format (YYYY-MM-DD) */
+          start_date: string;
+          /** @description End date for the charges breakdown in ISO date format (YYYY-MM-DD). If not provided, defaults to start_date + 1 month. The date is exclusive, data for the end_date itself is not included in the report. The interval between start_date and end_date cannot exceed 31 days. */
+          end_date?: string;
+          /** @description Response format */
+          format?: 'json' | 'csv';
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Monthly charges breakdown */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['MonthlyChargesBreakdownResponse'];
+            'text/csv': string;
+          };
+        };
+        /** @description Bad request - invalid date range or parameters */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['Errors'];
+          };
+        };
+        default: components['responses']['GenericErrorResponse'];
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/charges_summary': {
     parameters: {
       query?: never;
@@ -3110,14 +3187,14 @@ export interface paths {
     };
     /**
      * Get monthly charges summary
-     * @description Retrieve a summary of monthly charges for a specified date range. The date range cannot exceed 31 days to prevent large queries that could cause timeouts.
+     * @description Retrieve a summary of monthly charges for a specified date range. The date range cannot exceed 31 days.
      */
     get: {
       parameters: {
         query: {
           /** @description Start date for the charges summary in ISO date format (YYYY-MM-DD) */
           start_date: string;
-          /** @description End date for the charges summary in ISO date format (YYYY-MM-DD). The interval between start_date and end_date cannot exceed 31 days. */
+          /** @description End date for the charges summary in ISO date format (YYYY-MM-DD). The date is exclusive, data for the end_date itself is not included in the report. The interval between start_date and end_date cannot exceed 31 days. */
           end_date: string;
         };
         header?: never;
@@ -5070,12 +5147,21 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description The page number to load */
-          'page[number]'?: number;
-          /** @description The size of the page */
-          'page[size]'?: number;
           /** @description Specifies the sort order for results. */
           sort?: 'period_start' | '-period_start';
+          /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+          page?: {
+            /**
+             * @description The page number to load
+             * @default 1
+             */
+            number?: number;
+            /**
+             * @description The size of the page
+             * @default 20
+             */
+            size?: number;
+          };
         };
         header?: never;
         path?: never;
@@ -5727,6 +5813,47 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/messaging/rcs/bulk_capabilities': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** List RCS capabilities of a given batch of phone numbers */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          'application/json': components['schemas']['RCSCapabilityListRequest'];
+        };
+      };
+      responses: {
+        /** @description Successful response */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['RCSCapabilitiesBulk'];
+          };
+        };
+        default: components['responses']['GenericErrorResponse'];
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/messaging/rcs/capabilities/{agent_id}/{phone_number}': {
     parameters: {
       query?: never;
@@ -5860,7 +5987,11 @@ export interface paths {
     get: operations['GetMessagingHostedNumberOrder'];
     put?: never;
     post?: never;
-    delete?: never;
+    /**
+     * Delete a messaging hosted number order
+     * @description Delete a messaging hosted number order and all associated phone numbers.
+     */
+    delete: operations['DeleteMessagingHostedNumberOrder'];
     options?: never;
     head?: never;
     patch?: never;
@@ -7250,6 +7381,26 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/phone_numbers/actions/verify_ownership': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Verify ownership of phone numbers
+     * @description Verifies ownership of the provided phone numbers and returns a mapping of numbers to their IDs, plus a list of numbers not found in the account.
+     */
+    post: operations['VerifyPhoneNumberOwnership'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/phone_numbers/csv_downloads': {
     parameters: {
       query?: never;
@@ -7789,6 +7940,26 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/porting/uk_carriers': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List available carriers in the UK
+     * @description List available carriers in the UK.
+     */
+    get: operations['listPortingUKCarriers'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/porting_orders': {
     parameters: {
       query?: never;
@@ -8216,6 +8387,90 @@ export interface paths {
      */
     post: operations['VerifyPortingVerificationCodes'];
     delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/porting_orders/{porting_order_id}/action_requirements': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List action requirements for a porting order
+     * @description Returns a list of action requirements for a specific porting order.
+     */
+    get: operations['listPortingActionRequirements'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/porting_orders/{porting_order_id}/action_requirements/{id}/initiate': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Initiate an action requirement
+     * @description Initiates a specific action requirement for a porting order.
+     */
+    post: operations['initiatePortingActionRequirement'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/porting_orders/{porting_order_id}/associated_phone_numbers': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List all associated phone numbers
+     * @description Returns a list of all associated phone numbers for a porting order. Associated phone numbers are used for partial porting in GB to specify which phone numbers should be kept or disconnected.
+     */
+    get: operations['listPortingAssociatedPhoneNumbers'];
+    put?: never;
+    /**
+     * Create an associated phone number
+     * @description Creates a new associated phone number for a porting order. This is used for partial porting in GB to specify which phone numbers should be kept or disconnected.
+     */
+    post: operations['createPortingAssociatedPhoneNumber'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/porting_orders/{porting_order_id}/associated_phone_numbers/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * Delete an associated phone number
+     * @description Deletes an associated phone number from a porting order.
+     */
+    delete: operations['deletePortingAssociatedPhoneNumber'];
     options?: never;
     head?: never;
     patch?: never;
@@ -8728,10 +8983,8 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description The page number to load. */
-          'page[number]'?: components['parameters']['PageNumber'];
-          /** @description The size of the page. */
-          'page[size]'?: components['parameters']['PageSize'];
+          /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+          page?: components['parameters']['PageConsolidated'];
         };
         header?: never;
         path?: never;
@@ -9182,7 +9435,7 @@ export interface paths {
       cookie?: never;
     };
     /**
-     * Retrieve a requirement type
+     * Retrieve a requirement types
      * @description Retrieve a requirement type by id
      */
     get: operations['RetrieveRequirementType'];
@@ -9836,6 +10089,26 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/sim_card_groups/{id}/actions/remove_wireless_blocklist': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Request Wireless Blocklist removal from SIM card group
+     * @description This action will asynchronously remove an existing Wireless Blocklist to all the SIMs in the SIM card group.
+     */
+    post: operations['RemoveWirelessBlocklistForSimCardGroup'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/sim_card_groups/{id}/actions/set_private_wireless_gateway': {
     parameters: {
       query?: never;
@@ -9850,6 +10123,26 @@ export interface paths {
      * @description This action will asynchronously assign a provisioned Private Wireless Gateway to the SIM card group. Completing this operation defines that all SIM cards in the SIM card group will get their traffic controlled by the associated Private Wireless Gateway. This operation will also imply that new SIM cards assigned to a group will inherit its network definitions. If it's moved to a different group that doesn't have a Private Wireless Gateway, it'll use Telnyx's default mobile network configuration.
      */
     post: operations['SetPrivateWirelessGatewayForSimCardGroup'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/sim_card_groups/{id}/actions/set_wireless_blocklist': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Request Wireless Blocklist assignment for SIM card group
+     * @description This action will asynchronously assign a Wireless Blocklist to all the SIMs in the SIM card group.
+     */
+    post: operations['SetWirelessBlocklistForSimCardGroup'];
     delete?: never;
     options?: never;
     head?: never;
@@ -11867,6 +12160,78 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/wireless_blocklist_values': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get all possible wireless blocklist values
+     * @description Retrieve all wireless blocklist values for a given blocklist type.
+     */
+    get: operations['WirelessBlocklistsGetAll'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/wireless_blocklists': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get all Wireless Blocklists
+     * @description Get all Wireless Blocklists belonging to the user.
+     */
+    get: operations['GetWirelessBlocklistsGateways'];
+    put?: never;
+    /**
+     * Create a Wireless Blocklist
+     * @description Create a Wireless Blocklist to prevent SIMs from connecting to certain networks.
+     */
+    post: operations['CreateWirelessBlocklist'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Update a Wireless Blocklist
+     * @description Update a Wireless Blocklist.
+     */
+    patch: operations['UpdateWirelessBlocklist'];
+    trace?: never;
+  };
+  '/wireless_blocklists/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get a Wireless Blocklist
+     * @description Retrieve information about a Wireless Blocklist.
+     */
+    get: operations['GetWirelessBlocklist'];
+    put?: never;
+    post?: never;
+    /**
+     * Delete a Wireless Blocklist
+     * @description Deletes the Wireless Blocklist.
+     */
+    delete: operations['DeleteWirelessBlocklist'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/{bucketName}': {
     parameters: {
       query?: never;
@@ -12014,6 +12379,19 @@ export interface components {
        * @example 891510ac-f3e4-11e8-af5b-de00688a4901
        */
       command_id?: string;
+    };
+    /** @description Required information for initiating the action requirement for AU ID verification. */
+    AUIdVerificationParams: {
+      /**
+       * @description The first name of the person that will perform the verification flow.
+       * @example John
+       */
+      first_name: string;
+      /**
+       * @description The last name of the person that will perform the verification flow.
+       * @example Doe
+       */
+      last_name: string;
     };
     /** AWS Voice Settings */
     AWSVoiceSettings: Record<string, never>;
@@ -12272,60 +12650,10 @@ export interface components {
        */
       customer_reference: string;
     };
-    /** @description An Advanced Order Response */
-    AdvancedOrderResponse: {
-      /**
-       * Country Code
-       * @default US
-       */
-      country_code: string;
-      /**
-       * Comments
-       * @default
-       */
-      comments: string;
-      /**
-       * Quantity
-       * @default 1
-       */
-      quantity: number;
-      /**
-       * Area Code
-       * @default
-       */
-      area_code: string;
-      /**
-       * @default
-       * @enum {string}
-       */
-      phone_number_type:
-        | 'local'
-        | 'mobile'
-        | 'toll_free'
-        | 'shared_cost'
-        | 'national'
-        | 'landline';
-      /** Features */
-      features?: ('sms' | 'mms' | 'voice' | 'fax' | 'emergency')[];
-      /**
-       * Customer Reference
-       * @default
-       */
-      customer_reference: string;
-      /**
-       * Id
-       * Format: uuid
-       */
-      id?: string;
-      /** @enum {string} */
-      status?: 'pending' | 'processing' | 'ordered';
-      /** Orders */
-      orders?: string[];
-    };
     /**
      * AltBusinessIdType
      * @description An enumeration.
-     * @enum {unknown}
+     * @enum {string}
      */
     AltBusinessIdType: 'NONE' | 'DUNS' | 'GIIN' | 'LEI';
     AmdDetailRecord: {
@@ -12681,7 +13009,9 @@ export interface components {
       /** @description If the dynamic_variables_webhook_url is set for the assistant, we will send a request at the start of the conversation. See our [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for more information. */
       dynamic_variables_webhook_url?: string;
       /** @description Map of dynamic variables and their values */
-      dynamic_variables?: Record<string, never>;
+      dynamic_variables?: {
+        [key: string]: unknown;
+      };
       import_metadata?: components['schemas']['ImportMetadata'];
     };
     /** AssistantChatReq */
@@ -12887,14 +13217,30 @@ export interface components {
        * @example 12345
        */
       to?:
-        | (string | number | boolean | Record<string, never> | unknown[])
+        | (
+            | string
+            | number
+            | boolean
+            | {
+                [key: string]: unknown;
+              }
+            | unknown[]
+          )
         | null;
       /**
        * @description The previous value of the field. Can be any JSON type.
        * @example 54321
        */
       from?:
-        | (string | number | boolean | Record<string, never> | unknown[])
+        | (
+            | string
+            | number
+            | boolean
+            | {
+                [key: string]: unknown;
+              }
+            | unknown[]
+          )
         | null;
     };
     /** Audit Log Entry */
@@ -13616,11 +13962,11 @@ export interface components {
        * failureReasons
        * @description Failure reasons for brand
        */
-      failureReasons?: unknown;
+      failureReasons?: string;
       /**
        * status
        * @description Status of the brand
-       * @enum {unknown}
+       * @enum {string}
        */
       status?: 'OK' | 'REGISTRATION_PENDING' | 'REGISTRATION_FAILED';
       /**
@@ -13687,7 +14033,7 @@ export interface components {
     /**
      * BrandIdentityStatus
      * @description The verification status of an active brand
-     * @enum {unknown}
+     * @enum {string}
      */
     BrandIdentityStatus:
       | 'VERIFIED'
@@ -13720,7 +14066,7 @@ export interface components {
     /**
      * BrandRelationship
      * @description Brand relationship to the CSP.
-     * @enum {unknown}
+     * @enum {string}
      */
     BrandRelationship:
       | 'BASIC_ACCOUNT'
@@ -13728,6 +14074,38 @@ export interface components {
       | 'MEDIUM_ACCOUNT'
       | 'LARGE_ACCOUNT'
       | 'KEY_ACCOUNT';
+    BreakdownData: {
+      /**
+       * @description User identifier
+       * @example 0db0b4aa-a83d-4d4f-ad9b-3ba7c1ac2ce8
+       */
+      user_id: string;
+      /**
+       * Format: date
+       * @description Start date of the breakdown period
+       * @example 2025-05-01
+       */
+      start_date: string;
+      /**
+       * Format: date
+       * @description End date of the breakdown period
+       * @example 2025-06-01
+       */
+      end_date: string;
+      /**
+       * Format: email
+       * @description User email address
+       * @example user@example.com
+       */
+      user_email: string;
+      /**
+       * @description Currency code
+       * @example USD
+       */
+      currency: string;
+      /** @description List of phone number charge breakdowns */
+      results: components['schemas']['NumberBreakdownResult'][];
+    };
     /**
      * Bridge Request
      * @example {
@@ -14090,7 +14468,9 @@ export interface components {
        * @description A JSON object representation of the bulk action payload.
        * @example {}
        */
-      readonly settings?: Record<string, never>;
+      readonly settings?: {
+        [key: string]: unknown;
+      };
       created_at?: components['schemas']['CreatedAt'];
       updated_at?: components['schemas']['UpdatedAt'];
     };
@@ -14111,7 +14491,9 @@ export interface components {
        * @description A JSON object representation of the bulk action payload.
        * @example {}
        */
-      readonly settings?: Record<string, never>;
+      readonly settings?: {
+        [key: string]: unknown;
+      };
       sim_card_actions_summary?: components['schemas']['SIMCardActionsSummary'][];
       created_at?: components['schemas']['CreatedAt'];
       updated_at?: components['schemas']['UpdatedAt'];
@@ -18923,7 +19305,9 @@ export interface components {
       status?: 'PENDING' | 'COMPLETE' | 'FAILED' | 'EXPIRED';
       /** @example http://portal.telnyx.com/downloads/report_name_8hvb45Gu.csv */
       report_url?: string;
-      result?: Record<string, never>;
+      result?: {
+        [key: string]: unknown;
+      };
       /**
        * Format: date-time
        * @example 2018-02-02T22:25:27.521Z
@@ -18988,7 +19372,9 @@ export interface components {
       /** @description Use this is you want to guarantee a JSON output without defining a schema. For control over the schema, use `guided_json`. */
       response_format?: components['schemas']['ChatCompletionResponseFormatParam'];
       /** @description Must be a valid JSON schema. If specified, the output will follow the JSON schema. */
-      guided_json?: Record<string, never>;
+      guided_json?: {
+        [key: string]: unknown;
+      };
       /** @description If specified, the output will follow the regex pattern. */
       guided_regex?: string;
       /** @description If specified, the output will be exactly one of the choices. */
@@ -19239,19 +19625,19 @@ export interface components {
        */
       comment_record_id?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string for when the comment was read.
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly read_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string denoting when the comment was created.
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string for when the comment was updated.
        * @example 2018-01-01T00:00:00.000000Z
        */
@@ -19338,6 +19724,101 @@ export interface components {
        * @example 2018-02-02T22:25:27.521Z
        */
       readonly updated_at?: string;
+    };
+    /**
+     * Composition Completed
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "video.room.composition.completed",
+     *       "id": "d51754fc-6888-4b0e-8f29-fc3ae41250cd",
+     *       "occurred_at": "2022-03-02 04:47:29.980874Z",
+     *       "payload": {
+     *         "composition_id": "5970ce77-4aeb-4e18-ac8c-3effca0c145a",
+     *         "download_url": "https://www.example.com",
+     *         "duration_secs": 53,
+     *         "format": "mp4",
+     *         "resolution": "1280x720",
+     *         "room_id": "2fbf2c0d-b6aa-463f-aeed-83ce298be978",
+     *         "session_id": "7c4da191-2600-4df6-a35e-0ecae6caa5d3",
+     *         "size_mb": 2.6
+     *       }
+     *     }
+     */
+    CompositionCompleted: {
+      /**
+       * @description An identifier for the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example video.room.composition.completed
+       * @enum {string}
+       */
+      event_type?: 'video.room.composition.completed';
+      /**
+       * Format: uuid
+       * @description Uniquely identify the event.
+       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2018-02-02T22:25:27.521992Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * Format: uuid
+         * @description Composition ID that identifies the room composition.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        composition_id?: string;
+        /**
+         * @description Url to download the room composition.
+         * @example https://www.example.com
+         */
+        download_url?: string;
+        /**
+         * @description Room composition duration in seconds.
+         * @example 67
+         */
+        duration_secs?: number;
+        /**
+         * @description Format of the room composition.
+         * @example mp4
+         */
+        format?: string;
+        /**
+         * @description Format of the room composition.
+         * @example 1280x720
+         */
+        resolution?: string;
+        /**
+         * Format: uuid
+         * @description Room ID associated with the room composition.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        room_id?: string;
+        /**
+         * Format: uuid
+         * @description Session ID associated with the room composition.
+         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+         */
+        session_id?: string;
+        /**
+         * Format: float
+         * @description Room composition size in MB.
+         * @example 10.5
+         */
+        size_mb?: number;
+      };
+    };
+    /** Composition Completed Event */
+    CompositionCompletedEvent: {
+      data?: components['schemas']['CompositionCompleted'];
     };
     /**
      * Conference
@@ -20680,7 +21161,9 @@ export interface components {
        *       "transcriptions": null
        *     }
        */
-      subresource_uris?: Record<string, never>;
+      subresource_uris?: {
+        [key: string]: unknown;
+      };
       /**
        * @description The relative URI for this recording.
        * @example /v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Recordings/136285da-4b74-46f1-a016-fe2982fa77c3.json
@@ -20959,7 +21442,9 @@ export interface components {
        *       "recordings": "/v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1/Recordings.json"
        *     }
        */
-      subresource_uris?: Record<string, never>;
+      subresource_uris?: {
+        [key: string]: unknown;
+      };
       /**
        * @description The relative URI for this conference.
        * @example /v2/texml/Accounts/4e71926f-8f13-450e-b91c-23c2ef786aa6/Conferences/cd5a70f4-759b-4d5e-9c06-88c00f16f3c1.json
@@ -21128,7 +21613,10 @@ export interface components {
        */
       voice: string;
       /** @description The settings associated with the voice selected */
-      voice_settings?: components['schemas']['ElevenLabsVoiceSettings'];
+      voice_settings?:
+        | components['schemas']['ElevenLabsVoiceSettings']
+        | components['schemas']['TelnyxVoiceSettings']
+        | components['schemas']['AWSVoiceSettings'];
       /**
        * @description The language you want spoken. This parameter is ignored when a `Polly.*` voice is specified.
        * @example en-US
@@ -21308,14 +21796,14 @@ export interface components {
        */
       updated_at?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this connection will be sent.
        * @default null
        * @example https://example.com
        */
       webhook_event_url: string | null;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails.
        * @default
        * @example https://failover.example.com
@@ -21387,7 +21875,7 @@ export interface components {
       /**
        * @description RTCP port by default is rtp+1, it can also be set to rtcp-mux
        * @default rtp+1
-       * @enum {unknown}
+       * @enum {string}
        */
       port: 'rtcp-mux' | 'rtp+1';
       /**
@@ -21413,10 +21901,7 @@ export interface components {
        * @example MB
        */
       unit: string;
-      /**
-       * Format: decimal
-       * @example 2048.1
-       */
+      /** @example 2048.1 */
       amount?: string;
     };
     Conversation: {
@@ -21548,6 +22033,24 @@ export interface components {
        */
       currency?: string;
     };
+    /** Country */
+    Country: {
+      /**
+       * @description ISO 3166-1 Alpha-2 Country Code.
+       * @example US
+       */
+      code: string;
+      /**
+       * @description The name of the country.
+       * @example United States of America
+       */
+      name: string;
+    };
+    /**
+     * @description ISO 3166-1 Alpha-2 Country Code.
+     * @example US
+     */
+    CountryCode: string;
     /** @example {
      *       "United States of America": {
      *         "code": "US",
@@ -21634,11 +22137,17 @@ export interface components {
         international_sms?: boolean;
         p2p?: boolean;
       };
-      mobile?: Record<string, never>;
-      national?: Record<string, never>;
+      mobile?: {
+        [key: string]: unknown;
+      };
+      national?: {
+        [key: string]: unknown;
+      };
       /** @description Indicates whether country can be queried with inventory coverage endpoint */
       inventory_coverage?: boolean;
-      shared_cost?: Record<string, never>;
+      shared_cost?: {
+        [key: string]: unknown;
+      };
     };
     /** Create Android Push Credential Request */
     CreateAndroidPushCredentialRequest: {
@@ -21654,7 +22163,9 @@ export interface components {
        *       "client_email": "account@customer.org"
        *     }
        */
-      project_account_json_file: Record<string, never>;
+      project_account_json_file: {
+        [key: string]: unknown;
+      };
       /**
        * @description Alias to uniquely identify the credential
        * @example LucyAndroidCredential
@@ -21684,7 +22195,9 @@ export interface components {
       /** @description If the dynamic_variables_webhook_url is set for the assistant, we will send a request at the start of the conversation. See our [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for more information. */
       dynamic_variables_webhook_url?: string;
       /** @description Map of dynamic variables and their default values */
-      dynamic_variables?: Record<string, never>;
+      dynamic_variables?: {
+        [key: string]: unknown;
+      };
     };
     /**
      * CreateAssistantTestRequest
@@ -22184,13 +22697,13 @@ export interface components {
       ios_push_credential_id?: components['schemas']['ConnectionIosPushCredentialId'];
       android_push_credential_id?: components['schemas']['ConnectionAndroidPushCredentialId'];
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -22221,6 +22734,9 @@ export interface components {
       inbound?: components['schemas']['CredentialInbound'];
       outbound?: components['schemas']['CredentialOutbound'];
     };
+    CreateDocServiceDocumentRequest:
+      | components['schemas']['DocServiceDocumentUploadURL']
+      | components['schemas']['DocServiceDocumentUploadInline'];
     /**
      * Create External Connection Request
      * @example {
@@ -22243,13 +22759,13 @@ export interface components {
        */
       tags?: string[];
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -22269,7 +22785,7 @@ export interface components {
          */
         channel_limit: number;
       };
-      outbound?: {
+      outbound: {
         /**
          * @description When set, this will limit the number of concurrent outbound calls to phone numbers associated with this connection.
          * @default null
@@ -22293,7 +22809,7 @@ export interface components {
      *     }
      */
     CreateExternalConnectionUploadRequest: {
-      number_ids?: string[];
+      number_ids: string[];
       /**
        * @description The use case of the upload request. NOTE: `calling_user_assignment` is not supported for toll free numbers.
        * @enum {string}
@@ -22851,13 +23367,13 @@ export interface components {
       ios_push_credential_id?: components['schemas']['ConnectionIosPushCredentialId'];
       android_push_credential_id?: components['schemas']['ConnectionAndroidPushCredentialId'];
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -23171,7 +23687,9 @@ export interface components {
       /** Tool Choice */
       tool_choice?: string | Record<string, never>;
       /** Tool Calls */
-      tool_calls?: Record<string, never>[];
+      tool_calls?: {
+        [key: string]: unknown;
+      }[];
       /** Tool Call Id */
       tool_call_id?: string;
       /**
@@ -23188,6 +23706,18 @@ export interface components {
           | (string | number | boolean)[];
       };
     };
+    CreateMultiPartDocServiceDocumentRequest: {
+      /**
+       * Format: binary
+       * @description The file you are uploading.
+       */
+      file?: string;
+      /**
+       * @description Optional reference string for customer tracking.
+       * @example MY REF 001
+       */
+      customer_reference?: string;
+    };
     /** @example {
      *       "starting_number": "+19705555000",
      *       "range": 10
@@ -23201,7 +23731,6 @@ export interface components {
       /** @example number_block_order */
       readonly record_type?: string;
       /**
-       * Format: e164_phone_number
        * @description Starting phone number block
        * @example +19705555000
        */
@@ -23237,13 +23766,13 @@ export interface components {
        */
       customer_reference?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string denoting when the number order was created.
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string for when the number order was updated.
        * @example 2018-01-01T00:00:00.000000Z
        */
@@ -23258,6 +23787,50 @@ export interface components {
        * @example Number is already on hold
        */
       readonly errors?: string;
+    };
+    /** @example {
+     *       "id": "387d1e31-a218-4375-8151-103f2d5e2d2c",
+     *       "record_type": "number_order_document",
+     *       "file_id": "1e3c5822-0362-4702-8e46-5a129f0d3976",
+     *       "requirements_id": "36aaf27d-986b-493c-bd1b-de16af2e4292",
+     *       "customer_reference": "MY REF 001",
+     *       "requirement_type": "address_proof",
+     *       "created_at": "2018-01-01T00:00:00.000000Z"
+     *     } */
+    CreateNumberOrderDocumentRequest: {
+      /**
+       * Format: uuid
+       * @example 387d1e31-a218-4375-8151-103f2d5e2d2c
+       */
+      readonly id?: string;
+      /** @example number_order_document */
+      readonly record_type?: string;
+      /**
+       * @description The id of the file to associate as a number order document.
+       * @example 1e3c5822-0362-4702-8e46-5a129f0d3976
+       */
+      file_id?: string;
+      /**
+       * @description Unique id for a requirement.
+       * @example 36aaf27d-986b-493c-bd1b-de16af2e4292
+       */
+      requirements_id?: string;
+      /**
+       * @description A customer reference string for customer look ups.
+       * @example MY REF 001
+       */
+      customer_reference?: string;
+      /** @enum {string} */
+      readonly requirement_type?:
+        | 'address_proof'
+        | 'identification'
+        | 'reg_form';
+      /**
+       * Format: date-time
+       * @description An ISO 8901 datetime string denoting when the number order document was uploaded.
+       * @example 2018-01-01T00:00:00.000000Z
+       */
+      readonly created_at?: string;
     };
     /** @example {
      *       "phone_numbers": [
@@ -23409,13 +23982,13 @@ export interface components {
        */
       customer_reference?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string denoting when the numbers reservation was created.
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string for when the number reservation was updated.
        * @example 2018-01-01T00:00:00.000000Z
        */
@@ -23562,13 +24135,13 @@ export interface components {
         [key: string]: components['schemas']['VideoRegion'];
       };
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this room composition will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this room composition will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -23600,13 +24173,13 @@ export interface components {
        */
       enable_recording: boolean;
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this room will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this room will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -23847,10 +24420,10 @@ export interface components {
       /** @example My Secret Name */
       name?: string;
       /**
-       * @example *****
+       * @example REDACTED
        * @enum {string}
        */
-      value?: '*****';
+      value?: 'REDACTED';
     };
     /**
      * Create Texml Application Request
@@ -23898,13 +24471,13 @@ export interface components {
        */
       tags?: string[];
       /**
-       * Format: url
+       * Format: uri
        * @description URL to which Telnyx will deliver your XML Translator webhooks.
        * @example https://example.com
        */
       voice_url: string;
       /**
-       * Format: url
+       * Format: uri
        * @description URL to which Telnyx will deliver your XML Translator webhooks if we get an error response from your voice_url.
        * @default null
        * @example https://fallback.example.com
@@ -23918,7 +24491,7 @@ export interface components {
        */
       voice_method: 'get' | 'post';
       /**
-       * Format: url
+       * Format: uri
        * @description URL for Telnyx to send requests to containing information about call progress events.
        * @default null
        * @example https://example.com
@@ -24166,9 +24739,8 @@ export interface components {
       default_verification_timeout_secs: number;
     };
     /**
-     * Created At
-     * @description ISO 8601 formatted date indicating when the resource was created.
-     * @example 2020-02-02T22:25:27.521Z
+     * @description ISO 8601 formatted date-time indicating when the resource was created.
+     * @example 2018-02-02T22:25:27.521Z
      */
     CreatedAt: string;
     /** CreatedUserBundlesResponse */
@@ -24333,13 +24905,13 @@ export interface components {
        */
       onnet_t38_passthrough_enabled: boolean;
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -24522,7 +25094,6 @@ export interface components {
       outbound_voice_profile_id?: components['schemas']['OutboundVoiceProfileId'];
     };
     /**
-     * Format: password
      * @description Opaque credential token used to authenticate and authorize with storage provider.
      * @example OPAQUE_CREDENTIALS_TOKEN
      */
@@ -24578,14 +25149,16 @@ export interface components {
     /** Cursor Pagination Meta */
     CursorPaginationMeta: {
       cursors?: components['schemas']['Cursor'];
+      /** @example 50 */
+      total_items?: number;
       /**
        * @description Path to next page.
-       * @example /v2/recording_transcriptions?page[after]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=
+       * @example /v2/connections/1234567890/active_calls?page[after]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=
        */
       next?: string;
       /**
        * @description Path to previous page.
-       * @example /v2/recording_transcriptions?page[before]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=
+       * @example /v2/connections/1234567890/active_calls?page[before]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=
        */
       previous?: string;
     };
@@ -24864,10 +25437,12 @@ export interface components {
     DTMFTool: {
       /** @enum {string} */
       type: 'send_dtmf';
-      send_dtmf: Record<string, never>;
+      send_dtmf: {
+        [key: string]: unknown;
+      };
     };
     /**
-     * Format: datetime-rfc2822
+     * Format: date-time
      * @example Fri, 11 Aug 2023 19:12:11 +0000
      */
     DateTimeRFC2822: string;
@@ -25385,7 +25960,9 @@ export interface components {
        * @description The JSON map to connect your Dialoglow account.
        * @example {"service_account":{"type":"service_account","project_id":"your-project-id","private_key_id":"your-private-key","private_key":"-----BEGIN PRIVATE KEY-----n-----END PRIVATE","client_email":"example@example.com","client_id":"your-client-id","auth_uri":"http://example.com","token_uri":"http://example.com","auth_provider_x509_cert_url":"http://example.com","client_x509_cert_url":"http://example.com"}}
        */
-      service_account: Record<string, never>;
+      service_account: {
+        [key: string]: unknown;
+      };
       /**
        * @description Determine which Dialogflow will be used.
        * @default es
@@ -25466,11 +26043,11 @@ export interface components {
        */
       phone_number_type?: 'local' | 'national' | 'toll_free';
       /**
-       * @description Indicates whether this requirement applies to ordering, porting, or both
+       * @description Indicates whether this requirement applies to branded_calling, ordering, porting, or both ordering and porting
        * @example ordering
        * @enum {string}
        */
-      action?: 'both' | 'ordering' | 'porting';
+      action?: 'both' | 'branded_calling' | 'ordering' | 'porting';
       /** @description Lists the requirement types necessary to fulfill this requirement */
       readonly requirements_types?: components['schemas']['DocReqsRequirementType'][];
       /**
@@ -25521,16 +26098,6 @@ export interface components {
          * @example abcdef0123456789
          */
         acceptable_characters?: string;
-        /**
-         * @description Specifies whether string matching should be case sensitive
-         * @example true
-         */
-        case_sensitive?: boolean;
-        /**
-         * @description A regular expression pattern that the value must match
-         * @example ^[A-Z0-9]+$
-         */
-        regex?: string;
       };
       /**
        * @description Describes the requirement type
@@ -25538,7 +26105,7 @@ export interface components {
        */
       description?: string;
       /**
-       * @description Provides one or more example of acceptable documents
+       * @description Provides one or more examples of acceptable documents
        * @example Utility bill, internet bill, phone bill, or lease
        */
       example?: string;
@@ -25645,6 +26212,41 @@ export interface components {
        */
       readonly linked_resource_id?: string;
     };
+    DocServiceDocumentUploadInline: {
+      /**
+       * Format: byte
+       * @description The Base64 encoded contents of the file you are uploading.
+       * @example [Base64 encoded content]
+       */
+      file: string;
+      /**
+       * @description The filename of the document.
+       * @example test-document.pdf
+       */
+      filename?: string;
+      /**
+       * @description A customer reference string for customer look ups.
+       * @example MY REF 001
+       */
+      customer_reference?: string;
+    };
+    DocServiceDocumentUploadURL: {
+      /**
+       * @description If the file is already hosted publicly, you can provide a URL and have the documents service fetch it for you.
+       * @example https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+       */
+      url: string;
+      /**
+       * @description The filename of the document.
+       * @example test-document.pdf
+       */
+      filename?: string;
+      /**
+       * @description Optional reference string for customer tracking.
+       * @example MY REF 001
+       */
+      customer_reference?: string;
+    };
     DocServiceRecord: {
       /**
        * Format: uuid
@@ -25728,7 +26330,7 @@ export interface components {
        * @example US
        * @enum {string}
        */
-      country_code?: 'US' | 'CA' | 'PR';
+      country_code: 'US' | 'CA' | 'PR';
       /**
        * @description ISO 8601 formatted date of when the resource was created
        * @example 2018-02-02T22:25:27.521Z
@@ -25889,7 +26491,9 @@ export interface components {
       /** Certainty */
       certainty?: number;
       /** Loader Metadata */
-      loader_metadata?: Record<string, never>;
+      loader_metadata?: {
+        [key: string]: unknown;
+      };
     };
     /** EmbeddingResponse */
     EmbeddingResponse: {
@@ -26010,10 +26614,7 @@ export interface components {
        * @default false
        */
       emergency_enabled: boolean;
-      /**
-       * Format: int64
-       * @description Identifies the address to be used with emergency services.
-       */
+      /** @description Identifies the address to be used with emergency services. */
       emergency_address_id?: string;
       /**
        * @description Represents the state of the number regarding emergency activation.
@@ -26080,7 +26681,7 @@ export interface components {
      * EntityType
      * @description Entity type behind the brand. This is the form of business establishment.
      * @example PRIVATE_PROFIT
-     * @enum {unknown}
+     * @enum {string}
      */
     EntityType:
       | 'PRIVATE_PROFIT'
@@ -26103,23 +26704,18 @@ export interface components {
      */
     EnumPaginatedResponse: Record<string, never>;
     Error: {
-      /** Format: int */
       code: string;
       title: string;
       detail?: string;
       source?: {
-        /**
-         * Format: json-pointer
-         * @description JSON pointer (RFC6901) to the offending entity.
-         */
+        /** @description JSON pointer (RFC6901) to the offending entity. */
         pointer?: string;
-        /**
-         * @description Indicates which query parameter caused the error.
-         * @example +15617819942
-         */
+        /** @description Indicates which query parameter caused the error. */
         parameter?: string;
       };
-      meta?: Record<string, never>;
+      meta?: {
+        [key: string]: unknown;
+      };
     };
     ErrorRecord: {
       /**
@@ -26259,13 +26855,13 @@ export interface components {
        */
       tags?: string[];
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -26531,12 +27127,12 @@ export interface components {
        */
       client_state?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when resource was created
        */
       created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when resource was updated
        */
       updated_at?: string;
@@ -26692,7 +27288,6 @@ export interface components {
     };
     /**
      * Fax Email Recipient
-     * Format: email
      * @description Specifies an email address where faxes sent to this application will be forwarded to (as pdf or tiff attachments)
      * @default null
      * @example user@example.com
@@ -26970,11 +27565,11 @@ export interface components {
     FirstCommandTimeoutSecs: number;
     ForbiddenError: components['schemas']['GenericError'] & {
       /** @example 10010 */
-      code?: unknown;
+      code?: string;
       /** @example Authorization failed */
-      title?: unknown;
+      title?: string;
       /** @example You do not have permission to perform the requested action on the specified resource or resources. */
-      detail?: unknown;
+      detail?: string;
       meta?: {
         /** @example https://developers.telnyx.com/docs/overview/errors/10010 */
         url?: string;
@@ -27198,7 +27793,9 @@ export interface components {
     FunctionDefinition: {
       name: string;
       description?: string;
-      parameters?: Record<string, never>;
+      parameters?: {
+        [key: string]: unknown;
+      };
     };
     /** Google Cloud Storage Configuration Data */
     GCSConfigurationData: {
@@ -27540,7 +28137,10 @@ export interface components {
        */
       voice: string;
       /** @description The settings associated with the voice selected */
-      voice_settings?: components['schemas']['ElevenLabsVoiceSettings'];
+      voice_settings?:
+        | components['schemas']['ElevenLabsVoiceSettings']
+        | components['schemas']['TelnyxVoiceSettings']
+        | components['schemas']['AWSVoiceSettings'];
       /**
        * @description The language you want spoken. This parameter is ignored when a `Polly.*` voice is specified.
        * @example en-US
@@ -27705,10 +28305,7 @@ export interface components {
       channel_zone_id: string;
       /** @example 3da3c749-bb7d-4ad6-acae-ca0d415ae08b */
       id?: string;
-      /**
-       * Format: +E.164
-       * @example +15554441234
-       */
+      /** @example +15554441234 */
       phone_number: string;
       /**
        * @description ISO 8601 formatted date of when the phone number was created
@@ -27717,20 +28314,18 @@ export interface components {
       created_at?: string;
     };
     GenericError: {
-      /** Format: int */
       code?: string;
       title?: string;
       detail?: string;
       source?: {
-        /**
-         * Format: json-pointer
-         * @description JSON pointer (RFC6901) to the offending entity.
-         */
+        /** @description JSON pointer (RFC6901) to the offending entity. */
         pointer?: string;
         /** @description Indicates which query parameter caused the error. */
         parameter?: string;
       };
-      meta?: Record<string, never>;
+      meta?: {
+        [key: string]: unknown;
+      };
     };
     /** GetInsightTemplateGroupsRespData */
     GetInsightTemplateGroupsRespData: {
@@ -27780,7 +28375,9 @@ export interface components {
        *       ]
        *     }
        */
-      ports?: Record<string, never>;
+      ports?: {
+        [key: string]: unknown;
+      };
       /**
        * @description A user specified name for the address.
        * @example test interface
@@ -27843,7 +28440,9 @@ export interface components {
        *       "port": 8080
        *     }
        */
-      health_check_params?: Record<string, never>;
+      health_check_params?: {
+        [key: string]: unknown;
+      };
       /**
        * Format: uuid
        * @description Global IP ID.
@@ -27954,8 +28553,8 @@ export interface components {
       };
     };
     GlobalIpAssignmentUpdate: components['schemas']['GlobalIpAssignment'] & {
-      readonly global_ip_id?: unknown;
-      readonly wireguard_peer_id?: unknown;
+      readonly global_ip_id?: string;
+      readonly wireguard_peer_id?: string;
     };
     GlobalIpAssignmentUsageMetric: {
       /**
@@ -28048,7 +28647,9 @@ export interface components {
        *       }
        *     }
        */
-      health_check_params?: Record<string, never>;
+      health_check_params?: {
+        [key: string]: unknown;
+      };
     };
     GlobalIpLatencyMetric: {
       /**
@@ -28568,12 +29169,24 @@ export interface components {
        */
       phone_number?: string;
       /** @enum {string} */
-      status?: 'deleted' | 'failed' | 'pending' | 'successful';
+      status?:
+        | 'deleted'
+        | 'failed'
+        | 'failed_activation'
+        | 'failed_carrier_rejected'
+        | 'failed_ineligible_carrier'
+        | 'failed_number_already_hosted'
+        | 'failed_number_not_found'
+        | 'failed_ownership_verification'
+        | 'failed_timeout'
+        | 'pending'
+        | 'provisioning'
+        | 'successful';
     };
     /**
      * Format: uuid
-     * @description Identifies the resource.
-     * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+     * @description Identifies the type of resource.
+     * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
      */
     Id: string;
     /** ImportAssistantsRequest */
@@ -29564,7 +30177,6 @@ export interface components {
     };
     /**
      * Int ID
-     * Format: int64
      * @description Uniquely identifies the resource.
      * @example 1293384261075731499
      */
@@ -29917,13 +30529,13 @@ export interface components {
        */
       onnet_t38_passthrough_enabled: boolean;
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -30145,10 +30757,6 @@ export interface components {
        */
       updated_at?: string;
     };
-    /** @description An array of Advanced Order Responses */
-    ListAdvancedOrderResponse: {
-      data?: components['schemas']['AdvancedOrderResponse'][];
-    };
     ListBucketsResponse: {
       Buckets?: {
         Name?: string;
@@ -30237,7 +30845,7 @@ export interface components {
     };
     LogMessage: {
       /**
-       * Format: integer
+       * Format: int64
        * @example 10015
        */
       code: string;
@@ -30274,6 +30882,19 @@ export interface components {
       };
     };
     Loopcount: string | number;
+    /** Mobile Country Code */
+    MCC: {
+      /**
+       * @description Mobile Country Code.
+       * @example 311
+       */
+      code: string;
+      /**
+       * @description The name of the country.
+       * @example United States of America
+       */
+      name: string;
+    };
     MMSFallback: {
       /**
        * @description Phone number in +E.164 format
@@ -30302,7 +30923,7 @@ export interface components {
        */
       record_type: 'managed_account';
       /**
-       * Format: UUID
+       * Format: uuid
        * @description Uniquely identifies the managed account.
        * @example f65ceda4-6522-4ad6-aede-98de83385123
        */
@@ -30408,7 +31029,7 @@ export interface components {
        */
       record_type: 'managed_account';
       /**
-       * Format: UUID
+       * Format: uuid
        * @description Uniquely identifies the managed account.
        * @example f65ceda4-6522-4ad6-aede-98de83385123
        */
@@ -31033,7 +31654,19 @@ export interface components {
       /** @description Automatically associate the number with this messaging profile ID when the order is complete. */
       messaging_profile_id?: string | null;
       /** @enum {string} */
-      status?: 'failed' | 'pending' | 'successful';
+      status?:
+        | 'carrier_rejected'
+        | 'compliance_review_failed'
+        | 'deleted'
+        | 'failed'
+        | 'incomplete_documentation'
+        | 'incorrect_billing_information'
+        | 'ineligible_carrier'
+        | 'loa_file_invalid'
+        | 'loa_file_successful'
+        | 'pending'
+        | 'provisioning'
+        | 'successful';
       phone_numbers?: components['schemas']['HostedNumber'][];
     };
     /** @example {
@@ -31269,29 +31902,25 @@ export interface components {
     /** Metadata */
     Metadata: {
       /**
-       * Format: double
-       * @description Total number of pages based on pagination settings
-       * @example 13
+       * Page Size
+       * @example 25
        */
-      total_pages?: number;
+      page_size: number;
       /**
-       * Format: double
-       * @description Total number of results
-       * @example 13
-       */
-      total_results?: number;
-      /**
-       * Format: double
-       * @description Current Page based on pagination settings (included when defaults are used.)
-       * @example 3
-       */
-      page_number?: number;
-      /**
-       * Format: double
-       * @description Number of results to return per page based on pagination settings (included when defaults are used.)
+       * Page Number
        * @example 1
        */
-      page_size?: number;
+      page_number: number;
+      /**
+       * Total Pages
+       * @example 10
+       */
+      total_pages: number;
+      /**
+       * Total Items
+       * @example 250
+       */
+      total_results: number;
     };
     MigrationParams: {
       /** @description Unique identifier for the data migration. */
@@ -31392,6 +32021,11 @@ export interface components {
       /** @example 1 */
       minMsgSamples: number;
     };
+    /**
+     * @description Mobile Country Code.
+     * @example 311
+     */
+    MobileCountryCode: string;
     /** MobileNetworkOperator */
     MobileNetworkOperator: {
       /**
@@ -31503,6 +32137,9 @@ export interface components {
        * @example 5.00
        */
       otc?: string | null;
+    };
+    MonthlyChargesBreakdownResponse: {
+      data: components['schemas']['BreakdownData'];
     };
     MonthlyChargesSummaryResponse: {
       data: components['schemas']['SummaryAndTotal'];
@@ -31640,11 +32277,22 @@ export interface components {
      */
     NoiseSuppressionDirection: 'inbound' | 'outbound' | 'both';
     /**
+     * Noise Suppression Engine
+     * @description The engine to use for noise suppression.
+     *     A - rnnoise engine
+     *     B - deepfilter engine.
+     * @default A
+     * @example A
+     * @enum {string}
+     */
+    NoiseSuppressionEngine: 'A' | 'B';
+    /**
      * Noise Suppression Start Request
      * @example {
      *       "client_state": "aGF2ZSBhIG5pY2UgZGF5ID1d",
      *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901",
-     *       "direction": "both"
+     *       "direction": "both",
+     *       "noise_suppression_engine": "A"
      *     }
      */
     NoiseSuppressionStart: {
@@ -31659,6 +32307,7 @@ export interface components {
        */
       command_id?: string;
       direction?: components['schemas']['NoiseSuppressionDirection'];
+      noise_suppression_engine?: components['schemas']['NoiseSuppressionEngine'];
     };
     /**
      * Noise Suppression Stop Request
@@ -31915,7 +32564,6 @@ export interface components {
       /** @example number_block_order */
       readonly record_type?: string;
       /**
-       * Format: e164_phone_number
        * @description Starting phone number block
        * @example +19705555000
        */
@@ -31952,13 +32600,13 @@ export interface components {
        */
       customer_reference?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string denoting when the number order was created.
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string for when the number order was updated.
        * @example 2018-01-01T00:00:00.000000Z
        */
@@ -31968,6 +32616,31 @@ export interface components {
        * @example true
        */
       readonly requirements_met?: boolean;
+    };
+    NumberBreakdownResult: {
+      /**
+       * @description Phone number
+       * @example +15551234567
+       */
+      tn: string;
+      /**
+       * @description Type of charge for the number
+       * @example local
+       */
+      charge_type: string;
+      /**
+       * @description User ID of the service owner
+       * @example 0db0b4aa-a83d-4d4f-ad9b-3ba7c1ac2ce8
+       */
+      service_owner_user_id: string;
+      /**
+       * Format: email
+       * @description Email address of the service owner
+       * @example user@example.com
+       */
+      service_owner_email: string;
+      /** @description List of services associated with this number */
+      services: components['schemas']['ServiceDetail'][];
     };
     /**
      * @description High level health metrics about the number and it's messaging sending patterns.
@@ -32071,13 +32744,13 @@ export interface components {
        */
       customer_reference?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string denoting when the number order was created.
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string for when the number order was updated.
        * @example 2018-01-01T00:00:00.000000Z
        */
@@ -32092,6 +32765,50 @@ export interface components {
     NumberOrderBlockEvent: {
       data?: components['schemas']['NumberBlockOrder'];
     };
+    /** @example {
+     *       "id": "387d1e31-a218-4375-8151-103f2d5e2d2c",
+     *       "record_type": "number_order_document",
+     *       "file_id": "1e3c5822-0362-4702-8e46-5a129f0d3976",
+     *       "requirements_id": "36aaf27d-986b-493c-bd1b-de16af2e4292",
+     *       "customer_reference": "MY REF 001",
+     *       "requirement_type": "address_proof",
+     *       "created_at": "2018-01-01T00:00:00.000000Z"
+     *     } */
+    NumberOrderDocument: {
+      /**
+       * Format: uuid
+       * @example 387d1e31-a218-4375-8151-103f2d5e2d2c
+       */
+      readonly id?: string;
+      /** @example number_order_document */
+      readonly record_type?: string;
+      /**
+       * @description The id of the file to associate as a number order document.
+       * @example 1e3c5822-0362-4702-8e46-5a129f0d3976
+       */
+      file_id?: string;
+      /**
+       * @description Unique id for a requirement.
+       * @example 36aaf27d-986b-493c-bd1b-de16af2e4292
+       */
+      requirements_id?: string;
+      /**
+       * @description A customer reference string for customer look ups.
+       * @example MY REF 001
+       */
+      customer_reference?: string;
+      /** @enum {string} */
+      readonly requirement_type?:
+        | 'address_proof'
+        | 'identification'
+        | 'reg_form';
+      /**
+       * Format: date-time
+       * @description An ISO 8901 datetime string denoting when the number order document was uploaded.
+       * @example 2018-01-01T00:00:00.000000Z
+       */
+      readonly created_at?: string;
+    };
     NumberOrderPhoneNumber: {
       /**
        * Format: uuid
@@ -32100,10 +32817,7 @@ export interface components {
       readonly id?: string;
       /** @example number_order_phone_number */
       readonly record_type?: string;
-      /**
-       * Format: e164_phone_number
-       * @example +19705555098
-       */
+      /** @example +19705555098 */
       phone_number?: string;
       /**
        * Format: uuid
@@ -32147,7 +32861,7 @@ export interface components {
       /** @example San Francisco */
       locality?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @example 024-05-31T11:14:00+00:00
        */
       deadline?: string;
@@ -32244,7 +32958,7 @@ export interface components {
        * @example abc85f64-5717-4562-b3fc-2c9600
        */
       billing_group_id?: string;
-      phone_numbers?: components['schemas']['NumberOrderPhoneNumber'][];
+      phone_numbers?: components['schemas']['PhoneNumber'][];
       sub_number_orders_ids?: string[];
       /**
        * @description The status of the order.
@@ -32257,13 +32971,13 @@ export interface components {
        */
       customer_reference?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string denoting when the number order was created.
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string for when the number order was updated.
        * @example 2018-01-01T00:00:00.000000Z
        */
@@ -32273,6 +32987,35 @@ export interface components {
        * @example true
        */
       readonly requirements_met?: boolean;
+    };
+    /** Number Order Event Data */
+    NumberOrdered: {
+      /**
+       * @description Identifies the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * Format: uuid
+       * @description Identifies the type of resource.
+       */
+      id?: string;
+      /**
+       * @description The type of event being delivered.
+       * @example number_order.complete
+       */
+      event_type?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date indicating when the resource was created.
+       */
+      occurred_at?: string;
+      payload?: components['schemas']['NumberOrder'];
+    };
+    /** Number Order Event */
+    NumberOrderedEvent: {
+      data?: components['schemas']['NumberOrdered'];
     };
     /**
      * @description Number Pool allows you to send messages from a pool of numbers of different types, assigning
@@ -32374,13 +33117,13 @@ export interface components {
        */
       customer_reference?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string denoting when the numbers reservation was created.
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string for when the number reservation was updated.
        * @example 2018-01-01T00:00:00.000000Z
        */
@@ -33259,7 +34002,6 @@ export interface components {
      */
     OutboundVoiceProfile: {
       /**
-       * Format: int64
        * @description Identifies the resource.
        * @example 1293384261075731499
        */
@@ -33344,11 +34086,28 @@ export interface components {
     };
     /**
      * Outbound Voice Profile ID
-     * Format: int64
      * @description Identifies the associated outbound voice profile.
      * @example 1293384261075731499
      */
     OutboundVoiceProfileId: string;
+    /** Public land mobile network */
+    PLMN: {
+      /**
+       * @description Public land mobile network code (MCC + MNC).
+       * @example 311210
+       */
+      code: string;
+      /**
+       * @description The name of the network.
+       * @example Telnyx, LLC
+       */
+      name: string;
+    };
+    /**
+     * @description Public land mobile network code (MCC + MNC).
+     * @example 311210
+     */
+    PLMNCode: string;
     /** @description The summary of the resource that have been assigned to the Private Wireless Gateway. */
     PWGAssignedResourcesSummary: {
       /**
@@ -33466,21 +34225,13 @@ export interface components {
       page_size?: number;
     };
     PaginationMetaSimple: {
-      /** @example [
-       *       2
-       *     ] */
+      /** @example 2 */
       page_number?: number;
-      /** @example [
-       *       25
-       *     ] */
+      /** @example 25 */
       page_size?: number;
-      /** @example [
-       *       3
-       *     ] */
+      /** @example 3 */
       total_pages?: number;
-      /** @example [
-       *       55
-       *     ] */
+      /** @example 55 */
       total_results?: number;
     };
     /** PaginationResponse */
@@ -33612,6 +34363,158 @@ export interface components {
        * @example true
        */
       on_hold: boolean;
+    };
+    /**
+     * Participant Joined
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "video.room.session.started",
+     *       "id": "6b61621f-62e0-4aad-ab11-9fd19e272e73",
+     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
+     *       "payload": {
+     *         "session_id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
+     *         "room_id": "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
+     *         "participant_id": "5ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
+     *         "context": "Alice"
+     *       }
+     *     }
+     */
+    ParticipantJoined: {
+      /**
+       * @description An identifier for the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example video.room.participant.joined
+       * @enum {string}
+       */
+      event_type?: 'video.room.participant.joined';
+      /**
+       * Format: uuid
+       * @description Uniquely identify the event.
+       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2018-02-02T22:25:27.521992Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * Format: uuid
+         * @description Session ID that identifies the session where the participant joined.
+         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+         */
+        session_id?: string;
+        /**
+         * Format: uuid
+         * @description Room ID that identifies the room where the participant joined.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        room_id?: string;
+        /**
+         * @description Context provided to the given participant through the client SDK
+         * @example Alice
+         */
+        context?: string;
+        /**
+         * Format: uuid
+         * @description Participant ID that identifies the participant that joined.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        participant_id?: string;
+      };
+    };
+    /** Participant Joined Event */
+    ParticipantJoinedEvent: {
+      data?: components['schemas']['ParticipantJoined'];
+    };
+    /**
+     * Participant Left
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "video.room.session.started",
+     *       "id": "6b61621f-62e0-4aad-ab11-9fd19e272e73",
+     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
+     *       "payload": {
+     *         "session_id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
+     *         "room_id": "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
+     *         "participant_id": "5ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
+     *         "context": "Alice",
+     *         "duration_secs": 34,
+     *         "left_reason": "kick"
+     *       }
+     *     }
+     */
+    ParticipantLeft: {
+      /**
+       * @description An identifier for the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example video.room.participant.left
+       * @enum {string}
+       */
+      event_type?: 'video.room.participant.left';
+      /**
+       * Format: uuid
+       * @description Uniquely identify the event.
+       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2018-02-02T22:25:27.521992Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * Format: uuid
+         * @description Session ID that identifies the session where the participant left.
+         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+         */
+        session_id?: string;
+        /**
+         * Format: uuid
+         * @description Room ID that identifies the room where the participant left.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        room_id?: string;
+        /**
+         * @description Context provided to the given participant through the client SDK
+         * @example Alice
+         */
+        context?: string;
+        /**
+         * Format: uuid
+         * @description Participant ID that identifies the participant that left.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        participant_id?: string;
+        /**
+         * @description The duration in seconds of the participant in the session
+         * @example 245
+         */
+        duration_secs?: number;
+        /**
+         * @description The reason why the participant left
+         * @example kicked
+         */
+        left_reason?: string;
+      };
+    };
+    /** Participant Left Event */
+    ParticipantLeftEvent: {
+      data?: components['schemas']['ParticipantLeft'];
     };
     /**
      * Participant resource
@@ -33776,13 +34679,13 @@ export interface components {
        */
       enable_recording: boolean;
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this room will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this room will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -33826,6 +34729,81 @@ export interface components {
        * @example 6e00ab49-9487-4364-8ad6-23965965afb2
        */
       recording_id?: string;
+    };
+    /** @example {
+     *       "id": "dc8e4d67-33a0-4cbb-af74-7b58f05bd494",
+     *       "record_type": "number_order_phone_number",
+     *       "phone_number": "+19705555098",
+     *       "bundle_id": "bc8e4d67-33a0-4cbb-af74-7b58f05bd474",
+     *       "regulatory_requirements": [
+     *         {
+     *           "record_type": "phone_number_regulatory_requirement",
+     *           "requirement_id": "8ffb3622-7c6b-4ccc-b65f-7a3dc0099576",
+     *           "field_value": "45f45a04-b4be-4592-95b1-9306b9db2b21",
+     *           "field_type": "address"
+     *         }
+     *       ],
+     *       "requirements_met": true,
+     *       "status": "success"
+     *     } */
+    PhoneNumber: {
+      /**
+       * Format: uuid
+       * @example dc8e4d67-33a0-4cbb-af74-7b58f05bd494
+       */
+      readonly id?: string;
+      /** @example number_order_phone_number */
+      readonly record_type?: string;
+      /** @example +19705555098 */
+      phone_number?: string;
+      /**
+       * @description The ISO 3166-1 alpha-2 country code of the phone number.
+       * @example US
+       */
+      readonly country_iso_alpha2?: string;
+      regulatory_requirements?: components['schemas']['SubNumberOrderRegulatoryRequirementWithValue'][];
+      /**
+       * @description True if all requirements are met for a phone number, false otherwise.
+       * @example true
+       */
+      readonly requirements_met?: boolean;
+      /**
+       * @description Status of document requirements (if applicable)
+       * @enum {string}
+       */
+      readonly requirements_status?:
+        | 'pending'
+        | 'approved'
+        | 'cancelled'
+        | 'deleted'
+        | 'requirement-info-exception'
+        | 'requirement-info-pending'
+        | 'requirement-info-under-review';
+      /**
+       * @description The status of the phone number in the order.
+       * @enum {string}
+       */
+      readonly status?: 'pending' | 'success' | 'failure';
+      /**
+       * Format: uuid
+       * @example bc8e4d67-33a0-4cbb-af74-7b58f05bd494
+       */
+      readonly bundle_id?: string;
+      /**
+       * @description Phone number type
+       * @enum {string}
+       */
+      readonly phone_number_type?:
+        | 'local'
+        | 'mobile'
+        | 'national'
+        | 'shared_cost'
+        | 'toll_free';
+      /**
+       * @description Country code of the phone number
+       * @example US
+       */
+      readonly country_code?: string;
     };
     /** @example {
      *       "id": "42587e44-3a3e-46de-9255-0c9a7a1d1ec7",
@@ -33882,28 +34860,16 @@ export interface components {
       phone_number_block_id: string;
     };
     PhoneNumberBlocksJobFailedOperation: {
-      /**
-       * Format: e164
-       * @description The phone number in e164 format.
-       */
+      /** @description The phone number in e164 format. */
       phone_number?: string;
-      /**
-       * Format: int64
-       * @description The phone number's ID
-       */
+      /** @description The phone number's ID */
       id?: string;
       errors?: components['schemas']['Error'][];
     };
     PhoneNumberBlocksJobSuccessfulOperation: {
-      /**
-       * Format: e164
-       * @description The phone number in e164 format.
-       */
+      /** @description The phone number in e164 format. */
       phone_number?: string;
-      /**
-       * Format: int64
-       * @description The phone number's ID
-       */
+      /** @description The phone number's ID */
       id?: string;
     };
     /** @example {
@@ -33953,7 +34919,7 @@ export interface components {
        * AssignmentStatus
        * @description The assignment status of the number.
        * @example ASSIGNED
-       * @enum {unknown}
+       * @enum {string}
        */
       assignmentStatus?:
         | 'FAILED_ASSIGNMENT'
@@ -33962,7 +34928,7 @@ export interface components {
         | 'PENDING_UNASSIGNMENT'
         | 'FAILED_UNASSIGNMENT';
       /** @description Extra info about a failure to assign/unassign a number. Relevant only if the assignmentStatus is either FAILED_ASSIGNMENT or FAILED_UNASSIGNMENT */
-      failureReasons?: unknown;
+      failureReasons?: string;
       /**
        * Createdat
        * @example 2021-03-08T17:57:48.801186
@@ -34074,10 +35040,7 @@ export interface components {
       billing_group_id?: string;
       /** @description Indicates whether emergency services are enabled for this number. */
       readonly emergency_enabled?: boolean;
-      /**
-       * Format: int64
-       * @description Identifies the emergency address associated with the phone number.
-       */
+      /** @description Identifies the emergency address associated with the phone number. */
       readonly emergency_address_id?: string;
       /**
        * @description Indicates if call forwarding will be enabled for this number if forwards_to and forwarding_type are filled in. Defaults to true for backwards compatibility with APIV1 use of numbers endpoints.
@@ -34199,10 +35162,7 @@ export interface components {
       billing_group_id?: string;
       /** @description Indicates whether emergency services are enabled for this number. */
       readonly emergency_enabled?: boolean;
-      /**
-       * Format: int64
-       * @description Identifies the emergency address associated with the phone number.
-       */
+      /** @description Identifies the emergency address associated with the phone number. */
       readonly emergency_address_id?: string;
       /**
        * @description Indicates the status of the provisioning of emergency services for the phone number. This field contains information about activity that may be ongoing for a number where it either is being provisioned or deprovisioned but is not yet enabled/disabled.
@@ -34265,16 +35225,35 @@ export interface components {
     PhoneNumberEnableEmergencyRequest: {
       /** @description Indicates whether to enable emergency services on this number. */
       emergency_enabled: boolean;
-      /**
-       * Format: int64
-       * @description Identifies the address to be used with emergency services.
-       */
+      /** @description Identifies the address to be used with emergency services. */
       emergency_address_id: string;
     };
     /** PhoneNumberStatusResponsePaginated */
     PhoneNumberStatusResponsePaginated: {
       /** Records */
       records: components['schemas']['ProfileAssignmentPhoneNumbers'][];
+    };
+    PhoneNumberVerifyOwnershipRequest: {
+      /** @description Array of phone numbers to verify ownership for */
+      phone_numbers: string[];
+    };
+    PhoneNumberVerifyOwnershipResponse: {
+      /** @description The list of phone numbers which you own and are in an editable state */
+      found?: {
+        /**
+         * @description The phone number in E.164 format
+         * @example +15551234567
+         */
+        number_val_e164?: string;
+        id?: components['schemas']['IntId'];
+      }[];
+      /** @description Phone numbers that are not found in the account */
+      not_found?: string[];
+      /**
+       * @description Identifies the type of the resource.
+       * @example number_ownership_verification
+       */
+      readonly record_type?: string;
     };
     /** @example {
      *       "record_type": "messaging_settings",
@@ -34456,6 +35435,11 @@ export interface components {
        */
       inbound_call_screening: 'disabled' | 'reject_calls' | 'flag_calls';
     };
+    PhoneNumbersBulkUpdateError: {
+      /** @description The phone number in e164 format. */
+      phone_number?: string;
+      errors?: components['schemas']['Error'][];
+    };
     /** @example {
      *       "id": "42587e44-3a3e-46de-9255-0c9a7a1d1ec7",
      *       "record_type": "phone_numbers_job",
@@ -34567,53 +35551,31 @@ export interface components {
       phone_numbers: string[];
     };
     PhoneNumbersJobFailedOperation: {
-      /**
-       * Format: e164
-       * @description The phone number in e164 format.
-       */
+      /** @description The phone number in e164 format. */
       phone_number?: string;
-      /**
-       * Format: int64
-       * @description The phone number's ID
-       */
+      /** @description The phone number's ID */
       id?: string;
       errors?: components['schemas']['Error'][];
     };
     PhoneNumbersJobPendingOperation: {
-      /**
-       * Format: e164
-       * @description The phone number in e164 format.
-       */
+      /** @description The phone number in e164 format. */
       phone_number?: string;
-      /**
-       * Format: int64
-       * @description The phone number's ID
-       */
+      /** @description The phone number's ID */
       id?: string;
     };
     PhoneNumbersJobPhoneNumber: {
       /**
-       * Format: e164
        * @description The phone number in e164 format.
        * @example +19705555000
        */
       phone_number?: string;
-      /**
-       * Format: int64
-       * @description The phone number's ID
-       */
+      /** @description The phone number's ID */
       id?: string;
     };
     PhoneNumbersJobSuccessfulOperation: {
-      /**
-       * Format: e164
-       * @description The phone number in e164 format.
-       */
+      /** @description The phone number in e164 format. */
       phone_number?: string;
-      /**
-       * Format: int64
-       * @description The phone number's ID
-       */
+      /** @description The phone number's ID */
       id?: string;
     };
     /** @example {
@@ -34629,10 +35591,7 @@ export interface components {
       phone_numbers: string[];
       /** @description Indicates whether to enable or disable emergency services on the numbers. */
       emergency_enabled: boolean;
-      /**
-       * Format: int64
-       * @description Identifies the address to be used with emergency services. Required if emergency_enabled is true, must be null or omitted if emergency_enabled is false.
-       */
+      /** @description Identifies the address to be used with emergency services. Required if emergency_enabled is true, must be null or omitted if emergency_enabled is false. */
       emergency_address_id?: string | null;
     };
     /** @example {
@@ -34936,6 +35895,62 @@ export interface components {
      * @enum {string}
      */
     PortabilityStatus: 'pending' | 'confirmed' | 'provisional';
+    PortingActionRequirement: {
+      /**
+       * @description Identifies the action requirement
+       * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+       */
+      id?: string;
+      /**
+       * @description Identifies the type of the resource
+       * @example porting_action_requirement
+       * @enum {string}
+       */
+      record_type?: 'porting_action_requirement';
+      /**
+       * @description The ID of the porting order this action requirement belongs to
+       * @example 12ade33a-21c0-473b-b055-b3c836e1c292
+       */
+      porting_order_id?: string;
+      /**
+       * @description The ID of the requirement type
+       * @example 53970723-fbff-4f46-a975-f62be6c1a585
+       */
+      requirement_type_id?: string;
+      /**
+       * @description The type of action required
+       * @example document_upload
+       */
+      action_type?: string;
+      /**
+       * @description Optional URL for the action
+       * @example https://example.com/action
+       */
+      action_url?: string | null;
+      /**
+       * @description Current status of the action requirement
+       * @example created
+       * @enum {string}
+       */
+      status?: 'created' | 'pending' | 'completed' | 'cancelled' | 'failed';
+      /**
+       * @description Reason for cancellation if status is 'cancelled'
+       * @example null
+       */
+      cancel_reason?: string | null;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date-time indicating when the resource was created
+       * @example 2018-02-02T22:25:27.521Z
+       */
+      created_at?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date-time indicating when the resource was updated
+       * @example 2018-02-02T22:25:27.521Z
+       */
+      updated_at?: string;
+    };
     PortingAdditionalDocument: {
       /**
        * Format: uuid
@@ -34988,6 +36003,73 @@ export interface components {
        * @example 2021-03-19T10:07:15.527000Z
        */
       updated_at?: string;
+    };
+    PortingAssociatedPhoneNumber: {
+      /**
+       * Format: uuid
+       * @description Uniquely identifies this associated phone number.
+       * @example f24151b6-3389-41d3-8747-7dd8c681e5e2
+       */
+      readonly id?: string;
+      /**
+       * Format: uuid
+       * @description Identifies the porting order associated with this phone number.
+       * @example a24151b6-3389-41d3-8747-7dd8c681e5e2
+       */
+      porting_order_id?: string;
+      /**
+       * @description Specifies the country code for this associated phone number. It is a two-letter ISO 3166-1 alpha-2 country code.
+       * @example GB
+       */
+      country_code?: string;
+      /**
+       * @description Specifies the phone number type for this associated phone number.
+       * @example local
+       * @enum {string}
+       */
+      phone_number_type?:
+        | 'landline'
+        | 'local'
+        | 'mobile'
+        | 'national'
+        | 'shared_cost'
+        | 'toll_free';
+      /** @description Specifies the phone number range for this associated phone number. */
+      phone_number_range?: {
+        /**
+         * @description Specifies the start of the phone number range for this associated phone number.
+         * @example +441234567890
+         */
+        start_at?: string;
+        /**
+         * @description Specifies the end of the phone number range for this associated phone number.
+         * @example +441234567899
+         */
+        end_at?: string;
+      };
+      /**
+       * @description Specifies the action to take with this phone number during partial porting.
+       * @example keep
+       * @enum {string}
+       */
+      action?: 'keep' | 'disconnect';
+      /**
+       * @description Identifies the type of the resource.
+       * @example porting_associated_phone_number
+       */
+      readonly record_type?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date indicating when the resource was created.
+       * @example 2021-03-19T10:07:15.527Z
+       */
+      readonly created_at?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date indicating when the resource was last updated.
+       * @example 2021-03-19T10:07:15.527Z
+       */
+      readonly updated_at?: string;
     };
     PortingEvent: {
       /**
@@ -35120,7 +36202,6 @@ export interface components {
       /** @description The contact information of the company. */
       contact?: {
         /**
-         * Format: email
          * @description The email address of the contact
          * @example testing@telnyx.com
          */
@@ -35241,6 +36322,11 @@ export interface components {
        */
       readonly record_type?: string;
       messaging?: components['schemas']['PortingOrderMessaging'];
+      /** @description For specific porting orders, we may require additional steps to be taken before submitting the porting order. */
+      additional_steps?: (
+        | 'associated_phone_numbers'
+        | 'phone_number_verification_codes'
+      )[];
     };
     PortingOrderActivationSettings: {
       /**
@@ -35481,7 +36567,9 @@ export interface components {
          *       "acceptable_values": []
          *     }
          */
-        acceptance_criteria?: Record<string, never>;
+        acceptance_criteria?: {
+          [key: string]: unknown;
+        };
         /**
          * @description A description of the requirement type
          * @example A copy of the latest phone bill from the current provider
@@ -35706,18 +36794,6 @@ export interface components {
        * @enum {string}
        */
       user_type?: 'admin' | 'user' | 'system';
-      /**
-       * Format: uuid
-       * @description The ID of the user who created this comment
-       * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
-       */
-      user_id?: string;
-      /**
-       * Format: email
-       * @description The email address of the user who created this comment
-       * @example user@example.com
-       */
-      user_email?: string;
       /**
        * @description Identifies the type of the resource.
        * @example porting_comment
@@ -36018,6 +37094,43 @@ export interface components {
        * @example porting_report
        */
       readonly record_type?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date indicating when the resource was created.
+       * @example 2021-03-19T10:07:15.527000Z
+       */
+      created_at?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted date indicating when the resource was updated.
+       * @example 2021-03-19T10:07:15.527000Z
+       */
+      updated_at?: string;
+    };
+    PortingUKCarrier: {
+      /**
+       * Format: uuid
+       * @description Identifies the UK carrier.
+       * @example 96dfa9e4-c753-4fd3-97cd-42d66f26cf0c
+       */
+      id?: string;
+      /**
+       * @description The CUPID of the carrier. This is a 3 digit number code that identifies the carrier in the UK.
+       * @example 895
+       */
+      cupid?: string;
+      /**
+       * @description The name of the carrier.
+       * @example Telnyx UK Limited
+       */
+      name?: string;
+      /** @description Alternative CUPIDs of the carrier. */
+      alternative_cupids?: string[];
+      /**
+       * @description Identifies the type of the resource.
+       * @example porting_uk_carrier
+       */
+      record_type?: string;
       /**
        * Format: date-time
        * @description ISO 8601 formatted date indicating when the resource was created.
@@ -36548,7 +37661,9 @@ export interface components {
        *       "client_email": "account@customer.org"
        *     }
        */
-      project_account_json_file: Record<string, never>;
+      project_account_json_file: {
+        [key: string]: unknown;
+      };
       /**
        * @description Alias to uniquely identify a credential
        * @example LucyCredential
@@ -36562,13 +37677,13 @@ export interface components {
       /** @example push_credential */
       readonly record_type: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room was created
        * @example 2021-03-26T17:51:59.588408Z
        */
       created_at: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room was updated.
        * @example 2021-03-26T17:51:59.588408Z
        */
@@ -36827,32 +37942,45 @@ export interface components {
       data?: components['schemas']['RCSAgent'][];
       meta?: components['schemas']['PaginationMeta'];
     };
+    RCSCapabilitiesBulk: {
+      data?: components['schemas']['RCSCapabilitiesInternal'][];
+    };
+    RCSCapabilitiesInternal: {
+      /**
+       * @description Identifies the type of the resource
+       * @example rcs.capabilities
+       * @enum {string}
+       */
+      record_type?: 'rcs.capabilities';
+      /**
+       * @description Phone number
+       * @example +13125551234
+       */
+      phone_number?: string;
+      /**
+       * @description RCS agent ID
+       * @example TestAgent
+       */
+      agent_id?: string;
+      /**
+       * @description RCS agent name
+       * @example Testing agent
+       */
+      agent_name?: string;
+      /** @description List of RCS capabilities */
+      features?: string[];
+    };
     RCSCapabilitiesSingle: {
-      data?: {
-        /**
-         * @description Identifies the type of the resource
-         * @example rcs.capabilities
-         * @enum {string}
-         */
-        record_type?: 'rcs.capabilities';
-        /**
-         * @description Phone number
-         * @example +13125551234
-         */
-        phone_number?: string;
-        /**
-         * @description RCS agent ID
-         * @example TestAgent
-         */
-        agent_id?: string;
-        /**
-         * @description RCS agent name
-         * @example Testing agent
-         */
-        agent_name?: string;
-        /** @description List of RCS capabilities */
-        features?: string[];
-      };
+      data?: components['schemas']['RCSCapabilitiesInternal'];
+    };
+    RCSCapabilityListRequest: {
+      /**
+       * @description RCS Agent ID
+       * @example TestAgent
+       */
+      agent_id: string;
+      /** @description List of phone numbers to check */
+      phone_numbers: string[];
     };
     RCSCardContent: {
       /**
@@ -37165,6 +38293,7 @@ export interface components {
       /** @description query string (Android only) */
       query?: string;
     };
+    ReadComment: components['schemas']['Comment'];
     Record: {
       /**
        * Format: uuid
@@ -37189,10 +38318,114 @@ export interface components {
       readonly updated_at?: string;
     };
     /**
-     * @description Identifies record type.
+     * @description Identifies the type of the resource.
+     * @example event
      * @enum {string}
      */
-    RecordType: 'custom_storage_credentials';
+    RecordType: 'event';
+    /**
+     * Recording Completed
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "video.room.recording.started",
+     *       "id": "6b61621f-62e0-4aad-ab11-9fd19e272e73",
+     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
+     *       "payload": {
+     *         "session_id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
+     *         "room_id": "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
+     *         "participant_id": "5ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
+     *         "recording_id": "1ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
+     *         "type": "audio",
+     *         "download_url": "https://www.example.com",
+     *         "duration_secs": 3660,
+     *         "size_mb": 5.6,
+     *         "codec": "opus"
+     *       }
+     *     }
+     */
+    RecordingCompleted: {
+      /**
+       * @description An identifier for the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example video.room.recording.completed
+       * @enum {string}
+       */
+      event_type?: 'video.room.recording.completed';
+      /**
+       * Format: uuid
+       * @description Uniquely identify the event.
+       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2018-02-02T22:25:27.521992Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * Format: uuid
+         * @description Session ID associated with the recording.
+         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+         */
+        session_id?: string;
+        /**
+         * Format: uuid
+         * @description Room ID associated with the recording.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        room_id?: string;
+        /**
+         * Format: uuid
+         * @description Participant ID associated with the recording.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        participant_id?: string;
+        /**
+         * Format: uuid
+         * @description Recording ID that identifies the recording.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        recording_id?: string;
+        /**
+         * @description Type of the recording.
+         * @example audio
+         * @enum {string}
+         */
+        type?: 'audio' | 'video';
+        /**
+         * Format: float
+         * @description Recording size in MB.
+         * @example 10.5
+         */
+        size_mb?: number;
+        /**
+         * @description Url to download the recording.
+         * @example https://www.example.com
+         */
+        download_url?: string;
+        /**
+         * @description Codec used for the recording.
+         * @example opus
+         */
+        codec?: string;
+        /**
+         * @description Recording duration in seconds.
+         * @example 67
+         */
+        duration_secs?: number;
+      };
+    };
+    /** Recording Completed Event */
+    RecordingCompletedEvent: {
+      data?: components['schemas']['RecordingCompleted'];
+    };
     /** RecordingResponse */
     RecordingResponse: {
       data?: components['schemas']['RecordingResponseData'];
@@ -37293,6 +38526,84 @@ export interface components {
       | 'Conference'
       | 'RecordVerb'
       | 'Trunking';
+    /**
+     * Recording Started
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "video.room.recording.started",
+     *       "id": "6b61621f-62e0-4aad-ab11-9fd19e272e73",
+     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
+     *       "payload": {
+     *         "session_id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
+     *         "room_id": "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
+     *         "participant_id": "5ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
+     *         "recording_id": "1ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
+     *         "type": "audio"
+     *       }
+     *     }
+     */
+    RecordingStarted: {
+      /**
+       * @description An identifier for the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example video.room.recording.started
+       * @enum {string}
+       */
+      event_type?: 'video.room.recording.started';
+      /**
+       * Format: uuid
+       * @description Uniquely identify the event.
+       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2018-02-02T22:25:27.521992Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * Format: uuid
+         * @description Session ID associated with the recording.
+         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+         */
+        session_id?: string;
+        /**
+         * Format: uuid
+         * @description Room ID associated with the recording.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        room_id?: string;
+        /**
+         * Format: uuid
+         * @description Participant ID associated with the recording.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        participant_id?: string;
+        /**
+         * Format: uuid
+         * @description Recording ID associated with the recording.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        recording_id?: string;
+        /**
+         * @description Type of the recording.
+         * @example audio
+         * @enum {string}
+         */
+        type?: 'audio' | 'video';
+      };
+    };
+    /** Recording Started Event */
+    RecordingStartedEvent: {
+      data?: components['schemas']['RecordingStarted'];
+    };
     /**
      * @description The changes to the recording's state that should generate a call to `RecoridngStatusCallback`. Can be: `in-progress`, `completed` and `absent`. Separate multiple values with a space. Defaults to `completed`.
      * @example in-progress completed absent
@@ -37416,10 +38727,7 @@ export interface components {
        * @example 600
        */
       token_ttl_secs: number;
-      /**
-       * Format: jwt
-       * @example eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ
-       */
+      /** @example eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ */
       refresh_token: string;
     };
     /** Region */
@@ -37701,10 +39009,7 @@ export interface components {
       readonly id?: string;
       /** @example reserved_phone_number */
       readonly record_type?: string;
-      /**
-       * Format: e164_phone_number
-       * @example +19705555098
-       */
+      /** @example +19705555098 */
       phone_number?: string;
       /**
        * @description The status of the phone number's reservation.
@@ -37713,38 +39018,35 @@ export interface components {
        */
       readonly status?: 'pending' | 'success' | 'failure';
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string denoting when the individual number reservation was created.
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string for when the the individual number reservation was updated.
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly updated_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string for when the individual number reservation is going to expire
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly expired_at?: string;
     };
-    /**
-     * Resource not found
-     * @example {
-     *       "errors": [
-     *         {
-     *           "detail": "Resource not found"
-     *         }
-     *       ]
-     *     }
-     */
-    ResourceNotFoundError: {
-      errors?: {
-        detail?: string;
-      }[];
+    ResourceNotFoundError: components['schemas']['GenericError'] & {
+      /** @example 10005 */
+      code?: string;
+      /** @example Resource not found */
+      title?: string;
+      /** @example The requested resource or URL could not be found. */
+      detail?: string;
+      meta?: {
+        /** @example https://developers.telnyx.com/docs/overview/errors/10005 */
+        url?: string;
+      };
     };
     /** Pause Recording Request */
     ResumeConferenceRecordingRequest: {
@@ -37836,13 +39138,13 @@ export interface components {
        */
       unique_name?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room was created.
        * @example 2021-03-26T17:51:59.588408Z
        */
       created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room was updated.
        * @example 2021-03-26T17:51:59.588408Z
        */
@@ -37861,13 +39163,13 @@ export interface components {
        */
       enable_recording: boolean;
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this room will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this room will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -37965,31 +39267,31 @@ export interface components {
        */
       format?: 'mp4';
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room composition was created.
        * @example 2021-03-26T17:51:59.588408Z
        */
       created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room composition was updated.
        * @example 2021-03-26T17:51:59.588408Z
        */
       updated_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room composition has ended.
        * @example 2021-03-26T17:51:59.588408Z
        */
       ended_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room composition has stated.
        * @example 2021-03-26T17:51:59.588408Z
        */
       started_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room composition has completed.
        * @example 2021-03-26T17:51:59.588408Z
        */
@@ -37999,13 +39301,13 @@ export interface components {
         [key: string]: components['schemas']['VideoRegion'];
       };
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this room composition will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this room composition will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -38048,19 +39350,19 @@ export interface components {
        */
       context?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the participant joined the session.
        * @example 2021-03-26T17:51:59.588408Z
        */
       joined_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the participant was updated.
        * @example 2021-03-26T17:51:59.588408Z
        */
       updated_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the participant left the session.
        * @example 2021-03-26T17:51:59.588408Z
        */
@@ -38145,31 +39447,31 @@ export interface components {
        */
       duration_secs?: number;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room recording was created.
        * @example 2021-03-26T17:51:59.588408Z
        */
       created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room recording was updated.
        * @example 2021-03-26T17:51:59.588408Z
        */
       updated_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room recording has ended.
        * @example 2021-03-26T17:51:59.588408Z
        */
       ended_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room recording has stated.
        * @example 2021-03-26T17:51:59.588408Z
        */
       started_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room recording has completed.
        * @example 2021-03-26T17:51:59.588408Z
        */
@@ -38206,19 +39508,19 @@ export interface components {
        */
       active?: boolean;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room session was created.
        * @example 2021-03-26T17:51:59.588408Z
        */
       created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room session was updated.
        * @example 2021-03-26T17:51:59.588408Z
        */
       updated_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description ISO 8601 timestamp when the room session has ended.
        * @example 2021-03-26T17:51:59.588408Z
        */
@@ -38296,17 +39598,13 @@ export interface components {
        */
       authorized_imeis?: string[];
       /**
-       * Format: int64
        * @description IMEI of the device where a given SIM card is currently being used.
        * @example 457032284023794
        */
       readonly current_imei?: string;
       /** @description The SIM card individual data limit configuration. */
       data_limit?: {
-        /**
-         * Format: decimal
-         * @example 2048.1
-         */
+        /** @example 2048.1 */
         amount?: string;
         /**
          * @example MB
@@ -38316,10 +39614,7 @@ export interface components {
       };
       /** @description The SIM card consumption so far in the current billing cycle. */
       readonly current_billing_period_consumed_data?: {
-        /**
-         * Format: decimal
-         * @example 2049.0
-         */
+        /** @example 2049.0 */
         amount?: string;
         /**
          * @default MB
@@ -38357,15 +39652,9 @@ export interface components {
       readonly ipv6?: string;
       /** @description Current physical location data of a given SIM card. Accuracy is given in meters. */
       readonly current_device_location?: {
-        /**
-         * Format: float
-         * @example 41.143
-         */
+        /** @example 41.143 */
         latitude?: string;
-        /**
-         * Format: float
-         * @example -8.605
-         */
+        /** @example -8.605 */
         longitude?: string;
         /** @example 1250 */
         accuracy?: number;
@@ -38464,7 +39753,9 @@ export interface components {
        * @description A JSON object representation of the action params.
        * @example {}
        */
-      readonly settings?: Record<string, never> | null;
+      readonly settings?: {
+        [key: string]: unknown;
+      } | null;
       created_at?: components['schemas']['CreatedAt'];
       updated_at?: components['schemas']['UpdatedAt'];
     };
@@ -38491,7 +39782,6 @@ export interface components {
       /** @example device_details */
       readonly record_type?: string;
       /**
-       * Format: int64
        * @description IMEI of the device where the SIM card is being used in.
        * @example 457032284023794
        */
@@ -38542,10 +39832,7 @@ export interface components {
       name?: string;
       /** @description Upper limit on the amount of data the SIM cards, within the group, can use. */
       data_limit?: {
-        /**
-         * Format: decimal
-         * @example 2048.1
-         */
+        /** @example 2048.1 */
         amount?: string;
         /** @example MB */
         unit?: string;
@@ -38558,6 +39845,13 @@ export interface components {
        * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
        */
       private_wireless_gateway_id: string;
+      /**
+       * Format: uuid
+       * @description The identification of the related Wireless Blocklist resource.
+       * @default null
+       * @example a13bc415-7966-43bf-90d4-63cc76275289
+       */
+      wireless_blocklist_id: string;
       /**
        * @description ISO 8601 formatted date-time indicating when the resource was created.
        * @example 2018-02-02T22:25:27.521Z
@@ -38593,7 +39887,11 @@ export interface components {
        * @example set_private_wireless_gateway
        * @enum {string}
        */
-      type?: 'set_private_wireless_gateway' | 'remove_private_wireless_gateway';
+      type?:
+        | 'set_private_wireless_gateway'
+        | 'remove_private_wireless_gateway'
+        | 'set_wireless_blocklist'
+        | 'remove_wireless_blocklist';
       /**
        * @example in-progress
        * @enum {string}
@@ -38628,10 +39926,7 @@ export interface components {
       name: string;
       /** @description Upper limit on the amount of data the SIM cards, within the group, can use. */
       data_limit?: {
-        /**
-         * Format: decimal
-         * @example 2048.1
-         */
+        /** @example 2048.1 */
         amount?: string;
         /** @example MB */
         unit?: string;
@@ -38646,10 +39941,7 @@ export interface components {
       name?: string;
       /** @description Upper limit on the amount of data the SIM cards, within the group, can use. */
       data_limit?: {
-        /**
-         * Format: decimal
-         * @example 2048.1
-         */
+        /** @example 2048.1 */
         amount?: string;
         /** @example MB */
         unit?: string;
@@ -38687,7 +39979,6 @@ export interface components {
          */
         amount?: string;
         /**
-         * Format: currency
          * @description Filter by ISO 4217 currency string.
          * @example USD
          */
@@ -38707,7 +39998,6 @@ export interface components {
        */
       readonly order_address?: {
         /**
-         * Format: int64
          * @description Uniquely identifies the address for the order.
          * @example 1293384261075731499
          */
@@ -38759,7 +40049,7 @@ export interface components {
         postal_code?: string;
       };
       /**
-       * Format: url
+       * Format: uri
        * @description The URL used to get tracking information about the order.
        * @example http://www.example.com/
        */
@@ -38796,7 +40086,6 @@ export interface components {
          */
         amount?: string;
         /**
-         * Format: currency
          * @description ISO 4217 currency string.
          * @example USD
          */
@@ -38809,7 +40098,6 @@ export interface components {
          */
         amount?: string;
         /**
-         * Format: currency
          * @description ISO 4217 currency string.
          * @example USD
          */
@@ -38822,7 +40110,6 @@ export interface components {
          */
         amount?: string;
         /**
-         * Format: currency
          * @description ISO 4217 currency string.
          * @example USD
          */
@@ -39164,10 +40451,7 @@ export interface components {
       name?: string;
       /** @description Upper limit on the amount of data the SIM cards, within the group, can use. */
       data_limit?: {
-        /**
-         * Format: decimal
-         * @example 2048.1
-         */
+        /** @example 2048.1 */
         amount?: string;
         /** @example MB */
         unit?: string;
@@ -39186,6 +40470,13 @@ export interface components {
        * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
        */
       private_wireless_gateway_id: string;
+      /**
+       * Format: uuid
+       * @description The identification of the related Wireless Blocklist resource.
+       * @default null
+       * @example 5aa584f6-14b1-41b2-8e01-1c04d1ee77c1
+       */
+      wireless_blocklist_id: string;
       /**
        * @description ISO 8601 formatted date-time indicating when the resource was created.
        * @example 2018-02-02T22:25:27.521Z
@@ -39337,6 +40628,23 @@ export interface components {
        */
       command_id?: string;
     };
+    ServiceDetail: {
+      /**
+       * @description Type of cost (MRC or OTC)
+       * @example MRC
+       */
+      cost_type: string;
+      /**
+       * @description Service name
+       * @example Local DIDs
+       */
+      name: string;
+      /**
+       * @description Cost per unit as decimal string
+       * @example 1.50
+       */
+      cost: string;
+    };
     /**
      * @description Indicates the coverage of the termination regions.
      * @default global
@@ -39344,6 +40652,132 @@ export interface components {
      * @enum {string}
      */
     ServicePlan: 'global';
+    /**
+     * Session Ended
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "video.room.session.ended",
+     *       "id": "6b61621f-62e0-4aad-ab11-9fd19e272e73",
+     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
+     *       "payload": {
+     *         "session_id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
+     *         "room_id": "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0",
+     *         "duration_secs": 235,
+     *         "ended_reason": "stale"
+     *       }
+     *     }
+     */
+    SessionEnded: {
+      /**
+       * @description An identifier for the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example video.room.session.ended
+       * @enum {string}
+       */
+      event_type?: 'video.room.session.ended';
+      /**
+       * Format: uuid
+       * @description Uniquely identify the event.
+       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2018-02-02T22:25:27.521992Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * Format: uuid
+         * @description Session ID that identifies the session that ended.
+         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+         */
+        session_id?: string;
+        /**
+         * Format: uuid
+         * @description Room ID that identifies the room where the session ended.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        room_id?: string;
+        /**
+         * @description The duration in seconds of the session
+         * @example 245
+         */
+        duration_secs?: number;
+        /**
+         * @description The reason why the session ended
+         * @example stale
+         */
+        ended_reason?: string;
+      };
+    };
+    /** Session Ended Event */
+    SessionEndedEvent: {
+      data?: components['schemas']['SessionEnded'];
+    };
+    /**
+     * Session Started
+     * @example {
+     *       "record_type": "event",
+     *       "event_type": "video.room.session.started",
+     *       "id": "6b61621f-62e0-4aad-ab11-9fd19e272e73",
+     *       "occurred_at": "2018-02-02T22:25:27.521992Z",
+     *       "payload": {
+     *         "session_id": "7b61621f-62e0-4aad-ab11-9fd19e272e73",
+     *         "room_id": "0ccc7b54-4df3-4bca-a65a-35a1ecc777f0"
+     *       }
+     *     }
+     */
+    SessionStarted: {
+      /**
+       * @description An identifier for the type of the resource.
+       * @example event
+       * @enum {string}
+       */
+      record_type?: 'event';
+      /**
+       * @description The type of event being delivered.
+       * @example video.room.session.started
+       * @enum {string}
+       */
+      event_type?: 'video.room.session.started';
+      /**
+       * Format: uuid
+       * @description Uniquely identify the event.
+       * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+       */
+      id?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime of when the event occurred.
+       * @example 2018-02-02T22:25:27.521992Z
+       */
+      occurred_at?: string;
+      payload?: {
+        /**
+         * Format: uuid
+         * @description Session ID that identifies the session that started.
+         * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+         */
+        session_id?: string;
+        /**
+         * Format: uuid
+         * @description Room ID that identifies the room where the session started.
+         * @example 0ccc7b54-4df3-4bca-a65a-35a1ecc777f0
+         */
+        room_id?: string;
+      };
+    };
+    /** Session Started Event */
+    SessionStartedEvent: {
+      data?: components['schemas']['SessionStarted'];
+    };
     /** SettingsDataErrorMessage */
     SettingsDataErrorMessage: {
       /** Message */
@@ -39460,10 +40894,7 @@ export interface components {
       readonly record_type?: string;
       /** @description Data usage threshold that will trigger the notification. */
       threshold?: {
-        /**
-         * Format: decimal
-         * @example 2048.1
-         */
+        /** @example 2048.1 */
         amount?: string;
         /**
          * @example MB
@@ -39485,7 +40916,6 @@ export interface components {
     /** SimCardOrderCreate */
     SimCardOrderCreate: {
       /**
-       * Format: int64
        * @description Uniquely identifies the address for the order.
        * @example 1293384261075731499
        */
@@ -39551,7 +40981,6 @@ export interface components {
        */
       data_unit?: string;
       /**
-       * Format: monetary_value
        * @description Currency amount per billing unit used to calculate the Telnyx billing cost
        * @example 0.06000
        */
@@ -39678,10 +41107,7 @@ export interface components {
       tags?: string[];
       /** @description The SIM card individual data limit configuration. */
       readonly data_limit?: {
-        /**
-         * Format: decimal
-         * @example 2048.0
-         */
+        /** @example 2048.0 */
         amount?: string;
         /**
          * @example MB
@@ -39691,10 +41117,7 @@ export interface components {
       };
       /** @description The SIM card consumption so far in the current billing cycle. */
       readonly current_billing_period_consumed_data?: {
-        /**
-         * Format: decimal
-         * @example 2049.0
-         */
+        /** @example 2049.0 */
         amount?: string;
         /**
          * @default MB
@@ -39956,10 +41379,7 @@ export interface components {
       billing_group_id?: string;
       /** @description Indicates whether emergency services are enabled for this number. */
       readonly emergency_enabled?: boolean;
-      /**
-       * Format: int64
-       * @description Identifies the emergency address associated with the phone number.
-       */
+      /** @description Identifies the emergency address associated with the phone number. */
       readonly emergency_address_id?: string;
       /**
        * @description Indicates the status of the provisioning of emergency services for the phone number. This field contains information about activity that may be ongoing for a number where it either is being provisioned or deprovisioned but is not yet enabled/disabled.
@@ -40112,7 +41532,10 @@ export interface components {
        */
       voice: string;
       /** @description The settings associated with the voice selected */
-      voice_settings?: components['schemas']['ElevenLabsVoiceSettings'];
+      voice_settings?:
+        | components['schemas']['ElevenLabsVoiceSettings']
+        | components['schemas']['TelnyxVoiceSettings']
+        | components['schemas']['AWSVoiceSettings'];
       /**
        * @description The language you want spoken. This parameter is ignored when a `Polly.*` voice is specified.
        * @example en-US
@@ -40455,7 +41878,7 @@ export interface components {
      * StockExchange
      * @description (Required for public company) stock exchange.
      * @example NASDAQ
-     * @enum {unknown}
+     * @enum {string}
      */
     StockExchange:
       | 'NONE'
@@ -40706,13 +42129,13 @@ export interface components {
        */
       readonly phone_numbers_count?: number;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string denoting when the number order was created.
        * @example 2018-01-01T00:00:00.000000Z
        */
       readonly created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description An ISO 8901 datetime string for when the number order was updated.
        * @example 2018-01-01T00:00:00.000000Z
        */
@@ -40937,6 +42360,38 @@ export interface components {
        */
       readonly updated_at?: string;
     };
+    /** @example {
+     *       "lines": [
+     *         {
+     *           "type": "comparative",
+     *           "name": "Local DIDs",
+     *           "alias": "local",
+     *           "new_this_month": {
+     *             "quantity": 10,
+     *             "mrc": "25.50",
+     *             "otc": "5.00"
+     *           },
+     *           "existing_this_month": {
+     *             "quantity": 8,
+     *             "mrc": "20.00"
+     *           }
+     *         },
+     *         {
+     *           "type": "simple",
+     *           "name": "Port Out",
+     *           "alias": "port_out",
+     *           "quantity": 100,
+     *           "amount": "15.75"
+     *         }
+     *       ],
+     *       "adjustments": [
+     *         {
+     *           "amount": "-10.00",
+     *           "description": "Credit for service outage",
+     *           "event_date": "2025-05-15"
+     *         }
+     *       ]
+     *     } */
     Summary: {
       /** @description List of charge summary lines */
       lines: components['schemas']['SummaryLine'][];
@@ -41231,7 +42686,6 @@ export interface components {
      */
     TelephonyCredential: {
       /**
-       * Format: string
        * @description Identifies the resource.
        * @example c215ade3-0d39-418e-94be-c5f780760199
        */
@@ -41329,6 +42783,8 @@ export interface components {
     TelephonySettings: {
       /** @description Default Texml App used for voice calls with your assistant. This will be created automatically on assistant creation. */
       default_texml_app_id?: string;
+      /** @description When enabled, allows users to interact with your AI assistant directly from your website without requiring authentication. This is required for FE widgets that work with assistants that have telephony enabled. */
+      supports_unauthenticated_web_calls?: boolean;
     };
     /**
      * TelnyxBrand
@@ -41522,14 +42978,14 @@ export interface components {
       /**
        * status
        * @description Status of the brand
-       * @enum {unknown}
+       * @enum {string}
        */
       status?: 'OK' | 'REGISTRATION_PENDING' | 'REGISTRATION_FAILED';
       /**
        * failureReasons
        * @description Failure reasons for brand
        */
-      failureReasons?: unknown;
+      failureReasons?: string;
     };
     TelnyxBrandWithCampaignsCount: components['schemas']['TelnyxBrand'] & {
       /**
@@ -41567,7 +43023,7 @@ export interface components {
        * @description Display or marketing name of the brand.
        * @example ABC Mobile
        */
-      brandDisplayName?: unknown;
+      brandDisplayName?: string;
       /**
        * Campaignid
        * @description Unique identifier for a campaign.
@@ -41772,18 +43228,18 @@ export interface components {
        * failureReasons
        * @description Failure reasons if campaign submission failed
        */
-      failureReasons?: unknown;
+      failureReasons?: string;
       /**
        * submissionStatus
        * @description Campaign submission status
-       * @enum {unknown}
+       * @enum {string}
        */
       submissionStatus?: 'CREATED' | 'FAILED' | 'PENDING';
       /**
        * campaignStatus
        * @description Campaign status
        * @example TCR_ACCEPTED
-       * @enum {unknown}
+       * @enum {string}
        */
       campaignStatus?:
         | 'TCR_PENDING'
@@ -41851,7 +43307,7 @@ export interface components {
        * @description Display or marketing name of the brand.
        * @example ABC Mobile
        */
-      brandDisplayName?: unknown;
+      brandDisplayName?: string;
       /**
        * Campaignid
        * @description Unique identifier for a campaign.
@@ -42056,18 +43512,18 @@ export interface components {
        * failureReasons
        * @description Failure reasons if campaign submission failed
        */
-      failureReasons?: unknown;
+      failureReasons?: string;
       /**
        * submissionStatus
        * @description Campaign submission status
-       * @enum {unknown}
+       * @enum {string}
        */
       submissionStatus?: 'CREATED' | 'FAILED' | 'PENDING';
       /**
        * campaignStatus
        * @description Campaign status
        * @example TCR_ACCEPTED
-       * @enum {unknown}
+       * @enum {string}
        */
       campaignStatus?:
         | 'TCR_PENDING'
@@ -42128,12 +43584,12 @@ export interface components {
        * @description Display or marketing name of the brand.
        * @example ABC Mobile
        */
-      brandDisplayName?: unknown;
+      brandDisplayName?: string;
       /**
        * campaignStatus
        * @description Campaign status
        * @example TCR_ACCEPTED
-       * @enum {unknown}
+       * @enum {string}
        */
       campaignStatus?:
         | 'TCR_PENDING'
@@ -42177,7 +43633,7 @@ export interface components {
        * failureReasons
        * @description Failure reasons if campaign submission failed
        */
-      failureReasons?: unknown;
+      failureReasons?: string;
       /**
        * Helpkeywords
        * @description Subscriber help keywords. Multiple keywords are comma separated without space.
@@ -42584,12 +44040,16 @@ export interface components {
        * Arguments
        * @description Key-value arguments to use for the webhook test
        */
-      arguments?: Record<string, never>;
+      arguments?: {
+        [key: string]: unknown;
+      };
       /**
        * Dynamic Variables
        * @description Key-value dynamic variables to use for the webhook test
        */
-      dynamic_variables?: Record<string, never>;
+      dynamic_variables?: {
+        [key: string]: unknown;
+      };
     };
     /**
      * TestWebhookToolResponse
@@ -42605,7 +44065,9 @@ export interface components {
       /** Response */
       response: string;
       /** Request */
-      request: Record<string, never>;
+      request: {
+        [key: string]: unknown;
+      };
     };
     /**
      * TestWebhookToolResponseData
@@ -42662,13 +44124,13 @@ export interface components {
       first_command_timeout?: components['schemas']['FirstCommandTimeout'];
       first_command_timeout_secs?: components['schemas']['FirstCommandTimeoutSecs'];
       /**
-       * Format: url
+       * Format: uri
        * @description URL to which Telnyx will deliver your XML Translator webhooks.
        * @example https://example.com
        */
       voice_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description URL to which Telnyx will deliver your XML Translator webhooks if we get an error response from your voice_url.
        * @default null
        * @example https://fallback.example.com
@@ -42682,7 +44144,7 @@ export interface components {
        */
       voice_method: 'get' | 'post';
       /**
-       * Format: url
+       * Format: uri
        * @description URL for Telnyx to send requests to containing information about call progress events.
        * @default null
        * @example https://example.com
@@ -43417,6 +44879,11 @@ export interface components {
     };
     /** Transcription engine A config */
     TranscriptionEngineAConfig: {
+      /**
+       * @description Engine identifier for Google transcription service (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      transcription_engine: 'A';
       language?: components['schemas']['GoogleTranscriptionLanguage'];
       /**
        * @description Whether to send also interim results. If set to false, only final results will be sent.
@@ -43493,14 +44960,14 @@ export interface components {
          */
         boost: number;
       }[];
-      /**
-       * @description discriminator enum property added by openapi-typescript
-       * @enum {string}
-       */
-      transcription_engine: 'A';
     };
     /** Transcription engine B config */
     TranscriptionEngineBConfig: {
+      /**
+       * @description Engine identifier for Telnyx transcription service (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      transcription_engine: 'B';
       language?: components['schemas']['TelnyxTranscriptionLanguage'];
       /**
        * @description The model to use for transcription.
@@ -43510,11 +44977,6 @@ export interface components {
       transcription_model:
         | 'openai/whisper-tiny'
         | 'openai/whisper-large-v3-turbo';
-      /**
-       * @description discriminator enum property added by openapi-typescript
-       * @enum {string}
-       */
-      transcription_engine: 'B';
     };
     /** Transcription Event */
     TranscriptionEvent: {
@@ -43929,11 +45391,11 @@ export interface components {
     UUID: string;
     UnauthorizedError: components['schemas']['GenericError'] & {
       /** @example 10009 */
-      code?: unknown;
+      code?: string;
       /** @example Authentication failed */
-      title?: unknown;
+      title?: string;
       /** @example The required authentication headers were either invalid or not included in the request. */
-      detail?: unknown;
+      detail?: string;
       meta?: {
         /** @example https://developers.telnyx.com/docs/overview/errors/10009 */
         url?: string;
@@ -43941,31 +45403,31 @@ export interface components {
     };
     UnexpectedError: components['schemas']['GenericError'] & {
       /** @example 10007 */
-      code?: unknown;
+      code?: string;
       /** @example Unexpected error */
-      title?: unknown;
+      title?: string;
       /** @example An unexpected error occurred. */
-      detail?: unknown;
+      detail?: string;
       meta?: {
         /** @example https://developers.telnyx.com/docs/overview/errors/10007 */
         url?: string;
       };
     };
-    UnprocessableEntityError: {
-      /** Format: int */
-      code: string;
-      title: string;
+    UnprocessableEntityError: components['schemas']['GenericError'] & {
+      /** @example 10002 */
+      code?: string;
+      /** @example Invalid phone number */
+      title?: string;
+      /** @example The phone number is invalid. */
       detail?: string;
       source?: {
-        /**
-         * Format: json-pointer
-         * @description JSON pointer (RFC6901) to the offending entity.
-         */
+        /** @example /phone_numbers */
         pointer?: string;
-        /** @description Indicates which query parameter caused the error. */
-        parameter?: string;
       };
-      meta?: Record<string, never>;
+      meta?: {
+        /** @example https://developers.telnyx.com/docs/overview/errors/10002 */
+        url?: string;
+      };
     };
     /** UnusedUserBundlesResponse */
     UnusedUserBundlesResponse: {
@@ -44008,7 +45470,9 @@ export interface components {
       /** @description If the dynamic_variables_webhook_url is set for the assistant, we will send a request at the start of the conversation. See our [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for more information. */
       dynamic_variables_webhook_url?: string;
       /** @description Map of dynamic variables and their default values */
-      dynamic_variables?: Record<string, never>;
+      dynamic_variables?: {
+        [key: string]: unknown;
+      };
     };
     UpdateAssistantRequestWithPromotion: components['schemas']['UpdateAssistantRequest'] & {
       /**
@@ -44527,26 +45991,40 @@ export interface components {
     /**
      * Update Conference Request
      * @example {
-     *       "Status": "completed"
+     *       "call_control_id": "v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg",
+     *       "command_id": "891510ac-f3e4-11e8-af5b-de00688a4901",
+     *       "supervisor_role": "whisper",
+     *       "whisper_call_control_ids": [
+     *         "v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ",
+     *         "v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw"
+     *       ]
      *     }
      */
     UpdateConferenceRequest: {
       /**
-       * @description The new status of the resource. Specifying `completed` will end the conference and hang up all participants.
-       * @example completed
+       * @description Unique identifier and token for controlling the call
+       * @example v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQczRrZvZakpWxBlpw48KyZQ==
        */
-      Status?: string;
+      call_control_id: string;
       /**
-       * @description The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-       * @example https://www.example.com/announce.xml
+       * @description Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same `command_id` as one that has already been executed.
+       * @example 891510ac-f3e4-11e8-af5b-de00688a4901
        */
-      AnnounceUrl?: string;
+      command_id?: string;
       /**
-       * @description The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.
-       * @example GET
+       * @description Sets the participant as a supervisor for the conference. A conference can have multiple supervisors. "barge" means the supervisor enters the conference as a normal participant. This is the same as "none". "monitor" means the supervisor is muted but can hear all participants. "whisper" means that only the specified "whisper_call_control_ids" can hear the supervisor. Defaults to "none".
+       * @example whisper
        * @enum {string}
        */
-      AnnounceMethod?: 'GET' | 'POST';
+      supervisor_role: 'barge' | 'monitor' | 'none' | 'whisper';
+      /**
+       * @description Array of unique call_control_ids the supervisor can whisper to. If none provided, the supervisor will join the conference as a monitoring participant only.
+       * @example [
+       *       "v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ",
+       *       "v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw"
+       *     ]
+       */
+      whisper_call_control_ids?: string[];
     };
     /** UpdateConversationRequest */
     UpdateConversationRequest: {
@@ -44650,13 +46128,13 @@ export interface components {
       ios_push_credential_id?: components['schemas']['ConnectionIosPushCredentialId'];
       android_push_credential_id?: components['schemas']['ConnectionAndroidPushCredentialId'];
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -44707,13 +46185,13 @@ export interface components {
     UpdateExternalConnectionRequest: {
       active?: components['schemas']['ConnectionActive'];
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -44741,14 +46219,14 @@ export interface components {
          */
         channel_limit: number;
       };
-      outbound?: {
+      outbound: {
         /**
          * @description When set, this will limit the number of concurrent outbound calls to phone numbers associated with this connection.
          * @default null
          * @example 10
          */
         channel_limit: number;
-        outbound_voice_profile_id?: components['schemas']['OutboundVoiceProfileId'];
+        outbound_voice_profile_id: components['schemas']['OutboundVoiceProfileId'];
       };
     };
     /**
@@ -45034,13 +46512,13 @@ export interface components {
       ios_push_credential_id?: components['schemas']['ConnectionIosPushCredentialId'];
       android_push_credential_id?: components['schemas']['ConnectionAndroidPushCredentialId'];
       /**
-       * Format: url
+       * Format: uri
        * @description The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.
        * @example https://example.com
        */
       webhook_event_url?: string;
       /**
-       * Format: url
+       * Format: uri
        * @description The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
        * @default
        * @example https://failover.example.com
@@ -45246,6 +46724,50 @@ export interface components {
        * @default false
        */
       mms_transcoding: boolean;
+    };
+    /** @example {
+     *       "id": "387d1e31-a218-4375-8151-103f2d5e2d2c",
+     *       "record_type": "number_order_document",
+     *       "file_id": "1e3c5822-0362-4702-8e46-5a129f0d3976",
+     *       "requirements_id": "36aaf27d-986b-493c-bd1b-de16af2e4292",
+     *       "customer_reference": "MY REF 001",
+     *       "requirement_type": "address_proof",
+     *       "created_at": "2018-01-01T00:00:00.000000Z"
+     *     } */
+    UpdateNumberOrderDocumentRequest: {
+      /**
+       * Format: uuid
+       * @example 387d1e31-a218-4375-8151-103f2d5e2d2c
+       */
+      readonly id?: string;
+      /** @example number_order_document */
+      readonly record_type?: string;
+      /**
+       * @description The id of the file to associate as a number order document.
+       * @example 1e3c5822-0362-4702-8e46-5a129f0d3976
+       */
+      file_id?: string;
+      /**
+       * @description Unique id for a requirement.
+       * @example 36aaf27d-986b-493c-bd1b-de16af2e4292
+       */
+      requirements_id?: string;
+      /**
+       * @description A customer reference string for customer look ups.
+       * @example MY REF 001
+       */
+      customer_reference?: string;
+      /** @enum {string} */
+      readonly requirement_type?:
+        | 'address_proof'
+        | 'identification'
+        | 'reg_form';
+      /**
+       * Format: date-time
+       * @description An ISO 8901 datetime string denoting when the number order document was uploaded.
+       * @example 2018-01-01T00:00:00.000000Z
+       */
+      readonly created_at?: string;
     };
     UpdateNumberOrderPhoneNumberRequest: {
       regulatory_requirements?: components['schemas']['UpdateRegulatoryRequirement'][];
@@ -45573,13 +47095,13 @@ export interface components {
       first_command_timeout?: components['schemas']['FirstCommandTimeout'];
       first_command_timeout_secs?: components['schemas']['FirstCommandTimeoutSecs'];
       /**
-       * Format: url
+       * Format: uri
        * @description URL to which Telnyx will deliver your XML Translator webhooks.
        * @example https://example.com
        */
       voice_url: string;
       /**
-       * Format: url
+       * Format: uri
        * @description URL to which Telnyx will deliver your XML Translator webhooks if we get an error response from your voice_url.
        * @default null
        * @example https://fallback.example.com
@@ -45593,7 +47115,7 @@ export interface components {
        */
       voice_method: 'get' | 'post';
       /**
-       * Format: url
+       * Format: uri
        * @description URL for Telnyx to send requests to containing information about call progress events.
        * @default null
        * @example https://example.com
@@ -45742,9 +47264,8 @@ export interface components {
       default_verification_timeout_secs: number;
     };
     /**
-     * Updated At
-     * @description ISO 8601 formatted date indicating when the resource was updated.
-     * @example 2020-02-03T22:25:27.521Z
+     * @description ISO 8601 formatted date-time indicating when the resource was updated.
+     * @example 2018-02-02T22:25:27.521Z
      */
     UpdatedAt: string;
     UplinkData: {
@@ -45971,7 +47492,9 @@ export interface components {
        *         "direction": "outbound"
        *       }
        *     ] */
-      data?: Record<string, never>[];
+      data?: {
+        [key: string]: unknown;
+      }[];
     };
     /**
      * UseCaseCategories
@@ -46043,7 +47566,9 @@ export interface components {
        * Mnometadata
        * @description Map of usecase metadata for each MNO. Key is the network ID of the MNO (e.g. 10017), Value is the mno metadata for the usecase.
        */
-      mnoMetadata?: Record<string, never>;
+      mnoMetadata?: {
+        [key: string]: unknown;
+      };
       /**
        * Monthlyfee
        * @description Campaign monthly subscription fee
@@ -46123,7 +47648,6 @@ export interface components {
      *     } */
     UserBalance: {
       /**
-       * Format: decimal
        * @description The account’s pending amount.
        * @example 10.00
        */
@@ -46135,25 +47659,21 @@ export interface components {
        */
       record_type?: 'balance';
       /**
-       * Format: decimal
        * @description The account's current balance.
        * @example 300.00
        */
       balance?: string;
       /**
-       * Format: decimal
        * @description The account's credit limit.
        * @example 100.00
        */
       credit_limit?: string;
       /**
-       * Format: decimal
        * @description Available amount to spend (balance + credit limit)
        * @example 400.00
        */
       available_credit?: string;
       /**
-       * Format: iso4217
        * @description The ISO 4217 currency identifier.
        * @example USD
        */
@@ -46771,12 +48291,12 @@ export interface components {
        */
       verify_channel_id?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @example 2021-07-08T00:00:41.000000+00:00
        */
       created_at?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @example 2021-07-08T00:00:41.000000+00:00
        */
       updated_at?: string;
@@ -46990,7 +48510,7 @@ export interface components {
      * Vertical
      * @description Vertical or industry segment of the brand or campaign.
      * @example TECHNOLOGY
-     * @enum {unknown}
+     * @enum {string}
      */
     Vertical:
       | 'REAL_ESTATE'
@@ -47091,13 +48611,11 @@ export interface components {
          */
         primary_cloud_account_id?: string;
         /**
-         * Format: ipv4
          * @description The IP address assigned to the Telnyx side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.
          * @example 169.254.0.1
          */
         primary_telnyx_ip?: string;
         /**
-         * Format: ipv4
          * @description The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.
          * @example 169.254.0.2
          */
@@ -47118,13 +48636,11 @@ export interface components {
          */
         secondary_cloud_account_id?: string;
         /**
-         * Format: ipv4
          * @description The IP address assigned to the Telnyx side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.
          * @example 169.254.0.3
          */
         secondary_telnyx_ip?: string;
         /**
-         * Format: ipv4
          * @description The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value should be null for GCE as Google will only inform you of your assigned IP once the connection has been accepted.
          * @example 169.254.0.4
          */
@@ -47182,7 +48698,6 @@ export interface components {
        */
       primary_routing_announcement?: boolean;
       /**
-       * Format: ipv4
        * @description The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value can not be patched once the VXC has bene provisioned.
        * @example 169.254.0.2
        */
@@ -47198,7 +48713,6 @@ export interface components {
        */
       secondary_routing_announcement?: boolean;
       /**
-       * Format: ipv4
        * @description The IP address assigned for your side of the Virtual Cross Connect.<br /><br />If none is provided, one will be generated for you.<br /><br />This value can not be patched once the VXC has bene provisioned.
        * @example 169.254.0.4
        */
@@ -47340,7 +48854,7 @@ export interface components {
     WebhookApiVersion: '1' | '2';
     /**
      * Webhook Event Failover URL
-     * Format: url
+     * Format: uri
      * @description The failover URL where webhooks related to this connection will be sent if sending to the primary URL fails. Must include a scheme, such as 'https'.
      * @default
      * @example https://failover.example.com
@@ -47348,7 +48862,7 @@ export interface components {
     WebhookEventFailoverUrl: string | null;
     /**
      * Webhook Event URL
-     * Format: url
+     * Format: uri
      * @description The URL where webhooks related to this connection will be sent. Must include a scheme, such as 'https'.
      * @example https://example.com
      */
@@ -47693,7 +49207,9 @@ export interface components {
        */
       body_parameters?: {
         /** @description The properties of the body parameters. */
-        properties?: Record<string, never>;
+        properties?: {
+          [key: string]: unknown;
+        };
         /** @description The required properties of the body parameters. */
         required?: string[];
         /** @enum {string} */
@@ -47716,7 +49232,9 @@ export interface components {
        */
       path_parameters?: {
         /** @description The properties of the path parameters. */
-        properties?: Record<string, never>;
+        properties?: {
+          [key: string]: unknown;
+        };
         /** @description The required properties of the path parameters. */
         required?: string[];
         /** @enum {string} */
@@ -47739,7 +49257,9 @@ export interface components {
        */
       query_parameters?: {
         /** @description The properties of the query parameters. */
-        properties?: Record<string, never>;
+        properties?: {
+          [key: string]: unknown;
+        };
         /** @description The required properties of the query parameters. */
         required?: string[];
         /** @enum {string} */
@@ -47807,6 +49327,51 @@ export interface components {
        * @example qF4EqlZq+5JL2IKYY8ij49daYyfKVhevJrcDxdqC8GU=
        */
       public_key?: string;
+    };
+    WirelessBlocklist: {
+      /**
+       * Format: uuid
+       * @description Identifies the resource.
+       * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+       */
+      readonly id?: string;
+      /** @example wireless_blocklist */
+      readonly record_type?: string;
+      /**
+       * @description ISO 8601 formatted date-time indicating when the resource was created.
+       * @example 2018-02-02T22:25:27.521Z
+       */
+      readonly created_at?: string;
+      /**
+       * @description ISO 8601 formatted date-time indicating when the resource was updated.
+       * @example 2018-02-02T22:25:27.521Z
+       */
+      readonly updated_at?: string;
+      /**
+       * @description The wireless blocklist name.
+       * @example My wireless blocklist.
+       */
+      name?: string;
+      /**
+       * @description The type of the wireless blocklist.
+       * @default country
+       * @example country
+       * @enum {string}
+       */
+      type: 'country' | 'mcc' | 'plmn';
+      /**
+       * @description Values to block. The values here depend on the `type` of Wireless Blocklist.
+       * @example [
+       *       "CA",
+       *       "MX",
+       *       "US"
+       *     ]
+       */
+      values?: (
+        | components['schemas']['CountryCode']
+        | components['schemas']['MobileCountryCode']
+        | components['schemas']['PLMNCode']
+      )[];
     };
     /**
      * WirelessConnectivityLog
@@ -48794,6 +50359,53 @@ export interface components {
         };
       };
     };
+    /** @description An Advanced Order Response */
+    AdvancedOrderResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          /**
+           * Country Code
+           * @default US
+           */
+          country_code: string;
+          /**
+           * Comments
+           * @default
+           */
+          comments: string;
+          /**
+           * Quantity
+           * @default 1
+           */
+          quantity: number;
+          /**
+           * Area Code
+           * @default
+           */
+          area_code: string;
+          /** @default  */
+          phone_number_type: unknown;
+          /** Features */
+          features?: ('sms' | 'mms' | 'voice' | 'fax' | 'emergency')[];
+          /**
+           * Customer Reference
+           * @default
+           */
+          customer_reference: string;
+          /**
+           * Id
+           * Format: uuid
+           */
+          id?: string;
+          status?: unknown;
+          /** Orders */
+          orders?: string[];
+        };
+      };
+    };
     /** @description A list of audit log entries. */
     AuditLogListResponse: {
       headers: {
@@ -48893,6 +50505,17 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['BulkSIMCardAction'];
+        };
+      };
+    };
+    /** @description Successful response */
+    BulkUploadDocServiceDocumentsResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['DocServiceDocument'][];
         };
       };
     };
@@ -49139,24 +50762,18 @@ export interface components {
            *       "refresh_token_expires_at": "2021-04-22T12:15:05Z"
            *     } */
           data?: {
-            /**
-             * Format: jwt
-             * @example eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ
-             */
+            /** @example eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ */
             token?: string;
             /**
-             * Format: datetime
+             * Format: date-time
              * @description ISO 8601 timestamp when the token expires.
              * @example 2021-03-26T17:51:59Z
              */
             token_expires_at?: string;
-            /**
-             * Format: jwt
-             * @example eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ
-             */
+            /** @example eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ */
             refresh_token?: string;
             /**
-             * Format: datetime
+             * Format: date-time
              * @description ISO 8601 timestamp when the refresh token expires.
              * @example 2021-03-26T17:51:59Z
              */
@@ -49239,6 +50856,17 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['WdrReport'];
+        };
+      };
+    };
+    /** @description Successful Response */
+    CreateWirelessBlocklistResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['WirelessBlocklist'];
         };
       };
     };
@@ -49351,6 +50979,17 @@ export interface components {
         };
       };
     };
+    /** @description Successful Response */
+    DeleteWirelessBlocklistResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['WirelessBlocklist'];
+        };
+      };
+    };
     /** @description Successful response upon initiating a TeXML call. */
     DeprecatedInitiateCallResponse: {
       headers: {
@@ -49378,6 +51017,60 @@ export interface components {
       };
       content: {
         'application/json': components['schemas']['DialogflowConnectionResponse'];
+      };
+    };
+    /** @description Successful response */
+    DocReqsListRequirementTypesResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['DocReqsRequirementTypeList'];
+          meta?: components['schemas']['PaginationMeta'];
+        };
+      };
+    };
+    /** @description Successful response */
+    DocReqsRequirementResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['DocReqsRequirement'];
+        };
+      };
+    };
+    /** @description Successful response */
+    DocReqsRequirementTypeResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['DocReqsRequirementType'];
+        };
+      };
+    };
+    /** @description Successful response */
+    DocServiceDocumentResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['DocServiceDocument'];
+        };
+      };
+    };
+    /** @description Successful response */
+    DownloadDocServiceDocumentResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        '*': string;
       };
     };
     /** @description Successful response */
@@ -49453,12 +51146,14 @@ export interface components {
         };
       };
     };
-    /** @description Unauthorized response. Happens when the current user is not authorized to access the endpoint. */
+    /** @description Forbidden */
     ForbiddenResponse: {
       headers: {
         [name: string]: unknown;
       };
-      content?: never;
+      content: {
+        'application/json': components['schemas']['Errors'];
+      };
     };
     /** @description Successful response with details about an FQDN connection. */
     FqdnConnectionResponse: {
@@ -49606,6 +51301,18 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['UserAddress'][];
+          meta?: components['schemas']['PaginationMeta'];
+        };
+      };
+    };
+    /** @description Successful Response */
+    GetAllWirelessBlocklistsResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['WirelessBlocklist'][];
           meta?: components['schemas']['PaginationMeta'];
         };
       };
@@ -49945,6 +51652,17 @@ export interface components {
         };
       };
     };
+    /** @description Successful Response */
+    GetWirelessBlocklistResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['WirelessBlocklist'];
+        };
+      };
+    };
     /** @description Successful response */
     GlobalIpAllowedPortListResponse: {
       headers: {
@@ -50145,6 +51863,17 @@ export interface components {
         };
       };
     };
+    /** @description An array of Advanced Order Responses */
+    ListAdvancedOrderResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['responses']['AdvancedOrderResponse'][];
+        };
+      };
+    };
     /** @description Successful response */
     ListAllowedFocWindows: {
       headers: {
@@ -50272,6 +52001,30 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['CustomerServiceRecord'][];
+          meta?: components['schemas']['PaginationMeta'];
+        };
+      };
+    };
+    /** @description Successful response */
+    ListDocServiceDocumentLinksResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['DocServiceDocumentLink'][];
+          meta?: components['schemas']['PaginationMeta'];
+        };
+      };
+    };
+    /** @description Successful response */
+    ListDocServiceDocumentsResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['DocServiceDocument'][];
           meta?: components['schemas']['PaginationMeta'];
         };
       };
@@ -50483,6 +52236,18 @@ export interface components {
         };
       };
     };
+    /** @description Successful response with a list of number order documents. */
+    ListNumberOrderDocumentsResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['NumberOrderDocument'][];
+          meta?: components['schemas']['PaginationMeta'];
+        };
+      };
+    };
     /** @description Successful response with a list of number order phone numbers. */
     ListNumberOrderPhoneNumbersResponse: {
       headers: {
@@ -50604,6 +52369,18 @@ export interface components {
       };
     };
     /** @description Successful response */
+    ListPortingActionRequirements: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['PortingActionRequirement'][];
+          meta?: components['schemas']['PaginationMeta'];
+        };
+      };
+    };
+    /** @description Successful response */
     ListPortingAdditionalDocuments: {
       headers: {
         [name: string]: unknown;
@@ -50611,6 +52388,18 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['PortingAdditionalDocument'][];
+          meta?: components['schemas']['PaginationMeta'];
+        };
+      };
+    };
+    /** @description Successful response */
+    ListPortingAssociatedPhoneNumbers: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['PortingAssociatedPhoneNumber'][];
           meta?: components['schemas']['PaginationMeta'];
         };
       };
@@ -50760,6 +52549,17 @@ export interface components {
       };
     };
     /** @description Successful response */
+    ListPortingUKCarriersResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['PortingUKCarrier'][];
+        };
+      };
+    };
+    /** @description Successful response */
     ListPortingVerificationCodes: {
       headers: {
         [name: string]: unknown;
@@ -50862,6 +52662,18 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['Release'][];
+          meta?: components['schemas']['PaginationMeta'];
+        };
+      };
+    };
+    /** @description Successful response */
+    ListRequirementsResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['DocReqsRequirementList'];
           meta?: components['schemas']['PaginationMeta'];
         };
       };
@@ -51005,7 +52817,7 @@ export interface components {
         [name: string]: unknown;
       };
       content: {
-        '*/*': string;
+        'application/octet-stream': string;
       };
     };
     /** @description A response describing a media resource */
@@ -51119,14 +52931,12 @@ export interface components {
         'application/json': components['schemas']['Errors'];
       };
     };
-    /** @description Resource not found */
+    /** @description Fax does not exist */
     NotFoundResponse: {
       headers: {
         [name: string]: unknown;
       };
-      content: {
-        'application/json': components['schemas']['ResourceNotFoundError'];
-      };
+      content?: never;
     };
     /** @description The requested resource doesn't exist. */
     NotFoundResponseApp: {
@@ -51156,6 +52966,17 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['NumberLookupRecord'];
+        };
+      };
+    };
+    /** @description Successful response with details about a number order document. */
+    NumberOrderDocumentResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['NumberOrderDocument'];
         };
       };
     };
@@ -51372,7 +53193,7 @@ export interface components {
       };
       content: {
         'application/json': {
-          data?: components['schemas']['Comment'] & Record<string, never>;
+          data?: components['schemas']['ReadComment'] & Record<string, never>;
         };
       };
     };
@@ -51432,13 +53253,10 @@ export interface components {
            *       "token_expires_at": "2021-04-22T12:24:55Z"
            *     } */
           data?: {
-            /**
-             * Format: jwt
-             * @example eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ
-             */
+            /** @example eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ */
             token?: string;
             /**
-             * Format: datetime
+             * Format: date-time
              * @description ISO 8601 timestamp when the token expires.
              * @example 2021-03-26T17:51:59Z
              */
@@ -51743,6 +53561,28 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['CustomerServiceRecord'];
+        };
+      };
+    };
+    /** @description Successful response */
+    ShowPortingActionRequirement: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['PortingActionRequirement'];
+        };
+      };
+    };
+    /** @description Successful response */
+    ShowPortingAssociatedPhoneNumber: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['PortingAssociatedPhoneNumber'];
         };
       };
     };
@@ -52168,7 +54008,7 @@ export interface components {
         'application/json': components['schemas']['Errors'];
       };
     };
-    /** @description Unauthenticated response. Happens when the current user cannot be authenticated. */
+    /** @description Unauthorized */
     UnauthorizedResponse: {
       headers: {
         [name: string]: unknown;
@@ -52302,6 +54142,17 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['UpdateCommandResult'];
+        };
+      };
+    };
+    /** @description Successful response */
+    UpdateWirelessBlocklistResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': {
+          data?: components['schemas']['WirelessBlocklist'];
         };
       };
     };
@@ -52529,19 +54380,15 @@ export interface components {
     AccountSid: string;
     /** @description The ID of the TeXML application used for the call. */
     ApplicationId: string;
-    /** @description Filter by the associated record type */
-    AssociatedRecordType: 'account' | 'phone_number';
     /** @description Format: Bearer <TOKEN> */
     AuthorizationBearer: string;
-    BillingBundleId: string;
+    BundleId: string;
     /** @description Unique identifier and token for controlling the call */
     CallControlId: string;
     /** @description The CallSid that identifies the call to update. */
     CallSid: string;
     /** @description CallSid or Label of the Participant to update. */
     CallSidOrParticipantLabel: string;
-    /** @description Filter by the id of a channel type */
-    ChannelTypeId: 'webhook' | 'sms' | 'email' | 'voice';
     /** @description The ConferenceSid that uniquely identifies a conference. */
     ConferenceSid: string;
     /**
@@ -52549,12 +54396,8 @@ export interface components {
      * @example in-progress
      */
     ConferenceStatus: 'init' | 'in-progress' | 'completed';
-    /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+    /** @description Telnyx connection id */
     ConnectionId: string;
-    /** @description Filters records to those created after a specific date. */
-    CreatedAtGtFilter: string;
-    /** @description Filters records to those created before a specific date. */
-    CreatedAtLtFilter: string;
     /**
      * @description Filters conferences by the creation date. Expected format is YYYY-MM-DD. Also accepts inequality operators, e.g. DateCreated>=2023-05-22.
      * @example >=2023-05-22
@@ -52565,6 +54408,16 @@ export interface components {
      * @example >=2023-05-22
      */
     DateUpdated: string;
+    /**
+     * @description Uniquely identifies the requirement_type record
+     * @example a9dad8d5-fdbd-49d7-aa23-39bb08a5ebaa
+     */
+    DocReqsRequirementId: string;
+    /**
+     * @description Uniquely identifies the requirement_type record
+     * @example a38c217a-8019-48f8-bff6-0fdd9939075b
+     */
+    DocReqsRequirementTypeId: string;
     /**
      * @description Filters calls by their end date. Expected format is YYYY-MM-DD
      * @example 2023-05-22
@@ -52580,8 +54433,6 @@ export interface components {
      * @example 2023-05-22
      */
     EndTime_lt: string;
-    /** @description If present, only returns results with the <code>address_book</code> flag set to the given value. */
-    FilterAddressBook: string;
     /** @description Filter by state or province where the address is located. */
     FilterAddressByAdministrativeArea: string;
     /** @description Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country code. */
@@ -52596,180 +54447,536 @@ export interface components {
     FilterAddressByPostalCode: string;
     /** @description Returns entries with matching name of the street where the address is located. */
     FilterAddressByStreetAddress: string;
-    /** @description If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-    FilterApplicationName: string;
     /** @description Filter by a specific status of the resource's lifecycle. */
     FilterBasicStatusLifecycle: 'in-progress' | 'completed' | 'failed';
     /** @description Filter by a bulk SIM card action ID. */
     FilterBulkSIMCardActionId: string;
-    /** @description Filter results by phone number */
-    FilterByPhoneNumber: string;
-    /** @description Filter results by a list of phone numbers */
-    FilterByPhoneNumberIn: string[];
-    /** @description Filter results by portability status */
-    FilterByPortabilityStatus: components['schemas']['PortabilityStatus'];
-    /** @description Filter results by activation status */
-    FilterByPortingOrderActivationStatus: components['schemas']['PortingOrderActivationStatus'];
-    /** @description Filter results by porting order id */
-    FilterByPortingOrderID: string;
-    /** @description Filter results by a list of porting order ids */
-    FilterByPortingOrderIdIn: string[];
-    /** @description Filter results by status */
-    FilterByPortingOrderStatus:
-      | 'draft'
-      | 'in-process'
-      | 'submitted'
-      | 'exception'
-      | 'foc-date-confirmed'
-      | 'cancel-pending'
-      | 'ported'
-      | 'cancelled';
-    /** @description Filter porting orders by multiple statuses */
-    FilterByPortingOrderStatusIn:
-      | 'draft'
-      | 'in-process'
-      | 'submitted'
-      | 'exception'
-      | 'foc-date-confirmed'
-      | 'cancel-pending'
-      | 'ported'
-      | 'cancelled';
-    /** @description Filter results by support key */
-    FilterBySupportKeyEq: string;
-    /** @description Filter results by a list of support keys */
-    FilterBySupportKeyIn: string[];
-    /** @description Filter results by the TCR Brand id */
-    FilterByTCRBrandID: string;
-    /** @description Filter results by the TCR Campaign id */
-    FilterByTCRCampaignID: string;
-    /** @description Filter results by the Telnyx Brand id */
-    FilterByTelnyxBrandID: string;
-    /** @description Filter results by the Telnyx Campaign id */
-    FilterByTelnyxCampaignID: string;
-    /** @description Delivery failed or not. */
-    FilterCallEventFailed: boolean;
-    /** @description Event name */
-    FilterCallEventName: string;
-    /** @description Event occurred_at: equal */
-    FilterCallEventOccurredAtEqualTo: string;
-    /** @description Event occurred_at: greater than */
-    FilterCallEventOccurredAtGreaterThan: string;
-    /** @description Event occurred_at: greater than or equal */
-    FilterCallEventOccurredAtGreaterThanOrEqualTo: string;
-    /** @description Event occurred_at: lower than */
-    FilterCallEventOccurredAtLessThan: string;
-    /** @description Event occurred_at: lower than or equal */
-    FilterCallEventOccurredAtLessThanOrEqualTo: string;
-    /** @description Event type */
-    FilterCallEventType: 'command' | 'webhook';
-    /** @description The unique identifier of an individual call leg. */
-    FilterCallLegId: string;
-    /** @description The unique identifier of the call session. A session may include multiple call leg events. */
-    FilterCallSessionId: string;
-    /** @description The civic address ID to filter by */
-    FilterCivicAddressId: string;
-    /** @description If present, conferences will be filtered to those with a matching `name` attribute. Matching is case-sensitive */
-    FilterConferenceName: string;
-    /** @description If present, conferences will be filtered by status. */
-    FilterConferenceStatus: 'init' | 'in_progress' | 'completed';
-    /** @description The unique identifier of the conection. */
-    FilterConnectionId: string;
-    /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-    FilterConnectionName: string;
+    /** @description Filter parameter for civic addresses (deepObject style). Supports filtering by country. */
+    FilterCivicAddressesConsolidated: {
+      /**
+       * @description The country (or countries) to filter addresses by.
+       * @example [
+       *       "US",
+       *       "CA",
+       *       "MX",
+       *       "BR"
+       *     ]
+       */
+      country?: string[];
+    };
+    /** @description Filter parameter for external connections (deepObject style). Supports filtering by connection_name, external_sip_connection, id, created_at, and phone_number. */
+    FilterConnectionsConsolidated: {
+      connection_name?: {
+        /**
+         * @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
+         * @default null
+         * @example My Connection
+         */
+        contains?: string;
+      };
+      /**
+       * @description If present, connections with <code>external_sip_connection</code> matching the given value will be returned.
+       * @example zoom
+       * @enum {string}
+       */
+      external_sip_connection?: 'zoom' | 'operator_connect';
+      /**
+       * @description If present, connections with <code>id</code> matching the given value will be returned.
+       * @default null
+       * @example 1930241863466354012
+       */
+      id?: string;
+      /**
+       * @description If present, connections with <code>created_at</code> date matching the given YYYY-MM-DD date will be returned.
+       * @default null
+       * @example 2022-12-31
+       */
+      created_at?: string;
+      /** @description Phone number filter for connections. Note: Despite the 'contains' name, this requires a full E164 match per the original specification. */
+      phone_number?: {
+        /**
+         * @description If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format.
+         * @example +15555555555
+         */
+        contains?: string;
+      };
+    };
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+    FilterConsolidated: {
+      phone_number?: {
+        /**
+         * @description Filters records to those with a specified number.
+         * @example +12441239999
+         */
+        eq?: string;
+        /** @description Filters records to those with at least one number in the list. */
+        in?: string[];
+      };
+      status?: {
+        /**
+         * @description Filters records to those with a specific status.
+         * @example pending
+         * @enum {string}
+         */
+        eq?: 'pending' | 'completed' | 'failed';
+        /** @description Filters records to those with a least one status in the list. */
+        in?: ('pending' | 'completed' | 'failed')[];
+      };
+      created_at?: {
+        /**
+         * Format: date-time
+         * @description Filters records to those created before a specific date.
+         * @example 2020-01-01T00:00:00Z
+         */
+        lt?: string;
+        /**
+         * Format: date-time
+         * @description Filters records to those created after a specific date.
+         * @example 2020-01-01T00:00:00Z
+         */
+        gt?: string;
+      };
+    };
     /** @description The total monetary amount of the order. */
     FilterCostByAmount: string;
     /** @description Filter by ISO 4217 currency string. */
     FilterCostByCurrency: string;
-    /** @description The country (or countries) to filter addresses by. */
-    FilterCountry: string[];
-    /** @description Filter by country code. */
-    FilterCountryIso: string[];
-    /** @description Filter for audit events created after a specific date. */
-    FilterCreatedAfter: string;
     /** @description Filter by ISO 8601 formatted date-time string matching resource creation date-time. */
     FilterCreatedAt: string;
-    /** @description Filter for audit events created before a specific date. */
-    FilterCreatedBefore: string;
-    /** @description If present, addresses with <code>customer_reference</code> containing the given value will be returned. Matching is not case-sensitive. */
-    FilterCustomerReferenceContains: string;
-    /** @description Filter addresses via the customer reference set. Matching is not case-sensitive. */
-    FilterCustomerReferenceEquals: string;
-    /** @description If present, email containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-    FilterEmailContains: string;
-    /** @description If present, only returns results with the <code>email</code> matching exactly the value given. */
-    FilterEmailEq: string;
-    /** @description The external connection ID to filter by or "null" to filter for logs without an external connection ID */
-    FilterExternalConnectionId: string;
-    /** @description If present, connections with <code>external_sip_connection</code> matching the given value will be returned. */
-    FilterExternalSipConnection: 'zoom' | 'operator_connect';
-    /** @description If present, connections with an `fqdn` that equals the given value will be returned. Matching is case-sensitive, and the full string must match. */
-    FilterFqdn: string;
-    /** @description Filter by From number. */
-    FilterFrom: string;
-    /** @description If present, connections with <code>id</code> matching the given value will be returned. */
-    FilterId: string;
-    /** @description Identifies the associated outbound voice profile. */
-    FilterInnerOutboundVoiceProfileId: string;
-    /** @description The location ID to filter by */
-    FilterLocationId: string;
-    /** @description Filter by name */
-    FilterName: string;
-    /** @description If present, only returns results with the <code>organization_name</code> containing the given value. Matching is not case-sensitive. Requires at least three characters. */
-    FilterOrganizationEmailContains: string;
-    /** @description If present, only returns results with the <code>organization_name</code> matching exactly the value given. */
-    FilterOrganizationEmailEq: string;
-    /** @description Identifies the associated outbound voice profile. */
-    FilterOutboundVoiceProfileId: string;
-    /** @description If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. */
-    FilterPhoneNumber: string;
-    /** @description The partial phone number to filter by. Requires 3-15 digits. */
-    FilterPhoneNumberContains: string;
-    /** @description The phone number to filter by */
-    FilterPhoneNumberEq: string;
-    /** @description The partial phone number to filter log messages for. Requires 3-15 digits. */
-    FilterPhoneNumberLogMessageContains: string;
-    /** @description The phone number to filter log messages for or "null" to filter for logs without a phone number */
-    FilterPhoneNumberLogMessageEq: string;
-    /** @description Filter by product. */
-    FilterProduct: 'call_control' | 'fax' | 'texml';
+    /** @description Consolidated filter parameter for document links (deepObject style). Originally: filter[linked_record_type], filter[linked_resource_id] */
+    FilterDocumentLinksConsolidated: {
+      /**
+       * @description The linked_record_type of the document to filter on.
+       * @example porting_order
+       */
+      linked_record_type?: string;
+      /**
+       * Format: uuid
+       * @description The linked_resource_id of the document to filter on.
+       * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+       */
+      linked_resource_id?: string;
+    };
+    /** @description Consolidated filter parameter for documents (deepObject style). Originally: filter[filename][contains], filter[customer_reference][eq], filter[customer_reference][in][], filter[created_at][gt], filter[created_at][lt] */
+    FilterDocumentsConsolidated: {
+      filename?: {
+        /**
+         * @description Filter by string matching part of filename.
+         * @example invoice
+         */
+        contains?: string;
+      };
+      customer_reference?: {
+        /**
+         * @description Filter documents by a customer reference.
+         * @example MY REF 001
+         */
+        eq?: string;
+        /**
+         * @description Filter documents by a list of customer references.
+         * @example [
+         *       "MY REF 001",
+         *       "MY REF 002"
+         *     ]
+         */
+        in?: string[];
+      };
+      created_at?: {
+        /**
+         * Format: date-time
+         * @description Filter by created at greater than provided value.
+         * @example 2021-04-09T22:25:27.521Z
+         */
+        gt?: string;
+        /**
+         * Format: date-time
+         * @description Filter by created at less than provided value.
+         * @example 2021-04-09T22:25:27.521Z
+         */
+        lt?: string;
+      };
+    };
+    /** @description Filter parameter for log messages (deepObject style). Supports filtering by external_connection_id and telephone_number with eq/contains operations. */
+    FilterLogMessagesConsolidated: {
+      /**
+       * @description The external connection ID to filter by or "null" to filter for logs without an external connection ID
+       * @example 67ea7693-9cd5-4a68-8c76-abb3aa5bf5d2
+       */
+      external_connection_id?: string;
+      /** @description Telephone number filter operations for log messages. Use 'eq' for exact matches or 'contains' for partial matches. */
+      telephone_number?: {
+        /**
+         * Format: E164
+         * @description The phone number to filter log messages for or "null" to filter for logs without a phone number
+         * @example +1234567890
+         */
+        eq?: string;
+        /**
+         * @description The partial phone number to filter log messages for. Requires 3-15 digits.
+         * @example +123
+         */
+        contains?: string;
+      };
+    };
+    /** @description Consolidated filter parameter for mobile network operators (deepObject style). Originally: filter[name][starts_with], filter[name][contains], filter[name][ends_with], filter[country_code], filter[mcc], filter[mnc], filter[tadig], filter[network_preferences_enabled] */
+    FilterMobileNetworkOperatorsConsolidated: {
+      /** @description Advanced name filtering operations */
+      name?: {
+        /**
+         * @description Filter by name starting with.
+         * @example AT
+         */
+        starts_with?: string;
+        /**
+         * @description Filter by name containing match.
+         * @example T&T
+         */
+        contains?: string;
+        /**
+         * @description Filter by name ending with.
+         * @example T
+         */
+        ends_with?: string;
+      };
+      /**
+       * @description Filter by exact country_code.
+       * @example US
+       */
+      country_code?: string;
+      /**
+       * @description Filter by exact MCC.
+       * @example 310
+       */
+      mcc?: string;
+      /**
+       * @description Filter by exact MNC.
+       * @example 410
+       */
+      mnc?: string;
+      /**
+       * @description Filter by exact TADIG.
+       * @example USACG
+       */
+      tadig?: string;
+      /**
+       * @description Filter by network_preferences_enabled.
+       * @example true
+       */
+      network_preferences_enabled?: boolean;
+    };
+    /** @description Consolidated filter parameter for OTA updates (deepObject style). Originally: filter[status], filter[sim_card_id], filter[type] */
+    FilterOTAUpdatesConsolidated: {
+      /**
+       * @description Filter by a specific status of the resource's lifecycle.
+       * @example in-progress
+       * @enum {string}
+       */
+      status?: 'in-progress' | 'completed' | 'failed';
+      /** @description The SIM card identification UUID. */
+      sim_card_id?: string;
+      /**
+       * @description Filter by type.
+       * @example sim_card_network_preferences
+       * @enum {string}
+       */
+      type?: 'sim_card_network_preferences';
+    };
+    /** @description Filter parameter for phone numbers (deepObject style). Supports filtering by phone_number, civic_address_id, and location_id with eq/contains operations. */
+    FilterPhoneNumbersConsolidated: {
+      phone_number?: {
+        /**
+         * @description The phone number to filter by (exact match)
+         * @example +19705555098
+         */
+        eq?: string;
+        /**
+         * @description The phone number to filter by (partial match)
+         * @example +1970
+         */
+        contains?: string;
+      };
+      civic_address_id?: {
+        /**
+         * @description The civic address ID to filter by
+         * @example 19990261512338516954
+         */
+        eq?: string;
+      };
+      location_id?: {
+        /**
+         * @description The location ID to filter by
+         * @example 19995665508264022121
+         */
+        eq?: string;
+      };
+    };
     /** @description Filter orders by how many SIM cards were ordered. */
     FilterQuantity: number;
-    /** @description The status of the release to filter by */
-    FilterReleaseStatus: (
-      | 'pending_upload'
-      | 'pending'
-      | 'in_progress'
-      | 'complete'
-      | 'failed'
-      | 'expired'
-      | 'unknown'
-    )[];
-    /** @description Filter by resource_id */
-    FilterResourceId: string;
+    /** @description Filter parameter for releases (deepObject style). Supports filtering by status, civic_address_id, location_id, and phone_number with eq/contains operations. */
+    FilterReleasesConsolidated: {
+      status?: {
+        /**
+         * @description The status of the release to filter by
+         * @example [
+         *       "pending",
+         *       "in_progress"
+         *     ]
+         */
+        eq?: (
+          | 'pending_upload'
+          | 'pending'
+          | 'in_progress'
+          | 'complete'
+          | 'failed'
+          | 'expired'
+          | 'unknown'
+        )[];
+      };
+      civic_address_id?: {
+        /**
+         * @description The civic address ID to filter by
+         * @example 19990261512338516954
+         */
+        eq?: string;
+      };
+      location_id?: {
+        /**
+         * @description The location ID to filter by
+         * @example 19995665508264022121
+         */
+        eq?: string;
+      };
+      /** @description Phone number filter operations. Use 'eq' for exact matches or 'contains' for partial matches. */
+      phone_number?: {
+        /**
+         * Format: E164
+         * @description The phone number to filter by
+         * @example +1234567890
+         */
+        eq?: string;
+        /**
+         * @description The partial phone number to filter by. Requires 3-15 digits.
+         * @example +123
+         */
+        contains?: string;
+      };
+    };
+    /** @description Consolidated filter parameter for requirement types (deepObject style). Originally: filter[name] */
+    FilterRequirementTypesConsolidated: {
+      name?: {
+        /**
+         * @description Filters requirement types to those whose name contains a certain string.
+         * @example utility bill
+         */
+        contains?: string;
+      };
+    };
+    /** @description Consolidated filter parameter for requirements (deepObject style). Originally: filter[country_code], filter[phone_number_type], filter[action] */
+    FilterRequirementsConsolidated: {
+      /**
+       * @description Filters results to those applying to a 2-character (ISO 3166-1 alpha-2) country code
+       * @example US
+       */
+      country_code?: string;
+      /**
+       * @description Filters results to those applying to a specific phone_number_type
+       * @example local
+       * @enum {string}
+       */
+      phone_number_type?: 'local' | 'national' | 'toll_free';
+      /**
+       * @description Filters requirements to those applying to a specific action.
+       * @example porting
+       * @enum {string}
+       */
+      action?: 'branded_calling' | 'ordering' | 'porting';
+    };
+    /** @description Consolidated filter parameter for SIM card actions (deepObject style). Originally: filter[sim_card_id], filter[status], filter[bulk_sim_card_action_id], filter[action_type] */
+    FilterSIMCardActionsConsolidated: {
+      /**
+       * Format: uuid
+       * @description A valid SIM card ID.
+       * @example 47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9
+       */
+      sim_card_id?: string;
+      /**
+       * @description Filter by a specific status of the resource's lifecycle.
+       * @example in-progress
+       * @enum {string}
+       */
+      status?: 'in-progress' | 'completed' | 'failed';
+      /**
+       * Format: uuid
+       * @description Filter by a bulk SIM card action ID.
+       * @example 47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9
+       */
+      bulk_sim_card_action_id?: string;
+      /**
+       * @description Filter by action type.
+       * @example disable
+       * @enum {string}
+       */
+      action_type?:
+        | 'enable'
+        | 'enable_standby_sim_card'
+        | 'disable'
+        | 'set_standby'
+        | 'remove_public_ip'
+        | 'set_public_ip';
+    };
+    /** @description Consolidated filter parameter for SIM cards (deepObject style). Originally: filter[tags], filter[iccid], filter[status] */
+    FilterSIMCardConsolidated: {
+      /**
+       * @description A list of SIM card tags to filter on.<br/><br/>
+       *      If the SIM card contains <b><i>all</i></b> of the given <code>tags</code> they will be found.<br/><br/>
+       *     For example, if the SIM cards have the following tags: <ul>
+       *       <li><code>['customers', 'staff', 'test']</code>
+       *       <li><code>['test']</code></li>
+       *       <li><code>['customers']</code></li>
+       *     </ul>
+       *     Searching for <code>['customers', 'test']</code> returns only the first because it's the only one with both tags.<br/> Searching for <code>test</code> returns the first two SIMs, because both of them have such tag.<br/> Searching for <code>customers</code> returns the first and last SIMs.<br/>
+       *
+       * @example [
+       *       "personal",
+       *       "customers",
+       *       "active-customers"
+       *     ]
+       */
+      tags?: string[];
+      /**
+       * @description A search string to partially match for the SIM card's ICCID.
+       * @example 89310410106543789301
+       */
+      iccid?: string;
+      /** @description Filter by a SIM card's status. */
+      status?: (
+        | 'enabled'
+        | 'disabled'
+        | 'standby'
+        | 'data_limit_exceeded'
+        | 'unauthorized_imei'
+      )[];
+    };
     /** @description A valid SIM card group ID. */
     FilterSIMCardGroupId: string;
     /** @description A valid SIM card ID. */
     FilterSIMCardId: string;
-    /** @description Filter by sip_username */
-    FilterSipUsername: string;
-    /** @description Filter by status */
-    FilterStatus: string;
-    /** @description If present, addresses with <code>street_address</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-    FilterStreetAddress: string;
-    /** @description Filter by To number. */
-    FilterTo: string;
+    /** @description Consolidated filter parameter for SIM card orders (deepObject style). Originally: filter[created_at], filter[updated_at], filter[quantity], filter[cost.amount], filter[cost.currency], filter[address.id], filter[address.street_address], filter[address.extended_address], filter[address.locality], filter[address.administrative_area], filter[address.country_code], filter[address.postal_code] */
+    FilterSIMCardOrdersConsolidated: {
+      /**
+       * Format: date-time
+       * @description Filter by ISO 8601 formatted date-time string matching resource creation date-time.
+       * @example 2018-02-02T22:25:27.521Z
+       */
+      created_at?: string;
+      /**
+       * Format: date-time
+       * @description Filter by ISO 8601 formatted date-time string matching resource last update date-time.
+       * @example 2018-02-02T22:25:27.521Z
+       */
+      updated_at?: string;
+      /**
+       * @description Filter orders by how many SIM cards were ordered.
+       * @example 21
+       */
+      quantity?: number;
+      cost?: {
+        /**
+         * @description The total monetary amount of the order.
+         * @example 2.53
+         */
+        amount?: string;
+        /**
+         * @description Filter by ISO 4217 currency string.
+         * @example USD
+         */
+        currency?: string;
+      };
+      address?: {
+        /**
+         * @description Uniquely identifies the address for the order.
+         * @example 1293384261075731499
+         */
+        id?: string;
+        /**
+         * @description Returns entries with matching name of the street where the address is located.
+         * @example 600 Congress Avenue
+         */
+        street_address?: string;
+        /**
+         * @description Returns entries with matching name of the supplemental field for address information.
+         * @example 14th Floor
+         */
+        extended_address?: string;
+        /**
+         * @description Filter by the name of the city where the address is located.
+         * @example Austin
+         */
+        locality?: string;
+        /**
+         * @description Filter by state or province where the address is located.
+         * @example TX
+         */
+        administrative_area?: string;
+        /**
+         * @description Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country code.
+         * @example US
+         */
+        country_code?: string;
+        /**
+         * @description Filter by postal code for the address.
+         * @example 78701
+         */
+        postal_code?: string;
+      };
+    };
     /** @description Filter by ISO 8601 formatted date-time string matching resource last update date-time. */
     FilterUpdatedAt: string;
-    /** @description The status of the upload to filter by */
-    FilterUploadStatus: (
-      | 'pending_upload'
-      | 'pending'
-      | 'in_progress'
-      | 'success'
-      | 'error'
-    )[];
-    /** @description If set as 'true', only addresses used as the emergency address for at least one active phone-number will be returned. When set to 'false', the opposite happens: only addresses not used as the emergency address from phone-numbers will be returned. */
-    FilterUsedAsEmergency: string;
+    /** @description Filter parameter for uploads (deepObject style). Supports filtering by status, civic_address_id, location_id, and phone_number with eq/contains operations. */
+    FilterUploadsConsolidated: {
+      status?: {
+        /**
+         * @description The status of the upload to filter by
+         * @example [
+         *       "pending_upload",
+         *       "pending"
+         *     ]
+         */
+        eq?: (
+          | 'pending_upload'
+          | 'pending'
+          | 'in_progress'
+          | 'success'
+          | 'error'
+        )[];
+      };
+      civic_address_id?: {
+        /**
+         * @description The civic address ID to filter by
+         * @example 19990261512338516954
+         */
+        eq?: string;
+      };
+      location_id?: {
+        /**
+         * @description The location ID to filter by
+         * @example 19995665508264022121
+         */
+        eq?: string;
+      };
+      phone_number?: {
+        /**
+         * @description The phone number to filter by (exact match)
+         * @example +19705555098
+         */
+        eq?: string;
+        /**
+         * @description The phone number to filter by (partial match)
+         * @example +1970
+         */
+        contains?: string;
+      };
+    };
     /** @description Identifies the resource. */
     FqdnId: string;
     /**
@@ -52788,7 +54995,7 @@ export interface components {
     GcbChannelZoneId: string;
     /** @description The phone number to be looked up */
     GcbPhoneNumber: string;
-    /** @description The id of the resource. */
+    /** @description Identifies the resource. */
     Id: string;
     /** @description Specifies if cancelled accounts should be included in the results. */
     IncludeCancelledAccounts: boolean;
@@ -52804,35 +55011,30 @@ export interface components {
     MediaName: string;
     /** @description The id of the messaging profile to retrieve */
     MessagingProfileId: string;
-    /** @description Optional filter on outbound voice profile name. */
-    NameFilter: string;
-    /** @description Filter by the id of a notification channel */
-    NotificationChannelId: string;
-    /** @description Filter by the id of a notification channel */
-    NotificationEventConditionId: string;
-    /** @description Filter by the id of a notification profile */
-    NotificationProfileId: string;
     /** @description Specifies the type of number lookup to be performed */
     NumberLookupType: 'carrier' | 'caller-name';
-    /** @description Filter by tag */
-    OptionalTag: string;
     /**
      * @description The number of the page to be displayed, zero-indexed, should be used in conjuction with PageToken.
      * @example 1
      */
     Page: number;
-    /** @description Opaque identifier of next page */
-    PageAfter: string;
-    /** @description Opaque identifier of previous page */
-    PageBefore: string;
-    /** @description Limit of records per single page */
-    PageLimit: number;
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    PageConsolidated: {
+      /**
+       * @description The size of the page
+       * @default 20
+       */
+      size?: number;
+      /**
+       * @description The page number to load
+       * @default 1
+       */
+      number?: number;
+    };
     /** @description The page number to load. */
     PageNumber: number;
     /** @description The size of the page. */
     PageSize: number;
-    /** @description The size of the page */
-    PageSizeApp: number;
     /**
      * @description The number of records to be displayed on a page
      * @example 10
@@ -52852,10 +55054,6 @@ export interface components {
     PathPortingOrdersActivationJobID: string;
     /** @description The phone number to be looked up */
     PhoneNumber: string;
-    /** @description Filters records to those with a specified number. */
-    PhoneNumberEqFilter: string;
-    /** @description Filters records to those with at least one number in the list. */
-    PhoneNumberInFilter: string[];
     /** @description Identifies the private wireless gateway. */
     PrivateWirelessGatewayId: string;
     /** @description Include the first 50 phone number objects in the results */
@@ -52880,19 +55078,8 @@ export interface components {
     SiprecConnectorName: string;
     /** @description The SiprecSid that uniquely identifies the Sip Recording. */
     SiprecSid: string;
-    /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
-     *     That is: <ul>
-     *       <li>
-     *         <code>email</code>: sorts the result by the
-     *         <code>email</code> field in ascending order.
-     *       </li>
-     *
-     *       <li>
-     *         <code>-email</code>: sorts the result by the
-     *         <code>email</code> field in descending order.
-     *       </li>
-     *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
-    Sort: 'created_at' | 'email';
+    /** @description Set the order of the results by the creation date. */
+    Sort: 'asc' | 'desc';
     /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
      *     That is: <ul>
      *       <li>
@@ -52914,16 +55101,16 @@ export interface components {
     /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
      *     That is: <ul>
      *       <li>
-     *         <code>friendly_name</code>: sorts the result by the
-     *         <code>friendly_name</code> field in ascending order.
+     *         <code>application_name</code>: sorts the result by the
+     *         <code>application_name</code> field in ascending order.
      *       </li>
      *
      *       <li>
-     *         <code>-friendly_name</code>: sorts the result by the
-     *         <code>friendly_name</code> field in descending order.
+     *         <code>-application_name</code>: sorts the result by the
+     *         <code>application_name</code> field in descending order.
      *       </li>
      *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
-    SortApplication: 'created_at' | 'friendly_name' | 'active';
+    SortApplication: 'created_at' | 'application_name' | 'active';
     /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
      *     That is: <ul>
      *       <li>
@@ -52937,6 +55124,15 @@ export interface components {
      *       </li>
      *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
     SortConnection: 'created_at' | 'connection_name' | 'active';
+    /** @description Consolidated sort parameter for documents (deepObject style). Originally: sort[] */
+    SortDocumentsConsolidated: (
+      | 'filename'
+      | 'created_at'
+      | 'updated_at'
+      | '-filename'
+      | '-created_at'
+      | '-updated_at'
+    )[];
     /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code>-</code> prefix.<br/><br/>
      *     That is: <ul>
      *       <li>
@@ -52962,6 +55158,26 @@ export interface components {
       | '-traffic_type'
       | 'usage_payment_method'
       | '-usage_payment_method';
+    /** @description Consolidated sort parameter for requirement types (deepObject style). Originally: sort[] */
+    SortRequirementTypesConsolidated: (
+      | 'name'
+      | 'created_at'
+      | 'updated_at'
+      | '-name'
+      | '-created_at'
+      | '-updated_at'
+    )[];
+    /** @description Consolidated sort parameter for requirements (deepObject style). Originally: sort[] */
+    SortRequirementsConsolidated: (
+      | 'created_at'
+      | 'updated_at'
+      | 'country_code'
+      | 'phone_number_type'
+      | '-created_at'
+      | '-updated_at'
+      | '-country_code'
+      | '-phone_number_type'
+    )[];
     /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
      *     That is: <ul>
      *       <li>
@@ -53000,18 +55216,10 @@ export interface components {
      * @example no-answer
      */
     Status: 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
-    /** @description Filters records to those with a specific status. */
-    StatusEqFilter: 'pending' | 'completed' | 'failed';
-    /** @description Filters records to those with a least one status in the list. */
-    StatusInFilter: ('pending' | 'completed' | 'failed')[];
     /** @description Uniquely identifies the streaming by id. */
     StreamingSid: string;
     /** @description Filters recording by the creation date. Expected format is ISO8601 date or date-time, ie. {YYYY}-{MM}-{DD} or {YYYY}-{MM}-{DD}T{hh}:{mm}:{ss}Z. Also accepts inequality operators, e.g. DateCreated>=2023-05-22. */
     TexmlDateCreated: string;
-    /** @description Filter by timestamp greater than */
-    TimestampGreater: string;
-    /** @description Filter by timestamp less than */
-    TimestampLess: string;
     /**
      * @description Filters calls by the to number.
      * @example +1312345678
@@ -53020,6 +55228,8 @@ export interface components {
     UserBundleId: string;
     /** @description User identifier */
     UserId: string;
+    /** @description Identifies the wireless blocklist. */
+    WirelessBlocklistId: string;
     /** @description Identifies a civic address or a location. */
     address_id: string;
     /** @description Identifies the resource. */
@@ -53074,6 +55284,30 @@ export interface components {
         };
       };
     };
+    CreatePortingAssociatedPhoneNumber: {
+      content: {
+        'application/json': {
+          phone_number_range: {
+            /**
+             * @description Specifies the start of the phone number range for this associated phone number.
+             * @example +441234567890
+             */
+            start_at?: string;
+            /**
+             * @description Specifies the end of the phone number range for this associated phone number.
+             * @example +441234567899
+             */
+            end_at?: string;
+          };
+          /**
+           * @description Specifies the action to take with this phone number during partial porting.
+           * @example keep
+           * @enum {string}
+           */
+          action: 'keep' | 'disconnect';
+        };
+      };
+    };
     CreatePortingLOAConfiguration: {
       content: {
         'application/json': {
@@ -53111,17 +55345,17 @@ export interface components {
              * @description The locality of the company
              * @example Austin
              */
-            city?: string;
+            city: string;
             /**
              * @description The administrative area of the company
              * @example TX
              */
-            state?: string;
+            state: string;
             /**
              * @description The postal code of the company
              * @example 78701
              */
-            zip_code?: string;
+            zip_code: string;
             /**
              * @description The country code of the company
              * @example US
@@ -53131,7 +55365,6 @@ export interface components {
           /** @description The contact information of the company. */
           contact: {
             /**
-             * Format: email
              * @description The email address of the contact
              * @example testing@telnyx.com
              */
@@ -53272,6 +55505,14 @@ export interface components {
         'application/json': components['schemas']['DialogflowConnection'];
       };
     };
+    /** @description Parameters for initiating the action requirement */
+    InitiatePortingActionRequirement: {
+      content: {
+        'application/json': {
+          params: components['schemas']['AUIdVerificationParams'];
+        };
+      };
+    };
     /** @description A list of phone numbers to send the verification codes to and the method to send them by */
     SendPortingVerificationCodes: {
       content: {
@@ -53391,7 +55632,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'text/xml': components['schemas']['ListBucketsResponse'];
+          'application/xml': components['schemas']['ListBucketsResponse'];
         };
       };
       /** @description Unauthorized */
@@ -53406,12 +55647,46 @@ export interface operations {
   ListAccessIpAddresses: {
     parameters: {
       query?: {
-        'filter[ip_source]'?: string;
-        'filter[ip_address]'?: string;
-        'filter[created_at][gt]'?: string;
-        'filter[created_at][lt]'?: string;
-        'page[number]'?: number;
-        'page[size]'?: number;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[ip_source], filter[ip_address], filter[created_at]. Supports complex bracket operations for dynamic filtering. */
+        filter?: {
+          /** @description Filter by IP source */
+          ip_source?: string;
+          /** @description Filter by IP address */
+          ip_address?: string;
+          created_at?:
+            | string
+            | {
+                /**
+                 * Format: date-time
+                 * @description Filter for creation date-time greater than
+                 */
+                gt?: string;
+                /**
+                 * Format: date-time
+                 * @description Filter for creation date-time less than
+                 */
+                lt?: string;
+                /**
+                 * Format: date-time
+                 * @description Filter for creation date-time greater than or equal to
+                 */
+                gte?: string;
+                /**
+                 * Format: date-time
+                 * @description Filter for creation date-time less than or equal to
+                 */
+                lte?: string;
+              };
+        } & {
+          [key: string]: unknown;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: {
+          /** @default 1 */
+          number?: number;
+          /** @default 20 */
+          size?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -53519,14 +55794,52 @@ export interface operations {
   ListAccessIpRanges: {
     parameters: {
       query?: {
-        'filter[cidr_block]'?: string;
-        'filter[cidr_block][startswith]'?: string;
-        'filter[cidr_block][endswith]'?: string;
-        'filter[cidr_block][contains]'?: string;
-        'filter[created_at][gt]'?: string;
-        'filter[created_at][lt]'?: string;
-        'page[number]'?: number;
-        'page[size]'?: number;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[cidr_block], filter[cidr_block][startswith], filter[cidr_block][endswith], filter[cidr_block][contains], filter[created_at]. Supports complex bracket operations for dynamic filtering. */
+        filter?: {
+          cidr_block?:
+            | string
+            | {
+                /** @description Filter CIDR blocks starting with the specified string */
+                startswith?: string;
+                /** @description Filter CIDR blocks ending with the specified string */
+                endswith?: string;
+                /** @description Filter CIDR blocks containing the specified string */
+                contains?: string;
+              };
+          created_at?:
+            | string
+            | {
+                /**
+                 * Format: date-time
+                 * @description Filter for creation date-time greater than
+                 */
+                gt?: string;
+                /**
+                 * Format: date-time
+                 * @description Filter for creation date-time less than
+                 */
+                lt?: string;
+                /**
+                 * Format: date-time
+                 * @description Filter for creation date-time greater than or equal to
+                 */
+                gte?: string;
+                /**
+                 * Format: date-time
+                 * @description Filter for creation date-time less than or equal to
+                 */
+                lte?: string;
+              };
+        } & {
+          [key: string]: unknown;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: {
+          /** @default 1 */
+          number?: number;
+          /** @default 20 */
+          size?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -53636,20 +55949,10 @@ export interface operations {
   FindAddresses: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter addresses via the customer reference set. Matching is not case-sensitive. */
-        'filter[customer_reference][eq]'?: components['parameters']['FilterCustomerReferenceEquals'];
-        /** @description If present, addresses with <code>customer_reference</code> containing the given value will be returned. Matching is not case-sensitive. */
-        'filter[customer_reference][contains]'?: components['parameters']['FilterCustomerReferenceContains'];
-        /** @description If set as 'true', only addresses used as the emergency address for at least one active phone-number will be returned. When set to 'false', the opposite happens: only addresses not used as the emergency address from phone-numbers will be returned. */
-        'filter[used_as_emergency]'?: components['parameters']['FilterUsedAsEmergency'];
-        /** @description If present, addresses with <code>street_address</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-        'filter[street_address][contains]'?: components['parameters']['FilterStreetAddress'];
-        /** @description If present, only returns results with the <code>address_book</code> flag set to the given value. */
-        'filter[address_book][eq]'?: components['parameters']['FilterAddressBook'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -53874,7 +56177,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ListAdvancedOrderResponse'];
+          'application/json': components['responses']['ListAdvancedOrderResponse'];
         };
       };
     };
@@ -53898,7 +56201,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['AdvancedOrderResponse'];
+          'application/json': components['responses']['AdvancedOrderResponse'];
         };
       };
     };
@@ -53920,7 +56223,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['AdvancedOrderResponse'];
+          'application/json': components['responses']['AdvancedOrderResponse'];
         };
       };
     };
@@ -54023,16 +56326,27 @@ export interface operations {
   get_assistant_tests_public_assistants_tests_get: {
     parameters: {
       query?: {
-        /** @description Number of tests to return per page (1-100) */
-        'page[size]'?: number;
-        /** @description Page number to retrieve (1-based indexing) */
-        'page[number]'?: number;
         /** @description Filter tests by test suite name */
         test_suite?: string;
         /** @description Filter tests by communication channel (e.g., 'web_chat', 'sms') */
         telnyx_conversation_channel?: string;
         /** @description Filter tests by destination (phone number, webhook URL, etc.) */
         destination?: string;
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: {
+          /**
+           * Page[Size]
+           * @description Number of tests to return per page (1-100)
+           * @default 20
+           */
+          size?: number;
+          /**
+           * Page[Number]
+           * @description Page number to retrieve (1-based indexing)
+           * @default 1
+           */
+          number?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -54129,10 +56443,21 @@ export interface operations {
         status?: string;
         /** @description Filter runs by specific suite execution batch ID */
         test_suite_run_id?: string;
-        /** @description Number of test runs to return per page (1-100) */
-        'page[size]'?: number;
-        /** @description Page number to retrieve (1-based indexing) */
-        'page[number]'?: number;
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: {
+          /**
+           * Page[Size]
+           * @description Number of test runs to return per page (1-100)
+           * @default 20
+           */
+          size?: number;
+          /**
+           * Page[Number]
+           * @description Page number to retrieve (1-based indexing)
+           * @default 1
+           */
+          number?: number;
+        };
       };
       header?: never;
       path: {
@@ -54299,10 +56624,21 @@ export interface operations {
       query?: {
         /** @description Filter runs by execution status (pending, running, completed, failed, timeout) */
         status?: string;
-        /** @description Number of test runs to return per page (1-100) */
-        'page[size]'?: number;
-        /** @description Page number to retrieve (1-based indexing) */
-        'page[number]'?: number;
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: {
+          /**
+           * Page[Size]
+           * @description Number of test runs to return per page (1-100)
+           * @default 20
+           */
+          size?: number;
+          /**
+           * Page[Number]
+           * @description Page number to retrieve (1-based indexing)
+           * @default 1
+           */
+          number?: number;
+        };
       };
       header?: never;
       path: {
@@ -54700,11 +57036,22 @@ export interface operations {
   get_scheduled_events: {
     parameters: {
       query?: {
-        'page[size]'?: number;
-        'page[number]'?: number;
         from_date?: string;
         to_date?: string;
         conversation_channel?: components['schemas']['ConversationChannelType'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: {
+          /**
+           * Page[Size]
+           * @default 20
+           */
+          size?: number;
+          /**
+           * Page[Number]
+           * @default 1
+           */
+          number?: number;
+        };
       };
       header?: never;
       path: {
@@ -55144,8 +57491,19 @@ export interface operations {
   list_all_requested_clusters_public_text_clusters_get: {
     parameters: {
       query?: {
-        'page[number]'?: number;
-        'page[size]'?: number;
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: {
+          /**
+           * Page[Number]
+           * @default 0
+           */
+          number?: number;
+          /**
+           * Page[Size]
+           * @default 20
+           */
+          size?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -55394,10 +57752,21 @@ export interface operations {
   get_all_insight_groups: {
     parameters: {
       query?: {
-        /** @description Page number (0-based) */
-        'page[number]'?: number;
-        /** @description Number of items per page */
-        'page[size]'?: number;
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: {
+          /**
+           * Page[Number]
+           * @description Page number (0-based)
+           * @default 1
+           */
+          number?: number;
+          /**
+           * Page[Size]
+           * @description Number of items per page
+           * @default 20
+           */
+          size?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -55629,10 +57998,21 @@ export interface operations {
   get_all_insights: {
     parameters: {
       query?: {
-        /** @description Page number (0-based) */
-        'page[number]'?: number;
-        /** @description Number of items per page */
-        'page[size]'?: number;
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: {
+          /**
+           * Page[Number]
+           * @description Page number (0-based)
+           * @default 1
+           */
+          number?: number;
+          /**
+           * Page[Size]
+           * @description Number of items per page
+           * @default 20
+           */
+          size?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -56463,26 +58843,11 @@ export interface operations {
   ListAuditLogs: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter for audit events created before a specific date. */
-        'filter[created_before]'?: components['parameters']['FilterCreatedBefore'];
-        /** @description Filter for audit events created after a specific date. */
-        'filter[created_after]'?: components['parameters']['FilterCreatedAfter'];
-        /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
-         *     That is: <ul>
-         *       <li>
-         *         <code>email</code>: sorts the result by the
-         *         <code>email</code> field in ascending order.
-         *       </li>
-         *
-         *       <li>
-         *         <code>-email</code>: sorts the result by the
-         *         <code>email</code> field in descending order.
-         *       </li>
-         *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Set the order of the results by the creation date. */
         sort?: components['parameters']['Sort'];
       };
       header?: never;
@@ -56498,10 +58863,6 @@ export interface operations {
   FindAuthenticationProviders: {
     parameters: {
       query?: {
-        /** @description The page number to load */
-        'page[number]'?: number;
-        /** @description The size of the page */
-        'page[size]'?: number;
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code>-</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -56524,6 +58885,19 @@ export interface operations {
           | '-created_at'
           | 'updated_at'
           | '-updated_at';
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: {
+          /**
+           * @description The page number to load
+           * @default 1
+           */
+          number?: number;
+          /**
+           * @description The size of the page
+           * @default 20
+           */
+          size?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -56781,19 +59155,25 @@ export interface operations {
   ListAvailablePhoneNumberBlocks: {
     parameters: {
       query?: {
-        /** @description Filter phone numbers by city. */
-        'filter[locality]'?: string;
-        /** @description Filter phone numbers by country. */
-        'filter[country_code]'?: string;
-        /** @description Filter by the national destination code of the number. */
-        'filter[national_destination_code]'?: string;
-        /** @description Filter phone numbers by number type. */
-        'filter[phone_number_type]'?:
-          | 'local'
-          | 'toll_free'
-          | 'mobile'
-          | 'national'
-          | 'shared_cost';
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[locality], filter[country_code], filter[national_destination_code], filter[phone_number_type] */
+        filter?: {
+          /** @description Filter phone numbers by city. */
+          locality?: string;
+          /** @description Filter phone numbers by country. */
+          country_code?: string;
+          /** @description Filter by the national destination code of the number. */
+          national_destination_code?: string;
+          /**
+           * @description Filter phone numbers by number type.
+           * @enum {string}
+           */
+          phone_number_type?:
+            | 'local'
+            | 'toll_free'
+            | 'mobile'
+            | 'national'
+            | 'shared_cost';
+        };
       };
       header?: never;
       path?: never;
@@ -56808,50 +59188,59 @@ export interface operations {
   ListAvailablePhoneNumbers: {
     parameters: {
       query?: {
-        /** @description Filter numbers starting with a pattern (excludes NDC if used with `national_destination_code` filter). */
-        'filter[phone_number][starts_with]'?: string;
-        /** @description Filter numbers ending with a pattern (excludes NDC if used with `national_destination_code` filter). */
-        'filter[phone_number][ends_with]'?: string;
-        /** @description Filter numbers containing a pattern (excludes NDC if used with `national_destination_code` filter). */
-        'filter[phone_number][contains]'?: string;
-        /** @description Filter phone numbers by city. */
-        'filter[locality]'?: string;
-        /** @description Find numbers in a particular US state or CA province. */
-        'filter[administrative_area]'?: string;
-        /** @description Filter phone numbers by country. */
-        'filter[country_code]'?: string;
-        /** @description Filter by the national destination code of the number. */
-        'filter[national_destination_code]'?: string;
-        /** @description Filter phone numbers by rate center. This filter is only applicable to USA and Canada numbers. */
-        'filter[rate_center]'?: string;
-        /** @description Filter phone numbers by number type. */
-        'filter[phone_number_type]'?:
-          | 'local'
-          | 'toll_free'
-          | 'mobile'
-          | 'national'
-          | 'shared_cost';
-        /** @description Filter phone numbers with specific features. */
-        'filter[features]'?: (
-          | 'sms'
-          | 'mms'
-          | 'voice'
-          | 'fax'
-          | 'emergency'
-          | 'hd_voice'
-          | 'international_sms'
-          | 'local_calling'
-        )[];
-        /** @description Limits the number of results. */
-        'filter[limit]'?: number;
-        /** @description Filter to determine if best effort results should be included. Only available in USA/CANADA. */
-        'filter[best_effort]'?: boolean;
-        /** @description Filter to exclude phone numbers that need additional time after to purchase to activate. Only applicable for +1 toll_free numbers. */
-        'filter[quickship]'?: boolean;
-        /** @description Filter to ensure only numbers that can be reserved are included in the results. */
-        'filter[reservable]'?: boolean;
-        /** @description Filter to exclude phone numbers that are currently on hold/reserved for your account. */
-        'filter[exclude_held_numbers]'?: boolean;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number], filter[locality], filter[administrative_area], filter[country_code], filter[national_destination_code], filter[rate_center], filter[phone_number_type], filter[features], filter[limit], filter[best_effort], filter[quickship], filter[reservable], filter[exclude_held_numbers] */
+        filter?: {
+          /** @description Filter phone numbers by pattern matching. */
+          phone_number?: {
+            /** @description Filter numbers starting with a pattern (excludes NDC if used with `national_destination_code` filter). */
+            starts_with?: string;
+            /** @description Filter numbers ending with a pattern (excludes NDC if used with `national_destination_code` filter). */
+            ends_with?: string;
+            /** @description Filter numbers containing a pattern (excludes NDC if used with `national_destination_code` filter). */
+            contains?: string;
+          };
+          /** @description Filter phone numbers by city. */
+          locality?: string;
+          /** @description Find numbers in a particular US state or CA province. */
+          administrative_area?: string;
+          /** @description Filter phone numbers by country. */
+          country_code?: string;
+          /** @description Filter by the national destination code of the number. */
+          national_destination_code?: string;
+          /** @description Filter phone numbers by rate center. This filter is only applicable to USA and Canada numbers. */
+          rate_center?: string;
+          /**
+           * @description Filter phone numbers by number type.
+           * @enum {string}
+           */
+          phone_number_type?:
+            | 'local'
+            | 'toll_free'
+            | 'mobile'
+            | 'national'
+            | 'shared_cost';
+          /** @description Filter phone numbers with specific features. */
+          features?: (
+            | 'sms'
+            | 'mms'
+            | 'voice'
+            | 'fax'
+            | 'emergency'
+            | 'hd_voice'
+            | 'international_sms'
+            | 'local_calling'
+          )[];
+          /** @description Limits the number of results. */
+          limit?: number;
+          /** @description Filter to determine if best effort results should be included. Only available in USA/CANADA. */
+          best_effort?: boolean;
+          /** @description Filter to exclude phone numbers that need additional time after to purchase to activate. Only applicable for +1 toll_free numbers. */
+          quickship?: boolean;
+          /** @description Filter to ensure only numbers that can be reserved are included in the results. */
+          reservable?: boolean;
+          /** @description Filter to exclude phone numbers that are currently on hold/reserved for your account. */
+          exclude_held_numbers?: boolean;
+        };
       };
       header?: never;
       path?: never;
@@ -56879,10 +59268,19 @@ export interface operations {
   ListBillingGroups: {
     parameters: {
       query?: {
-        /** @description The page number to load */
-        'page[number]'?: number;
-        /** @description The size of the page */
-        'page[size]'?: number;
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: {
+          /**
+           * @description The page number to load
+           * @default 1
+           */
+          number?: number;
+          /**
+           * @description The size of the page
+           * @default 20
+           */
+          size?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -57495,12 +59893,10 @@ export interface operations {
   GetUserBillingBundles: {
     parameters: {
       query?: {
-        /** @description Filter by country code. */
-        'filter[country_iso]'?: components['parameters']['FilterCountryIso'];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: {
         /** @description Format: Bearer <TOKEN> */
@@ -57537,7 +59933,7 @@ export interface operations {
         authorization_bearer?: components['parameters']['AuthorizationBearer'];
       };
       path: {
-        bundle_id: components['parameters']['BillingBundleId'];
+        bundle_id: components['parameters']['BundleId'];
       };
       cookie?: never;
     };
@@ -57571,14 +59967,10 @@ export interface operations {
   GetUserBundles: {
     parameters: {
       query?: {
-        /** @description Filter by country code. */
-        'filter[country_iso]'?: components['parameters']['FilterCountryIso'];
-        /** @description Filter by resource. */
-        'filter[resource]'?: string[];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: {
         /** @description Format: Bearer <TOKEN> */
@@ -57658,8 +60050,8 @@ export interface operations {
   GetUnusedUserBundles: {
     parameters: {
       query?: {
-        /** @description Filter by country code. */
-        'filter[country_iso]'?: components['parameters']['FilterCountryIso'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
       };
       header?: {
         /** @description Format: Bearer <TOKEN> */
@@ -57808,14 +60200,10 @@ export interface operations {
   ListCallControlApplications: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-        'filter[application_name][contains]'?: components['parameters']['FilterApplicationName'];
-        /** @description Identifies the associated outbound voice profile. */
-        'filter[outbound_voice_profile_id]'?: components['parameters']['FilterOutboundVoiceProfileId'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -57976,38 +60364,10 @@ export interface operations {
   ListCallEvents: {
     parameters: {
       query?: {
-        /** @description The unique identifier of an individual call leg. */
-        'filter[leg_id]'?: components['parameters']['FilterCallLegId'];
-        /** @description The unique identifier of the call session. A session may include multiple call leg events. */
-        'filter[application_session_id]'?: components['parameters']['FilterCallSessionId'];
-        /** @description The unique identifier of the conection. */
-        'filter[connection_id]'?: components['parameters']['FilterConnectionId'];
-        /** @description Filter by product. */
-        'filter[product]'?: components['parameters']['FilterProduct'];
-        /** @description Filter by From number. */
-        'filter[from]'?: components['parameters']['FilterFrom'];
-        /** @description Filter by To number. */
-        'filter[to]'?: components['parameters']['FilterTo'];
-        /** @description Delivery failed or not. */
-        'filter[failed]'?: components['parameters']['FilterCallEventFailed'];
-        /** @description Event type */
-        'filter[type]'?: components['parameters']['FilterCallEventType'];
-        /** @description Event name */
-        'filter[name]'?: components['parameters']['FilterCallEventName'];
-        /** @description Event occurred_at: greater than */
-        'filter[occurred_at][gt]'?: components['parameters']['FilterCallEventOccurredAtGreaterThan'];
-        /** @description Event occurred_at: greater than or equal */
-        'filter[occurred_at][gte]'?: components['parameters']['FilterCallEventOccurredAtGreaterThanOrEqualTo'];
-        /** @description Event occurred_at: lower than */
-        'filter[occurred_at][lt]'?: components['parameters']['FilterCallEventOccurredAtLessThan'];
-        /** @description Event occurred_at: lower than or equal */
-        'filter[occurred_at][lte]'?: components['parameters']['FilterCallEventOccurredAtLessThanOrEqualTo'];
-        /** @description Event occurred_at: equal */
-        'filter[occurred_at][eq]'?: components['parameters']['FilterCallEventOccurredAtEqualTo'];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -59019,6 +61379,79 @@ export interface operations {
       };
     };
   };
+  AppealCampaign: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The Telnyx campaign identifier */
+        campaignId: string;
+      };
+      cookie?: never;
+    };
+    /** @description Appeal request payload */
+    requestBody: {
+      content: {
+        'application/json': {
+          /**
+           * @description Detailed explanation of why the campaign should be reconsidered and what changes have been made to address the rejection reason.
+           * @example The website has been updated to include the required privacy policy and terms of service.
+           */
+          appeal_reason: string;
+        };
+      };
+    };
+    responses: {
+      /** @description Appeal recorded successfully. Campaign status updated to TCR_ACCEPTED for manual compliance review. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          /** @example {
+           *       "appealed_at": "2025-08-06T15:30:45.123456",
+           *       "previous_status": null
+           *     } */
+          'application/json': {
+            /**
+             * Format: date-time
+             * @description Timestamp when the appeal was submitted
+             */
+            appealed_at?: string;
+            /** @description Previous campaign status (currently always null) */
+            previous_status?: string | null;
+          };
+        };
+      };
+      /** @description Campaign not in appealable status or invalid request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Campaign not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
   GetCampaignMnoMetadata: {
     parameters: {
       query?: never;
@@ -59215,10 +61648,8 @@ export interface operations {
   GetChannelZones: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -59258,11 +61689,21 @@ export interface operations {
   };
   ListComments: {
     parameters: {
-      query: {
-        /** @description Record type that the comment relates to */
-        'filter[comment_record_type]': 'sub_number_order' | 'requirement_group';
-        /** @description ID of the record the comments relate to */
-        'filter[comment_record_id]': string;
+      query?: {
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[comment_record_type], filter[comment_record_id] */
+        filter?: {
+          /**
+           * @description Record type that the comment relates to
+           * @example sub_number_order
+           * @enum {string}
+           */
+          comment_record_type?: 'sub_number_order' | 'requirement_group';
+          /**
+           * @description ID of the record the comments relate to
+           * @example 8ffb3622-7c6b-4ccc-b65f-7a3dc0099576
+           */
+          comment_record_id?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -59326,14 +61767,10 @@ export interface operations {
   ListConferences: {
     parameters: {
       query?: {
-        /** @description If present, conferences will be filtered to those with a matching `name` attribute. Matching is case-sensitive */
-        'filter[name]'?: components['parameters']['FilterConferenceName'];
-        /** @description If present, conferences will be filtered by status. */
-        'filter[status]'?: components['parameters']['FilterConferenceStatus'];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -59368,16 +61805,17 @@ export interface operations {
   ListConferenceParticipants: {
     parameters: {
       query?: {
-        /** @description If present, participants will be filtered to those who are/are not muted */
-        'filter[muted]'?: boolean;
-        /** @description If present, participants will be filtered to those who are/are not put on hold */
-        'filter[on_hold]'?: boolean;
-        /** @description If present, participants will be filtered to those who are whispering or are not */
-        'filter[whispering]'?: boolean;
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[muted], filter[on_hold], filter[whispering] */
+        filter?: {
+          /** @description If present, participants will be filtered to those who are/are not muted */
+          muted?: boolean;
+          /** @description If present, participants will be filtered to those who are/are not put on hold */
+          on_hold?: boolean;
+          /** @description If present, participants will be filtered to those who are whispering or are not */
+          whispering?: boolean;
+        };
       };
       header?: never;
       path: {
@@ -59722,14 +62160,10 @@ export interface operations {
   ListConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-        'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
-        /** @description Identifies the associated outbound voice profile. */
-        'filter[outbound_voice_profile_id]'?: components['parameters']['FilterOutboundVoiceProfileId'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -59759,16 +62193,12 @@ export interface operations {
   ListConnectionActiveCalls: {
     parameters: {
       query?: {
-        /** @description Limit of records per single page */
-        'page[limit]'?: components['parameters']['PageLimit'];
-        /** @description Opaque identifier of next page */
-        'page[after]'?: components['parameters']['PageAfter'];
-        /** @description Opaque identifier of previous page */
-        'page[before]'?: components['parameters']['PageBefore'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -59830,14 +62260,10 @@ export interface operations {
   ListCredentialConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-        'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
-        /** @description Identifies the associated outbound voice profile. */
-        'filter[outbound.outbound_voice_profile_id]'?: components['parameters']['FilterInnerOutboundVoiceProfileId'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -59970,7 +62396,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -59986,7 +62412,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -60002,7 +62428,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -60018,7 +62444,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -60038,24 +62464,19 @@ export interface operations {
   ListCustomerServiceRecords: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
-        'sort[]'?: 'created_at' | '-created_at';
-        /** @description Filters records to those with a specified number. */
-        'filter[phone_number][eq]'?: components['parameters']['PhoneNumberEqFilter'];
-        /** @description Filters records to those with at least one number in the list. */
-        'filter[phone_number][in][]'?: components['parameters']['PhoneNumberInFilter'];
-        /** @description Filters records to those with a specific status. */
-        'filter[status][eq]'?: components['parameters']['StatusEqFilter'];
-        /** @description Filters records to those with a least one status in the list. */
-        'filter[status][in][]'?: components['parameters']['StatusInFilter'];
-        /** @description Filters records to those created before a specific date. */
-        'filter[created_at][lt]'?: components['parameters']['CreatedAtLtFilter'];
-        /** @description Filters records to those created after a specific date. */
-        'filter[created_at][gt]'?: components['parameters']['CreatedAtGtFilter'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated sort parameter (deepObject style). Originally: sort[value] */
+        sort?: {
+          /**
+           * @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
+           * @example created_at
+           * @enum {string}
+           */
+          value?: 'created_at' | '-created_at';
+        };
       };
       header?: never;
       path?: never;
@@ -60123,51 +62544,69 @@ export interface operations {
   };
   SearchDetailRecords: {
     parameters: {
-      query: {
-        /** @description Filter by the given record type. */
-        'filter[record_type]':
-          | 'ai-voice-assistant'
-          | 'amd'
-          | 'call-control'
-          | 'conference'
-          | 'conference-participant'
-          | 'embedding'
-          | 'fax'
-          | 'inference'
-          | 'inference-speech-to-text'
-          | 'media_storage'
-          | 'media-streaming'
-          | 'messaging'
-          | 'noise-suppression'
-          | 'recording'
-          | 'sip-trunking'
-          | 'siprec-client'
-          | 'stt'
-          | 'tts'
-          | 'verify'
-          | 'webrtc'
-          | 'wireless';
-        /** @description Filter by the given user-friendly date range. You can specify one of the following enum values, or a dynamic one using this format: last_N_days. */
-        'filter[date_range]'?:
-          | 'yesterday'
-          | 'today'
-          | 'tomorrow'
-          | 'last_week'
-          | 'this_week'
-          | 'next_week'
-          | 'last_month'
-          | 'this_month'
-          | 'next_month';
-        /** @description Filter records on a given record attribute and value. <br/>Example: filter[status]=delivered */
+      query?: {
+        /** @description Filter records on a given record attribute and value. <br/>Example: filter[status]=delivered. <br/>Required: filter[record_type] must be specified. */
         filter?: {
+          /**
+           * @description Filter by the given record type.
+           * @enum {string}
+           */
+          record_type:
+            | 'ai-voice-assistant'
+            | 'amd'
+            | 'call-control'
+            | 'conference'
+            | 'conference-participant'
+            | 'embedding'
+            | 'fax'
+            | 'inference'
+            | 'inference-speech-to-text'
+            | 'media_storage'
+            | 'media-streaming'
+            | 'messaging'
+            | 'noise-suppression'
+            | 'recording'
+            | 'sip-trunking'
+            | 'siprec-client'
+            | 'stt'
+            | 'tts'
+            | 'verify'
+            | 'webrtc'
+            | 'wireless';
+          /**
+           * @description Filter by the given user-friendly date range. You can specify one of the following enum values, or a dynamic one using this format: last_N_days.
+           * @enum {string}
+           */
+          date_range?:
+            | 'yesterday'
+            | 'today'
+            | 'tomorrow'
+            | 'last_week'
+            | 'this_week'
+            | 'next_week'
+            | 'last_month'
+            | 'this_month'
+            | 'next_month';
+        } & {
           [key: string]: unknown;
         };
-        /** @description Page number */
-        'page[number]'?: number;
-        /** @description Page size */
-        'page[size]'?: number;
         /** @description Specifies the sort order for results. <br/>Example: sort=-created_at */
         sort?: string[];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: {
+          /**
+           * Format: int32
+           * @description Page number
+           * @default 1
+           */
+          number?: number;
+          /**
+           * Format: int32
+           * @description Page size
+           * @default 20
+           */
+          size?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -60191,7 +62630,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -60207,7 +62646,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -60223,7 +62662,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -60239,7 +62678,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        /** @description Telnyx connection id */
         connection_id: components['parameters']['ConnectionId'];
       };
       cookie?: never;
@@ -60259,16 +62698,10 @@ export interface operations {
   ListDocumentLinks: {
     parameters: {
       query?: {
-        /** @description The page number to load */
-        'page[number]'?: number;
-        /** @description The size of the page */
-        'page[size]'?: number;
-        /** @description Identifies the associated document to filter on. */
-        'filter[document_id]'?: string;
-        /** @description The `linked_record_type` of the document to filter on. */
-        'filter[linked_record_type]'?: string;
-        /** @description The `linked_resource_id` of the document to filter on. */
-        'filter[linked_resource_id]'?: string;
+        /** @description Consolidated filter parameter for document links (deepObject style). Originally: filter[linked_record_type], filter[linked_resource_id] */
+        filter?: components['parameters']['FilterDocumentLinksConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -60276,48 +62709,19 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      /** @description Successful response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': {
-            data?: components['schemas']['DocServiceDocumentLink'][];
-            meta?: components['schemas']['PaginationMeta'];
-          };
-        };
-      };
-      /** @description Unexpected error */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Errors'];
-        };
-      };
+      200: components['responses']['ListDocServiceDocumentLinksResponse'];
+      default: components['responses']['GenericErrorResponse'];
     };
   };
   ListDocuments: {
     parameters: {
       query?: {
-        /** @description Filter by string matching part of filename. */
-        'filter[filename][contains]'?: string;
-        /** @description Filter documents by a customer references. */
-        'filter[customer_reference][eq]'?: string;
-        /** @description Filter documents by a list of customer references. */
-        'filter[customer_reference][in][]'?: string;
-        /** @description Filter by created at greater than provided value. */
-        'filter[created_at][gt]'?: string;
-        /** @description Filter by created at less than provided value. */
-        'filter[created_at][lt]'?: string;
-        /** @description Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a `-` in front of the field name. */
-        'sort[]'?: 'filename' | 'created_at' | 'updated_at';
-        /** @description The page number to load */
-        'page[number]'?: number;
-        /** @description The size of the page */
-        'page[size]'?: number;
+        /** @description Consolidated filter parameter for documents (deepObject style). Originally: filter[filename][contains], filter[customer_reference][eq], filter[customer_reference][in][], filter[created_at][gt], filter[created_at][lt] */
+        filter?: components['parameters']['FilterDocumentsConsolidated'];
+        /** @description Consolidated sort parameter for documents (deepObject style). Originally: sort[] */
+        sort?: components['parameters']['SortDocumentsConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -60325,27 +62729,8 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      /** @description Successful response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': {
-            data?: components['schemas']['DocServiceDocument'][];
-            meta?: components['schemas']['PaginationMeta'];
-          };
-        };
-      };
-      /** @description Unexpected error */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Errors'];
-        };
-      };
+      200: components['responses']['ListDocServiceDocumentsResponse'];
+      default: components['responses']['GenericErrorResponse'];
     };
   };
   CreateDocument: {
@@ -60357,87 +62742,14 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json':
-          | {
-              /**
-               * @description If the file is already hosted publicly, you can provide a URL and have the documents service fetch it for you.
-               * @example https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
-               */
-              url: string;
-              /**
-               * @description The filename of the document.
-               * @example test-document.pdf
-               */
-              filename?: string;
-              /**
-               * @description Optional reference string for customer tracking.
-               * @example MY REF 001
-               */
-              customer_reference?: string;
-            }
-          | {
-              /**
-               * Format: byte
-               * @description The Base64 encoded contents of the file you are uploading.
-               * @example [Base64 encoded content]
-               */
-              file: string;
-              /**
-               * @description The filename of the document.
-               * @example test-document.pdf
-               */
-              filename?: string;
-              /**
-               * @description A customer reference string for customer look ups.
-               * @example MY REF 001
-               */
-              customer_reference?: string;
-            };
-        'multipart/form-data': {
-          /**
-           * Format: binary
-           * @description The file you are uploading.
-           * @example
-           */
-          file?: string;
-          /**
-           * @description Optional reference string for customer tracking.
-           * @example MY REF 001
-           */
-          customer_reference?: string;
-        };
+        'application/json': components['schemas']['CreateDocServiceDocumentRequest'];
+        'multipart/form-data': components['schemas']['CreateMultiPartDocServiceDocumentRequest'];
       };
     };
     responses: {
-      /** @description Successful response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': {
-            data?: components['schemas']['DocServiceDocument'];
-          };
-        };
-      };
-      /** @description Unprocessable entity. Check the 'detail' field in response for details. */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Errors'];
-        };
-      };
-      /** @description Unexpected error */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Errors'];
-        };
-      };
+      200: components['responses']['DocServiceDocumentResponse'];
+      422: components['responses']['UnprocessableEntity'];
+      default: components['responses']['GenericErrorResponse'];
     };
   };
   RetrieveDocument: {
@@ -60445,36 +62757,15 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /**
-         * @description Identifies the resource.
-         * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
-         */
-        id: string;
+        /** @description Identifies the resource. */
+        id: components['parameters']['Id'];
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      /** @description Successful response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': {
-            data?: components['schemas']['DocServiceDocument'];
-          };
-        };
-      };
-      /** @description Unexpected error */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Errors'];
-        };
-      };
+      200: components['responses']['DocServiceDocumentResponse'];
+      default: components['responses']['GenericErrorResponse'];
     };
   };
   DeleteDocument: {
@@ -60482,36 +62773,15 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /**
-         * @description Identifies the resource.
-         * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
-         */
-        id: string;
+        /** @description Identifies the resource. */
+        id: components['parameters']['Id'];
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      /** @description Successful response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': {
-            data?: components['schemas']['DocServiceDocument'];
-          };
-        };
-      };
-      /** @description Unexpected error */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Errors'];
-        };
-      };
+      200: components['responses']['DocServiceDocumentResponse'];
+      default: components['responses']['GenericErrorResponse'];
     };
   };
   UpdateDocument: {
@@ -60519,40 +62789,19 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /**
-         * @description Identifies the resource.
-         * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
-         */
-        id: string;
+        /** @description Identifies the resource. */
+        id: components['parameters']['Id'];
       };
       cookie?: never;
     };
-    requestBody?: {
+    requestBody: {
       content: {
         'application/json': components['schemas']['DocServiceDocument'];
       };
     };
     responses: {
-      /** @description Successful response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': {
-            data?: components['schemas']['DocServiceDocument'];
-          };
-        };
-      };
-      /** @description Unexpected error */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Errors'];
-        };
-      };
+      200: components['responses']['DocServiceDocumentResponse'];
+      default: components['responses']['GenericErrorResponse'];
     };
   };
   DownloadDocument: {
@@ -60560,47 +62809,32 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /**
-         * @description Identifies the resource.
-         * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
-         */
-        id: string;
+        /** @description Identifies the resource. */
+        id: components['parameters']['Id'];
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      /** @description Successful response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          '*/*': Record<string, never>;
-        };
-      };
-      /** @description Unexpected error */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Errors'];
-        };
-      };
+      200: components['responses']['DownloadDocServiceDocumentResponse'];
+      default: components['responses']['GenericErrorResponse'];
     };
   };
   ListDynamicEmergencyAddresses: {
     parameters: {
       query?: {
-        /** @description Filter by status. */
-        'filter[status]'?: 'pending' | 'activated' | 'rejected';
-        /** @description Filter by country code. */
-        'filter[country_code]'?: string;
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[status], filter[country_code] */
+        filter?: {
+          /**
+           * @description Filter by status.
+           * @enum {string}
+           */
+          status?: 'pending' | 'activated' | 'rejected';
+          /** @description Filter by country code. */
+          country_code?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -60744,14 +62978,18 @@ export interface operations {
   ListDynamicEmergencyEndpoints: {
     parameters: {
       query?: {
-        /** @description Filter by status. */
-        'filter[status]'?: 'pending' | 'activated' | 'rejected';
-        /** @description Filter by country code. */
-        'filter[country_code]'?: string;
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[status], filter[country_code] */
+        filter?: {
+          /**
+           * @description Filter by status.
+           * @enum {string}
+           */
+          status?: 'pending' | 'activated' | 'rejected';
+          /** @description Filter by country code. */
+          country_code?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -60945,20 +63183,10 @@ export interface operations {
   ListExternalConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-        'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
-        /** @description If present, connections with <code>external_sip_connection</code> matching the given value will be returned. */
-        'filter[external_sip_connection]'?: components['parameters']['FilterExternalSipConnection'];
-        /** @description If present, connections with <code>id</code> matching the given value will be returned. */
-        'filter[id]'?: components['parameters']['FilterId'];
-        /** @description Filter by ISO 8601 formatted date-time string matching resource creation date-time. */
-        'filter[created_at]'?: components['parameters']['FilterCreatedAt'];
-        /** @description If present, connections associated with the given phone_number will be returned. A full match is necessary with a e164 format. */
-        'filter[phone_number][eq]'?: components['parameters']['FilterPhoneNumber'];
+        /** @description Filter parameter for external connections (deepObject style). Supports filtering by connection_name, external_sip_connection, id, created_at, and phone_number. */
+        filter?: components['parameters']['FilterConnectionsConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -61017,16 +63245,10 @@ export interface operations {
   ListExternalConnectionLogMessages: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The external connection ID to filter by or "null" to filter for logs without an external connection ID */
-        'filter[external_connection_id]'?: components['parameters']['FilterExternalConnectionId'];
-        /** @description The partial phone number to filter log messages for. Requires 3-15 digits. */
-        'filter[telephone_number][contains]'?: components['parameters']['FilterPhoneNumberLogMessageContains'];
-        /** @description The phone number to filter log messages for or "null" to filter for logs without a phone number */
-        'filter[telephone_number][eq]'?: components['parameters']['FilterPhoneNumberLogMessageEq'];
+        /** @description Filter parameter for log messages (deepObject style). Supports filtering by external_connection_id and telephone_number with eq/contains operations. */
+        filter?: components['parameters']['FilterLogMessagesConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -61236,8 +63458,8 @@ export interface operations {
   ListCivicAddresses: {
     parameters: {
       query?: {
-        /** @description The country (or countries) to filter addresses by. */
-        'filter[country]'?: components['parameters']['FilterCountry'];
+        /** @description Filter parameter for civic addresses (deepObject style). Supports filtering by country. */
+        filter?: components['parameters']['FilterCivicAddressesConsolidated'];
       };
       header?: never;
       path: {
@@ -61389,18 +63611,10 @@ export interface operations {
   ListExternalConnectionPhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The phone number to filter by */
-        'filter[phone_number][eq]'?: components['parameters']['FilterPhoneNumberEq'];
-        /** @description The partial phone number to filter by. Requires 3-15 digits. */
-        'filter[phone_number][contains]'?: components['parameters']['FilterPhoneNumberContains'];
-        /** @description The civic address ID to filter by */
-        'filter[civic_address_id][eq]'?: components['parameters']['FilterCivicAddressId'];
-        /** @description The location ID to filter by */
-        'filter[location_id][eq]'?: components['parameters']['FilterLocationId'];
+        /** @description Filter parameter for phone numbers (deepObject style). Supports filtering by phone_number, civic_address_id, and location_id with eq/contains operations. */
+        filter?: components['parameters']['FilterPhoneNumbersConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path: {
@@ -61512,20 +63726,10 @@ export interface operations {
   ListExternalConnectionReleases: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The status of the release to filter by */
-        'filter[status][eq]'?: components['parameters']['FilterReleaseStatus'];
-        /** @description The civic address ID to filter by */
-        'filter[civic_address_id][eq]'?: components['parameters']['FilterCivicAddressId'];
-        /** @description The location ID to filter by */
-        'filter[location_id][eq]'?: components['parameters']['FilterLocationId'];
-        /** @description The phone number to filter by */
-        'filter[phone_number][eq]'?: components['parameters']['FilterPhoneNumberEq'];
-        /** @description The partial phone number to filter by. Requires 3-15 digits. */
-        'filter[phone_number][contains]'?: components['parameters']['FilterPhoneNumberContains'];
+        /** @description Filter parameter for releases (deepObject style). Supports filtering by status, civic_address_id, location_id, and phone_number with eq/contains operations. */
+        filter?: components['parameters']['FilterReleasesConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path: {
@@ -61594,20 +63798,10 @@ export interface operations {
   ListExternalConnectionUploads: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The status of the upload to filter by */
-        'filter[status][eq]'?: components['parameters']['FilterUploadStatus'];
-        /** @description The civic address ID to filter by */
-        'filter[civic_address_id][eq]'?: components['parameters']['FilterCivicAddressId'];
-        /** @description The location ID to filter by */
-        'filter[location_id][eq]'?: components['parameters']['FilterLocationId'];
-        /** @description The phone number to filter by */
-        'filter[phone_number][eq]'?: components['parameters']['FilterPhoneNumberEq'];
-        /** @description The partial phone number to filter by. Requires 3-15 digits. */
-        'filter[phone_number][contains]'?: components['parameters']['FilterPhoneNumberContains'];
+        /** @description Filter parameter for uploads (deepObject style). Supports filtering by status, civic_address_id, location_id, and phone_number with eq/contains operations. */
+        filter?: components['parameters']['FilterUploadsConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path: {
@@ -61868,24 +64062,20 @@ export interface operations {
   ListFaxApplications: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-        'filter[application_name][contains]'?: components['parameters']['FilterApplicationName'];
-        /** @description Identifies the associated outbound voice profile. */
-        'filter[outbound_voice_profile_id]'?: components['parameters']['FilterOutboundVoiceProfileId'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
-         *         <code>friendly_name</code>: sorts the result by the
-         *         <code>friendly_name</code> field in ascending order.
+         *         <code>application_name</code>: sorts the result by the
+         *         <code>application_name</code> field in ascending order.
          *       </li>
          *
          *       <li>
-         *         <code>-friendly_name</code>: sorts the result by the
-         *         <code>friendly_name</code> field in descending order.
+         *         <code>-application_name</code>: sorts the result by the
+         *         <code>application_name</code> field in descending order.
          *       </li>
          *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
         sort?: components['parameters']['SortApplication'];
@@ -61987,24 +64177,73 @@ export interface operations {
   ListFaxes: {
     parameters: {
       query?: {
-        /** @description ISO 8601 date time for filtering faxes created after or on that date */
-        'filter[created_at][gte]'?: string;
-        /** @description ISO 8601 date time for filtering faxes created after that date */
-        'filter[created_at][gt]'?: string;
-        /** @description ISO 8601 formatted date time for filtering faxes created on or before that date */
-        'filter[created_at][lte]'?: string;
-        /** @description ISO 8601 formatted date time for filtering faxes created before that date */
-        'filter[created_at][lt]'?: string;
-        /** @description The direction, inbound or outbound, for filtering faxes sent from this account */
-        'filter[direction][eq]'?: string;
-        /** @description The phone number, in E.164 format for filtering faxes sent from this number */
-        'filter[from][eq]'?: string;
-        /** @description The phone number, in E.164 format for filtering faxes sent to this number */
-        'filter[to][eq]'?: string;
-        /** @description Number of fax resourcxes for the single page returned */
-        'page[size]'?: number;
-        /** @description Number of the page to be retrieved */
-        'page[number]'?: number;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[created_at][gte], filter[created_at][gt], filter[created_at][lte], filter[created_at][lt], filter[direction][eq], filter[from][eq], filter[to][eq] */
+        filter?: {
+          /** @description Date range filtering operations for fax creation timestamp */
+          created_at?: {
+            /**
+             * Format: date-time
+             * @description ISO 8601 date time for filtering faxes created after or on that date
+             * @example 2020-02-02T22:25:27.521992Z
+             */
+            gte?: string;
+            /**
+             * Format: date-time
+             * @description ISO 8601 date time for filtering faxes created after that date
+             * @example 2020-02-02T22:25:27.521992Z
+             */
+            gt?: string;
+            /**
+             * Format: date-time
+             * @description ISO 8601 formatted date time for filtering faxes created on or before that date
+             * @example 2020-02-02T22:25:27.521992Z
+             */
+            lte?: string;
+            /**
+             * Format: date-time
+             * @description ISO 8601 formatted date time for filtering faxes created before that date
+             * @example 2020-02-02T22:25:27.521992Z
+             */
+            lt?: string;
+          };
+          /** @description Direction filtering operations */
+          direction?: {
+            /**
+             * @description The direction, inbound or outbound, for filtering faxes sent from this account
+             * @example inbound
+             */
+            eq?: string;
+          };
+          /** @description From number filtering operations */
+          from?: {
+            /**
+             * @description The phone number, in E.164 format for filtering faxes sent from this number
+             * @example +13127367276
+             */
+            eq?: string;
+          };
+          /** @description To number filtering operations */
+          to?: {
+            /**
+             * @description The phone number, in E.164 format for filtering faxes sent to this number
+             * @example +13127367276
+             */
+            eq?: string;
+          };
+        };
+        /** @description Consolidated pagination parameter (deepObject style). Originally: page[size], page[number] */
+        page?: {
+          /**
+           * @description Number of fax resources for the single page returned
+           * @example 2
+           */
+          size?: number;
+          /**
+           * @description Number of the page to be retrieved
+           * @example 2
+           */
+          number?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -62111,16 +64350,10 @@ export interface operations {
   ListFqdnConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-        'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
-        /** @description If present, connections with an `fqdn` that equals the given value will be returned. Matching is case-sensitive, and the full string must match. */
-        'filter[fqdn]'?: components['parameters']['FilterFqdn'];
-        /** @description Identifies the associated outbound voice profile. */
-        'filter[outbound_voice_profile_id]'?: components['parameters']['FilterOutboundVoiceProfileId'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -62234,18 +64467,28 @@ export interface operations {
   ListFqdns: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description ID of the FQDN connection to which the FQDN belongs. */
-        'filter[connection_id]'?: string;
-        /** @description FQDN represented by the resource. */
-        'filter[fqdn]'?: string;
-        /** @description Port to use when connecting to the FQDN. */
-        'filter[port]'?: number;
-        /** @description DNS record type used by the FQDN. */
-        'filter[dns_record_type]'?: string;
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[connection_id], filter[fqdn], filter[port], filter[dns_record_type] */
+        filter?: {
+          /** @description ID of the FQDN connection to which the FQDN belongs. */
+          connection_id?: string;
+          /**
+           * @description FQDN represented by the resource.
+           * @example example.com
+           */
+          fqdn?: string;
+          /**
+           * @description Port to use when connecting to the FQDN.
+           * @example 5060
+           */
+          port?: number;
+          /**
+           * @description DNS record type used by the FQDN.
+           * @example a
+           */
+          dns_record_type?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -62354,14 +64597,21 @@ export interface operations {
   GetGlobalIpAssignmentHealth: {
     parameters: {
       query?: {
-        /** @description Filter by Global IP ID(s) separated by commas */
-        'filter[global_ip_id][in]'?: string;
-        /** @description Filter by Global IP Assignment ID(s) separated by commas */
-        'filter[global_ip_assignment_id][in]'?: string;
-        /** @description Filter by timestamp greater than */
-        'filter[timestamp][gt]'?: components['parameters']['TimestampGreater'];
-        /** @description Filter by timestamp less than */
-        'filter[timestamp][lt]'?: components['parameters']['TimestampLess'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[global_ip_id][in], filter[global_ip_assignment_id][in] */
+        filter?: {
+          global_ip_id?:
+            | string
+            | {
+                /** @description Filter by Global IP ID(s) separated by commas */
+                in?: string;
+              };
+          global_ip_assignment_id?:
+            | string
+            | {
+                /** @description Filter by Global IP Assignment ID(s) separated by commas */
+                in?: string;
+              };
+        };
       };
       header?: never;
       path?: never;
@@ -62376,10 +64626,8 @@ export interface operations {
   ListGlobalIpAssignments: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -62464,14 +64712,21 @@ export interface operations {
   GetGlobalIpAssignmentUsage: {
     parameters: {
       query?: {
-        /** @description Filter by Global IP Assignment ID(s) separated by commas */
-        'filter[global_ip_assignment_id][in]'?: string;
-        /** @description Filter by Global IP ID(s), separated by commas */
-        'filter[global_ip_id][in]'?: string;
-        /** @description Filter by timestamp greater than */
-        'filter[timestamp][gt]'?: components['parameters']['TimestampGreater'];
-        /** @description Filter by timestamp less than */
-        'filter[timestamp][lt]'?: components['parameters']['TimestampLess'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[global_ip_assignment_id][in], filter[global_ip_id][in] */
+        filter?: {
+          global_ip_assignment_id?:
+            | string
+            | {
+                /** @description Filter by Global IP Assignment ID(s) separated by commas */
+                in?: string;
+              };
+          global_ip_id?:
+            | string
+            | {
+                /** @description Filter by Global IP ID(s) separated by commas */
+                in?: string;
+              };
+        };
       };
       header?: never;
       path?: never;
@@ -62499,10 +64754,8 @@ export interface operations {
   ListGlobalIpHealthChecks: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -62567,12 +64820,15 @@ export interface operations {
   GetGlobalIpLatency: {
     parameters: {
       query?: {
-        /** @description Filter by Global IP ID(s) separated by commas */
-        'filter[global_ip_id][in]'?: string;
-        /** @description Filter by timestamp greater than */
-        'filter[timestamp][gt]'?: components['parameters']['TimestampGreater'];
-        /** @description Filter by timestamp less than */
-        'filter[timestamp][lt]'?: components['parameters']['TimestampLess'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[global_ip_id][in] */
+        filter?: {
+          global_ip_id?:
+            | string
+            | {
+                /** @description Filter by Global IP ID(s) separated by commas */
+                in?: string;
+              };
+        };
       };
       header?: never;
       path?: never;
@@ -62600,12 +64856,15 @@ export interface operations {
   GetGlobalIpUsage: {
     parameters: {
       query?: {
-        /** @description Filter by Global IP ID(s) separated by commas */
-        'filter[global_ip_id][in]'?: string;
-        /** @description Filter by timestamp greater than */
-        'filter[timestamp][gt]'?: components['parameters']['TimestampGreater'];
-        /** @description Filter by timestamp less than */
-        'filter[timestamp][lt]'?: components['parameters']['TimestampLess'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[global_ip_id][in] */
+        filter?: {
+          global_ip_id?:
+            | string
+            | {
+                /** @description Filter by Global IP ID(s) separated by commas */
+                in?: string;
+              };
+        };
       };
       header?: never;
       path?: never;
@@ -62620,10 +64879,8 @@ export interface operations {
   ListGlobalIps: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -62789,15 +65046,11 @@ export interface operations {
         content: {
           'application/json': {
             errors?: {
-              /** Format: int */
               code: string;
               title: string;
               detail?: string;
               source?: {
-                /**
-                 * Format: json-pointer
-                 * @description JSON pointer (RFC6901) to the offending entity.
-                 */
+                /** @description JSON pointer (RFC6901) to the offending entity. */
                 pointer?: string;
                 /** @description Indicates which query parameter caused the error. */
                 parameter?: string;
@@ -62812,9 +65065,28 @@ export interface operations {
   list_integration_secrets: {
     parameters: {
       query?: {
-        'page[size]'?: number;
-        'page[number]'?: number;
-        'filter[type]'?: 'bearer' | 'basic';
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: {
+          /**
+           * Page Size
+           * @example 25
+           */
+          size?: number;
+          /**
+           * Page Number
+           * @example 1
+           */
+          number?: number;
+        };
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[type] */
+        filter?: {
+          /**
+           * Filter by type
+           * @example bearer
+           * @enum {string}
+           */
+          type?: 'bearer' | 'basic';
+        };
       };
       header?: never;
       path?: never;
@@ -62897,65 +65169,80 @@ export interface operations {
   };
   CreateInventoryCoverage: {
     parameters: {
-      query: {
-        /** @example 318 */
-        'filter[npa]'?: number;
-        /** @example 202 */
-        'filter[nxx]'?: number;
-        /** @example LA */
-        'filter[administrative_area]'?: string;
-        /** @example local */
-        'filter[phone_number_type]'?:
-          | 'local'
-          | 'toll_free'
-          | 'national'
-          | 'mobile'
-          | 'landline'
-          | 'shared_cost';
-        /** @example US */
-        'filter[country_code]'?:
-          | 'AT'
-          | 'AU'
-          | 'BE'
-          | 'BG'
-          | 'CA'
-          | 'CH'
-          | 'CN'
-          | 'CY'
-          | 'CZ'
-          | 'DE'
-          | 'DK'
-          | 'EE'
-          | 'ES'
-          | 'FI'
-          | 'FR'
-          | 'GB'
-          | 'GR'
-          | 'HU'
-          | 'HR'
-          | 'IE'
-          | 'IT'
-          | 'LT'
-          | 'LU'
-          | 'LV'
-          | 'NL'
-          | 'NZ'
-          | 'MX'
-          | 'NO'
-          | 'PL'
-          | 'PT'
-          | 'RO'
-          | 'SE'
-          | 'SG'
-          | 'SI'
-          | 'SK'
-          | 'US';
-        /** @example true */
-        'filter[count]'?: boolean;
-        /** @description Filter if the phone number should be used for voice, fax, mms, sms, emergency. Returns features in the response when used. */
-        'filter[features]'?: ('sms' | 'mms' | 'voice' | 'fax' | 'emergency')[];
-        /** @example nxx */
-        'filter[groupBy]': 'locality' | 'npa' | 'national_destination_code';
+      query?: {
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[npa], filter[nxx], filter[administrative_area], filter[phone_number_type], filter[country_code], filter[count], filter[features], filter[groupBy] */
+        filter?: {
+          /** @description Filter by npa */
+          npa?: number;
+          /** @description Filter by nxx */
+          nxx?: number;
+          /** @description Filter by administrative area */
+          administrative_area?: string;
+          /**
+           * @description Filter by phone number type
+           * @enum {string}
+           */
+          phone_number_type?:
+            | 'local'
+            | 'toll_free'
+            | 'national'
+            | 'mobile'
+            | 'landline'
+            | 'shared_cost';
+          /**
+           * @description Filter by country. Defaults to US
+           * @enum {string}
+           */
+          country_code?:
+            | 'AT'
+            | 'AU'
+            | 'BE'
+            | 'BG'
+            | 'CA'
+            | 'CH'
+            | 'CN'
+            | 'CY'
+            | 'CZ'
+            | 'DE'
+            | 'DK'
+            | 'EE'
+            | 'ES'
+            | 'FI'
+            | 'FR'
+            | 'GB'
+            | 'GR'
+            | 'HU'
+            | 'HR'
+            | 'IE'
+            | 'IT'
+            | 'LT'
+            | 'LU'
+            | 'LV'
+            | 'NL'
+            | 'NZ'
+            | 'MX'
+            | 'NO'
+            | 'PL'
+            | 'PT'
+            | 'RO'
+            | 'SE'
+            | 'SG'
+            | 'SI'
+            | 'SK'
+            | 'US';
+          /** @description Include count in the result */
+          count?: boolean;
+          /**
+           * @description Filter if the phone number should be used for voice, fax, mms, sms, emergency. Returns features in the response when used.
+           * @example voice,sms
+           */
+          features?: ('sms' | 'mms' | 'voice' | 'fax' | 'emergency')[];
+          /**
+           * @description Filter to group results
+           * @enum {string}
+           */
+          groupBy?: 'locality' | 'npa' | 'national_destination_code';
+        };
       };
       header?: never;
       path?: never;
@@ -62970,14 +65257,10 @@ export interface operations {
   ListIpConnections: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-        'filter[connection_name][contains]'?: components['parameters']['FilterConnectionName'];
-        /** @description Identifies the associated outbound voice profile. */
-        'filter[outbound.outbound_voice_profile_id]'?: components['parameters']['FilterInnerOutboundVoiceProfileId'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -63089,16 +65372,23 @@ export interface operations {
   ListIps: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description ID of the IP Connection to which this IP should be attached. */
-        'filter[connection_id]'?: string;
-        /** @description IP adddress represented by this resource. */
-        'filter[ip_address]'?: string;
-        /** @description Port to use when connecting to this IP. */
-        'filter[port]'?: number;
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[connection_id], filter[ip_address], filter[port] */
+        filter?: {
+          /** @description ID of the IP Connection to which this IP should be attached. */
+          connection_id?: string;
+          /**
+           * @description IP adddress represented by this resource.
+           * @example 192.168.0.0
+           */
+          ip_address?: string;
+          /**
+           * @description Port to use when connecting to this IP.
+           * @example 5060
+           */
+          port?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -63298,30 +65588,11 @@ export interface operations {
   ListManagedAccounts: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description If present, email containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-        'filter[email][contains]'?: components['parameters']['FilterEmailContains'];
-        /** @description If present, only returns results with the <code>email</code> matching exactly the value given. */
-        'filter[email][eq]'?: components['parameters']['FilterEmailEq'];
-        /** @description If present, only returns results with the <code>organization_name</code> containing the given value. Matching is not case-sensitive. Requires at least three characters. */
-        'filter[organization_name][contains]'?: components['parameters']['FilterOrganizationEmailContains'];
-        /** @description If present, only returns results with the <code>organization_name</code> matching exactly the value given. */
-        'filter[organization_name][eq]'?: components['parameters']['FilterOrganizationEmailEq'];
-        /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
-         *     That is: <ul>
-         *       <li>
-         *         <code>email</code>: sorts the result by the
-         *         <code>email</code> field in ascending order.
-         *       </li>
-         *
-         *       <li>
-         *         <code>-email</code>: sorts the result by the
-         *         <code>email</code> field in descending order.
-         *       </li>
-         *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Set the order of the results by the creation date. */
         sort?: components['parameters']['Sort'];
         /** @description Specifies if cancelled accounts should be included in the results. */
         include_cancelled_accounts?: components['parameters']['IncludeCancelledAccounts'];
@@ -63513,8 +65784,11 @@ export interface operations {
   ListMediaStorage: {
     parameters: {
       query?: {
-        /** @description Filters files by given content types */
-        'filter[content_type][]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[content_type][] */
+        filter?: {
+          /** @description Filters files by given content types */
+          content_type?: string[];
+        };
       };
       header?: never;
       path?: never;
@@ -63802,10 +66076,8 @@ export interface operations {
   ListMessagingHostedNumberOrders: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -63884,6 +66156,22 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the type of resource. */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['MessagingHostedNumberOrderResponse'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  DeleteMessagingHostedNumberOrder: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Identifies the messaging hosted number order to delete. */
         id: string;
       };
       cookie?: never;
@@ -63977,7 +66265,7 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      200: components['responses']['MessagingHostedNumberResponse'];
+      200: components['responses']['MessagingHostedNumberOrderResponse'];
       default: components['responses']['GenericErrorResponse'];
     };
   };
@@ -64017,23 +66305,33 @@ export interface operations {
   ListOptOuts: {
     parameters: {
       query?: {
-        /** @description The ID of the messaging profile to retrieve opt-outs for */
-        'filter[messaging_profile_id]'?: string;
-        /** @description Filter opt-outs created after this date (ISO-8601 format) */
-        'created_at[gte]'?: string;
-        /** @description The sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code) to retrieve opt-outs for */
-        'filter[from]'?: string;
-        /** @description Filter opt-outs created before this date (ISO-8601 format) */
-        'created_at[lte]'?: string;
         /**
          * @description If receiving address (+E.164 formatted phone number) should be redacted
          * @example +447766****
          */
         redaction_enabled?: string;
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[messaging_profile_id], filter[from] */
+        filter?: {
+          /** @description The ID of the messaging profile to retrieve opt-outs for */
+          messaging_profile_id?: string;
+          /** @description The sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code) to retrieve opt-outs for */
+          from?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated created_at parameter (deepObject style). Originally: created_at[gte], created_at[lte] */
+        created_at?: {
+          /**
+           * Format: date-time
+           * @description Filter opt-outs created after this date (ISO-8601 format)
+           */
+          gte?: string;
+          /**
+           * Format: date-time
+           * @description Filter opt-outs created before this date (ISO-8601 format)
+           */
+          lte?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -64073,12 +66371,13 @@ export interface operations {
   ListMessagingProfiles: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter by name */
-        'filter[name]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[name] */
+        filter?: {
+          /** @description Filter by name */
+          name?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -64164,10 +66463,8 @@ export interface operations {
   ListProfilePhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path: {
@@ -64185,10 +66482,8 @@ export interface operations {
   ListProfileShortCodes: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path: {
@@ -64207,10 +66502,20 @@ export interface operations {
     parameters: {
       query?: {
         country_code?: string;
-        'created_at[gte]'?: string;
-        'created_at[lte]'?: string;
-        'updated_at[gte]'?: string;
-        'updated_at[lte]'?: string;
+        /** @description Consolidated created_at parameter (deepObject style). Originally: created_at[gte], created_at[lte] */
+        created_at?: {
+          /** Created At[Gte] */
+          gte?: string;
+          /** Created At[Lte] */
+          lte?: string;
+        };
+        /** @description Consolidated updated_at parameter (deepObject style). Originally: updated_at[gte], updated_at[lte] */
+        updated_at?: {
+          /** Updated At[Gte] */
+          gte?: string;
+          /** Updated At[Lte] */
+          lte?: string;
+        };
       };
       header?: never;
       path: {
@@ -64554,10 +66859,8 @@ export interface operations {
   ListMessagingUrlDomains: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -64572,26 +66875,10 @@ export interface operations {
   GetMobileNetworkOperators: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter by name starting with. */
-        'filter[name][starts_with]'?: string;
-        /** @description Filter by name containing match. */
-        'filter[name][contains]'?: string;
-        /** @description Filter by name ending with. */
-        'filter[name][ends_with]'?: string;
-        /** @description Filter by exact country_code. */
-        'filter[country_code]'?: string;
-        /** @description Filter by exact MCC. */
-        'filter[mcc]'?: string;
-        /** @description Filter by exact MNC. */
-        'filter[mnc]'?: string;
-        /** @description Filter by exact TADIG. */
-        'filter[tadig]'?: string;
-        /** @description Filter by network_preferences_enabled. */
-        'filter[network_preferences_enabled]'?: boolean;
+        /** @description Consolidated filter parameter for mobile network operators (deepObject style). Originally: filter[name][starts_with], filter[name][contains], filter[name][ends_with], filter[country_code], filter[mcc], filter[mnc], filter[tadig], filter[network_preferences_enabled] */
+        filter?: components['parameters']['FilterMobileNetworkOperatorsConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -64613,14 +66900,22 @@ export interface operations {
   ListPushCredentials: {
     parameters: {
       query?: {
-        /** @description type of mobile push credentials */
-        'filter[type]'?: 'ios' | 'android';
-        /** @description Unique mobile push credential alias */
-        'filter[alias]'?: string;
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[type], filter[alias] */
+        filter?: {
+          /**
+           * @description type of mobile push credentials
+           * @example ios
+           * @enum {string}
+           */
+          type?: 'ios' | 'android';
+          /**
+           * @description Unique mobile push credential alias
+           * @example LucyCredential
+           */
+          alias?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -64794,20 +67089,40 @@ export interface operations {
   ListNetworkCoverage: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The region of associated location to filter on. */
-        'filters[available_services][contains]'?: components['schemas']['AvailableService'];
-        /** @description The region of associated location to filter on. */
-        'filter[location.region]'?: string;
-        /** @description The site of associated location to filter on. */
-        'filter[location.site]'?: string;
-        /** @description The POP of associated location to filter on. */
-        'filter[location.pop]'?: string;
-        /** @description The code of associated location to filter on. */
-        'filter[location.code]'?: string;
+        /** @description Consolidated filters parameter (deepObject style). Originally: filters[available_services][contains] */
+        filters?: {
+          available_services?:
+            | components['schemas']['AvailableService']
+            | {
+                /** @description Filter by available services containing the specified service */
+                contains?: components['schemas']['AvailableService'];
+              };
+        };
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[location.region], filter[location.site], filter[location.pop], filter[location.code] */
+        filter?: {
+          /**
+           * @description The region of associated location to filter on.
+           * @example AMER
+           */
+          'location.region'?: string;
+          /**
+           * @description The site of associated location to filter on.
+           * @example SJC
+           */
+          'location.site'?: string;
+          /**
+           * @description The POP of associated location to filter on.
+           * @example SV1
+           */
+          'location.pop'?: string;
+          /**
+           * @description The code of associated location to filter on.
+           * @example silicon_valley-ca
+           */
+          'location.code'?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -64822,12 +67137,16 @@ export interface operations {
   ListNetworks: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The network name to filter on. */
-        'filter[name]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[name] */
+        filter?: {
+          /**
+           * @description The network name to filter on.
+           * @example test network
+           */
+          name?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -64964,16 +67283,23 @@ export interface operations {
   ListNetworkInterfaces: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The interface name to filter on. */
-        'filter[name]'?: string;
-        /** @description The interface type to filter on. */
-        'filter[type]'?: string;
-        /** @description The interface status to filter on. */
-        'filter[status]'?: components['schemas']['InterfaceStatus'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[name], filter[type], filter[status] */
+        filter?: {
+          /**
+           * @description The interface name to filter on.
+           * @example test interface
+           */
+          name?: string;
+          /**
+           * @description The interface type to filter on.
+           * @example wireguard_interface
+           */
+          type?: string;
+          /** @description The interface status to filter on. */
+          status?: components['schemas']['InterfaceStatus'];
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path: {
@@ -64991,12 +67317,10 @@ export interface operations {
   ListNotificationChannels: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter by the id of a channel type */
-        'filter[channel_type_id][eq]'?: components['parameters']['ChannelTypeId'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
       };
       header?: never;
       path?: never;
@@ -65052,7 +67376,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The id of the resource. */
+        /** @description Identifies the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -65078,7 +67402,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The id of the resource. */
+        /** @description Identifies the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -65104,7 +67428,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The id of the resource. */
+        /** @description Identifies the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -65133,12 +67457,10 @@ export interface operations {
   FindNotificationsEventsConditions: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter by the associated record type */
-        'filter[associated_record_type][eq]'?: components['parameters']['AssociatedRecordType'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
       };
       header?: never;
       path?: never;
@@ -65164,10 +67486,8 @@ export interface operations {
   FindNotificationsEvents: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -65193,10 +67513,8 @@ export interface operations {
   FindNotificationsProfiles: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -65252,7 +67570,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The id of the resource. */
+        /** @description Identifies the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -65278,7 +67596,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The id of the resource. */
+        /** @description Identifies the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -65304,7 +67622,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The id of the resource. */
+        /** @description Identifies the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -65333,23 +67651,10 @@ export interface operations {
   ListNotificationSettings: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter by the id of a notification profile */
-        'filter[notification_profile_id][eq]'?: components['parameters']['NotificationProfileId'];
-        /** @description Filter by the id of a notification channel */
-        'filter[notification_channel][eq]'?: components['parameters']['NotificationChannelId'];
-        /** @description Filter by the id of a notification channel */
-        'filter[notification_event_condition_id][eq]'?: components['parameters']['NotificationEventConditionId'];
-        /** @description Filter by the associated record type */
-        'filter[associated_record_type][eq]'?: components['parameters']['AssociatedRecordType'];
-        /**
-         * @description Filters calls by status.
-         * @example no-answer
-         */
-        Status?: components['parameters']['Status'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
       };
       header?: never;
       path?: never;
@@ -65415,7 +67720,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The id of the resource. */
+        /** @description Identifies the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -65441,7 +67746,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description The id of the resource. */
+        /** @description Identifies the resource. */
         id: components['parameters']['Id'];
       };
       cookie?: never;
@@ -65476,18 +67781,34 @@ export interface operations {
   ListNumberBlockOrders: {
     parameters: {
       query?: {
-        /** @description Filter number block orders by status. */
-        'filter[status]'?: string;
-        /** @description Filter number block orders later than this value. */
-        'filter[created_at][gt]'?: string;
-        /** @description Filter number block orders earlier than this value. */
-        'filter[created_at][lt]'?: string;
-        /** @description Filter number block  orders having these phone numbers. */
-        'filter[phone_numbers.starting_number]'?: string;
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[status], filter[created_at], filter[phone_numbers.starting_number] */
+        filter?: {
+          /**
+           * @description Filter number block orders by status.
+           * @example pending
+           */
+          status?: string;
+          /** @description Filter number block orders by date range. */
+          created_at?: {
+            /**
+             * @description Filter number block orders later than this value.
+             * @example 2018-01-01T00:00:00.000000Z
+             */
+            gt?: string;
+            /**
+             * @description Filter number block orders earlier than this value.
+             * @example 2018-01-01T00:00:00.000000Z
+             */
+            lt?: string;
+          };
+          /**
+           * @description Filter number block  orders having these phone numbers.
+           * @example +19705555000
+           */
+          'phone_numbers.starting_number'?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -65555,8 +67876,14 @@ export interface operations {
   RetrieveOrderPhoneNumbers: {
     parameters: {
       query?: {
-        /** @description Country code of the order phone number. */
-        'filter[country_code]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[country_code] */
+        filter?: {
+          /**
+           * @description Country code of the order phone number.
+           * @example US
+           */
+          country_code?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -65643,22 +67970,26 @@ export interface operations {
   ListNumberOrders: {
     parameters: {
       query?: {
-        /** @description Filter number orders by status. */
-        'filter[status]'?: string;
-        /** @description Filter number orders later than this value. */
-        'filter[created_at][gt]'?: string;
-        /** @description Filter number orders earlier than this value. */
-        'filter[created_at][lt]'?: string;
-        /** @description Filter number order with this amount of numbers */
-        'filter[phone_numbers_count]'?: string;
-        /** @description Filter number orders via the customer reference set. */
-        'filter[customer_reference]'?: string;
-        /** @description Filter number orders by requirements met. */
-        'filter[requirements_met]'?: boolean;
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[status], filter[created_at], filter[phone_numbers_count], filter[customer_reference], filter[requirements_met] */
+        filter?: {
+          /** @description Filter number orders by status. */
+          status?: string;
+          /** @description Filter number orders by date range. */
+          created_at?: {
+            /** @description Filter number orders later than this value. */
+            gt?: string;
+            /** @description Filter number orders earlier than this value. */
+            lt?: string;
+          };
+          /** @description Filter number order with this amount of numbers */
+          phone_numbers_count?: string;
+          /** @description Filter number orders via the customer reference set. */
+          customer_reference?: string;
+          /** @description Filter number orders by requirements met. */
+          requirements_met?: boolean;
+        };
       };
       header?: never;
       path?: never;
@@ -65726,20 +68057,24 @@ export interface operations {
   ListNumberReservations: {
     parameters: {
       query?: {
-        /** @description Filter number reservations by status. */
-        'filter[status]'?: string;
-        /** @description Filter number reservations later than this value. */
-        'filter[created_at][gt]'?: string;
-        /** @description Filter number reservations earlier than this value. */
-        'filter[created_at][lt]'?: string;
-        /** @description Filter number reservations having these phone numbers. */
-        'filter[phone_numbers.phone_number]'?: string;
-        /** @description Filter number reservations via the customer reference set. */
-        'filter[customer_reference]'?: string;
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[status], filter[created_at], filter[phone_numbers.phone_number], filter[customer_reference] */
+        filter?: {
+          /** @description Filter number reservations by status. */
+          status?: string;
+          /** @description Filter number reservations by date range. */
+          created_at?: {
+            /** @description Filter number reservations later than this value. */
+            gt?: string;
+            /** @description Filter number reservations earlier than this value. */
+            lt?: string;
+          };
+          /** @description Filter number reservations having these phone numbers. */
+          'phone_numbers.phone_number'?: string;
+          /** @description Filter number reservations via the customer reference set. */
+          customer_reference?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -65823,7 +68158,6 @@ export interface operations {
         content: {
           'application/json': {
             data?: {
-              /** Format: phone */
               phone_number: string;
               features: string[];
             }[];
@@ -65893,16 +68227,10 @@ export interface operations {
   ListOtaUpdates: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter by a specific status of the resource's lifecycle. */
-        'filter[status]'?: components['parameters']['FilterBasicStatusLifecycle'];
-        /** @description The SIM card identification UUID. */
-        'filter[sim_card_id]'?: string;
-        /** @description Filter by type. */
-        'filter[type]'?: 'sim_card_network_preferences';
+        /** @description Consolidated filter parameter for OTA updates (deepObject style). Originally: filter[status], filter[sim_card_id], filter[type] */
+        filter?: components['parameters']['FilterOTAUpdatesConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -65947,12 +68275,10 @@ export interface operations {
   ListOutboundVoiceProfiles: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Optional filter on outbound voice profile name. */
-        'filter[name][contains]'?: components['parameters']['NameFilter'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code>-</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -66450,8 +68776,8 @@ export interface operations {
   GetPhoneNumberStatus: {
     parameters: {
       query?: {
-        recordsPerPage?: unknown;
-        page?: unknown;
+        recordsPerPage?: number;
+        page?: number;
       };
       header?: never;
       path: {
@@ -66476,16 +68802,25 @@ export interface operations {
   ListPhoneNumberBlocksJobs: {
     parameters: {
       query?: {
-        /** @description Filter the phone number blocks jobs by type. */
-        'filter[type]'?: 'delete_phone_number_block';
-        /** @description Filter the phone number blocks jobs by status. */
-        'filter[status]'?: 'pending' | 'in_progress' | 'completed' | 'failed';
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?: 'created_at';
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[type], filter[status] */
+        filter?: {
+          /**
+           * @description Identifies the type of the background job.
+           * @example delete_phone_number_block
+           * @enum {string}
+           */
+          type?: 'delete_phone_number_block';
+          /**
+           * @description Identifies the status of the background job.
+           * @example in_progress
+           * @enum {string}
+           */
+          status?: 'pending' | 'in_progress' | 'completed' | 'failed';
+        };
       };
       header?: never;
       path?: never;
@@ -66553,16 +68888,10 @@ export interface operations {
   GetAllPhoneNumberCampaigns: {
     parameters: {
       query?: {
-        recordsPerPage?: unknown;
-        page?: unknown;
-        /** @description Filter results by the Telnyx Campaign id */
-        'filter[telnyx_campaign_id]'?: components['parameters']['FilterByTelnyxCampaignID'];
-        /** @description Filter results by the Telnyx Brand id */
-        'filter[telnyx_brand_id]'?: components['parameters']['FilterByTelnyxBrandID'];
-        /** @description Filter results by the TCR Campaign id */
-        'filter[tcr_campaign_id]'?: components['parameters']['FilterByTCRCampaignID'];
-        /** @description Filter results by the TCR Brand id */
-        'filter[tcr_brand_id]'?: components['parameters']['FilterByTCRBrandID'];
+        recordsPerPage?: number;
+        page?: number;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
         /**
          * @description Specifies the sort order for results. If not given, results are sorted by createdAt in descending order.
          * @example -phoneNumber
@@ -66686,61 +69015,98 @@ export interface operations {
   ListPhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter by phone number tags. */
-        'filter[tag]'?: string;
-        /** @description Filter by phone number. Requires at least three digits.
-         *                  Non-numerical characters will result in no values being returned. */
-        'filter[phone_number]'?: string;
-        /** @description Filter by phone number status. */
-        'filter[status]'?:
-          | 'purchase-pending'
-          | 'purchase-failed'
-          | 'port-pending'
-          | 'active'
-          | 'deleted'
-          | 'port-failed'
-          | 'emergency-only'
-          | 'ported-out'
-          | 'port-out-pending';
-        /** @description Filter by phone number country ISO alpha-2 code. Can be a single value or an array of values. */
-        'filter[country_iso_alpha2]'?: string | string[];
-        /** @description Filter by connection_id. */
-        'filter[connection_id]'?: string;
-        /** @description Filter contains connection name. Requires at least three characters. */
-        'filter[voice.connection_name][contains]'?: string;
-        /** @description Filter starts with connection name. Requires at least three characters. */
-        'filter[voice.connection_name][starts_with]'?: string;
-        /** @description Filter ends with connection name. Requires at least three characters. */
-        'filter[voice.connection_name][ends_with]'?: string;
-        /** @description Filter by connection name. */
-        'filter[voice.connection_name][eq]'?: string;
-        /** @description Filter by usage_payment_method. */
-        'filter[voice.usage_payment_method]'?: 'pay-per-minute' | 'channel';
-        /** @description Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'. */
-        'filter[billing_group_id]'?: string;
-        /** @description Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'. */
-        'filter[emergency_address_id]'?: string;
-        /** @description Filter numbers via the customer_reference set. */
-        'filter[customer_reference]'?: string;
-        /** @description Filter phone numbers by phone number type. */
-        'filter[number_type][eq]'?:
-          | 'local'
-          | 'national'
-          | 'toll_free'
-          | 'mobile'
-          | 'shared_cost';
-        /** @description Filter phone numbers by their source. Use 'ported' for numbers ported from other carriers, or 'purchased' for numbers bought directly from Telnyx. */
-        'filter[source]'?: 'ported' | 'purchased';
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?:
           | 'purchased_at'
           | 'phone_number'
           | 'connection_name'
           | 'usage_payment_method';
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[tag], filter[phone_number], filter[status], filter[country_iso_alpha2], filter[connection_id], filter[voice.connection_name], filter[voice.usage_payment_method], filter[billing_group_id], filter[emergency_address_id], filter[customer_reference], filter[number_type], filter[source] */
+        filter?: {
+          /** @description Filter by phone number tags. */
+          tag?: string;
+          /** @description Filter by phone number. Requires at least three digits.
+           *                  Non-numerical characters will result in no values being returned. */
+          phone_number?: string;
+          /**
+           * @description Filter by phone number status.
+           * @example active
+           * @enum {string}
+           */
+          status?:
+            | 'purchase-pending'
+            | 'purchase-failed'
+            | 'port-pending'
+            | 'active'
+            | 'deleted'
+            | 'port-failed'
+            | 'emergency-only'
+            | 'ported-out'
+            | 'port-out-pending';
+          /** @description Filter by phone number country ISO alpha-2 code. Can be a single value or an array of values. */
+          country_iso_alpha2?: string | string[];
+          /**
+           * @description Filter by connection_id.
+           * @example 1521916448077776306
+           */
+          connection_id?: string;
+          /** @description Filter by voice connection name pattern matching. */
+          'voice.connection_name'?: {
+            /**
+             * @description Filter contains connection name. Requires at least three characters.
+             * @example test
+             */
+            contains?: string;
+            /**
+             * @description Filter starts with connection name. Requires at least three characters.
+             * @example test
+             */
+            starts_with?: string;
+            /**
+             * @description Filter ends with connection name. Requires at least three characters.
+             * @example test
+             */
+            ends_with?: string;
+            /**
+             * @description Filter by connection name.
+             * @example test
+             */
+            eq?: string;
+          };
+          /**
+           * @description Filter by usage_payment_method.
+           * @example channel
+           * @enum {string}
+           */
+          'voice.usage_payment_method'?: 'pay-per-minute' | 'channel';
+          /**
+           * @description Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
+           * @example 62e4bf2e-c278-4282-b524-488d9c9c43b2
+           */
+          billing_group_id?: string;
+          /**
+           * @description Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.
+           * @example 9102160989215728032
+           */
+          emergency_address_id?: string;
+          /** @description Filter numbers via the customer_reference set. */
+          customer_reference?: string;
+          /** @description Filter phone numbers by phone number type. */
+          number_type?: {
+            /**
+             * @description Filter phone numbers by phone number type.
+             * @enum {string}
+             */
+            eq?: 'local' | 'national' | 'toll_free' | 'mobile' | 'shared_cost';
+          };
+          /**
+           * @description Filter phone numbers by their source. Use 'ported' for numbers ported from other carriers, or 'purchased' for numbers bought directly from Telnyx.
+           * @enum {string}
+           */
+          source?: 'ported' | 'purchased';
+        };
       };
       header?: never;
       path?: never;
@@ -66752,13 +69118,47 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
+  VerifyPhoneNumberOwnership: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PhoneNumberVerifyOwnershipRequest'];
+      };
+    };
+    responses: {
+      /** @description Phone number ownership verification completed. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?: components['schemas']['PhoneNumberVerifyOwnershipResponse'];
+          };
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Errors'];
+        };
+      };
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
   ListCsvDownloads: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -66775,36 +69175,77 @@ export interface operations {
       query?: {
         /** @description Which format to use when generating the CSV file. The default for backwards compatibility is 'V1' */
         csv_format?: 'V1' | 'V2';
-        /** @description Filter by phone number that have bundles. */
-        'filter[has_bundle]'?: string;
-        /** @description Filter by phone number tags. */
-        'filter[tag]'?: string;
-        /** @description Filter by connection_id. */
-        'filter[connection_id]'?: string;
-        /** @description Filter by phone number. Requires at least three digits.
-         *                  Non-numerical characters will result in no values being returned. */
-        'filter[phone_number]'?: string;
-        /** @description Filter by phone number status. */
-        'filter[status]'?:
-          | 'purchase-pending'
-          | 'purchase-failed'
-          | 'port-pending'
-          | 'active'
-          | 'deleted'
-          | 'port-failed'
-          | 'emergency-only'
-          | 'ported-out'
-          | 'port-out-pending';
-        /** @description Filter contains connection name. Requires at least three characters. */
-        'filter[voice.connection_name][contains]'?: string;
-        /** @description Filter by usage_payment_method. */
-        'filter[voice.usage_payment_method]'?: 'pay-per-minute' | 'channel';
-        /** @description Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'. */
-        'filter[billing_group_id]'?: string;
-        /** @description Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'. */
-        'filter[emergency_address_id]'?: string;
-        /** @description Filter numbers via the customer_reference set. */
-        'filter[customer_reference]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[has_bundle], filter[tag], filter[connection_id], filter[phone_number], filter[status], filter[voice.connection_name], filter[voice.usage_payment_method], filter[billing_group_id], filter[emergency_address_id], filter[customer_reference] */
+        filter?: {
+          /** @description Filter by phone number that have bundles. */
+          has_bundle?: string;
+          /** @description Filter by phone number tags. */
+          tag?: string;
+          /**
+           * @description Filter by connection_id.
+           * @example 1521916448077776306
+           */
+          connection_id?: string;
+          /** @description Filter by phone number. Requires at least three digits.
+           *                  Non-numerical characters will result in no values being returned. */
+          phone_number?: string;
+          /**
+           * @description Filter by phone number status.
+           * @example active
+           * @enum {string}
+           */
+          status?:
+            | 'purchase-pending'
+            | 'purchase-failed'
+            | 'port-pending'
+            | 'active'
+            | 'deleted'
+            | 'port-failed'
+            | 'emergency-only'
+            | 'ported-out'
+            | 'port-out-pending';
+          /** @description Filter by voice connection name pattern matching. */
+          'voice.connection_name'?: {
+            /**
+             * @description Filter contains connection name. Requires at least three characters.
+             * @example test
+             */
+            contains?: string;
+            /**
+             * @description Filter starts with connection name. Requires at least three characters.
+             * @example test
+             */
+            starts_with?: string;
+            /**
+             * @description Filter ends with connection name. Requires at least three characters.
+             * @example test
+             */
+            ends_with?: string;
+            /**
+             * @description Filter by connection name.
+             * @example test
+             */
+            eq?: string;
+          };
+          /**
+           * @description Filter by usage_payment_method.
+           * @example channel
+           * @enum {string}
+           */
+          'voice.usage_payment_method'?: 'pay-per-minute' | 'channel';
+          /**
+           * @description Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
+           * @example 62e4bf2e-c278-4282-b524-488d9c9c43b2
+           */
+          billing_group_id?: string;
+          /**
+           * @description Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.
+           * @example 9102160989215728032
+           */
+          emergency_address_id?: string;
+          /** @description Filter numbers via the customer_reference set. */
+          customer_reference?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -66835,17 +69276,22 @@ export interface operations {
   ListPhoneNumbersJobs: {
     parameters: {
       query?: {
-        /** @description Filter the phone number jobs by type. */
-        'filter[type]'?:
-          | 'update_emergency_settings'
-          | 'delete_phone_numbers'
-          | 'update_phone_numbers';
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?: 'created_at';
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[type] */
+        filter?: {
+          /**
+           * @description Identifies the type of the background job.
+           * @example update_emergency_settings
+           * @enum {string}
+           */
+          type?:
+            | 'update_emergency_settings'
+            | 'delete_phone_numbers'
+            | 'update_phone_numbers';
+        };
       };
       header?: never;
       path?: never;
@@ -66946,36 +69392,77 @@ export interface operations {
   CreateUpdatePhoneNumbersJob: {
     parameters: {
       query?: {
-        /** @description Filter by phone number that have bundles. */
-        'filter[has_bundle]'?: string;
-        /** @description Filter by phone number tags. */
-        'filter[tag]'?: string;
-        /** @description Filter by connection_id. */
-        'filter[connection_id]'?: string;
-        /** @description Filter by phone number. Requires at least three digits.
-         *                  Non-numerical characters will result in no values being returned. */
-        'filter[phone_number]'?: string;
-        /** @description Filter by phone number status. */
-        'filter[status]'?:
-          | 'purchase-pending'
-          | 'purchase-failed'
-          | 'port-pending'
-          | 'active'
-          | 'deleted'
-          | 'port-failed'
-          | 'emergency-only'
-          | 'ported-out'
-          | 'port-out-pending';
-        /** @description Filter contains connection name. Requires at least three characters. */
-        'filter[voice.connection_name][contains]'?: string;
-        /** @description Filter by usage_payment_method. */
-        'filter[voice.usage_payment_method]'?: 'pay-per-minute' | 'channel';
-        /** @description Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'. */
-        'filter[billing_group_id]'?: string;
-        /** @description Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'. */
-        'filter[emergency_address_id]'?: string;
-        /** @description Filter numbers via the customer_reference set. */
-        'filter[customer_reference]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[has_bundle], filter[tag], filter[connection_id], filter[phone_number], filter[status], filter[voice.connection_name], filter[voice.usage_payment_method], filter[billing_group_id], filter[emergency_address_id], filter[customer_reference] */
+        filter?: {
+          /** @description Filter by phone number that have bundles. */
+          has_bundle?: string;
+          /** @description Filter by phone number tags. */
+          tag?: string;
+          /**
+           * @description Filter by connection_id.
+           * @example 1521916448077776306
+           */
+          connection_id?: string;
+          /** @description Filter by phone number. Requires at least three digits.
+           *                  Non-numerical characters will result in no values being returned. */
+          phone_number?: string;
+          /**
+           * @description Filter by phone number status.
+           * @example active
+           * @enum {string}
+           */
+          status?:
+            | 'purchase-pending'
+            | 'purchase-failed'
+            | 'port-pending'
+            | 'active'
+            | 'deleted'
+            | 'port-failed'
+            | 'emergency-only'
+            | 'ported-out'
+            | 'port-out-pending';
+          /** @description Filter by voice connection name pattern matching. */
+          'voice.connection_name'?: {
+            /**
+             * @description Filter contains connection name. Requires at least three characters.
+             * @example test
+             */
+            contains?: string;
+            /**
+             * @description Filter starts with connection name. Requires at least three characters.
+             * @example test
+             */
+            starts_with?: string;
+            /**
+             * @description Filter ends with connection name. Requires at least three characters.
+             * @example test
+             */
+            ends_with?: string;
+            /**
+             * @description Filter by connection name.
+             * @example test
+             */
+            eq?: string;
+          };
+          /**
+           * @description Filter by usage_payment_method.
+           * @example channel
+           * @enum {string}
+           */
+          'voice.usage_payment_method'?: 'pay-per-minute' | 'channel';
+          /**
+           * @description Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
+           * @example 62e4bf2e-c278-4282-b524-488d9c9c43b2
+           */
+          billing_group_id?: string;
+          /**
+           * @description Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.
+           * @example 9102160989215728032
+           */
+          emergency_address_id?: string;
+          /** @description Filter numbers via the customer_reference set. */
+          customer_reference?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -67059,10 +69546,8 @@ export interface operations {
   ListPhoneNumbersWithMessagingSettings: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -67077,65 +69562,102 @@ export interface operations {
   SlimListPhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
         /** @description Include the connection associated with the phone number. */
         include_connection?: boolean;
         /** @description Include the tags associated with the phone number. */
         include_tags?: boolean;
-        /** @description Filter by phone number tags. (This requires the include_tags param) */
-        'filter[tag]'?: string;
-        /** @description Filter by phone number. Requires at least three digits.
-         *                  Non-numerical characters will result in no values being returned. */
-        'filter[phone_number]'?: string;
-        /** @description Filter by phone number status. */
-        'filter[status]'?:
-          | 'purchase-pending'
-          | 'purchase-failed'
-          | 'port-pending'
-          | 'active'
-          | 'deleted'
-          | 'port-failed'
-          | 'emergency-only'
-          | 'ported-out'
-          | 'port-out-pending';
-        /** @description Filter by phone number country ISO alpha-2 code. Can be a single value or an array of values. */
-        'filter[country_iso_alpha2]'?: string | string[];
-        /** @description Filter by connection_id. */
-        'filter[connection_id]'?: string;
-        /** @description Filter contains connection name. Requires at least three characters and the include_connection param. */
-        'filter[voice.connection_name][contains]'?: string;
-        /** @description Filter starts with connection name. Requires at least three characters and the include_connection param. */
-        'filter[voice.connection_name][starts_with]'?: string;
-        /** @description Filter ends with connection name. Requires at least three characters and the include_connection param. */
-        'filter[voice.connection_name][ends_with]'?: string;
-        /** @description Filter by connection name , requires the include_connection param and the include_connection param. */
-        'filter[voice.connection_name]'?: string;
-        /** @description Filter by usage_payment_method. */
-        'filter[voice.usage_payment_method]'?: 'pay-per-minute' | 'channel';
-        /** @description Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'. */
-        'filter[billing_group_id]'?: string;
-        /** @description Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'. */
-        'filter[emergency_address_id]'?: string;
-        /** @description Filter numbers via the customer_reference set. */
-        'filter[customer_reference]'?: string;
-        /** @description Filter phone numbers by phone number type. */
-        'filter[number_type][eq]'?:
-          | 'local'
-          | 'national'
-          | 'toll_free'
-          | 'mobile'
-          | 'shared_cost';
-        /** @description Filter phone numbers by their source. Use 'ported' for numbers ported from other carriers, or 'purchased' for numbers bought directly from Telnyx. */
-        'filter[source]'?: 'ported' | 'purchased';
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?:
           | 'purchased_at'
           | 'phone_number'
           | 'connection_name'
           | 'usage_payment_method';
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[tag], filter[phone_number], filter[status], filter[country_iso_alpha2], filter[connection_id], filter[voice.connection_name], filter[voice.usage_payment_method], filter[billing_group_id], filter[emergency_address_id], filter[customer_reference], filter[number_type], filter[source] */
+        filter?: {
+          /** @description Filter by phone number tags. (This requires the include_tags param) */
+          tag?: string;
+          /** @description Filter by phone number. Requires at least three digits.
+           *                  Non-numerical characters will result in no values being returned. */
+          phone_number?: string;
+          /**
+           * @description Filter by phone number status.
+           * @example active
+           * @enum {string}
+           */
+          status?:
+            | 'purchase-pending'
+            | 'purchase-failed'
+            | 'port_pending'
+            | 'active'
+            | 'deleted'
+            | 'port-failed'
+            | 'emergency-only'
+            | 'ported-out'
+            | 'port-out-pending';
+          /** @description Filter by phone number country ISO alpha-2 code. Can be a single value or an array of values. */
+          country_iso_alpha2?: string | string[];
+          /**
+           * @description Filter by connection_id.
+           * @example 1521916448077776306
+           */
+          connection_id?: string;
+          /** @description Filter by voice connection name pattern matching (requires include_connection param). */
+          'voice.connection_name'?: {
+            /**
+             * @description Filter contains connection name. Requires at least three characters and the include_connection param.
+             * @example test
+             */
+            contains?: string;
+            /**
+             * @description Filter starts with connection name. Requires at least three characters and the include_connection param.
+             * @example test
+             */
+            starts_with?: string;
+            /**
+             * @description Filter ends with connection name. Requires at least three characters and the include_connection param.
+             * @example test
+             */
+            ends_with?: string;
+            /**
+             * @description Filter by connection name.
+             * @example test
+             */
+            eq?: string;
+          };
+          /**
+           * @description Filter by usage_payment_method.
+           * @example channel
+           * @enum {string}
+           */
+          'voice.usage_payment_method'?: 'pay-per-minute' | 'channel';
+          /**
+           * @description Filter by the billing_group_id associated with phone numbers. To filter to only phone numbers that have no billing group associated them, set the value of this filter to the string 'null'.
+           * @example 62e4bf2e-c278-4282-b524-488d9c9c43b2
+           */
+          billing_group_id?: string;
+          /**
+           * @description Filter by the emergency_address_id associated with phone numbers. To filter only phone numbers that have no emergency address associated with them, set the value of this filter to the string 'null'.
+           * @example 9102160989215728032
+           */
+          emergency_address_id?: string;
+          /** @description Filter numbers via the customer_reference set. */
+          customer_reference?: string;
+          /** @description Filter phone numbers by phone number type. */
+          number_type?: {
+            /**
+             * @description Filter phone numbers by phone number type.
+             * @enum {string}
+             */
+            eq?: 'local' | 'national' | 'toll_free' | 'mobile' | 'shared_cost';
+          };
+          /**
+           * @description Filter phone numbers by their source. Use 'ported' for numbers ported from other carriers, or 'purchased' for numbers bought directly from Telnyx.
+           * @enum {string}
+           */
+          source?: 'ported' | 'purchased';
+        };
       };
       header?: never;
       path?: never;
@@ -67150,25 +69672,36 @@ export interface operations {
   ListPhoneNumbersWithVoiceSettings: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter by phone number. Requires at least three digits.
-         *                  Non-numerical characters will result in no values being returned. */
-        'filter[phone_number]'?: string;
-        /** @description Filter contains connection name. Requires at least three characters. */
-        'filter[connection_name][contains]'?: string;
-        /** @description Filter numbers via the customer_reference set. */
-        'filter[customer_reference]'?: string;
-        /** @description Filter by usage_payment_method. */
-        'filter[voice.usage_payment_method]'?: 'pay-per-minute' | 'channel';
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?:
           | 'purchased_at'
           | 'phone_number'
           | 'connection_name'
           | 'usage_payment_method';
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number], filter[connection_name], filter[customer_reference], filter[voice.usage_payment_method] */
+        filter?: {
+          /** @description Filter by phone number. Requires at least three digits.
+           *                  Non-numerical characters will result in no values being returned. */
+          phone_number?: string;
+          /** @description Filter by connection name pattern matching. */
+          connection_name?: {
+            /**
+             * @description Filter contains connection name. Requires at least three characters.
+             * @example test
+             */
+            contains?: string;
+          };
+          /** @description Filter numbers via the customer_reference set. */
+          customer_reference?: string;
+          /**
+           * @description Filter by usage_payment_method.
+           * @example channel
+           * @enum {string}
+           */
+          'voice.usage_payment_method'?: 'pay-per-minute' | 'channel';
+        };
       };
       header?: never;
       path?: never;
@@ -67509,9 +70042,15 @@ export interface operations {
   };
   ListRegulatoryRequirementsPhoneNumbers: {
     parameters: {
-      query: {
-        /** @description Record type phone number/ phone numbers */
-        'filter[phone_number]': string;
+      query?: {
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number] */
+        filter?: {
+          /**
+           * @description Record type phone number/ phone numbers
+           * @example +41215470622,+41215470633
+           */
+          phone_number?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -67566,25 +70105,45 @@ export interface operations {
   listPortingEvents: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter by event type. */
-        'filter[type]'?:
-          | 'porting_order.deleted'
-          | 'porting_order.loa_updated'
-          | 'porting_order.messaging_changed'
-          | 'porting_order.status_changed'
-          | 'porting_order.sharing_token_expired'
-          | 'porting_order.new_comment'
-          | 'porting_order.split';
-        /** @description Filter by porting order ID. */
-        'filter[porting_order_id]'?: string;
-        /** @description Filter by created at greater than or equal to. */
-        'filter[created_at][gte]'?: string;
-        /** @description Filter by created at less than or equal to. */
-        'filter[created_at][lte]'?: string;
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[type], filter[porting_order_id], filter[created_at][gte], filter[created_at][lte] */
+        filter?: {
+          /**
+           * @description Filter by event type.
+           * @example porting_order.deleted
+           * @enum {string}
+           */
+          type?:
+            | 'porting_order.deleted'
+            | 'porting_order.loa_updated'
+            | 'porting_order.messaging_changed'
+            | 'porting_order.status_changed'
+            | 'porting_order.sharing_token_expired'
+            | 'porting_order.new_comment'
+            | 'porting_order.split';
+          /**
+           * Format: uuid
+           * @description Filter by porting order ID.
+           * @example 34dc46a9-53ed-4e01-9454-26227ea13326
+           */
+          porting_order_id?: string;
+          /** @description Created at date range filtering operations */
+          created_at?: {
+            /**
+             * Format: date-time
+             * @description Filter by created at greater than or equal to.
+             * @example 2021-01-01T00:00:00Z
+             */
+            gte?: string;
+            /**
+             * Format: date-time
+             * @description Filter by created at less than or equal to.
+             * @example 2021-01-01T00:00:00Z
+             */
+            lte?: string;
+          };
+        };
       };
       header?: never;
       path?: never;
@@ -67695,10 +70254,8 @@ export interface operations {
   ListLoaConfigurations: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -67881,14 +70438,23 @@ export interface operations {
   ListPortingReports: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter reports of a specific type */
-        'filter[report_type]'?: 'export_porting_orders_csv';
-        /** @description Filter reports of a specific status */
-        'filter[status]'?: 'pending' | 'completed';
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[report_type], filter[status] */
+        filter?: {
+          /**
+           * @description Filter reports of a specific type
+           * @example export_porting_orders_csv
+           * @enum {string}
+           */
+          report_type?: 'export_porting_orders_csv';
+          /**
+           * @description Filter reports of a specific status
+           * @example completed
+           * @enum {string}
+           */
+          status?: 'pending' | 'completed';
+        };
       };
       header?: never;
       path?: never;
@@ -67968,80 +70534,89 @@ export interface operations {
       };
     };
   };
+  listPortingUKCarriers: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['ListPortingUKCarriersResponse'];
+      /** @description Unprocessable entity. Check message field in response for details. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Internal server error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
   ListPortingOrders: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
         /** @description Include the first 50 phone number objects in the results */
         include_phone_numbers?: components['parameters']['QueryIncludePhoneNumbers'];
-        /** @description Filter results by status */
-        'filter[status]'?: components['parameters']['FilterByPortingOrderStatus'];
-        /** @description Filter porting orders by multiple statuses */
-        'filter[status][in][]'?: components['parameters']['FilterByPortingOrderStatusIn'];
-        /**
-         * @description Filter results by customer_reference
-         * @example 123abc
-         */
-        'filter[customer_reference]'?: string;
-        /**
-         * @description Filter results by parent_support_key
-         * @example 123abc
-         */
-        'filter[parent_support_key]'?: string;
-        /**
-         * @description Filter results by country ISO 3166-1 alpha-2 code
-         * @example US
-         */
-        'filter[phone_numbers.country_code]'?: string;
-        /**
-         * @description Filter results by old service provider
-         * @example Telnyx
-         */
-        'filter[phone_numbers.carrier_name]'?: string;
-        /**
-         * @description Filter results by porting order type
-         * @example full
-         */
-        'filter[misc.type]'?: components['schemas']['PortingOrderType'];
-        /**
-         * @description Filter results by person or company name
-         * @example Porter McPortersen
-         */
-        'filter[end_user.admin.entity_name]'?: string;
-        /**
-         * @description Filter results by authorized person
-         * @example Admin McPortersen
-         */
-        'filter[end_user.admin.auth_person_name]'?: string;
-        /**
-         * @description Filter results by fast port eligible
-         * @example false
-         */
-        'filter[activation_settings.fast_port_eligible]'?: boolean;
-        /**
-         * @description Filter results by foc date later than this value
-         * @example 2021-03-25T10:00:00.000Z
-         */
-        'filter[activation_settings.foc_datetime_requested][gt]'?: string;
-        /**
-         * @description Filter results by foc date earlier than this value
-         * @example 2021-03-25T10:00:00.000Z
-         */
-        'filter[activation_settings.foc_datetime_requested][lt]'?: string;
-        /**
-         * @description Filter results by full or partial phone_number
-         * @example +13038675309
-         */
-        'filter[phone_numbers.phone_number][contains]'?: string;
-        /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
-        'sort[]'?:
-          | 'created_at'
-          | '-created_at'
-          | 'activation_settings.foc_datetime_requested'
-          | '-activation_settings.foc_datetime_requested';
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[customer_reference], filter[parent_support_key], filter[phone_numbers.country_code], filter[phone_numbers.carrier_name], filter[misc.type], filter[end_user.admin.entity_name], filter[end_user.admin.auth_person_name], filter[activation_settings.fast_port_eligible], filter[activation_settings.foc_datetime_requested][gt], filter[activation_settings.foc_datetime_requested][lt], filter[phone_numbers.phone_number][contains] */
+        filter?: {
+          /** @description Filter results by customer_reference */
+          customer_reference?: string;
+          /** @description Filter results by parent_support_key */
+          parent_support_key?: string;
+          /** @description Filter results by country ISO 3166-1 alpha-2 code */
+          'phone_numbers.country_code'?: string;
+          /** @description Filter results by old service provider */
+          'phone_numbers.carrier_name'?: string;
+          /** @description Filter results by porting order type */
+          'misc.type'?: components['schemas']['PortingOrderType'];
+          /** @description Filter results by person or company name */
+          'end_user.admin.entity_name'?: string;
+          /** @description Filter results by authorized person */
+          'end_user.admin.auth_person_name'?: string;
+          /** @description Filter results by fast port eligible */
+          'activation_settings.fast_port_eligible'?: boolean;
+          /** @description FOC datetime range filtering operations */
+          'activation_settings.foc_datetime_requested'?: {
+            /**
+             * @description Filter results by foc date later than this value
+             * @example 2021-03-25T10:00:00.000Z
+             */
+            gt?: string;
+            /**
+             * @description Filter results by foc date earlier than this value
+             * @example 2021-03-25T10:00:00.000Z
+             */
+            lt?: string;
+          };
+          /** @description Phone number filtering operations */
+          'phone_numbers.phone_number'?: {
+            /** @description Filter results by full or partial phone_number */
+            contains?: string;
+          };
+        };
+        /** @description Consolidated sort parameter (deepObject style). Originally: sort[value] */
+        sort?: {
+          /**
+           * @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
+           * @example created_at
+           * @enum {string}
+           */
+          value?:
+            | 'created_at'
+            | '-created_at'
+            | 'activation_settings.foc_datetime_requested'
+            | '-activation_settings.foc_datetime_requested';
+        };
       };
       header?: never;
       path?: never;
@@ -68125,47 +70700,36 @@ export interface operations {
   ListPhoneNumberConfigurations: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter results by porting order id */
-        'filter[porting_order_id]'?: components['parameters']['FilterByPortingOrderID'];
-        /** @description Filter results by a list of porting order ids */
-        'filter[porting_order_id][in][]'?: components['parameters']['FilterByPortingOrderIdIn'];
-        /** @description Filter results by a specific porting order status */
-        'filter[porting_order.status]'?:
-          | 'activation-in-progress'
-          | 'cancel-pending'
-          | 'cancelled'
-          | 'draft'
-          | 'exception'
-          | 'foc-date-confirmed'
-          | 'in-process'
-          | 'ported'
-          | 'submitted';
-        /** @description Filter results by specific porting order statuses */
-        'filter[porting_order.status][in][]'?: (
-          | 'activation-in-progress'
-          | 'cancel-pending'
-          | 'cancelled'
-          | 'draft'
-          | 'exception'
-          | 'foc-date-confirmed'
-          | 'in-process'
-          | 'ported'
-          | 'submitted'
-        )[];
-        /** @description Filter results by a specific porting phone number ID */
-        'filter[porting_phone_number]'?: string;
-        /** @description Filter results by a list of porting phone number IDs */
-        'filter[porting_phone_number][in][]'?: string[];
-        /** @description Filter results by a specific user bundle ID */
-        'filter[user_bundle_id]'?: string;
-        /** @description Filter results by a list of user bundle IDs */
-        'filter[user_bundle_id][in][]'?: string[];
-        /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
-        'sort[]'?: 'created_at' | '-created_at';
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[porting_order.status][in][], filter[porting_phone_number][in][], filter[user_bundle_id][in][] */
+        filter?: {
+          /** @description Filter results by specific porting order statuses */
+          'porting_order.status'?: (
+            | 'activation-in-progress'
+            | 'cancel-pending'
+            | 'cancelled'
+            | 'draft'
+            | 'exception'
+            | 'foc-date-confirmed'
+            | 'in-process'
+            | 'ported'
+            | 'submitted'
+          )[];
+          /** @description Filter results by a list of porting phone number IDs */
+          porting_phone_number?: string[];
+          /** @description Filter results by a list of user bundle IDs */
+          user_bundle_id?: string[];
+        };
+        /** @description Consolidated sort parameter (deepObject style). Originally: sort[value] */
+        sort?: {
+          /**
+           * @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
+           * @example created_at
+           * @enum {string}
+           */
+          value?: 'created_at' | '-created_at';
+        };
       };
       header?: never;
       path?: never;
@@ -68428,10 +70992,8 @@ export interface operations {
   ListPortingOrderActivationJobs: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path: {
@@ -68524,16 +71086,22 @@ export interface operations {
   ListAdditionalDocuments: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter additional documents of a specific document type */
-        'filter[document_type]'?: 'loa' | 'invoice' | 'csr' | 'other';
-        /** @description Filter additional documents by a list of document types */
-        'filter[document_type][in][]'?: ('loa' | 'invoice' | 'csr' | 'other')[];
-        /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
-        'sort[]'?: 'created_at' | '-created_at';
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[document_type] */
+        filter?: {
+          /** @description Filter additional documents by a list of document types */
+          document_type?: ('loa' | 'invoice' | 'csr' | 'other')[];
+        };
+        /** @description Consolidated sort parameter (deepObject style). Originally: sort[value] */
+        sort?: {
+          /**
+           * @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
+           * @example created_at
+           * @enum {string}
+           */
+          value?: 'created_at' | '-created_at';
+        };
       };
       header?: never;
       path: {
@@ -68659,10 +71227,8 @@ export interface operations {
   ListPortingOrderComments: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path: {
@@ -68754,10 +71320,8 @@ export interface operations {
   ListPortingOrderRequirements: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path: {
@@ -68817,18 +71381,25 @@ export interface operations {
   ListVerificationCodes: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter results by phone number */
-        'filter[phone_number]'?: components['parameters']['FilterByPhoneNumber'];
-        /** @description Filter results by a list of phone numbers */
-        'filter[phone_number][in][]'?: components['parameters']['FilterByPhoneNumberIn'];
-        /** @description Filter verification codes that have been verified or not */
-        'filter[verified]'?: boolean;
-        /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
-        'sort[]'?: 'created_at' | '-created_at';
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[verified] */
+        filter?: {
+          /**
+           * @description Filter verification codes that have been verified or not
+           * @example true
+           */
+          verified?: boolean;
+        };
+        /** @description Consolidated sort parameter (deepObject style). Originally: sort[value] */
+        sort?: {
+          /**
+           * @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
+           * @example created_at
+           * @enum {string}
+           */
+          value?: 'created_at' | '-created_at';
+        };
       };
       header?: never;
       path: {
@@ -68934,19 +71505,265 @@ export interface operations {
       };
     };
   };
+  listPortingActionRequirements: {
+    parameters: {
+      query?: {
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[id][in][], filter[requirement_type_id], filter[action_type], filter[status] */
+        filter?: {
+          /** @description Filter action requirements by a list of IDs */
+          id?: string[];
+          /**
+           * Format: uuid
+           * @description Filter action requirements by requirement type ID
+           */
+          requirement_type_id?: string;
+          /**
+           * @description Filter action requirements by action type
+           * @enum {string}
+           */
+          action_type?: 'au_id_verification';
+          /**
+           * @description Filter action requirements by status
+           * @enum {string}
+           */
+          status?: 'created' | 'pending' | 'completed' | 'cancelled' | 'failed';
+        };
+        /** @description Consolidated sort parameter (deepObject style). Originally: sort[value] */
+        sort?: {
+          /**
+           * @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order.
+           * @example created_at
+           * @enum {string}
+           */
+          value?: 'created_at' | '-created_at' | 'updated_at' | '-updated_at';
+        };
+      };
+      header?: never;
+      path: {
+        /** @description The ID of the porting order */
+        porting_order_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['ListPortingActionRequirements'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Porting order not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Internal server error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  initiatePortingActionRequirement: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description The ID of the porting order */
+        porting_order_id: string;
+        /** @description The ID of the action requirement */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: components['requestBodies']['InitiatePortingActionRequirement'];
+    responses: {
+      200: components['responses']['ShowPortingActionRequirement'];
+      /** @description Bad request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Porting order or action requirement not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unprocessable entity. Check message field in response for details. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Internal server error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  listPortingAssociatedPhoneNumbers: {
+    parameters: {
+      query?: {
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number], filter[action] */
+        filter?: {
+          /**
+           * @description Filter results by a phone number. It should be in E.164 format.
+           * @example +441234567890
+           */
+          phone_number?: string;
+          /**
+           * @description Filter results by action type
+           * @example keep
+           * @enum {string}
+           */
+          action?: 'keep' | 'disconnect';
+        };
+        /** @description Consolidated sort parameter (deepObject style). Originally: sort[value] */
+        sort?: {
+          /**
+           * @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order
+           * @default -created_at
+           * @example -created_at
+           * @enum {string}
+           */
+          value?: '-created_at' | 'created_at';
+        };
+      };
+      header?: never;
+      path: {
+        /** @description Identifies the Porting Order associated with the phone numbers */
+        porting_order_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['ListPortingAssociatedPhoneNumbers'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unprocessable entity. Check message field in response for details. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  createPortingAssociatedPhoneNumber: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Identifies the Porting Order associated with the phone number */
+        porting_order_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: components['requestBodies']['CreatePortingAssociatedPhoneNumber'];
+    responses: {
+      201: components['responses']['ShowPortingAssociatedPhoneNumber'];
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unprocessable entity. Check message field in response for details. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  deletePortingAssociatedPhoneNumber: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Identifies the Porting Order associated with the phone number */
+        porting_order_id: string;
+        /** @description Identifies the associated phone number to be deleted */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['ShowPortingAssociatedPhoneNumber'];
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unprocessable entity. Check message field in response for details. */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
   listPortingPhoneNumberBlocks: {
     parameters: {
       query?: {
-        /** @description Filter results by phone number */
-        'filter[phone_number]'?: components['parameters']['FilterByPhoneNumber'];
-        /** @description Filter results by a list of phone numbers */
-        'filter[phone_number][in][]'?: components['parameters']['FilterByPhoneNumberIn'];
-        /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order */
-        'sort[]'?: '-created_at' | 'created_at';
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated sort parameter (deepObject style). Originally: sort[value] */
+        sort?: {
+          /**
+           * @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order
+           * @example false
+           * @enum {string}
+           */
+          value?: '-created_at' | 'created_at';
+        };
       };
       header?: never;
       path: {
@@ -69044,20 +71861,26 @@ export interface operations {
   listPortingPhoneNumberExtensions: {
     parameters: {
       query?: {
-        /** @description Filter results by phone number */
-        'filter[phone_number]'?: components['parameters']['FilterByPhoneNumber'];
-        /** @description Filter results by a list of phone numbers */
-        'filter[phone_number][in][]'?: components['parameters']['FilterByPhoneNumberIn'];
-        /** @description Filter results by porting phone number id */
-        'filter[porting_phone_number_id]'?: string;
-        /** @description Filter results by a list of porting phone number ids */
-        'filter[porting_phone_number_id][in][]'?: string;
-        /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order */
-        'sort[]'?: '-created_at' | 'created_at';
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[porting_phone_number_id] */
+        filter?: {
+          /**
+           * Format: uuid
+           * @description Filter results by porting phone number id
+           * @example 04f8f1b9-310c-4a3c-963e-7dfc54765140
+           */
+          porting_phone_number_id?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated sort parameter (deepObject style). Originally: sort[value] */
+        sort?: {
+          /**
+           * @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order
+           * @example false
+           * @enum {string}
+           */
+          value?: '-created_at' | 'created_at';
+        };
       };
       header?: never;
       path: {
@@ -69155,36 +71978,25 @@ export interface operations {
   ListPortingPhoneNumbers: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter results by porting order id */
-        'filter[porting_order_id]'?: components['parameters']['FilterByPortingOrderID'];
-        /** @description Filter results by a list of porting order ids */
-        'filter[porting_order_id][in][]'?: components['parameters']['FilterByPortingOrderIdIn'];
-        /** @description Filter results by support key */
-        'filter[support_key][eq]'?: components['parameters']['FilterBySupportKeyEq'];
-        /** @description Filter results by a list of support keys */
-        'filter[support_key][in][]'?: components['parameters']['FilterBySupportKeyIn'];
-        /** @description Filter results by phone number */
-        'filter[phone_number]'?: components['parameters']['FilterByPhoneNumber'];
-        /** @description Filter results by a list of phone numbers */
-        'filter[phone_number][in][]'?: components['parameters']['FilterByPhoneNumberIn'];
-        /** @description Filter results by porting order status */
-        'filter[porting_order_status]'?:
-          | 'draft'
-          | 'in-process'
-          | 'submitted'
-          | 'exception'
-          | 'foc-date-confirmed'
-          | 'cancel-pending'
-          | 'ported'
-          | 'cancelled';
-        /** @description Filter results by activation status */
-        'filter[activation_status]'?: components['parameters']['FilterByPortingOrderActivationStatus'];
-        /** @description Filter results by portability status */
-        'filter[portability_status]'?: components['parameters']['FilterByPortabilityStatus'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[porting_order_status] */
+        filter?: {
+          /**
+           * @description Filter results by porting order status
+           * @example in-process
+           * @enum {string}
+           */
+          porting_order_status?:
+            | 'draft'
+            | 'in-process'
+            | 'submitted'
+            | 'exception'
+            | 'foc-date-confirmed'
+            | 'cancel-pending'
+            | 'ported'
+            | 'cancelled';
+        };
       };
       header?: never;
       path?: never;
@@ -69212,47 +72024,83 @@ export interface operations {
   ListPortoutRequest: {
     parameters: {
       query?: {
-        /** @description Filter by new carrier name. */
-        'filter[carrier_name]'?: string;
-        /** @description Filter by Port Order Number (PON). */
-        'filter[pon]'?: string;
-        /** @description Filter by new carrier spid. */
-        'filter[spid]'?: string;
-        /** @description Filter by portout status. */
-        'filter[status]'?:
-          | 'pending'
-          | 'authorized'
-          | 'ported'
-          | 'rejected'
-          | 'rejected-pending'
-          | 'canceled';
-        /** @description Filter by a list of portout statuses */
-        'filter[status_in]'?: (
-          | 'pending'
-          | 'authorized'
-          | 'ported'
-          | 'rejected'
-          | 'rejected-pending'
-          | 'canceled'
-        )[];
-        /** @description Filter by ported_out_at date greater than or equal. */
-        'filter[ported_out_at][gte]'?: string;
-        /** @description Filter by ported_out_at date less than or equal. */
-        'filter[ported_out_at][lte]'?: string;
-        /** @description Filter by inserted_at date greater than or equal. */
-        'filter[inserted_at][gte]'?: string;
-        /** @description Filter by inserted_at date less than or equal. */
-        'filter[inserted_at][lte]'?: string;
-        /** @description Filter by foc_date. Matches all portouts with the same date */
-        'filter[foc_date]'?: string;
-        /** @description Filter by a phone number on the portout. Matches all portouts with the phone number */
-        'filter[phone_number]'?: string;
-        /** @description Filter by the portout's support_key */
-        'filter[support_key]'?: string;
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[carrier_name], filter[pon], filter[spid], filter[status], filter[status_in], filter[ported_out_at], filter[inserted_at], filter[foc_date], filter[phone_number], filter[support_key] */
+        filter?: {
+          /** @description Filter by new carrier name. */
+          carrier_name?: string;
+          /** @description Filter by Port Order Number (PON). */
+          pon?: string;
+          /** @description Filter by new carrier spid. */
+          spid?: string;
+          /**
+           * @description Filter by portout status.
+           * @enum {string}
+           */
+          status?:
+            | 'pending'
+            | 'authorized'
+            | 'ported'
+            | 'rejected'
+            | 'rejected-pending'
+            | 'canceled';
+          /** @description Filter by a list of portout statuses */
+          status_in?: (
+            | 'pending'
+            | 'authorized'
+            | 'ported'
+            | 'rejected'
+            | 'rejected-pending'
+            | 'canceled'
+          )[];
+          /** @description Filter by ported_out_at date range using nested operations */
+          ported_out_at?: {
+            /**
+             * Format: date-time
+             * @description Filter by ported_out_at date greater than or equal.
+             * @example 2024-09-04T00:00:00.000Z
+             */
+            gte?: string;
+            /**
+             * Format: date-time
+             * @description Filter by ported_out_at date less than or equal.
+             * @example 2024-09-04T00:00:00.000Z
+             */
+            lte?: string;
+          };
+          /** @description Filter by inserted_at date range using nested operations */
+          inserted_at?: {
+            /**
+             * Format: date-time
+             * @description Filter by inserted_at date greater than or equal.
+             * @example 2024-09-04T00:00:00.000Z
+             */
+            gte?: string;
+            /**
+             * Format: date-time
+             * @description Filter by inserted_at date less than or equal.
+             * @example 2024-09-04T00:00:00.000Z
+             */
+            lte?: string;
+          };
+          /**
+           * Format: date-time
+           * @description Filter by foc_date. Matches all portouts with the same date
+           * @example 2024-09-04T00:00:00.000Z
+           */
+          foc_date?: string;
+          /**
+           * @description Filter by a phone number on the portout. Matches all portouts with the phone number
+           * @example +13035551212
+           */
+          phone_number?: string;
+          /**
+           * @description Filter by the portout's support_key
+           * @example PO_abc123
+           */
+          support_key?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -69287,21 +72135,41 @@ export interface operations {
   listPortoutEvents: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter by event type. */
-        'filter[event_type]'?:
-          | 'portout.status_changed'
-          | 'portout.new_comment'
-          | 'portout.foc_date_changed';
-        /** @description Filter by port-out order ID. */
-        'filter[portout_id]'?: string;
-        /** @description Filter by created at greater than or equal to. */
-        'filter[created_at][gte]'?: string;
-        /** @description Filter by created at less than or equal to. */
-        'filter[created_at][lte]'?: string;
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[event_type], filter[portout_id], filter[created_at] */
+        filter?: {
+          /**
+           * @description Filter by event type.
+           * @example portout.status_changed
+           * @enum {string}
+           */
+          event_type?:
+            | 'portout.status_changed'
+            | 'portout.new_comment'
+            | 'portout.foc_date_changed';
+          /**
+           * Format: uuid
+           * @description Filter by port-out order ID.
+           * @example 34dc46a9-53ed-4e01-9454-26227ea13326
+           */
+          portout_id?: string;
+          /** @description Filter by created_at date range using nested operations */
+          created_at?: {
+            /**
+             * Format: date-time
+             * @description Filter by created at greater than or equal to.
+             * @example 2021-01-01T00:00:00Z
+             */
+            gte?: string;
+            /**
+             * Format: date-time
+             * @description Filter by created at less than or equal to.
+             * @example 2021-01-01T00:00:00Z
+             */
+            lte?: string;
+          };
+        };
       };
       header?: never;
       path?: never;
@@ -69386,10 +72254,10 @@ export interface operations {
   ListPortoutRejections: {
     parameters: {
       query?: {
-        /** @description Filter rejections of a specific code */
-        'filter[code]'?: number;
-        /** @description Filter rejections in a list of codes */
-        'filter[code][in]'?: number[];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[code], filter[code][in] */
+        filter?: {
+          code?: number | number[];
+        };
       };
       header?: never;
       path: {
@@ -69427,14 +72295,23 @@ export interface operations {
   ListPortoutReports: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter reports of a specific type */
-        'filter[report_type]'?: 'export_portouts_csv';
-        /** @description Filter reports of a specific status */
-        'filter[status]'?: 'pending' | 'completed';
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[report_type], filter[status] */
+        filter?: {
+          /**
+           * @description Filter reports of a specific type
+           * @example export_portouts_csv
+           * @enum {string}
+           */
+          report_type?: 'export_portouts_csv';
+          /**
+           * @description Filter reports of a specific status
+           * @example completed
+           * @enum {string}
+           */
+          status?: 'pending' | 'completed';
+        };
       };
       header?: never;
       path?: never;
@@ -69890,12 +72767,16 @@ export interface operations {
   ListPublicInternetGateways: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The associated network id to filter on. */
-        'filter[network_id]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[network_id] */
+        filter?: {
+          /**
+           * @description The associated network id to filter on.
+           * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+           */
+          network_id?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -69976,10 +72857,8 @@ export interface operations {
   ListQueueCalls: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path: {
@@ -70060,26 +72939,55 @@ export interface operations {
   GetRecordings: {
     parameters: {
       query?: {
-        /** @description Returns only recordings associated with a given conference. */
-        'filter[conference_id]'?: string;
-        /** @description Returns only recordings created later than or at given ISO 8601 datetime. */
-        'filter[created_at][gte]'?: string;
-        /** @description Returns only recordings created earlier than or at given ISO 8601 datetime. */
-        'filter[created_at][lte]'?: string;
-        /** @description If present, recordings will be filtered to those with a matching call_leg_id. */
-        'filter[call_leg_id]'?: string;
-        /** @description If present, recordings will be filtered to those with a matching call_session_id. */
-        'filter[call_session_id]'?: string;
-        /** @description If present, recordings will be filtered to those with a matching `from` attribute (case-sensitive). */
-        'filter[from]'?: string;
-        /** @description If present, recordings will be filtered to those with a matching `to` attribute (case-sensitive). */
-        'filter[to]'?: string;
-        /** @description If present, recordings will be filtered to those with a matching `connection_id` attribute (case-sensitive). */
-        'filter[connection_id]'?: string;
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[conference_id], filter[created_at][gte], filter[created_at][lte], filter[call_leg_id], filter[call_session_id], filter[from], filter[to], filter[connection_id] */
+        filter?: {
+          /**
+           * @description Returns only recordings associated with a given conference.
+           * @example 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+           */
+          conference_id?: string;
+          created_at?: {
+            /**
+             * @description Returns only recordings created later than or at given ISO 8601 datetime.
+             * @example 2019-03-29T11:10:00Z
+             */
+            gte?: string;
+            /**
+             * @description Returns only recordings created earlier than or at given ISO 8601 datetime.
+             * @example 2019-03-29T11:10:00Z
+             */
+            lte?: string;
+          };
+          /**
+           * Format: uuid
+           * @description If present, recordings will be filtered to those with a matching call_leg_id.
+           * @example 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+           */
+          call_leg_id?: string;
+          /**
+           * Format: uuid
+           * @description If present, recordings will be filtered to those with a matching call_session_id.
+           * @example 428c31b6-7af4-4bcb-b7f5-5013ef9657c1
+           */
+          call_session_id?: string;
+          /**
+           * @description If present, recordings will be filtered to those with a matching `from` attribute (case-sensitive).
+           * @example 1234567890
+           */
+          from?: string;
+          /**
+           * @description If present, recordings will be filtered to those with a matching `to` attribute (case-sensitive).
+           * @example 1234567890
+           */
+          to?: string;
+          /**
+           * @description If present, recordings will be filtered to those with a matching `connection_id` attribute (case-sensitive).
+           * @example 175237942907135762
+           */
+          connection_id?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -70158,21 +73066,39 @@ export interface operations {
   ListRegulatoryRequirements: {
     parameters: {
       query?: {
-        /** @description Phone number to check requirements for */
-        'filter[phone_number]'?: string;
-        /** @description ID of requirement group to check requirements for */
-        'filter[requirement_group_id]'?: string;
-        /** @description Country code(iso2) to check requirements for */
-        'filter[country_code]'?: string;
-        /** @description Phone number type to check requirements for */
-        'filter[phone_number_type]'?:
-          | 'local'
-          | 'toll_free'
-          | 'mobile'
-          | 'national'
-          | 'shared_cost';
-        /** @description Action to check requirements for */
-        'filter[action]'?: 'ordering' | 'porting' | 'action';
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number], filter[requirement_group_id], filter[country_code], filter[phone_number_type], filter[action] */
+        filter?: {
+          /**
+           * @description Phone number to check requirements for
+           * @example +41215470622
+           */
+          phone_number?: string;
+          /**
+           * @description ID of requirement group to check requirements for
+           * @example d4c0b4a6-7bd2-40c5-a3b9-2acd99e212b2
+           */
+          requirement_group_id?: string;
+          /**
+           * @description Country code(iso2) to check requirements for
+           * @example DE
+           */
+          country_code?: string;
+          /**
+           * @description Phone number type to check requirements for
+           * @enum {string}
+           */
+          phone_number_type?:
+            | 'local'
+            | 'toll_free'
+            | 'mobile'
+            | 'national'
+            | 'shared_cost';
+          /**
+           * @description Action to check requirements for
+           * @enum {string}
+           */
+          action?: 'ordering' | 'porting' | 'action';
+        };
       };
       header?: never;
       path?: never;
@@ -70221,10 +73147,21 @@ export interface operations {
   GetMdrUsageReports: {
     parameters: {
       query?: {
-        /** @description Page number */
-        'page[number]'?: number;
-        /** @description Size of the page */
-        'page[size]'?: number;
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: {
+          /**
+           * Format: int32
+           * @description Page number
+           * @default 1
+           */
+          number?: number;
+          /**
+           * Format: int32
+           * @description Size of the page
+           * @default 20
+           */
+          size?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -70391,11 +73328,22 @@ export interface operations {
         sim_group_id?: string;
         sim_card_id?: string;
         phone_number?: string;
-        /** @description Page number */
-        'page[number]'?: number;
-        /** @description Size of the page */
-        'page[size]'?: number;
         sort?: string[];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: {
+          /**
+           * Format: int32
+           * @description Page number
+           * @default 1
+           */
+          number?: number;
+          /**
+           * Format: int32
+           * @description Size of the page
+           * @default 20
+           */
+          size?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -70417,25 +73365,33 @@ export interface operations {
   GetRequirementGroups: {
     parameters: {
       query?: {
-        /** @description Filter requirement groups by country code (iso alpha 2) */
-        'filter[country_code]'?: string;
-        /** @description Filter requirement groups by phone number type. */
-        'filter[phone_number_type]'?:
-          | 'local'
-          | 'toll_free'
-          | 'mobile'
-          | 'national'
-          | 'shared_cost';
-        /** @description Filter requirement groups by action type */
-        'filter[action]'?: 'ordering' | 'porting' | 'action';
-        /** @description Filter requirement groups by status */
-        'filter[status]'?:
-          | 'approved'
-          | 'unapproved'
-          | 'pending-approval'
-          | 'declined';
-        /** @description Filter requirement groups by customer reference */
-        'filter[customer_reference]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[country_code], filter[phone_number_type], filter[action], filter[status], filter[customer_reference] */
+        filter?: {
+          /** @description Filter requirement groups by country code (iso alpha 2) */
+          country_code?: string;
+          /**
+           * @description Filter requirement groups by phone number type.
+           * @enum {string}
+           */
+          phone_number_type?:
+            | 'local'
+            | 'toll_free'
+            | 'mobile'
+            | 'national'
+            | 'shared_cost';
+          /**
+           * @description Filter requirement groups by action type
+           * @enum {string}
+           */
+          action?: 'ordering' | 'porting' | 'action';
+          /**
+           * @description Filter requirement groups by status
+           * @enum {string}
+           */
+          status?: 'approved' | 'unapproved' | 'pending-approval' | 'declined';
+          /** @description Filter requirement groups by customer reference */
+          customer_reference?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -70622,10 +73578,10 @@ export interface operations {
   ListRequirementTypes: {
     parameters: {
       query?: {
-        /** @description Filters requirement types to those whose name contains a certain string. */
-        'filter[name][contains]'?: string;
-        /** @description Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a `-` in front of the field name. */
-        'sort[]'?: 'created_at' | 'name' | 'updated_at';
+        /** @description Consolidated filter parameter for requirement types (deepObject style). Originally: filter[name] */
+        filter?: components['parameters']['FilterRequirementTypesConsolidated'];
+        /** @description Consolidated sort parameter for requirement types (deepObject style). Originally: sort[] */
+        sort?: components['parameters']['SortRequirementTypesConsolidated'];
       };
       header?: never;
       path?: never;
@@ -70633,27 +73589,8 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      /** @description Successful response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': {
-            data?: components['schemas']['DocReqsRequirementTypeList'];
-            meta?: components['schemas']['PaginationMeta'];
-          };
-        };
-      };
-      /** @description Unexpected error */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Errors'];
-        };
-      };
+      200: components['responses']['DocReqsListRequirementTypesResponse'];
+      default: components['responses']['GenericErrorResponse'];
     };
   };
   RetrieveRequirementType: {
@@ -70665,49 +73602,25 @@ export interface operations {
          * @description Uniquely identifies the requirement_type record
          * @example a38c217a-8019-48f8-bff6-0fdd9939075b
          */
-        id: string;
+        id: components['parameters']['DocReqsRequirementTypeId'];
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      /** @description Successful response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': {
-            data?: components['schemas']['DocReqsRequirementType'];
-          };
-        };
-      };
-      /** @description Unexpected error */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Errors'];
-        };
-      };
+      200: components['responses']['DocReqsRequirementTypeResponse'];
+      default: components['responses']['GenericErrorResponse'];
     };
   };
   ListRequirements: {
     parameters: {
       query?: {
-        /** @description Filters results to those applying to a 2-character (ISO 3166-1 alpha-2) country code */
-        'filter[country_code]'?: string;
-        /** @description Filters results to those applying to a specific `phone_number_type` */
-        'filter[phone_number_type]'?: 'local' | 'national' | 'toll_free';
-        /** @description Filters requirements to those applying to a specific action. */
-        'filter[action]'?: 'ordering' | 'porting';
-        /** @description Specifies the sort order for results. If you want to sort by a field in ascending order, include it as a sort parameter. If you want to sort in descending order, prepend a `-` in front of the field name. */
-        'sort[]'?: 'action' | 'country_code' | 'locality' | 'phone_number_type';
-        /** @description The page number to load */
-        'page[number]'?: number;
-        /** @description The size of the page */
-        'page[size]'?: number;
+        /** @description Consolidated filter parameter for requirements (deepObject style). Originally: filter[country_code], filter[phone_number_type], filter[action] */
+        filter?: components['parameters']['FilterRequirementsConsolidated'];
+        /** @description Consolidated sort parameter for requirements (deepObject style). Originally: sort[] */
+        sort?: components['parameters']['SortRequirementsConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -70715,27 +73628,8 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      /** @description Successful response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': {
-            data?: components['schemas']['DocReqsRequirementList'];
-            meta?: components['schemas']['PaginationMeta'];
-          };
-        };
-      };
-      /** @description Unexpected error */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Errors'];
-        };
-      };
+      200: components['responses']['ListRequirementsResponse'];
+      default: components['responses']['GenericErrorResponse'];
     };
   };
   RetrieveDocumentRequirements: {
@@ -70747,51 +73641,56 @@ export interface operations {
          * @description Uniquely identifies the requirement_type record
          * @example a9dad8d5-fdbd-49d7-aa23-39bb08a5ebaa
          */
-        id: string;
+        id: components['parameters']['DocReqsRequirementId'];
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      /** @description Successful response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': {
-            data?: components['schemas']['DocReqsRequirement'];
-          };
-        };
-      };
-      /** @description Unexpected error */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Errors'];
-        };
-      };
+      200: components['responses']['DocReqsRequirementResponse'];
+      default: components['responses']['GenericErrorResponse'];
     };
   };
   ListRoomCompositions: {
     parameters: {
       query?: {
-        /** @description ISO 8601 date for filtering room compositions created on that date. */
-        'filter[date_created_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room compositions created after that date. */
-        'filter[date_created_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room compositions created before that date. */
-        'filter[date_created_at][lte]'?: string;
-        /** @description The session_id for filtering room compositions. */
-        'filter[session_id]'?: string;
-        /** @description The status for filtering room compositions. */
-        'filter[status]'?: 'completed' | 'processing' | 'enqueued';
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[date_created_at][eq], filter[date_created_at][gte], filter[date_created_at][lte], filter[session_id], filter[status] */
+        filter?: {
+          date_created_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room compositions created on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room compositions created on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room compositions created on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          /**
+           * Format: uuid
+           * @description The session_id for filtering room compositions.
+           * @example 92e7d459-bcc5-4386-9f5f-6dd14a82588d
+           */
+          session_id?: string;
+          /**
+           * @description The status for filtering room compositions.
+           * @example completed
+           * @enum {string}
+           */
+          status?: 'completed' | 'processing' | 'enqueued';
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -70861,32 +73760,81 @@ export interface operations {
   ListRoomParticipants: {
     parameters: {
       query?: {
-        /** @description ISO 8601 date for filtering room participants that joined on that date. */
-        'filter[date_joined_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room participants that joined after that date. */
-        'filter[date_joined_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room participants that joined before that date. */
-        'filter[date_joined_at][lte]'?: string;
-        /** @description ISO 8601 date for filtering room participants updated on that date. */
-        'filter[date_updated_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room participants updated after that date. */
-        'filter[date_updated_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room participants updated before that date. */
-        'filter[date_updated_at][lte]'?: string;
-        /** @description ISO 8601 date for filtering room participants that left on that date. */
-        'filter[date_left_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room participants that left after that date. */
-        'filter[date_left_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room participants that left before that date. */
-        'filter[date_left_at][lte]'?: string;
-        /** @description Filter room participants based on the context. */
-        'filter[context]'?: string;
-        /** @description Session_id for filtering room participants. */
-        'filter[session_id]'?: string;
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[date_joined_at][eq], filter[date_joined_at][gte], filter[date_joined_at][lte], filter[date_updated_at][eq], filter[date_updated_at][gte], filter[date_updated_at][lte], filter[date_left_at][eq], filter[date_left_at][gte], filter[date_left_at][lte], filter[context], filter[session_id] */
+        filter?: {
+          date_joined_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants that joined on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants that joined on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants that joined on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          date_updated_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants updated on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants updated on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants updated on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          date_left_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants that left on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants that left on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants that left on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          /**
+           * @description Filter room participants based on the context.
+           * @example Alice
+           */
+          context?: string;
+          /**
+           * @description Session_id for filtering room participants.
+           * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+           */
+          session_id?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -70916,38 +73864,84 @@ export interface operations {
   ListRoomRecordings: {
     parameters: {
       query?: {
-        /** @description ISO 8601 date for filtering room recordings ended on that date. */
-        'filter[date_ended_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room recordings ended after that date. */
-        'filter[date_ended_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room recordings ended before that date. */
-        'filter[date_ended_at][lte]'?: string;
-        /** @description ISO 8601 date for filtering room recordings started on that date. */
-        'filter[date_started_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room recordings started after that date. */
-        'filter[date_started_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room recordings started before that date. */
-        'filter[date_started_at][lte]'?: string;
-        /** @description room_id for filtering room recordings. */
-        'filter[room_id]'?: string;
-        /** @description participant_id for filtering room recordings. */
-        'filter[participant_id]'?: string;
-        /** @description session_id for filtering room recordings. */
-        'filter[session_id]'?: string;
-        /** @description status for filtering room recordings. */
-        'filter[status]'?: string;
-        /** @description type for filtering room recordings. */
-        'filter[type]'?: string;
-        /** @description duration_secs equal for filtering room recordings. */
-        'filter[duration_secs][eq]'?: number;
-        /** @description duration_secs less or equal for filtering room recordings. */
-        'filter[duration_secs][lte]'?: number;
-        /** @description duration_secs greater or equal for filtering room recordings. */
-        'filter[duration_secs][gte]'?: number;
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[date_ended_at][eq], filter[date_ended_at][gte], filter[date_ended_at][lte], filter[date_started_at][eq], filter[date_started_at][gte], filter[date_started_at][lte], filter[room_id], filter[participant_id], filter[session_id], filter[status], filter[type], filter[duration_secs] */
+        filter?: {
+          date_ended_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room recordings ended on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room recordings ended on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room recordings ended on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          date_started_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room recordings started on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room recordings started on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room recordings started on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          /**
+           * Format: uuid
+           * @description room_id for filtering room recordings.
+           * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+           */
+          room_id?: string;
+          /**
+           * Format: uuid
+           * @description participant_id for filtering room recordings.
+           * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+           */
+          participant_id?: string;
+          /**
+           * Format: uuid
+           * @description session_id for filtering room recordings.
+           * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+           */
+          session_id?: string;
+          /**
+           * @description status for filtering room recordings.
+           * @example completed
+           */
+          status?: string;
+          /**
+           * @description type for filtering room recordings.
+           * @example audio
+           */
+          type?: string;
+          /**
+           * @description duration_secs greater or equal for filtering room recordings.
+           * @example 20
+           */
+          duration_secs?: number;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -70961,38 +73955,84 @@ export interface operations {
   DeleteRoomRecordings: {
     parameters: {
       query?: {
-        /** @description ISO 8601 date for filtering room recordings ended on that date. */
-        'filter[date_ended_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room recordings ended after that date. */
-        'filter[date_ended_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room recordings ended before that date. */
-        'filter[date_ended_at][lte]'?: string;
-        /** @description ISO 8601 date for filtering room recordings started on that date. */
-        'filter[date_started_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room recordings started after that date. */
-        'filter[date_started_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room recordings started before that date. */
-        'filter[date_started_at][lte]'?: string;
-        /** @description room_id for filtering room recordings. */
-        'filter[room_id]'?: string;
-        /** @description participant_id for filtering room recordings. */
-        'filter[participant_id]'?: string;
-        /** @description session_id for filtering room recordings. */
-        'filter[session_id]'?: string;
-        /** @description status for filtering room recordings. */
-        'filter[status]'?: string;
-        /** @description type for filtering room recordings. */
-        'filter[type]'?: string;
-        /** @description duration_secs equal for filtering room recordings. */
-        'filter[duration_secs][eq]'?: number;
-        /** @description duration_secs less or equal for filtering room recordings. */
-        'filter[duration_secs][lte]'?: number;
-        /** @description duration_secs greater or equal for filtering room recordings. */
-        'filter[duration_secs][gte]'?: number;
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[date_ended_at][eq], filter[date_ended_at][gte], filter[date_ended_at][lte], filter[date_started_at][eq], filter[date_started_at][gte], filter[date_started_at][lte], filter[room_id], filter[participant_id], filter[session_id], filter[status], filter[type], filter[duration_secs] */
+        filter?: {
+          date_ended_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room recordings ended on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room recordings ended on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room recordings ended on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          date_started_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room recordings started on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room recordings started on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room recordings started on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          /**
+           * Format: uuid
+           * @description room_id for filtering room recordings.
+           * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+           */
+          room_id?: string;
+          /**
+           * Format: uuid
+           * @description participant_id for filtering room recordings.
+           * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+           */
+          participant_id?: string;
+          /**
+           * Format: uuid
+           * @description session_id for filtering room recordings.
+           * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+           */
+          session_id?: string;
+          /**
+           * @description status for filtering room recordings.
+           * @example completed
+           */
+          status?: string;
+          /**
+           * @description type for filtering room recordings.
+           * @example audio
+           */
+          type?: string;
+          /**
+           * @description duration_secs greater or equal for filtering room recordings.
+           * @example 20
+           */
+          duration_secs?: number;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -71045,34 +74085,83 @@ export interface operations {
   ListRoomSessions: {
     parameters: {
       query?: {
-        /** @description ISO 8601 date for filtering room sessions created on that date. */
-        'filter[date_created_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room sessions created after that date. */
-        'filter[date_created_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room sessions created before that date. */
-        'filter[date_created_at][lte]'?: string;
-        /** @description ISO 8601 date for filtering room sessions updated on that date. */
-        'filter[date_updated_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room sessions updated after that date. */
-        'filter[date_updated_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room sessions updated before that date. */
-        'filter[date_updated_at][lte]'?: string;
-        /** @description ISO 8601 date for filtering room sessions ended on that date. */
-        'filter[date_ended_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room sessions ended after that date. */
-        'filter[date_ended_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room sessions ended before that date. */
-        'filter[date_ended_at][lte]'?: string;
-        /** @description Room_id for filtering room sessions. */
-        'filter[room_id]'?: string;
-        /** @description Filter active or inactive room sessions. */
-        'filter[active]'?: boolean;
         /** @description To decide if room participants should be included in the response. */
         include_participants?: boolean;
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[date_created_at][eq], filter[date_created_at][gte], filter[date_created_at][lte], filter[date_updated_at][eq], filter[date_updated_at][gte], filter[date_updated_at][lte], filter[date_ended_at][eq], filter[date_ended_at][gte], filter[date_ended_at][lte], filter[room_id], filter[active] */
+        filter?: {
+          date_created_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions created on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions created on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions created on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          date_updated_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions updated on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions updated on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions updated on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          date_ended_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions ended on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions ended on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions ended on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          /**
+           * @description Room_id for filtering room sessions.
+           * @example 0ccc7b54-4df3-4bca-a65a-3da1ecc777f0
+           */
+          room_id?: string;
+          /**
+           * @description Filter active or inactive room sessions.
+           * @example true
+           */
+          active?: boolean;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -71180,30 +74269,76 @@ export interface operations {
   RetrieveListRoomParticipants: {
     parameters: {
       query?: {
-        /** @description ISO 8601 date for filtering room participants that joined on that date. */
-        'filter[date_joined_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room participants that joined after that date. */
-        'filter[date_joined_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room participants that joined before that date. */
-        'filter[date_joined_at][lte]'?: string;
-        /** @description ISO 8601 date for filtering room participants updated on that date. */
-        'filter[date_updated_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room participants updated after that date. */
-        'filter[date_updated_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room participants updated before that date. */
-        'filter[date_updated_at][lte]'?: string;
-        /** @description ISO 8601 date for filtering room participants that left on that date. */
-        'filter[date_left_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room participants that left after that date. */
-        'filter[date_left_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room participants that left before that date. */
-        'filter[date_left_at][lte]'?: string;
-        /** @description Filter room participants based on the context. */
-        'filter[context]'?: string;
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[date_joined_at][eq], filter[date_joined_at][gte], filter[date_joined_at][lte], filter[date_updated_at][eq], filter[date_updated_at][gte], filter[date_updated_at][lte], filter[date_left_at][eq], filter[date_left_at][gte], filter[date_left_at][lte], filter[context] */
+        filter?: {
+          date_joined_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants that joined on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants that joined on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants that joined on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          date_updated_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants updated on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants updated on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants updated on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          date_left_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants that left on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants that left on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room participants that left on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          /**
+           * @description Filter room participants based on the context.
+           * @example Alice
+           */
+          context?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path: {
@@ -71220,26 +74355,58 @@ export interface operations {
   ListRooms: {
     parameters: {
       query?: {
-        /** @description ISO 8601 date for filtering rooms created on that date. */
-        'filter[date_created_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering rooms created after that date. */
-        'filter[date_created_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering rooms created before that date. */
-        'filter[date_created_at][lte]'?: string;
-        /** @description ISO 8601 date for filtering rooms updated on that date. */
-        'filter[date_updated_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering rooms updated after that date. */
-        'filter[date_updated_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering rooms updated before that date. */
-        'filter[date_updated_at][lte]'?: string;
-        /** @description Unique_name for filtering rooms. */
-        'filter[unique_name]'?: string;
         /** @description To decide if room sessions should be included in the response. */
         include_sessions?: boolean;
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[date_created_at][eq], filter[date_created_at][gte], filter[date_created_at][lte], filter[date_updated_at][eq], filter[date_updated_at][gte], filter[date_updated_at][lte], filter[unique_name] */
+        filter?: {
+          date_created_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering rooms created on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering rooms created on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering rooms created on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          date_updated_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering rooms updated on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering rooms updated on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering rooms updated on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          /**
+           * @description Unique_name for filtering rooms.
+           * @example my_video_room
+           */
+          unique_name?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -71383,32 +74550,78 @@ export interface operations {
   RetrieveListRoomSessions: {
     parameters: {
       query?: {
-        /** @description ISO 8601 date for filtering room sessions created on that date. */
-        'filter[date_created_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room sessions created after that date. */
-        'filter[date_created_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room sessions created before that date. */
-        'filter[date_created_at][lte]'?: string;
-        /** @description ISO 8601 date for filtering room sessions updated on that date. */
-        'filter[date_updated_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room sessions updated after that date. */
-        'filter[date_updated_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room sessions updated before that date. */
-        'filter[date_updated_at][lte]'?: string;
-        /** @description ISO 8601 date for filtering room sessions ended on that date. */
-        'filter[date_ended_at][eq]'?: string;
-        /** @description ISO 8601 date for filtering room sessions ended after that date. */
-        'filter[date_ended_at][gte]'?: string;
-        /** @description ISO 8601 date for filtering room sessions ended before that date. */
-        'filter[date_ended_at][lte]'?: string;
-        /** @description Filter active or inactive room sessions. */
-        'filter[active]'?: boolean;
         /** @description To decide if room participants should be included in the response. */
         include_participants?: boolean;
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[date_created_at][eq], filter[date_created_at][gte], filter[date_created_at][lte], filter[date_updated_at][eq], filter[date_updated_at][gte], filter[date_updated_at][lte], filter[date_ended_at][eq], filter[date_ended_at][gte], filter[date_ended_at][lte], filter[active] */
+        filter?: {
+          date_created_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions created on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions created on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions created on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          date_updated_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions updated on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions updated on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions updated on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          date_ended_at?: {
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions ended on that date.
+             * @example 2021-04-25
+             */
+            eq?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions ended on or after that date.
+             * @example 2021-04-25
+             */
+            gte?: string;
+            /**
+             * Format: date
+             * @description ISO 8601 date for filtering room sessions ended on or before that date.
+             * @example 2021-04-25
+             */
+            lte?: string;
+          };
+          /**
+           * @description Filter active or inactive room sessions.
+           * @example true
+           */
+          active?: boolean;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path: {
@@ -71425,8 +74638,11 @@ export interface operations {
   GetBlackBoxTestResults: {
     parameters: {
       query?: {
-        /** @description Filter results for a specific product. */
-        'filter[product]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[product] */
+        filter?: {
+          /** @description Filter results for a specific product. */
+          product?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -71440,12 +74656,13 @@ export interface operations {
   ListShortCodes: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter by Messaging Profile ID. Use the string `null` for phone numbers without assigned profiles. A synonym for the `/messaging_profiles/{id}/short_codes` endpoint when querying about an extant profile. */
-        'filter[messaging_profile_id]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[messaging_profile_id] */
+        filter?: {
+          /** @description Filter by Messaging Profile ID. Use the string `null` for phone numbers without assigned profiles. A synonym for the `/messaging_profiles/{id}/short_codes` endpoint when querying about an extant profile. */
+          messaging_profile_id?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -71497,24 +74714,10 @@ export interface operations {
   ListSimCardActions: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description A valid SIM card ID. */
-        'filter[sim_card_id]'?: components['parameters']['FilterSIMCardId'];
-        /** @description Filter by a specific status of the resource's lifecycle. */
-        'filter[status]'?: components['parameters']['FilterBasicStatusLifecycle'];
-        /** @description Filter by a bulk SIM card action ID. */
-        'filter[bulk_sim_card_action_id]'?: components['parameters']['FilterBulkSIMCardActionId'];
-        /** @description Filter by action type. */
-        'filter[action_type]'?:
-          | 'enable'
-          | 'enable_standby_sim_card'
-          | 'disable'
-          | 'set_standby'
-          | 'remove_public_ip'
-          | 'set_public_ip';
+        /** @description Consolidated filter parameter for SIM card actions (deepObject style). Originally: filter[sim_card_id], filter[status], filter[bulk_sim_card_action_id], filter[action_type] */
+        filter?: components['parameters']['FilterSIMCardActionsConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -71601,10 +74804,7 @@ export interface operations {
           sim_card_id: string;
           /** @description Data usage threshold that will trigger the notification. */
           threshold: {
-            /**
-             * Format: decimal
-             * @example 2048.1
-             */
+            /** @example 2048.1 */
             amount?: string;
             /**
              * @example MB
@@ -71708,7 +74908,9 @@ export interface operations {
         /** @description Filter by action type. */
         'filter[type]'?:
           | 'set_private_wireless_gateway'
-          | 'remove_private_wireless_gateway';
+          | 'remove_private_wireless_gateway'
+          | 'set_wireless_blocklist'
+          | 'remove_wireless_blocklist';
       };
       header?: never;
       path?: never;
@@ -71761,6 +74963,8 @@ export interface operations {
         'filter[name]'?: string;
         /** @description A Private Wireless Gateway ID associated with the group. */
         'filter[private_wireless_gateway_id]'?: string;
+        /** @description A Wireless Blocklist ID associated with the group. */
+        'filter[wireless_blocklist_id]'?: string;
       };
       header?: never;
       path?: never;
@@ -71902,6 +75106,29 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
+  RemoveWirelessBlocklistForSimCardGroup: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Identifies the SIM group. */
+        id: components['parameters']['SIMCardGroupId'];
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      202: components['responses']['SIMCardGroupActionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
   SetPrivateWirelessGatewayForSimCardGroup: {
     parameters: {
       query?: never;
@@ -71936,6 +75163,40 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
+  SetWirelessBlocklistForSimCardGroup: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Identifies the SIM group. */
+        id: components['parameters']['SIMCardGroupId'];
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': {
+          /**
+           * Format: uuid
+           * @description The identification of the related Wireless Blocklist resource.
+           * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+           */
+          wireless_blocklist_id: string;
+        };
+      };
+    };
+    responses: {
+      202: components['responses']['SIMCardGroupActionResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
   PreviewSimCardOrders: {
     parameters: {
       query?: never;
@@ -71952,7 +75213,6 @@ export interface operations {
            */
           quantity: number;
           /**
-           * Format: int64
            * @description Uniquely identifies the address for the order.
            * @example 1293384261075731499
            */
@@ -71968,34 +75228,10 @@ export interface operations {
   GetSimCardOrders: {
     parameters: {
       query?: {
-        /** @description Filter by ISO 8601 formatted date-time string matching resource creation date-time. */
-        'filter[created_at]'?: components['parameters']['FilterCreatedAt'];
-        /** @description Filter by ISO 8601 formatted date-time string matching resource last update date-time. */
-        'filter[updated_at]'?: components['parameters']['FilterUpdatedAt'];
-        /** @description Filter orders by how many SIM cards were ordered. */
-        'filter[quantity]'?: components['parameters']['FilterQuantity'];
-        /** @description The total monetary amount of the order. */
-        'filter[cost.amount]'?: components['parameters']['FilterCostByAmount'];
-        /** @description Filter by ISO 4217 currency string. */
-        'filter[cost.currency]'?: components['parameters']['FilterCostByCurrency'];
-        /** @description Uniquely identifies the address for the order. */
-        'filter[address.id]'?: components['parameters']['FilterAddressById'];
-        /** @description Returns entries with matching name of the street where the address is located. */
-        'filter[address.street_address]'?: components['parameters']['FilterAddressByStreetAddress'];
-        /** @description Returns entries with matching name of the supplemental field for address information. */
-        'filter[address.extended_address]'?: components['parameters']['FilterAddressByExtendedAddress'];
-        /** @description Filter by the name of the city where the address is located. */
-        'filter[address.locality]'?: components['parameters']['FilterAddressByLocality'];
-        /** @description Filter by state or province where the address is located. */
-        'filter[address.administrative_area]'?: components['parameters']['FilterAddressByAdministrativeArea'];
-        /** @description Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country code. */
-        'filter[address.country_code]'?: components['parameters']['FilterAddressByCountryCode'];
-        /** @description Filter by postal code for the address. */
-        'filter[address.postal_code]'?: components['parameters']['FilterAddressByPostalCode'];
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated filter parameter for SIM card orders (deepObject style). Originally: filter[created_at], filter[updated_at], filter[quantity], filter[cost.amount], filter[cost.currency], filter[address.id], filter[address.street_address], filter[address.extended_address], filter[address.locality], filter[address.administrative_area], filter[address.country_code], filter[address.postal_code] */
+        filter?: components['parameters']['FilterSIMCardOrdersConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -72058,34 +75294,14 @@ export interface operations {
   GetSimCards: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated filter parameter for SIM cards (deepObject style). Originally: filter[tags], filter[iccid], filter[status] */
+        filter?: components['parameters']['FilterSIMCardConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
         /** @description It includes the associated SIM card group object in the response when present. */
         include_sim_card_group?: components['parameters']['IncludeSIMCardGroup'];
         /** @description A valid SIM card group ID. */
         'filter[sim_card_group_id]'?: components['parameters']['FilterSIMCardGroupId'];
-        /** @description A list of SIM card tags to filter on.<br/><br/>
-         *      If the SIM card contains <b><i>all</i></b> of the given <code>tags</code> they will be found.<br/><br/>
-         *     For example, if the SIM cards have the following tags: <ul>
-         *       <li><code>['customers', 'staff', 'test']</code>
-         *       <li><code>['test']</code></li>
-         *       <li><code>['customers']</code></li>
-         *     </ul>
-         *     Searching for <code>['customers', 'test']</code> returns only the first because it's the only one with both tags.<br/> Searching for <code>test</code> returns the first two SIMs, because both of them have such tag.<br/> Searching for <code>customers</code> returns the first and last SIMs.<br/>
-         *      */
-        'filter[tags]'?: string[];
-        /** @description A search string to partially match for the SIM card's ICCID. */
-        'filter[iccid]'?: string;
-        /** @description Filter by a SIM card's status. */
-        'filter[status]'?: (
-          | 'enabled'
-          | 'disabled'
-          | 'standby'
-          | 'data_limit_exceeded'
-          | 'unauthorized_imei'
-        )[];
         /**
          * @description Sorts SIM cards by the given field. Defaults to ascending order unless field is prefixed with a minus sign.
          * @example -current_billing_period_consumed_data.amount
@@ -72627,15 +75843,24 @@ export interface operations {
     parameters: {
       query: {
         /**
-         * @description The start time of the period to filter the usage (ISO microsecond format)
-         * @example 2020-01-01T00:00:00.000Z
+         * @description Consolidated filter parameter (deepObject style). Originally: filter[start_time], filter[end_time]
+         * @example {
+         *       "start_time": "2020-01-01T00:00:00.000Z",
+         *       "end_time": "2020-01-01T00:00:00.000Z"
+         *     }
          */
-        'filter[start_time]': string;
-        /**
-         * @description The end time of the period to filter the usage (ISO microsecond format)
-         * @example 2020-01-01T00:00:00.000Z
-         */
-        'filter[end_time]': string;
+        filter: {
+          /**
+           * Format: date-time
+           * @description The start time of the period to filter the usage (ISO microsecond format)
+           */
+          start_time: string;
+          /**
+           * Format: date-time
+           * @description The end time of the period to filter the usage (ISO microsecond format)
+           */
+          end_time: string;
+        };
       };
       header?: never;
       path: {
@@ -72962,16 +76187,32 @@ export interface operations {
   ListSubNumberOrders: {
     parameters: {
       query?: {
-        /** @description Filter sub number orders by status. */
-        'filter[status]'?: string;
-        /** @description ID of the number order the sub number order belongs to */
-        'filter[order_request_id]'?: string;
-        /** @description ISO alpha-2 country code. */
-        'filter[country_code]'?: string;
-        /** @description Phone Number Type */
-        'filter[phone_number_type]'?: string;
-        /** @description Amount of numbers in the sub number order */
-        'filter[phone_numbers_count]'?: number;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[status], filter[order_request_id], filter[country_code], filter[phone_number_type], filter[phone_numbers_count] */
+        filter?: {
+          /** @description Filter sub number orders by status. */
+          status?: string;
+          /**
+           * Format: uuid
+           * @description ID of the number order the sub number order belongs to
+           * @example 12ade33a-21c0-473b-b055-b3c836e1c293
+           */
+          order_request_id?: string;
+          /**
+           * @description ISO alpha-2 country code.
+           * @example US
+           */
+          country_code?: string;
+          /**
+           * @description Phone Number Type
+           * @example local
+           */
+          phone_number_type?: string;
+          /**
+           * @description Amount of numbers in the sub number order
+           * @example 1
+           */
+          phone_numbers_count?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -73023,8 +76264,14 @@ export interface operations {
   GetSubNumberOrder: {
     parameters: {
       query?: {
-        /** @description Include the first 50 phone number objects in the results */
-        'filter[include_phone_numbers]'?: boolean;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[include_phone_numbers] */
+        filter?: {
+          /**
+           * @description Include the first 50 phone number objects in the results
+           * @default false
+           */
+          include_phone_numbers?: boolean;
+        };
       };
       header?: never;
       path: {
@@ -73143,20 +76390,10 @@ export interface operations {
   FindTelephonyCredentials: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter by tag */
-        'filter[tag]'?: components['parameters']['OptionalTag'];
-        /** @description Filter by name */
-        'filter[name]'?: components['parameters']['FilterName'];
-        /** @description Filter by status */
-        'filter[status]'?: components['parameters']['FilterStatus'];
-        /** @description Filter by resource_id */
-        'filter[resource_id]'?: components['parameters']['FilterResourceId'];
-        /** @description Filter by sip_username */
-        'filter[sip_username]'?: components['parameters']['FilterSipUsername'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
       };
       header?: never;
       path?: never;
@@ -74048,24 +77285,20 @@ export interface operations {
   FindTexmlApplications: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page */
-        'page[size]'?: components['parameters']['PageSizeApp'];
-        /** @description If present, applications with <code>friendly_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-        'filter[friendly_name][contains]'?: string;
-        /** @description Identifies the associated outbound voice profile. */
-        'filter[outbound_voice_profile_id]'?: components['parameters']['FilterOutboundVoiceProfileId'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
-         *         <code>friendly_name</code>: sorts the result by the
-         *         <code>friendly_name</code> field in ascending order.
+         *         <code>application_name</code>: sorts the result by the
+         *         <code>application_name</code> field in ascending order.
          *       </li>
          *
          *       <li>
-         *         <code>-friendly_name</code>: sorts the result by the
-         *         <code>friendly_name</code> field in descending order.
+         *         <code>-application_name</code>: sorts the result by the
+         *         <code>application_name</code> field in descending order.
          *       </li>
          *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
         sort?: components['parameters']['SortApplication'];
@@ -74267,12 +77500,23 @@ export interface operations {
         filter?: string;
         /** @description Return the aggregations for all Managed Accounts under the user making the request. */
         managed_accounts?: boolean;
-        'page[number]'?: number;
-        'page[size]'?: number;
         /** @description Specifies the sort order for results */
         sort?: string[];
         /** @description Specify the response format (csv or json). JSON is returned by default, even if not specified. */
         format?: 'csv' | 'json';
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: {
+          /**
+           * Page[Number]
+           * @default 1
+           */
+          number?: number;
+          /**
+           * Page[Size]
+           * @default 20
+           */
+          size?: number;
+        };
       };
       header?: {
         authorization_bearer?: string;
@@ -74358,16 +77602,10 @@ export interface operations {
   FindUserAddress: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description Filter addresses via the customer reference set. Matching is not case-sensitive. */
-        'filter[customer_reference][eq]'?: components['parameters']['FilterCustomerReferenceEquals'];
-        /** @description If present, addresses with <code>customer_reference</code> containing the given value will be returned. Matching is not case-sensitive. */
-        'filter[customer_reference][contains]'?: components['parameters']['FilterCustomerReferenceContains'];
-        /** @description If present, addresses with <code>street_address</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
-        'filter[street_address][contains]'?: components['parameters']['FilterStreetAddress'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        filter?: components['parameters']['FilterConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -74475,8 +77713,14 @@ export interface operations {
   GetUserTags: {
     parameters: {
       query?: {
-        /** @description Filter tags by prefix */
-        'filter[starts_with]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[starts_with] */
+        filter?: {
+          /**
+           * @description Filter tags by prefix
+           * @example my-tag
+           */
+          starts_with?: string;
+        };
       };
       header?: never;
       path?: never;
@@ -74670,8 +77914,19 @@ export interface operations {
   ListVerifiedNumbers: {
     parameters: {
       query?: {
-        'page[size]'?: number;
-        'page[number]'?: number;
+        /** @description Consolidated page parameter (deepObject style). Use page[size] and page[number] in the query string. Originally: page[size], page[number] */
+        page?: {
+          /**
+           * page[size]
+           * @default 25
+           */
+          size?: number;
+          /**
+           * page[number]
+           * @default 1
+           */
+          number?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -74818,9 +78073,27 @@ export interface operations {
   ListProfiles: {
     parameters: {
       query?: {
-        'filter[name]'?: string;
-        'page[size]'?: number;
-        'page[number]'?: number;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[name] */
+        filter?: {
+          /**
+           * filter[name]
+           * @description Optional filter for profile names.
+           */
+          name?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: {
+          /**
+           * page[size]
+           * @default 25
+           */
+          size?: number;
+          /**
+           * page[number]
+           * @default 1
+           */
+          number?: number;
+        };
       };
       header?: never;
       path?: never;
@@ -74988,12 +78261,16 @@ export interface operations {
   ListVirtualCrossConnects: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The associated network id to filter on. */
-        'filter[network_id]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[network_id] */
+        filter?: {
+          /**
+           * @description The associated network id to filter on.
+           * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+           */
+          network_id?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -75079,27 +78356,51 @@ export interface operations {
   ListVirtualCrossConnectCoverage: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /**
-         * @description The available bandwidth to filter on.
-         * @example 50
-         */
-        'filters[available_bandwidth][contains]'?: number;
-        /** @description The Telnyx region code */
-        'filter[cloud_provider]'?: 'aws' | 'azure' | 'gce';
-        /** @description The cloud provider region code to filter on */
-        'filter[cloud_provider_region]'?: string;
-        /** @description The region of associated location to filter on. */
-        'filter[location.region]'?: string;
-        /** @description The site of associated location to filter on. */
-        'filter[location.site]'?: string;
-        /** @description The POP of associated location to filter on. */
-        'filter[location.pop]'?: string;
-        /** @description The code of associated location to filter on. */
-        'filter[location.code]'?: string;
+        /** @description Consolidated filters parameter (deepObject style). Originally: filters[available_bandwidth][contains] */
+        filters?: {
+          available_bandwidth?:
+            | number
+            | {
+                /** @description Filter by available bandwidth containing the specified value */
+                contains?: number;
+              };
+        };
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[cloud_provider], filter[cloud_provider_region], filter[location.region], filter[location.site], filter[location.pop], filter[location.code] */
+        filter?: {
+          /**
+           * @description The Virtual Private Cloud provider.
+           * @example aws
+           * @enum {string}
+           */
+          cloud_provider?: 'aws' | 'azure' | 'gce';
+          /**
+           * @description The region of specific cloud provider.
+           * @example us-east-1
+           */
+          cloud_provider_region?: string;
+          /**
+           * @description The region of associated location to filter on.
+           * @example AMER
+           */
+          'location.region'?: string;
+          /**
+           * @description The site of associated location to filter on.
+           * @example SJC
+           */
+          'location.site'?: string;
+          /**
+           * @description The POP of associated location to filter on.
+           * @example SV1
+           */
+          'location.pop'?: string;
+          /**
+           * @description The code of associated location to filter on.
+           * @example silicon_valley-ca
+           */
+          'location.code'?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -75114,26 +78415,62 @@ export interface operations {
   GetWebhookDeliveries: {
     parameters: {
       query?: {
-        /** @description Return only webhook_deliveries matching the given `status` */
-        'filter[status][eq]'?: 'delivered' | 'failed';
-        /** @description Return only webhook_deliveries matching the given value of `event_type`. Accepts multiple values separated by a `,`. */
-        'filter[event_type]'?: string;
-        /** @description Return only webhook deliveries whose `webhook` component contains the given text */
-        'filter[webhook][contains]'?: string;
-        /** @description Return only webhook_deliveries whose `attempts` component contains the given text */
-        'filter[attempts][contains]'?: string;
-        /** @description Return only webhook_deliveries whose delivery started later than or at given ISO 8601 datetime */
-        'filter[started_at][gte]'?: string;
-        /** @description Return only webhook_deliveries whose delivery started earlier than or at given ISO 8601 datetime */
-        'filter[started_at][lte]'?: string;
-        /** @description Return only webhook_deliveries whose delivery finished later than or at given ISO 8601 datetime */
-        'filter[finished_at][gte]'?: string;
-        /** @description Return only webhook_deliveries whose delivery finished earlier than or at given ISO 8601 datetime */
-        'filter[finished_at][lte]'?: string;
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[status][eq], filter[event_type], filter[webhook][contains], filter[attempts][contains], filter[started_at][gte], filter[started_at][lte], filter[finished_at][gte], filter[finished_at][lte] */
+        filter?: {
+          status?: {
+            /**
+             * @description Return only webhook_deliveries matching the given `status`
+             * @example delivered
+             * @enum {string}
+             */
+            eq?: 'delivered' | 'failed';
+          };
+          /**
+           * @description Return only webhook_deliveries matching the given value of `event_type`. Accepts multiple values separated by a `,`.
+           * @example call_initiated,call.initiated
+           */
+          event_type?: string;
+          webhook?: {
+            /**
+             * @description Return only webhook deliveries whose `webhook` component contains the given text
+             * @example call.initiated
+             */
+            contains?: string;
+          };
+          attempts?: {
+            /**
+             * @description Return only webhook_deliveries whose `attempts` component contains the given text
+             * @example https://fallback.example.com/webhooks
+             */
+            contains?: string;
+          };
+          started_at?: {
+            /**
+             * @description Return only webhook_deliveries whose delivery started later than or at given ISO 8601 datetime
+             * @example 2019-03-29T11:10:00Z
+             */
+            gte?: string;
+            /**
+             * @description Return only webhook_deliveries whose delivery started earlier than or at given ISO 8601 datetime
+             * @example 2019-03-29T11:10:00Z
+             */
+            lte?: string;
+          };
+          finished_at?: {
+            /**
+             * @description Return only webhook_deliveries whose delivery finished later than or at given ISO 8601 datetime
+             * @example 2019-03-29T11:10:00Z
+             */
+            gte?: string;
+            /**
+             * @description Return only webhook_deliveries whose delivery finished earlier than or at given ISO 8601 datetime
+             * @example 2019-03-29T11:10:00Z
+             */
+            lte?: string;
+          };
+        };
       };
       header?: never;
       path?: never;
@@ -75200,12 +78537,16 @@ export interface operations {
   ListWireguardInterfaces: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The associated network id to filter on. */
-        'filter[network_id]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[network_id] */
+        filter?: {
+          /**
+           * @description The associated network id to filter on.
+           * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+           */
+          network_id?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -75270,12 +78611,17 @@ export interface operations {
   ListWireguardPeers: {
     parameters: {
       query?: {
-        /** @description The page number to load. */
-        'page[number]'?: components['parameters']['PageNumber'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
-        /** @description The id of the associated WireGuard interface to filter on. */
-        'filter[wireguard_interface_id]'?: string;
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[wireguard_interface_id] */
+        filter?: {
+          /**
+           * Format: uuid
+           * @description The id of the associated WireGuard interface to filter on.
+           * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+           */
+          wireguard_interface_id?: string;
+        };
+        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -75376,7 +78722,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'text/plain; charset=utf-8': string;
+          'text/plain': string;
         };
       };
       default: components['responses']['GenericErrorResponse'];
@@ -75486,6 +78832,195 @@ export interface operations {
       default: components['responses']['GenericErrorResponse'];
     };
   };
+  WirelessBlocklistsGetAll: {
+    parameters: {
+      query: {
+        /** @description The Wireless Blocklist type for which to list possible values (e.g., `country`, `mcc`, `plmn`). */
+        type: 'country' | 'mcc' | 'plmn';
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description A list of possible wireless blocklist values */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data?:
+              | components['schemas']['Country'][]
+              | components['schemas']['MCC'][]
+              | components['schemas']['PLMN'][];
+            meta?: components['schemas']['PaginationMeta'];
+          };
+        };
+      };
+      404: components['responses']['ResourceNotFound'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  GetWirelessBlocklistsGateways: {
+    parameters: {
+      query?: {
+        /** @description The page number to load. */
+        'page[number]'?: components['parameters']['PageNumber'];
+        /** @description The size of the page. */
+        'page[size]'?: components['parameters']['PageSize'];
+        /**
+         * @description The name of the Wireless Blocklist.
+         * @example my private gateway
+         */
+        'filter[name]'?: string;
+        /**
+         * @description When the Private Wireless Gateway was last updated.
+         * @example country
+         */
+        'filter[type]'?: string;
+        /**
+         * @description Values to filter on (inclusive).
+         * @example US,CA
+         */
+        'filter[values]'?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['GetAllWirelessBlocklistsResponse'];
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  CreateWirelessBlocklist: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': {
+          /**
+           * @description The name of the Wireless Blocklist.
+           * @example My Wireless Blocklist
+           */
+          name: string;
+          /**
+           * @description The type of wireless blocklist.
+           * @example country
+           * @enum {string}
+           */
+          type: 'country' | 'mcc' | 'plmn';
+          /**
+           * @description Values to block. The values here depend on the `type` of Wireless Blocklist.
+           * @example [
+           *       "CA",
+           *       "US"
+           *     ]
+           */
+          values: (
+            | components['schemas']['CountryCode']
+            | components['schemas']['MobileCountryCode']
+            | components['schemas']['PLMNCode']
+          )[];
+        };
+      };
+    };
+    responses: {
+      202: components['responses']['CreateWirelessBlocklistResponse'];
+      422: components['responses']['UnprocessableEntity'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  UpdateWirelessBlocklist: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': {
+          /**
+           * @description The name of the Wireless Blocklist.
+           * @example My Wireless Blocklist
+           */
+          name?: string;
+          /**
+           * @description The type of wireless blocklist.
+           * @example country
+           * @enum {string}
+           */
+          type?: 'country' | 'mcc' | 'plmn';
+          /**
+           * @description Values to block. The values here depend on the `type` of Wireless Blocklist.
+           * @example [
+           *       "CA",
+           *       "US"
+           *     ]
+           */
+          values?: (
+            | components['schemas']['CountryCode']
+            | components['schemas']['MobileCountryCode']
+            | components['schemas']['PLMNCode']
+          )[];
+        };
+      };
+    };
+    responses: {
+      202: components['responses']['UpdateWirelessBlocklistResponse'];
+      422: components['responses']['UnprocessableEntity'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  GetWirelessBlocklist: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Identifies the wireless blocklist. */
+        id: components['parameters']['WirelessBlocklistId'];
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['GetWirelessBlocklistResponse'];
+      404: components['responses']['ResourceNotFound'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
+  DeleteWirelessBlocklist: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Identifies the wireless blocklist. */
+        id: components['parameters']['WirelessBlocklistId'];
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: components['responses']['DeleteWirelessBlocklistResponse'];
+      404: components['responses']['ResourceNotFound'];
+      default: components['responses']['GenericErrorResponse'];
+    };
+  };
   ListObjects: {
     parameters: {
       query?: {
@@ -75506,7 +79041,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'text/xml': components['schemas']['ListObjectsResponse'];
+          'application/xml': components['schemas']['ListObjectsResponse'];
         };
       };
       /** @description Bucket does not exist. */
@@ -75547,7 +79082,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'text/xml': string;
+          'application/xml': string;
         };
       };
     };
@@ -75576,7 +79111,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'text/xml': components['schemas']['DeleteObjectsResponse'];
+          'application/xml': components['schemas']['DeleteObjectsResponse'];
         };
       };
       /** @description Unauthorized */
@@ -75666,7 +79201,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          '*/*': string;
+          'application/octet-stream': string;
         };
       };
       /** @description ObjectNotFound */
