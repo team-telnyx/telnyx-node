@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       telnyx:
-        specifier: 2.1.0-beta.1
-        version: 2.1.0-beta.1
+        specifier: 2.1.0
+        version: 2.1.0
     devDependencies:
       '@types/node':
         specifier: ^22.7.4
@@ -697,8 +697,8 @@ packages:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
 
-  telnyx@2.1.0-beta.1:
-    resolution: {integrity: sha512-VjeektpQRE5qQxSmwSQekuMvPFXmHgGUnDBomcQ0tJRDs26asfXxpe+UWEXIOTqKK5au0R1vOcAFFvW8ofzoyQ==}
+  telnyx@2.1.0:
+    resolution: {integrity: sha512-FnblbVILAhwQM2wBS5j+m0ukvLznd8LsI6VK6DfC4iWqTHk2zBYaqRZOgULInFSEHSYkUcdR2gTpp4l/QyY6eQ==}
     engines: {node: ^18 || >=20}
 
   to-regex-range@5.0.1:
@@ -1407,7 +1407,7 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
-  telnyx@2.1.0-beta.1:
+  telnyx@2.1.0:
     dependencies:
       qs: 6.14.0
       tweetnacl: 1.0.3

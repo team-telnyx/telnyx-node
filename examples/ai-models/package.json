@@ -13,6 +13,6 @@
     "node": "^18 || >=20"
   },
   "dependencies": {
-    "telnyx": "2.1.0-beta.1"
+    "telnyx": "2.1.0"
   }
 }
