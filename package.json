@@ -1,6 +1,6 @@
 {
   "name": "telnyx",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Telnyx API Node SDK",
   "keywords": [
     "telnyx",
@@ -27,9 +27,15 @@
   "engines": {
     "node": "^18 || >=20"
   },
-  "main": "dist/telnyx.node.js",
-  "type": "module",
-  "types": "dist/types/index.d.ts",
+  "main": "./dist/telnyx.node.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/telnyx.node.js",
+      "require": "./dist/telnyx.node.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
   "devDependencies": {
     "@eslint/js": "^9.10.0",
     "@stoplight/prism-cli": "^5.10.0",

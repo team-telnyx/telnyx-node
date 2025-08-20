@@ -42,7 +42,7 @@ declare module 'telnyx' {
       paths['/documents/{id}/download']['get']['parameters']['path']['id'];
 
     type DocumentsDownloadResponse =
-      paths['/documents/{id}/download']['get']['responses']['200']['content']['*/*'];
+      paths['/documents/{id}/download']['get']['responses']['200']['content']['*'];
 
     class DocumentsResource {
       list(

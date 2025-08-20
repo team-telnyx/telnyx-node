@@ -335,6 +335,13 @@ Now inject envs into terminal:
 
 > Feel free to use Node `--env-file` parameter to [setup envs](https://nodejs.org/en/learn/command-line/how-to-read-environment-variables-from-nodejs) if you prefer
 
+
+Update global types based off Telnyx OpenAPI spec with the following command:
+
+```bash
+npx openapi-typescript https://raw.githubusercontent.com/team-telnyx/openapi/master/openapi/spec3.json -o ./types/TelnyxAPI.d.ts
+```
+
 The test suite depends on the [Prism Mock Server](https://github.com/stoplightio/prism).
 
 Start the prism mock service with the following command:

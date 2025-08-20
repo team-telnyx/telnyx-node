@@ -1,5 +1,5 @@
 {
-  "name": "telnyx-connections-example",
+  "name": "telnyx-ai-models-example",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,6 @@
   },
   "author": "Telnyx <support@telnyx.com> (https://telnyx.com)",
   "license": "ISC",
-  "type": "module",
   "engines": {
     "node": "^18 || >=20"
   },

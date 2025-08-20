@@ -8,9 +8,11 @@ import Telnyx from 'telnyx';
 const telnyx = new Telnyx(process.env.TELNYX_API_KEY || '');
 
 const params: Telnyx.AvailablePhoneNumbersListParams = {
-  'filter[features]': ['sms', 'emergency', 'mms', 'international_sms'],
-  'filter[limit]': 10,
-  'filter[country_code]': 'US',
+  filter: {
+    features: ['sms', 'emergency', 'mms', 'international_sms'],
+    limit: 10,
+    country_code: 'US',
+  }
 };
 
 (async function numbers() {
