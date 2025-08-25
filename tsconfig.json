@@ -1,26 +1,38 @@
 {
+  "include": ["src", "tests", "examples"],
+  "exclude": [],
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "lib": ["ES2023"],
-    "module": "node16",
-    "target": "ES2022",
-    "checkJs": false,
-    "alwaysStrict": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strict": true,
-    "strictFunctionTypes": true,
-    "types": [ "node", "jest" ],
+    "target": "es2020",
+    "lib": ["es2020"],
+    "module": "commonjs",
+    "moduleResolution": "node",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node16",
-    "noUncheckedIndexedAccess": true
-  },
-  "exclude": [
-    "./dist",
-    "./examples",
-    "./src/test",
-    "./node_modules"
-  ],
+    "baseUrl": "./",
+    "paths": {
+      "telnyx/*": ["src/*"],
+      "telnyx": ["src/index.ts"]
+    },
+    "noEmit": true,
+
+    "resolveJsonModule": true,
+
+    "forceConsistentCasingInFileNames": true,
+
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "alwaysStrict": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "isolatedModules": false,
+
+    "skipLibCheck": true
+  }
 }
