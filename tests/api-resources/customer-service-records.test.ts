@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource customerServiceRecords', () => {
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.customerServiceRecords.create({ phone_number: '+1234567890' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource customerServiceRecords', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.customerServiceRecords.create({
       phone_number: '+1234567890',
