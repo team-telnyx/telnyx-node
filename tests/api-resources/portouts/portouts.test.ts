@@ -40,6 +40,8 @@ describe('resource portouts', () => {
         {
           filter: {
             carrier_name: 'carrier_name',
+            country_code: 'US',
+            country_code_in: ['CA', 'US'],
             foc_date: '2024-09-04T00:00:00.000Z',
             inserted_at: { gte: '2024-09-04T00:00:00.000Z', lte: '2024-09-04T00:00:00.000Z' },
             phone_number: '+13035551212',
