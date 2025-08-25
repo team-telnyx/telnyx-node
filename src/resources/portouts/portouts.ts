@@ -300,6 +300,16 @@ export namespace PortoutListParams {
     carrier_name?: string;
 
     /**
+     * Filter by 2-letter country code
+     */
+    country_code?: string;
+
+    /**
+     * Filter by a list of 2-letter country codes
+     */
+    country_code_in?: Array<string>;
+
+    /**
      * Filter by foc_date. Matches all portouts with the same date
      */
     foc_date?: string;

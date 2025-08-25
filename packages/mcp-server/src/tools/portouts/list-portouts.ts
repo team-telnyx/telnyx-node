@@ -31,6 +31,17 @@ export const tool: Tool = {
             type: 'string',
             description: 'Filter by new carrier name.',
           },
+          country_code: {
+            type: 'string',
+            description: 'Filter by 2-letter country code',
+          },
+          country_code_in: {
+            type: 'array',
+            description: 'Filter by a list of 2-letter country codes',
+            items: {
+              type: 'string',
+            },
+          },
           foc_date: {
             type: 'string',
             description: 'Filter by foc_date. Matches all portouts with the same date',
