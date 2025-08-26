@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource faxes', () => {
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.faxes.create({
       connection_id: '234423',
@@ -24,7 +24,7 @@ describe('resource faxes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.faxes.create({
       connection_id: '234423',
