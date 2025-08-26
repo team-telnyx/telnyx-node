@@ -273,9 +273,10 @@ export interface PortoutUpdateStatusResponse {
 export interface PortoutListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
-   * filter[carrier_name], filter[pon], filter[spid], filter[status],
-   * filter[status_in], filter[ported_out_at], filter[inserted_at], filter[foc_date],
-   * filter[phone_number], filter[support_key]
+   * filter[carrier_name], filter[country_code], filter[country_code_in],
+   * filter[foc_date], filter[inserted_at], filter[phone_number], filter[pon],
+   * filter[ported_out_at], filter[spid], filter[status], filter[status_in],
+   * filter[support_key]
    */
   filter?: PortoutListParams.Filter;
 
@@ -289,9 +290,10 @@ export interface PortoutListParams {
 export namespace PortoutListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
-   * filter[carrier_name], filter[pon], filter[spid], filter[status],
-   * filter[status_in], filter[ported_out_at], filter[inserted_at], filter[foc_date],
-   * filter[phone_number], filter[support_key]
+   * filter[carrier_name], filter[country_code], filter[country_code_in],
+   * filter[foc_date], filter[inserted_at], filter[phone_number], filter[pon],
+   * filter[ported_out_at], filter[spid], filter[status], filter[status_in],
+   * filter[support_key]
    */
   export interface Filter {
     /**
