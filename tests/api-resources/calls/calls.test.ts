@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource calls', () => {
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('dial: only required params', async () => {
     const responsePromise = client.calls.dial({
       connection_id: '7267xxxxxxxxxxxxxx',
@@ -24,7 +24,7 @@ describe('resource calls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('dial: required and optional params', async () => {
     const response = await client.calls.dial({
       connection_id: '7267xxxxxxxxxxxxxx',

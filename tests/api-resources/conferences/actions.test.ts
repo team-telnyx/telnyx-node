@@ -48,7 +48,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('join: only required params', async () => {
     const responsePromise = client.conferences.actions.join('id', {
       call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
@@ -62,7 +62,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('join: required and optional params', async () => {
     const response = await client.conferences.actions.join('id', {
       call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
@@ -84,7 +84,7 @@ describe('resource actions', () => {
     });
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('leave: only required params', async () => {
     const responsePromise = client.conferences.actions.leave('id', {
       call_control_id: 'c46e06d7-b78f-4b13-96b6-c576af9640ff',
@@ -98,7 +98,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('leave: required and optional params', async () => {
     const response = await client.conferences.actions.leave('id', {
       call_control_id: 'c46e06d7-b78f-4b13-96b6-c576af9640ff',
@@ -119,7 +119,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('play', async () => {
     const responsePromise = client.conferences.actions.play('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -178,7 +178,7 @@ describe('resource actions', () => {
     });
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('recordStop', async () => {
     const responsePromise = client.conferences.actions.recordStop('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -190,7 +190,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('speak: only required params', async () => {
     const responsePromise = client.conferences.actions.speak('id', {
       payload: 'Say this to participants',
@@ -205,7 +205,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('speak: required and optional params', async () => {
     const response = await client.conferences.actions.speak('id', {
       payload: 'Say this to participants',
@@ -218,7 +218,7 @@ describe('resource actions', () => {
     });
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('stop', async () => {
     const responsePromise = client.conferences.actions.stop('id', {});
     const rawResponse = await responsePromise.asResponse();
