@@ -985,7 +985,6 @@ import {
   ManagedAccounts,
 } from './resources/managed-accounts/managed-accounts';
 import {
-  Error,
   MessageCancelScheduledResponse,
   MessageRetrieveResponse,
   MessageScheduleParams,
@@ -1001,6 +1000,7 @@ import {
   MessageSendShortCodeParams,
   MessageSendShortCodeResponse,
   Messages,
+  MessagesError,
   MessagingError,
   OutboundMessagePayload,
 } from './resources/messages/messages';
@@ -2903,7 +2903,7 @@ export declare namespace Telnyx {
 
   export {
     Messages as Messages,
-    type Error as Error,
+    type MessagesError as MessagesError,
     type MessagingError as MessagingError,
     type OutboundMessagePayload as OutboundMessagePayload,
     type MessageRetrieveResponse as MessageRetrieveResponse,
