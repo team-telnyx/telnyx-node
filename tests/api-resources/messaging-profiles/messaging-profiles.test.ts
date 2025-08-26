@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource messagingProfiles', () => {
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.messagingProfiles.create({
       name: 'My name',
@@ -23,7 +23,7 @@ describe('resource messagingProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.messagingProfiles.create({
       name: 'My name',
