@@ -80,7 +80,7 @@ export namespace ActionValidateResponse {
      */
     suggested: Data.Suggested;
 
-    errors?: Array<MessagesAPI.MessagesError>;
+    errors?: Array<MessagesAPI.Error>;
 
     /**
      * Identifies the type of the resource.
