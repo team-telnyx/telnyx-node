@@ -1620,7 +1620,7 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/messages/messages.ts">Error</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessagesError</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessagingError</a></code>
 - <code><a href="./src/resources/messages/messages.ts">OutboundMessagePayload</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageRetrieveResponse</a></code>
