@@ -32,7 +32,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('schedule: only required params', async () => {
     const responsePromise = client.messages.schedule({ to: '+18445550001' });
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +44,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('schedule: required and optional params', async () => {
     const response = await client.messages.schedule({
       to: '+18445550001',
@@ -62,7 +62,7 @@ describe('resource messages', () => {
     });
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('send: only required params', async () => {
     const responsePromise = client.messages.send({ to: '+18445550001' });
     const rawResponse = await responsePromise.asResponse();
@@ -74,7 +74,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('send: required and optional params', async () => {
     const response = await client.messages.send({
       to: '+18445550001',
@@ -92,7 +92,7 @@ describe('resource messages', () => {
     });
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('sendGroupMms: only required params', async () => {
     const responsePromise = client.messages.sendGroupMms({
       from: '+13125551234',
@@ -107,7 +107,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('sendGroupMms: required and optional params', async () => {
     const response = await client.messages.sendGroupMms({
       from: '+13125551234',
@@ -121,7 +121,7 @@ describe('resource messages', () => {
     });
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('sendLongCode: only required params', async () => {
     const responsePromise = client.messages.sendLongCode({ from: '+18445550001', to: '+13125550002' });
     const rawResponse = await responsePromise.asResponse();
@@ -133,7 +133,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('sendLongCode: required and optional params', async () => {
     const response = await client.messages.sendLongCode({
       from: '+18445550001',
@@ -149,7 +149,7 @@ describe('resource messages', () => {
     });
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('sendNumberPool: only required params', async () => {
     const responsePromise = client.messages.sendNumberPool({
       messaging_profile_id: 'abc85f64-5717-4562-b3fc-2c9600000000',
@@ -164,7 +164,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('sendNumberPool: required and optional params', async () => {
     const response = await client.messages.sendNumberPool({
       messaging_profile_id: 'abc85f64-5717-4562-b3fc-2c9600000000',
@@ -180,7 +180,7 @@ describe('resource messages', () => {
     });
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('sendShortCode: only required params', async () => {
     const responsePromise = client.messages.sendShortCode({ from: '+18445550001', to: '+18445550001' });
     const rawResponse = await responsePromise.asResponse();
@@ -192,7 +192,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('sendShortCode: required and optional params', async () => {
     const response = await client.messages.sendShortCode({
       from: '+18445550001',
