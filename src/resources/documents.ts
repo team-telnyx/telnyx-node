@@ -94,6 +94,25 @@ export class Documents extends APIResource {
   }
 
   /**
+   * Generates a temporary pre-signed URL that can be used to download the document
+   * directly from the storage backend without authentication.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.documents.generateDownloadLink(
+   *     '550e8400-e29b-41d4-a716-446655440000',
+   *   );
+   * ```
+   */
+  generateDownloadLink(
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<DocumentGenerateDownloadLinkResponse> {
+    return this._client.get(path`/documents/${id}/download_link`, options);
+  }
+
+  /**
    * Upload a document.<br /><br />Uploaded files must be linked to a service within
    * 30 minutes or they will be automatically deleted.
    *
@@ -197,6 +216,19 @@ export interface DocumentListResponse {
 
 export interface DocumentDeleteResponse {
   data?: DocServiceDocument;
+}
+
+export interface DocumentGenerateDownloadLinkResponse {
+  data: DocumentGenerateDownloadLinkResponse.Data;
+}
+
+export namespace DocumentGenerateDownloadLinkResponse {
+  export interface Data {
+    /**
+     * Pre-signed temporary URL for downloading the document
+     */
+    url: string;
+  }
 }
 
 export interface DocumentUploadResponse {
@@ -347,6 +379,7 @@ export declare namespace Documents {
     type DocumentUpdateResponse as DocumentUpdateResponse,
     type DocumentListResponse as DocumentListResponse,
     type DocumentDeleteResponse as DocumentDeleteResponse,
+    type DocumentGenerateDownloadLinkResponse as DocumentGenerateDownloadLinkResponse,
     type DocumentUploadResponse as DocumentUploadResponse,
     type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentListParams as DocumentListParams,
