@@ -30,7 +30,7 @@
     "fix": "eslint --fix --ext ts,js ."
   },
   "dependencies": {
-    "telnyx": "file:../../dist/",
+    "telnyx-node": "file:../../dist/",
     "@cloudflare/cabidela": "^0.2.4",
     "@modelcontextprotocol/sdk": "^1.11.5",
     "@valtown/deno-http-worker": "^0.0.21",

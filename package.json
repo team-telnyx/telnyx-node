@@ -1,5 +1,5 @@
 {
-  "name": "telnyx",
+  "name": "telnyx-node",
   "version": "0.0.1",
   "description": "The official TypeScript library for the Telnyx API",
   "author": "Telnyx <support@telnyx.com>",

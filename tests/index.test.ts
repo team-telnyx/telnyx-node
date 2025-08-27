@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from 'telnyx/core/api-promise';
+import { APIPromise } from 'telnyx-node/core/api-promise';
 
 import util from 'node:util';
-import Telnyx from 'telnyx';
-import { APIUserAbortError } from 'telnyx';
+import Telnyx from 'telnyx-node';
+import { APIUserAbortError } from 'telnyx-node';
 const defaultFetch = fetch;
 
 describe('instantiate client', () => {

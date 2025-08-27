@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Telnyx } from 'telnyx';
+import { Telnyx } from 'telnyx-node';
 
 const { stringifyQuery } = Telnyx.prototype as any;
 
