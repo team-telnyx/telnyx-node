@@ -122,12 +122,14 @@ Types:
 
 - <code><a href="./src/resources/advanced-orders.ts">AdvancedOrderCreateResponse</a></code>
 - <code><a href="./src/resources/advanced-orders.ts">AdvancedOrderRetrieveResponse</a></code>
+- <code><a href="./src/resources/advanced-orders.ts">AdvancedOrderUpdateResponse</a></code>
 - <code><a href="./src/resources/advanced-orders.ts">AdvancedOrderListResponse</a></code>
 
 Methods:
 
 - <code title="post /advanced_orders">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">create</a>({ ...params }) -> unknown</code>
 - <code title="get /advanced_orders/{order_id}">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">retrieve</a>(orderID) -> unknown</code>
+- <code title="patch /advanced_orders/{order_id}">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">update</a>(orderID, { ...params }) -> unknown</code>
 - <code title="get /advanced_orders">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">list</a>() -> unknown</code>
 
 # AI

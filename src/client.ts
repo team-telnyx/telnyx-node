@@ -49,6 +49,8 @@ import {
   AdvancedOrderCreateResponse,
   AdvancedOrderListResponse,
   AdvancedOrderRetrieveResponse,
+  AdvancedOrderUpdateParams,
+  AdvancedOrderUpdateResponse,
   AdvancedOrders,
 } from './resources/advanced-orders';
 import { AuditEventListParams, AuditEventListResponse, AuditEvents } from './resources/audit-events';
@@ -2355,8 +2357,10 @@ export declare namespace Telnyx {
     AdvancedOrders as AdvancedOrders,
     type AdvancedOrderCreateResponse as AdvancedOrderCreateResponse,
     type AdvancedOrderRetrieveResponse as AdvancedOrderRetrieveResponse,
+    type AdvancedOrderUpdateResponse as AdvancedOrderUpdateResponse,
     type AdvancedOrderListResponse as AdvancedOrderListResponse,
     type AdvancedOrderCreateParams as AdvancedOrderCreateParams,
+    type AdvancedOrderUpdateParams as AdvancedOrderUpdateParams,
   };
 
   export {

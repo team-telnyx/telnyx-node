@@ -32,8 +32,10 @@ export {
   AdvancedOrders,
   type AdvancedOrderCreateResponse,
   type AdvancedOrderRetrieveResponse,
+  type AdvancedOrderUpdateResponse,
   type AdvancedOrderListResponse,
   type AdvancedOrderCreateParams,
+  type AdvancedOrderUpdateParams,
 } from './advanced-orders';
 export { AuditEvents, type AuditEventListResponse, type AuditEventListParams } from './audit-events';
 export {
