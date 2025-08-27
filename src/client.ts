@@ -188,6 +188,7 @@ import { DocumentLinkListParams, DocumentLinkListResponse, DocumentLinks } from 
 import {
   DocServiceDocument,
   DocumentDeleteResponse,
+  DocumentGenerateDownloadLinkResponse,
   DocumentListParams,
   DocumentListResponse,
   DocumentRetrieveResponse,
@@ -2633,6 +2634,7 @@ export declare namespace Telnyx {
     type DocumentUpdateResponse as DocumentUpdateResponse,
     type DocumentListResponse as DocumentListResponse,
     type DocumentDeleteResponse as DocumentDeleteResponse,
+    type DocumentGenerateDownloadLinkResponse as DocumentGenerateDownloadLinkResponse,
     type DocumentUploadResponse as DocumentUploadResponse,
     type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentListParams as DocumentListParams,

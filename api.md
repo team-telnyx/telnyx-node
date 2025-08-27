@@ -1089,6 +1089,7 @@ Types:
 - <code><a href="./src/resources/documents.ts">DocumentUpdateResponse</a></code>
 - <code><a href="./src/resources/documents.ts">DocumentListResponse</a></code>
 - <code><a href="./src/resources/documents.ts">DocumentDeleteResponse</a></code>
+- <code><a href="./src/resources/documents.ts">DocumentGenerateDownloadLinkResponse</a></code>
 - <code><a href="./src/resources/documents.ts">DocumentUploadResponse</a></code>
 
 Methods:
@@ -1098,6 +1099,7 @@ Methods:
 - <code title="get /documents">client.documents.<a href="./src/resources/documents.ts">list</a>({ ...params }) -> DocumentListResponse</code>
 - <code title="delete /documents/{id}">client.documents.<a href="./src/resources/documents.ts">delete</a>(id) -> DocumentDeleteResponse</code>
 - <code title="get /documents/{id}/download">client.documents.<a href="./src/resources/documents.ts">download</a>(id) -> Response</code>
+- <code title="get /documents/{id}/download_link">client.documents.<a href="./src/resources/documents.ts">generateDownloadLink</a>(id) -> DocumentGenerateDownloadLinkResponse</code>
 - <code title="post /documents">client.documents.<a href="./src/resources/documents.ts">upload</a>({ ...params }) -> DocumentUploadResponse</code>
 
 # DynamicEmergencyAddresses

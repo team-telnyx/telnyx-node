@@ -257,6 +257,7 @@ export {
   type DocumentUpdateResponse,
   type DocumentListResponse,
   type DocumentDeleteResponse,
+  type DocumentGenerateDownloadLinkResponse,
   type DocumentUploadResponse,
   type DocumentUpdateParams,
   type DocumentListParams,

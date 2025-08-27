@@ -968,6 +968,7 @@ The following tools are available in this MCP server.
 - `list_documents` (`read`): List all documents ordered by created_at descending.
 - `delete_documents` (`write`): Delete a document.<br /><br />A document can only be deleted if it's not linked to a service. If it is linked to a service, it must be unlinked prior to deleting.
 - `download_documents` (`read`): Download a document.
+- `generate_download_link_documents` (`read`): Generates a temporary pre-signed URL that can be used to download the document directly from the storage backend without authentication.
 - `upload_documents` (`write`): Upload a document.<br /><br />Uploaded files must be linked to a service within 30 minutes or they will be automatically deleted.
 
 ### Resource `dynamic_emergency_addresses`:

@@ -76,6 +76,18 @@ describe('resource documents', () => {
   });
 
   // Prism tests are disabled
+  test.skip('generateDownloadLink', async () => {
+    const responsePromise = client.documents.generateDownloadLink('550e8400-e29b-41d4-a716-446655440000');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
   test.skip('upload: only required params', async () => {
     const responsePromise = client.documents.upload({
       url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
