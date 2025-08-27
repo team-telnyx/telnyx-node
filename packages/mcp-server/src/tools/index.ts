@@ -29,6 +29,7 @@ import accept_suggestions_addresses_actions from './addresses/actions/accept-sug
 import validate_addresses_actions from './addresses/actions/validate-addresses-actions';
 import create_advanced_orders from './advanced-orders/create-advanced-orders';
 import retrieve_advanced_orders from './advanced-orders/retrieve-advanced-orders';
+import update_advanced_orders from './advanced-orders/update-advanced-orders';
 import list_advanced_orders from './advanced-orders/list-advanced-orders';
 import retrieve_models_ai from './ai/retrieve-models-ai';
 import summarize_ai from './ai/summarize-ai';
@@ -835,6 +836,7 @@ addEndpoint(accept_suggestions_addresses_actions);
 addEndpoint(validate_addresses_actions);
 addEndpoint(create_advanced_orders);
 addEndpoint(retrieve_advanced_orders);
+addEndpoint(update_advanced_orders);
 addEndpoint(list_advanced_orders);
 addEndpoint(retrieve_models_ai);
 addEndpoint(summarize_ai);

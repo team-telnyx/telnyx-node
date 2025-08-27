@@ -9,17 +9,21 @@ export const metadata: Metadata = {
   resource: 'advanced_orders',
   operation: 'write',
   tags: [],
-  httpMethod: 'post',
-  httpPath: '/advanced_orders',
-  operationId: 'create_advanced_order_v2',
+  httpMethod: 'patch',
+  httpPath: '/advanced_orders/{order_id}',
+  operationId: 'update_advanced_order_v2',
 };
 
 export const tool: Tool = {
-  name: 'create_advanced_orders',
-  description: 'Create Advanced Order',
+  name: 'update_advanced_orders',
+  description: 'Update Advanced Order',
   inputSchema: {
     type: 'object',
     properties: {
+      order_id: {
+        type: 'string',
+        title: 'Order Id',
+      },
       area_code: {
         type: 'string',
         title: 'Area Code',
@@ -58,14 +62,14 @@ export const tool: Tool = {
         description: 'The ID of the requirement group to associate with this advanced order',
       },
     },
-    required: [],
+    required: ['order_id'],
   },
   annotations: {},
 };
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
-  const body = args as any;
-  return asTextContentResult((await client.advancedOrders.create(body)) as object);
+  const { order_id, ...body } = args as any;
+  return asTextContentResult((await client.advancedOrders.update(order_id, body)) as object);
 };
 
 export default { metadata, tool, handler };
