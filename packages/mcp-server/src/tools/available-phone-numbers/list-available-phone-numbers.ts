@@ -4,7 +4,7 @@ import { maybeFilter } from 'telnyx-mcp/filtering';
 import { Metadata, asTextContentResult } from 'telnyx-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
-import Telnyx from 'telnyx';
+import Telnyx from 'telnyx-node';
 
 export const metadata: Metadata = {
   resource: 'available_phone_numbers',

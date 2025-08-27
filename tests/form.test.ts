@@ -1,5 +1,5 @@
-import { multipartFormRequestOptions, createForm } from 'telnyx/internal/uploads';
-import { toFile } from 'telnyx/core/uploads';
+import { multipartFormRequestOptions, createForm } from 'telnyx-node/internal/uploads';
+import { toFile } from 'telnyx-node/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

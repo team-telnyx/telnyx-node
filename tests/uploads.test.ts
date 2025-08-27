@@ -1,6 +1,6 @@
 import fs from 'fs';
-import type { ResponseLike } from 'telnyx/internal/to-file';
-import { toFile } from 'telnyx/core/uploads';
+import type { ResponseLike } from 'telnyx-node/internal/to-file';
+import { toFile } from 'telnyx-node/core/uploads';
 import { File } from 'node:buffer';
 
 class MyClass {
@@ -97,7 +97,7 @@ describe('missing File error message', () => {
   });
 
   test('is thrown', async () => {
-    const uploads = await import('telnyx/core/uploads');
+    const uploads = await import('telnyx-node/core/uploads');
     await expect(
       uploads.toFile(mockResponse({ url: 'https://example.com/my/audio.mp3' })),
     ).rejects.toMatchInlineSnapshot(

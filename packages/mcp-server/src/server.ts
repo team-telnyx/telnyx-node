@@ -9,8 +9,8 @@ import {
   ListToolsRequestSchema,
   Tool,
 } from '@modelcontextprotocol/sdk/types.js';
-import { ClientOptions } from 'telnyx';
-import Telnyx from 'telnyx';
+import { ClientOptions } from 'telnyx-node';
+import Telnyx from 'telnyx-node';
 import {
   applyCompatibilityTransformations,
   ClientCapabilities,
@@ -25,13 +25,13 @@ import { McpOptions } from './options';
 export { McpOptions } from './options';
 export { ClientType } from './compat';
 export { Filter } from './tools';
-export { ClientOptions } from 'telnyx';
+export { ClientOptions } from 'telnyx-node';
 export { endpoints } from './tools';
 
 export const newMcpServer = () =>
   new McpServer(
     {
-      name: 'telnyx_api',
+      name: 'telnyx_node_api',
       version: '0.0.1',
     },
     { capabilities: { tools: {}, logging: {} } },
