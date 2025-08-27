@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource numberBlockOrders', () => {
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.numberBlockOrders.create({ range: 10, starting_number: '+19705555000' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource numberBlockOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.numberBlockOrders.create({
       range: 10,
