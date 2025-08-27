@@ -25,7 +25,7 @@ export default tseslint.config(
         {
           patterns: [
             {
-              regex: '^telnyx-node(/.*)?',
+              regex: '^telnyx(/.*)?',
               message: 'Use a relative import, not a package import.',
             },
           ],

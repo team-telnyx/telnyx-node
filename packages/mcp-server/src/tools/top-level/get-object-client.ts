@@ -3,7 +3,7 @@
 import { Metadata, asBinaryContentResult } from 'telnyx-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
-import Telnyx from 'telnyx-node';
+import Telnyx from 'telnyx';
 
 export const metadata: Metadata = {
   resource: '$client',

@@ -1,7 +1,7 @@
 import iconv from 'iconv-lite';
-import { stringify } from 'telnyx-node/internal/qs';
-import { encode } from 'telnyx-node/internal/qs/utils';
-import { StringifyOptions } from 'telnyx-node/internal/qs/types';
+import { stringify } from 'telnyx/internal/qs';
+import { encode } from 'telnyx/internal/qs/utils';
+import { StringifyOptions } from 'telnyx/internal/qs/types';
 import { empty_test_cases } from './empty-keys-cases';
 import assert from 'assert';
 

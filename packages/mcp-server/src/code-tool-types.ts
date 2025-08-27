@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { ClientOptions } from 'telnyx-node';
+import { ClientOptions } from 'telnyx';
 
 export type WorkerInput = {
   opts: ClientOptions;
