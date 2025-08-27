@@ -7,8 +7,8 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^telnyx-node$': '<rootDir>/src/index.ts',
-    '^telnyx-node/(.*)$': '<rootDir>/src/$1',
+    '^telnyx$': '<rootDir>/src/index.ts',
+    '^telnyx/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/ecosystem-tests/',

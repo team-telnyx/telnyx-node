@@ -1,4 +1,4 @@
-import { createPathTagFunction, encodeURIPath } from 'telnyx-node/internal/utils/path';
+import { createPathTagFunction, encodeURIPath } from 'telnyx/internal/utils/path';
 import { inspect } from 'node:util';
 import { runInNewContext } from 'node:vm';
 

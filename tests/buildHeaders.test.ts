@@ -1,5 +1,5 @@
 import { inspect } from 'node:util';
-import { buildHeaders, type HeadersLike, type NullableHeaders } from 'telnyx-node/internal/headers';
+import { buildHeaders, type HeadersLike, type NullableHeaders } from 'telnyx/internal/headers';
 
 function inspectNullableHeaders(headers: NullableHeaders) {
   return `NullableHeaders {${[

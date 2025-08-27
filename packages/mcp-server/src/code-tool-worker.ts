@@ -2,7 +2,7 @@
 
 import util from 'node:util';
 import { WorkerInput, WorkerSuccess, WorkerError } from './code-tool-types';
-import { Telnyx } from 'telnyx-node';
+import { Telnyx } from 'telnyx';
 
 const fetch = async (req: Request): Promise<Response> => {
   const { opts, code } = (await req.json()) as WorkerInput;

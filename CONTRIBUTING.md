@@ -55,12 +55,12 @@ $ cd telnyx-node
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link telnyx-node
+$ yarn link telnyx
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global telnyx-node
+$ pnpm link -—global telnyx
 ```
 
 ## Running tests

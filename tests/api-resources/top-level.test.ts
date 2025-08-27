@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Telnyx, { toFile } from 'telnyx-node';
+import Telnyx, { toFile } from 'telnyx';
 
 const client = new Telnyx({
   apiKey: 'My API Key',
