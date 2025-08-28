@@ -215,10 +215,6 @@ The following tools are available in this MCP server.
 - `list_objects_client` (`read`): List all objects contained in a given bucket.
 - `put_object_client` (`write`): Add an object to a bucket.
 
-### Resource `webhooks`:
-
-- `unwrap_webhooks` (`write`):
-
 ### Resource `access_ip_address`:
 
 - `create_access_ip_address` (`write`): Create new Access IP Address
