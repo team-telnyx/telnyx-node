@@ -1,4 +1,0 @@
-*.node*.js
-dist
-node_modules
-tsconfig.json

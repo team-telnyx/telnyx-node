@@ -1,0 +1,50 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+import { maybeFilter } from 'telnyx-mcp/filtering';
+import { Metadata, asTextContentResult } from 'telnyx-mcp/tools/types';
+
+import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import Telnyx from 'telnyx';
+
+export const metadata: Metadata = {
+  resource: 'messaging_tollfree.verification.requests',
+  operation: 'read',
+  tags: [],
+  httpMethod: 'get',
+  httpPath: '/messaging_tollfree/verification/requests/{id}',
+  operationId: 'GetVerificationRequest',
+};
+
+export const tool: Tool = {
+  name: 'retrieve_verification_messaging_tollfree_requests',
+  description:
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGet a single verification request by its ID.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/verification_request_status',\n  $defs: {\n    verification_request_status: {\n      type: 'object',\n      title: 'VerificationRequestStatus',\n      description: 'A verification request and its status, suitable for returning to users',\n      properties: {\n        id: {\n          type: 'string',\n          title: 'Id'\n        },\n        additionalInformation: {\n          type: 'string',\n          title: 'Additionalinformation'\n        },\n        businessAddr1: {\n          type: 'string',\n          title: 'Businessaddr1'\n        },\n        businessCity: {\n          type: 'string',\n          title: 'Businesscity'\n        },\n        businessContactEmail: {\n          type: 'string',\n          title: 'Businesscontactemail'\n        },\n        businessContactFirstName: {\n          type: 'string',\n          title: 'Businesscontactfirstname'\n        },\n        businessContactLastName: {\n          type: 'string',\n          title: 'Businesscontactlastname'\n        },\n        businessContactPhone: {\n          type: 'string',\n          title: 'Businesscontactphone'\n        },\n        businessName: {\n          type: 'string',\n          title: 'Businessname'\n        },\n        businessState: {\n          type: 'string',\n          title: 'Businessstate'\n        },\n        businessZip: {\n          type: 'string',\n          title: 'Businesszip'\n        },\n        corporateWebsite: {\n          type: 'string',\n          title: 'Corporatewebsite'\n        },\n        isvReseller: {\n          type: 'string',\n          title: 'Isvreseller'\n        },\n        messageVolume: {\n          $ref: '#/$defs/volume'\n        },\n        optInWorkflow: {\n          type: 'string',\n          title: 'Optinworkflow'\n        },\n        optInWorkflowImageURLs: {\n          type: 'array',\n          title: 'Optinworkflowimageurls',\n          items: {\n            $ref: '#/$defs/url'\n          }\n        },\n        phoneNumbers: {\n          type: 'array',\n          title: 'Phonenumbers',\n          items: {\n            $ref: '#/$defs/tf_phone_number'\n          }\n        },\n        productionMessageContent: {\n          type: 'string',\n          title: 'Productionmessagecontent'\n        },\n        useCase: {\n          $ref: '#/$defs/use_case_categories'\n        },\n        useCaseSummary: {\n          type: 'string',\n          title: 'Usecasesummary'\n        },\n        verificationStatus: {\n          $ref: '#/$defs/tf_verification_status'\n        },\n        businessAddr2: {\n          type: 'string',\n          title: 'Businessaddr2'\n        },\n        createdAt: {\n          type: 'string',\n          title: 'Createdat',\n          format: 'date-time'\n        },\n        reason: {\n          type: 'string',\n          title: 'Reason'\n        },\n        updatedAt: {\n          type: 'string',\n          title: 'Updatedat',\n          format: 'date-time'\n        },\n        webhookUrl: {\n          type: 'string',\n          title: 'Webhookurl'\n        }\n      },\n      required: [        'id',\n        'additionalInformation',\n        'businessAddr1',\n        'businessCity',\n        'businessContactEmail',\n        'businessContactFirstName',\n        'businessContactLastName',\n        'businessContactPhone',\n        'businessName',\n        'businessState',\n        'businessZip',\n        'corporateWebsite',\n        'isvReseller',\n        'messageVolume',\n        'optInWorkflow',\n        'optInWorkflowImageURLs',\n        'phoneNumbers',\n        'productionMessageContent',\n        'useCase',\n        'useCaseSummary',\n        'verificationStatus'\n      ]\n    },\n    volume: {\n      type: 'string',\n      title: 'Volume',\n      description: 'Message Volume Enums',\n      enum: [        '10',\n        '100',\n        '1,000',\n        '10,000',\n        '100,000',\n        '250,000',\n        '500,000',\n        '750,000',\n        '1,000,000',\n        '5,000,000',\n        '10,000,000+'\n      ]\n    },\n    url: {\n      type: 'object',\n      title: 'Url',\n      properties: {\n        url: {\n          type: 'string',\n          title: 'Url'\n        }\n      },\n      required: [        'url'\n      ]\n    },\n    tf_phone_number: {\n      type: 'object',\n      title: 'PhoneNumber',\n      description: 'A phone number',\n      properties: {\n        phoneNumber: {\n          type: 'string',\n          title: 'Phonenumber'\n        }\n      },\n      required: [        'phoneNumber'\n      ]\n    },\n    use_case_categories: {\n      type: 'string',\n      title: 'UseCaseCategories',\n      description: 'Tollfree usecase categories',\n      enum: [        '2FA',\n        'App Notifications',\n        'Appointments',\n        'Auctions',\n        'Auto Repair Services',\n        'Bank Transfers',\n        'Billing',\n        'Booking Confirmations',\n        'Business Updates',\n        'COVID-19 Alerts',\n        'Career Training',\n        'Chatbot',\n        'Conversational / Alerts',\n        'Courier Services & Deliveries',\n        'Emergency Alerts',\n        'Events & Planning',\n        'Financial Services',\n        'Fraud Alerts',\n        'Fundraising',\n        'General Marketing',\n        'General School Updates',\n        'HR / Staffing',\n        'Healthcare Alerts',\n        'Housing Community Updates',\n        'Insurance Services',\n        'Job Dispatch',\n        'Legal Services',\n        'Mixed',\n        'Motivational Reminders',\n        'Notary Notifications',\n        'Order Notifications',\n        'Political',\n        'Public Works',\n        'Real Estate Services',\n        'Religious Services',\n        'Repair and Diagnostics Alerts',\n        'Rewards Program',\n        'Surveys',\n        'System Alerts',\n        'Voting Reminders',\n        'Waitlist Alerts',\n        'Webinar Reminders',\n        'Workshop Alerts'\n      ]\n    },\n    tf_verification_status: {\n      type: 'string',\n      title: 'VerificationStatus',\n      description: 'Tollfree verification status',\n      enum: [        'Verified',\n        'Rejected',\n        'Waiting For Vendor',\n        'Waiting For Customer',\n        'Waiting For Telnyx',\n        'In Progress'\n      ]\n    }\n  }\n}\n```",
+  inputSchema: {
+    type: 'object',
+    properties: {
+      id: {
+        type: 'string',
+        title: 'Id',
+      },
+      jq_filter: {
+        type: 'string',
+        title: 'jq Filter',
+        description:
+          'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
+      },
+    },
+    required: ['id'],
+  },
+  annotations: {
+    readOnlyHint: true,
+  },
+};
+
+export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
+  const { id, jq_filter, ...body } = args as any;
+  return asTextContentResult(
+    await maybeFilter(jq_filter, await client.messagingTollfree.verification.requests.retrieve(id)),
+  );
+};
+
+export default { metadata, tool, handler };
