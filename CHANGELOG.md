@@ -2,6 +2,11 @@
 
 ## v2
 
+### v2.1.1
+
+- Improve error handling on ConnectionError with better logging for truncated error objects
+- Fix default timeout and HTTP agent default options
+
 ### v2.1.0
 
 - Add dual package support for both CommonJS and ES modules
