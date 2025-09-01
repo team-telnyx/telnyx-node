@@ -152,7 +152,10 @@ export function createTelnyx() {
   Telnyx.DEFAULT_PORT = '443';
   Telnyx.DEFAULT_BASE_PATH = '/v2/';
 
-  // https://github.com/team-telnyx/telnyx-node/issues/218
+  /**
+   * Default timeout for requests made by the library (in ms).
+   * https://github.com/team-telnyx/telnyx-node/issues/218
+   */
   Telnyx.DEFAULT_TIMEOUT = 120000;
 
   Telnyx.PACKAGE_VERSION = process.env.npm_package_version || '2.x';

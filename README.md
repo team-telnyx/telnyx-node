@@ -63,7 +63,7 @@ telnyx.messagingProfiles
 
 ### Configuring Timeout
 
-Request timeout is configurable (the default is Node's default of 120 seconds):
+Request timeout is configurable (the default is 120 seconds):
 
 ```typescript
 telnyx.setTimeout(20000); // in ms (this is 20 seconds)
