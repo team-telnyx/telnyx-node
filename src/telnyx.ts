@@ -463,6 +463,10 @@ export function createTelnyx() {
       }
     },
 
+    getHttpsAgent: function (): https.Agent {
+      return this.getApiField('https_agent');
+    },
+
     _setApiField: function <K extends keyof TelnyxObject['_api']>(
       key: K,
       value: TelnyxObject['_api'][K],

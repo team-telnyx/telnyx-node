@@ -81,6 +81,7 @@ export type TelnyxObject = {
   getInitialNetworkRetryDelay: () => number;
   getMaxNetworkRetryDelay: () => number;
   getMaxNetworkRetries: () => number;
+  getHttpsAgent: () => HttpsAgent;
   getConstant: <T = string>(name: string) => T;
   _setApiField: <K extends keyof TelnyxObject['_api']>(
     name: K,
