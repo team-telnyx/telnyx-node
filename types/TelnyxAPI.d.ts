@@ -277,7 +277,8 @@ export interface paths {
     delete?: never;
     options?: never;
     head?: never;
-    patch?: never;
+    /** Update Advanced Order */
+    patch: operations['update_advanced_order_v2'];
     trace?: never;
   };
   '/ai/assistants': {
@@ -3164,10 +3165,10 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['Errors'];
+            'application/json': components['schemas']['charges_Errors'];
           };
         };
-        default: components['responses']['GenericErrorResponse'];
+        default: components['responses']['charges_GenericErrorResponse'];
       };
     };
     put?: never;
@@ -3218,10 +3219,10 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['Errors'];
+            'application/json': components['schemas']['charges_Errors'];
           };
         };
-        default: components['responses']['GenericErrorResponse'];
+        default: components['responses']['charges_GenericErrorResponse'];
       };
     };
     put?: never;
@@ -4063,6 +4064,26 @@ export interface paths {
      * @description Download a document.
      */
     get: operations['DownloadDocument'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/documents/{id}/download_link': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Generate a temporary download link for a document
+     * @description Generates a temporary pre-signed URL that can be used to download the document directly from the storage backend without authentication.
+     */
+    get: operations['getDocumentDownloadLink'];
     put?: never;
     post?: never;
     delete?: never;
@@ -5190,7 +5211,7 @@ export interface paths {
             };
           };
         };
-        default: components['responses']['GenericErrorResponse'];
+        default: components['responses']['invoice_GenericErrorResponse'];
       };
     };
     put?: never;
@@ -5228,7 +5249,7 @@ export interface paths {
       requestBody?: never;
       responses: {
         200: components['responses']['InvoiceDetailResponse'];
-        default: components['responses']['GenericErrorResponse'];
+        default: components['responses']['invoice_GenericErrorResponse'];
       };
     };
     put?: never;
@@ -5736,7 +5757,7 @@ export interface paths {
             'application/json': components['schemas']['RCSDeeplinkResponse'];
           };
         };
-        default: components['responses']['GenericErrorResponse'];
+        default: components['responses']['messaging_GenericErrorResponse'];
       };
     };
     put?: never;
@@ -5813,6 +5834,114 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/messaging/rcs/agents': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** List all RCS agents */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+          page?: components['parameters']['PageConsolidated'];
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Successful reponse with the list of RCS agents */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['RCSAgentsResponse'];
+          };
+        };
+        default: components['responses']['messaging_GenericErrorResponse'];
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/messaging/rcs/agents/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Retrieve an RCS agent */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description RCS agent ID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Successful response with the RCS agent */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['RCSAgentResponse'];
+          };
+        };
+        default: components['responses']['messaging_GenericErrorResponse'];
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Modify an RCS agent */
+    patch: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description RCS agent ID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          'application/json': components['schemas']['RCSAgentUpdate'];
+        };
+      };
+      responses: {
+        /** @description Successful response with the updated RCS agent */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['RCSAgentResponse'];
+          };
+        };
+        default: components['responses']['messaging_GenericErrorResponse'];
+      };
+    };
+    trace?: never;
+  };
   '/messaging/rcs/bulk_capabilities': {
     parameters: {
       query?: never;
@@ -5845,7 +5974,7 @@ export interface paths {
             'application/json': components['schemas']['RCSCapabilitiesBulk'];
           };
         };
-        default: components['responses']['GenericErrorResponse'];
+        default: components['responses']['messaging_GenericErrorResponse'];
       };
     };
     delete?: never;
@@ -5885,7 +6014,7 @@ export interface paths {
             'application/json': components['schemas']['RCSCapabilitiesSingle'];
           };
         };
-        default: components['responses']['GenericErrorResponse'];
+        default: components['responses']['messaging_GenericErrorResponse'];
       };
     };
     put?: never;
@@ -5931,7 +6060,7 @@ export interface paths {
             'application/json': components['schemas']['RCSTestNumberInviteResponse'];
           };
         };
-        default: components['responses']['GenericErrorResponse'];
+        default: components['responses']['messaging_GenericErrorResponse'];
       };
     };
     post?: never;
@@ -6341,7 +6470,7 @@ export interface paths {
             'application/json': components['schemas']['RCSResponse'];
           };
         };
-        default: components['responses']['GenericErrorResponse'];
+        default: components['responses']['messaging_GenericErrorResponse'];
       };
     };
     delete?: never;
@@ -8972,114 +9101,6 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/rcs_agents': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** List all RCS agents */
-    get: {
-      parameters: {
-        query?: {
-          /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-          page?: components['parameters']['PageConsolidated'];
-        };
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description Successful reponse with the list of RCS agents */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            'application/json': components['schemas']['RCSAgentsResponse'];
-          };
-        };
-        default: components['responses']['GenericErrorResponse'];
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/rcs_agents/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Retrieve an RCS agent */
-    get: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path: {
-          /** @description RCS agent ID */
-          id: string;
-        };
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description Successful response with the RCS agent */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            'application/json': components['schemas']['RCSAgentResponse'];
-          };
-        };
-        default: components['responses']['GenericErrorResponse'];
-      };
-    };
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /** Modify an RCS agent */
-    patch: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path: {
-          /** @description RCS agent ID */
-          id: string;
-        };
-        cookie?: never;
-      };
-      requestBody?: {
-        content: {
-          'application/json': components['schemas']['RCSAgentUpdate'];
-        };
-      };
-      responses: {
-        /** @description Successful response with the updated RCS agent */
-        200: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            'application/json': components['schemas']['RCSAgentResponse'];
-          };
-        };
-        default: components['responses']['GenericErrorResponse'];
-      };
-    };
-    trace?: never;
-  };
   '/recording_transcriptions': {
     parameters: {
       query?: never;
@@ -9153,12 +9174,12 @@ export interface paths {
     };
     get?: never;
     put?: never;
-    post?: never;
     /**
      * Delete a list of call recordings
      * @description Permanently deletes a list of call recordings.
      */
-    delete: operations['DeleteRecordings'];
+    post: operations['DeleteRecordings'];
+    delete?: never;
     options?: never;
     head?: never;
     patch?: never;
@@ -12321,9 +12342,1436 @@ export interface paths {
     trace?: never;
   };
 }
-export type webhooks = Record<string, never>;
+export interface webhooks {
+  CallAIGatherEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call AI Gather Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallAIGatherEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  CallAIGatherMessageHistoryUpdated: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call AI Gather Message History Updated
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallAIGatherMessageHistoryUpdated'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  CallAIGatherPartialResults: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call AI Gather Partial Results
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallAIGatherPartialResults'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  CustomerServiceRecordStatusChanged: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Customer Service Record Status Changed
+     * @description This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CustomerServiceRecordStatusChanged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callAnswered: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Answered
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallAnswered'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callBridged: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Bridged
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallBridged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callConversationEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Conversation Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallConversationEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callConversationInsightsGenerated: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Conversation Insights Generated
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallConversationInsightsGenerated'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callDtmfReceived: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Dtmf Received
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallDtmfReceived'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callEnqueued: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Enqueued
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallEnqueued'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callForkStarted: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Fork Started
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallForkStarted'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callForkStopped: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Fork Stopped
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallForkStopped'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callGatherEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Gather Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallGatherEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callHangup: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Hangup
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallHangup'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callInitiated: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Initiated
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallInitiated'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callLeftQueue: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Left Queue
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallLeftQueue'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callMachineDetectionEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Machine Detection Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallMachineDetectionEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callMachineGreetingEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Machine Greeting Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallMachineGreetingEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callMachinePremiumDetectionEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Machine Premium Detection Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallMachinePremiumDetectionEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callMachinePremiumGreetingEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Machine Premium Greeting Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallMachinePremiumGreetingEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callPlaybackEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Playback Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallPlaybackEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callPlaybackStarted: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Playback Started
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallPlaybackStarted'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callRecordingError: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Recording Error
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallRecordingError'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callRecordingSaved: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Recording Saved
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallRecordingSaved'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callRecordingTranscriptionSaved: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Recording Transcription Saved
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallRecordingTranscriptionSaved'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callReferCompleted: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Refer Completed
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallReferCompleted'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callReferFailed: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Refer Failed
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallReferFailed'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callReferStarted: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Refer Started
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallReferStarted'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callSiprecFailed: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Siprec Failed
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallSiprecFailed'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callSiprecStarted: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Siprec Started
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallSiprecStarted'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callSiprecStopped: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Siprec Stopped
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallSiprecStopped'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callSpeakEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Speak Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallSpeakEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callSpeakStarted: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Speak Started
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallSpeakStarted'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callStreamingFailed: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Streaming Failed
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallStreamingFailed'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callStreamingStarted: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Streaming Started
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallStreamingStarted'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  callStreamingStopped: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Call Streaming Stopped
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CallStreamingStopped'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  campaignStatusUpdate: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Campaign Status Update
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['CampaignStatusUpdate'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferenceCreated: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Created
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferenceCreated'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferenceEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferenceEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferenceFloorChanged: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Floor Changed
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferenceFloorChanged'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferenceParticipantJoined: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Participant Joined
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferenceParticipantJoined'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferenceParticipantLeft: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Participant Left
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferenceParticipantLeft'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferenceParticipantPlaybackEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Participant Playback Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferenceParticipantPlaybackEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferenceParticipantPlaybackStarted: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Participant Playback Started
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferenceParticipantPlaybackStarted'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferenceParticipantSpeakEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Participant Speak Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferenceParticipantSpeakEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferenceParticipantSpeakStarted: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Participant Speak Started
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferenceParticipantSpeakStarted'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferencePlaybackEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Playback Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferencePlaybackEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferencePlaybackStarted: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Playback Started
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferencePlaybackStarted'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferenceRecordingSaved: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Recording Saved
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferenceRecordingSaved'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferenceSpeakEnded: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Speak Ended
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferenceSpeakEnded'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  conferenceSpeakStarted: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Conference Speak Started
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ConferenceSpeakStarted'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  deliveryUpdate: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Delivery Update
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['DeliveryUpdate'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  'fax.delivered': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Fax Delivered
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['FaxDelivered'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  'fax.failed': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Fax Failed
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['FaxFailed'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  'fax.media.processed': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Fax Media Processed
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['FaxMediaProcessed'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  'fax.queued': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Fax Queued
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['FaxQueued'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  'fax.sending.started': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Fax Sending Started
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['FaxSendingStarted'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  inboundMessage: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Inbound Message
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['InboundMessage'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  numberOrderStatusUpdate: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Number Order Status Update
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['NumberOrderStatusUpdate'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  replacedLinkClick: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Replaced Link Click
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['ReplacedLinkClick'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  streamingFailed: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Streaming Failed
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['StreamingFailed'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  streamingStarted: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Streaming Started
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['StreamingStarted'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  streamingStopped: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Streaming Stopped
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['StreamingStopped'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  transcription: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Transcription
+     * @description
+     *
+     *     This webhook uses Telnyx headers (telnyx-timestamp, telnyx-signature-ed25519) that are compatible with Standard Webhooks specification for SDK generation. Custom validation logic can map these to standard webhook-timestamp and webhook-signature equivalents. See https://github.com/standard-webhooks/standard-webhooks for details.
+     */
+    post: operations['Transcription'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+}
 export interface components {
   schemas: {
+    '10dlc_Error': {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+    };
+    '10dlc_Errors': {
+      errors?: components['schemas']['10dlc_Error'][];
+    };
+    /**
+     * TaskStatus
+     * @description An enumeration.
+     * @enum {string}
+     */
+    '10dlc_TaskStatus': 'pending' | 'processing' | 'completed' | 'failed';
     AIAssistantStartRequest: {
       /** @description AI Assistant configuration */
       assistant?: {
@@ -12403,7 +13851,7 @@ export interface components {
     AccessIPAddressListResponseSchema: {
       /** Data */
       data: components['schemas']['AccessIPAddressResponseSchema'][];
-      meta: components['schemas']['PaginationMeta'];
+      meta: components['schemas']['cloudflare-ip-list-sync_PaginationMeta'];
     };
     /** AccessIPAddressPOST */
     AccessIPAddressPOST: {
@@ -12440,7 +13888,7 @@ export interface components {
     AccessIPRangeListResponseSchema: {
       /** Data */
       data: components['schemas']['AccessIPRangeResponseSchema'][];
-      meta: components['schemas']['PaginationMeta'];
+      meta: components['schemas']['cloudflare-ip-list-sync_PaginationMeta'];
     };
     /** AccessIPRangePOST */
     AccessIPRangePOST: {
@@ -12649,6 +14097,13 @@ export interface components {
        * @default
        */
       customer_reference: string;
+      /**
+       * Requirement Group ID
+       * Format: uuid
+       * @description The ID of the requirement group to associate with this advanced order
+       * @example 3fa85f64-5717-4562-b3fc-2c963f66afa6
+       */
+      requirement_group_id?: string;
     };
     /**
      * AltBusinessIdType
@@ -12971,7 +14426,7 @@ export interface components {
        * @description The status of the task associated with assigning a messaging profile to a campaign.
        * @example pending
        */
-      status: string & components['schemas']['TaskStatus'];
+      status: string & components['schemas']['10dlc_TaskStatus'];
       /**
        * Createdat
        * Format: date-time
@@ -12983,36 +14438,36 @@ export interface components {
        */
       updatedAt?: string;
     };
+    /**
+     * Assistant
+     * @description Assistant configuration including choice of LLM, custom instructions, and tools.
+     */
     Assistant: {
-      id: string;
-      name: string;
-      /** Format: date-time */
-      created_at: string;
-      description?: string;
-      /** @description ID of the model to use. You can use the [Get models API](https://developers.telnyx.com/api/inference/inference-embedding/get-models-public-models-get) to see all of your available models, */
+      /**
+       * @description The model to be used by the voice assistant.
+       * @default meta-llama/Meta-Llama-3.1-70B-Instruct
+       * @example meta-llama/Meta-Llama-3.1-70B-Instruct
+       */
       model: string;
-      /** @description System instructions for the assistant. These may be templated with [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) */
-      instructions: string;
-      tools?: components['schemas']['AssistantTools'];
-      /** @description Text that the assistant will use to start the conversation. This may be templated with [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) */
-      greeting?: string;
-      /** @description This is only needed when using third-party inference providers. The `identifier` for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your LLM provider's API key. Warning: Free plans are unlikely to work with this integration. */
-      llm_api_key_ref?: string;
-      voice_settings?: components['schemas']['VoiceSettings'];
-      transcription?: components['schemas']['TranscriptionSettings'];
-      telephony_settings?: components['schemas']['TelephonySettings'];
-      messaging_settings?: components['schemas']['MessagingSettings'];
-      /** Enabled Features */
-      enabled_features?: components['schemas']['EnabledFeatures'][];
-      insight_settings?: components['schemas']['InsightSettings'];
-      privacy_settings?: components['schemas']['PrivacySettings'];
-      /** @description If the dynamic_variables_webhook_url is set for the assistant, we will send a request at the start of the conversation. See our [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for more information. */
-      dynamic_variables_webhook_url?: string;
-      /** @description Map of dynamic variables and their values */
-      dynamic_variables?: {
-        [key: string]: unknown;
-      };
-      import_metadata?: components['schemas']['ImportMetadata'];
+      /**
+       * @description The system instructions that the voice assistant uses during the gather command
+       * @example You are a friendly voice assistant.
+       */
+      instructions?: string;
+      /**
+       * @description This is necessary only if the model selected is from OpenAI. You would pass the `identifier` for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your OpenAI API Key. Warning: Free plans are unlikely to work with this integration.
+       * @example my_openai_api_key
+       */
+      openai_api_key_ref?: string;
+      /** @description The tools that the voice assistant can use. */
+      tools?: (
+        | components['schemas']['BookAppointmentTool']
+        | components['schemas']['CheckAvailabilityTool']
+        | components['schemas']['WebhookTool']
+        | components['schemas']['HangupTool']
+        | components['schemas']['TransferTool']
+        | components['schemas']['RetrievalTool']
+      )[];
     };
     /** AssistantChatReq */
     AssistantChatReq: {
@@ -13150,7 +14605,7 @@ export interface components {
     /** AssistantsListData */
     AssistantsListData: {
       /** Data */
-      data: components['schemas']['Assistant'][];
+      data: components['schemas']['inference-embedding_Assistant'][];
     };
     AudioTranscriptionRequest: {
       /**
@@ -13314,7 +14769,7 @@ export interface components {
     /** Audit Log List */
     AuditLogList: {
       data?: components['schemas']['AuditLog'][];
-      meta?: components['schemas']['PaginationMeta'];
+      meta?: components['schemas']['audit-logs_PaginationMeta'];
     };
     /** AuthenticationProvider */
     AuthenticationProvider: {
@@ -14284,7 +15739,7 @@ export interface components {
     };
     /** BucketIds */
     BucketIds: {
-      /** @description List of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) to use for retrieval-augmented generation. */
+      /** Bucket Ids */
       bucket_ids: string[];
       /** @description The maximum number of results to retrieve as context for the language model. */
       max_num_results?: number;
@@ -14452,7 +15907,7 @@ export interface components {
     };
     /** @description This object represents a bulk SIM card action. It groups SIM card actions created through a bulk endpoint under a single resource for further lookup. */
     BulkSIMCardAction: {
-      id?: components['schemas']['Id'];
+      id?: components['schemas']['wireless_Id'];
       /** @example bulk_sim_card_action */
       readonly record_type?: string;
       /**
@@ -14471,11 +15926,11 @@ export interface components {
       readonly settings?: {
         [key: string]: unknown;
       };
-      created_at?: components['schemas']['CreatedAt'];
-      updated_at?: components['schemas']['UpdatedAt'];
+      created_at?: components['schemas']['wireless_CreatedAt'];
+      updated_at?: components['schemas']['wireless_UpdatedAt'];
     };
     BulkSIMCardActionDetailed: {
-      id?: components['schemas']['Id'];
+      id?: components['schemas']['wireless_Id'];
       /** @example bulk_sim_card_action */
       readonly record_type?: string;
       /**
@@ -14495,8 +15950,8 @@ export interface components {
         [key: string]: unknown;
       };
       sim_card_actions_summary?: components['schemas']['SIMCardActionsSummary'][];
-      created_at?: components['schemas']['CreatedAt'];
-      updated_at?: components['schemas']['UpdatedAt'];
+      created_at?: components['schemas']['wireless_CreatedAt'];
+      updated_at?: components['schemas']['wireless_UpdatedAt'];
     };
     /**
      * BundleLimitDirection
@@ -21816,7 +23271,7 @@ export interface components {
        * @enum {string}
        */
       webhook_api_version: '1' | '2';
-      outbound_voice_profile_id?: components['schemas']['OutboundVoiceProfileId'];
+      outbound_voice_profile_id?: components['schemas']['connections_OutboundVoiceProfileId'];
       /**
        * @description Tags associated with the connection.
        * @example [
@@ -22792,7 +24247,7 @@ export interface components {
          * @example 10
          */
         channel_limit: number;
-        outbound_voice_profile_id?: components['schemas']['OutboundVoiceProfileId'];
+        outbound_voice_profile_id?: components['schemas']['external-voice-integrations_OutboundVoiceProfileId'];
       };
     };
     /**
@@ -24739,8 +26194,9 @@ export interface components {
       default_verification_timeout_secs: number;
     };
     /**
-     * @description ISO 8601 formatted date-time indicating when the resource was created.
-     * @example 2018-02-02T22:25:27.521Z
+     * Created At
+     * @description ISO 8601 formatted date indicating when the resource was created.
+     * @example 2020-02-02T22:25:27.521Z
      */
     CreatedAt: string;
     /** CreatedUserBundlesResponse */
@@ -25091,7 +26547,7 @@ export interface components {
         | 'passthru'
         | 'caller-passthru'
         | 'callee-passthru';
-      outbound_voice_profile_id?: components['schemas']['OutboundVoiceProfileId'];
+      outbound_voice_profile_id?: components['schemas']['connections_OutboundVoiceProfileId'];
     };
     /**
      * @description Opaque credential token used to authenticate and authorize with storage provider.
@@ -25671,7 +27127,7 @@ export interface components {
       | components['schemas']['MediaStorageDetailRecord'];
     DetailRecordsSearchResponse: {
       data?: components['schemas']['DetailRecord'][];
-      meta?: components['schemas']['PaginationMeta'];
+      meta?: components['schemas']['detail-records_PaginationMeta'];
     };
     /**
      * Create Conference Participant Request
@@ -26703,12 +28159,24 @@ export interface components {
      * @example {"page": 1, "records": [{"isin": "US68243Q1067", "iso2": "US", "symbol": "FLWS", "exchange": "NASDAQ", "displayName": "1-800 FLOWERS.COM, Inc."}, {"isin": "US88025U1097", "iso2": "US", "symbol": "TXG", "exchange": "NASDAQ", "displayName": "10X GENOMICS INC CLASS A"}], "totalRecords": 2}
      */
     EnumPaginatedResponse: Record<string, never>;
+    /** @example {
+     *       "title": "Invalid street address",
+     *       "source": {
+     *         "pointer": "/street_address"
+     *       },
+     *       "code": "20207",
+     *       "description": "The street address provided is invalid."
+     *     } */
     Error: {
+      /** Format: int64 */
       code: string;
       title: string;
       detail?: string;
       source?: {
-        /** @description JSON pointer (RFC6901) to the offending entity. */
+        /**
+         * Format: json-pointer
+         * @description JSON pointer (RFC6901) to the offending entity.
+         */
         pointer?: string;
         /** @description Indicates which query parameter caused the error. */
         parameter?: string;
@@ -26751,7 +28219,7 @@ export interface components {
       }[];
     };
     Errors: {
-      errors?: components['schemas']['Error'][];
+      errors?: components['schemas']['audit-logs_Error'][];
     };
     /**
      * EventStatus
@@ -26837,7 +28305,7 @@ export interface components {
      *     }
      */
     ExternalConnection: {
-      id?: components['schemas']['IntId'];
+      id?: components['schemas']['external-voice-integrations_IntId'];
       /**
        * @description Identifies the type of the resource.
        * @example external_connection
@@ -26895,7 +28363,7 @@ export interface components {
          * @example 10
          */
         channel_limit: number;
-        outbound_voice_profile_id?: components['schemas']['OutboundVoiceProfileId'];
+        outbound_voice_profile_id?: components['schemas']['external-voice-integrations_OutboundVoiceProfileId'];
       };
       /**
        * @description ISO 8601 formatted date indicating when the resource was created.
@@ -27050,7 +28518,7 @@ export interface components {
     };
     ExternalWdrGetDetailResponse: {
       data?: components['schemas']['ExternalWdrDetailRecordDto'][];
-      meta?: components['schemas']['PaginationMeta'];
+      meta?: components['schemas']['wireless-public_PaginationMeta'];
     };
     /** FailClusteringProcessRequest */
     FailClusteringProcessRequest: {
@@ -27246,7 +28714,7 @@ export interface components {
      *       }
      *     } */
     FaxDelivered: {
-      record_type?: components['schemas']['RecordType'];
+      record_type?: components['schemas']['programmable-fax_RecordType'];
       id?: components['schemas']['Id'];
       /**
        * @description The type of event being delivered.
@@ -27314,7 +28782,7 @@ export interface components {
      *       }
      *     } */
     FaxFailed: {
-      record_type?: components['schemas']['RecordType'];
+      record_type?: components['schemas']['programmable-fax_RecordType'];
       id?: components['schemas']['Id'];
       /**
        * @description The type of event being delivered.
@@ -27375,7 +28843,7 @@ export interface components {
      *       }
      *     } */
     FaxMediaProcessed: {
-      record_type?: components['schemas']['RecordType'];
+      record_type?: components['schemas']['programmable-fax_RecordType'];
       id?: components['schemas']['Id'];
       /**
        * @description The type of event being delivered.
@@ -27425,7 +28893,7 @@ export interface components {
      *       }
      *     } */
     FaxQueued: {
-      record_type?: components['schemas']['RecordType'];
+      record_type?: components['schemas']['programmable-fax_RecordType'];
       id?: components['schemas']['Id'];
       /**
        * @description The type of event being delivered.
@@ -27475,7 +28943,7 @@ export interface components {
      *       }
      *     } */
     FaxSendingStarted: {
-      record_type?: components['schemas']['RecordType'];
+      record_type?: components['schemas']['programmable-fax_RecordType'];
       id?: components['schemas']['Id'];
       /**
        * @description The type of event being delivered.
@@ -29847,7 +31315,7 @@ export interface components {
        */
       valid_until?: string | null;
       /** @description These errors may point at addressees when referring to unsuccessful/unconfirmed delivery statuses. */
-      errors?: components['schemas']['Error'][];
+      errors?: components['schemas']['messaging_Error'][];
     };
     /**
      * Initiate Call Request
@@ -30211,7 +31679,7 @@ export interface components {
     IntegrationSecretsListData: {
       /** Data */
       data: components['schemas']['IntegrationSecret'][];
-      meta: components['schemas']['Metadata'];
+      meta: components['schemas']['integration-secrets_Metadata'];
     };
     Interface: {
       /**
@@ -30781,7 +32249,7 @@ export interface components {
     /** ListVerificationsResponse */
     ListVerificationsResponse: {
       data: components['schemas']['Verification'][];
-      meta: components['schemas']['Meta'];
+      meta: components['schemas']['verify_Meta'];
     };
     /**
      * ListVerifiedNumbersResponse
@@ -30789,7 +32257,7 @@ export interface components {
      */
     ListVerifiedNumbersResponse: {
       data: components['schemas']['VerifiedNumberResponse'][];
-      meta: components['schemas']['Meta'];
+      meta: components['schemas']['verified-numbers_Meta'];
     };
     /**
      * ListVerifyProfileMessageTemplateResponse
@@ -30804,35 +32272,17 @@ export interface components {
      */
     ListVerifyProfilesResponse: {
       data: components['schemas']['VerifyProfileResponse'][];
-      meta: components['schemas']['Meta'];
+      meta: components['schemas']['verify_Meta'];
     };
     /** Location */
     Location: {
-      /**
-       * @description Identifies the geographical region of location.
-       * @example AMER
-       */
-      region?: string;
-      /**
-       * @description Site of location.
-       * @example ORD
-       */
-      site?: string;
-      /**
-       * @description Point of presence of location.
-       * @example CH1
-       */
-      pop?: string;
-      /**
-       * @description Location code.
-       * @example chicago-il
-       */
-      code?: string;
-      /**
-       * @description Human readable name of location.
-       * @example Chicago IL, US
-       */
-      name?: string;
+      id?: components['schemas']['UUID'];
+      /** @example 14th Floor */
+      additional_info?: string;
+      /** @example Austin Office */
+      description?: string;
+      /** @description Represents whether the location is the default or not. */
+      is_default?: boolean;
     };
     LocationResponse: {
       data?: {
@@ -31186,7 +32636,7 @@ export interface components {
     };
     MdrGetDetailResponse: {
       data?: components['schemas']['MdrDetailResponse'][];
-      meta?: components['schemas']['PaginationMeta'];
+      meta?: components['schemas']['reporting_PaginationMeta'];
     };
     MdrGetSyncUsageReportResponse: {
       data?: components['schemas']['MdrUsageReportResponse'];
@@ -31196,7 +32646,7 @@ export interface components {
     };
     MdrGetUsageReportsResponse: {
       data?: components['schemas']['MdrUsageReportResponse'][];
-      meta?: components['schemas']['PaginationMeta'];
+      meta?: components['schemas']['reporting_PaginationMeta'];
     };
     MdrPostUsageReportRequest: {
       /**
@@ -31902,25 +33352,29 @@ export interface components {
     /** Metadata */
     Metadata: {
       /**
-       * Page Size
-       * @example 25
+       * Format: double
+       * @description Total number of pages based on pagination settings
+       * @example 13
        */
-      page_size: number;
+      total_pages?: number;
       /**
-       * Page Number
+       * Format: double
+       * @description Total number of results
+       * @example 13
+       */
+      total_results?: number;
+      /**
+       * Format: double
+       * @description Current Page based on pagination settings (included when defaults are used.)
+       * @example 3
+       */
+      page_number?: number;
+      /**
+       * Format: double
+       * @description Number of results to return per page based on pagination settings (included when defaults are used.)
        * @example 1
        */
-      page_number: number;
-      /**
-       * Total Pages
-       * @example 10
-       */
-      total_pages: number;
-      /**
-       * Total Items
-       * @example 250
-       */
-      total_results: number;
+      page_size?: number;
     };
     MigrationParams: {
       /** @description Unique identifier for the data migration. */
@@ -32163,7 +33617,7 @@ export interface components {
        * @example network_coverage
        */
       readonly record_type?: string;
-      location?: components['schemas']['Location'];
+      location?: components['schemas']['netapps_Location'];
       /** @description List of interface types supported in this region. */
       available_services?: components['schemas']['AvailableService'][];
     };
@@ -33256,7 +34710,7 @@ export interface components {
        * @example US
        */
       localization: string;
-      outbound_voice_profile_id?: components['schemas']['OutboundVoiceProfileId'];
+      outbound_voice_profile_id?: components['schemas']['connections_OutboundVoiceProfileId'];
       /**
        * @description This setting only affects connections with Fax-type Outbound Voice Profiles. The setting dictates whether or not Telnyx sends a t.38 reinvite. By default, Telnyx will send the re-invite. If set to `customer`, the caller is expected to send the t.38 reinvite.
        * @default customer
@@ -33362,7 +34816,7 @@ export interface components {
       ip_authentication_method: 'tech-prefixp-charge-info' | 'token';
       /** @default null */
       ip_authentication_token: string;
-      outbound_voice_profile_id?: components['schemas']['OutboundVoiceProfileId'];
+      outbound_voice_profile_id?: components['schemas']['connections_OutboundVoiceProfileId'];
     };
     /** @example {
      *       "record_type": "event",
@@ -33723,7 +35177,7 @@ export interface components {
        */
       valid_until?: string | null;
       /** @description These errors may point at addressees when referring to unsuccessful/unconfirmed delivery statuses. */
-      errors?: components['schemas']['Error'][];
+      errors?: components['schemas']['messaging_Error'][];
     };
     /** @example {
      *       "record_type": "message",
@@ -33962,7 +35416,7 @@ export interface components {
        */
       valid_until?: string | null;
       /** @description These errors may point at addressees when referring to unsuccessful/unconfirmed delivery statuses. */
-      errors?: components['schemas']['Error'][];
+      errors?: components['schemas']['messaging_Error'][];
     };
     /**
      * Outbound Voice Profile
@@ -34225,13 +35679,21 @@ export interface components {
       page_size?: number;
     };
     PaginationMetaSimple: {
-      /** @example 2 */
+      /** @example [
+       *       2
+       *     ] */
       page_number?: number;
-      /** @example 25 */
+      /** @example [
+       *       25
+       *     ] */
       page_size?: number;
-      /** @example 3 */
+      /** @example [
+       *       3
+       *     ] */
       total_pages?: number;
-      /** @example 55 */
+      /** @example [
+       *       55
+       *     ] */
       total_results?: number;
     };
     /** PaginationResponse */
@@ -34864,7 +36326,7 @@ export interface components {
       phone_number?: string;
       /** @description The phone number's ID */
       id?: string;
-      errors?: components['schemas']['Error'][];
+      errors?: components['schemas']['numbers_Error'][];
     };
     PhoneNumberBlocksJobSuccessfulOperation: {
       /** @description The phone number in e164 format. */
@@ -34994,7 +36456,7 @@ export interface components {
      *       "hd_voice_enabled": true
      *     } */
     PhoneNumberDeletedDetailed: {
-      id?: components['schemas']['IntId'];
+      id?: components['schemas']['numbers_IntId'];
       /**
        * @description Identifies the type of the resource.
        * @example phone_number
@@ -35107,7 +36569,7 @@ export interface components {
      *       "source_type": "number_order"
      *     } */
     PhoneNumberDetailed: {
-      id?: components['schemas']['IntId'];
+      id?: components['schemas']['numbers_IntId'];
       /**
        * @description Identifies the type of the resource.
        * @example phone_number
@@ -35245,7 +36707,7 @@ export interface components {
          * @example +15551234567
          */
         number_val_e164?: string;
-        id?: components['schemas']['IntId'];
+        id?: components['schemas']['numbers_IntId'];
       }[];
       /** @description Phone numbers that are not found in the account */
       not_found?: string[];
@@ -35438,7 +36900,7 @@ export interface components {
     PhoneNumbersBulkUpdateError: {
       /** @description The phone number in e164 format. */
       phone_number?: string;
-      errors?: components['schemas']['Error'][];
+      errors?: components['schemas']['numbers_Error'][];
     };
     /** @example {
      *       "id": "42587e44-3a3e-46de-9255-0c9a7a1d1ec7",
@@ -35555,7 +37017,7 @@ export interface components {
       phone_number?: string;
       /** @description The phone number's ID */
       id?: string;
-      errors?: components['schemas']['Error'][];
+      errors?: components['schemas']['numbers_Error'][];
     };
     PhoneNumbersJobPendingOperation: {
       /** @description The phone number in e164 format. */
@@ -38318,11 +39780,10 @@ export interface components {
       readonly updated_at?: string;
     };
     /**
-     * @description Identifies the type of the resource.
-     * @example event
+     * @description Identifies record type.
      * @enum {string}
      */
-    RecordType: 'event';
+    RecordType: 'custom_storage_credentials';
     /**
      * Recording Completed
      * @example {
@@ -38730,29 +40191,11 @@ export interface components {
       /** @example eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0ZWxueXhfdGVsZXBob255IiwiZXhwIjoxNTkwMDEwMTQzLCJpYXQiOjE1ODc1OTA5NDMsImlzcyI6InRlbG55eF90ZWxlcGhvbnkiLCJqdGkiOiJiOGM3NDgzNy1kODllLTRhNjUtOWNmMi0zNGM3YTZmYTYwYzgiLCJuYmYiOjE1ODc1OTA5NDIsInN1YiI6IjVjN2FjN2QwLWRiNjUtNGYxMS05OGUxLWVlYzBkMWQ1YzZhZSIsInRlbF90b2tlbiI6InJqX1pra1pVT1pNeFpPZk9tTHBFVUIzc2lVN3U2UmpaRmVNOXMtZ2JfeENSNTZXRktGQUppTXlGMlQ2Q0JSbWxoX1N5MGlfbGZ5VDlBSThzRWlmOE1USUlzenl6U2xfYURuRzQ4YU81MHlhSEd1UlNZYlViU1ltOVdJaVEwZz09IiwidHlwIjoiYWNjZXNzIn0.gNEwzTow5MLLPLQENytca7pUN79PmPj6FyqZWW06ZeEmesxYpwKh0xRtA0TzLh6CDYIRHrI8seofOO0YFGDhpQ */
       refresh_token: string;
     };
-    /** Region */
-    Region: {
-      /**
-       * @description The unique code of the region.
-       * @example dc2
-       */
-      code: string;
-      /**
-       * @description The name of the region.
-       * @example Washington DC, US
-       */
-      name: string;
-      /**
-       * Format: date-time
-       * @description Timestamp when the region was inserted.
-       */
-      inserted_at?: string;
-      /**
-       * Format: date-time
-       * @description Timestamp when the region was last updated.
-       */
-      updated_at?: string;
-    };
+    /**
+     * @description Region where the bucket is located.
+     * @example us-east-1
+     */
+    Region: string;
     RegionIn: {
       /**
        * @description The region the interface should be deployed to.
@@ -39036,17 +40479,22 @@ export interface components {
        */
       readonly expired_at?: string;
     };
-    ResourceNotFoundError: components['schemas']['GenericError'] & {
-      /** @example 10005 */
-      code?: string;
-      /** @example Resource not found */
-      title?: string;
-      /** @example The requested resource or URL could not be found. */
-      detail?: string;
-      meta?: {
-        /** @example https://developers.telnyx.com/docs/overview/errors/10005 */
-        url?: string;
-      };
+    ResourceNotFoundError: {
+      errors?: {
+        /** @description Error code identifying the error type. */
+        code?: string;
+        /** @description A human-readable explanation of the error. */
+        detail?: string;
+        meta?: {
+          /**
+           * Format: uri
+           * @description A URL to the detailed documentation for the error.
+           */
+          url?: string;
+        };
+        /** @description A short, human-readable summary of the problem. */
+        title?: string;
+      }[];
     };
     /** Pause Recording Request */
     ResumeConferenceRecordingRequest: {
@@ -39084,13 +40532,13 @@ export interface components {
     Retrieval: {
       /** @enum {string} */
       type: 'retrieval';
-      retrieval: components['schemas']['BucketIds'];
+      retrieval: components['schemas']['inference-embedding_BucketIds'];
     };
     /** RetrievalTool */
     RetrievalTool: {
       /** @enum {string} */
       type: 'retrieval';
-      retrieval: components['schemas']['BucketIds'];
+      retrieval: components['schemas']['inference-embedding_BucketIds'];
     };
     /** RetrieveVerificationResponse */
     RetrieveVerificationResponse: {
@@ -39711,7 +41159,7 @@ export interface components {
      * @description This object represents a SIM card action. It allows tracking the current status of an operation that impacts the SIM card.
      */
     SIMCardAction: {
-      id?: components['schemas']['Id'];
+      id?: components['schemas']['wireless_Id'];
       /** @example sim_card_action */
       readonly record_type?: string;
       /**
@@ -39756,8 +41204,8 @@ export interface components {
       readonly settings?: {
         [key: string]: unknown;
       } | null;
-      created_at?: components['schemas']['CreatedAt'];
-      updated_at?: components['schemas']['UpdatedAt'];
+      created_at?: components['schemas']['wireless_CreatedAt'];
+      updated_at?: components['schemas']['wireless_UpdatedAt'];
     };
     SIMCardActionsSummary: {
       /**
@@ -41335,7 +42783,7 @@ export interface components {
      *       "hd_voice_enabled": true
      *     } */
     SlimPhoneNumberDetailed: {
-      id?: components['schemas']['IntId'];
+      id?: components['schemas']['numbers_IntId'];
       /**
        * @description Identifies the type of the resource.
        * @example phone_number_slim
@@ -42039,7 +43487,13 @@ export interface components {
      * @example G722
      * @enum {string}
      */
-    StreamBidirectionalCodec: 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB';
+    StreamBidirectionalCodec:
+      | 'PCMU'
+      | 'PCMA'
+      | 'G722'
+      | 'OPUS'
+      | 'AMR-WB'
+      | 'L16';
     /**
      * Bidirectional Stream Mode
      * @description Configures method of bidirectional streaming (mp3, rtp).
@@ -42066,12 +43520,19 @@ export interface components {
     StreamBidirectionalTargetLegs: 'both' | 'self' | 'opposite';
     /**
      * Stream Codec
-     * @description Specifies the codec to be used for the streamed audio. When set to 'default' or when transcoding is not possible, the codec from the call will be used. Currently, transcoding is only supported between PCMU and PCMA codecs.
+     * @description Specifies the codec to be used for the streamed audio. When set to 'default' or when transcoding is not possible, the codec from the call will be used.
      * @default default
      * @example PCMA
      * @enum {string}
      */
-    StreamCodec: 'PCMA' | 'PCMU' | 'default';
+    StreamCodec:
+      | 'PCMU'
+      | 'PCMA'
+      | 'G722'
+      | 'OPUS'
+      | 'AMR-WB'
+      | 'L16'
+      | 'default';
     /**
      * @description The user specified name of Stream.
      * @example My stream
@@ -45319,7 +46780,7 @@ export interface components {
     TransferTool: {
       /** @enum {string} */
       type: 'transfer';
-      transfer: components['schemas']['TransferToolParams'];
+      transfer: components['schemas']['inference-embedding_TransferToolParams'];
     };
     /** TransferToolParams */
     TransferToolParams: {
@@ -45341,12 +46802,6 @@ export interface components {
        * @example +35319605860
        */
       from: string;
-      /** @description Custom headers to be added to the SIP INVITE for the transfer command. */
-      custom_headers?: {
-        name?: string;
-        /** @description The value of the header. Note that we support mustache templating for the value. For example you can use `{{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of the integration secret. */
-        value?: string;
-      }[];
     };
     /**
      * TriggerTestRunRequest
@@ -45413,20 +46868,22 @@ export interface components {
         url?: string;
       };
     };
-    UnprocessableEntityError: components['schemas']['GenericError'] & {
-      /** @example 10002 */
-      code?: string;
-      /** @example Invalid phone number */
-      title?: string;
-      /** @example The phone number is invalid. */
+    UnprocessableEntityError: {
+      /** Format: int64 */
+      code: string;
+      title: string;
       detail?: string;
       source?: {
-        /** @example /phone_numbers */
+        /**
+         * Format: json-pointer
+         * @description JSON pointer (RFC6901) to the offending entity.
+         */
         pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
       };
       meta?: {
-        /** @example https://developers.telnyx.com/docs/overview/errors/10002 */
-        url?: string;
+        [key: string]: unknown;
       };
     };
     /** UnusedUserBundlesResponse */
@@ -46226,7 +47683,7 @@ export interface components {
          * @example 10
          */
         channel_limit: number;
-        outbound_voice_profile_id: components['schemas']['OutboundVoiceProfileId'];
+        outbound_voice_profile_id: components['schemas']['external-voice-integrations_OutboundVoiceProfileId'];
       };
     };
     /**
@@ -47264,8 +48721,9 @@ export interface components {
       default_verification_timeout_secs: number;
     };
     /**
-     * @description ISO 8601 formatted date-time indicating when the resource was updated.
-     * @example 2018-02-02T22:25:27.521Z
+     * Updated At
+     * @description ISO 8601 formatted date indicating when the resource was updated.
+     * @example 2020-02-03T22:25:27.521Z
      */
     UpdatedAt: string;
     UplinkData: {
@@ -47461,7 +48919,7 @@ export interface components {
        * @description Subproducts if applicable
        * @example null
        */
-      record_types?: components['schemas']['RecordType'][];
+      record_types?: components['schemas']['usage-reports_RecordType'][];
     };
     /** @description An object following one of the schemas published in https://developers.telnyx.com/docs/api/v2/detail-records */
     UsageReportsOptionsResponse: {
@@ -47599,18 +49057,18 @@ export interface components {
        */
       record_type?: string;
       customer_reference?: components['schemas']['customer_reference'];
-      first_name?: components['schemas']['first_name'];
-      last_name?: components['schemas']['last_name'];
-      business_name?: components['schemas']['business_name'];
-      phone_number?: components['schemas']['phone_number'];
-      street_address?: components['schemas']['street_address'];
-      extended_address?: components['schemas']['extended_address'];
-      locality?: components['schemas']['locality'];
-      administrative_area?: components['schemas']['administrative_area'];
-      neighborhood?: components['schemas']['neighborhood'];
-      borough?: components['schemas']['borough'];
-      postal_code?: components['schemas']['postal_code'];
-      country_code?: components['schemas']['country_code'];
+      first_name?: components['schemas']['user-addresses_first_name'];
+      last_name?: components['schemas']['user-addresses_last_name'];
+      business_name?: components['schemas']['user-addresses_business_name'];
+      phone_number?: components['schemas']['user-addresses_phone_number'];
+      street_address?: components['schemas']['user-addresses_street_address'];
+      extended_address?: components['schemas']['user-addresses_extended_address'];
+      locality?: components['schemas']['user-addresses_locality'];
+      administrative_area?: components['schemas']['user-addresses_administrative_area'];
+      neighborhood?: components['schemas']['user-addresses_neighborhood'];
+      borough?: components['schemas']['user-addresses_borough'];
+      postal_code?: components['schemas']['user-addresses_postal_code'];
+      country_code?: components['schemas']['user-addresses_country_code'];
       /**
        * @description ISO 8601 formatted date indicating when the resource was created.
        * @example 2018-02-02T22:25:27.521Z
@@ -47624,18 +49082,18 @@ export interface components {
     };
     UserAddressCreate: {
       customer_reference?: components['schemas']['customer_reference'];
-      first_name: components['schemas']['first_name'];
-      last_name: components['schemas']['last_name'];
-      business_name: components['schemas']['business_name'];
-      phone_number?: components['schemas']['phone_number'];
-      street_address: components['schemas']['street_address'];
-      extended_address?: components['schemas']['extended_address'];
-      locality: components['schemas']['locality'];
-      administrative_area?: components['schemas']['administrative_area'];
-      neighborhood?: components['schemas']['neighborhood'];
-      borough?: components['schemas']['borough'];
-      postal_code?: components['schemas']['postal_code'];
-      country_code: components['schemas']['country_code'];
+      first_name: components['schemas']['user-addresses_first_name'];
+      last_name: components['schemas']['user-addresses_last_name'];
+      business_name: components['schemas']['user-addresses_business_name'];
+      phone_number?: components['schemas']['user-addresses_phone_number'];
+      street_address: components['schemas']['user-addresses_street_address'];
+      extended_address?: components['schemas']['user-addresses_extended_address'];
+      locality: components['schemas']['user-addresses_locality'];
+      administrative_area?: components['schemas']['user-addresses_administrative_area'];
+      neighborhood?: components['schemas']['user-addresses_neighborhood'];
+      borough?: components['schemas']['user-addresses_borough'];
+      postal_code?: components['schemas']['user-addresses_postal_code'];
+      country_code: components['schemas']['user-addresses_country_code'];
       skip_address_verification?: components['schemas']['skip_address_verification'];
     };
     /** @example {
@@ -48660,7 +50118,7 @@ export interface components {
        * @example virtual_cross_connects_coverage
        */
       readonly record_type?: string;
-      location?: components['schemas']['Location'];
+      location?: components['schemas']['netapps_Location'];
       /**
        * @description The Virtual Private Cloud with which you would like to establish a cross connect.
        * @example aws
@@ -49160,7 +50618,7 @@ export interface components {
     WebhookTool: {
       /** @enum {string} */
       type: 'webhook';
-      webhook: components['schemas']['WebhookToolParams'];
+      webhook: components['schemas']['inference-embedding_WebhookToolParams'];
     };
     /** WebhookToolParams */
     WebhookToolParams: {
@@ -49207,9 +50665,7 @@ export interface components {
        */
       body_parameters?: {
         /** @description The properties of the body parameters. */
-        properties?: {
-          [key: string]: unknown;
-        };
+        properties?: Record<string, never>;
         /** @description The required properties of the body parameters. */
         required?: string[];
         /** @enum {string} */
@@ -49232,9 +50688,7 @@ export interface components {
        */
       path_parameters?: {
         /** @description The properties of the path parameters. */
-        properties?: {
-          [key: string]: unknown;
-        };
+        properties?: Record<string, never>;
         /** @description The required properties of the path parameters. */
         required?: string[];
         /** @enum {string} */
@@ -49257,9 +50711,7 @@ export interface components {
        */
       query_parameters?: {
         /** @description The properties of the query parameters. */
-        properties?: {
-          [key: string]: unknown;
-        };
+        properties?: Record<string, never>;
         /** @description The required properties of the query parameters. */
         required?: string[];
         /** @enum {string} */
@@ -49608,16 +51060,200 @@ export interface components {
       /** @description Webhook delivery error codes. */
       errors?: number[];
     };
+    'audit-logs_Error': {
+      /**
+       * @description Error code.
+       * @example 10001
+       */
+      code?: string;
+      /**
+       * @description Short description of the error.
+       * @example Unauthorized
+       */
+      title?: string;
+      /**
+       * @description Detailed information about the error.
+       * @example The request requires user authentication.
+       */
+      detail?: string;
+    };
+    /** Pagination Meta */
+    'audit-logs_PaginationMeta': {
+      /** @example 3 */
+      total_pages?: number;
+      /** @example 50 */
+      total_results?: number;
+      /** @example 1 */
+      page_number?: number;
+      /** @example 10 */
+      page_size?: number;
+    };
+    'billing-group_Error': {
+      /** Format: int32 */
+      code: number;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    'billing-group_Errors': {
+      errors?: components['schemas']['billing-group_Error'][];
+    };
+    billing_Error: {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    billing_Errors: {
+      errors?: components['schemas']['billing_Error'][];
+    };
     /**
      * @description The borough of the address. This field is not used for addresses in the US but is used for some international addresses.
      * @example Guadalajara
      */
     borough: string;
+    'bundle-pricing_Error': {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /**
+         * @description Indicates which query parameter caused the error.
+         * @example +15617819942
+         */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    'bundle-pricing_Errors': {
+      errors?: components['schemas']['bundle-pricing_Error'][];
+    };
     /**
      * @description The business name associated with the address. An address must have either a first last name or a business name.
      * @example Toy-O'Kon
      */
     business_name: string;
+    'call-control_Error': {
+      /** Format: integer */
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /**
+         * Format: json-pointer
+         * @description JSON pointer (RFC6901) to the offending entity.
+         */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: Record<string, never>;
+    };
+    'call-control_Errors': {
+      errors?: components['schemas']['call-control_Error'][];
+    };
+    /** Cursor Pagination Meta */
+    'call-recordings_CursorPaginationMeta': {
+      cursors?: components['schemas']['Cursor'];
+      /**
+       * @description Path to next page.
+       * @example /v2/recording_transcriptions?page[after]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=
+       */
+      next?: string;
+      /**
+       * @description Path to previous page.
+       * @example /v2/recording_transcriptions?page[before]=v1:g3QAAAADZAAKdGVsbnl4X2lkc2wAAAABbQAAACRlYmRiYzdkNi1kZWRmLTExZWQtYTM3MS0wMjQyMGFlZjAwYjRqZAAJdGltZXN0YW1wbggA8Le4pGhpVxdkAAR0eXBlZAAFYWZ0ZXI=
+       */
+      previous?: string;
+    };
+    'call-recordings_Error': {
+      /** @description Error code identifier (string or numeric string). */
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    'call-recordings_Errors': {
+      errors?: components['schemas']['call-recordings_Error'][];
+    };
+    /** Pagination Meta */
+    'call-scripting_PaginationMeta': {
+      /** @example 3 */
+      total_pages?: number;
+      /** @example 55 */
+      total_results?: number;
+      /** @example 2 */
+      page_number?: number;
+      /** @example 25 */
+      page_size?: number;
+    };
+    /**
+     * Resource not found
+     * @example {
+     *       "errors": [
+     *         {
+     *           "detail": "Resource not found"
+     *         }
+     *       ]
+     *     }
+     */
+    'call-scripting_ResourceNotFoundError': {
+      errors?: {
+        detail?: string;
+      }[];
+    };
+    /**
+     * Update Conference Request
+     * @example {
+     *       "Status": "completed"
+     *     }
+     */
+    'call-scripting_UpdateConferenceRequest': {
+      /**
+       * @description The new status of the resource. Specifying `completed` will end the conference and hang up all participants.
+       * @example completed
+       */
+      Status?: string;
+      /**
+       * @description The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+       * @example https://www.example.com/announce.xml
+       */
+      AnnounceUrl?: string;
+      /**
+       * @description The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.
+       * @example GET
+       * @enum {string}
+       */
+      AnnounceMethod?: 'GET' | 'POST';
+    };
     /**
      * Call Conversation Ended
      * @example {
@@ -50054,6 +51690,74 @@ export interface components {
     callRecordingTranscriptionSavedEvent: {
       data?: components['schemas']['callRecordingTranscriptionSaved'];
     };
+    charges_Error: {
+      /** Format: integer */
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /**
+         * Format: json-pointer
+         * @description JSON pointer (RFC6901) to the offending entity.
+         */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: Record<string, never>;
+    };
+    charges_Errors: {
+      errors?: components['schemas']['charges_Error'][];
+    };
+    'cloudflare-ip-list-sync_Error': {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    'cloudflare-ip-list-sync_Errors': {
+      errors?: components['schemas']['cloudflare-ip-list-sync_Error'][];
+    };
+    /** PaginationMeta */
+    'cloudflare-ip-list-sync_PaginationMeta': {
+      page_number: number;
+      page_size: number;
+      total_pages: number;
+      total_results: number;
+    };
+    /**
+     * Int ID
+     * Format: int64
+     * @description Uniquely identifies the resource.
+     * @example 1293384261075731499
+     */
+    connections_IntId: string;
+    /**
+     * Outbound Voice Profile ID
+     * Format: int64
+     * @description Identifies the associated outbound voice profile.
+     * @example 1293384261075731499
+     */
+    connections_OutboundVoiceProfileId: string;
+    /** Pagination Meta */
+    connections_PaginationMeta: {
+      /** @example 3 */
+      total_pages?: number;
+      /** @example 55 */
+      total_results?: number;
+      /** @example 2 */
+      page_number?: number;
+      /** @example 25 */
+      page_size?: number;
+    };
     /**
      * @description The two-character (ISO 3166-1 alpha-2) country code of the address.
      * @example US
@@ -50064,11 +51768,151 @@ export interface components {
      * @example MY REF 001
      */
     customer_reference: string;
+    customer_service_record_ResourceNotFoundError: components['schemas']['GenericError'] & {
+      /** @example 10005 */
+      code?: string;
+      /** @example Resource not found */
+      title?: string;
+      /** @example The requested resource or URL could not be found. */
+      detail?: string;
+      meta?: {
+        /** @example https://developers.telnyx.com/docs/overview/errors/10005 */
+        url?: string;
+      };
+    };
+    customer_service_record_UnprocessableEntityError: components['schemas']['GenericError'] & {
+      /** @example 10002 */
+      code?: string;
+      /** @example Invalid phone number */
+      title?: string;
+      /** @example The phone number is invalid. */
+      detail?: string;
+      source?: {
+        /** @example /phone_numbers */
+        pointer?: string;
+      };
+      meta?: {
+        /** @example https://developers.telnyx.com/docs/overview/errors/10002 */
+        url?: string;
+      };
+    };
+    'detail-records_PaginationMeta': {
+      /**
+       * Format: int32
+       * @example 3
+       */
+      total_pages?: number;
+      /**
+       * Format: int32
+       * @example 55
+       */
+      total_results?: number;
+      /**
+       * Format: int32
+       * @example 2
+       */
+      page_number?: number;
+      /**
+       * Format: int32
+       * @example 25
+       */
+      page_size?: number;
+    };
+    documents_Error: {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    documents_Errors: {
+      errors?: components['schemas']['documents_Error'][];
+    };
+    emergency_Error: {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    emergency_Errors: {
+      errors?: components['schemas']['emergency_Error'][];
+    };
     /**
      * @description Additional street address information about the address such as, but not limited to, unit number or apartment number.
      * @example 14th Floor
      */
     extended_address: string;
+    'external-voice-integrations_Error': {
+      /**
+       * Format: int64
+       * @example 10015
+       */
+      code: string;
+      /** @example Invalid attribute */
+      title: string;
+      /** @example The value provided for the attribute is not valid. Check the value used and try again. */
+      detail?: string;
+      source?: {
+        /**
+         * Format: json-pointer
+         * @description JSON pointer (RFC6901) to the offending entity.
+         * @example /attribute
+         */
+        pointer?: string;
+        /** @description Indicates which parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        /**
+         * @description URL with additional information on the error.
+         * @example https://developers.telnyx.com/docs/overview/errors/10015
+         */
+        url?: string;
+      };
+    };
+    'external-voice-integrations_Errors': {
+      errors?: components['schemas']['external-voice-integrations_Error'][];
+    };
+    /**
+     * Int ID
+     * Format: int64
+     * @description Uniquely identifies the resource.
+     * @example 1293384261075731499
+     */
+    'external-voice-integrations_IntId': string;
+    /**
+     * Outbound Voice Profile ID
+     * Format: int64
+     * @description Identifies the associated outbound voice profile.
+     * @example 1293384261075731499
+     */
+    'external-voice-integrations_OutboundVoiceProfileId': string;
+    /** Pagination Meta */
+    'external-voice-integrations_PaginationMeta': {
+      /** @example 3 */
+      total_pages?: number;
+      /** @example 55 */
+      total_results?: number;
+      /** @example 2 */
+      page_number?: number;
+      /** @example 25 */
+      page_size?: number;
+    };
     /**
      * @description The first name associated with the address. An address must have either a first last name or a business name.
      * @example Alfred
@@ -50101,6 +51945,229 @@ export interface components {
      *     ]
      */
     http_headers: string[][];
+    'inference-embedding_Assistant': {
+      id: string;
+      name: string;
+      /** Format: date-time */
+      created_at: string;
+      description?: string;
+      /** @description ID of the model to use. You can use the [Get models API](https://developers.telnyx.com/api/inference/inference-embedding/get-models-public-models-get) to see all of your available models, */
+      model: string;
+      /** @description System instructions for the assistant. These may be templated with [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) */
+      instructions: string;
+      tools?: components['schemas']['AssistantTools'];
+      /** @description Text that the assistant will use to start the conversation. This may be templated with [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) */
+      greeting?: string;
+      /** @description This is only needed when using third-party inference providers. The `identifier` for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your LLM provider's API key. Warning: Free plans are unlikely to work with this integration. */
+      llm_api_key_ref?: string;
+      voice_settings?: components['schemas']['VoiceSettings'];
+      transcription?: components['schemas']['TranscriptionSettings'];
+      telephony_settings?: components['schemas']['TelephonySettings'];
+      messaging_settings?: components['schemas']['MessagingSettings'];
+      /** Enabled Features */
+      enabled_features?: components['schemas']['EnabledFeatures'][];
+      insight_settings?: components['schemas']['InsightSettings'];
+      privacy_settings?: components['schemas']['PrivacySettings'];
+      /** @description If the dynamic_variables_webhook_url is set for the assistant, we will send a request at the start of the conversation. See our [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables) for more information. */
+      dynamic_variables_webhook_url?: string;
+      /** @description Map of dynamic variables and their values */
+      dynamic_variables?: {
+        [key: string]: unknown;
+      };
+      import_metadata?: components['schemas']['ImportMetadata'];
+    };
+    /** BucketIds */
+    'inference-embedding_BucketIds': {
+      /** @description List of [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding) to use for retrieval-augmented generation. */
+      bucket_ids: string[];
+      /** @description The maximum number of results to retrieve as context for the language model. */
+      max_num_results?: number;
+    };
+    /** TransferToolParams */
+    'inference-embedding_TransferToolParams': {
+      /** @description The different possible targets of the transfer. The assistant will be able to choose one of the targets to transfer the call to. */
+      targets: {
+        /**
+         * @description The name of the target.
+         * @example Support
+         */
+        name?: string;
+        /**
+         * @description The destination number or SIP URI of the call.
+         * @example +13129457420
+         */
+        to?: string;
+      }[];
+      /**
+       * @description Number or SIP URI placing the call.
+       * @example +35319605860
+       */
+      from: string;
+      /** @description Custom headers to be added to the SIP INVITE for the transfer command. */
+      custom_headers?: {
+        name?: string;
+        /** @description The value of the header. Note that we support mustache templating for the value. For example you can use `{{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of the integration secret. */
+        value?: string;
+      }[];
+    };
+    /** WebhookToolParams */
+    'inference-embedding_WebhookToolParams': {
+      /** @description The name of the tool. */
+      name: string;
+      /** @description The description of the tool. */
+      description: string;
+      /**
+       * @description The URL of the external tool to be called. This URL is going to be used by the assistant. The URL can be templated like: `https://example.com/api/v1/{id}`, where `{id}` is a placeholder for a value that will be provided by the assistant if `path_parameters` are provided with the `id` attribute.
+       * @example https://example.com/api/v1/function
+       */
+      url: string;
+      /**
+       * @description The HTTP method to be used when calling the external tool.
+       * @default POST
+       * @enum {string}
+       */
+      method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+      /** @description The headers to be sent to the external tool. */
+      headers?: {
+        name?: string;
+        /** @description The value of the header. Note that we support mustache templating for the value. For example you can use `Bearer {{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of the integration secret as the bearer token. */
+        value?: string;
+      }[];
+      /**
+       * @description The body parameters the webhook tool accepts, described as a JSON Schema object. These parameters will be passed to the webhook as the body of the request. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema) for documentation about the format
+       * @example {
+       *       "properties": {
+       *         "age": {
+       *           "description": "The age of the customer.",
+       *           "type": "integer"
+       *         },
+       *         "location": {
+       *           "description": "The location of the customer.",
+       *           "type": "string"
+       *         }
+       *       },
+       *       "required": [
+       *         "age",
+       *         "location"
+       *       ],
+       *       "type": "object"
+       *     }
+       */
+      body_parameters?: {
+        /** @description The properties of the body parameters. */
+        properties?: {
+          [key: string]: unknown;
+        };
+        /** @description The required properties of the body parameters. */
+        required?: string[];
+        /** @enum {string} */
+        type?: 'object';
+      };
+      /**
+       * @description The path parameters the webhook tool accepts, described as a JSON Schema object. These parameters will be passed to the webhook as the path of the request if the URL contains a placeholder for a value. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema) for documentation about the format
+       * @example {
+       *       "properties": {
+       *         "id": {
+       *           "description": "The id of the customer.",
+       *           "type": "string"
+       *         }
+       *       },
+       *       "required": [
+       *         "id"
+       *       ],
+       *       "type": "object"
+       *     }
+       */
+      path_parameters?: {
+        /** @description The properties of the path parameters. */
+        properties?: {
+          [key: string]: unknown;
+        };
+        /** @description The required properties of the path parameters. */
+        required?: string[];
+        /** @enum {string} */
+        type?: 'object';
+      };
+      /**
+       * @description The query parameters the webhook tool accepts, described as a JSON Schema object. These parameters will be passed to the webhook as the query of the request. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema) for documentation about the format
+       * @example {
+       *       "properties": {
+       *         "page": {
+       *           "description": "The page number.",
+       *           "type": "integer"
+       *         }
+       *       },
+       *       "required": [
+       *         "page"
+       *       ],
+       *       "type": "object"
+       *     }
+       */
+      query_parameters?: {
+        /** @description The properties of the query parameters. */
+        properties?: {
+          [key: string]: unknown;
+        };
+        /** @description The required properties of the query parameters. */
+        required?: string[];
+        /** @enum {string} */
+        type?: 'object';
+      };
+    };
+    /** Error */
+    'integration-secrets_Error': {
+      /** Telnyx error code */
+      code?: string;
+      /** Error details */
+      detail: string;
+      /** Error title */
+      title?: string;
+    };
+    /** ErrorResponse */
+    'integration-secrets_ErrorResponse': {
+      /** Errors */
+      errors?: components['schemas']['integration-secrets_Error'][];
+    };
+    /** Metadata */
+    'integration-secrets_Metadata': {
+      /**
+       * Page Size
+       * @example 25
+       */
+      page_size: number;
+      /**
+       * Page Number
+       * @example 1
+       */
+      page_number: number;
+      /**
+       * Total Pages
+       * @example 10
+       */
+      total_pages: number;
+      /**
+       * Total Items
+       * @example 250
+       */
+      total_results: number;
+    };
+    invoice_Error: {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    invoice_Errors: {
+      errors?: components['schemas']['invoice_Error'][];
+    };
     /**
      * @description The last name associated with the address. An address must have either a first last name or a business name.
      * @example Foster
@@ -50111,6 +52178,59 @@ export interface components {
      * @example Austin
      */
     locality: string;
+    'media-storage_Error': {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    'media-storage_Errors': {
+      errors?: components['schemas']['media-storage_Error'][];
+    };
+    'media-streaming_Error': {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    'media-streaming_Errors': {
+      errors?: components['schemas']['media-streaming_Error'][];
+    };
+    messaging_Error: {
+      /** Format: integer */
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /**
+         * Format: json-pointer
+         * @description JSON pointer (RFC6901) to the offending entity.
+         */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: Record<string, never>;
+    };
+    messaging_Errors: {
+      errors?: components['schemas']['messaging_Error'][];
+    };
     /**
      * @description The name associated with the authentication provider.
      * @example Okta
@@ -50121,22 +52241,292 @@ export interface components {
      * @example Ciudad de los deportes
      */
     neighborhood: string;
+    netapps_Error: {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    netapps_Errors: {
+      errors?: components['schemas']['netapps_Error'][];
+    };
+    /** Location */
+    netapps_Location: {
+      /**
+       * @description Identifies the geographical region of location.
+       * @example AMER
+       */
+      region?: string;
+      /**
+       * @description Site of location.
+       * @example ORD
+       */
+      site?: string;
+      /**
+       * @description Point of presence of location.
+       * @example CH1
+       */
+      pop?: string;
+      /**
+       * @description Location code.
+       * @example chicago-il
+       */
+      code?: string;
+      /**
+       * @description Human readable name of location.
+       * @example Chicago IL, US
+       */
+      name?: string;
+    };
+    /** Region */
+    netapps_Region: {
+      /**
+       * @description Identifies the type of the resource.
+       * @example region
+       */
+      readonly record_type?: string;
+      /**
+       * @description A code for the region.
+       * @example ashburn-va
+       */
+      code?: string;
+      /**
+       * @description A name for the region.
+       * @example Ashburn
+       */
+      name?: string;
+      /** @description List of interface types supported in this region. */
+      supported_interfaces?: string[];
+      /**
+       * @description ISO 8601 formatted date-time indicating when the resource was created.
+       * @example 2018-02-02T22:25:27.521Z
+       */
+      readonly created_at?: string;
+      /**
+       * @description ISO 8601 formatted date-time indicating when the resource was updated.
+       * @example 2018-02-02T22:25:27.521Z
+       */
+      readonly updated_at?: string;
+    };
+    notifications_Error: {
+      /** Format: int64 */
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /**
+         * Format: json-pointer
+         * @description JSON pointer (RFC6901) to the offending entity.
+         */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    notifications_Errors: {
+      errors?: components['schemas']['notifications_Error'][];
+    };
+    'number-lookup_Error': {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    'number-lookup_Errors': {
+      errors?: components['schemas']['number-lookup_Error'][];
+    };
+    numbers_Error: {
+      /** @example 10007 */
+      code: string;
+      /** @example Unexpected error */
+      title: string;
+      /** @example An unexpected error occured. */
+      detail?: string;
+      source?: {
+        /**
+         * @description JSON pointer (RFC6901) to the offending entity.
+         * @example /base
+         */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        /**
+         * @description URL with additional information on the error.
+         * @example https://developers.telnyx.com/docs/overview/errors/10015
+         */
+        url?: string;
+      };
+    };
+    numbers_Errors: {
+      errors?: components['schemas']['numbers_Error'][];
+    };
+    /**
+     * @description Identifies the resource.
+     * @example 1293384261075731499
+     */
+    numbers_IntId: string;
+    numbers_PaginationMetaSimple: {
+      /** @example 2 */
+      page_number?: number;
+      /** @example 25 */
+      page_size?: number;
+      /** @example 3 */
+      total_pages?: number;
+      /** @example 55 */
+      total_results?: number;
+    };
     /**
      * Format: uuid
      * @description The id from the Organization the authentication provider belongs to.
      * @example 24b4a4bb-c4df-46ad-bbcb-23fc741c5ad7
      */
     organization_id: string;
+    payment_Error: {
+      /**
+       * Format: integer
+       * @example 10007
+       */
+      code: string;
+      /** @example Unexpected error */
+      title: string;
+      /** @example An unexpected error occurred. */
+      detail?: string;
+      source?: {
+        /**
+         * Format: json-pointer
+         * @description JSON pointer (RFC6901) to the offending entity.
+         * @example /base
+         */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+    };
+    payment_Errors: {
+      errors?: components['schemas']['payment_Error'][];
+    };
     /**
      * @description The phone number associated with the address.
      * @example +12125559000
      */
     phone_number: string;
+    'portability-check_Error': {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    'portability-check_Errors': {
+      errors?: components['schemas']['portability-check_Error'][];
+    };
     /**
      * @description The postal code of the address.
      * @example 78701
      */
     postal_code: string;
+    'programmable-fax_Error': {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    'programmable-fax_Errors': {
+      errors?: components['schemas']['programmable-fax_Error'][];
+    };
+    /**
+     * @description Identifies the type of the resource.
+     * @example event
+     * @enum {string}
+     */
+    'programmable-fax_RecordType': 'event';
+    'push-notifications_Error': {
+      /** @example 10015 */
+      code: string;
+      /** @example Bad Request */
+      title: string;
+      /** @example has already been taken */
+      detail?: string;
+      source?: {
+        /**
+         * @description JSON pointer (RFC6901) to the offending entity.
+         * @example /mobile_push_credentials
+         */
+        pointer?: string;
+        /**
+         * @description Indicates which query parameter caused the error.
+         * @example application_name
+         */
+        parameter?: string;
+      };
+      /** @example {
+       *       "url": "https://developers.telnyx.com/docs/overview/errors/10015"
+       *     } */
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    'push-notifications_Errors': {
+      errors?: components['schemas']['push-notifications_Error'][];
+    };
+    reporting_PaginationMeta: {
+      /**
+       * Format: int32
+       * @example 3
+       */
+      total_pages?: number;
+      /**
+       * Format: int32
+       * @example 55
+       */
+      total_results?: number;
+      /**
+       * Format: int32
+       * @example 2
+       */
+      page_number?: number;
+      /**
+       * Format: int32
+       * @example 25
+       */
+      page_size?: number;
+    };
     /** @description The settings associated with the authentication provider. */
     settings: {
       /**
@@ -50175,6 +52565,24 @@ export interface components {
      * @example myorg
      */
     short_name: string;
+    siprec_Error: {
+      /** Format: int32 */
+      code: number;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    siprec_Errors: {
+      errors?: components['schemas']['siprec_Error'][];
+    };
     /**
      * @description An optional boolean value specifying if verification of the address should be skipped or not. UserAddresses are generally used for shipping addresses, and failure to validate your shipping address will likely result in a failure to deliver SIM cards or other items ordered from Telnyx. Do not use this parameter unless you are sure that the address is correct even though it cannot be validated. If this is set to any value other than true, verification of the address will be attempted, and the user address will not be allowed if verification fails. If verification fails but suggested values are available that might make the address correct, they will be present in the response as well. If this value is set to true, then the verification will not be attempted. Defaults to false (verification will be performed).
      * @default false
@@ -50185,12 +52593,254 @@ export interface components {
      * @example 600 Congress Avenue
      */
     street_address: string;
+    'toll-free-verification_Error': {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    'toll-free-verification_Errors': {
+      errors?: components['schemas']['toll-free-verification_Error'][];
+    };
+    'usage-reports_ErrorResponse': {
+      errors?: components['schemas']['ErrorRecord'][];
+    };
+    /** @description An object following one of the schemas published in https://developers.telnyx.com/docs/api/v2/detail-records */
+    'usage-reports_RecordType': {
+      /**
+       * @description Telnyx Product type
+       * @example conversation_event
+       */
+      record_type?: string;
+      /**
+       * @description Telnyx Product Dimensions
+       * @example ['direction', 'currency', 'message_type']
+       */
+      product_dimensions?: string[];
+      /**
+       * @description Telnyx Product Metrics
+       * @example ['cost', 'billed_sec']
+       */
+      product_metrics?: string[];
+    };
+    /** @example {
+     *       "title": "Invalid street address",
+     *       "source": {
+     *         "pointer": "/street_address"
+     *       },
+     *       "code": "20207",
+     *       "description": "The street address provided is invalid."
+     *     } */
+    'user-addresses_Error': {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    'user-addresses_Errors': {
+      errors?: components['schemas']['user-addresses_Error'][];
+    };
+    /**
+     * @description The locality of the user address. For US addresses, this corresponds to the state of the address.
+     * @example TX
+     */
+    'user-addresses_administrative_area': string;
+    /**
+     * @description The borough of the user address. This field is not used for addresses in the US but is used for some international addresses.
+     * @example Guadalajara
+     */
+    'user-addresses_borough': string;
+    /**
+     * @description The business name associated with the user address.
+     * @example Toy-O'Kon
+     */
+    'user-addresses_business_name': string;
+    /**
+     * @description The two-character (ISO 3166-1 alpha-2) country code of the user address.
+     * @example US
+     */
+    'user-addresses_country_code': string;
+    /**
+     * @description Additional street address information about the user address such as, but not limited to, unit number or apartment number.
+     * @example 14th Floor
+     */
+    'user-addresses_extended_address': string;
+    /**
+     * @description The first name associated with the user address.
+     * @example Alfred
+     */
+    'user-addresses_first_name': string;
+    /**
+     * @description The last name associated with the user address.
+     * @example Foster
+     */
+    'user-addresses_last_name': string;
+    /**
+     * @description The locality of the user address. For US addresses, this corresponds to the city of the address.
+     * @example Austin
+     */
+    'user-addresses_locality': string;
+    /**
+     * @description The neighborhood of the user address. This field is not used for addresses in the US but is used for some international addresses.
+     * @example Ciudad de los deportes
+     */
+    'user-addresses_neighborhood': string;
+    /**
+     * @description The phone number associated with the user address.
+     * @example +12125559000
+     */
+    'user-addresses_phone_number': string;
+    /**
+     * @description The postal code of the user address.
+     * @example 78701
+     */
+    'user-addresses_postal_code': string;
+    /**
+     * @description The primary street address information about the user address.
+     * @example 600 Congress Avenue
+     */
+    'user-addresses_street_address': string;
     /**
      * @description Indicates whether or not the address should be validated for emergency use upon creation or not. This should be left with the default value of `true` unless you have used the `/addresses/actions/validate` endpoint to validate the address separately prior to creation. If an address is not validated for emergency use upon creation and it is not valid, it will not be able to be used for emergency services.
      * @default true
      * @example true
      */
     validate_address: boolean;
+    'verified-numbers_Error': {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        /** @description URL with additional information on the error. */
+        url?: string;
+      };
+    };
+    'verified-numbers_Errors': {
+      errors?: components['schemas']['verified-numbers_Error'][];
+    };
+    'verified-numbers_Meta': {
+      /** @example 3 */
+      total_pages?: number;
+      /** @example 55 */
+      total_results?: number;
+      /** @example 2 */
+      page_number?: number;
+      /** @example 25 */
+      page_size?: number;
+    };
+    verify_Error: {
+      /** @example 10015 */
+      code: string;
+      /** @example Invalid sorting value */
+      title: string;
+      /** @example The value provided for sorting is not valid. Check the value used and try again. */
+      detail?: string;
+      source?: {
+        /**
+         * @description JSON pointer (RFC6901) to the offending entity.
+         * @example /sort
+         */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        /**
+         * @description URL with additional information on the error.
+         * @example https://developers.telnyx.com/docs/overview/errors/10015
+         */
+        url?: string;
+      };
+    };
+    verify_Errors: {
+      errors?: components['schemas']['verify_Error'][];
+    };
+    verify_Meta: {
+      /** @example 3 */
+      total_pages?: number;
+      /** @example 55 */
+      total_results?: number;
+      /** @example 2 */
+      page_number?: number;
+      /** @example 25 */
+      page_size?: number;
+    };
+    video_Error: {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    video_Errors: {
+      errors?: components['schemas']['video_Error'][];
+    };
+    'voice-channels_Error': {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    'voice-channels_Errors': {
+      errors?: components['schemas']['voice-channels_Error'][];
+    };
+    voicemail_Error: {
+      /** @example 10007 */
+      code: string;
+      /** @example Unexpected error */
+      title: string;
+      /** @example An unexpected error occurred. */
+      detail?: string;
+      source?: {
+        /**
+         * @description JSON pointer (RFC6901) to the offending entity.
+         * @example /base
+         */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+    };
+    voicemail_Errors: {
+      errors?: components['schemas']['voicemail_Error'][];
+    };
     /** @description Record of all attempts to deliver a webhook. */
     webhook_delivery: {
       /**
@@ -50320,8 +52970,105 @@ export interface components {
        */
       attempts?: components['schemas']['attempt'][];
     };
+    webhooks_PaginationMetaSimple: {
+      /** @example 2 */
+      page_number?: number;
+      /** @example 25 */
+      page_size?: number;
+      /** @example 3 */
+      total_pages?: number;
+      /** @example 55 */
+      total_results?: number;
+    };
+    'wireless-public_PaginationMeta': {
+      /**
+       * Format: int32
+       * @example 3
+       */
+      total_pages?: number;
+      /**
+       * Format: int32
+       * @example 55
+       */
+      total_results?: number;
+      /**
+       * Format: int32
+       * @example 2
+       */
+      page_number?: number;
+      /**
+       * Format: int32
+       * @example 25
+       */
+      page_size?: number;
+    };
+    /**
+     * @description ISO 8601 formatted date-time indicating when the resource was created.
+     * @example 2018-02-02T22:25:27.521Z
+     */
+    wireless_CreatedAt: string;
+    wireless_Error: {
+      code: string;
+      title: string;
+      detail?: string;
+      source?: {
+        /** @description JSON pointer (RFC6901) to the offending entity. */
+        pointer?: string;
+        /** @description Indicates which query parameter caused the error. */
+        parameter?: string;
+      };
+      meta?: {
+        [key: string]: unknown;
+      };
+    };
+    wireless_Errors: {
+      errors?: components['schemas']['wireless_Error'][];
+    };
+    /**
+     * Format: uuid
+     * @description Identifies the resource.
+     * @example 6a09cdc3-8948-47f0-aa62-74ac943d6c58
+     */
+    wireless_Id: string;
+    /** Region */
+    wireless_Region: {
+      /**
+       * @description The unique code of the region.
+       * @example dc2
+       */
+      code: string;
+      /**
+       * @description The name of the region.
+       * @example Washington DC, US
+       */
+      name: string;
+      /**
+       * Format: date-time
+       * @description Timestamp when the region was inserted.
+       */
+      inserted_at?: string;
+      /**
+       * Format: date-time
+       * @description Timestamp when the region was last updated.
+       */
+      updated_at?: string;
+    };
+    /**
+     * @description ISO 8601 formatted date-time indicating when the resource was updated.
+     * @example 2018-02-02T22:25:27.521Z
+     */
+    wireless_UpdatedAt: string;
   };
   responses: {
+    /** @description Unexpected error */
+    '10dlc_GenericErrorResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['10dlc_Errors'];
+      };
+    };
     /** @description Success Action Response */
     ActionSuccessResponse: {
       headers: {
@@ -50403,6 +53150,13 @@ export interface components {
           status?: unknown;
           /** Orders */
           orders?: string[];
+          /**
+           * Requirement Group ID
+           * Format: uuid
+           * @description The ID of the requirement group associated with this advanced order
+           * @example 3fa85f64-5717-4562-b3fc-2c963f66afa6
+           */
+          requirement_group_id?: string;
         };
       };
     };
@@ -51132,7 +53886,7 @@ export interface components {
         [name: string]: unknown;
       };
       content: {
-        'application/json': components['schemas']['Error'];
+        'application/json': components['schemas']['video_Error'];
       };
     };
     /** @description You do not have permission to perform the requested action on the specified resource or resources. */
@@ -51146,14 +53900,12 @@ export interface components {
         };
       };
     };
-    /** @description Forbidden */
+    /** @description Unauthorized response. Happens when the current user is not authorized to access the endpoint. */
     ForbiddenResponse: {
       headers: {
         [name: string]: unknown;
       };
-      content: {
-        'application/json': components['schemas']['Errors'];
-      };
+      content?: never;
     };
     /** @description Successful response with details about an FQDN connection. */
     FqdnConnectionResponse: {
@@ -51177,13 +53929,13 @@ export interface components {
         };
       };
     };
-    /** @description Unexpected error */
+    /** @description Unexpected error. */
     GenericErrorResponse: {
       headers: {
         [name: string]: unknown;
       };
       content: {
-        'application/json': components['schemas']['Errors'];
+        'application/json': components['schemas']['call-recordings_Errors'];
       };
     };
     /** @description Successful response */
@@ -51217,7 +53969,7 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['ExternalConnection'][];
-          meta?: components['schemas']['PaginationMeta'];
+          meta?: components['schemas']['external-voice-integrations_PaginationMeta'];
         };
       };
     };
@@ -51289,7 +54041,7 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['TexmlApplication'][];
-          meta?: components['schemas']['PaginationMeta'];
+          meta?: components['schemas']['call-scripting_PaginationMeta'];
         };
       };
     };
@@ -51954,7 +54706,7 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['Connection'][];
-          meta?: components['schemas']['PaginationMeta'];
+          meta?: components['schemas']['connections_PaginationMeta'];
         };
       };
     };
@@ -51966,7 +54718,7 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['CredentialConnection'][];
-          meta?: components['schemas']['PaginationMeta'];
+          meta?: components['schemas']['connections_PaginationMeta'];
         };
       };
     };
@@ -52048,7 +54800,7 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['ExternalConnectionPhoneNumber'][];
-          meta?: components['schemas']['PaginationMeta'];
+          meta?: components['schemas']['external-voice-integrations_PaginationMeta'];
         };
       };
     };
@@ -52078,7 +54830,7 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['FqdnConnection'][];
-          meta?: components['schemas']['PaginationMeta'];
+          meta?: components['schemas']['connections_PaginationMeta'];
         };
       };
     };
@@ -52090,7 +54842,7 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['Fqdn'][];
-          meta?: components['schemas']['PaginationMeta'];
+          meta?: components['schemas']['connections_PaginationMeta'];
         };
       };
     };
@@ -52102,7 +54854,7 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['IpConnection'][];
-          meta?: components['schemas']['PaginationMeta'];
+          meta?: components['schemas']['connections_PaginationMeta'];
         };
       };
     };
@@ -52125,7 +54877,7 @@ export interface components {
       content: {
         'application/json': {
           log_messages?: components['schemas']['LogMessage'][];
-          meta?: components['schemas']['PaginationMeta'];
+          meta?: components['schemas']['external-voice-integrations_PaginationMeta'];
         };
       };
     };
@@ -52650,7 +55402,7 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['RecordingTranscription'][];
-          meta?: components['schemas']['CursorPaginationMeta'];
+          meta?: components['schemas']['call-recordings_CursorPaginationMeta'];
         };
       };
     };
@@ -52662,7 +55414,7 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['Release'][];
-          meta?: components['schemas']['PaginationMeta'];
+          meta?: components['schemas']['external-voice-integrations_PaginationMeta'];
         };
       };
     };
@@ -52770,7 +55522,7 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['Upload'][];
-          meta?: components['schemas']['PaginationMeta'];
+          meta?: components['schemas']['external-voice-integrations_PaginationMeta'];
         };
       };
     };
@@ -52796,7 +55548,7 @@ export interface components {
       content: {
         'application/json': {
           data?: components['schemas']['webhook_delivery'][];
-          meta?: components['schemas']['PaginationMetaSimple'];
+          meta?: components['schemas']['webhooks_PaginationMetaSimple'];
         };
       };
     };
@@ -52928,10 +55680,10 @@ export interface components {
         [name: string]: unknown;
       };
       content: {
-        'application/json': components['schemas']['Errors'];
+        'application/json': components['schemas']['verified-numbers_Errors'];
       };
     };
-    /** @description Fax does not exist */
+    /** @description Conference does not exist */
     NotFoundResponse: {
       headers: {
         [name: string]: unknown;
@@ -53272,7 +56024,7 @@ export interface components {
       };
       content: {
         'application/json': {
-          data?: components['schemas']['Region'][];
+          data?: components['schemas']['netapps_Region'][];
         };
       };
     };
@@ -53285,7 +56037,7 @@ export interface components {
         'application/json': {
           /** @description Successfully registered SIM cards. */
           data?: components['schemas']['SimpleSIMCard'][];
-          errors?: components['schemas']['Error'][];
+          errors?: components['schemas']['wireless_Error'][];
         };
       };
     };
@@ -53369,7 +56121,7 @@ export interface components {
         [name: string]: unknown;
       };
       content: {
-        'application/json': components['schemas']['Error'];
+        'application/json': components['schemas']['documents_Error'];
       };
     };
     /** @description Resource not found */
@@ -53379,7 +56131,7 @@ export interface components {
       };
       content: {
         'application/json': {
-          errors?: components['schemas']['ResourceNotFoundError'][];
+          errors?: components['schemas']['customer_service_record_ResourceNotFoundError'][];
         };
       };
     };
@@ -54005,7 +56757,7 @@ export interface components {
         [name: string]: unknown;
       };
       content: {
-        'application/json': components['schemas']['Errors'];
+        'application/json': components['schemas']['verified-numbers_Errors'];
       };
     };
     /** @description Unauthorized */
@@ -54032,7 +56784,7 @@ export interface components {
         [name: string]: unknown;
       };
       content: {
-        'application/json': components['schemas']['Errors'];
+        'application/json': components['schemas']['documents_Errors'];
       };
     };
     /** @description Unprocessable entity. Check the 'detail' field in response for details. */
@@ -54042,7 +56794,7 @@ export interface components {
       };
       content: {
         'application/json': {
-          errors?: components['schemas']['UnprocessableEntityError'][];
+          errors?: components['schemas']['customer_service_record_UnprocessableEntityError'][];
         };
       };
     };
@@ -54315,6 +57067,123 @@ export interface components {
         };
       };
     };
+    /** @description Unexpected error */
+    billing_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['billing_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    'bundle-pricing_GenericErrorResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['bundle-pricing_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    'call-control_GenericErrorResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['call-control_Errors'];
+      };
+    };
+    /** @description Resource not found */
+    'call-scripting_NotFoundResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['call-scripting_ResourceNotFoundError'];
+      };
+    };
+    /** @description The user doesn't have the required permissions to perform the requested action. */
+    'call-scripting_UnauthorizedResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['ErrorResponse'];
+      };
+    };
+    /** @description Unexpected error */
+    charges_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['charges_Errors'];
+      };
+    };
+    /** @description The requested resource doesn't exist. */
+    connections_NotFoundResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['ErrorResponse'];
+      };
+    };
+    /** @description The user doesn't have the required permissions to perform the requested action. */
+    connections_UnauthorizedResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['ErrorResponse'];
+      };
+    };
+    /** @description The request was well-formed but was unable to be followed due to semantic errors. */
+    connections_UnprocessableEntityResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['ErrorResponse'];
+      };
+    };
+    /** @description Unexpected error */
+    documents_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['documents_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    emergency_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['emergency_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    'external-voice-integrations_GenericErrorResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['external-voice-integrations_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    invoice_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['invoice_Errors'];
+      };
+    };
     /** @description An array of Comment Responses */
     listCommentsResponse: {
       headers: {
@@ -54374,8 +57243,281 @@ export interface components {
         };
       };
     };
+    /** @description Unauthenticated response. Happens when the current user cannot be authenticated. */
+    'managed-accounts_UnauthorizedResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content?: never;
+    };
+    /** @description Unexpected error */
+    'media-storage_GenericErrorResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['media-storage_Errors'];
+      };
+    };
+    /** @description Unexpected error. */
+    'media-streaming_GenericErrorResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['media-streaming_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    messaging_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['messaging_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    netapps_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['netapps_Errors'];
+      };
+    };
+    /** @description Unprocessable entity. Check the 'detail' field in response for details. */
+    netapps_UnprocessableEntity: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['netapps_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    notifications_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['notifications_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    'number-lookup_GenericErrorResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['number-lookup_Errors'];
+      };
+    };
+    /** @description Unprocessable entity. Check the 'detail' field in response for details. */
+    'number-lookup_UnprocessableEntity': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['number-lookup_Errors'];
+      };
+    };
+    /** @description Forbidden */
+    numbers_ForbiddenResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['numbers_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    numbers_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['numbers_Errors'];
+      };
+    };
+    /** @description Unauthorized */
+    numbers_UnauthorizedResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['numbers_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    payment_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['payment_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    'programmable-fax_GenericErrorResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['programmable-fax_Errors'];
+      };
+    };
+    /** @description Fax does not exist */
+    'programmable-fax_NotFoundResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content?: never;
+    };
+    /** @description Unexpected error. */
+    siprec_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['siprec_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    'toll-free-verification_GenericErrorResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['toll-free-verification_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    'user-addresses_GenericErrorResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['user-addresses_Errors'];
+      };
+    };
+    /** @description Bad Request */
+    'verified-numbers_GenericErrorResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['verified-numbers_Errors'];
+      };
+    };
+    /** @description Unprocessable Entity */
+    'verified-numbers_UnprocessableEntityErrorResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['verified-numbers_Errors'];
+      };
+    };
+    /** @description Bad Request */
+    verify_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['verify_Errors'];
+      };
+    };
+    /** @description Resource not found */
+    video_ResourceNotFound: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['video_Error'];
+      };
+    };
+    /** @description Unprocessable entity. Check the 'detail' field in response for details. */
+    video_UnprocessableEntity: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['video_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    'voice-channels_GenericErrorResponse': {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['voice-channels_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    voicemail_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['voicemail_Errors'];
+      };
+    };
+    /** @description Unexpected error */
+    wireless_GenericErrorResponse: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['wireless_Errors'];
+      };
+    };
+    /** @description Resource not found */
+    wireless_ResourceNotFound: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['wireless_Error'];
+      };
+    };
+    /** @description Unprocessable entity. Check the 'detail' field in response for details. */
+    wireless_UnprocessableEntity: {
+      headers: {
+        [name: string]: unknown;
+      };
+      content: {
+        'application/json': components['schemas']['wireless_Errors'];
+      };
+    };
   };
   parameters: {
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[telnyx_campaign_id], filter[telnyx_brand_id], filter[tcr_campaign_id], filter[tcr_brand_id] */
+    '10dlc_FilterConsolidated': {
+      /**
+       * Format: uuid
+       * @description Filter results by the Telnyx Campaign id
+       * @example f3575e15-32ce-400e-a4c0-dd78800c20b0
+       */
+      telnyx_campaign_id?: string;
+      /**
+       * Format: uuid
+       * @description Filter results by the Telnyx Brand id
+       * @example f3575e15-32ce-400e-a4c0-dd78800c20b0
+       */
+      telnyx_brand_id?: string;
+      /**
+       * @description Filter results by the TCR Campaign id
+       * @example CAMPID3
+       */
+      tcr_campaign_id?: string;
+      /**
+       * @description Filter results by the TCR Brand id
+       * @example BRANDID
+       */
+      tcr_brand_id?: string;
+    };
     /** @description The id of the account the resource belongs to. */
     AccountSid: string;
     /** @description The ID of the TeXML application used for the call. */
@@ -54501,41 +57643,26 @@ export interface components {
         contains?: string;
       };
     };
-    /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[customer_reference][eq], filter[customer_reference][contains], filter[used_as_emergency], filter[street_address][contains], filter[address_book][eq] */
     FilterConsolidated: {
-      phone_number?: {
-        /**
-         * @description Filters records to those with a specified number.
-         * @example +12441239999
-         */
+      street_address?: {
+        /** @description If present, addresses with <code>street_address</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
+        contains?: string;
+      };
+      address_book?: {
+        /** @description If present, only returns results with the <code>address_book</code> flag equal to the given value. */
         eq?: string;
-        /** @description Filters records to those with at least one number in the list. */
-        in?: string[];
       };
-      status?: {
-        /**
-         * @description Filters records to those with a specific status.
-         * @example pending
-         * @enum {string}
-         */
-        eq?: 'pending' | 'completed' | 'failed';
-        /** @description Filters records to those with a least one status in the list. */
-        in?: ('pending' | 'completed' | 'failed')[];
-      };
-      created_at?: {
-        /**
-         * Format: date-time
-         * @description Filters records to those created before a specific date.
-         * @example 2020-01-01T00:00:00Z
-         */
-        lt?: string;
-        /**
-         * Format: date-time
-         * @description Filters records to those created after a specific date.
-         * @example 2020-01-01T00:00:00Z
-         */
-        gt?: string;
-      };
+      customer_reference?:
+        | string
+        | {
+            /** @description Exact match for customer_reference. */
+            eq?: string;
+            /** @description Partial match for customer_reference. Matching is not case-sensitive. */
+            contains?: string;
+          };
+      /** @description If set as 'true', only addresses used as the emergency address for at least one active phone-number will be returned. When set to 'false', the opposite happens: only addresses not used as the emergency address from phone-numbers will be returned. */
+      used_as_emergency?: string;
     };
     /** @description The total monetary amount of the order. */
     FilterCostByAmount: string;
@@ -55018,22 +58145,25 @@ export interface components {
      * @example 1
      */
     Page: number;
-    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
     PageConsolidated: {
-      /**
-       * @description The size of the page
-       * @default 20
-       */
-      size?: number;
       /**
        * @description The page number to load
        * @default 1
        */
       number?: number;
+      /**
+       * @description The size of the page
+       * @default 20
+       */
+      size?: number;
     };
     /** @description The page number to load. */
     PageNumber: number;
-    /** @description The size of the page. */
+    /**
+     * @description The number of records to be displayed on a page
+     * @example 10
+     */
     PageSize: number;
     /**
      * @description The number of records to be displayed on a page
@@ -55101,16 +58231,16 @@ export interface components {
     /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
      *     That is: <ul>
      *       <li>
-     *         <code>application_name</code>: sorts the result by the
-     *         <code>application_name</code> field in ascending order.
+     *         <code>friendly_name</code>: sorts the result by the
+     *         <code>friendly_name</code> field in ascending order.
      *       </li>
      *
      *       <li>
-     *         <code>-application_name</code>: sorts the result by the
-     *         <code>application_name</code> field in descending order.
+     *         <code>-friendly_name</code>: sorts the result by the
+     *         <code>friendly_name</code> field in descending order.
      *       </li>
      *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
-    SortApplication: 'created_at' | 'application_name' | 'active';
+    SortApplication: 'created_at' | 'friendly_name' | 'active';
     /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
      *     That is: <ul>
      *       <li>
@@ -55232,14 +58362,698 @@ export interface components {
     WirelessBlocklistId: string;
     /** @description Identifies a civic address or a location. */
     address_id: string;
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[created_before], filter[created_after] */
+    'audit-logs_FilterConsolidated': {
+      /**
+       * Format: date-time
+       * @description Filter for audit events created before a specific date.
+       * @example 2021-01-01T00:00:00Z
+       */
+      created_before?: string;
+      /**
+       * Format: date-time
+       * @description Filter for audit events created after a specific date.
+       * @example 2021-01-01T00:00:00Z
+       */
+      created_after?: string;
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+    'audit-logs_PageConsolidated': {
+      /**
+       * @description Page number to load.
+       * @example 1
+       */
+      number?: number;
+      /**
+       * @description Number of items per page.
+       * @example 10
+       */
+      size?: number;
+    };
+    /** @description Consolidated filter parameter (deepObject style). Supports filtering by country_iso and resource. Examples: filter[country_iso]=US or filter[resource]=+15617819942 */
+    'bundle-pricing_FilterConsolidated': {
+      /**
+       * Filter[Country Iso]
+       * @description Filter by country code.
+       */
+      country_iso?: string[];
+      /**
+       * Filter[Resource]
+       * @description Filter by resource.
+       */
+      resource?: string[];
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    'bundle-pricing_PageConsolidated': {
+      /**
+       * @description The size of the page.
+       * @default 20
+       */
+      size?: number;
+      /**
+       * @description The page number to load.
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[application_name][contains], filter[outbound.outbound_voice_profile_id], filter[leg_id], filter[application_session_id], filter[connection_id], filter[product], filter[failed], filter[from], filter[to], filter[name], filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status] */
+    'call-control_FilterConsolidated': {
+      /** @description Application name filters */
+      application_name?: {
+        /**
+         * @description If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
+         * @default null
+         */
+        contains?: string;
+      };
+      /**
+       * Format: int64
+       * @description Identifies the associated outbound voice profile.
+       * @example 1293384261075731499
+       */
+      'outbound.outbound_voice_profile_id'?: string;
+      /**
+       * Format: uuid
+       * @description The unique identifier of an individual call leg.
+       */
+      leg_id?: string;
+      /**
+       * Format: uuid
+       * @description The unique identifier of the call session. A session may include multiple call leg events.
+       */
+      application_session_id?: string;
+      /** @description The unique identifier of the conection. */
+      connection_id?: string;
+      /**
+       * @description Filter by product.
+       * @example texml
+       * @enum {string}
+       */
+      product?: 'call_control' | 'fax' | 'texml';
+      /**
+       * @description Delivery failed or not.
+       * @example false
+       */
+      failed?: boolean;
+      /**
+       * @description Filter by From number.
+       * @example +12025550142
+       */
+      from?: string;
+      /**
+       * @description Filter by To number.
+       * @example +12025550142
+       */
+      to?: string;
+      /** @description If present, conferences will be filtered to those with a matching `name` attribute. Matching is case-sensitive */
+      name?: string;
+      /**
+       * @description Event type
+       * @example webhook
+       * @enum {string}
+       */
+      type?: 'command' | 'webhook';
+      /** @description Event occurred_at filters */
+      occurred_at?: {
+        /**
+         * @description Event occurred_at: equal
+         * @example 2019-03-29T11:10:00Z
+         */
+        eq?: string;
+        /**
+         * @description Event occurred_at: greater than
+         * @example 2019-03-29T11:10:00Z
+         */
+        gt?: string;
+        /**
+         * @description Event occurred_at: greater than or equal
+         * @example 2019-03-29T11:10:00Z
+         */
+        gte?: string;
+        /**
+         * @description Event occurred_at: lower than
+         * @example 2019-03-29T11:10:00Z
+         */
+        lt?: string;
+        /**
+         * @description Event occurred_at: lower than or equal
+         * @example 2019-03-29T11:10:00Z
+         */
+        lte?: string;
+      };
+      /**
+       * @description If present, conferences will be filtered by status.
+       * @enum {string}
+       */
+      status?: 'init' | 'in_progress' | 'completed';
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[after], page[before], page[limit], page[size], page[number] */
+    'call-control_PageConsolidated': {
+      /**
+       * @description Opaque identifier of next page
+       * @default null
+       */
+      after?: string;
+      /**
+       * @description Opaque identifier of previous page
+       * @default null
+       */
+      before?: string;
+      /**
+       * @description Limit of records per single page
+       * @default 20
+       */
+      limit?: number;
+      /**
+       * @description The size of the page
+       * @default 20
+       */
+      size?: number;
+      /**
+       * @description The page number to load
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+    'call-recordings_ConnectionId': string;
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    'call-recordings_PageConsolidated': {
+      /**
+       * @description The size of the page.
+       * @default 20
+       */
+      size?: number;
+      /**
+       * @description The page number to load.
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[outbound_voice_profile_id], filter[friendly_name] */
+    'call-scripting_FilterConsolidated': {
+      /**
+       * @description Identifies the associated outbound voice profile.
+       * @example 1293384261075731499
+       */
+      outbound_voice_profile_id?: string;
+      /**
+       * @description If present, applications with <code>friendly_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
+       * @default null
+       */
+      friendly_name?: string;
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    'call-scripting_PageConsolidated': {
+      /**
+       * @description The size of the page
+       * @default 250
+       */
+      size?: number;
+      /**
+       * @description The page number to load
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id], filter[outbound.outbound_voice_profile_id] */
+    connections_FilterConsolidated: {
+      /** @description Filter by connection_name using nested operations */
+      connection_name?: {
+        /**
+         * @description If present, connections with <code>connection_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
+         * @default null
+         */
+        contains?: string;
+      };
+      /**
+       * @description If present, connections with an `fqdn` that equals the given value will be returned. Matching is case-sensitive, and the full string must match.
+       * @default null
+       */
+      fqdn?: string;
+      /**
+       * Format: int64
+       * @description Identifies the associated outbound voice profile.
+       * @example 1293384261075731499
+       */
+      outbound_voice_profile_id?: string;
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    connections_PageConsolidated: {
+      /**
+       * @description The size of the page
+       * @default 250
+       */
+      size?: number;
+      /**
+       * @description The page number to load
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
+     *     That is: <ul>
+     *       <li>
+     *         <code>connection_name</code>: sorts the result by the
+     *         <code>connection_name</code> field in ascending order.
+     *       </li>
+     *
+     *       <li>
+     *         <code>-connection_name</code>: sorts the result by the
+     *         <code>connection_name</code> field in descending order.
+     *       </li>
+     *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
+    connections_SortConnection: 'created_at' | 'connection_name' | 'active';
+    /** @description Identifies the resource. */
+    connections_id: string;
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+    customer_service_record_FilterConsolidated: {
+      phone_number?: {
+        /**
+         * @description Filters records to those with a specified number.
+         * @example +12441239999
+         */
+        eq?: string;
+        /** @description Filters records to those with at least one number in the list. */
+        in?: string[];
+      };
+      status?: {
+        /**
+         * @description Filters records to those with a specific status.
+         * @example pending
+         * @enum {string}
+         */
+        eq?: 'pending' | 'completed' | 'failed';
+        /** @description Filters records to those with a least one status in the list. */
+        in?: ('pending' | 'completed' | 'failed')[];
+      };
+      created_at?: {
+        /**
+         * Format: date-time
+         * @description Filters records to those created before a specific date.
+         * @example 2020-01-01T00:00:00Z
+         */
+        lt?: string;
+        /**
+         * Format: date-time
+         * @description Filters records to those created after a specific date.
+         * @example 2020-01-01T00:00:00Z
+         */
+        gt?: string;
+      };
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    customer_service_record_PageConsolidated: {
+      /**
+       * @description The size of the page
+       * @default 20
+       */
+      size?: number;
+      /**
+       * @description The page number to load
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    documents_PageConsolidated: {
+      /**
+       * @description The size of the page
+       * @default 20
+       */
+      size?: number;
+      /**
+       * @description The page number to load
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    emergency_PageConsolidated: {
+      /**
+       * @description The size of the page
+       * @default 20
+       */
+      size?: number;
+      /**
+       * @description The page number to load
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    'external-voice-integrations_PageConsolidated': {
+      /**
+       * @description The size of the page
+       * @default 250
+       */
+      size?: number;
+      /**
+       * @description The page number to load
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Identifies the resource. */
+    'external-voice-integrations_id': string;
     /** @description Identifies the resource. */
     id: string;
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[email][contains], filter[email][eq], filter[organization_name][contains], filter[organization_name][eq] */
+    'managed-accounts_FilterConsolidated': {
+      email?: {
+        /** @description If present, email containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
+        contains?: string;
+        /** @description If present, only returns results with the <code>email</code> matching exactly the value given. */
+        eq?: string;
+      };
+      organization_name?: {
+        /** @description If present, only returns results with the <code>organization_name</code> containing the given value. Matching is not case-sensitive. Requires at least three characters. */
+        contains?: string;
+        /** @description If present, only returns results with the <code>organization_name</code> matching exactly the value given. */
+        eq?: string;
+      };
+    };
+    /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
+     *     That is: <ul>
+     *       <li>
+     *         <code>email</code>: sorts the result by the
+     *         <code>email</code> field in ascending order.
+     *       </li>
+     *
+     *       <li>
+     *         <code>-email</code>: sorts the result by the
+     *         <code>email</code> field in descending order.
+     *       </li>
+     *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
+    'managed-accounts_Sort': 'created_at' | 'email';
+    /** @description Uniquely identifies a Telnyx application (Call Control). */
+    'media-streaming_ConnectionId': string;
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[timestamp][gt], filter[timestamp][lt] */
+    netapps_FilterConsolidated: {
+      timestamp?:
+        | string
+        | {
+            /**
+             * Format: date-time
+             * @description Filter by timestamp greater than
+             */
+            gt?: string;
+            /**
+             * Format: date-time
+             * @description Filter by timestamp less than
+             */
+            lt?: string;
+          };
+    };
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[associated_record_type][eq], filter[channel_type_id][eq], filter[notification_profile_id][eq], filter[notification_channel][eq], filter[notification_event_condition_id][eq], filter[status][eq] */
+    notifications_FilterConsolidated: {
+      associated_record_type?: {
+        /**
+         * @description Filter by the associated record type
+         * @example phone_number
+         * @enum {string}
+         */
+        eq?: 'account' | 'phone_number';
+      };
+      channel_type_id?: {
+        /**
+         * @description Filter by the id of a channel type
+         * @example webhook
+         * @enum {string}
+         */
+        eq?: 'webhook' | 'sms' | 'email' | 'voice';
+      };
+      notification_profile_id?: {
+        /**
+         * @description Filter by the id of a notification profile
+         * @example 12455643-3cf1-4683-ad23-1cd32f7d5e0a
+         */
+        eq?: string;
+      };
+      notification_channel?: {
+        /**
+         * @description Filter by the id of a notification channel
+         * @example 12455643-3cf1-4683-ad23-1cd32f7d5e0a
+         */
+        eq?: string;
+      };
+      notification_event_condition_id?: {
+        /**
+         * @description Filter by the id of a notification channel
+         * @example 12455643-3cf1-4683-ad23-1cd32f7d5e0a
+         */
+        eq?: string;
+      };
+      status?: {
+        /**
+         * @description The status of a notification setting
+         * @example enable-received
+         * @enum {string}
+         */
+        eq?:
+          | 'enabled'
+          | 'enable-received'
+          | 'enable-pending'
+          | 'enable-submtited'
+          | 'delete-received'
+          | 'delete-pending'
+          | 'delete-submitted'
+          | 'deleted';
+      };
+    };
+    /** @description The id of the resource. */
+    notifications_Id: string;
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    numbers_PageConsolidated: {
+      /**
+       * @description The size of the page
+       * @default 20
+       */
+      size?: number;
+      /**
+       * @description The page number to load
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[name][contains] */
+    'outbound-voice-profiles_FilterConsolidated': {
+      /** @description Name filtering operations */
+      name?: {
+        /**
+         * @description Optional filter on outbound voice profile name.
+         * @example office-profile
+         */
+        contains?: string;
+      };
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+    'outbound-voice-profiles_PageConsolidated': {
+      /**
+       * @description The page number to load.
+       * @default 1
+       */
+      number?: number;
+      /**
+       * @description The size of the page.
+       * @default 20
+       */
+      size?: number;
+    };
     /** @description A phone number's ID via the Telnyx API */
     phone_number_id: string;
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[porting_order_id], filter[support_key], filter[status], filter[phone_number], filter[activation_status], filter[portability_status] */
+    'porting-order_FilterConsolidated': {
+      /** @description Filter results by a list of porting order ids */
+      porting_order_id?: string[];
+      /** @description Filter results by support key(s). Originally: filter[support_key][eq], filter[support_key][in][] */
+      support_key?: string | string[];
+      /** @description Filter porting orders by status(es). Originally: filter[status], filter[status][in][] */
+      status?:
+        | (
+            | 'draft'
+            | 'in-process'
+            | 'submitted'
+            | 'exception'
+            | 'foc-date-confirmed'
+            | 'cancel-pending'
+            | 'ported'
+            | 'cancelled'
+          )
+        | (
+            | 'draft'
+            | 'in-process'
+            | 'submitted'
+            | 'exception'
+            | 'foc-date-confirmed'
+            | 'cancel-pending'
+            | 'ported'
+            | 'cancelled'
+          )[];
+      /** @description Filter results by a list of phone numbers */
+      phone_number?: string[];
+      /** @description Filter results by activation status */
+      activation_status?: components['schemas']['PortingOrderActivationStatus'];
+      /** @description Filter results by portability status */
+      portability_status?: components['schemas']['PortabilityStatus'];
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    'porting-order_PageConsolidated': {
+      /**
+       * @description The size of the page
+       * @default 20
+       */
+      size?: number;
+      /**
+       * @description The page number to load
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[application_name][contains], filter[outbound_voice_profile_id] */
+    'programmable-fax_FilterConsolidated': {
+      /** @description Application name filtering operations */
+      application_name?: {
+        /**
+         * @description If present, applications with <code>application_name</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters.
+         * @example fax-app
+         */
+        contains?: string;
+      };
+      /**
+       * @description Identifies the associated outbound voice profile.
+       * @example 1293384261075731499
+       */
+      outbound_voice_profile_id?: string;
+    };
+    /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
+     *     That is: <ul>
+     *       <li>
+     *         <code>application_name</code>: sorts the result by the
+     *         <code>application_name</code> field in ascending order.
+     *       </li>
+     *
+     *       <li>
+     *         <code>-application_name</code>: sorts the result by the
+     *         <code>application_name</code> field in descending order.
+     *       </li>
+     *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
+    'programmable-fax_SortApplication':
+      | 'created_at'
+      | 'application_name'
+      | 'active';
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    'push-notifications_PageConsolidated': {
+      /**
+       * @description The size of the page.
+       * @default 20
+       */
+      size?: number;
+      /**
+       * @description The page number to load.
+       * @default 1
+       */
+      number?: number;
+    };
     /** @description Identifies a Release request */
     release_id: string;
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[tag], filter[name], filter[status], filter[resource_id], filter[sip_username] */
+    'telephony-credentials_FilterConsolidated': {
+      /** @description Filter by tag */
+      tag?: string;
+      /** @description Filter by name */
+      name?: string;
+      /** @description Filter by status */
+      status?: string;
+      /** @description Filter by resource_id */
+      resource_id?: string;
+      /** @description Filter by sip_username */
+      sip_username?: string;
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+    'telephony-credentials_PageConsolidated': {
+      /**
+       * @description The page number to load
+       * @default 1
+       */
+      number?: number;
+      /**
+       * @description The size of the page
+       * @default 50
+       */
+      size?: number;
+    };
     /** @description Identifies an Upload request */
     ticket_id: string;
+    /** @description Consolidated filter parameter (deepObject style). Originally: filter[customer_reference][eq], filter[customer_reference][contains], filter[street_address][contains] */
+    'user-addresses_FilterConsolidated': {
+      /** @description Filter user addresses via the customer reference. Supports both exact matching (eq) and partial matching (contains). Matching is not case-sensitive. */
+      customer_reference?: {
+        /** @description Filter user addresses via exact customer reference match. Matching is not case-sensitive. */
+        eq?: string;
+        /** @description If present, user addresses with <code>customer_reference</code> containing the given value will be returned. Matching is not case-sensitive. */
+        contains?: string;
+      };
+      /** @description Filter user addresses via street address. Supports partial matching (contains). Matching is not case-sensitive. */
+      street_address?: {
+        /** @description If present, user addresses with <code>street_address</code> containing the given value will be returned. Matching is not case-sensitive. Requires at least three characters. */
+        contains?: string;
+      };
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    'user-addresses_PageConsolidated': {
+      /**
+       * @description The size of the page
+       * @default 20
+       */
+      size?: number;
+      /**
+       * @description The page number to load
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    video_PageConsolidated: {
+      /**
+       * @description The size of the page.
+       * @default 20
+       */
+      size?: number;
+      /**
+       * @description The page number to load.
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+    'voice-channels_PageConsolidated': {
+      /**
+       * @description The size of the page
+       * @default 20
+       */
+      size?: number;
+      /**
+       * @description The page number to load
+       * @default 1
+       */
+      number?: number;
+    };
+    /** @description Consolidated pagination parameter (deepObject style). Originally: page[number], page[size] */
+    wireless_PageConsolidated: {
+      /**
+       * @description The page number to load.
+       * @default 1
+       */
+      number?: number;
+      /**
+       * @description The size of the page.
+       * @default 20
+       */
+      size?: number;
+    };
+    /** @description The size of the page. */
+    wireless_PageSize: number;
   };
   requestBodies: {
     /** @description Creates new credentials resource for the specified connection_id. */
@@ -55496,7 +59310,16 @@ export interface components {
     /** @description Deletes recordings for the given list of IDs. */
     DeleteRecordingsRequest: {
       content: {
-        'application/json': string[];
+        /** @example {
+         *       "ids": [
+         *         "428c31b6-7af4-4bcb-b7f5-5013ef9657c1",
+         *         "428c31b6-7af4-4bcb-b7f5-5013ef9657c2"
+         *       ]
+         *     } */
+        'application/json': {
+          /** @description List of call recording IDs to delete. */
+          ids: string[];
+        };
       };
     };
     /** @description The params expected to create/update a Dialogflow Connection for given connection_id. */
@@ -55709,7 +59532,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['cloudflare-ip-list-sync_Errors'];
         };
       };
     };
@@ -55742,7 +59565,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['cloudflare-ip-list-sync_Errors'];
         };
       };
     };
@@ -55862,7 +59685,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['cloudflare-ip-list-sync_Errors'];
         };
       };
     };
@@ -55895,7 +59718,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['cloudflare-ip-list-sync_Errors'];
         };
       };
     };
@@ -55949,9 +59772,9 @@ export interface operations {
   FindAddresses: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[customer_reference][eq], filter[customer_reference][contains], filter[used_as_emergency], filter[street_address][contains], filter[address_book][eq] */
         filter?: components['parameters']['FilterConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
@@ -56228,6 +60051,32 @@ export interface operations {
       };
     };
   };
+  update_advanced_order_v2: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        order_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AdvancedOrderRequest'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['responses']['AdvancedOrderResponse'];
+        };
+      };
+    };
+  };
   get_assistants_public_assistants_get: {
     parameters: {
       query?: never;
@@ -56276,7 +60125,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Assistant'];
+          'application/json': components['schemas']['inference-embedding_Assistant'];
         };
       };
       /** @description Validation Error */
@@ -56757,7 +60606,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Assistant'];
+          'application/json': components['schemas']['inference-embedding_Assistant'];
         };
       };
       /** @description Validation Error */
@@ -57019,7 +60868,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Assistant'];
+          'application/json': components['schemas']['inference-embedding_Assistant'];
         };
       };
       /** @description Validation Error */
@@ -57298,7 +61147,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Assistant'];
+          'application/json': components['schemas']['inference-embedding_Assistant'];
         };
       };
       /** @description Validation Error */
@@ -57334,7 +61183,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Assistant'];
+          'application/json': components['schemas']['inference-embedding_Assistant'];
         };
       };
       /** @description Validation Error */
@@ -57396,7 +61245,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Assistant'];
+          'application/json': components['schemas']['inference-embedding_Assistant'];
         };
       };
       /** @description Validation Error */
@@ -58843,10 +62692,10 @@ export interface operations {
   ListAuditLogs: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: components['parameters']['audit-logs_PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[created_before], filter[created_after] */
+        filter?: components['parameters']['audit-logs_FilterConsolidated'];
         /** @description Set the order of the results by the creation date. */
         sort?: components['parameters']['Sort'];
       };
@@ -59182,7 +63031,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListAvailablePhoneNumbersBlockResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   ListAvailablePhoneNumbers: {
@@ -59249,7 +63098,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListAvailablePhoneNumbersResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   GetUserBalance: {
@@ -59262,7 +63111,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['UserBalanceResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['billing_GenericErrorResponse'];
     };
   };
   ListBillingGroups: {
@@ -59306,7 +63155,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['billing-group_Errors'];
         };
       };
     };
@@ -59344,7 +63193,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['billing-group_Errors'];
         };
       };
     };
@@ -59381,7 +63230,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['billing-group_Errors'];
         };
       };
     };
@@ -59418,7 +63267,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['billing-group_Errors'];
         };
       };
     };
@@ -59462,7 +63311,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['billing-group_Errors'];
         };
       };
     };
@@ -59846,7 +63695,7 @@ export interface operations {
         /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
         /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        'page[size]'?: components['parameters']['wireless_PageSize'];
         /** @description Filter by action type. */
         'filter[action_type]'?: 'bulk_set_public_ips';
       };
@@ -59864,7 +63713,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetBulkSimCardAction: {
@@ -59887,16 +63736,16 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetUserBillingBundles: {
     parameters: {
       query?: {
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Supports filtering by country_iso and resource. Examples: filter[country_iso]=US or filter[resource]=+15617819942 */
+        filter?: components['parameters']['bundle-pricing_FilterConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['bundle-pricing_PageConsolidated'];
       };
       header?: {
         /** @description Format: Bearer <TOKEN> */
@@ -59967,10 +63816,10 @@ export interface operations {
   GetUserBundles: {
     parameters: {
       query?: {
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Supports filtering by country_iso and resource. Examples: filter[country_iso]=US or filter[resource]=+15617819942 */
+        filter?: components['parameters']['bundle-pricing_FilterConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['bundle-pricing_PageConsolidated'];
       };
       header?: {
         /** @description Format: Bearer <TOKEN> */
@@ -60050,8 +63899,8 @@ export interface operations {
   GetUnusedUserBundles: {
     parameters: {
       query?: {
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Supports filtering by country_iso and resource. Examples: filter[country_iso]=US or filter[resource]=+15617819942 */
+        filter?: components['parameters']['bundle-pricing_FilterConsolidated'];
       };
       header?: {
         /** @description Format: Bearer <TOKEN> */
@@ -60200,10 +64049,10 @@ export interface operations {
   ListCallControlApplications: {
     parameters: {
       query?: {
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[application_name][contains], filter[outbound.outbound_voice_profile_id], filter[leg_id], filter[application_session_id], filter[connection_id], filter[product], filter[failed], filter[from], filter[to], filter[name], filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status] */
+        filter?: components['parameters']['call-control_FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[after], page[before], page[limit], page[size], page[number] */
+        page?: components['parameters']['call-control_PageConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -60364,10 +64213,10 @@ export interface operations {
   ListCallEvents: {
     parameters: {
       query?: {
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[application_name][contains], filter[outbound.outbound_voice_profile_id], filter[leg_id], filter[application_session_id], filter[connection_id], filter[product], filter[failed], filter[from], filter[to], filter[name], filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status] */
+        filter?: components['parameters']['call-control_FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[after], page[before], page[limit], page[size], page[number] */
+        page?: components['parameters']['call-control_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -60376,7 +64225,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListCallEventsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   DialCall: {
@@ -60394,7 +64243,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['RetrieveCallStatusResponseWithRecordingId'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   RetrieveCallStatus: {
@@ -60410,7 +64259,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['RetrieveCallStatusResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   CallStartAIAssistant: {
@@ -60431,7 +64280,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponseWithConversationId'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   CallStopAIAssistant: {
@@ -60452,7 +64301,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   AnswerCall: {
@@ -60473,7 +64322,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponseWithRecordingId'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   BridgeCall: {
@@ -60494,7 +64343,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   UpdateClientState: {
@@ -60515,7 +64364,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   EnqueueCall: {
@@ -60536,7 +64385,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   StartCallFork: {
@@ -60557,7 +64406,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   StopCallFork: {
@@ -60578,7 +64427,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   GatherCall: {
@@ -60599,7 +64448,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   StopCallGather: {
@@ -60620,7 +64469,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   callGatherUsingAI: {
@@ -60641,7 +64490,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponseWithConversationId'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   GatherUsingAudio: {
@@ -60662,7 +64511,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   GatherUsingSpeak: {
@@ -60683,7 +64532,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   HangupCall: {
@@ -60704,7 +64553,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   LeaveQueue: {
@@ -60725,7 +64574,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   StartCallPlayback: {
@@ -60746,7 +64595,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   StopCallPlayback: {
@@ -60767,7 +64616,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   PauseCallRecording: {
@@ -60788,7 +64637,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   ResumeCallRecording: {
@@ -60809,7 +64658,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   StartCallRecord: {
@@ -60830,7 +64679,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   StopCallRecording: {
@@ -60851,7 +64700,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   ReferCall: {
@@ -60872,7 +64721,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   RejectCall: {
@@ -60893,7 +64742,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   SendDTMF: {
@@ -60914,7 +64763,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   SendSIPInfo: {
@@ -60935,7 +64784,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   StartSiprecSession: {
@@ -60956,7 +64805,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   StopSiprecSession: {
@@ -60977,7 +64826,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   SpeakCall: {
@@ -60998,7 +64847,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   StartCallStreaming: {
@@ -61019,7 +64868,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   StopCallStreaming: {
@@ -61040,7 +64889,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   noiseSuppressionStart: {
@@ -61061,7 +64910,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   noiseSuppressionStop: {
@@ -61082,7 +64931,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   SwitchSupervisorRole: {
@@ -61103,7 +64952,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   StartCallTranscription: {
@@ -61124,7 +64973,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   StopCallTranscription: {
@@ -61145,7 +64994,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   TransferCall: {
@@ -61166,7 +65015,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CallControlCommandResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   GetCampaigns: {
@@ -61429,7 +65278,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Error'];
+          'application/json': components['schemas']['10dlc_Error'];
         };
       };
       /** @description Campaign not found */
@@ -61438,7 +65287,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Error'];
+          'application/json': components['schemas']['10dlc_Error'];
         };
       };
       /** @description Validation Error */
@@ -61479,7 +65328,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['10dlc_Errors'];
         };
       };
     };
@@ -61649,7 +65498,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['voice-channels_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -61684,7 +65533,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['PatchGcbChannelZoneRequestResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['voice-channels_GenericErrorResponse'];
     };
   };
   ListComments: {
@@ -61712,7 +65561,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['listCommentsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   CreateComment: {
@@ -61729,7 +65578,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['CommentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   RetrieveComment: {
@@ -61745,7 +65594,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['CommentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   MarkCommentRead: {
@@ -61761,16 +65610,16 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ReadCommentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   ListConferences: {
     parameters: {
       query?: {
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[application_name][contains], filter[outbound.outbound_voice_profile_id], filter[leg_id], filter[application_session_id], filter[connection_id], filter[product], filter[failed], filter[from], filter[to], filter[name], filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status] */
+        filter?: components['parameters']['call-control_FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[after], page[before], page[limit], page[size], page[number] */
+        page?: components['parameters']['call-control_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -61805,8 +65654,8 @@ export interface operations {
   ListConferenceParticipants: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[after], page[before], page[limit], page[size], page[number] */
+        page?: components['parameters']['call-control_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[muted], filter[on_hold], filter[whispering] */
         filter?: {
           /** @description If present, participants will be filtered to those who are/are not muted */
@@ -62160,10 +66009,10 @@ export interface operations {
   ListConnections: {
     parameters: {
       query?: {
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id], filter[outbound.outbound_voice_profile_id] */
+        filter?: components['parameters']['connections_FilterConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['connections_PageConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -62176,7 +66025,7 @@ export interface operations {
          *         <code>connection_name</code> field in descending order.
          *       </li>
          *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
-        sort?: components['parameters']['SortConnection'];
+        sort?: components['parameters']['connections_SortConnection'];
       };
       header?: never;
       path?: never;
@@ -62187,14 +66036,14 @@ export interface operations {
       200: components['responses']['ListConnectionsResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
     };
   };
   ListConnectionActiveCalls: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[after], page[before], page[limit], page[size], page[number] */
+        page?: components['parameters']['call-control_PageConsolidated'];
       };
       header?: never;
       path: {
@@ -62206,7 +66055,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ActiveCallsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['call-control_GenericErrorResponse'];
     };
   };
   RetrieveConnection: {
@@ -62224,8 +66073,8 @@ export interface operations {
       200: components['responses']['ConnectionResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
     };
   };
   retreiveCountryCoverage: {
@@ -62238,7 +66087,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['CountryCoverageResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   retreiveSpecificCountryCoverage: {
@@ -62254,16 +66103,16 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SpecificCountryResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   ListCredentialConnections: {
     parameters: {
       query?: {
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id], filter[outbound.outbound_voice_profile_id] */
+        filter?: components['parameters']['connections_FilterConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['connections_PageConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -62276,7 +66125,7 @@ export interface operations {
          *         <code>connection_name</code> field in descending order.
          *       </li>
          *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
-        sort?: components['parameters']['SortConnection'];
+        sort?: components['parameters']['connections_SortConnection'];
       };
       header?: never;
       path?: never;
@@ -62287,7 +66136,7 @@ export interface operations {
       200: components['responses']['ListCredentialConnectionsResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
     };
   };
   CreateCredentialConnection: {
@@ -62306,8 +66155,8 @@ export interface operations {
     responses: {
       201: components['responses']['CredentialConnectionResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      422: components['responses']['UnprocessableEntityResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      422: components['responses']['connections_UnprocessableEntityResponse'];
     };
   };
   RetrieveCredentialConnection: {
@@ -62325,8 +66174,8 @@ export interface operations {
       200: components['responses']['CredentialConnectionResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
     };
   };
   DeleteCredentialConnection: {
@@ -62344,8 +66193,8 @@ export interface operations {
       200: components['responses']['CredentialConnectionResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
     };
   };
   UpdateCredentialConnection: {
@@ -62367,9 +66216,9 @@ export interface operations {
     responses: {
       200: components['responses']['CredentialConnectionResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
-      422: components['responses']['UnprocessableEntityResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
+      422: components['responses']['connections_UnprocessableEntityResponse'];
     };
   };
   CheckRegistrationStatus: {
@@ -62387,8 +66236,8 @@ export interface operations {
       200: components['responses']['RegistrationStatusResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
     };
   };
   GetCustomStorageCredentials: {
@@ -62396,8 +66245,8 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Telnyx connection id */
-        connection_id: components['parameters']['ConnectionId'];
+        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        connection_id: components['parameters']['call-recordings_ConnectionId'];
       };
       cookie?: never;
     };
@@ -62412,8 +66261,8 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Telnyx connection id */
-        connection_id: components['parameters']['ConnectionId'];
+        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        connection_id: components['parameters']['call-recordings_ConnectionId'];
       };
       cookie?: never;
     };
@@ -62428,8 +66277,8 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Telnyx connection id */
-        connection_id: components['parameters']['ConnectionId'];
+        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        connection_id: components['parameters']['call-recordings_ConnectionId'];
       };
       cookie?: never;
     };
@@ -62444,8 +66293,8 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Telnyx connection id */
-        connection_id: components['parameters']['ConnectionId'];
+        /** @description Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection resource. */
+        connection_id: components['parameters']['call-recordings_ConnectionId'];
       };
       cookie?: never;
     };
@@ -62465,9 +66314,9 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['customer_service_record_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        filter?: components['parameters']['customer_service_record_FilterConsolidated'];
         /** @description Consolidated sort parameter (deepObject style). Originally: sort[value] */
         sort?: {
           /**
@@ -62630,15 +66479,15 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Telnyx connection id */
-        connection_id: components['parameters']['ConnectionId'];
+        /** @description Uniquely identifies a Telnyx application (Call Control). */
+        connection_id: components['parameters']['media-streaming_ConnectionId'];
       };
       cookie?: never;
     };
     requestBody?: never;
     responses: {
       200: components['responses']['DialogflowConnectionResponseBody'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['media-streaming_GenericErrorResponse'];
     };
   };
   UpdateDialogflowConnection: {
@@ -62646,15 +66495,15 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Telnyx connection id */
-        connection_id: components['parameters']['ConnectionId'];
+        /** @description Uniquely identifies a Telnyx application (Call Control). */
+        connection_id: components['parameters']['media-streaming_ConnectionId'];
       };
       cookie?: never;
     };
     requestBody: components['requestBodies']['DialogflowConnectionRequest'];
     responses: {
       200: components['responses']['DialogflowConnectionResponseBody'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['media-streaming_GenericErrorResponse'];
     };
   };
   CreateDialogflowConnection: {
@@ -62662,15 +66511,15 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Telnyx connection id */
-        connection_id: components['parameters']['ConnectionId'];
+        /** @description Uniquely identifies a Telnyx application (Call Control). */
+        connection_id: components['parameters']['media-streaming_ConnectionId'];
       };
       cookie?: never;
     };
     requestBody: components['requestBodies']['DialogflowConnectionRequest'];
     responses: {
       201: components['responses']['DialogflowConnectionResponseBody'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['media-streaming_GenericErrorResponse'];
     };
   };
   DeleteDialogflowConnection: {
@@ -62678,8 +66527,8 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Telnyx connection id */
-        connection_id: components['parameters']['ConnectionId'];
+        /** @description Uniquely identifies a Telnyx application (Call Control). */
+        connection_id: components['parameters']['media-streaming_ConnectionId'];
       };
       cookie?: never;
     };
@@ -62692,7 +66541,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['media-streaming_GenericErrorResponse'];
     };
   };
   ListDocumentLinks: {
@@ -62701,7 +66550,7 @@ export interface operations {
         /** @description Consolidated filter parameter for document links (deepObject style). Originally: filter[linked_record_type], filter[linked_resource_id] */
         filter?: components['parameters']['FilterDocumentLinksConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['documents_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -62710,7 +66559,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListDocServiceDocumentLinksResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['documents_GenericErrorResponse'];
     };
   };
   ListDocuments: {
@@ -62721,7 +66570,7 @@ export interface operations {
         /** @description Consolidated sort parameter for documents (deepObject style). Originally: sort[] */
         sort?: components['parameters']['SortDocumentsConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['documents_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -62730,7 +66579,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListDocServiceDocumentsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['documents_GenericErrorResponse'];
     };
   };
   CreateDocument: {
@@ -62749,7 +66598,7 @@ export interface operations {
     responses: {
       200: components['responses']['DocServiceDocumentResponse'];
       422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['documents_GenericErrorResponse'];
     };
   };
   RetrieveDocument: {
@@ -62765,7 +66614,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DocServiceDocumentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['documents_GenericErrorResponse'];
     };
   };
   DeleteDocument: {
@@ -62781,7 +66630,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DocServiceDocumentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['documents_GenericErrorResponse'];
     };
   };
   UpdateDocument: {
@@ -62801,7 +66650,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['DocServiceDocumentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['documents_GenericErrorResponse'];
     };
   };
   DownloadDocument: {
@@ -62817,7 +66666,42 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DownloadDocServiceDocumentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['documents_GenericErrorResponse'];
+    };
+  };
+  getDocumentDownloadLink: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Uniquely identifies the document */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successfully generated download link */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': {
+            data: {
+              /**
+               * Format: uri
+               * @description Pre-signed temporary URL for downloading the document
+               * @example https://s3.amazonaws.com/bucket/path/to/document?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=...
+               */
+              url: string;
+            };
+          };
+        };
+      };
+      404: components['responses']['ResourceNotFound'];
+      422: components['responses']['UnprocessableEntity'];
+      default: components['responses']['documents_GenericErrorResponse'];
     };
   };
   ListDynamicEmergencyAddresses: {
@@ -62834,7 +66718,7 @@ export interface operations {
           country_code?: string;
         };
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['emergency_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -62979,7 +66863,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['emergency_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[status], filter[country_code] */
         filter?: {
           /**
@@ -63175,7 +67059,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['10dlc_Errors'];
         };
       };
     };
@@ -63186,7 +67070,7 @@ export interface operations {
         /** @description Filter parameter for external connections (deepObject style). Supports filtering by connection_name, external_sip_connection, id, created_at, and phone_number. */
         filter?: components['parameters']['FilterConnectionsConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['external-voice-integrations_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -63248,7 +67132,7 @@ export interface operations {
         /** @description Filter parameter for log messages (deepObject style). Supports filtering by external_connection_id and telephone_number with eq/contains operations. */
         filter?: components['parameters']['FilterLogMessagesConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['external-voice-integrations_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -63279,7 +67163,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
       };
       cookie?: never;
     };
@@ -63308,7 +67192,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
       };
       cookie?: never;
     };
@@ -63348,7 +67232,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
       };
       cookie?: never;
     };
@@ -63384,7 +67268,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
       };
       cookie?: never;
     };
@@ -63420,7 +67304,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
       };
       cookie?: never;
     };
@@ -63464,7 +67348,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
       };
       cookie?: never;
     };
@@ -63507,7 +67391,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
         /** @description Identifies a civic address or a location. */
         address_id: components['parameters']['address_id'];
       };
@@ -63614,12 +67498,12 @@ export interface operations {
         /** @description Filter parameter for phone numbers (deepObject style). Supports filtering by phone_number, civic_address_id, and location_id with eq/contains operations. */
         filter?: components['parameters']['FilterPhoneNumbersConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['external-voice-integrations_PageConsolidated'];
       };
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
       };
       cookie?: never;
     };
@@ -63655,7 +67539,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
         /** @description A phone number's ID via the Telnyx API */
         phone_number_id: components['parameters']['phone_number_id'];
       };
@@ -63686,7 +67570,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
         /** @description A phone number's ID via the Telnyx API */
         phone_number_id: components['parameters']['phone_number_id'];
       };
@@ -63729,12 +67613,12 @@ export interface operations {
         /** @description Filter parameter for releases (deepObject style). Supports filtering by status, civic_address_id, location_id, and phone_number with eq/contains operations. */
         filter?: components['parameters']['FilterReleasesConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['external-voice-integrations_PageConsolidated'];
       };
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
       };
       cookie?: never;
     };
@@ -63770,7 +67654,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
         /** @description Identifies a Release request */
         release_id: components['parameters']['release_id'];
       };
@@ -63801,12 +67685,12 @@ export interface operations {
         /** @description Filter parameter for uploads (deepObject style). Supports filtering by status, civic_address_id, location_id, and phone_number with eq/contains operations. */
         filter?: components['parameters']['FilterUploadsConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['external-voice-integrations_PageConsolidated'];
       };
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
       };
       cookie?: never;
     };
@@ -63842,7 +67726,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
       };
       cookie?: never;
     };
@@ -63913,7 +67797,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
       };
       cookie?: never;
     };
@@ -63960,7 +67844,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
       };
       cookie?: never;
     };
@@ -63989,7 +67873,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
         /** @description Identifies an Upload request */
         ticket_id: components['parameters']['ticket_id'];
       };
@@ -64020,7 +67904,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['external-voice-integrations_id'];
         /** @description Identifies an Upload request */
         ticket_id: components['parameters']['ticket_id'];
       };
@@ -64062,10 +67946,10 @@ export interface operations {
   ListFaxApplications: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[application_name][contains], filter[outbound_voice_profile_id] */
+        filter?: components['parameters']['programmable-fax_FilterConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -64078,7 +67962,7 @@ export interface operations {
          *         <code>application_name</code> field in descending order.
          *       </li>
          *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
-        sort?: components['parameters']['SortApplication'];
+        sort?: components['parameters']['programmable-fax_SortApplication'];
       };
       header?: never;
       path?: never;
@@ -64128,7 +68012,7 @@ export interface operations {
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
       403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['programmable-fax_NotFoundResponse'];
     };
   };
   DeleteFaxApplication: {
@@ -64147,7 +68031,7 @@ export interface operations {
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
       403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['programmable-fax_NotFoundResponse'];
     };
   };
   UpdateFaxApplication: {
@@ -64170,7 +68054,7 @@ export interface operations {
       200: components['responses']['FaxApplicationResponse'];
       401: components['responses']['UnauthenticatedResponse'];
       403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['programmable-fax_NotFoundResponse'];
       422: components['responses']['UnprocessableEntityResponse'];
     };
   };
@@ -64252,7 +68136,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListFaxesResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['programmable-fax_GenericErrorResponse'];
     };
   };
   SendFax: {
@@ -64271,7 +68155,7 @@ export interface operations {
     };
     responses: {
       202: components['responses']['SendFaxResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['programmable-fax_GenericErrorResponse'];
     };
   };
   ViewFax: {
@@ -64287,7 +68171,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetFaxResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['programmable-fax_GenericErrorResponse'];
     };
   };
   DeleteFax: {
@@ -64309,7 +68193,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['programmable-fax_GenericErrorResponse'];
     };
   };
   CancelFax: {
@@ -64325,9 +68209,9 @@ export interface operations {
     requestBody?: never;
     responses: {
       202: components['responses']['CancelFaxResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['programmable-fax_NotFoundResponse'];
       422: components['responses']['UnprocessableEntityResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['programmable-fax_GenericErrorResponse'];
     };
   };
   RefreshFax: {
@@ -64343,17 +68227,17 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['RefreshFaxResponse'];
-      404: components['responses']['NotFoundResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      404: components['responses']['programmable-fax_NotFoundResponse'];
+      default: components['responses']['programmable-fax_GenericErrorResponse'];
     };
   };
   ListFqdnConnections: {
     parameters: {
       query?: {
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id], filter[outbound.outbound_voice_profile_id] */
+        filter?: components['parameters']['connections_FilterConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['connections_PageConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -64366,7 +68250,7 @@ export interface operations {
          *         <code>connection_name</code> field in descending order.
          *       </li>
          *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
-        sort?: components['parameters']['SortConnection'];
+        sort?: components['parameters']['connections_SortConnection'];
       };
       header?: never;
       path?: never;
@@ -64377,8 +68261,8 @@ export interface operations {
       200: components['responses']['ListFqdnConnectionsResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
     };
   };
   CreateFqdnConnection: {
@@ -64397,9 +68281,9 @@ export interface operations {
     responses: {
       201: components['responses']['FqdnConnectionResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
-      422: components['responses']['UnprocessableEntityResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
+      422: components['responses']['connections_UnprocessableEntityResponse'];
     };
   };
   RetrieveFqdnConnection: {
@@ -64408,7 +68292,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['connections_id'];
       };
       cookie?: never;
     };
@@ -64416,9 +68300,9 @@ export interface operations {
     responses: {
       200: components['responses']['FqdnConnectionResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
-      422: components['responses']['UnprocessableEntityResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
+      422: components['responses']['connections_UnprocessableEntityResponse'];
     };
   };
   DeleteFqdnConnection: {
@@ -64427,7 +68311,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['connections_id'];
       };
       cookie?: never;
     };
@@ -64435,9 +68319,9 @@ export interface operations {
     responses: {
       200: components['responses']['FqdnConnectionResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
-      422: components['responses']['UnprocessableEntityResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
+      422: components['responses']['connections_UnprocessableEntityResponse'];
     };
   };
   UpdateFqdnConnection: {
@@ -64446,7 +68330,7 @@ export interface operations {
       header?: never;
       path: {
         /** @description Identifies the resource. */
-        id: components['parameters']['id'];
+        id: components['parameters']['connections_id'];
       };
       cookie?: never;
     };
@@ -64459,16 +68343,16 @@ export interface operations {
     responses: {
       200: components['responses']['FqdnConnectionResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
-      422: components['responses']['UnprocessableEntityResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
+      422: components['responses']['connections_UnprocessableEntityResponse'];
     };
   };
   ListFqdns: {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['connections_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[connection_id], filter[fqdn], filter[port], filter[dns_record_type] */
         filter?: {
           /** @description ID of the FQDN connection to which the FQDN belongs. */
@@ -64516,8 +68400,8 @@ export interface operations {
     responses: {
       201: components['responses']['FqdnResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      422: components['responses']['UnprocessableEntityResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      422: components['responses']['connections_UnprocessableEntityResponse'];
     };
   };
   RetrieveFqdn: {
@@ -64535,8 +68419,8 @@ export interface operations {
       200: components['responses']['FqdnResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
     };
   };
   DeleteFqdn: {
@@ -64554,8 +68438,8 @@ export interface operations {
       200: components['responses']['FqdnResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
     };
   };
   UpdateFqdn: {
@@ -64576,9 +68460,9 @@ export interface operations {
     responses: {
       200: components['responses']['FqdnResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
-      422: components['responses']['UnprocessableEntityResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
+      422: components['responses']['connections_UnprocessableEntityResponse'];
     };
   };
   ListGlobalIpAllowedPorts: {
@@ -64591,7 +68475,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpAllowedPortListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetGlobalIpAssignmentHealth: {
@@ -64620,13 +68504,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpHealthResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   ListGlobalIpAssignments: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -64636,7 +68520,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpAssignmentListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   CreateGlobalIpAssignment: {
@@ -64653,8 +68537,8 @@ export interface operations {
     };
     responses: {
       202: components['responses']['GlobalIpAssignmentResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['netapps_UnprocessableEntity'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetGlobalIpAssignment: {
@@ -64670,7 +68554,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpAssignmentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   DeleteGlobalIpAssignment: {
@@ -64686,7 +68570,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpAssignmentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   UpdateGlobalIpAssignment: {
@@ -64706,7 +68590,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['GlobalIpAssignmentResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetGlobalIpAssignmentUsage: {
@@ -64735,7 +68619,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpAssignmentUsageResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   ListGlobalIpHealthCheckTypes: {
@@ -64748,13 +68632,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpHealthCheckTypesResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   ListGlobalIpHealthChecks: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -64764,7 +68648,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpHealthCheckListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   CreateGlobalIpHealthCheck: {
@@ -64781,8 +68665,8 @@ export interface operations {
     };
     responses: {
       202: components['responses']['GlobalIpHealthCheckResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['netapps_UnprocessableEntity'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetGlobalIpHealthCheck: {
@@ -64798,7 +68682,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpHealthCheckResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   DeleteGlobalIpHealthCheck: {
@@ -64814,7 +68698,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpHealthCheckResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetGlobalIpLatency: {
@@ -64837,7 +68721,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpLatencyResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   ListGlobalIpProtocols: {
@@ -64850,7 +68734,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpProtocolListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetGlobalIpUsage: {
@@ -64873,13 +68757,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpUsageResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   ListGlobalIps: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -64889,7 +68773,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   CreateGlobalIp: {
@@ -64906,8 +68790,8 @@ export interface operations {
     };
     responses: {
       202: components['responses']['GlobalIpResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['netapps_UnprocessableEntity'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetGlobalIp: {
@@ -64923,7 +68807,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   DeleteGlobalIp: {
@@ -64939,7 +68823,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GlobalIpResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   ListInboundChannels: {
@@ -65133,7 +69017,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ErrorResponse'];
+          'application/json': components['schemas']['integration-secrets_ErrorResponse'];
         };
       };
     };
@@ -65162,7 +69046,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ErrorResponse'];
+          'application/json': components['schemas']['integration-secrets_ErrorResponse'];
         };
       };
     };
@@ -65251,16 +69135,16 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['InventoryCoverageResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   ListIpConnections: {
     parameters: {
       query?: {
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id], filter[outbound.outbound_voice_profile_id] */
+        filter?: components['parameters']['connections_FilterConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['connections_PageConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -65273,7 +69157,7 @@ export interface operations {
          *         <code>connection_name</code> field in descending order.
          *       </li>
          *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
-        sort?: components['parameters']['SortConnection'];
+        sort?: components['parameters']['connections_SortConnection'];
       };
       header?: never;
       path?: never;
@@ -65284,7 +69168,7 @@ export interface operations {
       200: components['responses']['ListIpConnectionsResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
     };
   };
   CreateIpConnection: {
@@ -65303,8 +69187,8 @@ export interface operations {
     responses: {
       201: components['responses']['IpConnectionResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      422: components['responses']['UnprocessableEntityResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      422: components['responses']['connections_UnprocessableEntityResponse'];
     };
   };
   RetrieveIpConnection: {
@@ -65322,8 +69206,8 @@ export interface operations {
       200: components['responses']['IpConnectionResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
     };
   };
   DeleteIpConnection: {
@@ -65341,8 +69225,8 @@ export interface operations {
       200: components['responses']['IpConnectionResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
     };
   };
   UpdateIpConnection: {
@@ -65364,16 +69248,16 @@ export interface operations {
     responses: {
       200: components['responses']['IpConnectionResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
-      422: components['responses']['UnprocessableEntityResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
+      422: components['responses']['connections_UnprocessableEntityResponse'];
     };
   };
   ListIps: {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['connections_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[connection_id], filter[ip_address], filter[port] */
         filter?: {
           /** @description ID of the IP Connection to which this IP should be attached. */
@@ -65399,7 +69283,7 @@ export interface operations {
       200: components['responses']['ListIpsResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
     };
   };
   CreateIp: {
@@ -65417,8 +69301,8 @@ export interface operations {
     responses: {
       201: components['responses']['IpResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      422: components['responses']['UnprocessableEntityResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      422: components['responses']['connections_UnprocessableEntityResponse'];
     };
   };
   RetrieveIp: {
@@ -65436,8 +69320,8 @@ export interface operations {
       200: components['responses']['IpResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
     };
   };
   DeleteIp: {
@@ -65455,8 +69339,8 @@ export interface operations {
       200: components['responses']['IpResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
     };
   };
   UpdateIp: {
@@ -65477,9 +69361,9 @@ export interface operations {
     responses: {
       200: components['responses']['IpResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
-      422: components['responses']['UnprocessableEntityResponse'];
+      403: components['responses']['connections_UnauthorizedResponse'];
+      404: components['responses']['connections_NotFoundResponse'];
+      422: components['responses']['connections_UnprocessableEntityResponse'];
     };
   };
   CreateBillingGroupReport: {
@@ -65516,7 +69400,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['billing-group_Errors'];
         };
       };
     };
@@ -65553,7 +69437,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['billing-group_Errors'];
         };
       };
     };
@@ -65588,12 +69472,23 @@ export interface operations {
   ListManagedAccounts: {
     parameters: {
       query?: {
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[email][contains], filter[email][eq], filter[organization_name][contains], filter[organization_name][eq] */
+        filter?: components['parameters']['managed-accounts_FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
-        /** @description Set the order of the results by the creation date. */
-        sort?: components['parameters']['Sort'];
+        /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
+         *     That is: <ul>
+         *       <li>
+         *         <code>email</code>: sorts the result by the
+         *         <code>email</code> field in ascending order.
+         *       </li>
+         *
+         *       <li>
+         *         <code>-email</code>: sorts the result by the
+         *         <code>email</code> field in descending order.
+         *       </li>
+         *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
+        sort?: components['parameters']['managed-accounts_Sort'];
         /** @description Specifies if cancelled accounts should be included in the results. */
         include_cancelled_accounts?: components['parameters']['IncludeCancelledAccounts'];
       };
@@ -65604,7 +69499,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListManagedAccountsResponse'];
-      401: components['responses']['UnauthorizedResponse'];
+      401: components['responses']['managed-accounts_UnauthorizedResponse'];
     };
   };
   CreateManagedAccount: {
@@ -65622,7 +69517,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['ManagedAccountResponse'];
-      401: components['responses']['UnauthorizedResponse'];
+      401: components['responses']['managed-accounts_UnauthorizedResponse'];
       422: components['responses']['UnprocessableManagedAccountEntity'];
     };
   };
@@ -65636,7 +69531,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListManagedAccountsAllocatableGlobalOutboundChannelsResponse'];
-      401: components['responses']['UnauthorizedResponse'];
+      401: components['responses']['managed-accounts_UnauthorizedResponse'];
       403: components['responses']['ForbiddenResponse'];
     };
   };
@@ -65653,7 +69548,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ManagedAccountResponse'];
-      401: components['responses']['UnauthorizedResponse'];
+      401: components['responses']['managed-accounts_UnauthorizedResponse'];
       /** @description Resource not found */
       404: {
         headers: {
@@ -65681,7 +69576,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['ManagedAccountResponse'];
-      401: components['responses']['UnauthorizedResponse'];
+      401: components['responses']['managed-accounts_UnauthorizedResponse'];
       /** @description Resource not found */
       404: {
         headers: {
@@ -65705,7 +69600,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ManagedAccountResponse'];
-      401: components['responses']['UnauthorizedResponse'];
+      401: components['responses']['managed-accounts_UnauthorizedResponse'];
       /** @description Resource not found */
       404: {
         headers: {
@@ -65741,7 +69636,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['ManagedAccountResponse'];
-      401: components['responses']['UnauthorizedResponse'];
+      401: components['responses']['managed-accounts_UnauthorizedResponse'];
       /** @description Resource not found */
       404: {
         headers: {
@@ -65770,7 +69665,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['UpdateManagedAccountGlobalChannelLimitResponse'];
-      401: components['responses']['UnauthorizedResponse'];
+      401: components['responses']['managed-accounts_UnauthorizedResponse'];
       /** @description Resource not found */
       404: {
         headers: {
@@ -65797,7 +69692,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListMediaResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['media-storage_GenericErrorResponse'];
     };
   };
   CreateMediaStorage: {
@@ -65816,7 +69711,7 @@ export interface operations {
     };
     responses: {
       201: components['responses']['MediaResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['media-storage_GenericErrorResponse'];
     };
   };
   GetMediaStorage: {
@@ -65832,7 +69727,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['MediaResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['media-storage_GenericErrorResponse'];
     };
   };
   UpdateMediaStorage: {
@@ -65854,7 +69749,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['MediaResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['media-storage_GenericErrorResponse'];
     };
   };
   DeleteMediaStorage: {
@@ -65876,7 +69771,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['media-storage_GenericErrorResponse'];
     };
   };
   DownloadMedia: {
@@ -65892,7 +69787,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['MediaDownloadResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['media-storage_GenericErrorResponse'];
     };
   };
   SendMessage: {
@@ -65910,7 +69805,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['MessageResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   CreateGroupMmsMessage: {
@@ -65928,7 +69823,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['MessageResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   CreateLongCodeMessage: {
@@ -65946,7 +69841,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['MessageResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   CreateNumberPoolMessage: {
@@ -65964,7 +69859,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['MessageResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   ScheduleMessage: {
@@ -65982,7 +69877,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['MessageResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   CreateShortCodeMessage: {
@@ -66000,7 +69895,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['MessageResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   GetMessage: {
@@ -66028,7 +69923,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   CancelMessage: {
@@ -66058,7 +69953,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Error'];
+          'application/json': components['schemas']['messaging_Error'];
         };
       };
       /** @description Not found. */
@@ -66067,16 +69962,16 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Error'];
+          'application/json': components['schemas']['messaging_Error'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   ListMessagingHostedNumberOrders: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -66086,7 +69981,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListMessagingHostedNumberOrdersResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   CreateMessagingHostedNumberOrder: {
@@ -66104,7 +69999,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['MessagingHostedNumberOrderResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   CheckEligibilityNumbers: {
@@ -66136,7 +70031,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Error'];
+          'application/json': components['schemas']['messaging_Error'];
         };
       };
       /** @description Unauthorized */
@@ -66145,7 +70040,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Error'];
+          'application/json': components['schemas']['messaging_Error'];
         };
       };
     };
@@ -66163,7 +70058,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['MessagingHostedNumberOrderResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   DeleteMessagingHostedNumberOrder: {
@@ -66179,7 +70074,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['MessagingHostedNumberOrderResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   UploadMessagingHostedNumberOrderFile: {
@@ -66200,7 +70095,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['MessagingHostedNumberOrderResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   ValidateVerificationCodesForMessagingHostedNumberOrder: {
@@ -66221,7 +70116,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['ValidationCodesResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   CreateVerificationCodesForMessagingHostedNumberOrder: {
@@ -66250,7 +70145,7 @@ export interface operations {
           'application/json': components['schemas']['CreatedVerificationCodesResponse'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   DeleteMessagingHostedNumber: {
@@ -66266,7 +70161,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['MessagingHostedNumberOrderResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   BulkUpdateMessagingSettingsOnPhoneNumbers: {
@@ -66283,7 +70178,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['BulkMessagingSettingsUpdatePhoneNumbersResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   GetBulkUpdateMessagingSettingsOnPhoneNumbersStatus: {
@@ -66299,7 +70194,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['BulkMessagingSettingsUpdatePhoneNumbersResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   ListOptOuts: {
@@ -66317,7 +70212,7 @@ export interface operations {
           /** @description The sending address (+E.164 formatted phone number, alphanumeric sender ID, or short code) to retrieve opt-outs for */
           from?: string;
         };
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
         /** @description Consolidated created_at parameter (deepObject style). Originally: created_at[gte], created_at[lte] */
         created_at?: {
@@ -66354,7 +70249,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Error'];
+          'application/json': components['schemas']['messaging_Error'];
         };
       };
       /** @description Unauthorized */
@@ -66363,7 +70258,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Error'];
+          'application/json': components['schemas']['messaging_Error'];
         };
       };
     };
@@ -66376,7 +70271,7 @@ export interface operations {
           /** @description Filter by name */
           name?: string;
         };
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -66386,7 +70281,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListMessagingProfilesResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   CreateMessagingProfile: {
@@ -66404,7 +70299,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['MessagingProfileResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   RetrieveMessagingProfile: {
@@ -66420,7 +70315,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['MessagingProfileResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   DeleteMessagingProfile: {
@@ -66436,7 +70331,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['MessagingProfileResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   UpdateMessagingProfile: {
@@ -66457,13 +70352,13 @@ export interface operations {
     };
     responses: {
       200: components['responses']['MessagingProfileResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   ListProfilePhoneNumbers: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -66476,13 +70371,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListMessagingProfilePhoneNumbersResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   ListProfileShortCodes: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -66495,7 +70390,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListMessagingProfileShortCodesResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   GetAutorespConfigs: {
@@ -66579,7 +70474,7 @@ export interface operations {
           'application/json': components['schemas']['AutorespConfigsResponseSchema'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   CreateAutorespConfig: {
@@ -66619,7 +70514,7 @@ export interface operations {
           'application/json': components['schemas']['AutorespConfigResponseSchema'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   GetAutorespConfig: {
@@ -66656,7 +70551,7 @@ export interface operations {
           'application/json': components['schemas']['AutorespConfigResponseSchema'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   UpdateAutoRespConfig: {
@@ -66698,7 +70593,7 @@ export interface operations {
           'application/json': components['schemas']['AutorespConfigResponseSchema'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   DeleteAutorespConfig: {
@@ -66722,7 +70617,7 @@ export interface operations {
           'application/json': unknown;
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   ListVerificationRequests: {
@@ -66755,7 +70650,7 @@ export interface operations {
           'application/json': components['schemas']['Paginated_VerificationRequestStatus_'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['toll-free-verification_GenericErrorResponse'];
     };
   };
   SubmitVerificationRequest: {
@@ -66780,7 +70675,7 @@ export interface operations {
           'application/json': components['schemas']['VerificationRequestEgress'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['toll-free-verification_GenericErrorResponse'];
     };
   };
   GetVerificationRequest: {
@@ -66803,7 +70698,7 @@ export interface operations {
           'application/json': components['schemas']['VerificationRequestStatus'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['toll-free-verification_GenericErrorResponse'];
     };
   };
   DeleteVerificationRequest: {
@@ -66826,7 +70721,7 @@ export interface operations {
           'application/json': unknown;
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['toll-free-verification_GenericErrorResponse'];
     };
   };
   UpdateVerificationRequest: {
@@ -66853,13 +70748,13 @@ export interface operations {
           'application/json': components['schemas']['VerificationRequestEgress'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['toll-free-verification_GenericErrorResponse'];
     };
   };
   ListMessagingUrlDomains: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -66869,7 +70764,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListMessagingUrlDomains'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   GetMobileNetworkOperators: {
@@ -66877,8 +70772,8 @@ export interface operations {
       query?: {
         /** @description Consolidated filter parameter for mobile network operators (deepObject style). Originally: filter[name][starts_with], filter[name][contains], filter[name][ends_with], filter[country_code], filter[mcc], filter[mnc], filter[tadig], filter[network_preferences_enabled] */
         filter?: components['parameters']['FilterMobileNetworkOperatorsConsolidated'];
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated pagination parameter (deepObject style). Originally: page[number], page[size] */
+        page?: components['parameters']['wireless_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -66894,14 +70789,14 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   ListPushCredentials: {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['push-notifications_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[type], filter[alias] */
         filter?: {
           /**
@@ -66938,7 +70833,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['push-notifications_Errors'];
         };
       };
     };
@@ -66974,7 +70869,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['push-notifications_Errors'];
         };
       };
       /** @description Unable to process request */
@@ -66983,7 +70878,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['push-notifications_Errors'];
         };
       };
     };
@@ -67015,7 +70910,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['push-notifications_Errors'];
         };
       };
       /** @description Resource not found */
@@ -67024,7 +70919,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['push-notifications_Errors'];
         };
       };
       /** @description Unable to process request */
@@ -67033,7 +70928,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['push-notifications_Errors'];
         };
       };
     };
@@ -67063,7 +70958,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['push-notifications_Errors'];
         };
       };
       /** @description Resource not found */
@@ -67072,7 +70967,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['push-notifications_Errors'];
         };
       };
       /** @description Unable to process request */
@@ -67081,7 +70976,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['push-notifications_Errors'];
         };
       };
     };
@@ -67121,7 +71016,7 @@ export interface operations {
            */
           'location.code'?: string;
         };
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -67131,7 +71026,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['NetworkCoverageListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   ListNetworks: {
@@ -67145,7 +71040,7 @@ export interface operations {
            */
           name?: string;
         };
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -67155,7 +71050,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['NetworkListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   CreateNetwork: {
@@ -67172,8 +71067,8 @@ export interface operations {
     };
     responses: {
       200: components['responses']['NetworkResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['netapps_UnprocessableEntity'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetNetwork: {
@@ -67189,7 +71084,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['NetworkResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   DeleteNetwork: {
@@ -67205,7 +71100,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['NetworkResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   UpdateNetwork: {
@@ -67225,7 +71120,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['NetworkResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetDefaultGateway: {
@@ -67241,7 +71136,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DefaultGatewayResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   CreateDefaultGateway: {
@@ -67261,7 +71156,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['DefaultGatewayResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   DeleteDefaultGateway: {
@@ -67277,7 +71172,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DefaultGatewayResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   ListNetworkInterfaces: {
@@ -67298,7 +71193,7 @@ export interface operations {
           /** @description The interface status to filter on. */
           status?: components['schemas']['InterfaceStatus'];
         };
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -67311,16 +71206,16 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['NetworkInterfaceListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   ListNotificationChannels: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[associated_record_type][eq], filter[channel_type_id][eq], filter[notification_profile_id][eq], filter[notification_channel][eq], filter[notification_event_condition_id][eq], filter[status][eq] */
+        filter?: components['parameters']['notifications_FilterConsolidated'];
       };
       header?: never;
       path?: never;
@@ -67340,7 +71235,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   CreateNotificationChannels: {
@@ -67368,7 +71263,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   GetNotificationChannel: {
@@ -67376,8 +71271,8 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['Id'];
+        /** @description The id of the resource. */
+        id: components['parameters']['notifications_Id'];
       };
       cookie?: never;
     };
@@ -67394,7 +71289,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   DeleteNotificationChannel: {
@@ -67402,8 +71297,8 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['Id'];
+        /** @description The id of the resource. */
+        id: components['parameters']['notifications_Id'];
       };
       cookie?: never;
     };
@@ -67420,7 +71315,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   UpdateNotificationChannel: {
@@ -67428,8 +71323,8 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['Id'];
+        /** @description The id of the resource. */
+        id: components['parameters']['notifications_Id'];
       };
       cookie?: never;
     };
@@ -67451,16 +71346,16 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   FindNotificationsEventsConditions: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[associated_record_type][eq], filter[channel_type_id][eq], filter[notification_profile_id][eq], filter[notification_channel][eq], filter[notification_event_condition_id][eq], filter[status][eq] */
+        filter?: components['parameters']['notifications_FilterConsolidated'];
       };
       header?: never;
       path?: never;
@@ -67480,13 +71375,13 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   FindNotificationsEvents: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -67507,13 +71402,13 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   FindNotificationsProfiles: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -67534,7 +71429,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   CreateNotificationProfile: {
@@ -67562,7 +71457,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   GetNotificationProfile: {
@@ -67570,8 +71465,8 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['Id'];
+        /** @description The id of the resource. */
+        id: components['parameters']['notifications_Id'];
       };
       cookie?: never;
     };
@@ -67588,7 +71483,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   DeleteNotificationProfile: {
@@ -67596,8 +71491,8 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['Id'];
+        /** @description The id of the resource. */
+        id: components['parameters']['notifications_Id'];
       };
       cookie?: never;
     };
@@ -67614,7 +71509,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   UpdateNotificationProfile: {
@@ -67622,8 +71517,8 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['Id'];
+        /** @description The id of the resource. */
+        id: components['parameters']['notifications_Id'];
       };
       cookie?: never;
     };
@@ -67645,16 +71540,16 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   ListNotificationSettings: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[associated_record_type][eq], filter[channel_type_id][eq], filter[notification_profile_id][eq], filter[notification_channel][eq], filter[notification_event_condition_id][eq], filter[status][eq] */
+        filter?: components['parameters']['notifications_FilterConsolidated'];
       };
       header?: never;
       path?: never;
@@ -67674,7 +71569,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   CreateNotificationSetting: {
@@ -67712,7 +71607,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   GetNotificationSetting: {
@@ -67720,8 +71615,8 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['Id'];
+        /** @description The id of the resource. */
+        id: components['parameters']['notifications_Id'];
       };
       cookie?: never;
     };
@@ -67738,7 +71633,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   DeleteNotificationSetting: {
@@ -67746,8 +71641,8 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description Identifies the resource. */
-        id: components['parameters']['Id'];
+        /** @description The id of the resource. */
+        id: components['parameters']['notifications_Id'];
       };
       cookie?: never;
     };
@@ -67775,14 +71670,14 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['notifications_GenericErrorResponse'];
     };
   };
   ListNumberBlockOrders: {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['numbers_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[status], filter[created_at], filter[phone_numbers.starting_number] */
         filter?: {
           /**
@@ -67817,7 +71712,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListNumberBlockOrdersResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   CreateNumberBlockOrder: {
@@ -67834,7 +71729,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['NumberBlockOrderResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   RetrieveNumberBlockOrder: {
@@ -67850,7 +71745,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['NumberBlockOrderResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   LookupNumber: {
@@ -67869,8 +71764,8 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['NumberLookupResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['number-lookup_UnprocessableEntity'];
+      default: components['responses']['number-lookup_GenericErrorResponse'];
     };
   };
   RetrieveOrderPhoneNumbers: {
@@ -67892,7 +71787,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListNumberOrderPhoneNumbersResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   updateNumberOrderPhoneNumberRequirementGroup: {
@@ -67928,7 +71823,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   GetNumberOrderPhoneNumber: {
@@ -67944,7 +71839,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['NumberOrderPhoneNumberResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   UpdateNumberOrderPhoneNumber: {
@@ -67964,14 +71859,14 @@ export interface operations {
     };
     responses: {
       200: components['responses']['NumberOrderPhoneNumberResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   ListNumberOrders: {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['numbers_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[status], filter[created_at], filter[phone_numbers_count], filter[customer_reference], filter[requirements_met] */
         filter?: {
           /** @description Filter number orders by status. */
@@ -67998,7 +71893,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListNumberOrdersResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   CreateNumberOrder: {
@@ -68015,7 +71910,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['NumberOrderResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   RetrieveNumberOrder: {
@@ -68031,7 +71926,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['NumberOrderResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   UpdateNumberOrder: {
@@ -68051,14 +71946,14 @@ export interface operations {
     };
     responses: {
       200: components['responses']['NumberOrderResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   ListNumberReservations: {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['numbers_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[status], filter[created_at], filter[phone_numbers.phone_number], filter[customer_reference] */
         filter?: {
           /** @description Filter number reservations by status. */
@@ -68083,7 +71978,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListNumberReservationsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   CreateNumberReservation: {
@@ -68100,7 +71995,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['NumberReservationResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   RetrieveNumberReservation: {
@@ -68116,7 +72011,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['NumberReservationResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   ExtendNumberReservationExpiryTime: {
@@ -68132,7 +72027,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['NumberReservationResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   PostNumbersFeatures: {
@@ -68229,8 +72124,8 @@ export interface operations {
       query?: {
         /** @description Consolidated filter parameter for OTA updates (deepObject style). Originally: filter[status], filter[sim_card_id], filter[type] */
         filter?: components['parameters']['FilterOTAUpdatesConsolidated'];
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated pagination parameter (deepObject style). Originally: page[number], page[size] */
+        page?: components['parameters']['wireless_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -68246,7 +72141,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetOtaUpdate: {
@@ -68269,16 +72164,16 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   ListOutboundVoiceProfiles: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: components['parameters']['outbound-voice-profiles_PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[name][contains] */
+        filter?: components['parameters']['outbound-voice-profiles_FilterConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code>-</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -68747,7 +72642,7 @@ export interface operations {
             | components['schemas']['SettingsDataErrorMessage'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['10dlc_GenericErrorResponse'];
     };
   };
   GetAssignmentTaskStatus: {
@@ -68770,7 +72665,7 @@ export interface operations {
           'application/json': components['schemas']['AssignmentTaskStatusResponse'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['10dlc_GenericErrorResponse'];
     };
   };
   GetPhoneNumberStatus: {
@@ -68796,14 +72691,14 @@ export interface operations {
           'application/json': components['schemas']['PhoneNumberStatusResponsePaginated'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['10dlc_GenericErrorResponse'];
     };
   };
   ListPhoneNumberBlocksJobs: {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['numbers_PageConsolidated'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?: 'created_at';
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[type], filter[status] */
@@ -68829,7 +72724,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListPhoneNumberBlocksJobsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   CreatePhoneNumberBlockDeletionJob: {
@@ -68856,7 +72751,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   GetPhoneNumberBlocksJob: {
@@ -68882,7 +72777,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   GetAllPhoneNumberCampaigns: {
@@ -68890,8 +72785,8 @@ export interface operations {
       query?: {
         recordsPerPage?: number;
         page?: number;
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[telnyx_campaign_id], filter[telnyx_brand_id], filter[tcr_campaign_id], filter[tcr_brand_id] */
+        filter?: components['parameters']['10dlc_FilterConsolidated'];
         /**
          * @description Specifies the sort order for results. If not given, results are sorted by createdAt in descending order.
          * @example -phoneNumber
@@ -68919,7 +72814,7 @@ export interface operations {
           'application/json': components['schemas']['PhoneNumberCampaignPaginated'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['10dlc_GenericErrorResponse'];
     };
   };
   CreatePhoneNumberCampaign: {
@@ -68944,7 +72839,7 @@ export interface operations {
           'application/json': components['schemas']['PhoneNumberCampaign'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['10dlc_GenericErrorResponse'];
     };
   };
   GetSinglePhoneNumberCampaign: {
@@ -68967,7 +72862,7 @@ export interface operations {
           'application/json': components['schemas']['PhoneNumberCampaign'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['10dlc_GenericErrorResponse'];
     };
   };
   PutPhoneNumberCampaign: {
@@ -68994,7 +72889,7 @@ export interface operations {
           'application/json': components['schemas']['PhoneNumberCampaign'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['10dlc_GenericErrorResponse'];
     };
   };
   DeletePhoneNumberCampaign: {
@@ -69009,14 +72904,14 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SinglePhoneNumberCampaign'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['10dlc_GenericErrorResponse'];
     };
   };
   ListPhoneNumbers: {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['numbers_PageConsolidated'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?:
           | 'purchased_at'
@@ -69115,7 +73010,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListPhoneNumbersResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   VerifyPhoneNumberOwnership: {
@@ -69148,17 +73043,17 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['numbers_Errors'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   ListCsvDownloads: {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['numbers_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -69167,7 +73062,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListCsvDownloadsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   CreateCsvDownload: {
@@ -69254,7 +73149,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['CsvDownloadResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   GetCsvDownload: {
@@ -69270,14 +73165,14 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['CsvDownloadResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   ListPhoneNumbersJobs: {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['numbers_PageConsolidated'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?: 'created_at';
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[type] */
@@ -69300,17 +73195,17 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListPhoneNumbersJobsResponse'];
-      401: components['responses']['UnauthorizedResponse'];
+      401: components['responses']['numbers_UnauthorizedResponse'];
       /** @description Unprocessable Entity */
       422: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['numbers_Errors'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   CreateDeletePhoneNumbersJob: {
@@ -69337,18 +73232,18 @@ export interface operations {
           };
         };
       };
-      401: components['responses']['UnauthorizedResponse'];
-      403: components['responses']['ForbiddenResponse'];
+      401: components['responses']['numbers_UnauthorizedResponse'];
+      403: components['responses']['numbers_ForbiddenResponse'];
       /** @description Unprocessable Entity */
       422: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['numbers_Errors'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   CreatePhoneNumbersJobUpdateEmergencySettings: {
@@ -69375,18 +73270,18 @@ export interface operations {
           };
         };
       };
-      401: components['responses']['UnauthorizedResponse'];
-      403: components['responses']['ForbiddenResponse'];
+      401: components['responses']['numbers_UnauthorizedResponse'];
+      403: components['responses']['numbers_ForbiddenResponse'];
       /** @description Unprocessable Entity */
       422: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['numbers_Errors'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   CreateUpdatePhoneNumbersJob: {
@@ -69485,14 +73380,14 @@ export interface operations {
           };
         };
       };
-      401: components['responses']['UnauthorizedResponse'];
+      401: components['responses']['numbers_UnauthorizedResponse'];
       /** @description Forbidden */
       403: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['numbers_Errors'];
         };
       };
       /** @description Unprocessable Entity */
@@ -69501,10 +73396,10 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['numbers_Errors'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   RetrievePhoneNumbersJob: {
@@ -69530,23 +73425,23 @@ export interface operations {
           };
         };
       };
-      401: components['responses']['UnauthorizedResponse'];
+      401: components['responses']['numbers_UnauthorizedResponse'];
       /** @description Not Found */
       404: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Errors'];
+          'application/json': components['schemas']['numbers_Errors'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   ListPhoneNumbersWithMessagingSettings: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -69556,14 +73451,14 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListPhoneNumbersWithMessagingSettingsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   SlimListPhoneNumbers: {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['numbers_PageConsolidated'];
         /** @description Include the connection associated with the phone number. */
         include_connection?: boolean;
         /** @description Include the tags associated with the phone number. */
@@ -69666,14 +73561,14 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SlimListPhoneNumbersResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   ListPhoneNumbersWithVoiceSettings: {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['numbers_PageConsolidated'];
         /** @description Specifies the sort order for results. If not given, results are sorted by created_at in descending order. */
         sort?:
           | 'purchased_at'
@@ -69710,7 +73605,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListPhoneNumbersWithVoiceSettingsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   RetrievePhoneNumber: {
@@ -69726,7 +73621,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['PhoneNumberResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   DeletePhoneNumber: {
@@ -69742,7 +73637,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DeletePhoneNumberResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   UpdatePhoneNumber: {
@@ -69763,7 +73658,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['PhoneNumberResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   PhoneNumberBundleStatusChange: {
@@ -69793,7 +73688,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   EnablePhoneNumberEmergency: {
@@ -69834,7 +73729,7 @@ export interface operations {
           };
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   GetPhoneNumberMessagingSettings: {
@@ -69850,7 +73745,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['PhoneNumberWithMessagingSettingsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   UpdatePhoneNumberMessagingSettings: {
@@ -69873,7 +73768,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['PhoneNumberWithMessagingSettingsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   GetPhoneNumberVoiceSettings: {
@@ -69889,7 +73784,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['PhoneNumberWithVoiceSettingsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   UpdatePhoneNumberVoiceSettings: {
@@ -69910,7 +73805,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['PhoneNumberWithVoiceSettingsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   GetVoicemail: {
@@ -70059,7 +73954,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['listRegulatoryRequirementsPhoneNumbers'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   PostPortabilityCheck: {
@@ -70106,7 +74001,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[type], filter[porting_order_id], filter[created_at][gte], filter[created_at][lte] */
         filter?: {
           /**
@@ -70255,7 +74150,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -70439,7 +74334,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[report_type], filter[status] */
         filter?: {
           /**
@@ -70564,7 +74459,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
         /** @description Include the first 50 phone number objects in the results */
         include_phone_numbers?: components['parameters']['QueryIncludePhoneNumbers'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[customer_reference], filter[parent_support_key], filter[phone_numbers.country_code], filter[phone_numbers.carrier_name], filter[misc.type], filter[end_user.admin.entity_name], filter[end_user.admin.auth_person_name], filter[activation_settings.fast_port_eligible], filter[activation_settings.foc_datetime_requested][gt], filter[activation_settings.foc_datetime_requested][lt], filter[phone_numbers.phone_number][contains] */
@@ -70701,7 +74596,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[porting_order.status][in][], filter[porting_phone_number][in][], filter[user_bundle_id][in][] */
         filter?: {
           /** @description Filter results by specific porting order statuses */
@@ -70993,7 +74888,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
       };
       header?: never;
       path: {
@@ -71087,7 +74982,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[document_type] */
         filter?: {
           /** @description Filter additional documents by a list of document types */
@@ -71228,7 +75123,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
       };
       header?: never;
       path: {
@@ -71321,7 +75216,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
       };
       header?: never;
       path: {
@@ -71382,7 +75277,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[verified] */
         filter?: {
           /**
@@ -71509,7 +75404,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[id][in][], filter[requirement_type_id], filter[action_type], filter[status] */
         filter?: {
           /** @description Filter action requirements by a list of IDs */
@@ -71629,7 +75524,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number], filter[action] */
         filter?: {
           /**
@@ -71751,10 +75646,10 @@ export interface operations {
   listPortingPhoneNumberBlocks: {
     parameters: {
       query?: {
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[porting_order_id], filter[support_key], filter[status], filter[phone_number], filter[activation_status], filter[portability_status] */
+        filter?: components['parameters']['porting-order_FilterConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
         /** @description Consolidated sort parameter (deepObject style). Originally: sort[value] */
         sort?: {
           /**
@@ -71871,7 +75766,7 @@ export interface operations {
           porting_phone_number_id?: string;
         };
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
         /** @description Consolidated sort parameter (deepObject style). Originally: sort[value] */
         sort?: {
           /**
@@ -71979,7 +75874,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['porting-order_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[porting_order_status] */
         filter?: {
           /**
@@ -72024,9 +75919,9 @@ export interface operations {
   ListPortoutRequest: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[carrier_name], filter[pon], filter[spid], filter[status], filter[status_in], filter[ported_out_at], filter[inserted_at], filter[foc_date], filter[phone_number], filter[support_key] */
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[carrier_name], filter[country_code], filter[country_code_in], filter[foc_date], filter[inserted_at], filter[phone_number], filter[pon], filter[ported_out_at], filter[spid], filter[status], filter[status_in], filter[support_key] */
         filter?: {
           /** @description Filter by new carrier name. */
           carrier_name?: string;
@@ -72054,6 +75949,19 @@ export interface operations {
             | 'rejected-pending'
             | 'canceled'
           )[];
+          /**
+           * @description Filter by 2-letter country code
+           * @example US
+           */
+          country_code?: string;
+          /**
+           * @description Filter by a list of 2-letter country codes
+           * @example [
+           *       "CA",
+           *       "US"
+           *     ]
+           */
+          country_code_in?: string[];
           /** @description Filter by ported_out_at date range using nested operations */
           ported_out_at?: {
             /**
@@ -72135,7 +76043,7 @@ export interface operations {
   listPortoutEvents: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[event_type], filter[portout_id], filter[created_at] */
         filter?: {
@@ -72295,7 +76203,7 @@ export interface operations {
   ListPortoutReports: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[report_type], filter[status] */
         filter?: {
@@ -72651,7 +76559,7 @@ export interface operations {
         /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
         /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        'page[size]'?: components['parameters']['wireless_PageSize'];
         /**
          * @description The name of the Private Wireless Gateway.
          * @example my private gateway
@@ -72692,7 +76600,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   CreatePrivateWirelessGateway: {
@@ -72726,8 +76634,8 @@ export interface operations {
     };
     responses: {
       202: components['responses']['CreatePrivateWirelessGatewayResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['wireless_UnprocessableEntity'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetPrivateWirelessGateway: {
@@ -72743,8 +76651,8 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetPrivateWirelessGatewayResponse'];
-      404: components['responses']['ResourceNotFound'];
-      default: components['responses']['GenericErrorResponse'];
+      404: components['responses']['wireless_ResourceNotFound'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   DeleteWirelessGateway: {
@@ -72760,8 +76668,8 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DeletePrivateWirelessGatewayResponse'];
-      404: components['responses']['ResourceNotFound'];
-      default: components['responses']['GenericErrorResponse'];
+      404: components['responses']['wireless_ResourceNotFound'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   ListPublicInternetGateways: {
@@ -72775,7 +76683,7 @@ export interface operations {
            */
           network_id?: string;
         };
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -72785,7 +76693,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['PublicInternetGatewayListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   CreatePublicInternetGateway: {
@@ -72802,8 +76710,8 @@ export interface operations {
     };
     responses: {
       202: components['responses']['PublicInternetGatewayResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['netapps_UnprocessableEntity'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetPublicInternetGateway: {
@@ -72819,7 +76727,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['PublicInternetGatewayResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   DeletePublicInternetGateway: {
@@ -72835,7 +76743,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['PublicInternetGatewayResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   RetrieveCallQueue: {
@@ -72857,8 +76765,8 @@ export interface operations {
   ListQueueCalls: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[after], page[before], page[limit], page[size], page[number] */
+        page?: components['parameters']['call-control_PageConsolidated'];
       };
       header?: never;
       path: {
@@ -72940,7 +76848,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['call-recordings_PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[conference_id], filter[created_at][gte], filter[created_at][lte], filter[call_leg_id], filter[call_session_id], filter[from], filter[to], filter[connection_id] */
         filter?: {
           /**
@@ -73060,7 +76968,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['RegionListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   ListRegulatoryRequirements: {
@@ -73107,7 +77015,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['listRegulatoryRequirements'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   GetCDRUsageReportSync: {
@@ -73590,7 +77498,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DocReqsListRequirementTypesResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['documents_GenericErrorResponse'];
     };
   };
   RetrieveRequirementType: {
@@ -73609,7 +77517,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DocReqsRequirementTypeResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['documents_GenericErrorResponse'];
     };
   };
   ListRequirements: {
@@ -73620,7 +77528,7 @@ export interface operations {
         /** @description Consolidated sort parameter for requirements (deepObject style). Originally: sort[] */
         sort?: components['parameters']['SortRequirementsConsolidated'];
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['documents_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -73629,7 +77537,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListRequirementsResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['documents_GenericErrorResponse'];
     };
   };
   RetrieveDocumentRequirements: {
@@ -73648,7 +77556,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DocReqsRequirementResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['documents_GenericErrorResponse'];
     };
   };
   ListRoomCompositions: {
@@ -73690,7 +77598,7 @@ export interface operations {
           status?: 'completed' | 'processing' | 'enqueued';
         };
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['video_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -73716,7 +77624,7 @@ export interface operations {
     };
     responses: {
       202: components['responses']['CreateRoomCompositionResponse'];
-      422: components['responses']['UnprocessableEntity'];
+      422: components['responses']['video_UnprocessableEntity'];
     };
   };
   ViewRoomComposition: {
@@ -73732,7 +77640,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetRoomCompositionResponse'];
-      404: components['responses']['ResourceNotFound'];
+      404: components['responses']['video_ResourceNotFound'];
     };
   };
   DeleteRoomComposition: {
@@ -73754,7 +77662,7 @@ export interface operations {
         };
         content?: never;
       };
-      404: components['responses']['ResourceNotFound'];
+      404: components['responses']['video_ResourceNotFound'];
     };
   };
   ListRoomParticipants: {
@@ -73834,7 +77742,7 @@ export interface operations {
           session_id?: string;
         };
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['video_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -73858,7 +77766,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetRoomParticipantResponse'];
-      404: components['responses']['ResourceNotFound'];
+      404: components['responses']['video_ResourceNotFound'];
     };
   };
   ListRoomRecordings: {
@@ -73941,7 +77849,7 @@ export interface operations {
           duration_secs?: number;
         };
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['video_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -74032,7 +77940,7 @@ export interface operations {
           duration_secs?: number;
         };
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['video_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -74041,7 +77949,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       201: components['responses']['BulkDeleteRoomRecordingsResponse'];
-      422: components['responses']['UnprocessableEntity'];
+      422: components['responses']['video_UnprocessableEntity'];
     };
   };
   ViewRoomRecording: {
@@ -74057,7 +77965,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetRoomRecordingResponse'];
-      404: components['responses']['ResourceNotFound'];
+      404: components['responses']['video_ResourceNotFound'];
     };
   };
   DeleteRoomRecording: {
@@ -74079,7 +77987,7 @@ export interface operations {
         };
         content?: never;
       };
-      404: components['responses']['ResourceNotFound'];
+      404: components['responses']['video_ResourceNotFound'];
     };
   };
   ListRoomSessions: {
@@ -74161,7 +78069,7 @@ export interface operations {
           active?: boolean;
         };
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['video_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -74188,7 +78096,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetRoomSessionResponse'];
-      404: components['responses']['ResourceNotFound'];
+      404: components['responses']['video_ResourceNotFound'];
     };
   };
   EndSession: {
@@ -74338,7 +78246,7 @@ export interface operations {
           context?: string;
         };
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['video_PageConsolidated'];
       };
       header?: never;
       path: {
@@ -74406,7 +78314,7 @@ export interface operations {
           unique_name?: string;
         };
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['video_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -74432,7 +78340,7 @@ export interface operations {
     };
     responses: {
       201: components['responses']['CreateRoomResponse'];
-      422: components['responses']['UnprocessableEntity'];
+      422: components['responses']['video_UnprocessableEntity'];
     };
   };
   ViewRoom: {
@@ -74451,7 +78359,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetRoomResponse'];
-      404: components['responses']['ResourceNotFound'];
+      404: components['responses']['video_ResourceNotFound'];
     };
   };
   DeleteRoom: {
@@ -74473,7 +78381,7 @@ export interface operations {
         };
         content?: never;
       };
-      404: components['responses']['ResourceNotFound'];
+      404: components['responses']['video_ResourceNotFound'];
     };
   };
   UpdateRoom: {
@@ -74495,7 +78403,7 @@ export interface operations {
     responses: {
       200: components['responses']['PatchRoomResponse'];
       401: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['ResourceNotFound'];
+      404: components['responses']['video_ResourceNotFound'];
       /** @description Bad request */
       422: {
         headers: {
@@ -74621,7 +78529,7 @@ export interface operations {
           active?: boolean;
         };
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        page?: components['parameters']['video_PageConsolidated'];
       };
       header?: never;
       path: {
@@ -74661,7 +78569,7 @@ export interface operations {
           /** @description Filter by Messaging Profile ID. Use the string `null` for phone numbers without assigned profiles. A synonym for the `/messaging_profiles/{id}/short_codes` endpoint when querying about an extant profile. */
           messaging_profile_id?: string;
         };
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -74671,7 +78579,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListShortCodesResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   RetrieveShortCode: {
@@ -74687,7 +78595,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ShortCodeResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   UpdateShortCode: {
@@ -74708,7 +78616,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['ShortCodeResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['messaging_GenericErrorResponse'];
     };
   };
   ListSimCardActions: {
@@ -74716,8 +78624,8 @@ export interface operations {
       query?: {
         /** @description Consolidated filter parameter for SIM card actions (deepObject style). Originally: filter[sim_card_id], filter[status], filter[bulk_sim_card_action_id], filter[action_type] */
         filter?: components['parameters']['FilterSIMCardActionsConsolidated'];
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated pagination parameter (deepObject style). Originally: page[number], page[size] */
+        page?: components['parameters']['wireless_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -74733,7 +78641,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetSimCardAction: {
@@ -74756,7 +78664,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   ListDataUsageNotifications: {
@@ -74765,7 +78673,7 @@ export interface operations {
         /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
         /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        'page[size]'?: components['parameters']['wireless_PageSize'];
         /** @description A valid SIM card ID. */
         'filter[sim_card_id]'?: components['parameters']['FilterSIMCardId'];
       };
@@ -74783,7 +78691,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   PostSimCardDataUsageNotification: {
@@ -74824,7 +78732,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetSimCardDataUsageNotification: {
@@ -74840,8 +78748,8 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetSimCardDataUsageNotificationResponse'];
-      404: components['responses']['ResourceNotFound'];
-      default: components['responses']['GenericErrorResponse'];
+      404: components['responses']['wireless_ResourceNotFound'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   DeleteSimCardDataUsageNotifications: {
@@ -74864,7 +78772,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   PatchSimCardDataUsageNotification: {
@@ -74891,7 +78799,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetSimCardGroupActions: {
@@ -74900,7 +78808,7 @@ export interface operations {
         /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
         /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        'page[size]'?: components['parameters']['wireless_PageSize'];
         /** @description A valid SIM card group ID. */
         'filter[sim_card_group_id]'?: components['parameters']['FilterSIMCardGroupId'];
         /** @description Filter by a specific status of the resource's lifecycle. */
@@ -74926,7 +78834,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetSimCardGroupAction: {
@@ -74949,7 +78857,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetAllSimCardGroups: {
@@ -74958,7 +78866,7 @@ export interface operations {
         /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
         /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        'page[size]'?: components['parameters']['wireless_PageSize'];
         /** @description A valid SIM card group name. */
         'filter[name]'?: string;
         /** @description A Private Wireless Gateway ID associated with the group. */
@@ -74980,7 +78888,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   CreateSimCardGroup: {
@@ -75004,7 +78912,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetSimCardGroup: {
@@ -75030,7 +78938,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   DeleteSimCardGroup: {
@@ -75053,7 +78961,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   UpdateSimCardGroup: {
@@ -75080,7 +78988,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   RemoveSimCardGroupPrivateWirelessGateway: {
@@ -75103,7 +79011,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   RemoveWirelessBlocklistForSimCardGroup: {
@@ -75126,7 +79034,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   SetPrivateWirelessGatewayForSimCardGroup: {
@@ -75160,7 +79068,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   SetWirelessBlocklistForSimCardGroup: {
@@ -75194,7 +79102,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   PreviewSimCardOrders: {
@@ -75222,7 +79130,7 @@ export interface operations {
     };
     responses: {
       202: components['responses']['SIMCardOrdersPreviewResponse'];
-      422: components['responses']['UnprocessableEntity'];
+      422: components['responses']['wireless_UnprocessableEntity'];
     };
   };
   GetSimCardOrders: {
@@ -75230,8 +79138,8 @@ export interface operations {
       query?: {
         /** @description Consolidated filter parameter for SIM card orders (deepObject style). Originally: filter[created_at], filter[updated_at], filter[quantity], filter[cost.amount], filter[cost.currency], filter[address.id], filter[address.street_address], filter[address.extended_address], filter[address.locality], filter[address.administrative_area], filter[address.country_code], filter[address.postal_code] */
         filter?: components['parameters']['FilterSIMCardOrdersConsolidated'];
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated pagination parameter (deepObject style). Originally: page[number], page[size] */
+        page?: components['parameters']['wireless_PageConsolidated'];
       };
       header?: never;
       path?: never;
@@ -75247,7 +79155,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   CreateSimCardOrder: {
@@ -75271,7 +79179,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetSimCardOrder: {
@@ -75287,8 +79195,8 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetSimCardOrderResponse'];
-      404: components['responses']['ResourceNotFound'];
-      default: components['responses']['GenericErrorResponse'];
+      404: components['responses']['wireless_ResourceNotFound'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetSimCards: {
@@ -75296,8 +79204,8 @@ export interface operations {
       query?: {
         /** @description Consolidated filter parameter for SIM cards (deepObject style). Originally: filter[tags], filter[iccid], filter[status] */
         filter?: components['parameters']['FilterSIMCardConsolidated'];
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
+        /** @description Consolidated pagination parameter (deepObject style). Originally: page[number], page[size] */
+        page?: components['parameters']['wireless_PageConsolidated'];
         /** @description It includes the associated SIM card group object in the response when present. */
         include_sim_card_group?: components['parameters']['IncludeSIMCardGroup'];
         /** @description A valid SIM card group ID. */
@@ -75322,7 +79230,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   SetPublicIPsBulk: {
@@ -75338,13 +79246,13 @@ export interface operations {
           /** @example [
            *       "6b14e151-8493-4fa1-8664-1cc4e6d14158"
            *     ] */
-          sim_card_ids: components['schemas']['Id'][];
+          sim_card_ids: components['schemas']['wireless_Id'][];
         };
       };
     };
     responses: {
       202: components['responses']['BulkSIMCardActionResponse'];
-      422: components['responses']['UnprocessableEntity'];
+      422: components['responses']['wireless_UnprocessableEntity'];
     };
   };
   ValidateRegistrationCodes: {
@@ -75378,7 +79286,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetSimCard: {
@@ -75406,7 +79314,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   DeleteSimCard: {
@@ -75432,7 +79340,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   UpdateSimCard: {
@@ -75459,7 +79367,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   DisableSimCard: {
@@ -75482,7 +79390,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   EnableSimCard: {
@@ -75498,8 +79406,8 @@ export interface operations {
     requestBody?: never;
     responses: {
       202: components['responses']['SIMCardActionResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['wireless_UnprocessableEntity'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   RemoveSimCardPublicIp: {
@@ -75522,7 +79430,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   SetSimCardPublicIp: {
@@ -75548,7 +79456,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   SetSimCardStandby: {
@@ -75571,7 +79479,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetSimCardActivationCode: {
@@ -75594,7 +79502,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetSimCardDeviceDetails: {
@@ -75617,7 +79525,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetSimCardPublicIp: {
@@ -75640,7 +79548,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetWirelessConnectivityLogs: {
@@ -75649,7 +79557,7 @@ export interface operations {
         /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
         /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        'page[size]'?: components['parameters']['wireless_PageSize'];
       };
       header?: never;
       path: {
@@ -75668,7 +79576,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   createSiprecConnector: {
@@ -75681,7 +79589,7 @@ export interface operations {
     requestBody: components['requestBodies']['SiprecConnectorRequest'];
     responses: {
       201: components['responses']['SiprecConnectorResponseBody'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['siprec_GenericErrorResponse'];
     };
   };
   getSiprecConnector: {
@@ -75697,7 +79605,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SiprecConnectorResponseBody'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['siprec_GenericErrorResponse'];
     };
   };
   updateSiprecConnector: {
@@ -75713,7 +79621,7 @@ export interface operations {
     requestBody: components['requestBodies']['SiprecConnectorRequest'];
     responses: {
       200: components['responses']['SiprecConnectorResponseBody'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['siprec_GenericErrorResponse'];
     };
   };
   deleteSiprecConnector: {
@@ -75735,7 +79643,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['siprec_GenericErrorResponse'];
     };
   };
   GetStorageSSLCertificates: {
@@ -76221,7 +80129,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['ListSubNumberOrdersResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   updateSubNumberOrderRequirementGroup: {
@@ -76258,7 +80166,7 @@ export interface operations {
           'application/json': components['schemas']['SubNumberOrderRequirementGroupResponse'];
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   GetSubNumberOrder: {
@@ -76283,7 +80191,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SubNumberOrderResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   UpdateSubNumberOrder: {
@@ -76303,7 +80211,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['SubNumberOrderResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   CancelSubNumberOrder: {
@@ -76319,7 +80227,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SubNumberOrderResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   CreateSubNumberOrdersReport: {
@@ -76336,7 +80244,7 @@ export interface operations {
     };
     responses: {
       202: components['responses']['SubNumberOrdersReportResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   GetSubNumberOrdersReport: {
@@ -76355,7 +80263,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['SubNumberOrdersReportResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   DownloadSubNumberOrdersReport: {
@@ -76384,16 +80292,16 @@ export interface operations {
           'text/csv': string;
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['numbers_GenericErrorResponse'];
     };
   };
   FindTelephonyCredentials: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
+        page?: components['parameters']['telephony-credentials_PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[tag], filter[name], filter[status], filter[resource_id], filter[sip_username] */
+        filter?: components['parameters']['telephony-credentials_FilterConsolidated'];
       };
       header?: never;
       path?: never;
@@ -76600,8 +80508,11 @@ export interface operations {
          * @example 1
          */
         Page?: components['parameters']['Page'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /**
+         * @description The number of records to be displayed on a page
+         * @example 10
+         */
+        PageSize?: components['parameters']['PageSize'];
         /** @description Used to request the next page of results. */
         PageToken?: components['parameters']['PageToken'];
         /**
@@ -76660,7 +80571,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetCallsResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   InitiateTexmlCall: {
@@ -76698,7 +80609,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetCallResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   UpdateTexmlCall: {
@@ -76738,7 +80649,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['TexmlGetCallRecordingsResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   StartTeXMLCallRecording: {
@@ -76756,7 +80667,7 @@ export interface operations {
     requestBody?: components['requestBodies']['TexmlCreateCallRecordingRequest'];
     responses: {
       200: components['responses']['TexmlCreateCallRecordingResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   UpdateTeXMLCallRecording: {
@@ -76776,7 +80687,7 @@ export interface operations {
     requestBody?: components['requestBodies']['TexmlUpdateCallRecordingRequest'];
     responses: {
       200: components['responses']['TexmlCreateCallRecordingResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   StartTeXMLSiprecSession: {
@@ -76794,7 +80705,7 @@ export interface operations {
     requestBody?: components['requestBodies']['TexmlCreateSiprecSessionRequest'];
     responses: {
       200: components['responses']['TexmlCreateSiprecSessionResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   UpdateTeXMLSiprecSession: {
@@ -76814,7 +80725,7 @@ export interface operations {
     requestBody?: components['requestBodies']['TexmlUpdateSiprecSessionRequest'];
     responses: {
       200: components['responses']['TexmlUpdateSiprecSessionResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   StartTeXMLCallStreaming: {
@@ -76832,7 +80743,7 @@ export interface operations {
     requestBody?: components['requestBodies']['TexmlCreateCallStreamingRequest'];
     responses: {
       200: components['responses']['TexmlCreateCallStreamingResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   UpdateTeXMLCallStreaming: {
@@ -76852,7 +80763,7 @@ export interface operations {
     requestBody?: components['requestBodies']['TexmlUpdateCallStreamingRequest'];
     responses: {
       200: components['responses']['TexmlUpdateCallStreamingResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   GetTexmlConferences: {
@@ -76863,8 +80774,11 @@ export interface operations {
          * @example 1
          */
         Page?: components['parameters']['Page'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /**
+         * @description The number of records to be displayed on a page
+         * @example 10
+         */
+        PageSize?: components['parameters']['PageSize'];
         /** @description Used to request the next page of results. */
         PageToken?: components['parameters']['PageToken'];
         /**
@@ -76898,7 +80812,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetConferencesResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   GetTexmlConference: {
@@ -76916,7 +80830,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetConferenceResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   UpdateTexmlConference: {
@@ -76934,12 +80848,12 @@ export interface operations {
     /** @description Update Conference request object */
     requestBody: {
       content: {
-        'application/x-www-form-urlencoded': components['schemas']['UpdateConferenceRequest'];
+        'application/x-www-form-urlencoded': components['schemas']['call-scripting_UpdateConferenceRequest'];
       };
     };
     responses: {
       200: components['responses']['GetConferenceResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   GetTexmlConferenceParticipants: {
@@ -76957,7 +80871,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetParticipantsResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   DialTexmlConferenceParticipant: {
@@ -76980,7 +80894,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['DialParticipantResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   GetTexmlConferenceParticipant: {
@@ -77000,7 +80914,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetParticipantResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   UpdateTexmlConferenceParticipant: {
@@ -77025,7 +80939,7 @@ export interface operations {
     };
     responses: {
       200: components['responses']['GetParticipantResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   DeleteTexmlConferenceParticipant: {
@@ -77051,7 +80965,7 @@ export interface operations {
         };
         content?: never;
       };
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   GetTexmlConferenceRecordings: {
@@ -77069,7 +80983,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetConferenceRecordingsResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   FetchTeXMLConferenceRecordings: {
@@ -77087,7 +81001,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['TexmlGetCallRecordingsResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   GetTeXMLCallRecordings: {
@@ -77116,7 +81030,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['TexmlGetCallRecordingsResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   GetTeXMLCallRecording: {
@@ -77134,7 +81048,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['TexmlGetCallRecordingResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   DeleteTeXMLCallRecording: {
@@ -77158,7 +81072,7 @@ export interface operations {
         };
         content?: never;
       };
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   GetTeXMLRecordingTranscriptions: {
@@ -77166,8 +81080,11 @@ export interface operations {
       query?: {
         /** @description Used to request the next page of results. */
         PageToken?: components['parameters']['PageToken'];
-        /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        /**
+         * @description The number of records to be displayed on a page
+         * @example 10
+         */
+        PageSize?: components['parameters']['PageSize'];
       };
       header?: never;
       path: {
@@ -77179,7 +81096,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['TexmlListRecordingTranscriptionResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   GetTeXMLRecordingTranscription: {
@@ -77197,7 +81114,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['TexmlGetRecordingTranscriptionResponse'];
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   DeleteTeXMLRecordingTranscription: {
@@ -77221,7 +81138,7 @@ export interface operations {
         };
         content?: never;
       };
-      404: components['responses']['NotFoundResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
     };
   };
   DeprecatedInitiateTexmlCall: {
@@ -77286,19 +81203,19 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        page?: components['parameters']['call-scripting_PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[outbound_voice_profile_id], filter[friendly_name] */
+        filter?: components['parameters']['call-scripting_FilterConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
-         *         <code>application_name</code>: sorts the result by the
-         *         <code>application_name</code> field in ascending order.
+         *         <code>friendly_name</code>: sorts the result by the
+         *         <code>friendly_name</code> field in ascending order.
          *       </li>
          *
          *       <li>
-         *         <code>-application_name</code>: sorts the result by the
-         *         <code>application_name</code> field in descending order.
+         *         <code>-friendly_name</code>: sorts the result by the
+         *         <code>friendly_name</code> field in descending order.
          *       </li>
          *     </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order. */
         sort?: components['parameters']['SortApplication'];
@@ -77312,7 +81229,7 @@ export interface operations {
       200: components['responses']['GetAllTexmlApplicationsResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
+      403: components['responses']['call-scripting_UnauthorizedResponse'];
     };
   };
   CreateTexmlApplication: {
@@ -77331,8 +81248,8 @@ export interface operations {
     responses: {
       201: components['responses']['TexmlApplicationResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
-      404: components['responses']['NotFoundResponse'];
+      403: components['responses']['call-scripting_UnauthorizedResponse'];
+      404: components['responses']['call-scripting_NotFoundResponse'];
       422: components['responses']['UnprocessableEntityResponse'];
     };
   };
@@ -77351,7 +81268,7 @@ export interface operations {
       200: components['responses']['TexmlApplicationResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
+      403: components['responses']['call-scripting_UnauthorizedResponse'];
       404: components['responses']['NotFoundResponseApp'];
     };
   };
@@ -77370,7 +81287,7 @@ export interface operations {
       200: components['responses']['TexmlApplicationResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
+      403: components['responses']['call-scripting_UnauthorizedResponse'];
       404: components['responses']['NotFoundResponseApp'];
     };
   };
@@ -77394,7 +81311,7 @@ export interface operations {
       200: components['responses']['TexmlApplicationResponse'];
       400: components['responses']['BadRequestResponse'];
       401: components['responses']['UnauthenticatedResponse'];
-      403: components['responses']['UnauthorizedResponse'];
+      403: components['responses']['call-scripting_UnauthorizedResponse'];
       404: components['responses']['NotFoundResponseApp'];
       422: components['responses']['UnprocessableEntityResponse'];
     };
@@ -77542,7 +81459,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ErrorResponse'];
+          'application/json': components['schemas']['usage-reports_ErrorResponse'];
         };
       };
       /** @description Internal Server Error */
@@ -77551,7 +81468,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ErrorResponse'];
+          'application/json': components['schemas']['usage-reports_ErrorResponse'];
         };
       };
     };
@@ -77585,7 +81502,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ErrorResponse'];
+          'application/json': components['schemas']['usage-reports_ErrorResponse'];
         };
       };
       /** @description Internal Server Error */
@@ -77594,7 +81511,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ErrorResponse'];
+          'application/json': components['schemas']['usage-reports_ErrorResponse'];
         };
       };
     };
@@ -77603,9 +81520,9 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
-        page?: components['parameters']['PageConsolidated'];
-        /** @description Consolidated filter parameter (deepObject style). Originally: filter[phone_number][eq], filter[phone_number][in][], filter[status][eq], filter[status][in][], filter[created_at][lt], filter[created_at][gt] */
-        filter?: components['parameters']['FilterConsolidated'];
+        page?: components['parameters']['user-addresses_PageConsolidated'];
+        /** @description Consolidated filter parameter (deepObject style). Originally: filter[customer_reference][eq], filter[customer_reference][contains], filter[street_address][contains] */
+        filter?: components['parameters']['user-addresses_FilterConsolidated'];
         /** @description Specifies the sort order for results. By default sorting direction is ascending. To have the results sorted in descending order add the <code> -</code> prefix.<br/><br/>
          *     That is: <ul>
          *       <li>
@@ -77753,7 +81670,7 @@ export interface operations {
           'application/json': components['schemas']['ListVerificationsResponse'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verify_GenericErrorResponse'];
     };
   };
   VerifyVerificationCodeByPhoneNumber: {
@@ -77781,7 +81698,7 @@ export interface operations {
           'application/json': components['schemas']['VerifyVerificationCodeResponse'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verify_GenericErrorResponse'];
     };
   };
   CreateVerificationCall: {
@@ -77806,7 +81723,7 @@ export interface operations {
           'application/json': components['schemas']['CreateVerificationResponse'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verify_GenericErrorResponse'];
     };
   };
   CreateFlashcallVerification: {
@@ -77831,7 +81748,7 @@ export interface operations {
           'application/json': components['schemas']['CreateVerificationResponse'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verify_GenericErrorResponse'];
     };
   };
   CreateVerificationSms: {
@@ -77856,7 +81773,7 @@ export interface operations {
           'application/json': components['schemas']['CreateVerificationResponse'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verify_GenericErrorResponse'];
     };
   };
   RetrieveVerification: {
@@ -77880,7 +81797,7 @@ export interface operations {
           'application/json': components['schemas']['RetrieveVerificationResponse'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verify_GenericErrorResponse'];
     };
   };
   VerifyVerificationCodeById: {
@@ -77908,7 +81825,7 @@ export interface operations {
           'application/json': components['schemas']['VerifyVerificationCodeResponse'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verify_GenericErrorResponse'];
     };
   };
   ListVerifiedNumbers: {
@@ -77943,9 +81860,9 @@ export interface operations {
           'application/json': components['schemas']['ListVerifiedNumbersResponse'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verified-numbers_GenericErrorResponse'];
       401: components['responses']['UnauthorizedRequestErrorResponse'];
-      422: components['responses']['UnprocessableEntityErrorResponse'];
+      422: components['responses']['verified-numbers_UnprocessableEntityErrorResponse'];
     };
   };
   CreateVerifiedNumber: {
@@ -77979,9 +81896,9 @@ export interface operations {
           'application/json': components['schemas']['CreateVerifiedNumberResponse'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verified-numbers_GenericErrorResponse'];
       401: components['responses']['UnauthorizedRequestErrorResponse'];
-      422: components['responses']['UnprocessableEntityErrorResponse'];
+      422: components['responses']['verified-numbers_UnprocessableEntityErrorResponse'];
     };
   };
   GetVerifiedNumber: {
@@ -78005,7 +81922,7 @@ export interface operations {
           'application/json': components['schemas']['VerifiedNumberResponseDataWrapper'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verified-numbers_GenericErrorResponse'];
       401: components['responses']['UnauthorizedRequestErrorResponse'];
       404: components['responses']['NotFoundErrorResponse'];
     };
@@ -78031,7 +81948,7 @@ export interface operations {
           'application/json': components['schemas']['VerifiedNumberResponseDataWrapper'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verified-numbers_GenericErrorResponse'];
       401: components['responses']['UnauthorizedRequestErrorResponse'];
       404: components['responses']['NotFoundErrorResponse'];
     };
@@ -78064,10 +81981,10 @@ export interface operations {
           'application/json': components['schemas']['VerifiedNumberResponseDataWrapper'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verified-numbers_GenericErrorResponse'];
       401: components['responses']['UnauthorizedRequestErrorResponse'];
       404: components['responses']['NotFoundErrorResponse'];
-      422: components['responses']['UnprocessableEntityErrorResponse'];
+      422: components['responses']['verified-numbers_UnprocessableEntityErrorResponse'];
     };
   };
   ListProfiles: {
@@ -78110,7 +82027,7 @@ export interface operations {
           'application/json': components['schemas']['ListVerifyProfilesResponse'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verify_GenericErrorResponse'];
     };
   };
   CreateVerifyProfile: {
@@ -78147,7 +82064,7 @@ export interface operations {
           'application/json': components['schemas']['VerifyProfileResponseDataWrapper'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verify_GenericErrorResponse'];
     };
   };
   ListProfileMessageTemplates: {
@@ -78191,7 +82108,7 @@ export interface operations {
           'application/json': components['schemas']['VerifyProfileResponseDataWrapper'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verify_GenericErrorResponse'];
     };
   };
   DeleteProfile: {
@@ -78215,7 +82132,7 @@ export interface operations {
           'application/json': components['schemas']['VerifyProfileResponseDataWrapper'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verify_GenericErrorResponse'];
     };
   };
   UpdateVerifyProfile: {
@@ -78255,7 +82172,7 @@ export interface operations {
           'application/json': components['schemas']['VerifyProfileResponseDataWrapper'];
         };
       };
-      400: components['responses']['GenericErrorResponse'];
+      400: components['responses']['verify_GenericErrorResponse'];
     };
   };
   ListVirtualCrossConnects: {
@@ -78269,7 +82186,7 @@ export interface operations {
            */
           network_id?: string;
         };
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -78279,7 +82196,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['VirtualCrossConnectListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   CreateVirtualCrossConnect: {
@@ -78296,8 +82213,8 @@ export interface operations {
     };
     responses: {
       200: components['responses']['VirtualCrossConnectResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['netapps_UnprocessableEntity'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetVirtualCrossConnect: {
@@ -78313,7 +82230,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['VirtualCrossConnectResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   DeleteVirtualCrossConnect: {
@@ -78329,7 +82246,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['VirtualCrossConnectResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   UpdateVirtualCrossConnect: {
@@ -78349,8 +82266,8 @@ export interface operations {
     };
     responses: {
       200: components['responses']['VirtualCrossConnectResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['netapps_UnprocessableEntity'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   ListVirtualCrossConnectCoverage: {
@@ -78399,7 +82316,7 @@ export interface operations {
            */
           'location.code'?: string;
         };
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -78409,13 +82326,13 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['VirtualCrossConnectCoverageListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetWebhookDeliveries: {
     parameters: {
       query?: {
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
         /** @description Consolidated filter parameter (deepObject style). Originally: filter[status][eq], filter[event_type], filter[webhook][contains], filter[attempts][contains], filter[started_at][gte], filter[started_at][lte], filter[finished_at][gte], filter[finished_at][lte] */
         filter?: {
@@ -78545,7 +82462,7 @@ export interface operations {
            */
           network_id?: string;
         };
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -78555,7 +82472,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['WireguardInterfaceListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   CreateWireguardInterface: {
@@ -78572,8 +82489,8 @@ export interface operations {
     };
     responses: {
       202: components['responses']['WireguardInterfaceResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['netapps_UnprocessableEntity'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetWireguardInterface: {
@@ -78589,7 +82506,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['WireguardInterfaceResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   DeleteWireguardInterface: {
@@ -78605,7 +82522,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['WireguardInterfaceResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   ListWireguardPeers: {
@@ -78620,7 +82537,7 @@ export interface operations {
            */
           wireguard_interface_id?: string;
         };
-        /** @description Consolidated page parameter (deepObject style). Originally: page[size], page[number] */
+        /** @description Consolidated page parameter (deepObject style). Originally: page[number], page[size] */
         page?: components['parameters']['PageConsolidated'];
       };
       header?: never;
@@ -78630,7 +82547,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['WireguardPeerListResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   CreateWireguardPeer: {
@@ -78647,8 +82564,8 @@ export interface operations {
     };
     responses: {
       202: components['responses']['WireguardPeerResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['netapps_UnprocessableEntity'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetWireguardPeer: {
@@ -78664,7 +82581,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['WireguardPeerResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   DeleteWireguardPeer: {
@@ -78680,7 +82597,7 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['WireguardPeerResponse'];
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   UpdateWireguardPeer: {
@@ -78700,8 +82617,8 @@ export interface operations {
     };
     responses: {
       200: components['responses']['WireguardPeerResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['netapps_UnprocessableEntity'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetWireguardPeerConfig: {
@@ -78725,7 +82642,7 @@ export interface operations {
           'text/plain': string;
         };
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['netapps_GenericErrorResponse'];
     };
   };
   GetWdrReports: {
@@ -78734,7 +82651,7 @@ export interface operations {
         /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
         /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        'page[size]'?: components['parameters']['wireless_PageSize'];
       };
       header?: never;
       path?: never;
@@ -78750,7 +82667,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   CreateWdrReport: {
@@ -78767,8 +82684,8 @@ export interface operations {
     };
     responses: {
       201: components['responses']['CreateWdrReportResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['wireless_UnprocessableEntity'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetWdrReport: {
@@ -78784,8 +82701,8 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetWdrReportResponse'];
-      404: components['responses']['ResourceNotFound'];
-      default: components['responses']['GenericErrorResponse'];
+      404: components['responses']['wireless_ResourceNotFound'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   DeleteWdrReport: {
@@ -78801,8 +82718,8 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DeleteWdrReportResponse'];
-      404: components['responses']['ResourceNotFound'];
-      default: components['responses']['GenericErrorResponse'];
+      404: components['responses']['wireless_ResourceNotFound'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   WirelessRegionsGetAll: {
@@ -78824,12 +82741,12 @@ export interface operations {
         };
         content: {
           'application/json': {
-            data?: components['schemas']['Region'][];
+            data?: components['schemas']['wireless_Region'][];
           };
         };
       };
-      404: components['responses']['ResourceNotFound'];
-      default: components['responses']['GenericErrorResponse'];
+      404: components['responses']['wireless_ResourceNotFound'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   WirelessBlocklistsGetAll: {
@@ -78859,8 +82776,8 @@ export interface operations {
           };
         };
       };
-      404: components['responses']['ResourceNotFound'];
-      default: components['responses']['GenericErrorResponse'];
+      404: components['responses']['wireless_ResourceNotFound'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetWirelessBlocklistsGateways: {
@@ -78869,7 +82786,7 @@ export interface operations {
         /** @description The page number to load. */
         'page[number]'?: components['parameters']['PageNumber'];
         /** @description The size of the page. */
-        'page[size]'?: components['parameters']['PageSize'];
+        'page[size]'?: components['parameters']['wireless_PageSize'];
         /**
          * @description The name of the Wireless Blocklist.
          * @example my private gateway
@@ -78900,7 +82817,7 @@ export interface operations {
         };
         content?: never;
       };
-      default: components['responses']['GenericErrorResponse'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   CreateWirelessBlocklist: {
@@ -78941,8 +82858,8 @@ export interface operations {
     };
     responses: {
       202: components['responses']['CreateWirelessBlocklistResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['wireless_UnprocessableEntity'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   UpdateWirelessBlocklist: {
@@ -78983,8 +82900,8 @@ export interface operations {
     };
     responses: {
       202: components['responses']['UpdateWirelessBlocklistResponse'];
-      422: components['responses']['UnprocessableEntity'];
-      default: components['responses']['GenericErrorResponse'];
+      422: components['responses']['wireless_UnprocessableEntity'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   GetWirelessBlocklist: {
@@ -79000,8 +82917,8 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['GetWirelessBlocklistResponse'];
-      404: components['responses']['ResourceNotFound'];
-      default: components['responses']['GenericErrorResponse'];
+      404: components['responses']['wireless_ResourceNotFound'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   DeleteWirelessBlocklist: {
@@ -79017,8 +82934,8 @@ export interface operations {
     requestBody?: never;
     responses: {
       200: components['responses']['DeleteWirelessBlocklistResponse'];
-      404: components['responses']['ResourceNotFound'];
-      default: components['responses']['GenericErrorResponse'];
+      404: components['responses']['wireless_ResourceNotFound'];
+      default: components['responses']['wireless_GenericErrorResponse'];
     };
   };
   ListObjects: {
@@ -79308,6 +83225,1737 @@ export interface operations {
       };
       /** @description ObjectNotFound */
       404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallAIGatherEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallAIGatherEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallAIGatherMessageHistoryUpdated: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallAIGatherMessageHistoryUpdatedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallAIGatherPartialResults: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallAIGatherPartialResultsEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CustomerServiceRecordStatusChanged: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': {
+          data?: components['schemas']['CustomerServiceRecordStatusChangedEvent'];
+          meta?: components['schemas']['CallbackWebhookMeta'];
+        };
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallAnswered: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallAnsweredEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallBridged: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallBridgedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallConversationEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['callConversationEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallConversationInsightsGenerated: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['callConversationInsightsGeneratedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallDtmfReceived: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallDtmfReceivedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallEnqueued: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallEnqueuedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallForkStarted: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallForkStartedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallForkStopped: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallForkStoppedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallGatherEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallGatherEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallHangup: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallHangupEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallInitiated: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallInitiatedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallLeftQueue: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallLeftQueueEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallMachineDetectionEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallMachineDetectionEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallMachineGreetingEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallMachineGreetingEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallMachinePremiumDetectionEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallMachinePremiumDetectionEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallMachinePremiumGreetingEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallMachinePremiumGreetingEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallPlaybackEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallPlaybackEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallPlaybackStarted: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallPlaybackStartedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallRecordingError: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['callRecordingErrorEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallRecordingSaved: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallRecordingSavedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallRecordingTranscriptionSaved: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['callRecordingTranscriptionSavedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallReferCompleted: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallReferCompletedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallReferFailed: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallReferFailedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallReferStarted: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallReferStartedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallSiprecFailed: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallSiprecFailedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallSiprecStarted: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallSiprecStartedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallSiprecStopped: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallSiprecStoppedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallSpeakEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallSpeakEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallSpeakStarted: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallSpeakStartedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallStreamingFailed: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallStreamingFailedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallStreamingStarted: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallStreamingStartedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CallStreamingStopped: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallStreamingStoppedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  CampaignStatusUpdate: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CampaignStatusUpdateEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return a HTTP 200, otherwise we will reattempt to deliver the webhook to the failover URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferenceCreated: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferenceCreatedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferenceEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferenceEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferenceFloorChanged: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferenceFloorChangedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferenceParticipantJoined: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferenceParticipantJoinedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferenceParticipantLeft: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferenceParticipantLeftEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferenceParticipantPlaybackEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferenceParticipantPlaybackEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferenceParticipantPlaybackStarted: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferenceParticipantPlaybackStartedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferenceParticipantSpeakEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferenceParticipantSpeakEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferenceParticipantSpeakStarted: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferenceParticipantSpeakStartedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferencePlaybackEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferencePlaybackEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferencePlaybackStarted: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferencePlaybackStartedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferenceRecordingSaved: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferenceRecordingSavedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferenceSpeakEnded: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferenceSpeakEndedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ConferenceSpeakStarted: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ConferenceSpeakStartedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DeliveryUpdate: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['OutboundMessageEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FaxDelivered: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['FaxDelivered'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FaxFailed: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['FaxFailed'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FaxMediaProcessed: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['FaxMediaProcessed'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FaxQueued: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['FaxQueued'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FaxSendingStarted: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['FaxSendingStarted'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  InboundMessage: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['InboundMessageEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  NumberOrderStatusUpdate: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['NumberOrderBlockEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return a HTTP 200, otherwise we will reattempt to deliver the webhook to the failover URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ReplacedLinkClick: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ReplacedLinkClickEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  StreamingFailed: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallStreamingFailedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  StreamingStarted: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallStreamingStartedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  StreamingStopped: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CallStreamingStoppedEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  Transcription: {
+    parameters: {
+      query?: never;
+      header: {
+        /** @description Unix timestamp (seconds since epoch) of when the webhook was sent - compatible with webhook-timestamp */
+        'telnyx-timestamp': number;
+        /** @description Base64 encoded Ed25519 signature for webhook verification - compatible with webhook-signature */
+        'telnyx-signature-ed25519': string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['TranscriptionEvent'];
+      };
+    };
+    responses: {
+      /** @description The server must return an HTTP 200, otherwise we will reattempt delivery at the failover webhook URL. */
+      200: {
         headers: {
           [name: string]: unknown;
         };
