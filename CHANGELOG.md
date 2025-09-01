@@ -6,6 +6,7 @@
 
 - Improve error handling on ConnectionError with better logging for truncated error objects
 - Fix default timeout and HTTP agent default options
+- remove `CallRecordings` resource `bulkDel` method
 
 ### v2.1.0
 

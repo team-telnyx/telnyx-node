@@ -16,9 +16,4 @@ export const CallRecordings = TelnyxResource.extend({
     path: '/{recording_id}',
     urlParams: ['recording_id'],
   }),
-
-  bulkDel: telnyxMethod({
-    method: 'DELETE',
-    path: '/recordings/actions/delete',
-  }),
 });
