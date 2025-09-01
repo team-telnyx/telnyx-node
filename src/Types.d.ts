@@ -180,7 +180,7 @@ export type TelnyxResourceObject = {
   _generateConnectionErrorMessage: (
     requestRetries: number,
   ) => string | undefined;
-  _shouldRetry: (res: ResponsePayload | null, numRetries: number) => boolean;
+  _shouldRetry: (res: ResponsePayload | null, numRetries: number, error?: TelnyxRawError) => boolean;
   _getSleepTimeInMS: (numRetries: number) => number;
   _defaultHeaders: (
     auth: RequestOptions['auth'],

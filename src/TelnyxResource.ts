@@ -141,17 +141,18 @@ TelnyxResource.prototype = {
   ) {
     return () => {
       const timeoutErr = new Error('ETIMEDOUT');
+      const connectionError = new TelnyxError.TelnyxConnectionError({
+        message:
+          'Request aborted due to timeout being reached (' + timeout + 'ms)',
+        detail: timeoutErr,
+      });
 
       req._isAborted = true;
-      req.abort();
+      req.destroy(connectionError);
 
       callback.call(
         this,
-        new TelnyxError.TelnyxConnectionError({
-          message:
-            'Request aborted due to timeout being reached (' + timeout + 'ms)',
-          detail: timeoutErr,
-        }),
+        connectionError,
         null,
       );
     };
@@ -313,7 +314,16 @@ TelnyxResource.prototype = {
     };
   },
 
-  _shouldRetry: function (res: ResponsePayload, numRetries: number) {
+  _shouldRetry: function (
+    res: ResponsePayload,
+    numRetries: number,
+    error?: TelnyxError.TelnyxRawError,
+  ) {
+    // if we have a connection error and we haven't already retried, do so.
+    if (error && numRetries === 0 && (error.code === 'ECONNRESET' || error.code === 'EPIPE')) {
+      return true;
+    }
+
     // Do not retry if we are out of retries.
     if (numRetries >= this._telnyx.getMaxNetworkRetries()) {
       return false;
@@ -529,7 +539,13 @@ TelnyxResource.prototype = {
       });
 
       req.on('error', function (error) {
-        if (self._shouldRetry(null, requestRetries)) {
+        if (
+          self._shouldRetry(
+            null,
+            requestRetries,
+            error as TelnyxError.TelnyxRawError,
+          )
+        ) {
           return retryRequest(makeRequest, headers, requestRetries);
         } else {
           return self._errorHandler(req, requestRetries, callback)(error);
