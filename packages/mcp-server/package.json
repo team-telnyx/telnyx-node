@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/team-telnyx/telnyx-node/tree/main/packages/mcp-server#readme",
   "license": "MIT",
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "pnpm@10.14.0",
   "private": false,
   "publishConfig": {
     "access": "public"
@@ -21,16 +21,15 @@
   "scripts": {
     "test": "jest",
     "build": "bash ./build",
-    "prepack": "echo 'to pack, run yarn build && (cd dist; yarn pack)' && exit 1",
-    "prepublishOnly": "echo 'to publish, run yarn build && (cd dist; yarn publish)' && exit 1",
+    "prepack": "echo 'to pack, run pnpm build && (cd dist; pnpm pack)' && exit 1",
+    "prepublishOnly": "echo 'to publish, run pnpm build && (cd dist; pnpm publish)' && exit 1",
     "format": "prettier --write --cache --cache-strategy metadata . !dist",
-    "prepare": "npm run build",
     "tsn": "ts-node -r tsconfig-paths/register",
     "lint": "eslint --ext ts,js .",
     "fix": "eslint --fix --ext ts,js ."
   },
   "dependencies": {
-    "telnyx": "file:../../dist/",
+    "telnyx": "workspace:*",
     "@cloudflare/cabidela": "^0.2.4",
     "@modelcontextprotocol/sdk": "^1.11.5",
     "@valtown/deno-http-worker": "^0.0.21",
