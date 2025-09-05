@@ -30,6 +30,14 @@ describe('Telnyx Module', function () {
     });
   });
 
+  describe('getHttpsAgent', function () {
+    describe('when not given an agent', function () {
+      test('https agent should use the node https global agent options', function () {
+        expect(realTelnyx.getHttpsAgent().options).toMatchObject(https.globalAgent.options);
+      });
+    });
+  });
+
   describe('setHttpAgent', function () {
     let origHttpAgent: HttpAgent, origHttpsAgent: HttpsAgent;
     beforeEach(function () {
@@ -102,10 +110,8 @@ describe('Telnyx Module', function () {
   });
 
   describe('setTimeout', function () {
-    test('Should define a default equal to the node default', function () {
-      expect(realTelnyx.getApiField('timeout')).toBe(
-        http.createServer().timeout,
-      );
+    test('Should define a default equal to 120s', function () {
+      expect(realTelnyx.getApiField('timeout')).toBe(120000);
     });
     test('Should allow me to set a custom timeout', function () {
       realTelnyx.setTimeout(900);
@@ -113,9 +119,7 @@ describe('Telnyx Module', function () {
     });
     test('Should allow me to set null, to reset to the default', function () {
       realTelnyx.setTimeout(null);
-      expect(realTelnyx.getApiField('timeout')).toBe(
-        http.createServer().timeout,
-      );
+      expect(realTelnyx.getApiField('timeout')).toBe(120000);
     });
   });
 

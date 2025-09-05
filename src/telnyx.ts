@@ -152,8 +152,11 @@ export function createTelnyx() {
   Telnyx.DEFAULT_PORT = '443';
   Telnyx.DEFAULT_BASE_PATH = '/v2/';
 
-  // Use node's default timeout:
-  Telnyx.DEFAULT_TIMEOUT = http.createServer().timeout;
+  /**
+   * Default timeout for requests made by the library (in ms).
+   * https://github.com/team-telnyx/telnyx-node/issues/218
+   */
+  Telnyx.DEFAULT_TIMEOUT = 120000;
 
   Telnyx.PACKAGE_VERSION = process.env.npm_package_version || '2.x';
   Telnyx.REQUESTS = [] as Array<unknown>;
@@ -174,6 +177,12 @@ export function createTelnyx() {
   Telnyx.INITIAL_NETWORK_RETRY_DELAY_SEC = 0.5;
 
   const APP_INFO_PROPERTIES = ['name', 'version', 'url', 'partner_id'];
+
+  /**
+   * - https://github.com/team-telnyx/telnyx-node/issues/218
+   * - https://github.com/nodejs/node/blob/b8870c4a61f9c4c4490e43472e98655b00055359/lib/https.js#L357
+   */
+  const HTTP_AGENT_DEFAULT_OPTIONS: https.AgentOptions = https.globalAgent.options;
 
   // #region Resources Definition
   const resources = {
@@ -342,8 +351,8 @@ export function createTelnyx() {
       protocol: 'https',
       basePath: Telnyx.DEFAULT_BASE_PATH,
       timeout: Telnyx.DEFAULT_TIMEOUT,
-      http_agent: new http.Agent({keepAlive: true}),
-      https_agent: new https.Agent({keepAlive: true}),
+      http_agent: new http.Agent(HTTP_AGENT_DEFAULT_OPTIONS),
+      https_agent: new https.Agent(HTTP_AGENT_DEFAULT_OPTIONS),
       dev: false,
       maxNetworkRetries: 0,
     };
@@ -452,6 +461,10 @@ export function createTelnyx() {
       } else {
         this._setApiField('http_agent', agent);
       }
+    },
+
+    getHttpsAgent: function (): https.Agent {
+      return this.getApiField('https_agent');
     },
 
     _setApiField: function <K extends keyof TelnyxObject['_api']>(
@@ -585,10 +598,10 @@ export function createTelnyx() {
 
     _buildDefaultAgent: function (protocol: string) {
       if (protocol === 'http') {
-        return new http.Agent({keepAlive: true});
+        return new http.Agent(HTTP_AGENT_DEFAULT_OPTIONS);
       }
 
-      return new https.Agent({keepAlive: true});
+      return new https.Agent(HTTP_AGENT_DEFAULT_OPTIONS);
     },
 
     _prepResources: function () {

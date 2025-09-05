@@ -23,12 +23,6 @@ declare module 'telnyx' {
     type CallRecordingsDelResponse =
       paths['/recordings/{recording_id}']['delete']['responses']['200']['content']['application/json'];
 
-    type CallRecordingsBulkDelParams =
-      paths['/recordings/actions/delete']['delete']['requestBody']['content']['application/json'];
-
-    type CallRecordingsBulkDelResponse =
-      paths['/recordings/actions/delete']['delete']['responses']['204']['content'];
-
     class CallRecordingsResource {
       list(
         params?: CallRecordingsListParams,
@@ -47,11 +41,6 @@ declare module 'telnyx' {
 
       del(
         id: CallRecordingsDelId,
-        options?: RequestOptions,
-      ): Promise<Telnyx.Response<Telnyx.CallRecordingsDelResponse>>;
-
-      bulkDel(
-        params?: CallRecordingsBulkDelParams,
         options?: RequestOptions,
       ): Promise<Telnyx.Response<Telnyx.CallRecordingsDelResponse>>;
     }
