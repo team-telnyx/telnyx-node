@@ -12,7 +12,6 @@
     "url": "git+https://github.com/team-telnyx/telnyx-node.git"
   },
   "homepage": "https://github.com/team-telnyx/telnyx-node/tree/main/packages/mcp-server#readme",
-  "documentation": "",
   "server": {
     "type": "node",
     "entry_point": "${__dirname}/index.js",
