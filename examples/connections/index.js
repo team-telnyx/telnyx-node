@@ -5,7 +5,9 @@
 
 import Telnyx from 'telnyx';
 
-const telnyx = new Telnyx(process.env.TELNYX_API_KEY || '');
+const telnyx = new Telnyx({
+  apiKey: process.env.TELNYX_API_KEY || '',
+});
 
 (async function addresses() {
   try {

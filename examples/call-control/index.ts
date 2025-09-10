@@ -5,10 +5,12 @@
 
 import Telnyx from 'telnyx';
 
-const telnyx = new Telnyx(process.env.TELNYX_API_KEY || '');
+const telnyx = new Telnyx({
+  apiKey: process.env['TELNYX_API_KEY'] || '',
+});
 
 // update these params accordingly
-const params: Telnyx.CallsCreateParams = {
+const params: Telnyx.CallDialParams = {
   to: '+18005550100 or sip:username@sip.telnyx.com',
   from: '+18005550101',
   from_display_name: 'Company Name',
@@ -76,14 +78,20 @@ const params: Telnyx.CallsCreateParams = {
   bridge_intent: false,
   bridge_on_answer: false,
   stream_establish_before_call_originate: false,
-  supervisor_role: 'barge'
+  supervisor_role: 'barge',
 };
 
 (async function callControl() {
   try {
-    const {data: call} = await telnyx.calls.dial(params);
+    const { data: call } = await telnyx.calls.dial(params);
 
-    const {data: playback} = await call!.playbackStart({
+    if (!call?.call_control_id) {
+      throw new Error('Call control ID not returned from dial');
+    }
+
+    // Note: In v3.0.0-alpha, playback actions are called differently
+    // You need to use the call_control_id from the dial response
+    const { data: playback } = await telnyx.calls.actions.startPlayback(call.call_control_id, {
       audio_url: 'http://www.example.com/sounds/greeting.wav',
       loop: 'infinity',
       overlay: true,
@@ -99,9 +107,9 @@ const params: Telnyx.CallsCreateParams = {
   } catch (e: unknown) {
     console.error(e);
 
-    const rawError: Telnyx.TelnyxRawError = (e as {raw: Telnyx.TelnyxRawError})
-      .raw;
-
-    console.dir(JSON.stringify(rawError.errors));
+    if (e instanceof Telnyx.APIError) {
+      console.log('Status:', e.status);
+      console.log('Error:', e.error);
+    }
   }
 })();
