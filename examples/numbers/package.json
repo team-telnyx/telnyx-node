@@ -1,0 +1,26 @@
+{
+  "name": "telnyx-numbers-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "debug": "tsx index.ts",
+    "start": "tsx index.ts"
+  },
+  "author": "Telnyx <support@telnyx.com> (https://telnyx.com)",
+  "license": "ISC",
+  "type": "module",
+  "engines": {
+    "node": "^18 || >=20"
+  },
+  "dependencies": {
+    "telnyx": "3.0.0-alpha"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.8.0"
+  },
+  "packageManager": "pnpm@10.0.0+sha512.b8fef5494bd3fe4cbd4edabd0745df2ee5be3e4b0b8b08fa643aa3e4c6702ccc0f00d68fa8a8c9858a735a0032485a44990ed2810526c875e416f001b17df12b"
+}
