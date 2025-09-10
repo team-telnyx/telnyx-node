@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource testSuites', () => {
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.ai.assistants.tests.testSuites.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

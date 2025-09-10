@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource sessions', () => {
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.rooms.sessions.retrieve('0ccc7b54-4df3-4bca-a65a-3da1ecc777f0');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource sessions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve: request options and params are passed correctly', async () => {
+  test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.rooms.sessions.retrieve(
@@ -32,8 +30,7 @@ describe('resource sessions', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('list0', async () => {
+  test('list0', async () => {
     const responsePromise = client.rooms.sessions.list0();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -44,8 +41,7 @@ describe('resource sessions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list0: request options and params are passed correctly', async () => {
+  test('list0: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.rooms.sessions.list0(
@@ -65,8 +61,7 @@ describe('resource sessions', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('list1', async () => {
+  test('list1', async () => {
     const responsePromise = client.rooms.sessions.list1('0ccc7b54-4df3-4bca-a65a-3da1ecc777f0');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -77,8 +72,7 @@ describe('resource sessions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list1: request options and params are passed correctly', async () => {
+  test('list1: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.rooms.sessions.list1(
@@ -98,8 +92,7 @@ describe('resource sessions', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveParticipants', async () => {
+  test('retrieveParticipants', async () => {
     const responsePromise = client.rooms.sessions.retrieveParticipants(
       '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
     );
@@ -112,8 +105,7 @@ describe('resource sessions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveParticipants: request options and params are passed correctly', async () => {
+  test('retrieveParticipants: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.rooms.sessions.retrieveParticipants(

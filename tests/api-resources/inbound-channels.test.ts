@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource inboundChannels', () => {
-  // Prism tests are disabled
-  test.skip('update: only required params', async () => {
+  test('update: only required params', async () => {
     const responsePromise = client.inboundChannels.update({ channels: 7 });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,13 +19,11 @@ describe('resource inboundChannels', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: required and optional params', async () => {
+  test('update: required and optional params', async () => {
     const response = await client.inboundChannels.update({ channels: 7 });
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.inboundChannels.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

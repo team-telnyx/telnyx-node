@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource osr', () => {
-  // Prism tests are disabled
-  test.skip('getAttributes', async () => {
+  test('getAttributes', async () => {
     const responsePromise = client.campaign.osr.getAttributes('campaignId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

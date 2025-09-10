@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource countryCoverage', () => {
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.countryCoverage.retrieve();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource countryCoverage', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveCountry', async () => {
+  test('retrieveCountry', async () => {
     const responsePromise = client.countryCoverage.retrieveCountry('US');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

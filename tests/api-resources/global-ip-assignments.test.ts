@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource globalIPAssignments', () => {
-  // Prism tests are disabled
-  test.skip('create', async () => {
+  test('create', async () => {
     const responsePromise = client.globalIPAssignments.create({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource globalIPAssignments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.globalIPAssignments.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -32,8 +30,7 @@ describe('resource globalIPAssignments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: only required params', async () => {
+  test('update: only required params', async () => {
     const responsePromise = client.globalIPAssignments.update('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {
       body: {},
     });
@@ -46,8 +43,7 @@ describe('resource globalIPAssignments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: required and optional params', async () => {
+  test('update: required and optional params', async () => {
     const response = await client.globalIPAssignments.update('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {
       body: {
         global_ip_id: 'a836125b-20b6-452e-9c03-2653f09c7ed7',
@@ -56,8 +52,7 @@ describe('resource globalIPAssignments', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.globalIPAssignments.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -68,16 +63,14 @@ describe('resource globalIPAssignments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.globalIPAssignments.list({ page: { number: 1, size: 1 } }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.globalIPAssignments.delete('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

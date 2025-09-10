@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource accessIPRanges', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.accessIPRanges.create({ cidr_block: 'cidr_block' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,16 +19,14 @@ describe('resource accessIPRanges', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.accessIPRanges.create({
       cidr_block: 'cidr_block',
       description: 'description',
     });
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.accessIPRanges.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -40,8 +37,7 @@ describe('resource accessIPRanges', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.accessIPRanges.list(
@@ -54,8 +50,7 @@ describe('resource accessIPRanges', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.accessIPRanges.delete('access_ip_range_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

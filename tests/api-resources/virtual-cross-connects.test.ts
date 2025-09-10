@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource virtualCrossConnects', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.virtualCrossConnects.create({
       bgp_asn: 1234,
       cloud_provider: 'aws',
@@ -27,8 +26,7 @@ describe('resource virtualCrossConnects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.virtualCrossConnects.create({
       bgp_asn: 1234,
       cloud_provider: 'aws',
@@ -48,8 +46,7 @@ describe('resource virtualCrossConnects', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.virtualCrossConnects.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -60,8 +57,7 @@ describe('resource virtualCrossConnects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update', async () => {
+  test('update', async () => {
     const responsePromise = client.virtualCrossConnects.update('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -72,8 +68,7 @@ describe('resource virtualCrossConnects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.virtualCrossConnects.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -84,8 +79,7 @@ describe('resource virtualCrossConnects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.virtualCrossConnects.list(
@@ -95,8 +89,7 @@ describe('resource virtualCrossConnects', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.virtualCrossConnects.delete('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

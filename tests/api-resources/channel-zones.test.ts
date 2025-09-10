@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource channelZones', () => {
-  // Prism tests are disabled
-  test.skip('update: only required params', async () => {
+  test('update: only required params', async () => {
     const responsePromise = client.channelZones.update('channel_zone_id', { channels: 0 });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,13 +19,11 @@ describe('resource channelZones', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: required and optional params', async () => {
+  test('update: required and optional params', async () => {
     const response = await client.channelZones.update('channel_zone_id', { channels: 0 });
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.channelZones.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -37,8 +34,7 @@ describe('resource channelZones', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.channelZones.list({ page: { number: 1, size: 1 } }, { path: '/_stainless_unknown_path' }),

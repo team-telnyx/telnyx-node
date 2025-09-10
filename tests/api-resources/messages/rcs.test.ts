@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource rcs', () => {
-  // Prism tests are disabled
-  test.skip('generateDeeplink', async () => {
+  test('generateDeeplink', async () => {
     const responsePromise = client.messages.rcs.generateDeeplink('agent_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource rcs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('generateDeeplink: request options and params are passed correctly', async () => {
+  test('generateDeeplink: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messages.rcs.generateDeeplink(

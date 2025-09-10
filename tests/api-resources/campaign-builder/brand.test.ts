@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource brand', () => {
-  // Prism tests are disabled
-  test.skip('qualifyByUsecase: only required params', async () => {
+  test('qualifyByUsecase: only required params', async () => {
     const responsePromise = client.campaignBuilder.brand.qualifyByUsecase('usecase', { brandId: 'brandId' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('qualifyByUsecase: required and optional params', async () => {
+  test('qualifyByUsecase: required and optional params', async () => {
     const response = await client.campaignBuilder.brand.qualifyByUsecase('usecase', { brandId: 'brandId' });
   });
 });

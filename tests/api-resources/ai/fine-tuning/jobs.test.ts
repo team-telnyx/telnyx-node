@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource jobs', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.ai.fineTuning.jobs.create({
       model: 'model',
       training_file: 'training_file',
@@ -23,8 +22,7 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.ai.fineTuning.jobs.create({
       model: 'model',
       training_file: 'training_file',
@@ -33,8 +31,7 @@ describe('resource jobs', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.ai.fineTuning.jobs.retrieve('job_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -45,8 +42,7 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.ai.fineTuning.jobs.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -57,8 +53,7 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('cancel', async () => {
+  test('cancel', async () => {
     const responsePromise = client.ai.fineTuning.jobs.cancel('job_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

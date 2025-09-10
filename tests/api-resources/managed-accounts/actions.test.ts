@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
-  test.skip('disable', async () => {
+  test('disable', async () => {
     const responsePromise = client.managedAccounts.actions.disable('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('enable', async () => {
+  test('enable', async () => {
     const responsePromise = client.managedAccounts.actions.enable('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -32,8 +30,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('enable: request options and params are passed correctly', async () => {
+  test('enable: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.managedAccounts.actions.enable(

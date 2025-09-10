@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource siprecConnectors', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.siprecConnectors.create({
       host: 'siprec.telnyx.com',
       name: 'my-siprec-connector',
@@ -24,8 +23,7 @@ describe('resource siprecConnectors', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.siprecConnectors.create({
       host: 'siprec.telnyx.com',
       name: 'my-siprec-connector',
@@ -34,8 +32,7 @@ describe('resource siprecConnectors', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.siprecConnectors.retrieve('connector_name');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -46,8 +43,7 @@ describe('resource siprecConnectors', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: only required params', async () => {
+  test('update: only required params', async () => {
     const responsePromise = client.siprecConnectors.update('connector_name', {
       host: 'siprec.telnyx.com',
       name: 'my-siprec-connector',
@@ -62,8 +58,7 @@ describe('resource siprecConnectors', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: required and optional params', async () => {
+  test('update: required and optional params', async () => {
     const response = await client.siprecConnectors.update('connector_name', {
       host: 'siprec.telnyx.com',
       name: 'my-siprec-connector',
@@ -72,8 +67,7 @@ describe('resource siprecConnectors', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.siprecConnectors.delete('connector_name');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

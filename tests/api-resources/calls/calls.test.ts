@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource calls', () => {
-  // Prism tests are disabled
-  test.skip('dial: only required params', async () => {
+  test('dial: only required params', async () => {
     const responsePromise = client.calls.dial({
       connection_id: '7267xxxxxxxxxxxxxx',
       from: '+18005550101',
@@ -24,8 +23,7 @@ describe('resource calls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('dial: required and optional params', async () => {
+  test('dial: required and optional params', async () => {
     const response = await client.calls.dial({
       connection_id: '7267xxxxxxxxxxxxxx',
       from: '+18005550101',
@@ -130,8 +128,7 @@ describe('resource calls', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveStatus', async () => {
+  test('retrieveStatus', async () => {
     const responsePromise = client.calls.retrieveStatus('call_control_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

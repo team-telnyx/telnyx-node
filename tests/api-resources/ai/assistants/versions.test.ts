@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource versions', () => {
-  // Prism tests are disabled
-  test.skip('retrieve: only required params', async () => {
+  test('retrieve: only required params', async () => {
     const responsePromise = client.ai.assistants.versions.retrieve('version_id', {
       assistant_id: 'assistant_id',
     });
@@ -22,16 +21,14 @@ describe('resource versions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve: required and optional params', async () => {
+  test('retrieve: required and optional params', async () => {
     const response = await client.ai.assistants.versions.retrieve('version_id', {
       assistant_id: 'assistant_id',
       include_mcp_servers: true,
     });
   });
 
-  // Prism tests are disabled
-  test.skip('update: only required params', async () => {
+  test('update: only required params', async () => {
     const responsePromise = client.ai.assistants.versions.update('version_id', {
       assistant_id: 'assistant_id',
     });
@@ -44,8 +41,7 @@ describe('resource versions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: required and optional params', async () => {
+  test('update: required and optional params', async () => {
     const response = await client.ai.assistants.versions.update('version_id', {
       assistant_id: 'assistant_id',
       description: 'description',
@@ -91,8 +87,7 @@ describe('resource versions', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.ai.assistants.versions.list('assistant_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -103,8 +98,7 @@ describe('resource versions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('delete: only required params', async () => {
+  test('delete: only required params', async () => {
     const responsePromise = client.ai.assistants.versions.delete('version_id', {
       assistant_id: 'assistant_id',
     });
@@ -117,15 +111,13 @@ describe('resource versions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('delete: required and optional params', async () => {
+  test('delete: required and optional params', async () => {
     const response = await client.ai.assistants.versions.delete('version_id', {
       assistant_id: 'assistant_id',
     });
   });
 
-  // Prism tests are disabled
-  test.skip('promote: only required params', async () => {
+  test('promote: only required params', async () => {
     const responsePromise = client.ai.assistants.versions.promote('version_id', {
       assistant_id: 'assistant_id',
     });
@@ -138,8 +130,7 @@ describe('resource versions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('promote: required and optional params', async () => {
+  test('promote: required and optional params', async () => {
     const response = await client.ai.assistants.versions.promote('version_id', {
       assistant_id: 'assistant_id',
     });

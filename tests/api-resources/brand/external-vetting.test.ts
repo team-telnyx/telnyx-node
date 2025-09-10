@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource externalVetting', () => {
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.brand.externalVetting.list('brandId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource externalVetting', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('import: only required params', async () => {
+  test('import: only required params', async () => {
     const responsePromise = client.brand.externalVetting.import('brandId', {
       evpId: 'evpId',
       vettingId: 'vettingId',
@@ -35,8 +33,7 @@ describe('resource externalVetting', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('import: required and optional params', async () => {
+  test('import: required and optional params', async () => {
     const response = await client.brand.externalVetting.import('brandId', {
       evpId: 'evpId',
       vettingId: 'vettingId',
@@ -44,8 +41,7 @@ describe('resource externalVetting', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('order: only required params', async () => {
+  test('order: only required params', async () => {
     const responsePromise = client.brand.externalVetting.order('brandId', {
       evpId: 'evpId',
       vettingClass: 'vettingClass',
@@ -59,8 +55,7 @@ describe('resource externalVetting', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('order: required and optional params', async () => {
+  test('order: required and optional params', async () => {
     const response = await client.brand.externalVetting.order('brandId', {
       evpId: 'evpId',
       vettingClass: 'vettingClass',

@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource portouts', () => {
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.portouts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource portouts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.portouts.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -32,8 +30,7 @@ describe('resource portouts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.portouts.list(
@@ -59,8 +56,7 @@ describe('resource portouts', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('listRejectionCodes', async () => {
+  test('listRejectionCodes', async () => {
     const responsePromise = client.portouts.listRejectionCodes('329d6658-8f93-405d-862f-648776e8afd7');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -71,8 +67,7 @@ describe('resource portouts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('listRejectionCodes: request options and params are passed correctly', async () => {
+  test('listRejectionCodes: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.portouts.listRejectionCodes(
@@ -83,8 +78,7 @@ describe('resource portouts', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('updateStatus: only required params', async () => {
+  test('updateStatus: only required params', async () => {
     const responsePromise = client.portouts.updateStatus('authorized', {
       id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       reason: 'I do not recognize this transaction',
@@ -98,8 +92,7 @@ describe('resource portouts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('updateStatus: required and optional params', async () => {
+  test('updateStatus: required and optional params', async () => {
     const response = await client.portouts.updateStatus('authorized', {
       id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       reason: 'I do not recognize this transaction',

@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource participants', () => {
-  // Prism tests are disabled
-  test.skip('retrieve: only required params', async () => {
+  test('retrieve: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.participants.retrieve(
       'call_sid_or_participant_label',
       { account_sid: 'account_sid', conference_sid: 'conference_sid' },
@@ -23,16 +22,14 @@ describe('resource participants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve: required and optional params', async () => {
+  test('retrieve: required and optional params', async () => {
     const response = await client.texml.accounts.conferences.participants.retrieve(
       'call_sid_or_participant_label',
       { account_sid: 'account_sid', conference_sid: 'conference_sid' },
     );
   });
 
-  // Prism tests are disabled
-  test.skip('update: only required params', async () => {
+  test('update: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.participants.update(
       'call_sid_or_participant_label',
       { account_sid: 'account_sid', conference_sid: 'conference_sid' },
@@ -46,8 +43,7 @@ describe('resource participants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: required and optional params', async () => {
+  test('update: required and optional params', async () => {
     const response = await client.texml.accounts.conferences.participants.update(
       'call_sid_or_participant_label',
       {
@@ -68,8 +64,7 @@ describe('resource participants', () => {
     );
   });
 
-  // Prism tests are disabled
-  test.skip('delete: only required params', async () => {
+  test('delete: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.participants.delete(
       'call_sid_or_participant_label',
       { account_sid: 'account_sid', conference_sid: 'conference_sid' },
@@ -83,16 +78,14 @@ describe('resource participants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('delete: required and optional params', async () => {
+  test('delete: required and optional params', async () => {
     const response = await client.texml.accounts.conferences.participants.delete(
       'call_sid_or_participant_label',
       { account_sid: 'account_sid', conference_sid: 'conference_sid' },
     );
   });
 
-  // Prism tests are disabled
-  test.skip('participants: only required params', async () => {
+  test('participants: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.participants.participants('conference_sid', {
       account_sid: 'account_sid',
     });
@@ -105,8 +98,7 @@ describe('resource participants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('participants: required and optional params', async () => {
+  test('participants: required and optional params', async () => {
     const response = await client.texml.accounts.conferences.participants.participants('conference_sid', {
       account_sid: 'account_sid',
       AmdStatusCallback: 'https://www.example.com/amd_result',
@@ -157,8 +149,7 @@ describe('resource participants', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveParticipants: only required params', async () => {
+  test('retrieveParticipants: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.participants.retrieveParticipants(
       'conference_sid',
       { account_sid: 'account_sid' },
@@ -172,8 +163,7 @@ describe('resource participants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveParticipants: required and optional params', async () => {
+  test('retrieveParticipants: required and optional params', async () => {
     const response = await client.texml.accounts.conferences.participants.retrieveParticipants(
       'conference_sid',
       { account_sid: 'account_sid' },

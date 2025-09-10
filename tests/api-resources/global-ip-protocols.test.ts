@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource globalIPProtocols', () => {
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.globalIPProtocols.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

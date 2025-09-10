@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource messages', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.ai.conversations.messages.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       role: 'role',
     });
@@ -22,8 +21,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.ai.conversations.messages.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       role: 'role',
       content: 'content',
@@ -36,8 +34,7 @@ describe('resource messages', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.ai.conversations.messages.list('conversation_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

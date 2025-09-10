@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource campaignBuilder', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.campaignBuilder.create({
       brandId: 'brandId',
       description: 'description',
@@ -24,8 +23,7 @@ describe('resource campaignBuilder', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.campaignBuilder.create({
       brandId: 'brandId',
       description: 'description',

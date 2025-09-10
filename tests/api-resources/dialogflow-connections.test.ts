@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource dialogflowConnections', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.dialogflowConnections.create('connection_id', {
       service_account: {
         '0': 'bar',
@@ -423,8 +422,7 @@ describe('resource dialogflowConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.dialogflowConnections.create('connection_id', {
       service_account: {
         '0': 'bar',
@@ -835,8 +833,7 @@ describe('resource dialogflowConnections', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.dialogflowConnections.retrieve('connection_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -847,8 +844,7 @@ describe('resource dialogflowConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: only required params', async () => {
+  test('update: only required params', async () => {
     const responsePromise = client.dialogflowConnections.update('connection_id', {
       service_account: {
         '0': 'bar',
@@ -1262,8 +1258,7 @@ describe('resource dialogflowConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: required and optional params', async () => {
+  test('update: required and optional params', async () => {
     const response = await client.dialogflowConnections.update('connection_id', {
       service_account: {
         '0': 'bar',
@@ -1674,8 +1669,7 @@ describe('resource dialogflowConnections', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.dialogflowConnections.delete('connection_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

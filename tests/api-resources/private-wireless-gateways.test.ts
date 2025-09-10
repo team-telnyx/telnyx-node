@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource privateWirelessGateways', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.privateWirelessGateways.create({
       name: 'My private wireless gateway',
       network_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
@@ -23,8 +22,7 @@ describe('resource privateWirelessGateways', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.privateWirelessGateways.create({
       name: 'My private wireless gateway',
       network_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
@@ -32,8 +30,7 @@ describe('resource privateWirelessGateways', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.privateWirelessGateways.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -44,8 +41,7 @@ describe('resource privateWirelessGateways', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.privateWirelessGateways.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -56,8 +52,7 @@ describe('resource privateWirelessGateways', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.privateWirelessGateways.list(
@@ -75,8 +70,7 @@ describe('resource privateWirelessGateways', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.privateWirelessGateways.delete('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

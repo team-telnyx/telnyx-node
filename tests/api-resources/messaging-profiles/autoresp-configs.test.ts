@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource autorespConfigs', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.messagingProfiles.autorespConfigs.create('profile_id', {
       country_code: 'US',
       keywords: ['keyword1', 'keyword2'],
@@ -24,8 +23,7 @@ describe('resource autorespConfigs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.messagingProfiles.autorespConfigs.create('profile_id', {
       country_code: 'US',
       keywords: ['keyword1', 'keyword2'],
@@ -34,8 +32,7 @@ describe('resource autorespConfigs', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve: only required params', async () => {
+  test('retrieve: only required params', async () => {
     const responsePromise = client.messagingProfiles.autorespConfigs.retrieve(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { profile_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
@@ -49,16 +46,14 @@ describe('resource autorespConfigs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve: required and optional params', async () => {
+  test('retrieve: required and optional params', async () => {
     const response = await client.messagingProfiles.autorespConfigs.retrieve(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { profile_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
     );
   });
 
-  // Prism tests are disabled
-  test.skip('update: only required params', async () => {
+  test('update: only required params', async () => {
     const responsePromise = client.messagingProfiles.autorespConfigs.update(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       {
@@ -77,8 +72,7 @@ describe('resource autorespConfigs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: required and optional params', async () => {
+  test('update: required and optional params', async () => {
     const response = await client.messagingProfiles.autorespConfigs.update(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       {
@@ -91,8 +85,7 @@ describe('resource autorespConfigs', () => {
     );
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.messagingProfiles.autorespConfigs.list(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
@@ -105,8 +98,7 @@ describe('resource autorespConfigs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messagingProfiles.autorespConfigs.list(
@@ -121,8 +113,7 @@ describe('resource autorespConfigs', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('delete: only required params', async () => {
+  test('delete: only required params', async () => {
     const responsePromise = client.messagingProfiles.autorespConfigs.delete(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { profile_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
@@ -136,8 +127,7 @@ describe('resource autorespConfigs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('delete: required and optional params', async () => {
+  test('delete: required and optional params', async () => {
     const response = await client.messagingProfiles.autorespConfigs.delete(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { profile_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },

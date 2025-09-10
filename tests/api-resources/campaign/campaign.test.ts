@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource campaign', () => {
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.campaign.retrieve('campaignId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update', async () => {
+  test('update', async () => {
     const responsePromise = client.campaign.update('campaignId', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -32,8 +30,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: only required params', async () => {
+  test('list: only required params', async () => {
     const responsePromise = client.campaign.list({ brandId: 'brandId' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -44,8 +41,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: required and optional params', async () => {
+  test('list: required and optional params', async () => {
     const response = await client.campaign.list({
       brandId: 'brandId',
       page: 0,
@@ -54,8 +50,7 @@ describe('resource campaign', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('acceptSharing', async () => {
+  test('acceptSharing', async () => {
     const responsePromise = client.campaign.acceptSharing('C26F1KLZN');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -66,8 +61,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('deactivate', async () => {
+  test('deactivate', async () => {
     const responsePromise = client.campaign.deactivate('campaignId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -78,8 +72,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('getMnoMetadata', async () => {
+  test('getMnoMetadata', async () => {
     const responsePromise = client.campaign.getMnoMetadata('campaignId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -90,8 +83,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('getOperationStatus', async () => {
+  test('getOperationStatus', async () => {
     const responsePromise = client.campaign.getOperationStatus('campaignId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -102,8 +94,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('getSharingStatus', async () => {
+  test('getSharingStatus', async () => {
     const responsePromise = client.campaign.getSharingStatus('campaignId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -114,8 +105,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('submitAppeal: only required params', async () => {
+  test('submitAppeal: only required params', async () => {
     const responsePromise = client.campaign.submitAppeal('5eb13888-32b7-4cab-95e6-d834dde21d64', {
       appeal_reason:
         'The website has been updated to include the required privacy policy and terms of service.',
@@ -129,8 +119,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('submitAppeal: required and optional params', async () => {
+  test('submitAppeal: required and optional params', async () => {
     const response = await client.campaign.submitAppeal('5eb13888-32b7-4cab-95e6-d834dde21d64', {
       appeal_reason:
         'The website has been updated to include the required privacy policy and terms of service.',
