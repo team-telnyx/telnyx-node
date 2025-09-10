@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource userBundles', () => {
-  // Prism tests are disabled
-  test.skip('create', async () => {
+  test('create', async () => {
     const responsePromise = client.bundlePricing.userBundles.create({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource userBundles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.bundlePricing.userBundles.retrieve('ca1d2263-d1f1-43ac-ba53-248e7a4bb26a');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -32,8 +30,7 @@ describe('resource userBundles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve: request options and params are passed correctly', async () => {
+  test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.bundlePricing.userBundles.retrieve(
@@ -44,8 +41,7 @@ describe('resource userBundles', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.bundlePricing.userBundles.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -56,8 +52,7 @@ describe('resource userBundles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.bundlePricing.userBundles.list(
@@ -71,8 +66,7 @@ describe('resource userBundles', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('deactivate', async () => {
+  test('deactivate', async () => {
     const responsePromise = client.bundlePricing.userBundles.deactivate(
       'ca1d2263-d1f1-43ac-ba53-248e7a4bb26a',
     );
@@ -85,8 +79,7 @@ describe('resource userBundles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('deactivate: request options and params are passed correctly', async () => {
+  test('deactivate: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.bundlePricing.userBundles.deactivate(
@@ -97,8 +90,7 @@ describe('resource userBundles', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('listResources', async () => {
+  test('listResources', async () => {
     const responsePromise = client.bundlePricing.userBundles.listResources(
       'ca1d2263-d1f1-43ac-ba53-248e7a4bb26a',
     );
@@ -111,8 +103,7 @@ describe('resource userBundles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('listResources: request options and params are passed correctly', async () => {
+  test('listResources: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.bundlePricing.userBundles.listResources(
@@ -123,8 +114,7 @@ describe('resource userBundles', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('listUnused', async () => {
+  test('listUnused', async () => {
     const responsePromise = client.bundlePricing.userBundles.listUnused();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -135,8 +125,7 @@ describe('resource userBundles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('listUnused: request options and params are passed correctly', async () => {
+  test('listUnused: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.bundlePricing.userBundles.listUnused(

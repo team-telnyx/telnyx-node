@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource register', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.actions.register.create({
       registration_codes: ['0000000001', '0000000002', '0000000003'],
     });
@@ -22,8 +21,7 @@ describe('resource register', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.actions.register.create({
       registration_codes: ['0000000001', '0000000002', '0000000003'],
       sim_card_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',

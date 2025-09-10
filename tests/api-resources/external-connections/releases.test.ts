@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource releases', () => {
-  // Prism tests are disabled
-  test.skip('retrieve: only required params', async () => {
+  test('retrieve: only required params', async () => {
     const responsePromise = client.externalConnections.releases.retrieve(
       '7b6a6449-b055-45a6-81f6-f6f0dffa4cc6',
       { id: 'id' },
@@ -23,16 +22,14 @@ describe('resource releases', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve: required and optional params', async () => {
+  test('retrieve: required and optional params', async () => {
     const response = await client.externalConnections.releases.retrieve(
       '7b6a6449-b055-45a6-81f6-f6f0dffa4cc6',
       { id: 'id' },
     );
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.externalConnections.releases.list('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -43,8 +40,7 @@ describe('resource releases', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.externalConnections.releases.list(

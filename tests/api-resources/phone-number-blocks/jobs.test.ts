@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource jobs', () => {
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.phoneNumberBlocks.jobs.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.phoneNumberBlocks.jobs.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -32,8 +30,7 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.phoneNumberBlocks.jobs.list(
@@ -47,8 +44,7 @@ describe('resource jobs', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('deletePhoneNumberBlock: only required params', async () => {
+  test('deletePhoneNumberBlock: only required params', async () => {
     const responsePromise = client.phoneNumberBlocks.jobs.deletePhoneNumberBlock({
       phone_number_block_id: 'f3946371-7199-4261-9c3d-81a0d7935146',
     });
@@ -61,8 +57,7 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('deletePhoneNumberBlock: required and optional params', async () => {
+  test('deletePhoneNumberBlock: required and optional params', async () => {
     const response = await client.phoneNumberBlocks.jobs.deletePhoneNumberBlock({
       phone_number_block_id: 'f3946371-7199-4261-9c3d-81a0d7935146',
     });

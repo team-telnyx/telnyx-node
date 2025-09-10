@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource canaryDeploys', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.ai.assistants.canaryDeploys.create('assistant_id', {
       versions: [{ percentage: 1, version_id: 'version_id' }],
     });
@@ -22,15 +21,13 @@ describe('resource canaryDeploys', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.ai.assistants.canaryDeploys.create('assistant_id', {
       versions: [{ percentage: 1, version_id: 'version_id' }],
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.ai.assistants.canaryDeploys.retrieve('assistant_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -41,8 +38,7 @@ describe('resource canaryDeploys', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: only required params', async () => {
+  test('update: only required params', async () => {
     const responsePromise = client.ai.assistants.canaryDeploys.update('assistant_id', {
       versions: [{ percentage: 1, version_id: 'version_id' }],
     });
@@ -55,15 +51,13 @@ describe('resource canaryDeploys', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: required and optional params', async () => {
+  test('update: required and optional params', async () => {
     const response = await client.ai.assistants.canaryDeploys.update('assistant_id', {
       versions: [{ percentage: 1, version_id: 'version_id' }],
     });
   });
 
-  // Prism tests are disabled
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.ai.assistants.canaryDeploys.delete('assistant_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

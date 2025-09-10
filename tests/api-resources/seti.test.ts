@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource seti', () => {
-  // Prism tests are disabled
-  test.skip('retrieveBlackBoxTestResults', async () => {
+  test('retrieveBlackBoxTestResults', async () => {
     const responsePromise = client.seti.retrieveBlackBoxTestResults();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource seti', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveBlackBoxTestResults: request options and params are passed correctly', async () => {
+  test('retrieveBlackBoxTestResults: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.seti.retrieveBlackBoxTestResults(

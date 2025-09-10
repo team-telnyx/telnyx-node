@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource globalIPHealthCheckTypes', () => {
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.globalIPHealthCheckTypes.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

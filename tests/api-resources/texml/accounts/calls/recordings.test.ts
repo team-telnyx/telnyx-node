@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource recordings', () => {
-  // Prism tests are disabled
-  test.skip('recordingSidJson: only required params', async () => {
+  test('recordingSidJson: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.recordings.recordingSidJson(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
       { account_sid: 'account_sid', call_sid: 'call_sid' },
@@ -23,8 +22,7 @@ describe('resource recordings', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('recordingSidJson: required and optional params', async () => {
+  test('recordingSidJson: required and optional params', async () => {
     const response = await client.texml.accounts.calls.recordings.recordingSidJson(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
       { account_sid: 'account_sid', call_sid: 'call_sid', Status: 'paused' },

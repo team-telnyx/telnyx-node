@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource streams', () => {
-  // Prism tests are disabled
-  test.skip('streamingSidJson: only required params', async () => {
+  test('streamingSidJson: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.streams.streamingSidJson(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
       { account_sid: 'account_sid', call_sid: 'call_sid' },
@@ -23,8 +22,7 @@ describe('resource streams', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('streamingSidJson: required and optional params', async () => {
+  test('streamingSidJson: required and optional params', async () => {
     const response = await client.texml.accounts.calls.streams.streamingSidJson(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
       { account_sid: 'account_sid', call_sid: 'call_sid', Status: 'stopped' },

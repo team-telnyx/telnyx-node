@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource conferences', () => {
-  // Prism tests are disabled
-  test.skip('retrieve: only required params', async () => {
+  test('retrieve: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.retrieve('conference_sid', {
       account_sid: 'account_sid',
     });
@@ -22,15 +21,13 @@ describe('resource conferences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve: required and optional params', async () => {
+  test('retrieve: required and optional params', async () => {
     const response = await client.texml.accounts.conferences.retrieve('conference_sid', {
       account_sid: 'account_sid',
     });
   });
 
-  // Prism tests are disabled
-  test.skip('update: only required params', async () => {
+  test('update: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.update('conference_sid', {
       account_sid: 'account_sid',
     });
@@ -43,8 +40,7 @@ describe('resource conferences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: required and optional params', async () => {
+  test('update: required and optional params', async () => {
     const response = await client.texml.accounts.conferences.update('conference_sid', {
       account_sid: 'account_sid',
       AnnounceMethod: 'GET',
@@ -53,8 +49,7 @@ describe('resource conferences', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveConferences', async () => {
+  test('retrieveConferences', async () => {
     const responsePromise = client.texml.accounts.conferences.retrieveConferences('account_sid');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -65,8 +60,7 @@ describe('resource conferences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveConferences: request options and params are passed correctly', async () => {
+  test('retrieveConferences: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.texml.accounts.conferences.retrieveConferences(
@@ -85,8 +79,7 @@ describe('resource conferences', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveRecordings: only required params', async () => {
+  test('retrieveRecordings: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.retrieveRecordings('conference_sid', {
       account_sid: 'account_sid',
     });
@@ -99,15 +92,13 @@ describe('resource conferences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveRecordings: required and optional params', async () => {
+  test('retrieveRecordings: required and optional params', async () => {
     const response = await client.texml.accounts.conferences.retrieveRecordings('conference_sid', {
       account_sid: 'account_sid',
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveRecordingsJson: only required params', async () => {
+  test('retrieveRecordingsJson: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.retrieveRecordingsJson('conference_sid', {
       account_sid: 'account_sid',
     });
@@ -120,8 +111,7 @@ describe('resource conferences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveRecordingsJson: required and optional params', async () => {
+  test('retrieveRecordingsJson: required and optional params', async () => {
     const response = await client.texml.accounts.conferences.retrieveRecordingsJson('conference_sid', {
       account_sid: 'account_sid',
     });

@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource portingOrders', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.portingOrders.create({
       phone_numbers: ['+13035550000', '+13035550001', '+13035550002'],
     });
@@ -22,16 +21,14 @@ describe('resource portingOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.portingOrders.create({
       phone_numbers: ['+13035550000', '+13035550001', '+13035550002'],
       customer_reference: 'Acct 123abc',
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.portingOrders.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -42,8 +39,7 @@ describe('resource portingOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve: request options and params are passed correctly', async () => {
+  test('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.portingOrders.retrieve(
@@ -54,8 +50,7 @@ describe('resource portingOrders', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('update', async () => {
+  test('update', async () => {
     const responsePromise = client.portingOrders.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -66,8 +61,7 @@ describe('resource portingOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.portingOrders.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -78,8 +72,7 @@ describe('resource portingOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.portingOrders.list(
@@ -108,8 +101,7 @@ describe('resource portingOrders', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.portingOrders.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -120,8 +112,7 @@ describe('resource portingOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveAllowedFocWindows', async () => {
+  test('retrieveAllowedFocWindows', async () => {
     const responsePromise = client.portingOrders.retrieveAllowedFocWindows(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
@@ -134,8 +125,7 @@ describe('resource portingOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveExceptionTypes', async () => {
+  test('retrieveExceptionTypes', async () => {
     const responsePromise = client.portingOrders.retrieveExceptionTypes();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -157,8 +147,7 @@ describe('resource portingOrders', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveRequirements', async () => {
+  test('retrieveRequirements', async () => {
     const responsePromise = client.portingOrders.retrieveRequirements('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -169,8 +158,7 @@ describe('resource portingOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveRequirements: request options and params are passed correctly', async () => {
+  test('retrieveRequirements: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.portingOrders.retrieveRequirements(
@@ -181,8 +169,7 @@ describe('resource portingOrders', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveSubRequest', async () => {
+  test('retrieveSubRequest', async () => {
     const responsePromise = client.portingOrders.retrieveSubRequest('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

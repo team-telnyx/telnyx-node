@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource wireless', () => {
-  // Prism tests are disabled
-  test.skip('retrieveRegions: only required params', async () => {
+  test('retrieveRegions: only required params', async () => {
     const responsePromise = client.wireless.retrieveRegions({ product: 'public_ips' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource wireless', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveRegions: required and optional params', async () => {
+  test('retrieveRegions: required and optional params', async () => {
     const response = await client.wireless.retrieveRegions({ product: 'public_ips' });
   });
 });

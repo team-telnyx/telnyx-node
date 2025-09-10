@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource detailRecordsReports', () => {
-  // Prism tests are disabled
-  test.skip('create', async () => {
+  test('create', async () => {
     const responsePromise = client.wireless.detailRecordsReports.create({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource detailRecordsReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.wireless.detailRecordsReports.retrieve(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
     );
@@ -34,8 +32,7 @@ describe('resource detailRecordsReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.wireless.detailRecordsReports.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -46,8 +43,7 @@ describe('resource detailRecordsReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.wireless.detailRecordsReports.list(
@@ -57,8 +53,7 @@ describe('resource detailRecordsReports', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.wireless.detailRecordsReports.delete(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
     );

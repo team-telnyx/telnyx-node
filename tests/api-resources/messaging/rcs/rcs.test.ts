@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource rcs', () => {
-  // Prism tests are disabled
-  test.skip('inviteTestNumber: only required params', async () => {
+  test('inviteTestNumber: only required params', async () => {
     const responsePromise = client.messaging.rcs.inviteTestNumber('phone_number', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,13 +19,11 @@ describe('resource rcs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('inviteTestNumber: required and optional params', async () => {
+  test('inviteTestNumber: required and optional params', async () => {
     const response = await client.messaging.rcs.inviteTestNumber('phone_number', { id: 'id' });
   });
 
-  // Prism tests are disabled
-  test.skip('listBulkCapabilities: only required params', async () => {
+  test('listBulkCapabilities: only required params', async () => {
     const responsePromise = client.messaging.rcs.listBulkCapabilities({
       agent_id: 'TestAgent',
       phone_numbers: ['+13125551234'],
@@ -40,16 +37,14 @@ describe('resource rcs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('listBulkCapabilities: required and optional params', async () => {
+  test('listBulkCapabilities: required and optional params', async () => {
     const response = await client.messaging.rcs.listBulkCapabilities({
       agent_id: 'TestAgent',
       phone_numbers: ['+13125551234'],
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveCapabilities: only required params', async () => {
+  test('retrieveCapabilities: only required params', async () => {
     const responsePromise = client.messaging.rcs.retrieveCapabilities('phone_number', {
       agent_id: 'agent_id',
     });
@@ -62,8 +57,7 @@ describe('resource rcs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieveCapabilities: required and optional params', async () => {
+  test('retrieveCapabilities: required and optional params', async () => {
     const response = await client.messaging.rcs.retrieveCapabilities('phone_number', {
       agent_id: 'agent_id',
     });

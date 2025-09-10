@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
-  test.skip('verify: only required params', async () => {
+  test('verify: only required params', async () => {
     const responsePromise = client.verifications.byPhoneNumber.actions.verify('+13035551234', {
       code: '17686',
       verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
@@ -23,8 +22,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('verify: required and optional params', async () => {
+  test('verify: required and optional params', async () => {
     const response = await client.verifications.byPhoneNumber.actions.verify('+13035551234', {
       code: '17686',
       verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',

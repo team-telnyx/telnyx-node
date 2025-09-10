@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource migrationSources', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.storage.migrationSources.create({
       bucket_name: 'bucket_name',
       provider: 'aws',
@@ -24,8 +23,7 @@ describe('resource migrationSources', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.storage.migrationSources.create({
       bucket_name: 'bucket_name',
       provider: 'aws',
@@ -34,8 +32,7 @@ describe('resource migrationSources', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.storage.migrationSources.retrieve('');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -46,8 +43,7 @@ describe('resource migrationSources', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.storage.migrationSources.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -58,8 +54,7 @@ describe('resource migrationSources', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.storage.migrationSources.delete('');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

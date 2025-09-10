@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource reports', () => {
-  // Prism tests are disabled
-  test.skip('listMdrs', async () => {
+  test('listMdrs', async () => {
     const responsePromise = client.reports.listMdrs();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource reports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('listMdrs: request options and params are passed correctly', async () => {
+  test('listMdrs: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.reports.listMdrs(
@@ -41,8 +39,7 @@ describe('resource reports', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('listWdrs', async () => {
+  test('listWdrs', async () => {
     const responsePromise = client.reports.listWdrs();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -53,8 +50,7 @@ describe('resource reports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('listWdrs: request options and params are passed correctly', async () => {
+  test('listWdrs: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.reports.listWdrs(

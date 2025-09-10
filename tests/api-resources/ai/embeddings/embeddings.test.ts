@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource embeddings', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.ai.embeddings.create({ bucket_name: 'bucket_name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource embeddings', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.ai.embeddings.create({
       bucket_name: 'bucket_name',
       document_chunk_overlap_size: 0,
@@ -31,8 +29,7 @@ describe('resource embeddings', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.ai.embeddings.retrieve('task_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -43,8 +40,7 @@ describe('resource embeddings', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.ai.embeddings.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -55,16 +51,14 @@ describe('resource embeddings', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.ai.embeddings.list({ status: ['string'] }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('similaritySearch: only required params', async () => {
+  test('similaritySearch: only required params', async () => {
     const responsePromise = client.ai.embeddings.similaritySearch({
       bucket_name: 'bucket_name',
       query: 'query',
@@ -78,8 +72,7 @@ describe('resource embeddings', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('similaritySearch: required and optional params', async () => {
+  test('similaritySearch: required and optional params', async () => {
     const response = await client.ai.embeddings.similaritySearch({
       bucket_name: 'bucket_name',
       query: 'query',
@@ -87,8 +80,7 @@ describe('resource embeddings', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('url: only required params', async () => {
+  test('url: only required params', async () => {
     const responsePromise = client.ai.embeddings.url({ bucket_name: 'bucket_name', url: 'url' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -99,8 +91,7 @@ describe('resource embeddings', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('url: required and optional params', async () => {
+  test('url: required and optional params', async () => {
     const response = await client.ai.embeddings.url({ bucket_name: 'bucket_name', url: 'url' });
   });
 });

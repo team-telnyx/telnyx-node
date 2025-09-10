@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource callControlApplications', () => {
-  // Prism tests are disabled
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.callControlApplications.create({
       application_name: 'call-router',
       webhook_event_url: 'https://example.com',
@@ -23,8 +22,7 @@ describe('resource callControlApplications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.callControlApplications.create({
       application_name: 'call-router',
       webhook_event_url: 'https://example.com',
@@ -47,8 +45,7 @@ describe('resource callControlApplications', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
+  test('retrieve', async () => {
     const responsePromise = client.callControlApplications.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -59,8 +56,7 @@ describe('resource callControlApplications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: only required params', async () => {
+  test('update: only required params', async () => {
     const responsePromise = client.callControlApplications.update('id', {
       application_name: 'call-router',
       webhook_event_url: 'https://example.com',
@@ -74,8 +70,7 @@ describe('resource callControlApplications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('update: required and optional params', async () => {
+  test('update: required and optional params', async () => {
     const response = await client.callControlApplications.update('id', {
       application_name: 'call-router',
       webhook_event_url: 'https://example.com',
@@ -99,8 +94,7 @@ describe('resource callControlApplications', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.callControlApplications.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -111,8 +105,7 @@ describe('resource callControlApplications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.callControlApplications.list(
@@ -146,8 +139,7 @@ describe('resource callControlApplications', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.callControlApplications.delete('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

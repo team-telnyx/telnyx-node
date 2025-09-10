@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
-  test.skip('uploadFile', async () => {
+  test('uploadFile', async () => {
     const responsePromise = client.messagingHostedNumberOrders.actions.uploadFile('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('uploadFile: request options and params are passed correctly', async () => {
+  test('uploadFile: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messagingHostedNumberOrders.actions.uploadFile(

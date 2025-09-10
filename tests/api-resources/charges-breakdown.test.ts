@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource chargesBreakdown', () => {
-  // Prism tests are disabled
-  test.skip('retrieve: only required params', async () => {
+  test('retrieve: only required params', async () => {
     const responsePromise = client.chargesBreakdown.retrieve({ start_date: '2025-05-01' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource chargesBreakdown', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('retrieve: required and optional params', async () => {
+  test('retrieve: required and optional params', async () => {
     const response = await client.chargesBreakdown.retrieve({
       start_date: '2025-05-01',
       end_date: '2025-06-01',

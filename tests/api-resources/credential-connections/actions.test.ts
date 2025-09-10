@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
-  test.skip('checkRegistrationStatus', async () => {
+  test('checkRegistrationStatus', async () => {
     const responsePromise = client.credentialConnections.actions.checkRegistrationStatus('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

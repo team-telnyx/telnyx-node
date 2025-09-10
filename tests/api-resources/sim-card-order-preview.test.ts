@@ -8,8 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource simCardOrderPreview', () => {
-  // Prism tests are disabled
-  test.skip('preview: only required params', async () => {
+  test('preview: only required params', async () => {
     const responsePromise = client.simCardOrderPreview.preview({
       address_id: '1293384261075731499',
       quantity: 21,
@@ -23,8 +22,7 @@ describe('resource simCardOrderPreview', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('preview: required and optional params', async () => {
+  test('preview: required and optional params', async () => {
     const response = await client.simCardOrderPreview.preview({
       address_id: '1293384261075731499',
       quantity: 21,
