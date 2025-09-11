@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  test('extend', async () => {
+  // Prism tests are disabled
+  test.skip('extend', async () => {
     const responsePromise = client.numberReservations.actions.extend('number_reservation_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

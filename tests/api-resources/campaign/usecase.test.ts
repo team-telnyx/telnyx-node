@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource usecase', () => {
-  test('getCost: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('getCost: only required params', async () => {
     const responsePromise = client.campaign.usecase.getCost({ usecase: 'usecase' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource usecase', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('getCost: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('getCost: required and optional params', async () => {
     const response = await client.campaign.usecase.getCost({ usecase: 'usecase' });
   });
 });

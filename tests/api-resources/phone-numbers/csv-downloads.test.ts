@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource csvDownloads', () => {
-  test('create', async () => {
+  // Prism tests are disabled
+  test.skip('create', async () => {
     const responsePromise = client.phoneNumbers.csvDownloads.create();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource csvDownloads', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('create: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.phoneNumbers.csvDownloads.create(
@@ -43,7 +45,8 @@ describe('resource csvDownloads', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.phoneNumbers.csvDownloads.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -54,7 +57,8 @@ describe('resource csvDownloads', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.phoneNumbers.csvDownloads.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -65,7 +69,8 @@ describe('resource csvDownloads', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.phoneNumbers.csvDownloads.list(

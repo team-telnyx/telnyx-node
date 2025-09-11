@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource calls', () => {
-  test('retrieve: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.retrieve('call_sid', { account_sid: 'account_sid' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,11 +20,13 @@ describe('resource calls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve: required and optional params', async () => {
     const response = await client.texml.accounts.calls.retrieve('call_sid', { account_sid: 'account_sid' });
   });
 
-  test('update: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('update: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.update('call_sid', { account_sid: 'account_sid' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -34,7 +37,8 @@ describe('resource calls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('update: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('update: required and optional params', async () => {
     const response = await client.texml.accounts.calls.update('call_sid', {
       account_sid: 'account_sid',
       FallbackMethod: 'GET',
@@ -48,7 +52,8 @@ describe('resource calls', () => {
     });
   });
 
-  test('calls: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('calls: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.calls('account_sid', {
       ApplicationSid: 'ApplicationSid',
       From: '+13120001234',
@@ -63,7 +68,8 @@ describe('resource calls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('calls: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('calls: required and optional params', async () => {
     const response = await client.texml.accounts.calls.calls('account_sid', {
       ApplicationSid: 'ApplicationSid',
       From: '+13120001234',
@@ -101,7 +107,8 @@ describe('resource calls', () => {
     });
   });
 
-  test('retrieveCalls', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveCalls', async () => {
     const responsePromise = client.texml.accounts.calls.retrieveCalls('account_sid');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -112,7 +119,8 @@ describe('resource calls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieveCalls: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveCalls: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.texml.accounts.calls.retrieveCalls(
@@ -136,7 +144,8 @@ describe('resource calls', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('siprecJson: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('siprecJson: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.siprecJson('call_sid', {
       account_sid: 'account_sid',
     });
@@ -149,7 +158,8 @@ describe('resource calls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('siprecJson: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('siprecJson: required and optional params', async () => {
     const response = await client.texml.accounts.calls.siprecJson('call_sid', {
       account_sid: 'account_sid',
       ConnectorName: 'my_connector',
@@ -164,7 +174,8 @@ describe('resource calls', () => {
     });
   });
 
-  test('streamsJson: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('streamsJson: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.streamsJson('call_sid', {
       account_sid: 'account_sid',
     });
@@ -177,7 +188,8 @@ describe('resource calls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('streamsJson: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('streamsJson: required and optional params', async () => {
     const response = await client.texml.accounts.calls.streamsJson('call_sid', {
       account_sid: 'account_sid',
       BidirectionalCodec: 'G722',

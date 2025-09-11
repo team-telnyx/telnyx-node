@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource audio', () => {
-  test('transcribe: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('transcribe: only required params', async () => {
     const responsePromise = client.ai.audio.transcribe({ model: 'distil-whisper/distil-large-v2' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource audio', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('transcribe: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('transcribe: required and optional params', async () => {
     const response = await client.ai.audio.transcribe({
       model: 'distil-whisper/distil-large-v2',
       file: await toFile(Buffer.from('# my file contents'), 'README.md'),

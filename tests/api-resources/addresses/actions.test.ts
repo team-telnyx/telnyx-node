@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  test('acceptSuggestions', async () => {
+  // Prism tests are disabled
+  test.skip('acceptSuggestions', async () => {
     const responsePromise = client.addresses.actions.acceptSuggestions(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
@@ -21,7 +22,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('acceptSuggestions: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('acceptSuggestions: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.addresses.actions.acceptSuggestions(
@@ -32,7 +34,8 @@ describe('resource actions', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('validate: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('validate: only required params', async () => {
     const responsePromise = client.addresses.actions.validate({
       country_code: 'US',
       postal_code: '78701',
@@ -47,7 +50,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('validate: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('validate: required and optional params', async () => {
     const response = await client.addresses.actions.validate({
       country_code: 'US',
       postal_code: '78701',

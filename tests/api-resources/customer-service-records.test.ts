@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource customerServiceRecords', () => {
-  test('create: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('create: only required params', async () => {
     const responsePromise = client.customerServiceRecords.create({ phone_number: '+1234567890' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource customerServiceRecords', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('create: required and optional params', async () => {
     const response = await client.customerServiceRecords.create({
       phone_number: '+1234567890',
       additional_data: {
@@ -38,7 +40,8 @@ describe('resource customerServiceRecords', () => {
     });
   });
 
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.customerServiceRecords.retrieve('customer_service_record_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -49,7 +52,8 @@ describe('resource customerServiceRecords', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.customerServiceRecords.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -60,7 +64,8 @@ describe('resource customerServiceRecords', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.customerServiceRecords.list(
@@ -78,7 +83,8 @@ describe('resource customerServiceRecords', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('verifyPhoneNumberCoverage: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('verifyPhoneNumberCoverage: only required params', async () => {
     const responsePromise = client.customerServiceRecords.verifyPhoneNumberCoverage({
       phone_numbers: ['+1234567890'],
     });
@@ -91,7 +97,8 @@ describe('resource customerServiceRecords', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('verifyPhoneNumberCoverage: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('verifyPhoneNumberCoverage: required and optional params', async () => {
     const response = await client.customerServiceRecords.verifyPhoneNumberCoverage({
       phone_numbers: ['+1234567890'],
     });

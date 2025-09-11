@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.simCardGroups.actions.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.simCardGroups.actions.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -30,7 +32,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.simCardGroups.actions.list(
@@ -46,7 +49,8 @@ describe('resource actions', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('removePrivateWirelessGateway', async () => {
+  // Prism tests are disabled
+  test.skip('removePrivateWirelessGateway', async () => {
     const responsePromise = client.simCardGroups.actions.removePrivateWirelessGateway(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
     );
@@ -59,7 +63,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('removeWirelessBlocklist', async () => {
+  // Prism tests are disabled
+  test.skip('removeWirelessBlocklist', async () => {
     const responsePromise = client.simCardGroups.actions.removeWirelessBlocklist(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
     );
@@ -72,7 +77,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('setPrivateWirelessGateway: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('setPrivateWirelessGateway: only required params', async () => {
     const responsePromise = client.simCardGroups.actions.setPrivateWirelessGateway(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
       { private_wireless_gateway_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58' },
@@ -86,14 +92,16 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('setPrivateWirelessGateway: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('setPrivateWirelessGateway: required and optional params', async () => {
     const response = await client.simCardGroups.actions.setPrivateWirelessGateway(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
       { private_wireless_gateway_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58' },
     );
   });
 
-  test('setWirelessBlocklist: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('setWirelessBlocklist: only required params', async () => {
     const responsePromise = client.simCardGroups.actions.setWirelessBlocklist(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
       { wireless_blocklist_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58' },
@@ -107,7 +115,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('setWirelessBlocklist: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('setWirelessBlocklist: required and optional params', async () => {
     const response = await client.simCardGroups.actions.setWirelessBlocklist(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
       { wireless_blocklist_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58' },

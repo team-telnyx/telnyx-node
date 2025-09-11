@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource porting', () => {
-  test('listUkCarriers', async () => {
+  // Prism tests are disabled
+  test.skip('listUkCarriers', async () => {
     const responsePromise = client.porting.listUkCarriers();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

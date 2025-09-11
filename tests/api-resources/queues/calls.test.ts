@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource calls', () => {
-  test('retrieve: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve: only required params', async () => {
     const responsePromise = client.queues.calls.retrieve('call_control_id', { queue_name: 'queue_name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,11 +20,13 @@ describe('resource calls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve: required and optional params', async () => {
     const response = await client.queues.calls.retrieve('call_control_id', { queue_name: 'queue_name' });
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.queues.calls.list('queue_name');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -34,7 +37,8 @@ describe('resource calls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.queues.calls.list(

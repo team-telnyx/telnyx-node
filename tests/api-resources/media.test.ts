@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource media', () => {
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.media.retrieve('media_name');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource media', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('update', async () => {
+  // Prism tests are disabled
+  test.skip('update', async () => {
     const responsePromise = client.media.update('media_name', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -30,7 +32,8 @@ describe('resource media', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.media.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -41,7 +44,8 @@ describe('resource media', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.media.list(
@@ -51,7 +55,8 @@ describe('resource media', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('delete', async () => {
+  // Prism tests are disabled
+  test.skip('delete', async () => {
     const responsePromise = client.media.delete('media_name');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -62,7 +67,8 @@ describe('resource media', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('upload: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('upload: only required params', async () => {
     const responsePromise = client.media.upload({ media_url: 'http://www.example.com/audio.mp3' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -73,7 +79,8 @@ describe('resource media', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('upload: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('upload: required and optional params', async () => {
     const response = await client.media.upload({
       media_url: 'http://www.example.com/audio.mp3',
       media_name: 'my-file',

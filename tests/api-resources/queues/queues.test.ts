@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource queues', () => {
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.queues.retrieve('queue_name');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

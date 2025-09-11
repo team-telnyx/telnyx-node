@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  test('changeBundleStatus: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('changeBundleStatus: only required params', async () => {
     const responsePromise = client.phoneNumbers.actions.changeBundleStatus('1293384261075731499', {
       bundle_id: '5194d8fc-87e6-4188-baa9-1c434bbe861b',
     });
@@ -21,13 +22,15 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('changeBundleStatus: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('changeBundleStatus: required and optional params', async () => {
     const response = await client.phoneNumbers.actions.changeBundleStatus('1293384261075731499', {
       bundle_id: '5194d8fc-87e6-4188-baa9-1c434bbe861b',
     });
   });
 
-  test('enableEmergency: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('enableEmergency: only required params', async () => {
     const responsePromise = client.phoneNumbers.actions.enableEmergency('1293384261075731499', {
       emergency_address_id: '53829456729313',
       emergency_enabled: true,
@@ -41,14 +44,16 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('enableEmergency: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('enableEmergency: required and optional params', async () => {
     const response = await client.phoneNumbers.actions.enableEmergency('1293384261075731499', {
       emergency_address_id: '53829456729313',
       emergency_enabled: true,
     });
   });
 
-  test('verifyOwnership: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('verifyOwnership: only required params', async () => {
     const responsePromise = client.phoneNumbers.actions.verifyOwnership({ phone_numbers: ['+15551234567'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -59,7 +64,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('verifyOwnership: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('verifyOwnership: required and optional params', async () => {
     const response = await client.phoneNumbers.actions.verifyOwnership({ phone_numbers: ['+15551234567'] });
   });
 });

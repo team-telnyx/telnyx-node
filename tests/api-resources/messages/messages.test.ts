@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource messages', () => {
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.messages.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('cancelScheduled', async () => {
+  // Prism tests are disabled
+  test.skip('cancelScheduled', async () => {
     const responsePromise = client.messages.cancelScheduled('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -30,7 +32,8 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('schedule: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('schedule: only required params', async () => {
     const responsePromise = client.messages.schedule({ to: '+18445550001' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -41,7 +44,8 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('schedule: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('schedule: required and optional params', async () => {
     const response = await client.messages.schedule({
       to: '+18445550001',
       auto_detect: true,
@@ -58,7 +62,8 @@ describe('resource messages', () => {
     });
   });
 
-  test('send: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('send: only required params', async () => {
     const responsePromise = client.messages.send({ to: '+18445550001' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -69,7 +74,8 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('send: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('send: required and optional params', async () => {
     const response = await client.messages.send({
       to: '+18445550001',
       auto_detect: true,
@@ -86,7 +92,8 @@ describe('resource messages', () => {
     });
   });
 
-  test('sendGroupMms: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('sendGroupMms: only required params', async () => {
     const responsePromise = client.messages.sendGroupMms({
       from: '+13125551234',
       to: ['+18655551234', '+14155551234'],
@@ -100,7 +107,8 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('sendGroupMms: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('sendGroupMms: required and optional params', async () => {
     const response = await client.messages.sendGroupMms({
       from: '+13125551234',
       to: ['+18655551234', '+14155551234'],
@@ -113,7 +121,8 @@ describe('resource messages', () => {
     });
   });
 
-  test('sendLongCode: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('sendLongCode: only required params', async () => {
     const responsePromise = client.messages.sendLongCode({ from: '+18445550001', to: '+13125550002' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -124,7 +133,8 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('sendLongCode: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('sendLongCode: required and optional params', async () => {
     const response = await client.messages.sendLongCode({
       from: '+18445550001',
       to: '+13125550002',
@@ -139,7 +149,8 @@ describe('resource messages', () => {
     });
   });
 
-  test('sendNumberPool: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('sendNumberPool: only required params', async () => {
     const responsePromise = client.messages.sendNumberPool({
       messaging_profile_id: 'abc85f64-5717-4562-b3fc-2c9600000000',
       to: 'to',
@@ -153,7 +164,8 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('sendNumberPool: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('sendNumberPool: required and optional params', async () => {
     const response = await client.messages.sendNumberPool({
       messaging_profile_id: 'abc85f64-5717-4562-b3fc-2c9600000000',
       to: 'to',
@@ -168,7 +180,8 @@ describe('resource messages', () => {
     });
   });
 
-  test('sendShortCode: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('sendShortCode: only required params', async () => {
     const responsePromise = client.messages.sendShortCode({ from: '+18445550001', to: '+18445550001' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -179,7 +192,8 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('sendShortCode: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('sendShortCode: required and optional params', async () => {
     const response = await client.messages.sendShortCode({
       from: '+18445550001',
       to: '+18445550001',

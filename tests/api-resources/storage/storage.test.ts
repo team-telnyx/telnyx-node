@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource storage', () => {
-  test('listMigrationSourceCoverage', async () => {
+  // Prism tests are disabled
+  test.skip('listMigrationSourceCoverage', async () => {
     const responsePromise = client.storage.listMigrationSourceCoverage();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

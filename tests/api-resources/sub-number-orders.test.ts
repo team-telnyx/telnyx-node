@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource subNumberOrders', () => {
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.subNumberOrders.retrieve('sub_number_order_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource subNumberOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.subNumberOrders.retrieve(
@@ -30,7 +32,8 @@ describe('resource subNumberOrders', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('update', async () => {
+  // Prism tests are disabled
+  test.skip('update', async () => {
     const responsePromise = client.subNumberOrders.update('sub_number_order_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -41,7 +44,8 @@ describe('resource subNumberOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.subNumberOrders.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -52,7 +56,8 @@ describe('resource subNumberOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.subNumberOrders.list(
@@ -70,7 +75,8 @@ describe('resource subNumberOrders', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('cancel', async () => {
+  // Prism tests are disabled
+  test.skip('cancel', async () => {
     const responsePromise = client.subNumberOrders.cancel('sub_number_order_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -81,7 +87,8 @@ describe('resource subNumberOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('updateRequirementGroup: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('updateRequirementGroup: only required params', async () => {
     const responsePromise = client.subNumberOrders.updateRequirementGroup(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { requirement_group_id: 'a4b201f9-8646-4e54-a7d2-b2e403eeaf8c' },
@@ -95,7 +102,8 @@ describe('resource subNumberOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('updateRequirementGroup: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('updateRequirementGroup: required and optional params', async () => {
     const response = await client.subNumberOrders.updateRequirementGroup(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { requirement_group_id: 'a4b201f9-8646-4e54-a7d2-b2e403eeaf8c' },

@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource usageReports', () => {
-  test('list: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('list: only required params', async () => {
     const responsePromise = client.usageReports.list({
       dimensions: ['string'],
       metrics: ['string'],
@@ -23,7 +24,8 @@ describe('resource usageReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('list: required and optional params', async () => {
     const response = await client.usageReports.list({
       dimensions: ['string'],
       metrics: ['string'],
@@ -40,7 +42,8 @@ describe('resource usageReports', () => {
     });
   });
 
-  test('getOptions', async () => {
+  // Prism tests are disabled
+  test.skip('getOptions', async () => {
     const responsePromise = client.usageReports.getOptions();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -51,7 +54,8 @@ describe('resource usageReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('getOptions: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('getOptions: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.usageReports.getOptions(

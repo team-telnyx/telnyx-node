@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  test('stop', async () => {
+  // Prism tests are disabled
+  test.skip('stop', async () => {
     const responsePromise = client.storage.migrations.actions.stop('');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

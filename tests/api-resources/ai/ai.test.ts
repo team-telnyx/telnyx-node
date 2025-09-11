@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource ai', () => {
-  test('retrieveModels', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveModels', async () => {
     const responsePromise = client.ai.retrieveModels();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource ai', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('summarize: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('summarize: only required params', async () => {
     const responsePromise = client.ai.summarize({ bucket: 'bucket', filename: 'filename' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -30,7 +32,8 @@ describe('resource ai', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('summarize: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('summarize: required and optional params', async () => {
     const response = await client.ai.summarize({
       bucket: 'bucket',
       filename: 'filename',

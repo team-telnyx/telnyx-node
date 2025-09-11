@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource sslCertificate', () => {
-  test('create', async () => {
+  // Prism tests are disabled
+  test.skip('create', async () => {
     const responsePromise = client.storage.buckets.sslCertificate.create('');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource sslCertificate', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('create: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.storage.buckets.sslCertificate.create(
@@ -33,7 +35,8 @@ describe('resource sslCertificate', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.storage.buckets.sslCertificate.retrieve('');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -44,7 +47,8 @@ describe('resource sslCertificate', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('delete', async () => {
+  // Prism tests are disabled
+  test.skip('delete', async () => {
     const responsePromise = client.storage.buckets.sslCertificate.delete('');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

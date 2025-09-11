@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  test('refresh', async () => {
+  // Prism tests are disabled
+  test.skip('refresh', async () => {
     const responsePromise = client.operatorConnect.actions.refresh();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

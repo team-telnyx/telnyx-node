@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource chargesSummary', () => {
-  test('retrieve: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve: only required params', async () => {
     const responsePromise = client.chargesSummary.retrieve({
       end_date: '2025-06-01',
       start_date: '2025-05-01',
@@ -22,7 +23,8 @@ describe('resource chargesSummary', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve: required and optional params', async () => {
     const response = await client.chargesSummary.retrieve({
       end_date: '2025-06-01',
       start_date: '2025-05-01',

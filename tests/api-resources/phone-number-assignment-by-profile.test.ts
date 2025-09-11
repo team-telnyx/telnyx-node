@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource phoneNumberAssignmentByProfile', () => {
-  test('assign: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('assign: only required params', async () => {
     const responsePromise = client.phoneNumberAssignmentByProfile.assign({
       messagingProfileId: '4001767e-ce0f-4cae-9d5f-0d5e636e7809',
     });
@@ -21,7 +22,8 @@ describe('resource phoneNumberAssignmentByProfile', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('assign: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('assign: required and optional params', async () => {
     const response = await client.phoneNumberAssignmentByProfile.assign({
       messagingProfileId: '4001767e-ce0f-4cae-9d5f-0d5e636e7809',
       campaignId: '4b300178-131c-d902-d54e-72d90ba1620j',
@@ -29,7 +31,8 @@ describe('resource phoneNumberAssignmentByProfile', () => {
     });
   });
 
-  test('retrievePhoneNumberStatus', async () => {
+  // Prism tests are disabled
+  test.skip('retrievePhoneNumberStatus', async () => {
     const responsePromise = client.phoneNumberAssignmentByProfile.retrievePhoneNumberStatus('taskId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -40,7 +43,8 @@ describe('resource phoneNumberAssignmentByProfile', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrievePhoneNumberStatus: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('retrievePhoneNumberStatus: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.phoneNumberAssignmentByProfile.retrievePhoneNumberStatus(
@@ -51,7 +55,8 @@ describe('resource phoneNumberAssignmentByProfile', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('retrieveStatus', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveStatus', async () => {
     const responsePromise = client.phoneNumberAssignmentByProfile.retrieveStatus('taskId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

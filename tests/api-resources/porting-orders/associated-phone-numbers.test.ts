@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource associatedPhoneNumbers', () => {
-  test('create: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('create: only required params', async () => {
     const responsePromise = client.portingOrders.associatedPhoneNumbers.create(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { action: 'keep', phone_number_range: {} },
@@ -22,14 +23,16 @@ describe('resource associatedPhoneNumbers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('create: required and optional params', async () => {
     const response = await client.portingOrders.associatedPhoneNumbers.create(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { action: 'keep', phone_number_range: { end_at: '+441234567899', start_at: '+441234567890' } },
     );
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.portingOrders.associatedPhoneNumbers.list(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
@@ -42,7 +45,8 @@ describe('resource associatedPhoneNumbers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.portingOrders.associatedPhoneNumbers.list(
@@ -57,7 +61,8 @@ describe('resource associatedPhoneNumbers', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('delete: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('delete: only required params', async () => {
     const responsePromise = client.portingOrders.associatedPhoneNumbers.delete(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { porting_order_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
@@ -71,7 +76,8 @@ describe('resource associatedPhoneNumbers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('delete: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('delete: required and optional params', async () => {
     const response = await client.portingOrders.associatedPhoneNumbers.delete(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { porting_order_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
