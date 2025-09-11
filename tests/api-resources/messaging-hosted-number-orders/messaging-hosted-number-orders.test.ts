@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource messagingHostedNumberOrders', () => {
-  test('create', async () => {
+  // Prism tests are disabled
+  test.skip('create', async () => {
     const responsePromise = client.messagingHostedNumberOrders.create();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource messagingHostedNumberOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('create: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messagingHostedNumberOrders.create(
@@ -32,7 +34,8 @@ describe('resource messagingHostedNumberOrders', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.messagingHostedNumberOrders.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -43,7 +46,8 @@ describe('resource messagingHostedNumberOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.messagingHostedNumberOrders.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -54,7 +58,8 @@ describe('resource messagingHostedNumberOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messagingHostedNumberOrders.list(
@@ -64,7 +69,8 @@ describe('resource messagingHostedNumberOrders', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('delete', async () => {
+  // Prism tests are disabled
+  test.skip('delete', async () => {
     const responsePromise = client.messagingHostedNumberOrders.delete('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -75,7 +81,8 @@ describe('resource messagingHostedNumberOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('checkEligibility: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('checkEligibility: only required params', async () => {
     const responsePromise = client.messagingHostedNumberOrders.checkEligibility({
       phone_numbers: ['string'],
     });
@@ -88,11 +95,13 @@ describe('resource messagingHostedNumberOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('checkEligibility: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('checkEligibility: required and optional params', async () => {
     const response = await client.messagingHostedNumberOrders.checkEligibility({ phone_numbers: ['string'] });
   });
 
-  test('createVerificationCodes: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('createVerificationCodes: only required params', async () => {
     const responsePromise = client.messagingHostedNumberOrders.createVerificationCodes('id', {
       phone_numbers: ['string'],
       verification_method: 'sms',
@@ -106,14 +115,16 @@ describe('resource messagingHostedNumberOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('createVerificationCodes: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('createVerificationCodes: required and optional params', async () => {
     const response = await client.messagingHostedNumberOrders.createVerificationCodes('id', {
       phone_numbers: ['string'],
       verification_method: 'sms',
     });
   });
 
-  test('validateCodes: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('validateCodes: only required params', async () => {
     const responsePromise = client.messagingHostedNumberOrders.validateCodes('id', {
       verification_codes: [{ code: 'code', phone_number: 'phone_number' }],
     });
@@ -126,7 +137,8 @@ describe('resource messagingHostedNumberOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('validateCodes: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('validateCodes: required and optional params', async () => {
     const response = await client.messagingHostedNumberOrders.validateCodes('id', {
       verification_codes: [{ code: 'code', phone_number: 'phone_number' }],
     });

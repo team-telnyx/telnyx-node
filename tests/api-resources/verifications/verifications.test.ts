@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource verifications', () => {
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.verifications.retrieve('12ade33a-21c0-473b-b055-b3c836e1c292');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource verifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('triggerCall: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('triggerCall: only required params', async () => {
     const responsePromise = client.verifications.triggerCall({
       phone_number: '+13035551234',
       verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
@@ -33,7 +35,8 @@ describe('resource verifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('triggerCall: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('triggerCall: required and optional params', async () => {
     const response = await client.verifications.triggerCall({
       phone_number: '+13035551234',
       verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
@@ -42,7 +45,8 @@ describe('resource verifications', () => {
     });
   });
 
-  test('triggerFlashcall: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('triggerFlashcall: only required params', async () => {
     const responsePromise = client.verifications.triggerFlashcall({
       phone_number: '+13035551234',
       verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
@@ -56,7 +60,8 @@ describe('resource verifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('triggerFlashcall: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('triggerFlashcall: required and optional params', async () => {
     const response = await client.verifications.triggerFlashcall({
       phone_number: '+13035551234',
       verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
@@ -64,7 +69,8 @@ describe('resource verifications', () => {
     });
   });
 
-  test('triggerSMS: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('triggerSMS: only required params', async () => {
     const responsePromise = client.verifications.triggerSMS({
       phone_number: '+13035551234',
       verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
@@ -78,7 +84,8 @@ describe('resource verifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('triggerSMS: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('triggerSMS: required and optional params', async () => {
     const response = await client.verifications.triggerSMS({
       phone_number: '+13035551234',
       verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',

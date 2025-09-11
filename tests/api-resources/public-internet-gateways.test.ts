@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource publicInternetGateways', () => {
-  test('create', async () => {
+  // Prism tests are disabled
+  test.skip('create', async () => {
     const responsePromise = client.publicInternetGateways.create({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource publicInternetGateways', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.publicInternetGateways.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -30,7 +32,8 @@ describe('resource publicInternetGateways', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.publicInternetGateways.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -41,7 +44,8 @@ describe('resource publicInternetGateways', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.publicInternetGateways.list(
@@ -51,7 +55,8 @@ describe('resource publicInternetGateways', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('delete', async () => {
+  // Prism tests are disabled
+  test.skip('delete', async () => {
     const responsePromise = client.publicInternetGateways.delete('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

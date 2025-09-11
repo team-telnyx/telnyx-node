@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource verificationCodes', () => {
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.portingOrders.verificationCodes.list(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
@@ -21,7 +22,8 @@ describe('resource verificationCodes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.portingOrders.verificationCodes.list(
@@ -32,7 +34,8 @@ describe('resource verificationCodes', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('send', async () => {
+  // Prism tests are disabled
+  test.skip('send', async () => {
     const responsePromise = client.portingOrders.verificationCodes.send(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
@@ -45,7 +48,8 @@ describe('resource verificationCodes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('send: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('send: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.portingOrders.verificationCodes.send(
@@ -56,7 +60,8 @@ describe('resource verificationCodes', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('verify', async () => {
+  // Prism tests are disabled
+  test.skip('verify', async () => {
     const responsePromise = client.portingOrders.verificationCodes.verify(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       {},

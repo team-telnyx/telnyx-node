@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource scheduledEvents', () => {
-  test('create: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('create: only required params', async () => {
     const responsePromise = client.ai.assistants.scheduledEvents.create('assistant_id', {
       scheduled_at_fixed_datetime: '2025-04-15T13:07:28.764Z',
       telnyx_agent_target: 'telnyx_agent_target',
@@ -24,7 +25,8 @@ describe('resource scheduledEvents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('create: required and optional params', async () => {
     const response = await client.ai.assistants.scheduledEvents.create('assistant_id', {
       scheduled_at_fixed_datetime: '2025-04-15T13:07:28.764Z',
       telnyx_agent_target: 'telnyx_agent_target',
@@ -35,7 +37,8 @@ describe('resource scheduledEvents', () => {
     });
   });
 
-  test('retrieve: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve: only required params', async () => {
     const responsePromise = client.ai.assistants.scheduledEvents.retrieve('event_id', {
       assistant_id: 'assistant_id',
     });
@@ -48,13 +51,15 @@ describe('resource scheduledEvents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve: required and optional params', async () => {
     const response = await client.ai.assistants.scheduledEvents.retrieve('event_id', {
       assistant_id: 'assistant_id',
     });
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.ai.assistants.scheduledEvents.list('assistant_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -65,7 +70,8 @@ describe('resource scheduledEvents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.ai.assistants.scheduledEvents.list(
@@ -81,7 +87,8 @@ describe('resource scheduledEvents', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('delete: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('delete: only required params', async () => {
     const responsePromise = client.ai.assistants.scheduledEvents.delete('event_id', {
       assistant_id: 'assistant_id',
     });
@@ -94,7 +101,8 @@ describe('resource scheduledEvents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('delete: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('delete: required and optional params', async () => {
     const response = await client.ai.assistants.scheduledEvents.delete('event_id', {
       assistant_id: 'assistant_id',
     });

@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource globalIPAllowedPorts', () => {
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.globalIPAllowedPorts.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

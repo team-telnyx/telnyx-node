@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource conversations', () => {
-  test('create', async () => {
+  // Prism tests are disabled
+  test.skip('create', async () => {
     const responsePromise = client.ai.conversations.create({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource conversations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.ai.conversations.retrieve('conversation_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -30,7 +32,8 @@ describe('resource conversations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('update', async () => {
+  // Prism tests are disabled
+  test.skip('update', async () => {
     const responsePromise = client.ai.conversations.update('conversation_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -41,7 +44,8 @@ describe('resource conversations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.ai.conversations.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -52,7 +56,8 @@ describe('resource conversations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.ai.conversations.list(
@@ -75,7 +80,8 @@ describe('resource conversations', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('delete', async () => {
+  // Prism tests are disabled
+  test.skip('delete', async () => {
     const responsePromise = client.ai.conversations.delete('conversation_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -86,7 +92,8 @@ describe('resource conversations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieveConversationsInsights', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveConversationsInsights', async () => {
     const responsePromise = client.ai.conversations.retrieveConversationsInsights('conversation_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

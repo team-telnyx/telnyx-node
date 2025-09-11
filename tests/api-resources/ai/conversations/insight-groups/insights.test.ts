@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource insights', () => {
-  test('assign: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('assign: only required params', async () => {
     const responsePromise = client.ai.conversations.insightGroups.insights.assign(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { group_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
@@ -22,14 +23,16 @@ describe('resource insights', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('assign: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('assign: required and optional params', async () => {
     const response = await client.ai.conversations.insightGroups.insights.assign(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { group_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
     );
   });
 
-  test('deleteUnassign: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('deleteUnassign: only required params', async () => {
     const responsePromise = client.ai.conversations.insightGroups.insights.deleteUnassign(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { group_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
@@ -43,7 +46,8 @@ describe('resource insights', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('deleteUnassign: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('deleteUnassign: required and optional params', async () => {
     const response = await client.ai.conversations.insightGroups.insights.deleteUnassign(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { group_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },

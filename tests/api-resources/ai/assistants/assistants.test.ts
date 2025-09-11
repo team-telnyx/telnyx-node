@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource assistants', () => {
-  test('create: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('create: only required params', async () => {
     const responsePromise = client.ai.assistants.create({
       instructions: 'instructions',
       model: 'model',
@@ -23,7 +24,8 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('create: required and optional params', async () => {
     const response = await client.ai.assistants.create({
       instructions: 'instructions',
       model: 'model',
@@ -68,7 +70,8 @@ describe('resource assistants', () => {
     });
   });
 
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.ai.assistants.retrieve('assistant_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -79,7 +82,8 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.ai.assistants.retrieve(
@@ -95,7 +99,8 @@ describe('resource assistants', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('update', async () => {
+  // Prism tests are disabled
+  test.skip('update', async () => {
     const responsePromise = client.ai.assistants.update('assistant_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -106,7 +111,8 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.ai.assistants.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -117,7 +123,8 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('delete', async () => {
+  // Prism tests are disabled
+  test.skip('delete', async () => {
     const responsePromise = client.ai.assistants.delete('assistant_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -128,7 +135,8 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('chat: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('chat: only required params', async () => {
     const responsePromise = client.ai.assistants.chat('assistant_id', {
       content: 'Tell me a joke about cats',
       conversation_id: '42b20469-1215-4a9a-8964-c36f66b406f4',
@@ -142,7 +150,8 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('chat: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('chat: required and optional params', async () => {
     const response = await client.ai.assistants.chat('assistant_id', {
       content: 'Tell me a joke about cats',
       conversation_id: '42b20469-1215-4a9a-8964-c36f66b406f4',
@@ -150,7 +159,8 @@ describe('resource assistants', () => {
     });
   });
 
-  test('clone', async () => {
+  // Prism tests are disabled
+  test.skip('clone', async () => {
     const responsePromise = client.ai.assistants.clone('assistant_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -161,7 +171,8 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('getTexml', async () => {
+  // Prism tests are disabled
+  test.skip('getTexml', async () => {
     const responsePromise = client.ai.assistants.getTexml('assistant_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -172,7 +183,8 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('import: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('import: only required params', async () => {
     const responsePromise = client.ai.assistants.import({
       api_key_ref: 'api_key_ref',
       provider: 'elevenlabs',
@@ -186,7 +198,8 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('import: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('import: required and optional params', async () => {
     const response = await client.ai.assistants.import({
       api_key_ref: 'api_key_ref',
       provider: 'elevenlabs',

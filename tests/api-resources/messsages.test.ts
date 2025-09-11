@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource messsages', () => {
-  test('rcs: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('rcs: only required params', async () => {
     const responsePromise = client.messsages.rcs({
       agent_id: 'Agent007',
       agent_message: {},
@@ -24,7 +25,8 @@ describe('resource messsages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('rcs: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('rcs: required and optional params', async () => {
     const response = await client.messsages.rcs({
       agent_id: 'Agent007',
       agent_message: {

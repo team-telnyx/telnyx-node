@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource list', () => {
-  test('retrieveAll', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveAll', async () => {
     const responsePromise = client.list.retrieveAll();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource list', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieveByZone', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveByZone', async () => {
     const responsePromise = client.list.retrieveByZone('channel_zone_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  test('cancel', async () => {
+  // Prism tests are disabled
+  test.skip('cancel', async () => {
     const responsePromise = client.faxes.actions.cancel('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('refresh', async () => {
+  // Prism tests are disabled
+  test.skip('refresh', async () => {
     const responsePromise = client.faxes.actions.refresh('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

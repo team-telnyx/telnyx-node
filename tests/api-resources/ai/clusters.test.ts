@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource clusters', () => {
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.ai.clusters.retrieve('task_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource clusters', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.ai.clusters.retrieve(
@@ -30,7 +32,8 @@ describe('resource clusters', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.ai.clusters.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -41,14 +44,16 @@ describe('resource clusters', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.ai.clusters.list({ page: { number: 0, size: 0 } }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('delete', async () => {
+  // Prism tests are disabled
+  test.skip('delete', async () => {
     const responsePromise = client.ai.clusters.delete('task_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -59,7 +64,8 @@ describe('resource clusters', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('compute: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('compute: only required params', async () => {
     const responsePromise = client.ai.clusters.compute({ bucket: 'bucket' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -70,7 +76,8 @@ describe('resource clusters', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('compute: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('compute: required and optional params', async () => {
     const response = await client.ai.clusters.compute({
       bucket: 'bucket',
       files: ['string'],
@@ -80,7 +87,8 @@ describe('resource clusters', () => {
     });
   });
 
-  test('fetchGraph', async () => {
+  // Prism tests are disabled
+  test.skip('fetchGraph', async () => {
     const responsePromise = client.ai.clusters.fetchGraph('task_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -91,7 +99,8 @@ describe('resource clusters', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('fetchGraph: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('fetchGraph: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.ai.clusters.fetchGraph('task_id', { cluster_id: 0 }, { path: '/_stainless_unknown_path' }),

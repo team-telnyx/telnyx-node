@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource telephonyCredentials', () => {
-  test('create: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('create: only required params', async () => {
     const responsePromise = client.telephonyCredentials.create({ connection_id: '1234567890' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource telephonyCredentials', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('create: required and optional params', async () => {
     const response = await client.telephonyCredentials.create({
       connection_id: '1234567890',
       expires_at: '2018-02-02T22:25:27.521Z',
@@ -28,7 +30,8 @@ describe('resource telephonyCredentials', () => {
     });
   });
 
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.telephonyCredentials.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -39,7 +42,8 @@ describe('resource telephonyCredentials', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('update', async () => {
+  // Prism tests are disabled
+  test.skip('update', async () => {
     const responsePromise = client.telephonyCredentials.update('id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -50,7 +54,8 @@ describe('resource telephonyCredentials', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.telephonyCredentials.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -61,7 +66,8 @@ describe('resource telephonyCredentials', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.telephonyCredentials.list(
@@ -80,7 +86,8 @@ describe('resource telephonyCredentials', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('delete', async () => {
+  // Prism tests are disabled
+  test.skip('delete', async () => {
     const responsePromise = client.telephonyCredentials.delete('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -91,7 +98,8 @@ describe('resource telephonyCredentials', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('createToken', async () => {
+  // Prism tests are disabled
+  test.skip('createToken', async () => {
     const responsePromise = client.telephonyCredentials.createToken('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

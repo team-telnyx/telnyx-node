@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource portabilityChecks', () => {
-  test('run', async () => {
+  // Prism tests are disabled
+  test.skip('run', async () => {
     const responsePromise = client.portabilityChecks.run({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

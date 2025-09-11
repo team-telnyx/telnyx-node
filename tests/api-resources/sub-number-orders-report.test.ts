@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource subNumberOrdersReport', () => {
-  test('create', async () => {
+  // Prism tests are disabled
+  test.skip('create', async () => {
     const responsePromise = client.subNumberOrdersReport.create();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource subNumberOrdersReport', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('create: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.subNumberOrdersReport.create(
@@ -36,7 +38,8 @@ describe('resource subNumberOrdersReport', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.subNumberOrdersReport.retrieve('12ade33a-21c0-473b-b055-b3c836e1c293');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -47,7 +50,8 @@ describe('resource subNumberOrdersReport', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('download', async () => {
+  // Prism tests are disabled
+  test.skip('download', async () => {
     const responsePromise = client.subNumberOrdersReport.download('12ade33a-21c0-473b-b055-b3c836e1c293');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

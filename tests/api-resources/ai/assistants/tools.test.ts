@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource tools', () => {
-  test('test: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('test: only required params', async () => {
     const responsePromise = client.ai.assistants.tools.test('tool_id', { assistant_id: 'assistant_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('test: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('test: required and optional params', async () => {
     const response = await client.ai.assistants.tools.test('tool_id', {
       assistant_id: 'assistant_id',
       arguments: { foo: 'bar' },

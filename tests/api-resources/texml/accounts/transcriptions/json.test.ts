@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource json', () => {
-  test('deleteRecordingTranscriptionSidJson: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('deleteRecordingTranscriptionSidJson: only required params', async () => {
     const responsePromise = client.texml.accounts.transcriptions.json.deleteRecordingTranscriptionSidJson(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
       { account_sid: 'account_sid' },
@@ -22,14 +23,16 @@ describe('resource json', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('deleteRecordingTranscriptionSidJson: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('deleteRecordingTranscriptionSidJson: required and optional params', async () => {
     const response = await client.texml.accounts.transcriptions.json.deleteRecordingTranscriptionSidJson(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
       { account_sid: 'account_sid' },
     );
   });
 
-  test('retrieveRecordingTranscriptionSidJson: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveRecordingTranscriptionSidJson: only required params', async () => {
     const responsePromise = client.texml.accounts.transcriptions.json.retrieveRecordingTranscriptionSidJson(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
       { account_sid: 'account_sid' },
@@ -43,7 +46,8 @@ describe('resource json', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieveRecordingTranscriptionSidJson: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveRecordingTranscriptionSidJson: required and optional params', async () => {
     const response = await client.texml.accounts.transcriptions.json.retrieveRecordingTranscriptionSidJson(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
       { account_sid: 'account_sid' },

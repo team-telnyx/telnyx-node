@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource defaultGateway', () => {
-  test('create', async () => {
+  // Prism tests are disabled
+  test.skip('create', async () => {
     const responsePromise = client.networks.defaultGateway.create('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource defaultGateway', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.networks.defaultGateway.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -30,7 +32,8 @@ describe('resource defaultGateway', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('delete', async () => {
+  // Prism tests are disabled
+  test.skip('delete', async () => {
     const responsePromise = client.networks.defaultGateway.delete('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

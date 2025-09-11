@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource messagingNumbersBulkUpdates', () => {
-  test('create: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('create: only required params', async () => {
     const responsePromise = client.messagingNumbersBulkUpdates.create({
       messaging_profile_id: '00000000-0000-0000-0000-000000000000',
       numbers: ['+18880000000', '+18880000001', '+18880000002'],
@@ -22,14 +23,16 @@ describe('resource messagingNumbersBulkUpdates', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('create: required and optional params', async () => {
     const response = await client.messagingNumbersBulkUpdates.create({
       messaging_profile_id: '00000000-0000-0000-0000-000000000000',
       numbers: ['+18880000000', '+18880000001', '+18880000002'],
     });
   });
 
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.messagingNumbersBulkUpdates.retrieve('order_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

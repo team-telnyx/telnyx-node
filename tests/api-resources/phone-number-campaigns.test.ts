@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource phoneNumberCampaigns', () => {
-  test('create: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('create: only required params', async () => {
     const responsePromise = client.phoneNumberCampaigns.create({
       campaignId: '4b300178-131c-d902-d54e-72d90ba1620j',
       phoneNumber: '+18005550199',
@@ -22,14 +23,16 @@ describe('resource phoneNumberCampaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('create: required and optional params', async () => {
     const response = await client.phoneNumberCampaigns.create({
       campaignId: '4b300178-131c-d902-d54e-72d90ba1620j',
       phoneNumber: '+18005550199',
     });
   });
 
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.phoneNumberCampaigns.retrieve('phoneNumber');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -40,7 +43,8 @@ describe('resource phoneNumberCampaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('update: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('update: only required params', async () => {
     const responsePromise = client.phoneNumberCampaigns.update('phoneNumber', {
       campaignId: '4b300178-131c-d902-d54e-72d90ba1620j',
       body_phoneNumber: '+18005550199',
@@ -54,14 +58,16 @@ describe('resource phoneNumberCampaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('update: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('update: required and optional params', async () => {
     const response = await client.phoneNumberCampaigns.update('phoneNumber', {
       campaignId: '4b300178-131c-d902-d54e-72d90ba1620j',
       body_phoneNumber: '+18005550199',
     });
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.phoneNumberCampaigns.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -72,7 +78,8 @@ describe('resource phoneNumberCampaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.phoneNumberCampaigns.list(
@@ -92,7 +99,8 @@ describe('resource phoneNumberCampaigns', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('delete', async () => {
+  // Prism tests are disabled
+  test.skip('delete', async () => {
     const responsePromise = client.phoneNumberCampaigns.delete('phoneNumber');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

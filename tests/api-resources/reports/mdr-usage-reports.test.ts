@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource mdrUsageReports', () => {
-  test('create: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('create: only required params', async () => {
     const responsePromise = client.reports.mdrUsageReports.create({
       aggregation_type: 'NO_AGGREGATION',
       end_date: '2020-07-01T00:00:00-06:00',
@@ -23,7 +24,8 @@ describe('resource mdrUsageReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('create: required and optional params', async () => {
     const response = await client.reports.mdrUsageReports.create({
       aggregation_type: 'NO_AGGREGATION',
       end_date: '2020-07-01T00:00:00-06:00',
@@ -32,7 +34,8 @@ describe('resource mdrUsageReports', () => {
     });
   });
 
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.reports.mdrUsageReports.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -43,7 +46,8 @@ describe('resource mdrUsageReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.reports.mdrUsageReports.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -54,7 +58,8 @@ describe('resource mdrUsageReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.reports.mdrUsageReports.list(
@@ -64,7 +69,8 @@ describe('resource mdrUsageReports', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('delete', async () => {
+  // Prism tests are disabled
+  test.skip('delete', async () => {
     const responsePromise = client.reports.mdrUsageReports.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -75,7 +81,8 @@ describe('resource mdrUsageReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('fetchSync: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('fetchSync: only required params', async () => {
     const responsePromise = client.reports.mdrUsageReports.fetchSync({ aggregation_type: 'NO_AGGREGATION' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -86,7 +93,8 @@ describe('resource mdrUsageReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('fetchSync: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('fetchSync: required and optional params', async () => {
     const response = await client.reports.mdrUsageReports.fetchSync({
       aggregation_type: 'NO_AGGREGATION',
       end_date: '2020-07-01T00:00:00-06:00',

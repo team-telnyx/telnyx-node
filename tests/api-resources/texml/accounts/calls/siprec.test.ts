@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource siprec', () => {
-  test('siprecSidJson: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('siprecSidJson: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.siprec.siprecSidJson('siprec_sid', {
       account_sid: 'account_sid',
       call_sid: 'call_sid',
@@ -22,7 +23,8 @@ describe('resource siprec', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('siprecSidJson: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('siprecSidJson: required and optional params', async () => {
     const response = await client.texml.accounts.calls.siprec.siprecSidJson('siprec_sid', {
       account_sid: 'account_sid',
       call_sid: 'call_sid',

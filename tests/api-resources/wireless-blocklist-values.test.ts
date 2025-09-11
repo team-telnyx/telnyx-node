@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource wirelessBlocklistValues', () => {
-  test('list: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('list: only required params', async () => {
     const responsePromise = client.wirelessBlocklistValues.list({ type: 'country' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource wirelessBlocklistValues', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('list: required and optional params', async () => {
     const response = await client.wirelessBlocklistValues.list({ type: 'country' });
   });
 });

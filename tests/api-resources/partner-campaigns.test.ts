@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource partnerCampaigns', () => {
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.partnerCampaigns.retrieve('campaignId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource partnerCampaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('update', async () => {
+  // Prism tests are disabled
+  test.skip('update', async () => {
     const responsePromise = client.partnerCampaigns.update('campaignId', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -30,7 +32,8 @@ describe('resource partnerCampaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list', async () => {
+  // Prism tests are disabled
+  test.skip('list', async () => {
     const responsePromise = client.partnerCampaigns.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -41,7 +44,8 @@ describe('resource partnerCampaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.partnerCampaigns.list(
@@ -51,7 +55,8 @@ describe('resource partnerCampaigns', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('listSharedByMe', async () => {
+  // Prism tests are disabled
+  test.skip('listSharedByMe', async () => {
     const responsePromise = client.partnerCampaigns.listSharedByMe();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -62,7 +67,8 @@ describe('resource partnerCampaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('listSharedByMe: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('listSharedByMe: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.partnerCampaigns.listSharedByMe(
@@ -72,7 +78,8 @@ describe('resource partnerCampaigns', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('retrieveSharingStatus', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveSharingStatus', async () => {
     const responsePromise = client.partnerCampaigns.retrieveSharingStatus('campaignId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource recordingsJson', () => {
-  test('recordingsJson: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('recordingsJson: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.recordingsJson.recordingsJson('call_sid', {
       account_sid: 'account_sid',
     });
@@ -21,7 +22,8 @@ describe('resource recordingsJson', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('recordingsJson: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('recordingsJson: required and optional params', async () => {
     const response = await client.texml.accounts.calls.recordingsJson.recordingsJson('call_sid', {
       account_sid: 'account_sid',
       PlayBeep: false,
@@ -34,7 +36,8 @@ describe('resource recordingsJson', () => {
     });
   });
 
-  test('retrieveRecordingsJson: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveRecordingsJson: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.recordingsJson.retrieveRecordingsJson('call_sid', {
       account_sid: 'account_sid',
     });
@@ -47,7 +50,8 @@ describe('resource recordingsJson', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieveRecordingsJson: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveRecordingsJson: required and optional params', async () => {
     const response = await client.texml.accounts.calls.recordingsJson.retrieveRecordingsJson('call_sid', {
       account_sid: 'account_sid',
     });

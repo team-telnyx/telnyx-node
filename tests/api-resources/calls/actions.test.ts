@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  test('answer', async () => {
+  // Prism tests are disabled
+  test.skip('answer', async () => {
     const responsePromise = client.calls.actions.answer('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('bridge: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('bridge: only required params', async () => {
     const responsePromise = client.calls.actions.bridge('call_control_id', {
       body_call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
     });
@@ -32,7 +34,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('bridge: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('bridge: required and optional params', async () => {
     const response = await client.calls.actions.bridge('call_control_id', {
       body_call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
       client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
@@ -55,7 +58,8 @@ describe('resource actions', () => {
     });
   });
 
-  test('enqueue: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('enqueue: only required params', async () => {
     const responsePromise = client.calls.actions.enqueue('call_control_id', { queue_name: 'support' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -66,7 +70,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('enqueue: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('enqueue: required and optional params', async () => {
     const response = await client.calls.actions.enqueue('call_control_id', {
       queue_name: 'support',
       client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
@@ -76,7 +81,8 @@ describe('resource actions', () => {
     });
   });
 
-  test('gather', async () => {
+  // Prism tests are disabled
+  test.skip('gather', async () => {
     const responsePromise = client.calls.actions.gather('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -87,7 +93,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('gatherUsingAI: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('gatherUsingAI: only required params', async () => {
     const responsePromise = client.calls.actions.gatherUsingAI('call_control_id', {
       parameters: {
         properties: {
@@ -107,7 +114,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('gatherUsingAI: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('gatherUsingAI: required and optional params', async () => {
     const response = await client.calls.actions.gatherUsingAI('call_control_id', {
       parameters: {
         properties: {
@@ -151,7 +159,8 @@ describe('resource actions', () => {
     });
   });
 
-  test('gatherUsingAudio', async () => {
+  // Prism tests are disabled
+  test.skip('gatherUsingAudio', async () => {
     const responsePromise = client.calls.actions.gatherUsingAudio('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -162,7 +171,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('gatherUsingSpeak: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('gatherUsingSpeak: only required params', async () => {
     const responsePromise = client.calls.actions.gatherUsingSpeak('call_control_id', {
       payload: 'say this on call',
       voice: 'male',
@@ -176,7 +186,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('gatherUsingSpeak: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('gatherUsingSpeak: required and optional params', async () => {
     const response = await client.calls.actions.gatherUsingSpeak('call_control_id', {
       payload: 'say this on call',
       voice: 'male',
@@ -197,7 +208,8 @@ describe('resource actions', () => {
     });
   });
 
-  test('hangup', async () => {
+  // Prism tests are disabled
+  test.skip('hangup', async () => {
     const responsePromise = client.calls.actions.hangup('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -208,7 +220,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('leaveQueue', async () => {
+  // Prism tests are disabled
+  test.skip('leaveQueue', async () => {
     const responsePromise = client.calls.actions.leaveQueue('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -219,7 +232,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('pauseRecording', async () => {
+  // Prism tests are disabled
+  test.skip('pauseRecording', async () => {
     const responsePromise = client.calls.actions.pauseRecording('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -230,7 +244,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('refer: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('refer: only required params', async () => {
     const responsePromise = client.calls.actions.refer('call_control_id', {
       sip_address: 'sip:username@sip.non-telnyx-address.com',
     });
@@ -243,7 +258,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('refer: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('refer: required and optional params', async () => {
     const response = await client.calls.actions.refer('call_control_id', {
       sip_address: 'sip:username@sip.non-telnyx-address.com',
       client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
@@ -258,7 +274,8 @@ describe('resource actions', () => {
     });
   });
 
-  test('reject: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('reject: only required params', async () => {
     const responsePromise = client.calls.actions.reject('call_control_id', { cause: 'USER_BUSY' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -269,7 +286,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('reject: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('reject: required and optional params', async () => {
     const response = await client.calls.actions.reject('call_control_id', {
       cause: 'USER_BUSY',
       client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
@@ -277,7 +295,8 @@ describe('resource actions', () => {
     });
   });
 
-  test('resumeRecording', async () => {
+  // Prism tests are disabled
+  test.skip('resumeRecording', async () => {
     const responsePromise = client.calls.actions.resumeRecording('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -288,7 +307,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('sendDtmf: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('sendDtmf: only required params', async () => {
     const responsePromise = client.calls.actions.sendDtmf('call_control_id', { digits: '1www2WABCDw9' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -299,7 +319,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('sendDtmf: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('sendDtmf: required and optional params', async () => {
     const response = await client.calls.actions.sendDtmf('call_control_id', {
       digits: '1www2WABCDw9',
       client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
@@ -308,7 +329,8 @@ describe('resource actions', () => {
     });
   });
 
-  test('sendSipInfo: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('sendSipInfo: only required params', async () => {
     const responsePromise = client.calls.actions.sendSipInfo('call_control_id', {
       body: '{"key": "value", "numValue": 100}',
       content_type: 'application/json',
@@ -322,7 +344,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('sendSipInfo: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('sendSipInfo: required and optional params', async () => {
     const response = await client.calls.actions.sendSipInfo('call_control_id', {
       body: '{"key": "value", "numValue": 100}',
       content_type: 'application/json',
@@ -331,7 +354,8 @@ describe('resource actions', () => {
     });
   });
 
-  test('speak: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('speak: only required params', async () => {
     const responsePromise = client.calls.actions.speak('call_control_id', {
       payload: 'Say this on the call',
       voice: 'female',
@@ -345,7 +369,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('speak: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('speak: required and optional params', async () => {
     const response = await client.calls.actions.speak('call_control_id', {
       payload: 'Say this on the call',
       voice: 'female',
@@ -359,7 +384,8 @@ describe('resource actions', () => {
     });
   });
 
-  test('startAIAssistant', async () => {
+  // Prism tests are disabled
+  test.skip('startAIAssistant', async () => {
     const responsePromise = client.calls.actions.startAIAssistant('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -370,7 +396,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('startForking', async () => {
+  // Prism tests are disabled
+  test.skip('startForking', async () => {
     const responsePromise = client.calls.actions.startForking('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -381,7 +408,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('startNoiseSuppression', async () => {
+  // Prism tests are disabled
+  test.skip('startNoiseSuppression', async () => {
     const responsePromise = client.calls.actions.startNoiseSuppression('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -392,7 +420,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('startPlayback', async () => {
+  // Prism tests are disabled
+  test.skip('startPlayback', async () => {
     const responsePromise = client.calls.actions.startPlayback('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -403,7 +432,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('startRecording: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('startRecording: only required params', async () => {
     const responsePromise = client.calls.actions.startRecording('call_control_id', {
       channels: 'single',
       format: 'wav',
@@ -417,7 +447,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('startRecording: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('startRecording: required and optional params', async () => {
     const response = await client.calls.actions.startRecording('call_control_id', {
       channels: 'single',
       format: 'wav',
@@ -439,7 +470,8 @@ describe('resource actions', () => {
     });
   });
 
-  test('startSiprec', async () => {
+  // Prism tests are disabled
+  test.skip('startSiprec', async () => {
     const responsePromise = client.calls.actions.startSiprec('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -450,7 +482,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('startStreaming', async () => {
+  // Prism tests are disabled
+  test.skip('startStreaming', async () => {
     const responsePromise = client.calls.actions.startStreaming('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -461,7 +494,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('startTranscription', async () => {
+  // Prism tests are disabled
+  test.skip('startTranscription', async () => {
     const responsePromise = client.calls.actions.startTranscription('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -472,7 +506,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('stopAIAssistant', async () => {
+  // Prism tests are disabled
+  test.skip('stopAIAssistant', async () => {
     const responsePromise = client.calls.actions.stopAIAssistant('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -483,7 +518,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('stopForking', async () => {
+  // Prism tests are disabled
+  test.skip('stopForking', async () => {
     const responsePromise = client.calls.actions.stopForking('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -494,7 +530,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('stopGather', async () => {
+  // Prism tests are disabled
+  test.skip('stopGather', async () => {
     const responsePromise = client.calls.actions.stopGather('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -505,7 +542,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('stopNoiseSuppression', async () => {
+  // Prism tests are disabled
+  test.skip('stopNoiseSuppression', async () => {
     const responsePromise = client.calls.actions.stopNoiseSuppression('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -516,7 +554,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('stopPlayback', async () => {
+  // Prism tests are disabled
+  test.skip('stopPlayback', async () => {
     const responsePromise = client.calls.actions.stopPlayback('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -527,7 +566,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('stopRecording', async () => {
+  // Prism tests are disabled
+  test.skip('stopRecording', async () => {
     const responsePromise = client.calls.actions.stopRecording('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -538,7 +578,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('stopSiprec', async () => {
+  // Prism tests are disabled
+  test.skip('stopSiprec', async () => {
     const responsePromise = client.calls.actions.stopSiprec('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -549,7 +590,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('stopStreaming', async () => {
+  // Prism tests are disabled
+  test.skip('stopStreaming', async () => {
     const responsePromise = client.calls.actions.stopStreaming('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -560,7 +602,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('stopTranscription', async () => {
+  // Prism tests are disabled
+  test.skip('stopTranscription', async () => {
     const responsePromise = client.calls.actions.stopTranscription('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -571,7 +614,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('switchSupervisorRole: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('switchSupervisorRole: only required params', async () => {
     const responsePromise = client.calls.actions.switchSupervisorRole('call_control_id', { role: 'barge' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -582,11 +626,13 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('switchSupervisorRole: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('switchSupervisorRole: required and optional params', async () => {
     const response = await client.calls.actions.switchSupervisorRole('call_control_id', { role: 'barge' });
   });
 
-  test('transfer: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('transfer: only required params', async () => {
     const responsePromise = client.calls.actions.transfer('call_control_id', {
       to: '+18005550100 or sip:username@sip.telnyx.com',
     });
@@ -599,7 +645,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('transfer: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('transfer: required and optional params', async () => {
     const response = await client.calls.actions.transfer('call_control_id', {
       to: '+18005550100 or sip:username@sip.telnyx.com',
       answering_machine_detection: 'detect',
@@ -642,7 +689,8 @@ describe('resource actions', () => {
     });
   });
 
-  test('updateClientState: only required params', async () => {
+  // Prism tests are disabled
+  test.skip('updateClientState: only required params', async () => {
     const responsePromise = client.calls.actions.updateClientState('call_control_id', {
       client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
     });
@@ -655,7 +703,8 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('updateClientState: required and optional params', async () => {
+  // Prism tests are disabled
+  test.skip('updateClientState: required and optional params', async () => {
     const response = await client.calls.actions.updateClientState('call_control_id', {
       client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
     });

@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource accounts', () => {
-  test('retrieveRecordingsJson', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveRecordingsJson', async () => {
     const responsePromise = client.texml.accounts.retrieveRecordingsJson('account_sid');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource accounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieveRecordingsJson: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveRecordingsJson: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.texml.accounts.retrieveRecordingsJson(
@@ -30,7 +32,8 @@ describe('resource accounts', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  test('retrieveTranscriptionsJson', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveTranscriptionsJson', async () => {
     const responsePromise = client.texml.accounts.retrieveTranscriptionsJson('account_sid');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -41,7 +44,8 @@ describe('resource accounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieveTranscriptionsJson: request options and params are passed correctly', async () => {
+  // Prism tests are disabled
+  test.skip('retrieveTranscriptionsJson: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.texml.accounts.retrieveTranscriptionsJson(

@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource enum', () => {
-  test('retrieve', async () => {
+  // Prism tests are disabled
+  test.skip('retrieve', async () => {
     const responsePromise = client.enum.retrieve('mno');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
