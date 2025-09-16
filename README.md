@@ -26,9 +26,14 @@ const client = new Telnyx({
   apiKey: process.env['TELNYX_API_KEY'], // This is the default and can be omitted
 });
 
-const response = await client.listBuckets();
+const response = await client.calls.dial({
+  connection_id: 'conn12345',
+  from: '+15557654321',
+  to: '+15551234567',
+  webhook_url: 'https://your-webhook.url/events',
+});
 
-console.log(response.Buckets);
+console.log(response.data);
 ```
 
 ### Request & Response types
@@ -43,7 +48,8 @@ const client = new Telnyx({
   apiKey: process.env['TELNYX_API_KEY'], // This is the default and can be omitted
 });
 
-const response: Telnyx.ListBucketsResponse = await client.listBuckets();
+const params: Telnyx.NumberOrderCreateParams = { phone_numbers: [{ phone_number: '+15558675309' }] };
+const numberOrder: Telnyx.NumberOrderCreateResponse = await client.numberOrders.create(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -100,15 +106,17 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const response = await client.listBuckets().catch(async (err) => {
-  if (err instanceof Telnyx.APIError) {
-    console.log(err.status); // 400
-    console.log(err.name); // BadRequestError
-    console.log(err.headers); // {server: 'nginx', ...}
-  } else {
-    throw err;
-  }
-});
+const numberOrder = await client.numberOrders
+  .create({ phone_numbers: [{ phone_number: '+15558675309' }] })
+  .catch(async (err) => {
+    if (err instanceof Telnyx.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
 ```
 
 Error codes are as follows:
@@ -140,7 +148,7 @@ const client = new Telnyx({
 });
 
 // Or, configure per-request:
-await client.listBuckets({
+await client.numberOrders.create({ phone_numbers: [{ phone_number: '+15558675309' }] }, {
   maxRetries: 5,
 });
 ```
@@ -157,7 +165,7 @@ const client = new Telnyx({
 });
 
 // Override per-request:
-await client.listBuckets({
+await client.numberOrders.create({ phone_numbers: [{ phone_number: '+15558675309' }] }, {
   timeout: 5 * 1000,
 });
 ```
@@ -180,13 +188,17 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Telnyx();
 
-const response = await client.listBuckets().asResponse();
+const response = await client.numberOrders
+  .create({ phone_numbers: [{ phone_number: '+15558675309' }] })
+  .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.listBuckets().withResponse();
+const { data: numberOrder, response: raw } = await client.numberOrders
+  .create({ phone_numbers: [{ phone_number: '+15558675309' }] })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(response.Buckets);
+console.log(numberOrder.data);
 ```
 
 ### Logging
@@ -266,7 +278,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.listBuckets({
+client.calls.dial({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
