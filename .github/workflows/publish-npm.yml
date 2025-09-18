@@ -48,6 +48,6 @@ jobs:
       - name: Upload MCP Server DXT GitHub release asset
         run: |
           gh release upload ${{ github.event.release.tag_name }} \
-            packages/mcp-server/telnyx_api.dxt
+            packages/mcp-server/telnyx_api.mcpb
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
