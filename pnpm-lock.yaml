@@ -110,9 +110,9 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1(zod@3.25.76)
     devDependencies:
-      '@anthropic-ai/dxt':
-        specifier: ^0.2.6
-        version: 0.2.6
+      '@anthropic-ai/mcpb':
+        specifier: ^1.1.0
+        version: 1.1.0
       '@types/cors':
         specifier: ^2.8.19
         version: 2.8.19
@@ -189,12 +189,11 @@ packages:
         integrity: sha512-Jh15/qVmrLGhkKJBdXlK1+9tY4lZruYjsgkDFj08ZmDiWVBLJcqkok7Z0/R0In+i1rScBpJlSvrTS2Lm41Pbnw==,
       }
 
-  '@anthropic-ai/dxt@0.2.6':
+  '@anthropic-ai/mcpb@1.1.0':
     resolution:
       {
-        integrity: sha512-5VSqKRpkytTYh5UJz9jOaI8zLXNCe4Gc+ArKGFV6IeWnEPP0Qnd0k+V3pO8cYzp92Puf/+Cgo0xc4haE0azTXg==,
+        integrity: sha512-nOnhG1eNpGKSIDv6lt3xsI3w2p2k0D/rPTMGXXugLovCEaJ7svh8XMfCe145vs8qo384t8wKbokWAvx9PkQMDA==,
       }
-    deprecated: This package has been renamed to @anthropic-ai/mcpb
     hasBin: true
 
   '@arethetypeswrong/cli@0.17.0':
@@ -4483,7 +4482,7 @@ snapshots:
 
   '@andrewbranch/untar.js@1.0.3': {}
 
-  '@anthropic-ai/dxt@0.2.6':
+  '@anthropic-ai/mcpb@1.1.0':
     dependencies:
       '@inquirer/prompts': 6.0.1
       commander: 13.1.0
