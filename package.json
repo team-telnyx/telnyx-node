@@ -1,82 +1,69 @@
 {
   "name": "telnyx",
-  "version": "2.1.1",
-  "description": "Telnyx API Node SDK",
-  "keywords": [
-    "telnyx",
-    "sms",
-    "sip trunking",
-    "phone numbers",
-    "api",
-    "sdk"
+  "version": "3.0.0-alpha",
+  "description": "The official TypeScript library for the Telnyx API",
+  "author": "Telnyx <support@telnyx.com>",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "type": "commonjs",
+  "repository": "github:team-telnyx/telnyx-node",
+  "license": "MIT",
+  "packageManager": "pnpm@10.14.0",
+  "files": [
+    "**/*"
   ],
-  "homepage": "https://developers.telnyx.com",
-  "author": "Telnyx <support@telnyx.com> (https://telnyx.com)",
-  "contributors": [
-    "Vlad Ionash <vladi@telnyx.com> (http://telnyx.com)",
-    "Gabriel Taylor Russ <gabriel@telnyx.com> (http://telnyx.com)",
-    "Lucas Rosa <lucas@telnyx.com> (http://telnyx.com)",
-    "Rômulo Garofalo <romulo@telnyx.com> (http://telnyx.com)",
-    "Khalil Mohammad <khalilmohammadmirza@gmail.com> (https://khalilmohammadmirza.com)"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/team-telnyx/telnyx-node.git"
+  "private": false,
+  "publishConfig": {
+    "access": "public"
   },
-  "bugs": "https://github.com/team-telnyx/telnyx-node/issues",
-  "engines": {
-    "node": "^18 || >=20"
+  "scripts": {
+    "test": "./scripts/test",
+    "build": "./scripts/build",
+    "prepublishOnly": "echo 'to publish, run pnpm build && (cd dist; pnpm publish)' && exit 1",
+    "format": "./scripts/format",
+    "prepare": "if ./scripts/utils/check-is-in-git-install.sh; then ./scripts/build && ./scripts/utils/git-swap.sh; fi",
+    "tsn": "ts-node -r tsconfig-paths/register",
+    "lint": "./scripts/lint",
+    "fix": "./scripts/format"
   },
-  "main": "./dist/telnyx.node.js",
-  "types": "./dist/types/index.d.ts",
+  "dependencies": {},
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.17.0",
+    "@swc/core": "^1.3.102",
+    "@swc/jest": "^0.2.29",
+    "@types/jest": "^29.4.0",
+    "@types/node": "^20.17.6",
+    "@typescript-eslint/eslint-plugin": "8.31.1",
+    "@typescript-eslint/parser": "8.31.1",
+    "eslint": "^9.20.1",
+    "eslint-plugin-prettier": "^5.4.1",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "iconv-lite": "^0.6.3",
+    "jest": "^29.4.0",
+    "prettier": "^3.0.0",
+    "publint": "^0.2.12",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.5.0",
+    "tsc-multi": "https://github.com/stainless-api/tsc-multi/releases/download/v1.1.9/tsc-multi.tgz",
+    "tsconfig-paths": "^4.0.0",
+    "tslib": "^2.8.1",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.31.1"
+  },
   "exports": {
     ".": {
-      "import": "./dist/telnyx.node.js",
-      "require": "./dist/telnyx.node.js",
-      "types": "./dist/types/index.d.ts"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./*.mjs": {
+      "default": "./dist/*.mjs"
+    },
+    "./*.js": {
+      "default": "./dist/*.js"
+    },
+    "./*": {
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.js"
     }
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.10.0",
-    "@stoplight/prism-cli": "^5.10.0",
-    "@types/eslint__js": "^8.42.3",
-    "@types/jest": "^29.5.13",
-    "@types/node": "^22.7.3",
-    "@types/qs": "^6.9.15",
-    "debug": "^4.3.4",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-chai-friendly": "^0.7.4",
-    "eslint-plugin-prettier": "^5.2.1",
-    "jest": "^29.7.0",
-    "nock": "^13.5.4",
-    "nyc": "^15.1.0",
-    "plop": "^4.0.1",
-    "prettier": "^3.0.0",
-    "ts-jest": "^29.2.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.6.2",
-    "typescript-eslint": "^8.8.0"
-  },
-  "dependencies": {
-    "qs": "^6.13.0",
-    "tweetnacl": "^1.0.3",
-    "uuid": "^9.0.1"
-  },
-  "overrides": {
-    "node-plop": {
-      "inquirer": "9.3.5"
-    }
-  },
-  "license": "MIT",
-  "scripts": {
-    "prebuild": "rm -rf ./dist",
-    "build": "tsc && cp -r types dist/types",
-    "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage ./dist",
-    "prepack": "npm install && npm run build",
-    "test": "jest",
-    "generate": "plop",
-    "lint": "rm -rf ./dist && eslint .",
-    "fix": "npm run lint --fix"
   }
 }

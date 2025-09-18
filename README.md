@@ -1,455 +1,414 @@
-# Telnyx Node.js Library
+# Telnyx TypeScript API Library
 
-[![Version](https://img.shields.io/npm/v/telnyx.svg)](https://www.npmjs.org/package/telnyx)
-[![Build Status](https://github.com/team-telnyx/telnyx-node/workflows/CI/badge.svg)](https://github.com/team-telnyx/telnyx-node/actions)
-[![Downloads](https://img.shields.io/npm/dm/telnyx.svg)](https://www.npmjs.com/package/telnyx)
-[![Try on RunKit](https://badge.runkitcdn.com/telnyx.svg)](https://runkit.com/npm/telnyx)
-[![Code Style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier")
-[![Join Slack](https://img.shields.io/badge/join-slack-infomational)](https://joinslack.telnyx.com/)
+[![NPM version](<https://img.shields.io/npm/v/telnyx.svg?label=npm%20(stable)>)](https://npmjs.org/package/telnyx) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/telnyx)
 
-The Telnyx Node library provides convenient access to the Telnyx API from
-applications written in server-side JavaScript.
+This library provides convenient access to the Telnyx REST API from server-side TypeScript or JavaScript.
 
-## Documentation
+The full API of this library can be found in [api.md](api.md).
 
-See the [Node API docs](https://developers.telnyx.com/api#get-started).
-
-## Versions
-
-`telnyx-node` uses a slightly modified version of [Semantic Versioning](https://semver.org) for all changes. [See this document](VERSIONS.md) for details.
+It is generated with [Stainless](https://www.stainless.com/).
 
 ## Installation
 
-Install the package with:
-
-    npm install telnyx --save
+```sh
+npm install telnyx
+```
 
 ## Usage
 
-The package needs to be configured with your account's API key which is
-available in your the [Telnyx Mission Control Portal][api-keys]. Require it with the key's
-value:
+The full API of this library can be found in [api.md](api.md).
 
-```typescript
+<!-- prettier-ignore -->
+```js
 import Telnyx from 'telnyx';
 
-const telnyx = new Telnyx('KEY123456...');
+const client = new Telnyx({
+  apiKey: process.env['TELNYX_API_KEY'], // This is the default and can be omitted
+});
 
-const messagingProfile = await telnyx.messagingProfiles.create({
-  name: 'Summer Campaign',
+const response = await client.calls.dial({
+  connection_id: 'conn12345',
+  from: '+15557654321',
+  to: '+15551234567',
+  webhook_url: 'https://your-webhook.url/events',
+});
+
+console.log(response.data);
+```
+
+### Request & Response types
+
+This library includes TypeScript definitions for all request params and response fields. You may import and use them like so:
+
+<!-- prettier-ignore -->
+```ts
+import Telnyx from 'telnyx';
+
+const client = new Telnyx({
+  apiKey: process.env['TELNYX_API_KEY'], // This is the default and can be omitted
+});
+
+const params: Telnyx.NumberOrderCreateParams = { phone_numbers: [{ phone_number: '+15558675309' }] };
+const numberOrder: Telnyx.NumberOrderCreateResponse = await client.numberOrders.create(params);
+```
+
+Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
+
+## File uploads
+
+Request parameters that correspond to file uploads can be passed in many different forms:
+
+- `File` (or an object with the same structure)
+- a `fetch` `Response` (or an object with the same structure)
+- an `fs.ReadStream`
+- the return value of our `toFile` helper
+
+```ts
+import fs from 'fs';
+import Telnyx, { toFile } from 'telnyx';
+
+const client = new Telnyx();
+
+// If you have access to Node `fs` we recommend using `fs.createReadStream()`:
+await client.ai.audio.transcribe({
+  model: 'distil-whisper/distil-large-v2',
+  file: fs.createReadStream('/path/to/file'),
+});
+
+// Or if you have the web `File` API you can pass a `File` instance:
+await client.ai.audio.transcribe({
+  model: 'distil-whisper/distil-large-v2',
+  file: new File(['my bytes'], 'file'),
+});
+
+// You can also pass a `fetch` `Response`:
+await client.ai.audio.transcribe({
+  model: 'distil-whisper/distil-large-v2',
+  file: await fetch('https://somesite/file'),
+});
+
+// Finally, if none of the above are convenient, you can use our `toFile` helper:
+await client.ai.audio.transcribe({
+  model: 'distil-whisper/distil-large-v2',
+  file: await toFile(Buffer.from('my bytes'), 'file'),
+});
+await client.ai.audio.transcribe({
+  model: 'distil-whisper/distil-large-v2',
+  file: await toFile(new Uint8Array([0, 1, 2]), 'file'),
 });
 ```
 
-### Using Promises
+## Handling errors
 
-Every method returns a chainable promise which can be used instead of a regular
-callback:
+When the library is unable to connect to the API,
+or if the API returns a non-success status code (i.e., 4xx or 5xx response),
+a subclass of `APIError` will be thrown:
 
-```typescript
-// Create a new messaging profile and then send a message using that profile:
-telnyx.messagingProfiles
-  .create({
-    name: 'Summer Campaign',
-  })
-  .then((messagingProfile) => {
-    return telnyx.messagingPhoneNumbers.update('+18005554000', {
-      messaging_profile_id: messagingProfile.data.id,
-    });
-  })
-  .catch((err) => {
-    // Deal with an error
-  });
-```
-
-### Configuring Timeout
-
-Request timeout is configurable (the default is 120 seconds):
-
-```typescript
-telnyx.setTimeout(20000); // in ms (this is 20 seconds)
-```
-
-### Configuring a Proxy
-
-An [https-proxy-agent][https-proxy-agent] can be configured with
-`setHttpAgent`.
-
-To use telnyx behind a proxy you can pass to sdk:
-
-```typescript
-import ProxyAgent from 'https-proxy-agent';
-
-if (process.env.http_proxy) {
-  telnyx.setHttpAgent(new ProxyAgent(process.env.http_proxy));
-}
-```
-
-### Network retries
-
-Automatic network retries can be enabled with `setMaxNetworkRetries`. This will
-retry requests `n` times with exponential backoff if they fail due to an
-intermittent network problem.
-
-```typescript
-// Retry a request once before giving up
-telnyx.setMaxNetworkRetries(1);
-```
-
-### Examining Responses
-
-Some information about the response which generated a resource is available
-with the `lastResponse` property:
-
-```typescript
-messagingProfile.lastResponse.requestId; // see: https://telnyx.com/docs/api/node#request_ids
-messagingProfile.lastResponse.statusCode;
-```
-
-### `request` and `response` events
-
-The Telnyx object emits `request` and `response` events. You can use them like this:
-
-```typescript
-import Telnyx from 'telnyx';
-
-const telnyx = new Telnyx('KEY...');
-
-const onRequest = (request) => {
-  // Do something.
-};
-
-// Add the event handler function:
-telnyx.on('request', onRequest);
-
-// Remove the event handler function:
-telnyx.off('request', onRequest);
-```
-
-#### `request` object
-
-```typescript
-{
-  method: 'POST',
-  path: '/v2/messaging_profiles'
-}
-```
-
-#### `response` object
-
-```typescript
-{
-  method: 'POST',
-  path: '/v2/messaging_profiles',
-  status: 200,
-  request_id: 'Ghc9r26ts73DRf',
-  elapsed: 445                // Elapsed time in milliseconds
-}
-```
-
-### Webhook signing
-
-Telnyx signs the webhook events it sends to your endpoint, allowing you to
-validate that they were not sent by a third-party. You can read more about it
-[here](https://developers.telnyx.com/docs/voice/programmable-voice/receiving-webhooks).
-
-Please note that you must pass the _raw_ request body, exactly as received from
-Telnyx, to the `constructEvent()` function; this will not work with a parsed
-(i.e., JSON) request body.
-
-You can find an example of how to use this with [Express](https://expressjs.com/)
-in the [`examples/messaging-inbound-webhook`](examples/messaging-inbound-webhook) folder, but here's
-what it looks like:
-
-```typescript
-const event = telnyx.webhooks.constructEvent(
-  webhookRawBody, // JSON stringified
-  webhookTelnyxSignatureHeader, // Buffer from base 64 encoded signature
-  webhookTelnyxTimestampHeader,
-  publicKey, // Buffer from base 64 encoded public key
-  timeToleranceInSeconds, // Optional, defaults to 300 seconds
-);
-```
-
-#### TeXML Signature
-
-TeXML sends webhooks as form-encoded payloads instead of JSON. To validate the signature, use the `telnyx.webhooks.signature.verifySignature` method.
-
-You can find an example of how to use this with [Express](https://expressjs.com/) in the [`examples/webhook-signing`](examples/webhook-signing) folder.
-
-```typescript
-const timeToleranceInSeconds = 300; // Will validate signatures of webhooks up to 5 minutes after Telnyx sent the request
-try {
-  telnyx.webhooks.signature.verifySignature(
-    webhookRawBody, // JSON stringified
-    webhookTelnyxSignatureHeader, // Buffer from base 64 encoded signature
-    webhookTelnyxTimestampHeader,
-    publicKey, // Buffer from base 64 encoded public key
-    timeToleranceInSeconds, // Optional, defaults to 300 seconds
-  );
-} catch (e) {
-  console.log('Failed to validate the signature');
-  console.log(e);
-}
-```
-
-### Writing a Plugin
-
-If you're writing a plugin that uses the library, we'd appreciate it if you identified using `telnyx.setAppInfo()`:
-
-```typescript
-telnyx.setAppInfo({
-  name: 'MyAwesomePlugin',
-  version: '1.2.34', // Optional
-  url: 'https://myawesomeplugin.info', // Optional
-});
-```
-
-This information is passed along when the library makes calls to the Telnyx API.
-
-### Auto-pagination
-
-You can auto-paginate list methods. We provide a few different APIs for this to
-aid with a variety of node versions and styles.
-
-#### Async iterators (`for-await-of`)
-
-If you are in a Node environment that has support for [async iteration](https://github.com/tc39/proposal-async-iteration#the-async-iteration-statement-for-await-of),
-such as Node 10+ or [babel](https://babeljs.io/docs/en/babel-plugin-transform-async-generator-functions),
-the following will auto-paginate:
-
-```typescript
-for await (const messagingProfile of telnyx.messagingProfiles.list()) {
-  doSomething(messagingProfile);
-  if (shouldStop()) {
-    break;
-  }
-}
-```
-
-#### `autoPagingEach`
-
-If you are in a Node environment that has support for `await`, such as Node 7.9 and greater,
-you may pass an async function to `.autoPagingEach`:
-
-```typescript
-await telnyx.messagingProfiles
-  .list()
-  .autoPagingEach(async (messagingProfile) => {
-    await doSomething(messagingProfile);
-    if (shouldBreak()) {
-      return false;
-    }
-  });
-console.log('Done iterating.');
-```
-
-Equivalently, without `await`, you may return a Promise, which can resolve to `false` to break:
-
-```typescript
-telnyx.messagingProfiles
-  .list()
-  .autoPagingEach((messagingProfile) => {
-    return doSomething(messagingProfile).then(() => {
-      if (shouldBreak()) {
-        return false;
-      }
-    });
-  })
-  .then(() => {
-    console.log('Done iterating.');
-  })
-  .catch(handleError);
-```
-
-If you prefer callbacks to promises, you may also use a `next` callback and a second `onDone` callback:
-
-```typescript
-telnyx.messagingProfiles.list().autoPagingEach(
-  function onItem(messagingProfile, next) {
-    doSomething(messagingProfile, function (err, result) {
-      if (shouldStop(result)) {
-        next(false); // Passing `false` breaks out of the loop.
-      } else {
-        next();
-      }
-    });
-  },
-  function onDone(err) {
-    if (err) {
-      console.error(err);
+<!-- prettier-ignore -->
+```ts
+const numberOrder = await client.numberOrders
+  .create({ phone_numbers: [{ phone_number: '+15558675309' }] })
+  .catch(async (err) => {
+    if (err instanceof Telnyx.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
     } else {
-      console.log('Done iterating.');
+      throw err;
     }
+  });
+```
+
+Error codes are as follows:
+
+| Status Code | Error Type                 |
+| ----------- | -------------------------- |
+| 400         | `BadRequestError`          |
+| 401         | `AuthenticationError`      |
+| 403         | `PermissionDeniedError`    |
+| 404         | `NotFoundError`            |
+| 422         | `UnprocessableEntityError` |
+| 429         | `RateLimitError`           |
+| >=500       | `InternalServerError`      |
+| N/A         | `APIConnectionError`       |
+
+### Retries
+
+Certain errors will be automatically retried 2 times by default, with a short exponential backoff.
+Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,
+429 Rate Limit, and >=500 Internal errors will all be retried by default.
+
+You can use the `maxRetries` option to configure or disable this:
+
+<!-- prettier-ignore -->
+```js
+// Configure the default for all requests:
+const client = new Telnyx({
+  maxRetries: 0, // default is 2
+});
+
+// Or, configure per-request:
+await client.numberOrders.create({ phone_numbers: [{ phone_number: '+15558675309' }] }, {
+  maxRetries: 5,
+});
+```
+
+### Timeouts
+
+Requests time out after 1 minute by default. You can configure this with a `timeout` option:
+
+<!-- prettier-ignore -->
+```ts
+// Configure the default for all requests:
+const client = new Telnyx({
+  timeout: 20 * 1000, // 20 seconds (default is 1 minute)
+});
+
+// Override per-request:
+await client.numberOrders.create({ phone_numbers: [{ phone_number: '+15558675309' }] }, {
+  timeout: 5 * 1000,
+});
+```
+
+On timeout, an `APIConnectionTimeoutError` is thrown.
+
+Note that requests which time out will be [retried twice by default](#retries).
+
+## Advanced Usage
+
+### Accessing raw Response data (e.g., headers)
+
+The "raw" `Response` returned by `fetch()` can be accessed through the `.asResponse()` method on the `APIPromise` type that all methods return.
+This method returns as soon as the headers for a successful response are received and does not consume the response body, so you are free to write custom parsing or streaming logic.
+
+You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data.
+Unlike `.asResponse()` this method consumes the body, returning once it is parsed.
+
+<!-- prettier-ignore -->
+```ts
+const client = new Telnyx();
+
+const response = await client.numberOrders
+  .create({ phone_numbers: [{ phone_number: '+15558675309' }] })
+  .asResponse();
+console.log(response.headers.get('X-My-Header'));
+console.log(response.statusText); // access the underlying Response object
+
+const { data: numberOrder, response: raw } = await client.numberOrders
+  .create({ phone_numbers: [{ phone_number: '+15558675309' }] })
+  .withResponse();
+console.log(raw.headers.get('X-My-Header'));
+console.log(numberOrder.data);
+```
+
+### Logging
+
+> [!IMPORTANT]
+> All log messages are intended for debugging only. The format and content of log messages
+> may change between releases.
+
+#### Log levels
+
+The log level can be configured in two ways:
+
+1. Via the `TELNYX_LOG` environment variable
+2. Using the `logLevel` client option (overrides the environment variable if set)
+
+```ts
+import Telnyx from 'telnyx';
+
+const client = new Telnyx({
+  logLevel: 'debug', // Show all log messages
+});
+```
+
+Available log levels, from most to least verbose:
+
+- `'debug'` - Show debug messages, info, warnings, and errors
+- `'info'` - Show info messages, warnings, and errors
+- `'warn'` - Show warnings and errors (default)
+- `'error'` - Show only errors
+- `'off'` - Disable all logging
+
+At the `'debug'` level, all HTTP requests and responses are logged, including headers and bodies.
+Some authentication-related headers are redacted, but sensitive data in request and response bodies
+may still be visible.
+
+#### Custom logger
+
+By default, this library logs to `globalThis.console`. You can also provide a custom logger.
+Most logging libraries are supported, including [pino](https://www.npmjs.com/package/pino), [winston](https://www.npmjs.com/package/winston), [bunyan](https://www.npmjs.com/package/bunyan), [consola](https://www.npmjs.com/package/consola), [signale](https://www.npmjs.com/package/signale), and [@std/log](https://jsr.io/@std/log). If your logger doesn't work, please open an issue.
+
+When providing a custom logger, the `logLevel` option still controls which messages are emitted, messages
+below the configured level will not be sent to your logger.
+
+```ts
+import Telnyx from 'telnyx';
+import pino from 'pino';
+
+const logger = pino();
+
+const client = new Telnyx({
+  logger: logger.child({ name: 'Telnyx' }),
+  logLevel: 'debug', // Send all messages to pino, allowing it to filter
+});
+```
+
+### Making custom/undocumented requests
+
+This library is typed for convenient access to the documented API. If you need to access undocumented
+endpoints, params, or response properties, the library can still be used.
+
+#### Undocumented endpoints
+
+To make requests to undocumented endpoints, you can use `client.get`, `client.post`, and other HTTP verbs.
+Options on the client, such as retries, will be respected when making these requests.
+
+```ts
+await client.post('/some/path', {
+  body: { some_prop: 'foo' },
+  query: { some_query_arg: 'bar' },
+});
+```
+
+#### Undocumented request params
+
+To make requests using undocumented parameters, you may use `// @ts-expect-error` on the undocumented
+parameter. This library doesn't validate at runtime that the request matches the type, so any extra values you
+send will be sent as-is.
+
+```ts
+client.calls.dial({
+  // ...
+  // @ts-expect-error baz is not yet public
+  baz: 'undocumented option',
+});
+```
+
+For requests with the `GET` verb, any extra params will be in the query, all other requests will send the
+extra param in the body.
+
+If you want to explicitly send an extra argument, you can do so with the `query`, `body`, and `headers` request
+options.
+
+#### Undocumented response properties
+
+To access undocumented response properties, you may access the response object with `// @ts-expect-error` on
+the response object, or cast the response object to the requisite type. Like the request params, we do not
+validate or strip extra properties from the response from the API.
+
+### Customizing the fetch client
+
+By default, this library expects a global `fetch` function is defined.
+
+If you want to use a different `fetch` function, you can either polyfill the global:
+
+```ts
+import fetch from 'my-fetch';
+
+globalThis.fetch = fetch;
+```
+
+Or pass it to the client:
+
+```ts
+import Telnyx from 'telnyx';
+import fetch from 'my-fetch';
+
+const client = new Telnyx({ fetch });
+```
+
+### Fetch options
+
+If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)
+
+```ts
+import Telnyx from 'telnyx';
+
+const client = new Telnyx({
+  fetchOptions: {
+    // `RequestInit` options
   },
-);
+});
 ```
 
-If your `onItem` function does not accept a `next` callback parameter _or_ return a Promise,
-the return value is used to decide whether to continue (`false` breaks, anything else continues).
+#### Configuring proxies
 
-#### `autoPagingToArray`
+To modify proxy behavior, you can provide custom `fetchOptions` that add runtime-specific proxy
+options to requests:
 
-This is a convenience for cases where you expect the number of items
-to be relatively small; accordingly, you must pass a `limit` option
-to prevent runaway list growth from consuming too much memory.
+<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg" align="top" width="18" height="21"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>
 
-Returns a promise of an array of all items across pages for a list request.
+```ts
+import Telnyx from 'telnyx';
+import * as undici from 'undici';
 
-```typescript
-const allMessagingProfiles = await telnyx.messagingProfiles
-  .list()
-  .autoPagingToArray({limit: 10000});
+const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
+const client = new Telnyx({
+  fetchOptions: {
+    dispatcher: proxyAgent,
+  },
+});
 ```
 
-## Getting help
+<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg" align="top" width="18" height="21"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>
 
-If you need help installing or using the library, please check the [Telnyx Documentation](https://developers.telnyx.com) first, and [contact Telnyx support](https://telnyx.com/contact-us) if you don't find an answer to your question.
+```ts
+import Telnyx from 'telnyx';
 
-If you've instead found a bug in the library or would like new features added, go ahead and open issues or pull requests against this repo!
+const client = new Telnyx({
+  fetchOptions: {
+    proxy: 'http://localhost:8888',
+  },
+});
+```
+
+<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
+
+```ts
+import Telnyx from 'npm:telnyx';
+
+const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
+const client = new Telnyx({
+  fetchOptions: {
+    client: httpClient,
+  },
+});
+```
+
+## Frequently Asked Questions
+
+## Semantic versioning
+
+This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
+
+1. Changes that only affect static types, without breaking runtime behavior.
+2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_
+3. Changes that we do not expect to impact the vast majority of users in practice.
+
+We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
+
+We are keen for your feedback; please open an [issue](https://www.github.com/team-telnyx/telnyx-node/issues) with questions, bugs, or suggestions.
+
+## Requirements
+
+TypeScript >= 4.9 is supported.
+
+The following runtimes are supported:
+
+- Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
+- Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+- Deno v1.28.0 or higher.
+- Bun 1.0 or later.
+- Cloudflare Workers.
+- Vercel Edge Runtime.
+- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
+- Nitro v2.6 or greater.
+
+Note that React Native is not supported at this time.
+
+If you are interested in other runtime environments, please open or upvote an issue on GitHub.
 
 ## Contributing
 
-Bug fixes, docs, and library improvements are always welcome. Please refer to our [Contributing Guide](CONTRIBUTING.md) for detailed information on how you can contribute.
-
-> Note: Please be aware that a good share of the files are auto-generated. You are welcome to suggest changes and submit PRs illustrating the changes. However, we'll have to make the changes in the underlying tool. You can find more info about this in the [Contributing Guide](CONTRIBUTING.md).
-
-If you're not familiar with the GitHub pull request/contribution process, [this is a nice tutorial](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
-
-## Development
-
-### Setup
-
-Run the following to create your env file
-
-```bash
-cp .env.local .env
-```
-
-> Don't forget to update your `.env` values accordingly.
-
-Now inject envs into terminal:
-
-```bash
-. ./setup_env.sh
-```
-
-> Feel free to use Node `--env-file` parameter to [setup envs](https://nodejs.org/en/learn/command-line/how-to-read-environment-variables-from-nodejs) if you prefer
-
-
-Update global types based off Telnyx OpenAPI spec with the following command:
-
-```bash
-npx openapi-typescript https://raw.githubusercontent.com/team-telnyx/openapi/master/openapi/spec3.json -o ./types/TelnyxAPI.d.ts
-```
-
-The test suite depends on the [Prism Mock Server](https://github.com/stoplightio/prism).
-
-Start the prism mock service with the following command:
-
-```bash
-npx prism mock https://raw.githubusercontent.com/team-telnyx/openapi/master/openapi/spec3.json
-```
-
----
-
-One final step -- because the Node SDK originally expected to reach the legacy `telnyx-mock` service at port 12111 (in addition to providing a `/v2/` base path), we need to setup the [Telnyx mock proxy server](https://github.com/team-telnyx/telnyx-mock-server-proxy) to modify the request path and forward along to the prism mock server.
-
-```bash
-# In new terminal window
-
-git clone git@github.com:team-telnyx/telnyx-prism-mock.git
-cd telnyx-prism-mock/proxy
-
-npm install
-node index.js
-```
-
-### Running Tests
-
-```bash
-$ npm install
-$ npm test
-```
-
-Run all tests with a custom `telnyx-mock` port:
-
-```bash
-$ TELNYX_MOCK_PORT=12111 npm test
-```
-
-Run a single test suite:
-
-```bash
-$ npm test -- test/Error.test.ts
-```
-
-Run a single test (case sensitive):
-
-```bash
-$ npm test -- test/Error.test.ts -t 'Populates with type'
-```
-
-If you wish, you may run tests using your Telnyx _Test_ API key by setting the
-environment variable `TELNYX_TEST_API_KEY` before running the tests:
-
-```bash
-$ export TELNYX_TEST_API_KEY='KEY....'
-$ export TELNYX_MOCK_PORT='12...'
-$ npm test
-```
-
-### Debugging
-
-To inspect values in tests first import debug:
-
-```typescript
-import Debug from 'debug';
-
-const debug = Debug('foo');
-//...
-debug(result);
-```
-
-Then run the tests with:
-
-```bash
-$ DEBUG=foo npm test
-```
-
-To view verbose debugging for `nock` run the tests with:
-
-```bash
-$ DEBUG=nock.* npm test
-```
-
-### Typescript
-
-Run:
-
-```bash
-npm run build
-```
-
-Then check output in [dist](./dist) folder
-
-### Linter (Prettier)
-
-Add an [editor integration](https://prettier.io/docs/en/editors.html) or:
-
-```bash
-$ npm run fix
-```
-
-## Acknowledgements
-
-The contributors and maintainers of Telnyx Node would like to extend their deep gratitude to the
-authors of [Stripe Node](https://github.com/stripe/stripe-node), upon which
-this project is based. Thank you for developing such elegant, usable, extensible code
-and for sharing it with the community.
-
-[api-keys]: https://portal.telnyx.com/#/app/auth/v2
-[https-proxy-agent]: https://github.com/TooTallNate/node-https-proxy-agent
-
-<!--
-# vim: set tw=79:
--->
+See [the contributing documentation](./CONTRIBUTING.md).

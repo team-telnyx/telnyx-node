@@ -1,0 +1,750 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+import { APIResource } from '../../../core/resource';
+import { APIPromise } from '../../../core/api-promise';
+import { RequestOptions } from '../../../internal/request-options';
+import { path } from '../../../internal/utils/path';
+
+export class Requests extends APIResource {
+  /**
+   * Submit a new tollfree verification request
+   *
+   * @example
+   * ```ts
+   * const verificationRequestEgress =
+   *   await client.messagingTollfree.verification.requests.create({
+   *     additionalInformation: 'additionalInformation',
+   *     businessAddr1: '600 Congress Avenue',
+   *     businessCity: 'Austin',
+   *     businessContactEmail: 'email@example.com',
+   *     businessContactFirstName: 'John',
+   *     businessContactLastName: 'Doe',
+   *     businessContactPhone: '+18005550100',
+   *     businessName: 'Telnyx LLC',
+   *     businessState: 'Texas',
+   *     businessZip: '78701',
+   *     corporateWebsite: 'http://example.com',
+   *     isvReseller: 'isvReseller',
+   *     messageVolume: '100,000',
+   *     optInWorkflow:
+   *       "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset",
+   *     optInWorkflowImageURLs: [
+   *       { url: 'https://telnyx.com/sign-up' },
+   *       { url: 'https://telnyx.com/company/data-privacy' },
+   *     ],
+   *     phoneNumbers: [{ phoneNumber: '+18773554398' }, { phoneNumber: '+18773554399' }],
+   *     productionMessageContent: 'Your Telnyx OTP is XXXX',
+   *     useCase: '2FA',
+   *     useCaseSummary:
+   *       'This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal',
+   *   });
+   * ```
+   */
+  create(body: RequestCreateParams, options?: RequestOptions): APIPromise<VerificationRequestEgress> {
+    return this._client.post('/messaging_tollfree/verification/requests', { body, ...options });
+  }
+
+  /**
+   * Get a single verification request by its ID.
+   *
+   * @example
+   * ```ts
+   * const verificationRequestStatus =
+   *   await client.messagingTollfree.verification.requests.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<VerificationRequestStatus> {
+    return this._client.get(path`/messaging_tollfree/verification/requests/${id}`, options);
+  }
+
+  /**
+   * Update an existing tollfree verification request. This is particularly useful
+   * when there are pending customer actions to be taken.
+   *
+   * @example
+   * ```ts
+   * const verificationRequestEgress =
+   *   await client.messagingTollfree.verification.requests.update(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       additionalInformation: 'additionalInformation',
+   *       businessAddr1: '600 Congress Avenue',
+   *       businessCity: 'Austin',
+   *       businessContactEmail: 'email@example.com',
+   *       businessContactFirstName: 'John',
+   *       businessContactLastName: 'Doe',
+   *       businessContactPhone: '+18005550100',
+   *       businessName: 'Telnyx LLC',
+   *       businessState: 'Texas',
+   *       businessZip: '78701',
+   *       corporateWebsite: 'http://example.com',
+   *       isvReseller: 'isvReseller',
+   *       messageVolume: '100,000',
+   *       optInWorkflow:
+   *         "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset",
+   *       optInWorkflowImageURLs: [
+   *         { url: 'https://telnyx.com/sign-up' },
+   *         { url: 'https://telnyx.com/company/data-privacy' },
+   *       ],
+   *       phoneNumbers: [{ phoneNumber: '+18773554398' }, { phoneNumber: '+18773554399' }],
+   *       productionMessageContent: 'Your Telnyx OTP is XXXX',
+   *       useCase: '2FA',
+   *       useCaseSummary:
+   *         'This is a use case where Telnyx sends out 2FA codes to portal users to verify their identity in order to sign into the portal',
+   *     },
+   *   );
+   * ```
+   */
+  update(
+    id: string,
+    body: RequestUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<VerificationRequestEgress> {
+    return this._client.patch(path`/messaging_tollfree/verification/requests/${id}`, { body, ...options });
+  }
+
+  /**
+   * Get a list of previously-submitted tollfree verification requests
+   *
+   * @example
+   * ```ts
+   * const requests =
+   *   await client.messagingTollfree.verification.requests.list(
+   *     { page: 1, page_size: 1 },
+   *   );
+   * ```
+   */
+  list(query: RequestListParams, options?: RequestOptions): APIPromise<RequestListResponse> {
+    return this._client.get('/messaging_tollfree/verification/requests', { query, ...options });
+  }
+
+  /**
+   * Delete a verification request
+   *
+   * A request may only be deleted when when the request is in the "rejected" state.
+   *
+   * - `HTTP 200`: request successfully deleted
+   * - `HTTP 400`: request exists but can't be deleted (i.e. not rejected)
+   * - `HTTP 404`: request unknown or already deleted
+   *
+   * @example
+   * ```ts
+   * const request =
+   *   await client.messagingTollfree.verification.requests.delete(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.delete(path`/messaging_tollfree/verification/requests/${id}`, options);
+  }
+}
+
+/**
+ * A phone number
+ */
+export interface TfPhoneNumber {
+  phoneNumber: string;
+}
+
+/**
+ * The body of a tollfree verification request
+ */
+export interface TfVerificationRequest {
+  /**
+   * Any additional information
+   */
+  additionalInformation: string;
+
+  /**
+   * Line 1 of the business address
+   */
+  businessAddr1: string;
+
+  /**
+   * The city of the business address; the first letter should be capitalized
+   */
+  businessCity: string;
+
+  /**
+   * The email address of the business contact
+   */
+  businessContactEmail: string;
+
+  /**
+   * First name of the business contact; there are no specific requirements on
+   * formatting
+   */
+  businessContactFirstName: string;
+
+  /**
+   * Last name of the business contact; there are no specific requirements on
+   * formatting
+   */
+  businessContactLastName: string;
+
+  /**
+   * The phone number of the business contact in E.164 format
+   */
+  businessContactPhone: string;
+
+  /**
+   * Name of the business; there are no specific formatting requirements
+   */
+  businessName: string;
+
+  /**
+   * The full name of the state (not the 2 letter code) of the business address; the
+   * first letter should be capitalized
+   */
+  businessState: string;
+
+  /**
+   * The ZIP code of the business address
+   */
+  businessZip: string;
+
+  /**
+   * A URL, including the scheme, pointing to the corporate website
+   */
+  corporateWebsite: string;
+
+  /**
+   * ISV name
+   */
+  isvReseller: string;
+
+  /**
+   * Message Volume Enums
+   */
+  messageVolume: Volume;
+
+  /**
+   * Human-readable description of how end users will opt into receiving messages
+   * from the given phone numbers
+   */
+  optInWorkflow: string;
+
+  /**
+   * Images showing the opt-in workflow
+   */
+  optInWorkflowImageURLs: Array<URL>;
+
+  /**
+   * The phone numbers to request the verification of
+   */
+  phoneNumbers: Array<TfPhoneNumber>;
+
+  /**
+   * An example of a message that will be sent from the given phone numbers
+   */
+  productionMessageContent: string;
+
+  /**
+   * Tollfree usecase categories
+   */
+  useCase: UseCaseCategories;
+
+  /**
+   * Human-readable summary of the desired use-case
+   */
+  useCaseSummary: string;
+
+  /**
+   * Line 2 of the business address
+   */
+  businessAddr2?: string;
+
+  /**
+   * URL that should receive webhooks relating to this verification request
+   */
+  webhookUrl?: string;
+}
+
+/**
+ * Tollfree verification status
+ */
+export type TfVerificationStatus =
+  | 'Verified'
+  | 'Rejected'
+  | 'Waiting For Vendor'
+  | 'Waiting For Customer'
+  | 'Waiting For Telnyx'
+  | 'In Progress';
+
+export interface URL {
+  url: string;
+}
+
+/**
+ * Tollfree usecase categories
+ */
+export type UseCaseCategories =
+  | '2FA'
+  | 'App Notifications'
+  | 'Appointments'
+  | 'Auctions'
+  | 'Auto Repair Services'
+  | 'Bank Transfers'
+  | 'Billing'
+  | 'Booking Confirmations'
+  | 'Business Updates'
+  | 'COVID-19 Alerts'
+  | 'Career Training'
+  | 'Chatbot'
+  | 'Conversational / Alerts'
+  | 'Courier Services & Deliveries'
+  | 'Emergency Alerts'
+  | 'Events & Planning'
+  | 'Financial Services'
+  | 'Fraud Alerts'
+  | 'Fundraising'
+  | 'General Marketing'
+  | 'General School Updates'
+  | 'HR / Staffing'
+  | 'Healthcare Alerts'
+  | 'Housing Community Updates'
+  | 'Insurance Services'
+  | 'Job Dispatch'
+  | 'Legal Services'
+  | 'Mixed'
+  | 'Motivational Reminders'
+  | 'Notary Notifications'
+  | 'Order Notifications'
+  | 'Political'
+  | 'Public Works'
+  | 'Real Estate Services'
+  | 'Religious Services'
+  | 'Repair and Diagnostics Alerts'
+  | 'Rewards Program'
+  | 'Surveys'
+  | 'System Alerts'
+  | 'Voting Reminders'
+  | 'Waitlist Alerts'
+  | 'Webinar Reminders'
+  | 'Workshop Alerts';
+
+/**
+ * A verification request as it comes out of the database
+ */
+export interface VerificationRequestEgress {
+  id: string;
+
+  additionalInformation: string;
+
+  businessAddr1: string;
+
+  businessCity: string;
+
+  businessContactEmail: string;
+
+  businessContactFirstName: string;
+
+  businessContactLastName: string;
+
+  businessContactPhone: string;
+
+  businessName: string;
+
+  businessState: string;
+
+  businessZip: string;
+
+  corporateWebsite: string;
+
+  isvReseller: string;
+
+  /**
+   * Message Volume Enums
+   */
+  messageVolume: Volume;
+
+  optInWorkflow: string;
+
+  optInWorkflowImageURLs: Array<URL>;
+
+  phoneNumbers: Array<TfPhoneNumber>;
+
+  productionMessageContent: string;
+
+  /**
+   * Tollfree usecase categories
+   */
+  useCase: UseCaseCategories;
+
+  useCaseSummary: string;
+
+  verificationRequestId: string;
+
+  businessAddr2?: string;
+
+  /**
+   * Tollfree verification status
+   */
+  verificationStatus?: TfVerificationStatus;
+
+  webhookUrl?: string;
+}
+
+/**
+ * A verification request and its status, suitable for returning to users
+ */
+export interface VerificationRequestStatus {
+  id: string;
+
+  additionalInformation: string;
+
+  businessAddr1: string;
+
+  businessCity: string;
+
+  businessContactEmail: string;
+
+  businessContactFirstName: string;
+
+  businessContactLastName: string;
+
+  businessContactPhone: string;
+
+  businessName: string;
+
+  businessState: string;
+
+  businessZip: string;
+
+  corporateWebsite: string;
+
+  isvReseller: string;
+
+  /**
+   * Message Volume Enums
+   */
+  messageVolume: Volume;
+
+  optInWorkflow: string;
+
+  optInWorkflowImageURLs: Array<URL>;
+
+  phoneNumbers: Array<TfPhoneNumber>;
+
+  productionMessageContent: string;
+
+  /**
+   * Tollfree usecase categories
+   */
+  useCase: UseCaseCategories;
+
+  useCaseSummary: string;
+
+  /**
+   * Tollfree verification status
+   */
+  verificationStatus: TfVerificationStatus;
+
+  businessAddr2?: string;
+
+  createdAt?: string;
+
+  reason?: string;
+
+  updatedAt?: string;
+
+  webhookUrl?: string;
+}
+
+/**
+ * Message Volume Enums
+ */
+export type Volume =
+  | '10'
+  | '100'
+  | '1,000'
+  | '10,000'
+  | '100,000'
+  | '250,000'
+  | '500,000'
+  | '750,000'
+  | '1,000,000'
+  | '5,000,000'
+  | '10,000,000+';
+
+/**
+ * A paginated response
+ */
+export interface RequestListResponse {
+  /**
+   * The records yielded by this request
+   */
+  records?: Array<VerificationRequestStatus>;
+
+  /**
+   * The total amount of records for these query parameters
+   */
+  total_records?: number;
+}
+
+export type RequestDeleteResponse = unknown;
+
+export interface RequestCreateParams {
+  /**
+   * Any additional information
+   */
+  additionalInformation: string;
+
+  /**
+   * Line 1 of the business address
+   */
+  businessAddr1: string;
+
+  /**
+   * The city of the business address; the first letter should be capitalized
+   */
+  businessCity: string;
+
+  /**
+   * The email address of the business contact
+   */
+  businessContactEmail: string;
+
+  /**
+   * First name of the business contact; there are no specific requirements on
+   * formatting
+   */
+  businessContactFirstName: string;
+
+  /**
+   * Last name of the business contact; there are no specific requirements on
+   * formatting
+   */
+  businessContactLastName: string;
+
+  /**
+   * The phone number of the business contact in E.164 format
+   */
+  businessContactPhone: string;
+
+  /**
+   * Name of the business; there are no specific formatting requirements
+   */
+  businessName: string;
+
+  /**
+   * The full name of the state (not the 2 letter code) of the business address; the
+   * first letter should be capitalized
+   */
+  businessState: string;
+
+  /**
+   * The ZIP code of the business address
+   */
+  businessZip: string;
+
+  /**
+   * A URL, including the scheme, pointing to the corporate website
+   */
+  corporateWebsite: string;
+
+  /**
+   * ISV name
+   */
+  isvReseller: string;
+
+  /**
+   * Message Volume Enums
+   */
+  messageVolume: Volume;
+
+  /**
+   * Human-readable description of how end users will opt into receiving messages
+   * from the given phone numbers
+   */
+  optInWorkflow: string;
+
+  /**
+   * Images showing the opt-in workflow
+   */
+  optInWorkflowImageURLs: Array<URL>;
+
+  /**
+   * The phone numbers to request the verification of
+   */
+  phoneNumbers: Array<TfPhoneNumber>;
+
+  /**
+   * An example of a message that will be sent from the given phone numbers
+   */
+  productionMessageContent: string;
+
+  /**
+   * Tollfree usecase categories
+   */
+  useCase: UseCaseCategories;
+
+  /**
+   * Human-readable summary of the desired use-case
+   */
+  useCaseSummary: string;
+
+  /**
+   * Line 2 of the business address
+   */
+  businessAddr2?: string;
+
+  /**
+   * URL that should receive webhooks relating to this verification request
+   */
+  webhookUrl?: string;
+}
+
+export interface RequestUpdateParams {
+  /**
+   * Any additional information
+   */
+  additionalInformation: string;
+
+  /**
+   * Line 1 of the business address
+   */
+  businessAddr1: string;
+
+  /**
+   * The city of the business address; the first letter should be capitalized
+   */
+  businessCity: string;
+
+  /**
+   * The email address of the business contact
+   */
+  businessContactEmail: string;
+
+  /**
+   * First name of the business contact; there are no specific requirements on
+   * formatting
+   */
+  businessContactFirstName: string;
+
+  /**
+   * Last name of the business contact; there are no specific requirements on
+   * formatting
+   */
+  businessContactLastName: string;
+
+  /**
+   * The phone number of the business contact in E.164 format
+   */
+  businessContactPhone: string;
+
+  /**
+   * Name of the business; there are no specific formatting requirements
+   */
+  businessName: string;
+
+  /**
+   * The full name of the state (not the 2 letter code) of the business address; the
+   * first letter should be capitalized
+   */
+  businessState: string;
+
+  /**
+   * The ZIP code of the business address
+   */
+  businessZip: string;
+
+  /**
+   * A URL, including the scheme, pointing to the corporate website
+   */
+  corporateWebsite: string;
+
+  /**
+   * ISV name
+   */
+  isvReseller: string;
+
+  /**
+   * Message Volume Enums
+   */
+  messageVolume: Volume;
+
+  /**
+   * Human-readable description of how end users will opt into receiving messages
+   * from the given phone numbers
+   */
+  optInWorkflow: string;
+
+  /**
+   * Images showing the opt-in workflow
+   */
+  optInWorkflowImageURLs: Array<URL>;
+
+  /**
+   * The phone numbers to request the verification of
+   */
+  phoneNumbers: Array<TfPhoneNumber>;
+
+  /**
+   * An example of a message that will be sent from the given phone numbers
+   */
+  productionMessageContent: string;
+
+  /**
+   * Tollfree usecase categories
+   */
+  useCase: UseCaseCategories;
+
+  /**
+   * Human-readable summary of the desired use-case
+   */
+  useCaseSummary: string;
+
+  /**
+   * Line 2 of the business address
+   */
+  businessAddr2?: string;
+
+  /**
+   * URL that should receive webhooks relating to this verification request
+   */
+  webhookUrl?: string;
+}
+
+export interface RequestListParams {
+  page: number;
+
+  /**
+   * Request this many records per page
+   *
+   *         This value is automatically clamped if the provided value is too large.
+   */
+  page_size: number;
+
+  date_end?: string;
+
+  date_start?: string;
+
+  phone_number?: string;
+
+  /**
+   * Tollfree verification status
+   */
+  status?: TfVerificationStatus;
+}
+
+export declare namespace Requests {
+  export {
+    type TfPhoneNumber as TfPhoneNumber,
+    type TfVerificationRequest as TfVerificationRequest,
+    type TfVerificationStatus as TfVerificationStatus,
+    type URL as URL,
+    type UseCaseCategories as UseCaseCategories,
+    type VerificationRequestEgress as VerificationRequestEgress,
+    type VerificationRequestStatus as VerificationRequestStatus,
+    type Volume as Volume,
+    type RequestListResponse as RequestListResponse,
+    type RequestDeleteResponse as RequestDeleteResponse,
+    type RequestCreateParams as RequestCreateParams,
+    type RequestUpdateParams as RequestUpdateParams,
+    type RequestListParams as RequestListParams,
+  };
+}

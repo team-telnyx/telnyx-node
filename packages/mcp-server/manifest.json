@@ -1,0 +1,42 @@
+{
+  "dxt_version": "0.2",
+  "name": "telnyx-mcp",
+  "version": "0.0.1",
+  "description": "The official MCP Server for the Telnyx API",
+  "author": {
+    "name": "Telnyx",
+    "email": "support@telnyx.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/team-telnyx/telnyx-node.git"
+  },
+  "homepage": "https://github.com/team-telnyx/telnyx-node/tree/main/packages/mcp-server#readme",
+  "server": {
+    "type": "node",
+    "entry_point": "index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/index.js"],
+      "env": {
+        "TELNYX_API_KEY": "${user_config.TELNYX_API_KEY}"
+      }
+    }
+  },
+  "user_config": {
+    "TELNYX_API_KEY": {
+      "title": "api_key",
+      "description": "",
+      "required": true,
+      "type": "string"
+    }
+  },
+  "tools": [],
+  "tools_generated": true,
+  "compatibility": {
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "keywords": ["api"]
+}

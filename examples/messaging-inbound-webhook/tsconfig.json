@@ -12,6 +12,7 @@
     "strict": true,
     "strictFunctionTypes": true,
     "types": [ "node" ],
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "noUncheckedIndexedAccess": true,
   },

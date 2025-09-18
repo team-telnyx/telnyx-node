@@ -1,454 +1,137 @@
-# CHANGELOG
-
-## v2
-
-### v2.1.1
-
-- Improve error handling on ConnectionError with better logging for truncated error objects
-- Fix default timeout and HTTP agent default options
-- remove `CallRecordings` resource `bulkDel` method
-
-### v2.1.0
-
-- Add dual package support for both CommonJS and ES modules
-- Maintain backward compatibility with existing code
-- Add new example for `AiModels` resource
-
-### v2.0.1
-
-- Add Messaging Inbound Webhook example
-- Add Calls `clientStateUpdate` method
-- Remove usage of `ResponsePayload` generic type with specific types from types definitions, since required types are not accepted
-- Remove `MessagingProfiles` resource `metrics` method
-- Unnest `PhoneNumbers` resource `inboundChannels` method
-- Update all type defs
-
-### v2.0.0
-
-- Typescript Support! :tada:
-
-### v2.0.0-beta.6
-
-- Add `connections` example
-- Add `numbers` example
-- Fix `WebhookHeader` type mismatch
-
-### v2.0.0-beta.5
-
-- Update `TelnyxAPI.d.ts` types
-- Add missing `Events` and remove unused ones
-- Remove `/tags` endpoint from `TelephonyCredentials` resource
-- Update `ManagedAccounts` resource tests
-- Remove network preferences endpoints from `SimCards` resource
-- Remove unused `NumberOrderDocuments` resource
-- Update `tsconfig.json` to use `Node16` module
-- Update relative lib files to include js extension according to [moduleResolution](https://www.typescriptlang.org/tsconfig/#Modules_6244) config
-
-### v2.0.0-beta.4
-
-- Add `CONTRIBUTING.md` guidelines
-- Update `README.md`
-- Fix `tranformResponseData` misusage on `list` resource methods
-- Update stale types on Portability, Porting and Portout resources methods
-
-### v2.0.0-beta.3
-
-- Add `Errors` type declaration
-- Add `VERSIONS.md` information
-- Update package dependencies for runtime usage
-
-### v2.0.0-beta.2
-
-- Add missing `Texml` resource methods
-- Add missing `PhoneNumbers`, `NumberOrders` and `RegulatoryRequirements` resource methods
-- Update types on stale resources methods
-
-### v2.0.0-beta.1
-
-- Fix `Queues` resource nested methods
-- Fix `PortingOrders` and `Ips` resource nested methods param names
-- Update legacy skipped tests
-- Fix `Verifications`, `VerifyProfiles` and `VerifiedNumbers` resources method naming and params
-- Remove dupe `Verify` resource
-- Update nested methods types to match param values usage
-
-### v2.0.0-beta.0
-
-- Move `AutorespConfigs` resource to be nested in `MessagingProfiles`
-- Fix nested resources in `Calls`, `MessagingProfiles` and `Conferences` ID usage instead of using constructors data
-- Fix nested resources `Calls`, `MessagingProfiles` and `Conferences` method names
-- Fix `Brand` resources method name
-- Fix bug on `DELETE` operations empty `responseBody` JSON Parsing
-- Update types on resources methods with multiple urlParams
-- FIX: README Typo by @mpareja-godaddy in https://github.com/team-telnyx/telnyx-node/pull/186
-
-### v2.0.0-alpha.7
-
-- Export API callback `events` type definitions
-
-### v2.0.0-alpha.6
-
-- Update optional types on `Webhooks`
-- Make optional types on `Fqdns`, `Ips`, `Messages` and `StorageBuckets` resources more strict
-
-### v2.0.0-alpha.5
-
-- Remove `ClientStateUpdate` resource
-- Remove `MessagesAlphanumericSenderId` resource
-- Remove `MessagingHostedNumber` resource
-- Remove `MessagingPhoneNumbers` resource
-- Remove `MessagingSenderIds` resource
-- Remove `PublicKey` resource
-- Remove `UpdateClientState` resource
-- Remove `Debugging` dupe resource
-- Update syntax on `Events` resources
-- Update `ExternalConnections` stale resource
-- Update `Messages` stale resource
-- Update `Ip`s stale resources
-- Update `AutorespConfigs` stale resource
-- Update `DetailRecords` stale resource
-- Update `InventoryCoverage` stale resource
-
-### v2.0.0-alpha.4
-
-- Add `Addresses` example
-- Remove `BusinessIdentity` resource
-- Remove `CallInformation` resource
-- Remove duplicated `Credentials` resource
-- Fixed `Conferences`, `Documents` and `TelephonyCredentials` method names
-- Add missing resource types defs
-
-### v2.0.0-alpha.3
-
-- Update typing on Nested Resources
-
-### v2.0.0-alpha.2
-
-- Fix `AI` resource methods and created nested structure
-
-### v2.0.0-alpha.1
-
-- Update actions workflow versions to v4 and `.npmignore` to v2
-- Update examples dependencies
-
-### v2.0.0-alpha.0
-
-- Add Typescript default config, linter and dependencies
-- Bump default Node version to `20`
-- Update README on [Development](./README.md#development) instructions
-- Remove `yarn` in favor of `npm` 10
-- Convert SDK files to Typescript
-- Convert Resources to Typescript
-- Use ES Modules syntax
-- Update package `main` entrypoint to be compiled version of [src telnyx.ts](./src/telnyx.ts)
-- Added `Jest` and create tests in Typescript
-- Update tests expect matchers according to limitations with `prism mock`
-- Add `nock` cleanup setup
-- Make `setApiKey` TelnyxObject prototype method private
-- Moved to `moduleResolution` Bundler to support better imports and tests with `Jest`
-- Enabled `esModuleInterop` for Jest
-- Update files included when publishing
-- Remove custom resource get `generateAccessTokenFromCredential` from `TelephonyCredentials`
-- Update `AutoRechargePreferences` resource
-- Remove `RegisterCall` resource
-- Remove `ProgrammableFaxCommants` specs
-- Remove `BulkCreation` resource
-- Update `TexmlApplications` resource
-- Remove `Conferences` `dial_participant` action
-- Remove `SimCards` `deletePublicIp` and `setPublicIp`
-- Update `Queues` method names to camelCase
-- Remove `VerifiedCallsDisplayProfile` resource
-- Update examples to Typescript
-- Remove duplicated `AccessTokens` resource
-- Move custom `AdvancedOptinoptout` resource to be `AutoRespConfigs` resource
-- Remove `Billing` resource
-- Remove inexistent `Bucket` resource
-- Move `BucketUsage` resource to `StorageBuckets`
-- Remove duplicated `BulkPhoneNumberCampaigns` resource
-- Remove duplicated `BulkPhoneNumberOperations` resource
-
-## v1
-
-### v1.26.2
-
-- Fix Brand and Campaign redirects
-- Update security
-
-### v1.26.1
-
-- Fix porting comments
-
-### v1.26.0
-
-- Endpoint additions
-- Package upgrades
-- Preparation for typescript migration/support
-
-### v1.25.5
-
-- Security Updates + API Additions
-
-### v1.23.0 (2021-10-19)
-
-- **Addresses** added `validate`
-- **AuthenticationProvider** added `list`, `create`, `retrieve`, `update`, `del`
-- **DynamicEmergency** (for `endpoints` and `addresses`) added `list`, `retrieve`, `create`, `del`
-- **InventoryCoverage** added `request`
-- **NumberBackgroundJobs** added `list`, `retrieve`, `updateEmergencySettings`, `updateNumbers`, `deleteNumbers`
-- **PhoneNumbers** added `setEmergencySettings`
-- **PortabilityChecks** added `run`
-- **PortingOrders** added `listExceptionTypes`, `listActivationJobs`, `cancelOrder`, `listAllowedFocWindows`
-- **PortingPhoneNumber** added `list`
-- **PortoutRequests** added `list`, `retrieve`, `updateStatus`, `listComments`, `createComment`
-- **SimCards** added `setStandby`, `retrievePublicIP`, `setPublicIP`, `deletePublicIP`
-- **WirelessDetailRecordReports** added `list`, `create`, `retrieve`, `del`
-
-### v1.22.0 (2021-09-23)
-
-- **resources** Additional support for Verification endpoint
-
-### v1.21.0 (2021-09-15)
-
-- **Conference** added `retrieve`, `participants`, `speak`, `play`, `stop`, `record_start`, `record_stop`, `update`, `leave`
-
-### v1.20.0 (2021-09-14)
-
-- **PortingOrders** added porting orders endpoint
-
-### v1.19.0 (2021-08-26)
-
-- **DetailRecords** added detail records endpoint
-
-### v1.18.0 (2021-07-28)
-
-- **resources** Additional support for Telephony Credentials (WebRTC)
-
-### v1.17.0 (2021-07-19)
-
-- **SMS Verification** add support for BySMS Verification Codes
-
-### v1.16.0 (2021-07-15)
-
-- **call control** added enqueuing
-- **SIM** added more coverage
-
-### v1.15.0 (2021-04-26)
-
-- **call control** added `gather_stop`, `record_pause`, `refer`, `record_resume`, `transcription_start`, `transcription_stop`
-
-### v1.13.0 (2021-03-29)
-
-- **resources** Hosted Messaging Support
-
-### v1.12.0 (2021-03-15)
-
-- **bug fix** PhoneNumberRegulatoryRequirements now hits `phone_numbers_regulatory_requirements`
-- **resources** Fax support
-
-### v1.11.1 (2021-01-19)
-
-- **resources:** Fax Applications
-
-### v1.11.0 (2020-12-18)
-
-- **resources:** Verify Profiles
-
-- **resources:** Verifications
-
-- **build:** Github Actions
-
-#### v1.10.3 (2020-12-15)
-
-##### Bug Fixes
-
-- **resources:** Add function `tryParseJSON` to avoid parse invalid objects.
-
-##### New Features
-
-- **resources:** Telephony Credentials
-
-#### v1.10.2 (2020-10-16)
-
-##### Bug Fixes
-
-- **resources:** Add Phone Numbers Retrieve Method
-
-#### v1.10.1 (2020-09-24)
-
-##### Bug Fixes
-
-- **resources:** Recreate resources on constructor call
-
-### v1.10.0 (2020-08-07)
-
-- **resources:** Messaging Profile Metrics
-
-- **resources:** Short Codes
-
-### v1.9.0 (2020-07-22)
-
-- **resources:** SIM Card Enable/Disable Methods
-
-### v1.8.0 (2020-07-14)
-
-- **resources:** OTA Updates
-
-- **resources:** SIM Card Groups
-
-- **resources:** Mobile Operator Networks
-
-- **resources:** SIM Card Network Preferences Methods
-
-- **resources:** Number Lookup
-
-- **resources:** Balance
-
-- **resources:** Addresses
-
-- **resources:** Faxes
-
-#### v1.7.2 (2020-04-20)
-
-##### New Features
-
-- **resources:** Inbound Channels
-
-- **resources:** Call Control Application
-
-- **resources:** Outbound Voice Profiles
-
-#### v1.7.1 (2020-01-30)
-
-##### Bug Fixes
-
-- **resources:** Clear leftover state in nested methods
-
-- **webhook:** Update examples
-
-### v1.7.0 (2020-01-30)
-
-##### New Features
-
-- **resources:** Connections
-
-- **resources:** Ips
-
-- **resources:** FQDNs
-
-### v1.6.0 (2019-12-18)
-
-##### New Features
-
-- **resources:** Number Order Regulatory Requirements
-
-- **resources:** Number Order Documents
-
-### v1.5.0 (2019-12-16)
-
-##### New Features
-
-- **resources:** Credential Connections
-
-- **resources:** FQDN Connections
-
-- **resources:** IP Connections
-
-### v1.4.0 (2019-12-12)
-
-##### New Features
-
-- **resources:** Billing Groups
-
-- **webhooks:** Inbound Call Control example
-
-### v1.3.0 (2019-11-14)
-
-##### New Features
-
-- **resources:** SIM Cards
-
-- **resources:** Phone Numbers
-
-#### v1.2.4 (2019-10-22)
-
-##### Bug Fixes
-
-- **resources:** fix content-length header calculation on requestData
-  - account for multi-byte chars on getting request data length (e.g.: `en dash`)
-  - improve specs
-
-#### v1.2.3 (2019-9-25)
-
-##### Bug Fixes
-
-- **query-string:** fix query parameter array format. Use 'brackets'
-
-#### v1.2.2 (2019-9-9)
-
-##### Bug Fixes
-
-- **webhooks:** fix signature verification with tweetnacl
-
-#### v1.2.1 (2019-9-5)
-
-##### Bug Fixes
-
-- **webhooks:** replace c compiled ed25519 package with node tweetnacl
-
-- **package:** fix install for node v12
-
-### v1.2.0 (2019-8-19)
-
-##### New Features
-
-- **resources:** empty constructors on resources names, for Calls and Conferences
-
-- **resources:** nested resources
-
-- **resources:** new Aplhanumeric Sender ID endpoints
-
-### v1.1.0 (2019-8-9)
-
-##### New Features
-
-- **webhooks:** validation algorithm update to ed25519
-
-##### Bug Fixes
-
-- **resources:** nested resources custom attributes assign
-
-- **error-handling:** prevent undefined message on error handling
-
-### v1.0.0 (2019-8-2)
-
-##### New Features
-
-- **Call Control:** Call commands, Call Events and Call Status
-
-- **Number Reservations:** extend to have number reservations resources
-
-- **Initial structure:**
-
-  - Remove references to charges and customers
-
-  - Use safe example phone number
-
-  - Load api base url from environment
-
-  - Initial commit
-
-##### Documentation Changes
-
-- **README:**
-
-  - developer docs liks
-
-  - fix integrations links
-
-  - Improve wording in README regarding API key
-
-##### Other Changes
-
-- **testing:** `telnyx-mock` testing support
-
-- **node:** Node version support
+# Changelog
+
+## 3.0.0-alpha (2025-09-18)
+
+Full Changelog: [v0.0.1...v3.0.0-alpha](https://github.com/team-telnyx/telnyx-node/compare/v0.0.1...v3.0.0-alpha)
+
+### Features
+
+* add examples ([c56e3cb](https://github.com/team-telnyx/telnyx-node/commit/c56e3cb108e5672b96fc7db3855762e4eb673ba0))
+* AISWE-429: Upgrade call-control call-control OpenAPI to 3.1 with Standard Webhooks ([5dfb757](https://github.com/team-telnyx/telnyx-node/commit/5dfb7571520be21de72ab04fefcd04799de666f5))
+* AISWE-429: Upgrade messaging 10dlc OpenAPI to 3.1 with Standard Webhooks ([5429c16](https://github.com/team-telnyx/telnyx-node/commit/5429c168e7ba09b5452dc58ae36a47baaf70ca8c))
+* AISWE-429: Upgrade messaging messaging OpenAPI to 3.1 with Standard Webhooks ([aa2c4e3](https://github.com/team-telnyx/telnyx-node/commit/aa2c4e3794ff3f6d83da61d0d6453dd1644654d3))
+* AISWE-429: Upgrade numbers numbers OpenAPI to 3.1 with Standard Webhooks ([2503e69](https://github.com/team-telnyx/telnyx-node/commit/2503e69ba794e5cd085dbdf3b8581c3a9b2c408f))
+* AISWE-429: Upgrade programmable-fax programmable-fax OpenAPI to 3.1 with Standard Webhooks ([ccfd630](https://github.com/team-telnyx/telnyx-node/commit/ccfd630602d06a09d19b28b9cacc135d9653dbef))
+* **api:** manual updates ([0920722](https://github.com/team-telnyx/telnyx-node/commit/0920722b7855943397a910ec3e639d747fc468d5))
+* **api:** manual updates ([c058929](https://github.com/team-telnyx/telnyx-node/commit/c0589291e364232ab7050b2c23672eded7a28f2f))
+* **api:** manual updates ([97109c0](https://github.com/team-telnyx/telnyx-node/commit/97109c083d8daad9f1e8fb207ab44c0f509908d2))
+* **api:** manual updates ([bbb8381](https://github.com/team-telnyx/telnyx-node/commit/bbb8381d778006c21e70081f20addfba2fa280fd))
+* **api:** manual updates ([0d596b9](https://github.com/team-telnyx/telnyx-node/commit/0d596b972daa4f4b01fd9bbe0e95940377d6f691))
+* **api:** rename enums with problematic characters ([91a94fc](https://github.com/team-telnyx/telnyx-node/commit/91a94fc1607015f90f98b17e953d9a945983abff))
+* **api:** rename Error to MessagesError ([ce91e63](https://github.com/team-telnyx/telnyx-node/commit/ce91e63c7a58f4e7c9fb4224c22f554d650dfac3))
+* **examples:** Add inbound call control webhook examples ([#17](https://github.com/team-telnyx/telnyx-node/issues/17)) ([4667342](https://github.com/team-telnyx/telnyx-node/commit/4667342381ed4200efcc0b8fe80fd545d0d14bb1))
+* **mcp:** allow setting logging level ([203b4c0](https://github.com/team-telnyx/telnyx-node/commit/203b4c089965dd95f6f20ae6d20df6867a91dc22))
+* **mcp:** expose client options in `streamableHTTPApp` ([ebc4653](https://github.com/team-telnyx/telnyx-node/commit/ebc46533e009155b5e70d27118cfc81a32fe98a8))
+* NUM-6108: Update Advanced Order API reference to include requirement_groups ([6351263](https://github.com/team-telnyx/telnyx-node/commit/6351263e560cd7b73d39dcfd9e6a1a399710bc93))
+* port-4304: add public download document link specs ([5ed329c](https://github.com/team-telnyx/telnyx-node/commit/5ed329cba424644a1367a0a97aa113c9fc34564c))
+* port-4315: add country_code filter to description ([38131f3](https://github.com/team-telnyx/telnyx-node/commit/38131f3eb47d985b6d60660e2e93fdbc7c22533e))
+* port-4315: add filter by country code ([da60cd1](https://github.com/team-telnyx/telnyx-node/commit/da60cd15ac92fd8f4e29a44fc6ccda18cf11135f))
+* **resources:** add Connections Resource ([#24](https://github.com/team-telnyx/telnyx-node/issues/24)) ([477c701](https://github.com/team-telnyx/telnyx-node/commit/477c701bc04ba5b254efde24bdc46b89a368cd24))
+* **resources:** add Ips and Fqdns Resources ([#25](https://github.com/team-telnyx/telnyx-node/issues/25)) ([92b4ee0](https://github.com/team-telnyx/telnyx-node/commit/92b4ee0ca0cb1db202d193389ce4f8d93b133f02))
+* **resources:** add Mobile Operator Networks Resource ([#39](https://github.com/team-telnyx/telnyx-node/issues/39)) ([039f86c](https://github.com/team-telnyx/telnyx-node/commit/039f86cc121f4f9378cd5b4dcddd44c6a7198a95))
+* **resources:** Addresses ([#34](https://github.com/team-telnyx/telnyx-node/issues/34)) ([eea89a7](https://github.com/team-telnyx/telnyx-node/commit/eea89a77c35ccd7459dba6d63dc58aec090e666d))
+* **resources:** alphanumeric sender ids ([#4](https://github.com/team-telnyx/telnyx-node/issues/4)) ([cb5d21b](https://github.com/team-telnyx/telnyx-node/commit/cb5d21b6db8f3720a1363fa048f0769d7b88a69d))
+* **resources:** Balance ([#35](https://github.com/team-telnyx/telnyx-node/issues/35)) ([46f89f9](https://github.com/team-telnyx/telnyx-node/commit/46f89f9c5bc4f1d09da1efbbb1bada2f51a2198b))
+* **resources:** Billing Groups ([#18](https://github.com/team-telnyx/telnyx-node/issues/18)) ([1df78d4](https://github.com/team-telnyx/telnyx-node/commit/1df78d409d7c922c613316f15f4ebdc7cd067608))
+* **resources:** Credential Connections ([#21](https://github.com/team-telnyx/telnyx-node/issues/21)) ([a6cfae5](https://github.com/team-telnyx/telnyx-node/commit/a6cfae5958252ca8af068782c2216b10bb05b8de))
+* **resources:** empty constructors ([#5](https://github.com/team-telnyx/telnyx-node/issues/5)) ([5da3047](https://github.com/team-telnyx/telnyx-node/commit/5da3047b009301de3693ee2313354f153d1f92ca))
+* **resources:** Fax Applications ([#57](https://github.com/team-telnyx/telnyx-node/issues/57)) ([06e55cf](https://github.com/team-telnyx/telnyx-node/commit/06e55cf4d65614ef5682173154e214dc8bb75585))
+* **resources:** Faxes ([#37](https://github.com/team-telnyx/telnyx-node/issues/37)) ([d826a17](https://github.com/team-telnyx/telnyx-node/commit/d826a179cecc5d6abd56fcecc4dff003ada80fa8))
+* **resources:** FQDN Connections ([#20](https://github.com/team-telnyx/telnyx-node/issues/20)) ([7e03173](https://github.com/team-telnyx/telnyx-node/commit/7e031736d434bc60097c2fb9c0b6a11036d9f4db))
+* **resources:** IP Connections ([#19](https://github.com/team-telnyx/telnyx-node/issues/19)) ([ceff8f7](https://github.com/team-telnyx/telnyx-node/commit/ceff8f7d0e9b96517c82022bb2aee455fb222114))
+* **resources:** Messaging Profile Metrics and Short Codes ([#43](https://github.com/team-telnyx/telnyx-node/issues/43)) ([e4097e3](https://github.com/team-telnyx/telnyx-node/commit/e4097e34f17e99cb76cb67e65afd3b4650691813))
+* **resources:** Number Lookup ([#36](https://github.com/team-telnyx/telnyx-node/issues/36)) ([3d4b955](https://github.com/team-telnyx/telnyx-node/commit/3d4b955877ac6fac080160b9fd1fd7c166360f7e))
+* **resources:** Number Order Regulatory Requirements and Number Order Documents ([#22](https://github.com/team-telnyx/telnyx-node/issues/22)) ([b4b6000](https://github.com/team-telnyx/telnyx-node/commit/b4b6000ac66f0688e88fdba993c69185ddfd02e0))
+* **resources:** OTA Updates ([#40](https://github.com/team-telnyx/telnyx-node/issues/40)) ([993b770](https://github.com/team-telnyx/telnyx-node/commit/993b77008fafe40ea2462fdcc855f729e7f1032c))
+* **resources:** Phone Numbers Resource ([#15](https://github.com/team-telnyx/telnyx-node/issues/15)) ([e63b496](https://github.com/team-telnyx/telnyx-node/commit/e63b496491259821af5979a8cca53c78cf36cdd1))
+* **resources:** Sim Card Enable/Disable ([#42](https://github.com/team-telnyx/telnyx-node/issues/42)) ([372f63a](https://github.com/team-telnyx/telnyx-node/commit/372f63a6320433ca85014b904875e799b806bce2))
+* **resources:** SIM Card Groups Resource ([#38](https://github.com/team-telnyx/telnyx-node/issues/38)) ([2f06b8a](https://github.com/team-telnyx/telnyx-node/commit/2f06b8a98436157147c39aaea234a8949cf7adaa))
+* **resources:** SIM Card Network Preferences Methods ([#41](https://github.com/team-telnyx/telnyx-node/issues/41)) ([a43c54b](https://github.com/team-telnyx/telnyx-node/commit/a43c54b8fd9cde27aeb3f4f24398afcc41d302ab))
+* **resources:** SIM Cards Resource ([#16](https://github.com/team-telnyx/telnyx-node/issues/16)) ([1db136f](https://github.com/team-telnyx/telnyx-node/commit/1db136fa5a0c3a25510f9a664c6ceecda73f6c78))
+* **resources:** Verifications ([#52](https://github.com/team-telnyx/telnyx-node/issues/52)) ([54a963b](https://github.com/team-telnyx/telnyx-node/commit/54a963b36daf93b0b75ab78d46cd7e9ea59672e4))
+* **resources:** Verify Profiles ([#51](https://github.com/team-telnyx/telnyx-node/issues/51)) ([b111f82](https://github.com/team-telnyx/telnyx-node/commit/b111f828ca8e185ba9e7fc2426ad74c81d53f7e2))
+* **WEBRTC-215:** add ondemand credential resource ([#48](https://github.com/team-telnyx/telnyx-node/issues/48)) ([bf34fa1](https://github.com/team-telnyx/telnyx-node/commit/bf34fa10ac3e010590eef8703943833b1f25b756))
+
+
+### Bug Fixes
+
+* **ci:** set permissions for DXT publish action ([6967e14](https://github.com/team-telnyx/telnyx-node/commit/6967e141f9dc491577474d9948c1c330090aff00))
+* **client:** handle multiple auth options gracefully ([50e892e](https://github.com/team-telnyx/telnyx-node/commit/50e892e16b63c6e559d68aef066452a5081fb6c5))
+* coerce nullable values to undefined ([ec47205](https://github.com/team-telnyx/telnyx-node/commit/ec472053638e9e96c2a2514732aa2ddcb5ff8657))
+* **error-handling:** prevent `undefined` on error handling ([#3](https://github.com/team-telnyx/telnyx-node/issues/3)) ([c3ac08f](https://github.com/team-telnyx/telnyx-node/commit/c3ac08f9383de9eb4067e4aefd501dd7a54b2757))
+* **internal:** use globalThis.error to avoid collision with SDK Error resource ([32e9a12](https://github.com/team-telnyx/telnyx-node/commit/32e9a120b9a4fdb37c510414d4d01b0909913d98))
+* **mcp:** fix query options parsing ([14330d6](https://github.com/team-telnyx/telnyx-node/commit/14330d6a85522087ce7127f0536367c70387d4dc))
+* **mcp:** fix uploading dxt release assets ([80d2f83](https://github.com/team-telnyx/telnyx-node/commit/80d2f83de9aaf309c1ccde995da60e171e27d346))
+* **mcp:** update dxt manifest.json files ([8d5dead](https://github.com/team-telnyx/telnyx-node/commit/8d5dead33433b0e44a8d756cd5fa6d1fe4eea2dd))
+* **query-string:** use arrayFormat of brackets ([#13](https://github.com/team-telnyx/telnyx-node/issues/13)) ([5428da4](https://github.com/team-telnyx/telnyx-node/commit/5428da450a455740aa0fc13a4318b5185d0d5f5e))
+* **resources:** add Phone Numbers Retrieve method ([#47](https://github.com/team-telnyx/telnyx-node/issues/47)) ([ce2b0ac](https://github.com/team-telnyx/telnyx-node/commit/ce2b0ac7ef8019cecb0a4c94e7cbb2f484c911a7))
+* **resources:** fix content-length header calculation on requestData ([ae2a4c3](https://github.com/team-telnyx/telnyx-node/commit/ae2a4c320be0d2d7fb7e3c22d67736ca8ad7e628))
+* **resources:** leave resource previous method spec paramValues intact ([#27](https://github.com/team-telnyx/telnyx-node/issues/27)) ([42a4b6d](https://github.com/team-telnyx/telnyx-node/commit/42a4b6de68fb3225250287ef4612c9708ad1e476))
+* **resources:** outdated specs ([#33](https://github.com/team-telnyx/telnyx-node/issues/33)) ([bf6da65](https://github.com/team-telnyx/telnyx-node/commit/bf6da65afe0a07ecf9de58391ca523e33b0d267d))
+* **resources:** recreate resources on constructor call ([#44](https://github.com/team-telnyx/telnyx-node/issues/44)) ([364be00](https://github.com/team-telnyx/telnyx-node/commit/364be00fb978da4d7048c5695b2924664321045b))
+* **resources:** update Calls and Messaging specs ([#45](https://github.com/team-telnyx/telnyx-node/issues/45)) ([ec3a4d0](https://github.com/team-telnyx/telnyx-node/commit/ec3a4d0dda8794d3509d29a9fa8e8cd958c08441))
+* **resources:** update CredentialConnections Create specs ([#50](https://github.com/team-telnyx/telnyx-node/issues/50)) ([d89df0e](https://github.com/team-telnyx/telnyx-node/commit/d89df0ef29e26d82666f95bb62727066724ca444))
+* **tests:** skip 2 tests unsupported by prism ([d8ba30f](https://github.com/team-telnyx/telnyx-node/commit/d8ba30fe435600e289ebbd465c922ffa2fdfaf9c))
+* **webhooks:** replace c compiled ed25519 package with native one ([#8](https://github.com/team-telnyx/telnyx-node/issues/8)) ([9e6364f](https://github.com/team-telnyx/telnyx-node/commit/9e6364f9c56323927f84e2e32c9f2194f98cd424))
+* **webhooks:** signature verification for Tweetnacl ([#10](https://github.com/team-telnyx/telnyx-node/issues/10)) ([a6f0e4b](https://github.com/team-telnyx/telnyx-node/commit/a6f0e4b1d499c507443fd2584a7d36599c619fbd))
+
+
+### Chores
+
+* bump version of pnpm/action-setup in CI ([8e4bcd0](https://github.com/team-telnyx/telnyx-node/commit/8e4bcd0f0cb8271df23842824e14259138c5d226))
+* ci build action ([9f6d649](https://github.com/team-telnyx/telnyx-node/commit/9f6d6492cc3eb07cc01330b7324fcb8acbccc218))
+* configure new SDK language ([590fa48](https://github.com/team-telnyx/telnyx-node/commit/590fa4894025b4f15d36a4d908b821837a161a5f))
+* configure new SDK language ([179723a](https://github.com/team-telnyx/telnyx-node/commit/179723aa4efe19fd6912775d16e96609e282d0c7))
+* **internal:** codegen related update ([037bc36](https://github.com/team-telnyx/telnyx-node/commit/037bc366fc67c8e86b437d5804c7a5e84e436a70))
+* **internal:** codegen related update ([960626a](https://github.com/team-telnyx/telnyx-node/commit/960626a338a5ab3c6a542d889156fe5934655c77))
+* **internal:** codegen related update ([d2cad7d](https://github.com/team-telnyx/telnyx-node/commit/d2cad7d2ab0b08ca55b50b356d6c0037c88addb4))
+* **internal:** codegen related update ([a5bd40f](https://github.com/team-telnyx/telnyx-node/commit/a5bd40ff6475b8e269bc0fd5d328ccc3d5839199))
+* **internal:** codegen related update ([741a3e7](https://github.com/team-telnyx/telnyx-node/commit/741a3e7a09f09be944dd163db9bace564be97645))
+* **internal:** codegen related update ([46a5285](https://github.com/team-telnyx/telnyx-node/commit/46a5285a068dc05981050c85db8e59969da6098c))
+* **internal:** codegen related update ([622b82b](https://github.com/team-telnyx/telnyx-node/commit/622b82b07417f2879a6b543a02f480f0a82afe5b))
+* **internal:** codegen related update ([873ed56](https://github.com/team-telnyx/telnyx-node/commit/873ed56ef328fa804f9cc6580e53b55821b36839))
+* **internal:** codegen related update ([23e51a6](https://github.com/team-telnyx/telnyx-node/commit/23e51a6a5b31dfd37ac26fbd49c7e5432c121a36))
+* **internal:** codegen related update ([e76f32b](https://github.com/team-telnyx/telnyx-node/commit/e76f32bfd633a345d2d451085d36e2a551410e94))
+* **internal:** codegen related update ([ad7aff4](https://github.com/team-telnyx/telnyx-node/commit/ad7aff4e669758267f503be680b2d3653893394c))
+* **internal:** codegen related update ([20df184](https://github.com/team-telnyx/telnyx-node/commit/20df1845c14803e4dc0a674859d4d99a79f8e828))
+* **internal:** codegen related update ([56f3e40](https://github.com/team-telnyx/telnyx-node/commit/56f3e40da5cbbea3484a2ab59059eb3e87ef74d9))
+* **internal:** codegen related update ([9b205f7](https://github.com/team-telnyx/telnyx-node/commit/9b205f70c8156229fb741637912f9a20f8628777))
+* **internal:** codegen related update ([5732f84](https://github.com/team-telnyx/telnyx-node/commit/5732f84e91b61cfcded030af121c00a772b50e86))
+* **internal:** codegen related update ([be048cd](https://github.com/team-telnyx/telnyx-node/commit/be048cdfe6fdd17d062740b17b272ea4939d8429))
+* **internal:** codegen related update ([342934f](https://github.com/team-telnyx/telnyx-node/commit/342934f6439291c71981b8edf227c7ec9f4f487c))
+* **internal:** codegen related update ([17d7c12](https://github.com/team-telnyx/telnyx-node/commit/17d7c12ab624c36fccb986fc59071bd58f5fb070))
+* **internal:** codegen related update ([b366b98](https://github.com/team-telnyx/telnyx-node/commit/b366b9887e942f9476bb1a06220637a5dc68e859))
+* **internal:** codegen related update ([fd97856](https://github.com/team-telnyx/telnyx-node/commit/fd97856c63c60642e41d6446d8bef2088a777bae))
+* **internal:** codegen related update ([6adfe26](https://github.com/team-telnyx/telnyx-node/commit/6adfe26f1977c1de9499737c85da18e4534f566e))
+* **internal:** codegen related update ([0446d46](https://github.com/team-telnyx/telnyx-node/commit/0446d467465f340b7ed806cd3265a0e4a0fd3b6e))
+* **internal:** codegen related update ([fa9d06a](https://github.com/team-telnyx/telnyx-node/commit/fa9d06a03ccd93baa3d31c923bbf44745aa225e8))
+* **internal:** codegen related update ([35bfdca](https://github.com/team-telnyx/telnyx-node/commit/35bfdcab4f56010db80c77a54d06d28eee7ccb55))
+* **internal:** codegen related update ([7a60b73](https://github.com/team-telnyx/telnyx-node/commit/7a60b73f4ff655bebcc54dd3593f4bb705e93abb))
+* **internal:** codegen related update ([c6f6948](https://github.com/team-telnyx/telnyx-node/commit/c6f6948cf0131a45cacc3b09cf758e1fffd92762))
+* **internal:** codegen related update ([34d3bc4](https://github.com/team-telnyx/telnyx-node/commit/34d3bc4b39ed9b136f69edf196644f7da9d2664a))
+* **internal:** codegen related update ([3e772b7](https://github.com/team-telnyx/telnyx-node/commit/3e772b7d5f390c9b1de7eeee83fbe45b8157c73a))
+* **internal:** codegen related update ([cde77fa](https://github.com/team-telnyx/telnyx-node/commit/cde77fa8dccaea1080feaa83c68d338f3a4b8479))
+* **internal:** codegen related update ([4247d02](https://github.com/team-telnyx/telnyx-node/commit/4247d0240595d93fb0c4efcf9e68cac0d638af64))
+* **internal:** codegen related update ([4146b58](https://github.com/team-telnyx/telnyx-node/commit/4146b58f4a38cf2f2b4b53158f908d3934616762))
+* **internal:** codegen related update ([b390b3a](https://github.com/team-telnyx/telnyx-node/commit/b390b3a39fc66c229e0e7830058cfbf943365d07))
+* **internal:** enable and auto-fix @typescript-eslint/consistent-type-imports lint rule ([f4e93c3](https://github.com/team-telnyx/telnyx-node/commit/f4e93c34efaaa2bf56323dc232d363d06a0e7e36))
+* **mcp:** rename dxt to mcpb ([b73b5e5](https://github.com/team-telnyx/telnyx-node/commit/b73b5e50dff2af86cd088371b7da77610e7f2056))
+* **mcp:** skip webhook method generation in MCP ([ec206bb](https://github.com/team-telnyx/telnyx-node/commit/ec206bba4e0d4eea90331b9789d6b75b7a0cb369))
+* **mcp:** upload dxt as release asset ([24b6fae](https://github.com/team-telnyx/telnyx-node/commit/24b6fae83b394eb741dbd0b654768fce1d13d8bd))
+* sync repo ([49bb654](https://github.com/team-telnyx/telnyx-node/commit/49bb6545061ed0e3c99e490c4e8954b624d90821))
+* update CONTRIBUTING.md ([535ccda](https://github.com/team-telnyx/telnyx-node/commit/535ccda9ebbf6cefc60e62887e2769ed1e06336c))
+* update SDK settings ([338d6f3](https://github.com/team-telnyx/telnyx-node/commit/338d6f33be9c44d57fd6a459bd32fe709250de6e))
+* update SDK settings ([38df483](https://github.com/team-telnyx/telnyx-node/commit/38df48331bb8ba8de3e716f8d48aa088baa83679))
+* update SDK settings ([ea46774](https://github.com/team-telnyx/telnyx-node/commit/ea467743424b62ccb65d83efdf4f596d9e53f54f))
+* update SDK settings ([e6c50ac](https://github.com/team-telnyx/telnyx-node/commit/e6c50acd3f7de62fe6e3c5fda29320717748a971))
+* update SDK settings ([51ccef9](https://github.com/team-telnyx/telnyx-node/commit/51ccef9488910b33b335b7b10a3aae3cd5f70765))
+* update SDK settings ([346736d](https://github.com/team-telnyx/telnyx-node/commit/346736d2a5c0f27ceb823ae3d9538fce982fdc33))
+
+
+### Documentation
+
+* **webhooks:** keep eslint config ([24fef8e](https://github.com/team-telnyx/telnyx-node/commit/24fef8e2b9d3f01f35a4a29f52270ea381f14818))
+* **webhooks:** Signing Example cleanup ([#11](https://github.com/team-telnyx/telnyx-node/issues/11)) ([7fb614e](https://github.com/team-telnyx/telnyx-node/commit/7fb614e07bbcbbdfd86ef8f143d4097916a9fa7a))
+* **webhooks:** update lock and eslint ([3441b40](https://github.com/team-telnyx/telnyx-node/commit/3441b404421428a4eb25017f590f15633b9f530d))
+* **webhooks:** update telnyx package version in example ([9c874b1](https://github.com/team-telnyx/telnyx-node/commit/9c874b1be77abd1f819bef5bab6bb4186a171f78))
+* **webhooks:** use telnyx package v1.7 in example ([19b30f2](https://github.com/team-telnyx/telnyx-node/commit/19b30f2b1d0fac8927b534940d94b793e0665ef8))
