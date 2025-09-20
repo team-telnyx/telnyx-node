@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.1.0-alpha (2025-09-20)
+
+Full Changelog: [v3.0.0-alpha...v3.1.0-alpha](https://github.com/team-telnyx/telnyx-node/compare/v3.0.0-alpha...v3.1.0-alpha)
+
+### Features
+
+* **mcp:** add docs search tool ([9a0f9dc](https://github.com/team-telnyx/telnyx-node/commit/9a0f9dc11434196c2af0b36a78ca34af2453c834))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([b60d830](https://github.com/team-telnyx/telnyx-node/commit/b60d8302615a0f430c11c6cdfbf0f8392675c195))
+* **internal:** codegen related update ([d198e2f](https://github.com/team-telnyx/telnyx-node/commit/d198e2f986228fb81db383748794759a82c134c6))
+* **internal:** gitignore .mcpb files ([b3479c9](https://github.com/team-telnyx/telnyx-node/commit/b3479c9946785bf089195048e0bcd27660185a13))
+
 ## 3.0.0-alpha (2025-09-18)
 
 Full Changelog: [v0.0.1...v3.0.0-alpha](https://github.com/team-telnyx/telnyx-node/compare/v0.0.1...v3.0.0-alpha)
