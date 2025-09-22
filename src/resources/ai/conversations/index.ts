@@ -6,10 +6,12 @@ export {
   type ConversationRetrieveResponse,
   type ConversationUpdateResponse,
   type ConversationListResponse,
+  type ConversationAddMessageResponse,
   type ConversationRetrieveConversationsInsightsResponse,
   type ConversationCreateParams,
   type ConversationUpdateParams,
   type ConversationListParams,
+  type ConversationAddMessageParams,
 } from './conversations';
 export {
   InsightGroups,
@@ -31,9 +33,4 @@ export {
   type InsightUpdateParams,
   type InsightListParams,
 } from './insights';
-export {
-  Messages,
-  type MessageCreateResponse,
-  type MessageListResponse,
-  type MessageCreateParams,
-} from './messages';
+export { Messages, type MessageListResponse } from './messages';

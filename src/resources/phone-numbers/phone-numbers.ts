@@ -221,6 +221,12 @@ export interface PhoneNumberDetailed {
   customer_reference?: string;
 
   /**
+   * Indicates whether deletion lock is enabled for this number. When enabled, this
+   * prevents the phone number from being deleted via the API or Telnyx portal.
+   */
+  deletion_lock_enabled?: boolean;
+
+  /**
    * Identifies the emergency address associated with the phone number.
    */
   emergency_address_id?: string;
@@ -403,6 +409,12 @@ export namespace PhoneNumberDeleteResponse {
      * A customer reference string for customer look ups.
      */
     customer_reference?: string;
+
+    /**
+     * Indicates whether deletion lock is enabled for this number. When enabled, this
+     * prevents the phone number from being deleted via the API or Telnyx portal.
+     */
+    deletion_lock_enabled?: boolean;
 
     /**
      * Identifies the emergency address associated with the phone number.
@@ -778,6 +790,12 @@ export namespace PhoneNumberListParams {
      * Filter by usage_payment_method.
      */
     'voice.usage_payment_method'?: 'pay-per-minute' | 'channel';
+
+    /**
+     * When set to 'true', filters for phone numbers that do not have any tags applied.
+     * All other values are ignored.
+     */
+    without_tags?: 'true' | 'false';
   }
 
   export namespace Filter {

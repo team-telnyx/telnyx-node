@@ -166,6 +166,7 @@ export {
   type ChargesSummaryRetrieveResponse,
   type ChargesSummaryRetrieveParams,
 } from './charges-summary';
+export { Client } from './client/client';
 export {
   Comments,
   type CommentCreateResponse,
@@ -1107,10 +1108,14 @@ export {
   type VerifyProfile,
   type VerifyProfileData,
   type VerifyProfileListResponse,
+  type VerifyProfileCreateTemplateResponse,
   type VerifyProfileRetrieveTemplatesResponse,
+  type VerifyProfileUpdateTemplateResponse,
   type VerifyProfileCreateParams,
   type VerifyProfileUpdateParams,
   type VerifyProfileListParams,
+  type VerifyProfileCreateTemplateParams,
+  type VerifyProfileUpdateTemplateParams,
 } from './verify-profiles';
 export {
   VirtualCrossConnects,
@@ -1256,4 +1261,4 @@ export {
   type GetObjectParams,
   type ListObjectsParams,
   type PutObjectParams,
-} from './top-level';
+} from './top-level/top-level';

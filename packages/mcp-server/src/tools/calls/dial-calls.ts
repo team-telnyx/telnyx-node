@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'dial_calls',
   description:
-    'Dial a number or SIP URI from a given connection. A successful response will include a `call_leg_id` which can be used to correlate the command with subsequent webhooks.\n\n**Expected Webhooks (see [schema](https://developers.telnyx.com/api/call-control/dial-call#callbacks) below):**\n\n- `call.initiated`\n- `call.answered` or `call.hangup`\n- `call.machine.detection.ended` if `answering_machine_detection` was requested\n- `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting\n- `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested\n- `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected\n- `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url` was set\n\nWhen the `record` parameter is set to `record-from-answer`, the response will include a `recording_id` field.\n',
+    'Dial a number or SIP URI from a given connection. A successful response will include a `call_leg_id` which can be used to correlate the command with subsequent webhooks.\n\n**Expected Webhooks:**\n\n- `call.initiated`\n- `call.answered` or `call.hangup`\n- `call.machine.detection.ended` if `answering_machine_detection` was requested\n- `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting\n- `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested\n- `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected\n- `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url` was set\n\nWhen the `record` parameter is set to `record-from-answer`, the response will include a `recording_id` field.\n',
   inputSchema: {
     type: 'object',
     properties: {
@@ -330,7 +330,7 @@ export const tool: Tool = {
         type: 'string',
         title: 'Bidirectional Stream Sampling Rate',
         description: 'Audio sampling rate.',
-        enum: [8000, 16000, 48000],
+        enum: [8000, 16000, 22050, 24000, 48000],
       },
       stream_bidirectional_target_legs: {
         $ref: '#/$defs/stream_bidirectional_target_legs',
@@ -466,7 +466,7 @@ export const tool: Tool = {
         title: 'Bidirectional Stream Codec',
         description:
           'Indicates codec for bidirectional streaming RTP payloads. Used only with stream_bidirectional_mode=rtp. Case sensitive.',
-        enum: ['PCMU', 'PCMA', 'G722', 'OPUS', 'AMR-WB'],
+        enum: ['PCMU', 'PCMA', 'G722', 'OPUS', 'AMR-WB', 'L16'],
       },
       stream_bidirectional_mode: {
         type: 'string',
@@ -484,8 +484,8 @@ export const tool: Tool = {
         type: 'string',
         title: 'Stream Codec',
         description:
-          "Specifies the codec to be used for the streamed audio. When set to 'default' or when transcoding is not possible, the codec from the call will be used. Currently, transcoding is only supported between PCMU and PCMA codecs.",
-        enum: ['PCMA', 'PCMU', 'default'],
+          "Specifies the codec to be used for the streamed audio. When set to 'default' or when transcoding is not possible, the codec from the call will be used.",
+        enum: ['PCMU', 'PCMA', 'G722', 'OPUS', 'AMR-WB', 'L16', 'default'],
       },
       transcription_start_request: {
         type: 'object',

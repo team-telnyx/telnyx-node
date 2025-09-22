@@ -482,6 +482,11 @@ export interface SimpleSimCard {
   actions_in_progress?: boolean;
 
   /**
+   * List of IMEIs authorized to use a given SIM card.
+   */
+  authorized_imeis?: Array<string> | null;
+
+  /**
    * ISO 8601 formatted date-time indicating when the resource was created.
    */
   created_at?: string;
@@ -495,6 +500,16 @@ export interface SimpleSimCard {
    * The SIM card individual data limit configuration.
    */
   data_limit?: SimpleSimCard.DataLimit;
+
+  /**
+   * The Embedded Identity Document (eID) for eSIM cards.
+   */
+  eid?: string | null;
+
+  /**
+   * The installation status of the eSIM. Only applicable for eSIM cards.
+   */
+  esim_installation_status?: 'released' | 'disabled' | null;
 
   /**
    * The ICCID is the identifier of the specific SIM card/chip. Each SIM is
@@ -526,6 +541,11 @@ export interface SimpleSimCard {
   record_type?: string;
 
   /**
+   * List of resources with actions in progress.
+   */
+  resources_with_in_progress_actions?: Array<unknown>;
+
+  /**
    * The group SIMCardGroup identification. This attribute can be <code>null</code>
    * when it's present in an associated resource.
    */
@@ -547,6 +567,11 @@ export interface SimpleSimCard {
    * ISO 8601 formatted date-time indicating when the resource was updated.
    */
   updated_at?: string;
+
+  /**
+   * The version of the SIM card.
+   */
+  version?: string;
 }
 
 export namespace SimpleSimCard {

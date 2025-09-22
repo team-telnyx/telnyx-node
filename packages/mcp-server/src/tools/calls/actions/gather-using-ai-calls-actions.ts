@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'gather_using_ai_calls_actions',
   description:
-    'Gather parameters defined in the request payload using a voice assistant.\n\n You can pass parameters described as a JSON Schema object and the voice assistant will attempt to gather these informations. \n\n**Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks) below):**\n\n- `call.ai_gather.ended`\n- `call.conversation.ended`\n- `call.ai_gather.partial_results` (if `send_partial_results` is set to `true`)\n- `call.ai_gather.message_history_updated` (if `send_message_history_updates` is set to `true`)\n',
+    'Gather parameters defined in the request payload using a voice assistant.\n\n You can pass parameters described as a JSON Schema object and the voice assistant will attempt to gather these informations. \n\n**Expected Webhooks:**\n\n- `call.ai_gather.ended`\n- `call.conversation.ended`\n- `call.ai_gather.partial_results` (if `send_partial_results` is set to `true`)\n- `call.ai_gather.message_history_updated` (if `send_message_history_updates` is set to `true`)\n',
   inputSchema: {
     type: 'object',
     properties: {
@@ -76,12 +76,12 @@ export const tool: Tool = {
       send_message_history_updates: {
         type: 'boolean',
         description:
-          'Default is `false`. If set to `true`, the voice assistant will send updates to the message history via the `call.ai_gather.message_history_updated` [callback](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks) in real time as the message history is updated.',
+          'Default is `false`. If set to `true`, the voice assistant will send updates to the message history via the `call.ai_gather.message_history_updated` callback in real time as the message history is updated.',
       },
       send_partial_results: {
         type: 'boolean',
         description:
-          'Default is `false`. If set to `true`, the voice assistant will send partial results via the `call.ai_gather.partial_results` [callback](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks) in real time as individual fields are gathered. If set to `false`, the voice assistant will only send the final result via the `call.ai_gather.ended` callback.',
+          'Default is `false`. If set to `true`, the voice assistant will send partial results via the `call.ai_gather.partial_results` callback in real time as individual fields are gathered. If set to `false`, the voice assistant will only send the final result via the `call.ai_gather.ended` callback.',
       },
       transcription: {
         $ref: '#/$defs/transcription_config',
@@ -285,7 +285,7 @@ export const tool: Tool = {
                 value: {
                   type: 'string',
                   description:
-                    'The value of the header. Note that we support mustache templating for the value. For example you can use `Bearer {{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of the integration secret as the bearer token.',
+                    'The value of the header. Note that we support mustache templating for the value. For example you can use `Bearer {{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of the integration secret as the bearer token. [Telnyx signature headers](https://developers.telnyx.com/docs/voice/programmable-voice/voice-api-webhooks) will be automatically added to the request.',
                 },
               },
             },

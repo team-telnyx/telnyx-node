@@ -41,6 +41,7 @@ describe('resource verifications', () => {
       phone_number: '+13035551234',
       verify_profile_id: '12ade33a-21c0-473b-b055-b3c836e1c292',
       custom_code: '43612',
+      extension: '1www2WABCDw9',
       timeout_secs: 300,
     });
   });

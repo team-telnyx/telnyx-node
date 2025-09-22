@@ -215,6 +215,77 @@ The following tools are available in this MCP server.
 - `list_objects_client` (`read`): List all objects contained in a given bucket.
 - `put_object_client` (`write`): Add an object to a bucket.
 
+### Resource `$client.legacy.reporting.batch_detail_records.messaging`:
+
+- `create_batch_detail_records_reporting_legacy_client_messaging` (`write`): Creates a new MDR detailed report request with the specified filters
+- `retrieve_batch_detail_records_reporting_legacy_client_messaging` (`read`): Retrieves a specific MDR detailed report request by ID
+- `list_batch_detail_records_reporting_legacy_client_messaging` (`read`): Retrieves all MDR detailed report requests for the authenticated user
+- `delete_batch_detail_records_reporting_legacy_client_messaging` (`write`): Deletes a specific MDR detailed report request by ID
+
+### Resource `$client.legacy.reporting.batch_detail_records.speech_to_text`:
+
+- `create_batch_detail_records_reporting_legacy_client_speech_to_text` (`write`): Creates a new Speech to Text batch report request with the specified filters
+- `retrieve_batch_detail_records_reporting_legacy_client_speech_to_text` (`read`): Retrieves a specific Speech to Text batch report request by ID
+- `list_batch_detail_records_reporting_legacy_client_speech_to_text` (`read`): Retrieves all Speech to Text batch report requests for the authenticated user
+- `delete_batch_detail_records_reporting_legacy_client_speech_to_text` (`write`): Deletes a specific Speech to Text batch report request by ID
+
+### Resource `$client.legacy.reporting.batch_detail_records.voice`:
+
+- `create_batch_detail_records_reporting_legacy_client_voice` (`write`): Creates a new CDR report request with the specified filters
+- `retrieve_batch_detail_records_reporting_legacy_client_voice` (`read`): Retrieves a specific CDR report request by ID
+- `list_batch_detail_records_reporting_legacy_client_voice` (`read`): Retrieves all CDR report requests for the authenticated user
+- `delete_batch_detail_records_reporting_legacy_client_voice` (`write`): Deletes a specific CDR report request by ID
+- `retrieve_fields_batch_detail_records_reporting_legacy_client_voice` (`read`): Retrieves all available fields that can be used in CDR reports
+
+### Resource `$client.legacy.reporting.usage_reports`:
+
+- `retrieve_speech_to_text_reporting_legacy_client_usage_reports` (`read`): Generate and fetch speech to text usage report synchronously. This endpoint will both generate and fetch the speech to text report over a specified time period.
+
+### Resource `$client.legacy.reporting.usage_reports.messaging`:
+
+- `create_usage_reports_reporting_legacy_client_messaging` (`write`): Creates a new legacy usage V2 MDR report request with the specified filters
+- `retrieve_usage_reports_reporting_legacy_client_messaging` (`read`): Fetch single MDR usage report by id.
+- `list_usage_reports_reporting_legacy_client_messaging` (`read`): Fetch all previous requests for MDR usage reports.
+- `delete_usage_reports_reporting_legacy_client_messaging` (`write`): Deletes a specific V2 legacy usage MDR report request by ID
+
+### Resource `$client.legacy.reporting.usage_reports.number_lookup`:
+
+- `create_usage_reports_reporting_legacy_client_number_lookup` (`write`): Submit a new telco data usage report
+- `retrieve_usage_reports_reporting_legacy_client_number_lookup` (`read`): Retrieve a specific telco data usage report by its ID
+- `list_usage_reports_reporting_legacy_client_number_lookup` (`read`): Retrieve a paginated list of telco data usage reports
+- `delete_usage_reports_reporting_legacy_client_number_lookup` (`write`): Delete a specific telco data usage report by its ID
+
+### Resource `$client.legacy.reporting.usage_reports.voice`:
+
+- `create_usage_reports_reporting_legacy_client_voice` (`write`): Creates a new legacy usage V2 CDR report request with the specified filters
+- `retrieve_usage_reports_reporting_legacy_client_voice` (`read`): Fetch single cdr usage report by id.
+- `list_usage_reports_reporting_legacy_client_voice` (`read`): Fetch all previous requests for cdr usage reports.
+- `delete_usage_reports_reporting_legacy_client_voice` (`write`): Deletes a specific V2 legacy usage CDR report request by ID
+
+### Resource `$client.oauth`:
+
+- `retrieve_client_oauth` (`read`): Retrieve details about an OAuth consent token
+- `grants_client_oauth` (`write`): Create an OAuth authorization grant
+- `introspect_client_oauth` (`write`): Introspect an OAuth access token to check its validity and metadata
+- `register_client_oauth` (`write`): Register a new OAuth client dynamically (RFC 7591)
+- `retrieve_authorize_client_oauth` (`read`): OAuth 2.0 authorization endpoint for the authorization code flow
+- `retrieve_jwks_client_oauth` (`read`): Retrieve the JSON Web Key Set for token verification
+- `token_client_oauth` (`write`): Exchange authorization code, client credentials, or refresh token for access token
+
+### Resource `$client.oauth_clients`:
+
+- `create_client_oauth_clients` (`write`): Create a new OAuth client
+- `retrieve_client_oauth_clients` (`read`): Retrieve a single OAuth client by ID
+- `update_client_oauth_clients` (`write`): Update an existing OAuth client
+- `list_client_oauth_clients` (`read`): Retrieve a paginated list of OAuth clients for the authenticated user
+- `delete_client_oauth_clients` (`write`): Delete an OAuth client
+
+### Resource `$client.oauth_grants`:
+
+- `retrieve_client_oauth_grants` (`read`): Retrieve a single OAuth grant by ID
+- `list_client_oauth_grants` (`read`): Retrieve a paginated list of OAuth grants for the authenticated user
+- `delete_client_oauth_grants` (`write`): Revoke an OAuth grant
+
 ### Resource `access_ip_address`:
 
 - `create_access_ip_address` (`write`): Create new Access IP Address
@@ -369,6 +440,7 @@ The following tools are available in this MCP server.
 - `update_ai_conversations` (`write`): Update metadata for a specific conversation.
 - `list_ai_conversations` (`read`): Retrieve a list of all AI conversations configured by the user. Supports [PostgREST-style query parameters](https://postgrest.org/en/stable/api.html#horizontal-filtering-rows) for filtering. Examples are included for the standard metadata fields, but you can filter on any field in the metadata JSON object. For example, to filter by a custom field `metadata->custom_field`, use `metadata->custom_field=eq.value`.
 - `delete_ai_conversations` (`write`): Delete a specific conversation by its ID.
+- `add_message_ai_conversations` (`write`): Add a new message to the conversation. Used to insert a new messages to a conversation manually ( without using chat endpoint )
 - `retrieve_conversations_insights_ai_conversations` (`read`): Retrieve insights for a specific conversation
 
 ### Resource `ai.conversations.insight_groups`:
@@ -394,7 +466,6 @@ The following tools are available in this MCP server.
 
 ### Resource `ai.conversations.messages`:
 
-- `create_conversations_ai_messages` (`write`): Add a new message to the conversation. Used to insert a new messages to a conversation manually ( without using chat endpoint )
 - `list_conversations_ai_messages` (`read`): Retrieve messages for a specific conversation, including tool calls made by the assistant.
 
 ### Resource `ai.embeddings`:
@@ -554,7 +625,7 @@ The following tools are available in this MCP server.
 
 - `dial_calls` (`write`): Dial a number or SIP URI from a given connection. A successful response will include a `call_leg_id` which can be used to correlate the command with subsequent webhooks.
 
-  **Expected Webhooks (see [schema](https://developers.telnyx.com/api/call-control/dial-call#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.initiated`
   - `call.answered` or `call.hangup`
@@ -572,7 +643,7 @@ The following tools are available in this MCP server.
 
 - `answer_calls_actions` (`write`): Answer an incoming call. You must issue this command before executing subsequent commands on an incoming call.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/answer-call#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.answered`
   - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url` was set
@@ -581,7 +652,7 @@ The following tools are available in this MCP server.
 
 - `bridge_calls_actions` (`write`): Bridge two call control calls.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/bridge-call#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.bridged` for Leg A
   - `call.bridged` for Leg B
@@ -591,7 +662,7 @@ The following tools are available in this MCP server.
 
   You can pass a list of valid digits. The `Answer` command must be issued before the `gather` command.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/gather-call#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.dtmf.received` (you may receive many of these webhooks)
   - `call.gather.ended`
@@ -600,7 +671,7 @@ The following tools are available in this MCP server.
 
   You can pass parameters described as a JSON Schema object and the voice assistant will attempt to gather these informations.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/call-gather-using-ai#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.ai_gather.ended`
   - `call.conversation.ended`
@@ -611,7 +682,7 @@ The following tools are available in this MCP server.
 
   You can pass a list of valid digits along with an 'invalid_audio_url', which will be played back at the beginning of each prompt. Playback will be interrupted when a DTMF signal is received. The `Answer command must be issued before the `gather_using_audio` command.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/gather-using-audio#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.playback.started`
   - `call.playback.ended`
@@ -622,14 +693,14 @@ The following tools are available in this MCP server.
 
   You can pass a list of valid digits along with an 'invalid_payload', which will be played back at the beginning of each prompt. Speech will be interrupted when a DTMF signal is received. The `Answer` command must be issued before the `gather_using_speak` command.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/gather-using-speak#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.dtmf.received` (you may receive many of these webhooks)
   - `call.gather.ended`
 
 - `hangup_calls_actions` (`write`): Hang up the call.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/hangup-call#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.hangup`
   - `call.recording.saved`
@@ -643,7 +714,7 @@ The following tools are available in this MCP server.
 
 - `refer_calls_actions` (`write`): Initiate a SIP Refer on a Call Control call. You can initiate a SIP Refer at any point in the duration of a call.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/refer-call#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.refer.started`
   - `call.refer.completed`
@@ -651,7 +722,7 @@ The following tools are available in this MCP server.
 
 - `reject_calls_actions` (`write`): Reject an incoming call.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/reject-call#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.hangup`
 
@@ -675,14 +746,14 @@ The following tools are available in this MCP server.
 
 - `speak_calls_actions` (`write`): Convert text to speech and play it back on the call. If multiple speak text commands are issued consecutively, the audio files will be placed in a queue awaiting playback.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/speak-call#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.speak.started`
   - `call.speak.ended`
 
 - `start_ai_assistant_calls_actions` (`write`): Start an AI assistant on the call.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/call-start-ai-assistant#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.conversation.ended`
   - `call.conversation_insights.generated`
@@ -692,7 +763,7 @@ The following tools are available in this MCP server.
   variety of use cases, including fraud detection, or the creation of AI-generated audio responses.
   Requests must specify either the `target` attribute or the `rx` and `tx` attributes.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-fork#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.fork.started`
   - `call.fork.stopped`
@@ -706,14 +777,14 @@ The following tools are available in this MCP server.
   - When `overlay` is enabled, `target_legs` is limited to `self`.
   - A customer cannot Play Audio with `overlay=true` unless there is a Play Audio with `overlay=false` actively playing.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-playback#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.playback.started`
   - `call.playback.ended`
 
 - `start_recording_calls_actions` (`write`): Start recording the call. Recording will stop on call hang-up, or can be initiated via the Stop Recording command.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-record#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.recording.saved`
   - `call.recording.transcription.saved`
@@ -733,33 +804,33 @@ The following tools are available in this MCP server.
 
 - `start_transcription_calls_actions` (`write`): Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-call-transcription#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.transcription`
 
 - `stop_ai_assistant_calls_actions` (`write`): Stop an AI assistant on the call.
 - `stop_forking_calls_actions` (`write`): Stop forking a call.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-fork#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.fork.stopped`
 
 - `stop_gather_calls_actions` (`write`): Stop current gather.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-gather#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.gather.ended`
 
 - `stop_noise_suppression_calls_actions` (`write`): Noise Suppression Stop (BETA)
 - `stop_playback_calls_actions` (`write`): Stop audio being played on the call.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-playback#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.playback.ended` or `call.speak.ended`
 
 - `stop_recording_calls_actions` (`write`): Stop recording the call.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-recording#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.recording.saved`
 
@@ -771,7 +842,7 @@ The following tools are available in this MCP server.
 
 - `stop_streaming_calls_actions` (`write`): Stop streaming a call to a WebSocket.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-call-streaming#callbacks) below):**
+  **Expected Webhooks:**
 
   - `streaming.stopped`
 
@@ -779,7 +850,7 @@ The following tools are available in this MCP server.
 - `switch_supervisor_role_calls_actions` (`write`): Switch the supervisor role for a bridged call. This allows switching between different supervisor modes during an active call
 - `transfer_calls_actions` (`write`): Transfer a call to a new destination. If the transfer is unsuccessful, a `call.hangup` webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/transfer-call#callbacks) below):**
+  **Expected Webhooks:**
 
   - `call.initiated`
   - `call.bridged` to Leg B
@@ -843,7 +914,7 @@ The following tools are available in this MCP server.
 
 - `create_conferences` (`write`): Create a conference from an existing call leg using a `call_control_id` and a conference name. Upon creating the conference, the call will be automatically bridged to the conference. Conferences will expire after all participants have left the conference or after 4 hours regardless of the number of active participants.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/create-conference#callbacks) below):**
+  **Expected Webhooks:**
 
   - `conference.created`
   - `conference.participant.joined`
@@ -862,14 +933,14 @@ The following tools are available in this MCP server.
 - `hold_conferences_actions` (`write`): Hold a list of participants in a conference call
 - `join_conferences_actions` (`write`): Join an existing call leg to a conference. Issue the Join Conference command with the conference ID in the path and the `call_control_id` of the leg you wish to join to the conference as an attribute. The conference can have up to a certain amount of active participants, as set by the `max_participants` parameter in conference creation request.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/join-conference#callbacks) below):**
+  **Expected Webhooks:**
 
   - `conference.participant.joined`
   - `conference.participant.left`
 
 - `leave_conferences_actions` (`write`): Removes a call leg from a conference and moves it back to parked state.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/leave-conference#callbacks) below):**
+  **Expected Webhooks:**
 
   - `conference.participant.left`
 
@@ -879,13 +950,13 @@ The following tools are available in this MCP server.
 - `record_resume_conferences_actions` (`write`): Resume conference recording.
 - `record_start_conferences_actions` (`write`): Start recording the conference. Recording will stop on conference end, or via the Stop Recording command.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/start-conference-recording#callbacks) below):**
+  **Expected Webhooks:**
 
   - `conference.recording.saved`
 
 - `record_stop_conferences_actions` (`write`): Stop recording the conference.
 
-  **Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/stop-conference-recording#callbacks) below):**
+  **Expected Webhooks:**
 
   - `conference.recording.saved`
 
@@ -2020,7 +2091,9 @@ The following tools are available in this MCP server.
 - `update_verify_profiles` (`write`): Update Verify profile
 - `list_verify_profiles` (`read`): Gets a paginated list of Verify profiles.
 - `delete_verify_profiles` (`write`): Delete Verify profile
+- `create_template_verify_profiles` (`write`): Create a new Verify profile message template.
 - `retrieve_templates_verify_profiles` (`read`): List all Verify profile message templates.
+- `update_template_verify_profiles` (`write`): Update an existing Verify profile message template.
 
 ### Resource `virtual_cross_connects`:
 
@@ -2093,3 +2166,8 @@ The following tools are available in this MCP server.
   from the response from this endpoint.
 
 - `retrieve_sharing_status_partner_campaigns` (`read`): Get Sharing Status
+
+### Resource `client.well_known`:
+
+- `retrieve_authorization_server_metadata_client_well_known` (`read`): OAuth 2.0 Authorization Server Metadata (RFC 8414)
+- `retrieve_protected_resource_metadata_client_well_known` (`read`): OAuth 2.0 Protected Resource Metadata for resource discovery

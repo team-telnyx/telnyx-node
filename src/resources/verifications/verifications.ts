@@ -158,6 +158,12 @@ export interface VerificationTriggerCallParams {
   custom_code?: string | null;
 
   /**
+   * Optional extension to dial after call is answered using DTMF digits. Valid
+   * digits are 0-9, A-D, \*, and #. Pauses can be added using w (0.5s) and W (1s).
+   */
+  extension?: string | null;
+
+  /**
    * The number of seconds the verification code is valid for.
    */
   timeout_secs?: number;

@@ -27,6 +27,10 @@ export const tool: Tool = {
           type: 'string',
         },
       },
+      customer_group_reference: {
+        type: 'string',
+        description: 'A customer-specified group reference for customer bookkeeping purposes',
+      },
       customer_reference: {
         type: 'string',
         description: 'A customer-specified reference number for customer bookkeeping purposes',

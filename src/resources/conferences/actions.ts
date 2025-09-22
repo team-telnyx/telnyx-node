@@ -47,9 +47,7 @@ export class Actions extends APIResource {
    * certain amount of active participants, as set by the `max_participants`
    * parameter in conference creation request.
    *
-   * **Expected Webhooks (see
-   * [callback schema](https://developers.telnyx.com/api/call-control/join-conference#callbacks)
-   * below):**
+   * **Expected Webhooks:**
    *
    * - `conference.participant.joined`
    * - `conference.participant.left`
@@ -72,9 +70,7 @@ export class Actions extends APIResource {
   /**
    * Removes a call leg from a conference and moves it back to parked state.
    *
-   * **Expected Webhooks (see
-   * [callback schema](https://developers.telnyx.com/api/call-control/leave-conference#callbacks)
-   * below):**
+   * **Expected Webhooks:**
    *
    * - `conference.participant.left`
    *
@@ -158,9 +154,7 @@ export class Actions extends APIResource {
    * Start recording the conference. Recording will stop on conference end, or via
    * the Stop Recording command.
    *
-   * **Expected Webhooks (see
-   * [callback schema](https://developers.telnyx.com/api/call-control/start-conference-recording#callbacks)
-   * below):**
+   * **Expected Webhooks:**
    *
    * - `conference.recording.saved`
    *
@@ -183,9 +177,7 @@ export class Actions extends APIResource {
   /**
    * Stop recording the conference.
    *
-   * **Expected Webhooks (see
-   * [callback schema](https://developers.telnyx.com/api/call-control/stop-conference-recording#callbacks)
-   * below):**
+   * **Expected Webhooks:**
    *
    * - `conference.recording.saved`
    *

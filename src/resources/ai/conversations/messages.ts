@@ -8,23 +8,6 @@ import { path } from '../../../internal/utils/path';
 
 export class Messages extends APIResource {
   /**
-   * Add a new message to the conversation. Used to insert a new messages to a
-   * conversation manually ( without using chat endpoint )
-   *
-   * @example
-   * ```ts
-   * const message =
-   *   await client.ai.conversations.messages.create(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     { role: 'role' },
-   *   );
-   * ```
-   */
-  create(conversationID: string, body: MessageCreateParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post(path`/ai/conversations/${conversationID}/messages`, { body, ...options });
-  }
-
-  /**
    * Retrieve messages for a specific conversation, including tool calls made by the
    * assistant.
    *
@@ -40,8 +23,6 @@ export class Messages extends APIResource {
     return this._client.get(path`/ai/conversations/${conversationID}/messages`, options);
   }
 }
-
-export type MessageCreateResponse = unknown;
 
 export interface MessageListResponse {
   data: Array<MessageListResponse.Data>;
@@ -110,28 +91,6 @@ export namespace MessageListResponse {
   }
 }
 
-export interface MessageCreateParams {
-  role: string;
-
-  content?: string;
-
-  metadata?: { [key: string]: string | number | boolean | Array<string | number | boolean> };
-
-  name?: string;
-
-  sent_at?: string;
-
-  tool_call_id?: string;
-
-  tool_calls?: Array<{ [key: string]: unknown }>;
-
-  tool_choice?: string | unknown;
-}
-
 export declare namespace Messages {
-  export {
-    type MessageCreateResponse as MessageCreateResponse,
-    type MessageListResponse as MessageListResponse,
-    type MessageCreateParams as MessageCreateParams,
-  };
+  export { type MessageListResponse as MessageListResponse };
 }
