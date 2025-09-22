@@ -126,6 +126,12 @@ export const tool: Tool = {
             description: 'Filter by usage_payment_method.',
             enum: ['pay-per-minute', 'channel'],
           },
+          without_tags: {
+            type: 'string',
+            description:
+              "When set to 'true', filters for phone numbers that do not have any tags applied. All other values are ignored.",
+            enum: ['true', 'false'],
+          },
         },
       },
       page: {

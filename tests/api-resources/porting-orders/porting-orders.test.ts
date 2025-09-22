@@ -26,6 +26,7 @@ describe('resource portingOrders', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.portingOrders.create({
       phone_numbers: ['+13035550000', '+13035550001', '+13035550002'],
+      customer_group_reference: 'Group-456',
       customer_reference: 'Acct 123abc',
     });
   });
@@ -90,6 +91,7 @@ describe('resource portingOrders', () => {
               gt: '2021-03-25T10:00:00.000Z',
               lt: '2021-03-25T10:00:00.000Z',
             },
+            customer_group_reference: 'customer_group_reference',
             customer_reference: 'customer_reference',
             'end_user.admin.auth_person_name': 'end_user.admin.auth_person_name',
             'end_user.admin.entity_name': 'end_user.admin.entity_name',

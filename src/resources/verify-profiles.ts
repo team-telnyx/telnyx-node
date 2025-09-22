@@ -86,6 +86,25 @@ export class VerifyProfiles extends APIResource {
   }
 
   /**
+   * Create a new Verify profile message template.
+   *
+   * @example
+   * ```ts
+   * const response = await client.verifyProfiles.createTemplate(
+   *   {
+   *     text: 'Your {{app_name}} verification code is: {{code}}.',
+   *   },
+   * );
+   * ```
+   */
+  createTemplate(
+    body: VerifyProfileCreateTemplateParams,
+    options?: RequestOptions,
+  ): APIPromise<VerifyProfileCreateTemplateResponse> {
+    return this._client.post('/verify_profiles/templates', { body, ...options });
+  }
+
+  /**
    * List all Verify profile message templates.
    *
    * @example
@@ -96,6 +115,27 @@ export class VerifyProfiles extends APIResource {
    */
   retrieveTemplates(options?: RequestOptions): APIPromise<VerifyProfileRetrieveTemplatesResponse> {
     return this._client.get('/verify_profiles/templates', options);
+  }
+
+  /**
+   * Update an existing Verify profile message template.
+   *
+   * @example
+   * ```ts
+   * const response = await client.verifyProfiles.updateTemplate(
+   *   '12ade33a-21c0-473b-b055-b3c836e1c292',
+   *   {
+   *     text: 'Your {{app_name}} verification code is: {{code}}.',
+   *   },
+   * );
+   * ```
+   */
+  updateTemplate(
+    templateID: string,
+    body: VerifyProfileUpdateTemplateParams,
+    options?: RequestOptions,
+  ): APIPromise<VerifyProfileUpdateTemplateResponse> {
+    return this._client.patch(path`/verify_profiles/templates/${templateID}`, { body, ...options });
   }
 }
 
@@ -241,6 +281,18 @@ export namespace VerifyProfileListResponse {
   }
 }
 
+export interface VerifyProfileCreateTemplateResponse {
+  data?: VerifyProfileCreateTemplateResponse.Data;
+}
+
+export namespace VerifyProfileCreateTemplateResponse {
+  export interface Data {
+    id?: string;
+
+    text?: string;
+  }
+}
+
 /**
  * A list of Verify profile message templates
  */
@@ -249,6 +301,18 @@ export interface VerifyProfileRetrieveTemplatesResponse {
 }
 
 export namespace VerifyProfileRetrieveTemplatesResponse {
+  export interface Data {
+    id?: string;
+
+    text?: string;
+  }
+}
+
+export interface VerifyProfileUpdateTemplateResponse {
+  data?: VerifyProfileUpdateTemplateResponse.Data;
+}
+
+export namespace VerifyProfileUpdateTemplateResponse {
   export interface Data {
     id?: string;
 
@@ -517,14 +581,32 @@ export namespace VerifyProfileListParams {
   }
 }
 
+export interface VerifyProfileCreateTemplateParams {
+  /**
+   * The text content of the message template.
+   */
+  text: string;
+}
+
+export interface VerifyProfileUpdateTemplateParams {
+  /**
+   * The text content of the message template.
+   */
+  text: string;
+}
+
 export declare namespace VerifyProfiles {
   export {
     type VerifyProfile as VerifyProfile,
     type VerifyProfileData as VerifyProfileData,
     type VerifyProfileListResponse as VerifyProfileListResponse,
+    type VerifyProfileCreateTemplateResponse as VerifyProfileCreateTemplateResponse,
     type VerifyProfileRetrieveTemplatesResponse as VerifyProfileRetrieveTemplatesResponse,
+    type VerifyProfileUpdateTemplateResponse as VerifyProfileUpdateTemplateResponse,
     type VerifyProfileCreateParams as VerifyProfileCreateParams,
     type VerifyProfileUpdateParams as VerifyProfileUpdateParams,
     type VerifyProfileListParams as VerifyProfileListParams,
+    type VerifyProfileCreateTemplateParams as VerifyProfileCreateTemplateParams,
+    type VerifyProfileUpdateTemplateParams as VerifyProfileUpdateTemplateParams,
   };
 }

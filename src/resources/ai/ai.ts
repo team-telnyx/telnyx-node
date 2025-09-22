@@ -56,6 +56,8 @@ import {
 import * as ConversationsAPI from './conversations/conversations';
 import {
   Conversation,
+  ConversationAddMessageParams,
+  ConversationAddMessageResponse,
   ConversationCreateParams,
   ConversationListParams,
   ConversationListResponse,
@@ -261,10 +263,12 @@ export declare namespace AI {
     type ConversationRetrieveResponse as ConversationRetrieveResponse,
     type ConversationUpdateResponse as ConversationUpdateResponse,
     type ConversationListResponse as ConversationListResponse,
+    type ConversationAddMessageResponse as ConversationAddMessageResponse,
     type ConversationRetrieveConversationsInsightsResponse as ConversationRetrieveConversationsInsightsResponse,
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
+    type ConversationAddMessageParams as ConversationAddMessageParams,
   };
 
   export {

@@ -13,7 +13,7 @@ import {
   Insights,
 } from './insights';
 import * as MessagesAPI from './messages';
-import { MessageCreateParams, MessageCreateResponse, MessageListResponse, Messages } from './messages';
+import { MessageListResponse, Messages } from './messages';
 import * as InsightGroupsAPI from './insight-groups/insight-groups';
 import {
   InsightGroupDeleteResponse,
@@ -115,6 +115,26 @@ export class Conversations extends APIResource {
   }
 
   /**
+   * Add a new message to the conversation. Used to insert a new messages to a
+   * conversation manually ( without using chat endpoint )
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.conversations.addMessage(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { role: 'role' },
+   * );
+   * ```
+   */
+  addMessage(
+    conversationID: string,
+    body: ConversationAddMessageParams,
+    options?: RequestOptions,
+  ): APIPromise<unknown> {
+    return this._client.post(path`/ai/conversations/${conversationID}/message`, { body, ...options });
+  }
+
+  /**
    * Retrieve insights for a specific conversation
    *
    * @example
@@ -166,6 +186,8 @@ export interface ConversationUpdateResponse {
 export interface ConversationListResponse {
   data: Array<Conversation>;
 }
+
+export type ConversationAddMessageResponse = unknown;
 
 export interface ConversationRetrieveConversationsInsightsResponse {
   data: Array<ConversationRetrieveConversationsInsightsResponse.Data>;
@@ -295,6 +317,24 @@ export interface ConversationListParams {
   order?: string;
 }
 
+export interface ConversationAddMessageParams {
+  role: string;
+
+  content?: string;
+
+  metadata?: { [key: string]: string | number | boolean | Array<string | number | boolean> };
+
+  name?: string;
+
+  sent_at?: string;
+
+  tool_call_id?: string;
+
+  tool_calls?: Array<{ [key: string]: unknown }>;
+
+  tool_choice?: string | unknown;
+}
+
 Conversations.InsightGroups = InsightGroups;
 Conversations.Insights = Insights;
 Conversations.Messages = Messages;
@@ -305,10 +345,12 @@ export declare namespace Conversations {
     type ConversationRetrieveResponse as ConversationRetrieveResponse,
     type ConversationUpdateResponse as ConversationUpdateResponse,
     type ConversationListResponse as ConversationListResponse,
+    type ConversationAddMessageResponse as ConversationAddMessageResponse,
     type ConversationRetrieveConversationsInsightsResponse as ConversationRetrieveConversationsInsightsResponse,
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
+    type ConversationAddMessageParams as ConversationAddMessageParams,
   };
 
   export {
@@ -333,10 +375,5 @@ export declare namespace Conversations {
     type InsightListParams as InsightListParams,
   };
 
-  export {
-    Messages as Messages,
-    type MessageCreateResponse as MessageCreateResponse,
-    type MessageListResponse as MessageListResponse,
-    type MessageCreateParams as MessageCreateParams,
-  };
+  export { Messages as Messages, type MessageListResponse as MessageListResponse };
 }

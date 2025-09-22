@@ -16,7 +16,7 @@ import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
-import * as TopLevelAPI from './resources/top-level';
+import * as TopLevelAPI from './resources/top-level/top-level';
 import {
   CreateBucketParams,
   DeleteObjectParams,
@@ -27,7 +27,7 @@ import {
   ListObjectsParams,
   ListObjectsResponse,
   PutObjectParams,
-} from './resources/top-level';
+} from './resources/top-level/top-level';
 import { APIPromise } from './core/api-promise';
 import {
   AccessIPAddress,
@@ -787,11 +787,15 @@ import { UserTagListParams, UserTagListResponse, UserTags } from './resources/us
 import {
   VerifyProfile,
   VerifyProfileCreateParams,
+  VerifyProfileCreateTemplateParams,
+  VerifyProfileCreateTemplateResponse,
   VerifyProfileData,
   VerifyProfileListParams,
   VerifyProfileListResponse,
   VerifyProfileRetrieveTemplatesResponse,
   VerifyProfileUpdateParams,
+  VerifyProfileUpdateTemplateParams,
+  VerifyProfileUpdateTemplateResponse,
   VerifyProfiles,
 } from './resources/verify-profiles';
 import {
@@ -1290,6 +1294,7 @@ import {
 } from './internal/utils/log';
 import { path } from './internal/utils/path';
 import { isEmptyObj } from './internal/utils/values';
+import { Client } from './resources/client/client';
 
 export interface ClientOptions {
   /**
@@ -1461,6 +1466,11 @@ export class Telnyx {
 
   /**
    * Create a bucket.
+   *
+   * @example
+   * ```ts
+   * await client.createBucket('mybucket');
+   * ```
    */
   createBucket(
     bucketName: string,
@@ -1476,6 +1486,11 @@ export class Telnyx {
 
   /**
    * Deletes a bucket. The bucket must be empty for it to be deleted.
+   *
+   * @example
+   * ```ts
+   * await client.deleteBucket('bucketName');
+   * ```
    */
   deleteBucket(bucketName: string, options?: RequestOptions): APIPromise<void> {
     return this.delete(path`/${bucketName}`, {
@@ -1486,6 +1501,13 @@ export class Telnyx {
 
   /**
    * Delete an object from a given bucket.
+   *
+   * @example
+   * ```ts
+   * await client.deleteObject('x', {
+   *   bucketName: 'bucketName',
+   * });
+   * ```
    */
   deleteObject(
     objectName: string,
@@ -1501,6 +1523,14 @@ export class Telnyx {
 
   /**
    * Deletes one or multiple objects from a given bucket.
+   *
+   * @example
+   * ```ts
+   * const response = await client.deleteObjects('bucketName', {
+   *   delete: true,
+   *   body: [{}],
+   * });
+   * ```
    */
   deleteObjects(
     bucketName: string,
@@ -1518,6 +1548,16 @@ export class Telnyx {
 
   /**
    * Retrieves an object from a given bucket.
+   *
+   * @example
+   * ```ts
+   * const response = await client.getObject('x', {
+   *   bucketName: 'bucketName',
+   * });
+   *
+   * const content = await response.blob();
+   * console.log(content);
+   * ```
    */
   getObject(
     objectName: string,
@@ -1535,6 +1575,11 @@ export class Telnyx {
 
   /**
    * List all Buckets.
+   *
+   * @example
+   * ```ts
+   * const response = await client.listBuckets();
+   * ```
    */
   listBuckets(options?: RequestOptions): APIPromise<TopLevelAPI.ListBucketsResponse> {
     return this.get('/', {
@@ -1545,6 +1590,11 @@ export class Telnyx {
 
   /**
    * List all objects contained in a given bucket.
+   *
+   * @example
+   * ```ts
+   * const response = await client.listObjects('xxxx');
+   * ```
    */
   listObjects(
     bucketName: string,
@@ -1560,6 +1610,14 @@ export class Telnyx {
 
   /**
    * Add an object to a bucket.
+   *
+   * @example
+   * ```ts
+   * await client.putObject('x', {
+   *   bucketName: 'bucketName',
+   *   body: fs.createReadStream('path/to/file'),
+   * });
+   * ```
    */
   putObject(
     objectName: string,
@@ -2228,6 +2286,7 @@ export class Telnyx {
   wirelessBlocklistValues: API.WirelessBlocklistValues = new API.WirelessBlocklistValues(this);
   wirelessBlocklists: API.WirelessBlocklists = new API.WirelessBlocklists(this);
   partnerCampaigns: API.PartnerCampaigns = new API.PartnerCampaigns(this);
+  client: API.Client = new API.Client(this);
 }
 
 Telnyx.Webhooks = Webhooks;
@@ -2378,6 +2437,7 @@ Telnyx.Wireless = Wireless;
 Telnyx.WirelessBlocklistValues = WirelessBlocklistValues;
 Telnyx.WirelessBlocklists = WirelessBlocklists;
 Telnyx.PartnerCampaigns = PartnerCampaigns;
+Telnyx.Client = Client;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3741,10 +3801,14 @@ export declare namespace Telnyx {
     type VerifyProfile as VerifyProfile,
     type VerifyProfileData as VerifyProfileData,
     type VerifyProfileListResponse as VerifyProfileListResponse,
+    type VerifyProfileCreateTemplateResponse as VerifyProfileCreateTemplateResponse,
     type VerifyProfileRetrieveTemplatesResponse as VerifyProfileRetrieveTemplatesResponse,
+    type VerifyProfileUpdateTemplateResponse as VerifyProfileUpdateTemplateResponse,
     type VerifyProfileCreateParams as VerifyProfileCreateParams,
     type VerifyProfileUpdateParams as VerifyProfileUpdateParams,
     type VerifyProfileListParams as VerifyProfileListParams,
+    type VerifyProfileCreateTemplateParams as VerifyProfileCreateTemplateParams,
+    type VerifyProfileUpdateTemplateParams as VerifyProfileUpdateTemplateParams,
   };
 
   export {
@@ -3831,6 +3895,8 @@ export declare namespace Telnyx {
     type PartnerCampaignListParams as PartnerCampaignListParams,
     type PartnerCampaignListSharedByMeParams as PartnerCampaignListSharedByMeParams,
   };
+
+  export { Client as Client };
 
   export type ConnectionsPaginationMeta = API.ConnectionsPaginationMeta;
   export type DocReqsRequirementType = API.DocReqsRequirementType;

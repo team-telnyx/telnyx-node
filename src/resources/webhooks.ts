@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as NumberBlockOrdersAPI from './number-block-orders';
+import * as NumberOrdersAPI from './number-orders';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
 
@@ -4789,7 +4789,47 @@ export namespace InboundMessageWebhookEvent {
 }
 
 export interface NumberOrderStatusUpdateWebhookEvent {
-  data?: NumberBlockOrdersAPI.NumberBlockOrder;
+  data: NumberOrderStatusUpdateWebhookEvent.Data;
+
+  meta: NumberOrderStatusUpdateWebhookEvent.Meta;
+}
+
+export namespace NumberOrderStatusUpdateWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier for the event
+     */
+    id: string;
+
+    /**
+     * The type of event being sent
+     */
+    event_type: string;
+
+    /**
+     * ISO 8601 timestamp of when the event occurred
+     */
+    occurred_at: string;
+
+    payload: NumberOrdersAPI.NumberOrderWithPhoneNumbers;
+
+    /**
+     * Type of record
+     */
+    record_type: string;
+  }
+
+  export interface Meta {
+    /**
+     * Webhook delivery attempt number
+     */
+    attempt: number;
+
+    /**
+     * URL where the webhook was delivered
+     */
+    delivered_to: string;
+  }
 }
 
 export interface ReplacedLinkClickWebhookEvent {

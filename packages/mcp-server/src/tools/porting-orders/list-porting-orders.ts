@@ -23,7 +23,7 @@ export const tool: Tool = {
       filter: {
         type: 'object',
         description:
-          'Consolidated filter parameter (deepObject style). Originally: filter[customer_reference], filter[parent_support_key], filter[phone_numbers.country_code], filter[phone_numbers.carrier_name], filter[misc.type], filter[end_user.admin.entity_name], filter[end_user.admin.auth_person_name], filter[activation_settings.fast_port_eligible], filter[activation_settings.foc_datetime_requested][gt], filter[activation_settings.foc_datetime_requested][lt], filter[phone_numbers.phone_number][contains]',
+          'Consolidated filter parameter (deepObject style). Originally: filter[customer_reference], filter[customer_group_reference], filter[parent_support_key], filter[phone_numbers.country_code], filter[phone_numbers.carrier_name], filter[misc.type], filter[end_user.admin.entity_name], filter[end_user.admin.auth_person_name], filter[activation_settings.fast_port_eligible], filter[activation_settings.foc_datetime_requested][gt], filter[activation_settings.foc_datetime_requested][lt], filter[phone_numbers.phone_number][contains]',
         properties: {
           'activation_settings.fast_port_eligible': {
             type: 'boolean',
@@ -42,6 +42,10 @@ export const tool: Tool = {
                 description: 'Filter results by foc date earlier than this value',
               },
             },
+          },
+          customer_group_reference: {
+            type: 'string',
+            description: 'Filter results by customer_group_reference',
           },
           customer_reference: {
             type: 'string',

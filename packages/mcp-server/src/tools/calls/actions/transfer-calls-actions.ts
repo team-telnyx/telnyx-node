@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'transfer_calls_actions',
   description:
-    'Transfer a call to a new destination. If the transfer is unsuccessful, a `call.hangup` webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.\n\n**Expected Webhooks (see [callback schema](https://developers.telnyx.com/api/call-control/transfer-call#callbacks) below):**\n\n- `call.initiated`\n- `call.bridged` to Leg B\n- `call.answered` or `call.hangup`\n- `call.machine.detection.ended` if `answering_machine_detection` was requested\n- `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting\n- `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested\n- `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected\n',
+    'Transfer a call to a new destination. If the transfer is unsuccessful, a `call.hangup` webhook for the other call (Leg B) will be sent indicating that the transfer could not be completed. The original call will remain active and may be issued additional commands, potentially transfering the call to an alternate destination.\n\n**Expected Webhooks:**\n\n- `call.initiated`\n- `call.bridged` to Leg B\n- `call.answered` or `call.hangup`\n- `call.machine.detection.ended` if `answering_machine_detection` was requested\n- `call.machine.greeting.ended` if `answering_machine_detection` was requested to detect the end of machine greeting\n- `call.machine.premium.detection.ended` if `answering_machine_detection=premium` was requested\n- `call.machine.premium.greeting.ended` if `answering_machine_detection=premium` was requested and a beep was detected\n',
   inputSchema: {
     type: 'object',
     properties: {
@@ -140,6 +140,49 @@ export const tool: Tool = {
         type: 'string',
         description:
           'Specifies behavior after the bridge ends (i.e. the opposite leg either hangs up or is transferred). If supplied with the value `self`, the current leg will be parked after unbridge. If not set, the default behavior is to hang up the leg.',
+      },
+      record: {
+        type: 'string',
+        description: 'Start recording automatically after an event. Disabled by default.',
+        enum: ['record-from-answer'],
+      },
+      record_channels: {
+        type: 'string',
+        description:
+          "Defines which channel should be recorded ('single' or 'dual') when `record` is specified.",
+        enum: ['single', 'dual'],
+      },
+      record_custom_file_name: {
+        type: 'string',
+        description:
+          'The custom recording file name to be used instead of the default `call_leg_id`. Telnyx will still add a Unix timestamp suffix.',
+      },
+      record_format: {
+        type: 'string',
+        description: "Defines the format of the recording ('wav' or 'mp3') when `record` is specified.",
+        enum: ['wav', 'mp3'],
+      },
+      record_max_length: {
+        type: 'integer',
+        description:
+          'Defines the maximum length for the recording in seconds when `record` is specified. The minimum value is 0. The maximum value is 43200. The default value is 0 (infinite).',
+      },
+      record_timeout_secs: {
+        type: 'integer',
+        description:
+          'The number of seconds that Telnyx will wait for the recording to be stopped if silence is detected when `record` is specified. The timer only starts when the speech is detected. Please note that call transcription is used to detect silence and the related charge will be applied. The minimum value is 0. The default value is 0 (infinite).',
+      },
+      record_track: {
+        type: 'string',
+        description:
+          'The audio track to be recorded. Can be either `both`, `inbound` or `outbound`. If only single track is specified (`inbound`, `outbound`), `channels` configuration is ignored and it will be recorded as mono (single channel).',
+        enum: ['both', 'inbound', 'outbound'],
+      },
+      record_trim: {
+        type: 'string',
+        description:
+          'When set to `trim-silence`, silence will be removed from the beginning and end of the recording.',
+        enum: ['trim-silence'],
       },
       sip_auth_password: {
         type: 'string',

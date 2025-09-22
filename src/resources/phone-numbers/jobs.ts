@@ -361,6 +361,13 @@ export interface JobUpdateBatchParams {
   customer_reference?: string;
 
   /**
+   * Body param: Indicates whether to enable or disable the deletion lock on each
+   * phone number. When enabled, this prevents the phone number from being deleted
+   * via the API or Telnyx portal.
+   */
+  deletion_lock_enabled?: boolean;
+
+  /**
    * Body param: If someone attempts to port your phone number away from Telnyx and
    * your phone number has an external PIN set, we will attempt to verify that you
    * provided the correct external PIN to the winning carrier. Note that not all

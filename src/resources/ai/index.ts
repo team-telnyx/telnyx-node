@@ -60,10 +60,12 @@ export {
   type ConversationRetrieveResponse,
   type ConversationUpdateResponse,
   type ConversationListResponse,
+  type ConversationAddMessageResponse,
   type ConversationRetrieveConversationsInsightsResponse,
   type ConversationCreateParams,
   type ConversationUpdateParams,
   type ConversationListParams,
+  type ConversationAddMessageParams,
 } from './conversations/index';
 export {
   Embeddings,

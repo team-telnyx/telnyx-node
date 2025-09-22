@@ -106,6 +106,27 @@ describe('resource verifyProfiles', () => {
   });
 
   // Prism tests are disabled
+  test.skip('createTemplate: only required params', async () => {
+    const responsePromise = client.verifyProfiles.createTemplate({
+      text: 'Your {{app_name}} verification code is: {{code}}.',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('createTemplate: required and optional params', async () => {
+    const response = await client.verifyProfiles.createTemplate({
+      text: 'Your {{app_name}} verification code is: {{code}}.',
+    });
+  });
+
+  // Prism tests are disabled
   test.skip('retrieveTemplates', async () => {
     const responsePromise = client.verifyProfiles.retrieveTemplates();
     const rawResponse = await responsePromise.asResponse();
@@ -115,5 +136,26 @@ describe('resource verifyProfiles', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('updateTemplate: only required params', async () => {
+    const responsePromise = client.verifyProfiles.updateTemplate('12ade33a-21c0-473b-b055-b3c836e1c292', {
+      text: 'Your {{app_name}} verification code is: {{code}}.',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('updateTemplate: required and optional params', async () => {
+    const response = await client.verifyProfiles.updateTemplate('12ade33a-21c0-473b-b055-b3c836e1c292', {
+      text: 'Your {{app_name}} verification code is: {{code}}.',
+    });
   });
 });

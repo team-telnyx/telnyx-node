@@ -17,6 +17,165 @@ Methods:
 - <code title="get /{bucketName}">client.<a href="./src/index.ts">listObjects</a>(bucketName, { ...params }) -> ListObjectsResponse</code>
 - <code title="put /{bucketName}/{objectName}">client.<a href="./src/index.ts">putObject</a>(objectName, { ...params }) -> void</code>
 
+## Legacy
+
+### Reporting
+
+#### BatchDetailRecords
+
+##### Messaging
+
+Types:
+
+- <code><a href="./src/resources/top-level/legacy/reporting/batch-detail-records/messaging.ts">MessagingCreateResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/batch-detail-records/messaging.ts">MessagingRetrieveResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/batch-detail-records/messaging.ts">MessagingListResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/batch-detail-records/messaging.ts">MessagingDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /legacy/reporting/batch_detail_records/messaging">client.client.legacy.reporting.batchDetailRecords.messaging.<a href="./src/resources/top-level/legacy/reporting/batch-detail-records/messaging.ts">create</a>({ ...params }) -> MessagingCreateResponse</code>
+- <code title="get /legacy/reporting/batch_detail_records/messaging/{id}">client.client.legacy.reporting.batchDetailRecords.messaging.<a href="./src/resources/top-level/legacy/reporting/batch-detail-records/messaging.ts">retrieve</a>(id) -> MessagingRetrieveResponse</code>
+- <code title="get /legacy/reporting/batch_detail_records/messaging">client.client.legacy.reporting.batchDetailRecords.messaging.<a href="./src/resources/top-level/legacy/reporting/batch-detail-records/messaging.ts">list</a>() -> MessagingListResponse</code>
+- <code title="delete /legacy/reporting/batch_detail_records/messaging/{id}">client.client.legacy.reporting.batchDetailRecords.messaging.<a href="./src/resources/top-level/legacy/reporting/batch-detail-records/messaging.ts">delete</a>(id) -> MessagingDeleteResponse</code>
+
+##### SpeechToText
+
+Types:
+
+- <code><a href="./src/resources/top-level/legacy/reporting/batch-detail-records/speech-to-text.ts">SpeechToTextCreateResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/batch-detail-records/speech-to-text.ts">SpeechToTextRetrieveResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/batch-detail-records/speech-to-text.ts">SpeechToTextListResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/batch-detail-records/speech-to-text.ts">SpeechToTextDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /legacy/reporting/batch_detail_records/speech_to_text">client.client.legacy.reporting.batchDetailRecords.speechToText.<a href="./src/resources/top-level/legacy/reporting/batch-detail-records/speech-to-text.ts">create</a>({ ...params }) -> SpeechToTextCreateResponse</code>
+- <code title="get /legacy/reporting/batch_detail_records/speech_to_text/{id}">client.client.legacy.reporting.batchDetailRecords.speechToText.<a href="./src/resources/top-level/legacy/reporting/batch-detail-records/speech-to-text.ts">retrieve</a>(id) -> SpeechToTextRetrieveResponse</code>
+- <code title="get /legacy/reporting/batch_detail_records/speech_to_text">client.client.legacy.reporting.batchDetailRecords.speechToText.<a href="./src/resources/top-level/legacy/reporting/batch-detail-records/speech-to-text.ts">list</a>() -> SpeechToTextListResponse</code>
+- <code title="delete /legacy/reporting/batch_detail_records/speech_to_text/{id}">client.client.legacy.reporting.batchDetailRecords.speechToText.<a href="./src/resources/top-level/legacy/reporting/batch-detail-records/speech-to-text.ts">delete</a>(id) -> SpeechToTextDeleteResponse</code>
+
+##### Voice
+
+Types:
+
+- <code><a href="./src/resources/top-level/legacy/reporting/batch-detail-records/voice.ts">VoiceCreateResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/batch-detail-records/voice.ts">VoiceRetrieveResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/batch-detail-records/voice.ts">VoiceListResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/batch-detail-records/voice.ts">VoiceDeleteResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/batch-detail-records/voice.ts">VoiceRetrieveFieldsResponse</a></code>
+
+Methods:
+
+- <code title="post /legacy/reporting/batch_detail_records/voice">client.client.legacy.reporting.batchDetailRecords.voice.<a href="./src/resources/top-level/legacy/reporting/batch-detail-records/voice.ts">create</a>({ ...params }) -> VoiceCreateResponse</code>
+- <code title="get /legacy/reporting/batch_detail_records/voice/{id}">client.client.legacy.reporting.batchDetailRecords.voice.<a href="./src/resources/top-level/legacy/reporting/batch-detail-records/voice.ts">retrieve</a>(id) -> VoiceRetrieveResponse</code>
+- <code title="get /legacy/reporting/batch_detail_records/voice">client.client.legacy.reporting.batchDetailRecords.voice.<a href="./src/resources/top-level/legacy/reporting/batch-detail-records/voice.ts">list</a>() -> VoiceListResponse</code>
+- <code title="delete /legacy/reporting/batch_detail_records/voice/{id}">client.client.legacy.reporting.batchDetailRecords.voice.<a href="./src/resources/top-level/legacy/reporting/batch-detail-records/voice.ts">delete</a>(id) -> VoiceDeleteResponse</code>
+- <code title="get /legacy/reporting/batch_detail_records/voice/fields">client.client.legacy.reporting.batchDetailRecords.voice.<a href="./src/resources/top-level/legacy/reporting/batch-detail-records/voice.ts">retrieveFields</a>() -> VoiceRetrieveFieldsResponse</code>
+
+#### UsageReports
+
+Types:
+
+- <code><a href="./src/resources/top-level/legacy/reporting/usage-reports/usage-reports.ts">UsageReportRetrieveSpeechToTextResponse</a></code>
+
+Methods:
+
+- <code title="get /legacy/reporting/usage_reports/speech_to_text">client.client.legacy.reporting.usageReports.<a href="./src/resources/top-level/legacy/reporting/usage-reports/usage-reports.ts">retrieveSpeechToText</a>({ ...params }) -> UsageReportRetrieveSpeechToTextResponse</code>
+
+##### Messaging
+
+Types:
+
+- <code><a href="./src/resources/top-level/legacy/reporting/usage-reports/messaging.ts">MessagingCreateResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/usage-reports/messaging.ts">MessagingRetrieveResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/usage-reports/messaging.ts">MessagingListResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/usage-reports/messaging.ts">MessagingDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /legacy/reporting/usage_reports/messaging">client.client.legacy.reporting.usageReports.messaging.<a href="./src/resources/top-level/legacy/reporting/usage-reports/messaging.ts">create</a>({ ...params }) -> MessagingCreateResponse</code>
+- <code title="get /legacy/reporting/usage_reports/messaging/{id}">client.client.legacy.reporting.usageReports.messaging.<a href="./src/resources/top-level/legacy/reporting/usage-reports/messaging.ts">retrieve</a>(id) -> MessagingRetrieveResponse</code>
+- <code title="get /legacy/reporting/usage_reports/messaging">client.client.legacy.reporting.usageReports.messaging.<a href="./src/resources/top-level/legacy/reporting/usage-reports/messaging.ts">list</a>({ ...params }) -> MessagingListResponse</code>
+- <code title="delete /legacy/reporting/usage_reports/messaging/{id}">client.client.legacy.reporting.usageReports.messaging.<a href="./src/resources/top-level/legacy/reporting/usage-reports/messaging.ts">delete</a>(id) -> MessagingDeleteResponse</code>
+
+##### NumberLookup
+
+Methods:
+
+- <code title="post /legacy/reporting/usage_reports/number_lookup">client.client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/top-level/legacy/reporting/usage-reports/number-lookup.ts">create</a>({ ...params }) -> void</code>
+- <code title="get /legacy/reporting/usage_reports/number_lookup/{id}">client.client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/top-level/legacy/reporting/usage-reports/number-lookup.ts">retrieve</a>(id) -> void</code>
+- <code title="get /legacy/reporting/usage_reports/number_lookup">client.client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/top-level/legacy/reporting/usage-reports/number-lookup.ts">list</a>({ ...params }) -> void</code>
+- <code title="delete /legacy/reporting/usage_reports/number_lookup/{id}">client.client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/top-level/legacy/reporting/usage-reports/number-lookup.ts">delete</a>(id) -> void</code>
+
+##### Voice
+
+Types:
+
+- <code><a href="./src/resources/top-level/legacy/reporting/usage-reports/voice.ts">VoiceCreateResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/usage-reports/voice.ts">VoiceRetrieveResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/usage-reports/voice.ts">VoiceListResponse</a></code>
+- <code><a href="./src/resources/top-level/legacy/reporting/usage-reports/voice.ts">VoiceDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /legacy/reporting/usage_reports/voice">client.client.legacy.reporting.usageReports.voice.<a href="./src/resources/top-level/legacy/reporting/usage-reports/voice.ts">create</a>({ ...params }) -> VoiceCreateResponse</code>
+- <code title="get /legacy/reporting/usage_reports/voice/{id}">client.client.legacy.reporting.usageReports.voice.<a href="./src/resources/top-level/legacy/reporting/usage-reports/voice.ts">retrieve</a>(id) -> VoiceRetrieveResponse</code>
+- <code title="get /legacy/reporting/usage_reports/voice">client.client.legacy.reporting.usageReports.voice.<a href="./src/resources/top-level/legacy/reporting/usage-reports/voice.ts">list</a>({ ...params }) -> VoiceListResponse</code>
+- <code title="delete /legacy/reporting/usage_reports/voice/{id}">client.client.legacy.reporting.usageReports.voice.<a href="./src/resources/top-level/legacy/reporting/usage-reports/voice.ts">delete</a>(id) -> VoiceDeleteResponse</code>
+
+## OAuth
+
+Types:
+
+- <code><a href="./src/resources/top-level/oauth.ts">OAuthRetrieveResponse</a></code>
+- <code><a href="./src/resources/top-level/oauth.ts">OAuthGrantsResponse</a></code>
+- <code><a href="./src/resources/top-level/oauth.ts">OAuthIntrospectResponse</a></code>
+- <code><a href="./src/resources/top-level/oauth.ts">OAuthRegisterResponse</a></code>
+- <code><a href="./src/resources/top-level/oauth.ts">OAuthRetrieveJwksResponse</a></code>
+- <code><a href="./src/resources/top-level/oauth.ts">OAuthTokenResponse</a></code>
+
+Methods:
+
+- <code title="get /oauth/consent/{consent_token}">client.client.oauth.<a href="./src/resources/top-level/oauth.ts">retrieve</a>(consentToken) -> OAuthRetrieveResponse</code>
+- <code title="post /oauth/grants">client.client.oauth.<a href="./src/resources/top-level/oauth.ts">grants</a>({ ...params }) -> OAuthGrantsResponse</code>
+- <code title="post /oauth/introspect">client.client.oauth.<a href="./src/resources/top-level/oauth.ts">introspect</a>({ ...params }) -> OAuthIntrospectResponse</code>
+- <code title="post /oauth/register">client.client.oauth.<a href="./src/resources/top-level/oauth.ts">register</a>({ ...params }) -> OAuthRegisterResponse</code>
+- <code title="get /oauth/authorize">client.client.oauth.<a href="./src/resources/top-level/oauth.ts">retrieveAuthorize</a>({ ...params }) -> void</code>
+- <code title="get /oauth/jwks">client.client.oauth.<a href="./src/resources/top-level/oauth.ts">retrieveJwks</a>() -> OAuthRetrieveJwksResponse</code>
+- <code title="post /oauth/token">client.client.oauth.<a href="./src/resources/top-level/oauth.ts">token</a>({ ...params }) -> OAuthTokenResponse</code>
+
+## OAuthClients
+
+Types:
+
+- <code><a href="./src/resources/top-level/oauth-clients.ts">OAuthClientCreateResponse</a></code>
+- <code><a href="./src/resources/top-level/oauth-clients.ts">OAuthClientRetrieveResponse</a></code>
+- <code><a href="./src/resources/top-level/oauth-clients.ts">OAuthClientUpdateResponse</a></code>
+- <code><a href="./src/resources/top-level/oauth-clients.ts">OAuthClientListResponse</a></code>
+
+Methods:
+
+- <code title="post /oauth_clients">client.client.oauthClients.<a href="./src/resources/top-level/oauth-clients.ts">create</a>({ ...params }) -> OAuthClientCreateResponse</code>
+- <code title="get /oauth_clients/{id}">client.client.oauthClients.<a href="./src/resources/top-level/oauth-clients.ts">retrieve</a>(id) -> OAuthClientRetrieveResponse</code>
+- <code title="put /oauth_clients/{id}">client.client.oauthClients.<a href="./src/resources/top-level/oauth-clients.ts">update</a>(id, { ...params }) -> OAuthClientUpdateResponse</code>
+- <code title="get /oauth_clients">client.client.oauthClients.<a href="./src/resources/top-level/oauth-clients.ts">list</a>({ ...params }) -> OAuthClientListResponse</code>
+- <code title="delete /oauth_clients/{id}">client.client.oauthClients.<a href="./src/resources/top-level/oauth-clients.ts">delete</a>(id) -> void</code>
+
+## OAuthGrants
+
+Types:
+
+- <code><a href="./src/resources/top-level/oauth-grants.ts">OAuthGrantRetrieveResponse</a></code>
+- <code><a href="./src/resources/top-level/oauth-grants.ts">OAuthGrantListResponse</a></code>
+- <code><a href="./src/resources/top-level/oauth-grants.ts">OAuthGrantDeleteResponse</a></code>
+
+Methods:
+
+- <code title="get /oauth_grants/{id}">client.client.oauthGrants.<a href="./src/resources/top-level/oauth-grants.ts">retrieve</a>(id) -> OAuthGrantRetrieveResponse</code>
+- <code title="get /oauth_grants">client.client.oauthGrants.<a href="./src/resources/top-level/oauth-grants.ts">list</a>({ ...params }) -> OAuthGrantListResponse</code>
+- <code title="delete /oauth_grants/{id}">client.client.oauthGrants.<a href="./src/resources/top-level/oauth-grants.ts">delete</a>(id) -> OAuthGrantDeleteResponse</code>
+
 # Shared
 
 Types:
@@ -422,6 +581,7 @@ Types:
 - <code><a href="./src/resources/ai/conversations/conversations.ts">ConversationRetrieveResponse</a></code>
 - <code><a href="./src/resources/ai/conversations/conversations.ts">ConversationUpdateResponse</a></code>
 - <code><a href="./src/resources/ai/conversations/conversations.ts">ConversationListResponse</a></code>
+- <code><a href="./src/resources/ai/conversations/conversations.ts">ConversationAddMessageResponse</a></code>
 - <code><a href="./src/resources/ai/conversations/conversations.ts">ConversationRetrieveConversationsInsightsResponse</a></code>
 
 Methods:
@@ -431,6 +591,7 @@ Methods:
 - <code title="put /ai/conversations/{conversation_id}">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">update</a>(conversationID, { ...params }) -> ConversationUpdateResponse</code>
 - <code title="get /ai/conversations">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponse</code>
 - <code title="delete /ai/conversations/{conversation_id}">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">delete</a>(conversationID) -> void</code>
+- <code title="post /ai/conversations/{conversation_id}/message">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">addMessage</a>(conversationID, { ...params }) -> unknown</code>
 - <code title="get /ai/conversations/{conversation_id}/conversations-insights">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">retrieveConversationsInsights</a>(conversationID) -> ConversationRetrieveConversationsInsightsResponse</code>
 
 ### InsightGroups
@@ -483,12 +644,10 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/ai/conversations/messages.ts">MessageCreateResponse</a></code>
 - <code><a href="./src/resources/ai/conversations/messages.ts">MessageListResponse</a></code>
 
 Methods:
 
-- <code title="post /ai/conversations/{conversation_id}/messages">client.ai.conversations.messages.<a href="./src/resources/ai/conversations/messages.ts">create</a>(conversationID, { ...params }) -> unknown</code>
 - <code title="get /ai/conversations/{conversation_id}/messages">client.ai.conversations.messages.<a href="./src/resources/ai/conversations/messages.ts">list</a>(conversationID) -> MessageListResponse</code>
 
 ## Embeddings
@@ -3648,7 +3807,9 @@ Types:
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfile</a></code>
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfileData</a></code>
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfileListResponse</a></code>
+- <code><a href="./src/resources/verify-profiles.ts">VerifyProfileCreateTemplateResponse</a></code>
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfileRetrieveTemplatesResponse</a></code>
+- <code><a href="./src/resources/verify-profiles.ts">VerifyProfileUpdateTemplateResponse</a></code>
 
 Methods:
 
@@ -3657,7 +3818,9 @@ Methods:
 - <code title="patch /verify_profiles/{verify_profile_id}">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">update</a>(verifyProfileID, { ...params }) -> VerifyProfileData</code>
 - <code title="get /verify_profiles">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">list</a>({ ...params }) -> VerifyProfileListResponse</code>
 - <code title="delete /verify_profiles/{verify_profile_id}">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">delete</a>(verifyProfileID) -> VerifyProfileData</code>
+- <code title="post /verify_profiles/templates">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">createTemplate</a>({ ...params }) -> VerifyProfileCreateTemplateResponse</code>
 - <code title="get /verify_profiles/templates">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">retrieveTemplates</a>() -> VerifyProfileRetrieveTemplatesResponse</code>
+- <code title="patch /verify_profiles/templates/{template_id}">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">updateTemplate</a>(templateID, { ...params }) -> VerifyProfileUpdateTemplateResponse</code>
 
 # VirtualCrossConnects
 
@@ -3808,3 +3971,17 @@ Methods:
 - <code title="get /partner_campaigns">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">list</a>({ ...params }) -> PartnerCampaignListResponse</code>
 - <code title="get /partnerCampaign/sharedByMe">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">listSharedByMe</a>({ ...params }) -> PartnerCampaignListSharedByMeResponse</code>
 - <code title="get /partnerCampaign/{campaignId}/sharing">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">retrieveSharingStatus</a>(campaignID) -> PartnerCampaignRetrieveSharingStatusResponse</code>
+
+# Client
+
+## WellKnown
+
+Types:
+
+- <code><a href="./src/resources/client/well-known.ts">WellKnownRetrieveAuthorizationServerMetadataResponse</a></code>
+- <code><a href="./src/resources/client/well-known.ts">WellKnownRetrieveProtectedResourceMetadataResponse</a></code>
+
+Methods:
+
+- <code title="get /.well-known/oauth-authorization-server">client.client.wellKnown.<a href="./src/resources/client/well-known.ts">retrieveAuthorizationServerMetadata</a>() -> WellKnownRetrieveAuthorizationServerMetadataResponse</code>
+- <code title="get /.well-known/oauth-protected-resource">client.client.wellKnown.<a href="./src/resources/client/well-known.ts">retrieveProtectedResourceMetadata</a>() -> WellKnownRetrieveProtectedResourceMetadataResponse</code>

@@ -34,6 +34,9 @@ export const tool: Tool = {
           },
         },
       },
+      customer_group_reference: {
+        type: 'string',
+      },
       customer_reference: {
         type: 'string',
       },

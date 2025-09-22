@@ -337,6 +337,11 @@ export interface PortingOrder {
   created_at?: string;
 
   /**
+   * A customer-specified group reference for customer bookkeeping purposes
+   */
+  customer_group_reference?: string;
+
+  /**
    * A customer-specified reference number for customer bookkeeping purposes
    */
   customer_reference?: string;
@@ -896,6 +901,11 @@ export interface PortingOrderCreateParams {
   phone_numbers: Array<string>;
 
   /**
+   * A customer-specified group reference for customer bookkeeping purposes
+   */
+  customer_group_reference?: string;
+
+  /**
    * A customer-specified reference number for customer bookkeeping purposes
    */
   customer_reference?: string;
@@ -910,6 +920,8 @@ export interface PortingOrderRetrieveParams {
 
 export interface PortingOrderUpdateParams {
   activation_settings?: PortingOrderUpdateParams.ActivationSettings;
+
+  customer_group_reference?: string;
 
   customer_reference?: string;
 
@@ -982,10 +994,10 @@ export namespace PortingOrderUpdateParams {
 export interface PortingOrderListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
-   * filter[customer_reference], filter[parent_support_key],
-   * filter[phone_numbers.country_code], filter[phone_numbers.carrier_name],
-   * filter[misc.type], filter[end_user.admin.entity_name],
-   * filter[end_user.admin.auth_person_name],
+   * filter[customer_reference], filter[customer_group_reference],
+   * filter[parent_support_key], filter[phone_numbers.country_code],
+   * filter[phone_numbers.carrier_name], filter[misc.type],
+   * filter[end_user.admin.entity_name], filter[end_user.admin.auth_person_name],
    * filter[activation_settings.fast_port_eligible],
    * filter[activation_settings.foc_datetime_requested][gt],
    * filter[activation_settings.foc_datetime_requested][lt],
@@ -1013,10 +1025,10 @@ export interface PortingOrderListParams {
 export namespace PortingOrderListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
-   * filter[customer_reference], filter[parent_support_key],
-   * filter[phone_numbers.country_code], filter[phone_numbers.carrier_name],
-   * filter[misc.type], filter[end_user.admin.entity_name],
-   * filter[end_user.admin.auth_person_name],
+   * filter[customer_reference], filter[customer_group_reference],
+   * filter[parent_support_key], filter[phone_numbers.country_code],
+   * filter[phone_numbers.carrier_name], filter[misc.type],
+   * filter[end_user.admin.entity_name], filter[end_user.admin.auth_person_name],
    * filter[activation_settings.fast_port_eligible],
    * filter[activation_settings.foc_datetime_requested][gt],
    * filter[activation_settings.foc_datetime_requested][lt],
@@ -1032,6 +1044,11 @@ export namespace PortingOrderListParams {
      * FOC datetime range filtering operations
      */
     'activation_settings.foc_datetime_requested'?: Filter.ActivationSettingsFocDatetimeRequested;
+
+    /**
+     * Filter results by customer_group_reference
+     */
+    customer_group_reference?: string;
 
     /**
      * Filter results by customer_reference

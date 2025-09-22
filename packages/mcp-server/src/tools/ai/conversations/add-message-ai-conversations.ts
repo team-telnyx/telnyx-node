@@ -6,16 +6,16 @@ import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Telnyx from 'telnyx';
 
 export const metadata: Metadata = {
-  resource: 'ai.conversations.messages',
+  resource: 'ai.conversations',
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/ai/conversations/{conversation_id}/messages',
+  httpPath: '/ai/conversations/{conversation_id}/message',
   operationId: 'add_new_message',
 };
 
 export const tool: Tool = {
-  name: 'create_conversations_ai_messages',
+  name: 'add_message_ai_conversations',
   description:
     'Add a new message to the conversation. Used to insert a new messages to a conversation manually ( without using chat endpoint )',
   inputSchema: {
@@ -81,9 +81,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { conversation_id, ...body } = args as any;
-  return asTextContentResult(
-    (await client.ai.conversations.messages.create(conversation_id, body)) as object,
-  );
+  return asTextContentResult((await client.ai.conversations.addMessage(conversation_id, body)) as object);
 };
 
 export default { metadata, tool, handler };

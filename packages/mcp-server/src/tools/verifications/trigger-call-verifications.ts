@@ -34,6 +34,11 @@ export const tool: Tool = {
         type: 'string',
         description: 'Send a self-generated numeric code to the end-user',
       },
+      extension: {
+        type: 'string',
+        description:
+          'Optional extension to dial after call is answered using DTMF digits. Valid digits are 0-9, A-D, *, and #. Pauses can be added using w (0.5s) and W (1s).',
+      },
       timeout_secs: {
         type: 'integer',
         description: 'The number of seconds the verification code is valid for.',
