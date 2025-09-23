@@ -215,76 +215,76 @@ The following tools are available in this MCP server.
 - `list_objects_client` (`read`): List all objects contained in a given bucket.
 - `put_object_client` (`write`): Add an object to a bucket.
 
-### Resource `$client.legacy.reporting.batch_detail_records.messaging`:
+### Resource `legacy.reporting.batch_detail_records.messaging`:
 
-- `create_batch_detail_records_reporting_legacy_client_messaging` (`write`): Creates a new MDR detailed report request with the specified filters
-- `retrieve_batch_detail_records_reporting_legacy_client_messaging` (`read`): Retrieves a specific MDR detailed report request by ID
-- `list_batch_detail_records_reporting_legacy_client_messaging` (`read`): Retrieves all MDR detailed report requests for the authenticated user
-- `delete_batch_detail_records_reporting_legacy_client_messaging` (`write`): Deletes a specific MDR detailed report request by ID
+- `create_batch_detail_records_reporting_legacy_messaging` (`write`): Creates a new MDR detailed report request with the specified filters
+- `retrieve_batch_detail_records_reporting_legacy_messaging` (`read`): Retrieves a specific MDR detailed report request by ID
+- `list_batch_detail_records_reporting_legacy_messaging` (`read`): Retrieves all MDR detailed report requests for the authenticated user
+- `delete_batch_detail_records_reporting_legacy_messaging` (`write`): Deletes a specific MDR detailed report request by ID
 
-### Resource `$client.legacy.reporting.batch_detail_records.speech_to_text`:
+### Resource `legacy.reporting.batch_detail_records.speech_to_text`:
 
-- `create_batch_detail_records_reporting_legacy_client_speech_to_text` (`write`): Creates a new Speech to Text batch report request with the specified filters
-- `retrieve_batch_detail_records_reporting_legacy_client_speech_to_text` (`read`): Retrieves a specific Speech to Text batch report request by ID
-- `list_batch_detail_records_reporting_legacy_client_speech_to_text` (`read`): Retrieves all Speech to Text batch report requests for the authenticated user
-- `delete_batch_detail_records_reporting_legacy_client_speech_to_text` (`write`): Deletes a specific Speech to Text batch report request by ID
+- `create_batch_detail_records_reporting_legacy_speech_to_text` (`write`): Creates a new Speech to Text batch report request with the specified filters
+- `retrieve_batch_detail_records_reporting_legacy_speech_to_text` (`read`): Retrieves a specific Speech to Text batch report request by ID
+- `list_batch_detail_records_reporting_legacy_speech_to_text` (`read`): Retrieves all Speech to Text batch report requests for the authenticated user
+- `delete_batch_detail_records_reporting_legacy_speech_to_text` (`write`): Deletes a specific Speech to Text batch report request by ID
 
-### Resource `$client.legacy.reporting.batch_detail_records.voice`:
+### Resource `legacy.reporting.batch_detail_records.voice`:
 
-- `create_batch_detail_records_reporting_legacy_client_voice` (`write`): Creates a new CDR report request with the specified filters
-- `retrieve_batch_detail_records_reporting_legacy_client_voice` (`read`): Retrieves a specific CDR report request by ID
-- `list_batch_detail_records_reporting_legacy_client_voice` (`read`): Retrieves all CDR report requests for the authenticated user
-- `delete_batch_detail_records_reporting_legacy_client_voice` (`write`): Deletes a specific CDR report request by ID
-- `retrieve_fields_batch_detail_records_reporting_legacy_client_voice` (`read`): Retrieves all available fields that can be used in CDR reports
+- `create_batch_detail_records_reporting_legacy_voice` (`write`): Creates a new CDR report request with the specified filters
+- `retrieve_batch_detail_records_reporting_legacy_voice` (`read`): Retrieves a specific CDR report request by ID
+- `list_batch_detail_records_reporting_legacy_voice` (`read`): Retrieves all CDR report requests for the authenticated user
+- `delete_batch_detail_records_reporting_legacy_voice` (`write`): Deletes a specific CDR report request by ID
+- `retrieve_fields_batch_detail_records_reporting_legacy_voice` (`read`): Retrieves all available fields that can be used in CDR reports
 
-### Resource `$client.legacy.reporting.usage_reports`:
+### Resource `legacy.reporting.usage_reports`:
 
-- `retrieve_speech_to_text_reporting_legacy_client_usage_reports` (`read`): Generate and fetch speech to text usage report synchronously. This endpoint will both generate and fetch the speech to text report over a specified time period.
+- `retrieve_speech_to_text_reporting_legacy_usage_reports` (`read`): Generate and fetch speech to text usage report synchronously. This endpoint will both generate and fetch the speech to text report over a specified time period.
 
-### Resource `$client.legacy.reporting.usage_reports.messaging`:
+### Resource `legacy.reporting.usage_reports.messaging`:
 
-- `create_usage_reports_reporting_legacy_client_messaging` (`write`): Creates a new legacy usage V2 MDR report request with the specified filters
-- `retrieve_usage_reports_reporting_legacy_client_messaging` (`read`): Fetch single MDR usage report by id.
-- `list_usage_reports_reporting_legacy_client_messaging` (`read`): Fetch all previous requests for MDR usage reports.
-- `delete_usage_reports_reporting_legacy_client_messaging` (`write`): Deletes a specific V2 legacy usage MDR report request by ID
+- `create_usage_reports_reporting_legacy_messaging` (`write`): Creates a new legacy usage V2 MDR report request with the specified filters
+- `retrieve_usage_reports_reporting_legacy_messaging` (`read`): Fetch single MDR usage report by id.
+- `list_usage_reports_reporting_legacy_messaging` (`read`): Fetch all previous requests for MDR usage reports.
+- `delete_usage_reports_reporting_legacy_messaging` (`write`): Deletes a specific V2 legacy usage MDR report request by ID
 
-### Resource `$client.legacy.reporting.usage_reports.number_lookup`:
+### Resource `legacy.reporting.usage_reports.number_lookup`:
 
-- `create_usage_reports_reporting_legacy_client_number_lookup` (`write`): Submit a new telco data usage report
-- `retrieve_usage_reports_reporting_legacy_client_number_lookup` (`read`): Retrieve a specific telco data usage report by its ID
-- `list_usage_reports_reporting_legacy_client_number_lookup` (`read`): Retrieve a paginated list of telco data usage reports
-- `delete_usage_reports_reporting_legacy_client_number_lookup` (`write`): Delete a specific telco data usage report by its ID
+- `create_usage_reports_reporting_legacy_number_lookup` (`write`): Submit a new telco data usage report
+- `retrieve_usage_reports_reporting_legacy_number_lookup` (`read`): Retrieve a specific telco data usage report by its ID
+- `list_usage_reports_reporting_legacy_number_lookup` (`read`): Retrieve a paginated list of telco data usage reports
+- `delete_usage_reports_reporting_legacy_number_lookup` (`write`): Delete a specific telco data usage report by its ID
 
-### Resource `$client.legacy.reporting.usage_reports.voice`:
+### Resource `legacy.reporting.usage_reports.voice`:
 
-- `create_usage_reports_reporting_legacy_client_voice` (`write`): Creates a new legacy usage V2 CDR report request with the specified filters
-- `retrieve_usage_reports_reporting_legacy_client_voice` (`read`): Fetch single cdr usage report by id.
-- `list_usage_reports_reporting_legacy_client_voice` (`read`): Fetch all previous requests for cdr usage reports.
-- `delete_usage_reports_reporting_legacy_client_voice` (`write`): Deletes a specific V2 legacy usage CDR report request by ID
+- `create_usage_reports_reporting_legacy_voice` (`write`): Creates a new legacy usage V2 CDR report request with the specified filters
+- `retrieve_usage_reports_reporting_legacy_voice` (`read`): Fetch single cdr usage report by id.
+- `list_usage_reports_reporting_legacy_voice` (`read`): Fetch all previous requests for cdr usage reports.
+- `delete_usage_reports_reporting_legacy_voice` (`write`): Deletes a specific V2 legacy usage CDR report request by ID
 
-### Resource `$client.oauth`:
+### Resource `oauth`:
 
-- `retrieve_client_oauth` (`read`): Retrieve details about an OAuth consent token
-- `grants_client_oauth` (`write`): Create an OAuth authorization grant
-- `introspect_client_oauth` (`write`): Introspect an OAuth access token to check its validity and metadata
-- `register_client_oauth` (`write`): Register a new OAuth client dynamically (RFC 7591)
-- `retrieve_authorize_client_oauth` (`read`): OAuth 2.0 authorization endpoint for the authorization code flow
-- `retrieve_jwks_client_oauth` (`read`): Retrieve the JSON Web Key Set for token verification
-- `token_client_oauth` (`write`): Exchange authorization code, client credentials, or refresh token for access token
+- `retrieve_oauth` (`read`): Retrieve details about an OAuth consent token
+- `grants_oauth` (`write`): Create an OAuth authorization grant
+- `introspect_oauth` (`write`): Introspect an OAuth access token to check its validity and metadata
+- `register_oauth` (`write`): Register a new OAuth client dynamically (RFC 7591)
+- `retrieve_authorize_oauth` (`read`): OAuth 2.0 authorization endpoint for the authorization code flow
+- `retrieve_jwks_oauth` (`read`): Retrieve the JSON Web Key Set for token verification
+- `token_oauth` (`write`): Exchange authorization code, client credentials, or refresh token for access token
 
-### Resource `$client.oauth_clients`:
+### Resource `oauth_clients`:
 
-- `create_client_oauth_clients` (`write`): Create a new OAuth client
-- `retrieve_client_oauth_clients` (`read`): Retrieve a single OAuth client by ID
-- `update_client_oauth_clients` (`write`): Update an existing OAuth client
-- `list_client_oauth_clients` (`read`): Retrieve a paginated list of OAuth clients for the authenticated user
-- `delete_client_oauth_clients` (`write`): Delete an OAuth client
+- `create_oauth_clients` (`write`): Create a new OAuth client
+- `retrieve_oauth_clients` (`read`): Retrieve a single OAuth client by ID
+- `update_oauth_clients` (`write`): Update an existing OAuth client
+- `list_oauth_clients` (`read`): Retrieve a paginated list of OAuth clients for the authenticated user
+- `delete_oauth_clients` (`write`): Delete an OAuth client
 
-### Resource `$client.oauth_grants`:
+### Resource `oauth_grants`:
 
-- `retrieve_client_oauth_grants` (`read`): Retrieve a single OAuth grant by ID
-- `list_client_oauth_grants` (`read`): Retrieve a paginated list of OAuth grants for the authenticated user
-- `delete_client_oauth_grants` (`write`): Revoke an OAuth grant
+- `retrieve_oauth_grants` (`read`): Retrieve a single OAuth grant by ID
+- `list_oauth_grants` (`read`): Retrieve a paginated list of OAuth grants for the authenticated user
+- `delete_oauth_grants` (`write`): Revoke an OAuth grant
 
 ### Resource `access_ip_address`:
 
