@@ -121,7 +121,7 @@ describe('resource jobs', () => {
           t38_fax_gateway_enabled: true,
         },
         tech_prefix_enabled: true,
-        translated_number: 'translated_number',
+        translated_number: '+13035559999',
         usage_payment_method: 'pay-per-minute',
       },
     });
