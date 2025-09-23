@@ -112,7 +112,7 @@ importers:
     devDependencies:
       '@anthropic-ai/mcpb':
         specifier: ^1.1.0
-        version: 1.1.0
+        version: 1.1.1
       '@types/cors':
         specifier: ^2.8.19
         version: 2.8.19
@@ -189,10 +189,10 @@ packages:
         integrity: sha512-Jh15/qVmrLGhkKJBdXlK1+9tY4lZruYjsgkDFj08ZmDiWVBLJcqkok7Z0/R0In+i1rScBpJlSvrTS2Lm41Pbnw==,
       }
 
-  '@anthropic-ai/mcpb@1.1.0':
+  '@anthropic-ai/mcpb@1.1.1':
     resolution:
       {
-        integrity: sha512-nOnhG1eNpGKSIDv6lt3xsI3w2p2k0D/rPTMGXXugLovCEaJ7svh8XMfCe145vs8qo384t8wKbokWAvx9PkQMDA==,
+        integrity: sha512-a8R5pQcPPwUfuswR2of4tHDd/NJHv1L6mKJ97hfqE/gZq/xaqL12mDUtQVcyl3g1BV8csi9JOpyf15jLvfIXvQ==,
       }
     hasBin: true
 
@@ -4482,7 +4482,7 @@ snapshots:
 
   '@andrewbranch/untar.js@1.0.3': {}
 
-  '@anthropic-ai/mcpb@1.1.0':
+  '@anthropic-ai/mcpb@1.1.1':
     dependencies:
       '@inquirer/prompts': 6.0.1
       commander: 13.1.0
