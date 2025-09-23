@@ -155,7 +155,7 @@ export class Messages extends APIResource {
   }
 }
 
-export interface Error {
+export interface APIError {
   code: string;
 
   title: string;
@@ -164,10 +164,10 @@ export interface Error {
 
   meta?: { [key: string]: unknown };
 
-  source?: Error.Source;
+  source?: APIError.Source;
 }
 
-export namespace Error {
+export namespace APIError {
   export interface Source {
     /**
      * Indicates which query parameter caused the error.
@@ -1375,7 +1375,7 @@ Messages.Rcs = Rcs;
 
 export declare namespace Messages {
   export {
-    type Error as Error,
+    type APIError as APIError,
     type MessagingError as MessagingError,
     type OutboundMessagePayload as OutboundMessagePayload,
     type MessageRetrieveResponse as MessageRetrieveResponse,

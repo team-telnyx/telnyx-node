@@ -494,7 +494,7 @@ export {
 } from './media';
 export {
   Messages,
-  type Error,
+  type APIError,
   type MessagingError,
   type OutboundMessagePayload,
   type MessageRetrieveResponse,
