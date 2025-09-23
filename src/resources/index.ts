@@ -166,7 +166,6 @@ export {
   type ChargesSummaryRetrieveResponse,
   type ChargesSummaryRetrieveParams,
 } from './charges-summary';
-export { Client } from './client/client';
 export {
   Comments,
   type CommentCreateResponse,
@@ -1239,6 +1238,11 @@ export {
   type TranscriptionWebhookEvent,
   type UnwrapWebhookEvent,
 } from './webhooks';
+export {
+  WellKnown,
+  type WellKnownRetrieveAuthorizationServerMetadataResponse,
+  type WellKnownRetrieveProtectedResourceMetadataResponse,
+} from './well-known';
 export {
   WireguardInterfaces,
   type WireguardInterfaceCreateResponse,
