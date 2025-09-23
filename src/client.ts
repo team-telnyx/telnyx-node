@@ -920,6 +920,11 @@ import {
   Webhooks,
 } from './resources/webhooks';
 import {
+  WellKnown,
+  WellKnownRetrieveAuthorizationServerMetadataResponse,
+  WellKnownRetrieveProtectedResourceMetadataResponse,
+} from './resources/well-known';
+import {
   WireguardInterfaceCreateParams,
   WireguardInterfaceCreateResponse,
   WireguardInterfaceDeleteResponse,
@@ -1326,7 +1331,6 @@ import {
 } from './internal/utils/log';
 import { path } from './internal/utils/path';
 import { isEmptyObj } from './internal/utils/values';
-import { Client } from './resources/client/client';
 
 export interface ClientOptions {
   /**
@@ -2269,7 +2273,7 @@ export class Telnyx {
   wirelessBlocklistValues: API.WirelessBlocklistValues = new API.WirelessBlocklistValues(this);
   wirelessBlocklists: API.WirelessBlocklists = new API.WirelessBlocklists(this);
   partnerCampaigns: API.PartnerCampaigns = new API.PartnerCampaigns(this);
-  client: API.Client = new API.Client(this);
+  wellKnown: API.WellKnown = new API.WellKnown(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -2424,7 +2428,7 @@ Telnyx.Wireless = Wireless;
 Telnyx.WirelessBlocklistValues = WirelessBlocklistValues;
 Telnyx.WirelessBlocklists = WirelessBlocklists;
 Telnyx.PartnerCampaigns = PartnerCampaigns;
-Telnyx.Client = Client;
+Telnyx.WellKnown = WellKnown;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3919,7 +3923,11 @@ export declare namespace Telnyx {
     type PartnerCampaignListSharedByMeParams as PartnerCampaignListSharedByMeParams,
   };
 
-  export { Client as Client };
+  export {
+    WellKnown as WellKnown,
+    type WellKnownRetrieveAuthorizationServerMetadataResponse as WellKnownRetrieveAuthorizationServerMetadataResponse,
+    type WellKnownRetrieveProtectedResourceMetadataResponse as WellKnownRetrieveProtectedResourceMetadataResponse,
+  };
 
   export type ConnectionsPaginationMeta = API.ConnectionsPaginationMeta;
   export type DocReqsRequirementType = API.DocReqsRequirementType;

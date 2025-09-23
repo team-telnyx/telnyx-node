@@ -2167,7 +2167,7 @@ The following tools are available in this MCP server.
 
 - `retrieve_sharing_status_partner_campaigns` (`read`): Get Sharing Status
 
-### Resource `client.well_known`:
+### Resource `well_known`:
 
-- `retrieve_authorization_server_metadata_client_well_known` (`read`): OAuth 2.0 Authorization Server Metadata (RFC 8414)
-- `retrieve_protected_resource_metadata_client_well_known` (`read`): OAuth 2.0 Protected Resource Metadata for resource discovery
+- `retrieve_authorization_server_metadata_well_known` (`read`): OAuth 2.0 Authorization Server Metadata (RFC 8414)
+- `retrieve_protected_resource_metadata_well_known` (`read`): OAuth 2.0 Protected Resource Metadata for resource discovery

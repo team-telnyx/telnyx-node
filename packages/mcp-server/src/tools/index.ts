@@ -848,8 +848,8 @@ import update_partner_campaigns from './partner-campaigns/update-partner-campaig
 import list_partner_campaigns from './partner-campaigns/list-partner-campaigns';
 import list_shared_by_me_partner_campaigns from './partner-campaigns/list-shared-by-me-partner-campaigns';
 import retrieve_sharing_status_partner_campaigns from './partner-campaigns/retrieve-sharing-status-partner-campaigns';
-import retrieve_authorization_server_metadata_client_well_known from './client/well-known/retrieve-authorization-server-metadata-client-well-known';
-import retrieve_protected_resource_metadata_client_well_known from './client/well-known/retrieve-protected-resource-metadata-client-well-known';
+import retrieve_authorization_server_metadata_well_known from './well-known/retrieve-authorization-server-metadata-well-known';
+import retrieve_protected_resource_metadata_well_known from './well-known/retrieve-protected-resource-metadata-well-known';
 
 export const endpoints: Endpoint[] = [];
 
@@ -1701,8 +1701,8 @@ addEndpoint(update_partner_campaigns);
 addEndpoint(list_partner_campaigns);
 addEndpoint(list_shared_by_me_partner_campaigns);
 addEndpoint(retrieve_sharing_status_partner_campaigns);
-addEndpoint(retrieve_authorization_server_metadata_client_well_known);
-addEndpoint(retrieve_protected_resource_metadata_client_well_known);
+addEndpoint(retrieve_authorization_server_metadata_well_known);
+addEndpoint(retrieve_protected_resource_metadata_well_known);
 
 export type Filter = {
   type: 'resource' | 'operation' | 'tag' | 'tool';

@@ -3972,16 +3972,14 @@ Methods:
 - <code title="get /partnerCampaign/sharedByMe">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">listSharedByMe</a>({ ...params }) -> PartnerCampaignListSharedByMeResponse</code>
 - <code title="get /partnerCampaign/{campaignId}/sharing">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">retrieveSharingStatus</a>(campaignID) -> PartnerCampaignRetrieveSharingStatusResponse</code>
 
-# Client
-
-## WellKnown
+# WellKnown
 
 Types:
 
-- <code><a href="./src/resources/client/well-known.ts">WellKnownRetrieveAuthorizationServerMetadataResponse</a></code>
-- <code><a href="./src/resources/client/well-known.ts">WellKnownRetrieveProtectedResourceMetadataResponse</a></code>
+- <code><a href="./src/resources/well-known.ts">WellKnownRetrieveAuthorizationServerMetadataResponse</a></code>
+- <code><a href="./src/resources/well-known.ts">WellKnownRetrieveProtectedResourceMetadataResponse</a></code>
 
 Methods:
 
-- <code title="get /.well-known/oauth-authorization-server">client.client.wellKnown.<a href="./src/resources/client/well-known.ts">retrieveAuthorizationServerMetadata</a>() -> WellKnownRetrieveAuthorizationServerMetadataResponse</code>
-- <code title="get /.well-known/oauth-protected-resource">client.client.wellKnown.<a href="./src/resources/client/well-known.ts">retrieveProtectedResourceMetadata</a>() -> WellKnownRetrieveProtectedResourceMetadataResponse</code>
+- <code title="get /.well-known/oauth-authorization-server">client.wellKnown.<a href="./src/resources/well-known.ts">retrieveAuthorizationServerMetadata</a>() -> WellKnownRetrieveAuthorizationServerMetadataResponse</code>
+- <code title="get /.well-known/oauth-protected-resource">client.wellKnown.<a href="./src/resources/well-known.ts">retrieveProtectedResourceMetadata</a>() -> WellKnownRetrieveProtectedResourceMetadataResponse</code>
