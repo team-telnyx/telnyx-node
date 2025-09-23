@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import { APIError } from './core/error';
 import type { RequestInit, RequestInfo, BodyInit } from './internal/builtin-types';
 import type { HTTPMethod, PromiseOrValue, MergedRequestInit, FinalizedRequestInit } from './internal/types';
 import { uuid4 } from './internal/utils/uuid';
@@ -1097,7 +1098,7 @@ import {
   ManagedAccounts,
 } from './resources/managed-accounts/managed-accounts';
 import {
-  Error,
+  APIError,
   MessageCancelScheduledResponse,
   MessageRetrieveResponse,
   MessageScheduleParams,
@@ -3135,7 +3136,7 @@ export declare namespace Telnyx {
 
   export {
     Messages as Messages,
-    type Error as Error,
+    type APIError as APIError,
     type MessagingError as MessagingError,
     type OutboundMessagePayload as OutboundMessagePayload,
     type MessageRetrieveResponse as MessageRetrieveResponse,
