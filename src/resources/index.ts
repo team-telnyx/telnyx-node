@@ -465,6 +465,7 @@ export {
   type LedgerBillingGroupReportRetrieveResponse,
   type LedgerBillingGroupReportCreateParams,
 } from './ledger-billing-group-reports';
+export { Legacy } from './legacy/legacy';
 export { List, type ListRetrieveAllResponse, type ListRetrieveByZoneResponse } from './list';
 export {
   ManagedAccounts,
@@ -704,6 +705,37 @@ export {
   type NumbersFeatureCreateResponse,
   type NumbersFeatureCreateParams,
 } from './numbers-features';
+export {
+  OAuth,
+  type OAuthRetrieveResponse,
+  type OAuthGrantsResponse,
+  type OAuthIntrospectResponse,
+  type OAuthRegisterResponse,
+  type OAuthRetrieveJwksResponse,
+  type OAuthTokenResponse,
+  type OAuthGrantsParams,
+  type OAuthIntrospectParams,
+  type OAuthRegisterParams,
+  type OAuthRetrieveAuthorizeParams,
+  type OAuthTokenParams,
+} from './oauth';
+export {
+  OAuthClients,
+  type OAuthClientCreateResponse,
+  type OAuthClientRetrieveResponse,
+  type OAuthClientUpdateResponse,
+  type OAuthClientListResponse,
+  type OAuthClientCreateParams,
+  type OAuthClientUpdateParams,
+  type OAuthClientListParams,
+} from './oauth-clients';
+export {
+  OAuthGrants,
+  type OAuthGrantRetrieveResponse,
+  type OAuthGrantListResponse,
+  type OAuthGrantDeleteResponse,
+  type OAuthGrantListParams,
+} from './oauth-grants';
 export { OperatorConnect } from './operator-connect/operator-connect';
 export {
   OtaUpdates,
@@ -1261,4 +1293,4 @@ export {
   type GetObjectParams,
   type ListObjectsParams,
   type PutObjectParams,
-} from './top-level/top-level';
+} from './top-level';

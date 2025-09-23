@@ -16,7 +16,7 @@ import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
-import * as TopLevelAPI from './resources/top-level/top-level';
+import * as TopLevelAPI from './resources/top-level';
 import {
   CreateBucketParams,
   DeleteObjectParams,
@@ -27,7 +27,7 @@ import {
   ListObjectsParams,
   ListObjectsResponse,
   PutObjectParams,
-} from './resources/top-level/top-level';
+} from './resources/top-level';
 import { APIPromise } from './core/api-promise';
 import {
   AccessIPAddress,
@@ -522,6 +522,37 @@ import {
   NumbersFeatureCreateResponse,
   NumbersFeatures,
 } from './resources/numbers-features';
+import {
+  OAuth,
+  OAuthGrantsParams,
+  OAuthGrantsResponse,
+  OAuthIntrospectParams,
+  OAuthIntrospectResponse,
+  OAuthRegisterParams,
+  OAuthRegisterResponse,
+  OAuthRetrieveAuthorizeParams,
+  OAuthRetrieveJwksResponse,
+  OAuthRetrieveResponse,
+  OAuthTokenParams,
+  OAuthTokenResponse,
+} from './resources/oauth';
+import {
+  OAuthClientCreateParams,
+  OAuthClientCreateResponse,
+  OAuthClientListParams,
+  OAuthClientListResponse,
+  OAuthClientRetrieveResponse,
+  OAuthClientUpdateParams,
+  OAuthClientUpdateResponse,
+  OAuthClients,
+} from './resources/oauth-clients';
+import {
+  OAuthGrantDeleteResponse,
+  OAuthGrantListParams,
+  OAuthGrantListResponse,
+  OAuthGrantRetrieveResponse,
+  OAuthGrants,
+} from './resources/oauth-grants';
 import {
   OtaUpdateListParams,
   OtaUpdateListResponse,
@@ -1044,6 +1075,7 @@ import {
   FaxRetrieveResponse,
   Faxes,
 } from './resources/faxes/faxes';
+import { Legacy } from './resources/legacy/legacy';
 import {
   ManagedAccount,
   ManagedAccountBalance,
@@ -1466,11 +1498,6 @@ export class Telnyx {
 
   /**
    * Create a bucket.
-   *
-   * @example
-   * ```ts
-   * await client.createBucket('mybucket');
-   * ```
    */
   createBucket(
     bucketName: string,
@@ -1486,11 +1513,6 @@ export class Telnyx {
 
   /**
    * Deletes a bucket. The bucket must be empty for it to be deleted.
-   *
-   * @example
-   * ```ts
-   * await client.deleteBucket('bucketName');
-   * ```
    */
   deleteBucket(bucketName: string, options?: RequestOptions): APIPromise<void> {
     return this.delete(path`/${bucketName}`, {
@@ -1501,13 +1523,6 @@ export class Telnyx {
 
   /**
    * Delete an object from a given bucket.
-   *
-   * @example
-   * ```ts
-   * await client.deleteObject('x', {
-   *   bucketName: 'bucketName',
-   * });
-   * ```
    */
   deleteObject(
     objectName: string,
@@ -1523,14 +1538,6 @@ export class Telnyx {
 
   /**
    * Deletes one or multiple objects from a given bucket.
-   *
-   * @example
-   * ```ts
-   * const response = await client.deleteObjects('bucketName', {
-   *   delete: true,
-   *   body: [{}],
-   * });
-   * ```
    */
   deleteObjects(
     bucketName: string,
@@ -1548,16 +1555,6 @@ export class Telnyx {
 
   /**
    * Retrieves an object from a given bucket.
-   *
-   * @example
-   * ```ts
-   * const response = await client.getObject('x', {
-   *   bucketName: 'bucketName',
-   * });
-   *
-   * const content = await response.blob();
-   * console.log(content);
-   * ```
    */
   getObject(
     objectName: string,
@@ -1575,11 +1572,6 @@ export class Telnyx {
 
   /**
    * List all Buckets.
-   *
-   * @example
-   * ```ts
-   * const response = await client.listBuckets();
-   * ```
    */
   listBuckets(options?: RequestOptions): APIPromise<TopLevelAPI.ListBucketsResponse> {
     return this.get('/', {
@@ -1590,11 +1582,6 @@ export class Telnyx {
 
   /**
    * List all objects contained in a given bucket.
-   *
-   * @example
-   * ```ts
-   * const response = await client.listObjects('xxxx');
-   * ```
    */
   listObjects(
     bucketName: string,
@@ -1610,14 +1597,6 @@ export class Telnyx {
 
   /**
    * Add an object to a bucket.
-   *
-   * @example
-   * ```ts
-   * await client.putObject('x', {
-   *   bucketName: 'bucketName',
-   *   body: fs.createReadStream('path/to/file'),
-   * });
-   * ```
    */
   putObject(
     objectName: string,
@@ -2133,6 +2112,10 @@ export class Telnyx {
 
   static toFile = Uploads.toFile;
 
+  legacy: API.Legacy = new API.Legacy(this);
+  oauth: API.OAuth = new API.OAuth(this);
+  oauthClients: API.OAuthClients = new API.OAuthClients(this);
+  oauthGrants: API.OAuthGrants = new API.OAuthGrants(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
   accessIPAddress: API.AccessIPAddress = new API.AccessIPAddress(this);
   accessIPRanges: API.AccessIPRanges = new API.AccessIPRanges(this);
@@ -2289,6 +2272,10 @@ export class Telnyx {
   client: API.Client = new API.Client(this);
 }
 
+Telnyx.Legacy = Legacy;
+Telnyx.OAuth = OAuth;
+Telnyx.OAuthClients = OAuthClients;
+Telnyx.OAuthGrants = OAuthGrants;
 Telnyx.Webhooks = Webhooks;
 Telnyx.AccessIPAddress = AccessIPAddress;
 Telnyx.AccessIPRanges = AccessIPRanges;
@@ -2452,6 +2439,42 @@ export declare namespace Telnyx {
     type GetObjectParams as GetObjectParams,
     type ListObjectsParams as ListObjectsParams,
     type PutObjectParams as PutObjectParams,
+  };
+
+  export { Legacy as Legacy };
+
+  export {
+    OAuth as OAuth,
+    type OAuthRetrieveResponse as OAuthRetrieveResponse,
+    type OAuthGrantsResponse as OAuthGrantsResponse,
+    type OAuthIntrospectResponse as OAuthIntrospectResponse,
+    type OAuthRegisterResponse as OAuthRegisterResponse,
+    type OAuthRetrieveJwksResponse as OAuthRetrieveJwksResponse,
+    type OAuthTokenResponse as OAuthTokenResponse,
+    type OAuthGrantsParams as OAuthGrantsParams,
+    type OAuthIntrospectParams as OAuthIntrospectParams,
+    type OAuthRegisterParams as OAuthRegisterParams,
+    type OAuthRetrieveAuthorizeParams as OAuthRetrieveAuthorizeParams,
+    type OAuthTokenParams as OAuthTokenParams,
+  };
+
+  export {
+    OAuthClients as OAuthClients,
+    type OAuthClientCreateResponse as OAuthClientCreateResponse,
+    type OAuthClientRetrieveResponse as OAuthClientRetrieveResponse,
+    type OAuthClientUpdateResponse as OAuthClientUpdateResponse,
+    type OAuthClientListResponse as OAuthClientListResponse,
+    type OAuthClientCreateParams as OAuthClientCreateParams,
+    type OAuthClientUpdateParams as OAuthClientUpdateParams,
+    type OAuthClientListParams as OAuthClientListParams,
+  };
+
+  export {
+    OAuthGrants as OAuthGrants,
+    type OAuthGrantRetrieveResponse as OAuthGrantRetrieveResponse,
+    type OAuthGrantListResponse as OAuthGrantListResponse,
+    type OAuthGrantDeleteResponse as OAuthGrantDeleteResponse,
+    type OAuthGrantListParams as OAuthGrantListParams,
   };
 
   export {
