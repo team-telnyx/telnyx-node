@@ -39,7 +39,7 @@ describe('resource phoneNumberConfigurations', () => {
       client.portingOrders.phoneNumberConfigurations.list(
         {
           filter: {
-            'porting_order.status': ['activation-in-progress'],
+            porting_order: { status: ['activation-in-progress'] },
             porting_phone_number: ['5d6f7ede-1961-4717-bfb5-db392c5efc2d'],
             user_bundle_id: ['5d6f7ede-1961-4717-bfb5-db392c5efc2d'],
           },

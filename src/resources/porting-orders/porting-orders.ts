@@ -1035,15 +1035,7 @@ export namespace PortingOrderListParams {
    * filter[phone_numbers.phone_number][contains]
    */
   export interface Filter {
-    /**
-     * Filter results by fast port eligible
-     */
-    'activation_settings.fast_port_eligible'?: boolean;
-
-    /**
-     * FOC datetime range filtering operations
-     */
-    'activation_settings.foc_datetime_requested'?: Filter.ActivationSettingsFocDatetimeRequested;
+    activation_settings?: Filter.ActivationSettings;
 
     /**
      * Filter results by customer_group_reference
@@ -1055,66 +1047,100 @@ export namespace PortingOrderListParams {
      */
     customer_reference?: string;
 
-    /**
-     * Filter results by authorized person
-     */
-    'end_user.admin.auth_person_name'?: string;
+    end_user?: Filter.EndUser;
 
-    /**
-     * Filter results by person or company name
-     */
-    'end_user.admin.entity_name'?: string;
-
-    /**
-     * Filter results by porting order type
-     */
-    'misc.type'?: PortingOrdersAPI.PortingOrderType;
+    misc?: Filter.Misc;
 
     /**
      * Filter results by parent_support_key
      */
     parent_support_key?: string;
 
-    /**
-     * Filter results by old service provider
-     */
-    'phone_numbers.carrier_name'?: string;
-
-    /**
-     * Filter results by country ISO 3166-1 alpha-2 code
-     */
-    'phone_numbers.country_code'?: string;
-
-    /**
-     * Phone number filtering operations
-     */
-    'phone_numbers.phone_number'?: Filter.PhoneNumbersPhoneNumber;
+    phone_numbers?: Filter.PhoneNumbers;
   }
 
   export namespace Filter {
-    /**
-     * FOC datetime range filtering operations
-     */
-    export interface ActivationSettingsFocDatetimeRequested {
+    export interface ActivationSettings {
       /**
-       * Filter results by foc date later than this value
+       * Filter results by fast port eligible
        */
-      gt?: string;
+      fast_port_eligible?: boolean;
 
       /**
-       * Filter results by foc date earlier than this value
+       * FOC datetime range filtering operations
        */
-      lt?: string;
+      foc_datetime_requested?: ActivationSettings.FocDatetimeRequested;
     }
 
-    /**
-     * Phone number filtering operations
-     */
-    export interface PhoneNumbersPhoneNumber {
+    export namespace ActivationSettings {
       /**
-       * Filter results by full or partial phone_number
+       * FOC datetime range filtering operations
        */
-      contains?: string;
+      export interface FocDatetimeRequested {
+        /**
+         * Filter results by foc date later than this value
+         */
+        gt?: string;
+
+        /**
+         * Filter results by foc date earlier than this value
+         */
+        lt?: string;
+      }
+    }
+
+    export interface EndUser {
+      admin?: EndUser.Admin;
+    }
+
+    export namespace EndUser {
+      export interface Admin {
+        /**
+         * Filter results by authorized person
+         */
+        auth_person_name?: string;
+
+        /**
+         * Filter results by person or company name
+         */
+        entity_name?: string;
+      }
+    }
+
+    export interface Misc {
+      /**
+       * Filter results by porting order type
+       */
+      type?: PortingOrdersAPI.PortingOrderType;
+    }
+
+    export interface PhoneNumbers {
+      /**
+       * Filter results by old service provider
+       */
+      carrier_name?: string;
+
+      /**
+       * Filter results by country ISO 3166-1 alpha-2 code
+       */
+      country_code?: string;
+
+      /**
+       * Phone number pattern filtering operations
+       */
+      phone_number?: PhoneNumbers.PhoneNumber;
+    }
+
+    export namespace PhoneNumbers {
+      /**
+       * Phone number pattern filtering operations
+       */
+      export interface PhoneNumber {
+        /**
+         * Filter results by full or partial phone_number
+         */
+        contains?: string;
+      }
     }
   }
 
