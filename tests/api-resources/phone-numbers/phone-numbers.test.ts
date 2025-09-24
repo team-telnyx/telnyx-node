@@ -63,6 +63,7 @@ describe('resource phoneNumbers', () => {
             tag: 'tag',
             'voice.connection_name': { contains: 'test', ends_with: 'test', eq: 'test', starts_with: 'test' },
             'voice.usage_payment_method': 'channel',
+            without_tags: 'true',
           },
           page: { number: 1, size: 1 },
           sort: 'connection_name',

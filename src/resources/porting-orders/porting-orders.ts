@@ -337,6 +337,11 @@ export interface PortingOrder {
   created_at?: string;
 
   /**
+   * A customer-specified group reference for customer bookkeeping purposes
+   */
+  customer_group_reference?: string;
+
+  /**
    * A customer-specified reference number for customer bookkeeping purposes
    */
   customer_reference?: string;
@@ -896,6 +901,11 @@ export interface PortingOrderCreateParams {
   phone_numbers: Array<string>;
 
   /**
+   * A customer-specified group reference for customer bookkeeping purposes
+   */
+  customer_group_reference?: string;
+
+  /**
    * A customer-specified reference number for customer bookkeeping purposes
    */
   customer_reference?: string;
@@ -910,6 +920,8 @@ export interface PortingOrderRetrieveParams {
 
 export interface PortingOrderUpdateParams {
   activation_settings?: PortingOrderUpdateParams.ActivationSettings;
+
+  customer_group_reference?: string;
 
   customer_reference?: string;
 
@@ -982,10 +994,10 @@ export namespace PortingOrderUpdateParams {
 export interface PortingOrderListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
-   * filter[customer_reference], filter[parent_support_key],
-   * filter[phone_numbers.country_code], filter[phone_numbers.carrier_name],
-   * filter[misc.type], filter[end_user.admin.entity_name],
-   * filter[end_user.admin.auth_person_name],
+   * filter[customer_reference], filter[customer_group_reference],
+   * filter[parent_support_key], filter[phone_numbers.country_code],
+   * filter[phone_numbers.carrier_name], filter[misc.type],
+   * filter[end_user.admin.entity_name], filter[end_user.admin.auth_person_name],
    * filter[activation_settings.fast_port_eligible],
    * filter[activation_settings.foc_datetime_requested][gt],
    * filter[activation_settings.foc_datetime_requested][lt],
@@ -1013,91 +1025,122 @@ export interface PortingOrderListParams {
 export namespace PortingOrderListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
-   * filter[customer_reference], filter[parent_support_key],
-   * filter[phone_numbers.country_code], filter[phone_numbers.carrier_name],
-   * filter[misc.type], filter[end_user.admin.entity_name],
-   * filter[end_user.admin.auth_person_name],
+   * filter[customer_reference], filter[customer_group_reference],
+   * filter[parent_support_key], filter[phone_numbers.country_code],
+   * filter[phone_numbers.carrier_name], filter[misc.type],
+   * filter[end_user.admin.entity_name], filter[end_user.admin.auth_person_name],
    * filter[activation_settings.fast_port_eligible],
    * filter[activation_settings.foc_datetime_requested][gt],
    * filter[activation_settings.foc_datetime_requested][lt],
    * filter[phone_numbers.phone_number][contains]
    */
   export interface Filter {
-    /**
-     * Filter results by fast port eligible
-     */
-    'activation_settings.fast_port_eligible'?: boolean;
+    activation_settings?: Filter.ActivationSettings;
 
     /**
-     * FOC datetime range filtering operations
+     * Filter results by customer_group_reference
      */
-    'activation_settings.foc_datetime_requested'?: Filter.ActivationSettingsFocDatetimeRequested;
+    customer_group_reference?: string;
 
     /**
      * Filter results by customer_reference
      */
     customer_reference?: string;
 
-    /**
-     * Filter results by authorized person
-     */
-    'end_user.admin.auth_person_name'?: string;
+    end_user?: Filter.EndUser;
 
-    /**
-     * Filter results by person or company name
-     */
-    'end_user.admin.entity_name'?: string;
-
-    /**
-     * Filter results by porting order type
-     */
-    'misc.type'?: PortingOrdersAPI.PortingOrderType;
+    misc?: Filter.Misc;
 
     /**
      * Filter results by parent_support_key
      */
     parent_support_key?: string;
 
-    /**
-     * Filter results by old service provider
-     */
-    'phone_numbers.carrier_name'?: string;
-
-    /**
-     * Filter results by country ISO 3166-1 alpha-2 code
-     */
-    'phone_numbers.country_code'?: string;
-
-    /**
-     * Phone number filtering operations
-     */
-    'phone_numbers.phone_number'?: Filter.PhoneNumbersPhoneNumber;
+    phone_numbers?: Filter.PhoneNumbers;
   }
 
   export namespace Filter {
-    /**
-     * FOC datetime range filtering operations
-     */
-    export interface ActivationSettingsFocDatetimeRequested {
+    export interface ActivationSettings {
       /**
-       * Filter results by foc date later than this value
+       * Filter results by fast port eligible
        */
-      gt?: string;
+      fast_port_eligible?: boolean;
 
       /**
-       * Filter results by foc date earlier than this value
+       * FOC datetime range filtering operations
        */
-      lt?: string;
+      foc_datetime_requested?: ActivationSettings.FocDatetimeRequested;
     }
 
-    /**
-     * Phone number filtering operations
-     */
-    export interface PhoneNumbersPhoneNumber {
+    export namespace ActivationSettings {
       /**
-       * Filter results by full or partial phone_number
+       * FOC datetime range filtering operations
        */
-      contains?: string;
+      export interface FocDatetimeRequested {
+        /**
+         * Filter results by foc date later than this value
+         */
+        gt?: string;
+
+        /**
+         * Filter results by foc date earlier than this value
+         */
+        lt?: string;
+      }
+    }
+
+    export interface EndUser {
+      admin?: EndUser.Admin;
+    }
+
+    export namespace EndUser {
+      export interface Admin {
+        /**
+         * Filter results by authorized person
+         */
+        auth_person_name?: string;
+
+        /**
+         * Filter results by person or company name
+         */
+        entity_name?: string;
+      }
+    }
+
+    export interface Misc {
+      /**
+       * Filter results by porting order type
+       */
+      type?: PortingOrdersAPI.PortingOrderType;
+    }
+
+    export interface PhoneNumbers {
+      /**
+       * Filter results by old service provider
+       */
+      carrier_name?: string;
+
+      /**
+       * Filter results by country ISO 3166-1 alpha-2 code
+       */
+      country_code?: string;
+
+      /**
+       * Phone number pattern filtering operations
+       */
+      phone_number?: PhoneNumbers.PhoneNumber;
+    }
+
+    export namespace PhoneNumbers {
+      /**
+       * Phone number pattern filtering operations
+       */
+      export interface PhoneNumber {
+        /**
+         * Filter results by full or partial phone_number
+         */
+        contains?: string;
+      }
     }
   }
 

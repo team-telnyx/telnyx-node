@@ -48,6 +48,12 @@ export const tool: Tool = {
       stream_bidirectional_mode: {
         $ref: '#/$defs/stream_bidirectional_mode',
       },
+      stream_bidirectional_sampling_rate: {
+        type: 'string',
+        title: 'Bidirectional Stream Sampling Rate',
+        description: 'Audio sampling rate.',
+        enum: [8000, 16000, 22050, 24000, 48000],
+      },
       stream_bidirectional_target_legs: {
         $ref: '#/$defs/stream_bidirectional_target_legs',
       },
@@ -91,7 +97,7 @@ export const tool: Tool = {
         title: 'Bidirectional Stream Codec',
         description:
           'Indicates codec for bidirectional streaming RTP payloads. Used only with stream_bidirectional_mode=rtp. Case sensitive.',
-        enum: ['PCMU', 'PCMA', 'G722', 'OPUS', 'AMR-WB'],
+        enum: ['PCMU', 'PCMA', 'G722', 'OPUS', 'AMR-WB', 'L16'],
       },
       stream_bidirectional_mode: {
         type: 'string',
@@ -109,8 +115,8 @@ export const tool: Tool = {
         type: 'string',
         title: 'Stream Codec',
         description:
-          "Specifies the codec to be used for the streamed audio. When set to 'default' or when transcoding is not possible, the codec from the call will be used. Currently, transcoding is only supported between PCMU and PCMA codecs.",
-        enum: ['PCMA', 'PCMU', 'default'],
+          "Specifies the codec to be used for the streamed audio. When set to 'default' or when transcoding is not possible, the codec from the call will be used.",
+        enum: ['PCMU', 'PCMA', 'G722', 'OPUS', 'AMR-WB', 'L16', 'default'],
       },
     },
   },

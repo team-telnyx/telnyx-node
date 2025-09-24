@@ -27,22 +27,27 @@ export const tool: Tool = {
         description:
           'Consolidated filter parameter (deepObject style). Originally: filter[porting_order.status][in][], filter[porting_phone_number][in][], filter[user_bundle_id][in][]',
         properties: {
-          'porting_order.status': {
-            type: 'array',
-            description: 'Filter results by specific porting order statuses',
-            items: {
-              type: 'string',
-              enum: [
-                'activation-in-progress',
-                'cancel-pending',
-                'cancelled',
-                'draft',
-                'exception',
-                'foc-date-confirmed',
-                'in-process',
-                'ported',
-                'submitted',
-              ],
+          porting_order: {
+            type: 'object',
+            properties: {
+              status: {
+                type: 'array',
+                description: 'Filter results by specific porting order statuses',
+                items: {
+                  type: 'string',
+                  enum: [
+                    'activation-in-progress',
+                    'cancel-pending',
+                    'cancelled',
+                    'draft',
+                    'exception',
+                    'foc-date-confirmed',
+                    'in-process',
+                    'ported',
+                    'submitted',
+                  ],
+                },
+              },
             },
           },
           porting_phone_number: {

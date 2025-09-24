@@ -705,6 +705,8 @@ export namespace InferenceEmbeddingWebhookToolParams {
      * For example you can use
      * `Bearer {{#integration_secret}}test-secret{{/integration_secret}}` to pass the
      * value of the integration secret as the bearer token.
+     * [Telnyx signature headers](https://developers.telnyx.com/docs/voice/programmable-voice/voice-api-webhooks)
+     * will be automatically added to the request.
      */
     value?: string;
   }

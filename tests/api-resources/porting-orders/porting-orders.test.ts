@@ -26,6 +26,7 @@ describe('resource portingOrders', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.portingOrders.create({
       phone_numbers: ['+13035550000', '+13035550001', '+13035550002'],
+      customer_group_reference: 'Group-456',
       customer_reference: 'Acct 123abc',
     });
   });
@@ -85,19 +86,20 @@ describe('resource portingOrders', () => {
       client.portingOrders.list(
         {
           filter: {
-            'activation_settings.fast_port_eligible': true,
-            'activation_settings.foc_datetime_requested': {
-              gt: '2021-03-25T10:00:00.000Z',
-              lt: '2021-03-25T10:00:00.000Z',
+            activation_settings: {
+              fast_port_eligible: true,
+              foc_datetime_requested: { gt: '2021-03-25T10:00:00.000Z', lt: '2021-03-25T10:00:00.000Z' },
             },
+            customer_group_reference: 'customer_group_reference',
             customer_reference: 'customer_reference',
-            'end_user.admin.auth_person_name': 'end_user.admin.auth_person_name',
-            'end_user.admin.entity_name': 'end_user.admin.entity_name',
-            'misc.type': 'full',
+            end_user: { admin: { auth_person_name: 'auth_person_name', entity_name: 'entity_name' } },
+            misc: { type: 'full' },
             parent_support_key: 'parent_support_key',
-            'phone_numbers.carrier_name': 'phone_numbers.carrier_name',
-            'phone_numbers.country_code': 'phone_numbers.country_code',
-            'phone_numbers.phone_number': { contains: 'contains' },
+            phone_numbers: {
+              carrier_name: 'carrier_name',
+              country_code: 'country_code',
+              phone_number: { contains: 'contains' },
+            },
           },
           include_phone_numbers: true,
           page: { number: 1, size: 1 },

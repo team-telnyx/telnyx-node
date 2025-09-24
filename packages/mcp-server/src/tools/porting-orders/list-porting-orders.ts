@@ -23,60 +23,89 @@ export const tool: Tool = {
       filter: {
         type: 'object',
         description:
-          'Consolidated filter parameter (deepObject style). Originally: filter[customer_reference], filter[parent_support_key], filter[phone_numbers.country_code], filter[phone_numbers.carrier_name], filter[misc.type], filter[end_user.admin.entity_name], filter[end_user.admin.auth_person_name], filter[activation_settings.fast_port_eligible], filter[activation_settings.foc_datetime_requested][gt], filter[activation_settings.foc_datetime_requested][lt], filter[phone_numbers.phone_number][contains]',
+          'Consolidated filter parameter (deepObject style). Originally: filter[customer_reference], filter[customer_group_reference], filter[parent_support_key], filter[phone_numbers.country_code], filter[phone_numbers.carrier_name], filter[misc.type], filter[end_user.admin.entity_name], filter[end_user.admin.auth_person_name], filter[activation_settings.fast_port_eligible], filter[activation_settings.foc_datetime_requested][gt], filter[activation_settings.foc_datetime_requested][lt], filter[phone_numbers.phone_number][contains]',
         properties: {
-          'activation_settings.fast_port_eligible': {
-            type: 'boolean',
-            description: 'Filter results by fast port eligible',
-          },
-          'activation_settings.foc_datetime_requested': {
+          activation_settings: {
             type: 'object',
-            description: 'FOC datetime range filtering operations',
             properties: {
-              gt: {
-                type: 'string',
-                description: 'Filter results by foc date later than this value',
+              fast_port_eligible: {
+                type: 'boolean',
+                description: 'Filter results by fast port eligible',
               },
-              lt: {
-                type: 'string',
-                description: 'Filter results by foc date earlier than this value',
+              foc_datetime_requested: {
+                type: 'object',
+                description: 'FOC datetime range filtering operations',
+                properties: {
+                  gt: {
+                    type: 'string',
+                    description: 'Filter results by foc date later than this value',
+                  },
+                  lt: {
+                    type: 'string',
+                    description: 'Filter results by foc date earlier than this value',
+                  },
+                },
               },
             },
+          },
+          customer_group_reference: {
+            type: 'string',
+            description: 'Filter results by customer_group_reference',
           },
           customer_reference: {
             type: 'string',
             description: 'Filter results by customer_reference',
           },
-          'end_user.admin.auth_person_name': {
-            type: 'string',
-            description: 'Filter results by authorized person',
+          end_user: {
+            type: 'object',
+            properties: {
+              admin: {
+                type: 'object',
+                properties: {
+                  auth_person_name: {
+                    type: 'string',
+                    description: 'Filter results by authorized person',
+                  },
+                  entity_name: {
+                    type: 'string',
+                    description: 'Filter results by person or company name',
+                  },
+                },
+              },
+            },
           },
-          'end_user.admin.entity_name': {
-            type: 'string',
-            description: 'Filter results by person or company name',
-          },
-          'misc.type': {
-            $ref: '#/$defs/porting_order_type',
+          misc: {
+            type: 'object',
+            properties: {
+              type: {
+                $ref: '#/$defs/porting_order_type',
+              },
+            },
           },
           parent_support_key: {
             type: 'string',
             description: 'Filter results by parent_support_key',
           },
-          'phone_numbers.carrier_name': {
-            type: 'string',
-            description: 'Filter results by old service provider',
-          },
-          'phone_numbers.country_code': {
-            type: 'string',
-            description: 'Filter results by country ISO 3166-1 alpha-2 code',
-          },
-          'phone_numbers.phone_number': {
+          phone_numbers: {
             type: 'object',
-            description: 'Phone number filtering operations',
             properties: {
-              contains: {
+              carrier_name: {
                 type: 'string',
-                description: 'Filter results by full or partial phone_number',
+                description: 'Filter results by old service provider',
+              },
+              country_code: {
+                type: 'string',
+                description: 'Filter results by country ISO 3166-1 alpha-2 code',
+              },
+              phone_number: {
+                type: 'object',
+                description: 'Phone number pattern filtering operations',
+                properties: {
+                  contains: {
+                    type: 'string',
+                    description: 'Filter results by full or partial phone_number',
+                  },
+                },
               },
             },
           },

@@ -121,6 +121,11 @@ export const tool: Tool = {
         type: 'string',
         description: 'A customer reference string for customer look ups.',
       },
+      deletion_lock_enabled: {
+        type: 'boolean',
+        description:
+          'Indicates whether to enable or disable the deletion lock on each phone number. When enabled, this prevents the phone number from being deleted via the API or Telnyx portal.',
+      },
       external_pin: {
         type: 'string',
         description:

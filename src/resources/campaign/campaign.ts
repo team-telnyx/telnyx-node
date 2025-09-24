@@ -792,11 +792,6 @@ export interface CampaignSubmitAppealResponse {
    * Timestamp when the appeal was submitted
    */
   appealed_at?: string;
-
-  /**
-   * Previous campaign status (currently always null)
-   */
-  previous_status?: string | null;
 }
 
 export interface CampaignUpdateParams {

@@ -97,6 +97,7 @@ describe('resource jobs', () => {
       billing_group_id: 'dc8e4d67-33a0-4cbb-af74-7b58f05bd494',
       connection_id: 'dc8e4d67-33a0-4cbb-af74-7b58f05bd494',
       customer_reference: 'customer-reference',
+      deletion_lock_enabled: true,
       external_pin: '123456',
       hd_voice_enabled: true,
       tags: ['tag'],
@@ -120,7 +121,7 @@ describe('resource jobs', () => {
           t38_fax_gateway_enabled: true,
         },
         tech_prefix_enabled: true,
-        translated_number: 'translated_number',
+        translated_number: '+13035559999',
         usage_payment_method: 'pay-per-minute',
       },
     });

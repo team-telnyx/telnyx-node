@@ -162,20 +162,7 @@ export namespace PhoneNumberConfigurationListParams {
    * filter[user_bundle_id][in][]
    */
   export interface Filter {
-    /**
-     * Filter results by specific porting order statuses
-     */
-    'porting_order.status'?: Array<
-      | 'activation-in-progress'
-      | 'cancel-pending'
-      | 'cancelled'
-      | 'draft'
-      | 'exception'
-      | 'foc-date-confirmed'
-      | 'in-process'
-      | 'ported'
-      | 'submitted'
-    >;
+    porting_order?: Filter.PortingOrder;
 
     /**
      * Filter results by a list of porting phone number IDs
@@ -186,6 +173,25 @@ export namespace PhoneNumberConfigurationListParams {
      * Filter results by a list of user bundle IDs
      */
     user_bundle_id?: Array<string>;
+  }
+
+  export namespace Filter {
+    export interface PortingOrder {
+      /**
+       * Filter results by specific porting order statuses
+       */
+      status?: Array<
+        | 'activation-in-progress'
+        | 'cancel-pending'
+        | 'cancelled'
+        | 'draft'
+        | 'exception'
+        | 'foc-date-confirmed'
+        | 'in-process'
+        | 'ported'
+        | 'submitted'
+      >;
+    }
   }
 
   /**

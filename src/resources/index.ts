@@ -464,6 +464,7 @@ export {
   type LedgerBillingGroupReportRetrieveResponse,
   type LedgerBillingGroupReportCreateParams,
 } from './ledger-billing-group-reports';
+export { Legacy } from './legacy/legacy';
 export { List, type ListRetrieveAllResponse, type ListRetrieveByZoneResponse } from './list';
 export {
   ManagedAccounts,
@@ -493,7 +494,6 @@ export {
 } from './media';
 export {
   Messages,
-  type Error,
   type MessagingError,
   type OutboundMessagePayload,
   type MessageRetrieveResponse,
@@ -703,6 +703,37 @@ export {
   type NumbersFeatureCreateResponse,
   type NumbersFeatureCreateParams,
 } from './numbers-features';
+export {
+  OAuth,
+  type OAuthRetrieveResponse,
+  type OAuthGrantsResponse,
+  type OAuthIntrospectResponse,
+  type OAuthRegisterResponse,
+  type OAuthRetrieveJwksResponse,
+  type OAuthTokenResponse,
+  type OAuthGrantsParams,
+  type OAuthIntrospectParams,
+  type OAuthRegisterParams,
+  type OAuthRetrieveAuthorizeParams,
+  type OAuthTokenParams,
+} from './oauth';
+export {
+  OAuthClients,
+  type OAuthClientCreateResponse,
+  type OAuthClientRetrieveResponse,
+  type OAuthClientUpdateResponse,
+  type OAuthClientListResponse,
+  type OAuthClientCreateParams,
+  type OAuthClientUpdateParams,
+  type OAuthClientListParams,
+} from './oauth-clients';
+export {
+  OAuthGrants,
+  type OAuthGrantRetrieveResponse,
+  type OAuthGrantListResponse,
+  type OAuthGrantDeleteResponse,
+  type OAuthGrantListParams,
+} from './oauth-grants';
 export { OperatorConnect } from './operator-connect/operator-connect';
 export {
   OtaUpdates,
@@ -1107,10 +1138,14 @@ export {
   type VerifyProfile,
   type VerifyProfileData,
   type VerifyProfileListResponse,
+  type VerifyProfileCreateTemplateResponse,
   type VerifyProfileRetrieveTemplatesResponse,
+  type VerifyProfileUpdateTemplateResponse,
   type VerifyProfileCreateParams,
   type VerifyProfileUpdateParams,
   type VerifyProfileListParams,
+  type VerifyProfileCreateTemplateParams,
+  type VerifyProfileUpdateTemplateParams,
 } from './verify-profiles';
 export {
   VirtualCrossConnects,
@@ -1202,6 +1237,11 @@ export {
   type TranscriptionWebhookEvent,
   type UnwrapWebhookEvent,
 } from './webhooks';
+export {
+  WellKnown,
+  type WellKnownRetrieveAuthorizationServerMetadataResponse,
+  type WellKnownRetrieveProtectedResourceMetadataResponse,
+} from './well-known';
 export {
   WireguardInterfaces,
   type WireguardInterfaceCreateResponse,

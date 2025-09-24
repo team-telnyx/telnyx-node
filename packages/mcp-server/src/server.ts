@@ -21,6 +21,7 @@ import {
 } from './compat';
 import { dynamicTools } from './dynamic-tools';
 import { codeTool } from './code-tool';
+import docsSearchTool from './docs-search-tool';
 import { McpOptions } from './options';
 
 export { McpOptions } from './options';
@@ -33,7 +34,7 @@ export const newMcpServer = () =>
   new McpServer(
     {
       name: 'telnyx_api',
-      version: '3.0.0-alpha',
+      version: '3.0.0',
     },
     { capabilities: { tools: {}, logging: {} } },
   );
@@ -147,7 +148,7 @@ export function initMcpServer(params: {
 export async function selectTools(endpoints: Endpoint[], options?: McpOptions): Promise<Endpoint[]> {
   const filteredEndpoints = query(options?.filters ?? [], endpoints);
 
-  let includedTools = filteredEndpoints;
+  let includedTools = filteredEndpoints.slice();
 
   if (includedTools.length > 0) {
     if (options?.includeDynamicTools) {
@@ -155,16 +156,18 @@ export async function selectTools(endpoints: Endpoint[], options?: McpOptions): 
     }
   } else {
     if (options?.includeAllTools) {
-      includedTools = endpoints;
+      includedTools = endpoints.slice();
     } else if (options?.includeDynamicTools) {
       includedTools = dynamicTools(endpoints);
     } else if (options?.includeCodeTools) {
       includedTools = [await codeTool()];
     } else {
-      includedTools = endpoints;
+      includedTools = endpoints.slice();
     }
   }
-
+  if (options?.includeDocsTools ?? true) {
+    includedTools.push(docsSearchTool);
+  }
   const capabilities = { ...defaultClientCapabilities, ...options?.capabilities };
   return applyCompatibilityTransformations(includedTools, capabilities);
 }
