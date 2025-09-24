@@ -2,6 +2,32 @@
 
 import * as Shared from './shared';
 
+export interface APIError {
+  code: string;
+
+  title: string;
+
+  detail?: string;
+
+  meta?: { [key: string]: unknown };
+
+  source?: APIError.Source;
+}
+
+export namespace APIError {
+  export interface Source {
+    /**
+     * Indicates which query parameter caused the error.
+     */
+    parameter?: string;
+
+    /**
+     * JSON pointer (RFC6901) to the offending entity.
+     */
+    pointer?: string;
+  }
+}
+
 export interface ConnectionsPaginationMeta {
   page_number?: number;
 

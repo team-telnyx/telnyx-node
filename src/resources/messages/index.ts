@@ -2,7 +2,6 @@
 
 export {
   Messages,
-  type APIError,
   type MessagingError,
   type OutboundMessagePayload,
   type MessageRetrieveResponse,
