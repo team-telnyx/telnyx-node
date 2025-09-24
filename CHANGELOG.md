@@ -1,5 +1,33 @@
 # Changelog
 
+## 3.0.0 (2025-09-24)
+
+Full Changelog: [v3.0.0-alpha...v3.0.0](https://github.com/team-telnyx/telnyx-node/compare/v3.0.0-alpha...v3.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** extract APIError to shared models
+
+### Features
+
+* AISWE-456: Fix OpenAPI filter properties to use proper nested object structure ([203a96a](https://github.com/team-telnyx/telnyx-node/commit/203a96a4cb854f53693f5a3a7ac7927919dcd96d))
+* **api:** extract APIError to shared models ([5571b5c](https://github.com/team-telnyx/telnyx-node/commit/5571b5cfc5f759da6fc2b2f148078207d4ea9d4a))
+* **api:** manual updates ([620b95d](https://github.com/team-telnyx/telnyx-node/commit/620b95d9f79326f7b1ba22a68609c09a4206e934))
+* **api:** manual updates ([59d10a2](https://github.com/team-telnyx/telnyx-node/commit/59d10a2b245f29db9275b3179fd00c4267b4a6cc))
+* **api:** manual updates ([71ba430](https://github.com/team-telnyx/telnyx-node/commit/71ba430b620b63727c74625523354357a22e20b3))
+* FILE-1746: Convert edge-compute API from Swagger 2.0 to OpenAPI 3.1.0 ([f6a2415](https://github.com/team-telnyx/telnyx-node/commit/f6a2415ad99e1553089c5fb71e3edc0b4fab6b31))
+* **mcp:** add docs search tool ([9a0f9dc](https://github.com/team-telnyx/telnyx-node/commit/9a0f9dc11434196c2af0b36a78ca34af2453c834))
+* **mcp:** enable experimental docs search tool ([b05c502](https://github.com/team-telnyx/telnyx-node/commit/b05c5021f87e4b2f664a0d6d29b8726ac6dba9e9))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([b60d830](https://github.com/team-telnyx/telnyx-node/commit/b60d8302615a0f430c11c6cdfbf0f8392675c195))
+* improve example values ([1549850](https://github.com/team-telnyx/telnyx-node/commit/15498503f68c888cea2313ac76d12b473020832c))
+* **internal:** codegen related update ([8a03de6](https://github.com/team-telnyx/telnyx-node/commit/8a03de6335e8fa54dc731f071da3e3a19975fe6b))
+* **internal:** codegen related update ([d198e2f](https://github.com/team-telnyx/telnyx-node/commit/d198e2f986228fb81db383748794759a82c134c6))
+* **internal:** gitignore .mcpb files ([b3479c9](https://github.com/team-telnyx/telnyx-node/commit/b3479c9946785bf089195048e0bcd27660185a13))
+
 ## 3.0.0-alpha (2025-09-18)
 
 Full Changelog: [v0.0.1...v3.0.0-alpha](https://github.com/team-telnyx/telnyx-node/compare/v0.0.1...v3.0.0-alpha)
