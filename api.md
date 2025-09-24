@@ -21,6 +21,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/shared.ts">APIError</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionsPaginationMeta</a></code>
 - <code><a href="./src/resources/shared.ts">DocReqsRequirementType</a></code>
 - <code><a href="./src/resources/shared.ts">HostedNumber</a></code>
@@ -1857,7 +1858,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/messages/messages.ts">APIError</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessagingError</a></code>
 - <code><a href="./src/resources/messages/messages.ts">OutboundMessagePayload</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageRetrieveResponse</a></code>
