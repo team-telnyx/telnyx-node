@@ -244,6 +244,11 @@ export const tool: Tool = {
         description:
           'The media_name of a file to be played back to the callee when the call is answered. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.',
       },
+      park_after_unbridge: {
+        type: 'string',
+        description:
+          'If supplied with the value `self`, the current leg will be parked after unbridge. If not set, the default behavior is to hang up the leg. When park_after_unbridge is set, link_to becomes required.',
+      },
       preferred_codecs: {
         type: 'string',
         description:

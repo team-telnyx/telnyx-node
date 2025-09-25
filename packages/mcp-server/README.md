@@ -2075,7 +2075,7 @@ The following tools are available in this MCP server.
 
 ### Resource `verified_numbers`:
 
-- `create_verified_numbers` (`write`): Initiates phone number verification procedure.
+- `create_verified_numbers` (`write`): Initiates phone number verification procedure. Supports DTMF extension dialing for voice calls to numbers behind IVR systems.
 - `retrieve_verified_numbers` (`read`): Retrieve a verified number
 - `list_verified_numbers` (`read`): Gets a paginated list of Verified Numbers.
 - `delete_verified_numbers` (`write`): Delete a verified number
