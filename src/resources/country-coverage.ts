@@ -68,6 +68,11 @@ export namespace CountryCoverageRetrieveResponse {
     quickship?: boolean;
 
     /**
+     * Geographic region (e.g., AMER, EMEA, APAC)
+     */
+    region?: string | null;
+
+    /**
      * Supports reservable
      */
     reservable?: boolean;
@@ -81,6 +86,8 @@ export namespace CountryCoverageRetrieveResponse {
     export interface Local {
       features?: Array<string>;
 
+      full_pstn_replacement?: boolean;
+
       international_sms?: boolean;
 
       p2p?: boolean;
@@ -92,6 +99,8 @@ export namespace CountryCoverageRetrieveResponse {
 
     export interface TollFree {
       features?: Array<string>;
+
+      full_pstn_replacement?: boolean;
 
       international_sms?: boolean;
 
@@ -148,6 +157,11 @@ export namespace CountryCoverageRetrieveCountryResponse {
     quickship?: boolean;
 
     /**
+     * Geographic region (e.g., AMER, EMEA, APAC)
+     */
+    region?: string | null;
+
+    /**
      * Supports reservable
      */
     reservable?: boolean;
@@ -161,6 +175,8 @@ export namespace CountryCoverageRetrieveCountryResponse {
     export interface Local {
       features?: Array<string>;
 
+      full_pstn_replacement?: boolean;
+
       international_sms?: boolean;
 
       p2p?: boolean;
@@ -172,6 +188,8 @@ export namespace CountryCoverageRetrieveCountryResponse {
 
     export interface TollFree {
       features?: Array<string>;
+
+      full_pstn_replacement?: boolean;
 
       international_sms?: boolean;
 

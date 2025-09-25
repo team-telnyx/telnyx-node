@@ -78,6 +78,7 @@ describe('resource calls', () => {
       link_to: 'ilditnZK_eVysupV21KzmzN_sM29ygfauQojpm4BgFtfX5hXAcjotg==',
       media_encryption: 'SRTP',
       media_name: 'my_media_uploaded_to_media_storage_api',
+      park_after_unbridge: 'self',
       preferred_codecs: 'G722,PCMU,PCMA,G729,OPUS,VP8,H264',
       record: 'record-from-answer',
       record_channels: 'single',
