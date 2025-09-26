@@ -545,6 +545,11 @@ export const tool: Tool = {
               },
             },
           },
+          warm_transfer_instructions: {
+            type: 'string',
+            description:
+              'Natural language instructions for your agent for how to provide context for the transfer recipient.',
+          },
         },
         required: ['from', 'targets'],
       },
@@ -575,6 +580,60 @@ export const tool: Tool = {
             type: 'string',
             description:
               'The `identifier` for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your ElevenLabs API key. Warning: Free plans are unlikely to work with this integration.',
+          },
+          background_audio: {
+            anyOf: [
+              {
+                type: 'object',
+                properties: {
+                  type: {
+                    type: 'string',
+                    description: 'Select from predefined media options.',
+                    enum: ['predefined_media'],
+                  },
+                  value: {
+                    type: 'string',
+                    description: 'The predefined media to use. `silence` disables background audio.',
+                    enum: ['silence', 'office'],
+                  },
+                },
+                required: ['type', 'value'],
+              },
+              {
+                type: 'object',
+                properties: {
+                  type: {
+                    type: 'string',
+                    description: 'Provide a direct URL to an MP3 file. The audio will loop during the call.',
+                    enum: ['media_url'],
+                  },
+                  value: {
+                    type: 'string',
+                    description: 'HTTPS URL to an MP3 file.',
+                  },
+                },
+                required: ['type', 'value'],
+              },
+              {
+                type: 'object',
+                properties: {
+                  type: {
+                    type: 'string',
+                    description:
+                      'Reference a previously uploaded media by its name from Telnyx Media Storage.',
+                    enum: ['media_name'],
+                  },
+                  value: {
+                    type: 'string',
+                    description:
+                      'The `name` of a media asset created via [Media Storage API](https://developers.telnyx.com/api/media-storage/create-media-storage). The audio will loop during the call.',
+                  },
+                },
+                required: ['type', 'value'],
+              },
+            ],
+            description:
+              'Optional background audio to play on the call. Use a predefined media bed, or supply a looped MP3 URL. If a media URL is chosen in the portal, customers can preview it before saving.',
           },
           voice_speed: {
             type: 'number',
