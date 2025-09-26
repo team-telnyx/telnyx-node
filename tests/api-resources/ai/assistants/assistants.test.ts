@@ -66,7 +66,12 @@ describe('resource assistants', () => {
         },
       ],
       transcription: { language: 'language', model: 'model' },
-      voice_settings: { voice: 'voice', api_key_ref: 'api_key_ref', voice_speed: 0 },
+      voice_settings: {
+        voice: 'voice',
+        api_key_ref: 'api_key_ref',
+        background_audio: { type: 'predefined_media', value: 'silence' },
+        voice_speed: 0,
+      },
     });
   });
 
