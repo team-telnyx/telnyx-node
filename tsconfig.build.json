@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "telnyx/*": ["dist/src/*"],
-      "telnyx": ["dist/src/index.ts"]
+      "telnyx/*": ["./dist/src/*"],
+      "telnyx": ["./dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,

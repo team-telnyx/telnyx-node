@@ -1,5 +1,28 @@
 # Changelog
 
+## 3.1.0 (2025-09-27)
+
+Full Changelog: [v3.0.0...v3.1.0](https://github.com/team-telnyx/telnyx-node/compare/v3.0.0...v3.1.0)
+
+### Features
+
+* warm transfer ([0d73737](https://github.com/team-telnyx/telnyx-node/commit/0d73737e883f2b25aa89b31a3fa91bdfd6bd103b))
+
+
+### Performance Improvements
+
+* faster formatting ([10a3442](https://github.com/team-telnyx/telnyx-node/commit/10a3442f01453cd01e6c1b02250f29fb44a8313a))
+
+
+### Chores
+
+* add extension variable on dev docs ([d79e9cf](https://github.com/team-telnyx/telnyx-node/commit/d79e9cfc8f9fd724a8532d81761f5cf143794c25))
+* **internal:** codegen related update ([0a46e03](https://github.com/team-telnyx/telnyx-node/commit/0a46e036e2e8a9d5d9b8a46182d2100befbfc08c))
+* **internal:** fix incremental formatting in some cases ([3af2e07](https://github.com/team-telnyx/telnyx-node/commit/3af2e0772b0348fb125fe9115ee5ce708e861524))
+* **internal:** ignore .eslintcache ([878841a](https://github.com/team-telnyx/telnyx-node/commit/878841a7ca9e931bb15f4359e0fe302087b181c4))
+* **internal:** remove deprecated `compilerOptions.baseUrl` from tsconfig.json ([29287ba](https://github.com/team-telnyx/telnyx-node/commit/29287baadbea52f3d409c9bcfcdb3110ddd77af7))
+* **mcp:** allow pointing `docs_search` tool at other URLs ([86cdd03](https://github.com/team-telnyx/telnyx-node/commit/86cdd03a8961c7d40094358e889ebbf09048d7ca))
+
 ## 3.0.0 (2025-09-24)
 
 Full Changelog: [v3.0.0-alpha...v3.0.0](https://github.com/team-telnyx/telnyx-node/compare/v3.0.0-alpha...v3.0.0)

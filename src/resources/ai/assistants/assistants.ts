@@ -592,6 +592,12 @@ export interface InferenceEmbeddingTransferToolParams {
    * Custom headers to be added to the SIP INVITE for the transfer command.
    */
   custom_headers?: Array<InferenceEmbeddingTransferToolParams.CustomHeader>;
+
+  /**
+   * Natural language instructions for your agent for how to provide context for the
+   * transfer recipient.
+   */
+  warm_transfer_instructions?: string;
 }
 
 export namespace InferenceEmbeddingTransferToolParams {
@@ -856,11 +862,58 @@ export interface VoiceSettings {
   api_key_ref?: string;
 
   /**
+   * Optional background audio to play on the call. Use a predefined media bed, or
+   * supply a looped MP3 URL. If a media URL is chosen in the portal, customers can
+   * preview it before saving.
+   */
+  background_audio?: VoiceSettings.UnionMember0 | VoiceSettings.UnionMember1 | VoiceSettings.UnionMember2;
+
+  /**
    * The speed of the voice in the range [0.25, 2.0]. 1.0 is deafult speed. Larger
    * numbers make the voice faster, smaller numbers make it slower. This is only
    * applicable for Telnyx Natural voices.
    */
   voice_speed?: number;
+}
+
+export namespace VoiceSettings {
+  export interface UnionMember0 {
+    /**
+     * Select from predefined media options.
+     */
+    type: 'predefined_media';
+
+    /**
+     * The predefined media to use. `silence` disables background audio.
+     */
+    value: 'silence' | 'office';
+  }
+
+  export interface UnionMember1 {
+    /**
+     * Provide a direct URL to an MP3 file. The audio will loop during the call.
+     */
+    type: 'media_url';
+
+    /**
+     * HTTPS URL to an MP3 file.
+     */
+    value: string;
+  }
+
+  export interface UnionMember2 {
+    /**
+     * Reference a previously uploaded media by its name from Telnyx Media Storage.
+     */
+    type: 'media_name';
+
+    /**
+     * The `name` of a media asset created via
+     * [Media Storage API](https://developers.telnyx.com/api/media-storage/create-media-storage).
+     * The audio will loop during the call.
+     */
+    value: string;
+  }
 }
 
 export interface WebhookTool {

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'create_verified_numbers',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nInitiates phone number verification procedure.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'CreateVerifiedNumberResponse',\n  properties: {\n    phone_number: {\n      type: 'string'\n    },\n    verification_method: {\n      type: 'string'\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nInitiates phone number verification procedure. Supports DTMF extension dialing for voice calls to numbers behind IVR systems.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'CreateVerifiedNumberResponse',\n  properties: {\n    phone_number: {\n      type: 'string'\n    },\n    verification_method: {\n      type: 'string'\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
@@ -29,6 +29,11 @@ export const tool: Tool = {
         type: 'string',
         description: 'Verification method.',
         enum: ['sms', 'call'],
+      },
+      extension: {
+        type: 'string',
+        description:
+          "Optional DTMF extension sequence to dial after the call is answered. This parameter enables verification of phone numbers behind IVR systems that require extension dialing. Valid characters: digits 0-9, letters A-D, symbols * and #. Pauses: w = 0.5 second pause, W = 1 second pause. Maximum length: 50 characters. Only works with 'call' verification method.",
       },
       jq_filter: {
         type: 'string',

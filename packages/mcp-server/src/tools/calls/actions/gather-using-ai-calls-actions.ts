@@ -425,6 +425,11 @@ export const tool: Tool = {
               },
             },
           },
+          warm_transfer_instructions: {
+            type: 'string',
+            description:
+              'Natural language instructions for your agent for how to provide context for the transfer recipient.',
+          },
         },
         required: ['from', 'targets'],
       },

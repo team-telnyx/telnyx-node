@@ -28,6 +28,7 @@ describe('resource verifiedNumbers', () => {
     const response = await client.verifiedNumbers.create({
       phone_number: '+15551234567',
       verification_method: 'sms',
+      extension: 'ww243w1',
     });
   });
 

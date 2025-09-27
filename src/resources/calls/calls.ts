@@ -479,6 +479,13 @@ export interface CallDialParams {
   media_name?: string;
 
   /**
+   * If supplied with the value `self`, the current leg will be parked after
+   * unbridge. If not set, the default behavior is to hang up the leg. When
+   * park_after_unbridge is set, link_to becomes required.
+   */
+  park_after_unbridge?: string;
+
+  /**
    * The list of comma-separated codecs in a preferred order for the forked media to
    * be received.
    */
