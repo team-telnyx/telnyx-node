@@ -16,18 +16,6 @@ import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
-import * as TopLevelAPI from './resources/top-level';
-import {
-  CreateBucketParams,
-  DeleteObjectParams,
-  DeleteObjectsParams,
-  DeleteObjectsResponse,
-  GetObjectParams,
-  ListBucketsResponse,
-  ListObjectsParams,
-  ListObjectsResponse,
-  PutObjectParams,
-} from './resources/top-level';
 import { APIPromise } from './core/api-promise';
 import {
   AccessIPAddress,
@@ -1328,7 +1316,6 @@ import {
   loggerFor,
   parseLogLevel,
 } from './internal/utils/log';
-import { path } from './internal/utils/path';
 import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
@@ -1497,122 +1484,6 @@ export class Telnyx {
    */
   #baseURLOverridden(): boolean {
     return this.baseURL !== 'https://api.telnyx.com/v2';
-  }
-
-  /**
-   * Create a bucket.
-   */
-  createBucket(
-    bucketName: string,
-    body: TopLevelAPI.CreateBucketParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    return this.put(path`/${bucketName}`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'text/xml', Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Deletes a bucket. The bucket must be empty for it to be deleted.
-   */
-  deleteBucket(bucketName: string, options?: RequestOptions): APIPromise<void> {
-    return this.delete(path`/${bucketName}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Delete an object from a given bucket.
-   */
-  deleteObject(
-    objectName: string,
-    params: TopLevelAPI.DeleteObjectParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { bucketName } = params;
-    return this.delete(path`/${bucketName}/${objectName}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Deletes one or multiple objects from a given bucket.
-   */
-  deleteObjects(
-    bucketName: string,
-    params: TopLevelAPI.DeleteObjectsParams,
-    options?: RequestOptions,
-  ): APIPromise<unknown> {
-    const { delete: _delete, body } = params;
-    return this.post(path`/${bucketName}`, {
-      query: { delete: _delete },
-      body: body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'text/xml', Accept: 'application/xml' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Retrieves an object from a given bucket.
-   */
-  getObject(
-    objectName: string,
-    params: TopLevelAPI.GetObjectParams,
-    options?: RequestOptions,
-  ): APIPromise<Response> {
-    const { bucketName, ...query } = params;
-    return this.get(path`/${bucketName}/${objectName}`, {
-      query,
-      ...options,
-      headers: buildHeaders([{ Accept: 'application/octet-stream' }, options?.headers]),
-      __binaryResponse: true,
-    });
-  }
-
-  /**
-   * List all Buckets.
-   */
-  listBuckets(options?: RequestOptions): APIPromise<TopLevelAPI.ListBucketsResponse> {
-    return this.get('/', {
-      ...options,
-      headers: buildHeaders([{ Accept: 'application/xml' }, options?.headers]),
-    });
-  }
-
-  /**
-   * List all objects contained in a given bucket.
-   */
-  listObjects(
-    bucketName: string,
-    query: TopLevelAPI.ListObjectsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<TopLevelAPI.ListObjectsResponse> {
-    return this.get(path`/${bucketName}`, {
-      query,
-      ...options,
-      headers: buildHeaders([{ Accept: 'application/xml' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Add an object to a bucket.
-   */
-  putObject(
-    objectName: string,
-    params: TopLevelAPI.PutObjectParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { bucketName, body, partNumber, uploadId } = params;
-    return this.put(path`/${bucketName}/${objectName}`, {
-      query: { partNumber, uploadId },
-      body: body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': '*/*', Accept: '*/*' }, options?.headers]),
-    });
   }
 
   protected defaultQuery(): BuiltinRecord<string, string | undefined> | undefined {
@@ -2431,18 +2302,6 @@ Telnyx.WellKnown = WellKnown;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
-
-  export {
-    type DeleteObjectsResponse as DeleteObjectsResponse,
-    type ListBucketsResponse as ListBucketsResponse,
-    type ListObjectsResponse as ListObjectsResponse,
-    type CreateBucketParams as CreateBucketParams,
-    type DeleteObjectParams as DeleteObjectParams,
-    type DeleteObjectsParams as DeleteObjectsParams,
-    type GetObjectParams as GetObjectParams,
-    type ListObjectsParams as ListObjectsParams,
-    type PutObjectParams as PutObjectParams,
-  };
 
   export { Legacy as Legacy };
 

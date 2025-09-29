@@ -1,22 +1,3 @@
-# Telnyx
-
-Types:
-
-- <code><a href="./src/resources/top-level.ts">DeleteObjectsResponse</a></code>
-- <code><a href="./src/resources/top-level.ts">ListBucketsResponse</a></code>
-- <code><a href="./src/resources/top-level.ts">ListObjectsResponse</a></code>
-
-Methods:
-
-- <code title="put /{bucketName}">client.<a href="./src/index.ts">createBucket</a>(bucketName, { ...params }) -> void</code>
-- <code title="delete /{bucketName}">client.<a href="./src/index.ts">deleteBucket</a>(bucketName) -> void</code>
-- <code title="delete /{bucketName}/{objectName}">client.<a href="./src/index.ts">deleteObject</a>(objectName, { ...params }) -> void</code>
-- <code title="post /{bucketName}">client.<a href="./src/index.ts">deleteObjects</a>(bucketName, [ ...body ]) -> unknown</code>
-- <code title="get /{bucketName}/{objectName}">client.<a href="./src/index.ts">getObject</a>(objectName, { ...params }) -> Response</code>
-- <code title="get /">client.<a href="./src/index.ts">listBuckets</a>() -> ListBucketsResponse</code>
-- <code title="get /{bucketName}">client.<a href="./src/index.ts">listObjects</a>(bucketName, { ...params }) -> ListObjectsResponse</code>
-- <code title="put /{bucketName}/{objectName}">client.<a href="./src/index.ts">putObject</a>(objectName, { ...params }) -> void</code>
-
 # Shared
 
 Types:
