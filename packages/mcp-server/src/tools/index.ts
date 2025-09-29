@@ -4,14 +4,6 @@ import { Metadata, Endpoint, HandlerFunction } from './types';
 
 export { Metadata, Endpoint, HandlerFunction };
 
-import create_bucket_client from './top-level/create-bucket-client';
-import delete_bucket_client from './top-level/delete-bucket-client';
-import delete_object_client from './top-level/delete-object-client';
-import delete_objects_client from './top-level/delete-objects-client';
-import get_object_client from './top-level/get-object-client';
-import list_buckets_client from './top-level/list-buckets-client';
-import list_objects_client from './top-level/list-objects-client';
-import put_object_client from './top-level/put-object-client';
 import create_batch_detail_records_reporting_legacy_messaging from './legacy/reporting/batch-detail-records/messaging/create-batch-detail-records-reporting-legacy-messaging';
 import retrieve_batch_detail_records_reporting_legacy_messaging from './legacy/reporting/batch-detail-records/messaging/retrieve-batch-detail-records-reporting-legacy-messaging';
 import list_batch_detail_records_reporting_legacy_messaging from './legacy/reporting/batch-detail-records/messaging/list-batch-detail-records-reporting-legacy-messaging';
@@ -857,14 +849,6 @@ function addEndpoint(endpoint: Endpoint) {
   endpoints.push(endpoint);
 }
 
-addEndpoint(create_bucket_client);
-addEndpoint(delete_bucket_client);
-addEndpoint(delete_object_client);
-addEndpoint(delete_objects_client);
-addEndpoint(get_object_client);
-addEndpoint(list_buckets_client);
-addEndpoint(list_objects_client);
-addEndpoint(put_object_client);
 addEndpoint(create_batch_detail_records_reporting_legacy_messaging);
 addEndpoint(retrieve_batch_detail_records_reporting_legacy_messaging);
 addEndpoint(list_batch_detail_records_reporting_legacy_messaging);

@@ -172,7 +172,7 @@ http://localhost:3000?client=cursor&capability=tool-name-length%3D40
 import { server, endpoints, init } from "telnyx-mcp/server";
 
 // import a specific tool
-import createBucketClient from "telnyx-mcp/tools/top-level/create-bucket-client";
+import createBatchDetailRecordsReportingLegacyMessaging from "telnyx-mcp/tools/legacy/reporting/batch-detail-records/messaging/create-batch-detail-records-reporting-legacy-messaging";
 
 // initialize the server and all endpoints
 init({ server, endpoints });
@@ -197,23 +197,12 @@ const myCustomEndpoint = {
 };
 
 // initialize the server with your custom endpoints
-init({ server: myServer, endpoints: [createBucketClient, myCustomEndpoint] });
+init({ server: myServer, endpoints: [createBatchDetailRecordsReportingLegacyMessaging, myCustomEndpoint] });
 ```
 
 ## Available Tools
 
 The following tools are available in this MCP server.
-
-### Resource `$client`:
-
-- `create_bucket_client` (`write`): Create a bucket.
-- `delete_bucket_client` (`write`): Deletes a bucket. The bucket must be empty for it to be deleted.
-- `delete_object_client` (`write`): Delete an object from a given bucket.
-- `delete_objects_client` (`write`): Deletes one or multiple objects from a given bucket.
-- `get_object_client` (`read`): Retrieves an object from a given bucket.
-- `list_buckets_client` (`read`): List all Buckets.
-- `list_objects_client` (`read`): List all objects contained in a given bucket.
-- `put_object_client` (`write`): Add an object to a bucket.
 
 ### Resource `legacy.reporting.batch_detail_records.messaging`:
 

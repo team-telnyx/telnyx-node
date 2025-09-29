@@ -1286,14 +1286,3 @@ export {
   type WirelessBlocklistUpdateParams,
   type WirelessBlocklistListParams,
 } from './wireless-blocklists';
-export {
-  type DeleteObjectsResponse,
-  type ListBucketsResponse,
-  type ListObjectsResponse,
-  type CreateBucketParams,
-  type DeleteObjectParams,
-  type DeleteObjectsParams,
-  type GetObjectParams,
-  type ListObjectsParams,
-  type PutObjectParams,
-} from './top-level';
