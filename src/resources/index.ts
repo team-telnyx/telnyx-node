@@ -494,7 +494,6 @@ export {
 } from './media';
 export {
   Messages,
-  type Error,
   type MessagingError,
   type OutboundMessagePayload,
   type MessageRetrieveResponse,
@@ -706,17 +705,17 @@ export {
 } from './numbers-features';
 export {
   OAuth,
-  type OAuthCreateGrantResponse,
-  type OAuthExchangeTokenResponse,
-  type OAuthIntrospectTokenResponse,
-  type OAuthRegisterClientResponse,
-  type OAuthRetrieveConsentResponse,
+  type OAuthRetrieveResponse,
+  type OAuthGrantsResponse,
+  type OAuthIntrospectResponse,
+  type OAuthRegisterResponse,
   type OAuthRetrieveJwksResponse,
-  type OAuthAuthorizeParams,
-  type OAuthCreateGrantParams,
-  type OAuthExchangeTokenParams,
-  type OAuthIntrospectTokenParams,
-  type OAuthRegisterClientParams,
+  type OAuthTokenResponse,
+  type OAuthGrantsParams,
+  type OAuthIntrospectParams,
+  type OAuthRegisterParams,
+  type OAuthRetrieveAuthorizeParams,
+  type OAuthTokenParams,
 } from './oauth';
 export {
   OAuthClients,
@@ -732,7 +731,7 @@ export {
   OAuthGrants,
   type OAuthGrantRetrieveResponse,
   type OAuthGrantListResponse,
-  type OAuthGrantRevokeResponse,
+  type OAuthGrantDeleteResponse,
   type OAuthGrantListParams,
 } from './oauth-grants';
 export { OperatorConnect } from './operator-connect/operator-connect';

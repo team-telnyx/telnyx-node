@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export const tool: Tool = {
-  name: 'exchange_token_oauth',
+  name: 'token_oauth',
   description:
     "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nExchange authorization code, client credentials, or refresh token for access token\n\n# Response Schema\n```json\n{\n  type: 'object',\n  properties: {\n    access_token: {\n      type: 'string',\n      description: 'The access token'\n    },\n    expires_in: {\n      type: 'integer',\n      description: 'Token lifetime in seconds'\n    },\n    token_type: {\n      type: 'string',\n      description: 'Token type',\n      enum: [        'Bearer'\n      ]\n    },\n    refresh_token: {\n      type: 'string',\n      description: 'Refresh token (if applicable)'\n    },\n    scope: {\n      type: 'string',\n      description: 'Space-separated list of granted scopes'\n    }\n  },\n  required: [    'access_token',\n    'expires_in',\n    'token_type'\n  ]\n}\n```",
   inputSchema: {
@@ -68,7 +68,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { jq_filter, ...body } = args as any;
-  return asTextContentResult(await maybeFilter(jq_filter, await client.oauth.exchangeToken(body)));
+  return asTextContentResult(await maybeFilter(jq_filter, await client.oauth.token(body)));
 };
 
 export default { metadata, tool, handler };
