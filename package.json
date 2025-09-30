@@ -8,6 +8,7 @@
   "type": "commonjs",
   "repository": "github:team-telnyx/telnyx-node",
   "license": "MIT",
+  "mcpName": "io.github.team-telnyx/telnyx",
   "packageManager": "pnpm@10.14.0",
   "files": [
     "**/*"

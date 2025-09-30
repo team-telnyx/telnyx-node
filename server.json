@@ -1,0 +1,31 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.team-telnyx/telnyx",
+  "version": "3.1.0",
+  "description": "Official TypeScript library for the Telnyx API",
+  "websiteUrl": "https://telnyx.com",
+  "repository": {
+    "url": "https://github.com/team-telnyx/telnyx-node",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "telnyx",
+      "version": "3.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "TELNYX_API_KEY",
+          "description": "Your Telnyx API key for authentication",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
