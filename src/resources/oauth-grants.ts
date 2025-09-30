@@ -26,7 +26,7 @@ export class OAuthGrants extends APIResource {
   /**
    * Revoke an OAuth grant
    */
-  delete(id: string, options?: RequestOptions): APIPromise<OAuthGrantDeleteResponse> {
+  revoke(id: string, options?: RequestOptions): APIPromise<OAuthGrantRevokeResponse> {
     return this._client.delete(path`/oauth_grants/${id}`, options);
   }
 }
@@ -131,11 +131,11 @@ export namespace OAuthGrantListResponse {
   }
 }
 
-export interface OAuthGrantDeleteResponse {
-  data?: OAuthGrantDeleteResponse.Data;
+export interface OAuthGrantRevokeResponse {
+  data?: OAuthGrantRevokeResponse.Data;
 }
 
-export namespace OAuthGrantDeleteResponse {
+export namespace OAuthGrantRevokeResponse {
   export interface Data {
     /**
      * Unique identifier for the OAuth grant
@@ -185,7 +185,7 @@ export declare namespace OAuthGrants {
   export {
     type OAuthGrantRetrieveResponse as OAuthGrantRetrieveResponse,
     type OAuthGrantListResponse as OAuthGrantListResponse,
-    type OAuthGrantDeleteResponse as OAuthGrantDeleteResponse,
+    type OAuthGrantRevokeResponse as OAuthGrantRevokeResponse,
     type OAuthGrantListParams as OAuthGrantListParams,
   };
 }

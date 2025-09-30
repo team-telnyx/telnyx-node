@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 export const tool: Tool = {
-  name: 'retrieve_authorize_oauth',
+  name: 'authorize_oauth',
   description: 'OAuth 2.0 authorization endpoint for the authorization code flow',
   inputSchema: {
     type: 'object',
@@ -59,7 +59,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const body = args as any;
-  const response = await client.oauth.retrieveAuthorize(body).asResponse();
+  const response = await client.oauth.authorize(body).asResponse();
   return asTextContentResult(await response.text());
 };
 

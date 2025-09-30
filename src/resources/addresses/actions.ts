@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as Shared from '../shared';
+import * as MessagesAPI from '../messages/messages';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -80,7 +80,7 @@ export namespace ActionValidateResponse {
      */
     suggested: Data.Suggested;
 
-    errors?: Array<Shared.APIError>;
+    errors?: Array<MessagesAPI.Error>;
 
     /**
      * Identifies the type of the resource.

@@ -8,67 +8,9 @@ const client = new Telnyx({
 });
 
 describe('resource oauth', () => {
-  // Prism tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.oauth.retrieve('consent_token');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('grants: only required params', async () => {
-    const responsePromise = client.oauth.grants({ allowed: true, consent_token: 'consent_token' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('grants: required and optional params', async () => {
-    const response = await client.oauth.grants({ allowed: true, consent_token: 'consent_token' });
-  });
-
-  // Prism tests are disabled
-  test.skip('introspect: only required params', async () => {
-    const responsePromise = client.oauth.introspect({ token: 'token' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('introspect: required and optional params', async () => {
-    const response = await client.oauth.introspect({ token: 'token' });
-  });
-
-  // Prism tests are disabled
-  test.skip('register', async () => {
-    const responsePromise = client.oauth.register({});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
   // Prism doesn't properly handle redirects
-  test.skip('retrieveAuthorize: only required params', async () => {
-    const responsePromise = client.oauth.retrieveAuthorize({
+  test.skip('authorize: only required params', async () => {
+    const responsePromise = client.oauth.authorize({
       client_id: 'client_id',
       redirect_uri: 'https://example.com',
       response_type: 'code',
@@ -83,8 +25,8 @@ describe('resource oauth', () => {
   });
 
   // Prism doesn't properly handle redirects
-  test.skip('retrieveAuthorize: required and optional params', async () => {
-    const response = await client.oauth.retrieveAuthorize({
+  test.skip('authorize: required and optional params', async () => {
+    const response = await client.oauth.authorize({
       client_id: 'client_id',
       redirect_uri: 'https://example.com',
       response_type: 'code',
@@ -93,6 +35,90 @@ describe('resource oauth', () => {
       scope: 'scope',
       state: 'state',
     });
+  });
+
+  // Prism tests are disabled
+  test.skip('createGrant: only required params', async () => {
+    const responsePromise = client.oauth.createGrant({ allowed: true, consent_token: 'consent_token' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('createGrant: required and optional params', async () => {
+    const response = await client.oauth.createGrant({ allowed: true, consent_token: 'consent_token' });
+  });
+
+  // Prism tests are disabled
+  test.skip('exchangeToken: only required params', async () => {
+    const responsePromise = client.oauth.exchangeToken({ grant_type: 'client_credentials' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('exchangeToken: required and optional params', async () => {
+    const response = await client.oauth.exchangeToken({
+      grant_type: 'client_credentials',
+      client_id: 'client_id',
+      client_secret: 'client_secret',
+      code: 'code',
+      code_verifier: 'code_verifier',
+      redirect_uri: 'https://example.com',
+      refresh_token: 'refresh_token',
+      scope: 'admin',
+    });
+  });
+
+  // Prism tests are disabled
+  test.skip('introspectToken: only required params', async () => {
+    const responsePromise = client.oauth.introspectToken({ token: 'token' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('introspectToken: required and optional params', async () => {
+    const response = await client.oauth.introspectToken({ token: 'token' });
+  });
+
+  // Prism tests are disabled
+  test.skip('registerClient', async () => {
+    const responsePromise = client.oauth.registerClient({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('retrieveConsent', async () => {
+    const responsePromise = client.oauth.retrieveConsent('consent_token');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Prism tests are disabled
@@ -105,31 +131,5 @@ describe('resource oauth', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('token: only required params', async () => {
-    const responsePromise = client.oauth.token({ grant_type: 'client_credentials' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('token: required and optional params', async () => {
-    const response = await client.oauth.token({
-      grant_type: 'client_credentials',
-      client_id: 'client_id',
-      client_secret: 'client_secret',
-      code: 'code',
-      code_verifier: 'code_verifier',
-      redirect_uri: 'https://example.com',
-      refresh_token: 'refresh_token',
-      scope: 'admin',
-    });
   });
 });
