@@ -512,17 +512,17 @@ import {
 } from './resources/numbers-features';
 import {
   OAuth,
-  OAuthGrantsParams,
-  OAuthGrantsResponse,
-  OAuthIntrospectParams,
-  OAuthIntrospectResponse,
-  OAuthRegisterParams,
-  OAuthRegisterResponse,
-  OAuthRetrieveAuthorizeParams,
+  OAuthAuthorizeParams,
+  OAuthCreateGrantParams,
+  OAuthCreateGrantResponse,
+  OAuthExchangeTokenParams,
+  OAuthExchangeTokenResponse,
+  OAuthIntrospectTokenParams,
+  OAuthIntrospectTokenResponse,
+  OAuthRegisterClientParams,
+  OAuthRegisterClientResponse,
+  OAuthRetrieveConsentResponse,
   OAuthRetrieveJwksResponse,
-  OAuthRetrieveResponse,
-  OAuthTokenParams,
-  OAuthTokenResponse,
 } from './resources/oauth';
 import {
   OAuthClientCreateParams,
@@ -535,10 +535,10 @@ import {
   OAuthClients,
 } from './resources/oauth-clients';
 import {
-  OAuthGrantDeleteResponse,
   OAuthGrantListParams,
   OAuthGrantListResponse,
   OAuthGrantRetrieveResponse,
+  OAuthGrantRevokeResponse,
   OAuthGrants,
 } from './resources/oauth-grants';
 import {
@@ -1085,6 +1085,7 @@ import {
   ManagedAccounts,
 } from './resources/managed-accounts/managed-accounts';
 import {
+  Error,
   MessageCancelScheduledResponse,
   MessageRetrieveResponse,
   MessageScheduleParams,
@@ -1986,10 +1987,6 @@ export class Telnyx {
 
   static toFile = Uploads.toFile;
 
-  legacy: API.Legacy = new API.Legacy(this);
-  oauth: API.OAuth = new API.OAuth(this);
-  oauthClients: API.OAuthClients = new API.OAuthClients(this);
-  oauthGrants: API.OAuthGrants = new API.OAuthGrants(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
   accessIPAddress: API.AccessIPAddress = new API.AccessIPAddress(this);
   accessIPRanges: API.AccessIPRanges = new API.AccessIPRanges(this);
@@ -2144,12 +2141,12 @@ export class Telnyx {
   wirelessBlocklists: API.WirelessBlocklists = new API.WirelessBlocklists(this);
   partnerCampaigns: API.PartnerCampaigns = new API.PartnerCampaigns(this);
   wellKnown: API.WellKnown = new API.WellKnown(this);
+  legacy: API.Legacy = new API.Legacy(this);
+  oauth: API.OAuth = new API.OAuth(this);
+  oauthClients: API.OAuthClients = new API.OAuthClients(this);
+  oauthGrants: API.OAuthGrants = new API.OAuthGrants(this);
 }
 
-Telnyx.Legacy = Legacy;
-Telnyx.OAuth = OAuth;
-Telnyx.OAuthClients = OAuthClients;
-Telnyx.OAuthGrants = OAuthGrants;
 Telnyx.Webhooks = Webhooks;
 Telnyx.AccessIPAddress = AccessIPAddress;
 Telnyx.AccessIPRanges = AccessIPRanges;
@@ -2299,45 +2296,13 @@ Telnyx.WirelessBlocklistValues = WirelessBlocklistValues;
 Telnyx.WirelessBlocklists = WirelessBlocklists;
 Telnyx.PartnerCampaigns = PartnerCampaigns;
 Telnyx.WellKnown = WellKnown;
+Telnyx.Legacy = Legacy;
+Telnyx.OAuth = OAuth;
+Telnyx.OAuthClients = OAuthClients;
+Telnyx.OAuthGrants = OAuthGrants;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
-
-  export { Legacy as Legacy };
-
-  export {
-    OAuth as OAuth,
-    type OAuthRetrieveResponse as OAuthRetrieveResponse,
-    type OAuthGrantsResponse as OAuthGrantsResponse,
-    type OAuthIntrospectResponse as OAuthIntrospectResponse,
-    type OAuthRegisterResponse as OAuthRegisterResponse,
-    type OAuthRetrieveJwksResponse as OAuthRetrieveJwksResponse,
-    type OAuthTokenResponse as OAuthTokenResponse,
-    type OAuthGrantsParams as OAuthGrantsParams,
-    type OAuthIntrospectParams as OAuthIntrospectParams,
-    type OAuthRegisterParams as OAuthRegisterParams,
-    type OAuthRetrieveAuthorizeParams as OAuthRetrieveAuthorizeParams,
-    type OAuthTokenParams as OAuthTokenParams,
-  };
-
-  export {
-    OAuthClients as OAuthClients,
-    type OAuthClientCreateResponse as OAuthClientCreateResponse,
-    type OAuthClientRetrieveResponse as OAuthClientRetrieveResponse,
-    type OAuthClientUpdateResponse as OAuthClientUpdateResponse,
-    type OAuthClientListResponse as OAuthClientListResponse,
-    type OAuthClientCreateParams as OAuthClientCreateParams,
-    type OAuthClientUpdateParams as OAuthClientUpdateParams,
-    type OAuthClientListParams as OAuthClientListParams,
-  };
-
-  export {
-    OAuthGrants as OAuthGrants,
-    type OAuthGrantRetrieveResponse as OAuthGrantRetrieveResponse,
-    type OAuthGrantListResponse as OAuthGrantListResponse,
-    type OAuthGrantDeleteResponse as OAuthGrantDeleteResponse,
-    type OAuthGrantListParams as OAuthGrantListParams,
-  };
 
   export {
     Webhooks as Webhooks,
@@ -2993,6 +2958,7 @@ export declare namespace Telnyx {
 
   export {
     Messages as Messages,
+    type Error as Error,
     type MessagingError as MessagingError,
     type OutboundMessagePayload as OutboundMessagePayload,
     type MessageRetrieveResponse as MessageRetrieveResponse,
@@ -3786,7 +3752,42 @@ export declare namespace Telnyx {
     type WellKnownRetrieveProtectedResourceMetadataResponse as WellKnownRetrieveProtectedResourceMetadataResponse,
   };
 
-  export type APIError = API.APIError;
+  export { Legacy as Legacy };
+
+  export {
+    OAuth as OAuth,
+    type OAuthCreateGrantResponse as OAuthCreateGrantResponse,
+    type OAuthExchangeTokenResponse as OAuthExchangeTokenResponse,
+    type OAuthIntrospectTokenResponse as OAuthIntrospectTokenResponse,
+    type OAuthRegisterClientResponse as OAuthRegisterClientResponse,
+    type OAuthRetrieveConsentResponse as OAuthRetrieveConsentResponse,
+    type OAuthRetrieveJwksResponse as OAuthRetrieveJwksResponse,
+    type OAuthAuthorizeParams as OAuthAuthorizeParams,
+    type OAuthCreateGrantParams as OAuthCreateGrantParams,
+    type OAuthExchangeTokenParams as OAuthExchangeTokenParams,
+    type OAuthIntrospectTokenParams as OAuthIntrospectTokenParams,
+    type OAuthRegisterClientParams as OAuthRegisterClientParams,
+  };
+
+  export {
+    OAuthClients as OAuthClients,
+    type OAuthClientCreateResponse as OAuthClientCreateResponse,
+    type OAuthClientRetrieveResponse as OAuthClientRetrieveResponse,
+    type OAuthClientUpdateResponse as OAuthClientUpdateResponse,
+    type OAuthClientListResponse as OAuthClientListResponse,
+    type OAuthClientCreateParams as OAuthClientCreateParams,
+    type OAuthClientUpdateParams as OAuthClientUpdateParams,
+    type OAuthClientListParams as OAuthClientListParams,
+  };
+
+  export {
+    OAuthGrants as OAuthGrants,
+    type OAuthGrantRetrieveResponse as OAuthGrantRetrieveResponse,
+    type OAuthGrantListResponse as OAuthGrantListResponse,
+    type OAuthGrantRevokeResponse as OAuthGrantRevokeResponse,
+    type OAuthGrantListParams as OAuthGrantListParams,
+  };
+
   export type ConnectionsPaginationMeta = API.ConnectionsPaginationMeta;
   export type DocReqsRequirementType = API.DocReqsRequirementType;
   export type HostedNumber = API.HostedNumber;
