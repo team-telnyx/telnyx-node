@@ -57,7 +57,7 @@ export const tool: Tool = {
         type: 'string',
         title: 'BusinessContactEmail',
         description:
-          'Business contact email.\n\nRequired if `entityType` will be changed to `PUBLIC_PROFIT`.',
+          'Business contact email.\n\nRequired if `entityType` will be changed to `PUBLIC_PROFIT`. Otherwise, it is recommended to either omit this field or set it to `null`.',
       },
       city: {
         type: 'string',

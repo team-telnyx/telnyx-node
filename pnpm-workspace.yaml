@@ -1,4 +1,4 @@
-packages:
+packages: 
   - 'packages/*'
 onlyBuiltDependencies:
   - '@swc/core'

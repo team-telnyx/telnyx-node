@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export const tool: Tool = {
-  name: 'register_oauth',
+  name: 'register_client_oauth',
   description:
     "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nRegister a new OAuth client dynamically (RFC 7591)\n\n# Response Schema\n```json\n{\n  type: 'object',\n  properties: {\n    client_id: {\n      type: 'string',\n      description: 'Unique client identifier'\n    },\n    client_id_issued_at: {\n      type: 'integer',\n      description: 'Unix timestamp of when the client ID was issued'\n    },\n    client_name: {\n      type: 'string',\n      description: 'Human-readable client name'\n    },\n    client_secret: {\n      type: 'string',\n      description: 'Client secret (only for confidential clients)'\n    },\n    grant_types: {\n      type: 'array',\n      description: 'Array of allowed grant types',\n      items: {\n        type: 'string'\n      }\n    },\n    logo_uri: {\n      type: 'string',\n      description: 'URL of the client logo'\n    },\n    policy_uri: {\n      type: 'string',\n      description: 'URL of the client\\'s privacy policy'\n    },\n    redirect_uris: {\n      type: 'array',\n      description: 'Array of redirection URIs',\n      items: {\n        type: 'string'\n      }\n    },\n    response_types: {\n      type: 'array',\n      description: 'Array of allowed response types',\n      items: {\n        type: 'string'\n      }\n    },\n    scope: {\n      type: 'string',\n      description: 'Space-separated scope values'\n    },\n    token_endpoint_auth_method: {\n      type: 'string',\n      description: 'Token endpoint authentication method'\n    },\n    tos_uri: {\n      type: 'string',\n      description: 'URL of the client\\'s terms of service'\n    }\n  },\n  required: [    'client_id',\n    'client_id_issued_at'\n  ]\n}\n```",
   inputSchema: {
@@ -82,7 +82,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { jq_filter, ...body } = args as any;
-  return asTextContentResult(await maybeFilter(jq_filter, await client.oauth.register(body)));
+  return asTextContentResult(await maybeFilter(jq_filter, await client.oauth.registerClient(body)));
 };
 
 export default { metadata, tool, handler };

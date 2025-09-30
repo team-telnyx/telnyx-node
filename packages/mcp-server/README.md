@@ -172,7 +172,7 @@ http://localhost:3000?client=cursor&capability=tool-name-length%3D40
 import { server, endpoints, init } from "telnyx-mcp/server";
 
 // import a specific tool
-import createBucketClient from "telnyx-mcp/tools/top-level/create-bucket-client";
+import createAccessIPAddress from "telnyx-mcp/tools/access-ip-address/create-access-ip-address";
 
 // initialize the server and all endpoints
 init({ server, endpoints });
@@ -197,94 +197,12 @@ const myCustomEndpoint = {
 };
 
 // initialize the server with your custom endpoints
-init({ server: myServer, endpoints: [createBucketClient, myCustomEndpoint] });
+init({ server: myServer, endpoints: [createAccessIPAddress, myCustomEndpoint] });
 ```
 
 ## Available Tools
 
 The following tools are available in this MCP server.
-
-### Resource `$client`:
-
-- `create_bucket_client` (`write`): Create a bucket.
-- `delete_bucket_client` (`write`): Deletes a bucket. The bucket must be empty for it to be deleted.
-- `delete_object_client` (`write`): Delete an object from a given bucket.
-- `delete_objects_client` (`write`): Deletes one or multiple objects from a given bucket.
-- `get_object_client` (`read`): Retrieves an object from a given bucket.
-- `list_buckets_client` (`read`): List all Buckets.
-- `list_objects_client` (`read`): List all objects contained in a given bucket.
-- `put_object_client` (`write`): Add an object to a bucket.
-
-### Resource `legacy.reporting.batch_detail_records.messaging`:
-
-- `create_batch_detail_records_reporting_legacy_messaging` (`write`): Creates a new MDR detailed report request with the specified filters
-- `retrieve_batch_detail_records_reporting_legacy_messaging` (`read`): Retrieves a specific MDR detailed report request by ID
-- `list_batch_detail_records_reporting_legacy_messaging` (`read`): Retrieves all MDR detailed report requests for the authenticated user
-- `delete_batch_detail_records_reporting_legacy_messaging` (`write`): Deletes a specific MDR detailed report request by ID
-
-### Resource `legacy.reporting.batch_detail_records.speech_to_text`:
-
-- `create_batch_detail_records_reporting_legacy_speech_to_text` (`write`): Creates a new Speech to Text batch report request with the specified filters
-- `retrieve_batch_detail_records_reporting_legacy_speech_to_text` (`read`): Retrieves a specific Speech to Text batch report request by ID
-- `list_batch_detail_records_reporting_legacy_speech_to_text` (`read`): Retrieves all Speech to Text batch report requests for the authenticated user
-- `delete_batch_detail_records_reporting_legacy_speech_to_text` (`write`): Deletes a specific Speech to Text batch report request by ID
-
-### Resource `legacy.reporting.batch_detail_records.voice`:
-
-- `create_batch_detail_records_reporting_legacy_voice` (`write`): Creates a new CDR report request with the specified filters
-- `retrieve_batch_detail_records_reporting_legacy_voice` (`read`): Retrieves a specific CDR report request by ID
-- `list_batch_detail_records_reporting_legacy_voice` (`read`): Retrieves all CDR report requests for the authenticated user
-- `delete_batch_detail_records_reporting_legacy_voice` (`write`): Deletes a specific CDR report request by ID
-- `retrieve_fields_batch_detail_records_reporting_legacy_voice` (`read`): Retrieves all available fields that can be used in CDR reports
-
-### Resource `legacy.reporting.usage_reports`:
-
-- `retrieve_speech_to_text_reporting_legacy_usage_reports` (`read`): Generate and fetch speech to text usage report synchronously. This endpoint will both generate and fetch the speech to text report over a specified time period.
-
-### Resource `legacy.reporting.usage_reports.messaging`:
-
-- `create_usage_reports_reporting_legacy_messaging` (`write`): Creates a new legacy usage V2 MDR report request with the specified filters
-- `retrieve_usage_reports_reporting_legacy_messaging` (`read`): Fetch single MDR usage report by id.
-- `list_usage_reports_reporting_legacy_messaging` (`read`): Fetch all previous requests for MDR usage reports.
-- `delete_usage_reports_reporting_legacy_messaging` (`write`): Deletes a specific V2 legacy usage MDR report request by ID
-
-### Resource `legacy.reporting.usage_reports.number_lookup`:
-
-- `create_usage_reports_reporting_legacy_number_lookup` (`write`): Submit a new telco data usage report
-- `retrieve_usage_reports_reporting_legacy_number_lookup` (`read`): Retrieve a specific telco data usage report by its ID
-- `list_usage_reports_reporting_legacy_number_lookup` (`read`): Retrieve a paginated list of telco data usage reports
-- `delete_usage_reports_reporting_legacy_number_lookup` (`write`): Delete a specific telco data usage report by its ID
-
-### Resource `legacy.reporting.usage_reports.voice`:
-
-- `create_usage_reports_reporting_legacy_voice` (`write`): Creates a new legacy usage V2 CDR report request with the specified filters
-- `retrieve_usage_reports_reporting_legacy_voice` (`read`): Fetch single cdr usage report by id.
-- `list_usage_reports_reporting_legacy_voice` (`read`): Fetch all previous requests for cdr usage reports.
-- `delete_usage_reports_reporting_legacy_voice` (`write`): Deletes a specific V2 legacy usage CDR report request by ID
-
-### Resource `oauth`:
-
-- `retrieve_oauth` (`read`): Retrieve details about an OAuth consent token
-- `grants_oauth` (`write`): Create an OAuth authorization grant
-- `introspect_oauth` (`write`): Introspect an OAuth access token to check its validity and metadata
-- `register_oauth` (`write`): Register a new OAuth client dynamically (RFC 7591)
-- `retrieve_authorize_oauth` (`read`): OAuth 2.0 authorization endpoint for the authorization code flow
-- `retrieve_jwks_oauth` (`read`): Retrieve the JSON Web Key Set for token verification
-- `token_oauth` (`write`): Exchange authorization code, client credentials, or refresh token for access token
-
-### Resource `oauth_clients`:
-
-- `create_oauth_clients` (`write`): Create a new OAuth client
-- `retrieve_oauth_clients` (`read`): Retrieve a single OAuth client by ID
-- `update_oauth_clients` (`write`): Update an existing OAuth client
-- `list_oauth_clients` (`read`): Retrieve a paginated list of OAuth clients for the authenticated user
-- `delete_oauth_clients` (`write`): Delete an OAuth client
-
-### Resource `oauth_grants`:
-
-- `retrieve_oauth_grants` (`read`): Retrieve a single OAuth grant by ID
-- `list_oauth_grants` (`read`): Retrieve a paginated list of OAuth grants for the authenticated user
-- `delete_oauth_grants` (`write`): Revoke an OAuth grant
 
 ### Resource `access_ip_address`:
 
@@ -2075,7 +1993,7 @@ The following tools are available in this MCP server.
 
 ### Resource `verified_numbers`:
 
-- `create_verified_numbers` (`write`): Initiates phone number verification procedure.
+- `create_verified_numbers` (`write`): Initiates phone number verification procedure. Supports DTMF extension dialing for voice calls to numbers behind IVR systems.
 - `retrieve_verified_numbers` (`read`): Retrieve a verified number
 - `list_verified_numbers` (`read`): Gets a paginated list of Verified Numbers.
 - `delete_verified_numbers` (`write`): Delete a verified number
@@ -2171,3 +2089,74 @@ The following tools are available in this MCP server.
 
 - `retrieve_authorization_server_metadata_well_known` (`read`): OAuth 2.0 Authorization Server Metadata (RFC 8414)
 - `retrieve_protected_resource_metadata_well_known` (`read`): OAuth 2.0 Protected Resource Metadata for resource discovery
+
+### Resource `legacy.reporting.batch_detail_records.messaging`:
+
+- `create_batch_detail_records_reporting_legacy_messaging` (`write`): Creates a new MDR detailed report request with the specified filters
+- `retrieve_batch_detail_records_reporting_legacy_messaging` (`read`): Retrieves a specific MDR detailed report request by ID
+- `list_batch_detail_records_reporting_legacy_messaging` (`read`): Retrieves all MDR detailed report requests for the authenticated user
+- `delete_batch_detail_records_reporting_legacy_messaging` (`write`): Deletes a specific MDR detailed report request by ID
+
+### Resource `legacy.reporting.batch_detail_records.speech_to_text`:
+
+- `create_batch_detail_records_reporting_legacy_speech_to_text` (`write`): Creates a new Speech to Text batch report request with the specified filters
+- `retrieve_batch_detail_records_reporting_legacy_speech_to_text` (`read`): Retrieves a specific Speech to Text batch report request by ID
+- `list_batch_detail_records_reporting_legacy_speech_to_text` (`read`): Retrieves all Speech to Text batch report requests for the authenticated user
+- `delete_batch_detail_records_reporting_legacy_speech_to_text` (`write`): Deletes a specific Speech to Text batch report request by ID
+
+### Resource `legacy.reporting.batch_detail_records.voice`:
+
+- `create_batch_detail_records_reporting_legacy_voice` (`write`): Creates a new CDR report request with the specified filters
+- `retrieve_batch_detail_records_reporting_legacy_voice` (`read`): Retrieves a specific CDR report request by ID
+- `list_batch_detail_records_reporting_legacy_voice` (`read`): Retrieves all CDR report requests for the authenticated user
+- `delete_batch_detail_records_reporting_legacy_voice` (`write`): Deletes a specific CDR report request by ID
+- `retrieve_fields_batch_detail_records_reporting_legacy_voice` (`read`): Retrieves all available fields that can be used in CDR reports
+
+### Resource `legacy.reporting.usage_reports`:
+
+- `retrieve_speech_to_text_reporting_legacy_usage_reports` (`read`): Generate and fetch speech to text usage report synchronously. This endpoint will both generate and fetch the speech to text report over a specified time period.
+
+### Resource `legacy.reporting.usage_reports.messaging`:
+
+- `create_usage_reports_reporting_legacy_messaging` (`write`): Creates a new legacy usage V2 MDR report request with the specified filters
+- `retrieve_usage_reports_reporting_legacy_messaging` (`read`): Fetch single MDR usage report by id.
+- `list_usage_reports_reporting_legacy_messaging` (`read`): Fetch all previous requests for MDR usage reports.
+- `delete_usage_reports_reporting_legacy_messaging` (`write`): Deletes a specific V2 legacy usage MDR report request by ID
+
+### Resource `legacy.reporting.usage_reports.number_lookup`:
+
+- `create_usage_reports_reporting_legacy_number_lookup` (`write`): Submit a new telco data usage report
+- `retrieve_usage_reports_reporting_legacy_number_lookup` (`read`): Retrieve a specific telco data usage report by its ID
+- `list_usage_reports_reporting_legacy_number_lookup` (`read`): Retrieve a paginated list of telco data usage reports
+- `delete_usage_reports_reporting_legacy_number_lookup` (`write`): Delete a specific telco data usage report by its ID
+
+### Resource `legacy.reporting.usage_reports.voice`:
+
+- `create_usage_reports_reporting_legacy_voice` (`write`): Creates a new legacy usage V2 CDR report request with the specified filters
+- `retrieve_usage_reports_reporting_legacy_voice` (`read`): Fetch single cdr usage report by id.
+- `list_usage_reports_reporting_legacy_voice` (`read`): Fetch all previous requests for cdr usage reports.
+- `delete_usage_reports_reporting_legacy_voice` (`write`): Deletes a specific V2 legacy usage CDR report request by ID
+
+### Resource `oauth`:
+
+- `authorize_oauth` (`read`): OAuth 2.0 authorization endpoint for the authorization code flow
+- `create_grant_oauth` (`write`): Create an OAuth authorization grant
+- `exchange_token_oauth` (`write`): Exchange authorization code, client credentials, or refresh token for access token
+- `introspect_token_oauth` (`write`): Introspect an OAuth access token to check its validity and metadata
+- `register_client_oauth` (`write`): Register a new OAuth client dynamically (RFC 7591)
+- `retrieve_consent_oauth` (`read`): Retrieve details about an OAuth consent token
+- `retrieve_jwks_oauth` (`read`): Retrieve the JSON Web Key Set for token verification
+
+### Resource `oauth_clients`:
+
+- `create_oauth_clients` (`write`): Create a new OAuth client
+- `retrieve_oauth_clients` (`read`): Retrieve a single OAuth client by ID
+- `update_oauth_clients` (`write`): Update an existing OAuth client
+- `list_oauth_clients` (`read`): Retrieve a paginated list of OAuth clients for the authenticated user
+- `delete_oauth_clients` (`write`): Delete an OAuth client
+
+### Resource `oauth_grants`:
+
+- `retrieve_oauth_grants` (`read`): Retrieve a single OAuth grant by ID
+- `list_oauth_grants` (`read`): Retrieve a paginated list of OAuth grants for the authenticated user
+- `revoke_oauth_grants` (`write`): Revoke an OAuth grant

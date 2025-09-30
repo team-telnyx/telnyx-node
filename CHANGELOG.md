@@ -1,5 +1,38 @@
 # Changelog
 
+## 3.1.0 (2025-09-30)
+
+Full Changelog: [v3.0.0...v3.1.0](https://github.com/team-telnyx/telnyx-node/compare/v3.0.0...v3.1.0)
+
+### Features
+
+* AISWE-458: Remove S3 operations from OpenAPI spec ([db7da4a](https://github.com/team-telnyx/telnyx-node/commit/db7da4a67029a89f1d1c35e2df87ac77d4d19e89))
+* recommend against using businessContactEmail ([3a96fad](https://github.com/team-telnyx/telnyx-node/commit/3a96fad9acb34a71e797179c3f3baa7993c4855e))
+* warm transfer ([0d73737](https://github.com/team-telnyx/telnyx-node/commit/0d73737e883f2b25aa89b31a3fa91bdfd6bd103b))
+
+
+### Bug Fixes
+
+* **mcp:** fix cli argument parsing logic ([db0f51f](https://github.com/team-telnyx/telnyx-node/commit/db0f51f29ee9c3802e84851a7b7c264718fd546e))
+* **mcp:** resolve a linting issue in server code ([5a184ec](https://github.com/team-telnyx/telnyx-node/commit/5a184ecb4fd22c497e3853ec1e926dec31ad40aa))
+
+
+### Performance Improvements
+
+* faster formatting ([10a3442](https://github.com/team-telnyx/telnyx-node/commit/10a3442f01453cd01e6c1b02250f29fb44a8313a))
+
+
+### Chores
+
+* add extension variable on dev docs ([d79e9cf](https://github.com/team-telnyx/telnyx-node/commit/d79e9cfc8f9fd724a8532d81761f5cf143794c25))
+* **internal:** codegen related update ([3bed3f9](https://github.com/team-telnyx/telnyx-node/commit/3bed3f96f456e0560e2dac631a6fe0f77171f0a9))
+* **internal:** codegen related update ([0a46e03](https://github.com/team-telnyx/telnyx-node/commit/0a46e036e2e8a9d5d9b8a46182d2100befbfc08c))
+* **internal:** fix incremental formatting in some cases ([3af2e07](https://github.com/team-telnyx/telnyx-node/commit/3af2e0772b0348fb125fe9115ee5ce708e861524))
+* **internal:** ignore .eslintcache ([878841a](https://github.com/team-telnyx/telnyx-node/commit/878841a7ca9e931bb15f4359e0fe302087b181c4))
+* **internal:** remove deprecated `compilerOptions.baseUrl` from tsconfig.json ([29287ba](https://github.com/team-telnyx/telnyx-node/commit/29287baadbea52f3d409c9bcfcdb3110ddd77af7))
+* **mcp:** allow pointing `docs_search` tool at other URLs ([86cdd03](https://github.com/team-telnyx/telnyx-node/commit/86cdd03a8961c7d40094358e889ebbf09048d7ca))
+* update lockfile ([f90b0c9](https://github.com/team-telnyx/telnyx-node/commit/f90b0c990f93a957d90849938e6b204ab1a4587b))
+
 ## 3.0.0 (2025-09-24)
 
 Full Changelog: [v3.0.0-alpha...v3.0.0](https://github.com/team-telnyx/telnyx-node/compare/v3.0.0-alpha...v3.0.0)

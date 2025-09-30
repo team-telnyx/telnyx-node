@@ -580,7 +580,8 @@ export interface BrandCreateParams {
   /**
    * Business contact email.
    *
-   * Required if `entityType` is `PUBLIC_PROFIT`.
+   * Required if `entityType` is `PUBLIC_PROFIT`. Otherwise, it is recommended to
+   * either omit this field or set it to `null`.
    */
   businessContactEmail?: string;
 
@@ -712,7 +713,8 @@ export interface BrandUpdateParams {
   /**
    * Business contact email.
    *
-   * Required if `entityType` will be changed to `PUBLIC_PROFIT`.
+   * Required if `entityType` will be changed to `PUBLIC_PROFIT`. Otherwise, it is
+   * recommended to either omit this field or set it to `null`.
    */
   businessContactEmail?: string;
 
