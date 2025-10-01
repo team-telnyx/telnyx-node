@@ -74,157 +74,69 @@ export class Voice extends APIResource {
   }
 }
 
+/**
+ * Legacy V2 CDR usage report response
+ */
+export interface CdrUsageReportResponseLegacy {
+  /**
+   * Identifies the resource
+   */
+  id?: string;
+
+  /**
+   * Aggregation type: All = 0, By Connections = 1, By Tags = 2, By Billing Group = 3
+   */
+  aggregation_type?: number;
+
+  connections?: Array<number>;
+
+  created_at?: string;
+
+  end_time?: string;
+
+  /**
+   * Product breakdown type: No breakdown = 0, DID vs Toll-free = 1, Country = 2, DID
+   * vs Toll-free per Country = 3
+   */
+  product_breakdown?: number;
+
+  record_type?: string;
+
+  report_url?: string;
+
+  result?: unknown;
+
+  start_time?: string;
+
+  /**
+   * Status of the report: Pending = 1, Complete = 2, Failed = 3, Expired = 4
+   */
+  status?: number;
+
+  updated_at?: string;
+}
+
 export interface VoiceCreateResponse {
   /**
    * Legacy V2 CDR usage report response
    */
-  data?: VoiceCreateResponse.Data;
-}
-
-export namespace VoiceCreateResponse {
-  /**
-   * Legacy V2 CDR usage report response
-   */
-  export interface Data {
-    /**
-     * Identifies the resource
-     */
-    id?: string;
-
-    /**
-     * Aggregation type: All = 0, By Connections = 1, By Tags = 2, By Billing Group = 3
-     */
-    aggregation_type?: number;
-
-    connections?: Array<number>;
-
-    created_at?: string;
-
-    end_time?: string;
-
-    /**
-     * Product breakdown type: No breakdown = 0, DID vs Toll-free = 1, Country = 2, DID
-     * vs Toll-free per Country = 3
-     */
-    product_breakdown?: number;
-
-    record_type?: string;
-
-    report_url?: string;
-
-    result?: unknown;
-
-    start_time?: string;
-
-    /**
-     * Status of the report: Pending = 1, Complete = 2, Failed = 3, Expired = 4
-     */
-    status?: number;
-
-    updated_at?: string;
-  }
+  data?: CdrUsageReportResponseLegacy;
 }
 
 export interface VoiceRetrieveResponse {
   /**
    * Legacy V2 CDR usage report response
    */
-  data?: VoiceRetrieveResponse.Data;
-}
-
-export namespace VoiceRetrieveResponse {
-  /**
-   * Legacy V2 CDR usage report response
-   */
-  export interface Data {
-    /**
-     * Identifies the resource
-     */
-    id?: string;
-
-    /**
-     * Aggregation type: All = 0, By Connections = 1, By Tags = 2, By Billing Group = 3
-     */
-    aggregation_type?: number;
-
-    connections?: Array<number>;
-
-    created_at?: string;
-
-    end_time?: string;
-
-    /**
-     * Product breakdown type: No breakdown = 0, DID vs Toll-free = 1, Country = 2, DID
-     * vs Toll-free per Country = 3
-     */
-    product_breakdown?: number;
-
-    record_type?: string;
-
-    report_url?: string;
-
-    result?: unknown;
-
-    start_time?: string;
-
-    /**
-     * Status of the report: Pending = 1, Complete = 2, Failed = 3, Expired = 4
-     */
-    status?: number;
-
-    updated_at?: string;
-  }
+  data?: CdrUsageReportResponseLegacy;
 }
 
 export interface VoiceListResponse {
-  data?: Array<VoiceListResponse.Data>;
+  data?: Array<CdrUsageReportResponseLegacy>;
 
   meta?: VoiceListResponse.Meta;
 }
 
 export namespace VoiceListResponse {
-  /**
-   * Legacy V2 CDR usage report response
-   */
-  export interface Data {
-    /**
-     * Identifies the resource
-     */
-    id?: string;
-
-    /**
-     * Aggregation type: All = 0, By Connections = 1, By Tags = 2, By Billing Group = 3
-     */
-    aggregation_type?: number;
-
-    connections?: Array<number>;
-
-    created_at?: string;
-
-    end_time?: string;
-
-    /**
-     * Product breakdown type: No breakdown = 0, DID vs Toll-free = 1, Country = 2, DID
-     * vs Toll-free per Country = 3
-     */
-    product_breakdown?: number;
-
-    record_type?: string;
-
-    report_url?: string;
-
-    result?: unknown;
-
-    start_time?: string;
-
-    /**
-     * Status of the report: Pending = 1, Complete = 2, Failed = 3, Expired = 4
-     */
-    status?: number;
-
-    updated_at?: string;
-  }
-
   export interface Meta {
     page_number?: number;
 
@@ -240,51 +152,7 @@ export interface VoiceDeleteResponse {
   /**
    * Legacy V2 CDR usage report response
    */
-  data?: VoiceDeleteResponse.Data;
-}
-
-export namespace VoiceDeleteResponse {
-  /**
-   * Legacy V2 CDR usage report response
-   */
-  export interface Data {
-    /**
-     * Identifies the resource
-     */
-    id?: string;
-
-    /**
-     * Aggregation type: All = 0, By Connections = 1, By Tags = 2, By Billing Group = 3
-     */
-    aggregation_type?: number;
-
-    connections?: Array<number>;
-
-    created_at?: string;
-
-    end_time?: string;
-
-    /**
-     * Product breakdown type: No breakdown = 0, DID vs Toll-free = 1, Country = 2, DID
-     * vs Toll-free per Country = 3
-     */
-    product_breakdown?: number;
-
-    record_type?: string;
-
-    report_url?: string;
-
-    result?: unknown;
-
-    start_time?: string;
-
-    /**
-     * Status of the report: Pending = 1, Complete = 2, Failed = 3, Expired = 4
-     */
-    status?: number;
-
-    updated_at?: string;
-  }
+  data?: CdrUsageReportResponseLegacy;
 }
 
 export interface VoiceCreateParams {
@@ -339,6 +207,7 @@ export interface VoiceListParams {
 
 export declare namespace Voice {
   export {
+    type CdrUsageReportResponseLegacy as CdrUsageReportResponseLegacy,
     type VoiceCreateResponse as VoiceCreateResponse,
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
     type VoiceListResponse as VoiceListResponse,
