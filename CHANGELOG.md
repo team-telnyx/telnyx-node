@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.3.1 (2025-10-01)
+
+Full Changelog: [v3.3.0...v3.3.1](https://github.com/team-telnyx/telnyx-node/compare/v3.3.0...v3.3.1)
+
+### Chores
+
+* update mcp-publisher to v1.2.3 ([65406d7](https://github.com/team-telnyx/telnyx-node/commit/65406d74b940b65ca18de16853f9fd9022da34f9))
+
 ## 3.3.0 (2025-10-01)
 
 Full Changelog: [v3.2.0...v3.3.0](https://github.com/team-telnyx/telnyx-node/compare/v3.2.0...v3.3.0)
