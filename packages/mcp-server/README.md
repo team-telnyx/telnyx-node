@@ -314,8 +314,8 @@ The following tools are available in this MCP server.
 
 - `create_advanced_orders` (`write`): Create Advanced Order
 - `retrieve_advanced_orders` (`read`): Get Advanced Order
-- `update_advanced_orders` (`write`): Update Advanced Order
 - `list_advanced_orders` (`read`): List Advanced Orders
+- `update_requirement_group_advanced_orders` (`write`): Update Advanced Order
 
 ### Resource `ai`:
 

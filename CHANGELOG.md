@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.3.0 (2025-10-01)
+
+Full Changelog: [v3.2.0...v3.3.0](https://github.com/team-telnyx/telnyx-node/compare/v3.2.0...v3.3.0)
+
+### Features
+
+* Engdesk 44932 ([eeb03ac](https://github.com/team-telnyx/telnyx-node/commit/eeb03ac5da4974e8c9df63383b3cc4e4ee5a53bc))
+
+
+### Bug Fixes
+
+* use pre-built binary for mcp-publisher installation ([35f6ead](https://github.com/team-telnyx/telnyx-node/commit/35f6eadf6bc8d33704acb7a47d971847170cb7b4))
+
 ## 3.2.0 (2025-10-01)
 
 Full Changelog: [v3.1.0...v3.2.0](https://github.com/team-telnyx/telnyx-node/compare/v3.1.0...v3.2.0)
