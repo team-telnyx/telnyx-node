@@ -73,154 +73,68 @@ export class Messaging extends APIResource {
   }
 }
 
+/**
+ * Legacy V2 MDR usage report response
+ */
+export interface MdrUsageReportResponseLegacy {
+  /**
+   * Identifies the resource
+   */
+  id?: string;
+
+  /**
+   * Aggregation type: No aggregation = 0, By Messaging Profile = 1, By Tags = 2
+   */
+  aggregation_type?: number;
+
+  connections?: Array<number>;
+
+  created_at?: string;
+
+  end_time?: string;
+
+  /**
+   * List of messaging profile IDs
+   */
+  profiles?: Array<string>;
+
+  record_type?: string;
+
+  report_url?: string;
+
+  result?: unknown;
+
+  start_time?: string;
+
+  /**
+   * Status of the report (Pending = 1, Complete = 2, Failed = 3, Expired = 4)
+   */
+  status?: number;
+
+  updated_at?: string;
+}
+
 export interface MessagingCreateResponse {
   /**
    * Legacy V2 MDR usage report response
    */
-  data?: MessagingCreateResponse.Data;
-}
-
-export namespace MessagingCreateResponse {
-  /**
-   * Legacy V2 MDR usage report response
-   */
-  export interface Data {
-    /**
-     * Identifies the resource
-     */
-    id?: string;
-
-    /**
-     * Aggregation type: No aggregation = 0, By Messaging Profile = 1, By Tags = 2
-     */
-    aggregation_type?: number;
-
-    connections?: Array<number>;
-
-    created_at?: string;
-
-    end_time?: string;
-
-    /**
-     * List of messaging profile IDs
-     */
-    profiles?: Array<string>;
-
-    record_type?: string;
-
-    report_url?: string;
-
-    result?: unknown;
-
-    start_time?: string;
-
-    /**
-     * Status of the report (Pending = 1, Complete = 2, Failed = 3, Expired = 4)
-     */
-    status?: number;
-
-    updated_at?: string;
-  }
+  data?: MdrUsageReportResponseLegacy;
 }
 
 export interface MessagingRetrieveResponse {
   /**
    * Legacy V2 MDR usage report response
    */
-  data?: MessagingRetrieveResponse.Data;
-}
-
-export namespace MessagingRetrieveResponse {
-  /**
-   * Legacy V2 MDR usage report response
-   */
-  export interface Data {
-    /**
-     * Identifies the resource
-     */
-    id?: string;
-
-    /**
-     * Aggregation type: No aggregation = 0, By Messaging Profile = 1, By Tags = 2
-     */
-    aggregation_type?: number;
-
-    connections?: Array<number>;
-
-    created_at?: string;
-
-    end_time?: string;
-
-    /**
-     * List of messaging profile IDs
-     */
-    profiles?: Array<string>;
-
-    record_type?: string;
-
-    report_url?: string;
-
-    result?: unknown;
-
-    start_time?: string;
-
-    /**
-     * Status of the report (Pending = 1, Complete = 2, Failed = 3, Expired = 4)
-     */
-    status?: number;
-
-    updated_at?: string;
-  }
+  data?: MdrUsageReportResponseLegacy;
 }
 
 export interface MessagingListResponse {
-  data?: Array<MessagingListResponse.Data>;
+  data?: Array<MdrUsageReportResponseLegacy>;
 
   meta?: MessagingListResponse.Meta;
 }
 
 export namespace MessagingListResponse {
-  /**
-   * Legacy V2 MDR usage report response
-   */
-  export interface Data {
-    /**
-     * Identifies the resource
-     */
-    id?: string;
-
-    /**
-     * Aggregation type: No aggregation = 0, By Messaging Profile = 1, By Tags = 2
-     */
-    aggregation_type?: number;
-
-    connections?: Array<number>;
-
-    created_at?: string;
-
-    end_time?: string;
-
-    /**
-     * List of messaging profile IDs
-     */
-    profiles?: Array<string>;
-
-    record_type?: string;
-
-    report_url?: string;
-
-    result?: unknown;
-
-    start_time?: string;
-
-    /**
-     * Status of the report (Pending = 1, Complete = 2, Failed = 3, Expired = 4)
-     */
-    status?: number;
-
-    updated_at?: string;
-  }
-
   export interface Meta {
     page_number?: number;
 
@@ -236,50 +150,7 @@ export interface MessagingDeleteResponse {
   /**
    * Legacy V2 MDR usage report response
    */
-  data?: MessagingDeleteResponse.Data;
-}
-
-export namespace MessagingDeleteResponse {
-  /**
-   * Legacy V2 MDR usage report response
-   */
-  export interface Data {
-    /**
-     * Identifies the resource
-     */
-    id?: string;
-
-    /**
-     * Aggregation type: No aggregation = 0, By Messaging Profile = 1, By Tags = 2
-     */
-    aggregation_type?: number;
-
-    connections?: Array<number>;
-
-    created_at?: string;
-
-    end_time?: string;
-
-    /**
-     * List of messaging profile IDs
-     */
-    profiles?: Array<string>;
-
-    record_type?: string;
-
-    report_url?: string;
-
-    result?: unknown;
-
-    start_time?: string;
-
-    /**
-     * Status of the report (Pending = 1, Complete = 2, Failed = 3, Expired = 4)
-     */
-    status?: number;
-
-    updated_at?: string;
-  }
+  data?: MdrUsageReportResponseLegacy;
 }
 
 export interface MessagingCreateParams {
@@ -319,6 +190,7 @@ export interface MessagingListParams {
 
 export declare namespace Messaging {
   export {
+    type MdrUsageReportResponseLegacy as MdrUsageReportResponseLegacy,
     type MessagingCreateResponse as MessagingCreateResponse,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingListResponse as MessagingListResponse,

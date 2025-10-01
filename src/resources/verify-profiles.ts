@@ -260,6 +260,12 @@ export interface VerifyProfileData {
   data?: VerifyProfile;
 }
 
+export interface VerifyProfileMessageTemplateResponse {
+  id?: string;
+
+  text?: string;
+}
+
 /**
  * A paginated list of Verify profiles
  */
@@ -282,42 +288,18 @@ export namespace VerifyProfileListResponse {
 }
 
 export interface VerifyProfileCreateTemplateResponse {
-  data?: VerifyProfileCreateTemplateResponse.Data;
-}
-
-export namespace VerifyProfileCreateTemplateResponse {
-  export interface Data {
-    id?: string;
-
-    text?: string;
-  }
+  data?: VerifyProfileMessageTemplateResponse;
 }
 
 /**
  * A list of Verify profile message templates
  */
 export interface VerifyProfileRetrieveTemplatesResponse {
-  data: Array<VerifyProfileRetrieveTemplatesResponse.Data>;
-}
-
-export namespace VerifyProfileRetrieveTemplatesResponse {
-  export interface Data {
-    id?: string;
-
-    text?: string;
-  }
+  data: Array<VerifyProfileMessageTemplateResponse>;
 }
 
 export interface VerifyProfileUpdateTemplateResponse {
-  data?: VerifyProfileUpdateTemplateResponse.Data;
-}
-
-export namespace VerifyProfileUpdateTemplateResponse {
-  export interface Data {
-    id?: string;
-
-    text?: string;
-  }
+  data?: VerifyProfileMessageTemplateResponse;
 }
 
 export interface VerifyProfileCreateParams {
@@ -599,6 +581,7 @@ export declare namespace VerifyProfiles {
   export {
     type VerifyProfile as VerifyProfile,
     type VerifyProfileData as VerifyProfileData,
+    type VerifyProfileMessageTemplateResponse as VerifyProfileMessageTemplateResponse,
     type VerifyProfileListResponse as VerifyProfileListResponse,
     type VerifyProfileCreateTemplateResponse as VerifyProfileCreateTemplateResponse,
     type VerifyProfileRetrieveTemplatesResponse as VerifyProfileRetrieveTemplatesResponse,

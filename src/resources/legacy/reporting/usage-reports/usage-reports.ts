@@ -3,6 +3,7 @@
 import { APIResource } from '../../../../core/resource';
 import * as MessagingAPI from './messaging';
 import {
+  MdrUsageReportResponseLegacy,
   Messaging,
   MessagingCreateParams,
   MessagingCreateResponse,
@@ -15,6 +16,7 @@ import * as NumberLookupAPI from './number-lookup';
 import { NumberLookup, NumberLookupCreateParams, NumberLookupListParams } from './number-lookup';
 import * as VoiceAPI from './voice';
 import {
+  CdrUsageReportResponseLegacy,
   Voice,
   VoiceCreateParams,
   VoiceCreateResponse,
@@ -71,6 +73,7 @@ export declare namespace UsageReports {
 
   export {
     Messaging as Messaging,
+    type MdrUsageReportResponseLegacy as MdrUsageReportResponseLegacy,
     type MessagingCreateResponse as MessagingCreateResponse,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingListResponse as MessagingListResponse,
@@ -87,6 +90,7 @@ export declare namespace UsageReports {
 
   export {
     Voice as Voice,
+    type CdrUsageReportResponseLegacy as CdrUsageReportResponseLegacy,
     type VoiceCreateResponse as VoiceCreateResponse,
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
     type VoiceListResponse as VoiceListResponse,
