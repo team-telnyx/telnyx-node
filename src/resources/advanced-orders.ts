@@ -33,20 +33,6 @@ export class AdvancedOrders extends APIResource {
   }
 
   /**
-   * Update Advanced Order
-   *
-   * @example
-   * ```ts
-   * const advancedOrder = await client.advancedOrders.update(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  update(orderID: string, body: AdvancedOrderUpdateParams, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.patch(path`/advanced_orders/${orderID}`, { body, ...options });
-  }
-
-  /**
    * List Advanced Orders
    *
    * @example
@@ -56,6 +42,28 @@ export class AdvancedOrders extends APIResource {
    */
   list(options?: RequestOptions): APIPromise<unknown> {
     return this._client.get('/advanced_orders', options);
+  }
+
+  /**
+   * Update Advanced Order
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.advancedOrders.updateRequirementGroup(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  updateRequirementGroup(
+    advancedOrderID: string,
+    body: AdvancedOrderUpdateRequirementGroupParams,
+    options?: RequestOptions,
+  ): APIPromise<unknown> {
+    return this._client.patch(path`/advanced_orders/${advancedOrderID}/requirement_group`, {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -70,14 +78,14 @@ export type AdvancedOrderCreateResponse = unknown;
 export type AdvancedOrderRetrieveResponse = unknown;
 
 /**
- * An Advanced Order Response
- */
-export type AdvancedOrderUpdateResponse = unknown;
-
-/**
  * An array of Advanced Order Responses
  */
 export type AdvancedOrderListResponse = unknown;
+
+/**
+ * An Advanced Order Response
+ */
+export type AdvancedOrderUpdateRequirementGroupResponse = unknown;
 
 export interface AdvancedOrderCreateParams {
   area_code?: string;
@@ -100,7 +108,7 @@ export interface AdvancedOrderCreateParams {
   requirement_group_id?: string;
 }
 
-export interface AdvancedOrderUpdateParams {
+export interface AdvancedOrderUpdateRequirementGroupParams {
   area_code?: string;
 
   comments?: string;
@@ -125,9 +133,9 @@ export declare namespace AdvancedOrders {
   export {
     type AdvancedOrderCreateResponse as AdvancedOrderCreateResponse,
     type AdvancedOrderRetrieveResponse as AdvancedOrderRetrieveResponse,
-    type AdvancedOrderUpdateResponse as AdvancedOrderUpdateResponse,
     type AdvancedOrderListResponse as AdvancedOrderListResponse,
+    type AdvancedOrderUpdateRequirementGroupResponse as AdvancedOrderUpdateRequirementGroupResponse,
     type AdvancedOrderCreateParams as AdvancedOrderCreateParams,
-    type AdvancedOrderUpdateParams as AdvancedOrderUpdateParams,
+    type AdvancedOrderUpdateRequirementGroupParams as AdvancedOrderUpdateRequirementGroupParams,
   };
 }
