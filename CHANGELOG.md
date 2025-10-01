@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.3.2 (2025-10-01)
+
+Full Changelog: [v3.3.1...v3.3.2](https://github.com/team-telnyx/telnyx-node/compare/v3.3.1...v3.3.2)
+
+### Bug Fixes
+
+* update websiteUrl to GitHub domain for MCP registry validation ([f2fdb35](https://github.com/team-telnyx/telnyx-node/commit/f2fdb354636c4f439ee81d8ecbfcbfb4035d4adc))
+
 ## 3.3.1 (2025-10-01)
 
 Full Changelog: [v3.3.0...v3.3.1](https://github.com/team-telnyx/telnyx-node/compare/v3.3.0...v3.3.1)
