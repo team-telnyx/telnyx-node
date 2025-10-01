@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.3.3 (2025-10-01)
+
+Full Changelog: [v3.3.2...v3.3.3](https://github.com/team-telnyx/telnyx-node/compare/v3.3.2...v3.3.3)
+
+### Bug Fixes
+
+* remove websiteUrl to avoid domain validation error ([1270a53](https://github.com/team-telnyx/telnyx-node/commit/1270a53edbfb3b13cef0b5f8d0af5f39a8d015af))
+
 ## 3.3.2 (2025-10-01)
 
 Full Changelog: [v3.3.1...v3.3.2](https://github.com/team-telnyx/telnyx-node/compare/v3.3.1...v3.3.2)
