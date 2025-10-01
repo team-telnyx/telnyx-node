@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
   "name": "io.github.team-telnyx/telnyx",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Official TypeScript library for the Telnyx API",
   "websiteUrl": "https://telnyx.com",
   "repository": {
@@ -13,7 +13,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "telnyx",
-      "version": "3.1.0",
+      "version": "3.2.0",
       "transport": {
         "type": "stdio"
       },
