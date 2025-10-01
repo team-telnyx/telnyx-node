@@ -1,5 +1,22 @@
 # Changelog
 
+## 3.2.0 (2025-10-01)
+
+Full Changelog: [v3.1.0...v3.2.0](https://github.com/team-telnyx/telnyx-node/compare/v3.1.0...v3.2.0)
+
+### Features
+
+* add MCP registry publishing support ([c0f3af4](https://github.com/team-telnyx/telnyx-node/commit/c0f3af44cd015f5df3bb273ce993f3dd0a3260e1))
+
+
+### Chores
+
+* configure new SDK language ([cd33dc9](https://github.com/team-telnyx/telnyx-node/commit/cd33dc97ac4603ed6a832c790d3df92f9c218fb2))
+* inject version into server.json at publish time ([b0852a6](https://github.com/team-telnyx/telnyx-node/commit/b0852a682439a94ecf700d94a38e1309d78acd27))
+* **internal:** codegen related update ([cd2d7ed](https://github.com/team-telnyx/telnyx-node/commit/cd2d7ed24b0e71081d842405e9c3718742f92a7a))
+* **internal:** remove .eslintcache ([45de54c](https://github.com/team-telnyx/telnyx-node/commit/45de54cabebd6d54b18aa2c212f86383b9d12084))
+* update server.json version to 3.2.0 ([32ef313](https://github.com/team-telnyx/telnyx-node/commit/32ef3132c78101cb6fecc1212ff4443c4394fa47))
+
 ## 3.1.0 (2025-09-30)
 
 Full Changelog: [v3.0.0...v3.1.0](https://github.com/team-telnyx/telnyx-node/compare/v3.0.0...v3.1.0)

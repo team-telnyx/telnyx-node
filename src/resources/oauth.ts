@@ -8,23 +8,15 @@ import { path } from '../internal/utils/path';
 
 export class OAuth extends APIResource {
   /**
-   * OAuth 2.0 authorization endpoint for the authorization code flow
+   * Retrieve details about an OAuth consent token
    *
    * @example
    * ```ts
-   * await client.oauth.authorize({
-   *   client_id: 'client_id',
-   *   redirect_uri: 'https://example.com',
-   *   response_type: 'code',
-   * });
+   * const oauth = await client.oauth.retrieve('consent_token');
    * ```
    */
-  authorize(query: OAuthAuthorizeParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.get('/oauth/authorize', {
-      query,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  retrieve(consentToken: string, options?: RequestOptions): APIPromise<OAuthRetrieveResponse> {
+    return this._client.get(path`/oauth/consent/${consentToken}`, options);
   }
 
   /**
@@ -32,36 +24,14 @@ export class OAuth extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.oauth.createGrant({
+   * const response = await client.oauth.grants({
    *   allowed: true,
    *   consent_token: 'consent_token',
    * });
    * ```
    */
-  createGrant(body: OAuthCreateGrantParams, options?: RequestOptions): APIPromise<OAuthCreateGrantResponse> {
+  grants(body: OAuthGrantsParams, options?: RequestOptions): APIPromise<OAuthGrantsResponse> {
     return this._client.post('/oauth/grants', { body, ...options });
-  }
-
-  /**
-   * Exchange authorization code, client credentials, or refresh token for access
-   * token
-   *
-   * @example
-   * ```ts
-   * const response = await client.oauth.exchangeToken({
-   *   grant_type: 'client_credentials',
-   * });
-   * ```
-   */
-  exchangeToken(
-    body: OAuthExchangeTokenParams,
-    options?: RequestOptions,
-  ): APIPromise<OAuthExchangeTokenResponse> {
-    return this._client.post('/oauth/token', {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-    });
   }
 
   /**
@@ -69,15 +39,12 @@ export class OAuth extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.oauth.introspectToken({
+   * const response = await client.oauth.introspect({
    *   token: 'token',
    * });
    * ```
    */
-  introspectToken(
-    body: OAuthIntrospectTokenParams,
-    options?: RequestOptions,
-  ): APIPromise<OAuthIntrospectTokenResponse> {
+  introspect(body: OAuthIntrospectParams, options?: RequestOptions): APIPromise<OAuthIntrospectResponse> {
     return this._client.post('/oauth/introspect', {
       body,
       ...options,
@@ -90,28 +57,31 @@ export class OAuth extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.oauth.registerClient();
+   * const response = await client.oauth.register();
    * ```
    */
-  registerClient(
-    body: OAuthRegisterClientParams,
-    options?: RequestOptions,
-  ): APIPromise<OAuthRegisterClientResponse> {
+  register(body: OAuthRegisterParams, options?: RequestOptions): APIPromise<OAuthRegisterResponse> {
     return this._client.post('/oauth/register', { body, ...options });
   }
 
   /**
-   * Retrieve details about an OAuth consent token
+   * OAuth 2.0 authorization endpoint for the authorization code flow
    *
    * @example
    * ```ts
-   * const response = await client.oauth.retrieveConsent(
-   *   'consent_token',
-   * );
+   * await client.oauth.retrieveAuthorize({
+   *   client_id: 'client_id',
+   *   redirect_uri: 'https://example.com',
+   *   response_type: 'code',
+   * });
    * ```
    */
-  retrieveConsent(consentToken: string, options?: RequestOptions): APIPromise<OAuthRetrieveConsentResponse> {
-    return this._client.get(path`/oauth/consent/${consentToken}`, options);
+  retrieveAuthorize(query: OAuthRetrieveAuthorizeParams, options?: RequestOptions): APIPromise<void> {
+    return this._client.get('/oauth/authorize', {
+      query,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -125,43 +95,99 @@ export class OAuth extends APIResource {
   retrieveJwks(options?: RequestOptions): APIPromise<OAuthRetrieveJwksResponse> {
     return this._client.get('/oauth/jwks', options);
   }
+
+  /**
+   * Exchange authorization code, client credentials, or refresh token for access
+   * token
+   *
+   * @example
+   * ```ts
+   * const response = await client.oauth.token({
+   *   grant_type: 'client_credentials',
+   * });
+   * ```
+   */
+  token(body: OAuthTokenParams, options?: RequestOptions): APIPromise<OAuthTokenResponse> {
+    return this._client.post('/oauth/token', {
+      body,
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
+    });
+  }
 }
 
-export interface OAuthCreateGrantResponse {
+export interface OAuthRetrieveResponse {
+  data?: OAuthRetrieveResponse.Data;
+}
+
+export namespace OAuthRetrieveResponse {
+  export interface Data {
+    /**
+     * Client ID
+     */
+    client_id?: string;
+
+    /**
+     * URL of the client logo
+     */
+    logo_uri?: string | null;
+
+    /**
+     * Client name
+     */
+    name?: string;
+
+    /**
+     * URL of the client's privacy policy
+     */
+    policy_uri?: string | null;
+
+    /**
+     * The redirect URI for this authorization
+     */
+    redirect_uri?: string;
+
+    requested_scopes?: Array<Data.RequestedScope>;
+
+    /**
+     * URL of the client's terms of service
+     */
+    tos_uri?: string | null;
+
+    /**
+     * Whether the client is verified
+     */
+    verified?: boolean;
+  }
+
+  export namespace Data {
+    export interface RequestedScope {
+      /**
+       * Scope ID
+       */
+      id?: string;
+
+      /**
+       * Scope description
+       */
+      description?: string;
+
+      /**
+       * Scope name
+       */
+      name?: string;
+    }
+  }
+}
+
+export interface OAuthGrantsResponse {
   /**
    * Redirect URI with authorization code or error
    */
   redirect_uri: string;
 }
 
-export interface OAuthExchangeTokenResponse {
-  /**
-   * The access token
-   */
-  access_token: string;
-
-  /**
-   * Token lifetime in seconds
-   */
-  expires_in: number;
-
-  /**
-   * Token type
-   */
-  token_type: 'Bearer';
-
-  /**
-   * Refresh token (if applicable)
-   */
-  refresh_token?: string;
-
-  /**
-   * Space-separated list of granted scopes
-   */
-  scope?: string;
-}
-
-export interface OAuthIntrospectTokenResponse {
+export interface OAuthIntrospectResponse {
   /**
    * Whether the token is active
    */
@@ -198,7 +224,7 @@ export interface OAuthIntrospectTokenResponse {
   scope?: string;
 }
 
-export interface OAuthRegisterClientResponse {
+export interface OAuthRegisterResponse {
   /**
    * Unique client identifier
    */
@@ -260,70 +286,6 @@ export interface OAuthRegisterClientResponse {
   tos_uri?: string;
 }
 
-export interface OAuthRetrieveConsentResponse {
-  data?: OAuthRetrieveConsentResponse.Data;
-}
-
-export namespace OAuthRetrieveConsentResponse {
-  export interface Data {
-    /**
-     * Client ID
-     */
-    client_id?: string;
-
-    /**
-     * URL of the client logo
-     */
-    logo_uri?: string | null;
-
-    /**
-     * Client name
-     */
-    name?: string;
-
-    /**
-     * URL of the client's privacy policy
-     */
-    policy_uri?: string | null;
-
-    /**
-     * The redirect URI for this authorization
-     */
-    redirect_uri?: string;
-
-    requested_scopes?: Array<Data.RequestedScope>;
-
-    /**
-     * URL of the client's terms of service
-     */
-    tos_uri?: string | null;
-
-    /**
-     * Whether the client is verified
-     */
-    verified?: boolean;
-  }
-
-  export namespace Data {
-    export interface RequestedScope {
-      /**
-       * Scope ID
-       */
-      id?: string;
-
-      /**
-       * Scope description
-       */
-      description?: string;
-
-      /**
-       * Scope name
-       */
-      name?: string;
-    }
-  }
-}
-
 export interface OAuthRetrieveJwksResponse {
   keys?: Array<OAuthRetrieveJwksResponse.Key>;
 }
@@ -352,44 +314,34 @@ export namespace OAuthRetrieveJwksResponse {
   }
 }
 
-export interface OAuthAuthorizeParams {
+export interface OAuthTokenResponse {
   /**
-   * OAuth client identifier
+   * The access token
    */
-  client_id: string;
+  access_token: string;
 
   /**
-   * Redirect URI
+   * Token lifetime in seconds
    */
-  redirect_uri: string;
+  expires_in: number;
 
   /**
-   * OAuth response type
+   * Token type
    */
-  response_type: 'code';
+  token_type: 'Bearer';
 
   /**
-   * PKCE code challenge
+   * Refresh token (if applicable)
    */
-  code_challenge?: string;
+  refresh_token?: string;
 
   /**
-   * PKCE code challenge method
-   */
-  code_challenge_method?: 'plain' | 'S256';
-
-  /**
-   * Space-separated list of requested scopes
+   * Space-separated list of granted scopes
    */
   scope?: string;
-
-  /**
-   * State parameter for CSRF protection
-   */
-  state?: string;
 }
 
-export interface OAuthCreateGrantParams {
+export interface OAuthGrantsParams {
   /**
    * Whether the grant is allowed
    */
@@ -401,56 +353,14 @@ export interface OAuthCreateGrantParams {
   consent_token: string;
 }
 
-export interface OAuthExchangeTokenParams {
-  /**
-   * OAuth 2.0 grant type
-   */
-  grant_type: 'client_credentials' | 'authorization_code' | 'refresh_token';
-
-  /**
-   * OAuth client ID (if not using HTTP Basic auth)
-   */
-  client_id?: string;
-
-  /**
-   * OAuth client secret (if not using HTTP Basic auth)
-   */
-  client_secret?: string;
-
-  /**
-   * Authorization code (for authorization_code flow)
-   */
-  code?: string;
-
-  /**
-   * PKCE code verifier (for authorization_code flow)
-   */
-  code_verifier?: string;
-
-  /**
-   * Redirect URI (for authorization_code flow)
-   */
-  redirect_uri?: string;
-
-  /**
-   * Refresh token (for refresh_token flow)
-   */
-  refresh_token?: string;
-
-  /**
-   * Space-separated list of requested scopes (for client_credentials)
-   */
-  scope?: string;
-}
-
-export interface OAuthIntrospectTokenParams {
+export interface OAuthIntrospectParams {
   /**
    * The token to introspect
    */
   token: string;
 }
 
-export interface OAuthRegisterClientParams {
+export interface OAuthRegisterParams {
   /**
    * Human-readable string name of the client to be presented to the end-user
    */
@@ -497,18 +407,97 @@ export interface OAuthRegisterClientParams {
   tos_uri?: string;
 }
 
+export interface OAuthRetrieveAuthorizeParams {
+  /**
+   * OAuth client identifier
+   */
+  client_id: string;
+
+  /**
+   * Redirect URI
+   */
+  redirect_uri: string;
+
+  /**
+   * OAuth response type
+   */
+  response_type: 'code';
+
+  /**
+   * PKCE code challenge
+   */
+  code_challenge?: string;
+
+  /**
+   * PKCE code challenge method
+   */
+  code_challenge_method?: 'plain' | 'S256';
+
+  /**
+   * Space-separated list of requested scopes
+   */
+  scope?: string;
+
+  /**
+   * State parameter for CSRF protection
+   */
+  state?: string;
+}
+
+export interface OAuthTokenParams {
+  /**
+   * OAuth 2.0 grant type
+   */
+  grant_type: 'client_credentials' | 'authorization_code' | 'refresh_token';
+
+  /**
+   * OAuth client ID (if not using HTTP Basic auth)
+   */
+  client_id?: string;
+
+  /**
+   * OAuth client secret (if not using HTTP Basic auth)
+   */
+  client_secret?: string;
+
+  /**
+   * Authorization code (for authorization_code flow)
+   */
+  code?: string;
+
+  /**
+   * PKCE code verifier (for authorization_code flow)
+   */
+  code_verifier?: string;
+
+  /**
+   * Redirect URI (for authorization_code flow)
+   */
+  redirect_uri?: string;
+
+  /**
+   * Refresh token (for refresh_token flow)
+   */
+  refresh_token?: string;
+
+  /**
+   * Space-separated list of requested scopes (for client_credentials)
+   */
+  scope?: string;
+}
+
 export declare namespace OAuth {
   export {
-    type OAuthCreateGrantResponse as OAuthCreateGrantResponse,
-    type OAuthExchangeTokenResponse as OAuthExchangeTokenResponse,
-    type OAuthIntrospectTokenResponse as OAuthIntrospectTokenResponse,
-    type OAuthRegisterClientResponse as OAuthRegisterClientResponse,
-    type OAuthRetrieveConsentResponse as OAuthRetrieveConsentResponse,
+    type OAuthRetrieveResponse as OAuthRetrieveResponse,
+    type OAuthGrantsResponse as OAuthGrantsResponse,
+    type OAuthIntrospectResponse as OAuthIntrospectResponse,
+    type OAuthRegisterResponse as OAuthRegisterResponse,
     type OAuthRetrieveJwksResponse as OAuthRetrieveJwksResponse,
-    type OAuthAuthorizeParams as OAuthAuthorizeParams,
-    type OAuthCreateGrantParams as OAuthCreateGrantParams,
-    type OAuthExchangeTokenParams as OAuthExchangeTokenParams,
-    type OAuthIntrospectTokenParams as OAuthIntrospectTokenParams,
-    type OAuthRegisterClientParams as OAuthRegisterClientParams,
+    type OAuthTokenResponse as OAuthTokenResponse,
+    type OAuthGrantsParams as OAuthGrantsParams,
+    type OAuthIntrospectParams as OAuthIntrospectParams,
+    type OAuthRegisterParams as OAuthRegisterParams,
+    type OAuthRetrieveAuthorizeParams as OAuthRetrieveAuthorizeParams,
+    type OAuthTokenParams as OAuthTokenParams,
   };
 }

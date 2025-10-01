@@ -1,0 +1,44 @@
+name: Publish to MCP Registry
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  publish-mcp:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Add version to server.json
+        run: |
+          VERSION=$(jq -r '.version' package.json)
+          jq --arg version "$VERSION" '.version = $version | .packages[0].version = $version' server.json > server.json.tmp
+          mv server.json.tmp server.json
+          echo "Updated server.json to version $VERSION"
+
+      - name: Install MCP Publisher CLI
+        run: npm install -g @modelcontextprotocol/publisher-cli
+
+      - name: Login to MCP Registry (GitHub OIDC)
+        run: mcp-publisher login github-oidc
+
+      - name: Publish to MCP Registry
+        run: mcp-publisher publish
