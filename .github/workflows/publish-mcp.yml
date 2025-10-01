@@ -27,6 +27,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Add version to server.json
+        run: |
+          VERSION=$(jq -r '.version' package.json)
+          jq --arg version "$VERSION" '.version = $version | .packages[0].version = $version' server.json > server.json.tmp
+          mv server.json.tmp server.json
+          echo "Updated server.json to version $VERSION"
+
       - name: Install MCP Publisher CLI
         run: npm install -g @modelcontextprotocol/publisher-cli
 
