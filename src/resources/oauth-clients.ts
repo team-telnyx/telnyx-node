@@ -89,359 +89,107 @@ export class OAuthClients extends APIResource {
   }
 }
 
-export interface OAuthClientCreateResponse {
-  data?: OAuthClientCreateResponse.Data;
+export interface OAuthClient {
+  /**
+   * OAuth client identifier
+   */
+  client_id: string;
+
+  /**
+   * OAuth client type
+   */
+  client_type: 'public' | 'confidential';
+
+  /**
+   * Timestamp when the client was created
+   */
+  created_at: string;
+
+  /**
+   * Human-readable name for the OAuth client
+   */
+  name: string;
+
+  /**
+   * Organization ID that owns this OAuth client
+   */
+  org_id: string;
+
+  /**
+   * Record type identifier
+   */
+  record_type: 'oauth_client';
+
+  /**
+   * Whether PKCE (Proof Key for Code Exchange) is required for this client
+   */
+  require_pkce: boolean;
+
+  /**
+   * Timestamp when the client was last updated
+   */
+  updated_at: string;
+
+  /**
+   * User ID that created this OAuth client
+   */
+  user_id: string;
+
+  /**
+   * List of allowed OAuth grant types
+   */
+  allowed_grant_types?: Array<'client_credentials' | 'authorization_code' | 'refresh_token'>;
+
+  /**
+   * List of allowed OAuth scopes
+   */
+  allowed_scopes?: Array<string>;
+
+  /**
+   * Client secret (only included when available, for confidential clients)
+   */
+  client_secret?: string | null;
+
+  /**
+   * URL of the client logo
+   */
+  logo_uri?: string | null;
+
+  /**
+   * URL of the client's privacy policy
+   */
+  policy_uri?: string | null;
+
+  /**
+   * List of allowed redirect URIs
+   */
+  redirect_uris?: Array<string>;
+
+  /**
+   * URL of the client's terms of service
+   */
+  tos_uri?: string | null;
 }
 
-export namespace OAuthClientCreateResponse {
-  export interface Data {
-    /**
-     * OAuth client identifier
-     */
-    client_id: string;
-
-    /**
-     * OAuth client type
-     */
-    client_type: 'public' | 'confidential';
-
-    /**
-     * Timestamp when the client was created
-     */
-    created_at: string;
-
-    /**
-     * Human-readable name for the OAuth client
-     */
-    name: string;
-
-    /**
-     * Organization ID that owns this OAuth client
-     */
-    org_id: string;
-
-    /**
-     * Record type identifier
-     */
-    record_type: 'oauth_client';
-
-    /**
-     * Whether PKCE (Proof Key for Code Exchange) is required for this client
-     */
-    require_pkce: boolean;
-
-    /**
-     * Timestamp when the client was last updated
-     */
-    updated_at: string;
-
-    /**
-     * User ID that created this OAuth client
-     */
-    user_id: string;
-
-    /**
-     * List of allowed OAuth grant types
-     */
-    allowed_grant_types?: Array<'client_credentials' | 'authorization_code' | 'refresh_token'>;
-
-    /**
-     * List of allowed OAuth scopes
-     */
-    allowed_scopes?: Array<string>;
-
-    /**
-     * Client secret (only included when available, for confidential clients)
-     */
-    client_secret?: string | null;
-
-    /**
-     * URL of the client logo
-     */
-    logo_uri?: string | null;
-
-    /**
-     * URL of the client's privacy policy
-     */
-    policy_uri?: string | null;
-
-    /**
-     * List of allowed redirect URIs
-     */
-    redirect_uris?: Array<string>;
-
-    /**
-     * URL of the client's terms of service
-     */
-    tos_uri?: string | null;
-  }
+export interface OAuthClientCreateResponse {
+  data?: OAuthClient;
 }
 
 export interface OAuthClientRetrieveResponse {
-  data?: OAuthClientRetrieveResponse.Data;
-}
-
-export namespace OAuthClientRetrieveResponse {
-  export interface Data {
-    /**
-     * OAuth client identifier
-     */
-    client_id: string;
-
-    /**
-     * OAuth client type
-     */
-    client_type: 'public' | 'confidential';
-
-    /**
-     * Timestamp when the client was created
-     */
-    created_at: string;
-
-    /**
-     * Human-readable name for the OAuth client
-     */
-    name: string;
-
-    /**
-     * Organization ID that owns this OAuth client
-     */
-    org_id: string;
-
-    /**
-     * Record type identifier
-     */
-    record_type: 'oauth_client';
-
-    /**
-     * Whether PKCE (Proof Key for Code Exchange) is required for this client
-     */
-    require_pkce: boolean;
-
-    /**
-     * Timestamp when the client was last updated
-     */
-    updated_at: string;
-
-    /**
-     * User ID that created this OAuth client
-     */
-    user_id: string;
-
-    /**
-     * List of allowed OAuth grant types
-     */
-    allowed_grant_types?: Array<'client_credentials' | 'authorization_code' | 'refresh_token'>;
-
-    /**
-     * List of allowed OAuth scopes
-     */
-    allowed_scopes?: Array<string>;
-
-    /**
-     * Client secret (only included when available, for confidential clients)
-     */
-    client_secret?: string | null;
-
-    /**
-     * URL of the client logo
-     */
-    logo_uri?: string | null;
-
-    /**
-     * URL of the client's privacy policy
-     */
-    policy_uri?: string | null;
-
-    /**
-     * List of allowed redirect URIs
-     */
-    redirect_uris?: Array<string>;
-
-    /**
-     * URL of the client's terms of service
-     */
-    tos_uri?: string | null;
-  }
+  data?: OAuthClient;
 }
 
 export interface OAuthClientUpdateResponse {
-  data?: OAuthClientUpdateResponse.Data;
-}
-
-export namespace OAuthClientUpdateResponse {
-  export interface Data {
-    /**
-     * OAuth client identifier
-     */
-    client_id: string;
-
-    /**
-     * OAuth client type
-     */
-    client_type: 'public' | 'confidential';
-
-    /**
-     * Timestamp when the client was created
-     */
-    created_at: string;
-
-    /**
-     * Human-readable name for the OAuth client
-     */
-    name: string;
-
-    /**
-     * Organization ID that owns this OAuth client
-     */
-    org_id: string;
-
-    /**
-     * Record type identifier
-     */
-    record_type: 'oauth_client';
-
-    /**
-     * Whether PKCE (Proof Key for Code Exchange) is required for this client
-     */
-    require_pkce: boolean;
-
-    /**
-     * Timestamp when the client was last updated
-     */
-    updated_at: string;
-
-    /**
-     * User ID that created this OAuth client
-     */
-    user_id: string;
-
-    /**
-     * List of allowed OAuth grant types
-     */
-    allowed_grant_types?: Array<'client_credentials' | 'authorization_code' | 'refresh_token'>;
-
-    /**
-     * List of allowed OAuth scopes
-     */
-    allowed_scopes?: Array<string>;
-
-    /**
-     * Client secret (only included when available, for confidential clients)
-     */
-    client_secret?: string | null;
-
-    /**
-     * URL of the client logo
-     */
-    logo_uri?: string | null;
-
-    /**
-     * URL of the client's privacy policy
-     */
-    policy_uri?: string | null;
-
-    /**
-     * List of allowed redirect URIs
-     */
-    redirect_uris?: Array<string>;
-
-    /**
-     * URL of the client's terms of service
-     */
-    tos_uri?: string | null;
-  }
+  data?: OAuthClient;
 }
 
 export interface OAuthClientListResponse {
-  data?: Array<OAuthClientListResponse.Data>;
+  data?: Array<OAuthClient>;
 
   meta?: OAuthClientListResponse.Meta;
 }
 
 export namespace OAuthClientListResponse {
-  export interface Data {
-    /**
-     * OAuth client identifier
-     */
-    client_id: string;
-
-    /**
-     * OAuth client type
-     */
-    client_type: 'public' | 'confidential';
-
-    /**
-     * Timestamp when the client was created
-     */
-    created_at: string;
-
-    /**
-     * Human-readable name for the OAuth client
-     */
-    name: string;
-
-    /**
-     * Organization ID that owns this OAuth client
-     */
-    org_id: string;
-
-    /**
-     * Record type identifier
-     */
-    record_type: 'oauth_client';
-
-    /**
-     * Whether PKCE (Proof Key for Code Exchange) is required for this client
-     */
-    require_pkce: boolean;
-
-    /**
-     * Timestamp when the client was last updated
-     */
-    updated_at: string;
-
-    /**
-     * User ID that created this OAuth client
-     */
-    user_id: string;
-
-    /**
-     * List of allowed OAuth grant types
-     */
-    allowed_grant_types?: Array<'client_credentials' | 'authorization_code' | 'refresh_token'>;
-
-    /**
-     * List of allowed OAuth scopes
-     */
-    allowed_scopes?: Array<string>;
-
-    /**
-     * Client secret (only included when available, for confidential clients)
-     */
-    client_secret?: string | null;
-
-    /**
-     * URL of the client logo
-     */
-    logo_uri?: string | null;
-
-    /**
-     * URL of the client's privacy policy
-     */
-    policy_uri?: string | null;
-
-    /**
-     * List of allowed redirect URIs
-     */
-    redirect_uris?: Array<string>;
-
-    /**
-     * URL of the client's terms of service
-     */
-    tos_uri?: string | null;
-  }
-
   export interface Meta {
     /**
      * Current page number
@@ -598,6 +346,7 @@ export interface OAuthClientListParams {
 
 export declare namespace OAuthClients {
   export {
+    type OAuthClient as OAuthClient,
     type OAuthClientCreateResponse as OAuthClientCreateResponse,
     type OAuthClientRetrieveResponse as OAuthClientRetrieveResponse,
     type OAuthClientUpdateResponse as OAuthClientUpdateResponse,

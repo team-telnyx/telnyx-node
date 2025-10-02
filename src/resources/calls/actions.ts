@@ -1479,20 +1479,74 @@ export namespace TranscriptionStartRequest {
 
   export interface TranscriptionEngineDeepgramConfig {
     /**
-     * Language to use for speech recognition. Available languages depend on the
-     * selected model.
-     */
-    language?: string;
-
-    /**
      * Engine identifier for Deepgram transcription service
      */
-    transcription_engine?: 'Deepgram';
+    transcription_engine: 'Deepgram';
 
     /**
      * The model to use for transcription.
      */
-    transcription_model?: 'deepgram/nova-2' | 'deepgram/nova-3';
+    transcription_model: 'deepgram/nova-2' | 'deepgram/nova-3';
+
+    /**
+     * Language to use for speech recognition. Available languages depend on the
+     * selected model.
+     */
+    language?:
+      | 'bg'
+      | 'ca'
+      | 'zh'
+      | 'zh-CN'
+      | 'zh-Hans'
+      | 'zh-TW'
+      | 'zh-Hant'
+      | 'zh-HK'
+      | 'cs'
+      | 'da'
+      | 'da-DK'
+      | 'nl'
+      | 'en'
+      | 'en-US'
+      | 'en-AU'
+      | 'en-GB'
+      | 'en-NZ'
+      | 'en-IN'
+      | 'et'
+      | 'fi'
+      | 'nl-BE'
+      | 'fr'
+      | 'fr-CA'
+      | 'de'
+      | 'de-CH'
+      | 'el'
+      | 'hi'
+      | 'hu'
+      | 'id'
+      | 'it'
+      | 'ja'
+      | 'ko'
+      | 'ko-KR'
+      | 'lv'
+      | 'lt'
+      | 'ms'
+      | 'no'
+      | 'pl'
+      | 'pt'
+      | 'pt-BR'
+      | 'pt-PT'
+      | 'ro'
+      | 'ru'
+      | 'sk'
+      | 'es'
+      | 'es-419'
+      | 'sv'
+      | 'sv-SE'
+      | 'th'
+      | 'th-TH'
+      | 'tr'
+      | 'uk'
+      | 'vi'
+      | 'auto_detect';
   }
 }
 
@@ -3519,20 +3573,74 @@ export namespace ActionStartTranscriptionParams {
 
   export interface TranscriptionEngineDeepgramConfig {
     /**
-     * Language to use for speech recognition. Available languages depend on the
-     * selected model.
-     */
-    language?: string;
-
-    /**
      * Engine identifier for Deepgram transcription service
      */
-    transcription_engine?: 'Deepgram';
+    transcription_engine: 'Deepgram';
 
     /**
      * The model to use for transcription.
      */
-    transcription_model?: 'deepgram/nova-2' | 'deepgram/nova-3';
+    transcription_model: 'deepgram/nova-2' | 'deepgram/nova-3';
+
+    /**
+     * Language to use for speech recognition. Available languages depend on the
+     * selected model.
+     */
+    language?:
+      | 'bg'
+      | 'ca'
+      | 'zh'
+      | 'zh-CN'
+      | 'zh-Hans'
+      | 'zh-TW'
+      | 'zh-Hant'
+      | 'zh-HK'
+      | 'cs'
+      | 'da'
+      | 'da-DK'
+      | 'nl'
+      | 'en'
+      | 'en-US'
+      | 'en-AU'
+      | 'en-GB'
+      | 'en-NZ'
+      | 'en-IN'
+      | 'et'
+      | 'fi'
+      | 'nl-BE'
+      | 'fr'
+      | 'fr-CA'
+      | 'de'
+      | 'de-CH'
+      | 'el'
+      | 'hi'
+      | 'hu'
+      | 'id'
+      | 'it'
+      | 'ja'
+      | 'ko'
+      | 'ko-KR'
+      | 'lv'
+      | 'lt'
+      | 'ms'
+      | 'no'
+      | 'pl'
+      | 'pt'
+      | 'pt-BR'
+      | 'pt-PT'
+      | 'ro'
+      | 'ru'
+      | 'sk'
+      | 'es'
+      | 'es-419'
+      | 'sv'
+      | 'sv-SE'
+      | 'th'
+      | 'th-TH'
+      | 'tr'
+      | 'uk'
+      | 'vi'
+      | 'auto_detect';
   }
 }
 
