@@ -31,49 +31,83 @@ export class OAuthGrants extends APIResource {
   }
 }
 
-export interface OAuthGrant {
-  /**
-   * Unique identifier for the OAuth grant
-   */
-  id: string;
-
-  /**
-   * OAuth client identifier
-   */
-  client_id: string;
-
-  /**
-   * Timestamp when the grant was created
-   */
-  created_at: string;
-
-  /**
-   * Record type identifier
-   */
-  record_type: 'oauth_grant';
-
-  /**
-   * List of granted OAuth scopes
-   */
-  scopes: Array<string>;
-
-  /**
-   * Timestamp when the grant was last used
-   */
-  last_used_at?: string | null;
+export interface OAuthGrantRetrieveResponse {
+  data?: OAuthGrantRetrieveResponse.Data;
 }
 
-export interface OAuthGrantRetrieveResponse {
-  data?: OAuthGrant;
+export namespace OAuthGrantRetrieveResponse {
+  export interface Data {
+    /**
+     * Unique identifier for the OAuth grant
+     */
+    id: string;
+
+    /**
+     * OAuth client identifier
+     */
+    client_id: string;
+
+    /**
+     * Timestamp when the grant was created
+     */
+    created_at: string;
+
+    /**
+     * Record type identifier
+     */
+    record_type: 'oauth_grant';
+
+    /**
+     * List of granted OAuth scopes
+     */
+    scopes: Array<string>;
+
+    /**
+     * Timestamp when the grant was last used
+     */
+    last_used_at?: string | null;
+  }
 }
 
 export interface OAuthGrantListResponse {
-  data?: Array<OAuthGrant>;
+  data?: Array<OAuthGrantListResponse.Data>;
 
   meta?: OAuthGrantListResponse.Meta;
 }
 
 export namespace OAuthGrantListResponse {
+  export interface Data {
+    /**
+     * Unique identifier for the OAuth grant
+     */
+    id: string;
+
+    /**
+     * OAuth client identifier
+     */
+    client_id: string;
+
+    /**
+     * Timestamp when the grant was created
+     */
+    created_at: string;
+
+    /**
+     * Record type identifier
+     */
+    record_type: 'oauth_grant';
+
+    /**
+     * List of granted OAuth scopes
+     */
+    scopes: Array<string>;
+
+    /**
+     * Timestamp when the grant was last used
+     */
+    last_used_at?: string | null;
+  }
+
   export interface Meta {
     /**
      * Current page number
@@ -98,7 +132,41 @@ export namespace OAuthGrantListResponse {
 }
 
 export interface OAuthGrantDeleteResponse {
-  data?: OAuthGrant;
+  data?: OAuthGrantDeleteResponse.Data;
+}
+
+export namespace OAuthGrantDeleteResponse {
+  export interface Data {
+    /**
+     * Unique identifier for the OAuth grant
+     */
+    id: string;
+
+    /**
+     * OAuth client identifier
+     */
+    client_id: string;
+
+    /**
+     * Timestamp when the grant was created
+     */
+    created_at: string;
+
+    /**
+     * Record type identifier
+     */
+    record_type: 'oauth_grant';
+
+    /**
+     * List of granted OAuth scopes
+     */
+    scopes: Array<string>;
+
+    /**
+     * Timestamp when the grant was last used
+     */
+    last_used_at?: string | null;
+  }
 }
 
 export interface OAuthGrantListParams {
@@ -115,7 +183,6 @@ export interface OAuthGrantListParams {
 
 export declare namespace OAuthGrants {
   export {
-    type OAuthGrant as OAuthGrant,
     type OAuthGrantRetrieveResponse as OAuthGrantRetrieveResponse,
     type OAuthGrantListResponse as OAuthGrantListResponse,
     type OAuthGrantDeleteResponse as OAuthGrantDeleteResponse,

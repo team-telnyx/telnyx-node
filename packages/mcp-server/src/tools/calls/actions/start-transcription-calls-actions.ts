@@ -1,6 +1,5 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { maybeFilter } from 'telnyx-mcp/filtering';
 import { Metadata, asTextContentResult } from 'telnyx-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'start_transcription_calls_actions',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nStart real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.\n\n**Expected Webhooks:**\n\n- `call.transcription`\n\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'Call Control Command Response',\n  properties: {\n    data: {\n      $ref: '#/$defs/call_control_command_result'\n    }\n  },\n  $defs: {\n    call_control_command_result: {\n      type: 'object',\n      title: 'Call Control Command Result',\n      properties: {\n        result: {\n          type: 'string'\n        }\n      }\n    }\n  }\n}\n```",
+    'Start real-time transcription. Transcription will stop on call hang-up, or can be initiated via the Transcription stop command.\n\n**Expected Webhooks:**\n\n- `call.transcription`\n',
   inputSchema: {
     type: 'object',
     properties: {
@@ -37,11 +36,237 @@ export const tool: Tool = {
       },
       transcription_engine: {
         type: 'string',
-        description: 'Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`.',
-        enum: ['A', 'B'],
+        description:
+          'Engine to use for speech recognition. Legacy values `A` - `Google`, `B` - `Telnyx` are supported for backward compatibility.',
+        enum: ['Google', 'Telnyx', 'Deepgram', 'A', 'B'],
       },
       transcription_engine_config: {
         anyOf: [
+          {
+            type: 'object',
+            title: 'Transcription engine Google config',
+            properties: {
+              enable_speaker_diarization: {
+                type: 'boolean',
+                description: 'Enables speaker diarization.',
+              },
+              hints: {
+                type: 'array',
+                description: 'Hints to improve transcription accuracy.',
+                items: {
+                  type: 'string',
+                },
+              },
+              interim_results: {
+                type: 'boolean',
+                description:
+                  'Whether to send also interim results. If set to false, only final results will be sent.',
+              },
+              language: {
+                $ref: '#/$defs/google_transcription_language',
+              },
+              max_speaker_count: {
+                type: 'integer',
+                description: 'Defines maximum number of speakers in the conversation.',
+              },
+              min_speaker_count: {
+                type: 'integer',
+                description: 'Defines minimum number of speakers in the conversation.',
+              },
+              model: {
+                type: 'string',
+                description: 'The model to use for transcription.',
+                enum: [
+                  'latest_long',
+                  'latest_short',
+                  'command_and_search',
+                  'phone_call',
+                  'video',
+                  'default',
+                  'medical_conversation',
+                  'medical_dictation',
+                ],
+              },
+              profanity_filter: {
+                type: 'boolean',
+                description: 'Enables profanity_filter.',
+              },
+              speech_context: {
+                type: 'array',
+                description: 'Speech context to improve transcription accuracy.',
+                items: {
+                  type: 'object',
+                  properties: {
+                    boost: {
+                      type: 'number',
+                      description: 'Boost factor for the speech context.',
+                    },
+                    phrases: {
+                      type: 'array',
+                      items: {
+                        type: 'string',
+                      },
+                    },
+                  },
+                },
+              },
+              transcription_engine: {
+                type: 'string',
+                description: 'Engine identifier for Google transcription service',
+                enum: ['Google'],
+              },
+              use_enhanced: {
+                type: 'boolean',
+                description:
+                  'Enables enhanced transcription, this works for models `phone_call` and `video`.',
+              },
+            },
+          },
+          {
+            type: 'object',
+            title: 'Transcription engine Telnyx config',
+            properties: {
+              language: {
+                type: 'string',
+                title: 'Telnyx transcription engine list of languages',
+                description: 'Language to use for speech recognition',
+                enum: [
+                  'en',
+                  'zh',
+                  'de',
+                  'es',
+                  'ru',
+                  'ko',
+                  'fr',
+                  'ja',
+                  'pt',
+                  'tr',
+                  'pl',
+                  'ca',
+                  'nl',
+                  'ar',
+                  'sv',
+                  'it',
+                  'id',
+                  'hi',
+                  'fi',
+                  'vi',
+                  'he',
+                  'uk',
+                  'el',
+                  'ms',
+                  'cs',
+                  'ro',
+                  'da',
+                  'hu',
+                  'ta',
+                  'no',
+                  'th',
+                  'ur',
+                  'hr',
+                  'bg',
+                  'lt',
+                  'la',
+                  'mi',
+                  'ml',
+                  'cy',
+                  'sk',
+                  'te',
+                  'fa',
+                  'lv',
+                  'bn',
+                  'sr',
+                  'az',
+                  'sl',
+                  'kn',
+                  'et',
+                  'mk',
+                  'br',
+                  'eu',
+                  'is',
+                  'hy',
+                  'ne',
+                  'mn',
+                  'bs',
+                  'kk',
+                  'sq',
+                  'sw',
+                  'gl',
+                  'mr',
+                  'pa',
+                  'si',
+                  'km',
+                  'sn',
+                  'yo',
+                  'so',
+                  'af',
+                  'oc',
+                  'ka',
+                  'be',
+                  'tg',
+                  'sd',
+                  'gu',
+                  'am',
+                  'yi',
+                  'lo',
+                  'uz',
+                  'fo',
+                  'ht',
+                  'ps',
+                  'tk',
+                  'nn',
+                  'mt',
+                  'sa',
+                  'lb',
+                  'my',
+                  'bo',
+                  'tl',
+                  'mg',
+                  'as',
+                  'tt',
+                  'haw',
+                  'ln',
+                  'ha',
+                  'ba',
+                  'jw',
+                  'su',
+                  'auto_detect',
+                ],
+              },
+              transcription_engine: {
+                type: 'string',
+                description: 'Engine identifier for Telnyx transcription service',
+                enum: ['Telnyx'],
+              },
+              transcription_model: {
+                type: 'string',
+                description: 'The model to use for transcription.',
+                enum: ['openai/whisper-tiny', 'openai/whisper-large-v3-turbo'],
+              },
+            },
+          },
+          {
+            type: 'object',
+            title: 'Transcription engine Deepgram config',
+            properties: {
+              language: {
+                type: 'string',
+                title: 'Deepgram transcription language',
+                description:
+                  'Language to use for speech recognition. Available languages depend on the selected model.',
+              },
+              transcription_engine: {
+                type: 'string',
+                description: 'Engine identifier for Deepgram transcription service',
+                enum: ['Deepgram'],
+              },
+              transcription_model: {
+                type: 'string',
+                description: 'The model to use for transcription.',
+                enum: ['deepgram/nova-2', 'deepgram/nova-3'],
+              },
+            },
+          },
           {
             $ref: '#/$defs/transcription_engine_a_config',
           },
@@ -55,94 +280,9 @@ export const tool: Tool = {
         description:
           'Indicates which leg of the call will be transcribed. Use `inbound` for the leg that requested the transcription, `outbound` for the other leg, and `both` for both legs of the call. Will default to `inbound`.',
       },
-      jq_filter: {
-        type: 'string',
-        title: 'jq Filter',
-        description:
-          'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
-      },
     },
     required: ['call_control_id'],
     $defs: {
-      transcription_engine_a_config: {
-        type: 'object',
-        title: 'Transcription engine A config',
-        properties: {
-          enable_speaker_diarization: {
-            type: 'boolean',
-            description: 'Enables speaker diarization.',
-          },
-          hints: {
-            type: 'array',
-            description: 'Hints to improve transcription accuracy.',
-            items: {
-              type: 'string',
-            },
-          },
-          interim_results: {
-            type: 'boolean',
-            description:
-              'Whether to send also interim results. If set to false, only final results will be sent.',
-          },
-          language: {
-            $ref: '#/$defs/google_transcription_language',
-          },
-          max_speaker_count: {
-            type: 'integer',
-            description: 'Defines maximum number of speakers in the conversation.',
-          },
-          min_speaker_count: {
-            type: 'integer',
-            description: 'Defines minimum number of speakers in the conversation.',
-          },
-          model: {
-            type: 'string',
-            description: 'The model to use for transcription.',
-            enum: [
-              'latest_long',
-              'latest_short',
-              'command_and_search',
-              'phone_call',
-              'video',
-              'default',
-              'medical_conversation',
-              'medical_dictation',
-            ],
-          },
-          profanity_filter: {
-            type: 'boolean',
-            description: 'Enables profanity_filter.',
-          },
-          speech_context: {
-            type: 'array',
-            description: 'Speech context to improve transcription accuracy.',
-            items: {
-              type: 'object',
-              properties: {
-                boost: {
-                  type: 'number',
-                  description: 'Boost factor for the speech context.',
-                },
-                phrases: {
-                  type: 'array',
-                  items: {
-                    type: 'string',
-                  },
-                },
-              },
-            },
-          },
-          transcription_engine: {
-            type: 'string',
-            description: 'Engine identifier for Google transcription service',
-            enum: ['A'],
-          },
-          use_enhanced: {
-            type: 'boolean',
-            description: 'Enables enhanced transcription, this works for models `phone_call` and `video`.',
-          },
-        },
-      },
       google_transcription_language: {
         type: 'string',
         title: 'Google transcription engine list of languages',
@@ -229,6 +369,85 @@ export const tool: Tool = {
           'xh',
           'zu',
         ],
+      },
+      transcription_engine_a_config: {
+        type: 'object',
+        title: 'Transcription engine A config',
+        properties: {
+          enable_speaker_diarization: {
+            type: 'boolean',
+            description: 'Enables speaker diarization.',
+          },
+          hints: {
+            type: 'array',
+            description: 'Hints to improve transcription accuracy.',
+            items: {
+              type: 'string',
+            },
+          },
+          interim_results: {
+            type: 'boolean',
+            description:
+              'Whether to send also interim results. If set to false, only final results will be sent.',
+          },
+          language: {
+            $ref: '#/$defs/google_transcription_language',
+          },
+          max_speaker_count: {
+            type: 'integer',
+            description: 'Defines maximum number of speakers in the conversation.',
+          },
+          min_speaker_count: {
+            type: 'integer',
+            description: 'Defines minimum number of speakers in the conversation.',
+          },
+          model: {
+            type: 'string',
+            description: 'The model to use for transcription.',
+            enum: [
+              'latest_long',
+              'latest_short',
+              'command_and_search',
+              'phone_call',
+              'video',
+              'default',
+              'medical_conversation',
+              'medical_dictation',
+            ],
+          },
+          profanity_filter: {
+            type: 'boolean',
+            description: 'Enables profanity_filter.',
+          },
+          speech_context: {
+            type: 'array',
+            description: 'Speech context to improve transcription accuracy.',
+            items: {
+              type: 'object',
+              properties: {
+                boost: {
+                  type: 'number',
+                  description: 'Boost factor for the speech context.',
+                },
+                phrases: {
+                  type: 'array',
+                  items: {
+                    type: 'string',
+                  },
+                },
+              },
+            },
+          },
+          transcription_engine: {
+            type: 'string',
+            description: 'Engine identifier for Google transcription service',
+            enum: ['A'],
+          },
+          use_enhanced: {
+            type: 'boolean',
+            description: 'Enables enhanced transcription, this works for models `phone_call` and `video`.',
+          },
+        },
       },
       transcription_engine_b_config: {
         type: 'object',
@@ -359,10 +578,8 @@ export const tool: Tool = {
 };
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
-  const { call_control_id, jq_filter, ...body } = args as any;
-  return asTextContentResult(
-    await maybeFilter(jq_filter, await client.calls.actions.startTranscription(call_control_id, body)),
-  );
+  const { call_control_id, ...body } = args as any;
+  return asTextContentResult(await client.calls.actions.startTranscription(call_control_id, body));
 };
 
 export default { metadata, tool, handler };

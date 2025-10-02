@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../../core/resource';
 import * as BatchDetailRecordsAPI from './batch-detail-records/batch-detail-records';
-import { BatchDetailRecords, Filter } from './batch-detail-records/batch-detail-records';
+import { BatchDetailRecords } from './batch-detail-records/batch-detail-records';
 import * as UsageReportsAPI from './usage-reports/usage-reports';
 import {
   UsageReportRetrieveSpeechToTextParams,
@@ -21,7 +21,7 @@ Reporting.BatchDetailRecords = BatchDetailRecords;
 Reporting.UsageReports = UsageReports;
 
 export declare namespace Reporting {
-  export { BatchDetailRecords as BatchDetailRecords, type Filter as Filter };
+  export { BatchDetailRecords as BatchDetailRecords };
 
   export {
     UsageReports as UsageReports,

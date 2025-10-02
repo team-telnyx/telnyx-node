@@ -1,3 +1,5 @@
+# Telnyx
+
 # Shared
 
 Types:
@@ -25,15 +27,10 @@ Types:
 
 ### BatchDetailRecords
 
-Types:
-
-- <code><a href="./src/resources/legacy/reporting/batch-detail-records/batch-detail-records.ts">Filter</a></code>
-
 #### Messaging
 
 Types:
 
-- <code><a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">MdrDetailReportResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">MessagingCreateResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">MessagingRetrieveResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">MessagingListResponse</a></code>
@@ -50,7 +47,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/legacy/reporting/batch-detail-records/speech-to-text.ts">SttDetailReportResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/speech-to-text.ts">SpeechToTextCreateResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/speech-to-text.ts">SpeechToTextRetrieveResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/speech-to-text.ts">SpeechToTextListResponse</a></code>
@@ -67,7 +63,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/legacy/reporting/batch-detail-records/voice.ts">CdrDetailedReqResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/voice.ts">VoiceCreateResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/voice.ts">VoiceRetrieveResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/voice.ts">VoiceListResponse</a></code>
@@ -96,7 +91,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">MdrUsageReportResponseLegacy</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">MessagingCreateResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">MessagingRetrieveResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">MessagingListResponse</a></code>
@@ -122,7 +116,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/legacy/reporting/usage-reports/voice.ts">CdrUsageReportResponseLegacy</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/voice.ts">VoiceCreateResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/voice.ts">VoiceRetrieveResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/voice.ts">VoiceListResponse</a></code>
@@ -160,7 +153,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/oauth-clients.ts">OAuthClient</a></code>
 - <code><a href="./src/resources/oauth-clients.ts">OAuthClientCreateResponse</a></code>
 - <code><a href="./src/resources/oauth-clients.ts">OAuthClientRetrieveResponse</a></code>
 - <code><a href="./src/resources/oauth-clients.ts">OAuthClientUpdateResponse</a></code>
@@ -178,7 +170,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/oauth-grants.ts">OAuthGrant</a></code>
 - <code><a href="./src/resources/oauth-grants.ts">OAuthGrantRetrieveResponse</a></code>
 - <code><a href="./src/resources/oauth-grants.ts">OAuthGrantListResponse</a></code>
 - <code><a href="./src/resources/oauth-grants.ts">OAuthGrantDeleteResponse</a></code>
@@ -3798,7 +3789,6 @@ Types:
 
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfile</a></code>
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfileData</a></code>
-- <code><a href="./src/resources/verify-profiles.ts">VerifyProfileMessageTemplateResponse</a></code>
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfileListResponse</a></code>
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfileCreateTemplateResponse</a></code>
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfileRetrieveTemplatesResponse</a></code>

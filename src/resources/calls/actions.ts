@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as ActionsAPI from './actions';
 import * as CallsAPI from './calls';
 import * as AssistantsAPI from '../ai/assistants/assistants';
 import { APIPromise } from '../../core/api-promise';
@@ -1261,11 +1262,17 @@ export interface TranscriptionStartRequest {
   command_id?: string;
 
   /**
-   * Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`.
+   * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
+   * `Telnyx` are supported for backward compatibility.
    */
-  transcription_engine?: 'A' | 'B';
+  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'A' | 'B';
 
-  transcription_engine_config?: TranscriptionEngineAConfig | TranscriptionEngineBConfig;
+  transcription_engine_config?:
+    | TranscriptionStartRequest.TranscriptionEngineGoogleConfig
+    | TranscriptionStartRequest.TranscriptionEngineTelnyxConfig
+    | TranscriptionStartRequest.TranscriptionEngineDeepgramConfig
+    | TranscriptionEngineAConfig
+    | TranscriptionEngineBConfig;
 
   /**
    * Indicates which leg of the call will be transcribed. Use `inbound` for the leg
@@ -1273,6 +1280,220 @@ export interface TranscriptionStartRequest {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace TranscriptionStartRequest {
+  export interface TranscriptionEngineGoogleConfig {
+    /**
+     * Enables speaker diarization.
+     */
+    enable_speaker_diarization?: boolean;
+
+    /**
+     * Hints to improve transcription accuracy.
+     */
+    hints?: Array<string>;
+
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Language to use for speech recognition
+     */
+    language?: ActionsAPI.GoogleTranscriptionLanguage;
+
+    /**
+     * Defines maximum number of speakers in the conversation.
+     */
+    max_speaker_count?: number;
+
+    /**
+     * Defines minimum number of speakers in the conversation.
+     */
+    min_speaker_count?: number;
+
+    /**
+     * The model to use for transcription.
+     */
+    model?:
+      | 'latest_long'
+      | 'latest_short'
+      | 'command_and_search'
+      | 'phone_call'
+      | 'video'
+      | 'default'
+      | 'medical_conversation'
+      | 'medical_dictation';
+
+    /**
+     * Enables profanity_filter.
+     */
+    profanity_filter?: boolean;
+
+    /**
+     * Speech context to improve transcription accuracy.
+     */
+    speech_context?: Array<TranscriptionEngineGoogleConfig.SpeechContext>;
+
+    /**
+     * Engine identifier for Google transcription service
+     */
+    transcription_engine?: 'Google';
+
+    /**
+     * Enables enhanced transcription, this works for models `phone_call` and `video`.
+     */
+    use_enhanced?: boolean;
+  }
+
+  export namespace TranscriptionEngineGoogleConfig {
+    export interface SpeechContext {
+      /**
+       * Boost factor for the speech context.
+       */
+      boost?: number;
+
+      phrases?: Array<string>;
+    }
+  }
+
+  export interface TranscriptionEngineTelnyxConfig {
+    /**
+     * Language to use for speech recognition
+     */
+    language?:
+      | 'en'
+      | 'zh'
+      | 'de'
+      | 'es'
+      | 'ru'
+      | 'ko'
+      | 'fr'
+      | 'ja'
+      | 'pt'
+      | 'tr'
+      | 'pl'
+      | 'ca'
+      | 'nl'
+      | 'ar'
+      | 'sv'
+      | 'it'
+      | 'id'
+      | 'hi'
+      | 'fi'
+      | 'vi'
+      | 'he'
+      | 'uk'
+      | 'el'
+      | 'ms'
+      | 'cs'
+      | 'ro'
+      | 'da'
+      | 'hu'
+      | 'ta'
+      | 'no'
+      | 'th'
+      | 'ur'
+      | 'hr'
+      | 'bg'
+      | 'lt'
+      | 'la'
+      | 'mi'
+      | 'ml'
+      | 'cy'
+      | 'sk'
+      | 'te'
+      | 'fa'
+      | 'lv'
+      | 'bn'
+      | 'sr'
+      | 'az'
+      | 'sl'
+      | 'kn'
+      | 'et'
+      | 'mk'
+      | 'br'
+      | 'eu'
+      | 'is'
+      | 'hy'
+      | 'ne'
+      | 'mn'
+      | 'bs'
+      | 'kk'
+      | 'sq'
+      | 'sw'
+      | 'gl'
+      | 'mr'
+      | 'pa'
+      | 'si'
+      | 'km'
+      | 'sn'
+      | 'yo'
+      | 'so'
+      | 'af'
+      | 'oc'
+      | 'ka'
+      | 'be'
+      | 'tg'
+      | 'sd'
+      | 'gu'
+      | 'am'
+      | 'yi'
+      | 'lo'
+      | 'uz'
+      | 'fo'
+      | 'ht'
+      | 'ps'
+      | 'tk'
+      | 'nn'
+      | 'mt'
+      | 'sa'
+      | 'lb'
+      | 'my'
+      | 'bo'
+      | 'tl'
+      | 'mg'
+      | 'as'
+      | 'tt'
+      | 'haw'
+      | 'ln'
+      | 'ha'
+      | 'ba'
+      | 'jw'
+      | 'su'
+      | 'auto_detect';
+
+    /**
+     * Engine identifier for Telnyx transcription service
+     */
+    transcription_engine?: 'Telnyx';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'openai/whisper-tiny' | 'openai/whisper-large-v3-turbo';
+  }
+
+  export interface TranscriptionEngineDeepgramConfig {
+    /**
+     * Language to use for speech recognition. Available languages depend on the
+     * selected model.
+     */
+    language?: string;
+
+    /**
+     * Engine identifier for Deepgram transcription service
+     */
+    transcription_engine?: 'Deepgram';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'deepgram/nova-2' | 'deepgram/nova-3';
+  }
 }
 
 export interface ActionAnswerResponse {
@@ -3081,11 +3302,17 @@ export interface ActionStartTranscriptionParams {
   command_id?: string;
 
   /**
-   * Engine to use for speech recognition. `A` - `Google`, `B` - `Telnyx`.
+   * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
+   * `Telnyx` are supported for backward compatibility.
    */
-  transcription_engine?: 'A' | 'B';
+  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'A' | 'B';
 
-  transcription_engine_config?: TranscriptionEngineAConfig | TranscriptionEngineBConfig;
+  transcription_engine_config?:
+    | ActionStartTranscriptionParams.TranscriptionEngineGoogleConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineTelnyxConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineDeepgramConfig
+    | TranscriptionEngineAConfig
+    | TranscriptionEngineBConfig;
 
   /**
    * Indicates which leg of the call will be transcribed. Use `inbound` for the leg
@@ -3093,6 +3320,220 @@ export interface ActionStartTranscriptionParams {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace ActionStartTranscriptionParams {
+  export interface TranscriptionEngineGoogleConfig {
+    /**
+     * Enables speaker diarization.
+     */
+    enable_speaker_diarization?: boolean;
+
+    /**
+     * Hints to improve transcription accuracy.
+     */
+    hints?: Array<string>;
+
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Language to use for speech recognition
+     */
+    language?: ActionsAPI.GoogleTranscriptionLanguage;
+
+    /**
+     * Defines maximum number of speakers in the conversation.
+     */
+    max_speaker_count?: number;
+
+    /**
+     * Defines minimum number of speakers in the conversation.
+     */
+    min_speaker_count?: number;
+
+    /**
+     * The model to use for transcription.
+     */
+    model?:
+      | 'latest_long'
+      | 'latest_short'
+      | 'command_and_search'
+      | 'phone_call'
+      | 'video'
+      | 'default'
+      | 'medical_conversation'
+      | 'medical_dictation';
+
+    /**
+     * Enables profanity_filter.
+     */
+    profanity_filter?: boolean;
+
+    /**
+     * Speech context to improve transcription accuracy.
+     */
+    speech_context?: Array<TranscriptionEngineGoogleConfig.SpeechContext>;
+
+    /**
+     * Engine identifier for Google transcription service
+     */
+    transcription_engine?: 'Google';
+
+    /**
+     * Enables enhanced transcription, this works for models `phone_call` and `video`.
+     */
+    use_enhanced?: boolean;
+  }
+
+  export namespace TranscriptionEngineGoogleConfig {
+    export interface SpeechContext {
+      /**
+       * Boost factor for the speech context.
+       */
+      boost?: number;
+
+      phrases?: Array<string>;
+    }
+  }
+
+  export interface TranscriptionEngineTelnyxConfig {
+    /**
+     * Language to use for speech recognition
+     */
+    language?:
+      | 'en'
+      | 'zh'
+      | 'de'
+      | 'es'
+      | 'ru'
+      | 'ko'
+      | 'fr'
+      | 'ja'
+      | 'pt'
+      | 'tr'
+      | 'pl'
+      | 'ca'
+      | 'nl'
+      | 'ar'
+      | 'sv'
+      | 'it'
+      | 'id'
+      | 'hi'
+      | 'fi'
+      | 'vi'
+      | 'he'
+      | 'uk'
+      | 'el'
+      | 'ms'
+      | 'cs'
+      | 'ro'
+      | 'da'
+      | 'hu'
+      | 'ta'
+      | 'no'
+      | 'th'
+      | 'ur'
+      | 'hr'
+      | 'bg'
+      | 'lt'
+      | 'la'
+      | 'mi'
+      | 'ml'
+      | 'cy'
+      | 'sk'
+      | 'te'
+      | 'fa'
+      | 'lv'
+      | 'bn'
+      | 'sr'
+      | 'az'
+      | 'sl'
+      | 'kn'
+      | 'et'
+      | 'mk'
+      | 'br'
+      | 'eu'
+      | 'is'
+      | 'hy'
+      | 'ne'
+      | 'mn'
+      | 'bs'
+      | 'kk'
+      | 'sq'
+      | 'sw'
+      | 'gl'
+      | 'mr'
+      | 'pa'
+      | 'si'
+      | 'km'
+      | 'sn'
+      | 'yo'
+      | 'so'
+      | 'af'
+      | 'oc'
+      | 'ka'
+      | 'be'
+      | 'tg'
+      | 'sd'
+      | 'gu'
+      | 'am'
+      | 'yi'
+      | 'lo'
+      | 'uz'
+      | 'fo'
+      | 'ht'
+      | 'ps'
+      | 'tk'
+      | 'nn'
+      | 'mt'
+      | 'sa'
+      | 'lb'
+      | 'my'
+      | 'bo'
+      | 'tl'
+      | 'mg'
+      | 'as'
+      | 'tt'
+      | 'haw'
+      | 'ln'
+      | 'ha'
+      | 'ba'
+      | 'jw'
+      | 'su'
+      | 'auto_detect';
+
+    /**
+     * Engine identifier for Telnyx transcription service
+     */
+    transcription_engine?: 'Telnyx';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'openai/whisper-tiny' | 'openai/whisper-large-v3-turbo';
+  }
+
+  export interface TranscriptionEngineDeepgramConfig {
+    /**
+     * Language to use for speech recognition. Available languages depend on the
+     * selected model.
+     */
+    language?: string;
+
+    /**
+     * Engine identifier for Deepgram transcription service
+     */
+    transcription_engine?: 'Deepgram';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'deepgram/nova-2' | 'deepgram/nova-3';
+  }
 }
 
 export interface ActionStopAIAssistantParams {

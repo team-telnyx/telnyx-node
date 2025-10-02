@@ -719,7 +719,6 @@ export {
 } from './oauth';
 export {
   OAuthClients,
-  type OAuthClient,
   type OAuthClientCreateResponse,
   type OAuthClientRetrieveResponse,
   type OAuthClientUpdateResponse,
@@ -730,7 +729,6 @@ export {
 } from './oauth-clients';
 export {
   OAuthGrants,
-  type OAuthGrant,
   type OAuthGrantRetrieveResponse,
   type OAuthGrantListResponse,
   type OAuthGrantDeleteResponse,
@@ -1139,7 +1137,6 @@ export {
   VerifyProfiles,
   type VerifyProfile,
   type VerifyProfileData,
-  type VerifyProfileMessageTemplateResponse,
   type VerifyProfileListResponse,
   type VerifyProfileCreateTemplateResponse,
   type VerifyProfileRetrieveTemplatesResponse,
