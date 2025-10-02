@@ -525,6 +525,7 @@ import {
   OAuthTokenResponse,
 } from './resources/oauth';
 import {
+  OAuthClient,
   OAuthClientCreateParams,
   OAuthClientCreateResponse,
   OAuthClientListParams,
@@ -535,6 +536,7 @@ import {
   OAuthClients,
 } from './resources/oauth-clients';
 import {
+  OAuthGrant,
   OAuthGrantDeleteResponse,
   OAuthGrantListParams,
   OAuthGrantListResponse,
@@ -811,6 +813,7 @@ import {
   VerifyProfileData,
   VerifyProfileListParams,
   VerifyProfileListResponse,
+  VerifyProfileMessageTemplateResponse,
   VerifyProfileRetrieveTemplatesResponse,
   VerifyProfileUpdateParams,
   VerifyProfileUpdateTemplateParams,
@@ -2322,6 +2325,7 @@ export declare namespace Telnyx {
 
   export {
     OAuthClients as OAuthClients,
+    type OAuthClient as OAuthClient,
     type OAuthClientCreateResponse as OAuthClientCreateResponse,
     type OAuthClientRetrieveResponse as OAuthClientRetrieveResponse,
     type OAuthClientUpdateResponse as OAuthClientUpdateResponse,
@@ -2333,6 +2337,7 @@ export declare namespace Telnyx {
 
   export {
     OAuthGrants as OAuthGrants,
+    type OAuthGrant as OAuthGrant,
     type OAuthGrantRetrieveResponse as OAuthGrantRetrieveResponse,
     type OAuthGrantListResponse as OAuthGrantListResponse,
     type OAuthGrantDeleteResponse as OAuthGrantDeleteResponse,
@@ -3684,6 +3689,7 @@ export declare namespace Telnyx {
     VerifyProfiles as VerifyProfiles,
     type VerifyProfile as VerifyProfile,
     type VerifyProfileData as VerifyProfileData,
+    type VerifyProfileMessageTemplateResponse as VerifyProfileMessageTemplateResponse,
     type VerifyProfileListResponse as VerifyProfileListResponse,
     type VerifyProfileCreateTemplateResponse as VerifyProfileCreateTemplateResponse,
     type VerifyProfileRetrieveTemplatesResponse as VerifyProfileRetrieveTemplatesResponse,

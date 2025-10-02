@@ -2,6 +2,7 @@
 
 export {
   Messaging,
+  type MdrUsageReportResponseLegacy,
   type MessagingCreateResponse,
   type MessagingRetrieveResponse,
   type MessagingListResponse,
@@ -17,6 +18,7 @@ export {
 } from './usage-reports';
 export {
   Voice,
+  type CdrUsageReportResponseLegacy,
   type VoiceCreateResponse,
   type VoiceRetrieveResponse,
   type VoiceListResponse,

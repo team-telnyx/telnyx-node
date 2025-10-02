@@ -68,116 +68,42 @@ export class SpeechToText extends APIResource {
   }
 }
 
-export interface SpeechToTextCreateResponse {
-  data?: SpeechToTextCreateResponse.Data;
+export interface SttDetailReportResponse {
+  /**
+   * Identifies the resource
+   */
+  id?: string;
+
+  created_at?: string;
+
+  /**
+   * URL to download the report
+   */
+  download_link?: string;
+
+  end_date?: string;
+
+  record_type?: string;
+
+  start_date?: string;
+
+  status?: 'PENDING' | 'COMPLETE' | 'FAILED' | 'EXPIRED';
 }
 
-export namespace SpeechToTextCreateResponse {
-  export interface Data {
-    /**
-     * Identifies the resource
-     */
-    id?: string;
-
-    created_at?: string;
-
-    /**
-     * URL to download the report
-     */
-    download_link?: string;
-
-    end_date?: string;
-
-    record_type?: string;
-
-    start_date?: string;
-
-    status?: 'PENDING' | 'COMPLETE' | 'FAILED' | 'EXPIRED';
-  }
+export interface SpeechToTextCreateResponse {
+  data?: SttDetailReportResponse;
 }
 
 export interface SpeechToTextRetrieveResponse {
-  data?: SpeechToTextRetrieveResponse.Data;
-}
-
-export namespace SpeechToTextRetrieveResponse {
-  export interface Data {
-    /**
-     * Identifies the resource
-     */
-    id?: string;
-
-    created_at?: string;
-
-    /**
-     * URL to download the report
-     */
-    download_link?: string;
-
-    end_date?: string;
-
-    record_type?: string;
-
-    start_date?: string;
-
-    status?: 'PENDING' | 'COMPLETE' | 'FAILED' | 'EXPIRED';
-  }
+  data?: SttDetailReportResponse;
 }
 
 export interface SpeechToTextListResponse {
-  data?: Array<SpeechToTextListResponse.Data>;
-}
-
-export namespace SpeechToTextListResponse {
-  export interface Data {
-    /**
-     * Identifies the resource
-     */
-    id?: string;
-
-    created_at?: string;
-
-    /**
-     * URL to download the report
-     */
-    download_link?: string;
-
-    end_date?: string;
-
-    record_type?: string;
-
-    start_date?: string;
-
-    status?: 'PENDING' | 'COMPLETE' | 'FAILED' | 'EXPIRED';
-  }
+  data?: Array<SttDetailReportResponse>;
 }
 
 export interface SpeechToTextDeleteResponse {
-  data?: SpeechToTextDeleteResponse.Data;
-}
-
-export namespace SpeechToTextDeleteResponse {
-  export interface Data {
-    /**
-     * Identifies the resource
-     */
-    id?: string;
-
-    created_at?: string;
-
-    /**
-     * URL to download the report
-     */
-    download_link?: string;
-
-    end_date?: string;
-
-    record_type?: string;
-
-    start_date?: string;
-
-    status?: 'PENDING' | 'COMPLETE' | 'FAILED' | 'EXPIRED';
-  }
+  data?: SttDetailReportResponse;
 }
 
 export interface SpeechToTextCreateParams {
@@ -194,6 +120,7 @@ export interface SpeechToTextCreateParams {
 
 export declare namespace SpeechToText {
   export {
+    type SttDetailReportResponse as SttDetailReportResponse,
     type SpeechToTextCreateResponse as SpeechToTextCreateResponse,
     type SpeechToTextRetrieveResponse as SpeechToTextRetrieveResponse,
     type SpeechToTextListResponse as SpeechToTextListResponse,
