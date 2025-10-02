@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
-import * as BatchDetailRecordsAPI from './batch-detail-records';
 import { APIPromise } from '../../../../core/api-promise';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
@@ -69,57 +68,262 @@ export class Messaging extends APIResource {
   }
 }
 
-export interface MdrDetailReportResponse {
-  /**
-   * Identifies the resource
-   */
-  id?: string;
-
-  connections?: Array<number>;
-
-  created_at?: string;
-
-  directions?: Array<'INBOUND' | 'OUTBOUND'>;
-
-  end_date?: string;
-
-  filters?: Array<BatchDetailRecordsAPI.Filter>;
-
-  /**
-   * List of messaging profile IDs
-   */
-  profiles?: Array<string>;
-
-  record_type?: string;
-
-  record_types?: Array<'INCOMPLETE' | 'COMPLETED' | 'ERRORS'>;
-
-  report_name?: string;
-
-  report_url?: string;
-
-  start_date?: string;
-
-  status?: 'PENDING' | 'COMPLETE' | 'FAILED' | 'EXPIRED';
-
-  updated_at?: string;
+export interface MessagingCreateResponse {
+  data?: MessagingCreateResponse.Data;
 }
 
-export interface MessagingCreateResponse {
-  data?: MdrDetailReportResponse;
+export namespace MessagingCreateResponse {
+  export interface Data {
+    /**
+     * Identifies the resource
+     */
+    id?: string;
+
+    connections?: Array<number>;
+
+    created_at?: string;
+
+    directions?: Array<'INBOUND' | 'OUTBOUND'>;
+
+    end_date?: string;
+
+    filters?: Array<Data.Filter>;
+
+    /**
+     * List of messaging profile IDs
+     */
+    profiles?: Array<string>;
+
+    record_type?: string;
+
+    record_types?: Array<'INCOMPLETE' | 'COMPLETED' | 'ERRORS'>;
+
+    report_name?: string;
+
+    report_url?: string;
+
+    start_date?: string;
+
+    status?: 'PENDING' | 'COMPLETE' | 'FAILED' | 'EXPIRED';
+
+    updated_at?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Query filter criteria. Note: The first filter object must specify filter_type as
+     * 'and'. You cannot follow an 'or' with another 'and'.
+     */
+    export interface Filter {
+      /**
+       * Billing group UUID to filter by
+       */
+      billing_group?: string;
+
+      /**
+       * Called line identification (destination number)
+       */
+      cld?: string;
+
+      /**
+       * Filter type for CLD matching
+       */
+      cld_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Calling line identification (caller ID)
+       */
+      cli?: string;
+
+      /**
+       * Filter type for CLI matching
+       */
+      cli_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Logical operator for combining filters
+       */
+      filter_type?: 'and' | 'or';
+
+      /**
+       * Tag name to filter by
+       */
+      tags_list?: string;
+    }
+  }
 }
 
 export interface MessagingRetrieveResponse {
-  data?: MdrDetailReportResponse;
+  data?: MessagingRetrieveResponse.Data;
+}
+
+export namespace MessagingRetrieveResponse {
+  export interface Data {
+    /**
+     * Identifies the resource
+     */
+    id?: string;
+
+    connections?: Array<number>;
+
+    created_at?: string;
+
+    directions?: Array<'INBOUND' | 'OUTBOUND'>;
+
+    end_date?: string;
+
+    filters?: Array<Data.Filter>;
+
+    /**
+     * List of messaging profile IDs
+     */
+    profiles?: Array<string>;
+
+    record_type?: string;
+
+    record_types?: Array<'INCOMPLETE' | 'COMPLETED' | 'ERRORS'>;
+
+    report_name?: string;
+
+    report_url?: string;
+
+    start_date?: string;
+
+    status?: 'PENDING' | 'COMPLETE' | 'FAILED' | 'EXPIRED';
+
+    updated_at?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Query filter criteria. Note: The first filter object must specify filter_type as
+     * 'and'. You cannot follow an 'or' with another 'and'.
+     */
+    export interface Filter {
+      /**
+       * Billing group UUID to filter by
+       */
+      billing_group?: string;
+
+      /**
+       * Called line identification (destination number)
+       */
+      cld?: string;
+
+      /**
+       * Filter type for CLD matching
+       */
+      cld_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Calling line identification (caller ID)
+       */
+      cli?: string;
+
+      /**
+       * Filter type for CLI matching
+       */
+      cli_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Logical operator for combining filters
+       */
+      filter_type?: 'and' | 'or';
+
+      /**
+       * Tag name to filter by
+       */
+      tags_list?: string;
+    }
+  }
 }
 
 export interface MessagingListResponse {
-  data?: Array<MdrDetailReportResponse>;
+  data?: Array<MessagingListResponse.Data>;
 
   meta?: MessagingListResponse.Meta;
 }
 
 export namespace MessagingListResponse {
+  export interface Data {
+    /**
+     * Identifies the resource
+     */
+    id?: string;
+
+    connections?: Array<number>;
+
+    created_at?: string;
+
+    directions?: Array<'INBOUND' | 'OUTBOUND'>;
+
+    end_date?: string;
+
+    filters?: Array<Data.Filter>;
+
+    /**
+     * List of messaging profile IDs
+     */
+    profiles?: Array<string>;
+
+    record_type?: string;
+
+    record_types?: Array<'INCOMPLETE' | 'COMPLETED' | 'ERRORS'>;
+
+    report_name?: string;
+
+    report_url?: string;
+
+    start_date?: string;
+
+    status?: 'PENDING' | 'COMPLETE' | 'FAILED' | 'EXPIRED';
+
+    updated_at?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Query filter criteria. Note: The first filter object must specify filter_type as
+     * 'and'. You cannot follow an 'or' with another 'and'.
+     */
+    export interface Filter {
+      /**
+       * Billing group UUID to filter by
+       */
+      billing_group?: string;
+
+      /**
+       * Called line identification (destination number)
+       */
+      cld?: string;
+
+      /**
+       * Filter type for CLD matching
+       */
+      cld_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Calling line identification (caller ID)
+       */
+      cli?: string;
+
+      /**
+       * Filter type for CLI matching
+       */
+      cli_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Logical operator for combining filters
+       */
+      filter_type?: 'and' | 'or';
+
+      /**
+       * Tag name to filter by
+       */
+      tags_list?: string;
+    }
+  }
+
   export interface Meta {
     page_number?: number;
 
@@ -132,7 +336,88 @@ export namespace MessagingListResponse {
 }
 
 export interface MessagingDeleteResponse {
-  data?: MdrDetailReportResponse;
+  data?: MessagingDeleteResponse.Data;
+}
+
+export namespace MessagingDeleteResponse {
+  export interface Data {
+    /**
+     * Identifies the resource
+     */
+    id?: string;
+
+    connections?: Array<number>;
+
+    created_at?: string;
+
+    directions?: Array<'INBOUND' | 'OUTBOUND'>;
+
+    end_date?: string;
+
+    filters?: Array<Data.Filter>;
+
+    /**
+     * List of messaging profile IDs
+     */
+    profiles?: Array<string>;
+
+    record_type?: string;
+
+    record_types?: Array<'INCOMPLETE' | 'COMPLETED' | 'ERRORS'>;
+
+    report_name?: string;
+
+    report_url?: string;
+
+    start_date?: string;
+
+    status?: 'PENDING' | 'COMPLETE' | 'FAILED' | 'EXPIRED';
+
+    updated_at?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Query filter criteria. Note: The first filter object must specify filter_type as
+     * 'and'. You cannot follow an 'or' with another 'and'.
+     */
+    export interface Filter {
+      /**
+       * Billing group UUID to filter by
+       */
+      billing_group?: string;
+
+      /**
+       * Called line identification (destination number)
+       */
+      cld?: string;
+
+      /**
+       * Filter type for CLD matching
+       */
+      cld_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Calling line identification (caller ID)
+       */
+      cli?: string;
+
+      /**
+       * Filter type for CLI matching
+       */
+      cli_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Logical operator for combining filters
+       */
+      filter_type?: 'and' | 'or';
+
+      /**
+       * Tag name to filter by
+       */
+      tags_list?: string;
+    }
+  }
 }
 
 export interface MessagingCreateParams {
@@ -161,7 +446,7 @@ export interface MessagingCreateParams {
   /**
    * List of filters to apply
    */
-  filters?: Array<BatchDetailRecordsAPI.Filter>;
+  filters?: Array<MessagingCreateParams.Filter>;
 
   /**
    * Whether to include message body in the report
@@ -199,9 +484,51 @@ export interface MessagingCreateParams {
   timezone?: string;
 }
 
+export namespace MessagingCreateParams {
+  /**
+   * Query filter criteria. Note: The first filter object must specify filter_type as
+   * 'and'. You cannot follow an 'or' with another 'and'.
+   */
+  export interface Filter {
+    /**
+     * Billing group UUID to filter by
+     */
+    billing_group?: string;
+
+    /**
+     * Called line identification (destination number)
+     */
+    cld?: string;
+
+    /**
+     * Filter type for CLD matching
+     */
+    cld_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+    /**
+     * Calling line identification (caller ID)
+     */
+    cli?: string;
+
+    /**
+     * Filter type for CLI matching
+     */
+    cli_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+    /**
+     * Logical operator for combining filters
+     */
+    filter_type?: 'and' | 'or';
+
+    /**
+     * Tag name to filter by
+     */
+    tags_list?: string;
+  }
+}
+
 export declare namespace Messaging {
   export {
-    type MdrDetailReportResponse as MdrDetailReportResponse,
     type MessagingCreateResponse as MessagingCreateResponse,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingListResponse as MessagingListResponse,

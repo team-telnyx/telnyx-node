@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'update_template_verify_profiles',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nUpdate an existing Verify profile message template.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'MessageTemplateResponseDataWrapper',\n  properties: {\n    data: {\n      $ref: '#/$defs/verify_profile_message_template_response'\n    }\n  },\n  $defs: {\n    verify_profile_message_template_response: {\n      type: 'object',\n      title: 'VerifyProfileResponse',\n      properties: {\n        id: {\n          type: 'string'\n        },\n        text: {\n          type: 'string'\n        }\n      }\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nUpdate an existing Verify profile message template.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'MessageTemplateResponseDataWrapper',\n  properties: {\n    data: {\n      type: 'object',\n      title: 'VerifyProfileResponse',\n      properties: {\n        id: {\n          type: 'string'\n        },\n        text: {\n          type: 'string'\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

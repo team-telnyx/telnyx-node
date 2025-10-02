@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
-import * as BatchDetailRecordsAPI from './batch-detail-records';
 import { APIPromise } from '../../../../core/api-promise';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
@@ -82,115 +81,424 @@ export class Voice extends APIResource {
   }
 }
 
-/**
- * Response object for CDR detailed report
- */
-export interface CdrDetailedReqResponse {
-  /**
-   * Unique identifier for the report
-   */
-  id?: string;
-
-  /**
-   * List of call types (Inbound = 1, Outbound = 2)
-   */
-  call_types?: Array<number>;
-
-  /**
-   * List of connections
-   */
-  connections?: Array<number>;
-
-  /**
-   * Creation date of the report
-   */
-  created_at?: string;
-
-  /**
-   * End time in ISO format
-   */
-  end_time?: string;
-
-  /**
-   * List of filters
-   */
-  filters?: Array<BatchDetailRecordsAPI.Filter>;
-
-  /**
-   * List of managed accounts
-   */
-  managed_accounts?: Array<string>;
-
-  record_type?: string;
-
-  /**
-   * List of record types (Complete = 1, Incomplete = 2, Errors = 3)
-   */
-  record_types?: Array<number>;
-
-  /**
-   * Name of the report
-   */
-  report_name?: string;
-
-  /**
-   * URL to download the report
-   */
-  report_url?: string;
-
-  /**
-   * Number of retries
-   */
-  retry?: number;
-
-  /**
-   * Source of the report. Valid values: calls (default), call-control, fax-api,
-   * webrtc
-   */
-  source?: string;
-
-  /**
-   * Start time in ISO format
-   */
-  start_time?: string;
-
-  /**
-   * Status of the report (Pending = 1, Complete = 2, Failed = 3, Expired = 4)
-   */
-  status?: number;
-
-  /**
-   * Timezone for the report
-   */
-  timezone?: string;
-
-  /**
-   * Last update date of the report
-   */
-  updated_at?: string;
-}
-
 export interface VoiceCreateResponse {
   /**
    * Response object for CDR detailed report
    */
-  data?: CdrDetailedReqResponse;
+  data?: VoiceCreateResponse.Data;
+}
+
+export namespace VoiceCreateResponse {
+  /**
+   * Response object for CDR detailed report
+   */
+  export interface Data {
+    /**
+     * Unique identifier for the report
+     */
+    id?: string;
+
+    /**
+     * List of call types (Inbound = 1, Outbound = 2)
+     */
+    call_types?: Array<number>;
+
+    /**
+     * List of connections
+     */
+    connections?: Array<number>;
+
+    /**
+     * Creation date of the report
+     */
+    created_at?: string;
+
+    /**
+     * End time in ISO format
+     */
+    end_time?: string;
+
+    /**
+     * List of filters
+     */
+    filters?: Array<Data.Filter>;
+
+    /**
+     * List of managed accounts
+     */
+    managed_accounts?: Array<string>;
+
+    record_type?: string;
+
+    /**
+     * List of record types (Complete = 1, Incomplete = 2, Errors = 3)
+     */
+    record_types?: Array<number>;
+
+    /**
+     * Name of the report
+     */
+    report_name?: string;
+
+    /**
+     * URL to download the report
+     */
+    report_url?: string;
+
+    /**
+     * Number of retries
+     */
+    retry?: number;
+
+    /**
+     * Source of the report. Valid values: calls (default), call-control, fax-api,
+     * webrtc
+     */
+    source?: string;
+
+    /**
+     * Start time in ISO format
+     */
+    start_time?: string;
+
+    /**
+     * Status of the report (Pending = 1, Complete = 2, Failed = 3, Expired = 4)
+     */
+    status?: number;
+
+    /**
+     * Timezone for the report
+     */
+    timezone?: string;
+
+    /**
+     * Last update date of the report
+     */
+    updated_at?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Query filter criteria. Note: The first filter object must specify filter_type as
+     * 'and'. You cannot follow an 'or' with another 'and'.
+     */
+    export interface Filter {
+      /**
+       * Billing group UUID to filter by
+       */
+      billing_group?: string;
+
+      /**
+       * Called line identification (destination number)
+       */
+      cld?: string;
+
+      /**
+       * Filter type for CLD matching
+       */
+      cld_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Calling line identification (caller ID)
+       */
+      cli?: string;
+
+      /**
+       * Filter type for CLI matching
+       */
+      cli_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Logical operator for combining filters
+       */
+      filter_type?: 'and' | 'or';
+
+      /**
+       * Tag name to filter by
+       */
+      tags_list?: string;
+    }
+  }
 }
 
 export interface VoiceRetrieveResponse {
   /**
    * Response object for CDR detailed report
    */
-  data?: CdrDetailedReqResponse;
+  data?: VoiceRetrieveResponse.Data;
+}
+
+export namespace VoiceRetrieveResponse {
+  /**
+   * Response object for CDR detailed report
+   */
+  export interface Data {
+    /**
+     * Unique identifier for the report
+     */
+    id?: string;
+
+    /**
+     * List of call types (Inbound = 1, Outbound = 2)
+     */
+    call_types?: Array<number>;
+
+    /**
+     * List of connections
+     */
+    connections?: Array<number>;
+
+    /**
+     * Creation date of the report
+     */
+    created_at?: string;
+
+    /**
+     * End time in ISO format
+     */
+    end_time?: string;
+
+    /**
+     * List of filters
+     */
+    filters?: Array<Data.Filter>;
+
+    /**
+     * List of managed accounts
+     */
+    managed_accounts?: Array<string>;
+
+    record_type?: string;
+
+    /**
+     * List of record types (Complete = 1, Incomplete = 2, Errors = 3)
+     */
+    record_types?: Array<number>;
+
+    /**
+     * Name of the report
+     */
+    report_name?: string;
+
+    /**
+     * URL to download the report
+     */
+    report_url?: string;
+
+    /**
+     * Number of retries
+     */
+    retry?: number;
+
+    /**
+     * Source of the report. Valid values: calls (default), call-control, fax-api,
+     * webrtc
+     */
+    source?: string;
+
+    /**
+     * Start time in ISO format
+     */
+    start_time?: string;
+
+    /**
+     * Status of the report (Pending = 1, Complete = 2, Failed = 3, Expired = 4)
+     */
+    status?: number;
+
+    /**
+     * Timezone for the report
+     */
+    timezone?: string;
+
+    /**
+     * Last update date of the report
+     */
+    updated_at?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Query filter criteria. Note: The first filter object must specify filter_type as
+     * 'and'. You cannot follow an 'or' with another 'and'.
+     */
+    export interface Filter {
+      /**
+       * Billing group UUID to filter by
+       */
+      billing_group?: string;
+
+      /**
+       * Called line identification (destination number)
+       */
+      cld?: string;
+
+      /**
+       * Filter type for CLD matching
+       */
+      cld_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Calling line identification (caller ID)
+       */
+      cli?: string;
+
+      /**
+       * Filter type for CLI matching
+       */
+      cli_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Logical operator for combining filters
+       */
+      filter_type?: 'and' | 'or';
+
+      /**
+       * Tag name to filter by
+       */
+      tags_list?: string;
+    }
+  }
 }
 
 export interface VoiceListResponse {
-  data?: Array<CdrDetailedReqResponse>;
+  data?: Array<VoiceListResponse.Data>;
 
   meta?: VoiceListResponse.Meta;
 }
 
 export namespace VoiceListResponse {
+  /**
+   * Response object for CDR detailed report
+   */
+  export interface Data {
+    /**
+     * Unique identifier for the report
+     */
+    id?: string;
+
+    /**
+     * List of call types (Inbound = 1, Outbound = 2)
+     */
+    call_types?: Array<number>;
+
+    /**
+     * List of connections
+     */
+    connections?: Array<number>;
+
+    /**
+     * Creation date of the report
+     */
+    created_at?: string;
+
+    /**
+     * End time in ISO format
+     */
+    end_time?: string;
+
+    /**
+     * List of filters
+     */
+    filters?: Array<Data.Filter>;
+
+    /**
+     * List of managed accounts
+     */
+    managed_accounts?: Array<string>;
+
+    record_type?: string;
+
+    /**
+     * List of record types (Complete = 1, Incomplete = 2, Errors = 3)
+     */
+    record_types?: Array<number>;
+
+    /**
+     * Name of the report
+     */
+    report_name?: string;
+
+    /**
+     * URL to download the report
+     */
+    report_url?: string;
+
+    /**
+     * Number of retries
+     */
+    retry?: number;
+
+    /**
+     * Source of the report. Valid values: calls (default), call-control, fax-api,
+     * webrtc
+     */
+    source?: string;
+
+    /**
+     * Start time in ISO format
+     */
+    start_time?: string;
+
+    /**
+     * Status of the report (Pending = 1, Complete = 2, Failed = 3, Expired = 4)
+     */
+    status?: number;
+
+    /**
+     * Timezone for the report
+     */
+    timezone?: string;
+
+    /**
+     * Last update date of the report
+     */
+    updated_at?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Query filter criteria. Note: The first filter object must specify filter_type as
+     * 'and'. You cannot follow an 'or' with another 'and'.
+     */
+    export interface Filter {
+      /**
+       * Billing group UUID to filter by
+       */
+      billing_group?: string;
+
+      /**
+       * Called line identification (destination number)
+       */
+      cld?: string;
+
+      /**
+       * Filter type for CLD matching
+       */
+      cld_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Calling line identification (caller ID)
+       */
+      cli?: string;
+
+      /**
+       * Filter type for CLI matching
+       */
+      cli_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Logical operator for combining filters
+       */
+      filter_type?: 'and' | 'or';
+
+      /**
+       * Tag name to filter by
+       */
+      tags_list?: string;
+    }
+  }
+
   export interface Meta {
     page_number?: number;
 
@@ -206,7 +514,140 @@ export interface VoiceDeleteResponse {
   /**
    * Response object for CDR detailed report
    */
-  data?: CdrDetailedReqResponse;
+  data?: VoiceDeleteResponse.Data;
+}
+
+export namespace VoiceDeleteResponse {
+  /**
+   * Response object for CDR detailed report
+   */
+  export interface Data {
+    /**
+     * Unique identifier for the report
+     */
+    id?: string;
+
+    /**
+     * List of call types (Inbound = 1, Outbound = 2)
+     */
+    call_types?: Array<number>;
+
+    /**
+     * List of connections
+     */
+    connections?: Array<number>;
+
+    /**
+     * Creation date of the report
+     */
+    created_at?: string;
+
+    /**
+     * End time in ISO format
+     */
+    end_time?: string;
+
+    /**
+     * List of filters
+     */
+    filters?: Array<Data.Filter>;
+
+    /**
+     * List of managed accounts
+     */
+    managed_accounts?: Array<string>;
+
+    record_type?: string;
+
+    /**
+     * List of record types (Complete = 1, Incomplete = 2, Errors = 3)
+     */
+    record_types?: Array<number>;
+
+    /**
+     * Name of the report
+     */
+    report_name?: string;
+
+    /**
+     * URL to download the report
+     */
+    report_url?: string;
+
+    /**
+     * Number of retries
+     */
+    retry?: number;
+
+    /**
+     * Source of the report. Valid values: calls (default), call-control, fax-api,
+     * webrtc
+     */
+    source?: string;
+
+    /**
+     * Start time in ISO format
+     */
+    start_time?: string;
+
+    /**
+     * Status of the report (Pending = 1, Complete = 2, Failed = 3, Expired = 4)
+     */
+    status?: number;
+
+    /**
+     * Timezone for the report
+     */
+    timezone?: string;
+
+    /**
+     * Last update date of the report
+     */
+    updated_at?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Query filter criteria. Note: The first filter object must specify filter_type as
+     * 'and'. You cannot follow an 'or' with another 'and'.
+     */
+    export interface Filter {
+      /**
+       * Billing group UUID to filter by
+       */
+      billing_group?: string;
+
+      /**
+       * Called line identification (destination number)
+       */
+      cld?: string;
+
+      /**
+       * Filter type for CLD matching
+       */
+      cld_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Calling line identification (caller ID)
+       */
+      cli?: string;
+
+      /**
+       * Filter type for CLI matching
+       */
+      cli_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+      /**
+       * Logical operator for combining filters
+       */
+      filter_type?: 'and' | 'or';
+
+      /**
+       * Tag name to filter by
+       */
+      tags_list?: string;
+    }
+  }
 }
 
 /**
@@ -263,7 +704,7 @@ export interface VoiceCreateParams {
   /**
    * List of filters to apply
    */
-  filters?: Array<BatchDetailRecordsAPI.Filter>;
+  filters?: Array<VoiceCreateParams.Filter>;
 
   /**
    * Whether to include all metadata
@@ -302,9 +743,51 @@ export interface VoiceCreateParams {
   timezone?: string;
 }
 
+export namespace VoiceCreateParams {
+  /**
+   * Query filter criteria. Note: The first filter object must specify filter_type as
+   * 'and'. You cannot follow an 'or' with another 'and'.
+   */
+  export interface Filter {
+    /**
+     * Billing group UUID to filter by
+     */
+    billing_group?: string;
+
+    /**
+     * Called line identification (destination number)
+     */
+    cld?: string;
+
+    /**
+     * Filter type for CLD matching
+     */
+    cld_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+    /**
+     * Calling line identification (caller ID)
+     */
+    cli?: string;
+
+    /**
+     * Filter type for CLI matching
+     */
+    cli_filter?: 'contains' | 'starts_with' | 'ends_with';
+
+    /**
+     * Logical operator for combining filters
+     */
+    filter_type?: 'and' | 'or';
+
+    /**
+     * Tag name to filter by
+     */
+    tags_list?: string;
+  }
+}
+
 export declare namespace Voice {
   export {
-    type CdrDetailedReqResponse as CdrDetailedReqResponse,
     type VoiceCreateResponse as VoiceCreateResponse,
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
     type VoiceListResponse as VoiceListResponse,
