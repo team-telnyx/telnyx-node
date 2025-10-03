@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.4.0 (2025-10-03)
+
+Full Changelog: [v3.3.3...v3.4.0](https://github.com/team-telnyx/telnyx-node/compare/v3.3.3...v3.4.0)
+
+### Features
+
+* **api:** manual updates ([15826f5](https://github.com/team-telnyx/telnyx-node/commit/15826f54f9a7f5ff366a979f482beab1b3de736c))
+* Fix listing deepgram languages for transcription start ([5e0ef02](https://github.com/team-telnyx/telnyx-node/commit/5e0ef02d4245e4b3b425a67b6770fb0ea1d165c2))
+* TELAPPS-5367: Update transcription start docs ([e6b4120](https://github.com/team-telnyx/telnyx-node/commit/e6b4120046314fdf20953e352944712a658a6d0c))
+
+
+### Chores
+
+* **internal:** codegen related update ([af78ee3](https://github.com/team-telnyx/telnyx-node/commit/af78ee3adc7cd1cdefa904c2e6cbadebf09dd331))
+
 ## 3.3.3 (2025-10-01)
 
 Full Changelog: [v3.3.2...v3.3.3](https://github.com/team-telnyx/telnyx-node/compare/v3.3.2...v3.3.3)
