@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.4.2 (2025-10-06)
+
+Full Changelog: [v3.4.1...v3.4.2](https://github.com/team-telnyx/telnyx-node/compare/v3.4.1...v3.4.2)
+
+### Bug Fixes
+
+* change NPM version url ([b4f5059](https://github.com/team-telnyx/telnyx-node/commit/b4f50594285905fbd015a1b6f981ae11073ebbcf))
+
 ## 3.4.1 (2025-10-06)
 
 Full Changelog: [v3.4.0...v3.4.1](https://github.com/team-telnyx/telnyx-node/compare/v3.4.0...v3.4.1)
