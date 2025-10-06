@@ -49,6 +49,10 @@ export const tool: Tool = {
         type: 'boolean',
         description: 'enables automated resizing of MMS media.',
       },
+      mobile_only: {
+        type: 'boolean',
+        description: 'Send messages only to mobile phone numbers.',
+      },
       name: {
         type: 'string',
         description: 'A user friendly name for the messaging profile.',

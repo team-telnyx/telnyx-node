@@ -59,6 +59,10 @@ export const tool: Tool = {
         type: 'boolean',
         description: 'enables automated resizing of MMS media.',
       },
+      mobile_only: {
+        type: 'boolean',
+        description: 'Send messages only to mobile phone numbers.',
+      },
       number_pool_settings: {
         $ref: '#/$defs/number_pool_settings',
       },

@@ -34,6 +34,7 @@ describe('resource messagingProfiles', () => {
       enabled: true,
       mms_fall_back_to_sms: true,
       mms_transcoding: true,
+      mobile_only: true,
       number_pool_settings: {
         long_code_weight: 1,
         skip_unhealthy: true,
