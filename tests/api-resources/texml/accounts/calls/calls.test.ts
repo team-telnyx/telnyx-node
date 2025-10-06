@@ -80,6 +80,7 @@ describe('resource calls', () => {
       CallerId: 'Info',
       CancelPlaybackOnDetectMessageEnd: false,
       CancelPlaybackOnMachineDetection: false,
+      CustomHeaders: [{ name: 'X-Custom-Header', value: 'custom-value' }],
       DetectionMode: 'Premium',
       FallbackUrl: 'https://www.example.com/instructions-fallback.xml',
       MachineDetection: 'Enable',

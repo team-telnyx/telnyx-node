@@ -109,6 +109,25 @@ export const tool: Tool = {
           'Whether to trim any leading and trailing silence from the conference recording. Defaults to `trim-silence`.',
         enum: ['trim-silence', 'do-not-trim'],
       },
+      CustomHeaders: {
+        type: 'array',
+        description:
+          "Custom HTTP headers to be sent with the call. Each header should be an object with 'name' and 'value' properties.",
+        items: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+              description: 'The name of the custom header',
+            },
+            value: {
+              type: 'string',
+              description: 'The value of the custom header',
+            },
+          },
+          required: ['name', 'value'],
+        },
+      },
       EarlyMedia: {
         type: 'boolean',
         description:

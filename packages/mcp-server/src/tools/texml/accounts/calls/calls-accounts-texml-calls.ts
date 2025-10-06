@@ -67,6 +67,25 @@ export const tool: Tool = {
         type: 'boolean',
         description: 'Whether to cancel ongoing playback on `machine` detection. Defaults to `true`.',
       },
+      CustomHeaders: {
+        type: 'array',
+        description:
+          "Custom HTTP headers to be sent with the call. Each header should be an object with 'name' and 'value' properties.",
+        items: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+              description: 'The name of the custom header',
+            },
+            value: {
+              type: 'string',
+              description: 'The value of the custom header',
+            },
+          },
+          required: ['name', 'value'],
+        },
+      },
       DetectionMode: {
         type: 'string',
         description: 'Allows you to chose between Premium and Standard detections.',
