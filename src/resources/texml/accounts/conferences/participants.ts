@@ -662,6 +662,12 @@ export interface ParticipantParticipantsParams {
   ConferenceTrim?: 'trim-silence' | 'do-not-trim';
 
   /**
+   * Body param: Custom HTTP headers to be sent with the call. Each header should be
+   * an object with 'name' and 'value' properties.
+   */
+  CustomHeaders?: Array<ParticipantParticipantsParams.CustomHeader>;
+
+  /**
    * Body param: Whether participant shall be bridged to conference before the
    * participant answers (from early media if available). Defaults to `false`.
    */
@@ -824,6 +830,20 @@ export interface ParticipantParticipantsParams {
    * waiting for the conference to start.
    */
   WaitUrl?: string;
+}
+
+export namespace ParticipantParticipantsParams {
+  export interface CustomHeader {
+    /**
+     * The name of the custom header
+     */
+    name: string;
+
+    /**
+     * The value of the custom header
+     */
+    value: string;
+  }
 }
 
 export interface ParticipantRetrieveParticipantsParams {

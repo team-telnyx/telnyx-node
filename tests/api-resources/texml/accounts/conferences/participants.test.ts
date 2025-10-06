@@ -126,6 +126,7 @@ describe('resource participants', () => {
       ConferenceStatusCallbackEvent: 'start end join leave',
       ConferenceStatusCallbackMethod: 'GET',
       ConferenceTrim: 'trim-silence',
+      CustomHeaders: [{ name: 'X-Custom-Header', value: 'custom-value' }],
       EarlyMedia: true,
       EndConferenceOnExit: true,
       From: '+12065550200',
