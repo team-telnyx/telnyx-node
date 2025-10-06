@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.4.1 (2025-10-06)
+
+Full Changelog: [v3.4.0...v3.4.1](https://github.com/team-telnyx/telnyx-node/compare/v3.4.0...v3.4.1)
+
+### Bug Fixes
+
+* change NPM version url ([d174c20](https://github.com/team-telnyx/telnyx-node/commit/d174c2086354a2c66e12e21f6cce2b31637c5054))
+
+
+### Chores
+
+* **jsdoc:** fix [@link](https://github.com/link) annotations to refer only to parts of the package‘s public interface ([28c153f](https://github.com/team-telnyx/telnyx-node/commit/28c153f14ffaed8ac97ffd01ba250fd7e01fa10c))
+
 ## 3.4.0 (2025-10-03)
 
 Full Changelog: [v3.3.3...v3.4.0](https://github.com/team-telnyx/telnyx-node/compare/v3.3.3...v3.4.0)
