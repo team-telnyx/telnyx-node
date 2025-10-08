@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'create_phone_numbers_voicemail',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCreate voicemail settings for a phone number\n\n# Response Schema\n```json\n{\n  type: 'object',\n  properties: {\n    data: {\n      $ref: '#/$defs/voicemail_pref_response'\n    }\n  },\n  $defs: {\n    voicemail_pref_response: {\n      type: 'object',\n      properties: {\n        enabled: {\n          type: 'boolean',\n          description: 'Whether voicemail is enabled.'\n        },\n        pin: {\n          type: 'string',\n          description: 'The pin used for the voicemail.'\n        }\n      }\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCreate voicemail settings for a phone number\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/voicemail_create_response',\n  $defs: {\n    voicemail_create_response: {\n      type: 'object',\n      properties: {\n        data: {\n          $ref: '#/$defs/voicemail_pref_response'\n        }\n      }\n    },\n    voicemail_pref_response: {\n      type: 'object',\n      properties: {\n        enabled: {\n          type: 'boolean',\n          description: 'Whether voicemail is enabled.'\n        },\n        pin: {\n          type: 'string',\n          description: 'The pin used for the voicemail.'\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

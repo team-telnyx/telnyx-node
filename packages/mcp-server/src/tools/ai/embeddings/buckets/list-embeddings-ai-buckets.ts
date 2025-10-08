@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'list_embeddings_ai_buckets',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGet all embedding buckets for a user.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'UserEmbeddedBucketsData',\n  properties: {\n    data: {\n      type: 'object',\n      title: 'UserEmbeddedBuckets',\n      properties: {\n        buckets: {\n          type: 'array',\n          title: 'Buckets',\n          items: {\n            type: 'string'\n          }\n        }\n      },\n      required: [        'buckets'\n      ]\n    }\n  },\n  required: [    'data'\n  ]\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGet all embedding buckets for a user.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/bucket_list_response',\n  $defs: {\n    bucket_list_response: {\n      type: 'object',\n      title: 'UserEmbeddedBucketsData',\n      properties: {\n        data: {\n          type: 'object',\n          title: 'UserEmbeddedBuckets',\n          properties: {\n            buckets: {\n              type: 'array',\n              title: 'Buckets',\n              items: {\n                type: 'string'\n              }\n            }\n          },\n          required: [            'buckets'\n          ]\n        }\n      },\n      required: [        'data'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

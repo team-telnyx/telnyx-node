@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'list_rejection_codes_portouts',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGiven a port-out ID, list rejection codes that are eligible for that port-out\n\n# Response Schema\n```json\n{\n  type: 'object',\n  properties: {\n    data: {\n      type: 'array',\n      items: {\n        type: 'object',\n        properties: {\n          code: {\n            type: 'integer'\n          },\n          description: {\n            type: 'string'\n          },\n          reason_required: {\n            type: 'boolean'\n          }\n        }\n      }\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGiven a port-out ID, list rejection codes that are eligible for that port-out\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/portout_list_rejection_codes_response',\n  $defs: {\n    portout_list_rejection_codes_response: {\n      type: 'object',\n      properties: {\n        data: {\n          type: 'array',\n          items: {\n            type: 'object',\n            properties: {\n              code: {\n                type: 'integer'\n              },\n              description: {\n                type: 'string'\n              },\n              reason_required: {\n                type: 'boolean'\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

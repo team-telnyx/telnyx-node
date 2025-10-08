@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'cancel_faxes_actions',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCancel the outbound fax that is in one of the following states: `queued`, `media.processed`, `originated` or `sending` \n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'Successful response upon accepting cancel fax command',\n  properties: {\n    result: {\n      type: 'string'\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCancel the outbound fax that is in one of the following states: `queued`, `media.processed`, `originated` or `sending` \n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/action_cancel_response',\n  $defs: {\n    action_cancel_response: {\n      type: 'object',\n      title: 'Successful response upon accepting cancel fax command',\n      properties: {\n        result: {\n          type: 'string'\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
