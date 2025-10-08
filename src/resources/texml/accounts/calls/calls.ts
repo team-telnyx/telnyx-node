@@ -732,6 +732,12 @@ export interface CallCallsParams {
   CancelPlaybackOnMachineDetection?: boolean;
 
   /**
+   * Custom HTTP headers to be sent with the call. Each header should be an object
+   * with 'name' and 'value' properties.
+   */
+  CustomHeaders?: Array<CallCallsParams.CustomHeader>;
+
+  /**
    * Allows you to chose between Premium and Standard detections.
    */
   DetectionMode?: 'Premium' | 'Regular';
@@ -862,6 +868,20 @@ export interface CallCallsParams {
    * Application setting.
    */
   UrlMethod?: 'GET' | 'POST';
+}
+
+export namespace CallCallsParams {
+  export interface CustomHeader {
+    /**
+     * The name of the custom header
+     */
+    name: string;
+
+    /**
+     * The value of the custom header
+     */
+    value: string;
+  }
 }
 
 export interface CallRetrieveCallsParams {

@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.5.0 (2025-10-06)
+
+Full Changelog: [v3.4.2...v3.5.0](https://github.com/team-telnyx/telnyx-node/compare/v3.4.2...v3.5.0)
+
+### Features
+
+* ENGDESK-45343: Add CustomHeaders documentation to TeXML Dial endpoints ([3e71dcc](https://github.com/team-telnyx/telnyx-node/commit/3e71dccfec90ff05be30c6321c950523b5930b3f))
+* MSG-5944: added mobile_only field to messaging profiles ([19ffb9d](https://github.com/team-telnyx/telnyx-node/commit/19ffb9d01bceaa8167bef13776efa2b27cf7ae9e))
+
+
+### Chores
+
+* **internal:** use npm pack for build uploads ([e31b3d0](https://github.com/team-telnyx/telnyx-node/commit/e31b3d02c96134e1aca3e38879e195cb334c0be3))
+
 ## 3.4.2 (2025-10-06)
 
 Full Changelog: [v3.4.1...v3.4.2](https://github.com/team-telnyx/telnyx-node/compare/v3.4.1...v3.4.2)

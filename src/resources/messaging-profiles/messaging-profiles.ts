@@ -191,6 +191,11 @@ export interface MessagingProfile {
   mms_transcoding?: boolean;
 
   /**
+   * Send messages only to mobile phone numbers.
+   */
+  mobile_only?: boolean;
+
+  /**
    * A user friendly name for the messaging profile.
    */
   name?: string;
@@ -420,6 +425,11 @@ export interface MessagingProfileCreateParams {
   mms_transcoding?: boolean;
 
   /**
+   * Send messages only to mobile phone numbers.
+   */
+  mobile_only?: boolean;
+
+  /**
    * Number Pool allows you to send messages from a pool of numbers of different
    * types, assigning weights to each type. The pool consists of all the long code
    * and toll free numbers assigned to the messaging profile.
@@ -489,6 +499,11 @@ export interface MessagingProfileUpdateParams {
    * enables automated resizing of MMS media.
    */
   mms_transcoding?: boolean;
+
+  /**
+   * Send messages only to mobile phone numbers.
+   */
+  mobile_only?: boolean;
 
   /**
    * A user friendly name for the messaging profile.
