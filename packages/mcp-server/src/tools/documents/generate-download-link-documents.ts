@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'generate_download_link_documents',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGenerates a temporary pre-signed URL that can be used to download the document directly from the storage backend without authentication.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  properties: {\n    data: {\n      type: 'object',\n      properties: {\n        url: {\n          type: 'string',\n          description: 'Pre-signed temporary URL for downloading the document'\n        }\n      },\n      required: [        'url'\n      ]\n    }\n  },\n  required: [    'data'\n  ]\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGenerates a temporary pre-signed URL that can be used to download the document directly from the storage backend without authentication.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/document_generate_download_link_response',\n  $defs: {\n    document_generate_download_link_response: {\n      type: 'object',\n      properties: {\n        data: {\n          type: 'object',\n          properties: {\n            url: {\n              type: 'string',\n              description: 'Pre-signed temporary URL for downloading the document'\n            }\n          },\n          required: [            'url'\n          ]\n        }\n      },\n      required: [        'data'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

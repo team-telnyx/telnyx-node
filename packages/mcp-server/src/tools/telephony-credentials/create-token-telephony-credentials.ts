@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'create_token_telephony_credentials',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCreate an Access Token (JWT) for the credential.\n\n# Response Schema\n```json\n{\n  type: 'string'\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCreate an Access Token (JWT) for the credential.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/telephony_credential_create_token_response',\n  $defs: {\n    telephony_credential_create_token_response: {\n      type: 'string'\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

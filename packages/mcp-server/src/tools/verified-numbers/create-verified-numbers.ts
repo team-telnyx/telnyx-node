@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'create_verified_numbers',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nInitiates phone number verification procedure. Supports DTMF extension dialing for voice calls to numbers behind IVR systems.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'CreateVerifiedNumberResponse',\n  properties: {\n    phone_number: {\n      type: 'string'\n    },\n    verification_method: {\n      type: 'string'\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nInitiates phone number verification procedure. Supports DTMF extension dialing for voice calls to numbers behind IVR systems.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/verified_number_create_response',\n  $defs: {\n    verified_number_create_response: {\n      type: 'object',\n      title: 'CreateVerifiedNumberResponse',\n      properties: {\n        phone_number: {\n          type: 'string'\n        },\n        verification_method: {\n          type: 'string'\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

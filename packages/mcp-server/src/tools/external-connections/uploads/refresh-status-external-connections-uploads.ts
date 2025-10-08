@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'refresh_status_external_connections_uploads',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nForces a recheck of the status of all pending Upload requests for the given external connection in the background.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'Create Upload request Response',\n  properties: {\n    success: {\n      type: 'boolean',\n      description: 'Describes wether or not the operation was successful'\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nForces a recheck of the status of all pending Upload requests for the given external connection in the background.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/upload_refresh_status_response',\n  $defs: {\n    upload_refresh_status_response: {\n      type: 'object',\n      title: 'Create Upload request Response',\n      properties: {\n        success: {\n          type: 'boolean',\n          description: 'Describes wether or not the operation was successful'\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
