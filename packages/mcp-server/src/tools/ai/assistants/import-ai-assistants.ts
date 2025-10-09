@@ -29,7 +29,7 @@ export const tool: Tool = {
       provider: {
         type: 'string',
         description: 'The external provider to import assistants from.',
-        enum: ['elevenlabs', 'vapi'],
+        enum: ['elevenlabs', 'vapi', 'retell'],
       },
     },
     required: ['api_key_ref', 'provider'],
