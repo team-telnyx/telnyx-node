@@ -559,7 +559,7 @@ export interface ImportMetadata {
   /**
    * Provider the assistant was imported from.
    */
-  import_provider?: 'elevenlabs' | 'vapi';
+  import_provider?: 'elevenlabs' | 'vapi' | 'retell';
 }
 
 export interface InferenceEmbeddingBucketIDs {
@@ -1347,7 +1347,7 @@ export interface AssistantImportParams {
   /**
    * The external provider to import assistants from.
    */
-  provider: 'elevenlabs' | 'vapi';
+  provider: 'elevenlabs' | 'vapi' | 'retell';
 }
 
 Assistants.Tests = Tests;
