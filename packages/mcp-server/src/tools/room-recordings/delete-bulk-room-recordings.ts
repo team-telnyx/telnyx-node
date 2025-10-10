@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'delete_bulk_room_recordings',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nDelete several room recordings in a bulk.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'Bulk Room Recordings Delete Response',\n  properties: {\n    data: {\n      type: 'object',\n      properties: {\n        room_recordings: {\n          type: 'integer',\n          description: 'Amount of room recordings affected'\n        }\n      }\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nDelete several room recordings in a bulk.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/room_recording_delete_bulk_response',\n  $defs: {\n    room_recording_delete_bulk_response: {\n      type: 'object',\n      title: 'Bulk Room Recordings Delete Response',\n      properties: {\n        data: {\n          type: 'object',\n          properties: {\n            room_recordings: {\n              type: 'integer',\n              description: 'Amount of room recordings affected'\n            }\n          }\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

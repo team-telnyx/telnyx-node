@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'deactivate_campaign',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nTerminate a campaign. Note that once deactivated, a campaign cannot be restored.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'CampaignDeletionResponse',\n  properties: {\n    time: {\n      type: 'number',\n      title: 'Time'\n    },\n    message: {\n      type: 'string',\n      title: 'Message'\n    },\n    record_type: {\n      type: 'string',\n      title: 'Record Type'\n    }\n  },\n  required: [    'time'\n  ]\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nTerminate a campaign. Note that once deactivated, a campaign cannot be restored.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/campaign_deactivate_response',\n  $defs: {\n    campaign_deactivate_response: {\n      type: 'object',\n      title: 'CampaignDeletionResponse',\n      properties: {\n        time: {\n          type: 'number',\n          title: 'Time'\n        },\n        message: {\n          type: 'string',\n          title: 'Message'\n        },\n        record_type: {\n          type: 'string',\n          title: 'Record Type'\n        }\n      },\n      required: [        'time'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

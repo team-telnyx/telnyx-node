@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'update_texml_calls',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nUpdate TeXML call. Please note that the keys present in the payload MUST BE formatted in CamelCase as specified in the example.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'TeXML REST Command Response',\n  properties: {\n    data: {\n      type: 'object',\n      title: 'TeXml REST Update Command Result',\n      properties: {\n        sid: {\n          type: 'string'\n        },\n        status: {\n          type: 'string'\n        }\n      }\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nUpdate TeXML call. Please note that the keys present in the payload MUST BE formatted in CamelCase as specified in the example.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/call_update_response',\n  $defs: {\n    call_update_response: {\n      type: 'object',\n      title: 'TeXML REST Command Response',\n      properties: {\n        data: {\n          type: 'object',\n          title: 'TeXml REST Update Command Result',\n          properties: {\n            sid: {\n              type: 'string'\n            },\n            status: {\n              type: 'string'\n            }\n          }\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

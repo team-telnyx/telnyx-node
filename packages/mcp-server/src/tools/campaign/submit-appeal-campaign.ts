@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'submit_appeal_campaign',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nSubmits an appeal for rejected native campaigns in TELNYX_FAILED or MNO_REJECTED status. The appeal is recorded for manual compliance team review and the campaign status is reset to TCR_ACCEPTED. Note: Appeal forwarding is handled manually to allow proper review before incurring upstream charges.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  properties: {\n    appealed_at: {\n      type: 'string',\n      description: 'Timestamp when the appeal was submitted',\n      format: 'date-time'\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nSubmits an appeal for rejected native campaigns in TELNYX_FAILED or MNO_REJECTED status. The appeal is recorded for manual compliance team review and the campaign status is reset to TCR_ACCEPTED. Note: Appeal forwarding is handled manually to allow proper review before incurring upstream charges.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/campaign_submit_appeal_response',\n  $defs: {\n    campaign_submit_appeal_response: {\n      type: 'object',\n      properties: {\n        appealed_at: {\n          type: 'string',\n          description: 'Timestamp when the appeal was submitted',\n          format: 'date-time'\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

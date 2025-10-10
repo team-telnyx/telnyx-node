@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'retrieve_config_wireguard_peers',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nRetrieve Wireguard config template for Peer\n\n# Response Schema\n```json\n{\n  type: 'string'\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nRetrieve Wireguard config template for Peer\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/wireguard_peer_retrieve_config_response',\n  $defs: {\n    wireguard_peer_retrieve_config_response: {\n      type: 'string'\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

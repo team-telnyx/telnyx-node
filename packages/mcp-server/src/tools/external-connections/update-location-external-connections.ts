@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'update_location_external_connections',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nUpdate a location's static emergency address\n\n# Response Schema\n```json\n{\n  type: 'object',\n  properties: {\n    data: {\n      type: 'object',\n      properties: {\n        accepted_address_suggestions: {\n          type: 'boolean'\n        },\n        location_id: {\n          type: 'string'\n        },\n        static_emergency_address_id: {\n          type: 'string'\n        }\n      }\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nUpdate a location's static emergency address\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/external_connection_update_location_response',\n  $defs: {\n    external_connection_update_location_response: {\n      type: 'object',\n      properties: {\n        data: {\n          type: 'object',\n          properties: {\n            accepted_address_suggestions: {\n              type: 'boolean'\n            },\n            location_id: {\n              type: 'string'\n            },\n            static_emergency_address_id: {\n              type: 'string'\n            }\n          }\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

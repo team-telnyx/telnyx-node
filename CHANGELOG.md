@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.6.0 (2025-10-10)
+
+Full Changelog: [v3.5.0...v3.6.0](https://github.com/team-telnyx/telnyx-node/compare/v3.5.0...v3.6.0)
+
+### Features
+
+* Retell assistants import ([513faa8](https://github.com/team-telnyx/telnyx-node/commit/513faa814282ff84290f5bf51ab364bcf1869037))
+
+
+### Chores
+
+* extract some types in mcp docs ([b45844d](https://github.com/team-telnyx/telnyx-node/commit/b45844d53659301083167e1dd1cb0820d2ad177e))
+* **internal:** codegen related update ([7f79aed](https://github.com/team-telnyx/telnyx-node/commit/7f79aedd2ffff4fcf874c4d08880eba3f253282f))
+
 ## 3.5.0 (2025-10-06)
 
 Full Changelog: [v3.4.2...v3.5.0](https://github.com/team-telnyx/telnyx-node/compare/v3.4.2...v3.5.0)

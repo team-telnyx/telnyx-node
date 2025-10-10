@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'download_sub_number_orders_report',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nDownload the CSV file for a completed sub number orders report. The report status must be 'success' before the file can be downloaded.\n\n# Response Schema\n```json\n{\n  type: 'string'\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nDownload the CSV file for a completed sub number orders report. The report status must be 'success' before the file can be downloaded.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/sub_number_orders_report_download_response',\n  $defs: {\n    sub_number_orders_report_download_response: {\n      type: 'string'\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

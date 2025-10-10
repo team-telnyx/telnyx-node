@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'dismiss_external_connections_log_messages',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nDismiss a log message for an external connection associated with your account.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'Dismiss request was successful',\n  properties: {\n    success: {\n      type: 'boolean',\n      description: 'Describes wether or not the operation was successful'\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nDismiss a log message for an external connection associated with your account.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/log_message_dismiss_response',\n  $defs: {\n    log_message_dismiss_response: {\n      type: 'object',\n      title: 'Dismiss request was successful',\n      properties: {\n        success: {\n          type: 'boolean',\n          description: 'Describes wether or not the operation was successful'\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

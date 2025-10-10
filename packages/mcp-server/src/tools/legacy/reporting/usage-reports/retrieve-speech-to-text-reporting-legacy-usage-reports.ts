@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'retrieve_speech_to_text_reporting_legacy_usage_reports',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGenerate and fetch speech to text usage report synchronously. This endpoint will both generate and fetch the speech to text report over a specified time period. \n\n# Response Schema\n```json\n{\n  type: 'object',\n  properties: {\n    data: {\n      type: 'object',\n      additionalProperties: true\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGenerate and fetch speech to text usage report synchronously. This endpoint will both generate and fetch the speech to text report over a specified time period. \n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/usage_report_retrieve_speech_to_text_response',\n  $defs: {\n    usage_report_retrieve_speech_to_text_response: {\n      type: 'object',\n      properties: {\n        data: {\n          type: 'object',\n          additionalProperties: true\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
