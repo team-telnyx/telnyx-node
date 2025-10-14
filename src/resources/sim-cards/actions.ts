@@ -42,7 +42,7 @@ export class Actions extends APIResource {
    * This API triggers an asynchronous operation to set a public IP for each of the
    * specified SIM cards.<br/> For each SIM Card a SIM Card Action will be generated.
    * The status of the SIM Card Action can be followed through the
-   * [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions)
+   * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions)
    * API.
    *
    * @example
@@ -65,7 +65,7 @@ export class Actions extends APIResource {
    * impossible to consume data.<br/> The API will trigger an asynchronous operation
    * called a SIM Card Action. Transitioning to the disabled state may take a period
    * of time. The status of the SIM Card Action can be followed through the
-   * [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions)
+   * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions)
    * API.
    *
    * @example
@@ -85,7 +85,7 @@ export class Actions extends APIResource {
    * card group.<br/> The API will trigger an asynchronous operation called a SIM
    * Card Action. Transitioning to the enabled state may take a period of time. The
    * status of the SIM Card Action can be followed through the
-   * [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions)
+   * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions)
    * API.
    *
    * @example
@@ -103,7 +103,7 @@ export class Actions extends APIResource {
    * This API removes an existing public IP from a SIM card. <br/><br/> The API will
    * trigger an asynchronous operation called a SIM Card Action. The status of the
    * SIM Card Action can be followed through the
-   * [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions)
+   * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions)
    * API.
    *
    * @example
@@ -123,7 +123,7 @@ export class Actions extends APIResource {
    * public IP to the SIM card. <br/><br/> The API will trigger an asynchronous
    * operation called a SIM Card Action. The status of the SIM Card Action can be
    * followed through the
-   * [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions)
+   * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions)
    * API. <br/><br/> Setting a Public IP to a SIM Card incurs a charge and will only
    * succeed if the account has sufficient funds.
    *
@@ -153,7 +153,7 @@ export class Actions extends APIResource {
    * API will trigger an asynchronous operation called a SIM Card Action.
    * Transitioning to the standby state may take a period of time. The status of the
    * SIM Card Action can be followed through the
-   * [List SIM Card Action](https://developersdev.telnyx.com/docs/api/v2/wireless/SIM-Card-Actions#ListSIMCardActions)
+   * [List SIM Card Action](https://developers.telnyx.com/api/wireless/list-sim-card-actions)
    * API.
    *
    * @example
