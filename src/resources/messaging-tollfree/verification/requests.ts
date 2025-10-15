@@ -253,9 +253,70 @@ export interface TfVerificationRequest {
   useCaseSummary: string;
 
   /**
+   * Indicates if messaging content requires age gating (e.g., 18+). Defaults to
+   * false if not provided.
+   */
+  ageGatedContent?: boolean;
+
+  /**
    * Line 2 of the business address
    */
   businessAddr2?: string;
+
+  /**
+   * ISO 3166-1 alpha-2 country code of the issuing business authority. Must be
+   * exactly 2 letters. Automatically converted to uppercase. Required from
+   * January 2026.
+   */
+  businessRegistrationCountry?: string | null;
+
+  /**
+   * Official business registration number (e.g., Employer Identification Number
+   * (EIN) in the U.S.). Required from January 2026.
+   */
+  businessRegistrationNumber?: string | null;
+
+  /**
+   * Type of business registration being provided. Required from January 2026.
+   */
+  businessRegistrationType?: string | null;
+
+  /**
+   * Doing Business As (DBA) name if different from legal name
+   */
+  doingBusinessAs?: string | null;
+
+  /**
+   * Business entity classification
+   */
+  entityType?: 'SOLE_PROPRIETOR' | 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT' | null;
+
+  /**
+   * The message returned when users text 'HELP'
+   */
+  helpMessageResponse?: string | null;
+
+  /**
+   * Message sent to users confirming their opt-in to receive messages
+   */
+  optInConfirmationResponse?: string | null;
+
+  /**
+   * Keywords used to collect and process consumer opt-ins
+   */
+  optInKeywords?: string | null;
+
+  /**
+   * URL pointing to the business's privacy policy. Plain string, no URL format
+   * validation.
+   */
+  privacyPolicyURL?: string | null;
+
+  /**
+   * URL pointing to the business's terms and conditions. Plain string, no URL format
+   * validation.
+   */
+  termsAndConditionURL?: string | null;
 
   /**
    * URL that should receive webhooks relating to this verification request
@@ -378,7 +439,32 @@ export interface VerificationRequestEgress {
 
   verificationRequestId: string;
 
+  ageGatedContent?: boolean;
+
   businessAddr2?: string;
+
+  businessRegistrationCountry?: string;
+
+  businessRegistrationNumber?: string;
+
+  businessRegistrationType?: string;
+
+  doingBusinessAs?: string;
+
+  /**
+   * Business entity classification
+   */
+  entityType?: 'SOLE_PROPRIETOR' | 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT';
+
+  helpMessageResponse?: string;
+
+  optInConfirmationResponse?: string;
+
+  optInKeywords?: string;
+
+  privacyPolicyURL?: string;
+
+  termsAndConditionURL?: string;
 
   /**
    * Tollfree verification status
@@ -443,11 +529,36 @@ export interface VerificationRequestStatus {
    */
   verificationStatus: TfVerificationStatus;
 
+  ageGatedContent?: boolean;
+
   businessAddr2?: string;
+
+  businessRegistrationCountry?: string;
+
+  businessRegistrationNumber?: string;
+
+  businessRegistrationType?: string;
 
   createdAt?: string;
 
+  doingBusinessAs?: string;
+
+  /**
+   * Business entity classification
+   */
+  entityType?: 'SOLE_PROPRIETOR' | 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT';
+
+  helpMessageResponse?: string;
+
+  optInConfirmationResponse?: string;
+
+  optInKeywords?: string;
+
+  privacyPolicyURL?: string;
+
   reason?: string;
+
+  termsAndConditionURL?: string;
 
   updatedAt?: string;
 
@@ -588,9 +699,70 @@ export interface RequestCreateParams {
   useCaseSummary: string;
 
   /**
+   * Indicates if messaging content requires age gating (e.g., 18+). Defaults to
+   * false if not provided.
+   */
+  ageGatedContent?: boolean;
+
+  /**
    * Line 2 of the business address
    */
   businessAddr2?: string;
+
+  /**
+   * ISO 3166-1 alpha-2 country code of the issuing business authority. Must be
+   * exactly 2 letters. Automatically converted to uppercase. Required from
+   * January 2026.
+   */
+  businessRegistrationCountry?: string | null;
+
+  /**
+   * Official business registration number (e.g., Employer Identification Number
+   * (EIN) in the U.S.). Required from January 2026.
+   */
+  businessRegistrationNumber?: string | null;
+
+  /**
+   * Type of business registration being provided. Required from January 2026.
+   */
+  businessRegistrationType?: string | null;
+
+  /**
+   * Doing Business As (DBA) name if different from legal name
+   */
+  doingBusinessAs?: string | null;
+
+  /**
+   * Business entity classification
+   */
+  entityType?: 'SOLE_PROPRIETOR' | 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT' | null;
+
+  /**
+   * The message returned when users text 'HELP'
+   */
+  helpMessageResponse?: string | null;
+
+  /**
+   * Message sent to users confirming their opt-in to receive messages
+   */
+  optInConfirmationResponse?: string | null;
+
+  /**
+   * Keywords used to collect and process consumer opt-ins
+   */
+  optInKeywords?: string | null;
+
+  /**
+   * URL pointing to the business's privacy policy. Plain string, no URL format
+   * validation.
+   */
+  privacyPolicyURL?: string | null;
+
+  /**
+   * URL pointing to the business's terms and conditions. Plain string, no URL format
+   * validation.
+   */
+  termsAndConditionURL?: string | null;
 
   /**
    * URL that should receive webhooks relating to this verification request
@@ -699,9 +871,70 @@ export interface RequestUpdateParams {
   useCaseSummary: string;
 
   /**
+   * Indicates if messaging content requires age gating (e.g., 18+). Defaults to
+   * false if not provided.
+   */
+  ageGatedContent?: boolean;
+
+  /**
    * Line 2 of the business address
    */
   businessAddr2?: string;
+
+  /**
+   * ISO 3166-1 alpha-2 country code of the issuing business authority. Must be
+   * exactly 2 letters. Automatically converted to uppercase. Required from
+   * January 2026.
+   */
+  businessRegistrationCountry?: string | null;
+
+  /**
+   * Official business registration number (e.g., Employer Identification Number
+   * (EIN) in the U.S.). Required from January 2026.
+   */
+  businessRegistrationNumber?: string | null;
+
+  /**
+   * Type of business registration being provided. Required from January 2026.
+   */
+  businessRegistrationType?: string | null;
+
+  /**
+   * Doing Business As (DBA) name if different from legal name
+   */
+  doingBusinessAs?: string | null;
+
+  /**
+   * Business entity classification
+   */
+  entityType?: 'SOLE_PROPRIETOR' | 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT' | null;
+
+  /**
+   * The message returned when users text 'HELP'
+   */
+  helpMessageResponse?: string | null;
+
+  /**
+   * Message sent to users confirming their opt-in to receive messages
+   */
+  optInConfirmationResponse?: string | null;
+
+  /**
+   * Keywords used to collect and process consumer opt-ins
+   */
+  optInKeywords?: string | null;
+
+  /**
+   * URL pointing to the business's privacy policy. Plain string, no URL format
+   * validation.
+   */
+  privacyPolicyURL?: string | null;
+
+  /**
+   * URL pointing to the business's terms and conditions. Plain string, no URL format
+   * validation.
+   */
+  termsAndConditionURL?: string | null;
 
   /**
    * URL that should receive webhooks relating to this verification request
