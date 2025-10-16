@@ -137,6 +137,12 @@ export interface OutboundVoiceProfile {
   call_recording?: OutboundCallRecording;
 
   /**
+   * (BETA) Specifies the time window and call limits for calls made using this
+   * outbound voice profile. Note that all times are UTC in 24-hour clock time.
+   */
+  calling_window?: OutboundVoiceProfile.CallingWindow;
+
+  /**
    * Must be no more than your global concurrent call limit. Null means no limit.
    */
   concurrent_call_limit?: number | null;
@@ -209,6 +215,32 @@ export interface OutboundVoiceProfile {
   whitelisted_destinations?: Array<string>;
 }
 
+export namespace OutboundVoiceProfile {
+  /**
+   * (BETA) Specifies the time window and call limits for calls made using this
+   * outbound voice profile. Note that all times are UTC in 24-hour clock time.
+   */
+  export interface CallingWindow {
+    /**
+     * (BETA) The maximum number of calls that can be initiated to a single called
+     * party (CLD) within the calling window. A null value means no limit.
+     */
+    calls_per_cld?: number;
+
+    /**
+     * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are no
+     * longer allowed to start.
+     */
+    end_time?: string;
+
+    /**
+     * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are
+     * allowed to start.
+     */
+    start_time?: string;
+  }
+}
+
 /**
  * Indicates the coverage of the termination regions.
  */
@@ -261,6 +293,12 @@ export interface OutboundVoiceProfileCreateParams {
   call_recording?: OutboundCallRecording;
 
   /**
+   * (BETA) Specifies the time window and call limits for calls made using this
+   * outbound voice profile. Note that all times are UTC in 24-hour clock time.
+   */
+  calling_window?: OutboundVoiceProfileCreateParams.CallingWindow;
+
+  /**
    * Must be no more than your global concurrent call limit. Null means no limit.
    */
   concurrent_call_limit?: number | null;
@@ -311,6 +349,32 @@ export interface OutboundVoiceProfileCreateParams {
    * profile formatted in alpha2.
    */
   whitelisted_destinations?: Array<string>;
+}
+
+export namespace OutboundVoiceProfileCreateParams {
+  /**
+   * (BETA) Specifies the time window and call limits for calls made using this
+   * outbound voice profile. Note that all times are UTC in 24-hour clock time.
+   */
+  export interface CallingWindow {
+    /**
+     * (BETA) The maximum number of calls that can be initiated to a single called
+     * party (CLD) within the calling window. A null value means no limit.
+     */
+    calls_per_cld?: number;
+
+    /**
+     * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are no
+     * longer allowed to start.
+     */
+    end_time?: string;
+
+    /**
+     * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are
+     * allowed to start.
+     */
+    start_time?: string;
+  }
 }
 
 export interface OutboundVoiceProfileUpdateParams {
@@ -328,6 +392,12 @@ export interface OutboundVoiceProfileUpdateParams {
   call_recording?: OutboundCallRecording;
 
   /**
+   * (BETA) Specifies the time window and call limits for calls made using this
+   * outbound voice profile.
+   */
+  calling_window?: OutboundVoiceProfileUpdateParams.CallingWindow;
+
+  /**
    * Must be no more than your global concurrent call limit. Null means no limit.
    */
   concurrent_call_limit?: number | null;
@@ -380,6 +450,32 @@ export interface OutboundVoiceProfileUpdateParams {
   whitelisted_destinations?: Array<string>;
 }
 
+export namespace OutboundVoiceProfileUpdateParams {
+  /**
+   * (BETA) Specifies the time window and call limits for calls made using this
+   * outbound voice profile.
+   */
+  export interface CallingWindow {
+    /**
+     * (BETA) The maximum number of calls that can be initiated to a single called
+     * party (CLD) within the calling window. A null value means no limit.
+     */
+    calls_per_cld?: number;
+
+    /**
+     * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are no
+     * longer allowed to start.
+     */
+    end_time?: string;
+
+    /**
+     * (BETA) The UTC time of day (in HH:MM format, 24-hour clock) when calls are
+     * allowed to start.
+     */
+    start_time?: string;
+  }
+}
+
 export interface OutboundVoiceProfileListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -388,8 +484,8 @@ export interface OutboundVoiceProfileListParams {
   filter?: OutboundVoiceProfileListParams.Filter;
 
   /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
    */
   page?: OutboundVoiceProfileListParams.Page;
 
@@ -449,8 +545,8 @@ export namespace OutboundVoiceProfileListParams {
   }
 
   /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
    */
   export interface Page {
     /**
