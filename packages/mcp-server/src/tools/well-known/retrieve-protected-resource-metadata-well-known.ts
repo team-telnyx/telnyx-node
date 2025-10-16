@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'retrieve_protected_resource_metadata_well_known',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nOAuth 2.0 Protected Resource Metadata for resource discovery\n\n# Response Schema\n```json\n{\n  type: 'object',\n  properties: {\n    authorization_servers: {\n      type: 'array',\n      description: 'List of authorization server URLs',\n      items: {\n        type: 'string'\n      }\n    },\n    resource: {\n      type: 'string',\n      description: 'Protected resource URL'\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nOAuth 2.0 Protected Resource Metadata for resource discovery\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/well_known_retrieve_protected_resource_metadata_response',\n  $defs: {\n    well_known_retrieve_protected_resource_metadata_response: {\n      type: 'object',\n      properties: {\n        authorization_servers: {\n          type: 'array',\n          description: 'List of authorization server URLs',\n          items: {\n            type: 'string'\n          }\n        },\n        resource: {\n          type: 'string',\n          description: 'Protected resource URL'\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

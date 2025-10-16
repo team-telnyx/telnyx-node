@@ -119,10 +119,70 @@ export const tool: Tool = {
         title: 'Usecasesummary',
         description: 'Human-readable summary of the desired use-case',
       },
+      ageGatedContent: {
+        type: 'boolean',
+        title: 'Agegatedcontent',
+        description:
+          'Indicates if messaging content requires age gating (e.g., 18+). Defaults to false if not provided.',
+      },
       businessAddr2: {
         type: 'string',
         title: 'Businessaddr2',
         description: 'Line 2 of the business address',
+      },
+      businessRegistrationCountry: {
+        type: 'string',
+        title: 'Businessregistrationcountry',
+        description:
+          'ISO 3166-1 alpha-2 country code of the issuing business authority. Must be exactly 2 letters. Automatically converted to uppercase. Required from January 2026.',
+      },
+      businessRegistrationNumber: {
+        type: 'string',
+        title: 'Businessregistrationnumber',
+        description:
+          'Official business registration number (e.g., Employer Identification Number (EIN) in the U.S.). Required from January 2026.',
+      },
+      businessRegistrationType: {
+        type: 'string',
+        title: 'Businessregistrationtype',
+        description: 'Type of business registration being provided. Required from January 2026.',
+      },
+      doingBusinessAs: {
+        type: 'string',
+        title: 'Doingbusinessas',
+        description: 'Doing Business As (DBA) name if different from legal name',
+      },
+      entityType: {
+        type: 'string',
+        title: 'EntityType',
+        description: 'Business entity classification',
+        enum: ['SOLE_PROPRIETOR', 'PRIVATE_PROFIT', 'PUBLIC_PROFIT', 'NON_PROFIT', 'GOVERNMENT'],
+      },
+      helpMessageResponse: {
+        type: 'string',
+        title: 'Helpmessageresponse',
+        description: "The message returned when users text 'HELP'",
+      },
+      optInConfirmationResponse: {
+        type: 'string',
+        title: 'Optinconfirmationresponse',
+        description: 'Message sent to users confirming their opt-in to receive messages',
+      },
+      optInKeywords: {
+        type: 'string',
+        title: 'Optinkeywords',
+        description: 'Keywords used to collect and process consumer opt-ins',
+      },
+      privacyPolicyURL: {
+        type: 'string',
+        title: 'Privacypolicyurl',
+        description: "URL pointing to the business's privacy policy. Plain string, no URL format validation.",
+      },
+      termsAndConditionURL: {
+        type: 'string',
+        title: 'Termsandconditionurl',
+        description:
+          "URL pointing to the business's terms and conditions. Plain string, no URL format validation.",
       },
       webhookUrl: {
         type: 'string',

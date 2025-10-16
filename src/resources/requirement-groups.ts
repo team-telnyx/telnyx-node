@@ -113,7 +113,7 @@ export interface RequirementGroup {
 
   regulatory_requirements?: Array<RequirementGroup.RegulatoryRequirement>;
 
-  status?: 'approved' | 'unapproved' | 'pending-approval' | 'declined';
+  status?: 'approved' | 'unapproved' | 'pending-approval' | 'declined' | 'expired';
 
   updated_at?: string;
 }
@@ -130,7 +130,7 @@ export namespace RequirementGroup {
 
     requirement_id?: string;
 
-    status?: 'approved' | 'unapproved' | 'pending-approval' | 'declined';
+    status?: 'approved' | 'unapproved' | 'pending-approval' | 'declined' | 'expired';
 
     updated_at?: string;
   }
@@ -223,7 +223,7 @@ export namespace RequirementGroupListParams {
     /**
      * Filter requirement groups by status
      */
-    status?: 'approved' | 'unapproved' | 'pending-approval' | 'declined';
+    status?: 'approved' | 'unapproved' | 'pending-approval' | 'declined' | 'expired';
   }
 }
 
