@@ -1,5 +1,23 @@
 # Changelog
 
+## 3.6.0 (2025-10-16)
+
+Full Changelog: [v3.5.0...v3.6.0](https://github.com/team-telnyx/telnyx-node/compare/v3.5.0...v3.6.0)
+
+### Features
+
+* ENGDESK-45836: Document private endpoint for republishing account events ([f3b9f32](https://github.com/team-telnyx/telnyx-node/commit/f3b9f32b42af2311a5929d70837da01f6267d164))
+* Fix broken link to List SIM card action ([d44b337](https://github.com/team-telnyx/telnyx-node/commit/d44b337a7e09efb9bc4acda26b47feb31a300ddd))
+* MSG-5978: Add BRN fields to toll-free verification OpenAPI specs ([2300793](https://github.com/team-telnyx/telnyx-node/commit/230079357a585ddf662c6270561687d238250718))
+* Retell assistants import ([513faa8](https://github.com/team-telnyx/telnyx-node/commit/513faa814282ff84290f5bf51ab364bcf1869037))
+
+
+### Chores
+
+* extract some types in mcp docs ([b45844d](https://github.com/team-telnyx/telnyx-node/commit/b45844d53659301083167e1dd1cb0820d2ad177e))
+* **internal:** codegen related update ([ad29708](https://github.com/team-telnyx/telnyx-node/commit/ad2970892fc3b11ffbcfdfaab0745ed925be90a1))
+* **internal:** codegen related update ([7f79aed](https://github.com/team-telnyx/telnyx-node/commit/7f79aedd2ffff4fcf874c4d08880eba3f253282f))
+
 ## 3.5.0 (2025-10-06)
 
 Full Changelog: [v3.4.2...v3.5.0](https://github.com/team-telnyx/telnyx-node/compare/v3.4.2...v3.5.0)
