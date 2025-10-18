@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.7.0 (2025-10-18)
+
+Full Changelog: [v3.6.0...v3.7.0](https://github.com/team-telnyx/telnyx-node/compare/v3.6.0...v3.7.0)
+
+### Features
+
+* define more models ([78333eb](https://github.com/team-telnyx/telnyx-node/commit/78333eb96b31ff39952cb326babeba1c67220a1b))
+
+
+### Chores
+
+* **internal:** codegen related update ([d8e56c5](https://github.com/team-telnyx/telnyx-node/commit/d8e56c56eaf53d6917b61a28c731b2c468de4497))
+
 ## 3.6.0 (2025-10-16)
 
 Full Changelog: [v3.5.0...v3.6.0](https://github.com/team-telnyx/telnyx-node/compare/v3.5.0...v3.6.0)
