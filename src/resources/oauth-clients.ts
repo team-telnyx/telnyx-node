@@ -171,6 +171,28 @@ export interface OAuthClient {
   tos_uri?: string | null;
 }
 
+export interface PaginationMetaOAuth {
+  /**
+   * Current page number
+   */
+  page_number?: number;
+
+  /**
+   * Number of items per page
+   */
+  page_size?: number;
+
+  /**
+   * Total number of pages
+   */
+  total_pages?: number;
+
+  /**
+   * Total number of results
+   */
+  total_results?: number;
+}
+
 export interface OAuthClientCreateResponse {
   data?: OAuthClient;
 }
@@ -186,31 +208,7 @@ export interface OAuthClientUpdateResponse {
 export interface OAuthClientListResponse {
   data?: Array<OAuthClient>;
 
-  meta?: OAuthClientListResponse.Meta;
-}
-
-export namespace OAuthClientListResponse {
-  export interface Meta {
-    /**
-     * Current page number
-     */
-    page_number?: number;
-
-    /**
-     * Number of items per page
-     */
-    page_size?: number;
-
-    /**
-     * Total number of pages
-     */
-    total_pages?: number;
-
-    /**
-     * Total number of results
-     */
-    total_results?: number;
-  }
+  meta?: PaginationMetaOAuth;
 }
 
 export interface OAuthClientCreateParams {
@@ -347,6 +345,7 @@ export interface OAuthClientListParams {
 export declare namespace OAuthClients {
   export {
     type OAuthClient as OAuthClient,
+    type PaginationMetaOAuth as PaginationMetaOAuth,
     type OAuthClientCreateResponse as OAuthClientCreateResponse,
     type OAuthClientRetrieveResponse as OAuthClientRetrieveResponse,
     type OAuthClientUpdateResponse as OAuthClientUpdateResponse,

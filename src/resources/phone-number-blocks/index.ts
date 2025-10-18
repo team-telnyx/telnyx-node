@@ -3,6 +3,7 @@
 export {
   Jobs,
   type Job,
+  type JobError,
   type JobRetrieveResponse,
   type JobListResponse,
   type JobDeletePhoneNumberBlockResponse,

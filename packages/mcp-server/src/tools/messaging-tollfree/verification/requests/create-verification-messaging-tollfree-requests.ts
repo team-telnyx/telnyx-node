@@ -153,10 +153,7 @@ export const tool: Tool = {
         description: 'Doing Business As (DBA) name if different from legal name',
       },
       entityType: {
-        type: 'string',
-        title: 'EntityType',
-        description: 'Business entity classification',
-        enum: ['SOLE_PROPRIETOR', 'PRIVATE_PROFIT', 'PUBLIC_PROFIT', 'NON_PROFIT', 'GOVERNMENT'],
+        $ref: '#/$defs/toll_free_verification_entity_type',
       },
       helpMessageResponse: {
         type: 'string',
@@ -302,6 +299,12 @@ export const tool: Tool = {
           'Webinar Reminders',
           'Workshop Alerts',
         ],
+      },
+      toll_free_verification_entity_type: {
+        type: 'string',
+        title: 'EntityType',
+        description: 'Business entity classification',
+        enum: ['SOLE_PROPRIETOR', 'PRIVATE_PROFIT', 'PUBLIC_PROFIT', 'NON_PROFIT', 'GOVERNMENT'],
       },
     },
   },

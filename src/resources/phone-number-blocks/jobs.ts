@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as JobsAPI from './jobs';
 import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -108,47 +109,12 @@ export namespace Job {
      */
     id?: string;
 
-    errors?: Array<FailedOperation.Error>;
+    errors?: Array<JobsAPI.JobError>;
 
     /**
      * The phone number in e164 format.
      */
     phone_number?: string;
-  }
-
-  export namespace FailedOperation {
-    export interface Error {
-      code: string;
-
-      title: string;
-
-      detail?: string;
-
-      meta?: Error.Meta;
-
-      source?: Error.Source;
-    }
-
-    export namespace Error {
-      export interface Meta {
-        /**
-         * URL with additional information on the error.
-         */
-        url?: string;
-      }
-
-      export interface Source {
-        /**
-         * Indicates which query parameter caused the error.
-         */
-        parameter?: string;
-
-        /**
-         * JSON pointer (RFC6901) to the offending entity.
-         */
-        pointer?: string;
-      }
-    }
   }
 
   /**
@@ -164,6 +130,39 @@ export namespace Job {
      * The phone number in e164 format.
      */
     phone_number?: string;
+  }
+}
+
+export interface JobError {
+  code: string;
+
+  title: string;
+
+  detail?: string;
+
+  meta?: JobError.Meta;
+
+  source?: JobError.Source;
+}
+
+export namespace JobError {
+  export interface Meta {
+    /**
+     * URL with additional information on the error.
+     */
+    url?: string;
+  }
+
+  export interface Source {
+    /**
+     * Indicates which query parameter caused the error.
+     */
+    parameter?: string;
+
+    /**
+     * JSON pointer (RFC6901) to the offending entity.
+     */
+    pointer?: string;
   }
 }
 
@@ -242,6 +241,7 @@ export interface JobDeletePhoneNumberBlockParams {
 export declare namespace Jobs {
   export {
     type Job as Job,
+    type JobError as JobError,
     type JobRetrieveResponse as JobRetrieveResponse,
     type JobListResponse as JobListResponse,
     type JobDeletePhoneNumberBlockResponse as JobDeletePhoneNumberBlockResponse,

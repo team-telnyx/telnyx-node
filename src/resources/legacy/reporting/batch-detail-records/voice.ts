@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../../../core/resource';
 import * as BatchDetailRecordsAPI from './batch-detail-records';
+import * as MessagingAPI from './messaging';
 import { APIPromise } from '../../../../core/api-promise';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
@@ -187,19 +188,7 @@ export interface VoiceRetrieveResponse {
 export interface VoiceListResponse {
   data?: Array<CdrDetailedReqResponse>;
 
-  meta?: VoiceListResponse.Meta;
-}
-
-export namespace VoiceListResponse {
-  export interface Meta {
-    page_number?: number;
-
-    page_size?: number;
-
-    total_pages?: number;
-
-    total_results?: number;
-  }
+  meta?: MessagingAPI.BatchCsvPaginationMeta;
 }
 
 export interface VoiceDeleteResponse {

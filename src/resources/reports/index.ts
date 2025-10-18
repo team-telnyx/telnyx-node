@@ -8,6 +8,7 @@ export {
 export {
   MdrUsageReports,
   type MdrUsageReport,
+  type PaginationMetaReporting,
   type MdrUsageReportCreateResponse,
   type MdrUsageReportRetrieveResponse,
   type MdrUsageReportListResponse,

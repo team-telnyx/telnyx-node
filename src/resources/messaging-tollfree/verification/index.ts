@@ -5,6 +5,7 @@ export {
   type TfPhoneNumber,
   type TfVerificationRequest,
   type TfVerificationStatus,
+  type TollFreeVerificationEntityType,
   type URL,
   type UseCaseCategories,
   type VerificationRequestEgress,

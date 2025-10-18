@@ -114,6 +114,16 @@ export interface MdrUsageReportResponseLegacy {
   updated_at?: string;
 }
 
+export interface StandardPaginationMeta {
+  page_number?: number;
+
+  page_size?: number;
+
+  total_pages?: number;
+
+  total_results?: number;
+}
+
 export interface MessagingCreateResponse {
   /**
    * Legacy V2 MDR usage report response
@@ -131,19 +141,7 @@ export interface MessagingRetrieveResponse {
 export interface MessagingListResponse {
   data?: Array<MdrUsageReportResponseLegacy>;
 
-  meta?: MessagingListResponse.Meta;
-}
-
-export namespace MessagingListResponse {
-  export interface Meta {
-    page_number?: number;
-
-    page_size?: number;
-
-    total_pages?: number;
-
-    total_results?: number;
-  }
+  meta?: StandardPaginationMeta;
 }
 
 export interface MessagingDeleteResponse {
@@ -191,6 +189,7 @@ export interface MessagingListParams {
 export declare namespace Messaging {
   export {
     type MdrUsageReportResponseLegacy as MdrUsageReportResponseLegacy,
+    type StandardPaginationMeta as StandardPaginationMeta,
     type MessagingCreateResponse as MessagingCreateResponse,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingListResponse as MessagingListResponse,

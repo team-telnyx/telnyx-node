@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
+import * as MessagingAPI from './messaging';
 import { APIPromise } from '../../../../core/api-promise';
 import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
@@ -133,19 +134,7 @@ export interface VoiceRetrieveResponse {
 export interface VoiceListResponse {
   data?: Array<CdrUsageReportResponseLegacy>;
 
-  meta?: VoiceListResponse.Meta;
-}
-
-export namespace VoiceListResponse {
-  export interface Meta {
-    page_number?: number;
-
-    page_size?: number;
-
-    total_pages?: number;
-
-    total_results?: number;
-  }
+  meta?: MessagingAPI.StandardPaginationMeta;
 }
 
 export interface VoiceDeleteResponse {

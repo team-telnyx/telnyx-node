@@ -289,7 +289,7 @@ export interface TfVerificationRequest {
   /**
    * Business entity classification
    */
-  entityType?: 'SOLE_PROPRIETOR' | 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT' | null;
+  entityType?: TollFreeVerificationEntityType | null;
 
   /**
    * The message returned when users text 'HELP'
@@ -334,6 +334,16 @@ export type TfVerificationStatus =
   | 'Waiting For Customer'
   | 'Waiting For Telnyx'
   | 'In Progress';
+
+/**
+ * Business entity classification
+ */
+export type TollFreeVerificationEntityType =
+  | 'SOLE_PROPRIETOR'
+  | 'PRIVATE_PROFIT'
+  | 'PUBLIC_PROFIT'
+  | 'NON_PROFIT'
+  | 'GOVERNMENT';
 
 export interface URL {
   url: string;
@@ -454,7 +464,7 @@ export interface VerificationRequestEgress {
   /**
    * Business entity classification
    */
-  entityType?: 'SOLE_PROPRIETOR' | 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT';
+  entityType?: TollFreeVerificationEntityType;
 
   helpMessageResponse?: string;
 
@@ -546,7 +556,7 @@ export interface VerificationRequestStatus {
   /**
    * Business entity classification
    */
-  entityType?: 'SOLE_PROPRIETOR' | 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT';
+  entityType?: TollFreeVerificationEntityType;
 
   helpMessageResponse?: string;
 
@@ -735,7 +745,7 @@ export interface RequestCreateParams {
   /**
    * Business entity classification
    */
-  entityType?: 'SOLE_PROPRIETOR' | 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT' | null;
+  entityType?: TollFreeVerificationEntityType | null;
 
   /**
    * The message returned when users text 'HELP'
@@ -907,7 +917,7 @@ export interface RequestUpdateParams {
   /**
    * Business entity classification
    */
-  entityType?: 'SOLE_PROPRIETOR' | 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT' | null;
+  entityType?: TollFreeVerificationEntityType | null;
 
   /**
    * The message returned when users text 'HELP'
@@ -969,6 +979,7 @@ export declare namespace Requests {
     type TfPhoneNumber as TfPhoneNumber,
     type TfVerificationRequest as TfVerificationRequest,
     type TfVerificationStatus as TfVerificationStatus,
+    type TollFreeVerificationEntityType as TollFreeVerificationEntityType,
     type URL as URL,
     type UseCaseCategories as UseCaseCategories,
     type VerificationRequestEgress as VerificationRequestEgress,

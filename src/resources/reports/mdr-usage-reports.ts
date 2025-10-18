@@ -161,6 +161,16 @@ export namespace MdrUsageReport {
   }
 }
 
+export interface PaginationMetaReporting {
+  page_number?: number;
+
+  page_size?: number;
+
+  total_pages?: number;
+
+  total_results?: number;
+}
+
 export interface MdrUsageReportCreateResponse {
   data?: MdrUsageReport;
 }
@@ -172,19 +182,7 @@ export interface MdrUsageReportRetrieveResponse {
 export interface MdrUsageReportListResponse {
   data?: Array<MdrUsageReport>;
 
-  meta?: MdrUsageReportListResponse.Meta;
-}
-
-export namespace MdrUsageReportListResponse {
-  export interface Meta {
-    page_number?: number;
-
-    page_size?: number;
-
-    total_pages?: number;
-
-    total_results?: number;
-  }
+  meta?: PaginationMetaReporting;
 }
 
 export interface MdrUsageReportDeleteResponse {
@@ -244,6 +242,7 @@ export interface MdrUsageReportFetchSyncParams {
 export declare namespace MdrUsageReports {
   export {
     type MdrUsageReport as MdrUsageReport,
+    type PaginationMetaReporting as PaginationMetaReporting,
     type MdrUsageReportCreateResponse as MdrUsageReportCreateResponse,
     type MdrUsageReportRetrieveResponse as MdrUsageReportRetrieveResponse,
     type MdrUsageReportListResponse as MdrUsageReportListResponse,

@@ -64,22 +64,20 @@ export interface AccessIPAddressResponse {
  */
 export type CloudflareSyncStatus = 'pending' | 'added';
 
+export interface PaginationMetaCloudflareIPListSync {
+  page_number: number;
+
+  page_size: number;
+
+  total_pages: number;
+
+  total_results: number;
+}
+
 export interface AccessIPAddressListResponse {
   data: Array<AccessIPAddressResponse>;
 
-  meta: AccessIPAddressListResponse.Meta;
-}
-
-export namespace AccessIPAddressListResponse {
-  export interface Meta {
-    page_number: number;
-
-    page_size: number;
-
-    total_pages: number;
-
-    total_results: number;
-  }
+  meta: PaginationMetaCloudflareIPListSync;
 }
 
 export interface AccessIPAddressCreateParams {
@@ -170,6 +168,7 @@ export declare namespace AccessIPAddress {
   export {
     type AccessIPAddressResponse as AccessIPAddressResponse,
     type CloudflareSyncStatus as CloudflareSyncStatus,
+    type PaginationMetaCloudflareIPListSync as PaginationMetaCloudflareIPListSync,
     type AccessIPAddressListResponse as AccessIPAddressListResponse,
     type AccessIPAddressCreateParams as AccessIPAddressCreateParams,
     type AccessIPAddressListParams as AccessIPAddressListParams,

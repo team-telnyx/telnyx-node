@@ -54,19 +54,7 @@ export interface AccessIPRange {
 export interface AccessIPRangeListResponse {
   data: Array<AccessIPRange>;
 
-  meta: AccessIPRangeListResponse.Meta;
-}
-
-export namespace AccessIPRangeListResponse {
-  export interface Meta {
-    page_number: number;
-
-    page_size: number;
-
-    total_pages: number;
-
-    total_results: number;
-  }
+  meta: AccessIPAddressAPI.PaginationMetaCloudflareIPListSync;
 }
 
 export interface AccessIPRangeCreateParams {

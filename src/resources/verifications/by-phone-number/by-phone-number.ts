@@ -27,28 +27,26 @@ export class ByPhoneNumber extends APIResource {
   }
 }
 
+export interface VerifyMeta {
+  page_number?: number;
+
+  page_size?: number;
+
+  total_pages?: number;
+
+  total_results?: number;
+}
+
 export interface ByPhoneNumberListResponse {
   data: Array<VerificationsAPI.Verification>;
 
-  meta: ByPhoneNumberListResponse.Meta;
-}
-
-export namespace ByPhoneNumberListResponse {
-  export interface Meta {
-    page_number?: number;
-
-    page_size?: number;
-
-    total_pages?: number;
-
-    total_results?: number;
-  }
+  meta: VerifyMeta;
 }
 
 ByPhoneNumber.Actions = Actions;
 
 export declare namespace ByPhoneNumber {
-  export { type ByPhoneNumberListResponse as ByPhoneNumberListResponse };
+  export { type VerifyMeta as VerifyMeta, type ByPhoneNumberListResponse as ByPhoneNumberListResponse };
 
   export {
     Actions as Actions,
