@@ -19,6 +19,7 @@ import {
   MdrUsageReportListResponse,
   MdrUsageReportRetrieveResponse,
   MdrUsageReports,
+  PaginationMetaReporting,
 } from './mdr-usage-reports';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -61,7 +62,7 @@ export class Reports extends APIResource {
 export interface ReportListMdrsResponse {
   data?: Array<ReportListMdrsResponse.Data>;
 
-  meta?: ReportListMdrsResponse.Meta;
+  meta?: MdrUsageReportsAPI.PaginationMetaReporting;
 }
 
 export namespace ReportListMdrsResponse {
@@ -136,16 +137,6 @@ export namespace ReportListMdrsResponse {
       | 'RECEIVED'
       | 'GW_REJECT'
       | 'FAILED';
-  }
-
-  export interface Meta {
-    page_number?: number;
-
-    page_size?: number;
-
-    total_pages?: number;
-
-    total_results?: number;
   }
 }
 
@@ -435,6 +426,7 @@ export declare namespace Reports {
   export {
     MdrUsageReports as MdrUsageReports,
     type MdrUsageReport as MdrUsageReport,
+    type PaginationMetaReporting as PaginationMetaReporting,
     type MdrUsageReportCreateResponse as MdrUsageReportCreateResponse,
     type MdrUsageReportRetrieveResponse as MdrUsageReportRetrieveResponse,
     type MdrUsageReportListResponse as MdrUsageReportListResponse,

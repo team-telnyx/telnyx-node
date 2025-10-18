@@ -49,10 +49,7 @@ export const tool: Tool = {
         $ref: '#/$defs/stream_bidirectional_mode',
       },
       stream_bidirectional_sampling_rate: {
-        type: 'string',
-        title: 'Bidirectional Stream Sampling Rate',
-        description: 'Audio sampling rate.',
-        enum: [8000, 16000, 22050, 24000, 48000],
+        $ref: '#/$defs/stream_bidirectional_sampling_rate',
       },
       stream_bidirectional_target_legs: {
         $ref: '#/$defs/stream_bidirectional_target_legs',
@@ -104,6 +101,12 @@ export const tool: Tool = {
         title: 'Bidirectional Stream Mode',
         description: 'Configures method of bidirectional streaming (mp3, rtp).',
         enum: ['mp3', 'rtp'],
+      },
+      stream_bidirectional_sampling_rate: {
+        type: 'string',
+        title: 'Bidirectional Stream Sampling Rate',
+        description: 'Audio sampling rate.',
+        enum: [8000, 16000, 22050, 24000, 48000],
       },
       stream_bidirectional_target_legs: {
         type: 'string',

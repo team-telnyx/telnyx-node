@@ -3,6 +3,7 @@
 export {
   Messaging,
   type MdrUsageReportResponseLegacy,
+  type StandardPaginationMeta,
   type MessagingCreateResponse,
   type MessagingRetrieveResponse,
   type MessagingListResponse,

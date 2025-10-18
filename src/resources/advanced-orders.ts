@@ -67,6 +67,27 @@ export class AdvancedOrders extends APIResource {
   }
 }
 
+export interface AdvancedOrder {
+  area_code?: string;
+
+  comments?: string;
+
+  country_code?: string;
+
+  customer_reference?: string;
+
+  features?: Array<'sms' | 'mms' | 'voice' | 'fax' | 'emergency'>;
+
+  phone_number_type?: 'local' | 'mobile' | 'toll_free' | 'shared_cost' | 'national' | 'landline';
+
+  quantity?: number;
+
+  /**
+   * The ID of the requirement group to associate with this advanced order
+   */
+  requirement_group_id?: string;
+}
+
 /**
  * An Advanced Order Response
  */
@@ -131,6 +152,7 @@ export interface AdvancedOrderUpdateRequirementGroupParams {
 
 export declare namespace AdvancedOrders {
   export {
+    type AdvancedOrder as AdvancedOrder,
     type AdvancedOrderCreateResponse as AdvancedOrderCreateResponse,
     type AdvancedOrderRetrieveResponse as AdvancedOrderRetrieveResponse,
     type AdvancedOrderListResponse as AdvancedOrderListResponse,

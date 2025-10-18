@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as AuthenticationProvidersAPI from '../authentication-providers';
+import * as JobsAPI from '../phone-number-blocks/jobs';
 import * as VoiceAPI from './voice';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -162,47 +163,12 @@ export namespace PhoneNumbersJob {
      */
     id?: string;
 
-    errors?: Array<FailedOperation.Error>;
+    errors?: Array<JobsAPI.JobError>;
 
     /**
      * The phone number in e164 format.
      */
     phone_number?: string;
-  }
-
-  export namespace FailedOperation {
-    export interface Error {
-      code: string;
-
-      title: string;
-
-      detail?: string;
-
-      meta?: Error.Meta;
-
-      source?: Error.Source;
-    }
-
-    export namespace Error {
-      export interface Meta {
-        /**
-         * URL with additional information on the error.
-         */
-        url?: string;
-      }
-
-      export interface Source {
-        /**
-         * Indicates which query parameter caused the error.
-         */
-        parameter?: string;
-
-        /**
-         * JSON pointer (RFC6901) to the offending entity.
-         */
-        pointer?: string;
-      }
-    }
   }
 
   /**

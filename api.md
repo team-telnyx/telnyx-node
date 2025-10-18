@@ -33,6 +33,7 @@ Types:
 
 Types:
 
+- <code><a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">BatchCsvPaginationMeta</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">MdrDetailReportResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">MessagingCreateResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">MessagingRetrieveResponse</a></code>
@@ -97,6 +98,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">MdrUsageReportResponseLegacy</a></code>
+- <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">StandardPaginationMeta</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">MessagingCreateResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">MessagingRetrieveResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">MessagingListResponse</a></code>
@@ -161,6 +163,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/oauth-clients.ts">OAuthClient</a></code>
+- <code><a href="./src/resources/oauth-clients.ts">PaginationMetaOAuth</a></code>
 - <code><a href="./src/resources/oauth-clients.ts">OAuthClientCreateResponse</a></code>
 - <code><a href="./src/resources/oauth-clients.ts">OAuthClientRetrieveResponse</a></code>
 - <code><a href="./src/resources/oauth-clients.ts">OAuthClientUpdateResponse</a></code>
@@ -269,6 +272,7 @@ Types:
 
 - <code><a href="./src/resources/access-ip-address.ts">AccessIPAddressResponse</a></code>
 - <code><a href="./src/resources/access-ip-address.ts">CloudflareSyncStatus</a></code>
+- <code><a href="./src/resources/access-ip-address.ts">PaginationMetaCloudflareIPListSync</a></code>
 - <code><a href="./src/resources/access-ip-address.ts">AccessIPAddressListResponse</a></code>
 
 Methods:
@@ -346,6 +350,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/advanced-orders.ts">AdvancedOrder</a></code>
 - <code><a href="./src/resources/advanced-orders.ts">AdvancedOrderCreateResponse</a></code>
 - <code><a href="./src/resources/advanced-orders.ts">AdvancedOrderRetrieveResponse</a></code>
 - <code><a href="./src/resources/advanced-orders.ts">AdvancedOrderListResponse</a></code>
@@ -381,6 +386,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ImportMetadata</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbedding</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingBucketIDs</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingTransferToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingWebhookToolParams</a></code>
@@ -393,23 +399,20 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TransferTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">VoiceSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">WebhookTool</a></code>
-- <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantCreateResponse</a></code>
-- <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantRetrieveResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantUpdateResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantDeleteResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantChatResponse</a></code>
-- <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantCloneResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantGetTexmlResponse</a></code>
 
 Methods:
 
-- <code title="post /ai/assistants">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">create</a>({ ...params }) -> AssistantCreateResponse</code>
-- <code title="get /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">retrieve</a>(assistantID, { ...params }) -> AssistantRetrieveResponse</code>
+- <code title="post /ai/assistants">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">create</a>({ ...params }) -> InferenceEmbedding</code>
+- <code title="get /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">retrieve</a>(assistantID, { ...params }) -> InferenceEmbedding</code>
 - <code title="post /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">update</a>(assistantID, { ...params }) -> unknown</code>
 - <code title="get /ai/assistants">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">list</a>() -> AssistantsList</code>
 - <code title="delete /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">delete</a>(assistantID) -> AssistantDeleteResponse</code>
 - <code title="post /ai/assistants/{assistant_id}/chat">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">chat</a>(assistantID, { ...params }) -> AssistantChatResponse</code>
-- <code title="post /ai/assistants/{assistant_id}/clone">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">clone</a>(assistantID) -> AssistantCloneResponse</code>
+- <code title="post /ai/assistants/{assistant_id}/clone">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">clone</a>(assistantID) -> InferenceEmbedding</code>
 - <code title="get /ai/assistants/{assistant_id}/texml">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">getTexml</a>(assistantID) -> string</code>
 - <code title="post /ai/assistants/import">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">import</a>({ ...params }) -> AssistantsList</code>
 
@@ -515,17 +518,14 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/ai/assistants/versions.ts">UpdateAssistant</a></code>
-- <code><a href="./src/resources/ai/assistants/versions.ts">VersionRetrieveResponse</a></code>
-- <code><a href="./src/resources/ai/assistants/versions.ts">VersionUpdateResponse</a></code>
-- <code><a href="./src/resources/ai/assistants/versions.ts">VersionPromoteResponse</a></code>
 
 Methods:
 
-- <code title="get /ai/assistants/{assistant_id}/versions/{version_id}">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">retrieve</a>(versionID, { ...params }) -> VersionRetrieveResponse</code>
-- <code title="post /ai/assistants/{assistant_id}/versions/{version_id}">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">update</a>(versionID, { ...params }) -> VersionUpdateResponse</code>
+- <code title="get /ai/assistants/{assistant_id}/versions/{version_id}">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">retrieve</a>(versionID, { ...params }) -> InferenceEmbedding</code>
+- <code title="post /ai/assistants/{assistant_id}/versions/{version_id}">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">update</a>(versionID, { ...params }) -> InferenceEmbedding</code>
 - <code title="get /ai/assistants/{assistant_id}/versions">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">list</a>(assistantID) -> AssistantsList</code>
 - <code title="delete /ai/assistants/{assistant_id}/versions/{version_id}">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">delete</a>(versionID, { ...params }) -> void</code>
-- <code title="post /ai/assistants/{assistant_id}/versions/{version_id}/promote">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">promote</a>(versionID, { ...params }) -> VersionPromoteResponse</code>
+- <code title="post /ai/assistants/{assistant_id}/versions/{version_id}/promote">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">promote</a>(versionID, { ...params }) -> InferenceEmbedding</code>
 
 ## Audio
 
@@ -902,6 +902,7 @@ Types:
 - <code><a href="./src/resources/calls/calls.ts">SoundModifications</a></code>
 - <code><a href="./src/resources/calls/calls.ts">StreamBidirectionalCodec</a></code>
 - <code><a href="./src/resources/calls/calls.ts">StreamBidirectionalMode</a></code>
+- <code><a href="./src/resources/calls/calls.ts">StreamBidirectionalSamplingRate</a></code>
 - <code><a href="./src/resources/calls/calls.ts">StreamBidirectionalTargetLegs</a></code>
 - <code><a href="./src/resources/calls/calls.ts">StreamCodec</a></code>
 - <code><a href="./src/resources/calls/calls.ts">CallDialResponse</a></code>
@@ -923,6 +924,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">InterruptionSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">Loopcount</a></code>
 - <code><a href="./src/resources/calls/actions.ts">StopRecordingRequest</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TelnyxTranscriptionLanguage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TelnyxVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineAConfig</a></code>
@@ -2029,6 +2031,7 @@ Types:
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">TfPhoneNumber</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">TfVerificationRequest</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">TfVerificationStatus</a></code>
+- <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">TollFreeVerificationEntityType</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">URL</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">UseCaseCategories</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">VerificationRequestEgress</a></code>
@@ -2396,6 +2399,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/phone-number-blocks/jobs.ts">Job</a></code>
+- <code><a href="./src/resources/phone-number-blocks/jobs.ts">JobError</a></code>
 - <code><a href="./src/resources/phone-number-blocks/jobs.ts">JobRetrieveResponse</a></code>
 - <code><a href="./src/resources/phone-number-blocks/jobs.ts">JobListResponse</a></code>
 - <code><a href="./src/resources/phone-number-blocks/jobs.ts">JobDeletePhoneNumberBlockResponse</a></code>
@@ -3023,6 +3027,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/reports/mdr-usage-reports.ts">MdrUsageReport</a></code>
+- <code><a href="./src/resources/reports/mdr-usage-reports.ts">PaginationMetaReporting</a></code>
 - <code><a href="./src/resources/reports/mdr-usage-reports.ts">MdrUsageReportCreateResponse</a></code>
 - <code><a href="./src/resources/reports/mdr-usage-reports.ts">MdrUsageReportRetrieveResponse</a></code>
 - <code><a href="./src/resources/reports/mdr-usage-reports.ts">MdrUsageReportListResponse</a></code>
@@ -3748,6 +3753,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/verifications/by-phone-number/by-phone-number.ts">VerifyMeta</a></code>
 - <code><a href="./src/resources/verifications/by-phone-number/by-phone-number.ts">ByPhoneNumberListResponse</a></code>
 
 Methods:
@@ -3796,13 +3802,12 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/verify-profiles.ts">MessageTemplate</a></code>
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfile</a></code>
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfileData</a></code>
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfileMessageTemplateResponse</a></code>
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfileListResponse</a></code>
-- <code><a href="./src/resources/verify-profiles.ts">VerifyProfileCreateTemplateResponse</a></code>
 - <code><a href="./src/resources/verify-profiles.ts">VerifyProfileRetrieveTemplatesResponse</a></code>
-- <code><a href="./src/resources/verify-profiles.ts">VerifyProfileUpdateTemplateResponse</a></code>
 
 Methods:
 
@@ -3811,9 +3816,9 @@ Methods:
 - <code title="patch /verify_profiles/{verify_profile_id}">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">update</a>(verifyProfileID, { ...params }) -> VerifyProfileData</code>
 - <code title="get /verify_profiles">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">list</a>({ ...params }) -> VerifyProfileListResponse</code>
 - <code title="delete /verify_profiles/{verify_profile_id}">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">delete</a>(verifyProfileID) -> VerifyProfileData</code>
-- <code title="post /verify_profiles/templates">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">createTemplate</a>({ ...params }) -> VerifyProfileCreateTemplateResponse</code>
+- <code title="post /verify_profiles/templates">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">createTemplate</a>({ ...params }) -> MessageTemplate</code>
 - <code title="get /verify_profiles/templates">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">retrieveTemplates</a>() -> VerifyProfileRetrieveTemplatesResponse</code>
-- <code title="patch /verify_profiles/templates/{template_id}">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">updateTemplate</a>(templateID, { ...params }) -> VerifyProfileUpdateTemplateResponse</code>
+- <code title="patch /verify_profiles/templates/{template_id}">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">updateTemplate</a>(templateID, { ...params }) -> MessageTemplate</code>
 
 # VirtualCrossConnects
 
