@@ -4,7 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
 import { ActionVerifyParams, Actions } from './actions';
 import * as ByPhoneNumberAPI from './by-phone-number/by-phone-number';
-import { ByPhoneNumber, ByPhoneNumberListResponse } from './by-phone-number/by-phone-number';
+import { ByPhoneNumber, ByPhoneNumberListResponse, VerifyMeta } from './by-phone-number/by-phone-number';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -221,7 +221,11 @@ export declare namespace Verifications {
     type VerificationTriggerSMSParams as VerificationTriggerSMSParams,
   };
 
-  export { ByPhoneNumber as ByPhoneNumber, type ByPhoneNumberListResponse as ByPhoneNumberListResponse };
+  export {
+    ByPhoneNumber as ByPhoneNumber,
+    type VerifyMeta as VerifyMeta,
+    type ByPhoneNumberListResponse as ByPhoneNumberListResponse,
+  };
 
   export { Actions as Actions, type ActionVerifyParams as ActionVerifyParams };
 }

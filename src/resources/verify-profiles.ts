@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as ByPhoneNumberAPI from './verifications/by-phone-number/by-phone-number';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -90,17 +91,16 @@ export class VerifyProfiles extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.verifyProfiles.createTemplate(
-   *   {
+   * const messageTemplate =
+   *   await client.verifyProfiles.createTemplate({
    *     text: 'Your {{app_name}} verification code is: {{code}}.',
-   *   },
-   * );
+   *   });
    * ```
    */
   createTemplate(
     body: VerifyProfileCreateTemplateParams,
     options?: RequestOptions,
-  ): APIPromise<VerifyProfileCreateTemplateResponse> {
+  ): APIPromise<MessageTemplate> {
     return this._client.post('/verify_profiles/templates', { body, ...options });
   }
 
@@ -122,21 +122,26 @@ export class VerifyProfiles extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.verifyProfiles.updateTemplate(
-   *   '12ade33a-21c0-473b-b055-b3c836e1c292',
-   *   {
-   *     text: 'Your {{app_name}} verification code is: {{code}}.',
-   *   },
-   * );
+   * const messageTemplate =
+   *   await client.verifyProfiles.updateTemplate(
+   *     '12ade33a-21c0-473b-b055-b3c836e1c292',
+   *     {
+   *       text: 'Your {{app_name}} verification code is: {{code}}.',
+   *     },
+   *   );
    * ```
    */
   updateTemplate(
     templateID: string,
     body: VerifyProfileUpdateTemplateParams,
     options?: RequestOptions,
-  ): APIPromise<VerifyProfileUpdateTemplateResponse> {
+  ): APIPromise<MessageTemplate> {
     return this._client.patch(path`/verify_profiles/templates/${templateID}`, { body, ...options });
   }
+}
+
+export interface MessageTemplate {
+  data?: VerifyProfileMessageTemplateResponse;
 }
 
 export interface VerifyProfile {
@@ -272,23 +277,7 @@ export interface VerifyProfileMessageTemplateResponse {
 export interface VerifyProfileListResponse {
   data: Array<VerifyProfile>;
 
-  meta: VerifyProfileListResponse.Meta;
-}
-
-export namespace VerifyProfileListResponse {
-  export interface Meta {
-    page_number?: number;
-
-    page_size?: number;
-
-    total_pages?: number;
-
-    total_results?: number;
-  }
-}
-
-export interface VerifyProfileCreateTemplateResponse {
-  data?: VerifyProfileMessageTemplateResponse;
+  meta: ByPhoneNumberAPI.VerifyMeta;
 }
 
 /**
@@ -296,10 +285,6 @@ export interface VerifyProfileCreateTemplateResponse {
  */
 export interface VerifyProfileRetrieveTemplatesResponse {
   data: Array<VerifyProfileMessageTemplateResponse>;
-}
-
-export interface VerifyProfileUpdateTemplateResponse {
-  data?: VerifyProfileMessageTemplateResponse;
 }
 
 export interface VerifyProfileCreateParams {
@@ -579,13 +564,12 @@ export interface VerifyProfileUpdateTemplateParams {
 
 export declare namespace VerifyProfiles {
   export {
+    type MessageTemplate as MessageTemplate,
     type VerifyProfile as VerifyProfile,
     type VerifyProfileData as VerifyProfileData,
     type VerifyProfileMessageTemplateResponse as VerifyProfileMessageTemplateResponse,
     type VerifyProfileListResponse as VerifyProfileListResponse,
-    type VerifyProfileCreateTemplateResponse as VerifyProfileCreateTemplateResponse,
     type VerifyProfileRetrieveTemplatesResponse as VerifyProfileRetrieveTemplatesResponse,
-    type VerifyProfileUpdateTemplateResponse as VerifyProfileUpdateTemplateResponse,
     type VerifyProfileCreateParams as VerifyProfileCreateParams,
     type VerifyProfileUpdateParams as VerifyProfileUpdateParams,
     type VerifyProfileListParams as VerifyProfileListParams,

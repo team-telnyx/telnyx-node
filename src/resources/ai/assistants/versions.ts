@@ -13,7 +13,7 @@ export class Versions extends APIResource {
    *
    * @example
    * ```ts
-   * const version =
+   * const inferenceEmbedding =
    *   await client.ai.assistants.versions.retrieve(
    *     'version_id',
    *     { assistant_id: 'assistant_id' },
@@ -24,7 +24,7 @@ export class Versions extends APIResource {
     versionID: string,
     params: VersionRetrieveParams,
     options?: RequestOptions,
-  ): APIPromise<VersionRetrieveResponse> {
+  ): APIPromise<AssistantsAPI.InferenceEmbedding> {
     const { assistant_id, ...query } = params;
     return this._client.get(path`/ai/assistants/${assistant_id}/versions/${versionID}`, {
       query,
@@ -38,17 +38,17 @@ export class Versions extends APIResource {
    *
    * @example
    * ```ts
-   * const version = await client.ai.assistants.versions.update(
-   *   'version_id',
-   *   { assistant_id: 'assistant_id' },
-   * );
+   * const inferenceEmbedding =
+   *   await client.ai.assistants.versions.update('version_id', {
+   *     assistant_id: 'assistant_id',
+   *   });
    * ```
    */
   update(
     versionID: string,
     params: VersionUpdateParams,
     options?: RequestOptions,
-  ): APIPromise<VersionUpdateResponse> {
+  ): APIPromise<AssistantsAPI.InferenceEmbedding> {
     const { assistant_id, ...body } = params;
     return this._client.post(path`/ai/assistants/${assistant_id}/versions/${versionID}`, {
       body,
@@ -96,7 +96,7 @@ export class Versions extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const inferenceEmbedding =
    *   await client.ai.assistants.versions.promote(
    *     'version_id',
    *     { assistant_id: 'assistant_id' },
@@ -107,7 +107,7 @@ export class Versions extends APIResource {
     versionID: string,
     params: VersionPromoteParams,
     options?: RequestOptions,
-  ): APIPromise<VersionPromoteResponse> {
+  ): APIPromise<AssistantsAPI.InferenceEmbedding> {
     const { assistant_id } = params;
     return this._client.post(path`/ai/assistants/${assistant_id}/versions/${versionID}/promote`, options);
   }
@@ -165,228 +165,6 @@ export interface UpdateAssistant {
   model?: string;
 
   name?: string;
-
-  privacy_settings?: AssistantsAPI.PrivacySettings;
-
-  telephony_settings?: AssistantsAPI.TelephonySettings;
-
-  /**
-   * The tools that the assistant can use. These may be templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   */
-  tools?: Array<AssistantsAPI.AssistantTool>;
-
-  transcription?: AssistantsAPI.TranscriptionSettings;
-
-  voice_settings?: AssistantsAPI.VoiceSettings;
-}
-
-export interface VersionRetrieveResponse {
-  id: string;
-
-  created_at: string;
-
-  /**
-   * System instructions for the assistant. These may be templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   */
-  instructions: string;
-
-  /**
-   * ID of the model to use. You can use the
-   * [Get models API](https://developers.telnyx.com/api/inference/inference-embedding/get-models-public-models-get)
-   * to see all of your available models,
-   */
-  model: string;
-
-  name: string;
-
-  description?: string;
-
-  /**
-   * Map of dynamic variables and their values
-   */
-  dynamic_variables?: { [key: string]: unknown };
-
-  /**
-   * If the dynamic_variables_webhook_url is set for the assistant, we will send a
-   * request at the start of the conversation. See our
-   * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   * for more information.
-   */
-  dynamic_variables_webhook_url?: string;
-
-  enabled_features?: Array<AssistantsAPI.EnabledFeatures>;
-
-  /**
-   * Text that the assistant will use to start the conversation. This may be
-   * templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   */
-  greeting?: string;
-
-  import_metadata?: AssistantsAPI.ImportMetadata;
-
-  insight_settings?: AssistantsAPI.InsightSettings;
-
-  /**
-   * This is only needed when using third-party inference providers. The `identifier`
-   * for an integration secret
-   * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-   * that refers to your LLM provider's API key. Warning: Free plans are unlikely to
-   * work with this integration.
-   */
-  llm_api_key_ref?: string;
-
-  messaging_settings?: AssistantsAPI.MessagingSettings;
-
-  privacy_settings?: AssistantsAPI.PrivacySettings;
-
-  telephony_settings?: AssistantsAPI.TelephonySettings;
-
-  /**
-   * The tools that the assistant can use. These may be templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   */
-  tools?: Array<AssistantsAPI.AssistantTool>;
-
-  transcription?: AssistantsAPI.TranscriptionSettings;
-
-  voice_settings?: AssistantsAPI.VoiceSettings;
-}
-
-export interface VersionUpdateResponse {
-  id: string;
-
-  created_at: string;
-
-  /**
-   * System instructions for the assistant. These may be templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   */
-  instructions: string;
-
-  /**
-   * ID of the model to use. You can use the
-   * [Get models API](https://developers.telnyx.com/api/inference/inference-embedding/get-models-public-models-get)
-   * to see all of your available models,
-   */
-  model: string;
-
-  name: string;
-
-  description?: string;
-
-  /**
-   * Map of dynamic variables and their values
-   */
-  dynamic_variables?: { [key: string]: unknown };
-
-  /**
-   * If the dynamic_variables_webhook_url is set for the assistant, we will send a
-   * request at the start of the conversation. See our
-   * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   * for more information.
-   */
-  dynamic_variables_webhook_url?: string;
-
-  enabled_features?: Array<AssistantsAPI.EnabledFeatures>;
-
-  /**
-   * Text that the assistant will use to start the conversation. This may be
-   * templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   */
-  greeting?: string;
-
-  import_metadata?: AssistantsAPI.ImportMetadata;
-
-  insight_settings?: AssistantsAPI.InsightSettings;
-
-  /**
-   * This is only needed when using third-party inference providers. The `identifier`
-   * for an integration secret
-   * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-   * that refers to your LLM provider's API key. Warning: Free plans are unlikely to
-   * work with this integration.
-   */
-  llm_api_key_ref?: string;
-
-  messaging_settings?: AssistantsAPI.MessagingSettings;
-
-  privacy_settings?: AssistantsAPI.PrivacySettings;
-
-  telephony_settings?: AssistantsAPI.TelephonySettings;
-
-  /**
-   * The tools that the assistant can use. These may be templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   */
-  tools?: Array<AssistantsAPI.AssistantTool>;
-
-  transcription?: AssistantsAPI.TranscriptionSettings;
-
-  voice_settings?: AssistantsAPI.VoiceSettings;
-}
-
-export interface VersionPromoteResponse {
-  id: string;
-
-  created_at: string;
-
-  /**
-   * System instructions for the assistant. These may be templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   */
-  instructions: string;
-
-  /**
-   * ID of the model to use. You can use the
-   * [Get models API](https://developers.telnyx.com/api/inference/inference-embedding/get-models-public-models-get)
-   * to see all of your available models,
-   */
-  model: string;
-
-  name: string;
-
-  description?: string;
-
-  /**
-   * Map of dynamic variables and their values
-   */
-  dynamic_variables?: { [key: string]: unknown };
-
-  /**
-   * If the dynamic_variables_webhook_url is set for the assistant, we will send a
-   * request at the start of the conversation. See our
-   * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   * for more information.
-   */
-  dynamic_variables_webhook_url?: string;
-
-  enabled_features?: Array<AssistantsAPI.EnabledFeatures>;
-
-  /**
-   * Text that the assistant will use to start the conversation. This may be
-   * templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   */
-  greeting?: string;
-
-  import_metadata?: AssistantsAPI.ImportMetadata;
-
-  insight_settings?: AssistantsAPI.InsightSettings;
-
-  /**
-   * This is only needed when using third-party inference providers. The `identifier`
-   * for an integration secret
-   * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-   * that refers to your LLM provider's API key. Warning: Free plans are unlikely to
-   * work with this integration.
-   */
-  llm_api_key_ref?: string;
-
-  messaging_settings?: AssistantsAPI.MessagingSettings;
 
   privacy_settings?: AssistantsAPI.PrivacySettings;
 
@@ -526,9 +304,6 @@ export interface VersionPromoteParams {
 export declare namespace Versions {
   export {
     type UpdateAssistant as UpdateAssistant,
-    type VersionRetrieveResponse as VersionRetrieveResponse,
-    type VersionUpdateResponse as VersionUpdateResponse,
-    type VersionPromoteResponse as VersionPromoteResponse,
     type VersionRetrieveParams as VersionRetrieveParams,
     type VersionUpdateParams as VersionUpdateParams,
     type VersionDeleteParams as VersionDeleteParams,

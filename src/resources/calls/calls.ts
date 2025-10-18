@@ -83,6 +83,7 @@ import {
   InterruptionSettings,
   Loopcount,
   StopRecordingRequest,
+  TelnyxTranscriptionLanguage,
   TelnyxVoiceSettings,
   TranscriptionConfig,
   TranscriptionEngineAConfig,
@@ -218,6 +219,11 @@ export type StreamBidirectionalCodec = 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-
  * Configures method of bidirectional streaming (mp3, rtp).
  */
 export type StreamBidirectionalMode = 'mp3' | 'rtp';
+
+/**
+ * Audio sampling rate.
+ */
+export type StreamBidirectionalSamplingRate = 8000 | 16000 | 22050 | 24000 | 48000;
 
 /**
  * Specifies which call legs should receive the bidirectional stream audio.
@@ -587,7 +593,7 @@ export interface CallDialParams {
   /**
    * Audio sampling rate.
    */
-  stream_bidirectional_sampling_rate?: 8000 | 16000 | 22050 | 24000 | 48000;
+  stream_bidirectional_sampling_rate?: StreamBidirectionalSamplingRate;
 
   /**
    * Specifies which call legs should receive the bidirectional stream audio.
@@ -840,6 +846,7 @@ export declare namespace Calls {
     type SoundModifications as SoundModifications,
     type StreamBidirectionalCodec as StreamBidirectionalCodec,
     type StreamBidirectionalMode as StreamBidirectionalMode,
+    type StreamBidirectionalSamplingRate as StreamBidirectionalSamplingRate,
     type StreamBidirectionalTargetLegs as StreamBidirectionalTargetLegs,
     type StreamCodec as StreamCodec,
     type CallDialResponse as CallDialResponse,
@@ -856,6 +863,7 @@ export declare namespace Calls {
     type InterruptionSettings as InterruptionSettings,
     type Loopcount as Loopcount,
     type StopRecordingRequest as StopRecordingRequest,
+    type TelnyxTranscriptionLanguage as TelnyxTranscriptionLanguage,
     type TelnyxVoiceSettings as TelnyxVoiceSettings,
     type TranscriptionConfig as TranscriptionConfig,
     type TranscriptionEngineAConfig as TranscriptionEngineAConfig,

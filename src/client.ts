@@ -24,6 +24,7 @@ import {
   AccessIPAddressListResponse,
   AccessIPAddressResponse,
   CloudflareSyncStatus,
+  PaginationMetaCloudflareIPListSync,
 } from './resources/access-ip-address';
 import {
   AccessIPRange,
@@ -33,6 +34,7 @@ import {
   AccessIPRanges,
 } from './resources/access-ip-ranges';
 import {
+  AdvancedOrder,
   AdvancedOrderCreateParams,
   AdvancedOrderCreateResponse,
   AdvancedOrderListResponse,
@@ -534,6 +536,7 @@ import {
   OAuthClientUpdateParams,
   OAuthClientUpdateResponse,
   OAuthClients,
+  PaginationMetaOAuth,
 } from './resources/oauth-clients';
 import {
   OAuthGrant,
@@ -806,10 +809,10 @@ import {
 } from './resources/user-addresses';
 import { UserTagListParams, UserTagListResponse, UserTags } from './resources/user-tags';
 import {
+  MessageTemplate,
   VerifyProfile,
   VerifyProfileCreateParams,
   VerifyProfileCreateTemplateParams,
-  VerifyProfileCreateTemplateResponse,
   VerifyProfileData,
   VerifyProfileListParams,
   VerifyProfileListResponse,
@@ -817,7 +820,6 @@ import {
   VerifyProfileRetrieveTemplatesResponse,
   VerifyProfileUpdateParams,
   VerifyProfileUpdateTemplateParams,
-  VerifyProfileUpdateTemplateResponse,
   VerifyProfiles,
 } from './resources/verify-profiles';
 import {
@@ -995,6 +997,7 @@ import {
   SoundModifications,
   StreamBidirectionalCodec,
   StreamBidirectionalMode,
+  StreamBidirectionalSamplingRate,
   StreamBidirectionalTargetLegs,
   StreamCodec,
 } from './resources/calls/calls';
@@ -2326,6 +2329,7 @@ export declare namespace Telnyx {
   export {
     OAuthClients as OAuthClients,
     type OAuthClient as OAuthClient,
+    type PaginationMetaOAuth as PaginationMetaOAuth,
     type OAuthClientCreateResponse as OAuthClientCreateResponse,
     type OAuthClientRetrieveResponse as OAuthClientRetrieveResponse,
     type OAuthClientUpdateResponse as OAuthClientUpdateResponse,
@@ -2417,6 +2421,7 @@ export declare namespace Telnyx {
     AccessIPAddress as AccessIPAddress,
     type AccessIPAddressResponse as AccessIPAddressResponse,
     type CloudflareSyncStatus as CloudflareSyncStatus,
+    type PaginationMetaCloudflareIPListSync as PaginationMetaCloudflareIPListSync,
     type AccessIPAddressListResponse as AccessIPAddressListResponse,
     type AccessIPAddressCreateParams as AccessIPAddressCreateParams,
     type AccessIPAddressListParams as AccessIPAddressListParams,
@@ -2445,6 +2450,7 @@ export declare namespace Telnyx {
 
   export {
     AdvancedOrders as AdvancedOrders,
+    type AdvancedOrder as AdvancedOrder,
     type AdvancedOrderCreateResponse as AdvancedOrderCreateResponse,
     type AdvancedOrderRetrieveResponse as AdvancedOrderRetrieveResponse,
     type AdvancedOrderListResponse as AdvancedOrderListResponse,
@@ -2564,6 +2570,7 @@ export declare namespace Telnyx {
     type SoundModifications as SoundModifications,
     type StreamBidirectionalCodec as StreamBidirectionalCodec,
     type StreamBidirectionalMode as StreamBidirectionalMode,
+    type StreamBidirectionalSamplingRate as StreamBidirectionalSamplingRate,
     type StreamBidirectionalTargetLegs as StreamBidirectionalTargetLegs,
     type StreamCodec as StreamCodec,
     type CallDialResponse as CallDialResponse,
@@ -3687,13 +3694,12 @@ export declare namespace Telnyx {
 
   export {
     VerifyProfiles as VerifyProfiles,
+    type MessageTemplate as MessageTemplate,
     type VerifyProfile as VerifyProfile,
     type VerifyProfileData as VerifyProfileData,
     type VerifyProfileMessageTemplateResponse as VerifyProfileMessageTemplateResponse,
     type VerifyProfileListResponse as VerifyProfileListResponse,
-    type VerifyProfileCreateTemplateResponse as VerifyProfileCreateTemplateResponse,
     type VerifyProfileRetrieveTemplatesResponse as VerifyProfileRetrieveTemplatesResponse,
-    type VerifyProfileUpdateTemplateResponse as VerifyProfileUpdateTemplateResponse,
     type VerifyProfileCreateParams as VerifyProfileCreateParams,
     type VerifyProfileUpdateParams as VerifyProfileUpdateParams,
     type VerifyProfileListParams as VerifyProfileListParams,
