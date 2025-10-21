@@ -184,6 +184,8 @@ import {
   DocumentRetrieveResponse,
   DocumentUpdateParams,
   DocumentUpdateResponse,
+  DocumentUploadJsonParams,
+  DocumentUploadJsonResponse,
   DocumentUploadParams,
   DocumentUploadResponse,
   Documents,
@@ -2732,9 +2734,11 @@ export declare namespace Telnyx {
     type DocumentDeleteResponse as DocumentDeleteResponse,
     type DocumentGenerateDownloadLinkResponse as DocumentGenerateDownloadLinkResponse,
     type DocumentUploadResponse as DocumentUploadResponse,
+    type DocumentUploadJsonResponse as DocumentUploadJsonResponse,
     type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentListParams as DocumentListParams,
     type DocumentUploadParams as DocumentUploadParams,
+    type DocumentUploadJsonParams as DocumentUploadJsonParams,
   };
 
   export {

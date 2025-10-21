@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/documents',
+  httpPath: '/documents?content-type=multipart',
   operationId: 'CreateDocument',
 };
 
