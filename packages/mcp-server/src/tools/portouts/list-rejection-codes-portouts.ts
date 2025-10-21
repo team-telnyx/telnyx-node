@@ -34,10 +34,12 @@ export const tool: Tool = {
             anyOf: [
               {
                 type: 'integer',
+                title: 'one code',
                 description: 'Filter rejections of a specific code',
               },
               {
                 type: 'array',
+                title: 'list of codes',
                 description: 'Filter rejections in a list of codes',
                 items: {
                   type: 'integer',
