@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.9.0 (2025-10-21)
+
+Full Changelog: [v3.8.0...v3.9.0](https://github.com/team-telnyx/telnyx-node/compare/v3.8.0...v3.9.0)
+
+### Features
+
+* **api:** manual updates ([321ec57](https://github.com/team-telnyx/telnyx-node/commit/321ec57ffe87aa853cb82224b47298ccfbf2a609))
+
 ## 3.8.0 (2025-10-21)
 
 Full Changelog: [v3.7.0...v3.8.0](https://github.com/team-telnyx/telnyx-node/compare/v3.7.0...v3.8.0)

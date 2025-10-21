@@ -1243,6 +1243,7 @@ export {
   type StreamingStartedWebhookEvent,
   type StreamingStoppedWebhookEvent,
   type TranscriptionWebhookEvent,
+  type UnsafeUnwrapWebhookEvent,
   type UnwrapWebhookEvent,
 } from './webhooks';
 export {

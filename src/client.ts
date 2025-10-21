@@ -911,6 +911,7 @@ import {
   StreamingStartedWebhookEvent,
   StreamingStoppedWebhookEvent,
   TranscriptionWebhookEvent,
+  UnsafeUnwrapWebhookEvent,
   UnwrapWebhookEvent,
   Webhooks,
 } from './resources/webhooks';
@@ -2416,6 +2417,7 @@ export declare namespace Telnyx {
     type StreamingStartedWebhookEvent as StreamingStartedWebhookEvent,
     type StreamingStoppedWebhookEvent as StreamingStoppedWebhookEvent,
     type TranscriptionWebhookEvent as TranscriptionWebhookEvent,
+    type UnsafeUnwrapWebhookEvent as UnsafeUnwrapWebhookEvent,
     type UnwrapWebhookEvent as UnwrapWebhookEvent,
   };
 
