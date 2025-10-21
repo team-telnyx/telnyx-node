@@ -5,7 +5,6 @@ import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
-import { maybeMultipartFormRequestOptions } from '../internal/uploads';
 import { path } from '../internal/utils/path';
 
 export class Documents extends APIResource {
@@ -124,10 +123,25 @@ export class Documents extends APIResource {
    * ```
    */
   upload(body: DocumentUploadParams, options?: RequestOptions): APIPromise<DocumentUploadResponse> {
-    return this._client.post(
-      '/documents',
-      maybeMultipartFormRequestOptions({ body, ...options }, this._client),
-    );
+    return this._client.post('/documents?content-type=multipart', { body, ...options });
+  }
+
+  /**
+   * Upload a document.<br /><br />Uploaded files must be linked to a service within
+   * 30 minutes or they will be automatically deleted.
+   *
+   * @example
+   * ```ts
+   * const response = await client.documents.uploadJson({
+   *   url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+   * });
+   * ```
+   */
+  uploadJson(
+    body: DocumentUploadJsonParams,
+    options?: RequestOptions,
+  ): APIPromise<DocumentUploadJsonResponse> {
+    return this._client.post('/documents', { body, ...options });
   }
 }
 
@@ -232,6 +246,10 @@ export namespace DocumentGenerateDownloadLinkResponse {
 }
 
 export interface DocumentUploadResponse {
+  data?: DocServiceDocument;
+}
+
+export interface DocumentUploadJsonResponse {
   data?: DocServiceDocument;
 }
 
@@ -372,6 +390,47 @@ export declare namespace DocumentUploadParams {
   }
 }
 
+export type DocumentUploadJsonParams =
+  | DocumentUploadJsonParams.DocServiceDocumentUploadURL
+  | DocumentUploadJsonParams.DocServiceDocumentUploadInline;
+
+export declare namespace DocumentUploadJsonParams {
+  export interface DocServiceDocumentUploadURL {
+    /**
+     * If the file is already hosted publicly, you can provide a URL and have the
+     * documents service fetch it for you.
+     */
+    url: string;
+
+    /**
+     * Optional reference string for customer tracking.
+     */
+    customer_reference?: string;
+
+    /**
+     * The filename of the document.
+     */
+    filename?: string;
+  }
+
+  export interface DocServiceDocumentUploadInline {
+    /**
+     * The Base64 encoded contents of the file you are uploading.
+     */
+    file: string;
+
+    /**
+     * A customer reference string for customer look ups.
+     */
+    customer_reference?: string;
+
+    /**
+     * The filename of the document.
+     */
+    filename?: string;
+  }
+}
+
 export declare namespace Documents {
   export {
     type DocServiceDocument as DocServiceDocument,
@@ -381,8 +440,10 @@ export declare namespace Documents {
     type DocumentDeleteResponse as DocumentDeleteResponse,
     type DocumentGenerateDownloadLinkResponse as DocumentGenerateDownloadLinkResponse,
     type DocumentUploadResponse as DocumentUploadResponse,
+    type DocumentUploadJsonResponse as DocumentUploadJsonResponse,
     type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentListParams as DocumentListParams,
     type DocumentUploadParams as DocumentUploadParams,
+    type DocumentUploadJsonParams as DocumentUploadJsonParams,
   };
 }

@@ -1015,6 +1015,7 @@ The following tools are available in this MCP server.
 - `download_documents` (`read`): Download a document.
 - `generate_download_link_documents` (`read`): Generates a temporary pre-signed URL that can be used to download the document directly from the storage backend without authentication.
 - `upload_documents` (`write`): Upload a document.<br /><br />Uploaded files must be linked to a service within 30 minutes or they will be automatically deleted.
+- `upload_json_documents` (`write`): Upload a document.<br /><br />Uploaded files must be linked to a service within 30 minutes or they will be automatically deleted.
 
 ### Resource `dynamic_emergency_addresses`:
 

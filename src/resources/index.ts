@@ -262,9 +262,11 @@ export {
   type DocumentDeleteResponse,
   type DocumentGenerateDownloadLinkResponse,
   type DocumentUploadResponse,
+  type DocumentUploadJsonResponse,
   type DocumentUpdateParams,
   type DocumentListParams,
   type DocumentUploadParams,
+  type DocumentUploadJsonParams,
 } from './documents';
 export {
   DynamicEmergencyAddresses,
