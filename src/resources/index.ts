@@ -6,6 +6,7 @@ export {
   AccessIPAddress,
   type AccessIPAddressResponse,
   type CloudflareSyncStatus,
+  type PaginationMetaCloudflareIPListSync,
   type AccessIPAddressListResponse,
   type AccessIPAddressCreateParams,
   type AccessIPAddressListParams,
@@ -30,6 +31,7 @@ export {
 } from './addresses/addresses';
 export {
   AdvancedOrders,
+  type AdvancedOrder,
   type AdvancedOrderCreateResponse,
   type AdvancedOrderRetrieveResponse,
   type AdvancedOrderListResponse,
@@ -122,6 +124,7 @@ export {
   type SoundModifications,
   type StreamBidirectionalCodec,
   type StreamBidirectionalMode,
+  type StreamBidirectionalSamplingRate,
   type StreamBidirectionalTargetLegs,
   type StreamCodec,
   type CallDialResponse,
@@ -720,6 +723,7 @@ export {
 export {
   OAuthClients,
   type OAuthClient,
+  type PaginationMetaOAuth,
   type OAuthClientCreateResponse,
   type OAuthClientRetrieveResponse,
   type OAuthClientUpdateResponse,
@@ -1137,13 +1141,12 @@ export {
 } from './verified-numbers/verified-numbers';
 export {
   VerifyProfiles,
+  type MessageTemplate,
   type VerifyProfile,
   type VerifyProfileData,
   type VerifyProfileMessageTemplateResponse,
   type VerifyProfileListResponse,
-  type VerifyProfileCreateTemplateResponse,
   type VerifyProfileRetrieveTemplatesResponse,
-  type VerifyProfileUpdateTemplateResponse,
   type VerifyProfileCreateParams,
   type VerifyProfileUpdateParams,
   type VerifyProfileListParams,

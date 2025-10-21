@@ -69,6 +69,16 @@ export class Messaging extends APIResource {
   }
 }
 
+export interface BatchCsvPaginationMeta {
+  page_number?: number;
+
+  page_size?: number;
+
+  total_pages?: number;
+
+  total_results?: number;
+}
+
 export interface MdrDetailReportResponse {
   /**
    * Identifies the resource
@@ -116,19 +126,7 @@ export interface MessagingRetrieveResponse {
 export interface MessagingListResponse {
   data?: Array<MdrDetailReportResponse>;
 
-  meta?: MessagingListResponse.Meta;
-}
-
-export namespace MessagingListResponse {
-  export interface Meta {
-    page_number?: number;
-
-    page_size?: number;
-
-    total_pages?: number;
-
-    total_results?: number;
-  }
+  meta?: BatchCsvPaginationMeta;
 }
 
 export interface MessagingDeleteResponse {
@@ -201,6 +199,7 @@ export interface MessagingCreateParams {
 
 export declare namespace Messaging {
   export {
+    type BatchCsvPaginationMeta as BatchCsvPaginationMeta,
     type MdrDetailReportResponse as MdrDetailReportResponse,
     type MessagingCreateResponse as MessagingCreateResponse,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,

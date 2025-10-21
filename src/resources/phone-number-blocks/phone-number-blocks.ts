@@ -6,6 +6,7 @@ import {
   Job,
   JobDeletePhoneNumberBlockParams,
   JobDeletePhoneNumberBlockResponse,
+  JobError,
   JobListParams,
   JobListResponse,
   JobRetrieveResponse,
@@ -22,6 +23,7 @@ export declare namespace PhoneNumberBlocks {
   export {
     Jobs as Jobs,
     type Job as Job,
+    type JobError as JobError,
     type JobRetrieveResponse as JobRetrieveResponse,
     type JobListResponse as JobListResponse,
     type JobDeletePhoneNumberBlockResponse as JobDeletePhoneNumberBlockResponse,

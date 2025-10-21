@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as OAuthClientsAPI from './oauth-clients';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -70,31 +71,7 @@ export interface OAuthGrantRetrieveResponse {
 export interface OAuthGrantListResponse {
   data?: Array<OAuthGrant>;
 
-  meta?: OAuthGrantListResponse.Meta;
-}
-
-export namespace OAuthGrantListResponse {
-  export interface Meta {
-    /**
-     * Current page number
-     */
-    page_number?: number;
-
-    /**
-     * Number of items per page
-     */
-    page_size?: number;
-
-    /**
-     * Total number of pages
-     */
-    total_pages?: number;
-
-    /**
-     * Total number of results
-     */
-    total_results?: number;
-  }
+  meta?: OAuthClientsAPI.PaginationMetaOAuth;
 }
 
 export interface OAuthGrantDeleteResponse {
