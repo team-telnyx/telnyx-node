@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.8.0 (2025-10-21)
+
+Full Changelog: [v3.7.0...v3.8.0](https://github.com/team-telnyx/telnyx-node/compare/v3.7.0...v3.8.0)
+
+### Features
+
+* **api:** add method to upload JSON documents ([0d66ffe](https://github.com/team-telnyx/telnyx-node/commit/0d66ffe6aa317a095b4f08318b66cb805adbde66))
+
 ## 3.7.0 (2025-10-21)
 
 Full Changelog: [v3.6.0...v3.7.0](https://github.com/team-telnyx/telnyx-node/compare/v3.6.0...v3.7.0)
