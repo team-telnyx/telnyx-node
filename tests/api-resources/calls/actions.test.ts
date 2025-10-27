@@ -23,7 +23,7 @@ describe('resource actions', () => {
   // Prism tests are disabled
   test.skip('bridge: only required params', async () => {
     const responsePromise = client.calls.actions.bridge('call_control_id', {
-      body_call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+      call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -37,7 +37,7 @@ describe('resource actions', () => {
   // Prism tests are disabled
   test.skip('bridge: required and optional params', async () => {
     const response = await client.calls.actions.bridge('call_control_id', {
-      body_call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+      call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
       client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
       command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
       mute_dtmf: 'opposite',
