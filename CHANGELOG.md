@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.9.2 (2025-10-28)
+
+Full Changelog: [v3.9.1...v3.9.2](https://github.com/team-telnyx/telnyx-node/compare/v3.9.1...v3.9.2)
+
+### Chores
+
+* **internal:** codegen related update ([a80105a](https://github.com/team-telnyx/telnyx-node/commit/a80105a555b847b6d4a58da315f22497f28956de))
+
 ## 3.9.1 (2025-10-27)
 
 Full Changelog: [v3.9.0...v3.9.1](https://github.com/team-telnyx/telnyx-node/compare/v3.9.0...v3.9.1)
