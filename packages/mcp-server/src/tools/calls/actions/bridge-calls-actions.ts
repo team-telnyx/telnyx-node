@@ -25,7 +25,7 @@ export const tool: Tool = {
       path_call_control_id: {
         type: 'string',
       },
-      body_call_control_id: {
+      call_control_id: {
         type: 'string',
         description:
           "The Call Control ID of the call you want to bridge with, can't be used together with queue parameter or video_room_id parameter.",
@@ -168,7 +168,7 @@ export const tool: Tool = {
           'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
       },
     },
-    required: ['path_call_control_id', 'body_call_control_id'],
+    required: ['path_call_control_id', 'call_control_id'],
   },
   annotations: {},
 };
