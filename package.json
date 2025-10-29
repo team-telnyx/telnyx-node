@@ -27,7 +27,9 @@
     "lint": "./scripts/lint",
     "fix": "./scripts/format"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tweetnacl": "^1.0.3"
+  },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.0",
     "@swc/core": "^1.3.102",

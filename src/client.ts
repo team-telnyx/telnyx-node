@@ -1400,6 +1400,13 @@ export interface ClientOptions {
    * Defaults to globalThis.console.
    */
   logger?: Logger | undefined;
+
+  /**
+   * Public key for webhook verification.
+   *
+   * This is used to verify the authenticity of incoming webhooks from Telnyx.
+   */
+  publicKey?: string | Uint8Array | undefined;
 }
 
 /**
@@ -1414,6 +1421,7 @@ export class Telnyx {
   logger: Logger | undefined;
   logLevel: LogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
+  publicKey?: string | Uint8Array | undefined;
 
   private fetch: Fetch;
   #encoder: Opts.RequestEncoder;
@@ -1467,6 +1475,7 @@ export class Telnyx {
     this._options = options;
 
     this.apiKey = apiKey;
+    this.publicKey = options.publicKey;
   }
 
   /**
@@ -1483,6 +1492,7 @@ export class Telnyx {
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
       apiKey: this.apiKey,
+      publicKey: this.publicKey,
       ...options,
     });
     return client;
