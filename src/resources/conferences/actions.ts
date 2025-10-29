@@ -285,6 +285,12 @@ export interface UpdateConference {
   command_id?: string;
 
   /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+
+  /**
    * Array of unique call_control_ids the supervisor can whisper to. If none
    * provided, the supervisor will join the conference as a monitoring participant
    * only.
@@ -371,6 +377,12 @@ export interface ActionUpdateParams {
   command_id?: string;
 
   /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+
+  /**
    * Array of unique call_control_ids the supervisor can whisper to. If none
    * provided, the supervisor will join the conference as a monitoring participant
    * only.
@@ -398,6 +410,12 @@ export interface ActionHoldParams {
    * WAV or MP3 file.
    */
   media_name?: string;
+
+  /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export interface ActionJoinParams {
@@ -464,6 +482,12 @@ export interface ActionJoinParams {
   mute?: boolean;
 
   /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+
+  /**
    * Whether the conference should end after the participant leaves the conference.
    * NOTE this doesn't hang up the other participants. Defaults to "false".
    */
@@ -511,6 +535,12 @@ export interface ActionLeaveParams {
    * executed.
    */
   command_id?: string;
+
+  /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export interface ActionMuteParams {
@@ -519,6 +549,12 @@ export interface ActionMuteParams {
    * participants will be muted.
    */
   call_control_ids?: Array<string>;
+
+  /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export interface ActionPlayParams {
@@ -547,6 +583,12 @@ export interface ActionPlayParams {
    * user/organization. The file must either be a WAV or MP3 file.
    */
   media_name?: string;
+
+  /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export interface ActionRecordPauseParams {
@@ -560,6 +602,12 @@ export interface ActionRecordPauseParams {
    * Use this field to pause specific recording.
    */
   recording_id?: string;
+
+  /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export interface ActionRecordResumeParams {
@@ -573,6 +621,12 @@ export interface ActionRecordResumeParams {
    * Use this field to resume specific recording.
    */
   recording_id?: string;
+
+  /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export interface ActionRecordStartParams {
@@ -600,6 +654,12 @@ export interface ActionRecordStartParams {
   play_beep?: boolean;
 
   /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+
+  /**
    * When set to `trim-silence`, silence will be removed from the beginning and end
    * of the recording.
    */
@@ -623,6 +683,12 @@ export interface ActionRecordStopParams {
    * Uniquely identifies the resource.
    */
   recording_id?: string;
+
+  /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export interface ActionSpeakParams {
@@ -718,6 +784,12 @@ export interface ActionSpeakParams {
   payload_type?: 'text' | 'ssml';
 
   /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+
+  /**
    * The settings associated with the voice selected
    */
   voice_settings?:
@@ -732,6 +804,12 @@ export interface ActionStopParams {
    * played to. If not given, the audio will be stoped to the entire conference.
    */
   call_control_ids?: Array<string>;
+
+  /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export interface ActionUnholdParams {
@@ -740,6 +818,12 @@ export interface ActionUnholdParams {
    * control ID to be unheld.
    */
   call_control_ids: Array<string>;
+
+  /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export interface ActionUnmuteParams {
@@ -748,6 +832,12 @@ export interface ActionUnmuteParams {
    * control ID to be unmuted. When empty all participants will be unmuted.
    */
   call_control_ids?: Array<string>;
+
+  /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export declare namespace Actions {

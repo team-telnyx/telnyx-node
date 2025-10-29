@@ -10,6 +10,7 @@ You can run the MCP Server directly via `npx`:
 
 ```sh
 export TELNYX_API_KEY="My API Key"
+export TELNYX_PUBLIC_KEY="My Public Key"
 npx -y telnyx-mcp@latest
 ```
 
@@ -27,7 +28,8 @@ For clients with a configuration JSON, it might look something like this:
       "command": "npx",
       "args": ["-y", "telnyx-mcp", "--client=claude", "--tools=dynamic"],
       "env": {
-        "TELNYX_API_KEY": "My API Key"
+        "TELNYX_API_KEY": "My API Key",
+        "TELNYX_PUBLIC_KEY": "My Public Key"
       }
     }
   }
@@ -512,6 +514,25 @@ The following tools are available in this MCP server.
 - `retrieve_fine_tuning_ai_jobs` (`read`): Retrieve a fine tuning job by `job_id`.
 - `list_fine_tuning_ai_jobs` (`read`): Retrieve a list of all fine tuning jobs created by the user.
 - `cancel_fine_tuning_ai_jobs` (`write`): Cancel a fine tuning job.
+
+### Resource `ai.integrations`:
+
+- `retrieve_ai_integrations` (`read`): Retrieve integration details
+- `list_ai_integrations` (`read`): List all available integrations.
+
+### Resource `ai.integrations.connections`:
+
+- `retrieve_integrations_ai_connections` (`read`): Get user setup integrations
+- `list_integrations_ai_connections` (`read`): List user setup integrations
+- `delete_integrations_ai_connections` (`write`): Delete a specific integration connection.
+
+### Resource `ai.mcp_servers`:
+
+- `create_ai_mcp_servers` (`write`): Create a new MCP server.
+- `retrieve_ai_mcp_servers` (`read`): Retrieve details for a specific MCP server.
+- `update_ai_mcp_servers` (`write`): Update an existing MCP server.
+- `list_ai_mcp_servers` (`read`): Retrieve a list of MCP servers.
+- `delete_ai_mcp_servers` (`write`): Delete a specific MCP server.
 
 ### Resource `audit_events`:
 

@@ -78,3 +78,19 @@ export {
   type EmbeddingURLParams,
 } from './embeddings/index';
 export { FineTuning } from './fine-tuning/index';
+export {
+  Integrations,
+  type IntegrationRetrieveResponse,
+  type IntegrationListResponse,
+} from './integrations/index';
+export {
+  McpServers,
+  type McpServerCreateResponse,
+  type McpServerRetrieveResponse,
+  type McpServerUpdateResponse,
+  type McpServerListResponse,
+  type McpServerDeleteResponse,
+  type McpServerCreateParams,
+  type McpServerUpdateParams,
+  type McpServerListParams,
+} from './mcp-servers';

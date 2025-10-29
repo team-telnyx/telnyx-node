@@ -45,6 +45,7 @@ describe('resource recordings', () => {
             connection_id: '175237942907135762',
             created_at: { gte: '2019-03-29T11:10:00Z', lte: '2019-03-29T11:10:00Z' },
             from: '1234567890',
+            sip_call_id: '428c31b6-7af4-4bcb-b7f5-5013ef9657c1',
             to: '1234567890',
           },
           page: { number: 1, size: 1 },

@@ -80,8 +80,12 @@ export class Conferences extends APIResource {
    * const conference = await client.conferences.retrieve('id');
    * ```
    */
-  retrieve(id: string, options?: RequestOptions): APIPromise<ConferenceRetrieveResponse> {
-    return this._client.get(path`/conferences/${id}`, options);
+  retrieve(
+    id: string,
+    query: ConferenceRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ConferenceRetrieveResponse> {
+    return this._client.get(path`/conferences/${id}`, { query, ...options });
   }
 
   /**
@@ -364,11 +368,24 @@ export interface ConferenceCreateParams {
   max_participants?: number;
 
   /**
+   * Sets the region where the conference data will be hosted. Defaults to the region
+   * defined in user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+
+  /**
    * Whether the conference should be started on creation. If the conference isn't
    * started all participants that join are automatically put on hold. Defaults to
    * "true".
    */
   start_conference_on_create?: boolean;
+}
+
+export interface ConferenceRetrieveParams {
+  /**
+   * Region where the conference data is located
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export interface ConferenceListParams {
@@ -386,6 +403,11 @@ export interface ConferenceListParams {
    * page[before], page[limit], page[size], page[number]
    */
   page?: ConferenceListParams.Page;
+
+  /**
+   * Region where the conference data is located
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export namespace ConferenceListParams {
@@ -553,6 +575,11 @@ export interface ConferenceListParticipantsParams {
    * page[before], page[limit], page[size], page[number]
    */
   page?: ConferenceListParticipantsParams.Page;
+
+  /**
+   * Region where the conference data is located
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export namespace ConferenceListParticipantsParams {
@@ -619,6 +646,7 @@ export declare namespace Conferences {
     type ConferenceListResponse as ConferenceListResponse,
     type ConferenceListParticipantsResponse as ConferenceListParticipantsResponse,
     type ConferenceCreateParams as ConferenceCreateParams,
+    type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceListParams as ConferenceListParams,
     type ConferenceListParticipantsParams as ConferenceListParticipantsParams,
   };

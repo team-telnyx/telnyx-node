@@ -18,6 +18,18 @@ import {
   Clusters,
   RecursiveCluster,
 } from './clusters';
+import * as McpServersAPI from './mcp-servers';
+import {
+  McpServerCreateParams,
+  McpServerCreateResponse,
+  McpServerDeleteResponse,
+  McpServerListParams,
+  McpServerListResponse,
+  McpServerRetrieveResponse,
+  McpServerUpdateParams,
+  McpServerUpdateResponse,
+  McpServers,
+} from './mcp-servers';
 import * as AssistantsAPI from './assistants/assistants';
 import {
   Assistant,
@@ -80,6 +92,12 @@ import {
 } from './embeddings/embeddings';
 import * as FineTuningAPI from './fine-tuning/fine-tuning';
 import { FineTuning } from './fine-tuning/fine-tuning';
+import * as IntegrationsAPI from './integrations/integrations';
+import {
+  IntegrationListResponse,
+  IntegrationRetrieveResponse,
+  Integrations,
+} from './integrations/integrations';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -91,6 +109,8 @@ export class AI extends APIResource {
   conversations: ConversationsAPI.Conversations = new ConversationsAPI.Conversations(this._client);
   embeddings: EmbeddingsAPI.Embeddings = new EmbeddingsAPI.Embeddings(this._client);
   fineTuning: FineTuningAPI.FineTuning = new FineTuningAPI.FineTuning(this._client);
+  integrations: IntegrationsAPI.Integrations = new IntegrationsAPI.Integrations(this._client);
+  mcpServers: McpServersAPI.McpServers = new McpServersAPI.McpServers(this._client);
 
   /**
    * This endpoint returns a list of Open Source and OpenAI models that are available
@@ -186,6 +206,8 @@ AI.Clusters = Clusters;
 AI.Conversations = Conversations;
 AI.Embeddings = Embeddings;
 AI.FineTuning = FineTuning;
+AI.Integrations = Integrations;
+AI.McpServers = McpServers;
 
 export declare namespace AI {
   export {
@@ -281,4 +303,22 @@ export declare namespace AI {
   };
 
   export { FineTuning as FineTuning };
+
+  export {
+    Integrations as Integrations,
+    type IntegrationRetrieveResponse as IntegrationRetrieveResponse,
+    type IntegrationListResponse as IntegrationListResponse,
+  };
+
+  export {
+    McpServers as McpServers,
+    type McpServerCreateResponse as McpServerCreateResponse,
+    type McpServerRetrieveResponse as McpServerRetrieveResponse,
+    type McpServerUpdateResponse as McpServerUpdateResponse,
+    type McpServerListResponse as McpServerListResponse,
+    type McpServerDeleteResponse as McpServerDeleteResponse,
+    type McpServerCreateParams as McpServerCreateParams,
+    type McpServerUpdateParams as McpServerUpdateParams,
+    type McpServerListParams as McpServerListParams,
+  };
 }

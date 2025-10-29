@@ -70,6 +70,12 @@ export const tool: Tool = {
         description:
           'Whether the participant should be muted immediately after joining the conference. Defaults to "false".',
       },
+      region: {
+        type: 'string',
+        description:
+          "Region where the conference data is located. Defaults to the region defined in user's data locality settings (Europe or US).",
+        enum: ['Australia', 'Europe', 'Middle East', 'US'],
+      },
       soft_end_conference_on_exit: {
         type: 'boolean',
         description:

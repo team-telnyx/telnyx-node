@@ -837,6 +837,11 @@ export interface CallCallsParams {
   SipAuthUsername?: string;
 
   /**
+   * Defines the SIP region to be used for the call.
+   */
+  SipRegion?: 'US' | 'Europe' | 'Canada' | 'Australia' | 'Middle East';
+
+  /**
    * URL destination for Telnyx to send status callback events to for the call.
    */
   StatusCallback?: string;
