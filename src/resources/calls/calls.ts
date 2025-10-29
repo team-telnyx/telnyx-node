@@ -570,6 +570,11 @@ export interface CallDialParams {
   sip_headers?: Array<SipHeader>;
 
   /**
+   * Defines the SIP region to be used for the call.
+   */
+  sip_region?: 'US' | 'Europe' | 'Canada' | 'Australia' | 'Middle East';
+
+  /**
    * Defines SIP transport protocol to be used on the call.
    */
   sip_transport_protocol?: 'UDP' | 'TCP' | 'TLS';

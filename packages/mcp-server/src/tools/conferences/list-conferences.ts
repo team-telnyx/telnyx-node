@@ -142,6 +142,11 @@ export const tool: Tool = {
           },
         },
       },
+      region: {
+        type: 'string',
+        description: 'Region where the conference data is located',
+        enum: ['Australia', 'Europe', 'Middle East', 'US'],
+      },
       jq_filter: {
         type: 'string',
         title: 'jq Filter',

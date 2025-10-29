@@ -25,7 +25,7 @@ export const tool: Tool = {
       filter: {
         type: 'object',
         description:
-          'Consolidated filter parameter (deepObject style). Originally: filter[conference_id], filter[created_at][gte], filter[created_at][lte], filter[call_leg_id], filter[call_session_id], filter[from], filter[to], filter[connection_id]',
+          'Consolidated filter parameter (deepObject style). Originally: filter[conference_id], filter[created_at][gte], filter[created_at][lte], filter[call_leg_id], filter[call_session_id], filter[from], filter[to], filter[connection_id], filter[sip_call_id]',
         properties: {
           call_leg_id: {
             type: 'string',
@@ -61,6 +61,11 @@ export const tool: Tool = {
             type: 'string',
             description:
               'If present, recordings will be filtered to those with a matching `from` attribute (case-sensitive).',
+          },
+          sip_call_id: {
+            type: 'string',
+            description:
+              'If present, recordings will be filtered to those with a matching `sip_call_id` attribute. Matching is case-sensitive',
           },
           to: {
             type: 'string',

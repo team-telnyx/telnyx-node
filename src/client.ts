@@ -1032,6 +1032,7 @@ import {
   ConferenceListParticipantsParams,
   ConferenceListParticipantsResponse,
   ConferenceListResponse,
+  ConferenceRetrieveParams,
   ConferenceRetrieveResponse,
   Conferences,
 } from './resources/conferences/conferences';
@@ -1334,6 +1335,11 @@ export interface ClientOptions {
   apiKey?: string | undefined;
 
   /**
+   * Defaults to process.env['TELNYX_PUBLIC_KEY'].
+   */
+  publicKey?: string | null | undefined;
+
+  /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
    * Defaults to process.env['TELNYX_BASE_URL'].
@@ -1400,13 +1406,6 @@ export interface ClientOptions {
    * Defaults to globalThis.console.
    */
   logger?: Logger | undefined;
-
-  /**
-   * Public key for webhook verification.
-   *
-   * This is used to verify the authenticity of incoming webhooks from Telnyx.
-   */
-  publicKey?: string | Uint8Array | undefined;
 }
 
 /**
@@ -1415,14 +1414,14 @@ export interface ClientOptions {
 export class Telnyx {
   apiKey: string;
 
+  publicKey: string | null;
+
   baseURL: string;
   maxRetries: number;
   timeout: number;
   logger: Logger | undefined;
   logLevel: LogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
-  publicKey?: string | Uint8Array | undefined;
-
   private fetch: Fetch;
   #encoder: Opts.RequestEncoder;
   protected idempotencyHeader?: string;
@@ -1432,6 +1431,7 @@ export class Telnyx {
    * API Client for interfacing with the Telnyx API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['TELNYX_API_KEY'] ?? undefined]
+   * @param {string | null | undefined} [opts.publicKey=process.env['TELNYX_PUBLIC_KEY'] ?? null]
    * @param {string} [opts.baseURL=process.env['TELNYX_BASE_URL'] ?? https://api.telnyx.com/v2] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -1443,6 +1443,7 @@ export class Telnyx {
   constructor({
     baseURL = readEnv('TELNYX_BASE_URL'),
     apiKey = readEnv('TELNYX_API_KEY'),
+    publicKey = readEnv('TELNYX_PUBLIC_KEY') ?? null,
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
@@ -1453,6 +1454,7 @@ export class Telnyx {
 
     const options: ClientOptions = {
       apiKey,
+      publicKey,
       ...opts,
       baseURL: baseURL || `https://api.telnyx.com/v2`,
     };
@@ -1475,7 +1477,7 @@ export class Telnyx {
     this._options = options;
 
     this.apiKey = apiKey;
-    this.publicKey = options.publicKey;
+    this.publicKey = options.publicKey ?? null;
   }
 
   /**
@@ -2653,6 +2655,7 @@ export declare namespace Telnyx {
     type ConferenceListResponse as ConferenceListResponse,
     type ConferenceListParticipantsResponse as ConferenceListParticipantsResponse,
     type ConferenceCreateParams as ConferenceCreateParams,
+    type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceListParams as ConferenceListParams,
     type ConferenceListParticipantsParams as ConferenceListParticipantsParams,
   };

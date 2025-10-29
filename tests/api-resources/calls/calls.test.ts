@@ -92,6 +92,7 @@ describe('resource calls', () => {
       sip_auth_password: 'password',
       sip_auth_username: 'username',
       sip_headers: [{ name: 'User-to-User', value: '12345' }],
+      sip_region: 'Canada',
       sip_transport_protocol: 'TLS',
       sound_modifications: { octaves: 0.1, pitch: 0, semitone: -2, track: 'both' },
       stream_bidirectional_codec: 'G722',

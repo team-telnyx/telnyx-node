@@ -317,6 +317,11 @@ export const tool: Tool = {
           $ref: '#/$defs/sip_header',
         },
       },
+      sip_region: {
+        type: 'string',
+        description: 'Defines the SIP region to be used for the call.',
+        enum: ['US', 'Europe', 'Canada', 'Australia', 'Middle East'],
+      },
       sip_transport_protocol: {
         type: 'string',
         description: 'Defines SIP transport protocol to be used on the call.',

@@ -36,6 +36,7 @@ describe('resource conferences', () => {
       hold_audio_url: 'http://www.example.com/audio.wav',
       hold_media_name: 'my_media_uploaded_to_media_storage_api',
       max_participants: 250,
+      region: 'US',
       start_conference_on_create: false,
     });
   });
@@ -50,6 +51,14 @@ describe('resource conferences', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('retrieve: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.conferences.retrieve('id', { region: 'Australia' }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
   // Prism tests are disabled
@@ -92,6 +101,7 @@ describe('resource conferences', () => {
             type: 'webhook',
           },
           page: { after: 'after', before: 'before', limit: 1, number: 1, size: 1 },
+          region: 'Australia',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -119,6 +129,7 @@ describe('resource conferences', () => {
         {
           filter: { muted: true, on_hold: true, whispering: true },
           page: { after: 'after', before: 'before', limit: 1, number: 1, size: 1 },
+          region: 'Australia',
         },
         { path: '/_stainless_unknown_path' },
       ),

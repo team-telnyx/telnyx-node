@@ -169,6 +169,11 @@ export const tool: Tool = {
         type: 'string',
         description: 'The username to use for SIP authentication.',
       },
+      SipRegion: {
+        type: 'string',
+        description: 'Defines the SIP region to be used for the call.',
+        enum: ['US', 'Europe', 'Canada', 'Australia', 'Middle East'],
+      },
       StatusCallback: {
         type: 'string',
         description: 'URL destination for Telnyx to send status callback events to for the call.',
