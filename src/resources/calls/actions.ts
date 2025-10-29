@@ -50,7 +50,7 @@ export class Actions extends APIResource {
    * const response = await client.calls.actions.bridge(
    *   'call_control_id',
    *   {
-   *     body_call_control_id:
+   *     call_control_id:
    *       'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
    *   },
    * );
@@ -1786,7 +1786,7 @@ export interface ActionBridgeParams {
    * The Call Control ID of the call you want to bridge with, can't be used together
    * with queue parameter or video_room_id parameter.
    */
-  body_call_control_id: string;
+  call_control_id: string;
 
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
