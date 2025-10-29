@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.0.0 (2025-10-29)
+
+Full Changelog: [v3.9.2...v4.0.0](https://github.com/team-telnyx/telnyx-node/compare/v3.9.2...v4.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* Webhooks.unwrap() method now accepts optional headers parameter for signature verification. Backward compatible when no headers provided.
+
+### Features
+
+* add Telnyx webhook verification with ED25519 signatures ([#5](https://github.com/team-telnyx/telnyx-node/issues/5)) ([f6624fe](https://github.com/team-telnyx/telnyx-node/commit/f6624feed9136010f3fc1336ec730f47a88b2eb8))
+
+
+### Bug Fixes
+
+* **client:** fix issue with example webhook payload ([5b40234](https://github.com/team-telnyx/telnyx-node/commit/5b4023489622dfaaaa0dec5ad49c612c35dc77cd))
+
 ## 3.9.2 (2025-10-28)
 
 Full Changelog: [v3.9.1...v3.9.2](https://github.com/team-telnyx/telnyx-node/compare/v3.9.1...v3.9.2)
