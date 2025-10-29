@@ -3,6 +3,22 @@
  *
  * This class provides ED25519 signature verification for Telnyx webhooks
  * using the same interface pattern as the standardwebhooks library.
+ *
+ * @example Using base64 public key from Mission Control
+ * const webhook = new TelnyxWebhook('eu2zvPjhY6odxV34Z/EsRiERvTodkev4Fq0SlK90Izg=');
+ * webhook.verify(payload, headers);
+ *
+ * @example Using with Telnyx client
+ * const client = new Telnyx({
+ *   apiKey: process.env.TELNYX_API_KEY,
+ *   publicKey: process.env.TELNYX_PUBLIC_KEY, // Base64 string from Mission Control
+ * });
+ *
+ * // Express example
+ * app.post('/webhooks', express.raw({ type: 'application/json' }), (req, res) => {
+ *   const event = client.webhooks.unwrap(req.body.toString(), { headers: req.headers });
+ *   // Signature automatically verified
+ * });
  */
 
 import * as nacl from 'tweetnacl';
@@ -21,15 +37,18 @@ export class TelnyxWebhook {
   /**
    * Initialize the webhook verifier with a public key.
    *
-   * @param key The public key for verification (hex string or Uint8Array)
+   * @param key The public key for verification (base64 string from Telnyx Mission Control or Uint8Array)
    */
   constructor(key: string | Uint8Array) {
     // Convert key to Uint8Array if it's a string
     if (typeof key === 'string') {
       try {
-        const keyBytes = Buffer.from(key, 'hex');
+        // Telnyx provides keys in base64 format
+        const keyBytes = Buffer.from(key, 'base64');
         if (keyBytes.length !== 32) {
-          throw new TelnyxWebhookVerificationError(`Invalid key format: ${key}`);
+          throw new TelnyxWebhookVerificationError(
+            `Invalid public key: expected 32 bytes, got ${keyBytes.length} bytes`,
+          );
         }
         this.verifyKey = new Uint8Array(keyBytes);
       } catch (exc) {
@@ -82,10 +101,16 @@ export class TelnyxWebhook {
       throw new TelnyxWebhookVerificationError(`Invalid timestamp format: ${timestampHeader}`);
     }
 
-    // Decode the signature from hex
+    // Decode the signature from base64
     let signature: Uint8Array;
     try {
-      signature = new Uint8Array(Buffer.from(signatureHeader, 'hex'));
+      const signatureBuffer = Buffer.from(signatureHeader, 'base64');
+
+      if (signatureBuffer.length !== 64) {
+        throw new Error(`Invalid signature length: expected 64 bytes, got ${signatureBuffer.length} bytes`);
+      }
+
+      signature = new Uint8Array(signatureBuffer);
     } catch (exc) {
       console.error('Error decoding signature:', exc);
       throw new TelnyxWebhookVerificationError(`Invalid signature format: ${signatureHeader}`);
