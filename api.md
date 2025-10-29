@@ -756,6 +756,49 @@ Methods:
 - <code title="get /ai/fine_tuning/jobs">client.ai.fineTuning.jobs.<a href="./src/resources/ai/fine-tuning/jobs.ts">list</a>() -> JobListResponse</code>
 - <code title="post /ai/fine_tuning/jobs/{job_id}/cancel">client.ai.fineTuning.jobs.<a href="./src/resources/ai/fine-tuning/jobs.ts">cancel</a>(jobID) -> FineTuningJob</code>
 
+## Integrations
+
+Types:
+
+- <code><a href="./src/resources/ai/integrations/integrations.ts">IntegrationRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/integrations/integrations.ts">IntegrationListResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/integrations/{integration_id}">client.ai.integrations.<a href="./src/resources/ai/integrations/integrations.ts">retrieve</a>(integrationID) -> IntegrationRetrieveResponse</code>
+- <code title="get /ai/integrations">client.ai.integrations.<a href="./src/resources/ai/integrations/integrations.ts">list</a>() -> IntegrationListResponse</code>
+
+### Connections
+
+Types:
+
+- <code><a href="./src/resources/ai/integrations/connections.ts">ConnectionRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/integrations/connections.ts">ConnectionListResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/integrations/connections/{user_connection_id}">client.ai.integrations.connections.<a href="./src/resources/ai/integrations/connections.ts">retrieve</a>(userConnectionID) -> ConnectionRetrieveResponse</code>
+- <code title="get /ai/integrations/connections">client.ai.integrations.connections.<a href="./src/resources/ai/integrations/connections.ts">list</a>() -> ConnectionListResponse</code>
+- <code title="delete /ai/integrations/connections/{user_connection_id}">client.ai.integrations.connections.<a href="./src/resources/ai/integrations/connections.ts">delete</a>(userConnectionID) -> void</code>
+
+## McpServers
+
+Types:
+
+- <code><a href="./src/resources/ai/mcp-servers.ts">McpServerCreateResponse</a></code>
+- <code><a href="./src/resources/ai/mcp-servers.ts">McpServerRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/mcp-servers.ts">McpServerUpdateResponse</a></code>
+- <code><a href="./src/resources/ai/mcp-servers.ts">McpServerListResponse</a></code>
+- <code><a href="./src/resources/ai/mcp-servers.ts">McpServerDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/mcp_servers">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">create</a>({ ...params }) -> McpServerCreateResponse</code>
+- <code title="get /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">retrieve</a>(mcpServerID) -> McpServerRetrieveResponse</code>
+- <code title="put /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">update</a>(mcpServerID, { ...params }) -> McpServerUpdateResponse</code>
+- <code title="get /ai/mcp_servers">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">list</a>({ ...params }) -> McpServerListResponse</code>
+- <code title="delete /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">delete</a>(mcpServerID) -> unknown</code>
+
 # AuditEvents
 
 Types:
@@ -1200,7 +1243,7 @@ Types:
 Methods:
 
 - <code title="post /conferences">client.conferences.<a href="./src/resources/conferences/conferences.ts">create</a>({ ...params }) -> ConferenceCreateResponse</code>
-- <code title="get /conferences/{id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">retrieve</a>(id) -> ConferenceRetrieveResponse</code>
+- <code title="get /conferences/{id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">retrieve</a>(id, { ...params }) -> ConferenceRetrieveResponse</code>
 - <code title="get /conferences">client.conferences.<a href="./src/resources/conferences/conferences.ts">list</a>({ ...params }) -> ConferenceListResponse</code>
 - <code title="get /conferences/{conference_id}/participants">client.conferences.<a href="./src/resources/conferences/conferences.ts">listParticipants</a>(conferenceID, { ...params }) -> ConferenceListParticipantsResponse</code>
 

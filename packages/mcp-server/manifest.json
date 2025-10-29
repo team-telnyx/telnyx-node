@@ -19,7 +19,8 @@
       "command": "node",
       "args": ["${__dirname}/index.js"],
       "env": {
-        "TELNYX_API_KEY": "${user_config.TELNYX_API_KEY}"
+        "TELNYX_API_KEY": "${user_config.TELNYX_API_KEY}",
+        "TELNYX_PUBLIC_KEY": "${user_config.TELNYX_PUBLIC_KEY}"
       }
     }
   },
@@ -28,6 +29,12 @@
       "title": "api_key",
       "description": "",
       "required": true,
+      "type": "string"
+    },
+    "TELNYX_PUBLIC_KEY": {
+      "title": "public_key",
+      "description": "",
+      "required": false,
       "type": "string"
     }
   },

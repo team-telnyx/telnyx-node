@@ -89,6 +89,12 @@ export const tool: Tool = {
           'The type of the provided payload. The payload can either be plain text, or Speech Synthesis Markup Language (SSML).',
         enum: ['text', 'ssml'],
       },
+      region: {
+        type: 'string',
+        description:
+          "Region where the conference data is located. Defaults to the region defined in user's data locality settings (Europe or US).",
+        enum: ['Australia', 'Europe', 'Middle East', 'US'],
+      },
       voice_settings: {
         anyOf: [
           {

@@ -186,6 +186,7 @@ export {
   type ConferenceListResponse,
   type ConferenceListParticipantsResponse,
   type ConferenceCreateParams,
+  type ConferenceRetrieveParams,
   type ConferenceListParams,
   type ConferenceListParticipantsParams,
 } from './conferences/conferences';

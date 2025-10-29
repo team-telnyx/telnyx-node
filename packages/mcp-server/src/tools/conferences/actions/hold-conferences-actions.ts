@@ -43,6 +43,12 @@ export const tool: Tool = {
         description:
           'The media_name of a file to be played to the participants when they are put on hold. The media_name must point to a file previously uploaded to api.telnyx.com/v2/media by the same user/organization. The file must either be a WAV or MP3 file.',
       },
+      region: {
+        type: 'string',
+        description:
+          "Region where the conference data is located. Defaults to the region defined in user's data locality settings (Europe or US).",
+        enum: ['Australia', 'Europe', 'Middle East', 'US'],
+      },
       jq_filter: {
         type: 'string',
         title: 'jq Filter',

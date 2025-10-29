@@ -11,9 +11,9 @@
     "noImplicitThis": true,
     "strict": true,
     "strictFunctionTypes": true,
-    "types": [ "node" ],
+    "types": ["node"],
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "noUncheckedIndexedAccess": true,
-  },
+    "noUncheckedIndexedAccess": true
+  }
 }

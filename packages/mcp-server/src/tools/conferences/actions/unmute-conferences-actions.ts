@@ -33,6 +33,12 @@ export const tool: Tool = {
           type: 'string',
         },
       },
+      region: {
+        type: 'string',
+        description:
+          "Region where the conference data is located. Defaults to the region defined in user's data locality settings (Europe or US).",
+        enum: ['Australia', 'Europe', 'Middle East', 'US'],
+      },
       jq_filter: {
         type: 'string',
         title: 'jq Filter',

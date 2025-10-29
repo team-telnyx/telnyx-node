@@ -40,6 +40,12 @@ export const tool: Tool = {
         description:
           'Use this field to avoid execution of duplicate commands. Telnyx will ignore subsequent commands with the same `command_id` as one that has already been executed.',
       },
+      region: {
+        type: 'string',
+        description:
+          "Region where the conference data is located. Defaults to the region defined in user's data locality settings (Europe or US).",
+        enum: ['Australia', 'Europe', 'Middle East', 'US'],
+      },
       jq_filter: {
         type: 'string',
         title: 'jq Filter',

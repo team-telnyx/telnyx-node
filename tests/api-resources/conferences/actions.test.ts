@@ -29,6 +29,7 @@ describe('resource actions', () => {
       call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
       supervisor_role: 'whisper',
       command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
+      region: 'US',
       whisper_call_control_ids: [
         'v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ',
         'v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw',
@@ -74,6 +75,7 @@ describe('resource actions', () => {
       hold_audio_url: 'http://www.example.com/audio.wav',
       hold_media_name: 'my_media_uploaded_to_media_storage_api',
       mute: true,
+      region: 'US',
       soft_end_conference_on_exit: true,
       start_conference_on_enter: true,
       supervisor_role: 'whisper',
@@ -104,6 +106,7 @@ describe('resource actions', () => {
       call_control_id: 'c46e06d7-b78f-4b13-96b6-c576af9640ff',
       beep_enabled: 'never',
       command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
+      region: 'US',
     });
   });
 
@@ -174,6 +177,7 @@ describe('resource actions', () => {
       command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
       custom_file_name: 'my_recording_file_name',
       play_beep: true,
+      region: 'US',
       trim: 'trim-silence',
     });
   });
@@ -214,6 +218,7 @@ describe('resource actions', () => {
       command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
       language: 'en-US',
       payload_type: 'text',
+      region: 'US',
       voice_settings: { api_key_ref: 'my_elevenlabs_api_key' },
     });
   });
@@ -248,6 +253,7 @@ describe('resource actions', () => {
   test.skip('unhold: required and optional params', async () => {
     const response = await client.conferences.actions.unhold('id', {
       call_control_ids: ['v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg'],
+      region: 'US',
     });
   });
 

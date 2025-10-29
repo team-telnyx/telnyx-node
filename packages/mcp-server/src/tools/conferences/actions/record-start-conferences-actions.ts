@@ -45,6 +45,12 @@ export const tool: Tool = {
         type: 'boolean',
         description: 'If enabled, a beep sound will be played at the start of a recording.',
       },
+      region: {
+        type: 'string',
+        description:
+          "Region where the conference data is located. Defaults to the region defined in user's data locality settings (Europe or US).",
+        enum: ['Australia', 'Europe', 'Middle East', 'US'],
+      },
       trim: {
         type: 'string',
         description:

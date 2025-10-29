@@ -25,6 +25,11 @@ export const tool: Tool = {
       id: {
         type: 'string',
       },
+      region: {
+        type: 'string',
+        description: 'Region where the conference data is located',
+        enum: ['Australia', 'Europe', 'Middle East', 'US'],
+      },
       jq_filter: {
         type: 'string',
         title: 'jq Filter',
@@ -41,7 +46,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { id, jq_filter, ...body } = args as any;
-  return asTextContentResult(await maybeFilter(jq_filter, await client.conferences.retrieve(id)));
+  return asTextContentResult(await maybeFilter(jq_filter, await client.conferences.retrieve(id, body)));
 };
 
 export default { metadata, tool, handler };

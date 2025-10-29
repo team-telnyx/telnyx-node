@@ -169,7 +169,7 @@ export interface RecordingListParams {
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[conference_id], filter[created_at][gte], filter[created_at][lte],
    * filter[call_leg_id], filter[call_session_id], filter[from], filter[to],
-   * filter[connection_id]
+   * filter[connection_id], filter[sip_call_id]
    */
   filter?: RecordingListParams.Filter;
 
@@ -185,7 +185,7 @@ export namespace RecordingListParams {
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[conference_id], filter[created_at][gte], filter[created_at][lte],
    * filter[call_leg_id], filter[call_session_id], filter[from], filter[to],
-   * filter[connection_id]
+   * filter[connection_id], filter[sip_call_id]
    */
   export interface Filter {
     /**
@@ -217,6 +217,12 @@ export namespace RecordingListParams {
      * attribute (case-sensitive).
      */
     from?: string;
+
+    /**
+     * If present, recordings will be filtered to those with a matching `sip_call_id`
+     * attribute. Matching is case-sensitive
+     */
+    sip_call_id?: string;
 
     /**
      * If present, recordings will be filtered to those with a matching `to` attribute

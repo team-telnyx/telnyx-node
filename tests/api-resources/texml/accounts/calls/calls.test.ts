@@ -99,6 +99,7 @@ describe('resource calls', () => {
       SendRecordingUrl: false,
       SipAuthPassword: '1234',
       SipAuthUsername: 'user',
+      SipRegion: 'Canada',
       StatusCallback: 'https://www.example.com/statuscallback-listener',
       StatusCallbackEvent: 'initiated',
       StatusCallbackMethod: 'GET',
