@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.0.1 (2025-10-29)
+
+Full Changelog: [v4.0.0...v4.0.1](https://github.com/team-telnyx/telnyx-node/compare/v4.0.0...v4.0.1)
+
+### Bug Fixes
+
+* use base64 format for webhook verification instead of hex ([#11](https://github.com/team-telnyx/telnyx-node/issues/11)) ([50b7b0a](https://github.com/team-telnyx/telnyx-node/commit/50b7b0a2e759d4a19f648df7c1a3e55389551e52))
+
 ## 4.0.0 (2025-10-29)
 
 Full Changelog: [v3.9.2...v4.0.0](https://github.com/team-telnyx/telnyx-node/compare/v3.9.2...v4.0.0)
