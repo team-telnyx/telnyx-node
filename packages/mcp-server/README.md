@@ -1715,6 +1715,7 @@ The following tools are available in this MCP server.
 ### Resource `queues.calls`:
 
 - `retrieve_queues_calls` (`read`): Retrieve an existing call from an existing queue
+- `update_queues_calls` (`write`): Update queued call's keep_after_hangup flag
 - `list_queues_calls` (`read`): Retrieve the list of calls in an existing queue
 
 ### Resource `recording_transcriptions`:

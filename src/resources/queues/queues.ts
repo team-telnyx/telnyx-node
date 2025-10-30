@@ -2,7 +2,14 @@
 
 import { APIResource } from '../../core/resource';
 import * as CallsAPI from './calls';
-import { CallListParams, CallListResponse, CallRetrieveParams, CallRetrieveResponse, Calls } from './calls';
+import {
+  CallListParams,
+  CallListResponse,
+  CallRetrieveParams,
+  CallRetrieveResponse,
+  CallUpdateParams,
+  Calls,
+} from './calls';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -12,6 +19,11 @@ export class Queues extends APIResource {
 
   /**
    * Retrieve an existing call queue
+   *
+   * @example
+   * ```ts
+   * const queue = await client.queues.retrieve('queue_name');
+   * ```
    */
   retrieve(queueName: string, options?: RequestOptions): APIPromise<QueueRetrieveResponse> {
     return this._client.get(path`/queues/${queueName}`, options);
@@ -74,6 +86,7 @@ export declare namespace Queues {
     type CallRetrieveResponse as CallRetrieveResponse,
     type CallListResponse as CallListResponse,
     type CallRetrieveParams as CallRetrieveParams,
+    type CallUpdateParams as CallUpdateParams,
     type CallListParams as CallListParams,
   };
 }

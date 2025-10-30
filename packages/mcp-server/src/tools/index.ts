@@ -627,6 +627,7 @@ import list_public_internet_gateways from './public-internet-gateways/list-publi
 import delete_public_internet_gateways from './public-internet-gateways/delete-public-internet-gateways';
 import retrieve_queues from './queues/retrieve-queues';
 import retrieve_queues_calls from './queues/calls/retrieve-queues-calls';
+import update_queues_calls from './queues/calls/update-queues-calls';
 import list_queues_calls from './queues/calls/list-queues-calls';
 import retrieve_recording_transcriptions from './recording-transcriptions/retrieve-recording-transcriptions';
 import list_recording_transcriptions from './recording-transcriptions/list-recording-transcriptions';
@@ -1483,6 +1484,7 @@ addEndpoint(list_public_internet_gateways);
 addEndpoint(delete_public_internet_gateways);
 addEndpoint(retrieve_queues);
 addEndpoint(retrieve_queues_calls);
+addEndpoint(update_queues_calls);
 addEndpoint(list_queues_calls);
 addEndpoint(retrieve_recording_transcriptions);
 addEndpoint(list_recording_transcriptions);
