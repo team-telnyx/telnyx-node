@@ -1,6 +1,6 @@
 {
   "name": "telnyx-mcp",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "description": "The official MCP Server for the Telnyx API",
   "author": "Telnyx <support@telnyx.com>",
   "types": "dist/index.d.ts",
@@ -46,7 +46,7 @@
     "mcp-server": "dist/index.js"
   },
   "devDependencies": {
-    "@anthropic-ai/mcpb": "^1.1.0",
+    "@anthropic-ai/mcpb": "1.1.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/jest": "^29.4.0",

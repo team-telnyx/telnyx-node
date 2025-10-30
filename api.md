@@ -3046,7 +3046,9 @@ Types:
 Methods:
 
 - <code title="get /queues/{queue_name}/calls/{call_control_id}">client.queues.calls.<a href="./src/resources/queues/calls.ts">retrieve</a>(callControlID, { ...params }) -> CallRetrieveResponse</code>
+- <code title="patch /queues/{queue_name}/calls/{call_control_id}">client.queues.calls.<a href="./src/resources/queues/calls.ts">update</a>(callControlID, { ...params }) -> void</code>
 - <code title="get /queues/{queue_name}/calls">client.queues.calls.<a href="./src/resources/queues/calls.ts">list</a>(queueName, { ...params }) -> CallListResponse</code>
+- <code title="delete /queues/{queue_name}/calls/{call_control_id}">client.queues.calls.<a href="./src/resources/queues/calls.ts">remove</a>(callControlID, { ...params }) -> void</code>
 
 # RcsAgents
 

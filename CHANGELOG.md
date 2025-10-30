@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.1.0 (2025-10-30)
+
+Full Changelog: [v4.0.2...v4.1.0](https://github.com/team-telnyx/telnyx-node/compare/v4.0.2...v4.1.0)
+
+### Features
+
+* ENGDESK-44767 - Document force remove calls from queue ([a70a078](https://github.com/team-telnyx/telnyx-node/commit/a70a0789b108220bfdb51bd45335bc1098c81586))
+* TELAPPS-ENGDESK-46395 Add keep_after_hangup to enqueue command ([0b0250d](https://github.com/team-telnyx/telnyx-node/commit/0b0250d96cd0bff7582505c893b925bf0dc81976))
+* TELAPPS-ENGDESK-46395 Add PATCH /queues/{queue_name}/calls/{call_control_id} endpoint ([5fb666e](https://github.com/team-telnyx/telnyx-node/commit/5fb666ef9d75078716b3c1f3fd043aab2076842e))
+
+
+### Bug Fixes
+
+* **mcpb:** pin @anthropic-ai/mcpb version ([05e2767](https://github.com/team-telnyx/telnyx-node/commit/05e27671ed7152577748a8e7ac310c440ad33a4e))
+
 ## 4.0.2 (2025-10-29)
 
 Full Changelog: [v4.0.1...v4.0.2](https://github.com/team-telnyx/telnyx-node/compare/v4.0.1...v4.0.2)
