@@ -40,6 +40,11 @@ export const tool: Tool = {
         description:
           'Use this field to avoid duplicate commands. Telnyx will ignore any command with the same `command_id` for the same `call_control_id`.',
       },
+      keep_after_hangup: {
+        type: 'boolean',
+        description:
+          'If set to true, the call will remain in the queue after hangup. In this case bridging to such call will fail with necessary information needed to re-establish the call.',
+      },
       max_size: {
         type: 'integer',
         description:
