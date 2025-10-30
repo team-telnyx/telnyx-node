@@ -5,6 +5,7 @@ import * as CallsAPI from './calls';
 import {
   CallListParams,
   CallListResponse,
+  CallRemoveParams,
   CallRetrieveParams,
   CallRetrieveResponse,
   CallUpdateParams,
@@ -88,5 +89,6 @@ export declare namespace Queues {
     type CallRetrieveParams as CallRetrieveParams,
     type CallUpdateParams as CallUpdateParams,
     type CallListParams as CallListParams,
+    type CallRemoveParams as CallRemoveParams,
   };
 }
