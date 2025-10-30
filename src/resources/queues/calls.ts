@@ -62,6 +62,25 @@ export class Calls extends APIResource {
   ): APIPromise<CallListResponse> {
     return this._client.get(path`/queues/${queueName}/calls`, { query, ...options });
   }
+
+  /**
+   * Removes an inactive call from a queue. If the call is no longer active, use this
+   * command to remove it from the queue.
+   *
+   * @example
+   * ```ts
+   * await client.queues.calls.remove('call_control_id', {
+   *   queue_name: 'queue_name',
+   * });
+   * ```
+   */
+  remove(callControlID: string, params: CallRemoveParams, options?: RequestOptions): APIPromise<void> {
+    const { queue_name } = params;
+    return this._client.delete(path`/queues/${queue_name}/calls/${callControlID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
 }
 
 export interface CallRetrieveResponse {
@@ -250,6 +269,13 @@ export namespace CallListParams {
   }
 }
 
+export interface CallRemoveParams {
+  /**
+   * Uniquely identifies the queue by name
+   */
+  queue_name: string;
+}
+
 export declare namespace Calls {
   export {
     type CallRetrieveResponse as CallRetrieveResponse,
@@ -257,5 +283,6 @@ export declare namespace Calls {
     type CallRetrieveParams as CallRetrieveParams,
     type CallUpdateParams as CallUpdateParams,
     type CallListParams as CallListParams,
+    type CallRemoveParams as CallRemoveParams,
   };
 }
