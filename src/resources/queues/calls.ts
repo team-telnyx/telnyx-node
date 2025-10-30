@@ -3,12 +3,21 @@
 import { APIResource } from '../../core/resource';
 import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 export class Calls extends APIResource {
   /**
    * Retrieve an existing call from an existing queue
+   *
+   * @example
+   * ```ts
+   * const call = await client.queues.calls.retrieve(
+   *   'call_control_id',
+   *   { queue_name: 'queue_name' },
+   * );
+   * ```
    */
   retrieve(
     callControlID: string,
@@ -20,7 +29,31 @@ export class Calls extends APIResource {
   }
 
   /**
+   * Update queued call's keep_after_hangup flag
+   *
+   * @example
+   * ```ts
+   * await client.queues.calls.update('call_control_id', {
+   *   queue_name: 'queue_name',
+   * });
+   * ```
+   */
+  update(callControlID: string, params: CallUpdateParams, options?: RequestOptions): APIPromise<void> {
+    const { queue_name, ...body } = params;
+    return this._client.patch(path`/queues/${queue_name}/calls/${callControlID}`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Retrieve the list of calls in an existing queue
+   *
+   * @example
+   * ```ts
+   * const calls = await client.queues.calls.list('queue_name');
+   * ```
    */
   list(
     queueName: string,
@@ -164,6 +197,18 @@ export interface CallRetrieveParams {
   queue_name: string;
 }
 
+export interface CallUpdateParams {
+  /**
+   * Path param: Uniquely identifies the queue by name
+   */
+  queue_name: string;
+
+  /**
+   * Body param: Whether the call should remain in queue after hangup.
+   */
+  keep_after_hangup?: boolean;
+}
+
 export interface CallListParams {
   /**
    * Consolidated page parameter (deepObject style). Originally: page[after],
@@ -210,6 +255,7 @@ export declare namespace Calls {
     type CallRetrieveResponse as CallRetrieveResponse,
     type CallListResponse as CallListResponse,
     type CallRetrieveParams as CallRetrieveParams,
+    type CallUpdateParams as CallUpdateParams,
     type CallListParams as CallListParams,
   };
 }

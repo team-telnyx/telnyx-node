@@ -5,6 +5,7 @@ export {
   type CallRetrieveResponse,
   type CallListResponse,
   type CallRetrieveParams,
+  type CallUpdateParams,
   type CallListParams,
 } from './calls';
 export { Queues, type QueueRetrieveResponse } from './queues';
