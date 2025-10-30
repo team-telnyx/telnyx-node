@@ -1960,6 +1960,13 @@ export interface ActionEnqueueParams {
   command_id?: string;
 
   /**
+   * If set to true, the call will remain in the queue after hangup. In this case
+   * bridging to such call will fail with necessary information needed to
+   * re-establish the call.
+   */
+  keep_after_hangup?: boolean;
+
+  /**
    * The maximum number of calls allowed in the queue at a given time. Can't be
    * modified for an existing queue.
    */
