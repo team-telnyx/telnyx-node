@@ -1,6 +1,6 @@
 {
   "name": "telnyx",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "description": "Telnyx API SDK for global Voice, SMS, MMS, WhatsApp, Fax, Wireless IoT, SIP Trunking, and Call Control.",
   "author": "Telnyx <support@telnyx.com>",
   "types": "dist/index.d.ts",
