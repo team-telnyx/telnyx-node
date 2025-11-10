@@ -1,5 +1,38 @@
 # Changelog
 
+## 4.2.0 (2025-11-10)
+
+Full Changelog: [v4.1.0...v4.2.0](https://github.com/team-telnyx/telnyx-node/compare/v4.1.0...v4.2.0)
+
+### Features
+
+* **mcp:** enable optional code execution tool on http mcp servers ([0dfdac9](https://github.com/team-telnyx/telnyx-node/commit/0dfdac9a258da6e9ebcd4c04ccda0c516a647727))
+
+
+### Bug Fixes
+
+* **mcp:** use raw responses for binary content ([ca612de](https://github.com/team-telnyx/telnyx-node/commit/ca612de99651076c99a1ea04eeabf1a62c6ad771))
+
+
+### Chores
+
+* **internal:** codegen related update ([96e790b](https://github.com/team-telnyx/telnyx-node/commit/96e790b03cb73d34fcbcc3c547642caa94b8ca78))
+* **internal:** codegen related update ([5b6f7e5](https://github.com/team-telnyx/telnyx-node/commit/5b6f7e5953719ada9dc75b599736a4e38291a305))
+* **internal:** codegen related update ([f0e8b62](https://github.com/team-telnyx/telnyx-node/commit/f0e8b62868817e5060e388dac25f7b124b47951f))
+* **internal:** codegen related update ([4ec8e20](https://github.com/team-telnyx/telnyx-node/commit/4ec8e209d083ca2f52eda61a66e7d9aaf10daaa5))
+* **internal:** grammar fix (it's -&gt; its) ([34ac1d4](https://github.com/team-telnyx/telnyx-node/commit/34ac1d4b3f31645162d008c5d7c4e94bbdd29a6e))
+* mcp code tool explicit error message when missing a run function ([18b18f8](https://github.com/team-telnyx/telnyx-node/commit/18b18f8f4f2f386afc13feb14ec7cd33b9ffe9c4))
+* **mcp:** add friendlier MCP code tool errors on incorrect method invocations ([ba7f3dd](https://github.com/team-telnyx/telnyx-node/commit/ba7f3ddbe9245f132f786b46b3b89afa542b64ed))
+* **mcp:** add line numbers to code tool errors ([89b3c1b](https://github.com/team-telnyx/telnyx-node/commit/89b3c1ba0e51804a9f7fed87199e039e775d3dfc))
+* **mcp:** clarify http auth error ([c494baf](https://github.com/team-telnyx/telnyx-node/commit/c494bafd31948f7149e385bfb8d58f7ddf01cfb9))
+* use structured error when code execution tool errors ([d9011cc](https://github.com/team-telnyx/telnyx-node/commit/d9011cc865a65351938eef7636db68e48131459a))
+
+
+### Documentation
+
+* **mcp:** add a README button for one-click add to Cursor ([620a474](https://github.com/team-telnyx/telnyx-node/commit/620a47429e476c7a9b05fe63bf83843d65fe38a9))
+* **mcp:** add a README link to add server to VS Code or Claude Code ([14661ac](https://github.com/team-telnyx/telnyx-node/commit/14661ac96a5a0aea5de886eda2ed5abe42c186bf))
+
 ## 4.1.0 (2025-10-30)
 
 Full Changelog: [v4.0.2...v4.1.0](https://github.com/team-telnyx/telnyx-node/compare/v4.0.2...v4.1.0)

@@ -38,7 +38,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { id, ...body } = args as any;
-  return asBinaryContentResult(await client.portingOrders.retrieveLoaTemplate(id, body));
+  return asBinaryContentResult(await client.portingOrders.retrieveLoaTemplate(id, body).asResponse());
 };
 
 export default { metadata, tool, handler };
