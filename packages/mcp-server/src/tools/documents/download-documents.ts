@@ -33,7 +33,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { id, ...body } = args as any;
-  return asBinaryContentResult(await client.documents.download(id));
+  return asBinaryContentResult(await client.documents.download(id).asResponse());
 };
 
 export default { metadata, tool, handler };

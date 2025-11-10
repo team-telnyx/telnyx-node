@@ -37,7 +37,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const body = args as any;
-  return asBinaryContentResult(await client.textToSpeech.generateSpeech(body));
+  return asBinaryContentResult(await client.textToSpeech.generateSpeech(body).asResponse());
 };
 
 export default { metadata, tool, handler };

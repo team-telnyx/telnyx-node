@@ -93,7 +93,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const body = args as any;
-  return asBinaryContentResult(await client.porting.loaConfigurations.preview0(body));
+  return asBinaryContentResult(await client.porting.loaConfigurations.preview0(body).asResponse());
 };
 
 export default { metadata, tool, handler };
