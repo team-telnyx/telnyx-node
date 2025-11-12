@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.2.2 (2025-11-12)
+
+Full Changelog: [v4.2.1...v4.2.2](https://github.com/team-telnyx/telnyx-node/compare/v4.2.1...v4.2.2)
+
+### Chores
+
+* **mcp:** upgrade jq-web ([ec06dff](https://github.com/team-telnyx/telnyx-node/commit/ec06dffdad5180e230741c77df8a5550a01bb837))
+
 ## 4.2.1 (2025-11-12)
 
 Full Changelog: [v4.2.0...v4.2.1](https://github.com/team-telnyx/telnyx-node/compare/v4.2.0...v4.2.1)
