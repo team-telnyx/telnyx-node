@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { maybeFilter } from 'telnyx-mcp/filtering';
-import { Metadata, asTextContentResult } from 'telnyx-mcp/tools/types';
+import { isJqError, maybeFilter } from 'telnyx-mcp/filtering';
+import { Metadata, asErrorResult, asTextContentResult } from 'telnyx-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Telnyx from 'telnyx';
@@ -47,9 +47,16 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { bundle_id, jq_filter, ...body } = args as any;
-  return asTextContentResult(
-    await maybeFilter(jq_filter, await client.bundlePricing.billingBundles.retrieve(bundle_id, body)),
-  );
+  try {
+    return asTextContentResult(
+      await maybeFilter(jq_filter, await client.bundlePricing.billingBundles.retrieve(bundle_id, body)),
+    );
+  } catch (error) {
+    if (isJqError(error)) {
+      return asErrorResult(error.message);
+    }
+    throw error;
+  }
 };
 
 export default { metadata, tool, handler };
