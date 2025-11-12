@@ -97,8 +97,8 @@ importers:
         specifier: ^7.1.0
         version: 7.1.0
       jq-web:
-        specifier: https://github.com/stainless-api/jq-web/releases/download/v0.8.6/jq-web.tar.gz
-        version: https://github.com/stainless-api/jq-web/releases/download/v0.8.6/jq-web.tar.gz
+        specifier: https://github.com/stainless-api/jq-web/releases/download/v0.8.8/jq-web.tar.gz
+        version: https://github.com/stainless-api/jq-web/releases/download/v0.8.8/jq-web.tar.gz
       qs:
         specifier: ^6.14.0
         version: 6.14.0
@@ -1842,9 +1842,9 @@ packages:
       node-notifier:
         optional: true
 
-  jq-web@https://github.com/stainless-api/jq-web/releases/download/v0.8.6/jq-web.tar.gz:
-    resolution: {tarball: https://github.com/stainless-api/jq-web/releases/download/v0.8.6/jq-web.tar.gz}
-    version: 0.8.6
+  jq-web@https://github.com/stainless-api/jq-web/releases/download/v0.8.8/jq-web.tar.gz:
+    resolution: {tarball: https://github.com/stainless-api/jq-web/releases/download/v0.8.8/jq-web.tar.gz}
+    version: 0.8.8
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -5022,7 +5022,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  jq-web@https://github.com/stainless-api/jq-web/releases/download/v0.8.6/jq-web.tar.gz: {}
+  jq-web@https://github.com/stainless-api/jq-web/releases/download/v0.8.8/jq-web.tar.gz: {}
 
   js-tokens@4.0.0: {}
 
