@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.2.1 (2025-11-12)
+
+Full Changelog: [v4.2.0...v4.2.1](https://github.com/team-telnyx/telnyx-node/compare/v4.2.0...v4.2.1)
+
+### Bug Fixes
+
+* **mcp:** return tool execution error on jq failure ([09a537f](https://github.com/team-telnyx/telnyx-node/commit/09a537ff093e64a7047ab7211135199675f7659d))
+
+
+### Chores
+
+* **internal:** codegen related update ([9f31f58](https://github.com/team-telnyx/telnyx-node/commit/9f31f58adc6fb24df883f42ca53a9a9dce3b021a))
+
 ## 4.2.0 (2025-11-10)
 
 Full Changelog: [v4.1.0...v4.2.0](https://github.com/team-telnyx/telnyx-node/compare/v4.1.0...v4.2.0)
