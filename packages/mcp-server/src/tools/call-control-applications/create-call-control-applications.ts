@@ -39,6 +39,10 @@ export const tool: Tool = {
           "<code>Latency</code> directs Telnyx to route media through the site with the lowest round-trip time to the user's connection. Telnyx calculates this time using ICMP ping messages. This can be disabled by specifying a site to handle all media.",
         enum: ['"Latency"', '"Chicago, IL"', '"Ashburn, VA"', '"San Jose, CA"'],
       },
+      call_cost_in_webhooks: {
+        type: 'boolean',
+        description: 'Specifies if call cost webhooks should be sent for this Call Control Application.',
+      },
       dtmf_type: {
         type: 'string',
         description:

@@ -2827,10 +2827,28 @@ export interface ActionStartNoiseSuppressionParams {
   direction?: 'inbound' | 'outbound' | 'both';
 
   /**
-   * The engine to use for noise suppression. A - rnnoise engine B - deepfilter
-   * engine.
+   * The engine to use for noise suppression. For backward compatibility, engines A
+   * and B are also supported, but are deprecated: A - Denoiser B - DeepFilterNet
    */
-  noise_suppression_engine?: 'A' | 'B';
+  noise_suppression_engine?: 'Denoiser' | 'DeepFilterNet';
+
+  /**
+   * Configuration parameters for noise suppression engines.
+   */
+  noise_suppression_engine_config?: ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig;
+}
+
+export namespace ActionStartNoiseSuppressionParams {
+  /**
+   * Configuration parameters for noise suppression engines.
+   */
+  export interface NoiseSuppressionEngineConfig {
+    /**
+     * The attenuation limit for noise suppression (0-100). Only applicable for
+     * DeepFilterNet.
+     */
+    attenuation_limit?: number;
+  }
 }
 
 export interface ActionStartPlaybackParams {

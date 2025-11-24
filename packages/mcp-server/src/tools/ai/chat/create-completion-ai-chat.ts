@@ -118,8 +118,7 @@ export const tool: Tool = {
       },
       model: {
         type: 'string',
-        description:
-          'The language model to chat with. If you are optimizing for speed + price, try `meta-llama/Meta-Llama-3.1-8B-Instruct`. For quality, try `meta-llama/Meta-Llama-3.1-70B-Instruct`. Or explore our [LLM Library](https://telnyx.com/products/llm-library).',
+        description: 'The language model to chat with.',
       },
       n: {
         type: 'number',

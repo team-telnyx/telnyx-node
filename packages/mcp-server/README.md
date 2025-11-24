@@ -380,6 +380,12 @@ The following tools are available in this MCP server.
 - `clone_ai_assistants` (`write`): Clone an existing assistant, excluding telephony and messaging settings.
 - `get_texml_ai_assistants` (`read`): Get an assistant texml by `assistant_id`.
 - `import_ai_assistants` (`write`): Import assistants from external providers. Any assistant that has already been imported will be overwritten with its latest version from the importing provider.
+- `send_sms_ai_assistants` (`write`): Send an SMS message for an assistant. This endpoint:
+  1. Validates the assistant exists and has messaging profile configured
+  2. If should_create_conversation is true, creates a new conversation with metadata
+  3. Sends the SMS message (If `text` is set, this will be sent. Otherwise, if this is the first message in the conversation and the assistant has a `greeting` configured, this will be sent. Otherwise the assistant will generate the text to send.)
+  4. Updates conversation metadata if provided
+  5. Returns the conversation ID
 
 ### Resource `ai.assistants.tests`:
 
@@ -1869,6 +1875,7 @@ The following tools are available in this MCP server.
 
 - `retrieve_short_codes` (`read`): Retrieve a short code
 - `update_short_codes` (`write`): Update the settings for a specific short code. To unbind a short code from a profile, set the `messaging_profile_id` to `null` or an empty string.
+  To add or update tags, include the tags field as an array of strings.
 - `list_short_codes` (`read`): List short codes
 
 ### Resource `sim_card_data_usage_notifications`:
@@ -2220,3 +2227,9 @@ The following tools are available in this MCP server.
 
 - `retrieve_authorization_server_metadata_well_known` (`read`): OAuth 2.0 Authorization Server Metadata (RFC 8414)
 - `retrieve_protected_resource_metadata_well_known` (`read`): OAuth 2.0 Protected Resource Metadata for resource discovery
+
+### Resource `inexplicit_number_orders`:
+
+- `create_inexplicit_number_orders` (`write`): Create an inexplicit number order to programmatically purchase phone numbers without specifying exact numbers.
+- `retrieve_inexplicit_number_orders` (`read`): Get an existing inexplicit number order by ID.
+- `list_inexplicit_number_orders` (`read`): Get a paginated list of inexplicit number orders.

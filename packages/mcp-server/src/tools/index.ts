@@ -75,6 +75,7 @@ import chat_ai_assistants from './ai/assistants/chat-ai-assistants';
 import clone_ai_assistants from './ai/assistants/clone-ai-assistants';
 import get_texml_ai_assistants from './ai/assistants/get-texml-ai-assistants';
 import import_ai_assistants from './ai/assistants/import-ai-assistants';
+import send_sms_ai_assistants from './ai/assistants/send-sms-ai-assistants';
 import create_assistants_ai_tests from './ai/assistants/tests/create-assistants-ai-tests';
 import retrieve_assistants_ai_tests from './ai/assistants/tests/retrieve-assistants-ai-tests';
 import update_assistants_ai_tests from './ai/assistants/tests/update-assistants-ai-tests';
@@ -855,6 +856,9 @@ import list_shared_by_me_partner_campaigns from './partner-campaigns/list-shared
 import retrieve_sharing_status_partner_campaigns from './partner-campaigns/retrieve-sharing-status-partner-campaigns';
 import retrieve_authorization_server_metadata_well_known from './well-known/retrieve-authorization-server-metadata-well-known';
 import retrieve_protected_resource_metadata_well_known from './well-known/retrieve-protected-resource-metadata-well-known';
+import create_inexplicit_number_orders from './inexplicit-number-orders/create-inexplicit-number-orders';
+import retrieve_inexplicit_number_orders from './inexplicit-number-orders/retrieve-inexplicit-number-orders';
+import list_inexplicit_number_orders from './inexplicit-number-orders/list-inexplicit-number-orders';
 
 export const endpoints: Endpoint[] = [];
 
@@ -933,6 +937,7 @@ addEndpoint(chat_ai_assistants);
 addEndpoint(clone_ai_assistants);
 addEndpoint(get_texml_ai_assistants);
 addEndpoint(import_ai_assistants);
+addEndpoint(send_sms_ai_assistants);
 addEndpoint(create_assistants_ai_tests);
 addEndpoint(retrieve_assistants_ai_tests);
 addEndpoint(update_assistants_ai_tests);
@@ -1713,6 +1718,9 @@ addEndpoint(list_shared_by_me_partner_campaigns);
 addEndpoint(retrieve_sharing_status_partner_campaigns);
 addEndpoint(retrieve_authorization_server_metadata_well_known);
 addEndpoint(retrieve_protected_resource_metadata_well_known);
+addEndpoint(create_inexplicit_number_orders);
+addEndpoint(retrieve_inexplicit_number_orders);
+addEndpoint(list_inexplicit_number_orders);
 
 export type Filter = {
   type: 'resource' | 'operation' | 'tag' | 'tool';

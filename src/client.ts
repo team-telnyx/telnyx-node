@@ -315,6 +315,14 @@ import {
   InboundChannels,
 } from './resources/inbound-channels';
 import {
+  InexplicitNumberOrderCreateParams,
+  InexplicitNumberOrderCreateResponse,
+  InexplicitNumberOrderListParams,
+  InexplicitNumberOrderListResponse,
+  InexplicitNumberOrderRetrieveResponse,
+  InexplicitNumberOrders,
+} from './resources/inexplicit-number-orders';
+import {
   IntegrationSecret,
   IntegrationSecretCreateParams,
   IntegrationSecretCreateResponse,
@@ -2165,6 +2173,7 @@ export class Telnyx {
   wirelessBlocklists: API.WirelessBlocklists = new API.WirelessBlocklists(this);
   partnerCampaigns: API.PartnerCampaigns = new API.PartnerCampaigns(this);
   wellKnown: API.WellKnown = new API.WellKnown(this);
+  inexplicitNumberOrders: API.InexplicitNumberOrders = new API.InexplicitNumberOrders(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -2320,6 +2329,7 @@ Telnyx.WirelessBlocklistValues = WirelessBlocklistValues;
 Telnyx.WirelessBlocklists = WirelessBlocklists;
 Telnyx.PartnerCampaigns = PartnerCampaigns;
 Telnyx.WellKnown = WellKnown;
+Telnyx.InexplicitNumberOrders = InexplicitNumberOrders;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3815,6 +3825,15 @@ export declare namespace Telnyx {
     WellKnown as WellKnown,
     type WellKnownRetrieveAuthorizationServerMetadataResponse as WellKnownRetrieveAuthorizationServerMetadataResponse,
     type WellKnownRetrieveProtectedResourceMetadataResponse as WellKnownRetrieveProtectedResourceMetadataResponse,
+  };
+
+  export {
+    InexplicitNumberOrders as InexplicitNumberOrders,
+    type InexplicitNumberOrderCreateResponse as InexplicitNumberOrderCreateResponse,
+    type InexplicitNumberOrderRetrieveResponse as InexplicitNumberOrderRetrieveResponse,
+    type InexplicitNumberOrderListResponse as InexplicitNumberOrderListResponse,
+    type InexplicitNumberOrderCreateParams as InexplicitNumberOrderCreateParams,
+    type InexplicitNumberOrderListParams as InexplicitNumberOrderListParams,
   };
 
   export type APIError = API.APIError;

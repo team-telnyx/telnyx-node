@@ -86,7 +86,12 @@ describe('resource versions', () => {
           },
         },
       ],
-      transcription: { language: 'language', model: 'model' },
+      transcription: {
+        language: 'language',
+        model: 'deepgram/flux',
+        region: 'region',
+        settings: { eot_threshold: 0, eot_timeout_ms: 0, numerals: true, smart_format: true },
+      },
       voice_settings: {
         voice: 'voice',
         api_key_ref: 'api_key_ref',
