@@ -205,6 +205,35 @@ export class Assistants extends APIResource {
   import(body: AssistantImportParams, options?: RequestOptions): APIPromise<AssistantsList> {
     return this._client.post('/ai/assistants/import', { body, ...options });
   }
+
+  /**
+   * Send an SMS message for an assistant. This endpoint:
+   *
+   * 1. Validates the assistant exists and has messaging profile configured
+   * 2. If should_create_conversation is true, creates a new conversation with
+   *    metadata
+   * 3. Sends the SMS message (If `text` is set, this will be sent. Otherwise, if
+   *    this is the first message in the conversation and the assistant has a
+   *    `greeting` configured, this will be sent. Otherwise the assistant will
+   *    generate the text to send.)
+   * 4. Updates conversation metadata if provided
+   * 5. Returns the conversation ID
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.assistants.sendSMS(
+   *   'assistant_id',
+   *   { from: 'from', text: 'text', to: 'to' },
+   * );
+   * ```
+   */
+  sendSMS(
+    assistantID: string,
+    body: AssistantSendSMSParams,
+    options?: RequestOptions,
+  ): APIPromise<AssistantSendSMSResponse> {
+    return this._client.post(path`/ai/assistants/${assistantID}/chat/sms`, { body, ...options });
+  }
 }
 
 /**
@@ -811,22 +840,54 @@ export interface TelephonySettings {
 
 export interface TranscriptionSettings {
   /**
-   * The language of the audio to be transcribed. This is only applicable for
-   * `openai/whisper-large-v3-turbo` model. If not set, of if set to `auto`, the
-   * model will automatically detect the language. For the full list of supported
-   * languages, see the
-   * [whisper tokenizer](https://github.com/openai/whisper/blob/main/whisper/tokenizer.py).
+   * The language of the audio to be transcribed. If not set, of if set to `auto`,
+   * the model will automatically detect the language.
    */
   language?: string;
 
   /**
-   * The speech to text model to be used by the voice assistant.
+   * The speech to text model to be used by the voice assistant. All the deepgram
+   * models are run on-premise.
    *
-   * - `distil-whisper/distil-large-v2` is lower latency but English-only.
-   * - `openai/whisper-large-v3-turbo` is multi-lingual with automatic language
-   *   detection but slightly higher latency.
+   * - `deepgram/flux` is optimized for turn-taking but is English-only.
+   * - `deepgram/nova-3` is multi-lingual with automatic language detection but
+   *   slightly higher latency.
    */
-  model?: string;
+  model?:
+    | 'deepgram/flux'
+    | 'deepgram/nova-3'
+    | 'deepgram/nova-2'
+    | 'azure/fast'
+    | 'distil-whisper/distil-large-v2'
+    | 'openai/whisper-large-v3-turbo';
+
+  /**
+   * Region on third party cloud providers (currently Azure) if using one of their
+   * models
+   */
+  region?: string;
+
+  settings?: TranscriptionSettings.Settings;
+}
+
+export namespace TranscriptionSettings {
+  export interface Settings {
+    /**
+     * Available only for deepgram/flux. Confidence required to trigger an end of turn.
+     * Higher values = more reliable turn detection but slightly increased latency.
+     */
+    eot_threshold?: number;
+
+    /**
+     * Available only for deepgram/flux. Maximum milliseconds of silence before forcing
+     * an end of turn, regardless of confidence.
+     */
+    eot_timeout_ms?: number;
+
+    numerals?: boolean;
+
+    smart_format?: boolean;
+  }
 }
 
 export interface TransferTool {
@@ -938,6 +999,10 @@ export interface AssistantChatResponse {
 }
 
 export type AssistantGetTexmlResponse = string;
+
+export interface AssistantSendSMSResponse {
+  conversation_id?: string;
+}
 
 export interface AssistantCreateParams {
   /**
@@ -1122,6 +1187,18 @@ export interface AssistantImportParams {
   provider: 'elevenlabs' | 'vapi' | 'retell';
 }
 
+export interface AssistantSendSMSParams {
+  from: string;
+
+  text: string;
+
+  to: string;
+
+  conversation_metadata?: { [key: string]: string | number | boolean };
+
+  should_create_conversation?: boolean;
+}
+
 Assistants.Tests = Tests;
 Assistants.CanaryDeploys = CanaryDeploys;
 Assistants.ScheduledEvents = ScheduledEvents;
@@ -1154,11 +1231,13 @@ export declare namespace Assistants {
     type AssistantDeleteResponse as AssistantDeleteResponse,
     type AssistantChatResponse as AssistantChatResponse,
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,
+    type AssistantSendSMSResponse as AssistantSendSMSResponse,
     type AssistantCreateParams as AssistantCreateParams,
     type AssistantRetrieveParams as AssistantRetrieveParams,
     type AssistantUpdateParams as AssistantUpdateParams,
     type AssistantChatParams as AssistantChatParams,
     type AssistantImportParams as AssistantImportParams,
+    type AssistantSendSMSParams as AssistantSendSMSParams,
   };
 
   export {

@@ -114,6 +114,7 @@ const fuse = new Fuse(
     'client.ai.assistants.import',
     'client.ai.assistants.list',
     'client.ai.assistants.retrieve',
+    'client.ai.assistants.sendSMS',
     'client.ai.assistants.update',
     'client.ai.assistants.tests.create',
     'client.ai.assistants.tests.delete',
@@ -895,6 +896,9 @@ const fuse = new Fuse(
     'client.partnerCampaigns.update',
     'client.wellKnown.retrieveAuthorizationServerMetadata',
     'client.wellKnown.retrieveProtectedResourceMetadata',
+    'client.inexplicitNumberOrders.create',
+    'client.inexplicitNumberOrders.list',
+    'client.inexplicitNumberOrders.retrieve',
   ],
   { threshold: 1, shouldSort: true },
 );

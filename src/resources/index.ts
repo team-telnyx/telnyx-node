@@ -444,6 +444,14 @@ export {
   type InboundChannelUpdateParams,
 } from './inbound-channels';
 export {
+  InexplicitNumberOrders,
+  type InexplicitNumberOrderCreateResponse,
+  type InexplicitNumberOrderRetrieveResponse,
+  type InexplicitNumberOrderListResponse,
+  type InexplicitNumberOrderCreateParams,
+  type InexplicitNumberOrderListParams,
+} from './inexplicit-number-orders';
+export {
   IntegrationSecrets,
   type IntegrationSecret,
   type IntegrationSecretCreateResponse,

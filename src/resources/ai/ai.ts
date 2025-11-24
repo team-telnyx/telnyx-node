@@ -40,6 +40,8 @@ import {
   AssistantGetTexmlResponse,
   AssistantImportParams,
   AssistantRetrieveParams,
+  AssistantSendSMSParams,
+  AssistantSendSMSResponse,
   AssistantTool,
   AssistantUpdateParams,
   AssistantUpdateResponse,
@@ -242,11 +244,13 @@ export declare namespace AI {
     type AssistantDeleteResponse as AssistantDeleteResponse,
     type AssistantChatResponse as AssistantChatResponse,
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,
+    type AssistantSendSMSResponse as AssistantSendSMSResponse,
     type AssistantCreateParams as AssistantCreateParams,
     type AssistantRetrieveParams as AssistantRetrieveParams,
     type AssistantUpdateParams as AssistantUpdateParams,
     type AssistantChatParams as AssistantChatParams,
     type AssistantImportParams as AssistantImportParams,
+    type AssistantSendSMSParams as AssistantSendSMSParams,
   };
 
   export {
