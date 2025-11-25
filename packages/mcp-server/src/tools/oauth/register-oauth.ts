@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'post',
   httpPath: '/oauth/register',
+  operationId: 'RegisterOAuthClient',
 };
 
 export const tool: Tool = {

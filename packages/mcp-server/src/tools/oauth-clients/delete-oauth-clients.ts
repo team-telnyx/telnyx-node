@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'delete',
   httpPath: '/oauth_clients/{id}',
+  operationId: 'DeleteOAuthClient',
 };
 
 export const tool: Tool = {
