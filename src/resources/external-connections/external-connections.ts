@@ -377,6 +377,11 @@ export namespace ExternalConnectionCreateParams {
 
   export interface Inbound {
     /**
+     * The ID of the outbound voice profile to use for inbound calls.
+     */
+    outbound_voice_profile_id: string;
+
+    /**
      * When set, this will limit the number of concurrent inbound calls to phone
      * numbers associated with this connection.
      */
