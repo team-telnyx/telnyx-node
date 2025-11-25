@@ -51,12 +51,17 @@ export const tool: Tool = {
       inbound: {
         type: 'object',
         properties: {
+          outbound_voice_profile_id: {
+            type: 'string',
+            description: 'The ID of the outbound voice profile to use for inbound calls.',
+          },
           channel_limit: {
             type: 'integer',
             description:
               'When set, this will limit the number of concurrent inbound calls to phone numbers associated with this connection.',
           },
         },
+        required: ['outbound_voice_profile_id'],
       },
       tags: {
         type: 'array',
