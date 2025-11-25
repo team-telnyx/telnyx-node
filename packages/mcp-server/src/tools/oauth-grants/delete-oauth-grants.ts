@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'delete',
   httpPath: '/oauth_grants/{id}',
+  operationId: 'RevokeOAuthGrant',
 };
 
 export const tool: Tool = {

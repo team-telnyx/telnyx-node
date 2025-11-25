@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'get',
   httpPath: '/oauth/jwks',
+  operationId: 'GetOAuthJWKS',
 };
 
 export const tool: Tool = {

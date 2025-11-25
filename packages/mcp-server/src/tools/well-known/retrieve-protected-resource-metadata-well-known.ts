@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'get',
   httpPath: '/.well-known/oauth-protected-resource',
+  operationId: 'GetOAuthProtectedResourceMetadata',
 };
 
 export const tool: Tool = {

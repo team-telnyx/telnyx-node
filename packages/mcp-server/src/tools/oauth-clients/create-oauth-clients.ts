@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'post',
   httpPath: '/oauth_clients',
+  operationId: 'CreateOAuthClient',
 };
 
 export const tool: Tool = {
