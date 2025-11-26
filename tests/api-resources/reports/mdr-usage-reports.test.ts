@@ -83,7 +83,7 @@ describe('resource mdrUsageReports', () => {
 
   // Prism tests are disabled
   test.skip('fetchSync: only required params', async () => {
-    const responsePromise = client.reports.mdrUsageReports.fetchSync({ aggregation_type: 'NO_AGGREGATION' });
+    const responsePromise = client.reports.mdrUsageReports.fetchSync({ aggregation_type: 'PROFILE' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -96,7 +96,7 @@ describe('resource mdrUsageReports', () => {
   // Prism tests are disabled
   test.skip('fetchSync: required and optional params', async () => {
     const response = await client.reports.mdrUsageReports.fetchSync({
-      aggregation_type: 'NO_AGGREGATION',
+      aggregation_type: 'PROFILE',
       end_date: '2020-07-01T00:00:00-06:00',
       profiles: ['My profile'],
       start_date: '2020-07-01T00:00:00-06:00',
