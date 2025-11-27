@@ -690,7 +690,7 @@ describe('resource actions', () => {
       sip_headers: [{ name: 'User-to-User', value: 'value' }],
       sip_region: 'Canada',
       sip_transport_protocol: 'TLS',
-      sound_modifications: { octaves: 0.1, pitch: 0, semitone: -2, track: 'both' },
+      sound_modifications: { octaves: 0.1, pitch: 0.8, semitone: -2, track: 'both' },
       target_leg_client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
       time_limit_secs: 600,
       timeout_secs: 60,
