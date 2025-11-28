@@ -592,6 +592,14 @@ export {
   type MobileNetworkOperatorListParams,
 } from './mobile-network-operators';
 export {
+  MobilePhoneNumbers,
+  type MobilePhoneNumberRetrieveResponse,
+  type MobilePhoneNumberUpdateResponse,
+  type MobilePhoneNumberListResponse,
+  type MobilePhoneNumberUpdateParams,
+  type MobilePhoneNumberListParams,
+} from './mobile-phone-numbers';
+export {
   MobilePushCredentials,
   type PushCredential,
   type PushCredentialResponse,
@@ -599,6 +607,17 @@ export {
   type MobilePushCredentialCreateParams,
   type MobilePushCredentialListParams,
 } from './mobile-push-credentials';
+export {
+  MobileVoiceConnections,
+  type MobileVoiceConnectionCreateResponse,
+  type MobileVoiceConnectionRetrieveResponse,
+  type MobileVoiceConnectionUpdateResponse,
+  type MobileVoiceConnectionListResponse,
+  type MobileVoiceConnectionDeleteResponse,
+  type MobileVoiceConnectionCreateParams,
+  type MobileVoiceConnectionUpdateParams,
+  type MobileVoiceConnectionListParams,
+} from './mobile-voice-connections';
 export {
   NetworkCoverage,
   type AvailableService,

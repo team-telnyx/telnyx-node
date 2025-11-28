@@ -2233,3 +2233,17 @@ The following tools are available in this MCP server.
 - `create_inexplicit_number_orders` (`write`): Create an inexplicit number order to programmatically purchase phone numbers without specifying exact numbers.
 - `retrieve_inexplicit_number_orders` (`read`): Get an existing inexplicit number order by ID.
 - `list_inexplicit_number_orders` (`read`): Get a paginated list of inexplicit number orders.
+
+### Resource `mobile_phone_numbers`:
+
+- `retrieve_mobile_phone_numbers` (`read`): Retrieve a Mobile Phone Number
+- `update_mobile_phone_numbers` (`write`): Update a Mobile Phone Number
+- `list_mobile_phone_numbers` (`read`): List Mobile Phone Numbers
+
+### Resource `mobile_voice_connections`:
+
+- `create_mobile_voice_connections` (`write`): Create a Mobile Voice Connection
+- `retrieve_mobile_voice_connections` (`read`): Retrieve a Mobile Voice Connection
+- `update_mobile_voice_connections` (`write`): Update a Mobile Voice Connection
+- `list_mobile_voice_connections` (`read`): List Mobile Voice Connections
+- `delete_mobile_voice_connections` (`write`): Delete a Mobile Voice Connection
