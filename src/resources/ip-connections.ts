@@ -213,6 +213,11 @@ export interface IPConnection {
    */
   anchorsite_override?: CredentialConnectionsAPI.AnchorsiteOverride;
 
+  /**
+   * Specifies if call cost webhooks should be sent for this connection.
+   */
+  call_cost_in_webhooks?: boolean;
+
   connection_name?: string;
 
   /**
@@ -417,6 +422,11 @@ export interface IPConnectionCreateParams {
    */
   android_push_credential_id?: string | null;
 
+  /**
+   * Specifies if call cost webhooks should be sent for this connection.
+   */
+  call_cost_in_webhooks?: boolean;
+
   connection_name?: string;
 
   /**
@@ -607,6 +617,11 @@ export interface IPConnectionUpdateParams {
    * The uuid of the push credential for Android
    */
   android_push_credential_id?: string | null;
+
+  /**
+   * Specifies if call cost webhooks should be sent for this connection.
+   */
+  call_cost_in_webhooks?: boolean;
 
   connection_name?: string;
 

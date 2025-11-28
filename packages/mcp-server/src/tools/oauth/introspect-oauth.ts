@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'post',
   httpPath: '/oauth/introspect',
+  operationId: 'IntrospectOAuthToken',
 };
 
 export const tool: Tool = {

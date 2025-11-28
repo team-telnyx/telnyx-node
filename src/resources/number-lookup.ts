@@ -36,7 +36,7 @@ export namespace NumberLookupRetrieveResponse {
     /**
      * Unused
      */
-    fraud?: string;
+    fraud?: string | null;
 
     /**
      * Hyphen-separated national number, preceded by the national destination code
@@ -75,7 +75,7 @@ export namespace NumberLookupRetrieveResponse {
       /**
        * Unused
        */
-      error_code?: string;
+      error_code?: string | null;
 
       /**
        * Region code that matches the specific country calling code if the requested

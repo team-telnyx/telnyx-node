@@ -66,7 +66,7 @@ describe('resource oauth', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't properly handle redirects
+  // Prism tests are disabled
   test.skip('retrieveAuthorize: only required params', async () => {
     const responsePromise = client.oauth.retrieveAuthorize({
       client_id: 'client_id',
@@ -82,7 +82,7 @@ describe('resource oauth', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't properly handle redirects
+  // Prism tests are disabled
   test.skip('retrieveAuthorize: required and optional params', async () => {
     const response = await client.oauth.retrieveAuthorize({
       client_id: 'client_id',

@@ -120,6 +120,11 @@ export interface FqdnConnection {
   call_cost_enabled?: boolean;
 
   /**
+   * Specifies if call cost webhooks should be sent for this connection.
+   */
+  call_cost_in_webhooks?: boolean;
+
+  /**
    * ISO 8601 formatted date indicating when the resource was created.
    */
   created_at?: string;
@@ -525,6 +530,11 @@ export interface FqdnConnectionCreateParams {
   android_push_credential_id?: string | null;
 
   /**
+   * Specifies if call cost webhooks should be sent for this connection.
+   */
+  call_cost_in_webhooks?: boolean;
+
+  /**
    * When enabled, Telnyx will generate comfort noise when you place the call on
    * hold. If disabled, you will need to generate comfort noise or on hold music to
    * avoid RTP timeout.
@@ -624,6 +634,11 @@ export interface FqdnConnectionUpdateParams {
    * The uuid of the push credential for Android
    */
   android_push_credential_id?: string | null;
+
+  /**
+   * Specifies if call cost webhooks should be sent for this connection.
+   */
+  call_cost_in_webhooks?: boolean;
 
   /**
    * A user-assigned name to help manage the connection.

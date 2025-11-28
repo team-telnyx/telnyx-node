@@ -26,11 +26,13 @@ export {
   type AssistantDeleteResponse,
   type AssistantChatResponse,
   type AssistantGetTexmlResponse,
+  type AssistantSendSMSResponse,
   type AssistantCreateParams,
   type AssistantRetrieveParams,
   type AssistantUpdateParams,
   type AssistantChatParams,
   type AssistantImportParams,
+  type AssistantSendSMSParams,
 } from './assistants';
 export {
   CanaryDeploys,

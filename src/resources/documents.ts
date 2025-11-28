@@ -152,6 +152,11 @@ export interface DocServiceDocument {
   id?: string;
 
   /**
+   * The antivirus scan status of the document.
+   */
+  av_scan_status?: 'scanned' | 'infected' | 'pending_scan' | 'not_scanned';
+
+  /**
    * The document's content_type.
    */
   content_type?: string;

@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'get',
   httpPath: '/.well-known/oauth-authorization-server',
+  operationId: 'GetOAuthAuthorizationServerMetadata',
 };
 
 export const tool: Tool = {

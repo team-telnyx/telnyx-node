@@ -46,6 +46,10 @@ export const tool: Tool = {
         title: 'Android Push Credential Id',
         description: 'The uuid of the push credential for Android',
       },
+      call_cost_in_webhooks: {
+        type: 'boolean',
+        description: 'Specifies if call cost webhooks should be sent for this connection.',
+      },
       default_on_hold_comfort_noise_enabled: {
         type: 'boolean',
         description:

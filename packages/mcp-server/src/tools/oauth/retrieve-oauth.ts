@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'get',
   httpPath: '/oauth/consent/{consent_token}',
+  operationId: 'GetOAuthConsentToken',
 };
 
 export const tool: Tool = {

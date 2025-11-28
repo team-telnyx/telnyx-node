@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'post',
   httpPath: '/oauth/token',
+  operationId: 'ExchangeOAuthToken',
 };
 
 export const tool: Tool = {

@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'get',
   httpPath: '/oauth/authorize',
+  operationId: 'AuthorizeOAuth',
 };
 
 export const tool: Tool = {

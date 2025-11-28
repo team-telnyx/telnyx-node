@@ -115,6 +115,11 @@ export interface TexmlApplication {
   anchorsite_override?: CredentialConnectionsAPI.AnchorsiteOverride;
 
   /**
+   * Specifies if call cost webhooks should be sent for this TeXML Application.
+   */
+  call_cost_in_webhooks?: boolean;
+
+  /**
    * ISO 8601 formatted date indicating when the resource was created.
    */
   created_at?: string;
@@ -293,6 +298,11 @@ export interface TexmlApplicationCreateParams {
   anchorsite_override?: CredentialConnectionsAPI.AnchorsiteOverride;
 
   /**
+   * Specifies if call cost webhooks should be sent for this TeXML Application.
+   */
+  call_cost_in_webhooks?: boolean;
+
+  /**
    * Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF
    * digits sent to Telnyx will be accepted in all formats.
    */
@@ -410,6 +420,11 @@ export interface TexmlApplicationUpdateParams {
    * ping messages. This can be disabled by specifying a site to handle all media.
    */
   anchorsite_override?: CredentialConnectionsAPI.AnchorsiteOverride;
+
+  /**
+   * Specifies if call cost webhooks should be sent for this TeXML Application.
+   */
+  call_cost_in_webhooks?: boolean;
 
   /**
    * Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF

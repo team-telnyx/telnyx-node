@@ -35,7 +35,7 @@ describe('resource usageReports', () => {
       filter: 'filter',
       format: 'csv',
       managed_accounts: true,
-      page: { number: 2, size: 5000 },
+      page: { number: 1, size: 5000 },
       sort: ['string'],
       start_date: 'start_date',
       authorization_bearer: 'authorization_bearer',

@@ -11,10 +11,14 @@ describe('resource tests', () => {
   // Prism tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.ai.assistants.tests.create({
-      destination: 'x',
-      instructions: 'x',
-      name: 'x',
-      rubric: [{ criteria: 'criteria', name: 'name' }],
+      destination: '+15551234567',
+      instructions:
+        'Act as a frustrated customer who received a damaged product. Ask for a refund and escalate if not satisfied with the initial response.',
+      name: 'Customer Support Bot Test',
+      rubric: [
+        { criteria: 'Assistant responds within 30 seconds', name: 'Response Time' },
+        { criteria: 'Provides correct product information', name: 'Accuracy' },
+      ],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -28,13 +32,17 @@ describe('resource tests', () => {
   // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.ai.assistants.tests.create({
-      destination: 'x',
-      instructions: 'x',
-      name: 'x',
-      rubric: [{ criteria: 'criteria', name: 'name' }],
+      destination: '+15551234567',
+      instructions:
+        'Act as a frustrated customer who received a damaged product. Ask for a refund and escalate if not satisfied with the initial response.',
+      name: 'Customer Support Bot Test',
+      rubric: [
+        { criteria: 'Assistant responds within 30 seconds', name: 'Response Time' },
+        { criteria: 'Provides correct product information', name: 'Accuracy' },
+      ],
       description: 'description',
       max_duration_seconds: 1,
-      telnyx_conversation_channel: 'phone_call',
+      telnyx_conversation_channel: 'web_chat',
       test_suite: 'test_suite',
     });
   });

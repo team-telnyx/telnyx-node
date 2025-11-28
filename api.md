@@ -469,6 +469,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantDeleteResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantChatResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantGetTexmlResponse</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantSendSMSResponse</a></code>
 
 Methods:
 
@@ -481,6 +482,7 @@ Methods:
 - <code title="post /ai/assistants/{assistant_id}/clone">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">clone</a>(assistantID) -> InferenceEmbedding</code>
 - <code title="get /ai/assistants/{assistant_id}/texml">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">getTexml</a>(assistantID) -> string</code>
 - <code title="post /ai/assistants/import">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">import</a>({ ...params }) -> AssistantsList</code>
+- <code title="post /ai/assistants/{assistant_id}/chat/sms">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">sendSMS</a>(assistantID, { ...params }) -> AssistantSendSMSResponse</code>
 
 ### Tests
 
@@ -4094,3 +4096,49 @@ Methods:
 
 - <code title="get /.well-known/oauth-authorization-server">client.wellKnown.<a href="./src/resources/well-known.ts">retrieveAuthorizationServerMetadata</a>() -> WellKnownRetrieveAuthorizationServerMetadataResponse</code>
 - <code title="get /.well-known/oauth-protected-resource">client.wellKnown.<a href="./src/resources/well-known.ts">retrieveProtectedResourceMetadata</a>() -> WellKnownRetrieveProtectedResourceMetadataResponse</code>
+
+# InexplicitNumberOrders
+
+Types:
+
+- <code><a href="./src/resources/inexplicit-number-orders.ts">InexplicitNumberOrderCreateResponse</a></code>
+- <code><a href="./src/resources/inexplicit-number-orders.ts">InexplicitNumberOrderRetrieveResponse</a></code>
+- <code><a href="./src/resources/inexplicit-number-orders.ts">InexplicitNumberOrderListResponse</a></code>
+
+Methods:
+
+- <code title="post /inexplicit_number_orders">client.inexplicitNumberOrders.<a href="./src/resources/inexplicit-number-orders.ts">create</a>({ ...params }) -> InexplicitNumberOrderCreateResponse</code>
+- <code title="get /inexplicit_number_orders/{id}">client.inexplicitNumberOrders.<a href="./src/resources/inexplicit-number-orders.ts">retrieve</a>(id) -> InexplicitNumberOrderRetrieveResponse</code>
+- <code title="get /inexplicit_number_orders">client.inexplicitNumberOrders.<a href="./src/resources/inexplicit-number-orders.ts">list</a>({ ...params }) -> InexplicitNumberOrderListResponse</code>
+
+# MobilePhoneNumbers
+
+Types:
+
+- <code><a href="./src/resources/mobile-phone-numbers.ts">MobilePhoneNumberRetrieveResponse</a></code>
+- <code><a href="./src/resources/mobile-phone-numbers.ts">MobilePhoneNumberUpdateResponse</a></code>
+- <code><a href="./src/resources/mobile-phone-numbers.ts">MobilePhoneNumberListResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers.ts">retrieve</a>(id) -> MobilePhoneNumberRetrieveResponse</code>
+- <code title="patch /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers.ts">update</a>(id, { ...params }) -> MobilePhoneNumberUpdateResponse</code>
+- <code title="get /v2/mobile_phone_numbers">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers.ts">list</a>({ ...params }) -> MobilePhoneNumberListResponse</code>
+
+# MobileVoiceConnections
+
+Types:
+
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionCreateResponse</a></code>
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionRetrieveResponse</a></code>
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionUpdateResponse</a></code>
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionListResponse</a></code>
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">create</a>({ ...params }) -> MobileVoiceConnectionCreateResponse</code>
+- <code title="get /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">retrieve</a>(id) -> MobileVoiceConnectionRetrieveResponse</code>
+- <code title="patch /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">update</a>(id, { ...params }) -> MobileVoiceConnectionUpdateResponse</code>
+- <code title="get /v2/mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">list</a>({ ...params }) -> MobileVoiceConnectionListResponse</code>
+- <code title="delete /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">delete</a>(id) -> MobileVoiceConnectionDeleteResponse</code>

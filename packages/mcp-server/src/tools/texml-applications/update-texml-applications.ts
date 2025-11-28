@@ -40,6 +40,10 @@ export const tool: Tool = {
       anchorsite_override: {
         $ref: '#/$defs/anchorsite_override',
       },
+      call_cost_in_webhooks: {
+        type: 'boolean',
+        description: 'Specifies if call cost webhooks should be sent for this TeXML Application.',
+      },
       dtmf_type: {
         $ref: '#/$defs/dtmf_type',
       },

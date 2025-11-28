@@ -87,7 +87,7 @@ export interface MdrUsageReportResponseLegacy {
    */
   aggregation_type?: number;
 
-  connections?: Array<number>;
+  connections?: Array<string>;
 
   created_at?: string;
 

@@ -69,7 +69,7 @@ describe('resource reports', () => {
           sim_card_id: '877f80a6-e5b2-4687-9a04-88076265720f',
           sim_group_id: 'f05a189f-7c46-4531-ac56-1460dc465a42',
           sim_group_name: 'sim name',
-          sort: ['string'],
+          sort: ['created_at'],
           start_date: '2021-05-01T00:00:00Z',
         },
         { path: '/_stainless_unknown_path' },

@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'get',
   httpPath: '/oauth_grants',
+  operationId: 'ListOAuthGrants',
 };
 
 export const tool: Tool = {

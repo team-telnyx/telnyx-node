@@ -1270,12 +1270,13 @@ export interface TranscriptionStartRequest {
    * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
    * `Telnyx` are supported for backward compatibility.
    */
-  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'A' | 'B';
+  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'A' | 'B';
 
   transcription_engine_config?:
     | TranscriptionStartRequest.TranscriptionEngineGoogleConfig
     | TranscriptionStartRequest.TranscriptionEngineTelnyxConfig
     | TranscriptionStartRequest.TranscriptionEngineDeepgramConfig
+    | TranscriptionStartRequest.TranscriptionEngineAzureConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig;
 
@@ -1452,6 +1453,106 @@ export namespace TranscriptionStartRequest {
       | 'uk'
       | 'vi'
       | 'auto_detect';
+  }
+
+  export interface TranscriptionEngineAzureConfig {
+    /**
+     * Azure region to use for speech recognition
+     */
+    region: 'australiaeast' | 'centralindia' | 'eastus' | 'northcentralus' | 'westeurope' | 'westus2';
+
+    /**
+     * Engine identifier for Azure transcription service
+     */
+    transcription_engine: 'Azure';
+
+    /**
+     * Reference to the API key for authentication. See
+     * [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+     * for details. The parameter is optional as defaults are available for some
+     * regions.
+     */
+    api_key_ref?: string;
+
+    /**
+     * Language to use for speech recognition
+     */
+    language?:
+      | 'af'
+      | 'am'
+      | 'ar'
+      | 'bg'
+      | 'bn'
+      | 'bs'
+      | 'ca'
+      | 'cs'
+      | 'cy'
+      | 'da'
+      | 'de'
+      | 'el'
+      | 'en'
+      | 'es'
+      | 'et'
+      | 'eu'
+      | 'fa'
+      | 'fi'
+      | 'fr'
+      | 'ga'
+      | 'gl'
+      | 'gu'
+      | 'he'
+      | 'hi'
+      | 'hr'
+      | 'hu'
+      | 'hy'
+      | 'id'
+      | 'is'
+      | 'it'
+      | 'ja'
+      | 'ka'
+      | 'kk'
+      | 'km'
+      | 'kn'
+      | 'ko'
+      | 'lo'
+      | 'lt'
+      | 'lv'
+      | 'mk'
+      | 'ml'
+      | 'mn'
+      | 'mr'
+      | 'ms'
+      | 'mt'
+      | 'my'
+      | 'nb'
+      | 'ne'
+      | 'nl'
+      | 'pl'
+      | 'ps'
+      | 'pt'
+      | 'ro'
+      | 'ru'
+      | 'si'
+      | 'sk'
+      | 'sl'
+      | 'so'
+      | 'sq'
+      | 'sr'
+      | 'sv'
+      | 'sw'
+      | 'ta'
+      | 'te'
+      | 'th'
+      | 'tr'
+      | 'uk'
+      | 'ur'
+      | 'uz'
+      | 'vi'
+      | 'wuu'
+      | 'yue'
+      | 'zh'
+      | 'zu'
+      | 'auto';
   }
 }
 
@@ -2827,10 +2928,28 @@ export interface ActionStartNoiseSuppressionParams {
   direction?: 'inbound' | 'outbound' | 'both';
 
   /**
-   * The engine to use for noise suppression. A - rnnoise engine B - deepfilter
-   * engine.
+   * The engine to use for noise suppression. For backward compatibility, engines A
+   * and B are also supported, but are deprecated: A - Denoiser B - DeepFilterNet
    */
-  noise_suppression_engine?: 'A' | 'B';
+  noise_suppression_engine?: 'Denoiser' | 'DeepFilterNet';
+
+  /**
+   * Configuration parameters for noise suppression engines.
+   */
+  noise_suppression_engine_config?: ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig;
+}
+
+export namespace ActionStartNoiseSuppressionParams {
+  /**
+   * Configuration parameters for noise suppression engines.
+   */
+  export interface NoiseSuppressionEngineConfig {
+    /**
+     * The attenuation limit for noise suppression (0-100). Only applicable for
+     * DeepFilterNet.
+     */
+    attenuation_limit?: number;
+  }
 }
 
 export interface ActionStartPlaybackParams {
@@ -3271,12 +3390,13 @@ export interface ActionStartTranscriptionParams {
    * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
    * `Telnyx` are supported for backward compatibility.
    */
-  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'A' | 'B';
+  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'A' | 'B';
 
   transcription_engine_config?:
     | ActionStartTranscriptionParams.TranscriptionEngineGoogleConfig
     | ActionStartTranscriptionParams.TranscriptionEngineTelnyxConfig
     | ActionStartTranscriptionParams.TranscriptionEngineDeepgramConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineAzureConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig;
 
@@ -3453,6 +3573,106 @@ export namespace ActionStartTranscriptionParams {
       | 'uk'
       | 'vi'
       | 'auto_detect';
+  }
+
+  export interface TranscriptionEngineAzureConfig {
+    /**
+     * Azure region to use for speech recognition
+     */
+    region: 'australiaeast' | 'centralindia' | 'eastus' | 'northcentralus' | 'westeurope' | 'westus2';
+
+    /**
+     * Engine identifier for Azure transcription service
+     */
+    transcription_engine: 'Azure';
+
+    /**
+     * Reference to the API key for authentication. See
+     * [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+     * for details. The parameter is optional as defaults are available for some
+     * regions.
+     */
+    api_key_ref?: string;
+
+    /**
+     * Language to use for speech recognition
+     */
+    language?:
+      | 'af'
+      | 'am'
+      | 'ar'
+      | 'bg'
+      | 'bn'
+      | 'bs'
+      | 'ca'
+      | 'cs'
+      | 'cy'
+      | 'da'
+      | 'de'
+      | 'el'
+      | 'en'
+      | 'es'
+      | 'et'
+      | 'eu'
+      | 'fa'
+      | 'fi'
+      | 'fr'
+      | 'ga'
+      | 'gl'
+      | 'gu'
+      | 'he'
+      | 'hi'
+      | 'hr'
+      | 'hu'
+      | 'hy'
+      | 'id'
+      | 'is'
+      | 'it'
+      | 'ja'
+      | 'ka'
+      | 'kk'
+      | 'km'
+      | 'kn'
+      | 'ko'
+      | 'lo'
+      | 'lt'
+      | 'lv'
+      | 'mk'
+      | 'ml'
+      | 'mn'
+      | 'mr'
+      | 'ms'
+      | 'mt'
+      | 'my'
+      | 'nb'
+      | 'ne'
+      | 'nl'
+      | 'pl'
+      | 'ps'
+      | 'pt'
+      | 'ro'
+      | 'ru'
+      | 'si'
+      | 'sk'
+      | 'sl'
+      | 'so'
+      | 'sq'
+      | 'sr'
+      | 'sv'
+      | 'sw'
+      | 'ta'
+      | 'te'
+      | 'th'
+      | 'tr'
+      | 'uk'
+      | 'ur'
+      | 'uz'
+      | 'vi'
+      | 'wuu'
+      | 'yue'
+      | 'zh'
+      | 'zu'
+      | 'auto';
   }
 }
 

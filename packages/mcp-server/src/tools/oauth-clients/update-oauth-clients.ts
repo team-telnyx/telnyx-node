@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'put',
   httpPath: '/oauth_clients/{id}',
+  operationId: 'UpdateOAuthClient',
 };
 
 export const tool: Tool = {

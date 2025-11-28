@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'get',
   httpPath: '/oauth_clients/{id}',
+  operationId: 'GetOAuthClient',
 };
 
 export const tool: Tool = {
