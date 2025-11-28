@@ -4110,3 +4110,35 @@ Methods:
 - <code title="post /inexplicit_number_orders">client.inexplicitNumberOrders.<a href="./src/resources/inexplicit-number-orders.ts">create</a>({ ...params }) -> InexplicitNumberOrderCreateResponse</code>
 - <code title="get /inexplicit_number_orders/{id}">client.inexplicitNumberOrders.<a href="./src/resources/inexplicit-number-orders.ts">retrieve</a>(id) -> InexplicitNumberOrderRetrieveResponse</code>
 - <code title="get /inexplicit_number_orders">client.inexplicitNumberOrders.<a href="./src/resources/inexplicit-number-orders.ts">list</a>({ ...params }) -> InexplicitNumberOrderListResponse</code>
+
+# MobilePhoneNumbers
+
+Types:
+
+- <code><a href="./src/resources/mobile-phone-numbers.ts">MobilePhoneNumberRetrieveResponse</a></code>
+- <code><a href="./src/resources/mobile-phone-numbers.ts">MobilePhoneNumberUpdateResponse</a></code>
+- <code><a href="./src/resources/mobile-phone-numbers.ts">MobilePhoneNumberListResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers.ts">retrieve</a>(id) -> MobilePhoneNumberRetrieveResponse</code>
+- <code title="patch /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers.ts">update</a>(id, { ...params }) -> MobilePhoneNumberUpdateResponse</code>
+- <code title="get /v2/mobile_phone_numbers">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers.ts">list</a>({ ...params }) -> MobilePhoneNumberListResponse</code>
+
+# MobileVoiceConnections
+
+Types:
+
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionCreateResponse</a></code>
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionRetrieveResponse</a></code>
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionUpdateResponse</a></code>
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionListResponse</a></code>
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">create</a>({ ...params }) -> MobileVoiceConnectionCreateResponse</code>
+- <code title="get /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">retrieve</a>(id) -> MobileVoiceConnectionRetrieveResponse</code>
+- <code title="patch /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">update</a>(id, { ...params }) -> MobileVoiceConnectionUpdateResponse</code>
+- <code title="get /v2/mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">list</a>({ ...params }) -> MobileVoiceConnectionListResponse</code>
+- <code title="delete /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">delete</a>(id) -> MobileVoiceConnectionDeleteResponse</code>

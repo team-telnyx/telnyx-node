@@ -859,6 +859,14 @@ import retrieve_protected_resource_metadata_well_known from './well-known/retrie
 import create_inexplicit_number_orders from './inexplicit-number-orders/create-inexplicit-number-orders';
 import retrieve_inexplicit_number_orders from './inexplicit-number-orders/retrieve-inexplicit-number-orders';
 import list_inexplicit_number_orders from './inexplicit-number-orders/list-inexplicit-number-orders';
+import retrieve_mobile_phone_numbers from './mobile-phone-numbers/retrieve-mobile-phone-numbers';
+import update_mobile_phone_numbers from './mobile-phone-numbers/update-mobile-phone-numbers';
+import list_mobile_phone_numbers from './mobile-phone-numbers/list-mobile-phone-numbers';
+import create_mobile_voice_connections from './mobile-voice-connections/create-mobile-voice-connections';
+import retrieve_mobile_voice_connections from './mobile-voice-connections/retrieve-mobile-voice-connections';
+import update_mobile_voice_connections from './mobile-voice-connections/update-mobile-voice-connections';
+import list_mobile_voice_connections from './mobile-voice-connections/list-mobile-voice-connections';
+import delete_mobile_voice_connections from './mobile-voice-connections/delete-mobile-voice-connections';
 
 export const endpoints: Endpoint[] = [];
 
@@ -1721,6 +1729,14 @@ addEndpoint(retrieve_protected_resource_metadata_well_known);
 addEndpoint(create_inexplicit_number_orders);
 addEndpoint(retrieve_inexplicit_number_orders);
 addEndpoint(list_inexplicit_number_orders);
+addEndpoint(retrieve_mobile_phone_numbers);
+addEndpoint(update_mobile_phone_numbers);
+addEndpoint(list_mobile_phone_numbers);
+addEndpoint(create_mobile_voice_connections);
+addEndpoint(retrieve_mobile_voice_connections);
+addEndpoint(update_mobile_voice_connections);
+addEndpoint(list_mobile_voice_connections);
+addEndpoint(delete_mobile_voice_connections);
 
 export type Filter = {
   type: 'resource' | 'operation' | 'tag' | 'tool';
