@@ -40,9 +40,10 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { insight_id, ...body } = args as any;
-  return asTextContentResult(
-    (await client.ai.conversations.insightGroups.insights.deleteUnassign(insight_id, body)) as object,
-  );
+  const response = await client.ai.conversations.insightGroups.insights
+    .deleteUnassign(insight_id, body)
+    .asResponse();
+  return asTextContentResult(await response.text());
 };
 
 export default { metadata, tool, handler };

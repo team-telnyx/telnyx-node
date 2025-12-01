@@ -699,7 +699,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { assistant_id, ...body } = args as any;
-  return asTextContentResult((await client.ai.assistants.update(assistant_id, body)) as object);
+  return asTextContentResult(await client.ai.assistants.update(assistant_id, body));
 };
 
 export default { metadata, tool, handler };

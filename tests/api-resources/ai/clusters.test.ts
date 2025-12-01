@@ -87,20 +87,7 @@ describe('resource clusters', () => {
     });
   });
 
-  // Prism tests are disabled
-  test.skip('fetchGraph', async () => {
-    const responsePromise = client.ai.clusters.fetchGraph('task_id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('fetchGraph: request options and params are passed correctly', async () => {
+  test('fetchGraph: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.ai.clusters.fetchGraph('task_id', { cluster_id: 0 }, { path: '/_stainless_unknown_path' }),

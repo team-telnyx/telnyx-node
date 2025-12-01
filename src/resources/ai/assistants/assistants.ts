@@ -16,7 +16,6 @@ import {
   EventStatus,
   ScheduledEventCreateParams,
   ScheduledEventDeleteParams,
-  ScheduledEventDeleteResponse,
   ScheduledEventListParams,
   ScheduledEventListResponse,
   ScheduledEventResponse,
@@ -41,7 +40,6 @@ import {
   AssistantTest,
   TelnyxConversationChannel,
   TestCreateParams,
-  TestDeleteResponse,
   TestListParams,
   TestListResponse,
   TestUpdateParams,
@@ -97,12 +95,15 @@ export class Assistants extends APIResource {
    *
    * @example
    * ```ts
-   * const assistant = await client.ai.assistants.update(
-   *   'assistant_id',
-   * );
+   * const inferenceEmbedding =
+   *   await client.ai.assistants.update('assistant_id');
    * ```
    */
-  update(assistantID: string, body: AssistantUpdateParams, options?: RequestOptions): APIPromise<unknown> {
+  update(
+    assistantID: string,
+    body: AssistantUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<InferenceEmbedding> {
     return this._client.post(path`/ai/assistants/${assistantID}`, { body, ...options });
   }
 
@@ -977,8 +978,6 @@ export interface WebhookTool {
   webhook: InferenceEmbeddingWebhookToolParams;
 }
 
-export type AssistantUpdateResponse = unknown;
-
 /**
  * Aligns with the OpenAI API:
  * https://platform.openai.com/docs/api-reference/assistants/deleteAssistant
@@ -1227,7 +1226,6 @@ export declare namespace Assistants {
     type TransferTool as TransferTool,
     type VoiceSettings as VoiceSettings,
     type WebhookTool as WebhookTool,
-    type AssistantUpdateResponse as AssistantUpdateResponse,
     type AssistantDeleteResponse as AssistantDeleteResponse,
     type AssistantChatResponse as AssistantChatResponse,
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,
@@ -1245,7 +1243,6 @@ export declare namespace Assistants {
     type AssistantTest as AssistantTest,
     type TelnyxConversationChannel as TelnyxConversationChannel,
     type TestListResponse as TestListResponse,
-    type TestDeleteResponse as TestDeleteResponse,
     type TestCreateParams as TestCreateParams,
     type TestUpdateParams as TestUpdateParams,
     type TestListParams as TestListParams,
@@ -1268,7 +1265,6 @@ export declare namespace Assistants {
     type ScheduledPhoneCallEventResponse as ScheduledPhoneCallEventResponse,
     type ScheduledSMSEventResponse as ScheduledSMSEventResponse,
     type ScheduledEventListResponse as ScheduledEventListResponse,
-    type ScheduledEventDeleteResponse as ScheduledEventDeleteResponse,
     type ScheduledEventCreateParams as ScheduledEventCreateParams,
     type ScheduledEventRetrieveParams as ScheduledEventRetrieveParams,
     type ScheduledEventListParams as ScheduledEventListParams,

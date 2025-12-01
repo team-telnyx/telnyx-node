@@ -81,7 +81,8 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { conversation_id, ...body } = args as any;
-  return asTextContentResult((await client.ai.conversations.addMessage(conversation_id, body)) as object);
+  const response = await client.ai.conversations.addMessage(conversation_id, body).asResponse();
+  return asTextContentResult(await response.text());
 };
 
 export default { metadata, tool, handler };
