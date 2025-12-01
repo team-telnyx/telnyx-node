@@ -196,6 +196,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/webhooks.ts">CampaignStatusUpdateEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CampaignSuspendedEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherMessageHistoryUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
