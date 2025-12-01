@@ -14,6 +14,7 @@ import * as TestSuitesRunsAPI from './test-suites/runs';
 import * as TestSuitesAPI from './test-suites/test-suites';
 import { TestSuiteListResponse, TestSuites } from './test-suites/test-suites';
 import { APIPromise } from '../../../../core/api-promise';
+import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
@@ -29,10 +30,20 @@ export class Tests extends APIResource {
    * ```ts
    * const assistantTest =
    *   await client.ai.assistants.tests.create({
-   *     destination: 'x',
-   *     instructions: 'x',
-   *     name: 'x',
-   *     rubric: [{ criteria: 'criteria', name: 'name' }],
+   *     destination: '+15551234567',
+   *     instructions:
+   *       'Act as a frustrated customer who received a damaged product. Ask for a refund and escalate if not satisfied with the initial response.',
+   *     name: 'Customer Support Bot Test',
+   *     rubric: [
+   *       {
+   *         criteria: 'Assistant responds within 30 seconds',
+   *         name: 'Response Time',
+   *       },
+   *       {
+   *         criteria: 'Provides correct product information',
+   *         name: 'Accuracy',
+   *       },
+   *     ],
    *   });
    * ```
    */
@@ -87,13 +98,14 @@ export class Tests extends APIResource {
    *
    * @example
    * ```ts
-   * const test = await client.ai.assistants.tests.delete(
-   *   'test_id',
-   * );
+   * await client.ai.assistants.tests.delete('test_id');
    * ```
    */
-  delete(testID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.delete(path`/ai/assistants/tests/${testID}`, options);
+  delete(testID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/ai/assistants/tests/${testID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -190,8 +202,6 @@ export interface TestListResponse {
    */
   meta: TestSuitesRunsAPI.Meta;
 }
-
-export type TestDeleteResponse = unknown;
 
 export interface TestCreateParams {
   /**
@@ -364,7 +374,6 @@ export declare namespace Tests {
     type AssistantTest as AssistantTest,
     type TelnyxConversationChannel as TelnyxConversationChannel,
     type TestListResponse as TestListResponse,
-    type TestDeleteResponse as TestDeleteResponse,
     type TestCreateParams as TestCreateParams,
     type TestUpdateParams as TestUpdateParams,
     type TestListParams as TestListParams,

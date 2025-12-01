@@ -113,10 +113,7 @@ export interface ChatCreateCompletionParams {
   min_p?: number;
 
   /**
-   * The language model to chat with. If you are optimizing for speed + price, try
-   * `meta-llama/Meta-Llama-3.1-8B-Instruct`. For quality, try
-   * `meta-llama/Meta-Llama-3.1-70B-Instruct`. Or explore our
-   * [LLM Library](https://telnyx.com/products/llm-library).
+   * The language model to chat with.
    */
   model?: string;
 

@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'post',
   httpPath: '/oauth/grants',
+  operationId: 'CreateOAuthGrant',
 };
 
 export const tool: Tool = {
@@ -46,7 +47,7 @@ export const handler = async (client: Telnyx, args: Record<string, unknown> | un
   try {
     return asTextContentResult(await maybeFilter(jq_filter, await client.oauth.grants(body)));
   } catch (error) {
-    if (isJqError(error)) {
+    if (error instanceof Telnyx.APIError || isJqError(error)) {
       return asErrorResult(error.message);
     }
     throw error;

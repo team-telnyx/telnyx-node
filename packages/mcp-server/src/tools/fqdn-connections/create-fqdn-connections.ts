@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Metadata, asTextContentResult } from 'telnyx-mcp/tools/types';
+import { Metadata, asErrorResult, asTextContentResult } from 'telnyx-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Telnyx from 'telnyx';
@@ -36,6 +36,10 @@ export const tool: Tool = {
         type: 'string',
         title: 'Android Push Credential Id',
         description: 'The uuid of the push credential for Android',
+      },
+      call_cost_in_webhooks: {
+        type: 'boolean',
+        description: 'Specifies if call cost webhooks should be sent for this connection.',
       },
       default_on_hold_comfort_noise_enabled: {
         type: 'boolean',
@@ -352,7 +356,14 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const body = args as any;
-  return asTextContentResult(await client.fqdnConnections.create(body));
+  try {
+    return asTextContentResult(await client.fqdnConnections.create(body));
+  } catch (error) {
+    if (error instanceof Telnyx.APIError) {
+      return asErrorResult(error.message);
+    }
+    throw error;
+  }
 };
 
 export default { metadata, tool, handler };

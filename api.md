@@ -196,6 +196,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/webhooks.ts">CampaignStatusUpdateEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CampaignSuspendedEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherMessageHistoryUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
@@ -465,22 +467,23 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TransferTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">VoiceSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">WebhookTool</a></code>
-- <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantUpdateResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantDeleteResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantChatResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantGetTexmlResponse</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantSendSMSResponse</a></code>
 
 Methods:
 
 - <code title="post /ai/assistants">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">create</a>({ ...params }) -> InferenceEmbedding</code>
 - <code title="get /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">retrieve</a>(assistantID, { ...params }) -> InferenceEmbedding</code>
-- <code title="post /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">update</a>(assistantID, { ...params }) -> unknown</code>
+- <code title="post /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">update</a>(assistantID, { ...params }) -> InferenceEmbedding</code>
 - <code title="get /ai/assistants">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">list</a>() -> AssistantsList</code>
 - <code title="delete /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">delete</a>(assistantID) -> AssistantDeleteResponse</code>
 - <code title="post /ai/assistants/{assistant_id}/chat">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">chat</a>(assistantID, { ...params }) -> AssistantChatResponse</code>
 - <code title="post /ai/assistants/{assistant_id}/clone">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">clone</a>(assistantID) -> InferenceEmbedding</code>
 - <code title="get /ai/assistants/{assistant_id}/texml">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">getTexml</a>(assistantID) -> string</code>
 - <code title="post /ai/assistants/import">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">import</a>({ ...params }) -> AssistantsList</code>
+- <code title="post /ai/assistants/{assistant_id}/chat/sms">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">sendSMS</a>(assistantID, { ...params }) -> AssistantSendSMSResponse</code>
 
 ### Tests
 
@@ -489,7 +492,6 @@ Types:
 - <code><a href="./src/resources/ai/assistants/tests/tests.ts">AssistantTest</a></code>
 - <code><a href="./src/resources/ai/assistants/tests/tests.ts">TelnyxConversationChannel</a></code>
 - <code><a href="./src/resources/ai/assistants/tests/tests.ts">TestListResponse</a></code>
-- <code><a href="./src/resources/ai/assistants/tests/tests.ts">TestDeleteResponse</a></code>
 
 Methods:
 
@@ -497,7 +499,7 @@ Methods:
 - <code title="get /ai/assistants/tests/{test_id}">client.ai.assistants.tests.<a href="./src/resources/ai/assistants/tests/tests.ts">retrieve</a>(testID) -> AssistantTest</code>
 - <code title="put /ai/assistants/tests/{test_id}">client.ai.assistants.tests.<a href="./src/resources/ai/assistants/tests/tests.ts">update</a>(testID, { ...params }) -> AssistantTest</code>
 - <code title="get /ai/assistants/tests">client.ai.assistants.tests.<a href="./src/resources/ai/assistants/tests/tests.ts">list</a>({ ...params }) -> TestListResponse</code>
-- <code title="delete /ai/assistants/tests/{test_id}">client.ai.assistants.tests.<a href="./src/resources/ai/assistants/tests/tests.ts">delete</a>(testID) -> unknown</code>
+- <code title="delete /ai/assistants/tests/{test_id}">client.ai.assistants.tests.<a href="./src/resources/ai/assistants/tests/tests.ts">delete</a>(testID) -> void</code>
 
 #### TestSuites
 
@@ -560,14 +562,13 @@ Types:
 - <code><a href="./src/resources/ai/assistants/scheduled-events.ts">ScheduledPhoneCallEventResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/scheduled-events.ts">ScheduledSMSEventResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/scheduled-events.ts">ScheduledEventListResponse</a></code>
-- <code><a href="./src/resources/ai/assistants/scheduled-events.ts">ScheduledEventDeleteResponse</a></code>
 
 Methods:
 
 - <code title="post /ai/assistants/{assistant_id}/scheduled_events">client.ai.assistants.scheduledEvents.<a href="./src/resources/ai/assistants/scheduled-events.ts">create</a>(assistantID, { ...params }) -> ScheduledEventResponse</code>
 - <code title="get /ai/assistants/{assistant_id}/scheduled_events/{event_id}">client.ai.assistants.scheduledEvents.<a href="./src/resources/ai/assistants/scheduled-events.ts">retrieve</a>(eventID, { ...params }) -> ScheduledEventResponse</code>
 - <code title="get /ai/assistants/{assistant_id}/scheduled_events">client.ai.assistants.scheduledEvents.<a href="./src/resources/ai/assistants/scheduled-events.ts">list</a>(assistantID, { ...params }) -> ScheduledEventListResponse</code>
-- <code title="delete /ai/assistants/{assistant_id}/scheduled_events/{event_id}">client.ai.assistants.scheduledEvents.<a href="./src/resources/ai/assistants/scheduled-events.ts">delete</a>(eventID, { ...params }) -> unknown</code>
+- <code title="delete /ai/assistants/{assistant_id}/scheduled_events/{event_id}">client.ai.assistants.scheduledEvents.<a href="./src/resources/ai/assistants/scheduled-events.ts">delete</a>(eventID, { ...params }) -> void</code>
 
 ### Tools
 
@@ -622,7 +623,6 @@ Types:
 - <code><a href="./src/resources/ai/clusters.ts">ClusterRetrieveResponse</a></code>
 - <code><a href="./src/resources/ai/clusters.ts">ClusterListResponse</a></code>
 - <code><a href="./src/resources/ai/clusters.ts">ClusterComputeResponse</a></code>
-- <code><a href="./src/resources/ai/clusters.ts">ClusterFetchGraphResponse</a></code>
 
 Methods:
 
@@ -630,7 +630,7 @@ Methods:
 - <code title="get /ai/clusters">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">list</a>({ ...params }) -> ClusterListResponse</code>
 - <code title="delete /ai/clusters/{task_id}">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">delete</a>(taskID) -> void</code>
 - <code title="post /ai/clusters">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">compute</a>({ ...params }) -> ClusterComputeResponse</code>
-- <code title="get /ai/clusters/{task_id}/graph">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">fetchGraph</a>(taskID, { ...params }) -> unknown</code>
+- <code title="get /ai/clusters/{task_id}/graph">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">fetchGraph</a>(taskID, { ...params }) -> Response</code>
 
 ## Conversations
 
@@ -640,7 +640,6 @@ Types:
 - <code><a href="./src/resources/ai/conversations/conversations.ts">ConversationRetrieveResponse</a></code>
 - <code><a href="./src/resources/ai/conversations/conversations.ts">ConversationUpdateResponse</a></code>
 - <code><a href="./src/resources/ai/conversations/conversations.ts">ConversationListResponse</a></code>
-- <code><a href="./src/resources/ai/conversations/conversations.ts">ConversationAddMessageResponse</a></code>
 - <code><a href="./src/resources/ai/conversations/conversations.ts">ConversationRetrieveConversationsInsightsResponse</a></code>
 
 Methods:
@@ -650,7 +649,7 @@ Methods:
 - <code title="put /ai/conversations/{conversation_id}">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">update</a>(conversationID, { ...params }) -> ConversationUpdateResponse</code>
 - <code title="get /ai/conversations">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponse</code>
 - <code title="delete /ai/conversations/{conversation_id}">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">delete</a>(conversationID) -> void</code>
-- <code title="post /ai/conversations/{conversation_id}/message">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">addMessage</a>(conversationID, { ...params }) -> unknown</code>
+- <code title="post /ai/conversations/{conversation_id}/message">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">addMessage</a>(conversationID, { ...params }) -> void</code>
 - <code title="get /ai/conversations/{conversation_id}/conversations-insights">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">retrieveConversationsInsights</a>(conversationID) -> ConversationRetrieveConversationsInsightsResponse</code>
 
 ### InsightGroups
@@ -659,28 +658,22 @@ Types:
 
 - <code><a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">InsightTemplateGroup</a></code>
 - <code><a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">InsightTemplateGroupDetail</a></code>
-- <code><a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">InsightGroupDeleteResponse</a></code>
 - <code><a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">InsightGroupRetrieveInsightGroupsResponse</a></code>
 
 Methods:
 
 - <code title="get /ai/conversations/insight-groups/{group_id}">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">retrieve</a>(groupID) -> InsightTemplateGroupDetail</code>
 - <code title="put /ai/conversations/insight-groups/{group_id}">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">update</a>(groupID, { ...params }) -> InsightTemplateGroupDetail</code>
-- <code title="delete /ai/conversations/insight-groups/{group_id}">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">delete</a>(groupID) -> unknown</code>
+- <code title="delete /ai/conversations/insight-groups/{group_id}">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">delete</a>(groupID) -> void</code>
 - <code title="post /ai/conversations/insight-groups">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">insightGroups</a>({ ...params }) -> InsightTemplateGroupDetail</code>
 - <code title="get /ai/conversations/insight-groups">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">retrieveInsightGroups</a>({ ...params }) -> InsightGroupRetrieveInsightGroupsResponse</code>
 
 #### Insights
 
-Types:
-
-- <code><a href="./src/resources/ai/conversations/insight-groups/insights.ts">InsightAssignResponse</a></code>
-- <code><a href="./src/resources/ai/conversations/insight-groups/insights.ts">InsightDeleteUnassignResponse</a></code>
-
 Methods:
 
-- <code title="post /ai/conversations/insight-groups/{group_id}/insights/{insight_id}/assign">client.ai.conversations.insightGroups.insights.<a href="./src/resources/ai/conversations/insight-groups/insights.ts">assign</a>(insightID, { ...params }) -> unknown</code>
-- <code title="delete /ai/conversations/insight-groups/{group_id}/insights/{insight_id}/unassign">client.ai.conversations.insightGroups.insights.<a href="./src/resources/ai/conversations/insight-groups/insights.ts">deleteUnassign</a>(insightID, { ...params }) -> unknown</code>
+- <code title="post /ai/conversations/insight-groups/{group_id}/insights/{insight_id}/assign">client.ai.conversations.insightGroups.insights.<a href="./src/resources/ai/conversations/insight-groups/insights.ts">assign</a>(insightID, { ...params }) -> void</code>
+- <code title="delete /ai/conversations/insight-groups/{group_id}/insights/{insight_id}/unassign">client.ai.conversations.insightGroups.insights.<a href="./src/resources/ai/conversations/insight-groups/insights.ts">deleteUnassign</a>(insightID, { ...params }) -> void</code>
 
 ### Insights
 
@@ -689,7 +682,6 @@ Types:
 - <code><a href="./src/resources/ai/conversations/insights.ts">InsightTemplate</a></code>
 - <code><a href="./src/resources/ai/conversations/insights.ts">InsightTemplateDetail</a></code>
 - <code><a href="./src/resources/ai/conversations/insights.ts">InsightListResponse</a></code>
-- <code><a href="./src/resources/ai/conversations/insights.ts">InsightDeleteResponse</a></code>
 
 Methods:
 
@@ -697,7 +689,7 @@ Methods:
 - <code title="get /ai/conversations/insights/{insight_id}">client.ai.conversations.insights.<a href="./src/resources/ai/conversations/insights.ts">retrieve</a>(insightID) -> InsightTemplateDetail</code>
 - <code title="put /ai/conversations/insights/{insight_id}">client.ai.conversations.insights.<a href="./src/resources/ai/conversations/insights.ts">update</a>(insightID, { ...params }) -> InsightTemplateDetail</code>
 - <code title="get /ai/conversations/insights">client.ai.conversations.insights.<a href="./src/resources/ai/conversations/insights.ts">list</a>({ ...params }) -> InsightListResponse</code>
-- <code title="delete /ai/conversations/insights/{insight_id}">client.ai.conversations.insights.<a href="./src/resources/ai/conversations/insights.ts">delete</a>(insightID) -> unknown</code>
+- <code title="delete /ai/conversations/insights/{insight_id}">client.ai.conversations.insights.<a href="./src/resources/ai/conversations/insights.ts">delete</a>(insightID) -> void</code>
 
 ### Messages
 
@@ -789,7 +781,6 @@ Types:
 - <code><a href="./src/resources/ai/mcp-servers.ts">McpServerRetrieveResponse</a></code>
 - <code><a href="./src/resources/ai/mcp-servers.ts">McpServerUpdateResponse</a></code>
 - <code><a href="./src/resources/ai/mcp-servers.ts">McpServerListResponse</a></code>
-- <code><a href="./src/resources/ai/mcp-servers.ts">McpServerDeleteResponse</a></code>
 
 Methods:
 
@@ -797,7 +788,7 @@ Methods:
 - <code title="get /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">retrieve</a>(mcpServerID) -> McpServerRetrieveResponse</code>
 - <code title="put /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">update</a>(mcpServerID, { ...params }) -> McpServerUpdateResponse</code>
 - <code title="get /ai/mcp_servers">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">list</a>({ ...params }) -> McpServerListResponse</code>
-- <code title="delete /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">delete</a>(mcpServerID) -> unknown</code>
+- <code title="delete /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">delete</a>(mcpServerID) -> void</code>
 
 # AuditEvents
 
@@ -4094,3 +4085,49 @@ Methods:
 
 - <code title="get /.well-known/oauth-authorization-server">client.wellKnown.<a href="./src/resources/well-known.ts">retrieveAuthorizationServerMetadata</a>() -> WellKnownRetrieveAuthorizationServerMetadataResponse</code>
 - <code title="get /.well-known/oauth-protected-resource">client.wellKnown.<a href="./src/resources/well-known.ts">retrieveProtectedResourceMetadata</a>() -> WellKnownRetrieveProtectedResourceMetadataResponse</code>
+
+# InexplicitNumberOrders
+
+Types:
+
+- <code><a href="./src/resources/inexplicit-number-orders.ts">InexplicitNumberOrderCreateResponse</a></code>
+- <code><a href="./src/resources/inexplicit-number-orders.ts">InexplicitNumberOrderRetrieveResponse</a></code>
+- <code><a href="./src/resources/inexplicit-number-orders.ts">InexplicitNumberOrderListResponse</a></code>
+
+Methods:
+
+- <code title="post /inexplicit_number_orders">client.inexplicitNumberOrders.<a href="./src/resources/inexplicit-number-orders.ts">create</a>({ ...params }) -> InexplicitNumberOrderCreateResponse</code>
+- <code title="get /inexplicit_number_orders/{id}">client.inexplicitNumberOrders.<a href="./src/resources/inexplicit-number-orders.ts">retrieve</a>(id) -> InexplicitNumberOrderRetrieveResponse</code>
+- <code title="get /inexplicit_number_orders">client.inexplicitNumberOrders.<a href="./src/resources/inexplicit-number-orders.ts">list</a>({ ...params }) -> InexplicitNumberOrderListResponse</code>
+
+# MobilePhoneNumbers
+
+Types:
+
+- <code><a href="./src/resources/mobile-phone-numbers.ts">MobilePhoneNumberRetrieveResponse</a></code>
+- <code><a href="./src/resources/mobile-phone-numbers.ts">MobilePhoneNumberUpdateResponse</a></code>
+- <code><a href="./src/resources/mobile-phone-numbers.ts">MobilePhoneNumberListResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers.ts">retrieve</a>(id) -> MobilePhoneNumberRetrieveResponse</code>
+- <code title="patch /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers.ts">update</a>(id, { ...params }) -> MobilePhoneNumberUpdateResponse</code>
+- <code title="get /v2/mobile_phone_numbers">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers.ts">list</a>({ ...params }) -> MobilePhoneNumberListResponse</code>
+
+# MobileVoiceConnections
+
+Types:
+
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionCreateResponse</a></code>
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionRetrieveResponse</a></code>
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionUpdateResponse</a></code>
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionListResponse</a></code>
+- <code><a href="./src/resources/mobile-voice-connections.ts">MobileVoiceConnectionDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">create</a>({ ...params }) -> MobileVoiceConnectionCreateResponse</code>
+- <code title="get /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">retrieve</a>(id) -> MobileVoiceConnectionRetrieveResponse</code>
+- <code title="patch /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">update</a>(id, { ...params }) -> MobileVoiceConnectionUpdateResponse</code>
+- <code title="get /v2/mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">list</a>({ ...params }) -> MobileVoiceConnectionListResponse</code>
+- <code title="delete /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">delete</a>(id) -> MobileVoiceConnectionDeleteResponse</code>

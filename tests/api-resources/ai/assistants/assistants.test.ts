@@ -65,7 +65,12 @@ describe('resource assistants', () => {
           },
         },
       ],
-      transcription: { language: 'language', model: 'model' },
+      transcription: {
+        language: 'language',
+        model: 'deepgram/flux',
+        region: 'region',
+        settings: { eot_threshold: 0, eot_timeout_ms: 0, numerals: true, smart_format: true },
+      },
       voice_settings: {
         voice: 'voice',
         api_key_ref: 'api_key_ref',
@@ -208,6 +213,33 @@ describe('resource assistants', () => {
     const response = await client.ai.assistants.import({
       api_key_ref: 'api_key_ref',
       provider: 'elevenlabs',
+    });
+  });
+
+  // Prism tests are disabled
+  test.skip('sendSMS: only required params', async () => {
+    const responsePromise = client.ai.assistants.sendSMS('assistant_id', {
+      from: 'from',
+      text: 'text',
+      to: 'to',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('sendSMS: required and optional params', async () => {
+    const response = await client.ai.assistants.sendSMS('assistant_id', {
+      from: 'from',
+      text: 'text',
+      to: 'to',
+      conversation_metadata: { foo: 'string' },
+      should_create_conversation: true,
     });
   });
 });

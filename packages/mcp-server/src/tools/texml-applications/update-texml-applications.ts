@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Metadata, asTextContentResult } from 'telnyx-mcp/tools/types';
+import { Metadata, asErrorResult, asTextContentResult } from 'telnyx-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Telnyx from 'telnyx';
@@ -39,6 +39,10 @@ export const tool: Tool = {
       },
       anchorsite_override: {
         $ref: '#/$defs/anchorsite_override',
+      },
+      call_cost_in_webhooks: {
+        type: 'boolean',
+        description: 'Specifies if call cost webhooks should be sent for this TeXML Application.',
       },
       dtmf_type: {
         $ref: '#/$defs/dtmf_type',
@@ -157,7 +161,14 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { id, ...body } = args as any;
-  return asTextContentResult(await client.texmlApplications.update(id, body));
+  try {
+    return asTextContentResult(await client.texmlApplications.update(id, body));
+  } catch (error) {
+    if (error instanceof Telnyx.APIError) {
+      return asErrorResult(error.message);
+    }
+    throw error;
+  }
 };
 
 export default { metadata, tool, handler };

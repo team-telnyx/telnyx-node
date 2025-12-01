@@ -82,14 +82,22 @@ export class Clusters extends APIResource {
    * const response = await client.ai.clusters.fetchGraph(
    *   'task_id',
    * );
+   *
+   * const content = await response.blob();
+   * console.log(content);
    * ```
    */
   fetchGraph(
     taskID: string,
     query: ClusterFetchGraphParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<unknown> {
-    return this._client.get(path`/ai/clusters/${taskID}/graph`, { query, ...options });
+  ): APIPromise<Response> {
+    return this._client.get(path`/ai/clusters/${taskID}/graph`, {
+      query,
+      ...options,
+      headers: buildHeaders([{ Accept: 'image/png' }, options?.headers]),
+      __binaryResponse: true,
+    });
   }
 }
 
@@ -170,8 +178,6 @@ export namespace ClusterComputeResponse {
   }
 }
 
-export type ClusterFetchGraphResponse = unknown;
-
 export interface ClusterRetrieveParams {
   /**
    * Whether or not to include subclusters and their nodes in the response.
@@ -246,7 +252,6 @@ export declare namespace Clusters {
     type ClusterRetrieveResponse as ClusterRetrieveResponse,
     type ClusterListResponse as ClusterListResponse,
     type ClusterComputeResponse as ClusterComputeResponse,
-    type ClusterFetchGraphResponse as ClusterFetchGraphResponse,
     type ClusterRetrieveParams as ClusterRetrieveParams,
     type ClusterListParams as ClusterListParams,
     type ClusterComputeParams as ClusterComputeParams,

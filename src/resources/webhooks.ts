@@ -28,6 +28,52 @@ export class Webhooks extends APIResource {
 
 export { TelnyxWebhook, TelnyxWebhookVerificationError };
 
+export interface CampaignStatusUpdateEvent {
+  /**
+   * Brand ID associated with the campaign.
+   */
+  brandId?: string;
+
+  /**
+   * The ID of the campaign.
+   */
+  campaignId?: string;
+
+  /**
+   * Unix timestamp when campaign was created.
+   */
+  createDate?: string;
+
+  /**
+   * Alphanumeric identifier of the CSP associated with this campaign.
+   */
+  cspId?: string;
+
+  /**
+   * Indicates whether the campaign is registered with T-Mobile.
+   */
+  isTMobileRegistered?: boolean;
+}
+
+export interface CampaignSuspendedEvent {
+  /**
+   * The ID of the campaign.
+   */
+  campaignId?: string;
+
+  /**
+   * Description of the event.
+   */
+  description?: string;
+
+  /**
+   * The status of the campaign.
+   */
+  status?: 'DORMANT';
+
+  type?: 'TELNYX_EVENT';
+}
+
 export interface CallAIGatherEndedWebhookEvent {
   data?: CallAIGatherEndedWebhookEvent.Data;
 }
@@ -3063,32 +3109,7 @@ export namespace CallStreamingStoppedWebhookEvent {
   }
 }
 
-export interface CampaignStatusUpdateWebhookEvent {
-  /**
-   * Brand ID associated with the campaign.
-   */
-  brandId?: string;
-
-  /**
-   * The ID of the campaign.
-   */
-  campaignId?: string;
-
-  /**
-   * Unix timestamp when campaign was created.
-   */
-  createDate?: string;
-
-  /**
-   * Alphanumeric identifier of the CSP associated with this campaign.
-   */
-  cspId?: string;
-
-  /**
-   * Indicates whether the campaign is registered with T-Mobile.
-   */
-  isTMobileRegistered?: boolean;
-}
+export type CampaignStatusUpdateWebhookEvent = CampaignStatusUpdateEvent | CampaignSuspendedEvent;
 
 export interface ConferenceCreatedWebhookEvent {
   data?: ConferenceCreatedWebhookEvent.Data;
@@ -8235,33 +8256,6 @@ export namespace CallStreamingStoppedWebhookEvent {
       stream_url?: string;
     }
   }
-}
-
-export interface CampaignStatusUpdateWebhookEvent {
-  /**
-   * Brand ID associated with the campaign.
-   */
-  brandId?: string;
-
-  /**
-   * The ID of the campaign.
-   */
-  campaignId?: string;
-
-  /**
-   * Unix timestamp when campaign was created.
-   */
-  createDate?: string;
-
-  /**
-   * Alphanumeric identifier of the CSP associated with this campaign.
-   */
-  cspId?: string;
-
-  /**
-   * Indicates whether the campaign is registered with T-Mobile.
-   */
-  isTMobileRegistered?: boolean;
 }
 
 export interface ConferenceCreatedWebhookEvent {
@@ -10413,7 +10407,8 @@ export type UnsafeUnwrapWebhookEvent =
   | CallStreamingFailedWebhookEvent
   | CallStreamingStartedWebhookEvent
   | CallStreamingStoppedWebhookEvent
-  | CampaignStatusUpdateWebhookEvent
+  | CampaignStatusUpdateEvent
+  | CampaignSuspendedEvent
   | ConferenceCreatedWebhookEvent
   | ConferenceEndedWebhookEvent
   | ConferenceFloorChangedWebhookEvent
@@ -10479,7 +10474,8 @@ export type UnwrapWebhookEvent =
   | CallStreamingFailedWebhookEvent
   | CallStreamingStartedWebhookEvent
   | CallStreamingStoppedWebhookEvent
-  | CampaignStatusUpdateWebhookEvent
+  | CampaignStatusUpdateEvent
+  | CampaignSuspendedEvent
   | ConferenceCreatedWebhookEvent
   | ConferenceEndedWebhookEvent
   | ConferenceFloorChangedWebhookEvent
@@ -10510,6 +10506,8 @@ export type UnwrapWebhookEvent =
 
 export declare namespace Webhooks {
   export {
+    type CampaignStatusUpdateEvent as CampaignStatusUpdateEvent,
+    type CampaignSuspendedEvent as CampaignSuspendedEvent,
     type CallAIGatherEndedWebhookEvent as CallAIGatherEndedWebhookEvent,
     type CallAIGatherMessageHistoryUpdatedWebhookEvent as CallAIGatherMessageHistoryUpdatedWebhookEvent,
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,

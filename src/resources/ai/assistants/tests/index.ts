@@ -14,7 +14,6 @@ export {
   type AssistantTest,
   type TelnyxConversationChannel,
   type TestListResponse,
-  type TestDeleteResponse,
   type TestCreateParams,
   type TestUpdateParams,
   type TestListParams,

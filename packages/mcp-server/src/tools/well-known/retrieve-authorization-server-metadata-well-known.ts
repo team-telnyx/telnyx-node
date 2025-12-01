@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'get',
   httpPath: '/.well-known/oauth-authorization-server',
+  operationId: 'GetOAuthAuthorizationServerMetadata',
 };
 
 export const tool: Tool = {
@@ -42,7 +43,7 @@ export const handler = async (client: Telnyx, args: Record<string, unknown> | un
       await maybeFilter(jq_filter, await client.wellKnown.retrieveAuthorizationServerMetadata()),
     );
   } catch (error) {
-    if (isJqError(error)) {
+    if (error instanceof Telnyx.APIError || isJqError(error)) {
       return asErrorResult(error.message);
     }
     throw error;

@@ -67,7 +67,7 @@ describe('resource phoneNumberBlocks', () => {
             support_key: 'sr_a12345',
           },
           page: { number: 1, size: 1 },
-          sort: { value: '-created_at' },
+          sort: { value: 'created_at' },
         },
         { path: '/_stainless_unknown_path' },
       ),

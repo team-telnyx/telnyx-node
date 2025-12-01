@@ -62,7 +62,7 @@ describe('resource phoneNumberExtensions', () => {
         {
           filter: { porting_phone_number_id: '04f8f1b9-310c-4a3c-963e-7dfc54765140' },
           page: { number: 1, size: 1 },
-          sort: { value: '-created_at' },
+          sort: { value: 'created_at' },
         },
         { path: '/_stainless_unknown_path' },
       ),

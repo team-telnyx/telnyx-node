@@ -44,8 +44,21 @@ export const tool: Tool = {
       noise_suppression_engine: {
         type: 'string',
         title: 'Noise Suppression Engine',
-        description: 'The engine to use for noise suppression. \nA - rnnoise engine \nB - deepfilter engine.',
-        enum: ['A', 'B'],
+        description:
+          'The engine to use for noise suppression.\nFor backward compatibility, engines A and B are also supported, but are deprecated:\n A - Denoiser\n B - DeepFilterNet',
+        enum: ['Denoiser', 'DeepFilterNet'],
+      },
+      noise_suppression_engine_config: {
+        type: 'object',
+        title: 'Noise Suppression Engine Configuration',
+        description: 'Configuration parameters for noise suppression engines.',
+        properties: {
+          attenuation_limit: {
+            type: 'integer',
+            description:
+              'The attenuation limit for noise suppression (0-100). Only applicable for DeepFilterNet.',
+          },
+        },
       },
       jq_filter: {
         type: 'string',
@@ -66,7 +79,7 @@ export const handler = async (client: Telnyx, args: Record<string, unknown> | un
       await maybeFilter(jq_filter, await client.calls.actions.startNoiseSuppression(call_control_id, body)),
     );
   } catch (error) {
-    if (isJqError(error)) {
+    if (error instanceof Telnyx.APIError || isJqError(error)) {
       return asErrorResult(error.message);
     }
     throw error;

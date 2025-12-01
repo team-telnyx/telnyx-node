@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Metadata, asTextContentResult } from 'telnyx-mcp/tools/types';
+import { Metadata, asErrorResult, asTextContentResult } from 'telnyx-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Telnyx from 'telnyx';
@@ -250,7 +250,7 @@ export const tool: Tool = {
             type: 'string',
             description:
               'Engine to use for speech recognition. Legacy values `A` - `Google`, `B` - `Telnyx` are supported for backward compatibility.',
-            enum: ['Google', 'Telnyx', 'Deepgram', 'A', 'B'],
+            enum: ['Google', 'Telnyx', 'Deepgram', 'Azure', 'A', 'B'],
           },
           transcription_engine_config: {
             anyOf: [
@@ -430,6 +430,118 @@ export const tool: Tool = {
                   },
                 },
                 required: ['transcription_engine', 'transcription_model'],
+              },
+              {
+                type: 'object',
+                title: 'Transcription engine Azure config',
+                properties: {
+                  region: {
+                    type: 'string',
+                    title: 'Azure transcription engine list of regions',
+                    description: 'Azure region to use for speech recognition',
+                    enum: [
+                      'australiaeast',
+                      'centralindia',
+                      'eastus',
+                      'northcentralus',
+                      'westeurope',
+                      'westus2',
+                    ],
+                  },
+                  transcription_engine: {
+                    type: 'string',
+                    description: 'Engine identifier for Azure transcription service',
+                    enum: ['Azure'],
+                  },
+                  api_key_ref: {
+                    type: 'string',
+                    description:
+                      'Reference to the API key for authentication. See [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) for details. The parameter is optional as defaults are available for some regions.',
+                  },
+                  language: {
+                    type: 'string',
+                    title: 'Azure transcription engine list of languages',
+                    description: 'Language to use for speech recognition',
+                    enum: [
+                      'af',
+                      'am',
+                      'ar',
+                      'bg',
+                      'bn',
+                      'bs',
+                      'ca',
+                      'cs',
+                      'cy',
+                      'da',
+                      'de',
+                      'el',
+                      'en',
+                      'es',
+                      'et',
+                      'eu',
+                      'fa',
+                      'fi',
+                      'fr',
+                      'ga',
+                      'gl',
+                      'gu',
+                      'he',
+                      'hi',
+                      'hr',
+                      'hu',
+                      'hy',
+                      'id',
+                      'is',
+                      'it',
+                      'ja',
+                      'ka',
+                      'kk',
+                      'km',
+                      'kn',
+                      'ko',
+                      'lo',
+                      'lt',
+                      'lv',
+                      'mk',
+                      'ml',
+                      'mn',
+                      'mr',
+                      'ms',
+                      'mt',
+                      'my',
+                      'nb',
+                      'ne',
+                      'nl',
+                      'pl',
+                      'ps',
+                      'pt',
+                      'ro',
+                      'ru',
+                      'si',
+                      'sk',
+                      'sl',
+                      'so',
+                      'sq',
+                      'sr',
+                      'sv',
+                      'sw',
+                      'ta',
+                      'te',
+                      'th',
+                      'tr',
+                      'uk',
+                      'ur',
+                      'uz',
+                      'vi',
+                      'wuu',
+                      'yue',
+                      'zh',
+                      'zu',
+                      'auto',
+                    ],
+                  },
+                },
+                required: ['region', 'transcription_engine'],
               },
               {
                 $ref: '#/$defs/transcription_engine_a_config',
@@ -745,7 +857,14 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { call_control_id, ...body } = args as any;
-  return asTextContentResult(await client.calls.actions.answer(call_control_id, body));
+  try {
+    return asTextContentResult(await client.calls.actions.answer(call_control_id, body));
+  } catch (error) {
+    if (error instanceof Telnyx.APIError) {
+      return asErrorResult(error.message);
+    }
+    throw error;
+  }
 };
 
 export default { metadata, tool, handler };

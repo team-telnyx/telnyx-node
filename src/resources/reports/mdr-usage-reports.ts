@@ -88,7 +88,7 @@ export class MdrUsageReports extends APIResource {
    * ```ts
    * const response =
    *   await client.reports.mdrUsageReports.fetchSync({
-   *     aggregation_type: 'NO_AGGREGATION',
+   *     aggregation_type: 'PROFILE',
    *   });
    * ```
    */

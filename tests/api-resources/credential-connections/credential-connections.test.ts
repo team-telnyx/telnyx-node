@@ -33,6 +33,7 @@ describe('resource credentialConnections', () => {
       active: true,
       anchorsite_override: 'Latency',
       android_push_credential_id: '06b09dfd-7154-4980-8b75-cebf7a9d4f8e',
+      call_cost_in_webhooks: false,
       default_on_hold_comfort_noise_enabled: false,
       dtmf_type: 'RFC 2833',
       encode_contact_header_enabled: true,
@@ -40,7 +41,7 @@ describe('resource credentialConnections', () => {
       inbound: {
         ani_number_format: '+E.164',
         channel_limit: 10,
-        codecs: ['string'],
+        codecs: ['G722'],
         dnis_number_format: '+e164',
         generate_ringback_tone: true,
         isup_headers_enabled: true,

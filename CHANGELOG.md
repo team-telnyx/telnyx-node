@@ -1,5 +1,40 @@
 # Changelog
 
+## 4.3.0 (2025-12-01)
+
+Full Changelog: [v4.2.1...v4.3.0](https://github.com/team-telnyx/telnyx-node/compare/v4.2.1...v4.3.0)
+
+### Features
+
+* Ai 1967 ([150951e](https://github.com/team-telnyx/telnyx-node/commit/150951eb69325ff9ba9c3dead80c41ea1704160e))
+* Ai 1967 part 2 ([89d1d16](https://github.com/team-telnyx/telnyx-node/commit/89d1d1673a0c80ce13cf1989791a9fa17a06fb8c))
+* **client:** add separate models for 2 events ([91582fd](https://github.com/team-telnyx/telnyx-node/commit/91582fdf921baf94db805961da5fa6193ef09ffe))
+* ENGDESK-47508 - part 2 shared schema fixes ([505fbc8](https://github.com/team-telnyx/telnyx-node/commit/505fbc84adfc2525e9b5367a92bc07257b475a53))
+* ENGDESK-47518 document mobile number and mobile voice connection endpoints ([08909d9](https://github.com/team-telnyx/telnyx-node/commit/08909d9f74919e5e5f20a55a665e65155275997f))
+* Fix invalid responses ([645c396](https://github.com/team-telnyx/telnyx-node/commit/645c396ec6f494d26fed5c4a8e70d24015c46646))
+* Fix Redocly linting errors and warnings in TDA reporting specs ([b30cb80](https://github.com/team-telnyx/telnyx-node/commit/b30cb80a701db5cae14b39d5d1031f7ab5b4ee45))
+* Fix Redocly linting warnings in Number Lookup spec ([1a5268b](https://github.com/team-telnyx/telnyx-node/commit/1a5268b358352e70be50019aae6d8cfa16492cd9))
+* Fix Redocly linting warnings in OAuth and Integration Secrets specs ([cff8efe](https://github.com/team-telnyx/telnyx-node/commit/cff8efefd70aa074e2e4f8d904e95b826cca4cd5))
+* Fixing lint errors ([8b85c19](https://github.com/team-telnyx/telnyx-node/commit/8b85c198f4b54085830ad58fad36fc0675f66de7))
+* **mcp:** add detail field to docs search tool ([b3a0941](https://github.com/team-telnyx/telnyx-node/commit/b3a09410bdb86c691dd455ebe9277ff4046db443))
+* MSG-6076: webhook event for 10DLC campaign suspended status ([33300e0](https://github.com/team-telnyx/telnyx-node/commit/33300e0d39ec672fbe4db241f26937bc51fbcf6a))
+* PORT-4528: Fix lint errors for porting ([506b81c](https://github.com/team-telnyx/telnyx-node/commit/506b81ce627a20d617d8c5ae6f74ef327ea5c783))
+* Refactored README to only contain useful information and reflect accu… ([f70a804](https://github.com/team-telnyx/telnyx-node/commit/f70a804a060e36fe509daa1d633ac15465bff4ae))
+* TELAPPS-5459: Add Azure to transcription start ([b2e5c32](https://github.com/team-telnyx/telnyx-node/commit/b2e5c320f5e657f03c4ba704bce94af1f9b9fe50))
+* Updated README to include the step for make buildcontainer bundle to … ([818196a](https://github.com/team-telnyx/telnyx-node/commit/818196a1619df6e94bedfd7812c2e91149d824f8))
+
+
+### Bug Fixes
+
+* **mcp:** return tool execution error on api error ([d00d683](https://github.com/team-telnyx/telnyx-node/commit/d00d683f42ed2448de33a848e1501192bea3a612))
+
+
+### Chores
+
+* **client:** fix logger property type ([2690d0d](https://github.com/team-telnyx/telnyx-node/commit/2690d0dceaf2a3126de820a0a516306f0ad48fb9))
+* **internal:** codegen related update ([b76c33f](https://github.com/team-telnyx/telnyx-node/commit/b76c33f82cad4a02fb8c3f1608a7cfa1010ee5cf))
+* **mcp:** upgrade jq-web ([ec06dff](https://github.com/team-telnyx/telnyx-node/commit/ec06dffdad5180e230741c77df8a5550a01bb837))
+
 ## 4.2.1 (2025-11-12)
 
 Full Changelog: [v4.2.0...v4.2.1](https://github.com/team-telnyx/telnyx-node/compare/v4.2.0...v4.2.1)

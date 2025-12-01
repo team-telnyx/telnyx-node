@@ -51,12 +51,17 @@ export const tool: Tool = {
       inbound: {
         type: 'object',
         properties: {
+          outbound_voice_profile_id: {
+            type: 'string',
+            description: 'The ID of the outbound voice profile to use for inbound calls.',
+          },
           channel_limit: {
             type: 'integer',
             description:
               'When set, this will limit the number of concurrent inbound calls to phone numbers associated with this connection.',
           },
         },
+        required: ['outbound_voice_profile_id'],
       },
       tags: {
         type: 'array',
@@ -96,7 +101,7 @@ export const handler = async (client: Telnyx, args: Record<string, unknown> | un
   try {
     return asTextContentResult(await maybeFilter(jq_filter, await client.externalConnections.create(body)));
   } catch (error) {
-    if (isJqError(error)) {
+    if (error instanceof Telnyx.APIError || isJqError(error)) {
       return asErrorResult(error.message);
     }
     throw error;

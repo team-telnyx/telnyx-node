@@ -98,16 +98,32 @@ export interface CallControlApplication {
   active?: boolean;
 
   /**
-   * `Latency` directs Telnyx to route media through the site with the lowest
-   * round-trip time to the user's connection. Telnyx calculates this time using ICMP
-   * ping messages. This can be disabled by specifying a site to handle all media.
+   * <code>Latency</code> directs Telnyx to route media through the site with the
+   * lowest round-trip time to the user's connection. Telnyx calculates this time
+   * using ICMP ping messages. This can be disabled by specifying a site to handle
+   * all media.
    */
-  anchorsite_override?: '"Latency"' | '"Chicago, IL"' | '"Ashburn, VA"' | '"San Jose, CA"';
+  anchorsite_override?:
+    | 'Latency'
+    | 'Chicago, IL'
+    | 'Ashburn, VA'
+    | 'San Jose, CA'
+    | 'London, UK'
+    | 'Chennai, IN'
+    | 'Amsterdam, Netherlands'
+    | 'Toronto, Canada'
+    | 'Sydney, Australia';
 
   /**
    * A user-assigned name to help manage the application.
    */
   application_name?: string;
+
+  /**
+   * Specifies if call cost webhooks should be sent for this Call Control
+   * Application.
+   */
+  call_cost_in_webhooks?: boolean;
 
   /**
    * ISO 8601 formatted date of when the resource was created
@@ -262,7 +278,22 @@ export interface CallControlApplicationCreateParams {
    * using ICMP ping messages. This can be disabled by specifying a site to handle
    * all media.
    */
-  anchorsite_override?: '"Latency"' | '"Chicago, IL"' | '"Ashburn, VA"' | '"San Jose, CA"';
+  anchorsite_override?:
+    | 'Latency'
+    | 'Chicago, IL'
+    | 'Ashburn, VA'
+    | 'San Jose, CA'
+    | 'London, UK'
+    | 'Chennai, IN'
+    | 'Amsterdam, Netherlands'
+    | 'Toronto, Canada'
+    | 'Sydney, Australia';
+
+  /**
+   * Specifies if call cost webhooks should be sent for this Call Control
+   * Application.
+   */
+  call_cost_in_webhooks?: boolean;
 
   /**
    * Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF
@@ -331,7 +362,22 @@ export interface CallControlApplicationUpdateParams {
    * using ICMP ping messages. This can be disabled by specifying a site to handle
    * all media.
    */
-  anchorsite_override?: '"Latency"' | '"Chicago, IL"' | '"Ashburn, VA"' | '"San Jose, CA"';
+  anchorsite_override?:
+    | 'Latency'
+    | 'Chicago, IL'
+    | 'Ashburn, VA'
+    | 'San Jose, CA'
+    | 'London, UK'
+    | 'Chennai, IN'
+    | 'Amsterdam, Netherlands'
+    | 'Toronto, Canada'
+    | 'Sydney, Australia';
+
+  /**
+   * Specifies if call cost webhooks should be sent for this Call Control
+   * Application.
+   */
+  call_cost_in_webhooks?: boolean;
 
   /**
    * Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF

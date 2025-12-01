@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -74,13 +75,14 @@ export class McpServers extends APIResource {
    *
    * @example
    * ```ts
-   * const mcpServer = await client.ai.mcpServers.delete(
-   *   'mcp_server_id',
-   * );
+   * await client.ai.mcpServers.delete('mcp_server_id');
    * ```
    */
-  delete(mcpServerID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.delete(path`/ai/mcp_servers/${mcpServerID}`, options);
+  delete(mcpServerID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/ai/mcp_servers/${mcpServerID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -152,8 +154,6 @@ export namespace McpServerListResponse {
   }
 }
 
-export type McpServerDeleteResponse = unknown;
-
 export interface McpServerCreateParams {
   name: string;
 
@@ -198,7 +198,6 @@ export declare namespace McpServers {
     type McpServerRetrieveResponse as McpServerRetrieveResponse,
     type McpServerUpdateResponse as McpServerUpdateResponse,
     type McpServerListResponse as McpServerListResponse,
-    type McpServerDeleteResponse as McpServerDeleteResponse,
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerUpdateParams as McpServerUpdateParams,
     type McpServerListParams as McpServerListParams,

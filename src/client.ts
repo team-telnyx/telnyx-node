@@ -315,6 +315,14 @@ import {
   InboundChannels,
 } from './resources/inbound-channels';
 import {
+  InexplicitNumberOrderCreateParams,
+  InexplicitNumberOrderCreateResponse,
+  InexplicitNumberOrderListParams,
+  InexplicitNumberOrderListResponse,
+  InexplicitNumberOrderRetrieveResponse,
+  InexplicitNumberOrders,
+} from './resources/inexplicit-number-orders';
+import {
   IntegrationSecret,
   IntegrationSecretCreateParams,
   IntegrationSecretCreateResponse,
@@ -414,6 +422,14 @@ import {
   MobileNetworkOperators,
 } from './resources/mobile-network-operators';
 import {
+  MobilePhoneNumberListParams,
+  MobilePhoneNumberListResponse,
+  MobilePhoneNumberRetrieveResponse,
+  MobilePhoneNumberUpdateParams,
+  MobilePhoneNumberUpdateResponse,
+  MobilePhoneNumbers,
+} from './resources/mobile-phone-numbers';
+import {
   MobilePushCredentialCreateParams,
   MobilePushCredentialListParams,
   MobilePushCredentialListResponse,
@@ -421,6 +437,17 @@ import {
   PushCredential,
   PushCredentialResponse,
 } from './resources/mobile-push-credentials';
+import {
+  MobileVoiceConnectionCreateParams,
+  MobileVoiceConnectionCreateResponse,
+  MobileVoiceConnectionDeleteResponse,
+  MobileVoiceConnectionListParams,
+  MobileVoiceConnectionListResponse,
+  MobileVoiceConnectionRetrieveResponse,
+  MobileVoiceConnectionUpdateParams,
+  MobileVoiceConnectionUpdateResponse,
+  MobileVoiceConnections,
+} from './resources/mobile-voice-connections';
 import {
   AvailableService,
   NetworkCoverage,
@@ -882,7 +909,9 @@ import {
   CallStreamingFailedWebhookEvent,
   CallStreamingStartedWebhookEvent,
   CallStreamingStoppedWebhookEvent,
+  CampaignStatusUpdateEvent,
   CampaignStatusUpdateWebhookEvent,
+  CampaignSuspendedEvent,
   ConferenceCreatedWebhookEvent,
   ConferenceEndedWebhookEvent,
   ConferenceFloorChangedWebhookEvent,
@@ -1419,7 +1448,7 @@ export class Telnyx {
   baseURL: string;
   maxRetries: number;
   timeout: number;
-  logger: Logger | undefined;
+  logger: Logger;
   logLevel: LogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
   private fetch: Fetch;
@@ -2165,6 +2194,9 @@ export class Telnyx {
   wirelessBlocklists: API.WirelessBlocklists = new API.WirelessBlocklists(this);
   partnerCampaigns: API.PartnerCampaigns = new API.PartnerCampaigns(this);
   wellKnown: API.WellKnown = new API.WellKnown(this);
+  inexplicitNumberOrders: API.InexplicitNumberOrders = new API.InexplicitNumberOrders(this);
+  mobilePhoneNumbers: API.MobilePhoneNumbers = new API.MobilePhoneNumbers(this);
+  mobileVoiceConnections: API.MobileVoiceConnections = new API.MobileVoiceConnections(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -2320,6 +2352,9 @@ Telnyx.WirelessBlocklistValues = WirelessBlocklistValues;
 Telnyx.WirelessBlocklists = WirelessBlocklists;
 Telnyx.PartnerCampaigns = PartnerCampaigns;
 Telnyx.WellKnown = WellKnown;
+Telnyx.InexplicitNumberOrders = InexplicitNumberOrders;
+Telnyx.MobilePhoneNumbers = MobilePhoneNumbers;
+Telnyx.MobileVoiceConnections = MobileVoiceConnections;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -2365,6 +2400,8 @@ export declare namespace Telnyx {
 
   export {
     Webhooks as Webhooks,
+    type CampaignStatusUpdateEvent as CampaignStatusUpdateEvent,
+    type CampaignSuspendedEvent as CampaignSuspendedEvent,
     type CallAIGatherEndedWebhookEvent as CallAIGatherEndedWebhookEvent,
     type CallAIGatherMessageHistoryUpdatedWebhookEvent as CallAIGatherMessageHistoryUpdatedWebhookEvent,
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,
@@ -3815,6 +3852,36 @@ export declare namespace Telnyx {
     WellKnown as WellKnown,
     type WellKnownRetrieveAuthorizationServerMetadataResponse as WellKnownRetrieveAuthorizationServerMetadataResponse,
     type WellKnownRetrieveProtectedResourceMetadataResponse as WellKnownRetrieveProtectedResourceMetadataResponse,
+  };
+
+  export {
+    InexplicitNumberOrders as InexplicitNumberOrders,
+    type InexplicitNumberOrderCreateResponse as InexplicitNumberOrderCreateResponse,
+    type InexplicitNumberOrderRetrieveResponse as InexplicitNumberOrderRetrieveResponse,
+    type InexplicitNumberOrderListResponse as InexplicitNumberOrderListResponse,
+    type InexplicitNumberOrderCreateParams as InexplicitNumberOrderCreateParams,
+    type InexplicitNumberOrderListParams as InexplicitNumberOrderListParams,
+  };
+
+  export {
+    MobilePhoneNumbers as MobilePhoneNumbers,
+    type MobilePhoneNumberRetrieveResponse as MobilePhoneNumberRetrieveResponse,
+    type MobilePhoneNumberUpdateResponse as MobilePhoneNumberUpdateResponse,
+    type MobilePhoneNumberListResponse as MobilePhoneNumberListResponse,
+    type MobilePhoneNumberUpdateParams as MobilePhoneNumberUpdateParams,
+    type MobilePhoneNumberListParams as MobilePhoneNumberListParams,
+  };
+
+  export {
+    MobileVoiceConnections as MobileVoiceConnections,
+    type MobileVoiceConnectionCreateResponse as MobileVoiceConnectionCreateResponse,
+    type MobileVoiceConnectionRetrieveResponse as MobileVoiceConnectionRetrieveResponse,
+    type MobileVoiceConnectionUpdateResponse as MobileVoiceConnectionUpdateResponse,
+    type MobileVoiceConnectionListResponse as MobileVoiceConnectionListResponse,
+    type MobileVoiceConnectionDeleteResponse as MobileVoiceConnectionDeleteResponse,
+    type MobileVoiceConnectionCreateParams as MobileVoiceConnectionCreateParams,
+    type MobileVoiceConnectionUpdateParams as MobileVoiceConnectionUpdateParams,
+    type MobileVoiceConnectionListParams as MobileVoiceConnectionListParams,
   };
 
   export type APIError = API.APIError;

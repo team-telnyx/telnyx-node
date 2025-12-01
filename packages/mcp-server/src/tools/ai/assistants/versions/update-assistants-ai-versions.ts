@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Metadata, asTextContentResult } from 'telnyx-mcp/tools/types';
+import { Metadata, asErrorResult, asTextContentResult } from 'telnyx-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Telnyx from 'telnyx';
@@ -567,12 +567,52 @@ export const tool: Tool = {
           language: {
             type: 'string',
             description:
-              'The language of the audio to be transcribed. This is only applicable for `openai/whisper-large-v3-turbo` model. If not set, of if set to `auto`, the model will automatically detect the language. For the full list of supported languages, see the [whisper tokenizer](https://github.com/openai/whisper/blob/main/whisper/tokenizer.py).',
+              'The language of the audio to be transcribed. If not set, of if set to `auto`, the model will automatically detect the language.',
           },
           model: {
             type: 'string',
             description:
-              'The speech to text model to be used by the voice assistant.\n\n- `distil-whisper/distil-large-v2` is lower latency but English-only.\n- `openai/whisper-large-v3-turbo` is multi-lingual with automatic language detection but slightly higher latency.',
+              'The speech to text model to be used by the voice assistant. All the deepgram models are run on-premise.\n\n- `deepgram/flux` is optimized for turn-taking but is English-only.\n- `deepgram/nova-3` is multi-lingual with automatic language detection but slightly higher latency.',
+            enum: [
+              'deepgram/flux',
+              'deepgram/nova-3',
+              'deepgram/nova-2',
+              'azure/fast',
+              'distil-whisper/distil-large-v2',
+              'openai/whisper-large-v3-turbo',
+            ],
+          },
+          region: {
+            type: 'string',
+            title: 'Region',
+            description:
+              'Region on third party cloud providers (currently Azure) if using one of their models',
+          },
+          settings: {
+            type: 'object',
+            title: 'TranscriptionSettingsConfig',
+            properties: {
+              eot_threshold: {
+                type: 'number',
+                title: 'Eot Threshold',
+                description:
+                  'Available only for deepgram/flux. Confidence required to trigger an end of turn. Higher values = more reliable turn detection but slightly increased latency.',
+              },
+              eot_timeout_ms: {
+                type: 'integer',
+                title: 'Eot Timeout Ms',
+                description:
+                  'Available only for deepgram/flux. Maximum milliseconds of silence before forcing an end of turn, regardless of confidence.',
+              },
+              numerals: {
+                type: 'boolean',
+                title: 'Numerals',
+              },
+              smart_format: {
+                type: 'boolean',
+                title: 'Smart Format',
+              },
+            },
           },
         },
       },
@@ -658,7 +698,14 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { version_id, ...body } = args as any;
-  return asTextContentResult(await client.ai.assistants.versions.update(version_id, body));
+  try {
+    return asTextContentResult(await client.ai.assistants.versions.update(version_id, body));
+  } catch (error) {
+    if (error instanceof Telnyx.APIError) {
+      return asErrorResult(error.message);
+    }
+    throw error;
+  }
 };
 
 export default { metadata, tool, handler };
