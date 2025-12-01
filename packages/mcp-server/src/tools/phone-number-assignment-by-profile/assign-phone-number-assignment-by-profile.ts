@@ -58,7 +58,7 @@ export const handler = async (client: Telnyx, args: Record<string, unknown> | un
       await maybeFilter(jq_filter, await client.phoneNumberAssignmentByProfile.assign(body)),
     );
   } catch (error) {
-    if (isJqError(error)) {
+    if (error instanceof Telnyx.APIError || isJqError(error)) {
       return asErrorResult(error.message);
     }
     throw error;

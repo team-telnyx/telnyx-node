@@ -46,7 +46,7 @@ export const handler = async (client: Telnyx, args: Record<string, unknown> | un
       await maybeFilter(jq_filter, await client.recordingTranscriptions.retrieve(recording_transcription_id)),
     );
   } catch (error) {
-    if (isJqError(error)) {
+    if (error instanceof Telnyx.APIError || isJqError(error)) {
       return asErrorResult(error.message);
     }
     throw error;
