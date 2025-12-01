@@ -1207,6 +1207,8 @@ export {
 } from './webhook-deliveries';
 export {
   Webhooks,
+  type CampaignStatusUpdateEvent,
+  type CampaignSuspendedEvent,
   type CallAIGatherEndedWebhookEvent,
   type CallAIGatherMessageHistoryUpdatedWebhookEvent,
   type CallAIGatherPartialResultsWebhookEvent,
