@@ -10,7 +10,7 @@ const client = new Telnyx({
 describe('resource customerServiceRecords', () => {
   // Prism tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.customerServiceRecords.create({ phone_number: '+1234567890' });
+    const responsePromise = client.customerServiceRecords.create({ phone_number: '+13035553000' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,7 @@ describe('resource customerServiceRecords', () => {
   // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.customerServiceRecords.create({
-      phone_number: '+1234567890',
+      phone_number: '+13035553000',
       additional_data: {
         account_number: '123456789',
         address_line_1: '123 Main St',
@@ -86,7 +86,7 @@ describe('resource customerServiceRecords', () => {
   // Prism tests are disabled
   test.skip('verifyPhoneNumberCoverage: only required params', async () => {
     const responsePromise = client.customerServiceRecords.verifyPhoneNumberCoverage({
-      phone_numbers: ['+1234567890'],
+      phone_numbers: ['+13035553000'],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -100,7 +100,7 @@ describe('resource customerServiceRecords', () => {
   // Prism tests are disabled
   test.skip('verifyPhoneNumberCoverage: required and optional params', async () => {
     const response = await client.customerServiceRecords.verifyPhoneNumberCoverage({
-      phone_numbers: ['+1234567890'],
+      phone_numbers: ['+13035553000'],
     });
   });
 });

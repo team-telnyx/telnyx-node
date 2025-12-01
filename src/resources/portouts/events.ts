@@ -139,7 +139,7 @@ export namespace EventRetrieveResponse {
        * The reason why the order is being rejected by the user. If the order is
        * authorized, this field can be left null
        */
-      rejection_reason?: string;
+      rejection_reason?: string | null;
 
       /**
        * The new carrier SPID.
@@ -295,7 +295,7 @@ export namespace EventListResponse {
        * The reason why the order is being rejected by the user. If the order is
        * authorized, this field can be left null
        */
-      rejection_reason?: string;
+      rejection_reason?: string | null;
 
       /**
        * The new carrier SPID.

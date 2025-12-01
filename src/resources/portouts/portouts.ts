@@ -179,7 +179,7 @@ export interface PortoutDetails {
    * The reason why the order is being rejected by the user. If the order is
    * authorized, this field can be left null
    */
-  reason?: string;
+  reason?: string | null;
 
   /**
    * Identifies the type of the resource.

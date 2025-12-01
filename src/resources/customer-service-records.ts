@@ -14,7 +14,7 @@ export class CustomerServiceRecords extends APIResource {
    * ```ts
    * const customerServiceRecord =
    *   await client.customerServiceRecords.create({
-   *     phone_number: '+1234567890',
+   *     phone_number: '+13035553000',
    *   });
    * ```
    */
@@ -66,7 +66,7 @@ export class CustomerServiceRecords extends APIResource {
    * ```ts
    * const response =
    *   await client.customerServiceRecords.verifyPhoneNumberCoverage(
-   *     { phone_numbers: ['+1234567890'] },
+   *     { phone_numbers: ['+13035553000'] },
    *   );
    * ```
    */
@@ -93,7 +93,7 @@ export interface CustomerServiceRecord {
    * The error message in case status is `failed`. This field would be null in case
    * of `pending` or `completed` status.
    */
-  error_message?: string;
+  error_message?: string | null;
 
   /**
    * The phone number of the customer service record.
@@ -109,7 +109,7 @@ export interface CustomerServiceRecord {
    * The result of the CSR request. This field would be null in case of `pending` or
    * `failed` status.
    */
-  result?: CustomerServiceRecord.Result;
+  result?: CustomerServiceRecord.Result | null;
 
   /**
    * The status of the customer service record
