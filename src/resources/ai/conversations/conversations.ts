@@ -4,7 +4,6 @@ import { APIResource } from '../../../core/resource';
 import * as InsightsAPI from './insights';
 import {
   InsightCreateParams,
-  InsightDeleteResponse,
   InsightListParams,
   InsightListResponse,
   InsightTemplate,
@@ -16,7 +15,6 @@ import * as MessagesAPI from './messages';
 import { MessageListResponse, Messages } from './messages';
 import * as InsightGroupsAPI from './insight-groups/insight-groups';
 import {
-  InsightGroupDeleteResponse,
   InsightGroupInsightGroupsParams,
   InsightGroupRetrieveInsightGroupsParams,
   InsightGroupRetrieveInsightGroupsResponse,
@@ -120,7 +118,7 @@ export class Conversations extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.ai.conversations.addMessage(
+   * await client.ai.conversations.addMessage(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *   { role: 'role' },
    * );
@@ -130,8 +128,12 @@ export class Conversations extends APIResource {
     conversationID: string,
     body: ConversationAddMessageParams,
     options?: RequestOptions,
-  ): APIPromise<unknown> {
-    return this._client.post(path`/ai/conversations/${conversationID}/message`, { body, ...options });
+  ): APIPromise<void> {
+    return this._client.post(path`/ai/conversations/${conversationID}/message`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -186,8 +188,6 @@ export interface ConversationUpdateResponse {
 export interface ConversationListResponse {
   data: Array<Conversation>;
 }
-
-export type ConversationAddMessageResponse = unknown;
 
 export interface ConversationRetrieveConversationsInsightsResponse {
   data: Array<ConversationRetrieveConversationsInsightsResponse.Data>;
@@ -345,7 +345,6 @@ export declare namespace Conversations {
     type ConversationRetrieveResponse as ConversationRetrieveResponse,
     type ConversationUpdateResponse as ConversationUpdateResponse,
     type ConversationListResponse as ConversationListResponse,
-    type ConversationAddMessageResponse as ConversationAddMessageResponse,
     type ConversationRetrieveConversationsInsightsResponse as ConversationRetrieveConversationsInsightsResponse,
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
@@ -357,7 +356,6 @@ export declare namespace Conversations {
     InsightGroups as InsightGroups,
     type InsightTemplateGroup as InsightTemplateGroup,
     type InsightTemplateGroupDetail as InsightTemplateGroupDetail,
-    type InsightGroupDeleteResponse as InsightGroupDeleteResponse,
     type InsightGroupRetrieveInsightGroupsResponse as InsightGroupRetrieveInsightGroupsResponse,
     type InsightGroupUpdateParams as InsightGroupUpdateParams,
     type InsightGroupInsightGroupsParams as InsightGroupInsightGroupsParams,
@@ -369,7 +367,6 @@ export declare namespace Conversations {
     type InsightTemplate as InsightTemplate,
     type InsightTemplateDetail as InsightTemplateDetail,
     type InsightListResponse as InsightListResponse,
-    type InsightDeleteResponse as InsightDeleteResponse,
     type InsightCreateParams as InsightCreateParams,
     type InsightUpdateParams as InsightUpdateParams,
     type InsightListParams as InsightListParams,

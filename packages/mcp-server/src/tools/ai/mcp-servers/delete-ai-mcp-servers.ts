@@ -34,7 +34,8 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { mcp_server_id, ...body } = args as any;
-  return asTextContentResult((await client.ai.mcpServers.delete(mcp_server_id)) as object);
+  const response = await client.ai.mcpServers.delete(mcp_server_id).asResponse();
+  return asTextContentResult(await response.text());
 };
 
 export default { metadata, tool, handler };

@@ -3,6 +3,7 @@
 import { APIResource } from '../../../core/resource';
 import * as RunsAPI from '../assistants/tests/test-suites/runs';
 import { APIPromise } from '../../../core/api-promise';
+import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -78,14 +79,16 @@ export class Insights extends APIResource {
    *
    * @example
    * ```ts
-   * const insight =
-   *   await client.ai.conversations.insights.delete(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
+   * await client.ai.conversations.insights.delete(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
    * ```
    */
-  delete(insightID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.delete(path`/ai/conversations/insights/${insightID}`, options);
+  delete(insightID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/ai/conversations/insights/${insightID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -117,8 +120,6 @@ export interface InsightListResponse {
 
   meta: RunsAPI.Meta;
 }
-
-export type InsightDeleteResponse = unknown;
 
 export interface InsightCreateParams {
   instructions: string;
@@ -174,7 +175,6 @@ export declare namespace Insights {
     type InsightTemplate as InsightTemplate,
     type InsightTemplateDetail as InsightTemplateDetail,
     type InsightListResponse as InsightListResponse,
-    type InsightDeleteResponse as InsightDeleteResponse,
     type InsightCreateParams as InsightCreateParams,
     type InsightUpdateParams as InsightUpdateParams,
     type InsightListParams as InsightListParams,

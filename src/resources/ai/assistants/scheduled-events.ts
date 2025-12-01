@@ -3,6 +3,7 @@
 import { APIResource } from '../../../core/resource';
 import * as RunsAPI from './tests/test-suites/runs';
 import { APIPromise } from '../../../core/api-promise';
+import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -79,16 +80,18 @@ export class ScheduledEvents extends APIResource {
    *
    * @example
    * ```ts
-   * const scheduledEvent =
-   *   await client.ai.assistants.scheduledEvents.delete(
-   *     'event_id',
-   *     { assistant_id: 'assistant_id' },
-   *   );
+   * await client.ai.assistants.scheduledEvents.delete(
+   *   'event_id',
+   *   { assistant_id: 'assistant_id' },
+   * );
    * ```
    */
-  delete(eventID: string, params: ScheduledEventDeleteParams, options?: RequestOptions): APIPromise<unknown> {
+  delete(eventID: string, params: ScheduledEventDeleteParams, options?: RequestOptions): APIPromise<void> {
     const { assistant_id } = params;
-    return this._client.delete(path`/ai/assistants/${assistant_id}/scheduled_events/${eventID}`, options);
+    return this._client.delete(path`/ai/assistants/${assistant_id}/scheduled_events/${eventID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -163,8 +166,6 @@ export interface ScheduledEventListResponse {
   meta: RunsAPI.Meta;
 }
 
-export type ScheduledEventDeleteResponse = unknown;
-
 export interface ScheduledEventCreateParams {
   /**
    * The datetime at which the event should be scheduled. Formatted as ISO 8601.
@@ -237,7 +238,6 @@ export declare namespace ScheduledEvents {
     type ScheduledPhoneCallEventResponse as ScheduledPhoneCallEventResponse,
     type ScheduledSMSEventResponse as ScheduledSMSEventResponse,
     type ScheduledEventListResponse as ScheduledEventListResponse,
-    type ScheduledEventDeleteResponse as ScheduledEventDeleteResponse,
     type ScheduledEventCreateParams as ScheduledEventCreateParams,
     type ScheduledEventRetrieveParams as ScheduledEventRetrieveParams,
     type ScheduledEventListParams as ScheduledEventListParams,
