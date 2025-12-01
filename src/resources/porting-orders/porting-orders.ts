@@ -339,12 +339,12 @@ export interface PortingOrder {
   /**
    * A customer-specified group reference for customer bookkeeping purposes
    */
-  customer_group_reference?: string;
+  customer_group_reference?: string | null;
 
   /**
    * A customer-specified reference number for customer bookkeeping purposes
    */
-  customer_reference?: string;
+  customer_reference?: string | null;
 
   /**
    * A description of the porting order
@@ -363,7 +363,7 @@ export interface PortingOrder {
    */
   messaging?: PortingOrderMessaging;
 
-  misc?: PortingOrderMisc;
+  misc?: PortingOrderMisc | null;
 
   /**
    * Identifies the old service provider
@@ -374,7 +374,7 @@ export interface PortingOrder {
    * A key to reference for the porting order group when contacting Telnyx customer
    * support. This information is not available for porting orders in `draft` state
    */
-  parent_support_key?: string;
+  parent_support_key?: string | null;
 
   phone_number_configuration?: PortingOrderPhoneNumberConfiguration;
 
@@ -413,7 +413,7 @@ export interface PortingOrder {
    * A key to reference this porting order when contacting Telnyx customer support.
    * This information is not available in draft porting orders.
    */
-  support_key?: string;
+  support_key?: string | null;
 
   /**
    * ISO 8601 formatted date indicating when the resource was created.
@@ -427,7 +427,7 @@ export interface PortingOrder {
    */
   user_id?: string;
 
-  webhook_url?: string;
+  webhook_url?: string | null;
 }
 
 export interface PortingOrderActivationSettings {
@@ -447,7 +447,8 @@ export interface PortingOrderActivationSettings {
     | 'Old'
     | 'Sending'
     | 'Active'
-    | 'Cancelled';
+    | 'Cancelled'
+    | null;
 
   /**
    * Indicates whether this porting order is eligible for FastPort
@@ -457,12 +458,12 @@ export interface PortingOrderActivationSettings {
   /**
    * ISO 8601 formatted Date/Time of the FOC date
    */
-  foc_datetime_actual?: string;
+  foc_datetime_actual?: string | null;
 
   /**
    * ISO 8601 formatted Date/Time requested for the FOC date
    */
-  foc_datetime_requested?: string;
+  foc_datetime_requested?: string | null;
 }
 
 /**
@@ -472,12 +473,12 @@ export interface PortingOrderDocuments {
   /**
    * Returned ID of the submitted Invoice via the Documents endpoint
    */
-  invoice?: string;
+  invoice?: string | null;
 
   /**
    * Returned ID of the submitted LOA via the Documents endpoint
    */
-  loa?: string;
+  loa?: string | null;
 }
 
 export interface PortingOrderEndUser {
@@ -490,70 +491,70 @@ export interface PortingOrderEndUserAdmin {
   /**
    * The authorized person's account number with the current service provider
    */
-  account_number?: string;
+  account_number?: string | null;
 
   /**
    * Name of person authorizing the porting order
    */
-  auth_person_name?: string;
+  auth_person_name?: string | null;
 
   /**
    * Billing phone number associated with these phone numbers
    */
-  billing_phone_number?: string;
+  billing_phone_number?: string | null;
 
   /**
    * European business identification number. Applicable only in the European Union
    */
-  business_identifier?: string;
+  business_identifier?: string | null;
 
   /**
    * Person Name or Company name requesting the port
    */
-  entity_name?: string;
+  entity_name?: string | null;
 
   /**
    * PIN/passcode possibly required by the old service provider for extra
    * verification
    */
-  pin_passcode?: string;
+  pin_passcode?: string | null;
 
   /**
    * European tax identification number. Applicable only in the European Union
    */
-  tax_identifier?: string;
+  tax_identifier?: string | null;
 }
 
 export interface PortingOrderEndUserLocation {
   /**
    * State, province, or similar of billing address
    */
-  administrative_area?: string;
+  administrative_area?: string | null;
 
   /**
    * ISO3166-1 alpha-2 country code of billing address
    */
-  country_code?: string;
+  country_code?: string | null;
 
   /**
    * Second line of billing address
    */
-  extended_address?: string;
+  extended_address?: string | null;
 
   /**
    * City or municipality of billing address
    */
-  locality?: string;
+  locality?: string | null;
 
   /**
    * Postal Code of billing address
    */
-  postal_code?: string;
+  postal_code?: string | null;
 
   /**
    * First line of billing address
    */
-  street_address?: string;
+  street_address?: string | null;
 }
 
 /**
@@ -597,14 +598,14 @@ export interface PortingOrderMisc {
    * with your current service provider and should be one of the numbers remaining on
    * that account.
    */
-  new_billing_phone_number?: string;
+  new_billing_phone_number?: string | null;
 
   /**
    * Remaining numbers can be either kept with their current service provider or
    * disconnected. 'new_billing_telephone_number' is required when
    * 'remaining_numbers_action' is 'keep'.
    */
-  remaining_numbers_action?: 'keep' | 'disconnect';
+  remaining_numbers_action?: 'keep' | 'disconnect' | null;
 
   /**
    * A port can be either 'full' or 'partial'. When type is 'full' the other
@@ -617,22 +618,22 @@ export interface PortingOrderPhoneNumberConfiguration {
   /**
    * identifies the billing group to set on the numbers when ported
    */
-  billing_group_id?: string;
+  billing_group_id?: string | null;
 
   /**
    * identifies the connection to set on the numbers when ported
    */
-  connection_id?: string;
+  connection_id?: string | null;
 
   /**
    * identifies the emergency address to set on the numbers when ported
    */
-  emergency_address_id?: string;
+  emergency_address_id?: string | null;
 
   /**
    * identifies the messaging profile to set on the numbers when ported
    */
-  messaging_profile_id?: string;
+  messaging_profile_id?: string | null;
 
   tags?: Array<string>;
 }
@@ -669,13 +670,13 @@ export interface PortingOrderUserFeedback {
   /**
    * A comment related to the customer rating.
    */
-  user_comment?: string;
+  user_comment?: string | null;
 
   /**
    * Once an order is ported, cancellation is requested or the request is cancelled,
    * the user may rate their experience
    */
-  user_rating?: number;
+  user_rating?: number | null;
 }
 
 export interface PortingOrdersActivationJob {
@@ -908,7 +909,7 @@ export interface PortingOrderCreateParams {
   /**
    * A customer-specified reference number for customer bookkeeping purposes
    */
-  customer_reference?: string;
+  customer_reference?: string | null;
 }
 
 export interface PortingOrderRetrieveParams {
@@ -934,7 +935,7 @@ export interface PortingOrderUpdateParams {
 
   messaging?: PortingOrderUpdateParams.Messaging;
 
-  misc?: PortingOrderMisc;
+  misc?: PortingOrderMisc | null;
 
   phone_number_configuration?: PortingOrderPhoneNumberConfiguration;
 
