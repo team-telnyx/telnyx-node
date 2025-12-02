@@ -14,7 +14,13 @@ import {
   StandardPaginationMeta,
 } from './messaging';
 import * as NumberLookupAPI from './number-lookup';
-import { NumberLookup, NumberLookupCreateParams, NumberLookupListParams } from './number-lookup';
+import {
+  NumberLookup,
+  NumberLookupCreateParams,
+  NumberLookupCreateResponse,
+  NumberLookupListResponse,
+  NumberLookupRetrieveResponse,
+} from './number-lookup';
 import * as VoiceAPI from './voice';
 import {
   CdrUsageReportResponseLegacy,
@@ -86,8 +92,10 @@ export declare namespace UsageReports {
 
   export {
     NumberLookup as NumberLookup,
+    type NumberLookupCreateResponse as NumberLookupCreateResponse,
+    type NumberLookupRetrieveResponse as NumberLookupRetrieveResponse,
+    type NumberLookupListResponse as NumberLookupListResponse,
     type NumberLookupCreateParams as NumberLookupCreateParams,
-    type NumberLookupListParams as NumberLookupListParams,
   };
 
   export {
