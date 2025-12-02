@@ -909,9 +909,7 @@ import {
   CallStreamingFailedWebhookEvent,
   CallStreamingStartedWebhookEvent,
   CallStreamingStoppedWebhookEvent,
-  CampaignStatusUpdateEvent,
   CampaignStatusUpdateWebhookEvent,
-  CampaignSuspendedEvent,
   ConferenceCreatedWebhookEvent,
   ConferenceEndedWebhookEvent,
   ConferenceFloorChangedWebhookEvent,
@@ -2400,8 +2398,6 @@ export declare namespace Telnyx {
 
   export {
     Webhooks as Webhooks,
-    type CampaignStatusUpdateEvent as CampaignStatusUpdateEvent,
-    type CampaignSuspendedEvent as CampaignSuspendedEvent,
     type CallAIGatherEndedWebhookEvent as CallAIGatherEndedWebhookEvent,
     type CallAIGatherMessageHistoryUpdatedWebhookEvent as CallAIGatherMessageHistoryUpdatedWebhookEvent,
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,
