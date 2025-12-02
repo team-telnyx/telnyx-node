@@ -880,9 +880,7 @@ Types:
 - <code><a href="./src/resources/brand/brand.ts">Vertical</a></code>
 - <code><a href="./src/resources/brand/brand.ts">BrandRetrieveResponse</a></code>
 - <code><a href="./src/resources/brand/brand.ts">BrandListResponse</a></code>
-- <code><a href="./src/resources/brand/brand.ts">BrandDeleteResponse</a></code>
 - <code><a href="./src/resources/brand/brand.ts">BrandGetFeedbackResponse</a></code>
-- <code><a href="./src/resources/brand/brand.ts">BrandRevetResponse</a></code>
 
 Methods:
 
@@ -890,10 +888,10 @@ Methods:
 - <code title="get /brand/{brandId}">client.brand.<a href="./src/resources/brand/brand.ts">retrieve</a>(brandID) -> BrandRetrieveResponse</code>
 - <code title="put /brand/{brandId}">client.brand.<a href="./src/resources/brand/brand.ts">update</a>(brandID, { ...params }) -> TelnyxBrand</code>
 - <code title="get /brand">client.brand.<a href="./src/resources/brand/brand.ts">list</a>({ ...params }) -> BrandListResponse</code>
-- <code title="delete /brand/{brandId}">client.brand.<a href="./src/resources/brand/brand.ts">delete</a>(brandID) -> unknown</code>
+- <code title="delete /brand/{brandId}">client.brand.<a href="./src/resources/brand/brand.ts">delete</a>(brandID) -> void</code>
 - <code title="get /brand/feedback/{brandId}">client.brand.<a href="./src/resources/brand/brand.ts">getFeedback</a>(brandID) -> BrandGetFeedbackResponse</code>
 - <code title="post /brand/{brandId}/2faEmail">client.brand.<a href="./src/resources/brand/brand.ts">resend2faEmail</a>(brandID) -> void</code>
-- <code title="put /brand/{brandId}/revet">client.brand.<a href="./src/resources/brand/brand.ts">revet</a>(brandID) -> unknown</code>
+- <code title="put /brand/{brandId}/revet">client.brand.<a href="./src/resources/brand/brand.ts">revet</a>(brandID) -> TelnyxBrand</code>
 
 ## ExternalVetting
 
@@ -905,9 +903,9 @@ Types:
 
 Methods:
 
-- <code title="get /brand/{brandId}/externalVetting">client.brand.externalVetting.<a href="./src/resources/brand/external-vetting.ts">list</a>(brandID) -> unknown</code>
+- <code title="get /brand/{brandId}/externalVetting">client.brand.externalVetting.<a href="./src/resources/brand/external-vetting.ts">list</a>(brandID) -> ExternalVettingListResponse</code>
 - <code title="put /brand/{brandId}/externalVetting">client.brand.externalVetting.<a href="./src/resources/brand/external-vetting.ts">import</a>(brandID, { ...params }) -> ExternalVettingImportResponse</code>
-- <code title="post /brand/{brandId}/externalVetting">client.brand.externalVetting.<a href="./src/resources/brand/external-vetting.ts">order</a>(brandID, { ...params }) -> unknown</code>
+- <code title="post /brand/{brandId}/externalVetting">client.brand.externalVetting.<a href="./src/resources/brand/external-vetting.ts">order</a>(brandID, { ...params }) -> ExternalVettingOrderResponse</code>
 
 # BulkSimCardActions
 
@@ -1123,10 +1121,10 @@ Methods:
 - <code title="get /campaign/{campaignId}">client.campaign.<a href="./src/resources/campaign/campaign.ts">retrieve</a>(campaignID) -> TelnyxCampaignCsp</code>
 - <code title="put /campaign/{campaignId}">client.campaign.<a href="./src/resources/campaign/campaign.ts">update</a>(campaignID, { ...params }) -> TelnyxCampaignCsp</code>
 - <code title="get /campaign">client.campaign.<a href="./src/resources/campaign/campaign.ts">list</a>({ ...params }) -> CampaignListResponse</code>
-- <code title="post /campaign/acceptSharing/{campaignId}">client.campaign.<a href="./src/resources/campaign/campaign.ts">acceptSharing</a>(campaignID) -> unknown</code>
+- <code title="post /campaign/acceptSharing/{campaignId}">client.campaign.<a href="./src/resources/campaign/campaign.ts">acceptSharing</a>(campaignID) -> CampaignAcceptSharingResponse</code>
 - <code title="delete /campaign/{campaignId}">client.campaign.<a href="./src/resources/campaign/campaign.ts">deactivate</a>(campaignID) -> CampaignDeactivateResponse</code>
 - <code title="get /campaign/{campaignId}/mnoMetadata">client.campaign.<a href="./src/resources/campaign/campaign.ts">getMnoMetadata</a>(campaignID) -> CampaignGetMnoMetadataResponse</code>
-- <code title="get /campaign/{campaignId}/operationStatus">client.campaign.<a href="./src/resources/campaign/campaign.ts">getOperationStatus</a>(campaignID) -> unknown</code>
+- <code title="get /campaign/{campaignId}/operationStatus">client.campaign.<a href="./src/resources/campaign/campaign.ts">getOperationStatus</a>(campaignID) -> CampaignGetOperationStatusResponse</code>
 - <code title="get /campaign/{campaignId}/sharing">client.campaign.<a href="./src/resources/campaign/campaign.ts">getSharingStatus</a>(campaignID) -> CampaignGetSharingStatusResponse</code>
 - <code title="post /campaign/{campaignId}/appeal">client.campaign.<a href="./src/resources/campaign/campaign.ts">submitAppeal</a>(campaignID, { ...params }) -> CampaignSubmitAppealResponse</code>
 
@@ -1148,17 +1146,13 @@ Types:
 
 Methods:
 
-- <code title="get /campaign/{campaignId}/osr/attributes">client.campaign.osr.<a href="./src/resources/campaign/osr.ts">getAttributes</a>(campaignID) -> unknown</code>
+- <code title="get /campaign/{campaignId}/osr/attributes">client.campaign.osr.<a href="./src/resources/campaign/osr.ts">getAttributes</a>(campaignID) -> OsrGetAttributesResponse</code>
 
 # CampaignBuilder
 
-Types:
-
-- <code><a href="./src/resources/campaign-builder/campaign-builder.ts">CampaignBuilderCreateResponse</a></code>
-
 Methods:
 
-- <code title="post /campaignBuilder">client.campaignBuilder.<a href="./src/resources/campaign-builder/campaign-builder.ts">create</a>({ ...params }) -> CampaignBuilderCreateResponse</code>
+- <code title="post /campaignBuilder">client.campaignBuilder.<a href="./src/resources/campaign-builder/campaign-builder.ts">create</a>({ ...params }) -> TelnyxCampaignCsp</code>
 
 ## Brand
 
@@ -2118,7 +2112,7 @@ Methods:
 - <code title="get /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">retrieve</a>(autorespCfgID, { ...params }) -> AutoRespConfigResponse</code>
 - <code title="put /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">update</a>(autorespCfgID, { ...params }) -> AutoRespConfigResponse</code>
 - <code title="get /messaging_profiles/{profile_id}/autoresp_configs">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">list</a>(profileID, { ...params }) -> AutorespConfigListResponse</code>
-- <code title="delete /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">delete</a>(autorespCfgID, { ...params }) -> unknown</code>
+- <code title="delete /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">delete</a>(autorespCfgID, { ...params }) -> string</code>
 
 # MessagingTollfree
 
@@ -2138,7 +2132,6 @@ Types:
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">VerificationRequestStatus</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">Volume</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">RequestListResponse</a></code>
-- <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">RequestDeleteResponse</a></code>
 
 Methods:
 
@@ -2146,7 +2139,7 @@ Methods:
 - <code title="get /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">retrieve</a>(id) -> VerificationRequestStatus</code>
 - <code title="patch /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">update</a>(id, { ...params }) -> VerificationRequestEgress</code>
 - <code title="get /messaging_tollfree/verification/requests">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">list</a>({ ...params }) -> RequestListResponse</code>
-- <code title="delete /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">delete</a>(id) -> unknown</code>
+- <code title="delete /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">delete</a>(id) -> void</code>
 
 # MessagingURLDomains
 

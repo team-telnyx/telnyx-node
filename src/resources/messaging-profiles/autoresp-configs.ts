@@ -119,7 +119,7 @@ export class AutorespConfigs extends APIResource {
     autorespCfgID: string,
     params: AutorespConfigDeleteParams,
     options?: RequestOptions,
-  ): APIPromise<unknown> {
+  ): APIPromise<string> {
     const { profile_id } = params;
     return this._client.delete(
       path`/messaging_profiles/${profile_id}/autoresp_configs/${autorespCfgID}`,
@@ -167,7 +167,7 @@ export interface AutorespConfigListResponse {
   meta: AuthenticationProvidersAPI.PaginationMeta;
 }
 
-export type AutorespConfigDeleteResponse = unknown;
+export type AutorespConfigDeleteResponse = string;
 
 export interface AutorespConfigCreateParams {
   country_code: string;

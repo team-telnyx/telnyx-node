@@ -16,12 +16,12 @@ export class Osr extends APIResource {
    * );
    * ```
    */
-  getAttributes(campaignID: string, options?: RequestOptions): APIPromise<unknown> {
+  getAttributes(campaignID: string, options?: RequestOptions): APIPromise<OsrGetAttributesResponse> {
     return this._client.get(path`/campaign/${campaignID}/osr/attributes`, options);
   }
 }
 
-export type OsrGetAttributesResponse = unknown;
+export type OsrGetAttributesResponse = { [key: string]: unknown };
 
 export declare namespace Osr {
   export { type OsrGetAttributesResponse as OsrGetAttributesResponse };

@@ -35,7 +35,8 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { id, ...body } = args as any;
-  return asTextContentResult((await client.messagingTollfree.verification.requests.delete(id)) as object);
+  const response = await client.messagingTollfree.verification.requests.delete(id).asResponse();
+  return asTextContentResult(await response.text());
 };
 
 export default { metadata, tool, handler };
