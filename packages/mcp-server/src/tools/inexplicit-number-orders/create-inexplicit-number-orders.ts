@@ -46,6 +46,11 @@ export const tool: Tool = {
               type: 'string',
               description: 'Filter for phone numbers in a given state / province',
             },
+            exclude_held_numbers: {
+              type: 'boolean',
+              description:
+                'Filter to exclude phone numbers that are currently on hold/reserved for your account.',
+            },
             features: {
               type: 'array',
               description:
@@ -79,6 +84,11 @@ export const tool: Tool = {
                   description: 'Filter by the starting digits of the phone number',
                 },
               },
+            },
+            quickship: {
+              type: 'boolean',
+              description:
+                'Filter to exclude phone numbers that need additional time after to purchase to activate. Only applicable for +1 toll_free numbers.',
             },
             strategy: {
               type: 'string',

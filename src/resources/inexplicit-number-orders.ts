@@ -503,6 +503,12 @@ export namespace InexplicitNumberOrderCreateParams {
     administrative_area?: string;
 
     /**
+     * Filter to exclude phone numbers that are currently on hold/reserved for your
+     * account.
+     */
+    exclude_held_numbers?: boolean;
+
+    /**
      * Filter for phone numbers that have the features to satisfy your use case (e.g.,
      * ["voice"])
      */
@@ -522,6 +528,12 @@ export namespace InexplicitNumberOrderCreateParams {
      * Phone number search criteria
      */
     phone_number?: OrderingGroup.PhoneNumber;
+
+    /**
+     * Filter to exclude phone numbers that need additional time after to purchase to
+     * activate. Only applicable for +1 toll_free numbers.
+     */
+    quickship?: boolean;
 
     /**
      * Ordering strategy. Define what action should be taken if we don't have enough
