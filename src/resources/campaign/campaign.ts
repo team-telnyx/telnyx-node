@@ -70,7 +70,7 @@ export class Campaign extends APIResource {
    * );
    * ```
    */
-  acceptSharing(campaignID: string, options?: RequestOptions): APIPromise<unknown> {
+  acceptSharing(campaignID: string, options?: RequestOptions): APIPromise<CampaignAcceptSharingResponse> {
     return this._client.post(path`/campaign/acceptSharing/${campaignID}`, options);
   }
 
@@ -112,7 +112,10 @@ export class Campaign extends APIResource {
    * );
    * ```
    */
-  getOperationStatus(campaignID: string, options?: RequestOptions): APIPromise<unknown> {
+  getOperationStatus(
+    campaignID: string,
+    options?: RequestOptions,
+  ): APIPromise<CampaignGetOperationStatusResponse> {
     return this._client.get(path`/campaign/${campaignID}/operationStatus`, options);
   }
 
@@ -741,7 +744,7 @@ export namespace CampaignListResponse {
   }
 }
 
-export type CampaignAcceptSharingResponse = unknown;
+export type CampaignAcceptSharingResponse = { [key: string]: unknown };
 
 export interface CampaignDeactivateResponse {
   time: number;
@@ -779,7 +782,7 @@ export namespace CampaignGetMnoMetadataResponse {
   }
 }
 
-export type CampaignGetOperationStatusResponse = unknown;
+export type CampaignGetOperationStatusResponse = { [key: string]: unknown };
 
 export interface CampaignGetSharingStatusResponse {
   sharedByMe?: CampaignSharingStatus;
