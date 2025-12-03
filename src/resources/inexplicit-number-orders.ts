@@ -113,6 +113,12 @@ export namespace InexplicitNumberOrderCreateResponse {
       error_reason?: string;
 
       /**
+       * Filter to exclude phone numbers that are currently on hold/reserved for your
+       * account.
+       */
+      exclude_held_numbers?: boolean;
+
+      /**
        * Filter by area code
        */
       national_destination_code?: string;
@@ -141,6 +147,12 @@ export namespace InexplicitNumberOrderCreateResponse {
        * Filter by the starting digits of the phone number
        */
       'phone_number[starts_with]'?: string;
+
+      /**
+       * Filter to exclude phone numbers that need additional time after to purchase to
+       * activate. Only applicable for +1 toll_free numbers.
+       */
+      quickship?: boolean;
 
       /**
        * Status of the ordering group
@@ -251,6 +263,12 @@ export namespace InexplicitNumberOrderRetrieveResponse {
       error_reason?: string;
 
       /**
+       * Filter to exclude phone numbers that are currently on hold/reserved for your
+       * account.
+       */
+      exclude_held_numbers?: boolean;
+
+      /**
        * Filter by area code
        */
       national_destination_code?: string;
@@ -279,6 +297,12 @@ export namespace InexplicitNumberOrderRetrieveResponse {
        * Filter by the starting digits of the phone number
        */
       'phone_number[starts_with]'?: string;
+
+      /**
+       * Filter to exclude phone numbers that need additional time after to purchase to
+       * activate. Only applicable for +1 toll_free numbers.
+       */
+      quickship?: boolean;
 
       /**
        * Status of the ordering group
@@ -391,6 +415,12 @@ export namespace InexplicitNumberOrderListResponse {
       error_reason?: string;
 
       /**
+       * Filter to exclude phone numbers that are currently on hold/reserved for your
+       * account.
+       */
+      exclude_held_numbers?: boolean;
+
+      /**
        * Filter by area code
        */
       national_destination_code?: string;
@@ -419,6 +449,12 @@ export namespace InexplicitNumberOrderListResponse {
        * Filter by the starting digits of the phone number
        */
       'phone_number[starts_with]'?: string;
+
+      /**
+       * Filter to exclude phone numbers that need additional time after to purchase to
+       * activate. Only applicable for +1 toll_free numbers.
+       */
+      quickship?: boolean;
 
       /**
        * Status of the ordering group
@@ -503,6 +539,12 @@ export namespace InexplicitNumberOrderCreateParams {
     administrative_area?: string;
 
     /**
+     * Filter to exclude phone numbers that are currently on hold/reserved for your
+     * account.
+     */
+    exclude_held_numbers?: boolean;
+
+    /**
      * Filter for phone numbers that have the features to satisfy your use case (e.g.,
      * ["voice"])
      */
@@ -522,6 +564,12 @@ export namespace InexplicitNumberOrderCreateParams {
      * Phone number search criteria
      */
     phone_number?: OrderingGroup.PhoneNumber;
+
+    /**
+     * Filter to exclude phone numbers that need additional time after to purchase to
+     * activate. Only applicable for +1 toll_free numbers.
+     */
+    quickship?: boolean;
 
     /**
      * Ordering strategy. Define what action should be taken if we don't have enough

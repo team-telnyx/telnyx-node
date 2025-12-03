@@ -1,5 +1,33 @@
 # Changelog
 
+## 4.4.0 (2025-12-03)
+
+Full Changelog: [v4.3.0...v4.4.0](https://github.com/team-telnyx/telnyx-node/compare/v4.3.0...v4.4.0)
+
+### Features
+
+* Add response schemas for telco data usage report endpoints ([4ea33f4](https://github.com/team-telnyx/telnyx-node/commit/4ea33f4d883f9009fa06a46dc59e12d4030f8de3))
+* alright, shut up redocly ([95e2756](https://github.com/team-telnyx/telnyx-node/commit/95e275687b1d20ef1086feab4c60b89df27541a4))
+* ENGDESK-47507: Update error responses for revenue service APIs ([b274a23](https://github.com/team-telnyx/telnyx-node/commit/b274a23c65be6f2ddb00274c5136e670e634c8ef))
+* ENGDESK-47580: Add quickship and exclude_held_numbers filters to inexplicit number order API ([39a5dae](https://github.com/team-telnyx/telnyx-node/commit/39a5daed3b98733bc3de733aff6095a0ed933e97))
+* ENGDESK-47580: Add quickship and exclude_held_numbers to InexplicitNumberOrderResponse ([08d871e](https://github.com/team-telnyx/telnyx-node/commit/08d871e0387c9c7f596d753b535b73662ceb52d7))
+* ENGDESK-47759 - fix missing meta definition in authorized ips spec ([2e9885a](https://github.com/team-telnyx/telnyx-node/commit/2e9885ada22dad79028589b0de952cf6e85d2f66))
+* **mcp:** return logs on code tool errors ([1855f01](https://github.com/team-telnyx/telnyx-node/commit/1855f01faba455be82ddf49292da49d85e12cf18))
+* MSG-6166 fix empty schema responses ([c1c4cf3](https://github.com/team-telnyx/telnyx-node/commit/c1c4cf361260576fe91ebf3753bc8de537be3ffa))
+* TBS-3422: Fix TBS redocly errors ([f9d593e](https://github.com/team-telnyx/telnyx-node/commit/f9d593e7b1772aeb3a491bf796f7c78e73f095c3))
+* TBS-3422: Fix TBS redocly errors ([f49e23e](https://github.com/team-telnyx/telnyx-node/commit/f49e23ea0f93cff7b27ef1a510df6090aaadf13f))
+
+
+### Bug Fixes
+
+* remove duplicate resource ([71a0116](https://github.com/team-telnyx/telnyx-node/commit/71a0116fe3ec41c1d88ba6e35743a1e4f75c9c0f))
+
+
+### Chores
+
+* formatting ([56b04a3](https://github.com/team-telnyx/telnyx-node/commit/56b04a351c5b400b9c56ab515ca011c12178ee80))
+* **internal:** upgrade eslint ([ef60a1b](https://github.com/team-telnyx/telnyx-node/commit/ef60a1b0a8e82cb186853ecbe7ffcc73ef50f2f0))
+
 ## 4.3.0 (2025-12-01)
 
 Full Changelog: [v4.2.1...v4.3.0](https://github.com/team-telnyx/telnyx-node/compare/v4.2.1...v4.3.0)

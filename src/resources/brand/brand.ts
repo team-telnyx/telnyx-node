@@ -92,11 +92,14 @@ export class Brand extends APIResource {
    *
    * @example
    * ```ts
-   * const brand = await client.brand.delete('brandId');
+   * await client.brand.delete('brandId');
    * ```
    */
-  delete(brandID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.delete(path`/brand/${brandID}`, options);
+  delete(brandID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/brand/${brandID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -145,10 +148,10 @@ export class Brand extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.brand.revet('brandId');
+   * const telnyxBrand = await client.brand.revet('brandId');
    * ```
    */
-  revet(brandID: string, options?: RequestOptions): APIPromise<unknown> {
+  revet(brandID: string, options?: RequestOptions): APIPromise<TelnyxBrand> {
     return this._client.put(path`/brand/${brandID}/revet`, options);
   }
 }
@@ -511,8 +514,6 @@ export namespace BrandListResponse {
   }
 }
 
-export type BrandDeleteResponse = unknown;
-
 export interface BrandGetFeedbackResponse {
   /**
    * ID of the brand being queried about
@@ -548,8 +549,6 @@ export namespace BrandGetFeedbackResponse {
     fields: Array<string>;
   }
 }
-
-export type BrandRevetResponse = unknown;
 
 export interface BrandCreateParams {
   /**
@@ -861,9 +860,7 @@ export declare namespace Brand {
     type Vertical as Vertical,
     type BrandRetrieveResponse as BrandRetrieveResponse,
     type BrandListResponse as BrandListResponse,
-    type BrandDeleteResponse as BrandDeleteResponse,
     type BrandGetFeedbackResponse as BrandGetFeedbackResponse,
-    type BrandRevetResponse as BrandRevetResponse,
     type BrandCreateParams as BrandCreateParams,
     type BrandUpdateParams as BrandUpdateParams,
     type BrandListParams as BrandListParams,

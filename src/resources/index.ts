@@ -87,9 +87,7 @@ export {
   type Vertical,
   type BrandRetrieveResponse,
   type BrandListResponse,
-  type BrandDeleteResponse,
   type BrandGetFeedbackResponse,
-  type BrandRevetResponse,
   type BrandCreateParams,
   type BrandUpdateParams,
   type BrandListParams,
@@ -146,11 +144,7 @@ export {
   type CampaignListParams,
   type CampaignSubmitAppealParams,
 } from './campaign/campaign';
-export {
-  CampaignBuilder,
-  type CampaignBuilderCreateResponse,
-  type CampaignBuilderCreateParams,
-} from './campaign-builder/campaign-builder';
+export { CampaignBuilder, type CampaignBuilderCreateParams } from './campaign-builder/campaign-builder';
 export {
   ChannelZones,
   type ChannelZoneUpdateResponse,
@@ -1207,8 +1201,6 @@ export {
 } from './webhook-deliveries';
 export {
   Webhooks,
-  type CampaignStatusUpdateEvent,
-  type CampaignSuspendedEvent,
   type CallAIGatherEndedWebhookEvent,
   type CallAIGatherMessageHistoryUpdatedWebhookEvent,
   type CallAIGatherPartialResultsWebhookEvent,

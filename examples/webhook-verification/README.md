@@ -5,6 +5,7 @@ This example demonstrates how to properly verify Telnyx webhook signatures using
 ## Why Webhook Verification Matters
 
 Webhook verification ensures that:
+
 - ✅ Webhooks are actually from Telnyx, not a malicious third party
 - ✅ The payload hasn't been tampered with in transit
 - ✅ The webhook isn't a replay attack (using timestamp validation)
@@ -19,6 +20,7 @@ npm start
 ```
 
 > Don't forget to populate your environment variables:
+>
 > - `export TELNYX_API_KEY=KEY...`
 > - `export TELNYX_PUBLIC_KEY=KEY...` (get this from Mission Control → Settings → Public Keys)
 
@@ -34,11 +36,13 @@ npm start
 1. **Start the server**: `npm start`
 
 2. **Expose to the internet** using [ngrok](https://ngrok.com):
+
    ```bash
    ngrok http 3000
    ```
 
 3. **Configure webhook URL** in Mission Control:
+
    - Go to **Messaging** → **Messaging Profiles**
    - Set webhook URL to: `https://your-ngrok-url.ngrok.io/webhooks/telnyx`
    - Enable webhook signing
@@ -48,6 +52,7 @@ npm start
 ## What It Does
 
 The example:
+
 - Uses `express.raw()` to preserve the raw request body (required for signature verification)
 - Verifies the webhook signature using `telnyx.webhooks.unwrap()`
 - Handles different message event types (received, sent, finalized)

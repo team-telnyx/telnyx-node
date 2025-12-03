@@ -9,7 +9,7 @@ import { path } from '../../../internal/utils/path';
 
 export class SslCertificateResource extends APIResource {
   /**
-   * Uploads an SSL certificate and its matching secret so that you can use Telnyx’s
+   * Uploads an SSL certificate and its matching secret so that you can use Telnyx's
    * storage as your CDN.
    *
    * @example

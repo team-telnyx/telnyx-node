@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as UsageAPI from './storage/buckets/usage';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -187,7 +188,7 @@ export namespace WebhookDeliveryRetrieveResponse {
 export interface WebhookDeliveryListResponse {
   data?: Array<WebhookDeliveryListResponse.Data>;
 
-  meta?: WebhookDeliveryListResponse.Meta;
+  meta?: UsageAPI.PaginationMetaSimple;
 }
 
 export namespace WebhookDeliveryListResponse {
@@ -339,16 +340,6 @@ export namespace WebhookDeliveryListResponse {
        */
       record_type?: 'event';
     }
-  }
-
-  export interface Meta {
-    page_number?: number;
-
-    page_size?: number;
-
-    total_pages?: number;
-
-    total_results?: number;
   }
 }
 

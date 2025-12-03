@@ -12,7 +12,6 @@ export {
   type VerificationRequestStatus,
   type Volume,
   type RequestListResponse,
-  type RequestDeleteResponse,
   type RequestCreateParams,
   type RequestUpdateParams,
   type RequestListParams,

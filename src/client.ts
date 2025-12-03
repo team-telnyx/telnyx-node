@@ -909,9 +909,7 @@ import {
   CallStreamingFailedWebhookEvent,
   CallStreamingStartedWebhookEvent,
   CallStreamingStoppedWebhookEvent,
-  CampaignStatusUpdateEvent,
   CampaignStatusUpdateWebhookEvent,
-  CampaignSuspendedEvent,
   ConferenceCreatedWebhookEvent,
   ConferenceEndedWebhookEvent,
   ConferenceFloorChangedWebhookEvent,
@@ -1004,13 +1002,11 @@ import {
   AltBusinessIDType,
   Brand,
   BrandCreateParams,
-  BrandDeleteResponse,
   BrandGetFeedbackResponse,
   BrandIdentityStatus,
   BrandListParams,
   BrandListResponse,
   BrandRetrieveResponse,
-  BrandRevetResponse,
   BrandUpdateParams,
   EntityType,
   StockExchange,
@@ -1033,11 +1029,7 @@ import {
   StreamBidirectionalTargetLegs,
   StreamCodec,
 } from './resources/calls/calls';
-import {
-  CampaignBuilder,
-  CampaignBuilderCreateParams,
-  CampaignBuilderCreateResponse,
-} from './resources/campaign-builder/campaign-builder';
+import { CampaignBuilder, CampaignBuilderCreateParams } from './resources/campaign-builder/campaign-builder';
 import {
   Campaign,
   CampaignAcceptSharingResponse,
@@ -2400,8 +2392,6 @@ export declare namespace Telnyx {
 
   export {
     Webhooks as Webhooks,
-    type CampaignStatusUpdateEvent as CampaignStatusUpdateEvent,
-    type CampaignSuspendedEvent as CampaignSuspendedEvent,
     type CallAIGatherEndedWebhookEvent as CallAIGatherEndedWebhookEvent,
     type CallAIGatherMessageHistoryUpdatedWebhookEvent as CallAIGatherMessageHistoryUpdatedWebhookEvent,
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,
@@ -2577,9 +2567,7 @@ export declare namespace Telnyx {
     type Vertical as Vertical,
     type BrandRetrieveResponse as BrandRetrieveResponse,
     type BrandListResponse as BrandListResponse,
-    type BrandDeleteResponse as BrandDeleteResponse,
     type BrandGetFeedbackResponse as BrandGetFeedbackResponse,
-    type BrandRevetResponse as BrandRevetResponse,
     type BrandCreateParams as BrandCreateParams,
     type BrandUpdateParams as BrandUpdateParams,
     type BrandListParams as BrandListParams,
@@ -2649,7 +2637,6 @@ export declare namespace Telnyx {
 
   export {
     CampaignBuilder as CampaignBuilder,
-    type CampaignBuilderCreateResponse as CampaignBuilderCreateResponse,
     type CampaignBuilderCreateParams as CampaignBuilderCreateParams,
   };
 

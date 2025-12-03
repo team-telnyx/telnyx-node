@@ -15,7 +15,7 @@ export class ExternalVetting extends APIResource {
    *   await client.brand.externalVetting.list('brandId');
    * ```
    */
-  list(brandID: string, options?: RequestOptions): APIPromise<unknown> {
+  list(brandID: string, options?: RequestOptions): APIPromise<ExternalVettingListResponse> {
     return this._client.get(path`/brand/${brandID}/externalVetting`, options);
   }
 
@@ -52,12 +52,59 @@ export class ExternalVetting extends APIResource {
    * );
    * ```
    */
-  order(brandID: string, body: ExternalVettingOrderParams, options?: RequestOptions): APIPromise<unknown> {
+  order(
+    brandID: string,
+    body: ExternalVettingOrderParams,
+    options?: RequestOptions,
+  ): APIPromise<ExternalVettingOrderResponse> {
     return this._client.post(path`/brand/${brandID}/externalVetting`, { body, ...options });
   }
 }
 
-export type ExternalVettingListResponse = unknown;
+export type ExternalVettingListResponse = Array<ExternalVettingListResponse.ExternalVettingListResponseItem>;
+
+export namespace ExternalVettingListResponse {
+  export interface ExternalVettingListResponseItem {
+    /**
+     * Vetting submission date. This is the date when the vetting request is generated
+     * in ISO 8601 format.
+     */
+    createDate?: string;
+
+    /**
+     * External vetting provider ID for the brand.
+     */
+    evpId?: string;
+
+    /**
+     * Vetting effective date. This is the date when vetting was completed, or the
+     * starting effective date in ISO 8601 format. If this date is missing, then the
+     * vetting was not complete or not valid.
+     */
+    vettedDate?: string;
+
+    /**
+     * Identifies the vetting classification.
+     */
+    vettingClass?: string;
+
+    /**
+     * Unique ID that identifies a vetting transaction performed by a vetting provider.
+     * This ID is provided by the vetting provider at time of vetting.
+     */
+    vettingId?: string;
+
+    /**
+     * Vetting score ranging from 0-100.
+     */
+    vettingScore?: number;
+
+    /**
+     * Required by some providers for vetting record confirmation.
+     */
+    vettingToken?: string;
+  }
+}
 
 export interface ExternalVettingImportResponse {
   /**
@@ -100,7 +147,46 @@ export interface ExternalVettingImportResponse {
   vettingToken?: string;
 }
 
-export type ExternalVettingOrderResponse = unknown;
+export interface ExternalVettingOrderResponse {
+  /**
+   * Vetting submission date. This is the date when the vetting request is generated
+   * in ISO 8601 format.
+   */
+  createDate?: string;
+
+  /**
+   * External vetting provider ID for the brand.
+   */
+  evpId?: string;
+
+  /**
+   * Vetting effective date. This is the date when vetting was completed, or the
+   * starting effective date in ISO 8601 format. If this date is missing, then the
+   * vetting was not complete or not valid.
+   */
+  vettedDate?: string;
+
+  /**
+   * Identifies the vetting classification.
+   */
+  vettingClass?: string;
+
+  /**
+   * Unique ID that identifies a vetting transaction performed by a vetting provider.
+   * This ID is provided by the vetting provider at time of vetting.
+   */
+  vettingId?: string;
+
+  /**
+   * Vetting score ranging from 0-100.
+   */
+  vettingScore?: number;
+
+  /**
+   * Required by some providers for vetting record confirmation.
+   */
+  vettingToken?: string;
+}
 
 export interface ExternalVettingImportParams {
   /**

@@ -11,7 +11,13 @@ export {
   type MessagingCreateParams,
   type MessagingListParams,
 } from './messaging';
-export { NumberLookup, type NumberLookupCreateParams, type NumberLookupListParams } from './number-lookup';
+export {
+  NumberLookup,
+  type NumberLookupCreateResponse,
+  type NumberLookupRetrieveResponse,
+  type NumberLookupListResponse,
+  type NumberLookupCreateParams,
+} from './number-lookup';
 export {
   UsageReports,
   type UsageReportRetrieveSpeechToTextResponse,

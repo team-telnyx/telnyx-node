@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../../core/resource';
 import { APIPromise } from '../../../core/api-promise';
+import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -131,14 +132,16 @@ export class Requests extends APIResource {
    *
    * @example
    * ```ts
-   * const request =
-   *   await client.messagingTollfree.verification.requests.delete(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
+   * await client.messagingTollfree.verification.requests.delete(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
    * ```
    */
-  delete(id: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.delete(path`/messaging_tollfree/verification/requests/${id}`, options);
+  delete(id: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/messaging_tollfree/verification/requests/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -606,8 +609,6 @@ export interface RequestListResponse {
   total_records?: number;
 }
 
-export type RequestDeleteResponse = unknown;
-
 export interface RequestCreateParams {
   /**
    * Any additional information
@@ -986,7 +987,6 @@ export declare namespace Requests {
     type VerificationRequestStatus as VerificationRequestStatus,
     type Volume as Volume,
     type RequestListResponse as RequestListResponse,
-    type RequestDeleteResponse as RequestDeleteResponse,
     type RequestCreateParams as RequestCreateParams,
     type RequestUpdateParams as RequestUpdateParams,
     type RequestListParams as RequestListParams,

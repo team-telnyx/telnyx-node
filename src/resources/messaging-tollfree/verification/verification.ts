@@ -4,7 +4,6 @@ import { APIResource } from '../../../core/resource';
 import * as RequestsAPI from './requests';
 import {
   RequestCreateParams,
-  RequestDeleteResponse,
   RequestListParams,
   RequestListResponse,
   RequestUpdateParams,
@@ -39,7 +38,6 @@ export declare namespace Verification {
     type VerificationRequestStatus as VerificationRequestStatus,
     type Volume as Volume,
     type RequestListResponse as RequestListResponse,
-    type RequestDeleteResponse as RequestDeleteResponse,
     type RequestCreateParams as RequestCreateParams,
     type RequestUpdateParams as RequestUpdateParams,
     type RequestListParams as RequestListParams,

@@ -45,17 +45,6 @@ describe('resource numberLookup', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.legacy.reporting.usageReports.numberLookup.list(
-        { page: 0, per_page: 0 },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
-  });
-
-  // Prism tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.legacy.reporting.usageReports.numberLookup.delete('id');
     const rawResponse = await responsePromise.asResponse();
