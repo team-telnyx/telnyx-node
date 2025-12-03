@@ -28,7 +28,8 @@
     "fix": "./scripts/format"
   },
   "dependencies": {
-    "tweetnacl": "^1.0.3", "standardwebhooks": "^1.0.0"
+    "tweetnacl": "^1.0.3",
+    "standardwebhooks": "^1.0.0"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.0",
