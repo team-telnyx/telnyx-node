@@ -20,6 +20,8 @@ export interface AvailablePhoneNumberListResponse {
   data?: Array<AvailablePhoneNumberListResponse.Data>;
 
   meta?: AvailablePhoneNumberListResponse.Meta;
+
+  metadata?: AvailablePhoneNumberListResponse.Metadata;
 }
 
 export namespace AvailablePhoneNumberListResponse {
@@ -78,6 +80,12 @@ export namespace AvailablePhoneNumberListResponse {
   }
 
   export interface Meta {
+    best_effort_results?: number;
+
+    total_results?: number;
+  }
+
+  export interface Metadata {
     best_effort_results?: number;
 
     total_results?: number;
