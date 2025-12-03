@@ -1961,7 +1961,7 @@ The following tools are available in this MCP server.
 
 ### Resource `storage.buckets`:
 
-- `create_presigned_url_storage_buckets` (`write`): Returns a timed and authenticated URL to get an object. This is the equivalent to AWS S3’s “presigned” URL. Please note that Telnyx performs authentication differently from AWS S3 and you MUST NOT use the presign method of AWS s3api CLI or sdk to generate the presigned URL.
+- `create_presigned_url_storage_buckets` (`write`): Returns a timed and authenticated URL to download (GET) or upload (PUT) an object. This is the equivalent to AWS S3’s “presigned” URL. Please note that Telnyx performs authentication differently from AWS S3 and you MUST NOT use the presign method of AWS s3api CLI or SDK to generate the presigned URL.
 
   Refer to: https://developers.telnyx.com/docs/cloud-storage/presigned-urls
 
