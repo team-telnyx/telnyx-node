@@ -22,6 +22,6 @@ describe('resource buckets', () => {
 
   // Prism tests are disabled
   test.skip('createPresignedURL: required and optional params', async () => {
-    const response = await client.storage.buckets.createPresignedURL('', { bucketName: '', ttl: 1 });
+    const response = await client.storage.buckets.createPresignedURL('', { bucketName: '', ttl: 60 });
   });
 });
