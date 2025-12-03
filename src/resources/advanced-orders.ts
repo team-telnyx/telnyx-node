@@ -14,7 +14,7 @@ export class AdvancedOrders extends APIResource {
    * const advancedOrder = await client.advancedOrders.create();
    * ```
    */
-  create(body: AdvancedOrderCreateParams, options?: RequestOptions): APIPromise<unknown> {
+  create(body: AdvancedOrderCreateParams, options?: RequestOptions): APIPromise<AdvancedOrderCreateResponse> {
     return this._client.post('/advanced_orders', { body, ...options });
   }
 
@@ -28,7 +28,7 @@ export class AdvancedOrders extends APIResource {
    * );
    * ```
    */
-  retrieve(orderID: string, options?: RequestOptions): APIPromise<unknown> {
+  retrieve(orderID: string, options?: RequestOptions): APIPromise<AdvancedOrderRetrieveResponse> {
     return this._client.get(path`/advanced_orders/${orderID}`, options);
   }
 
@@ -40,7 +40,7 @@ export class AdvancedOrders extends APIResource {
    * const advancedOrders = await client.advancedOrders.list();
    * ```
    */
-  list(options?: RequestOptions): APIPromise<unknown> {
+  list(options?: RequestOptions): APIPromise<AdvancedOrderListResponse> {
     return this._client.get('/advanced_orders', options);
   }
 
@@ -59,7 +59,7 @@ export class AdvancedOrders extends APIResource {
     advancedOrderID: string,
     body: AdvancedOrderUpdateRequirementGroupParams,
     options?: RequestOptions,
-  ): APIPromise<unknown> {
+  ): APIPromise<AdvancedOrderUpdateRequirementGroupResponse> {
     return this._client.patch(path`/advanced_orders/${advancedOrderID}/requirement_group`, {
       body,
       ...options,
@@ -88,25 +88,119 @@ export interface AdvancedOrder {
   requirement_group_id?: string;
 }
 
-/**
- * An Advanced Order Response
- */
-export type AdvancedOrderCreateResponse = unknown;
+export interface AdvancedOrderCreateResponse {
+  id?: string;
 
-/**
- * An Advanced Order Response
- */
-export type AdvancedOrderRetrieveResponse = unknown;
+  area_code?: string;
 
-/**
- * An array of Advanced Order Responses
- */
-export type AdvancedOrderListResponse = unknown;
+  comments?: string;
 
-/**
- * An Advanced Order Response
- */
-export type AdvancedOrderUpdateRequirementGroupResponse = unknown;
+  country_code?: string;
+
+  customer_reference?: string;
+
+  features?: Array<'sms' | 'mms' | 'voice' | 'fax' | 'emergency'>;
+
+  orders?: Array<string>;
+
+  phone_number_type?: Array<'local' | 'mobile' | 'toll_free' | 'shared_cost' | 'national' | 'landline'>;
+
+  quantity?: number;
+
+  /**
+   * The ID of the requirement group associated with this advanced order
+   */
+  requirement_group_id?: string;
+
+  status?: Array<'pending' | 'processing' | 'ordered'>;
+}
+
+export interface AdvancedOrderRetrieveResponse {
+  id?: string;
+
+  area_code?: string;
+
+  comments?: string;
+
+  country_code?: string;
+
+  customer_reference?: string;
+
+  features?: Array<'sms' | 'mms' | 'voice' | 'fax' | 'emergency'>;
+
+  orders?: Array<string>;
+
+  phone_number_type?: Array<'local' | 'mobile' | 'toll_free' | 'shared_cost' | 'national' | 'landline'>;
+
+  quantity?: number;
+
+  /**
+   * The ID of the requirement group associated with this advanced order
+   */
+  requirement_group_id?: string;
+
+  status?: Array<'pending' | 'processing' | 'ordered'>;
+}
+
+export interface AdvancedOrderListResponse {
+  data?: Array<AdvancedOrderListResponse.Data>;
+}
+
+export namespace AdvancedOrderListResponse {
+  export interface Data {
+    id?: string;
+
+    area_code?: string;
+
+    comments?: string;
+
+    country_code?: string;
+
+    customer_reference?: string;
+
+    features?: Array<'sms' | 'mms' | 'voice' | 'fax' | 'emergency'>;
+
+    orders?: Array<string>;
+
+    phone_number_type?: Array<'local' | 'mobile' | 'toll_free' | 'shared_cost' | 'national' | 'landline'>;
+
+    quantity?: number;
+
+    /**
+     * The ID of the requirement group associated with this advanced order
+     */
+    requirement_group_id?: string;
+
+    status?: Array<'pending' | 'processing' | 'ordered'>;
+  }
+}
+
+export interface AdvancedOrderUpdateRequirementGroupResponse {
+  id?: string;
+
+  area_code?: string;
+
+  comments?: string;
+
+  country_code?: string;
+
+  customer_reference?: string;
+
+  features?: Array<'sms' | 'mms' | 'voice' | 'fax' | 'emergency'>;
+
+  orders?: Array<string>;
+
+  phone_number_type?: Array<'local' | 'mobile' | 'toll_free' | 'shared_cost' | 'national' | 'landline'>;
+
+  quantity?: number;
+
+  /**
+   * The ID of the requirement group associated with this advanced order
+   */
+  requirement_group_id?: string;
+
+  status?: Array<'pending' | 'processing' | 'ordered'>;
+}
 
 export interface AdvancedOrderCreateParams {
   area_code?: string;

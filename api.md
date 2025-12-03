@@ -430,10 +430,10 @@ Types:
 
 Methods:
 
-- <code title="post /advanced_orders">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">create</a>({ ...params }) -> unknown</code>
-- <code title="get /advanced_orders/{order_id}">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">retrieve</a>(orderID) -> unknown</code>
-- <code title="get /advanced_orders">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">list</a>() -> unknown</code>
-- <code title="patch /advanced_orders/{advanced-order-id}/requirement_group">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">updateRequirementGroup</a>(advancedOrderID, { ...params }) -> unknown</code>
+- <code title="post /advanced_orders">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">create</a>({ ...params }) -> AdvancedOrderCreateResponse</code>
+- <code title="get /advanced_orders/{order_id}">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">retrieve</a>(orderID) -> AdvancedOrderRetrieveResponse</code>
+- <code title="get /advanced_orders">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">list</a>() -> AdvancedOrderListResponse</code>
+- <code title="patch /advanced_orders/{advanced-order-id}/requirement_group">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">updateRequirementGroup</a>(advancedOrderID, { ...params }) -> AdvancedOrderUpdateRequirementGroupResponse</code>
 
 # AI
 

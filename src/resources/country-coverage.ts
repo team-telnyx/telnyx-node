@@ -25,7 +25,7 @@ export class CountryCoverage extends APIResource {
 }
 
 export interface CountryCoverageRetrieveResponse {
-  data?: Array<CountryCoverageRetrieveResponse.Data>;
+  data?: { [key: string]: CountryCoverageRetrieveResponse.Data };
 }
 
 export namespace CountryCoverageRetrieveResponse {
