@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'get',
   httpPath: '/charges_summary',
+  operationId: 'GetMonthlyChargesSummary',
 };
 
 export const tool: Tool = {
