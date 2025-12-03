@@ -1967,7 +1967,7 @@ The following tools are available in this MCP server.
 
 ### Resource `storage.buckets.ssl_certificate`:
 
-- `create_buckets_storage_ssl_certificate` (`write`): Uploads an SSL certificate and its matching secret so that you can use Telnyx’s storage as your CDN.
+- `create_buckets_storage_ssl_certificate` (`write`): Uploads an SSL certificate and its matching secret so that you can use Telnyx's storage as your CDN.
 - `retrieve_buckets_storage_ssl_certificate` (`read`): Returns the stored certificate detail of a bucket, if applicable.
 - `delete_buckets_storage_ssl_certificate` (`write`): Deletes an SSL certificate and its matching secret.
 
