@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'get',
   httpPath: '/invoices',
+  operationId: 'ListInvoices',
 };
 
 export const tool: Tool = {
