@@ -181,6 +181,11 @@ export interface MessagingProfile {
   enabled?: boolean;
 
   /**
+   * DEPRECATED: health check url service checking
+   */
+  health_webhook_url?: string | null;
+
+  /**
    * enables SMS fallback for MMS messages.
    */
   mms_fall_back_to_sms?: boolean;
@@ -213,6 +218,17 @@ export interface MessagingProfile {
    * Identifies the type of the resource.
    */
   record_type?: 'messaging_profile';
+
+  /**
+   * Indicates whether message content redaction is enabled for this profile.
+   */
+  redaction_enabled?: boolean;
+
+  /**
+   * Determines how much information is redacted in messages for privacy or
+   * compliance purposes.
+   */
+  redaction_level?: number;
 
   /**
    * ISO 8601 formatted date indicating when the resource was updated.

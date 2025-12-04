@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'get',
   httpPath: '/messages/rcs/deeplinks/{agent_id}',
+  operationId: 'GenerateRCSDeeplink',
 };
 
 export const tool: Tool = {

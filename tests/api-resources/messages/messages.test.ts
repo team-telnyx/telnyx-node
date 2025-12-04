@@ -153,7 +153,7 @@ describe('resource messages', () => {
   test.skip('sendNumberPool: only required params', async () => {
     const responsePromise = client.messages.sendNumberPool({
       messaging_profile_id: 'abc85f64-5717-4562-b3fc-2c9600000000',
-      to: 'to',
+      to: '+13125550002',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -168,7 +168,7 @@ describe('resource messages', () => {
   test.skip('sendNumberPool: required and optional params', async () => {
     const response = await client.messages.sendNumberPool({
       messaging_profile_id: 'abc85f64-5717-4562-b3fc-2c9600000000',
-      to: 'to',
+      to: '+13125550002',
       auto_detect: true,
       media_urls: ['http://example.com'],
       subject: 'From Telnyx!',

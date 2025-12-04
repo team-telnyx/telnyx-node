@@ -38,6 +38,7 @@ describe('resource shortCodes', () => {
   test.skip('update: required and optional params', async () => {
     const response = await client.shortCodes.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       messaging_profile_id: 'abc85f64-5717-4562-b3fc-2c9600000000',
+      tags: ['test_customer'],
     });
   });
 
