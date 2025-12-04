@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'post',
   httpPath: '/messaging/rcs/bulk_capabilities',
+  operationId: 'ListRCSCapabilitiesOfAPhoneNumbersBatch',
 };
 
 export const tool: Tool = {

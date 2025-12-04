@@ -125,7 +125,7 @@ export class Messages extends APIResource {
    * const response = await client.messages.sendNumberPool({
    *   messaging_profile_id:
    *     'abc85f64-5717-4562-b3fc-2c9600000000',
-   *   to: 'to',
+   *   to: '+13125550002',
    * });
    * ```
    */
@@ -187,10 +187,12 @@ export interface OutboundMessagePayload {
    */
   id?: string;
 
+  cc?: Array<OutboundMessagePayload.Cc>;
+
   /**
    * ISO 8601 formatted date indicating when the message was finalized.
    */
-  completed_at?: string;
+  completed_at?: string | null;
 
   cost?: OutboundMessagePayload.Cost | null;
 
@@ -248,7 +250,7 @@ export interface OutboundMessagePayload {
   /**
    * ISO 8601 formatted date indicating when the message was sent.
    */
-  sent_at?: string;
+  sent_at?: string | null;
 
   /**
    * Subject of multimedia message
@@ -309,6 +311,32 @@ export interface OutboundMessagePayload {
 }
 
 export namespace OutboundMessagePayload {
+  export interface Cc {
+    /**
+     * The carrier of the receiver.
+     */
+    carrier?: string;
+
+    /**
+     * The line-type of the receiver.
+     */
+    line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+    /**
+     * Receiving address (+E.164 formatted phone number or short code).
+     */
+    phone_number?: string;
+
+    status?:
+      | 'queued'
+      | 'sending'
+      | 'sent'
+      | 'delivered'
+      | 'sending_failed'
+      | 'delivery_failed'
+      | 'delivery_unconfirmed';
+  }
+
   export interface Cost {
     /**
      * The amount deducted from your account.
@@ -479,6 +507,11 @@ export namespace MessageRetrieveResponse {
     messaging_profile_id?: string;
 
     /**
+     * Unique identifier for a messaging profile.
+     */
+    organization_id?: string;
+
+    /**
      * Number of parts into which the message's body must be split.
      */
     parts?: number;
@@ -497,6 +530,11 @@ export namespace MessageRetrieveResponse {
      * Not used for inbound messages.
      */
     sent_at?: string | null;
+
+    /**
+     * Message subject.
+     */
+    subject?: string | null;
 
     /**
      * Tags associated with the resource.
@@ -700,10 +738,12 @@ export interface MessageCancelScheduledResponse {
    */
   id?: string;
 
+  cc?: Array<MessageCancelScheduledResponse.Cc>;
+
   /**
    * ISO 8601 formatted date indicating when the message was finalized.
    */
-  completed_at?: string;
+  completed_at?: string | null;
 
   cost?: MessageCancelScheduledResponse.Cost | null;
 
@@ -761,7 +801,7 @@ export interface MessageCancelScheduledResponse {
   /**
    * ISO 8601 formatted date indicating when the message was sent.
    */
-  sent_at?: string;
+  sent_at?: string | null;
 
   /**
    * Subject of multimedia message
@@ -822,6 +862,38 @@ export interface MessageCancelScheduledResponse {
 }
 
 export namespace MessageCancelScheduledResponse {
+  export interface Cc {
+    /**
+     * The carrier of the receiver.
+     */
+    carrier?: string;
+
+    /**
+     * The line-type of the receiver.
+     */
+    line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+    /**
+     * Receiving address (+E.164 formatted phone number or short code).
+     */
+    phone_number?: string;
+
+    /**
+     * The delivery status of the message.
+     */
+    status?:
+      | 'scheduled'
+      | 'queued'
+      | 'sending'
+      | 'sent'
+      | 'cancelled'
+      | 'expired'
+      | 'sending_failed'
+      | 'delivery_unconfirmed'
+      | 'delivered'
+      | 'delivery_failed';
+  }
+
   export interface Cost {
     /**
      * The amount deducted from your account.

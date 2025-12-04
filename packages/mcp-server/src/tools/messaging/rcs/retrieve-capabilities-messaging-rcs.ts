@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'get',
   httpPath: '/messaging/rcs/capabilities/{agent_id}/{phone_number}',
+  operationId: 'ListRCSCapabilitiesOfAPhoneNumber',
 };
 
 export const tool: Tool = {

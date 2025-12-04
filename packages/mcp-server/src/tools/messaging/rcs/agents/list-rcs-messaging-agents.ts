@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'get',
   httpPath: '/messaging/rcs/agents',
+  operationId: 'ListRCSAgents',
 };
 
 export const tool: Tool = {

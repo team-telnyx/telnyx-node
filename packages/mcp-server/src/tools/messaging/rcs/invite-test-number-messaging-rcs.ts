@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'put',
   httpPath: '/messaging/rcs/test_number_invite/{id}/{phone_number}',
+  operationId: 'InviteATestNumberToRCS',
 };
 
 export const tool: Tool = {
