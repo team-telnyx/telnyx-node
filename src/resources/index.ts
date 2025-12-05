@@ -592,7 +592,7 @@ export {
   type MobilePhoneNumberListResponse,
   type MobilePhoneNumberUpdateParams,
   type MobilePhoneNumberListParams,
-} from './mobile-phone-numbers';
+} from './mobile-phone-numbers/mobile-phone-numbers';
 export {
   MobilePushCredentials,
   type PushCredential,

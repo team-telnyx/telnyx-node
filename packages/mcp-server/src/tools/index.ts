@@ -862,6 +862,8 @@ import list_inexplicit_number_orders from './inexplicit-number-orders/list-inexp
 import retrieve_mobile_phone_numbers from './mobile-phone-numbers/retrieve-mobile-phone-numbers';
 import update_mobile_phone_numbers from './mobile-phone-numbers/update-mobile-phone-numbers';
 import list_mobile_phone_numbers from './mobile-phone-numbers/list-mobile-phone-numbers';
+import retrieve_mobile_phone_numbers_messaging from './mobile-phone-numbers/messaging/retrieve-mobile-phone-numbers-messaging';
+import list_mobile_phone_numbers_messaging from './mobile-phone-numbers/messaging/list-mobile-phone-numbers-messaging';
 import create_mobile_voice_connections from './mobile-voice-connections/create-mobile-voice-connections';
 import retrieve_mobile_voice_connections from './mobile-voice-connections/retrieve-mobile-voice-connections';
 import update_mobile_voice_connections from './mobile-voice-connections/update-mobile-voice-connections';
@@ -1732,6 +1734,8 @@ addEndpoint(list_inexplicit_number_orders);
 addEndpoint(retrieve_mobile_phone_numbers);
 addEndpoint(update_mobile_phone_numbers);
 addEndpoint(list_mobile_phone_numbers);
+addEndpoint(retrieve_mobile_phone_numbers_messaging);
+addEndpoint(list_mobile_phone_numbers_messaging);
 addEndpoint(create_mobile_voice_connections);
 addEndpoint(retrieve_mobile_voice_connections);
 addEndpoint(update_mobile_voice_connections);
