@@ -1,5 +1,32 @@
 # Changelog
 
+## 4.5.0 (2025-12-05)
+
+Full Changelog: [v4.4.0...v4.5.0](https://github.com/team-telnyx/telnyx-node/compare/v4.4.0...v4.5.0)
+
+### Features
+
+* ENGDESK-47736: added discriminator fields to oneOffs that were missing them ([68c6537](https://github.com/team-telnyx/telnyx-node/commit/68c653786d7d9c1779655e8501ecf449959b6048))
+* FILE-1066: presigned url doc strings ([8e1c1a8](https://github.com/team-telnyx/telnyx-node/commit/8e1c1a840e1b206c508d5c11aab2f542c2c37d6b))
+* **mcp:** add typescript check to code execution tool ([a2d14ea](https://github.com/team-telnyx/telnyx-node/commit/a2d14ea85cd440e8d089aeaf225c3a9eb34ab780))
+* **mcp:** handle code mode calls in the Stainless API ([beb90f6](https://github.com/team-telnyx/telnyx-node/commit/beb90f6808c4f6bfc39864d15aadc6e8be8dae91))
+* MSG-6160 fix messaging lint issues ([e84af5a](https://github.com/team-telnyx/telnyx-node/commit/e84af5a98e36a2176f8f8d633f87605469f5d1d7))
+* MSG-6181: Reorganize mobile phone number messaging endpoints and fix … ([ef7e61b](https://github.com/team-telnyx/telnyx-node/commit/ef7e61b7bd5adc6eb4c1bbb60b817c795857299b))
+* NETAPPS_687: Fixed IGW spec to match current API. ([6adc872](https://github.com/team-telnyx/telnyx-node/commit/6adc872d6a78a78cd1f83a111401d211e10ba35f))
+* NUM-6334/NUM-6335 - fix redocly lint errors ([8ec4feb](https://github.com/team-telnyx/telnyx-node/commit/8ec4feba0b205d195077db92bf4e43a2aa5bb2c0))
+
+
+### Bug Fixes
+
+* **mcp:** return correct lines on typescript errors ([30b6e26](https://github.com/team-telnyx/telnyx-node/commit/30b6e261e3a4c1bece7579408a4b22833f2d6c56))
+
+
+### Chores
+
+* **internal:** codegen related update ([1c01c97](https://github.com/team-telnyx/telnyx-node/commit/1c01c97e52aed570184d45908f7160afdb5a498d))
+* **internal:** configure pnpm minimumReleaseAge to 1 day ([acee3ca](https://github.com/team-telnyx/telnyx-node/commit/acee3cacb53bcc24c7e92217b736f38d19a80ede))
+* use latest @modelcontextprotocol/sdk ([58a7cd2](https://github.com/team-telnyx/telnyx-node/commit/58a7cd21057815e1ced041a29635c208ba2f59cb))
+
 ## 4.4.0 (2025-12-03)
 
 Full Changelog: [v4.3.0...v4.4.0](https://github.com/team-telnyx/telnyx-node/compare/v4.3.0...v4.4.0)
