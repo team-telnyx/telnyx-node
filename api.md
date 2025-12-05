@@ -4101,15 +4101,27 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/mobile-phone-numbers.ts">MobilePhoneNumberRetrieveResponse</a></code>
-- <code><a href="./src/resources/mobile-phone-numbers.ts">MobilePhoneNumberUpdateResponse</a></code>
-- <code><a href="./src/resources/mobile-phone-numbers.ts">MobilePhoneNumberListResponse</a></code>
+- <code><a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">MobilePhoneNumberRetrieveResponse</a></code>
+- <code><a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">MobilePhoneNumberUpdateResponse</a></code>
+- <code><a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">MobilePhoneNumberListResponse</a></code>
 
 Methods:
 
-- <code title="get /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers.ts">retrieve</a>(id) -> MobilePhoneNumberRetrieveResponse</code>
-- <code title="patch /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers.ts">update</a>(id, { ...params }) -> MobilePhoneNumberUpdateResponse</code>
-- <code title="get /v2/mobile_phone_numbers">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers.ts">list</a>({ ...params }) -> MobilePhoneNumberListResponse</code>
+- <code title="get /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">retrieve</a>(id) -> MobilePhoneNumberRetrieveResponse</code>
+- <code title="patch /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">update</a>(id, { ...params }) -> MobilePhoneNumberUpdateResponse</code>
+- <code title="get /v2/mobile_phone_numbers">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">list</a>({ ...params }) -> MobilePhoneNumberListResponse</code>
+
+## Messaging
+
+Types:
+
+- <code><a href="./src/resources/mobile-phone-numbers/messaging.ts">MessagingRetrieveResponse</a></code>
+- <code><a href="./src/resources/mobile-phone-numbers/messaging.ts">MessagingListResponse</a></code>
+
+Methods:
+
+- <code title="get /mobile_phone_numbers/{id}/messaging">client.mobilePhoneNumbers.messaging.<a href="./src/resources/mobile-phone-numbers/messaging.ts">retrieve</a>(id) -> MessagingRetrieveResponse</code>
+- <code title="get /mobile_phone_numbers/messaging">client.mobilePhoneNumbers.messaging.<a href="./src/resources/mobile-phone-numbers/messaging.ts">list</a>({ ...params }) -> MessagingListResponse</code>
 
 # MobileVoiceConnections
 

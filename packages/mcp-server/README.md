@@ -2240,6 +2240,11 @@ The following tools are available in this MCP server.
 - `update_mobile_phone_numbers` (`write`): Update a Mobile Phone Number
 - `list_mobile_phone_numbers` (`read`): List Mobile Phone Numbers
 
+### Resource `mobile_phone_numbers.messaging`:
+
+- `retrieve_mobile_phone_numbers_messaging` (`read`): Retrieve a mobile phone number with messaging settings
+- `list_mobile_phone_numbers_messaging` (`read`): List mobile phone numbers with messaging settings
+
 ### Resource `mobile_voice_connections`:
 
 - `create_mobile_voice_connections` (`write`): Create a Mobile Voice Connection
