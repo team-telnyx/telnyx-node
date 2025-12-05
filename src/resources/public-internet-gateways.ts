@@ -113,31 +113,10 @@ export namespace PublicInternetGatewayCreateResponse {
      */
     record_type?: string;
 
-    region?: Data.Region;
-
     /**
      * The region interface is deployed to.
      */
     region_code?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
   }
 }
 
@@ -157,31 +136,10 @@ export namespace PublicInternetGatewayRetrieveResponse {
      */
     record_type?: string;
 
-    region?: Data.Region;
-
     /**
      * The region interface is deployed to.
      */
     region_code?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
   }
 }
 
@@ -203,31 +161,10 @@ export namespace PublicInternetGatewayListResponse {
      */
     record_type?: string;
 
-    region?: Data.Region;
-
     /**
      * The region interface is deployed to.
      */
     region_code?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
   }
 }
 
@@ -247,31 +184,10 @@ export namespace PublicInternetGatewayDeleteResponse {
      */
     record_type?: string;
 
-    region?: Data.Region;
-
     /**
      * The region interface is deployed to.
      */
     region_code?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
   }
 }
 
@@ -287,7 +203,7 @@ export interface PublicInternetGatewayCreateParams {
   network_id?: string;
 
   /**
-   * The region the interface should be deployed to.
+   * The region interface is deployed to.
    */
   region_code?: string;
 }
