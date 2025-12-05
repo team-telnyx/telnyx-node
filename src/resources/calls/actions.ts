@@ -895,13 +895,23 @@ export class Actions extends APIResource {
   }
 }
 
-export type AwsVoiceSettings = unknown;
+export interface AwsVoiceSettings {
+  /**
+   * Voice settings provider type
+   */
+  type: 'aws';
+}
 
 export interface CallControlCommandResult {
   result?: string;
 }
 
 export interface ElevenLabsVoiceSettings {
+  /**
+   * Voice settings provider type
+   */
+  type: 'elevenlabs';
+
   /**
    * The `identifier` for an integration secret
    * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
@@ -1133,6 +1143,11 @@ export type TelnyxTranscriptionLanguage =
   | 'auto_detect';
 
 export interface TelnyxVoiceSettings {
+  /**
+   * Voice settings provider type
+   */
+  type: 'telnyx';
+
   /**
    * The voice speed to be used for the voice. The voice speed must be between 0.1
    * and 2.0. Default value is 1.0.

@@ -12,7 +12,7 @@ describe('resource customStorageCredentials', () => {
   test.skip('create: only required params', async () => {
     const responsePromise = client.customStorageCredentials.create('connection_id', {
       backend: 'gcs',
-      configuration: {},
+      configuration: { backend: 'gcs' },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -27,7 +27,7 @@ describe('resource customStorageCredentials', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.customStorageCredentials.create('connection_id', {
       backend: 'gcs',
-      configuration: { bucket: 'example-bucket', credentials: 'OPAQUE_CREDENTIALS_TOKEN' },
+      configuration: { backend: 'gcs', bucket: 'example-bucket', credentials: 'OPAQUE_CREDENTIALS_TOKEN' },
     });
   });
 
@@ -47,7 +47,7 @@ describe('resource customStorageCredentials', () => {
   test.skip('update: only required params', async () => {
     const responsePromise = client.customStorageCredentials.update('connection_id', {
       backend: 'gcs',
-      configuration: {},
+      configuration: { backend: 'gcs' },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -62,7 +62,7 @@ describe('resource customStorageCredentials', () => {
   test.skip('update: required and optional params', async () => {
     const response = await client.customStorageCredentials.update('connection_id', {
       backend: 'gcs',
-      configuration: { bucket: 'example-bucket', credentials: 'OPAQUE_CREDENTIALS_TOKEN' },
+      configuration: { backend: 'gcs', bucket: 'example-bucket', credentials: 'OPAQUE_CREDENTIALS_TOKEN' },
     });
   });
 

@@ -119,28 +119,47 @@ export const tool: Tool = {
         type: 'object',
         title: 'ElevenLabs Voice Settings',
         properties: {
+          type: {
+            type: 'string',
+            description: 'Voice settings provider type',
+            enum: ['elevenlabs'],
+          },
           api_key_ref: {
             type: 'string',
             description:
               'The `identifier` for an integration secret [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret) that refers to your ElevenLabs API key. Warning: Free plans are unlikely to work with this integration.',
           },
         },
+        required: ['type'],
       },
       telnyx_voice_settings: {
         type: 'object',
         title: 'Telnyx Voice Settings',
         properties: {
+          type: {
+            type: 'string',
+            description: 'Voice settings provider type',
+            enum: ['telnyx'],
+          },
           voice_speed: {
             type: 'number',
             description:
               'The voice speed to be used for the voice. The voice speed must be between 0.1 and 2.0. Default value is 1.0.',
           },
         },
+        required: ['type'],
       },
       aws_voice_settings: {
         type: 'object',
         title: 'AWS Voice Settings',
-        additionalProperties: true,
+        properties: {
+          type: {
+            type: 'string',
+            description: 'Voice settings provider type',
+            enum: ['aws'],
+          },
+        },
+        required: ['type'],
       },
     },
   },
