@@ -422,14 +422,6 @@ import {
   MobileNetworkOperators,
 } from './resources/mobile-network-operators';
 import {
-  MobilePhoneNumberListParams,
-  MobilePhoneNumberListResponse,
-  MobilePhoneNumberRetrieveResponse,
-  MobilePhoneNumberUpdateParams,
-  MobilePhoneNumberUpdateResponse,
-  MobilePhoneNumbers,
-} from './resources/mobile-phone-numbers';
-import {
   MobilePushCredentialCreateParams,
   MobilePushCredentialListParams,
   MobilePushCredentialListResponse,
@@ -1169,6 +1161,14 @@ import {
 } from './resources/messaging-profiles/messaging-profiles';
 import { MessagingTollfree } from './resources/messaging-tollfree/messaging-tollfree';
 import { Messaging } from './resources/messaging/messaging';
+import {
+  MobilePhoneNumberListParams,
+  MobilePhoneNumberListResponse,
+  MobilePhoneNumberRetrieveResponse,
+  MobilePhoneNumberUpdateParams,
+  MobilePhoneNumberUpdateResponse,
+  MobilePhoneNumbers,
+} from './resources/mobile-phone-numbers/mobile-phone-numbers';
 import {
   InterfaceStatus,
   NetworkCreate,

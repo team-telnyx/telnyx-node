@@ -458,6 +458,8 @@ export interface ShortCode {
    */
   short_code?: string;
 
+  tags?: Array<string>;
+
   /**
    * ISO 8601 formatted date indicating when the resource was updated.
    */

@@ -1961,7 +1961,7 @@ The following tools are available in this MCP server.
 
 ### Resource `storage.buckets`:
 
-- `create_presigned_url_storage_buckets` (`write`): Returns a timed and authenticated URL to get an object. This is the equivalent to AWS S3’s “presigned” URL. Please note that Telnyx performs authentication differently from AWS S3 and you MUST NOT use the presign method of AWS s3api CLI or sdk to generate the presigned URL.
+- `create_presigned_url_storage_buckets` (`write`): Returns a timed and authenticated URL to download (GET) or upload (PUT) an object. This is the equivalent to AWS S3’s “presigned” URL. Please note that Telnyx performs authentication differently from AWS S3 and you MUST NOT use the presign method of AWS s3api CLI or SDK to generate the presigned URL.
 
   Refer to: https://developers.telnyx.com/docs/cloud-storage/presigned-urls
 
@@ -2239,6 +2239,11 @@ The following tools are available in this MCP server.
 - `retrieve_mobile_phone_numbers` (`read`): Retrieve a Mobile Phone Number
 - `update_mobile_phone_numbers` (`write`): Update a Mobile Phone Number
 - `list_mobile_phone_numbers` (`read`): List Mobile Phone Numbers
+
+### Resource `mobile_phone_numbers.messaging`:
+
+- `retrieve_mobile_phone_numbers_messaging` (`read`): Retrieve a mobile phone number with messaging settings
+- `list_mobile_phone_numbers_messaging` (`read`): List mobile phone numbers with messaging settings
 
 ### Resource `mobile_voice_connections`:
 

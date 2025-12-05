@@ -4614,6 +4614,11 @@ export namespace InboundMessageWebhookEvent {
       messaging_profile_id?: string;
 
       /**
+       * Unique identifier for a messaging profile.
+       */
+      organization_id?: string;
+
+      /**
        * Number of parts into which the message's body must be split.
        */
       parts?: number;
@@ -4632,6 +4637,11 @@ export namespace InboundMessageWebhookEvent {
        * Not used for inbound messages.
        */
       sent_at?: string | null;
+
+      /**
+       * Message subject.
+       */
+      subject?: string | null;
 
       /**
        * Tags associated with the resource.

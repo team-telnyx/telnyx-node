@@ -15,7 +15,7 @@ export class CustomStorageCredentials extends APIResource {
    * const customStorageCredential =
    *   await client.customStorageCredentials.create(
    *     'connection_id',
-   *     { backend: 'gcs', configuration: {} },
+   *     { backend: 'gcs', configuration: { backend: 'gcs' } },
    *   );
    * ```
    */
@@ -53,7 +53,7 @@ export class CustomStorageCredentials extends APIResource {
    * const customStorageCredential =
    *   await client.customStorageCredentials.update(
    *     'connection_id',
-   *     { backend: 'gcs', configuration: {} },
+   *     { backend: 'gcs', configuration: { backend: 'gcs' } },
    *   );
    * ```
    */
@@ -85,6 +85,11 @@ export class CustomStorageCredentials extends APIResource {
 
 export interface AzureConfigurationData {
   /**
+   * Storage backend type
+   */
+  backend: 'azure';
+
+  /**
    * Azure Blob Storage account key.
    */
   account_key?: string;
@@ -108,6 +113,11 @@ export interface CustomStorageConfiguration {
 
 export interface GcsConfigurationData {
   /**
+   * Storage backend type
+   */
+  backend: 'gcs';
+
+  /**
    * Name of the bucket to be used to store recording files.
    */
   bucket?: string;
@@ -120,6 +130,11 @@ export interface GcsConfigurationData {
 }
 
 export interface S3ConfigurationData {
+  /**
+   * Storage backend type
+   */
+  backend: 's3';
+
   /**
    * AWS credentials access key id.
    */

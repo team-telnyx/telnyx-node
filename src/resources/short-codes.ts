@@ -81,6 +81,8 @@ export interface ShortCodeUpdateParams {
    * Unique identifier for a messaging profile.
    */
   messaging_profile_id: string;
+
+  tags?: Array<string>;
 }
 
 export interface ShortCodeListParams {

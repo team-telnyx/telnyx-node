@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'post',
   httpPath: '/messsages/rcs',
+  operationId: 'SendRCSMessage',
 };
 
 export const tool: Tool = {

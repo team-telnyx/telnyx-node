@@ -156,7 +156,7 @@ describe('resource actions', () => {
       transcription: { model: 'distil-whisper/distil-large-v2' },
       user_response_timeout_ms: 5000,
       voice: 'Telnyx.KokoroTTS.af',
-      voice_settings: { api_key_ref: 'my_elevenlabs_api_key' },
+      voice_settings: { type: 'elevenlabs', api_key_ref: 'my_elevenlabs_api_key' },
     });
   });
 
@@ -205,7 +205,7 @@ describe('resource actions', () => {
       terminating_digit: '#',
       timeout_millis: 60000,
       valid_digits: '123',
-      voice_settings: { api_key_ref: 'my_elevenlabs_api_key' },
+      voice_settings: { type: 'elevenlabs', api_key_ref: 'my_elevenlabs_api_key' },
     });
   });
 
@@ -381,7 +381,7 @@ describe('resource actions', () => {
       payload_type: 'text',
       service_level: 'basic',
       stop: 'current',
-      voice_settings: { api_key_ref: 'my_elevenlabs_api_key' },
+      voice_settings: { type: 'elevenlabs', api_key_ref: 'my_elevenlabs_api_key' },
     });
   });
 

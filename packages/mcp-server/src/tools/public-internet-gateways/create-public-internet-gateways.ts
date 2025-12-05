@@ -32,7 +32,7 @@ export const tool: Tool = {
       },
       region_code: {
         type: 'string',
-        description: 'The region the interface should be deployed to.',
+        description: 'The region interface is deployed to.',
       },
       jq_filter: {
         type: 'string',
