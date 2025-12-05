@@ -1,4 +1,7 @@
-packages: 
+packages:
   - 'packages/*'
 onlyBuiltDependencies:
   - '@swc/core'
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - telnyx
