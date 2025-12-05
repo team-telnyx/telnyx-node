@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.5.1 (2025-12-05)
+
+Full Changelog: [v4.5.0...v4.5.1](https://github.com/team-telnyx/telnyx-node/compare/v4.5.0...v4.5.1)
+
+### Bug Fixes
+
+* **mcp:** correct code tool API endpoint ([ec78834](https://github.com/team-telnyx/telnyx-node/commit/ec788341d296a870056eb4c378bb7ceade8d50e0))
+
+
+### Chores
+
+* **internal:** codegen related update ([a95cda0](https://github.com/team-telnyx/telnyx-node/commit/a95cda0da06c1e4d6d44d8aa7f0c79439289c88d))
+
 ## 4.5.0 (2025-12-05)
 
 Full Changelog: [v4.4.0...v4.5.0](https://github.com/team-telnyx/telnyx-node/compare/v4.4.0...v4.5.0)
