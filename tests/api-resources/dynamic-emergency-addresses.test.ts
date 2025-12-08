@@ -13,7 +13,7 @@ describe('resource dynamicEmergencyAddresses', () => {
     const responsePromise = client.dynamicEmergencyAddresses.create({
       administrative_area: 'TX',
       country_code: 'US',
-      house_number: 'house_number',
+      house_number: '600',
       locality: 'Austin',
       postal_code: '78701',
       street_name: 'Congress',
@@ -32,7 +32,7 @@ describe('resource dynamicEmergencyAddresses', () => {
     const response = await client.dynamicEmergencyAddresses.create({
       administrative_area: 'TX',
       country_code: 'US',
-      house_number: 'house_number',
+      house_number: '600',
       locality: 'Austin',
       postal_code: '78701',
       street_name: 'Congress',
