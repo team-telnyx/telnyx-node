@@ -617,7 +617,7 @@ Types:
 
 Methods:
 
-- <code title="post /ai/chat/completions">client.ai.chat.<a href="./src/resources/ai/chat.ts">createCompletion</a>({ ...params }) -> unknown</code>
+- <code title="post /ai/chat/completions">client.ai.chat.<a href="./src/resources/ai/chat.ts">createCompletion</a>({ ...params }) -> ChatCreateCompletionResponse</code>
 
 ## Clusters
 
