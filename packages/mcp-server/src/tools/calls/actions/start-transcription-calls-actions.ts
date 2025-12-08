@@ -155,6 +155,12 @@ export const tool: Tool = {
                 description: 'The model to use for transcription.',
                 enum: ['deepgram/nova-2', 'deepgram/nova-3'],
               },
+              keywords_boosting: {
+                type: 'object',
+                description:
+                  'Keywords and their respective intensifiers (boosting values) to improve transcription accuracy for specific words or phrases. The intensifier should be a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.',
+                additionalProperties: true,
+              },
               language: {
                 type: 'string',
                 description:
