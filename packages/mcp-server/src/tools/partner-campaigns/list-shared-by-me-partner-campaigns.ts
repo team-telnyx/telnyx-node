@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'read',
   tags: [],
   httpMethod: 'get',
-  httpPath: '/partnerCampaign/sharedByMe',
+  httpPath: '/10dlc/partnerCampaign/sharedByMe',
   operationId: 'GetPartnerCampaignsSharedByUser',
 };
 

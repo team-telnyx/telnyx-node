@@ -16,7 +16,7 @@ export class ExternalVetting extends APIResource {
    * ```
    */
   list(brandID: string, options?: RequestOptions): APIPromise<ExternalVettingListResponse> {
-    return this._client.get(path`/brand/${brandID}/externalVetting`, options);
+    return this._client.get(path`/10dlc/brand/${brandID}/externalVetting`, options);
   }
 
   /**
@@ -38,7 +38,7 @@ export class ExternalVetting extends APIResource {
     body: ExternalVettingImportParams,
     options?: RequestOptions,
   ): APIPromise<ExternalVettingImportResponse> {
-    return this._client.put(path`/brand/${brandID}/externalVetting`, { body, ...options });
+    return this._client.put(path`/10dlc/brand/${brandID}/externalVetting`, { body, ...options });
   }
 
   /**
@@ -57,7 +57,7 @@ export class ExternalVetting extends APIResource {
     body: ExternalVettingOrderParams,
     options?: RequestOptions,
   ): APIPromise<ExternalVettingOrderResponse> {
-    return this._client.post(path`/brand/${brandID}/externalVetting`, { body, ...options });
+    return this._client.post(path`/10dlc/brand/${brandID}/externalVetting`, { body, ...options });
   }
 }
 

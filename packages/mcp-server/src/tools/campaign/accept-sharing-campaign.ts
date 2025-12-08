@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/campaign/acceptSharing/{campaignId}',
+  httpPath: '/10dlc/campaign/acceptSharing/{campaignId}',
   operationId: 'AcceptCampaign',
 };
 

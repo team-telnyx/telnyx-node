@@ -28,7 +28,7 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
     body: PhoneNumberAssignmentByProfileAssignParams,
     options?: RequestOptions,
   ): APIPromise<PhoneNumberAssignmentByProfileAssignResponse> {
-    return this._client.post('/phoneNumberAssignmentByProfile', { body, ...options });
+    return this._client.post('/10dlc/phoneNumberAssignmentByProfile', { body, ...options });
   }
 
   /**
@@ -48,7 +48,7 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
     query: PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse> {
-    return this._client.get(path`/phoneNumberAssignmentByProfile/${taskID}/phoneNumbers`, {
+    return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}/phoneNumbers`, {
       query,
       ...options,
     });
@@ -70,7 +70,7 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
     taskID: string,
     options?: RequestOptions,
   ): APIPromise<PhoneNumberAssignmentByProfileRetrieveStatusResponse> {
-    return this._client.get(path`/phoneNumberAssignmentByProfile/${taskID}`, options);
+    return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}`, options);
   }
 }
 

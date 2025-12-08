@@ -34,7 +34,7 @@ export class CampaignBuilder extends APIResource {
     body: CampaignBuilderCreateParams,
     options?: RequestOptions,
   ): APIPromise<CampaignAPI.TelnyxCampaignCsp> {
-    return this._client.post('/campaignBuilder', { body, ...options });
+    return this._client.post('/10dlc/campaignBuilder', { body, ...options });
   }
 }
 

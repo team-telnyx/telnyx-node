@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'read',
   tags: [],
   httpMethod: 'get',
-  httpPath: '/phone_number_campaigns/{phoneNumber}',
+  httpPath: '/10dlc/phone_number_campaigns/{phoneNumber}',
   operationId: 'GetSinglePhoneNumberCampaign',
 };
 

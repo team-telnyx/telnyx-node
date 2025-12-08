@@ -16,7 +16,7 @@ export class Usecase extends APIResource {
    * ```
    */
   getCost(query: UsecaseGetCostParams, options?: RequestOptions): APIPromise<UsecaseGetCostResponse> {
-    return this._client.get('/campaign/usecase/cost', { query, ...options });
+    return this._client.get('/10dlc/campaign/usecase/cost', { query, ...options });
   }
 }
 

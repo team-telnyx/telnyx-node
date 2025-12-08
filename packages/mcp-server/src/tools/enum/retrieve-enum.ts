@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'read',
   tags: [],
   httpMethod: 'get',
-  httpPath: '/enum/{endpoint}',
+  httpPath: '/10dlc/enum/{endpoint}',
   operationId: 'GetEnumEndpoint',
 };
 

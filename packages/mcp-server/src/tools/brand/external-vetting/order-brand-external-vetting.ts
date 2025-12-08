@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/brand/{brandId}/externalVetting',
+  httpPath: '/10dlc/brand/{brandId}/externalVetting',
   operationId: 'PostOrderExternalVetting',
 };
 

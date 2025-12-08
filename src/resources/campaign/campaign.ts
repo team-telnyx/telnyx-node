@@ -24,7 +24,7 @@ export class Campaign extends APIResource {
    * ```
    */
   retrieve(campaignID: string, options?: RequestOptions): APIPromise<TelnyxCampaignCsp> {
-    return this._client.get(path`/campaign/${campaignID}`, options);
+    return this._client.get(path`/10dlc/campaign/${campaignID}`, options);
   }
 
   /**
@@ -43,7 +43,7 @@ export class Campaign extends APIResource {
     body: CampaignUpdateParams,
     options?: RequestOptions,
   ): APIPromise<TelnyxCampaignCsp> {
-    return this._client.put(path`/campaign/${campaignID}`, { body, ...options });
+    return this._client.put(path`/10dlc/campaign/${campaignID}`, { body, ...options });
   }
 
   /**
@@ -57,7 +57,7 @@ export class Campaign extends APIResource {
    * ```
    */
   list(query: CampaignListParams, options?: RequestOptions): APIPromise<CampaignListResponse> {
-    return this._client.get('/campaign', { query, ...options });
+    return this._client.get('/10dlc/campaign', { query, ...options });
   }
 
   /**
@@ -71,7 +71,7 @@ export class Campaign extends APIResource {
    * ```
    */
   acceptSharing(campaignID: string, options?: RequestOptions): APIPromise<CampaignAcceptSharingResponse> {
-    return this._client.post(path`/campaign/acceptSharing/${campaignID}`, options);
+    return this._client.post(path`/10dlc/campaign/acceptSharing/${campaignID}`, options);
   }
 
   /**
@@ -85,7 +85,7 @@ export class Campaign extends APIResource {
    * ```
    */
   deactivate(campaignID: string, options?: RequestOptions): APIPromise<CampaignDeactivateResponse> {
-    return this._client.delete(path`/campaign/${campaignID}`, options);
+    return this._client.delete(path`/10dlc/campaign/${campaignID}`, options);
   }
 
   /**
@@ -99,7 +99,7 @@ export class Campaign extends APIResource {
    * ```
    */
   getMnoMetadata(campaignID: string, options?: RequestOptions): APIPromise<CampaignGetMnoMetadataResponse> {
-    return this._client.get(path`/campaign/${campaignID}/mnoMetadata`, options);
+    return this._client.get(path`/10dlc/campaign/${campaignID}/mnoMetadata`, options);
   }
 
   /**
@@ -116,7 +116,7 @@ export class Campaign extends APIResource {
     campaignID: string,
     options?: RequestOptions,
   ): APIPromise<CampaignGetOperationStatusResponse> {
-    return this._client.get(path`/campaign/${campaignID}/operationStatus`, options);
+    return this._client.get(path`/10dlc/campaign/${campaignID}/operationStatus`, options);
   }
 
   /**
@@ -133,7 +133,7 @@ export class Campaign extends APIResource {
     campaignID: string,
     options?: RequestOptions,
   ): APIPromise<CampaignGetSharingStatusResponse> {
-    return this._client.get(path`/campaign/${campaignID}/sharing`, options);
+    return this._client.get(path`/10dlc/campaign/${campaignID}/sharing`, options);
   }
 
   /**
@@ -158,7 +158,7 @@ export class Campaign extends APIResource {
     body: CampaignSubmitAppealParams,
     options?: RequestOptions,
   ): APIPromise<CampaignSubmitAppealResponse> {
-    return this._client.post(path`/campaign/${campaignID}/appeal`, { body, ...options });
+    return this._client.post(path`/10dlc/campaign/${campaignID}/appeal`, { body, ...options });
   }
 }
 

@@ -19,7 +19,7 @@ export class PhoneNumberCampaigns extends APIResource {
    * ```
    */
   create(body: PhoneNumberCampaignCreateParams, options?: RequestOptions): APIPromise<PhoneNumberCampaign> {
-    return this._client.post('/phone_number_campaigns', { body, ...options });
+    return this._client.post('/10dlc/phone_number_campaigns', { body, ...options });
   }
 
   /**
@@ -32,7 +32,7 @@ export class PhoneNumberCampaigns extends APIResource {
    * ```
    */
   retrieve(phoneNumber: string, options?: RequestOptions): APIPromise<PhoneNumberCampaign> {
-    return this._client.get(path`/phone_number_campaigns/${phoneNumber}`, options);
+    return this._client.get(path`/10dlc/phone_number_campaigns/${phoneNumber}`, options);
   }
 
   /**
@@ -52,7 +52,7 @@ export class PhoneNumberCampaigns extends APIResource {
     body: PhoneNumberCampaignUpdateParams,
     options?: RequestOptions,
   ): APIPromise<PhoneNumberCampaign> {
-    return this._client.put(path`/phone_number_campaigns/${pathPhoneNumber}`, { body, ...options });
+    return this._client.put(path`/10dlc/phone_number_campaigns/${pathPhoneNumber}`, { body, ...options });
   }
 
   /**
@@ -68,7 +68,7 @@ export class PhoneNumberCampaigns extends APIResource {
     query: PhoneNumberCampaignListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<PhoneNumberCampaignListResponse> {
-    return this._client.get('/phone_number_campaigns', { query, ...options });
+    return this._client.get('/10dlc/phone_number_campaigns', { query, ...options });
   }
 
   /**
@@ -82,7 +82,7 @@ export class PhoneNumberCampaigns extends APIResource {
    * ```
    */
   delete(phoneNumber: string, options?: RequestOptions): APIPromise<PhoneNumberCampaign> {
-    return this._client.delete(path`/phone_number_campaigns/${phoneNumber}`, options);
+    return this._client.delete(path`/10dlc/phone_number_campaigns/${phoneNumber}`, options);
   }
 }
 

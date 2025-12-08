@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   operation: 'read',
   tags: [],
   httpMethod: 'get',
-  httpPath: '/campaign',
+  httpPath: '/10dlc/campaign',
   operationId: 'GetCampaigns',
 };
 
