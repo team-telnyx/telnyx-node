@@ -623,17 +623,15 @@ export const tool: Tool = {
               },
               {
                 type: 'object',
-                title: 'Transcription engine Deepgram config',
+                title: 'Deepgram Nova-2 config',
                 properties: {
                   transcription_engine: {
                     type: 'string',
-                    description: 'Engine identifier for Deepgram transcription service',
                     enum: ['Deepgram'],
                   },
                   transcription_model: {
                     type: 'string',
-                    description: 'The model to use for transcription.',
-                    enum: ['deepgram/nova-2', 'deepgram/nova-3'],
+                    enum: ['deepgram/nova-2'],
                   },
                   keywords_boosting: {
                     type: 'object',
@@ -643,8 +641,8 @@ export const tool: Tool = {
                   },
                   language: {
                     type: 'string',
-                    description:
-                      'Language to use for speech recognition. Available languages depend on the selected model.',
+                    title: 'Deepgram nova-2 transcription engine list of languages',
+                    description: 'Language to use for speech recognition with nova-2 model',
                     enum: [
                       'bg',
                       'ca',
@@ -699,6 +697,54 @@ export const tool: Tool = {
                       'tr',
                       'uk',
                       'vi',
+                      'auto_detect',
+                    ],
+                  },
+                },
+                required: ['transcription_engine', 'transcription_model'],
+              },
+              {
+                type: 'object',
+                title: 'Deepgram Nova-3 config',
+                properties: {
+                  transcription_engine: {
+                    type: 'string',
+                    enum: ['Deepgram'],
+                  },
+                  transcription_model: {
+                    type: 'string',
+                    enum: ['deepgram/nova-3'],
+                  },
+                  keywords_boosting: {
+                    type: 'object',
+                    description:
+                      'Keywords and their respective intensifiers (boosting values) to improve transcription accuracy for specific words or phrases. The intensifier should be a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.',
+                    additionalProperties: true,
+                  },
+                  language: {
+                    type: 'string',
+                    title: 'Deepgram nova-3 transcription engine list of languages',
+                    description: 'Language to use for speech recognition with nova-3 model',
+                    enum: [
+                      'en',
+                      'en-US',
+                      'en-AU',
+                      'en-GB',
+                      'en-IN',
+                      'en-NZ',
+                      'de',
+                      'nl',
+                      'sv',
+                      'sv-SE',
+                      'da',
+                      'da-DK',
+                      'es',
+                      'es-419',
+                      'fr',
+                      'fr-CA',
+                      'pt',
+                      'pt-BR',
+                      'pt-PT',
                       'auto_detect',
                     ],
                   },
