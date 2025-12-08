@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'read',
   tags: [],
   httpMethod: 'get',
-  httpPath: '/campaign/usecase/cost',
+  httpPath: '/10dlc/campaign/usecase/cost',
   operationId: 'GetCampaignCost',
 };
 

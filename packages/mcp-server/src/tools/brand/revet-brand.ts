@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'put',
-  httpPath: '/brand/{brandId}/revet',
+  httpPath: '/10dlc/brand/{brandId}/revet',
   operationId: 'RevetBrand',
 };
 

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/brand',
+  httpPath: '/10dlc/brand',
   operationId: 'CreateBrandPost',
 };
 

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'read',
   tags: [],
   httpMethod: 'get',
-  httpPath: '/brand/feedback/{brandId}',
+  httpPath: '/10dlc/brand/feedback/{brandId}',
   operationId: 'GetBrandFeedbackById',
 };
 

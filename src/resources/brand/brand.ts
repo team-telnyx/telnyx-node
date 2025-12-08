@@ -37,7 +37,7 @@ export class Brand extends APIResource {
    * ```
    */
   create(body: BrandCreateParams, options?: RequestOptions): APIPromise<TelnyxBrand> {
-    return this._client.post('/brand', { body, ...options });
+    return this._client.post('/10dlc/brand', { body, ...options });
   }
 
   /**
@@ -49,7 +49,7 @@ export class Brand extends APIResource {
    * ```
    */
   retrieve(brandID: string, options?: RequestOptions): APIPromise<BrandRetrieveResponse> {
-    return this._client.get(path`/brand/${brandID}`, options);
+    return this._client.get(path`/10dlc/brand/${brandID}`, options);
   }
 
   /**
@@ -67,7 +67,7 @@ export class Brand extends APIResource {
    * ```
    */
   update(brandID: string, body: BrandUpdateParams, options?: RequestOptions): APIPromise<TelnyxBrand> {
-    return this._client.put(path`/brand/${brandID}`, { body, ...options });
+    return this._client.put(path`/10dlc/brand/${brandID}`, { body, ...options });
   }
 
   /**
@@ -82,7 +82,7 @@ export class Brand extends APIResource {
     query: BrandListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<BrandListResponse> {
-    return this._client.get('/brand', { query, ...options });
+    return this._client.get('/10dlc/brand', { query, ...options });
   }
 
   /**
@@ -96,7 +96,7 @@ export class Brand extends APIResource {
    * ```
    */
   delete(brandID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/brand/${brandID}`, {
+    return this._client.delete(path`/10dlc/brand/${brandID}`, {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
@@ -123,7 +123,7 @@ export class Brand extends APIResource {
    * ```
    */
   getFeedback(brandID: string, options?: RequestOptions): APIPromise<BrandGetFeedbackResponse> {
-    return this._client.get(path`/brand/feedback/${brandID}`, options);
+    return this._client.get(path`/10dlc/brand/feedback/${brandID}`, options);
   }
 
   /**
@@ -135,7 +135,7 @@ export class Brand extends APIResource {
    * ```
    */
   resend2faEmail(brandID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/brand/${brandID}/2faEmail`, {
+    return this._client.post(path`/10dlc/brand/${brandID}/2faEmail`, {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
@@ -152,7 +152,7 @@ export class Brand extends APIResource {
    * ```
    */
   revet(brandID: string, options?: RequestOptions): APIPromise<TelnyxBrand> {
-    return this._client.put(path`/brand/${brandID}/revet`, options);
+    return this._client.put(path`/10dlc/brand/${brandID}/revet`, options);
   }
 }
 

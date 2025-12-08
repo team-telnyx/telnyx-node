@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'read',
   tags: [],
   httpMethod: 'get',
-  httpPath: '/campaignBuilder/brand/{brandId}/usecase/{usecase}',
+  httpPath: '/10dlc/campaignBuilder/brand/{brandId}/usecase/{usecase}',
   operationId: 'GetUsecaseQualification',
 };
 

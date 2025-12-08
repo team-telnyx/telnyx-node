@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/phone_number_campaigns',
+  httpPath: '/10dlc/phone_number_campaigns',
   operationId: 'CreatePhoneNumberCampaign',
 };
 

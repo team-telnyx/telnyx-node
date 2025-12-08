@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'post',
-  httpPath: '/phoneNumberAssignmentByProfile',
+  httpPath: '/10dlc/phoneNumberAssignmentByProfile',
   operationId: 'PostAssignMessagingProfileToCampaign',
 };
 

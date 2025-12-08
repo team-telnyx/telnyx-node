@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'read',
   tags: [],
   httpMethod: 'get',
-  httpPath: '/brand/{brandId}/externalVetting',
+  httpPath: '/10dlc/brand/{brandId}/externalVetting',
   operationId: 'ListExternalVettings',
 };
 
