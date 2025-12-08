@@ -28,7 +28,7 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
     body: PhoneNumberAssignmentByProfileAssignParams,
     options?: RequestOptions,
   ): APIPromise<PhoneNumberAssignmentByProfileAssignResponse> {
-    return this._client.post('/phoneNumberAssignmentByProfile', { body, ...options });
+    return this._client.post('/10dlc/phoneNumberAssignmentByProfile', { body, ...options });
   }
 
   /**
@@ -48,7 +48,7 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
     query: PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse> {
-    return this._client.get(path`/phoneNumberAssignmentByProfile/${taskID}/phoneNumbers`, {
+    return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}/phoneNumbers`, {
       query,
       ...options,
     });
@@ -70,45 +70,35 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
     taskID: string,
     options?: RequestOptions,
   ): APIPromise<PhoneNumberAssignmentByProfileRetrieveStatusResponse> {
-    return this._client.get(path`/phoneNumberAssignmentByProfile/${taskID}`, options);
+    return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}`, options);
   }
 }
 
 export type TaskStatus = 'pending' | 'starting' | 'running' | 'completed' | 'failed';
 
-export type PhoneNumberAssignmentByProfileAssignResponse =
-  | PhoneNumberAssignmentByProfileAssignResponse.AssignProfileToCampaignResponse
-  | PhoneNumberAssignmentByProfileAssignResponse.SettingsDataErrorMessage;
+export interface PhoneNumberAssignmentByProfileAssignResponse {
+  /**
+   * The ID of the messaging profile that you want to link to the specified campaign.
+   */
+  messagingProfileId: string;
 
-export namespace PhoneNumberAssignmentByProfileAssignResponse {
-  export interface AssignProfileToCampaignResponse {
-    /**
-     * The ID of the messaging profile that you want to link to the specified campaign.
-     */
-    messagingProfileId: string;
+  /**
+   * The ID of the task associated with assigning a messaging profile to a campaign.
+   */
+  taskId: string;
 
-    /**
-     * The ID of the task associated with assigning a messaging profile to a campaign.
-     */
-    taskId: string;
+  /**
+   * The ID of the campaign you want to link to the specified messaging profile. If
+   * you supply this ID in the request, do not also include a tcrCampaignId.
+   */
+  campaignId?: string;
 
-    /**
-     * The ID of the campaign you want to link to the specified messaging profile. If
-     * you supply this ID in the request, do not also include a tcrCampaignId.
-     */
-    campaignId?: string;
-
-    /**
-     * The TCR ID of the shared campaign you want to link to the specified messaging
-     * profile (for campaigns not created using Telnyx 10DLC services only). If you
-     * supply this ID in the request, do not also include a campaignId.
-     */
-    tcrCampaignId?: string;
-  }
-
-  export interface SettingsDataErrorMessage {
-    message: string;
-  }
+  /**
+   * The TCR ID of the shared campaign you want to link to the specified messaging
+   * profile (for campaigns not created using Telnyx 10DLC services only). If you
+   * supply this ID in the request, do not also include a campaignId.
+   */
+  tcrCampaignId?: string;
 }
 
 export interface PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse {

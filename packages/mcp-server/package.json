@@ -1,6 +1,6 @@
 {
   "name": "telnyx-mcp",
-  "version": "4.5.1",
+  "version": "4.6.0",
   "description": "The official MCP Server for the Telnyx API",
   "author": "Telnyx <support@telnyx.com>",
   "types": "dist/index.d.ts",

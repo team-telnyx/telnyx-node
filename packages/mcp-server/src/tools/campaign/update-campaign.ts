@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'put',
-  httpPath: '/campaign/{campaignId}',
+  httpPath: '/10dlc/campaign/{campaignId}',
   operationId: 'UpdateCampaign',
 };
 

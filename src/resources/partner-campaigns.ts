@@ -17,7 +17,7 @@ export class PartnerCampaigns extends APIResource {
    * ```
    */
   retrieve(campaignID: string, options?: RequestOptions): APIPromise<TelnyxDownstreamCampaign> {
-    return this._client.get(path`/partner_campaigns/${campaignID}`, options);
+    return this._client.get(path`/10dlc/partner_campaigns/${campaignID}`, options);
   }
 
   /**
@@ -35,7 +35,7 @@ export class PartnerCampaigns extends APIResource {
     body: PartnerCampaignUpdateParams,
     options?: RequestOptions,
   ): APIPromise<TelnyxDownstreamCampaign> {
-    return this._client.patch(path`/partner_campaigns/${campaignID}`, { body, ...options });
+    return this._client.patch(path`/10dlc/partner_campaigns/${campaignID}`, { body, ...options });
   }
 
   /**
@@ -55,7 +55,7 @@ export class PartnerCampaigns extends APIResource {
     query: PartnerCampaignListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<PartnerCampaignListResponse> {
-    return this._client.get('/partner_campaigns', { query, ...options });
+    return this._client.get('/10dlc/partner_campaigns', { query, ...options });
   }
 
   /**
@@ -75,7 +75,7 @@ export class PartnerCampaigns extends APIResource {
     query: PartnerCampaignListSharedByMeParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<PartnerCampaignListSharedByMeResponse> {
-    return this._client.get('/partnerCampaign/sharedByMe', { query, ...options });
+    return this._client.get('/10dlc/partnerCampaign/sharedByMe', { query, ...options });
   }
 
   /**
@@ -93,7 +93,7 @@ export class PartnerCampaigns extends APIResource {
     campaignID: string,
     options?: RequestOptions,
   ): APIPromise<PartnerCampaignRetrieveSharingStatusResponse> {
-    return this._client.get(path`/partnerCampaign/${campaignID}/sharing`, options);
+    return this._client.get(path`/10dlc/partnerCampaign/${campaignID}/sharing`, options);
   }
 }
 

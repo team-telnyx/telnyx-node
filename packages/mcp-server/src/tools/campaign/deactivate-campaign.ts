@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'delete',
-  httpPath: '/campaign/{campaignId}',
+  httpPath: '/10dlc/campaign/{campaignId}',
   operationId: 'DeactivateCampaign',
 };
 

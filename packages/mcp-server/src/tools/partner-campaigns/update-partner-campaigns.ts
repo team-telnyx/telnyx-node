@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'patch',
-  httpPath: '/partner_campaigns/{campaignId}',
+  httpPath: '/10dlc/partner_campaigns/{campaignId}',
   operationId: 'UpdateSharedCampaign',
 };
 

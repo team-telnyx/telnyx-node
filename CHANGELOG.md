@@ -1,5 +1,23 @@
 # Changelog
 
+## 4.6.0 (2025-12-08)
+
+Full Changelog: [v4.5.1...v4.6.0](https://github.com/team-telnyx/telnyx-node/compare/v4.5.1...v4.6.0)
+
+### Features
+
+* (draft/don't review) ENGDESK-38070-c: add deepgram keyword documentation ([e664006](https://github.com/team-telnyx/telnyx-node/commit/e664006382da1368161a13bd280d8d5a820c502e))
+* Chat completions response schema update ([15f6c03](https://github.com/team-telnyx/telnyx-node/commit/15f6c035f27f995c20191e02dfea5410b51cc4a4))
+* ENGDESK-47706: Update TranscriptionEngineDeepgramConfig Schema ([d89f89d](https://github.com/team-telnyx/telnyx-node/commit/d89f89d3e8d7db4de4e650c6199aa6272d05b108))
+* ENGDESK-47886: Fix API spec for emergency.json ([1d989c8](https://github.com/team-telnyx/telnyx-node/commit/1d989c8b2ae75598bd5e885daf7584e5e8bb3e47))
+* MSG-6179: Add discriminator fields to Messaging API schemas for improved SDK performance ([a6a9d89](https://github.com/team-telnyx/telnyx-node/commit/a6a9d89fb46df93a1ea4bb2414f6132940502317))
+* Update default GATHER_USING_AI_MODEL ([7c6ca86](https://github.com/team-telnyx/telnyx-node/commit/7c6ca86a1684836f3e2d4df10fbdaaf4f6c8f8e0))
+
+
+### Bug Fixes
+
+* **api:** 10dlc prefixes ([7665612](https://github.com/team-telnyx/telnyx-node/commit/76656123576fdb89e90f6bb61532fe48ec33496e))
+
 ## 4.5.1 (2025-12-05)
 
 Full Changelog: [v4.5.0...v4.5.1](https://github.com/team-telnyx/telnyx-node/compare/v4.5.0...v4.5.1)

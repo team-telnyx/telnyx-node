@@ -25,7 +25,7 @@ export class Brand extends APIResource {
     options?: RequestOptions,
   ): APIPromise<BrandQualifyByUsecaseResponse> {
     const { brandId } = params;
-    return this._client.get(path`/campaignBuilder/brand/${brandId}/usecase/${usecase}`, options);
+    return this._client.get(path`/10dlc/campaignBuilder/brand/${brandId}/usecase/${usecase}`, options);
   }
 }
 

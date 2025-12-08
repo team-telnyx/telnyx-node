@@ -17,7 +17,7 @@ export class Osr extends APIResource {
    * ```
    */
   getAttributes(campaignID: string, options?: RequestOptions): APIPromise<OsrGetAttributesResponse> {
-    return this._client.get(path`/campaign/${campaignID}/osr/attributes`, options);
+    return this._client.get(path`/10dlc/campaign/${campaignID}/osr/attributes`, options);
   }
 }
 

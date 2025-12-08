@@ -209,46 +209,33 @@ export namespace MessagingHostedNumberOrderCheckEligibilityResponse {
 }
 
 export interface MessagingHostedNumberOrderCreateVerificationCodesResponse {
-  data: Array<
-    | MessagingHostedNumberOrderCreateVerificationCodesResponse.VerificationCodeSuccess
-    | MessagingHostedNumberOrderCreateVerificationCodesResponse.VerificationCodeError
-  >;
+  data: Array<MessagingHostedNumberOrderCreateVerificationCodesResponse.Data>;
 }
 
 export namespace MessagingHostedNumberOrderCreateVerificationCodesResponse {
   /**
-   * Successful verification code creation response
+   * Verification code result response
    */
-  export interface VerificationCodeSuccess {
+  export interface Data {
     /**
      * Phone number for which the verification code was created
      */
     phone_number: string;
 
     /**
+     * Error message describing why the verification code creation failed
+     */
+    error?: string;
+
+    /**
      * Type of verification method used
      */
-    type: 'sms' | 'call' | 'flashcall';
+    type?: 'sms' | 'call' | 'flashcall';
 
     /**
      * Unique identifier for the verification code
      */
-    verification_code_id: string;
-  }
-
-  /**
-   * Failed verification code creation response
-   */
-  export interface VerificationCodeError {
-    /**
-     * Error message describing why the verification code creation failed
-     */
-    error: string;
-
-    /**
-     * Phone number for which the verification code creation failed
-     */
-    phone_number: string;
+    verification_code_id?: string;
   }
 }
 

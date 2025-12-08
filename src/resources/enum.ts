@@ -29,7 +29,7 @@ export class Enum extends APIResource {
       | 'vettingClass',
     options?: RequestOptions,
   ): APIPromise<EnumRetrieveResponse> {
-    return this._client.get(path`/enum/${endpoint}`, options);
+    return this._client.get(path`/10dlc/enum/${endpoint}`, options);
   }
 }
 

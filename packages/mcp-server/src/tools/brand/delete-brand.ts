@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   operation: 'write',
   tags: [],
   httpMethod: 'delete',
-  httpPath: '/brand/{brandId}',
+  httpPath: '/10dlc/brand/{brandId}',
   operationId: 'DeleteBrand',
 };
 

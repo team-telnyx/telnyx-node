@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   operation: 'read',
   tags: [],
   httpMethod: 'get',
-  httpPath: '/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers',
+  httpPath: '/10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers',
   operationId: 'GetPhoneNumberStatus',
 };
 

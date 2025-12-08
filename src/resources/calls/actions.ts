@@ -1290,7 +1290,8 @@ export interface TranscriptionStartRequest {
   transcription_engine_config?:
     | TranscriptionStartRequest.TranscriptionEngineGoogleConfig
     | TranscriptionStartRequest.TranscriptionEngineTelnyxConfig
-    | TranscriptionStartRequest.TranscriptionEngineDeepgramConfig
+    | TranscriptionStartRequest.DeepgramNova2Config
+    | TranscriptionStartRequest.DeepgramNova3Config
     | TranscriptionStartRequest.TranscriptionEngineAzureConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig;
@@ -1398,20 +1399,20 @@ export namespace TranscriptionStartRequest {
     transcription_model?: 'openai/whisper-tiny' | 'openai/whisper-large-v3-turbo';
   }
 
-  export interface TranscriptionEngineDeepgramConfig {
-    /**
-     * Engine identifier for Deepgram transcription service
-     */
+  export interface DeepgramNova2Config {
     transcription_engine: 'Deepgram';
 
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model: 'deepgram/nova-2' | 'deepgram/nova-3';
+    transcription_model: 'deepgram/nova-2';
 
     /**
-     * Language to use for speech recognition. Available languages depend on the
-     * selected model.
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to use for speech recognition with nova-2 model
      */
     language?:
       | 'bg'
@@ -1467,6 +1468,44 @@ export namespace TranscriptionStartRequest {
       | 'tr'
       | 'uk'
       | 'vi'
+      | 'auto_detect';
+  }
+
+  export interface DeepgramNova3Config {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/nova-3';
+
+    /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to use for speech recognition with nova-3 model
+     */
+    language?:
+      | 'en'
+      | 'en-US'
+      | 'en-AU'
+      | 'en-GB'
+      | 'en-IN'
+      | 'en-NZ'
+      | 'de'
+      | 'nl'
+      | 'sv'
+      | 'sv-SE'
+      | 'da'
+      | 'da-DK'
+      | 'es'
+      | 'es-419'
+      | 'fr'
+      | 'fr-CA'
+      | 'pt'
+      | 'pt-BR'
+      | 'pt-PT'
       | 'auto_detect';
   }
 
@@ -3410,7 +3449,8 @@ export interface ActionStartTranscriptionParams {
   transcription_engine_config?:
     | ActionStartTranscriptionParams.TranscriptionEngineGoogleConfig
     | ActionStartTranscriptionParams.TranscriptionEngineTelnyxConfig
-    | ActionStartTranscriptionParams.TranscriptionEngineDeepgramConfig
+    | ActionStartTranscriptionParams.DeepgramNova2Config
+    | ActionStartTranscriptionParams.DeepgramNova3Config
     | ActionStartTranscriptionParams.TranscriptionEngineAzureConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig;
@@ -3518,20 +3558,20 @@ export namespace ActionStartTranscriptionParams {
     transcription_model?: 'openai/whisper-tiny' | 'openai/whisper-large-v3-turbo';
   }
 
-  export interface TranscriptionEngineDeepgramConfig {
-    /**
-     * Engine identifier for Deepgram transcription service
-     */
+  export interface DeepgramNova2Config {
     transcription_engine: 'Deepgram';
 
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model: 'deepgram/nova-2' | 'deepgram/nova-3';
+    transcription_model: 'deepgram/nova-2';
 
     /**
-     * Language to use for speech recognition. Available languages depend on the
-     * selected model.
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to use for speech recognition with nova-2 model
      */
     language?:
       | 'bg'
@@ -3587,6 +3627,44 @@ export namespace ActionStartTranscriptionParams {
       | 'tr'
       | 'uk'
       | 'vi'
+      | 'auto_detect';
+  }
+
+  export interface DeepgramNova3Config {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/nova-3';
+
+    /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to use for speech recognition with nova-3 model
+     */
+    language?:
+      | 'en'
+      | 'en-US'
+      | 'en-AU'
+      | 'en-GB'
+      | 'en-IN'
+      | 'en-NZ'
+      | 'de'
+      | 'nl'
+      | 'sv'
+      | 'sv-SE'
+      | 'da'
+      | 'da-DK'
+      | 'es'
+      | 'es-419'
+      | 'fr'
+      | 'fr-CA'
+      | 'pt'
+      | 'pt-BR'
+      | 'pt-PT'
       | 'auto_detect';
   }
 
