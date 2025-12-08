@@ -1410,6 +1410,13 @@ export namespace TranscriptionStartRequest {
     transcription_model: 'deepgram/nova-2' | 'deepgram/nova-3';
 
     /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
      * Language to use for speech recognition. Available languages depend on the
      * selected model.
      */
@@ -3528,6 +3535,13 @@ export namespace ActionStartTranscriptionParams {
      * The model to use for transcription.
      */
     transcription_model: 'deepgram/nova-2' | 'deepgram/nova-3';
+
+    /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
 
     /**
      * Language to use for speech recognition. Available languages depend on the
