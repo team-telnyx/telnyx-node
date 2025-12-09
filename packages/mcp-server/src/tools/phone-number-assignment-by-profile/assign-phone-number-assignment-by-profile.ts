@@ -7,7 +7,7 @@ import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Telnyx from 'telnyx';
 
 export const metadata: Metadata = {
-  resource: 'number_10dlc.phone_number_assignment_by_profile',
+  resource: 'phone_number_assignment_by_profile',
   operation: 'write',
   tags: [],
   httpMethod: 'post',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export const tool: Tool = {
-  name: 'assign_number_10dlc_phone_number_assignment_by_profile',
+  name: 'assign_phone_number_assignment_by_profile',
   description:
     "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nThis endpoint allows you to link all phone numbers associated with a Messaging Profile to a campaign. **Please note:** if you want to assign phone numbers to a campaign that you did not create with Telnyx 10DLC services, this endpoint allows that provided that you've shared the campaign with Telnyx. In this case, only provide the parameter, `tcrCampaignId`, and not `campaignId`. In all other cases (where the campaign you're assigning was created with Telnyx 10DLC services), only provide `campaignId`, not `tcrCampaignId`.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/phone_number_assignment_by_profile_assign_response',\n  $defs: {\n    phone_number_assignment_by_profile_assign_response: {\n      type: 'object',\n      title: 'AssignProfileToCampaignResponse',\n      properties: {\n        messagingProfileId: {\n          type: 'string',\n          title: 'Messagingprofileid',\n          description: 'The ID of the messaging profile that you want to link to the specified campaign.'\n        },\n        taskId: {\n          type: 'string',\n          title: 'Taskid',\n          description: 'The ID of the task associated with assigning a messaging profile to a campaign.'\n        },\n        campaignId: {\n          type: 'string',\n          title: 'Campaignid',\n          description: 'The ID of the campaign you want to link to the specified messaging profile. If you supply this ID in the request, do not also include a tcrCampaignId.'\n        },\n        tcrCampaignId: {\n          type: 'string',\n          title: 'Tcrcampaignid',\n          description: 'The TCR ID of the shared campaign you want to link to the specified messaging profile (for campaigns not created using Telnyx 10DLC services only). If you supply this ID in the request, do not also include a campaignId.'\n        }\n      },\n      required: [        'messagingProfileId',\n        'taskId'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
@@ -55,7 +55,7 @@ export const handler = async (client: Telnyx, args: Record<string, unknown> | un
   const { jq_filter, ...body } = args as any;
   try {
     return asTextContentResult(
-      await maybeFilter(jq_filter, await client.number10dlc.phoneNumberAssignmentByProfile.assign(body)),
+      await maybeFilter(jq_filter, await client.phoneNumberAssignmentByProfile.assign(body)),
     );
   } catch (error) {
     if (error instanceof Telnyx.APIError || isJqError(error)) {

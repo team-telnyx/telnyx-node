@@ -2400,6 +2400,15 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/phone-number-assignment-by-profile.ts">TaskStatus</a></code>
+- <code><a href="./src/resources/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileAssignResponse</a></code>
+- <code><a href="./src/resources/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse</a></code>
+- <code><a href="./src/resources/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileRetrieveStatusResponse</a></code>
+
+Methods:
+
+- <code title="post /10dlc/phoneNumberAssignmentByProfile">client.phoneNumberAssignmentByProfile.<a href="./src/resources/phone-number-assignment-by-profile.ts">assign</a>({ ...params }) -> PhoneNumberAssignmentByProfileAssignResponse</code>
+- <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers">client.phoneNumberAssignmentByProfile.<a href="./src/resources/phone-number-assignment-by-profile.ts">retrievePhoneNumberStatus</a>(taskID, { ...params }) -> PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse</code>
+- <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}">client.phoneNumberAssignmentByProfile.<a href="./src/resources/phone-number-assignment-by-profile.ts">retrieveStatus</a>(taskID) -> PhoneNumberAssignmentByProfileRetrieveStatusResponse</code>
 
 # PhoneNumberBlocks
 
@@ -3960,6 +3969,17 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/partner-campaigns.ts">TelnyxDownstreamCampaign</a></code>
+- <code><a href="./src/resources/partner-campaigns.ts">PartnerCampaignListResponse</a></code>
+- <code><a href="./src/resources/partner-campaigns.ts">PartnerCampaignListSharedByMeResponse</a></code>
+- <code><a href="./src/resources/partner-campaigns.ts">PartnerCampaignRetrieveSharingStatusResponse</a></code>
+
+Methods:
+
+- <code title="get /10dlc/partner_campaigns/{campaignId}">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">retrieve</a>(campaignID) -> TelnyxDownstreamCampaign</code>
+- <code title="patch /10dlc/partner_campaigns/{campaignId}">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">update</a>(campaignID, { ...params }) -> TelnyxDownstreamCampaign</code>
+- <code title="get /10dlc/partner_campaigns">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">list</a>({ ...params }) -> PartnerCampaignListResponse</code>
+- <code title="get /10dlc/partnerCampaign/sharedByMe">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">listSharedByMe</a>({ ...params }) -> PartnerCampaignListSharedByMeResponse</code>
+- <code title="get /10dlc/partnerCampaign/{campaignId}/sharing">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">retrieveSharingStatus</a>(campaignID) -> PartnerCampaignRetrieveSharingStatusResponse</code>
 
 # WellKnown
 
@@ -4030,6 +4050,8 @@ Methods:
 - <code title="patch /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">update</a>(id, { ...params }) -> MobileVoiceConnectionUpdateResponse</code>
 - <code title="get /v2/mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">list</a>({ ...params }) -> MobileVoiceConnectionListResponse</code>
 - <code title="delete /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">delete</a>(id) -> MobileVoiceConnectionDeleteResponse</code>
+
+# PartnerCampaign
 
 # Number10dlc
 
@@ -4133,44 +4155,6 @@ Types:
 Methods:
 
 - <code title="get /10dlc/campaignBuilder/brand/{brandId}/usecase/{usecase}">client.number10dlc.campaignBuilder.brand.<a href="./src/resources/number-10dlc/campaign-builder/brand.ts">qualifyByUsecase</a>(usecase, { ...params }) -> BrandQualifyByUsecaseResponse</code>
-
-## PartnerCampaign
-
-Types:
-
-- <code><a href="./src/resources/number-10dlc/partner-campaign.ts">PartnerCampaignGetSharedByMeResponse</a></code>
-- <code><a href="./src/resources/number-10dlc/partner-campaign.ts">PartnerCampaignGetSharingStatusResponse</a></code>
-
-Methods:
-
-- <code title="get /10dlc/partnerCampaign/sharedByMe">client.number10dlc.partnerCampaign.<a href="./src/resources/number-10dlc/partner-campaign.ts">getSharedByMe</a>({ ...params }) -> PartnerCampaignGetSharedByMeResponse</code>
-- <code title="get /10dlc/partnerCampaign/{campaignId}/sharing">client.number10dlc.partnerCampaign.<a href="./src/resources/number-10dlc/partner-campaign.ts">getSharingStatus</a>(campaignID) -> PartnerCampaignGetSharingStatusResponse</code>
-
-## PartnerCampaigns
-
-Types:
-
-- <code><a href="./src/resources/number-10dlc/partner-campaigns.ts">PartnerCampaignListResponse</a></code>
-
-Methods:
-
-- <code title="get /10dlc/partner_campaigns/{campaignId}">client.number10dlc.partnerCampaigns.<a href="./src/resources/number-10dlc/partner-campaigns.ts">retrieve</a>(campaignID) -> TelnyxDownstreamCampaign</code>
-- <code title="patch /10dlc/partner_campaigns/{campaignId}">client.number10dlc.partnerCampaigns.<a href="./src/resources/number-10dlc/partner-campaigns.ts">update</a>(campaignID, { ...params }) -> TelnyxDownstreamCampaign</code>
-- <code title="get /10dlc/partner_campaigns">client.number10dlc.partnerCampaigns.<a href="./src/resources/number-10dlc/partner-campaigns.ts">list</a>({ ...params }) -> PartnerCampaignListResponse</code>
-
-## PhoneNumberAssignmentByProfile
-
-Types:
-
-- <code><a href="./src/resources/number-10dlc/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileAssignResponse</a></code>
-- <code><a href="./src/resources/number-10dlc/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileGetPhoneNumberStatusResponse</a></code>
-- <code><a href="./src/resources/number-10dlc/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileGetTaskStatusResponse</a></code>
-
-Methods:
-
-- <code title="post /10dlc/phoneNumberAssignmentByProfile">client.number10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/number-10dlc/phone-number-assignment-by-profile.ts">assign</a>({ ...params }) -> PhoneNumberAssignmentByProfileAssignResponse</code>
-- <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers">client.number10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/number-10dlc/phone-number-assignment-by-profile.ts">getPhoneNumberStatus</a>(taskID, { ...params }) -> PhoneNumberAssignmentByProfileGetPhoneNumberStatusResponse</code>
-- <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}">client.number10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/number-10dlc/phone-number-assignment-by-profile.ts">getTaskStatus</a>(taskID) -> PhoneNumberAssignmentByProfileGetTaskStatusResponse</code>
 
 ## PhoneNumberCampaigns
 

@@ -7,7 +7,7 @@ import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Telnyx from 'telnyx';
 
 export const metadata: Metadata = {
-  resource: 'number_10dlc.phone_number_assignment_by_profile',
+  resource: 'phone_number_assignment_by_profile',
   operation: 'read',
   tags: [],
   httpMethod: 'get',
@@ -16,9 +16,9 @@ export const metadata: Metadata = {
 };
 
 export const tool: Tool = {
-  name: 'get_phone_number_status_number_10dlc_phone_number_assignment_by_profile',
+  name: 'retrieve_phone_number_status_phone_number_assignment_by_profile',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCheck the status of the individual phone number/campaign assignments associated with the supplied `taskId`.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/phone_number_assignment_by_profile_get_phone_number_status_response',\n  $defs: {\n    phone_number_assignment_by_profile_get_phone_number_status_response: {\n      type: 'object',\n      title: 'PhoneNumberStatusResponsePaginated',\n      properties: {\n        records: {\n          type: 'array',\n          title: 'Records',\n          items: {\n            type: 'object',\n            title: 'ProfileAssignmentPhoneNumbers',\n            properties: {\n              phoneNumber: {\n                type: 'string',\n                title: 'Phonenumber',\n                description: 'The phone number that the status is being checked for.'\n              },\n              status: {\n                type: 'string',\n                title: 'Status',\n                description: 'The status of the associated phone number assignment.'\n              },\n              taskId: {\n                type: 'string',\n                title: 'Taskid',\n                description: 'The ID of the task associated with the phone number.'\n              }\n            },\n            required: [              'phoneNumber',\n              'status',\n              'taskId'\n            ]\n          }\n        }\n      },\n      required: [        'records'\n      ]\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCheck the status of the individual phone number/campaign assignments associated with the supplied `taskId`.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/phone_number_assignment_by_profile_retrieve_phone_number_status_response',\n  $defs: {\n    phone_number_assignment_by_profile_retrieve_phone_number_status_response: {\n      type: 'object',\n      title: 'PhoneNumberStatusResponsePaginated',\n      properties: {\n        records: {\n          type: 'array',\n          title: 'Records',\n          items: {\n            type: 'object',\n            title: 'ProfileAssignmentPhoneNumbers',\n            properties: {\n              phoneNumber: {\n                type: 'string',\n                title: 'Phonenumber',\n                description: 'The phone number that the status is being checked for.'\n              },\n              status: {\n                type: 'string',\n                title: 'Status',\n                description: 'The status of the associated phone number assignment.'\n              },\n              taskId: {\n                type: 'string',\n                title: 'Taskid',\n                description: 'The ID of the task associated with the phone number.'\n              }\n            },\n            required: [              'phoneNumber',\n              'status',\n              'taskId'\n            ]\n          }\n        }\n      },\n      required: [        'records'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
@@ -54,7 +54,7 @@ export const handler = async (client: Telnyx, args: Record<string, unknown> | un
     return asTextContentResult(
       await maybeFilter(
         jq_filter,
-        await client.number10dlc.phoneNumberAssignmentByProfile.getPhoneNumberStatus(taskId, body),
+        await client.phoneNumberAssignmentByProfile.retrievePhoneNumberStatus(taskId, body),
       ),
     );
   } catch (error) {

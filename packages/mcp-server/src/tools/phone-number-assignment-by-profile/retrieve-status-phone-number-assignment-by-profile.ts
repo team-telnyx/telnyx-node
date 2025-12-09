@@ -7,7 +7,7 @@ import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Telnyx from 'telnyx';
 
 export const metadata: Metadata = {
-  resource: 'number_10dlc.phone_number_assignment_by_profile',
+  resource: 'phone_number_assignment_by_profile',
   operation: 'read',
   tags: [],
   httpMethod: 'get',
@@ -16,9 +16,9 @@ export const metadata: Metadata = {
 };
 
 export const tool: Tool = {
-  name: 'get_task_status_number_10dlc_phone_number_assignment_by_profile',
+  name: 'retrieve_status_phone_number_assignment_by_profile',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCheck the status of the task associated with assigning all phone numbers on a messaging profile to a campaign by `taskId`.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/phone_number_assignment_by_profile_get_task_status_response',\n  $defs: {\n    phone_number_assignment_by_profile_get_task_status_response: {\n      type: 'object',\n      title: 'AssignmentTaskStatusResponse',\n      properties: {\n        status: {\n          type: 'string',\n          title: 'TaskStatus',\n          description: 'An enumeration.',\n          enum: [            'pending',\n            'processing',\n            'completed',\n            'failed'\n          ]\n        },\n        taskId: {\n          type: 'string',\n          title: 'Taskid'\n        },\n        createdAt: {\n          type: 'string',\n          title: 'Createdat',\n          format: 'date-time'\n        },\n        updatedAt: {\n          type: 'string',\n          title: 'Updatedat',\n          format: 'date-time'\n        }\n      },\n      required: [        'status',\n        'taskId'\n      ]\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCheck the status of the task associated with assigning all phone numbers on a messaging profile to a campaign by `taskId`.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/phone_number_assignment_by_profile_retrieve_status_response',\n  $defs: {\n    phone_number_assignment_by_profile_retrieve_status_response: {\n      type: 'object',\n      title: 'AssignmentTaskStatusResponse',\n      properties: {\n        status: {\n          type: 'string',\n          title: 'TaskStatus',\n          description: 'An enumeration.',\n          enum: [            'pending',\n            'processing',\n            'completed',\n            'failed'\n          ]\n        },\n        taskId: {\n          type: 'string',\n          title: 'Taskid'\n        },\n        createdAt: {\n          type: 'string',\n          title: 'Createdat',\n          format: 'date-time'\n        },\n        updatedAt: {\n          type: 'string',\n          title: 'Updatedat',\n          format: 'date-time'\n        }\n      },\n      required: [        'status',\n        'taskId'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
@@ -44,10 +44,7 @@ export const handler = async (client: Telnyx, args: Record<string, unknown> | un
   const { taskId, jq_filter, ...body } = args as any;
   try {
     return asTextContentResult(
-      await maybeFilter(
-        jq_filter,
-        await client.number10dlc.phoneNumberAssignmentByProfile.getTaskStatus(taskId),
-      ),
+      await maybeFilter(jq_filter, await client.phoneNumberAssignmentByProfile.retrieveStatus(taskId)),
     );
   } catch (error) {
     if (error instanceof Telnyx.APIError || isJqError(error)) {

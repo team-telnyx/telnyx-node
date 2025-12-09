@@ -768,9 +768,27 @@ export {
   type OutboundVoiceProfileUpdateParams,
   type OutboundVoiceProfileListParams,
 } from './outbound-voice-profiles';
-export { PartnerCampaigns, type TelnyxDownstreamCampaign } from './partner-campaigns';
+export { PartnerCampaign } from './partner-campaign';
+export {
+  PartnerCampaigns,
+  type TelnyxDownstreamCampaign,
+  type PartnerCampaignListResponse,
+  type PartnerCampaignListSharedByMeResponse,
+  type PartnerCampaignRetrieveSharingStatusResponse,
+  type PartnerCampaignUpdateParams,
+  type PartnerCampaignListParams,
+  type PartnerCampaignListSharedByMeParams,
+} from './partner-campaigns';
 export { Payment } from './payment/payment';
-export { PhoneNumberAssignmentByProfile, type TaskStatus } from './phone-number-assignment-by-profile';
+export {
+  PhoneNumberAssignmentByProfile,
+  type TaskStatus,
+  type PhoneNumberAssignmentByProfileAssignResponse,
+  type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
+  type PhoneNumberAssignmentByProfileRetrieveStatusResponse,
+  type PhoneNumberAssignmentByProfileAssignParams,
+  type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
+} from './phone-number-assignment-by-profile';
 export { PhoneNumberBlocks } from './phone-number-blocks/phone-number-blocks';
 export {
   PhoneNumberCampaigns,

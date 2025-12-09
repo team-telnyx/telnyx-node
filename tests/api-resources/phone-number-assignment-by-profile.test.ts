@@ -10,7 +10,7 @@ const client = new Telnyx({
 describe('resource phoneNumberAssignmentByProfile', () => {
   // Prism tests are disabled
   test.skip('assign: only required params', async () => {
-    const responsePromise = client.number10dlc.phoneNumberAssignmentByProfile.assign({
+    const responsePromise = client.phoneNumberAssignmentByProfile.assign({
       messagingProfileId: '4001767e-ce0f-4cae-9d5f-0d5e636e7809',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -24,7 +24,7 @@ describe('resource phoneNumberAssignmentByProfile', () => {
 
   // Prism tests are disabled
   test.skip('assign: required and optional params', async () => {
-    const response = await client.number10dlc.phoneNumberAssignmentByProfile.assign({
+    const response = await client.phoneNumberAssignmentByProfile.assign({
       messagingProfileId: '4001767e-ce0f-4cae-9d5f-0d5e636e7809',
       campaignId: '4b300178-131c-d902-d54e-72d90ba1620j',
       tcrCampaignId: 'CWZTFH1',
@@ -32,8 +32,8 @@ describe('resource phoneNumberAssignmentByProfile', () => {
   });
 
   // Prism tests are disabled
-  test.skip('getPhoneNumberStatus', async () => {
-    const responsePromise = client.number10dlc.phoneNumberAssignmentByProfile.getPhoneNumberStatus('taskId');
+  test.skip('retrievePhoneNumberStatus', async () => {
+    const responsePromise = client.phoneNumberAssignmentByProfile.retrievePhoneNumberStatus('taskId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -44,10 +44,10 @@ describe('resource phoneNumberAssignmentByProfile', () => {
   });
 
   // Prism tests are disabled
-  test.skip('getPhoneNumberStatus: request options and params are passed correctly', async () => {
+  test.skip('retrievePhoneNumberStatus: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.number10dlc.phoneNumberAssignmentByProfile.getPhoneNumberStatus(
+      client.phoneNumberAssignmentByProfile.retrievePhoneNumberStatus(
         'taskId',
         { page: 0, recordsPerPage: 0 },
         { path: '/_stainless_unknown_path' },
@@ -56,8 +56,8 @@ describe('resource phoneNumberAssignmentByProfile', () => {
   });
 
   // Prism tests are disabled
-  test.skip('getTaskStatus', async () => {
-    const responsePromise = client.number10dlc.phoneNumberAssignmentByProfile.getTaskStatus('taskId');
+  test.skip('retrieveStatus', async () => {
+    const responsePromise = client.phoneNumberAssignmentByProfile.retrieveStatus('taskId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

@@ -1463,6 +1463,12 @@ The following tools are available in this MCP server.
 - `update_payment_auto_recharge_prefs` (`write`): Update payment auto recharge preferences.
 - `list_payment_auto_recharge_prefs` (`read`): Returns the payment auto recharge preferences.
 
+### Resource `phone_number_assignment_by_profile`:
+
+- `assign_phone_number_assignment_by_profile` (`write`): This endpoint allows you to link all phone numbers associated with a Messaging Profile to a campaign. **Please note:** if you want to assign phone numbers to a campaign that you did not create with Telnyx 10DLC services, this endpoint allows that provided that you've shared the campaign with Telnyx. In this case, only provide the parameter, `tcrCampaignId`, and not `campaignId`. In all other cases (where the campaign you're assigning was created with Telnyx 10DLC services), only provide `campaignId`, not `tcrCampaignId`.
+- `retrieve_phone_number_status_phone_number_assignment_by_profile` (`read`): Check the status of the individual phone number/campaign assignments associated with the supplied `taskId`.
+- `retrieve_status_phone_number_assignment_by_profile` (`read`): Check the status of the task associated with assigning all phone numbers on a messaging profile to a campaign by `taskId`.
+
 ### Resource `phone_number_blocks.jobs`:
 
 - `retrieve_phone_number_blocks_jobs` (`read`): Retrieves a phone number blocks job
@@ -2129,6 +2135,22 @@ The following tools are available in this MCP server.
 - `list_wireless_blocklists` (`read`): Get all Wireless Blocklists belonging to the user.
 - `delete_wireless_blocklists` (`write`): Deletes the Wireless Blocklist.
 
+### Resource `partner_campaigns`:
+
+- `retrieve_partner_campaigns` (`read`): Retrieve campaign details by `campaignId`.
+- `update_partner_campaigns` (`write`): Update campaign details by `campaignId`. **Please note:** Only webhook urls are editable.
+- `list_partner_campaigns` (`read`): Retrieve all partner campaigns you have shared to Telnyx in a paginated fashion.
+
+  This endpoint is currently limited to only returning shared campaigns that Telnyx has accepted. In other words, shared but pending campaigns are currently omitted from the response from this endpoint.
+
+- `list_shared_by_me_partner_campaigns` (`read`): Get all partner campaigns you have shared to Telnyx in a paginated fashion
+
+  This endpoint is currently limited to only returning shared campaigns that Telnyx
+  has accepted. In other words, shared but pending campaigns are currently omitted
+  from the response from this endpoint.
+
+- `retrieve_sharing_status_partner_campaigns` (`read`): Get Sharing Status
+
 ### Resource `well_known`:
 
 - `retrieve_authorization_server_metadata_well_known` (`read`): OAuth 2.0 Authorization Server Metadata (RFC 8414)
@@ -2222,30 +2244,6 @@ The following tools are available in this MCP server.
 ### Resource `number_10dlc.campaign_builder.brand`:
 
 - `qualify_by_usecase_campaign_builder_number_10dlc_brand` (`read`): This endpoint allows you to see whether or not the supplied brand is suitable for your desired campaign use case.
-
-### Resource `number_10dlc.partner_campaign`:
-
-- `get_shared_by_me_number_10dlc_partner_campaign` (`read`): Get all partner campaigns you have shared to Telnyx in a paginated fashion
-
-  This endpoint is currently limited to only returning shared campaigns that Telnyx
-  has accepted. In other words, shared but pending campaigns are currently omitted
-  from the response from this endpoint.
-
-- `get_sharing_status_number_10dlc_partner_campaign` (`read`): Get Sharing Status
-
-### Resource `number_10dlc.partner_campaigns`:
-
-- `retrieve_number_10dlc_partner_campaigns` (`read`): Retrieve campaign details by `campaignId`.
-- `update_number_10dlc_partner_campaigns` (`write`): Update campaign details by `campaignId`. **Please note:** Only webhook urls are editable.
-- `list_number_10dlc_partner_campaigns` (`read`): Retrieve all partner campaigns you have shared to Telnyx in a paginated fashion.
-
-  This endpoint is currently limited to only returning shared campaigns that Telnyx has accepted. In other words, shared but pending campaigns are currently omitted from the response from this endpoint.
-
-### Resource `number_10dlc.phone_number_assignment_by_profile`:
-
-- `assign_number_10dlc_phone_number_assignment_by_profile` (`write`): This endpoint allows you to link all phone numbers associated with a Messaging Profile to a campaign. **Please note:** if you want to assign phone numbers to a campaign that you did not create with Telnyx 10DLC services, this endpoint allows that provided that you've shared the campaign with Telnyx. In this case, only provide the parameter, `tcrCampaignId`, and not `campaignId`. In all other cases (where the campaign you're assigning was created with Telnyx 10DLC services), only provide `campaignId`, not `tcrCampaignId`.
-- `get_phone_number_status_number_10dlc_phone_number_assignment_by_profile` (`read`): Check the status of the individual phone number/campaign assignments associated with the supplied `taskId`.
-- `get_task_status_number_10dlc_phone_number_assignment_by_profile` (`read`): Check the status of the task associated with assigning all phone numbers on a messaging profile to a campaign by `taskId`.
 
 ### Resource `number_10dlc.phone_number_campaigns`:
 

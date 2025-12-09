@@ -7,7 +7,7 @@ import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Telnyx from 'telnyx';
 
 export const metadata: Metadata = {
-  resource: 'number_10dlc.partner_campaign',
+  resource: 'partner_campaigns',
   operation: 'read',
   tags: [],
   httpMethod: 'get',
@@ -16,9 +16,9 @@ export const metadata: Metadata = {
 };
 
 export const tool: Tool = {
-  name: 'get_sharing_status_number_10dlc_partner_campaign',
+  name: 'retrieve_sharing_status_partner_campaigns',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGet Sharing Status\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/partner_campaign_get_sharing_status_response',\n  $defs: {\n    partner_campaign_get_sharing_status_response: {\n      type: 'object',\n      title: 'Response Get Sharing Status Public Partnercampaign  Campaignid  Sharing Get',\n      additionalProperties: true\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGet Sharing Status\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/partner_campaign_retrieve_sharing_status_response',\n  $defs: {\n    partner_campaign_retrieve_sharing_status_response: {\n      type: 'object',\n      title: 'Response Get Sharing Status Public Partnercampaign  Campaignid  Sharing Get',\n      additionalProperties: true\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
@@ -45,7 +45,7 @@ export const handler = async (client: Telnyx, args: Record<string, unknown> | un
   const { campaignId, jq_filter, ...body } = args as any;
   try {
     return asTextContentResult(
-      await maybeFilter(jq_filter, await client.number10dlc.partnerCampaign.getSharingStatus(campaignId)),
+      await maybeFilter(jq_filter, await client.partnerCampaigns.retrieveSharingStatus(campaignId)),
     );
   } catch (error) {
     if (error instanceof Telnyx.APIError || isJqError(error)) {

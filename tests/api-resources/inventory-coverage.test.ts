@@ -30,7 +30,7 @@ describe('resource inventoryCoverage', () => {
             administrative_area: 'administrative_area',
             count: true,
             country_code: 'AT',
-            features: ['sms'],
+            features: ['voice', 'sms'],
             groupBy: 'locality',
             npa: 0,
             nxx: 0,
