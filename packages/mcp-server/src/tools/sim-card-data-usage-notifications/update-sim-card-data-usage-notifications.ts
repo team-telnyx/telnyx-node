@@ -22,7 +22,7 @@ export const tool: Tool = {
   inputSchema: {
     type: 'object',
     properties: {
-      id: {
+      sim_card_data_usage_notification_id: {
         type: 'string',
       },
       sim_card_id: {
@@ -49,16 +49,19 @@ export const tool: Tool = {
           'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
       },
     },
-    required: ['id'],
+    required: ['sim_card_data_usage_notification_id'],
   },
   annotations: {},
 };
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
-  const { id, jq_filter, ...body } = args as any;
+  const { sim_card_data_usage_notification_id, jq_filter, ...body } = args as any;
   try {
     return asTextContentResult(
-      await maybeFilter(jq_filter, await client.simCardDataUsageNotifications.update(id, body)),
+      await maybeFilter(
+        jq_filter,
+        await client.simCardDataUsageNotifications.update(sim_card_data_usage_notification_id, body),
+      ),
     );
   } catch (error) {
     if (error instanceof Telnyx.APIError || isJqError(error)) {

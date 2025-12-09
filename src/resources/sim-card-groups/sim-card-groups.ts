@@ -1,12 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as SimCardGroupsAPI from './sim-card-groups';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as ActionsAPI from './actions';
 import {
   ActionListParams,
-  ActionListResponse,
   ActionRemovePrivateWirelessGatewayResponse,
   ActionRemoveWirelessBlocklistResponse,
   ActionRetrieveResponse,
@@ -16,8 +13,10 @@ import {
   ActionSetWirelessBlocklistResponse,
   Actions,
   SimCardGroupAction,
+  SimCardGroupActionsDefaultFlatPagination,
 } from './actions';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -79,14 +78,20 @@ export class SimCardGroups extends APIResource {
    *
    * @example
    * ```ts
-   * const simCardGroups = await client.simCardGroups.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const simCardGroupListResponse of client.simCardGroups.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: SimCardGroupListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<SimCardGroupListResponse> {
-    return this._client.get('/sim_card_groups', { query, ...options });
+  ): PagePromise<SimCardGroupListResponsesDefaultFlatPagination, SimCardGroupListResponse> {
+    return this._client.getAPIList('/sim_card_groups', DefaultFlatPagination<SimCardGroupListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -103,6 +108,8 @@ export class SimCardGroups extends APIResource {
     return this._client.delete(path`/sim_card_groups/${id}`, options);
   }
 }
+
+export type SimCardGroupListResponsesDefaultFlatPagination = DefaultFlatPagination<SimCardGroupListResponse>;
 
 /**
  * Represents the amount of data consumed.
@@ -190,79 +197,71 @@ export interface SimCardGroupUpdateResponse {
 }
 
 export interface SimCardGroupListResponse {
-  data?: Array<SimCardGroupListResponse.Data>;
+  /**
+   * Identifies the resource.
+   */
+  id?: string;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+  /**
+   * Represents the amount of data consumed.
+   */
+  consumed_data?: ConsumedData;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was created.
+   */
+  created_at?: string;
+
+  /**
+   * Upper limit on the amount of data the SIM cards, within the group, can use.
+   */
+  data_limit?: SimCardGroupListResponse.DataLimit;
+
+  /**
+   * Indicates whether the SIM card group is the users default group.<br/>The default
+   * group is created for the user and can not be removed.
+   */
+  default?: boolean;
+
+  /**
+   * A user friendly name for the SIM card group.
+   */
+  name?: string;
+
+  /**
+   * The identification of the related Private Wireless Gateway resource.
+   */
+  private_wireless_gateway_id?: string;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: string;
+
+  /**
+   * The number of SIM cards associated with the group.
+   */
+  sim_card_count?: number;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was updated.
+   */
+  updated_at?: string;
+
+  /**
+   * The identification of the related Wireless Blocklist resource.
+   */
+  wireless_blocklist_id?: string;
 }
 
 export namespace SimCardGroupListResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
+  /**
+   * Upper limit on the amount of data the SIM cards, within the group, can use.
+   */
+  export interface DataLimit {
+    amount?: string;
 
-    /**
-     * Represents the amount of data consumed.
-     */
-    consumed_data?: SimCardGroupsAPI.ConsumedData;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * Upper limit on the amount of data the SIM cards, within the group, can use.
-     */
-    data_limit?: Data.DataLimit;
-
-    /**
-     * Indicates whether the SIM card group is the users default group.<br/>The default
-     * group is created for the user and can not be removed.
-     */
-    default?: boolean;
-
-    /**
-     * A user friendly name for the SIM card group.
-     */
-    name?: string;
-
-    /**
-     * The identification of the related Private Wireless Gateway resource.
-     */
-    private_wireless_gateway_id?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * The number of SIM cards associated with the group.
-     */
-    sim_card_count?: number;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-
-    /**
-     * The identification of the related Wireless Blocklist resource.
-     */
-    wireless_blocklist_id?: string;
-  }
-
-  export namespace Data {
-    /**
-     * Upper limit on the amount of data the SIM cards, within the group, can use.
-     */
-    export interface DataLimit {
-      amount?: string;
-
-      unit?: string;
-    }
+    unit?: string;
   }
 }
 
@@ -323,7 +322,7 @@ export namespace SimCardGroupUpdateParams {
   }
 }
 
-export interface SimCardGroupListParams {
+export interface SimCardGroupListParams extends DefaultFlatPaginationParams {
   /**
    * A valid SIM card group name.
    */
@@ -338,16 +337,6 @@ export interface SimCardGroupListParams {
    * A Wireless Blocklist ID associated with the group.
    */
   'filter[wireless_blocklist_id]'?: string;
-
-  /**
-   * The page number to load.
-   */
-  'page[number]'?: number;
-
-  /**
-   * The size of the page.
-   */
-  'page[size]'?: number;
 }
 
 SimCardGroups.Actions = Actions;
@@ -361,6 +350,7 @@ export declare namespace SimCardGroups {
     type SimCardGroupUpdateResponse as SimCardGroupUpdateResponse,
     type SimCardGroupListResponse as SimCardGroupListResponse,
     type SimCardGroupDeleteResponse as SimCardGroupDeleteResponse,
+    type SimCardGroupListResponsesDefaultFlatPagination as SimCardGroupListResponsesDefaultFlatPagination,
     type SimCardGroupCreateParams as SimCardGroupCreateParams,
     type SimCardGroupRetrieveParams as SimCardGroupRetrieveParams,
     type SimCardGroupUpdateParams as SimCardGroupUpdateParams,
@@ -371,11 +361,11 @@ export declare namespace SimCardGroups {
     Actions as Actions,
     type SimCardGroupAction as SimCardGroupAction,
     type ActionRetrieveResponse as ActionRetrieveResponse,
-    type ActionListResponse as ActionListResponse,
     type ActionRemovePrivateWirelessGatewayResponse as ActionRemovePrivateWirelessGatewayResponse,
     type ActionRemoveWirelessBlocklistResponse as ActionRemoveWirelessBlocklistResponse,
     type ActionSetPrivateWirelessGatewayResponse as ActionSetPrivateWirelessGatewayResponse,
     type ActionSetWirelessBlocklistResponse as ActionSetWirelessBlocklistResponse,
+    type SimCardGroupActionsDefaultFlatPagination as SimCardGroupActionsDefaultFlatPagination,
     type ActionListParams as ActionListParams,
     type ActionSetPrivateWirelessGatewayParams as ActionSetPrivateWirelessGatewayParams,
     type ActionSetWirelessBlocklistParams as ActionSetWirelessBlocklistParams,

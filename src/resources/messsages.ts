@@ -219,7 +219,7 @@ export namespace RcsSuggestion {
      * Opens the RCS app's location chooser so the user can pick a location to send
      * back to the agent.
      */
-    share_location_action?: unknown;
+    share_location_action?: { [key: string]: unknown };
 
     /**
      * Text that is shown in the suggested action. Maximum 25 characters.

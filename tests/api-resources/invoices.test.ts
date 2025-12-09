@@ -49,7 +49,7 @@ describe('resource invoices', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.invoices.list(
-        { page: { number: 1, size: 1 }, sort: 'period_start' },
+        { 'page[number]': 0, 'page[size]': 0, sort: 'period_start' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

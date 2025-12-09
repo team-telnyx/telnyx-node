@@ -2,6 +2,8 @@
 
 export {
   Campaign,
+  type CampaignSharingStatus,
+  type TelnyxCampaignCsp,
   type CampaignListResponse,
   type CampaignAcceptSharingResponse,
   type CampaignDeactivateResponse,
@@ -12,6 +14,7 @@ export {
   type CampaignUpdateParams,
   type CampaignListParams,
   type CampaignSubmitAppealParams,
+  type CampaignListResponsesPerPagePaginationV2,
 } from './campaign';
 export { Osr, type OsrGetAttributesResponse } from './osr';
 export { Usecase, type UsecaseGetCostResponse, type UsecaseGetCostParams } from './usecase';

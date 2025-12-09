@@ -14,13 +14,13 @@ export {
   type ExternalConnectionCreateResponse,
   type ExternalConnectionRetrieveResponse,
   type ExternalConnectionUpdateResponse,
-  type ExternalConnectionListResponse,
   type ExternalConnectionDeleteResponse,
   type ExternalConnectionUpdateLocationResponse,
   type ExternalConnectionCreateParams,
   type ExternalConnectionUpdateParams,
   type ExternalConnectionListParams,
   type ExternalConnectionUpdateLocationParams,
+  type ExternalConnectionsDefaultPagination,
 } from './external-connections';
 export {
   LogMessages,
@@ -28,16 +28,17 @@ export {
   type LogMessageListResponse,
   type LogMessageDismissResponse,
   type LogMessageListParams,
+  type LogMessageListResponsesDefaultPaginationForLogMessages,
 } from './log-messages';
 export {
   PhoneNumbers,
   type ExternalConnectionPhoneNumber,
   type PhoneNumberRetrieveResponse,
   type PhoneNumberUpdateResponse,
-  type PhoneNumberListResponse,
   type PhoneNumberRetrieveParams,
   type PhoneNumberUpdateParams,
   type PhoneNumberListParams,
+  type ExternalConnectionPhoneNumbersDefaultPagination,
 } from './phone-numbers';
 export {
   Releases,
@@ -45,6 +46,7 @@ export {
   type ReleaseListResponse,
   type ReleaseRetrieveParams,
   type ReleaseListParams,
+  type ReleaseListResponsesDefaultPagination,
 } from './releases';
 export {
   Uploads,
@@ -52,7 +54,6 @@ export {
   type Upload,
   type UploadCreateResponse,
   type UploadRetrieveResponse,
-  type UploadListResponse,
   type UploadPendingCountResponse,
   type UploadRefreshStatusResponse,
   type UploadRetryResponse,
@@ -60,4 +61,5 @@ export {
   type UploadRetrieveParams,
   type UploadListParams,
   type UploadRetryParams,
+  type UploadsDefaultPagination,
 } from './uploads';

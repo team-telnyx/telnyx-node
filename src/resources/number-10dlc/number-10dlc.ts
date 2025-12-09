@@ -3,21 +3,30 @@
 import { APIResource } from '../../core/resource';
 import * as PhoneNumberCampaignsAPI from './phone-number-campaigns';
 import {
+  PhoneNumberCampaign,
+  PhoneNumberCampaignCreate,
   PhoneNumberCampaignCreateParams,
   PhoneNumberCampaignListParams,
-  PhoneNumberCampaignListResponse,
   PhoneNumberCampaignUpdateParams,
   PhoneNumberCampaigns,
+  PhoneNumberCampaignsPerPagePaginationV2,
 } from './phone-number-campaigns';
 import * as BrandAPI from './brand/brand';
 import {
+  AltBusinessIDType,
   Brand,
   BrandCreateParams,
   BrandGetFeedbackResponse,
+  BrandIdentityStatus,
   BrandListParams,
   BrandListResponse,
+  BrandListResponsesPerPagePaginationV2,
   BrandRetrieveResponse,
   BrandUpdateParams,
+  EntityType,
+  StockExchange,
+  TelnyxBrand,
+  Vertical,
 } from './brand/brand';
 import * as CampaignBuilderAPI from './campaign-builder/campaign-builder';
 import { CampaignBuilder, CampaignBuilderSubmitParams } from './campaign-builder/campaign-builder';
@@ -31,9 +40,12 @@ import {
   CampaignGetSharingStatusResponse,
   CampaignListParams,
   CampaignListResponse,
+  CampaignListResponsesPerPagePaginationV2,
+  CampaignSharingStatus,
   CampaignSubmitAppealParams,
   CampaignSubmitAppealResponse,
   CampaignUpdateParams,
+  TelnyxCampaignCsp,
 } from './campaign/campaign';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -105,9 +117,16 @@ export declare namespace Number10dlc {
 
   export {
     Brand as Brand,
+    type AltBusinessIDType as AltBusinessIDType,
+    type BrandIdentityStatus as BrandIdentityStatus,
+    type EntityType as EntityType,
+    type StockExchange as StockExchange,
+    type TelnyxBrand as TelnyxBrand,
+    type Vertical as Vertical,
     type BrandRetrieveResponse as BrandRetrieveResponse,
     type BrandListResponse as BrandListResponse,
     type BrandGetFeedbackResponse as BrandGetFeedbackResponse,
+    type BrandListResponsesPerPagePaginationV2 as BrandListResponsesPerPagePaginationV2,
     type BrandCreateParams as BrandCreateParams,
     type BrandUpdateParams as BrandUpdateParams,
     type BrandListParams as BrandListParams,
@@ -115,6 +134,8 @@ export declare namespace Number10dlc {
 
   export {
     Campaign as Campaign,
+    type CampaignSharingStatus as CampaignSharingStatus,
+    type TelnyxCampaignCsp as TelnyxCampaignCsp,
     type CampaignListResponse as CampaignListResponse,
     type CampaignAcceptSharingResponse as CampaignAcceptSharingResponse,
     type CampaignDeactivateResponse as CampaignDeactivateResponse,
@@ -122,6 +143,7 @@ export declare namespace Number10dlc {
     type CampaignGetOperationStatusResponse as CampaignGetOperationStatusResponse,
     type CampaignGetSharingStatusResponse as CampaignGetSharingStatusResponse,
     type CampaignSubmitAppealResponse as CampaignSubmitAppealResponse,
+    type CampaignListResponsesPerPagePaginationV2 as CampaignListResponsesPerPagePaginationV2,
     type CampaignUpdateParams as CampaignUpdateParams,
     type CampaignListParams as CampaignListParams,
     type CampaignSubmitAppealParams as CampaignSubmitAppealParams,
@@ -134,7 +156,9 @@ export declare namespace Number10dlc {
 
   export {
     PhoneNumberCampaigns as PhoneNumberCampaigns,
-    type PhoneNumberCampaignListResponse as PhoneNumberCampaignListResponse,
+    type PhoneNumberCampaign as PhoneNumberCampaign,
+    type PhoneNumberCampaignCreate as PhoneNumberCampaignCreate,
+    type PhoneNumberCampaignsPerPagePaginationV2 as PhoneNumberCampaignsPerPagePaginationV2,
     type PhoneNumberCampaignCreateParams as PhoneNumberCampaignCreateParams,
     type PhoneNumberCampaignUpdateParams as PhoneNumberCampaignUpdateParams,
     type PhoneNumberCampaignListParams as PhoneNumberCampaignListParams,

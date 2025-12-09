@@ -11,6 +11,8 @@ You can run the MCP Server directly via `npx`:
 ```sh
 export TELNYX_API_KEY="My API Key"
 export TELNYX_PUBLIC_KEY="My Public Key"
+export TELNYX_CLIENT_ID="My Client ID"
+export TELNYX_CLIENT_SECRET="My Client Secret"
 npx -y telnyx-mcp@latest
 ```
 
@@ -29,7 +31,9 @@ For clients with a configuration JSON, it might look something like this:
       "args": ["-y", "telnyx-mcp", "--client=claude", "--tools=dynamic"],
       "env": {
         "TELNYX_API_KEY": "My API Key",
-        "TELNYX_PUBLIC_KEY": "My Public Key"
+        "TELNYX_PUBLIC_KEY": "My Public Key",
+        "TELNYX_CLIENT_ID": "My Client ID",
+        "TELNYX_CLIENT_SECRET": "My Client Secret"
       }
     }
   }
@@ -41,14 +45,14 @@ For clients with a configuration JSON, it might look something like this:
 If you use Cursor, you can install the MCP server by using the button below. You will need to set your environment variables
 in Cursor's `mcp.json`, which can be found in Cursor Settings > Tools & MCP > New MCP Server.
 
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=telnyx-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInRlbG55eC1tY3AiXSwiZW52Ijp7IlRFTE5ZWF9BUElfS0VZIjoiU2V0IHlvdXIgVEVMTllYX0FQSV9LRVkgaGVyZS4iLCJURUxOWVhfUFVCTElDX0tFWSI6IlNldCB5b3VyIFRFTE5ZWF9QVUJMSUNfS0VZIGhlcmUuIn19)
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=telnyx-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInRlbG55eC1tY3AiXSwiZW52Ijp7IlRFTE5ZWF9BUElfS0VZIjoiU2V0IHlvdXIgVEVMTllYX0FQSV9LRVkgaGVyZS4iLCJURUxOWVhfUFVCTElDX0tFWSI6IlNldCB5b3VyIFRFTE5ZWF9QVUJMSUNfS0VZIGhlcmUuIiwiVEVMTllYX0NMSUVOVF9JRCI6IlNldCB5b3VyIFRFTE5ZWF9DTElFTlRfSUQgaGVyZS4iLCJURUxOWVhfQ0xJRU5UX1NFQ1JFVCI6IlNldCB5b3VyIFRFTE5ZWF9DTElFTlRfU0VDUkVUIGhlcmUuIn19)
 
 ### VS Code
 
 If you use MCP, you can install the MCP server by clicking the link below. You will need to set your environment variables
 in VS Code's `mcp.json`, which can be found via Command Palette > MCP: Open User Configuration.
 
-[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22telnyx-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22telnyx-mcp%22%5D%2C%22env%22%3A%7B%22TELNYX_API_KEY%22%3A%22Set%20your%20TELNYX_API_KEY%20here.%22%2C%22TELNYX_PUBLIC_KEY%22%3A%22Set%20your%20TELNYX_PUBLIC_KEY%20here.%22%7D%7D)
+[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22telnyx-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22telnyx-mcp%22%5D%2C%22env%22%3A%7B%22TELNYX_API_KEY%22%3A%22Set%20your%20TELNYX_API_KEY%20here.%22%2C%22TELNYX_PUBLIC_KEY%22%3A%22Set%20your%20TELNYX_PUBLIC_KEY%20here.%22%2C%22TELNYX_CLIENT_ID%22%3A%22Set%20your%20TELNYX_CLIENT_ID%20here.%22%2C%22TELNYX_CLIENT_SECRET%22%3A%22Set%20your%20TELNYX_CLIENT_SECRET%20here.%22%7D%7D)
 
 ### Claude Code
 
@@ -56,7 +60,7 @@ If you use Claude Code, you can install the MCP server by running the command be
 environment variables in Claude Code's `.claude.json`, which can be found in your home directory.
 
 ```
-claude mcp add --transport stdio telnyx_api --env TELNYX_API_KEY="Your TELNYX_API_KEY here." TELNYX_PUBLIC_KEY="Your TELNYX_PUBLIC_KEY here." -- npx -y telnyx-mcp
+claude mcp add --transport stdio telnyx_api --env TELNYX_API_KEY="Your TELNYX_API_KEY here." TELNYX_PUBLIC_KEY="Your TELNYX_PUBLIC_KEY here." TELNYX_CLIENT_ID="Your TELNYX_CLIENT_ID here." TELNYX_CLIENT_SECRET="Your TELNYX_CLIENT_SECRET here." -- npx -y telnyx-mcp
 ```
 
 ## Exposing endpoints to your MCP Client
@@ -379,7 +383,7 @@ The following tools are available in this MCP server.
 - `chat_ai_assistants` (`write`): This endpoint allows a client to send a chat message to a specific AI Assistant. The assistant processes the message and returns a relevant reply based on the current conversation context. Refer to the Conversation API to [create a conversation](https://developers.telnyx.com/api/inference/inference-embedding/create-new-conversation-public-conversations-post), [filter existing conversations](https://developers.telnyx.com/api/inference/inference-embedding/get-conversations-public-conversations-get), [fetch messages for a conversation](https://developers.telnyx.com/api/inference/inference-embedding/get-conversations-public-conversation-id-messages-get), and [manually add messages to a conversation](https://developers.telnyx.com/api/inference/inference-embedding/add-new-message).
 - `clone_ai_assistants` (`write`): Clone an existing assistant, excluding telephony and messaging settings.
 - `get_texml_ai_assistants` (`read`): Get an assistant texml by `assistant_id`.
-- `import_ai_assistants` (`write`): Import assistants from external providers. Any assistant that has already been imported will be overwritten with its latest version from the importing provider.
+- `imports_ai_assistants` (`write`): Import assistants from external providers. Any assistant that has already been imported will be overwritten with its latest version from the importing provider.
 - `send_sms_ai_assistants` (`write`): Send an SMS message for an assistant. This endpoint:
   1. Validates the assistant exists and has messaging profile configured
   2. If should_create_conversation is true, creates a new conversation with metadata
@@ -1466,6 +1470,7 @@ The following tools are available in this MCP server.
 ### Resource `phone_number_assignment_by_profile`:
 
 - `assign_phone_number_assignment_by_profile` (`write`): This endpoint allows you to link all phone numbers associated with a Messaging Profile to a campaign. **Please note:** if you want to assign phone numbers to a campaign that you did not create with Telnyx 10DLC services, this endpoint allows that provided that you've shared the campaign with Telnyx. In this case, only provide the parameter, `tcrCampaignId`, and not `campaignId`. In all other cases (where the campaign you're assigning was created with Telnyx 10DLC services), only provide `campaignId`, not `tcrCampaignId`.
+- `list_phone_number_status_phone_number_assignment_by_profile` (`read`): Check the status of the individual phone number/campaign assignments associated with the supplied `taskId`.
 - `retrieve_phone_number_status_phone_number_assignment_by_profile` (`read`): Check the status of the individual phone number/campaign assignments associated with the supplied `taskId`.
 - `retrieve_status_phone_number_assignment_by_profile` (`read`): Check the status of the task associated with assigning all phone numbers on a messaging profile to a campaign by `taskId`.
 
@@ -2212,7 +2217,7 @@ The following tools are available in this MCP server.
 ### Resource `number_10dlc.brand.external_vetting`:
 
 - `list_brand_number_10dlc_external_vetting` (`read`): Get list of valid external vetting record for a given brand
-- `import_brand_number_10dlc_external_vetting` (`write`): This operation can be used to import an external vetting record from a TCR-approved
+- `imports_brand_number_10dlc_external_vetting` (`write`): This operation can be used to import an external vetting record from a TCR-approved
   vetting provider. If the vetting provider confirms validity of the record, it will be
   saved with the brand and will be considered for future campaign qualification.
 - `order_brand_number_10dlc_external_vetting` (`write`): Order new external vetting for a brand

@@ -32,6 +32,30 @@ describe('resource phoneNumberAssignmentByProfile', () => {
   });
 
   // Prism tests are disabled
+  test.skip('listPhoneNumberStatus', async () => {
+    const responsePromise = client.phoneNumberAssignmentByProfile.listPhoneNumberStatus('taskId');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('listPhoneNumberStatus: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.phoneNumberAssignmentByProfile.listPhoneNumberStatus(
+        'taskId',
+        { page: 0, recordsPerPage: 0 },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Prism tests are disabled
   test.skip('retrievePhoneNumberStatus', async () => {
     const responsePromise = client.phoneNumberAssignmentByProfile.retrievePhoneNumberStatus('taskId');
     const rawResponse = await responsePromise.asResponse();

@@ -1,8 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
-import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class MobileNetworkOperators extends APIResource {
@@ -16,70 +15,69 @@ export class MobileNetworkOperators extends APIResource {
   list(
     query: MobileNetworkOperatorListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<MobileNetworkOperatorListResponse> {
-    return this._client.get('/mobile_network_operators', { query, ...options });
+  ): PagePromise<MobileNetworkOperatorListResponsesDefaultPagination, MobileNetworkOperatorListResponse> {
+    return this._client.getAPIList(
+      '/mobile_network_operators',
+      DefaultPagination<MobileNetworkOperatorListResponse>,
+      { query, ...options },
+    );
   }
 }
+
+export type MobileNetworkOperatorListResponsesDefaultPagination =
+  DefaultPagination<MobileNetworkOperatorListResponse>;
 
 export interface MobileNetworkOperatorListResponse {
-  data?: Array<MobileNetworkOperatorListResponse.Data>;
+  /**
+   * Identifies the resource.
+   */
+  id?: string;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+  /**
+   * The mobile operator two-character (ISO 3166-1 alpha-2) origin country code.
+   */
+  country_code?: string;
+
+  /**
+   * MCC stands for Mobile Country Code. It's a three decimal digit that identifies a
+   * country.<br/><br/> This code is commonly seen joined with a Mobile Network Code
+   * (MNC) in a tuple that allows identifying a carrier known as PLMN (Public Land
+   * Mobile Network) code.
+   */
+  mcc?: string;
+
+  /**
+   * MNC stands for Mobile Network Code. It's a two to three decimal digits that
+   * identify a network.<br/><br/> This code is commonly seen joined with a Mobile
+   * Country Code (MCC) in a tuple that allows identifying a carrier known as PLMN
+   * (Public Land Mobile Network) code.
+   */
+  mnc?: string;
+
+  /**
+   * The network operator name.
+   */
+  name?: string;
+
+  /**
+   * Indicate whether the mobile network operator can be set as preferred in the
+   * Network Preferences API.
+   */
+  network_preferences_enabled?: boolean;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: string;
+
+  /**
+   * TADIG stands for Transferred Account Data Interchange Group. The TADIG code is a
+   * unique identifier for network operators in GSM mobile networks.
+   */
+  tadig?: string;
 }
 
-export namespace MobileNetworkOperatorListResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
-
-    /**
-     * The mobile operator two-character (ISO 3166-1 alpha-2) origin country code.
-     */
-    country_code?: string;
-
-    /**
-     * MCC stands for Mobile Country Code. It's a three decimal digit that identifies a
-     * country.<br/><br/> This code is commonly seen joined with a Mobile Network Code
-     * (MNC) in a tuple that allows identifying a carrier known as PLMN (Public Land
-     * Mobile Network) code.
-     */
-    mcc?: string;
-
-    /**
-     * MNC stands for Mobile Network Code. It's a two to three decimal digits that
-     * identify a network.<br/><br/> This code is commonly seen joined with a Mobile
-     * Country Code (MCC) in a tuple that allows identifying a carrier known as PLMN
-     * (Public Land Mobile Network) code.
-     */
-    mnc?: string;
-
-    /**
-     * The network operator name.
-     */
-    name?: string;
-
-    /**
-     * Indicate whether the mobile network operator can be set as preferred in the
-     * Network Preferences API.
-     */
-    network_preferences_enabled?: boolean;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * TADIG stands for Transferred Account Data Interchange Group. The TADIG code is a
-     * unique identifier for network operators in GSM mobile networks.
-     */
-    tadig?: string;
-  }
-}
-
-export interface MobileNetworkOperatorListParams {
+export interface MobileNetworkOperatorListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter for mobile network operators (deepObject style).
    * Originally: filter[name][starts_with], filter[name][contains],
@@ -87,12 +85,6 @@ export interface MobileNetworkOperatorListParams {
    * filter[tadig], filter[network_preferences_enabled]
    */
   filter?: MobileNetworkOperatorListParams.Filter;
-
-  /**
-   * Consolidated pagination parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: MobileNetworkOperatorListParams.Page;
 }
 
 export namespace MobileNetworkOperatorListParams {
@@ -155,27 +147,12 @@ export namespace MobileNetworkOperatorListParams {
       starts_with?: string;
     }
   }
-
-  /**
-   * Consolidated pagination parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 export declare namespace MobileNetworkOperators {
   export {
     type MobileNetworkOperatorListResponse as MobileNetworkOperatorListResponse,
+    type MobileNetworkOperatorListResponsesDefaultPagination as MobileNetworkOperatorListResponsesDefaultPagination,
     type MobileNetworkOperatorListParams as MobileNetworkOperatorListParams,
   };
 }

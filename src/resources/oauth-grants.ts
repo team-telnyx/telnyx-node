@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as OAuthClientsAPI from './oauth-clients';
 import { APIPromise } from '../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -20,8 +20,8 @@ export class OAuthGrants extends APIResource {
   list(
     query: OAuthGrantListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<OAuthGrantListResponse> {
-    return this._client.get('/oauth_grants', { query, ...options });
+  ): PagePromise<OAuthGrantsDefaultFlatPagination, OAuthGrant> {
+    return this._client.getAPIList('/oauth_grants', DefaultFlatPagination<OAuthGrant>, { query, ...options });
   }
 
   /**
@@ -31,6 +31,8 @@ export class OAuthGrants extends APIResource {
     return this._client.delete(path`/oauth_grants/${id}`, options);
   }
 }
+
+export type OAuthGrantsDefaultFlatPagination = DefaultFlatPagination<OAuthGrant>;
 
 export interface OAuthGrant {
   /**
@@ -68,34 +70,18 @@ export interface OAuthGrantRetrieveResponse {
   data?: OAuthGrant;
 }
 
-export interface OAuthGrantListResponse {
-  data?: Array<OAuthGrant>;
-
-  meta?: OAuthClientsAPI.PaginationMetaOAuth;
-}
-
 export interface OAuthGrantDeleteResponse {
   data?: OAuthGrant;
 }
 
-export interface OAuthGrantListParams {
-  /**
-   * Page number
-   */
-  'page[number]'?: number;
-
-  /**
-   * Number of results per page
-   */
-  'page[size]'?: number;
-}
+export interface OAuthGrantListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace OAuthGrants {
   export {
     type OAuthGrant as OAuthGrant,
     type OAuthGrantRetrieveResponse as OAuthGrantRetrieveResponse,
-    type OAuthGrantListResponse as OAuthGrantListResponse,
     type OAuthGrantDeleteResponse as OAuthGrantDeleteResponse,
+    type OAuthGrantsDefaultFlatPagination as OAuthGrantsDefaultFlatPagination,
     type OAuthGrantListParams as OAuthGrantListParams,
   };
 }

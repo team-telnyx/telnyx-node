@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as ByPhoneNumberAPI from './verifications/by-phone-number/by-phone-number';
 import { APIPromise } from '../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -61,14 +61,20 @@ export class VerifyProfiles extends APIResource {
    *
    * @example
    * ```ts
-   * const verifyProfiles = await client.verifyProfiles.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const verifyProfile of client.verifyProfiles.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: VerifyProfileListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<VerifyProfileListResponse> {
-    return this._client.get('/verify_profiles', { query, ...options });
+  ): PagePromise<VerifyProfilesDefaultFlatPagination, VerifyProfile> {
+    return this._client.getAPIList('/verify_profiles', DefaultFlatPagination<VerifyProfile>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -139,6 +145,8 @@ export class VerifyProfiles extends APIResource {
     return this._client.patch(path`/verify_profiles/templates/${templateID}`, { body, ...options });
   }
 }
+
+export type VerifyProfilesDefaultFlatPagination = DefaultFlatPagination<VerifyProfile>;
 
 export interface MessageTemplate {
   data?: VerifyProfileMessageTemplateResponse;
@@ -269,15 +277,6 @@ export interface VerifyProfileMessageTemplateResponse {
   id?: string;
 
   text?: string;
-}
-
-/**
- * A paginated list of Verify profiles
- */
-export interface VerifyProfileListResponse {
-  data: Array<VerifyProfile>;
-
-  meta: ByPhoneNumberAPI.VerifyMeta;
 }
 
 /**
@@ -513,17 +512,11 @@ export namespace VerifyProfileUpdateParams {
   }
 }
 
-export interface VerifyProfileListParams {
+export interface VerifyProfileListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[name]
    */
   filter?: VerifyProfileListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: VerifyProfileListParams.Page;
 }
 
 export namespace VerifyProfileListParams {
@@ -535,16 +528,6 @@ export namespace VerifyProfileListParams {
      * Optional filter for profile names.
      */
     name?: string;
-  }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    number?: number;
-
-    size?: number;
   }
 }
 
@@ -568,8 +551,8 @@ export declare namespace VerifyProfiles {
     type VerifyProfile as VerifyProfile,
     type VerifyProfileData as VerifyProfileData,
     type VerifyProfileMessageTemplateResponse as VerifyProfileMessageTemplateResponse,
-    type VerifyProfileListResponse as VerifyProfileListResponse,
     type VerifyProfileRetrieveTemplatesResponse as VerifyProfileRetrieveTemplatesResponse,
+    type VerifyProfilesDefaultFlatPagination as VerifyProfilesDefaultFlatPagination,
     type VerifyProfileCreateParams as VerifyProfileCreateParams,
     type VerifyProfileUpdateParams as VerifyProfileUpdateParams,
     type VerifyProfileListParams as VerifyProfileListParams,
