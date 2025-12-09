@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -20,7 +19,7 @@ export class MessagingURLDomains extends APIResource {
 export interface MessagingURLDomainListResponse {
   data?: Array<MessagingURLDomainListResponse.Data>;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+  meta?: MessagingURLDomainListResponse.Meta;
 }
 
 export namespace MessagingURLDomainListResponse {
@@ -32,6 +31,16 @@ export namespace MessagingURLDomainListResponse {
     url_domain?: string;
 
     use_case?: string;
+  }
+
+  export interface Meta {
+    page_number: number;
+
+    page_size: number;
+
+    total_pages: number;
+
+    total_results: number;
   }
 }
 

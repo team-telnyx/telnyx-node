@@ -601,12 +601,12 @@ export interface RequestListResponse {
   /**
    * The records yielded by this request
    */
-  records?: Array<VerificationRequestStatus>;
+  records: Array<VerificationRequestStatus>;
 
   /**
    * The total amount of records for these query parameters
    */
-  total_records?: number;
+  total_records: number;
 }
 
 export interface RequestCreateParams {

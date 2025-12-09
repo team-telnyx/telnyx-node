@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as Shared from '../shared';
 import * as AutorespConfigsAPI from './autoresp-configs';
 import {
@@ -376,7 +375,19 @@ export interface MessagingProfileUpdateResponse {
 export interface MessagingProfileListResponse {
   data?: Array<MessagingProfile>;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+  meta?: MessagingProfileListResponse.Meta;
+}
+
+export namespace MessagingProfileListResponse {
+  export interface Meta {
+    page_number: number;
+
+    page_size: number;
+
+    total_pages: number;
+
+    total_results: number;
+  }
 }
 
 export interface MessagingProfileDeleteResponse {
@@ -386,13 +397,37 @@ export interface MessagingProfileDeleteResponse {
 export interface MessagingProfileListPhoneNumbersResponse {
   data?: Array<Shared.PhoneNumberWithMessagingSettings>;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+  meta?: MessagingProfileListPhoneNumbersResponse.Meta;
+}
+
+export namespace MessagingProfileListPhoneNumbersResponse {
+  export interface Meta {
+    page_number: number;
+
+    page_size: number;
+
+    total_pages: number;
+
+    total_results: number;
+  }
 }
 
 export interface MessagingProfileListShortCodesResponse {
   data?: Array<Shared.ShortCode>;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+  meta?: MessagingProfileListShortCodesResponse.Meta;
+}
+
+export namespace MessagingProfileListShortCodesResponse {
+  export interface Meta {
+    page_number: number;
+
+    page_size: number;
+
+    total_pages: number;
+
+    total_results: number;
+  }
 }
 
 export interface MessagingProfileCreateParams {
