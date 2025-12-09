@@ -48,7 +48,7 @@ describe('resource integrationSecrets', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.integrationSecrets.list(
-        { filter: { type: 'bearer' }, page: { number: 1, size: 25 } },
+        { filter: { type: 'bearer' }, 'page[number]': 0, 'page[size]': 0 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

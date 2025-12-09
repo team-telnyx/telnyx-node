@@ -2,18 +2,25 @@
 
 export {
   Brand,
+  type AltBusinessIDType,
+  type BrandIdentityStatus,
+  type EntityType,
+  type StockExchange,
+  type TelnyxBrand,
+  type Vertical,
   type BrandRetrieveResponse,
   type BrandListResponse,
   type BrandGetFeedbackResponse,
   type BrandCreateParams,
   type BrandUpdateParams,
   type BrandListParams,
+  type BrandListResponsesPerPagePaginationV2,
 } from './brand';
 export {
   ExternalVetting,
   type ExternalVettingListResponse,
-  type ExternalVettingImportResponse,
+  type ExternalVettingImportsResponse,
   type ExternalVettingOrderResponse,
-  type ExternalVettingImportParams,
+  type ExternalVettingImportsParams,
   type ExternalVettingOrderParams,
 } from './external-vetting';

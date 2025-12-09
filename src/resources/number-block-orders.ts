@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -49,17 +49,24 @@ export class NumberBlockOrders extends APIResource {
    *
    * @example
    * ```ts
-   * const numberBlockOrders =
-   *   await client.numberBlockOrders.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const numberBlockOrder of client.numberBlockOrders.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: NumberBlockOrderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<NumberBlockOrderListResponse> {
-    return this._client.get('/number_block_orders', { query, ...options });
+  ): PagePromise<NumberBlockOrdersDefaultPagination, NumberBlockOrder> {
+    return this._client.getAPIList('/number_block_orders', DefaultPagination<NumberBlockOrder>, {
+      query,
+      ...options,
+    });
   }
 }
+
+export type NumberBlockOrdersDefaultPagination = DefaultPagination<NumberBlockOrder>;
 
 export interface NumberBlockOrder {
   id?: string;
@@ -126,12 +133,6 @@ export interface NumberBlockOrderRetrieveResponse {
   data?: NumberBlockOrder;
 }
 
-export interface NumberBlockOrderListResponse {
-  data?: Array<NumberBlockOrder>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface NumberBlockOrderCreateParams {
   /**
    * The phone number range included in the block.
@@ -159,18 +160,12 @@ export interface NumberBlockOrderCreateParams {
   messaging_profile_id?: string;
 }
 
-export interface NumberBlockOrderListParams {
+export interface NumberBlockOrderListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
    * filter[created_at], filter[phone_numbers.starting_number]
    */
   filter?: NumberBlockOrderListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: NumberBlockOrderListParams.Page;
 }
 
 export namespace NumberBlockOrderListParams {
@@ -211,22 +206,6 @@ export namespace NumberBlockOrderListParams {
       lt?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace NumberBlockOrders {
@@ -234,7 +213,7 @@ export declare namespace NumberBlockOrders {
     type NumberBlockOrder as NumberBlockOrder,
     type NumberBlockOrderCreateResponse as NumberBlockOrderCreateResponse,
     type NumberBlockOrderRetrieveResponse as NumberBlockOrderRetrieveResponse,
-    type NumberBlockOrderListResponse as NumberBlockOrderListResponse,
+    type NumberBlockOrdersDefaultPagination as NumberBlockOrdersDefaultPagination,
     type NumberBlockOrderCreateParams as NumberBlockOrderCreateParams,
     type NumberBlockOrderListParams as NumberBlockOrderListParams,
   };

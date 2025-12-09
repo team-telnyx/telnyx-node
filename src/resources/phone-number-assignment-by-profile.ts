@@ -38,6 +38,29 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
    * @example
    * ```ts
    * const response =
+   *   await client.phoneNumberAssignmentByProfile.listPhoneNumberStatus(
+   *     'taskId',
+   *   );
+   * ```
+   */
+  listPhoneNumberStatus(
+    taskID: string,
+    query: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse> {
+    return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}/phoneNumbers`, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
+   * Check the status of the individual phone number/campaign assignments associated
+   * with the supplied `taskId`.
+   *
+   * @example
+   * ```ts
+   * const response =
    *   await client.phoneNumberAssignmentByProfile.retrievePhoneNumberStatus(
    *     'taskId',
    *   );
@@ -101,6 +124,29 @@ export interface PhoneNumberAssignmentByProfileAssignResponse {
   tcrCampaignId?: string;
 }
 
+export interface PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse {
+  records: Array<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse.Record>;
+}
+
+export namespace PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse {
+  export interface Record {
+    /**
+     * The phone number that the status is being checked for.
+     */
+    phoneNumber: string;
+
+    /**
+     * The status of the associated phone number assignment.
+     */
+    status: string;
+
+    /**
+     * The ID of the task associated with the phone number.
+     */
+    taskId: string;
+  }
+}
+
 export interface PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse {
   records: Array<PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse.Record>;
 }
@@ -157,6 +203,12 @@ export interface PhoneNumberAssignmentByProfileAssignParams {
   tcrCampaignId?: string;
 }
 
+export interface PhoneNumberAssignmentByProfileListPhoneNumberStatusParams {
+  page?: number;
+
+  recordsPerPage?: number;
+}
+
 export interface PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams {
   page?: number;
 
@@ -167,9 +219,11 @@ export declare namespace PhoneNumberAssignmentByProfile {
   export {
     type TaskStatus as TaskStatus,
     type PhoneNumberAssignmentByProfileAssignResponse as PhoneNumberAssignmentByProfileAssignResponse,
+    type PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse as PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse,
     type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
     type PhoneNumberAssignmentByProfileRetrieveStatusResponse as PhoneNumberAssignmentByProfileRetrieveStatusResponse,
     type PhoneNumberAssignmentByProfileAssignParams as PhoneNumberAssignmentByProfileAssignParams,
+    type PhoneNumberAssignmentByProfileListPhoneNumberStatusParams as PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
     type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
   };
 }

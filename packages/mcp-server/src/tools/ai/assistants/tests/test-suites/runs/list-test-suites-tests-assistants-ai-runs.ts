@@ -26,21 +26,11 @@ export const tool: Tool = {
         type: 'string',
         title: 'Suite Name',
       },
-      page: {
-        type: 'object',
-        description: 'Consolidated page parameter (deepObject style). Originally: page[size], page[number]',
-        properties: {
-          number: {
-            type: 'integer',
-            title: 'Page[Number]',
-            description: 'Page number to retrieve (1-based indexing)',
-          },
-          size: {
-            type: 'integer',
-            title: 'Page[Size]',
-            description: 'Number of test runs to return per page (1-100)',
-          },
-        },
+      'page[number]': {
+        type: 'integer',
+      },
+      'page[size]': {
+        type: 'integer',
       },
       status: {
         type: 'string',
@@ -68,10 +58,9 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { suite_name, jq_filter, ...body } = args as any;
+  const response = await client.ai.assistants.tests.testSuites.runs.list(suite_name, body).asResponse();
   try {
-    return asTextContentResult(
-      await maybeFilter(jq_filter, await client.ai.assistants.tests.testSuites.runs.list(suite_name, body)),
-    );
+    return asTextContentResult(await maybeFilter(jq_filter, await response.json()));
   } catch (error) {
     if (error instanceof Telnyx.APIError || isJqError(error)) {
       return asErrorResult(error.message);

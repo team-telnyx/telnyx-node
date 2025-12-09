@@ -4,6 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
 import { ActionCancelResponse, ActionRefreshResponse, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { maybeMultipartFormRequestOptions } from '../../internal/uploads';
@@ -57,11 +58,17 @@ export class Faxes extends APIResource {
    *
    * @example
    * ```ts
-   * const faxes = await client.faxes.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const fax of client.faxes.list()) {
+   *   // ...
+   * }
    * ```
    */
-  list(query: FaxListParams | null | undefined = {}, options?: RequestOptions): APIPromise<FaxListResponse> {
-    return this._client.get('/faxes', { query, ...options });
+  list(
+    query: FaxListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FaxesDefaultFlatPagination, Fax> {
+    return this._client.getAPIList('/faxes', DefaultFlatPagination<Fax>, { query, ...options });
   }
 
   /**
@@ -81,6 +88,8 @@ export class Faxes extends APIResource {
     });
   }
 }
+
+export type FaxesDefaultFlatPagination = DefaultFlatPagination<Fax>;
 
 export interface Fax {
   /**
@@ -206,12 +215,6 @@ export interface FaxRetrieveResponse {
   data?: Fax;
 }
 
-export interface FaxListResponse {
-  data?: Array<Fax>;
-
-  meta?: unknown;
-}
-
 export interface FaxCreateParams {
   /**
    * The connection ID to send the fax with.
@@ -296,19 +299,13 @@ export interface FaxCreateParams {
   webhook_url?: string;
 }
 
-export interface FaxListParams {
+export interface FaxListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[created_at][gte], filter[created_at][gt], filter[created_at][lte],
    * filter[created_at][lt], filter[direction][eq], filter[from][eq], filter[to][eq]
    */
   filter?: FaxListParams.Filter;
-
-  /**
-   * Consolidated pagination parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: FaxListParams.Page;
 }
 
 export namespace FaxListParams {
@@ -395,22 +392,6 @@ export namespace FaxListParams {
       eq?: string;
     }
   }
-
-  /**
-   * Consolidated pagination parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * Number of the page to be retrieved
-     */
-    number?: number;
-
-    /**
-     * Number of fax resources for the single page returned
-     */
-    size?: number;
-  }
 }
 
 Faxes.Actions = Actions;
@@ -420,7 +401,7 @@ export declare namespace Faxes {
     type Fax as Fax,
     type FaxCreateResponse as FaxCreateResponse,
     type FaxRetrieveResponse as FaxRetrieveResponse,
-    type FaxListResponse as FaxListResponse,
+    type FaxesDefaultFlatPagination as FaxesDefaultFlatPagination,
     type FaxCreateParams as FaxCreateParams,
     type FaxListParams as FaxListParams,
   };

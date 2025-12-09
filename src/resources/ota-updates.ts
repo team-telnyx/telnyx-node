@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -20,10 +20,15 @@ export class OtaUpdates extends APIResource {
   list(
     query: OtaUpdateListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<OtaUpdateListResponse> {
-    return this._client.get('/ota_updates', { query, ...options });
+  ): PagePromise<OtaUpdateListResponsesDefaultPagination, OtaUpdateListResponse> {
+    return this._client.getAPIList('/ota_updates', DefaultPagination<OtaUpdateListResponse>, {
+      query,
+      ...options,
+    });
   }
 }
+
+export type OtaUpdateListResponsesDefaultPagination = DefaultPagination<OtaUpdateListResponse>;
 
 export interface OtaUpdateRetrieveResponse {
   /**
@@ -114,63 +119,49 @@ export namespace OtaUpdateRetrieveResponse {
   }
 }
 
+/**
+ * This object represents an Over the Air (OTA) update request. It allows tracking
+ * the current status of a operation that apply settings in a particular SIM card.
+ * <br/><br/>
+ */
 export interface OtaUpdateListResponse {
-  data?: Array<OtaUpdateListResponse.Data>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
-export namespace OtaUpdateListResponse {
   /**
-   * This object represents an Over the Air (OTA) update request. It allows tracking
-   * the current status of a operation that apply settings in a particular SIM card.
-   * <br/><br/>
+   * Identifies the resource.
    */
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
+  id?: string;
 
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was created.
+   */
+  created_at?: string;
 
-    record_type?: string;
+  record_type?: string;
 
-    /**
-     * The identification UUID of the related SIM card resource.
-     */
-    sim_card_id?: string;
+  /**
+   * The identification UUID of the related SIM card resource.
+   */
+  sim_card_id?: string;
 
-    status?: 'in-progress' | 'completed' | 'failed';
+  status?: 'in-progress' | 'completed' | 'failed';
 
-    /**
-     * Represents the type of the operation requested. This will relate directly to the
-     * source of the request.
-     */
-    type?: 'sim_card_network_preferences';
+  /**
+   * Represents the type of the operation requested. This will relate directly to the
+   * source of the request.
+   */
+  type?: 'sim_card_network_preferences';
 
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was updated.
+   */
+  updated_at?: string;
 }
 
-export interface OtaUpdateListParams {
+export interface OtaUpdateListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter for OTA updates (deepObject style). Originally:
    * filter[status], filter[sim_card_id], filter[type]
    */
   filter?: OtaUpdateListParams.Filter;
-
-  /**
-   * Consolidated pagination parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: OtaUpdateListParams.Page;
 }
 
 export namespace OtaUpdateListParams {
@@ -194,28 +185,13 @@ export namespace OtaUpdateListParams {
      */
     type?: 'sim_card_network_preferences';
   }
-
-  /**
-   * Consolidated pagination parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 export declare namespace OtaUpdates {
   export {
     type OtaUpdateRetrieveResponse as OtaUpdateRetrieveResponse,
     type OtaUpdateListResponse as OtaUpdateListResponse,
+    type OtaUpdateListResponsesDefaultPagination as OtaUpdateListResponsesDefaultPagination,
     type OtaUpdateListParams as OtaUpdateListParams,
   };
 }

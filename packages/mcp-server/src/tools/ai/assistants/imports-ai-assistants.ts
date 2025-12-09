@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export const tool: Tool = {
-  name: 'import_ai_assistants',
+  name: 'imports_ai_assistants',
   description:
     'Import assistants from external providers. Any assistant that has already been imported will be overwritten with its latest version from the importing provider.',
   inputSchema: {
@@ -40,7 +40,7 @@ export const tool: Tool = {
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const body = args as any;
   try {
-    return asTextContentResult(await client.ai.assistants.import(body));
+    return asTextContentResult(await client.ai.assistants.imports(body));
   } catch (error) {
     if (error instanceof Telnyx.APIError) {
       return asErrorResult(error.message);
