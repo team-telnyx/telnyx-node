@@ -1,29 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as PartnerCampaignAPI from './partner-campaign';
-import {
-  PartnerCampaign,
-  PartnerCampaignGetSharedByMeParams,
-  PartnerCampaignGetSharedByMeResponse,
-  PartnerCampaignGetSharingStatusResponse,
-} from './partner-campaign';
-import * as PartnerCampaignsAPI from './partner-campaigns';
-import {
-  PartnerCampaignListParams,
-  PartnerCampaignListResponse,
-  PartnerCampaignUpdateParams,
-  PartnerCampaigns,
-} from './partner-campaigns';
-import * as PhoneNumberAssignmentByProfileAPI from './phone-number-assignment-by-profile';
-import {
-  PhoneNumberAssignmentByProfile,
-  PhoneNumberAssignmentByProfileAssignParams,
-  PhoneNumberAssignmentByProfileAssignResponse,
-  PhoneNumberAssignmentByProfileGetPhoneNumberStatusParams,
-  PhoneNumberAssignmentByProfileGetPhoneNumberStatusResponse,
-  PhoneNumberAssignmentByProfileGetTaskStatusResponse,
-} from './phone-number-assignment-by-profile';
 import * as PhoneNumberCampaignsAPI from './phone-number-campaigns';
 import {
   PhoneNumberCampaignCreateParams,
@@ -66,12 +43,6 @@ export class Number10dlc extends APIResource {
   brand: BrandAPI.Brand = new BrandAPI.Brand(this._client);
   campaign: CampaignAPI.Campaign = new CampaignAPI.Campaign(this._client);
   campaignBuilder: CampaignBuilderAPI.CampaignBuilder = new CampaignBuilderAPI.CampaignBuilder(this._client);
-  partnerCampaign: PartnerCampaignAPI.PartnerCampaign = new PartnerCampaignAPI.PartnerCampaign(this._client);
-  partnerCampaigns: PartnerCampaignsAPI.PartnerCampaigns = new PartnerCampaignsAPI.PartnerCampaigns(
-    this._client,
-  );
-  phoneNumberAssignmentByProfile: PhoneNumberAssignmentByProfileAPI.PhoneNumberAssignmentByProfile =
-    new PhoneNumberAssignmentByProfileAPI.PhoneNumberAssignmentByProfile(this._client);
   phoneNumberCampaigns: PhoneNumberCampaignsAPI.PhoneNumberCampaigns =
     new PhoneNumberCampaignsAPI.PhoneNumberCampaigns(this._client);
 
@@ -127,9 +98,6 @@ export namespace Number10dlcGetEnumResponse {
 Number10dlc.Brand = Brand;
 Number10dlc.Campaign = Campaign;
 Number10dlc.CampaignBuilder = CampaignBuilder;
-Number10dlc.PartnerCampaign = PartnerCampaign;
-Number10dlc.PartnerCampaigns = PartnerCampaigns;
-Number10dlc.PhoneNumberAssignmentByProfile = PhoneNumberAssignmentByProfile;
 Number10dlc.PhoneNumberCampaigns = PhoneNumberCampaigns;
 
 export declare namespace Number10dlc {
@@ -162,29 +130,6 @@ export declare namespace Number10dlc {
   export {
     CampaignBuilder as CampaignBuilder,
     type CampaignBuilderSubmitParams as CampaignBuilderSubmitParams,
-  };
-
-  export {
-    PartnerCampaign as PartnerCampaign,
-    type PartnerCampaignGetSharedByMeResponse as PartnerCampaignGetSharedByMeResponse,
-    type PartnerCampaignGetSharingStatusResponse as PartnerCampaignGetSharingStatusResponse,
-    type PartnerCampaignGetSharedByMeParams as PartnerCampaignGetSharedByMeParams,
-  };
-
-  export {
-    PartnerCampaigns as PartnerCampaigns,
-    type PartnerCampaignListResponse as PartnerCampaignListResponse,
-    type PartnerCampaignUpdateParams as PartnerCampaignUpdateParams,
-    type PartnerCampaignListParams as PartnerCampaignListParams,
-  };
-
-  export {
-    PhoneNumberAssignmentByProfile as PhoneNumberAssignmentByProfile,
-    type PhoneNumberAssignmentByProfileAssignResponse as PhoneNumberAssignmentByProfileAssignResponse,
-    type PhoneNumberAssignmentByProfileGetPhoneNumberStatusResponse as PhoneNumberAssignmentByProfileGetPhoneNumberStatusResponse,
-    type PhoneNumberAssignmentByProfileGetTaskStatusResponse as PhoneNumberAssignmentByProfileGetTaskStatusResponse,
-    type PhoneNumberAssignmentByProfileAssignParams as PhoneNumberAssignmentByProfileAssignParams,
-    type PhoneNumberAssignmentByProfileGetPhoneNumberStatusParams as PhoneNumberAssignmentByProfileGetPhoneNumberStatusParams,
   };
 
   export {

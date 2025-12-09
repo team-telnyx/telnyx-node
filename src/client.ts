@@ -589,8 +589,26 @@ import {
   TrafficType,
   UsagePaymentMethod,
 } from './resources/outbound-voice-profiles';
-import { PartnerCampaigns, TelnyxDownstreamCampaign } from './resources/partner-campaigns';
-import { PhoneNumberAssignmentByProfile, TaskStatus } from './resources/phone-number-assignment-by-profile';
+import { PartnerCampaign } from './resources/partner-campaign';
+import {
+  PartnerCampaignListParams,
+  PartnerCampaignListResponse,
+  PartnerCampaignListSharedByMeParams,
+  PartnerCampaignListSharedByMeResponse,
+  PartnerCampaignRetrieveSharingStatusResponse,
+  PartnerCampaignUpdateParams,
+  PartnerCampaigns,
+  TelnyxDownstreamCampaign,
+} from './resources/partner-campaigns';
+import {
+  PhoneNumberAssignmentByProfile,
+  PhoneNumberAssignmentByProfileAssignParams,
+  PhoneNumberAssignmentByProfileAssignResponse,
+  PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
+  PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
+  PhoneNumberAssignmentByProfileRetrieveStatusResponse,
+  TaskStatus,
+} from './resources/phone-number-assignment-by-profile';
 import {
   PhoneNumberCampaign,
   PhoneNumberCampaignCreate,
@@ -2149,6 +2167,7 @@ export class Telnyx {
   inexplicitNumberOrders: API.InexplicitNumberOrders = new API.InexplicitNumberOrders(this);
   mobilePhoneNumbers: API.MobilePhoneNumbers = new API.MobilePhoneNumbers(this);
   mobileVoiceConnections: API.MobileVoiceConnections = new API.MobileVoiceConnections(this);
+  partnerCampaign: API.PartnerCampaign = new API.PartnerCampaign(this);
   number10dlc: API.Number10dlc = new API.Number10dlc(this);
 }
 
@@ -2308,6 +2327,7 @@ Telnyx.WellKnown = WellKnown;
 Telnyx.InexplicitNumberOrders = InexplicitNumberOrders;
 Telnyx.MobilePhoneNumbers = MobilePhoneNumbers;
 Telnyx.MobileVoiceConnections = MobileVoiceConnections;
+Telnyx.PartnerCampaign = PartnerCampaign;
 Telnyx.Number10dlc = Number10dlc;
 
 export declare namespace Telnyx {
@@ -3256,7 +3276,15 @@ export declare namespace Telnyx {
 
   export { Payment as Payment };
 
-  export { PhoneNumberAssignmentByProfile as PhoneNumberAssignmentByProfile, type TaskStatus as TaskStatus };
+  export {
+    PhoneNumberAssignmentByProfile as PhoneNumberAssignmentByProfile,
+    type TaskStatus as TaskStatus,
+    type PhoneNumberAssignmentByProfileAssignResponse as PhoneNumberAssignmentByProfileAssignResponse,
+    type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
+    type PhoneNumberAssignmentByProfileRetrieveStatusResponse as PhoneNumberAssignmentByProfileRetrieveStatusResponse,
+    type PhoneNumberAssignmentByProfileAssignParams as PhoneNumberAssignmentByProfileAssignParams,
+    type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
+  };
 
   export { PhoneNumberBlocks as PhoneNumberBlocks };
 
@@ -3755,7 +3783,16 @@ export declare namespace Telnyx {
     type WirelessBlocklistListParams as WirelessBlocklistListParams,
   };
 
-  export { PartnerCampaigns as PartnerCampaigns, type TelnyxDownstreamCampaign as TelnyxDownstreamCampaign };
+  export {
+    PartnerCampaigns as PartnerCampaigns,
+    type TelnyxDownstreamCampaign as TelnyxDownstreamCampaign,
+    type PartnerCampaignListResponse as PartnerCampaignListResponse,
+    type PartnerCampaignListSharedByMeResponse as PartnerCampaignListSharedByMeResponse,
+    type PartnerCampaignRetrieveSharingStatusResponse as PartnerCampaignRetrieveSharingStatusResponse,
+    type PartnerCampaignUpdateParams as PartnerCampaignUpdateParams,
+    type PartnerCampaignListParams as PartnerCampaignListParams,
+    type PartnerCampaignListSharedByMeParams as PartnerCampaignListSharedByMeParams,
+  };
 
   export {
     WellKnown as WellKnown,
@@ -3792,6 +3829,8 @@ export declare namespace Telnyx {
     type MobileVoiceConnectionUpdateParams as MobileVoiceConnectionUpdateParams,
     type MobileVoiceConnectionListParams as MobileVoiceConnectionListParams,
   };
+
+  export { PartnerCampaign as PartnerCampaign };
 
   export { Number10dlc as Number10dlc, type Number10dlcGetEnumResponse as Number10dlcGetEnumResponse };
 
