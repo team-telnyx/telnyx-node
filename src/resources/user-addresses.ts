@@ -245,7 +245,7 @@ export interface UserAddressCreateParams {
    * well. If this value is set to true, then the verification will not be attempted.
    * Defaults to false (verification will be performed).
    */
-  skip_address_verification?: string;
+  skip_address_verification?: boolean;
 }
 
 export interface UserAddressListParams extends DefaultPaginationParams {
