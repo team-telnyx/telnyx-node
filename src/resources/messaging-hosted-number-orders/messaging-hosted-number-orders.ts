@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as Shared from '../shared';
 import * as ActionsAPI from './actions';
 import { ActionUploadFileParams, ActionUploadFileResponse, Actions } from './actions';
@@ -158,7 +157,19 @@ export interface MessagingHostedNumberOrderRetrieveResponse {
 export interface MessagingHostedNumberOrderListResponse {
   data?: Array<Shared.MessagingHostedNumberOrder>;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+  meta?: MessagingHostedNumberOrderListResponse.Meta;
+}
+
+export namespace MessagingHostedNumberOrderListResponse {
+  export interface Meta {
+    page_number: number;
+
+    page_size: number;
+
+    total_pages: number;
+
+    total_results: number;
+  }
 }
 
 export interface MessagingHostedNumberOrderDeleteResponse {

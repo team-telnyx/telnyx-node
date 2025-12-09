@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -20,7 +19,7 @@ export class MessagingOptouts extends APIResource {
 export interface MessagingOptoutListResponse {
   data?: Array<MessagingOptoutListResponse.Data>;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+  meta?: MessagingOptoutListResponse.Meta;
 }
 
 export namespace MessagingOptoutListResponse {
@@ -50,6 +49,16 @@ export namespace MessagingOptoutListResponse {
      * Receiving address (+E.164 formatted phone number or short code).
      */
     to?: string;
+  }
+
+  export interface Meta {
+    page_number: number;
+
+    page_size: number;
+
+    total_pages: number;
+
+    total_results: number;
   }
 }
 

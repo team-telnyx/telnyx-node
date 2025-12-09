@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
@@ -73,7 +72,19 @@ export interface ShortCodeUpdateResponse {
 export interface ShortCodeListResponse {
   data?: Array<Shared.ShortCode>;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+  meta?: ShortCodeListResponse.Meta;
+}
+
+export namespace ShortCodeListResponse {
+  export interface Meta {
+    page_number: number;
+
+    page_size: number;
+
+    total_pages: number;
+
+    total_results: number;
+  }
 }
 
 export interface ShortCodeUpdateParams {
