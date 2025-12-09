@@ -8,18 +8,5 @@ export {
   type StockExchange,
   type TelnyxBrand,
   type Vertical,
-  type BrandRetrieveResponse,
-  type BrandListResponse,
-  type BrandGetFeedbackResponse,
-  type BrandCreateParams,
-  type BrandUpdateParams,
-  type BrandListParams,
 } from './brand';
-export {
-  ExternalVetting,
-  type ExternalVettingListResponse,
-  type ExternalVettingImportResponse,
-  type ExternalVettingOrderResponse,
-  type ExternalVettingImportParams,
-  type ExternalVettingOrderParams,
-} from './external-vetting';
+export { ExternalVetting } from './external-vetting';

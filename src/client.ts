@@ -210,7 +210,7 @@ import {
   DynamicEmergencyEndpointRetrieveResponse,
   DynamicEmergencyEndpoints,
 } from './resources/dynamic-emergency-endpoints';
-import { Enum, EnumRetrieveResponse } from './resources/enum';
+import { Enum } from './resources/enum';
 import {
   FaxApplication,
   FaxApplicationCreateParams,
@@ -589,32 +589,11 @@ import {
   TrafficType,
   UsagePaymentMethod,
 } from './resources/outbound-voice-profiles';
-import {
-  PartnerCampaignListParams,
-  PartnerCampaignListResponse,
-  PartnerCampaignListSharedByMeParams,
-  PartnerCampaignListSharedByMeResponse,
-  PartnerCampaignRetrieveSharingStatusResponse,
-  PartnerCampaignUpdateParams,
-  PartnerCampaigns,
-  TelnyxDownstreamCampaign,
-} from './resources/partner-campaigns';
-import {
-  PhoneNumberAssignmentByProfile,
-  PhoneNumberAssignmentByProfileAssignParams,
-  PhoneNumberAssignmentByProfileAssignResponse,
-  PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
-  PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
-  PhoneNumberAssignmentByProfileRetrieveStatusResponse,
-  TaskStatus,
-} from './resources/phone-number-assignment-by-profile';
+import { PartnerCampaigns, TelnyxDownstreamCampaign } from './resources/partner-campaigns';
+import { PhoneNumberAssignmentByProfile, TaskStatus } from './resources/phone-number-assignment-by-profile';
 import {
   PhoneNumberCampaign,
   PhoneNumberCampaignCreate,
-  PhoneNumberCampaignCreateParams,
-  PhoneNumberCampaignListParams,
-  PhoneNumberCampaignListResponse,
-  PhoneNumberCampaignUpdateParams,
   PhoneNumberCampaigns,
 } from './resources/phone-number-campaigns';
 import {
@@ -993,13 +972,7 @@ import { AI, AIRetrieveModelsResponse, AISummarizeParams, AISummarizeResponse } 
 import {
   AltBusinessIDType,
   Brand,
-  BrandCreateParams,
-  BrandGetFeedbackResponse,
   BrandIdentityStatus,
-  BrandListParams,
-  BrandListResponse,
-  BrandRetrieveResponse,
-  BrandUpdateParams,
   EntityType,
   StockExchange,
   TelnyxBrand,
@@ -1021,22 +994,8 @@ import {
   StreamBidirectionalTargetLegs,
   StreamCodec,
 } from './resources/calls/calls';
-import { CampaignBuilder, CampaignBuilderCreateParams } from './resources/campaign-builder/campaign-builder';
-import {
-  Campaign,
-  CampaignAcceptSharingResponse,
-  CampaignDeactivateResponse,
-  CampaignGetMnoMetadataResponse,
-  CampaignGetOperationStatusResponse,
-  CampaignGetSharingStatusResponse,
-  CampaignListParams,
-  CampaignListResponse,
-  CampaignSharingStatus,
-  CampaignSubmitAppealParams,
-  CampaignSubmitAppealResponse,
-  CampaignUpdateParams,
-  TelnyxCampaignCsp,
-} from './resources/campaign/campaign';
+import { CampaignBuilder } from './resources/campaign-builder/campaign-builder';
+import { Campaign, CampaignSharingStatus, TelnyxCampaignCsp } from './resources/campaign/campaign';
 import {
   Conference,
   ConferenceCreateParams,
@@ -1184,6 +1143,7 @@ import {
   NetworkUpdateResponse,
   Networks,
 } from './resources/networks/networks';
+import { Number10dlc, Number10dlcGetEnumResponse } from './resources/number-10dlc/number-10dlc';
 import {
   NumberReservation,
   NumberReservationCreateParams,
@@ -2189,6 +2149,7 @@ export class Telnyx {
   inexplicitNumberOrders: API.InexplicitNumberOrders = new API.InexplicitNumberOrders(this);
   mobilePhoneNumbers: API.MobilePhoneNumbers = new API.MobilePhoneNumbers(this);
   mobileVoiceConnections: API.MobileVoiceConnections = new API.MobileVoiceConnections(this);
+  number10dlc: API.Number10dlc = new API.Number10dlc(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -2347,6 +2308,7 @@ Telnyx.WellKnown = WellKnown;
 Telnyx.InexplicitNumberOrders = InexplicitNumberOrders;
 Telnyx.MobilePhoneNumbers = MobilePhoneNumbers;
 Telnyx.MobileVoiceConnections = MobileVoiceConnections;
+Telnyx.Number10dlc = Number10dlc;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -2565,12 +2527,6 @@ export declare namespace Telnyx {
     type StockExchange as StockExchange,
     type TelnyxBrand as TelnyxBrand,
     type Vertical as Vertical,
-    type BrandRetrieveResponse as BrandRetrieveResponse,
-    type BrandListResponse as BrandListResponse,
-    type BrandGetFeedbackResponse as BrandGetFeedbackResponse,
-    type BrandCreateParams as BrandCreateParams,
-    type BrandUpdateParams as BrandUpdateParams,
-    type BrandListParams as BrandListParams,
   };
 
   export {
@@ -2623,22 +2579,9 @@ export declare namespace Telnyx {
     Campaign as Campaign,
     type CampaignSharingStatus as CampaignSharingStatus,
     type TelnyxCampaignCsp as TelnyxCampaignCsp,
-    type CampaignListResponse as CampaignListResponse,
-    type CampaignAcceptSharingResponse as CampaignAcceptSharingResponse,
-    type CampaignDeactivateResponse as CampaignDeactivateResponse,
-    type CampaignGetMnoMetadataResponse as CampaignGetMnoMetadataResponse,
-    type CampaignGetOperationStatusResponse as CampaignGetOperationStatusResponse,
-    type CampaignGetSharingStatusResponse as CampaignGetSharingStatusResponse,
-    type CampaignSubmitAppealResponse as CampaignSubmitAppealResponse,
-    type CampaignUpdateParams as CampaignUpdateParams,
-    type CampaignListParams as CampaignListParams,
-    type CampaignSubmitAppealParams as CampaignSubmitAppealParams,
   };
 
-  export {
-    CampaignBuilder as CampaignBuilder,
-    type CampaignBuilderCreateParams as CampaignBuilderCreateParams,
-  };
+  export { CampaignBuilder as CampaignBuilder };
 
   export {
     ChannelZones as ChannelZones,
@@ -2802,7 +2745,7 @@ export declare namespace Telnyx {
     type DynamicEmergencyEndpointListParams as DynamicEmergencyEndpointListParams,
   };
 
-  export { Enum as Enum, type EnumRetrieveResponse as EnumRetrieveResponse };
+  export { Enum as Enum };
 
   export {
     ExternalConnections as ExternalConnections,
@@ -3313,15 +3256,7 @@ export declare namespace Telnyx {
 
   export { Payment as Payment };
 
-  export {
-    PhoneNumberAssignmentByProfile as PhoneNumberAssignmentByProfile,
-    type TaskStatus as TaskStatus,
-    type PhoneNumberAssignmentByProfileAssignResponse as PhoneNumberAssignmentByProfileAssignResponse,
-    type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
-    type PhoneNumberAssignmentByProfileRetrieveStatusResponse as PhoneNumberAssignmentByProfileRetrieveStatusResponse,
-    type PhoneNumberAssignmentByProfileAssignParams as PhoneNumberAssignmentByProfileAssignParams,
-    type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
-  };
+  export { PhoneNumberAssignmentByProfile as PhoneNumberAssignmentByProfile, type TaskStatus as TaskStatus };
 
   export { PhoneNumberBlocks as PhoneNumberBlocks };
 
@@ -3329,10 +3264,6 @@ export declare namespace Telnyx {
     PhoneNumberCampaigns as PhoneNumberCampaigns,
     type PhoneNumberCampaign as PhoneNumberCampaign,
     type PhoneNumberCampaignCreate as PhoneNumberCampaignCreate,
-    type PhoneNumberCampaignListResponse as PhoneNumberCampaignListResponse,
-    type PhoneNumberCampaignCreateParams as PhoneNumberCampaignCreateParams,
-    type PhoneNumberCampaignUpdateParams as PhoneNumberCampaignUpdateParams,
-    type PhoneNumberCampaignListParams as PhoneNumberCampaignListParams,
   };
 
   export {
@@ -3824,16 +3755,7 @@ export declare namespace Telnyx {
     type WirelessBlocklistListParams as WirelessBlocklistListParams,
   };
 
-  export {
-    PartnerCampaigns as PartnerCampaigns,
-    type TelnyxDownstreamCampaign as TelnyxDownstreamCampaign,
-    type PartnerCampaignListResponse as PartnerCampaignListResponse,
-    type PartnerCampaignListSharedByMeResponse as PartnerCampaignListSharedByMeResponse,
-    type PartnerCampaignRetrieveSharingStatusResponse as PartnerCampaignRetrieveSharingStatusResponse,
-    type PartnerCampaignUpdateParams as PartnerCampaignUpdateParams,
-    type PartnerCampaignListParams as PartnerCampaignListParams,
-    type PartnerCampaignListSharedByMeParams as PartnerCampaignListSharedByMeParams,
-  };
+  export { PartnerCampaigns as PartnerCampaigns, type TelnyxDownstreamCampaign as TelnyxDownstreamCampaign };
 
   export {
     WellKnown as WellKnown,
@@ -3870,6 +3792,8 @@ export declare namespace Telnyx {
     type MobileVoiceConnectionUpdateParams as MobileVoiceConnectionUpdateParams,
     type MobileVoiceConnectionListParams as MobileVoiceConnectionListParams,
   };
+
+  export { Number10dlc as Number10dlc, type Number10dlcGetEnumResponse as Number10dlcGetEnumResponse };
 
   export type APIError = API.APIError;
   export type ConnectionsPaginationMeta = API.ConnectionsPaginationMeta;
