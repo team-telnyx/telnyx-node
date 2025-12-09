@@ -85,12 +85,6 @@ export {
   type StockExchange,
   type TelnyxBrand,
   type Vertical,
-  type BrandRetrieveResponse,
-  type BrandListResponse,
-  type BrandGetFeedbackResponse,
-  type BrandCreateParams,
-  type BrandUpdateParams,
-  type BrandListParams,
 } from './brand/brand';
 export {
   BulkSimCardActions,
@@ -129,22 +123,8 @@ export {
   type CallRetrieveStatusResponse,
   type CallDialParams,
 } from './calls/calls';
-export {
-  Campaign,
-  type CampaignSharingStatus,
-  type TelnyxCampaignCsp,
-  type CampaignListResponse,
-  type CampaignAcceptSharingResponse,
-  type CampaignDeactivateResponse,
-  type CampaignGetMnoMetadataResponse,
-  type CampaignGetOperationStatusResponse,
-  type CampaignGetSharingStatusResponse,
-  type CampaignSubmitAppealResponse,
-  type CampaignUpdateParams,
-  type CampaignListParams,
-  type CampaignSubmitAppealParams,
-} from './campaign/campaign';
-export { CampaignBuilder, type CampaignBuilderCreateParams } from './campaign-builder/campaign-builder';
+export { Campaign, type CampaignSharingStatus, type TelnyxCampaignCsp } from './campaign/campaign';
+export { CampaignBuilder } from './campaign-builder/campaign-builder';
 export {
   ChannelZones,
   type ChannelZoneUpdateResponse,
@@ -283,7 +263,7 @@ export {
   type DynamicEmergencyEndpointCreateParams,
   type DynamicEmergencyEndpointListParams,
 } from './dynamic-emergency-endpoints';
-export { Enum, type EnumRetrieveResponse } from './enum';
+export { Enum } from './enum';
 export {
   ExternalConnections,
   type ExternalConnection,
@@ -677,6 +657,7 @@ export {
   type NotificationSettingCreateParams,
   type NotificationSettingListParams,
 } from './notification-settings';
+export { Number10dlc, type Number10dlcGetEnumResponse } from './number-10dlc/number-10dlc';
 export {
   NumberBlockOrders,
   type NumberBlockOrder,
@@ -787,35 +768,14 @@ export {
   type OutboundVoiceProfileUpdateParams,
   type OutboundVoiceProfileListParams,
 } from './outbound-voice-profiles';
-export {
-  PartnerCampaigns,
-  type TelnyxDownstreamCampaign,
-  type PartnerCampaignListResponse,
-  type PartnerCampaignListSharedByMeResponse,
-  type PartnerCampaignRetrieveSharingStatusResponse,
-  type PartnerCampaignUpdateParams,
-  type PartnerCampaignListParams,
-  type PartnerCampaignListSharedByMeParams,
-} from './partner-campaigns';
+export { PartnerCampaigns, type TelnyxDownstreamCampaign } from './partner-campaigns';
 export { Payment } from './payment/payment';
-export {
-  PhoneNumberAssignmentByProfile,
-  type TaskStatus,
-  type PhoneNumberAssignmentByProfileAssignResponse,
-  type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
-  type PhoneNumberAssignmentByProfileRetrieveStatusResponse,
-  type PhoneNumberAssignmentByProfileAssignParams,
-  type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
-} from './phone-number-assignment-by-profile';
+export { PhoneNumberAssignmentByProfile, type TaskStatus } from './phone-number-assignment-by-profile';
 export { PhoneNumberBlocks } from './phone-number-blocks/phone-number-blocks';
 export {
   PhoneNumberCampaigns,
   type PhoneNumberCampaign,
   type PhoneNumberCampaignCreate,
-  type PhoneNumberCampaignListResponse,
-  type PhoneNumberCampaignCreateParams,
-  type PhoneNumberCampaignUpdateParams,
-  type PhoneNumberCampaignListParams,
 } from './phone-number-campaigns';
 export {
   PhoneNumbers,

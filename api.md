@@ -884,34 +884,8 @@ Types:
 - <code><a href="./src/resources/brand/brand.ts">StockExchange</a></code>
 - <code><a href="./src/resources/brand/brand.ts">TelnyxBrand</a></code>
 - <code><a href="./src/resources/brand/brand.ts">Vertical</a></code>
-- <code><a href="./src/resources/brand/brand.ts">BrandRetrieveResponse</a></code>
-- <code><a href="./src/resources/brand/brand.ts">BrandListResponse</a></code>
-- <code><a href="./src/resources/brand/brand.ts">BrandGetFeedbackResponse</a></code>
-
-Methods:
-
-- <code title="post /10dlc/brand">client.brand.<a href="./src/resources/brand/brand.ts">create</a>({ ...params }) -> TelnyxBrand</code>
-- <code title="get /10dlc/brand/{brandId}">client.brand.<a href="./src/resources/brand/brand.ts">retrieve</a>(brandID) -> BrandRetrieveResponse</code>
-- <code title="put /10dlc/brand/{brandId}">client.brand.<a href="./src/resources/brand/brand.ts">update</a>(brandID, { ...params }) -> TelnyxBrand</code>
-- <code title="get /10dlc/brand">client.brand.<a href="./src/resources/brand/brand.ts">list</a>({ ...params }) -> BrandListResponse</code>
-- <code title="delete /10dlc/brand/{brandId}">client.brand.<a href="./src/resources/brand/brand.ts">delete</a>(brandID) -> void</code>
-- <code title="get /10dlc/brand/feedback/{brandId}">client.brand.<a href="./src/resources/brand/brand.ts">getFeedback</a>(brandID) -> BrandGetFeedbackResponse</code>
-- <code title="post /10dlc/brand/{brandId}/2faEmail">client.brand.<a href="./src/resources/brand/brand.ts">resend2faEmail</a>(brandID) -> void</code>
-- <code title="put /10dlc/brand/{brandId}/revet">client.brand.<a href="./src/resources/brand/brand.ts">revet</a>(brandID) -> TelnyxBrand</code>
 
 ## ExternalVetting
-
-Types:
-
-- <code><a href="./src/resources/brand/external-vetting.ts">ExternalVettingListResponse</a></code>
-- <code><a href="./src/resources/brand/external-vetting.ts">ExternalVettingImportResponse</a></code>
-- <code><a href="./src/resources/brand/external-vetting.ts">ExternalVettingOrderResponse</a></code>
-
-Methods:
-
-- <code title="get /10dlc/brand/{brandId}/externalVetting">client.brand.externalVetting.<a href="./src/resources/brand/external-vetting.ts">list</a>(brandID) -> ExternalVettingListResponse</code>
-- <code title="put /10dlc/brand/{brandId}/externalVetting">client.brand.externalVetting.<a href="./src/resources/brand/external-vetting.ts">import</a>(brandID, { ...params }) -> ExternalVettingImportResponse</code>
-- <code title="post /10dlc/brand/{brandId}/externalVetting">client.brand.externalVetting.<a href="./src/resources/brand/external-vetting.ts">order</a>(brandID, { ...params }) -> ExternalVettingOrderResponse</code>
 
 # BulkSimCardActions
 
@@ -1114,61 +1088,14 @@ Types:
 
 - <code><a href="./src/resources/campaign/campaign.ts">CampaignSharingStatus</a></code>
 - <code><a href="./src/resources/campaign/campaign.ts">TelnyxCampaignCsp</a></code>
-- <code><a href="./src/resources/campaign/campaign.ts">CampaignListResponse</a></code>
-- <code><a href="./src/resources/campaign/campaign.ts">CampaignAcceptSharingResponse</a></code>
-- <code><a href="./src/resources/campaign/campaign.ts">CampaignDeactivateResponse</a></code>
-- <code><a href="./src/resources/campaign/campaign.ts">CampaignGetMnoMetadataResponse</a></code>
-- <code><a href="./src/resources/campaign/campaign.ts">CampaignGetOperationStatusResponse</a></code>
-- <code><a href="./src/resources/campaign/campaign.ts">CampaignGetSharingStatusResponse</a></code>
-- <code><a href="./src/resources/campaign/campaign.ts">CampaignSubmitAppealResponse</a></code>
-
-Methods:
-
-- <code title="get /10dlc/campaign/{campaignId}">client.campaign.<a href="./src/resources/campaign/campaign.ts">retrieve</a>(campaignID) -> TelnyxCampaignCsp</code>
-- <code title="put /10dlc/campaign/{campaignId}">client.campaign.<a href="./src/resources/campaign/campaign.ts">update</a>(campaignID, { ...params }) -> TelnyxCampaignCsp</code>
-- <code title="get /10dlc/campaign">client.campaign.<a href="./src/resources/campaign/campaign.ts">list</a>({ ...params }) -> CampaignListResponse</code>
-- <code title="post /10dlc/campaign/acceptSharing/{campaignId}">client.campaign.<a href="./src/resources/campaign/campaign.ts">acceptSharing</a>(campaignID) -> CampaignAcceptSharingResponse</code>
-- <code title="delete /10dlc/campaign/{campaignId}">client.campaign.<a href="./src/resources/campaign/campaign.ts">deactivate</a>(campaignID) -> CampaignDeactivateResponse</code>
-- <code title="get /10dlc/campaign/{campaignId}/mnoMetadata">client.campaign.<a href="./src/resources/campaign/campaign.ts">getMnoMetadata</a>(campaignID) -> CampaignGetMnoMetadataResponse</code>
-- <code title="get /10dlc/campaign/{campaignId}/operationStatus">client.campaign.<a href="./src/resources/campaign/campaign.ts">getOperationStatus</a>(campaignID) -> CampaignGetOperationStatusResponse</code>
-- <code title="get /10dlc/campaign/{campaignId}/sharing">client.campaign.<a href="./src/resources/campaign/campaign.ts">getSharingStatus</a>(campaignID) -> CampaignGetSharingStatusResponse</code>
-- <code title="post /10dlc/campaign/{campaignId}/appeal">client.campaign.<a href="./src/resources/campaign/campaign.ts">submitAppeal</a>(campaignID, { ...params }) -> CampaignSubmitAppealResponse</code>
 
 ## Usecase
 
-Types:
-
-- <code><a href="./src/resources/campaign/usecase.ts">UsecaseGetCostResponse</a></code>
-
-Methods:
-
-- <code title="get /10dlc/campaign/usecase/cost">client.campaign.usecase.<a href="./src/resources/campaign/usecase.ts">getCost</a>({ ...params }) -> UsecaseGetCostResponse</code>
-
 ## Osr
-
-Types:
-
-- <code><a href="./src/resources/campaign/osr.ts">OsrGetAttributesResponse</a></code>
-
-Methods:
-
-- <code title="get /10dlc/campaign/{campaignId}/osr/attributes">client.campaign.osr.<a href="./src/resources/campaign/osr.ts">getAttributes</a>(campaignID) -> OsrGetAttributesResponse</code>
 
 # CampaignBuilder
 
-Methods:
-
-- <code title="post /10dlc/campaignBuilder">client.campaignBuilder.<a href="./src/resources/campaign-builder/campaign-builder.ts">create</a>({ ...params }) -> TelnyxCampaignCsp</code>
-
 ## Brand
-
-Types:
-
-- <code><a href="./src/resources/campaign-builder/brand.ts">BrandQualifyByUsecaseResponse</a></code>
-
-Methods:
-
-- <code title="get /10dlc/campaignBuilder/brand/{brandId}/usecase/{usecase}">client.campaignBuilder.brand.<a href="./src/resources/campaign-builder/brand.ts">qualifyByUsecase</a>(usecase, { ...params }) -> BrandQualifyByUsecaseResponse</code>
 
 # ChannelZones
 
@@ -1465,14 +1392,6 @@ Methods:
 - <code title="delete /dynamic_emergency_endpoints/{id}">client.dynamicEmergencyEndpoints.<a href="./src/resources/dynamic-emergency-endpoints.ts">delete</a>(id) -> DynamicEmergencyEndpointDeleteResponse</code>
 
 # Enum
-
-Types:
-
-- <code><a href="./src/resources/enum.ts">EnumRetrieveResponse</a></code>
-
-Methods:
-
-- <code title="get /10dlc/enum/{endpoint}">client.enum.<a href="./src/resources/enum.ts">retrieve</a>(endpoint) -> EnumRetrieveResponse</code>
 
 # ExternalConnections
 
@@ -2481,15 +2400,6 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/phone-number-assignment-by-profile.ts">TaskStatus</a></code>
-- <code><a href="./src/resources/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileAssignResponse</a></code>
-- <code><a href="./src/resources/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse</a></code>
-- <code><a href="./src/resources/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileRetrieveStatusResponse</a></code>
-
-Methods:
-
-- <code title="post /10dlc/phoneNumberAssignmentByProfile">client.phoneNumberAssignmentByProfile.<a href="./src/resources/phone-number-assignment-by-profile.ts">assign</a>({ ...params }) -> PhoneNumberAssignmentByProfileAssignResponse</code>
-- <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers">client.phoneNumberAssignmentByProfile.<a href="./src/resources/phone-number-assignment-by-profile.ts">retrievePhoneNumberStatus</a>(taskID, { ...params }) -> PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse</code>
-- <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}">client.phoneNumberAssignmentByProfile.<a href="./src/resources/phone-number-assignment-by-profile.ts">retrieveStatus</a>(taskID) -> PhoneNumberAssignmentByProfileRetrieveStatusResponse</code>
 
 # PhoneNumberBlocks
 
@@ -2515,15 +2425,6 @@ Types:
 
 - <code><a href="./src/resources/phone-number-campaigns.ts">PhoneNumberCampaign</a></code>
 - <code><a href="./src/resources/phone-number-campaigns.ts">PhoneNumberCampaignCreate</a></code>
-- <code><a href="./src/resources/phone-number-campaigns.ts">PhoneNumberCampaignListResponse</a></code>
-
-Methods:
-
-- <code title="post /10dlc/phone_number_campaigns">client.phoneNumberCampaigns.<a href="./src/resources/phone-number-campaigns.ts">create</a>({ ...params }) -> PhoneNumberCampaign</code>
-- <code title="get /10dlc/phone_number_campaigns/{phoneNumber}">client.phoneNumberCampaigns.<a href="./src/resources/phone-number-campaigns.ts">retrieve</a>(phoneNumber) -> PhoneNumberCampaign</code>
-- <code title="put /10dlc/phone_number_campaigns/{phoneNumber}">client.phoneNumberCampaigns.<a href="./src/resources/phone-number-campaigns.ts">update</a>(pathPhoneNumber, { ...params }) -> PhoneNumberCampaign</code>
-- <code title="get /10dlc/phone_number_campaigns">client.phoneNumberCampaigns.<a href="./src/resources/phone-number-campaigns.ts">list</a>({ ...params }) -> PhoneNumberCampaignListResponse</code>
-- <code title="delete /10dlc/phone_number_campaigns/{phoneNumber}">client.phoneNumberCampaigns.<a href="./src/resources/phone-number-campaigns.ts">delete</a>(phoneNumber) -> PhoneNumberCampaign</code>
 
 # PhoneNumbers
 
@@ -4059,17 +3960,6 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/partner-campaigns.ts">TelnyxDownstreamCampaign</a></code>
-- <code><a href="./src/resources/partner-campaigns.ts">PartnerCampaignListResponse</a></code>
-- <code><a href="./src/resources/partner-campaigns.ts">PartnerCampaignListSharedByMeResponse</a></code>
-- <code><a href="./src/resources/partner-campaigns.ts">PartnerCampaignRetrieveSharingStatusResponse</a></code>
-
-Methods:
-
-- <code title="get /10dlc/partner_campaigns/{campaignId}">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">retrieve</a>(campaignID) -> TelnyxDownstreamCampaign</code>
-- <code title="patch /10dlc/partner_campaigns/{campaignId}">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">update</a>(campaignID, { ...params }) -> TelnyxDownstreamCampaign</code>
-- <code title="get /10dlc/partner_campaigns">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">list</a>({ ...params }) -> PartnerCampaignListResponse</code>
-- <code title="get /10dlc/partnerCampaign/sharedByMe">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">listSharedByMe</a>({ ...params }) -> PartnerCampaignListSharedByMeResponse</code>
-- <code title="get /10dlc/partnerCampaign/{campaignId}/sharing">client.partnerCampaigns.<a href="./src/resources/partner-campaigns.ts">retrieveSharingStatus</a>(campaignID) -> PartnerCampaignRetrieveSharingStatusResponse</code>
 
 # WellKnown
 
@@ -4140,3 +4030,158 @@ Methods:
 - <code title="patch /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">update</a>(id, { ...params }) -> MobileVoiceConnectionUpdateResponse</code>
 - <code title="get /v2/mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">list</a>({ ...params }) -> MobileVoiceConnectionListResponse</code>
 - <code title="delete /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">delete</a>(id) -> MobileVoiceConnectionDeleteResponse</code>
+
+# Number10dlc
+
+Types:
+
+- <code><a href="./src/resources/number-10dlc/number-10dlc.ts">Number10dlcGetEnumResponse</a></code>
+
+Methods:
+
+- <code title="get /10dlc/enum/{endpoint}">client.number10dlc.<a href="./src/resources/number-10dlc/number-10dlc.ts">getEnum</a>(endpoint) -> Number10dlcGetEnumResponse</code>
+
+## Brand
+
+Types:
+
+- <code><a href="./src/resources/number-10dlc/brand/brand.ts">BrandRetrieveResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/brand/brand.ts">BrandListResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/brand/brand.ts">BrandGetFeedbackResponse</a></code>
+
+Methods:
+
+- <code title="post /10dlc/brand">client.number10dlc.brand.<a href="./src/resources/number-10dlc/brand/brand.ts">create</a>({ ...params }) -> TelnyxBrand</code>
+- <code title="get /10dlc/brand/{brandId}">client.number10dlc.brand.<a href="./src/resources/number-10dlc/brand/brand.ts">retrieve</a>(brandID) -> BrandRetrieveResponse</code>
+- <code title="put /10dlc/brand/{brandId}">client.number10dlc.brand.<a href="./src/resources/number-10dlc/brand/brand.ts">update</a>(brandID, { ...params }) -> TelnyxBrand</code>
+- <code title="get /10dlc/brand">client.number10dlc.brand.<a href="./src/resources/number-10dlc/brand/brand.ts">list</a>({ ...params }) -> BrandListResponse</code>
+- <code title="delete /10dlc/brand/{brandId}">client.number10dlc.brand.<a href="./src/resources/number-10dlc/brand/brand.ts">delete</a>(brandID) -> void</code>
+- <code title="get /10dlc/brand/feedback/{brandId}">client.number10dlc.brand.<a href="./src/resources/number-10dlc/brand/brand.ts">getFeedback</a>(brandID) -> BrandGetFeedbackResponse</code>
+- <code title="post /10dlc/brand/{brandId}/2faEmail">client.number10dlc.brand.<a href="./src/resources/number-10dlc/brand/brand.ts">resend2faEmail</a>(brandID) -> void</code>
+- <code title="put /10dlc/brand/{brandId}/revet">client.number10dlc.brand.<a href="./src/resources/number-10dlc/brand/brand.ts">revet</a>(brandID) -> TelnyxBrand</code>
+
+### ExternalVetting
+
+Types:
+
+- <code><a href="./src/resources/number-10dlc/brand/external-vetting.ts">ExternalVettingListResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/brand/external-vetting.ts">ExternalVettingImportResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/brand/external-vetting.ts">ExternalVettingOrderResponse</a></code>
+
+Methods:
+
+- <code title="get /10dlc/brand/{brandId}/externalVetting">client.number10dlc.brand.externalVetting.<a href="./src/resources/number-10dlc/brand/external-vetting.ts">list</a>(brandID) -> ExternalVettingListResponse</code>
+- <code title="put /10dlc/brand/{brandId}/externalVetting">client.number10dlc.brand.externalVetting.<a href="./src/resources/number-10dlc/brand/external-vetting.ts">import</a>(brandID, { ...params }) -> ExternalVettingImportResponse</code>
+- <code title="post /10dlc/brand/{brandId}/externalVetting">client.number10dlc.brand.externalVetting.<a href="./src/resources/number-10dlc/brand/external-vetting.ts">order</a>(brandID, { ...params }) -> ExternalVettingOrderResponse</code>
+
+## Campaign
+
+Types:
+
+- <code><a href="./src/resources/number-10dlc/campaign/campaign.ts">CampaignListResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/campaign/campaign.ts">CampaignAcceptSharingResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/campaign/campaign.ts">CampaignDeactivateResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/campaign/campaign.ts">CampaignGetMnoMetadataResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/campaign/campaign.ts">CampaignGetOperationStatusResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/campaign/campaign.ts">CampaignGetSharingStatusResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/campaign/campaign.ts">CampaignSubmitAppealResponse</a></code>
+
+Methods:
+
+- <code title="get /10dlc/campaign/{campaignId}">client.number10dlc.campaign.<a href="./src/resources/number-10dlc/campaign/campaign.ts">retrieve</a>(campaignID) -> TelnyxCampaignCsp</code>
+- <code title="put /10dlc/campaign/{campaignId}">client.number10dlc.campaign.<a href="./src/resources/number-10dlc/campaign/campaign.ts">update</a>(campaignID, { ...params }) -> TelnyxCampaignCsp</code>
+- <code title="get /10dlc/campaign">client.number10dlc.campaign.<a href="./src/resources/number-10dlc/campaign/campaign.ts">list</a>({ ...params }) -> CampaignListResponse</code>
+- <code title="post /10dlc/campaign/acceptSharing/{campaignId}">client.number10dlc.campaign.<a href="./src/resources/number-10dlc/campaign/campaign.ts">acceptSharing</a>(campaignID) -> CampaignAcceptSharingResponse</code>
+- <code title="delete /10dlc/campaign/{campaignId}">client.number10dlc.campaign.<a href="./src/resources/number-10dlc/campaign/campaign.ts">deactivate</a>(campaignID) -> CampaignDeactivateResponse</code>
+- <code title="get /10dlc/campaign/{campaignId}/mnoMetadata">client.number10dlc.campaign.<a href="./src/resources/number-10dlc/campaign/campaign.ts">getMnoMetadata</a>(campaignID) -> CampaignGetMnoMetadataResponse</code>
+- <code title="get /10dlc/campaign/{campaignId}/operationStatus">client.number10dlc.campaign.<a href="./src/resources/number-10dlc/campaign/campaign.ts">getOperationStatus</a>(campaignID) -> CampaignGetOperationStatusResponse</code>
+- <code title="get /10dlc/campaign/{campaignId}/sharing">client.number10dlc.campaign.<a href="./src/resources/number-10dlc/campaign/campaign.ts">getSharingStatus</a>(campaignID) -> CampaignGetSharingStatusResponse</code>
+- <code title="post /10dlc/campaign/{campaignId}/appeal">client.number10dlc.campaign.<a href="./src/resources/number-10dlc/campaign/campaign.ts">submitAppeal</a>(campaignID, { ...params }) -> CampaignSubmitAppealResponse</code>
+
+### Usecase
+
+Types:
+
+- <code><a href="./src/resources/number-10dlc/campaign/usecase.ts">UsecaseGetCostResponse</a></code>
+
+Methods:
+
+- <code title="get /10dlc/campaign/usecase/cost">client.number10dlc.campaign.usecase.<a href="./src/resources/number-10dlc/campaign/usecase.ts">getCost</a>({ ...params }) -> UsecaseGetCostResponse</code>
+
+### Osr
+
+Types:
+
+- <code><a href="./src/resources/number-10dlc/campaign/osr.ts">OsrGetAttributesResponse</a></code>
+
+Methods:
+
+- <code title="get /10dlc/campaign/{campaignId}/osr/attributes">client.number10dlc.campaign.osr.<a href="./src/resources/number-10dlc/campaign/osr.ts">getAttributes</a>(campaignID) -> OsrGetAttributesResponse</code>
+
+## CampaignBuilder
+
+Methods:
+
+- <code title="post /10dlc/campaignBuilder">client.number10dlc.campaignBuilder.<a href="./src/resources/number-10dlc/campaign-builder/campaign-builder.ts">submit</a>({ ...params }) -> TelnyxCampaignCsp</code>
+
+### Brand
+
+Types:
+
+- <code><a href="./src/resources/number-10dlc/campaign-builder/brand.ts">BrandQualifyByUsecaseResponse</a></code>
+
+Methods:
+
+- <code title="get /10dlc/campaignBuilder/brand/{brandId}/usecase/{usecase}">client.number10dlc.campaignBuilder.brand.<a href="./src/resources/number-10dlc/campaign-builder/brand.ts">qualifyByUsecase</a>(usecase, { ...params }) -> BrandQualifyByUsecaseResponse</code>
+
+## PartnerCampaign
+
+Types:
+
+- <code><a href="./src/resources/number-10dlc/partner-campaign.ts">PartnerCampaignGetSharedByMeResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/partner-campaign.ts">PartnerCampaignGetSharingStatusResponse</a></code>
+
+Methods:
+
+- <code title="get /10dlc/partnerCampaign/sharedByMe">client.number10dlc.partnerCampaign.<a href="./src/resources/number-10dlc/partner-campaign.ts">getSharedByMe</a>({ ...params }) -> PartnerCampaignGetSharedByMeResponse</code>
+- <code title="get /10dlc/partnerCampaign/{campaignId}/sharing">client.number10dlc.partnerCampaign.<a href="./src/resources/number-10dlc/partner-campaign.ts">getSharingStatus</a>(campaignID) -> PartnerCampaignGetSharingStatusResponse</code>
+
+## PartnerCampaigns
+
+Types:
+
+- <code><a href="./src/resources/number-10dlc/partner-campaigns.ts">PartnerCampaignListResponse</a></code>
+
+Methods:
+
+- <code title="get /10dlc/partner_campaigns/{campaignId}">client.number10dlc.partnerCampaigns.<a href="./src/resources/number-10dlc/partner-campaigns.ts">retrieve</a>(campaignID) -> TelnyxDownstreamCampaign</code>
+- <code title="patch /10dlc/partner_campaigns/{campaignId}">client.number10dlc.partnerCampaigns.<a href="./src/resources/number-10dlc/partner-campaigns.ts">update</a>(campaignID, { ...params }) -> TelnyxDownstreamCampaign</code>
+- <code title="get /10dlc/partner_campaigns">client.number10dlc.partnerCampaigns.<a href="./src/resources/number-10dlc/partner-campaigns.ts">list</a>({ ...params }) -> PartnerCampaignListResponse</code>
+
+## PhoneNumberAssignmentByProfile
+
+Types:
+
+- <code><a href="./src/resources/number-10dlc/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileAssignResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileGetPhoneNumberStatusResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileGetTaskStatusResponse</a></code>
+
+Methods:
+
+- <code title="post /10dlc/phoneNumberAssignmentByProfile">client.number10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/number-10dlc/phone-number-assignment-by-profile.ts">assign</a>({ ...params }) -> PhoneNumberAssignmentByProfileAssignResponse</code>
+- <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers">client.number10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/number-10dlc/phone-number-assignment-by-profile.ts">getPhoneNumberStatus</a>(taskID, { ...params }) -> PhoneNumberAssignmentByProfileGetPhoneNumberStatusResponse</code>
+- <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}">client.number10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/number-10dlc/phone-number-assignment-by-profile.ts">getTaskStatus</a>(taskID) -> PhoneNumberAssignmentByProfileGetTaskStatusResponse</code>
+
+## PhoneNumberCampaigns
+
+Types:
+
+- <code><a href="./src/resources/number-10dlc/phone-number-campaigns.ts">PhoneNumberCampaignListResponse</a></code>
+
+Methods:
+
+- <code title="post /10dlc/phone_number_campaigns">client.number10dlc.phoneNumberCampaigns.<a href="./src/resources/number-10dlc/phone-number-campaigns.ts">create</a>({ ...params }) -> PhoneNumberCampaign</code>
+- <code title="get /10dlc/phone_number_campaigns/{phoneNumber}">client.number10dlc.phoneNumberCampaigns.<a href="./src/resources/number-10dlc/phone-number-campaigns.ts">retrieve</a>(phoneNumber) -> PhoneNumberCampaign</code>
+- <code title="put /10dlc/phone_number_campaigns/{phoneNumber}">client.number10dlc.phoneNumberCampaigns.<a href="./src/resources/number-10dlc/phone-number-campaigns.ts">update</a>(pathPhoneNumber, { ...params }) -> PhoneNumberCampaign</code>
+- <code title="get /10dlc/phone_number_campaigns">client.number10dlc.phoneNumberCampaigns.<a href="./src/resources/number-10dlc/phone-number-campaigns.ts">list</a>({ ...params }) -> PhoneNumberCampaignListResponse</code>
+- <code title="delete /10dlc/phone_number_campaigns/{phoneNumber}">client.number10dlc.phoneNumberCampaigns.<a href="./src/resources/number-10dlc/phone-number-campaigns.ts">delete</a>(phoneNumber) -> PhoneNumberCampaign</code>
