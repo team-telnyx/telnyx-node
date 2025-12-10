@@ -221,4 +221,48 @@ describe('resource brand', () => {
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
   });
+
+  // Prism tests are disabled
+  test.skip('triggerSMSOtp: only required params', async () => {
+    const responsePromise = client.number10dlc.brand.triggerSMSOtp('4b20019b-043a-78f8-0657-b3be3f4b4002', {
+      pinSms: 'Your PIN is @OTP_PIN@',
+      successSms: 'Verification successful!',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('triggerSMSOtp: required and optional params', async () => {
+    const response = await client.number10dlc.brand.triggerSMSOtp('4b20019b-043a-78f8-0657-b3be3f4b4002', {
+      pinSms: 'Your PIN is @OTP_PIN@',
+      successSms: 'Verification successful!',
+    });
+  });
+
+  // Prism tests are disabled
+  test.skip('verifySMSOtp: only required params', async () => {
+    const responsePromise = client.number10dlc.brand.verifySMSOtp('4b20019b-043a-78f8-0657-b3be3f4b4002', {
+      otpPin: '123456',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('verifySMSOtp: required and optional params', async () => {
+    const response = await client.number10dlc.brand.verifySMSOtp('4b20019b-043a-78f8-0657-b3be3f4b4002', {
+      otpPin: '123456',
+    });
+  });
 });

@@ -850,6 +850,8 @@ import get_feedback_number_10dlc_brand from './number-10dlc/brand/get-feedback-n
 import resend_2fa_email_number_10dlc_brand from './number-10dlc/brand/resend-2fa-email-number-10dlc-brand';
 import retrieve_sms_otp_status_number_10dlc_brand from './number-10dlc/brand/retrieve-sms-otp-status-number-10dlc-brand';
 import revet_number_10dlc_brand from './number-10dlc/brand/revet-number-10dlc-brand';
+import trigger_sms_otp_number_10dlc_brand from './number-10dlc/brand/trigger-sms-otp-number-10dlc-brand';
+import verify_sms_otp_number_10dlc_brand from './number-10dlc/brand/verify-sms-otp-number-10dlc-brand';
 import list_brand_number_10dlc_external_vetting from './number-10dlc/brand/external-vetting/list-brand-number-10dlc-external-vetting';
 import imports_brand_number_10dlc_external_vetting from './number-10dlc/brand/external-vetting/imports-brand-number-10dlc-external-vetting';
 import order_brand_number_10dlc_external_vetting from './number-10dlc/brand/external-vetting/order-brand-number-10dlc-external-vetting';
@@ -1724,6 +1726,8 @@ addEndpoint(get_feedback_number_10dlc_brand);
 addEndpoint(resend_2fa_email_number_10dlc_brand);
 addEndpoint(retrieve_sms_otp_status_number_10dlc_brand);
 addEndpoint(revet_number_10dlc_brand);
+addEndpoint(trigger_sms_otp_number_10dlc_brand);
+addEndpoint(verify_sms_otp_number_10dlc_brand);
 addEndpoint(list_brand_number_10dlc_external_vetting);
 addEndpoint(imports_brand_number_10dlc_external_vetting);
 addEndpoint(order_brand_number_10dlc_external_vetting);

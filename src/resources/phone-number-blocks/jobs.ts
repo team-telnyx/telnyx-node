@@ -145,15 +145,15 @@ export namespace Job {
 }
 
 export interface JobError {
-  code: string;
-
-  title: string;
+  code?: string;
 
   detail?: string;
 
   meta?: JobError.Meta;
 
   source?: JobError.Source;
+
+  title?: string;
 }
 
 export namespace JobError {

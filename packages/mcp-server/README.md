@@ -2222,6 +2222,39 @@ The following tools are available in this MCP server.
   The response includes delivery status, verification dates, and detailed delivery information.
 
 - `revet_number_10dlc_brand` (`write`): This operation allows you to revet the brand. However, revetting is allowed once after the successful brand registration and thereafter limited to once every 3 months.
+- `trigger_sms_otp_number_10dlc_brand` (`write`): Trigger or re-trigger an SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+
+  **Important Notes:**
+
+  - Only allowed for Sole Proprietor (`SOLE_PROPRIETOR`) brands
+  - Triggers generation of a one-time password sent to the `mobilePhone` number in the brand's profile
+  - Campaigns cannot be created until OTP verification is complete
+  - US/CA numbers only for real OTPs; mock brands can use non-US/CA numbers for testing
+  - Returns a `referenceId` that can be used to check OTP status via the GET `/10dlc/brand/smsOtp/{referenceId}` endpoint
+
+  **Use Cases:**
+
+  - Initial OTP trigger after Sole Proprietor brand creation
+  - Re-triggering OTP if the user didn't receive or needs a new code
+
+- `verify_sms_otp_number_10dlc_brand` (`write`): Verify the SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+
+  **Verification Flow:**
+
+  1. User receives OTP via SMS after triggering
+  2. User submits the OTP pin through this endpoint
+  3. Upon successful verification:
+     - A `BRAND_OTP_VERIFIED` webhook event is sent to the CSP
+     - The brand's `identityStatus` changes to `VERIFIED`
+     - Campaigns can now be created for this brand
+
+  **Error Handling:**
+
+  Provides proper error responses for:
+
+  - Invalid OTP pins
+  - Expired OTPs
+  - OTP verification failures
 
 ### Resource `number_10dlc.brand.external_vetting`:
 

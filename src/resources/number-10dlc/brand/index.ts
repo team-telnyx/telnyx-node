@@ -12,10 +12,13 @@ export {
   type BrandListResponse,
   type BrandGetFeedbackResponse,
   type BrandRetrieveSMSOtpStatusResponse,
+  type BrandTriggerSMSOtpResponse,
   type BrandCreateParams,
   type BrandUpdateParams,
   type BrandListParams,
   type BrandRetrieveSMSOtpStatusParams,
+  type BrandTriggerSMSOtpParams,
+  type BrandVerifySMSOtpParams,
   type BrandListResponsesPerPagePaginationV2,
 } from './brand';
 export {

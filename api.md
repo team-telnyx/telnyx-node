@@ -3969,6 +3969,7 @@ Types:
 - <code><a href="./src/resources/number-10dlc/brand/brand.ts">BrandListResponse</a></code>
 - <code><a href="./src/resources/number-10dlc/brand/brand.ts">BrandGetFeedbackResponse</a></code>
 - <code><a href="./src/resources/number-10dlc/brand/brand.ts">BrandRetrieveSMSOtpStatusResponse</a></code>
+- <code><a href="./src/resources/number-10dlc/brand/brand.ts">BrandTriggerSMSOtpResponse</a></code>
 
 Methods:
 
@@ -3981,6 +3982,8 @@ Methods:
 - <code title="post /10dlc/brand/{brandId}/2faEmail">client.number10dlc.brand.<a href="./src/resources/number-10dlc/brand/brand.ts">resend2faEmail</a>(brandID) -> void</code>
 - <code title="get /10dlc/brand/smsOtp/{referenceId}">client.number10dlc.brand.<a href="./src/resources/number-10dlc/brand/brand.ts">retrieveSMSOtpStatus</a>(referenceID, { ...params }) -> BrandRetrieveSMSOtpStatusResponse</code>
 - <code title="put /10dlc/brand/{brandId}/revet">client.number10dlc.brand.<a href="./src/resources/number-10dlc/brand/brand.ts">revet</a>(brandID) -> TelnyxBrand</code>
+- <code title="post /10dlc/brand/{brandId}/smsOtp">client.number10dlc.brand.<a href="./src/resources/number-10dlc/brand/brand.ts">triggerSMSOtp</a>(brandID, { ...params }) -> BrandTriggerSMSOtpResponse</code>
+- <code title="put /10dlc/brand/{brandId}/smsOtp">client.number10dlc.brand.<a href="./src/resources/number-10dlc/brand/brand.ts">verifySMSOtp</a>(brandID, { ...params }) -> void</code>
 
 ### ExternalVetting
 
