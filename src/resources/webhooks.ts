@@ -5,6 +5,7 @@ import { TelnyxWebhook, TelnyxWebhookVerificationError } from '../webhooks';
 import * as NumberOrdersAPI from './number-orders';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
+import { Webhook } from 'standardwebhooks';
 
 export class Webhooks extends APIResource {
   unwrap<T = UnwrapWebhookEvent>(
@@ -1267,9 +1268,894 @@ export namespace CallHangupWebhookEvent {
         outbound?: CallQualityStats.Outbound;
       }
 
-      // Use Telnyx-specific webhook verification following standardwebhooks pattern
-      const webhook = new TelnyxWebhook(key);
-      webhook.verify(body, options.headers);
+      export namespace CallQualityStats {
+        /**
+         * Inbound call quality statistics.
+         */
+        export interface Inbound {
+          /**
+           * Maximum jitter variance for inbound audio.
+           */
+          jitter_max_variance?: string;
+
+          /**
+           * Number of packets used for jitter calculation on inbound audio.
+           */
+          jitter_packet_count?: string;
+
+          /**
+           * Mean Opinion Score (MOS) for inbound audio quality.
+           */
+          mos?: string;
+
+          /**
+           * Total number of inbound audio packets.
+           */
+          packet_count?: string;
+
+          /**
+           * Number of skipped inbound packets (packet loss).
+           */
+          skip_packet_count?: string;
+        }
+
+        /**
+         * Outbound call quality statistics.
+         */
+        export interface Outbound {
+          /**
+           * Total number of outbound audio packets.
+           */
+          packet_count?: string;
+
+          /**
+           * Number of skipped outbound packets (packet loss).
+           */
+          skip_packet_count?: string;
+        }
+      }
+    }
+  }
+}
+
+export interface CallInitiatedWebhookEvent {
+  data?: CallInitiatedWebhookEvent.Data;
+}
+
+export namespace CallInitiatedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.initiated';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * Call screening result.
+       */
+      call_screening_result?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * Caller id.
+       */
+      caller_id_name?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * The list of comma-separated codecs enabled for the connection.
+       */
+      connection_codecs?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Custom headers from sip invite
+       */
+      custom_headers?: Array<CallsAPI.CustomSipHeader>;
+
+      /**
+       * Whether the call is `incoming` or `outgoing`.
+       */
+      direction?: 'incoming' | 'outgoing';
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * The list of comma-separated codecs offered by caller.
+       */
+      offered_codecs?: string;
+
+      /**
+       * SHAKEN/STIR attestation level.
+       */
+      shaken_stir_attestation?: string;
+
+      /**
+       * Whether attestation was successfully validated or not.
+       */
+      shaken_stir_validated?: boolean;
+
+      /**
+       * User-to-User and Diversion headers from sip invite.
+       */
+      sip_headers?: Array<CallsAPI.SipHeader>;
+
+      /**
+       * ISO 8601 datetime of when the call started.
+       */
+      start_time?: string;
+
+      /**
+       * State received from a command.
+       */
+      state?: 'parked' | 'bridging';
+
+      /**
+       * Array of tags associated to number.
+       */
+      tags?: Array<string>;
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+  }
+}
+
+export interface CallLeftQueueWebhookEvent {
+  data?: CallLeftQueueWebhookEvent.Data;
+}
+
+export namespace CallLeftQueueWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.dequeued';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * The name of the queue
+       */
+      queue?: string;
+
+      /**
+       * Last position of the call in the queue.
+       */
+      queue_position?: number;
+
+      /**
+       * The reason for leaving the queue
+       */
+      reason?: 'bridged' | 'bridging-in-process' | 'hangup' | 'leave' | 'timeout';
+
+      /**
+       * Time call spent in the queue in seconds.
+       */
+      wait_time_secs?: number;
+    }
+  }
+}
+
+export interface CallMachineDetectionEndedWebhookEvent {
+  data?: CallMachineDetectionEndedWebhookEvent.Data;
+}
+
+export namespace CallMachineDetectionEndedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.machine.detection.ended';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Answering machine detection result.
+       */
+      result?: 'human' | 'machine' | 'not_sure';
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+  }
+}
+
+export interface CallMachineGreetingEndedWebhookEvent {
+  data?: CallMachineGreetingEndedWebhookEvent.Data;
+}
+
+export namespace CallMachineGreetingEndedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.machine.greeting.ended';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Answering machine greeting ended result.
+       */
+      result?: 'beep_detected' | 'ended' | 'not_sure';
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+  }
+}
+
+export interface CallMachinePremiumDetectionEndedWebhookEvent {
+  data?: CallMachinePremiumDetectionEndedWebhookEvent.Data;
+}
+
+export namespace CallMachinePremiumDetectionEndedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.machine.premium.detection.ended';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Premium Answering Machine Detection result.
+       */
+      result?: 'human_residence' | 'human_business' | 'machine' | 'silence' | 'fax_detected' | 'not_sure';
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+  }
+}
+
+export interface CallMachinePremiumGreetingEndedWebhookEvent {
+  data?: CallMachinePremiumGreetingEndedWebhookEvent.Data;
+}
+
+export namespace CallMachinePremiumGreetingEndedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.machine.premium.greeting.ended';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Premium Answering Machine Greeting Ended result.
+       */
+      result?: 'beep_detected' | 'no_beep_detected';
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+  }
+}
+
+export interface CallPlaybackEndedWebhookEvent {
+  data?: CallPlaybackEndedWebhookEvent.Data;
+}
+
+export namespace CallPlaybackEndedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.playback.ended';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * The name of the audio media file being played back, if media_name has been used
+       * to start.
+       */
+      media_name?: string;
+
+      /**
+       * The audio URL being played back, if audio_url has been used to start.
+       */
+      media_url?: string;
+
+      /**
+       * Whether the stopped audio was in overlay mode or not.
+       */
+      overlay?: boolean;
+
+      /**
+       * Reflects how command ended.
+       */
+      status?:
+        | 'file_not_found'
+        | 'call_hangup'
+        | 'unknown'
+        | 'cancelled'
+        | 'cancelled_amd'
+        | 'completed'
+        | 'failed';
+
+      /**
+       * Provides details in case of failure.
+       */
+      status_detail?: string;
+    }
+  }
+}
+
+export interface CallPlaybackStartedWebhookEvent {
+  data?: CallPlaybackStartedWebhookEvent.Data;
+}
+
+export namespace CallPlaybackStartedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.playback.started';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * The name of the audio media file being played back, if media_name has been used
+       * to start.
+       */
+      media_name?: string;
+
+      /**
+       * The audio URL being played back, if audio_url has been used to start.
+       */
+      media_url?: string;
+
+      /**
+       * Whether the audio is going to be played in overlay mode or not.
+       */
+      overlay?: boolean;
+    }
+  }
+}
+
+export interface CallRecordingErrorWebhookEvent {
+  data?: CallRecordingErrorWebhookEvent.Data;
+}
+
+export namespace CallRecordingErrorWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.recording.error';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Indication that there was a problem recording the call.
+       */
+      reason?:
+        | 'Failed to authorize with storage using custom credentials'
+        | 'Invalid credentials json'
+        | 'Unsupported backend'
+        | 'Internal server error';
+    }
+  }
+}
+
+export interface CallRecordingSavedWebhookEvent {
+  data?: CallRecordingSavedWebhookEvent.Data;
+}
+
+export namespace CallRecordingSavedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.recording.saved';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * Whether recording was recorded in `single` or `dual` channel.
+       */
+      channels?: 'single' | 'dual';
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Recording URLs in requested format. The URL is valid for as long as the file
+       * exists. For security purposes, this feature is activated on a per request basis.
+       * Please contact customer support with your Account ID to request activation.
+       */
+      public_recording_urls?: Payload.PublicRecordingURLs;
+
+      /**
+       * ISO 8601 datetime of when recording ended.
+       */
+      recording_ended_at?: string;
+
+      /**
+       * ISO 8601 datetime of when recording started.
+       */
+      recording_started_at?: string;
+
+      /**
+       * Recording URLs in requested format. These URLs are valid for 10 minutes. After
+       * 10 minutes, you may retrieve recordings via API using Reports -> Call Recordings
+       * documentation, or via Mission Control under Reporting -> Recordings.
+       */
+      recording_urls?: Payload.RecordingURLs;
     }
 
     export namespace Payload {
