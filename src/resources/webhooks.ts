@@ -3,6 +3,7 @@
 import { APIResource } from '../core/resource';
 import { TelnyxWebhook, TelnyxWebhookVerificationError } from '../webhooks';
 import * as NumberOrdersAPI from './number-orders';
+import * as Shared from './shared';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
 
@@ -23,6 +24,218 @@ export class Webhooks extends APIResource {
     }
 
     return JSON.parse(body) as T;
+  }
+}
+
+export interface CallStreamingFailed {
+  /**
+   * Identifies the type of resource.
+   */
+  id?: string;
+
+  /**
+   * The type of event being delivered.
+   */
+  event_type?: 'streaming.failed';
+
+  /**
+   * ISO 8601 datetime of when the event occurred.
+   */
+  occurred_at?: string;
+
+  payload?: CallStreamingFailed.Payload;
+
+  /**
+   * Identifies the resource.
+   */
+  record_type?: 'event';
+}
+
+export namespace CallStreamingFailed {
+  export interface Payload {
+    /**
+     * Call ID used to issue commands via Call Control API.
+     */
+    call_control_id?: string;
+
+    /**
+     * ID that is unique to the call and can be used to correlate webhook events.
+     */
+    call_leg_id?: string;
+
+    /**
+     * ID that is unique to the call session and can be used to correlate webhook
+     * events. Call session is a group of related call legs that logically belong to
+     * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+     */
+    call_session_id?: string;
+
+    /**
+     * State received from a command.
+     */
+    client_state?: string;
+
+    /**
+     * Call Control App ID (formerly Telnyx connection ID) used in the call.
+     */
+    connection_id?: string;
+
+    /**
+     * A short description explaning why the media streaming failed.
+     */
+    failure_reason?: string;
+
+    /**
+     * Identifies the streaming.
+     */
+    stream_id?: string;
+
+    /**
+     * Streaming parameters as they were originally given to the Call Control API.
+     */
+    stream_params?: Payload.StreamParams;
+
+    /**
+     * The type of stream connection the stream is performing.
+     */
+    stream_type?: 'websocket' | 'dialogflow';
+  }
+
+  export namespace Payload {
+    /**
+     * Streaming parameters as they were originally given to the Call Control API.
+     */
+    export interface StreamParams {
+      /**
+       * The destination WebSocket address where the stream is going to be delivered.
+       */
+      stream_url?: string;
+
+      /**
+       * Specifies which track should be streamed.
+       */
+      track?: 'inbound_track' | 'outbound_track' | 'both_tracks';
+    }
+  }
+}
+
+export interface CallStreamingStarted {
+  /**
+   * Identifies the type of resource.
+   */
+  id?: string;
+
+  /**
+   * The type of event being delivered.
+   */
+  event_type?: 'streaming.started';
+
+  /**
+   * ISO 8601 datetime of when the event occurred.
+   */
+  occurred_at?: string;
+
+  payload?: CallStreamingStarted.Payload;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: 'event';
+}
+
+export namespace CallStreamingStarted {
+  export interface Payload {
+    /**
+     * Call ID used to issue commands via Call Control API.
+     */
+    call_control_id?: string;
+
+    /**
+     * ID that is unique to the call and can be used to correlate webhook events.
+     */
+    call_leg_id?: string;
+
+    /**
+     * ID that is unique to the call session and can be used to correlate webhook
+     * events. Call session is a group of related call legs that logically belong to
+     * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+     */
+    call_session_id?: string;
+
+    /**
+     * State received from a command.
+     */
+    client_state?: string;
+
+    /**
+     * Call Control App ID (formerly Telnyx connection ID) used in the call.
+     */
+    connection_id?: string;
+
+    /**
+     * Destination WebSocket address where the stream is going to be delivered.
+     */
+    stream_url?: string;
+  }
+}
+
+export interface CallStreamingStopped {
+  /**
+   * Identifies the type of resource.
+   */
+  id?: string;
+
+  /**
+   * The type of event being delivered.
+   */
+  event_type?: 'streaming.stopped';
+
+  /**
+   * ISO 8601 datetime of when the event occurred.
+   */
+  occurred_at?: string;
+
+  payload?: CallStreamingStopped.Payload;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: 'event';
+}
+
+export namespace CallStreamingStopped {
+  export interface Payload {
+    /**
+     * Call ID used to issue commands via Call Control API.
+     */
+    call_control_id?: string;
+
+    /**
+     * ID that is unique to the call and can be used to correlate webhook events.
+     */
+    call_leg_id?: string;
+
+    /**
+     * ID that is unique to the call session and can be used to correlate webhook
+     * events. Call session is a group of related call legs that logically belong to
+     * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+     */
+    call_session_id?: string;
+
+    /**
+     * State received from a command.
+     */
+    client_state?: string;
+
+    /**
+     * Call Control App ID (formerly Telnyx connection ID) used in the call.
+     */
+    connection_id?: string;
+
+    /**
+     * Destination WebSocket address where the stream is going to be delivered.
+     */
+    stream_url?: string;
   }
 }
 
@@ -98,7 +311,7 @@ export namespace CallAIGatherEndedWebhookEvent {
        * The result of the AI gather, its type depends of the `parameters` provided in
        * the command
        */
-      result?: unknown;
+      result?: { [key: string]: unknown };
 
       /**
        * Reflects how command ended.
@@ -289,7 +502,7 @@ export namespace CallAIGatherPartialResultsWebhookEvent {
        * The partial result of the AI gather, its type depends of the `parameters`
        * provided in the command
        */
-      partial_results?: unknown;
+      partial_results?: { [key: string]: unknown };
 
       /**
        * Destination number or SIP URI of the call.
@@ -751,7 +964,7 @@ export namespace CallConversationInsightsGeneratedWebhookEvent {
         /**
          * The result of the insight.
          */
-        result?: unknown | string;
+        result?: { [key: string]: unknown } | string;
       }
     }
   }
@@ -2832,233 +3045,15 @@ export namespace CallSpeakStartedWebhookEvent {
 }
 
 export interface CallStreamingFailedWebhookEvent {
-  data?: CallStreamingFailedWebhookEvent.Data;
-}
-
-export namespace CallStreamingFailedWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'streaming.failed';
-
-    /**
-     * ISO 8601 datetime of when the event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Call ID used to issue commands via Call Control API.
-       */
-      call_control_id?: string;
-
-      /**
-       * ID that is unique to the call and can be used to correlate webhook events.
-       */
-      call_leg_id?: string;
-
-      /**
-       * ID that is unique to the call session and can be used to correlate webhook
-       * events. Call session is a group of related call legs that logically belong to
-       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
-       */
-      call_session_id?: string;
-
-      /**
-       * State received from a command.
-       */
-      client_state?: string;
-
-      /**
-       * Call Control App ID (formerly Telnyx connection ID) used in the call.
-       */
-      connection_id?: string;
-
-      /**
-       * A short description explaning why the media streaming failed.
-       */
-      failure_reason?: string;
-
-      /**
-       * Identifies the streaming.
-       */
-      stream_id?: string;
-
-      /**
-       * Streaming parameters as they were originally given to the Call Control API.
-       */
-      stream_params?: Payload.StreamParams;
-
-      /**
-       * The type of stream connection the stream is performing.
-       */
-      stream_type?: 'websocket' | 'dialogflow';
-    }
-
-    export namespace Payload {
-      /**
-       * Streaming parameters as they were originally given to the Call Control API.
-       */
-      export interface StreamParams {
-        /**
-         * The destination WebSocket address where the stream is going to be delivered.
-         */
-        stream_url?: string;
-
-        /**
-         * Specifies which track should be streamed.
-         */
-        track?: 'inbound_track' | 'outbound_track' | 'both_tracks';
-      }
-    }
-  }
+  data?: CallStreamingFailed;
 }
 
 export interface CallStreamingStartedWebhookEvent {
-  data?: CallStreamingStartedWebhookEvent.Data;
-}
-
-export namespace CallStreamingStartedWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'streaming.started';
-
-    /**
-     * ISO 8601 datetime of when the event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Call ID used to issue commands via Call Control API.
-       */
-      call_control_id?: string;
-
-      /**
-       * ID that is unique to the call and can be used to correlate webhook events.
-       */
-      call_leg_id?: string;
-
-      /**
-       * ID that is unique to the call session and can be used to correlate webhook
-       * events. Call session is a group of related call legs that logically belong to
-       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
-       */
-      call_session_id?: string;
-
-      /**
-       * State received from a command.
-       */
-      client_state?: string;
-
-      /**
-       * Call Control App ID (formerly Telnyx connection ID) used in the call.
-       */
-      connection_id?: string;
-
-      /**
-       * Destination WebSocket address where the stream is going to be delivered.
-       */
-      stream_url?: string;
-    }
-  }
+  data?: CallStreamingStarted;
 }
 
 export interface CallStreamingStoppedWebhookEvent {
-  data?: CallStreamingStoppedWebhookEvent.Data;
-}
-
-export namespace CallStreamingStoppedWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'streaming.stopped';
-
-    /**
-     * ISO 8601 datetime of when the event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Call ID used to issue commands via Call Control API.
-       */
-      call_control_id?: string;
-
-      /**
-       * ID that is unique to the call and can be used to correlate webhook events.
-       */
-      call_leg_id?: string;
-
-      /**
-       * ID that is unique to the call session and can be used to correlate webhook
-       * events. Call session is a group of related call legs that logically belong to
-       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
-       */
-      call_session_id?: string;
-
-      /**
-       * State received from a command.
-       */
-      client_state?: string;
-
-      /**
-       * Call Control App ID (formerly Telnyx connection ID) used in the call.
-       */
-      connection_id?: string;
-
-      /**
-       * Destination WebSocket address where the stream is going to be delivered.
-       */
-      stream_url?: string;
-    }
-  }
+  data?: CallStreamingStopped;
 }
 
 export interface CampaignStatusUpdateWebhookEvent {
@@ -4551,285 +4546,12 @@ export namespace InboundMessageWebhookEvent {
      */
     occurred_at?: string;
 
-    payload?: Data.Payload;
+    payload?: Shared.InboundMessagePayload;
 
     /**
      * Identifies the type of the resource.
      */
     record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Identifies the type of resource.
-       */
-      id?: string;
-
-      cc?: Array<Payload.Cc>;
-
-      /**
-       * Not used for inbound messages.
-       */
-      completed_at?: string | null;
-
-      cost?: Payload.Cost | null;
-
-      /**
-       * Detailed breakdown of the message cost components.
-       */
-      cost_breakdown?: Payload.CostBreakdown | null;
-
-      /**
-       * The direction of the message. Inbound messages are sent to you whereas outbound
-       * messages are sent from you.
-       */
-      direction?: 'inbound';
-
-      /**
-       * Encoding scheme used for the message body.
-       */
-      encoding?: string;
-
-      /**
-       * These errors may point at addressees when referring to unsuccessful/unconfirmed
-       * delivery statuses.
-       */
-      errors?: Array<MessagesAPI.MessagingError>;
-
-      from?: Payload.From;
-
-      media?: Array<Payload.Media>;
-
-      /**
-       * Unique identifier for a messaging profile.
-       */
-      messaging_profile_id?: string;
-
-      /**
-       * Unique identifier for a messaging profile.
-       */
-      organization_id?: string;
-
-      /**
-       * Number of parts into which the message's body must be split.
-       */
-      parts?: number;
-
-      /**
-       * ISO 8601 formatted date indicating when the message request was received.
-       */
-      received_at?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: 'message';
-
-      /**
-       * Not used for inbound messages.
-       */
-      sent_at?: string | null;
-
-      /**
-       * Message subject.
-       */
-      subject?: string | null;
-
-      /**
-       * Tags associated with the resource.
-       */
-      tags?: Array<string>;
-
-      /**
-       * Indicates whether the TCR campaign is billable.
-       */
-      tcr_campaign_billable?: boolean;
-
-      /**
-       * The Campaign Registry (TCR) campaign ID associated with the message.
-       */
-      tcr_campaign_id?: string | null;
-
-      /**
-       * The registration status of the TCR campaign.
-       */
-      tcr_campaign_registered?: string | null;
-
-      /**
-       * Message body (i.e., content) as a non-empty string.
-       *
-       * **Required for SMS**
-       */
-      text?: string;
-
-      to?: Array<Payload.To>;
-
-      /**
-       * The type of message. This value can be either 'sms' or 'mms'.
-       */
-      type?: 'SMS' | 'MMS';
-
-      /**
-       * Not used for inbound messages.
-       */
-      valid_until?: string | null;
-
-      /**
-       * The failover URL where webhooks related to this message will be sent if sending
-       * to the primary URL fails.
-       */
-      webhook_failover_url?: string | null;
-
-      /**
-       * The URL where webhooks related to this message will be sent.
-       */
-      webhook_url?: string | null;
-    }
-
-    export namespace Payload {
-      export interface Cc {
-        /**
-         * The carrier of the receiver.
-         */
-        carrier?: string;
-
-        /**
-         * The line-type of the receiver.
-         */
-        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-        /**
-         * Receiving address (+E.164 formatted phone number or short code).
-         */
-        phone_number?: string;
-
-        status?:
-          | 'queued'
-          | 'sending'
-          | 'sent'
-          | 'delivered'
-          | 'sending_failed'
-          | 'delivery_failed'
-          | 'delivery_unconfirmed';
-      }
-
-      export interface Cost {
-        /**
-         * The amount deducted from your account.
-         */
-        amount?: string;
-
-        /**
-         * The ISO 4217 currency identifier.
-         */
-        currency?: string;
-      }
-
-      /**
-       * Detailed breakdown of the message cost components.
-       */
-      export interface CostBreakdown {
-        carrier_fee?: CostBreakdown.CarrierFee;
-
-        rate?: CostBreakdown.Rate;
-      }
-
-      export namespace CostBreakdown {
-        export interface CarrierFee {
-          /**
-           * The carrier fee amount.
-           */
-          amount?: string;
-
-          /**
-           * The ISO 4217 currency identifier.
-           */
-          currency?: string;
-        }
-
-        export interface Rate {
-          /**
-           * The rate amount applied.
-           */
-          amount?: string;
-
-          /**
-           * The ISO 4217 currency identifier.
-           */
-          currency?: string;
-        }
-      }
-
-      export interface From {
-        /**
-         * The carrier of the sender.
-         */
-        carrier?: string;
-
-        /**
-         * The line-type of the sender.
-         */
-        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-        /**
-         * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
-         * code).
-         */
-        phone_number?: string;
-
-        status?: 'received' | 'delivered';
-      }
-
-      export interface Media {
-        /**
-         * The MIME type of the requested media.
-         */
-        content_type?: string;
-
-        /**
-         * The SHA256 hash of the requested media.
-         */
-        hash_sha256?: string;
-
-        /**
-         * The size of the requested media.
-         */
-        size?: number;
-
-        /**
-         * The url of the media requested to be sent.
-         */
-        url?: string;
-      }
-
-      export interface To {
-        /**
-         * The carrier of the receiver.
-         */
-        carrier?: string;
-
-        /**
-         * The line-type of the receiver.
-         */
-        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-        /**
-         * Receiving address (+E.164 formatted phone number or short code).
-         */
-        phone_number?: string;
-
-        status?:
-          | 'queued'
-          | 'sending'
-          | 'sent'
-          | 'delivered'
-          | 'sending_failed'
-          | 'delivery_failed'
-          | 'delivery_unconfirmed'
-          | 'webhook_delivered';
-      }
-    }
   }
 }
 
@@ -4912,233 +4634,15 @@ export namespace ReplacedLinkClickWebhookEvent {
 }
 
 export interface StreamingFailedWebhookEvent {
-  data?: StreamingFailedWebhookEvent.Data;
-}
-
-export namespace StreamingFailedWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'streaming.failed';
-
-    /**
-     * ISO 8601 datetime of when the event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Call ID used to issue commands via Call Control API.
-       */
-      call_control_id?: string;
-
-      /**
-       * ID that is unique to the call and can be used to correlate webhook events.
-       */
-      call_leg_id?: string;
-
-      /**
-       * ID that is unique to the call session and can be used to correlate webhook
-       * events. Call session is a group of related call legs that logically belong to
-       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
-       */
-      call_session_id?: string;
-
-      /**
-       * State received from a command.
-       */
-      client_state?: string;
-
-      /**
-       * Call Control App ID (formerly Telnyx connection ID) used in the call.
-       */
-      connection_id?: string;
-
-      /**
-       * A short description explaning why the media streaming failed.
-       */
-      failure_reason?: string;
-
-      /**
-       * Identifies the streaming.
-       */
-      stream_id?: string;
-
-      /**
-       * Streaming parameters as they were originally given to the Call Control API.
-       */
-      stream_params?: Payload.StreamParams;
-
-      /**
-       * The type of stream connection the stream is performing.
-       */
-      stream_type?: 'websocket' | 'dialogflow';
-    }
-
-    export namespace Payload {
-      /**
-       * Streaming parameters as they were originally given to the Call Control API.
-       */
-      export interface StreamParams {
-        /**
-         * The destination WebSocket address where the stream is going to be delivered.
-         */
-        stream_url?: string;
-
-        /**
-         * Specifies which track should be streamed.
-         */
-        track?: 'inbound_track' | 'outbound_track' | 'both_tracks';
-      }
-    }
-  }
+  data?: CallStreamingFailed;
 }
 
 export interface StreamingStartedWebhookEvent {
-  data?: StreamingStartedWebhookEvent.Data;
-}
-
-export namespace StreamingStartedWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'streaming.started';
-
-    /**
-     * ISO 8601 datetime of when the event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Call ID used to issue commands via Call Control API.
-       */
-      call_control_id?: string;
-
-      /**
-       * ID that is unique to the call and can be used to correlate webhook events.
-       */
-      call_leg_id?: string;
-
-      /**
-       * ID that is unique to the call session and can be used to correlate webhook
-       * events. Call session is a group of related call legs that logically belong to
-       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
-       */
-      call_session_id?: string;
-
-      /**
-       * State received from a command.
-       */
-      client_state?: string;
-
-      /**
-       * Call Control App ID (formerly Telnyx connection ID) used in the call.
-       */
-      connection_id?: string;
-
-      /**
-       * Destination WebSocket address where the stream is going to be delivered.
-       */
-      stream_url?: string;
-    }
-  }
+  data?: CallStreamingStarted;
 }
 
 export interface StreamingStoppedWebhookEvent {
-  data?: StreamingStoppedWebhookEvent.Data;
-}
-
-export namespace StreamingStoppedWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'streaming.stopped';
-
-    /**
-     * ISO 8601 datetime of when the event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Call ID used to issue commands via Call Control API.
-       */
-      call_control_id?: string;
-
-      /**
-       * ID that is unique to the call and can be used to correlate webhook events.
-       */
-      call_leg_id?: string;
-
-      /**
-       * ID that is unique to the call session and can be used to correlate webhook
-       * events. Call session is a group of related call legs that logically belong to
-       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
-       */
-      call_session_id?: string;
-
-      /**
-       * State received from a command.
-       */
-      client_state?: string;
-
-      /**
-       * Call Control App ID (formerly Telnyx connection ID) used in the call.
-       */
-      connection_id?: string;
-
-      /**
-       * Destination WebSocket address where the stream is going to be delivered.
-       */
-      stream_url?: string;
-    }
-  }
+  data?: CallStreamingStopped;
 }
 
 export interface TranscriptionWebhookEvent {
@@ -5302,7 +4806,7 @@ export namespace CallAIGatherEndedWebhookEvent {
        * The result of the AI gather, its type depends of the `parameters` provided in
        * the command
        */
-      result?: unknown;
+      result?: { [key: string]: unknown };
 
       /**
        * Reflects how command ended.
@@ -5493,7 +4997,7 @@ export namespace CallAIGatherPartialResultsWebhookEvent {
        * The partial result of the AI gather, its type depends of the `parameters`
        * provided in the command
        */
-      partial_results?: unknown;
+      partial_results?: { [key: string]: unknown };
 
       /**
        * Destination number or SIP URI of the call.
@@ -5955,7 +5459,7 @@ export namespace CallConversationInsightsGeneratedWebhookEvent {
         /**
          * The result of the insight.
          */
-        result?: unknown | string;
+        result?: { [key: string]: unknown } | string;
       }
     }
   }
@@ -8036,233 +7540,15 @@ export namespace CallSpeakStartedWebhookEvent {
 }
 
 export interface CallStreamingFailedWebhookEvent {
-  data?: CallStreamingFailedWebhookEvent.Data;
-}
-
-export namespace CallStreamingFailedWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'streaming.failed';
-
-    /**
-     * ISO 8601 datetime of when the event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Call ID used to issue commands via Call Control API.
-       */
-      call_control_id?: string;
-
-      /**
-       * ID that is unique to the call and can be used to correlate webhook events.
-       */
-      call_leg_id?: string;
-
-      /**
-       * ID that is unique to the call session and can be used to correlate webhook
-       * events. Call session is a group of related call legs that logically belong to
-       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
-       */
-      call_session_id?: string;
-
-      /**
-       * State received from a command.
-       */
-      client_state?: string;
-
-      /**
-       * Call Control App ID (formerly Telnyx connection ID) used in the call.
-       */
-      connection_id?: string;
-
-      /**
-       * A short description explaning why the media streaming failed.
-       */
-      failure_reason?: string;
-
-      /**
-       * Identifies the streaming.
-       */
-      stream_id?: string;
-
-      /**
-       * Streaming parameters as they were originally given to the Call Control API.
-       */
-      stream_params?: Payload.StreamParams;
-
-      /**
-       * The type of stream connection the stream is performing.
-       */
-      stream_type?: 'websocket' | 'dialogflow';
-    }
-
-    export namespace Payload {
-      /**
-       * Streaming parameters as they were originally given to the Call Control API.
-       */
-      export interface StreamParams {
-        /**
-         * The destination WebSocket address where the stream is going to be delivered.
-         */
-        stream_url?: string;
-
-        /**
-         * Specifies which track should be streamed.
-         */
-        track?: 'inbound_track' | 'outbound_track' | 'both_tracks';
-      }
-    }
-  }
+  data?: CallStreamingFailed;
 }
 
 export interface CallStreamingStartedWebhookEvent {
-  data?: CallStreamingStartedWebhookEvent.Data;
-}
-
-export namespace CallStreamingStartedWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'streaming.started';
-
-    /**
-     * ISO 8601 datetime of when the event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Call ID used to issue commands via Call Control API.
-       */
-      call_control_id?: string;
-
-      /**
-       * ID that is unique to the call and can be used to correlate webhook events.
-       */
-      call_leg_id?: string;
-
-      /**
-       * ID that is unique to the call session and can be used to correlate webhook
-       * events. Call session is a group of related call legs that logically belong to
-       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
-       */
-      call_session_id?: string;
-
-      /**
-       * State received from a command.
-       */
-      client_state?: string;
-
-      /**
-       * Call Control App ID (formerly Telnyx connection ID) used in the call.
-       */
-      connection_id?: string;
-
-      /**
-       * Destination WebSocket address where the stream is going to be delivered.
-       */
-      stream_url?: string;
-    }
-  }
+  data?: CallStreamingStarted;
 }
 
 export interface CallStreamingStoppedWebhookEvent {
-  data?: CallStreamingStoppedWebhookEvent.Data;
-}
-
-export namespace CallStreamingStoppedWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'streaming.stopped';
-
-    /**
-     * ISO 8601 datetime of when the event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Call ID used to issue commands via Call Control API.
-       */
-      call_control_id?: string;
-
-      /**
-       * ID that is unique to the call and can be used to correlate webhook events.
-       */
-      call_leg_id?: string;
-
-      /**
-       * ID that is unique to the call session and can be used to correlate webhook
-       * events. Call session is a group of related call legs that logically belong to
-       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
-       */
-      call_session_id?: string;
-
-      /**
-       * State received from a command.
-       */
-      client_state?: string;
-
-      /**
-       * Call Control App ID (formerly Telnyx connection ID) used in the call.
-       */
-      connection_id?: string;
-
-      /**
-       * Destination WebSocket address where the stream is going to be delivered.
-       */
-      stream_url?: string;
-    }
-  }
+  data?: CallStreamingStopped;
 }
 
 export interface CampaignStatusUpdateWebhookEvent {
@@ -9755,285 +9041,12 @@ export namespace InboundMessageWebhookEvent {
      */
     occurred_at?: string;
 
-    payload?: Data.Payload;
+    payload?: Shared.InboundMessagePayload;
 
     /**
      * Identifies the type of the resource.
      */
     record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Identifies the type of resource.
-       */
-      id?: string;
-
-      cc?: Array<Payload.Cc>;
-
-      /**
-       * Not used for inbound messages.
-       */
-      completed_at?: string | null;
-
-      cost?: Payload.Cost | null;
-
-      /**
-       * Detailed breakdown of the message cost components.
-       */
-      cost_breakdown?: Payload.CostBreakdown | null;
-
-      /**
-       * The direction of the message. Inbound messages are sent to you whereas outbound
-       * messages are sent from you.
-       */
-      direction?: 'inbound';
-
-      /**
-       * Encoding scheme used for the message body.
-       */
-      encoding?: string;
-
-      /**
-       * These errors may point at addressees when referring to unsuccessful/unconfirmed
-       * delivery statuses.
-       */
-      errors?: Array<MessagesAPI.MessagingError>;
-
-      from?: Payload.From;
-
-      media?: Array<Payload.Media>;
-
-      /**
-       * Unique identifier for a messaging profile.
-       */
-      messaging_profile_id?: string;
-
-      /**
-       * Unique identifier for a messaging profile.
-       */
-      organization_id?: string;
-
-      /**
-       * Number of parts into which the message's body must be split.
-       */
-      parts?: number;
-
-      /**
-       * ISO 8601 formatted date indicating when the message request was received.
-       */
-      received_at?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: 'message';
-
-      /**
-       * Not used for inbound messages.
-       */
-      sent_at?: string | null;
-
-      /**
-       * Message subject.
-       */
-      subject?: string | null;
-
-      /**
-       * Tags associated with the resource.
-       */
-      tags?: Array<string>;
-
-      /**
-       * Indicates whether the TCR campaign is billable.
-       */
-      tcr_campaign_billable?: boolean;
-
-      /**
-       * The Campaign Registry (TCR) campaign ID associated with the message.
-       */
-      tcr_campaign_id?: string | null;
-
-      /**
-       * The registration status of the TCR campaign.
-       */
-      tcr_campaign_registered?: string | null;
-
-      /**
-       * Message body (i.e., content) as a non-empty string.
-       *
-       * **Required for SMS**
-       */
-      text?: string;
-
-      to?: Array<Payload.To>;
-
-      /**
-       * The type of message. This value can be either 'sms' or 'mms'.
-       */
-      type?: 'SMS' | 'MMS';
-
-      /**
-       * Not used for inbound messages.
-       */
-      valid_until?: string | null;
-
-      /**
-       * The failover URL where webhooks related to this message will be sent if sending
-       * to the primary URL fails.
-       */
-      webhook_failover_url?: string | null;
-
-      /**
-       * The URL where webhooks related to this message will be sent.
-       */
-      webhook_url?: string | null;
-    }
-
-    export namespace Payload {
-      export interface Cc {
-        /**
-         * The carrier of the receiver.
-         */
-        carrier?: string;
-
-        /**
-         * The line-type of the receiver.
-         */
-        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-        /**
-         * Receiving address (+E.164 formatted phone number or short code).
-         */
-        phone_number?: string;
-
-        status?:
-          | 'queued'
-          | 'sending'
-          | 'sent'
-          | 'delivered'
-          | 'sending_failed'
-          | 'delivery_failed'
-          | 'delivery_unconfirmed';
-      }
-
-      export interface Cost {
-        /**
-         * The amount deducted from your account.
-         */
-        amount?: string;
-
-        /**
-         * The ISO 4217 currency identifier.
-         */
-        currency?: string;
-      }
-
-      /**
-       * Detailed breakdown of the message cost components.
-       */
-      export interface CostBreakdown {
-        carrier_fee?: CostBreakdown.CarrierFee;
-
-        rate?: CostBreakdown.Rate;
-      }
-
-      export namespace CostBreakdown {
-        export interface CarrierFee {
-          /**
-           * The carrier fee amount.
-           */
-          amount?: string;
-
-          /**
-           * The ISO 4217 currency identifier.
-           */
-          currency?: string;
-        }
-
-        export interface Rate {
-          /**
-           * The rate amount applied.
-           */
-          amount?: string;
-
-          /**
-           * The ISO 4217 currency identifier.
-           */
-          currency?: string;
-        }
-      }
-
-      export interface From {
-        /**
-         * The carrier of the sender.
-         */
-        carrier?: string;
-
-        /**
-         * The line-type of the sender.
-         */
-        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-        /**
-         * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
-         * code).
-         */
-        phone_number?: string;
-
-        status?: 'received' | 'delivered';
-      }
-
-      export interface Media {
-        /**
-         * The MIME type of the requested media.
-         */
-        content_type?: string;
-
-        /**
-         * The SHA256 hash of the requested media.
-         */
-        hash_sha256?: string;
-
-        /**
-         * The size of the requested media.
-         */
-        size?: number;
-
-        /**
-         * The url of the media requested to be sent.
-         */
-        url?: string;
-      }
-
-      export interface To {
-        /**
-         * The carrier of the receiver.
-         */
-        carrier?: string;
-
-        /**
-         * The line-type of the receiver.
-         */
-        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-        /**
-         * Receiving address (+E.164 formatted phone number or short code).
-         */
-        phone_number?: string;
-
-        status?:
-          | 'queued'
-          | 'sending'
-          | 'sent'
-          | 'delivered'
-          | 'sending_failed'
-          | 'delivery_failed'
-          | 'delivery_unconfirmed'
-          | 'webhook_delivered';
-      }
-    }
   }
 }
 
@@ -10116,233 +9129,15 @@ export namespace ReplacedLinkClickWebhookEvent {
 }
 
 export interface StreamingFailedWebhookEvent {
-  data?: StreamingFailedWebhookEvent.Data;
-}
-
-export namespace StreamingFailedWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'streaming.failed';
-
-    /**
-     * ISO 8601 datetime of when the event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Call ID used to issue commands via Call Control API.
-       */
-      call_control_id?: string;
-
-      /**
-       * ID that is unique to the call and can be used to correlate webhook events.
-       */
-      call_leg_id?: string;
-
-      /**
-       * ID that is unique to the call session and can be used to correlate webhook
-       * events. Call session is a group of related call legs that logically belong to
-       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
-       */
-      call_session_id?: string;
-
-      /**
-       * State received from a command.
-       */
-      client_state?: string;
-
-      /**
-       * Call Control App ID (formerly Telnyx connection ID) used in the call.
-       */
-      connection_id?: string;
-
-      /**
-       * A short description explaning why the media streaming failed.
-       */
-      failure_reason?: string;
-
-      /**
-       * Identifies the streaming.
-       */
-      stream_id?: string;
-
-      /**
-       * Streaming parameters as they were originally given to the Call Control API.
-       */
-      stream_params?: Payload.StreamParams;
-
-      /**
-       * The type of stream connection the stream is performing.
-       */
-      stream_type?: 'websocket' | 'dialogflow';
-    }
-
-    export namespace Payload {
-      /**
-       * Streaming parameters as they were originally given to the Call Control API.
-       */
-      export interface StreamParams {
-        /**
-         * The destination WebSocket address where the stream is going to be delivered.
-         */
-        stream_url?: string;
-
-        /**
-         * Specifies which track should be streamed.
-         */
-        track?: 'inbound_track' | 'outbound_track' | 'both_tracks';
-      }
-    }
-  }
+  data?: CallStreamingFailed;
 }
 
 export interface StreamingStartedWebhookEvent {
-  data?: StreamingStartedWebhookEvent.Data;
-}
-
-export namespace StreamingStartedWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'streaming.started';
-
-    /**
-     * ISO 8601 datetime of when the event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Call ID used to issue commands via Call Control API.
-       */
-      call_control_id?: string;
-
-      /**
-       * ID that is unique to the call and can be used to correlate webhook events.
-       */
-      call_leg_id?: string;
-
-      /**
-       * ID that is unique to the call session and can be used to correlate webhook
-       * events. Call session is a group of related call legs that logically belong to
-       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
-       */
-      call_session_id?: string;
-
-      /**
-       * State received from a command.
-       */
-      client_state?: string;
-
-      /**
-       * Call Control App ID (formerly Telnyx connection ID) used in the call.
-       */
-      connection_id?: string;
-
-      /**
-       * Destination WebSocket address where the stream is going to be delivered.
-       */
-      stream_url?: string;
-    }
-  }
+  data?: CallStreamingStarted;
 }
 
 export interface StreamingStoppedWebhookEvent {
-  data?: StreamingStoppedWebhookEvent.Data;
-}
-
-export namespace StreamingStoppedWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'streaming.stopped';
-
-    /**
-     * ISO 8601 datetime of when the event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Call ID used to issue commands via Call Control API.
-       */
-      call_control_id?: string;
-
-      /**
-       * ID that is unique to the call and can be used to correlate webhook events.
-       */
-      call_leg_id?: string;
-
-      /**
-       * ID that is unique to the call session and can be used to correlate webhook
-       * events. Call session is a group of related call legs that logically belong to
-       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
-       */
-      call_session_id?: string;
-
-      /**
-       * State received from a command.
-       */
-      client_state?: string;
-
-      /**
-       * Call Control App ID (formerly Telnyx connection ID) used in the call.
-       */
-      connection_id?: string;
-
-      /**
-       * Destination WebSocket address where the stream is going to be delivered.
-       */
-      stream_url?: string;
-    }
-  }
+  data?: CallStreamingStopped;
 }
 
 export interface TranscriptionWebhookEvent {
@@ -10568,6 +9363,9 @@ export type UnwrapWebhookEvent =
 
 export declare namespace Webhooks {
   export {
+    type CallStreamingFailed as CallStreamingFailed,
+    type CallStreamingStarted as CallStreamingStarted,
+    type CallStreamingStopped as CallStreamingStopped,
     type CallAIGatherEndedWebhookEvent as CallAIGatherEndedWebhookEvent,
     type CallAIGatherMessageHistoryUpdatedWebhookEvent as CallAIGatherMessageHistoryUpdatedWebhookEvent,
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,

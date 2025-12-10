@@ -2,7 +2,9 @@
 
 import { APIResource } from '../../../core/resource';
 import * as RcsAgentsAPI from '../../rcs-agents';
+import { RcsAgentsDefaultPagination } from '../../rcs-agents';
 import { APIPromise } from '../../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -42,32 +44,20 @@ export class Agents extends APIResource {
    *
    * @example
    * ```ts
-   * const agents = await client.messaging.rcs.agents.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const rcsAgent of client.messaging.rcs.agents.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: AgentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<AgentListResponse> {
-    return this._client.get('/messaging/rcs/agents', { query, ...options });
-  }
-}
-
-export interface AgentListResponse {
-  data?: Array<RcsAgentsAPI.RcsAgent>;
-
-  meta?: AgentListResponse.Meta;
-}
-
-export namespace AgentListResponse {
-  export interface Meta {
-    page_number: number;
-
-    page_size: number;
-
-    total_pages: number;
-
-    total_results: number;
+  ): PagePromise<RcsAgentsDefaultPagination, RcsAgentsAPI.RcsAgent> {
+    return this._client.getAPIList('/messaging/rcs/agents', DefaultPagination<RcsAgentsAPI.RcsAgent>, {
+      query,
+      ...options,
+    });
   }
 }
 
@@ -88,36 +78,10 @@ export interface AgentUpdateParams {
   webhook_url?: string | null;
 }
 
-export interface AgentListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: AgentListParams.Page;
-}
-
-export namespace AgentListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
-}
+export interface AgentListParams extends DefaultPaginationParams {}
 
 export declare namespace Agents {
-  export {
-    type AgentListResponse as AgentListResponse,
-    type AgentUpdateParams as AgentUpdateParams,
-    type AgentListParams as AgentListParams,
-  };
+  export { type AgentUpdateParams as AgentUpdateParams, type AgentListParams as AgentListParams };
 }
+
+export { type RcsAgentsDefaultPagination };

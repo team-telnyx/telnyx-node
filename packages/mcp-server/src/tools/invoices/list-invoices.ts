@@ -18,23 +18,15 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'list_invoices',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nRetrieve a paginated list of invoices.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/invoice_list_response',\n  $defs: {\n    invoice_list_response: {\n      type: 'object',\n      properties: {\n        data: {\n          type: 'array',\n          items: {\n            type: 'object',\n            properties: {\n              file_id: {\n                type: 'string'\n              },\n              invoice_id: {\n                type: 'string'\n              },\n              paid: {\n                type: 'boolean'\n              },\n              period_end: {\n                type: 'string',\n                format: 'date'\n              },\n              period_start: {\n                type: 'string',\n                format: 'date'\n              },\n              url: {\n                type: 'string'\n              }\n            }\n          }\n        },\n        meta: {\n          type: 'object',\n          properties: {\n            page_number: {\n              type: 'integer'\n            },\n            page_size: {\n              type: 'integer'\n            },\n            total_pages: {\n              type: 'integer'\n            },\n            total_results: {\n              type: 'integer'\n            }\n          }\n        }\n      }\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nRetrieve a paginated list of invoices.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  properties: {\n    data: {\n      type: 'array',\n      items: {\n        $ref: '#/$defs/invoice_list_response'\n      }\n    },\n    meta: {\n      type: 'object',\n      properties: {\n        page_number: {\n          type: 'integer'\n        },\n        page_size: {\n          type: 'integer'\n        },\n        total_pages: {\n          type: 'integer'\n        },\n        total_results: {\n          type: 'integer'\n        }\n      }\n    }\n  },\n  $defs: {\n    invoice_list_response: {\n      type: 'object',\n      properties: {\n        file_id: {\n          type: 'string'\n        },\n        invoice_id: {\n          type: 'string'\n        },\n        paid: {\n          type: 'boolean'\n        },\n        period_end: {\n          type: 'string',\n          format: 'date'\n        },\n        period_start: {\n          type: 'string',\n          format: 'date'\n        },\n        url: {\n          type: 'string'\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
-      page: {
-        type: 'object',
-        description: 'Consolidated page parameter (deepObject style). Originally: page[number], page[size]',
-        properties: {
-          number: {
-            type: 'integer',
-            description: 'The page number to load',
-          },
-          size: {
-            type: 'integer',
-            description: 'The size of the page',
-          },
-        },
+      'page[number]': {
+        type: 'integer',
+      },
+      'page[size]': {
+        type: 'integer',
       },
       sort: {
         type: 'string',
@@ -57,8 +49,9 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { jq_filter, ...body } = args as any;
+  const response = await client.invoices.list(body).asResponse();
   try {
-    return asTextContentResult(await maybeFilter(jq_filter, await client.invoices.list(body)));
+    return asTextContentResult(await maybeFilter(jq_filter, await response.json()));
   } catch (error) {
     if (error instanceof Telnyx.APIError || isJqError(error)) {
       return asErrorResult(error.message);

@@ -40,6 +40,7 @@ export const tool: Tool = {
                   title: 'Text and Image Array',
                   items: {
                     type: 'object',
+                    title: 'TextAndImage',
                     properties: {
                       type: {
                         type: 'string',

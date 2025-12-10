@@ -14,14 +14,15 @@ import {
   LogMessageDismissResponse,
   LogMessageListParams,
   LogMessageListResponse,
+  LogMessageListResponsesDefaultPaginationForLogMessages,
   LogMessageRetrieveResponse,
   LogMessages,
 } from './log-messages';
 import * as PhoneNumbersAPI from './phone-numbers';
 import {
   ExternalConnectionPhoneNumber,
+  ExternalConnectionPhoneNumbersDefaultPagination,
   PhoneNumberListParams,
-  PhoneNumberListResponse,
   PhoneNumberRetrieveParams,
   PhoneNumberRetrieveResponse,
   PhoneNumberUpdateParams,
@@ -32,6 +33,7 @@ import * as ReleasesAPI from './releases';
 import {
   ReleaseListParams,
   ReleaseListResponse,
+  ReleaseListResponsesDefaultPagination,
   ReleaseRetrieveParams,
   ReleaseRetrieveResponse,
   Releases,
@@ -43,7 +45,6 @@ import {
   UploadCreateParams,
   UploadCreateResponse,
   UploadListParams,
-  UploadListResponse,
   UploadPendingCountResponse,
   UploadRefreshStatusResponse,
   UploadRetrieveParams,
@@ -51,8 +52,10 @@ import {
   UploadRetryParams,
   UploadRetryResponse,
   Uploads,
+  UploadsDefaultPagination,
 } from './uploads';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -130,15 +133,20 @@ export class ExternalConnections extends APIResource {
    *
    * @example
    * ```ts
-   * const externalConnections =
-   *   await client.externalConnections.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const externalConnection of client.externalConnections.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: ExternalConnectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ExternalConnectionListResponse> {
-    return this._client.get('/external_connections', { query, ...options });
+  ): PagePromise<ExternalConnectionsDefaultPagination, ExternalConnection> {
+    return this._client.getAPIList('/external_connections', DefaultPagination<ExternalConnection>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -185,6 +193,8 @@ export class ExternalConnections extends APIResource {
     });
   }
 }
+
+export type ExternalConnectionsDefaultPagination = DefaultPagination<ExternalConnection>;
 
 export interface ExternalConnection {
   /**
@@ -278,11 +288,11 @@ export namespace ExternalConnection {
 }
 
 export interface ExternalVoiceIntegrationsPaginationMeta {
-  page_number?: number;
+  page_number: number;
+
+  total_pages: number;
 
   page_size?: number;
-
-  total_pages?: number;
 
   total_results?: number;
 }
@@ -297,12 +307,6 @@ export interface ExternalConnectionRetrieveResponse {
 
 export interface ExternalConnectionUpdateResponse {
   data?: ExternalConnection;
-}
-
-export interface ExternalConnectionListResponse {
-  data?: Array<ExternalConnection>;
-
-  meta?: ExternalVoiceIntegrationsPaginationMeta;
 }
 
 export interface ExternalConnectionDeleteResponse {
@@ -445,18 +449,12 @@ export namespace ExternalConnectionUpdateParams {
   }
 }
 
-export interface ExternalConnectionListParams {
+export interface ExternalConnectionListParams extends DefaultPaginationParams {
   /**
    * Filter parameter for external connections (deepObject style). Supports filtering
    * by connection_name, external_sip_connection, id, created_at, and phone_number.
    */
   filter?: ExternalConnectionListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: ExternalConnectionListParams.Page;
 }
 
 export namespace ExternalConnectionListParams {
@@ -514,22 +512,6 @@ export namespace ExternalConnectionListParams {
       contains?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export interface ExternalConnectionUpdateLocationParams {
@@ -557,9 +539,9 @@ export declare namespace ExternalConnections {
     type ExternalConnectionCreateResponse as ExternalConnectionCreateResponse,
     type ExternalConnectionRetrieveResponse as ExternalConnectionRetrieveResponse,
     type ExternalConnectionUpdateResponse as ExternalConnectionUpdateResponse,
-    type ExternalConnectionListResponse as ExternalConnectionListResponse,
     type ExternalConnectionDeleteResponse as ExternalConnectionDeleteResponse,
     type ExternalConnectionUpdateLocationResponse as ExternalConnectionUpdateLocationResponse,
+    type ExternalConnectionsDefaultPagination as ExternalConnectionsDefaultPagination,
     type ExternalConnectionCreateParams as ExternalConnectionCreateParams,
     type ExternalConnectionUpdateParams as ExternalConnectionUpdateParams,
     type ExternalConnectionListParams as ExternalConnectionListParams,
@@ -571,6 +553,7 @@ export declare namespace ExternalConnections {
     type LogMessageRetrieveResponse as LogMessageRetrieveResponse,
     type LogMessageListResponse as LogMessageListResponse,
     type LogMessageDismissResponse as LogMessageDismissResponse,
+    type LogMessageListResponsesDefaultPaginationForLogMessages as LogMessageListResponsesDefaultPaginationForLogMessages,
     type LogMessageListParams as LogMessageListParams,
   };
 
@@ -587,7 +570,7 @@ export declare namespace ExternalConnections {
     type ExternalConnectionPhoneNumber as ExternalConnectionPhoneNumber,
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,
     type PhoneNumberUpdateResponse as PhoneNumberUpdateResponse,
-    type PhoneNumberListResponse as PhoneNumberListResponse,
+    type ExternalConnectionPhoneNumbersDefaultPagination as ExternalConnectionPhoneNumbersDefaultPagination,
     type PhoneNumberRetrieveParams as PhoneNumberRetrieveParams,
     type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
     type PhoneNumberListParams as PhoneNumberListParams,
@@ -597,6 +580,7 @@ export declare namespace ExternalConnections {
     Releases as Releases,
     type ReleaseRetrieveResponse as ReleaseRetrieveResponse,
     type ReleaseListResponse as ReleaseListResponse,
+    type ReleaseListResponsesDefaultPagination as ReleaseListResponsesDefaultPagination,
     type ReleaseRetrieveParams as ReleaseRetrieveParams,
     type ReleaseListParams as ReleaseListParams,
   };
@@ -607,10 +591,10 @@ export declare namespace ExternalConnections {
     type Upload as Upload,
     type UploadCreateResponse as UploadCreateResponse,
     type UploadRetrieveResponse as UploadRetrieveResponse,
-    type UploadListResponse as UploadListResponse,
     type UploadPendingCountResponse as UploadPendingCountResponse,
     type UploadRefreshStatusResponse as UploadRefreshStatusResponse,
     type UploadRetryResponse as UploadRetryResponse,
+    type UploadsDefaultPagination as UploadsDefaultPagination,
     type UploadCreateParams as UploadCreateParams,
     type UploadRetrieveParams as UploadRetrieveParams,
     type UploadListParams as UploadListParams,

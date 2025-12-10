@@ -47,7 +47,7 @@ describe('resource phoneNumberCampaigns', () => {
   test.skip('update: only required params', async () => {
     const responsePromise = client.number10dlc.phoneNumberCampaigns.update('phoneNumber', {
       campaignId: '4b300178-131c-d902-d54e-72d90ba1620j',
-      body_phoneNumber: '+18005550199',
+      phoneNumber: '+18005550199',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -62,7 +62,7 @@ describe('resource phoneNumberCampaigns', () => {
   test.skip('update: required and optional params', async () => {
     const response = await client.number10dlc.phoneNumberCampaigns.update('phoneNumber', {
       campaignId: '4b300178-131c-d902-d54e-72d90ba1620j',
-      body_phoneNumber: '+18005550199',
+      phoneNumber: '+18005550199',
     });
   });
 

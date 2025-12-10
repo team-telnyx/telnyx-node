@@ -55,8 +55,8 @@ describe('resource campaign', () => {
   });
 
   // Prism tests are disabled
-  test.skip('delete', async () => {
-    const responsePromise = client.number10dlc.campaign.delete('campaignId');
+  test.skip('acceptSharing', async () => {
+    const responsePromise = client.number10dlc.campaign.acceptSharing('C26F1KLZN');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -67,8 +67,8 @@ describe('resource campaign', () => {
   });
 
   // Prism tests are disabled
-  test.skip('acceptSharing', async () => {
-    const responsePromise = client.number10dlc.campaign.acceptSharing('C26F1KLZN');
+  test.skip('deactivate', async () => {
+    const responsePromise = client.number10dlc.campaign.deactivate('campaignId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

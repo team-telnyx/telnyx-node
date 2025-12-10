@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -21,8 +21,11 @@ export class RoomRecordings extends APIResource {
   list(
     query: RoomRecordingListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<RoomRecordingListResponse> {
-    return this._client.get('/room_recordings', { query, ...options });
+  ): PagePromise<RoomRecordingListResponsesDefaultPagination, RoomRecordingListResponse> {
+    return this._client.getAPIList('/room_recordings', DefaultPagination<RoomRecordingListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -46,6 +49,8 @@ export class RoomRecordings extends APIResource {
     return this._client.delete('/room_recordings', { query: { filter, page }, ...options });
   }
 }
+
+export type RoomRecordingListResponsesDefaultPagination = DefaultPagination<RoomRecordingListResponse>;
 
 export interface RoomRecordingRetrieveResponse {
   data?: RoomRecordingRetrieveResponse.Data;
@@ -133,90 +138,82 @@ export namespace RoomRecordingRetrieveResponse {
 }
 
 export interface RoomRecordingListResponse {
-  data?: Array<RoomRecordingListResponse.Data>;
+  /**
+   * A unique identifier for the room recording.
+   */
+  id?: string;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
+  /**
+   * Shows the codec used for the room recording.
+   */
+  codec?: string;
 
-export namespace RoomRecordingListResponse {
-  export interface Data {
-    /**
-     * A unique identifier for the room recording.
-     */
-    id?: string;
+  /**
+   * ISO 8601 timestamp when the room recording has completed.
+   */
+  completed_at?: string;
 
-    /**
-     * Shows the codec used for the room recording.
-     */
-    codec?: string;
+  /**
+   * ISO 8601 timestamp when the room recording was created.
+   */
+  created_at?: string;
 
-    /**
-     * ISO 8601 timestamp when the room recording has completed.
-     */
-    completed_at?: string;
+  /**
+   * Url to download the recording.
+   */
+  download_url?: string;
 
-    /**
-     * ISO 8601 timestamp when the room recording was created.
-     */
-    created_at?: string;
+  /**
+   * Shows the room recording duration in seconds.
+   */
+  duration_secs?: number;
 
-    /**
-     * Url to download the recording.
-     */
-    download_url?: string;
+  /**
+   * ISO 8601 timestamp when the room recording has ended.
+   */
+  ended_at?: string;
 
-    /**
-     * Shows the room recording duration in seconds.
-     */
-    duration_secs?: number;
+  /**
+   * Identify the room participant associated with the room recording.
+   */
+  participant_id?: string;
 
-    /**
-     * ISO 8601 timestamp when the room recording has ended.
-     */
-    ended_at?: string;
+  record_type?: string;
 
-    /**
-     * Identify the room participant associated with the room recording.
-     */
-    participant_id?: string;
+  /**
+   * Identify the room associated with the room recording.
+   */
+  room_id?: string;
 
-    record_type?: string;
+  /**
+   * Identify the room session associated with the room recording.
+   */
+  session_id?: string;
 
-    /**
-     * Identify the room associated with the room recording.
-     */
-    room_id?: string;
+  /**
+   * Shows the room recording size in MB.
+   */
+  size_mb?: number;
 
-    /**
-     * Identify the room session associated with the room recording.
-     */
-    session_id?: string;
+  /**
+   * ISO 8601 timestamp when the room recording has stated.
+   */
+  started_at?: string;
 
-    /**
-     * Shows the room recording size in MB.
-     */
-    size_mb?: number;
+  /**
+   * Shows the room recording status.
+   */
+  status?: 'completed' | 'processing';
 
-    /**
-     * ISO 8601 timestamp when the room recording has stated.
-     */
-    started_at?: string;
+  /**
+   * Shows the room recording type.
+   */
+  type?: 'audio' | 'video';
 
-    /**
-     * Shows the room recording status.
-     */
-    status?: 'completed' | 'processing';
-
-    /**
-     * Shows the room recording type.
-     */
-    type?: 'audio' | 'video';
-
-    /**
-     * ISO 8601 timestamp when the room recording was updated.
-     */
-    updated_at?: string;
-  }
+  /**
+   * ISO 8601 timestamp when the room recording was updated.
+   */
+  updated_at?: string;
 }
 
 export interface RoomRecordingDeleteBulkResponse {
@@ -232,7 +229,7 @@ export namespace RoomRecordingDeleteBulkResponse {
   }
 }
 
-export interface RoomRecordingListParams {
+export interface RoomRecordingListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_ended_at][eq], filter[date_ended_at][gte],
@@ -242,12 +239,6 @@ export interface RoomRecordingListParams {
    * filter[duration_secs]
    */
   filter?: RoomRecordingListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: RoomRecordingListParams.Page;
 }
 
 export namespace RoomRecordingListParams {
@@ -329,22 +320,6 @@ export namespace RoomRecordingListParams {
        */
       lte?: string;
     }
-  }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
   }
 }
 
@@ -469,6 +444,7 @@ export declare namespace RoomRecordings {
     type RoomRecordingRetrieveResponse as RoomRecordingRetrieveResponse,
     type RoomRecordingListResponse as RoomRecordingListResponse,
     type RoomRecordingDeleteBulkResponse as RoomRecordingDeleteBulkResponse,
+    type RoomRecordingListResponsesDefaultPagination as RoomRecordingListResponsesDefaultPagination,
     type RoomRecordingListParams as RoomRecordingListParams,
     type RoomRecordingDeleteBulkParams as RoomRecordingDeleteBulkParams,
   };

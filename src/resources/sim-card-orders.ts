@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -41,16 +41,24 @@ export class SimCardOrders extends APIResource {
    *
    * @example
    * ```ts
-   * const simCardOrders = await client.simCardOrders.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const simCardOrder of client.simCardOrders.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: SimCardOrderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<SimCardOrderListResponse> {
-    return this._client.get('/sim_card_orders', { query, ...options });
+  ): PagePromise<SimCardOrdersDefaultPagination, SimCardOrder> {
+    return this._client.getAPIList('/sim_card_orders', DefaultPagination<SimCardOrder>, {
+      query,
+      ...options,
+    });
   }
 }
+
+export type SimCardOrdersDefaultPagination = DefaultPagination<SimCardOrder>;
 
 export interface SimCardOrder {
   /**
@@ -188,12 +196,6 @@ export interface SimCardOrderRetrieveResponse {
   data?: SimCardOrder;
 }
 
-export interface SimCardOrderListResponse {
-  data?: Array<SimCardOrder>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface SimCardOrderCreateParams {
   /**
    * Uniquely identifies the address for the order.
@@ -206,7 +208,7 @@ export interface SimCardOrderCreateParams {
   quantity: number;
 }
 
-export interface SimCardOrderListParams {
+export interface SimCardOrderListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter for SIM card orders (deepObject style).
    * Originally: filter[created_at], filter[updated_at], filter[quantity],
@@ -216,12 +218,6 @@ export interface SimCardOrderListParams {
    * filter[address.country_code], filter[address.postal_code]
    */
   filter?: SimCardOrderListParams.Filter;
-
-  /**
-   * Consolidated pagination parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: SimCardOrderListParams.Page;
 }
 
 export namespace SimCardOrderListParams {
@@ -298,22 +294,6 @@ export namespace SimCardOrderListParams {
      */
     updated_at?: string;
   }
-
-  /**
-   * Consolidated pagination parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 export declare namespace SimCardOrders {
@@ -321,7 +301,7 @@ export declare namespace SimCardOrders {
     type SimCardOrder as SimCardOrder,
     type SimCardOrderCreateResponse as SimCardOrderCreateResponse,
     type SimCardOrderRetrieveResponse as SimCardOrderRetrieveResponse,
-    type SimCardOrderListResponse as SimCardOrderListResponse,
+    type SimCardOrdersDefaultPagination as SimCardOrdersDefaultPagination,
     type SimCardOrderCreateParams as SimCardOrderCreateParams,
     type SimCardOrderListParams as SimCardOrderListParams,
   };

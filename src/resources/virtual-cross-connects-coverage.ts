@@ -1,8 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
-import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class VirtualCrossConnectsCoverage extends APIResource {
@@ -14,77 +13,79 @@ export class VirtualCrossConnectsCoverage extends APIResource {
   list(
     query: VirtualCrossConnectsCoverageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<VirtualCrossConnectsCoverageListResponse> {
-    return this._client.get('/virtual_cross_connects_coverage', { query, ...options });
+  ): PagePromise<
+    VirtualCrossConnectsCoverageListResponsesDefaultPagination,
+    VirtualCrossConnectsCoverageListResponse
+  > {
+    return this._client.getAPIList(
+      '/virtual_cross_connects_coverage',
+      DefaultPagination<VirtualCrossConnectsCoverageListResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export interface VirtualCrossConnectsCoverageListResponse {
-  data?: Array<VirtualCrossConnectsCoverageListResponse.Data>;
+export type VirtualCrossConnectsCoverageListResponsesDefaultPagination =
+  DefaultPagination<VirtualCrossConnectsCoverageListResponse>;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+export interface VirtualCrossConnectsCoverageListResponse {
+  /**
+   * The available throughput in Megabits per Second (Mbps) for your Virtual Cross
+   * Connect.
+   */
+  available_bandwidth?: Array<number>;
+
+  /**
+   * The Virtual Private Cloud with which you would like to establish a cross
+   * connect.
+   */
+  cloud_provider?: 'aws' | 'azure' | 'gce';
+
+  /**
+   * The region where your Virtual Private Cloud hosts are located. Should be
+   * identical to how the cloud provider names region, i.e. us-east-1 for AWS but
+   * Frankfurt for Azure
+   */
+  cloud_provider_region?: string;
+
+  location?: VirtualCrossConnectsCoverageListResponse.Location;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: string;
 }
 
 export namespace VirtualCrossConnectsCoverageListResponse {
-  export interface Data {
+  export interface Location {
     /**
-     * The available throughput in Megabits per Second (Mbps) for your Virtual Cross
-     * Connect.
+     * Location code.
      */
-    available_bandwidth?: Array<number>;
-
-    /**
-     * The Virtual Private Cloud with which you would like to establish a cross
-     * connect.
-     */
-    cloud_provider?: 'aws' | 'azure' | 'gce';
+    code?: string;
 
     /**
-     * The region where your Virtual Private Cloud hosts are located. Should be
-     * identical to how the cloud provider names region, i.e. us-east-1 for AWS but
-     * Frankfurt for Azure
+     * Human readable name of location.
      */
-    cloud_provider_region?: string;
-
-    location?: Data.Location;
+    name?: string;
 
     /**
-     * Identifies the type of the resource.
+     * Point of presence of location.
      */
-    record_type?: string;
-  }
+    pop?: string;
 
-  export namespace Data {
-    export interface Location {
-      /**
-       * Location code.
-       */
-      code?: string;
+    /**
+     * Identifies the geographical region of location.
+     */
+    region?: string;
 
-      /**
-       * Human readable name of location.
-       */
-      name?: string;
-
-      /**
-       * Point of presence of location.
-       */
-      pop?: string;
-
-      /**
-       * Identifies the geographical region of location.
-       */
-      region?: string;
-
-      /**
-       * Site of location.
-       */
-      site?: string;
-    }
+    /**
+     * Site of location.
+     */
+    site?: string;
   }
 }
 
-export interface VirtualCrossConnectsCoverageListParams {
+export interface VirtualCrossConnectsCoverageListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[cloud_provider], filter[cloud_provider_region], filter[location.region],
@@ -97,12 +98,6 @@ export interface VirtualCrossConnectsCoverageListParams {
    * filters[available_bandwidth][contains]
    */
   filters?: VirtualCrossConnectsCoverageListParams.Filters;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: VirtualCrossConnectsCoverageListParams.Page;
 }
 
 export namespace VirtualCrossConnectsCoverageListParams {
@@ -165,27 +160,12 @@ export namespace VirtualCrossConnectsCoverageListParams {
       contains?: number;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace VirtualCrossConnectsCoverage {
   export {
     type VirtualCrossConnectsCoverageListResponse as VirtualCrossConnectsCoverageListResponse,
+    type VirtualCrossConnectsCoverageListResponsesDefaultPagination as VirtualCrossConnectsCoverageListResponsesDefaultPagination,
     type VirtualCrossConnectsCoverageListParams as VirtualCrossConnectsCoverageListParams,
   };
 }

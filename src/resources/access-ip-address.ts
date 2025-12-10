@@ -2,6 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -26,8 +27,11 @@ export class AccessIPAddress extends APIResource {
   list(
     query: AccessIPAddressListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<AccessIPAddressListResponse> {
-    return this._client.get('/access_ip_address', { query, ...options });
+  ): PagePromise<AccessIPAddressResponsesDefaultFlatPagination, AccessIPAddressResponse> {
+    return this._client.getAPIList('/access_ip_address', DefaultFlatPagination<AccessIPAddressResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -37,6 +41,8 @@ export class AccessIPAddress extends APIResource {
     return this._client.delete(path`/access_ip_address/${accessIPAddressID}`, options);
   }
 }
+
+export type AccessIPAddressResponsesDefaultFlatPagination = DefaultFlatPagination<AccessIPAddressResponse>;
 
 export interface AccessIPAddressResponse {
   id: string;
@@ -74,31 +80,19 @@ export interface PaginationMetaCloudflareIPListSync {
   total_results: number;
 }
 
-export interface AccessIPAddressListResponse {
-  data: Array<AccessIPAddressResponse>;
-
-  meta: PaginationMetaCloudflareIPListSync;
-}
-
 export interface AccessIPAddressCreateParams {
   ip_address: string;
 
   description?: string;
 }
 
-export interface AccessIPAddressListParams {
+export interface AccessIPAddressListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[ip_source],
    * filter[ip_address], filter[created_at]. Supports complex bracket operations for
    * dynamic filtering.
    */
   filter?: AccessIPAddressListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: AccessIPAddressListParams.Page;
 }
 
 export namespace AccessIPAddressListParams {
@@ -152,16 +146,6 @@ export namespace AccessIPAddressListParams {
       lte?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    number?: number;
-
-    size?: number;
-  }
 }
 
 export declare namespace AccessIPAddress {
@@ -169,7 +153,7 @@ export declare namespace AccessIPAddress {
     type AccessIPAddressResponse as AccessIPAddressResponse,
     type CloudflareSyncStatus as CloudflareSyncStatus,
     type PaginationMetaCloudflareIPListSync as PaginationMetaCloudflareIPListSync,
-    type AccessIPAddressListResponse as AccessIPAddressListResponse,
+    type AccessIPAddressResponsesDefaultFlatPagination as AccessIPAddressResponsesDefaultFlatPagination,
     type AccessIPAddressCreateParams as AccessIPAddressCreateParams,
     type AccessIPAddressListParams as AccessIPAddressListParams,
   };
