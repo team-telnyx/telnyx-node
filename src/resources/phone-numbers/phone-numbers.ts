@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as ActionsAPI from './actions';
 import {
   ActionChangeBundleStatusParams,
@@ -19,16 +18,15 @@ import {
   CsvDownloadCreateParams,
   CsvDownloadCreateResponse,
   CsvDownloadListParams,
-  CsvDownloadListResponse,
   CsvDownloadRetrieveResponse,
   CsvDownloads,
+  CsvDownloadsDefaultPagination,
 } from './csv-downloads';
 import * as JobsAPI from './jobs';
 import {
   JobDeleteBatchParams,
   JobDeleteBatchResponse,
   JobListParams,
-  JobListResponse,
   JobRetrieveResponse,
   JobUpdateBatchParams,
   JobUpdateBatchResponse,
@@ -36,12 +34,12 @@ import {
   JobUpdateEmergencySettingsBatchResponse,
   Jobs,
   PhoneNumbersJob,
+  PhoneNumbersJobsDefaultPagination,
 } from './jobs';
 import * as MessagingAPI from './messaging';
 import {
   Messaging,
   MessagingListParams,
-  MessagingListResponse,
   MessagingRetrieveResponse,
   MessagingUpdateParams,
   MessagingUpdateResponse,
@@ -55,7 +53,6 @@ import {
   UpdateVoiceSettings,
   Voice,
   VoiceListParams,
-  VoiceListResponse,
   VoiceRetrieveResponse,
   VoiceUpdateParams,
   VoiceUpdateResponse,
@@ -72,6 +69,7 @@ import {
   VoicemailUpdateResponse,
 } from './voicemail';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -108,11 +106,11 @@ export class PhoneNumbers extends APIResource {
    * ```
    */
   update(
-    id: string,
+    phoneNumberID: string,
     body: PhoneNumberUpdateParams,
     options?: RequestOptions,
   ): APIPromise<PhoneNumberUpdateResponse> {
-    return this._client.patch(path`/phone_numbers/${id}`, { body, ...options });
+    return this._client.patch(path`/phone_numbers/${phoneNumberID}`, { body, ...options });
   }
 
   /**
@@ -120,14 +118,20 @@ export class PhoneNumbers extends APIResource {
    *
    * @example
    * ```ts
-   * const phoneNumbers = await client.phoneNumbers.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const phoneNumberDetailed of client.phoneNumbers.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: PhoneNumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<PhoneNumberListResponse> {
-    return this._client.get('/phone_numbers', { query, ...options });
+  ): PagePromise<PhoneNumberDetailedsDefaultPagination, PhoneNumberDetailed> {
+    return this._client.getAPIList('/phone_numbers', DefaultPagination<PhoneNumberDetailed>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -150,16 +154,26 @@ export class PhoneNumbers extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.phoneNumbers.slimList();
+   * // Automatically fetches more pages as needed.
+   * for await (const phoneNumberSlimListResponse of client.phoneNumbers.slimList()) {
+   *   // ...
+   * }
    * ```
    */
   slimList(
     query: PhoneNumberSlimListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<PhoneNumberSlimListResponse> {
-    return this._client.get('/phone_numbers/slim', { query, ...options });
+  ): PagePromise<PhoneNumberSlimListResponsesDefaultPagination, PhoneNumberSlimListResponse> {
+    return this._client.getAPIList('/phone_numbers/slim', DefaultPagination<PhoneNumberSlimListResponse>, {
+      query,
+      ...options,
+    });
   }
 }
+
+export type PhoneNumberDetailedsDefaultPagination = DefaultPagination<PhoneNumberDetailed>;
+
+export type PhoneNumberSlimListResponsesDefaultPagination = DefaultPagination<PhoneNumberSlimListResponse>;
 
 export interface PhoneNumberDetailed {
   /**
@@ -344,12 +358,6 @@ export interface PhoneNumberUpdateResponse {
   data?: PhoneNumberDetailed;
 }
 
-export interface PhoneNumberListResponse {
-  data?: Array<PhoneNumberDetailed>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface PhoneNumberDeleteResponse {
   data?: PhoneNumberDeleteResponse.Data;
 }
@@ -497,153 +505,145 @@ export namespace PhoneNumberDeleteResponse {
 }
 
 export interface PhoneNumberSlimListResponse {
-  data?: Array<PhoneNumberSlimListResponse.Data>;
+  /**
+   * Identifies the resource.
+   */
+  id?: string;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
+  /**
+   * Identifies the billing group associated with the phone number.
+   */
+  billing_group_id?: string;
 
-export namespace PhoneNumberSlimListResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
+  /**
+   * Indicates if call forwarding will be enabled for this number if forwards_to and
+   * forwarding_type are filled in. Defaults to true for backwards compatibility with
+   * APIV1 use of numbers endpoints.
+   */
+  call_forwarding_enabled?: boolean;
 
-    /**
-     * Identifies the billing group associated with the phone number.
-     */
-    billing_group_id?: string;
+  /**
+   * Indicates whether call recording is enabled for this number.
+   */
+  call_recording_enabled?: boolean;
 
-    /**
-     * Indicates if call forwarding will be enabled for this number if forwards_to and
-     * forwarding_type are filled in. Defaults to true for backwards compatibility with
-     * APIV1 use of numbers endpoints.
-     */
-    call_forwarding_enabled?: boolean;
+  /**
+   * Indicates whether caller ID is enabled for this number.
+   */
+  caller_id_name_enabled?: boolean;
 
-    /**
-     * Indicates whether call recording is enabled for this number.
-     */
-    call_recording_enabled?: boolean;
+  /**
+   * Indicates whether a CNAM listing is enabled for this number.
+   */
+  cnam_listing_enabled?: boolean;
 
-    /**
-     * Indicates whether caller ID is enabled for this number.
-     */
-    caller_id_name_enabled?: boolean;
+  /**
+   * Identifies the connection associated with the phone number.
+   */
+  connection_id?: string;
 
-    /**
-     * Indicates whether a CNAM listing is enabled for this number.
-     */
-    cnam_listing_enabled?: boolean;
+  /**
+   * The ISO 3166-1 alpha-2 country code of the phone number.
+   */
+  country_iso_alpha2?: string;
 
-    /**
-     * Identifies the connection associated with the phone number.
-     */
-    connection_id?: string;
+  /**
+   * ISO 8601 formatted date indicating when the resource was created.
+   */
+  created_at?: string;
 
-    /**
-     * The ISO 3166-1 alpha-2 country code of the phone number.
-     */
-    country_iso_alpha2?: string;
+  /**
+   * A customer reference string for customer look ups.
+   */
+  customer_reference?: string;
 
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    created_at?: string;
+  /**
+   * Identifies the emergency address associated with the phone number.
+   */
+  emergency_address_id?: string;
 
-    /**
-     * A customer reference string for customer look ups.
-     */
-    customer_reference?: string;
+  /**
+   * Indicates whether emergency services are enabled for this number.
+   */
+  emergency_enabled?: boolean;
 
-    /**
-     * Identifies the emergency address associated with the phone number.
-     */
-    emergency_address_id?: string;
+  /**
+   * Indicates the status of the provisioning of emergency services for the phone
+   * number. This field contains information about activity that may be ongoing for a
+   * number where it either is being provisioned or deprovisioned but is not yet
+   * enabled/disabled.
+   */
+  emergency_status?: 'active' | 'deprovisioning' | 'disabled' | 'provisioning' | 'provisioning-failed';
 
-    /**
-     * Indicates whether emergency services are enabled for this number.
-     */
-    emergency_enabled?: boolean;
+  /**
+   * If someone attempts to port your phone number away from Telnyx and your phone
+   * number has an external PIN set, Telnyx will attempt to verify that you provided
+   * the correct external PIN to the winning carrier. Note that not all carriers
+   * cooperate with this security mechanism.
+   */
+  external_pin?: string;
 
-    /**
-     * Indicates the status of the provisioning of emergency services for the phone
-     * number. This field contains information about activity that may be ongoing for a
-     * number where it either is being provisioned or deprovisioned but is not yet
-     * enabled/disabled.
-     */
-    emergency_status?: 'active' | 'deprovisioning' | 'disabled' | 'provisioning' | 'provisioning-failed';
+  /**
+   * The inbound_call_screening setting is a phone number configuration option
+   * variable that allows users to configure their settings to block or flag
+   * fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This
+   * feature has an additional per-number monthly cost associated with it.
+   */
+  inbound_call_screening?: 'disabled' | 'reject_calls' | 'flag_calls';
 
-    /**
-     * If someone attempts to port your phone number away from Telnyx and your phone
-     * number has an external PIN set, Telnyx will attempt to verify that you provided
-     * the correct external PIN to the winning carrier. Note that not all carriers
-     * cooperate with this security mechanism.
-     */
-    external_pin?: string;
+  /**
+   * The +E.164-formatted phone number associated with this record.
+   */
+  phone_number?: string;
 
-    /**
-     * The inbound_call_screening setting is a phone number configuration option
-     * variable that allows users to configure their settings to block or flag
-     * fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This
-     * feature has an additional per-number monthly cost associated with it.
-     */
-    inbound_call_screening?: 'disabled' | 'reject_calls' | 'flag_calls';
+  /**
+   * The phone number's type. Note: For numbers purchased prior to July 2023 or when
+   * fetching a number's details immediately after a purchase completes, the legacy
+   * values `tollfree`, `shortcode` or `longcode` may be returned instead.
+   */
+  phone_number_type?:
+    | 'local'
+    | 'toll_free'
+    | 'mobile'
+    | 'national'
+    | 'shared_cost'
+    | 'landline'
+    | 'tollfree'
+    | 'shortcode'
+    | 'longcode';
 
-    /**
-     * The +E.164-formatted phone number associated with this record.
-     */
-    phone_number?: string;
+  /**
+   * ISO 8601 formatted date indicating when the resource was purchased.
+   */
+  purchased_at?: string;
 
-    /**
-     * The phone number's type. Note: For numbers purchased prior to July 2023 or when
-     * fetching a number's details immediately after a purchase completes, the legacy
-     * values `tollfree`, `shortcode` or `longcode` may be returned instead.
-     */
-    phone_number_type?:
-      | 'local'
-      | 'toll_free'
-      | 'mobile'
-      | 'national'
-      | 'shared_cost'
-      | 'landline'
-      | 'tollfree'
-      | 'shortcode'
-      | 'longcode';
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: string;
 
-    /**
-     * ISO 8601 formatted date indicating when the resource was purchased.
-     */
-    purchased_at?: string;
+  /**
+   * The phone number's current status.
+   */
+  status?:
+    | 'purchase-pending'
+    | 'purchase-failed'
+    | 'port-pending'
+    | 'port-failed'
+    | 'active'
+    | 'deleted'
+    | 'emergency-only'
+    | 'ported-out'
+    | 'port-out-pending'
+    | 'requirement-info-pending'
+    | 'requirement-info-under-review'
+    | 'requirement-info-exception'
+    | 'provision-pending';
 
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * The phone number's current status.
-     */
-    status?:
-      | 'purchase-pending'
-      | 'purchase-failed'
-      | 'port-pending'
-      | 'port-failed'
-      | 'active'
-      | 'deleted'
-      | 'emergency-only'
-      | 'ported-out'
-      | 'port-out-pending'
-      | 'requirement-info-pending'
-      | 'requirement-info-under-review'
-      | 'requirement-info-exception'
-      | 'provision-pending';
-
-    /**
-     * Indicates whether T38 Fax Gateway for inbound calls to this number.
-     */
-    t38_fax_gateway_enabled?: boolean;
-  }
+  /**
+   * Indicates whether T38 Fax Gateway for inbound calls to this number.
+   */
+  t38_fax_gateway_enabled?: boolean;
 }
 
 export interface PhoneNumberUpdateParams {
@@ -681,7 +681,7 @@ export interface PhoneNumberUpdateParams {
   tags?: Array<string>;
 }
 
-export interface PhoneNumberListParams {
+export interface PhoneNumberListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[tag],
    * filter[phone_number], filter[status], filter[country_iso_alpha2],
@@ -691,12 +691,6 @@ export interface PhoneNumberListParams {
    * filter[source]
    */
   filter?: PhoneNumberListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: PhoneNumberListParams.Page;
 
   /**
    * Specifies the sort order for results. If not given, results are sorted by
@@ -834,25 +828,9 @@ export namespace PhoneNumberListParams {
       starts_with?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
-export interface PhoneNumberSlimListParams {
+export interface PhoneNumberSlimListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[tag],
    * filter[phone_number], filter[status], filter[country_iso_alpha2],
@@ -872,12 +850,6 @@ export interface PhoneNumberSlimListParams {
    * Include the tags associated with the phone number.
    */
   include_tags?: boolean;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: PhoneNumberSlimListParams.Page;
 
   /**
    * Specifies the sort order for results. If not given, results are sorted by
@@ -1014,22 +986,6 @@ export namespace PhoneNumberSlimListParams {
       starts_with?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 PhoneNumbers.Actions = Actions;
@@ -1044,9 +1000,10 @@ export declare namespace PhoneNumbers {
     type PhoneNumberDetailed as PhoneNumberDetailed,
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,
     type PhoneNumberUpdateResponse as PhoneNumberUpdateResponse,
-    type PhoneNumberListResponse as PhoneNumberListResponse,
     type PhoneNumberDeleteResponse as PhoneNumberDeleteResponse,
     type PhoneNumberSlimListResponse as PhoneNumberSlimListResponse,
+    type PhoneNumberDetailedsDefaultPagination as PhoneNumberDetailedsDefaultPagination,
+    type PhoneNumberSlimListResponsesDefaultPagination as PhoneNumberSlimListResponsesDefaultPagination,
     type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberSlimListParams as PhoneNumberSlimListParams,
@@ -1068,7 +1025,7 @@ export declare namespace PhoneNumbers {
     type CsvDownload as CsvDownload,
     type CsvDownloadCreateResponse as CsvDownloadCreateResponse,
     type CsvDownloadRetrieveResponse as CsvDownloadRetrieveResponse,
-    type CsvDownloadListResponse as CsvDownloadListResponse,
+    type CsvDownloadsDefaultPagination as CsvDownloadsDefaultPagination,
     type CsvDownloadCreateParams as CsvDownloadCreateParams,
     type CsvDownloadListParams as CsvDownloadListParams,
   };
@@ -1077,10 +1034,10 @@ export declare namespace PhoneNumbers {
     Jobs as Jobs,
     type PhoneNumbersJob as PhoneNumbersJob,
     type JobRetrieveResponse as JobRetrieveResponse,
-    type JobListResponse as JobListResponse,
     type JobDeleteBatchResponse as JobDeleteBatchResponse,
     type JobUpdateBatchResponse as JobUpdateBatchResponse,
     type JobUpdateEmergencySettingsBatchResponse as JobUpdateEmergencySettingsBatchResponse,
+    type PhoneNumbersJobsDefaultPagination as PhoneNumbersJobsDefaultPagination,
     type JobListParams as JobListParams,
     type JobDeleteBatchParams as JobDeleteBatchParams,
     type JobUpdateBatchParams as JobUpdateBatchParams,
@@ -1091,7 +1048,6 @@ export declare namespace PhoneNumbers {
     Messaging as Messaging,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingUpdateResponse as MessagingUpdateResponse,
-    type MessagingListResponse as MessagingListResponse,
     type MessagingUpdateParams as MessagingUpdateParams,
     type MessagingListParams as MessagingListParams,
   };
@@ -1105,7 +1061,6 @@ export declare namespace PhoneNumbers {
     type UpdateVoiceSettings as UpdateVoiceSettings,
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
     type VoiceUpdateResponse as VoiceUpdateResponse,
-    type VoiceListResponse as VoiceListResponse,
     type VoiceUpdateParams as VoiceUpdateParams,
     type VoiceListParams as VoiceListParams,
   };

@@ -2,7 +2,9 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
+import { PhoneNumberWithMessagingSettingsDefaultPagination } from '../shared';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -42,15 +44,21 @@ export class Messaging extends APIResource {
    *
    * @example
    * ```ts
-   * const messagings =
-   *   await client.phoneNumbers.messaging.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const phoneNumberWithMessagingSettings of client.phoneNumbers.messaging.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: MessagingListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<MessagingListResponse> {
-    return this._client.get('/phone_numbers/messaging', { query, ...options });
+  ): PagePromise<PhoneNumberWithMessagingSettingsDefaultPagination, Shared.PhoneNumberWithMessagingSettings> {
+    return this._client.getAPIList(
+      '/phone_numbers/messaging',
+      DefaultPagination<Shared.PhoneNumberWithMessagingSettings>,
+      { query, ...options },
+    );
   }
 }
 
@@ -60,24 +68,6 @@ export interface MessagingRetrieveResponse {
 
 export interface MessagingUpdateResponse {
   data?: Shared.PhoneNumberWithMessagingSettings;
-}
-
-export interface MessagingListResponse {
-  data?: Array<Shared.PhoneNumberWithMessagingSettings>;
-
-  meta?: MessagingListResponse.Meta;
-}
-
-export namespace MessagingListResponse {
-  export interface Meta {
-    page_number: number;
-
-    page_size: number;
-
-    total_pages: number;
-
-    total_results: number;
-  }
 }
 
 export interface MessagingUpdateParams {
@@ -100,38 +90,15 @@ export interface MessagingUpdateParams {
   messaging_profile_id?: string;
 }
 
-export interface MessagingListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: MessagingListParams.Page;
-}
-
-export namespace MessagingListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
-}
+export interface MessagingListParams extends DefaultPaginationParams {}
 
 export declare namespace Messaging {
   export {
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingUpdateResponse as MessagingUpdateResponse,
-    type MessagingListResponse as MessagingListResponse,
     type MessagingUpdateParams as MessagingUpdateParams,
     type MessagingListParams as MessagingListParams,
   };
 }
+
+export { type PhoneNumberWithMessagingSettingsDefaultPagination };

@@ -47,7 +47,8 @@ describe('resource accessIPRanges', () => {
       client.accessIPRanges.list(
         {
           filter: { cidr_block: 'string', created_at: '2019-12-27T18:11:19.117Z' },
-          page: { number: 0, size: 250 },
+          'page[number]': 0,
+          'page[size]': 0,
         },
         { path: '/_stainless_unknown_path' },
       ),

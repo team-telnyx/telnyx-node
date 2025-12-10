@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -56,14 +56,17 @@ export class Fqdns extends APIResource {
    *
    * @example
    * ```ts
-   * const fqdns = await client.fqdns.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const fqdn of client.fqdns.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: FqdnListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<FqdnListResponse> {
-    return this._client.get('/fqdns', { query, ...options });
+  ): PagePromise<FqdnsDefaultPagination, Fqdn> {
+    return this._client.getAPIList('/fqdns', DefaultPagination<Fqdn>, { query, ...options });
   }
 
   /**
@@ -78,6 +81,8 @@ export class Fqdns extends APIResource {
     return this._client.delete(path`/fqdns/${id}`, options);
   }
 }
+
+export type FqdnsDefaultPagination = DefaultPagination<Fqdn>;
 
 export interface Fqdn {
   /**
@@ -136,12 +141,6 @@ export interface FqdnUpdateResponse {
   data?: Fqdn;
 }
 
-export interface FqdnListResponse {
-  data?: Array<Fqdn>;
-
-  meta?: Shared.ConnectionsPaginationMeta;
-}
-
 export interface FqdnDeleteResponse {
   data?: Fqdn;
 }
@@ -196,18 +195,12 @@ export interface FqdnUpdateParams {
   port?: number | null;
 }
 
-export interface FqdnListParams {
+export interface FqdnListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[connection_id], filter[fqdn], filter[port], filter[dns_record_type]
    */
   filter?: FqdnListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: FqdnListParams.Page;
 }
 
 export namespace FqdnListParams {
@@ -236,22 +229,6 @@ export namespace FqdnListParams {
      */
     port?: number;
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace Fqdns {
@@ -260,8 +237,8 @@ export declare namespace Fqdns {
     type FqdnCreateResponse as FqdnCreateResponse,
     type FqdnRetrieveResponse as FqdnRetrieveResponse,
     type FqdnUpdateResponse as FqdnUpdateResponse,
-    type FqdnListResponse as FqdnListResponse,
     type FqdnDeleteResponse as FqdnDeleteResponse,
+    type FqdnsDefaultPagination as FqdnsDefaultPagination,
     type FqdnCreateParams as FqdnCreateParams,
     type FqdnUpdateParams as FqdnUpdateParams,
     type FqdnListParams as FqdnListParams,

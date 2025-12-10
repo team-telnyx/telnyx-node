@@ -3,8 +3,8 @@
 import { APIResource } from '../../core/resource';
 import * as ClustersAPI from './clusters';
 import * as PhoneNumberAssignmentByProfileAPI from '../phone-number-assignment-by-profile';
-import * as RunsAPI from './assistants/tests/test-suites/runs';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -33,14 +33,20 @@ export class Clusters extends APIResource {
    *
    * @example
    * ```ts
-   * const clusters = await client.ai.clusters.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const clusterListResponse of client.ai.clusters.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: ClusterListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ClusterListResponse> {
-    return this._client.get('/ai/clusters', { query, ...options });
+  ): PagePromise<ClusterListResponsesDefaultFlatPagination, ClusterListResponse> {
+    return this._client.getAPIList('/ai/clusters', DefaultFlatPagination<ClusterListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -101,6 +107,8 @@ export class Clusters extends APIResource {
   }
 }
 
+export type ClusterListResponsesDefaultFlatPagination = DefaultFlatPagination<ClusterListResponse>;
+
 export interface RecursiveCluster {
   cluster_id: string;
 
@@ -145,27 +153,19 @@ export namespace ClusterRetrieveResponse {
 }
 
 export interface ClusterListResponse {
-  data: Array<ClusterListResponse.Data>;
+  bucket: string;
 
-  meta: RunsAPI.Meta;
-}
+  created_at: string;
 
-export namespace ClusterListResponse {
-  export interface Data {
-    bucket: string;
+  finished_at: string;
 
-    created_at: string;
+  min_cluster_size: number;
 
-    finished_at: string;
+  min_subcluster_size: number;
 
-    min_cluster_size: number;
+  status: PhoneNumberAssignmentByProfileAPI.TaskStatus;
 
-    min_subcluster_size: number;
-
-    status: PhoneNumberAssignmentByProfileAPI.TaskStatus;
-
-    task_id: string;
-  }
+  task_id: string;
 }
 
 export interface ClusterComputeResponse {
@@ -191,25 +191,7 @@ export interface ClusterRetrieveParams {
   top_n_nodes?: number;
 }
 
-export interface ClusterListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: ClusterListParams.Page;
-}
-
-export namespace ClusterListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    number?: number;
-
-    size?: number;
-  }
-}
+export interface ClusterListParams extends DefaultFlatPaginationParams {}
 
 export interface ClusterComputeParams {
   /**
@@ -252,6 +234,7 @@ export declare namespace Clusters {
     type ClusterRetrieveResponse as ClusterRetrieveResponse,
     type ClusterListResponse as ClusterListResponse,
     type ClusterComputeResponse as ClusterComputeResponse,
+    type ClusterListResponsesDefaultFlatPagination as ClusterListResponsesDefaultFlatPagination,
     type ClusterRetrieveParams as ClusterRetrieveParams,
     type ClusterListParams as ClusterListParams,
     type ClusterComputeParams as ClusterComputeParams,

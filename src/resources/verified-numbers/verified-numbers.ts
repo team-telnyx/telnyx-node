@@ -4,6 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
 import { ActionSubmitVerificationCodeParams, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -47,14 +48,20 @@ export class VerifiedNumbers extends APIResource {
    *
    * @example
    * ```ts
-   * const verifiedNumbers = await client.verifiedNumbers.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const verifiedNumber of client.verifiedNumbers.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: VerifiedNumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<VerifiedNumberListResponse> {
-    return this._client.get('/verified_numbers', { query, ...options });
+  ): PagePromise<VerifiedNumbersDefaultFlatPagination, VerifiedNumber> {
+    return this._client.getAPIList('/verified_numbers', DefaultFlatPagination<VerifiedNumber>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -70,6 +77,8 @@ export class VerifiedNumbers extends APIResource {
     return this._client.delete(path`/verified_numbers/${phoneNumber}`, options);
   }
 }
+
+export type VerifiedNumbersDefaultFlatPagination = DefaultFlatPagination<VerifiedNumber>;
 
 export interface VerifiedNumber {
   phone_number?: string;
@@ -92,27 +101,6 @@ export interface VerifiedNumberCreateResponse {
   verification_method?: string;
 }
 
-/**
- * A paginated list of Verified Numbers
- */
-export interface VerifiedNumberListResponse {
-  data: Array<VerifiedNumber>;
-
-  meta: VerifiedNumberListResponse.Meta;
-}
-
-export namespace VerifiedNumberListResponse {
-  export interface Meta {
-    page_number?: number;
-
-    page_size?: number;
-
-    total_pages?: number;
-
-    total_results?: number;
-  }
-}
-
 export interface VerifiedNumberCreateParams {
   phone_number: string;
 
@@ -131,25 +119,7 @@ export interface VerifiedNumberCreateParams {
   extension?: string | null;
 }
 
-export interface VerifiedNumberListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Use page[size] and page[number]
-   * in the query string. Originally: page[size], page[number]
-   */
-  page?: VerifiedNumberListParams.Page;
-}
-
-export namespace VerifiedNumberListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Use page[size] and page[number]
-   * in the query string. Originally: page[size], page[number]
-   */
-  export interface Page {
-    number?: number;
-
-    size?: number;
-  }
-}
+export interface VerifiedNumberListParams extends DefaultFlatPaginationParams {}
 
 VerifiedNumbers.Actions = Actions;
 
@@ -158,7 +128,7 @@ export declare namespace VerifiedNumbers {
     type VerifiedNumber as VerifiedNumber,
     type VerifiedNumberDataWrapper as VerifiedNumberDataWrapper,
     type VerifiedNumberCreateResponse as VerifiedNumberCreateResponse,
-    type VerifiedNumberListResponse as VerifiedNumberListResponse,
+    type VerifiedNumbersDefaultFlatPagination as VerifiedNumbersDefaultFlatPagination,
     type VerifiedNumberCreateParams as VerifiedNumberCreateParams,
     type VerifiedNumberListParams as VerifiedNumberListParams,
   };

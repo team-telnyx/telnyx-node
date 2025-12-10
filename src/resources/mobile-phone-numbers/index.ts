@@ -5,12 +5,14 @@ export {
   type MessagingRetrieveResponse,
   type MessagingListResponse,
   type MessagingListParams,
+  type MessagingListResponsesDefaultPagination,
 } from './messaging';
 export {
   MobilePhoneNumbers,
+  type MobilePhoneNumber,
   type MobilePhoneNumberRetrieveResponse,
   type MobilePhoneNumberUpdateResponse,
-  type MobilePhoneNumberListResponse,
   type MobilePhoneNumberUpdateParams,
   type MobilePhoneNumberListParams,
+  type MobilePhoneNumbersDefaultFlatPagination,
 } from './mobile-phone-numbers';

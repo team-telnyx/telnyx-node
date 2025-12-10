@@ -1,17 +1,23 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Events, type EventRetrieveResponse, type EventListResponse, type EventListParams } from './events';
+export {
+  Events,
+  type EventRetrieveResponse,
+  type EventListResponse,
+  type EventListParams,
+  type EventListResponsesDefaultPagination,
+} from './events';
 export {
   LoaConfigurations,
   type PortingLoaConfiguration,
   type LoaConfigurationCreateResponse,
   type LoaConfigurationRetrieveResponse,
   type LoaConfigurationUpdateResponse,
-  type LoaConfigurationListResponse,
   type LoaConfigurationCreateParams,
   type LoaConfigurationUpdateParams,
   type LoaConfigurationListParams,
   type LoaConfigurationPreview0Params,
+  type PortingLoaConfigurationsDefaultPagination,
 } from './loa-configurations';
 export { Porting, type PortingListUkCarriersResponse } from './porting';
 export {
@@ -20,7 +26,7 @@ export {
   type PortingReport,
   type ReportCreateResponse,
   type ReportRetrieveResponse,
-  type ReportListResponse,
   type ReportCreateParams,
   type ReportListParams,
+  type PortingReportsDefaultPagination,
 } from './reports';

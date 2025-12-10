@@ -187,6 +187,30 @@ describe('resource brand', () => {
   });
 
   // Prism tests are disabled
+  test.skip('retrieveSMSOtpStatus', async () => {
+    const responsePromise = client.number10dlc.brand.retrieveSMSOtpStatus('OTP4B2001');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('retrieveSMSOtpStatus: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.number10dlc.brand.retrieveSMSOtpStatus(
+        'OTP4B2001',
+        { brandId: 'B123ABC' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Prism tests are disabled
   test.skip('revet', async () => {
     const responsePromise = client.number10dlc.brand.revet('brandId');
     const rawResponse = await responsePromise.asResponse();

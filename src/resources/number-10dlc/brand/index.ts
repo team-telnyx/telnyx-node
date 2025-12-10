@@ -2,26 +2,27 @@
 
 export {
   Brand,
+  type AltBusinessIDType,
+  type BrandIdentityStatus,
+  type EntityType,
+  type StockExchange,
+  type TelnyxBrand,
+  type Vertical,
   type BrandRetrieveResponse,
   type BrandListResponse,
   type BrandGetFeedbackResponse,
+  type BrandRetrieveSMSOtpStatusResponse,
   type BrandCreateParams,
   type BrandUpdateParams,
   type BrandListParams,
+  type BrandRetrieveSMSOtpStatusParams,
+  type BrandListResponsesPerPagePaginationV2,
 } from './brand';
 export {
   ExternalVetting,
   type ExternalVettingListResponse,
-  type ExternalVettingImportResponse,
+  type ExternalVettingImportsResponse,
   type ExternalVettingOrderResponse,
-  type ExternalVettingImportParams,
+  type ExternalVettingImportsParams,
   type ExternalVettingOrderParams,
 } from './external-vetting';
-export {
-  SMSOtp,
-  type SMSOtpGetStatusResponse,
-  type SMSOtpTriggerResponse,
-  type SMSOtpGetStatusParams,
-  type SMSOtpTriggerParams,
-  type SMSOtpVerifyParams,
-} from './sms-otp';
