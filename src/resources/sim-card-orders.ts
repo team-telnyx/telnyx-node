@@ -230,9 +230,52 @@ export namespace SimCardOrderListParams {
    * filter[address.country_code], filter[address.postal_code]
    */
   export interface Filter {
-    address?: Filter.Address;
+    /**
+     * Filter by state or province where the address is located.
+     */
+    'address.administrative_area'?: string;
 
-    cost?: Filter.Cost;
+    /**
+     * Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country
+     * code.
+     */
+    'address.country_code'?: string;
+
+    /**
+     * Returns entries with matching name of the supplemental field for address
+     * information.
+     */
+    'address.extended_address'?: string;
+
+    /**
+     * Uniquely identifies the address for the order.
+     */
+    'address.id'?: string;
+
+    /**
+     * Filter by the name of the city where the address is located.
+     */
+    'address.locality'?: string;
+
+    /**
+     * Filter by postal code for the address.
+     */
+    'address.postal_code'?: string;
+
+    /**
+     * Returns entries with matching name of the street where the address is located.
+     */
+    'address.street_address'?: string;
+
+    /**
+     * The total monetary amount of the order.
+     */
+    'cost.amount'?: string;
+
+    /**
+     * Filter by ISO 4217 currency string.
+     */
+    'cost.currency'?: string;
 
     /**
      * Filter by ISO 8601 formatted date-time string matching resource creation
@@ -250,59 +293,6 @@ export namespace SimCardOrderListParams {
      * date-time.
      */
     updated_at?: string;
-  }
-
-  export namespace Filter {
-    export interface Address {
-      /**
-       * Uniquely identifies the address for the order.
-       */
-      id?: string;
-
-      /**
-       * Filter by state or province where the address is located.
-       */
-      administrative_area?: string;
-
-      /**
-       * Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country
-       * code.
-       */
-      country_code?: string;
-
-      /**
-       * Returns entries with matching name of the supplemental field for address
-       * information.
-       */
-      extended_address?: string;
-
-      /**
-       * Filter by the name of the city where the address is located.
-       */
-      locality?: string;
-
-      /**
-       * Filter by postal code for the address.
-       */
-      postal_code?: string;
-
-      /**
-       * Returns entries with matching name of the street where the address is located.
-       */
-      street_address?: string;
-    }
-
-    export interface Cost {
-      /**
-       * The total monetary amount of the order.
-       */
-      amount?: string;
-
-      /**
-       * Filter by ISO 4217 currency string.
-       */
-      currency?: string;
-    }
   }
 }
 

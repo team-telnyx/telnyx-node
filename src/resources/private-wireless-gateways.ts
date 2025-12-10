@@ -140,12 +140,12 @@ export interface PrivateWirelessGatewayStatus {
    * This attribute is an [error code](https://developers.telnyx.com/api/errors)
    * related to the failure reason.
    */
-  error_code?: string;
+  error_code?: string | null;
 
   /**
    * This attribute provides a human-readable explanation of why a failure happened.
    */
-  error_description?: string;
+  error_description?: string | null;
 
   /**
    * The current status or failure details of the Private Wireless Gateway. <ul>
