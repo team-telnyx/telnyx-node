@@ -89,9 +89,7 @@ describe('resource documents', () => {
 
   // Prism tests are disabled
   test.skip('upload: only required params', async () => {
-    const responsePromise = client.documents.upload({
-      document: { url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
-    });
+    const responsePromise = client.documents.upload({ document: {} });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -105,18 +103,17 @@ describe('resource documents', () => {
   test.skip('upload: required and optional params', async () => {
     const response = await client.documents.upload({
       document: {
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
         customer_reference: 'MY REF 001',
+        file: 'ZXhhbXBsZSBvZiBlbmNvZGVkIGNvbnRlbnQ=',
         filename: 'test-document.pdf',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
       },
     });
   });
 
   // Prism tests are disabled
   test.skip('uploadJson: only required params', async () => {
-    const responsePromise = client.documents.uploadJson({
-      document: { url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
-    });
+    const responsePromise = client.documents.uploadJson({ document: {} });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -130,9 +127,10 @@ describe('resource documents', () => {
   test.skip('uploadJson: required and optional params', async () => {
     const response = await client.documents.uploadJson({
       document: {
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
         customer_reference: 'MY REF 001',
+        file: 'ZXhhbXBsZSBvZiBlbmNvZGVkIGNvbnRlbnQ=',
         filename: 'test-document.pdf',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
       },
     });
   });

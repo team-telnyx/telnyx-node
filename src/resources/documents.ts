@@ -124,9 +124,7 @@ export class Documents extends APIResource {
    * @example
    * ```ts
    * const response = await client.documents.upload({
-   *   document: {
-   *     url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-   *   },
+   *   document: {},
    * });
    * ```
    */
@@ -142,9 +140,7 @@ export class Documents extends APIResource {
    * @example
    * ```ts
    * const response = await client.documents.uploadJson({
-   *   document: {
-   *     url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-   *   },
+   *   document: {},
    * });
    * ```
    */
@@ -341,88 +337,62 @@ export namespace DocumentListParams {
 }
 
 export interface DocumentUploadParams {
-  document:
-    | DocumentUploadParams.DocServiceDocumentUploadURL
-    | DocumentUploadParams.DocServiceDocumentUploadInline;
+  document: DocumentUploadParams.Document;
 }
 
 export namespace DocumentUploadParams {
-  export interface DocServiceDocumentUploadURL {
-    /**
-     * If the file is already hosted publicly, you can provide a URL and have the
-     * documents service fetch it for you.
-     */
-    url: string;
-
-    /**
-     * Optional reference string for customer tracking.
-     */
-    customer_reference?: string;
-
-    /**
-     * The filename of the document.
-     */
-    filename?: string;
-  }
-
-  export interface DocServiceDocumentUploadInline {
-    /**
-     * The Base64 encoded contents of the file you are uploading.
-     */
-    file: string;
-
+  export interface Document {
     /**
      * A customer reference string for customer look ups.
      */
     customer_reference?: string;
 
     /**
+     * Alternatively, instead of the URL you can provide the Base64 encoded contents of
+     * the file you are uploading.
+     */
+    file?: string;
+
+    /**
      * The filename of the document.
      */
     filename?: string;
+
+    /**
+     * If the file is already hosted publicly, you can provide a URL and have the
+     * documents service fetch it for you.
+     */
+    url?: string;
   }
 }
 
 export interface DocumentUploadJsonParams {
-  document:
-    | DocumentUploadJsonParams.DocServiceDocumentUploadURL
-    | DocumentUploadJsonParams.DocServiceDocumentUploadInline;
+  document: DocumentUploadJsonParams.Document;
 }
 
 export namespace DocumentUploadJsonParams {
-  export interface DocServiceDocumentUploadURL {
-    /**
-     * If the file is already hosted publicly, you can provide a URL and have the
-     * documents service fetch it for you.
-     */
-    url: string;
-
-    /**
-     * Optional reference string for customer tracking.
-     */
-    customer_reference?: string;
-
-    /**
-     * The filename of the document.
-     */
-    filename?: string;
-  }
-
-  export interface DocServiceDocumentUploadInline {
-    /**
-     * The Base64 encoded contents of the file you are uploading.
-     */
-    file: string;
-
+  export interface Document {
     /**
      * A customer reference string for customer look ups.
      */
     customer_reference?: string;
 
     /**
+     * Alternatively, instead of the URL you can provide the Base64 encoded contents of
+     * the file you are uploading.
+     */
+    file?: string;
+
+    /**
      * The filename of the document.
      */
     filename?: string;
+
+    /**
+     * If the file is already hosted publicly, you can provide a URL and have the
+     * documents service fetch it for you.
+     */
+    url?: string;
   }
 }
 
