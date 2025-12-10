@@ -23,45 +23,27 @@ export const tool: Tool = {
     type: 'object',
     properties: {
       document: {
-        anyOf: [
-          {
-            type: 'object',
-            properties: {
-              url: {
-                type: 'string',
-                description:
-                  'If the file is already hosted publicly, you can provide a URL and have the documents service fetch it for you.',
-              },
-              customer_reference: {
-                type: 'string',
-                description: 'Optional reference string for customer tracking.',
-              },
-              filename: {
-                type: 'string',
-                description: 'The filename of the document.',
-              },
-            },
-            required: ['url'],
+        type: 'object',
+        properties: {
+          customer_reference: {
+            type: 'string',
+            description: 'A customer reference string for customer look ups.',
           },
-          {
-            type: 'object',
-            properties: {
-              file: {
-                type: 'string',
-                description: 'The Base64 encoded contents of the file you are uploading.',
-              },
-              customer_reference: {
-                type: 'string',
-                description: 'A customer reference string for customer look ups.',
-              },
-              filename: {
-                type: 'string',
-                description: 'The filename of the document.',
-              },
-            },
-            required: ['file'],
+          file: {
+            type: 'string',
+            description:
+              'Alternatively, instead of the URL you can provide the Base64 encoded contents of the file you are uploading.',
           },
-        ],
+          filename: {
+            type: 'string',
+            description: 'The filename of the document.',
+          },
+          url: {
+            type: 'string',
+            description:
+              'If the file is already hosted publicly, you can provide a URL and have the documents service fetch it for you.',
+          },
+        },
       },
       jq_filter: {
         type: 'string',
