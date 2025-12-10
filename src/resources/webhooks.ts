@@ -5,7 +5,6 @@ import { TelnyxWebhook, TelnyxWebhookVerificationError } from '../webhooks';
 import * as NumberOrdersAPI from './number-orders';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
-import { Webhook } from 'standardwebhooks';
 
 export class Webhooks extends APIResource {
   unwrap<T = UnwrapWebhookEvent>(
