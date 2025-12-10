@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
-import { PhoneNumberWithMessagingSettingsDefaultPagination, ShortCodesDefaultPagination } from '../shared';
 import * as AutorespConfigsAPI from './autoresp-configs';
 import {
   AutoRespConfig,
@@ -18,7 +17,6 @@ import {
   AutorespConfigs,
 } from './autoresp-configs';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -55,11 +53,8 @@ export class MessagingProfiles extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    messagingProfileID: string,
-    options?: RequestOptions,
-  ): APIPromise<MessagingProfileRetrieveResponse> {
-    return this._client.get(path`/messaging_profiles/${messagingProfileID}`, options);
+  retrieve(id: string, options?: RequestOptions): APIPromise<MessagingProfileRetrieveResponse> {
+    return this._client.get(path`/messaging_profiles/${id}`, options);
   }
 
   /**
@@ -74,11 +69,11 @@ export class MessagingProfiles extends APIResource {
    * ```
    */
   update(
-    messagingProfileID: string,
+    id: string,
     body: MessagingProfileUpdateParams,
     options?: RequestOptions,
   ): APIPromise<MessagingProfileUpdateResponse> {
-    return this._client.patch(path`/messaging_profiles/${messagingProfileID}`, { body, ...options });
+    return this._client.patch(path`/messaging_profiles/${id}`, { body, ...options });
   }
 
   /**
@@ -86,20 +81,15 @@ export class MessagingProfiles extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const messagingProfile of client.messagingProfiles.list()) {
-   *   // ...
-   * }
+   * const messagingProfiles =
+   *   await client.messagingProfiles.list();
    * ```
    */
   list(
     query: MessagingProfileListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessagingProfilesDefaultPagination, MessagingProfile> {
-    return this._client.getAPIList('/messaging_profiles', DefaultPagination<MessagingProfile>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<MessagingProfileListResponse> {
+    return this._client.get('/messaging_profiles', { query, ...options });
   }
 
   /**
@@ -113,8 +103,8 @@ export class MessagingProfiles extends APIResource {
    *   );
    * ```
    */
-  delete(messagingProfileID: string, options?: RequestOptions): APIPromise<MessagingProfileDeleteResponse> {
-    return this._client.delete(path`/messaging_profiles/${messagingProfileID}`, options);
+  delete(id: string, options?: RequestOptions): APIPromise<MessagingProfileDeleteResponse> {
+    return this._client.delete(path`/messaging_profiles/${id}`, options);
   }
 
   /**
@@ -122,24 +112,18 @@ export class MessagingProfiles extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const phoneNumberWithMessagingSettings of client.messagingProfiles.listPhoneNumbers(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
+   * const response =
+   *   await client.messagingProfiles.listPhoneNumbers(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
    * ```
    */
   listPhoneNumbers(
-    messagingProfileID: string,
+    id: string,
     query: MessagingProfileListPhoneNumbersParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PhoneNumberWithMessagingSettingsDefaultPagination, Shared.PhoneNumberWithMessagingSettings> {
-    return this._client.getAPIList(
-      path`/messaging_profiles/${messagingProfileID}/phone_numbers`,
-      DefaultPagination<Shared.PhoneNumberWithMessagingSettings>,
-      { query, ...options },
-    );
+  ): APIPromise<MessagingProfileListPhoneNumbersResponse> {
+    return this._client.get(path`/messaging_profiles/${id}/phone_numbers`, { query, ...options });
   }
 
   /**
@@ -147,28 +131,20 @@ export class MessagingProfiles extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const shortCode of client.messagingProfiles.listShortCodes(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
+   * const response =
+   *   await client.messagingProfiles.listShortCodes(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
    * ```
    */
   listShortCodes(
-    messagingProfileID: string,
+    id: string,
     query: MessagingProfileListShortCodesParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ShortCodesDefaultPagination, Shared.ShortCode> {
-    return this._client.getAPIList(
-      path`/messaging_profiles/${messagingProfileID}/short_codes`,
-      DefaultPagination<Shared.ShortCode>,
-      { query, ...options },
-    );
+  ): APIPromise<MessagingProfileListShortCodesResponse> {
+    return this._client.get(path`/messaging_profiles/${id}/short_codes`, { query, ...options });
   }
 }
-
-export type MessagingProfilesDefaultPagination = DefaultPagination<MessagingProfile>;
 
 export interface MessagingProfile {
   /**
@@ -396,8 +372,62 @@ export interface MessagingProfileUpdateResponse {
   data?: MessagingProfile;
 }
 
+export interface MessagingProfileListResponse {
+  data?: Array<MessagingProfile>;
+
+  meta?: MessagingProfileListResponse.Meta;
+}
+
+export namespace MessagingProfileListResponse {
+  export interface Meta {
+    page_number: number;
+
+    page_size: number;
+
+    total_pages: number;
+
+    total_results: number;
+  }
+}
+
 export interface MessagingProfileDeleteResponse {
   data?: MessagingProfile;
+}
+
+export interface MessagingProfileListPhoneNumbersResponse {
+  data?: Array<Shared.PhoneNumberWithMessagingSettings>;
+
+  meta?: MessagingProfileListPhoneNumbersResponse.Meta;
+}
+
+export namespace MessagingProfileListPhoneNumbersResponse {
+  export interface Meta {
+    page_number: number;
+
+    page_size: number;
+
+    total_pages: number;
+
+    total_results: number;
+  }
+}
+
+export interface MessagingProfileListShortCodesResponse {
+  data?: Array<Shared.ShortCode>;
+
+  meta?: MessagingProfileListShortCodesResponse.Meta;
+}
+
+export namespace MessagingProfileListShortCodesResponse {
+  export interface Meta {
+    page_number: number;
+
+    page_size: number;
+
+    total_pages: number;
+
+    total_results: number;
+  }
 }
 
 export interface MessagingProfileCreateParams {
@@ -583,11 +613,17 @@ export interface MessagingProfileUpdateParams {
   whitelisted_destinations?: Array<string>;
 }
 
-export interface MessagingProfileListParams extends DefaultPaginationParams {
+export interface MessagingProfileListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[name]
    */
   filter?: MessagingProfileListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: MessagingProfileListParams.Page;
 }
 
 export namespace MessagingProfileListParams {
@@ -600,11 +636,75 @@ export namespace MessagingProfileListParams {
      */
     name?: string;
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
-export interface MessagingProfileListPhoneNumbersParams extends DefaultPaginationParams {}
+export interface MessagingProfileListPhoneNumbersParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: MessagingProfileListPhoneNumbersParams.Page;
+}
 
-export interface MessagingProfileListShortCodesParams extends DefaultPaginationParams {}
+export namespace MessagingProfileListPhoneNumbersParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
+}
+
+export interface MessagingProfileListShortCodesParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: MessagingProfileListShortCodesParams.Page;
+}
+
+export namespace MessagingProfileListShortCodesParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
+}
 
 MessagingProfiles.AutorespConfigs = AutorespConfigs;
 
@@ -616,8 +716,10 @@ export declare namespace MessagingProfiles {
     type MessagingProfileCreateResponse as MessagingProfileCreateResponse,
     type MessagingProfileRetrieveResponse as MessagingProfileRetrieveResponse,
     type MessagingProfileUpdateResponse as MessagingProfileUpdateResponse,
+    type MessagingProfileListResponse as MessagingProfileListResponse,
     type MessagingProfileDeleteResponse as MessagingProfileDeleteResponse,
-    type MessagingProfilesDefaultPagination as MessagingProfilesDefaultPagination,
+    type MessagingProfileListPhoneNumbersResponse as MessagingProfileListPhoneNumbersResponse,
+    type MessagingProfileListShortCodesResponse as MessagingProfileListShortCodesResponse,
     type MessagingProfileCreateParams as MessagingProfileCreateParams,
     type MessagingProfileUpdateParams as MessagingProfileUpdateParams,
     type MessagingProfileListParams as MessagingProfileListParams,
@@ -639,5 +741,3 @@ export declare namespace MessagingProfiles {
     type AutorespConfigDeleteParams as AutorespConfigDeleteParams,
   };
 }
-
-export { type PhoneNumberWithMessagingSettingsDefaultPagination, type ShortCodesDefaultPagination };

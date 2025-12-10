@@ -20,14 +20,11 @@ export class Actions extends APIResource {
    * ```
    */
   acceptSuggestions(
-    addressUuid: string,
+    pathID: string,
     body: ActionAcceptSuggestionsParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<ActionAcceptSuggestionsResponse> {
-    return this._client.post(path`/addresses/${addressUuid}/actions/accept_suggestions`, {
-      body,
-      ...options,
-    });
+    return this._client.post(path`/addresses/${pathID}/actions/accept_suggestions`, { body, ...options });
   }
 
   /**
@@ -138,7 +135,7 @@ export interface ActionAcceptSuggestionsParams {
   /**
    * The ID of the address.
    */
-  id?: string;
+  body_id?: string;
 }
 
 export interface ActionValidateParams {

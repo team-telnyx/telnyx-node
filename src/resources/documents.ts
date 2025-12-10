@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -33,11 +33,11 @@ export class Documents extends APIResource {
    * ```
    */
   update(
-    documentID: string,
+    id: string,
     body: DocumentUpdateParams,
     options?: RequestOptions,
   ): APIPromise<DocumentUpdateResponse> {
-    return this._client.patch(path`/documents/${documentID}`, { body, ...options });
+    return this._client.patch(path`/documents/${id}`, { body, ...options });
   }
 
   /**
@@ -45,20 +45,14 @@ export class Documents extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const docServiceDocument of client.documents.list()) {
-   *   // ...
-   * }
+   * const documents = await client.documents.list();
    * ```
    */
   list(
     query: DocumentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<DocServiceDocumentsDefaultPagination, DocServiceDocument> {
-    return this._client.getAPIList('/documents', DefaultPagination<DocServiceDocument>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<DocumentListResponse> {
+    return this._client.get('/documents', { query, ...options });
   }
 
   /**
@@ -93,7 +87,7 @@ export class Documents extends APIResource {
   download(id: string, options?: RequestOptions): APIPromise<Response> {
     return this._client.get(path`/documents/${id}/download`, {
       ...options,
-      headers: buildHeaders([{ Accept: 'application/octet-stream' }, options?.headers]),
+      headers: buildHeaders([{ Accept: '*' }, options?.headers]),
       __binaryResponse: true,
     });
   }
@@ -124,15 +118,12 @@ export class Documents extends APIResource {
    * @example
    * ```ts
    * const response = await client.documents.upload({
-   *   document: {
-   *     url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-   *   },
+   *   url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
    * });
    * ```
    */
-  upload(params: DocumentUploadParams, options?: RequestOptions): APIPromise<DocumentUploadResponse> {
-    const { document } = params;
-    return this._client.post('/documents?content-type=multipart', { body: document, ...options });
+  upload(body: DocumentUploadParams, options?: RequestOptions): APIPromise<DocumentUploadResponse> {
+    return this._client.post('/documents?content-type=multipart', { body, ...options });
   }
 
   /**
@@ -142,22 +133,17 @@ export class Documents extends APIResource {
    * @example
    * ```ts
    * const response = await client.documents.uploadJson({
-   *   document: {
-   *     url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-   *   },
+   *   url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
    * });
    * ```
    */
   uploadJson(
-    params: DocumentUploadJsonParams,
+    body: DocumentUploadJsonParams,
     options?: RequestOptions,
   ): APIPromise<DocumentUploadJsonResponse> {
-    const { document } = params;
-    return this._client.post('/documents', { body: document, ...options });
+    return this._client.post('/documents', { body, ...options });
   }
 }
-
-export type DocServiceDocumentsDefaultPagination = DefaultPagination<DocServiceDocument>;
 
 export interface DocServiceDocument {
   /**
@@ -241,6 +227,12 @@ export interface DocumentUpdateResponse {
   data?: DocServiceDocument;
 }
 
+export interface DocumentListResponse {
+  data?: Array<DocServiceDocument>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface DocumentDeleteResponse {
   data?: DocServiceDocument;
 }
@@ -278,13 +270,19 @@ export interface DocumentUpdateParams {
   filename?: string;
 }
 
-export interface DocumentListParams extends DefaultPaginationParams {
+export interface DocumentListParams {
   /**
    * Consolidated filter parameter for documents (deepObject style). Originally:
    * filter[filename][contains], filter[customer_reference][eq],
    * filter[customer_reference][in][], filter[created_at][gt], filter[created_at][lt]
    */
   filter?: DocumentListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: DocumentListParams.Page;
 
   /**
    * Consolidated sort parameter for documents (deepObject style). Originally: sort[]
@@ -338,15 +336,29 @@ export namespace DocumentListParams {
       contains?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
-export interface DocumentUploadParams {
-  document:
-    | DocumentUploadParams.DocServiceDocumentUploadURL
-    | DocumentUploadParams.DocServiceDocumentUploadInline;
-}
+export type DocumentUploadParams =
+  | DocumentUploadParams.DocServiceDocumentUploadURL
+  | DocumentUploadParams.DocServiceDocumentUploadInline;
 
-export namespace DocumentUploadParams {
+export declare namespace DocumentUploadParams {
   export interface DocServiceDocumentUploadURL {
     /**
      * If the file is already hosted publicly, you can provide a URL and have the
@@ -383,13 +395,11 @@ export namespace DocumentUploadParams {
   }
 }
 
-export interface DocumentUploadJsonParams {
-  document:
-    | DocumentUploadJsonParams.DocServiceDocumentUploadURL
-    | DocumentUploadJsonParams.DocServiceDocumentUploadInline;
-}
+export type DocumentUploadJsonParams =
+  | DocumentUploadJsonParams.DocServiceDocumentUploadURL
+  | DocumentUploadJsonParams.DocServiceDocumentUploadInline;
 
-export namespace DocumentUploadJsonParams {
+export declare namespace DocumentUploadJsonParams {
   export interface DocServiceDocumentUploadURL {
     /**
      * If the file is already hosted publicly, you can provide a URL and have the
@@ -431,11 +441,11 @@ export declare namespace Documents {
     type DocServiceDocument as DocServiceDocument,
     type DocumentRetrieveResponse as DocumentRetrieveResponse,
     type DocumentUpdateResponse as DocumentUpdateResponse,
+    type DocumentListResponse as DocumentListResponse,
     type DocumentDeleteResponse as DocumentDeleteResponse,
     type DocumentGenerateDownloadLinkResponse as DocumentGenerateDownloadLinkResponse,
     type DocumentUploadResponse as DocumentUploadResponse,
     type DocumentUploadJsonResponse as DocumentUploadJsonResponse,
-    type DocServiceDocumentsDefaultPagination as DocServiceDocumentsDefaultPagination,
     type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentListParams as DocumentListParams,
     type DocumentUploadParams as DocumentUploadParams,

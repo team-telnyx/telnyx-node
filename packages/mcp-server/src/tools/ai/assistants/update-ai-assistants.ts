@@ -590,33 +590,30 @@ export const tool: Tool = {
               'Region on third party cloud providers (currently Azure) if using one of their models',
           },
           settings: {
-            $ref: '#/$defs/transcription_settings_config',
-          },
-        },
-      },
-      transcription_settings_config: {
-        type: 'object',
-        title: 'TranscriptionSettingsConfig',
-        properties: {
-          eot_threshold: {
-            type: 'number',
-            title: 'Eot Threshold',
-            description:
-              'Available only for deepgram/flux. Confidence required to trigger an end of turn. Higher values = more reliable turn detection but slightly increased latency.',
-          },
-          eot_timeout_ms: {
-            type: 'integer',
-            title: 'Eot Timeout Ms',
-            description:
-              'Available only for deepgram/flux. Maximum milliseconds of silence before forcing an end of turn, regardless of confidence.',
-          },
-          numerals: {
-            type: 'boolean',
-            title: 'Numerals',
-          },
-          smart_format: {
-            type: 'boolean',
-            title: 'Smart Format',
+            type: 'object',
+            title: 'TranscriptionSettingsConfig',
+            properties: {
+              eot_threshold: {
+                type: 'number',
+                title: 'Eot Threshold',
+                description:
+                  'Available only for deepgram/flux. Confidence required to trigger an end of turn. Higher values = more reliable turn detection but slightly increased latency.',
+              },
+              eot_timeout_ms: {
+                type: 'integer',
+                title: 'Eot Timeout Ms',
+                description:
+                  'Available only for deepgram/flux. Maximum milliseconds of silence before forcing an end of turn, regardless of confidence.',
+              },
+              numerals: {
+                type: 'boolean',
+                title: 'Numerals',
+              },
+              smart_format: {
+                type: 'boolean',
+                title: 'Smart Format',
+              },
+            },
           },
         },
       },

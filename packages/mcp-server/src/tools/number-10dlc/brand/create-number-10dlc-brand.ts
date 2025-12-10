@@ -143,7 +143,7 @@ export const tool: Tool = {
         type: 'string',
         title: 'EntityType',
         description: 'Entity type behind the brand. This is the form of business establishment.',
-        enum: ['PRIVATE_PROFIT', 'PUBLIC_PROFIT', 'NON_PROFIT', 'GOVERNMENT'],
+        enum: ['PRIVATE_PROFIT', 'PUBLIC_PROFIT', 'NON_PROFIT', 'GOVERNMENT', 'SOLE_PROPRIETOR'],
       },
       vertical: {
         type: 'string',

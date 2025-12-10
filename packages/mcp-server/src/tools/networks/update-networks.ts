@@ -22,7 +22,7 @@ export const tool: Tool = {
   inputSchema: {
     type: 'object',
     properties: {
-      network_id: {
+      id: {
         type: 'string',
       },
       name: {
@@ -36,15 +36,15 @@ export const tool: Tool = {
           'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
       },
     },
-    required: ['network_id', 'name'],
+    required: ['id', 'name'],
   },
   annotations: {},
 };
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
-  const { network_id, jq_filter, ...body } = args as any;
+  const { id, jq_filter, ...body } = args as any;
   try {
-    return asTextContentResult(await maybeFilter(jq_filter, await client.networks.update(network_id, body)));
+    return asTextContentResult(await maybeFilter(jq_filter, await client.networks.update(id, body)));
   } catch (error) {
     if (error instanceof Telnyx.APIError || isJqError(error)) {
       return asErrorResult(error.message);

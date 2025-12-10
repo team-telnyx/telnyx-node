@@ -77,9 +77,8 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const body = args as any;
-  const response = await client.fqdnConnections.list(body).asResponse();
   try {
-    return asTextContentResult(await response.json());
+    return asTextContentResult(await client.fqdnConnections.list(body));
   } catch (error) {
     if (error instanceof Telnyx.APIError) {
       return asErrorResult(error.message);

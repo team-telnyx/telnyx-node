@@ -5,9 +5,9 @@ import * as InsightsAPI from './insights';
 import {
   InsightCreateParams,
   InsightListParams,
+  InsightListResponse,
   InsightTemplate,
   InsightTemplateDetail,
-  InsightTemplatesDefaultFlatPagination,
   InsightUpdateParams,
   Insights,
 } from './insights';
@@ -17,11 +17,11 @@ import * as InsightGroupsAPI from './insight-groups/insight-groups';
 import {
   InsightGroupInsightGroupsParams,
   InsightGroupRetrieveInsightGroupsParams,
+  InsightGroupRetrieveInsightGroupsResponse,
   InsightGroupUpdateParams,
   InsightGroups,
   InsightTemplateGroup,
   InsightTemplateGroupDetail,
-  InsightTemplateGroupsDefaultFlatPagination,
 } from './insight-groups/insight-groups';
 import * as RunsAPI from '../assistants/tests/test-suites/runs';
 import { APIPromise } from '../../../core/api-promise';
@@ -332,7 +332,7 @@ export interface ConversationAddMessageParams {
 
   tool_calls?: Array<{ [key: string]: unknown }>;
 
-  tool_choice?: string | { [key: string]: unknown };
+  tool_choice?: string | unknown;
 }
 
 Conversations.InsightGroups = InsightGroups;
@@ -356,7 +356,7 @@ export declare namespace Conversations {
     InsightGroups as InsightGroups,
     type InsightTemplateGroup as InsightTemplateGroup,
     type InsightTemplateGroupDetail as InsightTemplateGroupDetail,
-    type InsightTemplateGroupsDefaultFlatPagination as InsightTemplateGroupsDefaultFlatPagination,
+    type InsightGroupRetrieveInsightGroupsResponse as InsightGroupRetrieveInsightGroupsResponse,
     type InsightGroupUpdateParams as InsightGroupUpdateParams,
     type InsightGroupInsightGroupsParams as InsightGroupInsightGroupsParams,
     type InsightGroupRetrieveInsightGroupsParams as InsightGroupRetrieveInsightGroupsParams,
@@ -366,7 +366,7 @@ export declare namespace Conversations {
     Insights as Insights,
     type InsightTemplate as InsightTemplate,
     type InsightTemplateDetail as InsightTemplateDetail,
-    type InsightTemplatesDefaultFlatPagination as InsightTemplatesDefaultFlatPagination,
+    type InsightListResponse as InsightListResponse,
     type InsightCreateParams as InsightCreateParams,
     type InsightUpdateParams as InsightUpdateParams,
     type InsightListParams as InsightListParams,

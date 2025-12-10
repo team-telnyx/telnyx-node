@@ -22,10 +22,10 @@ export const tool: Tool = {
   inputSchema: {
     type: 'object',
     properties: {
-      address_uuid: {
+      path_id: {
         type: 'string',
       },
-      id: {
+      body_id: {
         type: 'string',
         description: 'The ID of the address.',
       },
@@ -36,16 +36,16 @@ export const tool: Tool = {
           'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
       },
     },
-    required: ['address_uuid'],
+    required: ['path_id'],
   },
   annotations: {},
 };
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
-  const { address_uuid, jq_filter, ...body } = args as any;
+  const { id, jq_filter, ...body } = args as any;
   try {
     return asTextContentResult(
-      await maybeFilter(jq_filter, await client.addresses.actions.acceptSuggestions(address_uuid, body)),
+      await maybeFilter(jq_filter, await client.addresses.actions.acceptSuggestions(id, body)),
     );
   } catch (error) {
     if (error instanceof Telnyx.APIError || isJqError(error)) {

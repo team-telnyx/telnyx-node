@@ -2,7 +2,6 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 
@@ -10,12 +9,9 @@ export class UsageReports extends APIResource {
   /**
    * Get Telnyx usage data by product, broken out by the specified dimensions
    */
-  list(
-    params: UsageReportListParams,
-    options?: RequestOptions,
-  ): PagePromise<UsageReportListResponsesDefaultFlatPagination, UsageReportListResponse> {
+  list(params: UsageReportListParams, options?: RequestOptions): APIPromise<UsageReportListResponse> {
     const { authorization_bearer, ...query } = params;
-    return this._client.getAPIList('/usage_reports', DefaultFlatPagination<UsageReportListResponse>, {
+    return this._client.get('/usage_reports', {
       query,
       ...options,
       headers: buildHeaders([
@@ -45,9 +41,35 @@ export class UsageReports extends APIResource {
   }
 }
 
-export type UsageReportListResponsesDefaultFlatPagination = DefaultFlatPagination<UsageReportListResponse>;
+export interface UsageReportListResponse {
+  data?: Array<{ [key: string]: unknown }>;
 
-export type UsageReportListResponse = { [key: string]: unknown };
+  meta?: UsageReportListResponse.Meta;
+}
+
+export namespace UsageReportListResponse {
+  export interface Meta {
+    /**
+     * Selected page number.
+     */
+    page_number?: number;
+
+    /**
+     * Records per single page
+     */
+    page_size?: number;
+
+    /**
+     * Total number of pages.
+     */
+    total_pages?: number;
+
+    /**
+     * Total number of results.
+     */
+    total_results?: number;
+  }
+}
 
 /**
  * An object following one of the schemas published in
@@ -111,7 +133,7 @@ export namespace UsageReportGetOptionsResponse {
   }
 }
 
-export interface UsageReportListParams extends DefaultFlatPaginationParams {
+export interface UsageReportListParams {
   /**
    * Query param: Breakout by specified product dimensions
    */
@@ -157,6 +179,12 @@ export interface UsageReportListParams extends DefaultFlatPaginationParams {
   managed_accounts?: boolean;
 
   /**
+   * Query param: Consolidated page parameter (deepObject style). Originally:
+   * page[number], page[size]
+   */
+  page?: UsageReportListParams.Page;
+
+  /**
    * Query param: Specifies the sort order for results
    */
   sort?: Array<string>;
@@ -171,6 +199,18 @@ export interface UsageReportListParams extends DefaultFlatPaginationParams {
    * Header param: Authenticates the request with your Telnyx API V2 KEY
    */
   authorization_bearer?: string;
+}
+
+export namespace UsageReportListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    number?: number;
+
+    size?: number;
+  }
 }
 
 export interface UsageReportGetOptionsParams {
@@ -190,7 +230,6 @@ export declare namespace UsageReports {
   export {
     type UsageReportListResponse as UsageReportListResponse,
     type UsageReportGetOptionsResponse as UsageReportGetOptionsResponse,
-    type UsageReportListResponsesDefaultFlatPagination as UsageReportListResponsesDefaultFlatPagination,
     type UsageReportListParams as UsageReportListParams,
     type UsageReportGetOptionsParams as UsageReportGetOptionsParams,
   };

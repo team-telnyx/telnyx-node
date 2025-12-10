@@ -2,11 +2,9 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
-import { MessagingHostedNumberOrdersDefaultPagination } from '../shared';
 import * as ActionsAPI from './actions';
 import { ActionUploadFileParams, ActionUploadFileResponse, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -47,21 +45,15 @@ export class MessagingHostedNumberOrders extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const messagingHostedNumberOrder of client.messagingHostedNumberOrders.list()) {
-   *   // ...
-   * }
+   * const messagingHostedNumberOrders =
+   *   await client.messagingHostedNumberOrders.list();
    * ```
    */
   list(
     query: MessagingHostedNumberOrderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessagingHostedNumberOrdersDefaultPagination, Shared.MessagingHostedNumberOrder> {
-    return this._client.getAPIList(
-      '/messaging_hosted_number_orders',
-      DefaultPagination<Shared.MessagingHostedNumberOrder>,
-      { query, ...options },
-    );
+  ): APIPromise<MessagingHostedNumberOrderListResponse> {
+    return this._client.get('/messaging_hosted_number_orders', { query, ...options });
   }
 
   /**
@@ -160,6 +152,24 @@ export interface MessagingHostedNumberOrderCreateResponse {
 
 export interface MessagingHostedNumberOrderRetrieveResponse {
   data?: Shared.MessagingHostedNumberOrder;
+}
+
+export interface MessagingHostedNumberOrderListResponse {
+  data?: Array<Shared.MessagingHostedNumberOrder>;
+
+  meta?: MessagingHostedNumberOrderListResponse.Meta;
+}
+
+export namespace MessagingHostedNumberOrderListResponse {
+  export interface Meta {
+    page_number: number;
+
+    page_size: number;
+
+    total_pages: number;
+
+    total_results: number;
+  }
 }
 
 export interface MessagingHostedNumberOrderDeleteResponse {
@@ -273,7 +283,31 @@ export interface MessagingHostedNumberOrderCreateParams {
   phone_numbers?: Array<string>;
 }
 
-export interface MessagingHostedNumberOrderListParams extends DefaultPaginationParams {}
+export interface MessagingHostedNumberOrderListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: MessagingHostedNumberOrderListParams.Page;
+}
+
+export namespace MessagingHostedNumberOrderListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
+}
 
 export interface MessagingHostedNumberOrderCheckEligibilityParams {
   /**
@@ -306,6 +340,7 @@ export declare namespace MessagingHostedNumberOrders {
   export {
     type MessagingHostedNumberOrderCreateResponse as MessagingHostedNumberOrderCreateResponse,
     type MessagingHostedNumberOrderRetrieveResponse as MessagingHostedNumberOrderRetrieveResponse,
+    type MessagingHostedNumberOrderListResponse as MessagingHostedNumberOrderListResponse,
     type MessagingHostedNumberOrderDeleteResponse as MessagingHostedNumberOrderDeleteResponse,
     type MessagingHostedNumberOrderCheckEligibilityResponse as MessagingHostedNumberOrderCheckEligibilityResponse,
     type MessagingHostedNumberOrderCreateVerificationCodesResponse as MessagingHostedNumberOrderCreateVerificationCodesResponse,
@@ -323,5 +358,3 @@ export declare namespace MessagingHostedNumberOrders {
     type ActionUploadFileParams as ActionUploadFileParams,
   };
 }
-
-export { type MessagingHostedNumberOrdersDefaultPagination };

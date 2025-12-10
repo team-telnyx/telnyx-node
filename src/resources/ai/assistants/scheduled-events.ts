@@ -1,12 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as RunsAPI from './tests/test-suites/runs';
 import { APIPromise } from '../../../core/api-promise';
-import {
-  DefaultFlatPagination,
-  type DefaultFlatPaginationParams,
-  PagePromise,
-} from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -64,24 +60,18 @@ export class ScheduledEvents extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const scheduledEventListResponse of client.ai.assistants.scheduledEvents.list(
-   *   'assistant_id',
-   * )) {
-   *   // ...
-   * }
+   * const scheduledEvents =
+   *   await client.ai.assistants.scheduledEvents.list(
+   *     'assistant_id',
+   *   );
    * ```
    */
   list(
     assistantID: string,
     query: ScheduledEventListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ScheduledEventListResponsesDefaultFlatPagination, ScheduledEventListResponse> {
-    return this._client.getAPIList(
-      path`/ai/assistants/${assistantID}/scheduled_events`,
-      DefaultFlatPagination<ScheduledEventListResponse>,
-      { query, ...options },
-    );
+  ): APIPromise<ScheduledEventListResponse> {
+    return this._client.get(path`/ai/assistants/${assistantID}/scheduled_events`, { query, ...options });
   }
 
   /**
@@ -104,9 +94,6 @@ export class ScheduledEvents extends APIResource {
     });
   }
 }
-
-export type ScheduledEventListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<ScheduledEventListResponse>;
 
 export type ConversationChannelType = 'phone_call' | 'sms_chat';
 
@@ -173,7 +160,11 @@ export interface ScheduledSMSEventResponse {
   status?: EventStatus;
 }
 
-export type ScheduledEventListResponse = ScheduledPhoneCallEventResponse | ScheduledSMSEventResponse;
+export interface ScheduledEventListResponse {
+  data: Array<ScheduledPhoneCallEventResponse | ScheduledSMSEventResponse>;
+
+  meta: RunsAPI.Meta;
+}
 
 export interface ScheduledEventCreateParams {
   /**
@@ -209,12 +200,30 @@ export interface ScheduledEventRetrieveParams {
   assistant_id: string;
 }
 
-export interface ScheduledEventListParams extends DefaultFlatPaginationParams {
+export interface ScheduledEventListParams {
   conversation_channel?: ConversationChannelType;
 
   from_date?: string;
 
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: ScheduledEventListParams.Page;
+
   to_date?: string;
+}
+
+export namespace ScheduledEventListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    number?: number;
+
+    size?: number;
+  }
 }
 
 export interface ScheduledEventDeleteParams {
@@ -229,7 +238,6 @@ export declare namespace ScheduledEvents {
     type ScheduledPhoneCallEventResponse as ScheduledPhoneCallEventResponse,
     type ScheduledSMSEventResponse as ScheduledSMSEventResponse,
     type ScheduledEventListResponse as ScheduledEventListResponse,
-    type ScheduledEventListResponsesDefaultFlatPagination as ScheduledEventListResponsesDefaultFlatPagination,
     type ScheduledEventCreateParams as ScheduledEventCreateParams,
     type ScheduledEventRetrieveParams as ScheduledEventRetrieveParams,
     type ScheduledEventListParams as ScheduledEventListParams,

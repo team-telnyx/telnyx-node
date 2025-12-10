@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -27,20 +27,14 @@ export class Events extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const eventListResponse of client.portouts.events.list()) {
-   *   // ...
-   * }
+   * const events = await client.portouts.events.list();
    * ```
    */
   list(
     query: EventListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<EventListResponsesDefaultPagination, EventListResponse> {
-    return this._client.getAPIList('/portouts/events', DefaultPagination<EventListResponse>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<EventListResponse> {
+    return this._client.get('/portouts/events', { query, ...options });
   }
 
   /**
@@ -60,8 +54,6 @@ export class Events extends APIResource {
     });
   }
 }
-
-export type EventListResponsesDefaultPagination = DefaultPagination<EventListResponse>;
 
 export interface EventRetrieveResponse {
   data?: EventRetrieveResponse.Data;
@@ -218,159 +210,173 @@ export namespace EventRetrieveResponse {
 }
 
 export interface EventListResponse {
-  /**
-   * Uniquely identifies the event.
-   */
-  id?: string;
+  data?: Array<EventListResponse.Data>;
 
-  /**
-   * Indicates the notification methods used.
-   */
-  available_notification_methods?: Array<'email' | 'webhook'>;
-
-  /**
-   * ISO 8601 formatted date indicating when the resource was created.
-   */
-  created_at?: string;
-
-  /**
-   * Identifies the event type
-   */
-  event_type?: 'portout.status_changed' | 'portout.foc_date_changed' | 'portout.new_comment';
-
-  /**
-   * The webhook payload for the portout.status_changed event
-   */
-  payload?:
-    | EventListResponse.WebhookPortoutStatusChangedPayload
-    | EventListResponse.WebhookPortoutNewCommentPayload
-    | EventListResponse.WebhookPortoutFocDateChangedPayload;
-
-  /**
-   * The status of the payload generation.
-   */
-  payload_status?: 'created' | 'completed';
-
-  /**
-   * Identifies the port-out order associated with the event.
-   */
-  portout_id?: string;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: string;
-
-  /**
-   * ISO 8601 formatted date indicating when the resource was updated.
-   */
-  updated_at?: string;
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export namespace EventListResponse {
-  /**
-   * The webhook payload for the portout.status_changed event
-   */
-  export interface WebhookPortoutStatusChangedPayload {
+  export interface Data {
     /**
-     * Identifies the port out that was moved.
+     * Uniquely identifies the event.
      */
     id?: string;
 
     /**
-     * The PIN that was attempted to be used to authorize the port out.
+     * Indicates the notification methods used.
      */
-    attempted_pin?: string;
+    available_notification_methods?: Array<'email' | 'webhook'>;
 
     /**
-     * Carrier the number will be ported out to
+     * ISO 8601 formatted date indicating when the resource was created.
      */
-    carrier_name?: string;
+    created_at?: string;
 
     /**
-     * Phone numbers associated with this port-out order
+     * Identifies the event type
      */
-    phone_numbers?: Array<string>;
+    event_type?: 'portout.status_changed' | 'portout.foc_date_changed' | 'portout.new_comment';
 
     /**
-     * The reason why the order is being rejected by the user. If the order is
-     * authorized, this field can be left null
+     * The webhook payload for the portout.status_changed event
      */
-    rejection_reason?: string | null;
+    payload?:
+      | Data.WebhookPortoutStatusChangedPayload
+      | Data.WebhookPortoutNewCommentPayload
+      | Data.WebhookPortoutFocDateChangedPayload;
 
     /**
-     * The new carrier SPID.
+     * The status of the payload generation.
      */
-    spid?: string;
+    payload_status?: 'created' | 'completed';
 
     /**
-     * The new status of the port out.
-     */
-    status?: 'pending' | 'authorized' | 'ported' | 'rejected' | 'rejected-pending' | 'canceled';
-
-    /**
-     * The name of the port-out's end user.
-     */
-    subscriber_name?: string;
-
-    /**
-     * Identifies the user that the port-out order belongs to.
-     */
-    user_id?: string;
-  }
-
-  /**
-   * The webhook payload for the portout.new_comment event
-   */
-  export interface WebhookPortoutNewCommentPayload {
-    /**
-     * Identifies the comment that was added to the port-out order.
-     */
-    id?: string;
-
-    /**
-     * The body of the comment.
-     */
-    comment?: string;
-
-    /**
-     * Identifies the port-out order that the comment was added to.
+     * Identifies the port-out order associated with the event.
      */
     portout_id?: string;
 
     /**
-     * Identifies the user that added the comment.
+     * Identifies the type of the resource.
      */
-    user_id?: string;
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
   }
 
-  /**
-   * The webhook payload for the portout.foc_date_changed event
-   */
-  export interface WebhookPortoutFocDateChangedPayload {
+  export namespace Data {
     /**
-     * Identifies the port-out order that have the FOC date changed.
+     * The webhook payload for the portout.status_changed event
      */
-    id?: string;
+    export interface WebhookPortoutStatusChangedPayload {
+      /**
+       * Identifies the port out that was moved.
+       */
+      id?: string;
+
+      /**
+       * The PIN that was attempted to be used to authorize the port out.
+       */
+      attempted_pin?: string;
+
+      /**
+       * Carrier the number will be ported out to
+       */
+      carrier_name?: string;
+
+      /**
+       * Phone numbers associated with this port-out order
+       */
+      phone_numbers?: Array<string>;
+
+      /**
+       * The reason why the order is being rejected by the user. If the order is
+       * authorized, this field can be left null
+       */
+      rejection_reason?: string | null;
+
+      /**
+       * The new carrier SPID.
+       */
+      spid?: string;
+
+      /**
+       * The new status of the port out.
+       */
+      status?: 'pending' | 'authorized' | 'ported' | 'rejected' | 'rejected-pending' | 'canceled';
+
+      /**
+       * The name of the port-out's end user.
+       */
+      subscriber_name?: string;
+
+      /**
+       * Identifies the user that the port-out order belongs to.
+       */
+      user_id?: string;
+    }
 
     /**
-     * ISO 8601 formatted date indicating the new FOC date.
+     * The webhook payload for the portout.new_comment event
      */
-    foc_date?: string;
+    export interface WebhookPortoutNewCommentPayload {
+      /**
+       * Identifies the comment that was added to the port-out order.
+       */
+      id?: string;
+
+      /**
+       * The body of the comment.
+       */
+      comment?: string;
+
+      /**
+       * Identifies the port-out order that the comment was added to.
+       */
+      portout_id?: string;
+
+      /**
+       * Identifies the user that added the comment.
+       */
+      user_id?: string;
+    }
 
     /**
-     * Identifies the organization that port-out order belongs to.
+     * The webhook payload for the portout.foc_date_changed event
      */
-    user_id?: string;
+    export interface WebhookPortoutFocDateChangedPayload {
+      /**
+       * Identifies the port-out order that have the FOC date changed.
+       */
+      id?: string;
+
+      /**
+       * ISO 8601 formatted date indicating the new FOC date.
+       */
+      foc_date?: string;
+
+      /**
+       * Identifies the organization that port-out order belongs to.
+       */
+      user_id?: string;
+    }
   }
 }
 
-export interface EventListParams extends DefaultPaginationParams {
+export interface EventListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[event_type], filter[portout_id], filter[created_at]
    */
   filter?: EventListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: EventListParams.Page;
 }
 
 export namespace EventListParams {
@@ -411,13 +417,28 @@ export namespace EventListParams {
       lte?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace Events {
   export {
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
-    type EventListResponsesDefaultPagination as EventListResponsesDefaultPagination,
     type EventListParams as EventListParams,
   };
 }

@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
 export class DetailRecords extends APIResource {
@@ -11,28 +11,24 @@ export class DetailRecords extends APIResource {
   list(
     query: DetailRecordListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<DetailRecordListResponsesDefaultFlatPagination, DetailRecordListResponse> {
-    return this._client.getAPIList('/detail_records', DefaultFlatPagination<DetailRecordListResponse>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<DetailRecordListResponse> {
+    return this._client.get('/detail_records', { query, ...options });
   }
 }
 
-export type DetailRecordListResponsesDefaultFlatPagination = DefaultFlatPagination<DetailRecordListResponse>;
+export interface DetailRecordListResponse {
+  data?: Array<
+    | DetailRecordListResponse.MessageDetailRecord
+    | DetailRecordListResponse.ConferenceDetailRecord
+    | DetailRecordListResponse.ConferenceParticipantDetailRecord
+    | DetailRecordListResponse.AmdDetailRecord
+    | DetailRecordListResponse.VerifyDetailRecord
+    | DetailRecordListResponse.SimCardUsageDetailRecord
+    | DetailRecordListResponse.MediaStorageDetailRecord
+  >;
 
-/**
- * An object following one of the schemas published in
- * https://developers.telnyx.com/docs/api/v2/detail-records
- */
-export type DetailRecordListResponse =
-  | DetailRecordListResponse.MessageDetailRecord
-  | DetailRecordListResponse.ConferenceDetailRecord
-  | DetailRecordListResponse.ConferenceParticipantDetailRecord
-  | DetailRecordListResponse.AmdDetailRecord
-  | DetailRecordListResponse.VerifyDetailRecord
-  | DetailRecordListResponse.SimCardUsageDetailRecord
-  | DetailRecordListResponse.MediaStorageDetailRecord;
+  meta?: DetailRecordListResponse.Meta;
+}
 
 export namespace DetailRecordListResponse {
   export interface MessageDetailRecord {
@@ -675,14 +671,30 @@ export namespace DetailRecordListResponse {
      */
     webhook_id?: string;
   }
+
+  export interface Meta {
+    page_number?: number;
+
+    page_size?: number;
+
+    total_pages?: number;
+
+    total_results?: number;
+  }
 }
 
-export interface DetailRecordListParams extends DefaultFlatPaginationParams {
+export interface DetailRecordListParams {
   /**
    * Filter records on a given record attribute and value. <br/>Example:
    * filter[status]=delivered. <br/>Required: filter[record_type] must be specified.
    */
   filter?: DetailRecordListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: DetailRecordListParams.Page;
 
   /**
    * Specifies the sort order for results. <br/>Example: sort=-created_at
@@ -739,12 +751,27 @@ export namespace DetailRecordListParams {
 
     [k: string]: unknown;
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * Page number
+     */
+    number?: number;
+
+    /**
+     * Page size
+     */
+    size?: number;
+  }
 }
 
 export declare namespace DetailRecords {
   export {
     type DetailRecordListResponse as DetailRecordListResponse,
-    type DetailRecordListResponsesDefaultFlatPagination as DetailRecordListResponsesDefaultFlatPagination,
     type DetailRecordListParams as DetailRecordListParams,
   };
 }

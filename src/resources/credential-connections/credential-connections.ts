@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as Shared from '../shared';
 import * as ActionsAPI from './actions';
 import { ActionCheckRegistrationStatusResponse, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -66,20 +66,15 @@ export class CredentialConnections extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const credentialConnection of client.credentialConnections.list()) {
-   *   // ...
-   * }
+   * const credentialConnections =
+   *   await client.credentialConnections.list();
    * ```
    */
   list(
     query: CredentialConnectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<CredentialConnectionsDefaultPagination, CredentialConnection> {
-    return this._client.getAPIList('/credential_connections', DefaultPagination<CredentialConnection>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<CredentialConnectionListResponse> {
+    return this._client.get('/credential_connections', { query, ...options });
   }
 
   /**
@@ -95,8 +90,6 @@ export class CredentialConnections extends APIResource {
     return this._client.delete(path`/credential_connections/${id}`, options);
   }
 }
-
-export type CredentialConnectionsDefaultPagination = DefaultPagination<CredentialConnection>;
 
 /**
  * `Latency` directs Telnyx to route media through the site with the lowest
@@ -414,6 +407,12 @@ export interface CredentialConnectionUpdateResponse {
   data?: CredentialConnection;
 }
 
+export interface CredentialConnectionListResponse {
+  data?: Array<CredentialConnection>;
+
+  meta?: Shared.ConnectionsPaginationMeta;
+}
+
 export interface CredentialConnectionDeleteResponse {
   data?: CredentialConnection;
 }
@@ -660,13 +659,19 @@ export interface CredentialConnectionUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface CredentialConnectionListParams extends DefaultPaginationParams {
+export interface CredentialConnectionListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
    * filter[outbound.outbound_voice_profile_id]
    */
   filter?: CredentialConnectionListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: CredentialConnectionListParams.Page;
 
   /**
    * Specifies the sort order for results. By default sorting direction is ascending.
@@ -724,6 +729,22 @@ export namespace CredentialConnectionListParams {
       contains?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 CredentialConnections.Actions = Actions;
@@ -740,8 +761,8 @@ export declare namespace CredentialConnections {
     type CredentialConnectionCreateResponse as CredentialConnectionCreateResponse,
     type CredentialConnectionRetrieveResponse as CredentialConnectionRetrieveResponse,
     type CredentialConnectionUpdateResponse as CredentialConnectionUpdateResponse,
+    type CredentialConnectionListResponse as CredentialConnectionListResponse,
     type CredentialConnectionDeleteResponse as CredentialConnectionDeleteResponse,
-    type CredentialConnectionsDefaultPagination as CredentialConnectionsDefaultPagination,
     type CredentialConnectionCreateParams as CredentialConnectionCreateParams,
     type CredentialConnectionUpdateParams as CredentialConnectionUpdateParams,
     type CredentialConnectionListParams as CredentialConnectionListParams,

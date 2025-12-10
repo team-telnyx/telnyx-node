@@ -11,14 +11,12 @@ describe('resource mobilePushCredentials', () => {
   // Prism tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.mobilePushCredentials.create({
-      createMobilePushCredentialRequest: {
-        alias: 'LucyIosCredential',
-        certificate:
-          '-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----',
-        private_key:
-          '-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----',
-        type: 'ios',
-      },
+      alias: 'LucyIosCredential',
+      certificate:
+        '-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----',
+      private_key:
+        '-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----',
+      type: 'ios',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -32,14 +30,12 @@ describe('resource mobilePushCredentials', () => {
   // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.mobilePushCredentials.create({
-      createMobilePushCredentialRequest: {
-        alias: 'LucyIosCredential',
-        certificate:
-          '-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----',
-        private_key:
-          '-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----',
-        type: 'ios',
-      },
+      alias: 'LucyIosCredential',
+      certificate:
+        '-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----',
+      private_key:
+        '-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----',
+      type: 'ios',
     });
   });
 

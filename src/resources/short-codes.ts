@@ -2,9 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import * as Shared from './shared';
-import { ShortCodesDefaultPagination } from './shared';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -52,20 +50,14 @@ export class ShortCodes extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const shortCode of client.shortCodes.list()) {
-   *   // ...
-   * }
+   * const shortCodes = await client.shortCodes.list();
    * ```
    */
   list(
     query: ShortCodeListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ShortCodesDefaultPagination, Shared.ShortCode> {
-    return this._client.getAPIList('/short_codes', DefaultPagination<Shared.ShortCode>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<ShortCodeListResponse> {
+    return this._client.get('/short_codes', { query, ...options });
   }
 }
 
@@ -77,6 +69,24 @@ export interface ShortCodeUpdateResponse {
   data?: Shared.ShortCode;
 }
 
+export interface ShortCodeListResponse {
+  data?: Array<Shared.ShortCode>;
+
+  meta?: ShortCodeListResponse.Meta;
+}
+
+export namespace ShortCodeListResponse {
+  export interface Meta {
+    page_number: number;
+
+    page_size: number;
+
+    total_pages: number;
+
+    total_results: number;
+  }
+}
+
 export interface ShortCodeUpdateParams {
   /**
    * Unique identifier for a messaging profile.
@@ -86,12 +96,18 @@ export interface ShortCodeUpdateParams {
   tags?: Array<string>;
 }
 
-export interface ShortCodeListParams extends DefaultPaginationParams {
+export interface ShortCodeListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[messaging_profile_id]
    */
   filter?: ShortCodeListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: ShortCodeListParams.Page;
 }
 
 export namespace ShortCodeListParams {
@@ -107,15 +123,30 @@ export namespace ShortCodeListParams {
      */
     messaging_profile_id?: string;
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace ShortCodes {
   export {
     type ShortCodeRetrieveResponse as ShortCodeRetrieveResponse,
     type ShortCodeUpdateResponse as ShortCodeUpdateResponse,
+    type ShortCodeListResponse as ShortCodeListResponse,
     type ShortCodeUpdateParams as ShortCodeUpdateParams,
     type ShortCodeListParams as ShortCodeListParams,
   };
 }
-
-export { type ShortCodesDefaultPagination };

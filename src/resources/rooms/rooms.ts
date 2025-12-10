@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as Shared from '../shared';
 import * as ActionsAPI from './actions';
 import {
@@ -13,14 +14,16 @@ import {
 import * as SessionsAPI from './sessions/sessions';
 import {
   SessionList0Params,
+  SessionList0Response,
   SessionList1Params,
+  SessionList1Response,
   SessionRetrieveParams,
   SessionRetrieveParticipantsParams,
+  SessionRetrieveParticipantsResponse,
   SessionRetrieveResponse,
   Sessions,
 } from './sessions/sessions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -78,17 +81,14 @@ export class Rooms extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const room of client.rooms.list()) {
-   *   // ...
-   * }
+   * const rooms = await client.rooms.list();
    * ```
    */
   list(
     query: RoomListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RoomsDefaultPagination, Room> {
-    return this._client.getAPIList('/rooms', DefaultPagination<Room>, { query, ...options });
+  ): APIPromise<RoomListResponse> {
+    return this._client.get('/rooms', { query, ...options });
   }
 
   /**
@@ -110,10 +110,6 @@ export class Rooms extends APIResource {
     });
   }
 }
-
-export type RoomsDefaultPagination = DefaultPagination<Room>;
-
-export type RoomSessionsDefaultPagination = DefaultPagination<RoomSession>;
 
 export interface Room {
   /**
@@ -221,6 +217,12 @@ export interface RoomUpdateResponse {
   data?: Room;
 }
 
+export interface RoomListResponse {
+  data?: Array<Room>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface RoomCreateParams {
   /**
    * Enable or disable recording for that room.
@@ -298,7 +300,7 @@ export interface RoomUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface RoomListParams extends DefaultPaginationParams {
+export interface RoomListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_created_at][eq], filter[date_created_at][gte],
@@ -311,6 +313,12 @@ export interface RoomListParams extends DefaultPaginationParams {
    * To decide if room sessions should be included in the response.
    */
   include_sessions?: boolean;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: RoomListParams.Page;
 }
 
 export namespace RoomListParams {
@@ -366,6 +374,22 @@ export namespace RoomListParams {
       lte?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load.
+     */
+    number?: number;
+
+    /**
+     * The size of the page.
+     */
+    size?: number;
+  }
 }
 
 Rooms.Actions = Actions;
@@ -378,7 +402,7 @@ export declare namespace Rooms {
     type RoomCreateResponse as RoomCreateResponse,
     type RoomRetrieveResponse as RoomRetrieveResponse,
     type RoomUpdateResponse as RoomUpdateResponse,
-    type RoomsDefaultPagination as RoomsDefaultPagination,
+    type RoomListResponse as RoomListResponse,
     type RoomCreateParams as RoomCreateParams,
     type RoomRetrieveParams as RoomRetrieveParams,
     type RoomUpdateParams as RoomUpdateParams,
@@ -396,6 +420,9 @@ export declare namespace Rooms {
   export {
     Sessions as Sessions,
     type SessionRetrieveResponse as SessionRetrieveResponse,
+    type SessionList0Response as SessionList0Response,
+    type SessionList1Response as SessionList1Response,
+    type SessionRetrieveParticipantsResponse as SessionRetrieveParticipantsResponse,
     type SessionRetrieveParams as SessionRetrieveParams,
     type SessionList0Params as SessionList0Params,
     type SessionList1Params as SessionList1Params,

@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -50,21 +50,15 @@ export class DynamicEmergencyAddresses extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const dynamicEmergencyAddress of client.dynamicEmergencyAddresses.list()) {
-   *   // ...
-   * }
+   * const dynamicEmergencyAddresses =
+   *   await client.dynamicEmergencyAddresses.list();
    * ```
    */
   list(
     query: DynamicEmergencyAddressListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<DynamicEmergencyAddressesDefaultPagination, DynamicEmergencyAddress> {
-    return this._client.getAPIList(
-      '/dynamic_emergency_addresses',
-      DefaultPagination<DynamicEmergencyAddress>,
-      { query, ...options },
-    );
+  ): APIPromise<DynamicEmergencyAddressListResponse> {
+    return this._client.get('/dynamic_emergency_addresses', { query, ...options });
   }
 
   /**
@@ -82,8 +76,6 @@ export class DynamicEmergencyAddresses extends APIResource {
     return this._client.delete(path`/dynamic_emergency_addresses/${id}`, options);
   }
 }
-
-export type DynamicEmergencyAddressesDefaultPagination = DefaultPagination<DynamicEmergencyAddress>;
 
 export interface DynamicEmergencyAddress {
   administrative_area: string;
@@ -145,6 +137,12 @@ export interface DynamicEmergencyAddressRetrieveResponse {
   data?: DynamicEmergencyAddress;
 }
 
+export interface DynamicEmergencyAddressListResponse {
+  data?: Array<DynamicEmergencyAddress>;
+
+  meta?: Shared.Metadata;
+}
+
 export interface DynamicEmergencyAddressDeleteResponse {
   data?: DynamicEmergencyAddress;
 }
@@ -173,12 +171,18 @@ export interface DynamicEmergencyAddressCreateParams {
   street_suffix?: string;
 }
 
-export interface DynamicEmergencyAddressListParams extends DefaultPaginationParams {
+export interface DynamicEmergencyAddressListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
    * filter[country_code]
    */
   filter?: DynamicEmergencyAddressListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: DynamicEmergencyAddressListParams.Page;
 }
 
 export namespace DynamicEmergencyAddressListParams {
@@ -197,6 +201,22 @@ export namespace DynamicEmergencyAddressListParams {
      */
     status?: 'pending' | 'activated' | 'rejected';
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace DynamicEmergencyAddresses {
@@ -204,8 +224,8 @@ export declare namespace DynamicEmergencyAddresses {
     type DynamicEmergencyAddress as DynamicEmergencyAddress,
     type DynamicEmergencyAddressCreateResponse as DynamicEmergencyAddressCreateResponse,
     type DynamicEmergencyAddressRetrieveResponse as DynamicEmergencyAddressRetrieveResponse,
+    type DynamicEmergencyAddressListResponse as DynamicEmergencyAddressListResponse,
     type DynamicEmergencyAddressDeleteResponse as DynamicEmergencyAddressDeleteResponse,
-    type DynamicEmergencyAddressesDefaultPagination as DynamicEmergencyAddressesDefaultPagination,
     type DynamicEmergencyAddressCreateParams as DynamicEmergencyAddressCreateParams,
     type DynamicEmergencyAddressListParams as DynamicEmergencyAddressListParams,
   };

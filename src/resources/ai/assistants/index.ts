@@ -19,7 +19,6 @@ export {
   type RetrievalTool,
   type TelephonySettings,
   type TranscriptionSettings,
-  type TranscriptionSettingsConfig,
   type TransferTool,
   type VoiceSettings,
   type WebhookTool,
@@ -31,7 +30,7 @@ export {
   type AssistantRetrieveParams,
   type AssistantUpdateParams,
   type AssistantChatParams,
-  type AssistantImportsParams,
+  type AssistantImportParams,
   type AssistantSendSMSParams,
 } from './assistants';
 export {
@@ -54,16 +53,15 @@ export {
   type ScheduledEventRetrieveParams,
   type ScheduledEventListParams,
   type ScheduledEventDeleteParams,
-  type ScheduledEventListResponsesDefaultFlatPagination,
 } from './scheduled-events';
 export {
   Tests,
   type AssistantTest,
   type TelnyxConversationChannel,
+  type TestListResponse,
   type TestCreateParams,
   type TestUpdateParams,
   type TestListParams,
-  type AssistantTestsDefaultFlatPagination,
 } from './tests/index';
 export { Tools, type ToolTestResponse, type ToolTestParams } from './tools';
 export {

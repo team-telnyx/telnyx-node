@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -48,21 +48,15 @@ export class PrivateWirelessGateways extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const privateWirelessGateway of client.privateWirelessGateways.list()) {
-   *   // ...
-   * }
+   * const privateWirelessGateways =
+   *   await client.privateWirelessGateways.list();
    * ```
    */
   list(
     query: PrivateWirelessGatewayListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PrivateWirelessGatewaysDefaultFlatPagination, PrivateWirelessGateway> {
-    return this._client.getAPIList(
-      '/private_wireless_gateways',
-      DefaultFlatPagination<PrivateWirelessGateway>,
-      { query, ...options },
-    );
+  ): APIPromise<PrivateWirelessGatewayListResponse> {
+    return this._client.get('/private_wireless_gateways', { query, ...options });
   }
 
   /**
@@ -80,8 +74,6 @@ export class PrivateWirelessGateways extends APIResource {
     return this._client.delete(path`/private_wireless_gateways/${id}`, options);
   }
 }
-
-export type PrivateWirelessGatewaysDefaultFlatPagination = DefaultFlatPagination<PrivateWirelessGateway>;
 
 export interface PrivateWirelessGateway {
   /**
@@ -184,6 +176,12 @@ export interface PrivateWirelessGatewayRetrieveResponse {
   data?: PrivateWirelessGateway;
 }
 
+export interface PrivateWirelessGatewayListResponse {
+  data?: Array<PrivateWirelessGateway>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface PrivateWirelessGatewayDeleteResponse {
   data?: PrivateWirelessGateway;
 }
@@ -206,7 +204,7 @@ export interface PrivateWirelessGatewayCreateParams {
   region_code?: string;
 }
 
-export interface PrivateWirelessGatewayListParams extends DefaultFlatPaginationParams {
+export interface PrivateWirelessGatewayListParams {
   /**
    * Private Wireless Gateway resource creation date.
    */
@@ -231,6 +229,16 @@ export interface PrivateWirelessGatewayListParams extends DefaultFlatPaginationP
    * When the Private Wireless Gateway was last updated.
    */
   'filter[updated_at]'?: string;
+
+  /**
+   * The page number to load.
+   */
+  'page[number]'?: number;
+
+  /**
+   * The size of the page.
+   */
+  'page[size]'?: number;
 }
 
 export declare namespace PrivateWirelessGateways {
@@ -240,8 +248,8 @@ export declare namespace PrivateWirelessGateways {
     type PwgAssignedResourcesSummary as PwgAssignedResourcesSummary,
     type PrivateWirelessGatewayCreateResponse as PrivateWirelessGatewayCreateResponse,
     type PrivateWirelessGatewayRetrieveResponse as PrivateWirelessGatewayRetrieveResponse,
+    type PrivateWirelessGatewayListResponse as PrivateWirelessGatewayListResponse,
     type PrivateWirelessGatewayDeleteResponse as PrivateWirelessGatewayDeleteResponse,
-    type PrivateWirelessGatewaysDefaultFlatPagination as PrivateWirelessGatewaysDefaultFlatPagination,
     type PrivateWirelessGatewayCreateParams as PrivateWirelessGatewayCreateParams,
     type PrivateWirelessGatewayListParams as PrivateWirelessGatewayListParams,
   };

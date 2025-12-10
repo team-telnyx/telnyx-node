@@ -7,15 +7,14 @@ export {
   type RunRetrieveParams,
   type RunListParams,
   type RunTriggerParams,
-  type TestRunResponsesDefaultFlatPagination,
 } from './runs';
 export { TestSuites, type TestSuiteListResponse } from './test-suites/index';
 export {
   Tests,
   type AssistantTest,
   type TelnyxConversationChannel,
+  type TestListResponse,
   type TestCreateParams,
   type TestUpdateParams,
   type TestListParams,
-  type AssistantTestsDefaultFlatPagination,
 } from './tests';

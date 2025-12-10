@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -46,24 +46,21 @@ export class PhoneNumberBlocks extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const portingPhoneNumberBlock of client.portingOrders.phoneNumberBlocks.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
+   * const phoneNumberBlocks =
+   *   await client.portingOrders.phoneNumberBlocks.list(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
    * ```
    */
   list(
     portingOrderID: string,
     query: PhoneNumberBlockListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortingPhoneNumberBlocksDefaultPagination, PortingPhoneNumberBlock> {
-    return this._client.getAPIList(
-      path`/porting_orders/${portingOrderID}/phone_number_blocks`,
-      DefaultPagination<PortingPhoneNumberBlock>,
-      { query, ...options },
-    );
+  ): APIPromise<PhoneNumberBlockListResponse> {
+    return this._client.get(path`/porting_orders/${portingOrderID}/phone_number_blocks`, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -90,8 +87,6 @@ export class PhoneNumberBlocks extends APIResource {
     return this._client.delete(path`/porting_orders/${porting_order_id}/phone_number_blocks/${id}`, options);
   }
 }
-
-export type PortingPhoneNumberBlocksDefaultPagination = DefaultPagination<PortingPhoneNumberBlock>;
 
 export interface PortingPhoneNumberBlock {
   /**
@@ -174,6 +169,12 @@ export interface PhoneNumberBlockCreateResponse {
   data?: PortingPhoneNumberBlock;
 }
 
+export interface PhoneNumberBlockListResponse {
+  data?: Array<PortingPhoneNumberBlock>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface PhoneNumberBlockDeleteResponse {
   data?: PortingPhoneNumberBlock;
 }
@@ -218,13 +219,19 @@ export namespace PhoneNumberBlockCreateParams {
   }
 }
 
-export interface PhoneNumberBlockListParams extends DefaultPaginationParams {
+export interface PhoneNumberBlockListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[porting_order_id], filter[support_key], filter[status],
    * filter[phone_number], filter[activation_status], filter[portability_status]
    */
   filter?: PhoneNumberBlockListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: PhoneNumberBlockListParams.Page;
 
   /**
    * Consolidated sort parameter (deepObject style). Originally: sort[value]
@@ -304,6 +311,22 @@ export namespace PhoneNumberBlockListParams {
   }
 
   /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
+
+  /**
    * Consolidated sort parameter (deepObject style). Originally: sort[value]
    */
   export interface Sort {
@@ -326,8 +349,8 @@ export declare namespace PhoneNumberBlocks {
   export {
     type PortingPhoneNumberBlock as PortingPhoneNumberBlock,
     type PhoneNumberBlockCreateResponse as PhoneNumberBlockCreateResponse,
+    type PhoneNumberBlockListResponse as PhoneNumberBlockListResponse,
     type PhoneNumberBlockDeleteResponse as PhoneNumberBlockDeleteResponse,
-    type PortingPhoneNumberBlocksDefaultPagination as PortingPhoneNumberBlocksDefaultPagination,
     type PhoneNumberBlockCreateParams as PhoneNumberBlockCreateParams,
     type PhoneNumberBlockListParams as PhoneNumberBlockListParams,
     type PhoneNumberBlockDeleteParams as PhoneNumberBlockDeleteParams,

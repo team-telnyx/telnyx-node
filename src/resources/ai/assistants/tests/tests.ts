@@ -8,17 +8,12 @@ import {
   RunTriggerParams,
   Runs,
   TestRunResponse,
-  TestRunResponsesDefaultFlatPagination,
   TestStatus,
 } from './runs';
+import * as TestSuitesRunsAPI from './test-suites/runs';
 import * as TestSuitesAPI from './test-suites/test-suites';
 import { TestSuiteListResponse, TestSuites } from './test-suites/test-suites';
 import { APIPromise } from '../../../../core/api-promise';
-import {
-  DefaultFlatPagination,
-  type DefaultFlatPaginationParams,
-  PagePromise,
-} from '../../../../core/pagination';
 import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
@@ -88,20 +83,14 @@ export class Tests extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const assistantTest of client.ai.assistants.tests.list()) {
-   *   // ...
-   * }
+   * const tests = await client.ai.assistants.tests.list();
    * ```
    */
   list(
     query: TestListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<AssistantTestsDefaultFlatPagination, AssistantTest> {
-    return this._client.getAPIList('/ai/assistants/tests', DefaultFlatPagination<AssistantTest>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<TestListResponse> {
+    return this._client.get('/ai/assistants/tests', { query, ...options });
   }
 
   /**
@@ -119,8 +108,6 @@ export class Tests extends APIResource {
     });
   }
 }
-
-export type AssistantTestsDefaultFlatPagination = DefaultFlatPagination<AssistantTest>;
 
 /**
  * Response model containing complete assistant test information.
@@ -197,6 +184,24 @@ export namespace AssistantTest {
 }
 
 export type TelnyxConversationChannel = 'phone_call' | 'web_call' | 'sms_chat' | 'web_chat';
+
+/**
+ * Paginated list of assistant tests with metadata.
+ *
+ * Returns a subset of tests based on pagination parameters along with metadata for
+ * implementing pagination controls in the UI.
+ */
+export interface TestListResponse {
+  /**
+   * Array of assistant test objects for the current page.
+   */
+  data: Array<AssistantTest>;
+
+  /**
+   * Pagination metadata including total counts and current page info.
+   */
+  meta: TestSuitesRunsAPI.Meta;
+}
 
 export interface TestCreateParams {
   /**
@@ -320,11 +325,17 @@ export namespace TestUpdateParams {
   }
 }
 
-export interface TestListParams extends DefaultFlatPaginationParams {
+export interface TestListParams {
   /**
    * Filter tests by destination (phone number, webhook URL, etc.)
    */
   destination?: string;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: TestListParams.Page;
 
   /**
    * Filter tests by communication channel (e.g., 'web_chat', 'sms')
@@ -337,6 +348,24 @@ export interface TestListParams extends DefaultFlatPaginationParams {
   test_suite?: string;
 }
 
+export namespace TestListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * Page number to retrieve (1-based indexing)
+     */
+    number?: number;
+
+    /**
+     * Number of tests to return per page (1-100)
+     */
+    size?: number;
+  }
+}
+
 Tests.TestSuites = TestSuites;
 Tests.Runs = Runs;
 
@@ -344,7 +373,7 @@ export declare namespace Tests {
   export {
     type AssistantTest as AssistantTest,
     type TelnyxConversationChannel as TelnyxConversationChannel,
-    type AssistantTestsDefaultFlatPagination as AssistantTestsDefaultFlatPagination,
+    type TestListResponse as TestListResponse,
     type TestCreateParams as TestCreateParams,
     type TestUpdateParams as TestUpdateParams,
     type TestListParams as TestListParams,
@@ -356,7 +385,6 @@ export declare namespace Tests {
     Runs as Runs,
     type TestRunResponse as TestRunResponse,
     type TestStatus as TestStatus,
-    type TestRunResponsesDefaultFlatPagination as TestRunResponsesDefaultFlatPagination,
     type RunRetrieveParams as RunRetrieveParams,
     type RunListParams as RunListParams,
     type RunTriggerParams as RunTriggerParams,

@@ -43,7 +43,7 @@ describe('resource runs', () => {
     await expect(
       client.ai.assistants.tests.runs.list(
         'test_id',
-        { 'page[number]': 0, 'page[size]': 0, status: 'status' },
+        { page: { number: 1, size: 1 }, status: 'status' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

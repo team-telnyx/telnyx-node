@@ -2,7 +2,6 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -62,20 +61,14 @@ export class OAuthClients extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const oauthClient of client.oauthClients.list()) {
-   *   // ...
-   * }
+   * const oauthClients = await client.oauthClients.list();
    * ```
    */
   list(
     query: OAuthClientListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<OAuthClientsDefaultFlatPagination, OAuthClient> {
-    return this._client.getAPIList('/oauth_clients', DefaultFlatPagination<OAuthClient>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<OAuthClientListResponse> {
+    return this._client.get('/oauth_clients', { query, ...options });
   }
 
   /**
@@ -95,8 +88,6 @@ export class OAuthClients extends APIResource {
     });
   }
 }
-
-export type OAuthClientsDefaultFlatPagination = DefaultFlatPagination<OAuthClient>;
 
 export interface OAuthClient {
   /**
@@ -184,17 +175,17 @@ export interface PaginationMetaOAuth {
   /**
    * Current page number
    */
-  page_number: number;
-
-  /**
-   * Total number of pages
-   */
-  total_pages: number;
+  page_number?: number;
 
   /**
    * Number of items per page
    */
   page_size?: number;
+
+  /**
+   * Total number of pages
+   */
+  total_pages?: number;
 
   /**
    * Total number of results
@@ -212,6 +203,12 @@ export interface OAuthClientRetrieveResponse {
 
 export interface OAuthClientUpdateResponse {
   data?: OAuthClient;
+}
+
+export interface OAuthClientListResponse {
+  data?: Array<OAuthClient>;
+
+  meta?: PaginationMetaOAuth;
 }
 
 export interface OAuthClientCreateParams {
@@ -303,7 +300,7 @@ export interface OAuthClientUpdateParams {
   tos_uri?: string;
 }
 
-export interface OAuthClientListParams extends DefaultFlatPaginationParams {
+export interface OAuthClientListParams {
   /**
    * Filter by allowed grant type
    */
@@ -333,6 +330,16 @@ export interface OAuthClientListParams extends DefaultFlatPaginationParams {
    * Filter by verification status
    */
   'filter[verified]'?: boolean;
+
+  /**
+   * Page number
+   */
+  'page[number]'?: number;
+
+  /**
+   * Number of results per page
+   */
+  'page[size]'?: number;
 }
 
 export declare namespace OAuthClients {
@@ -342,7 +349,7 @@ export declare namespace OAuthClients {
     type OAuthClientCreateResponse as OAuthClientCreateResponse,
     type OAuthClientRetrieveResponse as OAuthClientRetrieveResponse,
     type OAuthClientUpdateResponse as OAuthClientUpdateResponse,
-    type OAuthClientsDefaultFlatPagination as OAuthClientsDefaultFlatPagination,
+    type OAuthClientListResponse as OAuthClientListResponse,
     type OAuthClientCreateParams as OAuthClientCreateParams,
     type OAuthClientUpdateParams as OAuthClientUpdateParams,
     type OAuthClientListParams as OAuthClientListParams,

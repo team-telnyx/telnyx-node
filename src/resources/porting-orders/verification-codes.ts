@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -13,24 +13,18 @@ export class VerificationCodes extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const verificationCodeListResponse of client.portingOrders.verificationCodes.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
+   * const verificationCodes =
+   *   await client.portingOrders.verificationCodes.list(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
    * ```
    */
   list(
     id: string,
     query: VerificationCodeListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<VerificationCodeListResponsesDefaultPagination, VerificationCodeListResponse> {
-    return this._client.getAPIList(
-      path`/porting_orders/${id}/verification_codes`,
-      DefaultPagination<VerificationCodeListResponse>,
-      { query, ...options },
-    );
+  ): APIPromise<VerificationCodeListResponse> {
+    return this._client.get(path`/porting_orders/${id}/verification_codes`, { query, ...options });
   }
 
   /**
@@ -75,43 +69,49 @@ export class VerificationCodes extends APIResource {
   }
 }
 
-export type VerificationCodeListResponsesDefaultPagination = DefaultPagination<VerificationCodeListResponse>;
-
 export interface VerificationCodeListResponse {
-  /**
-   * Uniquely identifies this porting verification code
-   */
-  id?: string;
+  data?: Array<VerificationCodeListResponse.Data>;
 
-  /**
-   * ISO 8601 formatted date indicating when the resource was created.
-   */
-  created_at?: string;
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
 
-  /**
-   * E164 formatted phone number
-   */
-  phone_number?: string;
+export namespace VerificationCodeListResponse {
+  export interface Data {
+    /**
+     * Uniquely identifies this porting verification code
+     */
+    id?: string;
 
-  /**
-   * Identifies the associated porting order
-   */
-  porting_order_id?: string;
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
 
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: string;
+    /**
+     * E164 formatted phone number
+     */
+    phone_number?: string;
 
-  /**
-   * ISO 8601 formatted date indicating when the resource was updated.
-   */
-  updated_at?: string;
+    /**
+     * Identifies the associated porting order
+     */
+    porting_order_id?: string;
 
-  /**
-   * Indicates whether the verification code has been verified
-   */
-  verified?: boolean;
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+
+    /**
+     * Indicates whether the verification code has been verified
+     */
+    verified?: boolean;
+  }
 }
 
 export interface VerificationCodeVerifyResponse {
@@ -157,11 +157,17 @@ export namespace VerificationCodeVerifyResponse {
   }
 }
 
-export interface VerificationCodeListParams extends DefaultPaginationParams {
+export interface VerificationCodeListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[verified]
    */
   filter?: VerificationCodeListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: VerificationCodeListParams.Page;
 
   /**
    * Consolidated sort parameter (deepObject style). Originally: sort[value]
@@ -178,6 +184,22 @@ export namespace VerificationCodeListParams {
      * Filter verification codes that have been verified or not
      */
     verified?: boolean;
+  }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
   }
 
   /**
@@ -214,7 +236,6 @@ export declare namespace VerificationCodes {
   export {
     type VerificationCodeListResponse as VerificationCodeListResponse,
     type VerificationCodeVerifyResponse as VerificationCodeVerifyResponse,
-    type VerificationCodeListResponsesDefaultPagination as VerificationCodeListResponsesDefaultPagination,
     type VerificationCodeListParams as VerificationCodeListParams,
     type VerificationCodeSendParams as VerificationCodeSendParams,
     type VerificationCodeVerifyParams as VerificationCodeVerifyParams,

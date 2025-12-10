@@ -18,7 +18,6 @@ import {
   ScheduledEventDeleteParams,
   ScheduledEventListParams,
   ScheduledEventListResponse,
-  ScheduledEventListResponsesDefaultFlatPagination,
   ScheduledEventResponse,
   ScheduledEventRetrieveParams,
   ScheduledEvents,
@@ -39,10 +38,10 @@ import {
 import * as TestsAPI from './tests/tests';
 import {
   AssistantTest,
-  AssistantTestsDefaultFlatPagination,
   TelnyxConversationChannel,
   TestCreateParams,
   TestListParams,
+  TestListResponse,
   TestUpdateParams,
   Tests,
 } from './tests/tests';
@@ -198,13 +197,13 @@ export class Assistants extends APIResource {
    *
    * @example
    * ```ts
-   * const assistantsList = await client.ai.assistants.imports({
+   * const assistantsList = await client.ai.assistants.import({
    *   api_key_ref: 'api_key_ref',
    *   provider: 'elevenlabs',
    * });
    * ```
    */
-  imports(body: AssistantImportsParams, options?: RequestOptions): APIPromise<AssistantsList> {
+  import(body: AssistantImportParams, options?: RequestOptions): APIPromise<AssistantsList> {
     return this._client.post('/ai/assistants/import', { body, ...options });
   }
 
@@ -346,11 +345,11 @@ export namespace Assistant {
 export type AssistantTool =
   | WebhookTool
   | RetrievalTool
-  | AssistantTool.Handoff
+  | AssistantTool.HandoffTool
   | HangupTool
   | TransferTool
-  | AssistantTool.Refer
-  | AssistantTool.SendDtmf;
+  | AssistantTool.SipReferTool
+  | AssistantTool.DtmfTool;
 
 export namespace AssistantTool {
   /**
@@ -358,13 +357,13 @@ export namespace AssistantTool {
    * another AI assistant. By default, this will happen transparently to the end
    * user.
    */
-  export interface Handoff {
-    handoff: Handoff.Handoff;
+  export interface HandoffTool {
+    handoff: HandoffTool.Handoff;
 
     type: 'handoff';
   }
 
-  export namespace Handoff {
+  export namespace HandoffTool {
     export interface Handoff {
       /**
        * List of possible assistants that can receive a handoff.
@@ -395,13 +394,13 @@ export namespace AssistantTool {
     }
   }
 
-  export interface Refer {
-    refer: Refer.Refer;
+  export interface SipReferTool {
+    refer: SipReferTool.Refer;
 
     type: 'refer';
   }
 
-  export namespace Refer {
+  export namespace SipReferTool {
     export interface Refer {
       /**
        * The different possible targets of the SIP refer. The assistant will be able to
@@ -470,7 +469,7 @@ export namespace AssistantTool {
     }
   }
 
-  export interface SendDtmf {
+  export interface DtmfTool {
     send_dtmf: { [key: string]: unknown };
 
     type: 'send_dtmf';
@@ -869,25 +868,27 @@ export interface TranscriptionSettings {
    */
   region?: string;
 
-  settings?: TranscriptionSettingsConfig;
+  settings?: TranscriptionSettings.Settings;
 }
 
-export interface TranscriptionSettingsConfig {
-  /**
-   * Available only for deepgram/flux. Confidence required to trigger an end of turn.
-   * Higher values = more reliable turn detection but slightly increased latency.
-   */
-  eot_threshold?: number;
+export namespace TranscriptionSettings {
+  export interface Settings {
+    /**
+     * Available only for deepgram/flux. Confidence required to trigger an end of turn.
+     * Higher values = more reliable turn detection but slightly increased latency.
+     */
+    eot_threshold?: number;
 
-  /**
-   * Available only for deepgram/flux. Maximum milliseconds of silence before forcing
-   * an end of turn, regardless of confidence.
-   */
-  eot_timeout_ms?: number;
+    /**
+     * Available only for deepgram/flux. Maximum milliseconds of silence before forcing
+     * an end of turn, regardless of confidence.
+     */
+    eot_timeout_ms?: number;
 
-  numerals?: boolean;
+    numerals?: boolean;
 
-  smart_format?: boolean;
+    smart_format?: boolean;
+  }
 }
 
 export interface TransferTool {
@@ -921,7 +922,7 @@ export interface VoiceSettings {
    * supply a looped MP3 URL. If a media URL is chosen in the portal, customers can
    * preview it before saving.
    */
-  background_audio?: VoiceSettings.PredefinedMedia | VoiceSettings.MediaURL | VoiceSettings.MediaName;
+  background_audio?: VoiceSettings.UnionMember0 | VoiceSettings.UnionMember1 | VoiceSettings.UnionMember2;
 
   /**
    * The speed of the voice in the range [0.25, 2.0]. 1.0 is deafult speed. Larger
@@ -932,7 +933,7 @@ export interface VoiceSettings {
 }
 
 export namespace VoiceSettings {
-  export interface PredefinedMedia {
+  export interface UnionMember0 {
     /**
      * Select from predefined media options.
      */
@@ -944,7 +945,7 @@ export namespace VoiceSettings {
     value: 'silence' | 'office';
   }
 
-  export interface MediaURL {
+  export interface UnionMember1 {
     /**
      * Provide a direct URL to an MP3 file. The audio will loop during the call.
      */
@@ -956,7 +957,7 @@ export namespace VoiceSettings {
     value: string;
   }
 
-  export interface MediaName {
+  export interface UnionMember2 {
     /**
      * Reference a previously uploaded media by its name from Telnyx Media Storage.
      */
@@ -1171,7 +1172,7 @@ export interface AssistantChatParams {
   name?: string;
 }
 
-export interface AssistantImportsParams {
+export interface AssistantImportParams {
   /**
    * Integration secret pointer that refers to the API key for the external provider.
    * This should be an identifier for an integration secret created via
@@ -1222,7 +1223,6 @@ export declare namespace Assistants {
     type RetrievalTool as RetrievalTool,
     type TelephonySettings as TelephonySettings,
     type TranscriptionSettings as TranscriptionSettings,
-    type TranscriptionSettingsConfig as TranscriptionSettingsConfig,
     type TransferTool as TransferTool,
     type VoiceSettings as VoiceSettings,
     type WebhookTool as WebhookTool,
@@ -1234,7 +1234,7 @@ export declare namespace Assistants {
     type AssistantRetrieveParams as AssistantRetrieveParams,
     type AssistantUpdateParams as AssistantUpdateParams,
     type AssistantChatParams as AssistantChatParams,
-    type AssistantImportsParams as AssistantImportsParams,
+    type AssistantImportParams as AssistantImportParams,
     type AssistantSendSMSParams as AssistantSendSMSParams,
   };
 
@@ -1242,7 +1242,7 @@ export declare namespace Assistants {
     Tests as Tests,
     type AssistantTest as AssistantTest,
     type TelnyxConversationChannel as TelnyxConversationChannel,
-    type AssistantTestsDefaultFlatPagination as AssistantTestsDefaultFlatPagination,
+    type TestListResponse as TestListResponse,
     type TestCreateParams as TestCreateParams,
     type TestUpdateParams as TestUpdateParams,
     type TestListParams as TestListParams,
@@ -1265,7 +1265,6 @@ export declare namespace Assistants {
     type ScheduledPhoneCallEventResponse as ScheduledPhoneCallEventResponse,
     type ScheduledSMSEventResponse as ScheduledSMSEventResponse,
     type ScheduledEventListResponse as ScheduledEventListResponse,
-    type ScheduledEventListResponsesDefaultFlatPagination as ScheduledEventListResponsesDefaultFlatPagination,
     type ScheduledEventCreateParams as ScheduledEventCreateParams,
     type ScheduledEventRetrieveParams as ScheduledEventRetrieveParams,
     type ScheduledEventListParams as ScheduledEventListParams,

@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
 export class MessagingURLDomains extends APIResource {
@@ -11,34 +11,68 @@ export class MessagingURLDomains extends APIResource {
   list(
     query: MessagingURLDomainListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessagingURLDomainListResponsesDefaultPagination, MessagingURLDomainListResponse> {
-    return this._client.getAPIList(
-      '/messaging_url_domains',
-      DefaultPagination<MessagingURLDomainListResponse>,
-      { query, ...options },
-    );
+  ): APIPromise<MessagingURLDomainListResponse> {
+    return this._client.get('/messaging_url_domains', { query, ...options });
   }
 }
 
-export type MessagingURLDomainListResponsesDefaultPagination =
-  DefaultPagination<MessagingURLDomainListResponse>;
-
 export interface MessagingURLDomainListResponse {
-  id?: string;
+  data?: Array<MessagingURLDomainListResponse.Data>;
 
-  record_type?: string;
-
-  url_domain?: string;
-
-  use_case?: string;
+  meta?: MessagingURLDomainListResponse.Meta;
 }
 
-export interface MessagingURLDomainListParams extends DefaultPaginationParams {}
+export namespace MessagingURLDomainListResponse {
+  export interface Data {
+    id?: string;
+
+    record_type?: string;
+
+    url_domain?: string;
+
+    use_case?: string;
+  }
+
+  export interface Meta {
+    page_number: number;
+
+    page_size: number;
+
+    total_pages: number;
+
+    total_results: number;
+  }
+}
+
+export interface MessagingURLDomainListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: MessagingURLDomainListParams.Page;
+}
+
+export namespace MessagingURLDomainListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
+}
 
 export declare namespace MessagingURLDomains {
   export {
     type MessagingURLDomainListResponse as MessagingURLDomainListResponse,
-    type MessagingURLDomainListResponsesDefaultPagination as MessagingURLDomainListResponsesDefaultPagination,
     type MessagingURLDomainListParams as MessagingURLDomainListParams,
   };
 }

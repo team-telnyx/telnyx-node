@@ -71,11 +71,19 @@ export const tool: Tool = {
         },
         required: ['record_type'],
       },
-      'page[number]': {
-        type: 'integer',
-      },
-      'page[size]': {
-        type: 'integer',
+      page: {
+        type: 'object',
+        description: 'Consolidated page parameter (deepObject style). Originally: page[number], page[size]',
+        properties: {
+          number: {
+            type: 'integer',
+            description: 'Page number',
+          },
+          size: {
+            type: 'integer',
+            description: 'Page size',
+          },
+        },
       },
       sort: {
         type: 'array',
@@ -94,9 +102,8 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const body = args as any;
-  const response = await client.detailRecords.list(body).asResponse();
   try {
-    return asTextContentResult(await response.json());
+    return asTextContentResult(await client.detailRecords.list(body));
   } catch (error) {
     if (error instanceof Telnyx.APIError) {
       return asErrorResult(error.message);

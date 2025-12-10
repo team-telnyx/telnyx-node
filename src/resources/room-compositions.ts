@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -44,20 +44,15 @@ export class RoomCompositions extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const roomComposition of client.roomCompositions.list()) {
-   *   // ...
-   * }
+   * const roomCompositions =
+   *   await client.roomCompositions.list();
    * ```
    */
   list(
     query: RoomCompositionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RoomCompositionsDefaultPagination, RoomComposition> {
-    return this._client.getAPIList('/room_compositions', DefaultPagination<RoomComposition>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<RoomCompositionListResponse> {
+    return this._client.get('/room_compositions', { query, ...options });
   }
 
   /**
@@ -77,8 +72,6 @@ export class RoomCompositions extends APIResource {
     });
   }
 }
-
-export type RoomCompositionsDefaultPagination = DefaultPagination<RoomComposition>;
 
 export interface RoomComposition {
   /**
@@ -233,6 +226,12 @@ export interface RoomCompositionRetrieveResponse {
   data?: RoomComposition;
 }
 
+export interface RoomCompositionListResponse {
+  data?: Array<RoomComposition>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface RoomCompositionCreateParams {
   /**
    * The desired format of the room composition.
@@ -274,13 +273,19 @@ export interface RoomCompositionCreateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface RoomCompositionListParams extends DefaultPaginationParams {
+export interface RoomCompositionListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_created_at][eq], filter[date_created_at][gte],
    * filter[date_created_at][lte], filter[session_id], filter[status]
    */
   filter?: RoomCompositionListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: RoomCompositionListParams.Page;
 }
 
 export namespace RoomCompositionListParams {
@@ -321,6 +326,22 @@ export namespace RoomCompositionListParams {
       lte?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load.
+     */
+    number?: number;
+
+    /**
+     * The size of the page.
+     */
+    size?: number;
+  }
 }
 
 export declare namespace RoomCompositions {
@@ -329,7 +350,7 @@ export declare namespace RoomCompositions {
     type VideoRegion as VideoRegion,
     type RoomCompositionCreateResponse as RoomCompositionCreateResponse,
     type RoomCompositionRetrieveResponse as RoomCompositionRetrieveResponse,
-    type RoomCompositionsDefaultPagination as RoomCompositionsDefaultPagination,
+    type RoomCompositionListResponse as RoomCompositionListResponse,
     type RoomCompositionCreateParams as RoomCompositionCreateParams,
     type RoomCompositionListParams as RoomCompositionListParams,
   };

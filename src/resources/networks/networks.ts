@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as GlobalIPAssignmentsAPI from '../global-ip-assignments';
 import * as PublicInternetGatewaysAPI from '../public-internet-gateways';
 import * as DefaultGatewayAPI from './default-gateway';
@@ -12,7 +13,6 @@ import {
   DefaultGatewayRetrieveResponse,
 } from './default-gateway';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -58,12 +58,8 @@ export class Networks extends APIResource {
    * );
    * ```
    */
-  update(
-    networkID: string,
-    body: NetworkUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<NetworkUpdateResponse> {
-    return this._client.patch(path`/networks/${networkID}`, { body, ...options });
+  update(id: string, body: NetworkUpdateParams, options?: RequestOptions): APIPromise<NetworkUpdateResponse> {
+    return this._client.patch(path`/networks/${id}`, { body, ...options });
   }
 
   /**
@@ -71,20 +67,14 @@ export class Networks extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const networkListResponse of client.networks.list()) {
-   *   // ...
-   * }
+   * const networks = await client.networks.list();
    * ```
    */
   list(
     query: NetworkListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NetworkListResponsesDefaultPagination, NetworkListResponse> {
-    return this._client.getAPIList('/networks', DefaultPagination<NetworkListResponse>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<NetworkListResponse> {
+    return this._client.get('/networks', { query, ...options });
   }
 
   /**
@@ -106,31 +96,19 @@ export class Networks extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const networkListInterfacesResponse of client.networks.listInterfaces(
+   * const response = await client.networks.listInterfaces(
    *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * )) {
-   *   // ...
-   * }
+   * );
    * ```
    */
   listInterfaces(
     id: string,
     query: NetworkListInterfacesParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NetworkListInterfacesResponsesDefaultPagination, NetworkListInterfacesResponse> {
-    return this._client.getAPIList(
-      path`/networks/${id}/network_interfaces`,
-      DefaultPagination<NetworkListInterfacesResponse>,
-      { query, ...options },
-    );
+  ): APIPromise<NetworkListInterfacesResponse> {
+    return this._client.get(path`/networks/${id}/network_interfaces`, { query, ...options });
   }
 }
-
-export type NetworkListResponsesDefaultPagination = DefaultPagination<NetworkListResponse>;
-
-export type NetworkListInterfacesResponsesDefaultPagination =
-  DefaultPagination<NetworkListInterfacesResponse>;
 
 /**
  * The current status of the interface deployment.
@@ -142,6 +120,11 @@ export interface NetworkCreate extends GlobalIPAssignmentsAPI.Record {
    * A user specified name for the network.
    */
   name: string;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: string;
 }
 
 export interface NetworkCreateResponse {
@@ -154,6 +137,11 @@ export namespace NetworkCreateResponse {
      * A user specified name for the network.
      */
     name?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
   }
 }
 
@@ -167,6 +155,11 @@ export namespace NetworkRetrieveResponse {
      * A user specified name for the network.
      */
     name?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
   }
 }
 
@@ -180,14 +173,32 @@ export namespace NetworkUpdateResponse {
      * A user specified name for the network.
      */
     name?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
   }
 }
 
-export interface NetworkListResponse extends GlobalIPAssignmentsAPI.Record {
-  /**
-   * A user specified name for the network.
-   */
-  name?: string;
+export interface NetworkListResponse {
+  data?: Array<NetworkListResponse.Data>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
+export namespace NetworkListResponse {
+  export interface Data extends GlobalIPAssignmentsAPI.Record {
+    /**
+     * A user specified name for the network.
+     */
+    name?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+  }
 }
 
 export interface NetworkDeleteResponse {
@@ -200,46 +211,57 @@ export namespace NetworkDeleteResponse {
      * A user specified name for the network.
      */
     name?: string;
-  }
-}
-
-export interface NetworkListInterfacesResponse
-  extends GlobalIPAssignmentsAPI.Record,
-    PublicInternetGatewaysAPI.NetworkInterface {
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: string;
-
-  region?: NetworkListInterfacesResponse.Region;
-
-  /**
-   * The region interface is deployed to.
-   */
-  region_code?: string;
-
-  /**
-   * Identifies the type of the interface.
-   */
-  type?: string;
-}
-
-export namespace NetworkListInterfacesResponse {
-  export interface Region {
-    /**
-     * Region code of the interface.
-     */
-    code?: string;
-
-    /**
-     * Region name of the interface.
-     */
-    name?: string;
 
     /**
      * Identifies the type of the resource.
      */
     record_type?: string;
+  }
+}
+
+export interface NetworkListInterfacesResponse {
+  data?: Array<NetworkListInterfacesResponse.Data>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
+export namespace NetworkListInterfacesResponse {
+  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.Interface {
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    region?: Data.Region;
+
+    /**
+     * The region interface is deployed to.
+     */
+    region_code?: string;
+
+    /**
+     * Identifies the type of the interface.
+     */
+    type?: string;
+  }
+
+  export namespace Data {
+    export interface Region {
+      /**
+       * Region code of the interface.
+       */
+      code?: string;
+
+      /**
+       * Region name of the interface.
+       */
+      name?: string;
+
+      /**
+       * Identifies the type of the resource.
+       */
+      record_type?: string;
+    }
   }
 }
 
@@ -257,11 +279,17 @@ export interface NetworkUpdateParams {
   name: string;
 }
 
-export interface NetworkListParams extends DefaultPaginationParams {
+export interface NetworkListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[name]
    */
   filter?: NetworkListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: NetworkListParams.Page;
 }
 
 export namespace NetworkListParams {
@@ -274,14 +302,36 @@ export namespace NetworkListParams {
      */
     name?: string;
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
-export interface NetworkListInterfacesParams extends DefaultPaginationParams {
+export interface NetworkListInterfacesParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[name],
    * filter[type], filter[status]
    */
   filter?: NetworkListInterfacesParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: NetworkListInterfacesParams.Page;
 }
 
 export namespace NetworkListInterfacesParams {
@@ -300,6 +350,22 @@ export namespace NetworkListInterfacesParams {
      */
     type?: string;
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 Networks.DefaultGateway = DefaultGateway;
@@ -314,8 +380,6 @@ export declare namespace Networks {
     type NetworkListResponse as NetworkListResponse,
     type NetworkDeleteResponse as NetworkDeleteResponse,
     type NetworkListInterfacesResponse as NetworkListInterfacesResponse,
-    type NetworkListResponsesDefaultPagination as NetworkListResponsesDefaultPagination,
-    type NetworkListInterfacesResponsesDefaultPagination as NetworkListInterfacesResponsesDefaultPagination,
     type NetworkCreateParams as NetworkCreateParams,
     type NetworkUpdateParams as NetworkUpdateParams,
     type NetworkListParams as NetworkListParams,

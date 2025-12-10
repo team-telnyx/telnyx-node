@@ -2,7 +2,8 @@
 
 import { APIResource } from '../core/resource';
 import * as NetworkCoverageAPI from './network-coverage';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import * as AuthenticationProvidersAPI from './authentication-providers';
+import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
 export class NetworkCoverage extends APIResource {
@@ -12,62 +13,65 @@ export class NetworkCoverage extends APIResource {
   list(
     query: NetworkCoverageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NetworkCoverageListResponsesDefaultPagination, NetworkCoverageListResponse> {
-    return this._client.getAPIList('/network_coverage', DefaultPagination<NetworkCoverageListResponse>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<NetworkCoverageListResponse> {
+    return this._client.get('/network_coverage', { query, ...options });
   }
 }
-
-export type NetworkCoverageListResponsesDefaultPagination = DefaultPagination<NetworkCoverageListResponse>;
 
 export type AvailableService = 'cloud_vpn' | 'private_wireless_gateway' | 'virtual_cross_connect';
 
 export interface NetworkCoverageListResponse {
-  /**
-   * List of interface types supported in this region.
-   */
-  available_services?: Array<AvailableService>;
+  data?: Array<NetworkCoverageListResponse.Data>;
 
-  location?: NetworkCoverageListResponse.Location;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: string;
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export namespace NetworkCoverageListResponse {
-  export interface Location {
+  export interface Data {
     /**
-     * Location code.
+     * List of interface types supported in this region.
      */
-    code?: string;
+    available_services?: Array<NetworkCoverageAPI.AvailableService>;
+
+    location?: Data.Location;
 
     /**
-     * Human readable name of location.
+     * Identifies the type of the resource.
      */
-    name?: string;
+    record_type?: string;
+  }
 
-    /**
-     * Point of presence of location.
-     */
-    pop?: string;
+  export namespace Data {
+    export interface Location {
+      /**
+       * Location code.
+       */
+      code?: string;
 
-    /**
-     * Identifies the geographical region of location.
-     */
-    region?: string;
+      /**
+       * Human readable name of location.
+       */
+      name?: string;
 
-    /**
-     * Site of location.
-     */
-    site?: string;
+      /**
+       * Point of presence of location.
+       */
+      pop?: string;
+
+      /**
+       * Identifies the geographical region of location.
+       */
+      region?: string;
+
+      /**
+       * Site of location.
+       */
+      site?: string;
+    }
   }
 }
 
-export interface NetworkCoverageListParams extends DefaultPaginationParams {
+export interface NetworkCoverageListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[location.region], filter[location.site], filter[location.pop],
@@ -80,6 +84,12 @@ export interface NetworkCoverageListParams extends DefaultPaginationParams {
    * filters[available_services][contains]
    */
   filters?: NetworkCoverageListParams.Filters;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: NetworkCoverageListParams.Page;
 }
 
 export namespace NetworkCoverageListParams {
@@ -132,13 +142,28 @@ export namespace NetworkCoverageListParams {
       contains?: NetworkCoverageAPI.AvailableService;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace NetworkCoverage {
   export {
     type AvailableService as AvailableService,
     type NetworkCoverageListResponse as NetworkCoverageListResponse,
-    type NetworkCoverageListResponsesDefaultPagination as NetworkCoverageListResponsesDefaultPagination,
     type NetworkCoverageListParams as NetworkCoverageListParams,
   };
 }

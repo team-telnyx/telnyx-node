@@ -10,7 +10,14 @@ const client = new Telnyx({
 describe('resource virtualCrossConnects', () => {
   // Prism tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.virtualCrossConnects.create({ region_code: 'ashburn-va' });
+    const responsePromise = client.virtualCrossConnects.create({
+      bgp_asn: 1234,
+      cloud_provider: 'aws',
+      cloud_provider_region: 'us-east-1',
+      network_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+      primary_cloud_account_id: '123456789012',
+      region_code: 'ashburn-va',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,15 +30,15 @@ describe('resource virtualCrossConnects', () => {
   // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.virtualCrossConnects.create({
-      region_code: 'ashburn-va',
-      bandwidth_mbps: 50,
       bgp_asn: 1234,
       cloud_provider: 'aws',
       cloud_provider_region: 'us-east-1',
-      name: 'test interface',
       network_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-      primary_bgp_key: 'yFV4wEPtPVPfDUGLWiyQzwga',
       primary_cloud_account_id: '123456789012',
+      region_code: 'ashburn-va',
+      bandwidth_mbps: 50,
+      name: 'test interface',
+      primary_bgp_key: 'yFV4wEPtPVPfDUGLWiyQzwga',
       primary_cloud_ip: '169.254.0.2',
       primary_telnyx_ip: '169.254.0.1',
       secondary_bgp_key: 'ge1lONeK9RcA83uuWaw9DvZy',

@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -45,21 +45,16 @@ export class UserAddresses extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const userAddress of client.userAddresses.list()) {
-   *   // ...
-   * }
+   * const userAddresses = await client.userAddresses.list();
    * ```
    */
   list(
     query: UserAddressListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<UserAddressesDefaultPagination, UserAddress> {
-    return this._client.getAPIList('/user_addresses', DefaultPagination<UserAddress>, { query, ...options });
+  ): APIPromise<UserAddressListResponse> {
+    return this._client.get('/user_addresses', { query, ...options });
   }
 }
-
-export type UserAddressesDefaultPagination = DefaultPagination<UserAddress>;
 
 export interface UserAddress {
   /**
@@ -161,6 +156,12 @@ export interface UserAddressRetrieveResponse {
   data?: UserAddress;
 }
 
+export interface UserAddressListResponse {
+  data?: Array<UserAddress>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface UserAddressCreateParams {
   /**
    * The business name associated with the user address.
@@ -248,13 +249,19 @@ export interface UserAddressCreateParams {
   skip_address_verification?: boolean;
 }
 
-export interface UserAddressListParams extends DefaultPaginationParams {
+export interface UserAddressListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[customer_reference][eq], filter[customer_reference][contains],
    * filter[street_address][contains]
    */
   filter?: UserAddressListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: UserAddressListParams.Page;
 
   /**
    * Specifies the sort order for results. By default sorting direction is ascending.
@@ -327,6 +334,22 @@ export namespace UserAddressListParams {
       contains?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace UserAddresses {
@@ -334,7 +357,7 @@ export declare namespace UserAddresses {
     type UserAddress as UserAddress,
     type UserAddressCreateResponse as UserAddressCreateResponse,
     type UserAddressRetrieveResponse as UserAddressRetrieveResponse,
-    type UserAddressesDefaultPagination as UserAddressesDefaultPagination,
+    type UserAddressListResponse as UserAddressListResponse,
     type UserAddressCreateParams as UserAddressCreateParams,
     type UserAddressListParams as UserAddressListParams,
   };

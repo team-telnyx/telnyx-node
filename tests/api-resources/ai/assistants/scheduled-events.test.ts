@@ -79,8 +79,7 @@ describe('resource scheduledEvents', () => {
         {
           conversation_channel: 'phone_call',
           from_date: '2019-12-27T18:11:19.117Z',
-          'page[number]': 0,
-          'page[size]': 0,
+          page: { number: 1, size: 1 },
           to_date: '2019-12-27T18:11:19.117Z',
         },
         { path: '/_stainless_unknown_path' },

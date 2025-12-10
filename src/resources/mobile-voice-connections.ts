@@ -2,7 +2,6 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -41,12 +40,8 @@ export class MobileVoiceConnections extends APIResource {
   list(
     query: MobileVoiceConnectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MobileVoiceConnectionsDefaultFlatPagination, MobileVoiceConnection> {
-    return this._client.getAPIList(
-      '/v2/mobile_voice_connections',
-      DefaultFlatPagination<MobileVoiceConnection>,
-      { query, ...options },
-    );
+  ): APIPromise<MobileVoiceConnectionListResponse> {
+    return this._client.get('/v2/mobile_voice_connections', { query, ...options });
   }
 
   /**
@@ -57,89 +52,381 @@ export class MobileVoiceConnections extends APIResource {
   }
 }
 
-export type MobileVoiceConnectionsDefaultFlatPagination = DefaultFlatPagination<MobileVoiceConnection>;
-
-export interface MobileVoiceConnection {
-  /**
-   * Identifies the resource.
-   */
-  id?: string;
-
-  /**
-   * Indicates if the connection is active.
-   */
-  active?: boolean;
-
-  /**
-   * The name of the connection.
-   */
-  connection_name?: string;
-
-  created_at?: string;
-
-  inbound?: MobileVoiceConnection.Inbound;
-
-  outbound?: MobileVoiceConnection.Outbound;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'mobile_voice_connection';
-
-  /**
-   * A list of tags associated with the connection.
-   */
-  tags?: Array<string>;
-
-  updated_at?: string;
-
-  /**
-   * The API version for webhooks.
-   */
-  webhook_api_version?: '1' | '2' | null;
-
-  /**
-   * The failover URL where webhooks are sent.
-   */
-  webhook_event_failover_url?: string | null;
-
-  /**
-   * The URL where webhooks are sent.
-   */
-  webhook_event_url?: string | null;
-
-  /**
-   * The timeout for webhooks in seconds.
-   */
-  webhook_timeout_secs?: number | null;
-}
-
-export namespace MobileVoiceConnection {
-  export interface Inbound {
-    channel_limit?: number | null;
-  }
-
-  export interface Outbound {
-    channel_limit?: number | null;
-
-    outbound_voice_profile_id?: string | null;
-  }
-}
-
 export interface MobileVoiceConnectionCreateResponse {
-  data?: MobileVoiceConnection;
+  data?: MobileVoiceConnectionCreateResponse.Data;
+}
+
+export namespace MobileVoiceConnectionCreateResponse {
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * Indicates if the connection is active.
+     */
+    active?: boolean;
+
+    /**
+     * The name of the connection.
+     */
+    connection_name?: string;
+
+    created_at?: string;
+
+    inbound?: Data.Inbound;
+
+    outbound?: Data.Outbound;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'mobile_voice_connection';
+
+    /**
+     * A list of tags associated with the connection.
+     */
+    tags?: Array<string>;
+
+    updated_at?: string;
+
+    /**
+     * The API version for webhooks.
+     */
+    webhook_api_version?: '1' | '2' | null;
+
+    /**
+     * The failover URL where webhooks are sent.
+     */
+    webhook_event_failover_url?: string | null;
+
+    /**
+     * The URL where webhooks are sent.
+     */
+    webhook_event_url?: string | null;
+
+    /**
+     * The timeout for webhooks in seconds.
+     */
+    webhook_timeout_secs?: number | null;
+  }
+
+  export namespace Data {
+    export interface Inbound {
+      channel_limit?: number | null;
+    }
+
+    export interface Outbound {
+      channel_limit?: number | null;
+
+      outbound_voice_profile_id?: string | null;
+    }
+  }
 }
 
 export interface MobileVoiceConnectionRetrieveResponse {
-  data?: MobileVoiceConnection;
+  data?: MobileVoiceConnectionRetrieveResponse.Data;
+}
+
+export namespace MobileVoiceConnectionRetrieveResponse {
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * Indicates if the connection is active.
+     */
+    active?: boolean;
+
+    /**
+     * The name of the connection.
+     */
+    connection_name?: string;
+
+    created_at?: string;
+
+    inbound?: Data.Inbound;
+
+    outbound?: Data.Outbound;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'mobile_voice_connection';
+
+    /**
+     * A list of tags associated with the connection.
+     */
+    tags?: Array<string>;
+
+    updated_at?: string;
+
+    /**
+     * The API version for webhooks.
+     */
+    webhook_api_version?: '1' | '2' | null;
+
+    /**
+     * The failover URL where webhooks are sent.
+     */
+    webhook_event_failover_url?: string | null;
+
+    /**
+     * The URL where webhooks are sent.
+     */
+    webhook_event_url?: string | null;
+
+    /**
+     * The timeout for webhooks in seconds.
+     */
+    webhook_timeout_secs?: number | null;
+  }
+
+  export namespace Data {
+    export interface Inbound {
+      channel_limit?: number | null;
+    }
+
+    export interface Outbound {
+      channel_limit?: number | null;
+
+      outbound_voice_profile_id?: string | null;
+    }
+  }
 }
 
 export interface MobileVoiceConnectionUpdateResponse {
-  data?: MobileVoiceConnection;
+  data?: MobileVoiceConnectionUpdateResponse.Data;
+}
+
+export namespace MobileVoiceConnectionUpdateResponse {
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * Indicates if the connection is active.
+     */
+    active?: boolean;
+
+    /**
+     * The name of the connection.
+     */
+    connection_name?: string;
+
+    created_at?: string;
+
+    inbound?: Data.Inbound;
+
+    outbound?: Data.Outbound;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'mobile_voice_connection';
+
+    /**
+     * A list of tags associated with the connection.
+     */
+    tags?: Array<string>;
+
+    updated_at?: string;
+
+    /**
+     * The API version for webhooks.
+     */
+    webhook_api_version?: '1' | '2' | null;
+
+    /**
+     * The failover URL where webhooks are sent.
+     */
+    webhook_event_failover_url?: string | null;
+
+    /**
+     * The URL where webhooks are sent.
+     */
+    webhook_event_url?: string | null;
+
+    /**
+     * The timeout for webhooks in seconds.
+     */
+    webhook_timeout_secs?: number | null;
+  }
+
+  export namespace Data {
+    export interface Inbound {
+      channel_limit?: number | null;
+    }
+
+    export interface Outbound {
+      channel_limit?: number | null;
+
+      outbound_voice_profile_id?: string | null;
+    }
+  }
+}
+
+export interface MobileVoiceConnectionListResponse {
+  data?: Array<MobileVoiceConnectionListResponse.Data>;
+
+  meta?: MobileVoiceConnectionListResponse.Meta;
+}
+
+export namespace MobileVoiceConnectionListResponse {
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * Indicates if the connection is active.
+     */
+    active?: boolean;
+
+    /**
+     * The name of the connection.
+     */
+    connection_name?: string;
+
+    created_at?: string;
+
+    inbound?: Data.Inbound;
+
+    outbound?: Data.Outbound;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'mobile_voice_connection';
+
+    /**
+     * A list of tags associated with the connection.
+     */
+    tags?: Array<string>;
+
+    updated_at?: string;
+
+    /**
+     * The API version for webhooks.
+     */
+    webhook_api_version?: '1' | '2' | null;
+
+    /**
+     * The failover URL where webhooks are sent.
+     */
+    webhook_event_failover_url?: string | null;
+
+    /**
+     * The URL where webhooks are sent.
+     */
+    webhook_event_url?: string | null;
+
+    /**
+     * The timeout for webhooks in seconds.
+     */
+    webhook_timeout_secs?: number | null;
+  }
+
+  export namespace Data {
+    export interface Inbound {
+      channel_limit?: number | null;
+    }
+
+    export interface Outbound {
+      channel_limit?: number | null;
+
+      outbound_voice_profile_id?: string | null;
+    }
+  }
+
+  export interface Meta {
+    page_number?: number;
+
+    page_size?: number;
+
+    total_pages?: number;
+
+    total_results?: number;
+  }
 }
 
 export interface MobileVoiceConnectionDeleteResponse {
-  data?: MobileVoiceConnection;
+  data?: MobileVoiceConnectionDeleteResponse.Data;
+}
+
+export namespace MobileVoiceConnectionDeleteResponse {
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * Indicates if the connection is active.
+     */
+    active?: boolean;
+
+    /**
+     * The name of the connection.
+     */
+    connection_name?: string;
+
+    created_at?: string;
+
+    inbound?: Data.Inbound;
+
+    outbound?: Data.Outbound;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'mobile_voice_connection';
+
+    /**
+     * A list of tags associated with the connection.
+     */
+    tags?: Array<string>;
+
+    updated_at?: string;
+
+    /**
+     * The API version for webhooks.
+     */
+    webhook_api_version?: '1' | '2' | null;
+
+    /**
+     * The failover URL where webhooks are sent.
+     */
+    webhook_event_failover_url?: string | null;
+
+    /**
+     * The URL where webhooks are sent.
+     */
+    webhook_event_url?: string | null;
+
+    /**
+     * The timeout for webhooks in seconds.
+     */
+    webhook_timeout_secs?: number | null;
+  }
+
+  export namespace Data {
+    export interface Inbound {
+      channel_limit?: number | null;
+    }
+
+    export interface Outbound {
+      channel_limit?: number | null;
+
+      outbound_voice_profile_id?: string | null;
+    }
+  }
 }
 
 export interface MobileVoiceConnectionCreateParams {
@@ -206,11 +493,21 @@ export namespace MobileVoiceConnectionUpdateParams {
   }
 }
 
-export interface MobileVoiceConnectionListParams extends DefaultFlatPaginationParams {
+export interface MobileVoiceConnectionListParams {
   /**
    * Filter by connection name containing the given string
    */
   'filter[connection_name][contains]'?: string;
+
+  /**
+   * The page number to load
+   */
+  'page[number]'?: number;
+
+  /**
+   * The size of the page
+   */
+  'page[size]'?: number;
 
   /**
    * Sort by field (e.g., created_at, connection_name, active). Prefix with - for
@@ -221,12 +518,11 @@ export interface MobileVoiceConnectionListParams extends DefaultFlatPaginationPa
 
 export declare namespace MobileVoiceConnections {
   export {
-    type MobileVoiceConnection as MobileVoiceConnection,
     type MobileVoiceConnectionCreateResponse as MobileVoiceConnectionCreateResponse,
     type MobileVoiceConnectionRetrieveResponse as MobileVoiceConnectionRetrieveResponse,
     type MobileVoiceConnectionUpdateResponse as MobileVoiceConnectionUpdateResponse,
+    type MobileVoiceConnectionListResponse as MobileVoiceConnectionListResponse,
     type MobileVoiceConnectionDeleteResponse as MobileVoiceConnectionDeleteResponse,
-    type MobileVoiceConnectionsDefaultFlatPagination as MobileVoiceConnectionsDefaultFlatPagination,
     type MobileVoiceConnectionCreateParams as MobileVoiceConnectionCreateParams,
     type MobileVoiceConnectionUpdateParams as MobileVoiceConnectionUpdateParams,
     type MobileVoiceConnectionListParams as MobileVoiceConnectionListParams,

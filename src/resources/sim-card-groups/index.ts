@@ -4,6 +4,7 @@ export {
   Actions,
   type SimCardGroupAction,
   type ActionRetrieveResponse,
+  type ActionListResponse,
   type ActionRemovePrivateWirelessGatewayResponse,
   type ActionRemoveWirelessBlocklistResponse,
   type ActionSetPrivateWirelessGatewayResponse,
@@ -11,7 +12,6 @@ export {
   type ActionListParams,
   type ActionSetPrivateWirelessGatewayParams,
   type ActionSetWirelessBlocklistParams,
-  type SimCardGroupActionsDefaultFlatPagination,
 } from './actions';
 export {
   SimCardGroups,
@@ -26,5 +26,4 @@ export {
   type SimCardGroupRetrieveParams,
   type SimCardGroupUpdateParams,
   type SimCardGroupListParams,
-  type SimCardGroupListResponsesDefaultFlatPagination,
 } from './sim-card-groups';

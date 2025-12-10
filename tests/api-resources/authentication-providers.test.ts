@@ -85,7 +85,7 @@ describe('resource authenticationProviders', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.authenticationProviders.list(
-        { 'page[number]': 0, 'page[size]': 0, sort: 'name' },
+        { page: { number: 1, size: 1 }, sort: 'name' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

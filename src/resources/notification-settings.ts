@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -43,20 +43,15 @@ export class NotificationSettings extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const notificationSetting of client.notificationSettings.list()) {
-   *   // ...
-   * }
+   * const notificationSettings =
+   *   await client.notificationSettings.list();
    * ```
    */
   list(
     query: NotificationSettingListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NotificationSettingsDefaultPagination, NotificationSetting> {
-    return this._client.getAPIList('/notification_settings', DefaultPagination<NotificationSetting>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<NotificationSettingListResponse> {
+    return this._client.get('/notification_settings', { query, ...options });
   }
 
   /**
@@ -74,8 +69,6 @@ export class NotificationSettings extends APIResource {
     return this._client.delete(path`/notification_settings/${id}`, options);
   }
 }
-
-export type NotificationSettingsDefaultPagination = DefaultPagination<NotificationSetting>;
 
 export interface NotificationSetting {
   /**
@@ -144,6 +137,12 @@ export interface NotificationSettingRetrieveResponse {
   data?: NotificationSetting;
 }
 
+export interface NotificationSettingListResponse {
+  data?: Array<NotificationSetting>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface NotificationSettingDeleteResponse {
   data?: NotificationSetting;
 }
@@ -175,7 +174,7 @@ export namespace NotificationSettingCreateParams {
   }
 }
 
-export interface NotificationSettingListParams extends DefaultPaginationParams {
+export interface NotificationSettingListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[associated_record_type][eq], filter[channel_type_id][eq],
@@ -183,6 +182,12 @@ export interface NotificationSettingListParams extends DefaultPaginationParams {
    * filter[notification_event_condition_id][eq], filter[status][eq]
    */
   filter?: NotificationSettingListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: NotificationSettingListParams.Page;
 }
 
 export namespace NotificationSettingListParams {
@@ -257,6 +262,22 @@ export namespace NotificationSettingListParams {
         | 'deleted';
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace NotificationSettings {
@@ -264,8 +285,8 @@ export declare namespace NotificationSettings {
     type NotificationSetting as NotificationSetting,
     type NotificationSettingCreateResponse as NotificationSettingCreateResponse,
     type NotificationSettingRetrieveResponse as NotificationSettingRetrieveResponse,
+    type NotificationSettingListResponse as NotificationSettingListResponse,
     type NotificationSettingDeleteResponse as NotificationSettingDeleteResponse,
-    type NotificationSettingsDefaultPagination as NotificationSettingsDefaultPagination,
     type NotificationSettingCreateParams as NotificationSettingCreateParams,
     type NotificationSettingListParams as NotificationSettingListParams,
   };

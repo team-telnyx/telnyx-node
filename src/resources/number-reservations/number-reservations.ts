@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as ActionsAPI from './actions';
 import { ActionExtendResponse, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -50,24 +50,17 @@ export class NumberReservations extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const numberReservation of client.numberReservations.list()) {
-   *   // ...
-   * }
+   * const numberReservations =
+   *   await client.numberReservations.list();
    * ```
    */
   list(
     query: NumberReservationListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NumberReservationsDefaultPagination, NumberReservation> {
-    return this._client.getAPIList('/number_reservations', DefaultPagination<NumberReservation>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<NumberReservationListResponse> {
+    return this._client.get('/number_reservations', { query, ...options });
   }
 }
-
-export type NumberReservationsDefaultPagination = DefaultPagination<NumberReservation>;
 
 export interface NumberReservation {
   id?: string;
@@ -136,6 +129,12 @@ export interface NumberReservationRetrieveResponse {
   data?: NumberReservation;
 }
 
+export interface NumberReservationListResponse {
+  data?: Array<NumberReservation>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface NumberReservationCreateParams {
   /**
    * A customer reference string for customer look ups.
@@ -145,13 +144,19 @@ export interface NumberReservationCreateParams {
   phone_numbers?: Array<ReservedPhoneNumber>;
 }
 
-export interface NumberReservationListParams extends DefaultPaginationParams {
+export interface NumberReservationListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
    * filter[created_at], filter[phone_numbers.phone_number],
    * filter[customer_reference]
    */
   filter?: NumberReservationListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: NumberReservationListParams.Page;
 }
 
 export namespace NumberReservationListParams {
@@ -198,6 +203,22 @@ export namespace NumberReservationListParams {
       lt?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 NumberReservations.Actions = Actions;
@@ -208,7 +229,7 @@ export declare namespace NumberReservations {
     type ReservedPhoneNumber as ReservedPhoneNumber,
     type NumberReservationCreateResponse as NumberReservationCreateResponse,
     type NumberReservationRetrieveResponse as NumberReservationRetrieveResponse,
-    type NumberReservationsDefaultPagination as NumberReservationsDefaultPagination,
+    type NumberReservationListResponse as NumberReservationListResponse,
     type NumberReservationCreateParams as NumberReservationCreateParams,
     type NumberReservationListParams as NumberReservationListParams,
   };

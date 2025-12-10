@@ -38,11 +38,10 @@ export {
   type Conference,
   type ConferenceCreateResponse,
   type ConferenceRetrieveResponse,
+  type ConferenceListResponse,
   type ConferenceListParticipantsResponse,
   type ConferenceCreateParams,
   type ConferenceRetrieveParams,
   type ConferenceListParams,
   type ConferenceListParticipantsParams,
-  type ConferencesDefaultPagination,
-  type ConferenceListParticipantsResponsesDefaultPagination,
 } from './conferences';
