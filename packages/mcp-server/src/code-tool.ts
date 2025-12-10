@@ -44,6 +44,7 @@ export async function codeTool() {
       },
       body: JSON.stringify({
         project_name: 'telnyx',
+        client_opts: {},
         code,
       }),
     });
