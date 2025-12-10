@@ -24,7 +24,10 @@ import {
   BrandRetrieveResponse,
   BrandRetrieveSMSOtpStatusParams,
   BrandRetrieveSMSOtpStatusResponse,
+  BrandTriggerSMSOtpParams,
+  BrandTriggerSMSOtpResponse,
   BrandUpdateParams,
+  BrandVerifySMSOtpParams,
   EntityType,
   StockExchange,
   TelnyxBrand,
@@ -129,11 +132,14 @@ export declare namespace Number10dlc {
     type BrandListResponse as BrandListResponse,
     type BrandGetFeedbackResponse as BrandGetFeedbackResponse,
     type BrandRetrieveSMSOtpStatusResponse as BrandRetrieveSMSOtpStatusResponse,
+    type BrandTriggerSMSOtpResponse as BrandTriggerSMSOtpResponse,
     type BrandListResponsesPerPagePaginationV2 as BrandListResponsesPerPagePaginationV2,
     type BrandCreateParams as BrandCreateParams,
     type BrandUpdateParams as BrandUpdateParams,
     type BrandListParams as BrandListParams,
     type BrandRetrieveSMSOtpStatusParams as BrandRetrieveSMSOtpStatusParams,
+    type BrandTriggerSMSOtpParams as BrandTriggerSMSOtpParams,
+    type BrandVerifySMSOtpParams as BrandVerifySMSOtpParams,
   };
 
   export {

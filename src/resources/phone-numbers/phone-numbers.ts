@@ -179,12 +179,90 @@ export interface PhoneNumberDetailed {
   /**
    * Identifies the resource.
    */
-  id?: string;
+  id: string;
+
+  /**
+   * The ISO 3166-1 alpha-2 country code of the phone number.
+   */
+  country_iso_alpha2: string;
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was created.
+   */
+  created_at: string;
+
+  /**
+   * Indicates whether deletion lock is enabled for this number. When enabled, this
+   * prevents the phone number from being deleted via the API or Telnyx portal.
+   */
+  deletion_lock_enabled: boolean;
+
+  /**
+   * If someone attempts to port your phone number away from Telnyx and your phone
+   * number has an external PIN set, Telnyx will attempt to verify that you provided
+   * the correct external PIN to the winning carrier. Note that not all carriers
+   * cooperate with this security mechanism.
+   */
+  external_pin: string | null;
+
+  /**
+   * The +E.164-formatted phone number associated with this record.
+   */
+  phone_number: string;
+
+  /**
+   * The phone number's type. Note: For numbers purchased prior to July 2023 or when
+   * fetching a number's details immediately after a purchase completes, the legacy
+   * values `tollfree`, `shortcode` or `longcode` may be returned instead.
+   */
+  phone_number_type:
+    | 'local'
+    | 'toll_free'
+    | 'mobile'
+    | 'national'
+    | 'shared_cost'
+    | 'landline'
+    | 'tollfree'
+    | 'shortcode'
+    | 'longcode';
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was purchased.
+   */
+  purchased_at: string;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type: string;
+
+  /**
+   * The phone number's current status.
+   */
+  status:
+    | 'purchase-pending'
+    | 'purchase-failed'
+    | 'port-pending'
+    | 'port-failed'
+    | 'active'
+    | 'deleted'
+    | 'emergency-only'
+    | 'ported-out'
+    | 'port-out-pending'
+    | 'requirement-info-pending'
+    | 'requirement-info-under-review'
+    | 'requirement-info-exception'
+    | 'provision-pending';
+
+  /**
+   * A list of user-assigned tags to help manage the phone number.
+   */
+  tags: Array<string>;
 
   /**
    * Identifies the billing group associated with the phone number.
    */
-  billing_group_id?: string;
+  billing_group_id?: string | null;
 
   /**
    * Indicates if call forwarding will be enabled for this number if forwards_to and
@@ -211,39 +289,23 @@ export interface PhoneNumberDetailed {
   /**
    * Identifies the connection associated with the phone number.
    */
-  connection_id?: string;
+  connection_id?: string | null;
 
   /**
    * The user-assigned name of the connection to be associated with this phone
    * number.
    */
-  connection_name?: string;
-
-  /**
-   * The ISO 3166-1 alpha-2 country code of the phone number.
-   */
-  country_iso_alpha2?: string;
-
-  /**
-   * ISO 8601 formatted date indicating when the resource was created.
-   */
-  created_at?: string;
+  connection_name?: string | null;
 
   /**
    * A customer reference string for customer look ups.
    */
-  customer_reference?: string;
-
-  /**
-   * Indicates whether deletion lock is enabled for this number. When enabled, this
-   * prevents the phone number from being deleted via the API or Telnyx portal.
-   */
-  deletion_lock_enabled?: boolean;
+  customer_reference?: string | null;
 
   /**
    * Identifies the emergency address associated with the phone number.
    */
-  emergency_address_id?: string;
+  emergency_address_id?: string | null;
 
   /**
    * Indicates whether emergency services are enabled for this number.
@@ -259,14 +321,6 @@ export interface PhoneNumberDetailed {
   emergency_status?: 'active' | 'deprovisioning' | 'disabled' | 'provisioning' | 'provisioning-failed';
 
   /**
-   * If someone attempts to port your phone number away from Telnyx and your phone
-   * number has an external PIN set, Telnyx will attempt to verify that you provided
-   * the correct external PIN to the winning carrier. Note that not all carriers
-   * cooperate with this security mechanism.
-   */
-  external_pin?: string;
-
-  /**
    * The inbound_call_screening setting is a phone number configuration option
    * variable that allows users to configure their settings to block or flag
    * fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This
@@ -277,43 +331,12 @@ export interface PhoneNumberDetailed {
   /**
    * Identifies the messaging profile associated with the phone number.
    */
-  messaging_profile_id?: string;
+  messaging_profile_id?: string | null;
 
   /**
    * The name of the messaging profile associated with the phone number.
    */
-  messaging_profile_name?: string;
-
-  /**
-   * The +E.164-formatted phone number associated with this record.
-   */
-  phone_number?: string;
-
-  /**
-   * The phone number's type. Note: For numbers purchased prior to July 2023 or when
-   * fetching a number's details immediately after a purchase completes, the legacy
-   * values `tollfree`, `shortcode` or `longcode` may be returned instead.
-   */
-  phone_number_type?:
-    | 'local'
-    | 'toll_free'
-    | 'mobile'
-    | 'national'
-    | 'shared_cost'
-    | 'landline'
-    | 'tollfree'
-    | 'shortcode'
-    | 'longcode';
-
-  /**
-   * ISO 8601 formatted date indicating when the resource was purchased.
-   */
-  purchased_at?: string;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: string;
+  messaging_profile_name?: string | null;
 
   /**
    * Indicates if the phone number was purchased or ported in. For some numbers this
@@ -322,32 +345,9 @@ export interface PhoneNumberDetailed {
   source_type?: 'number_order' | 'port_request' | null;
 
   /**
-   * The phone number's current status.
-   */
-  status?:
-    | 'purchase-pending'
-    | 'purchase-failed'
-    | 'port-pending'
-    | 'port-failed'
-    | 'active'
-    | 'deleted'
-    | 'emergency-only'
-    | 'ported-out'
-    | 'port-out-pending'
-    | 'requirement-info-pending'
-    | 'requirement-info-under-review'
-    | 'requirement-info-exception'
-    | 'provision-pending';
-
-  /**
    * Indicates whether T38 Fax Gateway for inbound calls to this number.
    */
   t38_fax_gateway_enabled?: boolean;
-
-  /**
-   * A list of user-assigned tags to help manage the phone number.
-   */
-  tags?: Array<string>;
 }
 
 export interface PhoneNumberRetrieveResponse {
@@ -691,6 +691,16 @@ export interface PhoneNumberListParams extends DefaultPaginationParams {
    * filter[source]
    */
   filter?: PhoneNumberListParams.Filter;
+
+  /**
+   * Although it is an infrequent occurrence, due to the highly distributed nature of
+   * the Telnyx platform, it is possible that there will be an issue when loading in
+   * Messaging Profile information. As such, when this parameter is set to `true` and
+   * an error in fetching this information occurs, messaging profile related fields
+   * will be omitted in the response and an error message will be included instead of
+   * returning a 503 error.
+   */
+  handle_messaging_profile_error?: 'true' | 'false';
 
   /**
    * Specifies the sort order for results. If not given, results are sorted by

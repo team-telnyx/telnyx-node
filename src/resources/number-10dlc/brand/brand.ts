@@ -199,6 +199,82 @@ export class Brand extends APIResource {
   revet(brandID: string, options?: RequestOptions): APIPromise<TelnyxBrand> {
     return this._client.put(path`/10dlc/brand/${brandID}/revet`, options);
   }
+
+  /**
+   * Trigger or re-trigger an SMS OTP (One-Time Password) for Sole Proprietor brand
+   * verification.
+   *
+   * **Important Notes:**
+   *
+   * - Only allowed for Sole Proprietor (`SOLE_PROPRIETOR`) brands
+   * - Triggers generation of a one-time password sent to the `mobilePhone` number in
+   *   the brand's profile
+   * - Campaigns cannot be created until OTP verification is complete
+   * - US/CA numbers only for real OTPs; mock brands can use non-US/CA numbers for
+   *   testing
+   * - Returns a `referenceId` that can be used to check OTP status via the GET
+   *   `/10dlc/brand/smsOtp/{referenceId}` endpoint
+   *
+   * **Use Cases:**
+   *
+   * - Initial OTP trigger after Sole Proprietor brand creation
+   * - Re-triggering OTP if the user didn't receive or needs a new code
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.number10dlc.brand.triggerSMSOtp(
+   *     '4b20019b-043a-78f8-0657-b3be3f4b4002',
+   *     {
+   *       pinSms: 'Your PIN is @OTP_PIN@',
+   *       successSms: 'Verification successful!',
+   *     },
+   *   );
+   * ```
+   */
+  triggerSMSOtp(
+    brandID: string,
+    body: BrandTriggerSMSOtpParams,
+    options?: RequestOptions,
+  ): APIPromise<BrandTriggerSMSOtpResponse> {
+    return this._client.post(path`/10dlc/brand/${brandID}/smsOtp`, { body, ...options });
+  }
+
+  /**
+   * Verify the SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+   *
+   * **Verification Flow:**
+   *
+   * 1. User receives OTP via SMS after triggering
+   * 2. User submits the OTP pin through this endpoint
+   * 3. Upon successful verification:
+   *    - A `BRAND_OTP_VERIFIED` webhook event is sent to the CSP
+   *    - The brand's `identityStatus` changes to `VERIFIED`
+   *    - Campaigns can now be created for this brand
+   *
+   * **Error Handling:**
+   *
+   * Provides proper error responses for:
+   *
+   * - Invalid OTP pins
+   * - Expired OTPs
+   * - OTP verification failures
+   *
+   * @example
+   * ```ts
+   * await client.number10dlc.brand.verifySMSOtp(
+   *   '4b20019b-043a-78f8-0657-b3be3f4b4002',
+   *   { otpPin: '123456' },
+   * );
+   * ```
+   */
+  verifySMSOtp(brandID: string, body: BrandVerifySMSOtpParams, options?: RequestOptions): APIPromise<void> {
+    return this._client.put(path`/10dlc/brand/${brandID}/smsOtp`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
 }
 
 export type BrandListResponsesPerPagePaginationV2 = PerPagePaginationV2<BrandListResponse>;
@@ -633,6 +709,21 @@ export interface BrandRetrieveSMSOtpStatusResponse {
   verifyDate?: string;
 }
 
+/**
+ * Response after successfully triggering a Brand SMS OTP
+ */
+export interface BrandTriggerSMSOtpResponse {
+  /**
+   * The Brand ID for which the OTP was triggered
+   */
+  brandId: string;
+
+  /**
+   * The reference ID that can be used to check OTP status
+   */
+  referenceId: string;
+}
+
 export interface BrandCreateParams {
   /**
    * ISO2 2 characters country code. Example: US - United States
@@ -931,6 +1022,26 @@ export interface BrandRetrieveSMSOtpStatusParams {
   brandId?: string;
 }
 
+export interface BrandTriggerSMSOtpParams {
+  /**
+   * SMS message template to send the OTP. Must include `@OTP_PIN@` placeholder which
+   * will be replaced with the actual PIN
+   */
+  pinSms: string;
+
+  /**
+   * SMS message to send upon successful OTP verification
+   */
+  successSms: string;
+}
+
+export interface BrandVerifySMSOtpParams {
+  /**
+   * The OTP PIN received via SMS
+   */
+  otpPin: string;
+}
+
 Brand.ExternalVetting = ExternalVetting;
 
 export declare namespace Brand {
@@ -945,11 +1056,14 @@ export declare namespace Brand {
     type BrandListResponse as BrandListResponse,
     type BrandGetFeedbackResponse as BrandGetFeedbackResponse,
     type BrandRetrieveSMSOtpStatusResponse as BrandRetrieveSMSOtpStatusResponse,
+    type BrandTriggerSMSOtpResponse as BrandTriggerSMSOtpResponse,
     type BrandListResponsesPerPagePaginationV2 as BrandListResponsesPerPagePaginationV2,
     type BrandCreateParams as BrandCreateParams,
     type BrandUpdateParams as BrandUpdateParams,
     type BrandListParams as BrandListParams,
     type BrandRetrieveSMSOtpStatusParams as BrandRetrieveSMSOtpStatusParams,
+    type BrandTriggerSMSOtpParams as BrandTriggerSMSOtpParams,
+    type BrandVerifySMSOtpParams as BrandVerifySMSOtpParams,
   };
 
   export {
