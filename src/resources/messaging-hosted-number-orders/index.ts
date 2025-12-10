@@ -5,6 +5,7 @@ export {
   MessagingHostedNumberOrders,
   type MessagingHostedNumberOrderCreateResponse,
   type MessagingHostedNumberOrderRetrieveResponse,
+  type MessagingHostedNumberOrderListResponse,
   type MessagingHostedNumberOrderDeleteResponse,
   type MessagingHostedNumberOrderCheckEligibilityResponse,
   type MessagingHostedNumberOrderCreateVerificationCodesResponse,

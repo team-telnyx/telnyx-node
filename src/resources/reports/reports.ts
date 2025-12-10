@@ -16,13 +16,12 @@ import {
   MdrUsageReportFetchSyncParams,
   MdrUsageReportFetchSyncResponse,
   MdrUsageReportListParams,
+  MdrUsageReportListResponse,
   MdrUsageReportRetrieveResponse,
   MdrUsageReports,
-  MdrUsageReportsDefaultFlatPagination,
   PaginationMetaReporting,
 } from './mdr-usage-reports';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Reports extends APIResource {
@@ -49,24 +48,16 @@ export class Reports extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const reportListWdrsResponse of client.reports.listWdrs()) {
-   *   // ...
-   * }
+   * const response = await client.reports.listWdrs();
    * ```
    */
   listWdrs(
     query: ReportListWdrsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ReportListWdrsResponsesDefaultFlatPagination, ReportListWdrsResponse> {
-    return this._client.getAPIList('/reports/wdrs', DefaultFlatPagination<ReportListWdrsResponse>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<ReportListWdrsResponse> {
+    return this._client.get('/reports/wdrs', { query, ...options });
   }
 }
-
-export type ReportListWdrsResponsesDefaultFlatPagination = DefaultFlatPagination<ReportListWdrsResponse>;
 
 export interface ReportListMdrsResponse {
   data?: Array<ReportListMdrsResponse.Data>;
@@ -150,114 +141,132 @@ export namespace ReportListMdrsResponse {
 }
 
 export interface ReportListWdrsResponse {
-  /**
-   * WDR id
-   */
-  id?: string;
+  data?: Array<ReportListWdrsResponse.Data>;
 
-  cost?: ReportListWdrsResponse.Cost;
-
-  /**
-   * Record created time
-   */
-  created_at?: string;
-
-  downlink_data?: ReportListWdrsResponse.DownlinkData;
-
-  /**
-   * Session duration in seconds.
-   */
-  duration_seconds?: number;
-
-  /**
-   * International mobile subscriber identity.
-   */
-  imsi?: string;
-
-  /**
-   * Mobile country code.
-   */
-  mcc?: string;
-
-  /**
-   * Mobile network code.
-   */
-  mnc?: string;
-
-  /**
-   * Phone number
-   */
-  phone_number?: string;
-
-  rate?: ReportListWdrsResponse.Rate;
-
-  record_type?: string;
-
-  /**
-   * Sim card unique identifier
-   */
-  sim_card_id?: string;
-
-  /**
-   * Sim group unique identifier
-   */
-  sim_group_id?: string;
-
-  /**
-   * Defined sim group name
-   */
-  sim_group_name?: string;
-
-  uplink_data?: ReportListWdrsResponse.UplinkData;
+  meta?: ReportListWdrsResponse.Meta;
 }
 
 export namespace ReportListWdrsResponse {
-  export interface Cost {
+  export interface Data {
     /**
-     * Final cost. Cost is calculated as rate \* unit
+     * WDR id
      */
-    amount?: string;
+    id?: string;
+
+    cost?: Data.Cost;
 
     /**
-     * Currency of the rate and cost
+     * Record created time
      */
-    currency?: 'AUD' | 'CAD' | 'EUR' | 'GBP' | 'USD';
+    created_at?: string;
+
+    downlink_data?: Data.DownlinkData;
+
+    /**
+     * Session duration in seconds.
+     */
+    duration_seconds?: number;
+
+    /**
+     * International mobile subscriber identity.
+     */
+    imsi?: string;
+
+    /**
+     * Mobile country code.
+     */
+    mcc?: string;
+
+    /**
+     * Mobile network code.
+     */
+    mnc?: string;
+
+    /**
+     * Phone number
+     */
+    phone_number?: string;
+
+    rate?: Data.Rate;
+
+    record_type?: string;
+
+    /**
+     * Sim card unique identifier
+     */
+    sim_card_id?: string;
+
+    /**
+     * Sim group unique identifier
+     */
+    sim_group_id?: string;
+
+    /**
+     * Defined sim group name
+     */
+    sim_group_name?: string;
+
+    uplink_data?: Data.UplinkData;
   }
 
-  export interface DownlinkData {
-    /**
-     * Downlink data
-     */
-    amount?: number;
+  export namespace Data {
+    export interface Cost {
+      /**
+       * Final cost. Cost is calculated as rate \* unit
+       */
+      amount?: string;
 
-    /**
-     * Transmission unit
-     */
-    unit?: 'B' | 'KB' | 'MB';
+      /**
+       * Currency of the rate and cost
+       */
+      currency?: 'AUD' | 'CAD' | 'EUR' | 'GBP' | 'USD';
+    }
+
+    export interface DownlinkData {
+      /**
+       * Downlink data
+       */
+      amount?: number;
+
+      /**
+       * Transmission unit
+       */
+      unit?: 'B' | 'KB' | 'MB';
+    }
+
+    export interface Rate {
+      /**
+       * Rate from which cost is calculated
+       */
+      amount?: string;
+
+      /**
+       * Currency of the rate and cost
+       */
+      currency?: 'AUD' | 'CAD' | 'EUR' | 'GBP' | 'USD';
+    }
+
+    export interface UplinkData {
+      /**
+       * Uplink data
+       */
+      amount?: number;
+
+      /**
+       * Transmission unit
+       */
+      unit?: 'B' | 'KB' | 'MB';
+    }
   }
 
-  export interface Rate {
-    /**
-     * Rate from which cost is calculated
-     */
-    amount?: string;
+  export interface Meta {
+    page_number?: number;
 
-    /**
-     * Currency of the rate and cost
-     */
-    currency?: 'AUD' | 'CAD' | 'EUR' | 'GBP' | 'USD';
-  }
+    page_size?: number;
 
-  export interface UplinkData {
-    /**
-     * Uplink data
-     */
-    amount?: number;
+    total_pages?: number;
 
-    /**
-     * Transmission unit
-     */
-    unit?: 'B' | 'KB' | 'MB';
+    total_results?: number;
   }
 }
 
@@ -315,7 +324,7 @@ export interface ReportListMdrsParams {
     | 'FAILED';
 }
 
-export interface ReportListWdrsParams extends DefaultFlatPaginationParams {
+export interface ReportListWdrsParams {
   /**
    * WDR uuid
    */
@@ -340,6 +349,12 @@ export interface ReportListWdrsParams extends DefaultFlatPaginationParams {
    * Mobile network code
    */
   mnc?: string;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: ReportListWdrsParams.Page;
 
   /**
    * Phone number
@@ -373,6 +388,24 @@ export interface ReportListWdrsParams extends DefaultFlatPaginationParams {
   start_date?: string;
 }
 
+export namespace ReportListWdrsParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * Page number
+     */
+    number?: number;
+
+    /**
+     * Size of the page
+     */
+    size?: number;
+  }
+}
+
 Reports.CdrUsageReports = CdrUsageReports;
 Reports.MdrUsageReports = MdrUsageReports;
 
@@ -380,7 +413,6 @@ export declare namespace Reports {
   export {
     type ReportListMdrsResponse as ReportListMdrsResponse,
     type ReportListWdrsResponse as ReportListWdrsResponse,
-    type ReportListWdrsResponsesDefaultFlatPagination as ReportListWdrsResponsesDefaultFlatPagination,
     type ReportListMdrsParams as ReportListMdrsParams,
     type ReportListWdrsParams as ReportListWdrsParams,
   };
@@ -397,9 +429,9 @@ export declare namespace Reports {
     type PaginationMetaReporting as PaginationMetaReporting,
     type MdrUsageReportCreateResponse as MdrUsageReportCreateResponse,
     type MdrUsageReportRetrieveResponse as MdrUsageReportRetrieveResponse,
+    type MdrUsageReportListResponse as MdrUsageReportListResponse,
     type MdrUsageReportDeleteResponse as MdrUsageReportDeleteResponse,
     type MdrUsageReportFetchSyncResponse as MdrUsageReportFetchSyncResponse,
-    type MdrUsageReportsDefaultFlatPagination as MdrUsageReportsDefaultFlatPagination,
     type MdrUsageReportCreateParams as MdrUsageReportCreateParams,
     type MdrUsageReportListParams as MdrUsageReportListParams,
     type MdrUsageReportFetchSyncParams as MdrUsageReportFetchSyncParams,

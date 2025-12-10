@@ -3,13 +3,13 @@
 import { APIResource } from '../../../../core/resource';
 import * as MessagingAPI from './messaging';
 import {
-  MdrUsageReportResponseLegaciesPerPagePagination,
   MdrUsageReportResponseLegacy,
   Messaging,
   MessagingCreateParams,
   MessagingCreateResponse,
   MessagingDeleteResponse,
   MessagingListParams,
+  MessagingListResponse,
   MessagingRetrieveResponse,
   StandardPaginationMeta,
 } from './messaging';
@@ -20,19 +20,16 @@ import {
   NumberLookupCreateResponse,
   NumberLookupListResponse,
   NumberLookupRetrieveResponse,
-  TelcoDataAggregation,
-  TelcoDataUsageRecord,
-  TelcoDataUsageReportResponse,
 } from './number-lookup';
 import * as VoiceAPI from './voice';
 import {
-  CdrUsageReportResponseLegaciesPerPagePagination,
   CdrUsageReportResponseLegacy,
   Voice,
   VoiceCreateParams,
   VoiceCreateResponse,
   VoiceDeleteResponse,
   VoiceListParams,
+  VoiceListResponse,
   VoiceRetrieveResponse,
 } from './voice';
 import { APIPromise } from '../../../../core/api-promise';
@@ -62,7 +59,7 @@ export class UsageReports extends APIResource {
 }
 
 export interface UsageReportRetrieveSpeechToTextResponse {
-  data?: { [key: string]: unknown };
+  data?: unknown;
 }
 
 export interface UsageReportRetrieveSpeechToTextParams {
@@ -87,17 +84,14 @@ export declare namespace UsageReports {
     type StandardPaginationMeta as StandardPaginationMeta,
     type MessagingCreateResponse as MessagingCreateResponse,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
+    type MessagingListResponse as MessagingListResponse,
     type MessagingDeleteResponse as MessagingDeleteResponse,
-    type MdrUsageReportResponseLegaciesPerPagePagination as MdrUsageReportResponseLegaciesPerPagePagination,
     type MessagingCreateParams as MessagingCreateParams,
     type MessagingListParams as MessagingListParams,
   };
 
   export {
     NumberLookup as NumberLookup,
-    type TelcoDataAggregation as TelcoDataAggregation,
-    type TelcoDataUsageRecord as TelcoDataUsageRecord,
-    type TelcoDataUsageReportResponse as TelcoDataUsageReportResponse,
     type NumberLookupCreateResponse as NumberLookupCreateResponse,
     type NumberLookupRetrieveResponse as NumberLookupRetrieveResponse,
     type NumberLookupListResponse as NumberLookupListResponse,
@@ -109,8 +103,8 @@ export declare namespace UsageReports {
     type CdrUsageReportResponseLegacy as CdrUsageReportResponseLegacy,
     type VoiceCreateResponse as VoiceCreateResponse,
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
+    type VoiceListResponse as VoiceListResponse,
     type VoiceDeleteResponse as VoiceDeleteResponse,
-    type CdrUsageReportResponseLegaciesPerPagePagination as CdrUsageReportResponseLegaciesPerPagePagination,
     type VoiceCreateParams as VoiceCreateParams,
     type VoiceListParams as VoiceListParams,
   };

@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -41,24 +41,16 @@ export class Reports extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const portoutReport of client.portouts.reports.list()) {
-   *   // ...
-   * }
+   * const reports = await client.portouts.reports.list();
    * ```
    */
   list(
     query: ReportListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortoutReportsDefaultPagination, PortoutReport> {
-    return this._client.getAPIList('/portouts/reports', DefaultPagination<PortoutReport>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<ReportListResponse> {
+    return this._client.get('/portouts/reports', { query, ...options });
   }
 }
-
-export type PortoutReportsDefaultPagination = DefaultPagination<PortoutReport>;
 
 /**
  * The parameters for generating a port-outs CSV report.
@@ -158,6 +150,12 @@ export interface ReportRetrieveResponse {
   data?: PortoutReport;
 }
 
+export interface ReportListResponse {
+  data?: Array<PortoutReport>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface ReportCreateParams {
   /**
    * The parameters for generating a port-outs CSV report.
@@ -170,12 +168,18 @@ export interface ReportCreateParams {
   report_type: 'export_portouts_csv';
 }
 
-export interface ReportListParams extends DefaultPaginationParams {
+export interface ReportListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[report_type], filter[status]
    */
   filter?: ReportListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: ReportListParams.Page;
 }
 
 export namespace ReportListParams {
@@ -194,6 +198,22 @@ export namespace ReportListParams {
      */
     status?: 'pending' | 'completed';
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace Reports {
@@ -202,7 +222,7 @@ export declare namespace Reports {
     type PortoutReport as PortoutReport,
     type ReportCreateResponse as ReportCreateResponse,
     type ReportRetrieveResponse as ReportRetrieveResponse,
-    type PortoutReportsDefaultPagination as PortoutReportsDefaultPagination,
+    type ReportListResponse as ReportListResponse,
     type ReportCreateParams as ReportCreateParams,
     type ReportListParams as ReportListParams,
   };

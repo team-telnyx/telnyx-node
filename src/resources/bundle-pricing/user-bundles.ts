@@ -3,7 +3,6 @@
 import { APIResource } from '../../core/resource';
 import * as BillingBundlesAPI from './billing-bundles';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -61,18 +60,16 @@ export class UserBundles extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const userBundle of client.bundlePricing.userBundles.list()) {
-   *   // ...
-   * }
+   * const userBundles =
+   *   await client.bundlePricing.userBundles.list();
    * ```
    */
   list(
     params: UserBundleListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<UserBundlesDefaultPagination, UserBundle> {
+  ): APIPromise<UserBundleListResponse> {
     const { authorization_bearer, ...query } = params ?? {};
-    return this._client.getAPIList('/bundle_pricing/user_bundles', DefaultPagination<UserBundle>, {
+    return this._client.get('/bundle_pricing/user_bundles', {
       query,
       ...options,
       headers: buildHeaders([
@@ -159,8 +156,6 @@ export class UserBundles extends APIResource {
   }
 }
 
-export type UserBundlesDefaultPagination = DefaultPagination<UserBundle>;
-
 export interface UserBundle {
   /**
    * User bundle's ID, this is used to identify the user bundle in the API.
@@ -227,6 +222,12 @@ export interface UserBundleRetrieveResponse {
   data: UserBundle;
 }
 
+export interface UserBundleListResponse {
+  data: Array<UserBundle>;
+
+  meta: BillingBundlesAPI.PaginationResponse;
+}
+
 export interface UserBundleDeactivateResponse {
   data: UserBundle;
 }
@@ -289,13 +290,19 @@ export interface UserBundleRetrieveParams {
   authorization_bearer?: string;
 }
 
-export interface UserBundleListParams extends DefaultPaginationParams {
+export interface UserBundleListParams {
   /**
    * Query param: Consolidated filter parameter (deepObject style). Supports
    * filtering by country_iso and resource. Examples: filter[country_iso]=US or
    * filter[resource]=+15617819942
    */
   filter?: UserBundleListParams.Filter;
+
+  /**
+   * Query param: Consolidated page parameter (deepObject style). Originally:
+   * page[size], page[number]
+   */
+  page?: UserBundleListParams.Page;
 
   /**
    * Header param: Authenticates the request with your Telnyx API V2 KEY
@@ -319,6 +326,22 @@ export namespace UserBundleListParams {
      * Filter by resource.
      */
     resource?: Array<string>;
+  }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load.
+     */
+    number?: number;
+
+    /**
+     * The size of the page.
+     */
+    size?: number;
   }
 }
 
@@ -375,10 +398,10 @@ export declare namespace UserBundles {
     type UserBundleResource as UserBundleResource,
     type UserBundleCreateResponse as UserBundleCreateResponse,
     type UserBundleRetrieveResponse as UserBundleRetrieveResponse,
+    type UserBundleListResponse as UserBundleListResponse,
     type UserBundleDeactivateResponse as UserBundleDeactivateResponse,
     type UserBundleListResourcesResponse as UserBundleListResourcesResponse,
     type UserBundleListUnusedResponse as UserBundleListUnusedResponse,
-    type UserBundlesDefaultPagination as UserBundlesDefaultPagination,
     type UserBundleCreateParams as UserBundleCreateParams,
     type UserBundleRetrieveParams as UserBundleRetrieveParams,
     type UserBundleListParams as UserBundleListParams,

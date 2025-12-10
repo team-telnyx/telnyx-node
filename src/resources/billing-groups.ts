@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -59,20 +59,14 @@ export class BillingGroups extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const billingGroup of client.billingGroups.list()) {
-   *   // ...
-   * }
+   * const billingGroups = await client.billingGroups.list();
    * ```
    */
   list(
     query: BillingGroupListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<BillingGroupsDefaultFlatPagination, BillingGroup> {
-    return this._client.getAPIList('/billing_groups', DefaultFlatPagination<BillingGroup>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<BillingGroupListResponse> {
+    return this._client.get('/billing_groups', { query, ...options });
   }
 
   /**
@@ -89,8 +83,6 @@ export class BillingGroups extends APIResource {
     return this._client.delete(path`/billing_groups/${id}`, options);
   }
 }
-
-export type BillingGroupsDefaultFlatPagination = DefaultFlatPagination<BillingGroup>;
 
 export interface BillingGroup {
   /**
@@ -141,6 +133,12 @@ export interface BillingGroupUpdateResponse {
   data?: BillingGroup;
 }
 
+export interface BillingGroupListResponse {
+  data?: Array<BillingGroup>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface BillingGroupDeleteResponse {
   data?: BillingGroup;
 }
@@ -159,7 +157,31 @@ export interface BillingGroupUpdateParams {
   name?: string;
 }
 
-export interface BillingGroupListParams extends DefaultFlatPaginationParams {}
+export interface BillingGroupListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: BillingGroupListParams.Page;
+}
+
+export namespace BillingGroupListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
+}
 
 export declare namespace BillingGroups {
   export {
@@ -167,8 +189,8 @@ export declare namespace BillingGroups {
     type BillingGroupCreateResponse as BillingGroupCreateResponse,
     type BillingGroupRetrieveResponse as BillingGroupRetrieveResponse,
     type BillingGroupUpdateResponse as BillingGroupUpdateResponse,
+    type BillingGroupListResponse as BillingGroupListResponse,
     type BillingGroupDeleteResponse as BillingGroupDeleteResponse,
-    type BillingGroupsDefaultFlatPagination as BillingGroupsDefaultFlatPagination,
     type BillingGroupCreateParams as BillingGroupCreateParams,
     type BillingGroupUpdateParams as BillingGroupUpdateParams,
     type BillingGroupListParams as BillingGroupListParams,

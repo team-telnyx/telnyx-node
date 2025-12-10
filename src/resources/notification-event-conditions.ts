@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import * as AuthenticationProvidersAPI from './authentication-providers';
+import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
 export class NotificationEventConditions extends APIResource {
@@ -11,77 +12,75 @@ export class NotificationEventConditions extends APIResource {
   list(
     query: NotificationEventConditionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<
-    NotificationEventConditionListResponsesDefaultPagination,
-    NotificationEventConditionListResponse
-  > {
-    return this._client.getAPIList(
-      '/notification_event_conditions',
-      DefaultPagination<NotificationEventConditionListResponse>,
-      { query, ...options },
-    );
+  ): APIPromise<NotificationEventConditionListResponse> {
+    return this._client.get('/notification_event_conditions', { query, ...options });
   }
 }
 
-export type NotificationEventConditionListResponsesDefaultPagination =
-  DefaultPagination<NotificationEventConditionListResponse>;
-
 export interface NotificationEventConditionListResponse {
-  /**
-   * A UUID.
-   */
-  id?: string;
+  data?: Array<NotificationEventConditionListResponse.Data>;
 
-  /**
-   * Dictates whether a notification channel id needs to be provided when creating a
-   * notficiation setting.
-   */
-  allow_multiple_channels?: boolean;
-
-  associated_record_type?: 'account' | 'phone_number';
-
-  /**
-   * Dictates whether a notification setting will take effect immediately.
-   */
-  asynchronous?: boolean;
-
-  /**
-   * ISO 8601 formatted date indicating when the resource was created.
-   */
-  created_at?: string;
-
-  description?: string;
-
-  enabled?: boolean;
-
-  name?: string;
-
-  notification_event_id?: string;
-
-  parameters?: Array<NotificationEventConditionListResponse.Parameter>;
-
-  /**
-   * Dictates the supported notification channel types that can be emitted.
-   */
-  supported_channels?: Array<string>;
-
-  /**
-   * ISO 8601 formatted date indicating when the resource was updated.
-   */
-  updated_at?: string;
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export namespace NotificationEventConditionListResponse {
-  export interface Parameter {
-    data_type?: string;
+  export interface Data {
+    /**
+     * A UUID.
+     */
+    id?: string;
+
+    /**
+     * Dictates whether a notification channel id needs to be provided when creating a
+     * notficiation setting.
+     */
+    allow_multiple_channels?: boolean;
+
+    associated_record_type?: 'account' | 'phone_number';
+
+    /**
+     * Dictates whether a notification setting will take effect immediately.
+     */
+    asynchronous?: boolean;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    description?: string;
+
+    enabled?: boolean;
 
     name?: string;
 
-    optional?: boolean;
+    notification_event_id?: string;
+
+    parameters?: Array<Data.Parameter>;
+
+    /**
+     * Dictates the supported notification channel types that can be emitted.
+     */
+    supported_channels?: Array<string>;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
+
+  export namespace Data {
+    export interface Parameter {
+      data_type?: string;
+
+      name?: string;
+
+      optional?: boolean;
+    }
   }
 }
 
-export interface NotificationEventConditionListParams extends DefaultPaginationParams {
+export interface NotificationEventConditionListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[associated_record_type][eq], filter[channel_type_id][eq],
@@ -89,6 +88,12 @@ export interface NotificationEventConditionListParams extends DefaultPaginationP
    * filter[notification_event_condition_id][eq], filter[status][eq]
    */
   filter?: NotificationEventConditionListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: NotificationEventConditionListParams.Page;
 }
 
 export namespace NotificationEventConditionListParams {
@@ -163,12 +168,27 @@ export namespace NotificationEventConditionListParams {
         | 'deleted';
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace NotificationEventConditions {
   export {
     type NotificationEventConditionListResponse as NotificationEventConditionListResponse,
-    type NotificationEventConditionListResponsesDefaultPagination as NotificationEventConditionListResponsesDefaultPagination,
     type NotificationEventConditionListParams as NotificationEventConditionListParams,
   };
 }

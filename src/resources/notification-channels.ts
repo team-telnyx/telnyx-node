@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -50,11 +50,11 @@ export class NotificationChannels extends APIResource {
    * ```
    */
   update(
-    notificationChannelID: string,
+    id: string,
     body: NotificationChannelUpdateParams,
     options?: RequestOptions,
   ): APIPromise<NotificationChannelUpdateResponse> {
-    return this._client.patch(path`/notification_channels/${notificationChannelID}`, { body, ...options });
+    return this._client.patch(path`/notification_channels/${id}`, { body, ...options });
   }
 
   /**
@@ -62,20 +62,15 @@ export class NotificationChannels extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const notificationChannel of client.notificationChannels.list()) {
-   *   // ...
-   * }
+   * const notificationChannels =
+   *   await client.notificationChannels.list();
    * ```
    */
   list(
     query: NotificationChannelListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NotificationChannelsDefaultPagination, NotificationChannel> {
-    return this._client.getAPIList('/notification_channels', DefaultPagination<NotificationChannel>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<NotificationChannelListResponse> {
+    return this._client.get('/notification_channels', { query, ...options });
   }
 
   /**
@@ -93,8 +88,6 @@ export class NotificationChannels extends APIResource {
     return this._client.delete(path`/notification_channels/${id}`, options);
   }
 }
-
-export type NotificationChannelsDefaultPagination = DefaultPagination<NotificationChannel>;
 
 /**
  * A Notification Channel
@@ -152,6 +145,12 @@ export interface NotificationChannelUpdateResponse {
   data?: NotificationChannel;
 }
 
+export interface NotificationChannelListResponse {
+  data?: Array<NotificationChannel>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface NotificationChannelDeleteResponse {
   /**
    * A Notification Channel
@@ -193,7 +192,7 @@ export interface NotificationChannelUpdateParams {
   notification_profile_id?: string;
 }
 
-export interface NotificationChannelListParams extends DefaultPaginationParams {
+export interface NotificationChannelListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[associated_record_type][eq], filter[channel_type_id][eq],
@@ -201,6 +200,12 @@ export interface NotificationChannelListParams extends DefaultPaginationParams {
    * filter[notification_event_condition_id][eq], filter[status][eq]
    */
   filter?: NotificationChannelListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: NotificationChannelListParams.Page;
 }
 
 export namespace NotificationChannelListParams {
@@ -275,6 +280,22 @@ export namespace NotificationChannelListParams {
         | 'deleted';
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace NotificationChannels {
@@ -283,8 +304,8 @@ export declare namespace NotificationChannels {
     type NotificationChannelCreateResponse as NotificationChannelCreateResponse,
     type NotificationChannelRetrieveResponse as NotificationChannelRetrieveResponse,
     type NotificationChannelUpdateResponse as NotificationChannelUpdateResponse,
+    type NotificationChannelListResponse as NotificationChannelListResponse,
     type NotificationChannelDeleteResponse as NotificationChannelDeleteResponse,
-    type NotificationChannelsDefaultPagination as NotificationChannelsDefaultPagination,
     type NotificationChannelCreateParams as NotificationChannelCreateParams,
     type NotificationChannelUpdateParams as NotificationChannelUpdateParams,
     type NotificationChannelListParams as NotificationChannelListParams,

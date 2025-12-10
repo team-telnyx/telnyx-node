@@ -22,7 +22,7 @@ export const tool: Tool = {
   inputSchema: {
     type: 'object',
     properties: {
-      campaign_phone_number: {
+      path_phoneNumber: {
         type: 'string',
         title: 'Phonenumber',
       },
@@ -31,7 +31,7 @@ export const tool: Tool = {
         title: 'Campaignid',
         description: 'The ID of the campaign you want to link to the specified phone number.',
       },
-      phoneNumber: {
+      body_phoneNumber: {
         type: 'string',
         title: 'Phonenumber',
         description: 'The phone number you want to link to a specified campaign.',
@@ -43,7 +43,7 @@ export const tool: Tool = {
           'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
       },
     },
-    required: ['campaign_phone_number', 'campaignId', 'phoneNumber'],
+    required: ['path_phoneNumber', 'campaignId', 'body_phoneNumber'],
   },
   annotations: {
     idempotentHint: true,
@@ -51,13 +51,10 @@ export const tool: Tool = {
 };
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
-  const { campaign_phone_number, jq_filter, ...body } = args as any;
+  const { phoneNumber, jq_filter, ...body } = args as any;
   try {
     return asTextContentResult(
-      await maybeFilter(
-        jq_filter,
-        await client.number10dlc.phoneNumberCampaigns.update(campaign_phone_number, body),
-      ),
+      await maybeFilter(jq_filter, await client.number10dlc.phoneNumberCampaigns.update(phoneNumber, body)),
     );
   } catch (error) {
     if (error instanceof Telnyx.APIError || isJqError(error)) {

@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AuthenticationProvidersAPI from './authentication-providers';
 import * as CredentialConnectionsAPI from './credential-connections/credential-connections';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -75,20 +75,14 @@ export class FaxApplications extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const faxApplication of client.faxApplications.list()) {
-   *   // ...
-   * }
+   * const faxApplications = await client.faxApplications.list();
    * ```
    */
   list(
     query: FaxApplicationListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<FaxApplicationsDefaultPagination, FaxApplication> {
-    return this._client.getAPIList('/fax_applications', DefaultPagination<FaxApplication>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<FaxApplicationListResponse> {
+    return this._client.get('/fax_applications', { query, ...options });
   }
 
   /**
@@ -106,8 +100,6 @@ export class FaxApplications extends APIResource {
     return this._client.delete(path`/fax_applications/${id}`, options);
   }
 }
-
-export type FaxApplicationsDefaultPagination = DefaultPagination<FaxApplication>;
 
 export interface FaxApplication {
   /**
@@ -224,6 +216,12 @@ export interface FaxApplicationRetrieveResponse {
 
 export interface FaxApplicationUpdateResponse {
   data?: FaxApplication;
+}
+
+export interface FaxApplicationListResponse {
+  data?: Array<FaxApplication>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export interface FaxApplicationDeleteResponse {
@@ -406,12 +404,18 @@ export namespace FaxApplicationUpdateParams {
   }
 }
 
-export interface FaxApplicationListParams extends DefaultPaginationParams {
+export interface FaxApplicationListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[application_name][contains], filter[outbound_voice_profile_id]
    */
   filter?: FaxApplicationListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: FaxApplicationListParams.Page;
 
   /**
    * Specifies the sort order for results. By default sorting direction is ascending.
@@ -462,6 +466,22 @@ export namespace FaxApplicationListParams {
       contains?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace FaxApplications {
@@ -470,8 +490,8 @@ export declare namespace FaxApplications {
     type FaxApplicationCreateResponse as FaxApplicationCreateResponse,
     type FaxApplicationRetrieveResponse as FaxApplicationRetrieveResponse,
     type FaxApplicationUpdateResponse as FaxApplicationUpdateResponse,
+    type FaxApplicationListResponse as FaxApplicationListResponse,
     type FaxApplicationDeleteResponse as FaxApplicationDeleteResponse,
-    type FaxApplicationsDefaultPagination as FaxApplicationsDefaultPagination,
     type FaxApplicationCreateParams as FaxApplicationCreateParams,
     type FaxApplicationUpdateParams as FaxApplicationUpdateParams,
     type FaxApplicationListParams as FaxApplicationListParams,

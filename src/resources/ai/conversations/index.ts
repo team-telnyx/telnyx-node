@@ -16,18 +16,18 @@ export {
   InsightGroups,
   type InsightTemplateGroup,
   type InsightTemplateGroupDetail,
+  type InsightGroupRetrieveInsightGroupsResponse,
   type InsightGroupUpdateParams,
   type InsightGroupInsightGroupsParams,
   type InsightGroupRetrieveInsightGroupsParams,
-  type InsightTemplateGroupsDefaultFlatPagination,
 } from './insight-groups/index';
 export {
   Insights,
   type InsightTemplate,
   type InsightTemplateDetail,
+  type InsightListResponse,
   type InsightCreateParams,
   type InsightUpdateParams,
   type InsightListParams,
-  type InsightTemplatesDefaultFlatPagination,
 } from './insights';
 export { Messages, type MessageListResponse } from './messages';

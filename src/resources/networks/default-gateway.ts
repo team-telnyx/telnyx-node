@@ -21,11 +21,11 @@ export class DefaultGateway extends APIResource {
    * ```
    */
   create(
-    networkIdentifier: string,
+    id: string,
     body: DefaultGatewayCreateParams,
     options?: RequestOptions,
   ): APIPromise<DefaultGatewayCreateResponse> {
-    return this._client.post(path`/networks/${networkIdentifier}/default_gateway`, { body, ...options });
+    return this._client.post(path`/networks/${id}/default_gateway`, { body, ...options });
   }
 
   /**
@@ -73,6 +73,11 @@ export namespace DefaultGatewayCreateResponse {
     network_id?: string;
 
     /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
      * The current status of the interface deployment.
      */
     status?: NetworksAPI.InterfaceStatus;
@@ -98,6 +103,11 @@ export namespace DefaultGatewayRetrieveResponse {
     network_id?: string;
 
     /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
      * The current status of the interface deployment.
      */
     status?: NetworksAPI.InterfaceStatus;
@@ -121,6 +131,11 @@ export namespace DefaultGatewayDeleteResponse {
      * Network ID.
      */
     network_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
 
     /**
      * The current status of the interface deployment.

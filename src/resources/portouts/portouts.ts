@@ -1,24 +1,19 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as Shared from '../shared';
 import * as CommentsAPI from './comments';
 import { CommentCreateParams, CommentCreateResponse, CommentListResponse, Comments } from './comments';
 import * as EventsAPI from './events';
-import {
-  EventListParams,
-  EventListResponse,
-  EventListResponsesDefaultPagination,
-  EventRetrieveResponse,
-  Events,
-} from './events';
+import { EventListParams, EventListResponse, EventRetrieveResponse, Events } from './events';
 import * as ReportsAPI from './reports';
 import {
   ExportPortoutsCsvReport,
   PortoutReport,
-  PortoutReportsDefaultPagination,
   ReportCreateParams,
   ReportCreateResponse,
   ReportListParams,
+  ReportListResponse,
   ReportRetrieveResponse,
   Reports,
 } from './reports';
@@ -30,7 +25,6 @@ import {
   SupportingDocuments,
 } from './supporting-documents';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -60,17 +54,14 @@ export class Portouts extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const portoutDetails of client.portouts.list()) {
-   *   // ...
-   * }
+   * const portouts = await client.portouts.list();
    * ```
    */
   list(
     query: PortoutListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortoutDetailsDefaultPagination, PortoutDetails> {
-    return this._client.getAPIList('/portouts', DefaultPagination<PortoutDetails>, { query, ...options });
+  ): APIPromise<PortoutListResponse> {
+    return this._client.get('/portouts', { query, ...options });
   }
 
   /**
@@ -114,8 +105,6 @@ export class Portouts extends APIResource {
     return this._client.patch(path`/portouts/${id}/${status}`, { body, ...options });
   }
 }
-
-export type PortoutDetailsDefaultPagination = DefaultPagination<PortoutDetails>;
 
 export interface PortoutDetails {
   id?: string;
@@ -257,6 +246,12 @@ export interface PortoutRetrieveResponse {
   data?: PortoutDetails;
 }
 
+export interface PortoutListResponse {
+  data?: Array<PortoutDetails>;
+
+  meta?: Shared.Metadata;
+}
+
 export interface PortoutListRejectionCodesResponse {
   data?: Array<PortoutListRejectionCodesResponse.Data>;
 }
@@ -275,7 +270,7 @@ export interface PortoutUpdateStatusResponse {
   data?: PortoutDetails;
 }
 
-export interface PortoutListParams extends DefaultPaginationParams {
+export interface PortoutListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[carrier_name], filter[country_code], filter[country_code_in],
@@ -284,6 +279,12 @@ export interface PortoutListParams extends DefaultPaginationParams {
    * filter[support_key]
    */
   filter?: PortoutListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: PortoutListParams.Page;
 }
 
 export namespace PortoutListParams {
@@ -388,6 +389,22 @@ export namespace PortoutListParams {
       lte?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export interface PortoutListRejectionCodesParams {
@@ -438,9 +455,9 @@ export declare namespace Portouts {
   export {
     type PortoutDetails as PortoutDetails,
     type PortoutRetrieveResponse as PortoutRetrieveResponse,
+    type PortoutListResponse as PortoutListResponse,
     type PortoutListRejectionCodesResponse as PortoutListRejectionCodesResponse,
     type PortoutUpdateStatusResponse as PortoutUpdateStatusResponse,
-    type PortoutDetailsDefaultPagination as PortoutDetailsDefaultPagination,
     type PortoutListParams as PortoutListParams,
     type PortoutListRejectionCodesParams as PortoutListRejectionCodesParams,
     type PortoutUpdateStatusParams as PortoutUpdateStatusParams,
@@ -450,7 +467,6 @@ export declare namespace Portouts {
     Events as Events,
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
-    type EventListResponsesDefaultPagination as EventListResponsesDefaultPagination,
     type EventListParams as EventListParams,
   };
 
@@ -460,7 +476,7 @@ export declare namespace Portouts {
     type PortoutReport as PortoutReport,
     type ReportCreateResponse as ReportCreateResponse,
     type ReportRetrieveResponse as ReportRetrieveResponse,
-    type PortoutReportsDefaultPagination as PortoutReportsDefaultPagination,
+    type ReportListResponse as ReportListResponse,
     type ReportCreateParams as ReportCreateParams,
     type ReportListParams as ReportListParams,
   };

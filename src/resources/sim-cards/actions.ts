@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -28,20 +28,14 @@ export class Actions extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const simCardAction of client.simCards.actions.list()) {
-   *   // ...
-   * }
+   * const actions = await client.simCards.actions.list();
    * ```
    */
   list(
     query: ActionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<SimCardActionsDefaultPagination, SimCardAction> {
-    return this._client.getAPIList('/sim_card_actions', DefaultPagination<SimCardAction>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<ActionListResponse> {
+    return this._client.get('/sim_card_actions', { query, ...options });
   }
 
   /**
@@ -190,8 +184,6 @@ export class Actions extends APIResource {
   }
 }
 
-export type SimCardActionsDefaultPagination = DefaultPagination<SimCardAction>;
-
 /**
  * This object represents a SIM card action. It allows tracking the current status
  * of an operation that impacts the SIM card.
@@ -262,6 +254,12 @@ export interface ActionRetrieveResponse {
    * of an operation that impacts the SIM card.
    */
   data?: SimCardAction;
+}
+
+export interface ActionListResponse {
+  data?: Array<SimCardAction>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export interface ActionBulkSetPublicIPsResponse {
@@ -376,13 +374,19 @@ export namespace ActionValidateRegistrationCodesResponse {
   }
 }
 
-export interface ActionListParams extends DefaultPaginationParams {
+export interface ActionListParams {
   /**
    * Consolidated filter parameter for SIM card actions (deepObject style).
    * Originally: filter[sim_card_id], filter[status],
    * filter[bulk_sim_card_action_id], filter[action_type]
    */
   filter?: ActionListParams.Filter;
+
+  /**
+   * Consolidated pagination parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: ActionListParams.Page;
 }
 
 export namespace ActionListParams {
@@ -418,6 +422,22 @@ export namespace ActionListParams {
      */
     status?: 'in-progress' | 'completed' | 'failed';
   }
+
+  /**
+   * Consolidated pagination parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load.
+     */
+    number?: number;
+
+    /**
+     * The size of the page.
+     */
+    size?: number;
+  }
 }
 
 export interface ActionBulkSetPublicIPsParams {
@@ -440,6 +460,7 @@ export declare namespace Actions {
   export {
     type SimCardAction as SimCardAction,
     type ActionRetrieveResponse as ActionRetrieveResponse,
+    type ActionListResponse as ActionListResponse,
     type ActionBulkSetPublicIPsResponse as ActionBulkSetPublicIPsResponse,
     type ActionDisableResponse as ActionDisableResponse,
     type ActionEnableResponse as ActionEnableResponse,
@@ -447,7 +468,6 @@ export declare namespace Actions {
     type ActionSetPublicIPResponse as ActionSetPublicIPResponse,
     type ActionSetStandbyResponse as ActionSetStandbyResponse,
     type ActionValidateRegistrationCodesResponse as ActionValidateRegistrationCodesResponse,
-    type SimCardActionsDefaultPagination as SimCardActionsDefaultPagination,
     type ActionListParams as ActionListParams,
     type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
     type ActionSetPublicIPParams as ActionSetPublicIPParams,

@@ -6,7 +6,7 @@ export {
   type VerifiedNumber,
   type VerifiedNumberDataWrapper,
   type VerifiedNumberCreateResponse,
+  type VerifiedNumberListResponse,
   type VerifiedNumberCreateParams,
   type VerifiedNumberListParams,
-  type VerifiedNumbersDefaultFlatPagination,
 } from './verified-numbers';

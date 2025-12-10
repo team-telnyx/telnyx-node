@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AuthenticationProvidersAPI from './authentication-providers';
 import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -44,21 +44,15 @@ export class GlobalIPHealthChecks extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const globalIPHealthCheckListResponse of client.globalIPHealthChecks.list()) {
-   *   // ...
-   * }
+   * const globalIPHealthChecks =
+   *   await client.globalIPHealthChecks.list();
    * ```
    */
   list(
     query: GlobalIPHealthCheckListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<GlobalIPHealthCheckListResponsesDefaultPagination, GlobalIPHealthCheckListResponse> {
-    return this._client.getAPIList(
-      '/global_ip_health_checks',
-      DefaultPagination<GlobalIPHealthCheckListResponse>,
-      { query, ...options },
-    );
+  ): APIPromise<GlobalIPHealthCheckListResponse> {
+    return this._client.get('/global_ip_health_checks', { query, ...options });
   }
 
   /**
@@ -76,9 +70,6 @@ export class GlobalIPHealthChecks extends APIResource {
     return this._client.delete(path`/global_ip_health_checks/${id}`, options);
   }
 }
-
-export type GlobalIPHealthCheckListResponsesDefaultPagination =
-  DefaultPagination<GlobalIPHealthCheckListResponse>;
 
 export interface GlobalIPHealthCheckCreateResponse {
   data?: GlobalIPHealthCheckCreateResponse.Data;
@@ -100,6 +91,11 @@ export namespace GlobalIPHealthCheckCreateResponse {
      * The Global IP health check type.
      */
     health_check_type?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
   }
 }
 
@@ -123,24 +119,42 @@ export namespace GlobalIPHealthCheckRetrieveResponse {
      * The Global IP health check type.
      */
     health_check_type?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
   }
 }
 
-export interface GlobalIPHealthCheckListResponse extends GlobalIPAssignmentsAPI.Record {
-  /**
-   * Global IP ID.
-   */
-  global_ip_id?: string;
+export interface GlobalIPHealthCheckListResponse {
+  data?: Array<GlobalIPHealthCheckListResponse.Data>;
 
-  /**
-   * A Global IP health check params.
-   */
-  health_check_params?: { [key: string]: unknown };
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
 
-  /**
-   * The Global IP health check type.
-   */
-  health_check_type?: string;
+export namespace GlobalIPHealthCheckListResponse {
+  export interface Data extends GlobalIPAssignmentsAPI.Record {
+    /**
+     * Global IP ID.
+     */
+    global_ip_id?: string;
+
+    /**
+     * A Global IP health check params.
+     */
+    health_check_params?: { [key: string]: unknown };
+
+    /**
+     * The Global IP health check type.
+     */
+    health_check_type?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+  }
 }
 
 export interface GlobalIPHealthCheckDeleteResponse {
@@ -163,6 +177,11 @@ export namespace GlobalIPHealthCheckDeleteResponse {
      * The Global IP health check type.
      */
     health_check_type?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
   }
 }
 
@@ -183,7 +202,31 @@ export interface GlobalIPHealthCheckCreateParams {
   health_check_type?: string;
 }
 
-export interface GlobalIPHealthCheckListParams extends DefaultPaginationParams {}
+export interface GlobalIPHealthCheckListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: GlobalIPHealthCheckListParams.Page;
+}
+
+export namespace GlobalIPHealthCheckListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
+}
 
 export declare namespace GlobalIPHealthChecks {
   export {
@@ -191,7 +234,6 @@ export declare namespace GlobalIPHealthChecks {
     type GlobalIPHealthCheckRetrieveResponse as GlobalIPHealthCheckRetrieveResponse,
     type GlobalIPHealthCheckListResponse as GlobalIPHealthCheckListResponse,
     type GlobalIPHealthCheckDeleteResponse as GlobalIPHealthCheckDeleteResponse,
-    type GlobalIPHealthCheckListResponsesDefaultPagination as GlobalIPHealthCheckListResponsesDefaultPagination,
     type GlobalIPHealthCheckCreateParams as GlobalIPHealthCheckCreateParams,
     type GlobalIPHealthCheckListParams as GlobalIPHealthCheckListParams,
   };

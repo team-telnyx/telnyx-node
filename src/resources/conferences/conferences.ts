@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as ActionsAPI from './actions';
 import {
   ActionHoldParams,
@@ -36,7 +37,6 @@ import {
   UpdateConference,
 } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -96,17 +96,14 @@ export class Conferences extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const conference of client.conferences.list()) {
-   *   // ...
-   * }
+   * const conferences = await client.conferences.list();
    * ```
    */
   list(
     query: ConferenceListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ConferencesDefaultPagination, Conference> {
-    return this._client.getAPIList('/conferences', DefaultPagination<Conference>, { query, ...options });
+  ): APIPromise<ConferenceListResponse> {
+    return this._client.get('/conferences', { query, ...options });
   }
 
   /**
@@ -114,31 +111,19 @@ export class Conferences extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const conferenceListParticipantsResponse of client.conferences.listParticipants(
+   * const response = await client.conferences.listParticipants(
    *   'conference_id',
-   * )) {
-   *   // ...
-   * }
+   * );
    * ```
    */
   listParticipants(
     conferenceID: string,
     query: ConferenceListParticipantsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ConferenceListParticipantsResponsesDefaultPagination, ConferenceListParticipantsResponse> {
-    return this._client.getAPIList(
-      path`/conferences/${conferenceID}/participants`,
-      DefaultPagination<ConferenceListParticipantsResponse>,
-      { query, ...options },
-    );
+  ): APIPromise<ConferenceListParticipantsResponse> {
+    return this._client.get(path`/conferences/${conferenceID}/participants`, { query, ...options });
   }
 }
-
-export type ConferencesDefaultPagination = DefaultPagination<Conference>;
-
-export type ConferenceListParticipantsResponsesDefaultPagination =
-  DefaultPagination<ConferenceListParticipantsResponse>;
 
 export interface Conference {
   /**
@@ -221,86 +206,100 @@ export interface ConferenceRetrieveResponse {
   data?: Conference;
 }
 
+export interface ConferenceListResponse {
+  data?: Array<Conference>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface ConferenceListParticipantsResponse {
-  /**
-   * Uniquely identifies the participant
-   */
-  id: string;
+  data?: Array<ConferenceListParticipantsResponse.Data>;
 
-  /**
-   * Call Control ID associated with the partiipant of the conference
-   */
-  call_control_id: string;
-
-  /**
-   * Uniquely identifies the call leg associated with the participant
-   */
-  call_leg_id: string;
-
-  /**
-   * Info about the conference that the participant is in
-   */
-  conference: ConferenceListParticipantsResponse.Conference;
-
-  /**
-   * ISO 8601 formatted date of when the participant was created
-   */
-  created_at: string;
-
-  /**
-   * Whether the conference will end and all remaining participants be hung up after
-   * the participant leaves the conference.
-   */
-  end_conference_on_exit: boolean;
-
-  /**
-   * Whether the participant is muted.
-   */
-  muted: boolean;
-
-  /**
-   * Whether the participant is put on_hold.
-   */
-  on_hold: boolean;
-
-  record_type: 'participant';
-
-  /**
-   * Whether the conference will end after the participant leaves the conference.
-   */
-  soft_end_conference_on_exit: boolean;
-
-  /**
-   * The status of the participant with respect to the lifecycle within the
-   * conference
-   */
-  status: 'joining' | 'joined' | 'left';
-
-  /**
-   * ISO 8601 formatted date of when the participant was last updated
-   */
-  updated_at: string;
-
-  /**
-   * Array of unique call_control_ids the participant can whisper to..
-   */
-  whisper_call_control_ids: Array<string>;
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export namespace ConferenceListParticipantsResponse {
-  /**
-   * Info about the conference that the participant is in
-   */
-  export interface Conference {
+  export interface Data {
     /**
-     * Uniquely identifies the conference
+     * Uniquely identifies the participant
      */
-    id?: string;
+    id: string;
 
     /**
-     * Name of the conference
+     * Call Control ID associated with the partiipant of the conference
      */
-    name?: string;
+    call_control_id: string;
+
+    /**
+     * Uniquely identifies the call leg associated with the participant
+     */
+    call_leg_id: string;
+
+    /**
+     * Info about the conference that the participant is in
+     */
+    conference: Data.Conference;
+
+    /**
+     * ISO 8601 formatted date of when the participant was created
+     */
+    created_at: string;
+
+    /**
+     * Whether the conference will end and all remaining participants be hung up after
+     * the participant leaves the conference.
+     */
+    end_conference_on_exit: boolean;
+
+    /**
+     * Whether the participant is muted.
+     */
+    muted: boolean;
+
+    /**
+     * Whether the participant is put on_hold.
+     */
+    on_hold: boolean;
+
+    record_type: 'participant';
+
+    /**
+     * Whether the conference will end after the participant leaves the conference.
+     */
+    soft_end_conference_on_exit: boolean;
+
+    /**
+     * The status of the participant with respect to the lifecycle within the
+     * conference
+     */
+    status: 'joining' | 'joined' | 'left';
+
+    /**
+     * ISO 8601 formatted date of when the participant was last updated
+     */
+    updated_at: string;
+
+    /**
+     * Array of unique call_control_ids the participant can whisper to..
+     */
+    whisper_call_control_ids: Array<string>;
+  }
+
+  export namespace Data {
+    /**
+     * Info about the conference that the participant is in
+     */
+    export interface Conference {
+      /**
+       * Uniquely identifies the conference
+       */
+      id?: string;
+
+      /**
+       * Name of the conference
+       */
+      name?: string;
+    }
   }
 }
 
@@ -389,7 +388,7 @@ export interface ConferenceRetrieveParams {
   region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
-export interface ConferenceListParams extends DefaultPaginationParams {
+export interface ConferenceListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[application_name][contains], filter[outbound.outbound_voice_profile_id],
@@ -398,6 +397,12 @@ export interface ConferenceListParams extends DefaultPaginationParams {
    * filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status]
    */
   filter?: ConferenceListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  page?: ConferenceListParams.Page;
 
   /**
    * Region where the conference data is located
@@ -525,14 +530,51 @@ export namespace ConferenceListParams {
       lte?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  export interface Page {
+    /**
+     * Opaque identifier of next page
+     */
+    after?: string;
+
+    /**
+     * Opaque identifier of previous page
+     */
+    before?: string;
+
+    /**
+     * Limit of records per single page
+     */
+    limit?: number;
+
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
-export interface ConferenceListParticipantsParams extends DefaultPaginationParams {
+export interface ConferenceListParticipantsParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[muted],
    * filter[on_hold], filter[whispering]
    */
   filter?: ConferenceListParticipantsParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  page?: ConferenceListParticipantsParams.Page;
 
   /**
    * Region where the conference data is located
@@ -561,6 +603,37 @@ export namespace ConferenceListParticipantsParams {
      */
     whispering?: boolean;
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  export interface Page {
+    /**
+     * Opaque identifier of next page
+     */
+    after?: string;
+
+    /**
+     * Opaque identifier of previous page
+     */
+    before?: string;
+
+    /**
+     * Limit of records per single page
+     */
+    limit?: number;
+
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 Conferences.Actions = Actions;
@@ -570,9 +643,8 @@ export declare namespace Conferences {
     type Conference as Conference,
     type ConferenceCreateResponse as ConferenceCreateResponse,
     type ConferenceRetrieveResponse as ConferenceRetrieveResponse,
+    type ConferenceListResponse as ConferenceListResponse,
     type ConferenceListParticipantsResponse as ConferenceListParticipantsResponse,
-    type ConferencesDefaultPagination as ConferencesDefaultPagination,
-    type ConferenceListParticipantsResponsesDefaultPagination as ConferenceListParticipantsResponsesDefaultPagination,
     type ConferenceCreateParams as ConferenceCreateParams,
     type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceListParams as ConferenceListParams,

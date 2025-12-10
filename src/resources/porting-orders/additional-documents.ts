@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -32,24 +32,18 @@ export class AdditionalDocuments extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const additionalDocumentListResponse of client.portingOrders.additionalDocuments.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
+   * const additionalDocuments =
+   *   await client.portingOrders.additionalDocuments.list(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
    * ```
    */
   list(
     id: string,
     query: AdditionalDocumentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<AdditionalDocumentListResponsesDefaultPagination, AdditionalDocumentListResponse> {
-    return this._client.getAPIList(
-      path`/porting_orders/${id}/additional_documents`,
-      DefaultPagination<AdditionalDocumentListResponse>,
-      { query, ...options },
-    );
+  ): APIPromise<AdditionalDocumentListResponse> {
+    return this._client.get(path`/porting_orders/${id}/additional_documents`, { query, ...options });
   }
 
   /**
@@ -75,9 +69,6 @@ export class AdditionalDocuments extends APIResource {
     });
   }
 }
-
-export type AdditionalDocumentListResponsesDefaultPagination =
-  DefaultPagination<AdditionalDocumentListResponse>;
 
 export interface AdditionalDocumentCreateResponse {
   data?: Array<AdditionalDocumentCreateResponse.Data>;
@@ -133,50 +124,58 @@ export namespace AdditionalDocumentCreateResponse {
 }
 
 export interface AdditionalDocumentListResponse {
-  /**
-   * Uniquely identifies this additional document
-   */
-  id?: string;
+  data?: Array<AdditionalDocumentListResponse.Data>;
 
-  /**
-   * The content type of the related document.
-   */
-  content_type?: string;
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
 
-  /**
-   * ISO 8601 formatted date indicating when the resource was created.
-   */
-  created_at?: string;
+export namespace AdditionalDocumentListResponse {
+  export interface Data {
+    /**
+     * Uniquely identifies this additional document
+     */
+    id?: string;
 
-  /**
-   * Identifies the associated document
-   */
-  document_id?: string;
+    /**
+     * The content type of the related document.
+     */
+    content_type?: string;
 
-  /**
-   * Identifies the type of additional document
-   */
-  document_type?: 'loa' | 'invoice' | 'csr' | 'other';
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
 
-  /**
-   * The filename of the related document.
-   */
-  filename?: string;
+    /**
+     * Identifies the associated document
+     */
+    document_id?: string;
 
-  /**
-   * Identifies the associated porting order
-   */
-  porting_order_id?: string;
+    /**
+     * Identifies the type of additional document
+     */
+    document_type?: 'loa' | 'invoice' | 'csr' | 'other';
 
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: string;
+    /**
+     * The filename of the related document.
+     */
+    filename?: string;
 
-  /**
-   * ISO 8601 formatted date indicating when the resource was updated.
-   */
-  updated_at?: string;
+    /**
+     * Identifies the associated porting order
+     */
+    porting_order_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
 }
 
 export interface AdditionalDocumentCreateParams {
@@ -197,12 +196,18 @@ export namespace AdditionalDocumentCreateParams {
   }
 }
 
-export interface AdditionalDocumentListParams extends DefaultPaginationParams {
+export interface AdditionalDocumentListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[document_type]
    */
   filter?: AdditionalDocumentListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: AdditionalDocumentListParams.Page;
 
   /**
    * Consolidated sort parameter (deepObject style). Originally: sort[value]
@@ -220,6 +225,22 @@ export namespace AdditionalDocumentListParams {
      * Filter additional documents by a list of document types
      */
     document_type?: Array<'loa' | 'invoice' | 'csr' | 'other'>;
+  }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
   }
 
   /**
@@ -245,7 +266,6 @@ export declare namespace AdditionalDocuments {
   export {
     type AdditionalDocumentCreateResponse as AdditionalDocumentCreateResponse,
     type AdditionalDocumentListResponse as AdditionalDocumentListResponse,
-    type AdditionalDocumentListResponsesDefaultPagination as AdditionalDocumentListResponsesDefaultPagination,
     type AdditionalDocumentCreateParams as AdditionalDocumentCreateParams,
     type AdditionalDocumentListParams as AdditionalDocumentListParams,
     type AdditionalDocumentDeleteParams as AdditionalDocumentDeleteParams,

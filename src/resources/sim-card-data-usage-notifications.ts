@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -53,14 +53,11 @@ export class SimCardDataUsageNotifications extends APIResource {
    * ```
    */
   update(
-    simCardDataUsageNotificationID: string,
+    id: string,
     body: SimCardDataUsageNotificationUpdateParams,
     options?: RequestOptions,
   ): APIPromise<SimCardDataUsageNotificationUpdateResponse> {
-    return this._client.patch(path`/sim_card_data_usage_notifications/${simCardDataUsageNotificationID}`, {
-      body,
-      ...options,
-    });
+    return this._client.patch(path`/sim_card_data_usage_notifications/${id}`, { body, ...options });
   }
 
   /**
@@ -69,21 +66,15 @@ export class SimCardDataUsageNotifications extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const simCardDataUsageNotification of client.simCardDataUsageNotifications.list()) {
-   *   // ...
-   * }
+   * const simCardDataUsageNotifications =
+   *   await client.simCardDataUsageNotifications.list();
    * ```
    */
   list(
     query: SimCardDataUsageNotificationListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<SimCardDataUsageNotificationsDefaultFlatPagination, SimCardDataUsageNotification> {
-    return this._client.getAPIList(
-      '/sim_card_data_usage_notifications',
-      DefaultFlatPagination<SimCardDataUsageNotification>,
-      { query, ...options },
-    );
+  ): APIPromise<SimCardDataUsageNotificationListResponse> {
+    return this._client.get('/sim_card_data_usage_notifications', { query, ...options });
   }
 
   /**
@@ -101,9 +92,6 @@ export class SimCardDataUsageNotifications extends APIResource {
     return this._client.delete(path`/sim_card_data_usage_notifications/${id}`, options);
   }
 }
-
-export type SimCardDataUsageNotificationsDefaultFlatPagination =
-  DefaultFlatPagination<SimCardDataUsageNotification>;
 
 /**
  * The SIM card individual data usage notification information.
@@ -169,6 +157,12 @@ export interface SimCardDataUsageNotificationUpdateResponse {
   data?: SimCardDataUsageNotification;
 }
 
+export interface SimCardDataUsageNotificationListResponse {
+  data?: Array<SimCardDataUsageNotification>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface SimCardDataUsageNotificationDeleteResponse {
   /**
    * The SIM card individual data usage notification information.
@@ -222,11 +216,21 @@ export namespace SimCardDataUsageNotificationUpdateParams {
   }
 }
 
-export interface SimCardDataUsageNotificationListParams extends DefaultFlatPaginationParams {
+export interface SimCardDataUsageNotificationListParams {
   /**
    * A valid SIM card ID.
    */
   'filter[sim_card_id]'?: string;
+
+  /**
+   * The page number to load.
+   */
+  'page[number]'?: number;
+
+  /**
+   * The size of the page.
+   */
+  'page[size]'?: number;
 }
 
 export declare namespace SimCardDataUsageNotifications {
@@ -235,8 +239,8 @@ export declare namespace SimCardDataUsageNotifications {
     type SimCardDataUsageNotificationCreateResponse as SimCardDataUsageNotificationCreateResponse,
     type SimCardDataUsageNotificationRetrieveResponse as SimCardDataUsageNotificationRetrieveResponse,
     type SimCardDataUsageNotificationUpdateResponse as SimCardDataUsageNotificationUpdateResponse,
+    type SimCardDataUsageNotificationListResponse as SimCardDataUsageNotificationListResponse,
     type SimCardDataUsageNotificationDeleteResponse as SimCardDataUsageNotificationDeleteResponse,
-    type SimCardDataUsageNotificationsDefaultFlatPagination as SimCardDataUsageNotificationsDefaultFlatPagination,
     type SimCardDataUsageNotificationCreateParams as SimCardDataUsageNotificationCreateParams,
     type SimCardDataUsageNotificationUpdateParams as SimCardDataUsageNotificationUpdateParams,
     type SimCardDataUsageNotificationListParams as SimCardDataUsageNotificationListParams,

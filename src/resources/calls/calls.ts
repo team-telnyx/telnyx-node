@@ -87,11 +87,7 @@ import {
   TelnyxVoiceSettings,
   TranscriptionConfig,
   TranscriptionEngineAConfig,
-  TranscriptionEngineAzureConfig,
   TranscriptionEngineBConfig,
-  TranscriptionEngineDeepgramConfig,
-  TranscriptionEngineGoogleConfig,
-  TranscriptionEngineTelnyxConfig,
   TranscriptionStartRequest,
 } from './actions';
 import { APIPromise } from '../../core/api-promise';
@@ -876,11 +872,7 @@ export declare namespace Calls {
     type TelnyxVoiceSettings as TelnyxVoiceSettings,
     type TranscriptionConfig as TranscriptionConfig,
     type TranscriptionEngineAConfig as TranscriptionEngineAConfig,
-    type TranscriptionEngineAzureConfig as TranscriptionEngineAzureConfig,
     type TranscriptionEngineBConfig as TranscriptionEngineBConfig,
-    type TranscriptionEngineDeepgramConfig as TranscriptionEngineDeepgramConfig,
-    type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
-    type TranscriptionEngineTelnyxConfig as TranscriptionEngineTelnyxConfig,
     type TranscriptionStartRequest as TranscriptionStartRequest,
     type ActionAnswerResponse as ActionAnswerResponse,
     type ActionBridgeResponse as ActionBridgeResponse,

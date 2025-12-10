@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -55,17 +55,11 @@ export class IPs extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const ip of client.ips.list()) {
-   *   // ...
-   * }
+   * const ips = await client.ips.list();
    * ```
    */
-  list(
-    query: IPListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<IPsDefaultPagination, IP> {
-    return this._client.getAPIList('/ips', DefaultPagination<IP>, { query, ...options });
+  list(query: IPListParams | null | undefined = {}, options?: RequestOptions): APIPromise<IPListResponse> {
+    return this._client.get('/ips', { query, ...options });
   }
 
   /**
@@ -82,8 +76,6 @@ export class IPs extends APIResource {
     return this._client.delete(path`/ips/${id}`, options);
   }
 }
-
-export type IPsDefaultPagination = DefaultPagination<IP>;
 
 export interface IP {
   /**
@@ -134,6 +126,12 @@ export interface IPUpdateResponse {
   data?: IP;
 }
 
+export interface IPListResponse {
+  data?: Array<IP>;
+
+  meta?: Shared.ConnectionsPaginationMeta;
+}
+
 export interface IPDeleteResponse {
   data?: IP;
 }
@@ -172,12 +170,18 @@ export interface IPUpdateParams {
   port?: number;
 }
 
-export interface IPListParams extends DefaultPaginationParams {
+export interface IPListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[connection_id], filter[ip_address], filter[port]
    */
   filter?: IPListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: IPListParams.Page;
 }
 
 export namespace IPListParams {
@@ -201,6 +205,22 @@ export namespace IPListParams {
      */
     port?: number;
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace IPs {
@@ -209,8 +229,8 @@ export declare namespace IPs {
     type IPCreateResponse as IPCreateResponse,
     type IPRetrieveResponse as IPRetrieveResponse,
     type IPUpdateResponse as IPUpdateResponse,
+    type IPListResponse as IPListResponse,
     type IPDeleteResponse as IPDeleteResponse,
-    type IPsDefaultPagination as IPsDefaultPagination,
     type IPCreateParams as IPCreateParams,
     type IPUpdateParams as IPUpdateParams,
     type IPListParams as IPListParams,

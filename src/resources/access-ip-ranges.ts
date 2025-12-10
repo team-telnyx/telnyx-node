@@ -3,7 +3,6 @@
 import { APIResource } from '../core/resource';
 import * as AccessIPAddressAPI from './access-ip-address';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -21,11 +20,8 @@ export class AccessIPRanges extends APIResource {
   list(
     query: AccessIPRangeListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<AccessIPRangesDefaultFlatPagination, AccessIPRange> {
-    return this._client.getAPIList('/access_ip_ranges', DefaultFlatPagination<AccessIPRange>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<AccessIPRangeListResponse> {
+    return this._client.get('/access_ip_ranges', { query, ...options });
   }
 
   /**
@@ -35,8 +31,6 @@ export class AccessIPRanges extends APIResource {
     return this._client.delete(path`/access_ip_ranges/${accessIPRangeID}`, options);
   }
 }
-
-export type AccessIPRangesDefaultFlatPagination = DefaultFlatPagination<AccessIPRange>;
 
 export interface AccessIPRange {
   id: string;
@@ -57,13 +51,19 @@ export interface AccessIPRange {
   updated_at?: string;
 }
 
+export interface AccessIPRangeListResponse {
+  data: Array<AccessIPRange>;
+
+  meta: AccessIPAddressAPI.PaginationMetaCloudflareIPListSync;
+}
+
 export interface AccessIPRangeCreateParams {
   cidr_block: string;
 
   description?: string;
 }
 
-export interface AccessIPRangeListParams extends DefaultFlatPaginationParams {
+export interface AccessIPRangeListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[cidr_block], filter[cidr_block][startswith],
@@ -71,6 +71,12 @@ export interface AccessIPRangeListParams extends DefaultFlatPaginationParams {
    * Supports complex bracket operations for dynamic filtering.
    */
   filter?: AccessIPRangeListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: AccessIPRangeListParams.Page;
 }
 
 export namespace AccessIPRangeListParams {
@@ -140,12 +146,22 @@ export namespace AccessIPRangeListParams {
       lte?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    number?: number;
+
+    size?: number;
+  }
 }
 
 export declare namespace AccessIPRanges {
   export {
     type AccessIPRange as AccessIPRange,
-    type AccessIPRangesDefaultFlatPagination as AccessIPRangesDefaultFlatPagination,
+    type AccessIPRangeListResponse as AccessIPRangeListResponse,
     type AccessIPRangeCreateParams as AccessIPRangeCreateParams,
     type AccessIPRangeListParams as AccessIPRangeListParams,
   };

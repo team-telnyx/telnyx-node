@@ -44,11 +44,11 @@ export class Usage extends APIResource {
 }
 
 export interface PaginationMetaSimple {
-  page_number: number;
-
-  total_pages: number;
+  page_number?: number;
 
   page_size?: number;
+
+  total_pages?: number;
 
   total_results?: number;
 }

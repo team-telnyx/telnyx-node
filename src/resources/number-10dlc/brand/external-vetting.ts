@@ -30,17 +30,17 @@ export class ExternalVetting extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.number10dlc.brand.externalVetting.imports(
+   *   await client.number10dlc.brand.externalVetting.import(
    *     'brandId',
    *     { evpId: 'evpId', vettingId: 'vettingId' },
    *   );
    * ```
    */
-  imports(
+  import(
     brandID: string,
-    body: ExternalVettingImportsParams,
+    body: ExternalVettingImportParams,
     options?: RequestOptions,
-  ): APIPromise<ExternalVettingImportsResponse> {
+  ): APIPromise<ExternalVettingImportResponse> {
     return this._client.put(path`/10dlc/brand/${brandID}/externalVetting`, { body, ...options });
   }
 
@@ -110,7 +110,7 @@ export namespace ExternalVettingListResponse {
   }
 }
 
-export interface ExternalVettingImportsResponse {
+export interface ExternalVettingImportResponse {
   /**
    * Vetting submission date. This is the date when the vetting request is generated
    * in ISO 8601 format.
@@ -192,7 +192,7 @@ export interface ExternalVettingOrderResponse {
   vettingToken?: string;
 }
 
-export interface ExternalVettingImportsParams {
+export interface ExternalVettingImportParams {
   /**
    * External vetting provider ID for the brand.
    */
@@ -225,9 +225,9 @@ export interface ExternalVettingOrderParams {
 export declare namespace ExternalVetting {
   export {
     type ExternalVettingListResponse as ExternalVettingListResponse,
-    type ExternalVettingImportsResponse as ExternalVettingImportsResponse,
+    type ExternalVettingImportResponse as ExternalVettingImportResponse,
     type ExternalVettingOrderResponse as ExternalVettingOrderResponse,
-    type ExternalVettingImportsParams as ExternalVettingImportsParams,
+    type ExternalVettingImportParams as ExternalVettingImportParams,
     type ExternalVettingOrderParams as ExternalVettingOrderParams,
   };
 }

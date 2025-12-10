@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -52,23 +52,15 @@ export class Calls extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const callListResponse of client.queues.calls.list(
-   *   'queue_name',
-   * )) {
-   *   // ...
-   * }
+   * const calls = await client.queues.calls.list('queue_name');
    * ```
    */
   list(
     queueName: string,
     query: CallListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<CallListResponsesDefaultPagination, CallListResponse> {
-    return this._client.getAPIList(path`/queues/${queueName}/calls`, DefaultPagination<CallListResponse>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<CallListResponse> {
+    return this._client.get(path`/queues/${queueName}/calls`, { query, ...options });
   }
 
   /**
@@ -90,8 +82,6 @@ export class Calls extends APIResource {
     });
   }
 }
-
-export type CallListResponsesDefaultPagination = DefaultPagination<CallListResponse>;
 
 export interface CallRetrieveResponse {
   data?: CallRetrieveResponse.Data;
@@ -156,59 +146,67 @@ export namespace CallRetrieveResponse {
 }
 
 export interface CallListResponse {
-  /**
-   * Unique identifier and token for controlling the call.
-   */
-  call_control_id: string;
+  data?: Array<CallListResponse.Data>;
 
-  /**
-   * ID that is unique to the call and can be used to correlate webhook events
-   */
-  call_leg_id: string;
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
 
-  /**
-   * ID that is unique to the call session and can be used to correlate webhook
-   * events. Call session is a group of related call legs that logically belong to
-   * the same phone call, e.g. an inbound and outbound leg of a transferred call
-   */
-  call_session_id: string;
+export namespace CallListResponse {
+  export interface Data {
+    /**
+     * Unique identifier and token for controlling the call.
+     */
+    call_control_id: string;
 
-  /**
-   * Call Control App ID (formerly Telnyx connection ID) used in the call.
-   */
-  connection_id: string;
+    /**
+     * ID that is unique to the call and can be used to correlate webhook events
+     */
+    call_leg_id: string;
 
-  /**
-   * ISO 8601 formatted date of when the call was put in the queue
-   */
-  enqueued_at: string;
+    /**
+     * ID that is unique to the call session and can be used to correlate webhook
+     * events. Call session is a group of related call legs that logically belong to
+     * the same phone call, e.g. an inbound and outbound leg of a transferred call
+     */
+    call_session_id: string;
 
-  /**
-   * Number or SIP URI placing the call.
-   */
-  from: string;
+    /**
+     * Call Control App ID (formerly Telnyx connection ID) used in the call.
+     */
+    connection_id: string;
 
-  /**
-   * Unique identifier of the queue the call is in.
-   */
-  queue_id: string;
+    /**
+     * ISO 8601 formatted date of when the call was put in the queue
+     */
+    enqueued_at: string;
 
-  /**
-   * Current position of the call in the queue
-   */
-  queue_position: number;
+    /**
+     * Number or SIP URI placing the call.
+     */
+    from: string;
 
-  record_type: 'queue_call';
+    /**
+     * Unique identifier of the queue the call is in.
+     */
+    queue_id: string;
 
-  /**
-   * Destination number or SIP URI of the call.
-   */
-  to: string;
+    /**
+     * Current position of the call in the queue
+     */
+    queue_position: number;
 
-  /**
-   * The time the call has been waiting in the queue, given in seconds
-   */
-  wait_time_secs: number;
+    record_type: 'queue_call';
+
+    /**
+     * Destination number or SIP URI of the call.
+     */
+    to: string;
+
+    /**
+     * The time the call has been waiting in the queue, given in seconds
+     */
+    wait_time_secs: number;
+  }
 }
 
 export interface CallRetrieveParams {
@@ -230,7 +228,46 @@ export interface CallUpdateParams {
   keep_after_hangup?: boolean;
 }
 
-export interface CallListParams extends DefaultPaginationParams {}
+export interface CallListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  page?: CallListParams.Page;
+}
+
+export namespace CallListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  export interface Page {
+    /**
+     * Opaque identifier of next page
+     */
+    after?: string;
+
+    /**
+     * Opaque identifier of previous page
+     */
+    before?: string;
+
+    /**
+     * Limit of records per single page
+     */
+    limit?: number;
+
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
+}
 
 export interface CallRemoveParams {
   /**
@@ -243,7 +280,6 @@ export declare namespace Calls {
   export {
     type CallRetrieveResponse as CallRetrieveResponse,
     type CallListResponse as CallListResponse,
-    type CallListResponsesDefaultPagination as CallListResponsesDefaultPagination,
     type CallRetrieveParams as CallRetrieveParams,
     type CallUpdateParams as CallUpdateParams,
     type CallListParams as CallListParams,

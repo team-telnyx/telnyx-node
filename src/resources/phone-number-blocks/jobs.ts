@@ -2,8 +2,8 @@
 
 import { APIResource } from '../../core/resource';
 import * as JobsAPI from './jobs';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -27,20 +27,11 @@ export class Jobs extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const job of client.phoneNumberBlocks.jobs.list()) {
-   *   // ...
-   * }
+   * const jobs = await client.phoneNumberBlocks.jobs.list();
    * ```
    */
-  list(
-    query: JobListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<JobsDefaultPagination, Job> {
-    return this._client.getAPIList('/phone_number_blocks/jobs', DefaultPagination<Job>, {
-      query,
-      ...options,
-    });
+  list(query: JobListParams | null | undefined = {}, options?: RequestOptions): APIPromise<JobListResponse> {
+    return this._client.get('/phone_number_blocks/jobs', { query, ...options });
   }
 
   /**
@@ -68,8 +59,6 @@ export class Jobs extends APIResource {
     return this._client.post('/phone_number_blocks/jobs/delete_phone_number_block', { body, ...options });
   }
 }
-
-export type JobsDefaultPagination = DefaultPagination<Job>;
 
 export interface Job {
   /**
@@ -181,16 +170,28 @@ export interface JobRetrieveResponse {
   data?: Job;
 }
 
+export interface JobListResponse {
+  data?: Array<Job>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface JobDeletePhoneNumberBlockResponse {
   data?: Job;
 }
 
-export interface JobListParams extends DefaultPaginationParams {
+export interface JobListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[type],
    * filter[status]
    */
   filter?: JobListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: JobListParams.Page;
 
   /**
    * Specifies the sort order for results. If not given, results are sorted by
@@ -215,6 +216,22 @@ export namespace JobListParams {
      */
     type?: 'delete_phone_number_block';
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export interface JobDeletePhoneNumberBlockParams {
@@ -226,8 +243,8 @@ export declare namespace Jobs {
     type Job as Job,
     type JobError as JobError,
     type JobRetrieveResponse as JobRetrieveResponse,
+    type JobListResponse as JobListResponse,
     type JobDeletePhoneNumberBlockResponse as JobDeletePhoneNumberBlockResponse,
-    type JobsDefaultPagination as JobsDefaultPagination,
     type JobListParams as JobListParams,
     type JobDeletePhoneNumberBlockParams as JobDeletePhoneNumberBlockParams,
   };

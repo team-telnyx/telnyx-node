@@ -36,7 +36,6 @@ export const tool: Tool = {
         anyOf: [
           {
             type: 'string',
-            title: 'all_participants',
             enum: ['all'],
           },
           {

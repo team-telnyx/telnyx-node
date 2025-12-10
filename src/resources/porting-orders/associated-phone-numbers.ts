@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -39,24 +39,21 @@ export class AssociatedPhoneNumbers extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const portingAssociatedPhoneNumber of client.portingOrders.associatedPhoneNumbers.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
+   * const associatedPhoneNumbers =
+   *   await client.portingOrders.associatedPhoneNumbers.list(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
    * ```
    */
   list(
     portingOrderID: string,
     query: AssociatedPhoneNumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortingAssociatedPhoneNumbersDefaultPagination, PortingAssociatedPhoneNumber> {
-    return this._client.getAPIList(
-      path`/porting_orders/${portingOrderID}/associated_phone_numbers`,
-      DefaultPagination<PortingAssociatedPhoneNumber>,
-      { query, ...options },
-    );
+  ): APIPromise<AssociatedPhoneNumberListResponse> {
+    return this._client.get(path`/porting_orders/${portingOrderID}/associated_phone_numbers`, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -86,8 +83,6 @@ export class AssociatedPhoneNumbers extends APIResource {
     );
   }
 }
-
-export type PortingAssociatedPhoneNumbersDefaultPagination = DefaultPagination<PortingAssociatedPhoneNumber>;
 
 export interface PortingAssociatedPhoneNumber {
   /**
@@ -158,6 +153,12 @@ export interface AssociatedPhoneNumberCreateResponse {
   data?: PortingAssociatedPhoneNumber;
 }
 
+export interface AssociatedPhoneNumberListResponse {
+  data?: Array<PortingAssociatedPhoneNumber>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface AssociatedPhoneNumberDeleteResponse {
   data?: PortingAssociatedPhoneNumber;
 }
@@ -185,12 +186,18 @@ export namespace AssociatedPhoneNumberCreateParams {
   }
 }
 
-export interface AssociatedPhoneNumberListParams extends DefaultPaginationParams {
+export interface AssociatedPhoneNumberListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[phone_number], filter[action]
    */
   filter?: AssociatedPhoneNumberListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: AssociatedPhoneNumberListParams.Page;
 
   /**
    * Consolidated sort parameter (deepObject style). Originally: sort[value]
@@ -216,6 +223,22 @@ export namespace AssociatedPhoneNumberListParams {
   }
 
   /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
+
+  /**
    * Consolidated sort parameter (deepObject style). Originally: sort[value]
    */
   export interface Sort {
@@ -238,8 +261,8 @@ export declare namespace AssociatedPhoneNumbers {
   export {
     type PortingAssociatedPhoneNumber as PortingAssociatedPhoneNumber,
     type AssociatedPhoneNumberCreateResponse as AssociatedPhoneNumberCreateResponse,
+    type AssociatedPhoneNumberListResponse as AssociatedPhoneNumberListResponse,
     type AssociatedPhoneNumberDeleteResponse as AssociatedPhoneNumberDeleteResponse,
-    type PortingAssociatedPhoneNumbersDefaultPagination as PortingAssociatedPhoneNumbersDefaultPagination,
     type AssociatedPhoneNumberCreateParams as AssociatedPhoneNumberCreateParams,
     type AssociatedPhoneNumberListParams as AssociatedPhoneNumberListParams,
     type AssociatedPhoneNumberDeleteParams as AssociatedPhoneNumberDeleteParams,

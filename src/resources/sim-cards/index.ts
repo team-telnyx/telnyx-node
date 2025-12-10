@@ -4,6 +4,7 @@ export {
   Actions,
   type SimCardAction,
   type ActionRetrieveResponse,
+  type ActionListResponse,
   type ActionBulkSetPublicIPsResponse,
   type ActionDisableResponse,
   type ActionEnableResponse,
@@ -15,13 +16,13 @@ export {
   type ActionBulkSetPublicIPsParams,
   type ActionSetPublicIPParams,
   type ActionValidateRegistrationCodesParams,
-  type SimCardActionsDefaultPagination,
 } from './actions';
 export {
   SimCards,
   type SimCard,
   type SimCardRetrieveResponse,
   type SimCardUpdateResponse,
+  type SimCardListResponse,
   type SimCardDeleteResponse,
   type SimCardGetActivationCodeResponse,
   type SimCardGetDeviceDetailsResponse,
@@ -32,5 +33,4 @@ export {
   type SimCardListParams,
   type SimCardDeleteParams,
   type SimCardListWirelessConnectivityLogsParams,
-  type SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination,
 } from './sim-cards';

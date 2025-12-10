@@ -90,8 +90,7 @@ describe('resource tests', () => {
       client.ai.assistants.tests.list(
         {
           destination: 'destination',
-          'page[number]': 0,
-          'page[size]': 0,
+          page: { number: 1, size: 1 },
           telnyx_conversation_channel: 'telnyx_conversation_channel',
           test_suite: 'test_suite',
         },

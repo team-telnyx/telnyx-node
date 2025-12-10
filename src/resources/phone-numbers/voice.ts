@@ -1,10 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as ActionsAPI from './actions';
-import { PhoneNumberWithVoiceSettingsDefaultPagination } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -42,21 +41,14 @@ export class Voice extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const phoneNumberWithVoiceSettings of client.phoneNumbers.voice.list()) {
-   *   // ...
-   * }
+   * const voices = await client.phoneNumbers.voice.list();
    * ```
    */
   list(
     query: VoiceListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PhoneNumberWithVoiceSettingsDefaultPagination, ActionsAPI.PhoneNumberWithVoiceSettings> {
-    return this._client.getAPIList(
-      '/phone_numbers/voice',
-      DefaultPagination<ActionsAPI.PhoneNumberWithVoiceSettings>,
-      { query, ...options },
-    );
+  ): APIPromise<VoiceListResponse> {
+    return this._client.get('/phone_numbers/voice', { query, ...options });
   }
 }
 
@@ -207,6 +199,12 @@ export interface VoiceUpdateResponse {
   data?: ActionsAPI.PhoneNumberWithVoiceSettings;
 }
 
+export interface VoiceListResponse {
+  data?: Array<ActionsAPI.PhoneNumberWithVoiceSettings>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface VoiceUpdateParams {
   /**
    * The call forwarding settings for a phone number.
@@ -259,13 +257,19 @@ export interface VoiceUpdateParams {
   usage_payment_method?: 'pay-per-minute' | 'channel';
 }
 
-export interface VoiceListParams extends DefaultPaginationParams {
+export interface VoiceListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[phone_number], filter[connection_name], filter[customer_reference],
    * filter[voice.usage_payment_method]
    */
   filter?: VoiceListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: VoiceListParams.Page;
 
   /**
    * Specifies the sort order for results. If not given, results are sorted by
@@ -314,6 +318,22 @@ export namespace VoiceListParams {
       contains?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace Voice {
@@ -325,9 +345,8 @@ export declare namespace Voice {
     type UpdateVoiceSettings as UpdateVoiceSettings,
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
     type VoiceUpdateResponse as VoiceUpdateResponse,
+    type VoiceListResponse as VoiceListResponse,
     type VoiceUpdateParams as VoiceUpdateParams,
     type VoiceListParams as VoiceListParams,
   };
 }
-
-export { type PhoneNumberWithVoiceSettingsDefaultPagination };

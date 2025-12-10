@@ -2,9 +2,9 @@
 
 import { APIResource } from '../core/resource';
 import * as WireguardPeersAPI from './wireguard-peers';
+import * as AuthenticationProvidersAPI from './authentication-providers';
 import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -63,20 +63,14 @@ export class WireguardPeers extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const wireguardPeerListResponse of client.wireguardPeers.list()) {
-   *   // ...
-   * }
+   * const wireguardPeers = await client.wireguardPeers.list();
    * ```
    */
   list(
     query: WireguardPeerListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<WireguardPeerListResponsesDefaultPagination, WireguardPeerListResponse> {
-    return this._client.getAPIList('/wireguard_peers', DefaultPagination<WireguardPeerListResponse>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<WireguardPeerListResponse> {
+    return this._client.get('/wireguard_peers', { query, ...options });
   }
 
   /**
@@ -111,8 +105,6 @@ export class WireguardPeers extends APIResource {
   }
 }
 
-export type WireguardPeerListResponsesDefaultPagination = DefaultPagination<WireguardPeerListResponse>;
-
 export interface WireguardPeerPatch {
   /**
    * The WireGuard `PublicKey`.<br /><br />If you do not provide a Public Key, a new
@@ -142,6 +134,11 @@ export namespace WireguardPeerCreateResponse {
     private_key?: string;
 
     /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
      * The id of the wireguard interface associated with the peer.
      */
     wireguard_interface_id?: string;
@@ -167,6 +164,11 @@ export namespace WireguardPeerRetrieveResponse {
      * within Telnyx. If you lose your Private Key, it can not be recovered.
      */
     private_key?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
 
     /**
      * The id of the wireguard interface associated with the peer.
@@ -196,31 +198,49 @@ export namespace WireguardPeerUpdateResponse {
     private_key?: string;
 
     /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
      * The id of the wireguard interface associated with the peer.
      */
     wireguard_interface_id?: string;
   }
 }
 
-export interface WireguardPeerListResponse extends GlobalIPAssignmentsAPI.Record, WireguardPeerPatch {
-  /**
-   * ISO 8601 formatted date-time indicating when peer sent traffic last time.
-   */
-  last_seen?: string;
+export interface WireguardPeerListResponse {
+  data?: Array<WireguardPeerListResponse.Data>;
 
-  /**
-   * Your WireGuard `Interface.PrivateKey`.<br /><br />This attribute is only ever
-   * utlised if, on POST, you do NOT provide your own `public_key`. In which case, a
-   * new Public and Private key pair will be generated for you. When your
-   * `private_key` is returned, you must save this immediately as we do not save it
-   * within Telnyx. If you lose your Private Key, it can not be recovered.
-   */
-  private_key?: string;
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
 
-  /**
-   * The id of the wireguard interface associated with the peer.
-   */
-  wireguard_interface_id?: string;
+export namespace WireguardPeerListResponse {
+  export interface Data extends GlobalIPAssignmentsAPI.Record, WireguardPeersAPI.WireguardPeerPatch {
+    /**
+     * ISO 8601 formatted date-time indicating when peer sent traffic last time.
+     */
+    last_seen?: string;
+
+    /**
+     * Your WireGuard `Interface.PrivateKey`.<br /><br />This attribute is only ever
+     * utlised if, on POST, you do NOT provide your own `public_key`. In which case, a
+     * new Public and Private key pair will be generated for you. When your
+     * `private_key` is returned, you must save this immediately as we do not save it
+     * within Telnyx. If you lose your Private Key, it can not be recovered.
+     */
+    private_key?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * The id of the wireguard interface associated with the peer.
+     */
+    wireguard_interface_id?: string;
+  }
 }
 
 export interface WireguardPeerDeleteResponse {
@@ -242,6 +262,11 @@ export namespace WireguardPeerDeleteResponse {
      * within Telnyx. If you lose your Private Key, it can not be recovered.
      */
     private_key?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
 
     /**
      * The id of the wireguard interface associated with the peer.
@@ -273,12 +298,18 @@ export interface WireguardPeerUpdateParams {
   public_key?: string;
 }
 
-export interface WireguardPeerListParams extends DefaultPaginationParams {
+export interface WireguardPeerListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[wireguard_interface_id]
    */
   filter?: WireguardPeerListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: WireguardPeerListParams.Page;
 }
 
 export namespace WireguardPeerListParams {
@@ -292,6 +323,22 @@ export namespace WireguardPeerListParams {
      */
     wireguard_interface_id?: string;
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace WireguardPeers {
@@ -303,7 +350,6 @@ export declare namespace WireguardPeers {
     type WireguardPeerListResponse as WireguardPeerListResponse,
     type WireguardPeerDeleteResponse as WireguardPeerDeleteResponse,
     type WireguardPeerRetrieveConfigResponse as WireguardPeerRetrieveConfigResponse,
-    type WireguardPeerListResponsesDefaultPagination as WireguardPeerListResponsesDefaultPagination,
     type WireguardPeerCreateParams as WireguardPeerCreateParams,
     type WireguardPeerUpdateParams as WireguardPeerUpdateParams,
     type WireguardPeerListParams as WireguardPeerListParams,

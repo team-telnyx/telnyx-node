@@ -5,9 +5,9 @@ export {
   type BillingBundleSummary,
   type PaginationResponse,
   type BillingBundleRetrieveResponse,
+  type BillingBundleListResponse,
   type BillingBundleRetrieveParams,
   type BillingBundleListParams,
-  type BillingBundleSummariesDefaultPagination,
 } from './billing-bundles';
 export { BundlePricing } from './bundle-pricing';
 export {
@@ -16,6 +16,7 @@ export {
   type UserBundleResource,
   type UserBundleCreateResponse,
   type UserBundleRetrieveResponse,
+  type UserBundleListResponse,
   type UserBundleDeactivateResponse,
   type UserBundleListResourcesResponse,
   type UserBundleListUnusedResponse,
@@ -25,5 +26,4 @@ export {
   type UserBundleDeactivateParams,
   type UserBundleListResourcesParams,
   type UserBundleListUnusedParams,
-  type UserBundlesDefaultPagination,
 } from './user-bundles';

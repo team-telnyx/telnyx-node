@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -48,20 +48,15 @@ export class CustomerServiceRecords extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const customerServiceRecord of client.customerServiceRecords.list()) {
-   *   // ...
-   * }
+   * const customerServiceRecords =
+   *   await client.customerServiceRecords.list();
    * ```
    */
   list(
     query: CustomerServiceRecordListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<CustomerServiceRecordsDefaultPagination, CustomerServiceRecord> {
-    return this._client.getAPIList('/customer_service_records', DefaultPagination<CustomerServiceRecord>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<CustomerServiceRecordListResponse> {
+    return this._client.get('/customer_service_records', { query, ...options });
   }
 
   /**
@@ -82,8 +77,6 @@ export class CustomerServiceRecords extends APIResource {
     return this._client.post('/customer_service_records/phone_number_coverages', { body, ...options });
   }
 }
-
-export type CustomerServiceRecordsDefaultPagination = DefaultPagination<CustomerServiceRecord>;
 
 export interface CustomerServiceRecord {
   /**
@@ -222,6 +215,12 @@ export interface CustomerServiceRecordRetrieveResponse {
   data?: CustomerServiceRecord;
 }
 
+export interface CustomerServiceRecordListResponse {
+  data?: Array<CustomerServiceRecord>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface CustomerServiceRecordVerifyPhoneNumberCoverageResponse {
   data?: Array<CustomerServiceRecordVerifyPhoneNumberCoverageResponse.Data>;
 }
@@ -336,13 +335,19 @@ export namespace CustomerServiceRecordCreateParams {
   }
 }
 
-export interface CustomerServiceRecordListParams extends DefaultPaginationParams {
+export interface CustomerServiceRecordListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[phone_number][eq], filter[phone_number][in][], filter[status][eq],
    * filter[status][in][], filter[created_at][lt], filter[created_at][gt]
    */
   filter?: CustomerServiceRecordListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: CustomerServiceRecordListParams.Page;
 
   /**
    * Consolidated sort parameter (deepObject style). Originally: sort[value]
@@ -403,6 +408,22 @@ export namespace CustomerServiceRecordListParams {
   }
 
   /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
+
+  /**
    * Consolidated sort parameter (deepObject style). Originally: sort[value]
    */
   export interface Sort {
@@ -426,8 +447,8 @@ export declare namespace CustomerServiceRecords {
     type CustomerServiceRecord as CustomerServiceRecord,
     type CustomerServiceRecordCreateResponse as CustomerServiceRecordCreateResponse,
     type CustomerServiceRecordRetrieveResponse as CustomerServiceRecordRetrieveResponse,
+    type CustomerServiceRecordListResponse as CustomerServiceRecordListResponse,
     type CustomerServiceRecordVerifyPhoneNumberCoverageResponse as CustomerServiceRecordVerifyPhoneNumberCoverageResponse,
-    type CustomerServiceRecordsDefaultPagination as CustomerServiceRecordsDefaultPagination,
     type CustomerServiceRecordCreateParams as CustomerServiceRecordCreateParams,
     type CustomerServiceRecordListParams as CustomerServiceRecordListParams,
     type CustomerServiceRecordVerifyPhoneNumberCoverageParams as CustomerServiceRecordVerifyPhoneNumberCoverageParams,

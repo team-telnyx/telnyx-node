@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as JobsAPI from '../phone-number-blocks/jobs';
 import * as VoiceAPI from './voice';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -26,20 +26,11 @@ export class Jobs extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const phoneNumbersJob of client.phoneNumbers.jobs.list()) {
-   *   // ...
-   * }
+   * const jobs = await client.phoneNumbers.jobs.list();
    * ```
    */
-  list(
-    query: JobListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PhoneNumbersJobsDefaultPagination, PhoneNumbersJob> {
-    return this._client.getAPIList('/phone_numbers/jobs', DefaultPagination<PhoneNumbersJob>, {
-      query,
-      ...options,
-    });
+  list(query: JobListParams | null | undefined = {}, options?: RequestOptions): APIPromise<JobListResponse> {
+    return this._client.get('/phone_numbers/jobs', { query, ...options });
   }
 
   /**
@@ -118,8 +109,6 @@ export class Jobs extends APIResource {
     return this._client.post('/phone_numbers/jobs/update_emergency_settings', { body, ...options });
   }
 }
-
-export type PhoneNumbersJobsDefaultPagination = DefaultPagination<PhoneNumbersJob>;
 
 export interface PhoneNumbersJob {
   /**
@@ -234,6 +223,12 @@ export interface JobRetrieveResponse {
   data?: PhoneNumbersJob;
 }
 
+export interface JobListResponse {
+  data?: Array<PhoneNumbersJob>;
+
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
+
 export interface JobDeleteBatchResponse {
   data?: PhoneNumbersJob;
 }
@@ -246,11 +241,17 @@ export interface JobUpdateEmergencySettingsBatchResponse {
   data?: PhoneNumbersJob;
 }
 
-export interface JobListParams extends DefaultPaginationParams {
+export interface JobListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[type]
    */
   filter?: JobListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: JobListParams.Page;
 
   /**
    * Specifies the sort order for results. If not given, results are sorted by
@@ -268,6 +269,22 @@ export namespace JobListParams {
      * Identifies the type of the background job.
      */
     type?: 'update_emergency_settings' | 'delete_phone_numbers' | 'update_phone_numbers';
+  }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
   }
 }
 
@@ -464,10 +481,10 @@ export declare namespace Jobs {
   export {
     type PhoneNumbersJob as PhoneNumbersJob,
     type JobRetrieveResponse as JobRetrieveResponse,
+    type JobListResponse as JobListResponse,
     type JobDeleteBatchResponse as JobDeleteBatchResponse,
     type JobUpdateBatchResponse as JobUpdateBatchResponse,
     type JobUpdateEmergencySettingsBatchResponse as JobUpdateEmergencySettingsBatchResponse,
-    type PhoneNumbersJobsDefaultPagination as PhoneNumbersJobsDefaultPagination,
     type JobListParams as JobListParams,
     type JobDeleteBatchParams as JobDeleteBatchParams,
     type JobUpdateBatchParams as JobUpdateBatchParams,

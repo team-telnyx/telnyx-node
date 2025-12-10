@@ -18,15 +18,23 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'list_ai_clusters',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nList all clusters\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'ClusteringRequestInfoData',\n  properties: {\n    data: {\n      type: 'array',\n      items: {\n        $ref: '#/$defs/cluster_list_response'\n      }\n    },\n    meta: {\n      $ref: '#/$defs/meta'\n    }\n  },\n  required: [    'data',\n    'meta'\n  ],\n  $defs: {\n    cluster_list_response: {\n      type: 'object',\n      title: 'ClusteringRequestInfo',\n      properties: {\n        bucket: {\n          type: 'string'\n        },\n        created_at: {\n          type: 'string',\n          format: 'date-time'\n        },\n        finished_at: {\n          type: 'string',\n          format: 'date-time'\n        },\n        min_cluster_size: {\n          type: 'integer'\n        },\n        min_subcluster_size: {\n          type: 'integer'\n        },\n        status: {\n          $ref: '#/$defs/task_status'\n        },\n        task_id: {\n          type: 'string'\n        }\n      },\n      required: [        'bucket',\n        'created_at',\n        'finished_at',\n        'min_cluster_size',\n        'min_subcluster_size',\n        'status',\n        'task_id'\n      ]\n    },\n    task_status: {\n      type: 'string',\n      title: 'TaskStatus',\n      enum: [        'pending',\n        'starting',\n        'running',\n        'completed',\n        'failed'\n      ]\n    },\n    meta: {\n      type: 'object',\n      title: 'Meta',\n      properties: {\n        page_number: {\n          type: 'integer'\n        },\n        page_size: {\n          type: 'integer'\n        },\n        total_pages: {\n          type: 'integer'\n        },\n        total_results: {\n          type: 'integer'\n        }\n      },\n      required: [        'page_number',\n        'page_size',\n        'total_pages',\n        'total_results'\n      ]\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nList all clusters\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/cluster_list_response',\n  $defs: {\n    cluster_list_response: {\n      type: 'object',\n      title: 'ClusteringRequestInfoData',\n      properties: {\n        data: {\n          type: 'array',\n          items: {\n            type: 'object',\n            title: 'ClusteringRequestInfo',\n            properties: {\n              bucket: {\n                type: 'string'\n              },\n              created_at: {\n                type: 'string',\n                format: 'date-time'\n              },\n              finished_at: {\n                type: 'string',\n                format: 'date-time'\n              },\n              min_cluster_size: {\n                type: 'integer'\n              },\n              min_subcluster_size: {\n                type: 'integer'\n              },\n              status: {\n                $ref: '#/$defs/task_status'\n              },\n              task_id: {\n                type: 'string'\n              }\n            },\n            required: [              'bucket',\n              'created_at',\n              'finished_at',\n              'min_cluster_size',\n              'min_subcluster_size',\n              'status',\n              'task_id'\n            ]\n          }\n        },\n        meta: {\n          $ref: '#/$defs/meta'\n        }\n      },\n      required: [        'data',\n        'meta'\n      ]\n    },\n    task_status: {\n      type: 'string',\n      title: 'TaskStatus',\n      enum: [        'pending',\n        'starting',\n        'running',\n        'completed',\n        'failed'\n      ]\n    },\n    meta: {\n      type: 'object',\n      title: 'Meta',\n      properties: {\n        page_number: {\n          type: 'integer'\n        },\n        page_size: {\n          type: 'integer'\n        },\n        total_pages: {\n          type: 'integer'\n        },\n        total_results: {\n          type: 'integer'\n        }\n      },\n      required: [        'page_number',\n        'page_size',\n        'total_pages',\n        'total_results'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
-      'page[number]': {
-        type: 'integer',
-      },
-      'page[size]': {
-        type: 'integer',
+      page: {
+        type: 'object',
+        description: 'Consolidated page parameter (deepObject style). Originally: page[number], page[size]',
+        properties: {
+          number: {
+            type: 'integer',
+            title: 'Page[Number]',
+          },
+          size: {
+            type: 'integer',
+            title: 'Page[Size]',
+          },
+        },
       },
       jq_filter: {
         type: 'string',
@@ -44,9 +52,8 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { jq_filter, ...body } = args as any;
-  const response = await client.ai.clusters.list(body).asResponse();
   try {
-    return asTextContentResult(await maybeFilter(jq_filter, await response.json()));
+    return asTextContentResult(await maybeFilter(jq_filter, await client.ai.clusters.list(body)));
   } catch (error) {
     if (error instanceof Telnyx.APIError || isJqError(error)) {
       return asErrorResult(error.message);

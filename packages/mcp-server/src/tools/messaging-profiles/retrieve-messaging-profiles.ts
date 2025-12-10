@@ -22,7 +22,7 @@ export const tool: Tool = {
   inputSchema: {
     type: 'object',
     properties: {
-      messaging_profile_id: {
+      id: {
         type: 'string',
       },
       jq_filter: {
@@ -32,7 +32,7 @@ export const tool: Tool = {
           'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
       },
     },
-    required: ['messaging_profile_id'],
+    required: ['id'],
   },
   annotations: {
     readOnlyHint: true,
@@ -40,11 +40,9 @@ export const tool: Tool = {
 };
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
-  const { messaging_profile_id, jq_filter, ...body } = args as any;
+  const { id, jq_filter, ...body } = args as any;
   try {
-    return asTextContentResult(
-      await maybeFilter(jq_filter, await client.messagingProfiles.retrieve(messaging_profile_id)),
-    );
+    return asTextContentResult(await maybeFilter(jq_filter, await client.messagingProfiles.retrieve(id)));
   } catch (error) {
     if (error instanceof Telnyx.APIError || isJqError(error)) {
       return asErrorResult(error.message);

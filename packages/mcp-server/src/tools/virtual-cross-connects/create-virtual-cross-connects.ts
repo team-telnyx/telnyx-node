@@ -18,19 +18,10 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'create_virtual_cross_connects',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCreate a new Virtual Cross Connect.<br /><br />For AWS and GCE, you have the option of creating the primary connection first and the secondary connection later. You also have the option of disabling the primary and/or secondary connections at any time and later re-enabling them. With Azure, you do not have this option. Azure requires both the primary and secondary connections to be created at the same time and they can not be independantly disabled.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/virtual_cross_connect_create_response',\n  $defs: {\n    virtual_cross_connect_create_response: {\n      type: 'object',\n      properties: {\n        data: {\n          allOf: [            {\n              $ref: '#/$defs/record'\n            },\n            {\n              $ref: '#/$defs/network_interface'\n            },\n            {\n              $ref: '#/$defs/network_interface_region'\n            }\n          ]\n        }\n      }\n    },\n    record: {\n      type: 'object',\n      properties: {\n        id: {\n          type: 'string',\n          description: 'Identifies the resource.'\n        },\n        created_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date-time indicating when the resource was created.'\n        },\n        record_type: {\n          type: 'string',\n          description: 'Identifies the type of the resource.'\n        },\n        updated_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date-time indicating when the resource was updated.'\n        }\n      }\n    },\n    network_interface: {\n      type: 'object',\n      properties: {\n        name: {\n          type: 'string',\n          description: 'A user specified name for the interface.'\n        },\n        network_id: {\n          type: 'string',\n          description: 'The id of the network associated with the interface.'\n        },\n        status: {\n          $ref: '#/$defs/interface_status'\n        }\n      }\n    },\n    interface_status: {\n      type: 'string',\n      description: 'The current status of the interface deployment.',\n      enum: [        'created',\n        'provisioning',\n        'provisioned',\n        'deleting'\n      ]\n    },\n    network_interface_region: {\n      type: 'object',\n      properties: {\n        region_code: {\n          type: 'string',\n          description: 'The region the interface should be deployed to.'\n        }\n      }\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCreate a new Virtual Cross Connect.<br /><br />For AWS and GCE, you have the option of creating the primary connection first and the secondary connection later. You also have the option of disabling the primary and/or secondary connections at any time and later re-enabling them. With Azure, you do not have this option. Azure requires both the primary and secondary connections to be created at the same time and they can not be independantly disabled.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/virtual_cross_connect_create_response',\n  $defs: {\n    virtual_cross_connect_create_response: {\n      type: 'object',\n      properties: {\n        data: {\n          allOf: [            {\n              $ref: '#/$defs/record'\n            },\n            {\n              $ref: '#/$defs/interface'\n            },\n            {\n              $ref: '#/$defs/region_in'\n            }\n          ]\n        }\n      }\n    },\n    record: {\n      type: 'object',\n      properties: {\n        id: {\n          type: 'string',\n          description: 'Identifies the resource.'\n        },\n        created_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date-time indicating when the resource was created.'\n        },\n        record_type: {\n          type: 'string',\n          description: 'Identifies the type of the resource.'\n        },\n        updated_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date-time indicating when the resource was updated.'\n        }\n      }\n    },\n    interface: {\n      type: 'object',\n      properties: {\n        name: {\n          type: 'string',\n          description: 'A user specified name for the interface.'\n        },\n        network_id: {\n          type: 'string',\n          description: 'The id of the network associated with the interface.'\n        },\n        status: {\n          $ref: '#/$defs/interface_status'\n        }\n      }\n    },\n    interface_status: {\n      type: 'string',\n      description: 'The current status of the interface deployment.',\n      enum: [        'created',\n        'provisioning',\n        'provisioned',\n        'deleting'\n      ]\n    },\n    region_in: {\n      type: 'object',\n      properties: {\n        region_code: {\n          type: 'string',\n          description: 'The region the interface should be deployed to.'\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
-      region_code: {
-        type: 'string',
-        description: 'The region the interface should be deployed to.',
-      },
-      bandwidth_mbps: {
-        type: 'number',
-        description:
-          'The desired throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.<br /><br />The available bandwidths can be found using the /virtual_cross_connect_regions endpoint.',
-      },
       bgp_asn: {
         type: 'number',
         description:
@@ -46,22 +37,31 @@ export const tool: Tool = {
         description:
           'The region where your Virtual Private Cloud hosts are located.<br /><br />The available regions can be found using the /virtual_cross_connect_regions endpoint.',
       },
-      name: {
-        type: 'string',
-        description: 'A user specified name for the interface.',
-      },
       network_id: {
         type: 'string',
         description: 'The id of the network associated with the interface.',
-      },
-      primary_bgp_key: {
-        type: 'string',
-        description: 'The authentication key for BGP peer configuration.',
       },
       primary_cloud_account_id: {
         type: 'string',
         description:
           'The identifier for your Virtual Private Cloud. The number will be different based upon your Cloud provider.',
+      },
+      region_code: {
+        type: 'string',
+        description: 'The region the interface should be deployed to.',
+      },
+      bandwidth_mbps: {
+        type: 'number',
+        description:
+          'The desired throughput in Megabits per Second (Mbps) for your Virtual Cross Connect.<br /><br />The available bandwidths can be found using the /virtual_cross_connect_regions endpoint.',
+      },
+      name: {
+        type: 'string',
+        description: 'A user specified name for the interface.',
+      },
+      primary_bgp_key: {
+        type: 'string',
+        description: 'The authentication key for BGP peer configuration.',
       },
       primary_cloud_ip: {
         type: 'string',
@@ -99,7 +99,14 @@ export const tool: Tool = {
           'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
       },
     },
-    required: ['region_code'],
+    required: [
+      'bgp_asn',
+      'cloud_provider',
+      'cloud_provider_region',
+      'network_id',
+      'primary_cloud_account_id',
+      'region_code',
+    ],
   },
   annotations: {},
 };

@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../../../core/resource';
 import { APIPromise } from '../../../../core/api-promise';
-import { PagePromise, PerPagePagination, type PerPagePaginationParams } from '../../../../core/pagination';
 import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
@@ -47,21 +46,15 @@ export class Messaging extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const mdrUsageReportResponseLegacy of client.legacy.reporting.usageReports.messaging.list()) {
-   *   // ...
-   * }
+   * const messagings =
+   *   await client.legacy.reporting.usageReports.messaging.list();
    * ```
    */
   list(
     query: MessagingListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MdrUsageReportResponseLegaciesPerPagePagination, MdrUsageReportResponseLegacy> {
-    return this._client.getAPIList(
-      '/legacy/reporting/usage_reports/messaging',
-      PerPagePagination<MdrUsageReportResponseLegacy>,
-      { query, ...options },
-    );
+  ): APIPromise<MessagingListResponse> {
+    return this._client.get('/legacy/reporting/usage_reports/messaging', { query, ...options });
   }
 
   /**
@@ -79,8 +72,6 @@ export class Messaging extends APIResource {
     return this._client.delete(path`/legacy/reporting/usage_reports/messaging/${id}`, options);
   }
 }
-
-export type MdrUsageReportResponseLegaciesPerPagePagination = PerPagePagination<MdrUsageReportResponseLegacy>;
 
 /**
  * Legacy V2 MDR usage report response
@@ -111,7 +102,7 @@ export interface MdrUsageReportResponseLegacy {
 
   report_url?: string;
 
-  result?: { [key: string]: unknown };
+  result?: unknown;
 
   start_time?: string;
 
@@ -124,11 +115,11 @@ export interface MdrUsageReportResponseLegacy {
 }
 
 export interface StandardPaginationMeta {
-  page_number: number;
-
-  total_pages: number;
+  page_number?: number;
 
   page_size?: number;
+
+  total_pages?: number;
 
   total_results?: number;
 }
@@ -145,6 +136,12 @@ export interface MessagingRetrieveResponse {
    * Legacy V2 MDR usage report response
    */
   data?: MdrUsageReportResponseLegacy;
+}
+
+export interface MessagingListResponse {
+  data?: Array<MdrUsageReportResponseLegacy>;
+
+  meta?: StandardPaginationMeta;
 }
 
 export interface MessagingDeleteResponse {
@@ -177,7 +174,17 @@ export interface MessagingCreateParams {
   start_time?: string;
 }
 
-export interface MessagingListParams extends PerPagePaginationParams {}
+export interface MessagingListParams {
+  /**
+   * Page number
+   */
+  page?: number;
+
+  /**
+   * Size of the page
+   */
+  per_page?: number;
+}
 
 export declare namespace Messaging {
   export {
@@ -185,8 +192,8 @@ export declare namespace Messaging {
     type StandardPaginationMeta as StandardPaginationMeta,
     type MessagingCreateResponse as MessagingCreateResponse,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
+    type MessagingListResponse as MessagingListResponse,
     type MessagingDeleteResponse as MessagingDeleteResponse,
-    type MdrUsageReportResponseLegaciesPerPagePagination as MdrUsageReportResponseLegaciesPerPagePagination,
     type MessagingCreateParams as MessagingCreateParams,
     type MessagingListParams as MessagingListParams,
   };

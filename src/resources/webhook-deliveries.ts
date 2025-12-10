@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as UsageAPI from './storage/buckets/usage';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -21,15 +21,10 @@ export class WebhookDeliveries extends APIResource {
   list(
     query: WebhookDeliveryListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<WebhookDeliveryListResponsesDefaultPagination, WebhookDeliveryListResponse> {
-    return this._client.getAPIList('/webhook_deliveries', DefaultPagination<WebhookDeliveryListResponse>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<WebhookDeliveryListResponse> {
+    return this._client.get('/webhook_deliveries', { query, ...options });
   }
 }
-
-export type WebhookDeliveryListResponsesDefaultPagination = DefaultPagination<WebhookDeliveryListResponse>;
 
 export interface WebhookDeliveryRetrieveResponse {
   /**
@@ -180,7 +175,7 @@ export namespace WebhookDeliveryRetrieveResponse {
        */
       occurred_at?: string;
 
-      payload?: { [key: string]: unknown };
+      payload?: unknown;
 
       /**
        * Identifies the type of the resource.
@@ -190,157 +185,165 @@ export namespace WebhookDeliveryRetrieveResponse {
   }
 }
 
-/**
- * Record of all attempts to deliver a webhook.
- */
 export interface WebhookDeliveryListResponse {
-  /**
-   * Uniquely identifies the webhook_delivery record.
-   */
-  id?: string;
+  data?: Array<WebhookDeliveryListResponse.Data>;
 
-  /**
-   * Detailed delivery attempts, ordered by most recent.
-   */
-  attempts?: Array<WebhookDeliveryListResponse.Attempt>;
-
-  /**
-   * ISO 8601 timestamp indicating when the last webhook response has been received.
-   */
-  finished_at?: string;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: string;
-
-  /**
-   * ISO 8601 timestamp indicating when the first request attempt was initiated.
-   */
-  started_at?: string;
-
-  /**
-   * Delivery status: 'delivered' when successfuly delivered or 'failed' if all
-   * attempts have failed.
-   */
-  status?: 'delivered' | 'failed';
-
-  /**
-   * Uniquely identifies the user that owns the webhook_delivery record.
-   */
-  user_id?: string;
-
-  /**
-   * Original webhook JSON data. Payload fields vary according to event type.
-   */
-  webhook?: WebhookDeliveryListResponse.Webhook;
+  meta?: UsageAPI.PaginationMetaSimple;
 }
 
 export namespace WebhookDeliveryListResponse {
   /**
-   * Webhook delivery attempt details.
+   * Record of all attempts to deliver a webhook.
    */
-  export interface Attempt {
+  export interface Data {
     /**
-     * Webhook delivery error codes.
-     */
-    errors?: Array<number>;
-
-    /**
-     * ISO 8601 timestamp indicating when the attempt has finished.
-     */
-    finished_at?: string;
-
-    /**
-     * HTTP request and response information.
-     */
-    http?: Attempt.HTTP;
-
-    /**
-     * ISO 8601 timestamp indicating when the attempt was initiated.
-     */
-    started_at?: string;
-
-    status?: 'delivered' | 'failed';
-  }
-
-  export namespace Attempt {
-    /**
-     * HTTP request and response information.
-     */
-    export interface HTTP {
-      /**
-       * Request details.
-       */
-      request?: HTTP.Request;
-
-      /**
-       * Response details, optional.
-       */
-      response?: HTTP.Response | null;
-    }
-
-    export namespace HTTP {
-      /**
-       * Request details.
-       */
-      export interface Request {
-        /**
-         * List of headers, limited to 10kB.
-         */
-        headers?: Array<Array<string>>;
-
-        url?: string;
-      }
-
-      /**
-       * Response details, optional.
-       */
-      export interface Response {
-        /**
-         * Raw response body, limited to 10kB.
-         */
-        body?: string;
-
-        /**
-         * List of headers, limited to 10kB.
-         */
-        headers?: Array<Array<string>>;
-
-        status?: number;
-      }
-    }
-  }
-
-  /**
-   * Original webhook JSON data. Payload fields vary according to event type.
-   */
-  export interface Webhook {
-    /**
-     * Identifies the type of resource.
+     * Uniquely identifies the webhook_delivery record.
      */
     id?: string;
 
     /**
-     * The type of event being delivered.
+     * Detailed delivery attempts, ordered by most recent.
      */
-    event_type?: string;
+    attempts?: Array<Data.Attempt>;
 
     /**
-     * ISO 8601 datetime of when the event occurred.
+     * ISO 8601 timestamp indicating when the last webhook response has been received.
      */
-    occurred_at?: string;
-
-    payload?: { [key: string]: unknown };
+    finished_at?: string;
 
     /**
      * Identifies the type of the resource.
      */
-    record_type?: 'event';
+    record_type?: string;
+
+    /**
+     * ISO 8601 timestamp indicating when the first request attempt was initiated.
+     */
+    started_at?: string;
+
+    /**
+     * Delivery status: 'delivered' when successfuly delivered or 'failed' if all
+     * attempts have failed.
+     */
+    status?: 'delivered' | 'failed';
+
+    /**
+     * Uniquely identifies the user that owns the webhook_delivery record.
+     */
+    user_id?: string;
+
+    /**
+     * Original webhook JSON data. Payload fields vary according to event type.
+     */
+    webhook?: Data.Webhook;
+  }
+
+  export namespace Data {
+    /**
+     * Webhook delivery attempt details.
+     */
+    export interface Attempt {
+      /**
+       * Webhook delivery error codes.
+       */
+      errors?: Array<number>;
+
+      /**
+       * ISO 8601 timestamp indicating when the attempt has finished.
+       */
+      finished_at?: string;
+
+      /**
+       * HTTP request and response information.
+       */
+      http?: Attempt.HTTP;
+
+      /**
+       * ISO 8601 timestamp indicating when the attempt was initiated.
+       */
+      started_at?: string;
+
+      status?: 'delivered' | 'failed';
+    }
+
+    export namespace Attempt {
+      /**
+       * HTTP request and response information.
+       */
+      export interface HTTP {
+        /**
+         * Request details.
+         */
+        request?: HTTP.Request;
+
+        /**
+         * Response details, optional.
+         */
+        response?: HTTP.Response | null;
+      }
+
+      export namespace HTTP {
+        /**
+         * Request details.
+         */
+        export interface Request {
+          /**
+           * List of headers, limited to 10kB.
+           */
+          headers?: Array<Array<string>>;
+
+          url?: string;
+        }
+
+        /**
+         * Response details, optional.
+         */
+        export interface Response {
+          /**
+           * Raw response body, limited to 10kB.
+           */
+          body?: string;
+
+          /**
+           * List of headers, limited to 10kB.
+           */
+          headers?: Array<Array<string>>;
+
+          status?: number;
+        }
+      }
+    }
+
+    /**
+     * Original webhook JSON data. Payload fields vary according to event type.
+     */
+    export interface Webhook {
+      /**
+       * Identifies the type of resource.
+       */
+      id?: string;
+
+      /**
+       * The type of event being delivered.
+       */
+      event_type?: string;
+
+      /**
+       * ISO 8601 datetime of when the event occurred.
+       */
+      occurred_at?: string;
+
+      payload?: unknown;
+
+      /**
+       * Identifies the type of the resource.
+       */
+      record_type?: 'event';
+    }
   }
 }
 
-export interface WebhookDeliveryListParams extends DefaultPaginationParams {
+export interface WebhookDeliveryListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[status][eq], filter[event_type], filter[webhook][contains],
@@ -348,6 +351,12 @@ export interface WebhookDeliveryListParams extends DefaultPaginationParams {
    * filter[finished_at][gte], filter[finished_at][lte]
    */
   filter?: WebhookDeliveryListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  page?: WebhookDeliveryListParams.Page;
 }
 
 export namespace WebhookDeliveryListParams {
@@ -426,13 +435,28 @@ export namespace WebhookDeliveryListParams {
       contains?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[number],
+   * page[size]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
 }
 
 export declare namespace WebhookDeliveries {
   export {
     type WebhookDeliveryRetrieveResponse as WebhookDeliveryRetrieveResponse,
     type WebhookDeliveryListResponse as WebhookDeliveryListResponse,
-    type WebhookDeliveryListResponsesDefaultPagination as WebhookDeliveryListResponsesDefaultPagination,
     type WebhookDeliveryListParams as WebhookDeliveryListParams,
   };
 }

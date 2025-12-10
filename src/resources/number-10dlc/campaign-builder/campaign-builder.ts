@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as CampaignAPI from '../../campaign/campaign';
 import * as BrandAPI from './brand';
 import { Brand, BrandQualifyByUsecaseParams, BrandQualifyByUsecaseResponse } from './brand';
-import * as CampaignAPI from '../campaign/campaign';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 

@@ -194,8 +194,8 @@ describe('resource assistants', () => {
   });
 
   // Prism tests are disabled
-  test.skip('imports: only required params', async () => {
-    const responsePromise = client.ai.assistants.imports({
+  test.skip('import: only required params', async () => {
+    const responsePromise = client.ai.assistants.import({
       api_key_ref: 'api_key_ref',
       provider: 'elevenlabs',
     });
@@ -209,8 +209,8 @@ describe('resource assistants', () => {
   });
 
   // Prism tests are disabled
-  test.skip('imports: required and optional params', async () => {
-    const response = await client.ai.assistants.imports({
+  test.skip('import: required and optional params', async () => {
+    const response = await client.ai.assistants.import({
       api_key_ref: 'api_key_ref',
       provider: 'elevenlabs',
     });

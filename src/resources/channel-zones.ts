@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -31,15 +31,10 @@ export class ChannelZones extends APIResource {
   list(
     query: ChannelZoneListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ChannelZoneListResponsesDefaultPagination, ChannelZoneListResponse> {
-    return this._client.getAPIList('/channel_zones', DefaultPagination<ChannelZoneListResponse>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<ChannelZoneListResponse> {
+    return this._client.get('/channel_zones', { query, ...options });
   }
 }
-
-export type ChannelZoneListResponsesDefaultPagination = DefaultPagination<ChannelZoneListResponse>;
 
 export interface ChannelZoneUpdateResponse {
   id: string;
@@ -68,29 +63,37 @@ export interface ChannelZoneUpdateResponse {
 }
 
 export interface ChannelZoneListResponse {
-  id: string;
+  data?: Array<ChannelZoneListResponse.Data>;
 
-  channels: number;
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
+}
 
-  /**
-   * List of countries (in ISO 3166-2, capitalized) members of the billing channel
-   * zone
-   */
-  countries: Array<string>;
+export namespace ChannelZoneListResponse {
+  export interface Data {
+    id: string;
 
-  name: string;
+    channels: number;
 
-  record_type: 'channel_zone';
+    /**
+     * List of countries (in ISO 3166-2, capitalized) members of the billing channel
+     * zone
+     */
+    countries: Array<string>;
 
-  /**
-   * ISO 8601 formatted date of when the channel zone was created
-   */
-  created_at?: string;
+    name: string;
 
-  /**
-   * ISO 8601 formatted date of when the channel zone was updated
-   */
-  updated_at?: string;
+    record_type: 'channel_zone';
+
+    /**
+     * ISO 8601 formatted date of when the channel zone was created
+     */
+    created_at?: string;
+
+    /**
+     * ISO 8601 formatted date of when the channel zone was updated
+     */
+    updated_at?: string;
+  }
 }
 
 export interface ChannelZoneUpdateParams {
@@ -100,13 +103,36 @@ export interface ChannelZoneUpdateParams {
   channels: number;
 }
 
-export interface ChannelZoneListParams extends DefaultPaginationParams {}
+export interface ChannelZoneListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  page?: ChannelZoneListParams.Page;
+}
+
+export namespace ChannelZoneListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[size],
+   * page[number]
+   */
+  export interface Page {
+    /**
+     * The page number to load
+     */
+    number?: number;
+
+    /**
+     * The size of the page
+     */
+    size?: number;
+  }
+}
 
 export declare namespace ChannelZones {
   export {
     type ChannelZoneUpdateResponse as ChannelZoneUpdateResponse,
     type ChannelZoneListResponse as ChannelZoneListResponse,
-    type ChannelZoneListResponsesDefaultPagination as ChannelZoneListResponsesDefaultPagination,
     type ChannelZoneUpdateParams as ChannelZoneUpdateParams,
     type ChannelZoneListParams as ChannelZoneListParams,
   };

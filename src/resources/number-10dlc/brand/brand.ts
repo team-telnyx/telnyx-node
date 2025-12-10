@@ -1,22 +1,32 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as BrandAPI from '../../brand/brand';
 import * as ExternalVettingAPI from './external-vetting';
 import {
   ExternalVetting,
-  ExternalVettingImportsParams,
-  ExternalVettingImportsResponse,
+  ExternalVettingImportParams,
+  ExternalVettingImportResponse,
   ExternalVettingListResponse,
   ExternalVettingOrderParams,
   ExternalVettingOrderResponse,
 } from './external-vetting';
+import * as SMSOtpAPI from './sms-otp';
+import {
+  SMSOtp,
+  SMSOtpGetStatusParams,
+  SMSOtpGetStatusResponse,
+  SMSOtpTriggerParams,
+  SMSOtpTriggerResponse,
+  SMSOtpVerifyParams,
+} from './sms-otp';
 import { APIPromise } from '../../../core/api-promise';
-import { PagePromise, PerPagePaginationV2, type PerPagePaginationV2Params } from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
 export class Brand extends APIResource {
+  smsOtp: SMSOtpAPI.SMSOtp = new SMSOtpAPI.SMSOtp(this._client);
   externalVetting: ExternalVettingAPI.ExternalVetting = new ExternalVettingAPI.ExternalVetting(this._client);
 
   /**
@@ -36,7 +46,7 @@ export class Brand extends APIResource {
    * });
    * ```
    */
-  create(body: BrandCreateParams, options?: RequestOptions): APIPromise<TelnyxBrand> {
+  create(body: BrandCreateParams, options?: RequestOptions): APIPromise<BrandAPI.TelnyxBrand> {
     return this._client.post('/10dlc/brand', { body, ...options });
   }
 
@@ -71,7 +81,11 @@ export class Brand extends APIResource {
    * );
    * ```
    */
-  update(brandID: string, body: BrandUpdateParams, options?: RequestOptions): APIPromise<TelnyxBrand> {
+  update(
+    brandID: string,
+    body: BrandUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<BrandAPI.TelnyxBrand> {
     return this._client.put(path`/10dlc/brand/${brandID}`, { body, ...options });
   }
 
@@ -80,20 +94,14 @@ export class Brand extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const brandListResponse of client.number10dlc.brand.list()) {
-   *   // ...
-   * }
+   * const brands = await client.number10dlc.brand.list();
    * ```
    */
   list(
     query: BrandListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<BrandListResponsesPerPagePaginationV2, BrandListResponse> {
-    return this._client.getAPIList('/10dlc/brand', PerPagePaginationV2<BrandListResponse>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<BrandListResponse> {
+    return this._client.get('/10dlc/brand', { query, ...options });
   }
 
   /**
@@ -155,36 +163,6 @@ export class Brand extends APIResource {
   }
 
   /**
-   * Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand
-   * verification.
-   *
-   * This endpoint allows you to check the delivery and verification status of an OTP
-   * sent during the Sole Proprietor brand verification process. You can query by
-   * either:
-   *
-   * - `referenceId` - The reference ID returned when the OTP was initially triggered
-   * - `brandId` - Query parameter for portal users to look up OTP status by Brand ID
-   *
-   * The response includes delivery status, verification dates, and detailed delivery
-   * information.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.number10dlc.brand.retrieveSMSOtpStatus(
-   *     'OTP4B2001',
-   *   );
-   * ```
-   */
-  retrieveSMSOtpStatus(
-    referenceID: string,
-    query: BrandRetrieveSMSOtpStatusParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<BrandRetrieveSMSOtpStatusResponse> {
-    return this._client.get(path`/10dlc/brand/smsOtp/${referenceID}`, { query, ...options });
-  }
-
-  /**
    * This operation allows you to revet the brand. However, revetting is allowed once
    * after the successful brand registration and thereafter limited to once every 3
    * months.
@@ -196,288 +174,15 @@ export class Brand extends APIResource {
    * );
    * ```
    */
-  revet(brandID: string, options?: RequestOptions): APIPromise<TelnyxBrand> {
+  revet(brandID: string, options?: RequestOptions): APIPromise<BrandAPI.TelnyxBrand> {
     return this._client.put(path`/10dlc/brand/${brandID}/revet`, options);
   }
 }
 
-export type BrandListResponsesPerPagePaginationV2 = PerPagePaginationV2<BrandListResponse>;
-
-/**
- * An enumeration.
- */
-export type AltBusinessIDType = 'NONE' | 'DUNS' | 'GIIN' | 'LEI';
-
-/**
- * The verification status of an active brand
- */
-export type BrandIdentityStatus = 'VERIFIED' | 'UNVERIFIED' | 'SELF_DECLARED' | 'VETTED_VERIFIED';
-
-/**
- * Entity type behind the brand. This is the form of business establishment.
- */
-export type EntityType = 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT';
-
-/**
- * (Required for public company) stock exchange.
- */
-export type StockExchange =
-  | 'NONE'
-  | 'NASDAQ'
-  | 'NYSE'
-  | 'AMEX'
-  | 'AMX'
-  | 'ASX'
-  | 'B3'
-  | 'BME'
-  | 'BSE'
-  | 'FRA'
-  | 'ICEX'
-  | 'JPX'
-  | 'JSE'
-  | 'KRX'
-  | 'LON'
-  | 'NSE'
-  | 'OMX'
-  | 'SEHK'
-  | 'SSE'
-  | 'STO'
-  | 'SWX'
-  | 'SZSE'
-  | 'TSX'
-  | 'TWSE'
-  | 'VSE';
-
 /**
  * Telnyx-specific extensions to The Campaign Registry's `Brand` type
  */
-export interface TelnyxBrand {
-  /**
-   * Brand relationship to the CSP.
-   */
-  brandRelationship: 'BASIC_ACCOUNT' | 'SMALL_ACCOUNT' | 'MEDIUM_ACCOUNT' | 'LARGE_ACCOUNT' | 'KEY_ACCOUNT';
-
-  /**
-   * ISO2 2 characters country code. Example: US - United States
-   */
-  country: string;
-
-  /**
-   * Display or marketing name of the brand.
-   */
-  displayName: string;
-
-  /**
-   * Valid email address of brand support contact.
-   */
-  email: string;
-
-  /**
-   * Entity type behind the brand. This is the form of business establishment.
-   */
-  entityType: EntityType;
-
-  /**
-   * Vertical or industry segment of the brand.
-   */
-  vertical: string;
-
-  /**
-   * Alternate business identifier such as DUNS, LEI, or GIIN
-   */
-  altBusinessId?: string;
-
-  /**
-   * An enumeration.
-   */
-  altBusinessIdType?: AltBusinessIDType;
-
-  /**
-   * Unique identifier assigned to the brand.
-   */
-  brandId?: string;
-
-  /**
-   * Business contact email.
-   *
-   * Required if `entityType` is `PUBLIC_PROFIT`.
-   */
-  businessContactEmail?: string;
-
-  /**
-   * City name
-   */
-  city?: string;
-
-  /**
-   * (Required for Non-profit/private/public) Legal company name.
-   */
-  companyName?: string;
-
-  /**
-   * Date and time that the brand was created at.
-   */
-  createdAt?: string;
-
-  /**
-   * Unique identifier assigned to the csp by the registry.
-   */
-  cspId?: string;
-
-  /**
-   * (Required for Non-profit) Government assigned corporate tax ID. EIN is 9-digits
-   * in U.S.
-   */
-  ein?: string;
-
-  /**
-   * Failure reasons for brand
-   */
-  failureReasons?: string;
-
-  /**
-   * First name of business contact.
-   */
-  firstName?: string;
-
-  /**
-   * The verification status of an active brand
-   */
-  identityStatus?: BrandIdentityStatus;
-
-  /**
-   * IP address of the browser requesting to create brand identity.
-   */
-  ipAddress?: string;
-
-  /**
-   * Indicates whether this brand is known to be a reseller
-   */
-  isReseller?: boolean;
-
-  /**
-   * Last name of business contact.
-   */
-  lastName?: string;
-
-  /**
-   * Valid mobile phone number in e.164 international format.
-   */
-  mobilePhone?: string;
-
-  /**
-   * Mock brand for testing purposes
-   */
-  mock?: boolean;
-
-  optionalAttributes?: TelnyxBrand.OptionalAttributes;
-
-  /**
-   * Valid phone number in e.164 international format.
-   */
-  phone?: string;
-
-  /**
-   * Postal codes. Use 5 digit zipcode for United States
-   */
-  postalCode?: string;
-
-  /**
-   * Unique identifier Telnyx assigned to the brand - the brandId
-   */
-  referenceId?: string;
-
-  /**
-   * State. Must be 2 letters code for United States.
-   */
-  state?: string;
-
-  /**
-   * Status of the brand
-   */
-  status?: 'OK' | 'REGISTRATION_PENDING' | 'REGISTRATION_FAILED';
-
-  /**
-   * (Required for public company) stock exchange.
-   */
-  stockExchange?: StockExchange;
-
-  /**
-   * (Required for public company) stock symbol.
-   */
-  stockSymbol?: string;
-
-  /**
-   * Street number and name.
-   */
-  street?: string;
-
-  /**
-   * Unique identifier assigned to the brand by the registry.
-   */
-  tcrBrandId?: string;
-
-  /**
-   * Universal EIN of Brand, Read Only.
-   */
-  universalEin?: string;
-
-  /**
-   * Date and time that the brand was last updated at.
-   */
-  updatedAt?: string;
-
-  /**
-   * Failover webhook to which brand status updates are sent.
-   */
-  webhookFailoverURL?: string;
-
-  /**
-   * Webhook to which brand status updates are sent.
-   */
-  webhookURL?: string;
-
-  /**
-   * Brand website URL.
-   */
-  website?: string;
-}
-
-export namespace TelnyxBrand {
-  export interface OptionalAttributes {
-    /**
-     * The tax exempt status of the brand
-     */
-    taxExemptStatus?: string;
-  }
-}
-
-/**
- * Vertical or industry segment of the brand or campaign.
- */
-export type Vertical =
-  | 'REAL_ESTATE'
-  | 'HEALTHCARE'
-  | 'ENERGY'
-  | 'ENTERTAINMENT'
-  | 'RETAIL'
-  | 'AGRICULTURE'
-  | 'INSURANCE'
-  | 'EDUCATION'
-  | 'HOSPITALITY'
-  | 'FINANCIAL'
-  | 'GAMBLING'
-  | 'CONSTRUCTION'
-  | 'NGO'
-  | 'MANUFACTURING'
-  | 'GOVERNMENT'
-  | 'TECHNOLOGY'
-  | 'COMMUNICATION';
-
-/**
- * Telnyx-specific extensions to The Campaign Registry's `Brand` type
- */
-export interface BrandRetrieveResponse extends TelnyxBrand {
+export interface BrandRetrieveResponse extends BrandAPI.TelnyxBrand {
   /**
    * Number of campaigns associated with the brand
    */
@@ -485,70 +190,80 @@ export interface BrandRetrieveResponse extends TelnyxBrand {
 }
 
 export interface BrandListResponse {
-  /**
-   * Number of campaigns associated with the brand
-   */
-  assignedCampaingsCount?: number;
+  page?: number;
 
-  /**
-   * Unique identifier assigned to the brand.
-   */
-  brandId?: string;
+  records?: Array<BrandListResponse.Record>;
 
-  /**
-   * (Required for Non-profit/private/public) Legal company name.
-   */
-  companyName?: string;
+  totalRecords?: number;
+}
 
-  /**
-   * Date and time that the brand was created at.
-   */
-  createdAt?: string;
+export namespace BrandListResponse {
+  export interface Record {
+    /**
+     * Number of campaigns associated with the brand
+     */
+    assignedCampaingsCount?: number;
 
-  /**
-   * Display or marketing name of the brand.
-   */
-  displayName?: string;
+    /**
+     * Unique identifier assigned to the brand.
+     */
+    brandId?: string;
 
-  /**
-   * Valid email address of brand support contact.
-   */
-  email?: string;
+    /**
+     * (Required for Non-profit/private/public) Legal company name.
+     */
+    companyName?: string;
 
-  /**
-   * Entity type behind the brand. This is the form of business establishment.
-   */
-  entityType?: EntityType;
+    /**
+     * Date and time that the brand was created at.
+     */
+    createdAt?: string;
 
-  /**
-   * Failure reasons for brand
-   */
-  failureReasons?: string;
+    /**
+     * Display or marketing name of the brand.
+     */
+    displayName?: string;
 
-  /**
-   * The verification status of an active brand
-   */
-  identityStatus?: BrandIdentityStatus;
+    /**
+     * Valid email address of brand support contact.
+     */
+    email?: string;
 
-  /**
-   * Status of the brand
-   */
-  status?: 'OK' | 'REGISTRATION_PENDING' | 'REGISTRATION_FAILED';
+    /**
+     * Entity type behind the brand. This is the form of business establishment.
+     */
+    entityType?: BrandAPI.EntityType;
 
-  /**
-   * Unique identifier assigned to the brand by the registry.
-   */
-  tcrBrandId?: string;
+    /**
+     * Failure reasons for brand
+     */
+    failureReasons?: string;
 
-  /**
-   * Date and time that the brand was last updated at.
-   */
-  updatedAt?: string;
+    /**
+     * The verification status of an active brand
+     */
+    identityStatus?: BrandAPI.BrandIdentityStatus;
 
-  /**
-   * Brand website URL.
-   */
-  website?: string;
+    /**
+     * Status of the brand
+     */
+    status?: 'OK' | 'REGISTRATION_PENDING' | 'REGISTRATION_FAILED';
+
+    /**
+     * Unique identifier assigned to the brand by the registry.
+     */
+    tcrBrandId?: string;
+
+    /**
+     * Date and time that the brand was last updated at.
+     */
+    updatedAt?: string;
+
+    /**
+     * Brand website URL.
+     */
+    website?: string;
+  }
 }
 
 export interface BrandGetFeedbackResponse {
@@ -587,52 +302,6 @@ export namespace BrandGetFeedbackResponse {
   }
 }
 
-/**
- * Status information for an SMS OTP sent during Sole Proprietor brand verification
- */
-export interface BrandRetrieveSMSOtpStatusResponse {
-  /**
-   * The Brand ID associated with this OTP request
-   */
-  brandId: string;
-
-  /**
-   * The current delivery status of the OTP SMS message. Common values include:
-   * `DELIVERED_HANDSET`, `PENDING`, `FAILED`, `EXPIRED`
-   */
-  deliveryStatus: string;
-
-  /**
-   * The mobile phone number where the OTP was sent, in E.164 format
-   */
-  mobilePhone: string;
-
-  /**
-   * The reference ID for this OTP request, used for status queries
-   */
-  referenceId: string;
-
-  /**
-   * The timestamp when the OTP request was initiated
-   */
-  requestDate: string;
-
-  /**
-   * The timestamp when the delivery status was last updated
-   */
-  deliveryStatusDate?: string;
-
-  /**
-   * Additional details about the delivery status
-   */
-  deliveryStatusDetails?: string;
-
-  /**
-   * The timestamp when the OTP was successfully verified (if applicable)
-   */
-  verifyDate?: string;
-}
-
 export interface BrandCreateParams {
   /**
    * ISO2 2 characters country code. Example: US - United States
@@ -652,12 +321,12 @@ export interface BrandCreateParams {
   /**
    * Entity type behind the brand. This is the form of business establishment.
    */
-  entityType: EntityType;
+  entityType: BrandAPI.EntityType;
 
   /**
    * Vertical or industry segment of the brand or campaign.
    */
-  vertical: Vertical;
+  vertical: BrandAPI.Vertical;
 
   /**
    * Business contact email.
@@ -728,7 +397,7 @@ export interface BrandCreateParams {
   /**
    * (Required for public company) stock exchange.
    */
-  stockExchange?: StockExchange;
+  stockExchange?: BrandAPI.StockExchange;
 
   /**
    * (Required for public company) stock symbol.
@@ -775,12 +444,12 @@ export interface BrandUpdateParams {
   /**
    * Entity type behind the brand. This is the form of business establishment.
    */
-  entityType: EntityType;
+  entityType: BrandAPI.EntityType;
 
   /**
    * Vertical or industry segment of the brand or campaign.
    */
-  vertical: Vertical;
+  vertical: BrandAPI.Vertical;
 
   /**
    * Alternate business identifier such as DUNS, LEI, or GIIN
@@ -790,7 +459,7 @@ export interface BrandUpdateParams {
   /**
    * An enumeration.
    */
-  altBusinessIdType?: AltBusinessIDType;
+  altBusinessIdType?: BrandAPI.AltBusinessIDType;
 
   /**
    * Business contact email.
@@ -824,7 +493,7 @@ export interface BrandUpdateParams {
   /**
    * The verification status of an active brand
    */
-  identityStatus?: BrandIdentityStatus;
+  identityStatus?: BrandAPI.BrandIdentityStatus;
 
   /**
    * IP address of the browser requesting to create brand identity.
@@ -856,7 +525,7 @@ export interface BrandUpdateParams {
   /**
    * (Required for public company) stock exchange.
    */
-  stockExchange?: StockExchange;
+  stockExchange?: BrandAPI.StockExchange;
 
   /**
    * (Required for public company) stock symbol.
@@ -884,7 +553,7 @@ export interface BrandUpdateParams {
   website?: string;
 }
 
-export interface BrandListParams extends PerPagePaginationV2Params {
+export interface BrandListParams {
   /**
    * Filter results by the Telnyx Brand id
    */
@@ -895,6 +564,13 @@ export interface BrandListParams extends PerPagePaginationV2Params {
   displayName?: string;
 
   entityType?: string;
+
+  page?: number;
+
+  /**
+   * number of records per page. maximum of 500
+   */
+  recordsPerPage?: number;
 
   /**
    * Specifies the sort order for results. If not given, results are sorted by
@@ -924,40 +600,34 @@ export interface BrandListParams extends PerPagePaginationV2Params {
   tcrBrandId?: string;
 }
 
-export interface BrandRetrieveSMSOtpStatusParams {
-  /**
-   * Filter by Brand ID for easier lookup in portal applications
-   */
-  brandId?: string;
-}
-
+Brand.SMSOtp = SMSOtp;
 Brand.ExternalVetting = ExternalVetting;
 
 export declare namespace Brand {
   export {
-    type AltBusinessIDType as AltBusinessIDType,
-    type BrandIdentityStatus as BrandIdentityStatus,
-    type EntityType as EntityType,
-    type StockExchange as StockExchange,
-    type TelnyxBrand as TelnyxBrand,
-    type Vertical as Vertical,
     type BrandRetrieveResponse as BrandRetrieveResponse,
     type BrandListResponse as BrandListResponse,
     type BrandGetFeedbackResponse as BrandGetFeedbackResponse,
-    type BrandRetrieveSMSOtpStatusResponse as BrandRetrieveSMSOtpStatusResponse,
-    type BrandListResponsesPerPagePaginationV2 as BrandListResponsesPerPagePaginationV2,
     type BrandCreateParams as BrandCreateParams,
     type BrandUpdateParams as BrandUpdateParams,
     type BrandListParams as BrandListParams,
-    type BrandRetrieveSMSOtpStatusParams as BrandRetrieveSMSOtpStatusParams,
+  };
+
+  export {
+    SMSOtp as SMSOtp,
+    type SMSOtpGetStatusResponse as SMSOtpGetStatusResponse,
+    type SMSOtpTriggerResponse as SMSOtpTriggerResponse,
+    type SMSOtpGetStatusParams as SMSOtpGetStatusParams,
+    type SMSOtpTriggerParams as SMSOtpTriggerParams,
+    type SMSOtpVerifyParams as SMSOtpVerifyParams,
   };
 
   export {
     ExternalVetting as ExternalVetting,
     type ExternalVettingListResponse as ExternalVettingListResponse,
-    type ExternalVettingImportsResponse as ExternalVettingImportsResponse,
+    type ExternalVettingImportResponse as ExternalVettingImportResponse,
     type ExternalVettingOrderResponse as ExternalVettingOrderResponse,
-    type ExternalVettingImportsParams as ExternalVettingImportsParams,
+    type ExternalVettingImportParams as ExternalVettingImportParams,
     type ExternalVettingOrderParams as ExternalVettingOrderParams,
   };
 }

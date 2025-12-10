@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Agents, type AgentUpdateParams, type AgentListParams } from './agents';
+export { Agents, type AgentListResponse, type AgentUpdateParams, type AgentListParams } from './agents';
 export {
   Rcs,
   type RcsCapabilities,
