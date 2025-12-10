@@ -691,7 +691,7 @@ export interface SimCardListParams extends DefaultPaginationParams {
    * Sorts SIM cards by the given field. Defaults to ascending order unless field is
    * prefixed with a minus sign.
    */
-  sort?: 'current_billing_period_consumed_data.amount';
+  sort?: 'current_billing_period_consumed_data.amount' | '-current_billing_period_consumed_data.amount';
 }
 
 export namespace SimCardListParams {

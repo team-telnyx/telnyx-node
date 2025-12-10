@@ -518,7 +518,6 @@ export {
   type MessageSendShortCodeParams,
 } from './messages/messages';
 export { Messaging } from './messaging/messaging';
-export { Messaging10dlc, type Messaging10dlcGetEnumResponse } from './messaging-10dlc/messaging-10dlc';
 export {
   MessagingHostedNumberOrders,
   type MessagingHostedNumberOrderCreateResponse,
@@ -683,6 +682,7 @@ export {
   type NotificationSettingListParams,
   type NotificationSettingsDefaultPagination,
 } from './notification-settings';
+export { Number10dlc, type Number10dlcGetEnumResponse } from './number-10dlc/number-10dlc';
 export {
   NumberBlockOrders,
   type NumberBlockOrder,
@@ -795,7 +795,29 @@ export {
   type OutboundVoiceProfileListParams,
   type OutboundVoiceProfilesDefaultPagination,
 } from './outbound-voice-profiles';
+export {
+  PartnerCampaigns,
+  type TelnyxDownstreamCampaign,
+  type PartnerCampaignListSharedByMeResponse,
+  type PartnerCampaignRetrieveSharingStatusResponse,
+  type PartnerCampaignUpdateParams,
+  type PartnerCampaignListParams,
+  type PartnerCampaignListSharedByMeParams,
+  type TelnyxDownstreamCampaignsPerPagePaginationV2,
+  type PartnerCampaignListSharedByMeResponsesPerPagePaginationV2,
+} from './partner-campaigns';
 export { Payment } from './payment/payment';
+export {
+  PhoneNumberAssignmentByProfile,
+  type TaskStatus,
+  type PhoneNumberAssignmentByProfileAssignResponse,
+  type PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse,
+  type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
+  type PhoneNumberAssignmentByProfileRetrieveStatusResponse,
+  type PhoneNumberAssignmentByProfileAssignParams,
+  type PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
+  type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
+} from './phone-number-assignment-by-profile';
 export { PhoneNumberBlocks } from './phone-number-blocks/phone-number-blocks';
 export {
   PhoneNumbers,

@@ -76,7 +76,7 @@ export const tool: Tool = {
         type: 'string',
         description:
           'Sorts SIM cards by the given field. Defaults to ascending order unless field is prefixed with a minus sign.',
-        enum: ['current_billing_period_consumed_data.amount'],
+        enum: ['current_billing_period_consumed_data.amount', '-current_billing_period_consumed_data.amount'],
       },
       jq_filter: {
         type: 'string',

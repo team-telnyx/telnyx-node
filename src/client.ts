@@ -646,6 +646,28 @@ import {
   UsagePaymentMethod,
 } from './resources/outbound-voice-profiles';
 import {
+  PartnerCampaignListParams,
+  PartnerCampaignListSharedByMeParams,
+  PartnerCampaignListSharedByMeResponse,
+  PartnerCampaignListSharedByMeResponsesPerPagePaginationV2,
+  PartnerCampaignRetrieveSharingStatusResponse,
+  PartnerCampaignUpdateParams,
+  PartnerCampaigns,
+  TelnyxDownstreamCampaign,
+  TelnyxDownstreamCampaignsPerPagePaginationV2,
+} from './resources/partner-campaigns';
+import {
+  PhoneNumberAssignmentByProfile,
+  PhoneNumberAssignmentByProfileAssignParams,
+  PhoneNumberAssignmentByProfileAssignResponse,
+  PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
+  PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse,
+  PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
+  PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
+  PhoneNumberAssignmentByProfileRetrieveStatusResponse,
+  TaskStatus,
+} from './resources/phone-number-assignment-by-profile';
+import {
   PhoneNumbersRegulatoryRequirementRetrieveParams,
   PhoneNumbersRegulatoryRequirementRetrieveResponse,
   PhoneNumbersRegulatoryRequirements,
@@ -1136,7 +1158,6 @@ import {
   MessagingError,
   OutboundMessagePayload,
 } from './resources/messages/messages';
-import { Messaging10dlc, Messaging10dlcGetEnumResponse } from './resources/messaging-10dlc/messaging-10dlc';
 import {
   MessagingHostedNumberOrderCheckEligibilityParams,
   MessagingHostedNumberOrderCheckEligibilityResponse,
@@ -1195,6 +1216,7 @@ import {
   NetworkUpdateResponse,
   Networks,
 } from './resources/networks/networks';
+import { Number10dlc, Number10dlcGetEnumResponse } from './resources/number-10dlc/number-10dlc';
 import {
   NumberReservation,
   NumberReservationCreateParams,
@@ -2255,6 +2277,9 @@ export class Telnyx {
   otaUpdates: API.OtaUpdates = new API.OtaUpdates(this);
   outboundVoiceProfiles: API.OutboundVoiceProfiles = new API.OutboundVoiceProfiles(this);
   payment: API.Payment = new API.Payment(this);
+  phoneNumberAssignmentByProfile: API.PhoneNumberAssignmentByProfile = new API.PhoneNumberAssignmentByProfile(
+    this,
+  );
   phoneNumberBlocks: API.PhoneNumberBlocks = new API.PhoneNumberBlocks(this);
   phoneNumbers: API.PhoneNumbers = new API.PhoneNumbers(this);
   phoneNumbersRegulatoryRequirements: API.PhoneNumbersRegulatoryRequirements =
@@ -2311,11 +2336,12 @@ export class Telnyx {
   wireless: API.Wireless = new API.Wireless(this);
   wirelessBlocklistValues: API.WirelessBlocklistValues = new API.WirelessBlocklistValues(this);
   wirelessBlocklists: API.WirelessBlocklists = new API.WirelessBlocklists(this);
+  partnerCampaigns: API.PartnerCampaigns = new API.PartnerCampaigns(this);
   wellKnown: API.WellKnown = new API.WellKnown(this);
   inexplicitNumberOrders: API.InexplicitNumberOrders = new API.InexplicitNumberOrders(this);
   mobilePhoneNumbers: API.MobilePhoneNumbers = new API.MobilePhoneNumbers(this);
   mobileVoiceConnections: API.MobileVoiceConnections = new API.MobileVoiceConnections(this);
-  messaging10dlc: API.Messaging10dlc = new API.Messaging10dlc(this);
+  number10dlc: API.Number10dlc = new API.Number10dlc(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -2410,6 +2436,7 @@ Telnyx.OperatorConnect = OperatorConnect;
 Telnyx.OtaUpdates = OtaUpdates;
 Telnyx.OutboundVoiceProfiles = OutboundVoiceProfiles;
 Telnyx.Payment = Payment;
+Telnyx.PhoneNumberAssignmentByProfile = PhoneNumberAssignmentByProfile;
 Telnyx.PhoneNumberBlocks = PhoneNumberBlocks;
 Telnyx.PhoneNumbers = PhoneNumbers;
 Telnyx.PhoneNumbersRegulatoryRequirements = PhoneNumbersRegulatoryRequirements;
@@ -2463,11 +2490,12 @@ Telnyx.WireguardPeers = WireguardPeers;
 Telnyx.Wireless = Wireless;
 Telnyx.WirelessBlocklistValues = WirelessBlocklistValues;
 Telnyx.WirelessBlocklists = WirelessBlocklists;
+Telnyx.PartnerCampaigns = PartnerCampaigns;
 Telnyx.WellKnown = WellKnown;
 Telnyx.InexplicitNumberOrders = InexplicitNumberOrders;
 Telnyx.MobilePhoneNumbers = MobilePhoneNumbers;
 Telnyx.MobileVoiceConnections = MobileVoiceConnections;
-Telnyx.Messaging10dlc = Messaging10dlc;
+Telnyx.Number10dlc = Number10dlc;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3466,6 +3494,18 @@ export declare namespace Telnyx {
 
   export { Payment as Payment };
 
+  export {
+    PhoneNumberAssignmentByProfile as PhoneNumberAssignmentByProfile,
+    type TaskStatus as TaskStatus,
+    type PhoneNumberAssignmentByProfileAssignResponse as PhoneNumberAssignmentByProfileAssignResponse,
+    type PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse as PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse,
+    type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
+    type PhoneNumberAssignmentByProfileRetrieveStatusResponse as PhoneNumberAssignmentByProfileRetrieveStatusResponse,
+    type PhoneNumberAssignmentByProfileAssignParams as PhoneNumberAssignmentByProfileAssignParams,
+    type PhoneNumberAssignmentByProfileListPhoneNumberStatusParams as PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
+    type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
+  };
+
   export { PhoneNumberBlocks as PhoneNumberBlocks };
 
   export {
@@ -3970,6 +4010,18 @@ export declare namespace Telnyx {
   };
 
   export {
+    PartnerCampaigns as PartnerCampaigns,
+    type TelnyxDownstreamCampaign as TelnyxDownstreamCampaign,
+    type PartnerCampaignListSharedByMeResponse as PartnerCampaignListSharedByMeResponse,
+    type PartnerCampaignRetrieveSharingStatusResponse as PartnerCampaignRetrieveSharingStatusResponse,
+    type TelnyxDownstreamCampaignsPerPagePaginationV2 as TelnyxDownstreamCampaignsPerPagePaginationV2,
+    type PartnerCampaignListSharedByMeResponsesPerPagePaginationV2 as PartnerCampaignListSharedByMeResponsesPerPagePaginationV2,
+    type PartnerCampaignUpdateParams as PartnerCampaignUpdateParams,
+    type PartnerCampaignListParams as PartnerCampaignListParams,
+    type PartnerCampaignListSharedByMeParams as PartnerCampaignListSharedByMeParams,
+  };
+
+  export {
     WellKnown as WellKnown,
     type WellKnownRetrieveAuthorizationServerMetadataResponse as WellKnownRetrieveAuthorizationServerMetadataResponse,
     type WellKnownRetrieveProtectedResourceMetadataResponse as WellKnownRetrieveProtectedResourceMetadataResponse,
@@ -4008,10 +4060,7 @@ export declare namespace Telnyx {
     type MobileVoiceConnectionListParams as MobileVoiceConnectionListParams,
   };
 
-  export {
-    Messaging10dlc as Messaging10dlc,
-    type Messaging10dlcGetEnumResponse as Messaging10dlcGetEnumResponse,
-  };
+  export { Number10dlc as Number10dlc, type Number10dlcGetEnumResponse as Number10dlcGetEnumResponse };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;

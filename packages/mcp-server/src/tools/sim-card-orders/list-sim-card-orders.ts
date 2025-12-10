@@ -27,53 +27,43 @@ export const tool: Tool = {
         description:
           'Consolidated filter parameter for SIM card orders (deepObject style). Originally: filter[created_at], filter[updated_at], filter[quantity], filter[cost.amount], filter[cost.currency], filter[address.id], filter[address.street_address], filter[address.extended_address], filter[address.locality], filter[address.administrative_area], filter[address.country_code], filter[address.postal_code]',
         properties: {
-          address: {
-            type: 'object',
-            properties: {
-              id: {
-                type: 'string',
-                description: 'Uniquely identifies the address for the order.',
-              },
-              administrative_area: {
-                type: 'string',
-                description: 'Filter by state or province where the address is located.',
-              },
-              country_code: {
-                type: 'string',
-                description:
-                  'Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country code.',
-              },
-              extended_address: {
-                type: 'string',
-                description:
-                  'Returns entries with matching name of the supplemental field for address information.',
-              },
-              locality: {
-                type: 'string',
-                description: 'Filter by the name of the city where the address is located.',
-              },
-              postal_code: {
-                type: 'string',
-                description: 'Filter by postal code for the address.',
-              },
-              street_address: {
-                type: 'string',
-                description: 'Returns entries with matching name of the street where the address is located.',
-              },
-            },
+          'address.administrative_area': {
+            type: 'string',
+            description: 'Filter by state or province where the address is located.',
           },
-          cost: {
-            type: 'object',
-            properties: {
-              amount: {
-                type: 'string',
-                description: 'The total monetary amount of the order.',
-              },
-              currency: {
-                type: 'string',
-                description: 'Filter by ISO 4217 currency string.',
-              },
-            },
+          'address.country_code': {
+            type: 'string',
+            description:
+              'Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country code.',
+          },
+          'address.extended_address': {
+            type: 'string',
+            description:
+              'Returns entries with matching name of the supplemental field for address information.',
+          },
+          'address.id': {
+            type: 'string',
+            description: 'Uniquely identifies the address for the order.',
+          },
+          'address.locality': {
+            type: 'string',
+            description: 'Filter by the name of the city where the address is located.',
+          },
+          'address.postal_code': {
+            type: 'string',
+            description: 'Filter by postal code for the address.',
+          },
+          'address.street_address': {
+            type: 'string',
+            description: 'Returns entries with matching name of the street where the address is located.',
+          },
+          'cost.amount': {
+            type: 'string',
+            description: 'The total monetary amount of the order.',
+          },
+          'cost.currency': {
+            type: 'string',
+            description: 'Filter by ISO 4217 currency string.',
           },
           created_at: {
             type: 'string',
