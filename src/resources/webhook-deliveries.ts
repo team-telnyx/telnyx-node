@@ -126,7 +126,7 @@ export namespace WebhookDeliveryRetrieveResponse {
         /**
          * Response details, optional.
          */
-        response?: HTTP.Response | null;
+        response?: HTTP.Response;
       }
 
       export namespace HTTP {
@@ -277,7 +277,7 @@ export namespace WebhookDeliveryListResponse {
       /**
        * Response details, optional.
        */
-      response?: HTTP.Response | null;
+      response?: HTTP.Response;
     }
 
     export namespace HTTP {
