@@ -116,7 +116,7 @@ export interface VerifiedNumberCreateParams {
    * Pauses: w = 0.5 second pause, W = 1 second pause. Maximum length: 50 characters.
    * Only works with 'call' verification method.
    */
-  extension?: string | null;
+  extension?: string;
 }
 
 export interface VerifiedNumberListParams extends DefaultFlatPaginationParams {}
