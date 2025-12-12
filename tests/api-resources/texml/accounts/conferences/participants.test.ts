@@ -61,7 +61,7 @@ describe('resource participants', () => {
         EndConferenceOnExit: false,
         Hold: true,
         HoldMethod: 'POST',
-        HoldUrl: 'HoldUrl',
+        HoldUrl: 'https://www.example.com/hold-music.xml',
         Muted: true,
         WaitUrl: 'https://www.example.com/wait_music.mp3',
       },
