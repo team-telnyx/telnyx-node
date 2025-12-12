@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -41,16 +41,24 @@ export class SimCardOrders extends APIResource {
    *
    * @example
    * ```ts
-   * const simCardOrders = await client.simCardOrders.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const simCardOrder of client.simCardOrders.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: SimCardOrderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<SimCardOrderListResponse> {
-    return this._client.get('/sim_card_orders', { query, ...options });
+  ): PagePromise<SimCardOrdersDefaultPagination, SimCardOrder> {
+    return this._client.getAPIList('/sim_card_orders', DefaultPagination<SimCardOrder>, {
+      query,
+      ...options,
+    });
   }
 }
+
+export type SimCardOrdersDefaultPagination = DefaultPagination<SimCardOrder>;
 
 export interface SimCardOrder {
   /**
@@ -188,12 +196,6 @@ export interface SimCardOrderRetrieveResponse {
   data?: SimCardOrder;
 }
 
-export interface SimCardOrderListResponse {
-  data?: Array<SimCardOrder>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface SimCardOrderCreateParams {
   /**
    * Uniquely identifies the address for the order.
@@ -206,7 +208,7 @@ export interface SimCardOrderCreateParams {
   quantity: number;
 }
 
-export interface SimCardOrderListParams {
+export interface SimCardOrderListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter for SIM card orders (deepObject style).
    * Originally: filter[created_at], filter[updated_at], filter[quantity],
@@ -216,12 +218,6 @@ export interface SimCardOrderListParams {
    * filter[address.country_code], filter[address.postal_code]
    */
   filter?: SimCardOrderListParams.Filter;
-
-  /**
-   * Consolidated pagination parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: SimCardOrderListParams.Page;
 }
 
 export namespace SimCardOrderListParams {
@@ -234,9 +230,52 @@ export namespace SimCardOrderListParams {
    * filter[address.country_code], filter[address.postal_code]
    */
   export interface Filter {
-    address?: Filter.Address;
+    /**
+     * Filter by state or province where the address is located.
+     */
+    'address.administrative_area'?: string;
 
-    cost?: Filter.Cost;
+    /**
+     * Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country
+     * code.
+     */
+    'address.country_code'?: string;
+
+    /**
+     * Returns entries with matching name of the supplemental field for address
+     * information.
+     */
+    'address.extended_address'?: string;
+
+    /**
+     * Uniquely identifies the address for the order.
+     */
+    'address.id'?: string;
+
+    /**
+     * Filter by the name of the city where the address is located.
+     */
+    'address.locality'?: string;
+
+    /**
+     * Filter by postal code for the address.
+     */
+    'address.postal_code'?: string;
+
+    /**
+     * Returns entries with matching name of the street where the address is located.
+     */
+    'address.street_address'?: string;
+
+    /**
+     * The total monetary amount of the order.
+     */
+    'cost.amount'?: string;
+
+    /**
+     * Filter by ISO 4217 currency string.
+     */
+    'cost.currency'?: string;
 
     /**
      * Filter by ISO 8601 formatted date-time string matching resource creation
@@ -255,75 +294,6 @@ export namespace SimCardOrderListParams {
      */
     updated_at?: string;
   }
-
-  export namespace Filter {
-    export interface Address {
-      /**
-       * Uniquely identifies the address for the order.
-       */
-      id?: string;
-
-      /**
-       * Filter by state or province where the address is located.
-       */
-      administrative_area?: string;
-
-      /**
-       * Filter by the mobile operator two-character (ISO 3166-1 alpha-2) origin country
-       * code.
-       */
-      country_code?: string;
-
-      /**
-       * Returns entries with matching name of the supplemental field for address
-       * information.
-       */
-      extended_address?: string;
-
-      /**
-       * Filter by the name of the city where the address is located.
-       */
-      locality?: string;
-
-      /**
-       * Filter by postal code for the address.
-       */
-      postal_code?: string;
-
-      /**
-       * Returns entries with matching name of the street where the address is located.
-       */
-      street_address?: string;
-    }
-
-    export interface Cost {
-      /**
-       * The total monetary amount of the order.
-       */
-      amount?: string;
-
-      /**
-       * Filter by ISO 4217 currency string.
-       */
-      currency?: string;
-    }
-  }
-
-  /**
-   * Consolidated pagination parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 export declare namespace SimCardOrders {
@@ -331,7 +301,7 @@ export declare namespace SimCardOrders {
     type SimCardOrder as SimCardOrder,
     type SimCardOrderCreateResponse as SimCardOrderCreateResponse,
     type SimCardOrderRetrieveResponse as SimCardOrderRetrieveResponse,
-    type SimCardOrderListResponse as SimCardOrderListResponse,
+    type SimCardOrdersDefaultPagination as SimCardOrdersDefaultPagination,
     type SimCardOrderCreateParams as SimCardOrderCreateParams,
     type SimCardOrderListParams as SimCardOrderListParams,
   };

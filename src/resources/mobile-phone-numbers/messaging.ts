@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as Shared from '../shared';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -21,10 +21,16 @@ export class Messaging extends APIResource {
   list(
     query: MessagingListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<MessagingListResponse> {
-    return this._client.get('/mobile_phone_numbers/messaging', { query, ...options });
+  ): PagePromise<MessagingListResponsesDefaultPagination, MessagingListResponse> {
+    return this._client.getAPIList(
+      '/mobile_phone_numbers/messaging',
+      DefaultPagination<MessagingListResponse>,
+      { query, ...options },
+    );
   }
 }
+
+export type MessagingListResponsesDefaultPagination = DefaultPagination<MessagingListResponse>;
 
 export interface MessagingRetrieveResponse {
   data?: MessagingRetrieveResponse.Data;
@@ -98,108 +104,77 @@ export namespace MessagingRetrieveResponse {
 }
 
 export interface MessagingListResponse {
-  data?: Array<MessagingListResponse.Data>;
+  /**
+   * Identifies the type of resource.
+   */
+  id?: string;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+  /**
+   * ISO 3166-1 alpha-2 country code.
+   */
+  country_code?: string;
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was created.
+   */
+  created_at?: string;
+
+  features?: MessagingListResponse.Features;
+
+  /**
+   * The messaging product that the number is registered to use
+   */
+  messaging_product?: string;
+
+  /**
+   * Unique identifier for a messaging profile.
+   */
+  messaging_profile_id?: string | null;
+
+  /**
+   * +E.164 formatted phone number.
+   */
+  phone_number?: string;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: 'messaging_phone_number' | 'messaging_settings';
+
+  /**
+   * The messaging traffic or use case for which the number is currently configured.
+   */
+  traffic_type?: string;
+
+  /**
+   * The type of the phone number
+   */
+  type?: 'longcode';
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was updated.
+   */
+  updated_at?: string;
 }
 
 export namespace MessagingListResponse {
-  export interface Data {
+  export interface Features {
     /**
-     * Identifies the type of resource.
+     * The set of features available for a specific messaging use case (SMS or MMS).
+     * Features can vary depending on the characteristics the phone number, as well as
+     * its current product configuration.
      */
-    id?: string;
-
-    /**
-     * ISO 3166-1 alpha-2 country code.
-     */
-    country_code?: string;
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    created_at?: string;
-
-    features?: Data.Features;
-
-    /**
-     * The messaging product that the number is registered to use
-     */
-    messaging_product?: string;
-
-    /**
-     * Unique identifier for a messaging profile.
-     */
-    messaging_profile_id?: string | null;
-
-    /**
-     * +E.164 formatted phone number.
-     */
-    phone_number?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'messaging_phone_number' | 'messaging_settings';
-
-    /**
-     * The messaging traffic or use case for which the number is currently configured.
-     */
-    traffic_type?: string;
-
-    /**
-     * The type of the phone number
-     */
-    type?: 'longcode';
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-
-  export namespace Data {
-    export interface Features {
-      /**
-       * The set of features available for a specific messaging use case (SMS or MMS).
-       * Features can vary depending on the characteristics the phone number, as well as
-       * its current product configuration.
-       */
-      sms?: Shared.MessagingFeatureSet | null;
-    }
+    sms?: Shared.MessagingFeatureSet | null;
   }
 }
 
-export interface MessagingListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: MessagingListParams.Page;
-}
-
-export namespace MessagingListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
-}
+export interface MessagingListParams extends DefaultPaginationParams {}
 
 export declare namespace Messaging {
   export {
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingListResponse as MessagingListResponse,
+    type MessagingListResponsesDefaultPagination as MessagingListResponsesDefaultPagination,
     type MessagingListParams as MessagingListParams,
   };
 }

@@ -1,8 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as RunsAPI from '../assistants/tests/test-suites/runs';
 import { APIPromise } from '../../../core/api-promise';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -63,15 +67,20 @@ export class Insights extends APIResource {
    *
    * @example
    * ```ts
-   * const insights =
-   *   await client.ai.conversations.insights.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const insightTemplate of client.ai.conversations.insights.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: InsightListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<InsightListResponse> {
-    return this._client.get('/ai/conversations/insights', { query, ...options });
+  ): PagePromise<InsightTemplatesDefaultFlatPagination, InsightTemplate> {
+    return this._client.getAPIList('/ai/conversations/insights', DefaultFlatPagination<InsightTemplate>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -92,6 +101,8 @@ export class Insights extends APIResource {
   }
 }
 
+export type InsightTemplatesDefaultFlatPagination = DefaultFlatPagination<InsightTemplate>;
+
 export interface InsightTemplate {
   id: string;
 
@@ -104,7 +115,7 @@ export interface InsightTemplate {
   /**
    * If specified, the output will follow the JSON schema.
    */
-  json_schema?: string | unknown;
+  json_schema?: string | { [key: string]: unknown };
 
   name?: string;
 
@@ -115,12 +126,6 @@ export interface InsightTemplateDetail {
   data: InsightTemplate;
 }
 
-export interface InsightListResponse {
-  data: Array<InsightTemplate>;
-
-  meta: RunsAPI.Meta;
-}
-
 export interface InsightCreateParams {
   instructions: string;
 
@@ -129,7 +134,7 @@ export interface InsightCreateParams {
   /**
    * If specified, the output will follow the JSON schema.
    */
-  json_schema?: string | unknown;
+  json_schema?: string | { [key: string]: unknown };
 
   webhook?: string;
 }
@@ -137,44 +142,20 @@ export interface InsightCreateParams {
 export interface InsightUpdateParams {
   instructions?: string;
 
-  json_schema?: string | unknown;
+  json_schema?: string | { [key: string]: unknown };
 
   name?: string;
 
   webhook?: string;
 }
 
-export interface InsightListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: InsightListParams.Page;
-}
-
-export namespace InsightListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * Page number (0-based)
-     */
-    number?: number;
-
-    /**
-     * Number of items per page
-     */
-    size?: number;
-  }
-}
+export interface InsightListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace Insights {
   export {
     type InsightTemplate as InsightTemplate,
     type InsightTemplateDetail as InsightTemplateDetail,
-    type InsightListResponse as InsightListResponse,
+    type InsightTemplatesDefaultFlatPagination as InsightTemplatesDefaultFlatPagination,
     type InsightCreateParams as InsightCreateParams,
     type InsightUpdateParams as InsightUpdateParams,
     type InsightListParams as InsightListParams,

@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
-import * as MessagingAPI from './messaging';
 import { APIPromise } from '../../../../core/api-promise';
+import { PagePromise, PerPagePagination, type PerPagePaginationParams } from '../../../../core/pagination';
 import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
@@ -48,15 +48,21 @@ export class Voice extends APIResource {
    *
    * @example
    * ```ts
-   * const voices =
-   *   await client.legacy.reporting.usageReports.voice.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const cdrUsageReportResponseLegacy of client.legacy.reporting.usageReports.voice.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: VoiceListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<VoiceListResponse> {
-    return this._client.get('/legacy/reporting/usage_reports/voice', { query, ...options });
+  ): PagePromise<CdrUsageReportResponseLegaciesPerPagePagination, CdrUsageReportResponseLegacy> {
+    return this._client.getAPIList(
+      '/legacy/reporting/usage_reports/voice',
+      PerPagePagination<CdrUsageReportResponseLegacy>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -74,6 +80,8 @@ export class Voice extends APIResource {
     return this._client.delete(path`/legacy/reporting/usage_reports/voice/${id}`, options);
   }
 }
+
+export type CdrUsageReportResponseLegaciesPerPagePagination = PerPagePagination<CdrUsageReportResponseLegacy>;
 
 /**
  * Legacy V2 CDR usage report response
@@ -105,7 +113,7 @@ export interface CdrUsageReportResponseLegacy {
 
   report_url?: string;
 
-  result?: unknown;
+  result?: { [key: string]: unknown };
 
   start_time?: string;
 
@@ -129,12 +137,6 @@ export interface VoiceRetrieveResponse {
    * Legacy V2 CDR usage report response
    */
   data?: CdrUsageReportResponseLegacy;
-}
-
-export interface VoiceListResponse {
-  data?: Array<CdrUsageReportResponseLegacy>;
-
-  meta?: MessagingAPI.StandardPaginationMeta;
 }
 
 export interface VoiceDeleteResponse {
@@ -182,25 +184,15 @@ export interface VoiceCreateParams {
   select_all_managed_accounts?: boolean;
 }
 
-export interface VoiceListParams {
-  /**
-   * Page number
-   */
-  page?: number;
-
-  /**
-   * Size of the page
-   */
-  per_page?: number;
-}
+export interface VoiceListParams extends PerPagePaginationParams {}
 
 export declare namespace Voice {
   export {
     type CdrUsageReportResponseLegacy as CdrUsageReportResponseLegacy,
     type VoiceCreateResponse as VoiceCreateResponse,
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
-    type VoiceListResponse as VoiceListResponse,
     type VoiceDeleteResponse as VoiceDeleteResponse,
+    type CdrUsageReportResponseLegaciesPerPagePagination as CdrUsageReportResponseLegaciesPerPagePagination,
     type VoiceCreateParams as VoiceCreateParams,
     type VoiceListParams as VoiceListParams,
   };

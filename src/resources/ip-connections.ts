@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as Shared from './shared';
 import * as CredentialConnectionsAPI from './credential-connections/credential-connections';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -57,14 +57,17 @@ export class IPConnections extends APIResource {
    *
    * @example
    * ```ts
-   * const ipConnections = await client.ipConnections.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const ipConnection of client.ipConnections.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: IPConnectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<IPConnectionListResponse> {
-    return this._client.get('/ip_connections', { query, ...options });
+  ): PagePromise<IPConnectionsDefaultPagination, IPConnection> {
+    return this._client.getAPIList('/ip_connections', DefaultPagination<IPConnection>, { query, ...options });
   }
 
   /**
@@ -81,6 +84,8 @@ export class IPConnections extends APIResource {
     return this._client.delete(path`/ip_connections/${id}`, options);
   }
 }
+
+export type IPConnectionsDefaultPagination = DefaultPagination<IPConnection>;
 
 export interface InboundIP {
   /**
@@ -394,12 +399,6 @@ export interface IPConnectionUpdateResponse {
   data?: IPConnection;
 }
 
-export interface IPConnectionListResponse {
-  data?: Array<IPConnection>;
-
-  meta?: Shared.ConnectionsPaginationMeta;
-}
-
 export interface IPConnectionDeleteResponse {
   data?: IPConnection;
 }
@@ -702,19 +701,13 @@ export interface IPConnectionUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface IPConnectionListParams {
+export interface IPConnectionListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
    * filter[outbound.outbound_voice_profile_id]
    */
   filter?: IPConnectionListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: IPConnectionListParams.Page;
 
   /**
    * Specifies the sort order for results. By default sorting direction is ascending.
@@ -772,22 +765,6 @@ export namespace IPConnectionListParams {
       contains?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace IPConnections {
@@ -798,8 +775,8 @@ export declare namespace IPConnections {
     type IPConnectionCreateResponse as IPConnectionCreateResponse,
     type IPConnectionRetrieveResponse as IPConnectionRetrieveResponse,
     type IPConnectionUpdateResponse as IPConnectionUpdateResponse,
-    type IPConnectionListResponse as IPConnectionListResponse,
     type IPConnectionDeleteResponse as IPConnectionDeleteResponse,
+    type IPConnectionsDefaultPagination as IPConnectionsDefaultPagination,
     type IPConnectionCreateParams as IPConnectionCreateParams,
     type IPConnectionUpdateParams as IPConnectionUpdateParams,
     type IPConnectionListParams as IPConnectionListParams,

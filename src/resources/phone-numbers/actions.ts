@@ -3,6 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as VoiceAPI from './voice';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -70,6 +71,8 @@ export class Actions extends APIResource {
     return this._client.post('/phone_numbers/actions/verify_ownership', { body, ...options });
   }
 }
+
+export type PhoneNumberWithVoiceSettingsDefaultPagination = DefaultPagination<PhoneNumberWithVoiceSettings>;
 
 export interface PhoneNumberWithVoiceSettings {
   /**

@@ -12,8 +12,8 @@ export {
   type Address,
   type AddressCreateResponse,
   type AddressRetrieveResponse,
-  type AddressListResponse,
   type AddressDeleteResponse,
   type AddressCreateParams,
   type AddressListParams,
+  type AddressesDefaultPagination,
 } from './addresses';

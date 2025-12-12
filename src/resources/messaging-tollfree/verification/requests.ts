@@ -2,6 +2,11 @@
 
 import { APIResource } from '../../../core/resource';
 import { APIPromise } from '../../../core/api-promise';
+import {
+  DefaultPaginationForMessagingTollfree,
+  type DefaultPaginationForMessagingTollfreeParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -111,14 +116,26 @@ export class Requests extends APIResource {
    *
    * @example
    * ```ts
-   * const requests =
-   *   await client.messagingTollfree.verification.requests.list(
-   *     { page: 1, page_size: 1 },
-   *   );
+   * // Automatically fetches more pages as needed.
+   * for await (const verificationRequestStatus of client.messagingTollfree.verification.requests.list(
+   *   { page: 1, page_size: 1 },
+   * )) {
+   *   // ...
+   * }
    * ```
    */
-  list(query: RequestListParams, options?: RequestOptions): APIPromise<RequestListResponse> {
-    return this._client.get('/messaging_tollfree/verification/requests', { query, ...options });
+  list(
+    query: RequestListParams,
+    options?: RequestOptions,
+  ): PagePromise<
+    VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
+    VerificationRequestStatus
+  > {
+    return this._client.getAPIList(
+      '/messaging_tollfree/verification/requests',
+      DefaultPaginationForMessagingTollfree<VerificationRequestStatus>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -144,6 +161,9 @@ export class Requests extends APIResource {
     });
   }
 }
+
+export type VerificationRequestStatusesDefaultPaginationForMessagingTollfree =
+  DefaultPaginationForMessagingTollfree<VerificationRequestStatus>;
 
 /**
  * A phone number
@@ -594,21 +614,6 @@ export type Volume =
   | '5,000,000'
   | '10,000,000+';
 
-/**
- * A paginated response
- */
-export interface RequestListResponse {
-  /**
-   * The records yielded by this request
-   */
-  records?: Array<VerificationRequestStatus>;
-
-  /**
-   * The total amount of records for these query parameters
-   */
-  total_records?: number;
-}
-
 export interface RequestCreateParams {
   /**
    * Any additional information
@@ -953,16 +958,7 @@ export interface RequestUpdateParams {
   webhookUrl?: string;
 }
 
-export interface RequestListParams {
-  page: number;
-
-  /**
-   * Request this many records per page
-   *
-   *         This value is automatically clamped if the provided value is too large.
-   */
-  page_size: number;
-
+export interface RequestListParams extends DefaultPaginationForMessagingTollfreeParams {
   date_end?: string;
 
   date_start?: string;
@@ -986,7 +982,7 @@ export declare namespace Requests {
     type VerificationRequestEgress as VerificationRequestEgress,
     type VerificationRequestStatus as VerificationRequestStatus,
     type Volume as Volume,
-    type RequestListResponse as RequestListResponse,
+    type VerificationRequestStatusesDefaultPaginationForMessagingTollfree as VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
     type RequestCreateParams as RequestCreateParams,
     type RequestUpdateParams as RequestUpdateParams,
     type RequestListParams as RequestListParams,

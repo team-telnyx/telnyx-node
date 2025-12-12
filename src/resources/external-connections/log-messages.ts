@@ -1,8 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as ExternalConnectionsAPI from './external-connections';
 import { APIPromise } from '../../core/api-promise';
+import {
+  DefaultPaginationForLogMessages,
+  type DefaultPaginationForLogMessagesParams,
+  PagePromise,
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -28,15 +32,21 @@ export class LogMessages extends APIResource {
    *
    * @example
    * ```ts
-   * const logMessages =
-   *   await client.externalConnections.logMessages.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const logMessageListResponse of client.externalConnections.logMessages.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: LogMessageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<LogMessageListResponse> {
-    return this._client.get('/external_connections/log_messages', { query, ...options });
+  ): PagePromise<LogMessageListResponsesDefaultPaginationForLogMessages, LogMessageListResponse> {
+    return this._client.getAPIList(
+      '/external_connections/log_messages',
+      DefaultPaginationForLogMessages<LogMessageListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -54,6 +64,9 @@ export class LogMessages extends APIResource {
     return this._client.delete(path`/external_connections/log_messages/${id}`, options);
   }
 }
+
+export type LogMessageListResponsesDefaultPaginationForLogMessages =
+  DefaultPaginationForLogMessages<LogMessageListResponse>;
 
 export interface LogMessageRetrieveResponse {
   log_messages?: Array<LogMessageRetrieveResponse.LogMessage>;
@@ -100,48 +113,40 @@ export namespace LogMessageRetrieveResponse {
 }
 
 export interface LogMessageListResponse {
-  log_messages?: Array<LogMessageListResponse.LogMessage>;
+  code: string;
 
-  meta?: ExternalConnectionsAPI.ExternalVoiceIntegrationsPaginationMeta;
+  title: string;
+
+  detail?: string;
+
+  meta?: LogMessageListResponse.Meta;
+
+  source?: LogMessageListResponse.Source;
 }
 
 export namespace LogMessageListResponse {
-  export interface LogMessage {
-    code: string;
+  export interface Meta {
+    /**
+     * The external connection the log message is associated with, if any.
+     */
+    external_connection_id?: string;
 
-    title: string;
+    /**
+     * The telephone number the log message is associated with, if any.
+     */
+    telephone_number?: string;
 
-    detail?: string;
-
-    meta?: LogMessage.Meta;
-
-    source?: LogMessage.Source;
+    /**
+     * The ticket ID for an operation that generated the log message, if any.
+     */
+    ticket_id?: string;
   }
 
-  export namespace LogMessage {
-    export interface Meta {
-      /**
-       * The external connection the log message is associated with, if any.
-       */
-      external_connection_id?: string;
-
-      /**
-       * The telephone number the log message is associated with, if any.
-       */
-      telephone_number?: string;
-
-      /**
-       * The ticket ID for an operation that generated the log message, if any.
-       */
-      ticket_id?: string;
-    }
-
-    export interface Source {
-      /**
-       * JSON pointer (RFC6901) to the offending entity.
-       */
-      pointer?: string;
-    }
+  export interface Source {
+    /**
+     * JSON pointer (RFC6901) to the offending entity.
+     */
+    pointer?: string;
   }
 }
 
@@ -152,18 +157,12 @@ export interface LogMessageDismissResponse {
   success?: boolean;
 }
 
-export interface LogMessageListParams {
+export interface LogMessageListParams extends DefaultPaginationForLogMessagesParams {
   /**
    * Filter parameter for log messages (deepObject style). Supports filtering by
    * external_connection_id and telephone_number with eq/contains operations.
    */
   filter?: LogMessageListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: LogMessageListParams.Page;
 }
 
 export namespace LogMessageListParams {
@@ -203,22 +202,6 @@ export namespace LogMessageListParams {
       eq?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace LogMessages {
@@ -226,6 +209,7 @@ export declare namespace LogMessages {
     type LogMessageRetrieveResponse as LogMessageRetrieveResponse,
     type LogMessageListResponse as LogMessageListResponse,
     type LogMessageDismissResponse as LogMessageDismissResponse,
+    type LogMessageListResponsesDefaultPaginationForLogMessages as LogMessageListResponsesDefaultPaginationForLogMessages,
     type LogMessageListParams as LogMessageListParams,
   };
 }

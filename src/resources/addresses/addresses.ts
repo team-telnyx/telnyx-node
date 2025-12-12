@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as ActionsAPI from './actions';
 import {
   ActionAcceptSuggestionsParams,
@@ -11,6 +10,7 @@ import {
   Actions,
 } from './actions';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -53,14 +53,17 @@ export class Addresses extends APIResource {
    *
    * @example
    * ```ts
-   * const addresses = await client.addresses.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const address of client.addresses.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: AddressListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<AddressListResponse> {
-    return this._client.get('/addresses', { query, ...options });
+  ): PagePromise<AddressesDefaultPagination, Address> {
+    return this._client.getAPIList('/addresses', DefaultPagination<Address>, { query, ...options });
   }
 
   /**
@@ -75,6 +78,8 @@ export class Addresses extends APIResource {
     return this._client.delete(path`/addresses/${id}`, options);
   }
 }
+
+export type AddressesDefaultPagination = DefaultPagination<Address>;
 
 export interface Address {
   /**
@@ -195,12 +200,6 @@ export interface AddressRetrieveResponse {
   data?: Address;
 }
 
-export interface AddressListResponse {
-  data?: Array<Address>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface AddressDeleteResponse {
   data?: Address;
 }
@@ -296,7 +295,7 @@ export interface AddressCreateParams {
   validate_address?: boolean;
 }
 
-export interface AddressListParams {
+export interface AddressListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[customer_reference][eq], filter[customer_reference][contains],
@@ -304,12 +303,6 @@ export interface AddressListParams {
    * filter[address_book][eq]
    */
   filter?: AddressListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: AddressListParams.Page;
 
   /**
    * Specifies the sort order for results. By default sorting direction is ascending.
@@ -344,7 +337,7 @@ export namespace AddressListParams {
      * If present, addresses with <code>customer_reference</code> containing the given
      * value will be returned. Matching is not case-sensitive.
      */
-    customer_reference?: string | Filter.UnionMember1;
+    customer_reference?: string | Filter.CustomerReferenceMatcher;
 
     street_address?: Filter.StreetAddress;
 
@@ -366,7 +359,7 @@ export namespace AddressListParams {
       eq?: string;
     }
 
-    export interface UnionMember1 {
+    export interface CustomerReferenceMatcher {
       /**
        * Partial match for customer_reference. Matching is not case-sensitive.
        */
@@ -387,22 +380,6 @@ export namespace AddressListParams {
       contains?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 Addresses.Actions = Actions;
@@ -412,8 +389,8 @@ export declare namespace Addresses {
     type Address as Address,
     type AddressCreateResponse as AddressCreateResponse,
     type AddressRetrieveResponse as AddressRetrieveResponse,
-    type AddressListResponse as AddressListResponse,
     type AddressDeleteResponse as AddressDeleteResponse,
+    type AddressesDefaultPagination as AddressesDefaultPagination,
     type AddressCreateParams as AddressCreateParams,
     type AddressListParams as AddressListParams,
   };

@@ -6,13 +6,16 @@ export {
   type StandardPaginationMeta,
   type MessagingCreateResponse,
   type MessagingRetrieveResponse,
-  type MessagingListResponse,
   type MessagingDeleteResponse,
   type MessagingCreateParams,
   type MessagingListParams,
+  type MdrUsageReportResponseLegaciesPerPagePagination,
 } from './messaging';
 export {
   NumberLookup,
+  type TelcoDataAggregation,
+  type TelcoDataUsageRecord,
+  type TelcoDataUsageReportResponse,
   type NumberLookupCreateResponse,
   type NumberLookupRetrieveResponse,
   type NumberLookupListResponse,
@@ -28,8 +31,8 @@ export {
   type CdrUsageReportResponseLegacy,
   type VoiceCreateResponse,
   type VoiceRetrieveResponse,
-  type VoiceListResponse,
   type VoiceDeleteResponse,
   type VoiceCreateParams,
   type VoiceListParams,
+  type CdrUsageReportResponseLegaciesPerPagePagination,
 } from './voice';

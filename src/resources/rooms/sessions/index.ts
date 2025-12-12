@@ -14,9 +14,6 @@ export {
 export {
   Sessions,
   type SessionRetrieveResponse,
-  type SessionList0Response,
-  type SessionList1Response,
-  type SessionRetrieveParticipantsResponse,
   type SessionRetrieveParams,
   type SessionList0Params,
   type SessionList1Params,

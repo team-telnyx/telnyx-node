@@ -81,7 +81,7 @@ export class Calls extends APIResource {
    * const response = await client.texml.accounts.calls.calls(
    *   'account_sid',
    *   {
-   *     ApplicationSid: 'ApplicationSid',
+   *     ApplicationSid: 'example-app-sid',
    *     From: '+13120001234',
    *     To: '+13121230000',
    *   },

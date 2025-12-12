@@ -1,9 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as PortingOrdersAPI from './porting-orders';
+import { PortingOrdersActivationJobsDefaultPagination } from './porting-orders';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -58,18 +59,24 @@ export class ActivationJobs extends APIResource {
    *
    * @example
    * ```ts
-   * const activationJobs =
-   *   await client.portingOrders.activationJobs.list(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
+   * // Automatically fetches more pages as needed.
+   * for await (const portingOrdersActivationJob of client.portingOrders.activationJobs.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     id: string,
     query: ActivationJobListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ActivationJobListResponse> {
-    return this._client.get(path`/porting_orders/${id}/activation_jobs`, { query, ...options });
+  ): PagePromise<PortingOrdersActivationJobsDefaultPagination, PortingOrdersAPI.PortingOrdersActivationJob> {
+    return this._client.getAPIList(
+      path`/porting_orders/${id}/activation_jobs`,
+      DefaultPagination<PortingOrdersAPI.PortingOrdersActivationJob>,
+      { query, ...options },
+    );
   }
 }
 
@@ -79,12 +86,6 @@ export interface ActivationJobRetrieveResponse {
 
 export interface ActivationJobUpdateResponse {
   data?: PortingOrdersAPI.PortingOrdersActivationJob;
-}
-
-export interface ActivationJobListResponse {
-  data?: Array<PortingOrdersAPI.PortingOrdersActivationJob>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export interface ActivationJobRetrieveParams {
@@ -107,39 +108,16 @@ export interface ActivationJobUpdateParams {
   activate_at?: string;
 }
 
-export interface ActivationJobListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: ActivationJobListParams.Page;
-}
-
-export namespace ActivationJobListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
-}
+export interface ActivationJobListParams extends DefaultPaginationParams {}
 
 export declare namespace ActivationJobs {
   export {
     type ActivationJobRetrieveResponse as ActivationJobRetrieveResponse,
     type ActivationJobUpdateResponse as ActivationJobUpdateResponse,
-    type ActivationJobListResponse as ActivationJobListResponse,
     type ActivationJobRetrieveParams as ActivationJobRetrieveParams,
     type ActivationJobUpdateParams as ActivationJobUpdateParams,
     type ActivationJobListParams as ActivationJobListParams,
   };
 }
+
+export { type PortingOrdersActivationJobsDefaultPagination };

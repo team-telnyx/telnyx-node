@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as ExternalConnectionsAPI from './external-connections';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -35,18 +35,28 @@ export class Releases extends APIResource {
    *
    * @example
    * ```ts
-   * const releases =
-   *   await client.externalConnections.releases.list('id');
+   * // Automatically fetches more pages as needed.
+   * for await (const releaseListResponse of client.externalConnections.releases.list(
+   *   'id',
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     id: string,
     query: ReleaseListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ReleaseListResponse> {
-    return this._client.get(path`/external_connections/${id}/releases`, { query, ...options });
+  ): PagePromise<ReleaseListResponsesDefaultPagination, ReleaseListResponse> {
+    return this._client.getAPIList(
+      path`/external_connections/${id}/releases`,
+      DefaultPagination<ReleaseListResponse>,
+      { query, ...options },
+    );
   }
 }
+
+export type ReleaseListResponsesDefaultPagination = DefaultPagination<ReleaseListResponse>;
 
 export interface ReleaseRetrieveResponse {
   data?: ReleaseRetrieveResponse.Data;
@@ -95,50 +105,42 @@ export namespace ReleaseRetrieveResponse {
 }
 
 export interface ReleaseListResponse {
-  data?: Array<ReleaseListResponse.Data>;
+  /**
+   * ISO 8601 formatted date indicating when the resource was created.
+   */
+  created_at?: string;
 
-  meta?: ExternalConnectionsAPI.ExternalVoiceIntegrationsPaginationMeta;
+  /**
+   * A message set if there is an error with the upload process.
+   */
+  error_message?: string;
+
+  /**
+   * Represents the status of the release on Microsoft Teams.
+   */
+  status?: 'pending_upload' | 'pending' | 'in_progress' | 'complete' | 'failed' | 'expired' | 'unknown';
+
+  telephone_numbers?: Array<ReleaseListResponse.TelephoneNumber>;
+
+  tenant_id?: string;
+
+  /**
+   * Uniquely identifies the resource.
+   */
+  ticket_id?: string;
 }
 
 export namespace ReleaseListResponse {
-  export interface Data {
+  export interface TelephoneNumber {
     /**
-     * ISO 8601 formatted date indicating when the resource was created.
+     * Phone number ID from the Telnyx API.
      */
-    created_at?: string;
-
-    /**
-     * A message set if there is an error with the upload process.
-     */
-    error_message?: string;
+    number_id?: string;
 
     /**
-     * Represents the status of the release on Microsoft Teams.
+     * Phone number in E164 format.
      */
-    status?: 'pending_upload' | 'pending' | 'in_progress' | 'complete' | 'failed' | 'expired' | 'unknown';
-
-    telephone_numbers?: Array<Data.TelephoneNumber>;
-
-    tenant_id?: string;
-
-    /**
-     * Uniquely identifies the resource.
-     */
-    ticket_id?: string;
-  }
-
-  export namespace Data {
-    export interface TelephoneNumber {
-      /**
-       * Phone number ID from the Telnyx API.
-       */
-      number_id?: string;
-
-      /**
-       * Phone number in E164 format.
-       */
-      phone_number?: string;
-    }
+    phone_number?: string;
   }
 }
 
@@ -149,18 +151,12 @@ export interface ReleaseRetrieveParams {
   id: string;
 }
 
-export interface ReleaseListParams {
+export interface ReleaseListParams extends DefaultPaginationParams {
   /**
    * Filter parameter for releases (deepObject style). Supports filtering by status,
    * civic_address_id, location_id, and phone_number with eq/contains operations.
    */
   filter?: ReleaseListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: ReleaseListParams.Page;
 }
 
 export namespace ReleaseListParams {
@@ -222,28 +218,13 @@ export namespace ReleaseListParams {
       >;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace Releases {
   export {
     type ReleaseRetrieveResponse as ReleaseRetrieveResponse,
     type ReleaseListResponse as ReleaseListResponse,
+    type ReleaseListResponsesDefaultPagination as ReleaseListResponsesDefaultPagination,
     type ReleaseRetrieveParams as ReleaseRetrieveParams,
     type ReleaseListParams as ReleaseListParams,
   };

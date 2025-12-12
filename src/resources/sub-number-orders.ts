@@ -217,7 +217,7 @@ export namespace SubNumberOrderUpdateRequirementGroupResponse {
     export interface PhoneNumber {
       id?: string;
 
-      bundle_id?: string;
+      bundle_id?: string | null;
 
       country_code?: string;
 

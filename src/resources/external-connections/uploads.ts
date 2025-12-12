@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as ExternalConnectionsAPI from './external-connections';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -55,16 +55,23 @@ export class Uploads extends APIResource {
    *
    * @example
    * ```ts
-   * const uploads =
-   *   await client.externalConnections.uploads.list('id');
+   * // Automatically fetches more pages as needed.
+   * for await (const upload of client.externalConnections.uploads.list(
+   *   'id',
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     id: string,
     query: UploadListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<UploadListResponse> {
-    return this._client.get(path`/external_connections/${id}/uploads`, { query, ...options });
+  ): PagePromise<UploadsDefaultPagination, Upload> {
+    return this._client.getAPIList(path`/external_connections/${id}/uploads`, DefaultPagination<Upload>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -123,6 +130,8 @@ export class Uploads extends APIResource {
     return this._client.post(path`/external_connections/${id}/uploads/${ticketID}/retry`, options);
   }
 }
+
+export type UploadsDefaultPagination = DefaultPagination<Upload>;
 
 export interface TnUploadEntry {
   /**
@@ -226,12 +235,6 @@ export interface UploadRetrieveResponse {
   data?: Upload;
 }
 
-export interface UploadListResponse {
-  data?: Array<Upload>;
-
-  meta?: ExternalConnectionsAPI.ExternalVoiceIntegrationsPaginationMeta;
-}
-
 export interface UploadPendingCountResponse {
   data?: UploadPendingCountResponse.Data;
 }
@@ -291,18 +294,12 @@ export interface UploadRetrieveParams {
   id: string;
 }
 
-export interface UploadListParams {
+export interface UploadListParams extends DefaultPaginationParams {
   /**
    * Filter parameter for uploads (deepObject style). Supports filtering by status,
    * civic_address_id, location_id, and phone_number with eq/contains operations.
    */
   filter?: UploadListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: UploadListParams.Page;
 }
 
 export namespace UploadListParams {
@@ -354,22 +351,6 @@ export namespace UploadListParams {
       eq?: Array<'pending_upload' | 'pending' | 'in_progress' | 'success' | 'error'>;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export interface UploadRetryParams {
@@ -385,10 +366,10 @@ export declare namespace Uploads {
     type Upload as Upload,
     type UploadCreateResponse as UploadCreateResponse,
     type UploadRetrieveResponse as UploadRetrieveResponse,
-    type UploadListResponse as UploadListResponse,
     type UploadPendingCountResponse as UploadPendingCountResponse,
     type UploadRefreshStatusResponse as UploadRefreshStatusResponse,
     type UploadRetryResponse as UploadRetryResponse,
+    type UploadsDefaultPagination as UploadsDefaultPagination,
     type UploadCreateParams as UploadCreateParams,
     type UploadRetrieveParams as UploadRetrieveParams,
     type UploadListParams as UploadListParams,

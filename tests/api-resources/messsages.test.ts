@@ -67,7 +67,7 @@ describe('resource messsages', () => {
                           description: 'description',
                         },
                         postback_data: 'postback_data',
-                        share_location_action: {},
+                        share_location_action: { foo: 'bar' },
                         text: 'Hello world',
                         view_location_action: {
                           label: 'label',
@@ -112,7 +112,7 @@ describe('resource messsages', () => {
                         description: 'description',
                       },
                       postback_data: 'postback_data',
-                      share_location_action: {},
+                      share_location_action: { foo: 'bar' },
                       text: 'Hello world',
                       view_location_action: {
                         label: 'label',
@@ -147,7 +147,7 @@ describe('resource messsages', () => {
                   description: 'description',
                 },
                 postback_data: 'postback_data',
-                share_location_action: {},
+                share_location_action: { foo: 'bar' },
                 text: 'Hello world',
                 view_location_action: {
                   label: 'label',

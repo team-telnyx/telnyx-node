@@ -1,5 +1,47 @@
 # Changelog
 
+## 5.0.0 (2025-12-12)
+
+Full Changelog: [v4.6.0...v5.0.0](https://github.com/team-telnyx/telnyx-node/compare/v4.6.0...v5.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* Resolved all codegen errors
+
+### Features
+
+* [PORT-4538] Fix ambiguous oneOf instances on porting service and documents ([9c3c817](https://github.com/team-telnyx/telnyx-node/commit/9c3c8177155c9705cb67c5cfa425a6a44cf6b38d))
+* **api:** join all 10dlc operations into messaging_10dlc group ([f76f636](https://github.com/team-telnyx/telnyx-node/commit/f76f6361bf6ca1abd80cacbd84f144c33bded979))
+* **api:** manual updates ([6f0cdb7](https://github.com/team-telnyx/telnyx-node/commit/6f0cdb70e7dd8f616fd4dd0257e6a4522c1792d8))
+* **api:** messaging_10dlc group with all their endpoints ([a9ceb01](https://github.com/team-telnyx/telnyx-node/commit/a9ceb0169bb7d92c71b3d7ac015b87b92e520234))
+* **api:** reverted previous commit ([19d4fce](https://github.com/team-telnyx/telnyx-node/commit/19d4fce4304ecaf040d3a3b959a4243e9c202f8f))
+* DOTCOM-5145. Update redocly lint to block new lint errors or warning being introduced ([657cc7d](https://github.com/team-telnyx/telnyx-node/commit/657cc7de7a6421dd71b83e43decd3a98f795192b))
+* DOTCOM-5179. Fix Redocly errors in outbound-voice-profiles.json ([ea4365d](https://github.com/team-telnyx/telnyx-node/commit/ea4365d60f7b100e92a607de3e83f615bb655f3b))
+* Engdesk 47920/wireless cleanup ([7f03be7](https://github.com/team-telnyx/telnyx-node/commit/7f03be7cbf2cd21aa1ed888eda4ebd89a579ec26))
+* ENGDESK-47883: Fix all lint errors in telapps owned APIs ([a88c260](https://github.com/team-telnyx/telnyx-node/commit/a88c26000c1849fb9da2c02bb197b237b74c1050))
+* ENGDESK-47914 - fix warnings in numbers.json file ([6ff5cd6](https://github.com/team-telnyx/telnyx-node/commit/6ff5cd60896a78cb99aaa27fb353711118005eac))
+* ENGDESK-47947 - fix wrong type on user-addresses request object ([92713e7](https://github.com/team-telnyx/telnyx-node/commit/92713e7e7cfe4408690bf1686e2f4504084869b2))
+* fix redocly lint issues ([a595f98](https://github.com/team-telnyx/telnyx-node/commit/a595f988c2b65a4b77cadd6435b73819825ad48f))
+* hotfix: restore 10dlc prefixes ([584b0a7](https://github.com/team-telnyx/telnyx-node/commit/584b0a72e47cd42bd9773c87bdeb79828a6f7d14))
+* messaging meta object with required fields ([7a81665](https://github.com/team-telnyx/telnyx-node/commit/7a81665ec537af458e649c2910b576aa592f68a5))
+* MSG-6140: Add SMS OTP endpoints for Sole Prop brands ([acc122c](https://github.com/team-telnyx/telnyx-node/commit/acc122cd2e4828402c9fe11c5cd2fc09056cc3d0))
+* port-4551: remove CustomerServiceRecordStatusChanged webhook doc ([63ac0f3](https://github.com/team-telnyx/telnyx-node/commit/63ac0f36733bfe6a23ae19813a1d9b039c44c598))
+* PORT-4553: Add a discriminator to portout webhook ([576bfa4](https://github.com/team-telnyx/telnyx-node/commit/576bfa4101e42f646eb3697520948994fa81eed0))
+* PORTAL-5787 - document query parameter to handle messaging service error ([c563140](https://github.com/team-telnyx/telnyx-node/commit/c56314056da7dc23e8791a989429732c6a5cd634))
+* TBS-3422: Fix redocly errors ([9ca5b7d](https://github.com/team-telnyx/telnyx-node/commit/9ca5b7d3aab2bdbe64f4a0867ee6b233cddf82d9))
+
+
+### Bug Fixes
+
+* **client:** lint ([3eb0ba2](https://github.com/team-telnyx/telnyx-node/commit/3eb0ba20a6c32abdf719b7ed41da57adb0545c93))
+* **client:** restore generated webhooks code ([1b65f0d](https://github.com/team-telnyx/telnyx-node/commit/1b65f0de43ccfaa341881210a444b4d6b37fd7a0))
+* **mcp:** add client instantiation options to code tool ([5bd6ec8](https://github.com/team-telnyx/telnyx-node/commit/5bd6ec84b0fb7fd16e1d69703b95a3dd96b1f08a))
+
+
+### Chores
+
+* Resolved all codegen errors ([8da376e](https://github.com/team-telnyx/telnyx-node/commit/8da376e3135660348141550f8743e38f46796199))
+
 ## 4.6.0 (2025-12-08)
 
 Full Changelog: [v4.5.1...v4.6.0](https://github.com/team-telnyx/telnyx-node/compare/v4.5.1...v4.6.0)

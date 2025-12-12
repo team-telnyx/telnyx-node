@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   tags: [],
   httpMethod: 'delete',
   httpPath: '/access_ip_ranges/{access_ip_range_id}',
+  operationId: 'DeleteAccessIpRange',
 };
 
 export const tool: Tool = {

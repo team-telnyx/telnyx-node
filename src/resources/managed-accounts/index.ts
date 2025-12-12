@@ -20,4 +20,5 @@ export {
   type ManagedAccountUpdateParams,
   type ManagedAccountListParams,
   type ManagedAccountUpdateGlobalChannelLimitParams,
+  type ManagedAccountListResponsesDefaultPagination,
 } from './managed-accounts';

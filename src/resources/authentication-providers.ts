@@ -2,6 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -81,15 +82,21 @@ export class AuthenticationProviders extends APIResource {
    *
    * @example
    * ```ts
-   * const authenticationProviders =
-   *   await client.authenticationProviders.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const authenticationProvider of client.authenticationProviders.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: AuthenticationProviderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<AuthenticationProviderListResponse> {
-    return this._client.get('/authentication_providers', { query, ...options });
+  ): PagePromise<AuthenticationProvidersDefaultFlatPagination, AuthenticationProvider> {
+    return this._client.getAPIList(
+      '/authentication_providers',
+      DefaultFlatPagination<AuthenticationProvider>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -105,6 +112,8 @@ export class AuthenticationProviders extends APIResource {
     return this._client.delete(path`/authentication_providers/${id}`, options);
   }
 }
+
+export type AuthenticationProvidersDefaultFlatPagination = DefaultFlatPagination<AuthenticationProvider>;
 
 export interface AuthenticationProvider {
   /**
@@ -200,11 +209,11 @@ export namespace AuthenticationProvider {
 }
 
 export interface PaginationMeta {
-  page_number?: number;
+  page_number: number;
+
+  total_pages: number;
 
   page_size?: number;
-
-  total_pages?: number;
 
   total_results?: number;
 }
@@ -245,12 +254,6 @@ export interface AuthenticationProviderRetrieveResponse {
 
 export interface AuthenticationProviderUpdateResponse {
   data?: AuthenticationProvider;
-}
-
-export interface AuthenticationProviderListResponse {
-  data?: Array<AuthenticationProvider>;
-
-  meta?: PaginationMeta;
 }
 
 export interface AuthenticationProviderDeleteResponse {
@@ -315,13 +318,7 @@ export interface AuthenticationProviderUpdateParams {
   short_name?: string;
 }
 
-export interface AuthenticationProviderListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: AuthenticationProviderListParams.Page;
-
+export interface AuthenticationProviderListParams extends DefaultFlatPaginationParams {
   /**
    * Specifies the sort order for results. By default sorting direction is ascending.
    * To have the results sorted in descending order add the <code>-</code>
@@ -350,24 +347,6 @@ export interface AuthenticationProviderListParams {
     | '-updated_at';
 }
 
-export namespace AuthenticationProviderListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
-}
-
 export declare namespace AuthenticationProviders {
   export {
     type AuthenticationProvider as AuthenticationProvider,
@@ -376,8 +355,8 @@ export declare namespace AuthenticationProviders {
     type AuthenticationProviderCreateResponse as AuthenticationProviderCreateResponse,
     type AuthenticationProviderRetrieveResponse as AuthenticationProviderRetrieveResponse,
     type AuthenticationProviderUpdateResponse as AuthenticationProviderUpdateResponse,
-    type AuthenticationProviderListResponse as AuthenticationProviderListResponse,
     type AuthenticationProviderDeleteResponse as AuthenticationProviderDeleteResponse,
+    type AuthenticationProvidersDefaultFlatPagination as AuthenticationProvidersDefaultFlatPagination,
     type AuthenticationProviderCreateParams as AuthenticationProviderCreateParams,
     type AuthenticationProviderUpdateParams as AuthenticationProviderUpdateParams,
     type AuthenticationProviderListParams as AuthenticationProviderListParams,

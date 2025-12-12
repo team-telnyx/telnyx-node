@@ -134,6 +134,12 @@ export const tool: Tool = {
           },
         },
       },
+      handle_messaging_profile_error: {
+        type: 'string',
+        description:
+          'Although it is an infrequent occurrence, due to the highly distributed nature of the Telnyx platform, it is possible that there will be an issue when loading in Messaging Profile information. As such, when this parameter is set to `true` and an error in fetching this information occurs, messaging profile related fields will be omitted in the response and an error message will be included instead of returning a 503 error.',
+        enum: ['true', 'false'],
+      },
       page: {
         type: 'object',
         description: 'Consolidated page parameter (deepObject style). Originally: page[size], page[number]',
@@ -164,8 +170,9 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const body = args as any;
+  const response = await client.phoneNumbers.list(body).asResponse();
   try {
-    return asTextContentResult(await client.phoneNumbers.list(body));
+    return asTextContentResult(await response.json());
   } catch (error) {
     if (error instanceof Telnyx.APIError) {
       return asErrorResult(error.message);

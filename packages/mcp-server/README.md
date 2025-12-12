@@ -11,6 +11,8 @@ You can run the MCP Server directly via `npx`:
 ```sh
 export TELNYX_API_KEY="My API Key"
 export TELNYX_PUBLIC_KEY="My Public Key"
+export TELNYX_CLIENT_ID="My Client ID"
+export TELNYX_CLIENT_SECRET="My Client Secret"
 npx -y telnyx-mcp@latest
 ```
 
@@ -29,7 +31,9 @@ For clients with a configuration JSON, it might look something like this:
       "args": ["-y", "telnyx-mcp", "--client=claude", "--tools=dynamic"],
       "env": {
         "TELNYX_API_KEY": "My API Key",
-        "TELNYX_PUBLIC_KEY": "My Public Key"
+        "TELNYX_PUBLIC_KEY": "My Public Key",
+        "TELNYX_CLIENT_ID": "My Client ID",
+        "TELNYX_CLIENT_SECRET": "My Client Secret"
       }
     }
   }
@@ -41,14 +45,14 @@ For clients with a configuration JSON, it might look something like this:
 If you use Cursor, you can install the MCP server by using the button below. You will need to set your environment variables
 in Cursor's `mcp.json`, which can be found in Cursor Settings > Tools & MCP > New MCP Server.
 
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=telnyx-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInRlbG55eC1tY3AiXSwiZW52Ijp7IlRFTE5ZWF9BUElfS0VZIjoiU2V0IHlvdXIgVEVMTllYX0FQSV9LRVkgaGVyZS4iLCJURUxOWVhfUFVCTElDX0tFWSI6IlNldCB5b3VyIFRFTE5ZWF9QVUJMSUNfS0VZIGhlcmUuIn19)
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=telnyx-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInRlbG55eC1tY3AiXSwiZW52Ijp7IlRFTE5ZWF9BUElfS0VZIjoiU2V0IHlvdXIgVEVMTllYX0FQSV9LRVkgaGVyZS4iLCJURUxOWVhfUFVCTElDX0tFWSI6IlNldCB5b3VyIFRFTE5ZWF9QVUJMSUNfS0VZIGhlcmUuIiwiVEVMTllYX0NMSUVOVF9JRCI6IlNldCB5b3VyIFRFTE5ZWF9DTElFTlRfSUQgaGVyZS4iLCJURUxOWVhfQ0xJRU5UX1NFQ1JFVCI6IlNldCB5b3VyIFRFTE5ZWF9DTElFTlRfU0VDUkVUIGhlcmUuIn19)
 
 ### VS Code
 
 If you use MCP, you can install the MCP server by clicking the link below. You will need to set your environment variables
 in VS Code's `mcp.json`, which can be found via Command Palette > MCP: Open User Configuration.
 
-[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22telnyx-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22telnyx-mcp%22%5D%2C%22env%22%3A%7B%22TELNYX_API_KEY%22%3A%22Set%20your%20TELNYX_API_KEY%20here.%22%2C%22TELNYX_PUBLIC_KEY%22%3A%22Set%20your%20TELNYX_PUBLIC_KEY%20here.%22%7D%7D)
+[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22telnyx-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22telnyx-mcp%22%5D%2C%22env%22%3A%7B%22TELNYX_API_KEY%22%3A%22Set%20your%20TELNYX_API_KEY%20here.%22%2C%22TELNYX_PUBLIC_KEY%22%3A%22Set%20your%20TELNYX_PUBLIC_KEY%20here.%22%2C%22TELNYX_CLIENT_ID%22%3A%22Set%20your%20TELNYX_CLIENT_ID%20here.%22%2C%22TELNYX_CLIENT_SECRET%22%3A%22Set%20your%20TELNYX_CLIENT_SECRET%20here.%22%7D%7D)
 
 ### Claude Code
 
@@ -56,7 +60,7 @@ If you use Claude Code, you can install the MCP server by running the command be
 environment variables in Claude Code's `.claude.json`, which can be found in your home directory.
 
 ```
-claude mcp add --transport stdio telnyx_api --env TELNYX_API_KEY="Your TELNYX_API_KEY here." TELNYX_PUBLIC_KEY="Your TELNYX_PUBLIC_KEY here." -- npx -y telnyx-mcp
+claude mcp add --transport stdio telnyx_api --env TELNYX_API_KEY="Your TELNYX_API_KEY here." TELNYX_PUBLIC_KEY="Your TELNYX_PUBLIC_KEY here." TELNYX_CLIENT_ID="Your TELNYX_CLIENT_ID here." TELNYX_CLIENT_SECRET="Your TELNYX_CLIENT_SECRET here." -- npx -y telnyx-mcp
 ```
 
 ## Exposing endpoints to your MCP Client
@@ -379,7 +383,7 @@ The following tools are available in this MCP server.
 - `chat_ai_assistants` (`write`): This endpoint allows a client to send a chat message to a specific AI Assistant. The assistant processes the message and returns a relevant reply based on the current conversation context. Refer to the Conversation API to [create a conversation](https://developers.telnyx.com/api/inference/inference-embedding/create-new-conversation-public-conversations-post), [filter existing conversations](https://developers.telnyx.com/api/inference/inference-embedding/get-conversations-public-conversations-get), [fetch messages for a conversation](https://developers.telnyx.com/api/inference/inference-embedding/get-conversations-public-conversation-id-messages-get), and [manually add messages to a conversation](https://developers.telnyx.com/api/inference/inference-embedding/add-new-message).
 - `clone_ai_assistants` (`write`): Clone an existing assistant, excluding telephony and messaging settings.
 - `get_texml_ai_assistants` (`read`): Get an assistant texml by `assistant_id`.
-- `import_ai_assistants` (`write`): Import assistants from external providers. Any assistant that has already been imported will be overwritten with its latest version from the importing provider.
+- `imports_ai_assistants` (`write`): Import assistants from external providers. Any assistant that has already been imported will be overwritten with its latest version from the importing provider.
 - `send_sms_ai_assistants` (`write`): Send an SMS message for an assistant. This endpoint:
   1. Validates the assistant exists and has messaging profile configured
   2. If should_create_conversation is true, creates a new conversation with metadata
@@ -607,38 +611,6 @@ The following tools are available in this MCP server.
 - `update_billing_groups` (`write`): Update a billing group
 - `list_billing_groups` (`read`): List all billing groups
 - `delete_billing_groups` (`write`): Delete a billing group
-
-### Resource `brand`:
-
-- `create_brand` (`write`): This endpoint is used to create a new brand. A brand is an entity created by The Campaign Registry (TCR) that represents an organization or a company. It is this entity that TCR created campaigns will be associated with. Each brand creation will entail an upfront, non-refundable $4 expense.
-- `retrieve_brand` (`read`): Retrieve a brand by `brandId`.
-- `update_brand` (`write`): Update a brand's attributes by `brandId`.
-- `list_brand` (`read`): This endpoint is used to list all brands associated with your organization.
-- `delete_brand` (`write`): Delete Brand. This endpoint is used to delete a brand. Note the brand cannot be deleted if it contains one or more active campaigns, the campaigns need to be inactive and at least 3 months old due to billing purposes.
-- `get_feedback_brand` (`read`): Get feedback about a brand by ID. This endpoint can be used after creating or revetting
-  a brand.
-
-  Possible values for `.category[].id`:
-
-  - `TAX_ID` - Data mismatch related to tax id and its associated properties.
-  - `STOCK_SYMBOL` - Non public entity registered as a public for profit entity or
-    the stock information mismatch.
-  - `GOVERNMENT_ENTITY` - Non government entity registered as a government entity.
-    Must be a U.S. government entity.
-  - `NONPROFIT` - Not a recognized non-profit entity. No IRS tax-exempt status
-    found.
-  - `OTHERS` - Details of the data misrepresentation if any.
-
-- `resend_2fa_email_brand` (`write`): Resend brand 2FA email
-- `revet_brand` (`write`): This operation allows you to revet the brand. However, revetting is allowed once after the successful brand registration and thereafter limited to once every 3 months.
-
-### Resource `brand.external_vetting`:
-
-- `list_brand_external_vetting` (`read`): Get list of valid external vetting record for a given brand
-- `import_brand_external_vetting` (`write`): This operation can be used to import an external vetting record from a TCR-approved
-  vetting provider. If the vetting provider confirms validity of the record, it will be
-  saved with the brand and will be considered for future campaign qualification.
-- `order_brand_external_vetting` (`write`): Order new external vetting for a brand
 
 ### Resource `bulk_sim_card_actions`:
 
@@ -914,34 +886,6 @@ The following tools are available in this MCP server.
 
 - `update_client_state_calls_actions` (`write`): Updates client state
 
-### Resource `campaign`:
-
-- `retrieve_campaign` (`read`): Retrieve campaign details by `campaignId`.
-- `update_campaign` (`write`): Update a campaign's properties by `campaignId`. **Please note:** only sample messages are editable.
-- `list_campaign` (`read`): Retrieve a list of campaigns associated with a supplied `brandId`.
-- `accept_sharing_campaign` (`write`): Manually accept a campaign shared with Telnyx
-- `deactivate_campaign` (`write`): Terminate a campaign. Note that once deactivated, a campaign cannot be restored.
-- `get_mno_metadata_campaign` (`read`): Get the campaign metadata for each MNO it was submitted to.
-- `get_operation_status_campaign` (`read`): Retrieve campaign's operation status at MNO level.
-- `get_sharing_status_campaign` (`read`): Get Sharing Status
-- `submit_appeal_campaign` (`write`): Submits an appeal for rejected native campaigns in TELNYX_FAILED or MNO_REJECTED status. The appeal is recorded for manual compliance team review and the campaign status is reset to TCR_ACCEPTED. Note: Appeal forwarding is handled manually to allow proper review before incurring upstream charges.
-
-### Resource `campaign.usecase`:
-
-- `get_cost_campaign_usecase` (`read`): Get Campaign Cost
-
-### Resource `campaign.osr`:
-
-- `get_attributes_campaign_osr` (`read`): Get My Osr Campaign Attributes
-
-### Resource `campaign_builder`:
-
-- `create_campaign_builder` (`write`): Before creating a campaign, use the [Qualify By Usecase endpoint](https://developers.telnyx.com/api/messaging/10dlc/get-usecase-qualification) to ensure that the brand you want to assign a new campaign to is qualified for the desired use case of that campaign. **Please note:** After campaign creation, you'll only be able to edit the campaign's sample messages. Creating a campaign will entail an upfront, non-refundable three month's cost that will depend on the campaign's use case ([see 10DLC Costs section for details](https://developers.telnyx.com/docs/messaging/10dlc/concepts#10dlc-costs)).
-
-### Resource `campaign_builder.brand`:
-
-- `qualify_by_usecase_campaign_builder_brand` (`read`): This endpoint allows you to see whether or not the supplied brand is suitable for your desired campaign use case.
-
 ### Resource `channel_zones`:
 
 - `update_channel_zones` (`write`): Update the number of Voice Channels for the Non-US Zones. This allows your account to handle multiple simultaneous inbound calls to Non-US numbers. Use this endpoint to increase or decrease your capacity based on expected call volume.
@@ -1093,10 +1037,6 @@ The following tools are available in this MCP server.
 - `retrieve_dynamic_emergency_endpoints` (`read`): Returns the dynamic emergency endpoint based on the ID provided
 - `list_dynamic_emergency_endpoints` (`read`): Returns the dynamic emergency endpoints according to filters
 - `delete_dynamic_emergency_endpoints` (`write`): Deletes the dynamic emergency endpoint based on the ID provided
-
-### Resource `enum`:
-
-- `retrieve_enum` (`read`): Get Enum
 
 ### Resource `external_connections`:
 
@@ -1527,25 +1467,11 @@ The following tools are available in this MCP server.
 - `update_payment_auto_recharge_prefs` (`write`): Update payment auto recharge preferences.
 - `list_payment_auto_recharge_prefs` (`read`): Returns the payment auto recharge preferences.
 
-### Resource `phone_number_assignment_by_profile`:
-
-- `assign_phone_number_assignment_by_profile` (`write`): This endpoint allows you to link all phone numbers associated with a Messaging Profile to a campaign. **Please note:** if you want to assign phone numbers to a campaign that you did not create with Telnyx 10DLC services, this endpoint allows that provided that you've shared the campaign with Telnyx. In this case, only provide the parameter, `tcrCampaignId`, and not `campaignId`. In all other cases (where the campaign you're assigning was created with Telnyx 10DLC services), only provide `campaignId`, not `tcrCampaignId`.
-- `retrieve_phone_number_status_phone_number_assignment_by_profile` (`read`): Check the status of the individual phone number/campaign assignments associated with the supplied `taskId`.
-- `retrieve_status_phone_number_assignment_by_profile` (`read`): Check the status of the task associated with assigning all phone numbers on a messaging profile to a campaign by `taskId`.
-
 ### Resource `phone_number_blocks.jobs`:
 
 - `retrieve_phone_number_blocks_jobs` (`read`): Retrieves a phone number blocks job
 - `list_phone_number_blocks_jobs` (`read`): Lists the phone number blocks jobs
 - `delete_phone_number_block_phone_number_blocks_jobs` (`write`): Creates a new background job to delete all the phone numbers associated with the given block. We will only consider the phone number block as deleted after all phone numbers associated with it are removed, so multiple executions of this job may be necessary in case some of the phone numbers present errors during the deletion process.
-
-### Resource `phone_number_campaigns`:
-
-- `create_phone_number_campaigns` (`write`): Create New Phone Number Campaign
-- `retrieve_phone_number_campaigns` (`read`): Retrieve an individual phone number/campaign assignment by `phoneNumber`.
-- `update_phone_number_campaigns` (`write`): Create New Phone Number Campaign
-- `list_phone_number_campaigns` (`read`): Retrieve All Phone Number Campaigns
-- `delete_phone_number_campaigns` (`write`): This endpoint allows you to remove a campaign assignment from the supplied `phoneNumber`.
 
 ### Resource `phone_numbers`:
 
@@ -2207,22 +2133,6 @@ The following tools are available in this MCP server.
 - `list_wireless_blocklists` (`read`): Get all Wireless Blocklists belonging to the user.
 - `delete_wireless_blocklists` (`write`): Deletes the Wireless Blocklist.
 
-### Resource `partner_campaigns`:
-
-- `retrieve_partner_campaigns` (`read`): Retrieve campaign details by `campaignId`.
-- `update_partner_campaigns` (`write`): Update campaign details by `campaignId`. **Please note:** Only webhook urls are editable.
-- `list_partner_campaigns` (`read`): Retrieve all partner campaigns you have shared to Telnyx in a paginated fashion.
-
-  This endpoint is currently limited to only returning shared campaigns that Telnyx has accepted. In other words, shared but pending campaigns are currently omitted from the response from this endpoint.
-
-- `list_shared_by_me_partner_campaigns` (`read`): Get all partner campaigns you have shared to Telnyx in a paginated fashion
-
-  This endpoint is currently limited to only returning shared campaigns that Telnyx
-  has accepted. In other words, shared but pending campaigns are currently omitted
-  from the response from this endpoint.
-
-- `retrieve_sharing_status_partner_campaigns` (`read`): Get Sharing Status
-
 ### Resource `well_known`:
 
 - `retrieve_authorization_server_metadata_well_known` (`read`): OAuth 2.0 Authorization Server Metadata (RFC 8414)
@@ -2252,3 +2162,140 @@ The following tools are available in this MCP server.
 - `update_mobile_voice_connections` (`write`): Update a Mobile Voice Connection
 - `list_mobile_voice_connections` (`read`): List Mobile Voice Connections
 - `delete_mobile_voice_connections` (`write`): Delete a Mobile Voice Connection
+
+### Resource `messaging_10dlc`:
+
+- `get_enum_messaging_10dlc` (`read`): Get Enum
+
+### Resource `messaging_10dlc.brand`:
+
+- `create_messaging_10dlc_brand` (`write`): This endpoint is used to create a new brand. A brand is an entity created by The Campaign Registry (TCR) that represents an organization or a company. It is this entity that TCR created campaigns will be associated with. Each brand creation will entail an upfront, non-refundable $4 expense.
+- `retrieve_messaging_10dlc_brand` (`read`): Retrieve a brand by `brandId`.
+- `update_messaging_10dlc_brand` (`write`): Update a brand's attributes by `brandId`.
+- `list_messaging_10dlc_brand` (`read`): This endpoint is used to list all brands associated with your organization.
+- `delete_messaging_10dlc_brand` (`write`): Delete Brand. This endpoint is used to delete a brand. Note the brand cannot be deleted if it contains one or more active campaigns, the campaigns need to be inactive and at least 3 months old due to billing purposes.
+- `get_feedback_messaging_10dlc_brand` (`read`): Get feedback about a brand by ID. This endpoint can be used after creating or revetting
+  a brand.
+
+  Possible values for `.category[].id`:
+
+  - `TAX_ID` - Data mismatch related to tax id and its associated properties.
+  - `STOCK_SYMBOL` - Non public entity registered as a public for profit entity or
+    the stock information mismatch.
+  - `GOVERNMENT_ENTITY` - Non government entity registered as a government entity.
+    Must be a U.S. government entity.
+  - `NONPROFIT` - Not a recognized non-profit entity. No IRS tax-exempt status
+    found.
+  - `OTHERS` - Details of the data misrepresentation if any.
+
+- `resend_2fa_email_messaging_10dlc_brand` (`write`): Resend brand 2FA email
+- `retrieve_sms_otp_status_messaging_10dlc_brand` (`read`): Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+
+  This endpoint allows you to check the delivery and verification status of an OTP sent during the Sole Proprietor brand verification process. You can query by either:
+
+  - `referenceId` - The reference ID returned when the OTP was initially triggered
+  - `brandId` - Query parameter for portal users to look up OTP status by Brand ID
+
+  The response includes delivery status, verification dates, and detailed delivery information.
+
+- `revet_messaging_10dlc_brand` (`write`): This operation allows you to revet the brand. However, revetting is allowed once after the successful brand registration and thereafter limited to once every 3 months.
+- `trigger_sms_otp_messaging_10dlc_brand` (`write`): Trigger or re-trigger an SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+
+  **Important Notes:**
+
+  - Only allowed for Sole Proprietor (`SOLE_PROPRIETOR`) brands
+  - Triggers generation of a one-time password sent to the `mobilePhone` number in the brand's profile
+  - Campaigns cannot be created until OTP verification is complete
+  - US/CA numbers only for real OTPs; mock brands can use non-US/CA numbers for testing
+  - Returns a `referenceId` that can be used to check OTP status via the GET `/10dlc/brand/smsOtp/{referenceId}` endpoint
+
+  **Use Cases:**
+
+  - Initial OTP trigger after Sole Proprietor brand creation
+  - Re-triggering OTP if the user didn't receive or needs a new code
+
+- `verify_sms_otp_messaging_10dlc_brand` (`write`): Verify the SMS OTP (One-Time Password) for Sole Proprietor brand verification.
+
+  **Verification Flow:**
+
+  1. User receives OTP via SMS after triggering
+  2. User submits the OTP pin through this endpoint
+  3. Upon successful verification:
+     - A `BRAND_OTP_VERIFIED` webhook event is sent to the CSP
+     - The brand's `identityStatus` changes to `VERIFIED`
+     - Campaigns can now be created for this brand
+
+  **Error Handling:**
+
+  Provides proper error responses for:
+
+  - Invalid OTP pins
+  - Expired OTPs
+  - OTP verification failures
+
+### Resource `messaging_10dlc.brand.external_vetting`:
+
+- `list_brand_messaging_10dlc_external_vetting` (`read`): Get list of valid external vetting record for a given brand
+- `imports_brand_messaging_10dlc_external_vetting` (`write`): This operation can be used to import an external vetting record from a TCR-approved
+  vetting provider. If the vetting provider confirms validity of the record, it will be
+  saved with the brand and will be considered for future campaign qualification.
+- `order_brand_messaging_10dlc_external_vetting` (`write`): Order new external vetting for a brand
+
+### Resource `messaging_10dlc.campaign`:
+
+- `retrieve_messaging_10dlc_campaign` (`read`): Retrieve campaign details by `campaignId`.
+- `update_messaging_10dlc_campaign` (`write`): Update a campaign's properties by `campaignId`. **Please note:** only sample messages are editable.
+- `list_messaging_10dlc_campaign` (`read`): Retrieve a list of campaigns associated with a supplied `brandId`.
+- `accept_sharing_messaging_10dlc_campaign` (`write`): Manually accept a campaign shared with Telnyx
+- `deactivate_messaging_10dlc_campaign` (`write`): Terminate a campaign. Note that once deactivated, a campaign cannot be restored.
+- `get_mno_metadata_messaging_10dlc_campaign` (`read`): Get the campaign metadata for each MNO it was submitted to.
+- `get_operation_status_messaging_10dlc_campaign` (`read`): Retrieve campaign's operation status at MNO level.
+- `get_sharing_status_messaging_10dlc_campaign` (`read`): Get Sharing Status
+- `submit_appeal_messaging_10dlc_campaign` (`write`): Submits an appeal for rejected native campaigns in TELNYX_FAILED or MNO_REJECTED status. The appeal is recorded for manual compliance team review and the campaign status is reset to TCR_ACCEPTED. Note: Appeal forwarding is handled manually to allow proper review before incurring upstream charges.
+
+### Resource `messaging_10dlc.campaign.usecase`:
+
+- `get_cost_campaign_messaging_10dlc_usecase` (`read`): Get Campaign Cost
+
+### Resource `messaging_10dlc.campaign.osr`:
+
+- `get_attributes_campaign_messaging_10dlc_osr` (`read`): Get My Osr Campaign Attributes
+
+### Resource `messaging_10dlc.campaign_builder`:
+
+- `submit_messaging_10dlc_campaign_builder` (`write`): Before creating a campaign, use the [Qualify By Usecase endpoint](https://developers.telnyx.com/api/messaging/10dlc/get-usecase-qualification) to ensure that the brand you want to assign a new campaign to is qualified for the desired use case of that campaign. **Please note:** After campaign creation, you'll only be able to edit the campaign's sample messages. Creating a campaign will entail an upfront, non-refundable three month's cost that will depend on the campaign's use case ([see 10DLC Costs section for details](https://developers.telnyx.com/docs/messaging/10dlc/concepts#10dlc-costs)).
+
+### Resource `messaging_10dlc.campaign_builder.brand`:
+
+- `qualify_by_usecase_campaign_builder_messaging_10dlc_brand` (`read`): This endpoint allows you to see whether or not the supplied brand is suitable for your desired campaign use case.
+
+### Resource `messaging_10dlc.partner_campaigns`:
+
+- `retrieve_messaging_10dlc_partner_campaigns` (`read`): Retrieve campaign details by `campaignId`.
+- `update_messaging_10dlc_partner_campaigns` (`write`): Update campaign details by `campaignId`. **Please note:** Only webhook urls are editable.
+- `list_messaging_10dlc_partner_campaigns` (`read`): Retrieve all partner campaigns you have shared to Telnyx in a paginated fashion.
+
+  This endpoint is currently limited to only returning shared campaigns that Telnyx has accepted. In other words, shared but pending campaigns are currently omitted from the response from this endpoint.
+
+- `list_shared_by_me_messaging_10dlc_partner_campaigns` (`read`): Get all partner campaigns you have shared to Telnyx in a paginated fashion
+
+  This endpoint is currently limited to only returning shared campaigns that Telnyx
+  has accepted. In other words, shared but pending campaigns are currently omitted
+  from the response from this endpoint.
+
+- `retrieve_sharing_status_messaging_10dlc_partner_campaigns` (`read`): Get Sharing Status
+
+### Resource `messaging_10dlc.phone_number_campaigns`:
+
+- `create_messaging_10dlc_phone_number_campaigns` (`write`): Create New Phone Number Campaign
+- `retrieve_messaging_10dlc_phone_number_campaigns` (`read`): Retrieve an individual phone number/campaign assignment by `phoneNumber`.
+- `update_messaging_10dlc_phone_number_campaigns` (`write`): Create New Phone Number Campaign
+- `list_messaging_10dlc_phone_number_campaigns` (`read`): Retrieve All Phone Number Campaigns
+- `delete_messaging_10dlc_phone_number_campaigns` (`write`): This endpoint allows you to remove a campaign assignment from the supplied `phoneNumber`.
+
+### Resource `messaging_10dlc.phone_number_assignment_by_profile`:
+
+- `assign_messaging_10dlc_phone_number_assignment_by_profile` (`write`): This endpoint allows you to link all phone numbers associated with a Messaging Profile to a campaign. **Please note:** if you want to assign phone numbers to a campaign that you did not create with Telnyx 10DLC services, this endpoint allows that provided that you've shared the campaign with Telnyx. In this case, only provide the parameter, `tcrCampaignId`, and not `campaignId`. In all other cases (where the campaign you're assigning was created with Telnyx 10DLC services), only provide `campaignId`, not `tcrCampaignId`.
+- `list_phone_number_status_messaging_10dlc_phone_number_assignment_by_profile` (`read`): Check the status of the individual phone number/campaign assignments associated with the supplied `taskId`.
+- `retrieve_phone_number_status_messaging_10dlc_phone_number_assignment_by_profile` (`read`): Check the status of the individual phone number/campaign assignments associated with the supplied `taskId`.
+- `retrieve_status_messaging_10dlc_phone_number_assignment_by_profile` (`read`): Check the status of the task associated with assigning all phone numbers on a messaging profile to a campaign by `taskId`.

@@ -70,11 +70,11 @@ export class Messaging extends APIResource {
 }
 
 export interface BatchCsvPaginationMeta {
-  page_number?: number;
+  page_number: number;
+
+  total_pages: number;
 
   page_size?: number;
-
-  total_pages?: number;
 
   total_results?: number;
 }

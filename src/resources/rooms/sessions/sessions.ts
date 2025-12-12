@@ -1,9 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as AuthenticationProvidersAPI from '../../authentication-providers';
 import * as Shared from '../../shared';
+import { RoomParticipantsDefaultPagination } from '../../shared';
 import * as RoomsAPI from '../rooms';
+import { RoomSessionsDefaultPagination } from '../rooms';
 import * as ActionsAPI from './actions';
 import {
   ActionEndResponse,
@@ -17,6 +18,7 @@ import {
   ActionsParticipantsRequest,
 } from './actions';
 import { APIPromise } from '../../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -46,14 +48,20 @@ export class Sessions extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.rooms.sessions.list0();
+   * // Automatically fetches more pages as needed.
+   * for await (const roomSession of client.rooms.sessions.list0()) {
+   *   // ...
+   * }
    * ```
    */
   list0(
     query: SessionList0Params | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<SessionList0Response> {
-    return this._client.get('/room_sessions', { query, ...options });
+  ): PagePromise<RoomSessionsDefaultPagination, RoomsAPI.RoomSession> {
+    return this._client.getAPIList('/room_sessions', DefaultPagination<RoomsAPI.RoomSession>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -61,17 +69,23 @@ export class Sessions extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.rooms.sessions.list1(
+   * // Automatically fetches more pages as needed.
+   * for await (const roomSession of client.rooms.sessions.list1(
    *   '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
-   * );
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list1(
     roomID: string,
     query: SessionList1Params | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<SessionList1Response> {
-    return this._client.get(path`/rooms/${roomID}/sessions`, { query, ...options });
+  ): PagePromise<RoomSessionsDefaultPagination, RoomsAPI.RoomSession> {
+    return this._client.getAPIList(path`/rooms/${roomID}/sessions`, DefaultPagination<RoomsAPI.RoomSession>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -79,41 +93,29 @@ export class Sessions extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.rooms.sessions.retrieveParticipants(
-   *     '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
-   *   );
+   * // Automatically fetches more pages as needed.
+   * for await (const roomParticipant of client.rooms.sessions.retrieveParticipants(
+   *   '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   retrieveParticipants(
     roomSessionID: string,
     query: SessionRetrieveParticipantsParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<SessionRetrieveParticipantsResponse> {
-    return this._client.get(path`/room_sessions/${roomSessionID}/participants`, { query, ...options });
+  ): PagePromise<RoomParticipantsDefaultPagination, Shared.RoomParticipant> {
+    return this._client.getAPIList(
+      path`/room_sessions/${roomSessionID}/participants`,
+      DefaultPagination<Shared.RoomParticipant>,
+      { query, ...options },
+    );
   }
 }
 
 export interface SessionRetrieveResponse {
   data?: RoomsAPI.RoomSession;
-}
-
-export interface SessionList0Response {
-  data?: Array<RoomsAPI.RoomSession>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
-export interface SessionList1Response {
-  data?: Array<RoomsAPI.RoomSession>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
-export interface SessionRetrieveParticipantsResponse {
-  data?: Array<Shared.RoomParticipant>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export interface SessionRetrieveParams {
@@ -123,7 +125,7 @@ export interface SessionRetrieveParams {
   include_participants?: boolean;
 }
 
-export interface SessionList0Params {
+export interface SessionList0Params extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_created_at][eq], filter[date_created_at][gte],
@@ -138,12 +140,6 @@ export interface SessionList0Params {
    * To decide if room participants should be included in the response.
    */
   include_participants?: boolean;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: SessionList0Params.Page;
 }
 
 export namespace SessionList0Params {
@@ -225,25 +221,9 @@ export namespace SessionList0Params {
       lte?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
-export interface SessionList1Params {
+export interface SessionList1Params extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_created_at][eq], filter[date_created_at][gte],
@@ -258,12 +238,6 @@ export interface SessionList1Params {
    * To decide if room participants should be included in the response.
    */
   include_participants?: boolean;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: SessionList1Params.Page;
 }
 
 export namespace SessionList1Params {
@@ -340,25 +314,9 @@ export namespace SessionList1Params {
       lte?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
-export interface SessionRetrieveParticipantsParams {
+export interface SessionRetrieveParticipantsParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_joined_at][eq], filter[date_joined_at][gte],
@@ -368,12 +326,6 @@ export interface SessionRetrieveParticipantsParams {
    * filter[context]
    */
   filter?: SessionRetrieveParticipantsParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: SessionRetrieveParticipantsParams.Page;
 }
 
 export namespace SessionRetrieveParticipantsParams {
@@ -451,22 +403,6 @@ export namespace SessionRetrieveParticipantsParams {
       lte?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 Sessions.Actions = Actions;
@@ -474,9 +410,6 @@ Sessions.Actions = Actions;
 export declare namespace Sessions {
   export {
     type SessionRetrieveResponse as SessionRetrieveResponse,
-    type SessionList0Response as SessionList0Response,
-    type SessionList1Response as SessionList1Response,
-    type SessionRetrieveParticipantsResponse as SessionRetrieveParticipantsResponse,
     type SessionRetrieveParams as SessionRetrieveParams,
     type SessionList0Params as SessionList0Params,
     type SessionList1Params as SessionList1Params,
@@ -495,3 +428,5 @@ export declare namespace Sessions {
     type ActionUnmuteParams as ActionUnmuteParams,
   };
 }
+
+export { type RoomSessionsDefaultPagination, type RoomParticipantsDefaultPagination };

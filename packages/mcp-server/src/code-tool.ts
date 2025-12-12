@@ -38,10 +38,13 @@ export async function codeTool() {
         client_envs: JSON.stringify({
           TELNYX_API_KEY: readEnv('TELNYX_API_KEY'),
           TELNYX_PUBLIC_KEY: readEnv('TELNYX_PUBLIC_KEY'),
+          TELNYX_CLIENT_ID: readEnv('TELNYX_CLIENT_ID'),
+          TELNYX_CLIENT_SECRET: readEnv('TELNYX_CLIENT_SECRET'),
         }),
       },
       body: JSON.stringify({
         project_name: 'telnyx',
+        client_opts: {},
         code,
       }),
     });

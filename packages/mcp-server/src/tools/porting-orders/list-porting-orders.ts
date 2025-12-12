@@ -164,8 +164,9 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const body = args as any;
+  const response = await client.portingOrders.list(body).asResponse();
   try {
-    return asTextContentResult(await client.portingOrders.list(body));
+    return asTextContentResult(await response.json());
   } catch (error) {
     if (error instanceof Telnyx.APIError) {
       return asErrorResult(error.message);

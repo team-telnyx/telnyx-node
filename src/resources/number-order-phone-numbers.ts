@@ -57,7 +57,7 @@ export class NumberOrderPhoneNumbers extends APIResource {
 export interface NumberOrderPhoneNumber {
   id?: string;
 
-  bundle_id?: string;
+  bundle_id?: string | null;
 
   country_code?: string;
 

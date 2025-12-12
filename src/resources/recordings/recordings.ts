@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as ActionsAPI from './actions';
 import { ActionDeleteParams, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -30,14 +30,20 @@ export class Recordings extends APIResource {
    *
    * @example
    * ```ts
-   * const recordings = await client.recordings.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const recordingResponseData of client.recordings.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: RecordingListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<RecordingListResponse> {
-    return this._client.get('/recordings', { query, ...options });
+  ): PagePromise<RecordingResponseDataDefaultPagination, RecordingResponseData> {
+    return this._client.getAPIList('/recordings', DefaultPagination<RecordingResponseData>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -54,6 +60,8 @@ export class Recordings extends APIResource {
     return this._client.delete(path`/recordings/${recordingID}`, options);
   }
 }
+
+export type RecordingResponseDataDefaultPagination = DefaultPagination<RecordingResponseData>;
 
 export interface RecordingResponseData {
   /**
@@ -154,17 +162,11 @@ export interface RecordingRetrieveResponse {
   data?: RecordingResponseData;
 }
 
-export interface RecordingListResponse {
-  data?: Array<RecordingResponseData>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface RecordingDeleteResponse {
   data?: RecordingResponseData;
 }
 
-export interface RecordingListParams {
+export interface RecordingListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[conference_id], filter[created_at][gte], filter[created_at][lte],
@@ -172,12 +174,6 @@ export interface RecordingListParams {
    * filter[connection_id], filter[sip_call_id]
    */
   filter?: RecordingListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: RecordingListParams.Page;
 }
 
 export namespace RecordingListParams {
@@ -244,22 +240,6 @@ export namespace RecordingListParams {
       lte?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 Recordings.Actions = Actions;
@@ -268,8 +248,8 @@ export declare namespace Recordings {
   export {
     type RecordingResponseData as RecordingResponseData,
     type RecordingRetrieveResponse as RecordingRetrieveResponse,
-    type RecordingListResponse as RecordingListResponse,
     type RecordingDeleteResponse as RecordingDeleteResponse,
+    type RecordingResponseDataDefaultPagination as RecordingResponseDataDefaultPagination,
     type RecordingListParams as RecordingListParams,
   };
 

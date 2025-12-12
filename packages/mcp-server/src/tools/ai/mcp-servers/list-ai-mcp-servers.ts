@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'list_ai_mcp_servers',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nRetrieve a list of MCP servers.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/mcp_server_list_response',\n  $defs: {\n    mcp_server_list_response: {\n      type: 'array',\n      title: 'MCPServersListResponse',\n      items: {\n        type: 'object',\n        title: 'MCPServer',\n        properties: {\n          id: {\n            type: 'string',\n            title: 'Id'\n          },\n          created_at: {\n            type: 'string',\n            title: 'Created At',\n            format: 'date-time'\n          },\n          name: {\n            type: 'string',\n            title: 'Name'\n          },\n          type: {\n            type: 'string',\n            title: 'Type'\n          },\n          url: {\n            type: 'string',\n            title: 'Url'\n          },\n          allowed_tools: {\n            type: 'array',\n            title: 'Allowed Tools',\n            items: {\n              type: 'string'\n            }\n          },\n          api_key_ref: {\n            type: 'string',\n            title: 'Api Key Ref'\n          }\n        },\n        required: [          'id',\n          'created_at',\n          'name',\n          'type',\n          'url'\n        ]\n      }\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nRetrieve a list of MCP servers.\n\n# Response Schema\n```json\n{\n  type: 'array',\n  title: 'MCPServersListResponse',\n  items: {\n    $ref: '#/$defs/mcp_server_list_response'\n  },\n  $defs: {\n    mcp_server_list_response: {\n      type: 'object',\n      title: 'MCPServer',\n      properties: {\n        id: {\n          type: 'string',\n          title: 'Id'\n        },\n        created_at: {\n          type: 'string',\n          title: 'Created At',\n          format: 'date-time'\n        },\n        name: {\n          type: 'string',\n          title: 'Name'\n        },\n        type: {\n          type: 'string',\n          title: 'Type'\n        },\n        url: {\n          type: 'string',\n          title: 'Url'\n        },\n        allowed_tools: {\n          type: 'array',\n          title: 'Allowed Tools',\n          items: {\n            type: 'string'\n          }\n        },\n        api_key_ref: {\n          type: 'string',\n          title: 'Api Key Ref'\n        }\n      },\n      required: [        'id',\n        'created_at',\n        'name',\n        'type',\n        'url'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
@@ -54,8 +54,9 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { jq_filter, ...body } = args as any;
+  const response = await client.ai.mcpServers.list(body).asResponse();
   try {
-    return asTextContentResult(await maybeFilter(jq_filter, await client.ai.mcpServers.list(body)));
+    return asTextContentResult(await maybeFilter(jq_filter, await response.json()));
   } catch (error) {
     if (error instanceof Telnyx.APIError || isJqError(error)) {
       return asErrorResult(error.message);

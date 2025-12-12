@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import * as NumberOrderPhoneNumbersAPI from './number-order-phone-numbers';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -58,16 +58,24 @@ export class NumberOrders extends APIResource {
    *
    * @example
    * ```ts
-   * const numberOrders = await client.numberOrders.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const numberOrderListResponse of client.numberOrders.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: NumberOrderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<NumberOrderListResponse> {
-    return this._client.get('/number_orders', { query, ...options });
+  ): PagePromise<NumberOrderListResponsesDefaultPagination, NumberOrderListResponse> {
+    return this._client.getAPIList('/number_orders', DefaultPagination<NumberOrderListResponse>, {
+      query,
+      ...options,
+    });
   }
 }
+
+export type NumberOrderListResponsesDefaultPagination = DefaultPagination<NumberOrderListResponse>;
 
 export interface NumberOrderWithPhoneNumbers {
   id?: string;
@@ -186,82 +194,74 @@ export interface NumberOrderUpdateResponse {
 }
 
 export interface NumberOrderListResponse {
-  data?: Array<NumberOrderListResponse.Data>;
+  id?: string;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+  /**
+   * Identifies the messaging profile associated with the phone number.
+   */
+  billing_group_id?: string;
+
+  /**
+   * Identifies the connection associated with this phone number.
+   */
+  connection_id?: string;
+
+  /**
+   * An ISO 8901 datetime string denoting when the number order was created.
+   */
+  created_at?: string;
+
+  /**
+   * A customer reference string for customer look ups.
+   */
+  customer_reference?: string;
+
+  /**
+   * Identifies the messaging profile associated with the phone number.
+   */
+  messaging_profile_id?: string;
+
+  phone_numbers?: Array<NumberOrderListResponse.PhoneNumber>;
+
+  /**
+   * The count of phone numbers in the number order.
+   */
+  phone_numbers_count?: number;
+
+  record_type?: string;
+
+  /**
+   * True if all requirements are met for every phone number, false otherwise.
+   */
+  requirements_met?: boolean;
+
+  /**
+   * The status of the order.
+   */
+  status?: 'pending' | 'success' | 'failure';
+
+  sub_number_orders_ids?: Array<string>;
+
+  /**
+   * An ISO 8901 datetime string for when the number order was updated.
+   */
+  updated_at?: string;
 }
 
 export namespace NumberOrderListResponse {
-  export interface Data {
+  /**
+   * The unique phone numbers given as arguments in the job creation.
+   */
+  export interface PhoneNumber {
+    /**
+     * The phone number's ID
+     */
     id?: string;
 
     /**
-     * Identifies the messaging profile associated with the phone number.
+     * The phone number in e164 format.
      */
-    billing_group_id?: string;
-
-    /**
-     * Identifies the connection associated with this phone number.
-     */
-    connection_id?: string;
-
-    /**
-     * An ISO 8901 datetime string denoting when the number order was created.
-     */
-    created_at?: string;
-
-    /**
-     * A customer reference string for customer look ups.
-     */
-    customer_reference?: string;
-
-    /**
-     * Identifies the messaging profile associated with the phone number.
-     */
-    messaging_profile_id?: string;
-
-    phone_numbers?: Array<Data.PhoneNumber>;
-
-    /**
-     * The count of phone numbers in the number order.
-     */
-    phone_numbers_count?: number;
-
-    record_type?: string;
-
-    /**
-     * True if all requirements are met for every phone number, false otherwise.
-     */
-    requirements_met?: boolean;
-
-    /**
-     * The status of the order.
-     */
-    status?: 'pending' | 'success' | 'failure';
-
-    sub_number_orders_ids?: Array<string>;
-
-    /**
-     * An ISO 8901 datetime string for when the number order was updated.
-     */
-    updated_at?: string;
-  }
-
-  export namespace Data {
-    /**
-     * The unique phone numbers given as arguments in the job creation.
-     */
-    export interface PhoneNumber {
-      /**
-       * The phone number's ID
-       */
-      id?: string;
-
-      /**
-       * The phone number in e164 format.
-       */
-      phone_number?: string;
-    }
+    phone_number?: string;
   }
 }
 
@@ -317,19 +317,13 @@ export interface NumberOrderUpdateParams {
   regulatory_requirements?: Array<NumberOrderPhoneNumbersAPI.UpdateRegulatoryRequirement>;
 }
 
-export interface NumberOrderListParams {
+export interface NumberOrderListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
    * filter[created_at], filter[phone_numbers_count], filter[customer_reference],
    * filter[requirements_met]
    */
   filter?: NumberOrderListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: NumberOrderListParams.Page;
 }
 
 export namespace NumberOrderListParams {
@@ -381,22 +375,6 @@ export namespace NumberOrderListParams {
       lt?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace NumberOrders {
@@ -407,6 +385,7 @@ export declare namespace NumberOrders {
     type NumberOrderRetrieveResponse as NumberOrderRetrieveResponse,
     type NumberOrderUpdateResponse as NumberOrderUpdateResponse,
     type NumberOrderListResponse as NumberOrderListResponse,
+    type NumberOrderListResponsesDefaultPagination as NumberOrderListResponsesDefaultPagination,
     type NumberOrderCreateParams as NumberOrderCreateParams,
     type NumberOrderUpdateParams as NumberOrderUpdateParams,
     type NumberOrderListParams as NumberOrderListParams,

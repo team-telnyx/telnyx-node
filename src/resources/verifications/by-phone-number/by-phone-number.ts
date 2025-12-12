@@ -28,13 +28,13 @@ export class ByPhoneNumber extends APIResource {
 }
 
 export interface VerifyMeta {
-  page_number?: number;
+  page_number: number;
 
-  page_size?: number;
+  page_size: number;
 
-  total_pages?: number;
+  total_pages: number;
 
-  total_results?: number;
+  total_results: number;
 }
 
 export interface ByPhoneNumberListResponse {

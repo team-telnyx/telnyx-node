@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as ExternalConnectionsAPI from './external-connections';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -60,18 +60,29 @@ export class PhoneNumbers extends APIResource {
    *
    * @example
    * ```ts
-   * const phoneNumbers =
-   *   await client.externalConnections.phoneNumbers.list('id');
+   * // Automatically fetches more pages as needed.
+   * for await (const externalConnectionPhoneNumber of client.externalConnections.phoneNumbers.list(
+   *   'id',
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     id: string,
     query: PhoneNumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<PhoneNumberListResponse> {
-    return this._client.get(path`/external_connections/${id}/phone_numbers`, { query, ...options });
+  ): PagePromise<ExternalConnectionPhoneNumbersDefaultPagination, ExternalConnectionPhoneNumber> {
+    return this._client.getAPIList(
+      path`/external_connections/${id}/phone_numbers`,
+      DefaultPagination<ExternalConnectionPhoneNumber>,
+      { query, ...options },
+    );
   }
 }
+
+export type ExternalConnectionPhoneNumbersDefaultPagination =
+  DefaultPagination<ExternalConnectionPhoneNumber>;
 
 export interface ExternalConnectionPhoneNumber {
   acquired_capabilities?: Array<
@@ -118,12 +129,6 @@ export interface PhoneNumberUpdateResponse {
   data?: ExternalConnectionPhoneNumber;
 }
 
-export interface PhoneNumberListResponse {
-  data?: Array<ExternalConnectionPhoneNumber>;
-
-  meta?: ExternalConnectionsAPI.ExternalVoiceIntegrationsPaginationMeta;
-}
-
 export interface PhoneNumberRetrieveParams {
   /**
    * Identifies the resource.
@@ -143,18 +148,12 @@ export interface PhoneNumberUpdateParams {
   location_id?: string;
 }
 
-export interface PhoneNumberListParams {
+export interface PhoneNumberListParams extends DefaultPaginationParams {
   /**
    * Filter parameter for phone numbers (deepObject style). Supports filtering by
    * phone_number, civic_address_id, and location_id with eq/contains operations.
    */
   filter?: PhoneNumberListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: PhoneNumberListParams.Page;
 }
 
 export namespace PhoneNumberListParams {
@@ -197,22 +196,6 @@ export namespace PhoneNumberListParams {
       eq?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace PhoneNumbers {
@@ -220,7 +203,7 @@ export declare namespace PhoneNumbers {
     type ExternalConnectionPhoneNumber as ExternalConnectionPhoneNumber,
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,
     type PhoneNumberUpdateResponse as PhoneNumberUpdateResponse,
-    type PhoneNumberListResponse as PhoneNumberListResponse,
+    type ExternalConnectionPhoneNumbersDefaultPagination as ExternalConnectionPhoneNumbersDefaultPagination,
     type PhoneNumberRetrieveParams as PhoneNumberRetrieveParams,
     type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
     type PhoneNumberListParams as PhoneNumberListParams,

@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -53,15 +54,20 @@ export class MdrUsageReports extends APIResource {
    *
    * @example
    * ```ts
-   * const mdrUsageReports =
-   *   await client.reports.mdrUsageReports.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const mdrUsageReport of client.reports.mdrUsageReports.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: MdrUsageReportListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<MdrUsageReportListResponse> {
-    return this._client.get('/reports/mdr_usage_reports', { query, ...options });
+  ): PagePromise<MdrUsageReportsDefaultFlatPagination, MdrUsageReport> {
+    return this._client.getAPIList('/reports/mdr_usage_reports', DefaultFlatPagination<MdrUsageReport>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -99,6 +105,8 @@ export class MdrUsageReports extends APIResource {
     return this._client.get('/reports/mdr_usage_reports/sync', { query, ...options });
   }
 }
+
+export type MdrUsageReportsDefaultFlatPagination = DefaultFlatPagination<MdrUsageReport>;
 
 export interface MdrUsageReport {
   /**
@@ -162,11 +170,11 @@ export namespace MdrUsageReport {
 }
 
 export interface PaginationMetaReporting {
-  page_number?: number;
+  page_number: number;
+
+  total_pages: number;
 
   page_size?: number;
-
-  total_pages?: number;
 
   total_results?: number;
 }
@@ -177,12 +185,6 @@ export interface MdrUsageReportCreateResponse {
 
 export interface MdrUsageReportRetrieveResponse {
   data?: MdrUsageReport;
-}
-
-export interface MdrUsageReportListResponse {
-  data?: Array<MdrUsageReport>;
-
-  meta?: PaginationMetaReporting;
 }
 
 export interface MdrUsageReportDeleteResponse {
@@ -203,31 +205,7 @@ export interface MdrUsageReportCreateParams {
   profiles?: string;
 }
 
-export interface MdrUsageReportListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: MdrUsageReportListParams.Page;
-}
-
-export namespace MdrUsageReportListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * Page number
-     */
-    number?: number;
-
-    /**
-     * Size of the page
-     */
-    size?: number;
-  }
-}
+export interface MdrUsageReportListParams extends DefaultFlatPaginationParams {}
 
 export interface MdrUsageReportFetchSyncParams {
   aggregation_type: 'NO_AGGREGATION' | 'PROFILE' | 'TAGS';
@@ -245,9 +223,9 @@ export declare namespace MdrUsageReports {
     type PaginationMetaReporting as PaginationMetaReporting,
     type MdrUsageReportCreateResponse as MdrUsageReportCreateResponse,
     type MdrUsageReportRetrieveResponse as MdrUsageReportRetrieveResponse,
-    type MdrUsageReportListResponse as MdrUsageReportListResponse,
     type MdrUsageReportDeleteResponse as MdrUsageReportDeleteResponse,
     type MdrUsageReportFetchSyncResponse as MdrUsageReportFetchSyncResponse,
+    type MdrUsageReportsDefaultFlatPagination as MdrUsageReportsDefaultFlatPagination,
     type MdrUsageReportCreateParams as MdrUsageReportCreateParams,
     type MdrUsageReportListParams as MdrUsageReportListParams,
     type MdrUsageReportFetchSyncParams as MdrUsageReportFetchSyncParams,

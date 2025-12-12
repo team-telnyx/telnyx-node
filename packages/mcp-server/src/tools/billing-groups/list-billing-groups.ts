@@ -18,23 +18,15 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'list_billing_groups',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nList all billing groups\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/billing_group_list_response',\n  $defs: {\n    billing_group_list_response: {\n      type: 'object',\n      properties: {\n        data: {\n          type: 'array',\n          items: {\n            $ref: '#/$defs/billing_group'\n          }\n        },\n        meta: {\n          $ref: '#/$defs/pagination_meta'\n        }\n      }\n    },\n    billing_group: {\n      type: 'object',\n      properties: {\n        id: {\n          type: 'string',\n          description: 'Identifies the type of resource.'\n        },\n        created_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date indicating when the resource was created.',\n          format: 'date-time'\n        },\n        deleted_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date indicating when the resource was removed.',\n          format: 'date-time'\n        },\n        name: {\n          type: 'string',\n          description: 'A user-specified name for the billing group'\n        },\n        organization_id: {\n          type: 'string',\n          description: 'Identifies the organization that owns the resource.'\n        },\n        record_type: {\n          type: 'string',\n          description: 'Identifies the type of the resource.',\n          enum: [            'billing_group'\n          ]\n        },\n        updated_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date indicating when the resource was updated.',\n          format: 'date-time'\n        }\n      }\n    },\n    pagination_meta: {\n      type: 'object',\n      properties: {\n        page_number: {\n          type: 'integer'\n        },\n        page_size: {\n          type: 'integer'\n        },\n        total_pages: {\n          type: 'integer'\n        },\n        total_results: {\n          type: 'integer'\n        }\n      }\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nList all billing groups\n\n# Response Schema\n```json\n{\n  type: 'object',\n  properties: {\n    data: {\n      type: 'array',\n      items: {\n        $ref: '#/$defs/billing_group'\n      }\n    },\n    meta: {\n      $ref: '#/$defs/pagination_meta'\n    }\n  },\n  $defs: {\n    billing_group: {\n      type: 'object',\n      properties: {\n        id: {\n          type: 'string',\n          description: 'Identifies the type of resource.'\n        },\n        created_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date indicating when the resource was created.',\n          format: 'date-time'\n        },\n        deleted_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date indicating when the resource was removed.',\n          format: 'date-time'\n        },\n        name: {\n          type: 'string',\n          description: 'A user-specified name for the billing group'\n        },\n        organization_id: {\n          type: 'string',\n          description: 'Identifies the organization that owns the resource.'\n        },\n        record_type: {\n          type: 'string',\n          description: 'Identifies the type of the resource.',\n          enum: [            'billing_group'\n          ]\n        },\n        updated_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date indicating when the resource was updated.',\n          format: 'date-time'\n        }\n      }\n    },\n    pagination_meta: {\n      type: 'object',\n      properties: {\n        page_number: {\n          type: 'integer'\n        },\n        total_pages: {\n          type: 'integer'\n        },\n        page_size: {\n          type: 'integer'\n        },\n        total_results: {\n          type: 'integer'\n        }\n      },\n      required: [        'page_number',\n        'total_pages'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
-      page: {
-        type: 'object',
-        description: 'Consolidated page parameter (deepObject style). Originally: page[number], page[size]',
-        properties: {
-          number: {
-            type: 'integer',
-            description: 'The page number to load',
-          },
-          size: {
-            type: 'integer',
-            description: 'The size of the page',
-          },
-        },
+      'page[number]': {
+        type: 'integer',
+      },
+      'page[size]': {
+        type: 'integer',
       },
       jq_filter: {
         type: 'string',
@@ -52,8 +44,9 @@ export const tool: Tool = {
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
   const { jq_filter, ...body } = args as any;
+  const response = await client.billingGroups.list(body).asResponse();
   try {
-    return asTextContentResult(await maybeFilter(jq_filter, await client.billingGroups.list(body)));
+    return asTextContentResult(await maybeFilter(jq_filter, await response.json()));
   } catch (error) {
     if (error instanceof Telnyx.APIError || isJqError(error)) {
       return asErrorResult(error.message);

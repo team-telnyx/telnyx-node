@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -19,7 +20,7 @@ export class AvailablePhoneNumberBlocks extends APIResource {
 export interface AvailablePhoneNumberBlockListResponse {
   data?: Array<AvailablePhoneNumberBlockListResponse.Data>;
 
-  meta?: AvailablePhoneNumberBlockListResponse.Meta;
+  meta?: Shared.AvailablePhoneNumbersMetadata;
 }
 
 export namespace AvailablePhoneNumberBlockListResponse {
@@ -58,12 +59,6 @@ export namespace AvailablePhoneNumberBlockListResponse {
 
       region_type?: 'country_code' | 'rate_center' | 'state' | 'location';
     }
-  }
-
-  export interface Meta {
-    best_effort_results?: number;
-
-    total_results?: number;
   }
 }
 

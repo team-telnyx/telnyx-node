@@ -71,339 +71,123 @@ export class NumberLookup extends APIResource {
   }
 }
 
+export interface TelcoDataAggregation {
+  /**
+   * Currency code
+   */
+  currency?: string;
+
+  /**
+   * Total cost for this aggregation
+   */
+  total_cost?: number;
+
+  /**
+   * Total number of lookups performed
+   */
+  total_dips?: number;
+
+  /**
+   * Type of telco data lookup
+   */
+  type?: string;
+}
+
+export interface TelcoDataUsageRecord {
+  /**
+   * List of aggregations by lookup type
+   */
+  aggregations?: Array<TelcoDataAggregation>;
+
+  /**
+   * Record type identifier
+   */
+  record_type?: string;
+
+  /**
+   * User ID
+   */
+  user_id?: string;
+}
+
+/**
+ * Telco data usage report response
+ */
+export interface TelcoDataUsageReportResponse {
+  /**
+   * Unique identifier for the report
+   */
+  id?: string;
+
+  /**
+   * Type of aggregation used in the report
+   */
+  aggregation_type?: string;
+
+  /**
+   * Timestamp when the report was created
+   */
+  created_at?: string;
+
+  /**
+   * End date of the report period
+   */
+  end_date?: string;
+
+  /**
+   * List of managed account IDs included in the report
+   */
+  managed_accounts?: Array<string>;
+
+  /**
+   * Record type identifier
+   */
+  record_type?: string;
+
+  /**
+   * URL to download the complete report
+   */
+  report_url?: string;
+
+  /**
+   * Array of usage records
+   */
+  result?: Array<TelcoDataUsageRecord>;
+
+  /**
+   * Start date of the report period
+   */
+  start_date?: string;
+
+  /**
+   * Current status of the report
+   */
+  status?: string;
+
+  /**
+   * Timestamp when the report was last updated
+   */
+  updated_at?: string;
+}
+
 export interface NumberLookupCreateResponse {
   /**
    * Telco data usage report response
    */
-  data?: NumberLookupCreateResponse.Data;
-}
-
-export namespace NumberLookupCreateResponse {
-  /**
-   * Telco data usage report response
-   */
-  export interface Data {
-    /**
-     * Unique identifier for the report
-     */
-    id?: string;
-
-    /**
-     * Type of aggregation used in the report
-     */
-    aggregation_type?: string;
-
-    /**
-     * Timestamp when the report was created
-     */
-    created_at?: string;
-
-    /**
-     * End date of the report period
-     */
-    end_date?: string;
-
-    /**
-     * List of managed account IDs included in the report
-     */
-    managed_accounts?: Array<string>;
-
-    /**
-     * Record type identifier
-     */
-    record_type?: string;
-
-    /**
-     * URL to download the complete report
-     */
-    report_url?: string;
-
-    /**
-     * Array of usage records
-     */
-    result?: Array<Data.Result>;
-
-    /**
-     * Start date of the report period
-     */
-    start_date?: string;
-
-    /**
-     * Current status of the report
-     */
-    status?: string;
-
-    /**
-     * Timestamp when the report was last updated
-     */
-    updated_at?: string;
-  }
-
-  export namespace Data {
-    export interface Result {
-      /**
-       * List of aggregations by lookup type
-       */
-      aggregations?: Array<Result.Aggregation>;
-
-      /**
-       * Record type identifier
-       */
-      record_type?: string;
-
-      /**
-       * User ID
-       */
-      user_id?: string;
-    }
-
-    export namespace Result {
-      export interface Aggregation {
-        /**
-         * Currency code
-         */
-        currency?: string;
-
-        /**
-         * Total cost for this aggregation
-         */
-        total_cost?: number;
-
-        /**
-         * Total number of lookups performed
-         */
-        total_dips?: number;
-
-        /**
-         * Type of telco data lookup
-         */
-        type?: string;
-      }
-    }
-  }
+  data?: TelcoDataUsageReportResponse;
 }
 
 export interface NumberLookupRetrieveResponse {
   /**
    * Telco data usage report response
    */
-  data?: NumberLookupRetrieveResponse.Data;
-}
-
-export namespace NumberLookupRetrieveResponse {
-  /**
-   * Telco data usage report response
-   */
-  export interface Data {
-    /**
-     * Unique identifier for the report
-     */
-    id?: string;
-
-    /**
-     * Type of aggregation used in the report
-     */
-    aggregation_type?: string;
-
-    /**
-     * Timestamp when the report was created
-     */
-    created_at?: string;
-
-    /**
-     * End date of the report period
-     */
-    end_date?: string;
-
-    /**
-     * List of managed account IDs included in the report
-     */
-    managed_accounts?: Array<string>;
-
-    /**
-     * Record type identifier
-     */
-    record_type?: string;
-
-    /**
-     * URL to download the complete report
-     */
-    report_url?: string;
-
-    /**
-     * Array of usage records
-     */
-    result?: Array<Data.Result>;
-
-    /**
-     * Start date of the report period
-     */
-    start_date?: string;
-
-    /**
-     * Current status of the report
-     */
-    status?: string;
-
-    /**
-     * Timestamp when the report was last updated
-     */
-    updated_at?: string;
-  }
-
-  export namespace Data {
-    export interface Result {
-      /**
-       * List of aggregations by lookup type
-       */
-      aggregations?: Array<Result.Aggregation>;
-
-      /**
-       * Record type identifier
-       */
-      record_type?: string;
-
-      /**
-       * User ID
-       */
-      user_id?: string;
-    }
-
-    export namespace Result {
-      export interface Aggregation {
-        /**
-         * Currency code
-         */
-        currency?: string;
-
-        /**
-         * Total cost for this aggregation
-         */
-        total_cost?: number;
-
-        /**
-         * Total number of lookups performed
-         */
-        total_dips?: number;
-
-        /**
-         * Type of telco data lookup
-         */
-        type?: string;
-      }
-    }
-  }
+  data?: TelcoDataUsageReportResponse;
 }
 
 export interface NumberLookupListResponse {
-  data?: Array<NumberLookupListResponse.Data>;
+  data?: Array<TelcoDataUsageReportResponse>;
 
   meta?: MessagingAPI.StandardPaginationMeta;
-}
-
-export namespace NumberLookupListResponse {
-  /**
-   * Telco data usage report response
-   */
-  export interface Data {
-    /**
-     * Unique identifier for the report
-     */
-    id?: string;
-
-    /**
-     * Type of aggregation used in the report
-     */
-    aggregation_type?: string;
-
-    /**
-     * Timestamp when the report was created
-     */
-    created_at?: string;
-
-    /**
-     * End date of the report period
-     */
-    end_date?: string;
-
-    /**
-     * List of managed account IDs included in the report
-     */
-    managed_accounts?: Array<string>;
-
-    /**
-     * Record type identifier
-     */
-    record_type?: string;
-
-    /**
-     * URL to download the complete report
-     */
-    report_url?: string;
-
-    /**
-     * Array of usage records
-     */
-    result?: Array<Data.Result>;
-
-    /**
-     * Start date of the report period
-     */
-    start_date?: string;
-
-    /**
-     * Current status of the report
-     */
-    status?: string;
-
-    /**
-     * Timestamp when the report was last updated
-     */
-    updated_at?: string;
-  }
-
-  export namespace Data {
-    export interface Result {
-      /**
-       * List of aggregations by lookup type
-       */
-      aggregations?: Array<Result.Aggregation>;
-
-      /**
-       * Record type identifier
-       */
-      record_type?: string;
-
-      /**
-       * User ID
-       */
-      user_id?: string;
-    }
-
-    export namespace Result {
-      export interface Aggregation {
-        /**
-         * Currency code
-         */
-        currency?: string;
-
-        /**
-         * Total cost for this aggregation
-         */
-        total_cost?: number;
-
-        /**
-         * Total number of lookups performed
-         */
-        total_dips?: number;
-
-        /**
-         * Type of telco data lookup
-         */
-        type?: string;
-      }
-    }
-  }
 }
 
 export interface NumberLookupCreateParams {
@@ -430,6 +214,9 @@ export interface NumberLookupCreateParams {
 
 export declare namespace NumberLookup {
   export {
+    type TelcoDataAggregation as TelcoDataAggregation,
+    type TelcoDataUsageRecord as TelcoDataUsageRecord,
+    type TelcoDataUsageReportResponse as TelcoDataUsageReportResponse,
     type NumberLookupCreateResponse as NumberLookupCreateResponse,
     type NumberLookupRetrieveResponse as NumberLookupRetrieveResponse,
     type NumberLookupListResponse as NumberLookupListResponse,

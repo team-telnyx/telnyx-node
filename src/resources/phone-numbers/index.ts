@@ -9,21 +9,21 @@ export {
   type ActionChangeBundleStatusParams,
   type ActionEnableEmergencyParams,
   type ActionVerifyOwnershipParams,
+  type PhoneNumberWithVoiceSettingsDefaultPagination,
 } from './actions';
 export {
   CsvDownloads,
   type CsvDownload,
   type CsvDownloadCreateResponse,
   type CsvDownloadRetrieveResponse,
-  type CsvDownloadListResponse,
   type CsvDownloadCreateParams,
   type CsvDownloadListParams,
+  type CsvDownloadsDefaultPagination,
 } from './csv-downloads';
 export {
   Jobs,
   type PhoneNumbersJob,
   type JobRetrieveResponse,
-  type JobListResponse,
   type JobDeleteBatchResponse,
   type JobUpdateBatchResponse,
   type JobUpdateEmergencySettingsBatchResponse,
@@ -31,12 +31,12 @@ export {
   type JobDeleteBatchParams,
   type JobUpdateBatchParams,
   type JobUpdateEmergencySettingsBatchParams,
+  type PhoneNumbersJobsDefaultPagination,
 } from './jobs';
 export {
   Messaging,
   type MessagingRetrieveResponse,
   type MessagingUpdateResponse,
-  type MessagingListResponse,
   type MessagingUpdateParams,
   type MessagingListParams,
 } from './messaging';
@@ -45,12 +45,13 @@ export {
   type PhoneNumberDetailed,
   type PhoneNumberRetrieveResponse,
   type PhoneNumberUpdateResponse,
-  type PhoneNumberListResponse,
   type PhoneNumberDeleteResponse,
   type PhoneNumberSlimListResponse,
   type PhoneNumberUpdateParams,
   type PhoneNumberListParams,
   type PhoneNumberSlimListParams,
+  type PhoneNumberDetailedsDefaultPagination,
+  type PhoneNumberSlimListResponsesDefaultPagination,
 } from './phone-numbers';
 export {
   Voice,
@@ -61,7 +62,6 @@ export {
   type UpdateVoiceSettings,
   type VoiceRetrieveResponse,
   type VoiceUpdateResponse,
-  type VoiceListResponse,
   type VoiceUpdateParams,
   type VoiceListParams,
 } from './voice';

@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -61,15 +61,20 @@ export class TelephonyCredentials extends APIResource {
    *
    * @example
    * ```ts
-   * const telephonyCredentials =
-   *   await client.telephonyCredentials.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const telephonyCredential of client.telephonyCredentials.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: TelephonyCredentialListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<TelephonyCredentialListResponse> {
-    return this._client.get('/telephony_credentials', { query, ...options });
+  ): PagePromise<TelephonyCredentialsDefaultPagination, TelephonyCredential> {
+    return this._client.getAPIList('/telephony_credentials', DefaultPagination<TelephonyCredential>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -101,6 +106,8 @@ export class TelephonyCredentials extends APIResource {
     });
   }
 }
+
+export type TelephonyCredentialsDefaultPagination = DefaultPagination<TelephonyCredential>;
 
 export interface TelephonyCredential {
   /**
@@ -163,12 +170,6 @@ export interface TelephonyCredentialUpdateResponse {
   data?: TelephonyCredential;
 }
 
-export interface TelephonyCredentialListResponse {
-  data?: Array<TelephonyCredential>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface TelephonyCredentialDeleteResponse {
   data?: TelephonyCredential;
 }
@@ -213,18 +214,12 @@ export interface TelephonyCredentialUpdateParams {
   tag?: string;
 }
 
-export interface TelephonyCredentialListParams {
+export interface TelephonyCredentialListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[tag],
    * filter[name], filter[status], filter[resource_id], filter[sip_username]
    */
   filter?: TelephonyCredentialListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: TelephonyCredentialListParams.Page;
 }
 
 export namespace TelephonyCredentialListParams {
@@ -258,22 +253,6 @@ export namespace TelephonyCredentialListParams {
      */
     tag?: string;
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace TelephonyCredentials {
@@ -282,9 +261,9 @@ export declare namespace TelephonyCredentials {
     type TelephonyCredentialCreateResponse as TelephonyCredentialCreateResponse,
     type TelephonyCredentialRetrieveResponse as TelephonyCredentialRetrieveResponse,
     type TelephonyCredentialUpdateResponse as TelephonyCredentialUpdateResponse,
-    type TelephonyCredentialListResponse as TelephonyCredentialListResponse,
     type TelephonyCredentialDeleteResponse as TelephonyCredentialDeleteResponse,
     type TelephonyCredentialCreateTokenResponse as TelephonyCredentialCreateTokenResponse,
+    type TelephonyCredentialsDefaultPagination as TelephonyCredentialsDefaultPagination,
     type TelephonyCredentialCreateParams as TelephonyCredentialCreateParams,
     type TelephonyCredentialUpdateParams as TelephonyCredentialUpdateParams,
     type TelephonyCredentialListParams as TelephonyCredentialListParams,

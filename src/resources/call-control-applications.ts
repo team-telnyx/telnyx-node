@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -64,15 +64,20 @@ export class CallControlApplications extends APIResource {
    *
    * @example
    * ```ts
-   * const callControlApplications =
-   *   await client.callControlApplications.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const callControlApplication of client.callControlApplications.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: CallControlApplicationListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<CallControlApplicationListResponse> {
-    return this._client.get('/call_control_applications', { query, ...options });
+  ): PagePromise<CallControlApplicationsDefaultPagination, CallControlApplication> {
+    return this._client.getAPIList('/call_control_applications', DefaultPagination<CallControlApplication>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -88,6 +93,8 @@ export class CallControlApplications extends APIResource {
     return this._client.delete(path`/call_control_applications/${id}`, options);
   }
 }
+
+export type CallControlApplicationsDefaultPagination = DefaultPagination<CallControlApplication>;
 
 export interface CallControlApplication {
   id?: string;
@@ -243,12 +250,6 @@ export interface CallControlApplicationRetrieveResponse {
 
 export interface CallControlApplicationUpdateResponse {
   data?: CallControlApplication;
-}
-
-export interface CallControlApplicationListResponse {
-  data?: Array<CallControlApplication>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export interface CallControlApplicationDeleteResponse {
@@ -428,7 +429,7 @@ export interface CallControlApplicationUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface CallControlApplicationListParams {
+export interface CallControlApplicationListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[application_name][contains], filter[outbound.outbound_voice_profile_id],
@@ -437,12 +438,6 @@ export interface CallControlApplicationListParams {
    * filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status]
    */
   filter?: CallControlApplicationListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[after],
-   * page[before], page[limit], page[size], page[number]
-   */
-  page?: CallControlApplicationListParams.Page;
 
   /**
    * Specifies the sort order for results. By default sorting direction is ascending.
@@ -583,37 +578,6 @@ export namespace CallControlApplicationListParams {
       lte?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[after],
-   * page[before], page[limit], page[size], page[number]
-   */
-  export interface Page {
-    /**
-     * Opaque identifier of next page
-     */
-    after?: string;
-
-    /**
-     * Opaque identifier of previous page
-     */
-    before?: string;
-
-    /**
-     * Limit of records per single page
-     */
-    limit?: number;
-
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace CallControlApplications {
@@ -624,8 +588,8 @@ export declare namespace CallControlApplications {
     type CallControlApplicationCreateResponse as CallControlApplicationCreateResponse,
     type CallControlApplicationRetrieveResponse as CallControlApplicationRetrieveResponse,
     type CallControlApplicationUpdateResponse as CallControlApplicationUpdateResponse,
-    type CallControlApplicationListResponse as CallControlApplicationListResponse,
     type CallControlApplicationDeleteResponse as CallControlApplicationDeleteResponse,
+    type CallControlApplicationsDefaultPagination as CallControlApplicationsDefaultPagination,
     type CallControlApplicationCreateParams as CallControlApplicationCreateParams,
     type CallControlApplicationUpdateParams as CallControlApplicationUpdateParams,
     type CallControlApplicationListParams as CallControlApplicationListParams,

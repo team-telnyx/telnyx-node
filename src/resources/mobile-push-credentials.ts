@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -10,25 +10,16 @@ import { path } from '../internal/utils/path';
 export class MobilePushCredentials extends APIResource {
   /**
    * Creates a new mobile push credential
-   *
-   * @example
-   * ```ts
-   * const pushCredentialResponse =
-   *   await client.mobilePushCredentials.create({
-   *     alias: 'LucyIosCredential',
-   *     certificate:
-   *       '-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----',
-   *     private_key:
-   *       '-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----',
-   *     type: 'ios',
-   *   });
-   * ```
    */
   create(
-    body: MobilePushCredentialCreateParams,
+    params: MobilePushCredentialCreateParams,
     options?: RequestOptions,
   ): APIPromise<PushCredentialResponse> {
-    return this._client.post('/mobile_push_credentials', { body, ...options });
+    const { createMobilePushCredentialRequest } = params;
+    return this._client.post('/mobile_push_credentials', {
+      body: createMobilePushCredentialRequest,
+      ...options,
+    });
   }
 
   /**
@@ -44,8 +35,11 @@ export class MobilePushCredentials extends APIResource {
   list(
     query: MobilePushCredentialListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<MobilePushCredentialListResponse> {
-    return this._client.get('/mobile_push_credentials', { query, ...options });
+  ): PagePromise<PushCredentialsDefaultPagination, PushCredential> {
+    return this._client.getAPIList('/mobile_push_credentials', DefaultPagination<PushCredential>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -58,6 +52,8 @@ export class MobilePushCredentials extends APIResource {
     });
   }
 }
+
+export type PushCredentialsDefaultPagination = DefaultPagination<PushCredential>;
 
 export interface PushCredential {
   /**
@@ -111,21 +107,14 @@ export interface PushCredentialResponse {
   data?: PushCredential;
 }
 
-/**
- * Mobile mobile push credentials
- */
-export interface MobilePushCredentialListResponse {
-  data?: Array<PushCredential>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+export interface MobilePushCredentialCreateParams {
+  createMobilePushCredentialRequest:
+    | MobilePushCredentialCreateParams.Ios
+    | MobilePushCredentialCreateParams.Android;
 }
 
-export type MobilePushCredentialCreateParams =
-  | MobilePushCredentialCreateParams.CreateIosPushCredentialRequest
-  | MobilePushCredentialCreateParams.CreateAndroidPushCredentialRequest;
-
-export declare namespace MobilePushCredentialCreateParams {
-  export interface CreateIosPushCredentialRequest {
+export namespace MobilePushCredentialCreateParams {
+  export interface Ios {
     /**
      * Alias to uniquely identify the credential
      */
@@ -147,7 +136,7 @@ export declare namespace MobilePushCredentialCreateParams {
     type: 'ios';
   }
 
-  export interface CreateAndroidPushCredentialRequest {
+  export interface Android {
     /**
      * Alias to uniquely identify the credential
      */
@@ -165,18 +154,12 @@ export declare namespace MobilePushCredentialCreateParams {
   }
 }
 
-export interface MobilePushCredentialListParams {
+export interface MobilePushCredentialListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[type],
    * filter[alias]
    */
   filter?: MobilePushCredentialListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: MobilePushCredentialListParams.Page;
 }
 
 export namespace MobilePushCredentialListParams {
@@ -195,29 +178,13 @@ export namespace MobilePushCredentialListParams {
      */
     type?: 'ios' | 'android';
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 export declare namespace MobilePushCredentials {
   export {
     type PushCredential as PushCredential,
     type PushCredentialResponse as PushCredentialResponse,
-    type MobilePushCredentialListResponse as MobilePushCredentialListResponse,
+    type PushCredentialsDefaultPagination as PushCredentialsDefaultPagination,
     type MobilePushCredentialCreateParams as MobilePushCredentialCreateParams,
     type MobilePushCredentialListParams as MobilePushCredentialListParams,
   };

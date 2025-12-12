@@ -18,22 +18,10 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'create_global_ip_assignments',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCreate a Global IP assignment.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/global_ip_assignment_create_response',\n  $defs: {\n    global_ip_assignment_create_response: {\n      type: 'object',\n      properties: {\n        data: {\n          $ref: '#/$defs/global_ip_assignment'\n        }\n      }\n    },\n    global_ip_assignment: {\n      allOf: [        {\n          $ref: '#/$defs/record'\n        }\n      ]\n    },\n    record: {\n      type: 'object',\n      properties: {\n        id: {\n          type: 'string',\n          description: 'Identifies the resource.'\n        },\n        created_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date-time indicating when the resource was created.'\n        },\n        record_type: {\n          type: 'string',\n          description: 'Identifies the type of the resource.'\n        },\n        updated_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date-time indicating when the resource was updated.'\n        }\n      }\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nCreate a Global IP assignment.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/global_ip_assignment_create_response',\n  $defs: {\n    global_ip_assignment_create_response: {\n      type: 'object',\n      properties: {\n        data: {\n          $ref: '#/$defs/global_ip_assignment'\n        }\n      }\n    },\n    global_ip_assignment: {\n      type: 'object',\n      properties: {\n        id: {\n          type: 'string',\n          description: 'Identifies the resource.'\n        },\n        created_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date-time indicating when the resource was created.'\n        },\n        record_type: {\n          type: 'string',\n          description: 'Identifies the type of the resource.'\n        },\n        updated_at: {\n          type: 'string',\n          description: 'ISO 8601 formatted date-time indicating when the resource was updated.'\n        }\n      }\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
-      global_ip_id: {
-        type: 'string',
-        description: 'Global IP ID.',
-      },
-      is_in_maintenance: {
-        type: 'boolean',
-        description: 'Enable/disable BGP announcement.',
-      },
-      wireguard_peer_id: {
-        type: 'string',
-        description: 'Wireguard peer ID.',
-      },
       jq_filter: {
         type: 'string',
         title: 'jq Filter',

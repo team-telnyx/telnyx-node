@@ -11,12 +11,12 @@ export {
   type PaginationMetaReporting,
   type MdrUsageReportCreateResponse,
   type MdrUsageReportRetrieveResponse,
-  type MdrUsageReportListResponse,
   type MdrUsageReportDeleteResponse,
   type MdrUsageReportFetchSyncResponse,
   type MdrUsageReportCreateParams,
   type MdrUsageReportListParams,
   type MdrUsageReportFetchSyncParams,
+  type MdrUsageReportsDefaultFlatPagination,
 } from './mdr-usage-reports';
 export {
   Reports,
@@ -24,4 +24,5 @@ export {
   type ReportListWdrsResponse,
   type ReportListMdrsParams,
   type ReportListWdrsParams,
+  type ReportListWdrsResponsesDefaultFlatPagination,
 } from './reports';

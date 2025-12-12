@@ -8,5 +8,6 @@ export {
   type CallUpdateParams,
   type CallListParams,
   type CallRemoveParams,
+  type CallListResponsesDefaultPagination,
 } from './calls';
 export { Queues, type QueueRetrieveResponse } from './queues';

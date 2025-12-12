@@ -7,7 +7,7 @@ export {
   type ReservedPhoneNumber,
   type NumberReservationCreateResponse,
   type NumberReservationRetrieveResponse,
-  type NumberReservationListResponse,
   type NumberReservationCreateParams,
   type NumberReservationListParams,
+  type NumberReservationsDefaultPagination,
 } from './number-reservations';

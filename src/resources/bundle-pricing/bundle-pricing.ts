@@ -4,9 +4,9 @@ import { APIResource } from '../../core/resource';
 import * as BillingBundlesAPI from './billing-bundles';
 import {
   BillingBundleListParams,
-  BillingBundleListResponse,
   BillingBundleRetrieveParams,
   BillingBundleRetrieveResponse,
+  BillingBundleSummariesDefaultPagination,
   BillingBundleSummary,
   BillingBundles,
   PaginationResponse,
@@ -21,13 +21,13 @@ import {
   UserBundleListParams,
   UserBundleListResourcesParams,
   UserBundleListResourcesResponse,
-  UserBundleListResponse,
   UserBundleListUnusedParams,
   UserBundleListUnusedResponse,
   UserBundleResource,
   UserBundleRetrieveParams,
   UserBundleRetrieveResponse,
   UserBundles,
+  UserBundlesDefaultPagination,
 } from './user-bundles';
 
 export class BundlePricing extends APIResource {
@@ -44,7 +44,7 @@ export declare namespace BundlePricing {
     type BillingBundleSummary as BillingBundleSummary,
     type PaginationResponse as PaginationResponse,
     type BillingBundleRetrieveResponse as BillingBundleRetrieveResponse,
-    type BillingBundleListResponse as BillingBundleListResponse,
+    type BillingBundleSummariesDefaultPagination as BillingBundleSummariesDefaultPagination,
     type BillingBundleRetrieveParams as BillingBundleRetrieveParams,
     type BillingBundleListParams as BillingBundleListParams,
   };
@@ -55,10 +55,10 @@ export declare namespace BundlePricing {
     type UserBundleResource as UserBundleResource,
     type UserBundleCreateResponse as UserBundleCreateResponse,
     type UserBundleRetrieveResponse as UserBundleRetrieveResponse,
-    type UserBundleListResponse as UserBundleListResponse,
     type UserBundleDeactivateResponse as UserBundleDeactivateResponse,
     type UserBundleListResourcesResponse as UserBundleListResourcesResponse,
     type UserBundleListUnusedResponse as UserBundleListUnusedResponse,
+    type UserBundlesDefaultPagination as UserBundlesDefaultPagination,
     type UserBundleCreateParams as UserBundleCreateParams,
     type UserBundleRetrieveParams as UserBundleRetrieveParams,
     type UserBundleListParams as UserBundleListParams,

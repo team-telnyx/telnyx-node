@@ -20,7 +20,7 @@ export const tool: Tool = {
   inputSchema: {
     type: 'object',
     properties: {
-      id: {
+      messaging_profile_id: {
         type: 'string',
       },
       alpha_sender: {
@@ -92,7 +92,7 @@ export const tool: Tool = {
         },
       },
     },
-    required: ['id'],
+    required: ['messaging_profile_id'],
     $defs: {
       number_pool_settings: {
         type: 'object',
@@ -160,9 +160,9 @@ export const tool: Tool = {
 };
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
-  const { id, ...body } = args as any;
+  const { messaging_profile_id, ...body } = args as any;
   try {
-    return asTextContentResult(await client.messagingProfiles.update(id, body));
+    return asTextContentResult(await client.messagingProfiles.update(messaging_profile_id, body));
   } catch (error) {
     if (error instanceof Telnyx.APIError) {
       return asErrorResult(error.message);

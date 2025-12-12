@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -42,17 +42,24 @@ export class CsvDownloads extends APIResource {
    *
    * @example
    * ```ts
-   * const csvDownloads =
-   *   await client.phoneNumbers.csvDownloads.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const csvDownload of client.phoneNumbers.csvDownloads.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: CsvDownloadListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<CsvDownloadListResponse> {
-    return this._client.get('/phone_numbers/csv_downloads', { query, ...options });
+  ): PagePromise<CsvDownloadsDefaultPagination, CsvDownload> {
+    return this._client.getAPIList('/phone_numbers/csv_downloads', DefaultPagination<CsvDownload>, {
+      query,
+      ...options,
+    });
   }
 }
+
+export type CsvDownloadsDefaultPagination = DefaultPagination<CsvDownload>;
 
 export interface CsvDownload {
   /**
@@ -83,12 +90,6 @@ export interface CsvDownloadCreateResponse {
 
 export interface CsvDownloadRetrieveResponse {
   data?: Array<CsvDownload>;
-}
-
-export interface CsvDownloadListResponse {
-  data?: Array<CsvDownload>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export interface CsvDownloadCreateParams {
@@ -210,38 +211,14 @@ export namespace CsvDownloadCreateParams {
   }
 }
 
-export interface CsvDownloadListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: CsvDownloadListParams.Page;
-}
-
-export namespace CsvDownloadListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
-}
+export interface CsvDownloadListParams extends DefaultPaginationParams {}
 
 export declare namespace CsvDownloads {
   export {
     type CsvDownload as CsvDownload,
     type CsvDownloadCreateResponse as CsvDownloadCreateResponse,
     type CsvDownloadRetrieveResponse as CsvDownloadRetrieveResponse,
-    type CsvDownloadListResponse as CsvDownloadListResponse,
+    type CsvDownloadsDefaultPagination as CsvDownloadsDefaultPagination,
     type CsvDownloadCreateParams as CsvDownloadCreateParams,
     type CsvDownloadListParams as CsvDownloadListParams,
   };

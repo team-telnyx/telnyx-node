@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -98,15 +98,21 @@ export class LoaConfigurations extends APIResource {
    *
    * @example
    * ```ts
-   * const loaConfigurations =
-   *   await client.porting.loaConfigurations.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const portingLoaConfiguration of client.porting.loaConfigurations.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: LoaConfigurationListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<LoaConfigurationListResponse> {
-    return this._client.get('/porting/loa_configurations', { query, ...options });
+  ): PagePromise<PortingLoaConfigurationsDefaultPagination, PortingLoaConfiguration> {
+    return this._client.getAPIList(
+      '/porting/loa_configurations',
+      DefaultPagination<PortingLoaConfiguration>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -187,6 +193,8 @@ export class LoaConfigurations extends APIResource {
     });
   }
 }
+
+export type PortingLoaConfigurationsDefaultPagination = DefaultPagination<PortingLoaConfiguration>;
 
 export interface PortingLoaConfiguration {
   /**
@@ -317,12 +325,6 @@ export interface LoaConfigurationRetrieveResponse {
 
 export interface LoaConfigurationUpdateResponse {
   data?: PortingLoaConfiguration;
-}
-
-export interface LoaConfigurationListResponse {
-  data?: Array<PortingLoaConfiguration>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export interface LoaConfigurationCreateParams {
@@ -503,31 +505,7 @@ export namespace LoaConfigurationUpdateParams {
   }
 }
 
-export interface LoaConfigurationListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: LoaConfigurationListParams.Page;
-}
-
-export namespace LoaConfigurationListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
-}
+export interface LoaConfigurationListParams extends DefaultPaginationParams {}
 
 export interface LoaConfigurationPreview0Params {
   /**
@@ -624,7 +602,7 @@ export declare namespace LoaConfigurations {
     type LoaConfigurationCreateResponse as LoaConfigurationCreateResponse,
     type LoaConfigurationRetrieveResponse as LoaConfigurationRetrieveResponse,
     type LoaConfigurationUpdateResponse as LoaConfigurationUpdateResponse,
-    type LoaConfigurationListResponse as LoaConfigurationListResponse,
+    type PortingLoaConfigurationsDefaultPagination as PortingLoaConfigurationsDefaultPagination,
     type LoaConfigurationCreateParams as LoaConfigurationCreateParams,
     type LoaConfigurationUpdateParams as LoaConfigurationUpdateParams,
     type LoaConfigurationListParams as LoaConfigurationListParams,

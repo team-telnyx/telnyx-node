@@ -43,7 +43,7 @@ describe('resource userAddresses', () => {
       neighborhood: 'Ciudad de los deportes',
       phone_number: '+12125559000',
       postal_code: '78701',
-      skip_address_verification: 'skip_address_verification',
+      skip_address_verification: true,
     });
   });
 

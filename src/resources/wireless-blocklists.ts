@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -63,15 +63,20 @@ export class WirelessBlocklists extends APIResource {
    *
    * @example
    * ```ts
-   * const wirelessBlocklists =
-   *   await client.wirelessBlocklists.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const wirelessBlocklist of client.wirelessBlocklists.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: WirelessBlocklistListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<WirelessBlocklistListResponse> {
-    return this._client.get('/wireless_blocklists', { query, ...options });
+  ): PagePromise<WirelessBlocklistsDefaultFlatPagination, WirelessBlocklist> {
+    return this._client.getAPIList('/wireless_blocklists', DefaultFlatPagination<WirelessBlocklist>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -89,6 +94,8 @@ export class WirelessBlocklists extends APIResource {
     return this._client.delete(path`/wireless_blocklists/${id}`, options);
   }
 }
+
+export type WirelessBlocklistsDefaultFlatPagination = DefaultFlatPagination<WirelessBlocklist>;
 
 export interface WirelessBlocklist {
   /**
@@ -136,12 +143,6 @@ export interface WirelessBlocklistUpdateResponse {
   data?: WirelessBlocklist;
 }
 
-export interface WirelessBlocklistListResponse {
-  data?: Array<WirelessBlocklist>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface WirelessBlocklistDeleteResponse {
   data?: WirelessBlocklist;
 }
@@ -180,7 +181,7 @@ export interface WirelessBlocklistUpdateParams {
   values?: Array<string>;
 }
 
-export interface WirelessBlocklistListParams {
+export interface WirelessBlocklistListParams extends DefaultFlatPaginationParams {
   /**
    * The name of the Wireless Blocklist.
    */
@@ -195,16 +196,6 @@ export interface WirelessBlocklistListParams {
    * Values to filter on (inclusive).
    */
   'filter[values]'?: string;
-
-  /**
-   * The page number to load.
-   */
-  'page[number]'?: number;
-
-  /**
-   * The size of the page.
-   */
-  'page[size]'?: number;
 }
 
 export declare namespace WirelessBlocklists {
@@ -213,8 +204,8 @@ export declare namespace WirelessBlocklists {
     type WirelessBlocklistCreateResponse as WirelessBlocklistCreateResponse,
     type WirelessBlocklistRetrieveResponse as WirelessBlocklistRetrieveResponse,
     type WirelessBlocklistUpdateResponse as WirelessBlocklistUpdateResponse,
-    type WirelessBlocklistListResponse as WirelessBlocklistListResponse,
     type WirelessBlocklistDeleteResponse as WirelessBlocklistDeleteResponse,
+    type WirelessBlocklistsDefaultFlatPagination as WirelessBlocklistsDefaultFlatPagination,
     type WirelessBlocklistCreateParams as WirelessBlocklistCreateParams,
     type WirelessBlocklistUpdateParams as WirelessBlocklistUpdateParams,
     type WirelessBlocklistListParams as WirelessBlocklistListParams,

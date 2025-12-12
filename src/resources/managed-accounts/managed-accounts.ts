@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as ActionsAPI from './actions';
 import { ActionDisableResponse, ActionEnableParams, ActionEnableResponse, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -66,14 +66,20 @@ export class ManagedAccounts extends APIResource {
    *
    * @example
    * ```ts
-   * const managedAccounts = await client.managedAccounts.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const managedAccountListResponse of client.managedAccounts.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: ManagedAccountListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ManagedAccountListResponse> {
-    return this._client.get('/managed_accounts', { query, ...options });
+  ): PagePromise<ManagedAccountListResponsesDefaultPagination, ManagedAccountListResponse> {
+    return this._client.getAPIList('/managed_accounts', DefaultPagination<ManagedAccountListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -115,6 +121,8 @@ export class ManagedAccounts extends APIResource {
     });
   }
 }
+
+export type ManagedAccountListResponsesDefaultPagination = DefaultPagination<ManagedAccountListResponse>;
 
 export interface ManagedAccount {
   /**
@@ -228,71 +236,63 @@ export interface ManagedAccountUpdateResponse {
 }
 
 export interface ManagedAccountListResponse {
-  data?: Array<ManagedAccountListResponse.Data>;
+  /**
+   * Uniquely identifies the managed account.
+   */
+  id: string;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
+  /**
+   * The manager account's email, which serves as the V1 API user identifier
+   */
+  api_user: string;
 
-export namespace ManagedAccountListResponse {
-  export interface Data {
-    /**
-     * Uniquely identifies the managed account.
-     */
-    id: string;
+  /**
+   * ISO 8601 formatted date indicating when the resource was created.
+   */
+  created_at: string;
 
-    /**
-     * The manager account's email, which serves as the V1 API user identifier
-     */
-    api_user: string;
+  /**
+   * The managed account's email.
+   */
+  email: string;
 
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    created_at: string;
+  /**
+   * The ID of the manager account associated with the managed account.
+   */
+  manager_account_id: string;
 
-    /**
-     * The managed account's email.
-     */
-    email: string;
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type: 'managed_account';
 
-    /**
-     * The ID of the manager account associated with the managed account.
-     */
-    manager_account_id: string;
+  /**
+   * ISO 8601 formatted date indicating when the resource was updated.
+   */
+  updated_at: string;
 
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type: 'managed_account';
+  /**
+   * Boolean value that indicates if the managed account is able to have custom
+   * pricing set for it or not. If false, uses the pricing of the manager account.
+   * Defaults to false. There may be time lag between when the value is changed and
+   * pricing changes take effect.
+   */
+  managed_account_allow_custom_pricing?: boolean;
 
-    /**
-     * ISO 8601 formatted date indicating when the resource was updated.
-     */
-    updated_at: string;
+  /**
+   * The organization the managed account is associated with.
+   */
+  organization_name?: string;
 
-    /**
-     * Boolean value that indicates if the managed account is able to have custom
-     * pricing set for it or not. If false, uses the pricing of the manager account.
-     * Defaults to false. There may be time lag between when the value is changed and
-     * pricing changes take effect.
-     */
-    managed_account_allow_custom_pricing?: boolean;
-
-    /**
-     * The organization the managed account is associated with.
-     */
-    organization_name?: string;
-
-    /**
-     * Boolean value that indicates if the billing information and charges to the
-     * managed account "roll up" to the manager account. If true, the managed account
-     * will not have its own balance and will use the shared balance with the manager
-     * account. This value cannot be changed after account creation without going
-     * through Telnyx support as changes require manual updates to the account ledger.
-     * Defaults to false.
-     */
-    rollup_billing?: boolean;
-  }
+  /**
+   * Boolean value that indicates if the billing information and charges to the
+   * managed account "roll up" to the manager account. If true, the managed account
+   * will not have its own balance and will use the shared balance with the manager
+   * account. This value cannot be changed after account creation without going
+   * through Telnyx support as changes require manual updates to the account ledger.
+   * Defaults to false.
+   */
+  rollup_billing?: boolean;
 }
 
 export interface ManagedAccountGetAllocatableGlobalOutboundChannelsResponse {
@@ -415,7 +415,7 @@ export interface ManagedAccountUpdateParams {
   managed_account_allow_custom_pricing?: boolean;
 }
 
-export interface ManagedAccountListParams {
+export interface ManagedAccountListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[email][contains], filter[email][eq], filter[organization_name][contains],
@@ -427,12 +427,6 @@ export interface ManagedAccountListParams {
    * Specifies if cancelled accounts should be included in the results.
    */
   include_cancelled_accounts?: boolean;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: ManagedAccountListParams.Page;
 
   /**
    * Specifies the sort order for results. By default sorting direction is ascending.
@@ -495,22 +489,6 @@ export namespace ManagedAccountListParams {
       eq?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export interface ManagedAccountUpdateGlobalChannelLimitParams {
@@ -535,6 +513,7 @@ export declare namespace ManagedAccounts {
     type ManagedAccountListResponse as ManagedAccountListResponse,
     type ManagedAccountGetAllocatableGlobalOutboundChannelsResponse as ManagedAccountGetAllocatableGlobalOutboundChannelsResponse,
     type ManagedAccountUpdateGlobalChannelLimitResponse as ManagedAccountUpdateGlobalChannelLimitResponse,
+    type ManagedAccountListResponsesDefaultPagination as ManagedAccountListResponsesDefaultPagination,
     type ManagedAccountCreateParams as ManagedAccountCreateParams,
     type ManagedAccountUpdateParams as ManagedAccountUpdateParams,
     type ManagedAccountListParams as ManagedAccountListParams,

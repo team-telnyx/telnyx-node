@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -29,14 +29,20 @@ export class Actions extends APIResource {
    *
    * @example
    * ```ts
-   * const actions = await client.simCardGroups.actions.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const simCardGroupAction of client.simCardGroups.actions.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: ActionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ActionListResponse> {
-    return this._client.get('/sim_card_group_actions', { query, ...options });
+  ): PagePromise<SimCardGroupActionsDefaultFlatPagination, SimCardGroupAction> {
+    return this._client.getAPIList('/sim_card_group_actions', DefaultFlatPagination<SimCardGroupAction>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -139,6 +145,8 @@ export class Actions extends APIResource {
   }
 }
 
+export type SimCardGroupActionsDefaultFlatPagination = DefaultFlatPagination<SimCardGroupAction>;
+
 /**
  * This object represents a SIM card group action request. It allows tracking the
  * current status of an operation that impacts the SIM card group and SIM card in
@@ -205,12 +213,6 @@ export interface ActionRetrieveResponse {
   data?: SimCardGroupAction;
 }
 
-export interface ActionListResponse {
-  data?: Array<SimCardGroupAction>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface ActionRemovePrivateWirelessGatewayResponse {
   /**
    * This object represents a SIM card group action request. It allows tracking the
@@ -247,7 +249,7 @@ export interface ActionSetWirelessBlocklistResponse {
   data?: SimCardGroupAction;
 }
 
-export interface ActionListParams {
+export interface ActionListParams extends DefaultFlatPaginationParams {
   /**
    * A valid SIM card group ID.
    */
@@ -266,16 +268,6 @@ export interface ActionListParams {
     | 'remove_private_wireless_gateway'
     | 'set_wireless_blocklist'
     | 'remove_wireless_blocklist';
-
-  /**
-   * The page number to load.
-   */
-  'page[number]'?: number;
-
-  /**
-   * The size of the page.
-   */
-  'page[size]'?: number;
 }
 
 export interface ActionSetPrivateWirelessGatewayParams {
@@ -296,11 +288,11 @@ export declare namespace Actions {
   export {
     type SimCardGroupAction as SimCardGroupAction,
     type ActionRetrieveResponse as ActionRetrieveResponse,
-    type ActionListResponse as ActionListResponse,
     type ActionRemovePrivateWirelessGatewayResponse as ActionRemovePrivateWirelessGatewayResponse,
     type ActionRemoveWirelessBlocklistResponse as ActionRemoveWirelessBlocklistResponse,
     type ActionSetPrivateWirelessGatewayResponse as ActionSetPrivateWirelessGatewayResponse,
     type ActionSetWirelessBlocklistResponse as ActionSetWirelessBlocklistResponse,
+    type SimCardGroupActionsDefaultFlatPagination as SimCardGroupActionsDefaultFlatPagination,
     type ActionListParams as ActionListParams,
     type ActionSetPrivateWirelessGatewayParams as ActionSetPrivateWirelessGatewayParams,
     type ActionSetWirelessBlocklistParams as ActionSetWirelessBlocklistParams,

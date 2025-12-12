@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -39,14 +39,20 @@ export class GlobalIPs extends APIResource {
    *
    * @example
    * ```ts
-   * const globalIPs = await client.globalIPs.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const globalIPListResponse of client.globalIPs.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: GlobalIPListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<GlobalIPListResponse> {
-    return this._client.get('/global_ips', { query, ...options });
+  ): PagePromise<GlobalIPListResponsesDefaultPagination, GlobalIPListResponse> {
+    return this._client.getAPIList('/global_ips', DefaultPagination<GlobalIPListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -63,6 +69,8 @@ export class GlobalIPs extends APIResource {
     return this._client.delete(path`/global_ips/${id}`, options);
   }
 }
+
+export type GlobalIPListResponsesDefaultPagination = DefaultPagination<GlobalIPListResponse>;
 
 export interface GlobalIPCreateResponse {
   data?: GlobalIPCreateResponse.Data;
@@ -89,11 +97,6 @@ export namespace GlobalIPCreateResponse {
      * A Global IP ports grouped by protocol code.
      */
     ports?: { [key: string]: unknown };
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
   }
 }
 
@@ -122,47 +125,29 @@ export namespace GlobalIPRetrieveResponse {
      * A Global IP ports grouped by protocol code.
      */
     ports?: { [key: string]: unknown };
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
   }
 }
 
-export interface GlobalIPListResponse {
-  data?: Array<GlobalIPListResponse.Data>;
+export interface GlobalIPListResponse extends GlobalIPAssignmentsAPI.Record {
+  /**
+   * A user specified description for the address.
+   */
+  description?: string;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
+  /**
+   * The Global IP address.
+   */
+  ip_address?: string;
 
-export namespace GlobalIPListResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * A user specified description for the address.
-     */
-    description?: string;
+  /**
+   * A user specified name for the address.
+   */
+  name?: string;
 
-    /**
-     * The Global IP address.
-     */
-    ip_address?: string;
-
-    /**
-     * A user specified name for the address.
-     */
-    name?: string;
-
-    /**
-     * A Global IP ports grouped by protocol code.
-     */
-    ports?: { [key: string]: unknown };
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-  }
+  /**
+   * A Global IP ports grouped by protocol code.
+   */
+  ports?: { [key: string]: unknown };
 }
 
 export interface GlobalIPDeleteResponse {
@@ -190,11 +175,6 @@ export namespace GlobalIPDeleteResponse {
      * A Global IP ports grouped by protocol code.
      */
     ports?: { [key: string]: unknown };
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
   }
 }
 
@@ -215,31 +195,7 @@ export interface GlobalIPCreateParams {
   ports?: { [key: string]: unknown };
 }
 
-export interface GlobalIPListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: GlobalIPListParams.Page;
-}
-
-export namespace GlobalIPListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
-}
+export interface GlobalIPListParams extends DefaultPaginationParams {}
 
 export declare namespace GlobalIPs {
   export {
@@ -247,6 +203,7 @@ export declare namespace GlobalIPs {
     type GlobalIPRetrieveResponse as GlobalIPRetrieveResponse,
     type GlobalIPListResponse as GlobalIPListResponse,
     type GlobalIPDeleteResponse as GlobalIPDeleteResponse,
+    type GlobalIPListResponsesDefaultPagination as GlobalIPListResponsesDefaultPagination,
     type GlobalIPCreateParams as GlobalIPCreateParams,
     type GlobalIPListParams as GlobalIPListParams,
   };

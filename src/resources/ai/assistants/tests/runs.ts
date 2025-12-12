@@ -2,8 +2,12 @@
 
 import { APIResource } from '../../../../core/resource';
 import * as RunsAPI from './runs';
-import * as TestSuitesRunsAPI from './test-suites/runs';
 import { APIPromise } from '../../../../core/api-promise';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../../core/pagination';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
@@ -30,16 +34,24 @@ export class Runs extends APIResource {
    *
    * @example
    * ```ts
-   * const paginatedTestRunList =
-   *   await client.ai.assistants.tests.runs.list('test_id');
+   * // Automatically fetches more pages as needed.
+   * for await (const testRunResponse of client.ai.assistants.tests.runs.list(
+   *   'test_id',
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     testID: string,
     query: RunListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<TestSuitesRunsAPI.PaginatedTestRunList> {
-    return this._client.get(path`/ai/assistants/tests/${testID}/runs`, { query, ...options });
+  ): PagePromise<TestRunResponsesDefaultFlatPagination, TestRunResponse> {
+    return this._client.getAPIList(
+      path`/ai/assistants/tests/${testID}/runs`,
+      DefaultFlatPagination<TestRunResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -59,6 +71,8 @@ export class Runs extends APIResource {
     return this._client.post(path`/ai/assistants/tests/${testID}/runs`, { body, ...options });
   }
 }
+
+export type TestRunResponsesDefaultFlatPagination = DefaultFlatPagination<TestRunResponse>;
 
 /**
  * Response model containing test run execution details and results.
@@ -171,35 +185,11 @@ export interface RunRetrieveParams {
   test_id: string;
 }
 
-export interface RunListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: RunListParams.Page;
-
+export interface RunListParams extends DefaultFlatPaginationParams {
   /**
    * Filter runs by execution status (pending, running, completed, failed, timeout)
    */
   status?: string;
-}
-
-export namespace RunListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * Page number to retrieve (1-based indexing)
-     */
-    number?: number;
-
-    /**
-     * Number of test runs to return per page (1-100)
-     */
-    size?: number;
-  }
 }
 
 export interface RunTriggerParams {
@@ -215,6 +205,7 @@ export declare namespace Runs {
   export {
     type TestRunResponse as TestRunResponse,
     type TestStatus as TestStatus,
+    type TestRunResponsesDefaultFlatPagination as TestRunResponsesDefaultFlatPagination,
     type RunRetrieveParams as RunRetrieveParams,
     type RunListParams as RunListParams,
     type RunTriggerParams as RunTriggerParams,

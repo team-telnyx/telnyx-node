@@ -20,7 +20,7 @@ export const tool: Tool = {
   inputSchema: {
     type: 'object',
     properties: {
-      id: {
+      sim_card_id: {
         type: 'string',
       },
       authorized_imeis: {
@@ -59,7 +59,7 @@ export const tool: Tool = {
         },
       },
     },
-    required: ['id'],
+    required: ['sim_card_id'],
     $defs: {
       sim_card_status: {
         type: 'object',
@@ -91,9 +91,9 @@ export const tool: Tool = {
 };
 
 export const handler = async (client: Telnyx, args: Record<string, unknown> | undefined) => {
-  const { id, ...body } = args as any;
+  const { sim_card_id, ...body } = args as any;
   try {
-    return asTextContentResult(await client.simCards.update(id, body));
+    return asTextContentResult(await client.simCards.update(sim_card_id, body));
   } catch (error) {
     if (error instanceof Telnyx.APIError) {
       return asErrorResult(error.message);

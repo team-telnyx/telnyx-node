@@ -4,8 +4,12 @@ import { APIResource } from '../../../../core/resource';
 import * as InsightsAPI from '../insights';
 import * as InsightGroupsInsightsAPI from './insights';
 import { InsightAssignParams, InsightDeleteUnassignParams, Insights } from './insights';
-import * as RunsAPI from '../../assistants/tests/test-suites/runs';
 import { APIPromise } from '../../../../core/api-promise';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../../core/pagination';
 import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
@@ -87,17 +91,25 @@ export class InsightGroups extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.ai.conversations.insightGroups.retrieveInsightGroups();
+   * // Automatically fetches more pages as needed.
+   * for await (const insightTemplateGroup of client.ai.conversations.insightGroups.retrieveInsightGroups()) {
+   *   // ...
+   * }
    * ```
    */
   retrieveInsightGroups(
     query: InsightGroupRetrieveInsightGroupsParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<InsightGroupRetrieveInsightGroupsResponse> {
-    return this._client.get('/ai/conversations/insight-groups', { query, ...options });
+  ): PagePromise<InsightTemplateGroupsDefaultFlatPagination, InsightTemplateGroup> {
+    return this._client.getAPIList(
+      '/ai/conversations/insight-groups',
+      DefaultFlatPagination<InsightTemplateGroup>,
+      { query, ...options },
+    );
   }
 }
+
+export type InsightTemplateGroupsDefaultFlatPagination = DefaultFlatPagination<InsightTemplateGroup>;
 
 export interface InsightTemplateGroup {
   id: string;
@@ -117,12 +129,6 @@ export interface InsightTemplateGroupDetail {
   data: InsightTemplateGroup;
 }
 
-export interface InsightGroupRetrieveInsightGroupsResponse {
-  data: Array<InsightTemplateGroup>;
-
-  meta: RunsAPI.Meta;
-}
-
 export interface InsightGroupUpdateParams {
   description?: string;
 
@@ -139,31 +145,7 @@ export interface InsightGroupInsightGroupsParams {
   webhook?: string;
 }
 
-export interface InsightGroupRetrieveInsightGroupsParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: InsightGroupRetrieveInsightGroupsParams.Page;
-}
-
-export namespace InsightGroupRetrieveInsightGroupsParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * Page number (0-based)
-     */
-    number?: number;
-
-    /**
-     * Number of items per page
-     */
-    size?: number;
-  }
-}
+export interface InsightGroupRetrieveInsightGroupsParams extends DefaultFlatPaginationParams {}
 
 InsightGroups.Insights = Insights;
 
@@ -171,7 +153,7 @@ export declare namespace InsightGroups {
   export {
     type InsightTemplateGroup as InsightTemplateGroup,
     type InsightTemplateGroupDetail as InsightTemplateGroupDetail,
-    type InsightGroupRetrieveInsightGroupsResponse as InsightGroupRetrieveInsightGroupsResponse,
+    type InsightTemplateGroupsDefaultFlatPagination as InsightTemplateGroupsDefaultFlatPagination,
     type InsightGroupUpdateParams as InsightGroupUpdateParams,
     type InsightGroupInsightGroupsParams as InsightGroupInsightGroupsParams,
     type InsightGroupRetrieveInsightGroupsParams as InsightGroupRetrieveInsightGroupsParams,

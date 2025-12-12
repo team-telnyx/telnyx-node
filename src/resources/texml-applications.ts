@@ -3,6 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as CredentialConnectionsAPI from './credential-connections/credential-connections';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -69,15 +70,20 @@ export class TexmlApplications extends APIResource {
    *
    * @example
    * ```ts
-   * const texmlApplications =
-   *   await client.texmlApplications.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const texmlApplication of client.texmlApplications.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: TexmlApplicationListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<TexmlApplicationListResponse> {
-    return this._client.get('/texml_applications', { query, ...options });
+  ): PagePromise<TexmlApplicationsDefaultPagination, TexmlApplication> {
+    return this._client.getAPIList('/texml_applications', DefaultPagination<TexmlApplication>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -95,6 +101,8 @@ export class TexmlApplications extends APIResource {
     return this._client.delete(path`/texml_applications/${id}`, options);
   }
 }
+
+export type TexmlApplicationsDefaultPagination = DefaultPagination<TexmlApplication>;
 
 export interface TexmlApplication {
   /**
@@ -250,24 +258,6 @@ export interface TexmlApplicationRetrieveResponse {
 
 export interface TexmlApplicationUpdateResponse {
   data?: TexmlApplication;
-}
-
-export interface TexmlApplicationListResponse {
-  data?: Array<TexmlApplication>;
-
-  meta?: TexmlApplicationListResponse.Meta;
-}
-
-export namespace TexmlApplicationListResponse {
-  export interface Meta {
-    page_number?: number;
-
-    page_size?: number;
-
-    total_pages?: number;
-
-    total_results?: number;
-  }
 }
 
 export interface TexmlApplicationDeleteResponse {
@@ -522,18 +512,12 @@ export namespace TexmlApplicationUpdateParams {
   }
 }
 
-export interface TexmlApplicationListParams {
+export interface TexmlApplicationListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[outbound_voice_profile_id], filter[friendly_name]
    */
   filter?: TexmlApplicationListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: TexmlApplicationListParams.Page;
 
   /**
    * Specifies the sort order for results. By default sorting direction is ascending.
@@ -572,22 +556,6 @@ export namespace TexmlApplicationListParams {
      */
     outbound_voice_profile_id?: string;
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace TexmlApplications {
@@ -596,8 +564,8 @@ export declare namespace TexmlApplications {
     type TexmlApplicationCreateResponse as TexmlApplicationCreateResponse,
     type TexmlApplicationRetrieveResponse as TexmlApplicationRetrieveResponse,
     type TexmlApplicationUpdateResponse as TexmlApplicationUpdateResponse,
-    type TexmlApplicationListResponse as TexmlApplicationListResponse,
     type TexmlApplicationDeleteResponse as TexmlApplicationDeleteResponse,
+    type TexmlApplicationsDefaultPagination as TexmlApplicationsDefaultPagination,
     type TexmlApplicationCreateParams as TexmlApplicationCreateParams,
     type TexmlApplicationUpdateParams as TexmlApplicationUpdateParams,
     type TexmlApplicationListParams as TexmlApplicationListParams,

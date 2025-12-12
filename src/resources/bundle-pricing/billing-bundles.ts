@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -38,25 +39,33 @@ export class BillingBundles extends APIResource {
    *
    * @example
    * ```ts
-   * const billingBundles =
-   *   await client.bundlePricing.billingBundles.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const billingBundleSummary of client.bundlePricing.billingBundles.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     params: BillingBundleListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<BillingBundleListResponse> {
+  ): PagePromise<BillingBundleSummariesDefaultPagination, BillingBundleSummary> {
     const { authorization_bearer, ...query } = params ?? {};
-    return this._client.get('/bundle_pricing/billing_bundles', {
-      query,
-      ...options,
-      headers: buildHeaders([
-        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
-        options?.headers,
-      ]),
-    });
+    return this._client.getAPIList(
+      '/bundle_pricing/billing_bundles',
+      DefaultPagination<BillingBundleSummary>,
+      {
+        query,
+        ...options,
+        headers: buildHeaders([
+          { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
+          options?.headers,
+        ]),
+      },
+    );
   }
 }
+
+export type BillingBundleSummariesDefaultPagination = DefaultPagination<BillingBundleSummary>;
 
 export interface BillingBundleSummary {
   /**
@@ -205,12 +214,6 @@ export namespace BillingBundleRetrieveResponse {
   }
 }
 
-export interface BillingBundleListResponse {
-  data: Array<BillingBundleSummary>;
-
-  meta: PaginationResponse;
-}
-
 export interface BillingBundleRetrieveParams {
   /**
    * Authenticates the request with your Telnyx API V2 KEY
@@ -218,19 +221,13 @@ export interface BillingBundleRetrieveParams {
   authorization_bearer?: string;
 }
 
-export interface BillingBundleListParams {
+export interface BillingBundleListParams extends DefaultPaginationParams {
   /**
    * Query param: Consolidated filter parameter (deepObject style). Supports
    * filtering by country_iso and resource. Examples: filter[country_iso]=US or
    * filter[resource]=+15617819942
    */
   filter?: BillingBundleListParams.Filter;
-
-  /**
-   * Query param: Consolidated page parameter (deepObject style). Originally:
-   * page[size], page[number]
-   */
-  page?: BillingBundleListParams.Page;
 
   /**
    * Header param: Authenticates the request with your Telnyx API V2 KEY
@@ -255,22 +252,6 @@ export namespace BillingBundleListParams {
      */
     resource?: Array<string>;
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 export declare namespace BillingBundles {
@@ -278,7 +259,7 @@ export declare namespace BillingBundles {
     type BillingBundleSummary as BillingBundleSummary,
     type PaginationResponse as PaginationResponse,
     type BillingBundleRetrieveResponse as BillingBundleRetrieveResponse,
-    type BillingBundleListResponse as BillingBundleListResponse,
+    type BillingBundleSummariesDefaultPagination as BillingBundleSummariesDefaultPagination,
     type BillingBundleRetrieveParams as BillingBundleRetrieveParams,
     type BillingBundleListParams as BillingBundleListParams,
   };

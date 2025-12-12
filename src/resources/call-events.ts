@@ -1,8 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
-import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class CallEvents extends APIResource {
@@ -16,56 +15,53 @@ export class CallEvents extends APIResource {
   list(
     query: CallEventListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<CallEventListResponse> {
-    return this._client.get('/call_events', { query, ...options });
+  ): PagePromise<CallEventListResponsesDefaultPagination, CallEventListResponse> {
+    return this._client.getAPIList('/call_events', DefaultPagination<CallEventListResponse>, {
+      query,
+      ...options,
+    });
   }
 }
+
+export type CallEventListResponsesDefaultPagination = DefaultPagination<CallEventListResponse>;
 
 export interface CallEventListResponse {
-  data?: Array<CallEventListResponse.Data>;
+  /**
+   * Uniquely identifies an individual call leg.
+   */
+  call_leg_id: string;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+  /**
+   * Uniquely identifies the call control session. A session may include multiple
+   * call leg events.
+   */
+  call_session_id: string;
+
+  /**
+   * Event timestamp
+   */
+  event_timestamp: string;
+
+  /**
+   * Event metadata, which includes raw event, and extra information based on event
+   * type
+   */
+  metadata: { [key: string]: unknown };
+
+  /**
+   * Event name
+   */
+  name: string;
+
+  record_type: 'call_event';
+
+  /**
+   * Event type
+   */
+  type: 'command' | 'webhook';
 }
 
-export namespace CallEventListResponse {
-  export interface Data {
-    /**
-     * Uniquely identifies an individual call leg.
-     */
-    call_leg_id: string;
-
-    /**
-     * Uniquely identifies the call control session. A session may include multiple
-     * call leg events.
-     */
-    call_session_id: string;
-
-    /**
-     * Event timestamp
-     */
-    event_timestamp: string;
-
-    /**
-     * Event metadata, which includes raw event, and extra information based on event
-     * type
-     */
-    metadata: unknown;
-
-    /**
-     * Event name
-     */
-    name: string;
-
-    record_type: 'call_event';
-
-    /**
-     * Event type
-     */
-    type: 'command' | 'webhook';
-  }
-}
-
-export interface CallEventListParams {
+export interface CallEventListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[application_name][contains], filter[outbound.outbound_voice_profile_id],
@@ -74,12 +70,6 @@ export interface CallEventListParams {
    * filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status]
    */
   filter?: CallEventListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[after],
-   * page[before], page[limit], page[size], page[number]
-   */
-  page?: CallEventListParams.Page;
 }
 
 export namespace CallEventListParams {
@@ -202,42 +192,12 @@ export namespace CallEventListParams {
       lte?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[after],
-   * page[before], page[limit], page[size], page[number]
-   */
-  export interface Page {
-    /**
-     * Opaque identifier of next page
-     */
-    after?: string;
-
-    /**
-     * Opaque identifier of previous page
-     */
-    before?: string;
-
-    /**
-     * Limit of records per single page
-     */
-    limit?: number;
-
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace CallEvents {
   export {
     type CallEventListResponse as CallEventListResponse,
+    type CallEventListResponsesDefaultPagination as CallEventListResponsesDefaultPagination,
     type CallEventListParams as CallEventListParams,
   };
 }

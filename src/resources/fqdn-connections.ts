@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as Shared from './shared';
 import * as CredentialConnectionsAPI from './credential-connections/credential-connections';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -61,14 +61,20 @@ export class FqdnConnections extends APIResource {
    *
    * @example
    * ```ts
-   * const fqdnConnections = await client.fqdnConnections.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const fqdnConnection of client.fqdnConnections.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: FqdnConnectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<FqdnConnectionListResponse> {
-    return this._client.get('/fqdn_connections', { query, ...options });
+  ): PagePromise<FqdnConnectionsDefaultPagination, FqdnConnection> {
+    return this._client.getAPIList('/fqdn_connections', DefaultPagination<FqdnConnection>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -85,6 +91,8 @@ export class FqdnConnections extends APIResource {
     return this._client.delete(path`/fqdn_connections/${id}`, options);
   }
 }
+
+export type FqdnConnectionsDefaultPagination = DefaultPagination<FqdnConnection>;
 
 export interface FqdnConnection {
   /**
@@ -496,12 +504,6 @@ export interface FqdnConnectionUpdateResponse {
   data?: FqdnConnection;
 }
 
-export interface FqdnConnectionListResponse {
-  data?: Array<FqdnConnection>;
-
-  meta?: Shared.ConnectionsPaginationMeta;
-}
-
 export interface FqdnConnectionDeleteResponse {
   data?: FqdnConnection;
 }
@@ -722,19 +724,13 @@ export interface FqdnConnectionUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface FqdnConnectionListParams {
+export interface FqdnConnectionListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
    * filter[outbound.outbound_voice_profile_id]
    */
   filter?: FqdnConnectionListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: FqdnConnectionListParams.Page;
 
   /**
    * Specifies the sort order for results. By default sorting direction is ascending.
@@ -792,22 +788,6 @@ export namespace FqdnConnectionListParams {
       contains?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace FqdnConnections {
@@ -820,8 +800,8 @@ export declare namespace FqdnConnections {
     type FqdnConnectionCreateResponse as FqdnConnectionCreateResponse,
     type FqdnConnectionRetrieveResponse as FqdnConnectionRetrieveResponse,
     type FqdnConnectionUpdateResponse as FqdnConnectionUpdateResponse,
-    type FqdnConnectionListResponse as FqdnConnectionListResponse,
     type FqdnConnectionDeleteResponse as FqdnConnectionDeleteResponse,
+    type FqdnConnectionsDefaultPagination as FqdnConnectionsDefaultPagination,
     type FqdnConnectionCreateParams as FqdnConnectionCreateParams,
     type FqdnConnectionUpdateParams as FqdnConnectionUpdateParams,
     type FqdnConnectionListParams as FqdnConnectionListParams,

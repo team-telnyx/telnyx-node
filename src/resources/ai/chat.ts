@@ -157,7 +157,7 @@ export interface ChatCreateCompletionParams {
    * [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding)
    * for retrieval-augmented generation.
    */
-  tools?: Array<ChatCreateCompletionParams.ChatCompletionToolParam | ChatCreateCompletionParams.Retrieval>;
+  tools?: Array<ChatCreateCompletionParams.Function | ChatCreateCompletionParams.Retrieval>;
 
   /**
    * This is used with `logprobs`. An integer between 0 and 20 specifying the number
@@ -205,13 +205,13 @@ export namespace ChatCreateCompletionParams {
     type: 'text' | 'json_object';
   }
 
-  export interface ChatCompletionToolParam {
-    function: ChatCompletionToolParam.Function;
+  export interface Function {
+    function: Function.Function;
 
     type: 'function';
   }
 
-  export namespace ChatCompletionToolParam {
+  export namespace Function {
     export interface Function {
       name: string;
 

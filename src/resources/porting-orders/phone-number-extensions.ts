@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -40,21 +40,24 @@ export class PhoneNumberExtensions extends APIResource {
    *
    * @example
    * ```ts
-   * const phoneNumberExtensions =
-   *   await client.portingOrders.phoneNumberExtensions.list(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
+   * // Automatically fetches more pages as needed.
+   * for await (const portingPhoneNumberExtension of client.portingOrders.phoneNumberExtensions.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     portingOrderID: string,
     query: PhoneNumberExtensionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<PhoneNumberExtensionListResponse> {
-    return this._client.get(path`/porting_orders/${portingOrderID}/phone_number_extensions`, {
-      query,
-      ...options,
-    });
+  ): PagePromise<PortingPhoneNumberExtensionsDefaultPagination, PortingPhoneNumberExtension> {
+    return this._client.getAPIList(
+      path`/porting_orders/${portingOrderID}/phone_number_extensions`,
+      DefaultPagination<PortingPhoneNumberExtension>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -84,6 +87,8 @@ export class PhoneNumberExtensions extends APIResource {
     );
   }
 }
+
+export type PortingPhoneNumberExtensionsDefaultPagination = DefaultPagination<PortingPhoneNumberExtension>;
 
 export interface PortingPhoneNumberExtension {
   /**
@@ -162,12 +167,6 @@ export interface PhoneNumberExtensionCreateResponse {
   data?: PortingPhoneNumberExtension;
 }
 
-export interface PhoneNumberExtensionListResponse {
-  data?: Array<PortingPhoneNumberExtension>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface PhoneNumberExtensionDeleteResponse {
   data?: PortingPhoneNumberExtension;
 }
@@ -219,18 +218,12 @@ export namespace PhoneNumberExtensionCreateParams {
   }
 }
 
-export interface PhoneNumberExtensionListParams {
+export interface PhoneNumberExtensionListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[porting_phone_number_id]
    */
   filter?: PhoneNumberExtensionListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: PhoneNumberExtensionListParams.Page;
 
   /**
    * Consolidated sort parameter (deepObject style). Originally: sort[value]
@@ -248,22 +241,6 @@ export namespace PhoneNumberExtensionListParams {
      * Filter results by porting phone number id
      */
     porting_phone_number_id?: string;
-  }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
   }
 
   /**
@@ -289,8 +266,8 @@ export declare namespace PhoneNumberExtensions {
   export {
     type PortingPhoneNumberExtension as PortingPhoneNumberExtension,
     type PhoneNumberExtensionCreateResponse as PhoneNumberExtensionCreateResponse,
-    type PhoneNumberExtensionListResponse as PhoneNumberExtensionListResponse,
     type PhoneNumberExtensionDeleteResponse as PhoneNumberExtensionDeleteResponse,
+    type PortingPhoneNumberExtensionsDefaultPagination as PortingPhoneNumberExtensionsDefaultPagination,
     type PhoneNumberExtensionCreateParams as PhoneNumberExtensionCreateParams,
     type PhoneNumberExtensionListParams as PhoneNumberExtensionListParams,
     type PhoneNumberExtensionDeleteParams as PhoneNumberExtensionDeleteParams,

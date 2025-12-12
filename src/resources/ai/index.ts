@@ -20,6 +20,7 @@ export {
   type RetrievalTool,
   type TelephonySettings,
   type TranscriptionSettings,
+  type TranscriptionSettingsConfig,
   type TransferTool,
   type VoiceSettings,
   type WebhookTool,
@@ -31,7 +32,7 @@ export {
   type AssistantRetrieveParams,
   type AssistantUpdateParams,
   type AssistantChatParams,
-  type AssistantImportParams,
+  type AssistantImportsParams,
   type AssistantSendSMSParams,
 } from './assistants/index';
 export { Audio, type AudioTranscribeResponse, type AudioTranscribeParams } from './audio';
@@ -51,6 +52,7 @@ export {
   type ClusterListParams,
   type ClusterComputeParams,
   type ClusterFetchGraphParams,
+  type ClusterListResponsesDefaultFlatPagination,
 } from './clusters';
 export {
   Conversations,
@@ -91,4 +93,5 @@ export {
   type McpServerCreateParams,
   type McpServerUpdateParams,
   type McpServerListParams,
+  type McpServerListResponsesDefaultFlatPaginationTopLevelArray,
 } from './mcp-servers';

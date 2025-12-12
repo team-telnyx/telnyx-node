@@ -2,6 +2,11 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import {
+  DefaultFlatPaginationTopLevelArray,
+  type DefaultFlatPaginationTopLevelArrayParams,
+  PagePromise,
+} from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -60,14 +65,21 @@ export class McpServers extends APIResource {
    *
    * @example
    * ```ts
-   * const mcpServers = await client.ai.mcpServers.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const mcpServerListResponse of client.ai.mcpServers.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: McpServerListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<McpServerListResponse> {
-    return this._client.get('/ai/mcp_servers', { query, ...options });
+  ): PagePromise<McpServerListResponsesDefaultFlatPaginationTopLevelArray, McpServerListResponse> {
+    return this._client.getAPIList(
+      '/ai/mcp_servers',
+      DefaultFlatPaginationTopLevelArray<McpServerListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -85,6 +97,9 @@ export class McpServers extends APIResource {
     });
   }
 }
+
+export type McpServerListResponsesDefaultFlatPaginationTopLevelArray =
+  DefaultFlatPaginationTopLevelArray<McpServerListResponse>;
 
 export interface McpServerCreateResponse {
   id: string;
@@ -134,24 +149,20 @@ export interface McpServerUpdateResponse {
   api_key_ref?: string | null;
 }
 
-export type McpServerListResponse = Array<McpServerListResponse.McpServerListResponseItem>;
+export interface McpServerListResponse {
+  id: string;
 
-export namespace McpServerListResponse {
-  export interface McpServerListResponseItem {
-    id: string;
+  created_at: string;
 
-    created_at: string;
+  name: string;
 
-    name: string;
+  type: string;
 
-    type: string;
+  url: string;
 
-    url: string;
+  allowed_tools?: Array<string> | null;
 
-    allowed_tools?: Array<string> | null;
-
-    api_key_ref?: string | null;
-  }
+  api_key_ref?: string | null;
 }
 
 export interface McpServerCreateParams {
@@ -182,11 +193,7 @@ export interface McpServerUpdateParams {
   url?: string;
 }
 
-export interface McpServerListParams {
-  'page[number]'?: number;
-
-  'page[size]'?: number;
-
+export interface McpServerListParams extends DefaultFlatPaginationTopLevelArrayParams {
   type?: string;
 
   url?: string;
@@ -198,6 +205,7 @@ export declare namespace McpServers {
     type McpServerRetrieveResponse as McpServerRetrieveResponse,
     type McpServerUpdateResponse as McpServerUpdateResponse,
     type McpServerListResponse as McpServerListResponse,
+    type McpServerListResponsesDefaultFlatPaginationTopLevelArray as McpServerListResponsesDefaultFlatPaginationTopLevelArray,
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerUpdateParams as McpServerUpdateParams,
     type McpServerListParams as McpServerListParams,

@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as Shared from '../shared';
+import { SimpleSimCardsDefaultPagination } from '../shared';
 import * as ActionsAPI from './actions';
 import {
   ActionBulkSetPublicIPsParams,
@@ -10,7 +10,6 @@ import {
   ActionDisableResponse,
   ActionEnableResponse,
   ActionListParams,
-  ActionListResponse,
   ActionRemovePublicIPResponse,
   ActionRetrieveResponse,
   ActionSetPublicIPParams,
@@ -20,8 +19,16 @@ import {
   ActionValidateRegistrationCodesResponse,
   Actions,
   SimCardAction,
+  SimCardActionsDefaultPagination,
 } from './actions';
 import { APIPromise } from '../../core/api-promise';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  DefaultPagination,
+  type DefaultPaginationParams,
+  PagePromise,
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -56,8 +63,12 @@ export class SimCards extends APIResource {
    * );
    * ```
    */
-  update(id: string, body: SimCardUpdateParams, options?: RequestOptions): APIPromise<SimCardUpdateResponse> {
-    return this._client.patch(path`/sim_cards/${id}`, { body, ...options });
+  update(
+    simCardID: string,
+    body: SimCardUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<SimCardUpdateResponse> {
+    return this._client.patch(path`/sim_cards/${simCardID}`, { body, ...options });
   }
 
   /**
@@ -65,14 +76,20 @@ export class SimCards extends APIResource {
    *
    * @example
    * ```ts
-   * const simCards = await client.simCards.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const simpleSimCard of client.simCards.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: SimCardListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<SimCardListResponse> {
-    return this._client.get('/sim_cards', { query, ...options });
+  ): PagePromise<SimpleSimCardsDefaultPagination, Shared.SimpleSimCard> {
+    return this._client.getAPIList('/sim_cards', DefaultPagination<Shared.SimpleSimCard>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -150,20 +167,32 @@ export class SimCards extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.simCards.listWirelessConnectivityLogs(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
+   * // Automatically fetches more pages as needed.
+   * for await (const simCardListWirelessConnectivityLogsResponse of client.simCards.listWirelessConnectivityLogs(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   listWirelessConnectivityLogs(
     id: string,
     query: SimCardListWirelessConnectivityLogsParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<SimCardListWirelessConnectivityLogsResponse> {
-    return this._client.get(path`/sim_cards/${id}/wireless_connectivity_logs`, { query, ...options });
+  ): PagePromise<
+    SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination,
+    SimCardListWirelessConnectivityLogsResponse
+  > {
+    return this._client.getAPIList(
+      path`/sim_cards/${id}/wireless_connectivity_logs`,
+      DefaultFlatPagination<SimCardListWirelessConnectivityLogsResponse>,
+      { query, ...options },
+    );
   }
 }
+
+export type SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination =
+  DefaultFlatPagination<SimCardListWirelessConnectivityLogsResponse>;
 
 export interface SimCard {
   /**
@@ -290,7 +319,7 @@ export interface SimCard {
   /**
    * List of resources with actions in progress.
    */
-  resources_with_in_progress_actions?: Array<unknown>;
+  resources_with_in_progress_actions?: Array<{ [key: string]: unknown }>;
 
   /**
    * The group SIMCardGroup identification. This attribute can be <code>null</code>
@@ -393,12 +422,6 @@ export interface SimCardUpdateResponse {
   data?: SimCard;
 }
 
-export interface SimCardListResponse {
-  data?: Array<Shared.SimpleSimCard>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface SimCardDeleteResponse {
   data?: SimCard;
 }
@@ -485,124 +508,116 @@ export namespace SimCardGetPublicIPResponse {
   }
 }
 
+/**
+ * This object represents a wireless connectivity session log that happened through
+ * a SIM card. It aids in finding out potential problems when the SIM is not able
+ * to attach properly.
+ */
 export interface SimCardListWirelessConnectivityLogsResponse {
-  data?: Array<SimCardListWirelessConnectivityLogsResponse.Data>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
-export namespace SimCardListWirelessConnectivityLogsResponse {
   /**
-   * This object represents a wireless connectivity session log that happened through
-   * a SIM card. It aids in finding out potential problems when the SIM is not able
-   * to attach properly.
+   * Uniquely identifies the session.
    */
-  export interface Data {
-    /**
-     * Uniquely identifies the session.
-     */
-    id?: number;
+  id?: number;
 
-    /**
-     * The Access Point Name (APN) identifies the packet data network that a mobile
-     * data user wants to communicate with.
-     */
-    apn?: string;
+  /**
+   * The Access Point Name (APN) identifies the packet data network that a mobile
+   * data user wants to communicate with.
+   */
+  apn?: string;
 
-    /**
-     * The cell ID to which the SIM connected.
-     */
-    cell_id?: string;
+  /**
+   * The cell ID to which the SIM connected.
+   */
+  cell_id?: string;
 
-    /**
-     * ISO 8601 formatted date-time indicating when the record was created.
-     */
-    created_at?: string;
+  /**
+   * ISO 8601 formatted date-time indicating when the record was created.
+   */
+  created_at?: string;
 
-    /**
-     * The International Mobile Equipment Identity (or IMEI) is a number, usually
-     * unique, that identifies the device currently being used connect to the network.
-     */
-    imei?: string;
+  /**
+   * The International Mobile Equipment Identity (or IMEI) is a number, usually
+   * unique, that identifies the device currently being used connect to the network.
+   */
+  imei?: string;
 
-    /**
-     * SIM cards are identified on their individual network operators by a unique
-     * International Mobile Subscriber Identity (IMSI). <br/> Mobile network operators
-     * connect mobile phone calls and communicate with their market SIM cards using
-     * their IMSIs. The IMSI is stored in the Subscriber Identity Module (SIM) inside
-     * the device and is sent by the device to the appropriate network. It is used to
-     * acquire the details of the device in the Home Location Register (HLR) or the
-     * Visitor Location Register (VLR).
-     */
-    imsi?: string;
+  /**
+   * SIM cards are identified on their individual network operators by a unique
+   * International Mobile Subscriber Identity (IMSI). <br/> Mobile network operators
+   * connect mobile phone calls and communicate with their market SIM cards using
+   * their IMSIs. The IMSI is stored in the Subscriber Identity Module (SIM) inside
+   * the device and is sent by the device to the appropriate network. It is used to
+   * acquire the details of the device in the Home Location Register (HLR) or the
+   * Visitor Location Register (VLR).
+   */
+  imsi?: string;
 
-    /**
-     * The SIM's address in the currently connected network. This IPv4 address is
-     * usually obtained dynamically, so it may vary according to the location or new
-     * connections.
-     */
-    ipv4?: string;
+  /**
+   * The SIM's address in the currently connected network. This IPv4 address is
+   * usually obtained dynamically, so it may vary according to the location or new
+   * connections.
+   */
+  ipv4?: string;
 
-    /**
-     * The SIM's address in the currently connected network. This IPv6 address is
-     * usually obtained dynamically, so it may vary according to the location or new
-     * connections.
-     */
-    ipv6?: string;
+  /**
+   * The SIM's address in the currently connected network. This IPv6 address is
+   * usually obtained dynamically, so it may vary according to the location or new
+   * connections.
+   */
+  ipv6?: string;
 
-    /**
-     * ISO 8601 formatted date-time indicating when the last heartbeat to the device
-     * was successfully recorded.
-     */
-    last_seen?: string;
+  /**
+   * ISO 8601 formatted date-time indicating when the last heartbeat to the device
+   * was successfully recorded.
+   */
+  last_seen?: string;
 
-    /**
-     * The type of the session, 'registration' being the initial authentication session
-     * and 'data' the actual data transfer sessions.
-     */
-    log_type?: 'registration' | 'data';
+  /**
+   * The type of the session, 'registration' being the initial authentication session
+   * and 'data' the actual data transfer sessions.
+   */
+  log_type?: 'registration' | 'data';
 
-    /**
-     * It's a three decimal digit that identifies a country.<br/><br/> This code is
-     * commonly seen joined with a Mobile Network Code (MNC) in a tuple that allows
-     * identifying a carrier known as PLMN (Public Land Mobile Network) code.
-     */
-    mobile_country_code?: string;
+  /**
+   * It's a three decimal digit that identifies a country.<br/><br/> This code is
+   * commonly seen joined with a Mobile Network Code (MNC) in a tuple that allows
+   * identifying a carrier known as PLMN (Public Land Mobile Network) code.
+   */
+  mobile_country_code?: string;
 
-    /**
-     * It's a two to three decimal digits that identify a network.<br/><br/> This code
-     * is commonly seen joined with a Mobile Country Code (MCC) in a tuple that allows
-     * identifying a carrier known as PLMN (Public Land Mobile Network) code.
-     */
-    mobile_network_code?: string;
+  /**
+   * It's a two to three decimal digits that identify a network.<br/><br/> This code
+   * is commonly seen joined with a Mobile Country Code (MCC) in a tuple that allows
+   * identifying a carrier known as PLMN (Public Land Mobile Network) code.
+   */
+  mobile_network_code?: string;
 
-    /**
-     * The radio technology the SIM card used during the session.
-     */
-    radio_access_technology?: string;
+  /**
+   * The radio technology the SIM card used during the session.
+   */
+  radio_access_technology?: string;
 
-    record_type?: string;
+  record_type?: string;
 
-    /**
-     * The identification UUID of the related SIM card resource.
-     */
-    sim_card_id?: string;
+  /**
+   * The identification UUID of the related SIM card resource.
+   */
+  sim_card_id?: string;
 
-    /**
-     * ISO 8601 formatted date-time indicating when the session started.
-     */
-    start_time?: string;
+  /**
+   * ISO 8601 formatted date-time indicating when the session started.
+   */
+  start_time?: string;
 
-    /**
-     * The state of the SIM card after when the session happened.
-     */
-    state?: string;
+  /**
+   * The state of the SIM card after when the session happened.
+   */
+  state?: string;
 
-    /**
-     * ISO 8601 formatted date-time indicating when the session ended.
-     */
-    stop_time?: string;
-  }
+  /**
+   * ISO 8601 formatted date-time indicating when the session ended.
+   */
+  stop_time?: string;
 }
 
 export interface SimCardRetrieveParams {
@@ -655,7 +670,7 @@ export namespace SimCardUpdateParams {
   }
 }
 
-export interface SimCardListParams {
+export interface SimCardListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter for SIM cards (deepObject style). Originally:
    * filter[tags], filter[iccid], filter[status]
@@ -673,16 +688,10 @@ export interface SimCardListParams {
   include_sim_card_group?: boolean;
 
   /**
-   * Consolidated pagination parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: SimCardListParams.Page;
-
-  /**
    * Sorts SIM cards by the given field. Defaults to ascending order unless field is
    * prefixed with a minus sign.
    */
-  sort?: 'current_billing_period_consumed_data.amount';
+  sort?: 'current_billing_period_consumed_data.amount' | '-current_billing_period_consumed_data.amount';
 }
 
 export namespace SimCardListParams {
@@ -714,22 +723,6 @@ export namespace SimCardListParams {
      */
     tags?: Array<string>;
   }
-
-  /**
-   * Consolidated pagination parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 export interface SimCardDeleteParams {
@@ -740,17 +733,7 @@ export interface SimCardDeleteParams {
   report_lost?: boolean;
 }
 
-export interface SimCardListWirelessConnectivityLogsParams {
-  /**
-   * The page number to load.
-   */
-  'page[number]'?: number;
-
-  /**
-   * The size of the page.
-   */
-  'page[size]'?: number;
-}
+export interface SimCardListWirelessConnectivityLogsParams extends DefaultFlatPaginationParams {}
 
 SimCards.Actions = Actions;
 
@@ -759,12 +742,12 @@ export declare namespace SimCards {
     type SimCard as SimCard,
     type SimCardRetrieveResponse as SimCardRetrieveResponse,
     type SimCardUpdateResponse as SimCardUpdateResponse,
-    type SimCardListResponse as SimCardListResponse,
     type SimCardDeleteResponse as SimCardDeleteResponse,
     type SimCardGetActivationCodeResponse as SimCardGetActivationCodeResponse,
     type SimCardGetDeviceDetailsResponse as SimCardGetDeviceDetailsResponse,
     type SimCardGetPublicIPResponse as SimCardGetPublicIPResponse,
     type SimCardListWirelessConnectivityLogsResponse as SimCardListWirelessConnectivityLogsResponse,
+    type SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination as SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination,
     type SimCardRetrieveParams as SimCardRetrieveParams,
     type SimCardUpdateParams as SimCardUpdateParams,
     type SimCardListParams as SimCardListParams,
@@ -776,7 +759,6 @@ export declare namespace SimCards {
     Actions as Actions,
     type SimCardAction as SimCardAction,
     type ActionRetrieveResponse as ActionRetrieveResponse,
-    type ActionListResponse as ActionListResponse,
     type ActionBulkSetPublicIPsResponse as ActionBulkSetPublicIPsResponse,
     type ActionDisableResponse as ActionDisableResponse,
     type ActionEnableResponse as ActionEnableResponse,
@@ -784,9 +766,12 @@ export declare namespace SimCards {
     type ActionSetPublicIPResponse as ActionSetPublicIPResponse,
     type ActionSetStandbyResponse as ActionSetStandbyResponse,
     type ActionValidateRegistrationCodesResponse as ActionValidateRegistrationCodesResponse,
+    type SimCardActionsDefaultPagination as SimCardActionsDefaultPagination,
     type ActionListParams as ActionListParams,
     type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
     type ActionSetPublicIPParams as ActionSetPublicIPParams,
     type ActionValidateRegistrationCodesParams as ActionValidateRegistrationCodesParams,
   };
 }
+
+export { type SimpleSimCardsDefaultPagination };
