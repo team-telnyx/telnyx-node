@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as ClustersAPI from './clusters';
-import * as PhoneNumberAssignmentByProfileAPI from '../messaging-10dlc/phone-number-assignment-by-profile';
+import * as PhoneNumberAssignmentByProfileAPI from '../phone-number-assignment-by-profile';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
