@@ -1411,8 +1411,8 @@ export namespace CallHangupWebhookEvent {
 
       /**
        * The reason the call was ended (`call_rejected`, `normal_clearing`,
-       * `originator_cancel`, `timeout`, `time_limit`, `user_busy`, `not_found` or
-       * `unspecified`).
+       * `originator_cancel`, `timeout`, `time_limit`, `user_busy`, `not_found`,
+       * `no_answer` or `unspecified`).
        */
       hangup_cause?:
         | 'call_rejected'
@@ -1422,6 +1422,7 @@ export namespace CallHangupWebhookEvent {
         | 'time_limit'
         | 'user_busy'
         | 'not_found'
+        | 'no_answer'
         | 'unspecified';
 
       /**
@@ -5906,8 +5907,8 @@ export namespace CallHangupWebhookEvent {
 
       /**
        * The reason the call was ended (`call_rejected`, `normal_clearing`,
-       * `originator_cancel`, `timeout`, `time_limit`, `user_busy`, `not_found` or
-       * `unspecified`).
+       * `originator_cancel`, `timeout`, `time_limit`, `user_busy`, `not_found`,
+       * `no_answer` or `unspecified`).
        */
       hangup_cause?:
         | 'call_rejected'
@@ -5917,6 +5918,7 @@ export namespace CallHangupWebhookEvent {
         | 'time_limit'
         | 'user_busy'
         | 'not_found'
+        | 'no_answer'
         | 'unspecified';
 
       /**

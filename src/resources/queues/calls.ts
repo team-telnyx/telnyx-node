@@ -152,6 +152,11 @@ export namespace CallRetrieveResponse {
      * The time the call has been waiting in the queue, given in seconds
      */
     wait_time_secs: number;
+
+    /**
+     * Indicates whether the call is still active in the queue.
+     */
+    is_alive?: boolean;
   }
 }
 
@@ -209,6 +214,11 @@ export interface CallListResponse {
    * The time the call has been waiting in the queue, given in seconds
    */
   wait_time_secs: number;
+
+  /**
+   * Indicates whether the call is still active in the queue.
+   */
+  is_alive?: boolean;
 }
 
 export interface CallRetrieveParams {
