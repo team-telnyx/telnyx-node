@@ -525,74 +525,6 @@ export namespace CallAIGatherPartialResultsWebhookEvent {
   }
 }
 
-export interface CustomerServiceRecordStatusChangedWebhookEvent {
-  data?: CustomerServiceRecordStatusChangedWebhookEvent.Data;
-
-  meta?: CustomerServiceRecordStatusChangedWebhookEvent.Meta;
-}
-
-export namespace CustomerServiceRecordStatusChangedWebhookEvent {
-  export interface Data {
-    /**
-     * Uniquely identifies the callback event.
-     */
-    id?: string;
-
-    /**
-     * The type of the callback event.
-     */
-    event_type?: 'customer_service_record.status_changed';
-
-    /**
-     * ISO 8601 formatted date indicating when the callback event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Uniquely identifies the customer service record.
-       */
-      id?: string;
-
-      /**
-       * The phone number of the customer service record.
-       */
-      phone_number?: string;
-
-      /**
-       * The status of the customer service record
-       */
-      status?: 'pending' | 'completed' | 'failed';
-
-      /**
-       * ISO 8601 formatted date indicating the last time where the resource was updated.
-       */
-      updated_at?: string;
-    }
-  }
-
-  export interface Meta {
-    /**
-     * The number of times the callback webhook has been attempted.
-     */
-    attempt?: number;
-
-    /**
-     * The URL that the callback webhook was delivered to.
-     */
-    delivered_to?: string;
-  }
-}
-
 export interface CallAnsweredWebhookEvent {
   data?: CallAnsweredWebhookEvent.Data;
 }
@@ -5021,74 +4953,6 @@ export namespace CallAIGatherPartialResultsWebhookEvent {
   }
 }
 
-export interface CustomerServiceRecordStatusChangedWebhookEvent {
-  data?: CustomerServiceRecordStatusChangedWebhookEvent.Data;
-
-  meta?: CustomerServiceRecordStatusChangedWebhookEvent.Meta;
-}
-
-export namespace CustomerServiceRecordStatusChangedWebhookEvent {
-  export interface Data {
-    /**
-     * Uniquely identifies the callback event.
-     */
-    id?: string;
-
-    /**
-     * The type of the callback event.
-     */
-    event_type?: 'customer_service_record.status_changed';
-
-    /**
-     * ISO 8601 formatted date indicating when the callback event occurred.
-     */
-    occurred_at?: string;
-
-    payload?: Data.Payload;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Uniquely identifies the customer service record.
-       */
-      id?: string;
-
-      /**
-       * The phone number of the customer service record.
-       */
-      phone_number?: string;
-
-      /**
-       * The status of the customer service record
-       */
-      status?: 'pending' | 'completed' | 'failed';
-
-      /**
-       * ISO 8601 formatted date indicating the last time where the resource was updated.
-       */
-      updated_at?: string;
-    }
-  }
-
-  export interface Meta {
-    /**
-     * The number of times the callback webhook has been attempted.
-     */
-    attempt?: number;
-
-    /**
-     * The URL that the callback webhook was delivered to.
-     */
-    delivered_to?: string;
-  }
-}
-
 export interface CallAnsweredWebhookEvent {
   data?: CallAnsweredWebhookEvent.Data;
 }
@@ -9234,7 +9098,6 @@ export type UnsafeUnwrapWebhookEvent =
   | CallAIGatherEndedWebhookEvent
   | CallAIGatherMessageHistoryUpdatedWebhookEvent
   | CallAIGatherPartialResultsWebhookEvent
-  | CustomerServiceRecordStatusChangedWebhookEvent
   | CallAnsweredWebhookEvent
   | CallBridgedWebhookEvent
   | CallConversationEndedWebhookEvent
@@ -9300,7 +9163,6 @@ export type UnwrapWebhookEvent =
   | CallAIGatherEndedWebhookEvent
   | CallAIGatherMessageHistoryUpdatedWebhookEvent
   | CallAIGatherPartialResultsWebhookEvent
-  | CustomerServiceRecordStatusChangedWebhookEvent
   | CallAnsweredWebhookEvent
   | CallBridgedWebhookEvent
   | CallConversationEndedWebhookEvent
@@ -9370,7 +9232,6 @@ export declare namespace Webhooks {
     type CallAIGatherEndedWebhookEvent as CallAIGatherEndedWebhookEvent,
     type CallAIGatherMessageHistoryUpdatedWebhookEvent as CallAIGatherMessageHistoryUpdatedWebhookEvent,
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,
-    type CustomerServiceRecordStatusChangedWebhookEvent as CustomerServiceRecordStatusChangedWebhookEvent,
     type CallAnsweredWebhookEvent as CallAnsweredWebhookEvent,
     type CallBridgedWebhookEvent as CallBridgedWebhookEvent,
     type CallConversationEndedWebhookEvent as CallConversationEndedWebhookEvent,

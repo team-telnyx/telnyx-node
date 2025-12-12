@@ -1204,7 +1204,6 @@ export {
   type CallAIGatherEndedWebhookEvent,
   type CallAIGatherMessageHistoryUpdatedWebhookEvent,
   type CallAIGatherPartialResultsWebhookEvent,
-  type CustomerServiceRecordStatusChangedWebhookEvent,
   type CallAnsweredWebhookEvent,
   type CallBridgedWebhookEvent,
   type CallConversationEndedWebhookEvent,
