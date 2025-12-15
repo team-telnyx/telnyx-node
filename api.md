@@ -2026,10 +2026,12 @@ Types:
 - <code><a href="./src/resources/messsages.ts">RcsContentInfo</a></code>
 - <code><a href="./src/resources/messsages.ts">RcsSuggestion</a></code>
 - <code><a href="./src/resources/messsages.ts">MesssageRcsResponse</a></code>
+- <code><a href="./src/resources/messsages.ts">MesssageWhatsappResponse</a></code>
 
 Methods:
 
 - <code title="post /messsages/rcs">client.messsages.<a href="./src/resources/messsages.ts">rcs</a>({ ...params }) -> MesssageRcsResponse</code>
+- <code title="post /messsages/whatsapp">client.messsages.<a href="./src/resources/messsages.ts">whatsapp</a>({ ...params }) -> MesssageWhatsappResponse</code>
 
 # MobileNetworkOperators
 

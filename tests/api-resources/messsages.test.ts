@@ -177,4 +177,153 @@ describe('resource messsages', () => {
       webhook_url: 'webhook_url',
     });
   });
+
+  // Prism tests are disabled
+  test.skip('whatsapp: only required params', async () => {
+    const responsePromise = client.messsages.whatsapp({
+      from: '+13125551234',
+      to: '+13125551234',
+      whatsapp_message: {},
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('whatsapp: required and optional params', async () => {
+    const response = await client.messsages.whatsapp({
+      from: '+13125551234',
+      to: '+13125551234',
+      whatsapp_message: {
+        audio: {
+          caption: 'caption',
+          filename: 'filename',
+          link: 'http://example.com/media.jpg',
+          voice: true,
+        },
+        biz_opaque_callback_data: 'biz_opaque_callback_data',
+        contacts: [
+          {
+            addresses: [
+              {
+                city: 'city',
+                country: 'country',
+                country_code: 'country_code',
+                state: 'state',
+                street: 'street',
+                type: 'type',
+                zip: 'zip',
+              },
+            ],
+            birthday: 'birthday',
+            emails: [{ email: 'email', type: 'type' }],
+            name: 'name',
+            org: { company: 'company', department: 'department', title: 'title' },
+            phones: [{ phone: 'phone', type: 'type', wa_id: 'wa_id' }],
+            urls: [{ type: 'type', url: 'url' }],
+          },
+        ],
+        document: {
+          caption: 'caption',
+          filename: 'filename',
+          link: 'http://example.com/media.jpg',
+          voice: true,
+        },
+        image: {
+          caption: 'caption',
+          filename: 'filename',
+          link: 'http://example.com/media.jpg',
+          voice: true,
+        },
+        interactive: {
+          action: {
+            button: 'button',
+            buttons: [{ reply: { id: 'id', title: 'title' }, type: 'reply' }],
+            cards: [
+              {
+                action: { catalog_id: 'catalog_id', product_retailer_id: 'product_retailer_id' },
+                body: { text: 'text' },
+                card_index: 0,
+                header: {
+                  image: {
+                    caption: 'caption',
+                    filename: 'filename',
+                    link: 'http://example.com/media.jpg',
+                    voice: true,
+                  },
+                  type: 'image',
+                  video: {
+                    caption: 'caption',
+                    filename: 'filename',
+                    link: 'http://example.com/media.jpg',
+                    voice: true,
+                  },
+                },
+                type: 'cta_url',
+              },
+            ],
+            catalog_id: 'catalog_id',
+            mode: 'mode',
+            name: 'name',
+            parameters: { display_text: 'display_text', url: 'url' },
+            product_retailer_id: 'product_retailer_id',
+            sections: [
+              {
+                product_items: [{ product_retailer_id: 'product_retailer_id' }],
+                rows: [{ id: 'id', description: 'description', title: 'title' }],
+                title: 'title',
+              },
+            ],
+          },
+          body: { text: 'text' },
+          footer: { text: 'text' },
+          header: {
+            document: {
+              caption: 'caption',
+              filename: 'filename',
+              link: 'http://example.com/media.jpg',
+              voice: true,
+            },
+            image: {
+              caption: 'caption',
+              filename: 'filename',
+              link: 'http://example.com/media.jpg',
+              voice: true,
+            },
+            sub_text: 'sub_text',
+            text: 'text',
+            video: {
+              caption: 'caption',
+              filename: 'filename',
+              link: 'http://example.com/media.jpg',
+              voice: true,
+            },
+          },
+          type: 'cta_url',
+        },
+        location: { address: 'address', latitude: 'latitude', longitude: 'longitude', name: 'name' },
+        reaction: { empji: 'empji', message_id: 'message_id' },
+        sticker: {
+          caption: 'caption',
+          filename: 'filename',
+          link: 'http://example.com/media.jpg',
+          voice: true,
+        },
+        type: 'audio',
+        video: {
+          caption: 'caption',
+          filename: 'filename',
+          link: 'http://example.com/media.jpg',
+          voice: true,
+        },
+      },
+      type: 'WHATSAPP',
+      webhook_url: 'webhook_url',
+    });
+  });
 });

@@ -22,6 +22,22 @@ export class Messsages extends APIResource {
   rcs(body: MesssageRcsParams, options?: RequestOptions): APIPromise<MesssageRcsResponse> {
     return this._client.post('/messsages/rcs', { body, ...options });
   }
+
+  /**
+   * Send a Whatsapp message
+   *
+   * @example
+   * ```ts
+   * const response = await client.messsages.whatsapp({
+   *   from: '+13125551234',
+   *   to: '+13125551234',
+   *   whatsapp_message: {},
+   * });
+   * ```
+   */
+  whatsapp(body: MesssageWhatsappParams, options?: RequestOptions): APIPromise<MesssageWhatsappResponse> {
+    return this._client.post('/messsages/whatsapp', { body, ...options });
+  }
 }
 
 export interface RcsAgentMessage {
@@ -385,6 +401,587 @@ export namespace MesssageRcsResponse {
   }
 }
 
+export interface MesssageWhatsappResponse {
+  data?: MesssageWhatsappResponse.Data;
+}
+
+export namespace MesssageWhatsappResponse {
+  export interface Data {
+    /**
+     * message ID
+     */
+    id?: string;
+
+    body?: Data.Body;
+
+    direction?: string;
+
+    encoding?: string;
+
+    from?: Data.From;
+
+    messaging_profile_id?: string;
+
+    organization_id?: string;
+
+    received_at?: string;
+
+    record_type?: string;
+
+    to?: Array<Data.To>;
+
+    type?: string;
+  }
+
+  export namespace Data {
+    export interface Body {
+      audio?: Body.Audio;
+
+      /**
+       * custom data to return with status update
+       */
+      biz_opaque_callback_data?: string;
+
+      contacts?: Array<Body.Contact>;
+
+      document?: Body.Document;
+
+      image?: Body.Image;
+
+      interactive?: Body.Interactive;
+
+      location?: Body.Location;
+
+      reaction?: Body.Reaction;
+
+      sticker?: Body.Sticker;
+
+      type?:
+        | 'audio'
+        | 'document'
+        | 'image'
+        | 'sticker'
+        | 'video'
+        | 'interactive'
+        | 'location'
+        | 'template'
+        | 'reaction'
+        | 'contacts';
+
+      video?: Body.Video;
+    }
+
+    export namespace Body {
+      export interface Audio {
+        /**
+         * media caption
+         */
+        caption?: string;
+
+        /**
+         * file name with extension
+         */
+        filename?: string;
+
+        /**
+         * media URL
+         */
+        link?: string;
+
+        /**
+         * true if voice message
+         */
+        voice?: boolean;
+      }
+
+      export interface Contact {
+        addresses?: Array<Contact.Address>;
+
+        birthday?: string;
+
+        emails?: Array<Contact.Email>;
+
+        name?: string;
+
+        org?: Contact.Org;
+
+        phones?: Array<Contact.Phone>;
+
+        urls?: Array<Contact.URL>;
+      }
+
+      export namespace Contact {
+        export interface Address {
+          city?: string;
+
+          country?: string;
+
+          country_code?: string;
+
+          state?: string;
+
+          street?: string;
+
+          type?: string;
+
+          zip?: string;
+        }
+
+        export interface Email {
+          email?: string;
+
+          type?: string;
+        }
+
+        export interface Org {
+          company?: string;
+
+          department?: string;
+
+          title?: string;
+        }
+
+        export interface Phone {
+          phone?: string;
+
+          type?: string;
+
+          wa_id?: string;
+        }
+
+        export interface URL {
+          type?: string;
+
+          url?: string;
+        }
+      }
+
+      export interface Document {
+        /**
+         * media caption
+         */
+        caption?: string;
+
+        /**
+         * file name with extension
+         */
+        filename?: string;
+
+        /**
+         * media URL
+         */
+        link?: string;
+
+        /**
+         * true if voice message
+         */
+        voice?: boolean;
+      }
+
+      export interface Image {
+        /**
+         * media caption
+         */
+        caption?: string;
+
+        /**
+         * file name with extension
+         */
+        filename?: string;
+
+        /**
+         * media URL
+         */
+        link?: string;
+
+        /**
+         * true if voice message
+         */
+        voice?: boolean;
+      }
+
+      export interface Interactive {
+        action?: Interactive.Action;
+
+        body?: Interactive.Body;
+
+        footer?: Interactive.Footer;
+
+        header?: Interactive.Header;
+
+        type?: 'cta_url' | 'list' | 'carousel' | 'button' | 'location_request_message';
+      }
+
+      export namespace Interactive {
+        export interface Action {
+          button?: string;
+
+          buttons?: Array<Action.Button>;
+
+          cards?: Array<Action.Card>;
+
+          catalog_id?: string;
+
+          mode?: string;
+
+          name?: string;
+
+          parameters?: Action.Parameters;
+
+          product_retailer_id?: string;
+
+          sections?: Array<Action.Section>;
+        }
+
+        export namespace Action {
+          export interface Button {
+            reply?: Button.Reply;
+
+            type?: 'reply';
+          }
+
+          export namespace Button {
+            export interface Reply {
+              /**
+               * unique identifier for each button, 256 character maximum
+               */
+              id?: string;
+
+              /**
+               * button label, 20 character maximum
+               */
+              title?: string;
+            }
+          }
+
+          export interface Card {
+            action?: Card.Action;
+
+            body?: Card.Body;
+
+            /**
+             * unique index for each card (0-9)
+             */
+            card_index?: number;
+
+            header?: Card.Header;
+
+            type?: 'cta_url';
+          }
+
+          export namespace Card {
+            export interface Action {
+              /**
+               * the unique ID of the catalog
+               */
+              catalog_id?: string;
+
+              /**
+               * the unique retailer ID of the product
+               */
+              product_retailer_id?: string;
+            }
+
+            export interface Body {
+              /**
+               * 160 character maximum, up to 2 line breaks
+               */
+              text?: string;
+            }
+
+            export interface Header {
+              image?: Header.Image;
+
+              type?: 'image' | 'video';
+
+              video?: Header.Video;
+            }
+
+            export namespace Header {
+              export interface Image {
+                /**
+                 * media caption
+                 */
+                caption?: string;
+
+                /**
+                 * file name with extension
+                 */
+                filename?: string;
+
+                /**
+                 * media URL
+                 */
+                link?: string;
+
+                /**
+                 * true if voice message
+                 */
+                voice?: boolean;
+              }
+
+              export interface Video {
+                /**
+                 * media caption
+                 */
+                caption?: string;
+
+                /**
+                 * file name with extension
+                 */
+                filename?: string;
+
+                /**
+                 * media URL
+                 */
+                link?: string;
+
+                /**
+                 * true if voice message
+                 */
+                voice?: boolean;
+              }
+            }
+          }
+
+          export interface Parameters {
+            /**
+             * button label text, 20 character maximum
+             */
+            display_text?: string;
+
+            /**
+             * button URL to load when tapped by the user
+             */
+            url?: string;
+          }
+
+          export interface Section {
+            product_items?: Array<Section.ProductItem>;
+
+            rows?: Array<Section.Row>;
+
+            /**
+             * section title, 24 character maximum
+             */
+            title?: string;
+          }
+
+          export namespace Section {
+            export interface ProductItem {
+              product_retailer_id?: string;
+            }
+
+            export interface Row {
+              /**
+               * arbitrary string identifying the row, 200 character maximum
+               */
+              id?: string;
+
+              /**
+               * row description, 72 character maximum
+               */
+              description?: string;
+
+              /**
+               * row title, 24 character maximum
+               */
+              title?: string;
+            }
+          }
+        }
+
+        export interface Body {
+          /**
+           * body text, 1024 character maximum
+           */
+          text?: string;
+        }
+
+        export interface Footer {
+          /**
+           * footer text, 60 character maximum
+           */
+          text?: string;
+        }
+
+        export interface Header {
+          document?: Header.Document;
+
+          image?: Header.Image;
+
+          sub_text?: string;
+
+          /**
+           * header text, 60 character maximum
+           */
+          text?: string;
+
+          video?: Header.Video;
+        }
+
+        export namespace Header {
+          export interface Document {
+            /**
+             * media caption
+             */
+            caption?: string;
+
+            /**
+             * file name with extension
+             */
+            filename?: string;
+
+            /**
+             * media URL
+             */
+            link?: string;
+
+            /**
+             * true if voice message
+             */
+            voice?: boolean;
+          }
+
+          export interface Image {
+            /**
+             * media caption
+             */
+            caption?: string;
+
+            /**
+             * file name with extension
+             */
+            filename?: string;
+
+            /**
+             * media URL
+             */
+            link?: string;
+
+            /**
+             * true if voice message
+             */
+            voice?: boolean;
+          }
+
+          export interface Video {
+            /**
+             * media caption
+             */
+            caption?: string;
+
+            /**
+             * file name with extension
+             */
+            filename?: string;
+
+            /**
+             * media URL
+             */
+            link?: string;
+
+            /**
+             * true if voice message
+             */
+            voice?: boolean;
+          }
+        }
+      }
+
+      export interface Location {
+        address?: string;
+
+        latitude?: string;
+
+        longitude?: string;
+
+        name?: string;
+      }
+
+      export interface Reaction {
+        empji?: string;
+
+        message_id?: string;
+      }
+
+      export interface Sticker {
+        /**
+         * media caption
+         */
+        caption?: string;
+
+        /**
+         * file name with extension
+         */
+        filename?: string;
+
+        /**
+         * media URL
+         */
+        link?: string;
+
+        /**
+         * true if voice message
+         */
+        voice?: boolean;
+      }
+
+      export interface Video {
+        /**
+         * media caption
+         */
+        caption?: string;
+
+        /**
+         * file name with extension
+         */
+        filename?: string;
+
+        /**
+         * media URL
+         */
+        link?: string;
+
+        /**
+         * true if voice message
+         */
+        voice?: boolean;
+      }
+    }
+
+    export interface From {
+      /**
+       * The carrier of the sender.
+       */
+      carrier?: string;
+
+      /**
+       * The line-type of the sender.
+       */
+      line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+      /**
+       * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
+       * code).
+       */
+      phone_number?: string;
+
+      status?: 'received' | 'delivered';
+    }
+
+    export interface To {
+      carrier?: string;
+
+      line_type?: string;
+
+      phone_number?: string;
+
+      status?: string;
+    }
+  }
+}
+
 export interface MesssageRcsParams {
   /**
    * RCS Agent ID
@@ -454,6 +1051,548 @@ export namespace MesssageRcsParams {
   }
 }
 
+export interface MesssageWhatsappParams {
+  /**
+   * Phone number in +E.164 format associated with Whatsapp account
+   */
+  from: string;
+
+  /**
+   * Phone number in +E.164 format
+   */
+  to: string;
+
+  whatsapp_message: MesssageWhatsappParams.WhatsappMessage;
+
+  /**
+   * Message type - must be set to "WHATSAPP"
+   */
+  type?: 'WHATSAPP';
+
+  /**
+   * The URL where webhooks related to this message will be sent.
+   */
+  webhook_url?: string;
+}
+
+export namespace MesssageWhatsappParams {
+  export interface WhatsappMessage {
+    audio?: WhatsappMessage.Audio;
+
+    /**
+     * custom data to return with status update
+     */
+    biz_opaque_callback_data?: string;
+
+    contacts?: Array<WhatsappMessage.Contact>;
+
+    document?: WhatsappMessage.Document;
+
+    image?: WhatsappMessage.Image;
+
+    interactive?: WhatsappMessage.Interactive;
+
+    location?: WhatsappMessage.Location;
+
+    reaction?: WhatsappMessage.Reaction;
+
+    sticker?: WhatsappMessage.Sticker;
+
+    type?:
+      | 'audio'
+      | 'document'
+      | 'image'
+      | 'sticker'
+      | 'video'
+      | 'interactive'
+      | 'location'
+      | 'template'
+      | 'reaction'
+      | 'contacts';
+
+    video?: WhatsappMessage.Video;
+  }
+
+  export namespace WhatsappMessage {
+    export interface Audio {
+      /**
+       * media caption
+       */
+      caption?: string;
+
+      /**
+       * file name with extension
+       */
+      filename?: string;
+
+      /**
+       * media URL
+       */
+      link?: string;
+
+      /**
+       * true if voice message
+       */
+      voice?: boolean;
+    }
+
+    export interface Contact {
+      addresses?: Array<Contact.Address>;
+
+      birthday?: string;
+
+      emails?: Array<Contact.Email>;
+
+      name?: string;
+
+      org?: Contact.Org;
+
+      phones?: Array<Contact.Phone>;
+
+      urls?: Array<Contact.URL>;
+    }
+
+    export namespace Contact {
+      export interface Address {
+        city?: string;
+
+        country?: string;
+
+        country_code?: string;
+
+        state?: string;
+
+        street?: string;
+
+        type?: string;
+
+        zip?: string;
+      }
+
+      export interface Email {
+        email?: string;
+
+        type?: string;
+      }
+
+      export interface Org {
+        company?: string;
+
+        department?: string;
+
+        title?: string;
+      }
+
+      export interface Phone {
+        phone?: string;
+
+        type?: string;
+
+        wa_id?: string;
+      }
+
+      export interface URL {
+        type?: string;
+
+        url?: string;
+      }
+    }
+
+    export interface Document {
+      /**
+       * media caption
+       */
+      caption?: string;
+
+      /**
+       * file name with extension
+       */
+      filename?: string;
+
+      /**
+       * media URL
+       */
+      link?: string;
+
+      /**
+       * true if voice message
+       */
+      voice?: boolean;
+    }
+
+    export interface Image {
+      /**
+       * media caption
+       */
+      caption?: string;
+
+      /**
+       * file name with extension
+       */
+      filename?: string;
+
+      /**
+       * media URL
+       */
+      link?: string;
+
+      /**
+       * true if voice message
+       */
+      voice?: boolean;
+    }
+
+    export interface Interactive {
+      action?: Interactive.Action;
+
+      body?: Interactive.Body;
+
+      footer?: Interactive.Footer;
+
+      header?: Interactive.Header;
+
+      type?: 'cta_url' | 'list' | 'carousel' | 'button' | 'location_request_message';
+    }
+
+    export namespace Interactive {
+      export interface Action {
+        button?: string;
+
+        buttons?: Array<Action.Button>;
+
+        cards?: Array<Action.Card>;
+
+        catalog_id?: string;
+
+        mode?: string;
+
+        name?: string;
+
+        parameters?: Action.Parameters;
+
+        product_retailer_id?: string;
+
+        sections?: Array<Action.Section>;
+      }
+
+      export namespace Action {
+        export interface Button {
+          reply?: Button.Reply;
+
+          type?: 'reply';
+        }
+
+        export namespace Button {
+          export interface Reply {
+            /**
+             * unique identifier for each button, 256 character maximum
+             */
+            id?: string;
+
+            /**
+             * button label, 20 character maximum
+             */
+            title?: string;
+          }
+        }
+
+        export interface Card {
+          action?: Card.Action;
+
+          body?: Card.Body;
+
+          /**
+           * unique index for each card (0-9)
+           */
+          card_index?: number;
+
+          header?: Card.Header;
+
+          type?: 'cta_url';
+        }
+
+        export namespace Card {
+          export interface Action {
+            /**
+             * the unique ID of the catalog
+             */
+            catalog_id?: string;
+
+            /**
+             * the unique retailer ID of the product
+             */
+            product_retailer_id?: string;
+          }
+
+          export interface Body {
+            /**
+             * 160 character maximum, up to 2 line breaks
+             */
+            text?: string;
+          }
+
+          export interface Header {
+            image?: Header.Image;
+
+            type?: 'image' | 'video';
+
+            video?: Header.Video;
+          }
+
+          export namespace Header {
+            export interface Image {
+              /**
+               * media caption
+               */
+              caption?: string;
+
+              /**
+               * file name with extension
+               */
+              filename?: string;
+
+              /**
+               * media URL
+               */
+              link?: string;
+
+              /**
+               * true if voice message
+               */
+              voice?: boolean;
+            }
+
+            export interface Video {
+              /**
+               * media caption
+               */
+              caption?: string;
+
+              /**
+               * file name with extension
+               */
+              filename?: string;
+
+              /**
+               * media URL
+               */
+              link?: string;
+
+              /**
+               * true if voice message
+               */
+              voice?: boolean;
+            }
+          }
+        }
+
+        export interface Parameters {
+          /**
+           * button label text, 20 character maximum
+           */
+          display_text?: string;
+
+          /**
+           * button URL to load when tapped by the user
+           */
+          url?: string;
+        }
+
+        export interface Section {
+          product_items?: Array<Section.ProductItem>;
+
+          rows?: Array<Section.Row>;
+
+          /**
+           * section title, 24 character maximum
+           */
+          title?: string;
+        }
+
+        export namespace Section {
+          export interface ProductItem {
+            product_retailer_id?: string;
+          }
+
+          export interface Row {
+            /**
+             * arbitrary string identifying the row, 200 character maximum
+             */
+            id?: string;
+
+            /**
+             * row description, 72 character maximum
+             */
+            description?: string;
+
+            /**
+             * row title, 24 character maximum
+             */
+            title?: string;
+          }
+        }
+      }
+
+      export interface Body {
+        /**
+         * body text, 1024 character maximum
+         */
+        text?: string;
+      }
+
+      export interface Footer {
+        /**
+         * footer text, 60 character maximum
+         */
+        text?: string;
+      }
+
+      export interface Header {
+        document?: Header.Document;
+
+        image?: Header.Image;
+
+        sub_text?: string;
+
+        /**
+         * header text, 60 character maximum
+         */
+        text?: string;
+
+        video?: Header.Video;
+      }
+
+      export namespace Header {
+        export interface Document {
+          /**
+           * media caption
+           */
+          caption?: string;
+
+          /**
+           * file name with extension
+           */
+          filename?: string;
+
+          /**
+           * media URL
+           */
+          link?: string;
+
+          /**
+           * true if voice message
+           */
+          voice?: boolean;
+        }
+
+        export interface Image {
+          /**
+           * media caption
+           */
+          caption?: string;
+
+          /**
+           * file name with extension
+           */
+          filename?: string;
+
+          /**
+           * media URL
+           */
+          link?: string;
+
+          /**
+           * true if voice message
+           */
+          voice?: boolean;
+        }
+
+        export interface Video {
+          /**
+           * media caption
+           */
+          caption?: string;
+
+          /**
+           * file name with extension
+           */
+          filename?: string;
+
+          /**
+           * media URL
+           */
+          link?: string;
+
+          /**
+           * true if voice message
+           */
+          voice?: boolean;
+        }
+      }
+    }
+
+    export interface Location {
+      address?: string;
+
+      latitude?: string;
+
+      longitude?: string;
+
+      name?: string;
+    }
+
+    export interface Reaction {
+      empji?: string;
+
+      message_id?: string;
+    }
+
+    export interface Sticker {
+      /**
+       * media caption
+       */
+      caption?: string;
+
+      /**
+       * file name with extension
+       */
+      filename?: string;
+
+      /**
+       * media URL
+       */
+      link?: string;
+
+      /**
+       * true if voice message
+       */
+      voice?: boolean;
+    }
+
+    export interface Video {
+      /**
+       * media caption
+       */
+      caption?: string;
+
+      /**
+       * file name with extension
+       */
+      filename?: string;
+
+      /**
+       * media URL
+       */
+      link?: string;
+
+      /**
+       * true if voice message
+       */
+      voice?: boolean;
+    }
+  }
+}
+
 export declare namespace Messsages {
   export {
     type RcsAgentMessage as RcsAgentMessage,
@@ -461,6 +1600,8 @@ export declare namespace Messsages {
     type RcsContentInfo as RcsContentInfo,
     type RcsSuggestion as RcsSuggestion,
     type MesssageRcsResponse as MesssageRcsResponse,
+    type MesssageWhatsappResponse as MesssageWhatsappResponse,
     type MesssageRcsParams as MesssageRcsParams,
+    type MesssageWhatsappParams as MesssageWhatsappParams,
   };
 }

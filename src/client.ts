@@ -459,6 +459,8 @@ import {
 import {
   MesssageRcsParams,
   MesssageRcsResponse,
+  MesssageWhatsappParams,
+  MesssageWhatsappResponse,
   Messsages,
   RcsAgentMessage,
   RcsCardContent,
@@ -3279,7 +3281,9 @@ export declare namespace Telnyx {
     type RcsContentInfo as RcsContentInfo,
     type RcsSuggestion as RcsSuggestion,
     type MesssageRcsResponse as MesssageRcsResponse,
+    type MesssageWhatsappResponse as MesssageWhatsappResponse,
     type MesssageRcsParams as MesssageRcsParams,
+    type MesssageWhatsappParams as MesssageWhatsappParams,
   };
 
   export {
