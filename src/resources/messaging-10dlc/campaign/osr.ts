@@ -7,7 +7,7 @@ import { path } from '../../../internal/utils/path';
 
 export class Osr extends APIResource {
   /**
-   * Get My Osr Campaign Attributes
+   * Get OSR campaign attributes
    *
    * @example
    * ```ts
