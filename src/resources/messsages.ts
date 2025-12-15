@@ -345,6 +345,28 @@ export namespace RcsSuggestion {
   }
 }
 
+export interface WhatsappMedia {
+  /**
+   * media caption
+   */
+  caption?: string;
+
+  /**
+   * file name with extension
+   */
+  filename?: string;
+
+  /**
+   * media URL
+   */
+  link?: string;
+
+  /**
+   * true if voice message
+   */
+  voice?: boolean;
+}
+
 export interface MesssageRcsResponse {
   data?: MesssageRcsResponse.Data;
 }
@@ -435,7 +457,7 @@ export namespace MesssageWhatsappResponse {
 
   export namespace Data {
     export interface Body {
-      audio?: Body.Audio;
+      audio?: MesssagesAPI.WhatsappMedia;
 
       /**
        * custom data to return with status update
@@ -444,9 +466,9 @@ export namespace MesssageWhatsappResponse {
 
       contacts?: Array<Body.Contact>;
 
-      document?: Body.Document;
+      document?: MesssagesAPI.WhatsappMedia;
 
-      image?: Body.Image;
+      image?: MesssagesAPI.WhatsappMedia;
 
       interactive?: Body.Interactive;
 
@@ -454,7 +476,7 @@ export namespace MesssageWhatsappResponse {
 
       reaction?: Body.Reaction;
 
-      sticker?: Body.Sticker;
+      sticker?: MesssagesAPI.WhatsappMedia;
 
       type?:
         | 'audio'
@@ -468,32 +490,10 @@ export namespace MesssageWhatsappResponse {
         | 'reaction'
         | 'contacts';
 
-      video?: Body.Video;
+      video?: MesssagesAPI.WhatsappMedia;
     }
 
     export namespace Body {
-      export interface Audio {
-        /**
-         * media caption
-         */
-        caption?: string;
-
-        /**
-         * file name with extension
-         */
-        filename?: string;
-
-        /**
-         * media URL
-         */
-        link?: string;
-
-        /**
-         * true if voice message
-         */
-        voice?: boolean;
-      }
-
       export interface Contact {
         addresses?: Array<Contact.Address>;
 
@@ -554,50 +554,6 @@ export namespace MesssageWhatsappResponse {
 
           url?: string;
         }
-      }
-
-      export interface Document {
-        /**
-         * media caption
-         */
-        caption?: string;
-
-        /**
-         * file name with extension
-         */
-        filename?: string;
-
-        /**
-         * media URL
-         */
-        link?: string;
-
-        /**
-         * true if voice message
-         */
-        voice?: boolean;
-      }
-
-      export interface Image {
-        /**
-         * media caption
-         */
-        caption?: string;
-
-        /**
-         * file name with extension
-         */
-        filename?: string;
-
-        /**
-         * media URL
-         */
-        link?: string;
-
-        /**
-         * true if voice message
-         */
-        voice?: boolean;
       }
 
       export interface Interactive {
@@ -690,57 +646,11 @@ export namespace MesssageWhatsappResponse {
             }
 
             export interface Header {
-              image?: Header.Image;
+              image?: MesssagesAPI.WhatsappMedia;
 
               type?: 'image' | 'video';
 
-              video?: Header.Video;
-            }
-
-            export namespace Header {
-              export interface Image {
-                /**
-                 * media caption
-                 */
-                caption?: string;
-
-                /**
-                 * file name with extension
-                 */
-                filename?: string;
-
-                /**
-                 * media URL
-                 */
-                link?: string;
-
-                /**
-                 * true if voice message
-                 */
-                voice?: boolean;
-              }
-
-              export interface Video {
-                /**
-                 * media caption
-                 */
-                caption?: string;
-
-                /**
-                 * file name with extension
-                 */
-                filename?: string;
-
-                /**
-                 * media URL
-                 */
-                link?: string;
-
-                /**
-                 * true if voice message
-                 */
-                voice?: boolean;
-              }
+              video?: MesssagesAPI.WhatsappMedia;
             }
           }
 
@@ -806,9 +716,9 @@ export namespace MesssageWhatsappResponse {
         }
 
         export interface Header {
-          document?: Header.Document;
+          document?: MesssagesAPI.WhatsappMedia;
 
-          image?: Header.Image;
+          image?: MesssagesAPI.WhatsappMedia;
 
           sub_text?: string;
 
@@ -817,75 +727,7 @@ export namespace MesssageWhatsappResponse {
            */
           text?: string;
 
-          video?: Header.Video;
-        }
-
-        export namespace Header {
-          export interface Document {
-            /**
-             * media caption
-             */
-            caption?: string;
-
-            /**
-             * file name with extension
-             */
-            filename?: string;
-
-            /**
-             * media URL
-             */
-            link?: string;
-
-            /**
-             * true if voice message
-             */
-            voice?: boolean;
-          }
-
-          export interface Image {
-            /**
-             * media caption
-             */
-            caption?: string;
-
-            /**
-             * file name with extension
-             */
-            filename?: string;
-
-            /**
-             * media URL
-             */
-            link?: string;
-
-            /**
-             * true if voice message
-             */
-            voice?: boolean;
-          }
-
-          export interface Video {
-            /**
-             * media caption
-             */
-            caption?: string;
-
-            /**
-             * file name with extension
-             */
-            filename?: string;
-
-            /**
-             * media URL
-             */
-            link?: string;
-
-            /**
-             * true if voice message
-             */
-            voice?: boolean;
-          }
+          video?: MesssagesAPI.WhatsappMedia;
         }
       }
 
@@ -903,50 +745,6 @@ export namespace MesssageWhatsappResponse {
         empji?: string;
 
         message_id?: string;
-      }
-
-      export interface Sticker {
-        /**
-         * media caption
-         */
-        caption?: string;
-
-        /**
-         * file name with extension
-         */
-        filename?: string;
-
-        /**
-         * media URL
-         */
-        link?: string;
-
-        /**
-         * true if voice message
-         */
-        voice?: boolean;
-      }
-
-      export interface Video {
-        /**
-         * media caption
-         */
-        caption?: string;
-
-        /**
-         * file name with extension
-         */
-        filename?: string;
-
-        /**
-         * media URL
-         */
-        link?: string;
-
-        /**
-         * true if voice message
-         */
-        voice?: boolean;
       }
     }
 
@@ -1077,7 +875,7 @@ export interface MesssageWhatsappParams {
 
 export namespace MesssageWhatsappParams {
   export interface WhatsappMessage {
-    audio?: WhatsappMessage.Audio;
+    audio?: MesssagesAPI.WhatsappMedia;
 
     /**
      * custom data to return with status update
@@ -1086,9 +884,9 @@ export namespace MesssageWhatsappParams {
 
     contacts?: Array<WhatsappMessage.Contact>;
 
-    document?: WhatsappMessage.Document;
+    document?: MesssagesAPI.WhatsappMedia;
 
-    image?: WhatsappMessage.Image;
+    image?: MesssagesAPI.WhatsappMedia;
 
     interactive?: WhatsappMessage.Interactive;
 
@@ -1096,7 +894,7 @@ export namespace MesssageWhatsappParams {
 
     reaction?: WhatsappMessage.Reaction;
 
-    sticker?: WhatsappMessage.Sticker;
+    sticker?: MesssagesAPI.WhatsappMedia;
 
     type?:
       | 'audio'
@@ -1110,32 +908,10 @@ export namespace MesssageWhatsappParams {
       | 'reaction'
       | 'contacts';
 
-    video?: WhatsappMessage.Video;
+    video?: MesssagesAPI.WhatsappMedia;
   }
 
   export namespace WhatsappMessage {
-    export interface Audio {
-      /**
-       * media caption
-       */
-      caption?: string;
-
-      /**
-       * file name with extension
-       */
-      filename?: string;
-
-      /**
-       * media URL
-       */
-      link?: string;
-
-      /**
-       * true if voice message
-       */
-      voice?: boolean;
-    }
-
     export interface Contact {
       addresses?: Array<Contact.Address>;
 
@@ -1196,50 +972,6 @@ export namespace MesssageWhatsappParams {
 
         url?: string;
       }
-    }
-
-    export interface Document {
-      /**
-       * media caption
-       */
-      caption?: string;
-
-      /**
-       * file name with extension
-       */
-      filename?: string;
-
-      /**
-       * media URL
-       */
-      link?: string;
-
-      /**
-       * true if voice message
-       */
-      voice?: boolean;
-    }
-
-    export interface Image {
-      /**
-       * media caption
-       */
-      caption?: string;
-
-      /**
-       * file name with extension
-       */
-      filename?: string;
-
-      /**
-       * media URL
-       */
-      link?: string;
-
-      /**
-       * true if voice message
-       */
-      voice?: boolean;
     }
 
     export interface Interactive {
@@ -1332,57 +1064,11 @@ export namespace MesssageWhatsappParams {
           }
 
           export interface Header {
-            image?: Header.Image;
+            image?: MesssagesAPI.WhatsappMedia;
 
             type?: 'image' | 'video';
 
-            video?: Header.Video;
-          }
-
-          export namespace Header {
-            export interface Image {
-              /**
-               * media caption
-               */
-              caption?: string;
-
-              /**
-               * file name with extension
-               */
-              filename?: string;
-
-              /**
-               * media URL
-               */
-              link?: string;
-
-              /**
-               * true if voice message
-               */
-              voice?: boolean;
-            }
-
-            export interface Video {
-              /**
-               * media caption
-               */
-              caption?: string;
-
-              /**
-               * file name with extension
-               */
-              filename?: string;
-
-              /**
-               * media URL
-               */
-              link?: string;
-
-              /**
-               * true if voice message
-               */
-              voice?: boolean;
-            }
+            video?: MesssagesAPI.WhatsappMedia;
           }
         }
 
@@ -1448,9 +1134,9 @@ export namespace MesssageWhatsappParams {
       }
 
       export interface Header {
-        document?: Header.Document;
+        document?: MesssagesAPI.WhatsappMedia;
 
-        image?: Header.Image;
+        image?: MesssagesAPI.WhatsappMedia;
 
         sub_text?: string;
 
@@ -1459,75 +1145,7 @@ export namespace MesssageWhatsappParams {
          */
         text?: string;
 
-        video?: Header.Video;
-      }
-
-      export namespace Header {
-        export interface Document {
-          /**
-           * media caption
-           */
-          caption?: string;
-
-          /**
-           * file name with extension
-           */
-          filename?: string;
-
-          /**
-           * media URL
-           */
-          link?: string;
-
-          /**
-           * true if voice message
-           */
-          voice?: boolean;
-        }
-
-        export interface Image {
-          /**
-           * media caption
-           */
-          caption?: string;
-
-          /**
-           * file name with extension
-           */
-          filename?: string;
-
-          /**
-           * media URL
-           */
-          link?: string;
-
-          /**
-           * true if voice message
-           */
-          voice?: boolean;
-        }
-
-        export interface Video {
-          /**
-           * media caption
-           */
-          caption?: string;
-
-          /**
-           * file name with extension
-           */
-          filename?: string;
-
-          /**
-           * media URL
-           */
-          link?: string;
-
-          /**
-           * true if voice message
-           */
-          voice?: boolean;
-        }
+        video?: MesssagesAPI.WhatsappMedia;
       }
     }
 
@@ -1546,50 +1164,6 @@ export namespace MesssageWhatsappParams {
 
       message_id?: string;
     }
-
-    export interface Sticker {
-      /**
-       * media caption
-       */
-      caption?: string;
-
-      /**
-       * file name with extension
-       */
-      filename?: string;
-
-      /**
-       * media URL
-       */
-      link?: string;
-
-      /**
-       * true if voice message
-       */
-      voice?: boolean;
-    }
-
-    export interface Video {
-      /**
-       * media caption
-       */
-      caption?: string;
-
-      /**
-       * file name with extension
-       */
-      filename?: string;
-
-      /**
-       * media URL
-       */
-      link?: string;
-
-      /**
-       * true if voice message
-       */
-      voice?: boolean;
-    }
   }
 }
 
@@ -1599,6 +1173,7 @@ export declare namespace Messsages {
     type RcsCardContent as RcsCardContent,
     type RcsContentInfo as RcsContentInfo,
     type RcsSuggestion as RcsSuggestion,
+    type WhatsappMedia as WhatsappMedia,
     type MesssageRcsResponse as MesssageRcsResponse,
     type MesssageWhatsappResponse as MesssageWhatsappResponse,
     type MesssageRcsParams as MesssageRcsParams,

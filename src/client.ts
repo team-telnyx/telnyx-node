@@ -466,6 +466,7 @@ import {
   RcsCardContent,
   RcsContentInfo,
   RcsSuggestion,
+  WhatsappMedia,
 } from './resources/messsages';
 import {
   MobileNetworkOperatorListParams,
@@ -3280,6 +3281,7 @@ export declare namespace Telnyx {
     type RcsCardContent as RcsCardContent,
     type RcsContentInfo as RcsContentInfo,
     type RcsSuggestion as RcsSuggestion,
+    type WhatsappMedia as WhatsappMedia,
     type MesssageRcsResponse as MesssageRcsResponse,
     type MesssageWhatsappResponse as MesssageWhatsappResponse,
     type MesssageRcsParams as MesssageRcsParams,

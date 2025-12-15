@@ -575,6 +575,7 @@ export {
   type RcsCardContent,
   type RcsContentInfo,
   type RcsSuggestion,
+  type WhatsappMedia,
   type MesssageRcsResponse,
   type MesssageWhatsappResponse,
   type MesssageRcsParams,
