@@ -62,7 +62,7 @@ export class PhoneNumberCampaigns extends APIResource {
   }
 
   /**
-   * List phone number campaigns
+   * Retrieve All Phone Number Campaigns
    *
    * @example
    * ```ts

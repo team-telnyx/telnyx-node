@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'get_attributes_campaign_messaging_10dlc_osr',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGet OSR campaign attributes\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/osr_get_attributes_response',\n  $defs: {\n    osr_get_attributes_response: {\n      type: 'object',\n      additionalProperties: true\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGet My Osr Campaign Attributes\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/osr_get_attributes_response',\n  $defs: {\n    osr_get_attributes_response: {\n      type: 'object',\n      additionalProperties: true\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {

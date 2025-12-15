@@ -32,25 +32,7 @@ export const tool: Tool = {
         type: 'object',
         properties: {
           audio: {
-            type: 'object',
-            properties: {
-              caption: {
-                type: 'string',
-                description: 'media caption',
-              },
-              filename: {
-                type: 'string',
-                description: 'file name with extension',
-              },
-              link: {
-                type: 'string',
-                description: 'media URL',
-              },
-              voice: {
-                type: 'boolean',
-                description: 'true if voice message',
-              },
-            },
+            $ref: '#/$defs/whatsapp_media',
           },
           biz_opaque_callback_data: {
             type: 'string',
@@ -159,46 +141,10 @@ export const tool: Tool = {
             },
           },
           document: {
-            type: 'object',
-            properties: {
-              caption: {
-                type: 'string',
-                description: 'media caption',
-              },
-              filename: {
-                type: 'string',
-                description: 'file name with extension',
-              },
-              link: {
-                type: 'string',
-                description: 'media URL',
-              },
-              voice: {
-                type: 'boolean',
-                description: 'true if voice message',
-              },
-            },
+            $ref: '#/$defs/whatsapp_media',
           },
           image: {
-            type: 'object',
-            properties: {
-              caption: {
-                type: 'string',
-                description: 'media caption',
-              },
-              filename: {
-                type: 'string',
-                description: 'file name with extension',
-              },
-              link: {
-                type: 'string',
-                description: 'media URL',
-              },
-              voice: {
-                type: 'boolean',
-                description: 'true if voice message',
-              },
-            },
+            $ref: '#/$defs/whatsapp_media',
           },
           interactive: {
             type: 'object',
@@ -269,50 +215,14 @@ export const tool: Tool = {
                           type: 'object',
                           properties: {
                             image: {
-                              type: 'object',
-                              properties: {
-                                caption: {
-                                  type: 'string',
-                                  description: 'media caption',
-                                },
-                                filename: {
-                                  type: 'string',
-                                  description: 'file name with extension',
-                                },
-                                link: {
-                                  type: 'string',
-                                  description: 'media URL',
-                                },
-                                voice: {
-                                  type: 'boolean',
-                                  description: 'true if voice message',
-                                },
-                              },
+                              $ref: '#/$defs/whatsapp_media',
                             },
                             type: {
                               type: 'string',
                               enum: ['image', 'video'],
                             },
                             video: {
-                              type: 'object',
-                              properties: {
-                                caption: {
-                                  type: 'string',
-                                  description: 'media caption',
-                                },
-                                filename: {
-                                  type: 'string',
-                                  description: 'file name with extension',
-                                },
-                                link: {
-                                  type: 'string',
-                                  description: 'media URL',
-                                },
-                                voice: {
-                                  type: 'boolean',
-                                  description: 'true if voice message',
-                                },
-                              },
+                              $ref: '#/$defs/whatsapp_media',
                             },
                           },
                         },
@@ -415,46 +325,10 @@ export const tool: Tool = {
                 type: 'object',
                 properties: {
                   document: {
-                    type: 'object',
-                    properties: {
-                      caption: {
-                        type: 'string',
-                        description: 'media caption',
-                      },
-                      filename: {
-                        type: 'string',
-                        description: 'file name with extension',
-                      },
-                      link: {
-                        type: 'string',
-                        description: 'media URL',
-                      },
-                      voice: {
-                        type: 'boolean',
-                        description: 'true if voice message',
-                      },
-                    },
+                    $ref: '#/$defs/whatsapp_media',
                   },
                   image: {
-                    type: 'object',
-                    properties: {
-                      caption: {
-                        type: 'string',
-                        description: 'media caption',
-                      },
-                      filename: {
-                        type: 'string',
-                        description: 'file name with extension',
-                      },
-                      link: {
-                        type: 'string',
-                        description: 'media URL',
-                      },
-                      voice: {
-                        type: 'boolean',
-                        description: 'true if voice message',
-                      },
-                    },
+                    $ref: '#/$defs/whatsapp_media',
                   },
                   sub_text: {
                     type: 'string',
@@ -464,25 +338,7 @@ export const tool: Tool = {
                     description: 'header text, 60 character maximum',
                   },
                   video: {
-                    type: 'object',
-                    properties: {
-                      caption: {
-                        type: 'string',
-                        description: 'media caption',
-                      },
-                      filename: {
-                        type: 'string',
-                        description: 'file name with extension',
-                      },
-                      link: {
-                        type: 'string',
-                        description: 'media URL',
-                      },
-                      voice: {
-                        type: 'boolean',
-                        description: 'true if voice message',
-                      },
-                    },
+                    $ref: '#/$defs/whatsapp_media',
                   },
                 },
               },
@@ -521,25 +377,7 @@ export const tool: Tool = {
             },
           },
           sticker: {
-            type: 'object',
-            properties: {
-              caption: {
-                type: 'string',
-                description: 'media caption',
-              },
-              filename: {
-                type: 'string',
-                description: 'file name with extension',
-              },
-              link: {
-                type: 'string',
-                description: 'media URL',
-              },
-              voice: {
-                type: 'boolean',
-                description: 'true if voice message',
-              },
-            },
+            $ref: '#/$defs/whatsapp_media',
           },
           type: {
             type: 'string',
@@ -557,25 +395,7 @@ export const tool: Tool = {
             ],
           },
           video: {
-            type: 'object',
-            properties: {
-              caption: {
-                type: 'string',
-                description: 'media caption',
-              },
-              filename: {
-                type: 'string',
-                description: 'file name with extension',
-              },
-              link: {
-                type: 'string',
-                description: 'media URL',
-              },
-              voice: {
-                type: 'boolean',
-                description: 'true if voice message',
-              },
-            },
+            $ref: '#/$defs/whatsapp_media',
           },
         },
       },
@@ -590,6 +410,29 @@ export const tool: Tool = {
       },
     },
     required: ['from', 'to', 'whatsapp_message'],
+    $defs: {
+      whatsapp_media: {
+        type: 'object',
+        properties: {
+          caption: {
+            type: 'string',
+            description: 'media caption',
+          },
+          filename: {
+            type: 'string',
+            description: 'file name with extension',
+          },
+          link: {
+            type: 'string',
+            description: 'media URL',
+          },
+          voice: {
+            type: 'boolean',
+            description: 'true if voice message',
+          },
+        },
+      },
+    },
   },
   annotations: {},
 };

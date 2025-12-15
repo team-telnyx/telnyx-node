@@ -1270,8 +1270,8 @@ The following tools are available in this MCP server.
 ### Resource `messaging.rcs`:
 
 - `invite_test_number_messaging_rcs` (`write`): Adds a test phone number to an RCS agent for testing purposes.
-- `list_bulk_capabilities_messaging_rcs` (`write`): Check RCS capabilities (batch)
-- `retrieve_capabilities_messaging_rcs` (`read`): Check RCS capabilities
+- `list_bulk_capabilities_messaging_rcs` (`write`): List RCS capabilities of a given batch of phone numbers
+- `retrieve_capabilities_messaging_rcs` (`read`): List RCS capabilities of a phone number
 
 ### Resource `messaging.rcs.agents`:
 
@@ -1285,13 +1285,13 @@ The following tools are available in this MCP server.
 - `retrieve_messaging_hosted_number_orders` (`read`): Retrieve a messaging hosted number order
 - `list_messaging_hosted_number_orders` (`read`): List messaging hosted number orders
 - `delete_messaging_hosted_number_orders` (`write`): Delete a messaging hosted number order and all associated phone numbers.
-- `check_eligibility_messaging_hosted_number_orders` (`write`): Check hosted messaging eligibility
+- `check_eligibility_messaging_hosted_number_orders` (`write`): Check eligibility of phone numbers for hosted messaging
 - `create_verification_codes_messaging_hosted_number_orders` (`write`): Create verification codes to validate numbers of the hosted order. The verification codes will be sent to the numbers of the hosted order.
 - `validate_codes_messaging_hosted_number_orders` (`write`): Validate the verification codes sent to the numbers of the hosted order. The verification codes must be created in the verification codes endpoint.
 
 ### Resource `messaging_hosted_number_orders.actions`:
 
-- `upload_file_messaging_hosted_number_orders_actions` (`write`): Upload hosted number document
+- `upload_file_messaging_hosted_number_orders_actions` (`write`): Upload file required for a messaging hosted number order
 
 ### Resource `messaging_hosted_numbers`:
 
@@ -1299,7 +1299,7 @@ The following tools are available in this MCP server.
 
 ### Resource `messaging_numbers_bulk_updates`:
 
-- `create_messaging_numbers_bulk_updates` (`write`): Bulk update phone number profiles
+- `create_messaging_numbers_bulk_updates` (`write`): Update the messaging profile of multiple phone numbers
 - `retrieve_messaging_numbers_bulk_updates` (`read`): Retrieve bulk update status
 
 ### Resource `messaging_optouts`:
@@ -1318,7 +1318,7 @@ The following tools are available in this MCP server.
 
 ### Resource `messaging_profiles.autoresp_configs`:
 
-- `create_messaging_profiles_autoresp_configs` (`write`): Create auto-response setting
+- `create_messaging_profiles_autoresp_configs` (`write`): Create Auto-Reponse Setting
 - `retrieve_messaging_profiles_autoresp_configs` (`read`): Get Auto-Response Setting
 - `update_messaging_profiles_autoresp_configs` (`write`): Update Auto-Response Setting
 - `list_messaging_profiles_autoresp_configs` (`read`): List Auto-Response Settings
@@ -2260,7 +2260,7 @@ The following tools are available in this MCP server.
 
 ### Resource `messaging_10dlc.campaign.osr`:
 
-- `get_attributes_campaign_messaging_10dlc_osr` (`read`): Get OSR campaign attributes
+- `get_attributes_campaign_messaging_10dlc_osr` (`read`): Get My Osr Campaign Attributes
 
 ### Resource `messaging_10dlc.campaign_builder`:
 
@@ -2291,7 +2291,7 @@ The following tools are available in this MCP server.
 - `create_messaging_10dlc_phone_number_campaigns` (`write`): Create New Phone Number Campaign
 - `retrieve_messaging_10dlc_phone_number_campaigns` (`read`): Retrieve an individual phone number/campaign assignment by `phoneNumber`.
 - `update_messaging_10dlc_phone_number_campaigns` (`write`): Create New Phone Number Campaign
-- `list_messaging_10dlc_phone_number_campaigns` (`read`): List phone number campaigns
+- `list_messaging_10dlc_phone_number_campaigns` (`read`): Retrieve All Phone Number Campaigns
 - `delete_messaging_10dlc_phone_number_campaigns` (`write`): This endpoint allows you to remove a campaign assignment from the supplied `phoneNumber`.
 
 ### Resource `messaging_10dlc.phone_number_assignment_by_profile`:

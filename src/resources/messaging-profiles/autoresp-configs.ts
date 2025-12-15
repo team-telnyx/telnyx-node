@@ -8,7 +8,7 @@ import { path } from '../../internal/utils/path';
 
 export class AutorespConfigs extends APIResource {
   /**
-   * Create auto-response setting
+   * Create Auto-Reponse Setting
    *
    * @example
    * ```ts

@@ -2025,6 +2025,7 @@ Types:
 - <code><a href="./src/resources/messsages.ts">RcsCardContent</a></code>
 - <code><a href="./src/resources/messsages.ts">RcsContentInfo</a></code>
 - <code><a href="./src/resources/messsages.ts">RcsSuggestion</a></code>
+- <code><a href="./src/resources/messsages.ts">WhatsappMedia</a></code>
 - <code><a href="./src/resources/messsages.ts">MesssageRcsResponse</a></code>
 - <code><a href="./src/resources/messsages.ts">MesssageWhatsappResponse</a></code>
 
