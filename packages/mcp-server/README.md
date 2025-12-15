@@ -1345,6 +1345,7 @@ The following tools are available in this MCP server.
 ### Resource `messsages`:
 
 - `rcs_messsages` (`write`): Send an RCS message
+- `whatsapp_messsages` (`write`): Send a Whatsapp message
 
 ### Resource `mobile_network_operators`:
 

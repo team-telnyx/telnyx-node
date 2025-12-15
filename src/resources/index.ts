@@ -576,7 +576,9 @@ export {
   type RcsContentInfo,
   type RcsSuggestion,
   type MesssageRcsResponse,
+  type MesssageWhatsappResponse,
   type MesssageRcsParams,
+  type MesssageWhatsappParams,
 } from './messsages';
 export {
   MobileNetworkOperators,
