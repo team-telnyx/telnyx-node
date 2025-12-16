@@ -1823,6 +1823,11 @@ Types:
 
 - <code><a href="./src/resources/messages/messages.ts">MessagingError</a></code>
 - <code><a href="./src/resources/messages/messages.ts">OutboundMessagePayload</a></code>
+- <code><a href="./src/resources/messages/messages.ts">RcsAgentMessage</a></code>
+- <code><a href="./src/resources/messages/messages.ts">RcsCardContent</a></code>
+- <code><a href="./src/resources/messages/messages.ts">RcsContentInfo</a></code>
+- <code><a href="./src/resources/messages/messages.ts">RcsSuggestion</a></code>
+- <code><a href="./src/resources/messages/messages.ts">WhatsappMedia</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageRetrieveResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageCancelScheduledResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageScheduleResponse</a></code>
@@ -2016,23 +2021,6 @@ Types:
 Methods:
 
 - <code title="get /messaging_url_domains">client.messagingURLDomains.<a href="./src/resources/messaging-url-domains.ts">list</a>({ ...params }) -> MessagingURLDomainListResponsesDefaultPagination</code>
-
-# Messsages
-
-Types:
-
-- <code><a href="./src/resources/messsages.ts">RcsAgentMessage</a></code>
-- <code><a href="./src/resources/messsages.ts">RcsCardContent</a></code>
-- <code><a href="./src/resources/messsages.ts">RcsContentInfo</a></code>
-- <code><a href="./src/resources/messsages.ts">RcsSuggestion</a></code>
-- <code><a href="./src/resources/messsages.ts">WhatsappMedia</a></code>
-- <code><a href="./src/resources/messsages.ts">MesssageRcsResponse</a></code>
-- <code><a href="./src/resources/messsages.ts">MesssageWhatsappResponse</a></code>
-
-Methods:
-
-- <code title="post /messsages/rcs">client.messsages.<a href="./src/resources/messsages.ts">rcs</a>({ ...params }) -> MesssageRcsResponse</code>
-- <code title="post /messsages/whatsapp">client.messsages.<a href="./src/resources/messsages.ts">whatsapp</a>({ ...params }) -> MesssageWhatsappResponse</code>
 
 # MobileNetworkOperators
 
