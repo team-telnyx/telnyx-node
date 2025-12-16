@@ -429,8 +429,6 @@ import update_verification_messaging_tollfree_requests from './messaging-tollfre
 import list_verification_messaging_tollfree_requests from './messaging-tollfree/verification/requests/list-verification-messaging-tollfree-requests';
 import delete_verification_messaging_tollfree_requests from './messaging-tollfree/verification/requests/delete-verification-messaging-tollfree-requests';
 import list_messaging_url_domains from './messaging-url-domains/list-messaging-url-domains';
-import rcs_messsages from './messsages/rcs-messsages';
-import whatsapp_messsages from './messsages/whatsapp-messsages';
 import list_mobile_network_operators from './mobile-network-operators/list-mobile-network-operators';
 import create_mobile_push_credentials from './mobile-push-credentials/create-mobile-push-credentials';
 import retrieve_mobile_push_credentials from './mobile-push-credentials/retrieve-mobile-push-credentials';
@@ -1306,8 +1304,6 @@ addEndpoint(update_verification_messaging_tollfree_requests);
 addEndpoint(list_verification_messaging_tollfree_requests);
 addEndpoint(delete_verification_messaging_tollfree_requests);
 addEndpoint(list_messaging_url_domains);
-addEndpoint(rcs_messsages);
-addEndpoint(whatsapp_messsages);
 addEndpoint(list_mobile_network_operators);
 addEndpoint(create_mobile_push_credentials);
 addEndpoint(retrieve_mobile_push_credentials);

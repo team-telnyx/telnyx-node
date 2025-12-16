@@ -1342,11 +1342,6 @@ The following tools are available in this MCP server.
 
 - `list_messaging_url_domains` (`read`): List messaging URL domains
 
-### Resource `messsages`:
-
-- `rcs_messsages` (`write`): Send an RCS message
-- `whatsapp_messsages` (`write`): Send a Whatsapp message
-
 ### Resource `mobile_network_operators`:
 
 - `list_mobile_network_operators` (`read`): Telnyx has a set of GSM mobile operators partners that are available through our mobile network roaming. This resource is entirely managed by Telnyx and may change over time. That means that this resource won't allow any write operations for it. Still, it's available so it can be used as a support resource that can be related to other resources or become a configuration option.
