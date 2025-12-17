@@ -309,6 +309,11 @@ export interface CredentialInbound {
   shaken_stir_enabled?: boolean;
 
   /**
+   * When enabled, allows multiple devices to ring simultaneously on incoming calls.
+   */
+  simultaneous_ringing?: 'disabled' | 'enabled';
+
+  /**
    * Defaults to true.
    */
   sip_compact_headers_enabled?: boolean;

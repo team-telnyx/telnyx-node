@@ -197,6 +197,11 @@ export const tool: Tool = {
             description:
               'When enabled the SIP Connection will receive the Identity header with Shaken/Stir data in the SIP INVITE message of inbound calls, even when using UDP transport.',
           },
+          simultaneous_ringing: {
+            type: 'string',
+            description: 'When enabled, allows multiple devices to ring simultaneously on incoming calls.',
+            enum: ['disabled', 'enabled'],
+          },
           sip_compact_headers_enabled: {
             type: 'boolean',
             description: 'Defaults to true.',
