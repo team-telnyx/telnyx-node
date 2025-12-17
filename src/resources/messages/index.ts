@@ -25,3 +25,4 @@ export {
   type MessageSendShortCodeParams,
 } from './messages';
 export { Rcs, type RcGenerateDeeplinkResponse, type RcGenerateDeeplinkParams } from './rcs';
+export { Whatsapp } from './whatsapp';
