@@ -4,11 +4,6 @@ export {
   Messages,
   type MessagingError,
   type OutboundMessagePayload,
-  type RcsAgentMessage,
-  type RcsCardContent,
-  type RcsContentInfo,
-  type RcsSuggestion,
-  type WhatsappMedia,
   type MessageRetrieveResponse,
   type MessageCancelScheduledResponse,
   type MessageScheduleResponse,
@@ -17,12 +12,19 @@ export {
   type MessageSendLongCodeResponse,
   type MessageSendNumberPoolResponse,
   type MessageSendShortCodeResponse,
+  type MessageSendWhatsappResponse,
   type MessageScheduleParams,
   type MessageSendParams,
   type MessageSendGroupMmsParams,
   type MessageSendLongCodeParams,
   type MessageSendNumberPoolParams,
   type MessageSendShortCodeParams,
+  type MessageSendWhatsappParams,
 } from './messages';
-export { Rcs, type RcGenerateDeeplinkResponse, type RcGenerateDeeplinkParams } from './rcs';
-export { Whatsapp } from './whatsapp';
+export {
+  Rcs,
+  type RcGenerateDeeplinkResponse,
+  type RcSendResponse,
+  type RcGenerateDeeplinkParams,
+  type RcSendParams,
+} from './rcs';

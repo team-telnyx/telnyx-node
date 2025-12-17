@@ -1365,11 +1365,11 @@ export interface TranscriptionEngineBConfig {
 }
 
 export type TranscriptionEngineDeepgramConfig =
-  | TranscriptionEngineDeepgramConfig.DeepgramNova2
-  | TranscriptionEngineDeepgramConfig.DeepgramNova3;
+  | TranscriptionEngineDeepgramConfig.DeepgramNova2Config
+  | TranscriptionEngineDeepgramConfig.DeepgramNova3Config;
 
 export namespace TranscriptionEngineDeepgramConfig {
-  export interface DeepgramNova2 {
+  export interface DeepgramNova2Config {
     transcription_engine: 'Deepgram';
 
     transcription_model: 'deepgram/nova-2';
@@ -1441,7 +1441,7 @@ export namespace TranscriptionEngineDeepgramConfig {
       | 'auto_detect';
   }
 
-  export interface DeepgramNova3 {
+  export interface DeepgramNova3Config {
     transcription_engine: 'Deepgram';
 
     transcription_model: 'deepgram/nova-3';

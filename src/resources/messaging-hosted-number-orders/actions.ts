@@ -10,7 +10,7 @@ import { path } from '../../internal/utils/path';
 
 export class Actions extends APIResource {
   /**
-   * Upload file required for a messaging hosted number order
+   * Upload hosted number document
    *
    * @example
    * ```ts

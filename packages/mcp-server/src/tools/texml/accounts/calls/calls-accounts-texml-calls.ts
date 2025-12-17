@@ -189,6 +189,17 @@ export const tool: Tool = {
         description: 'HTTP request type used for `StatusCallback`.',
         enum: ['GET', 'POST'],
       },
+      SuperviseCallSid: {
+        type: 'string',
+        description:
+          'The call control ID of the existing call to supervise. When provided, the created leg will be added to the specified call in supervising mode. Status callbacks and action callbacks will NOT be sent for the supervising leg.',
+      },
+      SupervisingRole: {
+        type: 'string',
+        description:
+          'The supervising role for the new leg. Determines the audio behavior: barge (hear both sides), whisper (only hear supervisor), monitor (hear both sides but supervisor muted). Default: barge',
+        enum: ['barge', 'whisper', 'monitor'],
+      },
       Trim: {
         type: 'string',
         description:

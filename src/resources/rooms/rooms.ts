@@ -159,7 +159,7 @@ export interface Room {
    * The failover URL where webhooks related to this room will be sent if sending to
    * the primary URL fails. Must include a scheme, such as 'https'.
    */
-  webhook_event_failover_url?: string | null;
+  webhook_event_failover_url?: string;
 
   /**
    * The URL where webhooks related to this room will be sent. Must include a scheme,
@@ -170,7 +170,7 @@ export interface Room {
   /**
    * Specifies how many seconds to wait before timing out a webhook.
    */
-  webhook_timeout_secs?: number | null;
+  webhook_timeout_secs?: number;
 }
 
 export interface RoomSession {
@@ -242,7 +242,7 @@ export interface RoomCreateParams {
    * The failover URL where webhooks related to this room will be sent if sending to
    * the primary URL fails. Must include a scheme, such as 'https'.
    */
-  webhook_event_failover_url?: string | null;
+  webhook_event_failover_url?: string;
 
   /**
    * The URL where webhooks related to this room will be sent. Must include a scheme,
@@ -253,7 +253,7 @@ export interface RoomCreateParams {
   /**
    * Specifies how many seconds to wait before timing out a webhook.
    */
-  webhook_timeout_secs?: number | null;
+  webhook_timeout_secs?: number;
 }
 
 export interface RoomRetrieveParams {
@@ -284,7 +284,7 @@ export interface RoomUpdateParams {
    * The failover URL where webhooks related to this room will be sent if sending to
    * the primary URL fails. Must include a scheme, such as 'https'.
    */
-  webhook_event_failover_url?: string | null;
+  webhook_event_failover_url?: string;
 
   /**
    * The URL where webhooks related to this room will be sent. Must include a scheme,
@@ -295,7 +295,7 @@ export interface RoomUpdateParams {
   /**
    * Specifies how many seconds to wait before timing out a webhook.
    */
-  webhook_timeout_secs?: number | null;
+  webhook_timeout_secs?: number;
 }
 
 export interface RoomListParams extends DefaultPaginationParams {

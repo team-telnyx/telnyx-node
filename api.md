@@ -1823,11 +1823,6 @@ Types:
 
 - <code><a href="./src/resources/messages/messages.ts">MessagingError</a></code>
 - <code><a href="./src/resources/messages/messages.ts">OutboundMessagePayload</a></code>
-- <code><a href="./src/resources/messages/messages.ts">RcsAgentMessage</a></code>
-- <code><a href="./src/resources/messages/messages.ts">RcsCardContent</a></code>
-- <code><a href="./src/resources/messages/messages.ts">RcsContentInfo</a></code>
-- <code><a href="./src/resources/messages/messages.ts">RcsSuggestion</a></code>
-- <code><a href="./src/resources/messages/messages.ts">WhatsappMedia</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageRetrieveResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageCancelScheduledResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageScheduleResponse</a></code>
@@ -1836,6 +1831,7 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">MessageSendLongCodeResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendNumberPoolResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendShortCodeResponse</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessageSendWhatsappResponse</a></code>
 
 Methods:
 
@@ -1847,18 +1843,19 @@ Methods:
 - <code title="post /messages/long_code">client.messages.<a href="./src/resources/messages/messages.ts">sendLongCode</a>({ ...params }) -> MessageSendLongCodeResponse</code>
 - <code title="post /messages/number_pool">client.messages.<a href="./src/resources/messages/messages.ts">sendNumberPool</a>({ ...params }) -> MessageSendNumberPoolResponse</code>
 - <code title="post /messages/short_code">client.messages.<a href="./src/resources/messages/messages.ts">sendShortCode</a>({ ...params }) -> MessageSendShortCodeResponse</code>
+- <code title="post /messages/whatsapp">client.messages.<a href="./src/resources/messages/messages.ts">sendWhatsapp</a>({ ...params }) -> MessageSendWhatsappResponse</code>
 
 ## Rcs
 
 Types:
 
 - <code><a href="./src/resources/messages/rcs.ts">RcGenerateDeeplinkResponse</a></code>
+- <code><a href="./src/resources/messages/rcs.ts">RcSendResponse</a></code>
 
 Methods:
 
 - <code title="get /messages/rcs/deeplinks/{agent_id}">client.messages.rcs.<a href="./src/resources/messages/rcs.ts">generateDeeplink</a>(agentID, { ...params }) -> RcGenerateDeeplinkResponse</code>
-
-## Whatsapp
+- <code title="post /messages/rcs">client.messages.rcs.<a href="./src/resources/messages/rcs.ts">send</a>({ ...params }) -> RcSendResponse</code>
 
 # Messaging
 
@@ -2023,6 +2020,15 @@ Types:
 Methods:
 
 - <code title="get /messaging_url_domains">client.messagingURLDomains.<a href="./src/resources/messaging-url-domains.ts">list</a>({ ...params }) -> MessagingURLDomainListResponsesDefaultPagination</code>
+
+# Messsages
+
+Types:
+
+- <code><a href="./src/resources/messsages.ts">RcsAgentMessage</a></code>
+- <code><a href="./src/resources/messsages.ts">RcsCardContent</a></code>
+- <code><a href="./src/resources/messsages.ts">RcsContentInfo</a></code>
+- <code><a href="./src/resources/messsages.ts">RcsSuggestion</a></code>
 
 # MobileNetworkOperators
 

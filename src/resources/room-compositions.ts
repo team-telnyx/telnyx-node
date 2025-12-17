@@ -163,7 +163,7 @@ export interface RoomComposition {
    * The failover URL where webhooks related to this room composition will be sent if
    * sending to the primary URL fails. Must include a scheme, such as 'https'.
    */
-  webhook_event_failover_url?: string | null;
+  webhook_event_failover_url?: string;
 
   /**
    * The URL where webhooks related to this room composition will be sent. Must
@@ -174,26 +174,26 @@ export interface RoomComposition {
   /**
    * Specifies how many seconds to wait before timing out a webhook.
    */
-  webhook_timeout_secs?: number | null;
+  webhook_timeout_secs?: number;
 }
 
 export interface VideoRegion {
   /**
    * Height of the video region
    */
-  height?: number | null;
+  height?: number;
 
   /**
    * Maximum number of columns of the region's placement grid. By default, the region
    * has as many columns as needed to layout all the specified video sources.
    */
-  max_columns?: number | null;
+  max_columns?: number;
 
   /**
    * Maximum number of rows of the region's placement grid. By default, the region
    * has as many rows as needed to layout all the specified video sources.
    */
-  max_rows?: number | null;
+  max_rows?: number;
 
   /**
    * Array of video recording ids to be composed in the region. Can be "\*" to
@@ -204,25 +204,25 @@ export interface VideoRegion {
   /**
    * Width of the video region
    */
-  width?: number | null;
+  width?: number;
 
   /**
    * X axis value (in pixels) of the region's upper left corner relative to the upper
    * left corner of the whole room composition viewport.
    */
-  x_pos?: number | null;
+  x_pos?: number;
 
   /**
    * Y axis value (in pixels) of the region's upper left corner relative to the upper
    * left corner of the whole room composition viewport.
    */
-  y_pos?: number | null;
+  y_pos?: number;
 
   /**
    * Regions with higher z_pos values are stacked on top of regions with lower z_pos
    * values
    */
-  z_pos?: number | null;
+  z_pos?: number;
 }
 
 export interface RoomCompositionCreateResponse {
@@ -237,19 +237,19 @@ export interface RoomCompositionCreateParams {
   /**
    * The desired format of the room composition.
    */
-  format?: string | null;
+  format?: string;
 
   /**
    * The desired resolution (width/height in pixels) of the resulting video of the
    * room composition. Both width and height are required to be between 16 and 1280;
    * and width _ height should not exceed 1280 _ 720
    */
-  resolution?: string | null;
+  resolution?: string;
 
   /**
    * id of the room session associated with the room composition.
    */
-  session_id?: string | null;
+  session_id?: string;
 
   /**
    * Describes the video layout of the room composition in terms of regions.
@@ -260,7 +260,7 @@ export interface RoomCompositionCreateParams {
    * The failover URL where webhooks related to this room composition will be sent if
    * sending to the primary URL fails. Must include a scheme, such as 'https'.
    */
-  webhook_event_failover_url?: string | null;
+  webhook_event_failover_url?: string;
 
   /**
    * The URL where webhooks related to this room composition will be sent. Must
@@ -271,7 +271,7 @@ export interface RoomCompositionCreateParams {
   /**
    * Specifies how many seconds to wait before timing out a webhook.
    */
-  webhook_timeout_secs?: number | null;
+  webhook_timeout_secs?: number;
 }
 
 export interface RoomCompositionListParams extends DefaultPaginationParams {

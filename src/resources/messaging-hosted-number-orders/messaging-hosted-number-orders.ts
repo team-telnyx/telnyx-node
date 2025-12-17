@@ -78,7 +78,7 @@ export class MessagingHostedNumberOrders extends APIResource {
   }
 
   /**
-   * Check eligibility of phone numbers for hosted messaging
+   * Check hosted messaging eligibility
    *
    * @example
    * ```ts
