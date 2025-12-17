@@ -40,6 +40,7 @@ export async function codeTool() {
           TELNYX_PUBLIC_KEY: readEnv('TELNYX_PUBLIC_KEY'),
           TELNYX_CLIENT_ID: readEnv('TELNYX_CLIENT_ID'),
           TELNYX_CLIENT_SECRET: readEnv('TELNYX_CLIENT_SECRET'),
+          TELNYX_BASE_URL: readEnv('TELNYX_BASE_URL'),
         }),
       },
       body: JSON.stringify({
