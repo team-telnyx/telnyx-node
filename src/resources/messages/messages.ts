@@ -5,12 +5,15 @@ import * as MessagesAPI from './messages';
 import * as Shared from '../shared';
 import * as RcsAPI from './rcs';
 import { RcGenerateDeeplinkParams, RcGenerateDeeplinkResponse, Rcs } from './rcs';
+import * as WhatsappAPI from './whatsapp';
+import { Whatsapp } from './whatsapp';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 export class Messages extends APIResource {
   rcs: RcsAPI.Rcs = new RcsAPI.Rcs(this._client);
+  whatsapp: WhatsappAPI.Whatsapp = new WhatsappAPI.Whatsapp(this._client);
 
   /**
    * Note: This API endpoint can only retrieve messages that are no older than 10
@@ -1473,6 +1476,7 @@ export interface MessageSendShortCodeParams {
 }
 
 Messages.Rcs = Rcs;
+Messages.Whatsapp = Whatsapp;
 
 export declare namespace Messages {
   export {
@@ -1504,4 +1508,6 @@ export declare namespace Messages {
     type RcGenerateDeeplinkResponse as RcGenerateDeeplinkResponse,
     type RcGenerateDeeplinkParams as RcGenerateDeeplinkParams,
   };
+
+  export { Whatsapp as Whatsapp };
 }

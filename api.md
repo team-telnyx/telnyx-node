@@ -1858,6 +1858,8 @@ Methods:
 
 - <code title="get /messages/rcs/deeplinks/{agent_id}">client.messages.rcs.<a href="./src/resources/messages/rcs.ts">generateDeeplink</a>(agentID, { ...params }) -> RcGenerateDeeplinkResponse</code>
 
+## Whatsapp
+
 # Messaging
 
 ## Rcs
