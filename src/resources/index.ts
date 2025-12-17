@@ -502,11 +502,6 @@ export {
   Messages,
   type MessagingError,
   type OutboundMessagePayload,
-  type RcsAgentMessage,
-  type RcsCardContent,
-  type RcsContentInfo,
-  type RcsSuggestion,
-  type WhatsappMedia,
   type MessageRetrieveResponse,
   type MessageCancelScheduledResponse,
   type MessageScheduleResponse,
@@ -515,12 +510,14 @@ export {
   type MessageSendLongCodeResponse,
   type MessageSendNumberPoolResponse,
   type MessageSendShortCodeResponse,
+  type MessageSendWhatsappResponse,
   type MessageScheduleParams,
   type MessageSendParams,
   type MessageSendGroupMmsParams,
   type MessageSendLongCodeParams,
   type MessageSendNumberPoolParams,
   type MessageSendShortCodeParams,
+  type MessageSendWhatsappParams,
 } from './messages/messages';
 export { Messaging } from './messaging/messaging';
 export { Messaging10dlc, type Messaging10dlcGetEnumResponse } from './messaging-10dlc/messaging-10dlc';
@@ -574,6 +571,13 @@ export {
   type MessagingURLDomainListParams,
   type MessagingURLDomainListResponsesDefaultPagination,
 } from './messaging-url-domains';
+export {
+  Messsages,
+  type RcsAgentMessage,
+  type RcsCardContent,
+  type RcsContentInfo,
+  type RcsSuggestion,
+} from './messsages';
 export {
   MobileNetworkOperators,
   type MobileNetworkOperatorListResponse,

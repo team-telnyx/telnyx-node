@@ -858,6 +858,20 @@ export interface CallCallsParams {
   StatusCallbackMethod?: 'GET' | 'POST';
 
   /**
+   * The call control ID of the existing call to supervise. When provided, the
+   * created leg will be added to the specified call in supervising mode. Status
+   * callbacks and action callbacks will NOT be sent for the supervising leg.
+   */
+  SuperviseCallSid?: string;
+
+  /**
+   * The supervising role for the new leg. Determines the audio behavior: barge (hear
+   * both sides), whisper (only hear supervisor), monitor (hear both sides but
+   * supervisor muted). Default: barge
+   */
+  SupervisingRole?: 'barge' | 'whisper' | 'monitor';
+
+  /**
    * Whether to trim any leading and trailing silence from the recording. Defaults to
    * `trim-silence`.
    */

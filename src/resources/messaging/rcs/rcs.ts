@@ -32,7 +32,7 @@ export class Rcs extends APIResource {
   }
 
   /**
-   * List RCS capabilities of a given batch of phone numbers
+   * Check RCS capabilities (batch)
    *
    * @example
    * ```ts
@@ -51,7 +51,7 @@ export class Rcs extends APIResource {
   }
 
   /**
-   * List RCS capabilities of a phone number
+   * Check RCS capabilities
    *
    * @example
    * ```ts

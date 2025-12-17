@@ -103,6 +103,8 @@ describe('resource calls', () => {
       StatusCallback: 'https://www.example.com/statuscallback-listener',
       StatusCallbackEvent: 'initiated',
       StatusCallbackMethod: 'GET',
+      SuperviseCallSid: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+      SupervisingRole: 'monitor',
       Trim: 'trim-silence',
       Url: 'https://www.example.com/texml.xml',
       UrlMethod: 'GET',

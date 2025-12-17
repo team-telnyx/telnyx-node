@@ -457,6 +457,13 @@ import {
   MessagingURLDomains,
 } from './resources/messaging-url-domains';
 import {
+  Messsages,
+  RcsAgentMessage,
+  RcsCardContent,
+  RcsContentInfo,
+  RcsSuggestion,
+} from './resources/messsages';
+import {
   MobileNetworkOperatorListParams,
   MobileNetworkOperatorListResponse,
   MobileNetworkOperatorListResponsesDefaultPagination,
@@ -1122,14 +1129,11 @@ import {
   MessageSendResponse,
   MessageSendShortCodeParams,
   MessageSendShortCodeResponse,
+  MessageSendWhatsappParams,
+  MessageSendWhatsappResponse,
   Messages,
   MessagingError,
   OutboundMessagePayload,
-  RcsAgentMessage,
-  RcsCardContent,
-  RcsContentInfo,
-  RcsSuggestion,
-  WhatsappMedia,
 } from './resources/messages/messages';
 import { Messaging10dlc, Messaging10dlcGetEnumResponse } from './resources/messaging-10dlc/messaging-10dlc';
 import {
@@ -2229,6 +2233,7 @@ export class Telnyx {
   messagingProfiles: API.MessagingProfiles = new API.MessagingProfiles(this);
   messagingTollfree: API.MessagingTollfree = new API.MessagingTollfree(this);
   messagingURLDomains: API.MessagingURLDomains = new API.MessagingURLDomains(this);
+  messsages: API.Messsages = new API.Messsages(this);
   mobileNetworkOperators: API.MobileNetworkOperators = new API.MobileNetworkOperators(this);
   mobilePushCredentials: API.MobilePushCredentials = new API.MobilePushCredentials(this);
   networkCoverage: API.NetworkCoverage = new API.NetworkCoverage(this);
@@ -2383,6 +2388,7 @@ Telnyx.MessagingOptouts = MessagingOptouts;
 Telnyx.MessagingProfiles = MessagingProfiles;
 Telnyx.MessagingTollfree = MessagingTollfree;
 Telnyx.MessagingURLDomains = MessagingURLDomains;
+Telnyx.Messsages = Messsages;
 Telnyx.MobileNetworkOperators = MobileNetworkOperators;
 Telnyx.MobilePushCredentials = MobilePushCredentials;
 Telnyx.NetworkCoverage = NetworkCoverage;
@@ -3187,11 +3193,6 @@ export declare namespace Telnyx {
     Messages as Messages,
     type MessagingError as MessagingError,
     type OutboundMessagePayload as OutboundMessagePayload,
-    type RcsAgentMessage as RcsAgentMessage,
-    type RcsCardContent as RcsCardContent,
-    type RcsContentInfo as RcsContentInfo,
-    type RcsSuggestion as RcsSuggestion,
-    type WhatsappMedia as WhatsappMedia,
     type MessageRetrieveResponse as MessageRetrieveResponse,
     type MessageCancelScheduledResponse as MessageCancelScheduledResponse,
     type MessageScheduleResponse as MessageScheduleResponse,
@@ -3200,12 +3201,14 @@ export declare namespace Telnyx {
     type MessageSendLongCodeResponse as MessageSendLongCodeResponse,
     type MessageSendNumberPoolResponse as MessageSendNumberPoolResponse,
     type MessageSendShortCodeResponse as MessageSendShortCodeResponse,
+    type MessageSendWhatsappResponse as MessageSendWhatsappResponse,
     type MessageScheduleParams as MessageScheduleParams,
     type MessageSendParams as MessageSendParams,
     type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
     type MessageSendLongCodeParams as MessageSendLongCodeParams,
     type MessageSendNumberPoolParams as MessageSendNumberPoolParams,
     type MessageSendShortCodeParams as MessageSendShortCodeParams,
+    type MessageSendWhatsappParams as MessageSendWhatsappParams,
   };
 
   export { Messaging as Messaging };
@@ -3268,6 +3271,14 @@ export declare namespace Telnyx {
     type MessagingURLDomainListResponse as MessagingURLDomainListResponse,
     type MessagingURLDomainListResponsesDefaultPagination as MessagingURLDomainListResponsesDefaultPagination,
     type MessagingURLDomainListParams as MessagingURLDomainListParams,
+  };
+
+  export {
+    Messsages as Messsages,
+    type RcsAgentMessage as RcsAgentMessage,
+    type RcsCardContent as RcsCardContent,
+    type RcsContentInfo as RcsContentInfo,
+    type RcsSuggestion as RcsSuggestion,
   };
 
   export {
