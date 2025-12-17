@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as MessagesAPI from './messages';
 import * as Shared from '../shared';
 import * as RcsAPI from './rcs';
 import {
@@ -480,6 +481,333 @@ export namespace OutboundMessagePayload {
   }
 }
 
+export interface RcsAgentMessage {
+  content_message?: RcsAgentMessage.ContentMessage;
+
+  /**
+   * RCS Event to send to the recipient
+   */
+  event?: RcsAgentMessage.Event;
+
+  /**
+   * Timestamp in UTC of when this message is considered expired
+   */
+  expire_time?: string;
+
+  /**
+   * Duration in seconds ending with 's'
+   */
+  ttl?: string;
+}
+
+export namespace RcsAgentMessage {
+  export interface ContentMessage {
+    content_info?: MessagesAPI.RcsContentInfo;
+
+    rich_card?: ContentMessage.RichCard;
+
+    /**
+     * List of suggested actions and replies
+     */
+    suggestions?: Array<MessagesAPI.RcsSuggestion>;
+
+    /**
+     * Text (maximum 3072 characters)
+     */
+    text?: string;
+  }
+
+  export namespace ContentMessage {
+    export interface RichCard {
+      /**
+       * Carousel of cards.
+       */
+      carousel_card?: RichCard.CarouselCard;
+
+      /**
+       * Standalone card
+       */
+      standalone_card?: RichCard.StandaloneCard;
+    }
+
+    export namespace RichCard {
+      /**
+       * Carousel of cards.
+       */
+      export interface CarouselCard {
+        /**
+         * The list of contents for each card in the carousel. A carousel can have a
+         * minimum of 2 cards and a maximum 10 cards.
+         */
+        card_contents: Array<MessagesAPI.RcsCardContent>;
+
+        /**
+         * The width of the cards in the carousel.
+         */
+        card_width: 'CARD_WIDTH_UNSPECIFIED' | 'SMALL' | 'MEDIUM';
+      }
+
+      /**
+       * Standalone card
+       */
+      export interface StandaloneCard {
+        card_content: MessagesAPI.RcsCardContent;
+
+        /**
+         * Orientation of the card.
+         */
+        card_orientation: 'CARD_ORIENTATION_UNSPECIFIED' | 'HORIZONTAL' | 'VERTICAL';
+
+        /**
+         * Image preview alignment for standalone cards with horizontal layout.
+         */
+        thumbnail_image_alignment: 'THUMBNAIL_IMAGE_ALIGNMENT_UNSPECIFIED' | 'LEFT' | 'RIGHT';
+      }
+    }
+  }
+
+  /**
+   * RCS Event to send to the recipient
+   */
+  export interface Event {
+    event_type?: 'TYPE_UNSPECIFIED' | 'IS_TYPING' | 'READ';
+  }
+}
+
+export interface RcsCardContent {
+  /**
+   * Description of the card (at most 2000 characters)
+   */
+  description?: string;
+
+  /**
+   * A media file within a rich card.
+   */
+  media?: RcsCardContent.Media;
+
+  /**
+   * List of suggestions to include in the card. Maximum 10 suggestions.
+   */
+  suggestions?: Array<RcsSuggestion>;
+
+  /**
+   * Title of the card (at most 200 characters)
+   */
+  title?: string;
+}
+
+export namespace RcsCardContent {
+  /**
+   * A media file within a rich card.
+   */
+  export interface Media {
+    content_info?: MessagesAPI.RcsContentInfo;
+
+    /**
+     * The height of the media within a rich card with a vertical layout. For a
+     * standalone card with horizontal layout, height is not customizable, and this
+     * field is ignored.
+     */
+    height?: 'HEIGHT_UNSPECIFIED' | 'SHORT' | 'MEDIUM' | 'TALL';
+  }
+}
+
+export interface RcsContentInfo {
+  /**
+   * Publicly reachable URL of the file.
+   */
+  file_url: string;
+
+  /**
+   * If set the URL content will not be cached.
+   */
+  force_refresh?: boolean;
+
+  /**
+   * Publicly reachable URL of the thumbnail. Maximum size of 100 kB.
+   */
+  thumbnail_url?: string;
+}
+
+export interface RcsSuggestion {
+  /**
+   * When tapped, initiates the corresponding native action on the device.
+   */
+  action?: RcsSuggestion.Action;
+
+  reply?: RcsSuggestion.Reply;
+}
+
+export namespace RcsSuggestion {
+  /**
+   * When tapped, initiates the corresponding native action on the device.
+   */
+  export interface Action {
+    /**
+     * Opens the user's default calendar app and starts the new calendar event flow
+     * with the agent-specified event data pre-filled.
+     */
+    create_calendar_event_action?: Action.CreateCalendarEventAction;
+
+    /**
+     * Opens the user's default dialer app with the agent-specified phone number filled
+     * in.
+     */
+    dial_action?: Action.DialAction;
+
+    /**
+     * Fallback URL to use if a client doesn't support a suggested action. Fallback
+     * URLs open in new browser windows. Maximum 2048 characters.
+     */
+    fallback_url?: string;
+
+    /**
+     * Opens the user's default web browser app to the specified URL.
+     */
+    open_url_action?: Action.OpenURLAction;
+
+    /**
+     * Payload (base64 encoded) that will be sent to the agent in the user event that
+     * results when the user taps the suggested action. Maximum 2048 characters.
+     */
+    postback_data?: string;
+
+    /**
+     * Opens the RCS app's location chooser so the user can pick a location to send
+     * back to the agent.
+     */
+    share_location_action?: { [key: string]: unknown };
+
+    /**
+     * Text that is shown in the suggested action. Maximum 25 characters.
+     */
+    text?: string;
+
+    /**
+     * Opens the user's default map app and selects the agent-specified location.
+     */
+    view_location_action?: Action.ViewLocationAction;
+  }
+
+  export namespace Action {
+    /**
+     * Opens the user's default calendar app and starts the new calendar event flow
+     * with the agent-specified event data pre-filled.
+     */
+    export interface CreateCalendarEventAction {
+      /**
+       * Event description. Maximum 500 characters.
+       */
+      description?: string;
+
+      end_time?: string;
+
+      start_time?: string;
+
+      /**
+       * Event title. Maximum 100 characters.
+       */
+      title?: string;
+    }
+
+    /**
+     * Opens the user's default dialer app with the agent-specified phone number filled
+     * in.
+     */
+    export interface DialAction {
+      /**
+       * Phone number in +E.164 format
+       */
+      phone_number: string;
+    }
+
+    /**
+     * Opens the user's default web browser app to the specified URL.
+     */
+    export interface OpenURLAction {
+      /**
+       * URL open application, browser or webview.
+       */
+      application: 'OPEN_URL_APPLICATION_UNSPECIFIED' | 'BROWSER' | 'WEBVIEW';
+
+      url: string;
+
+      webview_view_mode: 'WEBVIEW_VIEW_MODE_UNSPECIFIED' | 'FULL' | 'HALF' | 'TALL';
+
+      /**
+       * Accessbility description for webview.
+       */
+      description?: string;
+    }
+
+    /**
+     * Opens the user's default map app and selects the agent-specified location.
+     */
+    export interface ViewLocationAction {
+      /**
+       * The label of the pin dropped
+       */
+      label?: string;
+
+      lat_long?: ViewLocationAction.LatLong;
+
+      /**
+       * query string (Android only)
+       */
+      query?: string;
+    }
+
+    export namespace ViewLocationAction {
+      export interface LatLong {
+        /**
+         * The latitude in degrees. It must be in the range [-90.0, +90.0].
+         */
+        latitude: number;
+
+        /**
+         * The longitude in degrees. It must be in the range [-180.0, +180.0].
+         */
+        longitude: number;
+      }
+    }
+  }
+
+  export interface Reply {
+    /**
+     * Payload (base64 encoded) that will be sent to the agent in the user event that
+     * results when the user taps the suggested action. Maximum 2048 characters.
+     */
+    postback_data?: string;
+
+    /**
+     * Text that is shown in the suggested reply (maximum 25 characters)
+     */
+    text?: string;
+  }
+}
+
+export interface WhatsappMedia {
+  /**
+   * media caption
+   */
+  caption?: string;
+
+  /**
+   * file name with extension
+   */
+  filename?: string;
+
+  /**
+   * media URL
+   */
+  link?: string;
+
+  /**
+   * true if voice message
+   */
+  voice?: boolean;
+}
+
 export interface MessageRetrieveResponse {
   data?: OutboundMessagePayload | Shared.InboundMessagePayload;
 }
@@ -824,7 +1152,7 @@ export namespace MessageSendWhatsappResponse {
 
   export namespace Data {
     export interface Body {
-      audio?: Body.Audio;
+      audio?: MessagesAPI.WhatsappMedia;
 
       /**
        * custom data to return with status update
@@ -833,9 +1161,9 @@ export namespace MessageSendWhatsappResponse {
 
       contacts?: Array<Body.Contact>;
 
-      document?: Body.Document;
+      document?: MessagesAPI.WhatsappMedia;
 
-      image?: Body.Image;
+      image?: MessagesAPI.WhatsappMedia;
 
       interactive?: Body.Interactive;
 
@@ -843,7 +1171,7 @@ export namespace MessageSendWhatsappResponse {
 
       reaction?: Body.Reaction;
 
-      sticker?: Body.Sticker;
+      sticker?: MessagesAPI.WhatsappMedia;
 
       type?:
         | 'audio'
@@ -857,32 +1185,10 @@ export namespace MessageSendWhatsappResponse {
         | 'reaction'
         | 'contacts';
 
-      video?: Body.Video;
+      video?: MessagesAPI.WhatsappMedia;
     }
 
     export namespace Body {
-      export interface Audio {
-        /**
-         * media caption
-         */
-        caption?: string;
-
-        /**
-         * file name with extension
-         */
-        filename?: string;
-
-        /**
-         * media URL
-         */
-        link?: string;
-
-        /**
-         * true if voice message
-         */
-        voice?: boolean;
-      }
-
       export interface Contact {
         addresses?: Array<Contact.Address>;
 
@@ -943,50 +1249,6 @@ export namespace MessageSendWhatsappResponse {
 
           url?: string;
         }
-      }
-
-      export interface Document {
-        /**
-         * media caption
-         */
-        caption?: string;
-
-        /**
-         * file name with extension
-         */
-        filename?: string;
-
-        /**
-         * media URL
-         */
-        link?: string;
-
-        /**
-         * true if voice message
-         */
-        voice?: boolean;
-      }
-
-      export interface Image {
-        /**
-         * media caption
-         */
-        caption?: string;
-
-        /**
-         * file name with extension
-         */
-        filename?: string;
-
-        /**
-         * media URL
-         */
-        link?: string;
-
-        /**
-         * true if voice message
-         */
-        voice?: boolean;
       }
 
       export interface Interactive {
@@ -1079,57 +1341,11 @@ export namespace MessageSendWhatsappResponse {
             }
 
             export interface Header {
-              image?: Header.Image;
+              image?: MessagesAPI.WhatsappMedia;
 
               type?: 'image' | 'video';
 
-              video?: Header.Video;
-            }
-
-            export namespace Header {
-              export interface Image {
-                /**
-                 * media caption
-                 */
-                caption?: string;
-
-                /**
-                 * file name with extension
-                 */
-                filename?: string;
-
-                /**
-                 * media URL
-                 */
-                link?: string;
-
-                /**
-                 * true if voice message
-                 */
-                voice?: boolean;
-              }
-
-              export interface Video {
-                /**
-                 * media caption
-                 */
-                caption?: string;
-
-                /**
-                 * file name with extension
-                 */
-                filename?: string;
-
-                /**
-                 * media URL
-                 */
-                link?: string;
-
-                /**
-                 * true if voice message
-                 */
-                voice?: boolean;
-              }
+              video?: MessagesAPI.WhatsappMedia;
             }
           }
 
@@ -1195,9 +1411,9 @@ export namespace MessageSendWhatsappResponse {
         }
 
         export interface Header {
-          document?: Header.Document;
+          document?: MessagesAPI.WhatsappMedia;
 
-          image?: Header.Image;
+          image?: MessagesAPI.WhatsappMedia;
 
           sub_text?: string;
 
@@ -1206,75 +1422,7 @@ export namespace MessageSendWhatsappResponse {
            */
           text?: string;
 
-          video?: Header.Video;
-        }
-
-        export namespace Header {
-          export interface Document {
-            /**
-             * media caption
-             */
-            caption?: string;
-
-            /**
-             * file name with extension
-             */
-            filename?: string;
-
-            /**
-             * media URL
-             */
-            link?: string;
-
-            /**
-             * true if voice message
-             */
-            voice?: boolean;
-          }
-
-          export interface Image {
-            /**
-             * media caption
-             */
-            caption?: string;
-
-            /**
-             * file name with extension
-             */
-            filename?: string;
-
-            /**
-             * media URL
-             */
-            link?: string;
-
-            /**
-             * true if voice message
-             */
-            voice?: boolean;
-          }
-
-          export interface Video {
-            /**
-             * media caption
-             */
-            caption?: string;
-
-            /**
-             * file name with extension
-             */
-            filename?: string;
-
-            /**
-             * media URL
-             */
-            link?: string;
-
-            /**
-             * true if voice message
-             */
-            voice?: boolean;
-          }
+          video?: MessagesAPI.WhatsappMedia;
         }
       }
 
@@ -1292,50 +1440,6 @@ export namespace MessageSendWhatsappResponse {
         emoji?: string;
 
         message_id?: string;
-      }
-
-      export interface Sticker {
-        /**
-         * media caption
-         */
-        caption?: string;
-
-        /**
-         * file name with extension
-         */
-        filename?: string;
-
-        /**
-         * media URL
-         */
-        link?: string;
-
-        /**
-         * true if voice message
-         */
-        voice?: boolean;
-      }
-
-      export interface Video {
-        /**
-         * media caption
-         */
-        caption?: string;
-
-        /**
-         * file name with extension
-         */
-        filename?: string;
-
-        /**
-         * media URL
-         */
-        link?: string;
-
-        /**
-         * true if voice message
-         */
-        voice?: boolean;
       }
     }
 
@@ -1776,7 +1880,7 @@ export interface MessageSendWhatsappParams {
 
 export namespace MessageSendWhatsappParams {
   export interface WhatsappMessage {
-    audio?: WhatsappMessage.Audio;
+    audio?: MessagesAPI.WhatsappMedia;
 
     /**
      * custom data to return with status update
@@ -1785,9 +1889,9 @@ export namespace MessageSendWhatsappParams {
 
     contacts?: Array<WhatsappMessage.Contact>;
 
-    document?: WhatsappMessage.Document;
+    document?: MessagesAPI.WhatsappMedia;
 
-    image?: WhatsappMessage.Image;
+    image?: MessagesAPI.WhatsappMedia;
 
     interactive?: WhatsappMessage.Interactive;
 
@@ -1795,7 +1899,7 @@ export namespace MessageSendWhatsappParams {
 
     reaction?: WhatsappMessage.Reaction;
 
-    sticker?: WhatsappMessage.Sticker;
+    sticker?: MessagesAPI.WhatsappMedia;
 
     type?:
       | 'audio'
@@ -1809,32 +1913,10 @@ export namespace MessageSendWhatsappParams {
       | 'reaction'
       | 'contacts';
 
-    video?: WhatsappMessage.Video;
+    video?: MessagesAPI.WhatsappMedia;
   }
 
   export namespace WhatsappMessage {
-    export interface Audio {
-      /**
-       * media caption
-       */
-      caption?: string;
-
-      /**
-       * file name with extension
-       */
-      filename?: string;
-
-      /**
-       * media URL
-       */
-      link?: string;
-
-      /**
-       * true if voice message
-       */
-      voice?: boolean;
-    }
-
     export interface Contact {
       addresses?: Array<Contact.Address>;
 
@@ -1895,50 +1977,6 @@ export namespace MessageSendWhatsappParams {
 
         url?: string;
       }
-    }
-
-    export interface Document {
-      /**
-       * media caption
-       */
-      caption?: string;
-
-      /**
-       * file name with extension
-       */
-      filename?: string;
-
-      /**
-       * media URL
-       */
-      link?: string;
-
-      /**
-       * true if voice message
-       */
-      voice?: boolean;
-    }
-
-    export interface Image {
-      /**
-       * media caption
-       */
-      caption?: string;
-
-      /**
-       * file name with extension
-       */
-      filename?: string;
-
-      /**
-       * media URL
-       */
-      link?: string;
-
-      /**
-       * true if voice message
-       */
-      voice?: boolean;
     }
 
     export interface Interactive {
@@ -2031,57 +2069,11 @@ export namespace MessageSendWhatsappParams {
           }
 
           export interface Header {
-            image?: Header.Image;
+            image?: MessagesAPI.WhatsappMedia;
 
             type?: 'image' | 'video';
 
-            video?: Header.Video;
-          }
-
-          export namespace Header {
-            export interface Image {
-              /**
-               * media caption
-               */
-              caption?: string;
-
-              /**
-               * file name with extension
-               */
-              filename?: string;
-
-              /**
-               * media URL
-               */
-              link?: string;
-
-              /**
-               * true if voice message
-               */
-              voice?: boolean;
-            }
-
-            export interface Video {
-              /**
-               * media caption
-               */
-              caption?: string;
-
-              /**
-               * file name with extension
-               */
-              filename?: string;
-
-              /**
-               * media URL
-               */
-              link?: string;
-
-              /**
-               * true if voice message
-               */
-              voice?: boolean;
-            }
+            video?: MessagesAPI.WhatsappMedia;
           }
         }
 
@@ -2147,9 +2139,9 @@ export namespace MessageSendWhatsappParams {
       }
 
       export interface Header {
-        document?: Header.Document;
+        document?: MessagesAPI.WhatsappMedia;
 
-        image?: Header.Image;
+        image?: MessagesAPI.WhatsappMedia;
 
         sub_text?: string;
 
@@ -2158,75 +2150,7 @@ export namespace MessageSendWhatsappParams {
          */
         text?: string;
 
-        video?: Header.Video;
-      }
-
-      export namespace Header {
-        export interface Document {
-          /**
-           * media caption
-           */
-          caption?: string;
-
-          /**
-           * file name with extension
-           */
-          filename?: string;
-
-          /**
-           * media URL
-           */
-          link?: string;
-
-          /**
-           * true if voice message
-           */
-          voice?: boolean;
-        }
-
-        export interface Image {
-          /**
-           * media caption
-           */
-          caption?: string;
-
-          /**
-           * file name with extension
-           */
-          filename?: string;
-
-          /**
-           * media URL
-           */
-          link?: string;
-
-          /**
-           * true if voice message
-           */
-          voice?: boolean;
-        }
-
-        export interface Video {
-          /**
-           * media caption
-           */
-          caption?: string;
-
-          /**
-           * file name with extension
-           */
-          filename?: string;
-
-          /**
-           * media URL
-           */
-          link?: string;
-
-          /**
-           * true if voice message
-           */
-          voice?: boolean;
-        }
+        video?: MessagesAPI.WhatsappMedia;
       }
     }
 
@@ -2245,50 +2169,6 @@ export namespace MessageSendWhatsappParams {
 
       message_id?: string;
     }
-
-    export interface Sticker {
-      /**
-       * media caption
-       */
-      caption?: string;
-
-      /**
-       * file name with extension
-       */
-      filename?: string;
-
-      /**
-       * media URL
-       */
-      link?: string;
-
-      /**
-       * true if voice message
-       */
-      voice?: boolean;
-    }
-
-    export interface Video {
-      /**
-       * media caption
-       */
-      caption?: string;
-
-      /**
-       * file name with extension
-       */
-      filename?: string;
-
-      /**
-       * media URL
-       */
-      link?: string;
-
-      /**
-       * true if voice message
-       */
-      voice?: boolean;
-    }
   }
 }
 
@@ -2298,6 +2178,11 @@ export declare namespace Messages {
   export {
     type MessagingError as MessagingError,
     type OutboundMessagePayload as OutboundMessagePayload,
+    type RcsAgentMessage as RcsAgentMessage,
+    type RcsCardContent as RcsCardContent,
+    type RcsContentInfo as RcsContentInfo,
+    type RcsSuggestion as RcsSuggestion,
+    type WhatsappMedia as WhatsappMedia,
     type MessageRetrieveResponse as MessageRetrieveResponse,
     type MessageCancelScheduledResponse as MessageCancelScheduledResponse,
     type MessageScheduleResponse as MessageScheduleResponse,

@@ -1823,6 +1823,11 @@ Types:
 
 - <code><a href="./src/resources/messages/messages.ts">MessagingError</a></code>
 - <code><a href="./src/resources/messages/messages.ts">OutboundMessagePayload</a></code>
+- <code><a href="./src/resources/messages/messages.ts">RcsAgentMessage</a></code>
+- <code><a href="./src/resources/messages/messages.ts">RcsCardContent</a></code>
+- <code><a href="./src/resources/messages/messages.ts">RcsContentInfo</a></code>
+- <code><a href="./src/resources/messages/messages.ts">RcsSuggestion</a></code>
+- <code><a href="./src/resources/messages/messages.ts">WhatsappMedia</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageRetrieveResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageCancelScheduledResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageScheduleResponse</a></code>
@@ -2020,15 +2025,6 @@ Types:
 Methods:
 
 - <code title="get /messaging_url_domains">client.messagingURLDomains.<a href="./src/resources/messaging-url-domains.ts">list</a>({ ...params }) -> MessagingURLDomainListResponsesDefaultPagination</code>
-
-# Messsages
-
-Types:
-
-- <code><a href="./src/resources/messsages.ts">RcsAgentMessage</a></code>
-- <code><a href="./src/resources/messsages.ts">RcsCardContent</a></code>
-- <code><a href="./src/resources/messsages.ts">RcsContentInfo</a></code>
-- <code><a href="./src/resources/messsages.ts">RcsSuggestion</a></code>
 
 # MobileNetworkOperators
 
