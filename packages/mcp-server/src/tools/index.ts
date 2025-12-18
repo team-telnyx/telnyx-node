@@ -874,6 +874,7 @@ import assign_messaging_10dlc_phone_number_assignment_by_profile from './messagi
 import list_phone_number_status_messaging_10dlc_phone_number_assignment_by_profile from './messaging-10dlc/phone-number-assignment-by-profile/list-phone-number-status-messaging-10dlc-phone-number-assignment-by-profile';
 import retrieve_phone_number_status_messaging_10dlc_phone_number_assignment_by_profile from './messaging-10dlc/phone-number-assignment-by-profile/retrieve-phone-number-status-messaging-10dlc-phone-number-assignment-by-profile';
 import retrieve_status_messaging_10dlc_phone_number_assignment_by_profile from './messaging-10dlc/phone-number-assignment-by-profile/retrieve-status-messaging-10dlc-phone-number-assignment-by-profile';
+import transcribe_speech_to_text from './speech-to-text/transcribe-speech-to-text';
 
 export const endpoints: Endpoint[] = [];
 
@@ -1751,6 +1752,7 @@ addEndpoint(assign_messaging_10dlc_phone_number_assignment_by_profile);
 addEndpoint(list_phone_number_status_messaging_10dlc_phone_number_assignment_by_profile);
 addEndpoint(retrieve_phone_number_status_messaging_10dlc_phone_number_assignment_by_profile);
 addEndpoint(retrieve_status_messaging_10dlc_phone_number_assignment_by_profile);
+addEndpoint(transcribe_speech_to_text);
 
 export type Filter = {
   type: 'resource' | 'operation' | 'tag' | 'tool';

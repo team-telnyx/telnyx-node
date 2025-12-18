@@ -2297,3 +2297,7 @@ The following tools are available in this MCP server.
 - `list_phone_number_status_messaging_10dlc_phone_number_assignment_by_profile` (`read`): Check the status of the individual phone number/campaign assignments associated with the supplied `taskId`.
 - `retrieve_phone_number_status_messaging_10dlc_phone_number_assignment_by_profile` (`read`): Check the status of the individual phone number/campaign assignments associated with the supplied `taskId`.
 - `retrieve_status_messaging_10dlc_phone_number_assignment_by_profile` (`read`): Check the status of the task associated with assigning all phone numbers on a messaging profile to a campaign by `taskId`.
+
+### Resource `speech_to_text`:
+
+- `transcribe_speech_to_text` (`read`): Transcribe audio streams to text over WebSocket.

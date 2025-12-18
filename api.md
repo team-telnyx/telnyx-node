@@ -4068,3 +4068,9 @@ Methods:
 - <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers">client.messaging10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">listPhoneNumberStatus</a>(taskID, { ...params }) -> PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse</code>
 - <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers">client.messaging10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">retrievePhoneNumberStatus</a>(taskID, { ...params }) -> PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse</code>
 - <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}">client.messaging10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">retrieveStatus</a>(taskID) -> PhoneNumberAssignmentByProfileRetrieveStatusResponse</code>
+
+# SpeechToText
+
+Methods:
+
+- <code title="get /speech-to-text/transcription">client.speechToText.<a href="./src/resources/speech-to-text.ts">transcribe</a>({ ...params }) -> void</code>
