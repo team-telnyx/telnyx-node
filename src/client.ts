@@ -781,6 +781,7 @@ import {
   SiprecConnectorUpdateResponse,
   SiprecConnectors,
 } from './resources/siprec-connectors';
+import { SpeechToText, SpeechToTextTranscribeParams } from './resources/speech-to-text';
 import {
   SubNumberOrder,
   SubNumberOrderCancelResponse,
@@ -2312,6 +2313,7 @@ export class Telnyx {
   mobilePhoneNumbers: API.MobilePhoneNumbers = new API.MobilePhoneNumbers(this);
   mobileVoiceConnections: API.MobileVoiceConnections = new API.MobileVoiceConnections(this);
   messaging10dlc: API.Messaging10dlc = new API.Messaging10dlc(this);
+  speechToText: API.SpeechToText = new API.SpeechToText(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -2463,6 +2465,7 @@ Telnyx.InexplicitNumberOrders = InexplicitNumberOrders;
 Telnyx.MobilePhoneNumbers = MobilePhoneNumbers;
 Telnyx.MobileVoiceConnections = MobileVoiceConnections;
 Telnyx.Messaging10dlc = Messaging10dlc;
+Telnyx.SpeechToText = SpeechToText;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -4003,6 +4006,8 @@ export declare namespace Telnyx {
     Messaging10dlc as Messaging10dlc,
     type Messaging10dlcGetEnumResponse as Messaging10dlcGetEnumResponse,
   };
+
+  export { SpeechToText as SpeechToText, type SpeechToTextTranscribeParams as SpeechToTextTranscribeParams };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
