@@ -3542,6 +3542,21 @@ Methods:
 - <code title="delete /texml/Accounts/{account_sid}/Transcriptions/{recording_transcription_sid}.json">client.texml.accounts.transcriptions.json.<a href="./src/resources/texml/accounts/transcriptions/json.ts">deleteRecordingTranscriptionSidJson</a>(recordingTranscriptionSid, { ...params }) -> void</code>
 - <code title="get /texml/Accounts/{account_sid}/Transcriptions/{recording_transcription_sid}.json">client.texml.accounts.transcriptions.json.<a href="./src/resources/texml/accounts/transcriptions/json.ts">retrieveRecordingTranscriptionSidJson</a>(recordingTranscriptionSid, { ...params }) -> JsonRetrieveRecordingTranscriptionSidJsonResponse</code>
 
+### Queues
+
+Types:
+
+- <code><a href="./src/resources/texml/accounts/queues.ts">QueueCreateResponse</a></code>
+- <code><a href="./src/resources/texml/accounts/queues.ts">QueueRetrieveResponse</a></code>
+- <code><a href="./src/resources/texml/accounts/queues.ts">QueueUpdateResponse</a></code>
+
+Methods:
+
+- <code title="post /texml/Accounts/{account_sid}/Queues">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">create</a>(accountSid, { ...params }) -> QueueCreateResponse</code>
+- <code title="get /texml/Accounts/{account_sid}/Queues/{queue_sid}">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">retrieve</a>(queueSid, { ...params }) -> QueueRetrieveResponse</code>
+- <code title="post /texml/Accounts/{account_sid}/Queues/{queue_sid}">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">update</a>(queueSid, { ...params }) -> QueueUpdateResponse</code>
+- <code title="delete /texml/Accounts/{account_sid}/Queues/{queue_sid}">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">delete</a>(queueSid, { ...params }) -> void</code>
+
 ## Calls
 
 Types:
