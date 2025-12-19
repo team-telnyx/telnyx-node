@@ -38,5 +38,15 @@ export {
   type ConferenceRetrieveRecordingsParams,
   type ConferenceRetrieveRecordingsJsonParams,
 } from './conferences/index';
+export {
+  Queues,
+  type QueueCreateResponse,
+  type QueueRetrieveResponse,
+  type QueueUpdateResponse,
+  type QueueCreateParams,
+  type QueueRetrieveParams,
+  type QueueUpdateParams,
+  type QueueDeleteParams,
+} from './queues';
 export { Recordings } from './recordings/index';
 export { Transcriptions } from './transcriptions/index';

@@ -1,6 +1,17 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as QueuesAPI from './queues';
+import {
+  QueueCreateParams,
+  QueueCreateResponse,
+  QueueDeleteParams,
+  QueueRetrieveParams,
+  QueueRetrieveResponse,
+  QueueUpdateParams,
+  QueueUpdateResponse,
+  Queues,
+} from './queues';
 import * as CallsAPI from './calls/calls';
 import {
   CallCallsParams,
@@ -45,6 +56,7 @@ export class Accounts extends APIResource {
   conferences: ConferencesAPI.Conferences = new ConferencesAPI.Conferences(this._client);
   recordings: RecordingsAPI.Recordings = new RecordingsAPI.Recordings(this._client);
   transcriptions: TranscriptionsAPI.Transcriptions = new TranscriptionsAPI.Transcriptions(this._client);
+  queues: QueuesAPI.Queues = new QueuesAPI.Queues(this._client);
 
   /**
    * Returns multiple recording resources for an account.
@@ -318,6 +330,7 @@ Accounts.Calls = Calls;
 Accounts.Conferences = Conferences;
 Accounts.Recordings = Recordings;
 Accounts.Transcriptions = Transcriptions;
+Accounts.Queues = Queues;
 
 export declare namespace Accounts {
   export {
@@ -363,4 +376,15 @@ export declare namespace Accounts {
   export { Recordings as Recordings };
 
   export { Transcriptions as Transcriptions };
+
+  export {
+    Queues as Queues,
+    type QueueCreateResponse as QueueCreateResponse,
+    type QueueRetrieveResponse as QueueRetrieveResponse,
+    type QueueUpdateResponse as QueueUpdateResponse,
+    type QueueCreateParams as QueueCreateParams,
+    type QueueRetrieveParams as QueueRetrieveParams,
+    type QueueUpdateParams as QueueUpdateParams,
+    type QueueDeleteParams as QueueDeleteParams,
+  };
 }
