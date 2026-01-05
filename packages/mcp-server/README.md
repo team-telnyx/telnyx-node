@@ -60,7 +60,7 @@ If you use Claude Code, you can install the MCP server by running the command be
 environment variables in Claude Code's `.claude.json`, which can be found in your home directory.
 
 ```
-claude mcp add --transport stdio telnyx_api --env TELNYX_API_KEY="Your TELNYX_API_KEY here." TELNYX_PUBLIC_KEY="Your TELNYX_PUBLIC_KEY here." TELNYX_CLIENT_ID="Your TELNYX_CLIENT_ID here." TELNYX_CLIENT_SECRET="Your TELNYX_CLIENT_SECRET here." -- npx -y telnyx-mcp
+claude mcp add telnyx_mcp_api --env TELNYX_API_KEY="Your TELNYX_API_KEY here." TELNYX_PUBLIC_KEY="Your TELNYX_PUBLIC_KEY here." TELNYX_CLIENT_ID="Your TELNYX_CLIENT_ID here." TELNYX_CLIENT_SECRET="Your TELNYX_CLIENT_SECRET here." -- npx -y telnyx-mcp
 ```
 
 ## Code Mode
