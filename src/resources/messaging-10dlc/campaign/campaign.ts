@@ -230,7 +230,7 @@ export interface TelnyxCampaignCsp {
 
   /**
    * Campaign sub-usecases. Must be of defined valid sub-usecase types. Use
-   * `/registry/enum/usecase` operation to retrieve list of valid sub-usecases
+   * `/10dlc/enum/usecase` operation to retrieve list of valid sub-usecases
    */
   subUsecases: Array<string>;
 
@@ -240,7 +240,7 @@ export interface TelnyxCampaignCsp {
   termsAndConditions: boolean;
 
   /**
-   * Campaign usecase. Must be of defined valid types. Use `/registry/enum/usecase`
+   * Campaign usecase. Must be of defined valid types. Use `/10dlc/enum/usecase`
    * operation to retrieve usecases available for given brand.
    */
   usecase: string;
@@ -698,7 +698,7 @@ export interface CampaignListResponse {
 
   /**
    * Campaign sub-usecases. Must be of defined valid sub-usecase types. Use
-   * `/registry/enum/usecase` operation to retrieve list of valid sub-usecases
+   * `/10dlc/enum/usecase` operation to retrieve list of valid sub-usecases
    */
   subUsecases?: Array<string>;
 
@@ -723,7 +723,7 @@ export interface CampaignListResponse {
   termsAndConditionsLink?: string;
 
   /**
-   * Campaign usecase. Must be of defined valid types. Use `/registry/enum/usecase`
+   * Campaign usecase. Must be of defined valid types. Use `/10dlc/enum/usecase`
    * operation to retrieve usecases available for given brand.
    */
   usecase?: string;
