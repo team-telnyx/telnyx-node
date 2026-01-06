@@ -69,7 +69,15 @@ describe('resource connections', () => {
     await expect(
       client.connections.listActiveCalls(
         '1293384261075731461',
-        { page: { after: 'after', before: 'before', limit: 1, number: 1, size: 1 } },
+        {
+          page: {
+            after: 'after',
+            before: 'before',
+            limit: 1,
+            number: 1,
+            size: 1,
+          },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

@@ -67,7 +67,11 @@ describe('resource credentialConnections', () => {
         outbound_voice_profile_id: 'outbound_voice_profile_id',
         t38_reinvite_source: 'customer',
       },
-      rtcp_settings: { capture_enabled: true, port: 'rtcp-mux', report_frequency_secs: 10 },
+      rtcp_settings: {
+        capture_enabled: true,
+        port: 'rtcp-mux',
+        report_frequency_secs: 10,
+      },
       sip_uri_calling_preference: 'disabled',
       tags: ['tag1', 'tag2'],
       webhook_api_version: '1',

@@ -15,7 +15,10 @@ export class CustomStorageCredentials extends APIResource {
    * const customStorageCredential =
    *   await client.customStorageCredentials.create(
    *     'connection_id',
-   *     { backend: 'gcs', configuration: { backend: 'gcs' } },
+   *     {
+   *       backend: 'gcs',
+   *       configuration: { backend: 'gcs' },
+   *     },
    *   );
    * ```
    */
@@ -53,7 +56,10 @@ export class CustomStorageCredentials extends APIResource {
    * const customStorageCredential =
    *   await client.customStorageCredentials.update(
    *     'connection_id',
-   *     { backend: 'gcs', configuration: { backend: 'gcs' } },
+   *     {
+   *       backend: 'gcs',
+   *       configuration: { backend: 'gcs' },
+   *     },
    *   );
    * ```
    */

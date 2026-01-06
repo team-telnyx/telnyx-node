@@ -75,7 +75,10 @@ describe('resource networks', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.networks.list(
-        { filter: { name: 'test network' }, page: { number: 1, size: 1 } },
+        {
+          filter: { name: 'test network' },
+          page: { number: 1, size: 1 },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
@@ -111,7 +114,10 @@ describe('resource networks', () => {
     await expect(
       client.networks.listInterfaces(
         '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-        { filter: { name: 'test interface', type: 'wireguard_interface' }, page: { number: 1, size: 1 } },
+        {
+          filter: { name: 'test interface', type: 'wireguard_interface' },
+          page: { number: 1, size: 1 },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

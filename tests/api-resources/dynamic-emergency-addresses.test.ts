@@ -73,7 +73,10 @@ describe('resource dynamicEmergencyAddresses', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.dynamicEmergencyAddresses.list(
-        { filter: { country_code: 'country_code', status: 'pending' }, page: { number: 1, size: 1 } },
+        {
+          filter: { country_code: 'country_code', status: 'pending' },
+          page: { number: 1, size: 1 },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

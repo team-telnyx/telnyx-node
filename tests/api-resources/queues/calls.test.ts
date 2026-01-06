@@ -63,7 +63,15 @@ describe('resource calls', () => {
     await expect(
       client.queues.calls.list(
         'queue_name',
-        { page: { after: 'after', before: 'before', limit: 1, number: 1, size: 1 } },
+        {
+          page: {
+            after: 'after',
+            before: 'before',
+            limit: 1,
+            number: 1,
+            size: 1,
+          },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

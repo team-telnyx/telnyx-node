@@ -27,7 +27,11 @@ describe('resource customStorageCredentials', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.customStorageCredentials.create('connection_id', {
       backend: 'gcs',
-      configuration: { backend: 'gcs', bucket: 'example-bucket', credentials: 'OPAQUE_CREDENTIALS_TOKEN' },
+      configuration: {
+        backend: 'gcs',
+        bucket: 'example-bucket',
+        credentials: 'OPAQUE_CREDENTIALS_TOKEN',
+      },
     });
   });
 
@@ -62,7 +66,11 @@ describe('resource customStorageCredentials', () => {
   test.skip('update: required and optional params', async () => {
     const response = await client.customStorageCredentials.update('connection_id', {
       backend: 'gcs',
-      configuration: { backend: 'gcs', bucket: 'example-bucket', credentials: 'OPAQUE_CREDENTIALS_TOKEN' },
+      configuration: {
+        backend: 'gcs',
+        bucket: 'example-bucket',
+        credentials: 'OPAQUE_CREDENTIALS_TOKEN',
+      },
     });
   });
 

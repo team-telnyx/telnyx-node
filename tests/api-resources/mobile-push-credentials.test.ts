@@ -72,7 +72,10 @@ describe('resource mobilePushCredentials', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.mobilePushCredentials.list(
-        { filter: { alias: 'LucyCredential', type: 'ios' }, page: { number: 1, size: 1 } },
+        {
+          filter: { alias: 'LucyCredential', type: 'ios' },
+          page: { number: 1, size: 1 },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

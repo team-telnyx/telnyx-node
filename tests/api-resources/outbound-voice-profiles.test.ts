@@ -31,7 +31,11 @@ describe('resource outboundVoiceProfiles', () => {
         call_recording_format: 'mp3',
         call_recording_type: 'by_caller_phone_number',
       },
-      calling_window: { calls_per_cld: 5, end_time: '20:00:00.00Z', start_time: '08:00:00.00Z' },
+      calling_window: {
+        calls_per_cld: 5,
+        end_time: '20:00:00.00Z',
+        start_time: '08:00:00.00Z',
+      },
       concurrent_call_limit: 10,
       daily_spend_limit: '100.00',
       daily_spend_limit_enabled: true,
@@ -80,7 +84,11 @@ describe('resource outboundVoiceProfiles', () => {
         call_recording_format: 'mp3',
         call_recording_type: 'by_caller_phone_number',
       },
-      calling_window: { calls_per_cld: 5, end_time: '20:00:00.00Z', start_time: '08:00:00.00Z' },
+      calling_window: {
+        calls_per_cld: 5,
+        end_time: '20:00:00.00Z',
+        start_time: '08:00:00.00Z',
+      },
       concurrent_call_limit: 10,
       daily_spend_limit: '100.00',
       daily_spend_limit_enabled: true,
@@ -111,7 +119,11 @@ describe('resource outboundVoiceProfiles', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.outboundVoiceProfiles.list(
-        { filter: { name: { contains: 'office-profile' } }, page: { number: 1, size: 1 }, sort: 'name' },
+        {
+          filter: { name: { contains: 'office-profile' } },
+          page: { number: 1, size: 1 },
+          sort: 'name',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

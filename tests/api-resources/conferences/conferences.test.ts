@@ -100,7 +100,13 @@ describe('resource conferences', () => {
             to: '+12025550142',
             type: 'webhook',
           },
-          page: { after: 'after', before: 'before', limit: 1, number: 1, size: 1 },
+          page: {
+            after: 'after',
+            before: 'before',
+            limit: 1,
+            number: 1,
+            size: 1,
+          },
           region: 'Australia',
         },
         { path: '/_stainless_unknown_path' },
@@ -127,8 +133,18 @@ describe('resource conferences', () => {
       client.conferences.listParticipants(
         'conference_id',
         {
-          filter: { muted: true, on_hold: true, whispering: true },
-          page: { after: 'after', before: 'before', limit: 1, number: 1, size: 1 },
+          filter: {
+            muted: true,
+            on_hold: true,
+            whispering: true,
+          },
+          page: {
+            after: 'after',
+            before: 'before',
+            limit: 1,
+            number: 1,
+            size: 1,
+          },
           region: 'Australia',
         },
         { path: '/_stainless_unknown_path' },

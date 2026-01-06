@@ -97,7 +97,11 @@ describe('resource actions', () => {
   // Prism tests are disabled
   test.skip('gatherUsingAI: only required params', async () => {
     const responsePromise = client.calls.actions.gatherUsingAI('call_control_id', {
-      parameters: { properties: 'bar', required: 'bar', type: 'bar' },
+      parameters: {
+        properties: 'bar',
+        required: 'bar',
+        type: 'bar',
+      },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -111,7 +115,11 @@ describe('resource actions', () => {
   // Prism tests are disabled
   test.skip('gatherUsingAI: required and optional params', async () => {
     const response = await client.calls.actions.gatherUsingAI('call_control_id', {
-      parameters: { properties: 'bar', required: 'bar', type: 'bar' },
+      parameters: {
+        properties: 'bar',
+        required: 'bar',
+        type: 'bar',
+      },
       assistant: {
         instructions: 'You are a friendly voice assistant.',
         model: 'Qwen/Qwen3-235B-A22B',
@@ -676,7 +684,12 @@ describe('resource actions', () => {
       sip_headers: [{ name: 'User-to-User', value: 'value' }],
       sip_region: 'Canada',
       sip_transport_protocol: 'TLS',
-      sound_modifications: { octaves: 0.1, pitch: 0.8, semitone: -2, track: 'both' },
+      sound_modifications: {
+        octaves: 0.1,
+        pitch: 0.8,
+        semitone: -2,
+        track: 'both',
+      },
       target_leg_client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
       time_limit_secs: 600,
       timeout_secs: 60,

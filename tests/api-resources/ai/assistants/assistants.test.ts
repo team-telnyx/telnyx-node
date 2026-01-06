@@ -60,8 +60,16 @@ describe('resource assistants', () => {
             },
             headers: [{ name: 'name', value: 'value' }],
             method: 'GET',
-            path_parameters: { properties: { id: 'bar' }, required: ['id'], type: 'object' },
-            query_parameters: { properties: { page: 'bar' }, required: ['page'], type: 'object' },
+            path_parameters: {
+              properties: { id: 'bar' },
+              required: ['id'],
+              type: 'object',
+            },
+            query_parameters: {
+              properties: { page: 'bar' },
+              required: ['page'],
+              type: 'object',
+            },
           },
         },
       ],
@@ -69,7 +77,12 @@ describe('resource assistants', () => {
         language: 'language',
         model: 'deepgram/flux',
         region: 'region',
-        settings: { eot_threshold: 0, eot_timeout_ms: 0, numerals: true, smart_format: true },
+        settings: {
+          eot_threshold: 0,
+          eot_timeout_ms: 0,
+          numerals: true,
+          smart_format: true,
+        },
       },
       voice_settings: {
         voice: 'voice',

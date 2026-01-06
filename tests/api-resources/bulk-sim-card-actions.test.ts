@@ -37,7 +37,11 @@ describe('resource bulkSimCardActions', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.bulkSimCardActions.list(
-        { 'filter[action_type]': 'bulk_set_public_ips', 'page[number]': 1, 'page[size]': 1 },
+        {
+          'filter[action_type]': 'bulk_set_public_ips',
+          'page[number]': 1,
+          'page[size]': 1,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

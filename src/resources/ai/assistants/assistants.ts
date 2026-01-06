@@ -225,7 +225,11 @@ export class Assistants extends APIResource {
    * ```ts
    * const response = await client.ai.assistants.sendSMS(
    *   'assistant_id',
-   *   { from: 'from', text: 'text', to: 'to' },
+   *   {
+   *     from: 'from',
+   *     text: 'text',
+   *     to: 'to',
+   *   },
    * );
    * ```
    */

@@ -77,7 +77,11 @@ describe('resource simCardDataUsageNotifications', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.simCardDataUsageNotifications.list(
-        { 'filter[sim_card_id]': '47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9', 'page[number]': 1, 'page[size]': 1 },
+        {
+          'filter[sim_card_id]': '47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9',
+          'page[number]': 1,
+          'page[size]': 1,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

@@ -28,7 +28,11 @@ describe('resource verificationCodes', () => {
     await expect(
       client.portingOrders.verificationCodes.list(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { filter: { verified: true }, page: { number: 1, size: 1 }, sort: { value: 'created_at' } },
+        {
+          filter: { verified: true },
+          page: { number: 1, size: 1 },
+          sort: { value: 'created_at' },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

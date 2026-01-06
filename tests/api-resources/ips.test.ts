@@ -82,7 +82,11 @@ describe('resource ips', () => {
     await expect(
       client.ips.list(
         {
-          filter: { connection_id: 'connection_id', ip_address: '192.168.0.0', port: 5060 },
+          filter: {
+            connection_id: 'connection_id',
+            ip_address: '192.168.0.0',
+            port: 5060,
+          },
           page: { number: 1, size: 1 },
         },
         { path: '/_stainless_unknown_path' },
