@@ -54,6 +54,8 @@ describe('resource fqdnConnections', () => {
       },
       ios_push_credential_id: 'ec0c8e5d-439e-4620-a0c1-9d9c8d02a836',
       microsoft_teams_sbc: true,
+      noise_suppression: 'both',
+      noise_suppression_details: { attenuation_limit: 80, engine: 'deep_filter_net' },
       onnet_t38_passthrough_enabled: true,
       outbound: {
         ani_override: '+1234567890',
