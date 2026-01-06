@@ -38,7 +38,11 @@ describe('resource requirements', () => {
     await expect(
       client.requirements.list(
         {
-          filter: { action: 'porting', country_code: 'US', phone_number_type: 'local' },
+          filter: {
+            action: 'porting',
+            country_code: 'US',
+            phone_number_type: 'local',
+          },
           page: { number: 1, size: 1 },
           sort: ['country_code'],
         },

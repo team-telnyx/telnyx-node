@@ -253,8 +253,18 @@ describe('resource messages', () => {
             birthday: 'birthday',
             emails: [{ email: 'email', type: 'type' }],
             name: 'name',
-            org: { company: 'company', department: 'department', title: 'title' },
-            phones: [{ phone: 'phone', type: 'type', wa_id: 'wa_id' }],
+            org: {
+              company: 'company',
+              department: 'department',
+              title: 'title',
+            },
+            phones: [
+              {
+                phone: 'phone',
+                type: 'type',
+                wa_id: 'wa_id',
+              },
+            ],
             urls: [{ type: 'type', url: 'url' }],
           },
         ],
@@ -273,7 +283,12 @@ describe('resource messages', () => {
         interactive: {
           action: {
             button: 'button',
-            buttons: [{ reply: { id: 'id', title: 'title' }, type: 'reply' }],
+            buttons: [
+              {
+                reply: { id: 'id', title: 'title' },
+                type: 'reply',
+              },
+            ],
             cards: [
               {
                 action: { catalog_id: 'catalog_id', product_retailer_id: 'product_retailer_id' },
@@ -305,7 +320,13 @@ describe('resource messages', () => {
             sections: [
               {
                 product_items: [{ product_retailer_id: 'product_retailer_id' }],
-                rows: [{ id: 'id', description: 'description', title: 'title' }],
+                rows: [
+                  {
+                    id: 'id',
+                    description: 'description',
+                    title: 'title',
+                  },
+                ],
                 title: 'title',
               },
             ],
@@ -336,7 +357,12 @@ describe('resource messages', () => {
           },
           type: 'cta_url',
         },
-        location: { address: 'address', latitude: 'latitude', longitude: 'longitude', name: 'name' },
+        location: {
+          address: 'address',
+          latitude: 'latitude',
+          longitude: 'longitude',
+          name: 'name',
+        },
         reaction: { emoji: 'emoji', message_id: 'message_id' },
         sticker: {
           caption: 'caption',

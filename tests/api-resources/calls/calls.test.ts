@@ -94,7 +94,12 @@ describe('resource calls', () => {
       sip_headers: [{ name: 'User-to-User', value: '12345' }],
       sip_region: 'Canada',
       sip_transport_protocol: 'TLS',
-      sound_modifications: { octaves: 0.1, pitch: 0.8, semitone: -2, track: 'both' },
+      sound_modifications: {
+        octaves: 0.1,
+        pitch: 0.8,
+        semitone: -2,
+        track: 'both',
+      },
       stream_bidirectional_codec: 'G722',
       stream_bidirectional_mode: 'rtp',
       stream_bidirectional_sampling_rate: 16000,

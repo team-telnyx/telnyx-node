@@ -30,7 +30,11 @@ describe('resource mobileNetworkOperators', () => {
             country_code: 'US',
             mcc: '310',
             mnc: '410',
-            name: { contains: 'T&T', ends_with: 'T', starts_with: 'AT' },
+            name: {
+              contains: 'T&T',
+              ends_with: 'T',
+              starts_with: 'AT',
+            },
             network_preferences_enabled: true,
             tadig: 'USACG',
           },

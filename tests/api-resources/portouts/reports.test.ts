@@ -69,7 +69,10 @@ describe('resource reports', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.portouts.reports.list(
-        { filter: { report_type: 'export_portouts_csv', status: 'completed' }, page: { number: 1, size: 1 } },
+        {
+          filter: { report_type: 'export_portouts_csv', status: 'completed' },
+          page: { number: 1, size: 1 },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

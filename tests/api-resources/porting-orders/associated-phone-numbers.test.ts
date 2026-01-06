@@ -12,7 +12,10 @@ describe('resource associatedPhoneNumbers', () => {
   test.skip('create: only required params', async () => {
     const responsePromise = client.portingOrders.associatedPhoneNumbers.create(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { action: 'keep', phone_number_range: {} },
+      {
+        action: 'keep',
+        phone_number_range: {},
+      },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -27,7 +30,10 @@ describe('resource associatedPhoneNumbers', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.portingOrders.associatedPhoneNumbers.create(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { action: 'keep', phone_number_range: { end_at: '+441234567899', start_at: '+441234567890' } },
+      {
+        action: 'keep',
+        phone_number_range: { end_at: '+441234567899', start_at: '+441234567890' },
+      },
     );
   });
 

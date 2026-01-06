@@ -40,9 +40,21 @@ describe('resource roomParticipants', () => {
         {
           filter: {
             context: 'Alice',
-            date_joined_at: { eq: '2021-04-25', gte: '2021-04-25', lte: '2021-04-25' },
-            date_left_at: { eq: '2021-04-25', gte: '2021-04-25', lte: '2021-04-25' },
-            date_updated_at: { eq: '2021-04-25', gte: '2021-04-25', lte: '2021-04-25' },
+            date_joined_at: {
+              eq: '2021-04-25',
+              gte: '2021-04-25',
+              lte: '2021-04-25',
+            },
+            date_left_at: {
+              eq: '2021-04-25',
+              gte: '2021-04-25',
+              lte: '2021-04-25',
+            },
+            date_updated_at: {
+              eq: '2021-04-25',
+              gte: '2021-04-25',
+              lte: '2021-04-25',
+            },
             session_id: '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
           },
           page: { number: 1, size: 1 },

@@ -59,7 +59,10 @@ describe('resource shortCodes', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.shortCodes.list(
-        { filter: { messaging_profile_id: 'messaging_profile_id' }, page: { number: 1, size: 1 } },
+        {
+          filter: { messaging_profile_id: 'messaging_profile_id' },
+          page: { number: 1, size: 1 },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

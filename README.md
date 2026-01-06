@@ -57,7 +57,9 @@ const client = new Telnyx({
   apiKey: process.env['TELNYX_API_KEY'], // This is the default and can be omitted
 });
 
-const params: Telnyx.NumberOrderCreateParams = { phone_numbers: [{ phone_number: '+15558675309' }] };
+const params: Telnyx.NumberOrderCreateParams = {
+  phone_numbers: [{ phone_number: '+15558675309' }],
+};
 const numberOrder: Telnyx.NumberOrderCreateResponse = await client.numberOrders.create(params);
 ```
 

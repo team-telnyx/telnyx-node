@@ -49,7 +49,11 @@ describe('resource partnerCampaigns', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messaging10dlc.partnerCampaigns.list(
-        { page: 0, recordsPerPage: 0, sort: 'assignedPhoneNumbersCount' },
+        {
+          page: 0,
+          recordsPerPage: 0,
+          sort: 'assignedPhoneNumbersCount',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

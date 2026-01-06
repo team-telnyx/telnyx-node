@@ -74,7 +74,11 @@ describe('resource fqdnConnections', () => {
         timeout_1xx_secs: 10,
         timeout_2xx_secs: 10,
       },
-      rtcp_settings: { capture_enabled: true, port: 'rtcp-mux', report_frequency_secs: 10 },
+      rtcp_settings: {
+        capture_enabled: true,
+        port: 'rtcp-mux',
+        report_frequency_secs: 10,
+      },
       tags: ['tag1', 'tag2'],
       transport_protocol: 'UDP',
       webhook_api_version: '1',
