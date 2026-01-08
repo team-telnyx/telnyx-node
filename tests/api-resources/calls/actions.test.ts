@@ -23,7 +23,7 @@ describe('resource actions', () => {
   // Prism tests are disabled
   test.skip('bridge: only required params', async () => {
     const responsePromise = client.calls.actions.bridge('call_control_id', {
-      call_control_id_to_bridge_with: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg'
+      call_control_id_to_bridge_with: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
