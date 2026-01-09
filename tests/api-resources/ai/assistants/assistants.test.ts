@@ -240,11 +240,7 @@ describe('resource assistants', () => {
 
   // Prism tests are disabled
   test.skip('sendSMS: only required params', async () => {
-    const responsePromise = client.ai.assistants.sendSMS('assistant_id', {
-      from: 'from',
-      text: 'text',
-      to: 'to',
-    });
+    const responsePromise = client.ai.assistants.sendSMS('assistant_id', { from: 'from', to: 'to' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -258,10 +254,10 @@ describe('resource assistants', () => {
   test.skip('sendSMS: required and optional params', async () => {
     const response = await client.ai.assistants.sendSMS('assistant_id', {
       from: 'from',
-      text: 'text',
       to: 'to',
       conversation_metadata: { foo: 'string' },
       should_create_conversation: true,
+      text: 'text',
     });
   });
 });
