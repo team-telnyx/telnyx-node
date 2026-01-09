@@ -225,11 +225,7 @@ export class Assistants extends APIResource {
    * ```ts
    * const response = await client.ai.assistants.sendSMS(
    *   'assistant_id',
-   *   {
-   *     from: 'from',
-   *     text: 'text',
-   *     to: 'to',
-   *   },
+   *   { from: 'from', to: 'to' },
    * );
    * ```
    */
@@ -1281,13 +1277,13 @@ export interface AssistantImportsParams {
 export interface AssistantSendSMSParams {
   from: string;
 
-  text: string;
-
   to: string;
 
   conversation_metadata?: { [key: string]: string | number | boolean };
 
   should_create_conversation?: boolean;
+
+  text?: string;
 }
 
 Assistants.Tests = Tests;
