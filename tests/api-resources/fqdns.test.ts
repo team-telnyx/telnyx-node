@@ -64,7 +64,12 @@ describe('resource fqdns', () => {
     await expect(
       client.fqdns.update(
         'id',
-        { connection_id: '1516447646313612565', dns_record_type: 'a', fqdn: 'example.com', port: 8080 },
+        {
+          connection_id: '1516447646313612565',
+          dns_record_type: 'a',
+          fqdn: 'example.com',
+          port: 8080,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
@@ -88,7 +93,12 @@ describe('resource fqdns', () => {
     await expect(
       client.fqdns.list(
         {
-          filter: { connection_id: 'connection_id', dns_record_type: 'a', fqdn: 'example.com', port: 5060 },
+          filter: {
+            connection_id: 'connection_id',
+            dns_record_type: 'a',
+            fqdn: 'example.com',
+            port: 5060,
+          },
           page: { number: 1, size: 1 },
         },
         { path: '/_stainless_unknown_path' },

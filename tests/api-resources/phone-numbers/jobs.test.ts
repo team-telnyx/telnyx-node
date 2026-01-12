@@ -37,7 +37,11 @@ describe('resource jobs', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.phoneNumbers.jobs.list(
-        { filter: { type: 'update_emergency_settings' }, page: { number: 1, size: 1 }, sort: 'created_at' },
+        {
+          filter: { type: 'update_emergency_settings' },
+          page: { number: 1, size: 1 },
+          sort: 'created_at',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
@@ -91,7 +95,12 @@ describe('resource jobs', () => {
         phone_number: 'phone_number',
         status: 'active',
         tag: 'tag',
-        'voice.connection_name': { contains: 'test', ends_with: 'test', eq: 'test', starts_with: 'test' },
+        'voice.connection_name': {
+          contains: 'test',
+          ends_with: 'test',
+          eq: 'test',
+          starts_with: 'test',
+        },
         'voice.usage_payment_method': 'channel',
       },
       billing_group_id: 'dc8e4d67-33a0-4cbb-af74-7b58f05bd494',

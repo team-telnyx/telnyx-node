@@ -51,7 +51,11 @@ describe('resource roomCompositions', () => {
       client.roomCompositions.list(
         {
           filter: {
-            date_created_at: { eq: '2021-04-25', gte: '2021-04-25', lte: '2021-04-25' },
+            date_created_at: {
+              eq: '2021-04-25',
+              gte: '2021-04-25',
+              lte: '2021-04-25',
+            },
             session_id: '92e7d459-bcc5-4386-9f5f-6dd14a82588d',
             status: 'completed',
           },

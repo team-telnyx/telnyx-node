@@ -2,10 +2,10 @@
 
 import { APIResource } from '../core/resource';
 import * as PublicInternetGatewaysAPI from './public-internet-gateways';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import * as NetworksAPI from './networks/networks';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -46,15 +46,21 @@ export class PublicInternetGateways extends APIResource {
    *
    * @example
    * ```ts
-   * const publicInternetGateways =
-   *   await client.publicInternetGateways.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const publicInternetGatewayListResponse of client.publicInternetGateways.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: PublicInternetGatewayListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<PublicInternetGatewayListResponse> {
-    return this._client.get('/public_internet_gateways', { query, ...options });
+  ): PagePromise<PublicInternetGatewayListResponsesDefaultPagination, PublicInternetGatewayListResponse> {
+    return this._client.getAPIList(
+      '/public_internet_gateways',
+      DefaultPagination<PublicInternetGatewayListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -73,7 +79,10 @@ export class PublicInternetGateways extends APIResource {
   }
 }
 
-export interface Interface {
+export type PublicInternetGatewayListResponsesDefaultPagination =
+  DefaultPagination<PublicInternetGatewayListResponse>;
+
+export interface NetworkInterface {
   /**
    * A user specified name for the interface.
    */
@@ -90,7 +99,7 @@ export interface Interface {
   status?: NetworksAPI.InterfaceStatus;
 }
 
-export interface RegionIn {
+export interface NetworkInterfaceRegion {
   /**
    * The region the interface should be deployed to.
    */
@@ -102,16 +111,11 @@ export interface PublicInternetGatewayCreateResponse {
 }
 
 export namespace PublicInternetGatewayCreateResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.Interface {
+  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
     /**
      * The publically accessible ip for this interface.
      */
     public_ip?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
 
     /**
      * The region interface is deployed to.
@@ -125,16 +129,11 @@ export interface PublicInternetGatewayRetrieveResponse {
 }
 
 export namespace PublicInternetGatewayRetrieveResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.Interface {
+  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
     /**
      * The publically accessible ip for this interface.
      */
     public_ip?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
 
     /**
      * The region interface is deployed to.
@@ -143,29 +142,16 @@ export namespace PublicInternetGatewayRetrieveResponse {
   }
 }
 
-export interface PublicInternetGatewayListResponse {
-  data?: Array<PublicInternetGatewayListResponse.Data>;
+export interface PublicInternetGatewayListResponse extends GlobalIPAssignmentsAPI.Record, NetworkInterface {
+  /**
+   * The publically accessible ip for this interface.
+   */
+  public_ip?: string;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
-export namespace PublicInternetGatewayListResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.Interface {
-    /**
-     * The publically accessible ip for this interface.
-     */
-    public_ip?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
-  }
+  /**
+   * The region interface is deployed to.
+   */
+  region_code?: string;
 }
 
 export interface PublicInternetGatewayDeleteResponse {
@@ -173,16 +159,11 @@ export interface PublicInternetGatewayDeleteResponse {
 }
 
 export namespace PublicInternetGatewayDeleteResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.Interface {
+  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
     /**
      * The publically accessible ip for this interface.
      */
     public_ip?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
 
     /**
      * The region interface is deployed to.
@@ -208,17 +189,11 @@ export interface PublicInternetGatewayCreateParams {
   region_code?: string;
 }
 
-export interface PublicInternetGatewayListParams {
+export interface PublicInternetGatewayListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
    */
   filter?: PublicInternetGatewayListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: PublicInternetGatewayListParams.Page;
 }
 
 export namespace PublicInternetGatewayListParams {
@@ -231,32 +206,17 @@ export namespace PublicInternetGatewayListParams {
      */
     network_id?: string;
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace PublicInternetGateways {
   export {
-    type Interface as Interface,
-    type RegionIn as RegionIn,
+    type NetworkInterface as NetworkInterface,
+    type NetworkInterfaceRegion as NetworkInterfaceRegion,
     type PublicInternetGatewayCreateResponse as PublicInternetGatewayCreateResponse,
     type PublicInternetGatewayRetrieveResponse as PublicInternetGatewayRetrieveResponse,
     type PublicInternetGatewayListResponse as PublicInternetGatewayListResponse,
     type PublicInternetGatewayDeleteResponse as PublicInternetGatewayDeleteResponse,
+    type PublicInternetGatewayListResponsesDefaultPagination as PublicInternetGatewayListResponsesDefaultPagination,
     type PublicInternetGatewayCreateParams as PublicInternetGatewayCreateParams,
     type PublicInternetGatewayListParams as PublicInternetGatewayListParams,
   };

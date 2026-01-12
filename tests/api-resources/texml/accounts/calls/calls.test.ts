@@ -55,7 +55,7 @@ describe('resource calls', () => {
   // Prism tests are disabled
   test.skip('calls: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.calls('account_sid', {
-      ApplicationSid: 'ApplicationSid',
+      ApplicationSid: 'example-app-sid',
       From: '+13120001234',
       To: '+13121230000',
     });
@@ -71,7 +71,7 @@ describe('resource calls', () => {
   // Prism tests are disabled
   test.skip('calls: required and optional params', async () => {
     const response = await client.texml.accounts.calls.calls('account_sid', {
-      ApplicationSid: 'ApplicationSid',
+      ApplicationSid: 'example-app-sid',
       From: '+13120001234',
       To: '+13121230000',
       AsyncAmd: true,
@@ -103,6 +103,8 @@ describe('resource calls', () => {
       StatusCallback: 'https://www.example.com/statuscallback-listener',
       StatusCallbackEvent: 'initiated',
       StatusCallbackMethod: 'GET',
+      SuperviseCallSid: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+      SupervisingRole: 'monitor',
       Trim: 'trim-silence',
       Url: 'https://www.example.com/texml.xml',
       UrlMethod: 'GET',

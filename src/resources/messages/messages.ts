@@ -2,8 +2,15 @@
 
 import { APIResource } from '../../core/resource';
 import * as MessagesAPI from './messages';
+import * as Shared from '../shared';
 import * as RcsAPI from './rcs';
-import { RcGenerateDeeplinkParams, RcGenerateDeeplinkResponse, Rcs } from './rcs';
+import {
+  RcGenerateDeeplinkParams,
+  RcGenerateDeeplinkResponse,
+  RcSendParams,
+  RcSendResponse,
+  Rcs,
+} from './rcs';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -153,6 +160,25 @@ export class Messages extends APIResource {
   ): APIPromise<MessageSendShortCodeResponse> {
     return this._client.post('/messages/short_code', { body, ...options });
   }
+
+  /**
+   * Send a Whatsapp message
+   *
+   * @example
+   * ```ts
+   * const response = await client.messages.sendWhatsapp({
+   *   from: '+13125551234',
+   *   to: '+13125551234',
+   *   whatsapp_message: {},
+   * });
+   * ```
+   */
+  sendWhatsapp(
+    body: MessageSendWhatsappParams,
+    options?: RequestOptions,
+  ): APIPromise<MessageSendWhatsappResponse> {
+    return this._client.post('/messages/whatsapp', { body, ...options });
+  }
 }
 
 export interface MessagingError {
@@ -162,7 +188,7 @@ export interface MessagingError {
 
   detail?: string;
 
-  meta?: unknown;
+  meta?: { [key: string]: unknown };
 
   source?: MessagingError.Source;
 }
@@ -455,281 +481,335 @@ export namespace OutboundMessagePayload {
   }
 }
 
-export interface MessageRetrieveResponse {
-  data?: OutboundMessagePayload | MessageRetrieveResponse.InboundMessagePayload;
+export interface RcsAgentMessage {
+  content_message?: RcsAgentMessage.ContentMessage;
+
+  /**
+   * RCS Event to send to the recipient
+   */
+  event?: RcsAgentMessage.Event;
+
+  /**
+   * Timestamp in UTC of when this message is considered expired
+   */
+  expire_time?: string;
+
+  /**
+   * Duration in seconds ending with 's'
+   */
+  ttl?: string;
 }
 
-export namespace MessageRetrieveResponse {
-  export interface InboundMessagePayload {
+export namespace RcsAgentMessage {
+  export interface ContentMessage {
+    content_info?: MessagesAPI.RcsContentInfo;
+
+    rich_card?: ContentMessage.RichCard;
+
     /**
-     * Identifies the type of resource.
+     * List of suggested actions and replies
      */
-    id?: string;
-
-    cc?: Array<InboundMessagePayload.Cc>;
+    suggestions?: Array<MessagesAPI.RcsSuggestion>;
 
     /**
-     * Not used for inbound messages.
+     * Text (maximum 3072 characters)
      */
-    completed_at?: string | null;
+    text?: string;
+  }
 
-    cost?: InboundMessagePayload.Cost | null;
+  export namespace ContentMessage {
+    export interface RichCard {
+      /**
+       * Carousel of cards.
+       */
+      carousel_card?: RichCard.CarouselCard;
+
+      /**
+       * Standalone card
+       */
+      standalone_card?: RichCard.StandaloneCard;
+    }
+
+    export namespace RichCard {
+      /**
+       * Carousel of cards.
+       */
+      export interface CarouselCard {
+        /**
+         * The list of contents for each card in the carousel. A carousel can have a
+         * minimum of 2 cards and a maximum 10 cards.
+         */
+        card_contents: Array<MessagesAPI.RcsCardContent>;
+
+        /**
+         * The width of the cards in the carousel.
+         */
+        card_width: 'CARD_WIDTH_UNSPECIFIED' | 'SMALL' | 'MEDIUM';
+      }
+
+      /**
+       * Standalone card
+       */
+      export interface StandaloneCard {
+        card_content: MessagesAPI.RcsCardContent;
+
+        /**
+         * Orientation of the card.
+         */
+        card_orientation: 'CARD_ORIENTATION_UNSPECIFIED' | 'HORIZONTAL' | 'VERTICAL';
+
+        /**
+         * Image preview alignment for standalone cards with horizontal layout.
+         */
+        thumbnail_image_alignment: 'THUMBNAIL_IMAGE_ALIGNMENT_UNSPECIFIED' | 'LEFT' | 'RIGHT';
+      }
+    }
+  }
+
+  /**
+   * RCS Event to send to the recipient
+   */
+  export interface Event {
+    event_type?: 'TYPE_UNSPECIFIED' | 'IS_TYPING' | 'READ';
+  }
+}
+
+export interface RcsCardContent {
+  /**
+   * Description of the card (at most 2000 characters)
+   */
+  description?: string;
+
+  /**
+   * A media file within a rich card.
+   */
+  media?: RcsCardContent.Media;
+
+  /**
+   * List of suggestions to include in the card. Maximum 10 suggestions.
+   */
+  suggestions?: Array<RcsSuggestion>;
+
+  /**
+   * Title of the card (at most 200 characters)
+   */
+  title?: string;
+}
+
+export namespace RcsCardContent {
+  /**
+   * A media file within a rich card.
+   */
+  export interface Media {
+    content_info?: MessagesAPI.RcsContentInfo;
 
     /**
-     * Detailed breakdown of the message cost components.
+     * The height of the media within a rich card with a vertical layout. For a
+     * standalone card with horizontal layout, height is not customizable, and this
+     * field is ignored.
      */
-    cost_breakdown?: InboundMessagePayload.CostBreakdown | null;
+    height?: 'HEIGHT_UNSPECIFIED' | 'SHORT' | 'MEDIUM' | 'TALL';
+  }
+}
 
+export interface RcsContentInfo {
+  /**
+   * Publicly reachable URL of the file.
+   */
+  file_url: string;
+
+  /**
+   * If set the URL content will not be cached.
+   */
+  force_refresh?: boolean;
+
+  /**
+   * Publicly reachable URL of the thumbnail. Maximum size of 100 kB.
+   */
+  thumbnail_url?: string;
+}
+
+export interface RcsSuggestion {
+  /**
+   * When tapped, initiates the corresponding native action on the device.
+   */
+  action?: RcsSuggestion.Action;
+
+  reply?: RcsSuggestion.Reply;
+}
+
+export namespace RcsSuggestion {
+  /**
+   * When tapped, initiates the corresponding native action on the device.
+   */
+  export interface Action {
     /**
-     * The direction of the message. Inbound messages are sent to you whereas outbound
-     * messages are sent from you.
+     * Opens the user's default calendar app and starts the new calendar event flow
+     * with the agent-specified event data pre-filled.
      */
-    direction?: 'inbound';
+    create_calendar_event_action?: Action.CreateCalendarEventAction;
 
     /**
-     * Encoding scheme used for the message body.
+     * Opens the user's default dialer app with the agent-specified phone number filled
+     * in.
      */
-    encoding?: string;
+    dial_action?: Action.DialAction;
 
     /**
-     * These errors may point at addressees when referring to unsuccessful/unconfirmed
-     * delivery statuses.
+     * Fallback URL to use if a client doesn't support a suggested action. Fallback
+     * URLs open in new browser windows. Maximum 2048 characters.
      */
-    errors?: Array<MessagesAPI.MessagingError>;
-
-    from?: InboundMessagePayload.From;
-
-    media?: Array<InboundMessagePayload.Media>;
+    fallback_url?: string;
 
     /**
-     * Unique identifier for a messaging profile.
+     * Opens the user's default web browser app to the specified URL.
      */
-    messaging_profile_id?: string;
+    open_url_action?: Action.OpenURLAction;
 
     /**
-     * Unique identifier for a messaging profile.
+     * Payload (base64 encoded) that will be sent to the agent in the user event that
+     * results when the user taps the suggested action. Maximum 2048 characters.
      */
-    organization_id?: string;
+    postback_data?: string;
 
     /**
-     * Number of parts into which the message's body must be split.
+     * Opens the RCS app's location chooser so the user can pick a location to send
+     * back to the agent.
      */
-    parts?: number;
+    share_location_action?: { [key: string]: unknown };
 
     /**
-     * ISO 8601 formatted date indicating when the message request was received.
-     */
-    received_at?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'message';
-
-    /**
-     * Not used for inbound messages.
-     */
-    sent_at?: string | null;
-
-    /**
-     * Message subject.
-     */
-    subject?: string | null;
-
-    /**
-     * Tags associated with the resource.
-     */
-    tags?: Array<string>;
-
-    /**
-     * Indicates whether the TCR campaign is billable.
-     */
-    tcr_campaign_billable?: boolean;
-
-    /**
-     * The Campaign Registry (TCR) campaign ID associated with the message.
-     */
-    tcr_campaign_id?: string | null;
-
-    /**
-     * The registration status of the TCR campaign.
-     */
-    tcr_campaign_registered?: string | null;
-
-    /**
-     * Message body (i.e., content) as a non-empty string.
-     *
-     * **Required for SMS**
+     * Text that is shown in the suggested action. Maximum 25 characters.
      */
     text?: string;
 
-    to?: Array<InboundMessagePayload.To>;
-
     /**
-     * The type of message. This value can be either 'sms' or 'mms'.
+     * Opens the user's default map app and selects the agent-specified location.
      */
-    type?: 'SMS' | 'MMS';
-
-    /**
-     * Not used for inbound messages.
-     */
-    valid_until?: string | null;
-
-    /**
-     * The failover URL where webhooks related to this message will be sent if sending
-     * to the primary URL fails.
-     */
-    webhook_failover_url?: string | null;
-
-    /**
-     * The URL where webhooks related to this message will be sent.
-     */
-    webhook_url?: string | null;
+    view_location_action?: Action.ViewLocationAction;
   }
 
-  export namespace InboundMessagePayload {
-    export interface Cc {
+  export namespace Action {
+    /**
+     * Opens the user's default calendar app and starts the new calendar event flow
+     * with the agent-specified event data pre-filled.
+     */
+    export interface CreateCalendarEventAction {
       /**
-       * The carrier of the receiver.
+       * Event description. Maximum 500 characters.
        */
-      carrier?: string;
+      description?: string;
+
+      end_time?: string;
+
+      start_time?: string;
 
       /**
-       * The line-type of the receiver.
+       * Event title. Maximum 100 characters.
        */
-      line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-      /**
-       * Receiving address (+E.164 formatted phone number or short code).
-       */
-      phone_number?: string;
-
-      status?:
-        | 'queued'
-        | 'sending'
-        | 'sent'
-        | 'delivered'
-        | 'sending_failed'
-        | 'delivery_failed'
-        | 'delivery_unconfirmed';
-    }
-
-    export interface Cost {
-      /**
-       * The amount deducted from your account.
-       */
-      amount?: string;
-
-      /**
-       * The ISO 4217 currency identifier.
-       */
-      currency?: string;
+      title?: string;
     }
 
     /**
-     * Detailed breakdown of the message cost components.
+     * Opens the user's default dialer app with the agent-specified phone number filled
+     * in.
      */
-    export interface CostBreakdown {
-      carrier_fee?: CostBreakdown.CarrierFee;
-
-      rate?: CostBreakdown.Rate;
+    export interface DialAction {
+      /**
+       * Phone number in +E.164 format
+       */
+      phone_number: string;
     }
 
-    export namespace CostBreakdown {
-      export interface CarrierFee {
+    /**
+     * Opens the user's default web browser app to the specified URL.
+     */
+    export interface OpenURLAction {
+      /**
+       * URL open application, browser or webview.
+       */
+      application: 'OPEN_URL_APPLICATION_UNSPECIFIED' | 'BROWSER' | 'WEBVIEW';
+
+      url: string;
+
+      webview_view_mode: 'WEBVIEW_VIEW_MODE_UNSPECIFIED' | 'FULL' | 'HALF' | 'TALL';
+
+      /**
+       * Accessbility description for webview.
+       */
+      description?: string;
+    }
+
+    /**
+     * Opens the user's default map app and selects the agent-specified location.
+     */
+    export interface ViewLocationAction {
+      /**
+       * The label of the pin dropped
+       */
+      label?: string;
+
+      lat_long?: ViewLocationAction.LatLong;
+
+      /**
+       * query string (Android only)
+       */
+      query?: string;
+    }
+
+    export namespace ViewLocationAction {
+      export interface LatLong {
         /**
-         * The carrier fee amount.
+         * The latitude in degrees. It must be in the range [-90.0, +90.0].
          */
-        amount?: string;
+        latitude: number;
 
         /**
-         * The ISO 4217 currency identifier.
+         * The longitude in degrees. It must be in the range [-180.0, +180.0].
          */
-        currency?: string;
+        longitude: number;
       }
-
-      export interface Rate {
-        /**
-         * The rate amount applied.
-         */
-        amount?: string;
-
-        /**
-         * The ISO 4217 currency identifier.
-         */
-        currency?: string;
-      }
-    }
-
-    export interface From {
-      /**
-       * The carrier of the sender.
-       */
-      carrier?: string;
-
-      /**
-       * The line-type of the sender.
-       */
-      line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-      /**
-       * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
-       * code).
-       */
-      phone_number?: string;
-
-      status?: 'received' | 'delivered';
-    }
-
-    export interface Media {
-      /**
-       * The MIME type of the requested media.
-       */
-      content_type?: string;
-
-      /**
-       * The SHA256 hash of the requested media.
-       */
-      hash_sha256?: string;
-
-      /**
-       * The size of the requested media.
-       */
-      size?: number;
-
-      /**
-       * The url of the media requested to be sent.
-       */
-      url?: string;
-    }
-
-    export interface To {
-      /**
-       * The carrier of the receiver.
-       */
-      carrier?: string;
-
-      /**
-       * The line-type of the receiver.
-       */
-      line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-      /**
-       * Receiving address (+E.164 formatted phone number or short code).
-       */
-      phone_number?: string;
-
-      status?:
-        | 'queued'
-        | 'sending'
-        | 'sent'
-        | 'delivered'
-        | 'sending_failed'
-        | 'delivery_failed'
-        | 'delivery_unconfirmed'
-        | 'webhook_delivered';
     }
   }
+
+  export interface Reply {
+    /**
+     * Payload (base64 encoded) that will be sent to the agent in the user event that
+     * results when the user taps the suggested action. Maximum 2048 characters.
+     */
+    postback_data?: string;
+
+    /**
+     * Text that is shown in the suggested reply (maximum 25 characters)
+     */
+    text?: string;
+  }
+}
+
+export interface WhatsappMedia {
+  /**
+   * media caption
+   */
+  caption?: string;
+
+  /**
+   * file name with extension
+   */
+  filename?: string;
+
+  /**
+   * media URL
+   */
+  link?: string;
+
+  /**
+   * true if voice message
+   */
+  voice?: boolean;
+}
+
+export interface MessageRetrieveResponse {
+  data?: OutboundMessagePayload | Shared.InboundMessagePayload;
 }
 
 export interface MessageCancelScheduledResponse {
@@ -1036,6 +1116,363 @@ export interface MessageSendNumberPoolResponse {
 
 export interface MessageSendShortCodeResponse {
   data?: OutboundMessagePayload;
+}
+
+export interface MessageSendWhatsappResponse {
+  data?: MessageSendWhatsappResponse.Data;
+}
+
+export namespace MessageSendWhatsappResponse {
+  export interface Data {
+    /**
+     * message ID
+     */
+    id?: string;
+
+    body?: Data.Body;
+
+    direction?: string;
+
+    encoding?: string;
+
+    from?: Data.From;
+
+    messaging_profile_id?: string;
+
+    organization_id?: string;
+
+    received_at?: string;
+
+    record_type?: string;
+
+    to?: Array<Data.To>;
+
+    type?: string;
+  }
+
+  export namespace Data {
+    export interface Body {
+      audio?: MessagesAPI.WhatsappMedia;
+
+      /**
+       * custom data to return with status update
+       */
+      biz_opaque_callback_data?: string;
+
+      contacts?: Array<Body.Contact>;
+
+      document?: MessagesAPI.WhatsappMedia;
+
+      image?: MessagesAPI.WhatsappMedia;
+
+      interactive?: Body.Interactive;
+
+      location?: Body.Location;
+
+      reaction?: Body.Reaction;
+
+      sticker?: MessagesAPI.WhatsappMedia;
+
+      type?:
+        | 'audio'
+        | 'document'
+        | 'image'
+        | 'sticker'
+        | 'video'
+        | 'interactive'
+        | 'location'
+        | 'template'
+        | 'reaction'
+        | 'contacts';
+
+      video?: MessagesAPI.WhatsappMedia;
+    }
+
+    export namespace Body {
+      export interface Contact {
+        addresses?: Array<Contact.Address>;
+
+        birthday?: string;
+
+        emails?: Array<Contact.Email>;
+
+        name?: string;
+
+        org?: Contact.Org;
+
+        phones?: Array<Contact.Phone>;
+
+        urls?: Array<Contact.URL>;
+      }
+
+      export namespace Contact {
+        export interface Address {
+          city?: string;
+
+          country?: string;
+
+          country_code?: string;
+
+          state?: string;
+
+          street?: string;
+
+          type?: string;
+
+          zip?: string;
+        }
+
+        export interface Email {
+          email?: string;
+
+          type?: string;
+        }
+
+        export interface Org {
+          company?: string;
+
+          department?: string;
+
+          title?: string;
+        }
+
+        export interface Phone {
+          phone?: string;
+
+          type?: string;
+
+          wa_id?: string;
+        }
+
+        export interface URL {
+          type?: string;
+
+          url?: string;
+        }
+      }
+
+      export interface Interactive {
+        action?: Interactive.Action;
+
+        body?: Interactive.Body;
+
+        footer?: Interactive.Footer;
+
+        header?: Interactive.Header;
+
+        type?: 'cta_url' | 'list' | 'carousel' | 'button' | 'location_request_message';
+      }
+
+      export namespace Interactive {
+        export interface Action {
+          button?: string;
+
+          buttons?: Array<Action.Button>;
+
+          cards?: Array<Action.Card>;
+
+          catalog_id?: string;
+
+          mode?: string;
+
+          name?: string;
+
+          parameters?: Action.Parameters;
+
+          product_retailer_id?: string;
+
+          sections?: Array<Action.Section>;
+        }
+
+        export namespace Action {
+          export interface Button {
+            reply?: Button.Reply;
+
+            type?: 'reply';
+          }
+
+          export namespace Button {
+            export interface Reply {
+              /**
+               * unique identifier for each button, 256 character maximum
+               */
+              id?: string;
+
+              /**
+               * button label, 20 character maximum
+               */
+              title?: string;
+            }
+          }
+
+          export interface Card {
+            action?: Card.Action;
+
+            body?: Card.Body;
+
+            /**
+             * unique index for each card (0-9)
+             */
+            card_index?: number;
+
+            header?: Card.Header;
+
+            type?: 'cta_url';
+          }
+
+          export namespace Card {
+            export interface Action {
+              /**
+               * the unique ID of the catalog
+               */
+              catalog_id?: string;
+
+              /**
+               * the unique retailer ID of the product
+               */
+              product_retailer_id?: string;
+            }
+
+            export interface Body {
+              /**
+               * 160 character maximum, up to 2 line breaks
+               */
+              text?: string;
+            }
+
+            export interface Header {
+              image?: MessagesAPI.WhatsappMedia;
+
+              type?: 'image' | 'video';
+
+              video?: MessagesAPI.WhatsappMedia;
+            }
+          }
+
+          export interface Parameters {
+            /**
+             * button label text, 20 character maximum
+             */
+            display_text?: string;
+
+            /**
+             * button URL to load when tapped by the user
+             */
+            url?: string;
+          }
+
+          export interface Section {
+            product_items?: Array<Section.ProductItem>;
+
+            rows?: Array<Section.Row>;
+
+            /**
+             * section title, 24 character maximum
+             */
+            title?: string;
+          }
+
+          export namespace Section {
+            export interface ProductItem {
+              product_retailer_id?: string;
+            }
+
+            export interface Row {
+              /**
+               * arbitrary string identifying the row, 200 character maximum
+               */
+              id?: string;
+
+              /**
+               * row description, 72 character maximum
+               */
+              description?: string;
+
+              /**
+               * row title, 24 character maximum
+               */
+              title?: string;
+            }
+          }
+        }
+
+        export interface Body {
+          /**
+           * body text, 1024 character maximum
+           */
+          text?: string;
+        }
+
+        export interface Footer {
+          /**
+           * footer text, 60 character maximum
+           */
+          text?: string;
+        }
+
+        export interface Header {
+          document?: MessagesAPI.WhatsappMedia;
+
+          image?: MessagesAPI.WhatsappMedia;
+
+          sub_text?: string;
+
+          /**
+           * header text, 60 character maximum
+           */
+          text?: string;
+
+          video?: MessagesAPI.WhatsappMedia;
+        }
+      }
+
+      export interface Location {
+        address?: string;
+
+        latitude?: string;
+
+        longitude?: string;
+
+        name?: string;
+      }
+
+      export interface Reaction {
+        emoji?: string;
+
+        message_id?: string;
+      }
+    }
+
+    export interface From {
+      /**
+       * The carrier of the sender.
+       */
+      carrier?: string;
+
+      /**
+       * The line-type of the sender.
+       */
+      line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+      /**
+       * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
+       * code).
+       */
+      phone_number?: string;
+
+      status?: 'received' | 'delivered';
+    }
+
+    export interface To {
+      carrier?: string;
+
+      line_type?: string;
+
+      phone_number?: string;
+
+      status?: string;
+    }
+  }
 }
 
 export interface MessageScheduleParams {
@@ -1417,12 +1854,335 @@ export interface MessageSendShortCodeParams {
   webhook_url?: string;
 }
 
+export interface MessageSendWhatsappParams {
+  /**
+   * Phone number in +E.164 format associated with Whatsapp account
+   */
+  from: string;
+
+  /**
+   * Phone number in +E.164 format
+   */
+  to: string;
+
+  whatsapp_message: MessageSendWhatsappParams.WhatsappMessage;
+
+  /**
+   * Message type - must be set to "WHATSAPP"
+   */
+  type?: 'WHATSAPP';
+
+  /**
+   * The URL where webhooks related to this message will be sent.
+   */
+  webhook_url?: string;
+}
+
+export namespace MessageSendWhatsappParams {
+  export interface WhatsappMessage {
+    audio?: MessagesAPI.WhatsappMedia;
+
+    /**
+     * custom data to return with status update
+     */
+    biz_opaque_callback_data?: string;
+
+    contacts?: Array<WhatsappMessage.Contact>;
+
+    document?: MessagesAPI.WhatsappMedia;
+
+    image?: MessagesAPI.WhatsappMedia;
+
+    interactive?: WhatsappMessage.Interactive;
+
+    location?: WhatsappMessage.Location;
+
+    reaction?: WhatsappMessage.Reaction;
+
+    sticker?: MessagesAPI.WhatsappMedia;
+
+    type?:
+      | 'audio'
+      | 'document'
+      | 'image'
+      | 'sticker'
+      | 'video'
+      | 'interactive'
+      | 'location'
+      | 'template'
+      | 'reaction'
+      | 'contacts';
+
+    video?: MessagesAPI.WhatsappMedia;
+  }
+
+  export namespace WhatsappMessage {
+    export interface Contact {
+      addresses?: Array<Contact.Address>;
+
+      birthday?: string;
+
+      emails?: Array<Contact.Email>;
+
+      name?: string;
+
+      org?: Contact.Org;
+
+      phones?: Array<Contact.Phone>;
+
+      urls?: Array<Contact.URL>;
+    }
+
+    export namespace Contact {
+      export interface Address {
+        city?: string;
+
+        country?: string;
+
+        country_code?: string;
+
+        state?: string;
+
+        street?: string;
+
+        type?: string;
+
+        zip?: string;
+      }
+
+      export interface Email {
+        email?: string;
+
+        type?: string;
+      }
+
+      export interface Org {
+        company?: string;
+
+        department?: string;
+
+        title?: string;
+      }
+
+      export interface Phone {
+        phone?: string;
+
+        type?: string;
+
+        wa_id?: string;
+      }
+
+      export interface URL {
+        type?: string;
+
+        url?: string;
+      }
+    }
+
+    export interface Interactive {
+      action?: Interactive.Action;
+
+      body?: Interactive.Body;
+
+      footer?: Interactive.Footer;
+
+      header?: Interactive.Header;
+
+      type?: 'cta_url' | 'list' | 'carousel' | 'button' | 'location_request_message';
+    }
+
+    export namespace Interactive {
+      export interface Action {
+        button?: string;
+
+        buttons?: Array<Action.Button>;
+
+        cards?: Array<Action.Card>;
+
+        catalog_id?: string;
+
+        mode?: string;
+
+        name?: string;
+
+        parameters?: Action.Parameters;
+
+        product_retailer_id?: string;
+
+        sections?: Array<Action.Section>;
+      }
+
+      export namespace Action {
+        export interface Button {
+          reply?: Button.Reply;
+
+          type?: 'reply';
+        }
+
+        export namespace Button {
+          export interface Reply {
+            /**
+             * unique identifier for each button, 256 character maximum
+             */
+            id?: string;
+
+            /**
+             * button label, 20 character maximum
+             */
+            title?: string;
+          }
+        }
+
+        export interface Card {
+          action?: Card.Action;
+
+          body?: Card.Body;
+
+          /**
+           * unique index for each card (0-9)
+           */
+          card_index?: number;
+
+          header?: Card.Header;
+
+          type?: 'cta_url';
+        }
+
+        export namespace Card {
+          export interface Action {
+            /**
+             * the unique ID of the catalog
+             */
+            catalog_id?: string;
+
+            /**
+             * the unique retailer ID of the product
+             */
+            product_retailer_id?: string;
+          }
+
+          export interface Body {
+            /**
+             * 160 character maximum, up to 2 line breaks
+             */
+            text?: string;
+          }
+
+          export interface Header {
+            image?: MessagesAPI.WhatsappMedia;
+
+            type?: 'image' | 'video';
+
+            video?: MessagesAPI.WhatsappMedia;
+          }
+        }
+
+        export interface Parameters {
+          /**
+           * button label text, 20 character maximum
+           */
+          display_text?: string;
+
+          /**
+           * button URL to load when tapped by the user
+           */
+          url?: string;
+        }
+
+        export interface Section {
+          product_items?: Array<Section.ProductItem>;
+
+          rows?: Array<Section.Row>;
+
+          /**
+           * section title, 24 character maximum
+           */
+          title?: string;
+        }
+
+        export namespace Section {
+          export interface ProductItem {
+            product_retailer_id?: string;
+          }
+
+          export interface Row {
+            /**
+             * arbitrary string identifying the row, 200 character maximum
+             */
+            id?: string;
+
+            /**
+             * row description, 72 character maximum
+             */
+            description?: string;
+
+            /**
+             * row title, 24 character maximum
+             */
+            title?: string;
+          }
+        }
+      }
+
+      export interface Body {
+        /**
+         * body text, 1024 character maximum
+         */
+        text?: string;
+      }
+
+      export interface Footer {
+        /**
+         * footer text, 60 character maximum
+         */
+        text?: string;
+      }
+
+      export interface Header {
+        document?: MessagesAPI.WhatsappMedia;
+
+        image?: MessagesAPI.WhatsappMedia;
+
+        sub_text?: string;
+
+        /**
+         * header text, 60 character maximum
+         */
+        text?: string;
+
+        video?: MessagesAPI.WhatsappMedia;
+      }
+    }
+
+    export interface Location {
+      address?: string;
+
+      latitude?: string;
+
+      longitude?: string;
+
+      name?: string;
+    }
+
+    export interface Reaction {
+      emoji?: string;
+
+      message_id?: string;
+    }
+  }
+}
+
 Messages.Rcs = Rcs;
 
 export declare namespace Messages {
   export {
     type MessagingError as MessagingError,
     type OutboundMessagePayload as OutboundMessagePayload,
+    type RcsAgentMessage as RcsAgentMessage,
+    type RcsCardContent as RcsCardContent,
+    type RcsContentInfo as RcsContentInfo,
+    type RcsSuggestion as RcsSuggestion,
+    type WhatsappMedia as WhatsappMedia,
     type MessageRetrieveResponse as MessageRetrieveResponse,
     type MessageCancelScheduledResponse as MessageCancelScheduledResponse,
     type MessageScheduleResponse as MessageScheduleResponse,
@@ -1431,17 +2191,21 @@ export declare namespace Messages {
     type MessageSendLongCodeResponse as MessageSendLongCodeResponse,
     type MessageSendNumberPoolResponse as MessageSendNumberPoolResponse,
     type MessageSendShortCodeResponse as MessageSendShortCodeResponse,
+    type MessageSendWhatsappResponse as MessageSendWhatsappResponse,
     type MessageScheduleParams as MessageScheduleParams,
     type MessageSendParams as MessageSendParams,
     type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
     type MessageSendLongCodeParams as MessageSendLongCodeParams,
     type MessageSendNumberPoolParams as MessageSendNumberPoolParams,
     type MessageSendShortCodeParams as MessageSendShortCodeParams,
+    type MessageSendWhatsappParams as MessageSendWhatsappParams,
   };
 
   export {
     Rcs as Rcs,
     type RcGenerateDeeplinkResponse as RcGenerateDeeplinkResponse,
+    type RcSendResponse as RcSendResponse,
     type RcGenerateDeeplinkParams as RcGenerateDeeplinkParams,
+    type RcSendParams as RcSendParams,
   };
 }

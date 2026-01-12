@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -66,15 +66,20 @@ export class OutboundVoiceProfiles extends APIResource {
    *
    * @example
    * ```ts
-   * const outboundVoiceProfiles =
-   *   await client.outboundVoiceProfiles.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const outboundVoiceProfile of client.outboundVoiceProfiles.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: OutboundVoiceProfileListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<OutboundVoiceProfileListResponse> {
-    return this._client.get('/outbound_voice_profiles', { query, ...options });
+  ): PagePromise<OutboundVoiceProfilesDefaultPagination, OutboundVoiceProfile> {
+    return this._client.getAPIList('/outbound_voice_profiles', DefaultPagination<OutboundVoiceProfile>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -92,6 +97,8 @@ export class OutboundVoiceProfiles extends APIResource {
     return this._client.delete(path`/outbound_voice_profiles/${id}`, options);
   }
 }
+
+export type OutboundVoiceProfilesDefaultPagination = DefaultPagination<OutboundVoiceProfile>;
 
 export interface OutboundCallRecording {
   /**
@@ -266,12 +273,6 @@ export interface OutboundVoiceProfileRetrieveResponse {
 
 export interface OutboundVoiceProfileUpdateResponse {
   data?: OutboundVoiceProfile;
-}
-
-export interface OutboundVoiceProfileListResponse {
-  data?: Array<OutboundVoiceProfile>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export interface OutboundVoiceProfileDeleteResponse {
@@ -476,18 +477,12 @@ export namespace OutboundVoiceProfileUpdateParams {
   }
 }
 
-export interface OutboundVoiceProfileListParams {
+export interface OutboundVoiceProfileListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[name][contains]
    */
   filter?: OutboundVoiceProfileListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: OutboundVoiceProfileListParams.Page;
 
   /**
    * Specifies the sort order for results. By default sorting direction is ascending.
@@ -543,22 +538,6 @@ export namespace OutboundVoiceProfileListParams {
       contains?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 export declare namespace OutboundVoiceProfiles {
@@ -571,8 +550,8 @@ export declare namespace OutboundVoiceProfiles {
     type OutboundVoiceProfileCreateResponse as OutboundVoiceProfileCreateResponse,
     type OutboundVoiceProfileRetrieveResponse as OutboundVoiceProfileRetrieveResponse,
     type OutboundVoiceProfileUpdateResponse as OutboundVoiceProfileUpdateResponse,
-    type OutboundVoiceProfileListResponse as OutboundVoiceProfileListResponse,
     type OutboundVoiceProfileDeleteResponse as OutboundVoiceProfileDeleteResponse,
+    type OutboundVoiceProfilesDefaultPagination as OutboundVoiceProfilesDefaultPagination,
     type OutboundVoiceProfileCreateParams as OutboundVoiceProfileCreateParams,
     type OutboundVoiceProfileUpdateParams as OutboundVoiceProfileUpdateParams,
     type OutboundVoiceProfileListParams as OutboundVoiceProfileListParams,

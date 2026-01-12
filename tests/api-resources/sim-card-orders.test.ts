@@ -56,16 +56,15 @@ describe('resource simCardOrders', () => {
       client.simCardOrders.list(
         {
           filter: {
-            address: {
-              id: '1293384261075731499',
-              administrative_area: 'TX',
-              country_code: 'US',
-              extended_address: '14th Floor',
-              locality: 'Austin',
-              postal_code: '78701',
-              street_address: '600 Congress Avenue',
-            },
-            cost: { amount: '2.53', currency: 'USD' },
+            'address.administrative_area': 'TX',
+            'address.country_code': 'US',
+            'address.extended_address': '14th Floor',
+            'address.id': '1293384261075731499',
+            'address.locality': 'Austin',
+            'address.postal_code': '78701',
+            'address.street_address': '600 Congress Avenue',
+            'cost.amount': '2.53',
+            'cost.currency': 'USD',
             created_at: '2018-02-02T22:25:27.521Z',
             quantity: 21,
             updated_at: '2018-02-02T22:25:27.521Z',

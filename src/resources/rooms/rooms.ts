@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as Shared from '../shared';
 import * as ActionsAPI from './actions';
 import {
@@ -14,16 +13,14 @@ import {
 import * as SessionsAPI from './sessions/sessions';
 import {
   SessionList0Params,
-  SessionList0Response,
   SessionList1Params,
-  SessionList1Response,
   SessionRetrieveParams,
   SessionRetrieveParticipantsParams,
-  SessionRetrieveParticipantsResponse,
   SessionRetrieveResponse,
   Sessions,
 } from './sessions/sessions';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -81,14 +78,17 @@ export class Rooms extends APIResource {
    *
    * @example
    * ```ts
-   * const rooms = await client.rooms.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const room of client.rooms.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: RoomListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<RoomListResponse> {
-    return this._client.get('/rooms', { query, ...options });
+  ): PagePromise<RoomsDefaultPagination, Room> {
+    return this._client.getAPIList('/rooms', DefaultPagination<Room>, { query, ...options });
   }
 
   /**
@@ -110,6 +110,10 @@ export class Rooms extends APIResource {
     });
   }
 }
+
+export type RoomsDefaultPagination = DefaultPagination<Room>;
+
+export type RoomSessionsDefaultPagination = DefaultPagination<RoomSession>;
 
 export interface Room {
   /**
@@ -155,7 +159,7 @@ export interface Room {
    * The failover URL where webhooks related to this room will be sent if sending to
    * the primary URL fails. Must include a scheme, such as 'https'.
    */
-  webhook_event_failover_url?: string | null;
+  webhook_event_failover_url?: string;
 
   /**
    * The URL where webhooks related to this room will be sent. Must include a scheme,
@@ -166,7 +170,7 @@ export interface Room {
   /**
    * Specifies how many seconds to wait before timing out a webhook.
    */
-  webhook_timeout_secs?: number | null;
+  webhook_timeout_secs?: number;
 }
 
 export interface RoomSession {
@@ -217,12 +221,6 @@ export interface RoomUpdateResponse {
   data?: Room;
 }
 
-export interface RoomListResponse {
-  data?: Array<Room>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface RoomCreateParams {
   /**
    * Enable or disable recording for that room.
@@ -244,7 +242,7 @@ export interface RoomCreateParams {
    * The failover URL where webhooks related to this room will be sent if sending to
    * the primary URL fails. Must include a scheme, such as 'https'.
    */
-  webhook_event_failover_url?: string | null;
+  webhook_event_failover_url?: string;
 
   /**
    * The URL where webhooks related to this room will be sent. Must include a scheme,
@@ -255,7 +253,7 @@ export interface RoomCreateParams {
   /**
    * Specifies how many seconds to wait before timing out a webhook.
    */
-  webhook_timeout_secs?: number | null;
+  webhook_timeout_secs?: number;
 }
 
 export interface RoomRetrieveParams {
@@ -286,7 +284,7 @@ export interface RoomUpdateParams {
    * The failover URL where webhooks related to this room will be sent if sending to
    * the primary URL fails. Must include a scheme, such as 'https'.
    */
-  webhook_event_failover_url?: string | null;
+  webhook_event_failover_url?: string;
 
   /**
    * The URL where webhooks related to this room will be sent. Must include a scheme,
@@ -297,10 +295,10 @@ export interface RoomUpdateParams {
   /**
    * Specifies how many seconds to wait before timing out a webhook.
    */
-  webhook_timeout_secs?: number | null;
+  webhook_timeout_secs?: number;
 }
 
-export interface RoomListParams {
+export interface RoomListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_created_at][eq], filter[date_created_at][gte],
@@ -313,12 +311,6 @@ export interface RoomListParams {
    * To decide if room sessions should be included in the response.
    */
   include_sessions?: boolean;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: RoomListParams.Page;
 }
 
 export namespace RoomListParams {
@@ -374,22 +366,6 @@ export namespace RoomListParams {
       lte?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 Rooms.Actions = Actions;
@@ -402,7 +378,7 @@ export declare namespace Rooms {
     type RoomCreateResponse as RoomCreateResponse,
     type RoomRetrieveResponse as RoomRetrieveResponse,
     type RoomUpdateResponse as RoomUpdateResponse,
-    type RoomListResponse as RoomListResponse,
+    type RoomsDefaultPagination as RoomsDefaultPagination,
     type RoomCreateParams as RoomCreateParams,
     type RoomRetrieveParams as RoomRetrieveParams,
     type RoomUpdateParams as RoomUpdateParams,
@@ -420,9 +396,6 @@ export declare namespace Rooms {
   export {
     Sessions as Sessions,
     type SessionRetrieveResponse as SessionRetrieveResponse,
-    type SessionList0Response as SessionList0Response,
-    type SessionList1Response as SessionList1Response,
-    type SessionRetrieveParticipantsResponse as SessionRetrieveParticipantsResponse,
     type SessionRetrieveParams as SessionRetrieveParams,
     type SessionList0Params as SessionList0Params,
     type SessionList1Params as SessionList1Params,

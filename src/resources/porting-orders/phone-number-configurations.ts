@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class PhoneNumberConfigurations extends APIResource {
@@ -27,17 +27,29 @@ export class PhoneNumberConfigurations extends APIResource {
    *
    * @example
    * ```ts
-   * const phoneNumberConfigurations =
-   *   await client.portingOrders.phoneNumberConfigurations.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const phoneNumberConfigurationListResponse of client.portingOrders.phoneNumberConfigurations.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: PhoneNumberConfigurationListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<PhoneNumberConfigurationListResponse> {
-    return this._client.get('/porting_orders/phone_number_configurations', { query, ...options });
+  ): PagePromise<
+    PhoneNumberConfigurationListResponsesDefaultPagination,
+    PhoneNumberConfigurationListResponse
+  > {
+    return this._client.getAPIList(
+      '/porting_orders/phone_number_configurations',
+      DefaultPagination<PhoneNumberConfigurationListResponse>,
+      { query, ...options },
+    );
   }
 }
+
+export type PhoneNumberConfigurationListResponsesDefaultPagination =
+  DefaultPagination<PhoneNumberConfigurationListResponse>;
 
 export interface PhoneNumberConfigurationCreateResponse {
   data?: Array<PhoneNumberConfigurationCreateResponse.Data>;
@@ -78,43 +90,35 @@ export namespace PhoneNumberConfigurationCreateResponse {
 }
 
 export interface PhoneNumberConfigurationListResponse {
-  data?: Array<PhoneNumberConfigurationListResponse.Data>;
+  /**
+   * Uniquely identifies this phone number configuration
+   */
+  id?: string;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
+  /**
+   * ISO 8601 formatted date indicating when the resource was created.
+   */
+  created_at?: string;
 
-export namespace PhoneNumberConfigurationListResponse {
-  export interface Data {
-    /**
-     * Uniquely identifies this phone number configuration
-     */
-    id?: string;
+  /**
+   * Identifies the associated porting phone number
+   */
+  porting_phone_number_id?: string;
 
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    created_at?: string;
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: string;
 
-    /**
-     * Identifies the associated porting phone number
-     */
-    porting_phone_number_id?: string;
+  /**
+   * ISO 8601 formatted date indicating when the resource was updated.
+   */
+  updated_at?: string;
 
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was updated.
-     */
-    updated_at?: string;
-
-    /**
-     * Identifies the associated user bundle
-     */
-    user_bundle_id?: string;
-  }
+  /**
+   * Identifies the associated user bundle
+   */
+  user_bundle_id?: string;
 }
 
 export interface PhoneNumberConfigurationCreateParams {
@@ -135,19 +139,13 @@ export namespace PhoneNumberConfigurationCreateParams {
   }
 }
 
-export interface PhoneNumberConfigurationListParams {
+export interface PhoneNumberConfigurationListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[porting_order.status][in][], filter[porting_phone_number][in][],
    * filter[user_bundle_id][in][]
    */
   filter?: PhoneNumberConfigurationListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: PhoneNumberConfigurationListParams.Page;
 
   /**
    * Consolidated sort parameter (deepObject style). Originally: sort[value]
@@ -195,22 +193,6 @@ export namespace PhoneNumberConfigurationListParams {
   }
 
   /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
-
-  /**
    * Consolidated sort parameter (deepObject style). Originally: sort[value]
    */
   export interface Sort {
@@ -226,6 +208,7 @@ export declare namespace PhoneNumberConfigurations {
   export {
     type PhoneNumberConfigurationCreateResponse as PhoneNumberConfigurationCreateResponse,
     type PhoneNumberConfigurationListResponse as PhoneNumberConfigurationListResponse,
+    type PhoneNumberConfigurationListResponsesDefaultPagination as PhoneNumberConfigurationListResponsesDefaultPagination,
     type PhoneNumberConfigurationCreateParams as PhoneNumberConfigurationCreateParams,
     type PhoneNumberConfigurationListParams as PhoneNumberConfigurationListParams,
   };

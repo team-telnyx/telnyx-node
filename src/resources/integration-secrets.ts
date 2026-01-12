@@ -2,6 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -33,15 +34,20 @@ export class IntegrationSecrets extends APIResource {
    *
    * @example
    * ```ts
-   * const integrationSecrets =
-   *   await client.integrationSecrets.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const integrationSecret of client.integrationSecrets.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: IntegrationSecretListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<IntegrationSecretListResponse> {
-    return this._client.get('/integration_secrets', { query, ...options });
+  ): PagePromise<IntegrationSecretsDefaultFlatPagination, IntegrationSecret> {
+    return this._client.getAPIList('/integration_secrets', DefaultFlatPagination<IntegrationSecret>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -60,6 +66,8 @@ export class IntegrationSecrets extends APIResource {
   }
 }
 
+export type IntegrationSecretsDefaultFlatPagination = DefaultFlatPagination<IntegrationSecret>;
+
 export interface IntegrationSecret {
   id: string;
 
@@ -74,24 +82,6 @@ export interface IntegrationSecret {
 
 export interface IntegrationSecretCreateResponse {
   data: IntegrationSecret;
-}
-
-export interface IntegrationSecretListResponse {
-  data: Array<IntegrationSecret>;
-
-  meta: IntegrationSecretListResponse.Meta;
-}
-
-export namespace IntegrationSecretListResponse {
-  export interface Meta {
-    page_number: number;
-
-    page_size: number;
-
-    total_pages: number;
-
-    total_results: number;
-  }
 }
 
 export interface IntegrationSecretCreateParams {
@@ -121,17 +111,11 @@ export interface IntegrationSecretCreateParams {
   username?: string;
 }
 
-export interface IntegrationSecretListParams {
+export interface IntegrationSecretListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[type]
    */
   filter?: IntegrationSecretListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: IntegrationSecretListParams.Page;
 }
 
 export namespace IntegrationSecretListParams {
@@ -141,23 +125,13 @@ export namespace IntegrationSecretListParams {
   export interface Filter {
     type?: 'bearer' | 'basic';
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    number?: number;
-
-    size?: number;
-  }
 }
 
 export declare namespace IntegrationSecrets {
   export {
     type IntegrationSecret as IntegrationSecret,
     type IntegrationSecretCreateResponse as IntegrationSecretCreateResponse,
-    type IntegrationSecretListResponse as IntegrationSecretListResponse,
+    type IntegrationSecretsDefaultFlatPagination as IntegrationSecretsDefaultFlatPagination,
     type IntegrationSecretCreateParams as IntegrationSecretCreateParams,
     type IntegrationSecretListParams as IntegrationSecretListParams,
   };

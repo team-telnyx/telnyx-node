@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../../core/resource';
 import * as AgentsAPI from './agents';
-import { AgentListParams, AgentListResponse, AgentUpdateParams, Agents } from './agents';
+import { AgentListParams, AgentUpdateParams, Agents } from './agents';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -32,7 +32,7 @@ export class Rcs extends APIResource {
   }
 
   /**
-   * List RCS capabilities of a given batch of phone numbers
+   * Check RCS capabilities (batch)
    *
    * @example
    * ```ts
@@ -51,7 +51,7 @@ export class Rcs extends APIResource {
   }
 
   /**
-   * List RCS capabilities of a phone number
+   * Check RCS capabilities
    *
    * @example
    * ```ts
@@ -176,7 +176,6 @@ export declare namespace Rcs {
 
   export {
     Agents as Agents,
-    type AgentListResponse as AgentListResponse,
     type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
   };

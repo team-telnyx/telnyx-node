@@ -44,7 +44,10 @@ describe('resource assistants', () => {
       privacy_settings: { data_retention: true },
       telephony_settings: {
         default_texml_app_id: 'default_texml_app_id',
+        noise_suppression: 'deepfilternet',
+        noise_suppression_config: { attenuation_limit: 0, mode: 'advanced' },
         supports_unauthenticated_web_calls: true,
+        time_limit_secs: 30,
       },
       tools: [
         {
@@ -60,8 +63,16 @@ describe('resource assistants', () => {
             },
             headers: [{ name: 'name', value: 'value' }],
             method: 'GET',
-            path_parameters: { properties: { id: 'bar' }, required: ['id'], type: 'object' },
-            query_parameters: { properties: { page: 'bar' }, required: ['page'], type: 'object' },
+            path_parameters: {
+              properties: { id: 'bar' },
+              required: ['id'],
+              type: 'object',
+            },
+            query_parameters: {
+              properties: { page: 'bar' },
+              required: ['page'],
+              type: 'object',
+            },
           },
         },
       ],
@@ -69,12 +80,23 @@ describe('resource assistants', () => {
         language: 'language',
         model: 'deepgram/flux',
         region: 'region',
-        settings: { eot_threshold: 0, eot_timeout_ms: 0, numerals: true, smart_format: true },
+        settings: {
+          eager_eot_threshold: 0.3,
+          eot_threshold: 0,
+          eot_timeout_ms: 0,
+          numerals: true,
+          smart_format: true,
+        },
       },
       voice_settings: {
         voice: 'voice',
         api_key_ref: 'api_key_ref',
         background_audio: { type: 'predefined_media', value: 'silence' },
+        similarity_boost: 0,
+        speed: 0,
+        style: 0,
+        temperature: 0,
+        use_speaker_boost: true,
         voice_speed: 0,
       },
     });
@@ -194,8 +216,8 @@ describe('resource assistants', () => {
   });
 
   // Prism tests are disabled
-  test.skip('import: only required params', async () => {
-    const responsePromise = client.ai.assistants.import({
+  test.skip('imports: only required params', async () => {
+    const responsePromise = client.ai.assistants.imports({
       api_key_ref: 'api_key_ref',
       provider: 'elevenlabs',
     });
@@ -209,8 +231,8 @@ describe('resource assistants', () => {
   });
 
   // Prism tests are disabled
-  test.skip('import: required and optional params', async () => {
-    const response = await client.ai.assistants.import({
+  test.skip('imports: required and optional params', async () => {
+    const response = await client.ai.assistants.imports({
       api_key_ref: 'api_key_ref',
       provider: 'elevenlabs',
     });
@@ -218,11 +240,7 @@ describe('resource assistants', () => {
 
   // Prism tests are disabled
   test.skip('sendSMS: only required params', async () => {
-    const responsePromise = client.ai.assistants.sendSMS('assistant_id', {
-      from: 'from',
-      text: 'text',
-      to: 'to',
-    });
+    const responsePromise = client.ai.assistants.sendSMS('assistant_id', { from: 'from', to: 'to' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -236,10 +254,10 @@ describe('resource assistants', () => {
   test.skip('sendSMS: required and optional params', async () => {
     const response = await client.ai.assistants.sendSMS('assistant_id', {
       from: 'from',
-      text: 'text',
       to: 'to',
       conversation_metadata: { foo: 'string' },
       should_create_conversation: true,
+      text: 'text',
     });
   });
 });

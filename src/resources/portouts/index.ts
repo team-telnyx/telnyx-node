@@ -6,17 +6,23 @@ export {
   type CommentListResponse,
   type CommentCreateParams,
 } from './comments';
-export { Events, type EventRetrieveResponse, type EventListResponse, type EventListParams } from './events';
+export {
+  Events,
+  type EventRetrieveResponse,
+  type EventListResponse,
+  type EventListParams,
+  type EventListResponsesDefaultPagination,
+} from './events';
 export {
   Portouts,
   type PortoutDetails,
   type PortoutRetrieveResponse,
-  type PortoutListResponse,
   type PortoutListRejectionCodesResponse,
   type PortoutUpdateStatusResponse,
   type PortoutListParams,
   type PortoutListRejectionCodesParams,
   type PortoutUpdateStatusParams,
+  type PortoutDetailsDefaultPagination,
 } from './portouts';
 export {
   Reports,
@@ -24,9 +30,9 @@ export {
   type PortoutReport,
   type ReportCreateResponse,
   type ReportRetrieveResponse,
-  type ReportListResponse,
   type ReportCreateParams,
   type ReportListParams,
+  type PortoutReportsDefaultPagination,
 } from './reports';
 export {
   SupportingDocuments,

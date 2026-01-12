@@ -25,7 +25,10 @@ describe('resource portingPhoneNumbers', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.portingPhoneNumbers.list(
-        { filter: { porting_order_status: 'in-process' }, page: { number: 1, size: 1 } },
+        {
+          filter: { porting_order_status: 'in-process' },
+          page: { number: 1, size: 1 },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

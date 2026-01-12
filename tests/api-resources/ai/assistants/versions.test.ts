@@ -65,7 +65,10 @@ describe('resource versions', () => {
       privacy_settings: { data_retention: true },
       telephony_settings: {
         default_texml_app_id: 'default_texml_app_id',
+        noise_suppression: 'deepfilternet',
+        noise_suppression_config: { attenuation_limit: 0, mode: 'advanced' },
         supports_unauthenticated_web_calls: true,
+        time_limit_secs: 30,
       },
       tools: [
         {
@@ -81,8 +84,16 @@ describe('resource versions', () => {
             },
             headers: [{ name: 'name', value: 'value' }],
             method: 'GET',
-            path_parameters: { properties: { id: 'bar' }, required: ['id'], type: 'object' },
-            query_parameters: { properties: { page: 'bar' }, required: ['page'], type: 'object' },
+            path_parameters: {
+              properties: { id: 'bar' },
+              required: ['id'],
+              type: 'object',
+            },
+            query_parameters: {
+              properties: { page: 'bar' },
+              required: ['page'],
+              type: 'object',
+            },
           },
         },
       ],
@@ -90,12 +101,23 @@ describe('resource versions', () => {
         language: 'language',
         model: 'deepgram/flux',
         region: 'region',
-        settings: { eot_threshold: 0, eot_timeout_ms: 0, numerals: true, smart_format: true },
+        settings: {
+          eager_eot_threshold: 0.3,
+          eot_threshold: 0,
+          eot_timeout_ms: 0,
+          numerals: true,
+          smart_format: true,
+        },
       },
       voice_settings: {
         voice: 'voice',
         api_key_ref: 'api_key_ref',
         background_audio: { type: 'predefined_media', value: 'silence' },
+        similarity_boost: 0,
+        speed: 0,
+        style: 0,
+        temperature: 0,
+        use_speaker_boost: true,
         voice_speed: 0,
       },
     });

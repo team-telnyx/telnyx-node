@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as Shared from '../shared';
 import * as ActionsAPI from './actions';
 import { ActionCheckRegistrationStatusResponse, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -66,15 +66,20 @@ export class CredentialConnections extends APIResource {
    *
    * @example
    * ```ts
-   * const credentialConnections =
-   *   await client.credentialConnections.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const credentialConnection of client.credentialConnections.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: CredentialConnectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<CredentialConnectionListResponse> {
-    return this._client.get('/credential_connections', { query, ...options });
+  ): PagePromise<CredentialConnectionsDefaultPagination, CredentialConnection> {
+    return this._client.getAPIList('/credential_connections', DefaultPagination<CredentialConnection>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -90,6 +95,8 @@ export class CredentialConnections extends APIResource {
     return this._client.delete(path`/credential_connections/${id}`, options);
   }
 }
+
+export type CredentialConnectionsDefaultPagination = DefaultPagination<CredentialConnection>;
 
 /**
  * `Latency` directs Telnyx to route media through the site with the lowest
@@ -185,6 +192,22 @@ export interface CredentialConnection {
   inbound?: CredentialInbound;
 
   /**
+   * Controls when noise suppression is applied to calls. When set to 'inbound',
+   * noise suppression is applied to incoming audio. When set to 'outbound', it's
+   * applied to outgoing audio. When set to 'both', it's applied in both directions.
+   * When set to 'disabled', noise suppression is turned off.
+   */
+  noise_suppression?: 'inbound' | 'outbound' | 'both' | 'disabled';
+
+  /**
+   * Configuration options for noise suppression. These settings are stored
+   * regardless of the noise_suppression value, but only take effect when
+   * noise_suppression is not 'disabled'. If you disable noise suppression and later
+   * re-enable it, the previously configured settings will be used.
+   */
+  noise_suppression_details?: CredentialConnection.NoiseSuppressionDetails;
+
+  /**
    * Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly
    * if both are on the Telnyx network. If this is disabled, Telnyx will be able to
    * use T38 on just one leg of the call depending on each leg's settings.
@@ -255,6 +278,40 @@ export interface CredentialConnection {
   webhook_timeout_secs?: number | null;
 }
 
+export namespace CredentialConnection {
+  /**
+   * Configuration options for noise suppression. These settings are stored
+   * regardless of the noise_suppression value, but only take effect when
+   * noise_suppression is not 'disabled'. If you disable noise suppression and later
+   * re-enable it, the previously configured settings will be used.
+   */
+  export interface NoiseSuppressionDetails {
+    /**
+     * The attenuation limit value for the selected engine. Default values vary by
+     * engine: 0 for 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and
+     * all Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
+     * 'krisp_viva_promodel', 'krisp_viva_ss').
+     */
+    attenuation_limit?: number;
+
+    /**
+     * The noise suppression engine to use. 'denoiser' is the default engine.
+     * 'deep_filter_net' and 'deep_filter_net_large' are alternative engines with
+     * different performance characteristics. Krisp engines ('krisp_viva_tel',
+     * 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced
+     * noise suppression capabilities.
+     */
+    engine?:
+      | 'denoiser'
+      | 'deep_filter_net'
+      | 'deep_filter_net_large'
+      | 'krisp_viva_tel'
+      | 'krisp_viva_tel_lite'
+      | 'krisp_viva_promodel'
+      | 'krisp_viva_ss';
+  }
+}
+
 export interface CredentialInbound {
   /**
    * This setting allows you to set the format with which the caller's number (ANI)
@@ -300,6 +357,11 @@ export interface CredentialInbound {
    * transport.
    */
   shaken_stir_enabled?: boolean;
+
+  /**
+   * When enabled, allows multiple devices to ring simultaneously on incoming calls.
+   */
+  simultaneous_ringing?: 'disabled' | 'enabled';
 
   /**
    * Defaults to true.
@@ -407,12 +469,6 @@ export interface CredentialConnectionUpdateResponse {
   data?: CredentialConnection;
 }
 
-export interface CredentialConnectionListResponse {
-  data?: Array<CredentialConnection>;
-
-  meta?: Shared.ConnectionsPaginationMeta;
-}
-
 export interface CredentialConnectionDeleteResponse {
   data?: CredentialConnection;
 }
@@ -490,6 +546,22 @@ export interface CredentialConnectionCreateParams {
   ios_push_credential_id?: string | null;
 
   /**
+   * Controls when noise suppression is applied to calls. When set to 'inbound',
+   * noise suppression is applied to incoming audio. When set to 'outbound', it's
+   * applied to outgoing audio. When set to 'both', it's applied in both directions.
+   * When set to 'disabled', noise suppression is turned off.
+   */
+  noise_suppression?: 'inbound' | 'outbound' | 'both' | 'disabled';
+
+  /**
+   * Configuration options for noise suppression. These settings are stored
+   * regardless of the noise_suppression value, but only take effect when
+   * noise_suppression is not 'disabled'. If you disable noise suppression and later
+   * re-enable it, the previously configured settings will be used.
+   */
+  noise_suppression_details?: CredentialConnectionCreateParams.NoiseSuppressionDetails;
+
+  /**
    * Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly
    * if both are on the Telnyx network. If this is disabled, Telnyx will be able to
    * use T38 on just one leg of the call depending on each leg's settings.
@@ -537,6 +609,40 @@ export interface CredentialConnectionCreateParams {
    * Specifies how many seconds to wait before timing out a webhook.
    */
   webhook_timeout_secs?: number | null;
+}
+
+export namespace CredentialConnectionCreateParams {
+  /**
+   * Configuration options for noise suppression. These settings are stored
+   * regardless of the noise_suppression value, but only take effect when
+   * noise_suppression is not 'disabled'. If you disable noise suppression and later
+   * re-enable it, the previously configured settings will be used.
+   */
+  export interface NoiseSuppressionDetails {
+    /**
+     * The attenuation limit value for the selected engine. Default values vary by
+     * engine: 0 for 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and
+     * all Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
+     * 'krisp_viva_promodel', 'krisp_viva_ss').
+     */
+    attenuation_limit?: number;
+
+    /**
+     * The noise suppression engine to use. 'denoiser' is the default engine.
+     * 'deep_filter_net' and 'deep_filter_net_large' are alternative engines with
+     * different performance characteristics. Krisp engines ('krisp_viva_tel',
+     * 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced
+     * noise suppression capabilities.
+     */
+    engine?:
+      | 'denoiser'
+      | 'deep_filter_net'
+      | 'deep_filter_net_large'
+      | 'krisp_viva_tel'
+      | 'krisp_viva_tel_lite'
+      | 'krisp_viva_promodel'
+      | 'krisp_viva_ss';
+  }
 }
 
 export interface CredentialConnectionUpdateParams {
@@ -600,6 +706,22 @@ export interface CredentialConnectionUpdateParams {
   ios_push_credential_id?: string | null;
 
   /**
+   * Controls when noise suppression is applied to calls. When set to 'inbound',
+   * noise suppression is applied to incoming audio. When set to 'outbound', it's
+   * applied to outgoing audio. When set to 'both', it's applied in both directions.
+   * When set to 'disabled', noise suppression is turned off.
+   */
+  noise_suppression?: 'inbound' | 'outbound' | 'both' | 'disabled';
+
+  /**
+   * Configuration options for noise suppression. These settings are stored
+   * regardless of the noise_suppression value, but only take effect when
+   * noise_suppression is not 'disabled'. If you disable noise suppression and later
+   * re-enable it, the previously configured settings will be used.
+   */
+  noise_suppression_details?: CredentialConnectionUpdateParams.NoiseSuppressionDetails;
+
+  /**
    * Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly
    * if both are on the Telnyx network. If this is disabled, Telnyx will be able to
    * use T38 on just one leg of the call depending on each leg's settings.
@@ -659,19 +781,47 @@ export interface CredentialConnectionUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface CredentialConnectionListParams {
+export namespace CredentialConnectionUpdateParams {
+  /**
+   * Configuration options for noise suppression. These settings are stored
+   * regardless of the noise_suppression value, but only take effect when
+   * noise_suppression is not 'disabled'. If you disable noise suppression and later
+   * re-enable it, the previously configured settings will be used.
+   */
+  export interface NoiseSuppressionDetails {
+    /**
+     * The attenuation limit value for the selected engine. Default values vary by
+     * engine: 0 for 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and
+     * all Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
+     * 'krisp_viva_promodel', 'krisp_viva_ss').
+     */
+    attenuation_limit?: number;
+
+    /**
+     * The noise suppression engine to use. 'denoiser' is the default engine.
+     * 'deep_filter_net' and 'deep_filter_net_large' are alternative engines with
+     * different performance characteristics. Krisp engines ('krisp_viva_tel',
+     * 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced
+     * noise suppression capabilities.
+     */
+    engine?:
+      | 'denoiser'
+      | 'deep_filter_net'
+      | 'deep_filter_net_large'
+      | 'krisp_viva_tel'
+      | 'krisp_viva_tel_lite'
+      | 'krisp_viva_promodel'
+      | 'krisp_viva_ss';
+  }
+}
+
+export interface CredentialConnectionListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
    * filter[outbound.outbound_voice_profile_id]
    */
   filter?: CredentialConnectionListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: CredentialConnectionListParams.Page;
 
   /**
    * Specifies the sort order for results. By default sorting direction is ascending.
@@ -729,22 +879,6 @@ export namespace CredentialConnectionListParams {
       contains?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 CredentialConnections.Actions = Actions;
@@ -761,8 +895,8 @@ export declare namespace CredentialConnections {
     type CredentialConnectionCreateResponse as CredentialConnectionCreateResponse,
     type CredentialConnectionRetrieveResponse as CredentialConnectionRetrieveResponse,
     type CredentialConnectionUpdateResponse as CredentialConnectionUpdateResponse,
-    type CredentialConnectionListResponse as CredentialConnectionListResponse,
     type CredentialConnectionDeleteResponse as CredentialConnectionDeleteResponse,
+    type CredentialConnectionsDefaultPagination as CredentialConnectionsDefaultPagination,
     type CredentialConnectionCreateParams as CredentialConnectionCreateParams,
     type CredentialConnectionUpdateParams as CredentialConnectionUpdateParams,
     type CredentialConnectionListParams as CredentialConnectionListParams,

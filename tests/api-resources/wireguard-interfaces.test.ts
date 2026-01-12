@@ -10,10 +10,7 @@ const client = new Telnyx({
 describe('resource wireguardInterfaces', () => {
   // Prism tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.wireguardInterfaces.create({
-      network_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-      region_code: 'ashburn-va',
-    });
+    const responsePromise = client.wireguardInterfaces.create({ region_code: 'ashburn-va' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -26,10 +23,10 @@ describe('resource wireguardInterfaces', () => {
   // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.wireguardInterfaces.create({
-      network_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
       region_code: 'ashburn-va',
       enable_sip_trunking: false,
       name: 'test interface',
+      network_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
     });
   });
 
@@ -62,7 +59,10 @@ describe('resource wireguardInterfaces', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.wireguardInterfaces.list(
-        { filter: { network_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58' }, page: { number: 1, size: 1 } },
+        {
+          filter: { network_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58' },
+          page: { number: 1, size: 1 },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

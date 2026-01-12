@@ -1,5 +1,81 @@
 # Changelog
 
+## 5.0.0 (2026-01-12)
+
+Full Changelog: [v4.6.0...v5.0.0](https://github.com/team-telnyx/telnyx-node/compare/v4.6.0...v5.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **mcp:** remove deprecated tool schemes
+* **mcp:** **Migration:** To migrate, simply modify the command used to invoke the MCP server. Currently, the only supported tool scheme is code mode. Now, starting the server with just `node /path/to/mcp/server` or `npx package-name` will invoke code tools: changing your command to one of these is likely all you will need to do.
+* Resolved all codegen errors
+
+### Features
+
+* [PORT-4538] Fix ambiguous oneOf instances on porting service and documents ([9c3c817](https://github.com/team-telnyx/telnyx-node/commit/9c3c8177155c9705cb67c5cfa425a6a44cf6b38d))
+* Add AI assistant voice settings, telephony config, and tools updates ([411c794](https://github.com/team-telnyx/telnyx-node/commit/411c7946061c1aefd9c360869671a4b7c7148aa4))
+* **api:** join all 10dlc operations into messaging_10dlc group ([f76f636](https://github.com/team-telnyx/telnyx-node/commit/f76f6361bf6ca1abd80cacbd84f144c33bded979))
+* **api:** manual updates ([4cdc5a5](https://github.com/team-telnyx/telnyx-node/commit/4cdc5a545c2f5cec61ddd8b79cbf374c13b0b135))
+* **api:** manual updates ([e8f8ade](https://github.com/team-telnyx/telnyx-node/commit/e8f8adef9495efffdb24bea3befa7521f2e98894))
+* **api:** manual updates ([181375b](https://github.com/team-telnyx/telnyx-node/commit/181375b426e9c08a91d8f6cca498f1e19ab62d78))
+* **api:** manual updates ([277c1b9](https://github.com/team-telnyx/telnyx-node/commit/277c1b97385d8c5a752043e21ae8bcabe172a0c0))
+* **api:** manual updates ([6f0cdb7](https://github.com/team-telnyx/telnyx-node/commit/6f0cdb70e7dd8f616fd4dd0257e6a4522c1792d8))
+* **api:** messaging_10dlc group with all their endpoints ([a9ceb01](https://github.com/team-telnyx/telnyx-node/commit/a9ceb0169bb7d92c71b3d7ac015b87b92e520234))
+* **api:** reverted previous commit ([19d4fce](https://github.com/team-telnyx/telnyx-node/commit/19d4fce4304ecaf040d3a3b959a4243e9c202f8f))
+* Document supervising leg of call ([21062d5](https://github.com/team-telnyx/telnyx-node/commit/21062d5c4c5652f5810db8ebbb444827d4d63759))
+* DOTCOM-5145. Update redocly lint to block new lint errors or warning being introduced ([657cc7d](https://github.com/team-telnyx/telnyx-node/commit/657cc7de7a6421dd71b83e43decd3a98f795192b))
+* DOTCOM-5179. Fix Redocly errors in outbound-voice-profiles.json ([ea4365d](https://github.com/team-telnyx/telnyx-node/commit/ea4365d60f7b100e92a607de3e83f615bb655f3b))
+* Draft. DOTCOM-5184. Fix 44 errors in the spec as reported by Redocly on video ([a777f1a](https://github.com/team-telnyx/telnyx-node/commit/a777f1af201ca317ad0cc39226a1de7a255a3d5e))
+* Engdesk 47920/wireless cleanup ([7f03be7](https://github.com/team-telnyx/telnyx-node/commit/7f03be7cbf2cd21aa1ed888eda4ebd89a579ec26))
+* ENGDESK-47883: Fix all lint errors in telapps owned APIs ([a88c260](https://github.com/team-telnyx/telnyx-node/commit/a88c26000c1849fb9da2c02bb197b237b74c1050))
+* ENGDESK-47914 - fix warnings in numbers.json file ([6ff5cd6](https://github.com/team-telnyx/telnyx-node/commit/6ff5cd60896a78cb99aaa27fb353711118005eac))
+* ENGDESK-47947 - fix wrong type on user-addresses request object ([92713e7](https://github.com/team-telnyx/telnyx-node/commit/92713e7e7cfe4408690bf1686e2f4504084869b2))
+* ENGDESK-48016 - document simultaneous ringing for CredentialConnections ([861c99a](https://github.com/team-telnyx/telnyx-node/commit/861c99a323e88b86927adcde827985c734c01292))
+* ENGDESK-48254: Release noise suppression details docs to prod ([d582676](https://github.com/team-telnyx/telnyx-node/commit/d582676cdfae792e4dd00ddb2aa265a35c55e01a))
+* Fix campaign usecase endpoint: /registry/enum/usecase → /10dlc/enum/usecase ([9dfb6f3](https://github.com/team-telnyx/telnyx-node/commit/9dfb6f37a33d4860d1f9cdfd307ab534e59fcbd7))
+* fix redocly lint issues ([a595f98](https://github.com/team-telnyx/telnyx-node/commit/a595f988c2b65a4b77cadd6435b73819825ad48f))
+* hotfix: restore 10dlc prefixes ([584b0a7](https://github.com/team-telnyx/telnyx-node/commit/584b0a72e47cd42bd9773c87bdeb79828a6f7d14))
+* Improve messaging API naming and navigation ([d9417c5](https://github.com/team-telnyx/telnyx-node/commit/d9417c5db73a06820feb414d0f011e449b1b3759))
+* messaging meta object with required fields ([7a81665](https://github.com/team-telnyx/telnyx-node/commit/7a81665ec537af458e649c2910b576aa592f68a5))
+* Msg 6152 ([938de08](https://github.com/team-telnyx/telnyx-node/commit/938de08e31ef07d4cc3522e4b6560de23c14440b))
+* MSG-6140: Add SMS OTP endpoints for Sole Prop brands ([acc122c](https://github.com/team-telnyx/telnyx-node/commit/acc122cd2e4828402c9fe11c5cd2fc09056cc3d0))
+* port-4551: remove CustomerServiceRecordStatusChanged webhook doc ([63ac0f3](https://github.com/team-telnyx/telnyx-node/commit/63ac0f36733bfe6a23ae19813a1d9b039c44c598))
+* PORT-4553: Add a discriminator to portout webhook ([576bfa4](https://github.com/team-telnyx/telnyx-node/commit/576bfa4101e42f646eb3697520948994fa81eed0))
+* PORTAL-5787 - document query parameter to handle messaging service error ([c563140](https://github.com/team-telnyx/telnyx-node/commit/c56314056da7dc23e8791a989429732c6a5cd634))
+* TBS-3422: Fix redocly errors ([9ca5b7d](https://github.com/team-telnyx/telnyx-node/commit/9ca5b7d3aab2bdbe64f4a0867ee6b233cddf82d9))
+* TELAPPS-47889 Add texml queue endpoint ([3ec7d0e](https://github.com/team-telnyx/telnyx-node/commit/3ec7d0e00b244ed6bd79e24cc84ff0da1c8c8ec1))
+* TELAPPS-5428 Add speech-to-text WS endpoint ([100a4bc](https://github.com/team-telnyx/telnyx-node/commit/100a4bc95e43e3edcaf311d336794df60e6533c9))
+
+
+### Bug Fixes
+
+* **client:** lint ([3eb0ba2](https://github.com/team-telnyx/telnyx-node/commit/3eb0ba20a6c32abdf719b7ed41da57adb0545c93))
+* **client:** restore generated webhooks code ([1b65f0d](https://github.com/team-telnyx/telnyx-node/commit/1b65f0de43ccfaa341881210a444b4d6b37fd7a0))
+* correct broken hyperlinks in Submit Campaign endpoint description ([06ee84e](https://github.com/team-telnyx/telnyx-node/commit/06ee84ee3e91fc546348d3c3fc900ed5523dbfb0))
+* make text field optional in AssistantSmsChatReq schema ([74102ea](https://github.com/team-telnyx/telnyx-node/commit/74102eac6be6b5e623eb8b168edf3b557fdccb3b))
+* **mcp:** add client instantiation options to code tool ([5bd6ec8](https://github.com/team-telnyx/telnyx-node/commit/5bd6ec84b0fb7fd16e1d69703b95a3dd96b1f08a))
+* **mcp:** correct code tool api output types ([683c0b3](https://github.com/team-telnyx/telnyx-node/commit/683c0b302fecbf19d773db5926b3290c511800eb))
+* **mcp:** fix options parsing ([31fb727](https://github.com/team-telnyx/telnyx-node/commit/31fb7278e7155fe11634768648121202c479afcf))
+* **mcp:** pass base url to code tool ([364b539](https://github.com/team-telnyx/telnyx-node/commit/364b539dff8dd4cc0b963b8be9816794f455b844))
+* **mcp:** update code tool prompt ([f0dde0e](https://github.com/team-telnyx/telnyx-node/commit/f0dde0e52bde0e2fe929f5be1a08625a4ded18f4))
+* **stainless:** fixes the messsages typo ([e6e60db](https://github.com/team-telnyx/telnyx-node/commit/e6e60dbcf7a2ae18abeab5aa981cf06e20904987))
+* **test:** resolve prettier failure ([7146dcf](https://github.com/team-telnyx/telnyx-node/commit/7146dcf3ecc47ff7689eca3c555f9fbb1bb3a31d))
+
+
+### Chores
+
+* break long lines in snippets into multiline ([67a28b6](https://github.com/team-telnyx/telnyx-node/commit/67a28b6d1b4ba83cce3af11bd7dadd68eea43f86))
+* **internal:** codegen related update ([f39a0c8](https://github.com/team-telnyx/telnyx-node/commit/f39a0c8d515b37ce80f7d9b04160d678e8474e7c))
+* **internal:** codegen related update ([f88a57b](https://github.com/team-telnyx/telnyx-node/commit/f88a57b8d7865d0e44dcab0107659d61da35b066))
+* **internal:** codegen related update ([3e5f17b](https://github.com/team-telnyx/telnyx-node/commit/3e5f17b64d3054db3042b37c87706ec278384c3a))
+* **mcp:** remove deprecated tool schemes ([afd7155](https://github.com/team-telnyx/telnyx-node/commit/afd715554e9a516d68c96662ea7031ece1ee5bfd))
+* Resolved all codegen errors ([8da376e](https://github.com/team-telnyx/telnyx-node/commit/8da376e3135660348141550f8743e38f46796199))
+
+
+### Documentation
+
+* prominently feature MCP server setup in root SDK readmes ([6ed1cbe](https://github.com/team-telnyx/telnyx-node/commit/6ed1cbe6685f92e9e21226c88f32c559e603b9cd))
+
 ## 4.6.0 (2025-12-08)
 
 Full Changelog: [v4.5.1...v4.6.0](https://github.com/team-telnyx/telnyx-node/compare/v4.5.1...v4.6.0)

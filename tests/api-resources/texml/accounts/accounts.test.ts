@@ -26,7 +26,11 @@ describe('resource accounts', () => {
     await expect(
       client.texml.accounts.retrieveRecordingsJson(
         'account_sid',
-        { DateCreated: '2019-12-27T18:11:19.117Z', Page: 0, PageSize: 0 },
+        {
+          DateCreated: '2023-05-22T00:00:00Z',
+          Page: 0,
+          PageSize: 0,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

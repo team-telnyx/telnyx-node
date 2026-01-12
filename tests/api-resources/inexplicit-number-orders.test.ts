@@ -12,7 +12,11 @@ describe('resource inexplicitNumberOrders', () => {
   test.skip('create: only required params', async () => {
     const responsePromise = client.inexplicitNumberOrders.create({
       ordering_groups: [
-        { count_requested: 'count_requested', country_iso: 'US', phone_number_type: 'phone_number_type' },
+        {
+          count_requested: 'count_requested',
+          country_iso: 'US',
+          phone_number_type: 'phone_number_type',
+        },
       ],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -37,7 +41,11 @@ describe('resource inexplicitNumberOrders', () => {
           features: ['string'],
           locality: 'locality',
           national_destination_code: 'national_destination_code',
-          phone_number: { contains: 'contains', ends_with: 'ends_with', starts_with: 'starts_with' },
+          phone_number: {
+            contains: 'contains',
+            ends_with: 'ends_with',
+            starts_with: 'starts_with',
+          },
           quickship: true,
           strategy: 'always',
         },

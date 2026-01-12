@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -27,14 +27,20 @@ export class Events extends APIResource {
    *
    * @example
    * ```ts
-   * const events = await client.portouts.events.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const eventListResponse of client.portouts.events.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: EventListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<EventListResponse> {
-    return this._client.get('/portouts/events', { query, ...options });
+  ): PagePromise<EventListResponsesDefaultPagination, EventListResponse> {
+    return this._client.getAPIList('/portouts/events', DefaultPagination<EventListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -55,12 +61,17 @@ export class Events extends APIResource {
   }
 }
 
+export type EventListResponsesDefaultPagination = DefaultPagination<EventListResponse>;
+
 export interface EventRetrieveResponse {
-  data?: EventRetrieveResponse.Data;
+  data?:
+    | EventRetrieveResponse.WebhookPortoutStatusChanged
+    | EventRetrieveResponse.WebhookPortoutNewComment
+    | EventRetrieveResponse.WebhookPortoutFocDateChanged;
 }
 
 export namespace EventRetrieveResponse {
-  export interface Data {
+  export interface WebhookPortoutStatusChanged {
     /**
      * Uniquely identifies the event.
      */
@@ -84,10 +95,7 @@ export namespace EventRetrieveResponse {
     /**
      * The webhook payload for the portout.status_changed event
      */
-    payload?:
-      | Data.WebhookPortoutStatusChangedPayload
-      | Data.WebhookPortoutNewCommentPayload
-      | Data.WebhookPortoutFocDateChangedPayload;
+    payload?: WebhookPortoutStatusChanged.Payload;
 
     /**
      * The status of the payload generation.
@@ -110,11 +118,11 @@ export namespace EventRetrieveResponse {
     updated_at?: string;
   }
 
-  export namespace Data {
+  export namespace WebhookPortoutStatusChanged {
     /**
      * The webhook payload for the portout.status_changed event
      */
-    export interface WebhookPortoutStatusChangedPayload {
+    export interface Payload {
       /**
        * Identifies the port out that was moved.
        */
@@ -161,11 +169,60 @@ export namespace EventRetrieveResponse {
        */
       user_id?: string;
     }
+  }
+
+  export interface WebhookPortoutNewComment {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook'>;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?: 'portout.status_changed' | 'portout.foc_date_changed' | 'portout.new_comment';
 
     /**
      * The webhook payload for the portout.new_comment event
      */
-    export interface WebhookPortoutNewCommentPayload {
+    payload?: WebhookPortoutNewComment.Payload;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the port-out order associated with the event.
+     */
+    portout_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
+
+  export namespace WebhookPortoutNewComment {
+    /**
+     * The webhook payload for the portout.new_comment event
+     */
+    export interface Payload {
       /**
        * Identifies the comment that was added to the port-out order.
        */
@@ -186,11 +243,60 @@ export namespace EventRetrieveResponse {
        */
       user_id?: string;
     }
+  }
+
+  export interface WebhookPortoutFocDateChanged {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook'>;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?: 'portout.status_changed' | 'portout.foc_date_changed' | 'portout.new_comment';
 
     /**
      * The webhook payload for the portout.foc_date_changed event
      */
-    export interface WebhookPortoutFocDateChangedPayload {
+    payload?: WebhookPortoutFocDateChanged.Payload;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the port-out order associated with the event.
+     */
+    portout_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
+
+  export namespace WebhookPortoutFocDateChanged {
+    /**
+     * The webhook payload for the portout.foc_date_changed event
+     */
+    export interface Payload {
       /**
        * Identifies the port-out order that have the FOC date changed.
        */
@@ -209,14 +315,13 @@ export namespace EventRetrieveResponse {
   }
 }
 
-export interface EventListResponse {
-  data?: Array<EventListResponse.Data>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
+export type EventListResponse =
+  | EventListResponse.WebhookPortoutStatusChanged
+  | EventListResponse.WebhookPortoutNewComment
+  | EventListResponse.WebhookPortoutFocDateChanged;
 
 export namespace EventListResponse {
-  export interface Data {
+  export interface WebhookPortoutStatusChanged {
     /**
      * Uniquely identifies the event.
      */
@@ -240,10 +345,7 @@ export namespace EventListResponse {
     /**
      * The webhook payload for the portout.status_changed event
      */
-    payload?:
-      | Data.WebhookPortoutStatusChangedPayload
-      | Data.WebhookPortoutNewCommentPayload
-      | Data.WebhookPortoutFocDateChangedPayload;
+    payload?: WebhookPortoutStatusChanged.Payload;
 
     /**
      * The status of the payload generation.
@@ -266,11 +368,11 @@ export namespace EventListResponse {
     updated_at?: string;
   }
 
-  export namespace Data {
+  export namespace WebhookPortoutStatusChanged {
     /**
      * The webhook payload for the portout.status_changed event
      */
-    export interface WebhookPortoutStatusChangedPayload {
+    export interface Payload {
       /**
        * Identifies the port out that was moved.
        */
@@ -317,11 +419,60 @@ export namespace EventListResponse {
        */
       user_id?: string;
     }
+  }
+
+  export interface WebhookPortoutNewComment {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook'>;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?: 'portout.status_changed' | 'portout.foc_date_changed' | 'portout.new_comment';
 
     /**
      * The webhook payload for the portout.new_comment event
      */
-    export interface WebhookPortoutNewCommentPayload {
+    payload?: WebhookPortoutNewComment.Payload;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the port-out order associated with the event.
+     */
+    portout_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
+
+  export namespace WebhookPortoutNewComment {
+    /**
+     * The webhook payload for the portout.new_comment event
+     */
+    export interface Payload {
       /**
        * Identifies the comment that was added to the port-out order.
        */
@@ -342,11 +493,60 @@ export namespace EventListResponse {
        */
       user_id?: string;
     }
+  }
+
+  export interface WebhookPortoutFocDateChanged {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook'>;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?: 'portout.status_changed' | 'portout.foc_date_changed' | 'portout.new_comment';
 
     /**
      * The webhook payload for the portout.foc_date_changed event
      */
-    export interface WebhookPortoutFocDateChangedPayload {
+    payload?: WebhookPortoutFocDateChanged.Payload;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the port-out order associated with the event.
+     */
+    portout_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
+
+  export namespace WebhookPortoutFocDateChanged {
+    /**
+     * The webhook payload for the portout.foc_date_changed event
+     */
+    export interface Payload {
       /**
        * Identifies the port-out order that have the FOC date changed.
        */
@@ -365,18 +565,12 @@ export namespace EventListResponse {
   }
 }
 
-export interface EventListParams {
+export interface EventListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[event_type], filter[portout_id], filter[created_at]
    */
   filter?: EventListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: EventListParams.Page;
 }
 
 export namespace EventListParams {
@@ -417,28 +611,13 @@ export namespace EventListParams {
       lte?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace Events {
   export {
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
+    type EventListResponsesDefaultPagination as EventListResponsesDefaultPagination,
     type EventListParams as EventListParams,
   };
 }

@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -48,15 +48,21 @@ export class DynamicEmergencyEndpoints extends APIResource {
    *
    * @example
    * ```ts
-   * const dynamicEmergencyEndpoints =
-   *   await client.dynamicEmergencyEndpoints.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const dynamicEmergencyEndpoint of client.dynamicEmergencyEndpoints.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: DynamicEmergencyEndpointListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<DynamicEmergencyEndpointListResponse> {
-    return this._client.get('/dynamic_emergency_endpoints', { query, ...options });
+  ): PagePromise<DynamicEmergencyEndpointsDefaultPagination, DynamicEmergencyEndpoint> {
+    return this._client.getAPIList(
+      '/dynamic_emergency_endpoints',
+      DefaultPagination<DynamicEmergencyEndpoint>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -74,6 +80,8 @@ export class DynamicEmergencyEndpoints extends APIResource {
     return this._client.delete(path`/dynamic_emergency_endpoints/${id}`, options);
   }
 }
+
+export type DynamicEmergencyEndpointsDefaultPagination = DefaultPagination<DynamicEmergencyEndpoint>;
 
 export interface DynamicEmergencyEndpoint {
   callback_number: string;
@@ -118,12 +126,6 @@ export interface DynamicEmergencyEndpointRetrieveResponse {
   data?: DynamicEmergencyEndpoint;
 }
 
-export interface DynamicEmergencyEndpointListResponse {
-  data?: Array<DynamicEmergencyEndpoint>;
-
-  meta?: Shared.Metadata;
-}
-
 export interface DynamicEmergencyEndpointDeleteResponse {
   data?: DynamicEmergencyEndpoint;
 }
@@ -139,18 +141,12 @@ export interface DynamicEmergencyEndpointCreateParams {
   dynamic_emergency_address_id: string;
 }
 
-export interface DynamicEmergencyEndpointListParams {
+export interface DynamicEmergencyEndpointListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
    * filter[country_code]
    */
   filter?: DynamicEmergencyEndpointListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: DynamicEmergencyEndpointListParams.Page;
 }
 
 export namespace DynamicEmergencyEndpointListParams {
@@ -169,22 +165,6 @@ export namespace DynamicEmergencyEndpointListParams {
      */
     status?: 'pending' | 'activated' | 'rejected';
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace DynamicEmergencyEndpoints {
@@ -192,8 +172,8 @@ export declare namespace DynamicEmergencyEndpoints {
     type DynamicEmergencyEndpoint as DynamicEmergencyEndpoint,
     type DynamicEmergencyEndpointCreateResponse as DynamicEmergencyEndpointCreateResponse,
     type DynamicEmergencyEndpointRetrieveResponse as DynamicEmergencyEndpointRetrieveResponse,
-    type DynamicEmergencyEndpointListResponse as DynamicEmergencyEndpointListResponse,
     type DynamicEmergencyEndpointDeleteResponse as DynamicEmergencyEndpointDeleteResponse,
+    type DynamicEmergencyEndpointsDefaultPagination as DynamicEmergencyEndpointsDefaultPagination,
     type DynamicEmergencyEndpointCreateParams as DynamicEmergencyEndpointCreateParams,
     type DynamicEmergencyEndpointListParams as DynamicEmergencyEndpointListParams,
   };

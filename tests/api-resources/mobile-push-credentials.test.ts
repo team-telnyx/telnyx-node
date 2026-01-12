@@ -11,12 +11,14 @@ describe('resource mobilePushCredentials', () => {
   // Prism tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.mobilePushCredentials.create({
-      alias: 'LucyIosCredential',
-      certificate:
-        '-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----',
-      private_key:
-        '-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----',
-      type: 'ios',
+      createMobilePushCredentialRequest: {
+        alias: 'LucyIosCredential',
+        certificate:
+          '-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----',
+        private_key:
+          '-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----',
+        type: 'ios',
+      },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -30,12 +32,14 @@ describe('resource mobilePushCredentials', () => {
   // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.mobilePushCredentials.create({
-      alias: 'LucyIosCredential',
-      certificate:
-        '-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----',
-      private_key:
-        '-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----',
-      type: 'ios',
+      createMobilePushCredentialRequest: {
+        alias: 'LucyIosCredential',
+        certificate:
+          '-----BEGIN CERTIFICATE----- MIIGVDCCBTKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END CERTIFICATE-----',
+        private_key:
+          '-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAsNlRJVZn9ZvXcECQm65czs... -----END RSA PRIVATE KEY-----',
+        type: 'ios',
+      },
     });
   });
 
@@ -68,7 +72,10 @@ describe('resource mobilePushCredentials', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.mobilePushCredentials.list(
-        { filter: { alias: 'LucyCredential', type: 'ios' }, page: { number: 1, size: 1 } },
+        {
+          filter: { alias: 'LucyCredential', type: 'ios' },
+          page: { number: 1, size: 1 },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

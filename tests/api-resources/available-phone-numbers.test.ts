@@ -35,7 +35,11 @@ describe('resource availablePhoneNumbers', () => {
             limit: 0,
             locality: 'locality',
             national_destination_code: 'national_destination_code',
-            phone_number: { contains: 'contains', ends_with: 'ends_with', starts_with: 'starts_with' },
+            phone_number: {
+              contains: 'contains',
+              ends_with: 'ends_with',
+              starts_with: 'starts_with',
+            },
             phone_number_type: 'local',
             quickship: true,
             rate_center: 'rate_center',

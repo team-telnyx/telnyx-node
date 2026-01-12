@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -12,21 +12,24 @@ export class ActionRequirements extends APIResource {
    *
    * @example
    * ```ts
-   * const actionRequirements =
-   *   await client.portingOrders.actionRequirements.list(
-   *     'porting_order_id',
-   *   );
+   * // Automatically fetches more pages as needed.
+   * for await (const actionRequirementListResponse of client.portingOrders.actionRequirements.list(
+   *   'porting_order_id',
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     portingOrderID: string,
     query: ActionRequirementListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ActionRequirementListResponse> {
-    return this._client.get(path`/porting_orders/${portingOrderID}/action_requirements`, {
-      query,
-      ...options,
-    });
+  ): PagePromise<ActionRequirementListResponsesDefaultPagination, ActionRequirementListResponse> {
+    return this._client.getAPIList(
+      path`/porting_orders/${portingOrderID}/action_requirements`,
+      DefaultPagination<ActionRequirementListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -57,64 +60,59 @@ export class ActionRequirements extends APIResource {
   }
 }
 
+export type ActionRequirementListResponsesDefaultPagination =
+  DefaultPagination<ActionRequirementListResponse>;
+
 export interface ActionRequirementListResponse {
-  data?: Array<ActionRequirementListResponse.Data>;
+  /**
+   * Identifies the action requirement
+   */
+  id?: string;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
+  /**
+   * The type of action required
+   */
+  action_type?: string;
 
-export namespace ActionRequirementListResponse {
-  export interface Data {
-    /**
-     * Identifies the action requirement
-     */
-    id?: string;
+  /**
+   * Optional URL for the action
+   */
+  action_url?: string | null;
 
-    /**
-     * The type of action required
-     */
-    action_type?: string;
+  /**
+   * Reason for cancellation if status is 'cancelled'
+   */
+  cancel_reason?: string | null;
 
-    /**
-     * Optional URL for the action
-     */
-    action_url?: string | null;
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was created
+   */
+  created_at?: string;
 
-    /**
-     * Reason for cancellation if status is 'cancelled'
-     */
-    cancel_reason?: string | null;
+  /**
+   * The ID of the porting order this action requirement belongs to
+   */
+  porting_order_id?: string;
 
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created
-     */
-    created_at?: string;
+  /**
+   * Identifies the type of the resource
+   */
+  record_type?: 'porting_action_requirement';
 
-    /**
-     * The ID of the porting order this action requirement belongs to
-     */
-    porting_order_id?: string;
+  /**
+   * The ID of the requirement type
+   */
+  requirement_type_id?: string;
 
-    /**
-     * Identifies the type of the resource
-     */
-    record_type?: 'porting_action_requirement';
+  /**
+   * Current status of the action requirement
+   */
+  status?: 'created' | 'pending' | 'completed' | 'cancelled' | 'failed';
 
-    /**
-     * The ID of the requirement type
-     */
-    requirement_type_id?: string;
-
-    /**
-     * Current status of the action requirement
-     */
-    status?: 'created' | 'pending' | 'completed' | 'cancelled' | 'failed';
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated
-     */
-    updated_at?: string;
-  }
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was updated
+   */
+  updated_at?: string;
 }
 
 export interface ActionRequirementInitiateResponse {
@@ -175,18 +173,12 @@ export namespace ActionRequirementInitiateResponse {
   }
 }
 
-export interface ActionRequirementListParams {
+export interface ActionRequirementListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[id][in][],
    * filter[requirement_type_id], filter[action_type], filter[status]
    */
   filter?: ActionRequirementListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: ActionRequirementListParams.Page;
 
   /**
    * Consolidated sort parameter (deepObject style). Originally: sort[value]
@@ -219,22 +211,6 @@ export namespace ActionRequirementListParams {
      * Filter action requirements by status
      */
     status?: 'created' | 'pending' | 'completed' | 'cancelled' | 'failed';
-  }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
   }
 
   /**
@@ -284,6 +260,7 @@ export declare namespace ActionRequirements {
   export {
     type ActionRequirementListResponse as ActionRequirementListResponse,
     type ActionRequirementInitiateResponse as ActionRequirementInitiateResponse,
+    type ActionRequirementListResponsesDefaultPagination as ActionRequirementListResponsesDefaultPagination,
     type ActionRequirementListParams as ActionRequirementListParams,
     type ActionRequirementInitiateParams as ActionRequirementInitiateParams,
   };

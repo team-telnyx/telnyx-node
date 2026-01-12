@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as Shared from '../shared';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -28,14 +28,20 @@ export class Events extends APIResource {
    *
    * @example
    * ```ts
-   * const events = await client.porting.events.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const eventListResponse of client.porting.events.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: EventListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<EventListResponse> {
-    return this._client.get('/porting/events', { query, ...options });
+  ): PagePromise<EventListResponsesDefaultPagination, EventListResponse> {
+    return this._client.getAPIList('/porting/events', DefaultPagination<EventListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -56,12 +62,90 @@ export class Events extends APIResource {
   }
 }
 
+export type EventListResponsesDefaultPagination = DefaultPagination<EventListResponse>;
+
 export interface EventRetrieveResponse {
-  data?: EventRetrieveResponse.Data;
+  data?:
+    | EventRetrieveResponse.PortingEventDeletedPayload
+    | EventRetrieveResponse.PortingEventMessagingChangedPayload
+    | EventRetrieveResponse.PortingEventStatusChangedEvent
+    | EventRetrieveResponse.PortingEventNewCommentEvent
+    | EventRetrieveResponse.PortingEventSplitEvent
+    | EventRetrieveResponse.PortingEventWithoutWebhook;
 }
 
 export namespace EventRetrieveResponse {
-  export interface Data {
+  export interface PortingEventDeletedPayload {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook' | 'webhook_v1'>;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?:
+      | 'porting_order.deleted'
+      | 'porting_order.loa_updated'
+      | 'porting_order.messaging_changed'
+      | 'porting_order.status_changed'
+      | 'porting_order.sharing_token_expired'
+      | 'porting_order.new_comment'
+      | 'porting_order.split';
+
+    payload?: PortingEventDeletedPayload.Payload;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the porting order associated with the event.
+     */
+    porting_order_id?: string;
+  }
+
+  export namespace PortingEventDeletedPayload {
+    export interface Payload {
+      /**
+       * Identifies the porting order that was deleted.
+       */
+      id?: string;
+
+      /**
+       * ISO 8601 formatted date indicating when the resource was created.
+       */
+      created_at?: string;
+
+      /**
+       * Identifies the customer reference associated with the porting order.
+       */
+      customer_reference?: string;
+
+      /**
+       * ISO 8601 formatted date indicating when the porting order was deleted.
+       */
+      deleted_at?: string;
+
+      /**
+       * Identifies the type of the resource.
+       */
+      record_type?: string;
+
+      /**
+       * ISO 8601 formatted date indicating when the resource was updated.
+       */
+      updated_at?: string;
+    }
+  }
+
+  export interface PortingEventMessagingChangedPayload {
     /**
      * Uniquely identifies the event.
      */
@@ -90,14 +174,9 @@ export namespace EventRetrieveResponse {
       | 'porting_order.split';
 
     /**
-     * The webhook payload for the porting_order.deleted event
+     * The webhook payload for the porting_order.messaging_changed event
      */
-    payload?:
-      | Data.WebhookPortingOrderDeletedPayload
-      | Data.WebhookPortingOrderMessagingChangedPayload
-      | Data.WebhookPortingOrderStatusChangedPayload
-      | Data.WebhookPortingOrderNewCommentPayload
-      | Data.WebhookPortingOrderSplitPayload;
+    payload?: PortingEventMessagingChangedPayload.Payload;
 
     /**
      * The status of the payload generation.
@@ -120,31 +199,11 @@ export namespace EventRetrieveResponse {
     updated_at?: string;
   }
 
-  export namespace Data {
-    /**
-     * The webhook payload for the porting_order.deleted event
-     */
-    export interface WebhookPortingOrderDeletedPayload {
-      /**
-       * Identifies the porting order that was deleted.
-       */
-      id?: string;
-
-      /**
-       * Identifies the customer reference associated with the porting order.
-       */
-      customer_reference?: string;
-
-      /**
-       * ISO 8601 formatted date indicating when the porting order was deleted.
-       */
-      deleted_at?: string;
-    }
-
+  export namespace PortingEventMessagingChangedPayload {
     /**
      * The webhook payload for the porting_order.messaging_changed event
      */
-    export interface WebhookPortingOrderMessagingChangedPayload {
+    export interface Payload {
       /**
        * Identifies the porting order that was moved.
        */
@@ -158,7 +217,7 @@ export namespace EventRetrieveResponse {
       /**
        * The messaging portability status of the porting order.
        */
-      messaging?: WebhookPortingOrderMessagingChangedPayload.Messaging;
+      messaging?: Payload.Messaging;
 
       /**
        * Identifies the support key associated with the porting order.
@@ -166,7 +225,7 @@ export namespace EventRetrieveResponse {
       support_key?: string;
     }
 
-    export namespace WebhookPortingOrderMessagingChangedPayload {
+    export namespace Payload {
       /**
        * The messaging portability status of the porting order.
        */
@@ -201,11 +260,67 @@ export namespace EventRetrieveResponse {
           | 'ported';
       }
     }
+  }
+
+  export interface PortingEventStatusChangedEvent {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook' | 'webhook_v1'>;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?:
+      | 'porting_order.deleted'
+      | 'porting_order.loa_updated'
+      | 'porting_order.messaging_changed'
+      | 'porting_order.status_changed'
+      | 'porting_order.sharing_token_expired'
+      | 'porting_order.new_comment'
+      | 'porting_order.split';
 
     /**
      * The webhook payload for the porting_order.status_changed event
      */
-    export interface WebhookPortingOrderStatusChangedPayload {
+    payload?: PortingEventStatusChangedEvent.Payload;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the porting order associated with the event.
+     */
+    porting_order_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
+
+  export namespace PortingEventStatusChangedEvent {
+    /**
+     * The webhook payload for the porting_order.status_changed event
+     */
+    export interface Payload {
       /**
        * Identifies the porting order that was moved.
        */
@@ -236,15 +351,71 @@ export namespace EventRetrieveResponse {
        */
       webhook_url?: string;
     }
+  }
+
+  export interface PortingEventNewCommentEvent {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook' | 'webhook_v1'>;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?:
+      | 'porting_order.deleted'
+      | 'porting_order.loa_updated'
+      | 'porting_order.messaging_changed'
+      | 'porting_order.status_changed'
+      | 'porting_order.sharing_token_expired'
+      | 'porting_order.new_comment'
+      | 'porting_order.split';
 
     /**
      * The webhook payload for the porting_order.new_comment event
      */
-    export interface WebhookPortingOrderNewCommentPayload {
+    payload?: PortingEventNewCommentEvent.Payload;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the porting order associated with the event.
+     */
+    porting_order_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
+
+  export namespace PortingEventNewCommentEvent {
+    /**
+     * The webhook payload for the porting_order.new_comment event
+     */
+    export interface Payload {
       /**
        * The comment that was added to the porting order.
        */
-      comment?: WebhookPortingOrderNewCommentPayload.Comment;
+      comment?: Payload.Comment;
 
       /**
        * Identifies the porting order that the comment was added to.
@@ -257,7 +428,7 @@ export namespace EventRetrieveResponse {
       support_key?: string;
     }
 
-    export namespace WebhookPortingOrderNewCommentPayload {
+    export namespace Payload {
       /**
        * The comment that was added to the porting order.
        */
@@ -288,28 +459,84 @@ export namespace EventRetrieveResponse {
         user_type?: 'user' | 'admin' | 'system';
       }
     }
+  }
+
+  export interface PortingEventSplitEvent {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook' | 'webhook_v1'>;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?:
+      | 'porting_order.deleted'
+      | 'porting_order.loa_updated'
+      | 'porting_order.messaging_changed'
+      | 'porting_order.status_changed'
+      | 'porting_order.sharing_token_expired'
+      | 'porting_order.new_comment'
+      | 'porting_order.split';
 
     /**
      * The webhook payload for the porting_order.split event
      */
-    export interface WebhookPortingOrderSplitPayload {
+    payload?: PortingEventSplitEvent.Payload;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the porting order associated with the event.
+     */
+    porting_order_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
+
+  export namespace PortingEventSplitEvent {
+    /**
+     * The webhook payload for the porting_order.split event
+     */
+    export interface Payload {
       /**
        * The porting order that was split.
        */
-      from?: WebhookPortingOrderSplitPayload.From;
+      from?: Payload.From;
 
       /**
        * The list of porting phone numbers that were moved to the new porting order.
        */
-      porting_phone_numbers?: Array<WebhookPortingOrderSplitPayload.PortingPhoneNumber>;
+      porting_phone_numbers?: Array<Payload.PortingPhoneNumber>;
 
       /**
        * The new porting order that the phone numbers was moved to.
        */
-      to?: WebhookPortingOrderSplitPayload.To;
+      to?: Payload.To;
     }
 
-    export namespace WebhookPortingOrderSplitPayload {
+    export namespace Payload {
       /**
        * The porting order that was split.
        */
@@ -338,16 +565,139 @@ export namespace EventRetrieveResponse {
       }
     }
   }
+
+  export interface PortingEventWithoutWebhook {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook' | 'webhook_v1'>;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?:
+      | 'porting_order.deleted'
+      | 'porting_order.loa_updated'
+      | 'porting_order.messaging_changed'
+      | 'porting_order.status_changed'
+      | 'porting_order.sharing_token_expired'
+      | 'porting_order.new_comment'
+      | 'porting_order.split';
+
+    payload?: null;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the porting order associated with the event.
+     */
+    porting_order_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
 }
 
-export interface EventListResponse {
-  data?: Array<EventListResponse.Data>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
+export type EventListResponse =
+  | EventListResponse.PortingEventDeletedPayload
+  | EventListResponse.PortingEventMessagingChangedPayload
+  | EventListResponse.PortingEventStatusChangedEvent
+  | EventListResponse.PortingEventNewCommentEvent
+  | EventListResponse.PortingEventSplitEvent
+  | EventListResponse.PortingEventWithoutWebhook;
 
 export namespace EventListResponse {
-  export interface Data {
+  export interface PortingEventDeletedPayload {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook' | 'webhook_v1'>;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?:
+      | 'porting_order.deleted'
+      | 'porting_order.loa_updated'
+      | 'porting_order.messaging_changed'
+      | 'porting_order.status_changed'
+      | 'porting_order.sharing_token_expired'
+      | 'porting_order.new_comment'
+      | 'porting_order.split';
+
+    payload?: PortingEventDeletedPayload.Payload;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the porting order associated with the event.
+     */
+    porting_order_id?: string;
+  }
+
+  export namespace PortingEventDeletedPayload {
+    export interface Payload {
+      /**
+       * Identifies the porting order that was deleted.
+       */
+      id?: string;
+
+      /**
+       * ISO 8601 formatted date indicating when the resource was created.
+       */
+      created_at?: string;
+
+      /**
+       * Identifies the customer reference associated with the porting order.
+       */
+      customer_reference?: string;
+
+      /**
+       * ISO 8601 formatted date indicating when the porting order was deleted.
+       */
+      deleted_at?: string;
+
+      /**
+       * Identifies the type of the resource.
+       */
+      record_type?: string;
+
+      /**
+       * ISO 8601 formatted date indicating when the resource was updated.
+       */
+      updated_at?: string;
+    }
+  }
+
+  export interface PortingEventMessagingChangedPayload {
     /**
      * Uniquely identifies the event.
      */
@@ -376,14 +726,9 @@ export namespace EventListResponse {
       | 'porting_order.split';
 
     /**
-     * The webhook payload for the porting_order.deleted event
+     * The webhook payload for the porting_order.messaging_changed event
      */
-    payload?:
-      | Data.WebhookPortingOrderDeletedPayload
-      | Data.WebhookPortingOrderMessagingChangedPayload
-      | Data.WebhookPortingOrderStatusChangedPayload
-      | Data.WebhookPortingOrderNewCommentPayload
-      | Data.WebhookPortingOrderSplitPayload;
+    payload?: PortingEventMessagingChangedPayload.Payload;
 
     /**
      * The status of the payload generation.
@@ -406,31 +751,11 @@ export namespace EventListResponse {
     updated_at?: string;
   }
 
-  export namespace Data {
-    /**
-     * The webhook payload for the porting_order.deleted event
-     */
-    export interface WebhookPortingOrderDeletedPayload {
-      /**
-       * Identifies the porting order that was deleted.
-       */
-      id?: string;
-
-      /**
-       * Identifies the customer reference associated with the porting order.
-       */
-      customer_reference?: string;
-
-      /**
-       * ISO 8601 formatted date indicating when the porting order was deleted.
-       */
-      deleted_at?: string;
-    }
-
+  export namespace PortingEventMessagingChangedPayload {
     /**
      * The webhook payload for the porting_order.messaging_changed event
      */
-    export interface WebhookPortingOrderMessagingChangedPayload {
+    export interface Payload {
       /**
        * Identifies the porting order that was moved.
        */
@@ -444,7 +769,7 @@ export namespace EventListResponse {
       /**
        * The messaging portability status of the porting order.
        */
-      messaging?: WebhookPortingOrderMessagingChangedPayload.Messaging;
+      messaging?: Payload.Messaging;
 
       /**
        * Identifies the support key associated with the porting order.
@@ -452,7 +777,7 @@ export namespace EventListResponse {
       support_key?: string;
     }
 
-    export namespace WebhookPortingOrderMessagingChangedPayload {
+    export namespace Payload {
       /**
        * The messaging portability status of the porting order.
        */
@@ -487,11 +812,67 @@ export namespace EventListResponse {
           | 'ported';
       }
     }
+  }
+
+  export interface PortingEventStatusChangedEvent {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook' | 'webhook_v1'>;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?:
+      | 'porting_order.deleted'
+      | 'porting_order.loa_updated'
+      | 'porting_order.messaging_changed'
+      | 'porting_order.status_changed'
+      | 'porting_order.sharing_token_expired'
+      | 'porting_order.new_comment'
+      | 'porting_order.split';
 
     /**
      * The webhook payload for the porting_order.status_changed event
      */
-    export interface WebhookPortingOrderStatusChangedPayload {
+    payload?: PortingEventStatusChangedEvent.Payload;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the porting order associated with the event.
+     */
+    porting_order_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
+
+  export namespace PortingEventStatusChangedEvent {
+    /**
+     * The webhook payload for the porting_order.status_changed event
+     */
+    export interface Payload {
       /**
        * Identifies the porting order that was moved.
        */
@@ -522,15 +903,71 @@ export namespace EventListResponse {
        */
       webhook_url?: string;
     }
+  }
+
+  export interface PortingEventNewCommentEvent {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook' | 'webhook_v1'>;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?:
+      | 'porting_order.deleted'
+      | 'porting_order.loa_updated'
+      | 'porting_order.messaging_changed'
+      | 'porting_order.status_changed'
+      | 'porting_order.sharing_token_expired'
+      | 'porting_order.new_comment'
+      | 'porting_order.split';
 
     /**
      * The webhook payload for the porting_order.new_comment event
      */
-    export interface WebhookPortingOrderNewCommentPayload {
+    payload?: PortingEventNewCommentEvent.Payload;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the porting order associated with the event.
+     */
+    porting_order_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
+
+  export namespace PortingEventNewCommentEvent {
+    /**
+     * The webhook payload for the porting_order.new_comment event
+     */
+    export interface Payload {
       /**
        * The comment that was added to the porting order.
        */
-      comment?: WebhookPortingOrderNewCommentPayload.Comment;
+      comment?: Payload.Comment;
 
       /**
        * Identifies the porting order that the comment was added to.
@@ -543,7 +980,7 @@ export namespace EventListResponse {
       support_key?: string;
     }
 
-    export namespace WebhookPortingOrderNewCommentPayload {
+    export namespace Payload {
       /**
        * The comment that was added to the porting order.
        */
@@ -574,28 +1011,84 @@ export namespace EventListResponse {
         user_type?: 'user' | 'admin' | 'system';
       }
     }
+  }
+
+  export interface PortingEventSplitEvent {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook' | 'webhook_v1'>;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?:
+      | 'porting_order.deleted'
+      | 'porting_order.loa_updated'
+      | 'porting_order.messaging_changed'
+      | 'porting_order.status_changed'
+      | 'porting_order.sharing_token_expired'
+      | 'porting_order.new_comment'
+      | 'porting_order.split';
 
     /**
      * The webhook payload for the porting_order.split event
      */
-    export interface WebhookPortingOrderSplitPayload {
+    payload?: PortingEventSplitEvent.Payload;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the porting order associated with the event.
+     */
+    porting_order_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
+
+  export namespace PortingEventSplitEvent {
+    /**
+     * The webhook payload for the porting_order.split event
+     */
+    export interface Payload {
       /**
        * The porting order that was split.
        */
-      from?: WebhookPortingOrderSplitPayload.From;
+      from?: Payload.From;
 
       /**
        * The list of porting phone numbers that were moved to the new porting order.
        */
-      porting_phone_numbers?: Array<WebhookPortingOrderSplitPayload.PortingPhoneNumber>;
+      porting_phone_numbers?: Array<Payload.PortingPhoneNumber>;
 
       /**
        * The new porting order that the phone numbers was moved to.
        */
-      to?: WebhookPortingOrderSplitPayload.To;
+      to?: Payload.To;
     }
 
-    export namespace WebhookPortingOrderSplitPayload {
+    export namespace Payload {
       /**
        * The porting order that was split.
        */
@@ -624,20 +1117,65 @@ export namespace EventListResponse {
       }
     }
   }
+
+  export interface PortingEventWithoutWebhook {
+    /**
+     * Uniquely identifies the event.
+     */
+    id?: string;
+
+    /**
+     * Indicates the notification methods used.
+     */
+    available_notification_methods?: Array<'email' | 'webhook' | 'webhook_v1'>;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * Identifies the event type
+     */
+    event_type?:
+      | 'porting_order.deleted'
+      | 'porting_order.loa_updated'
+      | 'porting_order.messaging_changed'
+      | 'porting_order.status_changed'
+      | 'porting_order.sharing_token_expired'
+      | 'porting_order.new_comment'
+      | 'porting_order.split';
+
+    payload?: null;
+
+    /**
+     * The status of the payload generation.
+     */
+    payload_status?: 'created' | 'completed';
+
+    /**
+     * Identifies the porting order associated with the event.
+     */
+    porting_order_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
 }
 
-export interface EventListParams {
+export interface EventListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[type],
    * filter[porting_order_id], filter[created_at][gte], filter[created_at][lte]
    */
   filter?: EventListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: EventListParams.Page;
 }
 
 export namespace EventListParams {
@@ -685,28 +1223,13 @@ export namespace EventListParams {
       lte?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
 }
 
 export declare namespace Events {
   export {
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
+    type EventListResponsesDefaultPagination as EventListResponsesDefaultPagination,
     type EventListParams as EventListParams,
   };
 }

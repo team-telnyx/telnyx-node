@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -28,11 +28,11 @@ export class NotificationProfiles extends APIResource {
    * Update a notification profile.
    */
   update(
-    id: string,
+    notificationProfileID: string,
     body: NotificationProfileUpdateParams,
     options?: RequestOptions,
   ): APIPromise<NotificationProfileUpdateResponse> {
-    return this._client.patch(path`/notification_profiles/${id}`, { body, ...options });
+    return this._client.patch(path`/notification_profiles/${notificationProfileID}`, { body, ...options });
   }
 
   /**
@@ -41,8 +41,11 @@ export class NotificationProfiles extends APIResource {
   list(
     query: NotificationProfileListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<NotificationProfileListResponse> {
-    return this._client.get('/notification_profiles', { query, ...options });
+  ): PagePromise<NotificationProfilesDefaultPagination, NotificationProfile> {
+    return this._client.getAPIList('/notification_profiles', DefaultPagination<NotificationProfile>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -52,6 +55,8 @@ export class NotificationProfiles extends APIResource {
     return this._client.delete(path`/notification_profiles/${id}`, options);
   }
 }
+
+export type NotificationProfilesDefaultPagination = DefaultPagination<NotificationProfile>;
 
 /**
  * A Collection of Notification Channels
@@ -99,12 +104,6 @@ export interface NotificationProfileUpdateResponse {
   data?: NotificationProfile;
 }
 
-export interface NotificationProfileListResponse {
-  data?: Array<NotificationProfile>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface NotificationProfileDeleteResponse {
   /**
    * A Collection of Notification Channels
@@ -126,31 +125,7 @@ export interface NotificationProfileUpdateParams {
   name?: string;
 }
 
-export interface NotificationProfileListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: NotificationProfileListParams.Page;
-}
-
-export namespace NotificationProfileListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
-}
+export interface NotificationProfileListParams extends DefaultPaginationParams {}
 
 export declare namespace NotificationProfiles {
   export {
@@ -158,8 +133,8 @@ export declare namespace NotificationProfiles {
     type NotificationProfileCreateResponse as NotificationProfileCreateResponse,
     type NotificationProfileRetrieveResponse as NotificationProfileRetrieveResponse,
     type NotificationProfileUpdateResponse as NotificationProfileUpdateResponse,
-    type NotificationProfileListResponse as NotificationProfileListResponse,
     type NotificationProfileDeleteResponse as NotificationProfileDeleteResponse,
+    type NotificationProfilesDefaultPagination as NotificationProfilesDefaultPagination,
     type NotificationProfileCreateParams as NotificationProfileCreateParams,
     type NotificationProfileUpdateParams as NotificationProfileUpdateParams,
     type NotificationProfileListParams as NotificationProfileListParams,

@@ -1,9 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import * as Shared from './shared';
+import { RoomParticipantsDefaultPagination } from './shared';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -21,8 +22,11 @@ export class RoomParticipants extends APIResource {
   list(
     query: RoomParticipantListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<RoomParticipantListResponse> {
-    return this._client.get('/room_participants', { query, ...options });
+  ): PagePromise<RoomParticipantsDefaultPagination, Shared.RoomParticipant> {
+    return this._client.getAPIList('/room_participants', DefaultPagination<Shared.RoomParticipant>, {
+      query,
+      ...options,
+    });
   }
 }
 
@@ -30,13 +34,7 @@ export interface RoomParticipantRetrieveResponse {
   data?: Shared.RoomParticipant;
 }
 
-export interface RoomParticipantListResponse {
-  data?: Array<Shared.RoomParticipant>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
-export interface RoomParticipantListParams {
+export interface RoomParticipantListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_joined_at][eq], filter[date_joined_at][gte],
@@ -46,12 +44,6 @@ export interface RoomParticipantListParams {
    * filter[context], filter[session_id]
    */
   filter?: RoomParticipantListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: RoomParticipantListParams.Page;
 }
 
 export namespace RoomParticipantListParams {
@@ -134,28 +126,13 @@ export namespace RoomParticipantListParams {
       lte?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 export declare namespace RoomParticipants {
   export {
     type RoomParticipantRetrieveResponse as RoomParticipantRetrieveResponse,
-    type RoomParticipantListResponse as RoomParticipantListResponse,
     type RoomParticipantListParams as RoomParticipantListParams,
   };
 }
+
+export { type RoomParticipantsDefaultPagination };

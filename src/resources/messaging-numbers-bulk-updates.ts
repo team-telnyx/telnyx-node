@@ -7,7 +7,7 @@ import { path } from '../internal/utils/path';
 
 export class MessagingNumbersBulkUpdates extends APIResource {
   /**
-   * Update the messaging profile of multiple phone numbers
+   * Bulk update phone number profiles
    *
    * @example
    * ```ts

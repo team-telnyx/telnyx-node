@@ -20,7 +20,9 @@
       "args": ["${__dirname}/index.js"],
       "env": {
         "TELNYX_API_KEY": "${user_config.TELNYX_API_KEY}",
-        "TELNYX_PUBLIC_KEY": "${user_config.TELNYX_PUBLIC_KEY}"
+        "TELNYX_PUBLIC_KEY": "${user_config.TELNYX_PUBLIC_KEY}",
+        "TELNYX_CLIENT_ID": "${user_config.TELNYX_CLIENT_ID}",
+        "TELNYX_CLIENT_SECRET": "${user_config.TELNYX_CLIENT_SECRET}"
       }
     }
   },
@@ -28,11 +30,23 @@
     "TELNYX_API_KEY": {
       "title": "api_key",
       "description": "",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     "TELNYX_PUBLIC_KEY": {
       "title": "public_key",
+      "description": "",
+      "required": false,
+      "type": "string"
+    },
+    "TELNYX_CLIENT_ID": {
+      "title": "client_id",
+      "description": "",
+      "required": false,
+      "type": "string"
+    },
+    "TELNYX_CLIENT_SECRET": {
+      "title": "client_secret",
       "description": "",
       "required": false,
       "type": "string"

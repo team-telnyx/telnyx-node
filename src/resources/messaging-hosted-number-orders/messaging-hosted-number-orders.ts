@@ -1,11 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
 import * as Shared from '../shared';
+import { MessagingHostedNumberOrdersDefaultPagination } from '../shared';
 import * as ActionsAPI from './actions';
 import { ActionUploadFileParams, ActionUploadFileResponse, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -46,15 +47,21 @@ export class MessagingHostedNumberOrders extends APIResource {
    *
    * @example
    * ```ts
-   * const messagingHostedNumberOrders =
-   *   await client.messagingHostedNumberOrders.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const messagingHostedNumberOrder of client.messagingHostedNumberOrders.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: MessagingHostedNumberOrderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<MessagingHostedNumberOrderListResponse> {
-    return this._client.get('/messaging_hosted_number_orders', { query, ...options });
+  ): PagePromise<MessagingHostedNumberOrdersDefaultPagination, Shared.MessagingHostedNumberOrder> {
+    return this._client.getAPIList(
+      '/messaging_hosted_number_orders',
+      DefaultPagination<Shared.MessagingHostedNumberOrder>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -71,7 +78,7 @@ export class MessagingHostedNumberOrders extends APIResource {
   }
 
   /**
-   * Check eligibility of phone numbers for hosted messaging
+   * Check hosted messaging eligibility
    *
    * @example
    * ```ts
@@ -153,12 +160,6 @@ export interface MessagingHostedNumberOrderCreateResponse {
 
 export interface MessagingHostedNumberOrderRetrieveResponse {
   data?: Shared.MessagingHostedNumberOrder;
-}
-
-export interface MessagingHostedNumberOrderListResponse {
-  data?: Array<Shared.MessagingHostedNumberOrder>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export interface MessagingHostedNumberOrderDeleteResponse {
@@ -272,31 +273,7 @@ export interface MessagingHostedNumberOrderCreateParams {
   phone_numbers?: Array<string>;
 }
 
-export interface MessagingHostedNumberOrderListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  page?: MessagingHostedNumberOrderListParams.Page;
-}
-
-export namespace MessagingHostedNumberOrderListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[number],
-   * page[size]
-   */
-  export interface Page {
-    /**
-     * The page number to load
-     */
-    number?: number;
-
-    /**
-     * The size of the page
-     */
-    size?: number;
-  }
-}
+export interface MessagingHostedNumberOrderListParams extends DefaultPaginationParams {}
 
 export interface MessagingHostedNumberOrderCheckEligibilityParams {
   /**
@@ -329,7 +306,6 @@ export declare namespace MessagingHostedNumberOrders {
   export {
     type MessagingHostedNumberOrderCreateResponse as MessagingHostedNumberOrderCreateResponse,
     type MessagingHostedNumberOrderRetrieveResponse as MessagingHostedNumberOrderRetrieveResponse,
-    type MessagingHostedNumberOrderListResponse as MessagingHostedNumberOrderListResponse,
     type MessagingHostedNumberOrderDeleteResponse as MessagingHostedNumberOrderDeleteResponse,
     type MessagingHostedNumberOrderCheckEligibilityResponse as MessagingHostedNumberOrderCheckEligibilityResponse,
     type MessagingHostedNumberOrderCreateVerificationCodesResponse as MessagingHostedNumberOrderCreateVerificationCodesResponse,
@@ -347,3 +323,5 @@ export declare namespace MessagingHostedNumberOrders {
     type ActionUploadFileParams as ActionUploadFileParams,
   };
 }
+
+export { type MessagingHostedNumberOrdersDefaultPagination };

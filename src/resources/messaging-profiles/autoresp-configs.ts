@@ -1,14 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AuthenticationProvidersAPI from '../authentication-providers';
+import * as Shared from '../shared';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 export class AutorespConfigs extends APIResource {
   /**
-   * Create Auto-Reponse Setting
+   * Create auto-response setting
    *
    * @example
    * ```ts
@@ -164,7 +164,7 @@ export interface AutoRespConfigResponse {
 export interface AutorespConfigListResponse {
   data: Array<AutoRespConfig>;
 
-  meta: AuthenticationProvidersAPI.PaginationMeta;
+  meta: Shared.MessagingPaginationMeta;
 }
 
 export type AutorespConfigDeleteResponse = string;

@@ -10,7 +10,11 @@ const client = new Telnyx({
 describe('resource mcpServers', () => {
   // Prism tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.ai.mcpServers.create({ name: 'name', type: 'type', url: 'url' });
+    const responsePromise = client.ai.mcpServers.create({
+      name: 'name',
+      type: 'type',
+      url: 'url',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -72,7 +76,12 @@ describe('resource mcpServers', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.ai.mcpServers.list(
-        { 'page[number]': 1, 'page[size]': 1, type: 'type', url: 'url' },
+        {
+          'page[number]': 1,
+          'page[size]': 1,
+          type: 'type',
+          url: 'url',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

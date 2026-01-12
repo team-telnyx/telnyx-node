@@ -52,7 +52,11 @@ describe('resource chat', () => {
       tool_choice: 'none',
       tools: [
         {
-          function: { name: 'name', description: 'description', parameters: { foo: 'bar' } },
+          function: {
+            name: 'name',
+            description: 'description',
+            parameters: { foo: 'bar' },
+          },
           type: 'function',
         },
       ],

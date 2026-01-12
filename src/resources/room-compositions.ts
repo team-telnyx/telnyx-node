@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -44,15 +44,20 @@ export class RoomCompositions extends APIResource {
    *
    * @example
    * ```ts
-   * const roomCompositions =
-   *   await client.roomCompositions.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const roomComposition of client.roomCompositions.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: RoomCompositionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<RoomCompositionListResponse> {
-    return this._client.get('/room_compositions', { query, ...options });
+  ): PagePromise<RoomCompositionsDefaultPagination, RoomComposition> {
+    return this._client.getAPIList('/room_compositions', DefaultPagination<RoomComposition>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -72,6 +77,8 @@ export class RoomCompositions extends APIResource {
     });
   }
 }
+
+export type RoomCompositionsDefaultPagination = DefaultPagination<RoomComposition>;
 
 export interface RoomComposition {
   /**
@@ -156,7 +163,7 @@ export interface RoomComposition {
    * The failover URL where webhooks related to this room composition will be sent if
    * sending to the primary URL fails. Must include a scheme, such as 'https'.
    */
-  webhook_event_failover_url?: string | null;
+  webhook_event_failover_url?: string;
 
   /**
    * The URL where webhooks related to this room composition will be sent. Must
@@ -167,26 +174,26 @@ export interface RoomComposition {
   /**
    * Specifies how many seconds to wait before timing out a webhook.
    */
-  webhook_timeout_secs?: number | null;
+  webhook_timeout_secs?: number;
 }
 
 export interface VideoRegion {
   /**
    * Height of the video region
    */
-  height?: number | null;
+  height?: number;
 
   /**
    * Maximum number of columns of the region's placement grid. By default, the region
    * has as many columns as needed to layout all the specified video sources.
    */
-  max_columns?: number | null;
+  max_columns?: number;
 
   /**
    * Maximum number of rows of the region's placement grid. By default, the region
    * has as many rows as needed to layout all the specified video sources.
    */
-  max_rows?: number | null;
+  max_rows?: number;
 
   /**
    * Array of video recording ids to be composed in the region. Can be "\*" to
@@ -197,25 +204,25 @@ export interface VideoRegion {
   /**
    * Width of the video region
    */
-  width?: number | null;
+  width?: number;
 
   /**
    * X axis value (in pixels) of the region's upper left corner relative to the upper
    * left corner of the whole room composition viewport.
    */
-  x_pos?: number | null;
+  x_pos?: number;
 
   /**
    * Y axis value (in pixels) of the region's upper left corner relative to the upper
    * left corner of the whole room composition viewport.
    */
-  y_pos?: number | null;
+  y_pos?: number;
 
   /**
    * Regions with higher z_pos values are stacked on top of regions with lower z_pos
    * values
    */
-  z_pos?: number | null;
+  z_pos?: number;
 }
 
 export interface RoomCompositionCreateResponse {
@@ -226,29 +233,23 @@ export interface RoomCompositionRetrieveResponse {
   data?: RoomComposition;
 }
 
-export interface RoomCompositionListResponse {
-  data?: Array<RoomComposition>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
 export interface RoomCompositionCreateParams {
   /**
    * The desired format of the room composition.
    */
-  format?: string | null;
+  format?: string;
 
   /**
    * The desired resolution (width/height in pixels) of the resulting video of the
    * room composition. Both width and height are required to be between 16 and 1280;
    * and width _ height should not exceed 1280 _ 720
    */
-  resolution?: string | null;
+  resolution?: string;
 
   /**
    * id of the room session associated with the room composition.
    */
-  session_id?: string | null;
+  session_id?: string;
 
   /**
    * Describes the video layout of the room composition in terms of regions.
@@ -259,7 +260,7 @@ export interface RoomCompositionCreateParams {
    * The failover URL where webhooks related to this room composition will be sent if
    * sending to the primary URL fails. Must include a scheme, such as 'https'.
    */
-  webhook_event_failover_url?: string | null;
+  webhook_event_failover_url?: string;
 
   /**
    * The URL where webhooks related to this room composition will be sent. Must
@@ -270,22 +271,16 @@ export interface RoomCompositionCreateParams {
   /**
    * Specifies how many seconds to wait before timing out a webhook.
    */
-  webhook_timeout_secs?: number | null;
+  webhook_timeout_secs?: number;
 }
 
-export interface RoomCompositionListParams {
+export interface RoomCompositionListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_created_at][eq], filter[date_created_at][gte],
    * filter[date_created_at][lte], filter[session_id], filter[status]
    */
   filter?: RoomCompositionListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: RoomCompositionListParams.Page;
 }
 
 export namespace RoomCompositionListParams {
@@ -326,22 +321,6 @@ export namespace RoomCompositionListParams {
       lte?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 export declare namespace RoomCompositions {
@@ -350,7 +329,7 @@ export declare namespace RoomCompositions {
     type VideoRegion as VideoRegion,
     type RoomCompositionCreateResponse as RoomCompositionCreateResponse,
     type RoomCompositionRetrieveResponse as RoomCompositionRetrieveResponse,
-    type RoomCompositionListResponse as RoomCompositionListResponse,
+    type RoomCompositionsDefaultPagination as RoomCompositionsDefaultPagination,
     type RoomCompositionCreateParams as RoomCompositionCreateParams,
     type RoomCompositionListParams as RoomCompositionListParams,
   };

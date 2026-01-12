@@ -38,7 +38,11 @@ describe('resource otaUpdates', () => {
     await expect(
       client.otaUpdates.list(
         {
-          filter: { sim_card_id: 'sim_card_id', status: 'in-progress', type: 'sim_card_network_preferences' },
+          filter: {
+            sim_card_id: 'sim_card_id',
+            status: 'in-progress',
+            type: 'sim_card_network_preferences',
+          },
           page: { number: 1, size: 1 },
         },
         { path: '/_stainless_unknown_path' },
