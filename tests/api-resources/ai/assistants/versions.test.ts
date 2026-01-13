@@ -120,6 +120,19 @@ describe('resource versions', () => {
         use_speaker_boost: true,
         voice_speed: 0,
       },
+      widget_settings: {
+        agent_thinking_text: 'agent_thinking_text',
+        audio_visualizer_config: { color: 'verdant', preset: 'preset' },
+        default_state: 'expanded',
+        give_feedback_url: 'give_feedback_url',
+        logo_icon_url: 'logo_icon_url',
+        position: 'fixed',
+        report_issue_url: 'report_issue_url',
+        speak_to_interrupt_text: 'speak_to_interrupt_text',
+        start_call_text: 'start_call_text',
+        theme: 'light',
+        view_history_url: 'view_history_url',
+      },
     });
   });
 
