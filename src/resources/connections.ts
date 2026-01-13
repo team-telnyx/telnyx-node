@@ -3,7 +3,13 @@
 import { APIResource } from '../core/resource';
 import * as CredentialConnectionsAPI from './credential-connections/credential-connections';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  DefaultPagination,
+  type DefaultPaginationParams,
+  PagePromise,
+} from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -38,10 +44,10 @@ export class Connections extends APIResource {
     connectionID: string,
     query: ConnectionListActiveCallsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ConnectionListActiveCallsResponsesDefaultPagination, ConnectionListActiveCallsResponse> {
+  ): PagePromise<ConnectionListActiveCallsResponsesDefaultFlatPagination, ConnectionListActiveCallsResponse> {
     return this._client.getAPIList(
       path`/connections/${connectionID}/active_calls`,
-      DefaultPagination<ConnectionListActiveCallsResponse>,
+      DefaultFlatPagination<ConnectionListActiveCallsResponse>,
       { query, ...options },
     );
   }
@@ -49,8 +55,8 @@ export class Connections extends APIResource {
 
 export type ConnectionListResponsesDefaultPagination = DefaultPagination<ConnectionListResponse>;
 
-export type ConnectionListActiveCallsResponsesDefaultPagination =
-  DefaultPagination<ConnectionListActiveCallsResponse>;
+export type ConnectionListActiveCallsResponsesDefaultFlatPagination =
+  DefaultFlatPagination<ConnectionListActiveCallsResponse>;
 
 export interface ConnectionRetrieveResponse {
   data?: ConnectionRetrieveResponse.Data;
@@ -279,7 +285,36 @@ export namespace ConnectionListParams {
   }
 }
 
-export interface ConnectionListActiveCallsParams extends DefaultPaginationParams {}
+export interface ConnectionListActiveCallsParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  page?: ConnectionListActiveCallsParams.Page;
+}
+
+export namespace ConnectionListActiveCallsParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  export interface Page {
+    /**
+     * Opaque identifier of next page
+     */
+    after?: string;
+
+    /**
+     * Opaque identifier of previous page
+     */
+    before?: string;
+
+    /**
+     * Limit of records per single page
+     */
+    limit?: number;
+  }
+}
 
 export declare namespace Connections {
   export {
@@ -287,7 +322,7 @@ export declare namespace Connections {
     type ConnectionListResponse as ConnectionListResponse,
     type ConnectionListActiveCallsResponse as ConnectionListActiveCallsResponse,
     type ConnectionListResponsesDefaultPagination as ConnectionListResponsesDefaultPagination,
-    type ConnectionListActiveCallsResponsesDefaultPagination as ConnectionListActiveCallsResponsesDefaultPagination,
+    type ConnectionListActiveCallsResponsesDefaultFlatPagination as ConnectionListActiveCallsResponsesDefaultFlatPagination,
     type ConnectionListParams as ConnectionListParams,
     type ConnectionListActiveCallsParams as ConnectionListActiveCallsParams,
   };

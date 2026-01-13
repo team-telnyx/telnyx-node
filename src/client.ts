@@ -125,12 +125,12 @@ import {
   CallControlApplicationUpdateParams,
   CallControlApplicationUpdateResponse,
   CallControlApplications,
-  CallControlApplicationsDefaultPagination,
+  CallControlApplicationsDefaultFlatPagination,
 } from './resources/call-control-applications';
 import {
   CallEventListParams,
   CallEventListResponse,
-  CallEventListResponsesDefaultPagination,
+  CallEventListResponsesDefaultFlatPagination,
   CallEvents,
 } from './resources/call-events';
 import {
@@ -164,7 +164,7 @@ import {
 import {
   ConnectionListActiveCallsParams,
   ConnectionListActiveCallsResponse,
-  ConnectionListActiveCallsResponsesDefaultPagination,
+  ConnectionListActiveCallsResponsesDefaultFlatPagination,
   ConnectionListParams,
   ConnectionListResponse,
   ConnectionListResponsesDefaultPagination,
@@ -1043,11 +1043,11 @@ import {
   ConferenceListParams,
   ConferenceListParticipantsParams,
   ConferenceListParticipantsResponse,
-  ConferenceListParticipantsResponsesDefaultPagination,
+  ConferenceListParticipantsResponsesDefaultFlatPagination,
   ConferenceRetrieveParams,
   ConferenceRetrieveResponse,
   Conferences,
-  ConferencesDefaultPagination,
+  ConferencesDefaultFlatPagination,
 } from './resources/conferences/conferences';
 import {
   AnchorsiteOverride,
@@ -2745,7 +2745,7 @@ export declare namespace Telnyx {
     type CallControlApplicationRetrieveResponse as CallControlApplicationRetrieveResponse,
     type CallControlApplicationUpdateResponse as CallControlApplicationUpdateResponse,
     type CallControlApplicationDeleteResponse as CallControlApplicationDeleteResponse,
-    type CallControlApplicationsDefaultPagination as CallControlApplicationsDefaultPagination,
+    type CallControlApplicationsDefaultFlatPagination as CallControlApplicationsDefaultFlatPagination,
     type CallControlApplicationCreateParams as CallControlApplicationCreateParams,
     type CallControlApplicationUpdateParams as CallControlApplicationUpdateParams,
     type CallControlApplicationListParams as CallControlApplicationListParams,
@@ -2754,7 +2754,7 @@ export declare namespace Telnyx {
   export {
     CallEvents as CallEvents,
     type CallEventListResponse as CallEventListResponse,
-    type CallEventListResponsesDefaultPagination as CallEventListResponsesDefaultPagination,
+    type CallEventListResponsesDefaultFlatPagination as CallEventListResponsesDefaultFlatPagination,
     type CallEventListParams as CallEventListParams,
   };
 
@@ -2812,8 +2812,8 @@ export declare namespace Telnyx {
     type ConferenceCreateResponse as ConferenceCreateResponse,
     type ConferenceRetrieveResponse as ConferenceRetrieveResponse,
     type ConferenceListParticipantsResponse as ConferenceListParticipantsResponse,
-    type ConferencesDefaultPagination as ConferencesDefaultPagination,
-    type ConferenceListParticipantsResponsesDefaultPagination as ConferenceListParticipantsResponsesDefaultPagination,
+    type ConferencesDefaultFlatPagination as ConferencesDefaultFlatPagination,
+    type ConferenceListParticipantsResponsesDefaultFlatPagination as ConferenceListParticipantsResponsesDefaultFlatPagination,
     type ConferenceCreateParams as ConferenceCreateParams,
     type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceListParams as ConferenceListParams,
@@ -2826,7 +2826,7 @@ export declare namespace Telnyx {
     type ConnectionListResponse as ConnectionListResponse,
     type ConnectionListActiveCallsResponse as ConnectionListActiveCallsResponse,
     type ConnectionListResponsesDefaultPagination as ConnectionListResponsesDefaultPagination,
-    type ConnectionListActiveCallsResponsesDefaultPagination as ConnectionListActiveCallsResponsesDefaultPagination,
+    type ConnectionListActiveCallsResponsesDefaultFlatPagination as ConnectionListActiveCallsResponsesDefaultFlatPagination,
     type ConnectionListParams as ConnectionListParams,
     type ConnectionListActiveCallsParams as ConnectionListActiveCallsParams,
   };

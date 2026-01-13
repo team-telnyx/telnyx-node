@@ -935,7 +935,7 @@ Methods:
 - <code title="post /call_control_applications">client.callControlApplications.<a href="./src/resources/call-control-applications.ts">create</a>({ ...params }) -> CallControlApplicationCreateResponse</code>
 - <code title="get /call_control_applications/{id}">client.callControlApplications.<a href="./src/resources/call-control-applications.ts">retrieve</a>(id) -> CallControlApplicationRetrieveResponse</code>
 - <code title="patch /call_control_applications/{id}">client.callControlApplications.<a href="./src/resources/call-control-applications.ts">update</a>(id, { ...params }) -> CallControlApplicationUpdateResponse</code>
-- <code title="get /call_control_applications">client.callControlApplications.<a href="./src/resources/call-control-applications.ts">list</a>({ ...params }) -> CallControlApplicationsDefaultPagination</code>
+- <code title="get /call_control_applications">client.callControlApplications.<a href="./src/resources/call-control-applications.ts">list</a>({ ...params }) -> CallControlApplicationsDefaultFlatPagination</code>
 - <code title="delete /call_control_applications/{id}">client.callControlApplications.<a href="./src/resources/call-control-applications.ts">delete</a>(id) -> CallControlApplicationDeleteResponse</code>
 
 # CallEvents
@@ -946,7 +946,7 @@ Types:
 
 Methods:
 
-- <code title="get /call_events">client.callEvents.<a href="./src/resources/call-events.ts">list</a>({ ...params }) -> CallEventListResponsesDefaultPagination</code>
+- <code title="get /call_events">client.callEvents.<a href="./src/resources/call-events.ts">list</a>({ ...params }) -> CallEventListResponsesDefaultFlatPagination</code>
 
 # Calls
 
@@ -1128,8 +1128,8 @@ Methods:
 
 - <code title="post /conferences">client.conferences.<a href="./src/resources/conferences/conferences.ts">create</a>({ ...params }) -> ConferenceCreateResponse</code>
 - <code title="get /conferences/{id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">retrieve</a>(id, { ...params }) -> ConferenceRetrieveResponse</code>
-- <code title="get /conferences">client.conferences.<a href="./src/resources/conferences/conferences.ts">list</a>({ ...params }) -> ConferencesDefaultPagination</code>
-- <code title="get /conferences/{conference_id}/participants">client.conferences.<a href="./src/resources/conferences/conferences.ts">listParticipants</a>(conferenceID, { ...params }) -> ConferenceListParticipantsResponsesDefaultPagination</code>
+- <code title="get /conferences">client.conferences.<a href="./src/resources/conferences/conferences.ts">list</a>({ ...params }) -> ConferencesDefaultFlatPagination</code>
+- <code title="get /conferences/{conference_id}/participants">client.conferences.<a href="./src/resources/conferences/conferences.ts">listParticipants</a>(conferenceID, { ...params }) -> ConferenceListParticipantsResponsesDefaultFlatPagination</code>
 
 ## Actions
 
@@ -1181,7 +1181,7 @@ Methods:
 
 - <code title="get /connections/{id}">client.connections.<a href="./src/resources/connections.ts">retrieve</a>(id) -> ConnectionRetrieveResponse</code>
 - <code title="get /connections">client.connections.<a href="./src/resources/connections.ts">list</a>({ ...params }) -> ConnectionListResponsesDefaultPagination</code>
-- <code title="get /connections/{connection_id}/active_calls">client.connections.<a href="./src/resources/connections.ts">listActiveCalls</a>(connectionID, { ...params }) -> ConnectionListActiveCallsResponsesDefaultPagination</code>
+- <code title="get /connections/{connection_id}/active_calls">client.connections.<a href="./src/resources/connections.ts">listActiveCalls</a>(connectionID, { ...params }) -> ConnectionListActiveCallsResponsesDefaultFlatPagination</code>
 
 # CountryCoverage
 
@@ -2836,7 +2836,7 @@ Methods:
 
 - <code title="get /queues/{queue_name}/calls/{call_control_id}">client.queues.calls.<a href="./src/resources/queues/calls.ts">retrieve</a>(callControlID, { ...params }) -> CallRetrieveResponse</code>
 - <code title="patch /queues/{queue_name}/calls/{call_control_id}">client.queues.calls.<a href="./src/resources/queues/calls.ts">update</a>(callControlID, { ...params }) -> void</code>
-- <code title="get /queues/{queue_name}/calls">client.queues.calls.<a href="./src/resources/queues/calls.ts">list</a>(queueName, { ...params }) -> CallListResponsesDefaultPagination</code>
+- <code title="get /queues/{queue_name}/calls">client.queues.calls.<a href="./src/resources/queues/calls.ts">list</a>(queueName, { ...params }) -> CallListResponsesDefaultFlatPagination</code>
 - <code title="delete /queues/{queue_name}/calls/{call_control_id}">client.queues.calls.<a href="./src/resources/queues/calls.ts">remove</a>(callControlID, { ...params }) -> void</code>
 
 # RcsAgents
