@@ -43,9 +43,11 @@ export {
   type QueueCreateResponse,
   type QueueRetrieveResponse,
   type QueueUpdateResponse,
+  type QueueListResponse,
   type QueueCreateParams,
   type QueueRetrieveParams,
   type QueueUpdateParams,
+  type QueueListParams,
   type QueueDeleteParams,
 } from './queues';
 export { Recordings } from './recordings/index';
