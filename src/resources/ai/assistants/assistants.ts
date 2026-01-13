@@ -597,6 +597,84 @@ export interface InferenceEmbedding {
   transcription?: TranscriptionSettings;
 
   voice_settings?: VoiceSettings;
+
+  /**
+   * Configuration settings for the assistant's web widget.
+   */
+  widget_settings?: InferenceEmbedding.WidgetSettings;
+}
+
+export namespace InferenceEmbedding {
+  /**
+   * Configuration settings for the assistant's web widget.
+   */
+  export interface WidgetSettings {
+    /**
+     * Text displayed while the agent is processing.
+     */
+    agent_thinking_text?: string;
+
+    audio_visualizer_config?: WidgetSettings.AudioVisualizerConfig;
+
+    /**
+     * The default state of the widget.
+     */
+    default_state?: 'expanded' | 'collapsed';
+
+    /**
+     * URL for users to give feedback.
+     */
+    give_feedback_url?: string | null;
+
+    /**
+     * URL to a custom logo icon for the widget.
+     */
+    logo_icon_url?: string | null;
+
+    /**
+     * The positioning style for the widget.
+     */
+    position?: 'fixed' | 'static';
+
+    /**
+     * URL for users to report issues.
+     */
+    report_issue_url?: string | null;
+
+    /**
+     * Text prompting users to speak to interrupt.
+     */
+    speak_to_interrupt_text?: string;
+
+    /**
+     * Custom text displayed on the start call button.
+     */
+    start_call_text?: string;
+
+    /**
+     * The visual theme for the widget.
+     */
+    theme?: 'light' | 'dark';
+
+    /**
+     * URL to view conversation history.
+     */
+    view_history_url?: string | null;
+  }
+
+  export namespace WidgetSettings {
+    export interface AudioVisualizerConfig {
+      /**
+       * The color theme for the audio visualizer.
+       */
+      color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
+
+      /**
+       * The preset style for the audio visualizer.
+       */
+      preset?: string;
+    }
+  }
 }
 
 export interface InferenceEmbeddingBucketIDs {
@@ -1157,6 +1235,84 @@ export interface AssistantCreateParams {
   transcription?: TranscriptionSettings;
 
   voice_settings?: VoiceSettings;
+
+  /**
+   * Configuration settings for the assistant's web widget.
+   */
+  widget_settings?: AssistantCreateParams.WidgetSettings;
+}
+
+export namespace AssistantCreateParams {
+  /**
+   * Configuration settings for the assistant's web widget.
+   */
+  export interface WidgetSettings {
+    /**
+     * Text displayed while the agent is processing.
+     */
+    agent_thinking_text?: string;
+
+    audio_visualizer_config?: WidgetSettings.AudioVisualizerConfig;
+
+    /**
+     * The default state of the widget.
+     */
+    default_state?: 'expanded' | 'collapsed';
+
+    /**
+     * URL for users to give feedback.
+     */
+    give_feedback_url?: string | null;
+
+    /**
+     * URL to a custom logo icon for the widget.
+     */
+    logo_icon_url?: string | null;
+
+    /**
+     * The positioning style for the widget.
+     */
+    position?: 'fixed' | 'static';
+
+    /**
+     * URL for users to report issues.
+     */
+    report_issue_url?: string | null;
+
+    /**
+     * Text prompting users to speak to interrupt.
+     */
+    speak_to_interrupt_text?: string;
+
+    /**
+     * Custom text displayed on the start call button.
+     */
+    start_call_text?: string;
+
+    /**
+     * The visual theme for the widget.
+     */
+    theme?: 'light' | 'dark';
+
+    /**
+     * URL to view conversation history.
+     */
+    view_history_url?: string | null;
+  }
+
+  export namespace WidgetSettings {
+    export interface AudioVisualizerConfig {
+      /**
+       * The color theme for the audio visualizer.
+       */
+      color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
+
+      /**
+       * The preset style for the audio visualizer.
+       */
+      preset?: string;
+    }
+  }
 }
 
 export interface AssistantRetrieveParams {
@@ -1241,6 +1397,84 @@ export interface AssistantUpdateParams {
   transcription?: TranscriptionSettings;
 
   voice_settings?: VoiceSettings;
+
+  /**
+   * Configuration settings for the assistant's web widget.
+   */
+  widget_settings?: AssistantUpdateParams.WidgetSettings;
+}
+
+export namespace AssistantUpdateParams {
+  /**
+   * Configuration settings for the assistant's web widget.
+   */
+  export interface WidgetSettings {
+    /**
+     * Text displayed while the agent is processing.
+     */
+    agent_thinking_text?: string;
+
+    audio_visualizer_config?: WidgetSettings.AudioVisualizerConfig;
+
+    /**
+     * The default state of the widget.
+     */
+    default_state?: 'expanded' | 'collapsed';
+
+    /**
+     * URL for users to give feedback.
+     */
+    give_feedback_url?: string | null;
+
+    /**
+     * URL to a custom logo icon for the widget.
+     */
+    logo_icon_url?: string | null;
+
+    /**
+     * The positioning style for the widget.
+     */
+    position?: 'fixed' | 'static';
+
+    /**
+     * URL for users to report issues.
+     */
+    report_issue_url?: string | null;
+
+    /**
+     * Text prompting users to speak to interrupt.
+     */
+    speak_to_interrupt_text?: string;
+
+    /**
+     * Custom text displayed on the start call button.
+     */
+    start_call_text?: string;
+
+    /**
+     * The visual theme for the widget.
+     */
+    theme?: 'light' | 'dark';
+
+    /**
+     * URL to view conversation history.
+     */
+    view_history_url?: string | null;
+  }
+
+  export namespace WidgetSettings {
+    export interface AudioVisualizerConfig {
+      /**
+       * The color theme for the audio visualizer.
+       */
+      color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
+
+      /**
+       * The preset style for the audio visualizer.
+       */
+      preset?: string;
+    }
+  }
 }
 
 export interface AssistantChatParams {
@@ -1272,6 +1506,12 @@ export interface AssistantImportsParams {
    * The external provider to import assistants from.
    */
   provider: 'elevenlabs' | 'vapi' | 'retell';
+
+  /**
+   * Optional list of assistant IDs to import from the external provider. If not
+   * provided, all assistants will be imported.
+   */
+  import_ids?: Array<string>;
 }
 
 export interface AssistantSendSMSParams {
