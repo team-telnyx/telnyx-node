@@ -30,6 +30,7 @@ describe('resource faxes', () => {
       connection_id: '234423',
       from: '+13125790015',
       to: '+13127367276',
+      black_threshold: 1,
       client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
       from_display_name: 'Company Name',
       media_name: 'my_media_uploaded_to_media_storage_api',
