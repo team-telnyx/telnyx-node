@@ -337,7 +337,7 @@ export interface JobUpdateBatchParams {
   tags?: Array<string>;
 
   /**
-   * Body param:
+   * Body param
    */
   voice?: VoiceAPI.UpdateVoiceSettings;
 }
