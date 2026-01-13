@@ -5,7 +5,7 @@ import * as CallsAPI from './calls';
 import {
   CallListParams,
   CallListResponse,
-  CallListResponsesDefaultPagination,
+  CallListResponsesDefaultFlatPagination,
   CallRemoveParams,
   CallRetrieveParams,
   CallRetrieveResponse,
@@ -87,7 +87,7 @@ export declare namespace Queues {
     Calls as Calls,
     type CallRetrieveResponse as CallRetrieveResponse,
     type CallListResponse as CallListResponse,
-    type CallListResponsesDefaultPagination as CallListResponsesDefaultPagination,
+    type CallListResponsesDefaultFlatPagination as CallListResponsesDefaultFlatPagination,
     type CallRetrieveParams as CallRetrieveParams,
     type CallUpdateParams as CallUpdateParams,
     type CallListParams as CallListParams,

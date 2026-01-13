@@ -43,6 +43,6 @@ export {
   type ConferenceRetrieveParams,
   type ConferenceListParams,
   type ConferenceListParticipantsParams,
-  type ConferencesDefaultPagination,
-  type ConferenceListParticipantsResponsesDefaultPagination,
+  type ConferencesDefaultFlatPagination,
+  type ConferenceListParticipantsResponsesDefaultFlatPagination,
 } from './conferences';

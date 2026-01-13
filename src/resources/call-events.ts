@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class CallEvents extends APIResource {
@@ -15,15 +15,15 @@ export class CallEvents extends APIResource {
   list(
     query: CallEventListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<CallEventListResponsesDefaultPagination, CallEventListResponse> {
-    return this._client.getAPIList('/call_events', DefaultPagination<CallEventListResponse>, {
+  ): PagePromise<CallEventListResponsesDefaultFlatPagination, CallEventListResponse> {
+    return this._client.getAPIList('/call_events', DefaultFlatPagination<CallEventListResponse>, {
       query,
       ...options,
     });
   }
 }
 
-export type CallEventListResponsesDefaultPagination = DefaultPagination<CallEventListResponse>;
+export type CallEventListResponsesDefaultFlatPagination = DefaultFlatPagination<CallEventListResponse>;
 
 export interface CallEventListResponse {
   /**
@@ -61,7 +61,7 @@ export interface CallEventListResponse {
   type: 'command' | 'webhook';
 }
 
-export interface CallEventListParams extends DefaultPaginationParams {
+export interface CallEventListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[application_name][contains], filter[outbound.outbound_voice_profile_id],
@@ -70,6 +70,12 @@ export interface CallEventListParams extends DefaultPaginationParams {
    * filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status]
    */
   filter?: CallEventListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  page?: CallEventListParams.Page;
 }
 
 export namespace CallEventListParams {
@@ -192,12 +198,33 @@ export namespace CallEventListParams {
       lte?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  export interface Page {
+    /**
+     * Opaque identifier of next page
+     */
+    after?: string;
+
+    /**
+     * Opaque identifier of previous page
+     */
+    before?: string;
+
+    /**
+     * Limit of records per single page
+     */
+    limit?: number;
+  }
 }
 
 export declare namespace CallEvents {
   export {
     type CallEventListResponse as CallEventListResponse,
-    type CallEventListResponsesDefaultPagination as CallEventListResponsesDefaultPagination,
+    type CallEventListResponsesDefaultFlatPagination as CallEventListResponsesDefaultFlatPagination,
     type CallEventListParams as CallEventListParams,
   };
 }
