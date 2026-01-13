@@ -183,24 +183,24 @@ export interface UpdateAssistant {
 
 export interface VersionRetrieveParams {
   /**
-   * Path param:
+   * Path param
    */
   assistant_id: string;
 
   /**
-   * Query param:
+   * Query param
    */
   include_mcp_servers?: boolean;
 }
 
 export interface VersionUpdateParams {
   /**
-   * Path param:
+   * Path param
    */
   assistant_id: string;
 
   /**
-   * Body param:
+   * Body param
    */
   description?: string;
 
@@ -218,7 +218,7 @@ export interface VersionUpdateParams {
   dynamic_variables_webhook_url?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   enabled_features?: Array<AssistantsAPI.EnabledFeatures>;
 
@@ -230,7 +230,7 @@ export interface VersionUpdateParams {
   greeting?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   insight_settings?: AssistantsAPI.InsightSettings;
 
@@ -250,7 +250,7 @@ export interface VersionUpdateParams {
   llm_api_key_ref?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   messaging_settings?: AssistantsAPI.MessagingSettings;
 
@@ -262,17 +262,17 @@ export interface VersionUpdateParams {
   model?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   name?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   privacy_settings?: AssistantsAPI.PrivacySettings;
 
   /**
-   * Body param:
+   * Body param
    */
   telephony_settings?: AssistantsAPI.TelephonySettings;
 
@@ -283,12 +283,12 @@ export interface VersionUpdateParams {
   tools?: Array<AssistantsAPI.AssistantTool>;
 
   /**
-   * Body param:
+   * Body param
    */
   transcription?: AssistantsAPI.TranscriptionSettings;
 
   /**
-   * Body param:
+   * Body param
    */
   voice_settings?: AssistantsAPI.VoiceSettings;
 }
