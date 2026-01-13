@@ -3549,12 +3549,14 @@ Types:
 - <code><a href="./src/resources/texml/accounts/queues.ts">QueueCreateResponse</a></code>
 - <code><a href="./src/resources/texml/accounts/queues.ts">QueueRetrieveResponse</a></code>
 - <code><a href="./src/resources/texml/accounts/queues.ts">QueueUpdateResponse</a></code>
+- <code><a href="./src/resources/texml/accounts/queues.ts">QueueListResponse</a></code>
 
 Methods:
 
 - <code title="post /texml/Accounts/{account_sid}/Queues">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">create</a>(accountSid, { ...params }) -> QueueCreateResponse</code>
 - <code title="get /texml/Accounts/{account_sid}/Queues/{queue_sid}">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">retrieve</a>(queueSid, { ...params }) -> QueueRetrieveResponse</code>
 - <code title="post /texml/Accounts/{account_sid}/Queues/{queue_sid}">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">update</a>(queueSid, { ...params }) -> QueueUpdateResponse</code>
+- <code title="get /texml/Accounts/{account_sid}/Queues">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">list</a>(accountSid, { ...params }) -> QueueListResponse</code>
 - <code title="delete /texml/Accounts/{account_sid}/Queues/{queue_sid}">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">delete</a>(queueSid, { ...params }) -> void</code>
 
 ## Calls

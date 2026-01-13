@@ -6,6 +6,8 @@ import {
   QueueCreateParams,
   QueueCreateResponse,
   QueueDeleteParams,
+  QueueListParams,
+  QueueListResponse,
   QueueRetrieveParams,
   QueueRetrieveResponse,
   QueueUpdateParams,
@@ -382,9 +384,11 @@ export declare namespace Accounts {
     type QueueCreateResponse as QueueCreateResponse,
     type QueueRetrieveResponse as QueueRetrieveResponse,
     type QueueUpdateResponse as QueueUpdateResponse,
+    type QueueListResponse as QueueListResponse,
     type QueueCreateParams as QueueCreateParams,
     type QueueRetrieveParams as QueueRetrieveParams,
     type QueueUpdateParams as QueueUpdateParams,
+    type QueueListParams as QueueListParams,
     type QueueDeleteParams as QueueDeleteParams,
   };
 }
