@@ -5,7 +5,7 @@ export {
   type MessagingRetrieveResponse,
   type MessagingListResponse,
   type MessagingListParams,
-  type MessagingListResponsesDefaultPagination,
+  type MessagingListResponsesDefaultFlatPagination,
 } from './messaging';
 export {
   MobilePhoneNumbers,

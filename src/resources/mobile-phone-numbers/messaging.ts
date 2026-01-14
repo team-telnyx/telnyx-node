@@ -3,7 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -21,16 +21,16 @@ export class Messaging extends APIResource {
   list(
     query: MessagingListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessagingListResponsesDefaultPagination, MessagingListResponse> {
+  ): PagePromise<MessagingListResponsesDefaultFlatPagination, MessagingListResponse> {
     return this._client.getAPIList(
       '/mobile_phone_numbers/messaging',
-      DefaultPagination<MessagingListResponse>,
+      DefaultFlatPagination<MessagingListResponse>,
       { query, ...options },
     );
   }
 }
 
-export type MessagingListResponsesDefaultPagination = DefaultPagination<MessagingListResponse>;
+export type MessagingListResponsesDefaultFlatPagination = DefaultFlatPagination<MessagingListResponse>;
 
 export interface MessagingRetrieveResponse {
   data?: MessagingRetrieveResponse.Data;
@@ -168,13 +168,13 @@ export namespace MessagingListResponse {
   }
 }
 
-export interface MessagingListParams extends DefaultPaginationParams {}
+export interface MessagingListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace Messaging {
   export {
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingListResponse as MessagingListResponse,
-    type MessagingListResponsesDefaultPagination as MessagingListResponsesDefaultPagination,
+    type MessagingListResponsesDefaultFlatPagination as MessagingListResponsesDefaultFlatPagination,
     type MessagingListParams as MessagingListParams,
   };
 }

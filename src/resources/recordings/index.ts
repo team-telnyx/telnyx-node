@@ -7,5 +7,5 @@ export {
   type RecordingRetrieveResponse,
   type RecordingDeleteResponse,
   type RecordingListParams,
-  type RecordingResponseDataDefaultPagination,
+  type RecordingResponseDataDefaultFlatPagination,
 } from './recordings';

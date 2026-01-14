@@ -61,7 +61,8 @@ describe('resource shortCodes', () => {
       client.shortCodes.list(
         {
           filter: { messaging_profile_id: 'messaging_profile_id' },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
         },
         { path: '/_stainless_unknown_path' },
       ),

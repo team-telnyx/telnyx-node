@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -21,8 +21,8 @@ export class RoomRecordings extends APIResource {
   list(
     query: RoomRecordingListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RoomRecordingListResponsesDefaultPagination, RoomRecordingListResponse> {
-    return this._client.getAPIList('/room_recordings', DefaultPagination<RoomRecordingListResponse>, {
+  ): PagePromise<RoomRecordingListResponsesDefaultFlatPagination, RoomRecordingListResponse> {
+    return this._client.getAPIList('/room_recordings', DefaultFlatPagination<RoomRecordingListResponse>, {
       query,
       ...options,
     });
@@ -45,12 +45,16 @@ export class RoomRecordings extends APIResource {
     params: RoomRecordingDeleteBulkParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<RoomRecordingDeleteBulkResponse> {
-    const { filter, page } = params ?? {};
-    return this._client.delete('/room_recordings', { query: { filter, page }, ...options });
+    const { filter, 'page[number]': pageNumber, 'page[size]': pageSize } = params ?? {};
+    return this._client.delete('/room_recordings', {
+      query: { filter, 'page[number]': pageNumber, 'page[size]': pageSize },
+      ...options,
+    });
   }
 }
 
-export type RoomRecordingListResponsesDefaultPagination = DefaultPagination<RoomRecordingListResponse>;
+export type RoomRecordingListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<RoomRecordingListResponse>;
 
 export interface RoomRecordingRetrieveResponse {
   data?: RoomRecordingRetrieveResponse.Data;
@@ -229,7 +233,7 @@ export namespace RoomRecordingDeleteBulkResponse {
   }
 }
 
-export interface RoomRecordingListParams extends DefaultPaginationParams {
+export interface RoomRecordingListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_ended_at][eq], filter[date_ended_at][gte],
@@ -334,11 +338,9 @@ export interface RoomRecordingDeleteBulkParams {
    */
   filter?: RoomRecordingDeleteBulkParams.Filter;
 
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  page?: RoomRecordingDeleteBulkParams.Page;
+  'page[number]'?: number;
+
+  'page[size]'?: number;
 }
 
 export namespace RoomRecordingDeleteBulkParams {
@@ -421,22 +423,6 @@ export namespace RoomRecordingDeleteBulkParams {
       lte?: string;
     }
   }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[size],
-   * page[number]
-   */
-  export interface Page {
-    /**
-     * The page number to load.
-     */
-    number?: number;
-
-    /**
-     * The size of the page.
-     */
-    size?: number;
-  }
 }
 
 export declare namespace RoomRecordings {
@@ -444,7 +430,7 @@ export declare namespace RoomRecordings {
     type RoomRecordingRetrieveResponse as RoomRecordingRetrieveResponse,
     type RoomRecordingListResponse as RoomRecordingListResponse,
     type RoomRecordingDeleteBulkResponse as RoomRecordingDeleteBulkResponse,
-    type RoomRecordingListResponsesDefaultPagination as RoomRecordingListResponsesDefaultPagination,
+    type RoomRecordingListResponsesDefaultFlatPagination as RoomRecordingListResponsesDefaultFlatPagination,
     type RoomRecordingListParams as RoomRecordingListParams,
     type RoomRecordingDeleteBulkParams as RoomRecordingDeleteBulkParams,
   };

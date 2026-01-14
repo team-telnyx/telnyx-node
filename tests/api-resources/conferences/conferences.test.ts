@@ -100,11 +100,6 @@ describe('resource conferences', () => {
             to: '+12025550142',
             type: 'webhook',
           },
-          page: {
-            after: 'after',
-            before: 'before',
-            limit: 1,
-          },
           'page[number]': 0,
           'page[size]': 0,
           region: 'Australia',
@@ -137,11 +132,6 @@ describe('resource conferences', () => {
             muted: true,
             on_hold: true,
             whispering: true,
-          },
-          page: {
-            after: 'after',
-            before: 'before',
-            limit: 1,
           },
           'page[number]': 0,
           'page[size]': 0,

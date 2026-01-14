@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -65,8 +65,8 @@ export class Fqdns extends APIResource {
   list(
     query: FqdnListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<FqdnsDefaultPagination, Fqdn> {
-    return this._client.getAPIList('/fqdns', DefaultPagination<Fqdn>, { query, ...options });
+  ): PagePromise<FqdnsDefaultFlatPagination, Fqdn> {
+    return this._client.getAPIList('/fqdns', DefaultFlatPagination<Fqdn>, { query, ...options });
   }
 
   /**
@@ -82,7 +82,7 @@ export class Fqdns extends APIResource {
   }
 }
 
-export type FqdnsDefaultPagination = DefaultPagination<Fqdn>;
+export type FqdnsDefaultFlatPagination = DefaultFlatPagination<Fqdn>;
 
 export interface Fqdn {
   /**
@@ -195,7 +195,7 @@ export interface FqdnUpdateParams {
   port?: number | null;
 }
 
-export interface FqdnListParams extends DefaultPaginationParams {
+export interface FqdnListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[connection_id], filter[fqdn], filter[port], filter[dns_record_type]
@@ -238,7 +238,7 @@ export declare namespace Fqdns {
     type FqdnRetrieveResponse as FqdnRetrieveResponse,
     type FqdnUpdateResponse as FqdnUpdateResponse,
     type FqdnDeleteResponse as FqdnDeleteResponse,
-    type FqdnsDefaultPagination as FqdnsDefaultPagination,
+    type FqdnsDefaultFlatPagination as FqdnsDefaultFlatPagination,
     type FqdnCreateParams as FqdnCreateParams,
     type FqdnUpdateParams as FqdnUpdateParams,
     type FqdnListParams as FqdnListParams,

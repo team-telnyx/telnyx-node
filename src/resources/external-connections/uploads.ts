@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -67,8 +67,8 @@ export class Uploads extends APIResource {
     id: string,
     query: UploadListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<UploadsDefaultPagination, Upload> {
-    return this._client.getAPIList(path`/external_connections/${id}/uploads`, DefaultPagination<Upload>, {
+  ): PagePromise<UploadsDefaultFlatPagination, Upload> {
+    return this._client.getAPIList(path`/external_connections/${id}/uploads`, DefaultFlatPagination<Upload>, {
       query,
       ...options,
     });
@@ -131,7 +131,7 @@ export class Uploads extends APIResource {
   }
 }
 
-export type UploadsDefaultPagination = DefaultPagination<Upload>;
+export type UploadsDefaultFlatPagination = DefaultFlatPagination<Upload>;
 
 export interface TnUploadEntry {
   /**
@@ -294,7 +294,7 @@ export interface UploadRetrieveParams {
   id: string;
 }
 
-export interface UploadListParams extends DefaultPaginationParams {
+export interface UploadListParams extends DefaultFlatPaginationParams {
   /**
    * Filter parameter for uploads (deepObject style). Supports filtering by status,
    * civic_address_id, location_id, and phone_number with eq/contains operations.
@@ -369,7 +369,7 @@ export declare namespace Uploads {
     type UploadPendingCountResponse as UploadPendingCountResponse,
     type UploadRefreshStatusResponse as UploadRefreshStatusResponse,
     type UploadRetryResponse as UploadRetryResponse,
-    type UploadsDefaultPagination as UploadsDefaultPagination,
+    type UploadsDefaultFlatPagination as UploadsDefaultFlatPagination,
     type UploadCreateParams as UploadCreateParams,
     type UploadRetrieveParams as UploadRetrieveParams,
     type UploadListParams as UploadListParams,
