@@ -5626,7 +5626,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/typescript-estree': 8.31.1(typescript@5.8.3)
       '@typescript-eslint/utils': 8.31.1(eslint@8.57.1)(typescript@5.8.3)
-      debug: 4.4.3
+      debug: 4.4.1
       eslint: 8.57.1
       ts-api-utils: 2.0.1(typescript@5.8.3)
       typescript: 5.8.3
@@ -5637,7 +5637,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/typescript-estree': 8.31.1(typescript@5.8.3)
       '@typescript-eslint/utils': 8.31.1(eslint@9.39.1)(typescript@5.8.3)
-      debug: 4.4.3
+      debug: 4.4.1
       eslint: 9.39.1
       ts-api-utils: 2.0.1(typescript@5.8.3)
       typescript: 5.8.3
