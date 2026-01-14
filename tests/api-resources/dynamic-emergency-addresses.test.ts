@@ -75,7 +75,8 @@ describe('resource dynamicEmergencyAddresses', () => {
       client.dynamicEmergencyAddresses.list(
         {
           filter: { country_code: 'country_code', status: 'pending' },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
         },
         { path: '/_stainless_unknown_path' },
       ),

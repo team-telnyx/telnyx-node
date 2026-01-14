@@ -15,7 +15,7 @@ export {
   type ActionBulkSetPublicIPsParams,
   type ActionSetPublicIPParams,
   type ActionValidateRegistrationCodesParams,
-  type SimCardActionsDefaultPagination,
+  type SimCardActionsDefaultFlatPagination,
 } from './actions';
 export {
   SimCards,

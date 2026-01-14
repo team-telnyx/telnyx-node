@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -25,10 +25,10 @@ export class VerificationCodes extends APIResource {
     id: string,
     query: VerificationCodeListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<VerificationCodeListResponsesDefaultPagination, VerificationCodeListResponse> {
+  ): PagePromise<VerificationCodeListResponsesDefaultFlatPagination, VerificationCodeListResponse> {
     return this._client.getAPIList(
       path`/porting_orders/${id}/verification_codes`,
-      DefaultPagination<VerificationCodeListResponse>,
+      DefaultFlatPagination<VerificationCodeListResponse>,
       { query, ...options },
     );
   }
@@ -75,7 +75,8 @@ export class VerificationCodes extends APIResource {
   }
 }
 
-export type VerificationCodeListResponsesDefaultPagination = DefaultPagination<VerificationCodeListResponse>;
+export type VerificationCodeListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<VerificationCodeListResponse>;
 
 export interface VerificationCodeListResponse {
   /**
@@ -157,7 +158,7 @@ export namespace VerificationCodeVerifyResponse {
   }
 }
 
-export interface VerificationCodeListParams extends DefaultPaginationParams {
+export interface VerificationCodeListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[verified]
    */
@@ -214,7 +215,7 @@ export declare namespace VerificationCodes {
   export {
     type VerificationCodeListResponse as VerificationCodeListResponse,
     type VerificationCodeVerifyResponse as VerificationCodeVerifyResponse,
-    type VerificationCodeListResponsesDefaultPagination as VerificationCodeListResponsesDefaultPagination,
+    type VerificationCodeListResponsesDefaultFlatPagination as VerificationCodeListResponsesDefaultFlatPagination,
     type VerificationCodeListParams as VerificationCodeListParams,
     type VerificationCodeSendParams as VerificationCodeSendParams,
     type VerificationCodeVerifyParams as VerificationCodeVerifyParams,

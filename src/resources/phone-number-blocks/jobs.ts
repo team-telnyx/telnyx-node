@@ -3,7 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as JobsAPI from './jobs';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -36,8 +36,8 @@ export class Jobs extends APIResource {
   list(
     query: JobListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<JobsDefaultPagination, Job> {
-    return this._client.getAPIList('/phone_number_blocks/jobs', DefaultPagination<Job>, {
+  ): PagePromise<JobsDefaultFlatPagination, Job> {
+    return this._client.getAPIList('/phone_number_blocks/jobs', DefaultFlatPagination<Job>, {
       query,
       ...options,
     });
@@ -69,7 +69,7 @@ export class Jobs extends APIResource {
   }
 }
 
-export type JobsDefaultPagination = DefaultPagination<Job>;
+export type JobsDefaultFlatPagination = DefaultFlatPagination<Job>;
 
 export interface Job {
   /**
@@ -185,7 +185,7 @@ export interface JobDeletePhoneNumberBlockResponse {
   data?: Job;
 }
 
-export interface JobListParams extends DefaultPaginationParams {
+export interface JobListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[type],
    * filter[status]
@@ -227,7 +227,7 @@ export declare namespace Jobs {
     type JobError as JobError,
     type JobRetrieveResponse as JobRetrieveResponse,
     type JobDeletePhoneNumberBlockResponse as JobDeletePhoneNumberBlockResponse,
-    type JobsDefaultPagination as JobsDefaultPagination,
+    type JobsDefaultFlatPagination as JobsDefaultFlatPagination,
     type JobListParams as JobListParams,
     type JobDeletePhoneNumberBlockParams as JobDeletePhoneNumberBlockParams,
   };

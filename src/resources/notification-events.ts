@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class NotificationEvents extends APIResource {
@@ -11,16 +11,17 @@ export class NotificationEvents extends APIResource {
   list(
     query: NotificationEventListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NotificationEventListResponsesDefaultPagination, NotificationEventListResponse> {
-    return this._client.getAPIList('/notification_events', DefaultPagination<NotificationEventListResponse>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<NotificationEventListResponsesDefaultFlatPagination, NotificationEventListResponse> {
+    return this._client.getAPIList(
+      '/notification_events',
+      DefaultFlatPagination<NotificationEventListResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export type NotificationEventListResponsesDefaultPagination =
-  DefaultPagination<NotificationEventListResponse>;
+export type NotificationEventListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<NotificationEventListResponse>;
 
 /**
  * An object representing the available notifications.
@@ -51,12 +52,12 @@ export interface NotificationEventListResponse {
   updated_at?: string;
 }
 
-export interface NotificationEventListParams extends DefaultPaginationParams {}
+export interface NotificationEventListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace NotificationEvents {
   export {
     type NotificationEventListResponse as NotificationEventListResponse,
-    type NotificationEventListResponsesDefaultPagination as NotificationEventListResponsesDefaultPagination,
+    type NotificationEventListResponsesDefaultFlatPagination as NotificationEventListResponsesDefaultFlatPagination,
     type NotificationEventListParams as NotificationEventListParams,
   };
 }

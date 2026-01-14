@@ -20,7 +20,7 @@ import {
   Sessions,
 } from './sessions/sessions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -87,8 +87,8 @@ export class Rooms extends APIResource {
   list(
     query: RoomListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RoomsDefaultPagination, Room> {
-    return this._client.getAPIList('/rooms', DefaultPagination<Room>, { query, ...options });
+  ): PagePromise<RoomsDefaultFlatPagination, Room> {
+    return this._client.getAPIList('/rooms', DefaultFlatPagination<Room>, { query, ...options });
   }
 
   /**
@@ -111,9 +111,9 @@ export class Rooms extends APIResource {
   }
 }
 
-export type RoomsDefaultPagination = DefaultPagination<Room>;
+export type RoomsDefaultFlatPagination = DefaultFlatPagination<Room>;
 
-export type RoomSessionsDefaultPagination = DefaultPagination<RoomSession>;
+export type RoomSessionsDefaultFlatPagination = DefaultFlatPagination<RoomSession>;
 
 export interface Room {
   /**
@@ -298,7 +298,7 @@ export interface RoomUpdateParams {
   webhook_timeout_secs?: number;
 }
 
-export interface RoomListParams extends DefaultPaginationParams {
+export interface RoomListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_created_at][eq], filter[date_created_at][gte],
@@ -378,7 +378,7 @@ export declare namespace Rooms {
     type RoomCreateResponse as RoomCreateResponse,
     type RoomRetrieveResponse as RoomRetrieveResponse,
     type RoomUpdateResponse as RoomUpdateResponse,
-    type RoomsDefaultPagination as RoomsDefaultPagination,
+    type RoomsDefaultFlatPagination as RoomsDefaultFlatPagination,
     type RoomCreateParams as RoomCreateParams,
     type RoomRetrieveParams as RoomRetrieveParams,
     type RoomUpdateParams as RoomUpdateParams,

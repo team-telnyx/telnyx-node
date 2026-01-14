@@ -4,7 +4,7 @@ import { APIResource } from '../core/resource';
 import * as NumberOrderPhoneNumbersAPI from './number-order-phone-numbers';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -67,15 +67,15 @@ export class NumberOrders extends APIResource {
   list(
     query: NumberOrderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NumberOrderListResponsesDefaultPagination, NumberOrderListResponse> {
-    return this._client.getAPIList('/number_orders', DefaultPagination<NumberOrderListResponse>, {
+  ): PagePromise<NumberOrderListResponsesDefaultFlatPagination, NumberOrderListResponse> {
+    return this._client.getAPIList('/number_orders', DefaultFlatPagination<NumberOrderListResponse>, {
       query,
       ...options,
     });
   }
 }
 
-export type NumberOrderListResponsesDefaultPagination = DefaultPagination<NumberOrderListResponse>;
+export type NumberOrderListResponsesDefaultFlatPagination = DefaultFlatPagination<NumberOrderListResponse>;
 
 export interface NumberOrderWithPhoneNumbers {
   id?: string;
@@ -317,7 +317,7 @@ export interface NumberOrderUpdateParams {
   regulatory_requirements?: Array<NumberOrderPhoneNumbersAPI.UpdateRegulatoryRequirement>;
 }
 
-export interface NumberOrderListParams extends DefaultPaginationParams {
+export interface NumberOrderListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
    * filter[created_at], filter[phone_numbers_count], filter[customer_reference],
@@ -385,7 +385,7 @@ export declare namespace NumberOrders {
     type NumberOrderRetrieveResponse as NumberOrderRetrieveResponse,
     type NumberOrderUpdateResponse as NumberOrderUpdateResponse,
     type NumberOrderListResponse as NumberOrderListResponse,
-    type NumberOrderListResponsesDefaultPagination as NumberOrderListResponsesDefaultPagination,
+    type NumberOrderListResponsesDefaultFlatPagination as NumberOrderListResponsesDefaultFlatPagination,
     type NumberOrderCreateParams as NumberOrderCreateParams,
     type NumberOrderUpdateParams as NumberOrderUpdateParams,
     type NumberOrderListParams as NumberOrderListParams,

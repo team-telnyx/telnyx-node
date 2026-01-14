@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -35,8 +35,8 @@ export class MobilePushCredentials extends APIResource {
   list(
     query: MobilePushCredentialListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PushCredentialsDefaultPagination, PushCredential> {
-    return this._client.getAPIList('/mobile_push_credentials', DefaultPagination<PushCredential>, {
+  ): PagePromise<PushCredentialsDefaultFlatPagination, PushCredential> {
+    return this._client.getAPIList('/mobile_push_credentials', DefaultFlatPagination<PushCredential>, {
       query,
       ...options,
     });
@@ -53,7 +53,7 @@ export class MobilePushCredentials extends APIResource {
   }
 }
 
-export type PushCredentialsDefaultPagination = DefaultPagination<PushCredential>;
+export type PushCredentialsDefaultFlatPagination = DefaultFlatPagination<PushCredential>;
 
 export interface PushCredential {
   /**
@@ -154,7 +154,7 @@ export namespace MobilePushCredentialCreateParams {
   }
 }
 
-export interface MobilePushCredentialListParams extends DefaultPaginationParams {
+export interface MobilePushCredentialListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[type],
    * filter[alias]
@@ -184,7 +184,7 @@ export declare namespace MobilePushCredentials {
   export {
     type PushCredential as PushCredential,
     type PushCredentialResponse as PushCredentialResponse,
-    type PushCredentialsDefaultPagination as PushCredentialsDefaultPagination,
+    type PushCredentialsDefaultFlatPagination as PushCredentialsDefaultFlatPagination,
     type MobilePushCredentialCreateParams as MobilePushCredentialCreateParams,
     type MobilePushCredentialListParams as MobilePushCredentialListParams,
   };

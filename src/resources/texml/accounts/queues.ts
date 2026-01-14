@@ -2,6 +2,11 @@
 
 import { APIResource } from '../../../core/resource';
 import { APIPromise } from '../../../core/api-promise';
+import {
+  DefaultPaginationForQueues,
+  type DefaultPaginationForQueuesParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -78,17 +83,24 @@ export class Queues extends APIResource {
    *
    * @example
    * ```ts
-   * const queues = await client.texml.accounts.queues.list(
+   * // Automatically fetches more pages as needed.
+   * for await (const queueListResponse of client.texml.accounts.queues.list(
    *   'account_sid',
-   * );
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     accountSid: string,
     query: QueueListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<QueueListResponse> {
-    return this._client.get(path`/texml/Accounts/${accountSid}/Queues`, { query, ...options });
+  ): PagePromise<QueueListResponsesDefaultPaginationForQueues, QueueListResponse> {
+    return this._client.getAPIList(
+      path`/texml/Accounts/${accountSid}/Queues`,
+      DefaultPaginationForQueues<QueueListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -109,6 +121,8 @@ export class Queues extends APIResource {
     });
   }
 }
+
+export type QueueListResponsesDefaultPaginationForQueues = DefaultPaginationForQueues<QueueListResponse>;
 
 export interface QueueCreateResponse {
   /**
@@ -253,90 +267,49 @@ export interface QueueUpdateResponse {
 
 export interface QueueListResponse {
   /**
-   * The number of the last element on the page, zero-indexed.
+   * The id of the account the resource belongs to.
    */
-  end?: number;
+  account_sid?: string;
 
   /**
-   * /v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Queues.json?Page=0&PageSize=1
+   * The average wait time in seconds for members in the queue.
    */
-  first_page_uri?: string;
+  average_wait_time?: number;
 
   /**
-   * /v2/texml/Accounts/61bf923e-5e4d-4595-a110-56190ea18a1b/Queues.json?Page=1&PageSize=1&PageToken=MTY4AjgyNDkwNzIxMQ
+   * The current number of members in the queue.
    */
-  next_page_uri?: string;
+  current_size?: number;
 
   /**
-   * Current page number, zero-indexed.
+   * The timestamp of when the resource was created.
    */
-  page?: number;
+  date_created?: string;
 
   /**
-   * The number of items on the page
+   * The timestamp of when the resource was last updated.
    */
-  page_size?: number;
-
-  queues?: Array<QueueListResponse.Queue>;
+  date_updated?: string;
 
   /**
-   * The number of the first element on the page, zero-indexed.
+   * The maximum size of the queue.
    */
-  start?: number;
+  max_size?: number;
 
   /**
-   * The URI of the current page.
+   * The unique identifier of the queue.
+   */
+  sid?: string;
+
+  /**
+   * A list of related resources identified by their relative URIs.
+   */
+  subresource_uris?: { [key: string]: unknown };
+
+  /**
+   * The relative URI for this queue.
    */
   uri?: string;
-}
-
-export namespace QueueListResponse {
-  export interface Queue {
-    /**
-     * The id of the account the resource belongs to.
-     */
-    account_sid?: string;
-
-    /**
-     * The average wait time in seconds for members in the queue.
-     */
-    average_wait_time?: number;
-
-    /**
-     * The current number of members in the queue.
-     */
-    current_size?: number;
-
-    /**
-     * The timestamp of when the resource was created.
-     */
-    date_created?: string;
-
-    /**
-     * The timestamp of when the resource was last updated.
-     */
-    date_updated?: string;
-
-    /**
-     * The maximum size of the queue.
-     */
-    max_size?: number;
-
-    /**
-     * The unique identifier of the queue.
-     */
-    sid?: string;
-
-    /**
-     * A list of related resources identified by their relative URIs.
-     */
-    subresource_uris?: { [key: string]: unknown };
-
-    /**
-     * The relative URI for this queue.
-     */
-    uri?: string;
-  }
 }
 
 export interface QueueCreateParams {
@@ -370,7 +343,7 @@ export interface QueueUpdateParams {
   MaxSize?: number;
 }
 
-export interface QueueListParams {
+export interface QueueListParams extends DefaultPaginationForQueuesParams {
   /**
    * Filters conferences by the creation date. Expected format is YYYY-MM-DD. Also
    * accepts inequality operators, e.g. DateCreated>=2023-05-22.
@@ -382,17 +355,6 @@ export interface QueueListParams {
    * YYYY-MM-DD. Also accepts inequality operators, e.g. DateUpdated>=2023-05-22.
    */
   DateUpdated?: string;
-
-  /**
-   * The number of the page to be displayed, zero-indexed, should be used in
-   * conjuction with PageToken.
-   */
-  Page?: number;
-
-  /**
-   * The number of records to be displayed on a page
-   */
-  PageSize?: number;
 
   /**
    * Used to request the next page of results.
@@ -413,6 +375,7 @@ export declare namespace Queues {
     type QueueRetrieveResponse as QueueRetrieveResponse,
     type QueueUpdateResponse as QueueUpdateResponse,
     type QueueListResponse as QueueListResponse,
+    type QueueListResponsesDefaultPaginationForQueues as QueueListResponsesDefaultPaginationForQueues,
     type QueueCreateParams as QueueCreateParams,
     type QueueRetrieveParams as QueueRetrieveParams,
     type QueueUpdateParams as QueueUpdateParams,

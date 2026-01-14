@@ -2,11 +2,11 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
-import { MessagingHostedNumberOrdersDefaultPagination } from '../shared';
+import { MessagingHostedNumberOrdersDefaultFlatPagination } from '../shared';
 import * as ActionsAPI from './actions';
 import { ActionUploadFileParams, ActionUploadFileResponse, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -56,10 +56,10 @@ export class MessagingHostedNumberOrders extends APIResource {
   list(
     query: MessagingHostedNumberOrderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessagingHostedNumberOrdersDefaultPagination, Shared.MessagingHostedNumberOrder> {
+  ): PagePromise<MessagingHostedNumberOrdersDefaultFlatPagination, Shared.MessagingHostedNumberOrder> {
     return this._client.getAPIList(
       '/messaging_hosted_number_orders',
-      DefaultPagination<Shared.MessagingHostedNumberOrder>,
+      DefaultFlatPagination<Shared.MessagingHostedNumberOrder>,
       { query, ...options },
     );
   }
@@ -273,7 +273,7 @@ export interface MessagingHostedNumberOrderCreateParams {
   phone_numbers?: Array<string>;
 }
 
-export interface MessagingHostedNumberOrderListParams extends DefaultPaginationParams {}
+export interface MessagingHostedNumberOrderListParams extends DefaultFlatPaginationParams {}
 
 export interface MessagingHostedNumberOrderCheckEligibilityParams {
   /**
@@ -324,4 +324,4 @@ export declare namespace MessagingHostedNumberOrders {
   };
 }
 
-export { type MessagingHostedNumberOrdersDefaultPagination };
+export { type MessagingHostedNumberOrdersDefaultFlatPagination };

@@ -3,7 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as CredentialConnectionsAPI from './credential-connections/credential-connections';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -70,8 +70,8 @@ export class FqdnConnections extends APIResource {
   list(
     query: FqdnConnectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<FqdnConnectionsDefaultPagination, FqdnConnection> {
-    return this._client.getAPIList('/fqdn_connections', DefaultPagination<FqdnConnection>, {
+  ): PagePromise<FqdnConnectionsDefaultFlatPagination, FqdnConnection> {
+    return this._client.getAPIList('/fqdn_connections', DefaultFlatPagination<FqdnConnection>, {
       query,
       ...options,
     });
@@ -92,7 +92,7 @@ export class FqdnConnections extends APIResource {
   }
 }
 
-export type FqdnConnectionsDefaultPagination = DefaultPagination<FqdnConnection>;
+export type FqdnConnectionsDefaultFlatPagination = DefaultFlatPagination<FqdnConnection>;
 
 export interface FqdnConnection {
   /**
@@ -869,7 +869,7 @@ export namespace FqdnConnectionUpdateParams {
   }
 }
 
-export interface FqdnConnectionListParams extends DefaultPaginationParams {
+export interface FqdnConnectionListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
@@ -946,7 +946,7 @@ export declare namespace FqdnConnections {
     type FqdnConnectionRetrieveResponse as FqdnConnectionRetrieveResponse,
     type FqdnConnectionUpdateResponse as FqdnConnectionUpdateResponse,
     type FqdnConnectionDeleteResponse as FqdnConnectionDeleteResponse,
-    type FqdnConnectionsDefaultPagination as FqdnConnectionsDefaultPagination,
+    type FqdnConnectionsDefaultFlatPagination as FqdnConnectionsDefaultFlatPagination,
     type FqdnConnectionCreateParams as FqdnConnectionCreateParams,
     type FqdnConnectionUpdateParams as FqdnConnectionUpdateParams,
     type FqdnConnectionListParams as FqdnConnectionListParams,
