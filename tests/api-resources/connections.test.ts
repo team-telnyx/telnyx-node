@@ -43,7 +43,8 @@ describe('resource connections', () => {
             fqdn: 'fqdn',
             outbound_voice_profile_id: 'outbound_voice_profile_id',
           },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
           sort: 'connection_name',
         },
         { path: '/_stainless_unknown_path' },
@@ -69,15 +70,7 @@ describe('resource connections', () => {
     await expect(
       client.connections.listActiveCalls(
         '1293384261075731461',
-        {
-          page: {
-            after: 'after',
-            before: 'before',
-            limit: 1,
-          },
-          'page[number]': 0,
-          'page[size]': 0,
-        },
+        { 'page[number]': 0, 'page[size]': 0 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

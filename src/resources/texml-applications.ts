@@ -3,7 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as CredentialConnectionsAPI from './credential-connections/credential-connections';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -79,8 +79,8 @@ export class TexmlApplications extends APIResource {
   list(
     query: TexmlApplicationListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<TexmlApplicationsDefaultPagination, TexmlApplication> {
-    return this._client.getAPIList('/texml_applications', DefaultPagination<TexmlApplication>, {
+  ): PagePromise<TexmlApplicationsDefaultFlatPagination, TexmlApplication> {
+    return this._client.getAPIList('/texml_applications', DefaultFlatPagination<TexmlApplication>, {
       query,
       ...options,
     });
@@ -102,7 +102,7 @@ export class TexmlApplications extends APIResource {
   }
 }
 
-export type TexmlApplicationsDefaultPagination = DefaultPagination<TexmlApplication>;
+export type TexmlApplicationsDefaultFlatPagination = DefaultFlatPagination<TexmlApplication>;
 
 export interface TexmlApplication {
   /**
@@ -512,7 +512,7 @@ export namespace TexmlApplicationUpdateParams {
   }
 }
 
-export interface TexmlApplicationListParams extends DefaultPaginationParams {
+export interface TexmlApplicationListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[outbound_voice_profile_id], filter[friendly_name]
@@ -565,7 +565,7 @@ export declare namespace TexmlApplications {
     type TexmlApplicationRetrieveResponse as TexmlApplicationRetrieveResponse,
     type TexmlApplicationUpdateResponse as TexmlApplicationUpdateResponse,
     type TexmlApplicationDeleteResponse as TexmlApplicationDeleteResponse,
-    type TexmlApplicationsDefaultPagination as TexmlApplicationsDefaultPagination,
+    type TexmlApplicationsDefaultFlatPagination as TexmlApplicationsDefaultFlatPagination,
     type TexmlApplicationCreateParams as TexmlApplicationCreateParams,
     type TexmlApplicationUpdateParams as TexmlApplicationUpdateParams,
     type TexmlApplicationListParams as TexmlApplicationListParams,

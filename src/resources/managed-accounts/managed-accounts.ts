@@ -4,7 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
 import { ActionDisableResponse, ActionEnableParams, ActionEnableResponse, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -75,8 +75,8 @@ export class ManagedAccounts extends APIResource {
   list(
     query: ManagedAccountListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ManagedAccountListResponsesDefaultPagination, ManagedAccountListResponse> {
-    return this._client.getAPIList('/managed_accounts', DefaultPagination<ManagedAccountListResponse>, {
+  ): PagePromise<ManagedAccountListResponsesDefaultFlatPagination, ManagedAccountListResponse> {
+    return this._client.getAPIList('/managed_accounts', DefaultFlatPagination<ManagedAccountListResponse>, {
       query,
       ...options,
     });
@@ -122,7 +122,8 @@ export class ManagedAccounts extends APIResource {
   }
 }
 
-export type ManagedAccountListResponsesDefaultPagination = DefaultPagination<ManagedAccountListResponse>;
+export type ManagedAccountListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<ManagedAccountListResponse>;
 
 export interface ManagedAccount {
   /**
@@ -415,7 +416,7 @@ export interface ManagedAccountUpdateParams {
   managed_account_allow_custom_pricing?: boolean;
 }
 
-export interface ManagedAccountListParams extends DefaultPaginationParams {
+export interface ManagedAccountListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[email][contains], filter[email][eq], filter[organization_name][contains],
@@ -513,7 +514,7 @@ export declare namespace ManagedAccounts {
     type ManagedAccountListResponse as ManagedAccountListResponse,
     type ManagedAccountGetAllocatableGlobalOutboundChannelsResponse as ManagedAccountGetAllocatableGlobalOutboundChannelsResponse,
     type ManagedAccountUpdateGlobalChannelLimitResponse as ManagedAccountUpdateGlobalChannelLimitResponse,
-    type ManagedAccountListResponsesDefaultPagination as ManagedAccountListResponsesDefaultPagination,
+    type ManagedAccountListResponsesDefaultFlatPagination as ManagedAccountListResponsesDefaultFlatPagination,
     type ManagedAccountCreateParams as ManagedAccountCreateParams,
     type ManagedAccountUpdateParams as ManagedAccountUpdateParams,
     type ManagedAccountListParams as ManagedAccountListParams,

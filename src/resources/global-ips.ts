@@ -3,7 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -48,8 +48,8 @@ export class GlobalIPs extends APIResource {
   list(
     query: GlobalIPListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<GlobalIPListResponsesDefaultPagination, GlobalIPListResponse> {
-    return this._client.getAPIList('/global_ips', DefaultPagination<GlobalIPListResponse>, {
+  ): PagePromise<GlobalIPListResponsesDefaultFlatPagination, GlobalIPListResponse> {
+    return this._client.getAPIList('/global_ips', DefaultFlatPagination<GlobalIPListResponse>, {
       query,
       ...options,
     });
@@ -70,7 +70,7 @@ export class GlobalIPs extends APIResource {
   }
 }
 
-export type GlobalIPListResponsesDefaultPagination = DefaultPagination<GlobalIPListResponse>;
+export type GlobalIPListResponsesDefaultFlatPagination = DefaultFlatPagination<GlobalIPListResponse>;
 
 export interface GlobalIPCreateResponse {
   data?: GlobalIPCreateResponse.Data;
@@ -195,7 +195,7 @@ export interface GlobalIPCreateParams {
   ports?: { [key: string]: unknown };
 }
 
-export interface GlobalIPListParams extends DefaultPaginationParams {}
+export interface GlobalIPListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace GlobalIPs {
   export {
@@ -203,7 +203,7 @@ export declare namespace GlobalIPs {
     type GlobalIPRetrieveResponse as GlobalIPRetrieveResponse,
     type GlobalIPListResponse as GlobalIPListResponse,
     type GlobalIPDeleteResponse as GlobalIPDeleteResponse,
-    type GlobalIPListResponsesDefaultPagination as GlobalIPListResponsesDefaultPagination,
+    type GlobalIPListResponsesDefaultFlatPagination as GlobalIPListResponsesDefaultFlatPagination,
     type GlobalIPCreateParams as GlobalIPCreateParams,
     type GlobalIPListParams as GlobalIPListParams,
   };

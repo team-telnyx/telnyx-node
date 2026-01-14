@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class MobileNetworkOperators extends APIResource {
@@ -15,17 +15,17 @@ export class MobileNetworkOperators extends APIResource {
   list(
     query: MobileNetworkOperatorListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MobileNetworkOperatorListResponsesDefaultPagination, MobileNetworkOperatorListResponse> {
+  ): PagePromise<MobileNetworkOperatorListResponsesDefaultFlatPagination, MobileNetworkOperatorListResponse> {
     return this._client.getAPIList(
       '/mobile_network_operators',
-      DefaultPagination<MobileNetworkOperatorListResponse>,
+      DefaultFlatPagination<MobileNetworkOperatorListResponse>,
       { query, ...options },
     );
   }
 }
 
-export type MobileNetworkOperatorListResponsesDefaultPagination =
-  DefaultPagination<MobileNetworkOperatorListResponse>;
+export type MobileNetworkOperatorListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<MobileNetworkOperatorListResponse>;
 
 export interface MobileNetworkOperatorListResponse {
   /**
@@ -77,7 +77,7 @@ export interface MobileNetworkOperatorListResponse {
   tadig?: string;
 }
 
-export interface MobileNetworkOperatorListParams extends DefaultPaginationParams {
+export interface MobileNetworkOperatorListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter for mobile network operators (deepObject style).
    * Originally: filter[name][starts_with], filter[name][contains],
@@ -152,7 +152,7 @@ export namespace MobileNetworkOperatorListParams {
 export declare namespace MobileNetworkOperators {
   export {
     type MobileNetworkOperatorListResponse as MobileNetworkOperatorListResponse,
-    type MobileNetworkOperatorListResponsesDefaultPagination as MobileNetworkOperatorListResponsesDefaultPagination,
+    type MobileNetworkOperatorListResponsesDefaultFlatPagination as MobileNetworkOperatorListResponsesDefaultFlatPagination,
     type MobileNetworkOperatorListParams as MobileNetworkOperatorListParams,
   };
 }

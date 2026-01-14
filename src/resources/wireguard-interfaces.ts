@@ -4,7 +4,7 @@ import { APIResource } from '../core/resource';
 import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import * as PublicInternetGatewaysAPI from './public-internet-gateways';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -57,10 +57,10 @@ export class WireguardInterfaces extends APIResource {
   list(
     query: WireguardInterfaceListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<WireguardInterfaceListResponsesDefaultPagination, WireguardInterfaceListResponse> {
+  ): PagePromise<WireguardInterfaceListResponsesDefaultFlatPagination, WireguardInterfaceListResponse> {
     return this._client.getAPIList(
       '/wireguard_interfaces',
-      DefaultPagination<WireguardInterfaceListResponse>,
+      DefaultFlatPagination<WireguardInterfaceListResponse>,
       { query, ...options },
     );
   }
@@ -81,8 +81,8 @@ export class WireguardInterfaces extends APIResource {
   }
 }
 
-export type WireguardInterfaceListResponsesDefaultPagination =
-  DefaultPagination<WireguardInterfaceListResponse>;
+export type WireguardInterfaceListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<WireguardInterfaceListResponse>;
 
 export interface WireguardInterfaceCreateResponse {
   data?: WireguardInterfaceCreateResponse.Data;
@@ -298,7 +298,7 @@ export interface WireguardInterfaceCreateParams {
   network_id?: string;
 }
 
-export interface WireguardInterfaceListParams extends DefaultPaginationParams {
+export interface WireguardInterfaceListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
    */
@@ -323,7 +323,7 @@ export declare namespace WireguardInterfaces {
     type WireguardInterfaceRetrieveResponse as WireguardInterfaceRetrieveResponse,
     type WireguardInterfaceListResponse as WireguardInterfaceListResponse,
     type WireguardInterfaceDeleteResponse as WireguardInterfaceDeleteResponse,
-    type WireguardInterfaceListResponsesDefaultPagination as WireguardInterfaceListResponsesDefaultPagination,
+    type WireguardInterfaceListResponsesDefaultFlatPagination as WireguardInterfaceListResponsesDefaultFlatPagination,
     type WireguardInterfaceCreateParams as WireguardInterfaceCreateParams,
     type WireguardInterfaceListParams as WireguardInterfaceListParams,
   };

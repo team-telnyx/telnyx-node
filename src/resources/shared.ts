@@ -2,7 +2,7 @@
 
 import * as Shared from './shared';
 import * as MessagesAPI from './messages/messages';
-import { DefaultPagination } from '../core/pagination';
+import { DefaultFlatPagination } from '../core/pagination';
 
 export interface APIError {
   code: string;
@@ -928,13 +928,14 @@ export interface SubNumberOrderRegulatoryRequirementWithValue {
   requirement_id?: string;
 }
 
-export type MessagingHostedNumberOrdersDefaultPagination = DefaultPagination<MessagingHostedNumberOrder>;
+export type MessagingHostedNumberOrdersDefaultFlatPagination =
+  DefaultFlatPagination<MessagingHostedNumberOrder>;
 
-export type PhoneNumberWithMessagingSettingsDefaultPagination =
-  DefaultPagination<PhoneNumberWithMessagingSettings>;
+export type PhoneNumberWithMessagingSettingsDefaultFlatPagination =
+  DefaultFlatPagination<PhoneNumberWithMessagingSettings>;
 
-export type ShortCodesDefaultPagination = DefaultPagination<ShortCode>;
+export type ShortCodesDefaultFlatPagination = DefaultFlatPagination<ShortCode>;
 
-export type RoomParticipantsDefaultPagination = DefaultPagination<RoomParticipant>;
+export type RoomParticipantsDefaultFlatPagination = DefaultFlatPagination<RoomParticipant>;
 
-export type SimpleSimCardsDefaultPagination = DefaultPagination<SimpleSimCard>;
+export type SimpleSimCardsDefaultFlatPagination = DefaultFlatPagination<SimpleSimCard>;

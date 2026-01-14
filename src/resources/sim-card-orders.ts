@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -50,15 +50,15 @@ export class SimCardOrders extends APIResource {
   list(
     query: SimCardOrderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<SimCardOrdersDefaultPagination, SimCardOrder> {
-    return this._client.getAPIList('/sim_card_orders', DefaultPagination<SimCardOrder>, {
+  ): PagePromise<SimCardOrdersDefaultFlatPagination, SimCardOrder> {
+    return this._client.getAPIList('/sim_card_orders', DefaultFlatPagination<SimCardOrder>, {
       query,
       ...options,
     });
   }
 }
 
-export type SimCardOrdersDefaultPagination = DefaultPagination<SimCardOrder>;
+export type SimCardOrdersDefaultFlatPagination = DefaultFlatPagination<SimCardOrder>;
 
 export interface SimCardOrder {
   /**
@@ -208,7 +208,7 @@ export interface SimCardOrderCreateParams {
   quantity: number;
 }
 
-export interface SimCardOrderListParams extends DefaultPaginationParams {
+export interface SimCardOrderListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter for SIM card orders (deepObject style).
    * Originally: filter[created_at], filter[updated_at], filter[quantity],
@@ -301,7 +301,7 @@ export declare namespace SimCardOrders {
     type SimCardOrder as SimCardOrder,
     type SimCardOrderCreateResponse as SimCardOrderCreateResponse,
     type SimCardOrderRetrieveResponse as SimCardOrderRetrieveResponse,
-    type SimCardOrdersDefaultPagination as SimCardOrdersDefaultPagination,
+    type SimCardOrdersDefaultFlatPagination as SimCardOrdersDefaultFlatPagination,
     type SimCardOrderCreateParams as SimCardOrderCreateParams,
     type SimCardOrderListParams as SimCardOrderListParams,
   };
