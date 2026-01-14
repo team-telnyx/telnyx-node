@@ -2650,6 +2650,10 @@ packages:
       }
     engines: { node: '>= 0.4' }
 
+  hasown@2.0.0:
+    resolution: {integrity: sha512-vUptKVTpIJhcczKBbgnS+RtcuYMB8+oNzPK2/Hp3hanz8JmpATdmmgLgSaadVREkDm+e2giHwY3ZRkyjSIDDFA==}
+    engines: {node: '>= 0.4'}
+
   hasown@2.0.2:
     resolution:
       {
@@ -6501,6 +6505,10 @@ snapshots:
 
   has-symbols@1.1.0: {}
 
+  hasown@2.0.0:
+    dependencies:
+      function-bind: 1.1.2
+
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
@@ -6573,7 +6581,7 @@ snapshots:
 
   is-core-module@2.13.1:
     dependencies:
-      hasown: 2.0.2
+      hasown: 2.0.0
 
   is-extglob@2.1.1: {}
 
