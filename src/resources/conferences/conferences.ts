@@ -36,7 +36,7 @@ import {
   UpdateConference,
 } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -105,8 +105,8 @@ export class Conferences extends APIResource {
   list(
     query: ConferenceListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ConferencesDefaultPagination, Conference> {
-    return this._client.getAPIList('/conferences', DefaultPagination<Conference>, { query, ...options });
+  ): PagePromise<ConferencesDefaultFlatPagination, Conference> {
+    return this._client.getAPIList('/conferences', DefaultFlatPagination<Conference>, { query, ...options });
   }
 
   /**
@@ -126,19 +126,22 @@ export class Conferences extends APIResource {
     conferenceID: string,
     query: ConferenceListParticipantsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ConferenceListParticipantsResponsesDefaultPagination, ConferenceListParticipantsResponse> {
+  ): PagePromise<
+    ConferenceListParticipantsResponsesDefaultFlatPagination,
+    ConferenceListParticipantsResponse
+  > {
     return this._client.getAPIList(
       path`/conferences/${conferenceID}/participants`,
-      DefaultPagination<ConferenceListParticipantsResponse>,
+      DefaultFlatPagination<ConferenceListParticipantsResponse>,
       { query, ...options },
     );
   }
 }
 
-export type ConferencesDefaultPagination = DefaultPagination<Conference>;
+export type ConferencesDefaultFlatPagination = DefaultFlatPagination<Conference>;
 
-export type ConferenceListParticipantsResponsesDefaultPagination =
-  DefaultPagination<ConferenceListParticipantsResponse>;
+export type ConferenceListParticipantsResponsesDefaultFlatPagination =
+  DefaultFlatPagination<ConferenceListParticipantsResponse>;
 
 export interface Conference {
   /**
@@ -389,7 +392,7 @@ export interface ConferenceRetrieveParams {
   region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
-export interface ConferenceListParams extends DefaultPaginationParams {
+export interface ConferenceListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[application_name][contains], filter[outbound.outbound_voice_profile_id],
@@ -398,6 +401,12 @@ export interface ConferenceListParams extends DefaultPaginationParams {
    * filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status]
    */
   filter?: ConferenceListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  page?: ConferenceListParams.Page;
 
   /**
    * Region where the conference data is located
@@ -525,14 +534,41 @@ export namespace ConferenceListParams {
       lte?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  export interface Page {
+    /**
+     * Opaque identifier of next page
+     */
+    after?: string;
+
+    /**
+     * Opaque identifier of previous page
+     */
+    before?: string;
+
+    /**
+     * Limit of records per single page
+     */
+    limit?: number;
+  }
 }
 
-export interface ConferenceListParticipantsParams extends DefaultPaginationParams {
+export interface ConferenceListParticipantsParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[muted],
    * filter[on_hold], filter[whispering]
    */
   filter?: ConferenceListParticipantsParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  page?: ConferenceListParticipantsParams.Page;
 
   /**
    * Region where the conference data is located
@@ -561,6 +597,27 @@ export namespace ConferenceListParticipantsParams {
      */
     whispering?: boolean;
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  export interface Page {
+    /**
+     * Opaque identifier of next page
+     */
+    after?: string;
+
+    /**
+     * Opaque identifier of previous page
+     */
+    before?: string;
+
+    /**
+     * Limit of records per single page
+     */
+    limit?: number;
+  }
 }
 
 Conferences.Actions = Actions;
@@ -571,8 +628,8 @@ export declare namespace Conferences {
     type ConferenceCreateResponse as ConferenceCreateResponse,
     type ConferenceRetrieveResponse as ConferenceRetrieveResponse,
     type ConferenceListParticipantsResponse as ConferenceListParticipantsResponse,
-    type ConferencesDefaultPagination as ConferencesDefaultPagination,
-    type ConferenceListParticipantsResponsesDefaultPagination as ConferenceListParticipantsResponsesDefaultPagination,
+    type ConferencesDefaultFlatPagination as ConferencesDefaultFlatPagination,
+    type ConferenceListParticipantsResponsesDefaultFlatPagination as ConferenceListParticipantsResponsesDefaultFlatPagination,
     type ConferenceCreateParams as ConferenceCreateParams,
     type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceListParams as ConferenceListParams,

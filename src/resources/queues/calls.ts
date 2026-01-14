@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -64,11 +64,12 @@ export class Calls extends APIResource {
     queueName: string,
     query: CallListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<CallListResponsesDefaultPagination, CallListResponse> {
-    return this._client.getAPIList(path`/queues/${queueName}/calls`, DefaultPagination<CallListResponse>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<CallListResponsesDefaultFlatPagination, CallListResponse> {
+    return this._client.getAPIList(
+      path`/queues/${queueName}/calls`,
+      DefaultFlatPagination<CallListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -91,7 +92,7 @@ export class Calls extends APIResource {
   }
 }
 
-export type CallListResponsesDefaultPagination = DefaultPagination<CallListResponse>;
+export type CallListResponsesDefaultFlatPagination = DefaultFlatPagination<CallListResponse>;
 
 export interface CallRetrieveResponse {
   data?: CallRetrieveResponse.Data;
@@ -240,7 +241,36 @@ export interface CallUpdateParams {
   keep_after_hangup?: boolean;
 }
 
-export interface CallListParams extends DefaultPaginationParams {}
+export interface CallListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  page?: CallListParams.Page;
+}
+
+export namespace CallListParams {
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  export interface Page {
+    /**
+     * Opaque identifier of next page
+     */
+    after?: string;
+
+    /**
+     * Opaque identifier of previous page
+     */
+    before?: string;
+
+    /**
+     * Limit of records per single page
+     */
+    limit?: number;
+  }
+}
 
 export interface CallRemoveParams {
   /**
@@ -253,7 +283,7 @@ export declare namespace Calls {
   export {
     type CallRetrieveResponse as CallRetrieveResponse,
     type CallListResponse as CallListResponse,
-    type CallListResponsesDefaultPagination as CallListResponsesDefaultPagination,
+    type CallListResponsesDefaultFlatPagination as CallListResponsesDefaultFlatPagination,
     type CallRetrieveParams as CallRetrieveParams,
     type CallUpdateParams as CallUpdateParams,
     type CallListParams as CallListParams,

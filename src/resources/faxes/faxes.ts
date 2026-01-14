@@ -232,6 +232,12 @@ export interface FaxCreateParams {
   to: string;
 
   /**
+   * The black threshold percentage for monochrome faxes. Only applicable if
+   * `monochrome` is set to `true`.
+   */
+  black_threshold?: number;
+
+  /**
    * Use this field to add state to every subsequent webhook. It must be a valid
    * Base-64 encoded string.
    */

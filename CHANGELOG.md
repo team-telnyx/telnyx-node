@@ -1,5 +1,23 @@
 # Changelog
 
+## 5.1.0 (2026-01-13)
+
+Full Changelog: [v5.0.0...v5.1.0](https://github.com/team-telnyx/telnyx-node/compare/v5.0.0...v5.1.0)
+
+### Features
+
+* Add widget_settings to AI Assistant and import_ids to ImportAssistant… ([caf118b](https://github.com/team-telnyx/telnyx-node/commit/caf118b27c5c376e5b321d12f52e9637fe273a26))
+* **api:** manual updates ([b928fbd](https://github.com/team-telnyx/telnyx-node/commit/b928fbde25bfb988a746b60ce05ba32a3634cd91))
+* TELAPPS Add GET /texml/Accounts/{account_sid}/Queues endpoint ([000d1e6](https://github.com/team-telnyx/telnyx-node/commit/000d1e6b7fdef4bced3cae144fe46ca9938b4a4d))
+* TELAPPS-ENGDESK-47967 Add black_threshold parameter to send_fax request ([245244b](https://github.com/team-telnyx/telnyx-node/commit/245244be65960fedb159448bbc3eb799ccab8287))
+
+
+### Chores
+
+* fix typo in descriptions ([9cc116e](https://github.com/team-telnyx/telnyx-node/commit/9cc116e80d7002adfefab896460bd894757ab6b5))
+* **internal:** codegen related update ([a65d3e6](https://github.com/team-telnyx/telnyx-node/commit/a65d3e6c94a9a658b6e112979093113d4add8fdd))
+* **internal:** codegen related update ([121e210](https://github.com/team-telnyx/telnyx-node/commit/121e210085ac0ff79cc90be620edc657f4e28c7e))
+
 ## 5.0.0 (2026-01-12)
 
 Full Changelog: [v4.6.0...v5.0.0](https://github.com/team-telnyx/telnyx-node/compare/v4.6.0...v5.0.0)

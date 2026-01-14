@@ -52,7 +52,7 @@ export namespace ToolTestResponse {
 
 export interface ToolTestParams {
   /**
-   * Path param:
+   * Path param
    */
   assistant_id: string;
 

@@ -108,7 +108,7 @@ export interface RecordingRecordingSidJsonParams {
   call_sid: string;
 
   /**
-   * Body param:
+   * Body param
    */
   Status?: 'in-progress' | 'paused' | 'stopped';
 }

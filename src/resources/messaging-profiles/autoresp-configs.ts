@@ -185,27 +185,27 @@ export interface AutorespConfigRetrieveParams {
 
 export interface AutorespConfigUpdateParams {
   /**
-   * Path param:
+   * Path param
    */
   profile_id: string;
 
   /**
-   * Body param:
+   * Body param
    */
   country_code: string;
 
   /**
-   * Body param:
+   * Body param
    */
   keywords: Array<string>;
 
   /**
-   * Body param:
+   * Body param
    */
   op: 'start' | 'stop' | 'info';
 
   /**
-   * Body param:
+   * Body param
    */
   resp_text?: string;
 }

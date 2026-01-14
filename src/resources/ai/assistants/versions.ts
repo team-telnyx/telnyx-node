@@ -179,28 +179,106 @@ export interface UpdateAssistant {
   transcription?: AssistantsAPI.TranscriptionSettings;
 
   voice_settings?: AssistantsAPI.VoiceSettings;
+
+  /**
+   * Configuration settings for the assistant's web widget.
+   */
+  widget_settings?: UpdateAssistant.WidgetSettings;
+}
+
+export namespace UpdateAssistant {
+  /**
+   * Configuration settings for the assistant's web widget.
+   */
+  export interface WidgetSettings {
+    /**
+     * Text displayed while the agent is processing.
+     */
+    agent_thinking_text?: string;
+
+    audio_visualizer_config?: WidgetSettings.AudioVisualizerConfig;
+
+    /**
+     * The default state of the widget.
+     */
+    default_state?: 'expanded' | 'collapsed';
+
+    /**
+     * URL for users to give feedback.
+     */
+    give_feedback_url?: string | null;
+
+    /**
+     * URL to a custom logo icon for the widget.
+     */
+    logo_icon_url?: string | null;
+
+    /**
+     * The positioning style for the widget.
+     */
+    position?: 'fixed' | 'static';
+
+    /**
+     * URL for users to report issues.
+     */
+    report_issue_url?: string | null;
+
+    /**
+     * Text prompting users to speak to interrupt.
+     */
+    speak_to_interrupt_text?: string;
+
+    /**
+     * Custom text displayed on the start call button.
+     */
+    start_call_text?: string;
+
+    /**
+     * The visual theme for the widget.
+     */
+    theme?: 'light' | 'dark';
+
+    /**
+     * URL to view conversation history.
+     */
+    view_history_url?: string | null;
+  }
+
+  export namespace WidgetSettings {
+    export interface AudioVisualizerConfig {
+      /**
+       * The color theme for the audio visualizer.
+       */
+      color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
+
+      /**
+       * The preset style for the audio visualizer.
+       */
+      preset?: string;
+    }
+  }
 }
 
 export interface VersionRetrieveParams {
   /**
-   * Path param:
+   * Path param
    */
   assistant_id: string;
 
   /**
-   * Query param:
+   * Query param
    */
   include_mcp_servers?: boolean;
 }
 
 export interface VersionUpdateParams {
   /**
-   * Path param:
+   * Path param
    */
   assistant_id: string;
 
   /**
-   * Body param:
+   * Body param
    */
   description?: string;
 
@@ -218,7 +296,7 @@ export interface VersionUpdateParams {
   dynamic_variables_webhook_url?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   enabled_features?: Array<AssistantsAPI.EnabledFeatures>;
 
@@ -230,7 +308,7 @@ export interface VersionUpdateParams {
   greeting?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   insight_settings?: AssistantsAPI.InsightSettings;
 
@@ -250,7 +328,7 @@ export interface VersionUpdateParams {
   llm_api_key_ref?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   messaging_settings?: AssistantsAPI.MessagingSettings;
 
@@ -262,17 +340,17 @@ export interface VersionUpdateParams {
   model?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   name?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   privacy_settings?: AssistantsAPI.PrivacySettings;
 
   /**
-   * Body param:
+   * Body param
    */
   telephony_settings?: AssistantsAPI.TelephonySettings;
 
@@ -283,14 +361,92 @@ export interface VersionUpdateParams {
   tools?: Array<AssistantsAPI.AssistantTool>;
 
   /**
-   * Body param:
+   * Body param
    */
   transcription?: AssistantsAPI.TranscriptionSettings;
 
   /**
-   * Body param:
+   * Body param
    */
   voice_settings?: AssistantsAPI.VoiceSettings;
+
+  /**
+   * Body param: Configuration settings for the assistant's web widget.
+   */
+  widget_settings?: VersionUpdateParams.WidgetSettings;
+}
+
+export namespace VersionUpdateParams {
+  /**
+   * Configuration settings for the assistant's web widget.
+   */
+  export interface WidgetSettings {
+    /**
+     * Text displayed while the agent is processing.
+     */
+    agent_thinking_text?: string;
+
+    audio_visualizer_config?: WidgetSettings.AudioVisualizerConfig;
+
+    /**
+     * The default state of the widget.
+     */
+    default_state?: 'expanded' | 'collapsed';
+
+    /**
+     * URL for users to give feedback.
+     */
+    give_feedback_url?: string | null;
+
+    /**
+     * URL to a custom logo icon for the widget.
+     */
+    logo_icon_url?: string | null;
+
+    /**
+     * The positioning style for the widget.
+     */
+    position?: 'fixed' | 'static';
+
+    /**
+     * URL for users to report issues.
+     */
+    report_issue_url?: string | null;
+
+    /**
+     * Text prompting users to speak to interrupt.
+     */
+    speak_to_interrupt_text?: string;
+
+    /**
+     * Custom text displayed on the start call button.
+     */
+    start_call_text?: string;
+
+    /**
+     * The visual theme for the widget.
+     */
+    theme?: 'light' | 'dark';
+
+    /**
+     * URL to view conversation history.
+     */
+    view_history_url?: string | null;
+  }
+
+  export namespace WidgetSettings {
+    export interface AudioVisualizerConfig {
+      /**
+       * The color theme for the audio visualizer.
+       */
+      color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
+
+      /**
+       * The preset style for the audio visualizer.
+       */
+      preset?: string;
+    }
+  }
 }
 
 export interface VersionDeleteParams {

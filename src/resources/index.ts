@@ -102,13 +102,13 @@ export {
   type CallControlApplicationCreateParams,
   type CallControlApplicationUpdateParams,
   type CallControlApplicationListParams,
-  type CallControlApplicationsDefaultPagination,
+  type CallControlApplicationsDefaultFlatPagination,
 } from './call-control-applications';
 export {
   CallEvents,
   type CallEventListResponse,
   type CallEventListParams,
-  type CallEventListResponsesDefaultPagination,
+  type CallEventListResponsesDefaultFlatPagination,
 } from './call-events';
 export {
   Calls,
@@ -163,8 +163,8 @@ export {
   type ConferenceRetrieveParams,
   type ConferenceListParams,
   type ConferenceListParticipantsParams,
-  type ConferencesDefaultPagination,
-  type ConferenceListParticipantsResponsesDefaultPagination,
+  type ConferencesDefaultFlatPagination,
+  type ConferenceListParticipantsResponsesDefaultFlatPagination,
 } from './conferences/conferences';
 export {
   Connections,
@@ -174,7 +174,7 @@ export {
   type ConnectionListParams,
   type ConnectionListActiveCallsParams,
   type ConnectionListResponsesDefaultPagination,
-  type ConnectionListActiveCallsResponsesDefaultPagination,
+  type ConnectionListActiveCallsResponsesDefaultFlatPagination,
 } from './connections';
 export {
   CountryCoverage,

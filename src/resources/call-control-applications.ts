@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -73,11 +73,12 @@ export class CallControlApplications extends APIResource {
   list(
     query: CallControlApplicationListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<CallControlApplicationsDefaultPagination, CallControlApplication> {
-    return this._client.getAPIList('/call_control_applications', DefaultPagination<CallControlApplication>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<CallControlApplicationsDefaultFlatPagination, CallControlApplication> {
+    return this._client.getAPIList(
+      '/call_control_applications',
+      DefaultFlatPagination<CallControlApplication>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -94,7 +95,7 @@ export class CallControlApplications extends APIResource {
   }
 }
 
-export type CallControlApplicationsDefaultPagination = DefaultPagination<CallControlApplication>;
+export type CallControlApplicationsDefaultFlatPagination = DefaultFlatPagination<CallControlApplication>;
 
 export interface CallControlApplication {
   id?: string;
@@ -429,7 +430,7 @@ export interface CallControlApplicationUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface CallControlApplicationListParams extends DefaultPaginationParams {
+export interface CallControlApplicationListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[application_name][contains], filter[outbound.outbound_voice_profile_id],
@@ -438,6 +439,12 @@ export interface CallControlApplicationListParams extends DefaultPaginationParam
    * filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status]
    */
   filter?: CallControlApplicationListParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  page?: CallControlApplicationListParams.Page;
 
   /**
    * Specifies the sort order for results. By default sorting direction is ascending.
@@ -578,6 +585,27 @@ export namespace CallControlApplicationListParams {
       lte?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  export interface Page {
+    /**
+     * Opaque identifier of next page
+     */
+    after?: string;
+
+    /**
+     * Opaque identifier of previous page
+     */
+    before?: string;
+
+    /**
+     * Limit of records per single page
+     */
+    limit?: number;
+  }
 }
 
 export declare namespace CallControlApplications {
@@ -589,7 +617,7 @@ export declare namespace CallControlApplications {
     type CallControlApplicationRetrieveResponse as CallControlApplicationRetrieveResponse,
     type CallControlApplicationUpdateResponse as CallControlApplicationUpdateResponse,
     type CallControlApplicationDeleteResponse as CallControlApplicationDeleteResponse,
-    type CallControlApplicationsDefaultPagination as CallControlApplicationsDefaultPagination,
+    type CallControlApplicationsDefaultFlatPagination as CallControlApplicationsDefaultFlatPagination,
     type CallControlApplicationCreateParams as CallControlApplicationCreateParams,
     type CallControlApplicationUpdateParams as CallControlApplicationUpdateParams,
     type CallControlApplicationListParams as CallControlApplicationListParams,

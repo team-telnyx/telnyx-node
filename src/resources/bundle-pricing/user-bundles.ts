@@ -258,7 +258,7 @@ export interface UserBundleCreateParams {
   idempotency_key?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   items?: Array<UserBundleCreateParams.Item>;
 
