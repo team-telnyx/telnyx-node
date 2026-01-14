@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.2.0 (2026-01-14)
+
+Full Changelog: [v5.1.0...v5.2.0](https://github.com/team-telnyx/telnyx-node/compare/v5.1.0...v5.2.0)
+
+### Features
+
+* **api:** fix default pagination by correctly using nested params ([b88be4a](https://github.com/team-telnyx/telnyx-node/commit/b88be4a8e08ab2c477c5f15a5a8e6345bc278cf6))
+
+
+### Chores
+
+* **mcp:** upgrade dependencies ([da8ec21](https://github.com/team-telnyx/telnyx-node/commit/da8ec218cc8c456cc5ba020dcff37e119e49f9f4))
+
 ## 5.1.0 (2026-01-13)
 
 Full Changelog: [v5.0.0...v5.1.0](https://github.com/team-telnyx/telnyx-node/compare/v5.0.0...v5.1.0)
