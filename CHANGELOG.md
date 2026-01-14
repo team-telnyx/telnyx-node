@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.2.1 (2026-01-14)
+
+Full Changelog: [v5.2.0...v5.2.1](https://github.com/team-telnyx/telnyx-node/compare/v5.2.0...v5.2.1)
+
+### Bug Fixes
+
+* flag defaults ([9fd8e39](https://github.com/team-telnyx/telnyx-node/commit/9fd8e39070f7b5e145e7a966cf00d75a8d970486))
+
+
+### Chores
+
+* **internal:** codegen related update ([44dc53a](https://github.com/team-telnyx/telnyx-node/commit/44dc53aabe624395646e34f70c323d6aa8a32f09))
+* **internal:** codegen related update ([9eda1d5](https://github.com/team-telnyx/telnyx-node/commit/9eda1d5e02a2e35f03e0e22bcc1a8efeb4a2a54c))
+* **mcp:** add intent param to execute tool ([2eebcab](https://github.com/team-telnyx/telnyx-node/commit/2eebcab3511d148acbffb609c6088141e82fb178))
+
 ## 5.2.0 (2026-01-14)
 
 Full Changelog: [v5.1.0...v5.2.0](https://github.com/team-telnyx/telnyx-node/compare/v5.1.0...v5.2.0)
