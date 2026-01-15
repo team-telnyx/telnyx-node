@@ -4565,18 +4565,6 @@ export namespace ReplacedLinkClickWebhookEvent {
   }
 }
 
-export interface StreamingFailedWebhookEvent {
-  data?: CallStreamingFailed;
-}
-
-export interface StreamingStartedWebhookEvent {
-  data?: CallStreamingStarted;
-}
-
-export interface StreamingStoppedWebhookEvent {
-  data?: CallStreamingStopped;
-}
-
 export interface TranscriptionWebhookEvent {
   data?: TranscriptionWebhookEvent.Data;
 }
@@ -8993,18 +8981,6 @@ export namespace ReplacedLinkClickWebhookEvent {
   }
 }
 
-export interface StreamingFailedWebhookEvent {
-  data?: CallStreamingFailed;
-}
-
-export interface StreamingStartedWebhookEvent {
-  data?: CallStreamingStarted;
-}
-
-export interface StreamingStoppedWebhookEvent {
-  data?: CallStreamingStopped;
-}
-
 export interface TranscriptionWebhookEvent {
   data?: TranscriptionWebhookEvent.Data;
 }
@@ -9154,9 +9130,6 @@ export type UnsafeUnwrapWebhookEvent =
   | InboundMessageWebhookEvent
   | NumberOrderStatusUpdateWebhookEvent
   | ReplacedLinkClickWebhookEvent
-  | StreamingFailedWebhookEvent
-  | StreamingStartedWebhookEvent
-  | StreamingStoppedWebhookEvent
   | TranscriptionWebhookEvent;
 
 export type UnwrapWebhookEvent =
@@ -9219,9 +9192,6 @@ export type UnwrapWebhookEvent =
   | InboundMessageWebhookEvent
   | NumberOrderStatusUpdateWebhookEvent
   | ReplacedLinkClickWebhookEvent
-  | StreamingFailedWebhookEvent
-  | StreamingStartedWebhookEvent
-  | StreamingStoppedWebhookEvent
   | TranscriptionWebhookEvent;
 
 export declare namespace Webhooks {
@@ -9288,9 +9258,6 @@ export declare namespace Webhooks {
     type InboundMessageWebhookEvent as InboundMessageWebhookEvent,
     type NumberOrderStatusUpdateWebhookEvent as NumberOrderStatusUpdateWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
-    type StreamingFailedWebhookEvent as StreamingFailedWebhookEvent,
-    type StreamingStartedWebhookEvent as StreamingStartedWebhookEvent,
-    type StreamingStoppedWebhookEvent as StreamingStoppedWebhookEvent,
     type TranscriptionWebhookEvent as TranscriptionWebhookEvent,
     type UnsafeUnwrapWebhookEvent as UnsafeUnwrapWebhookEvent,
     type UnwrapWebhookEvent as UnwrapWebhookEvent,
