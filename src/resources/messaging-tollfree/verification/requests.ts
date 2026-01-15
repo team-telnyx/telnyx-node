@@ -305,6 +305,13 @@ export interface TfVerificationRequest {
   businessRegistrationType?: string | null;
 
   /**
+   * Campaign Verify Authorization Token required for Political use case submissions
+   * starting February 17, 2026. This token is validated by Zipwhip and must be
+   * provided for all Political use case verifications after the deadline.
+   */
+  campaignVerifyAuthorizationToken?: string | null;
+
+  /**
    * Doing Business As (DBA) name if different from legal name
    */
   doingBusinessAs?: string | null;
@@ -482,6 +489,12 @@ export interface VerificationRequestEgress {
 
   businessRegistrationType?: string;
 
+  /**
+   * Campaign Verify Authorization Token required for Political use case submissions
+   * starting February 17, 2026
+   */
+  campaignVerifyAuthorizationToken?: string | null;
+
   doingBusinessAs?: string;
 
   /**
@@ -571,6 +584,12 @@ export interface VerificationRequestStatus {
   businessRegistrationNumber?: string;
 
   businessRegistrationType?: string;
+
+  /**
+   * Campaign Verify Authorization Token required for Political use case submissions
+   * starting February 17, 2026
+   */
+  campaignVerifyAuthorizationToken?: string | null;
 
   createdAt?: string;
 
@@ -744,6 +763,13 @@ export interface RequestCreateParams {
   businessRegistrationType?: string | null;
 
   /**
+   * Campaign Verify Authorization Token required for Political use case submissions
+   * starting February 17, 2026. This token is validated by Zipwhip and must be
+   * provided for all Political use case verifications after the deadline.
+   */
+  campaignVerifyAuthorizationToken?: string | null;
+
+  /**
    * Doing Business As (DBA) name if different from legal name
    */
   doingBusinessAs?: string | null;
@@ -914,6 +940,13 @@ export interface RequestUpdateParams {
    * Type of business registration being provided. Required from January 2026.
    */
   businessRegistrationType?: string | null;
+
+  /**
+   * Campaign Verify Authorization Token required for Political use case submissions
+   * starting February 17, 2026. This token is validated by Zipwhip and must be
+   * provided for all Political use case verifications after the deadline.
+   */
+  campaignVerifyAuthorizationToken?: string | null;
 
   /**
    * Doing Business As (DBA) name if different from legal name

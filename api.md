@@ -3951,7 +3951,7 @@ Methods:
 - <code title="delete /10dlc/brand/{brandId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">delete</a>(brandID) -> void</code>
 - <code title="get /10dlc/brand/feedback/{brandId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">getFeedback</a>(brandID) -> BrandGetFeedbackResponse</code>
 - <code title="post /10dlc/brand/{brandId}/2faEmail">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">resend2faEmail</a>(brandID) -> void</code>
-- <code title="get /10dlc/brand/smsOtp/{referenceId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">retrieveSMSOtpStatus</a>(referenceID, { ...params }) -> BrandRetrieveSMSOtpStatusResponse</code>
+- <code title="get /10dlc/brand/{brandId}/smsOtp">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">retrieveSMSOtpStatus</a>(brandID) -> BrandRetrieveSMSOtpStatusResponse</code>
 - <code title="put /10dlc/brand/{brandId}/revet">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">revet</a>(brandID) -> TelnyxBrand</code>
 - <code title="post /10dlc/brand/{brandId}/smsOtp">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">triggerSMSOtp</a>(brandID, { ...params }) -> BrandTriggerSMSOtpResponse</code>
 - <code title="put /10dlc/brand/{brandId}/smsOtp">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">verifySMSOtp</a>(brandID, { ...params }) -> void</code>
