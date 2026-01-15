@@ -42,6 +42,7 @@ describe('resource messagingProfiles', () => {
         geomatch: false,
         sticky_sender: false,
       },
+      smart_encoding: true,
       url_shortener_settings: {
         domain: 'example.ex',
         prefix: '',

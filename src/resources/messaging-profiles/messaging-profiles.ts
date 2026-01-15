@@ -260,6 +260,13 @@ export interface MessagingProfile {
   redaction_level?: number;
 
   /**
+   * Enables automatic character encoding optimization for SMS messages. When
+   * enabled, the system automatically selects the most efficient encoding (GSM-7 or
+   * UCS-2) based on message content to maximize character limits and minimize costs.
+   */
+  smart_encoding?: boolean;
+
+  /**
    * ISO 8601 formatted date indicating when the resource was updated.
    */
   updated_at?: string;
@@ -466,6 +473,13 @@ export interface MessagingProfileCreateParams {
   number_pool_settings?: NumberPoolSettings | null;
 
   /**
+   * Enables automatic character encoding optimization for SMS messages. When
+   * enabled, the system automatically selects the most efficient encoding (GSM-7 or
+   * UCS-2) based on message content to maximize character limits and minimize costs.
+   */
+  smart_encoding?: boolean;
+
+  /**
    * The URL shortener feature allows automatic replacement of URLs that were
    * generated using a public URL shortener service. Some examples include bit.do,
    * bit.ly, goo.gl, ht.ly, is.gd, ow.ly, rebrand.ly, t.co, tiny.cc, and tinyurl.com.
@@ -545,6 +559,13 @@ export interface MessagingProfileUpdateParams {
    * To disable this feature, set the object field to `null`.
    */
   number_pool_settings?: NumberPoolSettings | null;
+
+  /**
+   * Enables automatic character encoding optimization for SMS messages. When
+   * enabled, the system automatically selects the most efficient encoding (GSM-7 or
+   * UCS-2) based on message content to maximize character limits and minimize costs.
+   */
+  smart_encoding?: boolean;
 
   /**
    * The URL shortener feature allows automatic replacement of URLs that were
