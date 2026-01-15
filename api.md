@@ -266,9 +266,6 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">StreamingFailedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">StreamingStartedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">StreamingStoppedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherMessageHistoryUpdatedWebhookEvent</a></code>
@@ -329,9 +326,6 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">StreamingFailedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">StreamingStartedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">StreamingStoppedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">UnsafeUnwrapWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">UnwrapWebhookEvent</a></code>
