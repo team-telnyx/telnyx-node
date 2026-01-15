@@ -16,7 +16,6 @@ export {
   type BrandCreateParams,
   type BrandUpdateParams,
   type BrandListParams,
-  type BrandRetrieveSMSOtpStatusParams,
   type BrandTriggerSMSOtpParams,
   type BrandVerifySMSOtpParams,
   type BrandListResponsesPerPagePaginationV2,
