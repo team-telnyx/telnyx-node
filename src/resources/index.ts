@@ -770,6 +770,7 @@ export {
   type OAuthGrantsDefaultFlatPagination,
 } from './oauth-grants';
 export { OperatorConnect } from './operator-connect/operator-connect';
+export { Organizations } from './organizations/organizations';
 export {
   OtaUpdates,
   type OtaUpdateRetrieveResponse,

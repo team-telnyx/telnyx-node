@@ -4085,3 +4085,29 @@ Methods:
 Methods:
 
 - <code title="get /speech-to-text/transcription">client.speechToText.<a href="./src/resources/speech-to-text.ts">transcribe</a>({ ...params }) -> void</code>
+
+# Organizations
+
+## Users
+
+Types:
+
+- <code><a href="./src/resources/organizations/users/users.ts">UserRetrieveResponse</a></code>
+- <code><a href="./src/resources/organizations/users/users.ts">UserListResponse</a></code>
+- <code><a href="./src/resources/organizations/users/users.ts">UserGetGroupsReportResponse</a></code>
+
+Methods:
+
+- <code title="get /organizations/users/{id}">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">retrieve</a>(id, { ...params }) -> UserRetrieveResponse</code>
+- <code title="get /organizations/users">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">list</a>({ ...params }) -> UserListResponsesDefaultFlatPagination</code>
+- <code title="get /organizations/users/users_groups_report">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">getGroupsReport</a>({ ...params }) -> UserGetGroupsReportResponse</code>
+
+### Actions
+
+Types:
+
+- <code><a href="./src/resources/organizations/users/actions.ts">ActionRemoveResponse</a></code>
+
+Methods:
+
+- <code title="post /organizations/users/{id}/actions/remove">client.organizations.users.actions.<a href="./src/resources/organizations/users/actions.ts">remove</a>(id) -> ActionRemoveResponse</code>
