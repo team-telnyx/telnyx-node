@@ -1,5 +1,17 @@
 # Changelog
 
+## 5.2.2 (2026-01-14)
+
+Full Changelog: [v5.2.1...v5.2.2](https://github.com/team-telnyx/telnyx-node/compare/v5.2.1...v5.2.2)
+
+### Chores
+
+* **internal:** bump MCP dependencies ([ea0deaf](https://github.com/team-telnyx/telnyx-node/commit/ea0deaf887160193c184cc63561dc47bd927f1ef))
+* **internal:** codegen related update ([7b9645d](https://github.com/team-telnyx/telnyx-node/commit/7b9645d53bbcc78ef7745c9d10959701219d04c9))
+* **internal:** codegen related update ([161b9c9](https://github.com/team-telnyx/telnyx-node/commit/161b9c9e0b3780931d5699812bb9550ca3ece08a))
+* **internal:** codegen related update ([6cd4091](https://github.com/team-telnyx/telnyx-node/commit/6cd4091ad5550747c23139e31abe4d2d16743676))
+* **mcp:** pass intent param to execute handler ([59d00b0](https://github.com/team-telnyx/telnyx-node/commit/59d00b094725bcf699f26d830d4dd084f92c8339))
+
 ## 5.2.1 (2026-01-14)
 
 Full Changelog: [v5.2.0...v5.2.1](https://github.com/team-telnyx/telnyx-node/compare/v5.2.0...v5.2.1)
