@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.5.0 (2026-01-16)
+
+Full Changelog: [v5.4.0...v5.5.0](https://github.com/team-telnyx/telnyx-node/compare/v5.4.0...v5.5.0)
+
+### Features
+
+* TELAPPS-5507: Add Krisp engine description for noise suppression ([00b6de9](https://github.com/team-telnyx/telnyx-node/commit/00b6de93fd60aca0b44ac684e4fb4948268bc7bf))
+
+
+### Bug Fixes
+
+* update broken MDR report link in GetMessage endpoint ([0918b35](https://github.com/team-telnyx/telnyx-node/commit/0918b35972dba786824fbeefd1528d3f93b3c7b0))
+
 ## 5.4.0 (2026-01-16)
 
 Full Changelog: [v5.3.0...v5.4.0](https://github.com/team-telnyx/telnyx-node/compare/v5.3.0...v5.4.0)
