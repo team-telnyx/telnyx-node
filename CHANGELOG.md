@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.4.0 (2026-01-16)
+
+Full Changelog: [v5.3.0...v5.4.0](https://github.com/team-telnyx/telnyx-node/compare/v5.3.0...v5.4.0)
+
+### Features
+
+* fix links ([85a71db](https://github.com/team-telnyx/telnyx-node/commit/85a71dbb46db9add803535fdc1c7e7623c60c74e))
+
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([91bd1ed](https://github.com/team-telnyx/telnyx-node/commit/91bd1ed98588453e9658796d232efb45d23b0851))
+
 ## 5.3.0 (2026-01-16)
 
 Full Changelog: [v5.2.2...v5.3.0](https://github.com/team-telnyx/telnyx-node/compare/v5.2.2...v5.3.0)
