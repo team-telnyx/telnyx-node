@@ -770,6 +770,7 @@ export {
   type OAuthGrantsDefaultFlatPagination,
 } from './oauth-grants';
 export { OperatorConnect } from './operator-connect/operator-connect';
+export { Organizations } from './organizations/organizations';
 export {
   OtaUpdates,
   type OtaUpdateRetrieveResponse,
@@ -1259,9 +1260,6 @@ export {
   type InboundMessageWebhookEvent,
   type NumberOrderStatusUpdateWebhookEvent,
   type ReplacedLinkClickWebhookEvent,
-  type StreamingFailedWebhookEvent,
-  type StreamingStartedWebhookEvent,
-  type StreamingStoppedWebhookEvent,
   type TranscriptionWebhookEvent,
   type UnsafeUnwrapWebhookEvent,
   type UnwrapWebhookEvent,

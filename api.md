@@ -266,9 +266,6 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">StreamingFailedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">StreamingStartedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">StreamingStoppedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherMessageHistoryUpdatedWebhookEvent</a></code>
@@ -329,9 +326,6 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">StreamingFailedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">StreamingStartedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">StreamingStoppedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">UnsafeUnwrapWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">UnwrapWebhookEvent</a></code>
@@ -3957,7 +3951,7 @@ Methods:
 - <code title="delete /10dlc/brand/{brandId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">delete</a>(brandID) -> void</code>
 - <code title="get /10dlc/brand/feedback/{brandId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">getFeedback</a>(brandID) -> BrandGetFeedbackResponse</code>
 - <code title="post /10dlc/brand/{brandId}/2faEmail">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">resend2faEmail</a>(brandID) -> void</code>
-- <code title="get /10dlc/brand/smsOtp/{referenceId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">retrieveSMSOtpStatus</a>(referenceID, { ...params }) -> BrandRetrieveSMSOtpStatusResponse</code>
+- <code title="get /10dlc/brand/{brandId}/smsOtp">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">retrieveSMSOtpStatus</a>(brandID) -> BrandRetrieveSMSOtpStatusResponse</code>
 - <code title="put /10dlc/brand/{brandId}/revet">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">revet</a>(brandID) -> TelnyxBrand</code>
 - <code title="post /10dlc/brand/{brandId}/smsOtp">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">triggerSMSOtp</a>(brandID, { ...params }) -> BrandTriggerSMSOtpResponse</code>
 - <code title="put /10dlc/brand/{brandId}/smsOtp">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">verifySMSOtp</a>(brandID, { ...params }) -> void</code>
@@ -4091,3 +4085,29 @@ Methods:
 Methods:
 
 - <code title="get /speech-to-text/transcription">client.speechToText.<a href="./src/resources/speech-to-text.ts">transcribe</a>({ ...params }) -> void</code>
+
+# Organizations
+
+## Users
+
+Types:
+
+- <code><a href="./src/resources/organizations/users/users.ts">UserRetrieveResponse</a></code>
+- <code><a href="./src/resources/organizations/users/users.ts">UserListResponse</a></code>
+- <code><a href="./src/resources/organizations/users/users.ts">UserGetGroupsReportResponse</a></code>
+
+Methods:
+
+- <code title="get /organizations/users/{id}">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">retrieve</a>(id, { ...params }) -> UserRetrieveResponse</code>
+- <code title="get /organizations/users">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">list</a>({ ...params }) -> UserListResponsesDefaultFlatPagination</code>
+- <code title="get /organizations/users/users_groups_report">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">getGroupsReport</a>({ ...params }) -> UserGetGroupsReportResponse</code>
+
+### Actions
+
+Types:
+
+- <code><a href="./src/resources/organizations/users/actions.ts">ActionRemoveResponse</a></code>
+
+Methods:
+
+- <code title="post /organizations/users/{id}/actions/remove">client.organizations.users.actions.<a href="./src/resources/organizations/users/actions.ts">remove</a>(id) -> ActionRemoveResponse</code>

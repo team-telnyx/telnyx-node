@@ -1,5 +1,28 @@
 # Changelog
 
+## 5.3.0 (2026-01-16)
+
+Full Changelog: [v5.2.2...v5.3.0](https://github.com/team-telnyx/telnyx-node/compare/v5.2.2...v5.3.0)
+
+### Features
+
+* jira-engdesk-48800 add organizations-related docs to the external api… ([180acfe](https://github.com/team-telnyx/telnyx-node/commit/180acfed6213534df680f8ef9f6ff662fefc0976))
+* MSG-6148: adding the new campaignVerifyAuthorizationToken field and missing GET OTP endpoint ([e3a915f](https://github.com/team-telnyx/telnyx-node/commit/e3a915f9870a1c32a97c3bb26ac85bdb22aa1283))
+* MSG-6228: MSG-6228: Add smart_encoding option for SMS character encoding optimization ([711fa10](https://github.com/team-telnyx/telnyx-node/commit/711fa10202dab429008931e2fea004b725bfdd26))
+* TELAPPS-ENGDESK-48790 Remove duplicated webhooks ([0e1ae0c](https://github.com/team-telnyx/telnyx-node/commit/0e1ae0cc14c89ed5f0301bbb49f72a2f4c82731e))
+
+
+### Bug Fixes
+
+* **lint:** resolve linting errors ([58f9224](https://github.com/team-telnyx/telnyx-node/commit/58f92241dd6233c9df79dc4d7f866ad99029056c))
+
+
+### Chores
+
+* **internal:** update lock file ([b92852e](https://github.com/team-telnyx/telnyx-node/commit/b92852ed14e5fd03cbe82fc8c138d260d2c38ff7))
+* **internal:** upgrade babel, qs, js-yaml ([7074a11](https://github.com/team-telnyx/telnyx-node/commit/7074a117bc247b2d9df586d442f124a61bf33eb2))
+* **internal:** upgrade brace-expansion and @babel/helpers ([2ced243](https://github.com/team-telnyx/telnyx-node/commit/2ced2430709cb5f1b4f5a9e25196ebc194d98d22))
+
 ## 5.2.2 (2026-01-14)
 
 Full Changelog: [v5.2.1...v5.2.2](https://github.com/team-telnyx/telnyx-node/compare/v5.2.1...v5.2.2)

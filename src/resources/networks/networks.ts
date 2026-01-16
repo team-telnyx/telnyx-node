@@ -204,8 +204,7 @@ export namespace NetworkDeleteResponse {
 }
 
 export interface NetworkListInterfacesResponse
-  extends GlobalIPAssignmentsAPI.Record,
-    PublicInternetGatewaysAPI.NetworkInterface {
+  extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
   /**
    * Identifies the type of the resource.
    */

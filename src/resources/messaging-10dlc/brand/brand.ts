@@ -154,32 +154,31 @@ export class Brand extends APIResource {
 
   /**
    * Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand
-   * verification.
+   * verification using the Brand ID.
    *
    * This endpoint allows you to check the delivery and verification status of an OTP
-   * sent during the Sole Proprietor brand verification process. You can query by
-   * either:
-   *
-   * - `referenceId` - The reference ID returned when the OTP was initially triggered
-   * - `brandId` - Query parameter for portal users to look up OTP status by Brand ID
+   * sent during the Sole Proprietor brand verification process by looking it up with
+   * the brand ID.
    *
    * The response includes delivery status, verification dates, and detailed delivery
    * information.
+   *
+   * **Note:** This is an alternative to the `/10dlc/brand/smsOtp/{referenceId}`
+   * endpoint when you have the Brand ID but not the reference ID.
    *
    * @example
    * ```ts
    * const response =
    *   await client.messaging10dlc.brand.retrieveSMSOtpStatus(
-   *     'OTP4B2001',
+   *     '4b20019b-043a-78f8-0657-b3be3f4b4002',
    *   );
    * ```
    */
   retrieveSMSOtpStatus(
-    referenceID: string,
-    query: BrandRetrieveSMSOtpStatusParams | null | undefined = {},
+    brandID: string,
     options?: RequestOptions,
   ): APIPromise<BrandRetrieveSMSOtpStatusResponse> {
-    return this._client.get(path`/10dlc/brand/smsOtp/${referenceID}`, { query, ...options });
+    return this._client.get(path`/10dlc/brand/${brandID}/smsOtp`, options);
   }
 
   /**
@@ -1013,13 +1012,6 @@ export interface BrandListParams extends PerPagePaginationV2Params {
   tcrBrandId?: string;
 }
 
-export interface BrandRetrieveSMSOtpStatusParams {
-  /**
-   * Filter by Brand ID for easier lookup in portal applications
-   */
-  brandId?: string;
-}
-
 export interface BrandTriggerSMSOtpParams {
   /**
    * SMS message template to send the OTP. Must include `@OTP_PIN@` placeholder which
@@ -1059,7 +1051,6 @@ export declare namespace Brand {
     type BrandCreateParams as BrandCreateParams,
     type BrandUpdateParams as BrandUpdateParams,
     type BrandListParams as BrandListParams,
-    type BrandRetrieveSMSOtpStatusParams as BrandRetrieveSMSOtpStatusParams,
     type BrandTriggerSMSOtpParams as BrandTriggerSMSOtpParams,
     type BrandVerifySMSOtpParams as BrandVerifySMSOtpParams,
   };

@@ -46,7 +46,6 @@ import {
   BrandListResponse,
   BrandListResponsesPerPagePaginationV2,
   BrandRetrieveResponse,
-  BrandRetrieveSMSOtpStatusParams,
   BrandRetrieveSMSOtpStatusResponse,
   BrandTriggerSMSOtpParams,
   BrandTriggerSMSOtpResponse,
@@ -168,7 +167,6 @@ export declare namespace Messaging10dlc {
     type BrandCreateParams as BrandCreateParams,
     type BrandUpdateParams as BrandUpdateParams,
     type BrandListParams as BrandListParams,
-    type BrandRetrieveSMSOtpStatusParams as BrandRetrieveSMSOtpStatusParams,
     type BrandTriggerSMSOtpParams as BrandTriggerSMSOtpParams,
     type BrandVerifySMSOtpParams as BrandVerifySMSOtpParams,
   };

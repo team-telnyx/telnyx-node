@@ -954,9 +954,6 @@ import {
   InboundMessageWebhookEvent,
   NumberOrderStatusUpdateWebhookEvent,
   ReplacedLinkClickWebhookEvent,
-  StreamingFailedWebhookEvent,
-  StreamingStartedWebhookEvent,
-  StreamingStoppedWebhookEvent,
   TranscriptionWebhookEvent,
   UnsafeUnwrapWebhookEvent,
   UnwrapWebhookEvent,
@@ -1204,6 +1201,7 @@ import {
   ReservedPhoneNumber,
 } from './resources/number-reservations/number-reservations';
 import { OperatorConnect } from './resources/operator-connect/operator-connect';
+import { Organizations } from './resources/organizations/organizations';
 import { Payment } from './resources/payment/payment';
 import { PhoneNumberBlocks } from './resources/phone-number-blocks/phone-number-blocks';
 import {
@@ -2313,6 +2311,7 @@ export class Telnyx {
   mobileVoiceConnections: API.MobileVoiceConnections = new API.MobileVoiceConnections(this);
   messaging10dlc: API.Messaging10dlc = new API.Messaging10dlc(this);
   speechToText: API.SpeechToText = new API.SpeechToText(this);
+  organizations: API.Organizations = new API.Organizations(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -2465,6 +2464,7 @@ Telnyx.MobilePhoneNumbers = MobilePhoneNumbers;
 Telnyx.MobileVoiceConnections = MobileVoiceConnections;
 Telnyx.Messaging10dlc = Messaging10dlc;
 Telnyx.SpeechToText = SpeechToText;
+Telnyx.Organizations = Organizations;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -2620,9 +2620,6 @@ export declare namespace Telnyx {
     type InboundMessageWebhookEvent as InboundMessageWebhookEvent,
     type NumberOrderStatusUpdateWebhookEvent as NumberOrderStatusUpdateWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
-    type StreamingFailedWebhookEvent as StreamingFailedWebhookEvent,
-    type StreamingStartedWebhookEvent as StreamingStartedWebhookEvent,
-    type StreamingStoppedWebhookEvent as StreamingStoppedWebhookEvent,
     type TranscriptionWebhookEvent as TranscriptionWebhookEvent,
     type UnsafeUnwrapWebhookEvent as UnsafeUnwrapWebhookEvent,
     type UnwrapWebhookEvent as UnwrapWebhookEvent,
@@ -4007,6 +4004,8 @@ export declare namespace Telnyx {
   };
 
   export { SpeechToText as SpeechToText, type SpeechToTextTranscribeParams as SpeechToTextTranscribeParams };
+
+  export { Organizations as Organizations };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
