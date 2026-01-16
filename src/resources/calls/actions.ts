@@ -3094,10 +3094,11 @@ export interface ActionStartNoiseSuppressionParams {
   direction?: 'inbound' | 'outbound' | 'both';
 
   /**
-   * The engine to use for noise suppression. For backward compatibility, engines A
-   * and B are also supported, but are deprecated: A - Denoiser B - DeepFilterNet
+   * The engine to use for noise suppression. For backward compatibility, engines A,
+   * B, and C are also supported, but are deprecated: A - Denoiser B - DeepFilterNet
+   * C - Krisp
    */
-  noise_suppression_engine?: 'Denoiser' | 'DeepFilterNet';
+  noise_suppression_engine?: 'Denoiser' | 'DeepFilterNet' | 'Krisp';
 
   /**
    * Configuration parameters for noise suppression engines.
