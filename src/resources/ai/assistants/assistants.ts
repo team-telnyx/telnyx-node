@@ -138,11 +138,11 @@ export class Assistants extends APIResource {
    * This endpoint allows a client to send a chat message to a specific AI Assistant.
    * The assistant processes the message and returns a relevant reply based on the
    * current conversation context. Refer to the Conversation API to
-   * [create a conversation](https://developers.telnyx.com/api/inference/inference-embedding/create-new-conversation-public-conversations-post),
-   * [filter existing conversations](https://developers.telnyx.com/api/inference/inference-embedding/get-conversations-public-conversations-get),
-   * [fetch messages for a conversation](https://developers.telnyx.com/api/inference/inference-embedding/get-conversations-public-conversation-id-messages-get),
+   * [create a conversation](https://developers.telnyx.com/api-reference/conversations/create-a-conversation),
+   * [filter existing conversations](https://developers.telnyx.com/api-reference/conversations/list-conversations),
+   * [fetch messages for a conversation](https://developers.telnyx.com/api-reference/conversations/get-conversation-messages),
    * and
-   * [manually add messages to a conversation](https://developers.telnyx.com/api/inference/inference-embedding/add-new-message).
+   * [manually add messages to a conversation](https://developers.telnyx.com/api-reference/conversations/create-message).
    *
    * @example
    * ```ts
@@ -538,7 +538,7 @@ export interface InferenceEmbedding {
 
   /**
    * ID of the model to use. You can use the
-   * [Get models API](https://developers.telnyx.com/api/inference/inference-embedding/get-models-public-models-get)
+   * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
    * to see all of your available models,
    */
   model: string;
@@ -576,7 +576,7 @@ export interface InferenceEmbedding {
   /**
    * This is only needed when using third-party inference providers. The `identifier`
    * for an integration secret
-   * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
    * that refers to your LLM provider's API key. Warning: Free plans are unlikely to
    * work with this integration.
    */
@@ -680,7 +680,7 @@ export namespace InferenceEmbedding {
 export interface InferenceEmbeddingBucketIDs {
   /**
    * List of
-   * [embedded storage buckets](https://developers.telnyx.com/api/inference/inference-embedding/post-embedding)
+   * [embedded storage buckets](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
    * to use for retrieval-augmented generation.
    */
   bucket_ids: Array<string>;
@@ -1037,7 +1037,7 @@ export interface VoiceSettings {
    * [available voices](https://developers.telnyx.com/api/call-control/list-text-to-speech-voices)
    * via our voices API. To use ElevenLabs, you must reference your ElevenLabs API
    * key as an integration secret under the `api_key_ref` field. See
-   * [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   * [integration secrets documentation](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
    * for details. For Telnyx voices, use `Telnyx.<model_id>.<voice_id>` (e.g.
    * Telnyx.KokoroTTS.af_heart)
    */
@@ -1178,7 +1178,7 @@ export interface AssistantCreateParams {
 
   /**
    * ID of the model to use. You can use the
-   * [Get models API](https://developers.telnyx.com/api/inference/inference-embedding/get-models-public-models-get)
+   * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
    * to see all of your available models,
    */
   model: string;
@@ -1214,7 +1214,7 @@ export interface AssistantCreateParams {
   /**
    * This is only needed when using third-party inference providers. The `identifier`
    * for an integration secret
-   * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
    * that refers to your LLM provider's API key. Warning: Free plans are unlikely to
    * work with this integration.
    */
@@ -1361,7 +1361,7 @@ export interface AssistantUpdateParams {
   /**
    * This is only needed when using third-party inference providers. The `identifier`
    * for an integration secret
-   * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
    * that refers to your LLM provider's API key. Warning: Free plans are unlikely to
    * work with this integration.
    */
@@ -1371,7 +1371,7 @@ export interface AssistantUpdateParams {
 
   /**
    * ID of the model to use. You can use the
-   * [Get models API](https://developers.telnyx.com/api/inference/inference-embedding/get-models-public-models-get)
+   * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
    * to see all of your available models,
    */
   model?: string;
