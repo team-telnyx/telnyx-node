@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.7.1 (2026-01-19)
+
+Full Changelog: [v5.7.0...v5.7.1](https://github.com/team-telnyx/telnyx-node/compare/v5.7.0...v5.7.1)
+
+### Bug Fixes
+
+* correct broken link to List SIM Card Actions endpoint in SIM car… ([844c5eb](https://github.com/team-telnyx/telnyx-node/commit/844c5eb2eb9c931c6a56f1b205eb0127c1391c4c))
+
 ## 5.7.0 (2026-01-19)
 
 Full Changelog: [v5.6.0...v5.7.0](https://github.com/team-telnyx/telnyx-node/compare/v5.6.0...v5.7.0)
