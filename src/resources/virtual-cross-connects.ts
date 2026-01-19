@@ -119,8 +119,7 @@ export interface VirtualCrossConnectCreateResponse {
 
 export namespace VirtualCrossConnectCreateResponse {
   export interface Data
-    extends
-      GlobalIPAssignmentsAPI.Record,
+    extends GlobalIPAssignmentsAPI.Record,
       PublicInternetGatewaysAPI.NetworkInterface,
       PublicInternetGatewaysAPI.NetworkInterfaceRegion {
     /**
@@ -258,8 +257,7 @@ export interface VirtualCrossConnectRetrieveResponse {
 
 export namespace VirtualCrossConnectRetrieveResponse {
   export interface Data
-    extends
-      GlobalIPAssignmentsAPI.Record,
+    extends GlobalIPAssignmentsAPI.Record,
       PublicInternetGatewaysAPI.NetworkInterface,
       PublicInternetGatewaysAPI.NetworkInterfaceRegion {
     /**
@@ -397,8 +395,7 @@ export interface VirtualCrossConnectUpdateResponse {
 
 export namespace VirtualCrossConnectUpdateResponse {
   export interface Data
-    extends
-      GlobalIPAssignmentsAPI.Record,
+    extends GlobalIPAssignmentsAPI.Record,
       PublicInternetGatewaysAPI.NetworkInterface,
       PublicInternetGatewaysAPI.NetworkInterfaceRegion {
     /**
@@ -531,8 +528,7 @@ export namespace VirtualCrossConnectUpdateResponse {
 }
 
 export interface VirtualCrossConnectListResponse
-  extends
-    GlobalIPAssignmentsAPI.Record,
+  extends GlobalIPAssignmentsAPI.Record,
     PublicInternetGatewaysAPI.NetworkInterface,
     PublicInternetGatewaysAPI.NetworkInterfaceRegion {
   /**
@@ -669,8 +665,7 @@ export interface VirtualCrossConnectDeleteResponse {
 
 export namespace VirtualCrossConnectDeleteResponse {
   export interface Data
-    extends
-      GlobalIPAssignmentsAPI.Record,
+    extends GlobalIPAssignmentsAPI.Record,
       PublicInternetGatewaysAPI.NetworkInterface,
       PublicInternetGatewaysAPI.NetworkInterfaceRegion {
     /**
