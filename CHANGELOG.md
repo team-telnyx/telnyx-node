@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.7.0 (2026-01-19)
+
+Full Changelog: [v5.6.0...v5.7.0](https://github.com/team-telnyx/telnyx-node/compare/v5.6.0...v5.7.0)
+
+### Features
+
+* Add AI Assistant spec updates for FE tickets ([e41680b](https://github.com/team-telnyx/telnyx-node/commit/e41680b25d8cda0ae0e029b8e4c14f717fc465e5))
+
+
+### Chores
+
+* formatting ([d6ca87e](https://github.com/team-telnyx/telnyx-node/commit/d6ca87edcfd2aa4243673e9cb3876efccd076d4a))
+* update lockfile ([58dd42b](https://github.com/team-telnyx/telnyx-node/commit/58dd42b2dff23aefcd5bfc5a8e12e71bae9d032d))
+
 ## 5.6.0 (2026-01-19)
 
 Full Changelog: [v5.5.0...v5.6.0](https://github.com/team-telnyx/telnyx-node/compare/v5.5.0...v5.6.0)
