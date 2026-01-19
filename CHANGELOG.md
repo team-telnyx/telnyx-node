@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.6.0 (2026-01-19)
+
+Full Changelog: [v5.5.0...v5.6.0](https://github.com/team-telnyx/telnyx-node/compare/v5.5.0...v5.6.0)
+
+### Features
+
+* fix-external-connection-link ([5acda1b](https://github.com/team-telnyx/telnyx-node/commit/5acda1bcf2a6e470b3a4df74a0b0971ce0a28d02))
+
 ## 5.5.0 (2026-01-16)
 
 Full Changelog: [v5.4.0...v5.5.0](https://github.com/team-telnyx/telnyx-node/compare/v5.4.0...v5.5.0)
