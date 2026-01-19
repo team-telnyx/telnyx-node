@@ -565,7 +565,10 @@ export interface InferenceEmbedding {
   /**
    * Text that the assistant will use to start the conversation. This may be
    * templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+   * Use an empty string to have the assistant wait for the user to speak first. Use
+   * the special value `<assistant-speaks-first-with-model-generated-message>` to
+   * have the assistant generate the greeting based on the system instructions.
    */
   greeting?: string;
 
@@ -761,6 +764,12 @@ export interface InferenceEmbeddingWebhookToolParams {
   url: string;
 
   /**
+   * If async, the assistant will move forward without waiting for your server to
+   * respond.
+   */
+  async?: boolean;
+
+  /**
    * The body parameters the webhook tool accepts, described as a JSON Schema object.
    * These parameters will be passed to the webhook as the body of the request. See
    * the [JSON Schema reference](https://json-schema.org/understanding-json-schema)
@@ -795,6 +804,12 @@ export interface InferenceEmbeddingWebhookToolParams {
    * documentation about the format
    */
   query_parameters?: InferenceEmbeddingWebhookToolParams.QueryParameters;
+
+  /**
+   * The maximum number of milliseconds to wait for the webhook to respond. Only
+   * applicable when async is false.
+   */
+  timeout_ms?: number;
 }
 
 export namespace InferenceEmbeddingWebhookToolParams {
@@ -885,6 +900,12 @@ export interface InsightSettings {
 
 export interface MessagingSettings {
   /**
+   * If more than this many minutes have passed since the last message, the assistant
+   * will start a new conversation instead of continuing the existing one.
+   */
+  conversation_inactivity_minutes?: number;
+
+  /**
    * Default Messaging Profile used for messaging exchanges with your assistant. This
    * will be created automatically on assistant creation.
    */
@@ -926,7 +947,7 @@ export interface TelephonySettings {
    * The noise suppression engine to use. Use 'disabled' to turn off noise
    * suppression.
    */
-  noise_suppression?: 'deepfilternet' | 'disabled';
+  noise_suppression?: 'krisp' | 'deepfilternet' | 'disabled';
 
   /**
    * Configuration for noise suppression. Only applicable when noise_suppression is
@@ -948,6 +969,20 @@ export interface TelephonySettings {
    * transferred to a human representative).
    */
   time_limit_secs?: number;
+
+  /**
+   * Maximum duration in seconds of end user silence on the call. When this limit is
+   * reached the assistant will be stopped. This limit does not apply to portions of
+   * a call without an active assistant (for instance, a call transferred to a human
+   * representative).
+   */
+  user_idle_timeout_secs?: number;
+
+  /**
+   * Configuration for voicemail detection (AMD - Answering Machine Detection) on
+   * outgoing calls.
+   */
+  voicemail_detection?: TelephonySettings.VoicemailDetection;
 }
 
 export namespace TelephonySettings {
@@ -965,6 +1000,61 @@ export namespace TelephonySettings {
      * Mode for noise suppression configuration.
      */
     mode?: 'advanced';
+  }
+
+  /**
+   * Configuration for voicemail detection (AMD - Answering Machine Detection) on
+   * outgoing calls.
+   */
+  export interface VoicemailDetection {
+    /**
+     * Action to take when voicemail is detected.
+     */
+    on_voicemail_detected?: VoicemailDetection.OnVoicemailDetected;
+  }
+
+  export namespace VoicemailDetection {
+    /**
+     * Action to take when voicemail is detected.
+     */
+    export interface OnVoicemailDetected {
+      /**
+       * The action to take when voicemail is detected.
+       */
+      action?: 'stop_assistant' | 'leave_message_and_stop_assistant' | 'continue_assistant';
+
+      /**
+       * Configuration for the voicemail message to leave. Only applicable when action is
+       * 'leave_message_and_stop_assistant'.
+       */
+      voicemail_message?: OnVoicemailDetected.VoicemailMessage;
+    }
+
+    export namespace OnVoicemailDetected {
+      /**
+       * Configuration for the voicemail message to leave. Only applicable when action is
+       * 'leave_message_and_stop_assistant'.
+       */
+      export interface VoicemailMessage {
+        /**
+         * The specific message to leave as voicemail. Only applicable when type is
+         * 'message'.
+         */
+        message?: string;
+
+        /**
+         * The prompt to use for generating the voicemail message. Only applicable when
+         * type is 'prompt'.
+         */
+        prompt?: string;
+
+        /**
+         * The type of voicemail message. Use 'prompt' to have the assistant generate a
+         * message based on a prompt, or 'message' to leave a specific message.
+         */
+        type?: 'prompt' | 'message';
+      }
+    }
   }
 }
 
@@ -1205,7 +1295,10 @@ export interface AssistantCreateParams {
   /**
    * Text that the assistant will use to start the conversation. This may be
    * templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+   * Use an empty string to have the assistant wait for the user to speak first. Use
+   * the special value `<assistant-speaks-first-with-model-generated-message>` to
+   * have the assistant generate the greeting based on the system instructions.
    */
   greeting?: string;
 
@@ -1346,7 +1439,10 @@ export interface AssistantUpdateParams {
   /**
    * Text that the assistant will use to start the conversation. This may be
    * templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+   * Use an empty string to have the assistant wait for the user to speak first. Use
+   * the special value `<assistant-speaks-first-with-model-generated-message>` to
+   * have the assistant generate the greeting based on the system instructions.
    */
   greeting?: string;
 
