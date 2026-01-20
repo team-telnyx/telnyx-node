@@ -980,7 +980,11 @@ export interface TelephonySettings {
 
   /**
    * Configuration for voicemail detection (AMD - Answering Machine Detection) on
-   * outgoing calls.
+   * outgoing calls. These settings only apply if AMD is enabled on the Dial command.
+   * See
+   * [TeXML Dial documentation](https://developers.telnyx.com/api-reference/texml-rest-commands/initiate-an-outbound-call)
+   * for enabling AMD. Recommended settings: MachineDetection=Enable, AsyncAmd=true,
+   * DetectionMode=Premium.
    */
   voicemail_detection?: TelephonySettings.VoicemailDetection;
 }
@@ -1004,7 +1008,11 @@ export namespace TelephonySettings {
 
   /**
    * Configuration for voicemail detection (AMD - Answering Machine Detection) on
-   * outgoing calls.
+   * outgoing calls. These settings only apply if AMD is enabled on the Dial command.
+   * See
+   * [TeXML Dial documentation](https://developers.telnyx.com/api-reference/texml-rest-commands/initiate-an-outbound-call)
+   * for enabling AMD. Recommended settings: MachineDetection=Enable, AsyncAmd=true,
+   * DetectionMode=Premium.
    */
   export interface VoicemailDetection {
     /**
