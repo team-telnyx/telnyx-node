@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.8.0 (2026-01-20)
+
+Full Changelog: [v5.7.1...v5.8.0](https://github.com/team-telnyx/telnyx-node/compare/v5.7.1...v5.8.0)
+
+### Features
+
+* Update voicemail_detection description with AMD enablement info ([a384d06](https://github.com/team-telnyx/telnyx-node/commit/a384d0630e9b2558ccbb20119728b58c71c516d3))
+
 ## 5.7.1 (2026-01-19)
 
 Full Changelog: [v5.7.0...v5.7.1](https://github.com/team-telnyx/telnyx-node/compare/v5.7.0...v5.7.1)
