@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.9.0 (2026-01-20)
+
+Full Changelog: [v5.8.0...v5.9.0](https://github.com/team-telnyx/telnyx-node/compare/v5.8.0...v5.9.0)
+
+### Features
+
+* Add Post /v2/calls/:call_control_id/actions/ai_assistant_add_messages ([cc048a5](https://github.com/team-telnyx/telnyx-node/commit/cc048a5cdbf0d18e54e08b66a04976b692fa6e90))
+
+
+### Chores
+
+* **internal:** codegen related update ([28ab632](https://github.com/team-telnyx/telnyx-node/commit/28ab63254137189a4ed13b71d65439c8869ecb9d))
+* **internal:** codegen related update ([386696f](https://github.com/team-telnyx/telnyx-node/commit/386696f257f2888df7568906e7568cc0db6da831))
+
 ## 5.8.0 (2026-01-20)
 
 Full Changelog: [v5.7.1...v5.8.0](https://github.com/team-telnyx/telnyx-node/compare/v5.7.1...v5.8.0)
