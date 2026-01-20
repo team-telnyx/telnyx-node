@@ -984,6 +984,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineGoogleConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineTelnyxConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionStartRequest</a></code>
+- <code><a href="./src/resources/calls/actions.ts">ActionAddAIAssistantMessagesResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionAnswerResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionBridgeResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionEnqueueResponse</a></code>
@@ -1023,6 +1024,7 @@ Types:
 
 Methods:
 
+- <code title="post /calls/{call_control_id}/actions/ai_assistant_add_messages">client.calls.actions.<a href="./src/resources/calls/actions.ts">addAIAssistantMessages</a>(callControlID, { ...params }) -> ActionAddAIAssistantMessagesResponse</code>
 - <code title="post /calls/{call_control_id}/actions/answer">client.calls.actions.<a href="./src/resources/calls/actions.ts">answer</a>(callControlID, { ...params }) -> ActionAnswerResponse</code>
 - <code title="post /calls/{call_control_id}/actions/bridge">client.calls.actions.<a href="./src/resources/calls/actions.ts">bridge</a>(callControlIDToBridge, { ...params }) -> ActionBridgeResponse</code>
 - <code title="post /calls/{call_control_id}/actions/enqueue">client.calls.actions.<a href="./src/resources/calls/actions.ts">enqueue</a>(callControlID, { ...params }) -> ActionEnqueueResponse</code>
