@@ -3,6 +3,8 @@
 import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
 import {
+  ActionAddAIAssistantMessagesParams,
+  ActionAddAIAssistantMessagesResponse,
   ActionAnswerParams,
   ActionAnswerResponse,
   ActionBridgeParams,
@@ -882,6 +884,7 @@ export declare namespace Calls {
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
     type TranscriptionEngineTelnyxConfig as TranscriptionEngineTelnyxConfig,
     type TranscriptionStartRequest as TranscriptionStartRequest,
+    type ActionAddAIAssistantMessagesResponse as ActionAddAIAssistantMessagesResponse,
     type ActionAnswerResponse as ActionAnswerResponse,
     type ActionBridgeResponse as ActionBridgeResponse,
     type ActionEnqueueResponse as ActionEnqueueResponse,
@@ -918,6 +921,7 @@ export declare namespace Calls {
     type ActionSwitchSupervisorRoleResponse as ActionSwitchSupervisorRoleResponse,
     type ActionTransferResponse as ActionTransferResponse,
     type ActionUpdateClientStateResponse as ActionUpdateClientStateResponse,
+    type ActionAddAIAssistantMessagesParams as ActionAddAIAssistantMessagesParams,
     type ActionAnswerParams as ActionAnswerParams,
     type ActionBridgeParams as ActionBridgeParams,
     type ActionEnqueueParams as ActionEnqueueParams,
