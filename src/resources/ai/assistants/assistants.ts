@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as ChatAPI from '../chat';
 import * as CanaryDeploysAPI from './canary-deploys';
 import {
   CanaryDeploy,
@@ -270,7 +271,7 @@ export interface Assistant {
     | WebhookTool
     | HangupTool
     | TransferTool
-    | RetrievalTool
+    | Assistant.CallControlRetrievalTool
   >;
 }
 
@@ -336,6 +337,23 @@ export namespace Assistant {
       event_type_id: number;
     }
   }
+
+  export interface CallControlRetrievalTool {
+    retrieval: CallControlRetrievalTool.Retrieval;
+
+    type: 'retrieval';
+  }
+
+  export namespace CallControlRetrievalTool {
+    export interface Retrieval {
+      bucket_ids: Array<string>;
+
+      /**
+       * The maximum number of results to retrieve as context for the language model.
+       */
+      max_num_results?: number;
+    }
+  }
 }
 
 /**
@@ -344,11 +362,11 @@ export namespace Assistant {
  * user.
  */
 export type AssistantTool =
-  | WebhookTool
+  | InferenceEmbeddingWebhookToolParams
   | RetrievalTool
   | AssistantTool.Handoff
   | HangupTool
-  | TransferTool
+  | AssistantTool.Transfer
   | AssistantTool.Refer
   | AssistantTool.SendDtmf
   | AssistantTool.SendMessage;
@@ -392,6 +410,64 @@ export namespace AssistantTool {
          * Helpful name for giving context on when to handoff to the assistant.
          */
         name: string;
+      }
+    }
+  }
+
+  export interface Transfer {
+    transfer: Transfer.Transfer;
+
+    type: 'transfer';
+  }
+
+  export namespace Transfer {
+    export interface Transfer {
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from: string;
+
+      /**
+       * The different possible targets of the transfer. The assistant will be able to
+       * choose one of the targets to transfer the call to.
+       */
+      targets: Array<Transfer.Target>;
+
+      /**
+       * Custom headers to be added to the SIP INVITE for the transfer command.
+       */
+      custom_headers?: Array<Transfer.CustomHeader>;
+
+      /**
+       * Natural language instructions for your agent for how to provide context for the
+       * transfer recipient.
+       */
+      warm_transfer_instructions?: string;
+    }
+
+    export namespace Transfer {
+      export interface Target {
+        /**
+         * The name of the target.
+         */
+        name?: string;
+
+        /**
+         * The destination number or SIP URI of the call.
+         */
+        to?: string;
+      }
+
+      export interface CustomHeader {
+        name?: string;
+
+        /**
+         * The value of the header. Note that we support mustache templating for the value.
+         * For example you can use
+         * `{{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of
+         * the integration secret.
+         */
+        value?: string;
       }
     }
   }
@@ -604,289 +680,160 @@ export interface InferenceEmbedding {
   /**
    * Configuration settings for the assistant's web widget.
    */
-  widget_settings?: InferenceEmbedding.WidgetSettings;
-}
-
-export namespace InferenceEmbedding {
-  /**
-   * Configuration settings for the assistant's web widget.
-   */
-  export interface WidgetSettings {
-    /**
-     * Text displayed while the agent is processing.
-     */
-    agent_thinking_text?: string;
-
-    audio_visualizer_config?: WidgetSettings.AudioVisualizerConfig;
-
-    /**
-     * The default state of the widget.
-     */
-    default_state?: 'expanded' | 'collapsed';
-
-    /**
-     * URL for users to give feedback.
-     */
-    give_feedback_url?: string | null;
-
-    /**
-     * URL to a custom logo icon for the widget.
-     */
-    logo_icon_url?: string | null;
-
-    /**
-     * The positioning style for the widget.
-     */
-    position?: 'fixed' | 'static';
-
-    /**
-     * URL for users to report issues.
-     */
-    report_issue_url?: string | null;
-
-    /**
-     * Text prompting users to speak to interrupt.
-     */
-    speak_to_interrupt_text?: string;
-
-    /**
-     * Custom text displayed on the start call button.
-     */
-    start_call_text?: string;
-
-    /**
-     * The visual theme for the widget.
-     */
-    theme?: 'light' | 'dark';
-
-    /**
-     * URL to view conversation history.
-     */
-    view_history_url?: string | null;
-  }
-
-  export namespace WidgetSettings {
-    export interface AudioVisualizerConfig {
-      /**
-       * The color theme for the audio visualizer.
-       */
-      color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
-
-      /**
-       * The preset style for the audio visualizer.
-       */
-      preset?: string;
-    }
-  }
-}
-
-export interface InferenceEmbeddingBucketIDs {
-  /**
-   * List of
-   * [embedded storage buckets](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
-   * to use for retrieval-augmented generation.
-   */
-  bucket_ids: Array<string>;
-
-  /**
-   * The maximum number of results to retrieve as context for the language model.
-   */
-  max_num_results?: number;
-}
-
-export interface InferenceEmbeddingTransferToolParams {
-  /**
-   * Number or SIP URI placing the call.
-   */
-  from: string;
-
-  /**
-   * The different possible targets of the transfer. The assistant will be able to
-   * choose one of the targets to transfer the call to.
-   */
-  targets: Array<InferenceEmbeddingTransferToolParams.Target>;
-
-  /**
-   * Custom headers to be added to the SIP INVITE for the transfer command.
-   */
-  custom_headers?: Array<InferenceEmbeddingTransferToolParams.CustomHeader>;
-
-  /**
-   * Natural language instructions for your agent for how to provide context for the
-   * transfer recipient.
-   */
-  warm_transfer_instructions?: string;
-}
-
-export namespace InferenceEmbeddingTransferToolParams {
-  export interface Target {
-    /**
-     * The name of the target.
-     */
-    name?: string;
-
-    /**
-     * The destination number or SIP URI of the call.
-     */
-    to?: string;
-  }
-
-  export interface CustomHeader {
-    name?: string;
-
-    /**
-     * The value of the header. Note that we support mustache templating for the value.
-     * For example you can use
-     * `{{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of
-     * the integration secret.
-     */
-    value?: string;
-  }
+  widget_settings?: WidgetSettings;
 }
 
 export interface InferenceEmbeddingWebhookToolParams {
-  /**
-   * The description of the tool.
-   */
-  description: string;
+  type: 'webhook';
 
-  /**
-   * The name of the tool.
-   */
-  name: string;
-
-  /**
-   * The URL of the external tool to be called. This URL is going to be used by the
-   * assistant. The URL can be templated like: `https://example.com/api/v1/{id}`,
-   * where `{id}` is a placeholder for a value that will be provided by the assistant
-   * if `path_parameters` are provided with the `id` attribute.
-   */
-  url: string;
-
-  /**
-   * If async, the assistant will move forward without waiting for your server to
-   * respond.
-   */
-  async?: boolean;
-
-  /**
-   * The body parameters the webhook tool accepts, described as a JSON Schema object.
-   * These parameters will be passed to the webhook as the body of the request. See
-   * the [JSON Schema reference](https://json-schema.org/understanding-json-schema)
-   * for documentation about the format
-   */
-  body_parameters?: InferenceEmbeddingWebhookToolParams.BodyParameters;
-
-  /**
-   * The headers to be sent to the external tool.
-   */
-  headers?: Array<InferenceEmbeddingWebhookToolParams.Header>;
-
-  /**
-   * The HTTP method to be used when calling the external tool.
-   */
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-
-  /**
-   * The path parameters the webhook tool accepts, described as a JSON Schema object.
-   * These parameters will be passed to the webhook as the path of the request if the
-   * URL contains a placeholder for a value. See the
-   * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
-   * documentation about the format
-   */
-  path_parameters?: InferenceEmbeddingWebhookToolParams.PathParameters;
-
-  /**
-   * The query parameters the webhook tool accepts, described as a JSON Schema
-   * object. These parameters will be passed to the webhook as the query of the
-   * request. See the
-   * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
-   * documentation about the format
-   */
-  query_parameters?: InferenceEmbeddingWebhookToolParams.QueryParameters;
-
-  /**
-   * The maximum number of milliseconds to wait for the webhook to respond. Only
-   * applicable when async is false.
-   */
-  timeout_ms?: number;
+  webhook: InferenceEmbeddingWebhookToolParams.Webhook;
 }
 
 export namespace InferenceEmbeddingWebhookToolParams {
-  /**
-   * The body parameters the webhook tool accepts, described as a JSON Schema object.
-   * These parameters will be passed to the webhook as the body of the request. See
-   * the [JSON Schema reference](https://json-schema.org/understanding-json-schema)
-   * for documentation about the format
-   */
-  export interface BodyParameters {
+  export interface Webhook {
     /**
-     * The properties of the body parameters.
+     * The description of the tool.
      */
-    properties?: { [key: string]: unknown };
+    description: string;
 
     /**
-     * The required properties of the body parameters.
+     * The name of the tool.
      */
-    required?: Array<string>;
+    name: string;
 
-    type?: 'object';
+    /**
+     * The URL of the external tool to be called. This URL is going to be used by the
+     * assistant. The URL can be templated like: `https://example.com/api/v1/{id}`,
+     * where `{id}` is a placeholder for a value that will be provided by the assistant
+     * if `path_parameters` are provided with the `id` attribute.
+     */
+    url: string;
+
+    /**
+     * If async, the assistant will move forward without waiting for your server to
+     * respond.
+     */
+    async?: boolean;
+
+    /**
+     * The body parameters the webhook tool accepts, described as a JSON Schema object.
+     * These parameters will be passed to the webhook as the body of the request. See
+     * the [JSON Schema reference](https://json-schema.org/understanding-json-schema)
+     * for documentation about the format
+     */
+    body_parameters?: Webhook.BodyParameters;
+
+    /**
+     * The headers to be sent to the external tool.
+     */
+    headers?: Array<Webhook.Header>;
+
+    /**
+     * The HTTP method to be used when calling the external tool.
+     */
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+
+    /**
+     * The path parameters the webhook tool accepts, described as a JSON Schema object.
+     * These parameters will be passed to the webhook as the path of the request if the
+     * URL contains a placeholder for a value. See the
+     * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
+     * documentation about the format
+     */
+    path_parameters?: Webhook.PathParameters;
+
+    /**
+     * The query parameters the webhook tool accepts, described as a JSON Schema
+     * object. These parameters will be passed to the webhook as the query of the
+     * request. See the
+     * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
+     * documentation about the format
+     */
+    query_parameters?: Webhook.QueryParameters;
+
+    /**
+     * The maximum number of milliseconds to wait for the webhook to respond. Only
+     * applicable when async is false.
+     */
+    timeout_ms?: number;
   }
 
-  export interface Header {
-    name?: string;
+  export namespace Webhook {
+    /**
+     * The body parameters the webhook tool accepts, described as a JSON Schema object.
+     * These parameters will be passed to the webhook as the body of the request. See
+     * the [JSON Schema reference](https://json-schema.org/understanding-json-schema)
+     * for documentation about the format
+     */
+    export interface BodyParameters {
+      /**
+       * The properties of the body parameters.
+       */
+      properties?: { [key: string]: unknown };
+
+      /**
+       * The required properties of the body parameters.
+       */
+      required?: Array<string>;
+
+      type?: 'object';
+    }
+
+    export interface Header {
+      name?: string;
+
+      /**
+       * The value of the header. Note that we support mustache templating for the value.
+       * For example you can use
+       * `Bearer {{#integration_secret}}test-secret{{/integration_secret}}` to pass the
+       * value of the integration secret as the bearer token.
+       * [Telnyx signature headers](https://developers.telnyx.com/docs/voice/programmable-voice/voice-api-webhooks)
+       * will be automatically added to the request.
+       */
+      value?: string;
+    }
 
     /**
-     * The value of the header. Note that we support mustache templating for the value.
-     * For example you can use
-     * `Bearer {{#integration_secret}}test-secret{{/integration_secret}}` to pass the
-     * value of the integration secret as the bearer token.
-     * [Telnyx signature headers](https://developers.telnyx.com/docs/voice/programmable-voice/voice-api-webhooks)
-     * will be automatically added to the request.
+     * The path parameters the webhook tool accepts, described as a JSON Schema object.
+     * These parameters will be passed to the webhook as the path of the request if the
+     * URL contains a placeholder for a value. See the
+     * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
+     * documentation about the format
      */
-    value?: string;
-  }
+    export interface PathParameters {
+      /**
+       * The properties of the path parameters.
+       */
+      properties?: { [key: string]: unknown };
 
-  /**
-   * The path parameters the webhook tool accepts, described as a JSON Schema object.
-   * These parameters will be passed to the webhook as the path of the request if the
-   * URL contains a placeholder for a value. See the
-   * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
-   * documentation about the format
-   */
-  export interface PathParameters {
-    /**
-     * The properties of the path parameters.
-     */
-    properties?: { [key: string]: unknown };
+      /**
+       * The required properties of the path parameters.
+       */
+      required?: Array<string>;
+
+      type?: 'object';
+    }
 
     /**
-     * The required properties of the path parameters.
+     * The query parameters the webhook tool accepts, described as a JSON Schema
+     * object. These parameters will be passed to the webhook as the query of the
+     * request. See the
+     * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
+     * documentation about the format
      */
-    required?: Array<string>;
+    export interface QueryParameters {
+      /**
+       * The properties of the query parameters.
+       */
+      properties?: { [key: string]: unknown };
 
-    type?: 'object';
-  }
+      /**
+       * The required properties of the query parameters.
+       */
+      required?: Array<string>;
 
-  /**
-   * The query parameters the webhook tool accepts, described as a JSON Schema
-   * object. These parameters will be passed to the webhook as the query of the
-   * request. See the
-   * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
-   * documentation about the format
-   */
-  export interface QueryParameters {
-    /**
-     * The properties of the query parameters.
-     */
-    properties?: { [key: string]: unknown };
-
-    /**
-     * The required properties of the query parameters.
-     */
-    required?: Array<string>;
-
-    type?: 'object';
+      type?: 'object';
+    }
   }
 }
 
@@ -931,7 +878,7 @@ export interface PrivacySettings {
 }
 
 export interface RetrievalTool {
-  retrieval: InferenceEmbeddingBucketIDs;
+  retrieval: ChatAPI.BucketIDs;
 
   type: 'retrieval';
 }
@@ -1124,9 +1071,38 @@ export interface TranscriptionSettingsConfig {
 }
 
 export interface TransferTool {
-  transfer: InferenceEmbeddingTransferToolParams;
+  transfer: TransferTool.Transfer;
 
   type: 'transfer';
+}
+
+export namespace TransferTool {
+  export interface Transfer {
+    /**
+     * Number or SIP URI placing the call.
+     */
+    from: string;
+
+    /**
+     * The different possible targets of the transfer. The assistant will be able to
+     * choose one of the targets to transfer the call to.
+     */
+    targets: Array<Transfer.Target>;
+  }
+
+  export namespace Transfer {
+    export interface Target {
+      /**
+       * The name of the target.
+       */
+      name?: string;
+
+      /**
+       * The destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+  }
 }
 
 export interface VoiceSettings {
@@ -1239,7 +1215,212 @@ export namespace VoiceSettings {
 export interface WebhookTool {
   type: 'webhook';
 
-  webhook: InferenceEmbeddingWebhookToolParams;
+  webhook: WebhookTool.Webhook;
+}
+
+export namespace WebhookTool {
+  export interface Webhook {
+    /**
+     * The description of the tool.
+     */
+    description: string;
+
+    /**
+     * The name of the tool.
+     */
+    name: string;
+
+    /**
+     * The URL of the external tool to be called. This URL is going to be used by the
+     * assistant. The URL can be templated like: `https://example.com/api/v1/{id}`,
+     * where `{id}` is a placeholder for a value that will be provided by the assistant
+     * if `path_parameters` are provided with the `id` attribute.
+     */
+    url: string;
+
+    /**
+     * The body parameters the webhook tool accepts, described as a JSON Schema object.
+     * These parameters will be passed to the webhook as the body of the request. See
+     * the [JSON Schema reference](https://json-schema.org/understanding-json-schema)
+     * for documentation about the format
+     */
+    body_parameters?: Webhook.BodyParameters;
+
+    /**
+     * The headers to be sent to the external tool.
+     */
+    headers?: Array<Webhook.Header>;
+
+    /**
+     * The HTTP method to be used when calling the external tool.
+     */
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+
+    /**
+     * The path parameters the webhook tool accepts, described as a JSON Schema object.
+     * These parameters will be passed to the webhook as the path of the request if the
+     * URL contains a placeholder for a value. See the
+     * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
+     * documentation about the format
+     */
+    path_parameters?: Webhook.PathParameters;
+
+    /**
+     * The query parameters the webhook tool accepts, described as a JSON Schema
+     * object. These parameters will be passed to the webhook as the query of the
+     * request. See the
+     * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
+     * documentation about the format
+     */
+    query_parameters?: Webhook.QueryParameters;
+  }
+
+  export namespace Webhook {
+    /**
+     * The body parameters the webhook tool accepts, described as a JSON Schema object.
+     * These parameters will be passed to the webhook as the body of the request. See
+     * the [JSON Schema reference](https://json-schema.org/understanding-json-schema)
+     * for documentation about the format
+     */
+    export interface BodyParameters {
+      /**
+       * The properties of the body parameters.
+       */
+      properties?: unknown;
+
+      /**
+       * The required properties of the body parameters.
+       */
+      required?: Array<string>;
+
+      type?: 'object';
+    }
+
+    export interface Header {
+      name?: string;
+
+      /**
+       * The value of the header. Note that we support mustache templating for the value.
+       * For example you can use
+       * `Bearer {{#integration_secret}}test-secret{{/integration_secret}}` to pass the
+       * value of the integration secret as the bearer token.
+       */
+      value?: string;
+    }
+
+    /**
+     * The path parameters the webhook tool accepts, described as a JSON Schema object.
+     * These parameters will be passed to the webhook as the path of the request if the
+     * URL contains a placeholder for a value. See the
+     * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
+     * documentation about the format
+     */
+    export interface PathParameters {
+      /**
+       * The properties of the path parameters.
+       */
+      properties?: unknown;
+
+      /**
+       * The required properties of the path parameters.
+       */
+      required?: Array<string>;
+
+      type?: 'object';
+    }
+
+    /**
+     * The query parameters the webhook tool accepts, described as a JSON Schema
+     * object. These parameters will be passed to the webhook as the query of the
+     * request. See the
+     * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
+     * documentation about the format
+     */
+    export interface QueryParameters {
+      /**
+       * The properties of the query parameters.
+       */
+      properties?: unknown;
+
+      /**
+       * The required properties of the query parameters.
+       */
+      required?: Array<string>;
+
+      type?: 'object';
+    }
+  }
+}
+
+/**
+ * Configuration settings for the assistant's web widget.
+ */
+export interface WidgetSettings {
+  /**
+   * Text displayed while the agent is processing.
+   */
+  agent_thinking_text?: string;
+
+  audio_visualizer_config?: WidgetSettings.AudioVisualizerConfig;
+
+  /**
+   * The default state of the widget.
+   */
+  default_state?: 'expanded' | 'collapsed';
+
+  /**
+   * URL for users to give feedback.
+   */
+  give_feedback_url?: string | null;
+
+  /**
+   * URL to a custom logo icon for the widget.
+   */
+  logo_icon_url?: string | null;
+
+  /**
+   * The positioning style for the widget.
+   */
+  position?: 'fixed' | 'static';
+
+  /**
+   * URL for users to report issues.
+   */
+  report_issue_url?: string | null;
+
+  /**
+   * Text prompting users to speak to interrupt.
+   */
+  speak_to_interrupt_text?: string;
+
+  /**
+   * Custom text displayed on the start call button.
+   */
+  start_call_text?: string;
+
+  /**
+   * The visual theme for the widget.
+   */
+  theme?: 'light' | 'dark';
+
+  /**
+   * URL to view conversation history.
+   */
+  view_history_url?: string | null;
+}
+
+export namespace WidgetSettings {
+  export interface AudioVisualizerConfig {
+    /**
+     * The color theme for the audio visualizer.
+     */
+    color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
+
+    /**
+     * The preset style for the audio visualizer.
+     */
+    preset?: string;
+  }
 }
 
 /**
@@ -1340,80 +1521,7 @@ export interface AssistantCreateParams {
   /**
    * Configuration settings for the assistant's web widget.
    */
-  widget_settings?: AssistantCreateParams.WidgetSettings;
-}
-
-export namespace AssistantCreateParams {
-  /**
-   * Configuration settings for the assistant's web widget.
-   */
-  export interface WidgetSettings {
-    /**
-     * Text displayed while the agent is processing.
-     */
-    agent_thinking_text?: string;
-
-    audio_visualizer_config?: WidgetSettings.AudioVisualizerConfig;
-
-    /**
-     * The default state of the widget.
-     */
-    default_state?: 'expanded' | 'collapsed';
-
-    /**
-     * URL for users to give feedback.
-     */
-    give_feedback_url?: string | null;
-
-    /**
-     * URL to a custom logo icon for the widget.
-     */
-    logo_icon_url?: string | null;
-
-    /**
-     * The positioning style for the widget.
-     */
-    position?: 'fixed' | 'static';
-
-    /**
-     * URL for users to report issues.
-     */
-    report_issue_url?: string | null;
-
-    /**
-     * Text prompting users to speak to interrupt.
-     */
-    speak_to_interrupt_text?: string;
-
-    /**
-     * Custom text displayed on the start call button.
-     */
-    start_call_text?: string;
-
-    /**
-     * The visual theme for the widget.
-     */
-    theme?: 'light' | 'dark';
-
-    /**
-     * URL to view conversation history.
-     */
-    view_history_url?: string | null;
-  }
-
-  export namespace WidgetSettings {
-    export interface AudioVisualizerConfig {
-      /**
-       * The color theme for the audio visualizer.
-       */
-      color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
-
-      /**
-       * The preset style for the audio visualizer.
-       */
-      preset?: string;
-    }
-  }
+  widget_settings?: WidgetSettings;
 }
 
 export interface AssistantRetrieveParams {
@@ -1505,80 +1613,7 @@ export interface AssistantUpdateParams {
   /**
    * Configuration settings for the assistant's web widget.
    */
-  widget_settings?: AssistantUpdateParams.WidgetSettings;
-}
-
-export namespace AssistantUpdateParams {
-  /**
-   * Configuration settings for the assistant's web widget.
-   */
-  export interface WidgetSettings {
-    /**
-     * Text displayed while the agent is processing.
-     */
-    agent_thinking_text?: string;
-
-    audio_visualizer_config?: WidgetSettings.AudioVisualizerConfig;
-
-    /**
-     * The default state of the widget.
-     */
-    default_state?: 'expanded' | 'collapsed';
-
-    /**
-     * URL for users to give feedback.
-     */
-    give_feedback_url?: string | null;
-
-    /**
-     * URL to a custom logo icon for the widget.
-     */
-    logo_icon_url?: string | null;
-
-    /**
-     * The positioning style for the widget.
-     */
-    position?: 'fixed' | 'static';
-
-    /**
-     * URL for users to report issues.
-     */
-    report_issue_url?: string | null;
-
-    /**
-     * Text prompting users to speak to interrupt.
-     */
-    speak_to_interrupt_text?: string;
-
-    /**
-     * Custom text displayed on the start call button.
-     */
-    start_call_text?: string;
-
-    /**
-     * The visual theme for the widget.
-     */
-    theme?: 'light' | 'dark';
-
-    /**
-     * URL to view conversation history.
-     */
-    view_history_url?: string | null;
-  }
-
-  export namespace WidgetSettings {
-    export interface AudioVisualizerConfig {
-      /**
-       * The color theme for the audio visualizer.
-       */
-      color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
-
-      /**
-       * The preset style for the audio visualizer.
-       */
-      preset?: string;
-    }
-  }
+  widget_settings?: WidgetSettings;
 }
 
 export interface AssistantChatParams {
@@ -1646,8 +1681,6 @@ export declare namespace Assistants {
     type HangupToolParams as HangupToolParams,
     type ImportMetadata as ImportMetadata,
     type InferenceEmbedding as InferenceEmbedding,
-    type InferenceEmbeddingBucketIDs as InferenceEmbeddingBucketIDs,
-    type InferenceEmbeddingTransferToolParams as InferenceEmbeddingTransferToolParams,
     type InferenceEmbeddingWebhookToolParams as InferenceEmbeddingWebhookToolParams,
     type InsightSettings as InsightSettings,
     type MessagingSettings as MessagingSettings,
@@ -1659,6 +1692,7 @@ export declare namespace Assistants {
     type TransferTool as TransferTool,
     type VoiceSettings as VoiceSettings,
     type WebhookTool as WebhookTool,
+    type WidgetSettings as WidgetSettings,
     type AssistantDeleteResponse as AssistantDeleteResponse,
     type AssistantChatResponse as AssistantChatResponse,
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,

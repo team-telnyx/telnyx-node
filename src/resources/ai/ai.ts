@@ -51,8 +51,6 @@ import {
   HangupToolParams,
   ImportMetadata,
   InferenceEmbedding,
-  InferenceEmbeddingBucketIDs,
-  InferenceEmbeddingTransferToolParams,
   InferenceEmbeddingWebhookToolParams,
   InsightSettings,
   MessagingSettings,
@@ -64,6 +62,7 @@ import {
   TransferTool,
   VoiceSettings,
   WebhookTool,
+  WidgetSettings,
 } from './assistants/assistants';
 import * as ConversationsAPI from './conversations/conversations';
 import {
@@ -227,8 +226,6 @@ export declare namespace AI {
     type HangupToolParams as HangupToolParams,
     type ImportMetadata as ImportMetadata,
     type InferenceEmbedding as InferenceEmbedding,
-    type InferenceEmbeddingBucketIDs as InferenceEmbeddingBucketIDs,
-    type InferenceEmbeddingTransferToolParams as InferenceEmbeddingTransferToolParams,
     type InferenceEmbeddingWebhookToolParams as InferenceEmbeddingWebhookToolParams,
     type InsightSettings as InsightSettings,
     type MessagingSettings as MessagingSettings,
@@ -240,6 +237,7 @@ export declare namespace AI {
     type TransferTool as TransferTool,
     type VoiceSettings as VoiceSettings,
     type WebhookTool as WebhookTool,
+    type WidgetSettings as WidgetSettings,
     type AssistantDeleteResponse as AssistantDeleteResponse,
     type AssistantChatResponse as AssistantChatResponse,
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,
