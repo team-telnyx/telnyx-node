@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as AssistantsAPI from './assistants/assistants';
+import * as ChatAPI from './chat';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -33,6 +33,11 @@ export class Chat extends APIResource {
 }
 
 export interface BucketIDs {
+  /**
+   * List of
+   * [embedded storage buckets](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
+   * to use for retrieval-augmented generation.
+   */
   bucket_ids: Array<string>;
 
   /**
@@ -222,7 +227,7 @@ export namespace ChatCreateCompletionParams {
   }
 
   export interface Retrieval {
-    retrieval: AssistantsAPI.InferenceEmbeddingBucketIDs;
+    retrieval: ChatAPI.BucketIDs;
 
     type: 'retrieval';
   }

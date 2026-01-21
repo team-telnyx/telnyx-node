@@ -4010,6 +4010,7 @@ export declare namespace Telnyx {
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
+  export type ConnectionNoiseSuppressionDetails = API.ConnectionNoiseSuppressionDetails;
   export type ConnectionsPaginationMeta = API.ConnectionsPaginationMeta;
   export type DocReqsRequirementType = API.DocReqsRequirementType;
   export type HostedNumber = API.HostedNumber;
