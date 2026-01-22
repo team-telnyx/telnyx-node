@@ -2,9 +2,9 @@
 
 import { APIResource } from '../../../core/resource';
 import * as Shared from '../../shared';
-import { RoomParticipantsDefaultFlatPagination } from '../../shared';
+import { RoomParticipantsDefaultPagination } from '../../shared';
 import * as RoomsAPI from '../rooms';
-import { RoomSessionsDefaultFlatPagination } from '../rooms';
+import { RoomSessionsDefaultPagination } from '../rooms';
 import * as ActionsAPI from './actions';
 import {
   ActionEndResponse,
@@ -18,11 +18,7 @@ import {
   ActionsParticipantsRequest,
 } from './actions';
 import { APIPromise } from '../../../core/api-promise';
-import {
-  DefaultFlatPagination,
-  type DefaultFlatPaginationParams,
-  PagePromise,
-} from '../../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -61,8 +57,8 @@ export class Sessions extends APIResource {
   list0(
     query: SessionList0Params | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RoomSessionsDefaultFlatPagination, RoomsAPI.RoomSession> {
-    return this._client.getAPIList('/room_sessions', DefaultFlatPagination<RoomsAPI.RoomSession>, {
+  ): PagePromise<RoomSessionsDefaultPagination, RoomsAPI.RoomSession> {
+    return this._client.getAPIList('/room_sessions', DefaultPagination<RoomsAPI.RoomSession>, {
       query,
       ...options,
     });
@@ -85,12 +81,11 @@ export class Sessions extends APIResource {
     roomID: string,
     query: SessionList1Params | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RoomSessionsDefaultFlatPagination, RoomsAPI.RoomSession> {
-    return this._client.getAPIList(
-      path`/rooms/${roomID}/sessions`,
-      DefaultFlatPagination<RoomsAPI.RoomSession>,
-      { query, ...options },
-    );
+  ): PagePromise<RoomSessionsDefaultPagination, RoomsAPI.RoomSession> {
+    return this._client.getAPIList(path`/rooms/${roomID}/sessions`, DefaultPagination<RoomsAPI.RoomSession>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -110,10 +105,10 @@ export class Sessions extends APIResource {
     roomSessionID: string,
     query: SessionRetrieveParticipantsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RoomParticipantsDefaultFlatPagination, Shared.RoomParticipant> {
+  ): PagePromise<RoomParticipantsDefaultPagination, Shared.RoomParticipant> {
     return this._client.getAPIList(
       path`/room_sessions/${roomSessionID}/participants`,
-      DefaultFlatPagination<Shared.RoomParticipant>,
+      DefaultPagination<Shared.RoomParticipant>,
       { query, ...options },
     );
   }
@@ -130,7 +125,7 @@ export interface SessionRetrieveParams {
   include_participants?: boolean;
 }
 
-export interface SessionList0Params extends DefaultFlatPaginationParams {
+export interface SessionList0Params extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_created_at][eq], filter[date_created_at][gte],
@@ -228,7 +223,7 @@ export namespace SessionList0Params {
   }
 }
 
-export interface SessionList1Params extends DefaultFlatPaginationParams {
+export interface SessionList1Params extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_created_at][eq], filter[date_created_at][gte],
@@ -321,7 +316,7 @@ export namespace SessionList1Params {
   }
 }
 
-export interface SessionRetrieveParticipantsParams extends DefaultFlatPaginationParams {
+export interface SessionRetrieveParticipantsParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_joined_at][eq], filter[date_joined_at][gte],
@@ -434,4 +429,4 @@ export declare namespace Sessions {
   };
 }
 
-export { type RoomSessionsDefaultFlatPagination, type RoomParticipantsDefaultFlatPagination };
+export { type RoomSessionsDefaultPagination, type RoomParticipantsDefaultPagination };

@@ -20,7 +20,7 @@ import {
   CsvDownloadListParams,
   CsvDownloadRetrieveResponse,
   CsvDownloads,
-  CsvDownloadsDefaultFlatPagination,
+  CsvDownloadsDefaultPagination,
 } from './csv-downloads';
 import * as JobsAPI from './jobs';
 import {
@@ -34,7 +34,7 @@ import {
   JobUpdateEmergencySettingsBatchResponse,
   Jobs,
   PhoneNumbersJob,
-  PhoneNumbersJobsDefaultFlatPagination,
+  PhoneNumbersJobsDefaultPagination,
 } from './jobs';
 import * as MessagingAPI from './messaging';
 import {
@@ -69,7 +69,7 @@ import {
   VoicemailUpdateResponse,
 } from './voicemail';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -127,8 +127,8 @@ export class PhoneNumbers extends APIResource {
   list(
     query: PhoneNumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PhoneNumberDetailedsDefaultFlatPagination, PhoneNumberDetailed> {
-    return this._client.getAPIList('/phone_numbers', DefaultFlatPagination<PhoneNumberDetailed>, {
+  ): PagePromise<PhoneNumberDetailedsDefaultPagination, PhoneNumberDetailed> {
+    return this._client.getAPIList('/phone_numbers', DefaultPagination<PhoneNumberDetailed>, {
       query,
       ...options,
     });
@@ -163,19 +163,17 @@ export class PhoneNumbers extends APIResource {
   slimList(
     query: PhoneNumberSlimListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PhoneNumberSlimListResponsesDefaultFlatPagination, PhoneNumberSlimListResponse> {
-    return this._client.getAPIList(
-      '/phone_numbers/slim',
-      DefaultFlatPagination<PhoneNumberSlimListResponse>,
-      { query, ...options },
-    );
+  ): PagePromise<PhoneNumberSlimListResponsesDefaultPagination, PhoneNumberSlimListResponse> {
+    return this._client.getAPIList('/phone_numbers/slim', DefaultPagination<PhoneNumberSlimListResponse>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type PhoneNumberDetailedsDefaultFlatPagination = DefaultFlatPagination<PhoneNumberDetailed>;
+export type PhoneNumberDetailedsDefaultPagination = DefaultPagination<PhoneNumberDetailed>;
 
-export type PhoneNumberSlimListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<PhoneNumberSlimListResponse>;
+export type PhoneNumberSlimListResponsesDefaultPagination = DefaultPagination<PhoneNumberSlimListResponse>;
 
 export interface PhoneNumberDetailed {
   /**
@@ -683,7 +681,7 @@ export interface PhoneNumberUpdateParams {
   tags?: Array<string>;
 }
 
-export interface PhoneNumberListParams extends DefaultFlatPaginationParams {
+export interface PhoneNumberListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[tag],
    * filter[phone_number], filter[status], filter[country_iso_alpha2],
@@ -842,7 +840,7 @@ export namespace PhoneNumberListParams {
   }
 }
 
-export interface PhoneNumberSlimListParams extends DefaultFlatPaginationParams {
+export interface PhoneNumberSlimListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[tag],
    * filter[phone_number], filter[status], filter[country_iso_alpha2],
@@ -1014,8 +1012,8 @@ export declare namespace PhoneNumbers {
     type PhoneNumberUpdateResponse as PhoneNumberUpdateResponse,
     type PhoneNumberDeleteResponse as PhoneNumberDeleteResponse,
     type PhoneNumberSlimListResponse as PhoneNumberSlimListResponse,
-    type PhoneNumberDetailedsDefaultFlatPagination as PhoneNumberDetailedsDefaultFlatPagination,
-    type PhoneNumberSlimListResponsesDefaultFlatPagination as PhoneNumberSlimListResponsesDefaultFlatPagination,
+    type PhoneNumberDetailedsDefaultPagination as PhoneNumberDetailedsDefaultPagination,
+    type PhoneNumberSlimListResponsesDefaultPagination as PhoneNumberSlimListResponsesDefaultPagination,
     type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberSlimListParams as PhoneNumberSlimListParams,
@@ -1037,7 +1035,7 @@ export declare namespace PhoneNumbers {
     type CsvDownload as CsvDownload,
     type CsvDownloadCreateResponse as CsvDownloadCreateResponse,
     type CsvDownloadRetrieveResponse as CsvDownloadRetrieveResponse,
-    type CsvDownloadsDefaultFlatPagination as CsvDownloadsDefaultFlatPagination,
+    type CsvDownloadsDefaultPagination as CsvDownloadsDefaultPagination,
     type CsvDownloadCreateParams as CsvDownloadCreateParams,
     type CsvDownloadListParams as CsvDownloadListParams,
   };
@@ -1049,7 +1047,7 @@ export declare namespace PhoneNumbers {
     type JobDeleteBatchResponse as JobDeleteBatchResponse,
     type JobUpdateBatchResponse as JobUpdateBatchResponse,
     type JobUpdateEmergencySettingsBatchResponse as JobUpdateEmergencySettingsBatchResponse,
-    type PhoneNumbersJobsDefaultFlatPagination as PhoneNumbersJobsDefaultFlatPagination,
+    type PhoneNumbersJobsDefaultPagination as PhoneNumbersJobsDefaultPagination,
     type JobListParams as JobListParams,
     type JobDeleteBatchParams as JobDeleteBatchParams,
     type JobUpdateBatchParams as JobUpdateBatchParams,

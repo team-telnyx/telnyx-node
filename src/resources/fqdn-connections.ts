@@ -1,10 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as Shared from './shared';
 import * as CredentialConnectionsAPI from './credential-connections/credential-connections';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -71,8 +70,8 @@ export class FqdnConnections extends APIResource {
   list(
     query: FqdnConnectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<FqdnConnectionsDefaultFlatPagination, FqdnConnection> {
-    return this._client.getAPIList('/fqdn_connections', DefaultFlatPagination<FqdnConnection>, {
+  ): PagePromise<FqdnConnectionsDefaultPagination, FqdnConnection> {
+    return this._client.getAPIList('/fqdn_connections', DefaultPagination<FqdnConnection>, {
       query,
       ...options,
     });
@@ -93,7 +92,7 @@ export class FqdnConnections extends APIResource {
   }
 }
 
-export type FqdnConnectionsDefaultFlatPagination = DefaultFlatPagination<FqdnConnection>;
+export type FqdnConnectionsDefaultPagination = DefaultPagination<FqdnConnection>;
 
 export interface FqdnConnection {
   /**
@@ -194,7 +193,7 @@ export interface FqdnConnection {
    * noise_suppression is not 'disabled'. If you disable noise suppression and later
    * re-enable it, the previously configured settings will be used.
    */
-  noise_suppression_details?: Shared.ConnectionNoiseSuppressionDetails;
+  noise_suppression_details?: FqdnConnection.NoiseSuppressionDetails;
 
   /**
    * Enable on-net T38 if you prefer that the sender and receiver negotiate T38
@@ -289,6 +288,40 @@ export interface FqdnConnection {
    * Specifies how many seconds to wait before timing out a webhook.
    */
   webhook_timeout_secs?: number | null;
+}
+
+export namespace FqdnConnection {
+  /**
+   * Configuration options for noise suppression. These settings are stored
+   * regardless of the noise_suppression value, but only take effect when
+   * noise_suppression is not 'disabled'. If you disable noise suppression and later
+   * re-enable it, the previously configured settings will be used.
+   */
+  export interface NoiseSuppressionDetails {
+    /**
+     * The attenuation limit value for the selected engine. Default values vary by
+     * engine: 0 for 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and
+     * all Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
+     * 'krisp_viva_promodel', 'krisp_viva_ss').
+     */
+    attenuation_limit?: number;
+
+    /**
+     * The noise suppression engine to use. 'denoiser' is the default engine.
+     * 'deep_filter_net' and 'deep_filter_net_large' are alternative engines with
+     * different performance characteristics. Krisp engines ('krisp_viva_tel',
+     * 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced
+     * noise suppression capabilities.
+     */
+    engine?:
+      | 'denoiser'
+      | 'deep_filter_net'
+      | 'deep_filter_net_large'
+      | 'krisp_viva_tel'
+      | 'krisp_viva_tel_lite'
+      | 'krisp_viva_promodel'
+      | 'krisp_viva_ss';
+  }
 }
 
 export interface InboundFqdn {
@@ -600,7 +633,7 @@ export interface FqdnConnectionCreateParams {
    * noise_suppression is not 'disabled'. If you disable noise suppression and later
    * re-enable it, the previously configured settings will be used.
    */
-  noise_suppression_details?: Shared.ConnectionNoiseSuppressionDetails;
+  noise_suppression_details?: FqdnConnectionCreateParams.NoiseSuppressionDetails;
 
   /**
    * Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly
@@ -645,6 +678,40 @@ export interface FqdnConnectionCreateParams {
    * Specifies how many seconds to wait before timing out a webhook.
    */
   webhook_timeout_secs?: number | null;
+}
+
+export namespace FqdnConnectionCreateParams {
+  /**
+   * Configuration options for noise suppression. These settings are stored
+   * regardless of the noise_suppression value, but only take effect when
+   * noise_suppression is not 'disabled'. If you disable noise suppression and later
+   * re-enable it, the previously configured settings will be used.
+   */
+  export interface NoiseSuppressionDetails {
+    /**
+     * The attenuation limit value for the selected engine. Default values vary by
+     * engine: 0 for 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and
+     * all Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
+     * 'krisp_viva_promodel', 'krisp_viva_ss').
+     */
+    attenuation_limit?: number;
+
+    /**
+     * The noise suppression engine to use. 'denoiser' is the default engine.
+     * 'deep_filter_net' and 'deep_filter_net_large' are alternative engines with
+     * different performance characteristics. Krisp engines ('krisp_viva_tel',
+     * 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced
+     * noise suppression capabilities.
+     */
+    engine?:
+      | 'denoiser'
+      | 'deep_filter_net'
+      | 'deep_filter_net_large'
+      | 'krisp_viva_tel'
+      | 'krisp_viva_tel_lite'
+      | 'krisp_viva_promodel'
+      | 'krisp_viva_ss';
+  }
 }
 
 export interface FqdnConnectionUpdateParams {
@@ -721,7 +788,7 @@ export interface FqdnConnectionUpdateParams {
    * noise_suppression is not 'disabled'. If you disable noise suppression and later
    * re-enable it, the previously configured settings will be used.
    */
-  noise_suppression_details?: Shared.ConnectionNoiseSuppressionDetails;
+  noise_suppression_details?: FqdnConnectionUpdateParams.NoiseSuppressionDetails;
 
   /**
    * Enable on-net T38 if you prefer that the sender and receiver negotiate T38
@@ -768,7 +835,41 @@ export interface FqdnConnectionUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface FqdnConnectionListParams extends DefaultFlatPaginationParams {
+export namespace FqdnConnectionUpdateParams {
+  /**
+   * Configuration options for noise suppression. These settings are stored
+   * regardless of the noise_suppression value, but only take effect when
+   * noise_suppression is not 'disabled'. If you disable noise suppression and later
+   * re-enable it, the previously configured settings will be used.
+   */
+  export interface NoiseSuppressionDetails {
+    /**
+     * The attenuation limit value for the selected engine. Default values vary by
+     * engine: 0 for 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and
+     * all Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
+     * 'krisp_viva_promodel', 'krisp_viva_ss').
+     */
+    attenuation_limit?: number;
+
+    /**
+     * The noise suppression engine to use. 'denoiser' is the default engine.
+     * 'deep_filter_net' and 'deep_filter_net_large' are alternative engines with
+     * different performance characteristics. Krisp engines ('krisp_viva_tel',
+     * 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced
+     * noise suppression capabilities.
+     */
+    engine?:
+      | 'denoiser'
+      | 'deep_filter_net'
+      | 'deep_filter_net_large'
+      | 'krisp_viva_tel'
+      | 'krisp_viva_tel_lite'
+      | 'krisp_viva_promodel'
+      | 'krisp_viva_ss';
+  }
+}
+
+export interface FqdnConnectionListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
@@ -845,7 +946,7 @@ export declare namespace FqdnConnections {
     type FqdnConnectionRetrieveResponse as FqdnConnectionRetrieveResponse,
     type FqdnConnectionUpdateResponse as FqdnConnectionUpdateResponse,
     type FqdnConnectionDeleteResponse as FqdnConnectionDeleteResponse,
-    type FqdnConnectionsDefaultFlatPagination as FqdnConnectionsDefaultFlatPagination,
+    type FqdnConnectionsDefaultPagination as FqdnConnectionsDefaultPagination,
     type FqdnConnectionCreateParams as FqdnConnectionCreateParams,
     type FqdnConnectionUpdateParams as FqdnConnectionUpdateParams,
     type FqdnConnectionListParams as FqdnConnectionListParams,

@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -20,15 +20,15 @@ export class OtaUpdates extends APIResource {
   list(
     query: OtaUpdateListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<OtaUpdateListResponsesDefaultFlatPagination, OtaUpdateListResponse> {
-    return this._client.getAPIList('/ota_updates', DefaultFlatPagination<OtaUpdateListResponse>, {
+  ): PagePromise<OtaUpdateListResponsesDefaultPagination, OtaUpdateListResponse> {
+    return this._client.getAPIList('/ota_updates', DefaultPagination<OtaUpdateListResponse>, {
       query,
       ...options,
     });
   }
 }
 
-export type OtaUpdateListResponsesDefaultFlatPagination = DefaultFlatPagination<OtaUpdateListResponse>;
+export type OtaUpdateListResponsesDefaultPagination = DefaultPagination<OtaUpdateListResponse>;
 
 export interface OtaUpdateRetrieveResponse {
   /**
@@ -156,7 +156,7 @@ export interface OtaUpdateListResponse {
   updated_at?: string;
 }
 
-export interface OtaUpdateListParams extends DefaultFlatPaginationParams {
+export interface OtaUpdateListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter for OTA updates (deepObject style). Originally:
    * filter[status], filter[sim_card_id], filter[type]
@@ -191,7 +191,7 @@ export declare namespace OtaUpdates {
   export {
     type OtaUpdateRetrieveResponse as OtaUpdateRetrieveResponse,
     type OtaUpdateListResponse as OtaUpdateListResponse,
-    type OtaUpdateListResponsesDefaultFlatPagination as OtaUpdateListResponsesDefaultFlatPagination,
+    type OtaUpdateListResponsesDefaultPagination as OtaUpdateListResponsesDefaultPagination,
     type OtaUpdateListParams as OtaUpdateListParams,
   };
 }

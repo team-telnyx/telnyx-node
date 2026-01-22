@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -107,10 +107,10 @@ export class LoaConfigurations extends APIResource {
   list(
     query: LoaConfigurationListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortingLoaConfigurationsDefaultFlatPagination, PortingLoaConfiguration> {
+  ): PagePromise<PortingLoaConfigurationsDefaultPagination, PortingLoaConfiguration> {
     return this._client.getAPIList(
       '/porting/loa_configurations',
-      DefaultFlatPagination<PortingLoaConfiguration>,
+      DefaultPagination<PortingLoaConfiguration>,
       { query, ...options },
     );
   }
@@ -194,7 +194,7 @@ export class LoaConfigurations extends APIResource {
   }
 }
 
-export type PortingLoaConfigurationsDefaultFlatPagination = DefaultFlatPagination<PortingLoaConfiguration>;
+export type PortingLoaConfigurationsDefaultPagination = DefaultPagination<PortingLoaConfiguration>;
 
 export interface PortingLoaConfiguration {
   /**
@@ -505,7 +505,7 @@ export namespace LoaConfigurationUpdateParams {
   }
 }
 
-export interface LoaConfigurationListParams extends DefaultFlatPaginationParams {}
+export interface LoaConfigurationListParams extends DefaultPaginationParams {}
 
 export interface LoaConfigurationPreview0Params {
   /**
@@ -602,7 +602,7 @@ export declare namespace LoaConfigurations {
     type LoaConfigurationCreateResponse as LoaConfigurationCreateResponse,
     type LoaConfigurationRetrieveResponse as LoaConfigurationRetrieveResponse,
     type LoaConfigurationUpdateResponse as LoaConfigurationUpdateResponse,
-    type PortingLoaConfigurationsDefaultFlatPagination as PortingLoaConfigurationsDefaultFlatPagination,
+    type PortingLoaConfigurationsDefaultPagination as PortingLoaConfigurationsDefaultPagination,
     type LoaConfigurationCreateParams as LoaConfigurationCreateParams,
     type LoaConfigurationUpdateParams as LoaConfigurationUpdateParams,
     type LoaConfigurationListParams as LoaConfigurationListParams,

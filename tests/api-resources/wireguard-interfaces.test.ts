@@ -61,8 +61,7 @@ describe('resource wireguardInterfaces', () => {
       client.wireguardInterfaces.list(
         {
           filter: { network_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58' },
-          'page[number]': 0,
-          'page[size]': 0,
+          page: { number: 1, size: 1 },
         },
         { path: '/_stainless_unknown_path' },
       ),

@@ -3,7 +3,6 @@
 export { Actions, type ActionRemoveResponse } from './actions';
 export {
   Users,
-  type UserGroupReference,
   type UserRetrieveResponse,
   type UserListResponse,
   type UserGetGroupsReportResponse,

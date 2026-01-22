@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as UsersAPI from './users';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -40,7 +39,7 @@ export namespace ActionRemoveResponse {
      * The groups the user belongs to. Only included when include_groups parameter is
      * true.
      */
-    groups?: Array<UsersAPI.UserGroupReference>;
+    groups?: Array<Data.Group>;
 
     /**
      * ISO 8601 formatted date indicating when the resource last signed into the
@@ -64,6 +63,23 @@ export namespace ActionRemoveResponse {
      * The status of the account.
      */
     user_status?: 'enabled' | 'disabled' | 'blocked';
+  }
+
+  export namespace Data {
+    /**
+     * A reference to a group that a user belongs to.
+     */
+    export interface Group {
+      /**
+       * The unique identifier of the group.
+       */
+      id: string;
+
+      /**
+       * The name of the group.
+       */
+      name: string;
+    }
   }
 }
 

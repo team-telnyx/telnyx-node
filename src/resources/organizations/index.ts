@@ -3,7 +3,6 @@
 export { Organizations } from './organizations';
 export {
   Users,
-  type UserGroupReference,
   type UserRetrieveResponse,
   type UserListResponse,
   type UserGetGroupsReportResponse,

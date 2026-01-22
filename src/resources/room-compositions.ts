@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -53,8 +53,8 @@ export class RoomCompositions extends APIResource {
   list(
     query: RoomCompositionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RoomCompositionsDefaultFlatPagination, RoomComposition> {
-    return this._client.getAPIList('/room_compositions', DefaultFlatPagination<RoomComposition>, {
+  ): PagePromise<RoomCompositionsDefaultPagination, RoomComposition> {
+    return this._client.getAPIList('/room_compositions', DefaultPagination<RoomComposition>, {
       query,
       ...options,
     });
@@ -78,7 +78,7 @@ export class RoomCompositions extends APIResource {
   }
 }
 
-export type RoomCompositionsDefaultFlatPagination = DefaultFlatPagination<RoomComposition>;
+export type RoomCompositionsDefaultPagination = DefaultPagination<RoomComposition>;
 
 export interface RoomComposition {
   /**
@@ -274,7 +274,7 @@ export interface RoomCompositionCreateParams {
   webhook_timeout_secs?: number;
 }
 
-export interface RoomCompositionListParams extends DefaultFlatPaginationParams {
+export interface RoomCompositionListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_created_at][eq], filter[date_created_at][gte],
@@ -329,7 +329,7 @@ export declare namespace RoomCompositions {
     type VideoRegion as VideoRegion,
     type RoomCompositionCreateResponse as RoomCompositionCreateResponse,
     type RoomCompositionRetrieveResponse as RoomCompositionRetrieveResponse,
-    type RoomCompositionsDefaultFlatPagination as RoomCompositionsDefaultFlatPagination,
+    type RoomCompositionsDefaultPagination as RoomCompositionsDefaultPagination,
     type RoomCompositionCreateParams as RoomCompositionCreateParams,
     type RoomCompositionListParams as RoomCompositionListParams,
   };

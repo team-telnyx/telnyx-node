@@ -2,9 +2,9 @@
 
 import { APIResource } from '../core/resource';
 import * as Shared from './shared';
-import { RoomParticipantsDefaultFlatPagination } from './shared';
+import { RoomParticipantsDefaultPagination } from './shared';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -22,8 +22,8 @@ export class RoomParticipants extends APIResource {
   list(
     query: RoomParticipantListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RoomParticipantsDefaultFlatPagination, Shared.RoomParticipant> {
-    return this._client.getAPIList('/room_participants', DefaultFlatPagination<Shared.RoomParticipant>, {
+  ): PagePromise<RoomParticipantsDefaultPagination, Shared.RoomParticipant> {
+    return this._client.getAPIList('/room_participants', DefaultPagination<Shared.RoomParticipant>, {
       query,
       ...options,
     });
@@ -34,7 +34,7 @@ export interface RoomParticipantRetrieveResponse {
   data?: Shared.RoomParticipant;
 }
 
-export interface RoomParticipantListParams extends DefaultFlatPaginationParams {
+export interface RoomParticipantListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_joined_at][eq], filter[date_joined_at][gte],
@@ -135,4 +135,4 @@ export declare namespace RoomParticipants {
   };
 }
 
-export { type RoomParticipantsDefaultFlatPagination };
+export { type RoomParticipantsDefaultPagination };
