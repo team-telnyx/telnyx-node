@@ -403,6 +403,12 @@ export interface ConferenceListParams extends DefaultFlatPaginationParams {
   filter?: ConferenceListParams.Filter;
 
   /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  page?: ConferenceListParams.Page;
+
+  /**
    * Region where the conference data is located
    */
   region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
@@ -528,6 +534,27 @@ export namespace ConferenceListParams {
       lte?: string;
     }
   }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  export interface Page {
+    /**
+     * Opaque identifier of next page
+     */
+    after?: string;
+
+    /**
+     * Opaque identifier of previous page
+     */
+    before?: string;
+
+    /**
+     * Limit of records per single page
+     */
+    limit?: number;
+  }
 }
 
 export interface ConferenceListParticipantsParams extends DefaultFlatPaginationParams {
@@ -536,6 +563,12 @@ export interface ConferenceListParticipantsParams extends DefaultFlatPaginationP
    * filter[on_hold], filter[whispering]
    */
   filter?: ConferenceListParticipantsParams.Filter;
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  page?: ConferenceListParticipantsParams.Page;
 
   /**
    * Region where the conference data is located
@@ -563,6 +596,27 @@ export namespace ConferenceListParticipantsParams {
      * If present, participants will be filtered to those who are whispering or are not
      */
     whispering?: boolean;
+  }
+
+  /**
+   * Consolidated page parameter (deepObject style). Originally: page[after],
+   * page[before], page[limit], page[size], page[number]
+   */
+  export interface Page {
+    /**
+     * Opaque identifier of next page
+     */
+    after?: string;
+
+    /**
+     * Opaque identifier of previous page
+     */
+    before?: string;
+
+    /**
+     * Limit of records per single page
+     */
+    limit?: number;
   }
 }
 

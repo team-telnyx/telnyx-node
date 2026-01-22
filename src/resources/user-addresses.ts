@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -54,15 +54,12 @@ export class UserAddresses extends APIResource {
   list(
     query: UserAddressListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<UserAddressesDefaultFlatPagination, UserAddress> {
-    return this._client.getAPIList('/user_addresses', DefaultFlatPagination<UserAddress>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<UserAddressesDefaultPagination, UserAddress> {
+    return this._client.getAPIList('/user_addresses', DefaultPagination<UserAddress>, { query, ...options });
   }
 }
 
-export type UserAddressesDefaultFlatPagination = DefaultFlatPagination<UserAddress>;
+export type UserAddressesDefaultPagination = DefaultPagination<UserAddress>;
 
 export interface UserAddress {
   /**
@@ -251,7 +248,7 @@ export interface UserAddressCreateParams {
   skip_address_verification?: boolean;
 }
 
-export interface UserAddressListParams extends DefaultFlatPaginationParams {
+export interface UserAddressListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[customer_reference][eq], filter[customer_reference][contains],
@@ -337,7 +334,7 @@ export declare namespace UserAddresses {
     type UserAddress as UserAddress,
     type UserAddressCreateResponse as UserAddressCreateResponse,
     type UserAddressRetrieveResponse as UserAddressRetrieveResponse,
-    type UserAddressesDefaultFlatPagination as UserAddressesDefaultFlatPagination,
+    type UserAddressesDefaultPagination as UserAddressesDefaultPagination,
     type UserAddressCreateParams as UserAddressCreateParams,
     type UserAddressListParams as UserAddressListParams,
   };

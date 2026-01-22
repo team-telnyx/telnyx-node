@@ -2,7 +2,7 @@
 
 import * as Shared from './shared';
 import * as MessagesAPI from './messages/messages';
-import { DefaultFlatPagination } from '../core/pagination';
+import { DefaultPagination } from '../core/pagination';
 
 export interface APIError {
   code: string;
@@ -34,38 +34,6 @@ export interface AvailablePhoneNumbersMetadata {
   best_effort_results?: number;
 
   total_results?: number;
-}
-
-/**
- * Configuration options for noise suppression. These settings are stored
- * regardless of the noise_suppression value, but only take effect when
- * noise_suppression is not 'disabled'. If you disable noise suppression and later
- * re-enable it, the previously configured settings will be used.
- */
-export interface ConnectionNoiseSuppressionDetails {
-  /**
-   * The attenuation limit value for the selected engine. Default values vary by
-   * engine: 0 for 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and
-   * all Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
-   * 'krisp_viva_promodel', 'krisp_viva_ss').
-   */
-  attenuation_limit?: number;
-
-  /**
-   * The noise suppression engine to use. 'denoiser' is the default engine.
-   * 'deep_filter_net' and 'deep_filter_net_large' are alternative engines with
-   * different performance characteristics. Krisp engines ('krisp_viva_tel',
-   * 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced
-   * noise suppression capabilities.
-   */
-  engine?:
-    | 'denoiser'
-    | 'deep_filter_net'
-    | 'deep_filter_net_large'
-    | 'krisp_viva_tel'
-    | 'krisp_viva_tel_lite'
-    | 'krisp_viva_promodel'
-    | 'krisp_viva_ss';
 }
 
 export interface ConnectionsPaginationMeta {
@@ -960,14 +928,13 @@ export interface SubNumberOrderRegulatoryRequirementWithValue {
   requirement_id?: string;
 }
 
-export type MessagingHostedNumberOrdersDefaultFlatPagination =
-  DefaultFlatPagination<MessagingHostedNumberOrder>;
+export type MessagingHostedNumberOrdersDefaultPagination = DefaultPagination<MessagingHostedNumberOrder>;
 
-export type PhoneNumberWithMessagingSettingsDefaultFlatPagination =
-  DefaultFlatPagination<PhoneNumberWithMessagingSettings>;
+export type PhoneNumberWithMessagingSettingsDefaultPagination =
+  DefaultPagination<PhoneNumberWithMessagingSettings>;
 
-export type ShortCodesDefaultFlatPagination = DefaultFlatPagination<ShortCode>;
+export type ShortCodesDefaultPagination = DefaultPagination<ShortCode>;
 
-export type RoomParticipantsDefaultFlatPagination = DefaultFlatPagination<RoomParticipant>;
+export type RoomParticipantsDefaultPagination = DefaultPagination<RoomParticipant>;
 
-export type SimpleSimCardsDefaultFlatPagination = DefaultFlatPagination<SimpleSimCard>;
+export type SimpleSimCardsDefaultPagination = DefaultPagination<SimpleSimCard>;

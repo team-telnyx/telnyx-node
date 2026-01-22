@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -52,10 +52,10 @@ export class PhoneNumberExtensions extends APIResource {
     portingOrderID: string,
     query: PhoneNumberExtensionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortingPhoneNumberExtensionsDefaultFlatPagination, PortingPhoneNumberExtension> {
+  ): PagePromise<PortingPhoneNumberExtensionsDefaultPagination, PortingPhoneNumberExtension> {
     return this._client.getAPIList(
       path`/porting_orders/${portingOrderID}/phone_number_extensions`,
-      DefaultFlatPagination<PortingPhoneNumberExtension>,
+      DefaultPagination<PortingPhoneNumberExtension>,
       { query, ...options },
     );
   }
@@ -88,8 +88,7 @@ export class PhoneNumberExtensions extends APIResource {
   }
 }
 
-export type PortingPhoneNumberExtensionsDefaultFlatPagination =
-  DefaultFlatPagination<PortingPhoneNumberExtension>;
+export type PortingPhoneNumberExtensionsDefaultPagination = DefaultPagination<PortingPhoneNumberExtension>;
 
 export interface PortingPhoneNumberExtension {
   /**
@@ -219,7 +218,7 @@ export namespace PhoneNumberExtensionCreateParams {
   }
 }
 
-export interface PhoneNumberExtensionListParams extends DefaultFlatPaginationParams {
+export interface PhoneNumberExtensionListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[porting_phone_number_id]
@@ -268,7 +267,7 @@ export declare namespace PhoneNumberExtensions {
     type PortingPhoneNumberExtension as PortingPhoneNumberExtension,
     type PhoneNumberExtensionCreateResponse as PhoneNumberExtensionCreateResponse,
     type PhoneNumberExtensionDeleteResponse as PhoneNumberExtensionDeleteResponse,
-    type PortingPhoneNumberExtensionsDefaultFlatPagination as PortingPhoneNumberExtensionsDefaultFlatPagination,
+    type PortingPhoneNumberExtensionsDefaultPagination as PortingPhoneNumberExtensionsDefaultPagination,
     type PhoneNumberExtensionCreateParams as PhoneNumberExtensionCreateParams,
     type PhoneNumberExtensionListParams as PhoneNumberExtensionListParams,
     type PhoneNumberExtensionDeleteParams as PhoneNumberExtensionDeleteParams,

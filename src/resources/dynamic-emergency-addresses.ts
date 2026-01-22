@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -59,10 +59,10 @@ export class DynamicEmergencyAddresses extends APIResource {
   list(
     query: DynamicEmergencyAddressListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<DynamicEmergencyAddressesDefaultFlatPagination, DynamicEmergencyAddress> {
+  ): PagePromise<DynamicEmergencyAddressesDefaultPagination, DynamicEmergencyAddress> {
     return this._client.getAPIList(
       '/dynamic_emergency_addresses',
-      DefaultFlatPagination<DynamicEmergencyAddress>,
+      DefaultPagination<DynamicEmergencyAddress>,
       { query, ...options },
     );
   }
@@ -83,7 +83,7 @@ export class DynamicEmergencyAddresses extends APIResource {
   }
 }
 
-export type DynamicEmergencyAddressesDefaultFlatPagination = DefaultFlatPagination<DynamicEmergencyAddress>;
+export type DynamicEmergencyAddressesDefaultPagination = DefaultPagination<DynamicEmergencyAddress>;
 
 export interface DynamicEmergencyAddress {
   administrative_area: string;
@@ -173,7 +173,7 @@ export interface DynamicEmergencyAddressCreateParams {
   street_suffix?: string;
 }
 
-export interface DynamicEmergencyAddressListParams extends DefaultFlatPaginationParams {
+export interface DynamicEmergencyAddressListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
    * filter[country_code]
@@ -205,7 +205,7 @@ export declare namespace DynamicEmergencyAddresses {
     type DynamicEmergencyAddressCreateResponse as DynamicEmergencyAddressCreateResponse,
     type DynamicEmergencyAddressRetrieveResponse as DynamicEmergencyAddressRetrieveResponse,
     type DynamicEmergencyAddressDeleteResponse as DynamicEmergencyAddressDeleteResponse,
-    type DynamicEmergencyAddressesDefaultFlatPagination as DynamicEmergencyAddressesDefaultFlatPagination,
+    type DynamicEmergencyAddressesDefaultPagination as DynamicEmergencyAddressesDefaultPagination,
     type DynamicEmergencyAddressCreateParams as DynamicEmergencyAddressCreateParams,
     type DynamicEmergencyAddressListParams as DynamicEmergencyAddressListParams,
   };

@@ -4,7 +4,7 @@ import { APIResource } from '../core/resource';
 import * as WireguardPeersAPI from './wireguard-peers';
 import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -72,8 +72,8 @@ export class WireguardPeers extends APIResource {
   list(
     query: WireguardPeerListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<WireguardPeerListResponsesDefaultFlatPagination, WireguardPeerListResponse> {
-    return this._client.getAPIList('/wireguard_peers', DefaultFlatPagination<WireguardPeerListResponse>, {
+  ): PagePromise<WireguardPeerListResponsesDefaultPagination, WireguardPeerListResponse> {
+    return this._client.getAPIList('/wireguard_peers', DefaultPagination<WireguardPeerListResponse>, {
       query,
       ...options,
     });
@@ -111,8 +111,7 @@ export class WireguardPeers extends APIResource {
   }
 }
 
-export type WireguardPeerListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<WireguardPeerListResponse>;
+export type WireguardPeerListResponsesDefaultPagination = DefaultPagination<WireguardPeerListResponse>;
 
 export interface WireguardPeerPatch {
   /**
@@ -274,7 +273,7 @@ export interface WireguardPeerUpdateParams {
   public_key?: string;
 }
 
-export interface WireguardPeerListParams extends DefaultFlatPaginationParams {
+export interface WireguardPeerListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[wireguard_interface_id]
@@ -304,7 +303,7 @@ export declare namespace WireguardPeers {
     type WireguardPeerListResponse as WireguardPeerListResponse,
     type WireguardPeerDeleteResponse as WireguardPeerDeleteResponse,
     type WireguardPeerRetrieveConfigResponse as WireguardPeerRetrieveConfigResponse,
-    type WireguardPeerListResponsesDefaultFlatPagination as WireguardPeerListResponsesDefaultFlatPagination,
+    type WireguardPeerListResponsesDefaultPagination as WireguardPeerListResponsesDefaultPagination,
     type WireguardPeerCreateParams as WireguardPeerCreateParams,
     type WireguardPeerUpdateParams as WireguardPeerUpdateParams,
     type WireguardPeerListParams as WireguardPeerListParams,

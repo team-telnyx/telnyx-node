@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -31,15 +31,15 @@ export class ChannelZones extends APIResource {
   list(
     query: ChannelZoneListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ChannelZoneListResponsesDefaultFlatPagination, ChannelZoneListResponse> {
-    return this._client.getAPIList('/channel_zones', DefaultFlatPagination<ChannelZoneListResponse>, {
+  ): PagePromise<ChannelZoneListResponsesDefaultPagination, ChannelZoneListResponse> {
+    return this._client.getAPIList('/channel_zones', DefaultPagination<ChannelZoneListResponse>, {
       query,
       ...options,
     });
   }
 }
 
-export type ChannelZoneListResponsesDefaultFlatPagination = DefaultFlatPagination<ChannelZoneListResponse>;
+export type ChannelZoneListResponsesDefaultPagination = DefaultPagination<ChannelZoneListResponse>;
 
 export interface ChannelZoneUpdateResponse {
   id: string;
@@ -100,13 +100,13 @@ export interface ChannelZoneUpdateParams {
   channels: number;
 }
 
-export interface ChannelZoneListParams extends DefaultFlatPaginationParams {}
+export interface ChannelZoneListParams extends DefaultPaginationParams {}
 
 export declare namespace ChannelZones {
   export {
     type ChannelZoneUpdateResponse as ChannelZoneUpdateResponse,
     type ChannelZoneListResponse as ChannelZoneListResponse,
-    type ChannelZoneListResponsesDefaultFlatPagination as ChannelZoneListResponsesDefaultFlatPagination,
+    type ChannelZoneListResponsesDefaultPagination as ChannelZoneListResponsesDefaultPagination,
     type ChannelZoneUpdateParams as ChannelZoneUpdateParams,
     type ChannelZoneListParams as ChannelZoneListParams,
   };

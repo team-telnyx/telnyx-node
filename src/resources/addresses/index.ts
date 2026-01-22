@@ -15,5 +15,5 @@ export {
   type AddressDeleteResponse,
   type AddressCreateParams,
   type AddressListParams,
-  type AddressesDefaultFlatPagination,
+  type AddressesDefaultPagination,
 } from './addresses';

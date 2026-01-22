@@ -5,7 +5,6 @@ import * as UsersAPI from './users/users';
 import {
   UserGetGroupsReportParams,
   UserGetGroupsReportResponse,
-  UserGroupReference,
   UserListParams,
   UserListResponse,
   UserListResponsesDefaultFlatPagination,
@@ -23,7 +22,6 @@ Organizations.Users = Users;
 export declare namespace Organizations {
   export {
     Users as Users,
-    type UserGroupReference as UserGroupReference,
     type UserRetrieveResponse as UserRetrieveResponse,
     type UserListResponse as UserListResponse,
     type UserGetGroupsReportResponse as UserGetGroupsReportResponse,

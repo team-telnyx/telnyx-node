@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -57,12 +57,11 @@ export class CustomerServiceRecords extends APIResource {
   list(
     query: CustomerServiceRecordListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<CustomerServiceRecordsDefaultFlatPagination, CustomerServiceRecord> {
-    return this._client.getAPIList(
-      '/customer_service_records',
-      DefaultFlatPagination<CustomerServiceRecord>,
-      { query, ...options },
-    );
+  ): PagePromise<CustomerServiceRecordsDefaultPagination, CustomerServiceRecord> {
+    return this._client.getAPIList('/customer_service_records', DefaultPagination<CustomerServiceRecord>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -84,7 +83,7 @@ export class CustomerServiceRecords extends APIResource {
   }
 }
 
-export type CustomerServiceRecordsDefaultFlatPagination = DefaultFlatPagination<CustomerServiceRecord>;
+export type CustomerServiceRecordsDefaultPagination = DefaultPagination<CustomerServiceRecord>;
 
 export interface CustomerServiceRecord {
   /**
@@ -337,7 +336,7 @@ export namespace CustomerServiceRecordCreateParams {
   }
 }
 
-export interface CustomerServiceRecordListParams extends DefaultFlatPaginationParams {
+export interface CustomerServiceRecordListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[phone_number][eq], filter[phone_number][in][], filter[status][eq],
@@ -428,7 +427,7 @@ export declare namespace CustomerServiceRecords {
     type CustomerServiceRecordCreateResponse as CustomerServiceRecordCreateResponse,
     type CustomerServiceRecordRetrieveResponse as CustomerServiceRecordRetrieveResponse,
     type CustomerServiceRecordVerifyPhoneNumberCoverageResponse as CustomerServiceRecordVerifyPhoneNumberCoverageResponse,
-    type CustomerServiceRecordsDefaultFlatPagination as CustomerServiceRecordsDefaultFlatPagination,
+    type CustomerServiceRecordsDefaultPagination as CustomerServiceRecordsDefaultPagination,
     type CustomerServiceRecordCreateParams as CustomerServiceRecordCreateParams,
     type CustomerServiceRecordListParams as CustomerServiceRecordListParams,
     type CustomerServiceRecordVerifyPhoneNumberCoverageParams as CustomerServiceRecordVerifyPhoneNumberCoverageParams,

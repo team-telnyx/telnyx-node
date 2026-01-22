@@ -3,7 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -37,8 +37,8 @@ export class Events extends APIResource {
   list(
     query: EventListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<EventListResponsesDefaultFlatPagination, EventListResponse> {
-    return this._client.getAPIList('/porting/events', DefaultFlatPagination<EventListResponse>, {
+  ): PagePromise<EventListResponsesDefaultPagination, EventListResponse> {
+    return this._client.getAPIList('/porting/events', DefaultPagination<EventListResponse>, {
       query,
       ...options,
     });
@@ -62,7 +62,7 @@ export class Events extends APIResource {
   }
 }
 
-export type EventListResponsesDefaultFlatPagination = DefaultFlatPagination<EventListResponse>;
+export type EventListResponsesDefaultPagination = DefaultPagination<EventListResponse>;
 
 export interface EventRetrieveResponse {
   data?:
@@ -1170,7 +1170,7 @@ export namespace EventListResponse {
   }
 }
 
-export interface EventListParams extends DefaultFlatPaginationParams {
+export interface EventListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[type],
    * filter[porting_order_id], filter[created_at][gte], filter[created_at][lte]
@@ -1229,7 +1229,7 @@ export declare namespace Events {
   export {
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
-    type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
+    type EventListResponsesDefaultPagination as EventListResponsesDefaultPagination,
     type EventListParams as EventListParams,
   };
 }

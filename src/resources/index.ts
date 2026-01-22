@@ -27,7 +27,7 @@ export {
   type AddressDeleteResponse,
   type AddressCreateParams,
   type AddressListParams,
-  type AddressesDefaultFlatPagination,
+  type AddressesDefaultPagination,
 } from './addresses/addresses';
 export {
   AdvancedOrders,
@@ -43,7 +43,7 @@ export {
   AuditEvents,
   type AuditEventListResponse,
   type AuditEventListParams,
-  type AuditEventListResponsesDefaultFlatPagination,
+  type AuditEventListResponsesDefaultPagination,
 } from './audit-events';
 export {
   AuthenticationProviders,
@@ -131,7 +131,7 @@ export {
   type ChannelZoneListResponse,
   type ChannelZoneUpdateParams,
   type ChannelZoneListParams,
-  type ChannelZoneListResponsesDefaultFlatPagination,
+  type ChannelZoneListResponsesDefaultPagination,
 } from './channel-zones';
 export {
   ChargesBreakdown,
@@ -173,7 +173,7 @@ export {
   type ConnectionListActiveCallsResponse,
   type ConnectionListParams,
   type ConnectionListActiveCallsParams,
-  type ConnectionListResponsesDefaultFlatPagination,
+  type ConnectionListResponsesDefaultPagination,
   type ConnectionListActiveCallsResponsesDefaultFlatPagination,
 } from './connections';
 export {
@@ -197,7 +197,7 @@ export {
   type CredentialConnectionCreateParams,
   type CredentialConnectionUpdateParams,
   type CredentialConnectionListParams,
-  type CredentialConnectionsDefaultFlatPagination,
+  type CredentialConnectionsDefaultPagination,
 } from './credential-connections/credential-connections';
 export {
   CustomStorageCredentials,
@@ -220,7 +220,7 @@ export {
   type CustomerServiceRecordCreateParams,
   type CustomerServiceRecordListParams,
   type CustomerServiceRecordVerifyPhoneNumberCoverageParams,
-  type CustomerServiceRecordsDefaultFlatPagination,
+  type CustomerServiceRecordsDefaultPagination,
 } from './customer-service-records';
 export {
   DetailRecords,
@@ -240,7 +240,7 @@ export {
   DocumentLinks,
   type DocumentLinkListResponse,
   type DocumentLinkListParams,
-  type DocumentLinkListResponsesDefaultFlatPagination,
+  type DocumentLinkListResponsesDefaultPagination,
 } from './document-links';
 export {
   Documents,
@@ -255,7 +255,7 @@ export {
   type DocumentListParams,
   type DocumentUploadParams,
   type DocumentUploadJsonParams,
-  type DocServiceDocumentsDefaultFlatPagination,
+  type DocServiceDocumentsDefaultPagination,
 } from './documents';
 export {
   DynamicEmergencyAddresses,
@@ -265,7 +265,7 @@ export {
   type DynamicEmergencyAddressDeleteResponse,
   type DynamicEmergencyAddressCreateParams,
   type DynamicEmergencyAddressListParams,
-  type DynamicEmergencyAddressesDefaultFlatPagination,
+  type DynamicEmergencyAddressesDefaultPagination,
 } from './dynamic-emergency-addresses';
 export {
   DynamicEmergencyEndpoints,
@@ -275,7 +275,7 @@ export {
   type DynamicEmergencyEndpointDeleteResponse,
   type DynamicEmergencyEndpointCreateParams,
   type DynamicEmergencyEndpointListParams,
-  type DynamicEmergencyEndpointsDefaultFlatPagination,
+  type DynamicEmergencyEndpointsDefaultPagination,
 } from './dynamic-emergency-endpoints';
 export {
   ExternalConnections,
@@ -290,7 +290,7 @@ export {
   type ExternalConnectionUpdateParams,
   type ExternalConnectionListParams,
   type ExternalConnectionUpdateLocationParams,
-  type ExternalConnectionsDefaultFlatPagination,
+  type ExternalConnectionsDefaultPagination,
 } from './external-connections/external-connections';
 export {
   FaxApplications,
@@ -302,7 +302,7 @@ export {
   type FaxApplicationCreateParams,
   type FaxApplicationUpdateParams,
   type FaxApplicationListParams,
-  type FaxApplicationsDefaultFlatPagination,
+  type FaxApplicationsDefaultPagination,
 } from './fax-applications';
 export {
   Faxes,
@@ -327,7 +327,7 @@ export {
   type FqdnConnectionCreateParams,
   type FqdnConnectionUpdateParams,
   type FqdnConnectionListParams,
-  type FqdnConnectionsDefaultFlatPagination,
+  type FqdnConnectionsDefaultPagination,
 } from './fqdn-connections';
 export {
   Fqdns,
@@ -339,7 +339,7 @@ export {
   type FqdnCreateParams,
   type FqdnUpdateParams,
   type FqdnListParams,
-  type FqdnsDefaultFlatPagination,
+  type FqdnsDefaultPagination,
 } from './fqdns';
 export { GlobalIPAllowedPorts, type GlobalIPAllowedPortListResponse } from './global-ip-allowed-ports';
 export {
@@ -358,7 +358,7 @@ export {
   type GlobalIPAssignmentCreateParams,
   type GlobalIPAssignmentUpdateParams,
   type GlobalIPAssignmentListParams,
-  type GlobalIPAssignmentsDefaultFlatPagination,
+  type GlobalIPAssignmentsDefaultPagination,
 } from './global-ip-assignments';
 export {
   GlobalIPAssignmentsUsage,
@@ -377,7 +377,7 @@ export {
   type GlobalIPHealthCheckDeleteResponse,
   type GlobalIPHealthCheckCreateParams,
   type GlobalIPHealthCheckListParams,
-  type GlobalIPHealthCheckListResponsesDefaultFlatPagination,
+  type GlobalIPHealthCheckListResponsesDefaultPagination,
 } from './global-ip-health-checks';
 export {
   GlobalIPLatency,
@@ -398,7 +398,7 @@ export {
   type GlobalIPDeleteResponse,
   type GlobalIPCreateParams,
   type GlobalIPListParams,
-  type GlobalIPListResponsesDefaultFlatPagination,
+  type GlobalIPListResponsesDefaultPagination,
 } from './global-ips';
 export {
   IPConnections,
@@ -412,7 +412,7 @@ export {
   type IPConnectionCreateParams,
   type IPConnectionUpdateParams,
   type IPConnectionListParams,
-  type IPConnectionsDefaultFlatPagination,
+  type IPConnectionsDefaultPagination,
 } from './ip-connections';
 export {
   IPs,
@@ -424,7 +424,7 @@ export {
   type IPCreateParams,
   type IPUpdateParams,
   type IPListParams,
-  type IPsDefaultFlatPagination,
+  type IPsDefaultPagination,
 } from './ips';
 export {
   InboundChannels,
@@ -485,7 +485,7 @@ export {
   type ManagedAccountUpdateParams,
   type ManagedAccountListParams,
   type ManagedAccountUpdateGlobalChannelLimitParams,
-  type ManagedAccountListResponsesDefaultFlatPagination,
+  type ManagedAccountListResponsesDefaultPagination,
 } from './managed-accounts/managed-accounts';
 export {
   Media,
@@ -551,7 +551,7 @@ export {
   MessagingOptouts,
   type MessagingOptoutListResponse,
   type MessagingOptoutListParams,
-  type MessagingOptoutListResponsesDefaultFlatPagination,
+  type MessagingOptoutListResponsesDefaultPagination,
 } from './messaging-optouts';
 export {
   MessagingProfiles,
@@ -567,20 +567,20 @@ export {
   type MessagingProfileListParams,
   type MessagingProfileListPhoneNumbersParams,
   type MessagingProfileListShortCodesParams,
-  type MessagingProfilesDefaultFlatPagination,
+  type MessagingProfilesDefaultPagination,
 } from './messaging-profiles/messaging-profiles';
 export { MessagingTollfree } from './messaging-tollfree/messaging-tollfree';
 export {
   MessagingURLDomains,
   type MessagingURLDomainListResponse,
   type MessagingURLDomainListParams,
-  type MessagingURLDomainListResponsesDefaultFlatPagination,
+  type MessagingURLDomainListResponsesDefaultPagination,
 } from './messaging-url-domains';
 export {
   MobileNetworkOperators,
   type MobileNetworkOperatorListResponse,
   type MobileNetworkOperatorListParams,
-  type MobileNetworkOperatorListResponsesDefaultFlatPagination,
+  type MobileNetworkOperatorListResponsesDefaultPagination,
 } from './mobile-network-operators';
 export {
   MobilePhoneNumbers,
@@ -597,7 +597,7 @@ export {
   type PushCredentialResponse,
   type MobilePushCredentialCreateParams,
   type MobilePushCredentialListParams,
-  type PushCredentialsDefaultFlatPagination,
+  type PushCredentialsDefaultPagination,
 } from './mobile-push-credentials';
 export {
   MobileVoiceConnections,
@@ -616,7 +616,7 @@ export {
   type AvailableService,
   type NetworkCoverageListResponse,
   type NetworkCoverageListParams,
-  type NetworkCoverageListResponsesDefaultFlatPagination,
+  type NetworkCoverageListResponsesDefaultPagination,
 } from './network-coverage';
 export {
   Networks,
@@ -632,8 +632,8 @@ export {
   type NetworkUpdateParams,
   type NetworkListParams,
   type NetworkListInterfacesParams,
-  type NetworkListResponsesDefaultFlatPagination,
-  type NetworkListInterfacesResponsesDefaultFlatPagination,
+  type NetworkListResponsesDefaultPagination,
+  type NetworkListInterfacesResponsesDefaultPagination,
 } from './networks/networks';
 export {
   NotificationChannels,
@@ -645,19 +645,19 @@ export {
   type NotificationChannelCreateParams,
   type NotificationChannelUpdateParams,
   type NotificationChannelListParams,
-  type NotificationChannelsDefaultFlatPagination,
+  type NotificationChannelsDefaultPagination,
 } from './notification-channels';
 export {
   NotificationEventConditions,
   type NotificationEventConditionListResponse,
   type NotificationEventConditionListParams,
-  type NotificationEventConditionListResponsesDefaultFlatPagination,
+  type NotificationEventConditionListResponsesDefaultPagination,
 } from './notification-event-conditions';
 export {
   NotificationEvents,
   type NotificationEventListResponse,
   type NotificationEventListParams,
-  type NotificationEventListResponsesDefaultFlatPagination,
+  type NotificationEventListResponsesDefaultPagination,
 } from './notification-events';
 export {
   NotificationProfiles,
@@ -669,7 +669,7 @@ export {
   type NotificationProfileCreateParams,
   type NotificationProfileUpdateParams,
   type NotificationProfileListParams,
-  type NotificationProfilesDefaultFlatPagination,
+  type NotificationProfilesDefaultPagination,
 } from './notification-profiles';
 export {
   NotificationSettings,
@@ -679,7 +679,7 @@ export {
   type NotificationSettingDeleteResponse,
   type NotificationSettingCreateParams,
   type NotificationSettingListParams,
-  type NotificationSettingsDefaultFlatPagination,
+  type NotificationSettingsDefaultPagination,
 } from './notification-settings';
 export {
   NumberBlockOrders,
@@ -688,7 +688,7 @@ export {
   type NumberBlockOrderRetrieveResponse,
   type NumberBlockOrderCreateParams,
   type NumberBlockOrderListParams,
-  type NumberBlockOrdersDefaultFlatPagination,
+  type NumberBlockOrdersDefaultPagination,
 } from './number-block-orders';
 export {
   NumberLookup,
@@ -718,7 +718,7 @@ export {
   type NumberOrderCreateParams,
   type NumberOrderUpdateParams,
   type NumberOrderListParams,
-  type NumberOrderListResponsesDefaultFlatPagination,
+  type NumberOrderListResponsesDefaultPagination,
 } from './number-orders';
 export {
   NumberReservations,
@@ -728,7 +728,7 @@ export {
   type NumberReservationRetrieveResponse,
   type NumberReservationCreateParams,
   type NumberReservationListParams,
-  type NumberReservationsDefaultFlatPagination,
+  type NumberReservationsDefaultPagination,
 } from './number-reservations/number-reservations';
 export {
   NumbersFeatures,
@@ -776,7 +776,7 @@ export {
   type OtaUpdateRetrieveResponse,
   type OtaUpdateListResponse,
   type OtaUpdateListParams,
-  type OtaUpdateListResponsesDefaultFlatPagination,
+  type OtaUpdateListResponsesDefaultPagination,
 } from './ota-updates';
 export {
   OutboundVoiceProfiles,
@@ -792,7 +792,7 @@ export {
   type OutboundVoiceProfileCreateParams,
   type OutboundVoiceProfileUpdateParams,
   type OutboundVoiceProfileListParams,
-  type OutboundVoiceProfilesDefaultFlatPagination,
+  type OutboundVoiceProfilesDefaultPagination,
 } from './outbound-voice-profiles';
 export { Payment } from './payment/payment';
 export { PhoneNumberBlocks } from './phone-number-blocks/phone-number-blocks';
@@ -806,8 +806,8 @@ export {
   type PhoneNumberUpdateParams,
   type PhoneNumberListParams,
   type PhoneNumberSlimListParams,
-  type PhoneNumberDetailedsDefaultFlatPagination,
-  type PhoneNumberSlimListResponsesDefaultFlatPagination,
+  type PhoneNumberDetailedsDefaultPagination,
+  type PhoneNumberSlimListResponsesDefaultPagination,
 } from './phone-numbers/phone-numbers';
 export {
   PhoneNumbersRegulatoryRequirements,
@@ -848,15 +848,15 @@ export {
   type PortingOrderListParams,
   type PortingOrderRetrieveLoaTemplateParams,
   type PortingOrderRetrieveRequirementsParams,
-  type PortingOrdersActivationJobsDefaultFlatPagination,
-  type PortingOrdersDefaultFlatPagination,
-  type PortingOrderRetrieveRequirementsResponsesDefaultFlatPagination,
+  type PortingOrdersActivationJobsDefaultPagination,
+  type PortingOrdersDefaultPagination,
+  type PortingOrderRetrieveRequirementsResponsesDefaultPagination,
 } from './porting-orders/porting-orders';
 export {
   PortingPhoneNumbers,
   type PortingPhoneNumberListResponse,
   type PortingPhoneNumberListParams,
-  type PortingPhoneNumberListResponsesDefaultFlatPagination,
+  type PortingPhoneNumberListResponsesDefaultPagination,
 } from './porting-phone-numbers';
 export {
   Portouts,
@@ -867,7 +867,7 @@ export {
   type PortoutListParams,
   type PortoutListRejectionCodesParams,
   type PortoutUpdateStatusParams,
-  type PortoutDetailsDefaultFlatPagination,
+  type PortoutDetailsDefaultPagination,
 } from './portouts/portouts';
 export {
   PrivateWirelessGateways,
@@ -891,14 +891,14 @@ export {
   type PublicInternetGatewayDeleteResponse,
   type PublicInternetGatewayCreateParams,
   type PublicInternetGatewayListParams,
-  type PublicInternetGatewayListResponsesDefaultFlatPagination,
+  type PublicInternetGatewayListResponsesDefaultPagination,
 } from './public-internet-gateways';
 export { Queues, type QueueRetrieveResponse } from './queues/queues';
 export {
   RcsAgents,
   type RcsAgent,
   type RcsAgentResponse,
-  type RcsAgentsDefaultFlatPagination,
+  type RcsAgentsDefaultPagination,
 } from './rcs-agents';
 export {
   RecordingTranscriptions,
@@ -913,7 +913,7 @@ export {
   type RecordingRetrieveResponse,
   type RecordingDeleteResponse,
   type RecordingListParams,
-  type RecordingResponseDataDefaultFlatPagination,
+  type RecordingResponseDataDefaultPagination,
 } from './recordings/recordings';
 export { Regions, type RegionListResponse } from './regions';
 export {
@@ -948,7 +948,7 @@ export {
   type RequirementRetrieveResponse,
   type RequirementListResponse,
   type RequirementListParams,
-  type RequirementListResponsesDefaultFlatPagination,
+  type RequirementListResponsesDefaultPagination,
 } from './requirements';
 export {
   RoomCompositions,
@@ -958,7 +958,7 @@ export {
   type RoomCompositionRetrieveResponse,
   type RoomCompositionCreateParams,
   type RoomCompositionListParams,
-  type RoomCompositionsDefaultFlatPagination,
+  type RoomCompositionsDefaultPagination,
 } from './room-compositions';
 export {
   RoomParticipants,
@@ -972,7 +972,7 @@ export {
   type RoomRecordingDeleteBulkResponse,
   type RoomRecordingListParams,
   type RoomRecordingDeleteBulkParams,
-  type RoomRecordingListResponsesDefaultFlatPagination,
+  type RoomRecordingListResponsesDefaultPagination,
 } from './room-recordings';
 export {
   Rooms,
@@ -985,8 +985,8 @@ export {
   type RoomRetrieveParams,
   type RoomUpdateParams,
   type RoomListParams,
-  type RoomSessionsDefaultFlatPagination,
-  type RoomsDefaultFlatPagination,
+  type RoomSessionsDefaultPagination,
+  type RoomsDefaultPagination,
 } from './rooms/rooms';
 export {
   Seti,
@@ -1039,7 +1039,7 @@ export {
   type SimCardOrderRetrieveResponse,
   type SimCardOrderCreateParams,
   type SimCardOrderListParams,
-  type SimCardOrdersDefaultFlatPagination,
+  type SimCardOrdersDefaultPagination,
 } from './sim-card-orders';
 export {
   SimCards,
@@ -1100,7 +1100,7 @@ export {
   type TelephonyCredentialCreateParams,
   type TelephonyCredentialUpdateParams,
   type TelephonyCredentialListParams,
-  type TelephonyCredentialsDefaultFlatPagination,
+  type TelephonyCredentialsDefaultPagination,
 } from './telephony-credentials';
 export { Texml, type TexmlSecretsResponse, type TexmlSecretsParams } from './texml/texml';
 export {
@@ -1113,7 +1113,7 @@ export {
   type TexmlApplicationCreateParams,
   type TexmlApplicationUpdateParams,
   type TexmlApplicationListParams,
-  type TexmlApplicationsDefaultFlatPagination,
+  type TexmlApplicationsDefaultPagination,
 } from './texml-applications';
 export {
   TextToSpeech,
@@ -1136,7 +1136,7 @@ export {
   type UserAddressRetrieveResponse,
   type UserAddressCreateParams,
   type UserAddressListParams,
-  type UserAddressesDefaultFlatPagination,
+  type UserAddressesDefaultPagination,
 } from './user-addresses';
 export { UserTags, type UserTagListResponse, type UserTagListParams } from './user-tags';
 export {
@@ -1181,20 +1181,20 @@ export {
   type VirtualCrossConnectCreateParams,
   type VirtualCrossConnectUpdateParams,
   type VirtualCrossConnectListParams,
-  type VirtualCrossConnectListResponsesDefaultFlatPagination,
+  type VirtualCrossConnectListResponsesDefaultPagination,
 } from './virtual-cross-connects';
 export {
   VirtualCrossConnectsCoverage,
   type VirtualCrossConnectsCoverageListResponse,
   type VirtualCrossConnectsCoverageListParams,
-  type VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination,
+  type VirtualCrossConnectsCoverageListResponsesDefaultPagination,
 } from './virtual-cross-connects-coverage';
 export {
   WebhookDeliveries,
   type WebhookDeliveryRetrieveResponse,
   type WebhookDeliveryListResponse,
   type WebhookDeliveryListParams,
-  type WebhookDeliveryListResponsesDefaultFlatPagination,
+  type WebhookDeliveryListResponsesDefaultPagination,
 } from './webhook-deliveries';
 export {
   Webhooks,
@@ -1277,7 +1277,7 @@ export {
   type WireguardInterfaceDeleteResponse,
   type WireguardInterfaceCreateParams,
   type WireguardInterfaceListParams,
-  type WireguardInterfaceListResponsesDefaultFlatPagination,
+  type WireguardInterfaceListResponsesDefaultPagination,
 } from './wireguard-interfaces';
 export {
   WireguardPeers,
@@ -1291,7 +1291,7 @@ export {
   type WireguardPeerCreateParams,
   type WireguardPeerUpdateParams,
   type WireguardPeerListParams,
-  type WireguardPeerListResponsesDefaultFlatPagination,
+  type WireguardPeerListResponsesDefaultPagination,
 } from './wireguard-peers';
 export {
   Wireless,

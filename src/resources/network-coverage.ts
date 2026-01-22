@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import * as NetworkCoverageAPI from './network-coverage';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class NetworkCoverage extends APIResource {
@@ -12,16 +12,15 @@ export class NetworkCoverage extends APIResource {
   list(
     query: NetworkCoverageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NetworkCoverageListResponsesDefaultFlatPagination, NetworkCoverageListResponse> {
-    return this._client.getAPIList('/network_coverage', DefaultFlatPagination<NetworkCoverageListResponse>, {
+  ): PagePromise<NetworkCoverageListResponsesDefaultPagination, NetworkCoverageListResponse> {
+    return this._client.getAPIList('/network_coverage', DefaultPagination<NetworkCoverageListResponse>, {
       query,
       ...options,
     });
   }
 }
 
-export type NetworkCoverageListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<NetworkCoverageListResponse>;
+export type NetworkCoverageListResponsesDefaultPagination = DefaultPagination<NetworkCoverageListResponse>;
 
 export type AvailableService = 'cloud_vpn' | 'private_wireless_gateway' | 'virtual_cross_connect';
 
@@ -68,7 +67,7 @@ export namespace NetworkCoverageListResponse {
   }
 }
 
-export interface NetworkCoverageListParams extends DefaultFlatPaginationParams {
+export interface NetworkCoverageListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[location.region], filter[location.site], filter[location.pop],
@@ -139,7 +138,7 @@ export declare namespace NetworkCoverage {
   export {
     type AvailableService as AvailableService,
     type NetworkCoverageListResponse as NetworkCoverageListResponse,
-    type NetworkCoverageListResponsesDefaultFlatPagination as NetworkCoverageListResponsesDefaultFlatPagination,
+    type NetworkCoverageListResponsesDefaultPagination as NetworkCoverageListResponsesDefaultPagination,
     type NetworkCoverageListParams as NetworkCoverageListParams,
   };
 }

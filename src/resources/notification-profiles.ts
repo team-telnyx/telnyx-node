@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -41,8 +41,8 @@ export class NotificationProfiles extends APIResource {
   list(
     query: NotificationProfileListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NotificationProfilesDefaultFlatPagination, NotificationProfile> {
-    return this._client.getAPIList('/notification_profiles', DefaultFlatPagination<NotificationProfile>, {
+  ): PagePromise<NotificationProfilesDefaultPagination, NotificationProfile> {
+    return this._client.getAPIList('/notification_profiles', DefaultPagination<NotificationProfile>, {
       query,
       ...options,
     });
@@ -56,7 +56,7 @@ export class NotificationProfiles extends APIResource {
   }
 }
 
-export type NotificationProfilesDefaultFlatPagination = DefaultFlatPagination<NotificationProfile>;
+export type NotificationProfilesDefaultPagination = DefaultPagination<NotificationProfile>;
 
 /**
  * A Collection of Notification Channels
@@ -125,7 +125,7 @@ export interface NotificationProfileUpdateParams {
   name?: string;
 }
 
-export interface NotificationProfileListParams extends DefaultFlatPaginationParams {}
+export interface NotificationProfileListParams extends DefaultPaginationParams {}
 
 export declare namespace NotificationProfiles {
   export {
@@ -134,7 +134,7 @@ export declare namespace NotificationProfiles {
     type NotificationProfileRetrieveResponse as NotificationProfileRetrieveResponse,
     type NotificationProfileUpdateResponse as NotificationProfileUpdateResponse,
     type NotificationProfileDeleteResponse as NotificationProfileDeleteResponse,
-    type NotificationProfilesDefaultFlatPagination as NotificationProfilesDefaultFlatPagination,
+    type NotificationProfilesDefaultPagination as NotificationProfilesDefaultPagination,
     type NotificationProfileCreateParams as NotificationProfileCreateParams,
     type NotificationProfileUpdateParams as NotificationProfileUpdateParams,
     type NotificationProfileListParams as NotificationProfileListParams,

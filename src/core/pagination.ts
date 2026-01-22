@@ -107,6 +107,70 @@ export class PagePromise<
   }
 }
 
+export interface DefaultPaginationResponse<Item> {
+  data: Array<Item>;
+
+  meta: DefaultPaginationResponse.Meta;
+}
+
+export namespace DefaultPaginationResponse {
+  export interface Meta {
+    page_number: number;
+
+    total_pages: number;
+  }
+}
+
+export interface DefaultPaginationParams {
+  page?: DefaultPaginationParams.Page;
+}
+
+export namespace DefaultPaginationParams {
+  export interface Page {
+    number?: number;
+
+    size?: number;
+  }
+}
+
+export class DefaultPagination<Item> extends AbstractPage<Item> implements DefaultPaginationResponse<Item> {
+  data: Array<Item>;
+
+  meta: DefaultPaginationResponse.Meta;
+
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: DefaultPaginationResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.data = body.data || [];
+    this.meta = body.meta || {};
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.data ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const currentPage = this.meta?.page_number ?? 1;
+
+    if (currentPage >= this.meta?.total_pages) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        number: currentPage + 1,
+      },
+    };
+  }
+}
+
 export interface DefaultFlatPaginationResponse<Item> {
   data: Array<Item>;
 
@@ -223,9 +287,15 @@ export namespace DefaultPaginationForLogMessagesResponse {
 }
 
 export interface DefaultPaginationForLogMessagesParams {
-  'page[number]'?: number;
+  page?: DefaultPaginationForLogMessagesParams.Page;
+}
 
-  'page[size]'?: number;
+export namespace DefaultPaginationForLogMessagesParams {
+  export interface Page {
+    number?: number;
+
+    size?: number;
+  }
 }
 
 export class DefaultPaginationForLogMessages<Item>
@@ -263,7 +333,7 @@ export class DefaultPaginationForLogMessages<Item>
       ...this.options,
       query: {
         ...maybeObj(this.options.query),
-        'page[number]': currentPage + 1,
+        number: currentPage + 1,
       },
     };
   }
@@ -318,51 +388,6 @@ export class DefaultPaginationForMessagingTollfree<Item>
       query: {
         ...maybeObj(this.options.query),
         page: currentPage + 1,
-      },
-    };
-  }
-}
-
-export interface DefaultPaginationForQueuesResponse<Item> {
-  queues: Array<Item>;
-}
-
-export interface DefaultPaginationForQueuesParams {
-  Page?: number;
-
-  PageSize?: number;
-}
-
-export class DefaultPaginationForQueues<Item>
-  extends AbstractPage<Item>
-  implements DefaultPaginationForQueuesResponse<Item>
-{
-  queues: Array<Item>;
-
-  constructor(
-    client: Telnyx,
-    response: Response,
-    body: DefaultPaginationForQueuesResponse<Item>,
-    options: FinalRequestOptions,
-  ) {
-    super(client, response, body, options);
-
-    this.queues = body.queues || [];
-  }
-
-  getPaginatedItems(): Item[] {
-    return this.queues ?? [];
-  }
-
-  nextPageRequestOptions(): PageRequestOptions | null {
-    const query = this.options.query as DefaultPaginationForQueuesParams;
-    const currentPage = query?.Page ?? 1;
-
-    return {
-      ...this.options,
-      query: {
-        ...maybeObj(this.options.query),
-        Page: currentPage + 1,
       },
     };
   }

@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -70,8 +70,8 @@ export class TelephonyCredentials extends APIResource {
   list(
     query: TelephonyCredentialListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<TelephonyCredentialsDefaultFlatPagination, TelephonyCredential> {
-    return this._client.getAPIList('/telephony_credentials', DefaultFlatPagination<TelephonyCredential>, {
+  ): PagePromise<TelephonyCredentialsDefaultPagination, TelephonyCredential> {
+    return this._client.getAPIList('/telephony_credentials', DefaultPagination<TelephonyCredential>, {
       query,
       ...options,
     });
@@ -107,7 +107,7 @@ export class TelephonyCredentials extends APIResource {
   }
 }
 
-export type TelephonyCredentialsDefaultFlatPagination = DefaultFlatPagination<TelephonyCredential>;
+export type TelephonyCredentialsDefaultPagination = DefaultPagination<TelephonyCredential>;
 
 export interface TelephonyCredential {
   /**
@@ -214,7 +214,7 @@ export interface TelephonyCredentialUpdateParams {
   tag?: string;
 }
 
-export interface TelephonyCredentialListParams extends DefaultFlatPaginationParams {
+export interface TelephonyCredentialListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[tag],
    * filter[name], filter[status], filter[resource_id], filter[sip_username]
@@ -263,7 +263,7 @@ export declare namespace TelephonyCredentials {
     type TelephonyCredentialUpdateResponse as TelephonyCredentialUpdateResponse,
     type TelephonyCredentialDeleteResponse as TelephonyCredentialDeleteResponse,
     type TelephonyCredentialCreateTokenResponse as TelephonyCredentialCreateTokenResponse,
-    type TelephonyCredentialsDefaultFlatPagination as TelephonyCredentialsDefaultFlatPagination,
+    type TelephonyCredentialsDefaultPagination as TelephonyCredentialsDefaultPagination,
     type TelephonyCredentialCreateParams as TelephonyCredentialCreateParams,
     type TelephonyCredentialUpdateParams as TelephonyCredentialUpdateParams,
     type TelephonyCredentialListParams as TelephonyCredentialListParams,

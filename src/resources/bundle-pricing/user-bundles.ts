@@ -3,7 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as BillingBundlesAPI from './billing-bundles';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -70,9 +70,9 @@ export class UserBundles extends APIResource {
   list(
     params: UserBundleListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<UserBundlesDefaultFlatPagination, UserBundle> {
+  ): PagePromise<UserBundlesDefaultPagination, UserBundle> {
     const { authorization_bearer, ...query } = params ?? {};
-    return this._client.getAPIList('/bundle_pricing/user_bundles', DefaultFlatPagination<UserBundle>, {
+    return this._client.getAPIList('/bundle_pricing/user_bundles', DefaultPagination<UserBundle>, {
       query,
       ...options,
       headers: buildHeaders([
@@ -159,7 +159,7 @@ export class UserBundles extends APIResource {
   }
 }
 
-export type UserBundlesDefaultFlatPagination = DefaultFlatPagination<UserBundle>;
+export type UserBundlesDefaultPagination = DefaultPagination<UserBundle>;
 
 export interface UserBundle {
   /**
@@ -289,7 +289,7 @@ export interface UserBundleRetrieveParams {
   authorization_bearer?: string;
 }
 
-export interface UserBundleListParams extends DefaultFlatPaginationParams {
+export interface UserBundleListParams extends DefaultPaginationParams {
   /**
    * Query param: Consolidated filter parameter (deepObject style). Supports
    * filtering by country_iso and resource. Examples: filter[country_iso]=US or
@@ -378,7 +378,7 @@ export declare namespace UserBundles {
     type UserBundleDeactivateResponse as UserBundleDeactivateResponse,
     type UserBundleListResourcesResponse as UserBundleListResourcesResponse,
     type UserBundleListUnusedResponse as UserBundleListUnusedResponse,
-    type UserBundlesDefaultFlatPagination as UserBundlesDefaultFlatPagination,
+    type UserBundlesDefaultPagination as UserBundlesDefaultPagination,
     type UserBundleCreateParams as UserBundleCreateParams,
     type UserBundleRetrieveParams as UserBundleRetrieveParams,
     type UserBundleListParams as UserBundleListParams,
