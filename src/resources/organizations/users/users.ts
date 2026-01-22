@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as UsersAPI from './users';
 import * as ActionsAPI from './actions';
 import { ActionRemoveResponse, Actions } from './actions';
 import { APIPromise } from '../../../core/api-promise';
@@ -63,6 +64,21 @@ export class Users extends APIResource {
 
 export type UserListResponsesDefaultFlatPagination = DefaultFlatPagination<UserListResponse>;
 
+/**
+ * A reference to a group that a user belongs to.
+ */
+export interface UserGroupReference {
+  /**
+   * The unique identifier of the group.
+   */
+  id: string;
+
+  /**
+   * The name of the group.
+   */
+  name: string;
+}
+
 export interface UserRetrieveResponse {
   data?: UserRetrieveResponse.Data;
 }
@@ -88,7 +104,7 @@ export namespace UserRetrieveResponse {
      * The groups the user belongs to. Only included when include_groups parameter is
      * true.
      */
-    groups?: Array<Data.Group>;
+    groups?: Array<UsersAPI.UserGroupReference>;
 
     /**
      * ISO 8601 formatted date indicating when the resource last signed into the
@@ -113,23 +129,6 @@ export namespace UserRetrieveResponse {
      */
     user_status?: 'enabled' | 'disabled' | 'blocked';
   }
-
-  export namespace Data {
-    /**
-     * A reference to a group that a user belongs to.
-     */
-    export interface Group {
-      /**
-       * The unique identifier of the group.
-       */
-      id: string;
-
-      /**
-       * The name of the group.
-       */
-      name: string;
-    }
-  }
 }
 
 export interface UserListResponse {
@@ -152,7 +151,7 @@ export interface UserListResponse {
    * The groups the user belongs to. Only included when include_groups parameter is
    * true.
    */
-  groups?: Array<UserListResponse.Group>;
+  groups?: Array<UserGroupReference>;
 
   /**
    * ISO 8601 formatted date indicating when the resource last signed into the
@@ -176,23 +175,6 @@ export interface UserListResponse {
    * The status of the account.
    */
   user_status?: 'enabled' | 'disabled' | 'blocked';
-}
-
-export namespace UserListResponse {
-  /**
-   * A reference to a group that a user belongs to.
-   */
-  export interface Group {
-    /**
-     * The unique identifier of the group.
-     */
-    id: string;
-
-    /**
-     * The name of the group.
-     */
-    name: string;
-  }
 }
 
 export interface UserGetGroupsReportResponse {
@@ -222,7 +204,7 @@ export namespace UserGetGroupsReportResponse {
     /**
      * The groups the user belongs to.
      */
-    groups: Array<Data.Group>;
+    groups: Array<UsersAPI.UserGroupReference>;
 
     /**
      * Identifies the type of the resource. Can be 'organization_owner' or
@@ -246,23 +228,6 @@ export namespace UserGetGroupsReportResponse {
      * authentication.
      */
     organization_user_bypasses_sso?: boolean;
-  }
-
-  export namespace Data {
-    /**
-     * A reference to a group that a user belongs to.
-     */
-    export interface Group {
-      /**
-       * The unique identifier of the group.
-       */
-      id: string;
-
-      /**
-       * The name of the group.
-       */
-      name: string;
-    }
   }
 }
 
@@ -306,6 +271,7 @@ Users.Actions = Actions;
 
 export declare namespace Users {
   export {
+    type UserGroupReference as UserGroupReference,
     type UserRetrieveResponse as UserRetrieveResponse,
     type UserListResponse as UserListResponse,
     type UserGetGroupsReportResponse as UserGetGroupsReportResponse,

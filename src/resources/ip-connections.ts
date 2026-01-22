@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as Shared from './shared';
 import * as CredentialConnectionsAPI from './credential-connections/credential-connections';
 import { APIPromise } from '../core/api-promise';
 import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
@@ -271,7 +272,7 @@ export interface IPConnection {
    * noise_suppression is not 'disabled'. If you disable noise suppression and later
    * re-enable it, the previously configured settings will be used.
    */
-  noise_suppression_details?: IPConnection.NoiseSuppressionDetails;
+  noise_suppression_details?: Shared.ConnectionNoiseSuppressionDetails;
 
   /**
    * Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly
@@ -326,40 +327,6 @@ export interface IPConnection {
    * Specifies how many seconds to wait before timing out a webhook.
    */
   webhook_timeout_secs?: number | null;
-}
-
-export namespace IPConnection {
-  /**
-   * Configuration options for noise suppression. These settings are stored
-   * regardless of the noise_suppression value, but only take effect when
-   * noise_suppression is not 'disabled'. If you disable noise suppression and later
-   * re-enable it, the previously configured settings will be used.
-   */
-  export interface NoiseSuppressionDetails {
-    /**
-     * The attenuation limit value for the selected engine. Default values vary by
-     * engine: 0 for 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and
-     * all Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
-     * 'krisp_viva_promodel', 'krisp_viva_ss').
-     */
-    attenuation_limit?: number;
-
-    /**
-     * The noise suppression engine to use. 'denoiser' is the default engine.
-     * 'deep_filter_net' and 'deep_filter_net_large' are alternative engines with
-     * different performance characteristics. Krisp engines ('krisp_viva_tel',
-     * 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced
-     * noise suppression capabilities.
-     */
-    engine?:
-      | 'denoiser'
-      | 'deep_filter_net'
-      | 'deep_filter_net_large'
-      | 'krisp_viva_tel'
-      | 'krisp_viva_tel_lite'
-      | 'krisp_viva_promodel'
-      | 'krisp_viva_ss';
-  }
 }
 
 export interface OutboundIP {
@@ -524,7 +491,7 @@ export interface IPConnectionCreateParams {
    * noise_suppression is not 'disabled'. If you disable noise suppression and later
    * re-enable it, the previously configured settings will be used.
    */
-  noise_suppression_details?: IPConnectionCreateParams.NoiseSuppressionDetails;
+  noise_suppression_details?: Shared.ConnectionNoiseSuppressionDetails;
 
   /**
    * Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly
@@ -663,38 +630,6 @@ export namespace IPConnectionCreateParams {
      */
     timeout_2xx_secs?: number;
   }
-
-  /**
-   * Configuration options for noise suppression. These settings are stored
-   * regardless of the noise_suppression value, but only take effect when
-   * noise_suppression is not 'disabled'. If you disable noise suppression and later
-   * re-enable it, the previously configured settings will be used.
-   */
-  export interface NoiseSuppressionDetails {
-    /**
-     * The attenuation limit value for the selected engine. Default values vary by
-     * engine: 0 for 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and
-     * all Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
-     * 'krisp_viva_promodel', 'krisp_viva_ss').
-     */
-    attenuation_limit?: number;
-
-    /**
-     * The noise suppression engine to use. 'denoiser' is the default engine.
-     * 'deep_filter_net' and 'deep_filter_net_large' are alternative engines with
-     * different performance characteristics. Krisp engines ('krisp_viva_tel',
-     * 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced
-     * noise suppression capabilities.
-     */
-    engine?:
-      | 'denoiser'
-      | 'deep_filter_net'
-      | 'deep_filter_net_large'
-      | 'krisp_viva_tel'
-      | 'krisp_viva_tel_lite'
-      | 'krisp_viva_promodel'
-      | 'krisp_viva_ss';
-  }
 }
 
 export interface IPConnectionUpdateParams {
@@ -768,7 +703,7 @@ export interface IPConnectionUpdateParams {
    * noise_suppression is not 'disabled'. If you disable noise suppression and later
    * re-enable it, the previously configured settings will be used.
    */
-  noise_suppression_details?: IPConnectionUpdateParams.NoiseSuppressionDetails;
+  noise_suppression_details?: Shared.ConnectionNoiseSuppressionDetails;
 
   /**
    * Enable on-net T38 if you prefer the sender and receiver negotiating T38 directly
@@ -813,40 +748,6 @@ export interface IPConnectionUpdateParams {
    * Specifies how many seconds to wait before timing out a webhook.
    */
   webhook_timeout_secs?: number | null;
-}
-
-export namespace IPConnectionUpdateParams {
-  /**
-   * Configuration options for noise suppression. These settings are stored
-   * regardless of the noise_suppression value, but only take effect when
-   * noise_suppression is not 'disabled'. If you disable noise suppression and later
-   * re-enable it, the previously configured settings will be used.
-   */
-  export interface NoiseSuppressionDetails {
-    /**
-     * The attenuation limit value for the selected engine. Default values vary by
-     * engine: 0 for 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and
-     * all Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
-     * 'krisp_viva_promodel', 'krisp_viva_ss').
-     */
-    attenuation_limit?: number;
-
-    /**
-     * The noise suppression engine to use. 'denoiser' is the default engine.
-     * 'deep_filter_net' and 'deep_filter_net_large' are alternative engines with
-     * different performance characteristics. Krisp engines ('krisp_viva_tel',
-     * 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced
-     * noise suppression capabilities.
-     */
-    engine?:
-      | 'denoiser'
-      | 'deep_filter_net'
-      | 'deep_filter_net_large'
-      | 'krisp_viva_tel'
-      | 'krisp_viva_tel_lite'
-      | 'krisp_viva_promodel'
-      | 'krisp_viva_ss';
-  }
 }
 
 export interface IPConnectionListParams extends DefaultPaginationParams {

@@ -4,6 +4,7 @@ Types:
 
 - <code><a href="./src/resources/shared.ts">APIError</a></code>
 - <code><a href="./src/resources/shared.ts">AvailablePhoneNumbersMetadata</a></code>
+- <code><a href="./src/resources/shared.ts">ConnectionNoiseSuppressionDetails</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionsPaginationMeta</a></code>
 - <code><a href="./src/resources/shared.ts">DocReqsRequirementType</a></code>
 - <code><a href="./src/resources/shared.ts">HostedNumber</a></code>
@@ -448,6 +449,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">Assistant</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantsList</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AudioVisualizerConfig</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">EnabledFeatures</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupToolParams</a></code>
@@ -463,6 +465,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TransferTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">VoiceSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">WebhookTool</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">WidgetSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantDeleteResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantChatResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantGetTexmlResponse</a></code>
@@ -4091,6 +4094,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/organizations/users/users.ts">UserGroupReference</a></code>
 - <code><a href="./src/resources/organizations/users/users.ts">UserRetrieveResponse</a></code>
 - <code><a href="./src/resources/organizations/users/users.ts">UserListResponse</a></code>
 - <code><a href="./src/resources/organizations/users/users.ts">UserGetGroupsReportResponse</a></code>
