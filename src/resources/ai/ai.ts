@@ -46,6 +46,7 @@ import {
   AssistantUpdateParams,
   Assistants,
   AssistantsList,
+  AudioVisualizerConfig,
   EnabledFeatures,
   HangupTool,
   HangupToolParams,
@@ -61,6 +62,7 @@ import {
   TransferTool,
   VoiceSettings,
   WebhookTool,
+  WidgetSettings,
 } from './assistants/assistants';
 import * as ConversationsAPI from './conversations/conversations';
 import {
@@ -219,6 +221,7 @@ export declare namespace AI {
     type Assistant as Assistant,
     type AssistantTool as AssistantTool,
     type AssistantsList as AssistantsList,
+    type AudioVisualizerConfig as AudioVisualizerConfig,
     type EnabledFeatures as EnabledFeatures,
     type HangupTool as HangupTool,
     type HangupToolParams as HangupToolParams,
@@ -234,6 +237,7 @@ export declare namespace AI {
     type TransferTool as TransferTool,
     type VoiceSettings as VoiceSettings,
     type WebhookTool as WebhookTool,
+    type WidgetSettings as WidgetSettings,
     type AssistantDeleteResponse as AssistantDeleteResponse,
     type AssistantChatResponse as AssistantChatResponse,
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,

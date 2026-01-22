@@ -723,6 +723,18 @@ export interface AssistantsList {
   data: Array<InferenceEmbedding>;
 }
 
+export interface AudioVisualizerConfig {
+  /**
+   * The color theme for the audio visualizer.
+   */
+  color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
+
+  /**
+   * The preset style for the audio visualizer.
+   */
+  preset?: string;
+}
+
 /**
  * If `telephony` is enabled, the assistant will be able to make and receive calls.
  * If `messaging` is enabled, the assistant will be able to send and receive
@@ -834,80 +846,7 @@ export interface InferenceEmbedding {
   /**
    * Configuration settings for the assistant's web widget.
    */
-  widget_settings?: InferenceEmbedding.WidgetSettings;
-}
-
-export namespace InferenceEmbedding {
-  /**
-   * Configuration settings for the assistant's web widget.
-   */
-  export interface WidgetSettings {
-    /**
-     * Text displayed while the agent is processing.
-     */
-    agent_thinking_text?: string;
-
-    audio_visualizer_config?: WidgetSettings.AudioVisualizerConfig;
-
-    /**
-     * The default state of the widget.
-     */
-    default_state?: 'expanded' | 'collapsed';
-
-    /**
-     * URL for users to give feedback.
-     */
-    give_feedback_url?: string | null;
-
-    /**
-     * URL to a custom logo icon for the widget.
-     */
-    logo_icon_url?: string | null;
-
-    /**
-     * The positioning style for the widget.
-     */
-    position?: 'fixed' | 'static';
-
-    /**
-     * URL for users to report issues.
-     */
-    report_issue_url?: string | null;
-
-    /**
-     * Text prompting users to speak to interrupt.
-     */
-    speak_to_interrupt_text?: string;
-
-    /**
-     * Custom text displayed on the start call button.
-     */
-    start_call_text?: string;
-
-    /**
-     * The visual theme for the widget.
-     */
-    theme?: 'light' | 'dark';
-
-    /**
-     * URL to view conversation history.
-     */
-    view_history_url?: string | null;
-  }
-
-  export namespace WidgetSettings {
-    export interface AudioVisualizerConfig {
-      /**
-       * The color theme for the audio visualizer.
-       */
-      color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
-
-      /**
-       * The preset style for the audio visualizer.
-       */
-      preset?: string;
-    }
-  }
+  widget_settings?: WidgetSettings;
 }
 
 export interface InsightSettings {
@@ -1426,6 +1365,63 @@ export namespace WebhookTool {
 }
 
 /**
+ * Configuration settings for the assistant's web widget.
+ */
+export interface WidgetSettings {
+  /**
+   * Text displayed while the agent is processing.
+   */
+  agent_thinking_text?: string;
+
+  audio_visualizer_config?: AudioVisualizerConfig;
+
+  /**
+   * The default state of the widget.
+   */
+  default_state?: 'expanded' | 'collapsed';
+
+  /**
+   * URL for users to give feedback.
+   */
+  give_feedback_url?: string | null;
+
+  /**
+   * URL to a custom logo icon for the widget.
+   */
+  logo_icon_url?: string | null;
+
+  /**
+   * The positioning style for the widget.
+   */
+  position?: 'fixed' | 'static';
+
+  /**
+   * URL for users to report issues.
+   */
+  report_issue_url?: string | null;
+
+  /**
+   * Text prompting users to speak to interrupt.
+   */
+  speak_to_interrupt_text?: string;
+
+  /**
+   * Custom text displayed on the start call button.
+   */
+  start_call_text?: string;
+
+  /**
+   * The visual theme for the widget.
+   */
+  theme?: 'light' | 'dark';
+
+  /**
+   * URL to view conversation history.
+   */
+  view_history_url?: string | null;
+}
+
+/**
  * Aligns with the OpenAI API:
  * https://platform.openai.com/docs/api-reference/assistants/deleteAssistant
  */
@@ -1523,80 +1519,7 @@ export interface AssistantCreateParams {
   /**
    * Configuration settings for the assistant's web widget.
    */
-  widget_settings?: AssistantCreateParams.WidgetSettings;
-}
-
-export namespace AssistantCreateParams {
-  /**
-   * Configuration settings for the assistant's web widget.
-   */
-  export interface WidgetSettings {
-    /**
-     * Text displayed while the agent is processing.
-     */
-    agent_thinking_text?: string;
-
-    audio_visualizer_config?: WidgetSettings.AudioVisualizerConfig;
-
-    /**
-     * The default state of the widget.
-     */
-    default_state?: 'expanded' | 'collapsed';
-
-    /**
-     * URL for users to give feedback.
-     */
-    give_feedback_url?: string | null;
-
-    /**
-     * URL to a custom logo icon for the widget.
-     */
-    logo_icon_url?: string | null;
-
-    /**
-     * The positioning style for the widget.
-     */
-    position?: 'fixed' | 'static';
-
-    /**
-     * URL for users to report issues.
-     */
-    report_issue_url?: string | null;
-
-    /**
-     * Text prompting users to speak to interrupt.
-     */
-    speak_to_interrupt_text?: string;
-
-    /**
-     * Custom text displayed on the start call button.
-     */
-    start_call_text?: string;
-
-    /**
-     * The visual theme for the widget.
-     */
-    theme?: 'light' | 'dark';
-
-    /**
-     * URL to view conversation history.
-     */
-    view_history_url?: string | null;
-  }
-
-  export namespace WidgetSettings {
-    export interface AudioVisualizerConfig {
-      /**
-       * The color theme for the audio visualizer.
-       */
-      color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
-
-      /**
-       * The preset style for the audio visualizer.
-       */
-      preset?: string;
-    }
-  }
+  widget_settings?: WidgetSettings;
 }
 
 export interface AssistantRetrieveParams {
@@ -1688,80 +1611,7 @@ export interface AssistantUpdateParams {
   /**
    * Configuration settings for the assistant's web widget.
    */
-  widget_settings?: AssistantUpdateParams.WidgetSettings;
-}
-
-export namespace AssistantUpdateParams {
-  /**
-   * Configuration settings for the assistant's web widget.
-   */
-  export interface WidgetSettings {
-    /**
-     * Text displayed while the agent is processing.
-     */
-    agent_thinking_text?: string;
-
-    audio_visualizer_config?: WidgetSettings.AudioVisualizerConfig;
-
-    /**
-     * The default state of the widget.
-     */
-    default_state?: 'expanded' | 'collapsed';
-
-    /**
-     * URL for users to give feedback.
-     */
-    give_feedback_url?: string | null;
-
-    /**
-     * URL to a custom logo icon for the widget.
-     */
-    logo_icon_url?: string | null;
-
-    /**
-     * The positioning style for the widget.
-     */
-    position?: 'fixed' | 'static';
-
-    /**
-     * URL for users to report issues.
-     */
-    report_issue_url?: string | null;
-
-    /**
-     * Text prompting users to speak to interrupt.
-     */
-    speak_to_interrupt_text?: string;
-
-    /**
-     * Custom text displayed on the start call button.
-     */
-    start_call_text?: string;
-
-    /**
-     * The visual theme for the widget.
-     */
-    theme?: 'light' | 'dark';
-
-    /**
-     * URL to view conversation history.
-     */
-    view_history_url?: string | null;
-  }
-
-  export namespace WidgetSettings {
-    export interface AudioVisualizerConfig {
-      /**
-       * The color theme for the audio visualizer.
-       */
-      color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
-
-      /**
-       * The preset style for the audio visualizer.
-       */
-      preset?: string;
-    }
-  }
+  widget_settings?: WidgetSettings;
 }
 
 export interface AssistantChatParams {
@@ -1824,6 +1674,7 @@ export declare namespace Assistants {
     type Assistant as Assistant,
     type AssistantTool as AssistantTool,
     type AssistantsList as AssistantsList,
+    type AudioVisualizerConfig as AudioVisualizerConfig,
     type EnabledFeatures as EnabledFeatures,
     type HangupTool as HangupTool,
     type HangupToolParams as HangupToolParams,
@@ -1839,6 +1690,7 @@ export declare namespace Assistants {
     type TransferTool as TransferTool,
     type VoiceSettings as VoiceSettings,
     type WebhookTool as WebhookTool,
+    type WidgetSettings as WidgetSettings,
     type AssistantDeleteResponse as AssistantDeleteResponse,
     type AssistantChatResponse as AssistantChatResponse,
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,
