@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.10.0 (2026-01-21)
+
+Full Changelog: [v5.9.0...v5.10.0](https://github.com/team-telnyx/telnyx-node/compare/v5.9.0...v5.10.0)
+
+### Features
+
+* fix-redocly-lint-issues ([4266b94](https://github.com/team-telnyx/telnyx-node/commit/4266b942b9b52799c52531a50d4c40556a841db0))
+
 ## 5.9.0 (2026-01-20)
 
 Full Changelog: [v5.8.0...v5.9.0](https://github.com/team-telnyx/telnyx-node/compare/v5.8.0...v5.9.0)
