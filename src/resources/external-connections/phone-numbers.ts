@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -72,17 +72,17 @@ export class PhoneNumbers extends APIResource {
     id: string,
     query: PhoneNumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ExternalConnectionPhoneNumbersDefaultFlatPagination, ExternalConnectionPhoneNumber> {
+  ): PagePromise<ExternalConnectionPhoneNumbersDefaultPagination, ExternalConnectionPhoneNumber> {
     return this._client.getAPIList(
       path`/external_connections/${id}/phone_numbers`,
-      DefaultFlatPagination<ExternalConnectionPhoneNumber>,
+      DefaultPagination<ExternalConnectionPhoneNumber>,
       { query, ...options },
     );
   }
 }
 
-export type ExternalConnectionPhoneNumbersDefaultFlatPagination =
-  DefaultFlatPagination<ExternalConnectionPhoneNumber>;
+export type ExternalConnectionPhoneNumbersDefaultPagination =
+  DefaultPagination<ExternalConnectionPhoneNumber>;
 
 export interface ExternalConnectionPhoneNumber {
   acquired_capabilities?: Array<
@@ -148,7 +148,7 @@ export interface PhoneNumberUpdateParams {
   location_id?: string;
 }
 
-export interface PhoneNumberListParams extends DefaultFlatPaginationParams {
+export interface PhoneNumberListParams extends DefaultPaginationParams {
   /**
    * Filter parameter for phone numbers (deepObject style). Supports filtering by
    * phone_number, civic_address_id, and location_id with eq/contains operations.
@@ -203,7 +203,7 @@ export declare namespace PhoneNumbers {
     type ExternalConnectionPhoneNumber as ExternalConnectionPhoneNumber,
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,
     type PhoneNumberUpdateResponse as PhoneNumberUpdateResponse,
-    type ExternalConnectionPhoneNumbersDefaultFlatPagination as ExternalConnectionPhoneNumbersDefaultFlatPagination,
+    type ExternalConnectionPhoneNumbersDefaultPagination as ExternalConnectionPhoneNumbersDefaultPagination,
     type PhoneNumberRetrieveParams as PhoneNumberRetrieveParams,
     type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
     type PhoneNumberListParams as PhoneNumberListParams,

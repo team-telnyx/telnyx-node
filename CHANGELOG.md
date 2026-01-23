@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.11.0 (2026-01-22)
+
+Full Changelog: [v5.10.0...v5.11.0](https://github.com/team-telnyx/telnyx-node/compare/v5.10.0...v5.11.0)
+
+### Features
+
+* **api:** manual updates ([db90274](https://github.com/team-telnyx/telnyx-node/commit/db90274fa1be194621f79cbe1008cc80fbd4c1a6))
+* Deploy dev/mc vady wip ([09563d0](https://github.com/team-telnyx/telnyx-node/commit/09563d0f94b48a1414de62521ba8a5dcf9b3f31b))
+
 ## 5.10.0 (2026-01-21)
 
 Full Changelog: [v5.9.0...v5.10.0](https://github.com/team-telnyx/telnyx-node/compare/v5.9.0...v5.10.0)

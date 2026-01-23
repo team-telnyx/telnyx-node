@@ -4,7 +4,7 @@ import { APIResource } from '../core/resource';
 import * as Shared from './shared';
 import * as CredentialConnectionsAPI from './credential-connections/credential-connections';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -67,11 +67,8 @@ export class IPConnections extends APIResource {
   list(
     query: IPConnectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<IPConnectionsDefaultFlatPagination, IPConnection> {
-    return this._client.getAPIList('/ip_connections', DefaultFlatPagination<IPConnection>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<IPConnectionsDefaultPagination, IPConnection> {
+    return this._client.getAPIList('/ip_connections', DefaultPagination<IPConnection>, { query, ...options });
   }
 
   /**
@@ -89,7 +86,7 @@ export class IPConnections extends APIResource {
   }
 }
 
-export type IPConnectionsDefaultFlatPagination = DefaultFlatPagination<IPConnection>;
+export type IPConnectionsDefaultPagination = DefaultPagination<IPConnection>;
 
 export interface InboundIP {
   /**
@@ -753,7 +750,7 @@ export interface IPConnectionUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface IPConnectionListParams extends DefaultFlatPaginationParams {
+export interface IPConnectionListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
@@ -828,7 +825,7 @@ export declare namespace IPConnections {
     type IPConnectionRetrieveResponse as IPConnectionRetrieveResponse,
     type IPConnectionUpdateResponse as IPConnectionUpdateResponse,
     type IPConnectionDeleteResponse as IPConnectionDeleteResponse,
-    type IPConnectionsDefaultFlatPagination as IPConnectionsDefaultFlatPagination,
+    type IPConnectionsDefaultPagination as IPConnectionsDefaultPagination,
     type IPConnectionCreateParams as IPConnectionCreateParams,
     type IPConnectionUpdateParams as IPConnectionUpdateParams,
     type IPConnectionListParams as IPConnectionListParams,

@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -38,16 +38,16 @@ export class Comments extends APIResource {
     id: string,
     query: CommentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<CommentListResponsesDefaultFlatPagination, CommentListResponse> {
+  ): PagePromise<CommentListResponsesDefaultPagination, CommentListResponse> {
     return this._client.getAPIList(
       path`/porting_orders/${id}/comments`,
-      DefaultFlatPagination<CommentListResponse>,
+      DefaultPagination<CommentListResponse>,
       { query, ...options },
     );
   }
 }
 
-export type CommentListResponsesDefaultFlatPagination = DefaultFlatPagination<CommentListResponse>;
+export type CommentListResponsesDefaultPagination = DefaultPagination<CommentListResponse>;
 
 export interface CommentCreateResponse {
   data?: CommentCreateResponse.Data;
@@ -111,13 +111,13 @@ export interface CommentCreateParams {
   body?: string;
 }
 
-export interface CommentListParams extends DefaultFlatPaginationParams {}
+export interface CommentListParams extends DefaultPaginationParams {}
 
 export declare namespace Comments {
   export {
     type CommentCreateResponse as CommentCreateResponse,
     type CommentListResponse as CommentListResponse,
-    type CommentListResponsesDefaultFlatPagination as CommentListResponsesDefaultFlatPagination,
+    type CommentListResponsesDefaultPagination as CommentListResponsesDefaultPagination,
     type CommentCreateParams as CommentCreateParams,
     type CommentListParams as CommentListParams,
   };

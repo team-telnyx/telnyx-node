@@ -5,7 +5,7 @@ import * as Shared from '../shared';
 import * as ActionsAPI from './actions';
 import { ActionCheckRegistrationStatusResponse, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -76,8 +76,8 @@ export class CredentialConnections extends APIResource {
   list(
     query: CredentialConnectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<CredentialConnectionsDefaultFlatPagination, CredentialConnection> {
-    return this._client.getAPIList('/credential_connections', DefaultFlatPagination<CredentialConnection>, {
+  ): PagePromise<CredentialConnectionsDefaultPagination, CredentialConnection> {
+    return this._client.getAPIList('/credential_connections', DefaultPagination<CredentialConnection>, {
       query,
       ...options,
     });
@@ -97,7 +97,7 @@ export class CredentialConnections extends APIResource {
   }
 }
 
-export type CredentialConnectionsDefaultFlatPagination = DefaultFlatPagination<CredentialConnection>;
+export type CredentialConnectionsDefaultPagination = DefaultPagination<CredentialConnection>;
 
 /**
  * `Latency` directs Telnyx to route media through the site with the lowest
@@ -714,7 +714,7 @@ export interface CredentialConnectionUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface CredentialConnectionListParams extends DefaultFlatPaginationParams {
+export interface CredentialConnectionListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
@@ -795,7 +795,7 @@ export declare namespace CredentialConnections {
     type CredentialConnectionRetrieveResponse as CredentialConnectionRetrieveResponse,
     type CredentialConnectionUpdateResponse as CredentialConnectionUpdateResponse,
     type CredentialConnectionDeleteResponse as CredentialConnectionDeleteResponse,
-    type CredentialConnectionsDefaultFlatPagination as CredentialConnectionsDefaultFlatPagination,
+    type CredentialConnectionsDefaultPagination as CredentialConnectionsDefaultPagination,
     type CredentialConnectionCreateParams as CredentialConnectionCreateParams,
     type CredentialConnectionUpdateParams as CredentialConnectionUpdateParams,
     type CredentialConnectionListParams as CredentialConnectionListParams,

@@ -10,7 +10,7 @@ import {
   JobListParams,
   JobRetrieveResponse,
   Jobs,
-  JobsDefaultFlatPagination,
+  JobsDefaultPagination,
 } from './jobs';
 
 export class PhoneNumberBlocks extends APIResource {
@@ -26,7 +26,7 @@ export declare namespace PhoneNumberBlocks {
     type JobError as JobError,
     type JobRetrieveResponse as JobRetrieveResponse,
     type JobDeletePhoneNumberBlockResponse as JobDeletePhoneNumberBlockResponse,
-    type JobsDefaultFlatPagination as JobsDefaultFlatPagination,
+    type JobsDefaultPagination as JobsDefaultPagination,
     type JobListParams as JobListParams,
     type JobDeletePhoneNumberBlockParams as JobDeletePhoneNumberBlockParams,
   };
