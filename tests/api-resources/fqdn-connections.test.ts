@@ -53,6 +53,11 @@ describe('resource fqdnConnections', () => {
         timeout_2xx_secs: 10,
       },
       ios_push_credential_id: 'ec0c8e5d-439e-4620-a0c1-9d9c8d02a836',
+      jitter_buffer: {
+        enable_jitter_buffer: true,
+        jitterbuffer_msec_max: 200,
+        jitterbuffer_msec_min: 60,
+      },
       microsoft_teams_sbc: true,
       noise_suppression: 'both',
       noise_suppression_details: { attenuation_limit: 80, engine: 'deep_filter_net' },
