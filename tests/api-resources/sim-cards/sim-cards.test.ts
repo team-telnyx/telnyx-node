@@ -64,7 +64,6 @@ describe('resource simCards', () => {
         {
           filter: {
             iccid: '89310410106543789301',
-            msisdn: '+13109976224',
             status: ['enabled'],
             tags: ['personal', 'customers', 'active-customers'],
           },

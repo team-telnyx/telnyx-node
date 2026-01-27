@@ -673,7 +673,7 @@ export namespace SimCardUpdateParams {
 export interface SimCardListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter for SIM cards (deepObject style). Originally:
-   * filter[iccid], filter[msisdn], filter[status], filter[tags]
+   * filter[tags], filter[iccid], filter[status]
    */
   filter?: SimCardListParams.Filter;
 
@@ -697,18 +697,13 @@ export interface SimCardListParams extends DefaultPaginationParams {
 export namespace SimCardListParams {
   /**
    * Consolidated filter parameter for SIM cards (deepObject style). Originally:
-   * filter[iccid], filter[msisdn], filter[status], filter[tags]
+   * filter[tags], filter[iccid], filter[status]
    */
   export interface Filter {
     /**
      * A search string to partially match for the SIM card's ICCID.
      */
     iccid?: string;
-
-    /**
-     * A search string to match for the SIM card's MSISDN.
-     */
-    msisdn?: string;
 
     /**
      * Filter by a SIM card's status.
