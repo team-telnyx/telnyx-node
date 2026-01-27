@@ -1,6 +1,6 @@
 {
   "name": "telnyx",
-  "version": "5.11.0",
+  "version": "5.12.0",
   "description": "The official TypeScript library for the Telnyx API",
   "author": "Telnyx <support@telnyx.com>",
   "types": "dist/index.d.ts",
