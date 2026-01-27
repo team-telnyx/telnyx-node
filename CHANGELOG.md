@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.12.0 (2026-01-27)
+
+Full Changelog: [v5.11.0...v5.12.0](https://github.com/team-telnyx/telnyx-node/compare/v5.11.0...v5.12.0)
+
+### Features
+
+* jira-engdesk-49089 add new connection jitter buffer related fields ([36b7e86](https://github.com/team-telnyx/telnyx-node/commit/36b7e866c9f18c5f5a8f50def12cc777d7dedf12))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([50d4ada](https://github.com/team-telnyx/telnyx-node/commit/50d4adae6560bb752f7c6df653beb58a73ae845d))
+
 ## 5.11.0 (2026-01-22)
 
 Full Changelog: [v5.10.0...v5.11.0](https://github.com/team-telnyx/telnyx-node/compare/v5.10.0...v5.11.0)
