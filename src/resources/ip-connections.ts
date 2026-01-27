@@ -220,6 +220,11 @@ export interface IPConnection {
   anchorsite_override?: CredentialConnectionsAPI.AnchorsiteOverride;
 
   /**
+   * The uuid of the push credential for Android
+   */
+  android_push_credential_id?: string | null;
+
+  /**
    * Specifies if call cost webhooks should be sent for this connection.
    */
   call_cost_in_webhooks?: boolean;
@@ -257,6 +262,20 @@ export interface IPConnection {
   encrypted_media?: CredentialConnectionsAPI.EncryptedMedia | null;
 
   inbound?: InboundIP;
+
+  /**
+   * The uuid of the push credential for Ios
+   */
+  ios_push_credential_id?: string | null;
+
+  /**
+   * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
+   * of SIP Trunking calls. The feature is off unless enabled. You may define min and
+   * max values in msec for customized buffering behaviors. Larger values add latency
+   * but tolerate more jitter, while smaller values reduce latency but are more
+   * sensitive to jitter and reordering.
+   */
+  jitter_buffer?: IPConnection.JitterBuffer;
 
   /**
    * Controls when noise suppression is applied to calls. When set to 'inbound',
@@ -327,6 +346,35 @@ export interface IPConnection {
    * Specifies how many seconds to wait before timing out a webhook.
    */
   webhook_timeout_secs?: number | null;
+}
+
+export namespace IPConnection {
+  /**
+   * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
+   * of SIP Trunking calls. The feature is off unless enabled. You may define min and
+   * max values in msec for customized buffering behaviors. Larger values add latency
+   * but tolerate more jitter, while smaller values reduce latency but are more
+   * sensitive to jitter and reordering.
+   */
+  export interface JitterBuffer {
+    /**
+     * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off
+     * unless enabled.
+     */
+    enable_jitter_buffer?: boolean;
+
+    /**
+     * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has
+     * no effect if enable_jitter_buffer is not true.
+     */
+    jitterbuffer_msec_max?: number;
+
+    /**
+     * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has
+     * no effect if enable_jitter_buffer is not true.
+     */
+    jitterbuffer_msec_min?: number;
+  }
 }
 
 export interface OutboundIP {
@@ -476,6 +524,15 @@ export interface IPConnectionCreateParams {
    * The uuid of the push credential for Ios
    */
   ios_push_credential_id?: string | null;
+
+  /**
+   * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
+   * of SIP Trunking calls. The feature is off unless enabled. You may define min and
+   * max values in msec for customized buffering behaviors. Larger values add latency
+   * but tolerate more jitter, while smaller values reduce latency but are more
+   * sensitive to jitter and reordering.
+   */
+  jitter_buffer?: IPConnectionCreateParams.JitterBuffer;
 
   /**
    * Controls when noise suppression is applied to calls. When set to 'inbound',
@@ -630,6 +687,33 @@ export namespace IPConnectionCreateParams {
      */
     timeout_2xx_secs?: number;
   }
+
+  /**
+   * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
+   * of SIP Trunking calls. The feature is off unless enabled. You may define min and
+   * max values in msec for customized buffering behaviors. Larger values add latency
+   * but tolerate more jitter, while smaller values reduce latency but are more
+   * sensitive to jitter and reordering.
+   */
+  export interface JitterBuffer {
+    /**
+     * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off
+     * unless enabled.
+     */
+    enable_jitter_buffer?: boolean;
+
+    /**
+     * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has
+     * no effect if enable_jitter_buffer is not true.
+     */
+    jitterbuffer_msec_max?: number;
+
+    /**
+     * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has
+     * no effect if enable_jitter_buffer is not true.
+     */
+    jitterbuffer_msec_min?: number;
+  }
 }
 
 export interface IPConnectionUpdateParams {
@@ -690,6 +774,15 @@ export interface IPConnectionUpdateParams {
   ios_push_credential_id?: string | null;
 
   /**
+   * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
+   * of SIP Trunking calls. The feature is off unless enabled. You may define min and
+   * max values in msec for customized buffering behaviors. Larger values add latency
+   * but tolerate more jitter, while smaller values reduce latency but are more
+   * sensitive to jitter and reordering.
+   */
+  jitter_buffer?: IPConnectionUpdateParams.JitterBuffer;
+
+  /**
    * Controls when noise suppression is applied to calls. When set to 'inbound',
    * noise suppression is applied to incoming audio. When set to 'outbound', it's
    * applied to outgoing audio. When set to 'both', it's applied in both directions.
@@ -748,6 +841,35 @@ export interface IPConnectionUpdateParams {
    * Specifies how many seconds to wait before timing out a webhook.
    */
   webhook_timeout_secs?: number | null;
+}
+
+export namespace IPConnectionUpdateParams {
+  /**
+   * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
+   * of SIP Trunking calls. The feature is off unless enabled. You may define min and
+   * max values in msec for customized buffering behaviors. Larger values add latency
+   * but tolerate more jitter, while smaller values reduce latency but are more
+   * sensitive to jitter and reordering.
+   */
+  export interface JitterBuffer {
+    /**
+     * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off
+     * unless enabled.
+     */
+    enable_jitter_buffer?: boolean;
+
+    /**
+     * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has
+     * no effect if enable_jitter_buffer is not true.
+     */
+    jitterbuffer_msec_max?: number;
+
+    /**
+     * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has
+     * no effect if enable_jitter_buffer is not true.
+     */
+    jitterbuffer_msec_min?: number;
+  }
 }
 
 export interface IPConnectionListParams extends DefaultPaginationParams {
