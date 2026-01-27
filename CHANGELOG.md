@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.13.0 (2026-01-27)
+
+Full Changelog: [v5.12.0...v5.13.0](https://github.com/team-telnyx/telnyx-node/compare/v5.12.0...v5.13.0)
+
+### Features
+
+* Deploy dev/mc vady wip ([17e0e6b](https://github.com/team-telnyx/telnyx-node/commit/17e0e6bc099f4e15643c0be8eb0d154aef7adc9f))
+
+
+### Chores
+
+* **internal:** codegen related update ([4d412d0](https://github.com/team-telnyx/telnyx-node/commit/4d412d0bf2881d00093e5e802bd236dbdd543b7d))
+
 ## 5.12.0 (2026-01-27)
 
 Full Changelog: [v5.11.0...v5.12.0](https://github.com/team-telnyx/telnyx-node/compare/v5.11.0...v5.12.0)
