@@ -4,6 +4,7 @@ import { McpTool, Metadata, ToolCallResult, asErrorResult, asTextContentResult }
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { readEnv } from './server';
 import { WorkerInput, WorkerOutput } from './code-tool-types';
+import { Telnyx } from 'telnyx';
 
 const prompt = `Runs JavaScript code to interact with the Telnyx API.
 
@@ -59,7 +60,7 @@ export function codeTool(): McpTool {
       required: ['code'],
     },
   };
-  const handler = async (_: unknown, args: any): Promise<ToolCallResult> => {
+  const handler = async (client: Telnyx, args: any): Promise<ToolCallResult> => {
     const code = args.code as string;
     const intent = args.intent as string | undefined;
 
@@ -75,11 +76,11 @@ export function codeTool(): McpTool {
         ...(stainlessAPIKey && { Authorization: stainlessAPIKey }),
         'Content-Type': 'application/json',
         client_envs: JSON.stringify({
-          TELNYX_API_KEY: readEnv('TELNYX_API_KEY'),
-          TELNYX_PUBLIC_KEY: readEnv('TELNYX_PUBLIC_KEY'),
-          TELNYX_CLIENT_ID: readEnv('TELNYX_CLIENT_ID'),
-          TELNYX_CLIENT_SECRET: readEnv('TELNYX_CLIENT_SECRET'),
-          TELNYX_BASE_URL: readEnv('TELNYX_BASE_URL'),
+          TELNYX_API_KEY: readEnv('TELNYX_API_KEY') ?? client.apiKey ?? undefined,
+          TELNYX_PUBLIC_KEY: readEnv('TELNYX_PUBLIC_KEY') ?? client.publicKey ?? undefined,
+          TELNYX_CLIENT_ID: readEnv('TELNYX_CLIENT_ID') ?? client.clientID ?? undefined,
+          TELNYX_CLIENT_SECRET: readEnv('TELNYX_CLIENT_SECRET') ?? client.clientSecret ?? undefined,
+          TELNYX_BASE_URL: readEnv('TELNYX_BASE_URL') ?? client.baseURL ?? undefined,
         }),
       },
       body: JSON.stringify({
