@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.14.0 (2026-01-28)
+
+Full Changelog: [v5.13.1...v5.14.0](https://github.com/team-telnyx/telnyx-node/compare/v5.13.1...v5.14.0)
+
+### Features
+
+* Fix broken documentation links ([5b98b5b](https://github.com/team-telnyx/telnyx-node/commit/5b98b5bc667c698723dd69d7d7e41af38e7b8327))
+
+
+### Bug Fixes
+
+* **docs:** fix mcp installation instructions for remote servers ([4dab2e8](https://github.com/team-telnyx/telnyx-node/commit/4dab2e8d324cb33be0d1aa6cacbe36ef27801706))
+
 ## 5.13.1 (2026-01-28)
 
 Full Changelog: [v5.13.0...v5.13.1](https://github.com/team-telnyx/telnyx-node/compare/v5.13.0...v5.13.1)
