@@ -57,7 +57,7 @@ export interface ChatCreateCompletionParams {
   /**
    * If you are using an external inference provider like xAI or OpenAI, this field
    * allows you to pass along a reference to your API key. After creating an
-   * [integration secret](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   * [integration secret](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
    * for you API key, pass the secret's `identifier` in this field.
    */
   api_key_ref?: string;
