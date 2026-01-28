@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.14.1 (2026-01-28)
+
+Full Changelog: [v5.14.0...v5.14.1](https://github.com/team-telnyx/telnyx-node/compare/v5.14.0...v5.14.1)
+
+### Chores
+
+* **mcp:** up tsconfig lib version to es2022 ([c1d7354](https://github.com/team-telnyx/telnyx-node/commit/c1d7354af5513c6da1794e0a4d6c08b2431b0705))
+
 ## 5.14.0 (2026-01-28)
 
 Full Changelog: [v5.13.1...v5.14.0](https://github.com/team-telnyx/telnyx-node/compare/v5.13.1...v5.14.0)
