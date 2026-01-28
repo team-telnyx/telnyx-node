@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -58,10 +58,10 @@ export class PhoneNumberBlocks extends APIResource {
     portingOrderID: string,
     query: PhoneNumberBlockListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortingPhoneNumberBlocksDefaultPagination, PortingPhoneNumberBlock> {
+  ): PagePromise<PortingPhoneNumberBlocksDefaultFlatPagination, PortingPhoneNumberBlock> {
     return this._client.getAPIList(
       path`/porting_orders/${portingOrderID}/phone_number_blocks`,
-      DefaultPagination<PortingPhoneNumberBlock>,
+      DefaultFlatPagination<PortingPhoneNumberBlock>,
       { query, ...options },
     );
   }
@@ -91,7 +91,7 @@ export class PhoneNumberBlocks extends APIResource {
   }
 }
 
-export type PortingPhoneNumberBlocksDefaultPagination = DefaultPagination<PortingPhoneNumberBlock>;
+export type PortingPhoneNumberBlocksDefaultFlatPagination = DefaultFlatPagination<PortingPhoneNumberBlock>;
 
 export interface PortingPhoneNumberBlock {
   /**
@@ -218,7 +218,7 @@ export namespace PhoneNumberBlockCreateParams {
   }
 }
 
-export interface PhoneNumberBlockListParams extends DefaultPaginationParams {
+export interface PhoneNumberBlockListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[porting_order_id], filter[support_key], filter[status],
@@ -327,7 +327,7 @@ export declare namespace PhoneNumberBlocks {
     type PortingPhoneNumberBlock as PortingPhoneNumberBlock,
     type PhoneNumberBlockCreateResponse as PhoneNumberBlockCreateResponse,
     type PhoneNumberBlockDeleteResponse as PhoneNumberBlockDeleteResponse,
-    type PortingPhoneNumberBlocksDefaultPagination as PortingPhoneNumberBlocksDefaultPagination,
+    type PortingPhoneNumberBlocksDefaultFlatPagination as PortingPhoneNumberBlocksDefaultFlatPagination,
     type PhoneNumberBlockCreateParams as PhoneNumberBlockCreateParams,
     type PhoneNumberBlockListParams as PhoneNumberBlockListParams,
     type PhoneNumberBlockDeleteParams as PhoneNumberBlockDeleteParams,

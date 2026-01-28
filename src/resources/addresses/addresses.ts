@@ -10,7 +10,7 @@ import {
   Actions,
 } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -62,8 +62,8 @@ export class Addresses extends APIResource {
   list(
     query: AddressListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<AddressesDefaultPagination, Address> {
-    return this._client.getAPIList('/addresses', DefaultPagination<Address>, { query, ...options });
+  ): PagePromise<AddressesDefaultFlatPagination, Address> {
+    return this._client.getAPIList('/addresses', DefaultFlatPagination<Address>, { query, ...options });
   }
 
   /**
@@ -79,7 +79,7 @@ export class Addresses extends APIResource {
   }
 }
 
-export type AddressesDefaultPagination = DefaultPagination<Address>;
+export type AddressesDefaultFlatPagination = DefaultFlatPagination<Address>;
 
 export interface Address {
   /**
@@ -295,7 +295,7 @@ export interface AddressCreateParams {
   validate_address?: boolean;
 }
 
-export interface AddressListParams extends DefaultPaginationParams {
+export interface AddressListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[customer_reference][eq], filter[customer_reference][contains],
@@ -390,7 +390,7 @@ export declare namespace Addresses {
     type AddressCreateResponse as AddressCreateResponse,
     type AddressRetrieveResponse as AddressRetrieveResponse,
     type AddressDeleteResponse as AddressDeleteResponse,
-    type AddressesDefaultPagination as AddressesDefaultPagination,
+    type AddressesDefaultFlatPagination as AddressesDefaultFlatPagination,
     type AddressCreateParams as AddressCreateParams,
     type AddressListParams as AddressListParams,
   };

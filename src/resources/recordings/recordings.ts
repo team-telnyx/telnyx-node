@@ -4,7 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
 import { ActionDeleteParams, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -39,8 +39,8 @@ export class Recordings extends APIResource {
   list(
     query: RecordingListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RecordingResponseDataDefaultPagination, RecordingResponseData> {
-    return this._client.getAPIList('/recordings', DefaultPagination<RecordingResponseData>, {
+  ): PagePromise<RecordingResponseDataDefaultFlatPagination, RecordingResponseData> {
+    return this._client.getAPIList('/recordings', DefaultFlatPagination<RecordingResponseData>, {
       query,
       ...options,
     });
@@ -61,7 +61,7 @@ export class Recordings extends APIResource {
   }
 }
 
-export type RecordingResponseDataDefaultPagination = DefaultPagination<RecordingResponseData>;
+export type RecordingResponseDataDefaultFlatPagination = DefaultFlatPagination<RecordingResponseData>;
 
 export interface RecordingResponseData {
   /**
@@ -166,7 +166,7 @@ export interface RecordingDeleteResponse {
   data?: RecordingResponseData;
 }
 
-export interface RecordingListParams extends DefaultPaginationParams {
+export interface RecordingListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[conference_id], filter[created_at][gte], filter[created_at][lte],
@@ -249,7 +249,7 @@ export declare namespace Recordings {
     type RecordingResponseData as RecordingResponseData,
     type RecordingRetrieveResponse as RecordingRetrieveResponse,
     type RecordingDeleteResponse as RecordingDeleteResponse,
-    type RecordingResponseDataDefaultPagination as RecordingResponseDataDefaultPagination,
+    type RecordingResponseDataDefaultFlatPagination as RecordingResponseDataDefaultFlatPagination,
     type RecordingListParams as RecordingListParams,
   };
 

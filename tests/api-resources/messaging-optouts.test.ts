@@ -28,7 +28,8 @@ describe('resource messagingOptouts', () => {
         {
           created_at: { gte: '2019-12-27T18:11:19.117Z', lte: '2019-12-27T18:11:19.117Z' },
           filter: { from: 'from', messaging_profile_id: 'messaging_profile_id' },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
           redaction_enabled: 'redaction_enabled',
         },
         { path: '/_stainless_unknown_path' },

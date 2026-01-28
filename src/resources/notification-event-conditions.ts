@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class NotificationEventConditions extends APIResource {
@@ -12,19 +12,19 @@ export class NotificationEventConditions extends APIResource {
     query: NotificationEventConditionListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<
-    NotificationEventConditionListResponsesDefaultPagination,
+    NotificationEventConditionListResponsesDefaultFlatPagination,
     NotificationEventConditionListResponse
   > {
     return this._client.getAPIList(
       '/notification_event_conditions',
-      DefaultPagination<NotificationEventConditionListResponse>,
+      DefaultFlatPagination<NotificationEventConditionListResponse>,
       { query, ...options },
     );
   }
 }
 
-export type NotificationEventConditionListResponsesDefaultPagination =
-  DefaultPagination<NotificationEventConditionListResponse>;
+export type NotificationEventConditionListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<NotificationEventConditionListResponse>;
 
 export interface NotificationEventConditionListResponse {
   /**
@@ -81,7 +81,7 @@ export namespace NotificationEventConditionListResponse {
   }
 }
 
-export interface NotificationEventConditionListParams extends DefaultPaginationParams {
+export interface NotificationEventConditionListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[associated_record_type][eq], filter[channel_type_id][eq],
@@ -168,7 +168,7 @@ export namespace NotificationEventConditionListParams {
 export declare namespace NotificationEventConditions {
   export {
     type NotificationEventConditionListResponse as NotificationEventConditionListResponse,
-    type NotificationEventConditionListResponsesDefaultPagination as NotificationEventConditionListResponsesDefaultPagination,
+    type NotificationEventConditionListResponsesDefaultFlatPagination as NotificationEventConditionListResponsesDefaultFlatPagination,
     type NotificationEventConditionListParams as NotificationEventConditionListParams,
   };
 }

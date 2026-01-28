@@ -70,12 +70,6 @@ export interface CallEventListParams extends DefaultFlatPaginationParams {
    * filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status]
    */
   filter?: CallEventListParams.Filter;
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[after],
-   * page[before], page[limit], page[size], page[number]
-   */
-  page?: CallEventListParams.Page;
 }
 
 export namespace CallEventListParams {
@@ -197,27 +191,6 @@ export namespace CallEventListParams {
        */
       lte?: string;
     }
-  }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[after],
-   * page[before], page[limit], page[size], page[number]
-   */
-  export interface Page {
-    /**
-     * Opaque identifier of next page
-     */
-    after?: string;
-
-    /**
-     * Opaque identifier of previous page
-     */
-    before?: string;
-
-    /**
-     * Limit of records per single page
-     */
-    limit?: number;
   }
 }
 

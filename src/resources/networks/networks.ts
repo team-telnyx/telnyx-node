@@ -12,7 +12,7 @@ import {
   DefaultGatewayRetrieveResponse,
 } from './default-gateway';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -80,8 +80,8 @@ export class Networks extends APIResource {
   list(
     query: NetworkListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NetworkListResponsesDefaultPagination, NetworkListResponse> {
-    return this._client.getAPIList('/networks', DefaultPagination<NetworkListResponse>, {
+  ): PagePromise<NetworkListResponsesDefaultFlatPagination, NetworkListResponse> {
+    return this._client.getAPIList('/networks', DefaultFlatPagination<NetworkListResponse>, {
       query,
       ...options,
     });
@@ -118,19 +118,19 @@ export class Networks extends APIResource {
     id: string,
     query: NetworkListInterfacesParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NetworkListInterfacesResponsesDefaultPagination, NetworkListInterfacesResponse> {
+  ): PagePromise<NetworkListInterfacesResponsesDefaultFlatPagination, NetworkListInterfacesResponse> {
     return this._client.getAPIList(
       path`/networks/${id}/network_interfaces`,
-      DefaultPagination<NetworkListInterfacesResponse>,
+      DefaultFlatPagination<NetworkListInterfacesResponse>,
       { query, ...options },
     );
   }
 }
 
-export type NetworkListResponsesDefaultPagination = DefaultPagination<NetworkListResponse>;
+export type NetworkListResponsesDefaultFlatPagination = DefaultFlatPagination<NetworkListResponse>;
 
-export type NetworkListInterfacesResponsesDefaultPagination =
-  DefaultPagination<NetworkListInterfacesResponse>;
+export type NetworkListInterfacesResponsesDefaultFlatPagination =
+  DefaultFlatPagination<NetworkListInterfacesResponse>;
 
 /**
  * The current status of the interface deployment.
@@ -257,7 +257,7 @@ export interface NetworkUpdateParams {
   name: string;
 }
 
-export interface NetworkListParams extends DefaultPaginationParams {
+export interface NetworkListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[name]
    */
@@ -276,7 +276,7 @@ export namespace NetworkListParams {
   }
 }
 
-export interface NetworkListInterfacesParams extends DefaultPaginationParams {
+export interface NetworkListInterfacesParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[name],
    * filter[type], filter[status]
@@ -314,8 +314,8 @@ export declare namespace Networks {
     type NetworkListResponse as NetworkListResponse,
     type NetworkDeleteResponse as NetworkDeleteResponse,
     type NetworkListInterfacesResponse as NetworkListInterfacesResponse,
-    type NetworkListResponsesDefaultPagination as NetworkListResponsesDefaultPagination,
-    type NetworkListInterfacesResponsesDefaultPagination as NetworkListInterfacesResponsesDefaultPagination,
+    type NetworkListResponsesDefaultFlatPagination as NetworkListResponsesDefaultFlatPagination,
+    type NetworkListInterfacesResponsesDefaultFlatPagination as NetworkListInterfacesResponsesDefaultFlatPagination,
     type NetworkCreateParams as NetworkCreateParams,
     type NetworkUpdateParams as NetworkUpdateParams,
     type NetworkListParams as NetworkListParams,

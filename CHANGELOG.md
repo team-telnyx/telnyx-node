@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.13.1 (2026-01-28)
+
+Full Changelog: [v5.13.0...v5.13.1](https://github.com/team-telnyx/telnyx-node/compare/v5.13.0...v5.13.1)
+
+### Bug Fixes
+
+* **mcp:** allow falling back for required env variables ([b43fc58](https://github.com/team-telnyx/telnyx-node/commit/b43fc584c8260e2a77cbabf04799d84321d330de))
+
 ## 5.13.0 (2026-01-27)
 
 Full Changelog: [v5.12.0...v5.13.0](https://github.com/team-telnyx/telnyx-node/compare/v5.12.0...v5.13.0)

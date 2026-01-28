@@ -53,7 +53,8 @@ describe('resource billingBundles', () => {
       client.bundlePricing.billingBundles.list(
         {
           filter: { country_iso: ['US'], resource: ['+15617819942'] },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
           authorization_bearer: 'authorization_bearer',
         },
         { path: '/_stainless_unknown_path' },

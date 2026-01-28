@@ -27,7 +27,8 @@ describe('resource portingPhoneNumbers', () => {
       client.portingPhoneNumbers.list(
         {
           filter: { porting_order_status: 'in-process' },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
         },
         { path: '/_stainless_unknown_path' },
       ),
