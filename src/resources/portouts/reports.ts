@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -50,15 +50,15 @@ export class Reports extends APIResource {
   list(
     query: ReportListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortoutReportsDefaultPagination, PortoutReport> {
-    return this._client.getAPIList('/portouts/reports', DefaultPagination<PortoutReport>, {
+  ): PagePromise<PortoutReportsDefaultFlatPagination, PortoutReport> {
+    return this._client.getAPIList('/portouts/reports', DefaultFlatPagination<PortoutReport>, {
       query,
       ...options,
     });
   }
 }
 
-export type PortoutReportsDefaultPagination = DefaultPagination<PortoutReport>;
+export type PortoutReportsDefaultFlatPagination = DefaultFlatPagination<PortoutReport>;
 
 /**
  * The parameters for generating a port-outs CSV report.
@@ -170,7 +170,7 @@ export interface ReportCreateParams {
   report_type: 'export_portouts_csv';
 }
 
-export interface ReportListParams extends DefaultPaginationParams {
+export interface ReportListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[report_type], filter[status]
@@ -202,7 +202,7 @@ export declare namespace Reports {
     type PortoutReport as PortoutReport,
     type ReportCreateResponse as ReportCreateResponse,
     type ReportRetrieveResponse as ReportRetrieveResponse,
-    type PortoutReportsDefaultPagination as PortoutReportsDefaultPagination,
+    type PortoutReportsDefaultFlatPagination as PortoutReportsDefaultFlatPagination,
     type ReportCreateParams as ReportCreateParams,
     type ReportListParams as ReportListParams,
   };

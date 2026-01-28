@@ -10,7 +10,7 @@ import {
   ActionRequirementInitiateResponse,
   ActionRequirementListParams,
   ActionRequirementListResponse,
-  ActionRequirementListResponsesDefaultPagination,
+  ActionRequirementListResponsesDefaultFlatPagination,
   ActionRequirements,
 } from './action-requirements';
 import * as ActionsAPI from './actions';
@@ -38,7 +38,7 @@ import {
   AdditionalDocumentDeleteParams,
   AdditionalDocumentListParams,
   AdditionalDocumentListResponse,
-  AdditionalDocumentListResponsesDefaultPagination,
+  AdditionalDocumentListResponsesDefaultFlatPagination,
   AdditionalDocuments,
 } from './additional-documents';
 import * as AssociatedPhoneNumbersAPI from './associated-phone-numbers';
@@ -50,7 +50,7 @@ import {
   AssociatedPhoneNumberListParams,
   AssociatedPhoneNumbers,
   PortingAssociatedPhoneNumber,
-  PortingAssociatedPhoneNumbersDefaultPagination,
+  PortingAssociatedPhoneNumbersDefaultFlatPagination,
 } from './associated-phone-numbers';
 import * as CommentsAPI from './comments';
 import {
@@ -58,7 +58,7 @@ import {
   CommentCreateResponse,
   CommentListParams,
   CommentListResponse,
-  CommentListResponsesDefaultPagination,
+  CommentListResponsesDefaultFlatPagination,
   Comments,
 } from './comments';
 import * as PhoneNumberBlocksAPI from './phone-number-blocks';
@@ -70,7 +70,7 @@ import {
   PhoneNumberBlockListParams,
   PhoneNumberBlocks,
   PortingPhoneNumberBlock,
-  PortingPhoneNumberBlocksDefaultPagination,
+  PortingPhoneNumberBlocksDefaultFlatPagination,
 } from './phone-number-blocks';
 import * as PhoneNumberConfigurationsAPI from './phone-number-configurations';
 import {
@@ -78,7 +78,7 @@ import {
   PhoneNumberConfigurationCreateResponse,
   PhoneNumberConfigurationListParams,
   PhoneNumberConfigurationListResponse,
-  PhoneNumberConfigurationListResponsesDefaultPagination,
+  PhoneNumberConfigurationListResponsesDefaultFlatPagination,
   PhoneNumberConfigurations,
 } from './phone-number-configurations';
 import * as PhoneNumberExtensionsAPI from './phone-number-extensions';
@@ -90,20 +90,20 @@ import {
   PhoneNumberExtensionListParams,
   PhoneNumberExtensions,
   PortingPhoneNumberExtension,
-  PortingPhoneNumberExtensionsDefaultPagination,
+  PortingPhoneNumberExtensionsDefaultFlatPagination,
 } from './phone-number-extensions';
 import * as VerificationCodesAPI from './verification-codes';
 import {
   VerificationCodeListParams,
   VerificationCodeListResponse,
-  VerificationCodeListResponsesDefaultPagination,
+  VerificationCodeListResponsesDefaultFlatPagination,
   VerificationCodeSendParams,
   VerificationCodeVerifyParams,
   VerificationCodeVerifyResponse,
   VerificationCodes,
 } from './verification-codes';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -206,8 +206,11 @@ export class PortingOrders extends APIResource {
   list(
     query: PortingOrderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortingOrdersDefaultPagination, PortingOrder> {
-    return this._client.getAPIList('/porting_orders', DefaultPagination<PortingOrder>, { query, ...options });
+  ): PagePromise<PortingOrdersDefaultFlatPagination, PortingOrder> {
+    return this._client.getAPIList('/porting_orders', DefaultFlatPagination<PortingOrder>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -305,12 +308,12 @@ export class PortingOrders extends APIResource {
     query: PortingOrderRetrieveRequirementsParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<
-    PortingOrderRetrieveRequirementsResponsesDefaultPagination,
+    PortingOrderRetrieveRequirementsResponsesDefaultFlatPagination,
     PortingOrderRetrieveRequirementsResponse
   > {
     return this._client.getAPIList(
       path`/porting_orders/${id}/requirements`,
-      DefaultPagination<PortingOrderRetrieveRequirementsResponse>,
+      DefaultFlatPagination<PortingOrderRetrieveRequirementsResponse>,
       { query, ...options },
     );
   }
@@ -334,12 +337,13 @@ export class PortingOrders extends APIResource {
   }
 }
 
-export type PortingOrdersDefaultPagination = DefaultPagination<PortingOrder>;
+export type PortingOrdersDefaultFlatPagination = DefaultFlatPagination<PortingOrder>;
 
-export type PortingOrderRetrieveRequirementsResponsesDefaultPagination =
-  DefaultPagination<PortingOrderRetrieveRequirementsResponse>;
+export type PortingOrderRetrieveRequirementsResponsesDefaultFlatPagination =
+  DefaultFlatPagination<PortingOrderRetrieveRequirementsResponse>;
 
-export type PortingOrdersActivationJobsDefaultPagination = DefaultPagination<PortingOrdersActivationJob>;
+export type PortingOrdersActivationJobsDefaultFlatPagination =
+  DefaultFlatPagination<PortingOrdersActivationJob>;
 
 export interface PortingOrder {
   /**
@@ -1002,7 +1006,7 @@ export namespace PortingOrderUpdateParams {
   }
 }
 
-export interface PortingOrderListParams extends DefaultPaginationParams {
+export interface PortingOrderListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[customer_reference], filter[customer_group_reference],
@@ -1173,7 +1177,7 @@ export interface PortingOrderRetrieveLoaTemplateParams {
   loa_configuration_id?: string;
 }
 
-export interface PortingOrderRetrieveRequirementsParams extends DefaultPaginationParams {}
+export interface PortingOrderRetrieveRequirementsParams extends DefaultFlatPaginationParams {}
 
 PortingOrders.PhoneNumberConfigurations = PhoneNumberConfigurations;
 PortingOrders.Actions = Actions;
@@ -1208,8 +1212,8 @@ export declare namespace PortingOrders {
     type PortingOrderRetrieveExceptionTypesResponse as PortingOrderRetrieveExceptionTypesResponse,
     type PortingOrderRetrieveRequirementsResponse as PortingOrderRetrieveRequirementsResponse,
     type PortingOrderRetrieveSubRequestResponse as PortingOrderRetrieveSubRequestResponse,
-    type PortingOrdersDefaultPagination as PortingOrdersDefaultPagination,
-    type PortingOrderRetrieveRequirementsResponsesDefaultPagination as PortingOrderRetrieveRequirementsResponsesDefaultPagination,
+    type PortingOrdersDefaultFlatPagination as PortingOrdersDefaultFlatPagination,
+    type PortingOrderRetrieveRequirementsResponsesDefaultFlatPagination as PortingOrderRetrieveRequirementsResponsesDefaultFlatPagination,
     type PortingOrderCreateParams as PortingOrderCreateParams,
     type PortingOrderRetrieveParams as PortingOrderRetrieveParams,
     type PortingOrderUpdateParams as PortingOrderUpdateParams,
@@ -1222,7 +1226,7 @@ export declare namespace PortingOrders {
     PhoneNumberConfigurations as PhoneNumberConfigurations,
     type PhoneNumberConfigurationCreateResponse as PhoneNumberConfigurationCreateResponse,
     type PhoneNumberConfigurationListResponse as PhoneNumberConfigurationListResponse,
-    type PhoneNumberConfigurationListResponsesDefaultPagination as PhoneNumberConfigurationListResponsesDefaultPagination,
+    type PhoneNumberConfigurationListResponsesDefaultFlatPagination as PhoneNumberConfigurationListResponsesDefaultFlatPagination,
     type PhoneNumberConfigurationCreateParams as PhoneNumberConfigurationCreateParams,
     type PhoneNumberConfigurationListParams as PhoneNumberConfigurationListParams,
   };
@@ -1249,7 +1253,7 @@ export declare namespace PortingOrders {
     AdditionalDocuments as AdditionalDocuments,
     type AdditionalDocumentCreateResponse as AdditionalDocumentCreateResponse,
     type AdditionalDocumentListResponse as AdditionalDocumentListResponse,
-    type AdditionalDocumentListResponsesDefaultPagination as AdditionalDocumentListResponsesDefaultPagination,
+    type AdditionalDocumentListResponsesDefaultFlatPagination as AdditionalDocumentListResponsesDefaultFlatPagination,
     type AdditionalDocumentCreateParams as AdditionalDocumentCreateParams,
     type AdditionalDocumentListParams as AdditionalDocumentListParams,
     type AdditionalDocumentDeleteParams as AdditionalDocumentDeleteParams,
@@ -1259,7 +1263,7 @@ export declare namespace PortingOrders {
     Comments as Comments,
     type CommentCreateResponse as CommentCreateResponse,
     type CommentListResponse as CommentListResponse,
-    type CommentListResponsesDefaultPagination as CommentListResponsesDefaultPagination,
+    type CommentListResponsesDefaultFlatPagination as CommentListResponsesDefaultFlatPagination,
     type CommentCreateParams as CommentCreateParams,
     type CommentListParams as CommentListParams,
   };
@@ -1268,7 +1272,7 @@ export declare namespace PortingOrders {
     VerificationCodes as VerificationCodes,
     type VerificationCodeListResponse as VerificationCodeListResponse,
     type VerificationCodeVerifyResponse as VerificationCodeVerifyResponse,
-    type VerificationCodeListResponsesDefaultPagination as VerificationCodeListResponsesDefaultPagination,
+    type VerificationCodeListResponsesDefaultFlatPagination as VerificationCodeListResponsesDefaultFlatPagination,
     type VerificationCodeListParams as VerificationCodeListParams,
     type VerificationCodeSendParams as VerificationCodeSendParams,
     type VerificationCodeVerifyParams as VerificationCodeVerifyParams,
@@ -1278,7 +1282,7 @@ export declare namespace PortingOrders {
     ActionRequirements as ActionRequirements,
     type ActionRequirementListResponse as ActionRequirementListResponse,
     type ActionRequirementInitiateResponse as ActionRequirementInitiateResponse,
-    type ActionRequirementListResponsesDefaultPagination as ActionRequirementListResponsesDefaultPagination,
+    type ActionRequirementListResponsesDefaultFlatPagination as ActionRequirementListResponsesDefaultFlatPagination,
     type ActionRequirementListParams as ActionRequirementListParams,
     type ActionRequirementInitiateParams as ActionRequirementInitiateParams,
   };
@@ -1288,7 +1292,7 @@ export declare namespace PortingOrders {
     type PortingAssociatedPhoneNumber as PortingAssociatedPhoneNumber,
     type AssociatedPhoneNumberCreateResponse as AssociatedPhoneNumberCreateResponse,
     type AssociatedPhoneNumberDeleteResponse as AssociatedPhoneNumberDeleteResponse,
-    type PortingAssociatedPhoneNumbersDefaultPagination as PortingAssociatedPhoneNumbersDefaultPagination,
+    type PortingAssociatedPhoneNumbersDefaultFlatPagination as PortingAssociatedPhoneNumbersDefaultFlatPagination,
     type AssociatedPhoneNumberCreateParams as AssociatedPhoneNumberCreateParams,
     type AssociatedPhoneNumberListParams as AssociatedPhoneNumberListParams,
     type AssociatedPhoneNumberDeleteParams as AssociatedPhoneNumberDeleteParams,
@@ -1299,7 +1303,7 @@ export declare namespace PortingOrders {
     type PortingPhoneNumberBlock as PortingPhoneNumberBlock,
     type PhoneNumberBlockCreateResponse as PhoneNumberBlockCreateResponse,
     type PhoneNumberBlockDeleteResponse as PhoneNumberBlockDeleteResponse,
-    type PortingPhoneNumberBlocksDefaultPagination as PortingPhoneNumberBlocksDefaultPagination,
+    type PortingPhoneNumberBlocksDefaultFlatPagination as PortingPhoneNumberBlocksDefaultFlatPagination,
     type PhoneNumberBlockCreateParams as PhoneNumberBlockCreateParams,
     type PhoneNumberBlockListParams as PhoneNumberBlockListParams,
     type PhoneNumberBlockDeleteParams as PhoneNumberBlockDeleteParams,
@@ -1310,7 +1314,7 @@ export declare namespace PortingOrders {
     type PortingPhoneNumberExtension as PortingPhoneNumberExtension,
     type PhoneNumberExtensionCreateResponse as PhoneNumberExtensionCreateResponse,
     type PhoneNumberExtensionDeleteResponse as PhoneNumberExtensionDeleteResponse,
-    type PortingPhoneNumberExtensionsDefaultPagination as PortingPhoneNumberExtensionsDefaultPagination,
+    type PortingPhoneNumberExtensionsDefaultFlatPagination as PortingPhoneNumberExtensionsDefaultFlatPagination,
     type PhoneNumberExtensionCreateParams as PhoneNumberExtensionCreateParams,
     type PhoneNumberExtensionListParams as PhoneNumberExtensionListParams,
     type PhoneNumberExtensionDeleteParams as PhoneNumberExtensionDeleteParams,

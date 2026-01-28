@@ -241,36 +241,7 @@ export interface CallUpdateParams {
   keep_after_hangup?: boolean;
 }
 
-export interface CallListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[after],
-   * page[before], page[limit], page[size], page[number]
-   */
-  page?: CallListParams.Page;
-}
-
-export namespace CallListParams {
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[after],
-   * page[before], page[limit], page[size], page[number]
-   */
-  export interface Page {
-    /**
-     * Opaque identifier of next page
-     */
-    after?: string;
-
-    /**
-     * Opaque identifier of previous page
-     */
-    before?: string;
-
-    /**
-     * Limit of records per single page
-     */
-    limit?: number;
-  }
-}
+export interface CallListParams extends DefaultFlatPaginationParams {}
 
 export interface CallRemoveParams {
   /**

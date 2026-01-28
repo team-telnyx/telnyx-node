@@ -9,5 +9,5 @@ export {
   type NumberReservationRetrieveResponse,
   type NumberReservationCreateParams,
   type NumberReservationListParams,
-  type NumberReservationsDefaultPagination,
+  type NumberReservationsDefaultFlatPagination,
 } from './number-reservations';

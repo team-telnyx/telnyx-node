@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -54,8 +54,8 @@ export class Documents extends APIResource {
   list(
     query: DocumentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<DocServiceDocumentsDefaultPagination, DocServiceDocument> {
-    return this._client.getAPIList('/documents', DefaultPagination<DocServiceDocument>, {
+  ): PagePromise<DocServiceDocumentsDefaultFlatPagination, DocServiceDocument> {
+    return this._client.getAPIList('/documents', DefaultFlatPagination<DocServiceDocument>, {
       query,
       ...options,
     });
@@ -153,7 +153,7 @@ export class Documents extends APIResource {
   }
 }
 
-export type DocServiceDocumentsDefaultPagination = DefaultPagination<DocServiceDocument>;
+export type DocServiceDocumentsDefaultFlatPagination = DefaultFlatPagination<DocServiceDocument>;
 
 export interface DocServiceDocument {
   /**
@@ -274,7 +274,7 @@ export interface DocumentUpdateParams {
   filename?: string;
 }
 
-export interface DocumentListParams extends DefaultPaginationParams {
+export interface DocumentListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter for documents (deepObject style). Originally:
    * filter[filename][contains], filter[customer_reference][eq],
@@ -405,7 +405,7 @@ export declare namespace Documents {
     type DocumentGenerateDownloadLinkResponse as DocumentGenerateDownloadLinkResponse,
     type DocumentUploadResponse as DocumentUploadResponse,
     type DocumentUploadJsonResponse as DocumentUploadJsonResponse,
-    type DocServiceDocumentsDefaultPagination as DocServiceDocumentsDefaultPagination,
+    type DocServiceDocumentsDefaultFlatPagination as DocServiceDocumentsDefaultFlatPagination,
     type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentListParams as DocumentListParams,
     type DocumentUploadParams as DocumentUploadParams,

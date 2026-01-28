@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class PortingPhoneNumbers extends APIResource {
@@ -11,17 +11,17 @@ export class PortingPhoneNumbers extends APIResource {
   list(
     query: PortingPhoneNumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortingPhoneNumberListResponsesDefaultPagination, PortingPhoneNumberListResponse> {
+  ): PagePromise<PortingPhoneNumberListResponsesDefaultFlatPagination, PortingPhoneNumberListResponse> {
     return this._client.getAPIList(
       '/porting_phone_numbers',
-      DefaultPagination<PortingPhoneNumberListResponse>,
+      DefaultFlatPagination<PortingPhoneNumberListResponse>,
       { query, ...options },
     );
   }
 }
 
-export type PortingPhoneNumberListResponsesDefaultPagination =
-  DefaultPagination<PortingPhoneNumberListResponse>;
+export type PortingPhoneNumberListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<PortingPhoneNumberListResponse>;
 
 export interface PortingPhoneNumberListResponse {
   /**
@@ -96,7 +96,7 @@ export interface PortingPhoneNumberListResponse {
   support_key?: string;
 }
 
-export interface PortingPhoneNumberListParams extends DefaultPaginationParams {
+export interface PortingPhoneNumberListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[porting_order_status]
@@ -128,7 +128,7 @@ export namespace PortingPhoneNumberListParams {
 export declare namespace PortingPhoneNumbers {
   export {
     type PortingPhoneNumberListResponse as PortingPhoneNumberListResponse,
-    type PortingPhoneNumberListResponsesDefaultPagination as PortingPhoneNumberListResponsesDefaultPagination,
+    type PortingPhoneNumberListResponsesDefaultFlatPagination as PortingPhoneNumberListResponsesDefaultFlatPagination,
     type PortingPhoneNumberListParams as PortingPhoneNumberListParams,
   };
 }

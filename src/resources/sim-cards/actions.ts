@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -37,8 +37,8 @@ export class Actions extends APIResource {
   list(
     query: ActionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<SimCardActionsDefaultPagination, SimCardAction> {
-    return this._client.getAPIList('/sim_card_actions', DefaultPagination<SimCardAction>, {
+  ): PagePromise<SimCardActionsDefaultFlatPagination, SimCardAction> {
+    return this._client.getAPIList('/sim_card_actions', DefaultFlatPagination<SimCardAction>, {
       query,
       ...options,
     });
@@ -190,7 +190,7 @@ export class Actions extends APIResource {
   }
 }
 
-export type SimCardActionsDefaultPagination = DefaultPagination<SimCardAction>;
+export type SimCardActionsDefaultFlatPagination = DefaultFlatPagination<SimCardAction>;
 
 /**
  * This object represents a SIM card action. It allows tracking the current status
@@ -376,7 +376,7 @@ export namespace ActionValidateRegistrationCodesResponse {
   }
 }
 
-export interface ActionListParams extends DefaultPaginationParams {
+export interface ActionListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter for SIM card actions (deepObject style).
    * Originally: filter[sim_card_id], filter[status],
@@ -447,7 +447,7 @@ export declare namespace Actions {
     type ActionSetPublicIPResponse as ActionSetPublicIPResponse,
     type ActionSetStandbyResponse as ActionSetStandbyResponse,
     type ActionValidateRegistrationCodesResponse as ActionValidateRegistrationCodesResponse,
-    type SimCardActionsDefaultPagination as SimCardActionsDefaultPagination,
+    type SimCardActionsDefaultFlatPagination as SimCardActionsDefaultFlatPagination,
     type ActionListParams as ActionListParams,
     type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
     type ActionSetPublicIPParams as ActionSetPublicIPParams,

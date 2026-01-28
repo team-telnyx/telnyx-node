@@ -49,6 +49,7 @@ export {
   type QueueUpdateParams,
   type QueueListParams,
   type QueueDeleteParams,
+  type QueueListResponsesDefaultPaginationForQueues,
 } from './queues';
 export { Recordings } from './recordings/index';
 export { Transcriptions } from './transcriptions/index';

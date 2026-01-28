@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -57,10 +57,10 @@ export class DynamicEmergencyEndpoints extends APIResource {
   list(
     query: DynamicEmergencyEndpointListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<DynamicEmergencyEndpointsDefaultPagination, DynamicEmergencyEndpoint> {
+  ): PagePromise<DynamicEmergencyEndpointsDefaultFlatPagination, DynamicEmergencyEndpoint> {
     return this._client.getAPIList(
       '/dynamic_emergency_endpoints',
-      DefaultPagination<DynamicEmergencyEndpoint>,
+      DefaultFlatPagination<DynamicEmergencyEndpoint>,
       { query, ...options },
     );
   }
@@ -81,7 +81,7 @@ export class DynamicEmergencyEndpoints extends APIResource {
   }
 }
 
-export type DynamicEmergencyEndpointsDefaultPagination = DefaultPagination<DynamicEmergencyEndpoint>;
+export type DynamicEmergencyEndpointsDefaultFlatPagination = DefaultFlatPagination<DynamicEmergencyEndpoint>;
 
 export interface DynamicEmergencyEndpoint {
   callback_number: string;
@@ -141,7 +141,7 @@ export interface DynamicEmergencyEndpointCreateParams {
   dynamic_emergency_address_id: string;
 }
 
-export interface DynamicEmergencyEndpointListParams extends DefaultPaginationParams {
+export interface DynamicEmergencyEndpointListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
    * filter[country_code]
@@ -173,7 +173,7 @@ export declare namespace DynamicEmergencyEndpoints {
     type DynamicEmergencyEndpointCreateResponse as DynamicEmergencyEndpointCreateResponse,
     type DynamicEmergencyEndpointRetrieveResponse as DynamicEmergencyEndpointRetrieveResponse,
     type DynamicEmergencyEndpointDeleteResponse as DynamicEmergencyEndpointDeleteResponse,
-    type DynamicEmergencyEndpointsDefaultPagination as DynamicEmergencyEndpointsDefaultPagination,
+    type DynamicEmergencyEndpointsDefaultFlatPagination as DynamicEmergencyEndpointsDefaultFlatPagination,
     type DynamicEmergencyEndpointCreateParams as DynamicEmergencyEndpointCreateParams,
     type DynamicEmergencyEndpointListParams as DynamicEmergencyEndpointListParams,
   };

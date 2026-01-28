@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -58,15 +58,15 @@ export class NumberBlockOrders extends APIResource {
   list(
     query: NumberBlockOrderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NumberBlockOrdersDefaultPagination, NumberBlockOrder> {
-    return this._client.getAPIList('/number_block_orders', DefaultPagination<NumberBlockOrder>, {
+  ): PagePromise<NumberBlockOrdersDefaultFlatPagination, NumberBlockOrder> {
+    return this._client.getAPIList('/number_block_orders', DefaultFlatPagination<NumberBlockOrder>, {
       query,
       ...options,
     });
   }
 }
 
-export type NumberBlockOrdersDefaultPagination = DefaultPagination<NumberBlockOrder>;
+export type NumberBlockOrdersDefaultFlatPagination = DefaultFlatPagination<NumberBlockOrder>;
 
 export interface NumberBlockOrder {
   id?: string;
@@ -160,7 +160,7 @@ export interface NumberBlockOrderCreateParams {
   messaging_profile_id?: string;
 }
 
-export interface NumberBlockOrderListParams extends DefaultPaginationParams {
+export interface NumberBlockOrderListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
    * filter[created_at], filter[phone_numbers.starting_number]
@@ -213,7 +213,7 @@ export declare namespace NumberBlockOrders {
     type NumberBlockOrder as NumberBlockOrder,
     type NumberBlockOrderCreateResponse as NumberBlockOrderCreateResponse,
     type NumberBlockOrderRetrieveResponse as NumberBlockOrderRetrieveResponse,
-    type NumberBlockOrdersDefaultPagination as NumberBlockOrdersDefaultPagination,
+    type NumberBlockOrdersDefaultFlatPagination as NumberBlockOrdersDefaultFlatPagination,
     type NumberBlockOrderCreateParams as NumberBlockOrderCreateParams,
     type NumberBlockOrderListParams as NumberBlockOrderListParams,
   };

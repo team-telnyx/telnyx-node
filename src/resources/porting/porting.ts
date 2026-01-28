@@ -5,7 +5,7 @@ import * as EventsAPI from './events';
 import {
   EventListParams,
   EventListResponse,
-  EventListResponsesDefaultPagination,
+  EventListResponsesDefaultFlatPagination,
   EventRetrieveResponse,
   Events,
 } from './events';
@@ -20,13 +20,13 @@ import {
   LoaConfigurationUpdateResponse,
   LoaConfigurations,
   PortingLoaConfiguration,
-  PortingLoaConfigurationsDefaultPagination,
+  PortingLoaConfigurationsDefaultFlatPagination,
 } from './loa-configurations';
 import * as ReportsAPI from './reports';
 import {
   ExportPortingOrdersCsvReport,
   PortingReport,
-  PortingReportsDefaultPagination,
+  PortingReportsDefaultFlatPagination,
   ReportCreateParams,
   ReportCreateResponse,
   ReportListParams,
@@ -111,7 +111,7 @@ export declare namespace Porting {
     Events as Events,
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
-    type EventListResponsesDefaultPagination as EventListResponsesDefaultPagination,
+    type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
     type EventListParams as EventListParams,
   };
 
@@ -121,7 +121,7 @@ export declare namespace Porting {
     type PortingReport as PortingReport,
     type ReportCreateResponse as ReportCreateResponse,
     type ReportRetrieveResponse as ReportRetrieveResponse,
-    type PortingReportsDefaultPagination as PortingReportsDefaultPagination,
+    type PortingReportsDefaultFlatPagination as PortingReportsDefaultFlatPagination,
     type ReportCreateParams as ReportCreateParams,
     type ReportListParams as ReportListParams,
   };
@@ -132,7 +132,7 @@ export declare namespace Porting {
     type LoaConfigurationCreateResponse as LoaConfigurationCreateResponse,
     type LoaConfigurationRetrieveResponse as LoaConfigurationRetrieveResponse,
     type LoaConfigurationUpdateResponse as LoaConfigurationUpdateResponse,
-    type PortingLoaConfigurationsDefaultPagination as PortingLoaConfigurationsDefaultPagination,
+    type PortingLoaConfigurationsDefaultFlatPagination as PortingLoaConfigurationsDefaultFlatPagination,
     type LoaConfigurationCreateParams as LoaConfigurationCreateParams,
     type LoaConfigurationUpdateParams as LoaConfigurationUpdateParams,
     type LoaConfigurationListParams as LoaConfigurationListParams,

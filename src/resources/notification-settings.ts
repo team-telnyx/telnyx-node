@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -52,8 +52,8 @@ export class NotificationSettings extends APIResource {
   list(
     query: NotificationSettingListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NotificationSettingsDefaultPagination, NotificationSetting> {
-    return this._client.getAPIList('/notification_settings', DefaultPagination<NotificationSetting>, {
+  ): PagePromise<NotificationSettingsDefaultFlatPagination, NotificationSetting> {
+    return this._client.getAPIList('/notification_settings', DefaultFlatPagination<NotificationSetting>, {
       query,
       ...options,
     });
@@ -75,7 +75,7 @@ export class NotificationSettings extends APIResource {
   }
 }
 
-export type NotificationSettingsDefaultPagination = DefaultPagination<NotificationSetting>;
+export type NotificationSettingsDefaultFlatPagination = DefaultFlatPagination<NotificationSetting>;
 
 export interface NotificationSetting {
   /**
@@ -175,7 +175,7 @@ export namespace NotificationSettingCreateParams {
   }
 }
 
-export interface NotificationSettingListParams extends DefaultPaginationParams {
+export interface NotificationSettingListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[associated_record_type][eq], filter[channel_type_id][eq],
@@ -265,7 +265,7 @@ export declare namespace NotificationSettings {
     type NotificationSettingCreateResponse as NotificationSettingCreateResponse,
     type NotificationSettingRetrieveResponse as NotificationSettingRetrieveResponse,
     type NotificationSettingDeleteResponse as NotificationSettingDeleteResponse,
-    type NotificationSettingsDefaultPagination as NotificationSettingsDefaultPagination,
+    type NotificationSettingsDefaultFlatPagination as NotificationSettingsDefaultFlatPagination,
     type NotificationSettingCreateParams as NotificationSettingCreateParams,
     type NotificationSettingListParams as NotificationSettingListParams,
   };
