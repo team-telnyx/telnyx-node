@@ -2,9 +2,9 @@
 
 import { APIResource } from '../../../core/resource';
 import * as Shared from '../../shared';
-import { RoomParticipantsDefaultPagination } from '../../shared';
+import { RoomParticipantsDefaultFlatPagination } from '../../shared';
 import * as RoomsAPI from '../rooms';
-import { RoomSessionsDefaultPagination } from '../rooms';
+import { RoomSessionsDefaultFlatPagination } from '../rooms';
 import * as ActionsAPI from './actions';
 import {
   ActionEndResponse,
@@ -18,7 +18,11 @@ import {
   ActionsParticipantsRequest,
 } from './actions';
 import { APIPromise } from '../../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../../core/pagination';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -57,8 +61,8 @@ export class Sessions extends APIResource {
   list0(
     query: SessionList0Params | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RoomSessionsDefaultPagination, RoomsAPI.RoomSession> {
-    return this._client.getAPIList('/room_sessions', DefaultPagination<RoomsAPI.RoomSession>, {
+  ): PagePromise<RoomSessionsDefaultFlatPagination, RoomsAPI.RoomSession> {
+    return this._client.getAPIList('/room_sessions', DefaultFlatPagination<RoomsAPI.RoomSession>, {
       query,
       ...options,
     });
@@ -81,11 +85,12 @@ export class Sessions extends APIResource {
     roomID: string,
     query: SessionList1Params | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RoomSessionsDefaultPagination, RoomsAPI.RoomSession> {
-    return this._client.getAPIList(path`/rooms/${roomID}/sessions`, DefaultPagination<RoomsAPI.RoomSession>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<RoomSessionsDefaultFlatPagination, RoomsAPI.RoomSession> {
+    return this._client.getAPIList(
+      path`/rooms/${roomID}/sessions`,
+      DefaultFlatPagination<RoomsAPI.RoomSession>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -105,10 +110,10 @@ export class Sessions extends APIResource {
     roomSessionID: string,
     query: SessionRetrieveParticipantsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RoomParticipantsDefaultPagination, Shared.RoomParticipant> {
+  ): PagePromise<RoomParticipantsDefaultFlatPagination, Shared.RoomParticipant> {
     return this._client.getAPIList(
       path`/room_sessions/${roomSessionID}/participants`,
-      DefaultPagination<Shared.RoomParticipant>,
+      DefaultFlatPagination<Shared.RoomParticipant>,
       { query, ...options },
     );
   }
@@ -125,7 +130,7 @@ export interface SessionRetrieveParams {
   include_participants?: boolean;
 }
 
-export interface SessionList0Params extends DefaultPaginationParams {
+export interface SessionList0Params extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_created_at][eq], filter[date_created_at][gte],
@@ -223,7 +228,7 @@ export namespace SessionList0Params {
   }
 }
 
-export interface SessionList1Params extends DefaultPaginationParams {
+export interface SessionList1Params extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_created_at][eq], filter[date_created_at][gte],
@@ -316,7 +321,7 @@ export namespace SessionList1Params {
   }
 }
 
-export interface SessionRetrieveParticipantsParams extends DefaultPaginationParams {
+export interface SessionRetrieveParticipantsParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[date_joined_at][eq], filter[date_joined_at][gte],
@@ -429,4 +434,4 @@ export declare namespace Sessions {
   };
 }
 
-export { type RoomSessionsDefaultPagination, type RoomParticipantsDefaultPagination };
+export { type RoomSessionsDefaultFlatPagination, type RoomParticipantsDefaultFlatPagination };

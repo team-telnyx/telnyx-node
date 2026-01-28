@@ -6,7 +6,7 @@ import {
   Messaging,
   MessagingListParams,
   MessagingListResponse,
-  MessagingListResponsesDefaultPagination,
+  MessagingListResponsesDefaultFlatPagination,
   MessagingRetrieveResponse,
 } from './messaging';
 import { APIPromise } from '../../core/api-promise';
@@ -286,7 +286,7 @@ export declare namespace MobilePhoneNumbers {
     Messaging as Messaging,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingListResponse as MessagingListResponse,
-    type MessagingListResponsesDefaultPagination as MessagingListResponsesDefaultPagination,
+    type MessagingListResponsesDefaultFlatPagination as MessagingListResponsesDefaultFlatPagination,
     type MessagingListParams as MessagingListParams,
   };
 }

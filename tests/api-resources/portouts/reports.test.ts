@@ -71,7 +71,8 @@ describe('resource reports', () => {
       client.portouts.reports.list(
         {
           filter: { report_type: 'export_portouts_csv', status: 'completed' },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
         },
         { path: '/_stainless_unknown_path' },
       ),

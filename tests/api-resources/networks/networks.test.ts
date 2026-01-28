@@ -77,7 +77,8 @@ describe('resource networks', () => {
       client.networks.list(
         {
           filter: { name: 'test network' },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -116,7 +117,8 @@ describe('resource networks', () => {
         '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
         {
           filter: { name: 'test interface', type: 'wireguard_interface' },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
         },
         { path: '/_stainless_unknown_path' },
       ),

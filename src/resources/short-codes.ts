@@ -2,9 +2,9 @@
 
 import { APIResource } from '../core/resource';
 import * as Shared from './shared';
-import { ShortCodesDefaultPagination } from './shared';
+import { ShortCodesDefaultFlatPagination } from './shared';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -61,8 +61,8 @@ export class ShortCodes extends APIResource {
   list(
     query: ShortCodeListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ShortCodesDefaultPagination, Shared.ShortCode> {
-    return this._client.getAPIList('/short_codes', DefaultPagination<Shared.ShortCode>, {
+  ): PagePromise<ShortCodesDefaultFlatPagination, Shared.ShortCode> {
+    return this._client.getAPIList('/short_codes', DefaultFlatPagination<Shared.ShortCode>, {
       query,
       ...options,
     });
@@ -86,7 +86,7 @@ export interface ShortCodeUpdateParams {
   tags?: Array<string>;
 }
 
-export interface ShortCodeListParams extends DefaultPaginationParams {
+export interface ShortCodeListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[messaging_profile_id]
@@ -118,4 +118,4 @@ export declare namespace ShortCodes {
   };
 }
 
-export { type ShortCodesDefaultPagination };
+export { type ShortCodesDefaultFlatPagination };

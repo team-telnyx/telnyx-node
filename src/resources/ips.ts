@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -64,8 +64,8 @@ export class IPs extends APIResource {
   list(
     query: IPListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<IPsDefaultPagination, IP> {
-    return this._client.getAPIList('/ips', DefaultPagination<IP>, { query, ...options });
+  ): PagePromise<IPsDefaultFlatPagination, IP> {
+    return this._client.getAPIList('/ips', DefaultFlatPagination<IP>, { query, ...options });
   }
 
   /**
@@ -83,7 +83,7 @@ export class IPs extends APIResource {
   }
 }
 
-export type IPsDefaultPagination = DefaultPagination<IP>;
+export type IPsDefaultFlatPagination = DefaultFlatPagination<IP>;
 
 export interface IP {
   /**
@@ -172,7 +172,7 @@ export interface IPUpdateParams {
   port?: number;
 }
 
-export interface IPListParams extends DefaultPaginationParams {
+export interface IPListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[connection_id], filter[ip_address], filter[port]
@@ -210,7 +210,7 @@ export declare namespace IPs {
     type IPRetrieveResponse as IPRetrieveResponse,
     type IPUpdateResponse as IPUpdateResponse,
     type IPDeleteResponse as IPDeleteResponse,
-    type IPsDefaultPagination as IPsDefaultPagination,
+    type IPsDefaultFlatPagination as IPsDefaultFlatPagination,
     type IPCreateParams as IPCreateParams,
     type IPUpdateParams as IPUpdateParams,
     type IPListParams as IPListParams,

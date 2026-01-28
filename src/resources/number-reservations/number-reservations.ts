@@ -4,7 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
 import { ActionExtendResponse, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -59,15 +59,15 @@ export class NumberReservations extends APIResource {
   list(
     query: NumberReservationListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NumberReservationsDefaultPagination, NumberReservation> {
-    return this._client.getAPIList('/number_reservations', DefaultPagination<NumberReservation>, {
+  ): PagePromise<NumberReservationsDefaultFlatPagination, NumberReservation> {
+    return this._client.getAPIList('/number_reservations', DefaultFlatPagination<NumberReservation>, {
       query,
       ...options,
     });
   }
 }
 
-export type NumberReservationsDefaultPagination = DefaultPagination<NumberReservation>;
+export type NumberReservationsDefaultFlatPagination = DefaultFlatPagination<NumberReservation>;
 
 export interface NumberReservation {
   id?: string;
@@ -145,7 +145,7 @@ export interface NumberReservationCreateParams {
   phone_numbers?: Array<ReservedPhoneNumber>;
 }
 
-export interface NumberReservationListParams extends DefaultPaginationParams {
+export interface NumberReservationListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
    * filter[created_at], filter[phone_numbers.phone_number],
@@ -208,7 +208,7 @@ export declare namespace NumberReservations {
     type ReservedPhoneNumber as ReservedPhoneNumber,
     type NumberReservationCreateResponse as NumberReservationCreateResponse,
     type NumberReservationRetrieveResponse as NumberReservationRetrieveResponse,
-    type NumberReservationsDefaultPagination as NumberReservationsDefaultPagination,
+    type NumberReservationsDefaultFlatPagination as NumberReservationsDefaultFlatPagination,
     type NumberReservationCreateParams as NumberReservationCreateParams,
     type NumberReservationListParams as NumberReservationListParams,
   };
