@@ -2,9 +2,9 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
-import { PhoneNumberWithMessagingSettingsDefaultPagination } from '../shared';
+import { PhoneNumberWithMessagingSettingsDefaultFlatPagination } from '../shared';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -53,10 +53,13 @@ export class Messaging extends APIResource {
   list(
     query: MessagingListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PhoneNumberWithMessagingSettingsDefaultPagination, Shared.PhoneNumberWithMessagingSettings> {
+  ): PagePromise<
+    PhoneNumberWithMessagingSettingsDefaultFlatPagination,
+    Shared.PhoneNumberWithMessagingSettings
+  > {
     return this._client.getAPIList(
       '/phone_numbers/messaging',
-      DefaultPagination<Shared.PhoneNumberWithMessagingSettings>,
+      DefaultFlatPagination<Shared.PhoneNumberWithMessagingSettings>,
       { query, ...options },
     );
   }
@@ -90,7 +93,7 @@ export interface MessagingUpdateParams {
   messaging_profile_id?: string;
 }
 
-export interface MessagingListParams extends DefaultPaginationParams {}
+export interface MessagingListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace Messaging {
   export {
@@ -101,4 +104,4 @@ export declare namespace Messaging {
   };
 }
 
-export { type PhoneNumberWithMessagingSettingsDefaultPagination };
+export { type PhoneNumberWithMessagingSettingsDefaultFlatPagination };

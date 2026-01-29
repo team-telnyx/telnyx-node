@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -44,10 +44,10 @@ export class AdditionalDocuments extends APIResource {
     id: string,
     query: AdditionalDocumentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<AdditionalDocumentListResponsesDefaultPagination, AdditionalDocumentListResponse> {
+  ): PagePromise<AdditionalDocumentListResponsesDefaultFlatPagination, AdditionalDocumentListResponse> {
     return this._client.getAPIList(
       path`/porting_orders/${id}/additional_documents`,
-      DefaultPagination<AdditionalDocumentListResponse>,
+      DefaultFlatPagination<AdditionalDocumentListResponse>,
       { query, ...options },
     );
   }
@@ -76,8 +76,8 @@ export class AdditionalDocuments extends APIResource {
   }
 }
 
-export type AdditionalDocumentListResponsesDefaultPagination =
-  DefaultPagination<AdditionalDocumentListResponse>;
+export type AdditionalDocumentListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<AdditionalDocumentListResponse>;
 
 export interface AdditionalDocumentCreateResponse {
   data?: Array<AdditionalDocumentCreateResponse.Data>;
@@ -197,7 +197,7 @@ export namespace AdditionalDocumentCreateParams {
   }
 }
 
-export interface AdditionalDocumentListParams extends DefaultPaginationParams {
+export interface AdditionalDocumentListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[document_type]
@@ -245,7 +245,7 @@ export declare namespace AdditionalDocuments {
   export {
     type AdditionalDocumentCreateResponse as AdditionalDocumentCreateResponse,
     type AdditionalDocumentListResponse as AdditionalDocumentListResponse,
-    type AdditionalDocumentListResponsesDefaultPagination as AdditionalDocumentListResponsesDefaultPagination,
+    type AdditionalDocumentListResponsesDefaultFlatPagination as AdditionalDocumentListResponsesDefaultFlatPagination,
     type AdditionalDocumentCreateParams as AdditionalDocumentCreateParams,
     type AdditionalDocumentListParams as AdditionalDocumentListParams,
     type AdditionalDocumentDeleteParams as AdditionalDocumentDeleteParams,

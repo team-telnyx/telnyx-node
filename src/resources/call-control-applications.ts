@@ -441,12 +441,6 @@ export interface CallControlApplicationListParams extends DefaultFlatPaginationP
   filter?: CallControlApplicationListParams.Filter;
 
   /**
-   * Consolidated page parameter (deepObject style). Originally: page[after],
-   * page[before], page[limit], page[size], page[number]
-   */
-  page?: CallControlApplicationListParams.Page;
-
-  /**
    * Specifies the sort order for results. By default sorting direction is ascending.
    * To have the results sorted in descending order add the <code> -</code>
    * prefix.<br/><br/> That is: <ul>
@@ -584,27 +578,6 @@ export namespace CallControlApplicationListParams {
        */
       lte?: string;
     }
-  }
-
-  /**
-   * Consolidated page parameter (deepObject style). Originally: page[after],
-   * page[before], page[limit], page[size], page[number]
-   */
-  export interface Page {
-    /**
-     * Opaque identifier of next page
-     */
-    after?: string;
-
-    /**
-     * Opaque identifier of previous page
-     */
-    before?: string;
-
-    /**
-     * Limit of records per single page
-     */
-    limit?: number;
   }
 }
 

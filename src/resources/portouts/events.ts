@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -36,8 +36,8 @@ export class Events extends APIResource {
   list(
     query: EventListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<EventListResponsesDefaultPagination, EventListResponse> {
-    return this._client.getAPIList('/portouts/events', DefaultPagination<EventListResponse>, {
+  ): PagePromise<EventListResponsesDefaultFlatPagination, EventListResponse> {
+    return this._client.getAPIList('/portouts/events', DefaultFlatPagination<EventListResponse>, {
       query,
       ...options,
     });
@@ -61,7 +61,7 @@ export class Events extends APIResource {
   }
 }
 
-export type EventListResponsesDefaultPagination = DefaultPagination<EventListResponse>;
+export type EventListResponsesDefaultFlatPagination = DefaultFlatPagination<EventListResponse>;
 
 export interface EventRetrieveResponse {
   data?:
@@ -565,7 +565,7 @@ export namespace EventListResponse {
   }
 }
 
-export interface EventListParams extends DefaultPaginationParams {
+export interface EventListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[event_type], filter[portout_id], filter[created_at]
@@ -617,7 +617,7 @@ export declare namespace Events {
   export {
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
-    type EventListResponsesDefaultPagination as EventListResponsesDefaultPagination,
+    type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
     type EventListParams as EventListParams,
   };
 }

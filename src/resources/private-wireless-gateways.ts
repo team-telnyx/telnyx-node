@@ -137,8 +137,7 @@ export interface PrivateWirelessGateway {
  */
 export interface PrivateWirelessGatewayStatus {
   /**
-   * This attribute is an
-   * [error code](https://developers.telnyx.com/development/api-fundamentals/api-errors)
+   * This attribute is an [error code](https://developers.telnyx.com/api/errors)
    * related to the failure reason.
    */
   error_code?: string | null;

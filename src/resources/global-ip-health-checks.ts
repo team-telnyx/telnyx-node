@@ -3,7 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -53,10 +53,10 @@ export class GlobalIPHealthChecks extends APIResource {
   list(
     query: GlobalIPHealthCheckListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<GlobalIPHealthCheckListResponsesDefaultPagination, GlobalIPHealthCheckListResponse> {
+  ): PagePromise<GlobalIPHealthCheckListResponsesDefaultFlatPagination, GlobalIPHealthCheckListResponse> {
     return this._client.getAPIList(
       '/global_ip_health_checks',
-      DefaultPagination<GlobalIPHealthCheckListResponse>,
+      DefaultFlatPagination<GlobalIPHealthCheckListResponse>,
       { query, ...options },
     );
   }
@@ -77,8 +77,8 @@ export class GlobalIPHealthChecks extends APIResource {
   }
 }
 
-export type GlobalIPHealthCheckListResponsesDefaultPagination =
-  DefaultPagination<GlobalIPHealthCheckListResponse>;
+export type GlobalIPHealthCheckListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<GlobalIPHealthCheckListResponse>;
 
 export interface GlobalIPHealthCheckCreateResponse {
   data?: GlobalIPHealthCheckCreateResponse.Data;
@@ -183,7 +183,7 @@ export interface GlobalIPHealthCheckCreateParams {
   health_check_type?: string;
 }
 
-export interface GlobalIPHealthCheckListParams extends DefaultPaginationParams {}
+export interface GlobalIPHealthCheckListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace GlobalIPHealthChecks {
   export {
@@ -191,7 +191,7 @@ export declare namespace GlobalIPHealthChecks {
     type GlobalIPHealthCheckRetrieveResponse as GlobalIPHealthCheckRetrieveResponse,
     type GlobalIPHealthCheckListResponse as GlobalIPHealthCheckListResponse,
     type GlobalIPHealthCheckDeleteResponse as GlobalIPHealthCheckDeleteResponse,
-    type GlobalIPHealthCheckListResponsesDefaultPagination as GlobalIPHealthCheckListResponsesDefaultPagination,
+    type GlobalIPHealthCheckListResponsesDefaultFlatPagination as GlobalIPHealthCheckListResponsesDefaultFlatPagination,
     type GlobalIPHealthCheckCreateParams as GlobalIPHealthCheckCreateParams,
     type GlobalIPHealthCheckListParams as GlobalIPHealthCheckListParams,
   };

@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
-import { SimpleSimCardsDefaultPagination } from '../shared';
+import { SimpleSimCardsDefaultFlatPagination } from '../shared';
 import * as ActionsAPI from './actions';
 import {
   ActionBulkSetPublicIPsParams,
@@ -19,16 +19,10 @@ import {
   ActionValidateRegistrationCodesResponse,
   Actions,
   SimCardAction,
-  SimCardActionsDefaultPagination,
+  SimCardActionsDefaultFlatPagination,
 } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import {
-  DefaultFlatPagination,
-  type DefaultFlatPaginationParams,
-  DefaultPagination,
-  type DefaultPaginationParams,
-  PagePromise,
-} from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -85,8 +79,8 @@ export class SimCards extends APIResource {
   list(
     query: SimCardListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<SimpleSimCardsDefaultPagination, Shared.SimpleSimCard> {
-    return this._client.getAPIList('/sim_cards', DefaultPagination<Shared.SimpleSimCard>, {
+  ): PagePromise<SimpleSimCardsDefaultFlatPagination, Shared.SimpleSimCard> {
+    return this._client.getAPIList('/sim_cards', DefaultFlatPagination<Shared.SimpleSimCard>, {
       query,
       ...options,
     });
@@ -670,10 +664,10 @@ export namespace SimCardUpdateParams {
   }
 }
 
-export interface SimCardListParams extends DefaultPaginationParams {
+export interface SimCardListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter for SIM cards (deepObject style). Originally:
-   * filter[iccid], filter[msisdn], filter[status], filter[tags]
+   * filter[tags], filter[iccid], filter[status]
    */
   filter?: SimCardListParams.Filter;
 
@@ -697,18 +691,13 @@ export interface SimCardListParams extends DefaultPaginationParams {
 export namespace SimCardListParams {
   /**
    * Consolidated filter parameter for SIM cards (deepObject style). Originally:
-   * filter[iccid], filter[msisdn], filter[status], filter[tags]
+   * filter[tags], filter[iccid], filter[status]
    */
   export interface Filter {
     /**
      * A search string to partially match for the SIM card's ICCID.
      */
     iccid?: string;
-
-    /**
-     * A search string to match for the SIM card's MSISDN.
-     */
-    msisdn?: string;
 
     /**
      * Filter by a SIM card's status.
@@ -771,7 +760,7 @@ export declare namespace SimCards {
     type ActionSetPublicIPResponse as ActionSetPublicIPResponse,
     type ActionSetStandbyResponse as ActionSetStandbyResponse,
     type ActionValidateRegistrationCodesResponse as ActionValidateRegistrationCodesResponse,
-    type SimCardActionsDefaultPagination as SimCardActionsDefaultPagination,
+    type SimCardActionsDefaultFlatPagination as SimCardActionsDefaultFlatPagination,
     type ActionListParams as ActionListParams,
     type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
     type ActionSetPublicIPParams as ActionSetPublicIPParams,
@@ -779,4 +768,4 @@ export declare namespace SimCards {
   };
 }
 
-export { type SimpleSimCardsDefaultPagination };
+export { type SimpleSimCardsDefaultFlatPagination };

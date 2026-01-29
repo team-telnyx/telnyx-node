@@ -39,7 +39,8 @@ describe('resource jobs', () => {
       client.phoneNumbers.jobs.list(
         {
           filter: { type: 'update_emergency_settings' },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
           sort: 'created_at',
         },
         { path: '/_stainless_unknown_path' },

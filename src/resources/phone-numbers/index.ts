@@ -9,7 +9,7 @@ export {
   type ActionChangeBundleStatusParams,
   type ActionEnableEmergencyParams,
   type ActionVerifyOwnershipParams,
-  type PhoneNumberWithVoiceSettingsDefaultPagination,
+  type PhoneNumberWithVoiceSettingsDefaultFlatPagination,
 } from './actions';
 export {
   CsvDownloads,
@@ -18,7 +18,7 @@ export {
   type CsvDownloadRetrieveResponse,
   type CsvDownloadCreateParams,
   type CsvDownloadListParams,
-  type CsvDownloadsDefaultPagination,
+  type CsvDownloadsDefaultFlatPagination,
 } from './csv-downloads';
 export {
   Jobs,
@@ -31,7 +31,7 @@ export {
   type JobDeleteBatchParams,
   type JobUpdateBatchParams,
   type JobUpdateEmergencySettingsBatchParams,
-  type PhoneNumbersJobsDefaultPagination,
+  type PhoneNumbersJobsDefaultFlatPagination,
 } from './jobs';
 export {
   Messaging,
@@ -50,8 +50,8 @@ export {
   type PhoneNumberUpdateParams,
   type PhoneNumberListParams,
   type PhoneNumberSlimListParams,
-  type PhoneNumberDetailedsDefaultPagination,
-  type PhoneNumberSlimListResponsesDefaultPagination,
+  type PhoneNumberDetailedsDefaultFlatPagination,
+  type PhoneNumberSlimListResponsesDefaultFlatPagination,
 } from './phone-numbers';
 export {
   Voice,

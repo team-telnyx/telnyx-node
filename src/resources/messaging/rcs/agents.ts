@@ -2,9 +2,13 @@
 
 import { APIResource } from '../../../core/resource';
 import * as RcsAgentsAPI from '../../rcs-agents';
-import { RcsAgentsDefaultPagination } from '../../rcs-agents';
+import { RcsAgentsDefaultFlatPagination } from '../../rcs-agents';
 import { APIPromise } from '../../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../../core/pagination';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -53,8 +57,8 @@ export class Agents extends APIResource {
   list(
     query: AgentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RcsAgentsDefaultPagination, RcsAgentsAPI.RcsAgent> {
-    return this._client.getAPIList('/messaging/rcs/agents', DefaultPagination<RcsAgentsAPI.RcsAgent>, {
+  ): PagePromise<RcsAgentsDefaultFlatPagination, RcsAgentsAPI.RcsAgent> {
+    return this._client.getAPIList('/messaging/rcs/agents', DefaultFlatPagination<RcsAgentsAPI.RcsAgent>, {
       query,
       ...options,
     });
@@ -78,10 +82,10 @@ export interface AgentUpdateParams {
   webhook_url?: string | null;
 }
 
-export interface AgentListParams extends DefaultPaginationParams {}
+export interface AgentListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace Agents {
   export { type AgentUpdateParams as AgentUpdateParams, type AgentListParams as AgentListParams };
 }
 
-export { type RcsAgentsDefaultPagination };
+export { type RcsAgentsDefaultFlatPagination };

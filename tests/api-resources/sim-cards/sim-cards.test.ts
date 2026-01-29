@@ -64,13 +64,13 @@ describe('resource simCards', () => {
         {
           filter: {
             iccid: '89310410106543789301',
-            msisdn: '+13109976224',
             status: ['enabled'],
             tags: ['personal', 'customers', 'active-customers'],
           },
           'filter[sim_card_group_id]': '47a1c2b0-cc7b-4ab1-bb98-b33fb0fc61b9',
           include_sim_card_group: true,
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
           sort: 'current_billing_period_consumed_data.amount',
         },
         { path: '/_stainless_unknown_path' },

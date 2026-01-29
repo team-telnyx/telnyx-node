@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -51,15 +51,15 @@ export class CsvDownloads extends APIResource {
   list(
     query: CsvDownloadListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<CsvDownloadsDefaultPagination, CsvDownload> {
-    return this._client.getAPIList('/phone_numbers/csv_downloads', DefaultPagination<CsvDownload>, {
+  ): PagePromise<CsvDownloadsDefaultFlatPagination, CsvDownload> {
+    return this._client.getAPIList('/phone_numbers/csv_downloads', DefaultFlatPagination<CsvDownload>, {
       query,
       ...options,
     });
   }
 }
 
-export type CsvDownloadsDefaultPagination = DefaultPagination<CsvDownload>;
+export type CsvDownloadsDefaultFlatPagination = DefaultFlatPagination<CsvDownload>;
 
 export interface CsvDownload {
   /**
@@ -211,14 +211,14 @@ export namespace CsvDownloadCreateParams {
   }
 }
 
-export interface CsvDownloadListParams extends DefaultPaginationParams {}
+export interface CsvDownloadListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace CsvDownloads {
   export {
     type CsvDownload as CsvDownload,
     type CsvDownloadCreateResponse as CsvDownloadCreateResponse,
     type CsvDownloadRetrieveResponse as CsvDownloadRetrieveResponse,
-    type CsvDownloadsDefaultPagination as CsvDownloadsDefaultPagination,
+    type CsvDownloadsDefaultFlatPagination as CsvDownloadsDefaultFlatPagination,
     type CsvDownloadCreateParams as CsvDownloadCreateParams,
     type CsvDownloadListParams as CsvDownloadListParams,
   };

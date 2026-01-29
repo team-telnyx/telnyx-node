@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class MessagingOptouts extends APIResource {
@@ -11,15 +11,16 @@ export class MessagingOptouts extends APIResource {
   list(
     query: MessagingOptoutListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessagingOptoutListResponsesDefaultPagination, MessagingOptoutListResponse> {
-    return this._client.getAPIList('/messaging_optouts', DefaultPagination<MessagingOptoutListResponse>, {
+  ): PagePromise<MessagingOptoutListResponsesDefaultFlatPagination, MessagingOptoutListResponse> {
+    return this._client.getAPIList('/messaging_optouts', DefaultFlatPagination<MessagingOptoutListResponse>, {
       query,
       ...options,
     });
   }
 }
 
-export type MessagingOptoutListResponsesDefaultPagination = DefaultPagination<MessagingOptoutListResponse>;
+export type MessagingOptoutListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<MessagingOptoutListResponse>;
 
 export interface MessagingOptoutListResponse {
   /**
@@ -49,7 +50,7 @@ export interface MessagingOptoutListResponse {
   to?: string;
 }
 
-export interface MessagingOptoutListParams extends DefaultPaginationParams {
+export interface MessagingOptoutListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated created_at parameter (deepObject style). Originally:
    * created_at[gte], created_at[lte]
@@ -106,7 +107,7 @@ export namespace MessagingOptoutListParams {
 export declare namespace MessagingOptouts {
   export {
     type MessagingOptoutListResponse as MessagingOptoutListResponse,
-    type MessagingOptoutListResponsesDefaultPagination as MessagingOptoutListResponsesDefaultPagination,
+    type MessagingOptoutListResponsesDefaultFlatPagination as MessagingOptoutListResponsesDefaultFlatPagination,
     type MessagingOptoutListParams as MessagingOptoutListParams,
   };
 }

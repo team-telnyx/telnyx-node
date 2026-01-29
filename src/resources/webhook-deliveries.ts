@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -21,15 +21,17 @@ export class WebhookDeliveries extends APIResource {
   list(
     query: WebhookDeliveryListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<WebhookDeliveryListResponsesDefaultPagination, WebhookDeliveryListResponse> {
-    return this._client.getAPIList('/webhook_deliveries', DefaultPagination<WebhookDeliveryListResponse>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<WebhookDeliveryListResponsesDefaultFlatPagination, WebhookDeliveryListResponse> {
+    return this._client.getAPIList(
+      '/webhook_deliveries',
+      DefaultFlatPagination<WebhookDeliveryListResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export type WebhookDeliveryListResponsesDefaultPagination = DefaultPagination<WebhookDeliveryListResponse>;
+export type WebhookDeliveryListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<WebhookDeliveryListResponse>;
 
 export interface WebhookDeliveryRetrieveResponse {
   /**
@@ -340,7 +342,7 @@ export namespace WebhookDeliveryListResponse {
   }
 }
 
-export interface WebhookDeliveryListParams extends DefaultPaginationParams {
+export interface WebhookDeliveryListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[status][eq], filter[event_type], filter[webhook][contains],
@@ -432,7 +434,7 @@ export declare namespace WebhookDeliveries {
   export {
     type WebhookDeliveryRetrieveResponse as WebhookDeliveryRetrieveResponse,
     type WebhookDeliveryListResponse as WebhookDeliveryListResponse,
-    type WebhookDeliveryListResponsesDefaultPagination as WebhookDeliveryListResponsesDefaultPagination,
+    type WebhookDeliveryListResponsesDefaultFlatPagination as WebhookDeliveryListResponsesDefaultFlatPagination,
     type WebhookDeliveryListParams as WebhookDeliveryListParams,
   };
 }

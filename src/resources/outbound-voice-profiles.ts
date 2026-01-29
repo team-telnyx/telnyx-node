@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -75,8 +75,8 @@ export class OutboundVoiceProfiles extends APIResource {
   list(
     query: OutboundVoiceProfileListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<OutboundVoiceProfilesDefaultPagination, OutboundVoiceProfile> {
-    return this._client.getAPIList('/outbound_voice_profiles', DefaultPagination<OutboundVoiceProfile>, {
+  ): PagePromise<OutboundVoiceProfilesDefaultFlatPagination, OutboundVoiceProfile> {
+    return this._client.getAPIList('/outbound_voice_profiles', DefaultFlatPagination<OutboundVoiceProfile>, {
       query,
       ...options,
     });
@@ -98,7 +98,7 @@ export class OutboundVoiceProfiles extends APIResource {
   }
 }
 
-export type OutboundVoiceProfilesDefaultPagination = DefaultPagination<OutboundVoiceProfile>;
+export type OutboundVoiceProfilesDefaultFlatPagination = DefaultFlatPagination<OutboundVoiceProfile>;
 
 export interface OutboundCallRecording {
   /**
@@ -477,7 +477,7 @@ export namespace OutboundVoiceProfileUpdateParams {
   }
 }
 
-export interface OutboundVoiceProfileListParams extends DefaultPaginationParams {
+export interface OutboundVoiceProfileListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[name][contains]
@@ -551,7 +551,7 @@ export declare namespace OutboundVoiceProfiles {
     type OutboundVoiceProfileRetrieveResponse as OutboundVoiceProfileRetrieveResponse,
     type OutboundVoiceProfileUpdateResponse as OutboundVoiceProfileUpdateResponse,
     type OutboundVoiceProfileDeleteResponse as OutboundVoiceProfileDeleteResponse,
-    type OutboundVoiceProfilesDefaultPagination as OutboundVoiceProfilesDefaultPagination,
+    type OutboundVoiceProfilesDefaultFlatPagination as OutboundVoiceProfilesDefaultFlatPagination,
     type OutboundVoiceProfileCreateParams as OutboundVoiceProfileCreateParams,
     type OutboundVoiceProfileUpdateParams as OutboundVoiceProfileUpdateParams,
     type OutboundVoiceProfileListParams as OutboundVoiceProfileListParams,

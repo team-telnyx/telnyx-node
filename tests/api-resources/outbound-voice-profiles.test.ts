@@ -121,7 +121,8 @@ describe('resource outboundVoiceProfiles', () => {
       client.outboundVoiceProfiles.list(
         {
           filter: { name: { contains: 'office-profile' } },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
           sort: 'name',
         },
         { path: '/_stainless_unknown_path' },
