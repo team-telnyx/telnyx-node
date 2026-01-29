@@ -2,10 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
-import {
-  PhoneNumberWithMessagingSettingsDefaultFlatPagination,
-  ShortCodesDefaultFlatPagination,
-} from '../shared';
+import { PhoneNumberWithMessagingSettingsDefaultPagination, ShortCodesDefaultPagination } from '../shared';
 import * as AutorespConfigsAPI from './autoresp-configs';
 import {
   AutoRespConfig,
@@ -21,7 +18,7 @@ import {
   AutorespConfigs,
 } from './autoresp-configs';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -98,8 +95,8 @@ export class MessagingProfiles extends APIResource {
   list(
     query: MessagingProfileListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessagingProfilesDefaultFlatPagination, MessagingProfile> {
-    return this._client.getAPIList('/messaging_profiles', DefaultFlatPagination<MessagingProfile>, {
+  ): PagePromise<MessagingProfilesDefaultPagination, MessagingProfile> {
+    return this._client.getAPIList('/messaging_profiles', DefaultPagination<MessagingProfile>, {
       query,
       ...options,
     });
@@ -137,13 +134,10 @@ export class MessagingProfiles extends APIResource {
     messagingProfileID: string,
     query: MessagingProfileListPhoneNumbersParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<
-    PhoneNumberWithMessagingSettingsDefaultFlatPagination,
-    Shared.PhoneNumberWithMessagingSettings
-  > {
+  ): PagePromise<PhoneNumberWithMessagingSettingsDefaultPagination, Shared.PhoneNumberWithMessagingSettings> {
     return this._client.getAPIList(
       path`/messaging_profiles/${messagingProfileID}/phone_numbers`,
-      DefaultFlatPagination<Shared.PhoneNumberWithMessagingSettings>,
+      DefaultPagination<Shared.PhoneNumberWithMessagingSettings>,
       { query, ...options },
     );
   }
@@ -165,16 +159,16 @@ export class MessagingProfiles extends APIResource {
     messagingProfileID: string,
     query: MessagingProfileListShortCodesParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ShortCodesDefaultFlatPagination, Shared.ShortCode> {
+  ): PagePromise<ShortCodesDefaultPagination, Shared.ShortCode> {
     return this._client.getAPIList(
       path`/messaging_profiles/${messagingProfileID}/short_codes`,
-      DefaultFlatPagination<Shared.ShortCode>,
+      DefaultPagination<Shared.ShortCode>,
       { query, ...options },
     );
   }
 }
 
-export type MessagingProfilesDefaultFlatPagination = DefaultFlatPagination<MessagingProfile>;
+export type MessagingProfilesDefaultPagination = DefaultPagination<MessagingProfile>;
 
 export interface MessagingProfile {
   /**
@@ -610,7 +604,7 @@ export interface MessagingProfileUpdateParams {
   whitelisted_destinations?: Array<string>;
 }
 
-export interface MessagingProfileListParams extends DefaultFlatPaginationParams {
+export interface MessagingProfileListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[name]
    */
@@ -629,9 +623,9 @@ export namespace MessagingProfileListParams {
   }
 }
 
-export interface MessagingProfileListPhoneNumbersParams extends DefaultFlatPaginationParams {}
+export interface MessagingProfileListPhoneNumbersParams extends DefaultPaginationParams {}
 
-export interface MessagingProfileListShortCodesParams extends DefaultFlatPaginationParams {}
+export interface MessagingProfileListShortCodesParams extends DefaultPaginationParams {}
 
 MessagingProfiles.AutorespConfigs = AutorespConfigs;
 
@@ -644,7 +638,7 @@ export declare namespace MessagingProfiles {
     type MessagingProfileRetrieveResponse as MessagingProfileRetrieveResponse,
     type MessagingProfileUpdateResponse as MessagingProfileUpdateResponse,
     type MessagingProfileDeleteResponse as MessagingProfileDeleteResponse,
-    type MessagingProfilesDefaultFlatPagination as MessagingProfilesDefaultFlatPagination,
+    type MessagingProfilesDefaultPagination as MessagingProfilesDefaultPagination,
     type MessagingProfileCreateParams as MessagingProfileCreateParams,
     type MessagingProfileUpdateParams as MessagingProfileUpdateParams,
     type MessagingProfileListParams as MessagingProfileListParams,
@@ -667,4 +661,4 @@ export declare namespace MessagingProfiles {
   };
 }
 
-export { type PhoneNumberWithMessagingSettingsDefaultFlatPagination, type ShortCodesDefaultFlatPagination };
+export { type PhoneNumberWithMessagingSettingsDefaultPagination, type ShortCodesDefaultPagination };

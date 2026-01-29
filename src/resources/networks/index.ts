@@ -21,6 +21,6 @@ export {
   type NetworkUpdateParams,
   type NetworkListParams,
   type NetworkListInterfacesParams,
-  type NetworkListResponsesDefaultFlatPagination,
-  type NetworkListInterfacesResponsesDefaultFlatPagination,
+  type NetworkListResponsesDefaultPagination,
+  type NetworkListInterfacesResponsesDefaultPagination,
 } from './networks';

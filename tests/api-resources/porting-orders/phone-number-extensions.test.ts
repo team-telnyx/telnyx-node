@@ -61,8 +61,7 @@ describe('resource phoneNumberExtensions', () => {
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           filter: { porting_phone_number_id: '04f8f1b9-310c-4a3c-963e-7dfc54765140' },
-          'page[number]': 0,
-          'page[size]': 0,
+          page: { number: 1, size: 1 },
           sort: { value: 'created_at' },
         },
         { path: '/_stainless_unknown_path' },

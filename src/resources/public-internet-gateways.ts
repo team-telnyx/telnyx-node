@@ -5,7 +5,7 @@ import * as PublicInternetGatewaysAPI from './public-internet-gateways';
 import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import * as NetworksAPI from './networks/networks';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -55,10 +55,10 @@ export class PublicInternetGateways extends APIResource {
   list(
     query: PublicInternetGatewayListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PublicInternetGatewayListResponsesDefaultFlatPagination, PublicInternetGatewayListResponse> {
+  ): PagePromise<PublicInternetGatewayListResponsesDefaultPagination, PublicInternetGatewayListResponse> {
     return this._client.getAPIList(
       '/public_internet_gateways',
-      DefaultFlatPagination<PublicInternetGatewayListResponse>,
+      DefaultPagination<PublicInternetGatewayListResponse>,
       { query, ...options },
     );
   }
@@ -79,8 +79,8 @@ export class PublicInternetGateways extends APIResource {
   }
 }
 
-export type PublicInternetGatewayListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<PublicInternetGatewayListResponse>;
+export type PublicInternetGatewayListResponsesDefaultPagination =
+  DefaultPagination<PublicInternetGatewayListResponse>;
 
 export interface NetworkInterface {
   /**
@@ -189,7 +189,7 @@ export interface PublicInternetGatewayCreateParams {
   region_code?: string;
 }
 
-export interface PublicInternetGatewayListParams extends DefaultFlatPaginationParams {
+export interface PublicInternetGatewayListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
    */
@@ -216,7 +216,7 @@ export declare namespace PublicInternetGateways {
     type PublicInternetGatewayRetrieveResponse as PublicInternetGatewayRetrieveResponse,
     type PublicInternetGatewayListResponse as PublicInternetGatewayListResponse,
     type PublicInternetGatewayDeleteResponse as PublicInternetGatewayDeleteResponse,
-    type PublicInternetGatewayListResponsesDefaultFlatPagination as PublicInternetGatewayListResponsesDefaultFlatPagination,
+    type PublicInternetGatewayListResponsesDefaultPagination as PublicInternetGatewayListResponsesDefaultPagination,
     type PublicInternetGatewayCreateParams as PublicInternetGatewayCreateParams,
     type PublicInternetGatewayListParams as PublicInternetGatewayListParams,
   };

@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class AuditEvents extends APIResource {
@@ -12,15 +12,15 @@ export class AuditEvents extends APIResource {
   list(
     query: AuditEventListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<AuditEventListResponsesDefaultFlatPagination, AuditEventListResponse> {
-    return this._client.getAPIList('/audit_events', DefaultFlatPagination<AuditEventListResponse>, {
+  ): PagePromise<AuditEventListResponsesDefaultPagination, AuditEventListResponse> {
+    return this._client.getAPIList('/audit_events', DefaultPagination<AuditEventListResponse>, {
       query,
       ...options,
     });
   }
 }
 
-export type AuditEventListResponsesDefaultFlatPagination = DefaultFlatPagination<AuditEventListResponse>;
+export type AuditEventListResponsesDefaultPagination = DefaultPagination<AuditEventListResponse>;
 
 export interface AuditEventListResponse {
   /**
@@ -102,7 +102,7 @@ export namespace AuditEventListResponse {
   }
 }
 
-export interface AuditEventListParams extends DefaultFlatPaginationParams {
+export interface AuditEventListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[created_before], filter[created_after]
@@ -136,7 +136,7 @@ export namespace AuditEventListParams {
 export declare namespace AuditEvents {
   export {
     type AuditEventListResponse as AuditEventListResponse,
-    type AuditEventListResponsesDefaultFlatPagination as AuditEventListResponsesDefaultFlatPagination,
+    type AuditEventListResponsesDefaultPagination as AuditEventListResponsesDefaultPagination,
     type AuditEventListParams as AuditEventListParams,
   };
 }

@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
 export class PhoneNumberConfigurations extends APIResource {
@@ -37,19 +37,19 @@ export class PhoneNumberConfigurations extends APIResource {
     query: PhoneNumberConfigurationListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<
-    PhoneNumberConfigurationListResponsesDefaultFlatPagination,
+    PhoneNumberConfigurationListResponsesDefaultPagination,
     PhoneNumberConfigurationListResponse
   > {
     return this._client.getAPIList(
       '/porting_orders/phone_number_configurations',
-      DefaultFlatPagination<PhoneNumberConfigurationListResponse>,
+      DefaultPagination<PhoneNumberConfigurationListResponse>,
       { query, ...options },
     );
   }
 }
 
-export type PhoneNumberConfigurationListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<PhoneNumberConfigurationListResponse>;
+export type PhoneNumberConfigurationListResponsesDefaultPagination =
+  DefaultPagination<PhoneNumberConfigurationListResponse>;
 
 export interface PhoneNumberConfigurationCreateResponse {
   data?: Array<PhoneNumberConfigurationCreateResponse.Data>;
@@ -139,7 +139,7 @@ export namespace PhoneNumberConfigurationCreateParams {
   }
 }
 
-export interface PhoneNumberConfigurationListParams extends DefaultFlatPaginationParams {
+export interface PhoneNumberConfigurationListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[porting_order.status][in][], filter[porting_phone_number][in][],
@@ -208,7 +208,7 @@ export declare namespace PhoneNumberConfigurations {
   export {
     type PhoneNumberConfigurationCreateResponse as PhoneNumberConfigurationCreateResponse,
     type PhoneNumberConfigurationListResponse as PhoneNumberConfigurationListResponse,
-    type PhoneNumberConfigurationListResponsesDefaultFlatPagination as PhoneNumberConfigurationListResponsesDefaultFlatPagination,
+    type PhoneNumberConfigurationListResponsesDefaultPagination as PhoneNumberConfigurationListResponsesDefaultPagination,
     type PhoneNumberConfigurationCreateParams as PhoneNumberConfigurationCreateParams,
     type PhoneNumberConfigurationListParams as PhoneNumberConfigurationListParams,
   };

@@ -121,8 +121,7 @@ describe('resource texmlApplications', () => {
       client.texmlApplications.list(
         {
           filter: { friendly_name: 'friendly_name', outbound_voice_profile_id: '1293384261075731499' },
-          'page[number]': 0,
-          'page[size]': 0,
+          page: { number: 1, size: 1 },
           sort: 'friendly_name',
         },
         { path: '/_stainless_unknown_path' },

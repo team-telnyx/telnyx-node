@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class MessagingURLDomains extends APIResource {
@@ -11,17 +11,17 @@ export class MessagingURLDomains extends APIResource {
   list(
     query: MessagingURLDomainListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessagingURLDomainListResponsesDefaultFlatPagination, MessagingURLDomainListResponse> {
+  ): PagePromise<MessagingURLDomainListResponsesDefaultPagination, MessagingURLDomainListResponse> {
     return this._client.getAPIList(
       '/messaging_url_domains',
-      DefaultFlatPagination<MessagingURLDomainListResponse>,
+      DefaultPagination<MessagingURLDomainListResponse>,
       { query, ...options },
     );
   }
 }
 
-export type MessagingURLDomainListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<MessagingURLDomainListResponse>;
+export type MessagingURLDomainListResponsesDefaultPagination =
+  DefaultPagination<MessagingURLDomainListResponse>;
 
 export interface MessagingURLDomainListResponse {
   id?: string;
@@ -33,12 +33,12 @@ export interface MessagingURLDomainListResponse {
   use_case?: string;
 }
 
-export interface MessagingURLDomainListParams extends DefaultFlatPaginationParams {}
+export interface MessagingURLDomainListParams extends DefaultPaginationParams {}
 
 export declare namespace MessagingURLDomains {
   export {
     type MessagingURLDomainListResponse as MessagingURLDomainListResponse,
-    type MessagingURLDomainListResponsesDefaultFlatPagination as MessagingURLDomainListResponsesDefaultFlatPagination,
+    type MessagingURLDomainListResponsesDefaultPagination as MessagingURLDomainListResponsesDefaultPagination,
     type MessagingURLDomainListParams as MessagingURLDomainListParams,
   };
 }

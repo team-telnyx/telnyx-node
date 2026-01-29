@@ -20,7 +20,7 @@ export {
   type ExternalConnectionUpdateParams,
   type ExternalConnectionListParams,
   type ExternalConnectionUpdateLocationParams,
-  type ExternalConnectionsDefaultFlatPagination,
+  type ExternalConnectionsDefaultPagination,
 } from './external-connections';
 export {
   LogMessages,
@@ -38,7 +38,7 @@ export {
   type PhoneNumberRetrieveParams,
   type PhoneNumberUpdateParams,
   type PhoneNumberListParams,
-  type ExternalConnectionPhoneNumbersDefaultFlatPagination,
+  type ExternalConnectionPhoneNumbersDefaultPagination,
 } from './phone-numbers';
 export {
   Releases,
@@ -46,7 +46,7 @@ export {
   type ReleaseListResponse,
   type ReleaseRetrieveParams,
   type ReleaseListParams,
-  type ReleaseListResponsesDefaultFlatPagination,
+  type ReleaseListResponsesDefaultPagination,
 } from './releases';
 export {
   Uploads,
@@ -61,5 +61,5 @@ export {
   type UploadRetrieveParams,
   type UploadListParams,
   type UploadRetryParams,
-  type UploadsDefaultFlatPagination,
+  type UploadsDefaultPagination,
 } from './uploads';
