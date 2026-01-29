@@ -4,7 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as JobsAPI from '../phone-number-blocks/jobs';
 import * as VoiceAPI from './voice';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -35,8 +35,8 @@ export class Jobs extends APIResource {
   list(
     query: JobListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PhoneNumbersJobsDefaultFlatPagination, PhoneNumbersJob> {
-    return this._client.getAPIList('/phone_numbers/jobs', DefaultFlatPagination<PhoneNumbersJob>, {
+  ): PagePromise<PhoneNumbersJobsDefaultPagination, PhoneNumbersJob> {
+    return this._client.getAPIList('/phone_numbers/jobs', DefaultPagination<PhoneNumbersJob>, {
       query,
       ...options,
     });
@@ -119,7 +119,7 @@ export class Jobs extends APIResource {
   }
 }
 
-export type PhoneNumbersJobsDefaultFlatPagination = DefaultFlatPagination<PhoneNumbersJob>;
+export type PhoneNumbersJobsDefaultPagination = DefaultPagination<PhoneNumbersJob>;
 
 export interface PhoneNumbersJob {
   /**
@@ -246,7 +246,7 @@ export interface JobUpdateEmergencySettingsBatchResponse {
   data?: PhoneNumbersJob;
 }
 
-export interface JobListParams extends DefaultFlatPaginationParams {
+export interface JobListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[type]
    */
@@ -467,7 +467,7 @@ export declare namespace Jobs {
     type JobDeleteBatchResponse as JobDeleteBatchResponse,
     type JobUpdateBatchResponse as JobUpdateBatchResponse,
     type JobUpdateEmergencySettingsBatchResponse as JobUpdateEmergencySettingsBatchResponse,
-    type PhoneNumbersJobsDefaultFlatPagination as PhoneNumbersJobsDefaultFlatPagination,
+    type PhoneNumbersJobsDefaultPagination as PhoneNumbersJobsDefaultPagination,
     type JobListParams as JobListParams,
     type JobDeleteBatchParams as JobDeleteBatchParams,
     type JobUpdateBatchParams as JobUpdateBatchParams,

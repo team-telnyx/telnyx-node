@@ -4,7 +4,7 @@ import { APIResource } from '../core/resource';
 import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import * as PublicInternetGatewaysAPI from './public-internet-gateways';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -86,10 +86,10 @@ export class VirtualCrossConnects extends APIResource {
   list(
     query: VirtualCrossConnectListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<VirtualCrossConnectListResponsesDefaultFlatPagination, VirtualCrossConnectListResponse> {
+  ): PagePromise<VirtualCrossConnectListResponsesDefaultPagination, VirtualCrossConnectListResponse> {
     return this._client.getAPIList(
       '/virtual_cross_connects',
-      DefaultFlatPagination<VirtualCrossConnectListResponse>,
+      DefaultPagination<VirtualCrossConnectListResponse>,
       { query, ...options },
     );
   }
@@ -110,8 +110,8 @@ export class VirtualCrossConnects extends APIResource {
   }
 }
 
-export type VirtualCrossConnectListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<VirtualCrossConnectListResponse>;
+export type VirtualCrossConnectListResponsesDefaultPagination =
+  DefaultPagination<VirtualCrossConnectListResponse>;
 
 export interface VirtualCrossConnectCreateResponse {
   data?: VirtualCrossConnectCreateResponse.Data;
@@ -933,7 +933,7 @@ export interface VirtualCrossConnectUpdateParams {
   secondary_routing_announcement?: boolean;
 }
 
-export interface VirtualCrossConnectListParams extends DefaultFlatPaginationParams {
+export interface VirtualCrossConnectListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
    */
@@ -959,7 +959,7 @@ export declare namespace VirtualCrossConnects {
     type VirtualCrossConnectUpdateResponse as VirtualCrossConnectUpdateResponse,
     type VirtualCrossConnectListResponse as VirtualCrossConnectListResponse,
     type VirtualCrossConnectDeleteResponse as VirtualCrossConnectDeleteResponse,
-    type VirtualCrossConnectListResponsesDefaultFlatPagination as VirtualCrossConnectListResponsesDefaultFlatPagination,
+    type VirtualCrossConnectListResponsesDefaultPagination as VirtualCrossConnectListResponsesDefaultPagination,
     type VirtualCrossConnectCreateParams as VirtualCrossConnectCreateParams,
     type VirtualCrossConnectUpdateParams as VirtualCrossConnectUpdateParams,
     type VirtualCrossConnectListParams as VirtualCrossConnectListParams,

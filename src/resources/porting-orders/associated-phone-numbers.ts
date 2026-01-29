@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -54,10 +54,10 @@ export class AssociatedPhoneNumbers extends APIResource {
     portingOrderID: string,
     query: AssociatedPhoneNumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortingAssociatedPhoneNumbersDefaultFlatPagination, PortingAssociatedPhoneNumber> {
+  ): PagePromise<PortingAssociatedPhoneNumbersDefaultPagination, PortingAssociatedPhoneNumber> {
     return this._client.getAPIList(
       path`/porting_orders/${portingOrderID}/associated_phone_numbers`,
-      DefaultFlatPagination<PortingAssociatedPhoneNumber>,
+      DefaultPagination<PortingAssociatedPhoneNumber>,
       { query, ...options },
     );
   }
@@ -90,8 +90,7 @@ export class AssociatedPhoneNumbers extends APIResource {
   }
 }
 
-export type PortingAssociatedPhoneNumbersDefaultFlatPagination =
-  DefaultFlatPagination<PortingAssociatedPhoneNumber>;
+export type PortingAssociatedPhoneNumbersDefaultPagination = DefaultPagination<PortingAssociatedPhoneNumber>;
 
 export interface PortingAssociatedPhoneNumber {
   /**
@@ -189,7 +188,7 @@ export namespace AssociatedPhoneNumberCreateParams {
   }
 }
 
-export interface AssociatedPhoneNumberListParams extends DefaultFlatPaginationParams {
+export interface AssociatedPhoneNumberListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[phone_number], filter[action]
@@ -243,7 +242,7 @@ export declare namespace AssociatedPhoneNumbers {
     type PortingAssociatedPhoneNumber as PortingAssociatedPhoneNumber,
     type AssociatedPhoneNumberCreateResponse as AssociatedPhoneNumberCreateResponse,
     type AssociatedPhoneNumberDeleteResponse as AssociatedPhoneNumberDeleteResponse,
-    type PortingAssociatedPhoneNumbersDefaultFlatPagination as PortingAssociatedPhoneNumbersDefaultFlatPagination,
+    type PortingAssociatedPhoneNumbersDefaultPagination as PortingAssociatedPhoneNumbersDefaultPagination,
     type AssociatedPhoneNumberCreateParams as AssociatedPhoneNumberCreateParams,
     type AssociatedPhoneNumberListParams as AssociatedPhoneNumberListParams,
     type AssociatedPhoneNumberDeleteParams as AssociatedPhoneNumberDeleteParams,
