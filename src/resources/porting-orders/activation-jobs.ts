@@ -2,9 +2,9 @@
 
 import { APIResource } from '../../core/resource';
 import * as PortingOrdersAPI from './porting-orders';
-import { PortingOrdersActivationJobsDefaultFlatPagination } from './porting-orders';
+import { PortingOrdersActivationJobsDefaultPagination } from './porting-orders';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -71,13 +71,10 @@ export class ActivationJobs extends APIResource {
     id: string,
     query: ActivationJobListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<
-    PortingOrdersActivationJobsDefaultFlatPagination,
-    PortingOrdersAPI.PortingOrdersActivationJob
-  > {
+  ): PagePromise<PortingOrdersActivationJobsDefaultPagination, PortingOrdersAPI.PortingOrdersActivationJob> {
     return this._client.getAPIList(
       path`/porting_orders/${id}/activation_jobs`,
-      DefaultFlatPagination<PortingOrdersAPI.PortingOrdersActivationJob>,
+      DefaultPagination<PortingOrdersAPI.PortingOrdersActivationJob>,
       { query, ...options },
     );
   }
@@ -111,7 +108,7 @@ export interface ActivationJobUpdateParams {
   activate_at?: string;
 }
 
-export interface ActivationJobListParams extends DefaultFlatPaginationParams {}
+export interface ActivationJobListParams extends DefaultPaginationParams {}
 
 export declare namespace ActivationJobs {
   export {
@@ -123,4 +120,4 @@ export declare namespace ActivationJobs {
   };
 }
 
-export { type PortingOrdersActivationJobsDefaultFlatPagination };
+export { type PortingOrdersActivationJobsDefaultPagination };

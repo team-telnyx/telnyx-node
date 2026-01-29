@@ -2,9 +2,9 @@
 
 import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
-import { PhoneNumberWithVoiceSettingsDefaultFlatPagination } from './actions';
+import { PhoneNumberWithVoiceSettingsDefaultPagination } from './actions';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -51,10 +51,10 @@ export class Voice extends APIResource {
   list(
     query: VoiceListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PhoneNumberWithVoiceSettingsDefaultFlatPagination, ActionsAPI.PhoneNumberWithVoiceSettings> {
+  ): PagePromise<PhoneNumberWithVoiceSettingsDefaultPagination, ActionsAPI.PhoneNumberWithVoiceSettings> {
     return this._client.getAPIList(
       '/phone_numbers/voice',
-      DefaultFlatPagination<ActionsAPI.PhoneNumberWithVoiceSettings>,
+      DefaultPagination<ActionsAPI.PhoneNumberWithVoiceSettings>,
       { query, ...options },
     );
   }
@@ -259,7 +259,7 @@ export interface VoiceUpdateParams {
   usage_payment_method?: 'pay-per-minute' | 'channel';
 }
 
-export interface VoiceListParams extends DefaultFlatPaginationParams {
+export interface VoiceListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[phone_number], filter[connection_name], filter[customer_reference],
@@ -330,4 +330,4 @@ export declare namespace Voice {
   };
 }
 
-export { type PhoneNumberWithVoiceSettingsDefaultFlatPagination };
+export { type PhoneNumberWithVoiceSettingsDefaultPagination };

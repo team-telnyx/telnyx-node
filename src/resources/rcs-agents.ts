@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultFlatPagination } from '../core/pagination';
+import { DefaultPagination } from '../core/pagination';
 
 export class RcsAgents extends APIResource {}
 
-export type RcsAgentsDefaultFlatPagination = DefaultFlatPagination<RcsAgent>;
+export type RcsAgentsDefaultPagination = DefaultPagination<RcsAgent>;
 
 export interface RcsAgent {
   /**

@@ -63,8 +63,7 @@ describe('resource userBundles', () => {
       client.bundlePricing.userBundles.list(
         {
           filter: { country_iso: ['US'], resource: ['+15617819942'] },
-          'page[number]': 0,
-          'page[size]': 0,
+          page: { number: 1, size: 1 },
           authorization_bearer: 'authorization_bearer',
         },
         { path: '/_stainless_unknown_path' },

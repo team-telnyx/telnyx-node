@@ -3,7 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import { APIPromise } from '../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -46,8 +46,8 @@ export class GlobalIPAssignments extends APIResource {
   list(
     query: GlobalIPAssignmentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<GlobalIPAssignmentsDefaultFlatPagination, GlobalIPAssignment> {
-    return this._client.getAPIList('/global_ip_assignments', DefaultFlatPagination<GlobalIPAssignment>, {
+  ): PagePromise<GlobalIPAssignmentsDefaultPagination, GlobalIPAssignment> {
+    return this._client.getAPIList('/global_ip_assignments', DefaultPagination<GlobalIPAssignment>, {
       query,
       ...options,
     });
@@ -61,7 +61,7 @@ export class GlobalIPAssignments extends APIResource {
   }
 }
 
-export type GlobalIPAssignmentsDefaultFlatPagination = DefaultFlatPagination<GlobalIPAssignment>;
+export type GlobalIPAssignmentsDefaultPagination = DefaultPagination<GlobalIPAssignment>;
 
 export interface GlobalIPAssignment {
   /**
@@ -133,7 +133,7 @@ export namespace GlobalIPAssignmentUpdateParams {
   export interface GlobalIPAssignmentUpdateRequest extends GlobalIPAssignmentsAPI.GlobalIPAssignment {}
 }
 
-export interface GlobalIPAssignmentListParams extends DefaultFlatPaginationParams {}
+export interface GlobalIPAssignmentListParams extends DefaultPaginationParams {}
 
 export declare namespace GlobalIPAssignments {
   export {
@@ -143,7 +143,7 @@ export declare namespace GlobalIPAssignments {
     type GlobalIPAssignmentRetrieveResponse as GlobalIPAssignmentRetrieveResponse,
     type GlobalIPAssignmentUpdateResponse as GlobalIPAssignmentUpdateResponse,
     type GlobalIPAssignmentDeleteResponse as GlobalIPAssignmentDeleteResponse,
-    type GlobalIPAssignmentsDefaultFlatPagination as GlobalIPAssignmentsDefaultFlatPagination,
+    type GlobalIPAssignmentsDefaultPagination as GlobalIPAssignmentsDefaultPagination,
     type GlobalIPAssignmentCreateParams as GlobalIPAssignmentCreateParams,
     type GlobalIPAssignmentUpdateParams as GlobalIPAssignmentUpdateParams,
     type GlobalIPAssignmentListParams as GlobalIPAssignmentListParams,

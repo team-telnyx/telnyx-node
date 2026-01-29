@@ -18,8 +18,8 @@ export {
   type RoomRetrieveParams,
   type RoomUpdateParams,
   type RoomListParams,
-  type RoomSessionsDefaultFlatPagination,
-  type RoomsDefaultFlatPagination,
+  type RoomSessionsDefaultPagination,
+  type RoomsDefaultPagination,
 } from './rooms';
 export {
   Sessions,

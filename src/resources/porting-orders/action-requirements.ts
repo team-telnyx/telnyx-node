@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -24,10 +24,10 @@ export class ActionRequirements extends APIResource {
     portingOrderID: string,
     query: ActionRequirementListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ActionRequirementListResponsesDefaultFlatPagination, ActionRequirementListResponse> {
+  ): PagePromise<ActionRequirementListResponsesDefaultPagination, ActionRequirementListResponse> {
     return this._client.getAPIList(
       path`/porting_orders/${portingOrderID}/action_requirements`,
-      DefaultFlatPagination<ActionRequirementListResponse>,
+      DefaultPagination<ActionRequirementListResponse>,
       { query, ...options },
     );
   }
@@ -60,8 +60,8 @@ export class ActionRequirements extends APIResource {
   }
 }
 
-export type ActionRequirementListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<ActionRequirementListResponse>;
+export type ActionRequirementListResponsesDefaultPagination =
+  DefaultPagination<ActionRequirementListResponse>;
 
 export interface ActionRequirementListResponse {
   /**
@@ -173,7 +173,7 @@ export namespace ActionRequirementInitiateResponse {
   }
 }
 
-export interface ActionRequirementListParams extends DefaultFlatPaginationParams {
+export interface ActionRequirementListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[id][in][],
    * filter[requirement_type_id], filter[action_type], filter[status]
@@ -260,7 +260,7 @@ export declare namespace ActionRequirements {
   export {
     type ActionRequirementListResponse as ActionRequirementListResponse,
     type ActionRequirementInitiateResponse as ActionRequirementInitiateResponse,
-    type ActionRequirementListResponsesDefaultFlatPagination as ActionRequirementListResponsesDefaultFlatPagination,
+    type ActionRequirementListResponsesDefaultPagination as ActionRequirementListResponsesDefaultPagination,
     type ActionRequirementListParams as ActionRequirementListParams,
     type ActionRequirementInitiateParams as ActionRequirementInitiateParams,
   };

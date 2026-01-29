@@ -102,8 +102,7 @@ describe('resource portingOrders', () => {
             },
           },
           include_phone_numbers: true,
-          'page[number]': 0,
-          'page[size]': 0,
+          page: { number: 1, size: 1 },
           sort: { value: 'created_at' },
         },
         { path: '/_stainless_unknown_path' },
@@ -179,7 +178,7 @@ describe('resource portingOrders', () => {
     await expect(
       client.portingOrders.retrieveRequirements(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { 'page[number]': 0, 'page[size]': 0 },
+        { page: { number: 1, size: 1 } },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

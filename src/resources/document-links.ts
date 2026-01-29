@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class DocumentLinks extends APIResource {
@@ -11,15 +11,15 @@ export class DocumentLinks extends APIResource {
   list(
     query: DocumentLinkListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<DocumentLinkListResponsesDefaultFlatPagination, DocumentLinkListResponse> {
-    return this._client.getAPIList('/document_links', DefaultFlatPagination<DocumentLinkListResponse>, {
+  ): PagePromise<DocumentLinkListResponsesDefaultPagination, DocumentLinkListResponse> {
+    return this._client.getAPIList('/document_links', DefaultPagination<DocumentLinkListResponse>, {
       query,
       ...options,
     });
   }
 }
 
-export type DocumentLinkListResponsesDefaultFlatPagination = DefaultFlatPagination<DocumentLinkListResponse>;
+export type DocumentLinkListResponsesDefaultPagination = DefaultPagination<DocumentLinkListResponse>;
 
 export interface DocumentLinkListResponse {
   /**
@@ -58,7 +58,7 @@ export interface DocumentLinkListResponse {
   updated_at?: string;
 }
 
-export interface DocumentLinkListParams extends DefaultFlatPaginationParams {
+export interface DocumentLinkListParams extends DefaultPaginationParams {
   /**
    * Consolidated filter parameter for document links (deepObject style). Originally:
    * filter[linked_record_type], filter[linked_resource_id]
@@ -87,7 +87,7 @@ export namespace DocumentLinkListParams {
 export declare namespace DocumentLinks {
   export {
     type DocumentLinkListResponse as DocumentLinkListResponse,
-    type DocumentLinkListResponsesDefaultFlatPagination as DocumentLinkListResponsesDefaultFlatPagination,
+    type DocumentLinkListResponsesDefaultPagination as DocumentLinkListResponsesDefaultPagination,
     type DocumentLinkListParams as DocumentLinkListParams,
   };
 }

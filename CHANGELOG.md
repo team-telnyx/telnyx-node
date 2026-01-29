@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.15.0 (2026-01-29)
+
+Full Changelog: [v5.14.0...v5.15.0](https://github.com/team-telnyx/telnyx-node/compare/v5.14.0...v5.15.0)
+
+### Features
+
+* Add deepgram/nova-3 transcription engine option to record_start ([19ab790](https://github.com/team-telnyx/telnyx-node/commit/19ab790ae1e50316423dbdd328c0a419bbde29c8))
+
+
+### Chores
+
+* **mcp:** up tsconfig lib version to es2022 ([c1d7354](https://github.com/team-telnyx/telnyx-node/commit/c1d7354af5513c6da1794e0a4d6c08b2431b0705))
+
 ## 5.14.0 (2026-01-28)
 
 Full Changelog: [v5.13.1...v5.14.0](https://github.com/team-telnyx/telnyx-node/compare/v5.13.1...v5.14.0)
