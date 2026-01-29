@@ -8,6 +8,6 @@ export {
   type JobDeletePhoneNumberBlockResponse,
   type JobListParams,
   type JobDeletePhoneNumberBlockParams,
-  type JobsDefaultPagination,
+  type JobsDefaultFlatPagination,
 } from './jobs';
 export { PhoneNumberBlocks } from './phone-number-blocks';

@@ -21,7 +21,7 @@ import {
 import * as PhoneNumbersAPI from './phone-numbers';
 import {
   ExternalConnectionPhoneNumber,
-  ExternalConnectionPhoneNumbersDefaultPagination,
+  ExternalConnectionPhoneNumbersDefaultFlatPagination,
   PhoneNumberListParams,
   PhoneNumberRetrieveParams,
   PhoneNumberRetrieveResponse,
@@ -33,7 +33,7 @@ import * as ReleasesAPI from './releases';
 import {
   ReleaseListParams,
   ReleaseListResponse,
-  ReleaseListResponsesDefaultPagination,
+  ReleaseListResponsesDefaultFlatPagination,
   ReleaseRetrieveParams,
   ReleaseRetrieveResponse,
   Releases,
@@ -52,10 +52,10 @@ import {
   UploadRetryParams,
   UploadRetryResponse,
   Uploads,
-  UploadsDefaultPagination,
+  UploadsDefaultFlatPagination,
 } from './uploads';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -142,8 +142,8 @@ export class ExternalConnections extends APIResource {
   list(
     query: ExternalConnectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ExternalConnectionsDefaultPagination, ExternalConnection> {
-    return this._client.getAPIList('/external_connections', DefaultPagination<ExternalConnection>, {
+  ): PagePromise<ExternalConnectionsDefaultFlatPagination, ExternalConnection> {
+    return this._client.getAPIList('/external_connections', DefaultFlatPagination<ExternalConnection>, {
       query,
       ...options,
     });
@@ -194,7 +194,7 @@ export class ExternalConnections extends APIResource {
   }
 }
 
-export type ExternalConnectionsDefaultPagination = DefaultPagination<ExternalConnection>;
+export type ExternalConnectionsDefaultFlatPagination = DefaultFlatPagination<ExternalConnection>;
 
 export interface ExternalConnection {
   /**
@@ -449,7 +449,7 @@ export namespace ExternalConnectionUpdateParams {
   }
 }
 
-export interface ExternalConnectionListParams extends DefaultPaginationParams {
+export interface ExternalConnectionListParams extends DefaultFlatPaginationParams {
   /**
    * Filter parameter for external connections (deepObject style). Supports filtering
    * by connection_name, external_sip_connection, id, created_at, and phone_number.
@@ -541,7 +541,7 @@ export declare namespace ExternalConnections {
     type ExternalConnectionUpdateResponse as ExternalConnectionUpdateResponse,
     type ExternalConnectionDeleteResponse as ExternalConnectionDeleteResponse,
     type ExternalConnectionUpdateLocationResponse as ExternalConnectionUpdateLocationResponse,
-    type ExternalConnectionsDefaultPagination as ExternalConnectionsDefaultPagination,
+    type ExternalConnectionsDefaultFlatPagination as ExternalConnectionsDefaultFlatPagination,
     type ExternalConnectionCreateParams as ExternalConnectionCreateParams,
     type ExternalConnectionUpdateParams as ExternalConnectionUpdateParams,
     type ExternalConnectionListParams as ExternalConnectionListParams,
@@ -570,7 +570,7 @@ export declare namespace ExternalConnections {
     type ExternalConnectionPhoneNumber as ExternalConnectionPhoneNumber,
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,
     type PhoneNumberUpdateResponse as PhoneNumberUpdateResponse,
-    type ExternalConnectionPhoneNumbersDefaultPagination as ExternalConnectionPhoneNumbersDefaultPagination,
+    type ExternalConnectionPhoneNumbersDefaultFlatPagination as ExternalConnectionPhoneNumbersDefaultFlatPagination,
     type PhoneNumberRetrieveParams as PhoneNumberRetrieveParams,
     type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
     type PhoneNumberListParams as PhoneNumberListParams,
@@ -580,7 +580,7 @@ export declare namespace ExternalConnections {
     Releases as Releases,
     type ReleaseRetrieveResponse as ReleaseRetrieveResponse,
     type ReleaseListResponse as ReleaseListResponse,
-    type ReleaseListResponsesDefaultPagination as ReleaseListResponsesDefaultPagination,
+    type ReleaseListResponsesDefaultFlatPagination as ReleaseListResponsesDefaultFlatPagination,
     type ReleaseRetrieveParams as ReleaseRetrieveParams,
     type ReleaseListParams as ReleaseListParams,
   };
@@ -594,7 +594,7 @@ export declare namespace ExternalConnections {
     type UploadPendingCountResponse as UploadPendingCountResponse,
     type UploadRefreshStatusResponse as UploadRefreshStatusResponse,
     type UploadRetryResponse as UploadRetryResponse,
-    type UploadsDefaultPagination as UploadsDefaultPagination,
+    type UploadsDefaultFlatPagination as UploadsDefaultFlatPagination,
     type UploadCreateParams as UploadCreateParams,
     type UploadRetrieveParams as UploadRetrieveParams,
     type UploadListParams as UploadListParams,

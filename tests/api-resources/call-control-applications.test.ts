@@ -140,11 +140,6 @@ describe('resource callControlApplications', () => {
             to: '+12025550142',
             type: 'webhook',
           },
-          page: {
-            after: 'after',
-            before: 'before',
-            limit: 1,
-          },
           'page[number]': 0,
           'page[size]': 0,
           sort: 'connection_name',

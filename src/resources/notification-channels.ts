@@ -2,7 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -71,8 +71,8 @@ export class NotificationChannels extends APIResource {
   list(
     query: NotificationChannelListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NotificationChannelsDefaultPagination, NotificationChannel> {
-    return this._client.getAPIList('/notification_channels', DefaultPagination<NotificationChannel>, {
+  ): PagePromise<NotificationChannelsDefaultFlatPagination, NotificationChannel> {
+    return this._client.getAPIList('/notification_channels', DefaultFlatPagination<NotificationChannel>, {
       query,
       ...options,
     });
@@ -94,7 +94,7 @@ export class NotificationChannels extends APIResource {
   }
 }
 
-export type NotificationChannelsDefaultPagination = DefaultPagination<NotificationChannel>;
+export type NotificationChannelsDefaultFlatPagination = DefaultFlatPagination<NotificationChannel>;
 
 /**
  * A Notification Channel
@@ -193,7 +193,7 @@ export interface NotificationChannelUpdateParams {
   notification_profile_id?: string;
 }
 
-export interface NotificationChannelListParams extends DefaultPaginationParams {
+export interface NotificationChannelListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[associated_record_type][eq], filter[channel_type_id][eq],
@@ -284,7 +284,7 @@ export declare namespace NotificationChannels {
     type NotificationChannelRetrieveResponse as NotificationChannelRetrieveResponse,
     type NotificationChannelUpdateResponse as NotificationChannelUpdateResponse,
     type NotificationChannelDeleteResponse as NotificationChannelDeleteResponse,
-    type NotificationChannelsDefaultPagination as NotificationChannelsDefaultPagination,
+    type NotificationChannelsDefaultFlatPagination as NotificationChannelsDefaultFlatPagination,
     type NotificationChannelCreateParams as NotificationChannelCreateParams,
     type NotificationChannelUpdateParams as NotificationChannelUpdateParams,
     type NotificationChannelListParams as NotificationChannelListParams,
