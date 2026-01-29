@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.16.0 (2026-01-29)
+
+Full Changelog: [v5.15.0...v5.16.0](https://github.com/team-telnyx/telnyx-node/compare/v5.15.0...v5.16.0)
+
+### Features
+
+* **api:** revert bad update to spec ([fcaa321](https://github.com/team-telnyx/telnyx-node/commit/fcaa3212136c8f03032c776f9ac682c21a44b74d))
+
 ## 5.15.0 (2026-01-29)
 
 Full Changelog: [v5.14.0...v5.15.0](https://github.com/team-telnyx/telnyx-node/compare/v5.14.0...v5.15.0)
