@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as CallsAPI from './calls';
-import { Calls } from './calls';
 import * as AccountsAPI from './accounts/accounts';
 import {
   AccountRetrieveRecordingsJsonParams,
@@ -18,7 +16,6 @@ import { RequestOptions } from '../../internal/request-options';
 
 export class Texml extends APIResource {
   accounts: AccountsAPI.Accounts = new AccountsAPI.Accounts(this._client);
-  calls: CallsAPI.Calls = new CallsAPI.Calls(this._client);
 
   /**
    * Create a TeXML secret which can be later used as a Dynamic Parameter for TeXML
@@ -66,7 +63,6 @@ export interface TexmlSecretsParams {
 }
 
 Texml.Accounts = Accounts;
-Texml.Calls = Calls;
 
 export declare namespace Texml {
   export { type TexmlSecretsResponse as TexmlSecretsResponse, type TexmlSecretsParams as TexmlSecretsParams };
@@ -80,6 +76,4 @@ export declare namespace Texml {
     type AccountRetrieveRecordingsJsonParams as AccountRetrieveRecordingsJsonParams,
     type AccountRetrieveTranscriptionsJsonParams as AccountRetrieveTranscriptionsJsonParams,
   };
-
-  export { Calls as Calls };
 }

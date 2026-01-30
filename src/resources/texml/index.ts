@@ -9,5 +9,4 @@ export {
   type AccountRetrieveRecordingsJsonParams,
   type AccountRetrieveTranscriptionsJsonParams,
 } from './accounts/index';
-export { Calls } from './calls';
 export { Texml, type TexmlSecretsResponse, type TexmlSecretsParams } from './texml';
