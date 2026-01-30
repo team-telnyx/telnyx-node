@@ -405,6 +405,11 @@ export interface ConferenceRetrieveRecordingsResponse {
    */
   page_size?: number;
 
+  /**
+   * List of participant resources.
+   */
+  participants?: Array<unknown>;
+
   recordings?: Array<ConferenceRetrieveRecordingsResponse.Recording>;
 
   /**

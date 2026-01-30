@@ -3557,16 +3557,6 @@ Methods:
 
 ## Calls
 
-Types:
-
-- <code><a href="./src/resources/texml/calls.ts">CallUpdateResponse</a></code>
-- <code><a href="./src/resources/texml/calls.ts">CallInitiateResponse</a></code>
-
-Methods:
-
-- <code title="post /texml/calls/{call_sid}/update">client.texml.calls.<a href="./src/resources/texml/calls.ts">update</a>(callSid, { ...params }) -> CallUpdateResponse</code>
-- <code title="post /texml/calls/{application_id}">client.texml.calls.<a href="./src/resources/texml/calls.ts">initiate</a>(applicationID, { ...params }) -> CallInitiateResponse</code>
-
 # TexmlApplications
 
 Types:

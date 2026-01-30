@@ -178,6 +178,11 @@ export interface ParticipantRetrieveResponse {
   coaching_call_sid_legacy?: string;
 
   /**
+   * The unique identifier for the conference.
+   */
+  conference_sid?: string;
+
+  /**
    * The timestamp of when the resource was created.
    */
   date_created?: string;
@@ -250,6 +255,11 @@ export interface ParticipantUpdateResponse {
   coaching_call_sid_legacy?: string;
 
   /**
+   * The unique identifier for the conference.
+   */
+  conference_sid?: string;
+
+  /**
    * The timestamp of when the resource was created.
    */
   date_created?: string;
@@ -305,6 +315,11 @@ export interface ParticipantParticipantsResponse {
    * The identifier of the coached participant's call.
    */
   coaching_call_sid?: string;
+
+  /**
+   * The unique identifier for the conference.
+   */
+  conference_sid?: string;
 
   /**
    * Whether the conference ends when the participant leaves.
@@ -407,6 +422,11 @@ export namespace ParticipantRetrieveParticipantsResponse {
      * The identifier of the coached participant's call.
      */
     coaching_call_sid_legacy?: string;
+
+    /**
+     * The unique identifier for the conference.
+     */
+    conference_sid?: string;
 
     /**
      * The timestamp of when the resource was created.
