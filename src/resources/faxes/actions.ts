@@ -37,11 +37,23 @@ export class Actions extends APIResource {
 }
 
 export interface ActionCancelResponse {
-  result?: string;
+  data?: ActionCancelResponse.Data;
+}
+
+export namespace ActionCancelResponse {
+  export interface Data {
+    result?: string;
+  }
 }
 
 export interface ActionRefreshResponse {
-  result?: string;
+  data?: ActionRefreshResponse.Data;
+}
+
+export namespace ActionRefreshResponse {
+  export interface Data {
+    result?: string;
+  }
 }
 
 export declare namespace Actions {
