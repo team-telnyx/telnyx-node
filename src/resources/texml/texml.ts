@@ -2,13 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as CallsAPI from './calls';
-import {
-  CallInitiateParams,
-  CallInitiateResponse,
-  CallUpdateParams,
-  CallUpdateResponse,
-  Calls,
-} from './calls';
+import { Calls } from './calls';
 import * as AccountsAPI from './accounts/accounts';
 import {
   AccountRetrieveRecordingsJsonParams,
@@ -87,11 +81,5 @@ export declare namespace Texml {
     type AccountRetrieveTranscriptionsJsonParams as AccountRetrieveTranscriptionsJsonParams,
   };
 
-  export {
-    Calls as Calls,
-    type CallUpdateResponse as CallUpdateResponse,
-    type CallInitiateResponse as CallInitiateResponse,
-    type CallUpdateParams as CallUpdateParams,
-    type CallInitiateParams as CallInitiateParams,
-  };
+  export { Calls as Calls };
 }

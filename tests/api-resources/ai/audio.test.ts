@@ -26,6 +26,8 @@ describe('resource audio', () => {
       model: 'distil-whisper/distil-large-v2',
       file: await toFile(Buffer.from('# my file contents'), 'README.md'),
       file_url: 'https://example.com/file.mp3',
+      language: 'en-US',
+      model_config: { smart_format: 'bar', punctuate: 'bar' },
       response_format: 'json',
       'timestamp_granularities[]': 'segment',
     });
