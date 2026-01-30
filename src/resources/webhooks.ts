@@ -4064,397 +4064,552 @@ export namespace DeliveryUpdateWebhookEvent {
 }
 
 export interface FaxDeliveredWebhookEvent {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
+  data?: FaxDeliveredWebhookEvent.Data;
 
   /**
-   * The type of event being delivered.
+   * Metadata about the webhook delivery.
    */
-  event_type?: 'fax.delivered';
-
-  payload?: FaxDeliveredWebhookEvent.Payload;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'event';
+  meta?: FaxDeliveredWebhookEvent.Meta;
 }
 
 export namespace FaxDeliveredWebhookEvent {
-  export interface Payload {
+  export interface Data {
     /**
-     * The duration of the call in seconds.
+     * Identifies the type of resource.
      */
-    call_duration_secs?: number;
+    id?: string;
 
     /**
-     * State received from a command.
+     * The type of event being delivered.
      */
-    client_state?: string;
+    event_type?: 'fax.delivered';
 
     /**
-     * The ID of the connection used to send the fax.
+     * ISO 8601 datetime of when the event occurred.
      */
-    connection_id?: string;
+    occurred_at?: string;
+
+    payload?: Data.Payload;
 
     /**
-     * The direction of the fax.
+     * Identifies the type of the resource.
      */
-    direction?: 'inbound' | 'outbound';
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * The duration of the call in seconds.
+       */
+      call_duration_secs?: number;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * The ID of the connection used to send the fax.
+       */
+      connection_id?: string;
+
+      /**
+       * The direction of the fax.
+       */
+      direction?: 'inbound' | 'outbound';
+
+      /**
+       * Identifies the fax.
+       */
+      fax_id?: string;
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent from.
+       */
+      from?: string;
+
+      /**
+       * The media_name used for the fax's media. Must point to a file previously
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
+       * and media_url/contents can't be submitted together.
+       */
+      media_name?: string;
+
+      /**
+       * The original URL to the PDF used for the fax's media. If media_name was
+       * supplied, this is omitted
+       */
+      original_media_url?: string;
+
+      /**
+       * Number of transferred pages
+       */
+      page_count?: number;
+
+      /**
+       * The status of the fax.
+       */
+      status?: 'delivered';
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent to or SIP URI
+       */
+      to?: string;
+
+      /**
+       * Identifier of the user to whom the fax belongs
+       */
+      user_id?: string;
+    }
+  }
+
+  /**
+   * Metadata about the webhook delivery.
+   */
+  export interface Meta {
+    /**
+     * The delivery attempt number.
+     */
+    attempt?: number;
 
     /**
-     * Identifies the fax.
+     * The URL the webhook was delivered to.
      */
-    fax_id?: string;
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent from.
-     */
-    from?: string;
-
-    /**
-     * The media_name used for the fax's media. Must point to a file previously
-     * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-     * and media_url/contents can't be submitted together.
-     */
-    media_name?: string;
-
-    /**
-     * The original URL to the PDF used for the fax's media. If media_name was
-     * supplied, this is omitted
-     */
-    original_media_url?: string;
-
-    /**
-     * Number of transferred pages
-     */
-    page_count?: number;
-
-    /**
-     * The status of the fax.
-     */
-    status?: 'delivered';
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent to or SIP URI
-     */
-    to?: string;
-
-    /**
-     * Identifier of the user to whom the fax belongs
-     */
-    user_id?: string;
+    delivered_to?: string;
   }
 }
 
 export interface FaxFailedWebhookEvent {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
+  data?: FaxFailedWebhookEvent.Data;
 
   /**
-   * The type of event being delivered.
+   * Metadata about the webhook delivery.
    */
-  event_type?: 'fax.failed';
-
-  payload?: FaxFailedWebhookEvent.Payload;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'event';
+  meta?: FaxFailedWebhookEvent.Meta;
 }
 
 export namespace FaxFailedWebhookEvent {
-  export interface Payload {
+  export interface Data {
     /**
-     * State received from a command.
+     * Identifies the type of resource.
      */
-    client_state?: string;
+    id?: string;
 
     /**
-     * The ID of the connection used to send the fax.
+     * The type of event being delivered.
      */
-    connection_id?: string;
+    event_type?: 'fax.failed';
 
     /**
-     * The direction of the fax.
+     * ISO 8601 datetime of when the event occurred.
      */
-    direction?: 'inbound' | 'outbound';
+    occurred_at?: string;
+
+    payload?: Data.Payload;
 
     /**
-     * Cause of the sending failure
+     * Identifies the type of the resource.
      */
-    failure_reason?: 'rejected';
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * The ID of the connection used to send the fax.
+       */
+      connection_id?: string;
+
+      /**
+       * The direction of the fax.
+       */
+      direction?: 'inbound' | 'outbound';
+
+      /**
+       * Cause of the sending failure
+       */
+      failure_reason?: 'rejected';
+
+      /**
+       * Identifies the fax.
+       */
+      fax_id?: string;
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent from.
+       */
+      from?: string;
+
+      /**
+       * The media_name used for the fax's media. Must point to a file previously
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
+       * and media_url/contents can't be submitted together.
+       */
+      media_name?: string;
+
+      /**
+       * The original URL to the PDF used for the fax's media. If media_name was
+       * supplied, this is omitted
+       */
+      original_media_url?: string;
+
+      /**
+       * The status of the fax.
+       */
+      status?: 'failed';
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent to or SIP URI
+       */
+      to?: string;
+
+      /**
+       * Identifier of the user to whom the fax belongs
+       */
+      user_id?: string;
+    }
+  }
+
+  /**
+   * Metadata about the webhook delivery.
+   */
+  export interface Meta {
+    /**
+     * The delivery attempt number.
+     */
+    attempt?: number;
 
     /**
-     * Identifies the fax.
+     * The URL the webhook was delivered to.
      */
-    fax_id?: string;
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent from.
-     */
-    from?: string;
-
-    /**
-     * The media_name used for the fax's media. Must point to a file previously
-     * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-     * and media_url/contents can't be submitted together.
-     */
-    media_name?: string;
-
-    /**
-     * The original URL to the PDF used for the fax's media. If media_name was
-     * supplied, this is omitted
-     */
-    original_media_url?: string;
-
-    /**
-     * The status of the fax.
-     */
-    status?: 'failed';
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent to or SIP URI
-     */
-    to?: string;
-
-    /**
-     * Identifier of the user to whom the fax belongs
-     */
-    user_id?: string;
+    delivered_to?: string;
   }
 }
 
 export interface FaxMediaProcessedWebhookEvent {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
+  data?: FaxMediaProcessedWebhookEvent.Data;
 
   /**
-   * The type of event being delivered.
+   * Metadata about the webhook delivery.
    */
-  event_type?: 'fax.media.processed';
-
-  payload?: FaxMediaProcessedWebhookEvent.Payload;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'event';
+  meta?: FaxMediaProcessedWebhookEvent.Meta;
 }
 
 export namespace FaxMediaProcessedWebhookEvent {
-  export interface Payload {
+  export interface Data {
     /**
-     * State received from a command.
+     * Identifies the type of resource.
      */
-    client_state?: string;
+    id?: string;
 
     /**
-     * The ID of the connection used to send the fax.
+     * The type of event being delivered.
      */
-    connection_id?: string;
+    event_type?: 'fax.media.processed';
 
     /**
-     * The direction of the fax.
+     * ISO 8601 datetime of when the event occurred.
      */
-    direction?: 'inbound' | 'outbound';
+    occurred_at?: string;
+
+    payload?: Data.Payload;
 
     /**
-     * Identifies the fax.
+     * Identifies the type of the resource.
      */
-    fax_id?: string;
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * The ID of the connection used to send the fax.
+       */
+      connection_id?: string;
+
+      /**
+       * The direction of the fax.
+       */
+      direction?: 'inbound' | 'outbound';
+
+      /**
+       * Identifies the fax.
+       */
+      fax_id?: string;
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent from.
+       */
+      from?: string;
+
+      /**
+       * The media_name used for the fax's media. Must point to a file previously
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
+       * and media_url/contents can't be submitted together.
+       */
+      media_name?: string;
+
+      /**
+       * The original URL to the PDF used for the fax's media. If media_name was
+       * supplied, this is omitted
+       */
+      original_media_url?: string;
+
+      /**
+       * The status of the fax.
+       */
+      status?: 'media.processed';
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent to or SIP URI
+       */
+      to?: string;
+
+      /**
+       * Identifier of the user to whom the fax belongs
+       */
+      user_id?: string;
+    }
+  }
+
+  /**
+   * Metadata about the webhook delivery.
+   */
+  export interface Meta {
+    /**
+     * The delivery attempt number.
+     */
+    attempt?: number;
 
     /**
-     * The phone number, in E.164 format, the fax will be sent from.
+     * The URL the webhook was delivered to.
      */
-    from?: string;
-
-    /**
-     * The media_name used for the fax's media. Must point to a file previously
-     * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-     * and media_url/contents can't be submitted together.
-     */
-    media_name?: string;
-
-    /**
-     * The original URL to the PDF used for the fax's media. If media_name was
-     * supplied, this is omitted
-     */
-    original_media_url?: string;
-
-    /**
-     * The status of the fax.
-     */
-    status?: 'media.processed';
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent to or SIP URI
-     */
-    to?: string;
-
-    /**
-     * Identifier of the user to whom the fax belongs
-     */
-    user_id?: string;
+    delivered_to?: string;
   }
 }
 
 export interface FaxQueuedWebhookEvent {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
+  data?: FaxQueuedWebhookEvent.Data;
 
   /**
-   * The type of event being delivered.
+   * Metadata about the webhook delivery.
    */
-  event_type?: 'fax.queued';
-
-  payload?: FaxQueuedWebhookEvent.Payload;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'event';
+  meta?: FaxQueuedWebhookEvent.Meta;
 }
 
 export namespace FaxQueuedWebhookEvent {
-  export interface Payload {
+  export interface Data {
     /**
-     * State received from a command.
+     * Identifies the type of resource.
      */
-    client_state?: string;
+    id?: string;
 
     /**
-     * The ID of the connection used to send the fax.
+     * The type of event being delivered.
      */
-    connection_id?: string;
+    event_type?: 'fax.queued';
 
     /**
-     * The direction of the fax.
+     * ISO 8601 datetime of when the event occurred.
      */
-    direction?: 'inbound' | 'outbound';
+    occurred_at?: string;
+
+    payload?: Data.Payload;
 
     /**
-     * Identifies the fax.
+     * Identifies the type of the resource.
      */
-    fax_id?: string;
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * The ID of the connection used to send the fax.
+       */
+      connection_id?: string;
+
+      /**
+       * The direction of the fax.
+       */
+      direction?: 'inbound' | 'outbound';
+
+      /**
+       * Identifies the fax.
+       */
+      fax_id?: string;
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent from.
+       */
+      from?: string;
+
+      /**
+       * The media_name used for the fax's media. Must point to a file previously
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
+       * and media_url/contents can't be submitted together.
+       */
+      media_name?: string;
+
+      /**
+       * The original URL to the PDF used for the fax's media. If media_name was
+       * supplied, this is omitted
+       */
+      original_media_url?: string;
+
+      /**
+       * The status of the fax.
+       */
+      status?: 'queued';
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent to or SIP URI
+       */
+      to?: string;
+
+      /**
+       * Identifier of the user to whom the fax belongs
+       */
+      user_id?: string;
+    }
+  }
+
+  /**
+   * Metadata about the webhook delivery.
+   */
+  export interface Meta {
+    /**
+     * The delivery attempt number.
+     */
+    attempt?: number;
 
     /**
-     * The phone number, in E.164 format, the fax will be sent from.
+     * The URL the webhook was delivered to.
      */
-    from?: string;
-
-    /**
-     * The media_name used for the fax's media. Must point to a file previously
-     * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-     * and media_url/contents can't be submitted together.
-     */
-    media_name?: string;
-
-    /**
-     * The original URL to the PDF used for the fax's media. If media_name was
-     * supplied, this is omitted
-     */
-    original_media_url?: string;
-
-    /**
-     * The status of the fax.
-     */
-    status?: 'queued';
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent to or SIP URI
-     */
-    to?: string;
-
-    /**
-     * Identifier of the user to whom the fax belongs
-     */
-    user_id?: string;
+    delivered_to?: string;
   }
 }
 
 export interface FaxSendingStartedWebhookEvent {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
+  data?: FaxSendingStartedWebhookEvent.Data;
 
   /**
-   * The type of event being delivered.
+   * Metadata about the webhook delivery.
    */
-  event_type?: 'fax.sending.started';
-
-  payload?: FaxSendingStartedWebhookEvent.Payload;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'event';
+  meta?: FaxSendingStartedWebhookEvent.Meta;
 }
 
 export namespace FaxSendingStartedWebhookEvent {
-  export interface Payload {
+  export interface Data {
     /**
-     * State received from a command.
+     * Identifies the type of resource.
      */
-    client_state?: string;
+    id?: string;
 
     /**
-     * The ID of the connection used to send the fax.
+     * The type of event being delivered.
      */
-    connection_id?: string;
+    event_type?: 'fax.sending.started';
 
     /**
-     * The direction of the fax.
+     * ISO 8601 datetime of when the event occurred.
      */
-    direction?: 'inbound' | 'outbound';
+    occurred_at?: string;
+
+    payload?: Data.Payload;
 
     /**
-     * Identifies the fax.
+     * Identifies the type of the resource.
      */
-    fax_id?: string;
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * The ID of the connection used to send the fax.
+       */
+      connection_id?: string;
+
+      /**
+       * The direction of the fax.
+       */
+      direction?: 'inbound' | 'outbound';
+
+      /**
+       * Identifies the fax.
+       */
+      fax_id?: string;
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent from.
+       */
+      from?: string;
+
+      /**
+       * The media_name used for the fax's media. Must point to a file previously
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
+       * and media_url/contents can't be submitted together.
+       */
+      media_name?: string;
+
+      /**
+       * The original URL to the PDF used for the fax's media. If media_name was
+       * supplied, this is omitted
+       */
+      original_media_url?: string;
+
+      /**
+       * The status of the fax.
+       */
+      status?: 'sending';
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent to or SIP URI
+       */
+      to?: string;
+
+      /**
+       * Identifier of the user to whom the fax belongs
+       */
+      user_id?: string;
+    }
+  }
+
+  /**
+   * Metadata about the webhook delivery.
+   */
+  export interface Meta {
+    /**
+     * The delivery attempt number.
+     */
+    attempt?: number;
 
     /**
-     * The phone number, in E.164 format, the fax will be sent from.
+     * The URL the webhook was delivered to.
      */
-    from?: string;
-
-    /**
-     * The media_name used for the fax's media. Must point to a file previously
-     * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-     * and media_url/contents can't be submitted together.
-     */
-    media_name?: string;
-
-    /**
-     * The original URL to the PDF used for the fax's media. If media_name was
-     * supplied, this is omitted
-     */
-    original_media_url?: string;
-
-    /**
-     * The status of the fax.
-     */
-    status?: 'sending';
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent to or SIP URI
-     */
-    to?: string;
-
-    /**
-     * Identifier of the user to whom the fax belongs
-     */
-    user_id?: string;
+    delivered_to?: string;
   }
 }
 
@@ -8480,397 +8635,552 @@ export namespace DeliveryUpdateWebhookEvent {
 }
 
 export interface FaxDeliveredWebhookEvent {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
+  data?: FaxDeliveredWebhookEvent.Data;
 
   /**
-   * The type of event being delivered.
+   * Metadata about the webhook delivery.
    */
-  event_type?: 'fax.delivered';
-
-  payload?: FaxDeliveredWebhookEvent.Payload;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'event';
+  meta?: FaxDeliveredWebhookEvent.Meta;
 }
 
 export namespace FaxDeliveredWebhookEvent {
-  export interface Payload {
+  export interface Data {
     /**
-     * The duration of the call in seconds.
+     * Identifies the type of resource.
      */
-    call_duration_secs?: number;
+    id?: string;
 
     /**
-     * State received from a command.
+     * The type of event being delivered.
      */
-    client_state?: string;
+    event_type?: 'fax.delivered';
 
     /**
-     * The ID of the connection used to send the fax.
+     * ISO 8601 datetime of when the event occurred.
      */
-    connection_id?: string;
+    occurred_at?: string;
+
+    payload?: Data.Payload;
 
     /**
-     * The direction of the fax.
+     * Identifies the type of the resource.
      */
-    direction?: 'inbound' | 'outbound';
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * The duration of the call in seconds.
+       */
+      call_duration_secs?: number;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * The ID of the connection used to send the fax.
+       */
+      connection_id?: string;
+
+      /**
+       * The direction of the fax.
+       */
+      direction?: 'inbound' | 'outbound';
+
+      /**
+       * Identifies the fax.
+       */
+      fax_id?: string;
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent from.
+       */
+      from?: string;
+
+      /**
+       * The media_name used for the fax's media. Must point to a file previously
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
+       * and media_url/contents can't be submitted together.
+       */
+      media_name?: string;
+
+      /**
+       * The original URL to the PDF used for the fax's media. If media_name was
+       * supplied, this is omitted
+       */
+      original_media_url?: string;
+
+      /**
+       * Number of transferred pages
+       */
+      page_count?: number;
+
+      /**
+       * The status of the fax.
+       */
+      status?: 'delivered';
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent to or SIP URI
+       */
+      to?: string;
+
+      /**
+       * Identifier of the user to whom the fax belongs
+       */
+      user_id?: string;
+    }
+  }
+
+  /**
+   * Metadata about the webhook delivery.
+   */
+  export interface Meta {
+    /**
+     * The delivery attempt number.
+     */
+    attempt?: number;
 
     /**
-     * Identifies the fax.
+     * The URL the webhook was delivered to.
      */
-    fax_id?: string;
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent from.
-     */
-    from?: string;
-
-    /**
-     * The media_name used for the fax's media. Must point to a file previously
-     * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-     * and media_url/contents can't be submitted together.
-     */
-    media_name?: string;
-
-    /**
-     * The original URL to the PDF used for the fax's media. If media_name was
-     * supplied, this is omitted
-     */
-    original_media_url?: string;
-
-    /**
-     * Number of transferred pages
-     */
-    page_count?: number;
-
-    /**
-     * The status of the fax.
-     */
-    status?: 'delivered';
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent to or SIP URI
-     */
-    to?: string;
-
-    /**
-     * Identifier of the user to whom the fax belongs
-     */
-    user_id?: string;
+    delivered_to?: string;
   }
 }
 
 export interface FaxFailedWebhookEvent {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
+  data?: FaxFailedWebhookEvent.Data;
 
   /**
-   * The type of event being delivered.
+   * Metadata about the webhook delivery.
    */
-  event_type?: 'fax.failed';
-
-  payload?: FaxFailedWebhookEvent.Payload;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'event';
+  meta?: FaxFailedWebhookEvent.Meta;
 }
 
 export namespace FaxFailedWebhookEvent {
-  export interface Payload {
+  export interface Data {
     /**
-     * State received from a command.
+     * Identifies the type of resource.
      */
-    client_state?: string;
+    id?: string;
 
     /**
-     * The ID of the connection used to send the fax.
+     * The type of event being delivered.
      */
-    connection_id?: string;
+    event_type?: 'fax.failed';
 
     /**
-     * The direction of the fax.
+     * ISO 8601 datetime of when the event occurred.
      */
-    direction?: 'inbound' | 'outbound';
+    occurred_at?: string;
+
+    payload?: Data.Payload;
 
     /**
-     * Cause of the sending failure
+     * Identifies the type of the resource.
      */
-    failure_reason?: 'rejected';
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * The ID of the connection used to send the fax.
+       */
+      connection_id?: string;
+
+      /**
+       * The direction of the fax.
+       */
+      direction?: 'inbound' | 'outbound';
+
+      /**
+       * Cause of the sending failure
+       */
+      failure_reason?: 'rejected';
+
+      /**
+       * Identifies the fax.
+       */
+      fax_id?: string;
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent from.
+       */
+      from?: string;
+
+      /**
+       * The media_name used for the fax's media. Must point to a file previously
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
+       * and media_url/contents can't be submitted together.
+       */
+      media_name?: string;
+
+      /**
+       * The original URL to the PDF used for the fax's media. If media_name was
+       * supplied, this is omitted
+       */
+      original_media_url?: string;
+
+      /**
+       * The status of the fax.
+       */
+      status?: 'failed';
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent to or SIP URI
+       */
+      to?: string;
+
+      /**
+       * Identifier of the user to whom the fax belongs
+       */
+      user_id?: string;
+    }
+  }
+
+  /**
+   * Metadata about the webhook delivery.
+   */
+  export interface Meta {
+    /**
+     * The delivery attempt number.
+     */
+    attempt?: number;
 
     /**
-     * Identifies the fax.
+     * The URL the webhook was delivered to.
      */
-    fax_id?: string;
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent from.
-     */
-    from?: string;
-
-    /**
-     * The media_name used for the fax's media. Must point to a file previously
-     * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-     * and media_url/contents can't be submitted together.
-     */
-    media_name?: string;
-
-    /**
-     * The original URL to the PDF used for the fax's media. If media_name was
-     * supplied, this is omitted
-     */
-    original_media_url?: string;
-
-    /**
-     * The status of the fax.
-     */
-    status?: 'failed';
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent to or SIP URI
-     */
-    to?: string;
-
-    /**
-     * Identifier of the user to whom the fax belongs
-     */
-    user_id?: string;
+    delivered_to?: string;
   }
 }
 
 export interface FaxMediaProcessedWebhookEvent {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
+  data?: FaxMediaProcessedWebhookEvent.Data;
 
   /**
-   * The type of event being delivered.
+   * Metadata about the webhook delivery.
    */
-  event_type?: 'fax.media.processed';
-
-  payload?: FaxMediaProcessedWebhookEvent.Payload;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'event';
+  meta?: FaxMediaProcessedWebhookEvent.Meta;
 }
 
 export namespace FaxMediaProcessedWebhookEvent {
-  export interface Payload {
+  export interface Data {
     /**
-     * State received from a command.
+     * Identifies the type of resource.
      */
-    client_state?: string;
+    id?: string;
 
     /**
-     * The ID of the connection used to send the fax.
+     * The type of event being delivered.
      */
-    connection_id?: string;
+    event_type?: 'fax.media.processed';
 
     /**
-     * The direction of the fax.
+     * ISO 8601 datetime of when the event occurred.
      */
-    direction?: 'inbound' | 'outbound';
+    occurred_at?: string;
+
+    payload?: Data.Payload;
 
     /**
-     * Identifies the fax.
+     * Identifies the type of the resource.
      */
-    fax_id?: string;
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * The ID of the connection used to send the fax.
+       */
+      connection_id?: string;
+
+      /**
+       * The direction of the fax.
+       */
+      direction?: 'inbound' | 'outbound';
+
+      /**
+       * Identifies the fax.
+       */
+      fax_id?: string;
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent from.
+       */
+      from?: string;
+
+      /**
+       * The media_name used for the fax's media. Must point to a file previously
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
+       * and media_url/contents can't be submitted together.
+       */
+      media_name?: string;
+
+      /**
+       * The original URL to the PDF used for the fax's media. If media_name was
+       * supplied, this is omitted
+       */
+      original_media_url?: string;
+
+      /**
+       * The status of the fax.
+       */
+      status?: 'media.processed';
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent to or SIP URI
+       */
+      to?: string;
+
+      /**
+       * Identifier of the user to whom the fax belongs
+       */
+      user_id?: string;
+    }
+  }
+
+  /**
+   * Metadata about the webhook delivery.
+   */
+  export interface Meta {
+    /**
+     * The delivery attempt number.
+     */
+    attempt?: number;
 
     /**
-     * The phone number, in E.164 format, the fax will be sent from.
+     * The URL the webhook was delivered to.
      */
-    from?: string;
-
-    /**
-     * The media_name used for the fax's media. Must point to a file previously
-     * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-     * and media_url/contents can't be submitted together.
-     */
-    media_name?: string;
-
-    /**
-     * The original URL to the PDF used for the fax's media. If media_name was
-     * supplied, this is omitted
-     */
-    original_media_url?: string;
-
-    /**
-     * The status of the fax.
-     */
-    status?: 'media.processed';
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent to or SIP URI
-     */
-    to?: string;
-
-    /**
-     * Identifier of the user to whom the fax belongs
-     */
-    user_id?: string;
+    delivered_to?: string;
   }
 }
 
 export interface FaxQueuedWebhookEvent {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
+  data?: FaxQueuedWebhookEvent.Data;
 
   /**
-   * The type of event being delivered.
+   * Metadata about the webhook delivery.
    */
-  event_type?: 'fax.queued';
-
-  payload?: FaxQueuedWebhookEvent.Payload;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'event';
+  meta?: FaxQueuedWebhookEvent.Meta;
 }
 
 export namespace FaxQueuedWebhookEvent {
-  export interface Payload {
+  export interface Data {
     /**
-     * State received from a command.
+     * Identifies the type of resource.
      */
-    client_state?: string;
+    id?: string;
 
     /**
-     * The ID of the connection used to send the fax.
+     * The type of event being delivered.
      */
-    connection_id?: string;
+    event_type?: 'fax.queued';
 
     /**
-     * The direction of the fax.
+     * ISO 8601 datetime of when the event occurred.
      */
-    direction?: 'inbound' | 'outbound';
+    occurred_at?: string;
+
+    payload?: Data.Payload;
 
     /**
-     * Identifies the fax.
+     * Identifies the type of the resource.
      */
-    fax_id?: string;
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * The ID of the connection used to send the fax.
+       */
+      connection_id?: string;
+
+      /**
+       * The direction of the fax.
+       */
+      direction?: 'inbound' | 'outbound';
+
+      /**
+       * Identifies the fax.
+       */
+      fax_id?: string;
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent from.
+       */
+      from?: string;
+
+      /**
+       * The media_name used for the fax's media. Must point to a file previously
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
+       * and media_url/contents can't be submitted together.
+       */
+      media_name?: string;
+
+      /**
+       * The original URL to the PDF used for the fax's media. If media_name was
+       * supplied, this is omitted
+       */
+      original_media_url?: string;
+
+      /**
+       * The status of the fax.
+       */
+      status?: 'queued';
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent to or SIP URI
+       */
+      to?: string;
+
+      /**
+       * Identifier of the user to whom the fax belongs
+       */
+      user_id?: string;
+    }
+  }
+
+  /**
+   * Metadata about the webhook delivery.
+   */
+  export interface Meta {
+    /**
+     * The delivery attempt number.
+     */
+    attempt?: number;
 
     /**
-     * The phone number, in E.164 format, the fax will be sent from.
+     * The URL the webhook was delivered to.
      */
-    from?: string;
-
-    /**
-     * The media_name used for the fax's media. Must point to a file previously
-     * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-     * and media_url/contents can't be submitted together.
-     */
-    media_name?: string;
-
-    /**
-     * The original URL to the PDF used for the fax's media. If media_name was
-     * supplied, this is omitted
-     */
-    original_media_url?: string;
-
-    /**
-     * The status of the fax.
-     */
-    status?: 'queued';
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent to or SIP URI
-     */
-    to?: string;
-
-    /**
-     * Identifier of the user to whom the fax belongs
-     */
-    user_id?: string;
+    delivered_to?: string;
   }
 }
 
 export interface FaxSendingStartedWebhookEvent {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
+  data?: FaxSendingStartedWebhookEvent.Data;
 
   /**
-   * The type of event being delivered.
+   * Metadata about the webhook delivery.
    */
-  event_type?: 'fax.sending.started';
-
-  payload?: FaxSendingStartedWebhookEvent.Payload;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'event';
+  meta?: FaxSendingStartedWebhookEvent.Meta;
 }
 
 export namespace FaxSendingStartedWebhookEvent {
-  export interface Payload {
+  export interface Data {
     /**
-     * State received from a command.
+     * Identifies the type of resource.
      */
-    client_state?: string;
+    id?: string;
 
     /**
-     * The ID of the connection used to send the fax.
+     * The type of event being delivered.
      */
-    connection_id?: string;
+    event_type?: 'fax.sending.started';
 
     /**
-     * The direction of the fax.
+     * ISO 8601 datetime of when the event occurred.
      */
-    direction?: 'inbound' | 'outbound';
+    occurred_at?: string;
+
+    payload?: Data.Payload;
 
     /**
-     * Identifies the fax.
+     * Identifies the type of the resource.
      */
-    fax_id?: string;
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * The ID of the connection used to send the fax.
+       */
+      connection_id?: string;
+
+      /**
+       * The direction of the fax.
+       */
+      direction?: 'inbound' | 'outbound';
+
+      /**
+       * Identifies the fax.
+       */
+      fax_id?: string;
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent from.
+       */
+      from?: string;
+
+      /**
+       * The media_name used for the fax's media. Must point to a file previously
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
+       * and media_url/contents can't be submitted together.
+       */
+      media_name?: string;
+
+      /**
+       * The original URL to the PDF used for the fax's media. If media_name was
+       * supplied, this is omitted
+       */
+      original_media_url?: string;
+
+      /**
+       * The status of the fax.
+       */
+      status?: 'sending';
+
+      /**
+       * The phone number, in E.164 format, the fax will be sent to or SIP URI
+       */
+      to?: string;
+
+      /**
+       * Identifier of the user to whom the fax belongs
+       */
+      user_id?: string;
+    }
+  }
+
+  /**
+   * Metadata about the webhook delivery.
+   */
+  export interface Meta {
+    /**
+     * The delivery attempt number.
+     */
+    attempt?: number;
 
     /**
-     * The phone number, in E.164 format, the fax will be sent from.
+     * The URL the webhook was delivered to.
      */
-    from?: string;
-
-    /**
-     * The media_name used for the fax's media. Must point to a file previously
-     * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-     * and media_url/contents can't be submitted together.
-     */
-    media_name?: string;
-
-    /**
-     * The original URL to the PDF used for the fax's media. If media_name was
-     * supplied, this is omitted
-     */
-    original_media_url?: string;
-
-    /**
-     * The status of the fax.
-     */
-    status?: 'sending';
-
-    /**
-     * The phone number, in E.164 format, the fax will be sent to or SIP URI
-     */
-    to?: string;
-
-    /**
-     * Identifier of the user to whom the fax belongs
-     */
-    user_id?: string;
+    delivered_to?: string;
   }
 }
 

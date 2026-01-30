@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.16.1 (2026-01-30)
+
+Full Changelog: [v5.16.0...v5.16.1](https://github.com/team-telnyx/telnyx-node/compare/v5.16.0...v5.16.1)
+
+### Bug Fixes
+
+* remove deprecated TeXML API endpoints from OpenAPI spec ([4198616](https://github.com/team-telnyx/telnyx-node/commit/4198616230cc94187cd610c5ebe9eca1b662ddb9))
+* use PaginationMeta schema for ListFaxesResponse.meta ([cac839b](https://github.com/team-telnyx/telnyx-node/commit/cac839ba21def2a874b89aea352359565cbabe2f))
+
 ## 5.16.0 (2026-01-29)
 
 Full Changelog: [v5.15.0...v5.16.0](https://github.com/team-telnyx/telnyx-node/compare/v5.15.0...v5.16.0)
