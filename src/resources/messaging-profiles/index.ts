@@ -27,5 +27,5 @@ export {
   type MessagingProfileListParams,
   type MessagingProfileListPhoneNumbersParams,
   type MessagingProfileListShortCodesParams,
-  type MessagingProfilesDefaultPagination,
+  type MessagingProfilesDefaultFlatPagination,
 } from './messaging-profiles';

@@ -59,7 +59,8 @@ describe('resource associatedPhoneNumbers', () => {
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           filter: { action: 'keep', phone_number: '+441234567890' },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
           sort: { value: '-created_at' },
         },
         { path: '/_stainless_unknown_path' },

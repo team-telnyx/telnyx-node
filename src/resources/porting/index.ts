@@ -5,7 +5,7 @@ export {
   type EventRetrieveResponse,
   type EventListResponse,
   type EventListParams,
-  type EventListResponsesDefaultPagination,
+  type EventListResponsesDefaultFlatPagination,
 } from './events';
 export {
   LoaConfigurations,
@@ -17,7 +17,7 @@ export {
   type LoaConfigurationUpdateParams,
   type LoaConfigurationListParams,
   type LoaConfigurationPreview0Params,
-  type PortingLoaConfigurationsDefaultPagination,
+  type PortingLoaConfigurationsDefaultFlatPagination,
 } from './loa-configurations';
 export { Porting, type PortingListUkCarriersResponse } from './porting';
 export {
@@ -28,5 +28,5 @@ export {
   type ReportRetrieveResponse,
   type ReportCreateParams,
   type ReportListParams,
-  type PortingReportsDefaultPagination,
+  type PortingReportsDefaultFlatPagination,
 } from './reports';

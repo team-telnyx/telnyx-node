@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -48,11 +48,11 @@ export class BillingBundles extends APIResource {
   list(
     params: BillingBundleListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<BillingBundleSummariesDefaultPagination, BillingBundleSummary> {
+  ): PagePromise<BillingBundleSummariesDefaultFlatPagination, BillingBundleSummary> {
     const { authorization_bearer, ...query } = params ?? {};
     return this._client.getAPIList(
       '/bundle_pricing/billing_bundles',
-      DefaultPagination<BillingBundleSummary>,
+      DefaultFlatPagination<BillingBundleSummary>,
       {
         query,
         ...options,
@@ -65,7 +65,7 @@ export class BillingBundles extends APIResource {
   }
 }
 
-export type BillingBundleSummariesDefaultPagination = DefaultPagination<BillingBundleSummary>;
+export type BillingBundleSummariesDefaultFlatPagination = DefaultFlatPagination<BillingBundleSummary>;
 
 export interface BillingBundleSummary {
   /**
@@ -221,7 +221,7 @@ export interface BillingBundleRetrieveParams {
   authorization_bearer?: string;
 }
 
-export interface BillingBundleListParams extends DefaultPaginationParams {
+export interface BillingBundleListParams extends DefaultFlatPaginationParams {
   /**
    * Query param: Consolidated filter parameter (deepObject style). Supports
    * filtering by country_iso and resource. Examples: filter[country_iso]=US or
@@ -259,7 +259,7 @@ export declare namespace BillingBundles {
     type BillingBundleSummary as BillingBundleSummary,
     type PaginationResponse as PaginationResponse,
     type BillingBundleRetrieveResponse as BillingBundleRetrieveResponse,
-    type BillingBundleSummariesDefaultPagination as BillingBundleSummariesDefaultPagination,
+    type BillingBundleSummariesDefaultFlatPagination as BillingBundleSummariesDefaultFlatPagination,
     type BillingBundleRetrieveParams as BillingBundleRetrieveParams,
     type BillingBundleListParams as BillingBundleListParams,
   };

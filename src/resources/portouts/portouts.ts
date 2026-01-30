@@ -7,7 +7,7 @@ import * as EventsAPI from './events';
 import {
   EventListParams,
   EventListResponse,
-  EventListResponsesDefaultPagination,
+  EventListResponsesDefaultFlatPagination,
   EventRetrieveResponse,
   Events,
 } from './events';
@@ -15,7 +15,7 @@ import * as ReportsAPI from './reports';
 import {
   ExportPortoutsCsvReport,
   PortoutReport,
-  PortoutReportsDefaultPagination,
+  PortoutReportsDefaultFlatPagination,
   ReportCreateParams,
   ReportCreateResponse,
   ReportListParams,
@@ -30,7 +30,7 @@ import {
   SupportingDocuments,
 } from './supporting-documents';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -69,8 +69,8 @@ export class Portouts extends APIResource {
   list(
     query: PortoutListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortoutDetailsDefaultPagination, PortoutDetails> {
-    return this._client.getAPIList('/portouts', DefaultPagination<PortoutDetails>, { query, ...options });
+  ): PagePromise<PortoutDetailsDefaultFlatPagination, PortoutDetails> {
+    return this._client.getAPIList('/portouts', DefaultFlatPagination<PortoutDetails>, { query, ...options });
   }
 
   /**
@@ -115,7 +115,7 @@ export class Portouts extends APIResource {
   }
 }
 
-export type PortoutDetailsDefaultPagination = DefaultPagination<PortoutDetails>;
+export type PortoutDetailsDefaultFlatPagination = DefaultFlatPagination<PortoutDetails>;
 
 export interface PortoutDetails {
   id?: string;
@@ -275,7 +275,7 @@ export interface PortoutUpdateStatusResponse {
   data?: PortoutDetails;
 }
 
-export interface PortoutListParams extends DefaultPaginationParams {
+export interface PortoutListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[carrier_name], filter[country_code], filter[country_code_in],
@@ -440,7 +440,7 @@ export declare namespace Portouts {
     type PortoutRetrieveResponse as PortoutRetrieveResponse,
     type PortoutListRejectionCodesResponse as PortoutListRejectionCodesResponse,
     type PortoutUpdateStatusResponse as PortoutUpdateStatusResponse,
-    type PortoutDetailsDefaultPagination as PortoutDetailsDefaultPagination,
+    type PortoutDetailsDefaultFlatPagination as PortoutDetailsDefaultFlatPagination,
     type PortoutListParams as PortoutListParams,
     type PortoutListRejectionCodesParams as PortoutListRejectionCodesParams,
     type PortoutUpdateStatusParams as PortoutUpdateStatusParams,
@@ -450,7 +450,7 @@ export declare namespace Portouts {
     Events as Events,
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
-    type EventListResponsesDefaultPagination as EventListResponsesDefaultPagination,
+    type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
     type EventListParams as EventListParams,
   };
 
@@ -460,7 +460,7 @@ export declare namespace Portouts {
     type PortoutReport as PortoutReport,
     type ReportCreateResponse as ReportCreateResponse,
     type ReportRetrieveResponse as ReportRetrieveResponse,
-    type PortoutReportsDefaultPagination as PortoutReportsDefaultPagination,
+    type PortoutReportsDefaultFlatPagination as PortoutReportsDefaultFlatPagination,
     type ReportCreateParams as ReportCreateParams,
     type ReportListParams as ReportListParams,
   };

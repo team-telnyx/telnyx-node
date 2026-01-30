@@ -39,7 +39,8 @@ describe('resource jobs', () => {
       client.phoneNumberBlocks.jobs.list(
         {
           filter: { status: 'in_progress', type: 'delete_phone_number_block' },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
           sort: 'created_at',
         },
         { path: '/_stainless_unknown_path' },

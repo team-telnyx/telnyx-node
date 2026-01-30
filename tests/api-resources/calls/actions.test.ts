@@ -703,7 +703,7 @@ describe('resource actions', () => {
         track: 'both',
       },
       target_leg_client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
-      time_limit_secs: 60,
+      time_limit_secs: 600,
       timeout_secs: 60,
       webhook_url: 'https://www.example.com/server-b/',
       webhook_url_method: 'POST',

@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -47,16 +47,16 @@ export class Releases extends APIResource {
     id: string,
     query: ReleaseListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ReleaseListResponsesDefaultPagination, ReleaseListResponse> {
+  ): PagePromise<ReleaseListResponsesDefaultFlatPagination, ReleaseListResponse> {
     return this._client.getAPIList(
       path`/external_connections/${id}/releases`,
-      DefaultPagination<ReleaseListResponse>,
+      DefaultFlatPagination<ReleaseListResponse>,
       { query, ...options },
     );
   }
 }
 
-export type ReleaseListResponsesDefaultPagination = DefaultPagination<ReleaseListResponse>;
+export type ReleaseListResponsesDefaultFlatPagination = DefaultFlatPagination<ReleaseListResponse>;
 
 export interface ReleaseRetrieveResponse {
   data?: ReleaseRetrieveResponse.Data;
@@ -151,7 +151,7 @@ export interface ReleaseRetrieveParams {
   id: string;
 }
 
-export interface ReleaseListParams extends DefaultPaginationParams {
+export interface ReleaseListParams extends DefaultFlatPaginationParams {
   /**
    * Filter parameter for releases (deepObject style). Supports filtering by status,
    * civic_address_id, location_id, and phone_number with eq/contains operations.
@@ -224,7 +224,7 @@ export declare namespace Releases {
   export {
     type ReleaseRetrieveResponse as ReleaseRetrieveResponse,
     type ReleaseListResponse as ReleaseListResponse,
-    type ReleaseListResponsesDefaultPagination as ReleaseListResponsesDefaultPagination,
+    type ReleaseListResponsesDefaultFlatPagination as ReleaseListResponsesDefaultFlatPagination,
     type ReleaseRetrieveParams as ReleaseRetrieveParams,
     type ReleaseListParams as ReleaseListParams,
   };

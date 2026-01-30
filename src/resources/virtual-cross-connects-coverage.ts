@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class VirtualCrossConnectsCoverage extends APIResource {
@@ -14,19 +14,19 @@ export class VirtualCrossConnectsCoverage extends APIResource {
     query: VirtualCrossConnectsCoverageListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<
-    VirtualCrossConnectsCoverageListResponsesDefaultPagination,
+    VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination,
     VirtualCrossConnectsCoverageListResponse
   > {
     return this._client.getAPIList(
       '/virtual_cross_connects_coverage',
-      DefaultPagination<VirtualCrossConnectsCoverageListResponse>,
+      DefaultFlatPagination<VirtualCrossConnectsCoverageListResponse>,
       { query, ...options },
     );
   }
 }
 
-export type VirtualCrossConnectsCoverageListResponsesDefaultPagination =
-  DefaultPagination<VirtualCrossConnectsCoverageListResponse>;
+export type VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<VirtualCrossConnectsCoverageListResponse>;
 
 export interface VirtualCrossConnectsCoverageListResponse {
   /**
@@ -85,7 +85,7 @@ export namespace VirtualCrossConnectsCoverageListResponse {
   }
 }
 
-export interface VirtualCrossConnectsCoverageListParams extends DefaultPaginationParams {
+export interface VirtualCrossConnectsCoverageListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[cloud_provider], filter[cloud_provider_region], filter[location.region],
@@ -165,7 +165,7 @@ export namespace VirtualCrossConnectsCoverageListParams {
 export declare namespace VirtualCrossConnectsCoverage {
   export {
     type VirtualCrossConnectsCoverageListResponse as VirtualCrossConnectsCoverageListResponse,
-    type VirtualCrossConnectsCoverageListResponsesDefaultPagination as VirtualCrossConnectsCoverageListResponsesDefaultPagination,
+    type VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination as VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination,
     type VirtualCrossConnectsCoverageListParams as VirtualCrossConnectsCoverageListParams,
   };
 }

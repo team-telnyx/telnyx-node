@@ -3,7 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -36,15 +36,15 @@ export class Requirements extends APIResource {
   list(
     query: RequirementListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RequirementListResponsesDefaultPagination, RequirementListResponse> {
-    return this._client.getAPIList('/requirements', DefaultPagination<RequirementListResponse>, {
+  ): PagePromise<RequirementListResponsesDefaultFlatPagination, RequirementListResponse> {
+    return this._client.getAPIList('/requirements', DefaultFlatPagination<RequirementListResponse>, {
       query,
       ...options,
     });
   }
 }
 
-export type RequirementListResponsesDefaultPagination = DefaultPagination<RequirementListResponse>;
+export type RequirementListResponsesDefaultFlatPagination = DefaultFlatPagination<RequirementListResponse>;
 
 export interface RequirementRetrieveResponse {
   data?: RequirementRetrieveResponse.Data;
@@ -150,7 +150,7 @@ export interface RequirementListResponse {
   updated_at?: string;
 }
 
-export interface RequirementListParams extends DefaultPaginationParams {
+export interface RequirementListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter for requirements (deepObject style). Originally:
    * filter[country_code], filter[phone_number_type], filter[action]
@@ -201,7 +201,7 @@ export declare namespace Requirements {
   export {
     type RequirementRetrieveResponse as RequirementRetrieveResponse,
     type RequirementListResponse as RequirementListResponse,
-    type RequirementListResponsesDefaultPagination as RequirementListResponsesDefaultPagination,
+    type RequirementListResponsesDefaultFlatPagination as RequirementListResponsesDefaultFlatPagination,
     type RequirementListParams as RequirementListParams,
   };
 }

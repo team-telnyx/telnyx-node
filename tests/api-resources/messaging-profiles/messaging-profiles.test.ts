@@ -98,7 +98,8 @@ describe('resource messagingProfiles', () => {
       client.messagingProfiles.list(
         {
           filter: { name: 'name' },
-          page: { number: 1, size: 1 },
+          'page[number]': 0,
+          'page[size]': 0,
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -135,7 +136,7 @@ describe('resource messagingProfiles', () => {
     await expect(
       client.messagingProfiles.listPhoneNumbers(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { page: { number: 1, size: 1 } },
+        { 'page[number]': 0, 'page[size]': 0 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
@@ -159,7 +160,7 @@ describe('resource messagingProfiles', () => {
     await expect(
       client.messagingProfiles.listShortCodes(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { page: { number: 1, size: 1 } },
+        { 'page[number]': 0, 'page[size]': 0 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

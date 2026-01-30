@@ -11,7 +11,7 @@ export {
   type EventRetrieveResponse,
   type EventListResponse,
   type EventListParams,
-  type EventListResponsesDefaultPagination,
+  type EventListResponsesDefaultFlatPagination,
 } from './events';
 export {
   Portouts,
@@ -22,7 +22,7 @@ export {
   type PortoutListParams,
   type PortoutListRejectionCodesParams,
   type PortoutUpdateStatusParams,
-  type PortoutDetailsDefaultPagination,
+  type PortoutDetailsDefaultFlatPagination,
 } from './portouts';
 export {
   Reports,
@@ -32,7 +32,7 @@ export {
   type ReportRetrieveResponse,
   type ReportCreateParams,
   type ReportListParams,
-  type PortoutReportsDefaultPagination,
+  type PortoutReportsDefaultFlatPagination,
 } from './reports';
 export {
   SupportingDocuments,

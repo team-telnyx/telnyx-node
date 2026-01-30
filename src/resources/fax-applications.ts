@@ -3,7 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as CredentialConnectionsAPI from './credential-connections/credential-connections';
 import { APIPromise } from '../core/api-promise';
-import { DefaultPagination, type DefaultPaginationParams, PagePromise } from '../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -84,8 +84,8 @@ export class FaxApplications extends APIResource {
   list(
     query: FaxApplicationListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<FaxApplicationsDefaultPagination, FaxApplication> {
-    return this._client.getAPIList('/fax_applications', DefaultPagination<FaxApplication>, {
+  ): PagePromise<FaxApplicationsDefaultFlatPagination, FaxApplication> {
+    return this._client.getAPIList('/fax_applications', DefaultFlatPagination<FaxApplication>, {
       query,
       ...options,
     });
@@ -107,7 +107,7 @@ export class FaxApplications extends APIResource {
   }
 }
 
-export type FaxApplicationsDefaultPagination = DefaultPagination<FaxApplication>;
+export type FaxApplicationsDefaultFlatPagination = DefaultFlatPagination<FaxApplication>;
 
 export interface FaxApplication {
   /**
@@ -406,7 +406,7 @@ export namespace FaxApplicationUpdateParams {
   }
 }
 
-export interface FaxApplicationListParams extends DefaultPaginationParams {
+export interface FaxApplicationListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[application_name][contains], filter[outbound_voice_profile_id]
@@ -471,7 +471,7 @@ export declare namespace FaxApplications {
     type FaxApplicationRetrieveResponse as FaxApplicationRetrieveResponse,
     type FaxApplicationUpdateResponse as FaxApplicationUpdateResponse,
     type FaxApplicationDeleteResponse as FaxApplicationDeleteResponse,
-    type FaxApplicationsDefaultPagination as FaxApplicationsDefaultPagination,
+    type FaxApplicationsDefaultFlatPagination as FaxApplicationsDefaultFlatPagination,
     type FaxApplicationCreateParams as FaxApplicationCreateParams,
     type FaxApplicationUpdateParams as FaxApplicationUpdateParams,
     type FaxApplicationListParams as FaxApplicationListParams,

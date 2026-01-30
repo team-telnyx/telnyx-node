@@ -27,7 +27,8 @@ describe('resource auditEvents', () => {
       client.auditEvents.list(
         {
           filter: { created_after: '2021-01-01T00:00:00Z', created_before: '2021-01-01T00:00:00Z' },
-          page: { number: 1, size: 10 },
+          'page[number]': 0,
+          'page[size]': 0,
           sort: 'desc',
         },
         { path: '/_stainless_unknown_path' },
