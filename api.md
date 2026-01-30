@@ -3555,8 +3555,6 @@ Methods:
 - <code title="get /texml/Accounts/{account_sid}/Queues">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">list</a>(accountSid, { ...params }) -> QueueListResponsesDefaultPaginationForQueues</code>
 - <code title="delete /texml/Accounts/{account_sid}/Queues/{queue_sid}">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">delete</a>(queueSid, { ...params }) -> void</code>
 
-## Calls
-
 # TexmlApplications
 
 Types:
