@@ -1610,15 +1610,14 @@ export class Telnyx {
 
     if (!this.oauthClientAuthState) {
       this.oauthClientAuthState = {
-        promise: this.fetch(
-          this.buildURL('https://api.telnyx.com/v2/oauth/token', { grant_type: 'client_credentials' }),
-          {
-            method: 'POST',
-            headers: {
-              Authorization: `Basic ${toBase64(`${this.clientID}:${this.clientSecret}`)}`,
-            },
+        promise: this.fetch(this.buildURL('https://api.telnyx.com/v2/oauth/token', {}), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Basic ${toBase64(`${this.clientID}:${this.clientSecret}`)}`,
           },
-        ).then(async (res) => {
+          body: 'grant_type=client_credentials',
+        }).then(async (res) => {
           if (!res.ok) {
             const errText = await res.text().catch(() => '');
             const errJSON = errText ? safeJSON(errText) : undefined;
