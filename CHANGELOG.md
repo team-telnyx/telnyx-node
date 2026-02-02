@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.17.1 (2026-02-02)
+
+Full Changelog: [v5.17.0...v5.17.1](https://github.com/team-telnyx/telnyx-node/compare/v5.17.0...v5.17.1)
+
+### Bug Fixes
+
+* **client:** avoid memory leak with abort signals ([42d0342](https://github.com/team-telnyx/telnyx-node/commit/42d034266820cb830c3bac92967dbea63930ef07))
+
+
+### Chores
+
+* **client:** do not parse responses with empty content-length ([39126a0](https://github.com/team-telnyx/telnyx-node/commit/39126a0ddefc3a0ee2617d85507c70d4b3cd9cef))
+
 ## 5.17.0 (2026-01-30)
 
 Full Changelog: [v5.16.1...v5.17.0](https://github.com/team-telnyx/telnyx-node/compare/v5.16.1...v5.17.0)
