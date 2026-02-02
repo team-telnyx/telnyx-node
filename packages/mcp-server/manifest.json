@@ -1,7 +1,7 @@
 {
   "dxt_version": "0.2",
   "name": "telnyx-mcp",
-  "version": "5.17.0",
+  "version": "5.17.1",
   "description": "The official MCP Server for the Telnyx API",
   "author": {
     "name": "Telnyx",

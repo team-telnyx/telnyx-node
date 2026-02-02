@@ -21,7 +21,7 @@ export const newMcpServer = () =>
   new McpServer(
     {
       name: 'telnyx_api',
-      version: '5.17.0',
+      version: '5.17.1',
     },
     { capabilities: { tools: {}, logging: {} } },
   );
