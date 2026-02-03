@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.17.2 (2026-02-03)
+
+Full Changelog: [v5.17.1...v5.17.2](https://github.com/team-telnyx/telnyx-node/compare/v5.17.1...v5.17.2)
+
+### Bug Fixes
+
+* **client/oauth:** send grant_type in the right location ([186b688](https://github.com/team-telnyx/telnyx-node/commit/186b688640ae2eb855879c28f57143e6b0f6326c))
+
+
+### Chores
+
+* **internal:** support oauth authorization code flow for MCP servers ([a45c24c](https://github.com/team-telnyx/telnyx-node/commit/a45c24c7057009df92775020d121bd3dbb017ba5))
+
 ## 5.17.1 (2026-02-02)
 
 Full Changelog: [v5.17.0...v5.17.1](https://github.com/team-telnyx/telnyx-node/compare/v5.17.0...v5.17.1)
