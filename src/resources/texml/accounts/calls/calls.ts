@@ -872,6 +872,12 @@ export interface CallCallsParams {
   SupervisingRole?: 'barge' | 'whisper' | 'monitor';
 
   /**
+   * TeXML to be used as instructions for the call. If provided, the call will
+   * execute these instructions instead of fetching from the Url.
+   */
+  Texml?: string;
+
+  /**
    * Whether to trim any leading and trailing silence from the recording. Defaults to
    * `trim-silence`.
    */
