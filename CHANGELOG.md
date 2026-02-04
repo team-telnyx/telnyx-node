@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.18.0 (2026-02-04)
+
+Full Changelog: [v5.17.2...v5.18.0](https://github.com/team-telnyx/telnyx-node/compare/v5.17.2...v5.18.0)
+
+### Features
+
+* Add Texml parameter to create call endpoint [ENGDESK-49187] ([b863bb6](https://github.com/team-telnyx/telnyx-node/commit/b863bb65e0b87735d9f3a81dc371ae39d768c3c1))
+
+
+### Chores
+
+* **client:** restructure abort controller binding ([b371c01](https://github.com/team-telnyx/telnyx-node/commit/b371c016378bae8781685d4331ef37313fc09630))
+* **internal:** refactor flag parsing for MCP servers and add debug flag ([378d15c](https://github.com/team-telnyx/telnyx-node/commit/378d15ca2fe918e014c4800ddd92cc28ed568625))
+
 ## 5.17.2 (2026-02-03)
 
 Full Changelog: [v5.17.1...v5.17.2](https://github.com/team-telnyx/telnyx-node/compare/v5.17.1...v5.17.2)
