@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.19.0 (2026-02-04)
+
+Full Changelog: [v5.18.0...v5.19.0](https://github.com/team-telnyx/telnyx-node/compare/v5.18.0...v5.19.0)
+
+### Features
+
+* **mcp:** add initial server instructions ([3feca1a](https://github.com/team-telnyx/telnyx-node/commit/3feca1a3785ca2496889c0aa4540294ecad8f98e))
+
 ## 5.18.0 (2026-02-04)
 
 Full Changelog: [v5.17.2...v5.18.0](https://github.com/team-telnyx/telnyx-node/compare/v5.17.2...v5.18.0)
