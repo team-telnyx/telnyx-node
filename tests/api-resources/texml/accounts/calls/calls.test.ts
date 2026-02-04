@@ -105,6 +105,7 @@ describe('resource calls', () => {
       StatusCallbackMethod: 'GET',
       SuperviseCallSid: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
       SupervisingRole: 'monitor',
+      Texml: '<?xml version="1.0" encoding="UTF-8"?><Response><Say>Hello</Say></Response>',
       Trim: 'trim-silence',
       Url: 'https://www.example.com/texml.xml',
       UrlMethod: 'GET',
