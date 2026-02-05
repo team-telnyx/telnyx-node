@@ -57,7 +57,7 @@ export const newMcpServer = async () =>
   new McpServer(
     {
       name: 'telnyx_api',
-      version: '5.19.1',
+      version: '5.20.0',
     },
     {
       instructions: await getInstructions(),
