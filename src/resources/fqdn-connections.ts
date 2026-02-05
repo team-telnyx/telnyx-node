@@ -192,7 +192,7 @@ export interface FqdnConnection {
    * but tolerate more jitter, while smaller values reduce latency but are more
    * sensitive to jitter and reordering.
    */
-  jitter_buffer?: FqdnConnection.JitterBuffer;
+  jitter_buffer?: Shared.ConnectionJitterBuffer;
 
   /**
    * The connection is enabled for Microsoft Teams Direct Routing.
@@ -308,35 +308,6 @@ export interface FqdnConnection {
    * Specifies how many seconds to wait before timing out a webhook.
    */
   webhook_timeout_secs?: number | null;
-}
-
-export namespace FqdnConnection {
-  /**
-   * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
-   * of SIP Trunking calls. The feature is off unless enabled. You may define min and
-   * max values in msec for customized buffering behaviors. Larger values add latency
-   * but tolerate more jitter, while smaller values reduce latency but are more
-   * sensitive to jitter and reordering.
-   */
-  export interface JitterBuffer {
-    /**
-     * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off
-     * unless enabled.
-     */
-    enable_jitter_buffer?: boolean;
-
-    /**
-     * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has
-     * no effect if enable_jitter_buffer is not true.
-     */
-    jitterbuffer_msec_max?: number;
-
-    /**
-     * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has
-     * no effect if enable_jitter_buffer is not true.
-     */
-    jitterbuffer_msec_min?: number;
-  }
 }
 
 export interface InboundFqdn {
@@ -635,7 +606,7 @@ export interface FqdnConnectionCreateParams {
    * but tolerate more jitter, while smaller values reduce latency but are more
    * sensitive to jitter and reordering.
    */
-  jitter_buffer?: FqdnConnectionCreateParams.JitterBuffer;
+  jitter_buffer?: Shared.ConnectionJitterBuffer;
 
   /**
    * When enabled, the connection will be created for Microsoft Teams Direct Routing.
@@ -702,35 +673,6 @@ export interface FqdnConnectionCreateParams {
    * Specifies how many seconds to wait before timing out a webhook.
    */
   webhook_timeout_secs?: number | null;
-}
-
-export namespace FqdnConnectionCreateParams {
-  /**
-   * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
-   * of SIP Trunking calls. The feature is off unless enabled. You may define min and
-   * max values in msec for customized buffering behaviors. Larger values add latency
-   * but tolerate more jitter, while smaller values reduce latency but are more
-   * sensitive to jitter and reordering.
-   */
-  export interface JitterBuffer {
-    /**
-     * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off
-     * unless enabled.
-     */
-    enable_jitter_buffer?: boolean;
-
-    /**
-     * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has
-     * no effect if enable_jitter_buffer is not true.
-     */
-    jitterbuffer_msec_max?: number;
-
-    /**
-     * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has
-     * no effect if enable_jitter_buffer is not true.
-     */
-    jitterbuffer_msec_min?: number;
-  }
 }
 
 export interface FqdnConnectionUpdateParams {
@@ -800,7 +742,7 @@ export interface FqdnConnectionUpdateParams {
    * but tolerate more jitter, while smaller values reduce latency but are more
    * sensitive to jitter and reordering.
    */
-  jitter_buffer?: FqdnConnectionUpdateParams.JitterBuffer;
+  jitter_buffer?: Shared.ConnectionJitterBuffer;
 
   /**
    * Controls when noise suppression is applied to calls. When set to 'inbound',
@@ -861,35 +803,6 @@ export interface FqdnConnectionUpdateParams {
    * Specifies how many seconds to wait before timing out a webhook.
    */
   webhook_timeout_secs?: number | null;
-}
-
-export namespace FqdnConnectionUpdateParams {
-  /**
-   * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
-   * of SIP Trunking calls. The feature is off unless enabled. You may define min and
-   * max values in msec for customized buffering behaviors. Larger values add latency
-   * but tolerate more jitter, while smaller values reduce latency but are more
-   * sensitive to jitter and reordering.
-   */
-  export interface JitterBuffer {
-    /**
-     * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off
-     * unless enabled.
-     */
-    enable_jitter_buffer?: boolean;
-
-    /**
-     * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has
-     * no effect if enable_jitter_buffer is not true.
-     */
-    jitterbuffer_msec_max?: number;
-
-    /**
-     * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has
-     * no effect if enable_jitter_buffer is not true.
-     */
-    jitterbuffer_msec_min?: number;
-  }
 }
 
 export interface FqdnConnectionListParams extends DefaultFlatPaginationParams {

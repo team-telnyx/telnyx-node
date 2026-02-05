@@ -37,6 +37,33 @@ export interface AvailablePhoneNumbersMetadata {
 }
 
 /**
+ * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
+ * of SIP Trunking calls. The feature is off unless enabled. You may define min and
+ * max values in msec for customized buffering behaviors. Larger values add latency
+ * but tolerate more jitter, while smaller values reduce latency but are more
+ * sensitive to jitter and reordering.
+ */
+export interface ConnectionJitterBuffer {
+  /**
+   * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off
+   * unless enabled.
+   */
+  enable_jitter_buffer?: boolean;
+
+  /**
+   * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has
+   * no effect if enable_jitter_buffer is not true.
+   */
+  jitterbuffer_msec_max?: number;
+
+  /**
+   * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has
+   * no effect if enable_jitter_buffer is not true.
+   */
+  jitterbuffer_msec_min?: number;
+}
+
+/**
  * Configuration options for noise suppression. These settings are stored
  * regardless of the noise_suppression value, but only take effect when
  * noise_suppression is not 'disabled'. If you disable noise suppression and later

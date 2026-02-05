@@ -569,6 +569,18 @@ export interface AssistantsList {
   data: Array<InferenceEmbedding>;
 }
 
+export interface AudioVisualizerConfig {
+  /**
+   * The color theme for the audio visualizer.
+   */
+  color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
+
+  /**
+   * The preset style for the audio visualizer.
+   */
+  preset?: string;
+}
+
 /**
  * If `telephony` is enabled, the assistant will be able to make and receive calls.
  * If `messaging` is enabled, the assistant will be able to send and receive
@@ -1361,7 +1373,7 @@ export interface WidgetSettings {
    */
   agent_thinking_text?: string;
 
-  audio_visualizer_config?: WidgetSettings.AudioVisualizerConfig;
+  audio_visualizer_config?: AudioVisualizerConfig;
 
   /**
    * The default state of the widget.
@@ -1407,20 +1419,6 @@ export interface WidgetSettings {
    * URL to view conversation history.
    */
   view_history_url?: string | null;
-}
-
-export namespace WidgetSettings {
-  export interface AudioVisualizerConfig {
-    /**
-     * The color theme for the audio visualizer.
-     */
-    color?: 'verdant' | 'twilight' | 'bloom' | 'mystic' | 'flare' | 'glacier';
-
-    /**
-     * The preset style for the audio visualizer.
-     */
-    preset?: string;
-  }
 }
 
 /**
@@ -1676,6 +1674,7 @@ export declare namespace Assistants {
     type Assistant as Assistant,
     type AssistantTool as AssistantTool,
     type AssistantsList as AssistantsList,
+    type AudioVisualizerConfig as AudioVisualizerConfig,
     type EnabledFeatures as EnabledFeatures,
     type HangupTool as HangupTool,
     type HangupToolParams as HangupToolParams,
