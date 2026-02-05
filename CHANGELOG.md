@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.19.1 (2026-02-05)
+
+Full Changelog: [v5.19.0...v5.19.1](https://github.com/team-telnyx/telnyx-node/compare/v5.19.0...v5.19.1)
+
+### Bug Fixes
+
+* **client:** avoid removing abort listener too early ([d6613db](https://github.com/team-telnyx/telnyx-node/commit/d6613dbb675a2a781d26577b28cb6bcd4f7c590a))
+
+
+### Chores
+
+* **internal:** fix pagination internals not accepting option promises ([e4f5790](https://github.com/team-telnyx/telnyx-node/commit/e4f5790a608e9e3da079161d90e61259cd5ee6d3))
+
 ## 5.19.0 (2026-02-04)
 
 Full Changelog: [v5.18.0...v5.19.0](https://github.com/team-telnyx/telnyx-node/compare/v5.18.0...v5.19.0)
