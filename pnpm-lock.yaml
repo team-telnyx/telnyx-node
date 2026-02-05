@@ -1952,7 +1952,7 @@ packages:
     resolution: {integrity: sha512-0TpaTfihd4QMNwrz/ob2Bp7X04yuxJkjRGi4aKmOqwhov54i6u79oCv7T+C7lo70MKH6BesI3vscD1yb/yzKXQ==}
 
   jq-web@https://github.com/stainless-api/jq-web/releases/download/v0.8.8/jq-web.tar.gz:
-    resolution: {tarball: https://github.com/stainless-api/jq-web/releases/download/v0.8.8/jq-web.tar.gz}
+    resolution: {integrity: sha512-6nmDSHGJm8Cclf2oSuO9xQ7vt5x5bDiuTKX2rkyW1K7Uo2SHeI4ZvpgMITKy+8p3bbEnKovTPGoHhApa6v/PbA==, tarball: https://github.com/stainless-api/jq-web/releases/download/v0.8.8/jq-web.tar.gz}
     version: 0.8.8
 
   js-tokens@4.0.0:
@@ -2669,7 +2669,7 @@ packages:
         optional: true
 
   tsc-multi@https://github.com/stainless-api/tsc-multi/releases/download/v1.1.9/tsc-multi.tgz:
-    resolution: {tarball: https://github.com/stainless-api/tsc-multi/releases/download/v1.1.9/tsc-multi.tgz}
+    resolution: {integrity: sha512-tWyCXnx0WqCkVlo5s+4KMj7HC0/0YrCZY0PustUwX9F2lNwd8Kp07q/Q56uGvV9q80XaSDrhy0YqBmrX5TDNpQ==, tarball: https://github.com/stainless-api/tsc-multi/releases/download/v1.1.9/tsc-multi.tgz}
     version: 1.1.9
     engines: {node: '>=14'}
     hasBin: true
