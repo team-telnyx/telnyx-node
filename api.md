@@ -4,6 +4,7 @@ Types:
 
 - <code><a href="./src/resources/shared.ts">APIError</a></code>
 - <code><a href="./src/resources/shared.ts">AvailablePhoneNumbersMetadata</a></code>
+- <code><a href="./src/resources/shared.ts">ConnectionJitterBuffer</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionNoiseSuppressionDetails</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionsPaginationMeta</a></code>
 - <code><a href="./src/resources/shared.ts">DocReqsRequirementType</a></code>
@@ -490,6 +491,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">Assistant</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantsList</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AudioVisualizerConfig</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">EnabledFeatures</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupToolParams</a></code>

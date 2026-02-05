@@ -1,6 +1,6 @@
 {
   "name": "telnyx",
-  "version": "5.20.0",
+  "version": "5.21.0",
   "description": "Telnyx API SDK for global Voice, SMS, MMS, WhatsApp, Fax, Wireless IoT, SIP Trunking, and Call Control.",
   "author": "Telnyx <support@telnyx.com>",
   "types": "dist/index.d.ts",
@@ -9,7 +9,7 @@
   "repository": "github:team-telnyx/telnyx-node",
   "license": "MIT",
   "mcpName": "io.github.team-telnyx/telnyx",
-  "packageManager": "pnpm@10.24.0",
+  "packageManager": "pnpm@10.27.0",
   "files": [
     "**/*"
   ],

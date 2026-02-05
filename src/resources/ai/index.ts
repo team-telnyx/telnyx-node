@@ -6,6 +6,7 @@ export {
   type Assistant,
   type AssistantTool,
   type AssistantsList,
+  type AudioVisualizerConfig,
   type EnabledFeatures,
   type HangupTool,
   type HangupToolParams,

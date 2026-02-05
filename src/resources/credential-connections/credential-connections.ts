@@ -209,7 +209,7 @@ export interface CredentialConnection {
    * but tolerate more jitter, while smaller values reduce latency but are more
    * sensitive to jitter and reordering.
    */
-  jitter_buffer?: CredentialConnection.JitterBuffer;
+  jitter_buffer?: Shared.ConnectionJitterBuffer;
 
   /**
    * Controls when noise suppression is applied to calls. When set to 'inbound',
@@ -296,35 +296,6 @@ export interface CredentialConnection {
    * Specifies how many seconds to wait before timing out a webhook.
    */
   webhook_timeout_secs?: number | null;
-}
-
-export namespace CredentialConnection {
-  /**
-   * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
-   * of SIP Trunking calls. The feature is off unless enabled. You may define min and
-   * max values in msec for customized buffering behaviors. Larger values add latency
-   * but tolerate more jitter, while smaller values reduce latency but are more
-   * sensitive to jitter and reordering.
-   */
-  export interface JitterBuffer {
-    /**
-     * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off
-     * unless enabled.
-     */
-    enable_jitter_buffer?: boolean;
-
-    /**
-     * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has
-     * no effect if enable_jitter_buffer is not true.
-     */
-    jitterbuffer_msec_max?: number;
-
-    /**
-     * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has
-     * no effect if enable_jitter_buffer is not true.
-     */
-    jitterbuffer_msec_min?: number;
-  }
 }
 
 export interface CredentialInbound {
@@ -574,7 +545,7 @@ export interface CredentialConnectionCreateParams {
    * but tolerate more jitter, while smaller values reduce latency but are more
    * sensitive to jitter and reordering.
    */
-  jitter_buffer?: CredentialConnectionCreateParams.JitterBuffer;
+  jitter_buffer?: Shared.ConnectionJitterBuffer;
 
   /**
    * Controls when noise suppression is applied to calls. When set to 'inbound',
@@ -640,35 +611,6 @@ export interface CredentialConnectionCreateParams {
    * Specifies how many seconds to wait before timing out a webhook.
    */
   webhook_timeout_secs?: number | null;
-}
-
-export namespace CredentialConnectionCreateParams {
-  /**
-   * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
-   * of SIP Trunking calls. The feature is off unless enabled. You may define min and
-   * max values in msec for customized buffering behaviors. Larger values add latency
-   * but tolerate more jitter, while smaller values reduce latency but are more
-   * sensitive to jitter and reordering.
-   */
-  export interface JitterBuffer {
-    /**
-     * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off
-     * unless enabled.
-     */
-    enable_jitter_buffer?: boolean;
-
-    /**
-     * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has
-     * no effect if enable_jitter_buffer is not true.
-     */
-    jitterbuffer_msec_max?: number;
-
-    /**
-     * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has
-     * no effect if enable_jitter_buffer is not true.
-     */
-    jitterbuffer_msec_min?: number;
-  }
 }
 
 export interface CredentialConnectionUpdateParams {
@@ -738,7 +680,7 @@ export interface CredentialConnectionUpdateParams {
    * but tolerate more jitter, while smaller values reduce latency but are more
    * sensitive to jitter and reordering.
    */
-  jitter_buffer?: CredentialConnectionUpdateParams.JitterBuffer;
+  jitter_buffer?: Shared.ConnectionJitterBuffer;
 
   /**
    * Controls when noise suppression is applied to calls. When set to 'inbound',
@@ -814,35 +756,6 @@ export interface CredentialConnectionUpdateParams {
    * Specifies how many seconds to wait before timing out a webhook.
    */
   webhook_timeout_secs?: number | null;
-}
-
-export namespace CredentialConnectionUpdateParams {
-  /**
-   * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
-   * of SIP Trunking calls. The feature is off unless enabled. You may define min and
-   * max values in msec for customized buffering behaviors. Larger values add latency
-   * but tolerate more jitter, while smaller values reduce latency but are more
-   * sensitive to jitter and reordering.
-   */
-  export interface JitterBuffer {
-    /**
-     * Enables Jitter Buffer for RTP streams of SIP Trunking calls. The feature is off
-     * unless enabled.
-     */
-    enable_jitter_buffer?: boolean;
-
-    /**
-     * The maximum jitter buffer size in milliseconds. Must be between 40 and 400. Has
-     * no effect if enable_jitter_buffer is not true.
-     */
-    jitterbuffer_msec_max?: number;
-
-    /**
-     * The minimum jitter buffer size in milliseconds. Must be between 40 and 400. Has
-     * no effect if enable_jitter_buffer is not true.
-     */
-    jitterbuffer_msec_min?: number;
-  }
 }
 
 export interface CredentialConnectionListParams extends DefaultFlatPaginationParams {
