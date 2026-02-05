@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.21.0 (2026-02-05)
+
+Full Changelog: [v5.20.0...v5.21.0](https://github.com/team-telnyx/telnyx-node/compare/v5.20.0...v5.21.0)
+
+### Features
+
+* **api:** manual updates ([9f2e25b](https://github.com/team-telnyx/telnyx-node/commit/9f2e25b9f1e0610d20fe2f236e1abc322fb0f556))
+
+
+### Chores
+
+* **internal:** upgrade pnpm ([29af826](https://github.com/team-telnyx/telnyx-node/commit/29af8262aa49aab70ebe26c1f46d5229a715228c))
+
 ## 5.20.0 (2026-02-05)
 
 Full Changelog: [v5.19.1...v5.20.0](https://github.com/team-telnyx/telnyx-node/compare/v5.19.1...v5.20.0)
