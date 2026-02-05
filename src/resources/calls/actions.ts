@@ -1479,7 +1479,6 @@ export namespace TranscriptionEngineDeepgramConfig {
      * Language to use for speech recognition with nova-3 model
      */
     language?:
-      | 'en'
       | 'en-US'
       | 'en-AU'
       | 'en-GB'
@@ -1487,15 +1486,12 @@ export namespace TranscriptionEngineDeepgramConfig {
       | 'en-NZ'
       | 'de'
       | 'nl'
-      | 'sv'
       | 'sv-SE'
-      | 'da'
       | 'da-DK'
       | 'es'
       | 'es-419'
       | 'fr'
       | 'fr-CA'
-      | 'pt'
       | 'pt-BR'
       | 'pt-PT'
       | 'auto_detect';
@@ -1721,7 +1717,6 @@ export namespace TranscriptionStartRequest {
      * Language to use for speech recognition with nova-3 model
      */
     language?:
-      | 'en'
       | 'en-US'
       | 'en-AU'
       | 'en-GB'
@@ -1729,15 +1724,12 @@ export namespace TranscriptionStartRequest {
       | 'en-NZ'
       | 'de'
       | 'nl'
-      | 'sv'
       | 'sv-SE'
-      | 'da'
       | 'da-DK'
       | 'es'
       | 'es-419'
       | 'fr'
       | 'fr-CA'
-      | 'pt'
       | 'pt-BR'
       | 'pt-PT'
       | 'auto_detect';
@@ -3960,7 +3952,6 @@ export namespace ActionStartTranscriptionParams {
      * Language to use for speech recognition with nova-3 model
      */
     language?:
-      | 'en'
       | 'en-US'
       | 'en-AU'
       | 'en-GB'
@@ -3968,15 +3959,12 @@ export namespace ActionStartTranscriptionParams {
       | 'en-NZ'
       | 'de'
       | 'nl'
-      | 'sv'
       | 'sv-SE'
-      | 'da'
       | 'da-DK'
       | 'es'
       | 'es-419'
       | 'fr'
       | 'fr-CA'
-      | 'pt'
       | 'pt-BR'
       | 'pt-PT'
       | 'auto_detect';
