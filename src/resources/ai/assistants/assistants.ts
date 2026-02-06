@@ -915,6 +915,11 @@ export interface TelephonySettings {
   noise_suppression_config?: TelephonySettings.NoiseSuppressionConfig;
 
   /**
+   * Configuration for call recording format and channel settings.
+   */
+  recording_settings?: TelephonySettings.RecordingSettings;
+
+  /**
    * When enabled, allows users to interact with your AI assistant directly from your
    * website without requiring authentication. This is required for FE widgets that
    * work with assistants that have telephony enabled.
@@ -963,6 +968,21 @@ export namespace TelephonySettings {
      * Mode for noise suppression configuration.
      */
     mode?: 'advanced';
+  }
+
+  /**
+   * Configuration for call recording format and channel settings.
+   */
+  export interface RecordingSettings {
+    /**
+     * The number of channels for the recording. 'single' for mono, 'dual' for stereo.
+     */
+    channels?: 'single' | 'dual';
+
+    /**
+     * The format of the recording file.
+     */
+    format?: 'wav' | 'mp3';
   }
 
   /**
