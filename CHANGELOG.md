@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.23.0 (2026-02-06)
+
+Full Changelog: [v5.22.0...v5.23.0](https://github.com/team-telnyx/telnyx-node/compare/v5.22.0...v5.23.0)
+
+### Features
+
+* Revert "fix emergency settings -schema" ([31f4694](https://github.com/team-telnyx/telnyx-node/commit/31f469455452b9688c7b11da49ad09bad9077fd9))
+
 ## 5.22.0 (2026-02-05)
 
 Full Changelog: [v5.21.0...v5.22.0](https://github.com/team-telnyx/telnyx-node/compare/v5.21.0...v5.22.0)
