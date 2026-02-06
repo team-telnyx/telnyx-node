@@ -36,10 +36,10 @@ async function getInstructions() {
 
     instructions = `
       This is the telnyx MCP server. You will use Code Mode to help the user perform
-      actions. You can use search_docs tool to learn about how to take action with this server. Then, 
-      you will write TypeScript code using the execute tool take action. It is CRITICAL that you be 
-      thoughtful and deliberate when executing code. Always try to entirely solve the problem in code 
-      block: it can be as long as you need to get the job done! 
+      actions. You can use search_docs tool to learn about how to take action with this server. Then,
+      you will write TypeScript code using the execute tool take action. It is CRITICAL that you be
+      thoughtful and deliberate when executing code. Always try to entirely solve the problem in code
+      block: it can be as long as you need to get the job done!
     `;
   }
 
@@ -57,7 +57,7 @@ export const newMcpServer = async () =>
   new McpServer(
     {
       name: 'telnyx_api',
-      version: '5.23.0',
+      version: '5.23.1',
     },
     {
       instructions: await getInstructions(),

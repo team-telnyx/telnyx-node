@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.23.1 (2026-02-06)
+
+Full Changelog: [v5.23.0...v5.23.1](https://github.com/team-telnyx/telnyx-node/compare/v5.23.0...v5.23.1)
+
+### Chores
+
+* **internal:** add health check to MCP server when running in HTTP mode ([d74f0ab](https://github.com/team-telnyx/telnyx-node/commit/d74f0abfd27495527a67493d0c56a6b1290da874))
+
 ## 5.23.0 (2026-02-06)
 
 Full Changelog: [v5.22.0...v5.23.0](https://github.com/team-telnyx/telnyx-node/compare/v5.22.0...v5.23.0)
