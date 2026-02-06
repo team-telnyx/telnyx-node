@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.22.0 (2026-02-05)
+
+Full Changelog: [v5.21.0...v5.22.0](https://github.com/team-telnyx/telnyx-node/compare/v5.21.0...v5.22.0)
+
+### Features
+
+* **api:** Merge pull request [#23](https://github.com/team-telnyx/telnyx-node/issues/23) from stainless-sdks/fix/deepgram-nova3-enum-duplicates ([193db63](https://github.com/team-telnyx/telnyx-node/commit/193db6382f7d2d8ff8e07430b08792d2acfd3fd0))
+
 ## 5.21.0 (2026-02-05)
 
 Full Changelog: [v5.20.0...v5.21.0](https://github.com/team-telnyx/telnyx-node/compare/v5.20.0...v5.21.0)
