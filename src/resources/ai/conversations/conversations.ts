@@ -170,7 +170,12 @@ export interface Conversation {
 
   /**
    * Metadata associated with the conversation. Telnyx provides several pieces of
-   * metadata, but customers can also add their own.
+   * metadata, but customers can also add their own. The reserved field `ai_disabled`
+   * (boolean) can be set to `true` to prevent AI-generated responses on this
+   * conversation. When `ai_disabled` is `true`, calls to the chat endpoint will
+   * return a 400 error. Set to `false` or remove the field to re-enable AI
+   * responses. This is useful when a human agent needs to take over the conversation
+   * mid-stream (e.g., a technician stepping in while AI was messaging a resident).
    */
   metadata: { [key: string]: string };
 
@@ -236,7 +241,8 @@ export namespace ConversationRetrieveConversationsInsightsResponse {
 
 export interface ConversationCreateParams {
   /**
-   * Metadata associated with the conversation.
+   * Metadata associated with the conversation. Set `ai_disabled` to `true` to create
+   * the conversation with AI message responses disabled.
    */
   metadata?: { [key: string]: string };
 
@@ -245,7 +251,9 @@ export interface ConversationCreateParams {
 
 export interface ConversationUpdateParams {
   /**
-   * Metadata associated with the conversation.
+   * Metadata associated with the conversation. Set `ai_disabled` to `true` to stop
+   * AI from responding to messages (e.g., when a human agent takes over). Set to
+   * `false` to re-enable AI responses.
    */
   metadata?: { [key: string]: string };
 }
