@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.24.0 (2026-02-09)
+
+Full Changelog: [v5.23.0...v5.24.0](https://github.com/team-telnyx/telnyx-node/compare/v5.23.0...v5.24.0)
+
+### Features
+
+* AI-2078 Feature: API endpoint to disable AI assistant mid-conversation ([28b9a0a](https://github.com/team-telnyx/telnyx-node/commit/28b9a0a570ea7128c3c8110e165b68d5e21ded91))
+
+
+### Chores
+
+* **internal:** add health check to MCP server when running in HTTP mode ([d74f0ab](https://github.com/team-telnyx/telnyx-node/commit/d74f0abfd27495527a67493d0c56a6b1290da874))
+* **internal:** allow basic filtering of methods allowed for MCP code mode ([396bc76](https://github.com/team-telnyx/telnyx-node/commit/396bc76ae01c27e386cbcc0b33f32cd973b670d1))
+* **internal:** always generate MCP server dockerfiles and upgrade associated dependencies ([2c6dbd2](https://github.com/team-telnyx/telnyx-node/commit/2c6dbd20df5ab77731ee35e971708314c5411e85))
+
 ## 5.23.0 (2026-02-06)
 
 Full Changelog: [v5.22.0...v5.23.0](https://github.com/team-telnyx/telnyx-node/compare/v5.22.0...v5.23.0)
