@@ -4,6 +4,7 @@ import { McpTool, Metadata, ToolCallResult, asErrorResult, asTextContentResult }
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { readEnv } from './server';
 import { WorkerInput, WorkerOutput } from './code-tool-types';
+import { SdkMethod } from './methods';
 import { Telnyx } from 'telnyx';
 
 const prompt = `Runs JavaScript code to interact with the Telnyx API.
@@ -40,7 +41,7 @@ Variables will not persist between calls, so make sure to return or log any data
  *
  * @param endpoints - The endpoints to include in the list.
  */
-export function codeTool(): McpTool {
+export function codeTool(params: { blockedMethods: SdkMethod[] | undefined }): McpTool {
   const metadata: Metadata = { resource: 'all', operation: 'write', tags: [] };
   const tool: Tool = {
     name: 'execute',
@@ -63,6 +64,24 @@ export function codeTool(): McpTool {
   const handler = async (client: Telnyx, args: any): Promise<ToolCallResult> => {
     const code = args.code as string;
     const intent = args.intent as string | undefined;
+
+    // Do very basic blocking of code that includes forbidden method names.
+    //
+    // WARNING: This is not secure against obfuscation and other evasion methods. If
+    // stronger security blocks are required, then these should be enforced in the downstream
+    // API (e.g., by having users call the MCP server with API keys with limited permissions).
+    if (params.blockedMethods) {
+      const blockedMatches = params.blockedMethods.filter((method) =>
+        code.includes(method.fullyQualifiedName),
+      );
+      if (blockedMatches.length > 0) {
+        return asErrorResult(
+          `The following methods have been blocked by the MCP server and cannot be used in code execution: ${blockedMatches
+            .map((m) => m.fullyQualifiedName)
+            .join(', ')}`,
+        );
+      }
+    }
 
     // this is not required, but passing a Stainless API key for the matching project_name
     // will allow you to run code-mode queries against non-published versions of your SDK.

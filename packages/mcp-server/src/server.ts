@@ -12,6 +12,7 @@ import Telnyx from 'telnyx';
 import { codeTool } from './code-tool';
 import docsSearchTool from './docs-search-tool';
 import { McpOptions } from './options';
+import { blockedMethodsForCodeTool } from './methods';
 import { HandlerFunction, McpTool } from './types';
 
 export { McpOptions } from './options';
@@ -36,10 +37,10 @@ async function getInstructions() {
 
     instructions = `
       This is the telnyx MCP server. You will use Code Mode to help the user perform
-      actions. You can use search_docs tool to learn about how to take action with this server. Then, 
-      you will write TypeScript code using the execute tool take action. It is CRITICAL that you be 
-      thoughtful and deliberate when executing code. Always try to entirely solve the problem in code 
-      block: it can be as long as you need to get the job done! 
+      actions. You can use search_docs tool to learn about how to take action with this server. Then,
+      you will write TypeScript code using the execute tool take action. It is CRITICAL that you be
+      thoughtful and deliberate when executing code. Always try to entirely solve the problem in code
+      block: it can be as long as you need to get the job done!
     `;
   }
 
@@ -57,7 +58,7 @@ export const newMcpServer = async () =>
   new McpServer(
     {
       name: 'telnyx_api',
-      version: '5.23.0',
+      version: '5.24.0',
     },
     {
       instructions: await getInstructions(),
@@ -147,7 +148,11 @@ export async function initMcpServer(params: {
  * Selects the tools to include in the MCP Server based on the provided options.
  */
 export function selectTools(options?: McpOptions): McpTool[] {
-  const includedTools = [codeTool()];
+  const includedTools = [
+    codeTool({
+      blockedMethods: blockedMethodsForCodeTool(options),
+    }),
+  ];
   if (options?.includeDocsTools ?? true) {
     includedTools.push(docsSearchTool);
   }

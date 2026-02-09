@@ -439,6 +439,13 @@ export namespace AssistantTool {
       custom_headers?: Array<Transfer.CustomHeader>;
 
       /**
+       * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
+       * transferred call. Allows the assistant to detect when a voicemail system answers
+       * the transferred call and take appropriate action.
+       */
+      voicemail_detection?: Transfer.VoicemailDetection;
+
+      /**
        * Natural language instructions for your agent for how to provide context for the
        * transfer recipient.
        */
@@ -468,6 +475,132 @@ export namespace AssistantTool {
          * the integration secret.
          */
         value?: string;
+      }
+
+      /**
+       * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
+       * transferred call. Allows the assistant to detect when a voicemail system answers
+       * the transferred call and take appropriate action.
+       */
+      export interface VoicemailDetection {
+        /**
+         * Advanced AMD detection configuration parameters. All values are optional -
+         * Telnyx will use defaults if not specified.
+         */
+        detection_config?: VoicemailDetection.DetectionConfig;
+
+        /**
+         * The AMD detection mode to use. 'premium' provides the highest accuracy.
+         * 'disabled' turns off AMD detection.
+         */
+        detection_mode?: 'premium' | 'detect' | 'detect_beep' | 'detect_words' | 'greeting_end' | 'disabled';
+
+        /**
+         * Action to take when voicemail is detected on the transferred call.
+         */
+        on_voicemail_detected?: VoicemailDetection.OnVoicemailDetected;
+      }
+
+      export namespace VoicemailDetection {
+        /**
+         * Advanced AMD detection configuration parameters. All values are optional -
+         * Telnyx will use defaults if not specified.
+         */
+        export interface DetectionConfig {
+          /**
+           * Duration of silence after greeting detection before finalizing the result.
+           */
+          after_greeting_silence_millis?: number;
+
+          /**
+           * Maximum silence duration between words during greeting.
+           */
+          between_words_silence_millis?: number;
+
+          /**
+           * Expected duration of greeting speech.
+           */
+          greeting_duration_millis?: number;
+
+          /**
+           * Duration of silence after the greeting to wait before considering the greeting
+           * complete.
+           */
+          greeting_silence_duration_millis?: number;
+
+          /**
+           * Maximum time to spend analyzing the greeting.
+           */
+          greeting_total_analysis_time_millis?: number;
+
+          /**
+           * Maximum silence duration at the start of the call before speech.
+           */
+          initial_silence_millis?: number;
+
+          /**
+           * Maximum number of words expected in a human greeting.
+           */
+          maximum_number_of_words?: number;
+
+          /**
+           * Maximum duration of a single word.
+           */
+          maximum_word_length_millis?: number;
+
+          /**
+           * Minimum duration for audio to be considered a word.
+           */
+          min_word_length_millis?: number;
+
+          /**
+           * Audio level threshold for silence detection.
+           */
+          silence_threshold?: number;
+
+          /**
+           * Total time allowed for AMD analysis.
+           */
+          total_analysis_time_millis?: number;
+        }
+
+        /**
+         * Action to take when voicemail is detected on the transferred call.
+         */
+        export interface OnVoicemailDetected {
+          /**
+           * The action to take when voicemail is detected. 'stop_transfer' hangs up
+           * immediately. 'leave_message_and_stop_transfer' leaves a message then hangs up.
+           * 'continue_transfer' bridges the call despite voicemail detection.
+           */
+          action?: 'stop_transfer' | 'leave_message_and_stop_transfer' | 'continue_transfer';
+
+          /**
+           * Configuration for the voicemail message to leave. Only applicable when action is
+           * 'leave_message_and_stop_transfer'.
+           */
+          voicemail_message?: OnVoicemailDetected.VoicemailMessage;
+        }
+
+        export namespace OnVoicemailDetected {
+          /**
+           * Configuration for the voicemail message to leave. Only applicable when action is
+           * 'leave_message_and_stop_transfer'.
+           */
+          export interface VoicemailMessage {
+            /**
+             * The specific message to leave as voicemail (converted to speech). Only
+             * applicable when type is 'message'.
+             */
+            message?: string;
+
+            /**
+             * The type of voicemail message. Use 'message' to leave a specific TTS message, or
+             * 'warm_transfer_instructions' to play the warm transfer audio.
+             */
+            type?: 'message' | 'warm_transfer_instructions';
+          }
+        }
       }
     }
   }
