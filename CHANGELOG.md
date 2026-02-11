@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.25.0 (2026-02-11)
+
+Full Changelog: [v5.24.0...v5.25.0](https://github.com/team-telnyx/telnyx-node/compare/v5.24.0...v5.25.0)
+
+### Features
+
+* Limit detection_mode enum to disabled and detect only ([f61f125](https://github.com/team-telnyx/telnyx-node/commit/f61f1259df35147af399a372ff471133ade1a1df))
+
 ## 5.24.0 (2026-02-09)
 
 Full Changelog: [v5.23.0...v5.24.0](https://github.com/team-telnyx/telnyx-node/compare/v5.23.0...v5.24.0)
