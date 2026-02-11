@@ -33,6 +33,7 @@ describe('resource scheduledEvents', () => {
       telnyx_conversation_channel: 'phone_call',
       telnyx_end_user_target: 'telnyx_end_user_target',
       conversation_metadata: { foo: 'string' },
+      dynamic_variables: { foo: 'string' },
       text: 'text',
     });
   });
