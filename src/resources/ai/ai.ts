@@ -99,6 +99,22 @@ import {
   IntegrationRetrieveResponse,
   Integrations,
 } from './integrations/integrations';
+import * as MissionsAPI from './missions/missions';
+import {
+  MissionCloneMissionResponse,
+  MissionCreateParams,
+  MissionCreateResponse,
+  MissionListEventsParams,
+  MissionListEventsResponse,
+  MissionListEventsResponsesDefaultFlatPagination,
+  MissionListParams,
+  MissionListResponse,
+  MissionListResponsesDefaultFlatPagination,
+  MissionRetrieveResponse,
+  MissionUpdateMissionParams,
+  MissionUpdateMissionResponse,
+  Missions,
+} from './missions/missions';
 import * as OpenAIAPI from './openai/openai';
 import { OpenAI } from './openai/openai';
 import { APIPromise } from '../../core/api-promise';
@@ -114,6 +130,7 @@ export class AI extends APIResource {
   fineTuning: FineTuningAPI.FineTuning = new FineTuningAPI.FineTuning(this._client);
   integrations: IntegrationsAPI.Integrations = new IntegrationsAPI.Integrations(this._client);
   mcpServers: McpServersAPI.McpServers = new McpServersAPI.McpServers(this._client);
+  missions: MissionsAPI.Missions = new MissionsAPI.Missions(this._client);
   openai: OpenAIAPI.OpenAI = new OpenAIAPI.OpenAI(this._client);
 
   /**
@@ -212,6 +229,7 @@ AI.Embeddings = Embeddings;
 AI.FineTuning = FineTuning;
 AI.Integrations = Integrations;
 AI.McpServers = McpServers;
+AI.Missions = Missions;
 AI.OpenAI = OpenAI;
 
 export declare namespace AI {
@@ -326,6 +344,22 @@ export declare namespace AI {
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerUpdateParams as McpServerUpdateParams,
     type McpServerListParams as McpServerListParams,
+  };
+
+  export {
+    Missions as Missions,
+    type MissionCreateResponse as MissionCreateResponse,
+    type MissionRetrieveResponse as MissionRetrieveResponse,
+    type MissionListResponse as MissionListResponse,
+    type MissionCloneMissionResponse as MissionCloneMissionResponse,
+    type MissionListEventsResponse as MissionListEventsResponse,
+    type MissionUpdateMissionResponse as MissionUpdateMissionResponse,
+    type MissionListResponsesDefaultFlatPagination as MissionListResponsesDefaultFlatPagination,
+    type MissionListEventsResponsesDefaultFlatPagination as MissionListEventsResponsesDefaultFlatPagination,
+    type MissionCreateParams as MissionCreateParams,
+    type MissionListParams as MissionListParams,
+    type MissionListEventsParams as MissionListEventsParams,
+    type MissionUpdateMissionParams as MissionUpdateMissionParams,
   };
 
   export { OpenAI as OpenAI };
