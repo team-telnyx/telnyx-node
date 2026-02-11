@@ -490,10 +490,11 @@ export namespace AssistantTool {
         detection_config?: VoicemailDetection.DetectionConfig;
 
         /**
-         * The AMD detection mode to use. 'premium' provides the highest accuracy.
-         * 'disabled' turns off AMD detection.
+         * The AMD detection mode to use. 'detect' enables answering machine detection
+         * (works best when warm transfer instructions are also set). 'disabled' turns off
+         * AMD detection.
          */
-        detection_mode?: 'premium' | 'detect' | 'detect_beep' | 'detect_words' | 'greeting_end' | 'disabled';
+        detection_mode?: 'disabled' | 'detect';
 
         /**
          * Action to take when voicemail is detected on the transferred call.
