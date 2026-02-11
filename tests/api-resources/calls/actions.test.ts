@@ -468,7 +468,7 @@ describe('resource actions', () => {
       timeout_secs: 0,
       transcription: true,
       transcription_engine: 'B',
-      transcription_language: 'en-US',
+      transcription_language: 'en',
       transcription_max_speaker_count: 4,
       transcription_min_speaker_count: 4,
       transcription_profanity_filter: true,

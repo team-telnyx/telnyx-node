@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.25.1 (2026-02-11)
+
+Full Changelog: [v5.25.0...v5.25.1](https://github.com/team-telnyx/telnyx-node/compare/v5.25.0...v5.25.1)
+
+### Bug Fixes
+
+* remove invalid discriminators from string enum schemas ([0b21534](https://github.com/team-telnyx/telnyx-node/commit/0b21534f98ec1f8b105c4e25448682d03b07205f))
+
+
+### Chores
+
+* **internal:** avoid type checking errors with ts-reset ([40740dc](https://github.com/team-telnyx/telnyx-node/commit/40740dc55f82a6e262aa3c23d36e3f9ad6cae0cc))
+
 ## 5.25.0 (2026-02-11)
 
 Full Changelog: [v5.24.0...v5.25.0](https://github.com/team-telnyx/telnyx-node/compare/v5.24.0...v5.25.0)
