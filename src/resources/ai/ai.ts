@@ -99,6 +99,8 @@ import {
   IntegrationRetrieveResponse,
   Integrations,
 } from './integrations/integrations';
+import * as OpenAIAPI from './openai/openai';
+import { OpenAI } from './openai/openai';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -112,6 +114,7 @@ export class AI extends APIResource {
   fineTuning: FineTuningAPI.FineTuning = new FineTuningAPI.FineTuning(this._client);
   integrations: IntegrationsAPI.Integrations = new IntegrationsAPI.Integrations(this._client);
   mcpServers: McpServersAPI.McpServers = new McpServersAPI.McpServers(this._client);
+  openai: OpenAIAPI.OpenAI = new OpenAIAPI.OpenAI(this._client);
 
   /**
    * This endpoint returns a list of Open Source and OpenAI models that are available
@@ -209,6 +212,7 @@ AI.Embeddings = Embeddings;
 AI.FineTuning = FineTuning;
 AI.Integrations = Integrations;
 AI.McpServers = McpServers;
+AI.OpenAI = OpenAI;
 
 export declare namespace AI {
   export {
@@ -323,4 +327,6 @@ export declare namespace AI {
     type McpServerUpdateParams as McpServerUpdateParams,
     type McpServerListParams as McpServerListParams,
   };
+
+  export { OpenAI as OpenAI };
 }
