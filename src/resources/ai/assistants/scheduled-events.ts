@@ -134,6 +134,12 @@ export interface ScheduledPhoneCallEventResponse {
 
   created_at?: string;
 
+  /**
+   * A map of dynamic variable names to values. These variables can be referenced in
+   * the assistant's instructions and messages using {{variable_name}} syntax.
+   */
+  dynamic_variables?: { [key: string]: string };
+
   errors?: Array<string>;
 
   retry_attempts?: number;
@@ -163,6 +169,12 @@ export interface ScheduledSMSEventResponse {
   conversation_metadata?: { [key: string]: string | number | boolean };
 
   created_at?: string;
+
+  /**
+   * A map of dynamic variable names to values. These variables can be referenced in
+   * the assistant's instructions and messages using {{variable_name}} syntax.
+   */
+  dynamic_variables?: { [key: string]: string };
 
   errors?: Array<string>;
 
@@ -198,6 +210,12 @@ export interface ScheduledEventCreateParams {
    * metadata, but customers can also add their own.
    */
   conversation_metadata?: { [key: string]: string | number | boolean };
+
+  /**
+   * A map of dynamic variable names to values. These variables can be referenced in
+   * the assistant's instructions and messages using {{variable_name}} syntax.
+   */
+  dynamic_variables?: { [key: string]: string };
 
   /**
    * Required for sms scheduled events. The text to be sent to the end user.
