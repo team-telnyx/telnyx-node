@@ -887,6 +887,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/mcp_servers/{mcp_server_id}',
   },
   {
+    clientCallName: 'client.ai.openai.embeddings.create',
+    fullyQualifiedName: 'ai.openai.embeddings.create',
+    httpMethod: 'post',
+    httpPath: '/ai/openai/embeddings',
+  },
+  {
+    clientCallName: 'client.ai.openai.embeddings.listModels',
+    fullyQualifiedName: 'ai.openai.embeddings.listModels',
+    httpMethod: 'get',
+    httpPath: '/ai/openai/embeddings/models',
+  },
+  {
     clientCallName: 'client.auditEvents.list',
     fullyQualifiedName: 'auditEvents.list',
     httpMethod: 'get',

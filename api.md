@@ -829,6 +829,20 @@ Methods:
 - <code title="get /ai/mcp_servers">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">list</a>({ ...params }) -> McpServerListResponsesDefaultFlatPaginationTopLevelArray</code>
 - <code title="delete /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">delete</a>(mcpServerID) -> void</code>
 
+## OpenAI
+
+### Embeddings
+
+Types:
+
+- <code><a href="./src/resources/ai/openai/embeddings.ts">EmbeddingCreateResponse</a></code>
+- <code><a href="./src/resources/ai/openai/embeddings.ts">EmbeddingListModelsResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/openai/embeddings">client.ai.openai.embeddings.<a href="./src/resources/ai/openai/embeddings.ts">create</a>({ ...params }) -> EmbeddingCreateResponse</code>
+- <code title="get /ai/openai/embeddings/models">client.ai.openai.embeddings.<a href="./src/resources/ai/openai/embeddings.ts">listModels</a>() -> EmbeddingListModelsResponse</code>
+
 # AuditEvents
 
 Types:
