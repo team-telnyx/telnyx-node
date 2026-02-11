@@ -829,19 +829,160 @@ Methods:
 - <code title="get /ai/mcp_servers">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">list</a>({ ...params }) -> McpServerListResponsesDefaultFlatPaginationTopLevelArray</code>
 - <code title="delete /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">delete</a>(mcpServerID) -> void</code>
 
+## Missions
+
+Types:
+
+- <code><a href="./src/resources/ai/missions/missions.ts">MissionCreateResponse</a></code>
+- <code><a href="./src/resources/ai/missions/missions.ts">MissionRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/missions/missions.ts">MissionListResponse</a></code>
+- <code><a href="./src/resources/ai/missions/missions.ts">MissionCloneMissionResponse</a></code>
+- <code><a href="./src/resources/ai/missions/missions.ts">MissionListEventsResponse</a></code>
+- <code><a href="./src/resources/ai/missions/missions.ts">MissionUpdateMissionResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/missions">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">create</a>({ ...params }) -> MissionCreateResponse</code>
+- <code title="get /ai/missions/{mission_id}">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">retrieve</a>(missionID) -> MissionRetrieveResponse</code>
+- <code title="get /ai/missions">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">list</a>({ ...params }) -> MissionListResponsesDefaultFlatPagination</code>
+- <code title="post /ai/missions/{mission_id}/clone">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">cloneMission</a>(missionID) -> unknown</code>
+- <code title="delete /ai/missions/{mission_id}">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">deleteMission</a>(missionID) -> void</code>
+- <code title="get /ai/missions/events">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">listEvents</a>({ ...params }) -> MissionListEventsResponsesDefaultFlatPagination</code>
+- <code title="put /ai/missions/{mission_id}">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">updateMission</a>(missionID, { ...params }) -> MissionUpdateMissionResponse</code>
+
+### Runs
+
+Types:
+
+- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunCreateResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunUpdateResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunListResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunCancelRunResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunListRunsResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunPauseRunResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunResumeRunResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/missions/{mission_id}/runs">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">create</a>(missionID, { ...params }) -> RunCreateResponse</code>
+- <code title="get /ai/missions/{mission_id}/runs/{run_id}">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">retrieve</a>(runID, { ...params }) -> RunRetrieveResponse</code>
+- <code title="patch /ai/missions/{mission_id}/runs/{run_id}">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">update</a>(runID, { ...params }) -> RunUpdateResponse</code>
+- <code title="get /ai/missions/{mission_id}/runs">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">list</a>(missionID, { ...params }) -> RunListResponsesDefaultFlatPagination</code>
+- <code title="post /ai/missions/{mission_id}/runs/{run_id}/cancel">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">cancelRun</a>(runID, { ...params }) -> RunCancelRunResponse</code>
+- <code title="get /ai/missions/runs">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">listRuns</a>({ ...params }) -> RunListRunsResponsesDefaultFlatPagination</code>
+- <code title="post /ai/missions/{mission_id}/runs/{run_id}/pause">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">pauseRun</a>(runID, { ...params }) -> RunPauseRunResponse</code>
+- <code title="post /ai/missions/{mission_id}/runs/{run_id}/resume">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">resumeRun</a>(runID, { ...params }) -> RunResumeRunResponse</code>
+
+#### Events
+
+Types:
+
+- <code><a href="./src/resources/ai/missions/runs/events.ts">EventListResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/events.ts">EventGetEventDetailsResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/events.ts">EventLogResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/missions/{mission_id}/runs/{run_id}/events">client.ai.missions.runs.events.<a href="./src/resources/ai/missions/runs/events.ts">list</a>(runID, { ...params }) -> EventListResponsesDefaultFlatPagination</code>
+- <code title="get /ai/missions/{mission_id}/runs/{run_id}/events/{event_id}">client.ai.missions.runs.events.<a href="./src/resources/ai/missions/runs/events.ts">getEventDetails</a>(eventID, { ...params }) -> EventGetEventDetailsResponse</code>
+- <code title="post /ai/missions/{mission_id}/runs/{run_id}/events">client.ai.missions.runs.events.<a href="./src/resources/ai/missions/runs/events.ts">log</a>(runID, { ...params }) -> EventLogResponse</code>
+
+#### Plan
+
+Types:
+
+- <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanCreateResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanAddStepsToPlanResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanGetStepDetailsResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanUpdateStepResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/missions/{mission_id}/runs/{run_id}/plan">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">create</a>(runID, { ...params }) -> PlanCreateResponse</code>
+- <code title="get /ai/missions/{mission_id}/runs/{run_id}/plan">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">retrieve</a>(runID, { ...params }) -> PlanRetrieveResponse</code>
+- <code title="post /ai/missions/{mission_id}/runs/{run_id}/plan/steps">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">addStepsToPlan</a>(runID, { ...params }) -> PlanAddStepsToPlanResponse</code>
+- <code title="get /ai/missions/{mission_id}/runs/{run_id}/plan/steps/{step_id}">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">getStepDetails</a>(stepID, { ...params }) -> PlanGetStepDetailsResponse</code>
+- <code title="patch /ai/missions/{mission_id}/runs/{run_id}/plan/steps/{step_id}">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">updateStep</a>(stepID, { ...params }) -> PlanUpdateStepResponse</code>
+
+#### TelnyxAgents
+
+Types:
+
+- <code><a href="./src/resources/ai/missions/runs/telnyx-agents.ts">TelnyxAgentListResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/telnyx-agents.ts">TelnyxAgentLinkResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/missions/{mission_id}/runs/{run_id}/telnyx-agents">client.ai.missions.runs.telnyxAgents.<a href="./src/resources/ai/missions/runs/telnyx-agents.ts">list</a>(runID, { ...params }) -> TelnyxAgentListResponse</code>
+- <code title="post /ai/missions/{mission_id}/runs/{run_id}/telnyx-agents">client.ai.missions.runs.telnyxAgents.<a href="./src/resources/ai/missions/runs/telnyx-agents.ts">link</a>(runID, { ...params }) -> TelnyxAgentLinkResponse</code>
+- <code title="delete /ai/missions/{mission_id}/runs/{run_id}/telnyx-agents/{telnyx_agent_id}">client.ai.missions.runs.telnyxAgents.<a href="./src/resources/ai/missions/runs/telnyx-agents.ts">unlink</a>(telnyxAgentID, { ...params }) -> void</code>
+
+### KnowledgeBases
+
+Types:
+
+- <code><a href="./src/resources/ai/missions/knowledge-bases.ts">KnowledgeBaseCreateKnowledgeBaseResponse</a></code>
+- <code><a href="./src/resources/ai/missions/knowledge-bases.ts">KnowledgeBaseGetKnowledgeBaseResponse</a></code>
+- <code><a href="./src/resources/ai/missions/knowledge-bases.ts">KnowledgeBaseListKnowledgeBasesResponse</a></code>
+- <code><a href="./src/resources/ai/missions/knowledge-bases.ts">KnowledgeBaseUpdateKnowledgeBaseResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/missions/{mission_id}/knowledge-bases">client.ai.missions.knowledgeBases.<a href="./src/resources/ai/missions/knowledge-bases.ts">createKnowledgeBase</a>(missionID) -> unknown</code>
+- <code title="delete /ai/missions/{mission_id}/knowledge-bases/{knowledge_base_id}">client.ai.missions.knowledgeBases.<a href="./src/resources/ai/missions/knowledge-bases.ts">deleteKnowledgeBase</a>(knowledgeBaseID, { ...params }) -> void</code>
+- <code title="get /ai/missions/{mission_id}/knowledge-bases/{knowledge_base_id}">client.ai.missions.knowledgeBases.<a href="./src/resources/ai/missions/knowledge-bases.ts">getKnowledgeBase</a>(knowledgeBaseID, { ...params }) -> unknown</code>
+- <code title="get /ai/missions/{mission_id}/knowledge-bases">client.ai.missions.knowledgeBases.<a href="./src/resources/ai/missions/knowledge-bases.ts">listKnowledgeBases</a>(missionID) -> unknown</code>
+- <code title="put /ai/missions/{mission_id}/knowledge-bases/{knowledge_base_id}">client.ai.missions.knowledgeBases.<a href="./src/resources/ai/missions/knowledge-bases.ts">updateKnowledgeBase</a>(knowledgeBaseID, { ...params }) -> unknown</code>
+
+### McpServers
+
+Types:
+
+- <code><a href="./src/resources/ai/missions/mcp-servers.ts">McpServerCreateMcpServerResponse</a></code>
+- <code><a href="./src/resources/ai/missions/mcp-servers.ts">McpServerGetMcpServerResponse</a></code>
+- <code><a href="./src/resources/ai/missions/mcp-servers.ts">McpServerListMcpServersResponse</a></code>
+- <code><a href="./src/resources/ai/missions/mcp-servers.ts">McpServerUpdateMcpServerResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/missions/{mission_id}/mcp-servers">client.ai.missions.mcpServers.<a href="./src/resources/ai/missions/mcp-servers.ts">createMcpServer</a>(missionID) -> unknown</code>
+- <code title="delete /ai/missions/{mission_id}/mcp-servers/{mcp_server_id}">client.ai.missions.mcpServers.<a href="./src/resources/ai/missions/mcp-servers.ts">deleteMcpServer</a>(mcpServerID, { ...params }) -> void</code>
+- <code title="get /ai/missions/{mission_id}/mcp-servers/{mcp_server_id}">client.ai.missions.mcpServers.<a href="./src/resources/ai/missions/mcp-servers.ts">getMcpServer</a>(mcpServerID, { ...params }) -> unknown</code>
+- <code title="get /ai/missions/{mission_id}/mcp-servers">client.ai.missions.mcpServers.<a href="./src/resources/ai/missions/mcp-servers.ts">listMcpServers</a>(missionID) -> unknown</code>
+- <code title="put /ai/missions/{mission_id}/mcp-servers/{mcp_server_id}">client.ai.missions.mcpServers.<a href="./src/resources/ai/missions/mcp-servers.ts">updateMcpServer</a>(mcpServerID, { ...params }) -> unknown</code>
+
+### Tools
+
+Types:
+
+- <code><a href="./src/resources/ai/missions/tools.ts">ToolCreateToolResponse</a></code>
+- <code><a href="./src/resources/ai/missions/tools.ts">ToolGetToolResponse</a></code>
+- <code><a href="./src/resources/ai/missions/tools.ts">ToolListToolsResponse</a></code>
+- <code><a href="./src/resources/ai/missions/tools.ts">ToolUpdateToolResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/missions/{mission_id}/tools">client.ai.missions.tools.<a href="./src/resources/ai/missions/tools.ts">createTool</a>(missionID) -> unknown</code>
+- <code title="delete /ai/missions/{mission_id}/tools/{tool_id}">client.ai.missions.tools.<a href="./src/resources/ai/missions/tools.ts">deleteTool</a>(toolID, { ...params }) -> void</code>
+- <code title="get /ai/missions/{mission_id}/tools/{tool_id}">client.ai.missions.tools.<a href="./src/resources/ai/missions/tools.ts">getTool</a>(toolID, { ...params }) -> unknown</code>
+- <code title="get /ai/missions/{mission_id}/tools">client.ai.missions.tools.<a href="./src/resources/ai/missions/tools.ts">listTools</a>(missionID) -> unknown</code>
+- <code title="put /ai/missions/{mission_id}/tools/{tool_id}">client.ai.missions.tools.<a href="./src/resources/ai/missions/tools.ts">updateTool</a>(toolID, { ...params }) -> unknown</code>
+
 ## OpenAI
 
 ### Embeddings
 
 Types:
 
-- <code><a href="./src/resources/ai/openai/embeddings.ts">EmbeddingCreateResponse</a></code>
-- <code><a href="./src/resources/ai/openai/embeddings.ts">EmbeddingListModelsResponse</a></code>
+- <code><a href="./src/resources/ai/openai/embeddings.ts">EmbeddingCreateEmbeddingsResponse</a></code>
+- <code><a href="./src/resources/ai/openai/embeddings.ts">EmbeddingListEmbeddingModelsResponse</a></code>
 
 Methods:
 
-- <code title="post /ai/openai/embeddings">client.ai.openai.embeddings.<a href="./src/resources/ai/openai/embeddings.ts">create</a>({ ...params }) -> EmbeddingCreateResponse</code>
-- <code title="get /ai/openai/embeddings/models">client.ai.openai.embeddings.<a href="./src/resources/ai/openai/embeddings.ts">listModels</a>() -> EmbeddingListModelsResponse</code>
+- <code title="post /ai/openai/embeddings">client.ai.openai.embeddings.<a href="./src/resources/ai/openai/embeddings.ts">createEmbeddings</a>({ ...params }) -> EmbeddingCreateEmbeddingsResponse</code>
+- <code title="get /ai/openai/embeddings/models">client.ai.openai.embeddings.<a href="./src/resources/ai/openai/embeddings.ts">listEmbeddingModels</a>() -> EmbeddingListEmbeddingModelsResponse</code>
 
 # AuditEvents
 

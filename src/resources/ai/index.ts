@@ -95,4 +95,19 @@ export {
   type McpServerListParams,
   type McpServerListResponsesDefaultFlatPaginationTopLevelArray,
 } from './mcp-servers';
+export {
+  Missions,
+  type MissionCreateResponse,
+  type MissionRetrieveResponse,
+  type MissionListResponse,
+  type MissionCloneMissionResponse,
+  type MissionListEventsResponse,
+  type MissionUpdateMissionResponse,
+  type MissionCreateParams,
+  type MissionListParams,
+  type MissionListEventsParams,
+  type MissionUpdateMissionParams,
+  type MissionListResponsesDefaultFlatPagination,
+  type MissionListEventsResponsesDefaultFlatPagination,
+} from './missions/index';
 export { OpenAI } from './openai/index';

@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource embeddings', () => {
   // Prism tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.ai.openai.embeddings.create({
+  test.skip('createEmbeddings: only required params', async () => {
+    const responsePromise = client.ai.openai.embeddings.createEmbeddings({
       input: 'The quick brown fox jumps over the lazy dog',
       model: 'thenlper/gte-large',
     });
@@ -24,8 +24,8 @@ describe('resource embeddings', () => {
   });
 
   // Prism tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.ai.openai.embeddings.create({
+  test.skip('createEmbeddings: required and optional params', async () => {
+    const response = await client.ai.openai.embeddings.createEmbeddings({
       input: 'The quick brown fox jumps over the lazy dog',
       model: 'thenlper/gte-large',
       dimensions: 0,
@@ -35,8 +35,8 @@ describe('resource embeddings', () => {
   });
 
   // Prism tests are disabled
-  test.skip('listModels', async () => {
-    const responsePromise = client.ai.openai.embeddings.listModels();
+  test.skip('listEmbeddingModels', async () => {
+    const responsePromise = client.ai.openai.embeddings.listEmbeddingModels();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

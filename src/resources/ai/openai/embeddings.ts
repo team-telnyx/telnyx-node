@@ -14,13 +14,17 @@ export class Embeddings extends APIResource {
    *
    * @example
    * ```ts
-   * const embedding = await client.ai.openai.embeddings.create({
-   *   input: 'The quick brown fox jumps over the lazy dog',
-   *   model: 'thenlper/gte-large',
-   * });
+   * const response =
+   *   await client.ai.openai.embeddings.createEmbeddings({
+   *     input: 'The quick brown fox jumps over the lazy dog',
+   *     model: 'thenlper/gte-large',
+   *   });
    * ```
    */
-  create(body: EmbeddingCreateParams, options?: RequestOptions): APIPromise<EmbeddingCreateResponse> {
+  createEmbeddings(
+    body: EmbeddingCreateEmbeddingsParams,
+    options?: RequestOptions,
+  ): APIPromise<EmbeddingCreateEmbeddingsResponse> {
     return this._client.post('/ai/openai/embeddings', { body, ...options });
   }
 
@@ -31,19 +35,19 @@ export class Embeddings extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.ai.openai.embeddings.listModels();
+   *   await client.ai.openai.embeddings.listEmbeddingModels();
    * ```
    */
-  listModels(options?: RequestOptions): APIPromise<EmbeddingListModelsResponse> {
+  listEmbeddingModels(options?: RequestOptions): APIPromise<EmbeddingListEmbeddingModelsResponse> {
     return this._client.get('/ai/openai/embeddings/models', options);
   }
 }
 
-export interface EmbeddingCreateResponse {
+export interface EmbeddingCreateEmbeddingsResponse {
   /**
    * List of embedding objects
    */
-  data: Array<EmbeddingCreateResponse.Data>;
+  data: Array<EmbeddingCreateEmbeddingsResponse.Data>;
 
   /**
    * The model used for embedding
@@ -55,10 +59,10 @@ export interface EmbeddingCreateResponse {
    */
   object: string;
 
-  usage: EmbeddingCreateResponse.Usage;
+  usage: EmbeddingCreateEmbeddingsResponse.Usage;
 }
 
-export namespace EmbeddingCreateResponse {
+export namespace EmbeddingCreateEmbeddingsResponse {
   export interface Data {
     /**
      * The embedding vector
@@ -89,11 +93,11 @@ export namespace EmbeddingCreateResponse {
   }
 }
 
-export interface EmbeddingListModelsResponse {
+export interface EmbeddingListEmbeddingModelsResponse {
   /**
    * List of available embedding models
    */
-  data: Array<EmbeddingListModelsResponse.Data>;
+  data: Array<EmbeddingListEmbeddingModelsResponse.Data>;
 
   /**
    * The object type, always 'list'
@@ -101,7 +105,7 @@ export interface EmbeddingListModelsResponse {
   object: string;
 }
 
-export namespace EmbeddingListModelsResponse {
+export namespace EmbeddingListEmbeddingModelsResponse {
   export interface Data {
     /**
      * The model identifier
@@ -125,7 +129,7 @@ export namespace EmbeddingListModelsResponse {
   }
 }
 
-export interface EmbeddingCreateParams {
+export interface EmbeddingCreateEmbeddingsParams {
   /**
    * Input text to embed. Can be a string or array of strings.
    */
@@ -157,8 +161,8 @@ export interface EmbeddingCreateParams {
 
 export declare namespace Embeddings {
   export {
-    type EmbeddingCreateResponse as EmbeddingCreateResponse,
-    type EmbeddingListModelsResponse as EmbeddingListModelsResponse,
-    type EmbeddingCreateParams as EmbeddingCreateParams,
+    type EmbeddingCreateEmbeddingsResponse as EmbeddingCreateEmbeddingsResponse,
+    type EmbeddingListEmbeddingModelsResponse as EmbeddingListEmbeddingModelsResponse,
+    type EmbeddingCreateEmbeddingsParams as EmbeddingCreateEmbeddingsParams,
   };
 }

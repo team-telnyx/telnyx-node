@@ -2,8 +2,8 @@
 
 export {
   Embeddings,
-  type EmbeddingCreateResponse,
-  type EmbeddingListModelsResponse,
-  type EmbeddingCreateParams,
+  type EmbeddingCreateEmbeddingsResponse,
+  type EmbeddingListEmbeddingModelsResponse,
+  type EmbeddingCreateEmbeddingsParams,
 } from './embeddings';
 export { OpenAI } from './openai';
