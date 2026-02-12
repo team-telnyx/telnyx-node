@@ -387,67 +387,73 @@ export namespace CallAnswered {
 }
 
 export interface CallBridged {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
-
-  /**
-   * The type of event being delivered.
-   */
-  event_type?: 'call.bridged';
-
-  /**
-   * ISO 8601 datetime of when the event occurred.
-   */
-  occurred_at?: string;
-
-  payload?: CallBridged.Payload;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'event';
+  data?: CallBridged.Data;
 }
 
 export namespace CallBridged {
-  export interface Payload {
+  export interface Data {
     /**
-     * Call ID used to issue commands via Call Control API.
+     * Identifies the type of resource.
      */
-    call_control_id?: string;
+    id?: string;
 
     /**
-     * ID that is unique to the call and can be used to correlate webhook events.
+     * The type of event being delivered.
      */
-    call_leg_id?: string;
+    event_type?: 'call.bridged';
 
     /**
-     * ID that is unique to the call session and can be used to correlate webhook
-     * events. Call session is a group of related call legs that logically belong to
-     * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+     * ISO 8601 datetime of when the event occurred.
      */
-    call_session_id?: string;
+    occurred_at?: string;
+
+    payload?: Data.Payload;
 
     /**
-     * State received from a command.
+     * Identifies the type of the resource.
      */
-    client_state?: string;
+    record_type?: 'event';
+  }
 
-    /**
-     * Call Control App ID (formerly Telnyx connection ID) used in the call.
-     */
-    connection_id?: string;
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
 
-    /**
-     * Number or SIP URI placing the call.
-     */
-    from?: string;
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
 
-    /**
-     * Destination number or SIP URI of the call.
-     */
-    to?: string;
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
   }
 }
 
@@ -4506,10 +4512,6 @@ export interface CallAnsweredWebhookEvent {
   data?: CallAnswered;
 }
 
-export interface CallBridgedWebhookEvent {
-  data?: CallBridged;
-}
-
 export interface CallConversationEndedWebhookEvent {
   data?: CallConversationEnded;
 }
@@ -4730,10 +4732,6 @@ export interface CallAnsweredWebhookEvent {
   data?: CallAnswered;
 }
 
-export interface CallBridgedWebhookEvent {
-  data?: CallBridged;
-}
-
 export interface CallConversationEndedWebhookEvent {
   data?: CallConversationEnded;
 }
@@ -4943,7 +4941,7 @@ export type UnsafeUnwrapWebhookEvent =
   | CallAIGatherMessageHistoryUpdatedWebhookEvent
   | CallAIGatherPartialResultsWebhookEvent
   | CallAnsweredWebhookEvent
-  | CallBridgedWebhookEvent
+  | CallBridged
   | CallConversationEndedWebhookEvent
   | CallConversationInsightsGeneratedWebhookEvent
   | CallDtmfReceivedWebhookEvent
@@ -5005,7 +5003,7 @@ export type UnwrapWebhookEvent =
   | CallAIGatherMessageHistoryUpdatedWebhookEvent
   | CallAIGatherPartialResultsWebhookEvent
   | CallAnsweredWebhookEvent
-  | CallBridgedWebhookEvent
+  | CallBridged
   | CallConversationEndedWebhookEvent
   | CallConversationInsightsGeneratedWebhookEvent
   | CallDtmfReceivedWebhookEvent
@@ -5128,7 +5126,6 @@ export declare namespace Webhooks {
     type CallAIGatherMessageHistoryUpdatedWebhookEvent as CallAIGatherMessageHistoryUpdatedWebhookEvent,
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,
     type CallAnsweredWebhookEvent as CallAnsweredWebhookEvent,
-    type CallBridgedWebhookEvent as CallBridgedWebhookEvent,
     type CallConversationEndedWebhookEvent as CallConversationEndedWebhookEvent,
     type CallConversationInsightsGeneratedWebhookEvent as CallConversationInsightsGeneratedWebhookEvent,
     type CallDtmfReceivedWebhookEvent as CallDtmfReceivedWebhookEvent,
