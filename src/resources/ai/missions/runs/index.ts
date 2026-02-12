@@ -12,6 +12,7 @@ export {
 } from './events';
 export {
   Plan,
+  type PlanStepData,
   type PlanCreateResponse,
   type PlanRetrieveResponse,
   type PlanAddStepsToPlanResponse,
@@ -25,12 +26,11 @@ export {
 } from './plan';
 export {
   Runs,
+  type MissionRunData,
   type RunCreateResponse,
   type RunRetrieveResponse,
   type RunUpdateResponse,
-  type RunListResponse,
   type RunCancelRunResponse,
-  type RunListRunsResponse,
   type RunPauseRunResponse,
   type RunResumeRunResponse,
   type RunCreateParams,
@@ -41,8 +41,7 @@ export {
   type RunListRunsParams,
   type RunPauseRunParams,
   type RunResumeRunParams,
-  type RunListResponsesDefaultFlatPagination,
-  type RunListRunsResponsesDefaultFlatPagination,
+  type MissionRunDataDefaultFlatPagination,
 } from './runs';
 export {
   TelnyxAgents,

@@ -36,16 +36,14 @@ import {
 } from './tools';
 import * as RunsAPI from './runs/runs';
 import {
+  MissionRunData,
+  MissionRunDataDefaultFlatPagination,
   RunCancelRunParams,
   RunCancelRunResponse,
   RunCreateParams,
   RunCreateResponse,
   RunListParams,
-  RunListResponse,
-  RunListResponsesDefaultFlatPagination,
   RunListRunsParams,
-  RunListRunsResponse,
-  RunListRunsResponsesDefaultFlatPagination,
   RunPauseRunParams,
   RunPauseRunResponse,
   RunResumeRunParams,
@@ -106,7 +104,7 @@ export class Missions extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const missionListResponse of client.ai.missions.list()) {
+   * for await (const missionData of client.ai.missions.list()) {
    *   // ...
    * }
    * ```
@@ -114,11 +112,8 @@ export class Missions extends APIResource {
   list(
     query: MissionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MissionListResponsesDefaultFlatPagination, MissionListResponse> {
-    return this._client.getAPIList('/ai/missions', DefaultFlatPagination<MissionListResponse>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<MissionDataDefaultFlatPagination, MissionData> {
+    return this._client.getAPIList('/ai/missions', DefaultFlatPagination<MissionData>, { query, ...options });
   }
 
   /**
@@ -192,64 +187,12 @@ export class Missions extends APIResource {
   }
 }
 
-export type MissionListResponsesDefaultFlatPagination = DefaultFlatPagination<MissionListResponse>;
+export type MissionDataDefaultFlatPagination = DefaultFlatPagination<MissionData>;
 
 export type MissionListEventsResponsesDefaultFlatPagination =
   DefaultFlatPagination<MissionListEventsResponse>;
 
-export interface MissionCreateResponse {
-  data: MissionCreateResponse.Data;
-}
-
-export namespace MissionCreateResponse {
-  export interface Data {
-    created_at: string;
-
-    execution_mode: 'external' | 'managed';
-
-    mission_id: string;
-
-    name: string;
-
-    updated_at: string;
-
-    description?: string;
-
-    instructions?: string;
-
-    metadata?: { [key: string]: unknown };
-
-    model?: string;
-  }
-}
-
-export interface MissionRetrieveResponse {
-  data: MissionRetrieveResponse.Data;
-}
-
-export namespace MissionRetrieveResponse {
-  export interface Data {
-    created_at: string;
-
-    execution_mode: 'external' | 'managed';
-
-    mission_id: string;
-
-    name: string;
-
-    updated_at: string;
-
-    description?: string;
-
-    instructions?: string;
-
-    metadata?: { [key: string]: unknown };
-
-    model?: string;
-  }
-}
-
-export interface MissionListResponse {
+export interface MissionData {
   created_at: string;
 
   execution_mode: 'external' | 'managed';
@@ -267,6 +210,14 @@ export interface MissionListResponse {
   metadata?: { [key: string]: unknown };
 
   model?: string;
+}
+
+export interface MissionCreateResponse {
+  data: MissionData;
+}
+
+export interface MissionRetrieveResponse {
+  data: MissionData;
 }
 
 export type MissionCloneMissionResponse = unknown;
@@ -301,29 +252,7 @@ export interface MissionListEventsResponse {
 }
 
 export interface MissionUpdateMissionResponse {
-  data: MissionUpdateMissionResponse.Data;
-}
-
-export namespace MissionUpdateMissionResponse {
-  export interface Data {
-    created_at: string;
-
-    execution_mode: 'external' | 'managed';
-
-    mission_id: string;
-
-    name: string;
-
-    updated_at: string;
-
-    description?: string;
-
-    instructions?: string;
-
-    metadata?: { [key: string]: unknown };
-
-    model?: string;
-  }
+  data: MissionData;
 }
 
 export interface MissionCreateParams {
@@ -367,13 +296,13 @@ Missions.Tools = Tools;
 
 export declare namespace Missions {
   export {
+    type MissionData as MissionData,
     type MissionCreateResponse as MissionCreateResponse,
     type MissionRetrieveResponse as MissionRetrieveResponse,
-    type MissionListResponse as MissionListResponse,
     type MissionCloneMissionResponse as MissionCloneMissionResponse,
     type MissionListEventsResponse as MissionListEventsResponse,
     type MissionUpdateMissionResponse as MissionUpdateMissionResponse,
-    type MissionListResponsesDefaultFlatPagination as MissionListResponsesDefaultFlatPagination,
+    type MissionDataDefaultFlatPagination as MissionDataDefaultFlatPagination,
     type MissionListEventsResponsesDefaultFlatPagination as MissionListEventsResponsesDefaultFlatPagination,
     type MissionCreateParams as MissionCreateParams,
     type MissionListParams as MissionListParams,
@@ -383,16 +312,14 @@ export declare namespace Missions {
 
   export {
     Runs as Runs,
+    type MissionRunData as MissionRunData,
     type RunCreateResponse as RunCreateResponse,
     type RunRetrieveResponse as RunRetrieveResponse,
     type RunUpdateResponse as RunUpdateResponse,
-    type RunListResponse as RunListResponse,
     type RunCancelRunResponse as RunCancelRunResponse,
-    type RunListRunsResponse as RunListRunsResponse,
     type RunPauseRunResponse as RunPauseRunResponse,
     type RunResumeRunResponse as RunResumeRunResponse,
-    type RunListResponsesDefaultFlatPagination as RunListResponsesDefaultFlatPagination,
-    type RunListRunsResponsesDefaultFlatPagination as RunListRunsResponsesDefaultFlatPagination,
+    type MissionRunDataDefaultFlatPagination as MissionRunDataDefaultFlatPagination,
     type RunCreateParams as RunCreateParams,
     type RunRetrieveParams as RunRetrieveParams,
     type RunUpdateParams as RunUpdateParams,
