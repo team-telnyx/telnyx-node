@@ -833,9 +833,9 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/ai/missions/missions.ts">MissionData</a></code>
 - <code><a href="./src/resources/ai/missions/missions.ts">MissionCreateResponse</a></code>
 - <code><a href="./src/resources/ai/missions/missions.ts">MissionRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/missions/missions.ts">MissionListResponse</a></code>
 - <code><a href="./src/resources/ai/missions/missions.ts">MissionCloneMissionResponse</a></code>
 - <code><a href="./src/resources/ai/missions/missions.ts">MissionListEventsResponse</a></code>
 - <code><a href="./src/resources/ai/missions/missions.ts">MissionUpdateMissionResponse</a></code>
@@ -844,7 +844,7 @@ Methods:
 
 - <code title="post /ai/missions">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">create</a>({ ...params }) -> MissionCreateResponse</code>
 - <code title="get /ai/missions/{mission_id}">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">retrieve</a>(missionID) -> MissionRetrieveResponse</code>
-- <code title="get /ai/missions">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">list</a>({ ...params }) -> MissionDataDefaultFlatPagination</code>
+- <code title="get /ai/missions">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">list</a>({ ...params }) -> MissionListResponsesDefaultFlatPagination</code>
 - <code title="post /ai/missions/{mission_id}/clone">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">cloneMission</a>(missionID) -> unknown</code>
 - <code title="delete /ai/missions/{mission_id}">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">deleteMission</a>(missionID) -> void</code>
 - <code title="get /ai/missions/events">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">listEvents</a>({ ...params }) -> MissionListEventsResponsesDefaultFlatPagination</code>
@@ -854,11 +854,12 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/ai/missions/runs/runs.ts">MissionRunData</a></code>
 - <code><a href="./src/resources/ai/missions/runs/runs.ts">RunCreateResponse</a></code>
 - <code><a href="./src/resources/ai/missions/runs/runs.ts">RunRetrieveResponse</a></code>
 - <code><a href="./src/resources/ai/missions/runs/runs.ts">RunUpdateResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunListResponse</a></code>
 - <code><a href="./src/resources/ai/missions/runs/runs.ts">RunCancelRunResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunListRunsResponse</a></code>
 - <code><a href="./src/resources/ai/missions/runs/runs.ts">RunPauseRunResponse</a></code>
 - <code><a href="./src/resources/ai/missions/runs/runs.ts">RunResumeRunResponse</a></code>
 
@@ -867,9 +868,9 @@ Methods:
 - <code title="post /ai/missions/{mission_id}/runs">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">create</a>(missionID, { ...params }) -> RunCreateResponse</code>
 - <code title="get /ai/missions/{mission_id}/runs/{run_id}">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">retrieve</a>(runID, { ...params }) -> RunRetrieveResponse</code>
 - <code title="patch /ai/missions/{mission_id}/runs/{run_id}">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">update</a>(runID, { ...params }) -> RunUpdateResponse</code>
-- <code title="get /ai/missions/{mission_id}/runs">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">list</a>(missionID, { ...params }) -> MissionRunDataDefaultFlatPagination</code>
+- <code title="get /ai/missions/{mission_id}/runs">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">list</a>(missionID, { ...params }) -> RunListResponsesDefaultFlatPagination</code>
 - <code title="post /ai/missions/{mission_id}/runs/{run_id}/cancel">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">cancelRun</a>(runID, { ...params }) -> RunCancelRunResponse</code>
-- <code title="get /ai/missions/runs">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">listRuns</a>({ ...params }) -> MissionRunDataDefaultFlatPagination</code>
+- <code title="get /ai/missions/runs">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">listRuns</a>({ ...params }) -> RunListRunsResponsesDefaultFlatPagination</code>
 - <code title="post /ai/missions/{mission_id}/runs/{run_id}/pause">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">pauseRun</a>(runID, { ...params }) -> RunPauseRunResponse</code>
 - <code title="post /ai/missions/{mission_id}/runs/{run_id}/resume">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">resumeRun</a>(runID, { ...params }) -> RunResumeRunResponse</code>
 
@@ -891,7 +892,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanStepData</a></code>
 - <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanCreateResponse</a></code>
 - <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanRetrieveResponse</a></code>
 - <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanAddStepsToPlanResponse</a></code>
