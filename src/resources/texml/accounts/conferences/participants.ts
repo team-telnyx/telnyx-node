@@ -706,6 +706,13 @@ export interface ParticipantParticipantsParams {
   From?: string;
 
   /**
+   * Body param: A unique label for the participant that will be added to the
+   * conference. The label can be used to reference the participant for updates via
+   * the TeXML REST API.
+   */
+  Label?: string;
+
+  /**
    * Body param: Whether to detect if a human or an answering machine picked up the
    * call. Use `Enable` if you would like to ne notified as soon as the called party
    * is identified. Use `DetectMessageEnd`, if you would like to leave a message on
