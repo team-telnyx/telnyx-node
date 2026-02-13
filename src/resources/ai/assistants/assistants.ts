@@ -369,7 +369,8 @@ export type AssistantTool =
   | AssistantTool.Transfer
   | AssistantTool.Refer
   | AssistantTool.SendDtmf
-  | AssistantTool.SendMessage;
+  | AssistantTool.SendMessage
+  | AssistantTool.SkipTurn;
 
 export namespace AssistantTool {
   /**
@@ -696,6 +697,21 @@ export namespace AssistantTool {
     send_message: { [key: string]: unknown };
 
     type: 'send_message';
+  }
+
+  export interface SkipTurn {
+    skip_turn: SkipTurn.SkipTurn;
+
+    type: 'skip_turn';
+  }
+
+  export namespace SkipTurn {
+    export interface SkipTurn {
+      /**
+       * The description of the function that will be passed to the assistant.
+       */
+      description?: string;
+    }
   }
 }
 

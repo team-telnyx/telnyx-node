@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.28.0 (2026-02-13)
+
+Full Changelog: [v5.27.0...v5.28.0](https://github.com/team-telnyx/telnyx-node/compare/v5.27.0...v5.28.0)
+
+### Features
+
+* AI-2090: Add skip_turn tool type to assistant config schema ([060795b](https://github.com/team-telnyx/telnyx-node/commit/060795b8a3ae35b8a58e8c31eaad4ae3f6096951))
+
+
+### Chores
+
+* **mcp:** forward STAINLESS_API_KEY to docs search endpoint ([8e10b27](https://github.com/team-telnyx/telnyx-node/commit/8e10b27136609ea2395ae0d8b228ab45e26d7d9f))
+
 ## 5.27.0 (2026-02-13)
 
 Full Changelog: [v5.26.0...v5.27.0](https://github.com/team-telnyx/telnyx-node/compare/v5.26.0...v5.27.0)
