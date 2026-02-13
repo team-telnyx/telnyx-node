@@ -1,5 +1,24 @@
 # Changelog
 
+## 5.26.0 (2026-02-13)
+
+Full Changelog: [v5.25.1...v5.26.0](https://github.com/team-telnyx/telnyx-node/compare/v5.25.1...v5.26.0)
+
+### Features
+
+* Add dynamic_variables field to scheduled event schemas ([86181e8](https://github.com/team-telnyx/telnyx-node/commit/86181e8ccf5d7866e892cabcf7d0f6b0d3ae3b4a))
+* Add OpenAI-compatible embeddings API spec ([d411bb0](https://github.com/team-telnyx/telnyx-node/commit/d411bb0e4bfba528a277183b8cda98678013de3b))
+* AI-2086: Add AI Missions endpoints to inference spec ([0f14aec](https://github.com/team-telnyx/telnyx-node/commit/0f14aec7cbcd0f6dcac29135ab03c9b637048dc4))
+* **api:** manual updates ([c4bffe4](https://github.com/team-telnyx/telnyx-node/commit/c4bffe46194ac1772c5612f567c75b3288f801a6))
+* **api:** manual updates ([ca0ba22](https://github.com/team-telnyx/telnyx-node/commit/ca0ba224c26b70d6c043a4ceec4b08efc3fd8240))
+* **api:** manual updates to include models ([487937b](https://github.com/team-telnyx/telnyx-node/commit/487937b7846f44173214c6bcf8c62c4983aeeaf6))
+* ENGDESK-49554: Add quail_voice_focus to noise suppression engine enums ([5e3b959](https://github.com/team-telnyx/telnyx-node/commit/5e3b9595f36b75179394293a842bbeda8ee1f7ea))
+
+
+### Chores
+
+* **internal:** improve reliability of MCP servers when using local code mode execution ([8fce0fb](https://github.com/team-telnyx/telnyx-node/commit/8fce0fb87aea41378ec6398eff9f9b2103f1fff7))
+
 ## 5.25.1 (2026-02-11)
 
 Full Changelog: [v5.25.0...v5.25.1](https://github.com/team-telnyx/telnyx-node/compare/v5.25.0...v5.25.1)
