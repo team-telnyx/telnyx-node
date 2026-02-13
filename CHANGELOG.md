@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.27.0 (2026-02-13)
+
+Full Changelog: [v5.26.0...v5.27.0](https://github.com/team-telnyx/telnyx-node/compare/v5.26.0...v5.27.0)
+
+### Features
+
+* Add Label parameter to Dial Conference Participant endpoint ([a9a96f1](https://github.com/team-telnyx/telnyx-node/commit/a9a96f1d36432f6e6e7e8f806363215ca4944c9d))
+
 ## 5.26.0 (2026-02-13)
 
 Full Changelog: [v5.25.1...v5.26.0](https://github.com/team-telnyx/telnyx-node/compare/v5.25.1...v5.26.0)
