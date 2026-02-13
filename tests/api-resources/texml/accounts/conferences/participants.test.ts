@@ -130,6 +130,7 @@ describe('resource participants', () => {
       EarlyMedia: true,
       EndConferenceOnExit: true,
       From: '+12065550200',
+      Label: 'customer',
       MachineDetection: 'Enable',
       MachineDetectionSilenceTimeout: 2000,
       MachineDetectionSpeechEndThreshold: 2000,
