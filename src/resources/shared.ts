@@ -74,7 +74,7 @@ export interface ConnectionNoiseSuppressionDetails {
    * The attenuation limit value for the selected engine. Default values vary by
    * engine: 0 for 'denoiser', 80 for 'deep_filter_net', 'deep_filter_net_large', and
    * all Krisp engines ('krisp_viva_tel', 'krisp_viva_tel_lite',
-   * 'krisp_viva_promodel', 'krisp_viva_ss').
+   * 'krisp_viva_promodel', 'krisp_viva_ss'), 100 for 'quail_voice_focus'.
    */
   attenuation_limit?: number;
 
@@ -83,7 +83,8 @@ export interface ConnectionNoiseSuppressionDetails {
    * 'deep_filter_net' and 'deep_filter_net_large' are alternative engines with
    * different performance characteristics. Krisp engines ('krisp_viva_tel',
    * 'krisp_viva_tel_lite', 'krisp_viva_promodel', 'krisp_viva_ss') provide advanced
-   * noise suppression capabilities.
+   * noise suppression capabilities. 'quail_voice_focus' provides Quail-based voice
+   * focus noise suppression.
    */
   engine?:
     | 'denoiser'
@@ -92,7 +93,8 @@ export interface ConnectionNoiseSuppressionDetails {
     | 'krisp_viva_tel'
     | 'krisp_viva_tel_lite'
     | 'krisp_viva_promodel'
-    | 'krisp_viva_ss';
+    | 'krisp_viva_ss'
+    | 'quail_voice_focus';
 }
 
 export interface ConnectionsPaginationMeta {
