@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.29.0 (2026-02-17)
+
+Full Changelog: [v5.28.0...v5.29.0](https://github.com/team-telnyx/telnyx-node/compare/v5.28.0...v5.29.0)
+
+### Features
+
+* Add Minimax and Resemble voice providers for speak commands ([286de55](https://github.com/team-telnyx/telnyx-node/commit/286de550e243da809c9dc2ddccf5d3d47d4eac48))
+
+
+### Chores
+
+* **internal:** improve layout of generated MCP server files ([75f4091](https://github.com/team-telnyx/telnyx-node/commit/75f4091d2670c4c70449c52fdb7bff25d8015c55))
+
 ## 5.28.0 (2026-02-13)
 
 Full Changelog: [v5.27.0...v5.28.0](https://github.com/team-telnyx/telnyx-node/compare/v5.27.0...v5.28.0)
