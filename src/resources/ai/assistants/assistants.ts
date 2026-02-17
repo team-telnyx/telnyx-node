@@ -491,11 +491,10 @@ export namespace AssistantTool {
         detection_config?: VoicemailDetection.DetectionConfig;
 
         /**
-         * The AMD detection mode to use. 'detect' enables answering machine detection
-         * (works best when warm transfer instructions are also set). 'disabled' turns off
-         * AMD detection.
+         * The AMD detection mode to use. 'premium' enables premium answering machine
+         * detection. 'disabled' turns off AMD detection.
          */
-        detection_mode?: 'disabled' | 'detect';
+        detection_mode?: 'disabled' | 'premium';
 
         /**
          * Action to take when voicemail is detected on the transferred call.
@@ -573,9 +572,8 @@ export namespace AssistantTool {
           /**
            * The action to take when voicemail is detected. 'stop_transfer' hangs up
            * immediately. 'leave_message_and_stop_transfer' leaves a message then hangs up.
-           * 'continue_transfer' bridges the call despite voicemail detection.
            */
-          action?: 'stop_transfer' | 'leave_message_and_stop_transfer' | 'continue_transfer';
+          action?: 'stop_transfer' | 'leave_message_and_stop_transfer';
 
           /**
            * Configuration for the voicemail message to leave. Only applicable when action is

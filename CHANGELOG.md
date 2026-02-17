@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.30.0 (2026-02-17)
+
+Full Changelog: [v5.29.0...v5.30.0](https://github.com/team-telnyx/telnyx-node/compare/v5.29.0...v5.30.0)
+
+### Features
+
+* Align transfer tool AMD spec with portal: premium mode, drop continue actions ([882cca5](https://github.com/team-telnyx/telnyx-node/commit/882cca549476a472f4656917419b2bfb55906319))
+
+
+### Chores
+
+* **internal/client:** fix form-urlencoded requests ([a848150](https://github.com/team-telnyx/telnyx-node/commit/a84815021f19662bf939d6bbe8c9c73b55490d95))
+* **internal:** allow setting x-stainless-api-key header on mcp server requests ([40d4c6b](https://github.com/team-telnyx/telnyx-node/commit/40d4c6b515ac685e065006ea2acc359e74979aee))
+
 ## 5.29.0 (2026-02-17)
 
 Full Changelog: [v5.28.0...v5.29.0](https://github.com/team-telnyx/telnyx-node/compare/v5.28.0...v5.29.0)
