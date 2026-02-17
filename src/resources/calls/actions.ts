@@ -2706,14 +2706,17 @@ export interface ActionGatherUsingSpeakParams {
    *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part
    *   is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an
    *   integration identifier secret in
-   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
-   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-   *   for details. Check
+   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
    *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
    * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-   *
-   * For service_level basic, you may define the gender of the speaker (male or
-   * female).
+   * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
+   *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
+   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters:
+   *   `speed` (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer,
+   *   default 0).
+   * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g.,
+   *   `Resemble.Pro.my_voice`). Supported models: `Pro` (multilingual) and `Turbo`
+   *   (English only).
    */
   voice: string;
 
@@ -2825,7 +2828,35 @@ export interface ActionGatherUsingSpeakParams {
   /**
    * The settings associated with the voice selected
    */
-  voice_settings?: ElevenLabsVoiceSettings | TelnyxVoiceSettings | AwsVoiceSettings;
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | ActionGatherUsingSpeakParams.MinimaxVoiceSettings;
+}
+
+export namespace ActionGatherUsingSpeakParams {
+  export interface MinimaxVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'minimax';
+
+    /**
+     * Voice pitch adjustment. Default is 0.
+     */
+    pitch?: number;
+
+    /**
+     * Speech speed multiplier. Default is 1.0.
+     */
+    speed?: number;
+
+    /**
+     * Speech volume multiplier. Default is 1.0.
+     */
+    vol?: number;
+  }
 }
 
 export interface ActionHangupParams {
@@ -3032,14 +3063,17 @@ export interface ActionSpeakParams {
    *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part
    *   is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an
    *   integration identifier secret in
-   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
-   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-   *   for details. Check
+   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
    *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
    * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-   *
-   * For service_level basic, you may define the gender of the speaker (male or
-   * female).
+   * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
+   *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
+   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters:
+   *   `speed` (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer,
+   *   default 0).
+   * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g.,
+   *   `Resemble.Pro.my_voice`). Supported models: `Pro` (multilingual) and `Turbo`
+   *   (English only).
    */
   voice: string;
 
@@ -3113,7 +3147,35 @@ export interface ActionSpeakParams {
   /**
    * The settings associated with the voice selected
    */
-  voice_settings?: ElevenLabsVoiceSettings | TelnyxVoiceSettings | AwsVoiceSettings;
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | ActionSpeakParams.MinimaxVoiceSettings;
+}
+
+export namespace ActionSpeakParams {
+  export interface MinimaxVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'minimax';
+
+    /**
+     * Voice pitch adjustment. Default is 0.
+     */
+    pitch?: number;
+
+    /**
+     * Speech speed multiplier. Default is 1.0.
+     */
+    speed?: number;
+
+    /**
+     * Speech volume multiplier. Default is 1.0.
+     */
+    vol?: number;
+  }
 }
 
 export interface ActionStartAIAssistantParams {
