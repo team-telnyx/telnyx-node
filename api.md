@@ -1168,6 +1168,8 @@ Types:
 
 - <code><a href="./src/resources/calls/actions.ts">AwsVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResult</a></code>
+- <code><a href="./src/resources/calls/actions.ts">DeepgramNova2Config</a></code>
+- <code><a href="./src/resources/calls/actions.ts">DeepgramNova3Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ElevenLabsVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">GoogleTranscriptionLanguage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">InterruptionSettings</a></code>
