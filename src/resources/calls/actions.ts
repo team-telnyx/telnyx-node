@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as Shared from '../shared';
 import * as CallsAPI from './calls';
 import * as AssistantsAPI from '../ai/assistants/assistants';
 import { APIPromise } from '../../core/api-promise';
@@ -925,102 +924,6 @@ export interface CallControlCommandResult {
   result?: string;
 }
 
-export interface DeepgramNova2Config {
-  transcription_engine: 'Deepgram';
-
-  transcription_model: 'deepgram/nova-2';
-
-  /**
-   * Keywords and their respective intensifiers (boosting values) to improve
-   * transcription accuracy for specific words or phrases. The intensifier should be
-   * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
-   */
-  keywords_boosting?: { [key: string]: number };
-
-  /**
-   * Language to use for speech recognition with nova-2 model
-   */
-  language?:
-    | 'bg'
-    | 'ca'
-    | 'zh-CN'
-    | 'zh-Hans'
-    | 'zh-TW'
-    | 'zh-Hant'
-    | 'zh-HK'
-    | 'cs'
-    | 'da-DK'
-    | 'nl-BE'
-    | 'en-US'
-    | 'en-AU'
-    | 'en-GB'
-    | 'en-NZ'
-    | 'en-IN'
-    | 'et'
-    | 'fi'
-    | 'fr'
-    | 'fr-CA'
-    | 'de-CH'
-    | 'el'
-    | 'hi'
-    | 'hu'
-    | 'id'
-    | 'it'
-    | 'ja'
-    | 'ko-KR'
-    | 'lv'
-    | 'lt'
-    | 'ms'
-    | 'no'
-    | 'pl'
-    | 'pt-BR'
-    | 'pt-PT'
-    | 'ro'
-    | 'ru'
-    | 'sk'
-    | 'es-419'
-    | 'sv-SE'
-    | 'th-TH'
-    | 'tr'
-    | 'uk'
-    | 'vi'
-    | 'auto_detect';
-}
-
-export interface DeepgramNova3Config {
-  transcription_engine: 'Deepgram';
-
-  transcription_model: 'deepgram/nova-3';
-
-  /**
-   * Keywords and their respective intensifiers (boosting values) to improve
-   * transcription accuracy for specific words or phrases. The intensifier should be
-   * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
-   */
-  keywords_boosting?: { [key: string]: number };
-
-  /**
-   * Language to use for speech recognition with nova-3 model
-   */
-  language?:
-    | 'en-US'
-    | 'en-AU'
-    | 'en-GB'
-    | 'en-IN'
-    | 'en-NZ'
-    | 'de'
-    | 'nl'
-    | 'sv-SE'
-    | 'da-DK'
-    | 'es'
-    | 'es-419'
-    | 'fr'
-    | 'fr-CA'
-    | 'pt-BR'
-    | 'pt-PT'
-    | 'auto_detect';
-}
-
 export interface ElevenLabsVoiceSettings {
   /**
    * Voice settings provider type
@@ -1483,7 +1386,107 @@ export interface TranscriptionEngineBConfig {
   transcription_model?: 'openai/whisper-tiny' | 'openai/whisper-large-v3-turbo';
 }
 
-export type TranscriptionEngineDeepgramConfig = DeepgramNova2Config | DeepgramNova3Config;
+export type TranscriptionEngineDeepgramConfig =
+  | TranscriptionEngineDeepgramConfig.DeepgramNova2
+  | TranscriptionEngineDeepgramConfig.DeepgramNova3;
+
+export namespace TranscriptionEngineDeepgramConfig {
+  export interface DeepgramNova2 {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/nova-2';
+
+    /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to use for speech recognition with nova-2 model
+     */
+    language?:
+      | 'bg'
+      | 'ca'
+      | 'zh-CN'
+      | 'zh-Hans'
+      | 'zh-TW'
+      | 'zh-Hant'
+      | 'zh-HK'
+      | 'cs'
+      | 'da-DK'
+      | 'nl-BE'
+      | 'en-US'
+      | 'en-AU'
+      | 'en-GB'
+      | 'en-NZ'
+      | 'en-IN'
+      | 'et'
+      | 'fi'
+      | 'fr'
+      | 'fr-CA'
+      | 'de-CH'
+      | 'el'
+      | 'hi'
+      | 'hu'
+      | 'id'
+      | 'it'
+      | 'ja'
+      | 'ko-KR'
+      | 'lv'
+      | 'lt'
+      | 'ms'
+      | 'no'
+      | 'pl'
+      | 'pt-BR'
+      | 'pt-PT'
+      | 'ro'
+      | 'ru'
+      | 'sk'
+      | 'es-419'
+      | 'sv-SE'
+      | 'th-TH'
+      | 'tr'
+      | 'uk'
+      | 'vi'
+      | 'auto_detect';
+  }
+
+  export interface DeepgramNova3 {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/nova-3';
+
+    /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to use for speech recognition with nova-3 model
+     */
+    language?:
+      | 'en-US'
+      | 'en-AU'
+      | 'en-GB'
+      | 'en-IN'
+      | 'en-NZ'
+      | 'de'
+      | 'nl'
+      | 'sv-SE'
+      | 'da-DK'
+      | 'es'
+      | 'es-419'
+      | 'fr'
+      | 'fr-CA'
+      | 'pt-BR'
+      | 'pt-PT'
+      | 'auto_detect';
+  }
+}
 
 export interface TranscriptionEngineGoogleConfig {
   /**
@@ -1601,8 +1604,8 @@ export interface TranscriptionStartRequest {
   transcription_engine_config?:
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
-    | DeepgramNova2Config
-    | DeepgramNova3Config
+    | TranscriptionStartRequest.DeepgramNova2Config
+    | TranscriptionStartRequest.DeepgramNova3Config
     | TranscriptionEngineAzureConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig;
@@ -1613,6 +1616,104 @@ export interface TranscriptionStartRequest {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace TranscriptionStartRequest {
+  export interface DeepgramNova2Config {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/nova-2';
+
+    /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to use for speech recognition with nova-2 model
+     */
+    language?:
+      | 'bg'
+      | 'ca'
+      | 'zh-CN'
+      | 'zh-Hans'
+      | 'zh-TW'
+      | 'zh-Hant'
+      | 'zh-HK'
+      | 'cs'
+      | 'da-DK'
+      | 'nl-BE'
+      | 'en-US'
+      | 'en-AU'
+      | 'en-GB'
+      | 'en-NZ'
+      | 'en-IN'
+      | 'et'
+      | 'fi'
+      | 'fr'
+      | 'fr-CA'
+      | 'de-CH'
+      | 'el'
+      | 'hi'
+      | 'hu'
+      | 'id'
+      | 'it'
+      | 'ja'
+      | 'ko-KR'
+      | 'lv'
+      | 'lt'
+      | 'ms'
+      | 'no'
+      | 'pl'
+      | 'pt-BR'
+      | 'pt-PT'
+      | 'ro'
+      | 'ru'
+      | 'sk'
+      | 'es-419'
+      | 'sv-SE'
+      | 'th-TH'
+      | 'tr'
+      | 'uk'
+      | 'vi'
+      | 'auto_detect';
+  }
+
+  export interface DeepgramNova3Config {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/nova-3';
+
+    /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to use for speech recognition with nova-3 model
+     */
+    language?:
+      | 'en-US'
+      | 'en-AU'
+      | 'en-GB'
+      | 'en-IN'
+      | 'en-NZ'
+      | 'de'
+      | 'nl'
+      | 'sv-SE'
+      | 'da-DK'
+      | 'es'
+      | 'es-419'
+      | 'fr'
+      | 'fr-CA'
+      | 'pt-BR'
+      | 'pt-PT'
+      | 'auto_detect';
+  }
 }
 
 export interface ActionAddAIAssistantMessagesResponse {
@@ -1840,7 +1941,7 @@ export namespace ActionAddAIAssistantMessagesParams {
     /**
      * Metadata to add to the message
      */
-    metadata?: { [key: string]: unknown };
+    metadata?: unknown;
   }
 
   /**
@@ -1860,7 +1961,7 @@ export namespace ActionAddAIAssistantMessagesParams {
     /**
      * Metadata to add to the message
      */
-    metadata?: { [key: string]: unknown };
+    metadata?: unknown;
 
     /**
      * The tool calls generated by the model, such as function calls.
@@ -1921,7 +2022,7 @@ export namespace ActionAddAIAssistantMessagesParams {
     /**
      * Metadata to add to the message
      */
-    metadata?: { [key: string]: unknown };
+    metadata?: unknown;
   }
 
   /**
@@ -1942,7 +2043,7 @@ export namespace ActionAddAIAssistantMessagesParams {
     /**
      * Metadata to add to the message
      */
-    metadata?: { [key: string]: unknown };
+    metadata?: unknown;
   }
 
   /**
@@ -1963,7 +2064,7 @@ export namespace ActionAddAIAssistantMessagesParams {
     /**
      * Metadata to add to the message
      */
-    metadata?: { [key: string]: unknown };
+    metadata?: unknown;
   }
 }
 
@@ -2731,7 +2832,31 @@ export interface ActionGatherUsingSpeakParams {
     | ElevenLabsVoiceSettings
     | TelnyxVoiceSettings
     | AwsVoiceSettings
-    | Shared.MinimaxVoiceSettings;
+    | ActionGatherUsingSpeakParams.MinimaxVoiceSettings;
+}
+
+export namespace ActionGatherUsingSpeakParams {
+  export interface MinimaxVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'minimax';
+
+    /**
+     * Voice pitch adjustment. Default is 0.
+     */
+    pitch?: number;
+
+    /**
+     * Speech speed multiplier. Default is 1.0.
+     */
+    speed?: number;
+
+    /**
+     * Speech volume multiplier. Default is 1.0.
+     */
+    vol?: number;
+  }
 }
 
 export interface ActionHangupParams {
@@ -3026,7 +3151,31 @@ export interface ActionSpeakParams {
     | ElevenLabsVoiceSettings
     | TelnyxVoiceSettings
     | AwsVoiceSettings
-    | Shared.MinimaxVoiceSettings;
+    | ActionSpeakParams.MinimaxVoiceSettings;
+}
+
+export namespace ActionSpeakParams {
+  export interface MinimaxVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'minimax';
+
+    /**
+     * Voice pitch adjustment. Default is 0.
+     */
+    pitch?: number;
+
+    /**
+     * Speech speed multiplier. Default is 1.0.
+     */
+    speed?: number;
+
+    /**
+     * Speech volume multiplier. Default is 1.0.
+     */
+    vol?: number;
+  }
 }
 
 export interface ActionStartAIAssistantParams {
@@ -3742,8 +3891,8 @@ export interface ActionStartTranscriptionParams {
   transcription_engine_config?:
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
-    | DeepgramNova2Config
-    | DeepgramNova3Config
+    | ActionStartTranscriptionParams.DeepgramNova2Config
+    | ActionStartTranscriptionParams.DeepgramNova3Config
     | TranscriptionEngineAzureConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig;
@@ -3754,6 +3903,104 @@ export interface ActionStartTranscriptionParams {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace ActionStartTranscriptionParams {
+  export interface DeepgramNova2Config {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/nova-2';
+
+    /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to use for speech recognition with nova-2 model
+     */
+    language?:
+      | 'bg'
+      | 'ca'
+      | 'zh-CN'
+      | 'zh-Hans'
+      | 'zh-TW'
+      | 'zh-Hant'
+      | 'zh-HK'
+      | 'cs'
+      | 'da-DK'
+      | 'nl-BE'
+      | 'en-US'
+      | 'en-AU'
+      | 'en-GB'
+      | 'en-NZ'
+      | 'en-IN'
+      | 'et'
+      | 'fi'
+      | 'fr'
+      | 'fr-CA'
+      | 'de-CH'
+      | 'el'
+      | 'hi'
+      | 'hu'
+      | 'id'
+      | 'it'
+      | 'ja'
+      | 'ko-KR'
+      | 'lv'
+      | 'lt'
+      | 'ms'
+      | 'no'
+      | 'pl'
+      | 'pt-BR'
+      | 'pt-PT'
+      | 'ro'
+      | 'ru'
+      | 'sk'
+      | 'es-419'
+      | 'sv-SE'
+      | 'th-TH'
+      | 'tr'
+      | 'uk'
+      | 'vi'
+      | 'auto_detect';
+  }
+
+  export interface DeepgramNova3Config {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/nova-3';
+
+    /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to use for speech recognition with nova-3 model
+     */
+    language?:
+      | 'en-US'
+      | 'en-AU'
+      | 'en-GB'
+      | 'en-IN'
+      | 'en-NZ'
+      | 'de'
+      | 'nl'
+      | 'sv-SE'
+      | 'da-DK'
+      | 'es'
+      | 'es-419'
+      | 'fr'
+      | 'fr-CA'
+      | 'pt-BR'
+      | 'pt-PT'
+      | 'auto_detect';
+  }
 }
 
 export interface ActionStopAIAssistantParams {
@@ -4211,8 +4458,6 @@ export declare namespace Actions {
   export {
     type AwsVoiceSettings as AwsVoiceSettings,
     type CallControlCommandResult as CallControlCommandResult,
-    type DeepgramNova2Config as DeepgramNova2Config,
-    type DeepgramNova3Config as DeepgramNova3Config,
     type ElevenLabsVoiceSettings as ElevenLabsVoiceSettings,
     type GoogleTranscriptionLanguage as GoogleTranscriptionLanguage,
     type InterruptionSettings as InterruptionSettings,

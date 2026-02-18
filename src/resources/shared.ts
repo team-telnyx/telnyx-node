@@ -580,28 +580,6 @@ export interface Metadata {
   total_results?: number;
 }
 
-export interface MinimaxVoiceSettings {
-  /**
-   * Voice settings provider type
-   */
-  type: 'minimax';
-
-  /**
-   * Voice pitch adjustment. Default is 0.
-   */
-  pitch?: number;
-
-  /**
-   * Speech speed multiplier. Default is 1.0.
-   */
-  speed?: number;
-
-  /**
-   * Speech volume multiplier. Default is 1.0.
-   */
-  vol?: number;
-}
-
 /**
  * High level health metrics about the number and it's messaging sending patterns.
  */

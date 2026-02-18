@@ -279,6 +279,14 @@ export interface OutboundMessagePayload {
   sent_at?: string | null;
 
   /**
+   * Indicates whether smart encoding was applied to this message. When `true`, one
+   * or more Unicode characters were automatically replaced with GSM-7 equivalents to
+   * reduce segment count and cost. The original message text is preserved in
+   * webhooks.
+   */
+  smart_encoding_applied?: boolean;
+
+  /**
    * Subject of multimedia message
    */
   subject?: string | null;
@@ -882,6 +890,14 @@ export interface MessageCancelScheduledResponse {
    * ISO 8601 formatted date indicating when the message was sent.
    */
   sent_at?: string | null;
+
+  /**
+   * Indicates whether smart encoding was applied to this message. When `true`, one
+   * or more Unicode characters were automatically replaced with GSM-7 equivalents to
+   * reduce segment count and cost. The original message text is preserved in
+   * webhooks.
+   */
+  smart_encoding_applied?: boolean;
 
   /**
    * Subject of multimedia message
@@ -1565,6 +1581,15 @@ export interface MessageSendParams {
   auto_detect?: boolean;
 
   /**
+   * Encoding to use for the message. `auto` (default) uses smart encoding to
+   * automatically select the most efficient encoding. `gsm7` forces GSM-7 encoding
+   * (returns 400 if message contains characters that cannot be encoded). `ucs2`
+   * forces UCS-2 encoding and disables smart encoding. When set, this overrides the
+   * messaging profile's `smart_encoding` setting.
+   */
+  encoding?: 'auto' | 'gsm7' | 'ucs2';
+
+  /**
    * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
    * code).
    *
@@ -1692,6 +1717,15 @@ export interface MessageSendLongCodeParams {
   auto_detect?: boolean;
 
   /**
+   * Encoding to use for the message. `auto` (default) uses smart encoding to
+   * automatically select the most efficient encoding. `gsm7` forces GSM-7 encoding
+   * (returns 400 if message contains characters that cannot be encoded). `ucs2`
+   * forces UCS-2 encoding and disables smart encoding. When set, this overrides the
+   * messaging profile's `smart_encoding` setting.
+   */
+  encoding?: 'auto' | 'gsm7' | 'ucs2';
+
+  /**
    * A list of media URLs. The total media size must be less than 1 MB.
    *
    * **Required for MMS**
@@ -1752,6 +1786,15 @@ export interface MessageSendNumberPoolParams {
   auto_detect?: boolean;
 
   /**
+   * Encoding to use for the message. `auto` (default) uses smart encoding to
+   * automatically select the most efficient encoding. `gsm7` forces GSM-7 encoding
+   * (returns 400 if message contains characters that cannot be encoded). `ucs2`
+   * forces UCS-2 encoding and disables smart encoding. When set, this overrides the
+   * messaging profile's `smart_encoding` setting.
+   */
+  encoding?: 'auto' | 'gsm7' | 'ucs2';
+
+  /**
    * A list of media URLs. The total media size must be less than 1 MB.
    *
    * **Required for MMS**
@@ -1810,6 +1853,15 @@ export interface MessageSendShortCodeParams {
    * recommended limit of message parts.
    */
   auto_detect?: boolean;
+
+  /**
+   * Encoding to use for the message. `auto` (default) uses smart encoding to
+   * automatically select the most efficient encoding. `gsm7` forces GSM-7 encoding
+   * (returns 400 if message contains characters that cannot be encoded). `ucs2`
+   * forces UCS-2 encoding and disables smart encoding. When set, this overrides the
+   * messaging profile's `smart_encoding` setting.
+   */
+  encoding?: 'auto' | 'gsm7' | 'ucs2';
 
   /**
    * A list of media URLs. The total media size must be less than 1 MB.

@@ -4,8 +4,6 @@ export {
   Actions,
   type AwsVoiceSettings,
   type CallControlCommandResult,
-  type DeepgramNova2Config,
-  type DeepgramNova3Config,
   type ElevenLabsVoiceSettings,
   type GoogleTranscriptionLanguage,
   type InterruptionSettings,
