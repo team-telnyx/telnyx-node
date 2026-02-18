@@ -587,6 +587,55 @@ export interface MinimaxVoiceSettings {
   type: 'minimax';
 
   /**
+   * Enhances recognition for specific languages and dialects during MiniMax TTS
+   * synthesis. Default is null (no boost). Set to 'auto' for automatic language
+   * detection.
+   */
+  language_boost?:
+    | 'auto'
+    | 'Chinese'
+    | 'Chinese,Yue'
+    | 'English'
+    | 'Arabic'
+    | 'Russian'
+    | 'Spanish'
+    | 'French'
+    | 'Portuguese'
+    | 'German'
+    | 'Turkish'
+    | 'Dutch'
+    | 'Ukrainian'
+    | 'Vietnamese'
+    | 'Indonesian'
+    | 'Japanese'
+    | 'Italian'
+    | 'Korean'
+    | 'Thai'
+    | 'Polish'
+    | 'Romanian'
+    | 'Greek'
+    | 'Czech'
+    | 'Finnish'
+    | 'Hindi'
+    | 'Bulgarian'
+    | 'Danish'
+    | 'Hebrew'
+    | 'Malay'
+    | 'Persian'
+    | 'Slovak'
+    | 'Swedish'
+    | 'Croatian'
+    | 'Filipino'
+    | 'Hungarian'
+    | 'Norwegian'
+    | 'Slovenian'
+    | 'Catalan'
+    | 'Nynorsk'
+    | 'Tamil'
+    | 'Afrikaans'
+    | null;
+
+  /**
    * Voice pitch adjustment. Default is 0.
    */
   pitch?: number;
