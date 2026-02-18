@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.33.0 (2026-02-18)
+
+Full Changelog: [v5.32.0...v5.33.0](https://github.com/team-telnyx/telnyx-node/compare/v5.32.0...v5.33.0)
+
+### Features
+
+* Add smart encoding fields to messaging API spec ([b9fd247](https://github.com/team-telnyx/telnyx-node/commit/b9fd24721bc0c130784ca360bc11f3f3676bd1c3))
+* **api:** manual updates ([4b8fbbd](https://github.com/team-telnyx/telnyx-node/commit/4b8fbbd4a8de72fd88a99dec118d15a1ec68424f))
+* **api:** manual updates ([b95b678](https://github.com/team-telnyx/telnyx-node/commit/b95b678d2c9cf602ce638e156896589de77ab5b4))
+* **api:** manual updates ([3134ead](https://github.com/team-telnyx/telnyx-node/commit/3134ead1f9b464d8aae6b0d7b20c9f17174ac335))
+
 ## 5.32.0 (2026-02-18)
 
 Full Changelog: [v5.31.0...v5.32.0](https://github.com/team-telnyx/telnyx-node/compare/v5.31.0...v5.32.0)
