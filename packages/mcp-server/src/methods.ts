@@ -5308,6 +5308,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/10dlc/brand/feedback/{brandId}',
   },
   {
+    clientCallName: 'client.messaging10dlc.brand.getSMSOtpByReference',
+    fullyQualifiedName: 'messaging10dlc.brand.getSMSOtpByReference',
+    httpMethod: 'get',
+    httpPath: '/10dlc/brand/smsOtp/{referenceId}',
+  },
+  {
     clientCallName: 'client.messaging10dlc.brand.resend2faEmail',
     fullyQualifiedName: 'messaging10dlc.brand.resend2faEmail',
     httpMethod: 'post',
