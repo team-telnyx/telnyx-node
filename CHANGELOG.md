@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.35.0 (2026-02-18)
+
+Full Changelog: [v5.34.0...v5.35.0](https://github.com/team-telnyx/telnyx-node/compare/v5.34.0...v5.35.0)
+
+### Features
+
+* AI-2093: Add language_boost to MiniMax voice settings ([aaf623c](https://github.com/team-telnyx/telnyx-node/commit/aaf623c107e90077cdcd92b2229802be52ef32a1))
+
+
+### Chores
+
+* **internal:** cache fetch instruction calls in MCP server ([2df30ff](https://github.com/team-telnyx/telnyx-node/commit/2df30ffcb692e62a8d4082b9a0b82484f2cb6f22))
+
 ## 5.34.0 (2026-02-18)
 
 Full Changelog: [v5.33.0...v5.34.0](https://github.com/team-telnyx/telnyx-node/compare/v5.33.0...v5.34.0)
