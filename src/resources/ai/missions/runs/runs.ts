@@ -23,6 +23,7 @@ import {
   PlanGetStepDetailsResponse,
   PlanRetrieveParams,
   PlanRetrieveResponse,
+  PlanStepData,
   PlanUpdateStepParams,
   PlanUpdateStepResponse,
 } from './plan';
@@ -109,7 +110,7 @@ export class Runs extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const runListResponse of client.ai.missions.runs.list(
+   * for await (const missionRunData of client.ai.missions.runs.list(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    * )) {
    *   // ...
@@ -120,10 +121,10 @@ export class Runs extends APIResource {
     missionID: string,
     query: RunListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RunListResponsesDefaultFlatPagination, RunListResponse> {
+  ): PagePromise<MissionRunDataDefaultFlatPagination, MissionRunData> {
     return this._client.getAPIList(
       path`/ai/missions/${missionID}/runs`,
-      DefaultFlatPagination<RunListResponse>,
+      DefaultFlatPagination<MissionRunData>,
       { query, ...options },
     );
   }
@@ -154,7 +155,7 @@ export class Runs extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const runListRunsResponse of client.ai.missions.runs.listRuns()) {
+   * for await (const missionRunData of client.ai.missions.runs.listRuns()) {
    *   // ...
    * }
    * ```
@@ -162,8 +163,8 @@ export class Runs extends APIResource {
   listRuns(
     query: RunListRunsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RunListRunsResponsesDefaultFlatPagination, RunListRunsResponse> {
-    return this._client.getAPIList('/ai/missions/runs', DefaultFlatPagination<RunListRunsResponse>, {
+  ): PagePromise<MissionRunDataDefaultFlatPagination, MissionRunData> {
+    return this._client.getAPIList('/ai/missions/runs', DefaultFlatPagination<MissionRunData>, {
       query,
       ...options,
     });
@@ -210,236 +211,54 @@ export class Runs extends APIResource {
   }
 }
 
-export type RunListResponsesDefaultFlatPagination = DefaultFlatPagination<RunListResponse>;
+export type MissionRunDataDefaultFlatPagination = DefaultFlatPagination<MissionRunData>;
 
-export type RunListRunsResponsesDefaultFlatPagination = DefaultFlatPagination<RunListRunsResponse>;
+export interface MissionRunData {
+  mission_id: string;
 
-export interface RunCreateResponse {
-  data: RunCreateResponse.Data;
+  run_id: string;
+
+  started_at: string;
+
+  status: 'pending' | 'running' | 'paused' | 'succeeded' | 'failed' | 'cancelled';
+
+  updated_at: string;
+
+  error?: string;
+
+  finished_at?: string;
+
+  input?: { [key: string]: unknown };
+
+  metadata?: { [key: string]: unknown };
+
+  result_payload?: { [key: string]: unknown };
+
+  result_summary?: string;
 }
 
-export namespace RunCreateResponse {
-  export interface Data {
-    mission_id: string;
-
-    run_id: string;
-
-    started_at: string;
-
-    status: 'pending' | 'running' | 'paused' | 'succeeded' | 'failed' | 'cancelled';
-
-    updated_at: string;
-
-    error?: string;
-
-    finished_at?: string;
-
-    input?: { [key: string]: unknown };
-
-    metadata?: { [key: string]: unknown };
-
-    result_payload?: { [key: string]: unknown };
-
-    result_summary?: string;
-  }
+export interface RunCreateResponse {
+  data: MissionRunData;
 }
 
 export interface RunRetrieveResponse {
-  data: RunRetrieveResponse.Data;
-}
-
-export namespace RunRetrieveResponse {
-  export interface Data {
-    mission_id: string;
-
-    run_id: string;
-
-    started_at: string;
-
-    status: 'pending' | 'running' | 'paused' | 'succeeded' | 'failed' | 'cancelled';
-
-    updated_at: string;
-
-    error?: string;
-
-    finished_at?: string;
-
-    input?: { [key: string]: unknown };
-
-    metadata?: { [key: string]: unknown };
-
-    result_payload?: { [key: string]: unknown };
-
-    result_summary?: string;
-  }
+  data: MissionRunData;
 }
 
 export interface RunUpdateResponse {
-  data: RunUpdateResponse.Data;
-}
-
-export namespace RunUpdateResponse {
-  export interface Data {
-    mission_id: string;
-
-    run_id: string;
-
-    started_at: string;
-
-    status: 'pending' | 'running' | 'paused' | 'succeeded' | 'failed' | 'cancelled';
-
-    updated_at: string;
-
-    error?: string;
-
-    finished_at?: string;
-
-    input?: { [key: string]: unknown };
-
-    metadata?: { [key: string]: unknown };
-
-    result_payload?: { [key: string]: unknown };
-
-    result_summary?: string;
-  }
-}
-
-export interface RunListResponse {
-  mission_id: string;
-
-  run_id: string;
-
-  started_at: string;
-
-  status: 'pending' | 'running' | 'paused' | 'succeeded' | 'failed' | 'cancelled';
-
-  updated_at: string;
-
-  error?: string;
-
-  finished_at?: string;
-
-  input?: { [key: string]: unknown };
-
-  metadata?: { [key: string]: unknown };
-
-  result_payload?: { [key: string]: unknown };
-
-  result_summary?: string;
+  data: MissionRunData;
 }
 
 export interface RunCancelRunResponse {
-  data: RunCancelRunResponse.Data;
-}
-
-export namespace RunCancelRunResponse {
-  export interface Data {
-    mission_id: string;
-
-    run_id: string;
-
-    started_at: string;
-
-    status: 'pending' | 'running' | 'paused' | 'succeeded' | 'failed' | 'cancelled';
-
-    updated_at: string;
-
-    error?: string;
-
-    finished_at?: string;
-
-    input?: { [key: string]: unknown };
-
-    metadata?: { [key: string]: unknown };
-
-    result_payload?: { [key: string]: unknown };
-
-    result_summary?: string;
-  }
-}
-
-export interface RunListRunsResponse {
-  mission_id: string;
-
-  run_id: string;
-
-  started_at: string;
-
-  status: 'pending' | 'running' | 'paused' | 'succeeded' | 'failed' | 'cancelled';
-
-  updated_at: string;
-
-  error?: string;
-
-  finished_at?: string;
-
-  input?: { [key: string]: unknown };
-
-  metadata?: { [key: string]: unknown };
-
-  result_payload?: { [key: string]: unknown };
-
-  result_summary?: string;
+  data: MissionRunData;
 }
 
 export interface RunPauseRunResponse {
-  data: RunPauseRunResponse.Data;
-}
-
-export namespace RunPauseRunResponse {
-  export interface Data {
-    mission_id: string;
-
-    run_id: string;
-
-    started_at: string;
-
-    status: 'pending' | 'running' | 'paused' | 'succeeded' | 'failed' | 'cancelled';
-
-    updated_at: string;
-
-    error?: string;
-
-    finished_at?: string;
-
-    input?: { [key: string]: unknown };
-
-    metadata?: { [key: string]: unknown };
-
-    result_payload?: { [key: string]: unknown };
-
-    result_summary?: string;
-  }
+  data: MissionRunData;
 }
 
 export interface RunResumeRunResponse {
-  data: RunResumeRunResponse.Data;
-}
-
-export namespace RunResumeRunResponse {
-  export interface Data {
-    mission_id: string;
-
-    run_id: string;
-
-    started_at: string;
-
-    status: 'pending' | 'running' | 'paused' | 'succeeded' | 'failed' | 'cancelled';
-
-    updated_at: string;
-
-    error?: string;
-
-    finished_at?: string;
-
-    input?: { [key: string]: unknown };
-
-    metadata?: { [key: string]: unknown };
-
-    result_payload?: { [key: string]: unknown };
-
-    result_summary?: string;
-  }
+  data: MissionRunData;
 }
 
 export interface RunCreateParams {
@@ -510,16 +329,14 @@ Runs.TelnyxAgents = TelnyxAgents;
 
 export declare namespace Runs {
   export {
+    type MissionRunData as MissionRunData,
     type RunCreateResponse as RunCreateResponse,
     type RunRetrieveResponse as RunRetrieveResponse,
     type RunUpdateResponse as RunUpdateResponse,
-    type RunListResponse as RunListResponse,
     type RunCancelRunResponse as RunCancelRunResponse,
-    type RunListRunsResponse as RunListRunsResponse,
     type RunPauseRunResponse as RunPauseRunResponse,
     type RunResumeRunResponse as RunResumeRunResponse,
-    type RunListResponsesDefaultFlatPagination as RunListResponsesDefaultFlatPagination,
-    type RunListRunsResponsesDefaultFlatPagination as RunListRunsResponsesDefaultFlatPagination,
+    type MissionRunDataDefaultFlatPagination as MissionRunDataDefaultFlatPagination,
     type RunCreateParams as RunCreateParams,
     type RunRetrieveParams as RunRetrieveParams,
     type RunUpdateParams as RunUpdateParams,
@@ -543,6 +360,7 @@ export declare namespace Runs {
 
   export {
     Plan as Plan,
+    type PlanStepData as PlanStepData,
     type PlanCreateResponse as PlanCreateResponse,
     type PlanRetrieveResponse as PlanRetrieveResponse,
     type PlanAddStepsToPlanResponse as PlanAddStepsToPlanResponse,
