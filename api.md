@@ -4130,6 +4130,7 @@ Types:
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandRetrieveResponse</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandListResponse</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandGetFeedbackResponse</a></code>
+- <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandGetSMSOtpByReferenceResponse</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandRetrieveSMSOtpStatusResponse</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandTriggerSMSOtpResponse</a></code>
 
@@ -4141,6 +4142,7 @@ Methods:
 - <code title="get /10dlc/brand">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">list</a>({ ...params }) -> BrandListResponsesPerPagePaginationV2</code>
 - <code title="delete /10dlc/brand/{brandId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">delete</a>(brandID) -> void</code>
 - <code title="get /10dlc/brand/feedback/{brandId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">getFeedback</a>(brandID) -> BrandGetFeedbackResponse</code>
+- <code title="get /10dlc/brand/smsOtp/{referenceId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">getSMSOtpByReference</a>(referenceID, { ...params }) -> BrandGetSMSOtpByReferenceResponse</code>
 - <code title="post /10dlc/brand/{brandId}/2faEmail">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">resend2faEmail</a>(brandID) -> void</code>
 - <code title="get /10dlc/brand/{brandId}/smsOtp">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">retrieveSMSOtpStatus</a>(brandID) -> BrandRetrieveSMSOtpStatusResponse</code>
 - <code title="put /10dlc/brand/{brandId}/revet">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">revet</a>(brandID) -> TelnyxBrand</code>
