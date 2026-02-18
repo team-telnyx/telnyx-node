@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as Shared from '../shared';
 import * as ActionsAPI from '../calls/actions';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -799,31 +800,7 @@ export interface ActionSpeakParams {
     | ActionsAPI.ElevenLabsVoiceSettings
     | ActionsAPI.TelnyxVoiceSettings
     | ActionsAPI.AwsVoiceSettings
-    | ActionSpeakParams.MinimaxVoiceSettings;
-}
-
-export namespace ActionSpeakParams {
-  export interface MinimaxVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'minimax';
-
-    /**
-     * Voice pitch adjustment. Default is 0.
-     */
-    pitch?: number;
-
-    /**
-     * Speech speed multiplier. Default is 1.0.
-     */
-    speed?: number;
-
-    /**
-     * Speech volume multiplier. Default is 1.0.
-     */
-    vol?: number;
-  }
+    | Shared.MinimaxVoiceSettings;
 }
 
 export interface ActionStopParams {
