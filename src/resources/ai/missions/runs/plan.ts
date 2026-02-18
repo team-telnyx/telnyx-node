@@ -130,134 +130,44 @@ export class Plan extends APIResource {
   }
 }
 
-export interface PlanCreateResponse {
-  data: Array<PlanCreateResponse.Data>;
+export interface PlanStepData {
+  description: string;
+
+  run_id: string;
+
+  sequence: number;
+
+  status: 'pending' | 'in_progress' | 'completed' | 'skipped' | 'failed';
+
+  step_id: string;
+
+  completed_at?: string;
+
+  metadata?: { [key: string]: unknown };
+
+  parent_step_id?: string;
+
+  started_at?: string;
 }
 
-export namespace PlanCreateResponse {
-  export interface Data {
-    description: string;
-
-    run_id: string;
-
-    sequence: number;
-
-    status: 'pending' | 'in_progress' | 'completed' | 'skipped' | 'failed';
-
-    step_id: string;
-
-    completed_at?: string;
-
-    metadata?: { [key: string]: unknown };
-
-    parent_step_id?: string;
-
-    started_at?: string;
-  }
+export interface PlanCreateResponse {
+  data: Array<PlanStepData>;
 }
 
 export interface PlanRetrieveResponse {
-  data: Array<PlanRetrieveResponse.Data>;
-}
-
-export namespace PlanRetrieveResponse {
-  export interface Data {
-    description: string;
-
-    run_id: string;
-
-    sequence: number;
-
-    status: 'pending' | 'in_progress' | 'completed' | 'skipped' | 'failed';
-
-    step_id: string;
-
-    completed_at?: string;
-
-    metadata?: { [key: string]: unknown };
-
-    parent_step_id?: string;
-
-    started_at?: string;
-  }
+  data: Array<PlanStepData>;
 }
 
 export interface PlanAddStepsToPlanResponse {
-  data: Array<PlanAddStepsToPlanResponse.Data>;
-}
-
-export namespace PlanAddStepsToPlanResponse {
-  export interface Data {
-    description: string;
-
-    run_id: string;
-
-    sequence: number;
-
-    status: 'pending' | 'in_progress' | 'completed' | 'skipped' | 'failed';
-
-    step_id: string;
-
-    completed_at?: string;
-
-    metadata?: { [key: string]: unknown };
-
-    parent_step_id?: string;
-
-    started_at?: string;
-  }
+  data: Array<PlanStepData>;
 }
 
 export interface PlanGetStepDetailsResponse {
-  data: PlanGetStepDetailsResponse.Data;
-}
-
-export namespace PlanGetStepDetailsResponse {
-  export interface Data {
-    description: string;
-
-    run_id: string;
-
-    sequence: number;
-
-    status: 'pending' | 'in_progress' | 'completed' | 'skipped' | 'failed';
-
-    step_id: string;
-
-    completed_at?: string;
-
-    metadata?: { [key: string]: unknown };
-
-    parent_step_id?: string;
-
-    started_at?: string;
-  }
+  data: PlanStepData;
 }
 
 export interface PlanUpdateStepResponse {
-  data: PlanUpdateStepResponse.Data;
-}
-
-export namespace PlanUpdateStepResponse {
-  export interface Data {
-    description: string;
-
-    run_id: string;
-
-    sequence: number;
-
-    status: 'pending' | 'in_progress' | 'completed' | 'skipped' | 'failed';
-
-    step_id: string;
-
-    completed_at?: string;
-
-    metadata?: { [key: string]: unknown };
-
-    parent_step_id?: string;
-
-    started_at?: string;
-  }
+  data: PlanStepData;
 }
 
 export interface PlanCreateParams {
@@ -346,6 +256,7 @@ export interface PlanUpdateStepParams {
 
 export declare namespace Plan {
   export {
+    type PlanStepData as PlanStepData,
     type PlanCreateResponse as PlanCreateResponse,
     type PlanRetrieveResponse as PlanRetrieveResponse,
     type PlanAddStepsToPlanResponse as PlanAddStepsToPlanResponse,

@@ -97,9 +97,9 @@ export {
 } from './mcp-servers';
 export {
   Missions,
+  type MissionData,
   type MissionCreateResponse,
   type MissionRetrieveResponse,
-  type MissionListResponse,
   type MissionCloneMissionResponse,
   type MissionListEventsResponse,
   type MissionUpdateMissionResponse,
@@ -107,7 +107,7 @@ export {
   type MissionListParams,
   type MissionListEventsParams,
   type MissionUpdateMissionParams,
-  type MissionListResponsesDefaultFlatPagination,
+  type MissionDataDefaultFlatPagination,
   type MissionListEventsResponsesDefaultFlatPagination,
 } from './missions/index';
 export { OpenAI } from './openai/index';
