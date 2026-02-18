@@ -408,7 +408,7 @@ export interface ConferenceRetrieveRecordingsResponse {
   /**
    * List of participant resources.
    */
-  participants?: Array<{ [key: string]: unknown }>;
+  participants?: Array<unknown>;
 
   recordings?: Array<ConferenceRetrieveRecordingsResponse.Recording>;
 
