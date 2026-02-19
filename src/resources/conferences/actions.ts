@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as Shared from '../shared';
 import * as ActionsAPI from '../calls/actions';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -992,7 +991,80 @@ export interface ActionSpeakParams {
     | ActionsAPI.ElevenLabsVoiceSettings
     | ActionsAPI.TelnyxVoiceSettings
     | ActionsAPI.AwsVoiceSettings
-    | Shared.MinimaxVoiceSettings;
+    | ActionSpeakParams.MinimaxVoiceSettings;
+}
+
+export namespace ActionSpeakParams {
+  export interface MinimaxVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'minimax';
+
+    /**
+     * Enhances recognition for specific languages and dialects during MiniMax TTS
+     * synthesis. Default is null (no boost). Set to 'auto' for automatic language
+     * detection.
+     */
+    language_boost?:
+      | 'auto'
+      | 'Chinese'
+      | 'Chinese,Yue'
+      | 'English'
+      | 'Arabic'
+      | 'Russian'
+      | 'Spanish'
+      | 'French'
+      | 'Portuguese'
+      | 'German'
+      | 'Turkish'
+      | 'Dutch'
+      | 'Ukrainian'
+      | 'Vietnamese'
+      | 'Indonesian'
+      | 'Japanese'
+      | 'Italian'
+      | 'Korean'
+      | 'Thai'
+      | 'Polish'
+      | 'Romanian'
+      | 'Greek'
+      | 'Czech'
+      | 'Finnish'
+      | 'Hindi'
+      | 'Bulgarian'
+      | 'Danish'
+      | 'Hebrew'
+      | 'Malay'
+      | 'Persian'
+      | 'Slovak'
+      | 'Swedish'
+      | 'Croatian'
+      | 'Filipino'
+      | 'Hungarian'
+      | 'Norwegian'
+      | 'Slovenian'
+      | 'Catalan'
+      | 'Nynorsk'
+      | 'Tamil'
+      | 'Afrikaans'
+      | null;
+
+    /**
+     * Voice pitch adjustment. Default is 0.
+     */
+    pitch?: number;
+
+    /**
+     * Speech speed multiplier. Default is 1.0.
+     */
+    speed?: number;
+
+    /**
+     * Speech volume multiplier. Default is 1.0.
+     */
+    vol?: number;
+  }
 }
 
 export interface ActionStopParams {
