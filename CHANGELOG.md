@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.37.1 (2026-02-19)
+
+Full Changelog: [v5.37.0...v5.37.1](https://github.com/team-telnyx/telnyx-node/compare/v5.37.0...v5.37.1)
+
+### Bug Fixes
+
+* **mcp:** initialize SDK lazily to avoid failing the connection on init errors ([b06e8ad](https://github.com/team-telnyx/telnyx-node/commit/b06e8ada417c5e97b55a72709dc97a6528364f12))
+
+
+### Documentation
+
+* **call-control:** Add missing parameters to call control endpoints ([5604807](https://github.com/team-telnyx/telnyx-node/commit/560480707d902a0927023159db4a655bf83d51d8))
+
 ## 5.37.0 (2026-02-19)
 
 Full Changelog: [v5.36.0...v5.37.0](https://github.com/team-telnyx/telnyx-node/compare/v5.36.0...v5.37.0)
