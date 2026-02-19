@@ -1633,10 +1633,34 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/conferences/{conference_id}/participants',
   },
   {
+    clientCallName: 'client.conferences.retrieveParticipant',
+    fullyQualifiedName: 'conferences.retrieveParticipant',
+    httpMethod: 'get',
+    httpPath: '/conferences/{id}/participants/{participant_id}',
+  },
+  {
+    clientCallName: 'client.conferences.updateParticipant',
+    fullyQualifiedName: 'conferences.updateParticipant',
+    httpMethod: 'patch',
+    httpPath: '/conferences/{id}/participants/{participant_id}',
+  },
+  {
     clientCallName: 'client.conferences.actions.update',
     fullyQualifiedName: 'conferences.actions.update',
     httpMethod: 'post',
     httpPath: '/conferences/{id}/actions/update',
+  },
+  {
+    clientCallName: 'client.conferences.actions.endConference',
+    fullyQualifiedName: 'conferences.actions.endConference',
+    httpMethod: 'post',
+    httpPath: '/conferences/{id}/actions/end',
+  },
+  {
+    clientCallName: 'client.conferences.actions.gatherDtmfAudio',
+    fullyQualifiedName: 'conferences.actions.gatherDtmfAudio',
+    httpMethod: 'post',
+    httpPath: '/conferences/{id}/actions/gather_using_audio',
   },
   {
     clientCallName: 'client.conferences.actions.hold',
@@ -1691,6 +1715,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'conferences.actions.recordStop',
     httpMethod: 'post',
     httpPath: '/conferences/{id}/actions/record_stop',
+  },
+  {
+    clientCallName: 'client.conferences.actions.sendDtmf',
+    fullyQualifiedName: 'conferences.actions.sendDtmf',
+    httpMethod: 'post',
+    httpPath: '/conferences/{id}/actions/send_dtmf',
   },
   {
     clientCallName: 'client.conferences.actions.speak',

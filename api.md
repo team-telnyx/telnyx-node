@@ -1320,6 +1320,8 @@ Types:
 - <code><a href="./src/resources/conferences/conferences.ts">ConferenceCreateResponse</a></code>
 - <code><a href="./src/resources/conferences/conferences.ts">ConferenceRetrieveResponse</a></code>
 - <code><a href="./src/resources/conferences/conferences.ts">ConferenceListParticipantsResponse</a></code>
+- <code><a href="./src/resources/conferences/conferences.ts">ConferenceRetrieveParticipantResponse</a></code>
+- <code><a href="./src/resources/conferences/conferences.ts">ConferenceUpdateParticipantResponse</a></code>
 
 Methods:
 
@@ -1327,6 +1329,8 @@ Methods:
 - <code title="get /conferences/{id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">retrieve</a>(id, { ...params }) -> ConferenceRetrieveResponse</code>
 - <code title="get /conferences">client.conferences.<a href="./src/resources/conferences/conferences.ts">list</a>({ ...params }) -> ConferencesDefaultFlatPagination</code>
 - <code title="get /conferences/{conference_id}/participants">client.conferences.<a href="./src/resources/conferences/conferences.ts">listParticipants</a>(conferenceID, { ...params }) -> ConferenceListParticipantsResponsesDefaultFlatPagination</code>
+- <code title="get /conferences/{id}/participants/{participant_id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">retrieveParticipant</a>(participantID, { ...params }) -> ConferenceRetrieveParticipantResponse</code>
+- <code title="patch /conferences/{id}/participants/{participant_id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">updateParticipant</a>(participantID, { ...params }) -> ConferenceUpdateParticipantResponse</code>
 
 ## Actions
 
@@ -1335,6 +1339,8 @@ Types:
 - <code><a href="./src/resources/conferences/actions.ts">ConferenceCommandResult</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">UpdateConference</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionUpdateResponse</a></code>
+- <code><a href="./src/resources/conferences/actions.ts">ActionEndConferenceResponse</a></code>
+- <code><a href="./src/resources/conferences/actions.ts">ActionGatherDtmfAudioResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionHoldResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionJoinResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionLeaveResponse</a></code>
@@ -1344,6 +1350,7 @@ Types:
 - <code><a href="./src/resources/conferences/actions.ts">ActionRecordResumeResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionRecordStartResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionRecordStopResponse</a></code>
+- <code><a href="./src/resources/conferences/actions.ts">ActionSendDtmfResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionSpeakResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionStopResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionUnholdResponse</a></code>
@@ -1352,6 +1359,8 @@ Types:
 Methods:
 
 - <code title="post /conferences/{id}/actions/update">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">update</a>(id, { ...params }) -> ActionUpdateResponse</code>
+- <code title="post /conferences/{id}/actions/end">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">endConference</a>(id, { ...params }) -> ActionEndConferenceResponse</code>
+- <code title="post /conferences/{id}/actions/gather_using_audio">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">gatherDtmfAudio</a>(id, { ...params }) -> ActionGatherDtmfAudioResponse</code>
 - <code title="post /conferences/{id}/actions/hold">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">hold</a>(id, { ...params }) -> ActionHoldResponse</code>
 - <code title="post /conferences/{id}/actions/join">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">join</a>(id, { ...params }) -> ActionJoinResponse</code>
 - <code title="post /conferences/{id}/actions/leave">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">leave</a>(id, { ...params }) -> ActionLeaveResponse</code>
@@ -1361,6 +1370,7 @@ Methods:
 - <code title="post /conferences/{id}/actions/record_resume">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">recordResume</a>(id, { ...params }) -> ActionRecordResumeResponse</code>
 - <code title="post /conferences/{id}/actions/record_start">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">recordStart</a>(id, { ...params }) -> ActionRecordStartResponse</code>
 - <code title="post /conferences/{id}/actions/record_stop">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">recordStop</a>(id, { ...params }) -> ActionRecordStopResponse</code>
+- <code title="post /conferences/{id}/actions/send_dtmf">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">sendDtmf</a>(id, { ...params }) -> ActionSendDtmfResponse</code>
 - <code title="post /conferences/{id}/actions/speak">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">speak</a>(id, { ...params }) -> ActionSpeakResponse</code>
 - <code title="post /conferences/{id}/actions/stop">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">stop</a>(id, { ...params }) -> ActionStopResponse</code>
 - <code title="post /conferences/{id}/actions/unhold">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">unhold</a>(id, { ...params }) -> ActionUnholdResponse</code>
