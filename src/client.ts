@@ -1091,7 +1091,11 @@ import {
   ConferenceListParticipantsResponse,
   ConferenceListParticipantsResponsesDefaultFlatPagination,
   ConferenceRetrieveParams,
+  ConferenceRetrieveParticipantParams,
+  ConferenceRetrieveParticipantResponse,
   ConferenceRetrieveResponse,
+  ConferenceUpdateParticipantParams,
+  ConferenceUpdateParticipantResponse,
   Conferences,
   ConferencesDefaultFlatPagination,
 } from './resources/conferences/conferences';
@@ -2926,12 +2930,16 @@ export declare namespace Telnyx {
     type ConferenceCreateResponse as ConferenceCreateResponse,
     type ConferenceRetrieveResponse as ConferenceRetrieveResponse,
     type ConferenceListParticipantsResponse as ConferenceListParticipantsResponse,
+    type ConferenceRetrieveParticipantResponse as ConferenceRetrieveParticipantResponse,
+    type ConferenceUpdateParticipantResponse as ConferenceUpdateParticipantResponse,
     type ConferencesDefaultFlatPagination as ConferencesDefaultFlatPagination,
     type ConferenceListParticipantsResponsesDefaultFlatPagination as ConferenceListParticipantsResponsesDefaultFlatPagination,
     type ConferenceCreateParams as ConferenceCreateParams,
     type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceListParams as ConferenceListParams,
     type ConferenceListParticipantsParams as ConferenceListParticipantsParams,
+    type ConferenceRetrieveParticipantParams as ConferenceRetrieveParticipantParams,
+    type ConferenceUpdateParticipantParams as ConferenceUpdateParticipantParams,
   };
 
   export {
