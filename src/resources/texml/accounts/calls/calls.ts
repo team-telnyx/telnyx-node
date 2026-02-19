@@ -878,6 +878,19 @@ export interface CallCallsParams {
   Texml?: string;
 
   /**
+   * The maximum duration of the call in seconds. The minimum value is 30 and the
+   * maximum value is 14400 (4 hours). Default is 14400 seconds.
+   */
+  TimeLimit?: number;
+
+  /**
+   * The number of seconds to wait for the called party to answer the call before the
+   * call is canceled. The minimum value is 5 and the maximum value is 120. Default
+   * is 30 seconds.
+   */
+  Timeout?: number;
+
+  /**
    * Whether to trim any leading and trailing silence from the recording. Defaults to
    * `trim-silence`.
    */
