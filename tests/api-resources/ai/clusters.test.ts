@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource clusters', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.ai.clusters.retrieve('task_id');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource clusters', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -32,7 +32,7 @@ describe('resource clusters', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.ai.clusters.list();
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +44,7 @@ describe('resource clusters', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -52,7 +52,7 @@ describe('resource clusters', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.ai.clusters.delete('task_id');
     const rawResponse = await responsePromise.asResponse();
@@ -64,7 +64,7 @@ describe('resource clusters', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('compute: only required params', async () => {
     const responsePromise = client.ai.clusters.compute({ bucket: 'bucket' });
     const rawResponse = await responsePromise.asResponse();
@@ -76,7 +76,7 @@ describe('resource clusters', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('compute: required and optional params', async () => {
     const response = await client.ai.clusters.compute({
       bucket: 'bucket',

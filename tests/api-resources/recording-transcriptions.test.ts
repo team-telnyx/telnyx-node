@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource recordingTranscriptions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.recordingTranscriptions.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource recordingTranscriptions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.recordingTranscriptions.list();
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource recordingTranscriptions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.recordingTranscriptions.delete('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();

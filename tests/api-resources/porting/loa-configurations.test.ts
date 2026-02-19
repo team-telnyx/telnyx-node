@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource loaConfigurations', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.porting.loaConfigurations.create({
       address: {
@@ -32,7 +32,7 @@ describe('resource loaConfigurations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.porting.loaConfigurations.create({
       address: {
@@ -50,7 +50,7 @@ describe('resource loaConfigurations', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.porting.loaConfigurations.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
@@ -62,7 +62,7 @@ describe('resource loaConfigurations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.porting.loaConfigurations.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       address: {
@@ -86,7 +86,7 @@ describe('resource loaConfigurations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.porting.loaConfigurations.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       address: {
@@ -104,7 +104,7 @@ describe('resource loaConfigurations', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.porting.loaConfigurations.list();
     const rawResponse = await responsePromise.asResponse();
@@ -116,7 +116,7 @@ describe('resource loaConfigurations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -127,7 +127,7 @@ describe('resource loaConfigurations', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.porting.loaConfigurations.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();

@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource verifications', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.verifications.retrieve('12ade33a-21c0-473b-b055-b3c836e1c292');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource verifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('triggerCall: only required params', async () => {
     const responsePromise = client.verifications.triggerCall({
       phone_number: '+13035551234',
@@ -35,7 +35,7 @@ describe('resource verifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('triggerCall: required and optional params', async () => {
     const response = await client.verifications.triggerCall({
       phone_number: '+13035551234',
@@ -46,7 +46,7 @@ describe('resource verifications', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('triggerFlashcall: only required params', async () => {
     const responsePromise = client.verifications.triggerFlashcall({
       phone_number: '+13035551234',
@@ -61,7 +61,7 @@ describe('resource verifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('triggerFlashcall: required and optional params', async () => {
     const response = await client.verifications.triggerFlashcall({
       phone_number: '+13035551234',
@@ -70,7 +70,7 @@ describe('resource verifications', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('triggerSMS: only required params', async () => {
     const responsePromise = client.verifications.triggerSMS({
       phone_number: '+13035551234',
@@ -85,7 +85,7 @@ describe('resource verifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('triggerSMS: required and optional params', async () => {
     const response = await client.verifications.triggerSMS({
       phone_number: '+13035551234',

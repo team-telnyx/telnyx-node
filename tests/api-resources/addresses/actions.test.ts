@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('acceptSuggestions', async () => {
     const responsePromise = client.addresses.actions.acceptSuggestions(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -22,7 +22,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('acceptSuggestions: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -34,7 +34,7 @@ describe('resource actions', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('validate: only required params', async () => {
     const responsePromise = client.addresses.actions.validate({
       country_code: 'US',
@@ -50,7 +50,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('validate: required and optional params', async () => {
     const response = await client.addresses.actions.validate({
       country_code: 'US',

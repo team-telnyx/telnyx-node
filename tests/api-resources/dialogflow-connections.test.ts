@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource dialogflowConnections', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.dialogflowConnections.create('connection_id', {
       service_account: {
@@ -33,7 +33,7 @@ describe('resource dialogflowConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.dialogflowConnections.create('connection_id', {
       service_account: {
@@ -55,7 +55,7 @@ describe('resource dialogflowConnections', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.dialogflowConnections.retrieve('connection_id');
     const rawResponse = await responsePromise.asResponse();
@@ -67,7 +67,7 @@ describe('resource dialogflowConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.dialogflowConnections.update('connection_id', {
       service_account: {
@@ -92,7 +92,7 @@ describe('resource dialogflowConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.dialogflowConnections.update('connection_id', {
       service_account: {
@@ -114,7 +114,7 @@ describe('resource dialogflowConnections', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.dialogflowConnections.delete('connection_id');
     const rawResponse = await responsePromise.asResponse();

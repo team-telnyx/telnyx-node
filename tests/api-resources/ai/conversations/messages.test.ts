@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource messages', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.ai.conversations.messages.list('conversation_id');
     const rawResponse = await responsePromise.asResponse();

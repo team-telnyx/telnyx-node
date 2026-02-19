@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource uploads', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.externalConnections.uploads.create('id', {
       number_ids: [
@@ -27,7 +27,7 @@ describe('resource uploads', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.externalConnections.uploads.create('id', {
       number_ids: [
@@ -43,7 +43,7 @@ describe('resource uploads', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.externalConnections.uploads.retrieve(
       '7b6a6449-b055-45a6-81f6-f6f0dffa4cc6',
@@ -58,7 +58,7 @@ describe('resource uploads', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.externalConnections.uploads.retrieve(
       '7b6a6449-b055-45a6-81f6-f6f0dffa4cc6',
@@ -66,7 +66,7 @@ describe('resource uploads', () => {
     );
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.externalConnections.uploads.list('id');
     const rawResponse = await responsePromise.asResponse();
@@ -78,7 +78,7 @@ describe('resource uploads', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -99,7 +99,7 @@ describe('resource uploads', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('pendingCount', async () => {
     const responsePromise = client.externalConnections.uploads.pendingCount('id');
     const rawResponse = await responsePromise.asResponse();
@@ -111,7 +111,7 @@ describe('resource uploads', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('refreshStatus', async () => {
     const responsePromise = client.externalConnections.uploads.refreshStatus('id');
     const rawResponse = await responsePromise.asResponse();
@@ -123,7 +123,7 @@ describe('resource uploads', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retry: only required params', async () => {
     const responsePromise = client.externalConnections.uploads.retry('7b6a6449-b055-45a6-81f6-f6f0dffa4cc6', {
       id: 'id',
@@ -137,7 +137,7 @@ describe('resource uploads', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retry: required and optional params', async () => {
     const response = await client.externalConnections.uploads.retry('7b6a6449-b055-45a6-81f6-f6f0dffa4cc6', {
       id: 'id',

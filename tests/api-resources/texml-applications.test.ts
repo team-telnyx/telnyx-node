@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource texmlApplications', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.texmlApplications.create({
       friendly_name: 'call-router',
@@ -23,7 +23,7 @@ describe('resource texmlApplications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.texmlApplications.create({
       friendly_name: 'call-router',
@@ -49,7 +49,7 @@ describe('resource texmlApplications', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.texmlApplications.retrieve('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
@@ -61,7 +61,7 @@ describe('resource texmlApplications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.texmlApplications.update('1293384261075731499', {
       friendly_name: 'call-router',
@@ -76,7 +76,7 @@ describe('resource texmlApplications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.texmlApplications.update('1293384261075731499', {
       friendly_name: 'call-router',
@@ -102,7 +102,7 @@ describe('resource texmlApplications', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.texmlApplications.list();
     const rawResponse = await responsePromise.asResponse();
@@ -114,7 +114,7 @@ describe('resource texmlApplications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -130,7 +130,7 @@ describe('resource texmlApplications', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.texmlApplications.delete('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();

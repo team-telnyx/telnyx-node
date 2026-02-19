@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource phoneNumberExtensions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.portingOrders.phoneNumberExtensions.create(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -27,7 +27,7 @@ describe('resource phoneNumberExtensions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.portingOrders.phoneNumberExtensions.create(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -39,7 +39,7 @@ describe('resource phoneNumberExtensions', () => {
     );
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.portingOrders.phoneNumberExtensions.list(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -53,7 +53,7 @@ describe('resource phoneNumberExtensions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -70,7 +70,7 @@ describe('resource phoneNumberExtensions', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.portingOrders.phoneNumberExtensions.delete(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -85,7 +85,7 @@ describe('resource phoneNumberExtensions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.portingOrders.phoneNumberExtensions.delete(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

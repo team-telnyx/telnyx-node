@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource messaging10dlc', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getEnum', async () => {
     const responsePromise = client.messaging10dlc.getEnum('mno');
     const rawResponse = await responsePromise.asResponse();

@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource buckets', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.ai.embeddings.buckets.retrieve('bucket_name');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource buckets', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.ai.embeddings.buckets.list();
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource buckets', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.ai.embeddings.buckets.delete('bucket_name');
     const rawResponse = await responsePromise.asResponse();

@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource documents', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.documents.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource documents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.documents.update('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {});
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource documents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.documents.list();
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +44,7 @@ describe('resource documents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -64,7 +64,7 @@ describe('resource documents', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.documents.delete('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
@@ -76,7 +76,7 @@ describe('resource documents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('generateDownloadLink', async () => {
     const responsePromise = client.documents.generateDownloadLink('550e8400-e29b-41d4-a716-446655440000');
     const rawResponse = await responsePromise.asResponse();
@@ -88,7 +88,7 @@ describe('resource documents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('upload: only required params', async () => {
     const responsePromise = client.documents.upload({ document: {} });
     const rawResponse = await responsePromise.asResponse();
@@ -100,7 +100,7 @@ describe('resource documents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('upload: required and optional params', async () => {
     const response = await client.documents.upload({
       document: {
@@ -112,7 +112,7 @@ describe('resource documents', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('uploadJson: only required params', async () => {
     const responsePromise = client.documents.uploadJson({ document: {} });
     const rawResponse = await responsePromise.asResponse();
@@ -124,7 +124,7 @@ describe('resource documents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('uploadJson: required and optional params', async () => {
     const response = await client.documents.uploadJson({
       document: {

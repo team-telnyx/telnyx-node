@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource rcs', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('generateDeeplink', async () => {
     const responsePromise = client.messages.rcs.generateDeeplink('agent_id');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource rcs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('generateDeeplink: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -32,7 +32,7 @@ describe('resource rcs', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('send: only required params', async () => {
     const responsePromise = client.messages.rcs.send({
       agent_id: 'Agent007',
@@ -49,7 +49,7 @@ describe('resource rcs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('send: required and optional params', async () => {
     const response = await client.messages.rcs.send({
       agent_id: 'Agent007',

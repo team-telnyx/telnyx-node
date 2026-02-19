@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource testSuites', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.ai.assistants.tests.testSuites.list();
     const rawResponse = await responsePromise.asResponse();

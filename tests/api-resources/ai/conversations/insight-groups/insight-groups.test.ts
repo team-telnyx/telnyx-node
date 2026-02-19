@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource insightGroups', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.ai.conversations.insightGroups.retrieve(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -22,7 +22,7 @@ describe('resource insightGroups', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.ai.conversations.insightGroups.update(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -37,7 +37,7 @@ describe('resource insightGroups', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.ai.conversations.insightGroups.delete(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -51,7 +51,7 @@ describe('resource insightGroups', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('insightGroups: only required params', async () => {
     const responsePromise = client.ai.conversations.insightGroups.insightGroups({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
@@ -63,7 +63,7 @@ describe('resource insightGroups', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('insightGroups: required and optional params', async () => {
     const response = await client.ai.conversations.insightGroups.insightGroups({
       name: 'name',
@@ -72,7 +72,7 @@ describe('resource insightGroups', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveInsightGroups', async () => {
     const responsePromise = client.ai.conversations.insightGroups.retrieveInsightGroups();
     const rawResponse = await responsePromise.asResponse();
@@ -84,7 +84,7 @@ describe('resource insightGroups', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveInsightGroups: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
