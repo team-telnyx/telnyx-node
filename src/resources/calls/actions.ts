@@ -2396,6 +2396,12 @@ export interface ActionGatherUsingAIParams {
   command_id?: string;
 
   /**
+   * Text that will be played when the gathering has finished. There is a 3,000
+   * character limit.
+   */
+  gather_ended_speech?: string;
+
+  /**
    * Text that will be played when the gathering starts, if none then nothing will be
    * played when the gathering starts. The greeting can be text for any voice or SSML
    * for `AWS.Polly.<voice_id>` voices. There is a 3,000 character limit.
@@ -2443,8 +2449,7 @@ export interface ActionGatherUsingAIParams {
   transcription?: TranscriptionConfig;
 
   /**
-   * The number of milliseconds to wait for a user response before the voice
-   * assistant times out and check if the user is still there.
+   * The maximum time in milliseconds to wait for user response before timing out.
    */
   user_response_timeout_ms?: number;
 
@@ -3000,6 +3005,12 @@ export interface ActionSpeakParams {
     | 'tr-TR';
 
   /**
+   * The number of times to play the audio file. Use `infinity` to loop indefinitely.
+   * Defaults to 1.
+   */
+  loop?: Loopcount;
+
+  /**
    * The type of the provided payload. The payload can either be plain text, or
    * Speech Synthesis Markup Language (SSML).
    */
@@ -3018,6 +3029,11 @@ export interface ActionSpeakParams {
    * audio files from the queue.
    */
   stop?: string;
+
+  /**
+   * Specifies which legs of the call should receive the spoken audio.
+   */
+  target_legs?: 'self' | 'opposite' | 'both';
 
   /**
    * The settings associated with the voice selected
@@ -3680,12 +3696,23 @@ export interface ActionStartStreamingParams {
    */
   command_id?: string;
 
+  /**
+   * Custom parameters to be sent as part of the WebSocket connection.
+   */
+  custom_parameters?: Array<ActionStartStreamingParams.CustomParameter>;
+
   dialogflow_config?: CallsAPI.DialogflowConfig;
 
   /**
    * Enables Dialogflow for the current call. The default value is false.
    */
   enable_dialogflow?: boolean;
+
+  /**
+   * An authentication token to be sent as part of the WebSocket connection. Maximum
+   * length is 4000 characters.
+   */
+  stream_auth_token?: string;
 
   /**
    * Indicates codec for bidirectional streaming RTP payloads. Used only with
@@ -3723,6 +3750,20 @@ export interface ActionStartStreamingParams {
    * The destination WebSocket address where the stream is going to be delivered.
    */
   stream_url?: string;
+}
+
+export namespace ActionStartStreamingParams {
+  export interface CustomParameter {
+    /**
+     * The name of the custom parameter.
+     */
+    name?: string;
+
+    /**
+     * The value of the custom parameter.
+     */
+    value?: string;
+  }
 }
 
 export interface ActionStartTranscriptionParams {
@@ -4024,6 +4065,13 @@ export interface ActionTransferParams {
   park_after_unbridge?: string;
 
   /**
+   * The list of comma-separated codecs in order of preference to be used during the
+   * call. The codecs supported are `G722`, `PCMU`, `PCMA`, `G729`, `OPUS`, `VP8`,
+   * `H264`, `AMR-WB`.
+   */
+  preferred_codecs?: string;
+
+  /**
    * Start recording automatically after an event. Disabled by default.
    */
   record?: 'record-from-answer';
@@ -4131,6 +4179,13 @@ export interface ActionTransferParams {
   timeout_secs?: number;
 
   /**
+   * A map of event types to retry policies. Each retry policy contains an array of
+   * `retries_ms` specifying the delays between retry attempts in milliseconds.
+   * Maximum 5 retries, total delay cannot exceed 60 seconds.
+   */
+  webhook_retries_policies?: { [key: string]: ActionTransferParams.WebhookRetriesPolicies };
+
+  /**
    * Use this field to override the URL for which Telnyx will send subsequent
    * webhooks to for this call.
    */
@@ -4140,6 +4195,18 @@ export interface ActionTransferParams {
    * HTTP request type used for `webhook_url`.
    */
   webhook_url_method?: 'POST' | 'GET';
+
+  /**
+   * A map of event types to webhook URLs. When an event of the specified type
+   * occurs, the webhook URL associated with that event type will be called instead
+   * of `webhook_url`. Events not mapped here will use the default `webhook_url`.
+   */
+  webhook_urls?: { [key: string]: string };
+
+  /**
+   * HTTP request method to invoke `webhook_urls`.
+   */
+  webhook_urls_method?: 'POST' | 'GET';
 }
 
 export namespace ActionTransferParams {
@@ -4201,6 +4268,14 @@ export namespace ActionTransferParams {
      * Maximum timeout threshold for overall detection.
      */
     total_analysis_time_millis?: number;
+  }
+
+  export interface WebhookRetriesPolicies {
+    /**
+     * Array of delays in milliseconds between retry attempts. Total sum cannot exceed
+     * 60000ms.
+     */
+    retries_ms?: Array<number>;
   }
 }
 

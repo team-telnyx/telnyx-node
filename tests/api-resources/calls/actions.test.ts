@@ -150,6 +150,7 @@ describe('resource actions', () => {
       },
       client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
       command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
+      gather_ended_speech: 'Thank you for providing the information.',
       greeting: 'Hello, can you tell me your age and where you live?',
       interruption_settings: { enable: true },
       language: 'en',
@@ -384,9 +385,11 @@ describe('resource actions', () => {
       client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
       command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
       language: 'arb',
+      loop: 'string',
       payload_type: 'text',
       service_level: 'basic',
       stop: 'current',
+      target_legs: 'both',
       voice_settings: { type: 'elevenlabs', api_key_ref: 'my_elevenlabs_api_key' },
     });
   });
@@ -683,6 +686,7 @@ describe('resource actions', () => {
       media_name: 'my_media_uploaded_to_media_storage_api',
       mute_dtmf: 'opposite',
       park_after_unbridge: 'self',
+      preferred_codecs: 'G722,PCMU,PCMA,G729,OPUS,VP8,H264',
       record: 'record-from-answer',
       record_channels: 'single',
       record_custom_file_name: 'my_recording_file_name',
@@ -705,8 +709,14 @@ describe('resource actions', () => {
       target_leg_client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
       time_limit_secs: 60,
       timeout_secs: 60,
+      webhook_retries_policies: { 'call.answered': { retries_ms: [1000, 2000, 5000] } },
       webhook_url: 'https://www.example.com/server-b/',
       webhook_url_method: 'POST',
+      webhook_urls: {
+        'call.answered': 'https://www.example.com/webhooks/answered',
+        'call.hangup': 'https://www.example.com/webhooks/hangup',
+      },
+      webhook_urls_method: 'POST',
     });
   });
 
