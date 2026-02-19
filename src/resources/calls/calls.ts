@@ -593,6 +593,12 @@ export interface CallDialParams {
   sound_modifications?: SoundModifications;
 
   /**
+   * An authentication token to be sent as part of the WebSocket connection when
+   * using streaming. Maximum length is 4000 characters.
+   */
+  stream_auth_token?: string;
+
+  /**
    * Indicates codec for bidirectional streaming RTP payloads. Used only with
    * stream_bidirectional_mode=rtp. Case sensitive.
    */

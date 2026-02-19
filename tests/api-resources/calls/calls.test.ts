@@ -100,6 +100,7 @@ describe('resource calls', () => {
         semitone: -2,
         track: 'both',
       },
+      stream_auth_token: 'your-auth-token',
       stream_bidirectional_codec: 'G722',
       stream_bidirectional_mode: 'rtp',
       stream_bidirectional_sampling_rate: 16000,
