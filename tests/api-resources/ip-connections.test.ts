@@ -65,7 +65,7 @@ describe('resource ipConnections', () => {
           filter: {
             connection_name: { contains: 'contains' },
             fqdn: 'fqdn',
-            outbound_voice_profile_id: 'outbound_voice_profile_id',
+            outbound_voice_profile_id: '1293384261075731499',
           },
           'page[number]': 0,
           'page[size]': 0,
