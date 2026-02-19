@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource plan', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.ai.missions.runs.plan.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -29,7 +29,7 @@ describe('resource plan', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.ai.missions.runs.plan.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -45,7 +45,7 @@ describe('resource plan', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.ai.missions.runs.plan.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -59,14 +59,14 @@ describe('resource plan', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.ai.missions.runs.plan.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('addStepsToPlan: only required params', async () => {
     const responsePromise = client.ai.missions.runs.plan.addStepsToPlan(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -90,7 +90,7 @@ describe('resource plan', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('addStepsToPlan: required and optional params', async () => {
     const response = await client.ai.missions.runs.plan.addStepsToPlan(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -109,7 +109,7 @@ describe('resource plan', () => {
     );
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getStepDetails: only required params', async () => {
     const responsePromise = client.ai.missions.runs.plan.getStepDetails('step_id', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -124,7 +124,7 @@ describe('resource plan', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getStepDetails: required and optional params', async () => {
     const response = await client.ai.missions.runs.plan.getStepDetails('step_id', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -132,7 +132,7 @@ describe('resource plan', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateStep: only required params', async () => {
     const responsePromise = client.ai.missions.runs.plan.updateStep('step_id', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -147,7 +147,7 @@ describe('resource plan', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateStep: required and optional params', async () => {
     const response = await client.ai.missions.runs.plan.updateStep('step_id', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

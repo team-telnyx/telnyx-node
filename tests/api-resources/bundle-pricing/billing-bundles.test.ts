@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource billingBundles', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.bundlePricing.billingBundles.retrieve(
       '8661948c-a386-4385-837f-af00f40f111a',
@@ -22,7 +22,7 @@ describe('resource billingBundles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -34,7 +34,7 @@ describe('resource billingBundles', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.bundlePricing.billingBundles.list();
     const rawResponse = await responsePromise.asResponse();
@@ -46,7 +46,7 @@ describe('resource billingBundles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(

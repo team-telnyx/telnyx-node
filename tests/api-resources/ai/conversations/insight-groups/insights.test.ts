@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource insights', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('assign: only required params', async () => {
     const responsePromise = client.ai.conversations.insightGroups.insights.assign(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -23,7 +23,7 @@ describe('resource insights', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('assign: required and optional params', async () => {
     const response = await client.ai.conversations.insightGroups.insights.assign(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -31,7 +31,7 @@ describe('resource insights', () => {
     );
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deleteUnassign: only required params', async () => {
     const responsePromise = client.ai.conversations.insightGroups.insights.deleteUnassign(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -46,7 +46,7 @@ describe('resource insights', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deleteUnassign: required and optional params', async () => {
     const response = await client.ai.conversations.insightGroups.insights.deleteUnassign(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

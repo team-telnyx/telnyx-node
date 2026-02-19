@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource autoRechargePrefs', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.payment.autoRechargePrefs.update({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource autoRechargePrefs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.payment.autoRechargePrefs.list();
     const rawResponse = await responsePromise.asResponse();

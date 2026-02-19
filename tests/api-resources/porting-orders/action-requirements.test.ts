@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actionRequirements', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.portingOrders.actionRequirements.list('porting_order_id');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource actionRequirements', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -42,7 +42,7 @@ describe('resource actionRequirements', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('initiate: only required params', async () => {
     const responsePromise = client.portingOrders.actionRequirements.initiate('id', {
       porting_order_id: 'porting_order_id',
@@ -57,7 +57,7 @@ describe('resource actionRequirements', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('initiate: required and optional params', async () => {
     const response = await client.portingOrders.actionRequirements.initiate('id', {
       porting_order_id: 'porting_order_id',

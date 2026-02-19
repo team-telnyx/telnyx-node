@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource porting', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listUkCarriers', async () => {
     const responsePromise = client.porting.listUkCarriers();
     const rawResponse = await responsePromise.asResponse();

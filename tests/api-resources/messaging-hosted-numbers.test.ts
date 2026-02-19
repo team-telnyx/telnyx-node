@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource messagingHostedNumbers', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.messagingHostedNumbers.delete('id');
     const rawResponse = await responsePromise.asResponse();

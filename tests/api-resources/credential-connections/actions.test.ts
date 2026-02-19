@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('checkRegistrationStatus', async () => {
     const responsePromise = client.credentialConnections.actions.checkRegistrationStatus('id');
     const rawResponse = await responsePromise.asResponse();

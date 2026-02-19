@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource queues', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.queues.retrieve('queue_name');
     const rawResponse = await responsePromise.asResponse();

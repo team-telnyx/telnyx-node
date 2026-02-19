@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource assistants', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.ai.assistants.create({
       instructions: 'instructions',
@@ -24,7 +24,7 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.ai.assistants.create({
       instructions: 'instructions',
@@ -131,7 +131,7 @@ describe('resource assistants', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.ai.assistants.retrieve('assistant_id');
     const rawResponse = await responsePromise.asResponse();
@@ -143,7 +143,7 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -160,7 +160,7 @@ describe('resource assistants', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.ai.assistants.update('assistant_id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -172,7 +172,7 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.ai.assistants.list();
     const rawResponse = await responsePromise.asResponse();
@@ -184,7 +184,7 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.ai.assistants.delete('assistant_id');
     const rawResponse = await responsePromise.asResponse();
@@ -196,7 +196,7 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('chat: only required params', async () => {
     const responsePromise = client.ai.assistants.chat('assistant_id', {
       content: 'Tell me a joke about cats',
@@ -211,7 +211,7 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('chat: required and optional params', async () => {
     const response = await client.ai.assistants.chat('assistant_id', {
       content: 'Tell me a joke about cats',
@@ -220,7 +220,7 @@ describe('resource assistants', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('clone', async () => {
     const responsePromise = client.ai.assistants.clone('assistant_id');
     const rawResponse = await responsePromise.asResponse();
@@ -232,7 +232,7 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getTexml', async () => {
     const responsePromise = client.ai.assistants.getTexml('assistant_id');
     const rawResponse = await responsePromise.asResponse();
@@ -244,7 +244,7 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('imports: only required params', async () => {
     const responsePromise = client.ai.assistants.imports({
       api_key_ref: 'api_key_ref',
@@ -259,7 +259,7 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('imports: required and optional params', async () => {
     const response = await client.ai.assistants.imports({
       api_key_ref: 'api_key_ref',
@@ -268,7 +268,7 @@ describe('resource assistants', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('sendSMS: only required params', async () => {
     const responsePromise = client.ai.assistants.sendSMS('assistant_id', { from: 'from', to: 'to' });
     const rawResponse = await responsePromise.asResponse();
@@ -280,7 +280,7 @@ describe('resource assistants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('sendSMS: required and optional params', async () => {
     const response = await client.ai.assistants.sendSMS('assistant_id', {
       from: 'from',

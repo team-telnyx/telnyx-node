@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource messagingNumbersBulkUpdates', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.messagingNumbersBulkUpdates.create({
       messaging_profile_id: '00000000-0000-0000-0000-000000000000',
@@ -23,7 +23,7 @@ describe('resource messagingNumbersBulkUpdates', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.messagingNumbersBulkUpdates.create({
       messaging_profile_id: '00000000-0000-0000-0000-000000000000',
@@ -31,7 +31,7 @@ describe('resource messagingNumbersBulkUpdates', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.messagingNumbersBulkUpdates.retrieve('order_id');
     const rawResponse = await responsePromise.asResponse();
