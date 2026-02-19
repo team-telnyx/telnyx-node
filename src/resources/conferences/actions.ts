@@ -32,17 +32,16 @@ export class Actions extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.conferences.actions.endConference(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
+   * const response = await client.conferences.actions.end(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
    * ```
    */
-  endConference(
+  end(
     id: string,
-    body: ActionEndConferenceParams | null | undefined = {},
+    body: ActionEndParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ActionEndConferenceResponse> {
+  ): APIPromise<ActionEndResponse> {
     return this._client.post(path`/conferences/${id}/actions/end`, { body, ...options });
   }
 
@@ -52,7 +51,7 @@ export class Actions extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.conferences.actions.gatherDtmfAudio(
+   *   await client.conferences.actions.gatherUsingAudio(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *     {
    *       call_control_id:
@@ -61,11 +60,11 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  gatherDtmfAudio(
+  gatherUsingAudio(
     id: string,
-    body: ActionGatherDtmfAudioParams,
+    body: ActionGatherUsingAudioParams,
     options?: RequestOptions,
-  ): APIPromise<ActionGatherDtmfAudioResponse> {
+  ): APIPromise<ActionGatherUsingAudioResponse> {
     return this._client.post(path`/conferences/${id}/actions/gather_using_audio`, { body, ...options });
   }
 
@@ -364,11 +363,11 @@ export interface ActionUpdateResponse {
   data?: ConferenceCommandResult;
 }
 
-export interface ActionEndConferenceResponse {
+export interface ActionEndResponse {
   data?: ConferenceCommandResult;
 }
 
-export interface ActionGatherDtmfAudioResponse {
+export interface ActionGatherUsingAudioResponse {
   data?: ConferenceCommandResult;
 }
 
@@ -464,7 +463,7 @@ export interface ActionUpdateParams {
   whisper_call_control_ids?: Array<string>;
 }
 
-export interface ActionEndConferenceParams {
+export interface ActionEndParams {
   /**
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with
    * the same `command_id` for the same conference.
@@ -472,7 +471,7 @@ export interface ActionEndConferenceParams {
   command_id?: string;
 }
 
-export interface ActionGatherDtmfAudioParams {
+export interface ActionGatherUsingAudioParams {
   /**
    * Unique identifier and token for controlling the call leg that will receive the
    * gather prompt.
@@ -1043,8 +1042,8 @@ export declare namespace Actions {
     type ConferenceCommandResult as ConferenceCommandResult,
     type UpdateConference as UpdateConference,
     type ActionUpdateResponse as ActionUpdateResponse,
-    type ActionEndConferenceResponse as ActionEndConferenceResponse,
-    type ActionGatherDtmfAudioResponse as ActionGatherDtmfAudioResponse,
+    type ActionEndResponse as ActionEndResponse,
+    type ActionGatherUsingAudioResponse as ActionGatherUsingAudioResponse,
     type ActionHoldResponse as ActionHoldResponse,
     type ActionJoinResponse as ActionJoinResponse,
     type ActionLeaveResponse as ActionLeaveResponse,
@@ -1060,8 +1059,8 @@ export declare namespace Actions {
     type ActionUnholdResponse as ActionUnholdResponse,
     type ActionUnmuteResponse as ActionUnmuteResponse,
     type ActionUpdateParams as ActionUpdateParams,
-    type ActionEndConferenceParams as ActionEndConferenceParams,
-    type ActionGatherDtmfAudioParams as ActionGatherDtmfAudioParams,
+    type ActionEndParams as ActionEndParams,
+    type ActionGatherUsingAudioParams as ActionGatherUsingAudioParams,
     type ActionHoldParams as ActionHoldParams,
     type ActionJoinParams as ActionJoinParams,
     type ActionLeaveParams as ActionLeaveParams,

@@ -38,8 +38,8 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('endConference', async () => {
-    const responsePromise = client.conferences.actions.endConference('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+  test.skip('end', async () => {
+    const responsePromise = client.conferences.actions.end('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -50,10 +50,10 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('endConference: request options and params are passed correctly', async () => {
+  test.skip('end: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.conferences.actions.endConference(
+      client.conferences.actions.end(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { command_id: '891510ac-f3e4-11e8-af5b-de00688a4901' },
         { path: '/_stainless_unknown_path' },
@@ -62,8 +62,8 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('gatherDtmfAudio: only required params', async () => {
-    const responsePromise = client.conferences.actions.gatherDtmfAudio(
+  test.skip('gatherUsingAudio: only required params', async () => {
+    const responsePromise = client.conferences.actions.gatherUsingAudio(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg' },
     );
@@ -77,8 +77,8 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('gatherDtmfAudio: required and optional params', async () => {
-    const response = await client.conferences.actions.gatherDtmfAudio(
+  test.skip('gatherUsingAudio: required and optional params', async () => {
+    const response = await client.conferences.actions.gatherUsingAudio(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       {
         call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
