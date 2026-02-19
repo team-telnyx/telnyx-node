@@ -4145,7 +4145,6 @@ export declare namespace Telnyx {
   export type MessagingHostedNumberOrder = API.MessagingHostedNumberOrder;
   export type MessagingPaginationMeta = API.MessagingPaginationMeta;
   export type Metadata = API.Metadata;
-  export type MinimaxVoiceSettings = API.MinimaxVoiceSettings;
   export type NumberHealthMetrics = API.NumberHealthMetrics;
   export type PhoneNumberWithMessagingSettings = API.PhoneNumberWithMessagingSettings;
   export type PortingOrderStatus = API.PortingOrderStatus;

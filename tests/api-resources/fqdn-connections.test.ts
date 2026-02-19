@@ -138,7 +138,7 @@ describe('resource fqdnConnections', () => {
           filter: {
             connection_name: { contains: 'contains' },
             fqdn: 'fqdn',
-            outbound_voice_profile_id: '1293384261075731499',
+            outbound_voice_profile_id: 'outbound_voice_profile_id',
           },
           'page[number]': 0,
           'page[size]': 0,

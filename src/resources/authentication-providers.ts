@@ -122,6 +122,12 @@ export interface AuthenticationProvider {
   id?: string;
 
   /**
+   * ISO 8601 formatted date indicating when the authentication provider was
+   * activated.
+   */
+  activated_at?: string;
+
+  /**
    * The active status of the authentication provider
    */
   active?: boolean;
@@ -174,6 +180,11 @@ export namespace AuthenticationProvider {
     assertion_consumer_service_url?: string;
 
     /**
+     * Mapping of SAML attribute names used by the identity provider (IdP).
+     */
+    idp_attribute_names?: unknown;
+
+    /**
      * The certificate fingerprint for the identity provider (IdP)
      */
     idp_cert_fingerprint?: string;
@@ -185,9 +196,19 @@ export namespace AuthenticationProvider {
     idp_cert_fingerprint_algorithm?: 'sha1' | 'sha256' | 'sha384' | 'sha512';
 
     /**
+     * The full X.509 certificate for the identity provider (IdP).
+     */
+    idp_certificate?: string;
+
+    /**
      * The Entity ID for the identity provider (IdP).
      */
     idp_entity_id?: string;
+
+    /**
+     * The Single Logout (SLO) target URL for the identity provider (IdP).
+     */
+    idp_slo_target_url?: string;
 
     /**
      * The SSO target url for the identity provider (IdP).
@@ -202,9 +223,20 @@ export namespace AuthenticationProvider {
     name_identifier_format?: string;
 
     /**
+     * Whether group provisioning is enabled for this authentication provider.
+     */
+    provision_groups?: boolean;
+
+    /**
      * The Entity ID for the service provider (Telnyx).
      */
     service_provider_entity_id?: string;
+
+    /**
+     * The login URL for the service provider (Telnyx). Users navigate to this URL to
+     * initiate SSO login.
+     */
+    service_provider_login_url?: string;
   }
 }
 

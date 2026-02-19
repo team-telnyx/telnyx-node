@@ -94,7 +94,7 @@ describe('resource conferences', () => {
               lt: '2019-03-29T11:10:00Z',
               lte: '2019-03-29T11:10:00Z',
             },
-            'outbound.outbound_voice_profile_id': '1293384261075731499',
+            'outbound.outbound_voice_profile_id': 'outbound.outbound_voice_profile_id',
             product: 'texml',
             status: 'init',
             to: '+12025550142',

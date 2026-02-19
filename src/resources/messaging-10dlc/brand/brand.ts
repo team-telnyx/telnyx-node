@@ -138,36 +138,6 @@ export class Brand extends APIResource {
   }
 
   /**
-   * Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand
-   * verification.
-   *
-   * This endpoint allows you to check the delivery and verification status of an OTP
-   * sent during the Sole Proprietor brand verification process. You can query by
-   * either:
-   *
-   * - `referenceId` - The reference ID returned when the OTP was initially triggered
-   * - `brandId` - Query parameter for portal users to look up OTP status by Brand ID
-   *
-   * The response includes delivery status, verification dates, and detailed delivery
-   * information.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.messaging10dlc.brand.getSMSOtpByReference(
-   *     'OTP4B2001',
-   *   );
-   * ```
-   */
-  getSMSOtpByReference(
-    referenceID: string,
-    query: BrandGetSMSOtpByReferenceParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<BrandGetSMSOtpByReferenceResponse> {
-    return this._client.get(path`/10dlc/brand/smsOtp/${referenceID}`, { query, ...options });
-  }
-
-  /**
    * Resend brand 2FA email
    *
    * @example
@@ -693,52 +663,6 @@ export namespace BrandGetFeedbackResponse {
 /**
  * Status information for an SMS OTP sent during Sole Proprietor brand verification
  */
-export interface BrandGetSMSOtpByReferenceResponse {
-  /**
-   * The Brand ID associated with this OTP request
-   */
-  brandId: string;
-
-  /**
-   * The current delivery status of the OTP SMS message. Common values include:
-   * `DELIVERED_HANDSET`, `PENDING`, `FAILED`, `EXPIRED`
-   */
-  deliveryStatus: string;
-
-  /**
-   * The mobile phone number where the OTP was sent, in E.164 format
-   */
-  mobilePhone: string;
-
-  /**
-   * The reference ID for this OTP request, used for status queries
-   */
-  referenceId: string;
-
-  /**
-   * The timestamp when the OTP request was initiated
-   */
-  requestDate: string;
-
-  /**
-   * The timestamp when the delivery status was last updated
-   */
-  deliveryStatusDate?: string;
-
-  /**
-   * Additional details about the delivery status
-   */
-  deliveryStatusDetails?: string;
-
-  /**
-   * The timestamp when the OTP was successfully verified (if applicable)
-   */
-  verifyDate?: string;
-}
-
-/**
- * Status information for an SMS OTP sent during Sole Proprietor brand verification
- */
 export interface BrandRetrieveSMSOtpStatusResponse {
   /**
    * The Brand ID associated with this OTP request
@@ -1088,13 +1012,6 @@ export interface BrandListParams extends PerPagePaginationV2Params {
   tcrBrandId?: string;
 }
 
-export interface BrandGetSMSOtpByReferenceParams {
-  /**
-   * Filter by Brand ID for easier lookup in portal applications
-   */
-  brandId?: string;
-}
-
 export interface BrandTriggerSMSOtpParams {
   /**
    * SMS message template to send the OTP. Must include `@OTP_PIN@` placeholder which
@@ -1128,14 +1045,12 @@ export declare namespace Brand {
     type BrandRetrieveResponse as BrandRetrieveResponse,
     type BrandListResponse as BrandListResponse,
     type BrandGetFeedbackResponse as BrandGetFeedbackResponse,
-    type BrandGetSMSOtpByReferenceResponse as BrandGetSMSOtpByReferenceResponse,
     type BrandRetrieveSMSOtpStatusResponse as BrandRetrieveSMSOtpStatusResponse,
     type BrandTriggerSMSOtpResponse as BrandTriggerSMSOtpResponse,
     type BrandListResponsesPerPagePaginationV2 as BrandListResponsesPerPagePaginationV2,
     type BrandCreateParams as BrandCreateParams,
     type BrandUpdateParams as BrandUpdateParams,
     type BrandListParams as BrandListParams,
-    type BrandGetSMSOtpByReferenceParams as BrandGetSMSOtpByReferenceParams,
     type BrandTriggerSMSOtpParams as BrandTriggerSMSOtpParams,
     type BrandVerifySMSOtpParams as BrandVerifySMSOtpParams,
   };
