@@ -9,7 +9,7 @@ export interface APIError {
 
   title: string;
 
-  detail?: string;
+  description?: string;
 
   meta?: { [key: string]: unknown };
 

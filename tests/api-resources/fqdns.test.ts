@@ -36,7 +36,7 @@ describe('resource fqdns', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.fqdns.retrieve('id');
+    const responsePromise = client.fqdns.retrieve('1517907029795014409');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -48,7 +48,7 @@ describe('resource fqdns', () => {
 
   // Mock server tests are disabled
   test.skip('update', async () => {
-    const responsePromise = client.fqdns.update('id');
+    const responsePromise = client.fqdns.update('1517907029795014409');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -63,7 +63,7 @@ describe('resource fqdns', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.fqdns.update(
-        'id',
+        '1517907029795014409',
         {
           connection_id: '1516447646313612565',
           dns_record_type: 'a',
@@ -109,7 +109,7 @@ describe('resource fqdns', () => {
 
   // Mock server tests are disabled
   test.skip('delete', async () => {
-    const responsePromise = client.fqdns.delete('id');
+    const responsePromise = client.fqdns.delete('1517907029795014409');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

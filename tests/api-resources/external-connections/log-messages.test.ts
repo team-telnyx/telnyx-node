@@ -10,7 +10,7 @@ const client = new Telnyx({
 describe('resource logMessages', () => {
   // Mock server tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.externalConnections.logMessages.retrieve('id');
+    const responsePromise = client.externalConnections.logMessages.retrieve('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -52,7 +52,7 @@ describe('resource logMessages', () => {
 
   // Mock server tests are disabled
   test.skip('dismiss', async () => {
-    const responsePromise = client.externalConnections.logMessages.dismiss('id');
+    const responsePromise = client.externalConnections.logMessages.dismiss('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
