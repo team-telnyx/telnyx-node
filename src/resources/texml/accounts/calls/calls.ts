@@ -88,8 +88,16 @@ export class Calls extends APIResource {
    * );
    * ```
    */
-  calls(accountSid: string, body: CallCallsParams, options?: RequestOptions): APIPromise<CallCallsResponse> {
-    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, { body, ...options });
+  calls(
+    accountSid: string,
+    params: CallCallsParams,
+    options?: RequestOptions,
+  ): APIPromise<CallCallsResponse> {
+    const { timeout_seconds, ...body } = params;
+    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, {
+      body: { Timeout: timeout_seconds, ...body },
+      ...options,
+    });
   }
 
   /**
@@ -888,7 +896,7 @@ export interface CallCallsParams {
    * call is canceled. The minimum value is 5 and the maximum value is 120. Default
    * is 30 seconds.
    */
-  Timeout?: number;
+  timeout_seconds?: number;
 
   /**
    * Whether to trim any leading and trailing silence from the recording. Defaults to
