@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as Shared from '../shared';
 import * as CallsAPI from './calls';
 import * as AssistantsAPI from '../ai/assistants/assistants';
 import { APIPromise } from '../../core/api-promise';
@@ -924,6 +925,126 @@ export interface CallControlCommandResult {
   result?: string;
 }
 
+export interface DeepgramNova2Config {
+  transcription_engine: 'Deepgram';
+
+  transcription_model: 'deepgram/nova-2';
+
+  /**
+   * Whether to send also interim results. If set to false, only final results will
+   * be sent.
+   */
+  interim_results?: boolean;
+
+  /**
+   * Keywords and their respective intensifiers (boosting values) to improve
+   * transcription accuracy for specific words or phrases. The intensifier should be
+   * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+   */
+  keywords_boosting?: { [key: string]: number };
+
+  /**
+   * Language to use for speech recognition with nova-2 model
+   */
+  language?:
+    | 'bg'
+    | 'ca'
+    | 'zh-CN'
+    | 'zh-Hans'
+    | 'zh-TW'
+    | 'zh-Hant'
+    | 'zh-HK'
+    | 'cs'
+    | 'da-DK'
+    | 'nl-BE'
+    | 'en-US'
+    | 'en-AU'
+    | 'en-GB'
+    | 'en-NZ'
+    | 'en-IN'
+    | 'et'
+    | 'fi'
+    | 'fr'
+    | 'fr-CA'
+    | 'de-CH'
+    | 'el'
+    | 'hi'
+    | 'hu'
+    | 'id'
+    | 'it'
+    | 'ja'
+    | 'ko-KR'
+    | 'lv'
+    | 'lt'
+    | 'ms'
+    | 'no'
+    | 'pl'
+    | 'pt-BR'
+    | 'pt-PT'
+    | 'ro'
+    | 'ru'
+    | 'sk'
+    | 'es-419'
+    | 'sv-SE'
+    | 'th-TH'
+    | 'tr'
+    | 'uk'
+    | 'vi'
+    | 'auto_detect';
+
+  /**
+   * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
+   * to 5000 ms.
+   */
+  utterance_end_ms?: number;
+}
+
+export interface DeepgramNova3Config {
+  transcription_engine: 'Deepgram';
+
+  transcription_model: 'deepgram/nova-3';
+
+  /**
+   * Whether to send also interim results. If set to false, only final results will
+   * be sent.
+   */
+  interim_results?: boolean;
+
+  /**
+   * Keywords and their respective intensifiers (boosting values) to improve
+   * transcription accuracy for specific words or phrases. The intensifier should be
+   * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+   */
+  keywords_boosting?: { [key: string]: number };
+
+  /**
+   * Language to use for speech recognition with nova-3 model
+   */
+  language?:
+    | 'en-US'
+    | 'en-AU'
+    | 'en-GB'
+    | 'en-IN'
+    | 'en-NZ'
+    | 'de'
+    | 'nl'
+    | 'sv-SE'
+    | 'da-DK'
+    | 'es'
+    | 'es-419'
+    | 'fr'
+    | 'fr-CA'
+    | 'pt-BR'
+    | 'pt-PT'
+    | 'auto_detect';
+
+  /**
+   * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
+   * to 5000 ms.
+   */
+  utterance_end_ms?: number;
+}
+
 export interface ElevenLabsVoiceSettings {
   /**
    * Voice settings provider type
@@ -1386,131 +1507,7 @@ export interface TranscriptionEngineBConfig {
   transcription_model?: 'openai/whisper-tiny' | 'openai/whisper-large-v3-turbo';
 }
 
-export type TranscriptionEngineDeepgramConfig =
-  | TranscriptionEngineDeepgramConfig.DeepgramNova2
-  | TranscriptionEngineDeepgramConfig.DeepgramNova3;
-
-export namespace TranscriptionEngineDeepgramConfig {
-  export interface DeepgramNova2 {
-    transcription_engine: 'Deepgram';
-
-    transcription_model: 'deepgram/nova-2';
-
-    /**
-     * Whether to send also interim results. If set to false, only final results will
-     * be sent.
-     */
-    interim_results?: boolean;
-
-    /**
-     * Keywords and their respective intensifiers (boosting values) to improve
-     * transcription accuracy for specific words or phrases. The intensifier should be
-     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
-     */
-    keywords_boosting?: { [key: string]: number };
-
-    /**
-     * Language to use for speech recognition with nova-2 model
-     */
-    language?:
-      | 'bg'
-      | 'ca'
-      | 'zh-CN'
-      | 'zh-Hans'
-      | 'zh-TW'
-      | 'zh-Hant'
-      | 'zh-HK'
-      | 'cs'
-      | 'da-DK'
-      | 'nl-BE'
-      | 'en-US'
-      | 'en-AU'
-      | 'en-GB'
-      | 'en-NZ'
-      | 'en-IN'
-      | 'et'
-      | 'fi'
-      | 'fr'
-      | 'fr-CA'
-      | 'de-CH'
-      | 'el'
-      | 'hi'
-      | 'hu'
-      | 'id'
-      | 'it'
-      | 'ja'
-      | 'ko-KR'
-      | 'lv'
-      | 'lt'
-      | 'ms'
-      | 'no'
-      | 'pl'
-      | 'pt-BR'
-      | 'pt-PT'
-      | 'ro'
-      | 'ru'
-      | 'sk'
-      | 'es-419'
-      | 'sv-SE'
-      | 'th-TH'
-      | 'tr'
-      | 'uk'
-      | 'vi'
-      | 'auto_detect';
-
-    /**
-     * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
-     * to 5000 ms.
-     */
-    utterance_end_ms?: number;
-  }
-
-  export interface DeepgramNova3 {
-    transcription_engine: 'Deepgram';
-
-    transcription_model: 'deepgram/nova-3';
-
-    /**
-     * Whether to send also interim results. If set to false, only final results will
-     * be sent.
-     */
-    interim_results?: boolean;
-
-    /**
-     * Keywords and their respective intensifiers (boosting values) to improve
-     * transcription accuracy for specific words or phrases. The intensifier should be
-     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
-     */
-    keywords_boosting?: { [key: string]: number };
-
-    /**
-     * Language to use for speech recognition with nova-3 model
-     */
-    language?:
-      | 'en-US'
-      | 'en-AU'
-      | 'en-GB'
-      | 'en-IN'
-      | 'en-NZ'
-      | 'de'
-      | 'nl'
-      | 'sv-SE'
-      | 'da-DK'
-      | 'es'
-      | 'es-419'
-      | 'fr'
-      | 'fr-CA'
-      | 'pt-BR'
-      | 'pt-PT'
-      | 'auto_detect';
-
-    /**
-     * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
-     * to 5000 ms.
-     */
-    utterance_end_ms?: number;
-  }
-}
+export type TranscriptionEngineDeepgramConfig = DeepgramNova2Config | DeepgramNova3Config;
 
 export interface TranscriptionEngineGoogleConfig {
   /**
@@ -1628,8 +1625,8 @@ export interface TranscriptionStartRequest {
   transcription_engine_config?:
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
-    | TranscriptionStartRequest.DeepgramNova2Config
-    | TranscriptionStartRequest.DeepgramNova3Config
+    | DeepgramNova2Config
+    | DeepgramNova3Config
     | TranscriptionEngineAzureConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig;
@@ -1640,128 +1637,6 @@ export interface TranscriptionStartRequest {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
-}
-
-export namespace TranscriptionStartRequest {
-  export interface DeepgramNova2Config {
-    transcription_engine: 'Deepgram';
-
-    transcription_model: 'deepgram/nova-2';
-
-    /**
-     * Whether to send also interim results. If set to false, only final results will
-     * be sent.
-     */
-    interim_results?: boolean;
-
-    /**
-     * Keywords and their respective intensifiers (boosting values) to improve
-     * transcription accuracy for specific words or phrases. The intensifier should be
-     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
-     */
-    keywords_boosting?: { [key: string]: number };
-
-    /**
-     * Language to use for speech recognition with nova-2 model
-     */
-    language?:
-      | 'bg'
-      | 'ca'
-      | 'zh-CN'
-      | 'zh-Hans'
-      | 'zh-TW'
-      | 'zh-Hant'
-      | 'zh-HK'
-      | 'cs'
-      | 'da-DK'
-      | 'nl-BE'
-      | 'en-US'
-      | 'en-AU'
-      | 'en-GB'
-      | 'en-NZ'
-      | 'en-IN'
-      | 'et'
-      | 'fi'
-      | 'fr'
-      | 'fr-CA'
-      | 'de-CH'
-      | 'el'
-      | 'hi'
-      | 'hu'
-      | 'id'
-      | 'it'
-      | 'ja'
-      | 'ko-KR'
-      | 'lv'
-      | 'lt'
-      | 'ms'
-      | 'no'
-      | 'pl'
-      | 'pt-BR'
-      | 'pt-PT'
-      | 'ro'
-      | 'ru'
-      | 'sk'
-      | 'es-419'
-      | 'sv-SE'
-      | 'th-TH'
-      | 'tr'
-      | 'uk'
-      | 'vi'
-      | 'auto_detect';
-
-    /**
-     * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
-     * to 5000 ms.
-     */
-    utterance_end_ms?: number;
-  }
-
-  export interface DeepgramNova3Config {
-    transcription_engine: 'Deepgram';
-
-    transcription_model: 'deepgram/nova-3';
-
-    /**
-     * Whether to send also interim results. If set to false, only final results will
-     * be sent.
-     */
-    interim_results?: boolean;
-
-    /**
-     * Keywords and their respective intensifiers (boosting values) to improve
-     * transcription accuracy for specific words or phrases. The intensifier should be
-     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
-     */
-    keywords_boosting?: { [key: string]: number };
-
-    /**
-     * Language to use for speech recognition with nova-3 model
-     */
-    language?:
-      | 'en-US'
-      | 'en-AU'
-      | 'en-GB'
-      | 'en-IN'
-      | 'en-NZ'
-      | 'de'
-      | 'nl'
-      | 'sv-SE'
-      | 'da-DK'
-      | 'es'
-      | 'es-419'
-      | 'fr'
-      | 'fr-CA'
-      | 'pt-BR'
-      | 'pt-PT'
-      | 'auto_detect';
-
-    /**
-     * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
-     * to 5000 ms.
-     */
-    utterance_end_ms?: number;
-  }
 }
 
 export interface ActionAddAIAssistantMessagesResponse {
@@ -2885,80 +2760,7 @@ export interface ActionGatherUsingSpeakParams {
     | ElevenLabsVoiceSettings
     | TelnyxVoiceSettings
     | AwsVoiceSettings
-    | ActionGatherUsingSpeakParams.MinimaxVoiceSettings;
-}
-
-export namespace ActionGatherUsingSpeakParams {
-  export interface MinimaxVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'minimax';
-
-    /**
-     * Enhances recognition for specific languages and dialects during MiniMax TTS
-     * synthesis. Default is null (no boost). Set to 'auto' for automatic language
-     * detection.
-     */
-    language_boost?:
-      | 'auto'
-      | 'Chinese'
-      | 'Chinese,Yue'
-      | 'English'
-      | 'Arabic'
-      | 'Russian'
-      | 'Spanish'
-      | 'French'
-      | 'Portuguese'
-      | 'German'
-      | 'Turkish'
-      | 'Dutch'
-      | 'Ukrainian'
-      | 'Vietnamese'
-      | 'Indonesian'
-      | 'Japanese'
-      | 'Italian'
-      | 'Korean'
-      | 'Thai'
-      | 'Polish'
-      | 'Romanian'
-      | 'Greek'
-      | 'Czech'
-      | 'Finnish'
-      | 'Hindi'
-      | 'Bulgarian'
-      | 'Danish'
-      | 'Hebrew'
-      | 'Malay'
-      | 'Persian'
-      | 'Slovak'
-      | 'Swedish'
-      | 'Croatian'
-      | 'Filipino'
-      | 'Hungarian'
-      | 'Norwegian'
-      | 'Slovenian'
-      | 'Catalan'
-      | 'Nynorsk'
-      | 'Tamil'
-      | 'Afrikaans'
-      | null;
-
-    /**
-     * Voice pitch adjustment. Default is 0.
-     */
-    pitch?: number;
-
-    /**
-     * Speech speed multiplier. Default is 1.0.
-     */
-    speed?: number;
-
-    /**
-     * Speech volume multiplier. Default is 1.0.
-     */
-    vol?: number;
-  }
+    | Shared.MinimaxVoiceSettings;
 }
 
 export interface ActionHangupParams {
@@ -3264,80 +3066,7 @@ export interface ActionSpeakParams {
     | ElevenLabsVoiceSettings
     | TelnyxVoiceSettings
     | AwsVoiceSettings
-    | ActionSpeakParams.MinimaxVoiceSettings;
-}
-
-export namespace ActionSpeakParams {
-  export interface MinimaxVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'minimax';
-
-    /**
-     * Enhances recognition for specific languages and dialects during MiniMax TTS
-     * synthesis. Default is null (no boost). Set to 'auto' for automatic language
-     * detection.
-     */
-    language_boost?:
-      | 'auto'
-      | 'Chinese'
-      | 'Chinese,Yue'
-      | 'English'
-      | 'Arabic'
-      | 'Russian'
-      | 'Spanish'
-      | 'French'
-      | 'Portuguese'
-      | 'German'
-      | 'Turkish'
-      | 'Dutch'
-      | 'Ukrainian'
-      | 'Vietnamese'
-      | 'Indonesian'
-      | 'Japanese'
-      | 'Italian'
-      | 'Korean'
-      | 'Thai'
-      | 'Polish'
-      | 'Romanian'
-      | 'Greek'
-      | 'Czech'
-      | 'Finnish'
-      | 'Hindi'
-      | 'Bulgarian'
-      | 'Danish'
-      | 'Hebrew'
-      | 'Malay'
-      | 'Persian'
-      | 'Slovak'
-      | 'Swedish'
-      | 'Croatian'
-      | 'Filipino'
-      | 'Hungarian'
-      | 'Norwegian'
-      | 'Slovenian'
-      | 'Catalan'
-      | 'Nynorsk'
-      | 'Tamil'
-      | 'Afrikaans'
-      | null;
-
-    /**
-     * Voice pitch adjustment. Default is 0.
-     */
-    pitch?: number;
-
-    /**
-     * Speech speed multiplier. Default is 1.0.
-     */
-    speed?: number;
-
-    /**
-     * Speech volume multiplier. Default is 1.0.
-     */
-    vol?: number;
-  }
+    | Shared.MinimaxVoiceSettings;
 }
 
 export interface ActionStartAIAssistantParams {
@@ -4083,8 +3812,8 @@ export interface ActionStartTranscriptionParams {
   transcription_engine_config?:
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
-    | ActionStartTranscriptionParams.DeepgramNova2Config
-    | ActionStartTranscriptionParams.DeepgramNova3Config
+    | DeepgramNova2Config
+    | DeepgramNova3Config
     | TranscriptionEngineAzureConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig;
@@ -4095,128 +3824,6 @@ export interface ActionStartTranscriptionParams {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
-}
-
-export namespace ActionStartTranscriptionParams {
-  export interface DeepgramNova2Config {
-    transcription_engine: 'Deepgram';
-
-    transcription_model: 'deepgram/nova-2';
-
-    /**
-     * Whether to send also interim results. If set to false, only final results will
-     * be sent.
-     */
-    interim_results?: boolean;
-
-    /**
-     * Keywords and their respective intensifiers (boosting values) to improve
-     * transcription accuracy for specific words or phrases. The intensifier should be
-     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
-     */
-    keywords_boosting?: { [key: string]: number };
-
-    /**
-     * Language to use for speech recognition with nova-2 model
-     */
-    language?:
-      | 'bg'
-      | 'ca'
-      | 'zh-CN'
-      | 'zh-Hans'
-      | 'zh-TW'
-      | 'zh-Hant'
-      | 'zh-HK'
-      | 'cs'
-      | 'da-DK'
-      | 'nl-BE'
-      | 'en-US'
-      | 'en-AU'
-      | 'en-GB'
-      | 'en-NZ'
-      | 'en-IN'
-      | 'et'
-      | 'fi'
-      | 'fr'
-      | 'fr-CA'
-      | 'de-CH'
-      | 'el'
-      | 'hi'
-      | 'hu'
-      | 'id'
-      | 'it'
-      | 'ja'
-      | 'ko-KR'
-      | 'lv'
-      | 'lt'
-      | 'ms'
-      | 'no'
-      | 'pl'
-      | 'pt-BR'
-      | 'pt-PT'
-      | 'ro'
-      | 'ru'
-      | 'sk'
-      | 'es-419'
-      | 'sv-SE'
-      | 'th-TH'
-      | 'tr'
-      | 'uk'
-      | 'vi'
-      | 'auto_detect';
-
-    /**
-     * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
-     * to 5000 ms.
-     */
-    utterance_end_ms?: number;
-  }
-
-  export interface DeepgramNova3Config {
-    transcription_engine: 'Deepgram';
-
-    transcription_model: 'deepgram/nova-3';
-
-    /**
-     * Whether to send also interim results. If set to false, only final results will
-     * be sent.
-     */
-    interim_results?: boolean;
-
-    /**
-     * Keywords and their respective intensifiers (boosting values) to improve
-     * transcription accuracy for specific words or phrases. The intensifier should be
-     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
-     */
-    keywords_boosting?: { [key: string]: number };
-
-    /**
-     * Language to use for speech recognition with nova-3 model
-     */
-    language?:
-      | 'en-US'
-      | 'en-AU'
-      | 'en-GB'
-      | 'en-IN'
-      | 'en-NZ'
-      | 'de'
-      | 'nl'
-      | 'sv-SE'
-      | 'da-DK'
-      | 'es'
-      | 'es-419'
-      | 'fr'
-      | 'fr-CA'
-      | 'pt-BR'
-      | 'pt-PT'
-      | 'auto_detect';
-
-    /**
-     * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
-     * to 5000 ms.
-     */
-    utterance_end_ms?: number;
-  }
 }
 
 export interface ActionStopAIAssistantParams {
@@ -4708,6 +4315,8 @@ export declare namespace Actions {
   export {
     type AwsVoiceSettings as AwsVoiceSettings,
     type CallControlCommandResult as CallControlCommandResult,
+    type DeepgramNova2Config as DeepgramNova2Config,
+    type DeepgramNova3Config as DeepgramNova3Config,
     type ElevenLabsVoiceSettings as ElevenLabsVoiceSettings,
     type GoogleTranscriptionLanguage as GoogleTranscriptionLanguage,
     type InterruptionSettings as InterruptionSettings,

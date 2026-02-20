@@ -14,6 +14,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">MessagingHostedNumberOrder</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingPaginationMeta</a></code>
 - <code><a href="./src/resources/shared.ts">Metadata</a></code>
+- <code><a href="./src/resources/shared.ts">MinimaxVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">NumberHealthMetrics</a></code>
 - <code><a href="./src/resources/shared.ts">PhoneNumberWithMessagingSettings</a></code>
 - <code><a href="./src/resources/shared.ts">PortingOrderStatus</a></code>
@@ -1167,6 +1168,8 @@ Types:
 
 - <code><a href="./src/resources/calls/actions.ts">AwsVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResult</a></code>
+- <code><a href="./src/resources/calls/actions.ts">DeepgramNova2Config</a></code>
+- <code><a href="./src/resources/calls/actions.ts">DeepgramNova3Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ElevenLabsVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">GoogleTranscriptionLanguage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">InterruptionSettings</a></code>
