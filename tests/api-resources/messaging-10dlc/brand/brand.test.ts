@@ -175,6 +175,30 @@ describe('resource brand', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('getSMSOtpByReference', async () => {
+    const responsePromise = client.messaging10dlc.brand.getSMSOtpByReference('OTP4B2001');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('getSMSOtpByReference: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.messaging10dlc.brand.getSMSOtpByReference(
+        'OTP4B2001',
+        { brandId: 'B123ABC' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('resend2faEmail', async () => {
     const responsePromise = client.messaging10dlc.brand.resend2faEmail('brandId');
     const rawResponse = await responsePromise.asResponse();
