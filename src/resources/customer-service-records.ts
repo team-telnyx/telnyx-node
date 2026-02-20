@@ -128,6 +128,11 @@ export interface CustomerServiceRecord {
    * ISO 8601 formatted date indicating when the resource was created.
    */
   updated_at?: string;
+
+  /**
+   * Callback URL to receive webhook notifications.
+   */
+  webhook_url?: string;
 }
 
 export namespace CustomerServiceRecord {

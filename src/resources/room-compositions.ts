@@ -119,6 +119,11 @@ export interface RoomComposition {
   record_type?: string;
 
   /**
+   * The resolution of the room composition.
+   */
+  resolution?: string;
+
+  /**
    * Identify the room associated with the room composition.
    */
   room_id?: string;

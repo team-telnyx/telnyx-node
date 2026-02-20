@@ -12,7 +12,7 @@ describe('resource civicAddresses', () => {
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.externalConnections.civicAddresses.retrieve(
       '318fb664-d341-44d2-8405-e6bfb9ced6d9',
-      { id: 'id' },
+      { id: '1293384261075731499' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -27,13 +27,13 @@ describe('resource civicAddresses', () => {
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.externalConnections.civicAddresses.retrieve(
       '318fb664-d341-44d2-8405-e6bfb9ced6d9',
-      { id: 'id' },
+      { id: '1293384261075731499' },
     );
   });
 
   // Mock server tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.externalConnections.civicAddresses.list('id');
+    const responsePromise = client.externalConnections.civicAddresses.list('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -48,7 +48,7 @@ describe('resource civicAddresses', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.externalConnections.civicAddresses.list(
-        'id',
+        '1293384261075731499',
         { filter: { country: ['US', 'CA', 'MX', 'BR'] } },
         { path: '/_stainless_unknown_path' },
       ),

@@ -28,7 +28,9 @@ export class Fqdns extends APIResource {
    *
    * @example
    * ```ts
-   * const fqdn = await client.fqdns.retrieve('id');
+   * const fqdn = await client.fqdns.retrieve(
+   *   '1517907029795014409',
+   * );
    * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<FqdnRetrieveResponse> {
@@ -40,7 +42,9 @@ export class Fqdns extends APIResource {
    *
    * @example
    * ```ts
-   * const fqdn = await client.fqdns.update('id');
+   * const fqdn = await client.fqdns.update(
+   *   '1517907029795014409',
+   * );
    * ```
    */
   update(
@@ -74,7 +78,9 @@ export class Fqdns extends APIResource {
    *
    * @example
    * ```ts
-   * const fqdn = await client.fqdns.delete('id');
+   * const fqdn = await client.fqdns.delete(
+   *   '1517907029795014409',
+   * );
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<FqdnDeleteResponse> {

@@ -70,7 +70,7 @@ describe('resource credentialConnections', () => {
         generate_ringback_tone: true,
         instant_ringback_enabled: true,
         localization: 'US',
-        outbound_voice_profile_id: 'outbound_voice_profile_id',
+        outbound_voice_profile_id: '1293384261075731499',
         t38_reinvite_source: 'customer',
       },
       rtcp_settings: {
@@ -132,7 +132,7 @@ describe('resource credentialConnections', () => {
           filter: {
             connection_name: { contains: 'contains' },
             fqdn: 'fqdn',
-            outbound_voice_profile_id: 'outbound_voice_profile_id',
+            outbound_voice_profile_id: '1293384261075731499',
           },
           'page[number]': 0,
           'page[size]': 0,

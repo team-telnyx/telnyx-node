@@ -1339,8 +1339,8 @@ Types:
 - <code><a href="./src/resources/conferences/actions.ts">ConferenceCommandResult</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">UpdateConference</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionUpdateResponse</a></code>
-- <code><a href="./src/resources/conferences/actions.ts">ActionEndResponse</a></code>
-- <code><a href="./src/resources/conferences/actions.ts">ActionGatherUsingAudioResponse</a></code>
+- <code><a href="./src/resources/conferences/actions.ts">ActionEndConferenceResponse</a></code>
+- <code><a href="./src/resources/conferences/actions.ts">ActionGatherDtmfAudioResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionHoldResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionJoinResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionLeaveResponse</a></code>
@@ -1359,8 +1359,8 @@ Types:
 Methods:
 
 - <code title="post /conferences/{id}/actions/update">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">update</a>(id, { ...params }) -> ActionUpdateResponse</code>
-- <code title="post /conferences/{id}/actions/end">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">end</a>(id, { ...params }) -> ActionEndResponse</code>
-- <code title="post /conferences/{id}/actions/gather_using_audio">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">gatherUsingAudio</a>(id, { ...params }) -> ActionGatherUsingAudioResponse</code>
+- <code title="post /conferences/{id}/actions/end">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">endConference</a>(id, { ...params }) -> ActionEndConferenceResponse</code>
+- <code title="post /conferences/{id}/actions/gather_using_audio">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">gatherDtmfAudio</a>(id, { ...params }) -> ActionGatherDtmfAudioResponse</code>
 - <code title="post /conferences/{id}/actions/hold">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">hold</a>(id, { ...params }) -> ActionHoldResponse</code>
 - <code title="post /conferences/{id}/actions/join">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">join</a>(id, { ...params }) -> ActionJoinResponse</code>
 - <code title="post /conferences/{id}/actions/leave">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">leave</a>(id, { ...params }) -> ActionLeaveResponse</code>

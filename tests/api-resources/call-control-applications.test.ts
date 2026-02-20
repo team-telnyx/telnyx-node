@@ -40,7 +40,7 @@ describe('resource callControlApplications', () => {
         sip_subdomain: 'example',
         sip_subdomain_receive_settings: 'only_my_connections',
       },
-      outbound: { channel_limit: 10, outbound_voice_profile_id: 'outbound_voice_profile_id' },
+      outbound: { channel_limit: 10, outbound_voice_profile_id: '1293384261075731499' },
       redact_dtmf_debug_logging: true,
       webhook_api_version: '1',
       webhook_event_failover_url: 'https://failover.example.com',
@@ -50,7 +50,7 @@ describe('resource callControlApplications', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.callControlApplications.retrieve('id');
+    const responsePromise = client.callControlApplications.retrieve('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -62,7 +62,7 @@ describe('resource callControlApplications', () => {
 
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.callControlApplications.update('id', {
+    const responsePromise = client.callControlApplications.update('1293384261075731499', {
       application_name: 'call-router',
       webhook_event_url: 'https://example.com',
     });
@@ -77,7 +77,7 @@ describe('resource callControlApplications', () => {
 
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
-    const response = await client.callControlApplications.update('id', {
+    const response = await client.callControlApplications.update('1293384261075731499', {
       application_name: 'call-router',
       webhook_event_url: 'https://example.com',
       active: false,
@@ -92,7 +92,7 @@ describe('resource callControlApplications', () => {
         sip_subdomain: 'example',
         sip_subdomain_receive_settings: 'only_my_connections',
       },
-      outbound: { channel_limit: 10, outbound_voice_profile_id: 'outbound_voice_profile_id' },
+      outbound: { channel_limit: 10, outbound_voice_profile_id: '1293384261075731499' },
       redact_dtmf_debug_logging: true,
       tags: ['tag1', 'tag2'],
       webhook_api_version: '1',
@@ -134,7 +134,7 @@ describe('resource callControlApplications', () => {
               lt: '2019-03-29T11:10:00Z',
               lte: '2019-03-29T11:10:00Z',
             },
-            'outbound.outbound_voice_profile_id': 'outbound.outbound_voice_profile_id',
+            'outbound.outbound_voice_profile_id': '1293384261075731499',
             product: 'texml',
             status: 'init',
             to: '+12025550142',
@@ -151,7 +151,7 @@ describe('resource callControlApplications', () => {
 
   // Mock server tests are disabled
   test.skip('delete', async () => {
-    const responsePromise = client.callControlApplications.delete('id');
+    const responsePromise = client.callControlApplications.delete('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

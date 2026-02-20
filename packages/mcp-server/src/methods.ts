@@ -1651,14 +1651,14 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/conferences/{id}/actions/update',
   },
   {
-    clientCallName: 'client.conferences.actions.end',
-    fullyQualifiedName: 'conferences.actions.end',
+    clientCallName: 'client.conferences.actions.endConference',
+    fullyQualifiedName: 'conferences.actions.endConference',
     httpMethod: 'post',
     httpPath: '/conferences/{id}/actions/end',
   },
   {
-    clientCallName: 'client.conferences.actions.gatherUsingAudio',
-    fullyQualifiedName: 'conferences.actions.gatherUsingAudio',
+    clientCallName: 'client.conferences.actions.gatherDtmfAudio',
+    fullyQualifiedName: 'conferences.actions.gatherDtmfAudio',
     httpMethod: 'post',
     httpPath: '/conferences/{id}/actions/gather_using_audio',
   },

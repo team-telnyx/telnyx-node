@@ -41,7 +41,7 @@ describe('resource callEvents', () => {
               lt: '2019-03-29T11:10:00Z',
               lte: '2019-03-29T11:10:00Z',
             },
-            'outbound.outbound_voice_profile_id': 'outbound.outbound_voice_profile_id',
+            'outbound.outbound_voice_profile_id': '1293384261075731499',
             product: 'texml',
             status: 'init',
             to: '+12025550142',

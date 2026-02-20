@@ -32,7 +32,9 @@ export class FqdnConnections extends APIResource {
    * @example
    * ```ts
    * const fqdnConnection =
-   *   await client.fqdnConnections.retrieve('id');
+   *   await client.fqdnConnections.retrieve(
+   *     '1293384261075731499',
+   *   );
    * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<FqdnConnectionRetrieveResponse> {
@@ -45,7 +47,7 @@ export class FqdnConnections extends APIResource {
    * @example
    * ```ts
    * const fqdnConnection = await client.fqdnConnections.update(
-   *   'id',
+   *   '1293384261075731499',
    * );
    * ```
    */
@@ -84,7 +86,7 @@ export class FqdnConnections extends APIResource {
    * @example
    * ```ts
    * const fqdnConnection = await client.fqdnConnections.delete(
-   *   'id',
+   *   '1293384261075731499',
    * );
    * ```
    */

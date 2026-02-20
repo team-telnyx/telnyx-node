@@ -182,7 +182,7 @@ export namespace AuthenticationProvider {
     /**
      * Mapping of SAML attribute names used by the identity provider (IdP).
      */
-    idp_attribute_names?: { [key: string]: unknown };
+    idp_attribute_names?: unknown;
 
     /**
      * The certificate fingerprint for the identity provider (IdP)

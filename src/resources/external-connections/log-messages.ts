@@ -18,7 +18,7 @@ export class LogMessages extends APIResource {
    * ```ts
    * const logMessage =
    *   await client.externalConnections.logMessages.retrieve(
-   *     'id',
+   *     '1293384261075731499',
    *   );
    * ```
    */
@@ -56,7 +56,7 @@ export class LogMessages extends APIResource {
    * ```ts
    * const response =
    *   await client.externalConnections.logMessages.dismiss(
-   *     'id',
+   *     '1293384261075731499',
    *   );
    * ```
    */

@@ -73,7 +73,7 @@ describe('resource fqdnConnections', () => {
         ip_authentication_method: 'credential-authentication',
         ip_authentication_token: 'aBcD1234',
         localization: 'string',
-        outbound_voice_profile_id: 'outbound_voice_profile_id',
+        outbound_voice_profile_id: '1293384261075731499',
         t38_reinvite_source: 'customer',
         tech_prefix: '0123',
         timeout_1xx_secs: 10,
@@ -95,7 +95,7 @@ describe('resource fqdnConnections', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.fqdnConnections.retrieve('id');
+    const responsePromise = client.fqdnConnections.retrieve('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -107,7 +107,7 @@ describe('resource fqdnConnections', () => {
 
   // Mock server tests are disabled
   test.skip('update', async () => {
-    const responsePromise = client.fqdnConnections.update('id', {});
+    const responsePromise = client.fqdnConnections.update('1293384261075731499', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -138,7 +138,7 @@ describe('resource fqdnConnections', () => {
           filter: {
             connection_name: { contains: 'contains' },
             fqdn: 'fqdn',
-            outbound_voice_profile_id: 'outbound_voice_profile_id',
+            outbound_voice_profile_id: '1293384261075731499',
           },
           'page[number]': 0,
           'page[size]': 0,
@@ -151,7 +151,7 @@ describe('resource fqdnConnections', () => {
 
   // Mock server tests are disabled
   test.skip('delete', async () => {
-    const responsePromise = client.fqdnConnections.delete('id');
+    const responsePromise = client.fqdnConnections.delete('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

@@ -27,7 +27,7 @@ describe('resource externalConnections', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.externalConnections.create({
       external_sip_connection: 'zoom',
-      outbound: { channel_limit: 10, outbound_voice_profile_id: 'outbound_voice_profile_id' },
+      outbound: { channel_limit: 10, outbound_voice_profile_id: '1911630617284445511' },
       active: false,
       inbound: { outbound_voice_profile_id: '12345678-1234-1234-1234-123456789012', channel_limit: 10 },
       tags: ['tag1', 'tag2'],
@@ -39,7 +39,7 @@ describe('resource externalConnections', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.externalConnections.retrieve('id');
+    const responsePromise = client.externalConnections.retrieve('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -51,8 +51,8 @@ describe('resource externalConnections', () => {
 
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.externalConnections.update('id', {
-      outbound: { outbound_voice_profile_id: 'outbound_voice_profile_id' },
+    const responsePromise = client.externalConnections.update('1293384261075731499', {
+      outbound: { outbound_voice_profile_id: '1911630617284445511' },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -65,8 +65,8 @@ describe('resource externalConnections', () => {
 
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
-    const response = await client.externalConnections.update('id', {
-      outbound: { outbound_voice_profile_id: 'outbound_voice_profile_id', channel_limit: 10 },
+    const response = await client.externalConnections.update('1293384261075731499', {
+      outbound: { outbound_voice_profile_id: '1911630617284445511', channel_limit: 10 },
       active: false,
       inbound: { channel_limit: 10 },
       tags: ['tag1', 'tag2'],
@@ -111,7 +111,7 @@ describe('resource externalConnections', () => {
 
   // Mock server tests are disabled
   test.skip('delete', async () => {
-    const responsePromise = client.externalConnections.delete('id');
+    const responsePromise = client.externalConnections.delete('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
