@@ -1515,7 +1515,7 @@ export namespace WebhookTool {
       /**
        * The properties of the body parameters.
        */
-      properties?: unknown;
+      properties?: { [key: string]: unknown };
 
       /**
        * The required properties of the body parameters.
@@ -1548,7 +1548,7 @@ export namespace WebhookTool {
       /**
        * The properties of the path parameters.
        */
-      properties?: unknown;
+      properties?: { [key: string]: unknown };
 
       /**
        * The required properties of the path parameters.
@@ -1569,7 +1569,7 @@ export namespace WebhookTool {
       /**
        * The properties of the query parameters.
        */
-      properties?: unknown;
+      properties?: { [key: string]: unknown };
 
       /**
        * The required properties of the query parameters.
