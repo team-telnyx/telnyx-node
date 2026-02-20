@@ -107,7 +107,7 @@ describe('resource calls', () => {
       SupervisingRole: 'monitor',
       Texml: '<?xml version="1.0" encoding="UTF-8"?><Response><Say>Hello</Say></Response>',
       TimeLimit: 3600,
-      Timeout: 60,
+      timeout_seconds: 60,
       Trim: 'trim-silence',
       Url: 'https://www.example.com/texml.xml',
       UrlMethod: 'GET',
