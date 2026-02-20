@@ -111,6 +111,7 @@ describe('resource participants', () => {
       account_sid: 'account_sid',
       AmdStatusCallback: 'https://www.example.com/amd_result',
       AmdStatusCallbackMethod: 'GET',
+      ApplicationSid: '1846572522338780702',
       Beep: 'onExit',
       CallerId: 'Info',
       CallSidToCoach: 'v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ',
