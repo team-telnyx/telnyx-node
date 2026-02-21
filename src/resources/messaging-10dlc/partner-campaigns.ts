@@ -398,7 +398,7 @@ export interface PartnerCampaignListParams extends PerPagePaginationV2Params {
     | 'brandDisplayName'
     | '-brandDisplayName'
     | 'tcrBrandId'
-    | '-tcrBranId'
+    | '-tcrBrandId'
     | 'tcrCampaignId'
     | '-tcrCampaignId'
     | 'createdAt'
