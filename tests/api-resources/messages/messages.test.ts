@@ -33,6 +33,18 @@ describe('resource messages', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('retrieveGroupMessages', async () => {
+    const responsePromise = client.messages.retrieveGroupMessages('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('schedule: only required params', async () => {
     const responsePromise = client.messages.schedule({ to: '+18445550001' });
     const rawResponse = await responsePromise.asResponse();
@@ -383,6 +395,36 @@ describe('resource messages', () => {
         },
       },
       type: 'WHATSAPP',
+      webhook_url: 'webhook_url',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('sendWithAlphanumericSender: only required params', async () => {
+    const responsePromise = client.messages.sendWithAlphanumericSender({
+      from: 'MyCompany',
+      messaging_profile_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      text: 'text',
+      to: '+E.164',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('sendWithAlphanumericSender: required and optional params', async () => {
+    const response = await client.messages.sendWithAlphanumericSender({
+      from: 'MyCompany',
+      messaging_profile_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      text: 'text',
+      to: '+E.164',
+      use_profile_webhooks: true,
+      webhook_failover_url: 'webhook_failover_url',
       webhook_url: 'webhook_url',
     });
   });

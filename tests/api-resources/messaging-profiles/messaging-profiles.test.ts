@@ -28,10 +28,12 @@ describe('resource messagingProfiles', () => {
     const response = await client.messagingProfiles.create({
       name: 'My name',
       whitelisted_destinations: ['US'],
+      ai_assistant_id: 'ai_assistant_id',
       alpha_sender: 'sqF',
       daily_spend_limit: '269125115713',
       daily_spend_limit_enabled: true,
       enabled: true,
+      health_webhook_url: 'health_webhook_url',
       mms_fall_back_to_sms: true,
       mms_transcoding: true,
       mobile_only: true,
@@ -42,6 +44,7 @@ describe('resource messagingProfiles', () => {
         geomatch: false,
         sticky_sender: false,
       },
+      resource_group_id: 'resource_group_id',
       smart_encoding: true,
       url_shortener_settings: {
         domain: 'example.ex',
@@ -98,6 +101,8 @@ describe('resource messagingProfiles', () => {
       client.messagingProfiles.list(
         {
           filter: { name: 'name' },
+          'filter[name][contains]': 'filter[name][contains]',
+          'filter[name][eq]': 'filter[name][eq]',
           'page[number]': 0,
           'page[size]': 0,
         },
@@ -116,6 +121,32 @@ describe('resource messagingProfiles', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('listAlphanumericSenderIDs', async () => {
+    const responsePromise = client.messagingProfiles.listAlphanumericSenderIDs(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('listAlphanumericSenderIDs: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.messagingProfiles.listAlphanumericSenderIDs(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        { 'page[number]': 0, 'page[size]': 0 },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -161,6 +192,30 @@ describe('resource messagingProfiles', () => {
       client.messagingProfiles.listShortCodes(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { 'page[number]': 0, 'page[size]': 0 },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveMetrics', async () => {
+    const responsePromise = client.messagingProfiles.retrieveMetrics('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveMetrics: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.messagingProfiles.retrieveMetrics(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        { time_frame: '1h' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

@@ -715,6 +715,11 @@ export interface PhoneNumberWithMessagingSettings {
   messaging_profile_id?: string | null;
 
   /**
+   * The organization that owns this phone number.
+   */
+  organization_id?: string;
+
+  /**
    * +E.164 formatted phone number.
    */
   phone_number?: string;
@@ -723,6 +728,11 @@ export interface PhoneNumberWithMessagingSettings {
    * Identifies the type of the resource.
    */
   record_type?: 'messaging_phone_number' | 'messaging_settings';
+
+  /**
+   * Tags associated with this phone number.
+   */
+  tags?: Array<string>;
 
   /**
    * The messaging traffic or use case for which the number is currently configured.

@@ -130,6 +130,11 @@ export interface MessagingNumbersBulkUpdateCreateParams {
    * The list of phone numbers to update.
    */
   numbers: Array<string>;
+
+  /**
+   * If true, only assign numbers to the profile without changing other settings.
+   */
+  assign_only?: boolean;
 }
 
 export declare namespace MessagingNumbersBulkUpdates {

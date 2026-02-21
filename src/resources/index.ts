@@ -40,6 +40,16 @@ export {
   type AdvancedOrderUpdateRequirementGroupParams,
 } from './advanced-orders';
 export {
+  AlphanumericSenderIDs,
+  type AlphanumericSenderIDCreateResponse,
+  type AlphanumericSenderIDRetrieveResponse,
+  type AlphanumericSenderIDListResponse,
+  type AlphanumericSenderIDDeleteResponse,
+  type AlphanumericSenderIDCreateParams,
+  type AlphanumericSenderIDListParams,
+  type AlphanumericSenderIDListResponsesDefaultFlatPagination,
+} from './alphanumeric-sender-ids';
+export {
   AuditEvents,
   type AuditEventListResponse,
   type AuditEventListParams,
@@ -513,6 +523,7 @@ export {
   type WhatsappMedia,
   type MessageRetrieveResponse,
   type MessageCancelScheduledResponse,
+  type MessageRetrieveGroupMessagesResponse,
   type MessageScheduleResponse,
   type MessageSendResponse,
   type MessageSendGroupMmsResponse,
@@ -520,6 +531,7 @@ export {
   type MessageSendNumberPoolResponse,
   type MessageSendShortCodeResponse,
   type MessageSendWhatsappResponse,
+  type MessageSendWithAlphanumericSenderResponse,
   type MessageScheduleParams,
   type MessageSendParams,
   type MessageSendGroupMmsParams,
@@ -527,6 +539,7 @@ export {
   type MessageSendNumberPoolParams,
   type MessageSendShortCodeParams,
   type MessageSendWhatsappParams,
+  type MessageSendWithAlphanumericSenderParams,
 } from './messages/messages';
 export { Messaging } from './messaging/messaging';
 export { Messaging10dlc, type Messaging10dlcGetEnumResponse } from './messaging-10dlc/messaging-10dlc';
@@ -544,7 +557,14 @@ export {
   type MessagingHostedNumberOrderCreateVerificationCodesParams,
   type MessagingHostedNumberOrderValidateCodesParams,
 } from './messaging-hosted-number-orders/messaging-hosted-number-orders';
-export { MessagingHostedNumbers, type MessagingHostedNumberDeleteResponse } from './messaging-hosted-numbers';
+export {
+  MessagingHostedNumbers,
+  type MessagingHostedNumberRetrieveResponse,
+  type MessagingHostedNumberUpdateResponse,
+  type MessagingHostedNumberDeleteResponse,
+  type MessagingHostedNumberUpdateParams,
+  type MessagingHostedNumberListParams,
+} from './messaging-hosted-numbers';
 export {
   MessagingNumbersBulkUpdates,
   type MessagingNumbersBulkUpdateCreateResponse,
@@ -558,6 +578,11 @@ export {
   type MessagingOptoutListResponsesDefaultFlatPagination,
 } from './messaging-optouts';
 export {
+  MessagingProfileMetrics,
+  type MessagingProfileMetricListResponse,
+  type MessagingProfileMetricListParams,
+} from './messaging-profile-metrics';
+export {
   MessagingProfiles,
   type MessagingProfile,
   type NumberPoolSettings,
@@ -566,12 +591,17 @@ export {
   type MessagingProfileRetrieveResponse,
   type MessagingProfileUpdateResponse,
   type MessagingProfileDeleteResponse,
+  type MessagingProfileListAlphanumericSenderIDsResponse,
+  type MessagingProfileRetrieveMetricsResponse,
   type MessagingProfileCreateParams,
   type MessagingProfileUpdateParams,
   type MessagingProfileListParams,
+  type MessagingProfileListAlphanumericSenderIDsParams,
   type MessagingProfileListPhoneNumbersParams,
   type MessagingProfileListShortCodesParams,
+  type MessagingProfileRetrieveMetricsParams,
   type MessagingProfilesDefaultFlatPagination,
+  type MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination,
 } from './messaging-profiles/messaging-profiles';
 export { MessagingTollfree } from './messaging-tollfree/messaging-tollfree';
 export {
