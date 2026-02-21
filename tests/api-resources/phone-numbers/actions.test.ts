@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('changeBundleStatus: only required params', async () => {
     const responsePromise = client.phoneNumbers.actions.changeBundleStatus('1293384261075731499', {
       bundle_id: '5194d8fc-87e6-4188-baa9-1c434bbe861b',
@@ -22,14 +22,14 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('changeBundleStatus: required and optional params', async () => {
     const response = await client.phoneNumbers.actions.changeBundleStatus('1293384261075731499', {
       bundle_id: '5194d8fc-87e6-4188-baa9-1c434bbe861b',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('enableEmergency: only required params', async () => {
     const responsePromise = client.phoneNumbers.actions.enableEmergency('1293384261075731499', {
       emergency_address_id: '53829456729313',
@@ -44,7 +44,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('enableEmergency: required and optional params', async () => {
     const response = await client.phoneNumbers.actions.enableEmergency('1293384261075731499', {
       emergency_address_id: '53829456729313',
@@ -52,7 +52,7 @@ describe('resource actions', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('verifyOwnership: only required params', async () => {
     const responsePromise = client.phoneNumbers.actions.verifyOwnership({ phone_numbers: ['+15551234567'] });
     const rawResponse = await responsePromise.asResponse();
@@ -64,7 +64,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('verifyOwnership: required and optional params', async () => {
     const response = await client.phoneNumbers.actions.verifyOwnership({ phone_numbers: ['+15551234567'] });
   });

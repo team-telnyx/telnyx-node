@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource jobs', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.phoneNumberBlocks.jobs.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.phoneNumberBlocks.jobs.list();
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -48,7 +48,7 @@ describe('resource jobs', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deletePhoneNumberBlock: only required params', async () => {
     const responsePromise = client.phoneNumberBlocks.jobs.deletePhoneNumberBlock({
       phone_number_block_id: 'f3946371-7199-4261-9c3d-81a0d7935146',
@@ -62,7 +62,7 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deletePhoneNumberBlock: required and optional params', async () => {
     const response = await client.phoneNumberBlocks.jobs.deletePhoneNumberBlock({
       phone_number_block_id: 'f3946371-7199-4261-9c3d-81a0d7935146',

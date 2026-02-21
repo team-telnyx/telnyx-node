@@ -931,6 +931,12 @@ export interface DeepgramNova2Config {
   transcription_model: 'deepgram/nova-2';
 
   /**
+   * Whether to send also interim results. If set to false, only final results will
+   * be sent.
+   */
+  interim_results?: boolean;
+
+  /**
    * Keywords and their respective intensifiers (boosting values) to improve
    * transcription accuracy for specific words or phrases. The intensifier should be
    * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
@@ -985,12 +991,24 @@ export interface DeepgramNova2Config {
     | 'uk'
     | 'vi'
     | 'auto_detect';
+
+  /**
+   * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
+   * to 5000 ms.
+   */
+  utterance_end_ms?: number;
 }
 
 export interface DeepgramNova3Config {
   transcription_engine: 'Deepgram';
 
   transcription_model: 'deepgram/nova-3';
+
+  /**
+   * Whether to send also interim results. If set to false, only final results will
+   * be sent.
+   */
+  interim_results?: boolean;
 
   /**
    * Keywords and their respective intensifiers (boosting values) to improve
@@ -1019,6 +1037,12 @@ export interface DeepgramNova3Config {
     | 'pt-BR'
     | 'pt-PT'
     | 'auto_detect';
+
+  /**
+   * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
+   * to 5000 ms.
+   */
+  utterance_end_ms?: number;
 }
 
 export interface ElevenLabsVoiceSettings {

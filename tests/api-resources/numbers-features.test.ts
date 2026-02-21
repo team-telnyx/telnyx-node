@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource numbersFeatures', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.numbersFeatures.create({ phone_numbers: ['string'] });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource numbersFeatures', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.numbersFeatures.create({ phone_numbers: ['string'] });
   });

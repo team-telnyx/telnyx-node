@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.conferences.actions.update('id', {
       call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
@@ -23,7 +23,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.conferences.actions.update('id', {
       call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
@@ -37,7 +37,71 @@ describe('resource actions', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
+  test.skip('endConference', async () => {
+    const responsePromise = client.conferences.actions.endConference('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('endConference: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.conferences.actions.endConference(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        { command_id: '891510ac-f3e4-11e8-af5b-de00688a4901' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('gatherDtmfAudio: only required params', async () => {
+    const responsePromise = client.conferences.actions.gatherDtmfAudio(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      { call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg' },
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('gatherDtmfAudio: required and optional params', async () => {
+    const response = await client.conferences.actions.gatherDtmfAudio(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      {
+        call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+        audio_url: 'http://example.com/gather_prompt.wav',
+        client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+        gather_id: 'gather_id',
+        initial_timeout_millis: 10000,
+        inter_digit_timeout_millis: 3000,
+        invalid_audio_url: 'invalid_audio_url',
+        invalid_media_name: 'invalid_media_name',
+        maximum_digits: 4,
+        maximum_tries: 3,
+        media_name: 'media_name',
+        minimum_digits: 1,
+        stop_playback_on_dtmf: true,
+        terminating_digit: '#',
+        timeout_millis: 30000,
+        valid_digits: '0123456789',
+      },
+    );
+  });
+
+  // Mock server tests are disabled
   test.skip('hold', async () => {
     const responsePromise = client.conferences.actions.hold('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -49,7 +113,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('join: only required params', async () => {
     const responsePromise = client.conferences.actions.join('id', {
       call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
@@ -63,7 +127,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('join: required and optional params', async () => {
     const response = await client.conferences.actions.join('id', {
       call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
@@ -86,7 +150,7 @@ describe('resource actions', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('leave: only required params', async () => {
     const responsePromise = client.conferences.actions.leave('id', {
       call_control_id: 'c46e06d7-b78f-4b13-96b6-c576af9640ff',
@@ -100,7 +164,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('leave: required and optional params', async () => {
     const response = await client.conferences.actions.leave('id', {
       call_control_id: 'c46e06d7-b78f-4b13-96b6-c576af9640ff',
@@ -110,7 +174,7 @@ describe('resource actions', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('mute', async () => {
     const responsePromise = client.conferences.actions.mute('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -122,7 +186,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('play', async () => {
     const responsePromise = client.conferences.actions.play('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -134,7 +198,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('recordPause', async () => {
     const responsePromise = client.conferences.actions.recordPause('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -146,7 +210,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('recordResume', async () => {
     const responsePromise = client.conferences.actions.recordResume('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -158,7 +222,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('recordStart: only required params', async () => {
     const responsePromise = client.conferences.actions.recordStart('id', { format: 'wav' });
     const rawResponse = await responsePromise.asResponse();
@@ -170,7 +234,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('recordStart: required and optional params', async () => {
     const response = await client.conferences.actions.recordStart('id', {
       format: 'wav',
@@ -182,7 +246,7 @@ describe('resource actions', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('recordStop', async () => {
     const responsePromise = client.conferences.actions.recordStop('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -194,7 +258,31 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
+  test.skip('sendDtmf: only required params', async () => {
+    const responsePromise = client.conferences.actions.sendDtmf('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      digits: '1234#',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('sendDtmf: required and optional params', async () => {
+    const response = await client.conferences.actions.sendDtmf('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      digits: '1234#',
+      call_control_ids: ['v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg'],
+      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+      duration_millis: 250,
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('speak: only required params', async () => {
     const responsePromise = client.conferences.actions.speak('id', {
       payload: 'Say this to participants',
@@ -209,7 +297,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('speak: required and optional params', async () => {
     const response = await client.conferences.actions.speak('id', {
       payload: 'Say this to participants',
@@ -223,7 +311,7 @@ describe('resource actions', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('stop', async () => {
     const responsePromise = client.conferences.actions.stop('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -235,7 +323,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unhold: only required params', async () => {
     const responsePromise = client.conferences.actions.unhold('id', {
       call_control_ids: ['v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg'],
@@ -249,7 +337,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unhold: required and optional params', async () => {
     const response = await client.conferences.actions.unhold('id', {
       call_control_ids: ['v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg'],
@@ -257,7 +345,7 @@ describe('resource actions', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unmute', async () => {
     const responsePromise = client.conferences.actions.unmute('id', {});
     const rawResponse = await responsePromise.asResponse();

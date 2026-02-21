@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource ledgerBillingGroupReports', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.ledgerBillingGroupReports.create({});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource ledgerBillingGroupReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.ledgerBillingGroupReports.retrieve('f5586561-8ff0-4291-a0ac-84fe544797bd');
     const rawResponse = await responsePromise.asResponse();

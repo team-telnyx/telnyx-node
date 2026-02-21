@@ -8,11 +8,11 @@ const client = new Telnyx({
 });
 
 describe('resource releases', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.externalConnections.releases.retrieve(
       '7b6a6449-b055-45a6-81f6-f6f0dffa4cc6',
-      { id: 'id' },
+      { id: '1293384261075731499' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -23,17 +23,17 @@ describe('resource releases', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.externalConnections.releases.retrieve(
       '7b6a6449-b055-45a6-81f6-f6f0dffa4cc6',
-      { id: 'id' },
+      { id: '1293384261075731499' },
     );
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.externalConnections.releases.list('id');
+    const responsePromise = client.externalConnections.releases.list('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -43,12 +43,12 @@ describe('resource releases', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.externalConnections.releases.list(
-        'id',
+        '1293384261075731499',
         {
           filter: {
             civic_address_id: { eq: '19990261512338516954' },

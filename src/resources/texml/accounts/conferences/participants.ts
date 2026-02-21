@@ -583,6 +583,13 @@ export interface ParticipantParticipantsParams {
   AmdStatusCallbackMethod?: 'GET' | 'POST';
 
   /**
+   * Body param: The SID of the TeXML application that will handle the new
+   * participant's call. Required unless joining an existing conference by its
+   * ConferenceSid.
+   */
+  ApplicationSid?: string;
+
+  /**
    * Body param: Whether to play a notification beep to the conference when the
    * participant enters and exits.
    */

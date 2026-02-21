@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource messagingProfiles', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.messagingProfiles.create({
       name: 'My name',
@@ -23,15 +23,17 @@ describe('resource messagingProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.messagingProfiles.create({
       name: 'My name',
       whitelisted_destinations: ['US'],
+      ai_assistant_id: 'ai_assistant_id',
       alpha_sender: 'sqF',
       daily_spend_limit: '269125115713',
       daily_spend_limit_enabled: true,
       enabled: true,
+      health_webhook_url: 'health_webhook_url',
       mms_fall_back_to_sms: true,
       mms_transcoding: true,
       mobile_only: true,
@@ -42,6 +44,7 @@ describe('resource messagingProfiles', () => {
         geomatch: false,
         sticky_sender: false,
       },
+      resource_group_id: 'resource_group_id',
       smart_encoding: true,
       url_shortener_settings: {
         domain: 'example.ex',
@@ -55,7 +58,7 @@ describe('resource messagingProfiles', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.messagingProfiles.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
@@ -67,7 +70,7 @@ describe('resource messagingProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.messagingProfiles.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
@@ -79,7 +82,7 @@ describe('resource messagingProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.messagingProfiles.list();
     const rawResponse = await responsePromise.asResponse();
@@ -91,13 +94,15 @@ describe('resource messagingProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messagingProfiles.list(
         {
           filter: { name: 'name' },
+          'filter[name][contains]': 'filter[name][contains]',
+          'filter[name][eq]': 'filter[name][eq]',
           'page[number]': 0,
           'page[size]': 0,
         },
@@ -106,7 +111,7 @@ describe('resource messagingProfiles', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.messagingProfiles.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
@@ -118,7 +123,33 @@ describe('resource messagingProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
+  test.skip('listAlphanumericSenderIDs', async () => {
+    const responsePromise = client.messagingProfiles.listAlphanumericSenderIDs(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('listAlphanumericSenderIDs: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.messagingProfiles.listAlphanumericSenderIDs(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        { 'page[number]': 0, 'page[size]': 0 },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('listPhoneNumbers', async () => {
     const responsePromise = client.messagingProfiles.listPhoneNumbers('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
@@ -130,7 +161,7 @@ describe('resource messagingProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listPhoneNumbers: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -142,7 +173,7 @@ describe('resource messagingProfiles', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listShortCodes', async () => {
     const responsePromise = client.messagingProfiles.listShortCodes('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
@@ -154,13 +185,37 @@ describe('resource messagingProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listShortCodes: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messagingProfiles.listShortCodes(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { 'page[number]': 0, 'page[size]': 0 },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveMetrics', async () => {
+    const responsePromise = client.messagingProfiles.retrieveMetrics('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveMetrics: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.messagingProfiles.retrieveMetrics(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        { time_frame: '1h' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

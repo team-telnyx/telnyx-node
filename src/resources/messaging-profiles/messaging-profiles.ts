@@ -6,6 +6,8 @@ import {
   PhoneNumberWithMessagingSettingsDefaultFlatPagination,
   ShortCodesDefaultFlatPagination,
 } from '../shared';
+import * as ActionsAPI from './actions';
+import { ActionRegenerateSecretResponse, Actions } from './actions';
 import * as AutorespConfigsAPI from './autoresp-configs';
 import {
   AutoRespConfig,
@@ -27,6 +29,7 @@ import { path } from '../../internal/utils/path';
 
 export class MessagingProfiles extends APIResource {
   autorespConfigs: AutorespConfigsAPI.AutorespConfigs = new AutorespConfigsAPI.AutorespConfigs(this._client);
+  actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
    * Create a messaging profile
@@ -121,6 +124,34 @@ export class MessagingProfiles extends APIResource {
   }
 
   /**
+   * List all alphanumeric sender IDs associated with a specific messaging profile.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const messagingProfileListAlphanumericSenderIDsResponse of client.messagingProfiles.listAlphanumericSenderIDs(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  listAlphanumericSenderIDs(
+    id: string,
+    query: MessagingProfileListAlphanumericSenderIDsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<
+    MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination,
+    MessagingProfileListAlphanumericSenderIDsResponse
+  > {
+    return this._client.getAPIList(
+      path`/messaging_profiles/${id}/alphanumeric_sender_ids`,
+      DefaultFlatPagination<MessagingProfileListAlphanumericSenderIDsResponse>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * List phone numbers associated with a messaging profile
    *
    * @example
@@ -172,15 +203,43 @@ export class MessagingProfiles extends APIResource {
       { query, ...options },
     );
   }
+
+  /**
+   * Get detailed metrics for a specific messaging profile, broken down by time
+   * interval.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.messagingProfiles.retrieveMetrics(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieveMetrics(
+    id: string,
+    query: MessagingProfileRetrieveMetricsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<MessagingProfileRetrieveMetricsResponse> {
+    return this._client.get(path`/messaging_profiles/${id}/metrics`, { query, ...options });
+  }
 }
 
 export type MessagingProfilesDefaultFlatPagination = DefaultFlatPagination<MessagingProfile>;
+
+export type MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination =
+  DefaultFlatPagination<MessagingProfileListAlphanumericSenderIDsResponse>;
 
 export interface MessagingProfile {
   /**
    * Identifies the type of resource.
    */
   id?: string;
+
+  /**
+   * The AI assistant ID associated with this messaging profile.
+   */
+  ai_assistant_id?: string | null;
 
   /**
    * The alphanumeric sender ID to use when sending to destinations that require an
@@ -244,6 +303,11 @@ export interface MessagingProfile {
   number_pool_settings?: NumberPoolSettings | null;
 
   /**
+   * The organization that owns this messaging profile.
+   */
+  organization_id?: string;
+
+  /**
    * Identifies the type of the resource.
    */
   record_type?: 'messaging_profile';
@@ -258,6 +322,11 @@ export interface MessagingProfile {
    * compliance purposes.
    */
   redaction_level?: number;
+
+  /**
+   * The resource group ID associated with this messaging profile.
+   */
+  resource_group_id?: string | null;
 
   /**
    * Enables automatic character encoding optimization for SMS messages. When
@@ -413,6 +482,42 @@ export interface MessagingProfileDeleteResponse {
   data?: MessagingProfile;
 }
 
+export interface MessagingProfileListAlphanumericSenderIDsResponse {
+  /**
+   * Uniquely identifies the alphanumeric sender ID resource.
+   */
+  id?: string;
+
+  /**
+   * The alphanumeric sender ID string.
+   */
+  alphanumeric_sender_id?: string;
+
+  /**
+   * The messaging profile this sender ID belongs to.
+   */
+  messaging_profile_id?: string;
+
+  /**
+   * The organization that owns this sender ID.
+   */
+  organization_id?: string;
+
+  record_type?: 'alphanumeric_sender_id';
+
+  /**
+   * A US long code number to use as fallback when sending to US destinations.
+   */
+  us_long_code_fallback?: string;
+}
+
+export interface MessagingProfileRetrieveMetricsResponse {
+  /**
+   * Detailed metrics for a messaging profile.
+   */
+  data?: { [key: string]: unknown };
+}
+
 export interface MessagingProfileCreateParams {
   /**
    * A user friendly name for the messaging profile.
@@ -425,6 +530,11 @@ export interface MessagingProfileCreateParams {
    * destinations will be allowed.
    */
   whitelisted_destinations: Array<string>;
+
+  /**
+   * The AI assistant ID to associate with this messaging profile.
+   */
+  ai_assistant_id?: string | null;
 
   /**
    * The alphanumeric sender ID to use when sending to destinations that require an
@@ -449,6 +559,11 @@ export interface MessagingProfileCreateParams {
   enabled?: boolean;
 
   /**
+   * A URL to receive health check webhooks for numbers in this profile.
+   */
+  health_webhook_url?: string | null;
+
+  /**
    * enables SMS fallback for MMS messages.
    */
   mms_fall_back_to_sms?: boolean;
@@ -471,6 +586,11 @@ export interface MessagingProfileCreateParams {
    * To disable this feature, set the object field to `null`.
    */
   number_pool_settings?: NumberPoolSettings | null;
+
+  /**
+   * The resource group ID to associate with this messaging profile.
+   */
+  resource_group_id?: string | null;
 
   /**
    * Enables automatic character encoding optimization for SMS messages. When
@@ -615,6 +735,16 @@ export interface MessagingProfileListParams extends DefaultFlatPaginationParams 
    * Consolidated filter parameter (deepObject style). Originally: filter[name]
    */
   filter?: MessagingProfileListParams.Filter;
+
+  /**
+   * Filter profiles by name containing the given string.
+   */
+  'filter[name][contains]'?: string;
+
+  /**
+   * Filter profiles by exact name match.
+   */
+  'filter[name][eq]'?: string;
 }
 
 export namespace MessagingProfileListParams {
@@ -629,11 +759,21 @@ export namespace MessagingProfileListParams {
   }
 }
 
+export interface MessagingProfileListAlphanumericSenderIDsParams extends DefaultFlatPaginationParams {}
+
 export interface MessagingProfileListPhoneNumbersParams extends DefaultFlatPaginationParams {}
 
 export interface MessagingProfileListShortCodesParams extends DefaultFlatPaginationParams {}
 
+export interface MessagingProfileRetrieveMetricsParams {
+  /**
+   * The time frame for metrics.
+   */
+  time_frame?: '1h' | '3h' | '24h' | '3d' | '7d' | '30d';
+}
+
 MessagingProfiles.AutorespConfigs = AutorespConfigs;
+MessagingProfiles.Actions = Actions;
 
 export declare namespace MessagingProfiles {
   export {
@@ -644,12 +784,17 @@ export declare namespace MessagingProfiles {
     type MessagingProfileRetrieveResponse as MessagingProfileRetrieveResponse,
     type MessagingProfileUpdateResponse as MessagingProfileUpdateResponse,
     type MessagingProfileDeleteResponse as MessagingProfileDeleteResponse,
+    type MessagingProfileListAlphanumericSenderIDsResponse as MessagingProfileListAlphanumericSenderIDsResponse,
+    type MessagingProfileRetrieveMetricsResponse as MessagingProfileRetrieveMetricsResponse,
     type MessagingProfilesDefaultFlatPagination as MessagingProfilesDefaultFlatPagination,
+    type MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination as MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination,
     type MessagingProfileCreateParams as MessagingProfileCreateParams,
     type MessagingProfileUpdateParams as MessagingProfileUpdateParams,
     type MessagingProfileListParams as MessagingProfileListParams,
+    type MessagingProfileListAlphanumericSenderIDsParams as MessagingProfileListAlphanumericSenderIDsParams,
     type MessagingProfileListPhoneNumbersParams as MessagingProfileListPhoneNumbersParams,
     type MessagingProfileListShortCodesParams as MessagingProfileListShortCodesParams,
+    type MessagingProfileRetrieveMetricsParams as MessagingProfileRetrieveMetricsParams,
   };
 
   export {
@@ -665,6 +810,8 @@ export declare namespace MessagingProfiles {
     type AutorespConfigListParams as AutorespConfigListParams,
     type AutorespConfigDeleteParams as AutorespConfigDeleteParams,
   };
+
+  export { Actions as Actions, type ActionRegenerateSecretResponse as ActionRegenerateSecretResponse };
 }
 
 export { type PhoneNumberWithMessagingSettingsDefaultFlatPagination, type ShortCodesDefaultFlatPagination };

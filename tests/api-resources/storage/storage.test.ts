@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource storage', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listMigrationSourceCoverage', async () => {
     const responsePromise = client.storage.listMigrationSourceCoverage();
     const rawResponse = await responsePromise.asResponse();

@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('extend', async () => {
     const responsePromise = client.numberReservations.actions.extend('number_reservation_id');
     const rawResponse = await responsePromise.asResponse();

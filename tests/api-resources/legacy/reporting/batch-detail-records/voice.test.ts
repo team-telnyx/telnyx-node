@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource voice', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.legacy.reporting.batchDetailRecords.voice.create({
       end_time: '2024-02-12T23:59:59Z',
@@ -23,7 +23,7 @@ describe('resource voice', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.legacy.reporting.batchDetailRecords.voice.create({
       end_time: '2024-02-12T23:59:59Z',
@@ -52,7 +52,7 @@ describe('resource voice', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.legacy.reporting.batchDetailRecords.voice.retrieve(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -66,7 +66,7 @@ describe('resource voice', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.legacy.reporting.batchDetailRecords.voice.list();
     const rawResponse = await responsePromise.asResponse();
@@ -78,7 +78,7 @@ describe('resource voice', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.legacy.reporting.batchDetailRecords.voice.delete(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -92,7 +92,7 @@ describe('resource voice', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveFields', async () => {
     const responsePromise = client.legacy.reporting.batchDetailRecords.voice.retrieveFields();
     const rawResponse = await responsePromise.asResponse();

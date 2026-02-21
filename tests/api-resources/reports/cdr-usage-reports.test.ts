@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource cdrUsageReports', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('fetchSync: only required params', async () => {
     const responsePromise = client.reports.cdrUsageReports.fetchSync({
       aggregation_type: 'NO_AGGREGATION',
@@ -23,7 +23,7 @@ describe('resource cdrUsageReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('fetchSync: required and optional params', async () => {
     const response = await client.reports.cdrUsageReports.fetchSync({
       aggregation_type: 'NO_AGGREGATION',

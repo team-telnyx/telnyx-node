@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource numberLookup', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.numberLookup.retrieve('+18665552368');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource numberLookup', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(

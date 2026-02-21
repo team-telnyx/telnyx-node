@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource mobilePushCredentials', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.mobilePushCredentials.create({
       createMobilePushCredentialRequest: {
@@ -29,7 +29,7 @@ describe('resource mobilePushCredentials', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.mobilePushCredentials.create({
       createMobilePushCredentialRequest: {
@@ -43,7 +43,7 @@ describe('resource mobilePushCredentials', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.mobilePushCredentials.retrieve('0ccc7b76-4df3-4bca-a05a-3da1ecc389f0');
     const rawResponse = await responsePromise.asResponse();
@@ -55,7 +55,7 @@ describe('resource mobilePushCredentials', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.mobilePushCredentials.list();
     const rawResponse = await responsePromise.asResponse();
@@ -67,7 +67,7 @@ describe('resource mobilePushCredentials', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -82,7 +82,7 @@ describe('resource mobilePushCredentials', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.mobilePushCredentials.delete('0ccc7b76-4df3-4bca-a05a-3da1ecc389f0');
     const rawResponse = await responsePromise.asResponse();

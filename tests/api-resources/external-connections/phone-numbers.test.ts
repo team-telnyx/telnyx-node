@@ -8,9 +8,11 @@ const client = new Telnyx({
 });
 
 describe('resource phoneNumbers', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.externalConnections.phoneNumbers.retrieve('1234567889', { id: 'id' });
+    const responsePromise = client.externalConnections.phoneNumbers.retrieve('1234567889', {
+      id: '1293384261075731499',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,14 +22,18 @@ describe('resource phoneNumbers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.externalConnections.phoneNumbers.retrieve('1234567889', { id: 'id' });
+    const response = await client.externalConnections.phoneNumbers.retrieve('1234567889', {
+      id: '1293384261075731499',
+    });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.externalConnections.phoneNumbers.update('1234567889', { id: 'id' });
+    const responsePromise = client.externalConnections.phoneNumbers.update('1234567889', {
+      id: '1293384261075731499',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -37,17 +43,17 @@ describe('resource phoneNumbers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.externalConnections.phoneNumbers.update('1234567889', {
-      id: 'id',
+      id: '1293384261075731499',
       location_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.externalConnections.phoneNumbers.list('id');
+    const responsePromise = client.externalConnections.phoneNumbers.list('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -57,12 +63,12 @@ describe('resource phoneNumbers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.externalConnections.phoneNumbers.list(
-        'id',
+        '1293384261075731499',
         {
           filter: {
             civic_address_id: { eq: '19990261512338516954' },

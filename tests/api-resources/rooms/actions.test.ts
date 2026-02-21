@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('generateJoinClientToken', async () => {
     const responsePromise = client.rooms.actions.generateJoinClientToken(
       '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
@@ -23,7 +23,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('refreshClientToken: only required params', async () => {
     const responsePromise = client.rooms.actions.refreshClientToken('0ccc7b54-4df3-4bca-a65a-3da1ecc777f0', {
       refresh_token:
@@ -38,7 +38,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('refreshClientToken: required and optional params', async () => {
     const response = await client.rooms.actions.refreshClientToken('0ccc7b54-4df3-4bca-a65a-3da1ecc777f0', {
       refresh_token:

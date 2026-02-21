@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.simCardGroups.actions.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.simCardGroups.actions.list();
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -49,7 +49,7 @@ describe('resource actions', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('removePrivateWirelessGateway', async () => {
     const responsePromise = client.simCardGroups.actions.removePrivateWirelessGateway(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
@@ -63,7 +63,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('removeWirelessBlocklist', async () => {
     const responsePromise = client.simCardGroups.actions.removeWirelessBlocklist(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
@@ -77,7 +77,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('setPrivateWirelessGateway: only required params', async () => {
     const responsePromise = client.simCardGroups.actions.setPrivateWirelessGateway(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
@@ -92,7 +92,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('setPrivateWirelessGateway: required and optional params', async () => {
     const response = await client.simCardGroups.actions.setPrivateWirelessGateway(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
@@ -100,7 +100,7 @@ describe('resource actions', () => {
     );
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('setWirelessBlocklist: only required params', async () => {
     const responsePromise = client.simCardGroups.actions.setWirelessBlocklist(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
@@ -115,7 +115,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('setWirelessBlocklist: required and optional params', async () => {
     const response = await client.simCardGroups.actions.setWirelessBlocklist(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',

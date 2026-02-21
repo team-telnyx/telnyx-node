@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource numberOrderPhoneNumbers', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.numberOrderPhoneNumbers.retrieve('number_order_phone_number_id');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource numberOrderPhoneNumbers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.numberOrderPhoneNumbers.list();
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource numberOrderPhoneNumbers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -43,7 +43,7 @@ describe('resource numberOrderPhoneNumbers', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateRequirementGroup: only required params', async () => {
     const responsePromise = client.numberOrderPhoneNumbers.updateRequirementGroup(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -58,7 +58,7 @@ describe('resource numberOrderPhoneNumbers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateRequirementGroup: required and optional params', async () => {
     const response = await client.numberOrderPhoneNumbers.updateRequirementGroup(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -66,7 +66,7 @@ describe('resource numberOrderPhoneNumbers', () => {
     );
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateRequirements', async () => {
     const responsePromise = client.numberOrderPhoneNumbers.updateRequirements(
       'number_order_phone_number_id',

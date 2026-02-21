@@ -16,7 +16,7 @@ export class PhoneNumbers extends APIResource {
    * const phoneNumber =
    *   await client.externalConnections.phoneNumbers.retrieve(
    *     '1234567889',
-   *     { id: 'id' },
+   *     { id: '1293384261075731499' },
    *   );
    * ```
    */
@@ -38,7 +38,7 @@ export class PhoneNumbers extends APIResource {
    * const phoneNumber =
    *   await client.externalConnections.phoneNumbers.update(
    *     '1234567889',
-   *     { id: 'id' },
+   *     { id: '1293384261075731499' },
    *   );
    * ```
    */
@@ -62,7 +62,7 @@ export class PhoneNumbers extends APIResource {
    * ```ts
    * // Automatically fetches more pages as needed.
    * for await (const externalConnectionPhoneNumber of client.externalConnections.phoneNumbers.list(
-   *   'id',
+   *   '1293384261075731499',
    * )) {
    *   // ...
    * }

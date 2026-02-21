@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource brand', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.messaging10dlc.brand.create({
       country: 'US',
@@ -26,7 +26,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.messaging10dlc.brand.create({
       country: 'US',
@@ -56,7 +56,7 @@ describe('resource brand', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.messaging10dlc.brand.retrieve('brandId');
     const rawResponse = await responsePromise.asResponse();
@@ -68,7 +68,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.messaging10dlc.brand.update('brandId', {
       country: 'US',
@@ -86,7 +86,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.messaging10dlc.brand.update('brandId', {
       country: 'US',
@@ -94,7 +94,7 @@ describe('resource brand', () => {
       email: 'email',
       entityType: 'PRIVATE_PROFIT',
       vertical: 'TECHNOLOGY',
-      altBusiness_id: 'altBusiness_id',
+      altBusinessId: 'altBusinessId',
       altBusinessIdType: 'NONE',
       businessContactEmail: 'name@example.com',
       city: 'New York',
@@ -117,7 +117,7 @@ describe('resource brand', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.messaging10dlc.brand.list();
     const rawResponse = await responsePromise.asResponse();
@@ -129,7 +129,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -150,7 +150,7 @@ describe('resource brand', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.messaging10dlc.brand.delete('brandId');
     const rawResponse = await responsePromise.asResponse();
@@ -162,7 +162,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getFeedback', async () => {
     const responsePromise = client.messaging10dlc.brand.getFeedback('brandId');
     const rawResponse = await responsePromise.asResponse();
@@ -174,7 +174,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getSMSOtpByReference', async () => {
     const responsePromise = client.messaging10dlc.brand.getSMSOtpByReference('OTP4B2001');
     const rawResponse = await responsePromise.asResponse();
@@ -186,7 +186,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getSMSOtpByReference: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -198,7 +198,7 @@ describe('resource brand', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('resend2faEmail', async () => {
     const responsePromise = client.messaging10dlc.brand.resend2faEmail('brandId');
     const rawResponse = await responsePromise.asResponse();
@@ -210,7 +210,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveSMSOtpStatus', async () => {
     const responsePromise = client.messaging10dlc.brand.retrieveSMSOtpStatus(
       '4b20019b-043a-78f8-0657-b3be3f4b4002',
@@ -224,7 +224,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('revet', async () => {
     const responsePromise = client.messaging10dlc.brand.revet('brandId');
     const rawResponse = await responsePromise.asResponse();
@@ -236,7 +236,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('triggerSMSOtp: only required params', async () => {
     const responsePromise = client.messaging10dlc.brand.triggerSMSOtp(
       '4b20019b-043a-78f8-0657-b3be3f4b4002',
@@ -251,7 +251,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('triggerSMSOtp: required and optional params', async () => {
     const response = await client.messaging10dlc.brand.triggerSMSOtp('4b20019b-043a-78f8-0657-b3be3f4b4002', {
       pinSms: 'Your PIN is @OTP_PIN@',
@@ -259,7 +259,7 @@ describe('resource brand', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('verifySMSOtp: only required params', async () => {
     const responsePromise = client.messaging10dlc.brand.verifySMSOtp('4b20019b-043a-78f8-0657-b3be3f4b4002', {
       otpPin: '123456',
@@ -273,7 +273,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('verifySMSOtp: required and optional params', async () => {
     const response = await client.messaging10dlc.brand.verifySMSOtp('4b20019b-043a-78f8-0657-b3be3f4b4002', {
       otpPin: '123456',
