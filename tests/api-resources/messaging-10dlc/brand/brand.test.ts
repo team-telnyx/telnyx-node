@@ -94,7 +94,7 @@ describe('resource brand', () => {
       email: 'email',
       entityType: 'PRIVATE_PROFIT',
       vertical: 'TECHNOLOGY',
-      altBusiness_id: 'altBusiness_id',
+      altBusinessId: 'altBusinessId',
       altBusinessIdType: 'NONE',
       businessContactEmail: 'name@example.com',
       city: 'New York',
