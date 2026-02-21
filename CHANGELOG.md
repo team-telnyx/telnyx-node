@@ -1,5 +1,42 @@
 # Changelog
 
+## 5.38.0 (2026-02-21)
+
+Full Changelog: [v5.37.1...v5.38.0](https://github.com/team-telnyx/telnyx-node/compare/v5.37.1...v5.38.0)
+
+### Features
+
+* **api:** manual updates ([2aa4e65](https://github.com/team-telnyx/telnyx-node/commit/2aa4e65079563a8a9aef91eb0c498ff951b251be))
+* **api:** manual updates ([508352a](https://github.com/team-telnyx/telnyx-node/commit/508352ad725e9dfbdf7c72f176a321b204e4cb83))
+* **api:** manual updates ([6b874b2](https://github.com/team-telnyx/telnyx-node/commit/6b874b2ac140611b3002107612dd3e07ac1d3a9b))
+* **api:** manual updates ([898817c](https://github.com/team-telnyx/telnyx-node/commit/898817c2672e3a6f6e056a6ab1510fdee0d4bbd5))
+* **api:** manual updates ([87ef45b](https://github.com/team-telnyx/telnyx-node/commit/87ef45b11e422c1175d47dc3962376d2f78096d7))
+* fix-stainless-sdk-timeout ([d628db4](https://github.com/team-telnyx/telnyx-node/commit/d628db4d772dcdf371294756b9274f82c5e662e3))
+* TELAPPS Add ApplicationSid param ([2460d46](https://github.com/team-telnyx/telnyx-node/commit/2460d4668c86e1d567cb20417b23fe6dac390e6f))
+* TELAPPS Add interim_results to deepgram config ([2e4cb9c](https://github.com/team-telnyx/telnyx-node/commit/2e4cb9cf1d92c5b5c21cc9240114b6a21a9a87bb))
+
+
+### Bug Fixes
+
+* move unsupported string formats to x-format ([e842a25](https://github.com/team-telnyx/telnyx-node/commit/e842a25b20bb162b438e8f0d5d7bac09e2678bd2))
+* OAS drift — 10dlc.json (messaging-campaign-registry) ([681d8a8](https://github.com/team-telnyx/telnyx-node/commit/681d8a86c762b1a7a884328e35f436039d86b785))
+* OAS drift — messaging.json (messaging-settings + messaging-outbound) ([7ff77b7](https://github.com/team-telnyx/telnyx-node/commit/7ff77b7400e6415f48eea6349924f665288dfd1b))
+* StringFormatNotSupported ([ab6e6e9](https://github.com/team-telnyx/telnyx-node/commit/ab6e6e98c70b93c81028eddf31285f1e4a595802))
+
+
+### Chores
+
+* **internal:** remove mock server code ([8c1e111](https://github.com/team-telnyx/telnyx-node/commit/8c1e11195c92b44ef5ff29b8126d517347a3a6cf))
+* **mcp:** correctly update version in sync with sdk ([66e0b2f](https://github.com/team-telnyx/telnyx-node/commit/66e0b2fb9a0050a11b5685b27b8bdc29f27d3255))
+* update mock server docs ([1e3acd5](https://github.com/team-telnyx/telnyx-node/commit/1e3acd5130468bb3cbd45430c3745701f4478f0b))
+
+
+### Documentation
+
+* add service_provider_login_url to authentication provider settings ([b7328ad](https://github.com/team-telnyx/telnyx-node/commit/b7328adb10ee441028ea8e4bf24b9d98292c4cbd))
+* **call-control:** Add missing conference endpoints ([22161c4](https://github.com/team-telnyx/telnyx-node/commit/22161c467f0651effc852e7496b6938773b83d91))
+* **call-scripting:** add Timeout and TimeLimit to InitiateTexmlCall ([26371d9](https://github.com/team-telnyx/telnyx-node/commit/26371d9b9da589d746dd97dcc87b56f6ed00db5c))
+
 ## 5.37.1 (2026-02-19)
 
 Full Changelog: [v5.37.0...v5.37.1](https://github.com/team-telnyx/telnyx-node/compare/v5.37.0...v5.37.1)
