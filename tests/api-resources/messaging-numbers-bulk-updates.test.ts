@@ -28,6 +28,7 @@ describe('resource messagingNumbersBulkUpdates', () => {
     const response = await client.messagingNumbersBulkUpdates.create({
       messaging_profile_id: '00000000-0000-0000-0000-000000000000',
       numbers: ['+18880000000', '+18880000001', '+18880000002'],
+      assign_only: true,
     });
   });
 

@@ -2037,6 +2037,7 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">WhatsappMedia</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageRetrieveResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageCancelScheduledResponse</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessageRetrieveGroupMessagesResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageScheduleResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendGroupMmsResponse</a></code>
@@ -2044,11 +2045,13 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">MessageSendNumberPoolResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendShortCodeResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendWhatsappResponse</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessageSendWithAlphanumericSenderResponse</a></code>
 
 Methods:
 
 - <code title="get /messages/{id}">client.messages.<a href="./src/resources/messages/messages.ts">retrieve</a>(id) -> MessageRetrieveResponse</code>
 - <code title="delete /messages/{id}">client.messages.<a href="./src/resources/messages/messages.ts">cancelScheduled</a>(id) -> MessageCancelScheduledResponse</code>
+- <code title="get /messages/group/{message_id}">client.messages.<a href="./src/resources/messages/messages.ts">retrieveGroupMessages</a>(messageID) -> MessageRetrieveGroupMessagesResponse</code>
 - <code title="post /messages/schedule">client.messages.<a href="./src/resources/messages/messages.ts">schedule</a>({ ...params }) -> MessageScheduleResponse</code>
 - <code title="post /messages">client.messages.<a href="./src/resources/messages/messages.ts">send</a>({ ...params }) -> MessageSendResponse</code>
 - <code title="post /messages/group_mms">client.messages.<a href="./src/resources/messages/messages.ts">sendGroupMms</a>({ ...params }) -> MessageSendGroupMmsResponse</code>
@@ -2056,6 +2059,7 @@ Methods:
 - <code title="post /messages/number_pool">client.messages.<a href="./src/resources/messages/messages.ts">sendNumberPool</a>({ ...params }) -> MessageSendNumberPoolResponse</code>
 - <code title="post /messages/short_code">client.messages.<a href="./src/resources/messages/messages.ts">sendShortCode</a>({ ...params }) -> MessageSendShortCodeResponse</code>
 - <code title="post /messages/whatsapp">client.messages.<a href="./src/resources/messages/messages.ts">sendWhatsapp</a>({ ...params }) -> MessageSendWhatsappResponse</code>
+- <code title="post /messages/alphanumeric_sender_id">client.messages.<a href="./src/resources/messages/messages.ts">sendWithAlphanumericSender</a>({ ...params }) -> MessageSendWithAlphanumericSenderResponse</code>
 
 ## Rcs
 
@@ -2129,10 +2133,15 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/messaging-hosted-numbers.ts">MessagingHostedNumberRetrieveResponse</a></code>
+- <code><a href="./src/resources/messaging-hosted-numbers.ts">MessagingHostedNumberUpdateResponse</a></code>
 - <code><a href="./src/resources/messaging-hosted-numbers.ts">MessagingHostedNumberDeleteResponse</a></code>
 
 Methods:
 
+- <code title="get /messaging_hosted_numbers/{id}">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">retrieve</a>(id) -> MessagingHostedNumberRetrieveResponse</code>
+- <code title="patch /messaging_hosted_numbers/{id}">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">update</a>(id, { ...params }) -> MessagingHostedNumberUpdateResponse</code>
+- <code title="get /messaging_hosted_numbers">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">list</a>({ ...params }) -> PhoneNumberWithMessagingSettingsDefaultFlatPagination</code>
 - <code title="delete /messaging_hosted_numbers/{id}">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">delete</a>(id) -> MessagingHostedNumberDeleteResponse</code>
 
 # MessagingNumbersBulkUpdates
@@ -2168,6 +2177,8 @@ Types:
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfileRetrieveResponse</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfileUpdateResponse</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfileDeleteResponse</a></code>
+- <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfileListAlphanumericSenderIDsResponse</a></code>
+- <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfileRetrieveMetricsResponse</a></code>
 
 Methods:
 
@@ -2176,8 +2187,10 @@ Methods:
 - <code title="patch /messaging_profiles/{id}">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">update</a>(messagingProfileID, { ...params }) -> MessagingProfileUpdateResponse</code>
 - <code title="get /messaging_profiles">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">list</a>({ ...params }) -> MessagingProfilesDefaultFlatPagination</code>
 - <code title="delete /messaging_profiles/{id}">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">delete</a>(messagingProfileID) -> MessagingProfileDeleteResponse</code>
+- <code title="get /messaging_profiles/{id}/alphanumeric_sender_ids">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">listAlphanumericSenderIDs</a>(id, { ...params }) -> MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination</code>
 - <code title="get /messaging_profiles/{id}/phone_numbers">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">listPhoneNumbers</a>(messagingProfileID, { ...params }) -> PhoneNumberWithMessagingSettingsDefaultFlatPagination</code>
 - <code title="get /messaging_profiles/{id}/short_codes">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">listShortCodes</a>(messagingProfileID, { ...params }) -> ShortCodesDefaultFlatPagination</code>
+- <code title="get /messaging_profiles/{id}/metrics">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">retrieveMetrics</a>(id, { ...params }) -> MessagingProfileRetrieveMetricsResponse</code>
 
 ## AutorespConfigs
 
@@ -2196,6 +2209,16 @@ Methods:
 - <code title="put /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">update</a>(autorespCfgID, { ...params }) -> AutoRespConfigResponse</code>
 - <code title="get /messaging_profiles/{profile_id}/autoresp_configs">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">list</a>(profileID, { ...params }) -> AutorespConfigListResponse</code>
 - <code title="delete /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">delete</a>(autorespCfgID, { ...params }) -> string</code>
+
+## Actions
+
+Types:
+
+- <code><a href="./src/resources/messaging-profiles/actions.ts">ActionRegenerateSecretResponse</a></code>
+
+Methods:
+
+- <code title="post /messaging_profiles/{id}/actions/regenerate_secret">client.messagingProfiles.actions.<a href="./src/resources/messaging-profiles/actions.ts">regenerateSecret</a>(id) -> ActionRegenerateSecretResponse</code>
 
 # MessagingTollfree
 
@@ -4315,3 +4338,29 @@ Types:
 Methods:
 
 - <code title="post /organizations/users/{id}/actions/remove">client.organizations.users.actions.<a href="./src/resources/organizations/users/actions.ts">remove</a>(id) -> ActionRemoveResponse</code>
+
+# AlphanumericSenderIDs
+
+Types:
+
+- <code><a href="./src/resources/alphanumeric-sender-ids.ts">AlphanumericSenderIDCreateResponse</a></code>
+- <code><a href="./src/resources/alphanumeric-sender-ids.ts">AlphanumericSenderIDRetrieveResponse</a></code>
+- <code><a href="./src/resources/alphanumeric-sender-ids.ts">AlphanumericSenderIDListResponse</a></code>
+- <code><a href="./src/resources/alphanumeric-sender-ids.ts">AlphanumericSenderIDDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /alphanumeric_sender_ids">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">create</a>({ ...params }) -> AlphanumericSenderIDCreateResponse</code>
+- <code title="get /alphanumeric_sender_ids/{id}">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">retrieve</a>(id) -> AlphanumericSenderIDRetrieveResponse</code>
+- <code title="get /alphanumeric_sender_ids">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">list</a>({ ...params }) -> AlphanumericSenderIDListResponsesDefaultFlatPagination</code>
+- <code title="delete /alphanumeric_sender_ids/{id}">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">delete</a>(id) -> AlphanumericSenderIDDeleteResponse</code>
+
+# MessagingProfileMetrics
+
+Types:
+
+- <code><a href="./src/resources/messaging-profile-metrics.ts">MessagingProfileMetricListResponse</a></code>
+
+Methods:
+
+- <code title="get /messaging_profile_metrics">client.messagingProfileMetrics.<a href="./src/resources/messaging-profile-metrics.ts">list</a>({ ...params }) -> MessagingProfileMetricListResponse</code>

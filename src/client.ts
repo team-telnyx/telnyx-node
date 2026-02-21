@@ -64,6 +64,16 @@ import {
   AdvancedOrders,
 } from './resources/advanced-orders';
 import {
+  AlphanumericSenderIDCreateParams,
+  AlphanumericSenderIDCreateResponse,
+  AlphanumericSenderIDDeleteResponse,
+  AlphanumericSenderIDListParams,
+  AlphanumericSenderIDListResponse,
+  AlphanumericSenderIDListResponsesDefaultFlatPagination,
+  AlphanumericSenderIDRetrieveResponse,
+  AlphanumericSenderIDs,
+} from './resources/alphanumeric-sender-ids';
+import {
   AuditEventListParams,
   AuditEventListResponse,
   AuditEventListResponsesDefaultFlatPagination,
@@ -436,6 +446,10 @@ import {
 } from './resources/media';
 import {
   MessagingHostedNumberDeleteResponse,
+  MessagingHostedNumberListParams,
+  MessagingHostedNumberRetrieveResponse,
+  MessagingHostedNumberUpdateParams,
+  MessagingHostedNumberUpdateResponse,
   MessagingHostedNumbers,
 } from './resources/messaging-hosted-numbers';
 import {
@@ -450,6 +464,11 @@ import {
   MessagingOptoutListResponsesDefaultFlatPagination,
   MessagingOptouts,
 } from './resources/messaging-optouts';
+import {
+  MessagingProfileMetricListParams,
+  MessagingProfileMetricListResponse,
+  MessagingProfileMetrics,
+} from './resources/messaging-profile-metrics';
 import {
   MessagingURLDomainListParams,
   MessagingURLDomainListResponse,
@@ -1160,6 +1179,7 @@ import {
 } from './resources/managed-accounts/managed-accounts';
 import {
   MessageCancelScheduledResponse,
+  MessageRetrieveGroupMessagesResponse,
   MessageRetrieveResponse,
   MessageScheduleParams,
   MessageScheduleResponse,
@@ -1175,6 +1195,8 @@ import {
   MessageSendShortCodeResponse,
   MessageSendWhatsappParams,
   MessageSendWhatsappResponse,
+  MessageSendWithAlphanumericSenderParams,
+  MessageSendWithAlphanumericSenderResponse,
   Messages,
   MessagingError,
   OutboundMessagePayload,
@@ -1204,9 +1226,14 @@ import {
   MessagingProfileCreateParams,
   MessagingProfileCreateResponse,
   MessagingProfileDeleteResponse,
+  MessagingProfileListAlphanumericSenderIDsParams,
+  MessagingProfileListAlphanumericSenderIDsResponse,
+  MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination,
   MessagingProfileListParams,
   MessagingProfileListPhoneNumbersParams,
   MessagingProfileListShortCodesParams,
+  MessagingProfileRetrieveMetricsParams,
+  MessagingProfileRetrieveMetricsResponse,
   MessagingProfileRetrieveResponse,
   MessagingProfileUpdateParams,
   MessagingProfileUpdateResponse,
@@ -2384,6 +2411,8 @@ export class Telnyx {
   messaging10dlc: API.Messaging10dlc = new API.Messaging10dlc(this);
   speechToText: API.SpeechToText = new API.SpeechToText(this);
   organizations: API.Organizations = new API.Organizations(this);
+  alphanumericSenderIDs: API.AlphanumericSenderIDs = new API.AlphanumericSenderIDs(this);
+  messagingProfileMetrics: API.MessagingProfileMetrics = new API.MessagingProfileMetrics(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -2537,6 +2566,8 @@ Telnyx.MobileVoiceConnections = MobileVoiceConnections;
 Telnyx.Messaging10dlc = Messaging10dlc;
 Telnyx.SpeechToText = SpeechToText;
 Telnyx.Organizations = Organizations;
+Telnyx.AlphanumericSenderIDs = AlphanumericSenderIDs;
+Telnyx.MessagingProfileMetrics = MessagingProfileMetrics;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3321,6 +3352,7 @@ export declare namespace Telnyx {
     type WhatsappMedia as WhatsappMedia,
     type MessageRetrieveResponse as MessageRetrieveResponse,
     type MessageCancelScheduledResponse as MessageCancelScheduledResponse,
+    type MessageRetrieveGroupMessagesResponse as MessageRetrieveGroupMessagesResponse,
     type MessageScheduleResponse as MessageScheduleResponse,
     type MessageSendResponse as MessageSendResponse,
     type MessageSendGroupMmsResponse as MessageSendGroupMmsResponse,
@@ -3328,6 +3360,7 @@ export declare namespace Telnyx {
     type MessageSendNumberPoolResponse as MessageSendNumberPoolResponse,
     type MessageSendShortCodeResponse as MessageSendShortCodeResponse,
     type MessageSendWhatsappResponse as MessageSendWhatsappResponse,
+    type MessageSendWithAlphanumericSenderResponse as MessageSendWithAlphanumericSenderResponse,
     type MessageScheduleParams as MessageScheduleParams,
     type MessageSendParams as MessageSendParams,
     type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
@@ -3335,6 +3368,7 @@ export declare namespace Telnyx {
     type MessageSendNumberPoolParams as MessageSendNumberPoolParams,
     type MessageSendShortCodeParams as MessageSendShortCodeParams,
     type MessageSendWhatsappParams as MessageSendWhatsappParams,
+    type MessageSendWithAlphanumericSenderParams as MessageSendWithAlphanumericSenderParams,
   };
 
   export { Messaging as Messaging };
@@ -3356,7 +3390,11 @@ export declare namespace Telnyx {
 
   export {
     MessagingHostedNumbers as MessagingHostedNumbers,
+    type MessagingHostedNumberRetrieveResponse as MessagingHostedNumberRetrieveResponse,
+    type MessagingHostedNumberUpdateResponse as MessagingHostedNumberUpdateResponse,
     type MessagingHostedNumberDeleteResponse as MessagingHostedNumberDeleteResponse,
+    type MessagingHostedNumberUpdateParams as MessagingHostedNumberUpdateParams,
+    type MessagingHostedNumberListParams as MessagingHostedNumberListParams,
   };
 
   export {
@@ -3382,12 +3420,17 @@ export declare namespace Telnyx {
     type MessagingProfileRetrieveResponse as MessagingProfileRetrieveResponse,
     type MessagingProfileUpdateResponse as MessagingProfileUpdateResponse,
     type MessagingProfileDeleteResponse as MessagingProfileDeleteResponse,
+    type MessagingProfileListAlphanumericSenderIDsResponse as MessagingProfileListAlphanumericSenderIDsResponse,
+    type MessagingProfileRetrieveMetricsResponse as MessagingProfileRetrieveMetricsResponse,
     type MessagingProfilesDefaultFlatPagination as MessagingProfilesDefaultFlatPagination,
+    type MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination as MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination,
     type MessagingProfileCreateParams as MessagingProfileCreateParams,
     type MessagingProfileUpdateParams as MessagingProfileUpdateParams,
     type MessagingProfileListParams as MessagingProfileListParams,
+    type MessagingProfileListAlphanumericSenderIDsParams as MessagingProfileListAlphanumericSenderIDsParams,
     type MessagingProfileListPhoneNumbersParams as MessagingProfileListPhoneNumbersParams,
     type MessagingProfileListShortCodesParams as MessagingProfileListShortCodesParams,
+    type MessagingProfileRetrieveMetricsParams as MessagingProfileRetrieveMetricsParams,
   };
 
   export { MessagingTollfree as MessagingTollfree };
@@ -4131,6 +4174,23 @@ export declare namespace Telnyx {
   export { SpeechToText as SpeechToText, type SpeechToTextTranscribeParams as SpeechToTextTranscribeParams };
 
   export { Organizations as Organizations };
+
+  export {
+    AlphanumericSenderIDs as AlphanumericSenderIDs,
+    type AlphanumericSenderIDCreateResponse as AlphanumericSenderIDCreateResponse,
+    type AlphanumericSenderIDRetrieveResponse as AlphanumericSenderIDRetrieveResponse,
+    type AlphanumericSenderIDListResponse as AlphanumericSenderIDListResponse,
+    type AlphanumericSenderIDDeleteResponse as AlphanumericSenderIDDeleteResponse,
+    type AlphanumericSenderIDListResponsesDefaultFlatPagination as AlphanumericSenderIDListResponsesDefaultFlatPagination,
+    type AlphanumericSenderIDCreateParams as AlphanumericSenderIDCreateParams,
+    type AlphanumericSenderIDListParams as AlphanumericSenderIDListParams,
+  };
+
+  export {
+    MessagingProfileMetrics as MessagingProfileMetrics,
+    type MessagingProfileMetricListResponse as MessagingProfileMetricListResponse,
+    type MessagingProfileMetricListParams as MessagingProfileMetricListParams,
+  };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;

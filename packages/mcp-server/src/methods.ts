@@ -2599,6 +2599,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messages/{id}',
   },
   {
+    clientCallName: 'client.messages.retrieveGroupMessages',
+    fullyQualifiedName: 'messages.retrieveGroupMessages',
+    httpMethod: 'get',
+    httpPath: '/messages/group/{message_id}',
+  },
+  {
     clientCallName: 'client.messages.schedule',
     fullyQualifiedName: 'messages.schedule',
     httpMethod: 'post',
@@ -2639,6 +2645,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'messages.sendWhatsapp',
     httpMethod: 'post',
     httpPath: '/messages/whatsapp',
+  },
+  {
+    clientCallName: 'client.messages.sendWithAlphanumericSender',
+    fullyQualifiedName: 'messages.sendWithAlphanumericSender',
+    httpMethod: 'post',
+    httpPath: '/messages/alphanumeric_sender_id',
   },
   {
     clientCallName: 'client.messages.rcs.generateDeeplink',
@@ -2737,6 +2749,24 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messaging_hosted_number_orders/{id}/actions/file_upload',
   },
   {
+    clientCallName: 'client.messagingHostedNumbers.retrieve',
+    fullyQualifiedName: 'messagingHostedNumbers.retrieve',
+    httpMethod: 'get',
+    httpPath: '/messaging_hosted_numbers/{id}',
+  },
+  {
+    clientCallName: 'client.messagingHostedNumbers.update',
+    fullyQualifiedName: 'messagingHostedNumbers.update',
+    httpMethod: 'patch',
+    httpPath: '/messaging_hosted_numbers/{id}',
+  },
+  {
+    clientCallName: 'client.messagingHostedNumbers.list',
+    fullyQualifiedName: 'messagingHostedNumbers.list',
+    httpMethod: 'get',
+    httpPath: '/messaging_hosted_numbers',
+  },
+  {
     clientCallName: 'client.messagingHostedNumbers.delete',
     fullyQualifiedName: 'messagingHostedNumbers.delete',
     httpMethod: 'delete',
@@ -2791,6 +2821,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messaging_profiles/{id}',
   },
   {
+    clientCallName: 'client.messagingProfiles.listAlphanumericSenderIDs',
+    fullyQualifiedName: 'messagingProfiles.listAlphanumericSenderIDs',
+    httpMethod: 'get',
+    httpPath: '/messaging_profiles/{id}/alphanumeric_sender_ids',
+  },
+  {
     clientCallName: 'client.messagingProfiles.listPhoneNumbers',
     fullyQualifiedName: 'messagingProfiles.listPhoneNumbers',
     httpMethod: 'get',
@@ -2801,6 +2837,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'messagingProfiles.listShortCodes',
     httpMethod: 'get',
     httpPath: '/messaging_profiles/{id}/short_codes',
+  },
+  {
+    clientCallName: 'client.messagingProfiles.retrieveMetrics',
+    fullyQualifiedName: 'messagingProfiles.retrieveMetrics',
+    httpMethod: 'get',
+    httpPath: '/messaging_profiles/{id}/metrics',
   },
   {
     clientCallName: 'client.messagingProfiles.autorespConfigs.create',
@@ -2831,6 +2873,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'messagingProfiles.autorespConfigs.delete',
     httpMethod: 'delete',
     httpPath: '/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}',
+  },
+  {
+    clientCallName: 'client.messagingProfiles.actions.regenerateSecret',
+    fullyQualifiedName: 'messagingProfiles.actions.regenerateSecret',
+    httpMethod: 'post',
+    httpPath: '/messaging_profiles/{id}/actions/regenerate_secret',
   },
   {
     clientCallName: 'client.messagingTollfree.verification.requests.create',
@@ -5582,6 +5630,36 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'organizations.users.actions.remove',
     httpMethod: 'post',
     httpPath: '/organizations/users/{id}/actions/remove',
+  },
+  {
+    clientCallName: 'client.alphanumericSenderIDs.create',
+    fullyQualifiedName: 'alphanumericSenderIDs.create',
+    httpMethod: 'post',
+    httpPath: '/alphanumeric_sender_ids',
+  },
+  {
+    clientCallName: 'client.alphanumericSenderIDs.retrieve',
+    fullyQualifiedName: 'alphanumericSenderIDs.retrieve',
+    httpMethod: 'get',
+    httpPath: '/alphanumeric_sender_ids/{id}',
+  },
+  {
+    clientCallName: 'client.alphanumericSenderIDs.list',
+    fullyQualifiedName: 'alphanumericSenderIDs.list',
+    httpMethod: 'get',
+    httpPath: '/alphanumeric_sender_ids',
+  },
+  {
+    clientCallName: 'client.alphanumericSenderIDs.delete',
+    fullyQualifiedName: 'alphanumericSenderIDs.delete',
+    httpMethod: 'delete',
+    httpPath: '/alphanumeric_sender_ids/{id}',
+  },
+  {
+    clientCallName: 'client.messagingProfileMetrics.list',
+    fullyQualifiedName: 'messagingProfileMetrics.list',
+    httpMethod: 'get',
+    httpPath: '/messaging_profile_metrics',
   },
 ];
 

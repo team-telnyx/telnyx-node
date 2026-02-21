@@ -91,9 +91,39 @@ export interface MessagingUpdateParams {
    *   to that messaging profile
    */
   messaging_profile_id?: string;
+
+  /**
+   * Tags to set on this phone number.
+   */
+  tags?: Array<string>;
 }
 
-export interface MessagingListParams extends DefaultFlatPaginationParams {}
+export interface MessagingListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter by messaging profile ID.
+   */
+  'filter[messaging_profile_id]'?: string;
+
+  /**
+   * Filter by exact phone number (supports comma-separated list).
+   */
+  'filter[phone_number]'?: string;
+
+  /**
+   * Filter by phone number substring.
+   */
+  'filter[phone_number][contains]'?: string;
+
+  /**
+   * Filter by phone number type.
+   */
+  'filter[type]'?: 'tollfree' | 'longcode' | 'shortcode';
+
+  /**
+   * Sort by phone number.
+   */
+  'sort[phone_number]'?: 'asc' | 'desc';
+}
 
 export declare namespace Messaging {
   export {
