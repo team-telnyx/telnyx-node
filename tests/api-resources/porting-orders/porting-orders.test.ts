@@ -149,7 +149,8 @@ describe('resource portingOrders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieveLoaTemplate: request options and params are passed correctly', async () => {
+  // Mock server tests are disabled
+  test.skip('retrieveLoaTemplate: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.portingOrders.retrieveLoaTemplate(

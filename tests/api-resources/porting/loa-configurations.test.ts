@@ -139,7 +139,8 @@ describe('resource loaConfigurations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('preview0: required and optional params', async () => {
+  // Mock server tests are disabled
+  test.skip('preview0: required and optional params', async () => {
     const response = await client.porting.loaConfigurations.preview0({
       address: {
         city: 'Austin',

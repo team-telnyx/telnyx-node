@@ -8,7 +8,8 @@ const client = new Telnyx({
 });
 
 describe('resource textToSpeech', () => {
-  test('generateSpeech: required and optional params', async () => {
+  // Mock server tests are disabled
+  test.skip('generateSpeech: required and optional params', async () => {
     const response = await client.textToSpeech.generateSpeech({ text: 'text', voice: 'voice' });
   });
 
