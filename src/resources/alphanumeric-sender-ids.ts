@@ -46,7 +46,7 @@ export class AlphanumericSenderIDs extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const alphanumericSenderIDListResponse of client.alphanumericSenderIDs.list()) {
+   * for await (const alphanumericSenderID of client.alphanumericSenderIDs.list()) {
    *   // ...
    * }
    * ```
@@ -54,12 +54,11 @@ export class AlphanumericSenderIDs extends APIResource {
   list(
     query: AlphanumericSenderIDListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<AlphanumericSenderIDListResponsesDefaultFlatPagination, AlphanumericSenderIDListResponse> {
-    return this._client.getAPIList(
-      '/alphanumeric_sender_ids',
-      DefaultFlatPagination<AlphanumericSenderIDListResponse>,
-      { query, ...options },
-    );
+  ): PagePromise<AlphanumericSenderIDsDefaultFlatPagination, AlphanumericSenderID> {
+    return this._client.getAPIList('/alphanumeric_sender_ids', DefaultFlatPagination<AlphanumericSenderID>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -76,80 +75,9 @@ export class AlphanumericSenderIDs extends APIResource {
   }
 }
 
-export type AlphanumericSenderIDListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<AlphanumericSenderIDListResponse>;
+export type AlphanumericSenderIDsDefaultFlatPagination = DefaultFlatPagination<AlphanumericSenderID>;
 
-export interface AlphanumericSenderIDCreateResponse {
-  data?: AlphanumericSenderIDCreateResponse.Data;
-}
-
-export namespace AlphanumericSenderIDCreateResponse {
-  export interface Data {
-    /**
-     * Uniquely identifies the alphanumeric sender ID resource.
-     */
-    id?: string;
-
-    /**
-     * The alphanumeric sender ID string.
-     */
-    alphanumeric_sender_id?: string;
-
-    /**
-     * The messaging profile this sender ID belongs to.
-     */
-    messaging_profile_id?: string;
-
-    /**
-     * The organization that owns this sender ID.
-     */
-    organization_id?: string;
-
-    record_type?: 'alphanumeric_sender_id';
-
-    /**
-     * A US long code number to use as fallback when sending to US destinations.
-     */
-    us_long_code_fallback?: string;
-  }
-}
-
-export interface AlphanumericSenderIDRetrieveResponse {
-  data?: AlphanumericSenderIDRetrieveResponse.Data;
-}
-
-export namespace AlphanumericSenderIDRetrieveResponse {
-  export interface Data {
-    /**
-     * Uniquely identifies the alphanumeric sender ID resource.
-     */
-    id?: string;
-
-    /**
-     * The alphanumeric sender ID string.
-     */
-    alphanumeric_sender_id?: string;
-
-    /**
-     * The messaging profile this sender ID belongs to.
-     */
-    messaging_profile_id?: string;
-
-    /**
-     * The organization that owns this sender ID.
-     */
-    organization_id?: string;
-
-    record_type?: 'alphanumeric_sender_id';
-
-    /**
-     * A US long code number to use as fallback when sending to US destinations.
-     */
-    us_long_code_fallback?: string;
-  }
-}
-
-export interface AlphanumericSenderIDListResponse {
+export interface AlphanumericSenderID {
   /**
    * Uniquely identifies the alphanumeric sender ID resource.
    */
@@ -178,39 +106,16 @@ export interface AlphanumericSenderIDListResponse {
   us_long_code_fallback?: string;
 }
 
-export interface AlphanumericSenderIDDeleteResponse {
-  data?: AlphanumericSenderIDDeleteResponse.Data;
+export interface AlphanumericSenderIDCreateResponse {
+  data?: AlphanumericSenderID;
 }
 
-export namespace AlphanumericSenderIDDeleteResponse {
-  export interface Data {
-    /**
-     * Uniquely identifies the alphanumeric sender ID resource.
-     */
-    id?: string;
+export interface AlphanumericSenderIDRetrieveResponse {
+  data?: AlphanumericSenderID;
+}
 
-    /**
-     * The alphanumeric sender ID string.
-     */
-    alphanumeric_sender_id?: string;
-
-    /**
-     * The messaging profile this sender ID belongs to.
-     */
-    messaging_profile_id?: string;
-
-    /**
-     * The organization that owns this sender ID.
-     */
-    organization_id?: string;
-
-    record_type?: 'alphanumeric_sender_id';
-
-    /**
-     * A US long code number to use as fallback when sending to US destinations.
-     */
-    us_long_code_fallback?: string;
-  }
+export interface AlphanumericSenderIDDeleteResponse {
+  data?: AlphanumericSenderID;
 }
 
 export interface AlphanumericSenderIDCreateParams {
@@ -239,11 +144,11 @@ export interface AlphanumericSenderIDListParams extends DefaultFlatPaginationPar
 
 export declare namespace AlphanumericSenderIDs {
   export {
+    type AlphanumericSenderID as AlphanumericSenderID,
     type AlphanumericSenderIDCreateResponse as AlphanumericSenderIDCreateResponse,
     type AlphanumericSenderIDRetrieveResponse as AlphanumericSenderIDRetrieveResponse,
-    type AlphanumericSenderIDListResponse as AlphanumericSenderIDListResponse,
     type AlphanumericSenderIDDeleteResponse as AlphanumericSenderIDDeleteResponse,
-    type AlphanumericSenderIDListResponsesDefaultFlatPagination as AlphanumericSenderIDListResponsesDefaultFlatPagination,
+    type AlphanumericSenderIDsDefaultFlatPagination as AlphanumericSenderIDsDefaultFlatPagination,
     type AlphanumericSenderIDCreateParams as AlphanumericSenderIDCreateParams,
     type AlphanumericSenderIDListParams as AlphanumericSenderIDListParams,
   };

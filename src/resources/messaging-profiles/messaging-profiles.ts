@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AlphanumericSenderIDsAPI from '../alphanumeric-sender-ids';
+import { AlphanumericSenderIDsDefaultFlatPagination } from '../alphanumeric-sender-ids';
 import * as Shared from '../shared';
 import {
   PhoneNumberWithMessagingSettingsDefaultFlatPagination,
@@ -129,7 +131,7 @@ export class MessagingProfiles extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const messagingProfileListAlphanumericSenderIDsResponse of client.messagingProfiles.listAlphanumericSenderIDs(
+   * for await (const alphanumericSenderID of client.messagingProfiles.listAlphanumericSenderIDs(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    * )) {
    *   // ...
@@ -140,13 +142,10 @@ export class MessagingProfiles extends APIResource {
     id: string,
     query: MessagingProfileListAlphanumericSenderIDsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<
-    MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination,
-    MessagingProfileListAlphanumericSenderIDsResponse
-  > {
+  ): PagePromise<AlphanumericSenderIDsDefaultFlatPagination, AlphanumericSenderIDsAPI.AlphanumericSenderID> {
     return this._client.getAPIList(
       path`/messaging_profiles/${id}/alphanumeric_sender_ids`,
-      DefaultFlatPagination<MessagingProfileListAlphanumericSenderIDsResponse>,
+      DefaultFlatPagination<AlphanumericSenderIDsAPI.AlphanumericSenderID>,
       { query, ...options },
     );
   }
@@ -226,9 +225,6 @@ export class MessagingProfiles extends APIResource {
 }
 
 export type MessagingProfilesDefaultFlatPagination = DefaultFlatPagination<MessagingProfile>;
-
-export type MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination =
-  DefaultFlatPagination<MessagingProfileListAlphanumericSenderIDsResponse>;
 
 export interface MessagingProfile {
   /**
@@ -480,35 +476,6 @@ export interface MessagingProfileUpdateResponse {
 
 export interface MessagingProfileDeleteResponse {
   data?: MessagingProfile;
-}
-
-export interface MessagingProfileListAlphanumericSenderIDsResponse {
-  /**
-   * Uniquely identifies the alphanumeric sender ID resource.
-   */
-  id?: string;
-
-  /**
-   * The alphanumeric sender ID string.
-   */
-  alphanumeric_sender_id?: string;
-
-  /**
-   * The messaging profile this sender ID belongs to.
-   */
-  messaging_profile_id?: string;
-
-  /**
-   * The organization that owns this sender ID.
-   */
-  organization_id?: string;
-
-  record_type?: 'alphanumeric_sender_id';
-
-  /**
-   * A US long code number to use as fallback when sending to US destinations.
-   */
-  us_long_code_fallback?: string;
 }
 
 export interface MessagingProfileRetrieveMetricsResponse {
@@ -784,10 +751,8 @@ export declare namespace MessagingProfiles {
     type MessagingProfileRetrieveResponse as MessagingProfileRetrieveResponse,
     type MessagingProfileUpdateResponse as MessagingProfileUpdateResponse,
     type MessagingProfileDeleteResponse as MessagingProfileDeleteResponse,
-    type MessagingProfileListAlphanumericSenderIDsResponse as MessagingProfileListAlphanumericSenderIDsResponse,
     type MessagingProfileRetrieveMetricsResponse as MessagingProfileRetrieveMetricsResponse,
     type MessagingProfilesDefaultFlatPagination as MessagingProfilesDefaultFlatPagination,
-    type MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination as MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination,
     type MessagingProfileCreateParams as MessagingProfileCreateParams,
     type MessagingProfileUpdateParams as MessagingProfileUpdateParams,
     type MessagingProfileListParams as MessagingProfileListParams,
@@ -814,4 +779,8 @@ export declare namespace MessagingProfiles {
   export { Actions as Actions, type ActionRegenerateSecretResponse as ActionRegenerateSecretResponse };
 }
 
-export { type PhoneNumberWithMessagingSettingsDefaultFlatPagination, type ShortCodesDefaultFlatPagination };
+export {
+  type AlphanumericSenderIDsDefaultFlatPagination,
+  type PhoneNumberWithMessagingSettingsDefaultFlatPagination,
+  type ShortCodesDefaultFlatPagination,
+};

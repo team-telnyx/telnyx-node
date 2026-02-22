@@ -23,7 +23,6 @@ export {
   type MessagingProfileRetrieveResponse,
   type MessagingProfileUpdateResponse,
   type MessagingProfileDeleteResponse,
-  type MessagingProfileListAlphanumericSenderIDsResponse,
   type MessagingProfileRetrieveMetricsResponse,
   type MessagingProfileCreateParams,
   type MessagingProfileUpdateParams,
@@ -33,5 +32,4 @@ export {
   type MessagingProfileListShortCodesParams,
   type MessagingProfileRetrieveMetricsParams,
   type MessagingProfilesDefaultFlatPagination,
-  type MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination,
 } from './messaging-profiles';
