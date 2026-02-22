@@ -2911,6 +2911,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messaging_tollfree/verification/requests/{id}',
   },
   {
+    clientCallName: 'client.messagingTollfree.verification.requests.retrieveStatusHistory',
+    fullyQualifiedName: 'messagingTollfree.verification.requests.retrieveStatusHistory',
+    httpMethod: 'get',
+    httpPath: '/messaging_tollfree/verification/requests/{id}/status_history',
+  },
+  {
     clientCallName: 'client.messagingURLDomains.list',
     fullyQualifiedName: 'messagingURLDomains.list',
     httpMethod: 'get',
