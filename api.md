@@ -2237,6 +2237,7 @@ Types:
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">VerificationRequestEgress</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">VerificationRequestStatus</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">Volume</a></code>
+- <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">RequestRetrieveStatusHistoryResponse</a></code>
 
 Methods:
 
@@ -2245,6 +2246,7 @@ Methods:
 - <code title="patch /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">update</a>(id, { ...params }) -> VerificationRequestEgress</code>
 - <code title="get /messaging_tollfree/verification/requests">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">list</a>({ ...params }) -> VerificationRequestStatusesDefaultPaginationForMessagingTollfree</code>
 - <code title="delete /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">delete</a>(id) -> void</code>
+- <code title="get /messaging_tollfree/verification/requests/{id}/status_history">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">retrieveStatusHistory</a>(id, { ...params }) -> RequestRetrieveStatusHistoryResponse</code>
 
 # MessagingURLDomains
 

@@ -11,9 +11,11 @@ export {
   type VerificationRequestEgress,
   type VerificationRequestStatus,
   type Volume,
+  type RequestRetrieveStatusHistoryResponse,
   type RequestCreateParams,
   type RequestUpdateParams,
   type RequestListParams,
+  type RequestRetrieveStatusHistoryParams,
   type VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
 } from './requests';
 export { Verification } from './verification';

@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as RequestsAPI from './requests';
 import { APIPromise } from '../../../core/api-promise';
 import {
   DefaultPaginationForMessagingTollfree,
@@ -30,7 +31,6 @@ export class Requests extends APIResource {
    *     businessState: 'Texas',
    *     businessZip: '78701',
    *     corporateWebsite: 'http://example.com',
-   *     isvReseller: 'isvReseller',
    *     messageVolume: '100,000',
    *     optInWorkflow:
    *       "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset",
@@ -86,7 +86,6 @@ export class Requests extends APIResource {
    *       businessState: 'Texas',
    *       businessZip: '78701',
    *       corporateWebsite: 'http://example.com',
-   *       isvReseller: 'isvReseller',
    *       messageVolume: '100,000',
    *       optInWorkflow:
    *         "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset",
@@ -158,6 +157,32 @@ export class Requests extends APIResource {
     return this._client.delete(path`/messaging_tollfree/verification/requests/${id}`, {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Get the history of status changes for a verification request.
+   *
+   * Returns a paginated list of historical status changes including the reason for
+   * each change and when it occurred.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.messagingTollfree.verification.requests.retrieveStatusHistory(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { 'page[number]': 1, 'page[size]': 1 },
+   *   );
+   * ```
+   */
+  retrieveStatusHistory(
+    id: string,
+    query: RequestRetrieveStatusHistoryParams,
+    options?: RequestOptions,
+  ): APIPromise<RequestRetrieveStatusHistoryResponse> {
+    return this._client.get(path`/messaging_tollfree/verification/requests/${id}/status_history`, {
+      query,
+      ...options,
     });
   }
 }
@@ -233,11 +258,6 @@ export interface TfVerificationRequest {
    * A URL, including the scheme, pointing to the corporate website
    */
   corporateWebsite: string;
-
-  /**
-   * ISV name
-   */
-  isvReseller: string;
 
   /**
    * Message Volume Enums
@@ -325,6 +345,11 @@ export interface TfVerificationRequest {
    * The message returned when users text 'HELP'
    */
   helpMessageResponse?: string | null;
+
+  /**
+   * ISV name
+   */
+  isvReseller?: string | null;
 
   /**
    * Message sent to users confirming their opt-in to receive messages
@@ -455,8 +480,6 @@ export interface VerificationRequestEgress {
 
   corporateWebsite: string;
 
-  isvReseller: string;
-
   /**
    * Message Volume Enums
    */
@@ -504,6 +527,8 @@ export interface VerificationRequestEgress {
 
   helpMessageResponse?: string;
 
+  isvReseller?: string;
+
   optInConfirmationResponse?: string;
 
   optInKeywords?: string;
@@ -547,8 +572,6 @@ export interface VerificationRequestStatus {
   businessZip: string;
 
   corporateWebsite: string;
-
-  isvReseller: string;
 
   /**
    * Message Volume Enums
@@ -602,6 +625,8 @@ export interface VerificationRequestStatus {
 
   helpMessageResponse?: string;
 
+  isvReseller?: string;
+
   optInConfirmationResponse?: string;
 
   optInKeywords?: string;
@@ -632,6 +657,43 @@ export type Volume =
   | '1,000,000'
   | '5,000,000'
   | '10,000,000+';
+
+/**
+ * A paginated response
+ */
+export interface RequestRetrieveStatusHistoryResponse {
+  /**
+   * The records yielded by this request
+   */
+  records: Array<RequestRetrieveStatusHistoryResponse.Record>;
+
+  /**
+   * The total amount of records for these query parameters
+   */
+  total_records: number;
+}
+
+export namespace RequestRetrieveStatusHistoryResponse {
+  /**
+   * A single entry in the verification request status history
+   */
+  export interface Record {
+    /**
+     * The timestamp at which this status change occurred
+     */
+    updatedAt: string;
+
+    /**
+     * Tollfree verification status
+     */
+    verificationStatus: RequestsAPI.TfVerificationStatus;
+
+    /**
+     * An explanation of why this request has its current status.
+     */
+    reason?: string | null;
+  }
+}
 
 export interface RequestCreateParams {
   /**
@@ -691,11 +753,6 @@ export interface RequestCreateParams {
    * A URL, including the scheme, pointing to the corporate website
    */
   corporateWebsite: string;
-
-  /**
-   * ISV name
-   */
-  isvReseller: string;
 
   /**
    * Message Volume Enums
@@ -783,6 +840,11 @@ export interface RequestCreateParams {
    * The message returned when users text 'HELP'
    */
   helpMessageResponse?: string | null;
+
+  /**
+   * ISV name
+   */
+  isvReseller?: string | null;
 
   /**
    * Message sent to users confirming their opt-in to receive messages
@@ -872,11 +934,6 @@ export interface RequestUpdateParams {
   corporateWebsite: string;
 
   /**
-   * ISV name
-   */
-  isvReseller: string;
-
-  /**
    * Message Volume Enums
    */
   messageVolume: Volume;
@@ -964,6 +1021,11 @@ export interface RequestUpdateParams {
   helpMessageResponse?: string | null;
 
   /**
+   * ISV name
+   */
+  isvReseller?: string | null;
+
+  /**
    * Message sent to users confirming their opt-in to receive messages
    */
   optInConfirmationResponse?: string | null;
@@ -992,6 +1054,11 @@ export interface RequestUpdateParams {
 }
 
 export interface RequestListParams extends DefaultPaginationForMessagingTollfreeParams {
+  /**
+   * Filter verification requests by business name
+   */
+  business_name?: string;
+
   date_end?: string;
 
   date_start?: string;
@@ -1002,6 +1069,16 @@ export interface RequestListParams extends DefaultPaginationForMessagingTollfree
    * Tollfree verification status
    */
   status?: TfVerificationStatus;
+}
+
+export interface RequestRetrieveStatusHistoryParams {
+  'page[number]': number;
+
+  /**
+   * Request this many records per page. This value is automatically clamped if the
+   * provided value is too large.
+   */
+  'page[size]': number;
 }
 
 export declare namespace Requests {
@@ -1015,9 +1092,11 @@ export declare namespace Requests {
     type VerificationRequestEgress as VerificationRequestEgress,
     type VerificationRequestStatus as VerificationRequestStatus,
     type Volume as Volume,
+    type RequestRetrieveStatusHistoryResponse as RequestRetrieveStatusHistoryResponse,
     type VerificationRequestStatusesDefaultPaginationForMessagingTollfree as VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
     type RequestCreateParams as RequestCreateParams,
     type RequestUpdateParams as RequestUpdateParams,
     type RequestListParams as RequestListParams,
+    type RequestRetrieveStatusHistoryParams as RequestRetrieveStatusHistoryParams,
   };
 }

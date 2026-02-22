@@ -22,7 +22,6 @@ describe('resource requests', () => {
       businessState: 'Texas',
       businessZip: '78701',
       corporateWebsite: 'http://example.com',
-      isvReseller: 'isvReseller',
       messageVolume: '100,000',
       optInWorkflow:
         "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset",
@@ -59,7 +58,6 @@ describe('resource requests', () => {
       businessState: 'Texas',
       businessZip: '78701',
       corporateWebsite: 'http://example.com',
-      isvReseller: 'isvReseller',
       messageVolume: '100,000',
       optInWorkflow:
         "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset",
@@ -81,6 +79,7 @@ describe('resource requests', () => {
       doingBusinessAs: 'Acme Services',
       entityType: 'SOLE_PROPRIETOR',
       helpMessageResponse: 'Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com',
+      isvReseller: 'isvReseller',
       optInConfirmationResponse: 'You have successfully opted in to receive messages from Acme Corp',
       optInKeywords: 'START, YES, SUBSCRIBE',
       privacyPolicyURL: 'https://example.com/privacy',
@@ -119,7 +118,6 @@ describe('resource requests', () => {
         businessState: 'Texas',
         businessZip: '78701',
         corporateWebsite: 'http://example.com',
-        isvReseller: 'isvReseller',
         messageVolume: '100,000',
         optInWorkflow:
           "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset",
@@ -159,7 +157,6 @@ describe('resource requests', () => {
         businessState: 'Texas',
         businessZip: '78701',
         corporateWebsite: 'http://example.com',
-        isvReseller: 'isvReseller',
         messageVolume: '100,000',
         optInWorkflow:
           "User signs into the Telnyx portal, enters a number and is prompted to select whether they want to use 2FA verification for security purposes. If they've opted in a confirmation message is sent out to the handset",
@@ -181,6 +178,7 @@ describe('resource requests', () => {
         doingBusinessAs: 'Acme Services',
         entityType: 'SOLE_PROPRIETOR',
         helpMessageResponse: 'Reply HELP for assistance or STOP to unsubscribe. Contact: support@example.com',
+        isvReseller: 'isvReseller',
         optInConfirmationResponse: 'You have successfully opted in to receive messages from Acme Corp',
         optInKeywords: 'START, YES, SUBSCRIBE',
         privacyPolicyURL: 'https://example.com/privacy',
@@ -207,6 +205,7 @@ describe('resource requests', () => {
     const response = await client.messagingTollfree.verification.requests.list({
       page: 1,
       page_size: 1,
+      business_name: 'business_name',
       date_end: '2019-12-27T18:11:19.117Z',
       date_start: '2019-12-27T18:11:19.117Z',
       phone_number: 'phone_number',
@@ -226,5 +225,28 @@ describe('resource requests', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveStatusHistory: only required params', async () => {
+    const responsePromise = client.messagingTollfree.verification.requests.retrieveStatusHistory(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      { 'page[number]': 1, 'page[size]': 1 },
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveStatusHistory: required and optional params', async () => {
+    const response = await client.messagingTollfree.verification.requests.retrieveStatusHistory(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      { 'page[number]': 1, 'page[size]': 1 },
+    );
   });
 });
