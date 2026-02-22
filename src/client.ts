@@ -64,14 +64,14 @@ import {
   AdvancedOrders,
 } from './resources/advanced-orders';
 import {
+  AlphanumericSenderID,
   AlphanumericSenderIDCreateParams,
   AlphanumericSenderIDCreateResponse,
   AlphanumericSenderIDDeleteResponse,
   AlphanumericSenderIDListParams,
-  AlphanumericSenderIDListResponse,
-  AlphanumericSenderIDListResponsesDefaultFlatPagination,
   AlphanumericSenderIDRetrieveResponse,
   AlphanumericSenderIDs,
+  AlphanumericSenderIDsDefaultFlatPagination,
 } from './resources/alphanumeric-sender-ids';
 import {
   AuditEventListParams,
@@ -1227,8 +1227,6 @@ import {
   MessagingProfileCreateResponse,
   MessagingProfileDeleteResponse,
   MessagingProfileListAlphanumericSenderIDsParams,
-  MessagingProfileListAlphanumericSenderIDsResponse,
-  MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination,
   MessagingProfileListParams,
   MessagingProfileListPhoneNumbersParams,
   MessagingProfileListShortCodesParams,
@@ -3421,10 +3419,8 @@ export declare namespace Telnyx {
     type MessagingProfileRetrieveResponse as MessagingProfileRetrieveResponse,
     type MessagingProfileUpdateResponse as MessagingProfileUpdateResponse,
     type MessagingProfileDeleteResponse as MessagingProfileDeleteResponse,
-    type MessagingProfileListAlphanumericSenderIDsResponse as MessagingProfileListAlphanumericSenderIDsResponse,
     type MessagingProfileRetrieveMetricsResponse as MessagingProfileRetrieveMetricsResponse,
     type MessagingProfilesDefaultFlatPagination as MessagingProfilesDefaultFlatPagination,
-    type MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination as MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination,
     type MessagingProfileCreateParams as MessagingProfileCreateParams,
     type MessagingProfileUpdateParams as MessagingProfileUpdateParams,
     type MessagingProfileListParams as MessagingProfileListParams,
@@ -4178,11 +4174,11 @@ export declare namespace Telnyx {
 
   export {
     AlphanumericSenderIDs as AlphanumericSenderIDs,
+    type AlphanumericSenderID as AlphanumericSenderID,
     type AlphanumericSenderIDCreateResponse as AlphanumericSenderIDCreateResponse,
     type AlphanumericSenderIDRetrieveResponse as AlphanumericSenderIDRetrieveResponse,
-    type AlphanumericSenderIDListResponse as AlphanumericSenderIDListResponse,
     type AlphanumericSenderIDDeleteResponse as AlphanumericSenderIDDeleteResponse,
-    type AlphanumericSenderIDListResponsesDefaultFlatPagination as AlphanumericSenderIDListResponsesDefaultFlatPagination,
+    type AlphanumericSenderIDsDefaultFlatPagination as AlphanumericSenderIDsDefaultFlatPagination,
     type AlphanumericSenderIDCreateParams as AlphanumericSenderIDCreateParams,
     type AlphanumericSenderIDListParams as AlphanumericSenderIDListParams,
   };

@@ -41,13 +41,13 @@ export {
 } from './advanced-orders';
 export {
   AlphanumericSenderIDs,
+  type AlphanumericSenderID,
   type AlphanumericSenderIDCreateResponse,
   type AlphanumericSenderIDRetrieveResponse,
-  type AlphanumericSenderIDListResponse,
   type AlphanumericSenderIDDeleteResponse,
   type AlphanumericSenderIDCreateParams,
   type AlphanumericSenderIDListParams,
-  type AlphanumericSenderIDListResponsesDefaultFlatPagination,
+  type AlphanumericSenderIDsDefaultFlatPagination,
 } from './alphanumeric-sender-ids';
 export {
   AuditEvents,
@@ -591,7 +591,6 @@ export {
   type MessagingProfileRetrieveResponse,
   type MessagingProfileUpdateResponse,
   type MessagingProfileDeleteResponse,
-  type MessagingProfileListAlphanumericSenderIDsResponse,
   type MessagingProfileRetrieveMetricsResponse,
   type MessagingProfileCreateParams,
   type MessagingProfileUpdateParams,
@@ -601,7 +600,6 @@ export {
   type MessagingProfileListShortCodesParams,
   type MessagingProfileRetrieveMetricsParams,
   type MessagingProfilesDefaultFlatPagination,
-  type MessagingProfileListAlphanumericSenderIDsResponsesDefaultFlatPagination,
 } from './messaging-profiles/messaging-profiles';
 export { MessagingTollfree } from './messaging-tollfree/messaging-tollfree';
 export {
