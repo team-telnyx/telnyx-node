@@ -60,7 +60,7 @@ $ yarn link telnyx
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global telnyx
+$ pnpm link --global telnyx
 ```
 
 ## Running tests
