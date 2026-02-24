@@ -87,7 +87,8 @@ describe('resource clusters', () => {
     });
   });
 
-  test('fetchGraph: request options and params are passed correctly', async () => {
+  // Mock server tests are disabled
+  test.skip('fetchGraph: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.ai.clusters.fetchGraph('task_id', { cluster_id: 0 }, { path: '/_stainless_unknown_path' }),
