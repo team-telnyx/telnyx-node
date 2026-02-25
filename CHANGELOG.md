@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.40.0 (2026-02-25)
+
+Full Changelog: [v5.39.0...v5.40.0](https://github.com/team-telnyx/telnyx-node/compare/v5.39.0...v5.40.0)
+
+### Features
+
+* **api:** manual updates ([ffc2ff7](https://github.com/team-telnyx/telnyx-node/commit/ffc2ff7ba597fa23f1d56a740958a7db1ff1e39a))
+
+
+### Chores
+
+* **internal:** fix MCP Dockerfiles so they can be built without buildkit ([47bd3de](https://github.com/team-telnyx/telnyx-node/commit/47bd3de13d8d3b56348d53f0dd101b17ee758da3))
+
 ## 5.39.0 (2026-02-25)
 
 Full Changelog: [v5.38.0...v5.39.0](https://github.com/team-telnyx/telnyx-node/compare/v5.38.0...v5.39.0)
