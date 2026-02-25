@@ -2128,6 +2128,13 @@ export interface ActionAnswerParams {
   transcription_config?: TranscriptionStartRequest;
 
   /**
+   * A map of event types to retry policies. Each retry policy contains an array of
+   * `retries_ms` specifying the delays between retry attempts in milliseconds.
+   * Maximum 5 retries, total delay cannot exceed 60 seconds.
+   */
+  webhook_retries_policies?: { [key: string]: ActionAnswerParams.WebhookRetriesPolicies };
+
+  /**
    * Use this field to override the URL for which Telnyx will send subsequent
    * webhooks to for this call.
    */
@@ -2137,6 +2144,28 @@ export interface ActionAnswerParams {
    * HTTP request type used for `webhook_url`.
    */
   webhook_url_method?: 'POST' | 'GET';
+
+  /**
+   * A map of event types to webhook URLs. When an event of the specified type
+   * occurs, the webhook URL associated with that event type will be called instead
+   * of `webhook_url`. Events not mapped here will use the default `webhook_url`.
+   */
+  webhook_urls?: { [key: string]: string };
+
+  /**
+   * HTTP request method to invoke `webhook_urls`.
+   */
+  webhook_urls_method?: 'POST' | 'GET';
+}
+
+export namespace ActionAnswerParams {
+  export interface WebhookRetriesPolicies {
+    /**
+     * Array of delays in milliseconds between retry attempts. Total sum cannot exceed
+     * 60000ms.
+     */
+    retries_ms?: Array<number>;
+  }
 }
 
 export interface ActionBridgeParams {
@@ -2157,6 +2186,12 @@ export interface ActionBridgeParams {
    * the same `command_id` for the same `call_control_id`.
    */
   command_id?: string;
+
+  /**
+   * Specifies behavior after the bridge ends. If set to `true`, the current leg will
+   * be put on hold after unbridge instead of being hung up.
+   */
+  hold_after_unbridge?: boolean;
 
   /**
    * When enabled, DTMF tones are not passed to the call participant. The webhooks
@@ -2799,6 +2834,11 @@ export interface ActionHangupParams {
    * the same `command_id` for the same `call_control_id`.
    */
   command_id?: string;
+
+  /**
+   * Custom headers to be added to the SIP BYE message.
+   */
+  custom_headers?: Array<CallsAPI.CustomSipHeader>;
 }
 
 export interface ActionLeaveQueueParams {
