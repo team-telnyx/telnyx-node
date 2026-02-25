@@ -3259,6 +3259,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/outbound_voice_profiles/{id}',
   },
   {
+    clientCallName: 'client.payment.createStoredPaymentTransaction',
+    fullyQualifiedName: 'payment.createStoredPaymentTransaction',
+    httpMethod: 'post',
+    httpPath: '/v2/payment/stored_payment_transactions',
+  },
+  {
     clientCallName: 'client.payment.autoRechargePrefs.update',
     fullyQualifiedName: 'payment.autoRechargePrefs.update',
     httpMethod: 'patch',

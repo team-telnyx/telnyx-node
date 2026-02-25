@@ -647,6 +647,7 @@ const fuse = new Fuse(
     'client.outboundVoiceProfiles.list',
     'client.outboundVoiceProfiles.retrieve',
     'client.outboundVoiceProfiles.update',
+    'client.payment.createStoredPaymentTransaction',
     'client.payment.autoRechargePrefs.list',
     'client.payment.autoRechargePrefs.update',
     'client.phoneNumberBlocks.jobs.deletePhoneNumberBlock',

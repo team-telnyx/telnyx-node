@@ -6,4 +6,8 @@ export {
   type AutoRechargePrefListResponse,
   type AutoRechargePrefUpdateParams,
 } from './auto-recharge-prefs';
-export { Payment } from './payment';
+export {
+  Payment,
+  type PaymentCreateStoredPaymentTransactionResponse,
+  type PaymentCreateStoredPaymentTransactionParams,
+} from './payment';
