@@ -165,6 +165,8 @@ export interface VerifyProfile {
 
   name?: string;
 
+  rcs?: VerifyProfile.Rcs;
+
   /**
    * The possible verification profile record types.
    */
@@ -217,12 +219,58 @@ export namespace VerifyProfile {
 
   export interface Flashcall {
     /**
+     * The name that identifies the application requesting 2fa in the verification
+     * message.
+     */
+    app_name?: string;
+
+    /**
      * For every request that is initiated via this Verify profile, this sets the
      * number of seconds before a verification request code expires. Once the
      * verification request expires, the user cannot use the code to verify their
      * identity.
      */
     default_verification_timeout_secs?: number;
+
+    [k: string]: unknown;
+  }
+
+  export interface Rcs {
+    /**
+     * The name that identifies the application requesting 2fa in the verification
+     * message.
+     */
+    app_name?: string;
+
+    /**
+     * The length of the verify code to generate.
+     */
+    code_length?: number;
+
+    /**
+     * For every request that is initiated via this Verify profile, this sets the
+     * number of seconds before a verification request code expires. Once the
+     * verification request expires, the user cannot use the code to verify their
+     * identity.
+     */
+    default_verification_timeout_secs?: number;
+
+    /**
+     * The message template identifier selected from /verify_profiles/templates
+     */
+    messaging_template_id?: string;
+
+    /**
+     * Enable SMS fallback when RCS delivery fails.
+     */
+    sms_fallback?: boolean;
+
+    /**
+     * Enabled country destinations to send verification codes. The elements in the
+     * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
+     * destinations will be allowed.
+     */
+    whitelisted_destinations?: Array<string>;
 
     [k: string]: unknown;
   }
@@ -295,6 +343,8 @@ export interface VerifyProfileCreateParams {
 
   language?: string;
 
+  rcs?: VerifyProfileCreateParams.Rcs;
+
   sms?: VerifyProfileCreateParams.SMS;
 
   webhook_failover_url?: string;
@@ -340,6 +390,12 @@ export namespace VerifyProfileCreateParams {
 
   export interface Flashcall {
     /**
+     * The name that identifies the application requesting 2fa in the verification
+     * message.
+     */
+    app_name?: string;
+
+    /**
      * For every request that is initiated via this Verify profile, this sets the
      * number of seconds before a verification request code expires. Once the
      * verification request expires, the user cannot use the code to verify their
@@ -357,14 +413,47 @@ export namespace VerifyProfileCreateParams {
     [k: string]: unknown;
   }
 
-  export interface SMS {
+  export interface Rcs {
+    /**
+     * The name that identifies the application requesting 2fa in the verification
+     * message.
+     */
+    app_name?: string;
+
+    /**
+     * The length of the verify code to generate.
+     */
+    code_length?: number;
+
+    /**
+     * For every request that is initiated via this Verify profile, this sets the
+     * number of seconds before a verification request code expires. Once the
+     * verification request expires, the user cannot use the code to verify their
+     * identity.
+     */
+    default_verification_timeout_secs?: number;
+
+    /**
+     * The message template identifier selected from /verify_profiles/templates
+     */
+    messaging_template_id?: string;
+
+    /**
+     * Enable SMS fallback when RCS delivery fails.
+     */
+    sms_fallback?: boolean;
+
     /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
      * destinations will be allowed.
      */
-    whitelisted_destinations: Array<string>;
+    whitelisted_destinations?: Array<string>;
 
+    [k: string]: unknown;
+  }
+
+  export interface SMS {
     /**
      * The alphanumeric sender ID to use when sending to destinations that require an
      * alphanumeric sender ID.
@@ -395,6 +484,13 @@ export namespace VerifyProfileCreateParams {
      */
     messaging_template_id?: string;
 
+    /**
+     * Enabled country destinations to send verification codes. The elements in the
+     * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
+     * destinations will be allowed.
+     */
+    whitelisted_destinations?: Array<string>;
+
     [k: string]: unknown;
   }
 }
@@ -407,6 +503,8 @@ export interface VerifyProfileUpdateParams {
   language?: string;
 
   name?: string;
+
+  rcs?: VerifyProfileUpdateParams.Rcs;
 
   sms?: VerifyProfileUpdateParams.SMS;
 
@@ -453,12 +551,58 @@ export namespace VerifyProfileUpdateParams {
 
   export interface Flashcall {
     /**
+     * The name that identifies the application requesting 2fa in the verification
+     * message.
+     */
+    app_name?: string;
+
+    /**
      * For every request that is initiated via this Verify profile, this sets the
      * number of seconds before a verification request code expires. Once the
      * verification request expires, the user cannot use the code to verify their
      * identity.
      */
     default_verification_timeout_secs?: number;
+
+    /**
+     * Enabled country destinations to send verification codes. The elements in the
+     * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
+     * destinations will be allowed.
+     */
+    whitelisted_destinations?: Array<string>;
+
+    [k: string]: unknown;
+  }
+
+  export interface Rcs {
+    /**
+     * The name that identifies the application requesting 2fa in the verification
+     * message.
+     */
+    app_name?: string;
+
+    /**
+     * The length of the verify code to generate.
+     */
+    code_length?: number;
+
+    /**
+     * For every request that is initiated via this Verify profile, this sets the
+     * number of seconds before a verification request code expires. Once the
+     * verification request expires, the user cannot use the code to verify their
+     * identity.
+     */
+    default_verification_timeout_secs?: number;
+
+    /**
+     * The message template identifier selected from /verify_profiles/templates
+     */
+    messaging_template_id?: string;
+
+    /**
+     * Enable SMS fallback when RCS delivery fails.
+     */
+    sms_fallback?: boolean;
 
     /**
      * Enabled country destinations to send verification codes. The elements in the

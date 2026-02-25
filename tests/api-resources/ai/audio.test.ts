@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource audio', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('transcribe: only required params', async () => {
     const responsePromise = client.ai.audio.transcribe({ model: 'distil-whisper/distil-large-v2' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource audio', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('transcribe: required and optional params', async () => {
     const response = await client.ai.audio.transcribe({
       model: 'distil-whisper/distil-large-v2',

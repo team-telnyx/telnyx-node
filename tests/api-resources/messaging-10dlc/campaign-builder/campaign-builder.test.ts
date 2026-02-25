@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource campaignBuilder', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('submit: only required params', async () => {
     const responsePromise = client.messaging10dlc.campaignBuilder.submit({
       brandId: 'brandId',
@@ -24,7 +24,7 @@ describe('resource campaignBuilder', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('submit: required and optional params', async () => {
     const response = await client.messaging10dlc.campaignBuilder.submit({
       brandId: 'brandId',

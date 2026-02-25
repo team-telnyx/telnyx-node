@@ -95,7 +95,9 @@ export class ExternalConnections extends APIResource {
    * @example
    * ```ts
    * const externalConnection =
-   *   await client.externalConnections.retrieve('id');
+   *   await client.externalConnections.retrieve(
+   *     '1293384261075731499',
+   *   );
    * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<ExternalConnectionRetrieveResponse> {
@@ -109,12 +111,14 @@ export class ExternalConnections extends APIResource {
    * @example
    * ```ts
    * const externalConnection =
-   *   await client.externalConnections.update('id', {
-   *     outbound: {
-   *       outbound_voice_profile_id:
-   *         'outbound_voice_profile_id',
+   *   await client.externalConnections.update(
+   *     '1293384261075731499',
+   *     {
+   *       outbound: {
+   *         outbound_voice_profile_id: '1911630617284445511',
+   *       },
    *     },
-   *   });
+   *   );
    * ```
    */
   update(
@@ -158,7 +162,9 @@ export class ExternalConnections extends APIResource {
    * @example
    * ```ts
    * const externalConnection =
-   *   await client.externalConnections.delete('id');
+   *   await client.externalConnections.delete(
+   *     '1293384261075731499',
+   *   );
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<ExternalConnectionDeleteResponse> {

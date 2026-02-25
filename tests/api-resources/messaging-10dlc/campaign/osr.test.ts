@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource osr', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getAttributes', async () => {
     const responsePromise = client.messaging10dlc.campaign.osr.getAttributes('campaignId');
     const rawResponse = await responsePromise.asResponse();

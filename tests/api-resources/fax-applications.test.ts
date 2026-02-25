@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource faxApplications', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.faxApplications.create({
       application_name: 'fax-router',
@@ -23,7 +23,7 @@ describe('resource faxApplications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.faxApplications.create({
       application_name: 'fax-router',
@@ -42,7 +42,7 @@ describe('resource faxApplications', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.faxApplications.retrieve('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
@@ -54,7 +54,7 @@ describe('resource faxApplications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.faxApplications.update('1293384261075731499', {
       application_name: 'fax-router',
@@ -69,7 +69,7 @@ describe('resource faxApplications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.faxApplications.update('1293384261075731499', {
       application_name: 'fax-router',
@@ -89,7 +89,7 @@ describe('resource faxApplications', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.faxApplications.list();
     const rawResponse = await responsePromise.asResponse();
@@ -101,7 +101,7 @@ describe('resource faxApplications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -120,7 +120,7 @@ describe('resource faxApplications', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.faxApplications.delete('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();

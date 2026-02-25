@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource mcpServers', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createMcpServer', async () => {
     const responsePromise = client.ai.missions.mcpServers.createMcpServer('mission_id');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource mcpServers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deleteMcpServer: only required params', async () => {
     const responsePromise = client.ai.missions.mcpServers.deleteMcpServer('mcp_server_id', {
       mission_id: 'mission_id',
@@ -34,14 +34,14 @@ describe('resource mcpServers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deleteMcpServer: required and optional params', async () => {
     const response = await client.ai.missions.mcpServers.deleteMcpServer('mcp_server_id', {
       mission_id: 'mission_id',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getMcpServer: only required params', async () => {
     const responsePromise = client.ai.missions.mcpServers.getMcpServer('mcp_server_id', {
       mission_id: 'mission_id',
@@ -55,14 +55,14 @@ describe('resource mcpServers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getMcpServer: required and optional params', async () => {
     const response = await client.ai.missions.mcpServers.getMcpServer('mcp_server_id', {
       mission_id: 'mission_id',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listMcpServers', async () => {
     const responsePromise = client.ai.missions.mcpServers.listMcpServers('mission_id');
     const rawResponse = await responsePromise.asResponse();
@@ -74,7 +74,7 @@ describe('resource mcpServers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateMcpServer: only required params', async () => {
     const responsePromise = client.ai.missions.mcpServers.updateMcpServer('mcp_server_id', {
       mission_id: 'mission_id',
@@ -88,7 +88,7 @@ describe('resource mcpServers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateMcpServer: required and optional params', async () => {
     const response = await client.ai.missions.mcpServers.updateMcpServer('mcp_server_id', {
       mission_id: 'mission_id',

@@ -64,6 +64,16 @@ import {
   AdvancedOrders,
 } from './resources/advanced-orders';
 import {
+  AlphanumericSenderID,
+  AlphanumericSenderIDCreateParams,
+  AlphanumericSenderIDCreateResponse,
+  AlphanumericSenderIDDeleteResponse,
+  AlphanumericSenderIDListParams,
+  AlphanumericSenderIDRetrieveResponse,
+  AlphanumericSenderIDs,
+  AlphanumericSenderIDsDefaultFlatPagination,
+} from './resources/alphanumeric-sender-ids';
+import {
   AuditEventListParams,
   AuditEventListResponse,
   AuditEventListResponsesDefaultFlatPagination,
@@ -436,6 +446,10 @@ import {
 } from './resources/media';
 import {
   MessagingHostedNumberDeleteResponse,
+  MessagingHostedNumberListParams,
+  MessagingHostedNumberRetrieveResponse,
+  MessagingHostedNumberUpdateParams,
+  MessagingHostedNumberUpdateResponse,
   MessagingHostedNumbers,
 } from './resources/messaging-hosted-numbers';
 import {
@@ -450,6 +464,11 @@ import {
   MessagingOptoutListResponsesDefaultFlatPagination,
   MessagingOptouts,
 } from './resources/messaging-optouts';
+import {
+  MessagingProfileMetricListParams,
+  MessagingProfileMetricListResponse,
+  MessagingProfileMetrics,
+} from './resources/messaging-profile-metrics';
 import {
   MessagingURLDomainListParams,
   MessagingURLDomainListResponse,
@@ -1091,7 +1110,11 @@ import {
   ConferenceListParticipantsResponse,
   ConferenceListParticipantsResponsesDefaultFlatPagination,
   ConferenceRetrieveParams,
+  ConferenceRetrieveParticipantParams,
+  ConferenceRetrieveParticipantResponse,
   ConferenceRetrieveResponse,
+  ConferenceUpdateParticipantParams,
+  ConferenceUpdateParticipantResponse,
   Conferences,
   ConferencesDefaultFlatPagination,
 } from './resources/conferences/conferences';
@@ -1156,6 +1179,7 @@ import {
 } from './resources/managed-accounts/managed-accounts';
 import {
   MessageCancelScheduledResponse,
+  MessageRetrieveGroupMessagesResponse,
   MessageRetrieveResponse,
   MessageScheduleParams,
   MessageScheduleResponse,
@@ -1171,6 +1195,8 @@ import {
   MessageSendShortCodeResponse,
   MessageSendWhatsappParams,
   MessageSendWhatsappResponse,
+  MessageSendWithAlphanumericSenderParams,
+  MessageSendWithAlphanumericSenderResponse,
   Messages,
   MessagingError,
   OutboundMessagePayload,
@@ -1200,9 +1226,12 @@ import {
   MessagingProfileCreateParams,
   MessagingProfileCreateResponse,
   MessagingProfileDeleteResponse,
+  MessagingProfileListAlphanumericSenderIDsParams,
   MessagingProfileListParams,
   MessagingProfileListPhoneNumbersParams,
   MessagingProfileListShortCodesParams,
+  MessagingProfileRetrieveMetricsParams,
+  MessagingProfileRetrieveMetricsResponse,
   MessagingProfileRetrieveResponse,
   MessagingProfileUpdateParams,
   MessagingProfileUpdateResponse,
@@ -1309,7 +1338,17 @@ import {
   PortoutUpdateStatusResponse,
   Portouts,
 } from './resources/portouts/portouts';
-import { QueueRetrieveResponse, Queues } from './resources/queues/queues';
+import {
+  QueueCreateParams,
+  QueueCreateResponse,
+  QueueListParams,
+  QueueListResponse,
+  QueueListResponsesDefaultFlatPagination,
+  QueueRetrieveResponse,
+  QueueUpdateParams,
+  QueueUpdateResponse,
+  Queues,
+} from './resources/queues/queues';
 import {
   RecordingDeleteResponse,
   RecordingListParams,
@@ -2380,6 +2419,8 @@ export class Telnyx {
   messaging10dlc: API.Messaging10dlc = new API.Messaging10dlc(this);
   speechToText: API.SpeechToText = new API.SpeechToText(this);
   organizations: API.Organizations = new API.Organizations(this);
+  alphanumericSenderIDs: API.AlphanumericSenderIDs = new API.AlphanumericSenderIDs(this);
+  messagingProfileMetrics: API.MessagingProfileMetrics = new API.MessagingProfileMetrics(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -2533,6 +2574,8 @@ Telnyx.MobileVoiceConnections = MobileVoiceConnections;
 Telnyx.Messaging10dlc = Messaging10dlc;
 Telnyx.SpeechToText = SpeechToText;
 Telnyx.Organizations = Organizations;
+Telnyx.AlphanumericSenderIDs = AlphanumericSenderIDs;
+Telnyx.MessagingProfileMetrics = MessagingProfileMetrics;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -2926,12 +2969,16 @@ export declare namespace Telnyx {
     type ConferenceCreateResponse as ConferenceCreateResponse,
     type ConferenceRetrieveResponse as ConferenceRetrieveResponse,
     type ConferenceListParticipantsResponse as ConferenceListParticipantsResponse,
+    type ConferenceRetrieveParticipantResponse as ConferenceRetrieveParticipantResponse,
+    type ConferenceUpdateParticipantResponse as ConferenceUpdateParticipantResponse,
     type ConferencesDefaultFlatPagination as ConferencesDefaultFlatPagination,
     type ConferenceListParticipantsResponsesDefaultFlatPagination as ConferenceListParticipantsResponsesDefaultFlatPagination,
     type ConferenceCreateParams as ConferenceCreateParams,
     type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceListParams as ConferenceListParams,
     type ConferenceListParticipantsParams as ConferenceListParticipantsParams,
+    type ConferenceRetrieveParticipantParams as ConferenceRetrieveParticipantParams,
+    type ConferenceUpdateParticipantParams as ConferenceUpdateParticipantParams,
   };
 
   export {
@@ -3313,6 +3360,7 @@ export declare namespace Telnyx {
     type WhatsappMedia as WhatsappMedia,
     type MessageRetrieveResponse as MessageRetrieveResponse,
     type MessageCancelScheduledResponse as MessageCancelScheduledResponse,
+    type MessageRetrieveGroupMessagesResponse as MessageRetrieveGroupMessagesResponse,
     type MessageScheduleResponse as MessageScheduleResponse,
     type MessageSendResponse as MessageSendResponse,
     type MessageSendGroupMmsResponse as MessageSendGroupMmsResponse,
@@ -3320,6 +3368,7 @@ export declare namespace Telnyx {
     type MessageSendNumberPoolResponse as MessageSendNumberPoolResponse,
     type MessageSendShortCodeResponse as MessageSendShortCodeResponse,
     type MessageSendWhatsappResponse as MessageSendWhatsappResponse,
+    type MessageSendWithAlphanumericSenderResponse as MessageSendWithAlphanumericSenderResponse,
     type MessageScheduleParams as MessageScheduleParams,
     type MessageSendParams as MessageSendParams,
     type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
@@ -3327,6 +3376,7 @@ export declare namespace Telnyx {
     type MessageSendNumberPoolParams as MessageSendNumberPoolParams,
     type MessageSendShortCodeParams as MessageSendShortCodeParams,
     type MessageSendWhatsappParams as MessageSendWhatsappParams,
+    type MessageSendWithAlphanumericSenderParams as MessageSendWithAlphanumericSenderParams,
   };
 
   export { Messaging as Messaging };
@@ -3348,7 +3398,11 @@ export declare namespace Telnyx {
 
   export {
     MessagingHostedNumbers as MessagingHostedNumbers,
+    type MessagingHostedNumberRetrieveResponse as MessagingHostedNumberRetrieveResponse,
+    type MessagingHostedNumberUpdateResponse as MessagingHostedNumberUpdateResponse,
     type MessagingHostedNumberDeleteResponse as MessagingHostedNumberDeleteResponse,
+    type MessagingHostedNumberUpdateParams as MessagingHostedNumberUpdateParams,
+    type MessagingHostedNumberListParams as MessagingHostedNumberListParams,
   };
 
   export {
@@ -3374,12 +3428,15 @@ export declare namespace Telnyx {
     type MessagingProfileRetrieveResponse as MessagingProfileRetrieveResponse,
     type MessagingProfileUpdateResponse as MessagingProfileUpdateResponse,
     type MessagingProfileDeleteResponse as MessagingProfileDeleteResponse,
+    type MessagingProfileRetrieveMetricsResponse as MessagingProfileRetrieveMetricsResponse,
     type MessagingProfilesDefaultFlatPagination as MessagingProfilesDefaultFlatPagination,
     type MessagingProfileCreateParams as MessagingProfileCreateParams,
     type MessagingProfileUpdateParams as MessagingProfileUpdateParams,
     type MessagingProfileListParams as MessagingProfileListParams,
+    type MessagingProfileListAlphanumericSenderIDsParams as MessagingProfileListAlphanumericSenderIDsParams,
     type MessagingProfileListPhoneNumbersParams as MessagingProfileListPhoneNumbersParams,
     type MessagingProfileListShortCodesParams as MessagingProfileListShortCodesParams,
+    type MessagingProfileRetrieveMetricsParams as MessagingProfileRetrieveMetricsParams,
   };
 
   export { MessagingTollfree as MessagingTollfree };
@@ -3680,7 +3737,17 @@ export declare namespace Telnyx {
     type PublicInternetGatewayListParams as PublicInternetGatewayListParams,
   };
 
-  export { Queues as Queues, type QueueRetrieveResponse as QueueRetrieveResponse };
+  export {
+    Queues as Queues,
+    type QueueCreateResponse as QueueCreateResponse,
+    type QueueRetrieveResponse as QueueRetrieveResponse,
+    type QueueUpdateResponse as QueueUpdateResponse,
+    type QueueListResponse as QueueListResponse,
+    type QueueListResponsesDefaultFlatPagination as QueueListResponsesDefaultFlatPagination,
+    type QueueCreateParams as QueueCreateParams,
+    type QueueUpdateParams as QueueUpdateParams,
+    type QueueListParams as QueueListParams,
+  };
 
   export { RcsAgents as RcsAgents, type RcsAgent as RcsAgent, type RcsAgentResponse as RcsAgentResponse };
 
@@ -4124,8 +4191,26 @@ export declare namespace Telnyx {
 
   export { Organizations as Organizations };
 
+  export {
+    AlphanumericSenderIDs as AlphanumericSenderIDs,
+    type AlphanumericSenderID as AlphanumericSenderID,
+    type AlphanumericSenderIDCreateResponse as AlphanumericSenderIDCreateResponse,
+    type AlphanumericSenderIDRetrieveResponse as AlphanumericSenderIDRetrieveResponse,
+    type AlphanumericSenderIDDeleteResponse as AlphanumericSenderIDDeleteResponse,
+    type AlphanumericSenderIDsDefaultFlatPagination as AlphanumericSenderIDsDefaultFlatPagination,
+    type AlphanumericSenderIDCreateParams as AlphanumericSenderIDCreateParams,
+    type AlphanumericSenderIDListParams as AlphanumericSenderIDListParams,
+  };
+
+  export {
+    MessagingProfileMetrics as MessagingProfileMetrics,
+    type MessagingProfileMetricListResponse as MessagingProfileMetricListResponse,
+    type MessagingProfileMetricListParams as MessagingProfileMetricListParams,
+  };
+
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
+  export type AzureVoiceSettings = API.AzureVoiceSettings;
   export type ConnectionJitterBuffer = API.ConnectionJitterBuffer;
   export type ConnectionNoiseSuppressionDetails = API.ConnectionNoiseSuppressionDetails;
   export type ConnectionsPaginationMeta = API.ConnectionsPaginationMeta;
@@ -4141,6 +4226,8 @@ export declare namespace Telnyx {
   export type PhoneNumberWithMessagingSettings = API.PhoneNumberWithMessagingSettings;
   export type PortingOrderStatus = API.PortingOrderStatus;
   export type PortingOrdersExceptionType = API.PortingOrdersExceptionType;
+  export type ResembleVoiceSettings = API.ResembleVoiceSettings;
+  export type RimeVoiceSettings = API.RimeVoiceSettings;
   export type RoomParticipant = API.RoomParticipant;
   export type ShortCode = API.ShortCode;
   export type SimCardStatus = API.SimCardStatus;

@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource brand', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('qualifyByUsecase: only required params', async () => {
     const responsePromise = client.messaging10dlc.campaignBuilder.brand.qualifyByUsecase('usecase', {
       brandId: 'brandId',
@@ -22,7 +22,7 @@ describe('resource brand', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('qualifyByUsecase: required and optional params', async () => {
     const response = await client.messaging10dlc.campaignBuilder.brand.qualifyByUsecase('usecase', {
       brandId: 'brandId',

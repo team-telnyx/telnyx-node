@@ -4,6 +4,7 @@ Types:
 
 - <code><a href="./src/resources/shared.ts">APIError</a></code>
 - <code><a href="./src/resources/shared.ts">AvailablePhoneNumbersMetadata</a></code>
+- <code><a href="./src/resources/shared.ts">AzureVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionJitterBuffer</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionNoiseSuppressionDetails</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionsPaginationMeta</a></code>
@@ -19,6 +20,8 @@ Types:
 - <code><a href="./src/resources/shared.ts">PhoneNumberWithMessagingSettings</a></code>
 - <code><a href="./src/resources/shared.ts">PortingOrderStatus</a></code>
 - <code><a href="./src/resources/shared.ts">PortingOrdersExceptionType</a></code>
+- <code><a href="./src/resources/shared.ts">ResembleVoiceSettings</a></code>
+- <code><a href="./src/resources/shared.ts">RimeVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">RoomParticipant</a></code>
 - <code><a href="./src/resources/shared.ts">ShortCode</a></code>
 - <code><a href="./src/resources/shared.ts">SimCardStatus</a></code>
@@ -1320,6 +1323,8 @@ Types:
 - <code><a href="./src/resources/conferences/conferences.ts">ConferenceCreateResponse</a></code>
 - <code><a href="./src/resources/conferences/conferences.ts">ConferenceRetrieveResponse</a></code>
 - <code><a href="./src/resources/conferences/conferences.ts">ConferenceListParticipantsResponse</a></code>
+- <code><a href="./src/resources/conferences/conferences.ts">ConferenceRetrieveParticipantResponse</a></code>
+- <code><a href="./src/resources/conferences/conferences.ts">ConferenceUpdateParticipantResponse</a></code>
 
 Methods:
 
@@ -1327,6 +1332,8 @@ Methods:
 - <code title="get /conferences/{id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">retrieve</a>(id, { ...params }) -> ConferenceRetrieveResponse</code>
 - <code title="get /conferences">client.conferences.<a href="./src/resources/conferences/conferences.ts">list</a>({ ...params }) -> ConferencesDefaultFlatPagination</code>
 - <code title="get /conferences/{conference_id}/participants">client.conferences.<a href="./src/resources/conferences/conferences.ts">listParticipants</a>(conferenceID, { ...params }) -> ConferenceListParticipantsResponsesDefaultFlatPagination</code>
+- <code title="get /conferences/{id}/participants/{participant_id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">retrieveParticipant</a>(participantID, { ...params }) -> ConferenceRetrieveParticipantResponse</code>
+- <code title="patch /conferences/{id}/participants/{participant_id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">updateParticipant</a>(participantID, { ...params }) -> ConferenceUpdateParticipantResponse</code>
 
 ## Actions
 
@@ -1335,6 +1342,8 @@ Types:
 - <code><a href="./src/resources/conferences/actions.ts">ConferenceCommandResult</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">UpdateConference</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionUpdateResponse</a></code>
+- <code><a href="./src/resources/conferences/actions.ts">ActionEndConferenceResponse</a></code>
+- <code><a href="./src/resources/conferences/actions.ts">ActionGatherDtmfAudioResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionHoldResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionJoinResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionLeaveResponse</a></code>
@@ -1344,6 +1353,7 @@ Types:
 - <code><a href="./src/resources/conferences/actions.ts">ActionRecordResumeResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionRecordStartResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionRecordStopResponse</a></code>
+- <code><a href="./src/resources/conferences/actions.ts">ActionSendDtmfResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionSpeakResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionStopResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionUnholdResponse</a></code>
@@ -1352,6 +1362,8 @@ Types:
 Methods:
 
 - <code title="post /conferences/{id}/actions/update">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">update</a>(id, { ...params }) -> ActionUpdateResponse</code>
+- <code title="post /conferences/{id}/actions/end">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">endConference</a>(id, { ...params }) -> ActionEndConferenceResponse</code>
+- <code title="post /conferences/{id}/actions/gather_using_audio">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">gatherDtmfAudio</a>(id, { ...params }) -> ActionGatherDtmfAudioResponse</code>
 - <code title="post /conferences/{id}/actions/hold">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">hold</a>(id, { ...params }) -> ActionHoldResponse</code>
 - <code title="post /conferences/{id}/actions/join">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">join</a>(id, { ...params }) -> ActionJoinResponse</code>
 - <code title="post /conferences/{id}/actions/leave">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">leave</a>(id, { ...params }) -> ActionLeaveResponse</code>
@@ -1361,6 +1373,7 @@ Methods:
 - <code title="post /conferences/{id}/actions/record_resume">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">recordResume</a>(id, { ...params }) -> ActionRecordResumeResponse</code>
 - <code title="post /conferences/{id}/actions/record_start">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">recordStart</a>(id, { ...params }) -> ActionRecordStartResponse</code>
 - <code title="post /conferences/{id}/actions/record_stop">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">recordStop</a>(id, { ...params }) -> ActionRecordStopResponse</code>
+- <code title="post /conferences/{id}/actions/send_dtmf">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">sendDtmf</a>(id, { ...params }) -> ActionSendDtmfResponse</code>
 - <code title="post /conferences/{id}/actions/speak">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">speak</a>(id, { ...params }) -> ActionSpeakResponse</code>
 - <code title="post /conferences/{id}/actions/stop">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">stop</a>(id, { ...params }) -> ActionStopResponse</code>
 - <code title="post /conferences/{id}/actions/unhold">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">unhold</a>(id, { ...params }) -> ActionUnholdResponse</code>
@@ -2027,6 +2040,7 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">WhatsappMedia</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageRetrieveResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageCancelScheduledResponse</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessageRetrieveGroupMessagesResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageScheduleResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendGroupMmsResponse</a></code>
@@ -2034,11 +2048,13 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">MessageSendNumberPoolResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendShortCodeResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendWhatsappResponse</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessageSendWithAlphanumericSenderResponse</a></code>
 
 Methods:
 
 - <code title="get /messages/{id}">client.messages.<a href="./src/resources/messages/messages.ts">retrieve</a>(id) -> MessageRetrieveResponse</code>
 - <code title="delete /messages/{id}">client.messages.<a href="./src/resources/messages/messages.ts">cancelScheduled</a>(id) -> MessageCancelScheduledResponse</code>
+- <code title="get /messages/group/{message_id}">client.messages.<a href="./src/resources/messages/messages.ts">retrieveGroupMessages</a>(messageID) -> MessageRetrieveGroupMessagesResponse</code>
 - <code title="post /messages/schedule">client.messages.<a href="./src/resources/messages/messages.ts">schedule</a>({ ...params }) -> MessageScheduleResponse</code>
 - <code title="post /messages">client.messages.<a href="./src/resources/messages/messages.ts">send</a>({ ...params }) -> MessageSendResponse</code>
 - <code title="post /messages/group_mms">client.messages.<a href="./src/resources/messages/messages.ts">sendGroupMms</a>({ ...params }) -> MessageSendGroupMmsResponse</code>
@@ -2046,6 +2062,7 @@ Methods:
 - <code title="post /messages/number_pool">client.messages.<a href="./src/resources/messages/messages.ts">sendNumberPool</a>({ ...params }) -> MessageSendNumberPoolResponse</code>
 - <code title="post /messages/short_code">client.messages.<a href="./src/resources/messages/messages.ts">sendShortCode</a>({ ...params }) -> MessageSendShortCodeResponse</code>
 - <code title="post /messages/whatsapp">client.messages.<a href="./src/resources/messages/messages.ts">sendWhatsapp</a>({ ...params }) -> MessageSendWhatsappResponse</code>
+- <code title="post /messages/alphanumeric_sender_id">client.messages.<a href="./src/resources/messages/messages.ts">sendWithAlphanumericSender</a>({ ...params }) -> MessageSendWithAlphanumericSenderResponse</code>
 
 ## Rcs
 
@@ -2119,10 +2136,15 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/messaging-hosted-numbers.ts">MessagingHostedNumberRetrieveResponse</a></code>
+- <code><a href="./src/resources/messaging-hosted-numbers.ts">MessagingHostedNumberUpdateResponse</a></code>
 - <code><a href="./src/resources/messaging-hosted-numbers.ts">MessagingHostedNumberDeleteResponse</a></code>
 
 Methods:
 
+- <code title="get /messaging_hosted_numbers/{id}">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">retrieve</a>(id) -> MessagingHostedNumberRetrieveResponse</code>
+- <code title="patch /messaging_hosted_numbers/{id}">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">update</a>(id, { ...params }) -> MessagingHostedNumberUpdateResponse</code>
+- <code title="get /messaging_hosted_numbers">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">list</a>({ ...params }) -> PhoneNumberWithMessagingSettingsDefaultFlatPagination</code>
 - <code title="delete /messaging_hosted_numbers/{id}">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">delete</a>(id) -> MessagingHostedNumberDeleteResponse</code>
 
 # MessagingNumbersBulkUpdates
@@ -2158,6 +2180,7 @@ Types:
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfileRetrieveResponse</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfileUpdateResponse</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfileDeleteResponse</a></code>
+- <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfileRetrieveMetricsResponse</a></code>
 
 Methods:
 
@@ -2166,8 +2189,10 @@ Methods:
 - <code title="patch /messaging_profiles/{id}">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">update</a>(messagingProfileID, { ...params }) -> MessagingProfileUpdateResponse</code>
 - <code title="get /messaging_profiles">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">list</a>({ ...params }) -> MessagingProfilesDefaultFlatPagination</code>
 - <code title="delete /messaging_profiles/{id}">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">delete</a>(messagingProfileID) -> MessagingProfileDeleteResponse</code>
+- <code title="get /messaging_profiles/{id}/alphanumeric_sender_ids">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">listAlphanumericSenderIDs</a>(id, { ...params }) -> AlphanumericSenderIDsDefaultFlatPagination</code>
 - <code title="get /messaging_profiles/{id}/phone_numbers">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">listPhoneNumbers</a>(messagingProfileID, { ...params }) -> PhoneNumberWithMessagingSettingsDefaultFlatPagination</code>
 - <code title="get /messaging_profiles/{id}/short_codes">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">listShortCodes</a>(messagingProfileID, { ...params }) -> ShortCodesDefaultFlatPagination</code>
+- <code title="get /messaging_profiles/{id}/metrics">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">retrieveMetrics</a>(id, { ...params }) -> MessagingProfileRetrieveMetricsResponse</code>
 
 ## AutorespConfigs
 
@@ -2187,6 +2212,16 @@ Methods:
 - <code title="get /messaging_profiles/{profile_id}/autoresp_configs">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">list</a>(profileID, { ...params }) -> AutorespConfigListResponse</code>
 - <code title="delete /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">delete</a>(autorespCfgID, { ...params }) -> string</code>
 
+## Actions
+
+Types:
+
+- <code><a href="./src/resources/messaging-profiles/actions.ts">ActionRegenerateSecretResponse</a></code>
+
+Methods:
+
+- <code title="post /messaging_profiles/{id}/actions/regenerate_secret">client.messagingProfiles.actions.<a href="./src/resources/messaging-profiles/actions.ts">regenerateSecret</a>(id) -> ActionRegenerateSecretResponse</code>
+
 # MessagingTollfree
 
 ## Verification
@@ -2204,6 +2239,7 @@ Types:
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">VerificationRequestEgress</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">VerificationRequestStatus</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">Volume</a></code>
+- <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">RequestRetrieveStatusHistoryResponse</a></code>
 
 Methods:
 
@@ -2212,6 +2248,7 @@ Methods:
 - <code title="patch /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">update</a>(id, { ...params }) -> VerificationRequestEgress</code>
 - <code title="get /messaging_tollfree/verification/requests">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">list</a>({ ...params }) -> VerificationRequestStatusesDefaultPaginationForMessagingTollfree</code>
 - <code title="delete /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">delete</a>(id) -> void</code>
+- <code title="get /messaging_tollfree/verification/requests/{id}/status_history">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">retrieveStatusHistory</a>(id, { ...params }) -> RequestRetrieveStatusHistoryResponse</code>
 
 # MessagingURLDomains
 
@@ -3016,11 +3053,18 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/queues/queues.ts">QueueCreateResponse</a></code>
 - <code><a href="./src/resources/queues/queues.ts">QueueRetrieveResponse</a></code>
+- <code><a href="./src/resources/queues/queues.ts">QueueUpdateResponse</a></code>
+- <code><a href="./src/resources/queues/queues.ts">QueueListResponse</a></code>
 
 Methods:
 
+- <code title="post /queues">client.queues.<a href="./src/resources/queues/queues.ts">create</a>({ ...params }) -> QueueCreateResponse</code>
 - <code title="get /queues/{queue_name}">client.queues.<a href="./src/resources/queues/queues.ts">retrieve</a>(queueName) -> QueueRetrieveResponse</code>
+- <code title="post /queues/{queue_name}">client.queues.<a href="./src/resources/queues/queues.ts">update</a>(queueName, { ...params }) -> QueueUpdateResponse</code>
+- <code title="get /queues">client.queues.<a href="./src/resources/queues/queues.ts">list</a>({ ...params }) -> QueueListResponsesDefaultFlatPagination</code>
+- <code title="delete /queues/{queue_name}">client.queues.<a href="./src/resources/queues/queues.ts">delete</a>(queueName) -> void</code>
 
 ## Calls
 
@@ -4305,3 +4349,29 @@ Types:
 Methods:
 
 - <code title="post /organizations/users/{id}/actions/remove">client.organizations.users.actions.<a href="./src/resources/organizations/users/actions.ts">remove</a>(id) -> ActionRemoveResponse</code>
+
+# AlphanumericSenderIDs
+
+Types:
+
+- <code><a href="./src/resources/alphanumeric-sender-ids.ts">AlphanumericSenderID</a></code>
+- <code><a href="./src/resources/alphanumeric-sender-ids.ts">AlphanumericSenderIDCreateResponse</a></code>
+- <code><a href="./src/resources/alphanumeric-sender-ids.ts">AlphanumericSenderIDRetrieveResponse</a></code>
+- <code><a href="./src/resources/alphanumeric-sender-ids.ts">AlphanumericSenderIDDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /alphanumeric_sender_ids">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">create</a>({ ...params }) -> AlphanumericSenderIDCreateResponse</code>
+- <code title="get /alphanumeric_sender_ids/{id}">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">retrieve</a>(id) -> AlphanumericSenderIDRetrieveResponse</code>
+- <code title="get /alphanumeric_sender_ids">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">list</a>({ ...params }) -> AlphanumericSenderIDsDefaultFlatPagination</code>
+- <code title="delete /alphanumeric_sender_ids/{id}">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">delete</a>(id) -> AlphanumericSenderIDDeleteResponse</code>
+
+# MessagingProfileMetrics
+
+Types:
+
+- <code><a href="./src/resources/messaging-profile-metrics.ts">MessagingProfileMetricListResponse</a></code>
+
+Methods:
+
+- <code title="get /messaging_profile_metrics">client.messagingProfileMetrics.<a href="./src/resources/messaging-profile-metrics.ts">list</a>({ ...params }) -> MessagingProfileMetricListResponse</code>

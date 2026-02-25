@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource customerServiceRecords', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.customerServiceRecords.create({ phone_number: '+13035553000' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource customerServiceRecords', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.customerServiceRecords.create({
       phone_number: '+13035553000',
@@ -40,7 +40,7 @@ describe('resource customerServiceRecords', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.customerServiceRecords.retrieve('customer_service_record_id');
     const rawResponse = await responsePromise.asResponse();
@@ -52,7 +52,7 @@ describe('resource customerServiceRecords', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.customerServiceRecords.list();
     const rawResponse = await responsePromise.asResponse();
@@ -64,7 +64,7 @@ describe('resource customerServiceRecords', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -84,7 +84,7 @@ describe('resource customerServiceRecords', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('verifyPhoneNumberCoverage: only required params', async () => {
     const responsePromise = client.customerServiceRecords.verifyPhoneNumberCoverage({
       phone_numbers: ['+13035553000'],
@@ -98,7 +98,7 @@ describe('resource customerServiceRecords', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('verifyPhoneNumberCoverage: required and optional params', async () => {
     const response = await client.customerServiceRecords.verifyPhoneNumberCoverage({
       phone_numbers: ['+13035553000'],

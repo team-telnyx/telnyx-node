@@ -11,6 +11,7 @@ export {
   type WhatsappMedia,
   type MessageRetrieveResponse,
   type MessageCancelScheduledResponse,
+  type MessageRetrieveGroupMessagesResponse,
   type MessageScheduleResponse,
   type MessageSendResponse,
   type MessageSendGroupMmsResponse,
@@ -18,6 +19,7 @@ export {
   type MessageSendNumberPoolResponse,
   type MessageSendShortCodeResponse,
   type MessageSendWhatsappResponse,
+  type MessageSendWithAlphanumericSenderResponse,
   type MessageScheduleParams,
   type MessageSendParams,
   type MessageSendGroupMmsParams,
@@ -25,6 +27,7 @@ export {
   type MessageSendNumberPoolParams,
   type MessageSendShortCodeParams,
   type MessageSendWhatsappParams,
+  type MessageSendWithAlphanumericSenderParams,
 } from './messages';
 export {
   Rcs,

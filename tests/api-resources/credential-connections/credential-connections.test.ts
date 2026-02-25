@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource credentialConnections', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.credentialConnections.create({
       connection_name: 'my name',
@@ -24,7 +24,7 @@ describe('resource credentialConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.credentialConnections.create({
       connection_name: 'my name',
@@ -70,7 +70,7 @@ describe('resource credentialConnections', () => {
         generate_ringback_tone: true,
         instant_ringback_enabled: true,
         localization: 'US',
-        outbound_voice_profile_id: 'outbound_voice_profile_id',
+        outbound_voice_profile_id: '1293384261075731499',
         t38_reinvite_source: 'customer',
       },
       rtcp_settings: {
@@ -87,7 +87,7 @@ describe('resource credentialConnections', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.credentialConnections.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
@@ -99,7 +99,7 @@ describe('resource credentialConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.credentialConnections.update('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -111,7 +111,7 @@ describe('resource credentialConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.credentialConnections.list();
     const rawResponse = await responsePromise.asResponse();
@@ -123,7 +123,7 @@ describe('resource credentialConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -143,7 +143,7 @@ describe('resource credentialConnections', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.credentialConnections.delete('id');
     const rawResponse = await responsePromise.asResponse();

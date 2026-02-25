@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('verify', async () => {
     const responsePromise = client.verifications.actions.verify('12ade33a-21c0-473b-b055-b3c836e1c292', {});
     const rawResponse = await responsePromise.asResponse();

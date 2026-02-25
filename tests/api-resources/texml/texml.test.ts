@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource texml', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('secrets: only required params', async () => {
     const responsePromise = client.texml.secrets({ name: 'My Secret Name', value: 'My Secret Value' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource texml', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('secrets: required and optional params', async () => {
     const response = await client.texml.secrets({ name: 'My Secret Name', value: 'My Secret Value' });
   });

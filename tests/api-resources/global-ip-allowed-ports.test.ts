@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource globalIPAllowedPorts', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.globalIPAllowedPorts.list();
     const rawResponse = await responsePromise.asResponse();

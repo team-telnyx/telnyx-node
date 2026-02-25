@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource buckets', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createPresignedURL: only required params', async () => {
     const responsePromise = client.storage.buckets.createPresignedURL('', { bucketName: '' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource buckets', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createPresignedURL: required and optional params', async () => {
     const response = await client.storage.buckets.createPresignedURL('', { bucketName: '', ttl: 60 });
   });

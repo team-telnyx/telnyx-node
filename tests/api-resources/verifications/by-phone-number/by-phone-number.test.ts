@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource byPhoneNumber', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.verifications.byPhoneNumber.list('+13035551234');
     const rawResponse = await responsePromise.asResponse();

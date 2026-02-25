@@ -88,8 +88,16 @@ export class Calls extends APIResource {
    * );
    * ```
    */
-  calls(accountSid: string, body: CallCallsParams, options?: RequestOptions): APIPromise<CallCallsResponse> {
-    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, { body, ...options });
+  calls(
+    accountSid: string,
+    params: CallCallsParams,
+    options?: RequestOptions,
+  ): APIPromise<CallCallsResponse> {
+    const { timeout_seconds, ...body } = params;
+    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, {
+      body: { Timeout: timeout_seconds, ...body },
+      ...options,
+    });
   }
 
   /**
@@ -876,6 +884,19 @@ export interface CallCallsParams {
    * execute these instructions instead of fetching from the Url.
    */
   Texml?: string;
+
+  /**
+   * The maximum duration of the call in seconds. The minimum value is 30 and the
+   * maximum value is 14400 (4 hours). Default is 14400 seconds.
+   */
+  TimeLimit?: number;
+
+  /**
+   * The number of seconds to wait for the called party to answer the call before the
+   * call is canceled. The minimum value is 5 and the maximum value is 120. Default
+   * is 30 seconds.
+   */
+  timeout_seconds?: number;
 
   /**
    * Whether to trim any leading and trailing silence from the recording. Defaults to

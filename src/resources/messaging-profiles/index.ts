@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export { Actions, type ActionRegenerateSecretResponse } from './actions';
 export {
   AutorespConfigs,
   type AutoRespConfig,
@@ -22,10 +23,13 @@ export {
   type MessagingProfileRetrieveResponse,
   type MessagingProfileUpdateResponse,
   type MessagingProfileDeleteResponse,
+  type MessagingProfileRetrieveMetricsResponse,
   type MessagingProfileCreateParams,
   type MessagingProfileUpdateParams,
   type MessagingProfileListParams,
+  type MessagingProfileListAlphanumericSenderIDsParams,
   type MessagingProfileListPhoneNumbersParams,
   type MessagingProfileListShortCodesParams,
+  type MessagingProfileRetrieveMetricsParams,
   type MessagingProfilesDefaultFlatPagination,
 } from './messaging-profiles';

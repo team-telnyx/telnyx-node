@@ -82,6 +82,11 @@ export interface NumberReservation {
    */
   customer_reference?: string;
 
+  /**
+   * Errors the reservation could happen upon
+   */
+  errors?: string;
+
   phone_numbers?: Array<ReservedPhoneNumber>;
 
   record_type?: string;
@@ -105,6 +110,11 @@ export interface ReservedPhoneNumber {
    * created.
    */
   created_at?: string;
+
+  /**
+   * Errors the reservation could happen upon
+   */
+  errors?: string;
 
   /**
    * An ISO 8901 datetime string for when the individual number reservation is going

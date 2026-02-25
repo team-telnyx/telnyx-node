@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource oauth', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.oauth.retrieve('consent_token');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource oauth', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('grants: only required params', async () => {
     const responsePromise = client.oauth.grants({ allowed: true, consent_token: 'consent_token' });
     const rawResponse = await responsePromise.asResponse();
@@ -32,12 +32,12 @@ describe('resource oauth', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('grants: required and optional params', async () => {
     const response = await client.oauth.grants({ allowed: true, consent_token: 'consent_token' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('introspect: only required params', async () => {
     const responsePromise = client.oauth.introspect({ token: 'token' });
     const rawResponse = await responsePromise.asResponse();
@@ -49,12 +49,12 @@ describe('resource oauth', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('introspect: required and optional params', async () => {
     const response = await client.oauth.introspect({ token: 'token' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('register', async () => {
     const responsePromise = client.oauth.register({});
     const rawResponse = await responsePromise.asResponse();
@@ -66,7 +66,7 @@ describe('resource oauth', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveAuthorize: only required params', async () => {
     const responsePromise = client.oauth.retrieveAuthorize({
       client_id: 'client_id',
@@ -82,7 +82,7 @@ describe('resource oauth', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveAuthorize: required and optional params', async () => {
     const response = await client.oauth.retrieveAuthorize({
       client_id: 'client_id',
@@ -95,7 +95,7 @@ describe('resource oauth', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveJwks', async () => {
     const responsePromise = client.oauth.retrieveJwks();
     const rawResponse = await responsePromise.asResponse();
@@ -107,7 +107,7 @@ describe('resource oauth', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('token: only required params', async () => {
     const responsePromise = client.oauth.token({ grant_type: 'client_credentials' });
     const rawResponse = await responsePromise.asResponse();
@@ -119,7 +119,7 @@ describe('resource oauth', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('token: required and optional params', async () => {
     const response = await client.oauth.token({
       grant_type: 'client_credentials',

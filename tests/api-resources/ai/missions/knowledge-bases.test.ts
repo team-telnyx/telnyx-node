@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource knowledgeBases', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createKnowledgeBase', async () => {
     const responsePromise = client.ai.missions.knowledgeBases.createKnowledgeBase('mission_id');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource knowledgeBases', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deleteKnowledgeBase: only required params', async () => {
     const responsePromise = client.ai.missions.knowledgeBases.deleteKnowledgeBase('knowledge_base_id', {
       mission_id: 'mission_id',
@@ -34,14 +34,14 @@ describe('resource knowledgeBases', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deleteKnowledgeBase: required and optional params', async () => {
     const response = await client.ai.missions.knowledgeBases.deleteKnowledgeBase('knowledge_base_id', {
       mission_id: 'mission_id',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getKnowledgeBase: only required params', async () => {
     const responsePromise = client.ai.missions.knowledgeBases.getKnowledgeBase('knowledge_base_id', {
       mission_id: 'mission_id',
@@ -55,14 +55,14 @@ describe('resource knowledgeBases', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getKnowledgeBase: required and optional params', async () => {
     const response = await client.ai.missions.knowledgeBases.getKnowledgeBase('knowledge_base_id', {
       mission_id: 'mission_id',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listKnowledgeBases', async () => {
     const responsePromise = client.ai.missions.knowledgeBases.listKnowledgeBases('mission_id');
     const rawResponse = await responsePromise.asResponse();
@@ -74,7 +74,7 @@ describe('resource knowledgeBases', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateKnowledgeBase: only required params', async () => {
     const responsePromise = client.ai.missions.knowledgeBases.updateKnowledgeBase('knowledge_base_id', {
       mission_id: 'mission_id',
@@ -88,7 +88,7 @@ describe('resource knowledgeBases', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateKnowledgeBase: required and optional params', async () => {
     const response = await client.ai.missions.knowledgeBases.updateKnowledgeBase('knowledge_base_id', {
       mission_id: 'mission_id',

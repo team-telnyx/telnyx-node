@@ -15,7 +15,7 @@ export class CivicAddresses extends APIResource {
    * const civicAddress =
    *   await client.externalConnections.civicAddresses.retrieve(
    *     '318fb664-d341-44d2-8405-e6bfb9ced6d9',
-   *     { id: 'id' },
+   *     { id: '1293384261075731499' },
    *   );
    * ```
    */
@@ -35,7 +35,7 @@ export class CivicAddresses extends APIResource {
    * ```ts
    * const civicAddresses =
    *   await client.externalConnections.civicAddresses.list(
-   *     'id',
+   *     '1293384261075731499',
    *   );
    * ```
    */

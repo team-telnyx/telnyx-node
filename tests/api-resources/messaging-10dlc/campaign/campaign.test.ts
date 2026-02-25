@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource campaign', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.messaging10dlc.campaign.retrieve('campaignId');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.messaging10dlc.campaign.update('campaignId', {});
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.messaging10dlc.campaign.list({ brandId: 'brandId' });
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +44,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.messaging10dlc.campaign.list({
       brandId: 'brandId',
@@ -54,7 +54,7 @@ describe('resource campaign', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('acceptSharing', async () => {
     const responsePromise = client.messaging10dlc.campaign.acceptSharing('C26F1KLZN');
     const rawResponse = await responsePromise.asResponse();
@@ -66,7 +66,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deactivate', async () => {
     const responsePromise = client.messaging10dlc.campaign.deactivate('campaignId');
     const rawResponse = await responsePromise.asResponse();
@@ -78,7 +78,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getMnoMetadata', async () => {
     const responsePromise = client.messaging10dlc.campaign.getMnoMetadata('campaignId');
     const rawResponse = await responsePromise.asResponse();
@@ -90,7 +90,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getOperationStatus', async () => {
     const responsePromise = client.messaging10dlc.campaign.getOperationStatus('campaignId');
     const rawResponse = await responsePromise.asResponse();
@@ -102,7 +102,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getSharingStatus', async () => {
     const responsePromise = client.messaging10dlc.campaign.getSharingStatus('campaignId');
     const rawResponse = await responsePromise.asResponse();
@@ -114,7 +114,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('submitAppeal: only required params', async () => {
     const responsePromise = client.messaging10dlc.campaign.submitAppeal(
       '5eb13888-32b7-4cab-95e6-d834dde21d64',
@@ -132,7 +132,7 @@ describe('resource campaign', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('submitAppeal: required and optional params', async () => {
     const response = await client.messaging10dlc.campaign.submitAppeal(
       '5eb13888-32b7-4cab-95e6-d834dde21d64',

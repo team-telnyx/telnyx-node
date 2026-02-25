@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource speechToText', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('transcribe: only required params', async () => {
     const responsePromise = client.speechToText.transcribe({
       input_format: 'mp3',
@@ -23,7 +23,7 @@ describe('resource speechToText', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('transcribe: required and optional params', async () => {
     const response = await client.speechToText.transcribe({
       input_format: 'mp3',

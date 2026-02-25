@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource events', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.ai.missions.runs.events.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -22,7 +22,7 @@ describe('resource events', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.ai.missions.runs.events.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -34,7 +34,7 @@ describe('resource events', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getEventDetails: only required params', async () => {
     const responsePromise = client.ai.missions.runs.events.getEventDetails('event_id', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -49,7 +49,7 @@ describe('resource events', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getEventDetails: required and optional params', async () => {
     const response = await client.ai.missions.runs.events.getEventDetails('event_id', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -57,7 +57,7 @@ describe('resource events', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('log: only required params', async () => {
     const responsePromise = client.ai.missions.runs.events.log('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -73,7 +73,7 @@ describe('resource events', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('log: required and optional params', async () => {
     const response = await client.ai.missions.runs.events.log('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

@@ -15,7 +15,7 @@ export class Releases extends APIResource {
    * const release =
    *   await client.externalConnections.releases.retrieve(
    *     '7b6a6449-b055-45a6-81f6-f6f0dffa4cc6',
-   *     { id: 'id' },
+   *     { id: '1293384261075731499' },
    *   );
    * ```
    */
@@ -37,7 +37,7 @@ export class Releases extends APIResource {
    * ```ts
    * // Automatically fetches more pages as needed.
    * for await (const releaseListResponse of client.externalConnections.releases.list(
-   *   'id',
+   *   '1293384261075731499',
    * )) {
    *   // ...
    * }

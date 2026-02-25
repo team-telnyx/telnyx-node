@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource messaging', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.phoneNumbers.messaging.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource messaging', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.phoneNumbers.messaging.update('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource messaging', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.phoneNumbers.messaging.list();
     const rawResponse = await responsePromise.asResponse();
@@ -44,12 +44,20 @@ describe('resource messaging', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.phoneNumbers.messaging.list(
-        { 'page[number]': 0, 'page[size]': 0 },
+        {
+          'filter[messaging_profile_id]': '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          'filter[phone_number]': 'filter[phone_number]',
+          'filter[phone_number][contains]': 'filter[phone_number][contains]',
+          'filter[type]': 'tollfree',
+          'page[number]': 0,
+          'page[size]': 0,
+          'sort[phone_number]': 'asc',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

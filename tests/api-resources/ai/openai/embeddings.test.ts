@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource embeddings', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createEmbeddings: only required params', async () => {
     const responsePromise = client.ai.openai.embeddings.createEmbeddings({
       input: 'The quick brown fox jumps over the lazy dog',
@@ -23,7 +23,7 @@ describe('resource embeddings', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createEmbeddings: required and optional params', async () => {
     const response = await client.ai.openai.embeddings.createEmbeddings({
       input: 'The quick brown fox jumps over the lazy dog',
@@ -34,7 +34,7 @@ describe('resource embeddings', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listEmbeddingModels', async () => {
     const responsePromise = client.ai.openai.embeddings.listEmbeddingModels();
     const rawResponse = await responsePromise.asResponse();

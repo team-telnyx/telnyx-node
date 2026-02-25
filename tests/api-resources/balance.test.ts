@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource balance', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.balance.retrieve();
     const rawResponse = await responsePromise.asResponse();

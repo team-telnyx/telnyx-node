@@ -15,14 +15,17 @@ export class Uploads extends APIResource {
    * @example
    * ```ts
    * const upload =
-   *   await client.externalConnections.uploads.create('id', {
-   *     number_ids: [
-   *       '3920457616934164700',
-   *       '3920457616934164701',
-   *       '3920457616934164702',
-   *       '3920457616934164703',
-   *     ],
-   *   });
+   *   await client.externalConnections.uploads.create(
+   *     '1293384261075731499',
+   *     {
+   *       number_ids: [
+   *         '3920457616934164700',
+   *         '3920457616934164701',
+   *         '3920457616934164702',
+   *         '3920457616934164703',
+   *       ],
+   *     },
+   *   );
    * ```
    */
   create(id: string, body: UploadCreateParams, options?: RequestOptions): APIPromise<UploadCreateResponse> {
@@ -37,7 +40,7 @@ export class Uploads extends APIResource {
    * const upload =
    *   await client.externalConnections.uploads.retrieve(
    *     '7b6a6449-b055-45a6-81f6-f6f0dffa4cc6',
-   *     { id: 'id' },
+   *     { id: '1293384261075731499' },
    *   );
    * ```
    */
@@ -57,7 +60,7 @@ export class Uploads extends APIResource {
    * ```ts
    * // Automatically fetches more pages as needed.
    * for await (const upload of client.externalConnections.uploads.list(
-   *   'id',
+   *   '1293384261075731499',
    * )) {
    *   // ...
    * }
@@ -82,7 +85,7 @@ export class Uploads extends APIResource {
    * ```ts
    * const response =
    *   await client.externalConnections.uploads.pendingCount(
-   *     'id',
+   *     '1293384261075731499',
    *   );
    * ```
    */
@@ -98,7 +101,7 @@ export class Uploads extends APIResource {
    * ```ts
    * const response =
    *   await client.externalConnections.uploads.refreshStatus(
-   *     'id',
+   *     '1293384261075731499',
    *   );
    * ```
    */
@@ -117,7 +120,7 @@ export class Uploads extends APIResource {
    * const response =
    *   await client.externalConnections.uploads.retry(
    *     '7b6a6449-b055-45a6-81f6-f6f0dffa4cc6',
-   *     { id: 'id' },
+   *     { id: '1293384261075731499' },
    *   );
    * ```
    */

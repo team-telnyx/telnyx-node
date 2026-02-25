@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource fqdnConnections', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.fqdnConnections.create({ connection_name: 'string' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource fqdnConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.fqdnConnections.create({
       connection_name: 'string',
@@ -36,10 +36,10 @@ describe('resource fqdnConnections', () => {
         ani_number_format: '+E.164',
         channel_limit: 10,
         codecs: ['G722'],
-        default_primary_fqdn_id: 'default_primary_fqdn_id',
+        default_primary_fqdn_id: '1293384261075731497',
         default_routing_method: 'sequential',
-        default_secondary_fqdn_id: 'default_secondary_fqdn_id',
-        default_tertiary_fqdn_id: 'default_tertiary_fqdn_id',
+        default_secondary_fqdn_id: '1293384261075731498',
+        default_tertiary_fqdn_id: '1293384261075731499',
         dnis_number_format: '+e164',
         generate_ringback_tone: true,
         isup_headers_enabled: true,
@@ -73,7 +73,7 @@ describe('resource fqdnConnections', () => {
         ip_authentication_method: 'credential-authentication',
         ip_authentication_token: 'aBcD1234',
         localization: 'string',
-        outbound_voice_profile_id: 'outbound_voice_profile_id',
+        outbound_voice_profile_id: '1293384261075731499',
         t38_reinvite_source: 'customer',
         tech_prefix: '0123',
         timeout_1xx_secs: 10,
@@ -93,9 +93,9 @@ describe('resource fqdnConnections', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.fqdnConnections.retrieve('id');
+    const responsePromise = client.fqdnConnections.retrieve('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -105,9 +105,9 @@ describe('resource fqdnConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
-    const responsePromise = client.fqdnConnections.update('id', {});
+    const responsePromise = client.fqdnConnections.update('1293384261075731499', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -117,7 +117,7 @@ describe('resource fqdnConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.fqdnConnections.list();
     const rawResponse = await responsePromise.asResponse();
@@ -129,7 +129,7 @@ describe('resource fqdnConnections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -149,9 +149,9 @@ describe('resource fqdnConnections', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
-    const responsePromise = client.fqdnConnections.delete('id');
+    const responsePromise = client.fqdnConnections.delete('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

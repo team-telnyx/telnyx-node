@@ -28,6 +28,48 @@ export class Actions extends APIResource {
   }
 
   /**
+   * End a conference and terminate all active participants.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.conferences.actions.endConference(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  endConference(
+    id: string,
+    body: ActionEndConferenceParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ActionEndConferenceResponse> {
+    return this._client.post(path`/conferences/${id}/actions/end`, { body, ...options });
+  }
+
+  /**
+   * Play an audio file to a specific conference participant and gather DTMF input.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.conferences.actions.gatherDtmfAudio(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       call_control_id:
+   *         'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+   *     },
+   *   );
+   * ```
+   */
+  gatherDtmfAudio(
+    id: string,
+    body: ActionGatherDtmfAudioParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionGatherDtmfAudioResponse> {
+    return this._client.post(path`/conferences/${id}/actions/gather_using_audio`, { body, ...options });
+  }
+
+  /**
    * Hold a list of participants in a conference call
    *
    * @example
@@ -197,6 +239,25 @@ export class Actions extends APIResource {
   }
 
   /**
+   * Send DTMF tones to one or more conference participants.
+   *
+   * @example
+   * ```ts
+   * const response = await client.conferences.actions.sendDtmf(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { digits: '1234#' },
+   * );
+   * ```
+   */
+  sendDtmf(
+    id: string,
+    body: ActionSendDtmfParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionSendDtmfResponse> {
+    return this._client.post(path`/conferences/${id}/actions/send_dtmf`, { body, ...options });
+  }
+
+  /**
    * Convert text to speech and play it to all or some participants.
    *
    * @example
@@ -303,6 +364,14 @@ export interface ActionUpdateResponse {
   data?: ConferenceCommandResult;
 }
 
+export interface ActionEndConferenceResponse {
+  data?: ConferenceCommandResult;
+}
+
+export interface ActionGatherDtmfAudioResponse {
+  data?: ConferenceCommandResult;
+}
+
 export interface ActionHoldResponse {
   data?: ConferenceCommandResult;
 }
@@ -336,6 +405,10 @@ export interface ActionRecordStartResponse {
 }
 
 export interface ActionRecordStopResponse {
+  data?: ConferenceCommandResult;
+}
+
+export interface ActionSendDtmfResponse {
   data?: ConferenceCommandResult;
 }
 
@@ -389,6 +462,101 @@ export interface ActionUpdateParams {
    * only.
    */
   whisper_call_control_ids?: Array<string>;
+}
+
+export interface ActionEndConferenceParams {
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same conference.
+   */
+  command_id?: string;
+}
+
+export interface ActionGatherDtmfAudioParams {
+  /**
+   * Unique identifier and token for controlling the call leg that will receive the
+   * gather prompt.
+   */
+  call_control_id: string;
+
+  /**
+   * The URL of the audio file to play as the gather prompt. Must be WAV or MP3
+   * format.
+   */
+  audio_url?: string;
+
+  /**
+   * Use this field to add state to every subsequent webhook. Must be a valid Base-64
+   * encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Identifier for this gather command. Will be included in the gather ended
+   * webhook. Maximum 100 characters.
+   */
+  gather_id?: string;
+
+  /**
+   * Duration in milliseconds to wait for the first digit before timing out.
+   */
+  initial_timeout_millis?: number;
+
+  /**
+   * Duration in milliseconds to wait between digits.
+   */
+  inter_digit_timeout_millis?: number;
+
+  /**
+   * URL of audio file to play when invalid input is received.
+   */
+  invalid_audio_url?: string;
+
+  /**
+   * Name of media file to play when invalid input is received.
+   */
+  invalid_media_name?: string;
+
+  /**
+   * Maximum number of digits to gather.
+   */
+  maximum_digits?: number;
+
+  /**
+   * Maximum number of times to play the prompt if no input is received.
+   */
+  maximum_tries?: number;
+
+  /**
+   * The name of the media file uploaded to the Media Storage API to play as the
+   * gather prompt.
+   */
+  media_name?: string;
+
+  /**
+   * Minimum number of digits to gather.
+   */
+  minimum_digits?: number;
+
+  /**
+   * Whether to stop the audio playback when a DTMF digit is received.
+   */
+  stop_playback_on_dtmf?: boolean;
+
+  /**
+   * Digit that terminates gathering.
+   */
+  terminating_digit?: string;
+
+  /**
+   * Duration in milliseconds to wait for input before timing out.
+   */
+  timeout_millis?: number;
+
+  /**
+   * Digits that are valid for gathering. All other digits will be ignored.
+   */
+  valid_digits?: string;
 }
 
 export interface ActionHoldParams {
@@ -692,6 +860,31 @@ export interface ActionRecordStopParams {
   region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
+export interface ActionSendDtmfParams {
+  /**
+   * DTMF digits to send. Valid characters: 0-9, A-D, \*, #, w (0.5s pause), W (1s
+   * pause).
+   */
+  digits: string;
+
+  /**
+   * Array of participant call control IDs to send DTMF to. When empty, DTMF will be
+   * sent to all participants.
+   */
+  call_control_ids?: Array<string>;
+
+  /**
+   * Use this field to add state to every subsequent webhook. Must be a valid Base-64
+   * encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Duration of each DTMF digit in milliseconds.
+   */
+  duration_millis?: number;
+}
+
 export interface ActionSpeakParams {
   /**
    * The text or SSML to be converted into speech. There is a 3,000 character limit.
@@ -711,25 +904,34 @@ export interface ActionSpeakParams {
    *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
    *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
    *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+   *   `Azure.en-US-BrianMultilingualNeural`,
+   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery). Use
+   *   `voice_settings` to configure custom deployments, regions, or API keys.
    * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
    *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part
    *   is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an
    *   integration identifier secret in
-   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
+   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
+   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   *   for details. Check
    *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>` (e.g., `Telnyx.KokoroTTS.af`).
+   *   Use `voice_settings` to configure voice_speed and other synthesis parameters.
    * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
    *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
-   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters:
-   *   `speed` (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer,
-   *   default 0).
-   * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g.,
-   *   `Resemble.Pro.my_voice`). Supported models: `Pro` (multilingual) and `Turbo`
-   *   (English only).
+   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
+   *   to configure speed, volume, pitch, and language_boost.
+   * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`).
+   *   Supported model_ids: `Arcana`, `Mist`. Use `voice_settings` to configure
+   *   voice_speed.
+   * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g.,
+   *   `Resemble.Turbo.my_voice`). Only `Turbo` model is supported. Use
+   *   `voice_settings` to configure precision, sample_rate, and format.
+   *
+   * For service_level basic, you may define the gender of the speaker (male or
+   * female).
    */
   voice: string;
 
@@ -800,7 +1002,10 @@ export interface ActionSpeakParams {
     | ActionsAPI.ElevenLabsVoiceSettings
     | ActionsAPI.TelnyxVoiceSettings
     | ActionsAPI.AwsVoiceSettings
-    | Shared.MinimaxVoiceSettings;
+    | Shared.MinimaxVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings;
 }
 
 export interface ActionStopParams {
@@ -850,6 +1055,8 @@ export declare namespace Actions {
     type ConferenceCommandResult as ConferenceCommandResult,
     type UpdateConference as UpdateConference,
     type ActionUpdateResponse as ActionUpdateResponse,
+    type ActionEndConferenceResponse as ActionEndConferenceResponse,
+    type ActionGatherDtmfAudioResponse as ActionGatherDtmfAudioResponse,
     type ActionHoldResponse as ActionHoldResponse,
     type ActionJoinResponse as ActionJoinResponse,
     type ActionLeaveResponse as ActionLeaveResponse,
@@ -859,11 +1066,14 @@ export declare namespace Actions {
     type ActionRecordResumeResponse as ActionRecordResumeResponse,
     type ActionRecordStartResponse as ActionRecordStartResponse,
     type ActionRecordStopResponse as ActionRecordStopResponse,
+    type ActionSendDtmfResponse as ActionSendDtmfResponse,
     type ActionSpeakResponse as ActionSpeakResponse,
     type ActionStopResponse as ActionStopResponse,
     type ActionUnholdResponse as ActionUnholdResponse,
     type ActionUnmuteResponse as ActionUnmuteResponse,
     type ActionUpdateParams as ActionUpdateParams,
+    type ActionEndConferenceParams as ActionEndConferenceParams,
+    type ActionGatherDtmfAudioParams as ActionGatherDtmfAudioParams,
     type ActionHoldParams as ActionHoldParams,
     type ActionJoinParams as ActionJoinParams,
     type ActionLeaveParams as ActionLeaveParams,
@@ -873,6 +1083,7 @@ export declare namespace Actions {
     type ActionRecordResumeParams as ActionRecordResumeParams,
     type ActionRecordStartParams as ActionRecordStartParams,
     type ActionRecordStopParams as ActionRecordStopParams,
+    type ActionSendDtmfParams as ActionSendDtmfParams,
     type ActionSpeakParams as ActionSpeakParams,
     type ActionStopParams as ActionStopParams,
     type ActionUnholdParams as ActionUnholdParams,

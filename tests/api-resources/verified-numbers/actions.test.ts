@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('submitVerificationCode: only required params', async () => {
     const responsePromise = client.verifiedNumbers.actions.submitVerificationCode('+15551234567', {
       verification_code: '123456',
@@ -22,7 +22,7 @@ describe('resource actions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('submitVerificationCode: required and optional params', async () => {
     const response = await client.verifiedNumbers.actions.submitVerificationCode('+15551234567', {
       verification_code: '123456',

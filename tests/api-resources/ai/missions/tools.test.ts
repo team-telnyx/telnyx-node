@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource tools', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createTool', async () => {
     const responsePromise = client.ai.missions.tools.createTool('mission_id');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deleteTool: only required params', async () => {
     const responsePromise = client.ai.missions.tools.deleteTool('tool_id', { mission_id: 'mission_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -32,12 +32,12 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deleteTool: required and optional params', async () => {
     const response = await client.ai.missions.tools.deleteTool('tool_id', { mission_id: 'mission_id' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getTool: only required params', async () => {
     const responsePromise = client.ai.missions.tools.getTool('tool_id', { mission_id: 'mission_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -49,12 +49,12 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getTool: required and optional params', async () => {
     const response = await client.ai.missions.tools.getTool('tool_id', { mission_id: 'mission_id' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listTools', async () => {
     const responsePromise = client.ai.missions.tools.listTools('mission_id');
     const rawResponse = await responsePromise.asResponse();
@@ -66,7 +66,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateTool: only required params', async () => {
     const responsePromise = client.ai.missions.tools.updateTool('tool_id', { mission_id: 'mission_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -78,7 +78,7 @@ describe('resource tools', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateTool: required and optional params', async () => {
     const response = await client.ai.missions.tools.updateTool('tool_id', { mission_id: 'mission_id' });
   });

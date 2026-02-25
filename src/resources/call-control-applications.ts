@@ -32,7 +32,9 @@ export class CallControlApplications extends APIResource {
    * @example
    * ```ts
    * const callControlApplication =
-   *   await client.callControlApplications.retrieve('id');
+   *   await client.callControlApplications.retrieve(
+   *     '1293384261075731499',
+   *   );
    * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<CallControlApplicationRetrieveResponse> {
@@ -45,10 +47,13 @@ export class CallControlApplications extends APIResource {
    * @example
    * ```ts
    * const callControlApplication =
-   *   await client.callControlApplications.update('id', {
-   *     application_name: 'call-router',
-   *     webhook_event_url: 'https://example.com',
-   *   });
+   *   await client.callControlApplications.update(
+   *     '1293384261075731499',
+   *     {
+   *       application_name: 'call-router',
+   *       webhook_event_url: 'https://example.com',
+   *     },
+   *   );
    * ```
    */
   update(
@@ -87,7 +92,9 @@ export class CallControlApplications extends APIResource {
    * @example
    * ```ts
    * const callControlApplication =
-   *   await client.callControlApplications.delete('id');
+   *   await client.callControlApplications.delete(
+   *     '1293384261075731499',
+   *   );
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<CallControlApplicationDeleteResponse> {

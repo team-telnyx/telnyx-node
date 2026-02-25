@@ -40,6 +40,16 @@ export {
   type AdvancedOrderUpdateRequirementGroupParams,
 } from './advanced-orders';
 export {
+  AlphanumericSenderIDs,
+  type AlphanumericSenderID,
+  type AlphanumericSenderIDCreateResponse,
+  type AlphanumericSenderIDRetrieveResponse,
+  type AlphanumericSenderIDDeleteResponse,
+  type AlphanumericSenderIDCreateParams,
+  type AlphanumericSenderIDListParams,
+  type AlphanumericSenderIDsDefaultFlatPagination,
+} from './alphanumeric-sender-ids';
+export {
   AuditEvents,
   type AuditEventListResponse,
   type AuditEventListParams,
@@ -159,10 +169,14 @@ export {
   type ConferenceCreateResponse,
   type ConferenceRetrieveResponse,
   type ConferenceListParticipantsResponse,
+  type ConferenceRetrieveParticipantResponse,
+  type ConferenceUpdateParticipantResponse,
   type ConferenceCreateParams,
   type ConferenceRetrieveParams,
   type ConferenceListParams,
   type ConferenceListParticipantsParams,
+  type ConferenceRetrieveParticipantParams,
+  type ConferenceUpdateParticipantParams,
   type ConferencesDefaultFlatPagination,
   type ConferenceListParticipantsResponsesDefaultFlatPagination,
 } from './conferences/conferences';
@@ -509,6 +523,7 @@ export {
   type WhatsappMedia,
   type MessageRetrieveResponse,
   type MessageCancelScheduledResponse,
+  type MessageRetrieveGroupMessagesResponse,
   type MessageScheduleResponse,
   type MessageSendResponse,
   type MessageSendGroupMmsResponse,
@@ -516,6 +531,7 @@ export {
   type MessageSendNumberPoolResponse,
   type MessageSendShortCodeResponse,
   type MessageSendWhatsappResponse,
+  type MessageSendWithAlphanumericSenderResponse,
   type MessageScheduleParams,
   type MessageSendParams,
   type MessageSendGroupMmsParams,
@@ -523,6 +539,7 @@ export {
   type MessageSendNumberPoolParams,
   type MessageSendShortCodeParams,
   type MessageSendWhatsappParams,
+  type MessageSendWithAlphanumericSenderParams,
 } from './messages/messages';
 export { Messaging } from './messaging/messaging';
 export { Messaging10dlc, type Messaging10dlcGetEnumResponse } from './messaging-10dlc/messaging-10dlc';
@@ -540,7 +557,14 @@ export {
   type MessagingHostedNumberOrderCreateVerificationCodesParams,
   type MessagingHostedNumberOrderValidateCodesParams,
 } from './messaging-hosted-number-orders/messaging-hosted-number-orders';
-export { MessagingHostedNumbers, type MessagingHostedNumberDeleteResponse } from './messaging-hosted-numbers';
+export {
+  MessagingHostedNumbers,
+  type MessagingHostedNumberRetrieveResponse,
+  type MessagingHostedNumberUpdateResponse,
+  type MessagingHostedNumberDeleteResponse,
+  type MessagingHostedNumberUpdateParams,
+  type MessagingHostedNumberListParams,
+} from './messaging-hosted-numbers';
 export {
   MessagingNumbersBulkUpdates,
   type MessagingNumbersBulkUpdateCreateResponse,
@@ -554,6 +578,11 @@ export {
   type MessagingOptoutListResponsesDefaultFlatPagination,
 } from './messaging-optouts';
 export {
+  MessagingProfileMetrics,
+  type MessagingProfileMetricListResponse,
+  type MessagingProfileMetricListParams,
+} from './messaging-profile-metrics';
+export {
   MessagingProfiles,
   type MessagingProfile,
   type NumberPoolSettings,
@@ -562,11 +591,14 @@ export {
   type MessagingProfileRetrieveResponse,
   type MessagingProfileUpdateResponse,
   type MessagingProfileDeleteResponse,
+  type MessagingProfileRetrieveMetricsResponse,
   type MessagingProfileCreateParams,
   type MessagingProfileUpdateParams,
   type MessagingProfileListParams,
+  type MessagingProfileListAlphanumericSenderIDsParams,
   type MessagingProfileListPhoneNumbersParams,
   type MessagingProfileListShortCodesParams,
+  type MessagingProfileRetrieveMetricsParams,
   type MessagingProfilesDefaultFlatPagination,
 } from './messaging-profiles/messaging-profiles';
 export { MessagingTollfree } from './messaging-tollfree/messaging-tollfree';
@@ -893,7 +925,17 @@ export {
   type PublicInternetGatewayListParams,
   type PublicInternetGatewayListResponsesDefaultFlatPagination,
 } from './public-internet-gateways';
-export { Queues, type QueueRetrieveResponse } from './queues/queues';
+export {
+  Queues,
+  type QueueCreateResponse,
+  type QueueRetrieveResponse,
+  type QueueUpdateResponse,
+  type QueueListResponse,
+  type QueueCreateParams,
+  type QueueUpdateParams,
+  type QueueListParams,
+  type QueueListResponsesDefaultFlatPagination,
+} from './queues/queues';
 export {
   RcsAgents,
   type RcsAgent,

@@ -5,6 +5,8 @@ import * as RequestsAPI from './requests';
 import {
   RequestCreateParams,
   RequestListParams,
+  RequestRetrieveStatusHistoryParams,
+  RequestRetrieveStatusHistoryResponse,
   RequestUpdateParams,
   Requests,
   TfPhoneNumber,
@@ -37,9 +39,11 @@ export declare namespace Verification {
     type VerificationRequestEgress as VerificationRequestEgress,
     type VerificationRequestStatus as VerificationRequestStatus,
     type Volume as Volume,
+    type RequestRetrieveStatusHistoryResponse as RequestRetrieveStatusHistoryResponse,
     type VerificationRequestStatusesDefaultPaginationForMessagingTollfree as VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
     type RequestCreateParams as RequestCreateParams,
     type RequestUpdateParams as RequestUpdateParams,
     type RequestListParams as RequestListParams,
+    type RequestRetrieveStatusHistoryParams as RequestRetrieveStatusHistoryParams,
   };
 }

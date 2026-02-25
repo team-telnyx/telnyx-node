@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource chat', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createCompletion: only required params', async () => {
     const responsePromise = client.ai.chat.createCompletion({
       messages: [
@@ -25,7 +25,7 @@ describe('resource chat', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createCompletion: required and optional params', async () => {
     const response = await client.ai.chat.createCompletion({
       messages: [

@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource chargesSummary', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.chargesSummary.retrieve({
       end_date: '2025-06-01',
@@ -23,7 +23,7 @@ describe('resource chargesSummary', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.chargesSummary.retrieve({
       end_date: '2025-06-01',

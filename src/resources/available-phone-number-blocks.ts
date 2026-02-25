@@ -29,13 +29,13 @@ export namespace AvailablePhoneNumberBlockListResponse {
 
     features?: Array<Data.Feature>;
 
+    phone_number?: string;
+
     range?: number;
 
     record_type?: 'available_phone_number_block';
 
     region_information?: Array<Data.RegionInformation>;
-
-    starting_number?: string;
   }
 
   export namespace Data {

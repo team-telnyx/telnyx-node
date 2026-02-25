@@ -931,6 +931,12 @@ export interface DeepgramNova2Config {
   transcription_model: 'deepgram/nova-2';
 
   /**
+   * Whether to send also interim results. If set to false, only final results will
+   * be sent.
+   */
+  interim_results?: boolean;
+
+  /**
    * Keywords and their respective intensifiers (boosting values) to improve
    * transcription accuracy for specific words or phrases. The intensifier should be
    * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
@@ -985,12 +991,24 @@ export interface DeepgramNova2Config {
     | 'uk'
     | 'vi'
     | 'auto_detect';
+
+  /**
+   * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
+   * to 5000 ms.
+   */
+  utterance_end_ms?: number;
 }
 
 export interface DeepgramNova3Config {
   transcription_engine: 'Deepgram';
 
   transcription_model: 'deepgram/nova-3';
+
+  /**
+   * Whether to send also interim results. If set to false, only final results will
+   * be sent.
+   */
+  interim_results?: boolean;
 
   /**
    * Keywords and their respective intensifiers (boosting values) to improve
@@ -1019,6 +1037,12 @@ export interface DeepgramNova3Config {
     | 'pt-BR'
     | 'pt-PT'
     | 'auto_detect';
+
+  /**
+   * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
+   * to 5000 ms.
+   */
+  utterance_end_ms?: number;
 }
 
 export interface ElevenLabsVoiceSettings {
@@ -2104,6 +2128,13 @@ export interface ActionAnswerParams {
   transcription_config?: TranscriptionStartRequest;
 
   /**
+   * A map of event types to retry policies. Each retry policy contains an array of
+   * `retries_ms` specifying the delays between retry attempts in milliseconds.
+   * Maximum 5 retries, total delay cannot exceed 60 seconds.
+   */
+  webhook_retries_policies?: { [key: string]: ActionAnswerParams.WebhookRetriesPolicies };
+
+  /**
    * Use this field to override the URL for which Telnyx will send subsequent
    * webhooks to for this call.
    */
@@ -2113,6 +2144,28 @@ export interface ActionAnswerParams {
    * HTTP request type used for `webhook_url`.
    */
   webhook_url_method?: 'POST' | 'GET';
+
+  /**
+   * A map of event types to webhook URLs. When an event of the specified type
+   * occurs, the webhook URL associated with that event type will be called instead
+   * of `webhook_url`. Events not mapped here will use the default `webhook_url`.
+   */
+  webhook_urls?: { [key: string]: string };
+
+  /**
+   * HTTP request method to invoke `webhook_urls`.
+   */
+  webhook_urls_method?: 'POST' | 'GET';
+}
+
+export namespace ActionAnswerParams {
+  export interface WebhookRetriesPolicies {
+    /**
+     * Array of delays in milliseconds between retry attempts. Total sum cannot exceed
+     * 60000ms.
+     */
+    retries_ms?: Array<number>;
+  }
 }
 
 export interface ActionBridgeParams {
@@ -2135,6 +2188,12 @@ export interface ActionBridgeParams {
   command_id?: string;
 
   /**
+   * Specifies behavior after the bridge ends. If set to `true`, the current leg will
+   * be put on hold after unbridge instead of being hung up.
+   */
+  hold_after_unbridge?: boolean;
+
+  /**
    * When enabled, DTMF tones are not passed to the call participant. The webhooks
    * containing the DTMF information will be sent.
    */
@@ -2152,6 +2211,12 @@ export interface ActionBridgeParams {
    * yet been answered.
    */
   play_ringtone?: boolean;
+
+  /**
+   * When set to `true`, it prevents bridging if the target call is already bridged
+   * to another call. Disabled by default.
+   */
+  prevent_double_bridge?: boolean;
 
   /**
    * The name of the queue you want to bridge with, can't be used together with
@@ -2482,7 +2547,13 @@ export interface ActionGatherUsingAIParams {
   /**
    * The settings associated with the voice selected
    */
-  voice_settings?: ElevenLabsVoiceSettings | TelnyxVoiceSettings | AwsVoiceSettings;
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings;
 }
 
 export namespace ActionGatherUsingAIParams {
@@ -2602,25 +2673,34 @@ export interface ActionGatherUsingSpeakParams {
    *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
    *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
    *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+   *   `Azure.en-US-BrianMultilingualNeural`,
+   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery). Use
+   *   `voice_settings` to configure custom deployments, regions, or API keys.
    * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
    *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part
    *   is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an
    *   integration identifier secret in
-   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
+   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
+   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   *   for details. Check
    *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>` (e.g., `Telnyx.KokoroTTS.af`).
+   *   Use `voice_settings` to configure voice_speed and other synthesis parameters.
    * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
    *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
-   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters:
-   *   `speed` (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer,
-   *   default 0).
-   * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g.,
-   *   `Resemble.Pro.my_voice`). Supported models: `Pro` (multilingual) and `Turbo`
-   *   (English only).
+   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
+   *   to configure speed, volume, pitch, and language_boost.
+   * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`).
+   *   Supported model_ids: `Arcana`, `Mist`. Use `voice_settings` to configure
+   *   voice_speed.
+   * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g.,
+   *   `Resemble.Turbo.my_voice`). Only `Turbo` model is supported. Use
+   *   `voice_settings` to configure precision, sample_rate, and format.
+   *
+   * For service_level basic, you may define the gender of the speaker (male or
+   * female).
    */
   voice: string;
 
@@ -2736,7 +2816,10 @@ export interface ActionGatherUsingSpeakParams {
     | ElevenLabsVoiceSettings
     | TelnyxVoiceSettings
     | AwsVoiceSettings
-    | Shared.MinimaxVoiceSettings;
+    | Shared.MinimaxVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings;
 }
 
 export interface ActionHangupParams {
@@ -2751,6 +2834,11 @@ export interface ActionHangupParams {
    * the same `command_id` for the same `call_control_id`.
    */
   command_id?: string;
+
+  /**
+   * Custom headers to be added to the SIP BYE message.
+   */
+  custom_headers?: Array<CallsAPI.CustomSipHeader>;
 }
 
 export interface ActionLeaveQueueParams {
@@ -2935,25 +3023,34 @@ export interface ActionSpeakParams {
    *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
    *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
    *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+   *   `Azure.en-US-BrianMultilingualNeural`,
+   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery). Use
+   *   `voice_settings` to configure custom deployments, regions, or API keys.
    * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
    *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part
    *   is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an
    *   integration identifier secret in
-   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
+   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
+   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   *   for details. Check
    *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>` (e.g., `Telnyx.KokoroTTS.af`).
+   *   Use `voice_settings` to configure voice_speed and other synthesis parameters.
    * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
    *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
-   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters:
-   *   `speed` (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer,
-   *   default 0).
-   * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g.,
-   *   `Resemble.Pro.my_voice`). Supported models: `Pro` (multilingual) and `Turbo`
-   *   (English only).
+   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
+   *   to configure speed, volume, pitch, and language_boost.
+   * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`).
+   *   Supported model_ids: `Arcana`, `Mist`. Use `voice_settings` to configure
+   *   voice_speed.
+   * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g.,
+   *   `Resemble.Turbo.my_voice`). Only `Turbo` model is supported. Use
+   *   `voice_settings` to configure precision, sample_rate, and format.
+   *
+   * For service_level basic, you may define the gender of the speaker (male or
+   * female).
    */
   voice: string;
 
@@ -3042,7 +3139,10 @@ export interface ActionSpeakParams {
     | ElevenLabsVoiceSettings
     | TelnyxVoiceSettings
     | AwsVoiceSettings
-    | Shared.MinimaxVoiceSettings;
+    | Shared.MinimaxVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings;
 }
 
 export interface ActionStartAIAssistantParams {
@@ -3112,7 +3212,13 @@ export interface ActionStartAIAssistantParams {
   /**
    * The settings associated with the voice selected
    */
-  voice_settings?: ElevenLabsVoiceSettings | TelnyxVoiceSettings | AwsVoiceSettings;
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings;
 }
 
 export namespace ActionStartAIAssistantParams {

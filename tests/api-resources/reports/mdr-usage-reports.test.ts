@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource mdrUsageReports', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.reports.mdrUsageReports.create({
       aggregation_type: 'NO_AGGREGATION',
@@ -24,7 +24,7 @@ describe('resource mdrUsageReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.reports.mdrUsageReports.create({
       aggregation_type: 'NO_AGGREGATION',
@@ -34,7 +34,7 @@ describe('resource mdrUsageReports', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.reports.mdrUsageReports.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
@@ -46,7 +46,7 @@ describe('resource mdrUsageReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.reports.mdrUsageReports.list();
     const rawResponse = await responsePromise.asResponse();
@@ -58,7 +58,7 @@ describe('resource mdrUsageReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -69,7 +69,7 @@ describe('resource mdrUsageReports', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.reports.mdrUsageReports.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
@@ -81,7 +81,7 @@ describe('resource mdrUsageReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('fetchSync: only required params', async () => {
     const responsePromise = client.reports.mdrUsageReports.fetchSync({ aggregation_type: 'PROFILE' });
     const rawResponse = await responsePromise.asResponse();
@@ -93,7 +93,7 @@ describe('resource mdrUsageReports', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('fetchSync: required and optional params', async () => {
     const response = await client.reports.mdrUsageReports.fetchSync({
       aggregation_type: 'PROFILE',

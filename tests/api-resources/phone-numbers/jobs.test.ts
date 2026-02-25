@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource jobs', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.phoneNumbers.jobs.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.phoneNumbers.jobs.list();
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -48,7 +48,7 @@ describe('resource jobs', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deleteBatch: only required params', async () => {
     const responsePromise = client.phoneNumbers.jobs.deleteBatch({
       phone_numbers: ['+19705555098', '+19715555098', '32873127836'],
@@ -62,14 +62,14 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('deleteBatch: required and optional params', async () => {
     const response = await client.phoneNumbers.jobs.deleteBatch({
       phone_numbers: ['+19705555098', '+19715555098', '32873127836'],
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateBatch: only required params', async () => {
     const responsePromise = client.phoneNumbers.jobs.updateBatch({
       phone_numbers: ['1583466971586889004', '+13127367254'],
@@ -83,7 +83,7 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateBatch: required and optional params', async () => {
     const response = await client.phoneNumbers.jobs.updateBatch({
       phone_numbers: ['1583466971586889004', '+13127367254'],
@@ -137,7 +137,7 @@ describe('resource jobs', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateEmergencySettingsBatch: only required params', async () => {
     const responsePromise = client.phoneNumbers.jobs.updateEmergencySettingsBatch({
       emergency_enabled: true,
@@ -152,7 +152,7 @@ describe('resource jobs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateEmergencySettingsBatch: required and optional params', async () => {
     const response = await client.phoneNumbers.jobs.updateEmergencySettingsBatch({
       emergency_enabled: true,

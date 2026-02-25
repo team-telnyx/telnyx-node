@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource verifyProfiles', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.verifyProfiles.create({ name: 'Test Profile' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource verifyProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.verifyProfiles.create({
       name: 'Test Profile',
@@ -31,22 +31,34 @@ describe('resource verifyProfiles', () => {
         messaging_template_id: '0abb5b4f-459f-445a-bfcd-488998b7572d',
         whitelisted_destinations: ['US', 'CA'],
       },
-      flashcall: { default_verification_timeout_secs: 300, whitelisted_destinations: ['US', 'CA'] },
-      language: 'en-US',
-      sms: {
+      flashcall: {
+        app_name: 'Example Secure App',
+        default_verification_timeout_secs: 300,
         whitelisted_destinations: ['US', 'CA'],
+      },
+      language: 'en-US',
+      rcs: {
+        app_name: 'Example Secure App',
+        code_length: 6,
+        default_verification_timeout_secs: 300,
+        messaging_template_id: '0abb5b4f-459f-445a-bfcd-488998b7572d',
+        sms_fallback: true,
+        whitelisted_destinations: ['US', 'CA'],
+      },
+      sms: {
         alpha_sender: 'sqF',
         app_name: 'Example Secure App',
         code_length: 6,
         default_verification_timeout_secs: 300,
         messaging_template_id: '0abb5b4f-459f-445a-bfcd-488998b7572d',
+        whitelisted_destinations: ['US', 'CA'],
       },
       webhook_failover_url: 'http://example.com/webhook/failover',
       webhook_url: 'http://example.com/webhook',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.verifyProfiles.retrieve('12ade33a-21c0-473b-b055-b3c836e1c292');
     const rawResponse = await responsePromise.asResponse();
@@ -58,7 +70,7 @@ describe('resource verifyProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.verifyProfiles.update('12ade33a-21c0-473b-b055-b3c836e1c292', {});
     const rawResponse = await responsePromise.asResponse();
@@ -70,7 +82,7 @@ describe('resource verifyProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.verifyProfiles.list();
     const rawResponse = await responsePromise.asResponse();
@@ -82,7 +94,7 @@ describe('resource verifyProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -97,7 +109,7 @@ describe('resource verifyProfiles', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.verifyProfiles.delete('12ade33a-21c0-473b-b055-b3c836e1c292');
     const rawResponse = await responsePromise.asResponse();
@@ -109,7 +121,7 @@ describe('resource verifyProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createTemplate: only required params', async () => {
     const responsePromise = client.verifyProfiles.createTemplate({
       text: 'Your {{app_name}} verification code is: {{code}}.',
@@ -123,14 +135,14 @@ describe('resource verifyProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('createTemplate: required and optional params', async () => {
     const response = await client.verifyProfiles.createTemplate({
       text: 'Your {{app_name}} verification code is: {{code}}.',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveTemplates', async () => {
     const responsePromise = client.verifyProfiles.retrieveTemplates();
     const rawResponse = await responsePromise.asResponse();
@@ -142,7 +154,7 @@ describe('resource verifyProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateTemplate: only required params', async () => {
     const responsePromise = client.verifyProfiles.updateTemplate('12ade33a-21c0-473b-b055-b3c836e1c292', {
       text: 'Your {{app_name}} verification code is: {{code}}.',
@@ -156,7 +168,7 @@ describe('resource verifyProfiles', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateTemplate: required and optional params', async () => {
     const response = await client.verifyProfiles.updateTemplate('12ade33a-21c0-473b-b055-b3c836e1c292', {
       text: 'Your {{app_name}} verification code is: {{code}}.',

@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource queues', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.texml.accounts.queues.create('account_sid', {});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource queues', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.texml.accounts.queues.retrieve('queue_sid', {
       account_sid: 'account_sid',
@@ -34,12 +34,12 @@ describe('resource queues', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.texml.accounts.queues.retrieve('queue_sid', { account_sid: 'account_sid' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.texml.accounts.queues.update('queue_sid', { account_sid: 'account_sid' });
     const rawResponse = await responsePromise.asResponse();
@@ -51,7 +51,7 @@ describe('resource queues', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.texml.accounts.queues.update('queue_sid', {
       account_sid: 'account_sid',
@@ -59,7 +59,7 @@ describe('resource queues', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.texml.accounts.queues.list('account_sid');
     const rawResponse = await responsePromise.asResponse();
@@ -71,7 +71,7 @@ describe('resource queues', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -89,7 +89,7 @@ describe('resource queues', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.texml.accounts.queues.delete('queue_sid', { account_sid: 'account_sid' });
     const rawResponse = await responsePromise.asResponse();
@@ -101,7 +101,7 @@ describe('resource queues', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.texml.accounts.queues.delete('queue_sid', { account_sid: 'account_sid' });
   });

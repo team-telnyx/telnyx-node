@@ -3,6 +3,10 @@
 import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
 import {
+  ActionEndConferenceParams,
+  ActionEndConferenceResponse,
+  ActionGatherDtmfAudioParams,
+  ActionGatherDtmfAudioResponse,
   ActionHoldParams,
   ActionHoldResponse,
   ActionJoinParams,
@@ -21,6 +25,8 @@ import {
   ActionRecordStartResponse,
   ActionRecordStopParams,
   ActionRecordStopResponse,
+  ActionSendDtmfParams,
+  ActionSendDtmfResponse,
   ActionSpeakParams,
   ActionSpeakResponse,
   ActionStopParams,
@@ -135,6 +141,47 @@ export class Conferences extends APIResource {
       DefaultFlatPagination<ConferenceListParticipantsResponse>,
       { query, ...options },
     );
+  }
+
+  /**
+   * Retrieve details of a specific conference participant by their ID or label.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.conferences.retrieveParticipant(
+   *     'participant_id',
+   *     { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   *   );
+   * ```
+   */
+  retrieveParticipant(
+    participantID: string,
+    params: ConferenceRetrieveParticipantParams,
+    options?: RequestOptions,
+  ): APIPromise<ConferenceRetrieveParticipantResponse> {
+    const { id } = params;
+    return this._client.get(path`/conferences/${id}/participants/${participantID}`, options);
+  }
+
+  /**
+   * Update properties of a conference participant.
+   *
+   * @example
+   * ```ts
+   * const response = await client.conferences.updateParticipant(
+   *   'participant_id',
+   *   { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   * );
+   * ```
+   */
+  updateParticipant(
+    participantID: string,
+    params: ConferenceUpdateParticipantParams,
+    options?: RequestOptions,
+  ): APIPromise<ConferenceUpdateParticipantResponse> {
+    const { id, ...body } = params;
+    return this._client.patch(path`/conferences/${id}/participants/${participantID}`, { body, ...options });
   }
 }
 
@@ -304,6 +351,152 @@ export namespace ConferenceListParticipantsResponse {
      * Name of the conference
      */
     name?: string;
+  }
+}
+
+export interface ConferenceRetrieveParticipantResponse {
+  data?: ConferenceRetrieveParticipantResponse.Data;
+}
+
+export namespace ConferenceRetrieveParticipantResponse {
+  export interface Data {
+    /**
+     * Uniquely identifies the participant.
+     */
+    id?: string;
+
+    /**
+     * Unique identifier and token for controlling the participant's call leg.
+     */
+    call_control_id?: string;
+
+    /**
+     * Unique identifier for the call leg.
+     */
+    call_leg_id?: string;
+
+    /**
+     * Unique identifier for the conference.
+     */
+    conference_id?: string;
+
+    /**
+     * Timestamp when the participant joined.
+     */
+    created_at?: string;
+
+    /**
+     * Whether the conference ends when this participant exits.
+     */
+    end_conference_on_exit?: boolean;
+
+    /**
+     * Label assigned to the participant when joining.
+     */
+    label?: string;
+
+    /**
+     * Whether the participant is muted.
+     */
+    muted?: boolean;
+
+    /**
+     * Whether the participant is on hold.
+     */
+    on_hold?: boolean;
+
+    /**
+     * Whether the conference soft-ends when this participant exits.
+     */
+    soft_end_conference_on_exit?: boolean;
+
+    /**
+     * Status of the participant.
+     */
+    status?: 'joining' | 'joined' | 'left';
+
+    /**
+     * Timestamp when the participant was last updated.
+     */
+    updated_at?: string;
+
+    /**
+     * List of call control IDs this participant is whispering to.
+     */
+    whisper_call_control_ids?: Array<string>;
+  }
+}
+
+export interface ConferenceUpdateParticipantResponse {
+  data?: ConferenceUpdateParticipantResponse.Data;
+}
+
+export namespace ConferenceUpdateParticipantResponse {
+  export interface Data {
+    /**
+     * Uniquely identifies the participant.
+     */
+    id?: string;
+
+    /**
+     * Unique identifier and token for controlling the participant's call leg.
+     */
+    call_control_id?: string;
+
+    /**
+     * Unique identifier for the call leg.
+     */
+    call_leg_id?: string;
+
+    /**
+     * Unique identifier for the conference.
+     */
+    conference_id?: string;
+
+    /**
+     * Timestamp when the participant joined.
+     */
+    created_at?: string;
+
+    /**
+     * Whether the conference ends when this participant exits.
+     */
+    end_conference_on_exit?: boolean;
+
+    /**
+     * Label assigned to the participant when joining.
+     */
+    label?: string;
+
+    /**
+     * Whether the participant is muted.
+     */
+    muted?: boolean;
+
+    /**
+     * Whether the participant is on hold.
+     */
+    on_hold?: boolean;
+
+    /**
+     * Whether the conference soft-ends when this participant exits.
+     */
+    soft_end_conference_on_exit?: boolean;
+
+    /**
+     * Status of the participant.
+     */
+    status?: 'joining' | 'joined' | 'left';
+
+    /**
+     * Timestamp when the participant was last updated.
+     */
+    updated_at?: string;
+
+    /**
+     * List of call control IDs this participant is whispering to.
+     */
+    whisper_call_control_ids?: Array<string>;
   }
 }
 
@@ -566,6 +759,37 @@ export namespace ConferenceListParticipantsParams {
   }
 }
 
+export interface ConferenceRetrieveParticipantParams {
+  /**
+   * Uniquely identifies the conference.
+   */
+  id: string;
+}
+
+export interface ConferenceUpdateParticipantParams {
+  /**
+   * Path param: Uniquely identifies the conference.
+   */
+  id: string;
+
+  /**
+   * Body param: Whether entry/exit beeps are enabled for this participant.
+   */
+  beep_enabled?: 'always' | 'never' | 'on_enter' | 'on_exit';
+
+  /**
+   * Body param: Whether the conference should end when this participant exits.
+   */
+  end_conference_on_exit?: boolean;
+
+  /**
+   * Body param: Whether the conference should soft-end when this participant exits.
+   * A soft end will stop new participants from joining but allow existing
+   * participants to remain.
+   */
+  soft_end_conference_on_exit?: boolean;
+}
+
 Conferences.Actions = Actions;
 
 export declare namespace Conferences {
@@ -574,12 +798,16 @@ export declare namespace Conferences {
     type ConferenceCreateResponse as ConferenceCreateResponse,
     type ConferenceRetrieveResponse as ConferenceRetrieveResponse,
     type ConferenceListParticipantsResponse as ConferenceListParticipantsResponse,
+    type ConferenceRetrieveParticipantResponse as ConferenceRetrieveParticipantResponse,
+    type ConferenceUpdateParticipantResponse as ConferenceUpdateParticipantResponse,
     type ConferencesDefaultFlatPagination as ConferencesDefaultFlatPagination,
     type ConferenceListParticipantsResponsesDefaultFlatPagination as ConferenceListParticipantsResponsesDefaultFlatPagination,
     type ConferenceCreateParams as ConferenceCreateParams,
     type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceListParams as ConferenceListParams,
     type ConferenceListParticipantsParams as ConferenceListParticipantsParams,
+    type ConferenceRetrieveParticipantParams as ConferenceRetrieveParticipantParams,
+    type ConferenceUpdateParticipantParams as ConferenceUpdateParticipantParams,
   };
 
   export {
@@ -587,6 +815,8 @@ export declare namespace Conferences {
     type ConferenceCommandResult as ConferenceCommandResult,
     type UpdateConference as UpdateConference,
     type ActionUpdateResponse as ActionUpdateResponse,
+    type ActionEndConferenceResponse as ActionEndConferenceResponse,
+    type ActionGatherDtmfAudioResponse as ActionGatherDtmfAudioResponse,
     type ActionHoldResponse as ActionHoldResponse,
     type ActionJoinResponse as ActionJoinResponse,
     type ActionLeaveResponse as ActionLeaveResponse,
@@ -596,11 +826,14 @@ export declare namespace Conferences {
     type ActionRecordResumeResponse as ActionRecordResumeResponse,
     type ActionRecordStartResponse as ActionRecordStartResponse,
     type ActionRecordStopResponse as ActionRecordStopResponse,
+    type ActionSendDtmfResponse as ActionSendDtmfResponse,
     type ActionSpeakResponse as ActionSpeakResponse,
     type ActionStopResponse as ActionStopResponse,
     type ActionUnholdResponse as ActionUnholdResponse,
     type ActionUnmuteResponse as ActionUnmuteResponse,
     type ActionUpdateParams as ActionUpdateParams,
+    type ActionEndConferenceParams as ActionEndConferenceParams,
+    type ActionGatherDtmfAudioParams as ActionGatherDtmfAudioParams,
     type ActionHoldParams as ActionHoldParams,
     type ActionJoinParams as ActionJoinParams,
     type ActionLeaveParams as ActionLeaveParams,
@@ -610,6 +843,7 @@ export declare namespace Conferences {
     type ActionRecordResumeParams as ActionRecordResumeParams,
     type ActionRecordStartParams as ActionRecordStartParams,
     type ActionRecordStopParams as ActionRecordStopParams,
+    type ActionSendDtmfParams as ActionSendDtmfParams,
     type ActionSpeakParams as ActionSpeakParams,
     type ActionStopParams as ActionStopParams,
     type ActionUnholdParams as ActionUnholdParams,

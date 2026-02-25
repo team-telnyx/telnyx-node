@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource actions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('refresh', async () => {
     const responsePromise = client.operatorConnect.actions.refresh();
     const rawResponse = await responsePromise.asResponse();

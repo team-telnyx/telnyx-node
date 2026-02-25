@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource wellKnown', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveAuthorizationServerMetadata', async () => {
     const responsePromise = client.wellKnown.retrieveAuthorizationServerMetadata();
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource wellKnown', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveProtectedResourceMetadata', async () => {
     const responsePromise = client.wellKnown.retrieveProtectedResourceMetadata();
     const rawResponse = await responsePromise.asResponse();

@@ -156,6 +156,11 @@ export interface TelephonyCredential {
    * ISO-8601 formatted date indicating when the resource was updated.
    */
   updated_at?: string;
+
+  /**
+   * Identifies the user this credential is associated with.
+   */
+  user_id?: string;
 }
 
 export interface TelephonyCredentialCreateResponse {

@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource shortCodes', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.shortCodes.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource shortCodes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.shortCodes.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       messaging_profile_id: 'abc85f64-5717-4562-b3fc-2c9600000000',
@@ -34,7 +34,7 @@ describe('resource shortCodes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.shortCodes.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       messaging_profile_id: 'abc85f64-5717-4562-b3fc-2c9600000000',
@@ -42,7 +42,7 @@ describe('resource shortCodes', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.shortCodes.list();
     const rawResponse = await responsePromise.asResponse();
@@ -54,7 +54,7 @@ describe('resource shortCodes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(

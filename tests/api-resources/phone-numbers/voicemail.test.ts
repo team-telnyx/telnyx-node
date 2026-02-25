@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource voicemail', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.phoneNumbers.voicemail.create('123455678900', {});
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource voicemail', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.phoneNumbers.voicemail.retrieve('123455678900');
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource voicemail', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.phoneNumbers.voicemail.update('123455678900', {});
     const rawResponse = await responsePromise.asResponse();

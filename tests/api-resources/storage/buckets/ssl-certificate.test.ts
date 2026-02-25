@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource sslCertificate', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.storage.buckets.sslCertificate.create('');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource sslCertificate', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -35,7 +35,7 @@ describe('resource sslCertificate', () => {
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.storage.buckets.sslCertificate.retrieve('');
     const rawResponse = await responsePromise.asResponse();
@@ -47,7 +47,7 @@ describe('resource sslCertificate', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.storage.buckets.sslCertificate.delete('');
     const rawResponse = await responsePromise.asResponse();

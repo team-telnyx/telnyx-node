@@ -51,6 +51,24 @@ export class Messages extends APIResource {
   }
 
   /**
+   * Retrieve all messages in a group MMS conversation by the group message ID.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.messages.retrieveGroupMessages(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieveGroupMessages(
+    messageID: string,
+    options?: RequestOptions,
+  ): APIPromise<MessageRetrieveGroupMessagesResponse> {
+    return this._client.get(path`/messages/group/${messageID}`, options);
+  }
+
+  /**
    * Schedule a message with a Phone Number, Alphanumeric Sender ID, Short Code or
    * Number Pool.
    *
@@ -178,6 +196,28 @@ export class Messages extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MessageSendWhatsappResponse> {
     return this._client.post('/messages/whatsapp', { body, ...options });
+  }
+
+  /**
+   * Send an SMS message using an alphanumeric sender ID. This is SMS only.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.messages.sendWithAlphanumericSender({
+   *     from: 'MyCompany',
+   *     messaging_profile_id:
+   *       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     text: 'text',
+   *     to: '+E.164',
+   *   });
+   * ```
+   */
+  sendWithAlphanumericSender(
+    body: MessageSendWithAlphanumericSenderParams,
+    options?: RequestOptions,
+  ): APIPromise<MessageSendWithAlphanumericSenderResponse> {
+    return this._client.post('/messages/alphanumeric_sender_id', { body, ...options });
   }
 }
 
@@ -1110,6 +1150,10 @@ export namespace MessageCancelScheduledResponse {
   }
 }
 
+export interface MessageRetrieveGroupMessagesResponse {
+  data?: Array<OutboundMessagePayload>;
+}
+
 export interface MessageScheduleResponse {
   data?: OutboundMessagePayload;
 }
@@ -1489,6 +1533,10 @@ export namespace MessageSendWhatsappResponse {
       status?: string;
     }
   }
+}
+
+export interface MessageSendWithAlphanumericSenderResponse {
+  data?: OutboundMessagePayload;
 }
 
 export interface MessageScheduleParams {
@@ -2224,6 +2272,43 @@ export namespace MessageSendWhatsappParams {
   }
 }
 
+export interface MessageSendWithAlphanumericSenderParams {
+  /**
+   * A valid alphanumeric sender ID on the user's account.
+   */
+  from: string;
+
+  /**
+   * The messaging profile ID to use.
+   */
+  messaging_profile_id: string;
+
+  /**
+   * The message body.
+   */
+  text: string;
+
+  /**
+   * Receiving address (+E.164 formatted phone number).
+   */
+  to: string;
+
+  /**
+   * If true, use the messaging profile's webhook settings.
+   */
+  use_profile_webhooks?: boolean;
+
+  /**
+   * Failover callback URL for delivery status updates.
+   */
+  webhook_failover_url?: string | null;
+
+  /**
+   * Callback URL for delivery status updates.
+   */
+  webhook_url?: string | null;
+}
+
 Messages.Rcs = Rcs;
 
 export declare namespace Messages {
@@ -2237,6 +2322,7 @@ export declare namespace Messages {
     type WhatsappMedia as WhatsappMedia,
     type MessageRetrieveResponse as MessageRetrieveResponse,
     type MessageCancelScheduledResponse as MessageCancelScheduledResponse,
+    type MessageRetrieveGroupMessagesResponse as MessageRetrieveGroupMessagesResponse,
     type MessageScheduleResponse as MessageScheduleResponse,
     type MessageSendResponse as MessageSendResponse,
     type MessageSendGroupMmsResponse as MessageSendGroupMmsResponse,
@@ -2244,6 +2330,7 @@ export declare namespace Messages {
     type MessageSendNumberPoolResponse as MessageSendNumberPoolResponse,
     type MessageSendShortCodeResponse as MessageSendShortCodeResponse,
     type MessageSendWhatsappResponse as MessageSendWhatsappResponse,
+    type MessageSendWithAlphanumericSenderResponse as MessageSendWithAlphanumericSenderResponse,
     type MessageScheduleParams as MessageScheduleParams,
     type MessageSendParams as MessageSendParams,
     type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
@@ -2251,6 +2338,7 @@ export declare namespace Messages {
     type MessageSendNumberPoolParams as MessageSendNumberPoolParams,
     type MessageSendShortCodeParams as MessageSendShortCodeParams,
     type MessageSendWhatsappParams as MessageSendWhatsappParams,
+    type MessageSendWithAlphanumericSenderParams as MessageSendWithAlphanumericSenderParams,
   };
 
   export {

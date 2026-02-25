@@ -949,7 +949,7 @@ export interface BrandUpdateParams {
   /**
    * Alternate business identifier such as DUNS, LEI, or GIIN
    */
-  altBusiness_id?: string;
+  altBusinessId?: string;
 
   /**
    * An enumeration.

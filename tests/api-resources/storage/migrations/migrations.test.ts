@@ -8,7 +8,7 @@ const client = new Telnyx({
 });
 
 describe('resource migrations', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.storage.migrations.create({
       source_id: 'source_id',
@@ -24,7 +24,7 @@ describe('resource migrations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.storage.migrations.create({
       source_id: 'source_id',
@@ -34,7 +34,7 @@ describe('resource migrations', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.storage.migrations.retrieve('');
     const rawResponse = await responsePromise.asResponse();
@@ -46,7 +46,7 @@ describe('resource migrations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.storage.migrations.list();
     const rawResponse = await responsePromise.asResponse();

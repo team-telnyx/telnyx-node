@@ -323,6 +323,11 @@ export interface PhoneNumberDetailed {
   emergency_status?: 'active' | 'deprovisioning' | 'disabled' | 'provisioning' | 'provisioning-failed';
 
   /**
+   * Indicates whether HD voice is enabled for this number.
+   */
+  hd_voice_enabled?: boolean;
+
+  /**
    * The inbound_call_screening setting is a phone number configuration option
    * variable that allows users to configure their settings to block or flag
    * fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This
@@ -350,6 +355,11 @@ export interface PhoneNumberDetailed {
    * Indicates whether T38 Fax Gateway for inbound calls to this number.
    */
   t38_fax_gateway_enabled?: boolean;
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was updated.
+   */
+  updated_at?: string;
 }
 
 export interface PhoneNumberRetrieveResponse {
@@ -443,6 +453,11 @@ export namespace PhoneNumberDeleteResponse {
      * cooperate with this security mechanism.
      */
     external_pin?: string;
+
+    /**
+     * Indicates whether HD voice is enabled for this number.
+     */
+    hd_voice_enabled?: boolean;
 
     /**
      * Identifies the messaging profile associated with the phone number.
@@ -586,6 +601,11 @@ export interface PhoneNumberSlimListResponse {
   external_pin?: string;
 
   /**
+   * Indicates whether HD voice is enabled for this number.
+   */
+  hd_voice_enabled?: boolean;
+
+  /**
    * The inbound_call_screening setting is a phone number configuration option
    * variable that allows users to configure their settings to block or flag
    * fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This
@@ -646,9 +666,19 @@ export interface PhoneNumberSlimListResponse {
    * Indicates whether T38 Fax Gateway for inbound calls to this number.
    */
   t38_fax_gateway_enabled?: boolean;
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was updated.
+   */
+  updated_at?: string;
 }
 
 export interface PhoneNumberUpdateParams {
+  /**
+   * Identifies the address associated with the phone number.
+   */
+  address_id?: string;
+
   /**
    * Identifies the billing group associated with the phone number.
    */
