@@ -36,6 +36,40 @@ export interface AvailablePhoneNumbersMetadata {
   total_results?: number;
 }
 
+export interface AzureVoiceSettings {
+  /**
+   * Voice settings provider type
+   */
+  type: 'azure';
+
+  /**
+   * The `identifier` for an integration secret that refers to your Azure Speech API
+   * key.
+   */
+  api_key_ref?: string;
+
+  /**
+   * The deployment ID for a custom Azure neural voice.
+   */
+  deployment_id?: string;
+
+  /**
+   * Audio effect to apply.
+   */
+  effect?: 'eq_car' | 'eq_telecomhp8k';
+
+  /**
+   * Voice gender filter.
+   */
+  gender?: 'Male' | 'Female';
+
+  /**
+   * The Azure region for the Speech service (e.g., `eastus`, `westeurope`). Required
+   * when using a custom API key.
+   */
+  region?: string;
+}
+
 /**
  * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
  * of SIP Trunking calls. The feature is off unless enabled. You may define min and
@@ -822,6 +856,40 @@ export interface PortingOrdersExceptionType {
    * Description of an exception type
    */
   description?: string;
+}
+
+export interface ResembleVoiceSettings {
+  /**
+   * Voice settings provider type
+   */
+  type: 'resemble';
+
+  /**
+   * Output audio format.
+   */
+  format?: 'wav' | 'mp3';
+
+  /**
+   * Audio precision format.
+   */
+  precision?: 'PCM_16' | 'PCM_24' | 'PCM_32' | 'MULAW';
+
+  /**
+   * Audio sample rate in Hz.
+   */
+  sample_rate?: '8000' | '16000' | '22050' | '32000' | '44100' | '48000';
+}
+
+export interface RimeVoiceSettings {
+  /**
+   * Voice settings provider type
+   */
+  type: 'rime';
+
+  /**
+   * Speech speed multiplier. Default is 1.0.
+   */
+  voice_speed?: number;
 }
 
 export interface RoomParticipant {

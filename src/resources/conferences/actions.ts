@@ -1003,79 +1003,9 @@ export interface ActionSpeakParams {
     | ActionsAPI.TelnyxVoiceSettings
     | ActionsAPI.AwsVoiceSettings
     | Shared.MinimaxVoiceSettings
-    | ActionSpeakParams.AzureVoiceSettings
-    | ActionSpeakParams.RimeVoiceSettings
-    | ActionSpeakParams.ResembleVoiceSettings;
-}
-
-export namespace ActionSpeakParams {
-  export interface AzureVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'azure';
-
-    /**
-     * The `identifier` for an integration secret that refers to your Azure Speech API
-     * key.
-     */
-    api_key_ref?: string;
-
-    /**
-     * The deployment ID for a custom Azure neural voice.
-     */
-    deployment_id?: string;
-
-    /**
-     * Audio effect to apply.
-     */
-    effect?: 'eq_car' | 'eq_telecomhp8k';
-
-    /**
-     * Voice gender filter.
-     */
-    gender?: 'Male' | 'Female';
-
-    /**
-     * The Azure region for the Speech service (e.g., `eastus`, `westeurope`). Required
-     * when using a custom API key.
-     */
-    region?: string;
-  }
-
-  export interface RimeVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'rime';
-
-    /**
-     * Speech speed multiplier. Default is 1.0.
-     */
-    voice_speed?: number;
-  }
-
-  export interface ResembleVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'resemble';
-
-    /**
-     * Output audio format.
-     */
-    format?: 'wav' | 'mp3';
-
-    /**
-     * Audio precision format.
-     */
-    precision?: 'PCM_16' | 'PCM_24' | 'PCM_32' | 'MULAW';
-
-    /**
-     * Audio sample rate in Hz.
-     */
-    sample_rate?: '8000' | '16000' | '22050' | '32000' | '44100' | '48000';
-  }
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings;
 }
 
 export interface ActionStopParams {
