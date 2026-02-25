@@ -52,6 +52,7 @@ describe('resource actions', () => {
       call_control_id_to_bridge_with: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
       client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
       command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
+      hold_after_unbridge: true,
       mute_dtmf: 'opposite',
       park_after_unbridge: 'self',
       play_ringtone: true,
