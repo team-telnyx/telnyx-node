@@ -1343,15 +1343,15 @@ import {
   Portouts,
 } from './resources/portouts/portouts';
 import {
+  Queue,
   QueueCreateParams,
   QueueCreateResponse,
   QueueListParams,
-  QueueListResponse,
-  QueueListResponsesDefaultFlatPagination,
   QueueRetrieveResponse,
   QueueUpdateParams,
   QueueUpdateResponse,
   Queues,
+  QueuesDefaultFlatPagination,
 } from './resources/queues/queues';
 import {
   RecordingDeleteResponse,
@@ -3747,11 +3747,11 @@ export declare namespace Telnyx {
 
   export {
     Queues as Queues,
+    type Queue as Queue,
     type QueueCreateResponse as QueueCreateResponse,
     type QueueRetrieveResponse as QueueRetrieveResponse,
     type QueueUpdateResponse as QueueUpdateResponse,
-    type QueueListResponse as QueueListResponse,
-    type QueueListResponsesDefaultFlatPagination as QueueListResponsesDefaultFlatPagination,
+    type QueuesDefaultFlatPagination as QueuesDefaultFlatPagination,
     type QueueCreateParams as QueueCreateParams,
     type QueueUpdateParams as QueueUpdateParams,
     type QueueListParams as QueueListParams,
