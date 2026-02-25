@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.39.0 (2026-02-25)
+
+Full Changelog: [v5.38.0...v5.39.0](https://github.com/team-telnyx/telnyx-node/compare/v5.38.0...v5.39.0)
+
+### Features
+
+* PORTAL-5923: Add stored_payment_transactions endpoint to OpenAPI docs ([ef1a698](https://github.com/team-telnyx/telnyx-node/commit/ef1a698ed0fa309669dc049345bca448120cf4d0))
+
+
+### Chores
+
+* **internal:** fix MCP Dockerfiles so they can be built without buildkit ([1085f98](https://github.com/team-telnyx/telnyx-node/commit/1085f988f3ed5ad01dfa1a7142883b7c84357f6e))
+
 ## 5.38.0 (2026-02-25)
 
 Full Changelog: [v5.37.1...v5.38.0](https://github.com/team-telnyx/telnyx-node/compare/v5.37.1...v5.38.0)
