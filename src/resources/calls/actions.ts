@@ -2506,7 +2506,13 @@ export interface ActionGatherUsingAIParams {
   /**
    * The settings associated with the voice selected
    */
-  voice_settings?: ElevenLabsVoiceSettings | TelnyxVoiceSettings | AwsVoiceSettings;
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | ActionGatherUsingAIParams.AzureVoiceSettings
+    | ActionGatherUsingAIParams.RimeVoiceSettings
+    | ActionGatherUsingAIParams.ResembleVoiceSettings;
 }
 
 export namespace ActionGatherUsingAIParams {
@@ -2520,6 +2526,74 @@ export namespace ActionGatherUsingAIParams {
      * The role of the message sender
      */
     role?: 'assistant' | 'user';
+  }
+
+  export interface AzureVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'azure';
+
+    /**
+     * The `identifier` for an integration secret that refers to your Azure Speech API
+     * key.
+     */
+    api_key_ref?: string;
+
+    /**
+     * The deployment ID for a custom Azure neural voice.
+     */
+    deployment_id?: string;
+
+    /**
+     * Audio effect to apply.
+     */
+    effect?: 'eq_car' | 'eq_telecomhp8k';
+
+    /**
+     * Voice gender filter.
+     */
+    gender?: 'Male' | 'Female';
+
+    /**
+     * The Azure region for the Speech service (e.g., `eastus`, `westeurope`). Required
+     * when using a custom API key.
+     */
+    region?: string;
+  }
+
+  export interface RimeVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'rime';
+
+    /**
+     * Speech speed multiplier. Default is 1.0.
+     */
+    voice_speed?: number;
+  }
+
+  export interface ResembleVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'resemble';
+
+    /**
+     * Output audio format.
+     */
+    format?: 'wav' | 'mp3';
+
+    /**
+     * Audio precision format.
+     */
+    precision?: 'PCM_16' | 'PCM_24' | 'PCM_32' | 'MULAW';
+
+    /**
+     * Audio sample rate in Hz.
+     */
+    sample_rate?: '8000' | '16000' | '22050' | '32000' | '44100' | '48000';
   }
 }
 
@@ -2626,25 +2700,34 @@ export interface ActionGatherUsingSpeakParams {
    *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
    *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
    *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+   *   `Azure.en-US-BrianMultilingualNeural`,
+   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery). Use
+   *   `voice_settings` to configure custom deployments, regions, or API keys.
    * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
    *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part
    *   is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an
    *   integration identifier secret in
-   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
+   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
+   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   *   for details. Check
    *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>` (e.g., `Telnyx.KokoroTTS.af`).
+   *   Use `voice_settings` to configure voice_speed and other synthesis parameters.
    * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
    *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
-   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters:
-   *   `speed` (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer,
-   *   default 0).
-   * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g.,
-   *   `Resemble.Pro.my_voice`). Supported models: `Pro` (multilingual) and `Turbo`
-   *   (English only).
+   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
+   *   to configure speed, volume, pitch, and language_boost.
+   * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`).
+   *   Supported model_ids: `Arcana`, `Mist`. Use `voice_settings` to configure
+   *   voice_speed.
+   * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g.,
+   *   `Resemble.Turbo.my_voice`). Only `Turbo` model is supported. Use
+   *   `voice_settings` to configure precision, sample_rate, and format.
+   *
+   * For service_level basic, you may define the gender of the speaker (male or
+   * female).
    */
   voice: string;
 
@@ -2760,7 +2843,80 @@ export interface ActionGatherUsingSpeakParams {
     | ElevenLabsVoiceSettings
     | TelnyxVoiceSettings
     | AwsVoiceSettings
-    | Shared.MinimaxVoiceSettings;
+    | Shared.MinimaxVoiceSettings
+    | ActionGatherUsingSpeakParams.AzureVoiceSettings
+    | ActionGatherUsingSpeakParams.RimeVoiceSettings
+    | ActionGatherUsingSpeakParams.ResembleVoiceSettings;
+}
+
+export namespace ActionGatherUsingSpeakParams {
+  export interface AzureVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'azure';
+
+    /**
+     * The `identifier` for an integration secret that refers to your Azure Speech API
+     * key.
+     */
+    api_key_ref?: string;
+
+    /**
+     * The deployment ID for a custom Azure neural voice.
+     */
+    deployment_id?: string;
+
+    /**
+     * Audio effect to apply.
+     */
+    effect?: 'eq_car' | 'eq_telecomhp8k';
+
+    /**
+     * Voice gender filter.
+     */
+    gender?: 'Male' | 'Female';
+
+    /**
+     * The Azure region for the Speech service (e.g., `eastus`, `westeurope`). Required
+     * when using a custom API key.
+     */
+    region?: string;
+  }
+
+  export interface RimeVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'rime';
+
+    /**
+     * Speech speed multiplier. Default is 1.0.
+     */
+    voice_speed?: number;
+  }
+
+  export interface ResembleVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'resemble';
+
+    /**
+     * Output audio format.
+     */
+    format?: 'wav' | 'mp3';
+
+    /**
+     * Audio precision format.
+     */
+    precision?: 'PCM_16' | 'PCM_24' | 'PCM_32' | 'MULAW';
+
+    /**
+     * Audio sample rate in Hz.
+     */
+    sample_rate?: '8000' | '16000' | '22050' | '32000' | '44100' | '48000';
+  }
 }
 
 export interface ActionHangupParams {
@@ -2959,25 +3115,34 @@ export interface ActionSpeakParams {
    *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
    *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
    *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+   *   `Azure.en-US-BrianMultilingualNeural`,
+   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery). Use
+   *   `voice_settings` to configure custom deployments, regions, or API keys.
    * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
    *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part
    *   is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an
    *   integration identifier secret in
-   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. Check
+   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
+   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   *   for details. Check
    *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>` (e.g., `Telnyx.KokoroTTS.af`).
+   *   Use `voice_settings` to configure voice_speed and other synthesis parameters.
    * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
    *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
-   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Optional parameters:
-   *   `speed` (float, default 1.0), `vol` (float, default 1.0), `pitch` (integer,
-   *   default 0).
-   * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g.,
-   *   `Resemble.Pro.my_voice`). Supported models: `Pro` (multilingual) and `Turbo`
-   *   (English only).
+   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
+   *   to configure speed, volume, pitch, and language_boost.
+   * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`).
+   *   Supported model_ids: `Arcana`, `Mist`. Use `voice_settings` to configure
+   *   voice_speed.
+   * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g.,
+   *   `Resemble.Turbo.my_voice`). Only `Turbo` model is supported. Use
+   *   `voice_settings` to configure precision, sample_rate, and format.
+   *
+   * For service_level basic, you may define the gender of the speaker (male or
+   * female).
    */
   voice: string;
 
@@ -3066,7 +3231,80 @@ export interface ActionSpeakParams {
     | ElevenLabsVoiceSettings
     | TelnyxVoiceSettings
     | AwsVoiceSettings
-    | Shared.MinimaxVoiceSettings;
+    | Shared.MinimaxVoiceSettings
+    | ActionSpeakParams.AzureVoiceSettings
+    | ActionSpeakParams.RimeVoiceSettings
+    | ActionSpeakParams.ResembleVoiceSettings;
+}
+
+export namespace ActionSpeakParams {
+  export interface AzureVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'azure';
+
+    /**
+     * The `identifier` for an integration secret that refers to your Azure Speech API
+     * key.
+     */
+    api_key_ref?: string;
+
+    /**
+     * The deployment ID for a custom Azure neural voice.
+     */
+    deployment_id?: string;
+
+    /**
+     * Audio effect to apply.
+     */
+    effect?: 'eq_car' | 'eq_telecomhp8k';
+
+    /**
+     * Voice gender filter.
+     */
+    gender?: 'Male' | 'Female';
+
+    /**
+     * The Azure region for the Speech service (e.g., `eastus`, `westeurope`). Required
+     * when using a custom API key.
+     */
+    region?: string;
+  }
+
+  export interface RimeVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'rime';
+
+    /**
+     * Speech speed multiplier. Default is 1.0.
+     */
+    voice_speed?: number;
+  }
+
+  export interface ResembleVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'resemble';
+
+    /**
+     * Output audio format.
+     */
+    format?: 'wav' | 'mp3';
+
+    /**
+     * Audio precision format.
+     */
+    precision?: 'PCM_16' | 'PCM_24' | 'PCM_32' | 'MULAW';
+
+    /**
+     * Audio sample rate in Hz.
+     */
+    sample_rate?: '8000' | '16000' | '22050' | '32000' | '44100' | '48000';
+  }
 }
 
 export interface ActionStartAIAssistantParams {
@@ -3136,7 +3374,13 @@ export interface ActionStartAIAssistantParams {
   /**
    * The settings associated with the voice selected
    */
-  voice_settings?: ElevenLabsVoiceSettings | TelnyxVoiceSettings | AwsVoiceSettings;
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | ActionStartAIAssistantParams.AzureVoiceSettings
+    | ActionStartAIAssistantParams.RimeVoiceSettings
+    | ActionStartAIAssistantParams.ResembleVoiceSettings;
 }
 
 export namespace ActionStartAIAssistantParams {
@@ -3160,6 +3404,74 @@ export namespace ActionStartAIAssistantParams {
      * Reference to the OpenAI API key. Required only when using OpenAI models
      */
     openai_api_key_ref?: string;
+  }
+
+  export interface AzureVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'azure';
+
+    /**
+     * The `identifier` for an integration secret that refers to your Azure Speech API
+     * key.
+     */
+    api_key_ref?: string;
+
+    /**
+     * The deployment ID for a custom Azure neural voice.
+     */
+    deployment_id?: string;
+
+    /**
+     * Audio effect to apply.
+     */
+    effect?: 'eq_car' | 'eq_telecomhp8k';
+
+    /**
+     * Voice gender filter.
+     */
+    gender?: 'Male' | 'Female';
+
+    /**
+     * The Azure region for the Speech service (e.g., `eastus`, `westeurope`). Required
+     * when using a custom API key.
+     */
+    region?: string;
+  }
+
+  export interface RimeVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'rime';
+
+    /**
+     * Speech speed multiplier. Default is 1.0.
+     */
+    voice_speed?: number;
+  }
+
+  export interface ResembleVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'resemble';
+
+    /**
+     * Output audio format.
+     */
+    format?: 'wav' | 'mp3';
+
+    /**
+     * Audio precision format.
+     */
+    precision?: 'PCM_16' | 'PCM_24' | 'PCM_32' | 'MULAW';
+
+    /**
+     * Audio sample rate in Hz.
+     */
+    sample_rate?: '8000' | '16000' | '22050' | '32000' | '44100' | '48000';
   }
 }
 
