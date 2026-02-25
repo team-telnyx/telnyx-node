@@ -3053,11 +3053,18 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/queues/queues.ts">QueueCreateResponse</a></code>
 - <code><a href="./src/resources/queues/queues.ts">QueueRetrieveResponse</a></code>
+- <code><a href="./src/resources/queues/queues.ts">QueueUpdateResponse</a></code>
+- <code><a href="./src/resources/queues/queues.ts">QueueListResponse</a></code>
 
 Methods:
 
+- <code title="post /queues">client.queues.<a href="./src/resources/queues/queues.ts">create</a>({ ...params }) -> QueueCreateResponse</code>
 - <code title="get /queues/{queue_name}">client.queues.<a href="./src/resources/queues/queues.ts">retrieve</a>(queueName) -> QueueRetrieveResponse</code>
+- <code title="post /queues/{queue_name}">client.queues.<a href="./src/resources/queues/queues.ts">update</a>(queueName, { ...params }) -> QueueUpdateResponse</code>
+- <code title="get /queues">client.queues.<a href="./src/resources/queues/queues.ts">list</a>({ ...params }) -> QueueListResponsesDefaultFlatPagination</code>
+- <code title="delete /queues/{queue_name}">client.queues.<a href="./src/resources/queues/queues.ts">delete</a>(queueName) -> void</code>
 
 ## Calls
 

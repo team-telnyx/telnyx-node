@@ -1338,7 +1338,17 @@ import {
   PortoutUpdateStatusResponse,
   Portouts,
 } from './resources/portouts/portouts';
-import { QueueRetrieveResponse, Queues } from './resources/queues/queues';
+import {
+  QueueCreateParams,
+  QueueCreateResponse,
+  QueueListParams,
+  QueueListResponse,
+  QueueListResponsesDefaultFlatPagination,
+  QueueRetrieveResponse,
+  QueueUpdateParams,
+  QueueUpdateResponse,
+  Queues,
+} from './resources/queues/queues';
 import {
   RecordingDeleteResponse,
   RecordingListParams,
@@ -3728,7 +3738,17 @@ export declare namespace Telnyx {
     type PublicInternetGatewayListParams as PublicInternetGatewayListParams,
   };
 
-  export { Queues as Queues, type QueueRetrieveResponse as QueueRetrieveResponse };
+  export {
+    Queues as Queues,
+    type QueueCreateResponse as QueueCreateResponse,
+    type QueueRetrieveResponse as QueueRetrieveResponse,
+    type QueueUpdateResponse as QueueUpdateResponse,
+    type QueueListResponse as QueueListResponse,
+    type QueueListResponsesDefaultFlatPagination as QueueListResponsesDefaultFlatPagination,
+    type QueueCreateParams as QueueCreateParams,
+    type QueueUpdateParams as QueueUpdateParams,
+    type QueueListParams as QueueListParams,
+  };
 
   export { RcsAgents as RcsAgents, type RcsAgent as RcsAgent, type RcsAgentResponse as RcsAgentResponse };
 

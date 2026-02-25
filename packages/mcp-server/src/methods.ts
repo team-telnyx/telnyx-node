@@ -3901,9 +3901,33 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/public_internet_gateways/{id}',
   },
   {
+    clientCallName: 'client.queues.create',
+    fullyQualifiedName: 'queues.create',
+    httpMethod: 'post',
+    httpPath: '/queues',
+  },
+  {
     clientCallName: 'client.queues.retrieve',
     fullyQualifiedName: 'queues.retrieve',
     httpMethod: 'get',
+    httpPath: '/queues/{queue_name}',
+  },
+  {
+    clientCallName: 'client.queues.update',
+    fullyQualifiedName: 'queues.update',
+    httpMethod: 'post',
+    httpPath: '/queues/{queue_name}',
+  },
+  {
+    clientCallName: 'client.queues.list',
+    fullyQualifiedName: 'queues.list',
+    httpMethod: 'get',
+    httpPath: '/queues',
+  },
+  {
+    clientCallName: 'client.queues.delete',
+    fullyQualifiedName: 'queues.delete',
+    httpMethod: 'delete',
     httpPath: '/queues/{queue_name}',
   },
   {
