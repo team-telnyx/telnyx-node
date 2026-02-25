@@ -55,6 +55,7 @@ describe('resource actions', () => {
       mute_dtmf: 'opposite',
       park_after_unbridge: 'self',
       play_ringtone: true,
+      prevent_double_bridge: true,
       queue: 'support',
       record: 'record-from-answer',
       record_channels: 'single',
