@@ -925,7 +925,17 @@ export {
   type PublicInternetGatewayListParams,
   type PublicInternetGatewayListResponsesDefaultFlatPagination,
 } from './public-internet-gateways';
-export { Queues, type QueueRetrieveResponse } from './queues/queues';
+export {
+  Queues,
+  type QueueCreateResponse,
+  type QueueRetrieveResponse,
+  type QueueUpdateResponse,
+  type QueueListResponse,
+  type QueueCreateParams,
+  type QueueUpdateParams,
+  type QueueListParams,
+  type QueueListResponsesDefaultFlatPagination,
+} from './queues/queues';
 export {
   RcsAgents,
   type RcsAgent,
