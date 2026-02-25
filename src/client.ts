@@ -4190,6 +4190,7 @@ export declare namespace Telnyx {
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
+  export type AzureVoiceSettings = API.AzureVoiceSettings;
   export type ConnectionJitterBuffer = API.ConnectionJitterBuffer;
   export type ConnectionNoiseSuppressionDetails = API.ConnectionNoiseSuppressionDetails;
   export type ConnectionsPaginationMeta = API.ConnectionsPaginationMeta;
@@ -4205,6 +4206,8 @@ export declare namespace Telnyx {
   export type PhoneNumberWithMessagingSettings = API.PhoneNumberWithMessagingSettings;
   export type PortingOrderStatus = API.PortingOrderStatus;
   export type PortingOrdersExceptionType = API.PortingOrdersExceptionType;
+  export type ResembleVoiceSettings = API.ResembleVoiceSettings;
+  export type RimeVoiceSettings = API.RimeVoiceSettings;
   export type RoomParticipant = API.RoomParticipant;
   export type ShortCode = API.ShortCode;
   export type SimCardStatus = API.SimCardStatus;

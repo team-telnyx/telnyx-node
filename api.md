@@ -4,6 +4,7 @@ Types:
 
 - <code><a href="./src/resources/shared.ts">APIError</a></code>
 - <code><a href="./src/resources/shared.ts">AvailablePhoneNumbersMetadata</a></code>
+- <code><a href="./src/resources/shared.ts">AzureVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionJitterBuffer</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionNoiseSuppressionDetails</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionsPaginationMeta</a></code>
@@ -19,6 +20,8 @@ Types:
 - <code><a href="./src/resources/shared.ts">PhoneNumberWithMessagingSettings</a></code>
 - <code><a href="./src/resources/shared.ts">PortingOrderStatus</a></code>
 - <code><a href="./src/resources/shared.ts">PortingOrdersExceptionType</a></code>
+- <code><a href="./src/resources/shared.ts">ResembleVoiceSettings</a></code>
+- <code><a href="./src/resources/shared.ts">RimeVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">RoomParticipant</a></code>
 - <code><a href="./src/resources/shared.ts">ShortCode</a></code>
 - <code><a href="./src/resources/shared.ts">SimCardStatus</a></code>
