@@ -2546,6 +2546,14 @@ Methods:
 
 # Payment
 
+Types:
+
+- <code><a href="./src/resources/payment/payment.ts">PaymentCreateStoredPaymentTransactionResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/payment/stored_payment_transactions">client.payment.<a href="./src/resources/payment/payment.ts">createStoredPaymentTransaction</a>({ ...params }) -> PaymentCreateStoredPaymentTransactionResponse</code>
+
 ## AutoRechargePrefs
 
 Types:

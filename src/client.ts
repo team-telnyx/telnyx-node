@@ -1280,7 +1280,11 @@ import {
 } from './resources/number-reservations/number-reservations';
 import { OperatorConnect } from './resources/operator-connect/operator-connect';
 import { Organizations } from './resources/organizations/organizations';
-import { Payment } from './resources/payment/payment';
+import {
+  Payment,
+  PaymentCreateStoredPaymentTransactionParams,
+  PaymentCreateStoredPaymentTransactionResponse,
+} from './resources/payment/payment';
 import { PhoneNumberBlocks } from './resources/phone-number-blocks/phone-number-blocks';
 import {
   PhoneNumberDeleteResponse,
@@ -3628,7 +3632,11 @@ export declare namespace Telnyx {
     type OutboundVoiceProfileListParams as OutboundVoiceProfileListParams,
   };
 
-  export { Payment as Payment };
+  export {
+    Payment as Payment,
+    type PaymentCreateStoredPaymentTransactionResponse as PaymentCreateStoredPaymentTransactionResponse,
+    type PaymentCreateStoredPaymentTransactionParams as PaymentCreateStoredPaymentTransactionParams,
+  };
 
   export { PhoneNumberBlocks as PhoneNumberBlocks };
 

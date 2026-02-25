@@ -826,7 +826,11 @@ export {
   type OutboundVoiceProfileListParams,
   type OutboundVoiceProfilesDefaultFlatPagination,
 } from './outbound-voice-profiles';
-export { Payment } from './payment/payment';
+export {
+  Payment,
+  type PaymentCreateStoredPaymentTransactionResponse,
+  type PaymentCreateStoredPaymentTransactionParams,
+} from './payment/payment';
 export { PhoneNumberBlocks } from './phone-number-blocks/phone-number-blocks';
 export {
   PhoneNumbers,
