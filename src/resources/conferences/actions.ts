@@ -806,6 +806,12 @@ export interface ActionRecordStartParams {
   format: 'wav' | 'mp3';
 
   /**
+   * When `dual`, final audio file will be stereo recorded with the conference
+   * creator on the first channel, and the rest on the second channel.
+   */
+  channels?: 'single' | 'dual';
+
+  /**
    * Use this field to avoid duplicate commands. Telnyx will ignore any command with
    * the same `command_id` for the same `conference_id`.
    */
