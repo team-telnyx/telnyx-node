@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -86,7 +87,7 @@ export interface RecordingTranscriptionListResponse {
 
 export namespace RecordingTranscriptionListResponse {
   export interface Meta {
-    cursors?: Meta.Cursors;
+    cursors?: Shared.Cursor;
 
     /**
      * Path to next page.
@@ -97,20 +98,6 @@ export namespace RecordingTranscriptionListResponse {
      * Path to previous page.
      */
     previous?: string;
-  }
-
-  export namespace Meta {
-    export interface Cursors {
-      /**
-       * Opaque identifier of next page.
-       */
-      after?: string;
-
-      /**
-       * Opaque identifier of previous page.
-       */
-      before?: string;
-    }
   }
 }
 

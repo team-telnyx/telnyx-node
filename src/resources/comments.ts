@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as CommentsAPI from './comments';
 import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
@@ -59,39 +60,41 @@ export class Comments extends APIResource {
   }
 }
 
+export interface Comment {
+  id?: string;
+
+  body?: string;
+
+  comment_record_id?: string;
+
+  comment_record_type?: 'sub_number_order' | 'requirement_group';
+
+  commenter?: string;
+
+  commenter_type?: 'admin' | 'user';
+
+  /**
+   * An ISO 8901 datetime string denoting when the comment was created.
+   */
+  created_at?: string;
+
+  /**
+   * An ISO 8901 datetime string for when the comment was read.
+   */
+  read_at?: string;
+
+  /**
+   * An ISO 8901 datetime string for when the comment was updated.
+   */
+  updated_at?: string;
+}
+
 export interface CommentCreateResponse {
   data?: CommentCreateResponse.Data;
 }
 
 export namespace CommentCreateResponse {
-  export interface Data {
-    id?: string;
-
-    body?: string;
-
-    comment_record_id?: string;
-
-    comment_record_type?: 'sub_number_order' | 'requirement_group';
-
-    commenter?: string;
-
-    commenter_type?: 'admin' | 'user';
-
-    /**
-     * An ISO 8901 datetime string denoting when the comment was created.
-     */
-    created_at?: string;
-
-    /**
-     * An ISO 8901 datetime string for when the comment was read.
-     */
-    read_at?: string;
-
-    /**
-     * An ISO 8901 datetime string for when the comment was updated.
-     */
-    updated_at?: string;
-  }
+  export interface Data extends CommentsAPI.Comment {}
 }
 
 export interface CommentRetrieveResponse {
@@ -99,71 +102,13 @@ export interface CommentRetrieveResponse {
 }
 
 export namespace CommentRetrieveResponse {
-  export interface Data {
-    id?: string;
-
-    body?: string;
-
-    comment_record_id?: string;
-
-    comment_record_type?: 'sub_number_order' | 'requirement_group';
-
-    commenter?: string;
-
-    commenter_type?: 'admin' | 'user';
-
-    /**
-     * An ISO 8901 datetime string denoting when the comment was created.
-     */
-    created_at?: string;
-
-    /**
-     * An ISO 8901 datetime string for when the comment was read.
-     */
-    read_at?: string;
-
-    /**
-     * An ISO 8901 datetime string for when the comment was updated.
-     */
-    updated_at?: string;
-  }
+  export interface Data extends CommentsAPI.Comment {}
 }
 
 export interface CommentListResponse {
-  data?: Array<CommentListResponse.Data>;
+  data?: Array<Comment>;
 
   meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
-export namespace CommentListResponse {
-  export interface Data {
-    id?: string;
-
-    body?: string;
-
-    comment_record_id?: string;
-
-    comment_record_type?: 'sub_number_order' | 'requirement_group';
-
-    commenter?: string;
-
-    commenter_type?: 'admin' | 'user';
-
-    /**
-     * An ISO 8901 datetime string denoting when the comment was created.
-     */
-    created_at?: string;
-
-    /**
-     * An ISO 8901 datetime string for when the comment was read.
-     */
-    read_at?: string;
-
-    /**
-     * An ISO 8901 datetime string for when the comment was updated.
-     */
-    updated_at?: string;
-  }
 }
 
 export interface CommentMarkAsReadResponse {
@@ -171,34 +116,7 @@ export interface CommentMarkAsReadResponse {
 }
 
 export namespace CommentMarkAsReadResponse {
-  export interface Data {
-    id?: string;
-
-    body?: string;
-
-    comment_record_id?: string;
-
-    comment_record_type?: 'sub_number_order' | 'requirement_group';
-
-    commenter?: string;
-
-    commenter_type?: 'admin' | 'user';
-
-    /**
-     * An ISO 8901 datetime string denoting when the comment was created.
-     */
-    created_at?: string;
-
-    /**
-     * An ISO 8901 datetime string for when the comment was read.
-     */
-    read_at?: string;
-
-    /**
-     * An ISO 8901 datetime string for when the comment was updated.
-     */
-    updated_at?: string;
-  }
+  export interface Data extends CommentsAPI.Comment {}
 }
 
 export interface CommentCreateParams {
@@ -237,6 +155,7 @@ export namespace CommentListParams {
 
 export declare namespace Comments {
   export {
+    type Comment as Comment,
     type CommentCreateResponse as CommentCreateResponse,
     type CommentRetrieveResponse as CommentRetrieveResponse,
     type CommentListResponse as CommentListResponse,
