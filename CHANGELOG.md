@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.45.0 (2026-02-26)
+
+Full Changelog: [v5.44.0...v5.45.0](https://github.com/team-telnyx/telnyx-node/compare/v5.44.0...v5.45.0)
+
+### Features
+
+* **mcp:** add an option to disable code tool ([86f38b1](https://github.com/team-telnyx/telnyx-node/commit/86f38b195131c8232e59fcad3e24fc80e3b40e79))
+
 ## 5.44.0 (2026-02-26)
 
 Full Changelog: [v5.43.0...v5.44.0](https://github.com/team-telnyx/telnyx-node/compare/v5.43.0...v5.44.0)
