@@ -931,14 +931,14 @@ export {
 } from './public-internet-gateways';
 export {
   Queues,
+  type Queue,
   type QueueCreateResponse,
   type QueueRetrieveResponse,
   type QueueUpdateResponse,
-  type QueueListResponse,
   type QueueCreateParams,
   type QueueUpdateParams,
   type QueueListParams,
-  type QueueListResponsesDefaultFlatPagination,
+  type QueuesDefaultFlatPagination,
 } from './queues/queues';
 export {
   RcsAgents,
