@@ -84,7 +84,7 @@ export namespace RcSendResponse {
 
     record_type?: string;
 
-    to?: Array<Data.To>;
+    to?: Array<MessagesAPI.RcsToItem>;
 
     type?: string;
   }
@@ -99,16 +99,6 @@ export namespace RcSendResponse {
       agent_name?: string;
 
       carrier?: string;
-    }
-
-    export interface To {
-      carrier?: string;
-
-      line_type?: string;
-
-      phone_number?: string;
-
-      status?: string;
     }
   }
 }

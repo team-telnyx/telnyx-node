@@ -221,7 +221,7 @@ export interface NumberOrderListResponse {
    */
   messaging_profile_id?: string;
 
-  phone_numbers?: Array<NumberOrderListResponse.PhoneNumber>;
+  phone_numbers?: Array<Shared.PhoneNumbersJobPhoneNumber>;
 
   /**
    * The count of phone numbers in the number order.
@@ -246,23 +246,6 @@ export interface NumberOrderListResponse {
    * An ISO 8901 datetime string for when the number order was updated.
    */
   updated_at?: string;
-}
-
-export namespace NumberOrderListResponse {
-  /**
-   * The unique phone numbers given as arguments in the job creation.
-   */
-  export interface PhoneNumber {
-    /**
-     * The phone number's ID
-     */
-    id?: string;
-
-    /**
-     * The phone number in e164 format.
-     */
-    phone_number?: string;
-  }
 }
 
 export interface NumberOrderCreateParams {

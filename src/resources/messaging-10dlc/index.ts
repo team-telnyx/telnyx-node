@@ -4,6 +4,7 @@ export {
   Brand,
   type AltBusinessIDType,
   type BrandIdentityStatus,
+  type BrandOptionalAttributes,
   type EntityType,
   type StockExchange,
   type TelnyxBrand,
@@ -53,6 +54,7 @@ export {
 } from './partner-campaigns';
 export {
   PhoneNumberAssignmentByProfile,
+  type ProfileAssignmentPhoneNumbers,
   type TaskStatus,
   type PhoneNumberAssignmentByProfileAssignResponse,
   type PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse,

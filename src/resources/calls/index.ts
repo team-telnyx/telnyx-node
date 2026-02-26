@@ -4,6 +4,7 @@ export {
   Actions,
   type AwsVoiceSettings,
   type CallControlCommandResult,
+  type CallControlCommandResultWithConversationID,
   type DeepgramNova2Config,
   type DeepgramNova3Config,
   type ElevenLabsVoiceSettings,

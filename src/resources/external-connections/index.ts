@@ -2,6 +2,8 @@
 
 export {
   CivicAddresses,
+  type CivicAddress,
+  type Location,
   type CivicAddressRetrieveResponse,
   type CivicAddressListResponse,
   type CivicAddressRetrieveParams,
@@ -42,6 +44,7 @@ export {
 } from './phone-numbers';
 export {
   Releases,
+  type TnReleaseEntry,
   type ReleaseRetrieveResponse,
   type ReleaseListResponse,
   type ReleaseRetrieveParams,

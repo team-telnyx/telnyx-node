@@ -33,9 +33,9 @@ export namespace AvailablePhoneNumberListResponse {
      */
     best_effort?: boolean;
 
-    cost_information?: Data.CostInformation;
+    cost_information?: Shared.CostInformation;
 
-    features?: Array<Data.Feature>;
+    features?: Array<Shared.Feature>;
 
     phone_number?: string;
 
@@ -47,7 +47,7 @@ export namespace AvailablePhoneNumberListResponse {
 
     record_type?: 'available_phone_number';
 
-    region_information?: Array<Data.RegionInformation>;
+    region_information?: Array<Shared.RegionInformation>;
 
     /**
      * Specifies whether the phone number can be reserved before purchase or not.
@@ -55,29 +55,6 @@ export namespace AvailablePhoneNumberListResponse {
     reservable?: boolean;
 
     vanity_format?: string;
-  }
-
-  export namespace Data {
-    export interface CostInformation {
-      /**
-       * The ISO 4217 code for the currency.
-       */
-      currency?: string;
-
-      monthly_cost?: string;
-
-      upfront_cost?: string;
-    }
-
-    export interface Feature {
-      name?: string;
-    }
-
-    export interface RegionInformation {
-      region_name?: string;
-
-      region_type?: 'country_code' | 'rate_center' | 'state' | 'location';
-    }
   }
 }
 

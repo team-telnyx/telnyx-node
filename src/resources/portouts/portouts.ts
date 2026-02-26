@@ -2,7 +2,13 @@
 
 import { APIResource } from '../../core/resource';
 import * as CommentsAPI from './comments';
-import { CommentCreateParams, CommentCreateResponse, CommentListResponse, Comments } from './comments';
+import {
+  CommentCreateParams,
+  CommentCreateResponse,
+  CommentListResponse,
+  Comments,
+  PortoutComment,
+} from './comments';
 import * as EventsAPI from './events';
 import {
   EventListParams,
@@ -10,6 +16,9 @@ import {
   EventListResponsesDefaultFlatPagination,
   EventRetrieveResponse,
   Events,
+  WebhookPortoutFocDateChanged,
+  WebhookPortoutNewComment,
+  WebhookPortoutStatusChanged,
 } from './events';
 import * as ReportsAPI from './reports';
 import {
@@ -24,6 +33,7 @@ import {
 } from './reports';
 import * as SupportingDocumentsAPI from './supporting-documents';
 import {
+  PortOutSupportingDocument,
   SupportingDocumentCreateParams,
   SupportingDocumentCreateResponse,
   SupportingDocumentListResponse,
@@ -448,6 +458,9 @@ export declare namespace Portouts {
 
   export {
     Events as Events,
+    type WebhookPortoutFocDateChanged as WebhookPortoutFocDateChanged,
+    type WebhookPortoutNewComment as WebhookPortoutNewComment,
+    type WebhookPortoutStatusChanged as WebhookPortoutStatusChanged,
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
     type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
@@ -467,6 +480,7 @@ export declare namespace Portouts {
 
   export {
     Comments as Comments,
+    type PortoutComment as PortoutComment,
     type CommentCreateResponse as CommentCreateResponse,
     type CommentListResponse as CommentListResponse,
     type CommentCreateParams as CommentCreateParams,
@@ -474,6 +488,7 @@ export declare namespace Portouts {
 
   export {
     SupportingDocuments as SupportingDocuments,
+    type PortOutSupportingDocument as PortOutSupportingDocument,
     type SupportingDocumentCreateResponse as SupportingDocumentCreateResponse,
     type SupportingDocumentListResponse as SupportingDocumentListResponse,
     type SupportingDocumentCreateParams as SupportingDocumentCreateParams,

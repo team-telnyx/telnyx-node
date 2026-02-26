@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as ReleasesAPI from './releases';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -58,6 +59,18 @@ export class Releases extends APIResource {
 
 export type ReleaseListResponsesDefaultFlatPagination = DefaultFlatPagination<ReleaseListResponse>;
 
+export interface TnReleaseEntry {
+  /**
+   * Phone number ID from the Telnyx API.
+   */
+  number_id?: string;
+
+  /**
+   * Phone number in E164 format.
+   */
+  phone_number?: string;
+}
+
 export interface ReleaseRetrieveResponse {
   data?: ReleaseRetrieveResponse.Data;
 }
@@ -79,7 +92,7 @@ export namespace ReleaseRetrieveResponse {
      */
     status?: 'pending_upload' | 'pending' | 'in_progress' | 'complete' | 'failed' | 'expired' | 'unknown';
 
-    telephone_numbers?: Array<Data.TelephoneNumber>;
+    telephone_numbers?: Array<ReleasesAPI.TnReleaseEntry>;
 
     tenant_id?: string;
 
@@ -87,20 +100,6 @@ export namespace ReleaseRetrieveResponse {
      * Uniquely identifies the resource.
      */
     ticket_id?: string;
-  }
-
-  export namespace Data {
-    export interface TelephoneNumber {
-      /**
-       * Phone number ID from the Telnyx API.
-       */
-      number_id?: string;
-
-      /**
-       * Phone number in E164 format.
-       */
-      phone_number?: string;
-    }
   }
 }
 
@@ -120,7 +119,7 @@ export interface ReleaseListResponse {
    */
   status?: 'pending_upload' | 'pending' | 'in_progress' | 'complete' | 'failed' | 'expired' | 'unknown';
 
-  telephone_numbers?: Array<ReleaseListResponse.TelephoneNumber>;
+  telephone_numbers?: Array<TnReleaseEntry>;
 
   tenant_id?: string;
 
@@ -128,20 +127,6 @@ export interface ReleaseListResponse {
    * Uniquely identifies the resource.
    */
   ticket_id?: string;
-}
-
-export namespace ReleaseListResponse {
-  export interface TelephoneNumber {
-    /**
-     * Phone number ID from the Telnyx API.
-     */
-    number_id?: string;
-
-    /**
-     * Phone number in E164 format.
-     */
-    phone_number?: string;
-  }
 }
 
 export interface ReleaseRetrieveParams {
@@ -222,6 +207,7 @@ export namespace ReleaseListParams {
 
 export declare namespace Releases {
   export {
+    type TnReleaseEntry as TnReleaseEntry,
     type ReleaseRetrieveResponse as ReleaseRetrieveResponse,
     type ReleaseListResponse as ReleaseListResponse,
     type ReleaseListResponsesDefaultFlatPagination as ReleaseListResponsesDefaultFlatPagination,

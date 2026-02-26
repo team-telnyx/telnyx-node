@@ -34,6 +34,8 @@ import {
   ToolUpdateToolResponse,
   Tools,
 } from './tools';
+import * as EventsAPI from './runs/events';
+import { EventDataDefaultFlatPagination } from './runs/events';
 import * as RunsAPI from './runs/runs';
 import {
   MissionRunData,
@@ -153,7 +155,7 @@ export class Missions extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const missionListEventsResponse of client.ai.missions.listEvents()) {
+   * for await (const eventData of client.ai.missions.listEvents()) {
    *   // ...
    * }
    * ```
@@ -161,8 +163,8 @@ export class Missions extends APIResource {
   listEvents(
     query: MissionListEventsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MissionListEventsResponsesDefaultFlatPagination, MissionListEventsResponse> {
-    return this._client.getAPIList('/ai/missions/events', DefaultFlatPagination<MissionListEventsResponse>, {
+  ): PagePromise<EventDataDefaultFlatPagination, EventsAPI.EventData> {
+    return this._client.getAPIList('/ai/missions/events', DefaultFlatPagination<EventsAPI.EventData>, {
       query,
       ...options,
     });
@@ -188,9 +190,6 @@ export class Missions extends APIResource {
 }
 
 export type MissionDataDefaultFlatPagination = DefaultFlatPagination<MissionData>;
-
-export type MissionListEventsResponsesDefaultFlatPagination =
-  DefaultFlatPagination<MissionListEventsResponse>;
 
 export interface MissionData {
   created_at: string;
@@ -221,35 +220,6 @@ export interface MissionRetrieveResponse {
 }
 
 export type MissionCloneMissionResponse = unknown;
-
-export interface MissionListEventsResponse {
-  event_id: string;
-
-  run_id: string;
-
-  summary: string;
-
-  timestamp: string;
-
-  type:
-    | 'status_change'
-    | 'step_started'
-    | 'step_completed'
-    | 'step_failed'
-    | 'tool_call'
-    | 'tool_result'
-    | 'message'
-    | 'error'
-    | 'custom';
-
-  agent_id?: string;
-
-  idempotency_key?: string;
-
-  payload?: { [key: string]: unknown };
-
-  step_id?: string;
-}
 
 export interface MissionUpdateMissionResponse {
   data: MissionData;
@@ -300,10 +270,8 @@ export declare namespace Missions {
     type MissionCreateResponse as MissionCreateResponse,
     type MissionRetrieveResponse as MissionRetrieveResponse,
     type MissionCloneMissionResponse as MissionCloneMissionResponse,
-    type MissionListEventsResponse as MissionListEventsResponse,
     type MissionUpdateMissionResponse as MissionUpdateMissionResponse,
     type MissionDataDefaultFlatPagination as MissionDataDefaultFlatPagination,
-    type MissionListEventsResponsesDefaultFlatPagination as MissionListEventsResponsesDefaultFlatPagination,
     type MissionCreateParams as MissionCreateParams,
     type MissionListParams as MissionListParams,
     type MissionListEventsParams as MissionListEventsParams,
@@ -363,3 +331,5 @@ export declare namespace Missions {
     type ToolUpdateToolParams as ToolUpdateToolParams,
   };
 }
+
+export { type EventDataDefaultFlatPagination };

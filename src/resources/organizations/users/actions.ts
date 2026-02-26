@@ -16,55 +16,7 @@ export class Actions extends APIResource {
 }
 
 export interface ActionRemoveResponse {
-  data?: ActionRemoveResponse.Data;
-}
-
-export namespace ActionRemoveResponse {
-  export interface Data {
-    /**
-     * Identifies the specific resource.
-     */
-    id?: string;
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * The email address of the user.
-     */
-    email?: string;
-
-    /**
-     * The groups the user belongs to. Only included when include_groups parameter is
-     * true.
-     */
-    groups?: Array<UsersAPI.UserGroupReference>;
-
-    /**
-     * ISO 8601 formatted date indicating when the resource last signed into the
-     * portal. Null if the user has never signed in.
-     */
-    last_sign_in_at?: string | null;
-
-    /**
-     * Indicates whether this user is allowed to bypass SSO and use password
-     * authentication.
-     */
-    organization_user_bypasses_sso?: boolean;
-
-    /**
-     * Identifies the type of the resource. Can be 'organization_owner' or
-     * 'organization_sub_user'.
-     */
-    record_type?: string;
-
-    /**
-     * The status of the account.
-     */
-    user_status?: 'enabled' | 'disabled' | 'blocked';
-  }
+  data?: UsersAPI.OrganizationUser;
 }
 
 export declare namespace Actions {

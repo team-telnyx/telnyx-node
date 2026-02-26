@@ -3,6 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as AutoRechargePrefsAPI from './auto-recharge-prefs';
 import {
+  AutoRechargePref,
   AutoRechargePrefListResponse,
   AutoRechargePrefUpdateParams,
   AutoRechargePrefUpdateResponse,
@@ -76,6 +77,7 @@ export declare namespace Payment {
 
   export {
     AutoRechargePrefs as AutoRechargePrefs,
+    type AutoRechargePref as AutoRechargePref,
     type AutoRechargePrefUpdateResponse as AutoRechargePrefUpdateResponse,
     type AutoRechargePrefListResponse as AutoRechargePrefListResponse,
     type AutoRechargePrefUpdateParams as AutoRechargePrefUpdateParams,

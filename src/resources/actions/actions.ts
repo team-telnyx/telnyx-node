@@ -11,10 +11,38 @@ export class Actions extends APIResource {
   register: RegisterAPI.Register = new RegisterAPI.Register(this._client);
 }
 
+export interface WirelessError {
+  code: string;
+
+  title: string;
+
+  detail?: string;
+
+  meta?: { [key: string]: unknown };
+
+  source?: WirelessError.Source;
+}
+
+export namespace WirelessError {
+  export interface Source {
+    /**
+     * Indicates which query parameter caused the error.
+     */
+    parameter?: string;
+
+    /**
+     * JSON pointer (RFC6901) to the offending entity.
+     */
+    pointer?: string;
+  }
+}
+
 Actions.Purchase = Purchase;
 Actions.Register = Register;
 
 export declare namespace Actions {
+  export { type WirelessError as WirelessError };
+
   export {
     Purchase as Purchase,
     type PurchaseCreateResponse as PurchaseCreateResponse,

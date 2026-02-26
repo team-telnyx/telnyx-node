@@ -42,6 +42,7 @@ export {
 export {
   Conferences,
   type Conference,
+  type ConferenceParticipant,
   type ConferenceCreateResponse,
   type ConferenceRetrieveResponse,
   type ConferenceListParticipantsResponse,

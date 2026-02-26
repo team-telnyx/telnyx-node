@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as Shared from './shared';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
@@ -48,41 +49,12 @@ export interface VirtualCrossConnectsCoverageListResponse {
    */
   cloud_provider_region?: string;
 
-  location?: VirtualCrossConnectsCoverageListResponse.Location;
+  location?: Shared.NetappsLocation;
 
   /**
    * Identifies the type of the resource.
    */
   record_type?: string;
-}
-
-export namespace VirtualCrossConnectsCoverageListResponse {
-  export interface Location {
-    /**
-     * Location code.
-     */
-    code?: string;
-
-    /**
-     * Human readable name of location.
-     */
-    name?: string;
-
-    /**
-     * Point of presence of location.
-     */
-    pop?: string;
-
-    /**
-     * Identifies the geographical region of location.
-     */
-    region?: string;
-
-    /**
-     * Site of location.
-     */
-    site?: string;
-  }
 }
 
 export interface VirtualCrossConnectsCoverageListParams extends DefaultFlatPaginationParams {

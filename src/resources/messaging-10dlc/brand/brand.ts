@@ -316,6 +316,13 @@ export type AltBusinessIDType = 'NONE' | 'DUNS' | 'GIIN' | 'LEI';
  */
 export type BrandIdentityStatus = 'VERIFIED' | 'UNVERIFIED' | 'SELF_DECLARED' | 'VETTED_VERIFIED';
 
+export interface BrandOptionalAttributes {
+  /**
+   * The tax exempt status of the brand
+   */
+  taxExemptStatus?: string;
+}
+
 /**
  * Entity type behind the brand. This is the form of business establishment.
  */
@@ -473,7 +480,7 @@ export interface TelnyxBrand {
    */
   mock?: boolean;
 
-  optionalAttributes?: TelnyxBrand.OptionalAttributes;
+  optionalAttributes?: BrandOptionalAttributes;
 
   /**
    * Valid phone number in e.164 international format.
@@ -544,15 +551,6 @@ export interface TelnyxBrand {
    * Brand website URL.
    */
   website?: string;
-}
-
-export namespace TelnyxBrand {
-  export interface OptionalAttributes {
-    /**
-     * The tax exempt status of the brand
-     */
-    taxExemptStatus?: string;
-  }
 }
 
 /**
@@ -1121,6 +1119,7 @@ export declare namespace Brand {
   export {
     type AltBusinessIDType as AltBusinessIDType,
     type BrandIdentityStatus as BrandIdentityStatus,
+    type BrandOptionalAttributes as BrandOptionalAttributes,
     type EntityType as EntityType,
     type StockExchange as StockExchange,
     type TelnyxBrand as TelnyxBrand,

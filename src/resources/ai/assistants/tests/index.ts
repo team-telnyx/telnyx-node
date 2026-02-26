@@ -2,6 +2,7 @@
 
 export {
   Runs,
+  type TestRunDetailResult,
   type TestRunResponse,
   type TestStatus,
   type RunRetrieveParams,
