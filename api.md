@@ -9,6 +9,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">ConnectionNoiseSuppressionDetails</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionsPaginationMeta</a></code>
 - <code><a href="./src/resources/shared.ts">CostInformation</a></code>
+- <code><a href="./src/resources/shared.ts">Cursor</a></code>
 - <code><a href="./src/resources/shared.ts">DocReqsRequirementType</a></code>
 - <code><a href="./src/resources/shared.ts">Feature</a></code>
 - <code><a href="./src/resources/shared.ts">HostedNumber</a></code>
@@ -1316,6 +1317,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/comments.ts">Comment</a></code>
 - <code><a href="./src/resources/comments.ts">CommentCreateResponse</a></code>
 - <code><a href="./src/resources/comments.ts">CommentRetrieveResponse</a></code>
 - <code><a href="./src/resources/comments.ts">CommentListResponse</a></code>

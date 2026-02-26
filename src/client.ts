@@ -164,6 +164,7 @@ import {
   MonthDetail,
 } from './resources/charges-summary';
 import {
+  Comment,
   CommentCreateParams,
   CommentCreateResponse,
   CommentListParams,
@@ -2975,6 +2976,7 @@ export declare namespace Telnyx {
 
   export {
     Comments as Comments,
+    type Comment as Comment,
     type CommentCreateResponse as CommentCreateResponse,
     type CommentRetrieveResponse as CommentRetrieveResponse,
     type CommentListResponse as CommentListResponse,
@@ -4252,6 +4254,7 @@ export declare namespace Telnyx {
   export type ConnectionNoiseSuppressionDetails = API.ConnectionNoiseSuppressionDetails;
   export type ConnectionsPaginationMeta = API.ConnectionsPaginationMeta;
   export type CostInformation = API.CostInformation;
+  export type Cursor = API.Cursor;
   export type DocReqsRequirementType = API.DocReqsRequirementType;
   export type Feature = API.Feature;
   export type HostedNumber = API.HostedNumber;

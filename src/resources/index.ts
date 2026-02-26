@@ -157,6 +157,7 @@ export {
 } from './charges-summary';
 export {
   Comments,
+  type Comment,
   type CommentCreateResponse,
   type CommentRetrieveResponse,
   type CommentListResponse,
