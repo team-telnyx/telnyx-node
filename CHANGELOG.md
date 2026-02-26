@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.44.0 (2026-02-26)
+
+Full Changelog: [v5.43.0...v5.44.0](https://github.com/team-telnyx/telnyx-node/compare/v5.43.0...v5.44.0)
+
+### Features
+
+* **api:** manual updates ([ddda92e](https://github.com/team-telnyx/telnyx-node/commit/ddda92ea1c29fce4fe606e2aae7498d3880ade51))
+
+
+### Chores
+
+* **internal:** move stringifyQuery implementation to internal function ([f61c67a](https://github.com/team-telnyx/telnyx-node/commit/f61c67af08ee3e3bcd666f4ef6af61f42afcf768))
+
 ## 5.43.0 (2026-02-26)
 
 Full Changelog: [v5.42.0...v5.43.0](https://github.com/team-telnyx/telnyx-node/compare/v5.42.0...v5.43.0)
