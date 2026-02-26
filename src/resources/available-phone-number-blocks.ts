@@ -25,9 +25,9 @@ export interface AvailablePhoneNumberBlockListResponse {
 
 export namespace AvailablePhoneNumberBlockListResponse {
   export interface Data {
-    cost_information?: Data.CostInformation;
+    cost_information?: Shared.CostInformation;
 
-    features?: Array<Data.Feature>;
+    features?: Array<Shared.Feature>;
 
     phone_number?: string;
 
@@ -35,30 +35,7 @@ export namespace AvailablePhoneNumberBlockListResponse {
 
     record_type?: 'available_phone_number_block';
 
-    region_information?: Array<Data.RegionInformation>;
-  }
-
-  export namespace Data {
-    export interface CostInformation {
-      /**
-       * The ISO 4217 code for the currency.
-       */
-      currency?: string;
-
-      monthly_cost?: string;
-
-      upfront_cost?: string;
-    }
-
-    export interface Feature {
-      name?: string;
-    }
-
-    export interface RegionInformation {
-      region_name?: string;
-
-      region_type?: 'country_code' | 'rate_center' | 'state' | 'location';
-    }
+    region_information?: Array<Shared.RegionInformation>;
   }
 }
 

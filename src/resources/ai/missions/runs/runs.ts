@@ -3,11 +3,11 @@
 import { APIResource } from '../../../../core/resource';
 import * as EventsAPI from './events';
 import {
+  EventData,
+  EventDataDefaultFlatPagination,
   EventGetEventDetailsParams,
   EventGetEventDetailsResponse,
   EventListParams,
-  EventListResponse,
-  EventListResponsesDefaultFlatPagination,
   EventLogParams,
   EventLogResponse,
   Events,
@@ -29,6 +29,7 @@ import {
 } from './plan';
 import * as TelnyxAgentsAPI from './telnyx-agents';
 import {
+  TelnyxAgentData,
   TelnyxAgentLinkParams,
   TelnyxAgentLinkResponse,
   TelnyxAgentListParams,
@@ -349,10 +350,10 @@ export declare namespace Runs {
 
   export {
     Events as Events,
-    type EventListResponse as EventListResponse,
+    type EventData as EventData,
     type EventGetEventDetailsResponse as EventGetEventDetailsResponse,
     type EventLogResponse as EventLogResponse,
-    type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
+    type EventDataDefaultFlatPagination as EventDataDefaultFlatPagination,
     type EventListParams as EventListParams,
     type EventGetEventDetailsParams as EventGetEventDetailsParams,
     type EventLogParams as EventLogParams,
@@ -375,6 +376,7 @@ export declare namespace Runs {
 
   export {
     TelnyxAgents as TelnyxAgents,
+    type TelnyxAgentData as TelnyxAgentData,
     type TelnyxAgentListResponse as TelnyxAgentListResponse,
     type TelnyxAgentLinkResponse as TelnyxAgentLinkResponse,
     type TelnyxAgentListParams as TelnyxAgentListParams,

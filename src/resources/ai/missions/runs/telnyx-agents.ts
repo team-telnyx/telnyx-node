@@ -78,32 +78,20 @@ export class TelnyxAgents extends APIResource {
   }
 }
 
-export interface TelnyxAgentListResponse {
-  data: Array<TelnyxAgentListResponse.Data>;
+export interface TelnyxAgentData {
+  created_at: string;
+
+  run_id: string;
+
+  telnyx_agent_id: string;
 }
 
-export namespace TelnyxAgentListResponse {
-  export interface Data {
-    created_at: string;
-
-    run_id: string;
-
-    telnyx_agent_id: string;
-  }
+export interface TelnyxAgentListResponse {
+  data: Array<TelnyxAgentData>;
 }
 
 export interface TelnyxAgentLinkResponse {
-  data: TelnyxAgentLinkResponse.Data;
-}
-
-export namespace TelnyxAgentLinkResponse {
-  export interface Data {
-    created_at: string;
-
-    run_id: string;
-
-    telnyx_agent_id: string;
-  }
+  data: TelnyxAgentData;
 }
 
 export interface TelnyxAgentListParams {
@@ -130,6 +118,7 @@ export interface TelnyxAgentUnlinkParams {
 
 export declare namespace TelnyxAgents {
   export {
+    type TelnyxAgentData as TelnyxAgentData,
     type TelnyxAgentListResponse as TelnyxAgentListResponse,
     type TelnyxAgentLinkResponse as TelnyxAgentLinkResponse,
     type TelnyxAgentListParams as TelnyxAgentListParams,

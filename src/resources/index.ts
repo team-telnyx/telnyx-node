@@ -18,7 +18,7 @@ export {
   type AccessIPRangeListParams,
   type AccessIPRangesDefaultFlatPagination,
 } from './access-ip-ranges';
-export { Actions } from './actions/actions';
+export { Actions, type WirelessError } from './actions/actions';
 export {
   Addresses,
   type Address,
@@ -94,6 +94,7 @@ export {
 } from './billing-groups';
 export {
   BulkSimCardActions,
+  type SimCardActionsSummary,
   type BulkSimCardActionRetrieveResponse,
   type BulkSimCardActionListResponse,
   type BulkSimCardActionListParams,
@@ -166,6 +167,7 @@ export {
 export {
   Conferences,
   type Conference,
+  type ConferenceParticipant,
   type ConferenceCreateResponse,
   type ConferenceRetrieveResponse,
   type ConferenceListParticipantsResponse,
@@ -191,7 +193,8 @@ export {
   type ConnectionListActiveCallsResponsesDefaultFlatPagination,
 } from './connections';
 export {
-  CountryCoverage,
+  CountryCoverageResource,
+  type CountryCoverage,
   type CountryCoverageRetrieveResponse,
   type CountryCoverageRetrieveCountryResponse,
 } from './country-coverage';
@@ -520,7 +523,13 @@ export {
   type RcsCardContent,
   type RcsContentInfo,
   type RcsSuggestion,
+  type RcsToItem,
+  type WhatsappContact,
+  type WhatsappInteractive,
+  type WhatsappLocation,
   type WhatsappMedia,
+  type WhatsappMessageContent,
+  type WhatsappReaction,
   type MessageRetrieveResponse,
   type MessageCancelScheduledResponse,
   type MessageRetrieveGroupMessagesResponse,
@@ -567,6 +576,7 @@ export {
 } from './messaging-hosted-numbers';
 export {
   MessagingNumbersBulkUpdates,
+  type BulkMessagingSettingsUpdatePhoneNumbers,
   type MessagingNumbersBulkUpdateCreateResponse,
   type MessagingNumbersBulkUpdateRetrieveResponse,
   type MessagingNumbersBulkUpdateCreateParams,
@@ -978,6 +988,7 @@ export {
 export {
   RequirementGroups,
   type RequirementGroup,
+  type UserRequirement,
   type RequirementGroupListResponse,
   type RequirementGroupCreateParams,
   type RequirementGroupUpdateParams,
@@ -1129,7 +1140,8 @@ export {
   type SubNumberOrderUpdateRequirementGroupParams,
 } from './sub-number-orders';
 export {
-  SubNumberOrdersReport,
+  SubNumberOrdersReportResource,
+  type SubNumberOrdersReport,
   type SubNumberOrdersReportCreateResponse,
   type SubNumberOrdersReportRetrieveResponse,
   type SubNumberOrdersReportDownloadResponse,
@@ -1164,8 +1176,8 @@ export {
 export {
   TextToSpeech,
   type TextToSpeechListVoicesResponse,
-  type TextToSpeechGenerateSpeechParams,
   type TextToSpeechListVoicesParams,
+  type TextToSpeechStreamParams,
 } from './text-to-speech';
 export {
   UsageReports,
@@ -1237,6 +1249,8 @@ export {
 } from './virtual-cross-connects-coverage';
 export {
   WebhookDeliveries,
+  type Attempt,
+  type HTTP,
   type WebhookDeliveryRetrieveResponse,
   type WebhookDeliveryListResponse,
   type WebhookDeliveryListParams,

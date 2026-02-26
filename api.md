@@ -8,7 +8,9 @@ Types:
 - <code><a href="./src/resources/shared.ts">ConnectionJitterBuffer</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionNoiseSuppressionDetails</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionsPaginationMeta</a></code>
+- <code><a href="./src/resources/shared.ts">CostInformation</a></code>
 - <code><a href="./src/resources/shared.ts">DocReqsRequirementType</a></code>
+- <code><a href="./src/resources/shared.ts">Feature</a></code>
 - <code><a href="./src/resources/shared.ts">HostedNumber</a></code>
 - <code><a href="./src/resources/shared.ts">InboundMessagePayload</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingFeatureSet</a></code>
@@ -16,10 +18,13 @@ Types:
 - <code><a href="./src/resources/shared.ts">MessagingPaginationMeta</a></code>
 - <code><a href="./src/resources/shared.ts">Metadata</a></code>
 - <code><a href="./src/resources/shared.ts">MinimaxVoiceSettings</a></code>
+- <code><a href="./src/resources/shared.ts">NetappsLocation</a></code>
 - <code><a href="./src/resources/shared.ts">NumberHealthMetrics</a></code>
 - <code><a href="./src/resources/shared.ts">PhoneNumberWithMessagingSettings</a></code>
+- <code><a href="./src/resources/shared.ts">PhoneNumbersJobPhoneNumber</a></code>
 - <code><a href="./src/resources/shared.ts">PortingOrderStatus</a></code>
 - <code><a href="./src/resources/shared.ts">PortingOrdersExceptionType</a></code>
+- <code><a href="./src/resources/shared.ts">RegionInformation</a></code>
 - <code><a href="./src/resources/shared.ts">ResembleVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">RimeVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">RoomParticipant</a></code>
@@ -411,6 +416,10 @@ Methods:
 
 # Actions
 
+Types:
+
+- <code><a href="./src/resources/actions/actions.ts">WirelessError</a></code>
+
 ## Purchase
 
 Types:
@@ -573,6 +582,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/assistants/tests/runs.ts">TestRunDetailResult</a></code>
 - <code><a href="./src/resources/ai/assistants/tests/runs.ts">TestRunResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/tests/runs.ts">TestStatus</a></code>
 
@@ -807,6 +817,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/integrations/connections.ts">IntegrationConnection</a></code>
 - <code><a href="./src/resources/ai/integrations/connections.ts">ConnectionRetrieveResponse</a></code>
 - <code><a href="./src/resources/ai/integrations/connections.ts">ConnectionListResponse</a></code>
 
@@ -841,7 +852,6 @@ Types:
 - <code><a href="./src/resources/ai/missions/missions.ts">MissionCreateResponse</a></code>
 - <code><a href="./src/resources/ai/missions/missions.ts">MissionRetrieveResponse</a></code>
 - <code><a href="./src/resources/ai/missions/missions.ts">MissionCloneMissionResponse</a></code>
-- <code><a href="./src/resources/ai/missions/missions.ts">MissionListEventsResponse</a></code>
 - <code><a href="./src/resources/ai/missions/missions.ts">MissionUpdateMissionResponse</a></code>
 
 Methods:
@@ -851,7 +861,7 @@ Methods:
 - <code title="get /ai/missions">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">list</a>({ ...params }) -> MissionDataDefaultFlatPagination</code>
 - <code title="post /ai/missions/{mission_id}/clone">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">cloneMission</a>(missionID) -> unknown</code>
 - <code title="delete /ai/missions/{mission_id}">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">deleteMission</a>(missionID) -> void</code>
-- <code title="get /ai/missions/events">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">listEvents</a>({ ...params }) -> MissionListEventsResponsesDefaultFlatPagination</code>
+- <code title="get /ai/missions/events">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">listEvents</a>({ ...params }) -> EventDataDefaultFlatPagination</code>
 - <code title="put /ai/missions/{mission_id}">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">updateMission</a>(missionID, { ...params }) -> MissionUpdateMissionResponse</code>
 
 ### Runs
@@ -881,13 +891,13 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/ai/missions/runs/events.ts">EventListResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/events.ts">EventData</a></code>
 - <code><a href="./src/resources/ai/missions/runs/events.ts">EventGetEventDetailsResponse</a></code>
 - <code><a href="./src/resources/ai/missions/runs/events.ts">EventLogResponse</a></code>
 
 Methods:
 
-- <code title="get /ai/missions/{mission_id}/runs/{run_id}/events">client.ai.missions.runs.events.<a href="./src/resources/ai/missions/runs/events.ts">list</a>(runID, { ...params }) -> EventListResponsesDefaultFlatPagination</code>
+- <code title="get /ai/missions/{mission_id}/runs/{run_id}/events">client.ai.missions.runs.events.<a href="./src/resources/ai/missions/runs/events.ts">list</a>(runID, { ...params }) -> EventDataDefaultFlatPagination</code>
 - <code title="get /ai/missions/{mission_id}/runs/{run_id}/events/{event_id}">client.ai.missions.runs.events.<a href="./src/resources/ai/missions/runs/events.ts">getEventDetails</a>(eventID, { ...params }) -> EventGetEventDetailsResponse</code>
 - <code title="post /ai/missions/{mission_id}/runs/{run_id}/events">client.ai.missions.runs.events.<a href="./src/resources/ai/missions/runs/events.ts">log</a>(runID, { ...params }) -> EventLogResponse</code>
 
@@ -914,6 +924,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/missions/runs/telnyx-agents.ts">TelnyxAgentData</a></code>
 - <code><a href="./src/resources/ai/missions/runs/telnyx-agents.ts">TelnyxAgentListResponse</a></code>
 - <code><a href="./src/resources/ai/missions/runs/telnyx-agents.ts">TelnyxAgentLinkResponse</a></code>
 
@@ -1070,6 +1081,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/bulk-sim-card-actions.ts">SimCardActionsSummary</a></code>
 - <code><a href="./src/resources/bulk-sim-card-actions.ts">BulkSimCardActionRetrieveResponse</a></code>
 - <code><a href="./src/resources/bulk-sim-card-actions.ts">BulkSimCardActionListResponse</a></code>
 
@@ -1171,6 +1183,7 @@ Types:
 
 - <code><a href="./src/resources/calls/actions.ts">AwsVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResult</a></code>
+- <code><a href="./src/resources/calls/actions.ts">CallControlCommandResultWithConversationID</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeepgramNova2Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeepgramNova3Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ElevenLabsVoiceSettings</a></code>
@@ -1320,6 +1333,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/conferences/conferences.ts">Conference</a></code>
+- <code><a href="./src/resources/conferences/conferences.ts">ConferenceParticipant</a></code>
 - <code><a href="./src/resources/conferences/conferences.ts">ConferenceCreateResponse</a></code>
 - <code><a href="./src/resources/conferences/conferences.ts">ConferenceRetrieveResponse</a></code>
 - <code><a href="./src/resources/conferences/conferences.ts">ConferenceListParticipantsResponse</a></code>
@@ -1397,6 +1411,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/country-coverage.ts">CountryCoverage</a></code>
 - <code><a href="./src/resources/country-coverage.ts">CountryCoverageRetrieveResponse</a></code>
 - <code><a href="./src/resources/country-coverage.ts">CountryCoverageRetrieveCountryResponse</a></code>
 
@@ -1603,6 +1618,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/external-connections/civic-addresses.ts">CivicAddress</a></code>
+- <code><a href="./src/resources/external-connections/civic-addresses.ts">Location</a></code>
 - <code><a href="./src/resources/external-connections/civic-addresses.ts">CivicAddressRetrieveResponse</a></code>
 - <code><a href="./src/resources/external-connections/civic-addresses.ts">CivicAddressListResponse</a></code>
 
@@ -1629,6 +1646,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/external-connections/releases.ts">TnReleaseEntry</a></code>
 - <code><a href="./src/resources/external-connections/releases.ts">ReleaseRetrieveResponse</a></code>
 - <code><a href="./src/resources/external-connections/releases.ts">ReleaseListResponse</a></code>
 
@@ -2037,7 +2055,13 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">RcsCardContent</a></code>
 - <code><a href="./src/resources/messages/messages.ts">RcsContentInfo</a></code>
 - <code><a href="./src/resources/messages/messages.ts">RcsSuggestion</a></code>
+- <code><a href="./src/resources/messages/messages.ts">RcsToItem</a></code>
+- <code><a href="./src/resources/messages/messages.ts">WhatsappContact</a></code>
+- <code><a href="./src/resources/messages/messages.ts">WhatsappInteractive</a></code>
+- <code><a href="./src/resources/messages/messages.ts">WhatsappLocation</a></code>
 - <code><a href="./src/resources/messages/messages.ts">WhatsappMedia</a></code>
+- <code><a href="./src/resources/messages/messages.ts">WhatsappMessageContent</a></code>
+- <code><a href="./src/resources/messages/messages.ts">WhatsappReaction</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageRetrieveResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageCancelScheduledResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageRetrieveGroupMessagesResponse</a></code>
@@ -2151,6 +2175,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/messaging-numbers-bulk-updates.ts">BulkMessagingSettingsUpdatePhoneNumbers</a></code>
 - <code><a href="./src/resources/messaging-numbers-bulk-updates.ts">MessagingNumbersBulkUpdateCreateResponse</a></code>
 - <code><a href="./src/resources/messaging-numbers-bulk-updates.ts">MessagingNumbersBulkUpdateRetrieveResponse</a></code>
 
@@ -2558,6 +2583,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/payment/auto-recharge-prefs.ts">AutoRechargePref</a></code>
 - <code><a href="./src/resources/payment/auto-recharge-prefs.ts">AutoRechargePrefUpdateResponse</a></code>
 - <code><a href="./src/resources/payment/auto-recharge-prefs.ts">AutoRechargePrefListResponse</a></code>
 
@@ -2729,6 +2755,12 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/porting/events.ts">PortingEventDeletedPayload</a></code>
+- <code><a href="./src/resources/porting/events.ts">PortingEventMessagingChangedPayload</a></code>
+- <code><a href="./src/resources/porting/events.ts">PortingEventNewCommentEvent</a></code>
+- <code><a href="./src/resources/porting/events.ts">PortingEventSplitEvent</a></code>
+- <code><a href="./src/resources/porting/events.ts">PortingEventStatusChangedEvent</a></code>
+- <code><a href="./src/resources/porting/events.ts">PortingEventWithoutWebhook</a></code>
 - <code><a href="./src/resources/porting/events.ts">EventRetrieveResponse</a></code>
 - <code><a href="./src/resources/porting/events.ts">EventListResponse</a></code>
 
@@ -2973,6 +3005,9 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/portouts/events.ts">WebhookPortoutFocDateChanged</a></code>
+- <code><a href="./src/resources/portouts/events.ts">WebhookPortoutNewComment</a></code>
+- <code><a href="./src/resources/portouts/events.ts">WebhookPortoutStatusChanged</a></code>
 - <code><a href="./src/resources/portouts/events.ts">EventRetrieveResponse</a></code>
 - <code><a href="./src/resources/portouts/events.ts">EventListResponse</a></code>
 
@@ -3001,6 +3036,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/portouts/comments.ts">PortoutComment</a></code>
 - <code><a href="./src/resources/portouts/comments.ts">CommentCreateResponse</a></code>
 - <code><a href="./src/resources/portouts/comments.ts">CommentListResponse</a></code>
 
@@ -3013,6 +3049,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/portouts/supporting-documents.ts">PortOutSupportingDocument</a></code>
 - <code><a href="./src/resources/portouts/supporting-documents.ts">SupportingDocumentCreateResponse</a></code>
 - <code><a href="./src/resources/portouts/supporting-documents.ts">SupportingDocumentListResponse</a></code>
 
@@ -3196,6 +3233,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/requirement-groups.ts">RequirementGroup</a></code>
+- <code><a href="./src/resources/requirement-groups.ts">UserRequirement</a></code>
 - <code><a href="./src/resources/requirement-groups.ts">RequirementGroupListResponse</a></code>
 
 Methods:
@@ -3617,6 +3655,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/sub-number-orders-report.ts">SubNumberOrdersReport</a></code>
 - <code><a href="./src/resources/sub-number-orders-report.ts">SubNumberOrdersReportCreateResponse</a></code>
 - <code><a href="./src/resources/sub-number-orders-report.ts">SubNumberOrdersReportRetrieveResponse</a></code>
 - <code><a href="./src/resources/sub-number-orders-report.ts">SubNumberOrdersReportDownloadResponse</a></code>
@@ -3834,8 +3873,8 @@ Types:
 
 Methods:
 
-- <code title="post /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">generateSpeech</a>({ ...params }) -> Response</code>
 - <code title="get /text-to-speech/voices">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">listVoices</a>({ ...params }) -> TextToSpeechListVoicesResponse</code>
+- <code title="get /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">stream</a>({ ...params }) -> void</code>
 
 # UsageReports
 
@@ -3989,6 +4028,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/webhook-deliveries.ts">Attempt</a></code>
+- <code><a href="./src/resources/webhook-deliveries.ts">HTTP</a></code>
 - <code><a href="./src/resources/webhook-deliveries.ts">WebhookDeliveryRetrieveResponse</a></code>
 - <code><a href="./src/resources/webhook-deliveries.ts">WebhookDeliveryListResponse</a></code>
 
@@ -4175,6 +4216,7 @@ Types:
 
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">AltBusinessIDType</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandIdentityStatus</a></code>
+- <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandOptionalAttributes</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">EntityType</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">StockExchange</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">TelnyxBrand</a></code>
@@ -4312,6 +4354,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">ProfileAssignmentPhoneNumbers</a></code>
 - <code><a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">TaskStatus</a></code>
 - <code><a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileAssignResponse</a></code>
 - <code><a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse</a></code>
@@ -4337,15 +4380,15 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/organizations/users/users.ts">OrganizationUser</a></code>
 - <code><a href="./src/resources/organizations/users/users.ts">UserGroupReference</a></code>
 - <code><a href="./src/resources/organizations/users/users.ts">UserRetrieveResponse</a></code>
-- <code><a href="./src/resources/organizations/users/users.ts">UserListResponse</a></code>
 - <code><a href="./src/resources/organizations/users/users.ts">UserGetGroupsReportResponse</a></code>
 
 Methods:
 
 - <code title="get /organizations/users/{id}">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">retrieve</a>(id, { ...params }) -> UserRetrieveResponse</code>
-- <code title="get /organizations/users">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">list</a>({ ...params }) -> UserListResponsesDefaultFlatPagination</code>
+- <code title="get /organizations/users">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">list</a>({ ...params }) -> OrganizationUsersDefaultFlatPagination</code>
 - <code title="get /organizations/users/users_groups_report">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">getGroupsReport</a>({ ...params }) -> UserGetGroupsReportResponse</code>
 
 ### Actions

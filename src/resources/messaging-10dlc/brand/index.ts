@@ -4,6 +4,7 @@ export {
   Brand,
   type AltBusinessIDType,
   type BrandIdentityStatus,
+  type BrandOptionalAttributes,
   type EntityType,
   type StockExchange,
   type TelnyxBrand,

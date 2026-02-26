@@ -3,12 +3,12 @@
 import { APIResource } from '../../core/resource';
 import * as UsersAPI from './users/users';
 import {
+  OrganizationUser,
+  OrganizationUsersDefaultFlatPagination,
   UserGetGroupsReportParams,
   UserGetGroupsReportResponse,
   UserGroupReference,
   UserListParams,
-  UserListResponse,
-  UserListResponsesDefaultFlatPagination,
   UserRetrieveParams,
   UserRetrieveResponse,
   Users,
@@ -23,11 +23,11 @@ Organizations.Users = Users;
 export declare namespace Organizations {
   export {
     Users as Users,
+    type OrganizationUser as OrganizationUser,
     type UserGroupReference as UserGroupReference,
     type UserRetrieveResponse as UserRetrieveResponse,
-    type UserListResponse as UserListResponse,
     type UserGetGroupsReportResponse as UserGetGroupsReportResponse,
-    type UserListResponsesDefaultFlatPagination as UserListResponsesDefaultFlatPagination,
+    type OrganizationUsersDefaultFlatPagination as OrganizationUsersDefaultFlatPagination,
     type UserRetrieveParams as UserRetrieveParams,
     type UserListParams as UserListParams,
     type UserGetGroupsReportParams as UserGetGroupsReportParams,

@@ -101,13 +101,11 @@ export {
   type MissionCreateResponse,
   type MissionRetrieveResponse,
   type MissionCloneMissionResponse,
-  type MissionListEventsResponse,
   type MissionUpdateMissionResponse,
   type MissionCreateParams,
   type MissionListParams,
   type MissionListEventsParams,
   type MissionUpdateMissionParams,
   type MissionDataDefaultFlatPagination,
-  type MissionListEventsResponsesDefaultFlatPagination,
 } from './missions/index';
 export { OpenAI } from './openai/index';

@@ -2,6 +2,7 @@
 
 import { APIResource } from '../core/resource';
 import * as NetworkCoverageAPI from './network-coverage';
+import * as Shared from './shared';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
@@ -31,41 +32,12 @@ export interface NetworkCoverageListResponse {
    */
   available_services?: Array<AvailableService>;
 
-  location?: NetworkCoverageListResponse.Location;
+  location?: Shared.NetappsLocation;
 
   /**
    * Identifies the type of the resource.
    */
   record_type?: string;
-}
-
-export namespace NetworkCoverageListResponse {
-  export interface Location {
-    /**
-     * Location code.
-     */
-    code?: string;
-
-    /**
-     * Human readable name of location.
-     */
-    name?: string;
-
-    /**
-     * Point of presence of location.
-     */
-    pop?: string;
-
-    /**
-     * Identifies the geographical region of location.
-     */
-    region?: string;
-
-    /**
-     * Site of location.
-     */
-    site?: string;
-  }
 }
 
 export interface NetworkCoverageListParams extends DefaultFlatPaginationParams {

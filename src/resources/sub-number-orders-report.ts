@@ -7,7 +7,7 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
-export class SubNumberOrdersReport extends APIResource {
+export class SubNumberOrdersReportResource extends APIResource {
   /**
    * Create a CSV report for sub number orders. The report will be generated
    * asynchronously and can be downloaded once complete.
@@ -60,130 +60,69 @@ export class SubNumberOrdersReport extends APIResource {
   }
 }
 
-export interface SubNumberOrdersReportCreateResponse {
-  data?: SubNumberOrdersReportCreateResponse.Data;
+export interface SubNumberOrdersReport {
+  /**
+   * Identifies the resource.
+   */
+  id?: string;
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was created.
+   */
+  created_at?: string;
+
+  /**
+   * The filters that were applied to generate this report
+   */
+  filters?: SubNumberOrdersReport.Filters;
+
+  /**
+   * The type of order report.
+   */
+  order_type?: string;
+
+  /**
+   * Indicates the completion level of the sub number orders report. The report must
+   * have a status of 'success' before it can be downloaded.
+   */
+  status?: 'pending' | 'success' | 'failed' | 'expired';
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was updated.
+   */
+  updated_at?: string;
+
+  /**
+   * The ID of the user who created the report.
+   */
+  user_id?: string;
 }
 
-export namespace SubNumberOrdersReportCreateResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
+export namespace SubNumberOrdersReport {
+  /**
+   * The filters that were applied to generate this report
+   */
+  export interface Filters {
+    country_code?: string;
 
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    created_at?: string;
+    created_at_gt?: string;
 
-    /**
-     * The filters that were applied to generate this report
-     */
-    filters?: Data.Filters;
+    created_at_lt?: string;
 
-    /**
-     * The type of order report.
-     */
-    order_type?: string;
+    customer_reference?: string;
 
-    /**
-     * Indicates the completion level of the sub number orders report. The report must
-     * have a status of 'success' before it can be downloaded.
-     */
-    status?: 'pending' | 'success' | 'failed' | 'expired';
+    order_request_id?: string;
 
-    /**
-     * ISO 8601 formatted date indicating when the resource was updated.
-     */
-    updated_at?: string;
-
-    /**
-     * The ID of the user who created the report.
-     */
-    user_id?: string;
+    status?: string;
   }
+}
 
-  export namespace Data {
-    /**
-     * The filters that were applied to generate this report
-     */
-    export interface Filters {
-      country_code?: string;
-
-      created_at_gt?: string;
-
-      created_at_lt?: string;
-
-      customer_reference?: string;
-
-      order_request_id?: string;
-
-      status?: string;
-    }
-  }
+export interface SubNumberOrdersReportCreateResponse {
+  data?: SubNumberOrdersReport;
 }
 
 export interface SubNumberOrdersReportRetrieveResponse {
-  data?: SubNumberOrdersReportRetrieveResponse.Data;
-}
-
-export namespace SubNumberOrdersReportRetrieveResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * The filters that were applied to generate this report
-     */
-    filters?: Data.Filters;
-
-    /**
-     * The type of order report.
-     */
-    order_type?: string;
-
-    /**
-     * Indicates the completion level of the sub number orders report. The report must
-     * have a status of 'success' before it can be downloaded.
-     */
-    status?: 'pending' | 'success' | 'failed' | 'expired';
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was updated.
-     */
-    updated_at?: string;
-
-    /**
-     * The ID of the user who created the report.
-     */
-    user_id?: string;
-  }
-
-  export namespace Data {
-    /**
-     * The filters that were applied to generate this report
-     */
-    export interface Filters {
-      country_code?: string;
-
-      created_at_gt?: string;
-
-      created_at_lt?: string;
-
-      customer_reference?: string;
-
-      order_request_id?: string;
-
-      status?: string;
-    }
-  }
+  data?: SubNumberOrdersReport;
 }
 
 export type SubNumberOrdersReportDownloadResponse = Uploadable;
@@ -220,8 +159,9 @@ export interface SubNumberOrdersReportCreateParams {
   status?: 'pending' | 'success' | 'failure';
 }
 
-export declare namespace SubNumberOrdersReport {
+export declare namespace SubNumberOrdersReportResource {
   export {
+    type SubNumberOrdersReport as SubNumberOrdersReport,
     type SubNumberOrdersReportCreateResponse as SubNumberOrdersReportCreateResponse,
     type SubNumberOrdersReportRetrieveResponse as SubNumberOrdersReportRetrieveResponse,
     type SubNumberOrdersReportDownloadResponse as SubNumberOrdersReportDownloadResponse,

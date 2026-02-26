@@ -2,6 +2,7 @@
 
 export {
   AutoRechargePrefs,
+  type AutoRechargePref,
   type AutoRechargePrefUpdateResponse,
   type AutoRechargePrefListResponse,
   type AutoRechargePrefUpdateParams,

@@ -35,86 +35,47 @@ export class AutoRechargePrefs extends APIResource {
   }
 }
 
-export interface AutoRechargePrefUpdateResponse {
-  data?: AutoRechargePrefUpdateResponse.Data;
+export interface AutoRechargePref {
+  /**
+   * The unique identifier for the auto recharge preference.
+   */
+  id?: string;
+
+  /**
+   * Whether auto recharge is enabled.
+   */
+  enabled?: boolean;
+
+  invoice_enabled?: boolean;
+
+  /**
+   * The payment preference for auto recharge.
+   */
+  preference?: 'credit_paypal' | 'ach';
+
+  /**
+   * The amount to recharge the account, the actual recharge amount will be the
+   * amount necessary to reach the threshold amount plus the recharge amount.
+   */
+  recharge_amount?: string;
+
+  /**
+   * The record type.
+   */
+  record_type?: string;
+
+  /**
+   * The threshold amount at which the account will be recharged.
+   */
+  threshold_amount?: string;
 }
 
-export namespace AutoRechargePrefUpdateResponse {
-  export interface Data {
-    /**
-     * The unique identifier for the auto recharge preference.
-     */
-    id?: string;
-
-    /**
-     * Whether auto recharge is enabled.
-     */
-    enabled?: boolean;
-
-    invoice_enabled?: boolean;
-
-    /**
-     * The payment preference for auto recharge.
-     */
-    preference?: 'credit_paypal' | 'ach';
-
-    /**
-     * The amount to recharge the account, the actual recharge amount will be the
-     * amount necessary to reach the threshold amount plus the recharge amount.
-     */
-    recharge_amount?: string;
-
-    /**
-     * The record type.
-     */
-    record_type?: string;
-
-    /**
-     * The threshold amount at which the account will be recharged.
-     */
-    threshold_amount?: string;
-  }
+export interface AutoRechargePrefUpdateResponse {
+  data?: AutoRechargePref;
 }
 
 export interface AutoRechargePrefListResponse {
-  data?: AutoRechargePrefListResponse.Data;
-}
-
-export namespace AutoRechargePrefListResponse {
-  export interface Data {
-    /**
-     * The unique identifier for the auto recharge preference.
-     */
-    id?: string;
-
-    /**
-     * Whether auto recharge is enabled.
-     */
-    enabled?: boolean;
-
-    invoice_enabled?: boolean;
-
-    /**
-     * The payment preference for auto recharge.
-     */
-    preference?: 'credit_paypal' | 'ach';
-
-    /**
-     * The amount to recharge the account, the actual recharge amount will be the
-     * amount necessary to reach the threshold amount plus the recharge amount.
-     */
-    recharge_amount?: string;
-
-    /**
-     * The record type.
-     */
-    record_type?: string;
-
-    /**
-     * The threshold amount at which the account will be recharged.
-     */
-    threshold_amount?: string;
-  }
+  data?: AutoRechargePref;
 }
 
 export interface AutoRechargePrefUpdateParams {
@@ -144,6 +105,7 @@ export interface AutoRechargePrefUpdateParams {
 
 export declare namespace AutoRechargePrefs {
   export {
+    type AutoRechargePref as AutoRechargePref,
     type AutoRechargePrefUpdateResponse as AutoRechargePrefUpdateResponse,
     type AutoRechargePrefListResponse as AutoRechargePrefListResponse,
     type AutoRechargePrefUpdateParams as AutoRechargePrefUpdateParams,

@@ -3,11 +3,13 @@
 import { APIResource } from '../../core/resource';
 import * as CivicAddressesAPI from './civic-addresses';
 import {
+  CivicAddress,
   CivicAddressListParams,
   CivicAddressListResponse,
   CivicAddressRetrieveParams,
   CivicAddressRetrieveResponse,
   CivicAddresses,
+  Location,
 } from './civic-addresses';
 import * as LogMessagesAPI from './log-messages';
 import {
@@ -37,6 +39,7 @@ import {
   ReleaseRetrieveParams,
   ReleaseRetrieveResponse,
   Releases,
+  TnReleaseEntry,
 } from './releases';
 import * as UploadsAPI from './uploads';
 import {
@@ -565,6 +568,8 @@ export declare namespace ExternalConnections {
 
   export {
     CivicAddresses as CivicAddresses,
+    type CivicAddress as CivicAddress,
+    type Location as Location,
     type CivicAddressRetrieveResponse as CivicAddressRetrieveResponse,
     type CivicAddressListResponse as CivicAddressListResponse,
     type CivicAddressRetrieveParams as CivicAddressRetrieveParams,
@@ -584,6 +589,7 @@ export declare namespace ExternalConnections {
 
   export {
     Releases as Releases,
+    type TnReleaseEntry as TnReleaseEntry,
     type ReleaseRetrieveResponse as ReleaseRetrieveResponse,
     type ReleaseListResponse as ReleaseListResponse,
     type ReleaseListResponsesDefaultFlatPagination as ReleaseListResponsesDefaultFlatPagination,

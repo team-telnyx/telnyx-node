@@ -2,12 +2,16 @@
 
 export {
   Comments,
+  type PortoutComment,
   type CommentCreateResponse,
   type CommentListResponse,
   type CommentCreateParams,
 } from './comments';
 export {
   Events,
+  type WebhookPortoutFocDateChanged,
+  type WebhookPortoutNewComment,
+  type WebhookPortoutStatusChanged,
   type EventRetrieveResponse,
   type EventListResponse,
   type EventListParams,
@@ -36,6 +40,7 @@ export {
 } from './reports';
 export {
   SupportingDocuments,
+  type PortOutSupportingDocument,
   type SupportingDocumentCreateResponse,
   type SupportingDocumentListResponse,
   type SupportingDocumentCreateParams,

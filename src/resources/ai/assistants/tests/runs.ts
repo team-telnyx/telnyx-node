@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
-import * as RunsAPI from './runs';
 import { APIPromise } from '../../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -74,6 +73,22 @@ export class Runs extends APIResource {
 
 export type TestRunResponsesDefaultFlatPagination = DefaultFlatPagination<TestRunResponse>;
 
+export interface TestRunDetailResult {
+  name: string;
+
+  /**
+   * Represents the lifecycle of a test:
+   *
+   * - 'pending': Test is waiting to be executed.
+   * - 'starting': Test execution is initializing.
+   * - 'running': Test is currently executing.
+   * - 'passed': Test completed successfully.
+   * - 'failed': Test executed but did not pass.
+   * - 'error': An error occurred during test execution.
+   */
+  status: TestStatus;
+}
+
 /**
  * Response model containing test run execution details and results.
  *
@@ -133,7 +148,7 @@ export interface TestRunResponse {
    * criteria from the rubric and status is the result of the evaluation. This list
    * will have a result for every criteria in the rubric section.
    */
-  detail_status?: Array<TestRunResponse.DetailStatus>;
+  detail_status?: Array<TestRunDetailResult>;
 
   /**
    * Detailed execution logs and debug information.
@@ -149,24 +164,6 @@ export interface TestRunResponse {
    * Timestamp of the last update to this test run.
    */
   updated_at?: string;
-}
-
-export namespace TestRunResponse {
-  export interface DetailStatus {
-    name: string;
-
-    /**
-     * Represents the lifecycle of a test:
-     *
-     * - 'pending': Test is waiting to be executed.
-     * - 'starting': Test execution is initializing.
-     * - 'running': Test is currently executing.
-     * - 'passed': Test completed successfully.
-     * - 'failed': Test executed but did not pass.
-     * - 'error': An error occurred during test execution.
-     */
-    status: RunsAPI.TestStatus;
-  }
 }
 
 /**
@@ -203,6 +200,7 @@ export interface RunTriggerParams {
 
 export declare namespace Runs {
   export {
+    type TestRunDetailResult as TestRunDetailResult,
     type TestRunResponse as TestRunResponse,
     type TestStatus as TestStatus,
     type TestRunResponsesDefaultFlatPagination as TestRunResponsesDefaultFlatPagination,

@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as WebhookDeliveriesAPI from './webhook-deliveries';
 import { APIPromise } from '../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
@@ -33,6 +34,79 @@ export class WebhookDeliveries extends APIResource {
 export type WebhookDeliveryListResponsesDefaultFlatPagination =
   DefaultFlatPagination<WebhookDeliveryListResponse>;
 
+/**
+ * Webhook delivery attempt details.
+ */
+export interface Attempt {
+  /**
+   * Webhook delivery error codes.
+   */
+  errors?: Array<number>;
+
+  /**
+   * ISO 8601 timestamp indicating when the attempt has finished.
+   */
+  finished_at?: string;
+
+  /**
+   * HTTP request and response information.
+   */
+  http?: HTTP;
+
+  /**
+   * ISO 8601 timestamp indicating when the attempt was initiated.
+   */
+  started_at?: string;
+
+  status?: 'delivered' | 'failed';
+}
+
+/**
+ * HTTP request and response information.
+ */
+export interface HTTP {
+  /**
+   * Request details.
+   */
+  request?: HTTP.Request;
+
+  /**
+   * Response details, optional.
+   */
+  response?: HTTP.Response;
+}
+
+export namespace HTTP {
+  /**
+   * Request details.
+   */
+  export interface Request {
+    /**
+     * List of headers, limited to 10kB.
+     */
+    headers?: Array<Array<string>>;
+
+    url?: string;
+  }
+
+  /**
+   * Response details, optional.
+   */
+  export interface Response {
+    /**
+     * Raw response body, limited to 10kB.
+     */
+    body?: string;
+
+    /**
+     * List of headers, limited to 10kB.
+     */
+    headers?: Array<Array<string>>;
+
+    status?: number;
+  }
+}
+
 export interface WebhookDeliveryRetrieveResponse {
   /**
    * Record of all attempts to deliver a webhook.
@@ -53,7 +127,7 @@ export namespace WebhookDeliveryRetrieveResponse {
     /**
      * Detailed delivery attempts, ordered by most recent.
      */
-    attempts?: Array<Data.Attempt>;
+    attempts?: Array<WebhookDeliveriesAPI.Attempt>;
 
     /**
      * ISO 8601 timestamp indicating when the last webhook response has been received.
@@ -88,81 +162,6 @@ export namespace WebhookDeliveryRetrieveResponse {
   }
 
   export namespace Data {
-    /**
-     * Webhook delivery attempt details.
-     */
-    export interface Attempt {
-      /**
-       * Webhook delivery error codes.
-       */
-      errors?: Array<number>;
-
-      /**
-       * ISO 8601 timestamp indicating when the attempt has finished.
-       */
-      finished_at?: string;
-
-      /**
-       * HTTP request and response information.
-       */
-      http?: Attempt.HTTP;
-
-      /**
-       * ISO 8601 timestamp indicating when the attempt was initiated.
-       */
-      started_at?: string;
-
-      status?: 'delivered' | 'failed';
-    }
-
-    export namespace Attempt {
-      /**
-       * HTTP request and response information.
-       */
-      export interface HTTP {
-        /**
-         * Request details.
-         */
-        request?: HTTP.Request;
-
-        /**
-         * Response details, optional.
-         */
-        response?: HTTP.Response;
-      }
-
-      export namespace HTTP {
-        /**
-         * Request details.
-         */
-        export interface Request {
-          /**
-           * List of headers, limited to 10kB.
-           */
-          headers?: Array<Array<string>>;
-
-          url?: string;
-        }
-
-        /**
-         * Response details, optional.
-         */
-        export interface Response {
-          /**
-           * Raw response body, limited to 10kB.
-           */
-          body?: string;
-
-          /**
-           * List of headers, limited to 10kB.
-           */
-          headers?: Array<Array<string>>;
-
-          status?: number;
-        }
-      }
-    }
-
     /**
      * Original webhook JSON data. Payload fields vary according to event type.
      */
@@ -204,7 +203,7 @@ export interface WebhookDeliveryListResponse {
   /**
    * Detailed delivery attempts, ordered by most recent.
    */
-  attempts?: Array<WebhookDeliveryListResponse.Attempt>;
+  attempts?: Array<Attempt>;
 
   /**
    * ISO 8601 timestamp indicating when the last webhook response has been received.
@@ -239,81 +238,6 @@ export interface WebhookDeliveryListResponse {
 }
 
 export namespace WebhookDeliveryListResponse {
-  /**
-   * Webhook delivery attempt details.
-   */
-  export interface Attempt {
-    /**
-     * Webhook delivery error codes.
-     */
-    errors?: Array<number>;
-
-    /**
-     * ISO 8601 timestamp indicating when the attempt has finished.
-     */
-    finished_at?: string;
-
-    /**
-     * HTTP request and response information.
-     */
-    http?: Attempt.HTTP;
-
-    /**
-     * ISO 8601 timestamp indicating when the attempt was initiated.
-     */
-    started_at?: string;
-
-    status?: 'delivered' | 'failed';
-  }
-
-  export namespace Attempt {
-    /**
-     * HTTP request and response information.
-     */
-    export interface HTTP {
-      /**
-       * Request details.
-       */
-      request?: HTTP.Request;
-
-      /**
-       * Response details, optional.
-       */
-      response?: HTTP.Response;
-    }
-
-    export namespace HTTP {
-      /**
-       * Request details.
-       */
-      export interface Request {
-        /**
-         * List of headers, limited to 10kB.
-         */
-        headers?: Array<Array<string>>;
-
-        url?: string;
-      }
-
-      /**
-       * Response details, optional.
-       */
-      export interface Response {
-        /**
-         * Raw response body, limited to 10kB.
-         */
-        body?: string;
-
-        /**
-         * List of headers, limited to 10kB.
-         */
-        headers?: Array<Array<string>>;
-
-        status?: number;
-      }
-    }
-  }
-
   /**
    * Original webhook JSON data. Payload fields vary according to event type.
    */
@@ -432,6 +356,8 @@ export namespace WebhookDeliveryListParams {
 
 export declare namespace WebhookDeliveries {
   export {
+    type Attempt as Attempt,
+    type HTTP as HTTP,
     type WebhookDeliveryRetrieveResponse as WebhookDeliveryRetrieveResponse,
     type WebhookDeliveryListResponse as WebhookDeliveryListResponse,
     type WebhookDeliveryListResponsesDefaultFlatPagination as WebhookDeliveryListResponsesDefaultFlatPagination,

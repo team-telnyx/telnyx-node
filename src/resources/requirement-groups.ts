@@ -111,29 +111,27 @@ export interface RequirementGroup {
 
   record_type?: string;
 
-  regulatory_requirements?: Array<RequirementGroup.RegulatoryRequirement>;
+  regulatory_requirements?: Array<UserRequirement>;
 
   status?: 'approved' | 'unapproved' | 'pending-approval' | 'declined' | 'expired';
 
   updated_at?: string;
 }
 
-export namespace RequirementGroup {
-  export interface RegulatoryRequirement {
-    created_at?: string;
+export interface UserRequirement {
+  created_at?: string;
 
-    expires_at?: string;
+  expires_at?: string;
 
-    field_type?: string;
+  field_type?: string;
 
-    field_value?: string;
+  field_value?: string;
 
-    requirement_id?: string;
+  requirement_id?: string;
 
-    status?: 'approved' | 'unapproved' | 'pending-approval' | 'declined' | 'expired';
+  status?: 'approved' | 'unapproved' | 'pending-approval' | 'declined' | 'expired';
 
-    updated_at?: string;
-  }
+  updated_at?: string;
 }
 
 export type RequirementGroupListResponse = Array<RequirementGroup>;
@@ -230,6 +228,7 @@ export namespace RequirementGroupListParams {
 export declare namespace RequirementGroups {
   export {
     type RequirementGroup as RequirementGroup,
+    type UserRequirement as UserRequirement,
     type RequirementGroupListResponse as RequirementGroupListResponse,
     type RequirementGroupCreateParams as RequirementGroupCreateParams,
     type RequirementGroupUpdateParams as RequirementGroupUpdateParams,

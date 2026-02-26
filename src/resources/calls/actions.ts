@@ -925,6 +925,15 @@ export interface CallControlCommandResult {
   result?: string;
 }
 
+export interface CallControlCommandResultWithConversationID {
+  /**
+   * The ID of the conversation created by the command.
+   */
+  conversation_id?: string;
+
+  result?: string;
+}
+
 export interface DeepgramNova2Config {
   transcription_engine: 'Deepgram';
 
@@ -1672,18 +1681,7 @@ export interface ActionGatherResponse {
 }
 
 export interface ActionGatherUsingAIResponse {
-  data?: ActionGatherUsingAIResponse.Data;
-}
-
-export namespace ActionGatherUsingAIResponse {
-  export interface Data {
-    /**
-     * The ID of the conversation created by the command.
-     */
-    conversation_id?: string;
-
-    result?: string;
-  }
+  data?: CallControlCommandResultWithConversationID;
 }
 
 export interface ActionGatherUsingAudioResponse {
@@ -1731,18 +1729,7 @@ export interface ActionSpeakResponse {
 }
 
 export interface ActionStartAIAssistantResponse {
-  data?: ActionStartAIAssistantResponse.Data;
-}
-
-export namespace ActionStartAIAssistantResponse {
-  export interface Data {
-    /**
-     * The ID of the conversation created by the command.
-     */
-    conversation_id?: string;
-
-    result?: string;
-  }
+  data?: CallControlCommandResultWithConversationID;
 }
 
 export interface ActionStartForkingResponse {
@@ -4397,6 +4384,7 @@ export declare namespace Actions {
   export {
     type AwsVoiceSettings as AwsVoiceSettings,
     type CallControlCommandResult as CallControlCommandResult,
+    type CallControlCommandResultWithConversationID as CallControlCommandResultWithConversationID,
     type DeepgramNova2Config as DeepgramNova2Config,
     type DeepgramNova3Config as DeepgramNova3Config,
     type ElevenLabsVoiceSettings as ElevenLabsVoiceSettings,

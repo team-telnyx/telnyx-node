@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as Shared from '../shared';
 import * as JobsAPI from '../phone-number-blocks/jobs';
 import * as VoiceAPI from './voice';
 import { APIPromise } from '../../core/api-promise';
@@ -142,7 +143,7 @@ export interface PhoneNumbersJob {
 
   pending_operations?: Array<PhoneNumbersJob.PendingOperation>;
 
-  phone_numbers?: Array<PhoneNumbersJob.PhoneNumber>;
+  phone_numbers?: Array<Shared.PhoneNumbersJobPhoneNumber>;
 
   /**
    * Identifies the type of the resource.
@@ -188,21 +189,6 @@ export namespace PhoneNumbersJob {
    * failed_operations once the processing is done.
    */
   export interface PendingOperation {
-    /**
-     * The phone number's ID
-     */
-    id?: string;
-
-    /**
-     * The phone number in e164 format.
-     */
-    phone_number?: string;
-  }
-
-  /**
-   * The unique phone numbers given as arguments in the job creation.
-   */
-  export interface PhoneNumber {
     /**
      * The phone number's ID
      */

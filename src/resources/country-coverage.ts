@@ -5,7 +5,7 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
-export class CountryCoverage extends APIResource {
+export class CountryCoverageResource extends APIResource {
   /**
    * Get country coverage
    */
@@ -24,186 +24,100 @@ export class CountryCoverage extends APIResource {
   }
 }
 
-export interface CountryCoverageRetrieveResponse {
-  data?: { [key: string]: CountryCoverageRetrieveResponse.Data };
+export interface CountryCoverage {
+  /**
+   * Country ISO code
+   */
+  code?: string;
+
+  /**
+   * Set of features supported
+   */
+  features?: Array<string>;
+
+  international_sms?: boolean;
+
+  /**
+   * Indicates whether country can be queried with inventory coverage endpoint
+   */
+  inventory_coverage?: boolean;
+
+  local?: CountryCoverage.Local;
+
+  mobile?: { [key: string]: unknown };
+
+  national?: { [key: string]: unknown };
+
+  numbers?: boolean;
+
+  p2p?: boolean;
+
+  /**
+   * Phone number type
+   */
+  phone_number_type?: Array<string>;
+
+  /**
+   * Supports quickship
+   */
+  quickship?: boolean;
+
+  /**
+   * Geographic region (e.g., AMER, EMEA, APAC)
+   */
+  region?: string | null;
+
+  /**
+   * Supports reservable
+   */
+  reservable?: boolean;
+
+  shared_cost?: { [key: string]: unknown };
+
+  toll_free?: CountryCoverage.TollFree;
 }
 
-export namespace CountryCoverageRetrieveResponse {
-  export interface Data {
-    /**
-     * Country ISO code
-     */
-    code?: string;
-
-    /**
-     * Set of features supported
-     */
+export namespace CountryCoverage {
+  export interface Local {
     features?: Array<string>;
+
+    full_pstn_replacement?: boolean;
 
     international_sms?: boolean;
 
-    /**
-     * Indicates whether country can be queried with inventory coverage endpoint
-     */
-    inventory_coverage?: boolean;
+    p2p?: boolean;
 
-    local?: Data.Local;
+    quickship?: boolean;
 
-    mobile?: { [key: string]: unknown };
+    reservable?: boolean;
+  }
 
-    national?: { [key: string]: unknown };
+  export interface TollFree {
+    features?: Array<string>;
 
-    numbers?: boolean;
+    full_pstn_replacement?: boolean;
+
+    international_sms?: boolean;
 
     p2p?: boolean;
 
-    /**
-     * Phone number type
-     */
-    phone_number_type?: Array<string>;
-
-    /**
-     * Supports quickship
-     */
     quickship?: boolean;
 
-    /**
-     * Geographic region (e.g., AMER, EMEA, APAC)
-     */
-    region?: string | null;
-
-    /**
-     * Supports reservable
-     */
     reservable?: boolean;
-
-    shared_cost?: { [key: string]: unknown };
-
-    toll_free?: Data.TollFree;
   }
+}
 
-  export namespace Data {
-    export interface Local {
-      features?: Array<string>;
-
-      full_pstn_replacement?: boolean;
-
-      international_sms?: boolean;
-
-      p2p?: boolean;
-
-      quickship?: boolean;
-
-      reservable?: boolean;
-    }
-
-    export interface TollFree {
-      features?: Array<string>;
-
-      full_pstn_replacement?: boolean;
-
-      international_sms?: boolean;
-
-      p2p?: boolean;
-
-      quickship?: boolean;
-
-      reservable?: boolean;
-    }
-  }
+export interface CountryCoverageRetrieveResponse {
+  data?: { [key: string]: CountryCoverage };
 }
 
 export interface CountryCoverageRetrieveCountryResponse {
-  data?: CountryCoverageRetrieveCountryResponse.Data;
+  data?: CountryCoverage;
 }
 
-export namespace CountryCoverageRetrieveCountryResponse {
-  export interface Data {
-    /**
-     * Country ISO code
-     */
-    code?: string;
-
-    /**
-     * Set of features supported
-     */
-    features?: Array<string>;
-
-    international_sms?: boolean;
-
-    /**
-     * Indicates whether country can be queried with inventory coverage endpoint
-     */
-    inventory_coverage?: boolean;
-
-    local?: Data.Local;
-
-    mobile?: { [key: string]: unknown };
-
-    national?: { [key: string]: unknown };
-
-    numbers?: boolean;
-
-    p2p?: boolean;
-
-    /**
-     * Phone number type
-     */
-    phone_number_type?: Array<string>;
-
-    /**
-     * Supports quickship
-     */
-    quickship?: boolean;
-
-    /**
-     * Geographic region (e.g., AMER, EMEA, APAC)
-     */
-    region?: string | null;
-
-    /**
-     * Supports reservable
-     */
-    reservable?: boolean;
-
-    shared_cost?: { [key: string]: unknown };
-
-    toll_free?: Data.TollFree;
-  }
-
-  export namespace Data {
-    export interface Local {
-      features?: Array<string>;
-
-      full_pstn_replacement?: boolean;
-
-      international_sms?: boolean;
-
-      p2p?: boolean;
-
-      quickship?: boolean;
-
-      reservable?: boolean;
-    }
-
-    export interface TollFree {
-      features?: Array<string>;
-
-      full_pstn_replacement?: boolean;
-
-      international_sms?: boolean;
-
-      p2p?: boolean;
-
-      quickship?: boolean;
-
-      reservable?: boolean;
-    }
-  }
-}
-
-export declare namespace CountryCoverage {
+export declare namespace CountryCoverageResource {
   export {
+    type CountryCoverage as CountryCoverage,
     type CountryCoverageRetrieveResponse as CountryCoverageRetrieveResponse,
     type CountryCoverageRetrieveCountryResponse as CountryCoverageRetrieveCountryResponse,
   };

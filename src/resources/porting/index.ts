@@ -2,6 +2,12 @@
 
 export {
   Events,
+  type PortingEventDeletedPayload,
+  type PortingEventMessagingChangedPayload,
+  type PortingEventNewCommentEvent,
+  type PortingEventSplitEvent,
+  type PortingEventStatusChangedEvent,
+  type PortingEventWithoutWebhook,
   type EventRetrieveResponse,
   type EventListResponse,
   type EventListParams,
