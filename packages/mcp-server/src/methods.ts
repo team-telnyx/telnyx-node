@@ -4948,16 +4948,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/texml_applications/{id}',
   },
   {
-    clientCallName: 'client.textToSpeech.generateSpeech',
-    fullyQualifiedName: 'textToSpeech.generateSpeech',
-    httpMethod: 'post',
-    httpPath: '/text-to-speech/speech',
-  },
-  {
     clientCallName: 'client.textToSpeech.listVoices',
     fullyQualifiedName: 'textToSpeech.listVoices',
     httpMethod: 'get',
     httpPath: '/text-to-speech/voices',
+  },
+  {
+    clientCallName: 'client.textToSpeech.stream',
+    fullyQualifiedName: 'textToSpeech.stream',
+    httpMethod: 'get',
+    httpPath: '/text-to-speech/speech',
   },
   {
     clientCallName: 'client.usageReports.list',
