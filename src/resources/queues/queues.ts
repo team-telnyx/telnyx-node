@@ -71,7 +71,7 @@ export class Queues extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const queue of client.queues.list()) {
+   * for await (const queueListResponse of client.queues.list()) {
    *   // ...
    * }
    * ```
@@ -79,8 +79,11 @@ export class Queues extends APIResource {
   list(
     query: QueueListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<QueuesDefaultFlatPagination, Queue> {
-    return this._client.getAPIList('/queues', DefaultFlatPagination<Queue>, { query, ...options });
+  ): PagePromise<QueueListResponsesDefaultFlatPagination, QueueListResponse> {
+    return this._client.getAPIList('/queues', DefaultFlatPagination<QueueListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -99,9 +102,147 @@ export class Queues extends APIResource {
   }
 }
 
-export type QueuesDefaultFlatPagination = DefaultFlatPagination<Queue>;
+export type QueueListResponsesDefaultFlatPagination = DefaultFlatPagination<QueueListResponse>;
 
-export interface Queue {
+export interface QueueCreateResponse {
+  data?: QueueCreateResponse.Data;
+}
+
+export namespace QueueCreateResponse {
+  export interface Data {
+    /**
+     * Uniquely identifies the queue
+     */
+    id: string;
+
+    /**
+     * The average time that the calls currently in the queue have spent waiting, given
+     * in seconds.
+     */
+    average_wait_time_secs: number;
+
+    /**
+     * ISO 8601 formatted date of when the queue was created
+     */
+    created_at: string;
+
+    /**
+     * The number of calls currently in the queue
+     */
+    current_size: number;
+
+    /**
+     * The maximum number of calls allowed in the queue
+     */
+    max_size: number;
+
+    /**
+     * Name of the queue
+     */
+    name: string;
+
+    record_type: 'queue';
+
+    /**
+     * ISO 8601 formatted date of when the queue was last updated
+     */
+    updated_at: string;
+  }
+}
+
+export interface QueueRetrieveResponse {
+  data?: QueueRetrieveResponse.Data;
+}
+
+export namespace QueueRetrieveResponse {
+  export interface Data {
+    /**
+     * Uniquely identifies the queue
+     */
+    id: string;
+
+    /**
+     * The average time that the calls currently in the queue have spent waiting, given
+     * in seconds.
+     */
+    average_wait_time_secs: number;
+
+    /**
+     * ISO 8601 formatted date of when the queue was created
+     */
+    created_at: string;
+
+    /**
+     * The number of calls currently in the queue
+     */
+    current_size: number;
+
+    /**
+     * The maximum number of calls allowed in the queue
+     */
+    max_size: number;
+
+    /**
+     * Name of the queue
+     */
+    name: string;
+
+    record_type: 'queue';
+
+    /**
+     * ISO 8601 formatted date of when the queue was last updated
+     */
+    updated_at: string;
+  }
+}
+
+export interface QueueUpdateResponse {
+  data?: QueueUpdateResponse.Data;
+}
+
+export namespace QueueUpdateResponse {
+  export interface Data {
+    /**
+     * Uniquely identifies the queue
+     */
+    id: string;
+
+    /**
+     * The average time that the calls currently in the queue have spent waiting, given
+     * in seconds.
+     */
+    average_wait_time_secs: number;
+
+    /**
+     * ISO 8601 formatted date of when the queue was created
+     */
+    created_at: string;
+
+    /**
+     * The number of calls currently in the queue
+     */
+    current_size: number;
+
+    /**
+     * The maximum number of calls allowed in the queue
+     */
+    max_size: number;
+
+    /**
+     * Name of the queue
+     */
+    name: string;
+
+    record_type: 'queue';
+
+    /**
+     * ISO 8601 formatted date of when the queue was last updated
+     */
+    updated_at: string;
+  }
+}
+
+export interface QueueListResponse {
   /**
    * Uniquely identifies the queue
    */
@@ -141,18 +282,6 @@ export interface Queue {
   updated_at: string;
 }
 
-export interface QueueCreateResponse {
-  data?: Queue;
-}
-
-export interface QueueRetrieveResponse {
-  data?: Queue;
-}
-
-export interface QueueUpdateResponse {
-  data?: Queue;
-}
-
 export interface QueueCreateParams {
   /**
    * The name of the queue. Must be between 1 and 255 characters.
@@ -178,11 +307,11 @@ Queues.Calls = Calls;
 
 export declare namespace Queues {
   export {
-    type Queue as Queue,
     type QueueCreateResponse as QueueCreateResponse,
     type QueueRetrieveResponse as QueueRetrieveResponse,
     type QueueUpdateResponse as QueueUpdateResponse,
-    type QueuesDefaultFlatPagination as QueuesDefaultFlatPagination,
+    type QueueListResponse as QueueListResponse,
+    type QueueListResponsesDefaultFlatPagination as QueueListResponsesDefaultFlatPagination,
     type QueueCreateParams as QueueCreateParams,
     type QueueUpdateParams as QueueUpdateParams,
     type QueueListParams as QueueListParams,
