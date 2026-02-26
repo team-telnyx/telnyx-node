@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.47.1 (2026-02-26)
+
+Full Changelog: [v5.47.0...v5.47.1](https://github.com/team-telnyx/telnyx-node/compare/v5.47.0...v5.47.1)
+
+### Bug Fixes
+
+* **mcp:** update prompt ([50f3a6a](https://github.com/team-telnyx/telnyx-node/commit/50f3a6a9564fcc2f931abeedf9b14d783fe7f944))
+
 ## 5.47.0 (2026-02-26)
 
 Full Changelog: [v5.46.0...v5.47.0](https://github.com/team-telnyx/telnyx-node/compare/v5.46.0...v5.47.0)
