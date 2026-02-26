@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.41.0 (2026-02-26)
+
+Full Changelog: [v5.40.0...v5.41.0](https://github.com/team-telnyx/telnyx-node/compare/v5.40.0...v5.41.0)
+
+### Features
+
+* Add text-to-speech WebSocket streaming OpenAPI spec ([ca73735](https://github.com/team-telnyx/telnyx-node/commit/ca73735cd0837529828070f8b16599c8fa3edb07))
+
+
+### Chores
+
+* **internal:** codegen related update ([7fdea60](https://github.com/team-telnyx/telnyx-node/commit/7fdea60072587df1aa5912d8237fa16c445c5de8))
+
 ## 5.40.0 (2026-02-25)
 
 Full Changelog: [v5.39.0...v5.40.0](https://github.com/team-telnyx/telnyx-node/compare/v5.39.0...v5.40.0)

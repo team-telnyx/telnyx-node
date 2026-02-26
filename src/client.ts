@@ -849,9 +849,9 @@ import {
 } from './resources/texml-applications';
 import {
   TextToSpeech,
-  TextToSpeechGenerateSpeechParams,
   TextToSpeechListVoicesParams,
   TextToSpeechListVoicesResponse,
+  TextToSpeechStreamParams,
 } from './resources/text-to-speech';
 import {
   UsageReportGetOptionsParams,
@@ -1343,15 +1343,15 @@ import {
   Portouts,
 } from './resources/portouts/portouts';
 import {
-  Queue,
   QueueCreateParams,
   QueueCreateResponse,
   QueueListParams,
+  QueueListResponse,
+  QueueListResponsesDefaultFlatPagination,
   QueueRetrieveResponse,
   QueueUpdateParams,
   QueueUpdateResponse,
   Queues,
-  QueuesDefaultFlatPagination,
 } from './resources/queues/queues';
 import {
   RecordingDeleteResponse,
@@ -3747,11 +3747,11 @@ export declare namespace Telnyx {
 
   export {
     Queues as Queues,
-    type Queue as Queue,
     type QueueCreateResponse as QueueCreateResponse,
     type QueueRetrieveResponse as QueueRetrieveResponse,
     type QueueUpdateResponse as QueueUpdateResponse,
-    type QueuesDefaultFlatPagination as QueuesDefaultFlatPagination,
+    type QueueListResponse as QueueListResponse,
+    type QueueListResponsesDefaultFlatPagination as QueueListResponsesDefaultFlatPagination,
     type QueueCreateParams as QueueCreateParams,
     type QueueUpdateParams as QueueUpdateParams,
     type QueueListParams as QueueListParams,
@@ -4008,8 +4008,8 @@ export declare namespace Telnyx {
   export {
     TextToSpeech as TextToSpeech,
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
-    type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
+    type TextToSpeechStreamParams as TextToSpeechStreamParams,
   };
 
   export {
