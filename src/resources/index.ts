@@ -1164,8 +1164,8 @@ export {
 export {
   TextToSpeech,
   type TextToSpeechListVoicesResponse,
+  type TextToSpeechGenerateSpeechParams,
   type TextToSpeechListVoicesParams,
-  type TextToSpeechStreamParams,
 } from './text-to-speech';
 export {
   UsageReports,
