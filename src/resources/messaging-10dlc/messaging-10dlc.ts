@@ -23,6 +23,7 @@ import {
   PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
   PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
   PhoneNumberAssignmentByProfileRetrieveStatusResponse,
+  ProfileAssignmentPhoneNumbers,
   TaskStatus,
 } from './phone-number-assignment-by-profile';
 import * as PhoneNumberCampaignsAPI from './phone-number-campaigns';
@@ -47,6 +48,7 @@ import {
   BrandListParams,
   BrandListResponse,
   BrandListResponsesPerPagePaginationV2,
+  BrandOptionalAttributes,
   BrandRetrieveResponse,
   BrandRetrieveSMSOtpStatusResponse,
   BrandTriggerSMSOtpParams,
@@ -156,6 +158,7 @@ export declare namespace Messaging10dlc {
     Brand as Brand,
     type AltBusinessIDType as AltBusinessIDType,
     type BrandIdentityStatus as BrandIdentityStatus,
+    type BrandOptionalAttributes as BrandOptionalAttributes,
     type EntityType as EntityType,
     type StockExchange as StockExchange,
     type TelnyxBrand as TelnyxBrand,
@@ -221,6 +224,7 @@ export declare namespace Messaging10dlc {
 
   export {
     PhoneNumberAssignmentByProfile as PhoneNumberAssignmentByProfile,
+    type ProfileAssignmentPhoneNumbers as ProfileAssignmentPhoneNumbers,
     type TaskStatus as TaskStatus,
     type PhoneNumberAssignmentByProfileAssignResponse as PhoneNumberAssignmentByProfileAssignResponse,
     type PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse as PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse,

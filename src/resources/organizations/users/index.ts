@@ -3,12 +3,12 @@
 export { Actions, type ActionRemoveResponse } from './actions';
 export {
   Users,
+  type OrganizationUser,
   type UserGroupReference,
   type UserRetrieveResponse,
-  type UserListResponse,
   type UserGetGroupsReportResponse,
   type UserRetrieveParams,
   type UserListParams,
   type UserGetGroupsReportParams,
-  type UserListResponsesDefaultFlatPagination,
+  type OrganizationUsersDefaultFlatPagination,
 } from './users';

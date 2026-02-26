@@ -7,6 +7,7 @@ import {
   RunRetrieveParams,
   RunTriggerParams,
   Runs,
+  TestRunDetailResult,
   TestRunResponse,
   TestRunResponsesDefaultFlatPagination,
   TestStatus,
@@ -354,6 +355,7 @@ export declare namespace Tests {
 
   export {
     Runs as Runs,
+    type TestRunDetailResult as TestRunDetailResult,
     type TestRunResponse as TestRunResponse,
     type TestStatus as TestStatus,
     type TestRunResponsesDefaultFlatPagination as TestRunResponsesDefaultFlatPagination,

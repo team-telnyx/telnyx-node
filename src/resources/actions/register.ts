@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
+import * as ActionsAPI from './actions';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -34,35 +35,7 @@ export interface RegisterCreateResponse {
    */
   data?: Array<Shared.SimpleSimCard>;
 
-  errors?: Array<RegisterCreateResponse.Error>;
-}
-
-export namespace RegisterCreateResponse {
-  export interface Error {
-    code: string;
-
-    title: string;
-
-    detail?: string;
-
-    meta?: { [key: string]: unknown };
-
-    source?: Error.Source;
-  }
-
-  export namespace Error {
-    export interface Source {
-      /**
-       * Indicates which query parameter caused the error.
-       */
-      parameter?: string;
-
-      /**
-       * JSON pointer (RFC6901) to the offending entity.
-       */
-      pointer?: string;
-    }
-  }
+  errors?: Array<ActionsAPI.WirelessError>;
 }
 
 export interface RegisterCreateParams {

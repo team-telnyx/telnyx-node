@@ -834,6 +834,263 @@ export namespace RcsSuggestion {
   }
 }
 
+export interface RcsToItem {
+  carrier?: string;
+
+  line_type?: string;
+
+  phone_number?: string;
+
+  status?: string;
+}
+
+export interface WhatsappContact {
+  addresses?: Array<WhatsappContact.Address>;
+
+  birthday?: string;
+
+  emails?: Array<WhatsappContact.Email>;
+
+  name?: string;
+
+  org?: WhatsappContact.Org;
+
+  phones?: Array<WhatsappContact.Phone>;
+
+  urls?: Array<WhatsappContact.URL>;
+}
+
+export namespace WhatsappContact {
+  export interface Address {
+    city?: string;
+
+    country?: string;
+
+    country_code?: string;
+
+    state?: string;
+
+    street?: string;
+
+    type?: string;
+
+    zip?: string;
+  }
+
+  export interface Email {
+    email?: string;
+
+    type?: string;
+  }
+
+  export interface Org {
+    company?: string;
+
+    department?: string;
+
+    title?: string;
+  }
+
+  export interface Phone {
+    phone?: string;
+
+    type?: string;
+
+    wa_id?: string;
+  }
+
+  export interface URL {
+    type?: string;
+
+    url?: string;
+  }
+}
+
+export interface WhatsappInteractive {
+  action?: WhatsappInteractive.Action;
+
+  body?: WhatsappInteractive.Body;
+
+  footer?: WhatsappInteractive.Footer;
+
+  header?: WhatsappInteractive.Header;
+
+  type?: 'cta_url' | 'list' | 'carousel' | 'button' | 'location_request_message';
+}
+
+export namespace WhatsappInteractive {
+  export interface Action {
+    button?: string;
+
+    buttons?: Array<Action.Button>;
+
+    cards?: Array<Action.Card>;
+
+    catalog_id?: string;
+
+    mode?: string;
+
+    name?: string;
+
+    parameters?: Action.Parameters;
+
+    product_retailer_id?: string;
+
+    sections?: Array<Action.Section>;
+  }
+
+  export namespace Action {
+    export interface Button {
+      reply?: Button.Reply;
+
+      type?: 'reply';
+    }
+
+    export namespace Button {
+      export interface Reply {
+        /**
+         * unique identifier for each button, 256 character maximum
+         */
+        id?: string;
+
+        /**
+         * button label, 20 character maximum
+         */
+        title?: string;
+      }
+    }
+
+    export interface Card {
+      action?: Card.Action;
+
+      body?: Card.Body;
+
+      /**
+       * unique index for each card (0-9)
+       */
+      card_index?: number;
+
+      header?: Card.Header;
+
+      type?: 'cta_url';
+    }
+
+    export namespace Card {
+      export interface Action {
+        /**
+         * the unique ID of the catalog
+         */
+        catalog_id?: string;
+
+        /**
+         * the unique retailer ID of the product
+         */
+        product_retailer_id?: string;
+      }
+
+      export interface Body {
+        /**
+         * 160 character maximum, up to 2 line breaks
+         */
+        text?: string;
+      }
+
+      export interface Header {
+        image?: MessagesAPI.WhatsappMedia;
+
+        type?: 'image' | 'video';
+
+        video?: MessagesAPI.WhatsappMedia;
+      }
+    }
+
+    export interface Parameters {
+      /**
+       * button label text, 20 character maximum
+       */
+      display_text?: string;
+
+      /**
+       * button URL to load when tapped by the user
+       */
+      url?: string;
+    }
+
+    export interface Section {
+      product_items?: Array<Section.ProductItem>;
+
+      rows?: Array<Section.Row>;
+
+      /**
+       * section title, 24 character maximum
+       */
+      title?: string;
+    }
+
+    export namespace Section {
+      export interface ProductItem {
+        product_retailer_id?: string;
+      }
+
+      export interface Row {
+        /**
+         * arbitrary string identifying the row, 200 character maximum
+         */
+        id?: string;
+
+        /**
+         * row description, 72 character maximum
+         */
+        description?: string;
+
+        /**
+         * row title, 24 character maximum
+         */
+        title?: string;
+      }
+    }
+  }
+
+  export interface Body {
+    /**
+     * body text, 1024 character maximum
+     */
+    text?: string;
+  }
+
+  export interface Footer {
+    /**
+     * footer text, 60 character maximum
+     */
+    text?: string;
+  }
+
+  export interface Header {
+    document?: MessagesAPI.WhatsappMedia;
+
+    image?: MessagesAPI.WhatsappMedia;
+
+    sub_text?: string;
+
+    /**
+     * header text, 60 character maximum
+     */
+    text?: string;
+
+    video?: MessagesAPI.WhatsappMedia;
+  }
+}
+
+export interface WhatsappLocation {
+  address?: string;
+
+  latitude?: string;
+
+  longitude?: string;
+
+  name?: string;
+}
+
 export interface WhatsappMedia {
   /**
    * media caption
@@ -854,6 +1111,49 @@ export interface WhatsappMedia {
    * true if voice message
    */
   voice?: boolean;
+}
+
+export interface WhatsappMessageContent {
+  audio?: WhatsappMedia;
+
+  /**
+   * custom data to return with status update
+   */
+  biz_opaque_callback_data?: string;
+
+  contacts?: Array<WhatsappContact>;
+
+  document?: WhatsappMedia;
+
+  image?: WhatsappMedia;
+
+  interactive?: WhatsappInteractive;
+
+  location?: WhatsappLocation;
+
+  reaction?: WhatsappReaction;
+
+  sticker?: WhatsappMedia;
+
+  type?:
+    | 'audio'
+    | 'document'
+    | 'image'
+    | 'sticker'
+    | 'video'
+    | 'interactive'
+    | 'location'
+    | 'template'
+    | 'reaction'
+    | 'contacts';
+
+  video?: WhatsappMedia;
+}
+
+export interface WhatsappReaction {
+  emoji?: string;
+
+  message_id?: string;
 }
 
 export interface MessageRetrieveResponse {
@@ -1189,7 +1489,7 @@ export namespace MessageSendWhatsappResponse {
      */
     id?: string;
 
-    body?: Data.Body;
+    body?: MessagesAPI.WhatsappMessageContent;
 
     direction?: string;
 
@@ -1205,304 +1505,12 @@ export namespace MessageSendWhatsappResponse {
 
     record_type?: string;
 
-    to?: Array<Data.To>;
+    to?: Array<MessagesAPI.RcsToItem>;
 
     type?: string;
   }
 
   export namespace Data {
-    export interface Body {
-      audio?: MessagesAPI.WhatsappMedia;
-
-      /**
-       * custom data to return with status update
-       */
-      biz_opaque_callback_data?: string;
-
-      contacts?: Array<Body.Contact>;
-
-      document?: MessagesAPI.WhatsappMedia;
-
-      image?: MessagesAPI.WhatsappMedia;
-
-      interactive?: Body.Interactive;
-
-      location?: Body.Location;
-
-      reaction?: Body.Reaction;
-
-      sticker?: MessagesAPI.WhatsappMedia;
-
-      type?:
-        | 'audio'
-        | 'document'
-        | 'image'
-        | 'sticker'
-        | 'video'
-        | 'interactive'
-        | 'location'
-        | 'template'
-        | 'reaction'
-        | 'contacts';
-
-      video?: MessagesAPI.WhatsappMedia;
-    }
-
-    export namespace Body {
-      export interface Contact {
-        addresses?: Array<Contact.Address>;
-
-        birthday?: string;
-
-        emails?: Array<Contact.Email>;
-
-        name?: string;
-
-        org?: Contact.Org;
-
-        phones?: Array<Contact.Phone>;
-
-        urls?: Array<Contact.URL>;
-      }
-
-      export namespace Contact {
-        export interface Address {
-          city?: string;
-
-          country?: string;
-
-          country_code?: string;
-
-          state?: string;
-
-          street?: string;
-
-          type?: string;
-
-          zip?: string;
-        }
-
-        export interface Email {
-          email?: string;
-
-          type?: string;
-        }
-
-        export interface Org {
-          company?: string;
-
-          department?: string;
-
-          title?: string;
-        }
-
-        export interface Phone {
-          phone?: string;
-
-          type?: string;
-
-          wa_id?: string;
-        }
-
-        export interface URL {
-          type?: string;
-
-          url?: string;
-        }
-      }
-
-      export interface Interactive {
-        action?: Interactive.Action;
-
-        body?: Interactive.Body;
-
-        footer?: Interactive.Footer;
-
-        header?: Interactive.Header;
-
-        type?: 'cta_url' | 'list' | 'carousel' | 'button' | 'location_request_message';
-      }
-
-      export namespace Interactive {
-        export interface Action {
-          button?: string;
-
-          buttons?: Array<Action.Button>;
-
-          cards?: Array<Action.Card>;
-
-          catalog_id?: string;
-
-          mode?: string;
-
-          name?: string;
-
-          parameters?: Action.Parameters;
-
-          product_retailer_id?: string;
-
-          sections?: Array<Action.Section>;
-        }
-
-        export namespace Action {
-          export interface Button {
-            reply?: Button.Reply;
-
-            type?: 'reply';
-          }
-
-          export namespace Button {
-            export interface Reply {
-              /**
-               * unique identifier for each button, 256 character maximum
-               */
-              id?: string;
-
-              /**
-               * button label, 20 character maximum
-               */
-              title?: string;
-            }
-          }
-
-          export interface Card {
-            action?: Card.Action;
-
-            body?: Card.Body;
-
-            /**
-             * unique index for each card (0-9)
-             */
-            card_index?: number;
-
-            header?: Card.Header;
-
-            type?: 'cta_url';
-          }
-
-          export namespace Card {
-            export interface Action {
-              /**
-               * the unique ID of the catalog
-               */
-              catalog_id?: string;
-
-              /**
-               * the unique retailer ID of the product
-               */
-              product_retailer_id?: string;
-            }
-
-            export interface Body {
-              /**
-               * 160 character maximum, up to 2 line breaks
-               */
-              text?: string;
-            }
-
-            export interface Header {
-              image?: MessagesAPI.WhatsappMedia;
-
-              type?: 'image' | 'video';
-
-              video?: MessagesAPI.WhatsappMedia;
-            }
-          }
-
-          export interface Parameters {
-            /**
-             * button label text, 20 character maximum
-             */
-            display_text?: string;
-
-            /**
-             * button URL to load when tapped by the user
-             */
-            url?: string;
-          }
-
-          export interface Section {
-            product_items?: Array<Section.ProductItem>;
-
-            rows?: Array<Section.Row>;
-
-            /**
-             * section title, 24 character maximum
-             */
-            title?: string;
-          }
-
-          export namespace Section {
-            export interface ProductItem {
-              product_retailer_id?: string;
-            }
-
-            export interface Row {
-              /**
-               * arbitrary string identifying the row, 200 character maximum
-               */
-              id?: string;
-
-              /**
-               * row description, 72 character maximum
-               */
-              description?: string;
-
-              /**
-               * row title, 24 character maximum
-               */
-              title?: string;
-            }
-          }
-        }
-
-        export interface Body {
-          /**
-           * body text, 1024 character maximum
-           */
-          text?: string;
-        }
-
-        export interface Footer {
-          /**
-           * footer text, 60 character maximum
-           */
-          text?: string;
-        }
-
-        export interface Header {
-          document?: MessagesAPI.WhatsappMedia;
-
-          image?: MessagesAPI.WhatsappMedia;
-
-          sub_text?: string;
-
-          /**
-           * header text, 60 character maximum
-           */
-          text?: string;
-
-          video?: MessagesAPI.WhatsappMedia;
-        }
-      }
-
-      export interface Location {
-        address?: string;
-
-        latitude?: string;
-
-        longitude?: string;
-
-        name?: string;
-      }
-
-      export interface Reaction {
-        emoji?: string;
-
-        message_id?: string;
-      }
-    }
-
     export interface From {
       /**
        * The carrier of the sender.
@@ -1521,16 +1529,6 @@ export namespace MessageSendWhatsappResponse {
       phone_number?: string;
 
       status?: 'received' | 'delivered';
-    }
-
-    export interface To {
-      carrier?: string;
-
-      line_type?: string;
-
-      phone_number?: string;
-
-      status?: string;
     }
   }
 }
@@ -1965,7 +1963,7 @@ export interface MessageSendWhatsappParams {
    */
   to: string;
 
-  whatsapp_message: MessageSendWhatsappParams.WhatsappMessage;
+  whatsapp_message: WhatsappMessageContent;
 
   /**
    * Message type - must be set to "WHATSAPP"
@@ -1976,300 +1974,6 @@ export interface MessageSendWhatsappParams {
    * The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
-}
-
-export namespace MessageSendWhatsappParams {
-  export interface WhatsappMessage {
-    audio?: MessagesAPI.WhatsappMedia;
-
-    /**
-     * custom data to return with status update
-     */
-    biz_opaque_callback_data?: string;
-
-    contacts?: Array<WhatsappMessage.Contact>;
-
-    document?: MessagesAPI.WhatsappMedia;
-
-    image?: MessagesAPI.WhatsappMedia;
-
-    interactive?: WhatsappMessage.Interactive;
-
-    location?: WhatsappMessage.Location;
-
-    reaction?: WhatsappMessage.Reaction;
-
-    sticker?: MessagesAPI.WhatsappMedia;
-
-    type?:
-      | 'audio'
-      | 'document'
-      | 'image'
-      | 'sticker'
-      | 'video'
-      | 'interactive'
-      | 'location'
-      | 'template'
-      | 'reaction'
-      | 'contacts';
-
-    video?: MessagesAPI.WhatsappMedia;
-  }
-
-  export namespace WhatsappMessage {
-    export interface Contact {
-      addresses?: Array<Contact.Address>;
-
-      birthday?: string;
-
-      emails?: Array<Contact.Email>;
-
-      name?: string;
-
-      org?: Contact.Org;
-
-      phones?: Array<Contact.Phone>;
-
-      urls?: Array<Contact.URL>;
-    }
-
-    export namespace Contact {
-      export interface Address {
-        city?: string;
-
-        country?: string;
-
-        country_code?: string;
-
-        state?: string;
-
-        street?: string;
-
-        type?: string;
-
-        zip?: string;
-      }
-
-      export interface Email {
-        email?: string;
-
-        type?: string;
-      }
-
-      export interface Org {
-        company?: string;
-
-        department?: string;
-
-        title?: string;
-      }
-
-      export interface Phone {
-        phone?: string;
-
-        type?: string;
-
-        wa_id?: string;
-      }
-
-      export interface URL {
-        type?: string;
-
-        url?: string;
-      }
-    }
-
-    export interface Interactive {
-      action?: Interactive.Action;
-
-      body?: Interactive.Body;
-
-      footer?: Interactive.Footer;
-
-      header?: Interactive.Header;
-
-      type?: 'cta_url' | 'list' | 'carousel' | 'button' | 'location_request_message';
-    }
-
-    export namespace Interactive {
-      export interface Action {
-        button?: string;
-
-        buttons?: Array<Action.Button>;
-
-        cards?: Array<Action.Card>;
-
-        catalog_id?: string;
-
-        mode?: string;
-
-        name?: string;
-
-        parameters?: Action.Parameters;
-
-        product_retailer_id?: string;
-
-        sections?: Array<Action.Section>;
-      }
-
-      export namespace Action {
-        export interface Button {
-          reply?: Button.Reply;
-
-          type?: 'reply';
-        }
-
-        export namespace Button {
-          export interface Reply {
-            /**
-             * unique identifier for each button, 256 character maximum
-             */
-            id?: string;
-
-            /**
-             * button label, 20 character maximum
-             */
-            title?: string;
-          }
-        }
-
-        export interface Card {
-          action?: Card.Action;
-
-          body?: Card.Body;
-
-          /**
-           * unique index for each card (0-9)
-           */
-          card_index?: number;
-
-          header?: Card.Header;
-
-          type?: 'cta_url';
-        }
-
-        export namespace Card {
-          export interface Action {
-            /**
-             * the unique ID of the catalog
-             */
-            catalog_id?: string;
-
-            /**
-             * the unique retailer ID of the product
-             */
-            product_retailer_id?: string;
-          }
-
-          export interface Body {
-            /**
-             * 160 character maximum, up to 2 line breaks
-             */
-            text?: string;
-          }
-
-          export interface Header {
-            image?: MessagesAPI.WhatsappMedia;
-
-            type?: 'image' | 'video';
-
-            video?: MessagesAPI.WhatsappMedia;
-          }
-        }
-
-        export interface Parameters {
-          /**
-           * button label text, 20 character maximum
-           */
-          display_text?: string;
-
-          /**
-           * button URL to load when tapped by the user
-           */
-          url?: string;
-        }
-
-        export interface Section {
-          product_items?: Array<Section.ProductItem>;
-
-          rows?: Array<Section.Row>;
-
-          /**
-           * section title, 24 character maximum
-           */
-          title?: string;
-        }
-
-        export namespace Section {
-          export interface ProductItem {
-            product_retailer_id?: string;
-          }
-
-          export interface Row {
-            /**
-             * arbitrary string identifying the row, 200 character maximum
-             */
-            id?: string;
-
-            /**
-             * row description, 72 character maximum
-             */
-            description?: string;
-
-            /**
-             * row title, 24 character maximum
-             */
-            title?: string;
-          }
-        }
-      }
-
-      export interface Body {
-        /**
-         * body text, 1024 character maximum
-         */
-        text?: string;
-      }
-
-      export interface Footer {
-        /**
-         * footer text, 60 character maximum
-         */
-        text?: string;
-      }
-
-      export interface Header {
-        document?: MessagesAPI.WhatsappMedia;
-
-        image?: MessagesAPI.WhatsappMedia;
-
-        sub_text?: string;
-
-        /**
-         * header text, 60 character maximum
-         */
-        text?: string;
-
-        video?: MessagesAPI.WhatsappMedia;
-      }
-    }
-
-    export interface Location {
-      address?: string;
-
-      latitude?: string;
-
-      longitude?: string;
-
-      name?: string;
-    }
-
-    export interface Reaction {
-      emoji?: string;
-
-      message_id?: string;
-    }
-  }
 }
 
 export interface MessageSendWithAlphanumericSenderParams {
@@ -2319,7 +2023,13 @@ export declare namespace Messages {
     type RcsCardContent as RcsCardContent,
     type RcsContentInfo as RcsContentInfo,
     type RcsSuggestion as RcsSuggestion,
+    type RcsToItem as RcsToItem,
+    type WhatsappContact as WhatsappContact,
+    type WhatsappInteractive as WhatsappInteractive,
+    type WhatsappLocation as WhatsappLocation,
     type WhatsappMedia as WhatsappMedia,
+    type WhatsappMessageContent as WhatsappMessageContent,
+    type WhatsappReaction as WhatsappReaction,
     type MessageRetrieveResponse as MessageRetrieveResponse,
     type MessageCancelScheduledResponse as MessageCancelScheduledResponse,
     type MessageRetrieveGroupMessagesResponse as MessageRetrieveGroupMessagesResponse,

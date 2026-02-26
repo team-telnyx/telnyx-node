@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as BulkSimCardActionsAPI from './bulk-sim-card-actions';
 import { APIPromise } from '../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
@@ -34,6 +35,12 @@ export class BulkSimCardActions extends APIResource {
 export type BulkSimCardActionListResponsesDefaultFlatPagination =
   DefaultFlatPagination<BulkSimCardActionListResponse>;
 
+export interface SimCardActionsSummary {
+  count?: number;
+
+  status?: 'in-progress' | 'completed' | 'failed' | 'interrupted';
+}
+
 export interface BulkSimCardActionRetrieveResponse {
   data?: BulkSimCardActionRetrieveResponse.Data;
 }
@@ -66,20 +73,12 @@ export namespace BulkSimCardActionRetrieveResponse {
      */
     settings?: { [key: string]: unknown };
 
-    sim_card_actions_summary?: Array<Data.SimCardActionsSummary>;
+    sim_card_actions_summary?: Array<BulkSimCardActionsAPI.SimCardActionsSummary>;
 
     /**
      * ISO 8601 formatted date-time indicating when the resource was updated.
      */
     updated_at?: string;
-  }
-
-  export namespace Data {
-    export interface SimCardActionsSummary {
-      count?: number;
-
-      status?: 'in-progress' | 'completed' | 'failed' | 'interrupted';
-    }
   }
 }
 
@@ -110,20 +109,12 @@ export interface BulkSimCardActionListResponse {
    */
   settings?: { [key: string]: unknown };
 
-  sim_card_actions_summary?: Array<BulkSimCardActionListResponse.SimCardActionsSummary>;
+  sim_card_actions_summary?: Array<SimCardActionsSummary>;
 
   /**
    * ISO 8601 formatted date-time indicating when the resource was updated.
    */
   updated_at?: string;
-}
-
-export namespace BulkSimCardActionListResponse {
-  export interface SimCardActionsSummary {
-    count?: number;
-
-    status?: 'in-progress' | 'completed' | 'failed' | 'interrupted';
-  }
 }
 
 export interface BulkSimCardActionListParams extends DefaultFlatPaginationParams {
@@ -135,6 +126,7 @@ export interface BulkSimCardActionListParams extends DefaultFlatPaginationParams
 
 export declare namespace BulkSimCardActions {
   export {
+    type SimCardActionsSummary as SimCardActionsSummary,
     type BulkSimCardActionRetrieveResponse as BulkSimCardActionRetrieveResponse,
     type BulkSimCardActionListResponse as BulkSimCardActionListResponse,
     type BulkSimCardActionListResponsesDefaultFlatPagination as BulkSimCardActionListResponsesDefaultFlatPagination,

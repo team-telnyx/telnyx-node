@@ -2,13 +2,13 @@
 
 export {
   Events,
-  type EventListResponse,
+  type EventData,
   type EventGetEventDetailsResponse,
   type EventLogResponse,
   type EventListParams,
   type EventGetEventDetailsParams,
   type EventLogParams,
-  type EventListResponsesDefaultFlatPagination,
+  type EventDataDefaultFlatPagination,
 } from './events';
 export {
   Plan,
@@ -45,6 +45,7 @@ export {
 } from './runs';
 export {
   TelnyxAgents,
+  type TelnyxAgentData,
   type TelnyxAgentListResponse,
   type TelnyxAgentLinkResponse,
   type TelnyxAgentListParams,

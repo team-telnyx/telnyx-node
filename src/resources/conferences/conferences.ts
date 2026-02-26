@@ -263,6 +263,73 @@ export namespace Conference {
   }
 }
 
+export interface ConferenceParticipant {
+  /**
+   * Uniquely identifies the participant.
+   */
+  id?: string;
+
+  /**
+   * Unique identifier and token for controlling the participant's call leg.
+   */
+  call_control_id?: string;
+
+  /**
+   * Unique identifier for the call leg.
+   */
+  call_leg_id?: string;
+
+  /**
+   * Unique identifier for the conference.
+   */
+  conference_id?: string;
+
+  /**
+   * Timestamp when the participant joined.
+   */
+  created_at?: string;
+
+  /**
+   * Whether the conference ends when this participant exits.
+   */
+  end_conference_on_exit?: boolean;
+
+  /**
+   * Label assigned to the participant when joining.
+   */
+  label?: string;
+
+  /**
+   * Whether the participant is muted.
+   */
+  muted?: boolean;
+
+  /**
+   * Whether the participant is on hold.
+   */
+  on_hold?: boolean;
+
+  /**
+   * Whether the conference soft-ends when this participant exits.
+   */
+  soft_end_conference_on_exit?: boolean;
+
+  /**
+   * Status of the participant.
+   */
+  status?: 'joining' | 'joined' | 'left';
+
+  /**
+   * Timestamp when the participant was last updated.
+   */
+  updated_at?: string;
+
+  /**
+   * List of call control IDs this participant is whispering to.
+   */
+  whisper_call_control_ids?: Array<string>;
+}
+
 export interface ConferenceCreateResponse {
   data?: Conference;
 }
@@ -355,149 +422,11 @@ export namespace ConferenceListParticipantsResponse {
 }
 
 export interface ConferenceRetrieveParticipantResponse {
-  data?: ConferenceRetrieveParticipantResponse.Data;
-}
-
-export namespace ConferenceRetrieveParticipantResponse {
-  export interface Data {
-    /**
-     * Uniquely identifies the participant.
-     */
-    id?: string;
-
-    /**
-     * Unique identifier and token for controlling the participant's call leg.
-     */
-    call_control_id?: string;
-
-    /**
-     * Unique identifier for the call leg.
-     */
-    call_leg_id?: string;
-
-    /**
-     * Unique identifier for the conference.
-     */
-    conference_id?: string;
-
-    /**
-     * Timestamp when the participant joined.
-     */
-    created_at?: string;
-
-    /**
-     * Whether the conference ends when this participant exits.
-     */
-    end_conference_on_exit?: boolean;
-
-    /**
-     * Label assigned to the participant when joining.
-     */
-    label?: string;
-
-    /**
-     * Whether the participant is muted.
-     */
-    muted?: boolean;
-
-    /**
-     * Whether the participant is on hold.
-     */
-    on_hold?: boolean;
-
-    /**
-     * Whether the conference soft-ends when this participant exits.
-     */
-    soft_end_conference_on_exit?: boolean;
-
-    /**
-     * Status of the participant.
-     */
-    status?: 'joining' | 'joined' | 'left';
-
-    /**
-     * Timestamp when the participant was last updated.
-     */
-    updated_at?: string;
-
-    /**
-     * List of call control IDs this participant is whispering to.
-     */
-    whisper_call_control_ids?: Array<string>;
-  }
+  data?: ConferenceParticipant;
 }
 
 export interface ConferenceUpdateParticipantResponse {
-  data?: ConferenceUpdateParticipantResponse.Data;
-}
-
-export namespace ConferenceUpdateParticipantResponse {
-  export interface Data {
-    /**
-     * Uniquely identifies the participant.
-     */
-    id?: string;
-
-    /**
-     * Unique identifier and token for controlling the participant's call leg.
-     */
-    call_control_id?: string;
-
-    /**
-     * Unique identifier for the call leg.
-     */
-    call_leg_id?: string;
-
-    /**
-     * Unique identifier for the conference.
-     */
-    conference_id?: string;
-
-    /**
-     * Timestamp when the participant joined.
-     */
-    created_at?: string;
-
-    /**
-     * Whether the conference ends when this participant exits.
-     */
-    end_conference_on_exit?: boolean;
-
-    /**
-     * Label assigned to the participant when joining.
-     */
-    label?: string;
-
-    /**
-     * Whether the participant is muted.
-     */
-    muted?: boolean;
-
-    /**
-     * Whether the participant is on hold.
-     */
-    on_hold?: boolean;
-
-    /**
-     * Whether the conference soft-ends when this participant exits.
-     */
-    soft_end_conference_on_exit?: boolean;
-
-    /**
-     * Status of the participant.
-     */
-    status?: 'joining' | 'joined' | 'left';
-
-    /**
-     * Timestamp when the participant was last updated.
-     */
-    updated_at?: string;
-
-    /**
-     * List of call control IDs this participant is whispering to.
-     */
-    whisper_call_control_ids?: Array<string>;
-  }
+  data?: ConferenceParticipant;
 }
 
 export interface ConferenceCreateParams {
@@ -795,6 +724,7 @@ Conferences.Actions = Actions;
 export declare namespace Conferences {
   export {
     type Conference as Conference,
+    type ConferenceParticipant as ConferenceParticipant,
     type ConferenceCreateResponse as ConferenceCreateResponse,
     type ConferenceRetrieveResponse as ConferenceRetrieveResponse,
     type ConferenceListParticipantsResponse as ConferenceListParticipantsResponse,

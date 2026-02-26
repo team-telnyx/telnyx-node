@@ -141,6 +141,17 @@ export interface ConnectionsPaginationMeta {
   total_results?: number;
 }
 
+export interface CostInformation {
+  /**
+   * The ISO 4217 code for the currency.
+   */
+  currency?: string;
+
+  monthly_cost?: string;
+
+  upfront_cost?: string;
+}
+
 export interface DocReqsRequirementType {
   /**
    * Identifies the associated document
@@ -224,6 +235,10 @@ export namespace DocReqsRequirementType {
      */
     time_limit?: string;
   }
+}
+
+export interface Feature {
+  name?: string;
 }
 
 export interface HostedNumber {
@@ -685,6 +700,33 @@ export interface MinimaxVoiceSettings {
   vol?: number;
 }
 
+export interface NetappsLocation {
+  /**
+   * Location code.
+   */
+  code?: string;
+
+  /**
+   * Human readable name of location.
+   */
+  name?: string;
+
+  /**
+   * Point of presence of location.
+   */
+  pop?: string;
+
+  /**
+   * Identifies the geographical region of location.
+   */
+  region?: string;
+
+  /**
+   * Site of location.
+   */
+  site?: string;
+}
+
 /**
  * High level health metrics about the number and it's messaging sending patterns.
  */
@@ -802,6 +844,18 @@ export namespace PhoneNumberWithMessagingSettings {
   }
 }
 
+export interface PhoneNumbersJobPhoneNumber {
+  /**
+   * The phone number's ID
+   */
+  id?: string;
+
+  /**
+   * The phone number in e164 format.
+   */
+  phone_number?: string;
+}
+
 /**
  * Porting order status
  */
@@ -856,6 +910,12 @@ export interface PortingOrdersExceptionType {
    * Description of an exception type
    */
   description?: string;
+}
+
+export interface RegionInformation {
+  region_name?: string;
+
+  region_type?: 'country_code' | 'rate_center' | 'state' | 'location';
 }
 
 export interface ResembleVoiceSettings {

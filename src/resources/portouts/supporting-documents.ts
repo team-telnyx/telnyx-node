@@ -41,84 +41,46 @@ export class SupportingDocuments extends APIResource {
   }
 }
 
-export interface SupportingDocumentCreateResponse {
-  data?: Array<SupportingDocumentCreateResponse.Data>;
+export interface PortOutSupportingDocument {
+  id: string;
+
+  /**
+   * Supporting document creation timestamp in ISO 8601 format
+   */
+  created_at: string;
+
+  /**
+   * Identifies the associated document
+   */
+  document_id: string;
+
+  /**
+   * Identifies the associated port request
+   */
+  portout_id: string;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type: string;
+
+  /**
+   * Identifies the type of the document
+   */
+  type: 'loa' | 'invoice';
+
+  /**
+   * Supporting document last changed timestamp in ISO 8601 format
+   */
+  updated_at: string;
 }
 
-export namespace SupportingDocumentCreateResponse {
-  export interface Data {
-    id: string;
-
-    /**
-     * Supporting document creation timestamp in ISO 8601 format
-     */
-    created_at: string;
-
-    /**
-     * Identifies the associated document
-     */
-    document_id: string;
-
-    /**
-     * Identifies the associated port request
-     */
-    portout_id: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type: string;
-
-    /**
-     * Identifies the type of the document
-     */
-    type: 'loa' | 'invoice';
-
-    /**
-     * Supporting document last changed timestamp in ISO 8601 format
-     */
-    updated_at: string;
-  }
+export interface SupportingDocumentCreateResponse {
+  data?: Array<PortOutSupportingDocument>;
 }
 
 export interface SupportingDocumentListResponse {
-  data?: Array<SupportingDocumentListResponse.Data>;
-}
-
-export namespace SupportingDocumentListResponse {
-  export interface Data {
-    id: string;
-
-    /**
-     * Supporting document creation timestamp in ISO 8601 format
-     */
-    created_at: string;
-
-    /**
-     * Identifies the associated document
-     */
-    document_id: string;
-
-    /**
-     * Identifies the associated port request
-     */
-    portout_id: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type: string;
-
-    /**
-     * Identifies the type of the document
-     */
-    type: 'loa' | 'invoice';
-
-    /**
-     * Supporting document last changed timestamp in ISO 8601 format
-     */
-    updated_at: string;
-  }
+  data?: Array<PortOutSupportingDocument>;
 }
 
 export interface SupportingDocumentCreateParams {
@@ -144,6 +106,7 @@ export namespace SupportingDocumentCreateParams {
 
 export declare namespace SupportingDocuments {
   export {
+    type PortOutSupportingDocument as PortOutSupportingDocument,
     type SupportingDocumentCreateResponse as SupportingDocumentCreateResponse,
     type SupportingDocumentListResponse as SupportingDocumentListResponse,
     type SupportingDocumentCreateParams as SupportingDocumentCreateParams,

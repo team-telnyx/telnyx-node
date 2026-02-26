@@ -49,70 +49,39 @@ export class MessagingNumbersBulkUpdates extends APIResource {
   }
 }
 
-export interface MessagingNumbersBulkUpdateCreateResponse {
-  data?: MessagingNumbersBulkUpdateCreateResponse.Data;
+export interface BulkMessagingSettingsUpdatePhoneNumbers {
+  /**
+   * Phone numbers that failed to update.
+   */
+  failed?: Array<string>;
+
+  /**
+   * Order ID to verify bulk update status.
+   */
+  order_id?: string;
+
+  /**
+   * Phone numbers pending to be updated.
+   */
+  pending?: Array<string>;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: 'messaging_numbers_bulk_update';
+
+  /**
+   * Phoned numbers updated successfully.
+   */
+  success?: Array<string>;
 }
 
-export namespace MessagingNumbersBulkUpdateCreateResponse {
-  export interface Data {
-    /**
-     * Phone numbers that failed to update.
-     */
-    failed?: Array<string>;
-
-    /**
-     * Order ID to verify bulk update status.
-     */
-    order_id?: string;
-
-    /**
-     * Phone numbers pending to be updated.
-     */
-    pending?: Array<string>;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'messaging_numbers_bulk_update';
-
-    /**
-     * Phoned numbers updated successfully.
-     */
-    success?: Array<string>;
-  }
+export interface MessagingNumbersBulkUpdateCreateResponse {
+  data?: BulkMessagingSettingsUpdatePhoneNumbers;
 }
 
 export interface MessagingNumbersBulkUpdateRetrieveResponse {
-  data?: MessagingNumbersBulkUpdateRetrieveResponse.Data;
-}
-
-export namespace MessagingNumbersBulkUpdateRetrieveResponse {
-  export interface Data {
-    /**
-     * Phone numbers that failed to update.
-     */
-    failed?: Array<string>;
-
-    /**
-     * Order ID to verify bulk update status.
-     */
-    order_id?: string;
-
-    /**
-     * Phone numbers pending to be updated.
-     */
-    pending?: Array<string>;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'messaging_numbers_bulk_update';
-
-    /**
-     * Phoned numbers updated successfully.
-     */
-    success?: Array<string>;
-  }
+  data?: BulkMessagingSettingsUpdatePhoneNumbers;
 }
 
 export interface MessagingNumbersBulkUpdateCreateParams {
@@ -139,6 +108,7 @@ export interface MessagingNumbersBulkUpdateCreateParams {
 
 export declare namespace MessagingNumbersBulkUpdates {
   export {
+    type BulkMessagingSettingsUpdatePhoneNumbers as BulkMessagingSettingsUpdatePhoneNumbers,
     type MessagingNumbersBulkUpdateCreateResponse as MessagingNumbersBulkUpdateCreateResponse,
     type MessagingNumbersBulkUpdateRetrieveResponse as MessagingNumbersBulkUpdateRetrieveResponse,
     type MessagingNumbersBulkUpdateCreateParams as MessagingNumbersBulkUpdateCreateParams,

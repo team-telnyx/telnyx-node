@@ -2,7 +2,12 @@
 
 import { APIResource } from '../../../core/resource';
 import * as ConnectionsAPI from './connections';
-import { ConnectionListResponse, ConnectionRetrieveResponse, Connections } from './connections';
+import {
+  ConnectionListResponse,
+  ConnectionRetrieveResponse,
+  Connections,
+  IntegrationConnection,
+} from './connections';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -85,6 +90,7 @@ export declare namespace Integrations {
 
   export {
     Connections as Connections,
+    type IntegrationConnection as IntegrationConnection,
     type ConnectionRetrieveResponse as ConnectionRetrieveResponse,
     type ConnectionListResponse as ConnectionListResponse,
   };

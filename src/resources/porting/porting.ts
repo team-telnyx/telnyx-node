@@ -8,6 +8,12 @@ import {
   EventListResponsesDefaultFlatPagination,
   EventRetrieveResponse,
   Events,
+  PortingEventDeletedPayload,
+  PortingEventMessagingChangedPayload,
+  PortingEventNewCommentEvent,
+  PortingEventSplitEvent,
+  PortingEventStatusChangedEvent,
+  PortingEventWithoutWebhook,
 } from './events';
 import * as LoaConfigurationsAPI from './loa-configurations';
 import {
@@ -109,6 +115,12 @@ export declare namespace Porting {
 
   export {
     Events as Events,
+    type PortingEventDeletedPayload as PortingEventDeletedPayload,
+    type PortingEventMessagingChangedPayload as PortingEventMessagingChangedPayload,
+    type PortingEventNewCommentEvent as PortingEventNewCommentEvent,
+    type PortingEventSplitEvent as PortingEventSplitEvent,
+    type PortingEventStatusChangedEvent as PortingEventStatusChangedEvent,
+    type PortingEventWithoutWebhook as PortingEventWithoutWebhook,
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
     type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,

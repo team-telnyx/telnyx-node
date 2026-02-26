@@ -36,78 +36,44 @@ export class Comments extends APIResource {
   }
 }
 
-export interface CommentCreateResponse {
-  data?: CommentCreateResponse.Data;
+export interface PortoutComment {
+  id: string;
+
+  /**
+   * Comment body
+   */
+  body: string;
+
+  /**
+   * Comment creation timestamp in ISO 8601 format
+   */
+  created_at: string;
+
+  /**
+   * Identifies the user who created the comment. Will be null if created by Telnyx
+   * Admin
+   */
+  user_id: string;
+
+  /**
+   * Identifies the associated port request
+   */
+  portout_id?: string;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: string;
 }
 
-export namespace CommentCreateResponse {
-  export interface Data {
-    id: string;
-
-    /**
-     * Comment body
-     */
-    body: string;
-
-    /**
-     * Comment creation timestamp in ISO 8601 format
-     */
-    created_at: string;
-
-    /**
-     * Identifies the user who created the comment. Will be null if created by Telnyx
-     * Admin
-     */
-    user_id: string;
-
-    /**
-     * Identifies the associated port request
-     */
-    portout_id?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-  }
+export interface CommentCreateResponse {
+  data?: PortoutComment;
 }
 
 export interface CommentListResponse {
-  data?: Array<CommentListResponse.Data>;
+  data?: Array<PortoutComment>;
 
   meta?: Shared.Metadata;
-}
-
-export namespace CommentListResponse {
-  export interface Data {
-    id: string;
-
-    /**
-     * Comment body
-     */
-    body: string;
-
-    /**
-     * Comment creation timestamp in ISO 8601 format
-     */
-    created_at: string;
-
-    /**
-     * Identifies the user who created the comment. Will be null if created by Telnyx
-     * Admin
-     */
-    user_id: string;
-
-    /**
-     * Identifies the associated port request
-     */
-    portout_id?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-  }
 }
 
 export interface CommentCreateParams {
@@ -119,6 +85,7 @@ export interface CommentCreateParams {
 
 export declare namespace Comments {
   export {
+    type PortoutComment as PortoutComment,
     type CommentCreateResponse as CommentCreateResponse,
     type CommentListResponse as CommentListResponse,
     type CommentCreateParams as CommentCreateParams,

@@ -99,6 +99,23 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
   }
 }
 
+export interface ProfileAssignmentPhoneNumbers {
+  /**
+   * The phone number that the status is being checked for.
+   */
+  phoneNumber: string;
+
+  /**
+   * The status of the associated phone number assignment.
+   */
+  status: string;
+
+  /**
+   * The ID of the task associated with the phone number.
+   */
+  taskId: string;
+}
+
 export type TaskStatus = 'pending' | 'starting' | 'running' | 'completed' | 'failed';
 
 export interface PhoneNumberAssignmentByProfileAssignResponse {
@@ -127,49 +144,11 @@ export interface PhoneNumberAssignmentByProfileAssignResponse {
 }
 
 export interface PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse {
-  records: Array<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse.Record>;
-}
-
-export namespace PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse {
-  export interface Record {
-    /**
-     * The phone number that the status is being checked for.
-     */
-    phoneNumber: string;
-
-    /**
-     * The status of the associated phone number assignment.
-     */
-    status: string;
-
-    /**
-     * The ID of the task associated with the phone number.
-     */
-    taskId: string;
-  }
+  records: Array<ProfileAssignmentPhoneNumbers>;
 }
 
 export interface PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse {
-  records: Array<PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse.Record>;
-}
-
-export namespace PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse {
-  export interface Record {
-    /**
-     * The phone number that the status is being checked for.
-     */
-    phoneNumber: string;
-
-    /**
-     * The status of the associated phone number assignment.
-     */
-    status: string;
-
-    /**
-     * The ID of the task associated with the phone number.
-     */
-    taskId: string;
-  }
+  records: Array<ProfileAssignmentPhoneNumbers>;
 }
 
 export interface PhoneNumberAssignmentByProfileRetrieveStatusResponse {
@@ -219,6 +198,7 @@ export interface PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams {
 
 export declare namespace PhoneNumberAssignmentByProfile {
   export {
+    type ProfileAssignmentPhoneNumbers as ProfileAssignmentPhoneNumbers,
     type TaskStatus as TaskStatus,
     type PhoneNumberAssignmentByProfileAssignResponse as PhoneNumberAssignmentByProfileAssignResponse,
     type PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse as PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse,

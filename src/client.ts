@@ -122,6 +122,7 @@ import {
   BulkSimCardActionListResponsesDefaultFlatPagination,
   BulkSimCardActionRetrieveResponse,
   BulkSimCardActions,
+  SimCardActionsSummary,
 } from './resources/bulk-sim-card-actions';
 import {
   CallControlApplication,
@@ -183,6 +184,7 @@ import {
 } from './resources/connections';
 import {
   CountryCoverage,
+  CountryCoverageResource,
   CountryCoverageRetrieveCountryResponse,
   CountryCoverageRetrieveResponse,
 } from './resources/country-coverage';
@@ -453,6 +455,7 @@ import {
   MessagingHostedNumbers,
 } from './resources/messaging-hosted-numbers';
 import {
+  BulkMessagingSettingsUpdatePhoneNumbers,
   MessagingNumbersBulkUpdateCreateParams,
   MessagingNumbersBulkUpdateCreateResponse,
   MessagingNumbersBulkUpdateRetrieveResponse,
@@ -716,6 +719,7 @@ import {
   RequirementGroupListResponse,
   RequirementGroupUpdateParams,
   RequirementGroups,
+  UserRequirement,
 } from './resources/requirement-groups';
 import {
   RequirementTypeListParams,
@@ -820,6 +824,7 @@ import {
   SubNumberOrdersReportCreateParams,
   SubNumberOrdersReportCreateResponse,
   SubNumberOrdersReportDownloadResponse,
+  SubNumberOrdersReportResource,
   SubNumberOrdersReportRetrieveResponse,
 } from './resources/sub-number-orders-report';
 import {
@@ -904,6 +909,8 @@ import {
   VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination,
 } from './resources/virtual-cross-connects-coverage';
 import {
+  Attempt,
+  HTTP,
   WebhookDeliveries,
   WebhookDeliveryListParams,
   WebhookDeliveryListResponse,
@@ -1073,7 +1080,7 @@ import {
   WirelessBlocklists,
   WirelessBlocklistsDefaultFlatPagination,
 } from './resources/wireless-blocklists';
-import { Actions } from './resources/actions/actions';
+import { Actions, WirelessError } from './resources/actions/actions';
 import {
   Address,
   AddressCreateParams,
@@ -1109,6 +1116,7 @@ import {
   ConferenceListParticipantsParams,
   ConferenceListParticipantsResponse,
   ConferenceListParticipantsResponsesDefaultFlatPagination,
+  ConferenceParticipant,
   ConferenceRetrieveParams,
   ConferenceRetrieveParticipantParams,
   ConferenceRetrieveParticipantResponse,
@@ -1204,7 +1212,13 @@ import {
   RcsCardContent,
   RcsContentInfo,
   RcsSuggestion,
+  RcsToItem,
+  WhatsappContact,
+  WhatsappInteractive,
+  WhatsappLocation,
   WhatsappMedia,
+  WhatsappMessageContent,
+  WhatsappReaction,
 } from './resources/messages/messages';
 import { Messaging10dlc, Messaging10dlcGetEnumResponse } from './resources/messaging-10dlc/messaging-10dlc';
 import {
@@ -2298,7 +2312,7 @@ export class Telnyx {
   comments: API.Comments = new API.Comments(this);
   conferences: API.Conferences = new API.Conferences(this);
   connections: API.Connections = new API.Connections(this);
-  countryCoverage: API.CountryCoverage = new API.CountryCoverage(this);
+  countryCoverage: API.CountryCoverageResource = new API.CountryCoverageResource(this);
   credentialConnections: API.CredentialConnections = new API.CredentialConnections(this);
   customStorageCredentials: API.CustomStorageCredentials = new API.CustomStorageCredentials(this);
   customerServiceRecords: API.CustomerServiceRecords = new API.CustomerServiceRecords(this);
@@ -2398,7 +2412,7 @@ export class Telnyx {
   siprecConnectors: API.SiprecConnectors = new API.SiprecConnectors(this);
   storage: API.Storage = new API.Storage(this);
   subNumberOrders: API.SubNumberOrders = new API.SubNumberOrders(this);
-  subNumberOrdersReport: API.SubNumberOrdersReport = new API.SubNumberOrdersReport(this);
+  subNumberOrdersReport: API.SubNumberOrdersReportResource = new API.SubNumberOrdersReportResource(this);
   telephonyCredentials: API.TelephonyCredentials = new API.TelephonyCredentials(this);
   texml: API.Texml = new API.Texml(this);
   texmlApplications: API.TexmlApplications = new API.TexmlApplications(this);
@@ -2456,7 +2470,7 @@ Telnyx.ChargesSummary = ChargesSummary;
 Telnyx.Comments = Comments;
 Telnyx.Conferences = Conferences;
 Telnyx.Connections = Connections;
-Telnyx.CountryCoverage = CountryCoverage;
+Telnyx.CountryCoverageResource = CountryCoverageResource;
 Telnyx.CredentialConnections = CredentialConnections;
 Telnyx.CustomStorageCredentials = CustomStorageCredentials;
 Telnyx.CustomerServiceRecords = CustomerServiceRecords;
@@ -2553,7 +2567,7 @@ Telnyx.SimCards = SimCards;
 Telnyx.SiprecConnectors = SiprecConnectors;
 Telnyx.Storage = Storage;
 Telnyx.SubNumberOrders = SubNumberOrders;
-Telnyx.SubNumberOrdersReport = SubNumberOrdersReport;
+Telnyx.SubNumberOrdersReportResource = SubNumberOrdersReportResource;
 Telnyx.TelephonyCredentials = TelephonyCredentials;
 Telnyx.Texml = Texml;
 Telnyx.TexmlApplications = TexmlApplications;
@@ -2808,7 +2822,7 @@ export declare namespace Telnyx {
     type AccessIPRangeListParams as AccessIPRangeListParams,
   };
 
-  export { Actions as Actions };
+  export { Actions as Actions, type WirelessError as WirelessError };
 
   export {
     Addresses as Addresses,
@@ -2890,6 +2904,7 @@ export declare namespace Telnyx {
 
   export {
     BulkSimCardActions as BulkSimCardActions,
+    type SimCardActionsSummary as SimCardActionsSummary,
     type BulkSimCardActionRetrieveResponse as BulkSimCardActionRetrieveResponse,
     type BulkSimCardActionListResponse as BulkSimCardActionListResponse,
     type BulkSimCardActionListResponsesDefaultFlatPagination as BulkSimCardActionListResponsesDefaultFlatPagination,
@@ -2971,6 +2986,7 @@ export declare namespace Telnyx {
   export {
     Conferences as Conferences,
     type Conference as Conference,
+    type ConferenceParticipant as ConferenceParticipant,
     type ConferenceCreateResponse as ConferenceCreateResponse,
     type ConferenceRetrieveResponse as ConferenceRetrieveResponse,
     type ConferenceListParticipantsResponse as ConferenceListParticipantsResponse,
@@ -2998,7 +3014,8 @@ export declare namespace Telnyx {
   };
 
   export {
-    CountryCoverage as CountryCoverage,
+    CountryCoverageResource as CountryCoverageResource,
+    type CountryCoverage as CountryCoverage,
     type CountryCoverageRetrieveResponse as CountryCoverageRetrieveResponse,
     type CountryCoverageRetrieveCountryResponse as CountryCoverageRetrieveCountryResponse,
   };
@@ -3362,7 +3379,13 @@ export declare namespace Telnyx {
     type RcsCardContent as RcsCardContent,
     type RcsContentInfo as RcsContentInfo,
     type RcsSuggestion as RcsSuggestion,
+    type RcsToItem as RcsToItem,
+    type WhatsappContact as WhatsappContact,
+    type WhatsappInteractive as WhatsappInteractive,
+    type WhatsappLocation as WhatsappLocation,
     type WhatsappMedia as WhatsappMedia,
+    type WhatsappMessageContent as WhatsappMessageContent,
+    type WhatsappReaction as WhatsappReaction,
     type MessageRetrieveResponse as MessageRetrieveResponse,
     type MessageCancelScheduledResponse as MessageCancelScheduledResponse,
     type MessageRetrieveGroupMessagesResponse as MessageRetrieveGroupMessagesResponse,
@@ -3412,6 +3435,7 @@ export declare namespace Telnyx {
 
   export {
     MessagingNumbersBulkUpdates as MessagingNumbersBulkUpdates,
+    type BulkMessagingSettingsUpdatePhoneNumbers as BulkMessagingSettingsUpdatePhoneNumbers,
     type MessagingNumbersBulkUpdateCreateResponse as MessagingNumbersBulkUpdateCreateResponse,
     type MessagingNumbersBulkUpdateRetrieveResponse as MessagingNumbersBulkUpdateRetrieveResponse,
     type MessagingNumbersBulkUpdateCreateParams as MessagingNumbersBulkUpdateCreateParams,
@@ -3797,6 +3821,7 @@ export declare namespace Telnyx {
   export {
     RequirementGroups as RequirementGroups,
     type RequirementGroup as RequirementGroup,
+    type UserRequirement as UserRequirement,
     type RequirementGroupListResponse as RequirementGroupListResponse,
     type RequirementGroupCreateParams as RequirementGroupCreateParams,
     type RequirementGroupUpdateParams as RequirementGroupUpdateParams,
@@ -3966,7 +3991,8 @@ export declare namespace Telnyx {
   };
 
   export {
-    SubNumberOrdersReport as SubNumberOrdersReport,
+    SubNumberOrdersReportResource as SubNumberOrdersReportResource,
+    type SubNumberOrdersReport as SubNumberOrdersReport,
     type SubNumberOrdersReportCreateResponse as SubNumberOrdersReportCreateResponse,
     type SubNumberOrdersReportRetrieveResponse as SubNumberOrdersReportRetrieveResponse,
     type SubNumberOrdersReportDownloadResponse as SubNumberOrdersReportDownloadResponse,
@@ -4095,6 +4121,8 @@ export declare namespace Telnyx {
 
   export {
     WebhookDeliveries as WebhookDeliveries,
+    type Attempt as Attempt,
+    type HTTP as HTTP,
     type WebhookDeliveryRetrieveResponse as WebhookDeliveryRetrieveResponse,
     type WebhookDeliveryListResponse as WebhookDeliveryListResponse,
     type WebhookDeliveryListResponsesDefaultFlatPagination as WebhookDeliveryListResponsesDefaultFlatPagination,
@@ -4223,7 +4251,9 @@ export declare namespace Telnyx {
   export type ConnectionJitterBuffer = API.ConnectionJitterBuffer;
   export type ConnectionNoiseSuppressionDetails = API.ConnectionNoiseSuppressionDetails;
   export type ConnectionsPaginationMeta = API.ConnectionsPaginationMeta;
+  export type CostInformation = API.CostInformation;
   export type DocReqsRequirementType = API.DocReqsRequirementType;
+  export type Feature = API.Feature;
   export type HostedNumber = API.HostedNumber;
   export type InboundMessagePayload = API.InboundMessagePayload;
   export type MessagingFeatureSet = API.MessagingFeatureSet;
@@ -4231,10 +4261,13 @@ export declare namespace Telnyx {
   export type MessagingPaginationMeta = API.MessagingPaginationMeta;
   export type Metadata = API.Metadata;
   export type MinimaxVoiceSettings = API.MinimaxVoiceSettings;
+  export type NetappsLocation = API.NetappsLocation;
   export type NumberHealthMetrics = API.NumberHealthMetrics;
   export type PhoneNumberWithMessagingSettings = API.PhoneNumberWithMessagingSettings;
+  export type PhoneNumbersJobPhoneNumber = API.PhoneNumbersJobPhoneNumber;
   export type PortingOrderStatus = API.PortingOrderStatus;
   export type PortingOrdersExceptionType = API.PortingOrdersExceptionType;
+  export type RegionInformation = API.RegionInformation;
   export type ResembleVoiceSettings = API.ResembleVoiceSettings;
   export type RimeVoiceSettings = API.RimeVoiceSettings;
   export type RoomParticipant = API.RoomParticipant;

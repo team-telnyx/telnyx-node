@@ -48,138 +48,71 @@ export class CivicAddresses extends APIResource {
   }
 }
 
-export interface CivicAddressRetrieveResponse {
-  data?: CivicAddressRetrieveResponse.Data;
+export interface CivicAddress {
+  /**
+   * Uniquely identifies the resource.
+   */
+  id?: string;
+
+  city_or_town?: string;
+
+  city_or_town_alias?: string;
+
+  company_name?: string;
+
+  country?: string;
+
+  country_or_district?: string;
+
+  /**
+   * Identifies what is the default location in the list of locations.
+   */
+  default_location_id?: string;
+
+  description?: string;
+
+  house_number?: string;
+
+  house_number_suffix?: string;
+
+  locations?: Array<Location>;
+
+  postal_or_zip_code?: string;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: string;
+
+  state_or_province?: string;
+
+  street_name?: string;
+
+  street_suffix?: string;
 }
 
-export namespace CivicAddressRetrieveResponse {
-  export interface Data {
-    /**
-     * Uniquely identifies the resource.
-     */
-    id?: string;
+export interface Location {
+  /**
+   * Uniquely identifies the resource.
+   */
+  id?: string;
 
-    city_or_town?: string;
+  additional_info?: string;
 
-    city_or_town_alias?: string;
+  description?: string;
 
-    company_name?: string;
+  /**
+   * Represents whether the location is the default or not.
+   */
+  is_default?: boolean;
+}
 
-    country?: string;
-
-    country_or_district?: string;
-
-    /**
-     * Identifies what is the default location in the list of locations.
-     */
-    default_location_id?: string;
-
-    description?: string;
-
-    house_number?: string;
-
-    house_number_suffix?: string;
-
-    locations?: Array<Data.Location>;
-
-    postal_or_zip_code?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    state_or_province?: string;
-
-    street_name?: string;
-
-    street_suffix?: string;
-  }
-
-  export namespace Data {
-    export interface Location {
-      /**
-       * Uniquely identifies the resource.
-       */
-      id?: string;
-
-      additional_info?: string;
-
-      description?: string;
-
-      /**
-       * Represents whether the location is the default or not.
-       */
-      is_default?: boolean;
-    }
-  }
+export interface CivicAddressRetrieveResponse {
+  data?: CivicAddress;
 }
 
 export interface CivicAddressListResponse {
-  data?: Array<CivicAddressListResponse.Data>;
-}
-
-export namespace CivicAddressListResponse {
-  export interface Data {
-    /**
-     * Uniquely identifies the resource.
-     */
-    id?: string;
-
-    city_or_town?: string;
-
-    city_or_town_alias?: string;
-
-    company_name?: string;
-
-    country?: string;
-
-    country_or_district?: string;
-
-    /**
-     * Identifies what is the default location in the list of locations.
-     */
-    default_location_id?: string;
-
-    description?: string;
-
-    house_number?: string;
-
-    house_number_suffix?: string;
-
-    locations?: Array<Data.Location>;
-
-    postal_or_zip_code?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    state_or_province?: string;
-
-    street_name?: string;
-
-    street_suffix?: string;
-  }
-
-  export namespace Data {
-    export interface Location {
-      /**
-       * Uniquely identifies the resource.
-       */
-      id?: string;
-
-      additional_info?: string;
-
-      description?: string;
-
-      /**
-       * Represents whether the location is the default or not.
-       */
-      is_default?: boolean;
-    }
-  }
+  data?: Array<CivicAddress>;
 }
 
 export interface CivicAddressRetrieveParams {
@@ -212,6 +145,8 @@ export namespace CivicAddressListParams {
 
 export declare namespace CivicAddresses {
   export {
+    type CivicAddress as CivicAddress,
+    type Location as Location,
     type CivicAddressRetrieveResponse as CivicAddressRetrieveResponse,
     type CivicAddressListResponse as CivicAddressListResponse,
     type CivicAddressRetrieveParams as CivicAddressRetrieveParams,

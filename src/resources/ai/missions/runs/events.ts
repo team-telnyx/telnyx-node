@@ -17,7 +17,7 @@ export class Events extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const eventListResponse of client.ai.missions.runs.events.list(
+   * for await (const eventData of client.ai.missions.runs.events.list(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *   { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
    * )) {
@@ -29,11 +29,11 @@ export class Events extends APIResource {
     runID: string,
     params: EventListParams,
     options?: RequestOptions,
-  ): PagePromise<EventListResponsesDefaultFlatPagination, EventListResponse> {
+  ): PagePromise<EventDataDefaultFlatPagination, EventData> {
     const { mission_id, ...query } = params;
     return this._client.getAPIList(
       path`/ai/missions/${mission_id}/runs/${runID}/events`,
-      DefaultFlatPagination<EventListResponse>,
+      DefaultFlatPagination<EventData>,
       { query, ...options },
     );
   }
@@ -83,9 +83,9 @@ export class Events extends APIResource {
   }
 }
 
-export type EventListResponsesDefaultFlatPagination = DefaultFlatPagination<EventListResponse>;
+export type EventDataDefaultFlatPagination = DefaultFlatPagination<EventData>;
 
-export interface EventListResponse {
+export interface EventData {
   event_id: string;
 
   run_id: string;
@@ -115,73 +115,11 @@ export interface EventListResponse {
 }
 
 export interface EventGetEventDetailsResponse {
-  data: EventGetEventDetailsResponse.Data;
-}
-
-export namespace EventGetEventDetailsResponse {
-  export interface Data {
-    event_id: string;
-
-    run_id: string;
-
-    summary: string;
-
-    timestamp: string;
-
-    type:
-      | 'status_change'
-      | 'step_started'
-      | 'step_completed'
-      | 'step_failed'
-      | 'tool_call'
-      | 'tool_result'
-      | 'message'
-      | 'error'
-      | 'custom';
-
-    agent_id?: string;
-
-    idempotency_key?: string;
-
-    payload?: { [key: string]: unknown };
-
-    step_id?: string;
-  }
+  data: EventData;
 }
 
 export interface EventLogResponse {
-  data: EventLogResponse.Data;
-}
-
-export namespace EventLogResponse {
-  export interface Data {
-    event_id: string;
-
-    run_id: string;
-
-    summary: string;
-
-    timestamp: string;
-
-    type:
-      | 'status_change'
-      | 'step_started'
-      | 'step_completed'
-      | 'step_failed'
-      | 'tool_call'
-      | 'tool_result'
-      | 'message'
-      | 'error'
-      | 'custom';
-
-    agent_id?: string;
-
-    idempotency_key?: string;
-
-    payload?: { [key: string]: unknown };
-
-    step_id?: string;
-  }
+  data: EventData;
 }
 
 export interface EventListParams extends DefaultFlatPaginationParams {
@@ -260,10 +198,10 @@ export interface EventLogParams {
 
 export declare namespace Events {
   export {
-    type EventListResponse as EventListResponse,
+    type EventData as EventData,
     type EventGetEventDetailsResponse as EventGetEventDetailsResponse,
     type EventLogResponse as EventLogResponse,
-    type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
+    type EventDataDefaultFlatPagination as EventDataDefaultFlatPagination,
     type EventListParams as EventListParams,
     type EventGetEventDetailsParams as EventGetEventDetailsParams,
     type EventLogParams as EventLogParams,

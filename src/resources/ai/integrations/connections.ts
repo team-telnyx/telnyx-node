@@ -53,36 +53,25 @@ export class Connections extends APIResource {
   }
 }
 
-export interface ConnectionRetrieveResponse {
-  data: ConnectionRetrieveResponse.Data;
+export interface IntegrationConnection {
+  id: string;
+
+  allowed_tools: Array<string>;
+
+  integration_id: string;
 }
 
-export namespace ConnectionRetrieveResponse {
-  export interface Data {
-    id: string;
-
-    allowed_tools: Array<string>;
-
-    integration_id: string;
-  }
+export interface ConnectionRetrieveResponse {
+  data: IntegrationConnection;
 }
 
 export interface ConnectionListResponse {
-  data: Array<ConnectionListResponse.Data>;
-}
-
-export namespace ConnectionListResponse {
-  export interface Data {
-    id: string;
-
-    allowed_tools: Array<string>;
-
-    integration_id: string;
-  }
+  data: Array<IntegrationConnection>;
 }
 
 export declare namespace Connections {
   export {
+    type IntegrationConnection as IntegrationConnection,
     type ConnectionRetrieveResponse as ConnectionRetrieveResponse,
     type ConnectionListResponse as ConnectionListResponse,
   };
