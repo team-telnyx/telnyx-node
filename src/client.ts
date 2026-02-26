@@ -11,7 +11,7 @@ import type { APIResponseProps } from './internal/parse';
 import { getPlatformHeaders } from './internal/detect-platform';
 import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
-import * as qs from './internal/qs';
+import { stringifyQuery } from './internal/utils/query';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Pagination from './core/pagination';
@@ -849,9 +849,9 @@ import {
 } from './resources/texml-applications';
 import {
   TextToSpeech,
+  TextToSpeechGenerateSpeechParams,
   TextToSpeechListVoicesParams,
   TextToSpeechListVoicesResponse,
-  TextToSpeechStreamParams,
 } from './resources/text-to-speech';
 import {
   UsageReportGetOptionsParams,
@@ -1735,8 +1735,8 @@ export class Telnyx {
     return buildHeaders([{ Authorization: `Bearer ${token.access_token}` }]);
   }
 
-  protected stringifyQuery(query: BuiltinRecord<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
+  protected stringifyQuery(query: object | BuiltinRecord<string, unknown>): string {
+    return stringifyQuery(query);
   }
 
   private getUserAgent(): string {
@@ -1773,7 +1773,7 @@ export class Telnyx {
     }
 
     if (typeof query === 'object' && query && !Array.isArray(query)) {
-      url.search = this.stringifyQuery(query as BuiltinRecord<string, unknown>);
+      url.search = this.stringifyQuery(query);
     }
 
     return url.toString();
@@ -2243,7 +2243,7 @@ export class Telnyx {
     ) {
       return {
         bodyHeaders: { 'content-type': 'application/x-www-form-urlencoded' },
-        body: this.stringifyQuery(body as BuiltinRecord<string, unknown>),
+        body: this.stringifyQuery(body),
       };
     } else {
       return this.#encoder({ body, headers });
@@ -4008,8 +4008,8 @@ export declare namespace Telnyx {
   export {
     TextToSpeech as TextToSpeech,
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
+    type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
-    type TextToSpeechStreamParams as TextToSpeechStreamParams,
   };
 
   export {
