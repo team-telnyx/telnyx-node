@@ -238,6 +238,7 @@ describe('resource actions', () => {
   test.skip('recordStart: required and optional params', async () => {
     const response = await client.conferences.actions.recordStart('id', {
       format: 'wav',
+      channels: 'dual',
       command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
       custom_file_name: 'my_recording_file_name',
       play_beep: true,
