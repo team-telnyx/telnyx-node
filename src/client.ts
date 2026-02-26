@@ -849,9 +849,9 @@ import {
 } from './resources/texml-applications';
 import {
   TextToSpeech,
+  TextToSpeechGenerateSpeechParams,
   TextToSpeechListVoicesParams,
   TextToSpeechListVoicesResponse,
-  TextToSpeechStreamParams,
 } from './resources/text-to-speech';
 import {
   UsageReportGetOptionsParams,
@@ -4009,8 +4009,8 @@ export declare namespace Telnyx {
   export {
     TextToSpeech as TextToSpeech,
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
+    type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
-    type TextToSpeechStreamParams as TextToSpeechStreamParams,
   };
 
   export {
