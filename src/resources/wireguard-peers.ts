@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as WireguardPeersAPI from './wireguard-peers';
 import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import { APIPromise } from '../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
@@ -127,7 +126,7 @@ export interface WireguardPeerCreateResponse {
 }
 
 export namespace WireguardPeerCreateResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, WireguardPeersAPI.WireguardPeerPatch {
+  export interface Data extends GlobalIPAssignmentsAPI.Record {
     /**
      * ISO 8601 formatted date-time indicating when peer sent traffic last time.
      */
@@ -154,7 +153,7 @@ export interface WireguardPeerRetrieveResponse {
 }
 
 export namespace WireguardPeerRetrieveResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, WireguardPeersAPI.WireguardPeerPatch {
+  export interface Data extends GlobalIPAssignmentsAPI.Record {
     /**
      * ISO 8601 formatted date-time indicating when peer sent traffic last time.
      */
@@ -181,7 +180,7 @@ export interface WireguardPeerUpdateResponse {
 }
 
 export namespace WireguardPeerUpdateResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, WireguardPeersAPI.WireguardPeerPatch {
+  export interface Data extends GlobalIPAssignmentsAPI.Record {
     /**
      * ISO 8601 formatted date-time indicating when peer sent traffic last time.
      */
@@ -203,7 +202,7 @@ export namespace WireguardPeerUpdateResponse {
   }
 }
 
-export interface WireguardPeerListResponse extends GlobalIPAssignmentsAPI.Record, WireguardPeerPatch {
+export interface WireguardPeerListResponse extends GlobalIPAssignmentsAPI.Record {
   /**
    * ISO 8601 formatted date-time indicating when peer sent traffic last time.
    */
@@ -229,7 +228,7 @@ export interface WireguardPeerDeleteResponse {
 }
 
 export namespace WireguardPeerDeleteResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, WireguardPeersAPI.WireguardPeerPatch {
+  export interface Data extends GlobalIPAssignmentsAPI.Record {
     /**
      * ISO 8601 formatted date-time indicating when peer sent traffic last time.
      */
@@ -258,12 +257,6 @@ export interface WireguardPeerCreateParams {
    * The id of the wireguard interface associated with the peer.
    */
   wireguard_interface_id: string;
-
-  /**
-   * The WireGuard `PublicKey`.<br /><br />If you do not provide a Public Key, a new
-   * Public and Private key pair will be generated for you.
-   */
-  public_key?: string;
 }
 
 export interface WireguardPeerUpdateParams {
