@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Usage data reporting across Telnyx products
+ */
 export class UsageReports extends APIResource {
   /**
    * Get Telnyx usage data by product, broken out by the specified dimensions

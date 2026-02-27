@@ -5,6 +5,9 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Configure your phone numbers
+ */
 export class MessagingNumbersBulkUpdates extends APIResource {
   /**
    * Bulk update phone number profiles

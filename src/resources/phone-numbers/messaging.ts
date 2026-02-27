@@ -8,6 +8,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Configure your phone numbers
+ */
 export class Messaging extends APIResource {
   /**
    * Retrieve a phone number with messaging settings

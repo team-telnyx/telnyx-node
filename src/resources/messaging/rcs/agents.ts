@@ -12,6 +12,9 @@ import {
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Send RCS messages
+ */
 export class Agents extends APIResource {
   /**
    * Retrieve an RCS agent

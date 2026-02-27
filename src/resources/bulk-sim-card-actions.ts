@@ -7,6 +7,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * View SIM card actions, their progress and timestamps using the SIM Card Actions API
+ */
 export class BulkSimCardActions extends APIResource {
   /**
    * This API fetches information about a bulk SIM card action. A bulk SIM card

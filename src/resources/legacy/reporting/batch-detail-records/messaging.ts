@@ -6,6 +6,9 @@ import { APIPromise } from '../../../../core/api-promise';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
+/**
+ * Messaging batch detail records
+ */
 export class Messaging extends APIResource {
   /**
    * Creates a new MDR detailed report request with the specified filters

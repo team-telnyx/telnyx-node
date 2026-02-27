@@ -8,6 +8,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Two factor authentication API
+ */
 export class ByPhoneNumber extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 

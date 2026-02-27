@@ -6,6 +6,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Operations related to users in your organization
+ */
 export class Actions extends APIResource {
   /**
    * Deletes a user in your organization.

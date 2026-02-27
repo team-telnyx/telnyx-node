@@ -6,6 +6,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Migrate data from an external provider into Telnyx Cloud Storage
+ */
 export class Actions extends APIResource {
   /**
    * Stop a Migration

@@ -2289,153 +2289,510 @@ export class Telnyx {
   oauthClients: API.OAuthClients = new API.OAuthClients(this);
   oauthGrants: API.OAuthGrants = new API.OAuthGrants(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
+  /**
+   * IP Address Operations
+   */
   accessIPAddress: API.AccessIPAddress = new API.AccessIPAddress(this);
+  /**
+   * IP Range Operations
+   */
   accessIPRanges: API.AccessIPRanges = new API.AccessIPRanges(this);
   actions: API.Actions = new API.Actions(this);
+  /**
+   * Operations to work with Address records. Address records are emergency-validated addresses meant to be associated with phone numbers. They are validated for emergency usage purposes at creation time, although you may validate them separately with a custom workflow using the ValidateAddress operation separately. Address records are not usable for physical orders, such as for Telnyx SIM cards, please use UserAddress for that. It is not possible to entirely skip emergency service validation for Address records; if an emergency provider for a phone number rejects the address then it cannot be used on a phone number. To prevent records from getting out of sync, Address records are immutable and cannot be altered once created. If you realize you need to alter an address, a new record must be created with the differing address.
+   */
   addresses: API.Addresses = new API.Addresses(this);
   advancedOrders: API.AdvancedOrders = new API.AdvancedOrders(this);
+  /**
+   * Generate text with LLMs
+   */
   ai: API.AI = new API.AI(this);
+  /**
+   * Audit log operations.
+   */
   auditEvents: API.AuditEvents = new API.AuditEvents(this);
   authenticationProviders: API.AuthenticationProviders = new API.AuthenticationProviders(this);
+  /**
+   * Number search
+   */
   availablePhoneNumberBlocks: API.AvailablePhoneNumberBlocks = new API.AvailablePhoneNumberBlocks(this);
+  /**
+   * Number search
+   */
   availablePhoneNumbers: API.AvailablePhoneNumbers = new API.AvailablePhoneNumbers(this);
+  /**
+   * Billing operations
+   */
   balance: API.Balance = new API.Balance(this);
+  /**
+   * Billing groups operations
+   */
   billingGroups: API.BillingGroups = new API.BillingGroups(this);
+  /**
+   * View SIM card actions, their progress and timestamps using the SIM Card Actions API
+   */
   bulkSimCardActions: API.BulkSimCardActions = new API.BulkSimCardActions(this);
   bundlePricing: API.BundlePricing = new API.BundlePricing(this);
+  /**
+   * Call Control applications operations
+   */
   callControlApplications: API.CallControlApplications = new API.CallControlApplications(this);
+  /**
+   * Call Control debugging
+   */
   callEvents: API.CallEvents = new API.CallEvents(this);
   calls: API.Calls = new API.Calls(this);
+  /**
+   * Voice Channels
+   */
   channelZones: API.ChannelZones = new API.ChannelZones(this);
   chargesBreakdown: API.ChargesBreakdown = new API.ChargesBreakdown(this);
   chargesSummary: API.ChargesSummary = new API.ChargesSummary(this);
+  /**
+   * Number orders
+   */
   comments: API.Comments = new API.Comments(this);
+  /**
+   * Conference command operations
+   */
   conferences: API.Conferences = new API.Conferences(this);
   connections: API.Connections = new API.Connections(this);
+  /**
+   * Country Coverage
+   */
   countryCoverage: API.CountryCoverageResource = new API.CountryCoverageResource(this);
+  /**
+   * Credential connection operations
+   */
   credentialConnections: API.CredentialConnections = new API.CredentialConnections(this);
+  /**
+   * Call Recordings operations.
+   */
   customStorageCredentials: API.CustomStorageCredentials = new API.CustomStorageCredentials(this);
+  /**
+   * Customer Service Record operations
+   */
   customerServiceRecords: API.CustomerServiceRecords = new API.CustomerServiceRecords(this);
+  /**
+   * Detail Records operations
+   */
   detailRecords: API.DetailRecords = new API.DetailRecords(this);
+  /**
+   * Dialogflow Connection Operations.
+   */
   dialogflowConnections: API.DialogflowConnections = new API.DialogflowConnections(this);
+  /**
+   * Documents
+   */
   documentLinks: API.DocumentLinks = new API.DocumentLinks(this);
+  /**
+   * Documents
+   */
   documents: API.Documents = new API.Documents(this);
+  /**
+   * Dynamic emergency address operations
+   */
   dynamicEmergencyAddresses: API.DynamicEmergencyAddresses = new API.DynamicEmergencyAddresses(this);
+  /**
+   * Dynamic Emergency Endpoints
+   */
   dynamicEmergencyEndpoints: API.DynamicEmergencyEndpoints = new API.DynamicEmergencyEndpoints(this);
+  /**
+   * External Connections operations
+   */
   externalConnections: API.ExternalConnections = new API.ExternalConnections(this);
+  /**
+   * Fax Applications operations
+   */
   faxApplications: API.FaxApplications = new API.FaxApplications(this);
+  /**
+   * Programmable fax command operations
+   */
   faxes: API.Faxes = new API.Faxes(this);
+  /**
+   * FQDN connection operations
+   */
   fqdnConnections: API.FqdnConnections = new API.FqdnConnections(this);
+  /**
+   * FQDN operations
+   */
   fqdns: API.Fqdns = new API.Fqdns(this);
+  /**
+   * Global IPs
+   */
   globalIPAllowedPorts: API.GlobalIPAllowedPorts = new API.GlobalIPAllowedPorts(this);
+  /**
+   * Global IPs
+   */
   globalIPAssignmentHealth: API.GlobalIPAssignmentHealth = new API.GlobalIPAssignmentHealth(this);
+  /**
+   * Global IPs
+   */
   globalIPAssignments: API.GlobalIPAssignments = new API.GlobalIPAssignments(this);
+  /**
+   * Global IPs
+   */
   globalIPAssignmentsUsage: API.GlobalIPAssignmentsUsage = new API.GlobalIPAssignmentsUsage(this);
+  /**
+   * Global IPs
+   */
   globalIPHealthCheckTypes: API.GlobalIPHealthCheckTypes = new API.GlobalIPHealthCheckTypes(this);
+  /**
+   * Global IPs
+   */
   globalIPHealthChecks: API.GlobalIPHealthChecks = new API.GlobalIPHealthChecks(this);
+  /**
+   * Global IPs
+   */
   globalIPLatency: API.GlobalIPLatency = new API.GlobalIPLatency(this);
+  /**
+   * Global IPs
+   */
   globalIPProtocols: API.GlobalIPProtocols = new API.GlobalIPProtocols(this);
+  /**
+   * Global IPs
+   */
   globalIPUsage: API.GlobalIPUsage = new API.GlobalIPUsage(this);
+  /**
+   * Global IPs
+   */
   globalIPs: API.GlobalIPs = new API.GlobalIPs(this);
+  /**
+   * Voice Channels
+   */
   inboundChannels: API.InboundChannels = new API.InboundChannels(this);
+  /**
+   * Store and retrieve integration secrets
+   */
   integrationSecrets: API.IntegrationSecrets = new API.IntegrationSecrets(this);
+  /**
+   * Inventory Level
+   */
   inventoryCoverage: API.InventoryCoverage = new API.InventoryCoverage(this);
   invoices: API.Invoices = new API.Invoices(this);
+  /**
+   * IP connection operations
+   */
   ipConnections: API.IPConnections = new API.IPConnections(this);
+  /**
+   * IP operations
+   */
   ips: API.IPs = new API.IPs(this);
+  /**
+   * Ledger billing reports
+   */
   ledgerBillingGroupReports: API.LedgerBillingGroupReports = new API.LedgerBillingGroupReports(this);
+  /**
+   * Voice Channels
+   */
   list: API.List = new API.List(this);
+  /**
+   * Managed Accounts operations
+   */
   managedAccounts: API.ManagedAccounts = new API.ManagedAccounts(this);
+  /**
+   * Media Storage operations
+   */
   media: API.Media = new API.Media(this);
   messages: API.Messages = new API.Messages(this);
   messaging: API.Messaging = new API.Messaging(this);
+  /**
+   * Manage your messaging hosted numbers
+   */
   messagingHostedNumberOrders: API.MessagingHostedNumberOrders = new API.MessagingHostedNumberOrders(this);
   messagingHostedNumbers: API.MessagingHostedNumbers = new API.MessagingHostedNumbers(this);
+  /**
+   * Configure your phone numbers
+   */
   messagingNumbersBulkUpdates: API.MessagingNumbersBulkUpdates = new API.MessagingNumbersBulkUpdates(this);
+  /**
+   * Opt-Out Management
+   */
   messagingOptouts: API.MessagingOptouts = new API.MessagingOptouts(this);
   messagingProfiles: API.MessagingProfiles = new API.MessagingProfiles(this);
   messagingTollfree: API.MessagingTollfree = new API.MessagingTollfree(this);
+  /**
+   * Messaging URL Domains
+   */
   messagingURLDomains: API.MessagingURLDomains = new API.MessagingURLDomains(this);
+  /**
+   * Mobile network operators operations
+   */
   mobileNetworkOperators: API.MobileNetworkOperators = new API.MobileNetworkOperators(this);
+  /**
+   * Mobile push credential management
+   */
   mobilePushCredentials: API.MobilePushCredentials = new API.MobilePushCredentials(this);
   networkCoverage: API.NetworkCoverage = new API.NetworkCoverage(this);
+  /**
+   * Network operations
+   */
   networks: API.Networks = new API.Networks(this);
+  /**
+   * Notification settings operations
+   */
   notificationChannels: API.NotificationChannels = new API.NotificationChannels(this);
+  /**
+   * Notification settings operations
+   */
   notificationEventConditions: API.NotificationEventConditions = new API.NotificationEventConditions(this);
+  /**
+   * Notification settings operations
+   */
   notificationEvents: API.NotificationEvents = new API.NotificationEvents(this);
+  /**
+   * Notification settings operations
+   */
   notificationProfiles: API.NotificationProfiles = new API.NotificationProfiles(this);
+  /**
+   * Notification settings operations
+   */
   notificationSettings: API.NotificationSettings = new API.NotificationSettings(this);
   numberBlockOrders: API.NumberBlockOrders = new API.NumberBlockOrders(this);
+  /**
+   * Look up phone number data
+   */
   numberLookup: API.NumberLookup = new API.NumberLookup(this);
   numberOrderPhoneNumbers: API.NumberOrderPhoneNumbers = new API.NumberOrderPhoneNumbers(this);
+  /**
+   * Number orders
+   */
   numberOrders: API.NumberOrders = new API.NumberOrders(this);
+  /**
+   * Number reservations
+   */
   numberReservations: API.NumberReservations = new API.NumberReservations(this);
   numbersFeatures: API.NumbersFeatures = new API.NumbersFeatures(this);
   operatorConnect: API.OperatorConnect = new API.OperatorConnect(this);
+  /**
+   * OTA updates operations
+   */
   otaUpdates: API.OtaUpdates = new API.OtaUpdates(this);
+  /**
+   * Outbound voice profiles operations
+   */
   outboundVoiceProfiles: API.OutboundVoiceProfiles = new API.OutboundVoiceProfiles(this);
+  /**
+   * Operations for managing stored payment transactions.
+   */
   payment: API.Payment = new API.Payment(this);
   phoneNumberBlocks: API.PhoneNumberBlocks = new API.PhoneNumberBlocks(this);
+  /**
+   * Configure your phone numbers
+   */
   phoneNumbers: API.PhoneNumbers = new API.PhoneNumbers(this);
+  /**
+   * Regulatory Requirements
+   */
   phoneNumbersRegulatoryRequirements: API.PhoneNumbersRegulatoryRequirements =
     new API.PhoneNumbersRegulatoryRequirements(this);
+  /**
+   * Determining portability of phone numbers
+   */
   portabilityChecks: API.PortabilityChecks = new API.PortabilityChecks(this);
+  /**
+   * Endpoints related to porting orders management.
+   */
   porting: API.Porting = new API.Porting(this);
+  /**
+   * Endpoints related to porting orders management.
+   */
   portingOrders: API.PortingOrders = new API.PortingOrders(this);
+  /**
+   * Endpoints related to porting orders management.
+   */
   portingPhoneNumbers: API.PortingPhoneNumbers = new API.PortingPhoneNumbers(this);
+  /**
+   * Number portout operations
+   */
   portouts: API.Portouts = new API.Portouts(this);
+  /**
+   * Private Wireless Gateways operations
+   */
   privateWirelessGateways: API.PrivateWirelessGateways = new API.PrivateWirelessGateways(this);
+  /**
+   * Public Internet Gateway operations
+   */
   publicInternetGateways: API.PublicInternetGateways = new API.PublicInternetGateways(this);
+  /**
+   * Queue commands operations
+   */
   queues: API.Queues = new API.Queues(this);
   rcsAgents: API.RcsAgents = new API.RcsAgents(this);
+  /**
+   * Call Recordings operations.
+   */
   recordingTranscriptions: API.RecordingTranscriptions = new API.RecordingTranscriptions(this);
+  /**
+   * Call Recordings operations.
+   */
   recordings: API.Recordings = new API.Recordings(this);
+  /**
+   * Regions
+   */
   regions: API.Regions = new API.Regions(this);
+  /**
+   * Regulatory Requirements
+   */
   regulatoryRequirements: API.RegulatoryRequirements = new API.RegulatoryRequirements(this);
   reports: API.Reports = new API.Reports(this);
+  /**
+   * Requirement Groups
+   */
   requirementGroups: API.RequirementGroups = new API.RequirementGroups(this);
+  /**
+   * Types of requirements for international numbers and porting orders
+   */
   requirementTypes: API.RequirementTypes = new API.RequirementTypes(this);
+  /**
+   * Requirements for international numbers and porting orders
+   */
   requirements: API.Requirements = new API.Requirements(this);
+  /**
+   * Rooms Compositions operations.
+   */
   roomCompositions: API.RoomCompositions = new API.RoomCompositions(this);
+  /**
+   * Rooms Participants operations.
+   */
   roomParticipants: API.RoomParticipants = new API.RoomParticipants(this);
+  /**
+   * Rooms Recordings operations.
+   */
   roomRecordings: API.RoomRecordings = new API.RoomRecordings(this);
+  /**
+   * Rooms operations.
+   */
   rooms: API.Rooms = new API.Rooms(this);
+  /**
+   * Observability into Telnyx platform stability and performance.
+   */
   seti: API.Seti = new API.Seti(this);
+  /**
+   * Short codes
+   */
   shortCodes: API.ShortCodes = new API.ShortCodes(this);
+  /**
+   * SIM Cards operations
+   */
   simCardDataUsageNotifications: API.SimCardDataUsageNotifications = new API.SimCardDataUsageNotifications(
     this,
   );
+  /**
+   * SIM Card Groups operations
+   */
   simCardGroups: API.SimCardGroups = new API.SimCardGroups(this);
+  /**
+   * SIM Card Orders operations
+   */
   simCardOrderPreview: API.SimCardOrderPreview = new API.SimCardOrderPreview(this);
+  /**
+   * SIM Card Orders operations
+   */
   simCardOrders: API.SimCardOrders = new API.SimCardOrders(this);
+  /**
+   * SIM Cards operations
+   */
   simCards: API.SimCards = new API.SimCards(this);
+  /**
+   * SIPREC connectors configuration.
+   */
   siprecConnectors: API.SiprecConnectors = new API.SiprecConnectors(this);
+  /**
+   * Migrate data from an external provider into Telnyx Cloud Storage
+   */
   storage: API.Storage = new API.Storage(this);
   subNumberOrders: API.SubNumberOrders = new API.SubNumberOrders(this);
+  /**
+   * Number orders
+   */
   subNumberOrdersReport: API.SubNumberOrdersReportResource = new API.SubNumberOrdersReportResource(this);
   telephonyCredentials: API.TelephonyCredentials = new API.TelephonyCredentials(this);
+  /**
+   * TeXML REST Commands
+   */
   texml: API.Texml = new API.Texml(this);
+  /**
+   * TeXML Applications operations
+   */
   texmlApplications: API.TexmlApplications = new API.TexmlApplications(this);
+  /**
+   * Text to speech streaming command operations
+   */
   textToSpeech: API.TextToSpeech = new API.TextToSpeech(this);
+  /**
+   * Usage data reporting across Telnyx products
+   */
   usageReports: API.UsageReports = new API.UsageReports(this);
+  /**
+   * Operations for working with UserAddress records. UserAddress records are stored addresses that users can use for non-emergency-calling purposes, such as for shipping addresses for orders of wireless SIMs (or other physical items). They cannot be used for emergency calling and are distinct from Address records, which are used on phone numbers.
+   */
   userAddresses: API.UserAddresses = new API.UserAddresses(this);
+  /**
+   * User-defined tags for Telnyx resources
+   */
   userTags: API.UserTags = new API.UserTags(this);
+  /**
+   * Two factor authentication API
+   */
   verifications: API.Verifications = new API.Verifications(this);
+  /**
+   * Verified Numbers operations
+   */
   verifiedNumbers: API.VerifiedNumbers = new API.VerifiedNumbers(this);
+  /**
+   * Two factor authentication API
+   */
   verifyProfiles: API.VerifyProfiles = new API.VerifyProfiles(this);
+  /**
+   * Virtual Cross Connect operations
+   */
   virtualCrossConnects: API.VirtualCrossConnects = new API.VirtualCrossConnects(this);
+  /**
+   * Virtual Cross Connect operations
+   */
   virtualCrossConnectsCoverage: API.VirtualCrossConnectsCoverage = new API.VirtualCrossConnectsCoverage(this);
+  /**
+   * Webhooks operations
+   */
   webhookDeliveries: API.WebhookDeliveries = new API.WebhookDeliveries(this);
+  /**
+   * WireGuard Interface operations
+   */
   wireguardInterfaces: API.WireguardInterfaces = new API.WireguardInterfaces(this);
+  /**
+   * WireGuard Interface operations
+   */
   wireguardPeers: API.WireguardPeers = new API.WireguardPeers(this);
+  /**
+   * Regions for wireless services
+   */
   wireless: API.Wireless = new API.Wireless(this);
+  /**
+   * Wireless Blocklists operations
+   */
   wirelessBlocklistValues: API.WirelessBlocklistValues = new API.WirelessBlocklistValues(this);
+  /**
+   * Wireless Blocklists operations
+   */
   wirelessBlocklists: API.WirelessBlocklists = new API.WirelessBlocklists(this);
   wellKnown: API.WellKnown = new API.WellKnown(this);
+  /**
+   * Inexplicit number orders for bulk purchasing without specifying exact numbers
+   */
   inexplicitNumberOrders: API.InexplicitNumberOrders = new API.InexplicitNumberOrders(this);
+  /**
+   * Mobile phone number operations
+   */
   mobilePhoneNumbers: API.MobilePhoneNumbers = new API.MobilePhoneNumbers(this);
+  /**
+   * Mobile voice connection operations
+   */
   mobileVoiceConnections: API.MobileVoiceConnections = new API.MobileVoiceConnections(this);
   messaging10dlc: API.Messaging10dlc = new API.Messaging10dlc(this);
+  /**
+   * Speech to text command operations
+   */
   speechToText: API.SpeechToText = new API.SpeechToText(this);
   organizations: API.Organizations = new API.Organizations(this);
   alphanumericSenderIDs: API.AlphanumericSenderIDs = new API.AlphanumericSenderIDs(this);

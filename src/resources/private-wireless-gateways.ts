@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Private Wireless Gateways operations
+ */
 export class PrivateWirelessGateways extends APIResource {
   /**
    * Asynchronously create a Private Wireless Gateway for SIM cards for a previously

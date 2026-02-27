@@ -5,6 +5,9 @@ import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Wireless Blocklists operations
+ */
 export class WirelessBlocklistValues extends APIResource {
   /**
    * Retrieve all wireless blocklist values for a given blocklist type.

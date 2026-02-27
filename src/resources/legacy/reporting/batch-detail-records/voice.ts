@@ -7,6 +7,9 @@ import { APIPromise } from '../../../../core/api-promise';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
+/**
+ * Voice batch detail records
+ */
 export class Voice extends APIResource {
   /**
    * Creates a new CDR report request with the specified filters

@@ -7,6 +7,9 @@ import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Messaging usage reports
+ */
 export class MdrUsageReports extends APIResource {
   /**
    * Submit request for new new messaging usage report. This endpoint will pull and

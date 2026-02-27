@@ -7,6 +7,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * TeXML Applications operations
+ */
 export class TexmlApplications extends APIResource {
   /**
    * Creates a TeXML Application.

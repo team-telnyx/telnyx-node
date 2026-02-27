@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * User-defined tags for Telnyx resources
+ */
 export class UserTags extends APIResource {
   /**
    * List all user tags.

@@ -6,6 +6,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Two factor authentication API
+ */
 export class Actions extends APIResource {
   /**
    * Verify verification code by ID

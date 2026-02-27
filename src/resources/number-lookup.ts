@@ -5,6 +5,9 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Look up phone number data
+ */
 export class NumberLookup extends APIResource {
   /**
    * Returns information about the provided phone number.

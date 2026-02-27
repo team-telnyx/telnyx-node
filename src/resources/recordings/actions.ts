@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * Call Recordings operations.
+ */
 export class Actions extends APIResource {
   /**
    * Permanently deletes a list of call recordings.

@@ -6,6 +6,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Number reservations
+ */
 export class Actions extends APIResource {
   /**
    * Extends reservation expiry time on all phone numbers.

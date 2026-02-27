@@ -118,6 +118,9 @@ import { OpenAI } from './openai/openai';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * Generate text with LLMs
+ */
 export class AI extends APIResource {
   assistants: AssistantsAPI.Assistants = new AssistantsAPI.Assistants(this._client);
   audio: AudioAPI.Audio = new AudioAPI.Audio(this._client);

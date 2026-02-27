@@ -7,6 +7,9 @@ import { RequestOptions } from '../../../internal/request-options';
 import { multipartFormRequestOptions } from '../../../internal/uploads';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * SSL certificate operations
+ */
 export class SslCertificateResource extends APIResource {
   /**
    * Uploads an SSL certificate and its matching secret so that you can use Telnyx's

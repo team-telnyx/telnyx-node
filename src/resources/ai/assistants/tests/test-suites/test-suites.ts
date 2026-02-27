@@ -13,6 +13,9 @@ import {
 import { APIPromise } from '../../../../../core/api-promise';
 import { RequestOptions } from '../../../../../internal/request-options';
 
+/**
+ * Configure AI assistant specifications
+ */
 export class TestSuites extends APIResource {
   runs: RunsAPI.Runs = new RunsAPI.Runs(this._client);
 

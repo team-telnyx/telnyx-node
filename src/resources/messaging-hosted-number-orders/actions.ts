@@ -8,6 +8,9 @@ import { RequestOptions } from '../../internal/request-options';
 import { multipartFormRequestOptions } from '../../internal/uploads';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Manage your messaging hosted numbers
+ */
 export class Actions extends APIResource {
   /**
    * Upload hosted number document

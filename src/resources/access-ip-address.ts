@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * IP Address Operations
+ */
 export class AccessIPAddress extends APIResource {
   /**
    * Create new Access IP Address

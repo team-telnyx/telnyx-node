@@ -6,6 +6,9 @@ import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
+/**
+ * TeXML REST Commands
+ */
 export class Siprec extends APIResource {
   /**
    * Updates siprec session identified by siprec_sid.

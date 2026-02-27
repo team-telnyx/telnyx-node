@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Wireless reporting operations
+ */
 export class DetailRecordsReports extends APIResource {
   /**
    * Asynchronously create a report containing Wireless Detail Records (WDRs) for the

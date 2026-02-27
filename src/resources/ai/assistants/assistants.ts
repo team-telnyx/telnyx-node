@@ -51,6 +51,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Configure AI assistant specifications
+ */
 export class Assistants extends APIResource {
   tests: TestsAPI.Tests = new TestsAPI.Tests(this._client);
   canaryDeploys: CanaryDeploysAPI.CanaryDeploys = new CanaryDeploysAPI.CanaryDeploys(this._client);

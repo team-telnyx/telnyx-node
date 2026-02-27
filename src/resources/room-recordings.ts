@@ -7,6 +7,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Rooms Recordings operations.
+ */
 export class RoomRecordings extends APIResource {
   /**
    * View a room recording.

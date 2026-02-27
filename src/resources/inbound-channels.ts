@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Voice Channels
+ */
 export class InboundChannels extends APIResource {
   /**
    * Update the number of Voice Channels for the US Zone. This allows your account to

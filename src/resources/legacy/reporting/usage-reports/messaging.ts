@@ -7,6 +7,9 @@ import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
+/**
+ * Messaging usage reports
+ */
 export class Messaging extends APIResource {
   /**
    * Creates a new legacy usage V2 MDR report request with the specified filters

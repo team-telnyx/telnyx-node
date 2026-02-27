@@ -26,6 +26,9 @@ import {
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * Migrate data from an external provider into Telnyx Cloud Storage
+ */
 export class Storage extends APIResource {
   buckets: BucketsAPI.Buckets = new BucketsAPI.Buckets(this._client);
   migrationSources: MigrationSourcesAPI.MigrationSources = new MigrationSourcesAPI.MigrationSources(

@@ -5,6 +5,9 @@ import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Number search
+ */
 export class AvailablePhoneNumberBlocks extends APIResource {
   /**
    * List available phone number blocks

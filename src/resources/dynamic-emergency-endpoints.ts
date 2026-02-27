@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Dynamic Emergency Endpoints
+ */
 export class DynamicEmergencyEndpoints extends APIResource {
   /**
    * Creates a dynamic emergency endpoints.

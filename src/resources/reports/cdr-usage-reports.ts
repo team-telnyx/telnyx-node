@@ -4,6 +4,9 @@ import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * Voice usage reports
+ */
 export class CdrUsageReports extends APIResource {
   /**
    * Generate and fetch voice usage report synchronously. This endpoint will both

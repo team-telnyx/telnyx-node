@@ -22,6 +22,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Presigned object URL operations
+ */
 export class Buckets extends APIResource {
   sslCertificate: SslCertificateAPI.SslCertificateResource = new SslCertificateAPI.SslCertificateResource(
     this._client,

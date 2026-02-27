@@ -8,6 +8,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Number reservations
+ */
 export class NumberReservations extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 

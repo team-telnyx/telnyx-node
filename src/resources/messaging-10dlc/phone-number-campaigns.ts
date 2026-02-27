@@ -6,6 +6,9 @@ import { PagePromise, PerPagePaginationV2, type PerPagePaginationV2Params } from
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Phone number campaign assignment
+ */
 export class PhoneNumberCampaigns extends APIResource {
   /**
    * Create New Phone Number Campaign
