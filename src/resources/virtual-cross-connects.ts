@@ -20,7 +20,9 @@ export class VirtualCrossConnects extends APIResource {
    * @example
    * ```ts
    * const virtualCrossConnect =
-   *   await client.virtualCrossConnects.create();
+   *   await client.virtualCrossConnects.create({
+   *     region_code: 'ashburn-va',
+   *   });
    * ```
    */
   create(
@@ -783,6 +785,11 @@ export namespace VirtualCrossConnectDeleteResponse {
 }
 
 export interface VirtualCrossConnectCreateParams {
+  /**
+   * The region the interface should be deployed to.
+   */
+  region_code: string;
+
   /**
    * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
    * Connect.<br /><br />The available bandwidths can be found using the
