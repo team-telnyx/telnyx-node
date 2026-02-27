@@ -7,7 +7,11 @@ import { RequestOptions } from '../internal/request-options';
 
 export class TextToSpeech extends APIResource {
   /**
-   * Returns a list of voices that can be used with the text to speech commands.
+   * Retrieve a list of available voices from one or all TTS providers. When
+   * `provider` is specified, returns voices for that provider only. Otherwise,
+   * returns voices from all providers.
+   *
+   * Some providers (ElevenLabs, Resemble) require an API key to list voices.
    */
   listVoices(
     query: TextToSpeechListVoicesParams | null | undefined = {},
@@ -50,40 +54,55 @@ export class TextToSpeech extends APIResource {
   }
 }
 
+/**
+ * List of available voices.
+ */
 export interface TextToSpeechListVoicesResponse {
   voices?: Array<TextToSpeechListVoicesResponse.Voice>;
 }
 
 export namespace TextToSpeechListVoicesResponse {
+  /**
+   * A voice available for text-to-speech synthesis.
+   */
   export interface Voice {
-    id?: string;
-
-    accent?: string;
-
-    age?: string;
-
+    /**
+     * Voice gender.
+     */
     gender?: string;
 
-    label?: string;
-
+    /**
+     * Language code.
+     */
     language?: string;
 
+    /**
+     * Voice name.
+     */
     name?: string;
 
+    /**
+     * The TTS provider.
+     */
     provider?: string;
+
+    /**
+     * Voice identifier.
+     */
+    voice_id?: string;
   }
 }
 
 export interface TextToSpeechListVoicesParams {
   /**
-   * Reference to your ElevenLabs API key stored in the Telnyx Portal
+   * API key for providers that require one to list voices (e.g. ElevenLabs).
    */
-  elevenlabs_api_key_ref?: string;
+  api_key?: string;
 
   /**
-   * Filter voices by provider
+   * Filter voices by provider. If omitted, voices from all providers are returned.
    */
-  provider?: 'aws' | 'azure' | 'elevenlabs' | 'telnyx';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble';
 }
 
 export interface TextToSpeechStreamParams {

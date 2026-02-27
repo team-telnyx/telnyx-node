@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.48.0 (2026-02-27)
+
+Full Changelog: [v5.47.1...v5.48.0](https://github.com/team-telnyx/telnyx-node/compare/v5.47.1...v5.48.0)
+
+### Features
+
+* Add TTS file-based endpoint spec ([164818c](https://github.com/team-telnyx/telnyx-node/commit/164818cf3bad1885fc69ceafa9efc7d02d9cd084))
+
 ## 5.47.1 (2026-02-26)
 
 Full Changelog: [v5.47.0...v5.47.1](https://github.com/team-telnyx/telnyx-node/compare/v5.47.0...v5.47.1)
