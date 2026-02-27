@@ -5,6 +5,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Configure AI assistant specifications
+ */
 export class Tools extends APIResource {
   /**
    * Test a webhook tool for an assistant

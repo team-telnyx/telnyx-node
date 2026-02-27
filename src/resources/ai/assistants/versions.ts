@@ -7,6 +7,9 @@ import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Configure AI assistant specifications
+ */
 export class Versions extends APIResource {
   /**
    * Retrieves a specific version of an assistant by assistant_id and version_id

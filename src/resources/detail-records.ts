@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Detail Records operations
+ */
 export class DetailRecords extends APIResource {
   /**
    * Search for any detail record across the Telnyx Platform

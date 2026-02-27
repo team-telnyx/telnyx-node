@@ -54,6 +54,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * TeXML REST Commands
+ */
 export class Accounts extends APIResource {
   calls: CallsAPI.Calls = new CallsAPI.Calls(this._client);
   conferences: ConferencesAPI.Conferences = new ConferencesAPI.Conferences(this._client);

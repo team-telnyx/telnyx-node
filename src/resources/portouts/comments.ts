@@ -6,6 +6,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Number portout operations
+ */
 export class Comments extends APIResource {
   /**
    * Creates a comment on a portout request.

@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Two factor authentication API
+ */
 export class VerifyProfiles extends APIResource {
   /**
    * Creates a new Verify profile to associate verifications with.

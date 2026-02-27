@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * External Connections operations
+ */
 export class CivicAddresses extends APIResource {
   /**
    * Return the details of an existing Civic Address with its Locations inside the

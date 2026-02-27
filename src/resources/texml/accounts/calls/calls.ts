@@ -20,6 +20,9 @@ import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
+/**
+ * TeXML REST Commands
+ */
 export class Calls extends APIResource {
   recordingsJson: RecordingsJsonAPI.RecordingsJson = new RecordingsJsonAPI.RecordingsJson(this._client);
   recordings: RecordingsAPI.Recordings = new RecordingsAPI.Recordings(this._client);

@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Audit log operations.
+ */
 export class AuditEvents extends APIResource {
   /**
    * Retrieve a list of audit log entries. Audit logs are a best-effort, eventually

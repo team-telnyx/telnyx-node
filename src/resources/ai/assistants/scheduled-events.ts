@@ -11,6 +11,9 @@ import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Configure AI assistant specifications
+ */
 export class ScheduledEvents extends APIResource {
   /**
    * Create a scheduled event for an assistant

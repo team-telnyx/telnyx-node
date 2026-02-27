@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Call Control debugging
+ */
 export class CallEvents extends APIResource {
   /**
    * Filters call events by given filter parameters. Events are ordered by

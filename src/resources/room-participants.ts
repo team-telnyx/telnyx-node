@@ -8,6 +8,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Rooms Participants operations.
+ */
 export class RoomParticipants extends APIResource {
   /**
    * View a room participant.

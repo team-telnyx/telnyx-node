@@ -8,6 +8,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * WireGuard Interface operations
+ */
 export class WireguardPeers extends APIResource {
   /**
    * Create a new WireGuard Peer. Current limitation of 5 peers per interface can be

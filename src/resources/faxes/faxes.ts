@@ -10,6 +10,9 @@ import { RequestOptions } from '../../internal/request-options';
 import { maybeMultipartFormRequestOptions } from '../../internal/uploads';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Programmable fax command operations
+ */
 export class Faxes extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 

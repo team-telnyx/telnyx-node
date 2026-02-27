@@ -73,6 +73,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Configure your phone numbers
+ */
 export class PhoneNumbers extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
   csvDownloads: CsvDownloadsAPI.CsvDownloads = new CsvDownloadsAPI.CsvDownloads(this._client);

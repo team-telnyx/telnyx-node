@@ -7,6 +7,9 @@ import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Number portout operations
+ */
 export class Events extends APIResource {
   /**
    * Show a specific port-out event.

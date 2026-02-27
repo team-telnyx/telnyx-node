@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Number portout operations
+ */
 export class SupportingDocuments extends APIResource {
   /**
    * Creates a list of supporting documents on a portout request.

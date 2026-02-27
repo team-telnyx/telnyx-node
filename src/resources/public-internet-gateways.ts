@@ -9,6 +9,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Public Internet Gateway operations
+ */
 export class PublicInternetGateways extends APIResource {
   /**
    * Create a new Public Internet Gateway.

@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Global IPs
+ */
 export class GlobalIPAssignmentHealth extends APIResource {
   /**
    * Global IP Assignment Health Check Metrics

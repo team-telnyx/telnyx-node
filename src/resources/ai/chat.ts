@@ -5,6 +5,9 @@ import * as ChatAPI from './chat';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * Generate text with LLMs
+ */
 export class Chat extends APIResource {
   /**
    * Chat with a language model. This endpoint is consistent with the

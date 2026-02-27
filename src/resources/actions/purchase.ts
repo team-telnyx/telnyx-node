@@ -6,6 +6,9 @@ import * as ActionsAPI from './actions';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * SIM Cards operations
+ */
 export class Purchase extends APIResource {
   /**
    * Purchases and registers the specified amount of eSIMs to the current user's

@@ -6,6 +6,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Endpoints related to porting orders management.
+ */
 export class Actions extends APIResource {
   /**
    * Activate each number in a porting order asynchronously. This operation is

@@ -8,6 +8,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * IP connection operations
+ */
 export class IPConnections extends APIResource {
   /**
    * Creates an IP connection.

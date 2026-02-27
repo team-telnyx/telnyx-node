@@ -6,6 +6,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Send RCS messages
+ */
 export class Rcs extends APIResource {
   /**
    * Generate a deeplink URL that can be used to start an RCS conversation with a

@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Wireless Blocklists operations
+ */
 export class WirelessBlocklists extends APIResource {
   /**
    * Create a Wireless Blocklist to prevent SIMs from connecting to certain networks.

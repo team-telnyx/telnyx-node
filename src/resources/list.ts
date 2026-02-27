@@ -6,6 +6,9 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Voice Channels
+ */
 export class List extends APIResource {
   /**
    * Retrieve a list of all phone numbers using Channel Billing, grouped by Zone.

@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Programmable fax command operations
+ */
 export class Actions extends APIResource {
   /**
    * Cancel the outbound fax that is in one of the following states: `queued`,

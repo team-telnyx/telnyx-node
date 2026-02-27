@@ -6,6 +6,9 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Call Recordings operations.
+ */
 export class RecordingTranscriptions extends APIResource {
   /**
    * Retrieves the details of an existing recording transcription.

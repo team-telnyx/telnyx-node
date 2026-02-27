@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Endpoints related to porting orders management.
+ */
 export class AssociatedPhoneNumbers extends APIResource {
   /**
    * Creates a new associated phone number for a porting order. This is used for

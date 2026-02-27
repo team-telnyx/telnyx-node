@@ -25,6 +25,9 @@ import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Rooms operations.
+ */
 export class Rooms extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
   sessions: SessionsAPI.Sessions = new SessionsAPI.Sessions(this._client);

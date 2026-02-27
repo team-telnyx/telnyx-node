@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Customer Service Record operations
+ */
 export class CustomerServiceRecords extends APIResource {
   /**
    * Create a new customer service record for the provided phone number.

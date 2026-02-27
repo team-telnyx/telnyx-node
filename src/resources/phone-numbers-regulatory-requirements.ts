@@ -5,6 +5,9 @@ import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Regulatory Requirements
+ */
 export class PhoneNumbersRegulatoryRequirements extends APIResource {
   /**
    * Retrieve regulatory requirements for a list of phone numbers

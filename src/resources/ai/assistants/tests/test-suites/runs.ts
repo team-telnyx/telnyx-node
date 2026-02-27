@@ -12,6 +12,9 @@ import {
 import { RequestOptions } from '../../../../../internal/request-options';
 import { path } from '../../../../../internal/utils/path';
 
+/**
+ * Configure AI assistant specifications
+ */
 export class Runs extends APIResource {
   /**
    * Retrieves paginated history of test runs for a specific test suite with

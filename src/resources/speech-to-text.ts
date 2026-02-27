@@ -5,6 +5,9 @@ import { APIPromise } from '../core/api-promise';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Speech to text command operations
+ */
 export class SpeechToText extends APIResource {
   /**
    * Transcribe audio streams to text over WebSocket.

@@ -5,6 +5,9 @@ import { APIPromise } from '../../../../core/api-promise';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
+/**
+ * Speech to text batch detail records
+ */
 export class SpeechToText extends APIResource {
   /**
    * Creates a new Speech to Text batch report request with the specified filters

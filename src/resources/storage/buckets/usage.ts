@@ -5,6 +5,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Bucket Usage operations
+ */
 export class Usage extends APIResource {
   /**
    * Returns the detail on API usage on a bucket of a particular time period, group

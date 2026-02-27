@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * External Connections operations
+ */
 export class Uploads extends APIResource {
   /**
    * Creates a new Upload request to Microsoft teams with the included phone numbers.

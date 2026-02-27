@@ -16,6 +16,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Network operations
+ */
 export class Networks extends APIResource {
   defaultGateway: DefaultGatewayAPI.DefaultGateway = new DefaultGatewayAPI.DefaultGateway(this._client);
 

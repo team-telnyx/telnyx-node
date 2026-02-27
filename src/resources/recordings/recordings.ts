@@ -8,6 +8,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Call Recordings operations.
+ */
 export class Recordings extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 

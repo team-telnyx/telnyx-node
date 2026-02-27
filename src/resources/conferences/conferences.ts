@@ -46,6 +46,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Conference command operations
+ */
 export class Conferences extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 

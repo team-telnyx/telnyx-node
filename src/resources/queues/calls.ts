@@ -7,6 +7,9 @@ import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Queue commands operations
+ */
 export class Calls extends APIResource {
   /**
    * Retrieve an existing call from an existing queue

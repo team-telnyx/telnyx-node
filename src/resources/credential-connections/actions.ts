@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Credential connection operations
+ */
 export class Actions extends APIResource {
   /**
    * Checks the registration_status for a credential connection,

@@ -8,6 +8,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * WireGuard Interface operations
+ */
 export class WireguardInterfaces extends APIResource {
   /**
    * Create a new WireGuard Interface. Current limitation of 10 interfaces per user

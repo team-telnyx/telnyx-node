@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * OTA updates operations
+ */
 export class OtaUpdates extends APIResource {
   /**
    * This API returns the details of an Over the Air (OTA) update.

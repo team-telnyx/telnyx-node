@@ -42,6 +42,9 @@ import {
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * Endpoints related to porting orders management.
+ */
 export class Porting extends APIResource {
   events: EventsAPI.Events = new EventsAPI.Events(this._client);
   reports: ReportsAPI.Reports = new ReportsAPI.Reports(this._client);

@@ -62,6 +62,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * External Connections operations
+ */
 export class ExternalConnections extends APIResource {
   logMessages: LogMessagesAPI.LogMessages = new LogMessagesAPI.LogMessages(this._client);
   civicAddresses: CivicAddressesAPI.CivicAddresses = new CivicAddressesAPI.CivicAddresses(this._client);

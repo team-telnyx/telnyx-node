@@ -6,6 +6,9 @@ import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Embed documents and perform text searches
+ */
 export class Buckets extends APIResource {
   /**
    * Get all embedded files for a given user bucket, including their processing

@@ -7,6 +7,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Documents
+ */
 export class Documents extends APIResource {
   /**
    * Retrieve a document.

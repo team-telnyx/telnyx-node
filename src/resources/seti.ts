@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Observability into Telnyx platform stability and performance.
+ */
 export class Seti extends APIResource {
   /**
    * Returns the results of the various black box tests

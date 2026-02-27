@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Documents
+ */
 export class DocumentLinks extends APIResource {
   /**
    * List all documents links ordered by created_at descending.

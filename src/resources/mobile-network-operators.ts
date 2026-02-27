@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Mobile network operators operations
+ */
 export class MobileNetworkOperators extends APIResource {
   /**
    * Telnyx has a set of GSM mobile operators partners that are available through our

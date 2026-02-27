@@ -7,6 +7,9 @@ import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
+/**
+ * Number lookup usage reports
+ */
 export class NumberLookup extends APIResource {
   /**
    * Submit a new telco data usage report

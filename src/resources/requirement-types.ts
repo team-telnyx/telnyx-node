@@ -7,6 +7,9 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Types of requirements for international numbers and porting orders
+ */
 export class RequirementTypes extends APIResource {
   /**
    * Retrieve a requirement type by id

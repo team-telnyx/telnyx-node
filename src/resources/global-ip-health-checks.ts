@@ -7,6 +7,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Global IPs
+ */
 export class GlobalIPHealthChecks extends APIResource {
   /**
    * Create a Global IP health check.

@@ -7,6 +7,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Conference command operations
+ */
 export class Actions extends APIResource {
   /**
    * Update conference participant supervisor_role
