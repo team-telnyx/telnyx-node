@@ -25,7 +25,7 @@ describe('resource textToSpeech', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.textToSpeech.listVoices(
-        { elevenlabs_api_key_ref: 'elevenlabs_api_key_ref', provider: 'aws' },
+        { api_key: 'api_key', provider: 'aws' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
