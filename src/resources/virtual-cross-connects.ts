@@ -20,9 +20,7 @@ export class VirtualCrossConnects extends APIResource {
    * @example
    * ```ts
    * const virtualCrossConnect =
-   *   await client.virtualCrossConnects.create({
-   *     region_code: 'ashburn-va',
-   *   });
+   *   await client.virtualCrossConnects.create();
    * ```
    */
   create(
@@ -118,10 +116,12 @@ export interface VirtualCrossConnectCreateResponse {
 }
 
 export namespace VirtualCrossConnectCreateResponse {
-  export interface Data
-    extends GlobalIPAssignmentsAPI.Record,
-      PublicInternetGatewaysAPI.NetworkInterface,
-      PublicInternetGatewaysAPI.NetworkInterfaceRegion {
+  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+    /**
+     * The region interface is deployed to.
+     */
+    region_code: string;
+
     /**
      * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
      * Connect.<br /><br />The available bandwidths can be found using the
@@ -186,11 +186,6 @@ export namespace VirtualCrossConnectCreateResponse {
     primary_telnyx_ip?: string;
 
     region?: Data.Region;
-
-    /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
 
     /**
      * The authentication key for BGP peer configuration.
@@ -256,10 +251,12 @@ export interface VirtualCrossConnectRetrieveResponse {
 }
 
 export namespace VirtualCrossConnectRetrieveResponse {
-  export interface Data
-    extends GlobalIPAssignmentsAPI.Record,
-      PublicInternetGatewaysAPI.NetworkInterface,
-      PublicInternetGatewaysAPI.NetworkInterfaceRegion {
+  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+    /**
+     * The region interface is deployed to.
+     */
+    region_code: string;
+
     /**
      * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
      * Connect.<br /><br />The available bandwidths can be found using the
@@ -324,11 +321,6 @@ export namespace VirtualCrossConnectRetrieveResponse {
     primary_telnyx_ip?: string;
 
     region?: Data.Region;
-
-    /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
 
     /**
      * The authentication key for BGP peer configuration.
@@ -394,10 +386,12 @@ export interface VirtualCrossConnectUpdateResponse {
 }
 
 export namespace VirtualCrossConnectUpdateResponse {
-  export interface Data
-    extends GlobalIPAssignmentsAPI.Record,
-      PublicInternetGatewaysAPI.NetworkInterface,
-      PublicInternetGatewaysAPI.NetworkInterfaceRegion {
+  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+    /**
+     * The region interface is deployed to.
+     */
+    region_code: string;
+
     /**
      * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
      * Connect.<br /><br />The available bandwidths can be found using the
@@ -464,11 +458,6 @@ export namespace VirtualCrossConnectUpdateResponse {
     region?: Data.Region;
 
     /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
-
-    /**
      * The authentication key for BGP peer configuration.
      */
     secondary_bgp_key?: string;
@@ -529,8 +518,12 @@ export namespace VirtualCrossConnectUpdateResponse {
 
 export interface VirtualCrossConnectListResponse
   extends GlobalIPAssignmentsAPI.Record,
-    PublicInternetGatewaysAPI.NetworkInterface,
-    PublicInternetGatewaysAPI.NetworkInterfaceRegion {
+    PublicInternetGatewaysAPI.NetworkInterface {
+  /**
+   * The region interface is deployed to.
+   */
+  region_code: string;
+
   /**
    * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
    * Connect.<br /><br />The available bandwidths can be found using the
@@ -597,11 +590,6 @@ export interface VirtualCrossConnectListResponse
   region?: VirtualCrossConnectListResponse.Region;
 
   /**
-   * The region interface is deployed to.
-   */
-  region_code?: string;
-
-  /**
    * The authentication key for BGP peer configuration.
    */
   secondary_bgp_key?: string;
@@ -664,10 +652,12 @@ export interface VirtualCrossConnectDeleteResponse {
 }
 
 export namespace VirtualCrossConnectDeleteResponse {
-  export interface Data
-    extends GlobalIPAssignmentsAPI.Record,
-      PublicInternetGatewaysAPI.NetworkInterface,
-      PublicInternetGatewaysAPI.NetworkInterfaceRegion {
+  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+    /**
+     * The region interface is deployed to.
+     */
+    region_code: string;
+
     /**
      * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
      * Connect.<br /><br />The available bandwidths can be found using the
@@ -734,11 +724,6 @@ export namespace VirtualCrossConnectDeleteResponse {
     region?: Data.Region;
 
     /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
-
-    /**
      * The authentication key for BGP peer configuration.
      */
     secondary_bgp_key?: string;
@@ -798,11 +783,6 @@ export namespace VirtualCrossConnectDeleteResponse {
 }
 
 export interface VirtualCrossConnectCreateParams {
-  /**
-   * The region the interface should be deployed to.
-   */
-  region_code: string;
-
   /**
    * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
    * Connect.<br /><br />The available bandwidths can be found using the
