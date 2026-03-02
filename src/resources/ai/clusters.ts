@@ -9,6 +9,9 @@ import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Identify common themes and patterns in your embedded documents
+ */
 export class Clusters extends APIResource {
   /**
    * Fetch a cluster

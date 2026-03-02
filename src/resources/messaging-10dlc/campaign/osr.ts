@@ -5,6 +5,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Campaign operations
+ */
 export class Osr extends APIResource {
   /**
    * Get OSR campaign attributes

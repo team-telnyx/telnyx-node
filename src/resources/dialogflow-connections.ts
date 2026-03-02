@@ -6,6 +6,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Dialogflow Connection Operations.
+ */
 export class DialogflowConnections extends APIResource {
   /**
    * Save Dialogflow Credentiails to Telnyx, so it can be used with other Telnyx

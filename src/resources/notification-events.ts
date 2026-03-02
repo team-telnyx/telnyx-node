@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Notification settings operations
+ */
 export class NotificationEvents extends APIResource {
   /**
    * Returns a list of your notifications events.

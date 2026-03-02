@@ -12,6 +12,9 @@ import {
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * Operations for managing stored payment transactions.
+ */
 export class Payment extends APIResource {
   autoRechargePrefs: AutoRechargePrefsAPI.AutoRechargePrefs = new AutoRechargePrefsAPI.AutoRechargePrefs(
     this._client,

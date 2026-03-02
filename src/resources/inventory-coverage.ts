@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Inventory Level
+ */
 export class InventoryCoverage extends APIResource {
   /**
    * Creates an inventory coverage request. If locality, npa or

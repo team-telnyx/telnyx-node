@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Phone number campaign bulk assignment
+ */
 export class PhoneNumberAssignmentByProfile extends APIResource {
   /**
    * This endpoint allows you to link all phone numbers associated with a Messaging

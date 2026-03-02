@@ -108,6 +108,9 @@ import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Endpoints related to porting orders management.
+ */
 export class PortingOrders extends APIResource {
   phoneNumberConfigurations: PhoneNumberConfigurationsAPI.PhoneNumberConfigurations =
     new PhoneNumberConfigurationsAPI.PhoneNumberConfigurations(this._client);

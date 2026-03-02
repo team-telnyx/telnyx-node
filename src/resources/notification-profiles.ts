@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Notification settings operations
+ */
 export class NotificationProfiles extends APIResource {
   /**
    * Create a notification profile.

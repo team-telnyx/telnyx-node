@@ -6,6 +6,9 @@ import * as ActionsAPI from './actions';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * SIM Cards operations
+ */
 export class Register extends APIResource {
   /**
    * Register the SIM cards associated with the provided registration codes to the

@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * SIM Card Orders operations
+ */
 export class SimCardOrderPreview extends APIResource {
   /**
    * Preview SIM card order purchases.

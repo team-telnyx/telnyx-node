@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Voice Channels
+ */
 export class ChannelZones extends APIResource {
   /**
    * Update the number of Voice Channels for the Non-US Zones. This allows your

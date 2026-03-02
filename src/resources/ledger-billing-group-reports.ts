@@ -5,6 +5,9 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Ledger billing reports
+ */
 export class LedgerBillingGroupReports extends APIResource {
   /**
    * Create a ledger billing group report

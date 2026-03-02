@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * External Connections operations
+ */
 export class PhoneNumbers extends APIResource {
   /**
    * Return the details of a phone number associated with the given external

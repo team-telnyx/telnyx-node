@@ -7,6 +7,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Store and retrieve integration secrets
+ */
 export class IntegrationSecrets extends APIResource {
   /**
    * Create a new secret with an associated identifier that can be used to securely

@@ -6,6 +6,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * SIPREC connectors configuration.
+ */
 export class SiprecConnectors extends APIResource {
   /**
    * Creates a new SIPREC connector configuration.

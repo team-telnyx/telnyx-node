@@ -7,6 +7,9 @@ import * as CampaignAPI from '../campaign/campaign';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 
+/**
+ * Campaign operations
+ */
 export class CampaignBuilder extends APIResource {
   brand: BrandAPI.Brand = new BrandAPI.Brand(this._client);
 

@@ -8,6 +8,9 @@ import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Endpoints related to porting orders management.
+ */
 export class Events extends APIResource {
   /**
    * Show a specific porting event.
@@ -78,14 +81,7 @@ export interface PortingEventDeletedPayload {
   /**
    * Identifies the event type
    */
-  event_type?:
-    | 'porting_order.deleted'
-    | 'porting_order.loa_updated'
-    | 'porting_order.messaging_changed'
-    | 'porting_order.status_changed'
-    | 'porting_order.sharing_token_expired'
-    | 'porting_order.new_comment'
-    | 'porting_order.split';
+  event_type?: 'porting_order.deleted';
 
   payload?: PortingEventDeletedPayload.Payload;
 
@@ -153,14 +149,7 @@ export interface PortingEventMessagingChangedPayload {
   /**
    * Identifies the event type
    */
-  event_type?:
-    | 'porting_order.deleted'
-    | 'porting_order.loa_updated'
-    | 'porting_order.messaging_changed'
-    | 'porting_order.status_changed'
-    | 'porting_order.sharing_token_expired'
-    | 'porting_order.new_comment'
-    | 'porting_order.split';
+  event_type?: 'porting_order.messaging_changed';
 
   /**
    * The webhook payload for the porting_order.messaging_changed event
@@ -270,14 +259,7 @@ export interface PortingEventNewCommentEvent {
   /**
    * Identifies the event type
    */
-  event_type?:
-    | 'porting_order.deleted'
-    | 'porting_order.loa_updated'
-    | 'porting_order.messaging_changed'
-    | 'porting_order.status_changed'
-    | 'porting_order.sharing_token_expired'
-    | 'porting_order.new_comment'
-    | 'porting_order.split';
+  event_type?: 'porting_order.new_comment';
 
   /**
    * The webhook payload for the porting_order.new_comment event
@@ -378,14 +360,7 @@ export interface PortingEventSplitEvent {
   /**
    * Identifies the event type
    */
-  event_type?:
-    | 'porting_order.deleted'
-    | 'porting_order.loa_updated'
-    | 'porting_order.messaging_changed'
-    | 'porting_order.status_changed'
-    | 'porting_order.sharing_token_expired'
-    | 'porting_order.new_comment'
-    | 'porting_order.split';
+  event_type?: 'porting_order.split';
 
   /**
    * The webhook payload for the porting_order.split event
@@ -483,14 +458,7 @@ export interface PortingEventStatusChangedEvent {
   /**
    * Identifies the event type
    */
-  event_type?:
-    | 'porting_order.deleted'
-    | 'porting_order.loa_updated'
-    | 'porting_order.messaging_changed'
-    | 'porting_order.status_changed'
-    | 'porting_order.sharing_token_expired'
-    | 'porting_order.new_comment'
-    | 'porting_order.split';
+  event_type?: 'porting_order.status_changed';
 
   /**
    * The webhook payload for the porting_order.status_changed event
@@ -574,14 +542,7 @@ export interface PortingEventWithoutWebhook {
   /**
    * Identifies the event type
    */
-  event_type?:
-    | 'porting_order.deleted'
-    | 'porting_order.loa_updated'
-    | 'porting_order.messaging_changed'
-    | 'porting_order.status_changed'
-    | 'porting_order.sharing_token_expired'
-    | 'porting_order.new_comment'
-    | 'porting_order.split';
+  event_type?: 'porting_order.loa_updated' | 'porting_order.sharing_token_expired';
 
   payload?: null;
 

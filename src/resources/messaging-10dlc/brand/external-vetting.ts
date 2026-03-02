@@ -5,6 +5,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Brand operations
+ */
 export class ExternalVetting extends APIResource {
   /**
    * Get list of valid external vetting record for a given brand

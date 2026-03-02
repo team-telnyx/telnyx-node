@@ -4,6 +4,9 @@ import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * External Connections operations
+ */
 export class Actions extends APIResource {
   /**
    * This endpoint will make an asynchronous request to refresh the Operator Connect

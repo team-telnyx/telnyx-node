@@ -7,6 +7,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Rooms Compositions operations.
+ */
 export class RoomCompositions extends APIResource {
   /**
    * Asynchronously create a room composition.

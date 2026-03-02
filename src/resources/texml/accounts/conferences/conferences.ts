@@ -20,6 +20,9 @@ import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
+/**
+ * TeXML REST Commands
+ */
 export class Conferences extends APIResource {
   participants: ParticipantsAPI.Participants = new ParticipantsAPI.Participants(this._client);
 

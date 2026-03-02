@@ -5,6 +5,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Campaign operations
+ */
 export class Brand extends APIResource {
   /**
    * This endpoint allows you to see whether or not the supplied brand is suitable

@@ -7,6 +7,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Mobile push credential management
+ */
 export class MobilePushCredentials extends APIResource {
   /**
    * Creates a new mobile push credential

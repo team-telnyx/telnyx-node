@@ -7,6 +7,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Fax Applications operations
+ */
 export class FaxApplications extends APIResource {
   /**
    * Creates a new Fax Application based on the parameters sent in the request. The

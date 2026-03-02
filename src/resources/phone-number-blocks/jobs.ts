@@ -7,6 +7,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Background jobs performed over a phone-numbers block's phone numbers
+ */
 export class Jobs extends APIResource {
   /**
    * Retrieves a phone number blocks job

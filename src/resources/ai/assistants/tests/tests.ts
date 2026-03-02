@@ -24,6 +24,9 @@ import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
+/**
+ * Configure AI assistant specifications
+ */
 export class Tests extends APIResource {
   testSuites: TestSuitesAPI.TestSuites = new TestSuitesAPI.TestSuites(this._client);
   runs: RunsAPI.Runs = new RunsAPI.Runs(this._client);

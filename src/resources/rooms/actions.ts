@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Rooms Client Tokens operations.
+ */
 export class Actions extends APIResource {
   /**
    * Synchronously create an Client Token to join a Room. Client Token is necessary

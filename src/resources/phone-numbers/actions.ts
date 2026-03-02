@@ -7,6 +7,9 @@ import { DefaultFlatPagination } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Configure your phone numbers
+ */
 export class Actions extends APIResource {
   /**
    * Change the bundle status for a phone number (set to being in a bundle or remove

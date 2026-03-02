@@ -15,6 +15,9 @@ import {
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * Regions for wireless services
+ */
 export class Wireless extends APIResource {
   detailRecordsReports: DetailRecordsReportsAPI.DetailRecordsReports =
     new DetailRecordsReportsAPI.DetailRecordsReports(this._client);

@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Messaging URL Domains
+ */
 export class MessagingURLDomains extends APIResource {
   /**
    * List messaging URL domains

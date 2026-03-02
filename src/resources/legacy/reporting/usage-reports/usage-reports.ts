@@ -38,6 +38,9 @@ import {
 import { APIPromise } from '../../../../core/api-promise';
 import { RequestOptions } from '../../../../internal/request-options';
 
+/**
+ * Speech to text usage reports
+ */
 export class UsageReports extends APIResource {
   messaging: MessagingAPI.Messaging = new MessagingAPI.Messaging(this._client);
   numberLookup: NumberLookupAPI.NumberLookup = new NumberLookupAPI.NumberLookup(this._client);

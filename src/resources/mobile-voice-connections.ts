@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Mobile voice connection operations
+ */
 export class MobileVoiceConnections extends APIResource {
   /**
    * Create a Mobile Voice Connection

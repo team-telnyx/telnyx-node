@@ -7,6 +7,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Send RCS messages
+ */
 export class Rcs extends APIResource {
   agents: AgentsAPI.Agents = new AgentsAPI.Agents(this._client);
 

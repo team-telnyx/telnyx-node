@@ -9,6 +9,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Two factor authentication API
+ */
 export class Verifications extends APIResource {
   byPhoneNumber: ByPhoneNumberAPI.ByPhoneNumber = new ByPhoneNumberAPI.ByPhoneNumber(this._client);
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);

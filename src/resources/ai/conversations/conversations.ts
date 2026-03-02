@@ -29,6 +29,9 @@ import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Manage historical AI assistant conversations
+ */
 export class Conversations extends APIResource {
   insightGroups: InsightGroupsAPI.InsightGroups = new InsightGroupsAPI.InsightGroups(this._client);
   insights: InsightsAPI.Insights = new InsightsAPI.Insights(this._client);

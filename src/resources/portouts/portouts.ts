@@ -44,6 +44,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Number portout operations
+ */
 export class Portouts extends APIResource {
   events: EventsAPI.Events = new EventsAPI.Events(this._client);
   reports: ReportsAPI.Reports = new ReportsAPI.Reports(this._client);

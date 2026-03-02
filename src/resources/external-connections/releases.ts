@@ -7,6 +7,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * External Connections operations
+ */
 export class Releases extends APIResource {
   /**
    * Return the details of a Release request and its phone numbers.

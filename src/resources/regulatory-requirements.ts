@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Regulatory Requirements
+ */
 export class RegulatoryRequirements extends APIResource {
   /**
    * Retrieve regulatory requirements

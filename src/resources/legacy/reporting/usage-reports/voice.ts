@@ -7,6 +7,9 @@ import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
+/**
+ * Voice usage reports
+ */
 export class Voice extends APIResource {
   /**
    * Creates a new legacy usage V2 CDR report request with the specified filters

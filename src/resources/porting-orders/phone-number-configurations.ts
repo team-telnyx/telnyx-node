@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * Endpoints related to porting orders management.
+ */
 export class PhoneNumberConfigurations extends APIResource {
   /**
    * Creates a list of phone number configurations.

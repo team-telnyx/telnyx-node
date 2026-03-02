@@ -12,6 +12,9 @@ import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Manage your tollfree verification requests
+ */
 export class Requests extends APIResource {
   /**
    * Submit a new tollfree verification request

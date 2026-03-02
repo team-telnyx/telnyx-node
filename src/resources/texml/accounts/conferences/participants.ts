@@ -6,6 +6,9 @@ import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
+/**
+ * TeXML REST Commands
+ */
 export class Participants extends APIResource {
   /**
    * Gets conference participant resource

@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Opt-Out Management
+ */
 export class MessagingOptouts extends APIResource {
   /**
    * Retrieve a list of opt-out blocks.

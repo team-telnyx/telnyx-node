@@ -7,6 +7,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Requirements for international numbers and porting orders
+ */
 export class Requirements extends APIResource {
   /**
    * Retrieve a document requirement record

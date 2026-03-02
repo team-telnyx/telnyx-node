@@ -7,6 +7,9 @@ import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
+/**
+ * TeXML REST Commands
+ */
 export class RecordingsJson extends APIResource {
   /**
    * Starts recording with specified parameters for call idientified by call_sid.

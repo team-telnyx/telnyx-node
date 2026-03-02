@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Endpoints related to porting orders management.
+ */
 export class ActionRequirements extends APIResource {
   /**
    * Returns a list of action requirements for a specific porting order.

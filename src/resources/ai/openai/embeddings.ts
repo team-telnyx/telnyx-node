@@ -4,6 +4,9 @@ import { APIResource } from '../../../core/resource';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 
+/**
+ * OpenAI-compatible embeddings endpoints for generating vector representations of text
+ */
 export class Embeddings extends APIResource {
   /**
    * Creates an embedding vector representing the input text. This endpoint is

@@ -10,6 +10,9 @@ import {
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * External Connections operations
+ */
 export class LogMessages extends APIResource {
   /**
    * Retrieve a log message for an external connection associated with your account.

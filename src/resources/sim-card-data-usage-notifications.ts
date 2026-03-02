@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * SIM Cards operations
+ */
 export class SimCardDataUsageNotifications extends APIResource {
   /**
    * Creates a new SIM card data usage notification.

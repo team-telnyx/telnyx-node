@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Determining portability of phone numbers
+ */
 export class PortabilityChecks extends APIResource {
   /**
    * Runs a portability check, returning the results immediately.

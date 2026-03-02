@@ -8,6 +8,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * FQDN connection operations
+ */
 export class FqdnConnections extends APIResource {
   /**
    * Creates a FQDN connection.

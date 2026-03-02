@@ -5,6 +5,9 @@ import * as Shared from './shared';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Virtual Cross Connect operations
+ */
 export class VirtualCrossConnectsCoverage extends APIResource {
   /**
    * List Virtual Cross Connects Cloud Coverage.<br /><br />This endpoint shows which

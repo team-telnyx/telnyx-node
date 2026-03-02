@@ -10,6 +10,9 @@ import { PagePromise, PerPagePaginationV2, type PerPagePaginationV2Params } from
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Campaign operations
+ */
 export class Campaign extends APIResource {
   usecase: UsecaseAPI.Usecase = new UsecaseAPI.Usecase(this._client);
   osr: OsrAPI.Osr = new OsrAPI.Osr(this._client);

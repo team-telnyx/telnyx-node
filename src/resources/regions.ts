@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Regions
+ */
 export class Regions extends APIResource {
   /**
    * List all regions and the interfaces that region supports

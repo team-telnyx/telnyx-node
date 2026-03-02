@@ -5,6 +5,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Rooms Sessions operations.
+ */
 export class Actions extends APIResource {
   /**
    * Note: this will also kick all participants currently present in the room

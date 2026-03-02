@@ -7,6 +7,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Number orders
+ */
 export class SubNumberOrdersReportResource extends APIResource {
   /**
    * Create a CSV report for sub number orders. The report will be generated

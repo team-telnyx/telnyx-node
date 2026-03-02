@@ -7,6 +7,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * IP Range Operations
+ */
 export class AccessIPRanges extends APIResource {
   /**
    * Create new Access IP Range

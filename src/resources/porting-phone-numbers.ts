@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Endpoints related to porting orders management.
+ */
 export class PortingPhoneNumbers extends APIResource {
   /**
    * Returns a list of your porting phone numbers.

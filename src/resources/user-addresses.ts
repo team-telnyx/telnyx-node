@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Operations for working with UserAddress records. UserAddress records are stored addresses that users can use for non-emergency-calling purposes, such as for shipping addresses for orders of wireless SIMs (or other physical items). They cannot be used for emergency calling and are distinct from Address records, which are used on phone numbers.
+ */
 export class UserAddresses extends APIResource {
   /**
    * Creates a user address.

@@ -8,6 +8,9 @@ import { RequestOptions } from '../internal/request-options';
 import { maybeMultipartFormRequestOptions } from '../internal/uploads';
 import { path } from '../internal/utils/path';
 
+/**
+ * Media Storage operations
+ */
 export class Media extends APIResource {
   /**
    * Returns the information about a stored media file.

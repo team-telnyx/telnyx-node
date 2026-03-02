@@ -6,6 +6,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Manage historical AI assistant conversations
+ */
 export class Messages extends APIResource {
   /**
    * Retrieve messages for a specific conversation, including tool calls made by the

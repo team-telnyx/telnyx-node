@@ -6,6 +6,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Dynamic emergency address operations
+ */
 export class DynamicEmergencyAddresses extends APIResource {
   /**
    * Creates a dynamic emergency address.

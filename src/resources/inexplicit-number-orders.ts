@@ -10,6 +10,9 @@ import {
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Inexplicit number orders for bulk purchasing without specifying exact numbers
+ */
 export class InexplicitNumberOrders extends APIResource {
   /**
    * Create an inexplicit number order to programmatically purchase phone numbers

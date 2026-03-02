@@ -8,6 +8,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Virtual Cross Connect operations
+ */
 export class VirtualCrossConnects extends APIResource {
   /**
    * Create a new Virtual Cross Connect.<br /><br />For AWS and GCE, you have the

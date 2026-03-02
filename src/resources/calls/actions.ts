@@ -8,6 +8,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Call Control command operations
+ */
 export class Actions extends APIResource {
   /**
    * Add messages to the conversation started by an AI assistant on the call.

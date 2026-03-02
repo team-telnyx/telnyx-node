@@ -7,6 +7,9 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Webhooks operations
+ */
 export class WebhookDeliveries extends APIResource {
   /**
    * Provides webhook_delivery debug data, such as timestamps, delivery status and

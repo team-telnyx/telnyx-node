@@ -5,6 +5,9 @@ import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Customize LLMs for your unique needs
+ */
 export class Jobs extends APIResource {
   /**
    * Create a new fine tuning job.
