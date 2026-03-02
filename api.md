@@ -3871,10 +3871,12 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechGenerateResponse</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">TextToSpeechListVoicesResponse</a></code>
 
 Methods:
 
+- <code title="post /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">generate</a>({ ...params }) -> TextToSpeechGenerateResponse</code>
 - <code title="get /text-to-speech/voices">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">listVoices</a>({ ...params }) -> TextToSpeechListVoicesResponse</code>
 - <code title="get /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">stream</a>({ ...params }) -> void</code>
 

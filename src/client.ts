@@ -855,6 +855,8 @@ import {
 } from './resources/texml-applications';
 import {
   TextToSpeech,
+  TextToSpeechGenerateParams,
+  TextToSpeechGenerateResponse,
   TextToSpeechListVoicesParams,
   TextToSpeechListVoicesResponse,
   TextToSpeechStreamParams,
@@ -2717,9 +2719,6 @@ export class Telnyx {
    * TeXML Applications operations
    */
   texmlApplications: API.TexmlApplications = new API.TexmlApplications(this);
-  /**
-   * Text to speech streaming command operations
-   */
   textToSpeech: API.TextToSpeech = new API.TextToSpeech(this);
   /**
    * Usage data reporting across Telnyx products
@@ -4393,7 +4392,9 @@ export declare namespace Telnyx {
 
   export {
     TextToSpeech as TextToSpeech,
+    type TextToSpeechGenerateResponse as TextToSpeechGenerateResponse,
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
+    type TextToSpeechGenerateParams as TextToSpeechGenerateParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
     type TextToSpeechStreamParams as TextToSpeechStreamParams,
   };

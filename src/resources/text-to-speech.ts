@@ -5,10 +5,30 @@ import { APIPromise } from '../core/api-promise';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 
-/**
- * Text to speech streaming command operations
- */
 export class TextToSpeech extends APIResource {
+  /**
+   * Generate synthesized speech audio from text input. Returns audio in the
+   * requested format (binary audio stream, base64-encoded JSON, or an audio URL for
+   * later retrieval).
+   *
+   * Authentication is provided via the standard `Authorization: Bearer <API_KEY>`
+   * header.
+   *
+   * The `voice` parameter provides a convenient shorthand to specify provider,
+   * model, and voice in a single string (e.g. `telnyx.NaturalHD.Alloy`).
+   * Alternatively, specify `provider` explicitly along with provider-specific
+   * parameters.
+   *
+   * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`,
+   * `resemble`.
+   */
+  generate(
+    body: TextToSpeechGenerateParams,
+    options?: RequestOptions,
+  ): APIPromise<TextToSpeechGenerateResponse> {
+    return this._client.post('/text-to-speech/speech', { body, ...options });
+  }
+
   /**
    * Retrieve a list of available voices from one or all TTS providers. When
    * `provider` is specified, returns voices for that provider only. Otherwise,
@@ -58,6 +78,16 @@ export class TextToSpeech extends APIResource {
 }
 
 /**
+ * Response when `output_type` is `base64_output`.
+ */
+export interface TextToSpeechGenerateResponse {
+  /**
+   * Base64-encoded audio data.
+   */
+  base64_audio?: string;
+}
+
+/**
  * List of available voices.
  */
 export interface TextToSpeechListVoicesResponse {
@@ -93,6 +123,286 @@ export namespace TextToSpeechListVoicesResponse {
      * Voice identifier.
      */
     voice_id?: string;
+  }
+}
+
+export interface TextToSpeechGenerateParams {
+  /**
+   * AWS Polly provider-specific parameters.
+   */
+  aws?: TextToSpeechGenerateParams.Aws;
+
+  /**
+   * Azure Cognitive Services provider-specific parameters.
+   */
+  azure?: TextToSpeechGenerateParams.Azure;
+
+  /**
+   * When `true`, bypass the audio cache and generate fresh audio.
+   */
+  disable_cache?: boolean;
+
+  /**
+   * ElevenLabs provider-specific parameters.
+   */
+  elevenlabs?: TextToSpeechGenerateParams.Elevenlabs;
+
+  /**
+   * Language code (e.g. `en-US`). Usage varies by provider.
+   */
+  language?: string;
+
+  /**
+   * Minimax provider-specific parameters.
+   */
+  minimax?: TextToSpeechGenerateParams.Minimax;
+
+  /**
+   * Determines the response format. `binary_output` returns raw audio bytes,
+   * `base64_output` returns base64-encoded audio in JSON.
+   */
+  output_type?: 'binary_output' | 'base64_output';
+
+  /**
+   * TTS provider. Required unless `voice` is provided.
+   */
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble';
+
+  /**
+   * Resemble AI provider-specific parameters.
+   */
+  resemble?: TextToSpeechGenerateParams.Resemble;
+
+  /**
+   * Rime provider-specific parameters.
+   */
+  rime?: TextToSpeechGenerateParams.Rime;
+
+  /**
+   * Telnyx provider-specific parameters.
+   */
+  telnyx?: TextToSpeechGenerateParams.Telnyx;
+
+  /**
+   * The text to convert to speech.
+   */
+  text?: string;
+
+  /**
+   * Text type. Use `ssml` for SSML-formatted input (supported by AWS and Azure).
+   */
+  text_type?: 'text' | 'ssml';
+
+  /**
+   * Voice identifier in the format `provider.model_id.voice_id` or
+   * `provider.voice_id`. Examples: `telnyx.NaturalHD.Alloy`,
+   * `azure.en-US-AvaMultilingualNeural`, `aws.Polly.Generative.Lucia`. When
+   * provided, `provider`, `model_id`, and `voice_id` are extracted automatically and
+   * take precedence over individual parameters.
+   */
+  voice?: string;
+
+  /**
+   * Provider-specific voice settings. Contents vary by provider — see
+   * provider-specific parameter objects below.
+   */
+  voice_settings?: { [key: string]: unknown };
+}
+
+export namespace TextToSpeechGenerateParams {
+  /**
+   * AWS Polly provider-specific parameters.
+   */
+  export interface Aws {
+    /**
+     * Language code (e.g. `en-US`, `es-ES`).
+     */
+    language_code?: string;
+
+    /**
+     * List of lexicon names to apply.
+     */
+    lexicon_names?: Array<string>;
+
+    /**
+     * Audio output format.
+     */
+    output_format?: string;
+
+    /**
+     * Audio sample rate.
+     */
+    sample_rate?: string;
+
+    /**
+     * Input text type.
+     */
+    text_type?: 'text' | 'ssml';
+  }
+
+  /**
+   * Azure Cognitive Services provider-specific parameters.
+   */
+  export interface Azure {
+    /**
+     * Custom Azure API key. If not provided, the default Telnyx key is used.
+     */
+    api_key?: string;
+
+    /**
+     * Custom Azure deployment ID.
+     */
+    deployment_id?: string;
+
+    /**
+     * Azure audio effect to apply.
+     */
+    effect?: string;
+
+    /**
+     * Voice gender preference.
+     */
+    gender?: string;
+
+    /**
+     * Language code (e.g. `en-US`).
+     */
+    language_code?: string;
+
+    /**
+     * Azure audio output format.
+     */
+    output_format?: string;
+
+    /**
+     * Azure region (e.g. `eastus`, `westeurope`).
+     */
+    region?: string;
+
+    /**
+     * Input text type. Use `ssml` for SSML-formatted input.
+     */
+    text_type?: 'text' | 'ssml';
+  }
+
+  /**
+   * ElevenLabs provider-specific parameters.
+   */
+  export interface Elevenlabs {
+    /**
+     * Custom ElevenLabs API key. If not provided, the default Telnyx key is used.
+     */
+    api_key?: string;
+
+    /**
+     * Language code.
+     */
+    language_code?: string;
+
+    /**
+     * ElevenLabs voice settings (stability, similarity_boost, etc.).
+     */
+    voice_settings?: { [key: string]: unknown };
+  }
+
+  /**
+   * Minimax provider-specific parameters.
+   */
+  export interface Minimax {
+    /**
+     * Language code to boost pronunciation for.
+     */
+    language_boost?: string;
+
+    /**
+     * Pitch adjustment.
+     */
+    pitch?: number;
+
+    /**
+     * Audio output format.
+     */
+    response_format?: string;
+
+    /**
+     * Speech speed multiplier.
+     */
+    speed?: number;
+
+    /**
+     * Volume level.
+     */
+    vol?: number;
+  }
+
+  /**
+   * Resemble AI provider-specific parameters.
+   */
+  export interface Resemble {
+    /**
+     * Custom Resemble API key.
+     */
+    api_key?: string;
+
+    /**
+     * Audio output format.
+     */
+    format?: string;
+
+    /**
+     * Synthesis precision.
+     */
+    precision?: string;
+
+    /**
+     * Audio sample rate.
+     */
+    sample_rate?: string;
+  }
+
+  /**
+   * Rime provider-specific parameters.
+   */
+  export interface Rime {
+    /**
+     * Audio output format.
+     */
+    response_format?: string;
+
+    /**
+     * Audio sampling rate in Hz.
+     */
+    sampling_rate?: number;
+
+    /**
+     * Voice speed multiplier.
+     */
+    voice_speed?: number;
+  }
+
+  /**
+   * Telnyx provider-specific parameters.
+   */
+  export interface Telnyx {
+    /**
+     * Audio response format.
+     */
+    response_format?: string;
+
+    /**
+     * Audio sampling rate in Hz.
+     */
+    sampling_rate?: number;
+
+    /**
+     * Sampling temperature.
+     */
+    temperature?: number;
+
+    /**
+     * Voice speed multiplier.
+     */
+    voice_speed?: number;
   }
 }
 
@@ -155,7 +465,9 @@ export interface TextToSpeechStreamParams {
 
 export declare namespace TextToSpeech {
   export {
+    type TextToSpeechGenerateResponse as TextToSpeechGenerateResponse,
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
+    type TextToSpeechGenerateParams as TextToSpeechGenerateParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
     type TextToSpeechStreamParams as TextToSpeechStreamParams,
   };
