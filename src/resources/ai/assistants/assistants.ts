@@ -370,6 +370,7 @@ export type AssistantTool =
   | AssistantTool.Handoff
   | HangupTool
   | AssistantTool.Transfer
+  | AssistantTool.Invite
   | AssistantTool.Refer
   | AssistantTool.SendDtmf
   | AssistantTool.SendMessage
@@ -603,6 +604,75 @@ export namespace AssistantTool {
              */
             type?: 'message' | 'warm_transfer_instructions';
           }
+        }
+      }
+    }
+  }
+
+  export interface Invite {
+    invite: Invite.Invite;
+
+    type: 'invite';
+  }
+
+  export namespace Invite {
+    export interface Invite {
+      /**
+       * Custom headers to be added to the SIP INVITE for the invite command.
+       */
+      custom_headers?: Array<Invite.CustomHeader>;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
+       * invited call.
+       */
+      voicemail_detection?: Invite.VoicemailDetection;
+    }
+
+    export namespace Invite {
+      export interface CustomHeader {
+        name?: string;
+
+        /**
+         * The value of the header. Note that we support mustache templating for the value.
+         * For example you can use
+         * `{{#integration_secret}}test-secret{{/integration_secret}}` to pass the value of
+         * the integration secret.
+         */
+        value?: string;
+      }
+
+      /**
+       * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
+       * invited call.
+       */
+      export interface VoicemailDetection {
+        /**
+         * The AMD detection mode to use. 'premium' enables premium answering machine
+         * detection. 'disabled' turns off AMD detection.
+         */
+        detection_mode?: 'disabled' | 'premium';
+
+        /**
+         * Action to take when voicemail is detected on the invited call.
+         */
+        on_voicemail_detected?: VoicemailDetection.OnVoicemailDetected;
+      }
+
+      export namespace VoicemailDetection {
+        /**
+         * Action to take when voicemail is detected on the invited call.
+         */
+        export interface OnVoicemailDetected {
+          /**
+           * The action to take when voicemail is detected.
+           */
+          action?: 'stop_invite';
         }
       }
     }
