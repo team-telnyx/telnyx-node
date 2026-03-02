@@ -2719,6 +2719,9 @@ export class Telnyx {
    * TeXML Applications operations
    */
   texmlApplications: API.TexmlApplications = new API.TexmlApplications(this);
+  /**
+   * Text to speech streaming command operations
+   */
   textToSpeech: API.TextToSpeech = new API.TextToSpeech(this);
   /**
    * Usage data reporting across Telnyx products
