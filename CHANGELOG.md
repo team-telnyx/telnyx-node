@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.52.0 (2026-03-02)
+
+Full Changelog: [v5.51.1...v5.52.0](https://github.com/team-telnyx/telnyx-node/compare/v5.51.1...v5.52.0)
+
+### Features
+
+* Merge TTS file-based spec into text-to-speech.json ([85dade4](https://github.com/team-telnyx/telnyx-node/commit/85dade464bed361690dafc7187b461cc5d231eb7))
+
 ## 5.51.1 (2026-03-02)
 
 Full Changelog: [v5.51.0...v5.51.1](https://github.com/team-telnyx/telnyx-node/compare/v5.51.0...v5.51.1)
