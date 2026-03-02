@@ -9,6 +9,18 @@ const client = new Telnyx({
 
 describe('resource textToSpeech', () => {
   // Mock server tests are disabled
+  test.skip('generate', async () => {
+    const responsePromise = client.textToSpeech.generate({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('listVoices', async () => {
     const responsePromise = client.textToSpeech.listVoices();
     const rawResponse = await responsePromise.asResponse();

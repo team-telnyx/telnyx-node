@@ -928,6 +928,7 @@ const fuse = new Fuse(
     'client.texmlApplications.list',
     'client.texmlApplications.retrieve',
     'client.texmlApplications.update',
+    'client.textToSpeech.generate',
     'client.textToSpeech.listVoices',
     'client.textToSpeech.stream',
     'client.usageReports.getOptions',

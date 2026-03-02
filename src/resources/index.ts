@@ -1176,7 +1176,9 @@ export {
 } from './texml-applications';
 export {
   TextToSpeech,
+  type TextToSpeechGenerateResponse,
   type TextToSpeechListVoicesResponse,
+  type TextToSpeechGenerateParams,
   type TextToSpeechListVoicesParams,
   type TextToSpeechStreamParams,
 } from './text-to-speech';
