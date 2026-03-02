@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.51.1 (2026-03-02)
+
+Full Changelog: [v5.51.0...v5.51.1](https://github.com/team-telnyx/telnyx-node/compare/v5.51.0...v5.51.1)
+
+### Bug Fixes
+
+* narrow porting event_type enums for SDK discriminator support ([4fab34a](https://github.com/team-telnyx/telnyx-node/commit/4fab34a00884b579b7c288cf8f1d48548613fcd6))
+
+
+### Chores
+
+* **docs:** add missing descriptions ([4b97ecb](https://github.com/team-telnyx/telnyx-node/commit/4b97ecb179a10b312ec045dc91a7a3cbd6667625))
+* **internal:** codegen related update ([0258b7d](https://github.com/team-telnyx/telnyx-node/commit/0258b7df746c1215738deaaecbd89a567c1d0701))
+* **internal:** switch MCP servers to use pino for logging ([6e72d5c](https://github.com/team-telnyx/telnyx-node/commit/6e72d5caef98867fdb3e07a176d9da7c1e8bfc44))
+
 ## 5.51.0 (2026-02-27)
 
 Full Changelog: [v5.50.0...v5.51.0](https://github.com/team-telnyx/telnyx-node/compare/v5.50.0...v5.51.0)
