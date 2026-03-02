@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.54.0 (2026-03-02)
+
+Full Changelog: [v5.53.0...v5.54.0](https://github.com/team-telnyx/telnyx-node/compare/v5.53.0...v5.54.0)
+
+### Features
+
+* AI-2106: Add invite tool schema to inference OpenAPI spec ([0b8d762](https://github.com/team-telnyx/telnyx-node/commit/0b8d762a2cd6937c9f91625ec7ca3b538a3e3b28))
+
 ## 5.53.0 (2026-03-02)
 
 Full Changelog: [v5.52.0...v5.53.0](https://github.com/team-telnyx/telnyx-node/compare/v5.52.0...v5.53.0)
