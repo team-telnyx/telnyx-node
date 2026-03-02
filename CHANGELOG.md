@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.53.0 (2026-03-02)
+
+Full Changelog: [v5.52.0...v5.53.0](https://github.com/team-telnyx/telnyx-node/compare/v5.52.0...v5.53.0)
+
+### Features
+
+* Changing the tag for TTS endpoint ([0076270](https://github.com/team-telnyx/telnyx-node/commit/007627006bb00fe37227e896fa44a2e4d95a3d68))
+
 ## 5.52.0 (2026-03-02)
 
 Full Changelog: [v5.51.1...v5.52.0](https://github.com/team-telnyx/telnyx-node/compare/v5.51.1...v5.52.0)

@@ -5,6 +5,9 @@ import { APIPromise } from '../core/api-promise';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Text to speech streaming command operations
+ */
 export class TextToSpeech extends APIResource {
   /**
    * Generate synthesized speech audio from text input. Returns audio in the
