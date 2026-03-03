@@ -1400,6 +1400,11 @@ import {
   RoomsDefaultFlatPagination,
 } from './resources/rooms/rooms';
 import {
+  SessionAnalysis,
+  SessionAnalysisRetrieveParams,
+  SessionAnalysisRetrieveResponse,
+} from './resources/session-analysis/session-analysis';
+import {
   ConsumedData,
   SimCardGroup,
   SimCardGroupCreateParams,
@@ -2800,6 +2805,10 @@ export class Telnyx {
   organizations: API.Organizations = new API.Organizations(this);
   alphanumericSenderIDs: API.AlphanumericSenderIDs = new API.AlphanumericSenderIDs(this);
   messagingProfileMetrics: API.MessagingProfileMetrics = new API.MessagingProfileMetrics(this);
+  /**
+   * Analyze voice AI sessions, costs, and event hierarchies across Telnyx products.
+   */
+  sessionAnalysis: API.SessionAnalysis = new API.SessionAnalysis(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -2955,6 +2964,7 @@ Telnyx.SpeechToText = SpeechToText;
 Telnyx.Organizations = Organizations;
 Telnyx.AlphanumericSenderIDs = AlphanumericSenderIDs;
 Telnyx.MessagingProfileMetrics = MessagingProfileMetrics;
+Telnyx.SessionAnalysis = SessionAnalysis;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -4606,6 +4616,12 @@ export declare namespace Telnyx {
     MessagingProfileMetrics as MessagingProfileMetrics,
     type MessagingProfileMetricListResponse as MessagingProfileMetricListResponse,
     type MessagingProfileMetricListParams as MessagingProfileMetricListParams,
+  };
+
+  export {
+    SessionAnalysis as SessionAnalysis,
+    type SessionAnalysisRetrieveResponse as SessionAnalysisRetrieveResponse,
+    type SessionAnalysisRetrieveParams as SessionAnalysisRetrieveParams,
   };
 
   export type APIError = API.APIError;
