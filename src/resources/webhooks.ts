@@ -27,180 +27,192 @@ export class Webhooks extends APIResource {
 }
 
 export interface CallAIGatherEnded {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
-
-  /**
-   * The type of event being delivered.
-   */
-  event_type?: 'call.ai_gather.ended';
-
-  /**
-   * ISO 8601 datetime of when the event occurred.
-   */
-  occurred_at?: string;
-
-  payload?: CallAIGatherEnded.Payload;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'event';
+  data?: CallAIGatherEnded.Data;
 }
 
 export namespace CallAIGatherEnded {
-  export interface Payload {
+  export interface Data {
     /**
-     * Call ID used to issue commands via Call Control API.
+     * Identifies the type of resource.
      */
-    call_control_id?: string;
+    id?: string;
 
     /**
-     * ID that is unique to the call and can be used to correlate webhook events.
+     * The type of event being delivered.
      */
-    call_leg_id?: string;
+    event_type?: 'call.ai_gather.ended';
 
     /**
-     * ID that is unique to the call session and can be used to correlate webhook
-     * events. Call session is a group of related call legs that logically belong to
-     * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+     * ISO 8601 datetime of when the event occurred.
      */
-    call_session_id?: string;
+    occurred_at?: string;
+
+    payload?: Data.Payload;
 
     /**
-     * State received from a command.
+     * Identifies the type of the resource.
      */
-    client_state?: string;
-
-    /**
-     * Telnyx connection ID used in the call.
-     */
-    connection_id?: string;
-
-    /**
-     * Number or SIP URI placing the call.
-     */
-    from?: string;
-
-    /**
-     * The history of the messages exchanged during the AI gather
-     */
-    message_history?: Array<Payload.MessageHistory>;
-
-    /**
-     * The result of the AI gather, its type depends of the `parameters` provided in
-     * the command
-     */
-    result?: { [key: string]: unknown };
-
-    /**
-     * Reflects how command ended.
-     */
-    status?: 'valid' | 'invalid';
-
-    /**
-     * Destination number or SIP URI of the call.
-     */
-    to?: string;
+    record_type?: 'event';
   }
 
-  export namespace Payload {
-    export interface MessageHistory {
+  export namespace Data {
+    export interface Payload {
       /**
-       * The content of the message
+       * Call ID used to issue commands via Call Control API.
        */
-      content?: string;
+      call_control_id?: string;
 
       /**
-       * The role of the message sender
+       * ID that is unique to the call and can be used to correlate webhook events.
        */
-      role?: 'assistant' | 'user';
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Telnyx connection ID used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * The history of the messages exchanged during the AI gather
+       */
+      message_history?: Array<Payload.MessageHistory>;
+
+      /**
+       * The result of the AI gather, its type depends of the `parameters` provided in
+       * the command
+       */
+      result?: { [key: string]: unknown };
+
+      /**
+       * Reflects how command ended.
+       */
+      status?: 'valid' | 'invalid';
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+
+    export namespace Payload {
+      export interface MessageHistory {
+        /**
+         * The content of the message
+         */
+        content?: string;
+
+        /**
+         * The role of the message sender
+         */
+        role?: 'assistant' | 'user';
+      }
     }
   }
 }
 
 export interface CallAIGatherMessageHistoryUpdated {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
-
-  /**
-   * The type of event being delivered.
-   */
-  event_type?: 'call.ai_gather.message_history_updated';
-
-  /**
-   * ISO 8601 datetime of when the event occurred.
-   */
-  occurred_at?: string;
-
-  payload?: CallAIGatherMessageHistoryUpdated.Payload;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: 'event';
+  data?: CallAIGatherMessageHistoryUpdated.Data;
 }
 
 export namespace CallAIGatherMessageHistoryUpdated {
-  export interface Payload {
+  export interface Data {
     /**
-     * Call ID used to issue commands via Call Control API.
+     * Identifies the type of resource.
      */
-    call_control_id?: string;
+    id?: string;
 
     /**
-     * ID that is unique to the call and can be used to correlate webhook events.
+     * The type of event being delivered.
      */
-    call_leg_id?: string;
+    event_type?: 'call.ai_gather.message_history_updated';
 
     /**
-     * ID that is unique to the call session and can be used to correlate webhook
-     * events. Call session is a group of related call legs that logically belong to
-     * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+     * ISO 8601 datetime of when the event occurred.
      */
-    call_session_id?: string;
+    occurred_at?: string;
+
+    payload?: Data.Payload;
 
     /**
-     * State received from a command.
+     * Identifies the type of the resource.
      */
-    client_state?: string;
-
-    /**
-     * Telnyx connection ID used in the call.
-     */
-    connection_id?: string;
-
-    /**
-     * Number or SIP URI placing the call.
-     */
-    from?: string;
-
-    /**
-     * The history of the messages exchanged during the AI gather
-     */
-    message_history?: Array<Payload.MessageHistory>;
-
-    /**
-     * Destination number or SIP URI of the call.
-     */
-    to?: string;
+    record_type?: 'event';
   }
 
-  export namespace Payload {
-    export interface MessageHistory {
+  export namespace Data {
+    export interface Payload {
       /**
-       * The content of the message
+       * Call ID used to issue commands via Call Control API.
        */
-      content?: string;
+      call_control_id?: string;
 
       /**
-       * The role of the message sender
+       * ID that is unique to the call and can be used to correlate webhook events.
        */
-      role?: 'assistant' | 'user';
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Telnyx connection ID used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * The history of the messages exchanged during the AI gather
+       */
+      message_history?: Array<Payload.MessageHistory>;
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+
+    export namespace Payload {
+      export interface MessageHistory {
+        /**
+         * The content of the message
+         */
+        content?: string;
+
+        /**
+         * The role of the message sender
+         */
+        role?: 'assistant' | 'user';
+      }
     }
   }
 }
@@ -4489,14 +4501,6 @@ export namespace Transcription {
   }
 }
 
-export interface CallAIGatherEndedWebhookEvent {
-  data?: CallAIGatherEnded;
-}
-
-export interface CallAIGatherMessageHistoryUpdatedWebhookEvent {
-  data?: CallAIGatherMessageHistoryUpdated;
-}
-
 export interface CallAIGatherPartialResultsWebhookEvent {
   data?: CallAIGatherPartialResults;
 }
@@ -4711,14 +4715,6 @@ export interface ReplacedLinkClickWebhookEvent {
 
 export interface TranscriptionWebhookEvent {
   data?: Transcription;
-}
-
-export interface CallAIGatherEndedWebhookEvent {
-  data?: CallAIGatherEnded;
-}
-
-export interface CallAIGatherMessageHistoryUpdatedWebhookEvent {
-  data?: CallAIGatherMessageHistoryUpdated;
 }
 
 export interface CallAIGatherPartialResultsWebhookEvent {
@@ -4938,8 +4934,8 @@ export interface TranscriptionWebhookEvent {
 }
 
 export type UnsafeUnwrapWebhookEvent =
-  | CallAIGatherEndedWebhookEvent
-  | CallAIGatherMessageHistoryUpdatedWebhookEvent
+  | CallAIGatherEnded
+  | CallAIGatherMessageHistoryUpdated
   | CallAIGatherPartialResultsWebhookEvent
   | CallAnsweredWebhookEvent
   | CallBridgedWebhookEvent
@@ -5000,8 +4996,8 @@ export type UnsafeUnwrapWebhookEvent =
   | TranscriptionWebhookEvent;
 
 export type UnwrapWebhookEvent =
-  | CallAIGatherEndedWebhookEvent
-  | CallAIGatherMessageHistoryUpdatedWebhookEvent
+  | CallAIGatherEnded
+  | CallAIGatherMessageHistoryUpdated
   | CallAIGatherPartialResultsWebhookEvent
   | CallAnsweredWebhookEvent
   | CallBridgedWebhookEvent
@@ -5123,8 +5119,6 @@ export declare namespace Webhooks {
     type OutboundMessage as OutboundMessage,
     type ReplacedLinkClick as ReplacedLinkClick,
     type Transcription as Transcription,
-    type CallAIGatherEndedWebhookEvent as CallAIGatherEndedWebhookEvent,
-    type CallAIGatherMessageHistoryUpdatedWebhookEvent as CallAIGatherMessageHistoryUpdatedWebhookEvent,
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,
     type CallAnsweredWebhookEvent as CallAnsweredWebhookEvent,
     type CallBridgedWebhookEvent as CallBridgedWebhookEvent,
