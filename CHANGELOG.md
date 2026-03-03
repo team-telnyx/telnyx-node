@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.55.0 (2026-03-03)
+
+Full Changelog: [v5.54.0...v5.55.0](https://github.com/team-telnyx/telnyx-node/compare/v5.54.0...v5.55.0)
+
+### Features
+
+* **api:** manual updates ([fec9a61](https://github.com/team-telnyx/telnyx-node/commit/fec9a61eb9bdd5859785863e270701920b7a4714))
+* **api:** manual updates ([8f72317](https://github.com/team-telnyx/telnyx-node/commit/8f723175afe4439a952df7c645ccf6568c308d02))
+
+
+### Chores
+
+* **mcp-server:** return access instructions for 404 without API key ([bd662d7](https://github.com/team-telnyx/telnyx-node/commit/bd662d7de18e36dc351d1902b323c440c2cce737))
+* **tests:** update webhook tests ([d7f41e5](https://github.com/team-telnyx/telnyx-node/commit/d7f41e5e619fafbfffbdd66363cf82de725637d1))
+
 ## 5.54.0 (2026-03-02)
 
 Full Changelog: [v5.53.0...v5.54.0](https://github.com/team-telnyx/telnyx-node/compare/v5.53.0...v5.54.0)
