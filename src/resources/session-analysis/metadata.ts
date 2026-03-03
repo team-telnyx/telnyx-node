@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as MetadataAPI from './metadata';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -27,6 +28,48 @@ export class Metadata extends APIResource {
   ): APIPromise<MetadataRetrieveRecordTypeResponse> {
     return this._client.get(path`/session_analysis/metadata/${recordType}`, options);
   }
+}
+
+export interface ChildRelationshipInfo {
+  child_event: string;
+
+  child_product: string;
+
+  child_record_type: string;
+
+  cost_rollup: boolean;
+
+  description: string;
+
+  relationship_type: string;
+
+  traversal_enabled: boolean;
+
+  via: MetadataFieldMapping;
+}
+
+export interface MetadataFieldMapping {
+  local_field: string;
+
+  parent_field: string;
+}
+
+export interface ParentRelationshipInfo {
+  cost_rollup: boolean;
+
+  description: string;
+
+  parent_event: string;
+
+  parent_product: string;
+
+  parent_record_type: string;
+
+  relationship_type: string;
+
+  traversal_enabled: boolean;
+
+  via: MetadataFieldMapping;
 }
 
 export interface MetadataRetrieveResponse {
@@ -64,78 +107,24 @@ export namespace MetadataRetrieveResponse {
   export interface RecordType {
     aliases: Array<string>;
 
-    child_relationships: Array<RecordType.ChildRelationship>;
+    child_relationships: Array<MetadataAPI.ChildRelationshipInfo>;
 
     description: string;
 
     event: string;
 
-    parent_relationships: Array<RecordType.ParentRelationship>;
+    parent_relationships: Array<MetadataAPI.ParentRelationshipInfo>;
 
     product: string;
 
     record_type: string;
-  }
-
-  export namespace RecordType {
-    export interface ChildRelationship {
-      child_event: string;
-
-      child_product: string;
-
-      child_record_type: string;
-
-      cost_rollup: boolean;
-
-      description: string;
-
-      relationship_type: string;
-
-      traversal_enabled: boolean;
-
-      via: ChildRelationship.Via;
-    }
-
-    export namespace ChildRelationship {
-      export interface Via {
-        local_field: string;
-
-        parent_field: string;
-      }
-    }
-
-    export interface ParentRelationship {
-      cost_rollup: boolean;
-
-      description: string;
-
-      parent_event: string;
-
-      parent_product: string;
-
-      parent_record_type: string;
-
-      relationship_type: string;
-
-      traversal_enabled: boolean;
-
-      via: ParentRelationship.Via;
-    }
-
-    export namespace ParentRelationship {
-      export interface Via {
-        local_field: string;
-
-        parent_field: string;
-      }
-    }
   }
 }
 
 export interface MetadataRetrieveRecordTypeResponse {
   aliases: Array<string>;
 
-  child_relationships: Array<MetadataRetrieveRecordTypeResponse.ChildRelationship>;
+  child_relationships: Array<ChildRelationshipInfo>;
 
   event: string;
 
@@ -146,7 +135,7 @@ export interface MetadataRetrieveRecordTypeResponse {
 
   meta: MetadataRetrieveRecordTypeResponse.Meta;
 
-  parent_relationships: Array<MetadataRetrieveRecordTypeResponse.ParentRelationship>;
+  parent_relationships: Array<ParentRelationshipInfo>;
 
   product: string;
 
@@ -154,32 +143,6 @@ export interface MetadataRetrieveRecordTypeResponse {
 }
 
 export namespace MetadataRetrieveRecordTypeResponse {
-  export interface ChildRelationship {
-    child_event: string;
-
-    child_product: string;
-
-    child_record_type: string;
-
-    cost_rollup: boolean;
-
-    description: string;
-
-    relationship_type: string;
-
-    traversal_enabled: boolean;
-
-    via: ChildRelationship.Via;
-  }
-
-  export namespace ChildRelationship {
-    export interface Via {
-      local_field: string;
-
-      parent_field: string;
-    }
-  }
-
   export interface Meta {
     max_recommended_depth: number;
 
@@ -189,36 +152,13 @@ export namespace MetadataRetrieveRecordTypeResponse {
 
     total_siblings: number;
   }
-
-  export interface ParentRelationship {
-    cost_rollup: boolean;
-
-    description: string;
-
-    parent_event: string;
-
-    parent_product: string;
-
-    parent_record_type: string;
-
-    relationship_type: string;
-
-    traversal_enabled: boolean;
-
-    via: ParentRelationship.Via;
-  }
-
-  export namespace ParentRelationship {
-    export interface Via {
-      local_field: string;
-
-      parent_field: string;
-    }
-  }
 }
 
 export declare namespace Metadata {
   export {
+    type ChildRelationshipInfo as ChildRelationshipInfo,
+    type MetadataFieldMapping as MetadataFieldMapping,
+    type ParentRelationshipInfo as ParentRelationshipInfo,
     type MetadataRetrieveResponse as MetadataRetrieveResponse,
     type MetadataRetrieveRecordTypeResponse as MetadataRetrieveRecordTypeResponse,
   };

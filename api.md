@@ -4435,6 +4435,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/session-analysis/session-analysis.ts">EventNode</a></code>
 - <code><a href="./src/resources/session-analysis/session-analysis.ts">SessionAnalysisRetrieveResponse</a></code>
 
 Methods:
@@ -4445,6 +4446,9 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/session-analysis/metadata.ts">ChildRelationshipInfo</a></code>
+- <code><a href="./src/resources/session-analysis/metadata.ts">MetadataFieldMapping</a></code>
+- <code><a href="./src/resources/session-analysis/metadata.ts">ParentRelationshipInfo</a></code>
 - <code><a href="./src/resources/session-analysis/metadata.ts">MetadataRetrieveResponse</a></code>
 - <code><a href="./src/resources/session-analysis/metadata.ts">MetadataRetrieveRecordTypeResponse</a></code>
 
