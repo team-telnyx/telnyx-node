@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.1.0 (2026-03-03)
+
+Full Changelog: [v6.0.0...v6.1.0](https://github.com/team-telnyx/telnyx-node/compare/v6.0.0...v6.1.0)
+
+### Features
+
+* [TDA-6425] Add Session Analysis API spec to public docs ([c902a82](https://github.com/team-telnyx/telnyx-node/commit/c902a820535468bb060c5640cedb787664a26e4b))
+* **api:** manual updates ([6bb5e20](https://github.com/team-telnyx/telnyx-node/commit/6bb5e20cebb49fb2929cad293ada238b300161f1))
+
 ## 6.0.0 (2026-03-03)
 
 Full Changelog: [v5.55.0...v6.0.0](https://github.com/team-telnyx/telnyx-node/compare/v5.55.0...v6.0.0)
