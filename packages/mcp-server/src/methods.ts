@@ -5703,6 +5703,24 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/messaging_profile_metrics',
   },
+  {
+    clientCallName: 'client.sessionAnalysis.retrieve',
+    fullyQualifiedName: 'sessionAnalysis.retrieve',
+    httpMethod: 'get',
+    httpPath: '/session_analysis/{record_type}/{event_id}',
+  },
+  {
+    clientCallName: 'client.sessionAnalysis.metadata.retrieve',
+    fullyQualifiedName: 'sessionAnalysis.metadata.retrieve',
+    httpMethod: 'get',
+    httpPath: '/session_analysis/metadata',
+  },
+  {
+    clientCallName: 'client.sessionAnalysis.metadata.retrieveRecordType',
+    fullyQualifiedName: 'sessionAnalysis.metadata.retrieveRecordType',
+    httpMethod: 'get',
+    httpPath: '/session_analysis/metadata/{record_type}',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {

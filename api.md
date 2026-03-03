@@ -4430,3 +4430,29 @@ Types:
 Methods:
 
 - <code title="get /messaging_profile_metrics">client.messagingProfileMetrics.<a href="./src/resources/messaging-profile-metrics.ts">list</a>({ ...params }) -> MessagingProfileMetricListResponse</code>
+
+# SessionAnalysis
+
+Types:
+
+- <code><a href="./src/resources/session-analysis/session-analysis.ts">EventNode</a></code>
+- <code><a href="./src/resources/session-analysis/session-analysis.ts">SessionAnalysisRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /session_analysis/{record_type}/{event_id}">client.sessionAnalysis.<a href="./src/resources/session-analysis/session-analysis.ts">retrieve</a>(eventID, { ...params }) -> SessionAnalysisRetrieveResponse</code>
+
+## Metadata
+
+Types:
+
+- <code><a href="./src/resources/session-analysis/metadata.ts">ChildRelationshipInfo</a></code>
+- <code><a href="./src/resources/session-analysis/metadata.ts">MetadataFieldMapping</a></code>
+- <code><a href="./src/resources/session-analysis/metadata.ts">ParentRelationshipInfo</a></code>
+- <code><a href="./src/resources/session-analysis/metadata.ts">MetadataRetrieveResponse</a></code>
+- <code><a href="./src/resources/session-analysis/metadata.ts">MetadataRetrieveRecordTypeResponse</a></code>
+
+Methods:
+
+- <code title="get /session_analysis/metadata">client.sessionAnalysis.metadata.<a href="./src/resources/session-analysis/metadata.ts">retrieve</a>() -> MetadataRetrieveResponse</code>
+- <code title="get /session_analysis/metadata/{record_type}">client.sessionAnalysis.metadata.<a href="./src/resources/session-analysis/metadata.ts">retrieveRecordType</a>(recordType) -> MetadataRetrieveRecordTypeResponse</code>

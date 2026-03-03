@@ -1047,6 +1047,12 @@ export {
   type RoomsDefaultFlatPagination,
 } from './rooms/rooms';
 export {
+  SessionAnalysis,
+  type EventNode,
+  type SessionAnalysisRetrieveResponse,
+  type SessionAnalysisRetrieveParams,
+} from './session-analysis/session-analysis';
+export {
   Seti,
   type SetiRetrieveBlackBoxTestResultsResponse,
   type SetiRetrieveBlackBoxTestResultsParams,
