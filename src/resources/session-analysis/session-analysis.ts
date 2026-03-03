@@ -2,7 +2,14 @@
 
 import { APIResource } from '../../core/resource';
 import * as MetadataAPI from './metadata';
-import { Metadata, MetadataRetrieveRecordTypeResponse, MetadataRetrieveResponse } from './metadata';
+import {
+  ChildRelationshipInfo,
+  Metadata,
+  MetadataFieldMapping,
+  MetadataRetrieveRecordTypeResponse,
+  MetadataRetrieveResponse,
+  ParentRelationshipInfo,
+} from './metadata';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -27,6 +34,104 @@ export class SessionAnalysis extends APIResource {
   }
 }
 
+export interface EventNode {
+  /**
+   * Event identifier.
+   */
+  id: string;
+
+  /**
+   * Child events in the session tree.
+   */
+  children: Array<EventNode>;
+
+  cost: EventNode.Cost;
+
+  /**
+   * Name of the event type.
+   */
+  event_name: string;
+
+  links: EventNode.Links;
+
+  /**
+   * Product that generated this event.
+   */
+  product: string;
+
+  /**
+   * The underlying detail record data. Contents vary by record type.
+   */
+  record: { [key: string]: unknown };
+
+  /**
+   * Relationship to the parent node, null for root.
+   */
+  relationship?: EventNode.Relationship | null;
+}
+
+export namespace EventNode {
+  export interface Cost {
+    /**
+     * Cumulative cost including all descendants.
+     */
+    cumulative_cost: string;
+
+    /**
+     * ISO 4217 currency code.
+     */
+    currency: string;
+
+    /**
+     * Cost of this individual event.
+     */
+    event_cost: string;
+  }
+
+  export interface Links {
+    /**
+     * Link to the underlying detail records.
+     */
+    records: string;
+
+    /**
+     * Link to this session analysis node.
+     */
+    self: string;
+  }
+
+  /**
+   * Relationship to the parent node, null for root.
+   */
+  export interface Relationship {
+    /**
+     * Identifier of the parent event.
+     */
+    parent_id: string;
+
+    /**
+     * Relationship type identifier.
+     */
+    type: string;
+
+    via: Relationship.Via;
+  }
+
+  export namespace Relationship {
+    export interface Via {
+      /**
+       * Field name on the child record.
+       */
+      local_field: string;
+
+      /**
+       * Field name on the parent record.
+       */
+      parent_field: string;
+    }
+  }
+}
+
 export interface SessionAnalysisRetrieveResponse {
   cost: SessionAnalysisRetrieveResponse.Cost;
 
@@ -37,7 +142,7 @@ export interface SessionAnalysisRetrieveResponse {
 
   meta: SessionAnalysisRetrieveResponse.Meta;
 
-  root: SessionAnalysisRetrieveResponse.Root;
+  root: EventNode;
 
   /**
    * Identifier for the analyzed session.
@@ -79,104 +184,6 @@ export namespace SessionAnalysisRetrieveResponse {
      */
     products: Array<string>;
   }
-
-  export interface Root {
-    /**
-     * Event identifier.
-     */
-    id: string;
-
-    /**
-     * Child events in the session tree.
-     */
-    children: Array<unknown>;
-
-    cost: Root.Cost;
-
-    /**
-     * Name of the event type.
-     */
-    event_name: string;
-
-    links: Root.Links;
-
-    /**
-     * Product that generated this event.
-     */
-    product: string;
-
-    /**
-     * The underlying detail record data. Contents vary by record type.
-     */
-    record: { [key: string]: unknown };
-
-    /**
-     * Relationship to the parent node, null for root.
-     */
-    relationship?: Root.Relationship | null;
-  }
-
-  export namespace Root {
-    export interface Cost {
-      /**
-       * Cumulative cost including all descendants.
-       */
-      cumulative_cost: string;
-
-      /**
-       * ISO 4217 currency code.
-       */
-      currency: string;
-
-      /**
-       * Cost of this individual event.
-       */
-      event_cost: string;
-    }
-
-    export interface Links {
-      /**
-       * Link to the underlying detail records.
-       */
-      records: string;
-
-      /**
-       * Link to this session analysis node.
-       */
-      self: string;
-    }
-
-    /**
-     * Relationship to the parent node, null for root.
-     */
-    export interface Relationship {
-      /**
-       * Identifier of the parent event.
-       */
-      parent_id: string;
-
-      /**
-       * Relationship type identifier.
-       */
-      type: string;
-
-      via: Relationship.Via;
-    }
-
-    export namespace Relationship {
-      export interface Via {
-        /**
-         * Field name on the child record.
-         */
-        local_field: string;
-
-        /**
-         * Field name on the parent record.
-         */
-        parent_field: string;
-      }
-    }
-  }
 }
 
 export interface SessionAnalysisRetrieveParams {
@@ -210,12 +217,16 @@ SessionAnalysis.Metadata = Metadata;
 
 export declare namespace SessionAnalysis {
   export {
+    type EventNode as EventNode,
     type SessionAnalysisRetrieveResponse as SessionAnalysisRetrieveResponse,
     type SessionAnalysisRetrieveParams as SessionAnalysisRetrieveParams,
   };
 
   export {
     Metadata as Metadata,
+    type ChildRelationshipInfo as ChildRelationshipInfo,
+    type MetadataFieldMapping as MetadataFieldMapping,
+    type ParentRelationshipInfo as ParentRelationshipInfo,
     type MetadataRetrieveResponse as MetadataRetrieveResponse,
     type MetadataRetrieveRecordTypeResponse as MetadataRetrieveRecordTypeResponse,
   };

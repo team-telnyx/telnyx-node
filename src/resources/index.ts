@@ -1048,6 +1048,7 @@ export {
 } from './rooms/rooms';
 export {
   SessionAnalysis,
+  type EventNode,
   type SessionAnalysisRetrieveResponse,
   type SessionAnalysisRetrieveParams,
 } from './session-analysis/session-analysis';

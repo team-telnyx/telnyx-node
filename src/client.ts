@@ -1400,6 +1400,7 @@ import {
   RoomsDefaultFlatPagination,
 } from './resources/rooms/rooms';
 import {
+  EventNode,
   SessionAnalysis,
   SessionAnalysisRetrieveParams,
   SessionAnalysisRetrieveResponse,
@@ -4620,6 +4621,7 @@ export declare namespace Telnyx {
 
   export {
     SessionAnalysis as SessionAnalysis,
+    type EventNode as EventNode,
     type SessionAnalysisRetrieveResponse as SessionAnalysisRetrieveResponse,
     type SessionAnalysisRetrieveParams as SessionAnalysisRetrieveParams,
   };
