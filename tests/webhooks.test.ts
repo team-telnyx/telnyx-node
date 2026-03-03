@@ -20,8 +20,12 @@ function generateKeyPair() {
 }
 
 // Helper to sign a payload with Ed25519
-function sign(payload: Uint8Array, privateKey: crypto.KeyObject): Uint8Array {
-  return crypto.sign(null, payload, privateKey);
+function signPayload(payload: Uint8Array, privateKey: crypto.KeyObject): Buffer {
+  return (crypto as unknown as { sign: (alg: null, data: Uint8Array, key: crypto.KeyObject) => Buffer }).sign(
+    null,
+    payload,
+    privateKey,
+  );
 }
 
 describe('TelnyxWebhook', () => {
@@ -80,7 +84,7 @@ describe('TelnyxWebhook', () => {
         Buffer.from('|', 'utf8'),
         Buffer.from(payload, 'utf8'),
       ]);
-      const signature = sign(signedPayload, keyPair.privateKey);
+      const signature = signPayload(signedPayload, keyPair.privateKey);
       const signatureBase64 = signature.toString('base64');
 
       const headers = {
@@ -99,7 +103,7 @@ describe('TelnyxWebhook', () => {
         Buffer.from('|', 'utf8'),
         Buffer.from(payload, 'utf8'),
       ]);
-      const signature = sign(signedPayload, keyPair.privateKey);
+      const signature = signPayload(signedPayload, keyPair.privateKey);
       const signatureBase64 = signature.toString('base64');
 
       const headers = {
@@ -232,7 +236,7 @@ describe('Webhooks Resource', () => {
         Buffer.from('|', 'utf8'),
         Buffer.from(payload, 'utf8'),
       ]);
-      const signature = sign(signedPayload, keyPair.privateKey);
+      const signature = signPayload(signedPayload, keyPair.privateKey);
       const signatureBase64 = signature.toString('base64');
 
       const headers = {
@@ -254,7 +258,7 @@ describe('Webhooks Resource', () => {
         Buffer.from('|', 'utf8'),
         Buffer.from(payload, 'utf8'),
       ]);
-      const signature = sign(signedPayload, keyPair.privateKey);
+      const signature = signPayload(signedPayload, keyPair.privateKey);
       const signatureBase64 = signature.toString('base64');
 
       const headers = {
@@ -352,7 +356,7 @@ describe('E2E Webhook Verification', () => {
     ]);
 
     // Generate signature using test private key
-    const signature = sign(signedPayload, testKeyPair.privateKey);
+    const signature = signPayload(signedPayload, testKeyPair.privateKey);
     const signatureBase64 = signature.toString('base64');
 
     // Real Telnyx webhook headers
@@ -410,7 +414,7 @@ describe('E2E Webhook Verification', () => {
       Buffer.from(specialPayload, 'utf8'),
     ]);
 
-    const signature = sign(signedPayload, testKeyPair.privateKey);
+    const signature = signPayload(signedPayload, testKeyPair.privateKey);
     const signatureBase64 = signature.toString('base64');
 
     const headers = {
