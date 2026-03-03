@@ -1321,8 +1321,6 @@ export {
   type OutboundMessage,
   type ReplacedLinkClick,
   type Transcription,
-  type CallAIGatherEndedWebhookEvent,
-  type CallAIGatherMessageHistoryUpdatedWebhookEvent,
   type CallAIGatherPartialResultsWebhookEvent,
   type CallAnsweredWebhookEvent,
   type CallBridgedWebhookEvent,
