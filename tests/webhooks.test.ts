@@ -3,6 +3,11 @@ import { TelnyxWebhook, TelnyxWebhookVerificationError } from '../src/webhooks';
 import { CallAIGatherEndedWebhookEvent, CallAnsweredWebhookEvent } from '../src/resources/webhooks';
 import * as crypto from 'crypto';
 
+// Helper to generate random bytes (typed cast for Node.js crypto)
+function randomBytes(size: number): Buffer {
+  return (crypto as unknown as { randomBytes: (size: number) => Buffer }).randomBytes(size);
+}
+
 // Helper to generate Ed25519 key pairs for testing
 function generateKeyPair() {
   const { publicKey, privateKey } = crypto.generateKeyPairSync('ed25519');
@@ -117,7 +122,7 @@ describe('TelnyxWebhook', () => {
     });
 
     it('should reject webhook with missing timestamp header', async () => {
-      const signatureBase64 = crypto.randomBytes(64).toString('base64');
+      const signatureBase64 = randomBytes(64).toString('base64');
       const headers = {
         'Telnyx-Signature-Ed25519': signatureBase64,
       };
@@ -138,7 +143,7 @@ describe('TelnyxWebhook', () => {
     });
 
     it('should reject webhook with invalid timestamp format', async () => {
-      const signatureBase64 = crypto.randomBytes(64).toString('base64');
+      const signatureBase64 = randomBytes(64).toString('base64');
       const headers = {
         'Telnyx-Signature-Ed25519': signatureBase64,
         'Telnyx-Timestamp': 'invalid_timestamp',
@@ -150,7 +155,7 @@ describe('TelnyxWebhook', () => {
 
     it('should reject webhook with old timestamp', async () => {
       const oldTimestamp = Math.floor(Date.now() / 1000) - 400; // 400 seconds ago
-      const signatureBase64 = crypto.randomBytes(64).toString('base64');
+      const signatureBase64 = randomBytes(64).toString('base64');
       const headers = {
         'Telnyx-Signature-Ed25519': signatureBase64,
         'Telnyx-Timestamp': oldTimestamp.toString(),
@@ -162,7 +167,7 @@ describe('TelnyxWebhook', () => {
 
     it('should reject webhook with future timestamp', async () => {
       const futureTimestamp = Math.floor(Date.now() / 1000) + 400; // 400 seconds in future
-      const signatureBase64 = crypto.randomBytes(64).toString('base64');
+      const signatureBase64 = randomBytes(64).toString('base64');
       const headers = {
         'Telnyx-Signature-Ed25519': signatureBase64,
         'Telnyx-Timestamp': futureTimestamp.toString(),
@@ -174,7 +179,7 @@ describe('TelnyxWebhook', () => {
 
     it('should reject webhook with invalid signature', async () => {
       const timestamp = Math.floor(Date.now() / 1000).toString();
-      const invalidSignature = crypto.randomBytes(64).toString('base64');
+      const invalidSignature = randomBytes(64).toString('base64');
       const headers = {
         'Telnyx-Signature-Ed25519': invalidSignature,
         'Telnyx-Timestamp': timestamp,
