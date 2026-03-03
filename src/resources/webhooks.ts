@@ -8,10 +8,10 @@ import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
 
 export class Webhooks extends APIResource {
-  unwrap<T = UnwrapWebhookEvent>(
+  async unwrap<T = UnwrapWebhookEvent>(
     body: string,
     options?: { headers?: Record<string, string>; key?: string | Uint8Array },
-  ): T {
+  ): Promise<T> {
     if (options?.headers) {
       const key = options.key || this._client.publicKey;
       if (!key) {
@@ -20,7 +20,7 @@ export class Webhooks extends APIResource {
 
       // Use Telnyx-specific webhook verification following standardwebhooks pattern
       const webhook = new TelnyxWebhook(key);
-      webhook.verify(body, options.headers);
+      await webhook.verify(body, options.headers);
     }
 
     return JSON.parse(body) as T;

@@ -1,26 +1,49 @@
 import { Telnyx } from '../src/client';
 import { TelnyxWebhook, TelnyxWebhookVerificationError } from '../src/webhooks';
 import { CallAIGatherEndedWebhookEvent, CallAnsweredWebhookEvent } from '../src/resources/webhooks';
-import * as nacl from 'tweetnacl';
+import * as crypto from 'crypto';
+
+// Helper to generate random bytes (typed cast for Node.js crypto)
+function randomBytes(size: number): Buffer {
+  return (crypto as unknown as { randomBytes: (size: number) => Buffer }).randomBytes(size);
+}
+
+// Helper to generate Ed25519 key pairs for testing
+function generateKeyPair() {
+  const { publicKey, privateKey } = crypto.generateKeyPairSync('ed25519');
+  const publicKeyRaw = publicKey.export({ type: 'spki', format: 'der' }).subarray(-32);
+  return {
+    publicKey: publicKeyRaw,
+    publicKeyBase64: publicKeyRaw.toString('base64'),
+    privateKey,
+  };
+}
+
+// Helper to sign a payload with Ed25519
+function signPayload(payload: Uint8Array, privateKey: crypto.KeyObject): Buffer {
+  return (crypto as unknown as { sign: (alg: null, data: Uint8Array, key: crypto.KeyObject) => Buffer }).sign(
+    null,
+    payload,
+    privateKey,
+  );
+}
 
 describe('TelnyxWebhook', () => {
-  let signingKey: nacl.SignKeyPair;
-  let verifyKeyBase64: string;
+  let keyPair: ReturnType<typeof generateKeyPair>;
 
   beforeEach(() => {
     // Generate a test key pair for each test
-    signingKey = nacl.sign.keyPair();
-    verifyKeyBase64 = Buffer.from(signingKey.publicKey).toString('base64');
+    keyPair = generateKeyPair();
   });
 
   describe('initialization', () => {
     it('should initialize with base64 string key', () => {
-      const webhook = new TelnyxWebhook(verifyKeyBase64);
+      const webhook = new TelnyxWebhook(keyPair.publicKeyBase64);
       expect(webhook).toBeInstanceOf(TelnyxWebhook);
     });
 
     it('should initialize with Uint8Array key', () => {
-      const webhook = new TelnyxWebhook(signingKey.publicKey);
+      const webhook = new TelnyxWebhook(keyPair.publicKey);
       expect(webhook).toBeInstanceOf(TelnyxWebhook);
     });
 
@@ -54,133 +77,131 @@ describe('TelnyxWebhook', () => {
       },
     });
 
-    it('should verify valid webhook with correct headers', () => {
+    it('should verify valid webhook with correct headers', async () => {
       const timestamp = Math.floor(Date.now() / 1000).toString();
-      const signedPayload = new Uint8Array([
-        ...Buffer.from(timestamp, 'utf8'),
-        ...Buffer.from('|', 'utf8'),
-        ...Buffer.from(payload, 'utf8'),
+      const signedPayload = Buffer.concat([
+        Buffer.from(timestamp, 'utf8'),
+        Buffer.from('|', 'utf8'),
+        Buffer.from(payload, 'utf8'),
       ]);
-      const signature = nacl.sign.detached(signedPayload, signingKey.secretKey);
-      const signatureBase64 = Buffer.from(signature).toString('base64');
+      const signature = signPayload(signedPayload, keyPair.privateKey);
+      const signatureBase64 = signature.toString('base64');
 
       const headers = {
         'Telnyx-Signature-Ed25519': signatureBase64,
         'Telnyx-Timestamp': timestamp,
       };
 
-      const webhook = new TelnyxWebhook(verifyKeyBase64);
-      expect(() => webhook.verify(payload, headers)).not.toThrow();
+      const webhook = new TelnyxWebhook(keyPair.publicKeyBase64);
+      await expect(webhook.verify(payload, headers)).resolves.toBeUndefined();
     });
 
-    it('should verify valid webhook with lowercase headers', () => {
+    it('should verify valid webhook with lowercase headers', async () => {
       const timestamp = Math.floor(Date.now() / 1000).toString();
-      const signedPayload = new Uint8Array([
-        ...Buffer.from(timestamp, 'utf8'),
-        ...Buffer.from('|', 'utf8'),
-        ...Buffer.from(payload, 'utf8'),
+      const signedPayload = Buffer.concat([
+        Buffer.from(timestamp, 'utf8'),
+        Buffer.from('|', 'utf8'),
+        Buffer.from(payload, 'utf8'),
       ]);
-      const signature = nacl.sign.detached(signedPayload, signingKey.secretKey);
-      const signatureBase64 = Buffer.from(signature).toString('base64');
+      const signature = signPayload(signedPayload, keyPair.privateKey);
+      const signatureBase64 = signature.toString('base64');
 
       const headers = {
         'telnyx-signature-ed25519': signatureBase64,
         'telnyx-timestamp': timestamp,
       };
 
-      const webhook = new TelnyxWebhook(verifyKeyBase64);
-      expect(() => webhook.verify(payload, headers)).not.toThrow();
+      const webhook = new TelnyxWebhook(keyPair.publicKeyBase64);
+      await expect(webhook.verify(payload, headers)).resolves.toBeUndefined();
     });
 
-    it('should reject webhook with missing signature header', () => {
+    it('should reject webhook with missing signature header', async () => {
       const timestamp = Math.floor(Date.now() / 1000).toString();
       const headers = {
         'Telnyx-Timestamp': timestamp,
       };
 
-      const webhook = new TelnyxWebhook(verifyKeyBase64);
-      expect(() => webhook.verify(payload, headers)).toThrow(TelnyxWebhookVerificationError);
+      const webhook = new TelnyxWebhook(keyPair.publicKeyBase64);
+      await expect(webhook.verify(payload, headers)).rejects.toThrow(TelnyxWebhookVerificationError);
     });
 
-    it('should reject webhook with missing timestamp header', () => {
-      const signatureBase64 = Buffer.from(nacl.randomBytes(64)).toString('base64');
+    it('should reject webhook with missing timestamp header', async () => {
+      const signatureBase64 = randomBytes(64).toString('base64');
       const headers = {
         'Telnyx-Signature-Ed25519': signatureBase64,
       };
 
-      const webhook = new TelnyxWebhook(verifyKeyBase64);
-      expect(() => webhook.verify(payload, headers)).toThrow(TelnyxWebhookVerificationError);
+      const webhook = new TelnyxWebhook(keyPair.publicKeyBase64);
+      await expect(webhook.verify(payload, headers)).rejects.toThrow(TelnyxWebhookVerificationError);
     });
 
-    it('should reject webhook with invalid signature format', () => {
+    it('should reject webhook with invalid signature format', async () => {
       const timestamp = Math.floor(Date.now() / 1000).toString();
       const headers = {
         'Telnyx-Signature-Ed25519': 'invalid_signature',
         'Telnyx-Timestamp': timestamp,
       };
 
-      const webhook = new TelnyxWebhook(verifyKeyBase64);
-      expect(() => webhook.verify(payload, headers)).toThrow(TelnyxWebhookVerificationError);
+      const webhook = new TelnyxWebhook(keyPair.publicKeyBase64);
+      await expect(webhook.verify(payload, headers)).rejects.toThrow(TelnyxWebhookVerificationError);
     });
 
-    it('should reject webhook with invalid timestamp format', () => {
-      const signatureBase64 = Buffer.from(nacl.randomBytes(64)).toString('base64');
+    it('should reject webhook with invalid timestamp format', async () => {
+      const signatureBase64 = randomBytes(64).toString('base64');
       const headers = {
         'Telnyx-Signature-Ed25519': signatureBase64,
         'Telnyx-Timestamp': 'invalid_timestamp',
       };
 
-      const webhook = new TelnyxWebhook(verifyKeyBase64);
-      expect(() => webhook.verify(payload, headers)).toThrow(TelnyxWebhookVerificationError);
+      const webhook = new TelnyxWebhook(keyPair.publicKeyBase64);
+      await expect(webhook.verify(payload, headers)).rejects.toThrow(TelnyxWebhookVerificationError);
     });
 
-    it('should reject webhook with old timestamp', () => {
+    it('should reject webhook with old timestamp', async () => {
       const oldTimestamp = Math.floor(Date.now() / 1000) - 400; // 400 seconds ago
-      const signatureBase64 = Buffer.from(nacl.randomBytes(64)).toString('base64');
+      const signatureBase64 = randomBytes(64).toString('base64');
       const headers = {
         'Telnyx-Signature-Ed25519': signatureBase64,
         'Telnyx-Timestamp': oldTimestamp.toString(),
       };
 
-      const webhook = new TelnyxWebhook(verifyKeyBase64);
-      expect(() => webhook.verify(payload, headers)).toThrow(TelnyxWebhookVerificationError);
+      const webhook = new TelnyxWebhook(keyPair.publicKeyBase64);
+      await expect(webhook.verify(payload, headers)).rejects.toThrow(TelnyxWebhookVerificationError);
     });
 
-    it('should reject webhook with future timestamp', () => {
+    it('should reject webhook with future timestamp', async () => {
       const futureTimestamp = Math.floor(Date.now() / 1000) + 400; // 400 seconds in future
-      const signatureBase64 = Buffer.from(nacl.randomBytes(64)).toString('base64');
+      const signatureBase64 = randomBytes(64).toString('base64');
       const headers = {
         'Telnyx-Signature-Ed25519': signatureBase64,
         'Telnyx-Timestamp': futureTimestamp.toString(),
       };
 
-      const webhook = new TelnyxWebhook(verifyKeyBase64);
-      expect(() => webhook.verify(payload, headers)).toThrow(TelnyxWebhookVerificationError);
+      const webhook = new TelnyxWebhook(keyPair.publicKeyBase64);
+      await expect(webhook.verify(payload, headers)).rejects.toThrow(TelnyxWebhookVerificationError);
     });
 
-    it('should reject webhook with invalid signature', () => {
+    it('should reject webhook with invalid signature', async () => {
       const timestamp = Math.floor(Date.now() / 1000).toString();
-      const invalidSignature = Buffer.from(nacl.randomBytes(64)).toString('base64');
+      const invalidSignature = randomBytes(64).toString('base64');
       const headers = {
         'Telnyx-Signature-Ed25519': invalidSignature,
         'Telnyx-Timestamp': timestamp,
       };
 
-      const webhook = new TelnyxWebhook(verifyKeyBase64);
-      expect(() => webhook.verify(payload, headers)).toThrow(TelnyxWebhookVerificationError);
+      const webhook = new TelnyxWebhook(keyPair.publicKeyBase64);
+      await expect(webhook.verify(payload, headers)).rejects.toThrow(TelnyxWebhookVerificationError);
     });
   });
 });
 
 describe('Webhooks Resource', () => {
   let client: Telnyx;
-  let signingKey: nacl.SignKeyPair;
-  let verifyKeyBase64: string;
+  let keyPair: ReturnType<typeof generateKeyPair>;
 
   beforeEach(() => {
-    signingKey = nacl.sign.keyPair();
-    verifyKeyBase64 = Buffer.from(signingKey.publicKey).toString('base64');
-    client = new Telnyx({ apiKey: 'test-key', publicKey: verifyKeyBase64 });
+    keyPair = generateKeyPair();
+    client = new Telnyx({ apiKey: 'test-key', publicKey: keyPair.publicKeyBase64 });
   });
 
   describe('unwrap method', () => {
@@ -208,37 +229,37 @@ describe('Webhooks Resource', () => {
       },
     });
 
-    it('should unwrap valid webhook with verification', () => {
+    it('should unwrap valid webhook with verification', async () => {
       const timestamp = Math.floor(Date.now() / 1000).toString();
-      const signedPayload = new Uint8Array([
-        ...Buffer.from(timestamp, 'utf8'),
-        ...Buffer.from('|', 'utf8'),
-        ...Buffer.from(payload, 'utf8'),
+      const signedPayload = Buffer.concat([
+        Buffer.from(timestamp, 'utf8'),
+        Buffer.from('|', 'utf8'),
+        Buffer.from(payload, 'utf8'),
       ]);
-      const signature = nacl.sign.detached(signedPayload, signingKey.secretKey);
-      const signatureBase64 = Buffer.from(signature).toString('base64');
+      const signature = signPayload(signedPayload, keyPair.privateKey);
+      const signatureBase64 = signature.toString('base64');
 
       const headers = {
         'Telnyx-Signature-Ed25519': signatureBase64,
         'Telnyx-Timestamp': timestamp,
       };
 
-      const result = client.webhooks.unwrap<CallAIGatherEndedWebhookEvent>(payload, { headers });
+      const result = await client.webhooks.unwrap<CallAIGatherEndedWebhookEvent>(payload, { headers });
       expect(result.data?.event_type).toBe('call.ai_gather.ended');
       expect(result.data?.payload?.call_control_id).toBe(
         'v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ',
       );
     });
 
-    it('should unwrap valid webhook with provided key', () => {
+    it('should unwrap valid webhook with provided key', async () => {
       const timestamp = Math.floor(Date.now() / 1000).toString();
-      const signedPayload = new Uint8Array([
-        ...Buffer.from(timestamp, 'utf8'),
-        ...Buffer.from('|', 'utf8'),
-        ...Buffer.from(payload, 'utf8'),
+      const signedPayload = Buffer.concat([
+        Buffer.from(timestamp, 'utf8'),
+        Buffer.from('|', 'utf8'),
+        Buffer.from(payload, 'utf8'),
       ]);
-      const signature = nacl.sign.detached(signedPayload, signingKey.secretKey);
-      const signatureBase64 = Buffer.from(signature).toString('base64');
+      const signature = signPayload(signedPayload, keyPair.privateKey);
+      const signatureBase64 = signature.toString('base64');
 
       const headers = {
         'Telnyx-Signature-Ed25519': signatureBase64,
@@ -246,38 +267,40 @@ describe('Webhooks Resource', () => {
       };
 
       const clientWithoutKey = new Telnyx({ apiKey: 'test-key' });
-      const result = clientWithoutKey.webhooks.unwrap<CallAIGatherEndedWebhookEvent>(payload, {
+      const result = await clientWithoutKey.webhooks.unwrap<CallAIGatherEndedWebhookEvent>(payload, {
         headers,
-        key: verifyKeyBase64,
+        key: keyPair.publicKeyBase64,
       });
       expect(result.data?.event_type).toBe('call.ai_gather.ended');
     });
 
-    it('should reject webhook without verification when no key available', () => {
+    it('should reject webhook without verification when no key available', async () => {
       const clientWithoutKey = new Telnyx({ apiKey: 'test-key' });
       const headers = {
         'Telnyx-Signature-Ed25519': 'dummy',
         'Telnyx-Timestamp': Math.floor(Date.now() / 1000).toString(),
       };
 
-      expect(() => clientWithoutKey.webhooks.unwrap(payload, { headers })).toThrow(
+      await expect(clientWithoutKey.webhooks.unwrap(payload, { headers })).rejects.toThrow(
         TelnyxWebhookVerificationError,
       );
     });
 
-    it('should unwrap without verification when no headers provided', () => {
-      const result = client.webhooks.unwrap<CallAIGatherEndedWebhookEvent>(payload);
+    it('should unwrap without verification when no headers provided', async () => {
+      const result = await client.webhooks.unwrap<CallAIGatherEndedWebhookEvent>(payload);
       expect(result.data?.event_type).toBe('call.ai_gather.ended');
     });
 
-    it('should reject invalid webhook signature', () => {
+    it('should reject invalid webhook signature', async () => {
       const timestamp = Math.floor(Date.now() / 1000).toString();
       const headers = {
         'Telnyx-Signature-Ed25519': 'invalid_signature',
         'Telnyx-Timestamp': timestamp,
       };
 
-      expect(() => client.webhooks.unwrap(payload, { headers })).toThrow(TelnyxWebhookVerificationError);
+      await expect(client.webhooks.unwrap(payload, { headers })).rejects.toThrow(
+        TelnyxWebhookVerificationError,
+      );
     });
   });
 });
@@ -294,10 +317,9 @@ describe('TelnyxWebhookVerificationError', () => {
 describe('E2E Webhook Verification', () => {
   // This test case uses real webhook data structure from Telnyx
   // with a test key pair to simulate production scenario
-  it('should verify webhook with real Telnyx payload structure', () => {
+  it('should verify webhook with real Telnyx payload structure', async () => {
     // Generate test key pair (simulating Mission Control public key)
-    const testSigningKey = nacl.sign.keyPair();
-    const testPublicKeyBase64 = Buffer.from(testSigningKey.publicKey).toString('base64');
+    const testKeyPair = generateKeyPair();
 
     // Real webhook payload structure from Telnyx (example)
     const realPayload = JSON.stringify({
@@ -327,15 +349,15 @@ describe('E2E Webhook Verification', () => {
     const realTimestamp = Math.floor(Date.now() / 1000).toString();
 
     // Create signed payload with pipe separator as per Telnyx spec
-    const signedPayload = new Uint8Array([
-      ...Buffer.from(realTimestamp, 'utf8'),
-      ...Buffer.from('|', 'utf8'),
-      ...Buffer.from(realPayload, 'utf8'),
+    const signedPayload = Buffer.concat([
+      Buffer.from(realTimestamp, 'utf8'),
+      Buffer.from('|', 'utf8'),
+      Buffer.from(realPayload, 'utf8'),
     ]);
 
     // Generate signature using test private key
-    const signature = nacl.sign.detached(signedPayload, testSigningKey.secretKey);
-    const signatureBase64 = Buffer.from(signature).toString('base64');
+    const signature = signPayload(signedPayload, testKeyPair.privateKey);
+    const signatureBase64 = signature.toString('base64');
 
     // Real Telnyx webhook headers
     const realHeaders = {
@@ -346,16 +368,16 @@ describe('E2E Webhook Verification', () => {
     };
 
     // Verify using the public key
-    const webhook = new TelnyxWebhook(testPublicKeyBase64);
-    expect(() => webhook.verify(realPayload, realHeaders)).not.toThrow();
+    const webhook = new TelnyxWebhook(testKeyPair.publicKeyBase64);
+    await expect(webhook.verify(realPayload, realHeaders)).resolves.toBeUndefined();
 
     // Test with client integration
     const client = new Telnyx({
       apiKey: 'test-api-key',
-      publicKey: testPublicKeyBase64,
+      publicKey: testKeyPair.publicKeyBase64,
     });
 
-    const result = client.webhooks.unwrap<CallAnsweredWebhookEvent>(realPayload, {
+    const result = await client.webhooks.unwrap<CallAnsweredWebhookEvent>(realPayload, {
       headers: realHeaders,
     });
 
@@ -365,9 +387,8 @@ describe('E2E Webhook Verification', () => {
     expect(result.data?.payload?.to).toBe('+15557654321');
   });
 
-  it('should handle webhook with special characters in payload', () => {
-    const testSigningKey = nacl.sign.keyPair();
-    const testPublicKeyBase64 = Buffer.from(testSigningKey.publicKey).toString('base64');
+  it('should handle webhook with special characters in payload', async () => {
+    const testKeyPair = generateKeyPair();
 
     // Payload with special characters that might appear in real webhooks
     const specialPayload = JSON.stringify({
@@ -387,14 +408,14 @@ describe('E2E Webhook Verification', () => {
     });
 
     const timestamp = Math.floor(Date.now() / 1000).toString();
-    const signedPayload = new Uint8Array([
-      ...Buffer.from(timestamp, 'utf8'),
-      ...Buffer.from('|', 'utf8'),
-      ...Buffer.from(specialPayload, 'utf8'),
+    const signedPayload = Buffer.concat([
+      Buffer.from(timestamp, 'utf8'),
+      Buffer.from('|', 'utf8'),
+      Buffer.from(specialPayload, 'utf8'),
     ]);
 
-    const signature = nacl.sign.detached(signedPayload, testSigningKey.secretKey);
-    const signatureBase64 = Buffer.from(signature).toString('base64');
+    const signature = signPayload(signedPayload, testKeyPair.privateKey);
+    const signatureBase64 = signature.toString('base64');
 
     const headers = {
       'telnyx-signature-ed25519': signatureBase64,
@@ -402,7 +423,7 @@ describe('E2E Webhook Verification', () => {
       'user-agent': 'telnyx-webhooks',
     };
 
-    const webhook = new TelnyxWebhook(testPublicKeyBase64);
-    expect(() => webhook.verify(specialPayload, headers)).not.toThrow();
+    const webhook = new TelnyxWebhook(testKeyPair.publicKeyBase64);
+    await expect(webhook.verify(specialPayload, headers)).resolves.toBeUndefined();
   });
 });

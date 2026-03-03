@@ -1,5 +1,24 @@
 # Changelog
 
+## 6.0.0 (2026-03-03)
+
+Full Changelog: [v5.55.0...v6.0.0](https://github.com/team-telnyx/telnyx-node/compare/v5.55.0...v6.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* `webhooks.unwrap()` and `TelnyxWebhook.verify()` are now async
+
+### Bug Fixes
+
+* add typed randomBytes helper for Node.js crypto compatibility ([002307d](https://github.com/team-telnyx/telnyx-node/commit/002307d6c069e29353da64877453e28b5c1e839c))
+* replace tweetnacl with native crypto.subtle for Ed25519 webhook verification ([d6acdf4](https://github.com/team-telnyx/telnyx-node/commit/d6acdf460be91a04afc49affc26248c981d3e7c2))
+* resolve TypeScript type errors for crypto.sign in tests ([bfe4fea](https://github.com/team-telnyx/telnyx-node/commit/bfe4feabbf03734e055caffde6c5550116f3bcb1))
+
+
+### Styles
+
+* fix prettier formatting ([2fca5d9](https://github.com/team-telnyx/telnyx-node/commit/2fca5d92a2031cf48bf206a85bcfb8e2300b732a))
+
 ## 5.55.0 (2026-03-03)
 
 Full Changelog: [v5.54.0...v5.55.0](https://github.com/team-telnyx/telnyx-node/compare/v5.54.0...v5.55.0)
