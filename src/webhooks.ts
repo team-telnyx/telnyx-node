@@ -40,12 +40,7 @@ interface SubtleCryptoLike {
     extractable: boolean,
     keyUsages: string[],
   ): Promise<unknown>;
-  verify(
-    algorithm: string,
-    key: unknown,
-    signature: Uint8Array,
-    data: Uint8Array,
-  ): Promise<boolean>;
+  verify(algorithm: string, key: unknown, signature: Uint8Array, data: Uint8Array): Promise<boolean>;
 }
 
 interface CryptoLike {
@@ -156,13 +151,9 @@ export class TelnyxWebhook {
     let isValid: boolean;
     try {
       const crypto = await getCrypto();
-      const cryptoKey = await crypto.subtle.importKey(
-        'raw',
-        this.verifyKey,
-        { name: 'Ed25519' },
-        false,
-        ['verify'],
-      );
+      const cryptoKey = await crypto.subtle.importKey('raw', this.verifyKey, { name: 'Ed25519' }, false, [
+        'verify',
+      ]);
 
       isValid = await crypto.subtle.verify('Ed25519', cryptoKey, signature, signedPayload);
     } catch (exc) {
