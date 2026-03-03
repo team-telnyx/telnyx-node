@@ -922,7 +922,9 @@ import {
 } from './resources/webhook-deliveries';
 import {
   CallAIGatherEnded,
+  CallAIGatherEndedWebhookEvent,
   CallAIGatherMessageHistoryUpdated,
+  CallAIGatherMessageHistoryUpdatedWebhookEvent,
   CallAIGatherPartialResults,
   CallAIGatherPartialResultsWebhookEvent,
   CallAnswered,
@@ -3105,6 +3107,8 @@ export declare namespace Telnyx {
     type OutboundMessage as OutboundMessage,
     type ReplacedLinkClick as ReplacedLinkClick,
     type Transcription as Transcription,
+    type CallAIGatherEndedWebhookEvent as CallAIGatherEndedWebhookEvent,
+    type CallAIGatherMessageHistoryUpdatedWebhookEvent as CallAIGatherMessageHistoryUpdatedWebhookEvent,
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,
     type CallAnsweredWebhookEvent as CallAnsweredWebhookEvent,
     type CallBridgedWebhookEvent as CallBridgedWebhookEvent,

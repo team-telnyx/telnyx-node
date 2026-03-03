@@ -276,6 +276,8 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">OutboundMessage</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClick</a></code>
 - <code><a href="./src/resources/webhooks.ts">Transcription</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallAIGatherMessageHistoryUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
@@ -326,6 +328,8 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallAIGatherMessageHistoryUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
