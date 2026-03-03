@@ -938,7 +938,7 @@ export interface CallControlCommandResultWithConversationID {
 }
 
 export interface DeepgramNova2Config {
-  transcription_engine: 'Deepgram';
+  transcription_engine: 'deepgram/nova-2';
 
   transcription_model: 'deepgram/nova-2';
 
@@ -1012,7 +1012,7 @@ export interface DeepgramNova2Config {
 }
 
 export interface DeepgramNova3Config {
-  transcription_engine: 'Deepgram';
+  transcription_engine: 'deepgram/nova-3';
 
   transcription_model: 'deepgram/nova-3';
 
@@ -1637,11 +1637,11 @@ export interface TranscriptionStartRequest {
   transcription_engine_config?:
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
-    | DeepgramNova2Config
-    | DeepgramNova3Config
     | TranscriptionEngineAzureConfig
     | TranscriptionEngineAConfig
-    | TranscriptionEngineBConfig;
+    | TranscriptionEngineBConfig
+    | DeepgramNova2Config
+    | DeepgramNova3Config;
 
   /**
    * Indicates which leg of the call will be transcribed. Use `inbound` for the leg
@@ -3884,11 +3884,11 @@ export interface ActionStartTranscriptionParams {
   transcription_engine_config?:
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
-    | DeepgramNova2Config
-    | DeepgramNova3Config
     | TranscriptionEngineAzureConfig
     | TranscriptionEngineAConfig
-    | TranscriptionEngineBConfig;
+    | TranscriptionEngineBConfig
+    | DeepgramNova2Config
+    | DeepgramNova3Config;
 
   /**
    * Indicates which leg of the call will be transcribed. Use `inbound` for the leg
