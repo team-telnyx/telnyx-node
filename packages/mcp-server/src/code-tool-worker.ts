@@ -1054,6 +1054,9 @@ const fuse = new Fuse(
     'client.alphanumericSenderIDs.list',
     'client.alphanumericSenderIDs.retrieve',
     'client.messagingProfileMetrics.list',
+    'client.sessionAnalysis.retrieve',
+    'client.sessionAnalysis.metadata.retrieve',
+    'client.sessionAnalysis.metadata.retrieveRecordType',
   ],
   { threshold: 1, shouldSort: true },
 );
