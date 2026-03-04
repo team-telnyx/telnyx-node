@@ -5639,12 +5639,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/10dlc/phoneNumberAssignmentByProfile/{taskId}',
   },
   {
-    clientCallName: 'client.speechToText.transcribe',
-    fullyQualifiedName: 'speechToText.transcribe',
-    httpMethod: 'get',
-    httpPath: '/speech-to-text/transcription',
-  },
-  {
     clientCallName: 'client.organizations.users.retrieve',
     fullyQualifiedName: 'organizations.users.retrieve',
     httpMethod: 'get',
