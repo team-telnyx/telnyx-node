@@ -29,7 +29,10 @@ export class SpeechToText extends APIResource {
     return this._client.get('/speech-to-text/transcription', {
       query,
       ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+      headers: buildHeaders([
+        { 'Content-Type': 'application/octet-stream', Accept: '*/*' },
+        options?.headers,
+      ]),
     });
   }
 }
