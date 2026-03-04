@@ -160,7 +160,7 @@ const remoteStainlessHandler = async ({
     headers: {
       ...(reqContext.stainlessApiKey && { Authorization: reqContext.stainlessApiKey }),
       'Content-Type': 'application/json',
-      client_envs: JSON.stringify({
+      'x-stainless-mcp-client-envs': JSON.stringify({
         TELNYX_API_KEY: readEnv('TELNYX_API_KEY') ?? client.apiKey ?? undefined,
         TELNYX_PUBLIC_KEY: readEnv('TELNYX_PUBLIC_KEY') ?? client.publicKey ?? undefined,
         TELNYX_CLIENT_ID: readEnv('TELNYX_CLIENT_ID') ?? client.clientID ?? undefined,
