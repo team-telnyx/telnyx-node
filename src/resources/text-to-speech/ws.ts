@@ -35,8 +35,12 @@ export class TextToSpeechWS extends TextToSpeechEmitter {
       if (event) {
         this._emit('event', event);
 
-        // @ts-ignore TS isn't smart enough to get the relationship right here
-        this._emit(event.type, event);
+        if (event.type === 'error') {
+          this._onError(event);
+        } else {
+          // @ts-ignore TS isn't smart enough to get the relationship right here
+          this._emit(event.type, event);
+        }
       }
     });
 

@@ -160,6 +160,11 @@ export namespace StreamServerEvent {
      * present on the first audio chunk of a synthesis request.
      */
     timeToFirstAudioFrameMs?: number;
+
+    /**
+     * Frame type identifier.
+     */
+    type?: 'audio_chunk';
   }
 
   /**
@@ -185,6 +190,11 @@ export namespace StreamServerEvent {
      * Present if this was the first response frame.
      */
     timeToFirstAudioFrameMs?: number;
+
+    /**
+     * Frame type identifier.
+     */
+    type?: 'final';
   }
 
   /**
@@ -196,6 +206,11 @@ export namespace StreamServerEvent {
      * Error message describing what went wrong.
      */
     error?: string;
+
+    /**
+     * Frame type identifier.
+     */
+    type?: 'error';
   }
 }
 
