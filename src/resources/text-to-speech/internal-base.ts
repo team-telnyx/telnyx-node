@@ -11,9 +11,9 @@ export class WebSocketError extends TelnyxError {
   /**
    * The error data that the API sent back in an error event.
    */
-  error?: unknown | undefined;
+  error?: TextToSpeechAPI.StreamServerEvent.ErrorFrame | undefined;
 
-  constructor(message: string, event: unknown | null) {
+  constructor(message: string, event: TextToSpeechAPI.StreamServerEvent.ErrorFrame | null) {
     super(message);
 
     this.error = event ?? undefined;
@@ -27,7 +27,7 @@ type WebsocketEvents = Simplify<
     event: (event: TextToSpeechAPI.StreamServerEvent) => void;
     error: (error: WebSocketError) => void;
   } & {
-    [EventType in TextToSpeechAPI.StreamServerEvent['type']]: (
+    [EventType in Exclude<NonNullable<TextToSpeechAPI.StreamServerEvent['type']>, 'error'>]: (
       event: Extract<TextToSpeechAPI.StreamServerEvent, { type?: EventType }>,
     ) => unknown;
   }
@@ -45,8 +45,12 @@ export abstract class TextToSpeechEmitter extends EventEmitter<WebsocketEvents> 
   abstract close(props?: { code: number; reason: string }): void;
 
   protected _onError(event: null, message: string, cause: any): void;
-  protected _onError(event: unknown, message?: string | undefined): void;
-  protected _onError(event: unknown | null, message?: string | undefined, cause?: any): void {
+  protected _onError(event: TextToSpeechAPI.StreamServerEvent.ErrorFrame, message?: string | undefined): void;
+  protected _onError(
+    event: TextToSpeechAPI.StreamServerEvent.ErrorFrame | null,
+    message?: string | undefined,
+    cause?: any,
+  ): void {
     message = message ?? safeJSONStringify(event) ?? 'unknown error';
 
     if (!this._hasListener('error')) {
