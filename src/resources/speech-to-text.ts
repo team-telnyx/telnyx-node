@@ -10,7 +10,20 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class SpeechToText extends APIResource {
   /**
-   * Transcribe audio streams to text over WebSocket.
+   * Open a WebSocket connection to stream audio and receive transcriptions in
+   * real-time. Authentication is provided via the standard
+   * `Authorization: Bearer <API_KEY>` header.
+   *
+   * Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`.
+   *
+   * **Connection flow:**
+   *
+   * 1. Open WebSocket with query parameters specifying engine, input format, and
+   *    language.
+   * 2. Send binary audio frames (mp3/wav format).
+   * 3. Receive JSON transcript frames with `transcript`, `is_final`, and
+   *    `confidence` fields.
+   * 4. Close connection when done.
    */
   transcribe(query: SpeechToTextTranscribeParams, options?: RequestOptions): APIPromise<void> {
     return this._client.get('/speech-to-text/transcription', {
