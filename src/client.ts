@@ -805,7 +805,6 @@ import {
   SiprecConnectorUpdateResponse,
   SiprecConnectors,
 } from './resources/siprec-connectors';
-import { SpeechToText, SpeechToTextTranscribeParams } from './resources/speech-to-text';
 import {
   SubNumberOrder,
   SubNumberOrderCancelResponse,
@@ -2800,10 +2799,6 @@ export class Telnyx {
    */
   mobileVoiceConnections: API.MobileVoiceConnections = new API.MobileVoiceConnections(this);
   messaging10dlc: API.Messaging10dlc = new API.Messaging10dlc(this);
-  /**
-   * Speech to text command operations
-   */
-  speechToText: API.SpeechToText = new API.SpeechToText(this);
   organizations: API.Organizations = new API.Organizations(this);
   alphanumericSenderIDs: API.AlphanumericSenderIDs = new API.AlphanumericSenderIDs(this);
   messagingProfileMetrics: API.MessagingProfileMetrics = new API.MessagingProfileMetrics(this);
@@ -2962,7 +2957,6 @@ Telnyx.InexplicitNumberOrders = InexplicitNumberOrders;
 Telnyx.MobilePhoneNumbers = MobilePhoneNumbers;
 Telnyx.MobileVoiceConnections = MobileVoiceConnections;
 Telnyx.Messaging10dlc = Messaging10dlc;
-Telnyx.SpeechToText = SpeechToText;
 Telnyx.Organizations = Organizations;
 Telnyx.AlphanumericSenderIDs = AlphanumericSenderIDs;
 Telnyx.MessagingProfileMetrics = MessagingProfileMetrics;
@@ -4599,8 +4593,6 @@ export declare namespace Telnyx {
     Messaging10dlc as Messaging10dlc,
     type Messaging10dlcGetEnumResponse as Messaging10dlcGetEnumResponse,
   };
-
-  export { SpeechToText as SpeechToText, type SpeechToTextTranscribeParams as SpeechToTextTranscribeParams };
 
   export { Organizations as Organizations };
 
