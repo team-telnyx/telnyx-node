@@ -6,9 +6,6 @@ import { type Uploadable } from '../../core/uploads';
 import { RequestOptions } from '../../internal/request-options';
 import { multipartFormRequestOptions } from '../../internal/uploads';
 
-/**
- * Turn audio into text or text into audio.
- */
 export class Audio extends APIResource {
   /**
    * Transcribe speech to text. This endpoint is consistent with the
