@@ -4959,12 +4959,7 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/text-to-speech/voices',
   },
-  {
-    clientCallName: 'client.textToSpeech.stream',
-    fullyQualifiedName: 'textToSpeech.stream',
-    httpMethod: 'get',
-    httpPath: '/text-to-speech/speech',
-  },
+  { clientCallName: 'client.textToSpeech.stream', fullyQualifiedName: 'textToSpeech.stream' },
   {
     clientCallName: 'client.usageReports.list',
     fullyQualifiedName: 'usageReports.list',

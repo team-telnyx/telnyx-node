@@ -854,14 +854,6 @@ import {
   TexmlApplicationsDefaultFlatPagination,
 } from './resources/texml-applications';
 import {
-  TextToSpeech,
-  TextToSpeechGenerateParams,
-  TextToSpeechGenerateResponse,
-  TextToSpeechListVoicesParams,
-  TextToSpeechListVoicesResponse,
-  TextToSpeechStreamParams,
-} from './resources/text-to-speech';
-import {
   UsageReportGetOptionsParams,
   UsageReportGetOptionsResponse,
   UsageReportListParams,
@@ -1439,6 +1431,15 @@ import {
 } from './resources/sim-cards/sim-cards';
 import { Storage, StorageListMigrationSourceCoverageResponse } from './resources/storage/storage';
 import { Texml, TexmlSecretsParams, TexmlSecretsResponse } from './resources/texml/texml';
+import {
+  StreamClientEvent,
+  StreamServerEvent,
+  TextToSpeech,
+  TextToSpeechGenerateParams,
+  TextToSpeechGenerateResponse,
+  TextToSpeechListVoicesParams,
+  TextToSpeechListVoicesResponse,
+} from './resources/text-to-speech/text-to-speech';
 import {
   CreateVerificationResponse,
   Verification,
@@ -4407,9 +4408,10 @@ export declare namespace Telnyx {
     TextToSpeech as TextToSpeech,
     type TextToSpeechGenerateResponse as TextToSpeechGenerateResponse,
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
+    type StreamClientEvent as StreamClientEvent,
+    type StreamServerEvent as StreamServerEvent,
     type TextToSpeechGenerateParams as TextToSpeechGenerateParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
-    type TextToSpeechStreamParams as TextToSpeechStreamParams,
   };
 
   export {
