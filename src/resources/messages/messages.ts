@@ -373,6 +373,13 @@ export interface OutboundMessagePayload {
   valid_until?: string | null;
 
   /**
+   * Seconds the message is queued due to rate limiting before being sent to the
+   * carrier. Represents the maximum wait across all applicable rate limits (account,
+   * carrier, campaign). 0.0 = no queuing delay.
+   */
+  wait_seconds?: number | null;
+
+  /**
    * The failover URL where webhooks related to this message will be sent if sending
    * to the primary URL fails.
    */
@@ -1508,6 +1515,13 @@ export namespace MessageSendWhatsappResponse {
     to?: Array<MessagesAPI.RcsToItem>;
 
     type?: string;
+
+    /**
+     * Seconds the message is queued due to rate limiting before being sent to the
+     * carrier. Represents the maximum wait across all applicable rate limits (account,
+     * carrier, campaign). 0.0 = no queuing delay.
+     */
+    wait_seconds?: number | null;
   }
 
   export namespace Data {
