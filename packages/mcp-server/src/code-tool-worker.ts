@@ -1044,7 +1044,6 @@ const fuse = new Fuse(
     'client.messaging10dlc.phoneNumberAssignmentByProfile.listPhoneNumberStatus',
     'client.messaging10dlc.phoneNumberAssignmentByProfile.retrievePhoneNumberStatus',
     'client.messaging10dlc.phoneNumberAssignmentByProfile.retrieveStatus',
-    'client.speechToText.transcribe',
     'client.organizations.users.getGroupsReport',
     'client.organizations.users.list',
     'client.organizations.users.retrieve',

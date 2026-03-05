@@ -4959,12 +4959,7 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/text-to-speech/voices',
   },
-  {
-    clientCallName: 'client.textToSpeech.stream',
-    fullyQualifiedName: 'textToSpeech.stream',
-    httpMethod: 'get',
-    httpPath: '/text-to-speech/speech',
-  },
+  { clientCallName: 'client.textToSpeech.stream', fullyQualifiedName: 'textToSpeech.stream' },
   {
     clientCallName: 'client.usageReports.list',
     fullyQualifiedName: 'usageReports.list',
@@ -5642,12 +5637,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'messaging10dlc.phoneNumberAssignmentByProfile.retrieveStatus',
     httpMethod: 'get',
     httpPath: '/10dlc/phoneNumberAssignmentByProfile/{taskId}',
-  },
-  {
-    clientCallName: 'client.speechToText.transcribe',
-    fullyQualifiedName: 'speechToText.transcribe',
-    httpMethod: 'get',
-    httpPath: '/speech-to-text/transcription',
   },
   {
     clientCallName: 'client.organizations.users.retrieve',

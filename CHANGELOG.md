@@ -1,5 +1,28 @@
 # Changelog
 
+## 6.3.0 (2026-03-05)
+
+Full Changelog: [v6.2.0...v6.3.0](https://github.com/team-telnyx/telnyx-node/compare/v6.2.0...v6.3.0)
+
+### Features
+
+* **api:** manual updates ([3f146d0](https://github.com/team-telnyx/telnyx-node/commit/3f146d019ccb1a3d6dfc44a3856e09903b97b476))
+* **api:** manual updates ([0b30bc9](https://github.com/team-telnyx/telnyx-node/commit/0b30bc9ca0d4295061a99606e5da847431a804e0))
+* Changing a tag for filebased STT endpoint ([d2c7506](https://github.com/team-telnyx/telnyx-node/commit/d2c75067a23e46ad190ef137e129108684e4f56b))
+* **stt:** add SttClientEvent schema for Stainless WebSocket config ([3426583](https://github.com/team-telnyx/telnyx-node/commit/3426583ae24022b6efc488c2e00d161382fbc464))
+* **stt:** add WebSocket event schemas for Stainless SDK generation ([24b536c](https://github.com/team-telnyx/telnyx-node/commit/24b536cda7479cbaa243acd8fde685fe921070bb))
+
+
+### Bug Fixes
+
+* add discriminator to TtsServerEvent for Stainless SDK generation ([21ebf5a](https://github.com/team-telnyx/telnyx-node/commit/21ebf5aa5af1ad1c28887a368eda194975b9319b))
+* fix request delays for retrying to be more respectful of high requested delays ([1f3903e](https://github.com/team-telnyx/telnyx-node/commit/1f3903e004a80c27ee0d43dc461bc9ec0e0057d1))
+
+
+### Chores
+
+* **internal:** use x-stainless-mcp-client-envs header for MCP remote code tool calls ([be547d9](https://github.com/team-telnyx/telnyx-node/commit/be547d9d34af9cc57fcae41efb61080626c08034))
+
 ## 6.2.0 (2026-03-03)
 
 Full Changelog: [v6.1.0...v6.2.0](https://github.com/team-telnyx/telnyx-node/compare/v6.1.0...v6.2.0)

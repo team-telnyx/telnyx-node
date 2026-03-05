@@ -805,7 +805,6 @@ import {
   SiprecConnectorUpdateResponse,
   SiprecConnectors,
 } from './resources/siprec-connectors';
-import { SpeechToText, SpeechToTextTranscribeParams } from './resources/speech-to-text';
 import {
   SubNumberOrder,
   SubNumberOrderCancelResponse,
@@ -853,14 +852,6 @@ import {
   TexmlApplications,
   TexmlApplicationsDefaultFlatPagination,
 } from './resources/texml-applications';
-import {
-  TextToSpeech,
-  TextToSpeechGenerateParams,
-  TextToSpeechGenerateResponse,
-  TextToSpeechListVoicesParams,
-  TextToSpeechListVoicesResponse,
-  TextToSpeechStreamParams,
-} from './resources/text-to-speech';
 import {
   UsageReportGetOptionsParams,
   UsageReportGetOptionsResponse,
@@ -1439,6 +1430,15 @@ import {
 } from './resources/sim-cards/sim-cards';
 import { Storage, StorageListMigrationSourceCoverageResponse } from './resources/storage/storage';
 import { Texml, TexmlSecretsParams, TexmlSecretsResponse } from './resources/texml/texml';
+import {
+  StreamClientEvent,
+  StreamServerEvent,
+  TextToSpeech,
+  TextToSpeechGenerateParams,
+  TextToSpeechGenerateResponse,
+  TextToSpeechListVoicesParams,
+  TextToSpeechListVoicesResponse,
+} from './resources/text-to-speech/text-to-speech';
 import {
   CreateVerificationResponse,
   Verification,
@@ -2132,9 +2132,9 @@ export class Telnyx {
       }
     }
 
-    // If the API asks us to wait a certain amount of time (and it's a reasonable amount),
-    // just do what it says, but otherwise calculate a default
-    if (!(timeoutMillis && 0 <= timeoutMillis && timeoutMillis < 60 * 1000)) {
+    // If the API asks us to wait a certain amount of time, just do what it
+    // says, but otherwise calculate a default
+    if (timeoutMillis === undefined) {
       const maxRetries = options.maxRetries ?? this.maxRetries;
       timeoutMillis = this.calculateDefaultRetryTimeoutMillis(retriesRemaining, maxRetries);
     }
@@ -2798,10 +2798,6 @@ export class Telnyx {
    */
   mobileVoiceConnections: API.MobileVoiceConnections = new API.MobileVoiceConnections(this);
   messaging10dlc: API.Messaging10dlc = new API.Messaging10dlc(this);
-  /**
-   * Speech to text command operations
-   */
-  speechToText: API.SpeechToText = new API.SpeechToText(this);
   organizations: API.Organizations = new API.Organizations(this);
   alphanumericSenderIDs: API.AlphanumericSenderIDs = new API.AlphanumericSenderIDs(this);
   messagingProfileMetrics: API.MessagingProfileMetrics = new API.MessagingProfileMetrics(this);
@@ -2960,7 +2956,6 @@ Telnyx.InexplicitNumberOrders = InexplicitNumberOrders;
 Telnyx.MobilePhoneNumbers = MobilePhoneNumbers;
 Telnyx.MobileVoiceConnections = MobileVoiceConnections;
 Telnyx.Messaging10dlc = Messaging10dlc;
-Telnyx.SpeechToText = SpeechToText;
 Telnyx.Organizations = Organizations;
 Telnyx.AlphanumericSenderIDs = AlphanumericSenderIDs;
 Telnyx.MessagingProfileMetrics = MessagingProfileMetrics;
@@ -4407,9 +4402,10 @@ export declare namespace Telnyx {
     TextToSpeech as TextToSpeech,
     type TextToSpeechGenerateResponse as TextToSpeechGenerateResponse,
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
+    type StreamClientEvent as StreamClientEvent,
+    type StreamServerEvent as StreamServerEvent,
     type TextToSpeechGenerateParams as TextToSpeechGenerateParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
-    type TextToSpeechStreamParams as TextToSpeechStreamParams,
   };
 
   export {
@@ -4596,8 +4592,6 @@ export declare namespace Telnyx {
     Messaging10dlc as Messaging10dlc,
     type Messaging10dlcGetEnumResponse as Messaging10dlcGetEnumResponse,
   };
-
-  export { SpeechToText as SpeechToText, type SpeechToTextTranscribeParams as SpeechToTextTranscribeParams };
 
   export { Organizations as Organizations };
 

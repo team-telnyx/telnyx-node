@@ -3873,12 +3873,13 @@ Types:
 
 - <code><a href="./src/resources/text-to-speech.ts">TextToSpeechGenerateResponse</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">TextToSpeechListVoicesResponse</a></code>
+- <code><a href="./src/resources/text-to-speech.ts">StreamClientEvent</a></code>
+- <code><a href="./src/resources/text-to-speech.ts">StreamServerEvent</a></code>
 
 Methods:
 
 - <code title="post /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">generate</a>({ ...params }) -> TextToSpeechGenerateResponse</code>
 - <code title="get /text-to-speech/voices">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">listVoices</a>({ ...params }) -> TextToSpeechListVoicesResponse</code>
-- <code title="get /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">stream</a>({ ...params }) -> void</code>
 
 # UsageReports
 
@@ -4371,12 +4372,6 @@ Methods:
 - <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers">client.messaging10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">listPhoneNumberStatus</a>(taskID, { ...params }) -> PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse</code>
 - <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers">client.messaging10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">retrievePhoneNumberStatus</a>(taskID, { ...params }) -> PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse</code>
 - <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}">client.messaging10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">retrieveStatus</a>(taskID) -> PhoneNumberAssignmentByProfileRetrieveStatusResponse</code>
-
-# SpeechToText
-
-Methods:
-
-- <code title="get /speech-to-text/transcription">client.speechToText.<a href="./src/resources/speech-to-text.ts">transcribe</a>({ ...params }) -> void</code>
 
 # Organizations
 
