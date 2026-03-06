@@ -57,6 +57,14 @@ export {
   type ScheduledEventListResponsesDefaultFlatPagination,
 } from './scheduled-events';
 export {
+  Tags,
+  type TagListResponse,
+  type TagAddResponse,
+  type TagRemoveResponse,
+  type TagAddParams,
+  type TagRemoveParams,
+} from './tags';
+export {
   Tests,
   type AssistantTest,
   type TelnyxConversationChannel,

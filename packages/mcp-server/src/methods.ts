@@ -595,6 +595,24 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/{assistant_id}/versions/{version_id}/promote',
   },
   {
+    clientCallName: 'client.ai.assistants.tags.list',
+    fullyQualifiedName: 'ai.assistants.tags.list',
+    httpMethod: 'get',
+    httpPath: '/ai/assistants/tags',
+  },
+  {
+    clientCallName: 'client.ai.assistants.tags.add',
+    fullyQualifiedName: 'ai.assistants.tags.add',
+    httpMethod: 'post',
+    httpPath: '/ai/assistants/{assistant_id}/tags',
+  },
+  {
+    clientCallName: 'client.ai.assistants.tags.remove',
+    fullyQualifiedName: 'ai.assistants.tags.remove',
+    httpMethod: 'delete',
+    httpPath: '/ai/assistants/{assistant_id}/tags/{tag}',
+  },
+  {
     clientCallName: 'client.ai.audio.transcribe',
     fullyQualifiedName: 'ai.audio.transcribe',
     httpMethod: 'post',
