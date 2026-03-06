@@ -650,6 +650,20 @@ Methods:
 - <code title="delete /ai/assistants/{assistant_id}/versions/{version_id}">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">delete</a>(versionID, { ...params }) -> void</code>
 - <code title="post /ai/assistants/{assistant_id}/versions/{version_id}/promote">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">promote</a>(versionID, { ...params }) -> InferenceEmbedding</code>
 
+### Tags
+
+Types:
+
+- <code><a href="./src/resources/ai/assistants/tags.ts">TagListResponse</a></code>
+- <code><a href="./src/resources/ai/assistants/tags.ts">TagAddResponse</a></code>
+- <code><a href="./src/resources/ai/assistants/tags.ts">TagRemoveResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/assistants/tags">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">list</a>() -> TagListResponse</code>
+- <code title="post /ai/assistants/{assistant_id}/tags">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">add</a>(assistantID, { ...params }) -> TagAddResponse</code>
+- <code title="delete /ai/assistants/{assistant_id}/tags/{tag}">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">remove</a>(tag, { ...params }) -> TagRemoveResponse</code>
+
 ## Audio
 
 Types:
