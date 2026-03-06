@@ -26,6 +26,15 @@ import {
   ScheduledPhoneCallEventResponse,
   ScheduledSMSEventResponse,
 } from './scheduled-events';
+import * as TagsAPI from './tags';
+import {
+  TagAddParams,
+  TagAddResponse,
+  TagListResponse,
+  TagRemoveParams,
+  TagRemoveResponse,
+  Tags,
+} from './tags';
 import * as ToolsAPI from './tools';
 import { ToolTestParams, ToolTestResponse, Tools } from './tools';
 import * as VersionsAPI from './versions';
@@ -60,6 +69,7 @@ export class Assistants extends APIResource {
   scheduledEvents: ScheduledEventsAPI.ScheduledEvents = new ScheduledEventsAPI.ScheduledEvents(this._client);
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
   versions: VersionsAPI.Versions = new VersionsAPI.Versions(this._client);
+  tags: TagsAPI.Tags = new TagsAPI.Tags(this._client);
 
   /**
    * Create a new AI Assistant.
@@ -1958,6 +1968,7 @@ Assistants.CanaryDeploys = CanaryDeploys;
 Assistants.ScheduledEvents = ScheduledEvents;
 Assistants.Tools = Tools;
 Assistants.Versions = Versions;
+Assistants.Tags = Tags;
 
 export declare namespace Assistants {
   export {
@@ -2037,5 +2048,14 @@ export declare namespace Assistants {
     type VersionUpdateParams as VersionUpdateParams,
     type VersionDeleteParams as VersionDeleteParams,
     type VersionPromoteParams as VersionPromoteParams,
+  };
+
+  export {
+    Tags as Tags,
+    type TagListResponse as TagListResponse,
+    type TagAddResponse as TagAddResponse,
+    type TagRemoveResponse as TagRemoveResponse,
+    type TagAddParams as TagAddParams,
+    type TagRemoveParams as TagRemoveParams,
   };
 }
