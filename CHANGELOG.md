@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.4.0 (2026-03-06)
+
+Full Changelog: [v6.3.0...v6.4.0](https://github.com/team-telnyx/telnyx-node/compare/v6.3.0...v6.4.0)
+
+### Features
+
+* Assistant tags ([482b7cc](https://github.com/team-telnyx/telnyx-node/commit/482b7cc31c4e861cf0cf899a248cbabe099ca751))
+
+
+### Documentation
+
+* **messaging:** Add wait_seconds to message response schemas ([49479db](https://github.com/team-telnyx/telnyx-node/commit/49479dbf43362dfc8c36c01a1b82bd6cb3d6d427))
+
 ## 6.3.0 (2026-03-05)
 
 Full Changelog: [v6.2.0...v6.3.0](https://github.com/team-telnyx/telnyx-node/compare/v6.2.0...v6.3.0)
