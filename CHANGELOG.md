@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.4.1 (2026-03-07)
+
+Full Changelog: [v6.4.0...v6.4.1](https://github.com/team-telnyx/telnyx-node/compare/v6.4.0...v6.4.1)
+
+### Bug Fixes
+
+* **client:** preserve URL params already embedded in path ([9adf75f](https://github.com/team-telnyx/telnyx-node/commit/9adf75f39c25e46c706821e75f74d8352c0559e5))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([11ed01a](https://github.com/team-telnyx/telnyx-node/commit/11ed01adca91afd74c8c02b147a717d09d35c5b2))
+* update placeholder string ([89fceae](https://github.com/team-telnyx/telnyx-node/commit/89fceae9b035ebc0831d95e471882b27678e6f05))
+
 ## 6.4.0 (2026-03-06)
 
 Full Changelog: [v6.3.0...v6.4.0](https://github.com/team-telnyx/telnyx-node/compare/v6.3.0...v6.4.0)
