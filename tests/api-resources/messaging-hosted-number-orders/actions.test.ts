@@ -27,8 +27,8 @@ describe('resource actions', () => {
       client.messagingHostedNumberOrders.actions.uploadFile(
         'id',
         {
-          bill: await toFile(Buffer.from('# my file contents'), 'README.md'),
-          loa: await toFile(Buffer.from('# my file contents'), 'README.md'),
+          bill: await toFile(Buffer.from('Example data'), 'README.md'),
+          loa: await toFile(Buffer.from('Example data'), 'README.md'),
         },
         { path: '/_stainless_unknown_path' },
       ),
