@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.4.2 (2026-03-07)
+
+Full Changelog: [v6.4.1...v6.4.2](https://github.com/team-telnyx/telnyx-node/compare/v6.4.1...v6.4.2)
+
+### Chores
+
+* **mcp-server:** improve instructions ([a2014f1](https://github.com/team-telnyx/telnyx-node/commit/a2014f17bc0a6f64906737ee2ba8a5e21ef5ed78))
+
 ## 6.4.1 (2026-03-07)
 
 Full Changelog: [v6.4.0...v6.4.1](https://github.com/team-telnyx/telnyx-node/compare/v6.4.0...v6.4.1)
