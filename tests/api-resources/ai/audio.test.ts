@@ -24,7 +24,7 @@ describe('resource audio', () => {
   test.skip('transcribe: required and optional params', async () => {
     const response = await client.ai.audio.transcribe({
       model: 'distil-whisper/distil-large-v2',
-      file: await toFile(Buffer.from('# my file contents'), 'README.md'),
+      file: await toFile(Buffer.from('Example data'), 'README.md'),
       file_url: 'https://example.com/file.mp3',
       language: 'en-US',
       model_config: { smart_format: 'bar', punctuate: 'bar' },
