@@ -27,8 +27,8 @@ describe('resource sslCertificate', () => {
       client.storage.buckets.sslCertificate.create(
         '',
         {
-          certificate: await toFile(Buffer.from('# my file contents'), 'README.md'),
-          private_key: await toFile(Buffer.from('# my file contents'), 'README.md'),
+          certificate: await toFile(Buffer.from('Example data'), 'README.md'),
+          private_key: await toFile(Buffer.from('Example data'), 'README.md'),
         },
         { path: '/_stainless_unknown_path' },
       ),
