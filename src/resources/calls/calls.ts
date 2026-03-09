@@ -507,6 +507,12 @@ export interface CallDialParams {
   preferred_codecs?: string;
 
   /**
+   * Prevents bridging and hangs up the call if the target is already bridged.
+   * Disabled by default.
+   */
+  prevent_double_bridge?: boolean;
+
+  /**
    * Start recording automatically after an event. Disabled by default.
    */
   record?: 'record-from-answer';

@@ -22,7 +22,7 @@ export class TextToSpeech extends APIResource {
    * parameters.
    *
    * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`,
-   * `resemble`.
+   * `resemble`, `inworld`.
    */
   generate(
     body: TextToSpeechGenerateParams,
@@ -236,6 +236,11 @@ export interface TextToSpeechGenerateParams {
   elevenlabs?: TextToSpeechGenerateParams.Elevenlabs;
 
   /**
+   * Inworld provider-specific parameters.
+   */
+  inworld?: unknown;
+
+  /**
    * Language code (e.g. `en-US`). Usage varies by provider.
    */
   language?: string;
@@ -254,7 +259,7 @@ export interface TextToSpeechGenerateParams {
   /**
    * TTS provider. Required unless `voice` is provided.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'inworld';
 
   /**
    * Resemble AI provider-specific parameters.
@@ -503,7 +508,7 @@ export interface TextToSpeechListVoicesParams {
   /**
    * Filter voices by provider. If omitted, voices from all providers are returned.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'inworld';
 }
 
 export declare namespace TextToSpeech {
