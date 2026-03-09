@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.5.0 (2026-03-09)
+
+Full Changelog: [v6.4.1...v6.5.0](https://github.com/team-telnyx/telnyx-node/compare/v6.4.1...v6.5.0)
+
+### Features
+
+* MSG-6418: remove flashcall from hosted number verification codes endpoint ([13c8420](https://github.com/team-telnyx/telnyx-node/commit/13c84205d534fcd8411778d853c4d703c875b01f))
+
+
+### Chores
+
+* **mcp-server:** improve instructions ([a2014f1](https://github.com/team-telnyx/telnyx-node/commit/a2014f17bc0a6f64906737ee2ba8a5e21ef5ed78))
+
 ## 6.4.1 (2026-03-07)
 
 Full Changelog: [v6.4.0...v6.4.1](https://github.com/team-telnyx/telnyx-node/compare/v6.4.0...v6.4.1)
