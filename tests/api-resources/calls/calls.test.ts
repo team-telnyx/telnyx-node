@@ -80,6 +80,7 @@ describe('resource calls', () => {
       media_name: 'my_media_uploaded_to_media_storage_api',
       park_after_unbridge: 'self',
       preferred_codecs: 'G722,PCMU,PCMA,G729,OPUS,VP8,H264',
+      prevent_double_bridge: true,
       record: 'record-from-answer',
       record_channels: 'single',
       record_custom_file_name: 'my_recording_file_name',

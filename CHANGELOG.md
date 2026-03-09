@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.6.0 (2026-03-09)
+
+Full Changelog: [v6.5.0...v6.6.0](https://github.com/team-telnyx/telnyx-node/compare/v6.5.0...v6.6.0)
+
+### Features
+
+* TELAPPS-ENGDESK-49737 Add prevent_double_bridge param to dial ([232a7fe](https://github.com/team-telnyx/telnyx-node/commit/232a7fe031ee9a85cfb0a92e76f52235235b94b1))
+
 ## 6.5.0 (2026-03-09)
 
 Full Changelog: [v6.4.1...v6.5.0](https://github.com/team-telnyx/telnyx-node/compare/v6.4.1...v6.5.0)
