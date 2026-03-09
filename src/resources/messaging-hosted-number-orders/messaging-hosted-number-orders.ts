@@ -234,7 +234,7 @@ export namespace MessagingHostedNumberOrderCreateVerificationCodesResponse {
     /**
      * Type of verification method used
      */
-    type?: 'sms' | 'call' | 'flashcall';
+    type?: 'sms' | 'call';
 
     /**
      * Unique identifier for the verification code
@@ -288,7 +288,7 @@ export interface MessagingHostedNumberOrderCheckEligibilityParams {
 export interface MessagingHostedNumberOrderCreateVerificationCodesParams {
   phone_numbers: Array<string>;
 
-  verification_method: 'sms' | 'call' | 'flashcall';
+  verification_method: 'sms' | 'call';
 }
 
 export interface MessagingHostedNumberOrderValidateCodesParams {
