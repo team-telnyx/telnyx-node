@@ -1171,6 +1171,11 @@ export interface SimpleSimCard {
    * The version of the SIM card.
    */
   version?: string;
+
+  /**
+   * Indicates whether voice services are enabled for the SIM card.
+   */
+  voice_enabled?: boolean;
 }
 
 export namespace SimpleSimCard {

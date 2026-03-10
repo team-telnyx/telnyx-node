@@ -4495,6 +4495,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/sim_card_actions',
   },
   {
+    clientCallName: 'client.simCards.actions.bulkDisableVoice',
+    fullyQualifiedName: 'simCards.actions.bulkDisableVoice',
+    httpMethod: 'post',
+    httpPath: '/sim_cards/actions/bulk_disable_voice',
+  },
+  {
+    clientCallName: 'client.simCards.actions.bulkEnableVoice',
+    fullyQualifiedName: 'simCards.actions.bulkEnableVoice',
+    httpMethod: 'post',
+    httpPath: '/sim_cards/actions/bulk_enable_voice',
+  },
+  {
     clientCallName: 'client.simCards.actions.bulkSetPublicIPs',
     fullyQualifiedName: 'simCards.actions.bulkSetPublicIPs',
     httpMethod: 'post',
