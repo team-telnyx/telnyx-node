@@ -1,0 +1,159 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp';
+import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
+import { ClientOptions } from 'telnyx';
+import express from 'express';
+import pino from 'pino';
+import pinoHttp from 'pino-http';
+import { getStainlessApiKey, parseClientAuthHeaders } from './auth';
+import { getLogger } from './logger';
+import { McpOptions } from './options';
+import { initMcpServer, newMcpServer } from './server';
+
+const newServer = async ({
+  clientOptions,
+  mcpOptions,
+  req,
+  res,
+}: {
+  clientOptions: ClientOptions;
+  mcpOptions: McpOptions;
+  req: express.Request;
+  res: express.Response;
+}): Promise<McpServer | null> => {
+  const stainlessApiKey = getStainlessApiKey(req, mcpOptions);
+  const server = await newMcpServer(stainlessApiKey);
+
+  const authOptions = parseClientAuthHeaders(req, false);
+
+  await initMcpServer({
+    server: server,
+    mcpOptions: mcpOptions,
+    clientOptions: {
+      ...clientOptions,
+      ...authOptions,
+    },
+    stainlessApiKey: stainlessApiKey,
+  });
+
+  return server;
+};
+
+const post =
+  (options: { clientOptions: ClientOptions; mcpOptions: McpOptions }) =>
+  async (req: express.Request, res: express.Response) => {
+    const server = await newServer({ ...options, req, res });
+    // If we return null, we already set the authorization error.
+    if (server === null) return;
+    const transport = new StreamableHTTPServerTransport();
+    await server.connect(transport as any);
+    await transport.handleRequest(req, res, req.body);
+  };
+
+const get = async (req: express.Request, res: express.Response) => {
+  res.status(405).json({
+    jsonrpc: '2.0',
+    error: {
+      code: -32000,
+      message: 'Method not supported',
+    },
+  });
+};
+
+const del = async (req: express.Request, res: express.Response) => {
+  res.status(405).json({
+    jsonrpc: '2.0',
+    error: {
+      code: -32000,
+      message: 'Method not supported',
+    },
+  });
+};
+
+const redactHeaders = (headers: Record<string, any>) => {
+  const hiddenHeaders = /auth|cookie|key|token/i;
+  const filtered = { ...headers };
+  Object.keys(filtered).forEach((key) => {
+    if (hiddenHeaders.test(key)) {
+      filtered[key] = '[REDACTED]';
+    }
+  });
+  return filtered;
+};
+
+export const streamableHTTPApp = ({
+  clientOptions = {},
+  mcpOptions,
+}: {
+  clientOptions?: ClientOptions;
+  mcpOptions: McpOptions;
+}): express.Express => {
+  const app = express();
+  app.set('query parser', 'extended');
+  app.use(express.json());
+  app.use(
+    pinoHttp({
+      logger: getLogger(),
+      customLogLevel: (req, res) => {
+        if (res.statusCode >= 500) {
+          return 'error';
+        } else if (res.statusCode >= 400) {
+          return 'warn';
+        }
+        return 'info';
+      },
+      customSuccessMessage: function (req, res) {
+        return `Request ${req.method} to ${req.url} completed with status ${res.statusCode}`;
+      },
+      customErrorMessage: function (req, res, err) {
+        return `Request ${req.method} to ${req.url} errored with status ${res.statusCode}`;
+      },
+      serializers: {
+        req: pino.stdSerializers.wrapRequestSerializer((req) => {
+          return {
+            ...req,
+            headers: redactHeaders(req.raw.headers),
+          };
+        }),
+        res: pino.stdSerializers.wrapResponseSerializer((res) => {
+          return {
+            ...res,
+            headers: redactHeaders(res.headers),
+          };
+        }),
+      },
+    }),
+  );
+
+  app.get('/health', async (req: express.Request, res: express.Response) => {
+    res.status(200).send('OK');
+  });
+  app.get('/', get);
+  app.post('/', post({ clientOptions, mcpOptions }));
+  app.delete('/', del);
+
+  return app;
+};
+
+export const launchStreamableHTTPServer = async ({
+  mcpOptions,
+  port,
+}: {
+  mcpOptions: McpOptions;
+  port: number | string | undefined;
+}) => {
+  const app = streamableHTTPApp({ mcpOptions });
+  const server = app.listen(port);
+  const address = server.address();
+
+  const logger = getLogger();
+
+  if (typeof address === 'string') {
+    logger.info(`MCP Server running on streamable HTTP at ${address}`);
+  } else if (address !== null) {
+    logger.info(`MCP Server running on streamable HTTP on port ${address.port}`);
+  } else {
+    logger.info(`MCP Server running on streamable HTTP on port ${port}`);
+  }
+};
