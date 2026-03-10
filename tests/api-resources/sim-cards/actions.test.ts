@@ -53,6 +53,48 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('bulkDisableVoice: only required params', async () => {
+    const responsePromise = client.simCards.actions.bulkDisableVoice({
+      sim_card_group_id: '6b14e151-8493-4fa1-8664-1cc4e6d14158',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('bulkDisableVoice: required and optional params', async () => {
+    const response = await client.simCards.actions.bulkDisableVoice({
+      sim_card_group_id: '6b14e151-8493-4fa1-8664-1cc4e6d14158',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('bulkEnableVoice: only required params', async () => {
+    const responsePromise = client.simCards.actions.bulkEnableVoice({
+      sim_card_group_id: '6b14e151-8493-4fa1-8664-1cc4e6d14158',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('bulkEnableVoice: required and optional params', async () => {
+    const response = await client.simCards.actions.bulkEnableVoice({
+      sim_card_group_id: '6b14e151-8493-4fa1-8664-1cc4e6d14158',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('bulkSetPublicIPs: only required params', async () => {
     const responsePromise = client.simCards.actions.bulkSetPublicIPs({
       sim_card_ids: ['6b14e151-8493-4fa1-8664-1cc4e6d14158'],

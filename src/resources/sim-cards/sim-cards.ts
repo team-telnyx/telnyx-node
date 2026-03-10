@@ -5,6 +5,10 @@ import * as Shared from '../shared';
 import { SimpleSimCardsDefaultFlatPagination } from '../shared';
 import * as ActionsAPI from './actions';
 import {
+  ActionBulkDisableVoiceParams,
+  ActionBulkDisableVoiceResponse,
+  ActionBulkEnableVoiceParams,
+  ActionBulkEnableVoiceResponse,
   ActionBulkSetPublicIPsParams,
   ActionBulkSetPublicIPsResponse,
   ActionDisableResponse,
@@ -345,6 +349,11 @@ export interface SimCard {
    * The version of the SIM card.
    */
   version?: string;
+
+  /**
+   * Indicates whether voice services are enabled for the SIM card.
+   */
+  voice_enabled?: boolean;
 }
 
 export namespace SimCard {
@@ -761,6 +770,8 @@ export declare namespace SimCards {
     Actions as Actions,
     type SimCardAction as SimCardAction,
     type ActionRetrieveResponse as ActionRetrieveResponse,
+    type ActionBulkDisableVoiceResponse as ActionBulkDisableVoiceResponse,
+    type ActionBulkEnableVoiceResponse as ActionBulkEnableVoiceResponse,
     type ActionBulkSetPublicIPsResponse as ActionBulkSetPublicIPsResponse,
     type ActionDisableResponse as ActionDisableResponse,
     type ActionEnableResponse as ActionEnableResponse,
@@ -770,6 +781,8 @@ export declare namespace SimCards {
     type ActionValidateRegistrationCodesResponse as ActionValidateRegistrationCodesResponse,
     type SimCardActionsDefaultFlatPagination as SimCardActionsDefaultFlatPagination,
     type ActionListParams as ActionListParams,
+    type ActionBulkDisableVoiceParams as ActionBulkDisableVoiceParams,
+    type ActionBulkEnableVoiceParams as ActionBulkEnableVoiceParams,
     type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
     type ActionSetPublicIPParams as ActionSetPublicIPParams,
     type ActionValidateRegistrationCodesParams as ActionValidateRegistrationCodesParams,

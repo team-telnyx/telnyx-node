@@ -3522,6 +3522,8 @@ Types:
 
 - <code><a href="./src/resources/sim-cards/actions.ts">SimCardAction</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionRetrieveResponse</a></code>
+- <code><a href="./src/resources/sim-cards/actions.ts">ActionBulkDisableVoiceResponse</a></code>
+- <code><a href="./src/resources/sim-cards/actions.ts">ActionBulkEnableVoiceResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionBulkSetPublicIPsResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionDisableResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionEnableResponse</a></code>
@@ -3534,6 +3536,8 @@ Methods:
 
 - <code title="get /sim_card_actions/{id}">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">retrieve</a>(id) -> ActionRetrieveResponse</code>
 - <code title="get /sim_card_actions">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">list</a>({ ...params }) -> SimCardActionsDefaultFlatPagination</code>
+- <code title="post /sim_cards/actions/bulk_disable_voice">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">bulkDisableVoice</a>({ ...params }) -> ActionBulkDisableVoiceResponse</code>
+- <code title="post /sim_cards/actions/bulk_enable_voice">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">bulkEnableVoice</a>({ ...params }) -> ActionBulkEnableVoiceResponse</code>
 - <code title="post /sim_cards/actions/bulk_set_public_ips">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">bulkSetPublicIPs</a>({ ...params }) -> ActionBulkSetPublicIPsResponse</code>
 - <code title="post /sim_cards/{id}/actions/disable">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">disable</a>(id) -> ActionDisableResponse</code>
 - <code title="post /sim_cards/{id}/actions/enable">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">enable</a>(id) -> ActionEnableResponse</code>
