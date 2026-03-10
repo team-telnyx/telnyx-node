@@ -620,17 +620,17 @@ export namespace AssistantTool {
   }
 
   export interface Invite {
-    invite: Invite.Invite;
+    invite_config: Invite.InviteConfig;
 
     type: 'invite';
   }
 
   export namespace Invite {
-    export interface Invite {
+    export interface InviteConfig {
       /**
        * Custom headers to be added to the SIP INVITE for the invite command.
        */
-      custom_headers?: Array<Invite.CustomHeader>;
+      custom_headers?: Array<InviteConfig.CustomHeader>;
 
       /**
        * Number or SIP URI placing the call.
@@ -641,10 +641,10 @@ export namespace AssistantTool {
        * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
        * invited call.
        */
-      voicemail_detection?: Invite.VoicemailDetection;
+      voicemail_detection?: InviteConfig.VoicemailDetection;
     }
 
-    export namespace Invite {
+    export namespace InviteConfig {
       export interface CustomHeader {
         name?: string;
 
