@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.6.1 (2026-03-09)
+
+Full Changelog: [v6.6.0...v6.6.1](https://github.com/team-telnyx/telnyx-node/compare/v6.6.0...v6.6.1)
+
+### Chores
+
+* **internal:** update dependencies to address dependabot vulnerabilities ([d1e784f](https://github.com/team-telnyx/telnyx-node/commit/d1e784f6534b0a50b1c920b5b9c8280687a84f9d))
+
 ## 6.6.0 (2026-03-09)
 
 Full Changelog: [v6.5.0...v6.6.0](https://github.com/team-telnyx/telnyx-node/compare/v6.5.0...v6.6.0)
