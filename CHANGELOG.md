@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.7.0 (2026-03-10)
+
+Full Changelog: [v6.6.1...v6.7.0](https://github.com/team-telnyx/telnyx-node/compare/v6.6.1...v6.7.0)
+
+### Features
+
+* CW-2881 publish wireless VoLTE docs to prod ([a854cd5](https://github.com/team-telnyx/telnyx-node/commit/a854cd5680f13bec16cea00e3c4a0e09d4de85e8))
+
+
+### Chores
+
+* **internal:** codegen related update ([f32904b](https://github.com/team-telnyx/telnyx-node/commit/f32904b889d56d92b5b0c8d0939db2698097a665))
+
 ## 6.6.1 (2026-03-09)
 
 Full Changelog: [v6.6.0...v6.6.1](https://github.com/team-telnyx/telnyx-node/compare/v6.6.0...v6.6.1)
