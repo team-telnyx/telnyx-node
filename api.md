@@ -3520,6 +3520,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/sim-cards/actions.ts">BulkSimCardAction</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">SimCardAction</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionRetrieveResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionBulkDisableVoiceResponse</a></code>
