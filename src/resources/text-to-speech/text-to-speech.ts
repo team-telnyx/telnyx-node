@@ -238,7 +238,7 @@ export interface TextToSpeechGenerateParams {
   /**
    * Inworld provider-specific parameters.
    */
-  inworld?: unknown;
+  inworld?: { [key: string]: unknown };
 
   /**
    * Language code (e.g. `en-US`). Usage varies by provider.
