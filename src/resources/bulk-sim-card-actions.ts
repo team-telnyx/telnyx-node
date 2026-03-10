@@ -56,13 +56,15 @@ export namespace BulkSimCardActionRetrieveResponse {
     id?: string;
 
     /**
-     * The operation type. It can be one of the following: <br/>
+     * The action type. It can be one of the following: <br/>
      *
      * <ul>
-     * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM card.</li>
+     * <li><code>bulk_disable_voice</code> - disable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_enable_voice</code> - enable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM Card.</li>
      * </ul>
      */
-    action_type?: 'bulk_set_public_ips';
+    action_type?: 'bulk_disable_voice' | 'bulk_enable_voice' | 'bulk_set_public_ips';
 
     /**
      * ISO 8601 formatted date-time indicating when the resource was created.
@@ -92,13 +94,15 @@ export interface BulkSimCardActionListResponse {
   id?: string;
 
   /**
-   * The operation type. It can be one of the following: <br/>
+   * The action type. It can be one of the following: <br/>
    *
    * <ul>
-   * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM card.</li>
+   * <li><code>bulk_disable_voice</code> - disable voice for every SIM Card in a SIM Card Group.</li>
+   * <li><code>bulk_enable_voice</code> - enable voice for every SIM Card in a SIM Card Group.</li>
+   * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM Card.</li>
    * </ul>
    */
-  action_type?: 'bulk_set_public_ips';
+  action_type?: 'bulk_disable_voice' | 'bulk_enable_voice' | 'bulk_set_public_ips';
 
   /**
    * ISO 8601 formatted date-time indicating when the resource was created.

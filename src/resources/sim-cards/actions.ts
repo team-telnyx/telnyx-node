@@ -45,6 +45,62 @@ export class Actions extends APIResource {
   }
 
   /**
+   * This API triggers an asynchronous operation to disable voice on SIM cards
+   * belonging to a specified SIM Card Group.<br/> For each SIM Card a SIM Card
+   * Action will be generated. The status of the SIM Card Actions can be followed
+   * through the
+   * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+   * API.
+   *
+   * The overall status of the Bulk SIM Card Action can be followed through the
+   * [List Bulk SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-bulk-sim-card-actions)
+   * API.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.simCards.actions.bulkDisableVoice({
+   *     sim_card_group_id:
+   *       '6b14e151-8493-4fa1-8664-1cc4e6d14158',
+   *   });
+   * ```
+   */
+  bulkDisableVoice(
+    body: ActionBulkDisableVoiceParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionBulkDisableVoiceResponse> {
+    return this._client.post('/sim_cards/actions/bulk_disable_voice', { body, ...options });
+  }
+
+  /**
+   * This API triggers an asynchronous operation to enable voice on SIM cards
+   * belonging to a specified SIM Card Group.<br/> For each SIM Card a SIM Card
+   * Action will be generated. The status of the SIM Card Actions can be followed
+   * through the
+   * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+   * API.
+   *
+   * The overall status of the Bulk SIM Card Action can be followed through the
+   * [List Bulk SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-bulk-sim-card-actions)
+   * API.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.simCards.actions.bulkEnableVoice({
+   *     sim_card_group_id:
+   *       '6b14e151-8493-4fa1-8664-1cc4e6d14158',
+   *   });
+   * ```
+   */
+  bulkEnableVoice(
+    body: ActionBulkEnableVoiceParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionBulkEnableVoiceResponse> {
+    return this._client.post('/sim_cards/actions/bulk_enable_voice', { body, ...options });
+  }
+
+  /**
    * This API triggers an asynchronous operation to set a public IP for each of the
    * specified SIM cards.<br/> For each SIM Card a SIM Card Action will be generated.
    * The status of the SIM Card Action can be followed through the
@@ -264,6 +320,104 @@ export interface ActionRetrieveResponse {
   data?: SimCardAction;
 }
 
+export interface ActionBulkDisableVoiceResponse {
+  /**
+   * This object represents a bulk SIM card action. It groups SIM card actions
+   * created through a bulk endpoint under a single resource for further lookup.
+   */
+  data?: ActionBulkDisableVoiceResponse.Data;
+}
+
+export namespace ActionBulkDisableVoiceResponse {
+  /**
+   * This object represents a bulk SIM card action. It groups SIM card actions
+   * created through a bulk endpoint under a single resource for further lookup.
+   */
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * The action type. It can be one of the following: <br/>
+     *
+     * <ul>
+     * <li><code>bulk_disable_voice</code> - disable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_enable_voice</code> - enable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM Card.</li>
+     * </ul>
+     */
+    action_type?: 'bulk_disable_voice' | 'bulk_enable_voice' | 'bulk_set_public_ips';
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was created.
+     */
+    created_at?: string;
+
+    record_type?: string;
+
+    /**
+     * A JSON object representation of the bulk action payload.
+     */
+    settings?: { [key: string]: unknown };
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
+}
+
+export interface ActionBulkEnableVoiceResponse {
+  /**
+   * This object represents a bulk SIM card action. It groups SIM card actions
+   * created through a bulk endpoint under a single resource for further lookup.
+   */
+  data?: ActionBulkEnableVoiceResponse.Data;
+}
+
+export namespace ActionBulkEnableVoiceResponse {
+  /**
+   * This object represents a bulk SIM card action. It groups SIM card actions
+   * created through a bulk endpoint under a single resource for further lookup.
+   */
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * The action type. It can be one of the following: <br/>
+     *
+     * <ul>
+     * <li><code>bulk_disable_voice</code> - disable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_enable_voice</code> - enable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM Card.</li>
+     * </ul>
+     */
+    action_type?: 'bulk_disable_voice' | 'bulk_enable_voice' | 'bulk_set_public_ips';
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was created.
+     */
+    created_at?: string;
+
+    record_type?: string;
+
+    /**
+     * A JSON object representation of the bulk action payload.
+     */
+    settings?: { [key: string]: unknown };
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
+}
+
 export interface ActionBulkSetPublicIPsResponse {
   /**
    * This object represents a bulk SIM card action. It groups SIM card actions
@@ -284,13 +438,15 @@ export namespace ActionBulkSetPublicIPsResponse {
     id?: string;
 
     /**
-     * The operation type. It can be one of the following: <br/>
+     * The action type. It can be one of the following: <br/>
      *
      * <ul>
-     * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM card.</li>
+     * <li><code>bulk_disable_voice</code> - disable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_enable_voice</code> - enable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM Card.</li>
      * </ul>
      */
-    action_type?: 'bulk_set_public_ips';
+    action_type?: 'bulk_disable_voice' | 'bulk_enable_voice' | 'bulk_set_public_ips';
 
     /**
      * ISO 8601 formatted date-time indicating when the resource was created.
@@ -420,6 +576,14 @@ export namespace ActionListParams {
   }
 }
 
+export interface ActionBulkDisableVoiceParams {
+  sim_card_group_id: string;
+}
+
+export interface ActionBulkEnableVoiceParams {
+  sim_card_group_id: string;
+}
+
 export interface ActionBulkSetPublicIPsParams {
   sim_card_ids: Array<string>;
 }
@@ -440,6 +604,8 @@ export declare namespace Actions {
   export {
     type SimCardAction as SimCardAction,
     type ActionRetrieveResponse as ActionRetrieveResponse,
+    type ActionBulkDisableVoiceResponse as ActionBulkDisableVoiceResponse,
+    type ActionBulkEnableVoiceResponse as ActionBulkEnableVoiceResponse,
     type ActionBulkSetPublicIPsResponse as ActionBulkSetPublicIPsResponse,
     type ActionDisableResponse as ActionDisableResponse,
     type ActionEnableResponse as ActionEnableResponse,
@@ -449,6 +615,8 @@ export declare namespace Actions {
     type ActionValidateRegistrationCodesResponse as ActionValidateRegistrationCodesResponse,
     type SimCardActionsDefaultFlatPagination as SimCardActionsDefaultFlatPagination,
     type ActionListParams as ActionListParams,
+    type ActionBulkDisableVoiceParams as ActionBulkDisableVoiceParams,
+    type ActionBulkEnableVoiceParams as ActionBulkEnableVoiceParams,
     type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
     type ActionSetPublicIPParams as ActionSetPublicIPParams,
     type ActionValidateRegistrationCodesParams as ActionValidateRegistrationCodesParams,

@@ -851,6 +851,8 @@ const fuse = new Fuse(
     'client.simCards.listWirelessConnectivityLogs',
     'client.simCards.retrieve',
     'client.simCards.update',
+    'client.simCards.actions.bulkDisableVoice',
+    'client.simCards.actions.bulkEnableVoice',
     'client.simCards.actions.bulkSetPublicIPs',
     'client.simCards.actions.disable',
     'client.simCards.actions.enable',
