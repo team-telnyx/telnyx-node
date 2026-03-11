@@ -8,26 +8,22 @@ import { RequestOptions } from '../../internal/request-options';
 /**
  * Manage Whatsapp message templates
  */
-export class MessageTemplates extends APIResource {
+export class Templates extends APIResource {
   /**
    * Create a Whatsapp message template
    *
    * @example
    * ```ts
-   * const messageTemplate =
-   *   await client.whatsapp.messageTemplates.create({
-   *     category: 'MARKETING',
-   *     components: [{}],
-   *     language: 'language',
-   *     name: 'name',
-   *     waba_id: 'waba_id',
-   *   });
+   * const template = await client.whatsapp.templates.create({
+   *   category: 'MARKETING',
+   *   components: [{}],
+   *   language: 'language',
+   *   name: 'name',
+   *   waba_id: 'waba_id',
+   * });
    * ```
    */
-  create(
-    body: MessageTemplateCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<MessageTemplateCreateResponse> {
+  create(body: TemplateCreateParams, options?: RequestOptions): APIPromise<TemplateCreateResponse> {
     return this._client.post('/v2/whatsapp/message_templates', { body, ...options });
   }
 
@@ -37,31 +33,30 @@ export class MessageTemplates extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const messageTemplateListResponse of client.whatsapp.messageTemplates.list()) {
+   * for await (const templateListResponse of client.whatsapp.templates.list()) {
    *   // ...
    * }
    * ```
    */
   list(
-    query: MessageTemplateListParams | null | undefined = {},
+    query: TemplateListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessageTemplateListResponsesDefaultFlatPagination, MessageTemplateListResponse> {
+  ): PagePromise<TemplateListResponsesDefaultFlatPagination, TemplateListResponse> {
     return this._client.getAPIList(
       '/v2/whatsapp/message_templates',
-      DefaultFlatPagination<MessageTemplateListResponse>,
+      DefaultFlatPagination<TemplateListResponse>,
       { query, ...options },
     );
   }
 }
 
-export type MessageTemplateListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<MessageTemplateListResponse>;
+export type TemplateListResponsesDefaultFlatPagination = DefaultFlatPagination<TemplateListResponse>;
 
-export interface MessageTemplateCreateResponse {
-  data?: MessageTemplateCreateResponse.Data;
+export interface TemplateCreateResponse {
+  data?: TemplateCreateResponse.Data;
 }
 
-export namespace MessageTemplateCreateResponse {
+export namespace TemplateCreateResponse {
   export interface Data {
     id?: string;
 
@@ -98,7 +93,7 @@ export namespace MessageTemplateCreateResponse {
   }
 }
 
-export interface MessageTemplateListResponse {
+export interface TemplateListResponse {
   id?: string;
 
   category?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
@@ -124,16 +119,16 @@ export interface MessageTemplateListResponse {
 
   updated_at?: string;
 
-  whatsapp_business_account?: MessageTemplateListResponse.WhatsappBusinessAccount;
+  whatsapp_business_account?: TemplateListResponse.WhatsappBusinessAccount;
 }
 
-export namespace MessageTemplateListResponse {
+export namespace TemplateListResponse {
   export interface WhatsappBusinessAccount {
     id?: string;
   }
 }
 
-export interface MessageTemplateCreateParams {
+export interface TemplateCreateParams {
   category: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
 
   components: Array<unknown>;
@@ -145,7 +140,7 @@ export interface MessageTemplateCreateParams {
   waba_id: string;
 }
 
-export interface MessageTemplateListParams extends DefaultFlatPaginationParams {
+export interface TemplateListParams extends DefaultFlatPaginationParams {
   /**
    * Filter by category
    */
@@ -167,12 +162,12 @@ export interface MessageTemplateListParams extends DefaultFlatPaginationParams {
   'filter[waba_id]'?: string;
 }
 
-export declare namespace MessageTemplates {
+export declare namespace Templates {
   export {
-    type MessageTemplateCreateResponse as MessageTemplateCreateResponse,
-    type MessageTemplateListResponse as MessageTemplateListResponse,
-    type MessageTemplateListResponsesDefaultFlatPagination as MessageTemplateListResponsesDefaultFlatPagination,
-    type MessageTemplateCreateParams as MessageTemplateCreateParams,
-    type MessageTemplateListParams as MessageTemplateListParams,
+    type TemplateCreateResponse as TemplateCreateResponse,
+    type TemplateListResponse as TemplateListResponse,
+    type TemplateListResponsesDefaultFlatPagination as TemplateListResponsesDefaultFlatPagination,
+    type TemplateCreateParams as TemplateCreateParams,
+    type TemplateListParams as TemplateListParams,
   };
 }
