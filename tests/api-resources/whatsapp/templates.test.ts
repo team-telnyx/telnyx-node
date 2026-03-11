@@ -7,12 +7,12 @@ const client = new Telnyx({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource messageTemplates', () => {
+describe('resource templates', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.whatsapp.messageTemplates.create({
+    const responsePromise = client.whatsapp.templates.create({
       category: 'MARKETING',
-      components: [{}],
+      components: [{ foo: 'bar' }],
       language: 'language',
       name: 'name',
       waba_id: 'waba_id',
@@ -28,9 +28,9 @@ describe('resource messageTemplates', () => {
 
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.whatsapp.messageTemplates.create({
+    const response = await client.whatsapp.templates.create({
       category: 'MARKETING',
-      components: [{}],
+      components: [{ foo: 'bar' }],
       language: 'language',
       name: 'name',
       waba_id: 'waba_id',
@@ -39,7 +39,7 @@ describe('resource messageTemplates', () => {
 
   // Mock server tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.whatsapp.messageTemplates.list();
+    const responsePromise = client.whatsapp.templates.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -53,7 +53,7 @@ describe('resource messageTemplates', () => {
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.whatsapp.messageTemplates.list(
+      client.whatsapp.templates.list(
         {
           'filter[category]': 'MARKETING',
           'filter[search]': 'filter[search]',
