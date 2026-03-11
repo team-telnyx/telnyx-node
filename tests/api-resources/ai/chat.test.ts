@@ -35,6 +35,7 @@ describe('resource chat', () => {
       api_key_ref: 'api_key_ref',
       best_of: 0,
       early_stopping: true,
+      enable_thinking: true,
       frequency_penalty: 0,
       guided_choice: ['string'],
       guided_json: { foo: 'bar' },

@@ -79,6 +79,13 @@ export interface ChatCreateCompletionParams {
   early_stopping?: boolean;
 
   /**
+   * Whether to enable the thinking/reasoning phase for models that support it (e.g.,
+   * QwQ, Qwen3). When set to false, the model will skip the internal reasoning step
+   * and respond directly, which can reduce latency. Defaults to true.
+   */
+  enable_thinking?: boolean;
+
+  /**
    * Higher values will penalize the model from repeating the same output tokens.
    */
   frequency_penalty?: number;
