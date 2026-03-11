@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.7.1 (2026-03-11)
+
+Full Changelog: [v6.7.0...v6.7.1](https://github.com/team-telnyx/telnyx-node/compare/v6.7.0...v6.7.1)
+
+### Bug Fixes
+
+* add title to InviteTool.invite for Stainless SDK ([4d250ee](https://github.com/team-telnyx/telnyx-node/commit/4d250ee54ee5572db55df76829e52721378e0b90))
+
+
+### Chores
+
+* **internal:** codegen related update ([4566be5](https://github.com/team-telnyx/telnyx-node/commit/4566be597b1f84ffdc361d0315525dcae21f8137))
+
 ## 6.7.0 (2026-03-10)
 
 Full Changelog: [v6.6.1...v6.7.0](https://github.com/team-telnyx/telnyx-node/compare/v6.6.1...v6.7.0)
