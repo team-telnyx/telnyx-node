@@ -10,13 +10,7 @@ import {
   PhoneNumbers,
 } from './phone-numbers';
 import * as SettingsAPI from './settings';
-import {
-  SettingRetrieveResponse,
-  SettingUpdateParams,
-  SettingUpdateResponse,
-  Settings,
-  WabaSettings,
-} from './settings';
+import { SettingRetrieveResponse, SettingUpdateParams, SettingUpdateResponse, Settings } from './settings';
 import { APIPromise } from '../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -209,7 +203,6 @@ export declare namespace BusinessAccounts {
 
   export {
     Settings as Settings,
-    type WabaSettings as WabaSettings,
     type SettingRetrieveResponse as SettingRetrieveResponse,
     type SettingUpdateResponse as SettingUpdateResponse,
     type SettingUpdateParams as SettingUpdateParams,

@@ -2,7 +2,6 @@
 
 export {
   CallingSettings,
-  type WhatsappCallingSettingsData,
   type CallingSettingRetrieveResponse,
   type CallingSettingUpdateResponse,
   type CallingSettingUpdateParams,
@@ -17,7 +16,6 @@ export {
 } from './phone-numbers';
 export {
   Profile,
-  type WhatsappProfileData,
   type ProfileRetrieveResponse,
   type ProfileUpdateResponse,
   type ProfileUpdateParams,

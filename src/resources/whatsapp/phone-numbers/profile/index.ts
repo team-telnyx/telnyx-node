@@ -3,7 +3,6 @@
 export { Photo, type PhotoUploadResponse, type PhotoUploadParams } from './photo';
 export {
   Profile,
-  type WhatsappProfileData,
   type ProfileRetrieveResponse,
   type ProfileUpdateResponse,
   type ProfileUpdateParams,
