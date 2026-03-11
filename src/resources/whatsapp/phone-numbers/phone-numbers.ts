@@ -7,6 +7,7 @@ import {
   CallingSettingUpdateParams,
   CallingSettingUpdateResponse,
   CallingSettings,
+  WhatsappCallingSettingsData,
 } from './calling-settings';
 import * as ProfileAPI from './profile/profile';
 import {
@@ -14,6 +15,7 @@ import {
   ProfileRetrieveResponse,
   ProfileUpdateParams,
   ProfileUpdateResponse,
+  WhatsappProfileData,
 } from './profile/profile';
 import { APIPromise } from '../../../core/api-promise';
 import {
@@ -175,6 +177,7 @@ export declare namespace PhoneNumbers {
 
   export {
     CallingSettings as CallingSettings,
+    type WhatsappCallingSettingsData as WhatsappCallingSettingsData,
     type CallingSettingRetrieveResponse as CallingSettingRetrieveResponse,
     type CallingSettingUpdateResponse as CallingSettingUpdateResponse,
     type CallingSettingUpdateParams as CallingSettingUpdateParams,
@@ -182,6 +185,7 @@ export declare namespace PhoneNumbers {
 
   export {
     Profile as Profile,
+    type WhatsappProfileData as WhatsappProfileData,
     type ProfileRetrieveResponse as ProfileRetrieveResponse,
     type ProfileUpdateResponse as ProfileUpdateResponse,
     type ProfileUpdateParams as ProfileUpdateParams,

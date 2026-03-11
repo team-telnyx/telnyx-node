@@ -2,14 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as TemplatesAPI from './templates';
-import {
-  TemplateCreateParams,
-  TemplateCreateResponse,
-  TemplateListParams,
-  TemplateListResponse,
-  TemplateListResponsesDefaultFlatPagination,
-  Templates,
-} from './templates';
+import { TemplateCreateParams, TemplateCreateResponse, TemplateListParams, Templates } from './templates';
 import * as BusinessAccountsAPI from './business-accounts/business-accounts';
 import {
   BusinessAccountListParams,
@@ -52,8 +45,6 @@ export declare namespace Whatsapp {
   export {
     Templates as Templates,
     type TemplateCreateResponse as TemplateCreateResponse,
-    type TemplateListResponse as TemplateListResponse,
-    type TemplateListResponsesDefaultFlatPagination as TemplateListResponsesDefaultFlatPagination,
     type TemplateCreateParams as TemplateCreateParams,
     type TemplateListParams as TemplateListParams,
   };

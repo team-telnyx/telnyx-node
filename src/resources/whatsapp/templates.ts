@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as Shared from '../shared';
+import { WhatsappTemplateDataDefaultFlatPagination } from '../shared';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -33,7 +35,7 @@ export class Templates extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const templateListResponse of client.whatsapp.templates.list()) {
+   * for await (const whatsappTemplateData of client.whatsapp.templates.list()) {
    *   // ...
    * }
    * ```
@@ -41,91 +43,17 @@ export class Templates extends APIResource {
   list(
     query: TemplateListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<TemplateListResponsesDefaultFlatPagination, TemplateListResponse> {
+  ): PagePromise<WhatsappTemplateDataDefaultFlatPagination, Shared.WhatsappTemplateData> {
     return this._client.getAPIList(
       '/v2/whatsapp/message_templates',
-      DefaultFlatPagination<TemplateListResponse>,
+      DefaultFlatPagination<Shared.WhatsappTemplateData>,
       { query, ...options },
     );
   }
 }
 
-export type TemplateListResponsesDefaultFlatPagination = DefaultFlatPagination<TemplateListResponse>;
-
 export interface TemplateCreateResponse {
-  data?: TemplateCreateResponse.Data;
-}
-
-export namespace TemplateCreateResponse {
-  export interface Data {
-    id?: string;
-
-    category?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
-
-    /**
-     * Whatsapp template components (header, body, footer, buttons)
-     */
-    components?: Array<unknown>;
-
-    created_at?: string;
-
-    language?: string;
-
-    name?: string;
-
-    record_type?: string;
-
-    rejection_reason?: string;
-
-    status?: string;
-
-    template_id?: string;
-
-    updated_at?: string;
-
-    whatsapp_business_account?: Data.WhatsappBusinessAccount;
-  }
-
-  export namespace Data {
-    export interface WhatsappBusinessAccount {
-      id?: string;
-    }
-  }
-}
-
-export interface TemplateListResponse {
-  id?: string;
-
-  category?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
-
-  /**
-   * Whatsapp template components (header, body, footer, buttons)
-   */
-  components?: Array<unknown>;
-
-  created_at?: string;
-
-  language?: string;
-
-  name?: string;
-
-  record_type?: string;
-
-  rejection_reason?: string;
-
-  status?: string;
-
-  template_id?: string;
-
-  updated_at?: string;
-
-  whatsapp_business_account?: TemplateListResponse.WhatsappBusinessAccount;
-}
-
-export namespace TemplateListResponse {
-  export interface WhatsappBusinessAccount {
-    id?: string;
-  }
+  data?: Shared.WhatsappTemplateData;
 }
 
 export interface TemplateCreateParams {
@@ -165,9 +93,9 @@ export interface TemplateListParams extends DefaultFlatPaginationParams {
 export declare namespace Templates {
   export {
     type TemplateCreateResponse as TemplateCreateResponse,
-    type TemplateListResponse as TemplateListResponse,
-    type TemplateListResponsesDefaultFlatPagination as TemplateListResponsesDefaultFlatPagination,
     type TemplateCreateParams as TemplateCreateParams,
     type TemplateListParams as TemplateListParams,
   };
 }
+
+export { type WhatsappTemplateDataDefaultFlatPagination };

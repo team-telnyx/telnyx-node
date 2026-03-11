@@ -18,9 +18,7 @@ export {
 export {
   Templates,
   type TemplateCreateResponse,
-  type TemplateListResponse,
   type TemplateCreateParams,
   type TemplateListParams,
-  type TemplateListResponsesDefaultFlatPagination,
 } from './templates';
 export { Whatsapp } from './whatsapp';
