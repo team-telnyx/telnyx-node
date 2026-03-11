@@ -51,7 +51,7 @@ export interface WhatsappMessageTemplateUpdateResponse {
 export interface WhatsappMessageTemplateUpdateParams {
   category?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
 
-  components?: Array<unknown>;
+  components?: Array<{ [key: string]: unknown }>;
 }
 
 export declare namespace WhatsappMessageTemplates {
