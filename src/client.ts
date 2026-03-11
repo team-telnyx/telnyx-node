@@ -1034,6 +1034,12 @@ import {
   WellKnownRetrieveProtectedResourceMetadataResponse,
 } from './resources/well-known';
 import {
+  WhatsappMessageTemplateRetrieveResponse,
+  WhatsappMessageTemplateUpdateParams,
+  WhatsappMessageTemplateUpdateResponse,
+  WhatsappMessageTemplates,
+} from './resources/whatsapp-message-templates';
+import {
   WireguardInterfaceCreateParams,
   WireguardInterfaceCreateResponse,
   WireguardInterfaceDeleteResponse,
@@ -1457,6 +1463,7 @@ import {
   VerifiedNumbers,
   VerifiedNumbersDefaultFlatPagination,
 } from './resources/verified-numbers/verified-numbers';
+import { Whatsapp } from './resources/whatsapp/whatsapp';
 import {
   Wireless,
   WirelessRetrieveRegionsParams,
@@ -2806,6 +2813,11 @@ export class Telnyx {
    * Analyze voice AI sessions, costs, and event hierarchies across Telnyx products.
    */
   sessionAnalysis: API.SessionAnalysis = new API.SessionAnalysis(this);
+  whatsapp: API.Whatsapp = new API.Whatsapp(this);
+  /**
+   * Manage Whatsapp message templates
+   */
+  whatsappMessageTemplates: API.WhatsappMessageTemplates = new API.WhatsappMessageTemplates(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -2961,6 +2973,8 @@ Telnyx.Organizations = Organizations;
 Telnyx.AlphanumericSenderIDs = AlphanumericSenderIDs;
 Telnyx.MessagingProfileMetrics = MessagingProfileMetrics;
 Telnyx.SessionAnalysis = SessionAnalysis;
+Telnyx.Whatsapp = Whatsapp;
+Telnyx.WhatsappMessageTemplates = WhatsappMessageTemplates;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -4620,6 +4634,15 @@ export declare namespace Telnyx {
     type SessionAnalysisRetrieveParams as SessionAnalysisRetrieveParams,
   };
 
+  export { Whatsapp as Whatsapp };
+
+  export {
+    WhatsappMessageTemplates as WhatsappMessageTemplates,
+    type WhatsappMessageTemplateRetrieveResponse as WhatsappMessageTemplateRetrieveResponse,
+    type WhatsappMessageTemplateUpdateResponse as WhatsappMessageTemplateUpdateResponse,
+    type WhatsappMessageTemplateUpdateParams as WhatsappMessageTemplateUpdateParams,
+  };
+
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
   export type AzureVoiceSettings = API.AzureVoiceSettings;
@@ -4651,4 +4674,5 @@ export declare namespace Telnyx {
   export type SimCardStatus = API.SimCardStatus;
   export type SimpleSimCard = API.SimpleSimCard;
   export type SubNumberOrderRegulatoryRequirementWithValue = API.SubNumberOrderRegulatoryRequirementWithValue;
+  export type WhatsappTemplateData = API.WhatsappTemplateData;
 }

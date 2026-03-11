@@ -1,5 +1,42 @@
 # Changelog
 
+## 6.8.0 (2026-03-11)
+
+Full Changelog: [v6.7.1...v6.8.0](https://github.com/team-telnyx/telnyx-node/compare/v6.7.1...v6.8.0)
+
+### Features
+
+* Add enable_thinking parameter to chat completions API ([020fcde](https://github.com/team-telnyx/telnyx-node/commit/020fcde8f4f09aec4e7d9f543f580f0c71c9e236))
+* **api:** manual updates ([dc03ade](https://github.com/team-telnyx/telnyx-node/commit/dc03ade69e641f376ec41c133ef8068d43ea0018))
+* **api:** manual updates ([c34d589](https://github.com/team-telnyx/telnyx-node/commit/c34d589bc06e57c3f81f276fd8501fdc3cfab1a7))
+* **api:** manual updates ([e49156e](https://github.com/team-telnyx/telnyx-node/commit/e49156e74a50a8f02443b1d6ed1a7bd53d7fe07c))
+* **api:** manual updates ([ec011ad](https://github.com/team-telnyx/telnyx-node/commit/ec011ad7efaccd2b1da59983a68723105348a012))
+* **api:** manual updates ([3239c83](https://github.com/team-telnyx/telnyx-node/commit/3239c834c0904c4b6d1119b35fa0990060c12d38))
+* **api:** Merge pull request [#27](https://github.com/team-telnyx/telnyx-node/issues/27) from stainless-sdks/fix/whatsapp-message-templates-conflict ([9bab11a](https://github.com/team-telnyx/telnyx-node/commit/9bab11ad9d8abe2dac66bd82af1cfb25bce1710b))
+* **messaging:** add wait_seconds to OutboundMessagePayload example ([c2a2371](https://github.com/team-telnyx/telnyx-node/commit/c2a23715f11d873bbeaa49b3631493f91f887a01))
+
+
+### Bug Fixes
+
+* add missing vertical enum values for 10DLC brand creation (ENGDESK-49040) ([ef513f8](https://github.com/team-telnyx/telnyx-node/commit/ef513f82877285f2f8623bff9b9fd97d2bc76e26))
+* add title to InviteTool.invite for Stainless SDK ([13d3e43](https://github.com/team-telnyx/telnyx-node/commit/13d3e4383367afa5637e0951c67e46e034975ec3))
+* add title to InviteTool.invite for Stainless SDK ([b400b96](https://github.com/team-telnyx/telnyx-node/commit/b400b96ad77ab30446b3bd7458546eb1ec326025))
+* rename whatsapp.message_templates to whatsapp.templates to avoid conflict ([9bab11a](https://github.com/team-telnyx/telnyx-node/commit/9bab11ad9d8abe2dac66bd82af1cfb25bce1710b))
+* update wait_seconds example to 0.5 ([2bede66](https://github.com/team-telnyx/telnyx-node/commit/2bede661648925fd914ab33dcf5a9fc9e9c82479))
+
+
+### Reverts
+
+* restore stainless.yml changes removed in 1de6067 ([43e8f82](https://github.com/team-telnyx/telnyx-node/commit/43e8f82f6a872b6247646d4f728a7d6136c39a08))
+
+
+### Chores
+
+* **internal:** codegen related update ([b290ecb](https://github.com/team-telnyx/telnyx-node/commit/b290ecb676c710c9d6ec44099d0e547e4f44a14a))
+* **internal:** update lock file ([f45bea1](https://github.com/team-telnyx/telnyx-node/commit/f45bea1904d9d1ad12cd2f77f762352cbf778417))
+* update example date in usage-reports ([ef1f88c](https://github.com/team-telnyx/telnyx-node/commit/ef1f88c984fe048992ba89e4a2f5e8f3e98956be))
+* use proper capitalization for WebSockets ([3d87cdd](https://github.com/team-telnyx/telnyx-node/commit/3d87cdd6bc306117d223f34cea25264ddb4a0d08))
+
 ## 6.7.1 (2026-03-11)
 
 Full Changelog: [v6.7.0...v6.7.1](https://github.com/team-telnyx/telnyx-node/compare/v6.7.0...v6.7.1)

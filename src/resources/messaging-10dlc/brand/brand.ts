@@ -560,23 +560,29 @@ export interface TelnyxBrand {
  * Vertical or industry segment of the brand or campaign.
  */
 export type Vertical =
-  | 'REAL_ESTATE'
-  | 'HEALTHCARE'
+  | 'AGRICULTURE'
+  | 'COMMUNICATION'
+  | 'CONSTRUCTION'
+  | 'EDUCATION'
   | 'ENERGY'
   | 'ENTERTAINMENT'
-  | 'RETAIL'
-  | 'AGRICULTURE'
-  | 'INSURANCE'
-  | 'EDUCATION'
-  | 'HOSPITALITY'
   | 'FINANCIAL'
   | 'GAMBLING'
-  | 'CONSTRUCTION'
-  | 'NGO'
-  | 'MANUFACTURING'
   | 'GOVERNMENT'
+  | 'HEALTHCARE'
+  | 'HOSPITALITY'
+  | 'HUMAN_RESOURCES'
+  | 'INSURANCE'
+  | 'LEGAL'
+  | 'MANUFACTURING'
+  | 'NGO'
+  | 'POLITICAL'
+  | 'POSTAL'
+  | 'PROFESSIONAL'
+  | 'REAL_ESTATE'
+  | 'RETAIL'
   | 'TECHNOLOGY'
-  | 'COMMUNICATION';
+  | 'TRANSPORTATION';
 
 /**
  * Telnyx-specific extensions to The Campaign Registry's `Brand` type

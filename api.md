@@ -33,6 +33,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">SimCardStatus</a></code>
 - <code><a href="./src/resources/shared.ts">SimpleSimCard</a></code>
 - <code><a href="./src/resources/shared.ts">SubNumberOrderRegulatoryRequirementWithValue</a></code>
+- <code><a href="./src/resources/shared.ts">WhatsappTemplateData</a></code>
 
 # Legacy
 
@@ -3520,6 +3521,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/sim-cards/actions.ts">BulkSimCardAction</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">SimCardAction</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionRetrieveResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionBulkDisableVoiceResponse</a></code>
@@ -4469,3 +4471,116 @@ Methods:
 
 - <code title="get /session_analysis/metadata">client.sessionAnalysis.metadata.<a href="./src/resources/session-analysis/metadata.ts">retrieve</a>() -> MetadataRetrieveResponse</code>
 - <code title="get /session_analysis/metadata/{record_type}">client.sessionAnalysis.metadata.<a href="./src/resources/session-analysis/metadata.ts">retrieveRecordType</a>(recordType) -> MetadataRetrieveRecordTypeResponse</code>
+
+# Whatsapp
+
+## BusinessAccounts
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/business-accounts/business-accounts.ts">BusinessAccountRetrieveResponse</a></code>
+- <code><a href="./src/resources/whatsapp/business-accounts/business-accounts.ts">BusinessAccountListResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/whatsapp/business_accounts/{id}">client.whatsapp.businessAccounts.<a href="./src/resources/whatsapp/business-accounts/business-accounts.ts">retrieve</a>(id) -> BusinessAccountRetrieveResponse</code>
+- <code title="get /v2/whatsapp/business_accounts">client.whatsapp.businessAccounts.<a href="./src/resources/whatsapp/business-accounts/business-accounts.ts">list</a>({ ...params }) -> BusinessAccountListResponsesDefaultFlatPagination</code>
+- <code title="delete /v2/whatsapp/business_accounts/{id}">client.whatsapp.businessAccounts.<a href="./src/resources/whatsapp/business-accounts/business-accounts.ts">delete</a>(id) -> void</code>
+
+### PhoneNumbers
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/business-accounts/phone-numbers.ts">PhoneNumberListResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/whatsapp/business_accounts/{id}/phone_numbers">client.whatsapp.businessAccounts.phoneNumbers.<a href="./src/resources/whatsapp/business-accounts/phone-numbers.ts">list</a>(id, { ...params }) -> PhoneNumberListResponsesDefaultFlatPagination</code>
+- <code title="post /v2/whatsapp/business_accounts/{id}/phone_numbers">client.whatsapp.businessAccounts.phoneNumbers.<a href="./src/resources/whatsapp/business-accounts/phone-numbers.ts">initializeVerification</a>(id, { ...params }) -> void</code>
+
+### Settings
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/business-accounts/settings.ts">WabaSettings</a></code>
+- <code><a href="./src/resources/whatsapp/business-accounts/settings.ts">SettingRetrieveResponse</a></code>
+- <code><a href="./src/resources/whatsapp/business-accounts/settings.ts">SettingUpdateResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/whatsapp/business_accounts/{id}/settings">client.whatsapp.businessAccounts.settings.<a href="./src/resources/whatsapp/business-accounts/settings.ts">retrieve</a>(id) -> SettingRetrieveResponse</code>
+- <code title="patch /v2/whatsapp/business_accounts/{id}/settings">client.whatsapp.businessAccounts.settings.<a href="./src/resources/whatsapp/business-accounts/settings.ts">update</a>(id, { ...params }) -> SettingUpdateResponse</code>
+
+## Templates
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/templates.ts">TemplateCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/whatsapp/message_templates">client.whatsapp.templates.<a href="./src/resources/whatsapp/templates.ts">create</a>({ ...params }) -> TemplateCreateResponse</code>
+- <code title="get /v2/whatsapp/message_templates">client.whatsapp.templates.<a href="./src/resources/whatsapp/templates.ts">list</a>({ ...params }) -> WhatsappTemplateDataDefaultFlatPagination</code>
+
+## PhoneNumbers
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberListResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/whatsapp/phone_numbers">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">list</a>({ ...params }) -> PhoneNumberListResponsesDefaultFlatPagination</code>
+- <code title="delete /v2/whatsapp/phone_numbers/{phone_number}">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">delete</a>(phoneNumber) -> void</code>
+- <code title="post /v2/whatsapp/phone_numbers/{phone_number}/resend_verification">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">resendVerification</a>(phoneNumber, { ...params }) -> void</code>
+- <code title="post /v2/whatsapp/phone_numbers/{phone_number}/verify">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">verify</a>(phoneNumber, { ...params }) -> void</code>
+
+### CallingSettings
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/phone-numbers/calling-settings.ts">WhatsappCallingSettingsData</a></code>
+- <code><a href="./src/resources/whatsapp/phone-numbers/calling-settings.ts">CallingSettingRetrieveResponse</a></code>
+- <code><a href="./src/resources/whatsapp/phone-numbers/calling-settings.ts">CallingSettingUpdateResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/whatsapp/phone_numbers/{phone_number}/calling_settings">client.whatsapp.phoneNumbers.callingSettings.<a href="./src/resources/whatsapp/phone-numbers/calling-settings.ts">retrieve</a>(phoneNumber) -> CallingSettingRetrieveResponse</code>
+- <code title="patch /v2/whatsapp/phone_numbers/{phone_number}/calling_settings">client.whatsapp.phoneNumbers.callingSettings.<a href="./src/resources/whatsapp/phone-numbers/calling-settings.ts">update</a>(phoneNumber, { ...params }) -> CallingSettingUpdateResponse</code>
+
+### Profile
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/phone-numbers/profile/profile.ts">WhatsappProfileData</a></code>
+- <code><a href="./src/resources/whatsapp/phone-numbers/profile/profile.ts">ProfileRetrieveResponse</a></code>
+- <code><a href="./src/resources/whatsapp/phone-numbers/profile/profile.ts">ProfileUpdateResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/whatsapp/phone_numbers/{phone_number}/profile">client.whatsapp.phoneNumbers.profile.<a href="./src/resources/whatsapp/phone-numbers/profile/profile.ts">retrieve</a>(phoneNumber) -> ProfileRetrieveResponse</code>
+- <code title="patch /v2/whatsapp/phone_numbers/{phone_number}/profile">client.whatsapp.phoneNumbers.profile.<a href="./src/resources/whatsapp/phone-numbers/profile/profile.ts">update</a>(phoneNumber, { ...params }) -> ProfileUpdateResponse</code>
+
+#### Photo
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">PhotoUploadResponse</a></code>
+
+Methods:
+
+- <code title="delete /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">delete</a>(phoneNumber) -> void</code>
+- <code title="post /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">upload</a>(phoneNumber, { ...params }) -> PhotoUploadResponse</code>
+
+# WhatsappMessageTemplates
+
+Types:
+
+- <code><a href="./src/resources/whatsapp-message-templates.ts">WhatsappMessageTemplateRetrieveResponse</a></code>
+- <code><a href="./src/resources/whatsapp-message-templates.ts">WhatsappMessageTemplateUpdateResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">retrieve</a>(id) -> WhatsappMessageTemplateRetrieveResponse</code>
+- <code title="patch /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">update</a>(id, { ...params }) -> WhatsappMessageTemplateUpdateResponse</code>
+- <code title="delete /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">delete</a>(id) -> void</code>
