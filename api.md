@@ -33,6 +33,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">SimCardStatus</a></code>
 - <code><a href="./src/resources/shared.ts">SimpleSimCard</a></code>
 - <code><a href="./src/resources/shared.ts">SubNumberOrderRegulatoryRequirementWithValue</a></code>
+- <code><a href="./src/resources/shared.ts">WhatsappTemplateData</a></code>
 
 # Legacy
 
@@ -4501,6 +4502,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/whatsapp/business-accounts/settings.ts">WabaSettings</a></code>
 - <code><a href="./src/resources/whatsapp/business-accounts/settings.ts">SettingRetrieveResponse</a></code>
 - <code><a href="./src/resources/whatsapp/business-accounts/settings.ts">SettingUpdateResponse</a></code>
 
@@ -4514,12 +4516,11 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/whatsapp/templates.ts">TemplateCreateResponse</a></code>
-- <code><a href="./src/resources/whatsapp/templates.ts">TemplateListResponse</a></code>
 
 Methods:
 
 - <code title="post /v2/whatsapp/message_templates">client.whatsapp.templates.<a href="./src/resources/whatsapp/templates.ts">create</a>({ ...params }) -> TemplateCreateResponse</code>
-- <code title="get /v2/whatsapp/message_templates">client.whatsapp.templates.<a href="./src/resources/whatsapp/templates.ts">list</a>({ ...params }) -> TemplateListResponsesDefaultFlatPagination</code>
+- <code title="get /v2/whatsapp/message_templates">client.whatsapp.templates.<a href="./src/resources/whatsapp/templates.ts">list</a>({ ...params }) -> WhatsappTemplateDataDefaultFlatPagination</code>
 
 ## PhoneNumbers
 
@@ -4538,6 +4539,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/whatsapp/phone-numbers/calling-settings.ts">WhatsappCallingSettingsData</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/calling-settings.ts">CallingSettingRetrieveResponse</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/calling-settings.ts">CallingSettingUpdateResponse</a></code>
 
@@ -4550,6 +4552,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/whatsapp/phone-numbers/profile/profile.ts">WhatsappProfileData</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/profile/profile.ts">ProfileRetrieveResponse</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/profile/profile.ts">ProfileUpdateResponse</a></code>
 

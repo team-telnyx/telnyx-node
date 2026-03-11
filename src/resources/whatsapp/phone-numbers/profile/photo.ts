@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
+import * as ProfileAPI from './profile';
 import { APIPromise } from '../../../../core/api-promise';
 import { type Uploadable } from '../../../../core/uploads';
 import { buildHeaders } from '../../../../internal/headers';
@@ -54,40 +55,7 @@ export class Photo extends APIResource {
 }
 
 export interface PhotoUploadResponse {
-  data?: PhotoUploadResponse.Data;
-}
-
-export namespace PhotoUploadResponse {
-  export interface Data {
-    id?: string;
-
-    about?: string;
-
-    address?: string;
-
-    category?: string;
-
-    created_at?: string;
-
-    description?: string;
-
-    display_name?: string;
-
-    email?: string;
-
-    /**
-     * Whatsapp phone number ID
-     */
-    phone_number_id?: string;
-
-    profile_photo_url?: string;
-
-    record_type?: string;
-
-    updated_at?: string;
-
-    website?: string;
-  }
+  data?: ProfileAPI.WhatsappProfileData;
 }
 
 export interface PhotoUploadParams {
