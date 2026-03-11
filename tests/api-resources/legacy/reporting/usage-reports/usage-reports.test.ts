@@ -25,7 +25,7 @@ describe('resource usageReports', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.legacy.reporting.usageReports.retrieveSpeechToText(
-        { end_date: '2020-07-01T00:00:00-06:00', start_date: '2020-07-01T00:00:00-06:00' },
+        { end_date: '2020-07-01T00:00:00-06:00', start_date: '2020-07-02T00:00:00-06:00' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
