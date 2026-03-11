@@ -1387,6 +1387,13 @@ export {
   type WellKnownRetrieveAuthorizationServerMetadataResponse,
   type WellKnownRetrieveProtectedResourceMetadataResponse,
 } from './well-known';
+export { Whatsapp } from './whatsapp/whatsapp';
+export {
+  WhatsappMessageTemplates,
+  type WhatsappMessageTemplateRetrieveResponse,
+  type WhatsappMessageTemplateUpdateResponse,
+  type WhatsappMessageTemplateUpdateParams,
+} from './whatsapp-message-templates';
 export {
   WireguardInterfaces,
   type WireguardInterfaceCreateResponse,
