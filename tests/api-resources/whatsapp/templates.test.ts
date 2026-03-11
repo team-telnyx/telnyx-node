@@ -12,7 +12,7 @@ describe('resource templates', () => {
   test.skip('create: only required params', async () => {
     const responsePromise = client.whatsapp.templates.create({
       category: 'MARKETING',
-      components: [{}],
+      components: [{ foo: 'bar' }],
       language: 'language',
       name: 'name',
       waba_id: 'waba_id',
@@ -30,7 +30,7 @@ describe('resource templates', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.whatsapp.templates.create({
       category: 'MARKETING',
-      components: [{}],
+      components: [{ foo: 'bar' }],
       language: 'language',
       name: 'name',
       waba_id: 'waba_id',

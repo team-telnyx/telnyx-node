@@ -1223,7 +1223,7 @@ export interface WhatsappTemplateData {
   /**
    * Whatsapp template components (header, body, footer, buttons)
    */
-  components?: Array<unknown>;
+  components?: Array<{ [key: string]: unknown }>;
 
   created_at?: string;
 

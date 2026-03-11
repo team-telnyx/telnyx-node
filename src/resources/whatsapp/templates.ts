@@ -18,7 +18,7 @@ export class Templates extends APIResource {
    * ```ts
    * const template = await client.whatsapp.templates.create({
    *   category: 'MARKETING',
-   *   components: [{}],
+   *   components: [{ foo: 'bar' }],
    *   language: 'language',
    *   name: 'name',
    *   waba_id: 'waba_id',
@@ -59,7 +59,7 @@ export interface TemplateCreateResponse {
 export interface TemplateCreateParams {
   category: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
 
-  components: Array<unknown>;
+  components: Array<{ [key: string]: unknown }>;
 
   language: string;
 
