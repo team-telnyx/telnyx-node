@@ -4674,5 +4674,4 @@ export declare namespace Telnyx {
   export type SimCardStatus = API.SimCardStatus;
   export type SimpleSimCard = API.SimpleSimCard;
   export type SubNumberOrderRegulatoryRequirementWithValue = API.SubNumberOrderRegulatoryRequirementWithValue;
-  export type WhatsappTemplateData = API.WhatsappTemplateData;
 }

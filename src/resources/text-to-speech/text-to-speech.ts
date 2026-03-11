@@ -125,7 +125,7 @@ export interface StreamClientEvent {
  */
 export type StreamServerEvent =
   | StreamServerEvent.AudioChunkFrame
-  | StreamServerEvent.FinalFrameEvent
+  | StreamServerEvent.FinalFrame
   | StreamServerEvent.ErrorFrame;
 
 export namespace StreamServerEvent {
@@ -170,7 +170,7 @@ export namespace StreamServerEvent {
   /**
    * Server-to-client frame indicating synthesis is complete for the current text.
    */
-  export interface FinalFrameEvent {
+  export interface FinalFrame {
     /**
      * Always `null` for the final frame.
      */
@@ -238,7 +238,7 @@ export interface TextToSpeechGenerateParams {
   /**
    * Inworld provider-specific parameters.
    */
-  inworld?: { [key: string]: unknown };
+  inworld?: unknown;
 
   /**
    * Language code (e.g. `en-US`). Usage varies by provider.

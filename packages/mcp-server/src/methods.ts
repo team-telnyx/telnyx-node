@@ -5783,14 +5783,14 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp/business_accounts/{id}/settings',
   },
   {
-    clientCallName: 'client.whatsapp.templates.create',
-    fullyQualifiedName: 'whatsapp.templates.create',
+    clientCallName: 'client.whatsapp.messageTemplates.create',
+    fullyQualifiedName: 'whatsapp.messageTemplates.create',
     httpMethod: 'post',
     httpPath: '/v2/whatsapp/message_templates',
   },
   {
-    clientCallName: 'client.whatsapp.templates.list',
-    fullyQualifiedName: 'whatsapp.templates.list',
+    clientCallName: 'client.whatsapp.messageTemplates.list',
+    fullyQualifiedName: 'whatsapp.messageTemplates.list',
     httpMethod: 'get',
     httpPath: '/v2/whatsapp/message_templates',
   },

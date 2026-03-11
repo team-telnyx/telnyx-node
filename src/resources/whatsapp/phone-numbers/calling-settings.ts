@@ -48,28 +48,48 @@ export class CallingSettings extends APIResource {
   }
 }
 
-export interface WhatsappCallingSettingsData {
-  /**
-   * True if calling is enabled on the phone
-   */
-  enabled?: boolean;
-
-  /**
-   * Phone number in E164 format
-   */
-  phone_number?: string;
-
-  record_type?: string;
-
-  updated_at?: string;
+export interface CallingSettingRetrieveResponse {
+  data?: CallingSettingRetrieveResponse.Data;
 }
 
-export interface CallingSettingRetrieveResponse {
-  data?: WhatsappCallingSettingsData;
+export namespace CallingSettingRetrieveResponse {
+  export interface Data {
+    /**
+     * True if calling is enabled on the phone
+     */
+    enabled?: boolean;
+
+    /**
+     * Phone number in E164 format
+     */
+    phone_number?: string;
+
+    record_type?: string;
+
+    updated_at?: string;
+  }
 }
 
 export interface CallingSettingUpdateResponse {
-  data?: WhatsappCallingSettingsData;
+  data?: CallingSettingUpdateResponse.Data;
+}
+
+export namespace CallingSettingUpdateResponse {
+  export interface Data {
+    /**
+     * True if calling is enabled on the phone
+     */
+    enabled?: boolean;
+
+    /**
+     * Phone number in E164 format
+     */
+    phone_number?: string;
+
+    record_type?: string;
+
+    updated_at?: string;
+  }
 }
 
 export interface CallingSettingUpdateParams {
@@ -78,7 +98,6 @@ export interface CallingSettingUpdateParams {
 
 export declare namespace CallingSettings {
   export {
-    type WhatsappCallingSettingsData as WhatsappCallingSettingsData,
     type CallingSettingRetrieveResponse as CallingSettingRetrieveResponse,
     type CallingSettingUpdateResponse as CallingSettingUpdateResponse,
     type CallingSettingUpdateParams as CallingSettingUpdateParams,

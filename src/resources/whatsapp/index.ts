@@ -8,6 +8,14 @@ export {
   type BusinessAccountListResponsesDefaultFlatPagination,
 } from './business-accounts/index';
 export {
+  MessageTemplates,
+  type MessageTemplateCreateResponse,
+  type MessageTemplateListResponse,
+  type MessageTemplateCreateParams,
+  type MessageTemplateListParams,
+  type MessageTemplateListResponsesDefaultFlatPagination,
+} from './message-templates';
+export {
   PhoneNumbers,
   type PhoneNumberListResponse,
   type PhoneNumberListParams,
@@ -15,10 +23,4 @@ export {
   type PhoneNumberVerifyParams,
   type PhoneNumberListResponsesDefaultFlatPagination,
 } from './phone-numbers/index';
-export {
-  Templates,
-  type TemplateCreateResponse,
-  type TemplateCreateParams,
-  type TemplateListParams,
-} from './templates';
 export { Whatsapp } from './whatsapp';
