@@ -1065,6 +1065,16 @@ export {
   type ShortCodeListParams,
 } from './short-codes';
 export {
+  SpeechToText,
+  SpeechToTextWS,
+  WebSocketError as SpeechToTextWebSocketError,
+  type SpeechToTextStreamParams,
+  type SttClientEvent,
+  type SttServerEvent,
+  type TranscriptFrame,
+  type SttErrorFrame,
+} from './speech-to-text';
+export {
   SimCardDataUsageNotifications,
   type SimCardDataUsageNotification,
   type SimCardDataUsageNotificationCreateResponse,
