@@ -256,7 +256,7 @@ stt.send(audioData);
 stt.close();
 ```
 
-Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`
+Supported transcription engines: `Azure`, `Deepgram`, `Google`, `Telnyx`
 
 ## Advanced Usage
 
