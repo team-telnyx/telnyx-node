@@ -4509,17 +4509,17 @@ Methods:
 - <code title="get /v2/whatsapp/business_accounts/{id}/settings">client.whatsapp.businessAccounts.settings.<a href="./src/resources/whatsapp/business-accounts/settings.ts">retrieve</a>(id) -> SettingRetrieveResponse</code>
 - <code title="patch /v2/whatsapp/business_accounts/{id}/settings">client.whatsapp.businessAccounts.settings.<a href="./src/resources/whatsapp/business-accounts/settings.ts">update</a>(id, { ...params }) -> SettingUpdateResponse</code>
 
-## MessageTemplates
+## Templates
 
 Types:
 
-- <code><a href="./src/resources/whatsapp/message-templates.ts">MessageTemplateCreateResponse</a></code>
-- <code><a href="./src/resources/whatsapp/message-templates.ts">MessageTemplateListResponse</a></code>
+- <code><a href="./src/resources/whatsapp/templates.ts">TemplateCreateResponse</a></code>
+- <code><a href="./src/resources/whatsapp/templates.ts">TemplateListResponse</a></code>
 
 Methods:
 
-- <code title="post /v2/whatsapp/message_templates">client.whatsapp.messageTemplates.<a href="./src/resources/whatsapp/message-templates.ts">create</a>({ ...params }) -> MessageTemplateCreateResponse</code>
-- <code title="get /v2/whatsapp/message_templates">client.whatsapp.messageTemplates.<a href="./src/resources/whatsapp/message-templates.ts">list</a>({ ...params }) -> MessageTemplateListResponsesDefaultFlatPagination</code>
+- <code title="post /v2/whatsapp/message_templates">client.whatsapp.templates.<a href="./src/resources/whatsapp/templates.ts">create</a>({ ...params }) -> TemplateCreateResponse</code>
+- <code title="get /v2/whatsapp/message_templates">client.whatsapp.templates.<a href="./src/resources/whatsapp/templates.ts">list</a>({ ...params }) -> TemplateListResponsesDefaultFlatPagination</code>
 
 ## PhoneNumbers
 
