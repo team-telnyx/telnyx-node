@@ -4584,3 +4584,40 @@ Methods:
 - <code title="get /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">retrieve</a>(id) -> WhatsappMessageTemplateRetrieveResponse</code>
 - <code title="patch /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">update</a>(id, { ...params }) -> WhatsappMessageTemplateUpdateResponse</code>
 - <code title="delete /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">delete</a>(id) -> void</code>
+
+# VoiceClones
+
+Types:
+
+- <code><a href="./src/resources/voice-clones.ts">VoiceCloneCreateResponse</a></code>
+- <code><a href="./src/resources/voice-clones.ts">VoiceCloneUpdateResponse</a></code>
+- <code><a href="./src/resources/voice-clones.ts">VoiceCloneListResponse</a></code>
+- <code><a href="./src/resources/voice-clones.ts">VoiceCloneCreateFromUploadResponse</a></code>
+
+Methods:
+
+- <code title="post /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">create</a>({ ...params }) -> VoiceCloneCreateResponse</code>
+- <code title="patch /voice_clones/{id}">client.voiceClones.<a href="./src/resources/voice-clones.ts">update</a>(id, { ...params }) -> VoiceCloneUpdateResponse</code>
+- <code title="get /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">list</a>({ ...params }) -> VoiceCloneListResponsesDefaultFlatPagination</code>
+- <code title="delete /voice_clones/{id}">client.voiceClones.<a href="./src/resources/voice-clones.ts">delete</a>(id) -> void</code>
+- <code title="post /voice_clones/from_upload">client.voiceClones.<a href="./src/resources/voice-clones.ts">createFromUpload</a>({ ...params }) -> VoiceCloneCreateFromUploadResponse</code>
+- <code title="get /voice_clones/{id}/sample">client.voiceClones.<a href="./src/resources/voice-clones.ts">downloadSample</a>(id) -> Response</code>
+
+# VoiceDesigns
+
+Types:
+
+- <code><a href="./src/resources/voice-designs.ts">VoiceDesignCreateResponse</a></code>
+- <code><a href="./src/resources/voice-designs.ts">VoiceDesignRetrieveResponse</a></code>
+- <code><a href="./src/resources/voice-designs.ts">VoiceDesignListResponse</a></code>
+- <code><a href="./src/resources/voice-designs.ts">VoiceDesignRenameResponse</a></code>
+
+Methods:
+
+- <code title="post /voice_designs">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">create</a>({ ...params }) -> VoiceDesignCreateResponse</code>
+- <code title="get /voice_designs/{id}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">retrieve</a>(id, { ...params }) -> VoiceDesignRetrieveResponse</code>
+- <code title="get /voice_designs">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">list</a>({ ...params }) -> VoiceDesignListResponsesDefaultFlatPagination</code>
+- <code title="delete /voice_designs/{id}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">delete</a>(id) -> void</code>
+- <code title="delete /voice_designs/{id}/versions/{version}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">deleteVersion</a>(version, { ...params }) -> void</code>
+- <code title="get /voice_designs/{id}/sample">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">downloadSample</a>(id, { ...params }) -> Response</code>
+- <code title="patch /voice_designs/{id}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">rename</a>(id, { ...params }) -> VoiceDesignRenameResponse</code>
