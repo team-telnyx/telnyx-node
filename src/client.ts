@@ -903,6 +903,32 @@ import {
   VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination,
 } from './resources/virtual-cross-connects-coverage';
 import {
+  VoiceCloneCreateFromUploadParams,
+  VoiceCloneCreateFromUploadResponse,
+  VoiceCloneCreateParams,
+  VoiceCloneCreateResponse,
+  VoiceCloneListParams,
+  VoiceCloneListResponse,
+  VoiceCloneListResponsesDefaultFlatPagination,
+  VoiceCloneUpdateParams,
+  VoiceCloneUpdateResponse,
+  VoiceClones,
+} from './resources/voice-clones';
+import {
+  VoiceDesignCreateParams,
+  VoiceDesignCreateResponse,
+  VoiceDesignDeleteVersionParams,
+  VoiceDesignDownloadSampleParams,
+  VoiceDesignListParams,
+  VoiceDesignListResponse,
+  VoiceDesignListResponsesDefaultFlatPagination,
+  VoiceDesignRenameParams,
+  VoiceDesignRenameResponse,
+  VoiceDesignRetrieveParams,
+  VoiceDesignRetrieveResponse,
+  VoiceDesigns,
+} from './resources/voice-designs';
+import {
   Attempt,
   HTTP,
   WebhookDeliveries,
@@ -2819,6 +2845,14 @@ export class Telnyx {
    * Manage Whatsapp message templates
    */
   whatsappMessageTemplates: API.WhatsappMessageTemplates = new API.WhatsappMessageTemplates(this);
+  /**
+   * Capture and manage voice identities as clones for use in text-to-speech synthesis.
+   */
+  voiceClones: API.VoiceClones = new API.VoiceClones(this);
+  /**
+   * Create and manage AI-generated voice designs using natural language prompts.
+   */
+  voiceDesigns: API.VoiceDesigns = new API.VoiceDesigns(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -2976,6 +3010,8 @@ Telnyx.MessagingProfileMetrics = MessagingProfileMetrics;
 Telnyx.SessionAnalysis = SessionAnalysis;
 Telnyx.Whatsapp = Whatsapp;
 Telnyx.WhatsappMessageTemplates = WhatsappMessageTemplates;
+Telnyx.VoiceClones = VoiceClones;
+Telnyx.VoiceDesigns = VoiceDesigns;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -4642,6 +4678,34 @@ export declare namespace Telnyx {
     type WhatsappMessageTemplateRetrieveResponse as WhatsappMessageTemplateRetrieveResponse,
     type WhatsappMessageTemplateUpdateResponse as WhatsappMessageTemplateUpdateResponse,
     type WhatsappMessageTemplateUpdateParams as WhatsappMessageTemplateUpdateParams,
+  };
+
+  export {
+    VoiceClones as VoiceClones,
+    type VoiceCloneCreateResponse as VoiceCloneCreateResponse,
+    type VoiceCloneUpdateResponse as VoiceCloneUpdateResponse,
+    type VoiceCloneListResponse as VoiceCloneListResponse,
+    type VoiceCloneCreateFromUploadResponse as VoiceCloneCreateFromUploadResponse,
+    type VoiceCloneListResponsesDefaultFlatPagination as VoiceCloneListResponsesDefaultFlatPagination,
+    type VoiceCloneCreateParams as VoiceCloneCreateParams,
+    type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
+    type VoiceCloneListParams as VoiceCloneListParams,
+    type VoiceCloneCreateFromUploadParams as VoiceCloneCreateFromUploadParams,
+  };
+
+  export {
+    VoiceDesigns as VoiceDesigns,
+    type VoiceDesignCreateResponse as VoiceDesignCreateResponse,
+    type VoiceDesignRetrieveResponse as VoiceDesignRetrieveResponse,
+    type VoiceDesignListResponse as VoiceDesignListResponse,
+    type VoiceDesignRenameResponse as VoiceDesignRenameResponse,
+    type VoiceDesignListResponsesDefaultFlatPagination as VoiceDesignListResponsesDefaultFlatPagination,
+    type VoiceDesignCreateParams as VoiceDesignCreateParams,
+    type VoiceDesignRetrieveParams as VoiceDesignRetrieveParams,
+    type VoiceDesignListParams as VoiceDesignListParams,
+    type VoiceDesignDeleteVersionParams as VoiceDesignDeleteVersionParams,
+    type VoiceDesignDownloadSampleParams as VoiceDesignDownloadSampleParams,
+    type VoiceDesignRenameParams as VoiceDesignRenameParams,
   };
 
   export type APIError = API.APIError;

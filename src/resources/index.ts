@@ -1257,6 +1257,32 @@ export {
   type VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination,
 } from './virtual-cross-connects-coverage';
 export {
+  VoiceClones,
+  type VoiceCloneCreateResponse,
+  type VoiceCloneUpdateResponse,
+  type VoiceCloneListResponse,
+  type VoiceCloneCreateFromUploadResponse,
+  type VoiceCloneCreateParams,
+  type VoiceCloneUpdateParams,
+  type VoiceCloneListParams,
+  type VoiceCloneCreateFromUploadParams,
+  type VoiceCloneListResponsesDefaultFlatPagination,
+} from './voice-clones';
+export {
+  VoiceDesigns,
+  type VoiceDesignCreateResponse,
+  type VoiceDesignRetrieveResponse,
+  type VoiceDesignListResponse,
+  type VoiceDesignRenameResponse,
+  type VoiceDesignCreateParams,
+  type VoiceDesignRetrieveParams,
+  type VoiceDesignListParams,
+  type VoiceDesignDeleteVersionParams,
+  type VoiceDesignDownloadSampleParams,
+  type VoiceDesignRenameParams,
+  type VoiceDesignListResponsesDefaultFlatPagination,
+} from './voice-designs';
+export {
   WebhookDeliveries,
   type Attempt,
   type HTTP,

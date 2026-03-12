@@ -5872,6 +5872,84 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'delete',
     httpPath: '/v2/whatsapp_message_templates/{id}',
   },
+  {
+    clientCallName: 'client.voiceClones.create',
+    fullyQualifiedName: 'voiceClones.create',
+    httpMethod: 'post',
+    httpPath: '/voice_clones',
+  },
+  {
+    clientCallName: 'client.voiceClones.update',
+    fullyQualifiedName: 'voiceClones.update',
+    httpMethod: 'patch',
+    httpPath: '/voice_clones/{id}',
+  },
+  {
+    clientCallName: 'client.voiceClones.list',
+    fullyQualifiedName: 'voiceClones.list',
+    httpMethod: 'get',
+    httpPath: '/voice_clones',
+  },
+  {
+    clientCallName: 'client.voiceClones.delete',
+    fullyQualifiedName: 'voiceClones.delete',
+    httpMethod: 'delete',
+    httpPath: '/voice_clones/{id}',
+  },
+  {
+    clientCallName: 'client.voiceClones.createFromUpload',
+    fullyQualifiedName: 'voiceClones.createFromUpload',
+    httpMethod: 'post',
+    httpPath: '/voice_clones/from_upload',
+  },
+  {
+    clientCallName: 'client.voiceClones.downloadSample',
+    fullyQualifiedName: 'voiceClones.downloadSample',
+    httpMethod: 'get',
+    httpPath: '/voice_clones/{id}/sample',
+  },
+  {
+    clientCallName: 'client.voiceDesigns.create',
+    fullyQualifiedName: 'voiceDesigns.create',
+    httpMethod: 'post',
+    httpPath: '/voice_designs',
+  },
+  {
+    clientCallName: 'client.voiceDesigns.retrieve',
+    fullyQualifiedName: 'voiceDesigns.retrieve',
+    httpMethod: 'get',
+    httpPath: '/voice_designs/{id}',
+  },
+  {
+    clientCallName: 'client.voiceDesigns.list',
+    fullyQualifiedName: 'voiceDesigns.list',
+    httpMethod: 'get',
+    httpPath: '/voice_designs',
+  },
+  {
+    clientCallName: 'client.voiceDesigns.delete',
+    fullyQualifiedName: 'voiceDesigns.delete',
+    httpMethod: 'delete',
+    httpPath: '/voice_designs/{id}',
+  },
+  {
+    clientCallName: 'client.voiceDesigns.deleteVersion',
+    fullyQualifiedName: 'voiceDesigns.deleteVersion',
+    httpMethod: 'delete',
+    httpPath: '/voice_designs/{id}/versions/{version}',
+  },
+  {
+    clientCallName: 'client.voiceDesigns.downloadSample',
+    fullyQualifiedName: 'voiceDesigns.downloadSample',
+    httpMethod: 'get',
+    httpPath: '/voice_designs/{id}/sample',
+  },
+  {
+    clientCallName: 'client.voiceDesigns.rename',
+    fullyQualifiedName: 'voiceDesigns.rename',
+    httpMethod: 'patch',
+    httpPath: '/voice_designs/{id}',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {
