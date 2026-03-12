@@ -219,6 +219,45 @@ while (page.hasNextPage()) {
 }
 ```
 
+## Real-time Speech-to-Text (WebSocket)
+
+Stream audio for real-time transcription using WebSocket:
+
+```ts
+import Telnyx from 'telnyx';
+import { SpeechToTextWS } from 'telnyx/resources/speech-to-text';
+import * as fs from 'fs';
+
+const client = new Telnyx();
+
+const stt = new SpeechToTextWS(client, {
+  transcription_engine: 'Telnyx',
+  language: 'en-US',
+  interim_results: true,
+});
+
+// Wait for connection
+await stt.waitForOpen();
+
+// Listen for transcripts
+stt.on('transcript', (event) => {
+  console.log(`${event.is_final ? '✓' : '...'} ${event.transcript}`);
+});
+
+stt.on('error', (event) => {
+  console.error('Error:', event.error);
+});
+
+// Send audio data
+const audioData = fs.readFileSync('audio.wav');
+stt.send(audioData);
+
+// Close when done
+stt.close();
+```
+
+Supported transcription engines: `Azure`, `Deepgram`, `Google`, `Telnyx`
+
 ## Advanced Usage
 
 ### Accessing raw Response data (e.g., headers)
