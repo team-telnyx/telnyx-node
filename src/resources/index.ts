@@ -1191,6 +1191,7 @@ export {
 } from './texml-applications';
 export {
   TextToSpeech,
+  TextToSpeechWS,
   type TextToSpeechGenerateResponse,
   type TextToSpeechListVoicesResponse,
   type StreamClientEvent,
