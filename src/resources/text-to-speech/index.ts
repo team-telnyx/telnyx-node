@@ -9,3 +9,4 @@ export {
   type TextToSpeechGenerateParams,
   type TextToSpeechListVoicesParams,
 } from './text-to-speech';
+export { TextToSpeechWS } from './ws';

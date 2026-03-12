@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.8.2 (2026-03-12)
+
+Full Changelog: [v6.8.1...v6.8.2](https://github.com/team-telnyx/telnyx-node/compare/v6.8.1...v6.8.2)
+
+### Bug Fixes
+
+* export TextToSpeechWS class for public use ([259811c](https://github.com/team-telnyx/telnyx-node/commit/259811cd0cb5330e60b45b5a38c8c1020a89722e))
+
+
+### Chores
+
+* remove accidentally added package-lock.json ([d56760e](https://github.com/team-telnyx/telnyx-node/commit/d56760e2c95dc998d1bd45781cb6bca7ec9884bc))
+
 ## 6.8.1 (2026-03-12)
 
 Full Changelog: [v6.8.0...v6.8.1](https://github.com/team-telnyx/telnyx-node/compare/v6.8.0...v6.8.1)
