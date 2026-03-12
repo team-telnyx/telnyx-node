@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.9.0 (2026-03-12)
+
+Full Changelog: [v6.8.2...v6.9.0](https://github.com/team-telnyx/telnyx-node/compare/v6.8.2...v6.9.0)
+
+### Features
+
+* Add Voice Designs and Voice Clones API specification ([cfe750d](https://github.com/team-telnyx/telnyx-node/commit/cfe750d6a0269179b0e6dbf52da80858368485e1))
+
 ## 6.8.2 (2026-03-12)
 
 Full Changelog: [v6.8.1...v6.8.2](https://github.com/team-telnyx/telnyx-node/compare/v6.8.1...v6.8.2)
