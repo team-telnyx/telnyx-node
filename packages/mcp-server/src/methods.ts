@@ -5950,6 +5950,18 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'patch',
     httpPath: '/voice_designs/{id}',
   },
+  {
+    clientCallName: 'client.x402.creditAccount.createQuote',
+    fullyQualifiedName: 'x402.creditAccount.createQuote',
+    httpMethod: 'post',
+    httpPath: '/v2/x402/credit_account/quote',
+  },
+  {
+    clientCallName: 'client.x402.creditAccount.settle',
+    fullyQualifiedName: 'x402.creditAccount.settle',
+    httpMethod: 'post',
+    httpPath: '/v2/x402/credit_account',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {
