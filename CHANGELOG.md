@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.10.2 (2026-03-13)
+
+Full Changelog: [v6.10.1...v6.10.2](https://github.com/team-telnyx/telnyx-node/compare/v6.10.1...v6.10.2)
+
+### Bug Fixes
+
+* **call-recordings:** align OpenAPI spec with implementation ([037f40b](https://github.com/team-telnyx/telnyx-node/commit/037f40b3fcb344620c12e41e8a987e4814aef10f))
+
+
+### Chores
+
+* **internal:** make generated MCP servers compatible with Cloudflare worker environments ([d0aaeb2](https://github.com/team-telnyx/telnyx-node/commit/d0aaeb2638abd2eca13976bf0b6ddb9c4dc564d0))
+* **internal:** update lockfile ([8ded9ab](https://github.com/team-telnyx/telnyx-node/commit/8ded9aba2b45ed2c82f631bdca2f7c2c8a5f1edc))
+
 ## 6.10.1 (2026-03-13)
 
 Full Changelog: [v6.10.0...v6.10.1](https://github.com/team-telnyx/telnyx-node/compare/v6.10.0...v6.10.1)
