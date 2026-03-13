@@ -1396,6 +1396,13 @@ export interface VoiceSettings {
   background_audio?: VoiceSettings.PredefinedMedia | VoiceSettings.MediaURL | VoiceSettings.MediaName;
 
   /**
+   * Enables emotionally expressive speech using SSML emotion tags. When enabled, the
+   * assistant uses audio tags like angry, excited, content, and sad to add emotional
+   * nuance. Only supported for Telnyx Ultra voices.
+   */
+  expressive_mode?: boolean;
+
+  /**
    * Enhances recognition for specific languages and dialects during MiniMax TTS
    * synthesis. Default is null (no boost). Set to 'auto' for automatic language
    * detection. Only applicable when using MiniMax voices.
