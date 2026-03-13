@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.10.0 (2026-03-13)
+
+Full Changelog: [v6.9.0...v6.10.0](https://github.com/team-telnyx/telnyx-node/compare/v6.9.0...v6.10.0)
+
+### Features
+
+* **api:** Merge pull request [#29](https://github.com/team-telnyx/telnyx-node/issues/29) from stainless-sdks/fix-add-voice-model ([4aeb843](https://github.com/team-telnyx/telnyx-node/commit/4aeb843a8d6166c06a8b0f04ec3fc3b76b031995))
+* **api:** update OpenAPI spec or Stainless config ([4aeb843](https://github.com/team-telnyx/telnyx-node/commit/4aeb843a8d6166c06a8b0f04ec3fc3b76b031995))
+
 ## 6.9.0 (2026-03-12)
 
 Full Changelog: [v6.8.2...v6.9.0](https://github.com/team-telnyx/telnyx-node/compare/v6.8.2...v6.9.0)
