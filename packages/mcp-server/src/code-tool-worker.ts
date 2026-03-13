@@ -1096,6 +1096,8 @@ const fuse = new Fuse(
     'client.voiceDesigns.list',
     'client.voiceDesigns.rename',
     'client.voiceDesigns.retrieve',
+    'client.x402.creditAccount.createQuote',
+    'client.x402.creditAccount.settle',
   ],
   { threshold: 1, shouldSort: true },
 );

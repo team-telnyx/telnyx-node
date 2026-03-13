@@ -4625,3 +4625,17 @@ Methods:
 - <code title="delete /voice_designs/{id}/versions/{version}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">deleteVersion</a>(version, { ...params }) -> void</code>
 - <code title="get /voice_designs/{id}/sample">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">downloadSample</a>(id, { ...params }) -> Response</code>
 - <code title="patch /voice_designs/{id}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">rename</a>(id, { ...params }) -> VoiceDesignRenameResponse</code>
+
+# X402
+
+## CreditAccount
+
+Types:
+
+- <code><a href="./src/resources/x402/credit-account.ts">CreditAccountCreateQuoteResponse</a></code>
+- <code><a href="./src/resources/x402/credit-account.ts">CreditAccountSettleResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/x402/credit_account/quote">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">createQuote</a>({ ...params }) -> CreditAccountCreateQuoteResponse</code>
+- <code title="post /v2/x402/credit_account">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">settle</a>({ ...params }) -> CreditAccountSettleResponse</code>
