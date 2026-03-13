@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.13.0 (2026-03-13)
+
+Full Changelog: [v6.12.0...v6.13.0](https://github.com/team-telnyx/telnyx-node/compare/v6.12.0...v6.13.0)
+
+### Features
+
+* AI-2131: Add expressive_mode boolean to VoiceSettings ([c4c08b7](https://github.com/team-telnyx/telnyx-node/commit/c4c08b7e7fb6b6ae249f6928e853339529aa0a3f))
+
 ## 6.12.0 (2026-03-13)
 
 Full Changelog: [v6.11.0...v6.12.0](https://github.com/team-telnyx/telnyx-node/compare/v6.11.0...v6.12.0)
