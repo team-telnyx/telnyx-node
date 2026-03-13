@@ -907,9 +907,9 @@ import {
   VoiceCloneCreateFromUploadResponse,
   VoiceCloneCreateParams,
   VoiceCloneCreateResponse,
+  VoiceCloneData,
+  VoiceCloneDataDefaultFlatPagination,
   VoiceCloneListParams,
-  VoiceCloneListResponse,
-  VoiceCloneListResponsesDefaultFlatPagination,
   VoiceCloneUpdateParams,
   VoiceCloneUpdateResponse,
   VoiceClones,
@@ -917,6 +917,7 @@ import {
 import {
   VoiceDesignCreateParams,
   VoiceDesignCreateResponse,
+  VoiceDesignData,
   VoiceDesignDeleteVersionParams,
   VoiceDesignDownloadSampleParams,
   VoiceDesignListParams,
@@ -4682,11 +4683,11 @@ export declare namespace Telnyx {
 
   export {
     VoiceClones as VoiceClones,
+    type VoiceCloneData as VoiceCloneData,
     type VoiceCloneCreateResponse as VoiceCloneCreateResponse,
     type VoiceCloneUpdateResponse as VoiceCloneUpdateResponse,
-    type VoiceCloneListResponse as VoiceCloneListResponse,
     type VoiceCloneCreateFromUploadResponse as VoiceCloneCreateFromUploadResponse,
-    type VoiceCloneListResponsesDefaultFlatPagination as VoiceCloneListResponsesDefaultFlatPagination,
+    type VoiceCloneDataDefaultFlatPagination as VoiceCloneDataDefaultFlatPagination,
     type VoiceCloneCreateParams as VoiceCloneCreateParams,
     type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
     type VoiceCloneListParams as VoiceCloneListParams,
@@ -4695,6 +4696,7 @@ export declare namespace Telnyx {
 
   export {
     VoiceDesigns as VoiceDesigns,
+    type VoiceDesignData as VoiceDesignData,
     type VoiceDesignCreateResponse as VoiceDesignCreateResponse,
     type VoiceDesignRetrieveResponse as VoiceDesignRetrieveResponse,
     type VoiceDesignListResponse as VoiceDesignListResponse,

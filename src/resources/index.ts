@@ -1258,18 +1258,19 @@ export {
 } from './virtual-cross-connects-coverage';
 export {
   VoiceClones,
+  type VoiceCloneData,
   type VoiceCloneCreateResponse,
   type VoiceCloneUpdateResponse,
-  type VoiceCloneListResponse,
   type VoiceCloneCreateFromUploadResponse,
   type VoiceCloneCreateParams,
   type VoiceCloneUpdateParams,
   type VoiceCloneListParams,
   type VoiceCloneCreateFromUploadParams,
-  type VoiceCloneListResponsesDefaultFlatPagination,
+  type VoiceCloneDataDefaultFlatPagination,
 } from './voice-clones';
 export {
   VoiceDesigns,
+  type VoiceDesignData,
   type VoiceDesignCreateResponse,
   type VoiceDesignRetrieveResponse,
   type VoiceDesignListResponse,
