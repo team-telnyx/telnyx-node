@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 
 /**
@@ -14,7 +13,7 @@ export class Actions extends APIResource {
    *
    * @example
    * ```ts
-   * await client.recordings.actions.delete({
+   * const action = await client.recordings.actions.delete({
    *   ids: [
    *     '428c31b6-7af4-4bcb-b7f5-5013ef9657c1',
    *     '428c31b6-7af4-4bcb-b7f5-5013ef9657c2',
@@ -22,13 +21,13 @@ export class Actions extends APIResource {
    * });
    * ```
    */
-  delete(body: ActionDeleteParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.post('/recordings/actions/delete', {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  delete(body: ActionDeleteParams, options?: RequestOptions): APIPromise<ActionDeleteResponse> {
+    return this._client.post('/recordings/actions/delete', { body, ...options });
   }
+}
+
+export interface ActionDeleteResponse {
+  status?: 'ok';
 }
 
 export interface ActionDeleteParams {
@@ -39,5 +38,5 @@ export interface ActionDeleteParams {
 }
 
 export declare namespace Actions {
-  export { type ActionDeleteParams as ActionDeleteParams };
+  export { type ActionDeleteResponse as ActionDeleteResponse, type ActionDeleteParams as ActionDeleteParams };
 }
