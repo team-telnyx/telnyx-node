@@ -6,6 +6,20 @@ import util from 'node:util';
 import Telnyx from 'telnyx';
 import { APIUserAbortError } from 'telnyx';
 const defaultFetch = fetch;
+const mockTokenFetch: typeof defaultFetch = async (url, init) => {
+  const urlStr = String(url);
+  if (urlStr.includes('/v2/oauth/token')) {
+    return new Response(
+      JSON.stringify({
+        access_token: 'mock-test-token',
+        token_type: 'Bearer',
+        expires_in: 3600,
+      }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } },
+    );
+  }
+  return defaultFetch(url, init);
+};
 
 describe('instantiate client', () => {
   const env = process.env;
@@ -24,6 +38,7 @@ describe('instantiate client', () => {
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
       apiKey: 'My API Key',
+      fetch: mockTokenFetch,
     });
 
     test('they are used in the request', async () => {
@@ -91,6 +106,7 @@ describe('instantiate client', () => {
         logger: logger,
         logLevel: 'debug',
         apiKey: 'My API Key',
+        fetch: mockTokenFetch,
       });
 
       await forceAPIResponseForClient(client);
@@ -98,7 +114,7 @@ describe('instantiate client', () => {
     });
 
     test('default logLevel is warn', async () => {
-      const client = new Telnyx({ apiKey: 'My API Key' });
+      const client = new Telnyx({ apiKey: 'My API Key', fetch: mockTokenFetch });
       expect(client.logLevel).toBe('warn');
     });
 
@@ -115,6 +131,7 @@ describe('instantiate client', () => {
         logger: logger,
         logLevel: 'info',
         apiKey: 'My API Key',
+        fetch: mockTokenFetch,
       });
 
       await forceAPIResponseForClient(client);
@@ -131,7 +148,11 @@ describe('instantiate client', () => {
       };
 
       process.env['TELNYX_LOG'] = 'debug';
-      const client = new Telnyx({ logger: logger, apiKey: 'My API Key' });
+      const client = new Telnyx({
+        logger: logger,
+        apiKey: 'My API Key',
+        fetch: mockTokenFetch,
+      });
       expect(client.logLevel).toBe('debug');
 
       await forceAPIResponseForClient(client);
@@ -148,7 +169,11 @@ describe('instantiate client', () => {
       };
 
       process.env['TELNYX_LOG'] = 'not a log level';
-      const client = new Telnyx({ logger: logger, apiKey: 'My API Key' });
+      const client = new Telnyx({
+        logger: logger,
+        apiKey: 'My API Key',
+        fetch: mockTokenFetch,
+      });
       expect(client.logLevel).toBe('warn');
       expect(warnMock).toHaveBeenCalledWith(
         'process.env[\'TELNYX_LOG\'] was set to "not a log level", expected one of ["off","error","warn","info","debug"]',
@@ -169,6 +194,7 @@ describe('instantiate client', () => {
         logger: logger,
         logLevel: 'off',
         apiKey: 'My API Key',
+        fetch: mockTokenFetch,
       });
 
       await forceAPIResponseForClient(client);
@@ -189,6 +215,7 @@ describe('instantiate client', () => {
         logger: logger,
         logLevel: 'debug',
         apiKey: 'My API Key',
+        fetch: mockTokenFetch,
       });
       expect(client.logLevel).toBe('debug');
       expect(warnMock).not.toHaveBeenCalled();
@@ -201,6 +228,7 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
         apiKey: 'My API Key',
+        fetch: mockTokenFetch,
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo');
     });
@@ -210,6 +238,7 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
         apiKey: 'My API Key',
+        fetch: mockTokenFetch,
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo&hello=world');
     });
@@ -219,6 +248,7 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
         apiKey: 'My API Key',
+        fetch: mockTokenFetch,
       });
       expect(client.buildURL('/foo', { hello: undefined })).toEqual('http://localhost:5000/foo');
     });
@@ -369,6 +399,7 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         maxRetries: 3,
         apiKey: 'My API Key',
+        fetch: mockTokenFetch,
       });
 
       const newClient = client.withOptions({
@@ -395,6 +426,7 @@ describe('instantiate client', () => {
         defaultHeaders: { 'X-Test-Header': 'test-value' },
         defaultQuery: { 'test-param': 'test-value' },
         apiKey: 'My API Key',
+        fetch: mockTokenFetch,
       });
 
       const newClient = client.withOptions({
@@ -413,6 +445,7 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         timeout: 1000,
         apiKey: 'My API Key',
+        fetch: mockTokenFetch,
       });
 
       // Modify the client properties directly after creation
@@ -455,7 +488,7 @@ describe('instantiate client', () => {
 });
 
 describe('request building', () => {
-  const client = new Telnyx({ apiKey: 'My API Key' });
+  const client = new Telnyx({ apiKey: 'My API Key', fetch: mockTokenFetch });
 
   describe('custom headers', () => {
     test('handles undefined', async () => {
@@ -474,7 +507,7 @@ describe('request building', () => {
 });
 
 describe('default encoder', () => {
-  const client = new Telnyx({ apiKey: 'My API Key' });
+  const client = new Telnyx({ apiKey: 'My API Key', fetch: mockTokenFetch });
 
   class Serializable {
     toJSON() {
