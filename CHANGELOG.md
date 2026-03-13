@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.10.1 (2026-03-13)
+
+Full Changelog: [v6.10.0...v6.10.1](https://github.com/team-telnyx/telnyx-node/compare/v6.10.0...v6.10.1)
+
+### Bug Fixes
+
+* **tests:** correct setup of OAuth 2 Client Credentials tests ([4cc504f](https://github.com/team-telnyx/telnyx-node/commit/4cc504f64f531c3bbd46c427c2e02062bf8b38d6))
+
 ## 6.10.0 (2026-03-13)
 
 Full Changelog: [v6.9.0...v6.10.0](https://github.com/team-telnyx/telnyx-node/compare/v6.9.0...v6.10.0)
