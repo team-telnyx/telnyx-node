@@ -1479,3 +1479,4 @@ export {
   type WirelessBlocklistListParams,
   type WirelessBlocklistsDefaultFlatPagination,
 } from './wireless-blocklists';
+export { X402 } from './x402/x402';

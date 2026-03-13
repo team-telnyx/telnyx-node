@@ -1497,6 +1497,7 @@ import {
   WirelessRetrieveRegionsParams,
   WirelessRetrieveRegionsResponse,
 } from './resources/wireless/wireless';
+import { X402 } from './resources/x402/x402';
 import { type Fetch, type Record as BuiltinRecord } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -2854,6 +2855,7 @@ export class Telnyx {
    * Create and manage AI-generated voice designs using natural language prompts.
    */
   voiceDesigns: API.VoiceDesigns = new API.VoiceDesigns(this);
+  x402: API.X402 = new API.X402(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3013,6 +3015,7 @@ Telnyx.Whatsapp = Whatsapp;
 Telnyx.WhatsappMessageTemplates = WhatsappMessageTemplates;
 Telnyx.VoiceClones = VoiceClones;
 Telnyx.VoiceDesigns = VoiceDesigns;
+Telnyx.X402 = X402;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -4710,6 +4713,8 @@ export declare namespace Telnyx {
     type VoiceDesignDownloadSampleParams as VoiceDesignDownloadSampleParams,
     type VoiceDesignRenameParams as VoiceDesignRenameParams,
   };
+
+  export { X402 as X402 };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
