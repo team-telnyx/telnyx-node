@@ -47,12 +47,16 @@ export class CreditAccount extends APIResource {
     params: CreditAccountSettleParams,
     options?: RequestOptions,
   ): APIPromise<CreditAccountSettleResponse> {
-    const { 'PAYMENT-SIGNATURE': paymentSignature, ...body } = params;
+    const { payment_signature_header, ...body } = params;
     return this._client.post('/v2/x402/credit_account', {
       body,
       ...options,
       headers: buildHeaders([
-        { ...(paymentSignature != null ? { 'PAYMENT-SIGNATURE': paymentSignature } : undefined) },
+        {
+          ...(payment_signature_header != null ?
+            { 'PAYMENT-SIGNATURE': payment_signature_header }
+          : undefined),
+        },
         options?.headers,
       ]),
     });
@@ -275,7 +279,7 @@ export interface CreditAccountSettleParams {
    * Header param: Signed payment authorization for the quote. Alternative to
    * providing `payment_signature` in the request body.
    */
-  'PAYMENT-SIGNATURE'?: string;
+  payment_signature_header?: string;
 }
 
 export declare namespace CreditAccount {
