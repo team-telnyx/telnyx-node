@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.11.0 (2026-03-13)
+
+Full Changelog: [v6.10.2...v6.11.0](https://github.com/team-telnyx/telnyx-node/compare/v6.10.2...v6.11.0)
+
+### Features
+
+* add public x402 payment endpoints to external specs ([f692abd](https://github.com/team-telnyx/telnyx-node/commit/f692abd8e78a1419838f32328e62e82cafc56090))
+
 ## 6.10.2 (2026-03-13)
 
 Full Changelog: [v6.10.1...v6.10.2](https://github.com/team-telnyx/telnyx-node/compare/v6.10.1...v6.10.2)
