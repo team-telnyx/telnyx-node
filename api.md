@@ -3155,13 +3155,12 @@ Types:
 
 - <code><a href="./src/resources/recording-transcriptions.ts">RecordingTranscription</a></code>
 - <code><a href="./src/resources/recording-transcriptions.ts">RecordingTranscriptionRetrieveResponse</a></code>
-- <code><a href="./src/resources/recording-transcriptions.ts">RecordingTranscriptionListResponse</a></code>
 - <code><a href="./src/resources/recording-transcriptions.ts">RecordingTranscriptionDeleteResponse</a></code>
 
 Methods:
 
 - <code title="get /recording_transcriptions/{recording_transcription_id}">client.recordingTranscriptions.<a href="./src/resources/recording-transcriptions.ts">retrieve</a>(recordingTranscriptionID) -> RecordingTranscriptionRetrieveResponse</code>
-- <code title="get /recording_transcriptions">client.recordingTranscriptions.<a href="./src/resources/recording-transcriptions.ts">list</a>() -> RecordingTranscriptionListResponse</code>
+- <code title="get /recording_transcriptions">client.recordingTranscriptions.<a href="./src/resources/recording-transcriptions.ts">list</a>({ ...params }) -> RecordingTranscriptionsDefaultFlatPagination</code>
 - <code title="delete /recording_transcriptions/{recording_transcription_id}">client.recordingTranscriptions.<a href="./src/resources/recording-transcriptions.ts">delete</a>(recordingTranscriptionID) -> RecordingTranscriptionDeleteResponse</code>
 
 # Recordings
@@ -3180,9 +3179,13 @@ Methods:
 
 ## Actions
 
+Types:
+
+- <code><a href="./src/resources/recordings/actions.ts">ActionDeleteResponse</a></code>
+
 Methods:
 
-- <code title="post /recordings/actions/delete">client.recordings.actions.<a href="./src/resources/recordings/actions.ts">delete</a>({ ...params }) -> void</code>
+- <code title="post /recordings/actions/delete">client.recordings.actions.<a href="./src/resources/recordings/actions.ts">delete</a>({ ...params }) -> ActionDeleteResponse</code>
 
 # Regions
 

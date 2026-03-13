@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -23,8 +23,15 @@ export class RecordingTranscriptions extends APIResource {
   /**
    * Returns a list of your recording transcriptions.
    */
-  list(options?: RequestOptions): APIPromise<RecordingTranscriptionListResponse> {
-    return this._client.get('/recording_transcriptions', options);
+  list(
+    query: RecordingTranscriptionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<RecordingTranscriptionsDefaultFlatPagination, RecordingTranscription> {
+    return this._client.getAPIList(
+      '/recording_transcriptions',
+      DefaultFlatPagination<RecordingTranscription>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -37,6 +44,8 @@ export class RecordingTranscriptions extends APIResource {
     return this._client.delete(path`/recording_transcriptions/${recordingTranscriptionID}`, options);
   }
 }
+
+export type RecordingTranscriptionsDefaultFlatPagination = DefaultFlatPagination<RecordingTranscription>;
 
 export interface RecordingTranscription {
   /**
@@ -82,37 +91,52 @@ export interface RecordingTranscriptionRetrieveResponse {
   data?: RecordingTranscription;
 }
 
-export interface RecordingTranscriptionListResponse {
-  data?: Array<RecordingTranscription>;
-
-  meta?: RecordingTranscriptionListResponse.Meta;
-}
-
-export namespace RecordingTranscriptionListResponse {
-  export interface Meta {
-    cursors?: Shared.Cursor;
-
-    /**
-     * Path to next page.
-     */
-    next?: string;
-
-    /**
-     * Path to previous page.
-     */
-    previous?: string;
-  }
-}
-
 export interface RecordingTranscriptionDeleteResponse {
   data?: RecordingTranscription;
+}
+
+export interface RecordingTranscriptionListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter recording transcriptions by various attributes.
+   */
+  filter?: RecordingTranscriptionListParams.Filter;
+}
+
+export namespace RecordingTranscriptionListParams {
+  /**
+   * Filter recording transcriptions by various attributes.
+   */
+  export interface Filter {
+    created_at?: Filter.CreatedAt;
+
+    /**
+     * If present, transcriptions will be filtered to those associated with the given
+     * recording.
+     */
+    recording_id?: string;
+  }
+
+  export namespace Filter {
+    export interface CreatedAt {
+      /**
+       * Returns only transcriptions created later than or at given ISO 8601 datetime.
+       */
+      gte?: string;
+
+      /**
+       * Returns only transcriptions created earlier than or at given ISO 8601 datetime.
+       */
+      lte?: string;
+    }
+  }
 }
 
 export declare namespace RecordingTranscriptions {
   export {
     type RecordingTranscription as RecordingTranscription,
     type RecordingTranscriptionRetrieveResponse as RecordingTranscriptionRetrieveResponse,
-    type RecordingTranscriptionListResponse as RecordingTranscriptionListResponse,
     type RecordingTranscriptionDeleteResponse as RecordingTranscriptionDeleteResponse,
+    type RecordingTranscriptionsDefaultFlatPagination as RecordingTranscriptionsDefaultFlatPagination,
+    type RecordingTranscriptionListParams as RecordingTranscriptionListParams,
   };
 }

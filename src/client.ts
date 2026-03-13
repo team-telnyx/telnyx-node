@@ -703,9 +703,10 @@ import { RcsAgent, RcsAgentResponse, RcsAgents } from './resources/rcs-agents';
 import {
   RecordingTranscription,
   RecordingTranscriptionDeleteResponse,
-  RecordingTranscriptionListResponse,
+  RecordingTranscriptionListParams,
   RecordingTranscriptionRetrieveResponse,
   RecordingTranscriptions,
+  RecordingTranscriptionsDefaultFlatPagination,
 } from './resources/recording-transcriptions';
 import { RegionListResponse, Regions } from './resources/regions';
 import {
@@ -4207,8 +4208,9 @@ export declare namespace Telnyx {
     RecordingTranscriptions as RecordingTranscriptions,
     type RecordingTranscription as RecordingTranscription,
     type RecordingTranscriptionRetrieveResponse as RecordingTranscriptionRetrieveResponse,
-    type RecordingTranscriptionListResponse as RecordingTranscriptionListResponse,
     type RecordingTranscriptionDeleteResponse as RecordingTranscriptionDeleteResponse,
+    type RecordingTranscriptionsDefaultFlatPagination as RecordingTranscriptionsDefaultFlatPagination,
+    type RecordingTranscriptionListParams as RecordingTranscriptionListParams,
   };
 
   export {

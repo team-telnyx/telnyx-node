@@ -961,8 +961,9 @@ export {
   RecordingTranscriptions,
   type RecordingTranscription,
   type RecordingTranscriptionRetrieveResponse,
-  type RecordingTranscriptionListResponse,
   type RecordingTranscriptionDeleteResponse,
+  type RecordingTranscriptionListParams,
+  type RecordingTranscriptionsDefaultFlatPagination,
 } from './recording-transcriptions';
 export {
   Recordings,

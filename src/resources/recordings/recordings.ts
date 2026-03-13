@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
-import { ActionDeleteParams, Actions } from './actions';
+import { ActionDeleteParams, ActionDeleteResponse, Actions } from './actions';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -101,6 +101,12 @@ export interface RecordingResponseData {
   conference_id?: string;
 
   /**
+   * Identifies the Telnyx application (Call Control, TeXML) or SIP connection
+   * resource associated with this recording.
+   */
+  connection_id?: string;
+
+  /**
    * ISO 8601 formatted date indicating when the resource was created.
    */
   created_at?: string;
@@ -114,6 +120,18 @@ export interface RecordingResponseData {
    * The duration of the recording in milliseconds.
    */
   duration_millis?: number;
+
+  /**
+   * The `from` (caller) number for the call that generated this recording.
+   */
+  from?: string;
+
+  /**
+   * Indicates what triggered the recording. Possible values include `DialVerb`,
+   * `Conference`, `OutboundAPI`, `Trunking`, `RecordVerb`, `StartCallRecordingAPI`,
+   * `StartConferenceRecordingAPI`.
+   */
+  initiated_by?: string;
 
   record_type?: 'recording';
 
@@ -137,6 +155,11 @@ export interface RecordingResponseData {
    * supported.
    */
   status?: 'completed';
+
+  /**
+   * The `to` (callee) number for the call that generated this recording.
+   */
+  to?: string;
 
   /**
    * ISO 8601 formatted date indicating when the resource was updated.
@@ -171,22 +194,22 @@ export interface RecordingDeleteResponse {
 
 export interface RecordingListParams extends DefaultFlatPaginationParams {
   /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[conference_id], filter[created_at][gte], filter[created_at][lte],
-   * filter[call_leg_id], filter[call_session_id], filter[from], filter[to],
-   * filter[connection_id], filter[sip_call_id]
+   * Filter recordings by various attributes.
    */
   filter?: RecordingListParams.Filter;
 }
 
 export namespace RecordingListParams {
   /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[conference_id], filter[created_at][gte], filter[created_at][lte],
-   * filter[call_leg_id], filter[call_session_id], filter[from], filter[to],
-   * filter[connection_id], filter[sip_call_id]
+   * Filter recordings by various attributes.
    */
   export interface Filter {
+    /**
+     * If present, recordings will be filtered to those with a matching
+     * `call_control_id`.
+     */
+    call_control_id?: string;
+
     /**
      * If present, recordings will be filtered to those with a matching call_leg_id.
      */
@@ -204,12 +227,20 @@ export namespace RecordingListParams {
     conference_id?: string;
 
     /**
+     * If present, recordings will be filtered to those with a matching
+     * `conference_region`.
+     */
+    conference_region?: string;
+
+    /**
      * If present, recordings will be filtered to those with a matching `connection_id`
      * attribute (case-sensitive).
      */
     connection_id?: string;
 
     created_at?: Filter.CreatedAt;
+
+    end_time?: Filter.EndTime;
 
     /**
      * If present, recordings will be filtered to those with a matching `from`
@@ -219,9 +250,11 @@ export namespace RecordingListParams {
 
     /**
      * If present, recordings will be filtered to those with a matching `sip_call_id`
-     * attribute. Matching is case-sensitive
+     * attribute. Matching is case-sensitive.
      */
     sip_call_id?: string;
+
+    start_time?: Filter.StartTime;
 
     /**
      * If present, recordings will be filtered to those with a matching `to` attribute
@@ -242,6 +275,34 @@ export namespace RecordingListParams {
        */
       lte?: string;
     }
+
+    export interface EndTime {
+      /**
+       * Returns only recordings with an end time later than or equal to the given ISO
+       * 8601 datetime.
+       */
+      gte?: string;
+
+      /**
+       * Returns only recordings with an end time earlier than or equal to the given ISO
+       * 8601 datetime.
+       */
+      lte?: string;
+    }
+
+    export interface StartTime {
+      /**
+       * Returns only recordings with a start time later than or equal to the given ISO
+       * 8601 datetime.
+       */
+      gte?: string;
+
+      /**
+       * Returns only recordings with a start time earlier than or equal to the given ISO
+       * 8601 datetime.
+       */
+      lte?: string;
+    }
   }
 }
 
@@ -256,5 +317,9 @@ export declare namespace Recordings {
     type RecordingListParams as RecordingListParams,
   };
 
-  export { Actions as Actions, type ActionDeleteParams as ActionDeleteParams };
+  export {
+    Actions as Actions,
+    type ActionDeleteResponse as ActionDeleteResponse,
+    type ActionDeleteParams as ActionDeleteParams,
+  };
 }

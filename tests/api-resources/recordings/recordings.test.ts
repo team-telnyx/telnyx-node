@@ -39,13 +39,17 @@ describe('resource recordings', () => {
       client.recordings.list(
         {
           filter: {
+            call_control_id: 'v3:e-31OnvjEM7Y4wvxr3TKNk8M3QyLcGZPiUIzCGtwQtOtEjY-B0urkw',
             call_leg_id: '428c31b6-7af4-4bcb-b7f5-5013ef9657c1',
             call_session_id: '428c31b6-7af4-4bcb-b7f5-5013ef9657c1',
             conference_id: '428c31b6-7af4-4bcb-b7f5-5013ef9657c1',
+            conference_region: 'us',
             connection_id: '175237942907135762',
             created_at: { gte: '2019-03-29T11:10:00Z', lte: '2019-03-29T11:10:00Z' },
+            end_time: { gte: '2019-03-29T11:10:00Z', lte: '2019-03-29T11:10:00Z' },
             from: '1234567890',
             sip_call_id: '428c31b6-7af4-4bcb-b7f5-5013ef9657c1',
+            start_time: { gte: '2019-03-29T11:10:00Z', lte: '2019-03-29T11:10:00Z' },
             to: '1234567890',
           },
           'page[number]': 0,
