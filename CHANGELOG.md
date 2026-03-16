@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.15.0 (2026-03-16)
+
+Full Changelog: [v6.14.0...v6.15.0](https://github.com/team-telnyx/telnyx-node/compare/v6.14.0...v6.15.0)
+
+### Features
+
+* CW-2881 update `filter[action_type]` enum ([5a9dbf0](https://github.com/team-telnyx/telnyx-node/commit/5a9dbf0daa64b82ae7cd52dff5f93607c6bb4419))
+
+
+### Chores
+
+* **internal:** tweak CI branches ([6c7891b](https://github.com/team-telnyx/telnyx-node/commit/6c7891b6928c275c31390c5b7b9c7d9d95dae8cf))
+
 ## 6.14.0 (2026-03-16)
 
 Full Changelog: [v6.13.0...v6.14.0](https://github.com/team-telnyx/telnyx-node/compare/v6.13.0...v6.14.0)

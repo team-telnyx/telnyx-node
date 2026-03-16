@@ -128,7 +128,7 @@ export interface BulkSimCardActionListParams extends DefaultFlatPaginationParams
   /**
    * Filter by action type.
    */
-  'filter[action_type]'?: 'bulk_set_public_ips';
+  'filter[action_type]'?: 'bulk_disable_voice' | 'bulk_enable_voice' | 'bulk_set_public_ips';
 }
 
 export declare namespace BulkSimCardActions {
