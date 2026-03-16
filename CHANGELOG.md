@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.14.0 (2026-03-16)
+
+Full Changelog: [v6.13.0...v6.14.0](https://github.com/team-telnyx/telnyx-node/compare/v6.13.0...v6.14.0)
+
+### Features
+
+* AI-2132: Add warm_message_delay_ms to transfer tool OpenAPI spec ([86ce77b](https://github.com/team-telnyx/telnyx-node/commit/86ce77bf1e1d807aef49cda769d28ab6adf47cc1))
+
+
+### Chores
+
+* **internal:** support x-stainless-mcp-client-envs header in MCP servers ([d073ccb](https://github.com/team-telnyx/telnyx-node/commit/d073ccb273f6f1858cb921ca3ebfca7da65d0951))
+
 ## 6.13.0 (2026-03-13)
 
 Full Changelog: [v6.12.0...v6.13.0](https://github.com/team-telnyx/telnyx-node/compare/v6.12.0...v6.13.0)

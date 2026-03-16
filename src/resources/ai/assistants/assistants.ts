@@ -461,6 +461,14 @@ export namespace AssistantTool {
       voicemail_detection?: Transfer.VoicemailDetection;
 
       /**
+       * Optional delay in milliseconds before playing the warm message audio when the
+       * transferred call is answered. When set, the audio_url is not included in the
+       * dial command; instead, playback starts after the specified delay. When not set,
+       * existing behavior (audio_url in dial) is preserved.
+       */
+      warm_message_delay_ms?: number | null;
+
+      /**
        * Natural language instructions for your agent for how to provide context for the
        * transfer recipient.
        */
