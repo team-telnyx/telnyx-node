@@ -1131,6 +1131,7 @@ export {
   type SiprecConnectorCreateParams,
   type SiprecConnectorUpdateParams,
 } from './siprec-connectors';
+export { SpeechToText, type SpeechToTextTranscribeParams } from './speech-to-text';
 export { Storage, type StorageListMigrationSourceCoverageResponse } from './storage/storage';
 export {
   SubNumberOrders,
@@ -1184,10 +1185,9 @@ export {
   TextToSpeech,
   type TextToSpeechGenerateResponse,
   type TextToSpeechListVoicesResponse,
-  type StreamClientEvent,
-  type StreamServerEvent,
   type TextToSpeechGenerateParams,
   type TextToSpeechListVoicesParams,
+  type TextToSpeechStreamParams,
 } from './text-to-speech';
 export {
   UsageReports,

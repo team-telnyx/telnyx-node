@@ -1411,6 +1411,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/calls/{call_control_id}/actions/hangup',
   },
   {
+    clientCallName: 'client.calls.actions.joinAIAssistant',
+    fullyQualifiedName: 'calls.actions.joinAIAssistant',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/ai_assistant_join',
+  },
+  {
     clientCallName: 'client.calls.actions.leaveQueue',
     fullyQualifiedName: 'calls.actions.leaveQueue',
     httpMethod: 'post',
@@ -4989,7 +4995,12 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/text-to-speech/voices',
   },
-  { clientCallName: 'client.textToSpeech.stream', fullyQualifiedName: 'textToSpeech.stream' },
+  {
+    clientCallName: 'client.textToSpeech.stream',
+    fullyQualifiedName: 'textToSpeech.stream',
+    httpMethod: 'get',
+    httpPath: '/text-to-speech/speech',
+  },
   {
     clientCallName: 'client.usageReports.list',
     fullyQualifiedName: 'usageReports.list',
@@ -5961,6 +5972,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'x402.creditAccount.settle',
     httpMethod: 'post',
     httpPath: '/v2/x402/credit_account',
+  },
+  {
+    clientCallName: 'client.speechToText.transcribe',
+    fullyQualifiedName: 'speechToText.transcribe',
+    httpMethod: 'get',
+    httpPath: '/speech-to-text/transcription',
   },
 ];
 

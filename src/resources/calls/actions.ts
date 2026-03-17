@@ -261,6 +261,29 @@ export class Actions extends APIResource {
   }
 
   /**
+   * Add a participant to an existing AI assistant conversation. Use this command to
+   * bring an additional call leg into a running AI conversation.
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.joinAIAssistant(
+   *   'call_control_id',
+   *   {
+   *     conversation_id: 'v3:abc123',
+   *     participant: { id: 'v3:abc123def456', role: 'user' },
+   *   },
+   * );
+   * ```
+   */
+  joinAIAssistant(
+    callControlID: string,
+    body: ActionJoinAIAssistantParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionJoinAIAssistantResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_join`, { body, ...options });
+  }
+
+  /**
    * Removes the call from a queue.
    *
    * @example
@@ -1699,6 +1722,10 @@ export interface ActionHangupResponse {
   data?: CallControlCommandResult;
 }
 
+export interface ActionJoinAIAssistantResponse {
+  data?: CallControlCommandResultWithConversationID;
+}
+
 export interface ActionLeaveQueueResponse {
   data?: CallControlCommandResult;
 }
@@ -2843,6 +2870,51 @@ export interface ActionHangupParams {
    * Custom headers to be added to the SIP BYE message.
    */
   custom_headers?: Array<CallsAPI.CustomSipHeader>;
+}
+
+export interface ActionJoinAIAssistantParams {
+  /**
+   * The ID of the AI assistant conversation to join.
+   */
+  conversation_id: string;
+
+  participant: ActionJoinAIAssistantParams.Participant;
+
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+}
+
+export namespace ActionJoinAIAssistantParams {
+  export interface Participant {
+    /**
+     * The call_control_id of the participant to add to the conversation.
+     */
+    id: string;
+
+    /**
+     * The role of the participant in the conversation.
+     */
+    role: 'user';
+
+    /**
+     * Display name for the participant.
+     */
+    name?: string;
+
+    /**
+     * Determines what happens to the conversation when this participant hangs up.
+     */
+    on_hangup?: 'continue_conversation' | 'end_conversation';
+  }
 }
 
 export interface ActionLeaveQueueParams {
@@ -4442,6 +4514,7 @@ export declare namespace Actions {
     type ActionGatherUsingAudioResponse as ActionGatherUsingAudioResponse,
     type ActionGatherUsingSpeakResponse as ActionGatherUsingSpeakResponse,
     type ActionHangupResponse as ActionHangupResponse,
+    type ActionJoinAIAssistantResponse as ActionJoinAIAssistantResponse,
     type ActionLeaveQueueResponse as ActionLeaveQueueResponse,
     type ActionPauseRecordingResponse as ActionPauseRecordingResponse,
     type ActionReferResponse as ActionReferResponse,
@@ -4479,6 +4552,7 @@ export declare namespace Actions {
     type ActionGatherUsingAudioParams as ActionGatherUsingAudioParams,
     type ActionGatherUsingSpeakParams as ActionGatherUsingSpeakParams,
     type ActionHangupParams as ActionHangupParams,
+    type ActionJoinAIAssistantParams as ActionJoinAIAssistantParams,
     type ActionLeaveQueueParams as ActionLeaveQueueParams,
     type ActionPauseRecordingParams as ActionPauseRecordingParams,
     type ActionReferParams as ActionReferParams,

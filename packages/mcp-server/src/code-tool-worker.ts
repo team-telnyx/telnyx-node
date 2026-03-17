@@ -339,6 +339,7 @@ const fuse = new Fuse(
     'client.calls.actions.gatherUsingAudio',
     'client.calls.actions.gatherUsingSpeak',
     'client.calls.actions.hangup',
+    'client.calls.actions.joinAIAssistant',
     'client.calls.actions.leaveQueue',
     'client.calls.actions.pauseRecording',
     'client.calls.actions.refer',
@@ -1098,6 +1099,7 @@ const fuse = new Fuse(
     'client.voiceDesigns.retrieve',
     'client.x402.creditAccount.createQuote',
     'client.x402.creditAccount.settle',
+    'client.speechToText.transcribe',
   ],
   { threshold: 1, shouldSort: true },
 );
