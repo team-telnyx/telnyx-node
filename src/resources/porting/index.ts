@@ -22,7 +22,7 @@ export {
   type LoaConfigurationCreateParams,
   type LoaConfigurationUpdateParams,
   type LoaConfigurationListParams,
-  type LoaConfigurationPreview0Params,
+  type LoaConfigurationPreviewParams,
   type PortingLoaConfigurationsDefaultFlatPagination,
 } from './loa-configurations';
 export { Porting, type PortingListUkCarriersResponse } from './porting';

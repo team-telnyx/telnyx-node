@@ -3553,10 +3553,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting/loa_configurations/{id}',
   },
   {
-    clientCallName: 'client.porting.loaConfigurations.preview0',
-    fullyQualifiedName: 'porting.loaConfigurations.preview0',
+    clientCallName: 'client.porting.loaConfigurations.preview',
+    fullyQualifiedName: 'porting.loaConfigurations.preview',
     httpMethod: 'post',
-    httpPath: '/porting/loa_configuration/preview',
+    httpPath: '/porting/loa_configurations/preview',
   },
   {
     clientCallName: 'client.porting.loaConfigurations.preview1',

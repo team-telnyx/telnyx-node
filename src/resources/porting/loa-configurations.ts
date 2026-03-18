@@ -142,7 +142,7 @@ export class LoaConfigurations extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.porting.loaConfigurations.preview0({
+   *   await client.porting.loaConfigurations.preview({
    *     address: {
    *       city: 'Austin',
    *       country_code: 'US',
@@ -165,8 +165,8 @@ export class LoaConfigurations extends APIResource {
    * console.log(content);
    * ```
    */
-  preview0(body: LoaConfigurationPreview0Params, options?: RequestOptions): APIPromise<Response> {
-    return this._client.post('/porting/loa_configuration/preview', {
+  preview(body: LoaConfigurationPreviewParams, options?: RequestOptions): APIPromise<Response> {
+    return this._client.post('/porting/loa_configurations/preview', {
       body,
       ...options,
       headers: buildHeaders([{ Accept: 'application/pdf' }, options?.headers]),
@@ -510,11 +510,11 @@ export namespace LoaConfigurationUpdateParams {
 
 export interface LoaConfigurationListParams extends DefaultFlatPaginationParams {}
 
-export interface LoaConfigurationPreview0Params {
+export interface LoaConfigurationPreviewParams {
   /**
    * The address of the company.
    */
-  address: LoaConfigurationPreview0Params.Address;
+  address: LoaConfigurationPreviewParams.Address;
 
   /**
    * The name of the company
@@ -524,12 +524,12 @@ export interface LoaConfigurationPreview0Params {
   /**
    * The contact information of the company.
    */
-  contact: LoaConfigurationPreview0Params.Contact;
+  contact: LoaConfigurationPreviewParams.Contact;
 
   /**
    * The logo of the LOA configuration
    */
-  logo: LoaConfigurationPreview0Params.Logo;
+  logo: LoaConfigurationPreviewParams.Logo;
 
   /**
    * The name of the LOA configuration
@@ -537,7 +537,7 @@ export interface LoaConfigurationPreview0Params {
   name: string;
 }
 
-export namespace LoaConfigurationPreview0Params {
+export namespace LoaConfigurationPreviewParams {
   /**
    * The address of the company.
    */
@@ -609,6 +609,6 @@ export declare namespace LoaConfigurations {
     type LoaConfigurationCreateParams as LoaConfigurationCreateParams,
     type LoaConfigurationUpdateParams as LoaConfigurationUpdateParams,
     type LoaConfigurationListParams as LoaConfigurationListParams,
-    type LoaConfigurationPreview0Params as LoaConfigurationPreview0Params,
+    type LoaConfigurationPreviewParams as LoaConfigurationPreviewParams,
   };
 }
