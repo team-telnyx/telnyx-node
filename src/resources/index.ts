@@ -1069,6 +1069,7 @@ export {
   SpeechToText,
   SpeechToTextWS,
   WebSocketError as SpeechToTextWebSocketError,
+  type SpeechToTextTranscribeParams,
   type SpeechToTextStreamParams,
   type SttClientEvent,
   type SttServerEvent,
@@ -1195,10 +1196,9 @@ export {
   TextToSpeechWS,
   type TextToSpeechGenerateResponse,
   type TextToSpeechListVoicesResponse,
-  type StreamClientEvent,
-  type StreamServerEvent,
   type TextToSpeechGenerateParams,
   type TextToSpeechListVoicesParams,
+  type TextToSpeechStreamParams,
 } from './text-to-speech';
 export {
   UsageReports,
