@@ -140,8 +140,8 @@ describe('resource loaConfigurations', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('preview0: required and optional params', async () => {
-    const response = await client.porting.loaConfigurations.preview0({
+  test.skip('preview: required and optional params', async () => {
+    const response = await client.porting.loaConfigurations.preview({
       address: {
         city: 'Austin',
         country_code: 'US',
