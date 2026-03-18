@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.17.0 (2026-03-18)
+
+Full Changelog: [v6.16.0...v6.17.0](https://github.com/team-telnyx/telnyx-node/compare/v6.16.0...v6.17.0)
+
+### Features
+
+* port-4690: fix LOA configuration preview path (singular → plural) ([1f4433a](https://github.com/team-telnyx/telnyx-node/commit/1f4433aeb2025e25ade184c8d02385d69638a111))
+
 ## 6.16.0 (2026-03-18)
 
 Full Changelog: [v6.15.0...v6.16.0](https://github.com/team-telnyx/telnyx-node/compare/v6.15.0...v6.16.0)
