@@ -20,6 +20,7 @@ import {
   LoaConfigurationCreateParams,
   LoaConfigurationCreateResponse,
   LoaConfigurationListParams,
+  LoaConfigurationPreview0Params,
   LoaConfigurationPreviewParams,
   LoaConfigurationRetrieveResponse,
   LoaConfigurationUpdateParams,
@@ -152,5 +153,6 @@ export declare namespace Porting {
     type LoaConfigurationUpdateParams as LoaConfigurationUpdateParams,
     type LoaConfigurationListParams as LoaConfigurationListParams,
     type LoaConfigurationPreviewParams as LoaConfigurationPreviewParams,
+    type LoaConfigurationPreview0Params as LoaConfigurationPreview0Params,
   };
 }

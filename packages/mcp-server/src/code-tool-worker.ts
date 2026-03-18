@@ -695,6 +695,7 @@ const fuse = new Fuse(
     'client.porting.loaConfigurations.delete',
     'client.porting.loaConfigurations.list',
     'client.porting.loaConfigurations.preview',
+    'client.porting.loaConfigurations.preview0',
     'client.porting.loaConfigurations.preview1',
     'client.porting.loaConfigurations.retrieve',
     'client.porting.loaConfigurations.update',
