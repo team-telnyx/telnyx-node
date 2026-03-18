@@ -2,6 +2,7 @@
 
 export {
   SpeechToText,
+  type SpeechToTextTranscribeParams,
   type SpeechToTextStreamParams,
   type SttClientEvent,
   type SttServerEvent,

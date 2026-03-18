@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 
 /**
@@ -43,6 +44,23 @@ export class TextToSpeech extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TextToSpeechListVoicesResponse> {
     return this._client.get('/text-to-speech/voices', { query, ...options });
+  }
+
+  /**
+   * Open a WebSocket connection to stream text and receive synthesized audio in real
+   * time. Authentication is provided via the standard
+   * `Authorization: Bearer <API_KEY>` header. Send JSON frames with text to
+   * synthesize; receive JSON frames containing base64-encoded audio chunks.
+   */
+  stream(
+    query: TextToSpeechStreamParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.get('/text-to-speech/speech', {
+      query,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -520,4 +538,53 @@ export declare namespace TextToSpeech {
     type TextToSpeechGenerateParams as TextToSpeechGenerateParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
   };
+}
+
+/**
+ * Parameters for establishing a text-to-speech WebSocket connection.
+ */
+export interface TextToSpeechStreamParams {
+  /**
+   * Audio output format override. Supported for Telnyx Natural/NaturalHD models only.
+   */
+  audio_format?: 'pcm' | 'wav';
+
+  /**
+   * When true, bypass the audio cache and generate fresh audio.
+   */
+  disable_cache?: boolean;
+
+  /**
+   * Model identifier for the chosen provider.
+   */
+  model_id?: string;
+
+  /**
+   * TTS provider. Defaults to telnyx if not specified.
+   */
+  provider?:
+    | 'aws'
+    | 'telnyx'
+    | 'azure'
+    | 'elevenlabs'
+    | 'minimax'
+    | 'murfai'
+    | 'rime'
+    | 'resemble'
+    | 'inworld';
+
+  /**
+   * Client-provided socket identifier for tracking.
+   */
+  socket_id?: string;
+
+  /**
+   * Voice identifier in format provider.model_id.voice_id or provider.voice_id.
+   */
+  voice?: string;
+
+  /**
+   * Voice identifier for the chosen provider.
+   */
+  voice_id?: string;
 }

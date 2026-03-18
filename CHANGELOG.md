@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.16.0 (2026-03-18)
+
+Full Changelog: [v6.15.0...v6.16.0](https://github.com/team-telnyx/telnyx-node/compare/v6.15.0...v6.16.0)
+
+### Features
+
+* add ai_assistant_join call control command OpenAPI spec ([efb069b](https://github.com/team-telnyx/telnyx-node/commit/efb069bb7d99d2985a1fee170c4c4c6761d411bc))
+
+
+### Chores
+
+* **internal:** support x-stainless-mcp-client-permissions headers in MCP servers ([601603e](https://github.com/team-telnyx/telnyx-node/commit/601603eeec433a20bed695fd50cdbc122926b342))
+
 ## 6.15.0 (2026-03-16)
 
 Full Changelog: [v6.14.0...v6.15.0](https://github.com/team-telnyx/telnyx-node/compare/v6.14.0...v6.15.0)

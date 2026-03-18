@@ -231,6 +231,36 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('joinAIAssistant: only required params', async () => {
+    const responsePromise = client.calls.actions.joinAIAssistant('call_control_id', {
+      conversation_id: 'v3:abc123',
+      participant: { id: 'v3:abc123def456', role: 'user' },
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('joinAIAssistant: required and optional params', async () => {
+    const response = await client.calls.actions.joinAIAssistant('call_control_id', {
+      conversation_id: 'v3:abc123',
+      participant: {
+        id: 'v3:abc123def456',
+        role: 'user',
+        name: 'John Doe',
+        on_hangup: 'continue_conversation',
+      },
+      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+      command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('leaveQueue', async () => {
     const responsePromise = client.calls.actions.leaveQueue('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();

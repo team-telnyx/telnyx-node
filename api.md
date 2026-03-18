@@ -1226,6 +1226,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">ActionGatherUsingAudioResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionGatherUsingSpeakResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionHangupResponse</a></code>
+- <code><a href="./src/resources/calls/actions.ts">ActionJoinAIAssistantResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionLeaveQueueResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionPauseRecordingResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionReferResponse</a></code>
@@ -1266,6 +1267,7 @@ Methods:
 - <code title="post /calls/{call_control_id}/actions/gather_using_audio">client.calls.actions.<a href="./src/resources/calls/actions.ts">gatherUsingAudio</a>(callControlID, { ...params }) -> ActionGatherUsingAudioResponse</code>
 - <code title="post /calls/{call_control_id}/actions/gather_using_speak">client.calls.actions.<a href="./src/resources/calls/actions.ts">gatherUsingSpeak</a>(callControlID, { ...params }) -> ActionGatherUsingSpeakResponse</code>
 - <code title="post /calls/{call_control_id}/actions/hangup">client.calls.actions.<a href="./src/resources/calls/actions.ts">hangup</a>(callControlID, { ...params }) -> ActionHangupResponse</code>
+- <code title="post /calls/{call_control_id}/actions/ai_assistant_join">client.calls.actions.<a href="./src/resources/calls/actions.ts">joinAIAssistant</a>(callControlID, { ...params }) -> ActionJoinAIAssistantResponse</code>
 - <code title="post /calls/{call_control_id}/actions/leave_queue">client.calls.actions.<a href="./src/resources/calls/actions.ts">leaveQueue</a>(callControlID, { ...params }) -> ActionLeaveQueueResponse</code>
 - <code title="post /calls/{call_control_id}/actions/record_pause">client.calls.actions.<a href="./src/resources/calls/actions.ts">pauseRecording</a>(callControlID, { ...params }) -> ActionPauseRecordingResponse</code>
 - <code title="post /calls/{call_control_id}/actions/refer">client.calls.actions.<a href="./src/resources/calls/actions.ts">refer</a>(callControlID, { ...params }) -> ActionReferResponse</code>
@@ -3896,13 +3898,12 @@ Types:
 
 - <code><a href="./src/resources/text-to-speech.ts">TextToSpeechGenerateResponse</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">TextToSpeechListVoicesResponse</a></code>
-- <code><a href="./src/resources/text-to-speech.ts">StreamClientEvent</a></code>
-- <code><a href="./src/resources/text-to-speech.ts">StreamServerEvent</a></code>
 
 Methods:
 
 - <code title="post /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">generate</a>({ ...params }) -> TextToSpeechGenerateResponse</code>
 - <code title="get /text-to-speech/voices">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">listVoices</a>({ ...params }) -> TextToSpeechListVoicesResponse</code>
+- <code title="get /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">stream</a>({ ...params }) -> void</code>
 
 # UsageReports
 
@@ -4639,3 +4640,9 @@ Methods:
 
 - <code title="post /v2/x402/credit_account/quote">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">createQuote</a>({ ...params }) -> CreditAccountCreateQuoteResponse</code>
 - <code title="post /v2/x402/credit_account">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">settle</a>({ ...params }) -> CreditAccountSettleResponse</code>
+
+# SpeechToText
+
+Methods:
+
+- <code title="get /speech-to-text/transcription">client.speechToText.<a href="./src/resources/speech-to-text.ts">transcribe</a>({ ...params }) -> void</code>
