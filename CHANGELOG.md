@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.18.0 (2026-03-18)
+
+Full Changelog: [v6.17.0...v6.18.0](https://github.com/team-telnyx/telnyx-node/compare/v6.17.0...v6.18.0)
+
+### Features
+
+* add message_history, send_message_history_updates, participants to AIAssistantStartRequest ([6329c5c](https://github.com/team-telnyx/telnyx-node/commit/6329c5c508ac7404c92f1a2433821d6aa0fecb22))
+
 ## 6.17.0 (2026-03-18)
 
 Full Changelog: [v6.16.0...v6.17.0](https://github.com/team-telnyx/telnyx-node/compare/v6.16.0...v6.17.0)
