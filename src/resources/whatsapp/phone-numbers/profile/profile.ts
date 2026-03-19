@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
+import * as ModelsAPI from './models';
+import { Models } from './models';
 import * as PhotoAPI from './photo';
 import { Photo, PhotoUploadParams, PhotoUploadResponse } from './photo';
 import { APIPromise } from '../../../../core/api-promise';
@@ -12,6 +14,7 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Profile extends APIResource {
   photo: PhotoAPI.Photo = new PhotoAPI.Photo(this._client);
+  models: ModelsAPI.Models = new ModelsAPI.Models(this._client);
 
   /**
    * Get phone number business profile
@@ -48,78 +51,43 @@ export class Profile extends APIResource {
   }
 }
 
-export interface ProfileRetrieveResponse {
-  data?: ProfileRetrieveResponse.Data;
+export interface WhatsappProfileData {
+  id?: string;
+
+  about?: string;
+
+  address?: string;
+
+  category?: string;
+
+  created_at?: string;
+
+  description?: string;
+
+  display_name?: string;
+
+  email?: string;
+
+  /**
+   * Whatsapp phone number ID
+   */
+  phone_number_id?: string;
+
+  profile_photo_url?: string;
+
+  record_type?: string;
+
+  updated_at?: string;
+
+  website?: string;
 }
 
-export namespace ProfileRetrieveResponse {
-  export interface Data {
-    id?: string;
-
-    about?: string;
-
-    address?: string;
-
-    category?: string;
-
-    created_at?: string;
-
-    description?: string;
-
-    display_name?: string;
-
-    email?: string;
-
-    /**
-     * Whatsapp phone number ID
-     */
-    phone_number_id?: string;
-
-    profile_photo_url?: string;
-
-    record_type?: string;
-
-    updated_at?: string;
-
-    website?: string;
-  }
+export interface ProfileRetrieveResponse {
+  data?: WhatsappProfileData;
 }
 
 export interface ProfileUpdateResponse {
-  data?: ProfileUpdateResponse.Data;
-}
-
-export namespace ProfileUpdateResponse {
-  export interface Data {
-    id?: string;
-
-    about?: string;
-
-    address?: string;
-
-    category?: string;
-
-    created_at?: string;
-
-    description?: string;
-
-    display_name?: string;
-
-    email?: string;
-
-    /**
-     * Whatsapp phone number ID
-     */
-    phone_number_id?: string;
-
-    profile_photo_url?: string;
-
-    record_type?: string;
-
-    updated_at?: string;
-
-    website?: string;
-  }
+  data?: WhatsappProfileData;
 }
 
 export interface ProfileUpdateParams {
@@ -139,9 +107,11 @@ export interface ProfileUpdateParams {
 }
 
 Profile.Photo = Photo;
+Profile.Models = Models;
 
 export declare namespace Profile {
   export {
+    type WhatsappProfileData as WhatsappProfileData,
     type ProfileRetrieveResponse as ProfileRetrieveResponse,
     type ProfileUpdateResponse as ProfileUpdateResponse,
     type ProfileUpdateParams as ProfileUpdateParams,
@@ -152,4 +122,6 @@ export declare namespace Profile {
     type PhotoUploadResponse as PhotoUploadResponse,
     type PhotoUploadParams as PhotoUploadParams,
   };
+
+  export { Models as Models };
 }

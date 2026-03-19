@@ -3559,6 +3559,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting/loa_configurations/preview',
   },
   {
+    clientCallName: 'client.porting.loaConfigurations.preview0',
+    fullyQualifiedName: 'porting.loaConfigurations.preview0',
+    httpMethod: 'post',
+    httpPath: '/porting/loa_configurations/preview',
+  },
+  {
     clientCallName: 'client.porting.loaConfigurations.preview1',
     fullyQualifiedName: 'porting.loaConfigurations.preview1',
     httpMethod: 'get',
@@ -5831,10 +5837,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp/message_templates',
   },
   {
+    clientCallName: 'client.whatsapp.messageTemplates.retrieve',
+    fullyQualifiedName: 'whatsapp.messageTemplates.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v2/whatsapp_message_templates/{id}',
+  },
+  {
+    clientCallName: 'client.whatsapp.messageTemplates.update',
+    fullyQualifiedName: 'whatsapp.messageTemplates.update',
+    httpMethod: 'patch',
+    httpPath: '/v2/whatsapp_message_templates/{id}',
+  },
+  {
     clientCallName: 'client.whatsapp.messageTemplates.list',
     fullyQualifiedName: 'whatsapp.messageTemplates.list',
     httpMethod: 'get',
     httpPath: '/v2/whatsapp/message_templates',
+  },
+  {
+    clientCallName: 'client.whatsapp.messageTemplates.delete',
+    fullyQualifiedName: 'whatsapp.messageTemplates.delete',
+    httpMethod: 'delete',
+    httpPath: '/v2/whatsapp_message_templates/{id}',
   },
   {
     clientCallName: 'client.whatsapp.phoneNumbers.list',
@@ -5895,24 +5919,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'whatsapp.phoneNumbers.profile.photo.upload',
     httpMethod: 'post',
     httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/profile/photo',
-  },
-  {
-    clientCallName: 'client.whatsappMessageTemplates.retrieve',
-    fullyQualifiedName: 'whatsappMessageTemplates.retrieve',
-    httpMethod: 'get',
-    httpPath: '/v2/whatsapp_message_templates/{id}',
-  },
-  {
-    clientCallName: 'client.whatsappMessageTemplates.update',
-    fullyQualifiedName: 'whatsappMessageTemplates.update',
-    httpMethod: 'patch',
-    httpPath: '/v2/whatsapp_message_templates/{id}',
-  },
-  {
-    clientCallName: 'client.whatsappMessageTemplates.delete',
-    fullyQualifiedName: 'whatsappMessageTemplates.delete',
-    httpMethod: 'delete',
-    httpPath: '/v2/whatsapp_message_templates/{id}',
   },
   {
     clientCallName: 'client.x402.creditAccount.createPaymentQuote',

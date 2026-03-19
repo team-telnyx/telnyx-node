@@ -10,10 +10,11 @@ export {
 export {
   MessageTemplates,
   type MessageTemplateCreateResponse,
-  type MessageTemplateListResponse,
+  type MessageTemplateRetrieveResponse,
+  type MessageTemplateUpdateResponse,
   type MessageTemplateCreateParams,
+  type MessageTemplateUpdateParams,
   type MessageTemplateListParams,
-  type MessageTemplateListResponsesDefaultFlatPagination,
 } from './message-templates';
 export {
   PhoneNumbers,

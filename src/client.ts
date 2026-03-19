@@ -854,12 +854,11 @@ import {
   TexmlApplicationsDefaultFlatPagination,
 } from './resources/texml-applications';
 import {
+  TrafficPolicyProfile,
   TrafficPolicyProfileCreateParams,
   TrafficPolicyProfileCreateResponse,
   TrafficPolicyProfileDeleteResponse,
   TrafficPolicyProfileListParams,
-  TrafficPolicyProfileListResponse,
-  TrafficPolicyProfileListResponsesDefaultFlatPagination,
   TrafficPolicyProfileListServicesParams,
   TrafficPolicyProfileListServicesResponse,
   TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
@@ -867,6 +866,7 @@ import {
   TrafficPolicyProfileUpdateParams,
   TrafficPolicyProfileUpdateResponse,
   TrafficPolicyProfiles,
+  TrafficPolicyProfilesDefaultFlatPagination,
 } from './resources/traffic-policy-profiles';
 import {
   UsageReportGetOptionsParams,
@@ -923,9 +923,9 @@ import {
   VoiceCloneCreateFromUploadResponse,
   VoiceCloneCreateParams,
   VoiceCloneCreateResponse,
+  VoiceCloneData,
+  VoiceCloneDataDefaultFlatPagination,
   VoiceCloneListParams,
-  VoiceCloneListResponse,
-  VoiceCloneListResponsesDefaultFlatPagination,
   VoiceCloneUpdateParams,
   VoiceCloneUpdateResponse,
   VoiceClones,
@@ -933,6 +933,7 @@ import {
 import {
   VoiceDesignCreateParams,
   VoiceDesignCreateResponse,
+  VoiceDesignData,
   VoiceDesignDeleteVersionParams,
   VoiceDesignDownloadSampleParams,
   VoiceDesignListParams,
@@ -1076,12 +1077,6 @@ import {
   WellKnownRetrieveAuthorizationServerMetadataResponse,
   WellKnownRetrieveProtectedResourceMetadataResponse,
 } from './resources/well-known';
-import {
-  WhatsappMessageTemplateRetrieveResponse,
-  WhatsappMessageTemplateUpdateParams,
-  WhatsappMessageTemplateUpdateResponse,
-  WhatsappMessageTemplates,
-} from './resources/whatsapp-message-templates';
 import {
   WireguardInterfaceCreateParams,
   WireguardInterfaceCreateResponse,
@@ -2862,10 +2857,6 @@ export class Telnyx {
    */
   trafficPolicyProfiles: API.TrafficPolicyProfiles = new API.TrafficPolicyProfiles(this);
   whatsapp: API.Whatsapp = new API.Whatsapp(this);
-  /**
-   * Manage Whatsapp message templates
-   */
-  whatsappMessageTemplates: API.WhatsappMessageTemplates = new API.WhatsappMessageTemplates(this);
   x402: API.X402 = new API.X402(this);
   /**
    * Capture and manage voice identities as clones for use in text-to-speech synthesis.
@@ -3032,7 +3023,6 @@ Telnyx.MessagingProfileMetrics = MessagingProfileMetrics;
 Telnyx.SessionAnalysis = SessionAnalysis;
 Telnyx.TrafficPolicyProfiles = TrafficPolicyProfiles;
 Telnyx.Whatsapp = Whatsapp;
-Telnyx.WhatsappMessageTemplates = WhatsappMessageTemplates;
 Telnyx.X402 = X402;
 Telnyx.VoiceClones = VoiceClones;
 Telnyx.VoiceDesigns = VoiceDesigns;
@@ -4699,13 +4689,13 @@ export declare namespace Telnyx {
 
   export {
     TrafficPolicyProfiles as TrafficPolicyProfiles,
+    type TrafficPolicyProfile as TrafficPolicyProfile,
     type TrafficPolicyProfileCreateResponse as TrafficPolicyProfileCreateResponse,
     type TrafficPolicyProfileRetrieveResponse as TrafficPolicyProfileRetrieveResponse,
     type TrafficPolicyProfileUpdateResponse as TrafficPolicyProfileUpdateResponse,
-    type TrafficPolicyProfileListResponse as TrafficPolicyProfileListResponse,
     type TrafficPolicyProfileDeleteResponse as TrafficPolicyProfileDeleteResponse,
     type TrafficPolicyProfileListServicesResponse as TrafficPolicyProfileListServicesResponse,
-    type TrafficPolicyProfileListResponsesDefaultFlatPagination as TrafficPolicyProfileListResponsesDefaultFlatPagination,
+    type TrafficPolicyProfilesDefaultFlatPagination as TrafficPolicyProfilesDefaultFlatPagination,
     type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination as TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
     type TrafficPolicyProfileCreateParams as TrafficPolicyProfileCreateParams,
     type TrafficPolicyProfileUpdateParams as TrafficPolicyProfileUpdateParams,
@@ -4715,22 +4705,15 @@ export declare namespace Telnyx {
 
   export { Whatsapp as Whatsapp };
 
-  export {
-    WhatsappMessageTemplates as WhatsappMessageTemplates,
-    type WhatsappMessageTemplateRetrieveResponse as WhatsappMessageTemplateRetrieveResponse,
-    type WhatsappMessageTemplateUpdateResponse as WhatsappMessageTemplateUpdateResponse,
-    type WhatsappMessageTemplateUpdateParams as WhatsappMessageTemplateUpdateParams,
-  };
-
   export { X402 as X402 };
 
   export {
     VoiceClones as VoiceClones,
+    type VoiceCloneData as VoiceCloneData,
     type VoiceCloneCreateResponse as VoiceCloneCreateResponse,
     type VoiceCloneUpdateResponse as VoiceCloneUpdateResponse,
-    type VoiceCloneListResponse as VoiceCloneListResponse,
     type VoiceCloneCreateFromUploadResponse as VoiceCloneCreateFromUploadResponse,
-    type VoiceCloneListResponsesDefaultFlatPagination as VoiceCloneListResponsesDefaultFlatPagination,
+    type VoiceCloneDataDefaultFlatPagination as VoiceCloneDataDefaultFlatPagination,
     type VoiceCloneCreateParams as VoiceCloneCreateParams,
     type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
     type VoiceCloneListParams as VoiceCloneListParams,
@@ -4739,6 +4722,7 @@ export declare namespace Telnyx {
 
   export {
     VoiceDesigns as VoiceDesigns,
+    type VoiceDesignData as VoiceDesignData,
     type VoiceDesignCreateResponse as VoiceDesignCreateResponse,
     type VoiceDesignRetrieveResponse as VoiceDesignRetrieveResponse,
     type VoiceDesignUpdateResponse as VoiceDesignUpdateResponse,
@@ -4783,4 +4767,5 @@ export declare namespace Telnyx {
   export type SimCardStatus = API.SimCardStatus;
   export type SimpleSimCard = API.SimpleSimCard;
   export type SubNumberOrderRegulatoryRequirementWithValue = API.SubNumberOrderRegulatoryRequirementWithValue;
+  export type WhatsappTemplateData = API.WhatsappTemplateData;
 }

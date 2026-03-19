@@ -147,7 +147,7 @@ export interface StreamClientEvent {
  */
 export type StreamServerEvent =
   | StreamServerEvent.AudioChunkFrame
-  | StreamServerEvent.FinalFrame
+  | StreamServerEvent.FinalFrameEvent
   | StreamServerEvent.ErrorFrame;
 
 export namespace StreamServerEvent {
@@ -192,7 +192,7 @@ export namespace StreamServerEvent {
   /**
    * Server-to-client frame indicating synthesis is complete for the current text.
    */
-  export interface FinalFrame {
+  export interface FinalFrameEvent {
     /**
      * Always `null` for the final frame.
      */

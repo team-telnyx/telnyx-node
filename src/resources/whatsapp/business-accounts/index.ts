@@ -16,6 +16,7 @@ export {
 } from './phone-numbers';
 export {
   Settings,
+  type WabaSettings,
   type SettingRetrieveResponse,
   type SettingUpdateResponse,
   type SettingUpdateParams,
