@@ -2,7 +2,6 @@
 
 import * as TextToSpeechAPI from './text-to-speech';
 import { Telnyx } from '../../client';
-
 import { EventEmitter } from '../../core/EventEmitter';
 import { TelnyxError } from '../../core/error';
 import { stringifyQuery } from '../../internal/utils';
