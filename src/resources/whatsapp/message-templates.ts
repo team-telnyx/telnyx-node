@@ -1,9 +1,13 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as Shared from '../shared';
+import { WhatsappTemplateDataDefaultFlatPagination } from '../shared';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 /**
  * Manage Whatsapp message templates
@@ -17,7 +21,7 @@ export class MessageTemplates extends APIResource {
    * const messageTemplate =
    *   await client.whatsapp.messageTemplates.create({
    *     category: 'MARKETING',
-   *     components: [{}],
+   *     components: [{ foo: 'bar' }],
    *     language: 'language',
    *     name: 'name',
    *     waba_id: 'waba_id',
@@ -32,12 +36,42 @@ export class MessageTemplates extends APIResource {
   }
 
   /**
+   * Get a Whatsapp message template by ID
+   *
+   * @example
+   * ```ts
+   * const messageTemplate =
+   *   await client.whatsapp.messageTemplates.retrieve('id');
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<MessageTemplateRetrieveResponse> {
+    return this._client.get(path`/v2/whatsapp_message_templates/${id}`, options);
+  }
+
+  /**
+   * Update a Whatsapp message template
+   *
+   * @example
+   * ```ts
+   * const messageTemplate =
+   *   await client.whatsapp.messageTemplates.update('id');
+   * ```
+   */
+  update(
+    id: string,
+    body: MessageTemplateUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<MessageTemplateUpdateResponse> {
+    return this._client.patch(path`/v2/whatsapp_message_templates/${id}`, { body, ...options });
+  }
+
+  /**
    * List Whatsapp message templates
    *
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const messageTemplateListResponse of client.whatsapp.messageTemplates.list()) {
+   * for await (const whatsappTemplateData of client.whatsapp.messageTemplates.list()) {
    *   // ...
    * }
    * ```
@@ -45,104 +79,58 @@ export class MessageTemplates extends APIResource {
   list(
     query: MessageTemplateListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessageTemplateListResponsesDefaultFlatPagination, MessageTemplateListResponse> {
+  ): PagePromise<WhatsappTemplateDataDefaultFlatPagination, Shared.WhatsappTemplateData> {
     return this._client.getAPIList(
       '/v2/whatsapp/message_templates',
-      DefaultFlatPagination<MessageTemplateListResponse>,
+      DefaultFlatPagination<Shared.WhatsappTemplateData>,
       { query, ...options },
     );
   }
-}
-
-export type MessageTemplateListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<MessageTemplateListResponse>;
-
-export interface MessageTemplateCreateResponse {
-  data?: MessageTemplateCreateResponse.Data;
-}
-
-export namespace MessageTemplateCreateResponse {
-  export interface Data {
-    id?: string;
-
-    category?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
-
-    /**
-     * Whatsapp template components (header, body, footer, buttons)
-     */
-    components?: Array<unknown>;
-
-    created_at?: string;
-
-    language?: string;
-
-    name?: string;
-
-    record_type?: string;
-
-    rejection_reason?: string;
-
-    status?: string;
-
-    template_id?: string;
-
-    updated_at?: string;
-
-    whatsapp_business_account?: Data.WhatsappBusinessAccount;
-  }
-
-  export namespace Data {
-    export interface WhatsappBusinessAccount {
-      id?: string;
-    }
-  }
-}
-
-export interface MessageTemplateListResponse {
-  id?: string;
-
-  category?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
 
   /**
-   * Whatsapp template components (header, body, footer, buttons)
+   * Delete a Whatsapp message template
+   *
+   * @example
+   * ```ts
+   * await client.whatsapp.messageTemplates.delete('id');
+   * ```
    */
-  components?: Array<unknown>;
-
-  created_at?: string;
-
-  language?: string;
-
-  name?: string;
-
-  record_type?: string;
-
-  rejection_reason?: string;
-
-  status?: string;
-
-  template_id?: string;
-
-  updated_at?: string;
-
-  whatsapp_business_account?: MessageTemplateListResponse.WhatsappBusinessAccount;
+  delete(id: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/v2/whatsapp_message_templates/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
 }
 
-export namespace MessageTemplateListResponse {
-  export interface WhatsappBusinessAccount {
-    id?: string;
-  }
+export interface MessageTemplateCreateResponse {
+  data?: Shared.WhatsappTemplateData;
+}
+
+export interface MessageTemplateRetrieveResponse {
+  data?: Shared.WhatsappTemplateData;
+}
+
+export interface MessageTemplateUpdateResponse {
+  data?: Shared.WhatsappTemplateData;
 }
 
 export interface MessageTemplateCreateParams {
   category: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
 
-  components: Array<unknown>;
+  components: Array<{ [key: string]: unknown }>;
 
   language: string;
 
   name: string;
 
   waba_id: string;
+}
+
+export interface MessageTemplateUpdateParams {
+  category?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
+
+  components?: Array<{ [key: string]: unknown }>;
 }
 
 export interface MessageTemplateListParams extends DefaultFlatPaginationParams {
@@ -170,9 +158,12 @@ export interface MessageTemplateListParams extends DefaultFlatPaginationParams {
 export declare namespace MessageTemplates {
   export {
     type MessageTemplateCreateResponse as MessageTemplateCreateResponse,
-    type MessageTemplateListResponse as MessageTemplateListResponse,
-    type MessageTemplateListResponsesDefaultFlatPagination as MessageTemplateListResponsesDefaultFlatPagination,
+    type MessageTemplateRetrieveResponse as MessageTemplateRetrieveResponse,
+    type MessageTemplateUpdateResponse as MessageTemplateUpdateResponse,
     type MessageTemplateCreateParams as MessageTemplateCreateParams,
+    type MessageTemplateUpdateParams as MessageTemplateUpdateParams,
     type MessageTemplateListParams as MessageTemplateListParams,
   };
 }
+
+export { type WhatsappTemplateDataDefaultFlatPagination };

@@ -1215,6 +1215,41 @@ export interface SubNumberOrderRegulatoryRequirementWithValue {
   requirement_id?: string;
 }
 
+export interface WhatsappTemplateData {
+  id?: string;
+
+  category?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
+
+  /**
+   * Whatsapp template components (header, body, footer, buttons)
+   */
+  components?: Array<{ [key: string]: unknown }>;
+
+  created_at?: string;
+
+  language?: string;
+
+  name?: string;
+
+  record_type?: string;
+
+  rejection_reason?: string;
+
+  status?: string;
+
+  template_id?: string;
+
+  updated_at?: string;
+
+  whatsapp_business_account?: WhatsappTemplateData.WhatsappBusinessAccount;
+}
+
+export namespace WhatsappTemplateData {
+  export interface WhatsappBusinessAccount {
+    id?: string;
+  }
+}
+
 export type MessagingHostedNumberOrdersDefaultFlatPagination =
   DefaultFlatPagination<MessagingHostedNumberOrder>;
 
@@ -1226,3 +1261,5 @@ export type ShortCodesDefaultFlatPagination = DefaultFlatPagination<ShortCode>;
 export type RoomParticipantsDefaultFlatPagination = DefaultFlatPagination<RoomParticipant>;
 
 export type SimpleSimCardsDefaultFlatPagination = DefaultFlatPagination<SimpleSimCard>;
+
+export type WhatsappTemplateDataDefaultFlatPagination = DefaultFlatPagination<WhatsappTemplateData>;

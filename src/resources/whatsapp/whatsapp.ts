@@ -6,8 +6,9 @@ import {
   MessageTemplateCreateParams,
   MessageTemplateCreateResponse,
   MessageTemplateListParams,
-  MessageTemplateListResponse,
-  MessageTemplateListResponsesDefaultFlatPagination,
+  MessageTemplateRetrieveResponse,
+  MessageTemplateUpdateParams,
+  MessageTemplateUpdateResponse,
   MessageTemplates,
 } from './message-templates';
 import * as BusinessAccountsAPI from './business-accounts/business-accounts';
@@ -54,9 +55,10 @@ export declare namespace Whatsapp {
   export {
     MessageTemplates as MessageTemplates,
     type MessageTemplateCreateResponse as MessageTemplateCreateResponse,
-    type MessageTemplateListResponse as MessageTemplateListResponse,
-    type MessageTemplateListResponsesDefaultFlatPagination as MessageTemplateListResponsesDefaultFlatPagination,
+    type MessageTemplateRetrieveResponse as MessageTemplateRetrieveResponse,
+    type MessageTemplateUpdateResponse as MessageTemplateUpdateResponse,
     type MessageTemplateCreateParams as MessageTemplateCreateParams,
+    type MessageTemplateUpdateParams as MessageTemplateUpdateParams,
     type MessageTemplateListParams as MessageTemplateListParams,
   };
 
