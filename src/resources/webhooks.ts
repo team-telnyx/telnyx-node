@@ -4518,6 +4518,128 @@ export interface CallConversationInsightsGeneratedWebhookEvent {
   data?: CallConversationInsightsGenerated;
 }
 
+export interface CallCostWebhookEvent {
+  data?: CallCostWebhookEvent.Data;
+}
+
+export namespace CallCostWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier of the event.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.cost';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * The longest billed duration across all cost parts, in seconds.
+       */
+      billed_duration_secs?: number | null;
+
+      /**
+       * Identifies the billing group associated with the call.
+       */
+      billing_group_id?: string | null;
+
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command. Base64-encoded.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Breakdown of costs by call part.
+       */
+      cost_parts?: Array<Payload.CostPart>;
+
+      /**
+       * ISO 8601 datetime of when the event occurred.
+       */
+      occurred_at?: string;
+
+      /**
+       * The status of the cost calculation (`success` or `error`).
+       */
+      status?: 'success' | 'error';
+
+      /**
+       * The total cost of the call.
+       */
+      total_cost?: string | null;
+    }
+
+    export namespace Payload {
+      export interface CostPart {
+        /**
+         * The billed duration in seconds for this part of the call.
+         */
+        billed_duration_secs?: number;
+
+        /**
+         * The product component this cost applies to. Values are determined by the billing
+         * system (e.g. sip-trunking, call-control, call-recording). Not a fixed set — new
+         * values may appear as products evolve.
+         */
+        call_part?: string;
+
+        /**
+         * The cost for this part of the call.
+         */
+        cost?: string;
+
+        /**
+         * The currency of the cost.
+         */
+        currency?: string;
+
+        /**
+         * The per-minute rate applied.
+         */
+        rate?: string;
+      }
+    }
+  }
+}
+
 export interface CallDtmfReceivedWebhookEvent {
   data?: CallDtmfReceived;
 }
@@ -4742,6 +4864,128 @@ export interface CallConversationInsightsGeneratedWebhookEvent {
   data?: CallConversationInsightsGenerated;
 }
 
+export interface CallCostWebhookEvent {
+  data?: CallCostWebhookEvent.Data;
+}
+
+export namespace CallCostWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier of the event.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.cost';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * The longest billed duration across all cost parts, in seconds.
+       */
+      billed_duration_secs?: number | null;
+
+      /**
+       * Identifies the billing group associated with the call.
+       */
+      billing_group_id?: string | null;
+
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command. Base64-encoded.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Breakdown of costs by call part.
+       */
+      cost_parts?: Array<Payload.CostPart>;
+
+      /**
+       * ISO 8601 datetime of when the event occurred.
+       */
+      occurred_at?: string;
+
+      /**
+       * The status of the cost calculation (`success` or `error`).
+       */
+      status?: 'success' | 'error';
+
+      /**
+       * The total cost of the call.
+       */
+      total_cost?: string | null;
+    }
+
+    export namespace Payload {
+      export interface CostPart {
+        /**
+         * The billed duration in seconds for this part of the call.
+         */
+        billed_duration_secs?: number;
+
+        /**
+         * The product component this cost applies to. Values are determined by the billing
+         * system (e.g. sip-trunking, call-control, call-recording). Not a fixed set — new
+         * values may appear as products evolve.
+         */
+        call_part?: string;
+
+        /**
+         * The cost for this part of the call.
+         */
+        cost?: string;
+
+        /**
+         * The currency of the cost.
+         */
+        currency?: string;
+
+        /**
+         * The per-minute rate applied.
+         */
+        rate?: string;
+      }
+    }
+  }
+}
+
 export interface CallDtmfReceivedWebhookEvent {
   data?: CallDtmfReceived;
 }
@@ -4946,6 +5190,7 @@ export type UnsafeUnwrapWebhookEvent =
   | CallBridgedWebhookEvent
   | CallConversationEndedWebhookEvent
   | CallConversationInsightsGeneratedWebhookEvent
+  | CallCostWebhookEvent
   | CallDtmfReceivedWebhookEvent
   | CallEnqueuedWebhookEvent
   | CallForkStartedWebhookEvent
@@ -5008,6 +5253,7 @@ export type UnwrapWebhookEvent =
   | CallBridgedWebhookEvent
   | CallConversationEndedWebhookEvent
   | CallConversationInsightsGeneratedWebhookEvent
+  | CallCostWebhookEvent
   | CallDtmfReceivedWebhookEvent
   | CallEnqueuedWebhookEvent
   | CallForkStartedWebhookEvent
@@ -5131,6 +5377,7 @@ export declare namespace Webhooks {
     type CallBridgedWebhookEvent as CallBridgedWebhookEvent,
     type CallConversationEndedWebhookEvent as CallConversationEndedWebhookEvent,
     type CallConversationInsightsGeneratedWebhookEvent as CallConversationInsightsGeneratedWebhookEvent,
+    type CallCostWebhookEvent as CallCostWebhookEvent,
     type CallDtmfReceivedWebhookEvent as CallDtmfReceivedWebhookEvent,
     type CallEnqueuedWebhookEvent as CallEnqueuedWebhookEvent,
     type CallForkStartedWebhookEvent as CallForkStartedWebhookEvent,

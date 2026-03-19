@@ -1085,6 +1085,8 @@ const fuse = new Fuse(
     'client.whatsappMessageTemplates.delete',
     'client.whatsappMessageTemplates.retrieve',
     'client.whatsappMessageTemplates.update',
+    'client.x402.creditAccount.createQuote',
+    'client.x402.creditAccount.settle',
     'client.voiceClones.create',
     'client.voiceClones.createFromUpload',
     'client.voiceClones.delete',
@@ -1098,9 +1100,6 @@ const fuse = new Fuse(
     'client.voiceDesigns.list',
     'client.voiceDesigns.rename',
     'client.voiceDesigns.retrieve',
-    'client.x402.creditAccount.createQuote',
-    'client.x402.creditAccount.settle',
-    'client.speechToText.transcribe',
   ],
   { threshold: 1, shouldSort: true },
 );
