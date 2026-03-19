@@ -2823,6 +2823,7 @@ Methods:
 - <code title="get /porting/loa_configurations">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">list</a>({ ...params }) -> PortingLoaConfigurationsDefaultFlatPagination</code>
 - <code title="delete /porting/loa_configurations/{id}">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">delete</a>(id) -> void</code>
 - <code title="post /porting/loa_configurations/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview</a>({ ...params }) -> Response</code>
+- <code title="post /porting/loa_configurations/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview0</a>({ ...params }) -> Response</code>
 - <code title="get /porting/loa_configurations/{id}/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview1</a>(id) -> Response</code>
 
 # PortingOrders
