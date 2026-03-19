@@ -2,6 +2,7 @@
 
 export {
   CallingSettings,
+  type WhatsappCallingSettingsData,
   type CallingSettingRetrieveResponse,
   type CallingSettingUpdateResponse,
   type CallingSettingUpdateParams,

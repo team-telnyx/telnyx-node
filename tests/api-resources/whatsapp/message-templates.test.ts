@@ -12,7 +12,7 @@ describe('resource messageTemplates', () => {
   test.skip('create: only required params', async () => {
     const responsePromise = client.whatsapp.messageTemplates.create({
       category: 'MARKETING',
-      components: [{}],
+      components: [{ foo: 'bar' }],
       language: 'language',
       name: 'name',
       waba_id: 'waba_id',
@@ -30,11 +30,35 @@ describe('resource messageTemplates', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.whatsapp.messageTemplates.create({
       category: 'MARKETING',
-      components: [{}],
+      components: [{ foo: 'bar' }],
       language: 'language',
       name: 'name',
       waba_id: 'waba_id',
     });
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve', async () => {
+    const responsePromise = client.whatsapp.messageTemplates.retrieve('id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('update', async () => {
+    const responsePromise = client.whatsapp.messageTemplates.update('id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled
@@ -65,5 +89,17 @@ describe('resource messageTemplates', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete', async () => {
+    const responsePromise = client.whatsapp.messageTemplates.delete('id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

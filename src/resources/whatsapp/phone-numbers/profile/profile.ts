@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
+import * as ModelsAPI from './models';
+import { Models } from './models';
 import * as PhotoAPI from './photo';
 import { Photo, PhotoUploadParams, PhotoUploadResponse } from './photo';
 import { APIPromise } from '../../../../core/api-promise';
@@ -12,6 +14,7 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Profile extends APIResource {
   photo: PhotoAPI.Photo = new PhotoAPI.Photo(this._client);
+  models: ModelsAPI.Models = new ModelsAPI.Models(this._client);
 
   /**
    * Get phone number business profile
@@ -139,6 +142,7 @@ export interface ProfileUpdateParams {
 }
 
 Profile.Photo = Photo;
+Profile.Models = Models;
 
 export declare namespace Profile {
   export {
@@ -152,4 +156,6 @@ export declare namespace Profile {
     type PhotoUploadResponse as PhotoUploadResponse,
     type PhotoUploadParams as PhotoUploadParams,
   };
+
+  export { Models as Models };
 }

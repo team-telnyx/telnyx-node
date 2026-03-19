@@ -33,6 +33,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">SimCardStatus</a></code>
 - <code><a href="./src/resources/shared.ts">SimpleSimCard</a></code>
 - <code><a href="./src/resources/shared.ts">SubNumberOrderRegulatoryRequirementWithValue</a></code>
+- <code><a href="./src/resources/shared.ts">WhatsappTemplateData</a></code>
 
 # Legacy
 
@@ -2822,6 +2823,7 @@ Methods:
 - <code title="get /porting/loa_configurations">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">list</a>({ ...params }) -> PortingLoaConfigurationsDefaultFlatPagination</code>
 - <code title="delete /porting/loa_configurations/{id}">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">delete</a>(id) -> void</code>
 - <code title="post /porting/loa_configurations/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview</a>({ ...params }) -> Response</code>
+- <code title="post /porting/loa_configurations/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview0</a>({ ...params }) -> Response</code>
 - <code title="get /porting/loa_configurations/{id}/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview1</a>(id) -> Response</code>
 
 # PortingOrders
@@ -3527,6 +3529,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/sim-cards/actions.ts">BulkSimCardAction</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">SimCardAction</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionRetrieveResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionBulkDisableVoiceResponse</a></code>
@@ -4527,6 +4530,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/whatsapp/business-accounts/settings.ts">WabaSettings</a></code>
 - <code><a href="./src/resources/whatsapp/business-accounts/settings.ts">SettingRetrieveResponse</a></code>
 - <code><a href="./src/resources/whatsapp/business-accounts/settings.ts">SettingUpdateResponse</a></code>
 
@@ -4540,12 +4544,16 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/whatsapp/message-templates.ts">MessageTemplateCreateResponse</a></code>
-- <code><a href="./src/resources/whatsapp/message-templates.ts">MessageTemplateListResponse</a></code>
+- <code><a href="./src/resources/whatsapp/message-templates.ts">MessageTemplateRetrieveResponse</a></code>
+- <code><a href="./src/resources/whatsapp/message-templates.ts">MessageTemplateUpdateResponse</a></code>
 
 Methods:
 
 - <code title="post /v2/whatsapp/message_templates">client.whatsapp.messageTemplates.<a href="./src/resources/whatsapp/message-templates.ts">create</a>({ ...params }) -> MessageTemplateCreateResponse</code>
-- <code title="get /v2/whatsapp/message_templates">client.whatsapp.messageTemplates.<a href="./src/resources/whatsapp/message-templates.ts">list</a>({ ...params }) -> MessageTemplateListResponsesDefaultFlatPagination</code>
+- <code title="get /v2/whatsapp_message_templates/{id}">client.whatsapp.messageTemplates.<a href="./src/resources/whatsapp/message-templates.ts">retrieve</a>(id) -> MessageTemplateRetrieveResponse</code>
+- <code title="patch /v2/whatsapp_message_templates/{id}">client.whatsapp.messageTemplates.<a href="./src/resources/whatsapp/message-templates.ts">update</a>(id, { ...params }) -> MessageTemplateUpdateResponse</code>
+- <code title="get /v2/whatsapp/message_templates">client.whatsapp.messageTemplates.<a href="./src/resources/whatsapp/message-templates.ts">list</a>({ ...params }) -> WhatsappTemplateDataDefaultFlatPagination</code>
+- <code title="delete /v2/whatsapp_message_templates/{id}">client.whatsapp.messageTemplates.<a href="./src/resources/whatsapp/message-templates.ts">delete</a>(id) -> void</code>
 
 ## PhoneNumbers
 
@@ -4564,6 +4572,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/whatsapp/phone-numbers/calling-settings.ts">WhatsappCallingSettingsData</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/calling-settings.ts">CallingSettingRetrieveResponse</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/calling-settings.ts">CallingSettingUpdateResponse</a></code>
 
@@ -4595,18 +4604,7 @@ Methods:
 - <code title="delete /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">delete</a>(phoneNumber) -> void</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">upload</a>(phoneNumber, { ...params }) -> PhotoUploadResponse</code>
 
-# WhatsappMessageTemplates
-
-Types:
-
-- <code><a href="./src/resources/whatsapp-message-templates.ts">WhatsappMessageTemplateRetrieveResponse</a></code>
-- <code><a href="./src/resources/whatsapp-message-templates.ts">WhatsappMessageTemplateUpdateResponse</a></code>
-
-Methods:
-
-- <code title="get /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">retrieve</a>(id) -> WhatsappMessageTemplateRetrieveResponse</code>
-- <code title="patch /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">update</a>(id, { ...params }) -> WhatsappMessageTemplateUpdateResponse</code>
-- <code title="delete /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">delete</a>(id) -> void</code>
+#### Models
 
 # X402
 
