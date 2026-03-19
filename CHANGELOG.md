@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.22.1 (2026-03-19)
+
+Full Changelog: [v6.22.0...v6.22.1](https://github.com/team-telnyx/telnyx-node/compare/v6.22.0...v6.22.1)
+
+### Chores
+
+* **internal:** refactor imports ([d9db381](https://github.com/team-telnyx/telnyx-node/commit/d9db3814086e401aeae37bfbef7fbb15533dea41))
+
 ## 6.22.0 (2026-03-19)
 
 Full Changelog: [v6.21.0...v6.22.0](https://github.com/team-telnyx/telnyx-node/compare/v6.21.0...v6.22.0)
