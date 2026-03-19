@@ -17,6 +17,7 @@ export {
 } from './phone-numbers';
 export {
   Profile,
+  type WhatsappProfileData,
   type ProfileRetrieveResponse,
   type ProfileUpdateResponse,
   type ProfileUpdateParams,

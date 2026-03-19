@@ -15,6 +15,7 @@ import {
   ProfileRetrieveResponse,
   ProfileUpdateParams,
   ProfileUpdateResponse,
+  WhatsappProfileData,
 } from './profile/profile';
 import { APIPromise } from '../../../core/api-promise';
 import {
@@ -184,6 +185,7 @@ export declare namespace PhoneNumbers {
 
   export {
     Profile as Profile,
+    type WhatsappProfileData as WhatsappProfileData,
     type ProfileRetrieveResponse as ProfileRetrieveResponse,
     type ProfileUpdateResponse as ProfileUpdateResponse,
     type ProfileUpdateParams as ProfileUpdateParams,
