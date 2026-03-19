@@ -157,68 +157,70 @@ export class VoiceDesigns extends APIResource {
 export type VoiceDesignListResponsesDefaultFlatPagination = DefaultFlatPagination<VoiceDesignListResponse>;
 
 /**
- * A voice design object with full version detail.
- */
-export interface VoiceDesignData {
-  /**
-   * Unique identifier for the voice design.
-   */
-  id?: string;
-
-  /**
-   * Timestamp when the voice design was first created.
-   */
-  created_at?: string;
-
-  /**
-   * Name of the voice design.
-   */
-  name?: string;
-
-  /**
-   * Natural language prompt used to define the voice style for this version.
-   */
-  prompt?: string;
-
-  /**
-   * Identifies the resource type.
-   */
-  record_type?: 'voice_design';
-
-  /**
-   * Sample text used to synthesize this version.
-   */
-  text?: string;
-
-  /**
-   * Timestamp when the voice design was last updated.
-   */
-  updated_at?: string;
-
-  /**
-   * Version number of this voice design.
-   */
-  version?: number;
-
-  /**
-   * Timestamp when this specific version was created.
-   */
-  version_created_at?: string;
-
-  /**
-   * Size of the voice sample audio in bytes.
-   */
-  voice_sample_size?: number;
-}
-
-/**
  * Response envelope for a single voice design with full version detail.
  */
 export interface VoiceDesignCreateResponse {
   /**
    * A voice design object with full version detail.
    */
-  data?: VoiceDesignData;
+  data?: VoiceDesignCreateResponse.Data;
+}
+
+export namespace VoiceDesignCreateResponse {
+  /**
+   * A voice design object with full version detail.
+   */
+  export interface Data {
+    /**
+     * Unique identifier for the voice design.
+     */
+    id?: string;
+
+    /**
+     * Timestamp when the voice design was first created.
+     */
+    created_at?: string;
+
+    /**
+     * Name of the voice design.
+     */
+    name?: string;
+
+    /**
+     * Natural language prompt used to define the voice style for this version.
+     */
+    prompt?: string;
+
+    /**
+     * Identifies the resource type.
+     */
+    record_type?: 'voice_design';
+
+    /**
+     * Sample text used to synthesize this version.
+     */
+    text?: string;
+
+    /**
+     * Timestamp when the voice design was last updated.
+     */
+    updated_at?: string;
+
+    /**
+     * Version number of this voice design.
+     */
+    version?: number;
+
+    /**
+     * Timestamp when this specific version was created.
+     */
+    version_created_at?: string;
+
+    /**
+     * Size of the voice sample audio in bytes.
+     */
+    voice_sample_size?: number;
+  }
 }
 
 /**
@@ -228,7 +230,64 @@ export interface VoiceDesignRetrieveResponse {
   /**
    * A voice design object with full version detail.
    */
-  data?: VoiceDesignData;
+  data?: VoiceDesignRetrieveResponse.Data;
+}
+
+export namespace VoiceDesignRetrieveResponse {
+  /**
+   * A voice design object with full version detail.
+   */
+  export interface Data {
+    /**
+     * Unique identifier for the voice design.
+     */
+    id?: string;
+
+    /**
+     * Timestamp when the voice design was first created.
+     */
+    created_at?: string;
+
+    /**
+     * Name of the voice design.
+     */
+    name?: string;
+
+    /**
+     * Natural language prompt used to define the voice style for this version.
+     */
+    prompt?: string;
+
+    /**
+     * Identifies the resource type.
+     */
+    record_type?: 'voice_design';
+
+    /**
+     * Sample text used to synthesize this version.
+     */
+    text?: string;
+
+    /**
+     * Timestamp when the voice design was last updated.
+     */
+    updated_at?: string;
+
+    /**
+     * Version number of this voice design.
+     */
+    version?: number;
+
+    /**
+     * Timestamp when this specific version was created.
+     */
+    version_created_at?: string;
+
+    /**
+     * Size of the voice sample audio in bytes.
+     */
+    voice_sample_size?: number;
+  }
 }
 
 /**
@@ -408,7 +467,6 @@ export interface VoiceDesignRenameParams {
 
 export declare namespace VoiceDesigns {
   export {
-    type VoiceDesignData as VoiceDesignData,
     type VoiceDesignCreateResponse as VoiceDesignCreateResponse,
     type VoiceDesignRetrieveResponse as VoiceDesignRetrieveResponse,
     type VoiceDesignListResponse as VoiceDesignListResponse,

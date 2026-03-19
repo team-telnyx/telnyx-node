@@ -18,12 +18,16 @@ export class TextToSpeech extends APIResource {
    * header.
    *
    * The `voice` parameter provides a convenient shorthand to specify provider,
-   * model, and voice in a single string (e.g. `telnyx.NaturalHD.Alloy`).
-   * Alternatively, specify `provider` explicitly along with provider-specific
-   * parameters.
+   * model, and voice in a single string (e.g. `telnyx.NaturalHD.Alloy` or
+   * `Telnyx.Ultra.<voice_id>`). Alternatively, specify `provider` explicitly along
+   * with provider-specific parameters.
    *
    * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`,
    * `resemble`, `inworld`.
+   *
+   * The Telnyx `Ultra` model supports 44 languages with emotion control, speed
+   * adjustment, and volume control. Use the `telnyx` provider-specific parameters to
+   * configure these features.
    */
   generate(
     body: TextToSpeechGenerateParams,
@@ -290,7 +294,9 @@ export interface TextToSpeechGenerateParams {
   rime?: TextToSpeechGenerateParams.Rime;
 
   /**
-   * Telnyx provider-specific parameters.
+   * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for
+   * `Natural` and `NaturalHD` models. For the `Ultra` model, use `voice_speed`,
+   * `volume`, and `emotion`.
    */
   telnyx?: TextToSpeechGenerateParams.Telnyx;
 
@@ -307,9 +313,10 @@ export interface TextToSpeechGenerateParams {
   /**
    * Voice identifier in the format `provider.model_id.voice_id` or
    * `provider.voice_id`. Examples: `telnyx.NaturalHD.Alloy`,
-   * `azure.en-US-AvaMultilingualNeural`, `aws.Polly.Generative.Lucia`. When
-   * provided, `provider`, `model_id`, and `voice_id` are extracted automatically and
-   * take precedence over individual parameters.
+   * `Telnyx.Ultra.<voice_id>`, `azure.en-US-AvaMultilingualNeural`,
+   * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and
+   * `voice_id` are extracted automatically and take precedence over individual
+   * parameters.
    */
   voice?: string;
 
@@ -492,9 +499,17 @@ export namespace TextToSpeechGenerateParams {
   }
 
   /**
-   * Telnyx provider-specific parameters.
+   * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for
+   * `Natural` and `NaturalHD` models. For the `Ultra` model, use `voice_speed`,
+   * `volume`, and `emotion`.
    */
   export interface Telnyx {
+    /**
+     * Emotion control for the Ultra model. Adjusts the emotional tone of the
+     * synthesized speech.
+     */
+    emotion?: 'neutral' | 'happy' | 'sad' | 'angry' | 'fearful' | 'disgusted' | 'surprised';
+
     /**
      * Audio response format.
      */
@@ -506,14 +521,19 @@ export namespace TextToSpeechGenerateParams {
     sampling_rate?: number;
 
     /**
-     * Sampling temperature.
+     * Sampling temperature. Applies to `Natural` and `NaturalHD` models only.
      */
     temperature?: number;
 
     /**
-     * Voice speed multiplier.
+     * Voice speed multiplier. Applies to all models. Range: 0.5 to 2.0.
      */
     voice_speed?: number;
+
+    /**
+     * Volume level for the Ultra model. Range: 0.0 to 2.0.
+     */
+    volume?: number;
   }
 }
 

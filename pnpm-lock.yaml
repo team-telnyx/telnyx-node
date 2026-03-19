@@ -28,7 +28,11 @@ importers:
         version: 29.5.14
       '@types/node':
         specifier: ^20.17.6
+
         version: 20.19.37
+=======
+        version: 20.19.11
+
       '@types/ws':
         specifier: ^8.5.13
         version: 8.18.1
@@ -79,7 +83,11 @@ importers:
         version: 5.8.3
       typescript-eslint:
         specifier: 8.31.1
+
         version: 8.31.1(eslint@9.39.4)(typescript@5.8.3)
+=======
+        version: 8.31.1(eslint@9.39.1)(typescript@5.8.3)
+
       ws:
         specifier: ^8.18.3
         version: 8.19.0
@@ -1336,6 +1344,9 @@ packages:
       {
         integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==,
       }
+
+  '@types/ws@8.18.1':
+    resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
 
   '@types/yargs-parser@21.0.3':
     resolution:
@@ -4560,6 +4571,18 @@ packages:
       utf-8-validate:
         optional: true
 
+  ws@8.19.0:
+    resolution: {integrity: sha512-blAT2mjOEIi0ZzruJfIhb3nps74PRWTCz1IjglWEEpQl5XS/UNama6u2/rjFkDDouqr4L67ry+1aGIALViWjDg==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+
   y18n@5.0.8:
     resolution:
       {
@@ -5533,7 +5556,11 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
+
       '@types/node': 20.19.37
+=======
+      '@types/node': 20.19.11
+
 
   '@types/yargs-parser@21.0.3': {}
 

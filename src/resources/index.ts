@@ -1196,9 +1196,10 @@ export {
   TextToSpeechWS,
   type TextToSpeechGenerateResponse,
   type TextToSpeechListVoicesResponse,
+  type StreamClientEvent,
+  type StreamServerEvent,
   type TextToSpeechGenerateParams,
   type TextToSpeechListVoicesParams,
-  type TextToSpeechStreamParams,
 } from './text-to-speech';
 export {
   UsageReports,
@@ -1270,19 +1271,18 @@ export {
 } from './virtual-cross-connects-coverage';
 export {
   VoiceClones,
-  type VoiceCloneData,
-  type VoiceCloneCreateResponse,
   type VoiceCloneUpdateResponse,
+  type VoiceCloneListResponse,
+  type VoiceCloneCreateFromDesignResponse,
   type VoiceCloneCreateFromUploadResponse,
-  type VoiceCloneCreateParams,
   type VoiceCloneUpdateParams,
   type VoiceCloneListParams,
+  type VoiceCloneCreateFromDesignParams,
   type VoiceCloneCreateFromUploadParams,
-  type VoiceCloneDataDefaultFlatPagination,
+  type VoiceCloneListResponsesDefaultFlatPagination,
 } from './voice-clones';
 export {
   VoiceDesigns,
-  type VoiceDesignData,
   type VoiceDesignCreateResponse,
   type VoiceDesignRetrieveResponse,
   type VoiceDesignListResponse,
