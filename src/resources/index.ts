@@ -1271,13 +1271,13 @@ export {
 } from './virtual-cross-connects-coverage';
 export {
   VoiceClones,
+  type VoiceCloneCreateResponse,
   type VoiceCloneUpdateResponse,
   type VoiceCloneListResponse,
-  type VoiceCloneCreateFromDesignResponse,
   type VoiceCloneCreateFromUploadResponse,
+  type VoiceCloneCreateParams,
   type VoiceCloneUpdateParams,
   type VoiceCloneListParams,
-  type VoiceCloneCreateFromDesignParams,
   type VoiceCloneCreateFromUploadParams,
   type VoiceCloneListResponsesDefaultFlatPagination,
 } from './voice-clones';
@@ -1373,6 +1373,7 @@ export {
   type CallBridgedWebhookEvent,
   type CallConversationEndedWebhookEvent,
   type CallConversationInsightsGeneratedWebhookEvent,
+  type CallCostWebhookEvent,
   type CallDtmfReceivedWebhookEvent,
   type CallEnqueuedWebhookEvent,
   type CallForkStartedWebhookEvent,
