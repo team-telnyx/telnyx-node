@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.21.0 (2026-03-19)
+
+Full Changelog: [v6.20.0...v6.21.0](https://github.com/team-telnyx/telnyx-node/compare/v6.20.0...v6.21.0)
+
+### Features
+
+* **wireless:** add traffic policy profiles endpoints to OpenAPI spec ([d2b7297](https://github.com/team-telnyx/telnyx-node/commit/d2b7297e25ce5e9a83a859159828f7c57d316331))
+
 ## 6.20.0 (2026-03-19)
 
 Full Changelog: [v6.19.0...v6.20.0](https://github.com/team-telnyx/telnyx-node/compare/v6.19.0...v6.20.0)

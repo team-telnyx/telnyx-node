@@ -49,6 +49,24 @@ export class VoiceDesigns extends APIResource {
   }
 
   /**
+   * Updates the name of a voice design. All versions retain their other properties.
+   *
+   * @example
+   * ```ts
+   * const voiceDesign = await client.voiceDesigns.update('id', {
+   *   name: 'updated-narrator',
+   * });
+   * ```
+   */
+  update(
+    id: string,
+    body: VoiceDesignUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<VoiceDesignUpdateResponse> {
+    return this._client.patch(path`/voice_designs/${id}`, { body, ...options });
+  }
+
+  /**
    * Returns a paginated list of voice designs belonging to the authenticated
    * account.
    *
@@ -133,24 +151,6 @@ export class VoiceDesigns extends APIResource {
       headers: buildHeaders([{ Accept: 'audio/wav' }, options?.headers]),
       __binaryResponse: true,
     });
-  }
-
-  /**
-   * Updates the name of a voice design. All versions retain their other properties.
-   *
-   * @example
-   * ```ts
-   * const response = await client.voiceDesigns.rename('id', {
-   *   name: 'updated-narrator',
-   * });
-   * ```
-   */
-  rename(
-    id: string,
-    body: VoiceDesignRenameParams,
-    options?: RequestOptions,
-  ): APIPromise<VoiceDesignRenameResponse> {
-    return this._client.patch(path`/voice_designs/${id}`, { body, ...options });
   }
 }
 
@@ -291,47 +291,17 @@ export namespace VoiceDesignRetrieveResponse {
 }
 
 /**
- * A summarized voice design object (without version-specific fields).
- */
-export interface VoiceDesignListResponse {
-  /**
-   * Unique identifier for the voice design.
-   */
-  id?: string;
-
-  /**
-   * Timestamp when the voice design was first created.
-   */
-  created_at?: string;
-
-  /**
-   * Name of the voice design.
-   */
-  name?: string;
-
-  /**
-   * Identifies the resource type.
-   */
-  record_type?: 'voice_design';
-
-  /**
-   * Timestamp when the voice design was last updated.
-   */
-  updated_at?: string;
-}
-
-/**
  * Response envelope for a voice design after a rename operation (no
  * version-specific fields).
  */
-export interface VoiceDesignRenameResponse {
+export interface VoiceDesignUpdateResponse {
   /**
    * A summarized voice design object (without version-specific fields).
    */
-  data?: VoiceDesignRenameResponse.Data;
+  data?: VoiceDesignUpdateResponse.Data;
 }
 
-export namespace VoiceDesignRenameResponse {
+export namespace VoiceDesignUpdateResponse {
   /**
    * A summarized voice design object (without version-specific fields).
    */
@@ -361,6 +331,36 @@ export namespace VoiceDesignRenameResponse {
      */
     updated_at?: string;
   }
+}
+
+/**
+ * A summarized voice design object (without version-specific fields).
+ */
+export interface VoiceDesignListResponse {
+  /**
+   * Unique identifier for the voice design.
+   */
+  id?: string;
+
+  /**
+   * Timestamp when the voice design was first created.
+   */
+  created_at?: string;
+
+  /**
+   * Name of the voice design.
+   */
+  name?: string;
+
+  /**
+   * Identifies the resource type.
+   */
+  record_type?: 'voice_design';
+
+  /**
+   * Timestamp when the voice design was last updated.
+   */
+  updated_at?: string;
 }
 
 export interface VoiceDesignCreateParams {
@@ -431,6 +431,13 @@ export interface VoiceDesignRetrieveParams {
   version?: number;
 }
 
+export interface VoiceDesignUpdateParams {
+  /**
+   * New name for the voice design.
+   */
+  name: string;
+}
+
 export interface VoiceDesignListParams extends DefaultFlatPaginationParams {
   /**
    * Case-insensitive substring filter on the name field.
@@ -458,25 +465,18 @@ export interface VoiceDesignDownloadSampleParams {
   version?: number;
 }
 
-export interface VoiceDesignRenameParams {
-  /**
-   * New name for the voice design.
-   */
-  name: string;
-}
-
 export declare namespace VoiceDesigns {
   export {
     type VoiceDesignCreateResponse as VoiceDesignCreateResponse,
     type VoiceDesignRetrieveResponse as VoiceDesignRetrieveResponse,
+    type VoiceDesignUpdateResponse as VoiceDesignUpdateResponse,
     type VoiceDesignListResponse as VoiceDesignListResponse,
-    type VoiceDesignRenameResponse as VoiceDesignRenameResponse,
     type VoiceDesignListResponsesDefaultFlatPagination as VoiceDesignListResponsesDefaultFlatPagination,
     type VoiceDesignCreateParams as VoiceDesignCreateParams,
     type VoiceDesignRetrieveParams as VoiceDesignRetrieveParams,
+    type VoiceDesignUpdateParams as VoiceDesignUpdateParams,
     type VoiceDesignListParams as VoiceDesignListParams,
     type VoiceDesignDeleteVersionParams as VoiceDesignDeleteVersionParams,
     type VoiceDesignDownloadSampleParams as VoiceDesignDownloadSampleParams,
-    type VoiceDesignRenameParams as VoiceDesignRenameParams,
   };
 }

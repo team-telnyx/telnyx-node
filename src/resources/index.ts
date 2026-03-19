@@ -1202,6 +1202,21 @@ export {
   type TextToSpeechListVoicesParams,
 } from './text-to-speech';
 export {
+  TrafficPolicyProfiles,
+  type TrafficPolicyProfileCreateResponse,
+  type TrafficPolicyProfileRetrieveResponse,
+  type TrafficPolicyProfileUpdateResponse,
+  type TrafficPolicyProfileListResponse,
+  type TrafficPolicyProfileDeleteResponse,
+  type TrafficPolicyProfileListServicesResponse,
+  type TrafficPolicyProfileCreateParams,
+  type TrafficPolicyProfileUpdateParams,
+  type TrafficPolicyProfileListParams,
+  type TrafficPolicyProfileListServicesParams,
+  type TrafficPolicyProfileListResponsesDefaultFlatPagination,
+  type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
+} from './traffic-policy-profiles';
+export {
   UsageReports,
   type UsageReportListResponse,
   type UsageReportGetOptionsResponse,
@@ -1285,14 +1300,14 @@ export {
   VoiceDesigns,
   type VoiceDesignCreateResponse,
   type VoiceDesignRetrieveResponse,
+  type VoiceDesignUpdateResponse,
   type VoiceDesignListResponse,
-  type VoiceDesignRenameResponse,
   type VoiceDesignCreateParams,
   type VoiceDesignRetrieveParams,
+  type VoiceDesignUpdateParams,
   type VoiceDesignListParams,
   type VoiceDesignDeleteVersionParams,
   type VoiceDesignDownloadSampleParams,
-  type VoiceDesignRenameParams,
   type VoiceDesignListResponsesDefaultFlatPagination,
 } from './voice-designs';
 export {

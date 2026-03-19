@@ -11,12 +11,11 @@ export {
   PhoneNumbers,
   type PhoneNumberListResponse,
   type PhoneNumberListParams,
-  type PhoneNumberInitializeVerificationParams,
+  type PhoneNumberCreateVerificationParams,
   type PhoneNumberListResponsesDefaultFlatPagination,
 } from './phone-numbers';
 export {
   Settings,
-  type WabaSettings,
   type SettingRetrieveResponse,
   type SettingUpdateResponse,
   type SettingUpdateParams,

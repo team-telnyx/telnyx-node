@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
@@ -41,17 +40,91 @@ export class WhatsappMessageTemplates extends APIResource {
 }
 
 export interface WhatsappMessageTemplateRetrieveResponse {
-  data?: Shared.WhatsappTemplateData;
+  data?: WhatsappMessageTemplateRetrieveResponse.Data;
+}
+
+export namespace WhatsappMessageTemplateRetrieveResponse {
+  export interface Data {
+    id?: string;
+
+    category?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
+
+    /**
+     * Whatsapp template components (header, body, footer, buttons)
+     */
+    components?: Array<unknown>;
+
+    created_at?: string;
+
+    language?: string;
+
+    name?: string;
+
+    record_type?: string;
+
+    rejection_reason?: string;
+
+    status?: string;
+
+    template_id?: string;
+
+    updated_at?: string;
+
+    whatsapp_business_account?: Data.WhatsappBusinessAccount;
+  }
+
+  export namespace Data {
+    export interface WhatsappBusinessAccount {
+      id?: string;
+    }
+  }
 }
 
 export interface WhatsappMessageTemplateUpdateResponse {
-  data?: Shared.WhatsappTemplateData;
+  data?: WhatsappMessageTemplateUpdateResponse.Data;
+}
+
+export namespace WhatsappMessageTemplateUpdateResponse {
+  export interface Data {
+    id?: string;
+
+    category?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
+
+    /**
+     * Whatsapp template components (header, body, footer, buttons)
+     */
+    components?: Array<unknown>;
+
+    created_at?: string;
+
+    language?: string;
+
+    name?: string;
+
+    record_type?: string;
+
+    rejection_reason?: string;
+
+    status?: string;
+
+    template_id?: string;
+
+    updated_at?: string;
+
+    whatsapp_business_account?: Data.WhatsappBusinessAccount;
+  }
+
+  export namespace Data {
+    export interface WhatsappBusinessAccount {
+      id?: string;
+    }
+  }
 }
 
 export interface WhatsappMessageTemplateUpdateParams {
   category?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
 
-  components?: Array<{ [key: string]: unknown }>;
+  components?: Array<unknown>;
 }
 
 export declare namespace WhatsappMessageTemplates {

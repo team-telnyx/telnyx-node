@@ -4,10 +4,10 @@ import { APIResource } from '../../core/resource';
 import * as CreditAccountAPI from './credit-account';
 import {
   CreditAccount,
-  CreditAccountCreateQuoteParams,
-  CreditAccountCreateQuoteResponse,
-  CreditAccountSettleParams,
-  CreditAccountSettleResponse,
+  CreditAccountCreatePaymentQuoteParams,
+  CreditAccountCreatePaymentQuoteResponse,
+  CreditAccountSettlePaymentParams,
+  CreditAccountSettlePaymentResponse,
 } from './credit-account';
 
 export class X402 extends APIResource {
@@ -19,9 +19,9 @@ X402.CreditAccount = CreditAccount;
 export declare namespace X402 {
   export {
     CreditAccount as CreditAccount,
-    type CreditAccountCreateQuoteResponse as CreditAccountCreateQuoteResponse,
-    type CreditAccountSettleResponse as CreditAccountSettleResponse,
-    type CreditAccountCreateQuoteParams as CreditAccountCreateQuoteParams,
-    type CreditAccountSettleParams as CreditAccountSettleParams,
+    type CreditAccountCreatePaymentQuoteResponse as CreditAccountCreatePaymentQuoteResponse,
+    type CreditAccountSettlePaymentResponse as CreditAccountSettlePaymentResponse,
+    type CreditAccountCreatePaymentQuoteParams as CreditAccountCreatePaymentQuoteParams,
+    type CreditAccountSettlePaymentParams as CreditAccountSettlePaymentParams,
   };
 }
