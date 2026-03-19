@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.20.0 (2026-03-19)
+
+Full Changelog: [v6.19.0...v6.20.0](https://github.com/team-telnyx/telnyx-node/compare/v6.19.0...v6.20.0)
+
+### Features
+
+* **api:** manual updates ([21e8619](https://github.com/team-telnyx/telnyx-node/commit/21e86193937367e3c3b8376a7b875a186882cf93))
+* TELAPPS-5668: Add call.cost webhook event documentation ([7c0f271](https://github.com/team-telnyx/telnyx-node/commit/7c0f271636b2f5296b5d52980cd5b9c7841f1a08))
+
+
+### Documentation
+
+* **tts:** Add Telnyx.Ultra model documentation ([850649e](https://github.com/team-telnyx/telnyx-node/commit/850649e49148cd587187c336e9844292d6961e4e))
+
 ## 6.19.0 (2026-03-18)
 
 Full Changelog: [v6.18.0...v6.19.0](https://github.com/team-telnyx/telnyx-node/compare/v6.18.0...v6.19.0)
