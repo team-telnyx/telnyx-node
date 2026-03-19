@@ -14,6 +14,24 @@ import { path } from '../internal/utils/path';
  */
 export class VoiceClones extends APIResource {
   /**
+   * Creates a new voice clone by capturing the voice identity of an existing voice
+   * design. The clone can then be used for text-to-speech synthesis.
+   *
+   * @example
+   * ```ts
+   * const voiceClone = await client.voiceClones.create({
+   *   gender: 'male',
+   *   language: 'en',
+   *   name: 'clone-narrator',
+   *   voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
+   * });
+   * ```
+   */
+  create(body: VoiceCloneCreateParams, options?: RequestOptions): APIPromise<VoiceCloneCreateResponse> {
+    return this._client.post('/voice_clones', { body, ...options });
+  }
+
+  /**
    * Updates the name, language, or gender of a voice clone.
    *
    * @example
@@ -71,27 +89,6 @@ export class VoiceClones extends APIResource {
   }
 
   /**
-   * Creates a new voice clone by capturing the voice identity of an existing voice
-   * design. The clone can then be used for text-to-speech synthesis.
-   *
-   * @example
-   * ```ts
-   * const response = await client.voiceClones.createFromDesign({
-   *   gender: 'male',
-   *   language: 'en',
-   *   name: 'clone-narrator',
-   *   voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
-   * });
-   * ```
-   */
-  createFromDesign(
-    body: VoiceCloneCreateFromDesignParams,
-    options?: RequestOptions,
-  ): APIPromise<VoiceCloneCreateFromDesignResponse> {
-    return this._client.post('/voice_clones', { body, ...options });
-  }
-
-  /**
    * Creates a new voice clone by uploading an audio file directly. Supported
    * formats: WAV, MP3, FLAC, OGG, M4A. For best results, provide 5–10 seconds of
    * clear speech. Maximum file size: 2MB.
@@ -138,6 +135,74 @@ export class VoiceClones extends APIResource {
 }
 
 export type VoiceCloneListResponsesDefaultFlatPagination = DefaultFlatPagination<VoiceCloneListResponse>;
+
+/**
+ * Response envelope for a single voice clone.
+ */
+export interface VoiceCloneCreateResponse {
+  /**
+   * A voice clone object.
+   */
+  data?: VoiceCloneCreateResponse.Data;
+}
+
+export namespace VoiceCloneCreateResponse {
+  /**
+   * A voice clone object.
+   */
+  export interface Data {
+    /**
+     * Unique identifier for the voice clone.
+     */
+    id?: string;
+
+    /**
+     * Timestamp when the voice clone was created.
+     */
+    created_at?: string;
+
+    /**
+     * Gender of the voice clone.
+     */
+    gender?: 'male' | 'female' | 'neutral' | null;
+
+    /**
+     * Voice style description. If not explicitly set on upload, falls back to the
+     * source design's prompt text.
+     */
+    label?: string | null;
+
+    /**
+     * ISO 639-1 language code of the voice clone.
+     */
+    language?: string | null;
+
+    /**
+     * Name of the voice clone.
+     */
+    name?: string;
+
+    /**
+     * Identifies the resource type.
+     */
+    record_type?: 'voice_clone';
+
+    /**
+     * UUID of the source voice design. `null` for upload-based clones.
+     */
+    source_voice_design_id?: string | null;
+
+    /**
+     * Version of the source voice design used. `null` for upload-based clones.
+     */
+    source_voice_design_version?: number | null;
+
+    /**
+     * Timestamp when the voice clone was last updated.
+     */
+    updated_at?: string;
+  }
+}
 
 /**
  * Response envelope for a single voice clone.
@@ -266,74 +331,6 @@ export interface VoiceCloneListResponse {
 /**
  * Response envelope for a single voice clone.
  */
-export interface VoiceCloneCreateFromDesignResponse {
-  /**
-   * A voice clone object.
-   */
-  data?: VoiceCloneCreateFromDesignResponse.Data;
-}
-
-export namespace VoiceCloneCreateFromDesignResponse {
-  /**
-   * A voice clone object.
-   */
-  export interface Data {
-    /**
-     * Unique identifier for the voice clone.
-     */
-    id?: string;
-
-    /**
-     * Timestamp when the voice clone was created.
-     */
-    created_at?: string;
-
-    /**
-     * Gender of the voice clone.
-     */
-    gender?: 'male' | 'female' | 'neutral' | null;
-
-    /**
-     * Voice style description. If not explicitly set on upload, falls back to the
-     * source design's prompt text.
-     */
-    label?: string | null;
-
-    /**
-     * ISO 639-1 language code of the voice clone.
-     */
-    language?: string | null;
-
-    /**
-     * Name of the voice clone.
-     */
-    name?: string;
-
-    /**
-     * Identifies the resource type.
-     */
-    record_type?: 'voice_clone';
-
-    /**
-     * UUID of the source voice design. `null` for upload-based clones.
-     */
-    source_voice_design_id?: string | null;
-
-    /**
-     * Version of the source voice design used. `null` for upload-based clones.
-     */
-    source_voice_design_version?: number | null;
-
-    /**
-     * Timestamp when the voice clone was last updated.
-     */
-    updated_at?: string;
-  }
-}
-
-/**
- * Response envelope for a single voice clone.
- */
 export interface VoiceCloneCreateFromUploadResponse {
   /**
    * A voice clone object.
@@ -399,6 +396,28 @@ export namespace VoiceCloneCreateFromUploadResponse {
   }
 }
 
+export interface VoiceCloneCreateParams {
+  /**
+   * Gender of the voice clone.
+   */
+  gender: 'male' | 'female' | 'neutral';
+
+  /**
+   * ISO 639-1 language code for the clone (e.g. `en`, `fr`, `de`).
+   */
+  language: string;
+
+  /**
+   * Name for the voice clone.
+   */
+  name: string;
+
+  /**
+   * UUID of the source voice design to clone.
+   */
+  voice_design_id: string;
+}
+
 export interface VoiceCloneUpdateParams {
   /**
    * New name for the voice clone.
@@ -426,28 +445,6 @@ export interface VoiceCloneListParams extends DefaultFlatPaginationParams {
    * Sort order. Prefix with `-` for descending. Defaults to `-created_at`.
    */
   sort?: 'name' | '-name' | 'created_at' | '-created_at';
-}
-
-export interface VoiceCloneCreateFromDesignParams {
-  /**
-   * Gender of the voice clone.
-   */
-  gender: 'male' | 'female' | 'neutral';
-
-  /**
-   * ISO 639-1 language code for the clone (e.g. `en`, `fr`, `de`).
-   */
-  language: string;
-
-  /**
-   * Name for the voice clone.
-   */
-  name: string;
-
-  /**
-   * UUID of the source voice design to clone.
-   */
-  voice_design_id: string;
 }
 
 export interface VoiceCloneCreateFromUploadParams {
@@ -487,14 +484,14 @@ export interface VoiceCloneCreateFromUploadParams {
 
 export declare namespace VoiceClones {
   export {
+    type VoiceCloneCreateResponse as VoiceCloneCreateResponse,
     type VoiceCloneUpdateResponse as VoiceCloneUpdateResponse,
     type VoiceCloneListResponse as VoiceCloneListResponse,
-    type VoiceCloneCreateFromDesignResponse as VoiceCloneCreateFromDesignResponse,
     type VoiceCloneCreateFromUploadResponse as VoiceCloneCreateFromUploadResponse,
     type VoiceCloneListResponsesDefaultFlatPagination as VoiceCloneListResponsesDefaultFlatPagination,
+    type VoiceCloneCreateParams as VoiceCloneCreateParams,
     type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
     type VoiceCloneListParams as VoiceCloneListParams,
-    type VoiceCloneCreateFromDesignParams as VoiceCloneCreateFromDesignParams,
     type VoiceCloneCreateFromUploadParams as VoiceCloneCreateFromUploadParams,
   };
 }

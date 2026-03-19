@@ -5891,6 +5891,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/x402/credit_account',
   },
   {
+    clientCallName: 'client.voiceClones.create',
+    fullyQualifiedName: 'voiceClones.create',
+    httpMethod: 'post',
+    httpPath: '/voice_clones',
+  },
+  {
     clientCallName: 'client.voiceClones.update',
     fullyQualifiedName: 'voiceClones.update',
     httpMethod: 'patch',
@@ -5907,12 +5913,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'voiceClones.delete',
     httpMethod: 'delete',
     httpPath: '/voice_clones/{id}',
-  },
-  {
-    clientCallName: 'client.voiceClones.createFromDesign',
-    fullyQualifiedName: 'voiceClones.createFromDesign',
-    httpMethod: 'post',
-    httpPath: '/voice_clones',
   },
   {
     clientCallName: 'client.voiceClones.createFromUpload',

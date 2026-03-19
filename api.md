@@ -284,6 +284,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationInsightsGeneratedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallCostWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallDtmfReceivedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallEnqueuedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallForkStartedWebhookEvent</a></code>
@@ -336,6 +337,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationInsightsGeneratedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallCostWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallDtmfReceivedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallEnqueuedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallForkStartedWebhookEvent</a></code>
@@ -4608,17 +4610,17 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/voice-clones.ts">VoiceCloneCreateResponse</a></code>
 - <code><a href="./src/resources/voice-clones.ts">VoiceCloneUpdateResponse</a></code>
 - <code><a href="./src/resources/voice-clones.ts">VoiceCloneListResponse</a></code>
-- <code><a href="./src/resources/voice-clones.ts">VoiceCloneCreateFromDesignResponse</a></code>
 - <code><a href="./src/resources/voice-clones.ts">VoiceCloneCreateFromUploadResponse</a></code>
 
 Methods:
 
+- <code title="post /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">create</a>({ ...params }) -> VoiceCloneCreateResponse</code>
 - <code title="patch /voice_clones/{id}">client.voiceClones.<a href="./src/resources/voice-clones.ts">update</a>(id, { ...params }) -> VoiceCloneUpdateResponse</code>
 - <code title="get /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">list</a>({ ...params }) -> VoiceCloneListResponsesDefaultFlatPagination</code>
 - <code title="delete /voice_clones/{id}">client.voiceClones.<a href="./src/resources/voice-clones.ts">delete</a>(id) -> void</code>
-- <code title="post /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">createFromDesign</a>({ ...params }) -> VoiceCloneCreateFromDesignResponse</code>
 - <code title="post /voice_clones/from_upload">client.voiceClones.<a href="./src/resources/voice-clones.ts">createFromUpload</a>({ ...params }) -> VoiceCloneCreateFromUploadResponse</code>
 - <code title="get /voice_clones/{id}/sample">client.voiceClones.<a href="./src/resources/voice-clones.ts">downloadSample</a>(id) -> Response</code>
 

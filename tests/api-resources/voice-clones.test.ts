@@ -9,6 +9,33 @@ const client = new Telnyx({
 
 describe('resource voiceClones', () => {
   // Mock server tests are disabled
+  test.skip('create: only required params', async () => {
+    const responsePromise = client.voiceClones.create({
+      gender: 'male',
+      language: 'en',
+      name: 'clone-narrator',
+      voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('create: required and optional params', async () => {
+    const response = await client.voiceClones.create({
+      gender: 'male',
+      language: 'en',
+      name: 'clone-narrator',
+      voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.voiceClones.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       name: 'updated-clone',
@@ -69,33 +96,6 @@ describe('resource voiceClones', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('createFromDesign: only required params', async () => {
-    const responsePromise = client.voiceClones.createFromDesign({
-      gender: 'male',
-      language: 'en',
-      name: 'clone-narrator',
-      voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('createFromDesign: required and optional params', async () => {
-    const response = await client.voiceClones.createFromDesign({
-      gender: 'male',
-      language: 'en',
-      name: 'clone-narrator',
-      voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
-    });
   });
 
   // Mock server tests are disabled

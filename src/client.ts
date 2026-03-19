@@ -904,10 +904,10 @@ import {
   VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination,
 } from './resources/virtual-cross-connects-coverage';
 import {
-  VoiceCloneCreateFromDesignParams,
-  VoiceCloneCreateFromDesignResponse,
   VoiceCloneCreateFromUploadParams,
   VoiceCloneCreateFromUploadResponse,
+  VoiceCloneCreateParams,
+  VoiceCloneCreateResponse,
   VoiceCloneListParams,
   VoiceCloneListResponse,
   VoiceCloneListResponsesDefaultFlatPagination,
@@ -953,6 +953,7 @@ import {
   CallConversationEndedWebhookEvent,
   CallConversationInsightsGenerated,
   CallConversationInsightsGeneratedWebhookEvent,
+  CallCostWebhookEvent,
   CallDtmfReceived,
   CallDtmfReceivedWebhookEvent,
   CallEnqueued,
@@ -3176,6 +3177,7 @@ export declare namespace Telnyx {
     type CallBridgedWebhookEvent as CallBridgedWebhookEvent,
     type CallConversationEndedWebhookEvent as CallConversationEndedWebhookEvent,
     type CallConversationInsightsGeneratedWebhookEvent as CallConversationInsightsGeneratedWebhookEvent,
+    type CallCostWebhookEvent as CallCostWebhookEvent,
     type CallDtmfReceivedWebhookEvent as CallDtmfReceivedWebhookEvent,
     type CallEnqueuedWebhookEvent as CallEnqueuedWebhookEvent,
     type CallForkStartedWebhookEvent as CallForkStartedWebhookEvent,
@@ -4689,14 +4691,14 @@ export declare namespace Telnyx {
 
   export {
     VoiceClones as VoiceClones,
+    type VoiceCloneCreateResponse as VoiceCloneCreateResponse,
     type VoiceCloneUpdateResponse as VoiceCloneUpdateResponse,
     type VoiceCloneListResponse as VoiceCloneListResponse,
-    type VoiceCloneCreateFromDesignResponse as VoiceCloneCreateFromDesignResponse,
     type VoiceCloneCreateFromUploadResponse as VoiceCloneCreateFromUploadResponse,
     type VoiceCloneListResponsesDefaultFlatPagination as VoiceCloneListResponsesDefaultFlatPagination,
+    type VoiceCloneCreateParams as VoiceCloneCreateParams,
     type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
     type VoiceCloneListParams as VoiceCloneListParams,
-    type VoiceCloneCreateFromDesignParams as VoiceCloneCreateFromDesignParams,
     type VoiceCloneCreateFromUploadParams as VoiceCloneCreateFromUploadParams,
   };
 
