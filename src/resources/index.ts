@@ -1191,17 +1191,17 @@ export {
 } from './text-to-speech';
 export {
   TrafficPolicyProfiles,
+  type TrafficPolicyProfile,
   type TrafficPolicyProfileCreateResponse,
   type TrafficPolicyProfileRetrieveResponse,
   type TrafficPolicyProfileUpdateResponse,
-  type TrafficPolicyProfileListResponse,
   type TrafficPolicyProfileDeleteResponse,
   type TrafficPolicyProfileListServicesResponse,
   type TrafficPolicyProfileCreateParams,
   type TrafficPolicyProfileUpdateParams,
   type TrafficPolicyProfileListParams,
   type TrafficPolicyProfileListServicesParams,
-  type TrafficPolicyProfileListResponsesDefaultFlatPagination,
+  type TrafficPolicyProfilesDefaultFlatPagination,
   type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
 } from './traffic-policy-profiles';
 export {
@@ -1274,18 +1274,19 @@ export {
 } from './virtual-cross-connects-coverage';
 export {
   VoiceClones,
+  type VoiceCloneData,
   type VoiceCloneCreateResponse,
   type VoiceCloneUpdateResponse,
-  type VoiceCloneListResponse,
   type VoiceCloneCreateFromUploadResponse,
   type VoiceCloneCreateParams,
   type VoiceCloneUpdateParams,
   type VoiceCloneListParams,
   type VoiceCloneCreateFromUploadParams,
-  type VoiceCloneListResponsesDefaultFlatPagination,
+  type VoiceCloneDataDefaultFlatPagination,
 } from './voice-clones';
 export {
   VoiceDesigns,
+  type VoiceDesignData,
   type VoiceDesignCreateResponse,
   type VoiceDesignRetrieveResponse,
   type VoiceDesignUpdateResponse,
