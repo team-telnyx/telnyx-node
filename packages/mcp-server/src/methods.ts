@@ -3559,12 +3559,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting/loa_configurations/preview',
   },
   {
-    clientCallName: 'client.porting.loaConfigurations.preview0',
-    fullyQualifiedName: 'porting.loaConfigurations.preview0',
-    httpMethod: 'post',
-    httpPath: '/porting/loa_configurations/preview',
-  },
-  {
     clientCallName: 'client.porting.loaConfigurations.preview1',
     fullyQualifiedName: 'porting.loaConfigurations.preview1',
     httpMethod: 'get',
@@ -5001,12 +4995,7 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/text-to-speech/voices',
   },
-  {
-    clientCallName: 'client.textToSpeech.stream',
-    fullyQualifiedName: 'textToSpeech.stream',
-    httpMethod: 'get',
-    httpPath: '/text-to-speech/speech',
-  },
+  { clientCallName: 'client.textToSpeech.stream', fullyQualifiedName: 'textToSpeech.stream' },
   {
     clientCallName: 'client.usageReports.list',
     fullyQualifiedName: 'usageReports.list',
@@ -5890,10 +5879,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp_message_templates/{id}',
   },
   {
-    clientCallName: 'client.voiceClones.create',
-    fullyQualifiedName: 'voiceClones.create',
+    clientCallName: 'client.x402.creditAccount.createQuote',
+    fullyQualifiedName: 'x402.creditAccount.createQuote',
     httpMethod: 'post',
-    httpPath: '/voice_clones',
+    httpPath: '/v2/x402/credit_account/quote',
+  },
+  {
+    clientCallName: 'client.x402.creditAccount.settle',
+    fullyQualifiedName: 'x402.creditAccount.settle',
+    httpMethod: 'post',
+    httpPath: '/v2/x402/credit_account',
   },
   {
     clientCallName: 'client.voiceClones.update',
@@ -5912,6 +5907,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'voiceClones.delete',
     httpMethod: 'delete',
     httpPath: '/voice_clones/{id}',
+  },
+  {
+    clientCallName: 'client.voiceClones.createFromDesign',
+    fullyQualifiedName: 'voiceClones.createFromDesign',
+    httpMethod: 'post',
+    httpPath: '/voice_clones',
   },
   {
     clientCallName: 'client.voiceClones.createFromUpload',
@@ -5966,24 +5967,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'voiceDesigns.rename',
     httpMethod: 'patch',
     httpPath: '/voice_designs/{id}',
-  },
-  {
-    clientCallName: 'client.x402.creditAccount.createQuote',
-    fullyQualifiedName: 'x402.creditAccount.createQuote',
-    httpMethod: 'post',
-    httpPath: '/v2/x402/credit_account/quote',
-  },
-  {
-    clientCallName: 'client.x402.creditAccount.settle',
-    fullyQualifiedName: 'x402.creditAccount.settle',
-    httpMethod: 'post',
-    httpPath: '/v2/x402/credit_account',
-  },
-  {
-    clientCallName: 'client.speechToText.transcribe',
-    fullyQualifiedName: 'speechToText.transcribe',
-    httpMethod: 'get',
-    httpPath: '/speech-to-text/transcription',
   },
 ];
 

@@ -806,7 +806,6 @@ import {
   SiprecConnectorUpdateResponse,
   SiprecConnectors,
 } from './resources/siprec-connectors';
-import { SpeechToText, SpeechToTextTranscribeParams } from './resources/speech-to-text';
 import {
   SubNumberOrder,
   SubNumberOrderCancelResponse,
@@ -854,14 +853,6 @@ import {
   TexmlApplications,
   TexmlApplicationsDefaultFlatPagination,
 } from './resources/texml-applications';
-import {
-  TextToSpeech,
-  TextToSpeechGenerateParams,
-  TextToSpeechGenerateResponse,
-  TextToSpeechListVoicesParams,
-  TextToSpeechListVoicesResponse,
-  TextToSpeechStreamParams,
-} from './resources/text-to-speech';
 import {
   UsageReportGetOptionsParams,
   UsageReportGetOptionsResponse,
@@ -913,13 +904,13 @@ import {
   VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination,
 } from './resources/virtual-cross-connects-coverage';
 import {
+  VoiceCloneCreateFromDesignParams,
+  VoiceCloneCreateFromDesignResponse,
   VoiceCloneCreateFromUploadParams,
   VoiceCloneCreateFromUploadResponse,
-  VoiceCloneCreateParams,
-  VoiceCloneCreateResponse,
-  VoiceCloneData,
-  VoiceCloneDataDefaultFlatPagination,
   VoiceCloneListParams,
+  VoiceCloneListResponse,
+  VoiceCloneListResponsesDefaultFlatPagination,
   VoiceCloneUpdateParams,
   VoiceCloneUpdateResponse,
   VoiceClones,
@@ -927,7 +918,6 @@ import {
 import {
   VoiceDesignCreateParams,
   VoiceDesignCreateResponse,
-  VoiceDesignData,
   VoiceDesignDeleteVersionParams,
   VoiceDesignDownloadSampleParams,
   VoiceDesignListParams,
@@ -1473,6 +1463,15 @@ import {
 } from './resources/sim-cards/sim-cards';
 import { Storage, StorageListMigrationSourceCoverageResponse } from './resources/storage/storage';
 import { Texml, TexmlSecretsParams, TexmlSecretsResponse } from './resources/texml/texml';
+import {
+  StreamClientEvent,
+  StreamServerEvent,
+  TextToSpeech,
+  TextToSpeechGenerateParams,
+  TextToSpeechGenerateResponse,
+  TextToSpeechListVoicesParams,
+  TextToSpeechListVoicesResponse,
+} from './resources/text-to-speech/text-to-speech';
 import {
   CreateVerificationResponse,
   Verification,
@@ -2848,6 +2847,7 @@ export class Telnyx {
    * Manage Whatsapp message templates
    */
   whatsappMessageTemplates: API.WhatsappMessageTemplates = new API.WhatsappMessageTemplates(this);
+  x402: API.X402 = new API.X402(this);
   /**
    * Capture and manage voice identities as clones for use in text-to-speech synthesis.
    */
@@ -2856,11 +2856,6 @@ export class Telnyx {
    * Create and manage AI-generated voice designs using natural language prompts.
    */
   voiceDesigns: API.VoiceDesigns = new API.VoiceDesigns(this);
-  x402: API.X402 = new API.X402(this);
-  /**
-   * Speech to text command operations
-   */
-  speechToText: API.SpeechToText = new API.SpeechToText(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3018,10 +3013,9 @@ Telnyx.MessagingProfileMetrics = MessagingProfileMetrics;
 Telnyx.SessionAnalysis = SessionAnalysis;
 Telnyx.Whatsapp = Whatsapp;
 Telnyx.WhatsappMessageTemplates = WhatsappMessageTemplates;
+Telnyx.X402 = X402;
 Telnyx.VoiceClones = VoiceClones;
 Telnyx.VoiceDesigns = VoiceDesigns;
-Telnyx.X402 = X402;
-Telnyx.SpeechToText = SpeechToText;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -4465,9 +4459,10 @@ export declare namespace Telnyx {
     TextToSpeech as TextToSpeech,
     type TextToSpeechGenerateResponse as TextToSpeechGenerateResponse,
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
+    type StreamClientEvent as StreamClientEvent,
+    type StreamServerEvent as StreamServerEvent,
     type TextToSpeechGenerateParams as TextToSpeechGenerateParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
-    type TextToSpeechStreamParams as TextToSpeechStreamParams,
   };
 
   export {
@@ -4690,22 +4685,23 @@ export declare namespace Telnyx {
     type WhatsappMessageTemplateUpdateParams as WhatsappMessageTemplateUpdateParams,
   };
 
+  export { X402 as X402 };
+
   export {
     VoiceClones as VoiceClones,
-    type VoiceCloneData as VoiceCloneData,
-    type VoiceCloneCreateResponse as VoiceCloneCreateResponse,
     type VoiceCloneUpdateResponse as VoiceCloneUpdateResponse,
+    type VoiceCloneListResponse as VoiceCloneListResponse,
+    type VoiceCloneCreateFromDesignResponse as VoiceCloneCreateFromDesignResponse,
     type VoiceCloneCreateFromUploadResponse as VoiceCloneCreateFromUploadResponse,
-    type VoiceCloneDataDefaultFlatPagination as VoiceCloneDataDefaultFlatPagination,
-    type VoiceCloneCreateParams as VoiceCloneCreateParams,
+    type VoiceCloneListResponsesDefaultFlatPagination as VoiceCloneListResponsesDefaultFlatPagination,
     type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
     type VoiceCloneListParams as VoiceCloneListParams,
+    type VoiceCloneCreateFromDesignParams as VoiceCloneCreateFromDesignParams,
     type VoiceCloneCreateFromUploadParams as VoiceCloneCreateFromUploadParams,
   };
 
   export {
     VoiceDesigns as VoiceDesigns,
-    type VoiceDesignData as VoiceDesignData,
     type VoiceDesignCreateResponse as VoiceDesignCreateResponse,
     type VoiceDesignRetrieveResponse as VoiceDesignRetrieveResponse,
     type VoiceDesignListResponse as VoiceDesignListResponse,
@@ -4718,10 +4714,6 @@ export declare namespace Telnyx {
     type VoiceDesignDownloadSampleParams as VoiceDesignDownloadSampleParams,
     type VoiceDesignRenameParams as VoiceDesignRenameParams,
   };
-
-  export { X402 as X402 };
-
-  export { SpeechToText as SpeechToText, type SpeechToTextTranscribeParams as SpeechToTextTranscribeParams };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
