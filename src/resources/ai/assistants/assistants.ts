@@ -28,11 +28,11 @@ import {
 } from './scheduled-events';
 import * as TagsAPI from './tags';
 import {
-  TagAddParams,
-  TagAddResponse,
+  TagCreateParams,
+  TagCreateResponse,
+  TagDeleteParams,
+  TagDeleteResponse,
   TagListResponse,
-  TagRemoveParams,
-  TagRemoveResponse,
   Tags,
 } from './tags';
 import * as ToolsAPI from './tools';
@@ -2067,10 +2067,10 @@ export declare namespace Assistants {
 
   export {
     Tags as Tags,
+    type TagCreateResponse as TagCreateResponse,
     type TagListResponse as TagListResponse,
-    type TagAddResponse as TagAddResponse,
-    type TagRemoveResponse as TagRemoveResponse,
-    type TagAddParams as TagAddParams,
-    type TagRemoveParams as TagRemoveParams,
+    type TagDeleteResponse as TagDeleteResponse,
+    type TagCreateParams as TagCreateParams,
+    type TagDeleteParams as TagDeleteParams,
   };
 }

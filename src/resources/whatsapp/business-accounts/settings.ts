@@ -40,44 +40,80 @@ export class Settings extends APIResource {
   }
 }
 
-export interface WabaSettings {
-  /**
-   * Internal ID of Whatsapp business account
-   */
-  id?: string;
-
-  name?: string;
-
-  record_type?: string;
-
-  timezone?: string;
-
-  updated_at?: string;
-
-  /**
-   * Enable/disable receiving Whatsapp events
-   */
-  webhook_enabled?: boolean;
-
-  webhook_events?: Array<string>;
-
-  /**
-   * Failover URL to receive Whatsapp events
-   */
-  webhook_failover_url?: string;
-
-  /**
-   * URL to receive Whatsapp events
-   */
-  webhook_url?: string;
+export interface SettingRetrieveResponse {
+  data?: SettingRetrieveResponse.Data;
 }
 
-export interface SettingRetrieveResponse {
-  data?: WabaSettings;
+export namespace SettingRetrieveResponse {
+  export interface Data {
+    /**
+     * Internal ID of Whatsapp business account
+     */
+    id?: string;
+
+    name?: string;
+
+    record_type?: string;
+
+    timezone?: string;
+
+    updated_at?: string;
+
+    /**
+     * Enable/disable receiving Whatsapp events
+     */
+    webhook_enabled?: boolean;
+
+    webhook_events?: Array<string>;
+
+    /**
+     * Failover URL to receive Whatsapp events
+     */
+    webhook_failover_url?: string;
+
+    /**
+     * URL to receive Whatsapp events
+     */
+    webhook_url?: string;
+  }
 }
 
 export interface SettingUpdateResponse {
-  data?: WabaSettings;
+  data?: SettingUpdateResponse.Data;
+}
+
+export namespace SettingUpdateResponse {
+  export interface Data {
+    /**
+     * Internal ID of Whatsapp business account
+     */
+    id?: string;
+
+    name?: string;
+
+    record_type?: string;
+
+    timezone?: string;
+
+    updated_at?: string;
+
+    /**
+     * Enable/disable receiving Whatsapp events
+     */
+    webhook_enabled?: boolean;
+
+    webhook_events?: Array<string>;
+
+    /**
+     * Failover URL to receive Whatsapp events
+     */
+    webhook_failover_url?: string;
+
+    /**
+     * URL to receive Whatsapp events
+     */
+    webhook_url?: string;
+  }
 }
 
 export interface SettingUpdateParams {
@@ -108,7 +144,6 @@ export interface SettingUpdateParams {
 
 export declare namespace Settings {
   export {
-    type WabaSettings as WabaSettings,
     type SettingRetrieveResponse as SettingRetrieveResponse,
     type SettingUpdateResponse as SettingUpdateResponse,
     type SettingUpdateParams as SettingUpdateParams,

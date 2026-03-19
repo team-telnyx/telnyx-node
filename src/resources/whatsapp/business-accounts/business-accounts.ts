@@ -3,20 +3,14 @@
 import { APIResource } from '../../../core/resource';
 import * as PhoneNumbersAPI from './phone-numbers';
 import {
-  PhoneNumberInitializeVerificationParams,
+  PhoneNumberCreateVerificationParams,
   PhoneNumberListParams,
   PhoneNumberListResponse,
   PhoneNumberListResponsesDefaultFlatPagination,
   PhoneNumbers,
 } from './phone-numbers';
 import * as SettingsAPI from './settings';
-import {
-  SettingRetrieveResponse,
-  SettingUpdateParams,
-  SettingUpdateResponse,
-  Settings,
-  WabaSettings,
-} from './settings';
+import { SettingRetrieveResponse, SettingUpdateParams, SettingUpdateResponse, Settings } from './settings';
 import { APIPromise } from '../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -204,12 +198,11 @@ export declare namespace BusinessAccounts {
     type PhoneNumberListResponse as PhoneNumberListResponse,
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
-    type PhoneNumberInitializeVerificationParams as PhoneNumberInitializeVerificationParams,
+    type PhoneNumberCreateVerificationParams as PhoneNumberCreateVerificationParams,
   };
 
   export {
     Settings as Settings,
-    type WabaSettings as WabaSettings,
     type SettingRetrieveResponse as SettingRetrieveResponse,
     type SettingUpdateResponse as SettingUpdateResponse,
     type SettingUpdateParams as SettingUpdateParams,

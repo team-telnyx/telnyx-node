@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource creditAccount', () => {
   // Mock server tests are disabled
-  test.skip('createQuote: only required params', async () => {
-    const responsePromise = client.x402.creditAccount.createQuote({ amount_usd: '50.00' });
+  test.skip('createPaymentQuote: only required params', async () => {
+    const responsePromise = client.x402.creditAccount.createPaymentQuote({ amount_usd: '50.00' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,13 +21,13 @@ describe('resource creditAccount', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('createQuote: required and optional params', async () => {
-    const response = await client.x402.creditAccount.createQuote({ amount_usd: '50.00' });
+  test.skip('createPaymentQuote: required and optional params', async () => {
+    const response = await client.x402.creditAccount.createPaymentQuote({ amount_usd: '50.00' });
   });
 
   // Mock server tests are disabled
-  test.skip('settle: only required params', async () => {
-    const responsePromise = client.x402.creditAccount.settle({ id: 'quote_abc123' });
+  test.skip('settlePayment: only required params', async () => {
+    const responsePromise = client.x402.creditAccount.settlePayment({ id: 'quote_abc123' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -38,8 +38,8 @@ describe('resource creditAccount', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('settle: required and optional params', async () => {
-    const response = await client.x402.creditAccount.settle({
+  test.skip('settlePayment: required and optional params', async () => {
+    const response = await client.x402.creditAccount.settlePayment({
       id: 'quote_abc123',
       payment_signature: '0xabc123...',
       'PAYMENT-SIGNATURE': 'PAYMENT-SIGNATURE',

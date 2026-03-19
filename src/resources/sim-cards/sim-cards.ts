@@ -22,7 +22,6 @@ import {
   ActionValidateRegistrationCodesParams,
   ActionValidateRegistrationCodesResponse,
   Actions,
-  BulkSimCardAction,
   SimCardAction,
   SimCardActionsDefaultFlatPagination,
 } from './actions';
@@ -769,7 +768,6 @@ export declare namespace SimCards {
 
   export {
     Actions as Actions,
-    type BulkSimCardAction as BulkSimCardAction,
     type SimCardAction as SimCardAction,
     type ActionRetrieveResponse as ActionRetrieveResponse,
     type ActionBulkDisableVoiceResponse as ActionBulkDisableVoiceResponse,

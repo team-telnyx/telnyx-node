@@ -58,11 +58,11 @@ export {
 } from './scheduled-events';
 export {
   Tags,
+  type TagCreateResponse,
   type TagListResponse,
-  type TagAddResponse,
-  type TagRemoveResponse,
-  type TagAddParams,
-  type TagRemoveParams,
+  type TagDeleteResponse,
+  type TagCreateParams,
+  type TagDeleteParams,
 } from './tags';
 export {
   Tests,

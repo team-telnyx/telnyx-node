@@ -7,13 +7,10 @@ const client = new Telnyx({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource voiceDesigns', () => {
+describe('resource trafficPolicyProfiles', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.voiceDesigns.create({
-      prompt: 'Speak in a warm, friendly tone',
-      text: 'Hello, welcome to our service.',
-    });
+    const responsePromise = client.trafficPolicyProfiles.create({ type: 'whitelist' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -25,23 +22,18 @@ describe('resource voiceDesigns', () => {
 
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.voiceDesigns.create({
-      prompt: 'Speak in a warm, friendly tone',
-      text: 'Hello, welcome to our service.',
-      language: 'Auto',
-      max_new_tokens: 100,
-      name: 'friendly-narrator',
-      repetition_penalty: 1,
-      temperature: 0,
-      top_k: 1,
-      top_p: 0,
-      voice_design_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    const response = await client.trafficPolicyProfiles.create({
+      type: 'whitelist',
+      domains: ['www.hbomax.com', 'netflix.com'],
+      ip_ranges: ['10.64.0.0/24', '10.64.0.0/25'],
+      limit_bw_kbps: 512,
+      services: ['service_123', 'service_456'],
     });
   });
 
   // Mock server tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.voiceDesigns.retrieve('id');
+    const responsePromise = client.trafficPolicyProfiles.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -52,16 +44,8 @@ describe('resource voiceDesigns', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieve: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.voiceDesigns.retrieve('id', { version: 1 }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Telnyx.NotFoundError);
-  });
-
-  // Mock server tests are disabled
-  test.skip('update: only required params', async () => {
-    const responsePromise = client.voiceDesigns.update('id', { name: 'updated-narrator' });
+  test.skip('update', async () => {
+    const responsePromise = client.trafficPolicyProfiles.update('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -69,16 +53,11 @@ describe('resource voiceDesigns', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('update: required and optional params', async () => {
-    const response = await client.voiceDesigns.update('id', { name: 'updated-narrator' });
   });
 
   // Mock server tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.voiceDesigns.list();
+    const responsePromise = client.trafficPolicyProfiles.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -92,12 +71,13 @@ describe('resource voiceDesigns', () => {
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.voiceDesigns.list(
+      client.trafficPolicyProfiles.list(
         {
-          'filter[name]': 'filter[name]',
+          'filter[service]': 'filter[service]',
+          'filter[type]': 'whitelist',
           'page[number]': 1,
           'page[size]': 1,
-          sort: 'name',
+          sort: 'service',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -106,7 +86,7 @@ describe('resource voiceDesigns', () => {
 
   // Mock server tests are disabled
   test.skip('delete', async () => {
-    const responsePromise = client.voiceDesigns.delete('id');
+    const responsePromise = client.trafficPolicyProfiles.delete('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -117,8 +97,8 @@ describe('resource voiceDesigns', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('deleteVersion: only required params', async () => {
-    const responsePromise = client.voiceDesigns.deleteVersion(1, { id: 'id' });
+  test.skip('listServices', async () => {
+    const responsePromise = client.trafficPolicyProfiles.listServices();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -129,15 +109,18 @@ describe('resource voiceDesigns', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('deleteVersion: required and optional params', async () => {
-    const response = await client.voiceDesigns.deleteVersion(1, { id: 'id' });
-  });
-
-  // Mock server tests are disabled
-  test.skip('downloadSample: request options and params are passed correctly', async () => {
+  test.skip('listServices: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.voiceDesigns.downloadSample('id', { version: 1 }, { path: '/_stainless_unknown_path' }),
+      client.trafficPolicyProfiles.listServices(
+        {
+          'filter[group]': 'filter[group]',
+          'filter[name]': 'filter[name]',
+          'page[number]': 1,
+          'page[size]': 1,
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 });
