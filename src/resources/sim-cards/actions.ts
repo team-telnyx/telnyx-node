@@ -249,45 +249,6 @@ export class Actions extends APIResource {
 export type SimCardActionsDefaultFlatPagination = DefaultFlatPagination<SimCardAction>;
 
 /**
- * This object represents a bulk SIM card action. It groups SIM card actions
- * created through a bulk endpoint under a single resource for further lookup.
- */
-export interface BulkSimCardAction {
-  /**
-   * Identifies the resource.
-   */
-  id?: string;
-
-  /**
-   * The action type. It can be one of the following: <br/>
-   *
-   * <ul>
-   * <li><code>bulk_disable_voice</code> - disable voice for every SIM Card in a SIM Card Group.</li>
-   * <li><code>bulk_enable_voice</code> - enable voice for every SIM Card in a SIM Card Group.</li>
-   * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM Card.</li>
-   * </ul>
-   */
-  action_type?: 'bulk_disable_voice' | 'bulk_enable_voice' | 'bulk_set_public_ips';
-
-  /**
-   * ISO 8601 formatted date-time indicating when the resource was created.
-   */
-  created_at?: string;
-
-  record_type?: string;
-
-  /**
-   * A JSON object representation of the bulk action payload.
-   */
-  settings?: { [key: string]: unknown };
-
-  /**
-   * ISO 8601 formatted date-time indicating when the resource was updated.
-   */
-  updated_at?: string;
-}
-
-/**
  * This object represents a SIM card action. It allows tracking the current status
  * of an operation that impacts the SIM card.
  */
@@ -364,7 +325,48 @@ export interface ActionBulkDisableVoiceResponse {
    * This object represents a bulk SIM card action. It groups SIM card actions
    * created through a bulk endpoint under a single resource for further lookup.
    */
-  data?: BulkSimCardAction;
+  data?: ActionBulkDisableVoiceResponse.Data;
+}
+
+export namespace ActionBulkDisableVoiceResponse {
+  /**
+   * This object represents a bulk SIM card action. It groups SIM card actions
+   * created through a bulk endpoint under a single resource for further lookup.
+   */
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * The action type. It can be one of the following: <br/>
+     *
+     * <ul>
+     * <li><code>bulk_disable_voice</code> - disable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_enable_voice</code> - enable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM Card.</li>
+     * </ul>
+     */
+    action_type?: 'bulk_disable_voice' | 'bulk_enable_voice' | 'bulk_set_public_ips';
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was created.
+     */
+    created_at?: string;
+
+    record_type?: string;
+
+    /**
+     * A JSON object representation of the bulk action payload.
+     */
+    settings?: { [key: string]: unknown };
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
 }
 
 export interface ActionBulkEnableVoiceResponse {
@@ -372,7 +374,48 @@ export interface ActionBulkEnableVoiceResponse {
    * This object represents a bulk SIM card action. It groups SIM card actions
    * created through a bulk endpoint under a single resource for further lookup.
    */
-  data?: BulkSimCardAction;
+  data?: ActionBulkEnableVoiceResponse.Data;
+}
+
+export namespace ActionBulkEnableVoiceResponse {
+  /**
+   * This object represents a bulk SIM card action. It groups SIM card actions
+   * created through a bulk endpoint under a single resource for further lookup.
+   */
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * The action type. It can be one of the following: <br/>
+     *
+     * <ul>
+     * <li><code>bulk_disable_voice</code> - disable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_enable_voice</code> - enable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM Card.</li>
+     * </ul>
+     */
+    action_type?: 'bulk_disable_voice' | 'bulk_enable_voice' | 'bulk_set_public_ips';
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was created.
+     */
+    created_at?: string;
+
+    record_type?: string;
+
+    /**
+     * A JSON object representation of the bulk action payload.
+     */
+    settings?: { [key: string]: unknown };
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
 }
 
 export interface ActionBulkSetPublicIPsResponse {
@@ -380,7 +423,48 @@ export interface ActionBulkSetPublicIPsResponse {
    * This object represents a bulk SIM card action. It groups SIM card actions
    * created through a bulk endpoint under a single resource for further lookup.
    */
-  data?: BulkSimCardAction;
+  data?: ActionBulkSetPublicIPsResponse.Data;
+}
+
+export namespace ActionBulkSetPublicIPsResponse {
+  /**
+   * This object represents a bulk SIM card action. It groups SIM card actions
+   * created through a bulk endpoint under a single resource for further lookup.
+   */
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * The action type. It can be one of the following: <br/>
+     *
+     * <ul>
+     * <li><code>bulk_disable_voice</code> - disable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_enable_voice</code> - enable voice for every SIM Card in a SIM Card Group.</li>
+     * <li><code>bulk_set_public_ips</code> - set a public IP for each specified SIM Card.</li>
+     * </ul>
+     */
+    action_type?: 'bulk_disable_voice' | 'bulk_enable_voice' | 'bulk_set_public_ips';
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was created.
+     */
+    created_at?: string;
+
+    record_type?: string;
+
+    /**
+     * A JSON object representation of the bulk action payload.
+     */
+    settings?: { [key: string]: unknown };
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     */
+    updated_at?: string;
+  }
 }
 
 export interface ActionDisableResponse {
@@ -518,7 +602,6 @@ export interface ActionValidateRegistrationCodesParams {
 
 export declare namespace Actions {
   export {
-    type BulkSimCardAction as BulkSimCardAction,
     type SimCardAction as SimCardAction,
     type ActionRetrieveResponse as ActionRetrieveResponse,
     type ActionBulkDisableVoiceResponse as ActionBulkDisableVoiceResponse,

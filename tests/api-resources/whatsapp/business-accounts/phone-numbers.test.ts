@@ -33,8 +33,8 @@ describe('resource phoneNumbers', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('initializeVerification: only required params', async () => {
-    const responsePromise = client.whatsapp.businessAccounts.phoneNumbers.initializeVerification('id', {
+  test.skip('createVerification: only required params', async () => {
+    const responsePromise = client.whatsapp.businessAccounts.phoneNumbers.createVerification('id', {
       display_name: 'display_name',
       phone_number: 'phone_number',
     });
@@ -48,8 +48,8 @@ describe('resource phoneNumbers', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('initializeVerification: required and optional params', async () => {
-    const response = await client.whatsapp.businessAccounts.phoneNumbers.initializeVerification('id', {
+  test.skip('createVerification: required and optional params', async () => {
+    const response = await client.whatsapp.businessAccounts.phoneNumbers.createVerification('id', {
       display_name: 'display_name',
       phone_number: 'phone_number',
       language: 'language',

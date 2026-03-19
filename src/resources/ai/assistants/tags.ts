@@ -10,6 +10,25 @@ import { path } from '../../../internal/utils/path';
  */
 export class Tags extends APIResource {
   /**
+   * Add Assistant Tag
+   *
+   * @example
+   * ```ts
+   * const tag = await client.ai.assistants.tags.create(
+   *   'assistant_id',
+   *   { tag: 'tag' },
+   * );
+   * ```
+   */
+  create(
+    assistantID: string,
+    body: TagCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<TagCreateResponse> {
+    return this._client.post(path`/ai/assistants/${assistantID}/tags`, { body, ...options });
+  }
+
+  /**
    * Get All Tags
    *
    * @example
@@ -22,62 +41,47 @@ export class Tags extends APIResource {
   }
 
   /**
-   * Add Assistant Tag
-   *
-   * @example
-   * ```ts
-   * const response = await client.ai.assistants.tags.add(
-   *   'assistant_id',
-   *   { tag: 'tag' },
-   * );
-   * ```
-   */
-  add(assistantID: string, body: TagAddParams, options?: RequestOptions): APIPromise<TagAddResponse> {
-    return this._client.post(path`/ai/assistants/${assistantID}/tags`, { body, ...options });
-  }
-
-  /**
    * Remove Assistant Tag
    *
    * @example
    * ```ts
-   * const tag = await client.ai.assistants.tags.remove('tag', {
+   * const tag = await client.ai.assistants.tags.delete('tag', {
    *   assistant_id: 'assistant_id',
    * });
    * ```
    */
-  remove(tag: string, params: TagRemoveParams, options?: RequestOptions): APIPromise<TagRemoveResponse> {
+  delete(tag: string, params: TagDeleteParams, options?: RequestOptions): APIPromise<TagDeleteResponse> {
     const { assistant_id } = params;
     return this._client.delete(path`/ai/assistants/${assistant_id}/tags/${tag}`, options);
   }
+}
+
+export interface TagCreateResponse {
+  tags: Array<string>;
 }
 
 export interface TagListResponse {
   tags: Array<string>;
 }
 
-export interface TagAddResponse {
+export interface TagDeleteResponse {
   tags: Array<string>;
 }
 
-export interface TagRemoveResponse {
-  tags: Array<string>;
-}
-
-export interface TagAddParams {
+export interface TagCreateParams {
   tag: string;
 }
 
-export interface TagRemoveParams {
+export interface TagDeleteParams {
   assistant_id: string;
 }
 
 export declare namespace Tags {
   export {
+    type TagCreateResponse as TagCreateResponse,
     type TagListResponse as TagListResponse,
-    type TagAddResponse as TagAddResponse,
-    type TagRemoveResponse as TagRemoveResponse,
-    type TagAddParams as TagAddParams,
-    type TagRemoveParams as TagRemoveParams,
+    type TagDeleteResponse as TagDeleteResponse,
+    type TagCreateParams as TagCreateParams,
+    type TagDeleteParams as TagDeleteParams,
   };
 }

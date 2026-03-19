@@ -48,43 +48,78 @@ export class Profile extends APIResource {
   }
 }
 
-export interface WhatsappProfileData {
-  id?: string;
-
-  about?: string;
-
-  address?: string;
-
-  category?: string;
-
-  created_at?: string;
-
-  description?: string;
-
-  display_name?: string;
-
-  email?: string;
-
-  /**
-   * Whatsapp phone number ID
-   */
-  phone_number_id?: string;
-
-  profile_photo_url?: string;
-
-  record_type?: string;
-
-  updated_at?: string;
-
-  website?: string;
+export interface ProfileRetrieveResponse {
+  data?: ProfileRetrieveResponse.Data;
 }
 
-export interface ProfileRetrieveResponse {
-  data?: WhatsappProfileData;
+export namespace ProfileRetrieveResponse {
+  export interface Data {
+    id?: string;
+
+    about?: string;
+
+    address?: string;
+
+    category?: string;
+
+    created_at?: string;
+
+    description?: string;
+
+    display_name?: string;
+
+    email?: string;
+
+    /**
+     * Whatsapp phone number ID
+     */
+    phone_number_id?: string;
+
+    profile_photo_url?: string;
+
+    record_type?: string;
+
+    updated_at?: string;
+
+    website?: string;
+  }
 }
 
 export interface ProfileUpdateResponse {
-  data?: WhatsappProfileData;
+  data?: ProfileUpdateResponse.Data;
+}
+
+export namespace ProfileUpdateResponse {
+  export interface Data {
+    id?: string;
+
+    about?: string;
+
+    address?: string;
+
+    category?: string;
+
+    created_at?: string;
+
+    description?: string;
+
+    display_name?: string;
+
+    email?: string;
+
+    /**
+     * Whatsapp phone number ID
+     */
+    phone_number_id?: string;
+
+    profile_photo_url?: string;
+
+    record_type?: string;
+
+    updated_at?: string;
+
+    website?: string;
+  }
 }
 
 export interface ProfileUpdateParams {
@@ -107,7 +142,6 @@ Profile.Photo = Photo;
 
 export declare namespace Profile {
   export {
-    type WhatsappProfileData as WhatsappProfileData,
     type ProfileRetrieveResponse as ProfileRetrieveResponse,
     type ProfileUpdateResponse as ProfileUpdateResponse,
     type ProfileUpdateParams as ProfileUpdateParams,

@@ -854,6 +854,21 @@ import {
   TexmlApplicationsDefaultFlatPagination,
 } from './resources/texml-applications';
 import {
+  TrafficPolicyProfileCreateParams,
+  TrafficPolicyProfileCreateResponse,
+  TrafficPolicyProfileDeleteResponse,
+  TrafficPolicyProfileListParams,
+  TrafficPolicyProfileListResponse,
+  TrafficPolicyProfileListResponsesDefaultFlatPagination,
+  TrafficPolicyProfileListServicesParams,
+  TrafficPolicyProfileListServicesResponse,
+  TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
+  TrafficPolicyProfileRetrieveResponse,
+  TrafficPolicyProfileUpdateParams,
+  TrafficPolicyProfileUpdateResponse,
+  TrafficPolicyProfiles,
+} from './resources/traffic-policy-profiles';
+import {
   UsageReportGetOptionsParams,
   UsageReportGetOptionsResponse,
   UsageReportListParams,
@@ -923,10 +938,10 @@ import {
   VoiceDesignListParams,
   VoiceDesignListResponse,
   VoiceDesignListResponsesDefaultFlatPagination,
-  VoiceDesignRenameParams,
-  VoiceDesignRenameResponse,
   VoiceDesignRetrieveParams,
   VoiceDesignRetrieveResponse,
+  VoiceDesignUpdateParams,
+  VoiceDesignUpdateResponse,
   VoiceDesigns,
 } from './resources/voice-designs';
 import {
@@ -2843,6 +2858,10 @@ export class Telnyx {
    * Analyze voice AI sessions, costs, and event hierarchies across Telnyx products.
    */
   sessionAnalysis: API.SessionAnalysis = new API.SessionAnalysis(this);
+  /**
+   * Traffic Policy Profiles operations
+   */
+  trafficPolicyProfiles: API.TrafficPolicyProfiles = new API.TrafficPolicyProfiles(this);
   whatsapp: API.Whatsapp = new API.Whatsapp(this);
   /**
    * Manage Whatsapp message templates
@@ -3012,6 +3031,7 @@ Telnyx.Organizations = Organizations;
 Telnyx.AlphanumericSenderIDs = AlphanumericSenderIDs;
 Telnyx.MessagingProfileMetrics = MessagingProfileMetrics;
 Telnyx.SessionAnalysis = SessionAnalysis;
+Telnyx.TrafficPolicyProfiles = TrafficPolicyProfiles;
 Telnyx.Whatsapp = Whatsapp;
 Telnyx.WhatsappMessageTemplates = WhatsappMessageTemplates;
 Telnyx.X402 = X402;
@@ -4678,6 +4698,22 @@ export declare namespace Telnyx {
     type SessionAnalysisRetrieveParams as SessionAnalysisRetrieveParams,
   };
 
+  export {
+    TrafficPolicyProfiles as TrafficPolicyProfiles,
+    type TrafficPolicyProfileCreateResponse as TrafficPolicyProfileCreateResponse,
+    type TrafficPolicyProfileRetrieveResponse as TrafficPolicyProfileRetrieveResponse,
+    type TrafficPolicyProfileUpdateResponse as TrafficPolicyProfileUpdateResponse,
+    type TrafficPolicyProfileListResponse as TrafficPolicyProfileListResponse,
+    type TrafficPolicyProfileDeleteResponse as TrafficPolicyProfileDeleteResponse,
+    type TrafficPolicyProfileListServicesResponse as TrafficPolicyProfileListServicesResponse,
+    type TrafficPolicyProfileListResponsesDefaultFlatPagination as TrafficPolicyProfileListResponsesDefaultFlatPagination,
+    type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination as TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
+    type TrafficPolicyProfileCreateParams as TrafficPolicyProfileCreateParams,
+    type TrafficPolicyProfileUpdateParams as TrafficPolicyProfileUpdateParams,
+    type TrafficPolicyProfileListParams as TrafficPolicyProfileListParams,
+    type TrafficPolicyProfileListServicesParams as TrafficPolicyProfileListServicesParams,
+  };
+
   export { Whatsapp as Whatsapp };
 
   export {
@@ -4706,15 +4742,15 @@ export declare namespace Telnyx {
     VoiceDesigns as VoiceDesigns,
     type VoiceDesignCreateResponse as VoiceDesignCreateResponse,
     type VoiceDesignRetrieveResponse as VoiceDesignRetrieveResponse,
+    type VoiceDesignUpdateResponse as VoiceDesignUpdateResponse,
     type VoiceDesignListResponse as VoiceDesignListResponse,
-    type VoiceDesignRenameResponse as VoiceDesignRenameResponse,
     type VoiceDesignListResponsesDefaultFlatPagination as VoiceDesignListResponsesDefaultFlatPagination,
     type VoiceDesignCreateParams as VoiceDesignCreateParams,
     type VoiceDesignRetrieveParams as VoiceDesignRetrieveParams,
+    type VoiceDesignUpdateParams as VoiceDesignUpdateParams,
     type VoiceDesignListParams as VoiceDesignListParams,
     type VoiceDesignDeleteVersionParams as VoiceDesignDeleteVersionParams,
     type VoiceDesignDownloadSampleParams as VoiceDesignDownloadSampleParams,
-    type VoiceDesignRenameParams as VoiceDesignRenameParams,
   };
 
   export type APIError = API.APIError;
@@ -4748,5 +4784,4 @@ export declare namespace Telnyx {
   export type SimCardStatus = API.SimCardStatus;
   export type SimpleSimCard = API.SimpleSimCard;
   export type SubNumberOrderRegulatoryRequirementWithValue = API.SubNumberOrderRegulatoryRequirementWithValue;
-  export type WhatsappTemplateData = API.WhatsappTemplateData;
 }

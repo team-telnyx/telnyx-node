@@ -42,7 +42,7 @@ export class PhoneNumbers extends APIResource {
    *
    * @example
    * ```ts
-   * await client.whatsapp.businessAccounts.phoneNumbers.initializeVerification(
+   * await client.whatsapp.businessAccounts.phoneNumbers.createVerification(
    *   'id',
    *   {
    *     display_name: 'display_name',
@@ -51,9 +51,9 @@ export class PhoneNumbers extends APIResource {
    * );
    * ```
    */
-  initializeVerification(
+  createVerification(
     id: string,
-    body: PhoneNumberInitializeVerificationParams,
+    body: PhoneNumberCreateVerificationParams,
     options?: RequestOptions,
   ): APIPromise<void> {
     return this._client.post(path`/v2/whatsapp/business_accounts/${id}/phone_numbers`, {
@@ -107,7 +107,7 @@ export interface PhoneNumberListResponse {
 
 export interface PhoneNumberListParams extends DefaultFlatPaginationParams {}
 
-export interface PhoneNumberInitializeVerificationParams {
+export interface PhoneNumberCreateVerificationParams {
   display_name: string;
 
   phone_number: string;
@@ -122,6 +122,6 @@ export declare namespace PhoneNumbers {
     type PhoneNumberListResponse as PhoneNumberListResponse,
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
-    type PhoneNumberInitializeVerificationParams as PhoneNumberInitializeVerificationParams,
+    type PhoneNumberCreateVerificationParams as PhoneNumberCreateVerificationParams,
   };
 }

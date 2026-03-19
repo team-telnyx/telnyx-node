@@ -2,7 +2,6 @@
 
 export {
   Actions,
-  type BulkSimCardAction,
   type SimCardAction,
   type ActionRetrieveResponse,
   type ActionBulkDisableVoiceResponse,

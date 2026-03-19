@@ -156,22 +156,4 @@ describe('resource loaConfigurations', () => {
       name: 'My LOA Configuration',
     });
   });
-
-  // Mock server tests are disabled
-  test.skip('preview0: required and optional params', async () => {
-    const response = await client.porting.loaConfigurations.preview0({
-      address: {
-        city: 'Austin',
-        country_code: 'US',
-        state: 'TX',
-        street_address: '600 Congress Avenue',
-        zip_code: '78701',
-        extended_address: '14th Floor',
-      },
-      company_name: 'Telnyx',
-      contact: { email: 'testing@telnyx.com', phone_number: '+12003270001' },
-      logo: { document_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-      name: 'My LOA Configuration',
-    });
-  });
 });
