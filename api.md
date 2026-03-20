@@ -2823,6 +2823,7 @@ Methods:
 - <code title="get /porting/loa_configurations">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">list</a>({ ...params }) -> PortingLoaConfigurationsDefaultFlatPagination</code>
 - <code title="delete /porting/loa_configurations/{id}">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">delete</a>(id) -> void</code>
 - <code title="post /porting/loa_configurations/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview</a>({ ...params }) -> Response</code>
+- <code title="post /porting/loa_configurations/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview0</a>({ ...params }) -> Response</code>
 - <code title="get /porting/loa_configurations/{id}/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview1</a>(id) -> Response</code>
 
 # PortingOrders
@@ -4610,16 +4611,16 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/voice-clones.ts">VoiceCloneData</a></code>
 - <code><a href="./src/resources/voice-clones.ts">VoiceCloneCreateResponse</a></code>
 - <code><a href="./src/resources/voice-clones.ts">VoiceCloneUpdateResponse</a></code>
-- <code><a href="./src/resources/voice-clones.ts">VoiceCloneListResponse</a></code>
 - <code><a href="./src/resources/voice-clones.ts">VoiceCloneCreateFromUploadResponse</a></code>
 
 Methods:
 
 - <code title="post /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">create</a>({ ...params }) -> VoiceCloneCreateResponse</code>
 - <code title="patch /voice_clones/{id}">client.voiceClones.<a href="./src/resources/voice-clones.ts">update</a>(id, { ...params }) -> VoiceCloneUpdateResponse</code>
-- <code title="get /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">list</a>({ ...params }) -> VoiceCloneListResponsesDefaultFlatPagination</code>
+- <code title="get /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">list</a>({ ...params }) -> VoiceCloneDataDefaultFlatPagination</code>
 - <code title="delete /voice_clones/{id}">client.voiceClones.<a href="./src/resources/voice-clones.ts">delete</a>(id) -> void</code>
 - <code title="post /voice_clones/from_upload">client.voiceClones.<a href="./src/resources/voice-clones.ts">createFromUpload</a>({ ...params }) -> VoiceCloneCreateFromUploadResponse</code>
 - <code title="get /voice_clones/{id}/sample">client.voiceClones.<a href="./src/resources/voice-clones.ts">downloadSample</a>(id) -> Response</code>
@@ -4628,6 +4629,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/voice-designs.ts">VoiceDesignData</a></code>
 - <code><a href="./src/resources/voice-designs.ts">VoiceDesignCreateResponse</a></code>
 - <code><a href="./src/resources/voice-designs.ts">VoiceDesignRetrieveResponse</a></code>
 - <code><a href="./src/resources/voice-designs.ts">VoiceDesignListResponse</a></code>
@@ -4647,10 +4649,10 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfile</a></code>
 - <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileCreateResponse</a></code>
 - <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileRetrieveResponse</a></code>
 - <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileUpdateResponse</a></code>
-- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileListResponse</a></code>
 - <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileDeleteResponse</a></code>
 - <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileListServicesResponse</a></code>
 
@@ -4659,6 +4661,6 @@ Methods:
 - <code title="post /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">create</a>({ ...params }) -> TrafficPolicyProfileCreateResponse</code>
 - <code title="get /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">retrieve</a>(id) -> TrafficPolicyProfileRetrieveResponse</code>
 - <code title="patch /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">update</a>(id, { ...params }) -> TrafficPolicyProfileUpdateResponse</code>
-- <code title="get /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">list</a>({ ...params }) -> TrafficPolicyProfileListResponsesDefaultFlatPagination</code>
+- <code title="get /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">list</a>({ ...params }) -> TrafficPolicyProfilesDefaultFlatPagination</code>
 - <code title="delete /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">delete</a>(id) -> TrafficPolicyProfileDeleteResponse</code>
 - <code title="get /traffic_policy_profiles/services">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">listServices</a>({ ...params }) -> TrafficPolicyProfileListServicesResponsesDefaultFlatPagination</code>

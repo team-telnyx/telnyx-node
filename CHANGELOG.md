@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.24.0 (2026-03-20)
+
+Full Changelog: [v6.23.0...v6.24.0](https://github.com/team-telnyx/telnyx-node/compare/v6.23.0...v6.24.0)
+
+### Features
+
+* **api:** manual updates ([11e36e5](https://github.com/team-telnyx/telnyx-node/commit/11e36e5af88b667e7227c65c6a7441c2c5e5e4f2))
+
+
+### Documentation
+
+* WhatsApp template components schema ([171e965](https://github.com/team-telnyx/telnyx-node/commit/171e965c46c7169bfc69e966866f2418b4b8ee01))
+
 ## 6.23.0 (2026-03-20)
 
 Full Changelog: [v6.22.1...v6.23.0](https://github.com/team-telnyx/telnyx-node/compare/v6.22.1...v6.23.0)
