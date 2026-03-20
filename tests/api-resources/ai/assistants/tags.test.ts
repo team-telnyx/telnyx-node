@@ -9,23 +9,6 @@ const client = new Telnyx({
 
 describe('resource tags', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.ai.assistants.tags.create('assistant_id', { tag: 'tag' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.ai.assistants.tags.create('assistant_id', { tag: 'tag' });
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.ai.assistants.tags.list();
     const rawResponse = await responsePromise.asResponse();
@@ -38,8 +21,8 @@ describe('resource tags', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('delete: only required params', async () => {
-    const responsePromise = client.ai.assistants.tags.delete('tag', { assistant_id: 'assistant_id' });
+  test.skip('add: only required params', async () => {
+    const responsePromise = client.ai.assistants.tags.add('assistant_id', { tag: 'tag' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -50,7 +33,24 @@ describe('resource tags', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('delete: required and optional params', async () => {
-    const response = await client.ai.assistants.tags.delete('tag', { assistant_id: 'assistant_id' });
+  test.skip('add: required and optional params', async () => {
+    const response = await client.ai.assistants.tags.add('assistant_id', { tag: 'tag' });
+  });
+
+  // Mock server tests are disabled
+  test.skip('remove: only required params', async () => {
+    const responsePromise = client.ai.assistants.tags.remove('tag', { assistant_id: 'assistant_id' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('remove: required and optional params', async () => {
+    const response = await client.ai.assistants.tags.remove('tag', { assistant_id: 'assistant_id' });
   });
 });

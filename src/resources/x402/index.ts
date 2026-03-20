@@ -2,9 +2,9 @@
 
 export {
   CreditAccount,
-  type CreditAccountCreatePaymentQuoteResponse,
-  type CreditAccountSettlePaymentResponse,
-  type CreditAccountCreatePaymentQuoteParams,
-  type CreditAccountSettlePaymentParams,
+  type CreditAccountCreateQuoteResponse,
+  type CreditAccountSettleResponse,
+  type CreditAccountCreateQuoteParams,
+  type CreditAccountSettleParams,
 } from './credit-account';
 export { X402 } from './x402';
