@@ -854,11 +854,12 @@ import {
   TexmlApplicationsDefaultFlatPagination,
 } from './resources/texml-applications';
 import {
-  TrafficPolicyProfile,
   TrafficPolicyProfileCreateParams,
   TrafficPolicyProfileCreateResponse,
   TrafficPolicyProfileDeleteResponse,
   TrafficPolicyProfileListParams,
+  TrafficPolicyProfileListResponse,
+  TrafficPolicyProfileListResponsesDefaultFlatPagination,
   TrafficPolicyProfileListServicesParams,
   TrafficPolicyProfileListServicesResponse,
   TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
@@ -866,7 +867,6 @@ import {
   TrafficPolicyProfileUpdateParams,
   TrafficPolicyProfileUpdateResponse,
   TrafficPolicyProfiles,
-  TrafficPolicyProfilesDefaultFlatPagination,
 } from './resources/traffic-policy-profiles';
 import {
   UsageReportGetOptionsParams,
@@ -923,9 +923,9 @@ import {
   VoiceCloneCreateFromUploadResponse,
   VoiceCloneCreateParams,
   VoiceCloneCreateResponse,
-  VoiceCloneData,
-  VoiceCloneDataDefaultFlatPagination,
   VoiceCloneListParams,
+  VoiceCloneListResponse,
+  VoiceCloneListResponsesDefaultFlatPagination,
   VoiceCloneUpdateParams,
   VoiceCloneUpdateResponse,
   VoiceClones,
@@ -933,16 +933,15 @@ import {
 import {
   VoiceDesignCreateParams,
   VoiceDesignCreateResponse,
-  VoiceDesignData,
   VoiceDesignDeleteVersionParams,
   VoiceDesignDownloadSampleParams,
   VoiceDesignListParams,
   VoiceDesignListResponse,
   VoiceDesignListResponsesDefaultFlatPagination,
+  VoiceDesignRenameParams,
+  VoiceDesignRenameResponse,
   VoiceDesignRetrieveParams,
   VoiceDesignRetrieveResponse,
-  VoiceDesignUpdateParams,
-  VoiceDesignUpdateResponse,
   VoiceDesigns,
 } from './resources/voice-designs';
 import {
@@ -1077,6 +1076,12 @@ import {
   WellKnownRetrieveAuthorizationServerMetadataResponse,
   WellKnownRetrieveProtectedResourceMetadataResponse,
 } from './resources/well-known';
+import {
+  WhatsappMessageTemplateRetrieveResponse,
+  WhatsappMessageTemplateUpdateParams,
+  WhatsappMessageTemplateUpdateResponse,
+  WhatsappMessageTemplates,
+} from './resources/whatsapp-message-templates';
 import {
   WireguardInterfaceCreateParams,
   WireguardInterfaceCreateResponse,
@@ -2853,11 +2858,11 @@ export class Telnyx {
    * Analyze voice AI sessions, costs, and event hierarchies across Telnyx products.
    */
   sessionAnalysis: API.SessionAnalysis = new API.SessionAnalysis(this);
-  /**
-   * Traffic Policy Profiles operations
-   */
-  trafficPolicyProfiles: API.TrafficPolicyProfiles = new API.TrafficPolicyProfiles(this);
   whatsapp: API.Whatsapp = new API.Whatsapp(this);
+  /**
+   * Manage Whatsapp message templates
+   */
+  whatsappMessageTemplates: API.WhatsappMessageTemplates = new API.WhatsappMessageTemplates(this);
   x402: API.X402 = new API.X402(this);
   /**
    * Capture and manage voice identities as clones for use in text-to-speech synthesis.
@@ -2867,6 +2872,10 @@ export class Telnyx {
    * Create and manage AI-generated voice designs using natural language prompts.
    */
   voiceDesigns: API.VoiceDesigns = new API.VoiceDesigns(this);
+  /**
+   * Traffic Policy Profiles operations
+   */
+  trafficPolicyProfiles: API.TrafficPolicyProfiles = new API.TrafficPolicyProfiles(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3022,11 +3031,12 @@ Telnyx.Organizations = Organizations;
 Telnyx.AlphanumericSenderIDs = AlphanumericSenderIDs;
 Telnyx.MessagingProfileMetrics = MessagingProfileMetrics;
 Telnyx.SessionAnalysis = SessionAnalysis;
-Telnyx.TrafficPolicyProfiles = TrafficPolicyProfiles;
 Telnyx.Whatsapp = Whatsapp;
+Telnyx.WhatsappMessageTemplates = WhatsappMessageTemplates;
 Telnyx.X402 = X402;
 Telnyx.VoiceClones = VoiceClones;
 Telnyx.VoiceDesigns = VoiceDesigns;
+Telnyx.TrafficPolicyProfiles = TrafficPolicyProfiles;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -4688,33 +4698,24 @@ export declare namespace Telnyx {
     type SessionAnalysisRetrieveParams as SessionAnalysisRetrieveParams,
   };
 
-  export {
-    TrafficPolicyProfiles as TrafficPolicyProfiles,
-    type TrafficPolicyProfile as TrafficPolicyProfile,
-    type TrafficPolicyProfileCreateResponse as TrafficPolicyProfileCreateResponse,
-    type TrafficPolicyProfileRetrieveResponse as TrafficPolicyProfileRetrieveResponse,
-    type TrafficPolicyProfileUpdateResponse as TrafficPolicyProfileUpdateResponse,
-    type TrafficPolicyProfileDeleteResponse as TrafficPolicyProfileDeleteResponse,
-    type TrafficPolicyProfileListServicesResponse as TrafficPolicyProfileListServicesResponse,
-    type TrafficPolicyProfilesDefaultFlatPagination as TrafficPolicyProfilesDefaultFlatPagination,
-    type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination as TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
-    type TrafficPolicyProfileCreateParams as TrafficPolicyProfileCreateParams,
-    type TrafficPolicyProfileUpdateParams as TrafficPolicyProfileUpdateParams,
-    type TrafficPolicyProfileListParams as TrafficPolicyProfileListParams,
-    type TrafficPolicyProfileListServicesParams as TrafficPolicyProfileListServicesParams,
-  };
-
   export { Whatsapp as Whatsapp };
+
+  export {
+    WhatsappMessageTemplates as WhatsappMessageTemplates,
+    type WhatsappMessageTemplateRetrieveResponse as WhatsappMessageTemplateRetrieveResponse,
+    type WhatsappMessageTemplateUpdateResponse as WhatsappMessageTemplateUpdateResponse,
+    type WhatsappMessageTemplateUpdateParams as WhatsappMessageTemplateUpdateParams,
+  };
 
   export { X402 as X402 };
 
   export {
     VoiceClones as VoiceClones,
-    type VoiceCloneData as VoiceCloneData,
     type VoiceCloneCreateResponse as VoiceCloneCreateResponse,
     type VoiceCloneUpdateResponse as VoiceCloneUpdateResponse,
+    type VoiceCloneListResponse as VoiceCloneListResponse,
     type VoiceCloneCreateFromUploadResponse as VoiceCloneCreateFromUploadResponse,
-    type VoiceCloneDataDefaultFlatPagination as VoiceCloneDataDefaultFlatPagination,
+    type VoiceCloneListResponsesDefaultFlatPagination as VoiceCloneListResponsesDefaultFlatPagination,
     type VoiceCloneCreateParams as VoiceCloneCreateParams,
     type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
     type VoiceCloneListParams as VoiceCloneListParams,
@@ -4723,18 +4724,33 @@ export declare namespace Telnyx {
 
   export {
     VoiceDesigns as VoiceDesigns,
-    type VoiceDesignData as VoiceDesignData,
     type VoiceDesignCreateResponse as VoiceDesignCreateResponse,
     type VoiceDesignRetrieveResponse as VoiceDesignRetrieveResponse,
-    type VoiceDesignUpdateResponse as VoiceDesignUpdateResponse,
     type VoiceDesignListResponse as VoiceDesignListResponse,
+    type VoiceDesignRenameResponse as VoiceDesignRenameResponse,
     type VoiceDesignListResponsesDefaultFlatPagination as VoiceDesignListResponsesDefaultFlatPagination,
     type VoiceDesignCreateParams as VoiceDesignCreateParams,
     type VoiceDesignRetrieveParams as VoiceDesignRetrieveParams,
-    type VoiceDesignUpdateParams as VoiceDesignUpdateParams,
     type VoiceDesignListParams as VoiceDesignListParams,
     type VoiceDesignDeleteVersionParams as VoiceDesignDeleteVersionParams,
     type VoiceDesignDownloadSampleParams as VoiceDesignDownloadSampleParams,
+    type VoiceDesignRenameParams as VoiceDesignRenameParams,
+  };
+
+  export {
+    TrafficPolicyProfiles as TrafficPolicyProfiles,
+    type TrafficPolicyProfileCreateResponse as TrafficPolicyProfileCreateResponse,
+    type TrafficPolicyProfileRetrieveResponse as TrafficPolicyProfileRetrieveResponse,
+    type TrafficPolicyProfileUpdateResponse as TrafficPolicyProfileUpdateResponse,
+    type TrafficPolicyProfileListResponse as TrafficPolicyProfileListResponse,
+    type TrafficPolicyProfileDeleteResponse as TrafficPolicyProfileDeleteResponse,
+    type TrafficPolicyProfileListServicesResponse as TrafficPolicyProfileListServicesResponse,
+    type TrafficPolicyProfileListResponsesDefaultFlatPagination as TrafficPolicyProfileListResponsesDefaultFlatPagination,
+    type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination as TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
+    type TrafficPolicyProfileCreateParams as TrafficPolicyProfileCreateParams,
+    type TrafficPolicyProfileUpdateParams as TrafficPolicyProfileUpdateParams,
+    type TrafficPolicyProfileListParams as TrafficPolicyProfileListParams,
+    type TrafficPolicyProfileListServicesParams as TrafficPolicyProfileListServicesParams,
   };
 
   export type APIError = API.APIError;

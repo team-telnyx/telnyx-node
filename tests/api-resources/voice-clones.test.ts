@@ -32,6 +32,7 @@ describe('resource voiceClones', () => {
       language: 'en',
       name: 'clone-narrator',
       voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
+      provider: 'telnyx',
     });
   });
 
@@ -77,6 +78,7 @@ describe('resource voiceClones', () => {
       client.voiceClones.list(
         {
           'filter[name]': 'filter[name]',
+          'filter[provider]': 'telnyx',
           'page[number]': 1,
           'page[size]': 1,
           sort: 'name',
@@ -122,6 +124,7 @@ describe('resource voiceClones', () => {
       name: 'name',
       gender: 'male',
       label: 'label',
+      provider: 'telnyx',
       ref_text: 'ref_text',
     });
   });

@@ -11,7 +11,7 @@ export {
   PhoneNumbers,
   type PhoneNumberListResponse,
   type PhoneNumberListParams,
-  type PhoneNumberCreateVerificationParams,
+  type PhoneNumberInitializeVerificationParams,
   type PhoneNumberListResponsesDefaultFlatPagination,
 } from './phone-numbers';
 export {
