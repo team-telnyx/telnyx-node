@@ -1221,7 +1221,8 @@ export interface WhatsappTemplateData {
   category?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
 
   /**
-   * Whatsapp template components (header, body, footer, buttons)
+   * Template components (header, body, footer, buttons) as submitted, including
+   * example values.
    */
   components?: Array<{ [key: string]: unknown }>;
 
@@ -1235,6 +1236,11 @@ export interface WhatsappTemplateData {
 
   rejection_reason?: string;
 
+  /**
+   * Current template status from Meta (e.g. PENDING, APPROVED, REJECTED, PAUSED,
+   * DISABLED). Additional statuses may be returned as Meta evolves the template
+   * lifecycle.
+   */
   status?: string;
 
   template_id?: string;
