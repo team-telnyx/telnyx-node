@@ -3576,20 +3576,22 @@ export interface ActionStartNoiseSuppressionParams {
 
   /**
    * The engine to use for noise suppression. For backward compatibility, engines A,
-   * B, and C are also supported, but are deprecated: A - Denoiser B - DeepFilterNet
-   * C - Krisp
+   * B, C, and D are also supported, but are deprecated: A - Denoiser B -
+   * DeepFilterNet C - Krisp D - AiCoustics
    */
-  noise_suppression_engine?: 'Denoiser' | 'DeepFilterNet' | 'Krisp';
+  noise_suppression_engine?: 'Denoiser' | 'DeepFilterNet' | 'Krisp' | 'AiCoustics';
 
   /**
-   * Configuration parameters for noise suppression engines.
+   * Configuration parameters for noise suppression engines. Different engines
+   * support different parameters.
    */
   noise_suppression_engine_config?: ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig;
 }
 
 export namespace ActionStartNoiseSuppressionParams {
   /**
-   * Configuration parameters for noise suppression engines.
+   * Configuration parameters for noise suppression engines. Different engines
+   * support different parameters.
    */
   export interface NoiseSuppressionEngineConfig {
     /**
@@ -3597,6 +3599,48 @@ export namespace ActionStartNoiseSuppressionParams {
      * DeepFilterNet.
      */
     attenuation_limit?: number;
+
+    /**
+     * Enhancement intensity (0.0-1.0). Only applicable for AiCoustics.
+     */
+    enhancement_level?: number;
+
+    /**
+     * AiCoustics model family. 'sparrow' optimized for human-to-human calls, 'quail'
+     * optimized for Voice AI/STT. Only applicable for AiCoustics.
+     */
+    family?: 'sparrow' | 'quail';
+
+    /**
+     * Processing mode. Only applicable for DeepFilterNet.
+     */
+    mode?: 'standard' | 'advanced';
+
+    /**
+     * The Krisp model to use. Only applicable for Krisp.
+     */
+    model?:
+      | 'krisp-viva-tel-v2.kef'
+      | 'krisp-viva-tel-lite-v1.kef'
+      | 'krisp-viva-pro-v1.kef'
+      | 'krisp-viva-ss-v1.kef';
+
+    /**
+     * AiCoustics model size. 's' and 'l' work with both families. 'xs' and 'xxs' are
+     * sparrow-only. 'vf_l' and 'vf_1_1_l' are quail-only. Only applicable for
+     * AiCoustics.
+     */
+    size?: 's' | 'l' | 'xs' | 'xxs' | 'vf_l' | 'vf_1_1_l';
+
+    /**
+     * Suppression level (0.0-100.0). Only applicable for Krisp.
+     */
+    suppression_level?: number;
+
+    /**
+     * Voice gain multiplier (0.1-4.0). Only applicable for AiCoustics.
+     */
+    voice_gain?: number;
   }
 }
 
