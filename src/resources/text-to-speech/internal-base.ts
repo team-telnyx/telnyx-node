@@ -6,6 +6,11 @@ import { EventEmitter } from '../../core/EventEmitter';
 import { TelnyxError } from '../../core/error';
 import { stringifyQuery } from '../../internal/utils';
 
+export type TextToSpeechStreamMessage =
+  | { type: 'connecting' | 'open' | 'closing' | 'close' }
+  | { type: 'message'; message: TextToSpeechAPI.StreamServerEvent }
+  | { type: 'error'; error: WebSocketError };
+
 export class WebSocketError extends TelnyxError {
   /**
    * The error data that the API sent back in an error event.
