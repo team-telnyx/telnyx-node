@@ -31,6 +31,7 @@ describe('resource voiceDesigns', () => {
       language: 'Auto',
       max_new_tokens: 100,
       name: 'friendly-narrator',
+      provider: 'telnyx',
       repetition_penalty: 1,
       temperature: 0,
       top_k: 1,
@@ -57,23 +58,6 @@ describe('resource voiceDesigns', () => {
     await expect(
       client.voiceDesigns.retrieve('id', { version: 1 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Telnyx.NotFoundError);
-  });
-
-  // Mock server tests are disabled
-  test.skip('update: only required params', async () => {
-    const responsePromise = client.voiceDesigns.update('id', { name: 'updated-narrator' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('update: required and optional params', async () => {
-    const response = await client.voiceDesigns.update('id', { name: 'updated-narrator' });
   });
 
   // Mock server tests are disabled
@@ -139,5 +123,22 @@ describe('resource voiceDesigns', () => {
     await expect(
       client.voiceDesigns.downloadSample('id', { version: 1 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('rename: only required params', async () => {
+    const responsePromise = client.voiceDesigns.rename('id', { name: 'updated-narrator' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('rename: required and optional params', async () => {
+    const response = await client.voiceDesigns.rename('id', { name: 'updated-narrator' });
   });
 });

@@ -49,24 +49,6 @@ export class VoiceDesigns extends APIResource {
   }
 
   /**
-   * Updates the name of a voice design. All versions retain their other properties.
-   *
-   * @example
-   * ```ts
-   * const voiceDesign = await client.voiceDesigns.update('id', {
-   *   name: 'updated-narrator',
-   * });
-   * ```
-   */
-  update(
-    id: string,
-    body: VoiceDesignUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<VoiceDesignUpdateResponse> {
-    return this._client.patch(path`/voice_designs/${id}`, { body, ...options });
-  }
-
-  /**
    * Returns a paginated list of voice designs belonging to the authenticated
    * account.
    *
@@ -152,64 +134,27 @@ export class VoiceDesigns extends APIResource {
       __binaryResponse: true,
     });
   }
+
+  /**
+   * Updates the name of a voice design. All versions retain their other properties.
+   *
+   * @example
+   * ```ts
+   * const response = await client.voiceDesigns.rename('id', {
+   *   name: 'updated-narrator',
+   * });
+   * ```
+   */
+  rename(
+    id: string,
+    body: VoiceDesignRenameParams,
+    options?: RequestOptions,
+  ): APIPromise<VoiceDesignRenameResponse> {
+    return this._client.patch(path`/voice_designs/${id}`, { body, ...options });
+  }
 }
 
 export type VoiceDesignListResponsesDefaultFlatPagination = DefaultFlatPagination<VoiceDesignListResponse>;
-
-/**
- * A voice design object with full version detail.
- */
-export interface VoiceDesignData {
-  /**
-   * Unique identifier for the voice design.
-   */
-  id?: string;
-
-  /**
-   * Timestamp when the voice design was first created.
-   */
-  created_at?: string;
-
-  /**
-   * Name of the voice design.
-   */
-  name?: string;
-
-  /**
-   * Natural language prompt used to define the voice style for this version.
-   */
-  prompt?: string;
-
-  /**
-   * Identifies the resource type.
-   */
-  record_type?: 'voice_design';
-
-  /**
-   * Sample text used to synthesize this version.
-   */
-  text?: string;
-
-  /**
-   * Timestamp when the voice design was last updated.
-   */
-  updated_at?: string;
-
-  /**
-   * Version number of this voice design.
-   */
-  version?: number;
-
-  /**
-   * Timestamp when this specific version was created.
-   */
-  version_created_at?: string;
-
-  /**
-   * Size of the voice sample audio in bytes.
-   */
-  voice_sample_size?: number;
-}
 
 /**
  * Response envelope for a single voice design with full version detail.
@@ -218,33 +163,12 @@ export interface VoiceDesignCreateResponse {
   /**
    * A voice design object with full version detail.
    */
-  data?: VoiceDesignData;
+  data?: VoiceDesignCreateResponse.Data;
 }
 
-/**
- * Response envelope for a single voice design with full version detail.
- */
-export interface VoiceDesignRetrieveResponse {
+export namespace VoiceDesignCreateResponse {
   /**
    * A voice design object with full version detail.
-   */
-  data?: VoiceDesignData;
-}
-
-/**
- * Response envelope for a voice design after a rename operation (no
- * version-specific fields).
- */
-export interface VoiceDesignUpdateResponse {
-  /**
-   * A summarized voice design object (without version-specific fields).
-   */
-  data?: VoiceDesignUpdateResponse.Data;
-}
-
-export namespace VoiceDesignUpdateResponse {
-  /**
-   * A summarized voice design object (without version-specific fields).
    */
   export interface Data {
     /**
@@ -263,14 +187,140 @@ export namespace VoiceDesignUpdateResponse {
     name?: string;
 
     /**
+     * Natural language prompt used to define the voice style for this version.
+     */
+    prompt?: string;
+
+    /**
+     * Voice synthesis provider used for this design.
+     */
+    provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax' | null;
+
+    /**
+     * List of TTS model identifiers supported by this design's provider (e.g.
+     * `Qwen3TTS`, `speech-02-turbo`).
+     */
+    provider_supported_models?: Array<string>;
+
+    /**
+     * Provider-specific voice identifier. For Telnyx designs this is the design
+     * version ID; for Minimax it is the Minimax-assigned voice ID.
+     */
+    provider_voice_id?: string | null;
+
+    /**
      * Identifies the resource type.
      */
     record_type?: 'voice_design';
 
     /**
+     * Sample text used to synthesize this version.
+     */
+    text?: string;
+
+    /**
      * Timestamp when the voice design was last updated.
      */
     updated_at?: string;
+
+    /**
+     * Version number of this voice design.
+     */
+    version?: number;
+
+    /**
+     * Timestamp when this specific version was created.
+     */
+    version_created_at?: string;
+
+    /**
+     * Size of the voice sample audio in bytes.
+     */
+    voice_sample_size?: number;
+  }
+}
+
+/**
+ * Response envelope for a single voice design with full version detail.
+ */
+export interface VoiceDesignRetrieveResponse {
+  /**
+   * A voice design object with full version detail.
+   */
+  data?: VoiceDesignRetrieveResponse.Data;
+}
+
+export namespace VoiceDesignRetrieveResponse {
+  /**
+   * A voice design object with full version detail.
+   */
+  export interface Data {
+    /**
+     * Unique identifier for the voice design.
+     */
+    id?: string;
+
+    /**
+     * Timestamp when the voice design was first created.
+     */
+    created_at?: string;
+
+    /**
+     * Name of the voice design.
+     */
+    name?: string;
+
+    /**
+     * Natural language prompt used to define the voice style for this version.
+     */
+    prompt?: string;
+
+    /**
+     * Voice synthesis provider used for this design.
+     */
+    provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax' | null;
+
+    /**
+     * List of TTS model identifiers supported by this design's provider (e.g.
+     * `Qwen3TTS`, `speech-02-turbo`).
+     */
+    provider_supported_models?: Array<string>;
+
+    /**
+     * Provider-specific voice identifier. For Telnyx designs this is the design
+     * version ID; for Minimax it is the Minimax-assigned voice ID.
+     */
+    provider_voice_id?: string | null;
+
+    /**
+     * Identifies the resource type.
+     */
+    record_type?: 'voice_design';
+
+    /**
+     * Sample text used to synthesize this version.
+     */
+    text?: string;
+
+    /**
+     * Timestamp when the voice design was last updated.
+     */
+    updated_at?: string;
+
+    /**
+     * Version number of this voice design.
+     */
+    version?: number;
+
+    /**
+     * Timestamp when this specific version was created.
+     */
+    version_created_at?: string;
+
+    /**
+     * Size of the voice sample audio in bytes.
+     */
+    voice_sample_size?: number;
   }
 }
 
@@ -294,6 +344,16 @@ export interface VoiceDesignListResponse {
   name?: string;
 
   /**
+   * Voice synthesis provider used for this design.
+   */
+  provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax' | null;
+
+  /**
+   * List of TTS model identifiers supported by this design's provider.
+   */
+  provider_supported_models?: Array<string>;
+
+  /**
    * Identifies the resource type.
    */
   record_type?: 'voice_design';
@@ -302,6 +362,59 @@ export interface VoiceDesignListResponse {
    * Timestamp when the voice design was last updated.
    */
   updated_at?: string;
+}
+
+/**
+ * Response envelope for a voice design after a rename operation (no
+ * version-specific fields).
+ */
+export interface VoiceDesignRenameResponse {
+  /**
+   * A summarized voice design object (without version-specific fields).
+   */
+  data?: VoiceDesignRenameResponse.Data;
+}
+
+export namespace VoiceDesignRenameResponse {
+  /**
+   * A summarized voice design object (without version-specific fields).
+   */
+  export interface Data {
+    /**
+     * Unique identifier for the voice design.
+     */
+    id?: string;
+
+    /**
+     * Timestamp when the voice design was first created.
+     */
+    created_at?: string;
+
+    /**
+     * Name of the voice design.
+     */
+    name?: string;
+
+    /**
+     * Voice synthesis provider used for this design.
+     */
+    provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax' | null;
+
+    /**
+     * List of TTS model identifiers supported by this design's provider.
+     */
+    provider_supported_models?: Array<string>;
+
+    /**
+     * Identifies the resource type.
+     */
+    record_type?: 'voice_design';
+
+    /**
+     * Timestamp when the voice design was last updated.
+     */
+    updated_at?: string;
+  }
 }
 
 export interface VoiceDesignCreateParams {
@@ -333,6 +446,12 @@ export interface VoiceDesignCreateParams {
    * UUID.
    */
   name?: string;
+
+  /**
+   * Voice synthesis provider. `telnyx` uses the Qwen3TTS model; `minimax` uses the
+   * Minimax speech models. Case-insensitive. Defaults to `telnyx`.
+   */
+  provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax';
 
   /**
    * Repetition penalty to reduce repeated patterns in generated audio. Default:
@@ -372,13 +491,6 @@ export interface VoiceDesignRetrieveParams {
   version?: number;
 }
 
-export interface VoiceDesignUpdateParams {
-  /**
-   * New name for the voice design.
-   */
-  name: string;
-}
-
 export interface VoiceDesignListParams extends DefaultFlatPaginationParams {
   /**
    * Case-insensitive substring filter on the name field.
@@ -406,19 +518,25 @@ export interface VoiceDesignDownloadSampleParams {
   version?: number;
 }
 
+export interface VoiceDesignRenameParams {
+  /**
+   * New name for the voice design.
+   */
+  name: string;
+}
+
 export declare namespace VoiceDesigns {
   export {
-    type VoiceDesignData as VoiceDesignData,
     type VoiceDesignCreateResponse as VoiceDesignCreateResponse,
     type VoiceDesignRetrieveResponse as VoiceDesignRetrieveResponse,
-    type VoiceDesignUpdateResponse as VoiceDesignUpdateResponse,
     type VoiceDesignListResponse as VoiceDesignListResponse,
+    type VoiceDesignRenameResponse as VoiceDesignRenameResponse,
     type VoiceDesignListResponsesDefaultFlatPagination as VoiceDesignListResponsesDefaultFlatPagination,
     type VoiceDesignCreateParams as VoiceDesignCreateParams,
     type VoiceDesignRetrieveParams as VoiceDesignRetrieveParams,
-    type VoiceDesignUpdateParams as VoiceDesignUpdateParams,
     type VoiceDesignListParams as VoiceDesignListParams,
     type VoiceDesignDeleteVersionParams as VoiceDesignDeleteVersionParams,
     type VoiceDesignDownloadSampleParams as VoiceDesignDownloadSampleParams,
+    type VoiceDesignRenameParams as VoiceDesignRenameParams,
   };
 }

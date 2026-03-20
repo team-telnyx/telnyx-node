@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.23.0 (2026-03-20)
+
+Full Changelog: [v6.22.1...v6.23.0](https://github.com/team-telnyx/telnyx-node/compare/v6.22.1...v6.23.0)
+
+### Features
+
+* Add Minimax provider support to Voice Designs and Voice Clones API spec ([b7ae01d](https://github.com/team-telnyx/telnyx-node/commit/b7ae01d563b5448ed063d609db810b67f1b76681))
+
 ## 6.22.1 (2026-03-19)
 
 Full Changelog: [v6.22.0...v6.22.1](https://github.com/team-telnyx/telnyx-node/compare/v6.22.0...v6.22.1)

@@ -3,7 +3,7 @@
 import { APIResource } from '../../../core/resource';
 import * as PhoneNumbersAPI from './phone-numbers';
 import {
-  PhoneNumberCreateVerificationParams,
+  PhoneNumberInitializeVerificationParams,
   PhoneNumberListParams,
   PhoneNumberListResponse,
   PhoneNumberListResponsesDefaultFlatPagination,
@@ -204,7 +204,7 @@ export declare namespace BusinessAccounts {
     type PhoneNumberListResponse as PhoneNumberListResponse,
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
-    type PhoneNumberCreateVerificationParams as PhoneNumberCreateVerificationParams,
+    type PhoneNumberInitializeVerificationParams as PhoneNumberInitializeVerificationParams,
   };
 
   export {

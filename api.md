@@ -657,15 +657,15 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/ai/assistants/tags.ts">TagCreateResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/tags.ts">TagListResponse</a></code>
-- <code><a href="./src/resources/ai/assistants/tags.ts">TagDeleteResponse</a></code>
+- <code><a href="./src/resources/ai/assistants/tags.ts">TagAddResponse</a></code>
+- <code><a href="./src/resources/ai/assistants/tags.ts">TagRemoveResponse</a></code>
 
 Methods:
 
-- <code title="post /ai/assistants/{assistant_id}/tags">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">create</a>(assistantID, { ...params }) -> TagCreateResponse</code>
 - <code title="get /ai/assistants/tags">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">list</a>() -> TagListResponse</code>
-- <code title="delete /ai/assistants/{assistant_id}/tags/{tag}">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">delete</a>(tag, { ...params }) -> TagDeleteResponse</code>
+- <code title="post /ai/assistants/{assistant_id}/tags">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">add</a>(assistantID, { ...params }) -> TagAddResponse</code>
+- <code title="delete /ai/assistants/{assistant_id}/tags/{tag}">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">remove</a>(tag, { ...params }) -> TagRemoveResponse</code>
 
 ## Audio
 
@@ -2823,7 +2823,6 @@ Methods:
 - <code title="get /porting/loa_configurations">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">list</a>({ ...params }) -> PortingLoaConfigurationsDefaultFlatPagination</code>
 - <code title="delete /porting/loa_configurations/{id}">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">delete</a>(id) -> void</code>
 - <code title="post /porting/loa_configurations/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview</a>({ ...params }) -> Response</code>
-- <code title="post /porting/loa_configurations/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview0</a>({ ...params }) -> Response</code>
 - <code title="get /porting/loa_configurations/{id}/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview1</a>(id) -> Response</code>
 
 # PortingOrders
@@ -4480,26 +4479,6 @@ Methods:
 - <code title="get /session_analysis/metadata">client.sessionAnalysis.metadata.<a href="./src/resources/session-analysis/metadata.ts">retrieve</a>() -> MetadataRetrieveResponse</code>
 - <code title="get /session_analysis/metadata/{record_type}">client.sessionAnalysis.metadata.<a href="./src/resources/session-analysis/metadata.ts">retrieveRecordType</a>(recordType) -> MetadataRetrieveRecordTypeResponse</code>
 
-# TrafficPolicyProfiles
-
-Types:
-
-- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfile</a></code>
-- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileCreateResponse</a></code>
-- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileRetrieveResponse</a></code>
-- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileUpdateResponse</a></code>
-- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileDeleteResponse</a></code>
-- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileListServicesResponse</a></code>
-
-Methods:
-
-- <code title="post /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">create</a>({ ...params }) -> TrafficPolicyProfileCreateResponse</code>
-- <code title="get /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">retrieve</a>(id) -> TrafficPolicyProfileRetrieveResponse</code>
-- <code title="patch /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">update</a>(id, { ...params }) -> TrafficPolicyProfileUpdateResponse</code>
-- <code title="get /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">list</a>({ ...params }) -> TrafficPolicyProfilesDefaultFlatPagination</code>
-- <code title="delete /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">delete</a>(id) -> TrafficPolicyProfileDeleteResponse</code>
-- <code title="get /traffic_policy_profiles/services">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">listServices</a>({ ...params }) -> TrafficPolicyProfileListServicesResponsesDefaultFlatPagination</code>
-
 # Whatsapp
 
 ## BusinessAccounts
@@ -4524,7 +4503,7 @@ Types:
 Methods:
 
 - <code title="get /v2/whatsapp/business_accounts/{id}/phone_numbers">client.whatsapp.businessAccounts.phoneNumbers.<a href="./src/resources/whatsapp/business-accounts/phone-numbers.ts">list</a>(id, { ...params }) -> PhoneNumberListResponsesDefaultFlatPagination</code>
-- <code title="post /v2/whatsapp/business_accounts/{id}/phone_numbers">client.whatsapp.businessAccounts.phoneNumbers.<a href="./src/resources/whatsapp/business-accounts/phone-numbers.ts">createVerification</a>(id, { ...params }) -> void</code>
+- <code title="post /v2/whatsapp/business_accounts/{id}/phone_numbers">client.whatsapp.businessAccounts.phoneNumbers.<a href="./src/resources/whatsapp/business-accounts/phone-numbers.ts">initializeVerification</a>(id, { ...params }) -> void</code>
 
 ### Settings
 
@@ -4539,21 +4518,16 @@ Methods:
 - <code title="get /v2/whatsapp/business_accounts/{id}/settings">client.whatsapp.businessAccounts.settings.<a href="./src/resources/whatsapp/business-accounts/settings.ts">retrieve</a>(id) -> SettingRetrieveResponse</code>
 - <code title="patch /v2/whatsapp/business_accounts/{id}/settings">client.whatsapp.businessAccounts.settings.<a href="./src/resources/whatsapp/business-accounts/settings.ts">update</a>(id, { ...params }) -> SettingUpdateResponse</code>
 
-## MessageTemplates
+## Templates
 
 Types:
 
-- <code><a href="./src/resources/whatsapp/message-templates.ts">MessageTemplateCreateResponse</a></code>
-- <code><a href="./src/resources/whatsapp/message-templates.ts">MessageTemplateRetrieveResponse</a></code>
-- <code><a href="./src/resources/whatsapp/message-templates.ts">MessageTemplateUpdateResponse</a></code>
+- <code><a href="./src/resources/whatsapp/templates.ts">TemplateCreateResponse</a></code>
 
 Methods:
 
-- <code title="post /v2/whatsapp/message_templates">client.whatsapp.messageTemplates.<a href="./src/resources/whatsapp/message-templates.ts">create</a>({ ...params }) -> MessageTemplateCreateResponse</code>
-- <code title="get /v2/whatsapp_message_templates/{id}">client.whatsapp.messageTemplates.<a href="./src/resources/whatsapp/message-templates.ts">retrieve</a>(id) -> MessageTemplateRetrieveResponse</code>
-- <code title="patch /v2/whatsapp_message_templates/{id}">client.whatsapp.messageTemplates.<a href="./src/resources/whatsapp/message-templates.ts">update</a>(id, { ...params }) -> MessageTemplateUpdateResponse</code>
-- <code title="get /v2/whatsapp/message_templates">client.whatsapp.messageTemplates.<a href="./src/resources/whatsapp/message-templates.ts">list</a>({ ...params }) -> WhatsappTemplateDataDefaultFlatPagination</code>
-- <code title="delete /v2/whatsapp_message_templates/{id}">client.whatsapp.messageTemplates.<a href="./src/resources/whatsapp/message-templates.ts">delete</a>(id) -> void</code>
+- <code title="post /v2/whatsapp/message_templates">client.whatsapp.templates.<a href="./src/resources/whatsapp/templates.ts">create</a>({ ...params }) -> TemplateCreateResponse</code>
+- <code title="get /v2/whatsapp/message_templates">client.whatsapp.templates.<a href="./src/resources/whatsapp/templates.ts">list</a>({ ...params }) -> WhatsappTemplateDataDefaultFlatPagination</code>
 
 ## PhoneNumbers
 
@@ -4605,7 +4579,18 @@ Methods:
 - <code title="delete /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">delete</a>(phoneNumber) -> void</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">upload</a>(phoneNumber, { ...params }) -> PhotoUploadResponse</code>
 
-#### Models
+# WhatsappMessageTemplates
+
+Types:
+
+- <code><a href="./src/resources/whatsapp-message-templates.ts">WhatsappMessageTemplateRetrieveResponse</a></code>
+- <code><a href="./src/resources/whatsapp-message-templates.ts">WhatsappMessageTemplateUpdateResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">retrieve</a>(id) -> WhatsappMessageTemplateRetrieveResponse</code>
+- <code title="patch /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">update</a>(id, { ...params }) -> WhatsappMessageTemplateUpdateResponse</code>
+- <code title="delete /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">delete</a>(id) -> void</code>
 
 # X402
 
@@ -4613,28 +4598,28 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/x402/credit-account.ts">CreditAccountCreatePaymentQuoteResponse</a></code>
-- <code><a href="./src/resources/x402/credit-account.ts">CreditAccountSettlePaymentResponse</a></code>
+- <code><a href="./src/resources/x402/credit-account.ts">CreditAccountCreateQuoteResponse</a></code>
+- <code><a href="./src/resources/x402/credit-account.ts">CreditAccountSettleResponse</a></code>
 
 Methods:
 
-- <code title="post /v2/x402/credit_account/quote">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">createPaymentQuote</a>({ ...params }) -> CreditAccountCreatePaymentQuoteResponse</code>
-- <code title="post /v2/x402/credit_account">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">settlePayment</a>({ ...params }) -> CreditAccountSettlePaymentResponse</code>
+- <code title="post /v2/x402/credit_account/quote">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">createQuote</a>({ ...params }) -> CreditAccountCreateQuoteResponse</code>
+- <code title="post /v2/x402/credit_account">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">settle</a>({ ...params }) -> CreditAccountSettleResponse</code>
 
 # VoiceClones
 
 Types:
 
-- <code><a href="./src/resources/voice-clones.ts">VoiceCloneData</a></code>
 - <code><a href="./src/resources/voice-clones.ts">VoiceCloneCreateResponse</a></code>
 - <code><a href="./src/resources/voice-clones.ts">VoiceCloneUpdateResponse</a></code>
+- <code><a href="./src/resources/voice-clones.ts">VoiceCloneListResponse</a></code>
 - <code><a href="./src/resources/voice-clones.ts">VoiceCloneCreateFromUploadResponse</a></code>
 
 Methods:
 
 - <code title="post /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">create</a>({ ...params }) -> VoiceCloneCreateResponse</code>
 - <code title="patch /voice_clones/{id}">client.voiceClones.<a href="./src/resources/voice-clones.ts">update</a>(id, { ...params }) -> VoiceCloneUpdateResponse</code>
-- <code title="get /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">list</a>({ ...params }) -> VoiceCloneDataDefaultFlatPagination</code>
+- <code title="get /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">list</a>({ ...params }) -> VoiceCloneListResponsesDefaultFlatPagination</code>
 - <code title="delete /voice_clones/{id}">client.voiceClones.<a href="./src/resources/voice-clones.ts">delete</a>(id) -> void</code>
 - <code title="post /voice_clones/from_upload">client.voiceClones.<a href="./src/resources/voice-clones.ts">createFromUpload</a>({ ...params }) -> VoiceCloneCreateFromUploadResponse</code>
 - <code title="get /voice_clones/{id}/sample">client.voiceClones.<a href="./src/resources/voice-clones.ts">downloadSample</a>(id) -> Response</code>
@@ -4643,18 +4628,37 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/voice-designs.ts">VoiceDesignData</a></code>
 - <code><a href="./src/resources/voice-designs.ts">VoiceDesignCreateResponse</a></code>
 - <code><a href="./src/resources/voice-designs.ts">VoiceDesignRetrieveResponse</a></code>
-- <code><a href="./src/resources/voice-designs.ts">VoiceDesignUpdateResponse</a></code>
 - <code><a href="./src/resources/voice-designs.ts">VoiceDesignListResponse</a></code>
+- <code><a href="./src/resources/voice-designs.ts">VoiceDesignRenameResponse</a></code>
 
 Methods:
 
 - <code title="post /voice_designs">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">create</a>({ ...params }) -> VoiceDesignCreateResponse</code>
 - <code title="get /voice_designs/{id}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">retrieve</a>(id, { ...params }) -> VoiceDesignRetrieveResponse</code>
-- <code title="patch /voice_designs/{id}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">update</a>(id, { ...params }) -> VoiceDesignUpdateResponse</code>
 - <code title="get /voice_designs">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">list</a>({ ...params }) -> VoiceDesignListResponsesDefaultFlatPagination</code>
 - <code title="delete /voice_designs/{id}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">delete</a>(id) -> void</code>
 - <code title="delete /voice_designs/{id}/versions/{version}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">deleteVersion</a>(version, { ...params }) -> void</code>
 - <code title="get /voice_designs/{id}/sample">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">downloadSample</a>(id, { ...params }) -> Response</code>
+- <code title="patch /voice_designs/{id}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">rename</a>(id, { ...params }) -> VoiceDesignRenameResponse</code>
+
+# TrafficPolicyProfiles
+
+Types:
+
+- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileCreateResponse</a></code>
+- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileRetrieveResponse</a></code>
+- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileUpdateResponse</a></code>
+- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileListResponse</a></code>
+- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileDeleteResponse</a></code>
+- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileListServicesResponse</a></code>
+
+Methods:
+
+- <code title="post /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">create</a>({ ...params }) -> TrafficPolicyProfileCreateResponse</code>
+- <code title="get /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">retrieve</a>(id) -> TrafficPolicyProfileRetrieveResponse</code>
+- <code title="patch /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">update</a>(id, { ...params }) -> TrafficPolicyProfileUpdateResponse</code>
+- <code title="get /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">list</a>({ ...params }) -> TrafficPolicyProfileListResponsesDefaultFlatPagination</code>
+- <code title="delete /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">delete</a>(id) -> TrafficPolicyProfileDeleteResponse</code>
+- <code title="get /traffic_policy_profiles/services">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">listServices</a>({ ...params }) -> TrafficPolicyProfileListServicesResponsesDefaultFlatPagination</code>

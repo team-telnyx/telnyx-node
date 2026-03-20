@@ -17,15 +17,15 @@ export class CreditAccount extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.x402.creditAccount.createPaymentQuote({
+   *   await client.x402.creditAccount.createQuote({
    *     amount_usd: '50.00',
    *   });
    * ```
    */
-  createPaymentQuote(
-    body: CreditAccountCreatePaymentQuoteParams,
+  createQuote(
+    body: CreditAccountCreateQuoteParams,
     options?: RequestOptions,
-  ): APIPromise<CreditAccountCreatePaymentQuoteResponse> {
+  ): APIPromise<CreditAccountCreateQuoteResponse> {
     return this._client.post('/v2/x402/credit_account/quote', { body, ...options });
   }
 
@@ -37,17 +37,16 @@ export class CreditAccount extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.x402.creditAccount.settlePayment({
-   *     id: 'quote_abc123',
-   *     payment_signature: '0xabc123...',
-   *   });
+   * const response = await client.x402.creditAccount.settle({
+   *   id: 'quote_abc123',
+   *   payment_signature: '0xabc123...',
+   * });
    * ```
    */
-  settlePayment(
-    params: CreditAccountSettlePaymentParams,
+  settle(
+    params: CreditAccountSettleParams,
     options?: RequestOptions,
-  ): APIPromise<CreditAccountSettlePaymentResponse> {
+  ): APIPromise<CreditAccountSettleResponse> {
     const { 'PAYMENT-SIGNATURE': paymentSignature, ...body } = params;
     return this._client.post('/v2/x402/credit_account', {
       body,
@@ -60,11 +59,11 @@ export class CreditAccount extends APIResource {
   }
 }
 
-export interface CreditAccountCreatePaymentQuoteResponse {
-  data?: CreditAccountCreatePaymentQuoteResponse.Data;
+export interface CreditAccountCreateQuoteResponse {
+  data?: CreditAccountCreateQuoteResponse.Data;
 }
 
-export namespace CreditAccountCreatePaymentQuoteResponse {
+export namespace CreditAccountCreateQuoteResponse {
   export interface Data {
     /**
      * Unique quote identifier. Use this to settle the payment.
@@ -208,11 +207,11 @@ export namespace CreditAccountCreatePaymentQuoteResponse {
   }
 }
 
-export interface CreditAccountSettlePaymentResponse {
-  data?: CreditAccountSettlePaymentResponse.Data;
+export interface CreditAccountSettleResponse {
+  data?: CreditAccountSettleResponse.Data;
 }
 
-export namespace CreditAccountSettlePaymentResponse {
+export namespace CreditAccountSettleResponse {
   export interface Data {
     /**
      * Unique transaction identifier.
@@ -253,14 +252,14 @@ export namespace CreditAccountSettlePaymentResponse {
   }
 }
 
-export interface CreditAccountCreatePaymentQuoteParams {
+export interface CreditAccountCreateQuoteParams {
   /**
    * Amount in USD to fund (minimum 5.00, maximum 10000.00).
    */
   amount_usd: string;
 }
 
-export interface CreditAccountSettlePaymentParams {
+export interface CreditAccountSettleParams {
   /**
    * Body param: The quote ID to settle.
    */
@@ -281,9 +280,9 @@ export interface CreditAccountSettlePaymentParams {
 
 export declare namespace CreditAccount {
   export {
-    type CreditAccountCreatePaymentQuoteResponse as CreditAccountCreatePaymentQuoteResponse,
-    type CreditAccountSettlePaymentResponse as CreditAccountSettlePaymentResponse,
-    type CreditAccountCreatePaymentQuoteParams as CreditAccountCreatePaymentQuoteParams,
-    type CreditAccountSettlePaymentParams as CreditAccountSettlePaymentParams,
+    type CreditAccountCreateQuoteResponse as CreditAccountCreateQuoteResponse,
+    type CreditAccountSettleResponse as CreditAccountSettleResponse,
+    type CreditAccountCreateQuoteParams as CreditAccountCreateQuoteParams,
+    type CreditAccountSettleParams as CreditAccountSettleParams,
   };
 }
