@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.25.0 (2026-03-20)
+
+Full Changelog: [v6.24.0...v6.25.0](https://github.com/team-telnyx/telnyx-node/compare/v6.24.0...v6.25.0)
+
+### Features
+
+* **client:** add async iterator and stream() to WebSocket classes ([7913d4b](https://github.com/team-telnyx/telnyx-node/commit/7913d4b4abef030001c756678dbb13de09eac68d))
+
 ## 6.24.0 (2026-03-20)
 
 Full Changelog: [v6.23.0...v6.24.0](https://github.com/team-telnyx/telnyx-node/compare/v6.23.0...v6.24.0)
