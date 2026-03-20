@@ -175,6 +175,45 @@ export class LoaConfigurations extends APIResource {
   }
 
   /**
+   * Preview the LOA template that would be generated without need to create LOA
+   * configuration.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.porting.loaConfigurations.preview0({
+   *     address: {
+   *       city: 'Austin',
+   *       country_code: 'US',
+   *       state: 'TX',
+   *       street_address: '600 Congress Avenue',
+   *       zip_code: '78701',
+   *     },
+   *     company_name: 'Telnyx',
+   *     contact: {
+   *       email: 'testing@telnyx.com',
+   *       phone_number: '+12003270001',
+   *     },
+   *     logo: {
+   *       document_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     },
+   *     name: 'My LOA Configuration',
+   *   });
+   *
+   * const content = await response.blob();
+   * console.log(content);
+   * ```
+   */
+  preview0(body: LoaConfigurationPreview0Params, options?: RequestOptions): APIPromise<Response> {
+    return this._client.post('/porting/loa_configurations/preview', {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: 'application/pdf' }, options?.headers]),
+      __binaryResponse: true,
+    });
+  }
+
+  /**
    * Preview a specific LOA configuration.
    *
    * @example
@@ -599,6 +638,95 @@ export namespace LoaConfigurationPreviewParams {
   }
 }
 
+export interface LoaConfigurationPreview0Params {
+  /**
+   * The address of the company.
+   */
+  address: LoaConfigurationPreview0Params.Address;
+
+  /**
+   * The name of the company
+   */
+  company_name: string;
+
+  /**
+   * The contact information of the company.
+   */
+  contact: LoaConfigurationPreview0Params.Contact;
+
+  /**
+   * The logo of the LOA configuration
+   */
+  logo: LoaConfigurationPreview0Params.Logo;
+
+  /**
+   * The name of the LOA configuration
+   */
+  name: string;
+}
+
+export namespace LoaConfigurationPreview0Params {
+  /**
+   * The address of the company.
+   */
+  export interface Address {
+    /**
+     * The locality of the company
+     */
+    city: string;
+
+    /**
+     * The country code of the company
+     */
+    country_code: string;
+
+    /**
+     * The administrative area of the company
+     */
+    state: string;
+
+    /**
+     * The street address of the company
+     */
+    street_address: string;
+
+    /**
+     * The postal code of the company
+     */
+    zip_code: string;
+
+    /**
+     * The extended address of the company
+     */
+    extended_address?: string;
+  }
+
+  /**
+   * The contact information of the company.
+   */
+  export interface Contact {
+    /**
+     * The email address of the contact
+     */
+    email: string;
+
+    /**
+     * The phone number of the contact
+     */
+    phone_number: string;
+  }
+
+  /**
+   * The logo of the LOA configuration
+   */
+  export interface Logo {
+    /**
+     * The document identification
+     */
+    document_id: string;
+  }
+}
+
 export declare namespace LoaConfigurations {
   export {
     type PortingLoaConfiguration as PortingLoaConfiguration,
@@ -610,5 +738,6 @@ export declare namespace LoaConfigurations {
     type LoaConfigurationUpdateParams as LoaConfigurationUpdateParams,
     type LoaConfigurationListParams as LoaConfigurationListParams,
     type LoaConfigurationPreviewParams as LoaConfigurationPreviewParams,
+    type LoaConfigurationPreview0Params as LoaConfigurationPreview0Params,
   };
 }
