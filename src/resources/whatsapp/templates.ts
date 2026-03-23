@@ -276,7 +276,7 @@ export namespace TemplateCreateParams {
 
   export namespace WhatsappTemplateCarouselComponent {
     export interface Card {
-      components?: Array<unknown>;
+      components?: Array<{ [key: string]: unknown }>;
     }
   }
 }

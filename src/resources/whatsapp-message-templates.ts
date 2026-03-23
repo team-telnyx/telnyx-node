@@ -248,7 +248,7 @@ export namespace WhatsappMessageTemplateUpdateParams {
 
   export namespace WhatsappTemplateCarouselComponent {
     export interface Card {
-      components?: Array<unknown>;
+      components?: Array<{ [key: string]: unknown }>;
     }
   }
 }

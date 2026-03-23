@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.26.0 (2026-03-23)
+
+Full Changelog: [v6.25.0...v6.26.0](https://github.com/team-telnyx/telnyx-node/compare/v6.25.0...v6.26.0)
+
+### Features
+
+* **api:** manual updates ([9ac3a22](https://github.com/team-telnyx/telnyx-node/commit/9ac3a223dab117245b7def6c84ba18f6d32c869e))
+
 ## 6.25.0 (2026-03-20)
 
 Full Changelog: [v6.24.0...v6.25.0](https://github.com/team-telnyx/telnyx-node/compare/v6.24.0...v6.25.0)
