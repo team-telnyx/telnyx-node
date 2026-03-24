@@ -1,5 +1,20 @@
 # Changelog
 
+## 6.27.0 (2026-03-24)
+
+Full Changelog: [v6.26.0...v6.27.0](https://github.com/team-telnyx/telnyx-node/compare/v6.26.0...v6.27.0)
+
+### Features
+
+* **api:** Merge pull request [#30](https://github.com/team-telnyx/telnyx-node/issues/30) from stainless-sdks/fix-schemaUnionDiscriminatorMissing ([0142836](https://github.com/team-telnyx/telnyx-node/commit/0142836234ceaec8b33cf30433e19f6e1c545d59))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([fcb5e17](https://github.com/team-telnyx/telnyx-node/commit/fcb5e17ab918d96e5492b74695c64d0a9e0d166b))
+* **internal:** fix MCP server TS errors that occur with required client options ([5c0bb6b](https://github.com/team-telnyx/telnyx-node/commit/5c0bb6b62a54983463b5bd21eb16fbf12a82f20a))
+* **internal:** update gitignore ([5892276](https://github.com/team-telnyx/telnyx-node/commit/58922761896afaf8965fc978f4de8eadd51bb342))
+
 ## 6.26.0 (2026-03-23)
 
 Full Changelog: [v6.25.0...v6.26.0](https://github.com/team-telnyx/telnyx-node/compare/v6.25.0...v6.26.0)
