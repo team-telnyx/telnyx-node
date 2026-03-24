@@ -10,6 +10,38 @@ import { path } from '../../../internal/utils/path';
  */
 export class Tools extends APIResource {
   /**
+   * Add Assistant Tool
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.assistants.tools.add(
+   *   'tool_id',
+   *   { assistant_id: 'assistant_id' },
+   * );
+   * ```
+   */
+  add(toolID: string, params: ToolAddParams, options?: RequestOptions): APIPromise<unknown> {
+    const { assistant_id } = params;
+    return this._client.put(path`/ai/assistants/${assistant_id}/tools/${toolID}`, options);
+  }
+
+  /**
+   * Remove Assistant Tool
+   *
+   * @example
+   * ```ts
+   * const tool = await client.ai.assistants.tools.remove(
+   *   'tool_id',
+   *   { assistant_id: 'assistant_id' },
+   * );
+   * ```
+   */
+  remove(toolID: string, params: ToolRemoveParams, options?: RequestOptions): APIPromise<unknown> {
+    const { assistant_id } = params;
+    return this._client.delete(path`/ai/assistants/${assistant_id}/tools/${toolID}`, options);
+  }
+
+  /**
    * Test a webhook tool for an assistant
    *
    * @example
@@ -25,6 +57,10 @@ export class Tools extends APIResource {
     return this._client.post(path`/ai/assistants/${assistant_id}/tools/${toolID}/test`, { body, ...options });
   }
 }
+
+export type ToolAddResponse = unknown;
+
+export type ToolRemoveResponse = unknown;
 
 /**
  * Response model for webhook tool test results
@@ -53,6 +89,14 @@ export namespace ToolTestResponse {
   }
 }
 
+export interface ToolAddParams {
+  assistant_id: string;
+}
+
+export interface ToolRemoveParams {
+  assistant_id: string;
+}
+
 export interface ToolTestParams {
   /**
    * Path param
@@ -71,5 +115,12 @@ export interface ToolTestParams {
 }
 
 export declare namespace Tools {
-  export { type ToolTestResponse as ToolTestResponse, type ToolTestParams as ToolTestParams };
+  export {
+    type ToolAddResponse as ToolAddResponse,
+    type ToolRemoveResponse as ToolRemoveResponse,
+    type ToolTestResponse as ToolTestResponse,
+    type ToolAddParams as ToolAddParams,
+    type ToolRemoveParams as ToolRemoveParams,
+    type ToolTestParams as ToolTestParams,
+  };
 }

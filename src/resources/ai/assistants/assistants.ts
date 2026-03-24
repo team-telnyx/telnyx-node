@@ -36,7 +36,15 @@ import {
   Tags,
 } from './tags';
 import * as ToolsAPI from './tools';
-import { ToolTestParams, ToolTestResponse, Tools } from './tools';
+import {
+  ToolAddParams,
+  ToolAddResponse,
+  ToolRemoveParams,
+  ToolRemoveResponse,
+  ToolTestParams,
+  ToolTestResponse,
+  Tools,
+} from './tools';
 import * as VersionsAPI from './versions';
 import {
   UpdateAssistant,
@@ -1841,6 +1849,8 @@ export interface AssistantCreateParams {
 
   telephony_settings?: TelephonySettings;
 
+  tool_ids?: Array<string>;
+
   /**
    * The tools that the assistant can use. These may be templated with
    * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
@@ -1932,6 +1942,8 @@ export interface AssistantUpdateParams {
   promote_to_main?: boolean;
 
   telephony_settings?: TelephonySettings;
+
+  tool_ids?: Array<string>;
 
   /**
    * The tools that the assistant can use. These may be templated with
@@ -2074,7 +2086,15 @@ export declare namespace Assistants {
     type ScheduledEventDeleteParams as ScheduledEventDeleteParams,
   };
 
-  export { Tools as Tools, type ToolTestResponse as ToolTestResponse, type ToolTestParams as ToolTestParams };
+  export {
+    Tools as Tools,
+    type ToolAddResponse as ToolAddResponse,
+    type ToolRemoveResponse as ToolRemoveResponse,
+    type ToolTestResponse as ToolTestResponse,
+    type ToolAddParams as ToolAddParams,
+    type ToolRemoveParams as ToolRemoveParams,
+    type ToolTestParams as ToolTestParams,
+  };
 
   export {
     Versions as Versions,

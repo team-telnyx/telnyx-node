@@ -176,6 +176,8 @@ export interface UpdateAssistant {
 
   telephony_settings?: AssistantsAPI.TelephonySettings;
 
+  tool_ids?: Array<string>;
+
   /**
    * The tools that the assistant can use. These may be templated with
    * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
@@ -289,6 +291,11 @@ export interface VersionUpdateParams {
    * Body param
    */
   telephony_settings?: AssistantsAPI.TelephonySettings;
+
+  /**
+   * Body param
+   */
+  tool_ids?: Array<string>;
 
   /**
    * Body param: The tools that the assistant can use. These may be templated with

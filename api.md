@@ -633,10 +633,14 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/assistants/tools.ts">ToolAddResponse</a></code>
+- <code><a href="./src/resources/ai/assistants/tools.ts">ToolRemoveResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/tools.ts">ToolTestResponse</a></code>
 
 Methods:
 
+- <code title="put /ai/assistants/{assistant_id}/tools/{tool_id}">client.ai.assistants.tools.<a href="./src/resources/ai/assistants/tools.ts">add</a>(toolID, { ...params }) -> unknown</code>
+- <code title="delete /ai/assistants/{assistant_id}/tools/{tool_id}">client.ai.assistants.tools.<a href="./src/resources/ai/assistants/tools.ts">remove</a>(toolID, { ...params }) -> unknown</code>
 - <code title="post /ai/assistants/{assistant_id}/tools/{tool_id}/test">client.ai.assistants.tools.<a href="./src/resources/ai/assistants/tools.ts">test</a>(toolID, { ...params }) -> ToolTestResponse</code>
 
 ### Versions
@@ -1016,6 +1020,24 @@ Methods:
 
 - <code title="post /ai/openai/embeddings">client.ai.openai.embeddings.<a href="./src/resources/ai/openai/embeddings.ts">createEmbeddings</a>({ ...params }) -> EmbeddingCreateEmbeddingsResponse</code>
 - <code title="get /ai/openai/embeddings/models">client.ai.openai.embeddings.<a href="./src/resources/ai/openai/embeddings.ts">listEmbeddingModels</a>() -> EmbeddingListEmbeddingModelsResponse</code>
+
+## Tools
+
+Types:
+
+- <code><a href="./src/resources/ai/tools.ts">ToolCreateResponse</a></code>
+- <code><a href="./src/resources/ai/tools.ts">ToolRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/tools.ts">ToolUpdateResponse</a></code>
+- <code><a href="./src/resources/ai/tools.ts">ToolListResponse</a></code>
+- <code><a href="./src/resources/ai/tools.ts">ToolDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/tools">client.ai.tools.<a href="./src/resources/ai/tools.ts">create</a>({ ...params }) -> ToolCreateResponse</code>
+- <code title="get /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">retrieve</a>(toolID) -> ToolRetrieveResponse</code>
+- <code title="patch /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">update</a>(toolID, { ...params }) -> ToolUpdateResponse</code>
+- <code title="get /ai/tools">client.ai.tools.<a href="./src/resources/ai/tools.ts">list</a>({ ...params }) -> ToolListResponsesDefaultFlatPagination</code>
+- <code title="delete /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">delete</a>(toolID) -> unknown</code>
 
 # AuditEvents
 

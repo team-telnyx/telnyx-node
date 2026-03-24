@@ -559,6 +559,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/{assistant_id}/scheduled_events/{event_id}',
   },
   {
+    clientCallName: 'client.ai.assistants.tools.add',
+    fullyQualifiedName: 'ai.assistants.tools.add',
+    httpMethod: 'put',
+    httpPath: '/ai/assistants/{assistant_id}/tools/{tool_id}',
+  },
+  {
+    clientCallName: 'client.ai.assistants.tools.remove',
+    fullyQualifiedName: 'ai.assistants.tools.remove',
+    httpMethod: 'delete',
+    httpPath: '/ai/assistants/{assistant_id}/tools/{tool_id}',
+  },
+  {
     clientCallName: 'client.ai.assistants.tools.test',
     fullyQualifiedName: 'ai.assistants.tools.test',
     httpMethod: 'post',
@@ -1163,6 +1175,36 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'ai.openai.embeddings.listEmbeddingModels',
     httpMethod: 'get',
     httpPath: '/ai/openai/embeddings/models',
+  },
+  {
+    clientCallName: 'client.ai.tools.create',
+    fullyQualifiedName: 'ai.tools.create',
+    httpMethod: 'post',
+    httpPath: '/ai/tools',
+  },
+  {
+    clientCallName: 'client.ai.tools.retrieve',
+    fullyQualifiedName: 'ai.tools.retrieve',
+    httpMethod: 'get',
+    httpPath: '/ai/tools/{tool_id}',
+  },
+  {
+    clientCallName: 'client.ai.tools.update',
+    fullyQualifiedName: 'ai.tools.update',
+    httpMethod: 'patch',
+    httpPath: '/ai/tools/{tool_id}',
+  },
+  {
+    clientCallName: 'client.ai.tools.list',
+    fullyQualifiedName: 'ai.tools.list',
+    httpMethod: 'get',
+    httpPath: '/ai/tools',
+  },
+  {
+    clientCallName: 'client.ai.tools.delete',
+    fullyQualifiedName: 'ai.tools.delete',
+    httpMethod: 'delete',
+    httpPath: '/ai/tools/{tool_id}',
   },
   {
     clientCallName: 'client.auditEvents.list',

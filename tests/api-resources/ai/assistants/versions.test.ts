@@ -83,6 +83,7 @@ describe('resource versions', () => {
           },
         },
       },
+      tool_ids: ['string'],
       tools: [
         {
           type: 'webhook',

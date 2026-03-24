@@ -62,6 +62,7 @@ describe('resource assistants', () => {
           },
         },
       },
+      tool_ids: ['string'],
       tools: [
         {
           type: 'webhook',
