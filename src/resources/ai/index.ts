@@ -109,3 +109,15 @@ export {
   type MissionDataDefaultFlatPagination,
 } from './missions/index';
 export { OpenAI } from './openai/index';
+export {
+  Tools,
+  type ToolCreateResponse,
+  type ToolRetrieveResponse,
+  type ToolUpdateResponse,
+  type ToolListResponse,
+  type ToolDeleteResponse,
+  type ToolCreateParams,
+  type ToolUpdateParams,
+  type ToolListParams,
+  type ToolListResponsesDefaultFlatPagination,
+} from './tools';
