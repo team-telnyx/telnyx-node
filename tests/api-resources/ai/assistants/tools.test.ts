@@ -9,6 +9,40 @@ const client = new Telnyx({
 
 describe('resource tools', () => {
   // Mock server tests are disabled
+  test.skip('add: only required params', async () => {
+    const responsePromise = client.ai.assistants.tools.add('tool_id', { assistant_id: 'assistant_id' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('add: required and optional params', async () => {
+    const response = await client.ai.assistants.tools.add('tool_id', { assistant_id: 'assistant_id' });
+  });
+
+  // Mock server tests are disabled
+  test.skip('remove: only required params', async () => {
+    const responsePromise = client.ai.assistants.tools.remove('tool_id', { assistant_id: 'assistant_id' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('remove: required and optional params', async () => {
+    const response = await client.ai.assistants.tools.remove('tool_id', { assistant_id: 'assistant_id' });
+  });
+
+  // Mock server tests are disabled
   test.skip('test: only required params', async () => {
     const responsePromise = client.ai.assistants.tools.test('tool_id', { assistant_id: 'assistant_id' });
     const rawResponse = await responsePromise.asResponse();

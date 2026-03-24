@@ -73,7 +73,15 @@ export {
   type TestListParams,
   type AssistantTestsDefaultFlatPagination,
 } from './tests/index';
-export { Tools, type ToolTestResponse, type ToolTestParams } from './tools';
+export {
+  Tools,
+  type ToolAddResponse,
+  type ToolRemoveResponse,
+  type ToolTestResponse,
+  type ToolAddParams,
+  type ToolRemoveParams,
+  type ToolTestParams,
+} from './tools';
 export {
   Versions,
   type UpdateAssistant,

@@ -30,6 +30,19 @@ import {
   McpServerUpdateResponse,
   McpServers,
 } from './mcp-servers';
+import * as ToolsAPI from './tools';
+import {
+  ToolCreateParams,
+  ToolCreateResponse,
+  ToolDeleteResponse,
+  ToolListParams,
+  ToolListResponse,
+  ToolListResponsesDefaultFlatPagination,
+  ToolRetrieveResponse,
+  ToolUpdateParams,
+  ToolUpdateResponse,
+  Tools,
+} from './tools';
 import * as AssistantsAPI from './assistants/assistants';
 import {
   Assistant,
@@ -133,6 +146,7 @@ export class AI extends APIResource {
   mcpServers: McpServersAPI.McpServers = new McpServersAPI.McpServers(this._client);
   missions: MissionsAPI.Missions = new MissionsAPI.Missions(this._client);
   openai: OpenAIAPI.OpenAI = new OpenAIAPI.OpenAI(this._client);
+  tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
 
   /**
    * This endpoint returns a list of Open Source and OpenAI models that are available
@@ -232,6 +246,7 @@ AI.Integrations = Integrations;
 AI.McpServers = McpServers;
 AI.Missions = Missions;
 AI.OpenAI = OpenAI;
+AI.Tools = Tools;
 
 export declare namespace AI {
   export {
@@ -362,4 +377,17 @@ export declare namespace AI {
   };
 
   export { OpenAI as OpenAI };
+
+  export {
+    Tools as Tools,
+    type ToolCreateResponse as ToolCreateResponse,
+    type ToolRetrieveResponse as ToolRetrieveResponse,
+    type ToolUpdateResponse as ToolUpdateResponse,
+    type ToolListResponse as ToolListResponse,
+    type ToolDeleteResponse as ToolDeleteResponse,
+    type ToolListResponsesDefaultFlatPagination as ToolListResponsesDefaultFlatPagination,
+    type ToolCreateParams as ToolCreateParams,
+    type ToolUpdateParams as ToolUpdateParams,
+    type ToolListParams as ToolListParams,
+  };
 }
