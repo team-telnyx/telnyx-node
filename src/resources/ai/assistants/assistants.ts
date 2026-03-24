@@ -1003,6 +1003,13 @@ export namespace InferenceEmbeddingWebhookToolParams {
     query_parameters?: Webhook.QueryParameters;
 
     /**
+     * A list of mappings that extract values from the webhook response and store them
+     * as dynamic variables. Each mapping specifies a dynamic variable name and a
+     * dot-notation path to the value in the response body.
+     */
+    store_fields_as_variables?: Array<Webhook.StoreFieldsAsVariable>;
+
+    /**
      * The maximum number of milliseconds to wait for the webhook to respond. Only
      * applicable when async is false.
      */
@@ -1084,6 +1091,19 @@ export namespace InferenceEmbeddingWebhookToolParams {
       required?: Array<string>;
 
       type?: 'object';
+    }
+
+    export interface StoreFieldsAsVariable {
+      /**
+       * The name of the dynamic variable to store the extracted value in.
+       */
+      name: string;
+
+      /**
+       * A dot-notation path to the value in the webhook response body (e.g.
+       * 'customer.name' or 'id').
+       */
+      value_path: string;
     }
   }
 }
