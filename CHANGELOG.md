@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.29.0 (2026-03-24)
+
+Full Changelog: [v6.28.0...v6.29.0](https://github.com/team-telnyx/telnyx-node/compare/v6.28.0...v6.29.0)
+
+### Features
+
+* New tools api ([11cec11](https://github.com/team-telnyx/telnyx-node/commit/11cec1153280e54e927d2742234340adcdb15613))
+
 ## 6.28.0 (2026-03-24)
 
 Full Changelog: [v6.27.0...v6.28.0](https://github.com/team-telnyx/telnyx-node/compare/v6.27.0...v6.28.0)
