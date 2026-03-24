@@ -183,7 +183,7 @@ export interface VoiceDesignData {
   /**
    * Voice synthesis provider used for this design.
    */
-  provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax' | null;
+  provider?: 'telnyx' | 'minimax' | null;
 
   /**
    * List of TTS model identifiers supported by this design's provider (e.g.
@@ -270,7 +270,7 @@ export interface VoiceDesignListResponse {
   /**
    * Voice synthesis provider used for this design.
    */
-  provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax' | null;
+  provider?: 'telnyx' | 'minimax' | null;
 
   /**
    * List of TTS model identifiers supported by this design's provider.
@@ -322,7 +322,7 @@ export namespace VoiceDesignRenameResponse {
     /**
      * Voice synthesis provider used for this design.
      */
-    provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax' | null;
+    provider?: 'telnyx' | 'minimax' | null;
 
     /**
      * List of TTS model identifiers supported by this design's provider.
@@ -375,7 +375,7 @@ export interface VoiceDesignCreateParams {
    * Voice synthesis provider. `telnyx` uses the Qwen3TTS model; `minimax` uses the
    * Minimax speech models. Case-insensitive. Defaults to `telnyx`.
    */
-  provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax';
+  provider?: 'telnyx' | 'minimax';
 
   /**
    * Repetition penalty to reduce repeated patterns in generated audio. Default:
