@@ -174,7 +174,7 @@ export interface VoiceCloneData {
   /**
    * Voice synthesis provider used for this clone.
    */
-  provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax';
+  provider?: 'telnyx' | 'minimax';
 
   /**
    * List of TTS model identifiers supported by this clone's provider.
@@ -262,7 +262,7 @@ export interface VoiceCloneCreateParams {
   /**
    * Voice synthesis provider. Case-insensitive. Defaults to `telnyx`.
    */
-  provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax';
+  provider?: 'telnyx' | 'minimax';
 }
 
 export interface VoiceCloneUpdateParams {
@@ -291,7 +291,7 @@ export interface VoiceCloneListParams extends DefaultFlatPaginationParams {
   /**
    * Filter by voice synthesis provider. Case-insensitive.
    */
-  'filter[provider]'?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax';
+  'filter[provider]'?: 'telnyx' | 'minimax';
 
   /**
    * Sort order. Prefix with `-` for descending. Defaults to `-created_at`.
@@ -331,7 +331,7 @@ export interface VoiceCloneCreateFromUploadParams {
   /**
    * Voice synthesis provider. Case-insensitive. Defaults to `telnyx`.
    */
-  provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax';
+  provider?: 'telnyx' | 'minimax';
 
   /**
    * Optional transcript of the audio file. Providing this improves clone quality.
