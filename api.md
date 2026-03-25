@@ -4755,4 +4755,4 @@ Methods:
 
 Methods:
 
-- <code title="post /terms-of-service/number-reputation/agree">client.termsOfService.numberReputation.<a href="./src/resources/terms-of-service/number-reputation.ts">agree</a>() -> void</code>
+- <code title="post /terms_of_service/number_reputation/agree">client.termsOfService.numberReputation.<a href="./src/resources/terms-of-service/number-reputation.ts">agree</a>() -> void</code>
