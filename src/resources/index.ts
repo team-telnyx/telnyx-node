@@ -296,6 +296,17 @@ export {
   type DynamicEmergencyEndpointsDefaultFlatPagination,
 } from './dynamic-emergency-endpoints';
 export {
+  Enterprises,
+  type EnterpriseCreateResponse,
+  type EnterpriseRetrieveResponse,
+  type EnterpriseUpdateResponse,
+  type EnterpriseListResponse,
+  type EnterpriseCreateParams,
+  type EnterpriseUpdateParams,
+  type EnterpriseListParams,
+  type EnterpriseListResponsesDefaultFlatPagination,
+} from './enterprises/enterprises';
+export {
   ExternalConnections,
   type ExternalConnection,
   type ExternalVoiceIntegrationsPaginationMeta,
@@ -987,6 +998,7 @@ export {
   type ReportListWdrsParams,
   type ReportListWdrsResponsesDefaultFlatPagination,
 } from './reports/reports';
+export { Reputation } from './reputation/reputation';
 export {
   RequirementGroups,
   type RequirementGroup,
@@ -1167,6 +1179,7 @@ export {
   type TelephonyCredentialListParams,
   type TelephonyCredentialsDefaultFlatPagination,
 } from './telephony-credentials';
+export { TermsOfService } from './terms-of-service/terms-of-service';
 export { Texml, type TexmlSecretsResponse, type TexmlSecretsParams } from './texml/texml';
 export {
   TexmlApplications,
