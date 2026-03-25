@@ -4686,3 +4686,73 @@ Methods:
 - <code title="get /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">list</a>({ ...params }) -> TrafficPolicyProfilesDefaultFlatPagination</code>
 - <code title="delete /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">delete</a>(id) -> TrafficPolicyProfileDeleteResponse</code>
 - <code title="get /traffic_policy_profiles/services">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">listServices</a>({ ...params }) -> TrafficPolicyProfileListServicesResponsesDefaultFlatPagination</code>
+
+# Enterprises
+
+Types:
+
+- <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseCreateResponse</a></code>
+- <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseRetrieveResponse</a></code>
+- <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseUpdateResponse</a></code>
+- <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseListResponse</a></code>
+
+Methods:
+
+- <code title="post /enterprises">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">create</a>({ ...params }) -> EnterpriseCreateResponse</code>
+- <code title="get /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">retrieve</a>(enterpriseID) -> EnterpriseRetrieveResponse</code>
+- <code title="put /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">update</a>(enterpriseID, { ...params }) -> EnterpriseUpdateResponse</code>
+- <code title="get /enterprises">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">list</a>({ ...params }) -> EnterpriseListResponsesDefaultFlatPagination</code>
+- <code title="delete /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">delete</a>(enterpriseID) -> void</code>
+
+## Reputation
+
+Types:
+
+- <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationCreateResponse</a></code>
+- <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationListResponse</a></code>
+- <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationUpdateFrequencyResponse</a></code>
+
+Methods:
+
+- <code title="post /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">create</a>(enterpriseID, { ...params }) -> ReputationCreateResponse</code>
+- <code title="get /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">list</a>(enterpriseID) -> ReputationListResponse</code>
+- <code title="delete /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">deleteAll</a>(enterpriseID) -> void</code>
+- <code title="patch /enterprises/{enterprise_id}/reputation/frequency">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">updateFrequency</a>(enterpriseID, { ...params }) -> ReputationUpdateFrequencyResponse</code>
+
+### Numbers
+
+Types:
+
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberCreateResponse</a></code>
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberRetrieveResponse</a></code>
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberListResponse</a></code>
+
+Methods:
+
+- <code title="post /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">create</a>(enterpriseID, { ...params }) -> NumberCreateResponse</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">retrieve</a>(phoneNumber, { ...params }) -> NumberRetrieveResponse</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">list</a>(enterpriseID, { ...params }) -> NumberListResponsesDefaultFlatPagination</code>
+- <code title="delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">delete</a>(phoneNumber, { ...params }) -> void</code>
+
+# Reputation
+
+## Numbers
+
+Types:
+
+- <code><a href="./src/resources/reputation/numbers.ts">NumberRetrieveResponse</a></code>
+- <code><a href="./src/resources/reputation/numbers.ts">NumberListResponse</a></code>
+
+Methods:
+
+- <code title="get /reputation/numbers/{phone_number}">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">retrieve</a>(phoneNumber, { ...params }) -> NumberRetrieveResponse</code>
+- <code title="get /reputation/numbers">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">list</a>({ ...params }) -> NumberListResponsesDefaultFlatPagination</code>
+- <code title="delete /reputation/numbers/{phone_number}">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">delete</a>(phoneNumber) -> void</code>
+
+# TermsOfService
+
+## NumberReputation
+
+Methods:
+
+- <code title="post /terms_of_service/number_reputation/agree">client.termsOfService.numberReputation.<a href="./src/resources/terms-of-service/number-reputation.ts">agree</a>() -> void</code>

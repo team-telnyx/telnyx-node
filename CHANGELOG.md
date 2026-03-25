@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.29.1 (2026-03-25)
+
+Full Changelog: [v6.29.0...v6.29.1](https://github.com/team-telnyx/telnyx-node/compare/v6.29.0...v6.29.1)
+
+### Bug Fixes
+
+* rename number-reputation ToS route to use underscores ([9f3c5d0](https://github.com/team-telnyx/telnyx-node/commit/9f3c5d06ce23ba7786fe95c7105b84fe02206cc2))
+
+
+### Documentation
+
+* **branded-calling:** add Number Reputation API specs ([9b02f59](https://github.com/team-telnyx/telnyx-node/commit/9b02f5949b903b0986ca2c6ed1b7cff6e3dcccaa))
+
 ## 6.29.0 (2026-03-24)
 
 Full Changelog: [v6.28.0...v6.29.0](https://github.com/team-telnyx/telnyx-node/compare/v6.28.0...v6.29.0)

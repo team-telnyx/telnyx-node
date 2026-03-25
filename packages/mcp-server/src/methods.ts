@@ -6052,6 +6052,108 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/traffic_policy_profiles/services',
   },
+  {
+    clientCallName: 'client.enterprises.create',
+    fullyQualifiedName: 'enterprises.create',
+    httpMethod: 'post',
+    httpPath: '/enterprises',
+  },
+  {
+    clientCallName: 'client.enterprises.retrieve',
+    fullyQualifiedName: 'enterprises.retrieve',
+    httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}',
+  },
+  {
+    clientCallName: 'client.enterprises.update',
+    fullyQualifiedName: 'enterprises.update',
+    httpMethod: 'put',
+    httpPath: '/enterprises/{enterprise_id}',
+  },
+  {
+    clientCallName: 'client.enterprises.list',
+    fullyQualifiedName: 'enterprises.list',
+    httpMethod: 'get',
+    httpPath: '/enterprises',
+  },
+  {
+    clientCallName: 'client.enterprises.delete',
+    fullyQualifiedName: 'enterprises.delete',
+    httpMethod: 'delete',
+    httpPath: '/enterprises/{enterprise_id}',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.create',
+    fullyQualifiedName: 'enterprises.reputation.create',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/reputation',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.list',
+    fullyQualifiedName: 'enterprises.reputation.list',
+    httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}/reputation',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.deleteAll',
+    fullyQualifiedName: 'enterprises.reputation.deleteAll',
+    httpMethod: 'delete',
+    httpPath: '/enterprises/{enterprise_id}/reputation',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.updateFrequency',
+    fullyQualifiedName: 'enterprises.reputation.updateFrequency',
+    httpMethod: 'patch',
+    httpPath: '/enterprises/{enterprise_id}/reputation/frequency',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.numbers.create',
+    fullyQualifiedName: 'enterprises.reputation.numbers.create',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/reputation/numbers',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.numbers.retrieve',
+    fullyQualifiedName: 'enterprises.reputation.numbers.retrieve',
+    httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}/reputation/numbers/{phone_number}',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.numbers.list',
+    fullyQualifiedName: 'enterprises.reputation.numbers.list',
+    httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}/reputation/numbers',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.numbers.delete',
+    fullyQualifiedName: 'enterprises.reputation.numbers.delete',
+    httpMethod: 'delete',
+    httpPath: '/enterprises/{enterprise_id}/reputation/numbers/{phone_number}',
+  },
+  {
+    clientCallName: 'client.reputation.numbers.retrieve',
+    fullyQualifiedName: 'reputation.numbers.retrieve',
+    httpMethod: 'get',
+    httpPath: '/reputation/numbers/{phone_number}',
+  },
+  {
+    clientCallName: 'client.reputation.numbers.list',
+    fullyQualifiedName: 'reputation.numbers.list',
+    httpMethod: 'get',
+    httpPath: '/reputation/numbers',
+  },
+  {
+    clientCallName: 'client.reputation.numbers.delete',
+    fullyQualifiedName: 'reputation.numbers.delete',
+    httpMethod: 'delete',
+    httpPath: '/reputation/numbers/{phone_number}',
+  },
+  {
+    clientCallName: 'client.termsOfService.numberReputation.agree',
+    fullyQualifiedName: 'termsOfService.numberReputation.agree',
+    httpMethod: 'post',
+    httpPath: '/terms_of_service/number_reputation/agree',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {

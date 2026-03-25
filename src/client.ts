@@ -1189,6 +1189,17 @@ import {
   EncryptedMedia,
 } from './resources/credential-connections/credential-connections';
 import {
+  EnterpriseCreateParams,
+  EnterpriseCreateResponse,
+  EnterpriseListParams,
+  EnterpriseListResponse,
+  EnterpriseListResponsesDefaultFlatPagination,
+  EnterpriseRetrieveResponse,
+  EnterpriseUpdateParams,
+  EnterpriseUpdateResponse,
+  Enterprises,
+} from './resources/enterprises/enterprises';
+import {
   ExternalConnection,
   ExternalConnectionCreateParams,
   ExternalConnectionCreateResponse,
@@ -1427,6 +1438,7 @@ import {
   ReportListWdrsResponsesDefaultFlatPagination,
   Reports,
 } from './resources/reports/reports';
+import { Reputation } from './resources/reputation/reputation';
 import {
   Room,
   RoomCreateParams,
@@ -1479,6 +1491,7 @@ import {
   SimCards,
 } from './resources/sim-cards/sim-cards';
 import { Storage, StorageListMigrationSourceCoverageResponse } from './resources/storage/storage';
+import { TermsOfService } from './resources/terms-of-service/terms-of-service';
 import { Texml, TexmlSecretsParams, TexmlSecretsResponse } from './resources/texml/texml';
 import {
   StreamClientEvent,
@@ -2876,6 +2889,12 @@ export class Telnyx {
    * Traffic Policy Profiles operations
    */
   trafficPolicyProfiles: API.TrafficPolicyProfiles = new API.TrafficPolicyProfiles(this);
+  /**
+   * Enterprise management for Branded Calling and Number Reputation services
+   */
+  enterprises: API.Enterprises = new API.Enterprises(this);
+  reputation: API.Reputation = new API.Reputation(this);
+  termsOfService: API.TermsOfService = new API.TermsOfService(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3037,6 +3056,9 @@ Telnyx.X402 = X402;
 Telnyx.VoiceClones = VoiceClones;
 Telnyx.VoiceDesigns = VoiceDesigns;
 Telnyx.TrafficPolicyProfiles = TrafficPolicyProfiles;
+Telnyx.Enterprises = Enterprises;
+Telnyx.Reputation = Reputation;
+Telnyx.TermsOfService = TermsOfService;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -4753,6 +4775,22 @@ export declare namespace Telnyx {
     type TrafficPolicyProfileListParams as TrafficPolicyProfileListParams,
     type TrafficPolicyProfileListServicesParams as TrafficPolicyProfileListServicesParams,
   };
+
+  export {
+    Enterprises as Enterprises,
+    type EnterpriseCreateResponse as EnterpriseCreateResponse,
+    type EnterpriseRetrieveResponse as EnterpriseRetrieveResponse,
+    type EnterpriseUpdateResponse as EnterpriseUpdateResponse,
+    type EnterpriseListResponse as EnterpriseListResponse,
+    type EnterpriseListResponsesDefaultFlatPagination as EnterpriseListResponsesDefaultFlatPagination,
+    type EnterpriseCreateParams as EnterpriseCreateParams,
+    type EnterpriseUpdateParams as EnterpriseUpdateParams,
+    type EnterpriseListParams as EnterpriseListParams,
+  };
+
+  export { Reputation as Reputation };
+
+  export { TermsOfService as TermsOfService };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
