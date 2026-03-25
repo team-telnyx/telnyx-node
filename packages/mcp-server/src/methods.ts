@@ -6152,7 +6152,7 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.termsOfService.numberReputation.agree',
     fullyQualifiedName: 'termsOfService.numberReputation.agree',
     httpMethod: 'post',
-    httpPath: '/terms-of-service/number-reputation/agree',
+    httpPath: '/terms_of_service/number_reputation/agree',
   },
 ];
 

@@ -17,7 +17,7 @@ export class NumberReputation extends APIResource {
    * current ToS version.
    */
   agree(options?: RequestOptions): APIPromise<void> {
-    return this._client.post('/terms-of-service/number-reputation/agree', {
+    return this._client.post('/terms_of_service/number_reputation/agree', {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
