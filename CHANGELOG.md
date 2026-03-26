@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.29.2 (2026-03-26)
+
+Full Changelog: [v6.29.1...v6.29.2](https://github.com/team-telnyx/telnyx-node/compare/v6.29.1...v6.29.2)
+
 ## 6.29.1 (2026-03-25)
 
 Full Changelog: [v6.29.0...v6.29.1](https://github.com/team-telnyx/telnyx-node/compare/v6.29.0...v6.29.1)

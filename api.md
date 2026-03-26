@@ -17,6 +17,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">MessagingFeatureSet</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingHostedNumberOrder</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingPaginationMeta</a></code>
+- <code><a href="./src/resources/shared.ts">MetaInfo</a></code>
 - <code><a href="./src/resources/shared.ts">Metadata</a></code>
 - <code><a href="./src/resources/shared.ts">MinimaxVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">NetappsLocation</a></code>
@@ -26,6 +27,8 @@ Types:
 - <code><a href="./src/resources/shared.ts">PortingOrderStatus</a></code>
 - <code><a href="./src/resources/shared.ts">PortingOrdersExceptionType</a></code>
 - <code><a href="./src/resources/shared.ts">RegionInformation</a></code>
+- <code><a href="./src/resources/shared.ts">ReputationData</a></code>
+- <code><a href="./src/resources/shared.ts">ReputationPhoneNumberWithReputationData</a></code>
 - <code><a href="./src/resources/shared.ts">ResembleVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">RimeVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">RoomParticipant</a></code>
@@ -4691,23 +4694,28 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/enterprises/enterprises.ts">BillingAddress</a></code>
+- <code><a href="./src/resources/enterprises/enterprises.ts">BillingContact</a></code>
+- <code><a href="./src/resources/enterprises/enterprises.ts">EnterprisePublic</a></code>
+- <code><a href="./src/resources/enterprises/enterprises.ts">OrganizationContact</a></code>
+- <code><a href="./src/resources/enterprises/enterprises.ts">PhysicalAddress</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseCreateResponse</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseRetrieveResponse</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseUpdateResponse</a></code>
-- <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseListResponse</a></code>
 
 Methods:
 
 - <code title="post /enterprises">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">create</a>({ ...params }) -> EnterpriseCreateResponse</code>
 - <code title="get /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">retrieve</a>(enterpriseID) -> EnterpriseRetrieveResponse</code>
 - <code title="put /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">update</a>(enterpriseID, { ...params }) -> EnterpriseUpdateResponse</code>
-- <code title="get /enterprises">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">list</a>({ ...params }) -> EnterpriseListResponsesDefaultFlatPagination</code>
+- <code title="get /enterprises">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">list</a>({ ...params }) -> EnterprisePublicsDefaultFlatPagination</code>
 - <code title="delete /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">delete</a>(enterpriseID) -> void</code>
 
 ## Reputation
 
 Types:
 
+- <code><a href="./src/resources/enterprises/reputation/reputation.ts">EnterpriseReputationPublic</a></code>
 - <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationCreateResponse</a></code>
 - <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationListResponse</a></code>
 - <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationUpdateFrequencyResponse</a></code>
@@ -4725,13 +4733,12 @@ Types:
 
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberCreateResponse</a></code>
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberRetrieveResponse</a></code>
-- <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberListResponse</a></code>
 
 Methods:
 
 - <code title="post /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">create</a>(enterpriseID, { ...params }) -> NumberCreateResponse</code>
 - <code title="get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">retrieve</a>(phoneNumber, { ...params }) -> NumberRetrieveResponse</code>
-- <code title="get /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">list</a>(enterpriseID, { ...params }) -> NumberListResponsesDefaultFlatPagination</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">list</a>(enterpriseID, { ...params }) -> ReputationPhoneNumberWithReputationDataDefaultFlatPagination</code>
 - <code title="delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">delete</a>(phoneNumber, { ...params }) -> void</code>
 
 # Reputation
@@ -4741,12 +4748,11 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/reputation/numbers.ts">NumberRetrieveResponse</a></code>
-- <code><a href="./src/resources/reputation/numbers.ts">NumberListResponse</a></code>
 
 Methods:
 
 - <code title="get /reputation/numbers/{phone_number}">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">retrieve</a>(phoneNumber, { ...params }) -> NumberRetrieveResponse</code>
-- <code title="get /reputation/numbers">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">list</a>({ ...params }) -> NumberListResponsesDefaultFlatPagination</code>
+- <code title="get /reputation/numbers">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">list</a>({ ...params }) -> ReputationPhoneNumberWithReputationDataDefaultFlatPagination</code>
 - <code title="delete /reputation/numbers/{phone_number}">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">delete</a>(phoneNumber) -> void</code>
 
 # TermsOfService

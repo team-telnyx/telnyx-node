@@ -4,15 +4,14 @@ export {
   Numbers,
   type NumberCreateResponse,
   type NumberRetrieveResponse,
-  type NumberListResponse,
   type NumberCreateParams,
   type NumberRetrieveParams,
   type NumberListParams,
   type NumberDeleteParams,
-  type NumberListResponsesDefaultFlatPagination,
 } from './numbers';
 export {
   Reputation,
+  type EnterpriseReputationPublic,
   type ReputationCreateResponse,
   type ReputationListResponse,
   type ReputationUpdateFrequencyResponse,
