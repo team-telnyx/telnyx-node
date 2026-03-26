@@ -7,8 +7,6 @@ import {
   NumberCreateResponse,
   NumberDeleteParams,
   NumberListParams,
-  NumberListResponse,
-  NumberListResponsesDefaultFlatPagination,
   NumberRetrieveParams,
   NumberRetrieveResponse,
   Numbers,
@@ -146,133 +144,53 @@ export class Reputation extends APIResource {
   }
 }
 
-export interface ReputationCreateResponse {
-  data?: ReputationCreateResponse.Data;
+export interface EnterpriseReputationPublic {
+  /**
+   * Frequency for refreshing reputation data
+   */
+  check_frequency?: 'business_daily' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'never';
+
+  /**
+   * When the reputation settings were created
+   */
+  created_at?: string;
+
+  /**
+   * ID of the associated enterprise
+   */
+  enterprise_id?: string;
+
+  /**
+   * ID of the signed LOA document
+   */
+  loa_document_id?: string | null;
+
+  /**
+   * Reasons for rejection (present when status is rejected)
+   */
+  rejection_reasons?: Array<string> | null;
+
+  /**
+   * Current enrollment status
+   */
+  status?: 'pending' | 'approved' | 'rejected' | 'deleted';
+
+  /**
+   * When the reputation settings were last updated
+   */
+  updated_at?: string;
 }
 
-export namespace ReputationCreateResponse {
-  export interface Data {
-    /**
-     * Frequency for refreshing reputation data
-     */
-    check_frequency?: 'business_daily' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'never';
-
-    /**
-     * When the reputation settings were created
-     */
-    created_at?: string;
-
-    /**
-     * ID of the associated enterprise
-     */
-    enterprise_id?: string;
-
-    /**
-     * ID of the signed LOA document
-     */
-    loa_document_id?: string | null;
-
-    /**
-     * Reasons for rejection (present when status is rejected)
-     */
-    rejection_reasons?: Array<string> | null;
-
-    /**
-     * Current enrollment status
-     */
-    status?: 'pending' | 'approved' | 'rejected' | 'deleted';
-
-    /**
-     * When the reputation settings were last updated
-     */
-    updated_at?: string;
-  }
+export interface ReputationCreateResponse {
+  data?: EnterpriseReputationPublic;
 }
 
 export interface ReputationListResponse {
-  data?: ReputationListResponse.Data;
-}
-
-export namespace ReputationListResponse {
-  export interface Data {
-    /**
-     * Frequency for refreshing reputation data
-     */
-    check_frequency?: 'business_daily' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'never';
-
-    /**
-     * When the reputation settings were created
-     */
-    created_at?: string;
-
-    /**
-     * ID of the associated enterprise
-     */
-    enterprise_id?: string;
-
-    /**
-     * ID of the signed LOA document
-     */
-    loa_document_id?: string | null;
-
-    /**
-     * Reasons for rejection (present when status is rejected)
-     */
-    rejection_reasons?: Array<string> | null;
-
-    /**
-     * Current enrollment status
-     */
-    status?: 'pending' | 'approved' | 'rejected' | 'deleted';
-
-    /**
-     * When the reputation settings were last updated
-     */
-    updated_at?: string;
-  }
+  data?: EnterpriseReputationPublic;
 }
 
 export interface ReputationUpdateFrequencyResponse {
-  data?: ReputationUpdateFrequencyResponse.Data;
-}
-
-export namespace ReputationUpdateFrequencyResponse {
-  export interface Data {
-    /**
-     * Frequency for refreshing reputation data
-     */
-    check_frequency?: 'business_daily' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'never';
-
-    /**
-     * When the reputation settings were created
-     */
-    created_at?: string;
-
-    /**
-     * ID of the associated enterprise
-     */
-    enterprise_id?: string;
-
-    /**
-     * ID of the signed LOA document
-     */
-    loa_document_id?: string | null;
-
-    /**
-     * Reasons for rejection (present when status is rejected)
-     */
-    rejection_reasons?: Array<string> | null;
-
-    /**
-     * Current enrollment status
-     */
-    status?: 'pending' | 'approved' | 'rejected' | 'deleted';
-
-    /**
-     * When the reputation settings were last updated
-     */
-    updated_at?: string;
-  }
+  data?: EnterpriseReputationPublic;
 }
 
 export interface ReputationCreateParams {
@@ -299,6 +217,7 @@ Reputation.Numbers = Numbers;
 
 export declare namespace Reputation {
   export {
+    type EnterpriseReputationPublic as EnterpriseReputationPublic,
     type ReputationCreateResponse as ReputationCreateResponse,
     type ReputationListResponse as ReputationListResponse,
     type ReputationUpdateFrequencyResponse as ReputationUpdateFrequencyResponse,
@@ -310,8 +229,6 @@ export declare namespace Reputation {
     Numbers as Numbers,
     type NumberCreateResponse as NumberCreateResponse,
     type NumberRetrieveResponse as NumberRetrieveResponse,
-    type NumberListResponse as NumberListResponse,
-    type NumberListResponsesDefaultFlatPagination as NumberListResponsesDefaultFlatPagination,
     type NumberCreateParams as NumberCreateParams,
     type NumberRetrieveParams as NumberRetrieveParams,
     type NumberListParams as NumberListParams,

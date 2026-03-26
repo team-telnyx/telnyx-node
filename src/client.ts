@@ -1189,15 +1189,19 @@ import {
   EncryptedMedia,
 } from './resources/credential-connections/credential-connections';
 import {
+  BillingAddress,
+  BillingContact,
   EnterpriseCreateParams,
   EnterpriseCreateResponse,
   EnterpriseListParams,
-  EnterpriseListResponse,
-  EnterpriseListResponsesDefaultFlatPagination,
+  EnterprisePublic,
+  EnterprisePublicsDefaultFlatPagination,
   EnterpriseRetrieveResponse,
   EnterpriseUpdateParams,
   EnterpriseUpdateResponse,
   Enterprises,
+  OrganizationContact,
+  PhysicalAddress,
 } from './resources/enterprises/enterprises';
 import {
   ExternalConnection,
@@ -4779,11 +4783,15 @@ export declare namespace Telnyx {
 
   export {
     Enterprises as Enterprises,
+    type BillingAddress as BillingAddress,
+    type BillingContact as BillingContact,
+    type EnterprisePublic as EnterprisePublic,
+    type OrganizationContact as OrganizationContact,
+    type PhysicalAddress as PhysicalAddress,
     type EnterpriseCreateResponse as EnterpriseCreateResponse,
     type EnterpriseRetrieveResponse as EnterpriseRetrieveResponse,
     type EnterpriseUpdateResponse as EnterpriseUpdateResponse,
-    type EnterpriseListResponse as EnterpriseListResponse,
-    type EnterpriseListResponsesDefaultFlatPagination as EnterpriseListResponsesDefaultFlatPagination,
+    type EnterprisePublicsDefaultFlatPagination as EnterprisePublicsDefaultFlatPagination,
     type EnterpriseCreateParams as EnterpriseCreateParams,
     type EnterpriseUpdateParams as EnterpriseUpdateParams,
     type EnterpriseListParams as EnterpriseListParams,
@@ -4808,6 +4816,7 @@ export declare namespace Telnyx {
   export type MessagingFeatureSet = API.MessagingFeatureSet;
   export type MessagingHostedNumberOrder = API.MessagingHostedNumberOrder;
   export type MessagingPaginationMeta = API.MessagingPaginationMeta;
+  export type MetaInfo = API.MetaInfo;
   export type Metadata = API.Metadata;
   export type MinimaxVoiceSettings = API.MinimaxVoiceSettings;
   export type NetappsLocation = API.NetappsLocation;
@@ -4817,6 +4826,8 @@ export declare namespace Telnyx {
   export type PortingOrderStatus = API.PortingOrderStatus;
   export type PortingOrdersExceptionType = API.PortingOrdersExceptionType;
   export type RegionInformation = API.RegionInformation;
+  export type ReputationData = API.ReputationData;
+  export type ReputationPhoneNumberWithReputationData = API.ReputationPhoneNumberWithReputationData;
   export type ResembleVoiceSettings = API.ResembleVoiceSettings;
   export type RimeVoiceSettings = API.RimeVoiceSettings;
   export type RoomParticipant = API.RoomParticipant;

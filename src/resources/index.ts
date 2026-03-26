@@ -297,14 +297,18 @@ export {
 } from './dynamic-emergency-endpoints';
 export {
   Enterprises,
+  type BillingAddress,
+  type BillingContact,
+  type EnterprisePublic,
+  type OrganizationContact,
+  type PhysicalAddress,
   type EnterpriseCreateResponse,
   type EnterpriseRetrieveResponse,
   type EnterpriseUpdateResponse,
-  type EnterpriseListResponse,
   type EnterpriseCreateParams,
   type EnterpriseUpdateParams,
   type EnterpriseListParams,
-  type EnterpriseListResponsesDefaultFlatPagination,
+  type EnterprisePublicsDefaultFlatPagination,
 } from './enterprises/enterprises';
 export {
   ExternalConnections,
