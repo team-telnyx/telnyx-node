@@ -20,7 +20,7 @@ export const newMcpServer = async (stainlessApiKey: string | undefined) =>
   new McpServer(
     {
       name: 'telnyx_api',
-      version: '6.29.1',
+      version: '6.29.2',
     },
     {
       instructions: await getInstructions(stainlessApiKey),
