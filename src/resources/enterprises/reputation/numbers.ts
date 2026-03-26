@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as Shared from '../../shared';
+import { ReputationPhoneNumberWithReputationDataDefaultFlatPagination } from '../../shared';
 import { APIPromise } from '../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -102,7 +104,7 @@ export class Numbers extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const numberListResponse of client.enterprises.reputation.numbers.list(
+   * for await (const reputationPhoneNumberWithReputationData of client.enterprises.reputation.numbers.list(
    *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
    * )) {
    *   // ...
@@ -113,10 +115,13 @@ export class Numbers extends APIResource {
     enterpriseID: string,
     query: NumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NumberListResponsesDefaultFlatPagination, NumberListResponse> {
+  ): PagePromise<
+    ReputationPhoneNumberWithReputationDataDefaultFlatPagination,
+    Shared.ReputationPhoneNumberWithReputationData
+  > {
     return this._client.getAPIList(
       path`/enterprises/${enterpriseID}/reputation/numbers`,
-      DefaultFlatPagination<NumberListResponse>,
+      DefaultFlatPagination<Shared.ReputationPhoneNumberWithReputationData>,
       { query, ...options },
     );
   }
@@ -144,12 +149,10 @@ export class Numbers extends APIResource {
   }
 }
 
-export type NumberListResponsesDefaultFlatPagination = DefaultFlatPagination<NumberListResponse>;
-
 export interface NumberCreateResponse {
   data?: Array<NumberCreateResponse.Data>;
 
-  meta?: NumberCreateResponse.Meta;
+  meta?: Shared.MetaInfo;
 }
 
 export namespace NumberCreateResponse {
@@ -179,182 +182,10 @@ export namespace NumberCreateResponse {
      */
     updated_at?: string;
   }
-
-  export interface Meta {
-    /**
-     * Current page number
-     */
-    page_number?: number;
-
-    /**
-     * Items per page
-     */
-    page_size?: number;
-
-    /**
-     * Total number of pages
-     */
-    total_pages?: number;
-
-    /**
-     * Total number of results
-     */
-    total_results?: number;
-  }
 }
 
 export interface NumberRetrieveResponse {
-  data?: NumberRetrieveResponse.Data;
-}
-
-export namespace NumberRetrieveResponse {
-  export interface Data {
-    /**
-     * Unique identifier
-     */
-    id?: string;
-
-    /**
-     * When the number was associated
-     */
-    created_at?: string;
-
-    /**
-     * ID of the associated enterprise
-     */
-    enterprise_id?: string;
-
-    /**
-     * Phone number in E.164 format
-     */
-    phone_number?: string;
-
-    /**
-     * Reputation metrics (null if not yet fetched)
-     */
-    reputation_data?: Data.ReputationData | unknown;
-
-    /**
-     * When the record was last updated
-     */
-    updated_at?: string;
-  }
-
-  export namespace Data {
-    /**
-     * Reputation metrics
-     */
-    export interface ReputationData {
-      /**
-       * Connection quality metric (0–100)
-       */
-      connection_score?: number | null;
-
-      /**
-       * Engagement metric (0–100). Higher = more positive engagement
-       */
-      engagement_score?: number | null;
-
-      /**
-       * Timestamp of the last reputation data refresh
-       */
-      last_refreshed_at?: string | null;
-
-      /**
-       * Maturity metric (0–100). Higher = more established number
-       */
-      maturity_score?: number | null;
-
-      /**
-       * Sentiment metric (0–100). Higher = more positive sentiment
-       */
-      sentiment_score?: number | null;
-
-      /**
-       * Spam category classification (e.g., Telemarketing, Debt Collector)
-       */
-      spam_category?: string | null;
-
-      /**
-       * Overall spam risk level
-       */
-      spam_risk?: 'low' | 'medium' | 'high' | null;
-    }
-  }
-}
-
-export interface NumberListResponse {
-  /**
-   * Unique identifier
-   */
-  id?: string;
-
-  /**
-   * When the number was associated
-   */
-  created_at?: string;
-
-  /**
-   * ID of the associated enterprise
-   */
-  enterprise_id?: string;
-
-  /**
-   * Phone number in E.164 format
-   */
-  phone_number?: string;
-
-  /**
-   * Reputation metrics (null if not yet fetched)
-   */
-  reputation_data?: NumberListResponse.ReputationData | unknown;
-
-  /**
-   * When the record was last updated
-   */
-  updated_at?: string;
-}
-
-export namespace NumberListResponse {
-  /**
-   * Reputation metrics
-   */
-  export interface ReputationData {
-    /**
-     * Connection quality metric (0–100)
-     */
-    connection_score?: number | null;
-
-    /**
-     * Engagement metric (0–100). Higher = more positive engagement
-     */
-    engagement_score?: number | null;
-
-    /**
-     * Timestamp of the last reputation data refresh
-     */
-    last_refreshed_at?: string | null;
-
-    /**
-     * Maturity metric (0–100). Higher = more established number
-     */
-    maturity_score?: number | null;
-
-    /**
-     * Sentiment metric (0–100). Higher = more positive sentiment
-     */
-    sentiment_score?: number | null;
-
-    /**
-     * Spam category classification (e.g., Telemarketing, Debt Collector)
-     */
-    spam_category?: string | null;
-
-    /**
-     * Overall spam risk level
-     */
-    spam_risk?: 'low' | 'medium' | 'high' | null;
-  }
+  data?: Shared.ReputationPhoneNumberWithReputationData;
 }
 
 export interface NumberCreateParams {
@@ -395,11 +226,11 @@ export declare namespace Numbers {
   export {
     type NumberCreateResponse as NumberCreateResponse,
     type NumberRetrieveResponse as NumberRetrieveResponse,
-    type NumberListResponse as NumberListResponse,
-    type NumberListResponsesDefaultFlatPagination as NumberListResponsesDefaultFlatPagination,
     type NumberCreateParams as NumberCreateParams,
     type NumberRetrieveParams as NumberRetrieveParams,
     type NumberListParams as NumberListParams,
     type NumberDeleteParams as NumberDeleteParams,
   };
 }
+
+export { type ReputationPhoneNumberWithReputationDataDefaultFlatPagination };
