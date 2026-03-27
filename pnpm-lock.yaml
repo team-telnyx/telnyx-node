@@ -120,6 +120,9 @@ importers:
       jq-web:
         specifier: https://github.com/stainless-api/jq-web/releases/download/v0.8.8/jq-web.tar.gz
         version: https://github.com/stainless-api/jq-web/releases/download/v0.8.8/jq-web.tar.gz
+      minisearch:
+        specifier: ^7.2.0
+        version: 7.2.0
       pino:
         specifier: ^10.3.1
         version: 10.3.1
@@ -2040,6 +2043,9 @@ packages:
 
   minimist@1.2.6:
     resolution: {integrity: sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==}
+
+  minisearch@7.2.0:
+    resolution: {integrity: sha512-dqT2XBYUOZOiC5t2HRnwADjhNS2cecp9u+TJRiJ1Qp/f5qjkeT5APcGPjHw+bz89Ms8Jp+cG4AlE+QZ/QnDglg==}
 
   mkdirp@2.1.6:
     resolution: {integrity: sha512-+hEnITedc8LAtIP9u3HJDFIdcLV2vXP33sqLLIzkv1Db1zO/1OxbvYf0Y1OC/S/Qo5dxHXepofhmxL02PsKe+A==}
@@ -5164,6 +5170,8 @@ snapshots:
       brace-expansion: 2.0.2
 
   minimist@1.2.6: {}
+
+  minisearch@7.2.0: {}
 
   mkdirp@2.1.6: {}
 
