@@ -1407,7 +1407,7 @@ export namespace TransferTool {
 export interface VoiceSettings {
   /**
    * The voice to be used by the voice assistant. Check the full list of
-   * [available voices](https://developers.telnyx.com/api/call-control/list-text-to-speech-voices)
+   * [available voices](https://developers.telnyx.com/docs/tts-stt/tts-available-voices)
    * via our voices API. To use ElevenLabs, you must reference your ElevenLabs API
    * key as an integration secret under the `api_key_ref` field. See
    * [integration secrets documentation](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
