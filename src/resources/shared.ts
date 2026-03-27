@@ -1014,9 +1014,9 @@ export interface ReputationPhoneNumberWithReputationData {
   phone_number?: string;
 
   /**
-   * Reputation metrics (null if not yet fetched)
+   * Reputation metrics
    */
-  reputation_data?: ReputationData | { [key: string]: unknown } | null;
+  reputation_data?: ReputationData;
 
   /**
    * When the record was last updated
