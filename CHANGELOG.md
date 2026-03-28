@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.29.5 (2026-03-28)
+
+Full Changelog: [v6.29.4...v6.29.5](https://github.com/team-telnyx/telnyx-node/compare/v6.29.4...v6.29.5)
+
+### Bug Fixes
+
+* **mcp:** correct package identifier in server.json ([4634fd1](https://github.com/team-telnyx/telnyx-node/commit/4634fd1f03a7c3dfdf93b50d433a9602473f31ef))
+
 ## 6.29.4 (2026-03-28)
 
 Full Changelog: [v6.29.3...v6.29.4](https://github.com/team-telnyx/telnyx-node/compare/v6.29.3...v6.29.4)
