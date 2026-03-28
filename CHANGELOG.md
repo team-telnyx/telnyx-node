@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.29.4 (2026-03-28)
+
+Full Changelog: [v6.29.3...v6.29.4](https://github.com/team-telnyx/telnyx-node/compare/v6.29.3...v6.29.4)
+
+### Bug Fixes
+
+* **ci:** fix JSON quoting in publish-npm workflow ([8ec645f](https://github.com/team-telnyx/telnyx-node/commit/8ec645f7b7eec698f64a84f00ac30057e7e68233))
+
 ## 6.29.3 (2026-03-28)
 
 Full Changelog: [v6.29.2...v6.29.3](https://github.com/team-telnyx/telnyx-node/compare/v6.29.2...v6.29.3)
