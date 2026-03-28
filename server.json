@@ -10,7 +10,7 @@
     {
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
-      "identifier": "telnyx",
+      "identifier": "telnyx-mcp",
       "transport": {
         "type": "stdio"
       },
