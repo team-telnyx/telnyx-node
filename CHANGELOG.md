@@ -1,5 +1,25 @@
 # Changelog
 
+## 6.29.3 (2026-03-28)
+
+Full Changelog: [v6.29.2...v6.29.3](https://github.com/team-telnyx/telnyx-node/compare/v6.29.2...v6.29.3)
+
+### Bug Fixes
+
+* **typescript:** enable OIDC trusted publishing for npm ([53cf5e2](https://github.com/team-telnyx/telnyx-node/commit/53cf5e227ad6e75ad5ed9914880390e8a49af1bb))
+
+
+### Chores
+
+* **ci:** escape input path in publish-npm workflow ([1aa362c](https://github.com/team-telnyx/telnyx-node/commit/1aa362c8f38cecec1d105ac05fc4f6fda1da5a40))
+* **internal:** support custom-instructions-path flag in MCP servers ([9841403](https://github.com/team-telnyx/telnyx-node/commit/98414030834d3ba98c618d22d97f9935b7c91147))
+* **internal:** support local docs search in MCP servers ([bb64ed5](https://github.com/team-telnyx/telnyx-node/commit/bb64ed55302daa0bcf486a13690a53c729701a13))
+
+
+### Documentation
+
+* fix voice settings available voices link ([2b4d847](https://github.com/team-telnyx/telnyx-node/commit/2b4d847474ac162ade05e4fa2660b3a8ce5799de))
+
 ## 6.29.2 (2026-03-26)
 
 Full Changelog: [v6.29.1...v6.29.2](https://github.com/team-telnyx/telnyx-node/compare/v6.29.1...v6.29.2)
