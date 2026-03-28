@@ -42,7 +42,7 @@ jobs:
           else
             PATHS_RELEASED='[\".\", \"packages/mcp-server\"]'
           fi
-          pnpm tsn scripts/publish-packages.ts "{ \"paths_released\": \"$PATHS_RELEASED\" }"
+          pnpm tsn scripts/publish-packages.ts "{ \"paths_released\": $PATHS_RELEASED }"
         env:
           INPUT_PATH: ${{ github.event.inputs.path }}
 
