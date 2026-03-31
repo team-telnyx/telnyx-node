@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.29.8 (2026-03-31)
+
+Full Changelog: [v6.29.7...v6.29.8](https://github.com/team-telnyx/telnyx-node/compare/v6.29.7...v6.29.8)
+
+### Chores
+
+* **internal:** improve local docs search for MCP servers ([9dba325](https://github.com/team-telnyx/telnyx-node/commit/9dba325c1958ca5dd37bee494a9862e9799cf8b3))
+* **mcp-server:** add support for session id, forward client info ([988707d](https://github.com/team-telnyx/telnyx-node/commit/988707d7f960da9878d795dabc1250050badb6de))
+
+
+### Refactors
+
+* move webhooks.ts to lib/ for custom code guidelines ([9aced43](https://github.com/team-telnyx/telnyx-node/commit/9aced4326120f5bc8f8745500851e850548cc316))
+
 ## 6.29.7 (2026-03-28)
 
 Full Changelog: [v6.29.6...v6.29.7](https://github.com/team-telnyx/telnyx-node/compare/v6.29.6...v6.29.7)
