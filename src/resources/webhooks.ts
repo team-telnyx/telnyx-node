@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { TelnyxWebhook, TelnyxWebhookVerificationError } from '../webhooks';
+import { TelnyxWebhook, TelnyxWebhookVerificationError } from '../lib/webhooks';
 import * as NumberOrdersAPI from './number-orders';
 import * as Shared from './shared';
 import * as CallsAPI from './calls/calls';
