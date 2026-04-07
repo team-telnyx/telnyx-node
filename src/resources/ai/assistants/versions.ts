@@ -172,6 +172,8 @@ export interface UpdateAssistant {
 
   name?: string;
 
+  observability_settings?: UpdateAssistant.ObservabilitySettings;
+
   privacy_settings?: AssistantsAPI.PrivacySettings;
 
   telephony_settings?: AssistantsAPI.TelephonySettings;
@@ -192,6 +194,18 @@ export interface UpdateAssistant {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: AssistantsAPI.WidgetSettings;
+}
+
+export namespace UpdateAssistant {
+  export interface ObservabilitySettings {
+    host?: string;
+
+    public_key_ref?: string;
+
+    secret_key_ref?: string;
+
+    status?: 'enabled' | 'disabled';
+  }
 }
 
 export interface VersionRetrieveParams {
@@ -285,6 +299,11 @@ export interface VersionUpdateParams {
   /**
    * Body param
    */
+  observability_settings?: VersionUpdateParams.ObservabilitySettings;
+
+  /**
+   * Body param
+   */
   privacy_settings?: AssistantsAPI.PrivacySettings;
 
   /**
@@ -317,6 +336,18 @@ export interface VersionUpdateParams {
    * Body param: Configuration settings for the assistant's web widget.
    */
   widget_settings?: AssistantsAPI.WidgetSettings;
+}
+
+export namespace VersionUpdateParams {
+  export interface ObservabilitySettings {
+    host?: string;
+
+    public_key_ref?: string;
+
+    secret_key_ref?: string;
+
+    status?: 'enabled' | 'disabled';
+  }
 }
 
 export interface VersionDeleteParams {
