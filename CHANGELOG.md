@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.31.0 (2026-04-07)
+
+Full Changelog: [v6.30.0...v6.31.0](https://github.com/team-telnyx/telnyx-node/compare/v6.30.0...v6.31.0)
+
+### Features
+
+* Assistants: add observability ([0e11054](https://github.com/team-telnyx/telnyx-node/commit/0e11054f653dcbd8e780dba31e7603889fd5e501))
+
 ## 6.30.0 (2026-04-07)
 
 Full Changelog: [v6.29.7...v6.30.0](https://github.com/team-telnyx/telnyx-node/compare/v6.29.7...v6.30.0)
