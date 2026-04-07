@@ -922,7 +922,7 @@ export interface InferenceEmbedding {
 
   messaging_settings?: MessagingSettings;
 
-  observability_settings?: InferenceEmbedding.ObservabilitySettings;
+  observability_settings?: Observability;
 
   privacy_settings?: PrivacySettings;
 
@@ -942,18 +942,6 @@ export interface InferenceEmbedding {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
-}
-
-export namespace InferenceEmbedding {
-  export interface ObservabilitySettings {
-    host?: string;
-
-    public_key_ref?: string;
-
-    secret_key_ref?: string;
-
-    status?: 'enabled' | 'disabled';
-  }
 }
 
 export interface InferenceEmbeddingWebhookToolParams {
@@ -1156,6 +1144,26 @@ export interface MessagingSettings {
    * be sent.
    */
   delivery_status_webhook_url?: string;
+}
+
+export interface Observability {
+  host?: string;
+
+  public_key_ref?: string;
+
+  secret_key_ref?: string;
+
+  status?: 'enabled' | 'disabled';
+}
+
+export interface ObservabilityReq {
+  host?: string;
+
+  public_key_ref?: string;
+
+  secret_key_ref?: string;
+
+  status?: 'enabled' | 'disabled';
 }
 
 export interface PrivacySettings {
@@ -1859,7 +1867,7 @@ export interface AssistantCreateParams {
 
   messaging_settings?: MessagingSettings;
 
-  observability_settings?: AssistantCreateParams.ObservabilitySettings;
+  observability_settings?: ObservabilityReq;
 
   privacy_settings?: PrivacySettings;
 
@@ -1881,18 +1889,6 @@ export interface AssistantCreateParams {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
-}
-
-export namespace AssistantCreateParams {
-  export interface ObservabilitySettings {
-    host?: string;
-
-    public_key_ref?: string;
-
-    secret_key_ref?: string;
-
-    status?: 'enabled' | 'disabled';
-  }
 }
 
 export interface AssistantRetrieveParams {
@@ -1961,7 +1957,7 @@ export interface AssistantUpdateParams {
 
   name?: string;
 
-  observability_settings?: AssistantUpdateParams.ObservabilitySettings;
+  observability_settings?: ObservabilityReq;
 
   privacy_settings?: PrivacySettings;
 
@@ -1989,18 +1985,6 @@ export interface AssistantUpdateParams {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
-}
-
-export namespace AssistantUpdateParams {
-  export interface ObservabilitySettings {
-    host?: string;
-
-    public_key_ref?: string;
-
-    secret_key_ref?: string;
-
-    status?: 'enabled' | 'disabled';
-  }
 }
 
 export interface AssistantChatParams {
@@ -2073,6 +2057,8 @@ export declare namespace Assistants {
     type InferenceEmbeddingWebhookToolParams as InferenceEmbeddingWebhookToolParams,
     type InsightSettings as InsightSettings,
     type MessagingSettings as MessagingSettings,
+    type Observability as Observability,
+    type ObservabilityReq as ObservabilityReq,
     type PrivacySettings as PrivacySettings,
     type RetrievalTool as RetrievalTool,
     type TelephonySettings as TelephonySettings,

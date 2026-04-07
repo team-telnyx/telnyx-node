@@ -15,6 +15,8 @@ export {
   type InferenceEmbeddingWebhookToolParams,
   type InsightSettings,
   type MessagingSettings,
+  type Observability,
+  type ObservabilityReq,
   type PrivacySettings,
   type RetrievalTool,
   type TelephonySettings,
