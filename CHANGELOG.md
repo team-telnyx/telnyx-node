@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.32.0 (2026-04-07)
+
+Full Changelog: [v6.31.0...v6.32.0](https://github.com/team-telnyx/telnyx-node/compare/v6.31.0...v6.32.0)
+
+### Features
+
+* MSG-6666: Add template and text properties to WhatsApp send message schema ([91a5d59](https://github.com/team-telnyx/telnyx-node/commit/91a5d59c34850af68327c0669d5216ce92b71624))
+
 ## 6.31.0 (2026-04-07)
 
 Full Changelog: [v6.30.0...v6.31.0](https://github.com/team-telnyx/telnyx-node/compare/v6.30.0...v6.31.0)
