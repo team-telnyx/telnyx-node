@@ -42,6 +42,12 @@ describe('resource assistants', () => {
         default_messaging_profile_id: 'default_messaging_profile_id',
         delivery_status_webhook_url: 'delivery_status_webhook_url',
       },
+      observability_settings: {
+        host: 'host',
+        public_key_ref: 'public_key_ref',
+        secret_key_ref: 'secret_key_ref',
+        status: 'enabled',
+      },
       privacy_settings: { data_retention: true },
       telephony_settings: {
         default_texml_app_id: 'default_texml_app_id',

@@ -922,6 +922,8 @@ export interface InferenceEmbedding {
 
   messaging_settings?: MessagingSettings;
 
+  observability_settings?: InferenceEmbedding.ObservabilitySettings;
+
   privacy_settings?: PrivacySettings;
 
   telephony_settings?: TelephonySettings;
@@ -940,6 +942,18 @@ export interface InferenceEmbedding {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
+}
+
+export namespace InferenceEmbedding {
+  export interface ObservabilitySettings {
+    host?: string;
+
+    public_key_ref?: string;
+
+    secret_key_ref?: string;
+
+    status?: 'enabled' | 'disabled';
+  }
 }
 
 export interface InferenceEmbeddingWebhookToolParams {
@@ -1845,6 +1859,8 @@ export interface AssistantCreateParams {
 
   messaging_settings?: MessagingSettings;
 
+  observability_settings?: AssistantCreateParams.ObservabilitySettings;
+
   privacy_settings?: PrivacySettings;
 
   telephony_settings?: TelephonySettings;
@@ -1865,6 +1881,18 @@ export interface AssistantCreateParams {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
+}
+
+export namespace AssistantCreateParams {
+  export interface ObservabilitySettings {
+    host?: string;
+
+    public_key_ref?: string;
+
+    secret_key_ref?: string;
+
+    status?: 'enabled' | 'disabled';
+  }
 }
 
 export interface AssistantRetrieveParams {
@@ -1933,6 +1961,8 @@ export interface AssistantUpdateParams {
 
   name?: string;
 
+  observability_settings?: AssistantUpdateParams.ObservabilitySettings;
+
   privacy_settings?: PrivacySettings;
 
   /**
@@ -1959,6 +1989,18 @@ export interface AssistantUpdateParams {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
+}
+
+export namespace AssistantUpdateParams {
+  export interface ObservabilitySettings {
+    host?: string;
+
+    public_key_ref?: string;
+
+    secret_key_ref?: string;
+
+    status?: 'enabled' | 'disabled';
+  }
 }
 
 export interface AssistantChatParams {
