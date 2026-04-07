@@ -1259,6 +1259,7 @@ export {
   type VerificationTriggerCallParams,
   type VerificationTriggerFlashcallParams,
   type VerificationTriggerSMSParams,
+  type VerificationTriggerWhatsappVerificationParams,
 } from './verifications/verifications';
 export {
   VerifiedNumbers,

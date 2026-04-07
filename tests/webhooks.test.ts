@@ -1,5 +1,5 @@
 import { Telnyx } from '../src/client';
-import { TelnyxWebhook, TelnyxWebhookVerificationError } from '../src/webhooks';
+import { TelnyxWebhook, TelnyxWebhookVerificationError } from '../src/lib/webhooks';
 import { CallAIGatherEndedWebhookEvent, CallAnsweredWebhookEvent } from '../src/resources/webhooks';
 import * as crypto from 'crypto';
 

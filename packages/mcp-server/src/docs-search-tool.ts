@@ -50,8 +50,6 @@ export function setLocalSearch(search: LocalDocsSearch): void {
   _localSearch = search;
 }
 
-const SUPPORTED_LANGUAGES = new Set(['http', 'typescript', 'javascript']);
-
 async function searchLocal(args: Record<string, unknown>): Promise<unknown> {
   if (!_localSearch) {
     throw new Error('Local search not initialized');
@@ -59,34 +57,28 @@ async function searchLocal(args: Record<string, unknown>): Promise<unknown> {
 
   const query = (args['query'] as string) ?? '';
   const language = (args['language'] as string) ?? 'typescript';
-  const detail = (args['detail'] as string) ?? 'verbose';
-
-  if (!SUPPORTED_LANGUAGES.has(language)) {
-    throw new Error(
-      `Local docs search only supports HTTP, TypeScript, and JavaScript. Got language="${language}". ` +
-        `Use --docs-search-mode stainless-api for other languages, or set language to "http", "typescript", or "javascript".`,
-    );
-  }
+  const detail = (args['detail'] as string) ?? 'default';
 
   return _localSearch.search({
     query,
     language,
     detail,
-    maxResults: 10,
+    maxResults: 5,
   }).results;
 }
 
-async function searchRemote(
-  args: Record<string, unknown>,
-  stainlessApiKey: string | undefined,
-): Promise<unknown> {
+async function searchRemote(args: Record<string, unknown>, reqContext: McpRequestContext): Promise<unknown> {
   const body = args as any;
   const query = new URLSearchParams(body).toString();
 
   const startTime = Date.now();
   const result = await fetch(`${docsSearchURL}?${query}`, {
     headers: {
-      ...(stainlessApiKey && { Authorization: stainlessApiKey }),
+      ...(reqContext.stainlessApiKey && { Authorization: reqContext.stainlessApiKey }),
+      ...(reqContext.mcpSessionId && { 'x-stainless-mcp-session-id': reqContext.mcpSessionId }),
+      ...(reqContext.mcpClientInfo && {
+        'x-stainless-mcp-client-info': JSON.stringify(reqContext.mcpClientInfo),
+      }),
     },
   });
 
@@ -105,7 +97,7 @@ async function searchRemote(
       'Got error response from docs search tool',
     );
 
-    if (result.status === 404 && !stainlessApiKey) {
+    if (result.status === 404 && !reqContext.stainlessApiKey) {
       throw new Error(
         'Could not find docs for this project. You may need to provide a Stainless API key via the STAINLESS_API_KEY environment variable, the --stainless-api-key flag, or the x-stainless-api-key HTTP header.',
       );
@@ -140,7 +132,7 @@ export const handler = async ({
     return asTextContentResult(await searchLocal(body));
   }
 
-  return asTextContentResult(await searchRemote(body, reqContext.stainlessApiKey));
+  return asTextContentResult(await searchRemote(body, reqContext));
 };
 
 export default { metadata, tool, handler };

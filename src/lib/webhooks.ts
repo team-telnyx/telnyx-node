@@ -21,7 +21,7 @@
  * });
  */
 
-import { TelnyxError } from './core/error';
+import { TelnyxError } from '../core/error';
 
 export class TelnyxWebhookVerificationError extends TelnyxError {
   constructor(message: string) {

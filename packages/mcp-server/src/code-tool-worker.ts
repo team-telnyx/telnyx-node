@@ -955,6 +955,7 @@ const fuse = new Fuse(
     'client.verifications.triggerCall',
     'client.verifications.triggerFlashcall',
     'client.verifications.triggerSMS',
+    'client.verifications.triggerWhatsappVerification',
     'client.verifications.byPhoneNumber.list',
     'client.verifications.byPhoneNumber.actions.verify',
     'client.verifications.actions.verify',

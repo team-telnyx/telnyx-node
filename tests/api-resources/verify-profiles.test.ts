@@ -55,6 +55,11 @@ describe('resource verifyProfiles', () => {
       },
       webhook_failover_url: 'http://example.com/webhook/failover',
       webhook_url: 'http://example.com/webhook',
+      whatsapp: {
+        app_name: 'Example Secure App',
+        default_verification_timeout_secs: 300,
+        whitelisted_destinations: ['US', 'CA'],
+      },
     });
   });
 
