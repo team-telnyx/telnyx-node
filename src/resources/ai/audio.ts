@@ -27,6 +27,13 @@ export class Audio extends APIResource {
   }
 }
 
+/**
+ * Response fields vary by model. `distil-whisper/distil-large-v2` returns `text`,
+ * `duration`, and `segments` in `verbose_json` mode.
+ * `openai/whisper-large-v3-turbo` returns `text` only. `deepgram/nova-3` returns
+ * `text` and, depending on `model_config`, may include `words` with per-word
+ * timestamps and speaker labels.
+ */
 export interface AudioTranscribeResponse {
   /**
    * The transcribed text for the audio file.
@@ -34,16 +41,24 @@ export interface AudioTranscribeResponse {
   text: string;
 
   /**
-   * The duration of the audio file in seconds. This is only included if
-   * `response_format` is set to `verbose_json`.
+   * The duration of the audio file in seconds. Returned by
+   * `distil-whisper/distil-large-v2` and `deepgram/nova-3` when `response_format` is
+   * `verbose_json`. Not returned by `openai/whisper-large-v3-turbo`.
    */
   duration?: number;
 
   /**
-   * Segments of the transcribed text and their corresponding details. This is only
-   * included if `response_format` is set to `verbose_json`.
+   * Segments of the transcribed text and their corresponding details. Returned by
+   * `distil-whisper/distil-large-v2` when `response_format` is `verbose_json`. Not
+   * returned by `openai/whisper-large-v3-turbo`.
    */
   segments?: Array<AudioTranscribeResponse.Segment>;
+
+  /**
+   * Word-level timestamps and optional speaker labels. Only returned by
+   * `deepgram/nova-3` when word-level output is enabled via `model_config`.
+   */
+  words?: Array<AudioTranscribeResponse.Word>;
 }
 
 export namespace AudioTranscribeResponse {
@@ -67,6 +82,37 @@ export namespace AudioTranscribeResponse {
      * Text content of the segment.
      */
     text: string;
+  }
+
+  /**
+   * Word-level timing detail. Only present when using `deepgram/nova-3` with
+   * `model_config` options that enable word timestamps.
+   */
+  export interface Word {
+    /**
+     * End time of the word in seconds.
+     */
+    end: number;
+
+    /**
+     * Start time of the word in seconds.
+     */
+    start: number;
+
+    /**
+     * The transcribed word.
+     */
+    word: string;
+
+    /**
+     * Confidence score for the word (0.0 to 1.0).
+     */
+    confidence?: number;
+
+    /**
+     * Speaker index. Only present when diarization is enabled via `model_config`.
+     */
+    speaker?: number;
   }
 }
 

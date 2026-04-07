@@ -89,6 +89,26 @@ export class Verifications extends APIResource {
   ): APIPromise<CreateVerificationResponse> {
     return this._client.post('/verifications/sms', { body, ...options });
   }
+
+  /**
+   * Trigger WhatsApp verification
+   *
+   * @example
+   * ```ts
+   * const createVerificationResponse =
+   *   await client.verifications.triggerWhatsappVerification({
+   *     phone_number: '+13035551234',
+   *     verify_profile_id:
+   *       '12ade33a-21c0-473b-b055-b3c836e1c292',
+   *   });
+   * ```
+   */
+  triggerWhatsappVerification(
+    body: VerificationTriggerWhatsappVerificationParams,
+    options?: RequestOptions,
+  ): APIPromise<CreateVerificationResponse> {
+    return this._client.post('/verifications/whatsapp', { body, ...options });
+  }
 }
 
 export interface CreateVerificationResponse {
@@ -130,7 +150,7 @@ export interface Verification {
   /**
    * The possible types of verification.
    */
-  type?: 'sms' | 'call' | 'flashcall';
+  type?: 'sms' | 'call' | 'flashcall' | 'whatsapp';
 
   updated_at?: string;
 
@@ -211,6 +231,28 @@ export interface VerificationTriggerSMSParams {
   timeout_secs?: number;
 }
 
+export interface VerificationTriggerWhatsappVerificationParams {
+  /**
+   * +E164 formatted phone number.
+   */
+  phone_number: string;
+
+  /**
+   * The identifier of the associated Verify profile.
+   */
+  verify_profile_id: string;
+
+  /**
+   * Send a self-generated numeric code to the end-user
+   */
+  custom_code?: string | null;
+
+  /**
+   * The number of seconds the verification code is valid for.
+   */
+  timeout_secs?: number;
+}
+
 Verifications.ByPhoneNumber = ByPhoneNumber;
 Verifications.Actions = Actions;
 
@@ -222,6 +264,7 @@ export declare namespace Verifications {
     type VerificationTriggerCallParams as VerificationTriggerCallParams,
     type VerificationTriggerFlashcallParams as VerificationTriggerFlashcallParams,
     type VerificationTriggerSMSParams as VerificationTriggerSMSParams,
+    type VerificationTriggerWhatsappVerificationParams as VerificationTriggerWhatsappVerificationParams,
   };
 
   export {

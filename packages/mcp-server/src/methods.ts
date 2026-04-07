@@ -5105,6 +5105,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/verifications/sms',
   },
   {
+    clientCallName: 'client.verifications.triggerWhatsappVerification',
+    fullyQualifiedName: 'verifications.triggerWhatsappVerification',
+    httpMethod: 'post',
+    httpPath: '/verifications/whatsapp',
+  },
+  {
     clientCallName: 'client.verifications.byPhoneNumber.list',
     fullyQualifiedName: 'verifications.byPhoneNumber.list',
     httpMethod: 'get',
