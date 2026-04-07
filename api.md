@@ -520,6 +520,8 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingWebhookToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InsightSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">MessagingSettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">Observability</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ObservabilityReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PrivacySettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">RetrievalTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TelephonySettings</a></code>
