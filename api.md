@@ -3984,6 +3984,7 @@ Methods:
 - <code title="post /verifications/call">client.verifications.<a href="./src/resources/verifications/verifications.ts">triggerCall</a>({ ...params }) -> CreateVerificationResponse</code>
 - <code title="post /verifications/flashcall">client.verifications.<a href="./src/resources/verifications/verifications.ts">triggerFlashcall</a>({ ...params }) -> CreateVerificationResponse</code>
 - <code title="post /verifications/sms">client.verifications.<a href="./src/resources/verifications/verifications.ts">triggerSMS</a>({ ...params }) -> CreateVerificationResponse</code>
+- <code title="post /verifications/whatsapp">client.verifications.<a href="./src/resources/verifications/verifications.ts">triggerWhatsappVerification</a>({ ...params }) -> CreateVerificationResponse</code>
 
 ## ByPhoneNumber
 

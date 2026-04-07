@@ -353,6 +353,8 @@ export interface VerifyProfileCreateParams {
   webhook_failover_url?: string;
 
   webhook_url?: string;
+
+  whatsapp?: VerifyProfileCreateParams.Whatsapp;
 }
 
 export namespace VerifyProfileCreateParams {
@@ -496,6 +498,31 @@ export namespace VerifyProfileCreateParams {
 
     [k: string]: unknown;
   }
+
+  export interface Whatsapp {
+    /**
+     * The name that identifies the application requesting 2fa in the verification
+     * message.
+     */
+    app_name?: string;
+
+    /**
+     * For every request that is initiated via this Verify profile, this sets the
+     * number of seconds before a verification request code expires. Once the
+     * verification request expires, the user cannot use the code to verify their
+     * identity.
+     */
+    default_verification_timeout_secs?: number;
+
+    /**
+     * Enabled country destinations to send verification codes. The elements in the
+     * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
+     * destinations will be allowed.
+     */
+    whitelisted_destinations?: Array<string>;
+
+    [k: string]: unknown;
+  }
 }
 
 export interface VerifyProfileUpdateParams {
@@ -514,6 +541,8 @@ export interface VerifyProfileUpdateParams {
   webhook_failover_url?: string;
 
   webhook_url?: string;
+
+  whatsapp?: VerifyProfileUpdateParams.Whatsapp;
 }
 
 export namespace VerifyProfileUpdateParams {
@@ -647,6 +676,31 @@ export namespace VerifyProfileUpdateParams {
      * The message template identifier selected from /verify_profiles/templates
      */
     messaging_template_id?: string;
+
+    /**
+     * Enabled country destinations to send verification codes. The elements in the
+     * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
+     * destinations will be allowed.
+     */
+    whitelisted_destinations?: Array<string>;
+
+    [k: string]: unknown;
+  }
+
+  export interface Whatsapp {
+    /**
+     * The name that identifies the application requesting 2fa in the verification
+     * message.
+     */
+    app_name?: string;
+
+    /**
+     * For every request that is initiated via this Verify profile, this sets the
+     * number of seconds before a verification request code expires. Once the
+     * verification request expires, the user cannot use the code to verify their
+     * identity.
+     */
+    default_verification_timeout_secs?: number;
 
     /**
      * Enabled country destinations to send verification codes. The elements in the

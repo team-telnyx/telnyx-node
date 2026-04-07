@@ -1513,6 +1513,7 @@ import {
   VerificationTriggerCallParams,
   VerificationTriggerFlashcallParams,
   VerificationTriggerSMSParams,
+  VerificationTriggerWhatsappVerificationParams,
   Verifications,
 } from './resources/verifications/verifications';
 import {
@@ -4546,6 +4547,7 @@ export declare namespace Telnyx {
     type VerificationTriggerCallParams as VerificationTriggerCallParams,
     type VerificationTriggerFlashcallParams as VerificationTriggerFlashcallParams,
     type VerificationTriggerSMSParams as VerificationTriggerSMSParams,
+    type VerificationTriggerWhatsappVerificationParams as VerificationTriggerWhatsappVerificationParams,
   };
 
   export {
