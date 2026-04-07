@@ -1269,6 +1269,12 @@ export namespace TelephonySettings {
     channels?: 'single' | 'dual';
 
     /**
+     * Whether call recording is enabled. When set to false, calls will not be recorded
+     * regardless of other recording configuration.
+     */
+    enabled?: boolean;
+
+    /**
      * The format of the recording file.
      */
     format?: 'wav' | 'mp3';

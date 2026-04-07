@@ -53,7 +53,11 @@ describe('resource assistants', () => {
         default_texml_app_id: 'default_texml_app_id',
         noise_suppression: 'krisp',
         noise_suppression_config: { attenuation_limit: 0, mode: 'advanced' },
-        recording_settings: { channels: 'single', format: 'wav' },
+        recording_settings: {
+          channels: 'single',
+          enabled: true,
+          format: 'wav',
+        },
         supports_unauthenticated_web_calls: true,
         time_limit_secs: 30,
         user_idle_timeout_secs: 30,
