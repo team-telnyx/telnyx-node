@@ -1142,6 +1142,17 @@ export interface WhatsappMessageContent {
 
   sticker?: WhatsappMedia;
 
+  /**
+   * Template message object. Provide either template_id or name + language to
+   * identify the template.
+   */
+  template?: WhatsappMessageContent.Template;
+
+  /**
+   * Text message content. Can only be sent within a 24-hour customer service window.
+   */
+  text?: WhatsappMessageContent.Text;
+
   type?:
     | 'audio'
     | 'document'
@@ -1152,9 +1163,89 @@ export interface WhatsappMessageContent {
     | 'location'
     | 'template'
     | 'reaction'
-    | 'contacts';
+    | 'contacts'
+    | 'text';
 
   video?: WhatsappMedia;
+}
+
+export namespace WhatsappMessageContent {
+  /**
+   * Template message object. Provide either template_id or name + language to
+   * identify the template.
+   */
+  export interface Template {
+    /**
+     * Template parameter values for header, body, and button components.
+     */
+    components?: Array<Template.Component>;
+
+    /**
+     * Template language. Required unless template_id is provided.
+     */
+    language?: Template.Language;
+
+    /**
+     * Template name as registered with Meta. Required unless template_id is provided.
+     */
+    name?: string;
+
+    /**
+     * Telnyx template ID (the id field from template list/get responses). When
+     * provided, name and language are resolved automatically.
+     */
+    template_id?: string;
+  }
+
+  export namespace Template {
+    export interface Component {
+      /**
+       * Button index (required for button components)
+       */
+      index?: number;
+
+      parameters?: Array<Component.Parameter>;
+
+      sub_type?: 'quick_reply' | 'url';
+
+      type?: 'header' | 'body' | 'button';
+    }
+
+    export namespace Component {
+      export interface Parameter {
+        text?: string;
+
+        type?: 'text' | 'image' | 'video' | 'document' | 'currency' | 'date_time';
+      }
+    }
+
+    /**
+     * Template language. Required unless template_id is provided.
+     */
+    export interface Language {
+      /**
+       * Language code (e.g. en_US)
+       */
+      code: string;
+
+      policy?: string;
+    }
+  }
+
+  /**
+   * Text message content. Can only be sent within a 24-hour customer service window.
+   */
+  export interface Text {
+    /**
+     * The text message body.
+     */
+    body: string;
+
+    /**
+     * Whether to show a URL preview in the message.
+     */
+    preview_url?: boolean;
+  }
 }
 
 export interface WhatsappReaction {
