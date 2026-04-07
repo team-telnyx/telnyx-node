@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.34.0 (2026-04-07)
+
+Full Changelog: [v6.33.0...v6.34.0](https://github.com/team-telnyx/telnyx-node/compare/v6.33.0...v6.34.0)
+
+### Features
+
+* add enabled boolean to recording_settings [AI-2178] ([aa2ec07](https://github.com/team-telnyx/telnyx-node/commit/aa2ec073f7e2e46b2ca0ac62fce43107d5116294))
+
 ## 6.33.0 (2026-04-07)
 
 Full Changelog: [v6.32.0...v6.33.0](https://github.com/team-telnyx/telnyx-node/compare/v6.32.0...v6.33.0)
