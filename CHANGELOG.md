@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.35.0 (2026-04-07)
+
+Full Changelog: [v6.34.0...v6.35.0](https://github.com/team-telnyx/telnyx-node/compare/v6.34.0...v6.35.0)
+
+### Features
+
+* AI-2180: Add message_template to SendMessageTool schema ([a3bdbd6](https://github.com/team-telnyx/telnyx-node/commit/a3bdbd6e25b0f7c26fcb4ba6458d4a676ecf391c))
+
 ## 6.34.0 (2026-04-07)
 
 Full Changelog: [v6.33.0...v6.34.0](https://github.com/team-telnyx/telnyx-node/compare/v6.33.0...v6.34.0)
