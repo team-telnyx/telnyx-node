@@ -18,6 +18,40 @@ import { path } from '../../../internal/utils/path';
  */
 export class Numbers extends APIResource {
   /**
+   * Associate one or more phone numbers with an enterprise for Number Reputation
+   * monitoring.
+   *
+   * **Validations:**
+   *
+   * - Phone numbers must be in E.164 format (e.g., `+16035551234`)
+   * - Phone numbers must be in-service and belong to your account (verified via
+   *   Warehouse)
+   * - Phone numbers must be US local numbers
+   * - Phone numbers cannot already be associated with any enterprise
+   *
+   * **Note:** This operation is atomic — if any number fails validation, the entire
+   * request fails.
+   *
+   * **Maximum:** 100 phone numbers per request.
+   *
+   * @example
+   * ```ts
+   * const number =
+   *   await client.enterprises.reputation.numbers.create(
+   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *     { phone_numbers: ['+16035551234'] },
+   *   );
+   * ```
+   */
+  create(
+    enterpriseID: string,
+    body: NumberCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<NumberCreateResponse> {
+    return this._client.post(path`/enterprises/${enterpriseID}/reputation/numbers`, { body, ...options });
+  }
+
+  /**
    * Get detailed reputation data for a specific phone number associated with an
    * enterprise.
    *
@@ -93,40 +127,6 @@ export class Numbers extends APIResource {
   }
 
   /**
-   * Associate one or more phone numbers with an enterprise for Number Reputation
-   * monitoring.
-   *
-   * **Validations:**
-   *
-   * - Phone numbers must be in E.164 format (e.g., `+16035551234`)
-   * - Phone numbers must be in-service and belong to your account (verified via
-   *   Warehouse)
-   * - Phone numbers must be US local numbers
-   * - Phone numbers cannot already be associated with any enterprise
-   *
-   * **Note:** This operation is atomic — if any number fails validation, the entire
-   * request fails.
-   *
-   * **Maximum:** 100 phone numbers per request.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.enterprises.reputation.numbers.associate(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *     { phone_numbers: ['+16035551234'] },
-   *   );
-   * ```
-   */
-  associate(
-    enterpriseID: string,
-    body: NumberAssociateParams,
-    options?: RequestOptions,
-  ): APIPromise<NumberAssociateResponse> {
-    return this._client.post(path`/enterprises/${enterpriseID}/reputation/numbers`, { body, ...options });
-  }
-
-  /**
    * Remove a phone number from Number Reputation monitoring for an enterprise.
    *
    * The number will no longer be tracked and reputation data will no longer be
@@ -134,17 +134,13 @@ export class Numbers extends APIResource {
    *
    * @example
    * ```ts
-   * await client.enterprises.reputation.numbers.disassociate(
+   * await client.enterprises.reputation.numbers.delete(
    *   '+16035551234',
    *   { enterprise_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58' },
    * );
    * ```
    */
-  disassociate(
-    phoneNumber: string,
-    params: NumberDisassociateParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
+  delete(phoneNumber: string, params: NumberDeleteParams, options?: RequestOptions): APIPromise<void> {
     const { enterprise_id } = params;
     return this._client.delete(path`/enterprises/${enterprise_id}/reputation/numbers/${phoneNumber}`, {
       ...options,
@@ -153,17 +149,13 @@ export class Numbers extends APIResource {
   }
 }
 
-export interface NumberRetrieveResponse {
-  data?: Shared.ReputationPhoneNumberWithReputationData;
-}
-
-export interface NumberAssociateResponse {
-  data?: Array<NumberAssociateResponse.Data>;
+export interface NumberCreateResponse {
+  data?: Array<NumberCreateResponse.Data>;
 
   meta?: Shared.MetaInfo;
 }
 
-export namespace NumberAssociateResponse {
+export namespace NumberCreateResponse {
   export interface Data {
     /**
      * Unique identifier
@@ -192,6 +184,17 @@ export namespace NumberAssociateResponse {
   }
 }
 
+export interface NumberRetrieveResponse {
+  data?: Shared.ReputationPhoneNumberWithReputationData;
+}
+
+export interface NumberCreateParams {
+  /**
+   * List of phone numbers to associate for reputation monitoring (max 100)
+   */
+  phone_numbers: Array<string>;
+}
+
 export interface NumberRetrieveParams {
   /**
    * Path param: Unique identifier of the enterprise (UUID)
@@ -212,14 +215,7 @@ export interface NumberListParams extends DefaultFlatPaginationParams {
   phone_number?: string;
 }
 
-export interface NumberAssociateParams {
-  /**
-   * List of phone numbers to associate for reputation monitoring (max 100)
-   */
-  phone_numbers: Array<string>;
-}
-
-export interface NumberDisassociateParams {
+export interface NumberDeleteParams {
   /**
    * Unique identifier of the enterprise (UUID)
    */
@@ -228,12 +224,12 @@ export interface NumberDisassociateParams {
 
 export declare namespace Numbers {
   export {
+    type NumberCreateResponse as NumberCreateResponse,
     type NumberRetrieveResponse as NumberRetrieveResponse,
-    type NumberAssociateResponse as NumberAssociateResponse,
+    type NumberCreateParams as NumberCreateParams,
     type NumberRetrieveParams as NumberRetrieveParams,
     type NumberListParams as NumberListParams,
-    type NumberAssociateParams as NumberAssociateParams,
-    type NumberDisassociateParams as NumberDisassociateParams,
+    type NumberDeleteParams as NumberDeleteParams,
   };
 }
 
