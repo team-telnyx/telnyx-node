@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.40.0 (2026-04-08)
+
+Full Changelog: [v6.39.0...v6.40.0](https://github.com/team-telnyx/telnyx-node/compare/v6.39.0...v6.40.0)
+
+### Features
+
+* TELAPPS-5707: Add privacy parameter to Call Control dial and transfer ([d225fd8](https://github.com/team-telnyx/telnyx-node/commit/d225fd8e2a19376af2c607f7e87eef990513acdb))
+
+
+### Reverts
+
+* revert stainless.yml changes from pronunciation dictionaries commit ([7ba9138](https://github.com/team-telnyx/telnyx-node/commit/7ba9138ff95bbfe87cd4ef7ae4d42c86b7829a21))
+
 ## 6.39.0 (2026-04-08)
 
 Full Changelog: [v6.38.0...v6.39.0](https://github.com/team-telnyx/telnyx-node/compare/v6.38.0...v6.39.0)
