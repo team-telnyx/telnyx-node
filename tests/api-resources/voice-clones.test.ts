@@ -104,8 +104,10 @@ describe('resource voiceClones', () => {
   test.skip('createFromUpload: only required params', async () => {
     const responsePromise = client.voiceClones.createFromUpload({
       audio_file: await toFile(Buffer.from('Example data'), 'README.md'),
+      gender: 'male',
       language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
       name: 'name',
+      provider: 'telnyx',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -120,11 +122,12 @@ describe('resource voiceClones', () => {
   test.skip('createFromUpload: required and optional params', async () => {
     const response = await client.voiceClones.createFromUpload({
       audio_file: await toFile(Buffer.from('Example data'), 'README.md'),
+      gender: 'male',
       language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
       name: 'name',
-      gender: 'male',
-      label: 'label',
       provider: 'telnyx',
+      label: 'label',
+      model_id: 'Qwen3TTS',
       ref_text: 'ref_text',
     });
   });
