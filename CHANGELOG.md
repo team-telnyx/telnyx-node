@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.38.0 (2026-04-08)
+
+Full Changelog: [v6.37.0...v6.38.0](https://github.com/team-telnyx/telnyx-node/compare/v6.37.0...v6.38.0)
+
+### Features
+
+* CW-3815 fix PATCH /wirelss_blocklists/{id} endpoint ([b14596b](https://github.com/team-telnyx/telnyx-node/commit/b14596b1ef18a5455baea5997e62d954322d10d8))
+
 ## 6.37.0 (2026-04-08)
 
 Full Changelog: [v6.36.0...v6.37.0](https://github.com/team-telnyx/telnyx-node/compare/v6.36.0...v6.37.0)

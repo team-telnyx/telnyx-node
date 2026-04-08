@@ -47,7 +47,7 @@ describe('resource wirelessBlocklists', () => {
 
   // Mock server tests are disabled
   test.skip('update', async () => {
-    const responsePromise = client.wirelessBlocklists.update({});
+    const responsePromise = client.wirelessBlocklists.update('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
