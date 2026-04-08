@@ -9,8 +9,32 @@ const client = new Telnyx({
 
 describe('resource reputation', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.enterprises.reputation.create('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {
+  test.skip('retrieve', async () => {
+    const responsePromise = client.enterprises.reputation.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('disable', async () => {
+    const responsePromise = client.enterprises.reputation.disable('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('enable: only required params', async () => {
+    const responsePromise = client.enterprises.reputation.enable('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {
       loa_document_id: 'doc_01HXYZ1234ABCDEF',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -23,35 +47,11 @@ describe('resource reputation', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.enterprises.reputation.create('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {
+  test.skip('enable: required and optional params', async () => {
+    const response = await client.enterprises.reputation.enable('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {
       loa_document_id: 'doc_01HXYZ1234ABCDEF',
       check_frequency: 'business_daily',
     });
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.enterprises.reputation.list('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('deleteAll', async () => {
-    const responsePromise = client.enterprises.reputation.deleteAll('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled
