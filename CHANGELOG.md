@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.37.0 (2026-04-08)
+
+Full Changelog: [v6.36.0...v6.37.0](https://github.com/team-telnyx/telnyx-node/compare/v6.36.0...v6.37.0)
+
+### Features
+
+* Add oneOf constraint for Url/Texml mutual exclusivity in InitiateCallRequest ([1d335fd](https://github.com/team-telnyx/telnyx-node/commit/1d335fdd0a45c498a9d1452e66f74da7e19caa65))
+
 ## 6.36.0 (2026-04-08)
 
 Full Changelog: [v6.35.0...v6.36.0](https://github.com/team-telnyx/telnyx-node/compare/v6.35.0...v6.36.0)
