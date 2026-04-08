@@ -9,4 +9,10 @@ export {
   type AccountRetrieveRecordingsJsonParams,
   type AccountRetrieveTranscriptionsJsonParams,
 } from './accounts/index';
-export { Texml, type TexmlSecretsResponse, type TexmlSecretsParams } from './texml';
+export {
+  Texml,
+  type TexmlInitiateAICallResponse,
+  type TexmlSecretsResponse,
+  type TexmlInitiateAICallParams,
+  type TexmlSecretsParams,
+} from './texml';

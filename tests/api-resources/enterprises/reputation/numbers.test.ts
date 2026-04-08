@@ -9,29 +9,6 @@ const client = new Telnyx({
 
 describe('resource numbers', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.enterprises.reputation.numbers.create(
-      '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-      { phone_numbers: ['+16035551234'] },
-    );
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.enterprises.reputation.numbers.create(
-      '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-      { phone_numbers: ['+16035551234'] },
-    );
-  });
-
-  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.enterprises.reputation.numbers.retrieve('+16035551234', {
       enterprise_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
@@ -84,8 +61,31 @@ describe('resource numbers', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('delete: only required params', async () => {
-    const responsePromise = client.enterprises.reputation.numbers.delete('+16035551234', {
+  test.skip('associate: only required params', async () => {
+    const responsePromise = client.enterprises.reputation.numbers.associate(
+      '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+      { phone_numbers: ['+16035551234'] },
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('associate: required and optional params', async () => {
+    const response = await client.enterprises.reputation.numbers.associate(
+      '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+      { phone_numbers: ['+16035551234'] },
+    );
+  });
+
+  // Mock server tests are disabled
+  test.skip('disassociate: only required params', async () => {
+    const responsePromise = client.enterprises.reputation.numbers.disassociate('+16035551234', {
       enterprise_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -98,8 +98,8 @@ describe('resource numbers', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('delete: required and optional params', async () => {
-    const response = await client.enterprises.reputation.numbers.delete('+16035551234', {
+  test.skip('disassociate: required and optional params', async () => {
+    const response = await client.enterprises.reputation.numbers.disassociate('+16035551234', {
       enterprise_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
     });
   });

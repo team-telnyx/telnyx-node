@@ -3,11 +3,10 @@
 import { APIResource } from '../../core/resource';
 import * as ReputationAPI from './reputation/reputation';
 import {
-  EnterpriseReputationPublic,
   Reputation,
-  ReputationCreateParams,
-  ReputationCreateResponse,
-  ReputationListResponse,
+  ReputationEnableParams,
+  ReputationEnableResponse,
+  ReputationRetrieveResponse,
   ReputationUpdateFrequencyParams,
   ReputationUpdateFrequencyResponse,
 } from './reputation/reputation';
@@ -120,7 +119,7 @@ export class Enterprises extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const enterprisePublic of client.enterprises.list()) {
+   * for await (const enterpriseListResponse of client.enterprises.list()) {
    *   // ...
    * }
    * ```
@@ -128,8 +127,8 @@ export class Enterprises extends APIResource {
   list(
     query: EnterpriseListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<EnterprisePublicsDefaultFlatPagination, EnterprisePublic> {
-    return this._client.getAPIList('/enterprises', DefaultFlatPagination<EnterprisePublic>, {
+  ): PagePromise<EnterpriseListResponsesDefaultFlatPagination, EnterpriseListResponse> {
+    return this._client.getAPIList('/enterprises', DefaultFlatPagination<EnterpriseListResponse>, {
       query,
       ...options,
     });
@@ -153,71 +152,728 @@ export class Enterprises extends APIResource {
   }
 }
 
-export type EnterprisePublicsDefaultFlatPagination = DefaultFlatPagination<EnterprisePublic>;
+export type EnterpriseListResponsesDefaultFlatPagination = DefaultFlatPagination<EnterpriseListResponse>;
 
-export interface BillingAddress {
-  /**
-   * State or province
-   */
-  administrative_area: string;
-
-  /**
-   * City name
-   */
-  city: string;
-
-  /**
-   * Country name (e.g., United States)
-   */
-  country: string;
-
-  /**
-   * ZIP or postal code
-   */
-  postal_code: string;
-
-  /**
-   * Street address
-   */
-  street_address: string;
-
-  /**
-   * Additional address line (suite, apt, etc.)
-   */
-  extended_address?: string | null;
+export interface EnterpriseCreateResponse {
+  data?: EnterpriseCreateResponse.Data;
 }
 
-export interface BillingContact {
-  /**
-   * Contact's email address
-   */
-  email: string;
+export namespace EnterpriseCreateResponse {
+  export interface Data {
+    /**
+     * Unique identifier of the enterprise
+     */
+    id?: string;
 
-  /**
-   * Contact's first name
-   */
-  first_name: string;
+    billing_address?: Data.BillingAddress;
 
-  /**
-   * Contact's last name
-   */
-  last_name: string;
+    billing_contact?: Data.BillingContact;
 
-  /**
-   * Contact's phone number (10-15 digits)
-   */
-  phone_number: string;
+    /**
+     * Corporate registration number
+     */
+    corporate_registration_number?: string | null;
+
+    /**
+     * ISO 3166-1 alpha-2 country code
+     */
+    country_code?: string;
+
+    /**
+     * When the enterprise was created
+     */
+    created_at?: string;
+
+    /**
+     * Customer reference identifier
+     */
+    customer_reference?: string | null;
+
+    /**
+     * DBA name
+     */
+    doing_business_as?: string;
+
+    /**
+     * D-U-N-S Number
+     */
+    dun_bradstreet_number?: string | null;
+
+    /**
+     * Federal Employer Identification Number
+     */
+    fein?: string | null;
+
+    /**
+     * Industry classification
+     */
+    industry?: string | null;
+
+    /**
+     * Legal name of the enterprise
+     */
+    legal_name?: string;
+
+    /**
+     * Employee count range
+     */
+    number_of_employees?:
+      | '1-10'
+      | '11-50'
+      | '51-200'
+      | '201-500'
+      | '501-2000'
+      | '2001-10000'
+      | '10001+'
+      | null;
+
+    /**
+     * Organization contact information. Note: the response returns this object with
+     * the phone field as 'phone' (not 'phone_number').
+     */
+    organization_contact?: Data.OrganizationContact;
+
+    /**
+     * Legal structure type
+     */
+    organization_legal_type?: 'corporation' | 'llc' | 'partnership' | 'nonprofit' | 'other' | null;
+
+    organization_physical_address?: Data.OrganizationPhysicalAddress;
+
+    /**
+     * Type of organization
+     */
+    organization_type?: 'commercial' | 'government' | 'non_profit';
+
+    /**
+     * SIC Code
+     */
+    primary_business_domain_sic_code?: string | null;
+
+    /**
+     * Professional license number
+     */
+    professional_license_number?: string | null;
+
+    /**
+     * Role type in Branded Calling / Number Reputation services
+     */
+    role_type?: 'enterprise' | 'bpo';
+
+    /**
+     * When the enterprise was last updated
+     */
+    updated_at?: string;
+
+    /**
+     * Company website URL
+     */
+    website?: string | null;
+  }
+
+  export namespace Data {
+    export interface BillingAddress {
+      /**
+       * State or province
+       */
+      administrative_area: string;
+
+      /**
+       * City name
+       */
+      city: string;
+
+      /**
+       * Country name (e.g., United States)
+       */
+      country: string;
+
+      /**
+       * ZIP or postal code
+       */
+      postal_code: string;
+
+      /**
+       * Street address
+       */
+      street_address: string;
+
+      /**
+       * Additional address line (suite, apt, etc.)
+       */
+      extended_address?: string | null;
+    }
+
+    export interface BillingContact {
+      /**
+       * Contact's email address
+       */
+      email: string;
+
+      /**
+       * Contact's first name
+       */
+      first_name: string;
+
+      /**
+       * Contact's last name
+       */
+      last_name: string;
+
+      /**
+       * Contact's phone number (10-15 digits)
+       */
+      phone_number: string;
+    }
+
+    /**
+     * Organization contact information. Note: the response returns this object with
+     * the phone field as 'phone' (not 'phone_number').
+     */
+    export interface OrganizationContact {
+      /**
+       * Contact's email address
+       */
+      email: string;
+
+      /**
+       * Contact's first name
+       */
+      first_name: string;
+
+      /**
+       * Contact's job title (required)
+       */
+      job_title: string;
+
+      /**
+       * Contact's last name
+       */
+      last_name: string;
+
+      /**
+       * Contact's phone number in E.164 format
+       */
+      phone: string;
+    }
+
+    export interface OrganizationPhysicalAddress {
+      /**
+       * State or province
+       */
+      administrative_area: string;
+
+      /**
+       * City name
+       */
+      city: string;
+
+      /**
+       * Country name (e.g., United States)
+       */
+      country: string;
+
+      /**
+       * ZIP or postal code
+       */
+      postal_code: string;
+
+      /**
+       * Street address
+       */
+      street_address: string;
+
+      /**
+       * Additional address line (suite, apt, etc.)
+       */
+      extended_address?: string | null;
+    }
+  }
 }
 
-export interface EnterprisePublic {
+export interface EnterpriseRetrieveResponse {
+  data?: EnterpriseRetrieveResponse.Data;
+}
+
+export namespace EnterpriseRetrieveResponse {
+  export interface Data {
+    /**
+     * Unique identifier of the enterprise
+     */
+    id?: string;
+
+    billing_address?: Data.BillingAddress;
+
+    billing_contact?: Data.BillingContact;
+
+    /**
+     * Corporate registration number
+     */
+    corporate_registration_number?: string | null;
+
+    /**
+     * ISO 3166-1 alpha-2 country code
+     */
+    country_code?: string;
+
+    /**
+     * When the enterprise was created
+     */
+    created_at?: string;
+
+    /**
+     * Customer reference identifier
+     */
+    customer_reference?: string | null;
+
+    /**
+     * DBA name
+     */
+    doing_business_as?: string;
+
+    /**
+     * D-U-N-S Number
+     */
+    dun_bradstreet_number?: string | null;
+
+    /**
+     * Federal Employer Identification Number
+     */
+    fein?: string | null;
+
+    /**
+     * Industry classification
+     */
+    industry?: string | null;
+
+    /**
+     * Legal name of the enterprise
+     */
+    legal_name?: string;
+
+    /**
+     * Employee count range
+     */
+    number_of_employees?:
+      | '1-10'
+      | '11-50'
+      | '51-200'
+      | '201-500'
+      | '501-2000'
+      | '2001-10000'
+      | '10001+'
+      | null;
+
+    /**
+     * Organization contact information. Note: the response returns this object with
+     * the phone field as 'phone' (not 'phone_number').
+     */
+    organization_contact?: Data.OrganizationContact;
+
+    /**
+     * Legal structure type
+     */
+    organization_legal_type?: 'corporation' | 'llc' | 'partnership' | 'nonprofit' | 'other' | null;
+
+    organization_physical_address?: Data.OrganizationPhysicalAddress;
+
+    /**
+     * Type of organization
+     */
+    organization_type?: 'commercial' | 'government' | 'non_profit';
+
+    /**
+     * SIC Code
+     */
+    primary_business_domain_sic_code?: string | null;
+
+    /**
+     * Professional license number
+     */
+    professional_license_number?: string | null;
+
+    /**
+     * Role type in Branded Calling / Number Reputation services
+     */
+    role_type?: 'enterprise' | 'bpo';
+
+    /**
+     * When the enterprise was last updated
+     */
+    updated_at?: string;
+
+    /**
+     * Company website URL
+     */
+    website?: string | null;
+  }
+
+  export namespace Data {
+    export interface BillingAddress {
+      /**
+       * State or province
+       */
+      administrative_area: string;
+
+      /**
+       * City name
+       */
+      city: string;
+
+      /**
+       * Country name (e.g., United States)
+       */
+      country: string;
+
+      /**
+       * ZIP or postal code
+       */
+      postal_code: string;
+
+      /**
+       * Street address
+       */
+      street_address: string;
+
+      /**
+       * Additional address line (suite, apt, etc.)
+       */
+      extended_address?: string | null;
+    }
+
+    export interface BillingContact {
+      /**
+       * Contact's email address
+       */
+      email: string;
+
+      /**
+       * Contact's first name
+       */
+      first_name: string;
+
+      /**
+       * Contact's last name
+       */
+      last_name: string;
+
+      /**
+       * Contact's phone number (10-15 digits)
+       */
+      phone_number: string;
+    }
+
+    /**
+     * Organization contact information. Note: the response returns this object with
+     * the phone field as 'phone' (not 'phone_number').
+     */
+    export interface OrganizationContact {
+      /**
+       * Contact's email address
+       */
+      email: string;
+
+      /**
+       * Contact's first name
+       */
+      first_name: string;
+
+      /**
+       * Contact's job title (required)
+       */
+      job_title: string;
+
+      /**
+       * Contact's last name
+       */
+      last_name: string;
+
+      /**
+       * Contact's phone number in E.164 format
+       */
+      phone: string;
+    }
+
+    export interface OrganizationPhysicalAddress {
+      /**
+       * State or province
+       */
+      administrative_area: string;
+
+      /**
+       * City name
+       */
+      city: string;
+
+      /**
+       * Country name (e.g., United States)
+       */
+      country: string;
+
+      /**
+       * ZIP or postal code
+       */
+      postal_code: string;
+
+      /**
+       * Street address
+       */
+      street_address: string;
+
+      /**
+       * Additional address line (suite, apt, etc.)
+       */
+      extended_address?: string | null;
+    }
+  }
+}
+
+export interface EnterpriseUpdateResponse {
+  data?: EnterpriseUpdateResponse.Data;
+}
+
+export namespace EnterpriseUpdateResponse {
+  export interface Data {
+    /**
+     * Unique identifier of the enterprise
+     */
+    id?: string;
+
+    billing_address?: Data.BillingAddress;
+
+    billing_contact?: Data.BillingContact;
+
+    /**
+     * Corporate registration number
+     */
+    corporate_registration_number?: string | null;
+
+    /**
+     * ISO 3166-1 alpha-2 country code
+     */
+    country_code?: string;
+
+    /**
+     * When the enterprise was created
+     */
+    created_at?: string;
+
+    /**
+     * Customer reference identifier
+     */
+    customer_reference?: string | null;
+
+    /**
+     * DBA name
+     */
+    doing_business_as?: string;
+
+    /**
+     * D-U-N-S Number
+     */
+    dun_bradstreet_number?: string | null;
+
+    /**
+     * Federal Employer Identification Number
+     */
+    fein?: string | null;
+
+    /**
+     * Industry classification
+     */
+    industry?: string | null;
+
+    /**
+     * Legal name of the enterprise
+     */
+    legal_name?: string;
+
+    /**
+     * Employee count range
+     */
+    number_of_employees?:
+      | '1-10'
+      | '11-50'
+      | '51-200'
+      | '201-500'
+      | '501-2000'
+      | '2001-10000'
+      | '10001+'
+      | null;
+
+    /**
+     * Organization contact information. Note: the response returns this object with
+     * the phone field as 'phone' (not 'phone_number').
+     */
+    organization_contact?: Data.OrganizationContact;
+
+    /**
+     * Legal structure type
+     */
+    organization_legal_type?: 'corporation' | 'llc' | 'partnership' | 'nonprofit' | 'other' | null;
+
+    organization_physical_address?: Data.OrganizationPhysicalAddress;
+
+    /**
+     * Type of organization
+     */
+    organization_type?: 'commercial' | 'government' | 'non_profit';
+
+    /**
+     * SIC Code
+     */
+    primary_business_domain_sic_code?: string | null;
+
+    /**
+     * Professional license number
+     */
+    professional_license_number?: string | null;
+
+    /**
+     * Role type in Branded Calling / Number Reputation services
+     */
+    role_type?: 'enterprise' | 'bpo';
+
+    /**
+     * When the enterprise was last updated
+     */
+    updated_at?: string;
+
+    /**
+     * Company website URL
+     */
+    website?: string | null;
+  }
+
+  export namespace Data {
+    export interface BillingAddress {
+      /**
+       * State or province
+       */
+      administrative_area: string;
+
+      /**
+       * City name
+       */
+      city: string;
+
+      /**
+       * Country name (e.g., United States)
+       */
+      country: string;
+
+      /**
+       * ZIP or postal code
+       */
+      postal_code: string;
+
+      /**
+       * Street address
+       */
+      street_address: string;
+
+      /**
+       * Additional address line (suite, apt, etc.)
+       */
+      extended_address?: string | null;
+    }
+
+    export interface BillingContact {
+      /**
+       * Contact's email address
+       */
+      email: string;
+
+      /**
+       * Contact's first name
+       */
+      first_name: string;
+
+      /**
+       * Contact's last name
+       */
+      last_name: string;
+
+      /**
+       * Contact's phone number (10-15 digits)
+       */
+      phone_number: string;
+    }
+
+    /**
+     * Organization contact information. Note: the response returns this object with
+     * the phone field as 'phone' (not 'phone_number').
+     */
+    export interface OrganizationContact {
+      /**
+       * Contact's email address
+       */
+      email: string;
+
+      /**
+       * Contact's first name
+       */
+      first_name: string;
+
+      /**
+       * Contact's job title (required)
+       */
+      job_title: string;
+
+      /**
+       * Contact's last name
+       */
+      last_name: string;
+
+      /**
+       * Contact's phone number in E.164 format
+       */
+      phone: string;
+    }
+
+    export interface OrganizationPhysicalAddress {
+      /**
+       * State or province
+       */
+      administrative_area: string;
+
+      /**
+       * City name
+       */
+      city: string;
+
+      /**
+       * Country name (e.g., United States)
+       */
+      country: string;
+
+      /**
+       * ZIP or postal code
+       */
+      postal_code: string;
+
+      /**
+       * Street address
+       */
+      street_address: string;
+
+      /**
+       * Additional address line (suite, apt, etc.)
+       */
+      extended_address?: string | null;
+    }
+  }
+}
+
+export interface EnterpriseListResponse {
   /**
    * Unique identifier of the enterprise
    */
   id?: string;
 
-  billing_address?: BillingAddress;
+  billing_address?: EnterpriseListResponse.BillingAddress;
 
-  billing_contact?: BillingContact;
+  billing_contact?: EnterpriseListResponse.BillingContact;
 
   /**
    * Corporate registration number
@@ -273,14 +929,14 @@ export interface EnterprisePublic {
    * Organization contact information. Note: the response returns this object with
    * the phone field as 'phone' (not 'phone_number').
    */
-  organization_contact?: OrganizationContact;
+  organization_contact?: EnterpriseListResponse.OrganizationContact;
 
   /**
    * Legal structure type
    */
   organization_legal_type?: 'corporation' | 'llc' | 'partnership' | 'nonprofit' | 'other' | null;
 
-  organization_physical_address?: PhysicalAddress;
+  organization_physical_address?: EnterpriseListResponse.OrganizationPhysicalAddress;
 
   /**
    * Type of organization
@@ -313,85 +969,129 @@ export interface EnterprisePublic {
   website?: string | null;
 }
 
-/**
- * Organization contact information. Note: the response returns this object with
- * the phone field as 'phone' (not 'phone_number').
- */
-export interface OrganizationContact {
-  /**
-   * Contact's email address
-   */
-  email: string;
+export namespace EnterpriseListResponse {
+  export interface BillingAddress {
+    /**
+     * State or province
+     */
+    administrative_area: string;
+
+    /**
+     * City name
+     */
+    city: string;
+
+    /**
+     * Country name (e.g., United States)
+     */
+    country: string;
+
+    /**
+     * ZIP or postal code
+     */
+    postal_code: string;
+
+    /**
+     * Street address
+     */
+    street_address: string;
+
+    /**
+     * Additional address line (suite, apt, etc.)
+     */
+    extended_address?: string | null;
+  }
+
+  export interface BillingContact {
+    /**
+     * Contact's email address
+     */
+    email: string;
+
+    /**
+     * Contact's first name
+     */
+    first_name: string;
+
+    /**
+     * Contact's last name
+     */
+    last_name: string;
+
+    /**
+     * Contact's phone number (10-15 digits)
+     */
+    phone_number: string;
+  }
 
   /**
-   * Contact's first name
+   * Organization contact information. Note: the response returns this object with
+   * the phone field as 'phone' (not 'phone_number').
    */
-  first_name: string;
+  export interface OrganizationContact {
+    /**
+     * Contact's email address
+     */
+    email: string;
 
-  /**
-   * Contact's job title (required)
-   */
-  job_title: string;
+    /**
+     * Contact's first name
+     */
+    first_name: string;
 
-  /**
-   * Contact's last name
-   */
-  last_name: string;
+    /**
+     * Contact's job title (required)
+     */
+    job_title: string;
 
-  /**
-   * Contact's phone number in E.164 format
-   */
-  phone: string;
-}
+    /**
+     * Contact's last name
+     */
+    last_name: string;
 
-export interface PhysicalAddress {
-  /**
-   * State or province
-   */
-  administrative_area: string;
+    /**
+     * Contact's phone number in E.164 format
+     */
+    phone: string;
+  }
 
-  /**
-   * City name
-   */
-  city: string;
+  export interface OrganizationPhysicalAddress {
+    /**
+     * State or province
+     */
+    administrative_area: string;
 
-  /**
-   * Country name (e.g., United States)
-   */
-  country: string;
+    /**
+     * City name
+     */
+    city: string;
 
-  /**
-   * ZIP or postal code
-   */
-  postal_code: string;
+    /**
+     * Country name (e.g., United States)
+     */
+    country: string;
 
-  /**
-   * Street address
-   */
-  street_address: string;
+    /**
+     * ZIP or postal code
+     */
+    postal_code: string;
 
-  /**
-   * Additional address line (suite, apt, etc.)
-   */
-  extended_address?: string | null;
-}
+    /**
+     * Street address
+     */
+    street_address: string;
 
-export interface EnterpriseCreateResponse {
-  data?: EnterprisePublic;
-}
-
-export interface EnterpriseRetrieveResponse {
-  data?: EnterprisePublic;
-}
-
-export interface EnterpriseUpdateResponse {
-  data?: EnterprisePublic;
+    /**
+     * Additional address line (suite, apt, etc.)
+     */
+    extended_address?: string | null;
+  }
 }
 
 export interface EnterpriseCreateParams {
-  billing_address: BillingAddress;
+  billing_address: EnterpriseCreateParams.BillingAddress;
 
-  billing_contact: BillingContact;
+  billing_contact: EnterpriseCreateParams.BillingContact;
 
   /**
    * Country code. Currently only 'US' is accepted.
@@ -434,14 +1134,14 @@ export interface EnterpriseCreateParams {
    * Organization contact information. Note: the response returns this object with
    * the phone field as 'phone' (not 'phone_number').
    */
-  organization_contact: OrganizationContact;
+  organization_contact: EnterpriseCreateParams.OrganizationContact;
 
   /**
    * Legal structure type
    */
   organization_legal_type: 'corporation' | 'llc' | 'partnership' | 'nonprofit' | 'other';
 
-  organization_physical_address: PhysicalAddress;
+  organization_physical_address: EnterpriseCreateParams.OrganizationPhysicalAddress;
 
   /**
    * Type of organization
@@ -484,10 +1184,129 @@ export interface EnterpriseCreateParams {
   role_type?: 'enterprise' | 'bpo';
 }
 
-export interface EnterpriseUpdateParams {
-  billing_address?: BillingAddress;
+export namespace EnterpriseCreateParams {
+  export interface BillingAddress {
+    /**
+     * State or province
+     */
+    administrative_area: string;
 
-  billing_contact?: BillingContact;
+    /**
+     * City name
+     */
+    city: string;
+
+    /**
+     * Country name (e.g., United States)
+     */
+    country: string;
+
+    /**
+     * ZIP or postal code
+     */
+    postal_code: string;
+
+    /**
+     * Street address
+     */
+    street_address: string;
+
+    /**
+     * Additional address line (suite, apt, etc.)
+     */
+    extended_address?: string | null;
+  }
+
+  export interface BillingContact {
+    /**
+     * Contact's email address
+     */
+    email: string;
+
+    /**
+     * Contact's first name
+     */
+    first_name: string;
+
+    /**
+     * Contact's last name
+     */
+    last_name: string;
+
+    /**
+     * Contact's phone number (10-15 digits)
+     */
+    phone_number: string;
+  }
+
+  /**
+   * Organization contact information. Note: the response returns this object with
+   * the phone field as 'phone' (not 'phone_number').
+   */
+  export interface OrganizationContact {
+    /**
+     * Contact's email address
+     */
+    email: string;
+
+    /**
+     * Contact's first name
+     */
+    first_name: string;
+
+    /**
+     * Contact's job title (required)
+     */
+    job_title: string;
+
+    /**
+     * Contact's last name
+     */
+    last_name: string;
+
+    /**
+     * Contact's phone number in E.164 format
+     */
+    phone: string;
+  }
+
+  export interface OrganizationPhysicalAddress {
+    /**
+     * State or province
+     */
+    administrative_area: string;
+
+    /**
+     * City name
+     */
+    city: string;
+
+    /**
+     * Country name (e.g., United States)
+     */
+    country: string;
+
+    /**
+     * ZIP or postal code
+     */
+    postal_code: string;
+
+    /**
+     * Street address
+     */
+    street_address: string;
+
+    /**
+     * Additional address line (suite, apt, etc.)
+     */
+    extended_address?: string | null;
+  }
+}
+
+export interface EnterpriseUpdateParams {
+  billing_address?: EnterpriseUpdateParams.BillingAddress;
+
+  billing_contact?: EnterpriseUpdateParams.BillingContact;
 
   /**
    * Corporate registration number
@@ -533,14 +1352,14 @@ export interface EnterpriseUpdateParams {
    * Organization contact information. Note: the response returns this object with
    * the phone field as 'phone' (not 'phone_number').
    */
-  organization_contact?: OrganizationContact;
+  organization_contact?: EnterpriseUpdateParams.OrganizationContact;
 
   /**
    * Legal structure type
    */
   organization_legal_type?: 'corporation' | 'llc' | 'partnership' | 'nonprofit' | 'other';
 
-  organization_physical_address?: PhysicalAddress;
+  organization_physical_address?: EnterpriseUpdateParams.OrganizationPhysicalAddress;
 
   /**
    * SIC Code
@@ -558,6 +1377,125 @@ export interface EnterpriseUpdateParams {
   website?: string;
 }
 
+export namespace EnterpriseUpdateParams {
+  export interface BillingAddress {
+    /**
+     * State or province
+     */
+    administrative_area: string;
+
+    /**
+     * City name
+     */
+    city: string;
+
+    /**
+     * Country name (e.g., United States)
+     */
+    country: string;
+
+    /**
+     * ZIP or postal code
+     */
+    postal_code: string;
+
+    /**
+     * Street address
+     */
+    street_address: string;
+
+    /**
+     * Additional address line (suite, apt, etc.)
+     */
+    extended_address?: string | null;
+  }
+
+  export interface BillingContact {
+    /**
+     * Contact's email address
+     */
+    email: string;
+
+    /**
+     * Contact's first name
+     */
+    first_name: string;
+
+    /**
+     * Contact's last name
+     */
+    last_name: string;
+
+    /**
+     * Contact's phone number (10-15 digits)
+     */
+    phone_number: string;
+  }
+
+  /**
+   * Organization contact information. Note: the response returns this object with
+   * the phone field as 'phone' (not 'phone_number').
+   */
+  export interface OrganizationContact {
+    /**
+     * Contact's email address
+     */
+    email: string;
+
+    /**
+     * Contact's first name
+     */
+    first_name: string;
+
+    /**
+     * Contact's job title (required)
+     */
+    job_title: string;
+
+    /**
+     * Contact's last name
+     */
+    last_name: string;
+
+    /**
+     * Contact's phone number in E.164 format
+     */
+    phone: string;
+  }
+
+  export interface OrganizationPhysicalAddress {
+    /**
+     * State or province
+     */
+    administrative_area: string;
+
+    /**
+     * City name
+     */
+    city: string;
+
+    /**
+     * Country name (e.g., United States)
+     */
+    country: string;
+
+    /**
+     * ZIP or postal code
+     */
+    postal_code: string;
+
+    /**
+     * Street address
+     */
+    street_address: string;
+
+    /**
+     * Additional address line (suite, apt, etc.)
+     */
+    extended_address?: string | null;
+  }
+}
+
 export interface EnterpriseListParams extends DefaultFlatPaginationParams {
   /**
    * Filter by legal name (partial match)
@@ -569,15 +1507,11 @@ Enterprises.Reputation = Reputation;
 
 export declare namespace Enterprises {
   export {
-    type BillingAddress as BillingAddress,
-    type BillingContact as BillingContact,
-    type EnterprisePublic as EnterprisePublic,
-    type OrganizationContact as OrganizationContact,
-    type PhysicalAddress as PhysicalAddress,
     type EnterpriseCreateResponse as EnterpriseCreateResponse,
     type EnterpriseRetrieveResponse as EnterpriseRetrieveResponse,
     type EnterpriseUpdateResponse as EnterpriseUpdateResponse,
-    type EnterprisePublicsDefaultFlatPagination as EnterprisePublicsDefaultFlatPagination,
+    type EnterpriseListResponse as EnterpriseListResponse,
+    type EnterpriseListResponsesDefaultFlatPagination as EnterpriseListResponsesDefaultFlatPagination,
     type EnterpriseCreateParams as EnterpriseCreateParams,
     type EnterpriseUpdateParams as EnterpriseUpdateParams,
     type EnterpriseListParams as EnterpriseListParams,
@@ -585,11 +1519,10 @@ export declare namespace Enterprises {
 
   export {
     Reputation as Reputation,
-    type EnterpriseReputationPublic as EnterpriseReputationPublic,
-    type ReputationCreateResponse as ReputationCreateResponse,
-    type ReputationListResponse as ReputationListResponse,
+    type ReputationRetrieveResponse as ReputationRetrieveResponse,
+    type ReputationEnableResponse as ReputationEnableResponse,
     type ReputationUpdateFrequencyResponse as ReputationUpdateFrequencyResponse,
-    type ReputationCreateParams as ReputationCreateParams,
+    type ReputationEnableParams as ReputationEnableParams,
     type ReputationUpdateFrequencyParams as ReputationUpdateFrequencyParams,
   };
 }
