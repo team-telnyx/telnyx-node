@@ -83,7 +83,7 @@ export class Calls extends APIResource {
    * ```ts
    * const response = await client.texml.accounts.calls.calls(
    *   'account_sid',
-   *   { Url: 'https://www.example.com/instructions.xml' },
+   *   { params: { Url: 'https://www.example.com/texml.xml' } },
    * );
    * ```
    */
@@ -92,11 +92,8 @@ export class Calls extends APIResource {
     params: CallCallsParams,
     options?: RequestOptions,
   ): APIPromise<CallCallsResponse> {
-    const { timeout_seconds, ...body } = params;
-    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, {
-      body: { Timeout: timeout_seconds, ...body },
-      ...options,
-    });
+    const { params } = params;
+    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, { body: params, ...options });
   }
 
   /**
@@ -684,12 +681,11 @@ export interface CallUpdateParams {
   Url?: string;
 }
 
-export type CallCallsParams =
-  | CallCallsParams.WithURL
-  | CallCallsParams.WithTeXml
-  | CallCallsParams.ApplicationDefault;
+export interface CallCallsParams {
+  params: CallCallsParams.WithURL | CallCallsParams.WithTeXml | CallCallsParams.ApplicationDefault;
+}
 
-export declare namespace CallCallsParams {
+export namespace CallCallsParams {
   export interface WithURL {
     /**
      * The URL from which Telnyx will retrieve the TeXML call instructions.
@@ -891,7 +887,7 @@ export declare namespace CallCallsParams {
      */
     SupervisingRole?: 'barge' | 'whisper' | 'monitor';
 
-    Texml?: unknown;
+    Texml?: string | null;
 
     /**
      * The maximum duration of the call in seconds. The minimum value is 30 and the
@@ -904,7 +900,7 @@ export declare namespace CallCallsParams {
      * call is canceled. The minimum value is 5 and the maximum value is 120. Default
      * is 30 seconds.
      */
-    timeout_seconds?: number;
+    Timeout?: number;
 
     /**
      * The phone number of the called party. Phone numbers are formatted with a `+` and
@@ -1152,7 +1148,7 @@ export declare namespace CallCallsParams {
      * call is canceled. The minimum value is 5 and the maximum value is 120. Default
      * is 30 seconds.
      */
-    timeout_seconds?: number;
+    Timeout?: number;
 
     /**
      * The phone number of the called party. Phone numbers are formatted with a `+` and
@@ -1166,7 +1162,7 @@ export declare namespace CallCallsParams {
      */
     Trim?: 'trim-silence' | 'do-not-trim';
 
-    Url?: unknown;
+    Url?: string | null;
 
     /**
      * HTTP request type used for `Url`. The default value is inherited from TeXML
@@ -1385,7 +1381,7 @@ export declare namespace CallCallsParams {
      */
     SupervisingRole?: 'barge' | 'whisper' | 'monitor';
 
-    Texml?: unknown;
+    Texml?: string | null;
 
     /**
      * The maximum duration of the call in seconds. The minimum value is 30 and the
@@ -1398,7 +1394,7 @@ export declare namespace CallCallsParams {
      * call is canceled. The minimum value is 5 and the maximum value is 120. Default
      * is 30 seconds.
      */
-    timeout_seconds?: number;
+    Timeout?: number;
 
     /**
      * The phone number of the called party. Phone numbers are formatted with a `+` and
@@ -1412,7 +1408,7 @@ export declare namespace CallCallsParams {
      */
     Trim?: 'trim-silence' | 'do-not-trim';
 
-    Url?: unknown;
+    Url?: string | null;
 
     /**
      * HTTP request type used for `Url`. The default value is inherited from TeXML

@@ -4772,15 +4772,17 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictAliasItem</a></code>
+- <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictData</a></code>
+- <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictPhonemeItem</a></code>
 - <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictCreateResponse</a></code>
 - <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictRetrieveResponse</a></code>
 - <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictUpdateResponse</a></code>
-- <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictListResponse</a></code>
 
 Methods:
 
 - <code title="post /pronunciation_dicts">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">create</a>({ ...params }) -> PronunciationDictCreateResponse</code>
 - <code title="get /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">retrieve</a>(id) -> PronunciationDictRetrieveResponse</code>
 - <code title="patch /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">update</a>(id, { ...params }) -> PronunciationDictUpdateResponse</code>
-- <code title="get /pronunciation_dicts">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">list</a>({ ...params }) -> PronunciationDictListResponsesDefaultFlatPagination</code>
+- <code title="get /pronunciation_dicts">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">list</a>({ ...params }) -> PronunciationDictDataDefaultFlatPagination</code>
 - <code title="delete /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">delete</a>(id) -> void</code>
