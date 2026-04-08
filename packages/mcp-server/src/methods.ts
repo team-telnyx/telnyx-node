@@ -5372,7 +5372,7 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.wirelessBlocklists.update',
     fullyQualifiedName: 'wirelessBlocklists.update',
     httpMethod: 'patch',
-    httpPath: '/wireless_blocklists',
+    httpPath: '/wireless_blocklists/{id}',
   },
   {
     clientCallName: 'client.wirelessBlocklists.list',

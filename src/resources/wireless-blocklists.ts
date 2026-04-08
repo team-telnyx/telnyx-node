@@ -51,14 +51,17 @@ export class WirelessBlocklists extends APIResource {
    * @example
    * ```ts
    * const wirelessBlocklist =
-   *   await client.wirelessBlocklists.update();
+   *   await client.wirelessBlocklists.update(
+   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *   );
    * ```
    */
   update(
+    id: string,
     body: WirelessBlocklistUpdateParams,
     options?: RequestOptions,
   ): APIPromise<WirelessBlocklistUpdateResponse> {
-    return this._client.patch('/wireless_blocklists', { body, ...options });
+    return this._client.patch(path`/wireless_blocklists/${id}`, { body, ...options });
   }
 
   /**
@@ -172,11 +175,6 @@ export interface WirelessBlocklistUpdateParams {
    * The name of the Wireless Blocklist.
    */
   name?: string;
-
-  /**
-   * The type of wireless blocklist.
-   */
-  type?: 'country' | 'mcc' | 'plmn';
 
   /**
    * Values to block. The values here depend on the `type` of Wireless Blocklist.
