@@ -4189,7 +4189,7 @@ Methods:
 
 - <code title="post /wireless_blocklists">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">create</a>({ ...params }) -> WirelessBlocklistCreateResponse</code>
 - <code title="get /wireless_blocklists/{id}">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">retrieve</a>(id) -> WirelessBlocklistRetrieveResponse</code>
-- <code title="patch /wireless_blocklists">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">update</a>({ ...params }) -> WirelessBlocklistUpdateResponse</code>
+- <code title="patch /wireless_blocklists/{id}">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">update</a>(id, { ...params }) -> WirelessBlocklistUpdateResponse</code>
 - <code title="get /wireless_blocklists">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">list</a>({ ...params }) -> WirelessBlocklistsDefaultFlatPagination</code>
 - <code title="delete /wireless_blocklists/{id}">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">delete</a>(id) -> WirelessBlocklistDeleteResponse</code>
 

@@ -15066,17 +15066,17 @@ const EMBEDDED_METHODS: MethodEntry[] = [
   },
   {
     name: 'update',
-    endpoint: '/wireless_blocklists',
+    endpoint: '/wireless_blocklists/{id}',
     httpMethod: 'patch',
     summary: 'Update a Wireless Blocklist',
     description: 'Update a Wireless Blocklist.',
     stainlessPath: '(resource) wireless_blocklists > (method) update',
     qualified: 'client.wirelessBlocklists.update',
-    params: ['name?: string;', "type?: 'country' | 'mcc' | 'plmn';", 'values?: string[];'],
+    params: ['id: string;', 'name?: string;', 'values?: string[];'],
     response:
       "{ data?: { id?: string; created_at?: string; name?: string; record_type?: string; type?: 'country' | 'mcc' | 'plmn'; updated_at?: string; values?: string[]; }; }",
     markdown:
-      "## update\n\n`client.wirelessBlocklists.update(name?: string, type?: 'country' | 'mcc' | 'plmn', values?: string[]): { data?: wireless_blocklist; }`\n\n**patch** `/wireless_blocklists`\n\nUpdate a Wireless Blocklist.\n\n### Parameters\n\n- `name?: string`\n  The name of the Wireless Blocklist.\n\n- `type?: 'country' | 'mcc' | 'plmn'`\n  The type of wireless blocklist.\n\n- `values?: string[]`\n  Values to block. The values here depend on the `type` of Wireless Blocklist.\n\n### Returns\n\n- `{ data?: { id?: string; created_at?: string; name?: string; record_type?: string; type?: 'country' | 'mcc' | 'plmn'; updated_at?: string; values?: string[]; }; }`\n\n  - `data?: { id?: string; created_at?: string; name?: string; record_type?: string; type?: 'country' | 'mcc' | 'plmn'; updated_at?: string; values?: string[]; }`\n\n### Example\n\n```typescript\nimport Telnyx from 'telnyx';\n\nconst client = new Telnyx();\n\nconst wirelessBlocklist = await client.wirelessBlocklists.update();\n\nconsole.log(wirelessBlocklist);\n```",
+      "## update\n\n`client.wirelessBlocklists.update(id: string, name?: string, values?: string[]): { data?: wireless_blocklist; }`\n\n**patch** `/wireless_blocklists/{id}`\n\nUpdate a Wireless Blocklist.\n\n### Parameters\n\n- `id: string`\n\n- `name?: string`\n  The name of the Wireless Blocklist.\n\n- `values?: string[]`\n  Values to block. The values here depend on the `type` of Wireless Blocklist.\n\n### Returns\n\n- `{ data?: { id?: string; created_at?: string; name?: string; record_type?: string; type?: 'country' | 'mcc' | 'plmn'; updated_at?: string; values?: string[]; }; }`\n\n  - `data?: { id?: string; created_at?: string; name?: string; record_type?: string; type?: 'country' | 'mcc' | 'plmn'; updated_at?: string; values?: string[]; }`\n\n### Example\n\n```typescript\nimport Telnyx from 'telnyx';\n\nconst client = new Telnyx();\n\nconst wirelessBlocklist = await client.wirelessBlocklists.update('6a09cdc3-8948-47f0-aa62-74ac943d6c58');\n\nconsole.log(wirelessBlocklist);\n```",
   },
   {
     name: 'list',
