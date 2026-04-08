@@ -17,6 +17,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">MessagingFeatureSet</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingHostedNumberOrder</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingPaginationMeta</a></code>
+- <code><a href="./src/resources/shared.ts">MetaInfo</a></code>
 - <code><a href="./src/resources/shared.ts">Metadata</a></code>
 - <code><a href="./src/resources/shared.ts">MinimaxVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">NetappsLocation</a></code>
@@ -26,6 +27,8 @@ Types:
 - <code><a href="./src/resources/shared.ts">PortingOrderStatus</a></code>
 - <code><a href="./src/resources/shared.ts">PortingOrdersExceptionType</a></code>
 - <code><a href="./src/resources/shared.ts">RegionInformation</a></code>
+- <code><a href="./src/resources/shared.ts">ReputationData</a></code>
+- <code><a href="./src/resources/shared.ts">ReputationPhoneNumberWithReputationData</a></code>
 - <code><a href="./src/resources/shared.ts">ResembleVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">RimeVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">RoomParticipant</a></code>
@@ -517,6 +520,8 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingWebhookToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InsightSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">MessagingSettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">Observability</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ObservabilityReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PrivacySettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">RetrievalTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TelephonySettings</a></code>
@@ -4636,16 +4641,16 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/voice-clones.ts">VoiceCloneData</a></code>
 - <code><a href="./src/resources/voice-clones.ts">VoiceCloneCreateResponse</a></code>
 - <code><a href="./src/resources/voice-clones.ts">VoiceCloneUpdateResponse</a></code>
-- <code><a href="./src/resources/voice-clones.ts">VoiceCloneListResponse</a></code>
 - <code><a href="./src/resources/voice-clones.ts">VoiceCloneCreateFromUploadResponse</a></code>
 
 Methods:
 
 - <code title="post /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">create</a>({ ...params }) -> VoiceCloneCreateResponse</code>
 - <code title="patch /voice_clones/{id}">client.voiceClones.<a href="./src/resources/voice-clones.ts">update</a>(id, { ...params }) -> VoiceCloneUpdateResponse</code>
-- <code title="get /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">list</a>({ ...params }) -> VoiceCloneListResponsesDefaultFlatPagination</code>
+- <code title="get /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">list</a>({ ...params }) -> VoiceCloneDataDefaultFlatPagination</code>
 - <code title="delete /voice_clones/{id}">client.voiceClones.<a href="./src/resources/voice-clones.ts">delete</a>(id) -> void</code>
 - <code title="post /voice_clones/from_upload">client.voiceClones.<a href="./src/resources/voice-clones.ts">createFromUpload</a>({ ...params }) -> VoiceCloneCreateFromUploadResponse</code>
 - <code title="get /voice_clones/{id}/sample">client.voiceClones.<a href="./src/resources/voice-clones.ts">downloadSample</a>(id) -> Response</code>
@@ -4654,6 +4659,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/voice-designs.ts">VoiceDesignData</a></code>
 - <code><a href="./src/resources/voice-designs.ts">VoiceDesignCreateResponse</a></code>
 - <code><a href="./src/resources/voice-designs.ts">VoiceDesignRetrieveResponse</a></code>
 - <code><a href="./src/resources/voice-designs.ts">VoiceDesignListResponse</a></code>
@@ -4673,10 +4679,10 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfile</a></code>
 - <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileCreateResponse</a></code>
 - <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileRetrieveResponse</a></code>
 - <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileUpdateResponse</a></code>
-- <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileListResponse</a></code>
 - <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileDeleteResponse</a></code>
 - <code><a href="./src/resources/traffic-policy-profiles.ts">TrafficPolicyProfileListServicesResponse</a></code>
 
@@ -4685,7 +4691,7 @@ Methods:
 - <code title="post /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">create</a>({ ...params }) -> TrafficPolicyProfileCreateResponse</code>
 - <code title="get /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">retrieve</a>(id) -> TrafficPolicyProfileRetrieveResponse</code>
 - <code title="patch /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">update</a>(id, { ...params }) -> TrafficPolicyProfileUpdateResponse</code>
-- <code title="get /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">list</a>({ ...params }) -> TrafficPolicyProfileListResponsesDefaultFlatPagination</code>
+- <code title="get /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">list</a>({ ...params }) -> TrafficPolicyProfilesDefaultFlatPagination</code>
 - <code title="delete /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">delete</a>(id) -> TrafficPolicyProfileDeleteResponse</code>
 - <code title="get /traffic_policy_profiles/services">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">listServices</a>({ ...params }) -> TrafficPolicyProfileListServicesResponsesDefaultFlatPagination</code>
 
@@ -4693,23 +4699,28 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/enterprises/enterprises.ts">BillingAddress</a></code>
+- <code><a href="./src/resources/enterprises/enterprises.ts">BillingContact</a></code>
+- <code><a href="./src/resources/enterprises/enterprises.ts">EnterprisePublic</a></code>
+- <code><a href="./src/resources/enterprises/enterprises.ts">OrganizationContact</a></code>
+- <code><a href="./src/resources/enterprises/enterprises.ts">PhysicalAddress</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseCreateResponse</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseRetrieveResponse</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseUpdateResponse</a></code>
-- <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseListResponse</a></code>
 
 Methods:
 
 - <code title="post /enterprises">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">create</a>({ ...params }) -> EnterpriseCreateResponse</code>
 - <code title="get /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">retrieve</a>(enterpriseID) -> EnterpriseRetrieveResponse</code>
 - <code title="put /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">update</a>(enterpriseID, { ...params }) -> EnterpriseUpdateResponse</code>
-- <code title="get /enterprises">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">list</a>({ ...params }) -> EnterpriseListResponsesDefaultFlatPagination</code>
+- <code title="get /enterprises">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">list</a>({ ...params }) -> EnterprisePublicsDefaultFlatPagination</code>
 - <code title="delete /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">delete</a>(enterpriseID) -> void</code>
 
 ## Reputation
 
 Types:
 
+- <code><a href="./src/resources/enterprises/reputation/reputation.ts">EnterpriseReputationPublic</a></code>
 - <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationRetrieveResponse</a></code>
 - <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationEnableResponse</a></code>
 - <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationUpdateFrequencyResponse</a></code>
@@ -4726,13 +4737,12 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberRetrieveResponse</a></code>
-- <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberListResponse</a></code>
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberAssociateResponse</a></code>
 
 Methods:
 
 - <code title="get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">retrieve</a>(phoneNumber, { ...params }) -> NumberRetrieveResponse</code>
-- <code title="get /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">list</a>(enterpriseID, { ...params }) -> NumberListResponsesDefaultFlatPagination</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">list</a>(enterpriseID, { ...params }) -> ReputationPhoneNumberWithReputationDataDefaultFlatPagination</code>
 - <code title="post /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">associate</a>(enterpriseID, { ...params }) -> NumberAssociateResponse</code>
 - <code title="delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">disassociate</a>(phoneNumber, { ...params }) -> void</code>
 
@@ -4743,12 +4753,11 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/reputation/numbers.ts">NumberRetrieveResponse</a></code>
-- <code><a href="./src/resources/reputation/numbers.ts">NumberListResponse</a></code>
 
 Methods:
 
 - <code title="get /reputation/numbers/{phone_number}">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">retrieve</a>(phoneNumber, { ...params }) -> NumberRetrieveResponse</code>
-- <code title="get /reputation/numbers">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">list</a>({ ...params }) -> NumberListResponsesDefaultFlatPagination</code>
+- <code title="get /reputation/numbers">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">list</a>({ ...params }) -> ReputationPhoneNumberWithReputationDataDefaultFlatPagination</code>
 - <code title="delete /reputation/numbers/{phone_number}">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">delete</a>(phoneNumber) -> void</code>
 
 # TermsOfService

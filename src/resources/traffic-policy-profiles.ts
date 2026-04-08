@@ -70,7 +70,7 @@ export class TrafficPolicyProfiles extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const trafficPolicyProfileListResponse of client.trafficPolicyProfiles.list()) {
+   * for await (const trafficPolicyProfile of client.trafficPolicyProfiles.list()) {
    *   // ...
    * }
    * ```
@@ -78,12 +78,11 @@ export class TrafficPolicyProfiles extends APIResource {
   list(
     query: TrafficPolicyProfileListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<TrafficPolicyProfileListResponsesDefaultFlatPagination, TrafficPolicyProfileListResponse> {
-    return this._client.getAPIList(
-      '/traffic_policy_profiles',
-      DefaultFlatPagination<TrafficPolicyProfileListResponse>,
-      { query, ...options },
-    );
+  ): PagePromise<TrafficPolicyProfilesDefaultFlatPagination, TrafficPolicyProfile> {
+    return this._client.getAPIList('/traffic_policy_profiles', DefaultFlatPagination<TrafficPolicyProfile>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -127,163 +126,12 @@ export class TrafficPolicyProfiles extends APIResource {
   }
 }
 
-export type TrafficPolicyProfileListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<TrafficPolicyProfileListResponse>;
+export type TrafficPolicyProfilesDefaultFlatPagination = DefaultFlatPagination<TrafficPolicyProfile>;
 
 export type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination =
   DefaultFlatPagination<TrafficPolicyProfileListServicesResponse>;
 
-export interface TrafficPolicyProfileCreateResponse {
-  data?: TrafficPolicyProfileCreateResponse.Data;
-}
-
-export namespace TrafficPolicyProfileCreateResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * Array of domain names.
-     */
-    domains?: Array<string>;
-
-    /**
-     * Array of IP ranges in CIDR notation.
-     */
-    ip_ranges?: Array<string>;
-
-    /**
-     * Bandwidth limit in kbps.
-     */
-    limit_bw_kbps?: number | null;
-
-    record_type?: string;
-
-    /**
-     * Array of PCEF service IDs included in the profile.
-     */
-    services?: Array<string>;
-
-    /**
-     * The type of the traffic policy profile.
-     */
-    type?: 'whitelist' | 'blacklist' | 'throttling';
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-}
-
-export interface TrafficPolicyProfileRetrieveResponse {
-  data?: TrafficPolicyProfileRetrieveResponse.Data;
-}
-
-export namespace TrafficPolicyProfileRetrieveResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * Array of domain names.
-     */
-    domains?: Array<string>;
-
-    /**
-     * Array of IP ranges in CIDR notation.
-     */
-    ip_ranges?: Array<string>;
-
-    /**
-     * Bandwidth limit in kbps.
-     */
-    limit_bw_kbps?: number | null;
-
-    record_type?: string;
-
-    /**
-     * Array of PCEF service IDs included in the profile.
-     */
-    services?: Array<string>;
-
-    /**
-     * The type of the traffic policy profile.
-     */
-    type?: 'whitelist' | 'blacklist' | 'throttling';
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-}
-
-export interface TrafficPolicyProfileUpdateResponse {
-  data?: TrafficPolicyProfileUpdateResponse.Data;
-}
-
-export namespace TrafficPolicyProfileUpdateResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * Array of domain names.
-     */
-    domains?: Array<string>;
-
-    /**
-     * Array of IP ranges in CIDR notation.
-     */
-    ip_ranges?: Array<string>;
-
-    /**
-     * Bandwidth limit in kbps.
-     */
-    limit_bw_kbps?: number | null;
-
-    record_type?: string;
-
-    /**
-     * Array of PCEF service IDs included in the profile.
-     */
-    services?: Array<string>;
-
-    /**
-     * The type of the traffic policy profile.
-     */
-    type?: 'whitelist' | 'blacklist' | 'throttling';
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-}
-
-export interface TrafficPolicyProfileListResponse {
+export interface TrafficPolicyProfile {
   /**
    * Identifies the resource.
    */
@@ -325,6 +173,18 @@ export interface TrafficPolicyProfileListResponse {
    * ISO 8601 formatted date-time indicating when the resource was updated.
    */
   updated_at?: string;
+}
+
+export interface TrafficPolicyProfileCreateResponse {
+  data?: TrafficPolicyProfile;
+}
+
+export interface TrafficPolicyProfileRetrieveResponse {
+  data?: TrafficPolicyProfile;
+}
+
+export interface TrafficPolicyProfileUpdateResponse {
+  data?: TrafficPolicyProfile;
 }
 
 export interface TrafficPolicyProfileDeleteResponse {
@@ -445,13 +305,13 @@ export interface TrafficPolicyProfileListServicesParams extends DefaultFlatPagin
 
 export declare namespace TrafficPolicyProfiles {
   export {
+    type TrafficPolicyProfile as TrafficPolicyProfile,
     type TrafficPolicyProfileCreateResponse as TrafficPolicyProfileCreateResponse,
     type TrafficPolicyProfileRetrieveResponse as TrafficPolicyProfileRetrieveResponse,
     type TrafficPolicyProfileUpdateResponse as TrafficPolicyProfileUpdateResponse,
-    type TrafficPolicyProfileListResponse as TrafficPolicyProfileListResponse,
     type TrafficPolicyProfileDeleteResponse as TrafficPolicyProfileDeleteResponse,
     type TrafficPolicyProfileListServicesResponse as TrafficPolicyProfileListServicesResponse,
-    type TrafficPolicyProfileListResponsesDefaultFlatPagination as TrafficPolicyProfileListResponsesDefaultFlatPagination,
+    type TrafficPolicyProfilesDefaultFlatPagination as TrafficPolicyProfilesDefaultFlatPagination,
     type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination as TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
     type TrafficPolicyProfileCreateParams as TrafficPolicyProfileCreateParams,
     type TrafficPolicyProfileUpdateParams as TrafficPolicyProfileUpdateParams,

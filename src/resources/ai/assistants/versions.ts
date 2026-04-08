@@ -172,7 +172,7 @@ export interface UpdateAssistant {
 
   name?: string;
 
-  observability_settings?: UpdateAssistant.ObservabilitySettings;
+  observability_settings?: AssistantsAPI.ObservabilityReq;
 
   privacy_settings?: AssistantsAPI.PrivacySettings;
 
@@ -194,18 +194,6 @@ export interface UpdateAssistant {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: AssistantsAPI.WidgetSettings;
-}
-
-export namespace UpdateAssistant {
-  export interface ObservabilitySettings {
-    host?: string;
-
-    public_key_ref?: string;
-
-    secret_key_ref?: string;
-
-    status?: 'enabled' | 'disabled';
-  }
 }
 
 export interface VersionRetrieveParams {
@@ -299,7 +287,7 @@ export interface VersionUpdateParams {
   /**
    * Body param
    */
-  observability_settings?: VersionUpdateParams.ObservabilitySettings;
+  observability_settings?: AssistantsAPI.ObservabilityReq;
 
   /**
    * Body param
@@ -336,18 +324,6 @@ export interface VersionUpdateParams {
    * Body param: Configuration settings for the assistant's web widget.
    */
   widget_settings?: AssistantsAPI.WidgetSettings;
-}
-
-export namespace VersionUpdateParams {
-  export interface ObservabilitySettings {
-    host?: string;
-
-    public_key_ref?: string;
-
-    secret_key_ref?: string;
-
-    status?: 'enabled' | 'disabled';
-  }
 }
 
 export interface VersionDeleteParams {
