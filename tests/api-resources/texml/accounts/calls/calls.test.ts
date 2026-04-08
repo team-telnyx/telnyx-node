@@ -55,9 +55,7 @@ describe('resource calls', () => {
   // Mock server tests are disabled
   test.skip('calls: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.calls('account_sid', {
-      ApplicationSid: 'example-app-sid',
-      From: '+13120001234',
-      To: '+13121230000',
+      Url: 'https://www.example.com/instructions.xml',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -71,9 +69,8 @@ describe('resource calls', () => {
   // Mock server tests are disabled
   test.skip('calls: required and optional params', async () => {
     const response = await client.texml.accounts.calls.calls('account_sid', {
-      ApplicationSid: 'example-app-sid',
-      From: '+13120001234',
-      To: '+13121230000',
+      Url: 'https://www.example.com/instructions.xml',
+      ApplicationSid: 'ApplicationSid',
       AsyncAmd: true,
       AsyncAmdStatusCallback: 'https://www.example.com/callback',
       AsyncAmdStatusCallbackMethod: 'GET',
@@ -83,6 +80,7 @@ describe('resource calls', () => {
       CustomHeaders: [{ name: 'X-Custom-Header', value: 'custom-value' }],
       DetectionMode: 'Premium',
       FallbackUrl: 'https://www.example.com/instructions-fallback.xml',
+      From: '+16175551212',
       MachineDetection: 'Enable',
       MachineDetectionSilenceTimeout: 2000,
       MachineDetectionSpeechEndThreshold: 2000,
@@ -101,16 +99,16 @@ describe('resource calls', () => {
       SipAuthPassword: '1234',
       SipAuthUsername: 'user',
       SipRegion: 'Canada',
-      StatusCallback: 'https://www.example.com/statuscallback-listener',
+      StatusCallback: 'https://www.example.com/callback',
       StatusCallbackEvent: 'initiated',
       StatusCallbackMethod: 'GET',
       SuperviseCallSid: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
       SupervisingRole: 'monitor',
-      Texml: '<?xml version="1.0" encoding="UTF-8"?><Response><Say>Hello</Say></Response>',
+      Texml: {},
       TimeLimit: 3600,
       timeout_seconds: 60,
+      To: '+16175551212',
       Trim: 'trim-silence',
-      Url: 'https://www.example.com/texml.xml',
       UrlMethod: 'GET',
     });
   });
