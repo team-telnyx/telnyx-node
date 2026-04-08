@@ -55,11 +55,11 @@ export interface WhatsappMessageTemplateUpdateParams {
    * Updated template components. Same structure as the create request.
    */
   components?: Array<
-    | WhatsappMessageTemplateUpdateParams.Header
-    | WhatsappMessageTemplateUpdateParams.Body
-    | WhatsappMessageTemplateUpdateParams.Footer
-    | WhatsappMessageTemplateUpdateParams.Buttons
-    | WhatsappMessageTemplateUpdateParams.Carousel
+    | WhatsappMessageTemplateUpdateParams.WhatsappTemplateHeaderComponent
+    | WhatsappMessageTemplateUpdateParams.WhatsappTemplateBodyComponent
+    | WhatsappMessageTemplateUpdateParams.WhatsappTemplateFooterComponent
+    | WhatsappMessageTemplateUpdateParams.WhatsappTemplateButtonsComponent
+    | WhatsappMessageTemplateUpdateParams.WhatsappTemplateCarouselComponent
   >;
 }
 
@@ -67,7 +67,7 @@ export namespace WhatsappMessageTemplateUpdateParams {
   /**
    * Optional header displayed at the top of the message.
    */
-  export interface Header {
+  export interface WhatsappTemplateHeaderComponent {
     /**
      * Header format type: TEXT (supports one variable), IMAGE, VIDEO, DOCUMENT, or
      * LOCATION.
@@ -79,7 +79,7 @@ export namespace WhatsappMessageTemplateUpdateParams {
     /**
      * Sample values for header variables.
      */
-    example?: Header.Example;
+    example?: WhatsappTemplateHeaderComponent.Example;
 
     /**
      * Header text. Required when format is TEXT. Supports one variable ({{1}}).
@@ -88,7 +88,7 @@ export namespace WhatsappMessageTemplateUpdateParams {
     text?: string;
   }
 
-  export namespace Header {
+  export namespace WhatsappTemplateHeaderComponent {
     /**
      * Sample values for header variables.
      */
@@ -110,13 +110,13 @@ export namespace WhatsappMessageTemplateUpdateParams {
    * ({{1}}, {{2}}, etc.). Variables cannot be at the start or end. Maximum 1024
    * characters.
    */
-  export interface Body {
+  export interface WhatsappTemplateBodyComponent {
     type: 'BODY';
 
     /**
      * Sample values for body variables. Required when body text contains parameters.
      */
-    example?: Body.Example;
+    example?: WhatsappTemplateBodyComponent.Example;
 
     /**
      * Body text content. Use {{1}}, {{2}}, etc. for variable placeholders. Required
@@ -126,7 +126,7 @@ export namespace WhatsappMessageTemplateUpdateParams {
     text?: string;
   }
 
-  export namespace Body {
+  export namespace WhatsappTemplateBodyComponent {
     /**
      * Sample values for body variables. Required when body text contains parameters.
      */
@@ -142,7 +142,7 @@ export namespace WhatsappMessageTemplateUpdateParams {
    * Optional footer displayed at the bottom of the message. Does not support
    * variables.
    */
-  export interface Footer {
+  export interface WhatsappTemplateFooterComponent {
     type: 'FOOTER';
 
     /**
@@ -160,16 +160,16 @@ export namespace WhatsappMessageTemplateUpdateParams {
   /**
    * Optional interactive buttons. Maximum 3 buttons per template.
    */
-  export interface Buttons {
+  export interface WhatsappTemplateButtonsComponent {
     /**
      * Array of button objects. Meta supports various combinations of button types.
      */
-    buttons: Array<Buttons.Button>;
+    buttons: Array<WhatsappTemplateButtonsComponent.Button>;
 
     type: 'BUTTONS';
   }
 
-  export namespace Buttons {
+  export namespace WhatsappTemplateButtonsComponent {
     export interface Button {
       type: 'URL' | 'PHONE_NUMBER' | 'QUICK_REPLY' | 'OTP' | 'COPY_CODE' | 'FLOW';
 
@@ -237,18 +237,18 @@ export namespace WhatsappMessageTemplateUpdateParams {
    * Carousel component for multi-card templates. Each card can contain its own
    * header, body, and buttons.
    */
-  export interface Carousel {
+  export interface WhatsappTemplateCarouselComponent {
     /**
      * Array of card objects, each with its own components.
      */
-    cards: Array<Carousel.Card>;
+    cards: Array<WhatsappTemplateCarouselComponent.Card>;
 
     type: 'CAROUSEL';
   }
 
-  export namespace Carousel {
+  export namespace WhatsappTemplateCarouselComponent {
     export interface Card {
-      components?: Array<{ [key: string]: unknown }>;
+      components?: Array<unknown>;
     }
   }
 }

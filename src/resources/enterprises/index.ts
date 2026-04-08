@@ -2,25 +2,20 @@
 
 export {
   Enterprises,
-  type BillingAddress,
-  type BillingContact,
-  type EnterprisePublic,
-  type OrganizationContact,
-  type PhysicalAddress,
   type EnterpriseCreateResponse,
   type EnterpriseRetrieveResponse,
   type EnterpriseUpdateResponse,
+  type EnterpriseListResponse,
   type EnterpriseCreateParams,
   type EnterpriseUpdateParams,
   type EnterpriseListParams,
-  type EnterprisePublicsDefaultFlatPagination,
+  type EnterpriseListResponsesDefaultFlatPagination,
 } from './enterprises';
 export {
   Reputation,
-  type EnterpriseReputationPublic,
-  type ReputationCreateResponse,
-  type ReputationListResponse,
+  type ReputationRetrieveResponse,
+  type ReputationEnableResponse,
   type ReputationUpdateFrequencyResponse,
-  type ReputationCreateParams,
+  type ReputationEnableParams,
   type ReputationUpdateFrequencyParams,
 } from './reputation/index';

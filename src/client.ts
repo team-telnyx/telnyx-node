@@ -854,11 +854,12 @@ import {
   TexmlApplicationsDefaultFlatPagination,
 } from './resources/texml-applications';
 import {
-  TrafficPolicyProfile,
   TrafficPolicyProfileCreateParams,
   TrafficPolicyProfileCreateResponse,
   TrafficPolicyProfileDeleteResponse,
   TrafficPolicyProfileListParams,
+  TrafficPolicyProfileListResponse,
+  TrafficPolicyProfileListResponsesDefaultFlatPagination,
   TrafficPolicyProfileListServicesParams,
   TrafficPolicyProfileListServicesResponse,
   TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
@@ -866,7 +867,6 @@ import {
   TrafficPolicyProfileUpdateParams,
   TrafficPolicyProfileUpdateResponse,
   TrafficPolicyProfiles,
-  TrafficPolicyProfilesDefaultFlatPagination,
 } from './resources/traffic-policy-profiles';
 import {
   UsageReportGetOptionsParams,
@@ -923,9 +923,9 @@ import {
   VoiceCloneCreateFromUploadResponse,
   VoiceCloneCreateParams,
   VoiceCloneCreateResponse,
-  VoiceCloneData,
-  VoiceCloneDataDefaultFlatPagination,
   VoiceCloneListParams,
+  VoiceCloneListResponse,
+  VoiceCloneListResponsesDefaultFlatPagination,
   VoiceCloneUpdateParams,
   VoiceCloneUpdateResponse,
   VoiceClones,
@@ -933,7 +933,6 @@ import {
 import {
   VoiceDesignCreateParams,
   VoiceDesignCreateResponse,
-  VoiceDesignData,
   VoiceDesignDeleteVersionParams,
   VoiceDesignDownloadSampleParams,
   VoiceDesignListParams,
@@ -1189,19 +1188,15 @@ import {
   EncryptedMedia,
 } from './resources/credential-connections/credential-connections';
 import {
-  BillingAddress,
-  BillingContact,
   EnterpriseCreateParams,
   EnterpriseCreateResponse,
   EnterpriseListParams,
-  EnterprisePublic,
-  EnterprisePublicsDefaultFlatPagination,
+  EnterpriseListResponse,
+  EnterpriseListResponsesDefaultFlatPagination,
   EnterpriseRetrieveResponse,
   EnterpriseUpdateParams,
   EnterpriseUpdateResponse,
   Enterprises,
-  OrganizationContact,
-  PhysicalAddress,
 } from './resources/enterprises/enterprises';
 import {
   ExternalConnection,
@@ -1496,7 +1491,13 @@ import {
 } from './resources/sim-cards/sim-cards';
 import { Storage, StorageListMigrationSourceCoverageResponse } from './resources/storage/storage';
 import { TermsOfService } from './resources/terms-of-service/terms-of-service';
-import { Texml, TexmlSecretsParams, TexmlSecretsResponse } from './resources/texml/texml';
+import {
+  Texml,
+  TexmlInitiateAICallParams,
+  TexmlInitiateAICallResponse,
+  TexmlSecretsParams,
+  TexmlSecretsResponse,
+} from './resources/texml/texml';
 import {
   StreamClientEvent,
   StreamServerEvent,
@@ -4488,7 +4489,9 @@ export declare namespace Telnyx {
 
   export {
     Texml as Texml,
+    type TexmlInitiateAICallResponse as TexmlInitiateAICallResponse,
     type TexmlSecretsResponse as TexmlSecretsResponse,
+    type TexmlInitiateAICallParams as TexmlInitiateAICallParams,
     type TexmlSecretsParams as TexmlSecretsParams,
   };
 
@@ -4740,11 +4743,11 @@ export declare namespace Telnyx {
 
   export {
     VoiceClones as VoiceClones,
-    type VoiceCloneData as VoiceCloneData,
     type VoiceCloneCreateResponse as VoiceCloneCreateResponse,
     type VoiceCloneUpdateResponse as VoiceCloneUpdateResponse,
+    type VoiceCloneListResponse as VoiceCloneListResponse,
     type VoiceCloneCreateFromUploadResponse as VoiceCloneCreateFromUploadResponse,
-    type VoiceCloneDataDefaultFlatPagination as VoiceCloneDataDefaultFlatPagination,
+    type VoiceCloneListResponsesDefaultFlatPagination as VoiceCloneListResponsesDefaultFlatPagination,
     type VoiceCloneCreateParams as VoiceCloneCreateParams,
     type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
     type VoiceCloneListParams as VoiceCloneListParams,
@@ -4753,7 +4756,6 @@ export declare namespace Telnyx {
 
   export {
     VoiceDesigns as VoiceDesigns,
-    type VoiceDesignData as VoiceDesignData,
     type VoiceDesignCreateResponse as VoiceDesignCreateResponse,
     type VoiceDesignRetrieveResponse as VoiceDesignRetrieveResponse,
     type VoiceDesignListResponse as VoiceDesignListResponse,
@@ -4769,13 +4771,13 @@ export declare namespace Telnyx {
 
   export {
     TrafficPolicyProfiles as TrafficPolicyProfiles,
-    type TrafficPolicyProfile as TrafficPolicyProfile,
     type TrafficPolicyProfileCreateResponse as TrafficPolicyProfileCreateResponse,
     type TrafficPolicyProfileRetrieveResponse as TrafficPolicyProfileRetrieveResponse,
     type TrafficPolicyProfileUpdateResponse as TrafficPolicyProfileUpdateResponse,
+    type TrafficPolicyProfileListResponse as TrafficPolicyProfileListResponse,
     type TrafficPolicyProfileDeleteResponse as TrafficPolicyProfileDeleteResponse,
     type TrafficPolicyProfileListServicesResponse as TrafficPolicyProfileListServicesResponse,
-    type TrafficPolicyProfilesDefaultFlatPagination as TrafficPolicyProfilesDefaultFlatPagination,
+    type TrafficPolicyProfileListResponsesDefaultFlatPagination as TrafficPolicyProfileListResponsesDefaultFlatPagination,
     type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination as TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
     type TrafficPolicyProfileCreateParams as TrafficPolicyProfileCreateParams,
     type TrafficPolicyProfileUpdateParams as TrafficPolicyProfileUpdateParams,
@@ -4785,15 +4787,11 @@ export declare namespace Telnyx {
 
   export {
     Enterprises as Enterprises,
-    type BillingAddress as BillingAddress,
-    type BillingContact as BillingContact,
-    type EnterprisePublic as EnterprisePublic,
-    type OrganizationContact as OrganizationContact,
-    type PhysicalAddress as PhysicalAddress,
     type EnterpriseCreateResponse as EnterpriseCreateResponse,
     type EnterpriseRetrieveResponse as EnterpriseRetrieveResponse,
     type EnterpriseUpdateResponse as EnterpriseUpdateResponse,
-    type EnterprisePublicsDefaultFlatPagination as EnterprisePublicsDefaultFlatPagination,
+    type EnterpriseListResponse as EnterpriseListResponse,
+    type EnterpriseListResponsesDefaultFlatPagination as EnterpriseListResponsesDefaultFlatPagination,
     type EnterpriseCreateParams as EnterpriseCreateParams,
     type EnterpriseUpdateParams as EnterpriseUpdateParams,
     type EnterpriseListParams as EnterpriseListParams,
@@ -4818,7 +4816,6 @@ export declare namespace Telnyx {
   export type MessagingFeatureSet = API.MessagingFeatureSet;
   export type MessagingHostedNumberOrder = API.MessagingHostedNumberOrder;
   export type MessagingPaginationMeta = API.MessagingPaginationMeta;
-  export type MetaInfo = API.MetaInfo;
   export type Metadata = API.Metadata;
   export type MinimaxVoiceSettings = API.MinimaxVoiceSettings;
   export type NetappsLocation = API.NetappsLocation;
@@ -4828,8 +4825,6 @@ export declare namespace Telnyx {
   export type PortingOrderStatus = API.PortingOrderStatus;
   export type PortingOrdersExceptionType = API.PortingOrdersExceptionType;
   export type RegionInformation = API.RegionInformation;
-  export type ReputationData = API.ReputationData;
-  export type ReputationPhoneNumberWithReputationData = API.ReputationPhoneNumberWithReputationData;
   export type ResembleVoiceSettings = API.ResembleVoiceSettings;
   export type RimeVoiceSettings = API.RimeVoiceSettings;
   export type RoomParticipant = API.RoomParticipant;

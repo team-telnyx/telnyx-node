@@ -42,7 +42,7 @@ describe('resource creditAccount', () => {
     const response = await client.x402.creditAccount.settle({
       id: 'quote_abc123',
       payment_signature: '0xabc123...',
-      header_payment_signature: 'PAYMENT-SIGNATURE',
+      'PAYMENT-SIGNATURE': 'PAYMENT-SIGNATURE',
     });
   });
 });
