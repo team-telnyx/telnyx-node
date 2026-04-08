@@ -6095,21 +6095,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/enterprises/{enterprise_id}',
   },
   {
-    clientCallName: 'client.enterprises.reputation.create',
-    fullyQualifiedName: 'enterprises.reputation.create',
-    httpMethod: 'post',
-    httpPath: '/enterprises/{enterprise_id}/reputation',
-  },
-  {
-    clientCallName: 'client.enterprises.reputation.list',
-    fullyQualifiedName: 'enterprises.reputation.list',
+    clientCallName: 'client.enterprises.reputation.retrieve',
+    fullyQualifiedName: 'enterprises.reputation.retrieve',
     httpMethod: 'get',
     httpPath: '/enterprises/{enterprise_id}/reputation',
   },
   {
-    clientCallName: 'client.enterprises.reputation.deleteAll',
-    fullyQualifiedName: 'enterprises.reputation.deleteAll',
+    clientCallName: 'client.enterprises.reputation.disable',
+    fullyQualifiedName: 'enterprises.reputation.disable',
     httpMethod: 'delete',
+    httpPath: '/enterprises/{enterprise_id}/reputation',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.enable',
+    fullyQualifiedName: 'enterprises.reputation.enable',
+    httpMethod: 'post',
     httpPath: '/enterprises/{enterprise_id}/reputation',
   },
   {
@@ -6117,12 +6117,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'enterprises.reputation.updateFrequency',
     httpMethod: 'patch',
     httpPath: '/enterprises/{enterprise_id}/reputation/frequency',
-  },
-  {
-    clientCallName: 'client.enterprises.reputation.numbers.create',
-    fullyQualifiedName: 'enterprises.reputation.numbers.create',
-    httpMethod: 'post',
-    httpPath: '/enterprises/{enterprise_id}/reputation/numbers',
   },
   {
     clientCallName: 'client.enterprises.reputation.numbers.retrieve',
@@ -6137,8 +6131,14 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/enterprises/{enterprise_id}/reputation/numbers',
   },
   {
-    clientCallName: 'client.enterprises.reputation.numbers.delete',
-    fullyQualifiedName: 'enterprises.reputation.numbers.delete',
+    clientCallName: 'client.enterprises.reputation.numbers.associate',
+    fullyQualifiedName: 'enterprises.reputation.numbers.associate',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/reputation/numbers',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.numbers.disassociate',
+    fullyQualifiedName: 'enterprises.reputation.numbers.disassociate',
     httpMethod: 'delete',
     httpPath: '/enterprises/{enterprise_id}/reputation/numbers/{phone_number}',
   },
