@@ -18,9 +18,9 @@ export {
 export {
   Reputation,
   type EnterpriseReputationPublic,
-  type ReputationRetrieveResponse,
-  type ReputationEnableResponse,
+  type ReputationCreateResponse,
+  type ReputationListResponse,
   type ReputationUpdateFrequencyResponse,
-  type ReputationEnableParams,
+  type ReputationCreateParams,
   type ReputationUpdateFrequencyParams,
 } from './reputation/index';
