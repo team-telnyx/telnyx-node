@@ -944,6 +944,17 @@ export {
   type PrivateWirelessGatewaysDefaultFlatPagination,
 } from './private-wireless-gateways';
 export {
+  PronunciationDicts,
+  type PronunciationDictCreateResponse,
+  type PronunciationDictRetrieveResponse,
+  type PronunciationDictUpdateResponse,
+  type PronunciationDictListResponse,
+  type PronunciationDictCreateParams,
+  type PronunciationDictUpdateParams,
+  type PronunciationDictListParams,
+  type PronunciationDictListResponsesDefaultFlatPagination,
+} from './pronunciation-dicts';
+export {
   PublicInternetGateways,
   type NetworkInterface,
   type NetworkInterfaceRegion,

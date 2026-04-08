@@ -688,6 +688,17 @@ import {
   PwgAssignedResourcesSummary,
 } from './resources/private-wireless-gateways';
 import {
+  PronunciationDictCreateParams,
+  PronunciationDictCreateResponse,
+  PronunciationDictListParams,
+  PronunciationDictListResponse,
+  PronunciationDictListResponsesDefaultFlatPagination,
+  PronunciationDictRetrieveResponse,
+  PronunciationDictUpdateParams,
+  PronunciationDictUpdateResponse,
+  PronunciationDicts,
+} from './resources/pronunciation-dicts';
+import {
   NetworkInterface,
   NetworkInterfaceRegion,
   PublicInternetGatewayCreateParams,
@@ -2907,6 +2918,10 @@ export class Telnyx {
   enterprises: API.Enterprises = new API.Enterprises(this);
   reputation: API.Reputation = new API.Reputation(this);
   termsOfService: API.TermsOfService = new API.TermsOfService(this);
+  /**
+   * Manage pronunciation dictionaries for text-to-speech synthesis. Dictionaries contain alias items (text replacement) and phoneme items (IPA pronunciation notation) that control how specific words are spoken.
+   */
+  pronunciationDicts: API.PronunciationDicts = new API.PronunciationDicts(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3071,6 +3086,7 @@ Telnyx.TrafficPolicyProfiles = TrafficPolicyProfiles;
 Telnyx.Enterprises = Enterprises;
 Telnyx.Reputation = Reputation;
 Telnyx.TermsOfService = TermsOfService;
+Telnyx.PronunciationDicts = PronunciationDicts;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -4810,6 +4826,18 @@ export declare namespace Telnyx {
   export { Reputation as Reputation };
 
   export { TermsOfService as TermsOfService };
+
+  export {
+    PronunciationDicts as PronunciationDicts,
+    type PronunciationDictCreateResponse as PronunciationDictCreateResponse,
+    type PronunciationDictRetrieveResponse as PronunciationDictRetrieveResponse,
+    type PronunciationDictUpdateResponse as PronunciationDictUpdateResponse,
+    type PronunciationDictListResponse as PronunciationDictListResponse,
+    type PronunciationDictListResponsesDefaultFlatPagination as PronunciationDictListResponsesDefaultFlatPagination,
+    type PronunciationDictCreateParams as PronunciationDictCreateParams,
+    type PronunciationDictUpdateParams as PronunciationDictUpdateParams,
+    type PronunciationDictListParams as PronunciationDictListParams,
+  };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;

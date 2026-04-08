@@ -2,19 +2,19 @@
 
 export {
   Numbers,
+  type NumberCreateResponse,
   type NumberRetrieveResponse,
-  type NumberAssociateResponse,
+  type NumberCreateParams,
   type NumberRetrieveParams,
   type NumberListParams,
-  type NumberAssociateParams,
-  type NumberDisassociateParams,
+  type NumberDeleteParams,
 } from './numbers';
 export {
   Reputation,
   type EnterpriseReputationPublic,
-  type ReputationRetrieveResponse,
-  type ReputationEnableResponse,
+  type ReputationCreateResponse,
+  type ReputationListResponse,
   type ReputationUpdateFrequencyResponse,
-  type ReputationEnableParams,
+  type ReputationCreateParams,
   type ReputationUpdateFrequencyParams,
 } from './reputation';
