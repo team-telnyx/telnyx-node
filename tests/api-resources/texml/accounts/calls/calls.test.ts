@@ -88,6 +88,7 @@ describe('resource calls', () => {
       MachineDetectionSpeechEndThreshold: 2000,
       MachineDetectionSpeechThreshold: 2000,
       MachineDetectionTimeout: 5000,
+      MediaEncryption: 'disabled',
       PreferredCodecs: 'PCMA,PCMU',
       Record: false,
       RecordingChannels: 'dual',

@@ -1496,7 +1496,13 @@ import {
 } from './resources/sim-cards/sim-cards';
 import { Storage, StorageListMigrationSourceCoverageResponse } from './resources/storage/storage';
 import { TermsOfService } from './resources/terms-of-service/terms-of-service';
-import { Texml, TexmlSecretsParams, TexmlSecretsResponse } from './resources/texml/texml';
+import {
+  Texml,
+  TexmlInitiateAICallParams,
+  TexmlInitiateAICallResponse,
+  TexmlSecretsParams,
+  TexmlSecretsResponse,
+} from './resources/texml/texml';
 import {
   StreamClientEvent,
   StreamServerEvent,
@@ -4487,7 +4493,9 @@ export declare namespace Telnyx {
 
   export {
     Texml as Texml,
+    type TexmlInitiateAICallResponse as TexmlInitiateAICallResponse,
     type TexmlSecretsResponse as TexmlSecretsResponse,
+    type TexmlInitiateAICallParams as TexmlInitiateAICallParams,
     type TexmlSecretsParams as TexmlSecretsParams,
   };
 

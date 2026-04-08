@@ -5,9 +5,9 @@ import * as ReputationAPI from './reputation/reputation';
 import {
   EnterpriseReputationPublic,
   Reputation,
-  ReputationCreateParams,
-  ReputationCreateResponse,
-  ReputationListResponse,
+  ReputationEnableParams,
+  ReputationEnableResponse,
+  ReputationRetrieveResponse,
   ReputationUpdateFrequencyParams,
   ReputationUpdateFrequencyResponse,
 } from './reputation/reputation';
@@ -586,10 +586,10 @@ export declare namespace Enterprises {
   export {
     Reputation as Reputation,
     type EnterpriseReputationPublic as EnterpriseReputationPublic,
-    type ReputationCreateResponse as ReputationCreateResponse,
-    type ReputationListResponse as ReputationListResponse,
+    type ReputationRetrieveResponse as ReputationRetrieveResponse,
+    type ReputationEnableResponse as ReputationEnableResponse,
     type ReputationUpdateFrequencyResponse as ReputationUpdateFrequencyResponse,
-    type ReputationCreateParams as ReputationCreateParams,
+    type ReputationEnableParams as ReputationEnableParams,
     type ReputationUpdateFrequencyParams as ReputationUpdateFrequencyParams,
   };
 }

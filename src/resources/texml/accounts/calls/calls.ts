@@ -788,6 +788,14 @@ export interface CallCallsParams {
   MachineDetectionTimeout?: number;
 
   /**
+   * Defines whether media should be encrypted on the call. When set to `SRTP`, the
+   * call will use Secure Real-time Transport Protocol for media encryption. When set
+   * to `DTLS`, the call will use DTLS for media encryption. Only supported for SIP
+   * destinations.
+   */
+  MediaEncryption?: 'disabled' | 'SRTP' | 'DTLS';
+
+  /**
    * The list of comma-separated codecs to be offered on a call.
    */
   PreferredCodecs?: string;

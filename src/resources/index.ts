@@ -1195,7 +1195,13 @@ export {
   type TelephonyCredentialsDefaultFlatPagination,
 } from './telephony-credentials';
 export { TermsOfService } from './terms-of-service/terms-of-service';
-export { Texml, type TexmlSecretsResponse, type TexmlSecretsParams } from './texml/texml';
+export {
+  Texml,
+  type TexmlInitiateAICallResponse,
+  type TexmlSecretsResponse,
+  type TexmlInitiateAICallParams,
+  type TexmlSecretsParams,
+} from './texml/texml';
 export {
   TexmlApplications,
   type TexmlApplication,
