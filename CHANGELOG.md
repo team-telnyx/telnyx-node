@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.36.0 (2026-04-08)
+
+Full Changelog: [v6.35.0...v6.36.0](https://github.com/team-telnyx/telnyx-node/compare/v6.35.0...v6.36.0)
+
+### Features
+
+* Add ai_calls endpoint documentation to OpenAPI spec ([a40a3b2](https://github.com/team-telnyx/telnyx-node/commit/a40a3b2b4381a026e5e240a73b18dd42dcc739bb))
+* **api:** Merge pull request [#39](https://github.com/team-telnyx/telnyx-node/issues/39) from stainless-sdks/revert-a988c49-stainless-changes ([62e3cc1](https://github.com/team-telnyx/telnyx-node/commit/62e3cc1acd6efb78d204367d0df96ca6e6313149))
+
+
+### Reverts
+
+* restore stainless.yml SDK generation fixes ([62e3cc1](https://github.com/team-telnyx/telnyx-node/commit/62e3cc1acd6efb78d204367d0df96ca6e6313149))
+
 ## 6.35.0 (2026-04-07)
 
 Full Changelog: [v6.34.0...v6.35.0](https://github.com/team-telnyx/telnyx-node/compare/v6.34.0...v6.35.0)
