@@ -520,8 +520,6 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingWebhookToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InsightSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">MessagingSettings</a></code>
-- <code><a href="./src/resources/ai/assistants/assistants.ts">Observability</a></code>
-- <code><a href="./src/resources/ai/assistants/assistants.ts">ObservabilityReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PrivacySettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">RetrievalTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TelephonySettings</a></code>
@@ -4721,30 +4719,30 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/enterprises/reputation/reputation.ts">EnterpriseReputationPublic</a></code>
-- <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationRetrieveResponse</a></code>
-- <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationEnableResponse</a></code>
+- <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationCreateResponse</a></code>
+- <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationListResponse</a></code>
 - <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationUpdateFrequencyResponse</a></code>
 
 Methods:
 
-- <code title="get /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">retrieve</a>(enterpriseID) -> ReputationRetrieveResponse</code>
-- <code title="delete /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">disable</a>(enterpriseID) -> void</code>
-- <code title="post /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">enable</a>(enterpriseID, { ...params }) -> ReputationEnableResponse</code>
+- <code title="post /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">create</a>(enterpriseID, { ...params }) -> ReputationCreateResponse</code>
+- <code title="get /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">list</a>(enterpriseID) -> ReputationListResponse</code>
+- <code title="delete /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">deleteAll</a>(enterpriseID) -> void</code>
 - <code title="patch /enterprises/{enterprise_id}/reputation/frequency">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">updateFrequency</a>(enterpriseID, { ...params }) -> ReputationUpdateFrequencyResponse</code>
 
 ### Numbers
 
 Types:
 
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberCreateResponse</a></code>
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberRetrieveResponse</a></code>
-- <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberAssociateResponse</a></code>
 
 Methods:
 
+- <code title="post /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">create</a>(enterpriseID, { ...params }) -> NumberCreateResponse</code>
 - <code title="get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">retrieve</a>(phoneNumber, { ...params }) -> NumberRetrieveResponse</code>
 - <code title="get /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">list</a>(enterpriseID, { ...params }) -> ReputationPhoneNumberWithReputationDataDefaultFlatPagination</code>
-- <code title="post /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">associate</a>(enterpriseID, { ...params }) -> NumberAssociateResponse</code>
-- <code title="delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">disassociate</a>(phoneNumber, { ...params }) -> void</code>
+- <code title="delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">delete</a>(phoneNumber, { ...params }) -> void</code>
 
 # Reputation
 

@@ -3,9 +3,9 @@
 import { APIResource } from '../../../core/resource';
 import * as NumbersAPI from './numbers';
 import {
-  NumberAssociateParams,
-  NumberAssociateResponse,
-  NumberDisassociateParams,
+  NumberCreateParams,
+  NumberCreateResponse,
+  NumberDeleteParams,
   NumberListParams,
   NumberRetrieveParams,
   NumberRetrieveResponse,
@@ -21,51 +21,6 @@ import { path } from '../../../internal/utils/path';
  */
 export class Reputation extends APIResource {
   numbers: NumbersAPI.Numbers = new NumbersAPI.Numbers(this._client);
-
-  /**
-   * Retrieve the current Number Reputation settings for an enterprise.
-   *
-   * Returns the enrollment status (`pending`, `approved`, `rejected`, `deleted`),
-   * check frequency, and any rejection reasons.
-   *
-   * Returns `404` if reputation has not been enabled for this enterprise.
-   *
-   * @example
-   * ```ts
-   * const reputation =
-   *   await client.enterprises.reputation.retrieve(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
-   * ```
-   */
-  retrieve(enterpriseID: string, options?: RequestOptions): APIPromise<ReputationRetrieveResponse> {
-    return this._client.get(path`/enterprises/${enterpriseID}/reputation`, options);
-  }
-
-  /**
-   * Disable Number Reputation for an enterprise.
-   *
-   * This will:
-   *
-   * - Delete the reputation settings record
-   * - Log the deletion for audit purposes
-   * - Stop all future automated reputation checks
-   *
-   * **Note:** Can only be performed on `approved` reputation settings.
-   *
-   * @example
-   * ```ts
-   * await client.enterprises.reputation.disable(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  disable(enterpriseID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/enterprises/${enterpriseID}/reputation`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
 
   /**
    * Enable Number Reputation service for an enterprise.
@@ -96,18 +51,64 @@ export class Reputation extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.enterprises.reputation.enable(
+   * const reputation =
+   *   await client.enterprises.reputation.create(
+   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *     { loa_document_id: 'doc_01HXYZ1234ABCDEF' },
+   *   );
+   * ```
+   */
+  create(
+    enterpriseID: string,
+    body: ReputationCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<ReputationCreateResponse> {
+    return this._client.post(path`/enterprises/${enterpriseID}/reputation`, { body, ...options });
+  }
+
+  /**
+   * Retrieve the current Number Reputation settings for an enterprise.
+   *
+   * Returns the enrollment status (`pending`, `approved`, `rejected`, `deleted`),
+   * check frequency, and any rejection reasons.
+   *
+   * Returns `404` if reputation has not been enabled for this enterprise.
+   *
+   * @example
+   * ```ts
+   * const reputations =
+   *   await client.enterprises.reputation.list(
+   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *   );
+   * ```
+   */
+  list(enterpriseID: string, options?: RequestOptions): APIPromise<ReputationListResponse> {
+    return this._client.get(path`/enterprises/${enterpriseID}/reputation`, options);
+  }
+
+  /**
+   * Disable Number Reputation for an enterprise.
+   *
+   * This will:
+   *
+   * - Delete the reputation settings record
+   * - Log the deletion for audit purposes
+   * - Stop all future automated reputation checks
+   *
+   * **Note:** Can only be performed on `approved` reputation settings.
+   *
+   * @example
+   * ```ts
+   * await client.enterprises.reputation.deleteAll(
    *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   { loa_document_id: 'doc_01HXYZ1234ABCDEF' },
    * );
    * ```
    */
-  enable(
-    enterpriseID: string,
-    body: ReputationEnableParams,
-    options?: RequestOptions,
-  ): APIPromise<ReputationEnableResponse> {
-    return this._client.post(path`/enterprises/${enterpriseID}/reputation`, { body, ...options });
+  deleteAll(enterpriseID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/enterprises/${enterpriseID}/reputation`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -180,11 +181,11 @@ export interface EnterpriseReputationPublic {
   updated_at?: string;
 }
 
-export interface ReputationRetrieveResponse {
+export interface ReputationCreateResponse {
   data?: EnterpriseReputationPublic;
 }
 
-export interface ReputationEnableResponse {
+export interface ReputationListResponse {
   data?: EnterpriseReputationPublic;
 }
 
@@ -192,7 +193,7 @@ export interface ReputationUpdateFrequencyResponse {
   data?: EnterpriseReputationPublic;
 }
 
-export interface ReputationEnableParams {
+export interface ReputationCreateParams {
   /**
    * ID of the signed Letter of Authorization (LOA) document uploaded to the document
    * service
@@ -217,20 +218,20 @@ Reputation.Numbers = Numbers;
 export declare namespace Reputation {
   export {
     type EnterpriseReputationPublic as EnterpriseReputationPublic,
-    type ReputationRetrieveResponse as ReputationRetrieveResponse,
-    type ReputationEnableResponse as ReputationEnableResponse,
+    type ReputationCreateResponse as ReputationCreateResponse,
+    type ReputationListResponse as ReputationListResponse,
     type ReputationUpdateFrequencyResponse as ReputationUpdateFrequencyResponse,
-    type ReputationEnableParams as ReputationEnableParams,
+    type ReputationCreateParams as ReputationCreateParams,
     type ReputationUpdateFrequencyParams as ReputationUpdateFrequencyParams,
   };
 
   export {
     Numbers as Numbers,
+    type NumberCreateResponse as NumberCreateResponse,
     type NumberRetrieveResponse as NumberRetrieveResponse,
-    type NumberAssociateResponse as NumberAssociateResponse,
+    type NumberCreateParams as NumberCreateParams,
     type NumberRetrieveParams as NumberRetrieveParams,
     type NumberListParams as NumberListParams,
-    type NumberAssociateParams as NumberAssociateParams,
-    type NumberDisassociateParams as NumberDisassociateParams,
+    type NumberDeleteParams as NumberDeleteParams,
   };
 }
