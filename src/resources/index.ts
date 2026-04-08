@@ -945,14 +945,16 @@ export {
 } from './private-wireless-gateways';
 export {
   PronunciationDicts,
+  type PronunciationDictAliasItem,
+  type PronunciationDictData,
+  type PronunciationDictPhonemeItem,
   type PronunciationDictCreateResponse,
   type PronunciationDictRetrieveResponse,
   type PronunciationDictUpdateResponse,
-  type PronunciationDictListResponse,
   type PronunciationDictCreateParams,
   type PronunciationDictUpdateParams,
   type PronunciationDictListParams,
-  type PronunciationDictListResponsesDefaultFlatPagination,
+  type PronunciationDictDataDefaultFlatPagination,
 } from './pronunciation-dicts';
 export {
   PublicInternetGateways,

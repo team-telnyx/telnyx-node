@@ -20,15 +20,19 @@ export class VoiceClones extends APIResource {
    * @example
    * ```ts
    * const voiceClone = await client.voiceClones.create({
-   *   gender: 'male',
-   *   language: 'en',
-   *   name: 'clone-narrator',
-   *   voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
+   *   params: {
+   *     gender: 'male',
+   *     language: 'en',
+   *     name: 'clone-narrator',
+   *     voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
+   *     provider: 'telnyx',
+   *   },
    * });
    * ```
    */
-  create(body: VoiceCloneCreateParams, options?: RequestOptions): APIPromise<VoiceCloneCreateResponse> {
-    return this._client.post('/voice_clones', { body, ...options });
+  create(params: VoiceCloneCreateParams, options?: RequestOptions): APIPromise<VoiceCloneCreateResponse> {
+    const { params } = params;
+    return this._client.post('/voice_clones', { body: params, ...options });
   }
 
   /**
@@ -96,21 +100,24 @@ export class VoiceClones extends APIResource {
    * @example
    * ```ts
    * const response = await client.voiceClones.createFromUpload({
-   *   audio_file: fs.createReadStream('path/to/file'),
-   *   gender: 'male',
-   *   language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
-   *   name: 'name',
-   *   provider: 'telnyx',
+   *   params: {
+   *     audio_file: fs.createReadStream('path/to/file'),
+   *     gender: 'male',
+   *     language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
+   *     name: 'name',
+   *     provider: 'telnyx',
+   *   },
    * });
    * ```
    */
   createFromUpload(
-    body: VoiceCloneCreateFromUploadParams,
+    params: VoiceCloneCreateFromUploadParams,
     options?: RequestOptions,
   ): APIPromise<VoiceCloneCreateFromUploadResponse> {
+    const { params } = params;
     return this._client.post(
       '/voice_clones/from_upload',
-      multipartFormRequestOptions({ body, ...options }, this._client),
+      multipartFormRequestOptions({ body: params, ...options }, this._client),
     );
   }
 
@@ -251,11 +258,17 @@ export interface VoiceCloneCreateFromUploadResponse {
   data?: VoiceCloneData;
 }
 
-export type VoiceCloneCreateParams =
-  | VoiceCloneCreateParams.TelnyxDesignClone
-  | VoiceCloneCreateParams.MinimaxDesignClone;
+export interface VoiceCloneCreateParams {
+  /**
+   * Request body for creating a voice clone from an existing voice design.
+   */
+  params: VoiceCloneCreateParams.TelnyxDesignClone | VoiceCloneCreateParams.MinimaxDesignClone;
+}
 
-export declare namespace VoiceCloneCreateParams {
+export namespace VoiceCloneCreateParams {
+  /**
+   * Create a voice clone from a voice design using the Telnyx provider.
+   */
   export interface TelnyxDesignClone {
     /**
      * Gender of the voice clone.
@@ -284,6 +297,9 @@ export declare namespace VoiceCloneCreateParams {
     provider?: 'telnyx' | 'Telnyx';
   }
 
+  /**
+   * Create a voice clone from a voice design using the Minimax provider.
+   */
   export interface MinimaxDesignClone {
     /**
      * Gender of the voice clone.
@@ -346,12 +362,21 @@ export interface VoiceCloneListParams extends DefaultFlatPaginationParams {
   sort?: 'name' | '-name' | 'created_at' | '-created_at';
 }
 
-export type VoiceCloneCreateFromUploadParams =
-  | VoiceCloneCreateFromUploadParams.TelnyxQwen3TtsClone
-  | VoiceCloneCreateFromUploadParams.TelnyxUltraClone
-  | VoiceCloneCreateFromUploadParams.MinimaxClone;
+export interface VoiceCloneCreateFromUploadParams {
+  /**
+   * Multipart form data for creating a voice clone from a direct audio upload.
+   * Maximum file size: 5MB for Telnyx, 20MB for Minimax.
+   */
+  params:
+    | VoiceCloneCreateFromUploadParams.TelnyxQwen3TtsClone
+    | VoiceCloneCreateFromUploadParams.TelnyxUltraClone
+    | VoiceCloneCreateFromUploadParams.MinimaxClone;
+}
 
-export declare namespace VoiceCloneCreateFromUploadParams {
+export namespace VoiceCloneCreateFromUploadParams {
+  /**
+   * Upload-based voice clone using the Telnyx Qwen3TTS model (default).
+   */
   export interface TelnyxQwen3TtsClone {
     /**
      * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A.
@@ -396,6 +421,9 @@ export declare namespace VoiceCloneCreateFromUploadParams {
     ref_text?: string;
   }
 
+  /**
+   * Upload-based voice clone using the Telnyx Ultra model.
+   */
   export interface TelnyxUltraClone {
     /**
      * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A.
@@ -440,6 +468,9 @@ export declare namespace VoiceCloneCreateFromUploadParams {
     ref_text?: string;
   }
 
+  /**
+   * Upload-based voice clone using the Minimax provider.
+   */
   export interface MinimaxClone {
     /**
      * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A.

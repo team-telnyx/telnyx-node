@@ -100,7 +100,7 @@ export class PronunciationDicts extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const pronunciationDictListResponse of client.pronunciationDicts.list()) {
+   * for await (const pronunciationDictData of client.pronunciationDicts.list()) {
    *   // ...
    * }
    * ```
@@ -108,12 +108,11 @@ export class PronunciationDicts extends APIResource {
   list(
     query: PronunciationDictListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PronunciationDictListResponsesDefaultFlatPagination, PronunciationDictListResponse> {
-    return this._client.getAPIList(
-      '/pronunciation_dicts',
-      DefaultFlatPagination<PronunciationDictListResponse>,
-      { query, ...options },
-    );
+  ): PagePromise<PronunciationDictDataDefaultFlatPagination, PronunciationDictData> {
+    return this._client.getAPIList('/pronunciation_dicts', DefaultFlatPagination<PronunciationDictData>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -134,325 +133,34 @@ export class PronunciationDicts extends APIResource {
   }
 }
 
-export type PronunciationDictListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<PronunciationDictListResponse>;
+export type PronunciationDictDataDefaultFlatPagination = DefaultFlatPagination<PronunciationDictData>;
 
 /**
- * Response containing a single pronunciation dictionary.
+ * An alias pronunciation item. When the `text` value is found in input, it is
+ * replaced with the `alias` before speech synthesis.
  */
-export interface PronunciationDictCreateResponse {
+export interface PronunciationDictAliasItem {
   /**
-   * A pronunciation dictionary record.
+   * The replacement text that will be spoken instead.
    */
-  data?: PronunciationDictCreateResponse.Data;
-}
+  alias: string;
 
-export namespace PronunciationDictCreateResponse {
   /**
-   * A pronunciation dictionary record.
+   * The text to match in the input. Case-insensitive matching is used during
+   * synthesis.
    */
-  export interface Data {
-    /**
-     * Unique identifier for the pronunciation dictionary.
-     */
-    id?: string;
+  text: string;
 
-    /**
-     * ISO 8601 timestamp with millisecond precision.
-     */
-    created_at?: string;
-
-    /**
-     * List of pronunciation items (alias or phoneme type).
-     */
-    items?: Array<Data.PronunciationDictAliasItem | Data.PronunciationDictPhonemeItem>;
-
-    /**
-     * Human-readable name for the dictionary. Must be unique within the organization.
-     */
-    name?: string;
-
-    /**
-     * Identifies the resource type.
-     */
-    record_type?: 'pronunciation_dict';
-
-    /**
-     * ISO 8601 timestamp with millisecond precision.
-     */
-    updated_at?: string;
-
-    /**
-     * Auto-incrementing version number. Increases by 1 on each update. Used for
-     * optimistic concurrency control and cache invalidation.
-     */
-    version?: number;
-  }
-
-  export namespace Data {
-    /**
-     * An alias pronunciation item. When the `text` value is found in input, it is
-     * replaced with the `alias` before speech synthesis.
-     */
-    export interface PronunciationDictAliasItem {
-      /**
-       * The replacement text that will be spoken instead.
-       */
-      alias: string;
-
-      /**
-       * The text to match in the input. Case-insensitive matching is used during
-       * synthesis.
-       */
-      text: string;
-
-      /**
-       * The item type.
-       */
-      type: 'alias';
-    }
-
-    /**
-     * A phoneme pronunciation item. When the `text` value is found in input, it is
-     * pronounced using the specified IPA phoneme notation.
-     */
-    export interface PronunciationDictPhonemeItem {
-      /**
-       * The phonetic alphabet used for the phoneme notation.
-       */
-      alphabet: 'ipa';
-
-      /**
-       * The phoneme notation representing the desired pronunciation.
-       */
-      phoneme: string;
-
-      /**
-       * The text to match in the input. Case-insensitive matching is used during
-       * synthesis.
-       */
-      text: string;
-
-      /**
-       * The item type.
-       */
-      type: 'phoneme';
-    }
-  }
-}
-
-/**
- * Response containing a single pronunciation dictionary.
- */
-export interface PronunciationDictRetrieveResponse {
   /**
-   * A pronunciation dictionary record.
+   * The item type.
    */
-  data?: PronunciationDictRetrieveResponse.Data;
-}
-
-export namespace PronunciationDictRetrieveResponse {
-  /**
-   * A pronunciation dictionary record.
-   */
-  export interface Data {
-    /**
-     * Unique identifier for the pronunciation dictionary.
-     */
-    id?: string;
-
-    /**
-     * ISO 8601 timestamp with millisecond precision.
-     */
-    created_at?: string;
-
-    /**
-     * List of pronunciation items (alias or phoneme type).
-     */
-    items?: Array<Data.PronunciationDictAliasItem | Data.PronunciationDictPhonemeItem>;
-
-    /**
-     * Human-readable name for the dictionary. Must be unique within the organization.
-     */
-    name?: string;
-
-    /**
-     * Identifies the resource type.
-     */
-    record_type?: 'pronunciation_dict';
-
-    /**
-     * ISO 8601 timestamp with millisecond precision.
-     */
-    updated_at?: string;
-
-    /**
-     * Auto-incrementing version number. Increases by 1 on each update. Used for
-     * optimistic concurrency control and cache invalidation.
-     */
-    version?: number;
-  }
-
-  export namespace Data {
-    /**
-     * An alias pronunciation item. When the `text` value is found in input, it is
-     * replaced with the `alias` before speech synthesis.
-     */
-    export interface PronunciationDictAliasItem {
-      /**
-       * The replacement text that will be spoken instead.
-       */
-      alias: string;
-
-      /**
-       * The text to match in the input. Case-insensitive matching is used during
-       * synthesis.
-       */
-      text: string;
-
-      /**
-       * The item type.
-       */
-      type: 'alias';
-    }
-
-    /**
-     * A phoneme pronunciation item. When the `text` value is found in input, it is
-     * pronounced using the specified IPA phoneme notation.
-     */
-    export interface PronunciationDictPhonemeItem {
-      /**
-       * The phonetic alphabet used for the phoneme notation.
-       */
-      alphabet: 'ipa';
-
-      /**
-       * The phoneme notation representing the desired pronunciation.
-       */
-      phoneme: string;
-
-      /**
-       * The text to match in the input. Case-insensitive matching is used during
-       * synthesis.
-       */
-      text: string;
-
-      /**
-       * The item type.
-       */
-      type: 'phoneme';
-    }
-  }
-}
-
-/**
- * Response containing a single pronunciation dictionary.
- */
-export interface PronunciationDictUpdateResponse {
-  /**
-   * A pronunciation dictionary record.
-   */
-  data?: PronunciationDictUpdateResponse.Data;
-}
-
-export namespace PronunciationDictUpdateResponse {
-  /**
-   * A pronunciation dictionary record.
-   */
-  export interface Data {
-    /**
-     * Unique identifier for the pronunciation dictionary.
-     */
-    id?: string;
-
-    /**
-     * ISO 8601 timestamp with millisecond precision.
-     */
-    created_at?: string;
-
-    /**
-     * List of pronunciation items (alias or phoneme type).
-     */
-    items?: Array<Data.PronunciationDictAliasItem | Data.PronunciationDictPhonemeItem>;
-
-    /**
-     * Human-readable name for the dictionary. Must be unique within the organization.
-     */
-    name?: string;
-
-    /**
-     * Identifies the resource type.
-     */
-    record_type?: 'pronunciation_dict';
-
-    /**
-     * ISO 8601 timestamp with millisecond precision.
-     */
-    updated_at?: string;
-
-    /**
-     * Auto-incrementing version number. Increases by 1 on each update. Used for
-     * optimistic concurrency control and cache invalidation.
-     */
-    version?: number;
-  }
-
-  export namespace Data {
-    /**
-     * An alias pronunciation item. When the `text` value is found in input, it is
-     * replaced with the `alias` before speech synthesis.
-     */
-    export interface PronunciationDictAliasItem {
-      /**
-       * The replacement text that will be spoken instead.
-       */
-      alias: string;
-
-      /**
-       * The text to match in the input. Case-insensitive matching is used during
-       * synthesis.
-       */
-      text: string;
-
-      /**
-       * The item type.
-       */
-      type: 'alias';
-    }
-
-    /**
-     * A phoneme pronunciation item. When the `text` value is found in input, it is
-     * pronounced using the specified IPA phoneme notation.
-     */
-    export interface PronunciationDictPhonemeItem {
-      /**
-       * The phonetic alphabet used for the phoneme notation.
-       */
-      alphabet: 'ipa';
-
-      /**
-       * The phoneme notation representing the desired pronunciation.
-       */
-      phoneme: string;
-
-      /**
-       * The text to match in the input. Case-insensitive matching is used during
-       * synthesis.
-       */
-      text: string;
-
-      /**
-       * The item type.
-       */
-      type: 'phoneme';
-    }
-  }
+  type: 'alias';
 }
 
 /**
  * A pronunciation dictionary record.
  */
-export interface PronunciationDictListResponse {
+export interface PronunciationDictData {
   /**
    * Unique identifier for the pronunciation dictionary.
    */
@@ -466,10 +174,7 @@ export interface PronunciationDictListResponse {
   /**
    * List of pronunciation items (alias or phoneme type).
    */
-  items?: Array<
-    | PronunciationDictListResponse.PronunciationDictAliasItem
-    | PronunciationDictListResponse.PronunciationDictPhonemeItem
-  >;
+  items?: Array<PronunciationDictAliasItem | PronunciationDictPhonemeItem>;
 
   /**
    * Human-readable name for the dictionary. Must be unique within the organization.
@@ -493,55 +198,61 @@ export interface PronunciationDictListResponse {
   version?: number;
 }
 
-export namespace PronunciationDictListResponse {
+/**
+ * A phoneme pronunciation item. When the `text` value is found in input, it is
+ * pronounced using the specified IPA phoneme notation.
+ */
+export interface PronunciationDictPhonemeItem {
   /**
-   * An alias pronunciation item. When the `text` value is found in input, it is
-   * replaced with the `alias` before speech synthesis.
+   * The phonetic alphabet used for the phoneme notation.
    */
-  export interface PronunciationDictAliasItem {
-    /**
-     * The replacement text that will be spoken instead.
-     */
-    alias: string;
-
-    /**
-     * The text to match in the input. Case-insensitive matching is used during
-     * synthesis.
-     */
-    text: string;
-
-    /**
-     * The item type.
-     */
-    type: 'alias';
-  }
+  alphabet: 'ipa';
 
   /**
-   * A phoneme pronunciation item. When the `text` value is found in input, it is
-   * pronounced using the specified IPA phoneme notation.
+   * The phoneme notation representing the desired pronunciation.
    */
-  export interface PronunciationDictPhonemeItem {
-    /**
-     * The phonetic alphabet used for the phoneme notation.
-     */
-    alphabet: 'ipa';
+  phoneme: string;
 
-    /**
-     * The phoneme notation representing the desired pronunciation.
-     */
-    phoneme: string;
+  /**
+   * The text to match in the input. Case-insensitive matching is used during
+   * synthesis.
+   */
+  text: string;
 
-    /**
-     * The text to match in the input. Case-insensitive matching is used during
-     * synthesis.
-     */
-    text: string;
+  /**
+   * The item type.
+   */
+  type: 'phoneme';
+}
 
-    /**
-     * The item type.
-     */
-    type: 'phoneme';
-  }
+/**
+ * Response containing a single pronunciation dictionary.
+ */
+export interface PronunciationDictCreateResponse {
+  /**
+   * A pronunciation dictionary record.
+   */
+  data?: PronunciationDictData;
+}
+
+/**
+ * Response containing a single pronunciation dictionary.
+ */
+export interface PronunciationDictRetrieveResponse {
+  /**
+   * A pronunciation dictionary record.
+   */
+  data?: PronunciationDictData;
+}
+
+/**
+ * Response containing a single pronunciation dictionary.
+ */
+export interface PronunciationDictUpdateResponse {
+  /**
+   * A pronunciation dictionary record.
+   */
+  data?: PronunciationDictData;
 }
 
 export interface PronunciationDictCreateParams {
@@ -549,10 +260,7 @@ export interface PronunciationDictCreateParams {
    * List of pronunciation items (alias or phoneme type). At least one item is
    * required.
    */
-  items: Array<
-    | PronunciationDictCreateParams.PronunciationDictAliasItem
-    | PronunciationDictCreateParams.PronunciationDictPhonemeItem
-  >;
+  items: Array<PronunciationDictAliasItem | PronunciationDictPhonemeItem>;
 
   /**
    * Human-readable name. Must be unique within the organization.
@@ -560,65 +268,11 @@ export interface PronunciationDictCreateParams {
   name: string;
 }
 
-export namespace PronunciationDictCreateParams {
-  /**
-   * An alias pronunciation item. When the `text` value is found in input, it is
-   * replaced with the `alias` before speech synthesis.
-   */
-  export interface PronunciationDictAliasItem {
-    /**
-     * The replacement text that will be spoken instead.
-     */
-    alias: string;
-
-    /**
-     * The text to match in the input. Case-insensitive matching is used during
-     * synthesis.
-     */
-    text: string;
-
-    /**
-     * The item type.
-     */
-    type: 'alias';
-  }
-
-  /**
-   * A phoneme pronunciation item. When the `text` value is found in input, it is
-   * pronounced using the specified IPA phoneme notation.
-   */
-  export interface PronunciationDictPhonemeItem {
-    /**
-     * The phonetic alphabet used for the phoneme notation.
-     */
-    alphabet: 'ipa';
-
-    /**
-     * The phoneme notation representing the desired pronunciation.
-     */
-    phoneme: string;
-
-    /**
-     * The text to match in the input. Case-insensitive matching is used during
-     * synthesis.
-     */
-    text: string;
-
-    /**
-     * The item type.
-     */
-    type: 'phoneme';
-  }
-}
-
 export interface PronunciationDictUpdateParams {
   /**
    * Updated list of pronunciation items (alias or phoneme type).
    */
-  items?: Array<
-    | PronunciationDictUpdateParams.PronunciationDictAliasItem
-    | PronunciationDictUpdateParams.PronunciationDictPhonemeItem
-  >;
+  items?: Array<PronunciationDictAliasItem | PronunciationDictPhonemeItem>;
 
   /**
    * Updated dictionary name.
@@ -626,66 +280,17 @@ export interface PronunciationDictUpdateParams {
   name?: string;
 }
 
-export namespace PronunciationDictUpdateParams {
-  /**
-   * An alias pronunciation item. When the `text` value is found in input, it is
-   * replaced with the `alias` before speech synthesis.
-   */
-  export interface PronunciationDictAliasItem {
-    /**
-     * The replacement text that will be spoken instead.
-     */
-    alias: string;
-
-    /**
-     * The text to match in the input. Case-insensitive matching is used during
-     * synthesis.
-     */
-    text: string;
-
-    /**
-     * The item type.
-     */
-    type: 'alias';
-  }
-
-  /**
-   * A phoneme pronunciation item. When the `text` value is found in input, it is
-   * pronounced using the specified IPA phoneme notation.
-   */
-  export interface PronunciationDictPhonemeItem {
-    /**
-     * The phonetic alphabet used for the phoneme notation.
-     */
-    alphabet: 'ipa';
-
-    /**
-     * The phoneme notation representing the desired pronunciation.
-     */
-    phoneme: string;
-
-    /**
-     * The text to match in the input. Case-insensitive matching is used during
-     * synthesis.
-     */
-    text: string;
-
-    /**
-     * The item type.
-     */
-    type: 'phoneme';
-  }
-}
-
 export interface PronunciationDictListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace PronunciationDicts {
   export {
+    type PronunciationDictAliasItem as PronunciationDictAliasItem,
+    type PronunciationDictData as PronunciationDictData,
+    type PronunciationDictPhonemeItem as PronunciationDictPhonemeItem,
     type PronunciationDictCreateResponse as PronunciationDictCreateResponse,
     type PronunciationDictRetrieveResponse as PronunciationDictRetrieveResponse,
     type PronunciationDictUpdateResponse as PronunciationDictUpdateResponse,
-    type PronunciationDictListResponse as PronunciationDictListResponse,
-    type PronunciationDictListResponsesDefaultFlatPagination as PronunciationDictListResponsesDefaultFlatPagination,
+    type PronunciationDictDataDefaultFlatPagination as PronunciationDictDataDefaultFlatPagination,
     type PronunciationDictCreateParams as PronunciationDictCreateParams,
     type PronunciationDictUpdateParams as PronunciationDictUpdateParams,
     type PronunciationDictListParams as PronunciationDictListParams,

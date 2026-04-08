@@ -688,11 +688,13 @@ import {
   PwgAssignedResourcesSummary,
 } from './resources/private-wireless-gateways';
 import {
+  PronunciationDictAliasItem,
   PronunciationDictCreateParams,
   PronunciationDictCreateResponse,
+  PronunciationDictData,
+  PronunciationDictDataDefaultFlatPagination,
   PronunciationDictListParams,
-  PronunciationDictListResponse,
-  PronunciationDictListResponsesDefaultFlatPagination,
+  PronunciationDictPhonemeItem,
   PronunciationDictRetrieveResponse,
   PronunciationDictUpdateParams,
   PronunciationDictUpdateResponse,
@@ -4829,11 +4831,13 @@ export declare namespace Telnyx {
 
   export {
     PronunciationDicts as PronunciationDicts,
+    type PronunciationDictAliasItem as PronunciationDictAliasItem,
+    type PronunciationDictData as PronunciationDictData,
+    type PronunciationDictPhonemeItem as PronunciationDictPhonemeItem,
     type PronunciationDictCreateResponse as PronunciationDictCreateResponse,
     type PronunciationDictRetrieveResponse as PronunciationDictRetrieveResponse,
     type PronunciationDictUpdateResponse as PronunciationDictUpdateResponse,
-    type PronunciationDictListResponse as PronunciationDictListResponse,
-    type PronunciationDictListResponsesDefaultFlatPagination as PronunciationDictListResponsesDefaultFlatPagination,
+    type PronunciationDictDataDefaultFlatPagination as PronunciationDictDataDefaultFlatPagination,
     type PronunciationDictCreateParams as PronunciationDictCreateParams,
     type PronunciationDictUpdateParams as PronunciationDictUpdateParams,
     type PronunciationDictListParams as PronunciationDictListParams,
