@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.39.0 (2026-04-08)
+
+Full Changelog: [v6.38.0...v6.39.0](https://github.com/team-telnyx/telnyx-node/compare/v6.38.0...v6.39.0)
+
+### Features
+
+* TELAPPS-5689: Pronunciation dictionaries API docs ([143f589](https://github.com/team-telnyx/telnyx-node/commit/143f58926b3c90edf77cb43f312cebdae8244757))
+
 ## 6.38.0 (2026-04-08)
 
 Full Changelog: [v6.37.0...v6.38.0](https://github.com/team-telnyx/telnyx-node/compare/v6.37.0...v6.38.0)
