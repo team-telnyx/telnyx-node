@@ -719,6 +719,7 @@ describe('resource actions', () => {
       mute_dtmf: 'opposite',
       park_after_unbridge: 'self',
       preferred_codecs: 'G722,PCMU,PCMA,G729,OPUS,VP8,H264',
+      privacy: 'id',
       record: 'record-from-answer',
       record_channels: 'single',
       record_custom_file_name: 'my_recording_file_name',

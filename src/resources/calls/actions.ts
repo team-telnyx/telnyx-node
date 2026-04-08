@@ -4500,6 +4500,13 @@ export interface ActionTransferParams {
   preferred_codecs?: string;
 
   /**
+   * Indicates the privacy level to be used for the call. When set to `id`, caller ID
+   * information (name and number) will be hidden from the called party. When set to
+   * `none` or omitted, caller ID will be shown normally.
+   */
+  privacy?: 'id' | 'none';
+
+  /**
    * Start recording automatically after an event. Disabled by default.
    */
   record?: 'record-from-answer';
