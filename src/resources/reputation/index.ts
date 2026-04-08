@@ -3,9 +3,7 @@
 export {
   Numbers,
   type NumberRetrieveResponse,
-  type NumberListResponse,
   type NumberRetrieveParams,
   type NumberListParams,
-  type NumberListResponsesDefaultFlatPagination,
 } from './numbers';
 export { Reputation } from './reputation';

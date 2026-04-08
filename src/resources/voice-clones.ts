@@ -56,7 +56,7 @@ export class VoiceClones extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const voiceCloneListResponse of client.voiceClones.list()) {
+   * for await (const voiceCloneData of client.voiceClones.list()) {
    *   // ...
    * }
    * ```
@@ -64,8 +64,8 @@ export class VoiceClones extends APIResource {
   list(
     query: VoiceCloneListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<VoiceCloneListResponsesDefaultFlatPagination, VoiceCloneListResponse> {
-    return this._client.getAPIList('/voice_clones', DefaultFlatPagination<VoiceCloneListResponse>, {
+  ): PagePromise<VoiceCloneDataDefaultFlatPagination, VoiceCloneData> {
+    return this._client.getAPIList('/voice_clones', DefaultFlatPagination<VoiceCloneData>, {
       query,
       ...options,
     });
@@ -134,180 +134,12 @@ export class VoiceClones extends APIResource {
   }
 }
 
-export type VoiceCloneListResponsesDefaultFlatPagination = DefaultFlatPagination<VoiceCloneListResponse>;
-
-/**
- * Response envelope for a single voice clone.
- */
-export interface VoiceCloneCreateResponse {
-  /**
-   * A voice clone object.
-   */
-  data?: VoiceCloneCreateResponse.Data;
-}
-
-export namespace VoiceCloneCreateResponse {
-  /**
-   * A voice clone object.
-   */
-  export interface Data {
-    /**
-     * Unique identifier for the voice clone.
-     */
-    id?: string;
-
-    /**
-     * Timestamp when the voice clone was created.
-     */
-    created_at?: string;
-
-    /**
-     * Gender of the voice clone.
-     */
-    gender?: 'male' | 'female' | 'neutral' | null;
-
-    /**
-     * Voice style description. If not explicitly set on upload, falls back to the
-     * source design's prompt text.
-     */
-    label?: string | null;
-
-    /**
-     * ISO 639-1 language code of the voice clone.
-     */
-    language?: string | null;
-
-    /**
-     * Name of the voice clone.
-     */
-    name?: string;
-
-    /**
-     * Voice synthesis provider used for this clone.
-     */
-    provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax';
-
-    /**
-     * List of TTS model identifiers supported by this clone's provider.
-     */
-    provider_supported_models?: Array<string>;
-
-    /**
-     * Provider-specific voice identifier used for TTS synthesis. For Telnyx clones
-     * this equals the clone ID; for Minimax it is the Minimax-assigned voice ID.
-     */
-    provider_voice_id?: string | null;
-
-    /**
-     * Identifies the resource type.
-     */
-    record_type?: 'voice_clone';
-
-    /**
-     * UUID of the source voice design. `null` for upload-based clones.
-     */
-    source_voice_design_id?: string | null;
-
-    /**
-     * Version of the source voice design used. `null` for upload-based clones.
-     */
-    source_voice_design_version?: number | null;
-
-    /**
-     * Timestamp when the voice clone was last updated.
-     */
-    updated_at?: string;
-  }
-}
-
-/**
- * Response envelope for a single voice clone.
- */
-export interface VoiceCloneUpdateResponse {
-  /**
-   * A voice clone object.
-   */
-  data?: VoiceCloneUpdateResponse.Data;
-}
-
-export namespace VoiceCloneUpdateResponse {
-  /**
-   * A voice clone object.
-   */
-  export interface Data {
-    /**
-     * Unique identifier for the voice clone.
-     */
-    id?: string;
-
-    /**
-     * Timestamp when the voice clone was created.
-     */
-    created_at?: string;
-
-    /**
-     * Gender of the voice clone.
-     */
-    gender?: 'male' | 'female' | 'neutral' | null;
-
-    /**
-     * Voice style description. If not explicitly set on upload, falls back to the
-     * source design's prompt text.
-     */
-    label?: string | null;
-
-    /**
-     * ISO 639-1 language code of the voice clone.
-     */
-    language?: string | null;
-
-    /**
-     * Name of the voice clone.
-     */
-    name?: string;
-
-    /**
-     * Voice synthesis provider used for this clone.
-     */
-    provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax';
-
-    /**
-     * List of TTS model identifiers supported by this clone's provider.
-     */
-    provider_supported_models?: Array<string>;
-
-    /**
-     * Provider-specific voice identifier used for TTS synthesis. For Telnyx clones
-     * this equals the clone ID; for Minimax it is the Minimax-assigned voice ID.
-     */
-    provider_voice_id?: string | null;
-
-    /**
-     * Identifies the resource type.
-     */
-    record_type?: 'voice_clone';
-
-    /**
-     * UUID of the source voice design. `null` for upload-based clones.
-     */
-    source_voice_design_id?: string | null;
-
-    /**
-     * Version of the source voice design used. `null` for upload-based clones.
-     */
-    source_voice_design_version?: number | null;
-
-    /**
-     * Timestamp when the voice clone was last updated.
-     */
-    updated_at?: string;
-  }
-}
+export type VoiceCloneDataDefaultFlatPagination = DefaultFlatPagination<VoiceCloneData>;
 
 /**
  * A voice clone object.
  */
-export interface VoiceCloneListResponse {
+export interface VoiceCloneData {
   /**
    * Unique identifier for the voice clone.
    */
@@ -342,7 +174,7 @@ export interface VoiceCloneListResponse {
   /**
    * Voice synthesis provider used for this clone.
    */
-  provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax';
+  provider?: 'telnyx' | 'minimax';
 
   /**
    * List of TTS model identifiers supported by this clone's provider.
@@ -379,85 +211,31 @@ export interface VoiceCloneListResponse {
 /**
  * Response envelope for a single voice clone.
  */
+export interface VoiceCloneCreateResponse {
+  /**
+   * A voice clone object.
+   */
+  data?: VoiceCloneData;
+}
+
+/**
+ * Response envelope for a single voice clone.
+ */
+export interface VoiceCloneUpdateResponse {
+  /**
+   * A voice clone object.
+   */
+  data?: VoiceCloneData;
+}
+
+/**
+ * Response envelope for a single voice clone.
+ */
 export interface VoiceCloneCreateFromUploadResponse {
   /**
    * A voice clone object.
    */
-  data?: VoiceCloneCreateFromUploadResponse.Data;
-}
-
-export namespace VoiceCloneCreateFromUploadResponse {
-  /**
-   * A voice clone object.
-   */
-  export interface Data {
-    /**
-     * Unique identifier for the voice clone.
-     */
-    id?: string;
-
-    /**
-     * Timestamp when the voice clone was created.
-     */
-    created_at?: string;
-
-    /**
-     * Gender of the voice clone.
-     */
-    gender?: 'male' | 'female' | 'neutral' | null;
-
-    /**
-     * Voice style description. If not explicitly set on upload, falls back to the
-     * source design's prompt text.
-     */
-    label?: string | null;
-
-    /**
-     * ISO 639-1 language code of the voice clone.
-     */
-    language?: string | null;
-
-    /**
-     * Name of the voice clone.
-     */
-    name?: string;
-
-    /**
-     * Voice synthesis provider used for this clone.
-     */
-    provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax';
-
-    /**
-     * List of TTS model identifiers supported by this clone's provider.
-     */
-    provider_supported_models?: Array<string>;
-
-    /**
-     * Provider-specific voice identifier used for TTS synthesis. For Telnyx clones
-     * this equals the clone ID; for Minimax it is the Minimax-assigned voice ID.
-     */
-    provider_voice_id?: string | null;
-
-    /**
-     * Identifies the resource type.
-     */
-    record_type?: 'voice_clone';
-
-    /**
-     * UUID of the source voice design. `null` for upload-based clones.
-     */
-    source_voice_design_id?: string | null;
-
-    /**
-     * Version of the source voice design used. `null` for upload-based clones.
-     */
-    source_voice_design_version?: number | null;
-
-    /**
-     * Timestamp when the voice clone was last updated.
-     */
-    updated_at?: string;
-  }
+  data?: VoiceCloneData;
 }
 
 export interface VoiceCloneCreateParams {
@@ -484,7 +262,7 @@ export interface VoiceCloneCreateParams {
   /**
    * Voice synthesis provider. Case-insensitive. Defaults to `telnyx`.
    */
-  provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax';
+  provider?: 'telnyx' | 'minimax';
 }
 
 export interface VoiceCloneUpdateParams {
@@ -513,7 +291,7 @@ export interface VoiceCloneListParams extends DefaultFlatPaginationParams {
   /**
    * Filter by voice synthesis provider. Case-insensitive.
    */
-  'filter[provider]'?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax';
+  'filter[provider]'?: 'telnyx' | 'minimax';
 
   /**
    * Sort order. Prefix with `-` for descending. Defaults to `-created_at`.
@@ -553,7 +331,7 @@ export interface VoiceCloneCreateFromUploadParams {
   /**
    * Voice synthesis provider. Case-insensitive. Defaults to `telnyx`.
    */
-  provider?: 'telnyx' | 'minimax' | 'Telnyx' | 'Minimax';
+  provider?: 'telnyx' | 'minimax';
 
   /**
    * Optional transcript of the audio file. Providing this improves clone quality.
@@ -563,11 +341,11 @@ export interface VoiceCloneCreateFromUploadParams {
 
 export declare namespace VoiceClones {
   export {
+    type VoiceCloneData as VoiceCloneData,
     type VoiceCloneCreateResponse as VoiceCloneCreateResponse,
     type VoiceCloneUpdateResponse as VoiceCloneUpdateResponse,
-    type VoiceCloneListResponse as VoiceCloneListResponse,
     type VoiceCloneCreateFromUploadResponse as VoiceCloneCreateFromUploadResponse,
-    type VoiceCloneListResponsesDefaultFlatPagination as VoiceCloneListResponsesDefaultFlatPagination,
+    type VoiceCloneDataDefaultFlatPagination as VoiceCloneDataDefaultFlatPagination,
     type VoiceCloneCreateParams as VoiceCloneCreateParams,
     type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
     type VoiceCloneListParams as VoiceCloneListParams,

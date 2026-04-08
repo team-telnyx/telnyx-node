@@ -3,16 +3,15 @@
 export {
   Numbers,
   type NumberRetrieveResponse,
-  type NumberListResponse,
   type NumberAssociateResponse,
   type NumberRetrieveParams,
   type NumberListParams,
   type NumberAssociateParams,
   type NumberDisassociateParams,
-  type NumberListResponsesDefaultFlatPagination,
 } from './numbers';
 export {
   Reputation,
+  type EnterpriseReputationPublic,
   type ReputationRetrieveResponse,
   type ReputationEnableResponse,
   type ReputationUpdateFrequencyResponse,
