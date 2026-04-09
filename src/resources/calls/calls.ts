@@ -101,6 +101,7 @@ import {
   TranscriptionEngineTelnyxConfig,
   TranscriptionStartRequest,
 } from './actions';
+import * as AssistantsAPI from '../ai/assistants/assistants';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -412,6 +413,13 @@ export interface CallDialParams {
    * performance.
    */
   answering_machine_detection_config?: CallDialParams.AnsweringMachineDetectionConfig;
+
+  /**
+   * AI Assistant configuration. All fields except `id` are optional — the
+   * assistant's stored configuration will be used as fallback for any omitted
+   * fields.
+   */
+  assistant?: CallDialParams.Assistant;
 
   /**
    * The URL of a file to be played back to the callee when the call is answered. The
@@ -768,6 +776,186 @@ export namespace CallDialParams {
      * Maximum timeout threshold for overall detection.
      */
     total_analysis_time_millis?: number;
+  }
+
+  /**
+   * AI Assistant configuration. All fields except `id` are optional — the
+   * assistant's stored configuration will be used as fallback for any omitted
+   * fields.
+   */
+  export interface Assistant {
+    /**
+     * The identifier of the AI assistant to use.
+     */
+    id: string;
+
+    /**
+     * Map of dynamic variables and their default values. Dynamic variables can be
+     * referenced in instructions, greeting, and tool definitions using the
+     * `{{variable_name}}` syntax. Call-control-agent automatically merges in
+     * `telnyx_call_*` variables (telnyx_call_to, telnyx_call_from,
+     * telnyx_conversation_channel, telnyx_agent_target, telnyx_end_user_target,
+     * telnyx_call_caller_id_name) and custom header variables.
+     */
+    dynamic_variables?: { [key: string]: string | number | boolean };
+
+    /**
+     * External LLM configuration for bringing your own LLM endpoint.
+     */
+    external_llm?: unknown;
+
+    /**
+     * Fallback LLM configuration used when the primary LLM provider is unavailable.
+     */
+    fallback_config?: unknown;
+
+    /**
+     * Initial greeting text spoken when the assistant starts. Can be plain text for
+     * any voice or SSML for `AWS.Polly.<voice_id>` voices. There is a 3,000 character
+     * limit.
+     */
+    greeting?: string;
+
+    /**
+     * System instructions for the voice assistant. Can be templated with
+     * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+     * This will overwrite the instructions set in the assistant configuration.
+     */
+    instructions?: string;
+
+    /**
+     * Integration secret identifier for the LLM provider API key. Use this field to
+     * reference an
+     * [integration secret](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+     * containing your LLM provider API key. Supports any LLM provider (OpenAI,
+     * Anthropic, etc.).
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * MCP (Model Context Protocol) server configurations for extending the assistant's
+     * capabilities with external tools and data sources.
+     */
+    mcp_servers?: Array<unknown>;
+
+    /**
+     * LLM model override for this call. If omitted, the assistant's configured model
+     * is used.
+     */
+    model?: string;
+
+    /**
+     * Assistant name override for this call.
+     */
+    name?: string;
+
+    /**
+     * Observability configuration for the assistant session, including Langfuse
+     * integration for tracing and monitoring.
+     */
+    observability_settings?: unknown;
+
+    /**
+     * @deprecated Deprecated — use `llm_api_key_ref` instead. Integration secret
+     * identifier for the OpenAI API key. This field is maintained for backward
+     * compatibility; `llm_api_key_ref` is the canonical field name and supports all
+     * LLM providers.
+     */
+    openai_api_key_ref?: string;
+
+    /**
+     * Inline tool definitions available to the assistant (webhook, retrieval,
+     * transfer, hangup, etc.). Overrides the assistant's stored tools if provided.
+     */
+    tools?: Array<
+      | Assistant.BookAppointmentTool
+      | Assistant.CheckAvailabilityTool
+      | AssistantsAPI.WebhookTool
+      | AssistantsAPI.HangupTool
+      | AssistantsAPI.TransferTool
+      | Assistant.CallControlRetrievalTool
+    >;
+  }
+
+  export namespace Assistant {
+    export interface BookAppointmentTool {
+      book_appointment: BookAppointmentTool.BookAppointment;
+
+      type: 'book_appointment';
+    }
+
+    export namespace BookAppointmentTool {
+      export interface BookAppointment {
+        /**
+         * Reference to an integration secret that contains your Cal.com API key. You would
+         * pass the `identifier` for an integration secret
+         * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+         * that refers to your Cal.com API key.
+         */
+        api_key_ref: string;
+
+        /**
+         * Event Type ID for which slots are being fetched.
+         * [cal.com](https://cal.com/docs/api-reference/v2/bookings/create-a-booking#body-event-type-id)
+         */
+        event_type_id: number;
+
+        /**
+         * The name of the attendee
+         * [cal.com](https://cal.com/docs/api-reference/v2/bookings/create-a-booking#body-attendee-name).
+         * If not provided, the assistant will ask for the attendee's name.
+         */
+        attendee_name?: string;
+
+        /**
+         * The timezone of the attendee
+         * [cal.com](https://cal.com/docs/api-reference/v2/bookings/create-a-booking#body-attendee-timezone).
+         * If not provided, the assistant will ask for the attendee's timezone.
+         */
+        attendee_timezone?: string;
+      }
+    }
+
+    export interface CheckAvailabilityTool {
+      check_availability: CheckAvailabilityTool.CheckAvailability;
+
+      type: 'check_availability';
+    }
+
+    export namespace CheckAvailabilityTool {
+      export interface CheckAvailability {
+        /**
+         * Reference to an integration secret that contains your Cal.com API key. You would
+         * pass the `identifier` for an integration secret
+         * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+         * that refers to your Cal.com API key.
+         */
+        api_key_ref: string;
+
+        /**
+         * Event Type ID for which slots are being fetched.
+         * [cal.com](https://cal.com/docs/api-reference/v2/slots/get-available-slots#parameter-event-type-id)
+         */
+        event_type_id: number;
+      }
+    }
+
+    export interface CallControlRetrievalTool {
+      retrieval: CallControlRetrievalTool.Retrieval;
+
+      type: 'retrieval';
+    }
+
+    export namespace CallControlRetrievalTool {
+      export interface Retrieval {
+        bucket_ids: Array<string>;
+
+        /**
+         * The maximum number of results to retrieve as context for the language model.
+         */
+        max_num_results?: number;
+      }
+    }
   }
 
   /**
