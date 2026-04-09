@@ -294,7 +294,7 @@ export namespace VoiceCloneCreateParams {
     /**
      * Voice synthesis provider. Defaults to `telnyx`.
      */
-    provider?: 'telnyx' | 'minimax';
+    provider?: 'telnyx' | 'Telnyx';
   }
 
   /**
@@ -319,7 +319,7 @@ export namespace VoiceCloneCreateParams {
     /**
      * Voice synthesis provider. Must be `minimax`.
      */
-    provider: 'telnyx' | 'minimax';
+    provider: 'minimax' | 'Minimax';
 
     /**
      * UUID of the source voice design to clone.
@@ -403,7 +403,7 @@ export namespace VoiceCloneCreateFromUploadParams {
     /**
      * Voice synthesis provider. Must be `telnyx`.
      */
-    provider: 'telnyx' | 'minimax';
+    provider: 'telnyx' | 'Telnyx';
 
     /**
      * Optional custom label describing the voice style.
@@ -455,7 +455,7 @@ export namespace VoiceCloneCreateFromUploadParams {
     /**
      * Voice synthesis provider. Must be `telnyx`.
      */
-    provider: 'telnyx' | 'minimax';
+    provider: 'telnyx' | 'Telnyx';
 
     /**
      * Optional custom label describing the voice style.
@@ -497,7 +497,7 @@ export namespace VoiceCloneCreateFromUploadParams {
     /**
      * Voice synthesis provider. Must be `minimax`.
      */
-    provider: 'telnyx' | 'minimax';
+    provider: 'minimax' | 'Minimax';
 
     /**
      * Optional custom label describing the voice style.
