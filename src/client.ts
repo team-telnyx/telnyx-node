@@ -1151,6 +1151,7 @@ import {
 import { AI, AIRetrieveModelsResponse, AISummarizeParams, AISummarizeResponse } from './resources/ai/ai';
 import { BundlePricing } from './resources/bundle-pricing/bundle-pricing';
 import {
+  CallAssistantRequest,
   CallDialParams,
   CallDialResponse,
   CallRetrieveStatusResponse,
@@ -3432,6 +3433,7 @@ export declare namespace Telnyx {
 
   export {
     Calls as Calls,
+    type CallAssistantRequest as CallAssistantRequest,
     type CustomSipHeader as CustomSipHeader,
     type DialogflowConfig as DialogflowConfig,
     type SipHeader as SipHeader,
@@ -4846,6 +4848,12 @@ export declare namespace Telnyx {
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
   export type AzureVoiceSettings = API.AzureVoiceSettings;
+  export type BookAppointmentTool = API.BookAppointmentTool;
+  export type BookAppointmentToolParams = API.BookAppointmentToolParams;
+  export type CallControlBucketIDs = API.CallControlBucketIDs;
+  export type CallControlRetrievalTool = API.CallControlRetrievalTool;
+  export type CheckAvailabilityTool = API.CheckAvailabilityTool;
+  export type CheckAvailabilityToolParams = API.CheckAvailabilityToolParams;
   export type ConnectionJitterBuffer = API.ConnectionJitterBuffer;
   export type ConnectionNoiseSuppressionDetails = API.ConnectionNoiseSuppressionDetails;
   export type ConnectionsPaginationMeta = API.ConnectionsPaginationMeta;

@@ -123,6 +123,7 @@ export {
 } from './call-events';
 export {
   Calls,
+  type CallAssistantRequest,
   type CustomSipHeader,
   type DialogflowConfig,
   type SipHeader,

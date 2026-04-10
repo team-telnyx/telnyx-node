@@ -101,6 +101,7 @@ export {
 } from './actions';
 export {
   Calls,
+  type CallAssistantRequest,
   type CustomSipHeader,
   type DialogflowConfig,
   type SipHeader,
