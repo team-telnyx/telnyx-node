@@ -16541,6 +16541,19 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       "## update\n\n`client.whatsapp.phoneNumbers.profile.update(phone_number: string, about?: string, address?: string, category?: string, description?: string, display_name?: string, email?: string, website?: string): { data?: whatsapp_profile_data; }`\n\n**patch** `/v2/whatsapp/phone_numbers/{phone_number}/profile`\n\nUpdate phone number business profile\n\n### Parameters\n\n- `phone_number: string`\n\n- `about?: string`\n\n- `address?: string`\n\n- `category?: string`\n\n- `description?: string`\n\n- `display_name?: string`\n\n- `email?: string`\n\n- `website?: string`\n\n### Returns\n\n- `{ data?: { id?: string; about?: string; address?: string; category?: string; created_at?: string; description?: string; display_name?: string; email?: string; phone_number_id?: string; profile_photo_url?: string; record_type?: string; updated_at?: string; website?: string; }; }`\n\n  - `data?: { id?: string; about?: string; address?: string; category?: string; created_at?: string; description?: string; display_name?: string; email?: string; phone_number_id?: string; profile_photo_url?: string; record_type?: string; updated_at?: string; website?: string; }`\n\n### Example\n\n```typescript\nimport Telnyx from 'telnyx';\n\nconst client = new Telnyx();\n\nconst profile = await client.whatsapp.phoneNumbers.profile.update('phone_number');\n\nconsole.log(profile);\n```",
   },
   {
+    name: 'retrieve',
+    endpoint: '/v2/whatsapp/phone_numbers/{phone_number}/profile/photo',
+    httpMethod: 'get',
+    summary: 'Get Whatsapp profile photo',
+    description: 'Get Whatsapp profile photo',
+    stainlessPath: '(resource) whatsapp.phone_numbers.profile.photo > (method) retrieve',
+    qualified: 'client.whatsapp.phoneNumbers.profile.photo.retrieve',
+    params: ['phone_number: string;'],
+    response: '{ data?: { phone_number_id?: string; profile_photo_url?: string; record_type?: string; }; }',
+    markdown:
+      "## retrieve\n\n`client.whatsapp.phoneNumbers.profile.photo.retrieve(phone_number: string): { data?: object; }`\n\n**get** `/v2/whatsapp/phone_numbers/{phone_number}/profile/photo`\n\nGet Whatsapp profile photo\n\n### Parameters\n\n- `phone_number: string`\n\n### Returns\n\n- `{ data?: { phone_number_id?: string; profile_photo_url?: string; record_type?: string; }; }`\n\n  - `data?: { phone_number_id?: string; profile_photo_url?: string; record_type?: string; }`\n\n### Example\n\n```typescript\nimport Telnyx from 'telnyx';\n\nconst client = new Telnyx();\n\nconst photo = await client.whatsapp.phoneNumbers.profile.photo.retrieve('phone_number');\n\nconsole.log(photo);\n```",
+  },
+  {
     name: 'delete',
     endpoint: '/v2/whatsapp/phone_numbers/{phone_number}/profile/photo',
     httpMethod: 'delete',

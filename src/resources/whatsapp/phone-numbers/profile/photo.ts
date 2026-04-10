@@ -14,6 +14,21 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Photo extends APIResource {
   /**
+   * Get Whatsapp profile photo
+   *
+   * @example
+   * ```ts
+   * const photo =
+   *   await client.whatsapp.phoneNumbers.profile.photo.retrieve(
+   *     'phone_number',
+   *   );
+   * ```
+   */
+  retrieve(phoneNumber: string, options?: RequestOptions): APIPromise<PhotoRetrieveResponse> {
+    return this._client.get(path`/v2/whatsapp/phone_numbers/${phoneNumber}/profile/photo`, options);
+  }
+
+  /**
    * Delete Whatsapp profile photo
    *
    * @example
@@ -54,6 +69,27 @@ export class Photo extends APIResource {
   }
 }
 
+export interface PhotoRetrieveResponse {
+  data?: PhotoRetrieveResponse.Data;
+}
+
+export namespace PhotoRetrieveResponse {
+  export interface Data {
+    /**
+     * Meta phone number ID
+     */
+    phone_number_id?: string;
+
+    /**
+     * URL of the business profile photo (served by Meta's CDN). May be empty if no
+     * photo is set.
+     */
+    profile_photo_url?: string;
+
+    record_type?: string;
+  }
+}
+
 export interface PhotoUploadResponse {
   data?: ProfileAPI.WhatsappProfileData;
 }
@@ -66,5 +102,9 @@ export interface PhotoUploadParams {
 }
 
 export declare namespace Photo {
-  export { type PhotoUploadResponse as PhotoUploadResponse, type PhotoUploadParams as PhotoUploadParams };
+  export {
+    type PhotoRetrieveResponse as PhotoRetrieveResponse,
+    type PhotoUploadResponse as PhotoUploadResponse,
+    type PhotoUploadParams as PhotoUploadParams,
+  };
 }

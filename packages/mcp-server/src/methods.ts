@@ -5909,6 +5909,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/profile',
   },
   {
+    clientCallName: 'client.whatsapp.phoneNumbers.profile.photo.retrieve',
+    fullyQualifiedName: 'whatsapp.phoneNumbers.profile.photo.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/profile/photo',
+  },
+  {
     clientCallName: 'client.whatsapp.phoneNumbers.profile.photo.delete',
     fullyQualifiedName: 'whatsapp.phoneNumbers.profile.photo.delete',
     httpMethod: 'delete',
