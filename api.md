@@ -4603,10 +4603,12 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">PhotoRetrieveResponse</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">PhotoUploadResponse</a></code>
 
 Methods:
 
+- <code title="get /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">retrieve</a>(phoneNumber) -> PhotoRetrieveResponse</code>
 - <code title="delete /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">delete</a>(phoneNumber) -> void</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">upload</a>(phoneNumber, { ...params }) -> PhotoUploadResponse</code>
 
