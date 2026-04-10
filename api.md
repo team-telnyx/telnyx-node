@@ -5,6 +5,12 @@ Types:
 - <code><a href="./src/resources/shared.ts">APIError</a></code>
 - <code><a href="./src/resources/shared.ts">AvailablePhoneNumbersMetadata</a></code>
 - <code><a href="./src/resources/shared.ts">AzureVoiceSettings</a></code>
+- <code><a href="./src/resources/shared.ts">BookAppointmentTool</a></code>
+- <code><a href="./src/resources/shared.ts">BookAppointmentToolParams</a></code>
+- <code><a href="./src/resources/shared.ts">CallControlBucketIDs</a></code>
+- <code><a href="./src/resources/shared.ts">CallControlRetrievalTool</a></code>
+- <code><a href="./src/resources/shared.ts">CheckAvailabilityTool</a></code>
+- <code><a href="./src/resources/shared.ts">CheckAvailabilityToolParams</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionJitterBuffer</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionNoiseSuppressionDetails</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionsPaginationMeta</a></code>
@@ -1205,6 +1211,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/calls/calls.ts">CallAssistantRequest</a></code>
 - <code><a href="./src/resources/calls/calls.ts">CustomSipHeader</a></code>
 - <code><a href="./src/resources/calls/calls.ts">DialogflowConfig</a></code>
 - <code><a href="./src/resources/calls/calls.ts">SipHeader</a></code>

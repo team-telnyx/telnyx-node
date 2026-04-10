@@ -46,15 +46,15 @@ describe('resource calls', () => {
       assistant: {
         id: 'id',
         dynamic_variables: { customer_name: 'John', account_id: 'ACC-12345' },
-        external_llm: {},
-        fallback_config: {},
+        external_llm: { foo: 'bar' },
+        fallback_config: { foo: 'bar' },
         greeting: 'greeting',
         instructions: 'You are a friendly voice assistant.',
         llm_api_key_ref: 'my_llm_api_key',
-        mcp_servers: [{}],
+        mcp_servers: [{ foo: 'bar' }],
         model: 'gpt-4o',
         name: 'name',
-        observability_settings: {},
+        observability_settings: { foo: 'bar' },
         openai_api_key_ref: 'my_openai_api_key',
         tools: [
           {

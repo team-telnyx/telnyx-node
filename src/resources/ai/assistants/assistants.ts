@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as Shared from '../../shared';
 import * as ChatAPI from '../chat';
 import * as CanaryDeploysAPI from './canary-deploys';
 import {
@@ -287,94 +288,13 @@ export interface Assistant {
    * The tools that the voice assistant can use.
    */
   tools?: Array<
-    | Assistant.BookAppointmentTool
-    | Assistant.CheckAvailabilityTool
+    | Shared.BookAppointmentTool
+    | Shared.CheckAvailabilityTool
     | WebhookTool
     | HangupTool
     | TransferTool
-    | Assistant.CallControlRetrievalTool
+    | Shared.CallControlRetrievalTool
   >;
-}
-
-export namespace Assistant {
-  export interface BookAppointmentTool {
-    book_appointment: BookAppointmentTool.BookAppointment;
-
-    type: 'book_appointment';
-  }
-
-  export namespace BookAppointmentTool {
-    export interface BookAppointment {
-      /**
-       * Reference to an integration secret that contains your Cal.com API key. You would
-       * pass the `identifier` for an integration secret
-       * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-       * that refers to your Cal.com API key.
-       */
-      api_key_ref: string;
-
-      /**
-       * Event Type ID for which slots are being fetched.
-       * [cal.com](https://cal.com/docs/api-reference/v2/bookings/create-a-booking#body-event-type-id)
-       */
-      event_type_id: number;
-
-      /**
-       * The name of the attendee
-       * [cal.com](https://cal.com/docs/api-reference/v2/bookings/create-a-booking#body-attendee-name).
-       * If not provided, the assistant will ask for the attendee's name.
-       */
-      attendee_name?: string;
-
-      /**
-       * The timezone of the attendee
-       * [cal.com](https://cal.com/docs/api-reference/v2/bookings/create-a-booking#body-attendee-timezone).
-       * If not provided, the assistant will ask for the attendee's timezone.
-       */
-      attendee_timezone?: string;
-    }
-  }
-
-  export interface CheckAvailabilityTool {
-    check_availability: CheckAvailabilityTool.CheckAvailability;
-
-    type: 'check_availability';
-  }
-
-  export namespace CheckAvailabilityTool {
-    export interface CheckAvailability {
-      /**
-       * Reference to an integration secret that contains your Cal.com API key. You would
-       * pass the `identifier` for an integration secret
-       * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-       * that refers to your Cal.com API key.
-       */
-      api_key_ref: string;
-
-      /**
-       * Event Type ID for which slots are being fetched.
-       * [cal.com](https://cal.com/docs/api-reference/v2/slots/get-available-slots#parameter-event-type-id)
-       */
-      event_type_id: number;
-    }
-  }
-
-  export interface CallControlRetrievalTool {
-    retrieval: CallControlRetrievalTool.Retrieval;
-
-    type: 'retrieval';
-  }
-
-  export namespace CallControlRetrievalTool {
-    export interface Retrieval {
-      bucket_ids: Array<string>;
-
-      /**
-       * The maximum number of results to retrieve as context for the language model.
-       */
-      max_num_results?: number;
-    }
-  }
 }
 
 /**
