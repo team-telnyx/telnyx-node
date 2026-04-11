@@ -1,5 +1,31 @@
 # Changelog
 
+## 6.41.0 (2026-04-11)
+
+Full Changelog: [v6.40.0...v6.41.0](https://github.com/team-telnyx/telnyx-node/compare/v6.40.0...v6.41.0)
+
+### Features
+
+* add shared CallAssistantRequest schema for call-control assistant object ([987d53a](https://github.com/team-telnyx/telnyx-node/commit/987d53a3568e7dfcfbc7bd4e0a0c28064355719b))
+* **api:** Merge pull request [#46](https://github.com/team-telnyx/telnyx-node/issues/46) from stainless-sdks/FixModelRecommendation ([5b4f7dd](https://github.com/team-telnyx/telnyx-node/commit/5b4f7dd012e020eda1a1af6ae292e89868012061))
+* MSG-6846: add GET /profile/photo docs for whatsapp API ([eb00330](https://github.com/team-telnyx/telnyx-node/commit/eb003300fd3adc37ce1673f4b7da9a8e2b1ee165))
+
+
+### Bug Fixes
+
+* resolve duplicate params identifier in voice-clones and texml calls ([911792f](https://github.com/team-telnyx/telnyx-node/commit/911792fa7d3927294652d2a49d9901591b487b24))
+
+
+### Reverts
+
+* restore stainless.yml to pre-6a6df5b state ([de5204a](https://github.com/team-telnyx/telnyx-node/commit/de5204a83b36145078dac5b7ee60bb922ec3bf53))
+* revert stainless.yml changes from 9c5e8d8 ([616dec6](https://github.com/team-telnyx/telnyx-node/commit/616dec6511979f368b160df962033a350b213c04))
+
+
+### Documentation
+
+* update voice clone schemas to match Ultra/model_id implementation ([2b458ba](https://github.com/team-telnyx/telnyx-node/commit/2b458ba6c2544d3537a2f86443f176de6a830054))
+
 ## 6.40.0 (2026-04-08)
 
 Full Changelog: [v6.39.0...v6.40.0](https://github.com/team-telnyx/telnyx-node/compare/v6.39.0...v6.40.0)

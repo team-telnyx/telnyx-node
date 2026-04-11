@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../../../core/resource';
 import * as PhotoAPI from './photo';
-import { Photo, PhotoUploadParams, PhotoUploadResponse } from './photo';
+import { Photo, PhotoRetrieveResponse, PhotoUploadParams, PhotoUploadResponse } from './photo';
 import { APIPromise } from '../../../../core/api-promise';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
@@ -115,6 +115,7 @@ export declare namespace Profile {
 
   export {
     Photo as Photo,
+    type PhotoRetrieveResponse as PhotoRetrieveResponse,
     type PhotoUploadResponse as PhotoUploadResponse,
     type PhotoUploadParams as PhotoUploadParams,
   };

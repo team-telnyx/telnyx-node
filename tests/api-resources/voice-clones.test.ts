@@ -11,10 +11,13 @@ describe('resource voiceClones', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.voiceClones.create({
-      gender: 'male',
-      language: 'en',
-      name: 'clone-narrator',
-      voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
+      params: {
+        gender: 'male',
+        language: 'en',
+        name: 'clone-narrator',
+        voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
+        provider: 'telnyx',
+      },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -28,11 +31,13 @@ describe('resource voiceClones', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.voiceClones.create({
-      gender: 'male',
-      language: 'en',
-      name: 'clone-narrator',
-      voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
-      provider: 'telnyx',
+      params: {
+        gender: 'male',
+        language: 'en',
+        name: 'clone-narrator',
+        voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
+        provider: 'telnyx',
+      },
     });
   });
 
@@ -103,9 +108,13 @@ describe('resource voiceClones', () => {
   // Mock server tests are disabled
   test.skip('createFromUpload: only required params', async () => {
     const responsePromise = client.voiceClones.createFromUpload({
-      audio_file: await toFile(Buffer.from('Example data'), 'README.md'),
-      language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
-      name: 'name',
+      params: {
+        audio_file: await toFile(Buffer.from('Example data'), 'README.md'),
+        gender: 'male',
+        language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
+        name: 'name',
+        provider: 'telnyx',
+      },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -119,13 +128,16 @@ describe('resource voiceClones', () => {
   // Mock server tests are disabled
   test.skip('createFromUpload: required and optional params', async () => {
     const response = await client.voiceClones.createFromUpload({
-      audio_file: await toFile(Buffer.from('Example data'), 'README.md'),
-      language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
-      name: 'name',
-      gender: 'male',
-      label: 'label',
-      provider: 'telnyx',
-      ref_text: 'ref_text',
+      params: {
+        audio_file: await toFile(Buffer.from('Example data'), 'README.md'),
+        gender: 'male',
+        language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
+        name: 'name',
+        provider: 'telnyx',
+        label: 'label',
+        model_id: 'Qwen3TTS',
+        ref_text: 'ref_text',
+      },
     });
   });
 });

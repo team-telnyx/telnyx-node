@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as Shared from '../shared';
 import * as ActionsAPI from './actions';
 import {
   ActionAddAIAssistantMessagesParams,
@@ -101,6 +102,7 @@ import {
   TranscriptionEngineTelnyxConfig,
   TranscriptionStartRequest,
 } from './actions';
+import * as AssistantsAPI from '../ai/assistants/assistants';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -156,6 +158,102 @@ export class Calls extends APIResource {
   retrieveStatus(callControlID: string, options?: RequestOptions): APIPromise<CallRetrieveStatusResponse> {
     return this._client.get(path`/calls/${callControlID}`, options);
   }
+}
+
+/**
+ * AI Assistant configuration. All fields except `id` are optional — the
+ * assistant's stored configuration will be used as fallback for any omitted
+ * fields.
+ */
+export interface CallAssistantRequest {
+  /**
+   * The identifier of the AI assistant to use.
+   */
+  id: string;
+
+  /**
+   * Map of dynamic variables and their default values. Dynamic variables can be
+   * referenced in instructions, greeting, and tool definitions using the
+   * `{{variable_name}}` syntax. Call-control-agent automatically merges in
+   * `telnyx_call_*` variables (telnyx_call_to, telnyx_call_from,
+   * telnyx_conversation_channel, telnyx_agent_target, telnyx_end_user_target,
+   * telnyx_call_caller_id_name) and custom header variables.
+   */
+  dynamic_variables?: { [key: string]: string | number | boolean };
+
+  /**
+   * External LLM configuration for bringing your own LLM endpoint.
+   */
+  external_llm?: { [key: string]: unknown };
+
+  /**
+   * Fallback LLM configuration used when the primary LLM provider is unavailable.
+   */
+  fallback_config?: { [key: string]: unknown };
+
+  /**
+   * Initial greeting text spoken when the assistant starts. Can be plain text for
+   * any voice or SSML for `AWS.Polly.<voice_id>` voices. There is a 3,000 character
+   * limit.
+   */
+  greeting?: string;
+
+  /**
+   * System instructions for the voice assistant. Can be templated with
+   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+   * This will overwrite the instructions set in the assistant configuration.
+   */
+  instructions?: string;
+
+  /**
+   * Integration secret identifier for the LLM provider API key. Use this field to
+   * reference an
+   * [integration secret](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   * containing your LLM provider API key. Supports any LLM provider (OpenAI,
+   * Anthropic, etc.).
+   */
+  llm_api_key_ref?: string;
+
+  /**
+   * MCP (Model Context Protocol) server configurations for extending the assistant's
+   * capabilities with external tools and data sources.
+   */
+  mcp_servers?: Array<{ [key: string]: unknown }>;
+
+  /**
+   * LLM model override for this call. If omitted, the assistant's configured model
+   * is used.
+   */
+  model?: string;
+
+  /**
+   * Assistant name override for this call.
+   */
+  name?: string;
+
+  /**
+   * Observability configuration for the assistant session, including Langfuse
+   * integration for tracing and monitoring.
+   */
+  observability_settings?: { [key: string]: unknown };
+
+  /**
+   * @deprecated This field is deprecated and will be removed soon
+   */
+  openai_api_key_ref?: string;
+
+  /**
+   * Inline tool definitions available to the assistant (webhook, retrieval,
+   * transfer, hangup, etc.). Overrides the assistant's stored tools if provided.
+   */
+  tools?: Array<
+    | Shared.BookAppointmentTool
+    | Shared.CheckAvailabilityTool
+    | AssistantsAPI.WebhookTool
+    | AssistantsAPI.HangupTool
+    | AssistantsAPI.TransferTool
+    | Shared.CallControlRetrievalTool
+  >;
 }
 
 export interface CustomSipHeader {
@@ -412,6 +510,13 @@ export interface CallDialParams {
    * performance.
    */
   answering_machine_detection_config?: CallDialParams.AnsweringMachineDetectionConfig;
+
+  /**
+   * AI Assistant configuration. All fields except `id` are optional — the
+   * assistant's stored configuration will be used as fallback for any omitted
+   * fields.
+   */
+  assistant?: CallAssistantRequest;
 
   /**
    * The URL of a file to be played back to the callee when the call is answered. The
@@ -875,6 +980,7 @@ Calls.Actions = Actions;
 
 export declare namespace Calls {
   export {
+    type CallAssistantRequest as CallAssistantRequest,
     type CustomSipHeader as CustomSipHeader,
     type DialogflowConfig as DialogflowConfig,
     type SipHeader as SipHeader,

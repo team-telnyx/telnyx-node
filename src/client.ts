@@ -688,11 +688,13 @@ import {
   PwgAssignedResourcesSummary,
 } from './resources/private-wireless-gateways';
 import {
+  PronunciationDictAliasItem,
   PronunciationDictCreateParams,
   PronunciationDictCreateResponse,
+  PronunciationDictData,
+  PronunciationDictDataDefaultFlatPagination,
   PronunciationDictListParams,
-  PronunciationDictListResponse,
-  PronunciationDictListResponsesDefaultFlatPagination,
+  PronunciationDictPhonemeItem,
   PronunciationDictRetrieveResponse,
   PronunciationDictUpdateParams,
   PronunciationDictUpdateResponse,
@@ -1149,6 +1151,7 @@ import {
 import { AI, AIRetrieveModelsResponse, AISummarizeParams, AISummarizeResponse } from './resources/ai/ai';
 import { BundlePricing } from './resources/bundle-pricing/bundle-pricing';
 import {
+  CallAssistantRequest,
   CallDialParams,
   CallDialResponse,
   CallRetrieveStatusResponse,
@@ -3429,6 +3432,7 @@ export declare namespace Telnyx {
 
   export {
     Calls as Calls,
+    type CallAssistantRequest as CallAssistantRequest,
     type CustomSipHeader as CustomSipHeader,
     type DialogflowConfig as DialogflowConfig,
     type SipHeader as SipHeader,
@@ -4828,11 +4832,13 @@ export declare namespace Telnyx {
 
   export {
     PronunciationDicts as PronunciationDicts,
+    type PronunciationDictAliasItem as PronunciationDictAliasItem,
+    type PronunciationDictData as PronunciationDictData,
+    type PronunciationDictPhonemeItem as PronunciationDictPhonemeItem,
     type PronunciationDictCreateResponse as PronunciationDictCreateResponse,
     type PronunciationDictRetrieveResponse as PronunciationDictRetrieveResponse,
     type PronunciationDictUpdateResponse as PronunciationDictUpdateResponse,
-    type PronunciationDictListResponse as PronunciationDictListResponse,
-    type PronunciationDictListResponsesDefaultFlatPagination as PronunciationDictListResponsesDefaultFlatPagination,
+    type PronunciationDictDataDefaultFlatPagination as PronunciationDictDataDefaultFlatPagination,
     type PronunciationDictCreateParams as PronunciationDictCreateParams,
     type PronunciationDictUpdateParams as PronunciationDictUpdateParams,
     type PronunciationDictListParams as PronunciationDictListParams,
@@ -4841,6 +4847,12 @@ export declare namespace Telnyx {
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
   export type AzureVoiceSettings = API.AzureVoiceSettings;
+  export type BookAppointmentTool = API.BookAppointmentTool;
+  export type BookAppointmentToolParams = API.BookAppointmentToolParams;
+  export type CallControlBucketIDs = API.CallControlBucketIDs;
+  export type CallControlRetrievalTool = API.CallControlRetrievalTool;
+  export type CheckAvailabilityTool = API.CheckAvailabilityTool;
+  export type CheckAvailabilityToolParams = API.CheckAvailabilityToolParams;
   export type ConnectionJitterBuffer = API.ConnectionJitterBuffer;
   export type ConnectionNoiseSuppressionDetails = API.ConnectionNoiseSuppressionDetails;
   export type ConnectionsPaginationMeta = API.ConnectionsPaginationMeta;

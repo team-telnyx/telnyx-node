@@ -2010,6 +2010,13 @@ export namespace ActionAddAIAssistantMessagesParams {
 
 export interface ActionAnswerParams {
   /**
+   * AI Assistant configuration. All fields except `id` are optional — the
+   * assistant's stored configuration will be used as fallback for any omitted
+   * fields.
+   */
+  assistant?: CallsAPI.CallAssistantRequest;
+
+  /**
    * Use this field to set the Billing Group ID for the call. Must be a valid and
    * existing Billing Group ID.
    */
@@ -3235,9 +3242,11 @@ export namespace ActionSpeakParams {
 
 export interface ActionStartAIAssistantParams {
   /**
-   * AI Assistant configuration
+   * AI Assistant configuration. All fields except `id` are optional — the
+   * assistant's stored configuration will be used as fallback for any omitted
+   * fields.
    */
-  assistant?: ActionStartAIAssistantParams.Assistant;
+  assistant?: CallsAPI.CallAssistantRequest;
 
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
@@ -3335,28 +3344,6 @@ export interface ActionStartAIAssistantParams {
 }
 
 export namespace ActionStartAIAssistantParams {
-  /**
-   * AI Assistant configuration
-   */
-  export interface Assistant {
-    /**
-     * The identifier of the AI assistant to use
-     */
-    id?: string;
-
-    /**
-     * The system instructions that the voice assistant uses during the start assistant
-     * command. This will overwrite the instructions set in the assistant
-     * configuration.
-     */
-    instructions?: string;
-
-    /**
-     * Reference to the OpenAI API key. Required only when using OpenAI models
-     */
-    openai_api_key_ref?: string;
-  }
-
   /**
    * Messages sent by an end user
    */

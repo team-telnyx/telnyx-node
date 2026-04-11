@@ -70,6 +70,79 @@ export interface AzureVoiceSettings {
   region?: string;
 }
 
+export interface BookAppointmentTool {
+  book_appointment: BookAppointmentToolParams;
+
+  type: 'book_appointment';
+}
+
+export interface BookAppointmentToolParams {
+  /**
+   * Reference to an integration secret that contains your Cal.com API key. You would
+   * pass the `identifier` for an integration secret
+   * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   * that refers to your Cal.com API key.
+   */
+  api_key_ref: string;
+
+  /**
+   * Event Type ID for which slots are being fetched.
+   * [cal.com](https://cal.com/docs/api-reference/v2/bookings/create-a-booking#body-event-type-id)
+   */
+  event_type_id: number;
+
+  /**
+   * The name of the attendee
+   * [cal.com](https://cal.com/docs/api-reference/v2/bookings/create-a-booking#body-attendee-name).
+   * If not provided, the assistant will ask for the attendee's name.
+   */
+  attendee_name?: string;
+
+  /**
+   * The timezone of the attendee
+   * [cal.com](https://cal.com/docs/api-reference/v2/bookings/create-a-booking#body-attendee-timezone).
+   * If not provided, the assistant will ask for the attendee's timezone.
+   */
+  attendee_timezone?: string;
+}
+
+export interface CallControlBucketIDs {
+  bucket_ids: Array<string>;
+
+  /**
+   * The maximum number of results to retrieve as context for the language model.
+   */
+  max_num_results?: number;
+}
+
+export interface CallControlRetrievalTool {
+  retrieval: CallControlBucketIDs;
+
+  type: 'retrieval';
+}
+
+export interface CheckAvailabilityTool {
+  check_availability: CheckAvailabilityToolParams;
+
+  type: 'check_availability';
+}
+
+export interface CheckAvailabilityToolParams {
+  /**
+   * Reference to an integration secret that contains your Cal.com API key. You would
+   * pass the `identifier` for an integration secret
+   * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   * that refers to your Cal.com API key.
+   */
+  api_key_ref: string;
+
+  /**
+   * Event Type ID for which slots are being fetched.
+   * [cal.com](https://cal.com/docs/api-reference/v2/slots/get-available-slots#parameter-event-type-id)
+   */
+  event_type_id: number;
+}
+
 /**
  * Configuration options for Jitter Buffer. Enables Jitter Buffer for RTP streams
  * of SIP Trunking calls. The feature is off unless enabled. You may define min and

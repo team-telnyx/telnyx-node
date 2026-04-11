@@ -5,6 +5,12 @@ Types:
 - <code><a href="./src/resources/shared.ts">APIError</a></code>
 - <code><a href="./src/resources/shared.ts">AvailablePhoneNumbersMetadata</a></code>
 - <code><a href="./src/resources/shared.ts">AzureVoiceSettings</a></code>
+- <code><a href="./src/resources/shared.ts">BookAppointmentTool</a></code>
+- <code><a href="./src/resources/shared.ts">BookAppointmentToolParams</a></code>
+- <code><a href="./src/resources/shared.ts">CallControlBucketIDs</a></code>
+- <code><a href="./src/resources/shared.ts">CallControlRetrievalTool</a></code>
+- <code><a href="./src/resources/shared.ts">CheckAvailabilityTool</a></code>
+- <code><a href="./src/resources/shared.ts">CheckAvailabilityToolParams</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionJitterBuffer</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionNoiseSuppressionDetails</a></code>
 - <code><a href="./src/resources/shared.ts">ConnectionsPaginationMeta</a></code>
@@ -1205,6 +1211,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/calls/calls.ts">CallAssistantRequest</a></code>
 - <code><a href="./src/resources/calls/calls.ts">CustomSipHeader</a></code>
 - <code><a href="./src/resources/calls/calls.ts">DialogflowConfig</a></code>
 - <code><a href="./src/resources/calls/calls.ts">SipHeader</a></code>
@@ -4603,10 +4610,12 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">PhotoRetrieveResponse</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">PhotoUploadResponse</a></code>
 
 Methods:
 
+- <code title="get /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">retrieve</a>(phoneNumber) -> PhotoRetrieveResponse</code>
 - <code title="delete /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">delete</a>(phoneNumber) -> void</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">upload</a>(phoneNumber, { ...params }) -> PhotoUploadResponse</code>
 
@@ -4772,15 +4781,17 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictAliasItem</a></code>
+- <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictData</a></code>
+- <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictPhonemeItem</a></code>
 - <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictCreateResponse</a></code>
 - <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictRetrieveResponse</a></code>
 - <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictUpdateResponse</a></code>
-- <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictListResponse</a></code>
 
 Methods:
 
 - <code title="post /pronunciation_dicts">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">create</a>({ ...params }) -> PronunciationDictCreateResponse</code>
 - <code title="get /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">retrieve</a>(id) -> PronunciationDictRetrieveResponse</code>
 - <code title="patch /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">update</a>(id, { ...params }) -> PronunciationDictUpdateResponse</code>
-- <code title="get /pronunciation_dicts">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">list</a>({ ...params }) -> PronunciationDictListResponsesDefaultFlatPagination</code>
+- <code title="get /pronunciation_dicts">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">list</a>({ ...params }) -> PronunciationDictDataDefaultFlatPagination</code>
 - <code title="delete /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">delete</a>(id) -> void</code>

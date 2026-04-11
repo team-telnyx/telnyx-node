@@ -1090,6 +1090,7 @@ const fuse = new Fuse(
     'client.whatsapp.phoneNumbers.profile.retrieve',
     'client.whatsapp.phoneNumbers.profile.update',
     'client.whatsapp.phoneNumbers.profile.photo.delete',
+    'client.whatsapp.phoneNumbers.profile.photo.retrieve',
     'client.whatsapp.phoneNumbers.profile.photo.upload',
     'client.whatsappMessageTemplates.delete',
     'client.whatsappMessageTemplates.retrieve',
