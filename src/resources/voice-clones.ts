@@ -30,8 +30,8 @@ export class VoiceClones extends APIResource {
    * });
    * ```
    */
-  create(params: VoiceCloneCreateParams, options?: RequestOptions): APIPromise<VoiceCloneCreateResponse> {
-    const { params } = params;
+  create(args: VoiceCloneCreateParams, options?: RequestOptions): APIPromise<VoiceCloneCreateResponse> {
+    const { params } = args;
     return this._client.post('/voice_clones', { body: params, ...options });
   }
 
@@ -111,10 +111,10 @@ export class VoiceClones extends APIResource {
    * ```
    */
   createFromUpload(
-    params: VoiceCloneCreateFromUploadParams,
+    args: VoiceCloneCreateFromUploadParams,
     options?: RequestOptions,
   ): APIPromise<VoiceCloneCreateFromUploadResponse> {
-    const { params } = params;
+    const { params } = args;
     return this._client.post(
       '/voice_clones/from_upload',
       multipartFormRequestOptions({ body: params, ...options }, this._client),

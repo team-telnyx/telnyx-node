@@ -87,12 +87,8 @@ export class Calls extends APIResource {
    * );
    * ```
    */
-  calls(
-    accountSid: string,
-    params: CallCallsParams,
-    options?: RequestOptions,
-  ): APIPromise<CallCallsResponse> {
-    const { params } = params;
+  calls(accountSid: string, args: CallCallsParams, options?: RequestOptions): APIPromise<CallCallsResponse> {
+    const { params } = args;
     return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, { body: params, ...options });
   }
 
