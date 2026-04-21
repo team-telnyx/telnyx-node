@@ -5,7 +5,7 @@ set -e
 cd "$(dirname "$0")/.."
 
 echo "==> Running eslint --fix"
-./node_modules/.bin/eslint --fix .
+SKIP_GRANULAR_DIFF=true ./node_modules/.bin/eslint --fix .
 
 echo "==> Running prettier --write"
 # format things eslint didn't
