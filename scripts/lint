@@ -5,7 +5,7 @@ set -e
 cd "$(dirname "$0")/.."
 
 echo "==> Running eslint"
-./node_modules/.bin/eslint .
+SKIP_GRANULAR_DIFF=true ./node_modules/.bin/eslint .
 
 echo "==> Building"
 ./scripts/build

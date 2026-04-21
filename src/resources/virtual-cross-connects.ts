@@ -522,7 +522,8 @@ export namespace VirtualCrossConnectUpdateResponse {
 }
 
 export interface VirtualCrossConnectListResponse
-  extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+  extends GlobalIPAssignmentsAPI.Record,
+    PublicInternetGatewaysAPI.NetworkInterface {
   /**
    * The region interface is deployed to.
    */
