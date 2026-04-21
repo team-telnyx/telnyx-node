@@ -321,7 +321,8 @@ export namespace InexplicitNumberOrderCreateParams {
   }
 }
 
-export interface InexplicitNumberOrderListParams extends DefaultFlatPaginationForInexplicitNumberOrdersParams {}
+export interface InexplicitNumberOrderListParams
+  extends DefaultFlatPaginationForInexplicitNumberOrdersParams {}
 
 export declare namespace InexplicitNumberOrders {
   export {

@@ -186,7 +186,8 @@ export namespace WireguardInterfaceRetrieveResponse {
 }
 
 export interface WireguardInterfaceListResponse
-  extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+  extends GlobalIPAssignmentsAPI.Record,
+    PublicInternetGatewaysAPI.NetworkInterface {
   /**
    * Enable SIP traffic forwarding over VPN interface.
    */
