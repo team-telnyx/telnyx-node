@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.41.1 (2026-04-21)
+
+Full Changelog: [v6.41.0...v6.41.1](https://github.com/team-telnyx/telnyx-node/compare/v6.41.0...v6.41.1)
+
+### Bug Fixes
+
+* patch fast-diff to prevent TS build timeout ([465f573](https://github.com/team-telnyx/telnyx-node/commit/465f573a9d53579310a8f8886d349320dde06f17))
+
+
+### Chores
+
+* fix prettier formatting issues ([0b68d9e](https://github.com/team-telnyx/telnyx-node/commit/0b68d9ef71d588fe5c838d570fca6bc7ce403936))
+* revert types.ts and ignore from prettier ([be7142f](https://github.com/team-telnyx/telnyx-node/commit/be7142f69e2762aa34393aa7fcacca0b95bca461))
+
 ## 6.41.0 (2026-04-11)
 
 Full Changelog: [v6.40.0...v6.41.0](https://github.com/team-telnyx/telnyx-node/compare/v6.40.0...v6.41.0)
