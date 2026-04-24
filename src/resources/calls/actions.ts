@@ -34,6 +34,10 @@ export class Actions extends APIResource {
    * **Expected Webhooks:**
    *
    * - `call.answered`
+   * - `call.hold` and `call.unhold` if the call is held/unheld
+   * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
+   * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an
+   *   error occurred
    * - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url`
    *   was set
    *
@@ -1535,6 +1539,14 @@ export interface ActionAnswerParams {
   custom_headers?: Array<CallsAPI.CustomSipHeader>;
 
   /**
+   * Enables deepfake detection on the call. When enabled, audio from the remote
+   * party is streamed to a detection service that analyzes whether the voice is
+   * AI-generated. Results are delivered via the `call.deepfake_detection.result`
+   * webhook.
+   */
+  deepfake_detection?: ActionAnswerParams.DeepfakeDetection;
+
+  /**
    * The list of comma-separated codecs in a preferred order for the forked media to
    * be received.
    */
@@ -1678,6 +1690,30 @@ export interface ActionAnswerParams {
 }
 
 export namespace ActionAnswerParams {
+  /**
+   * Enables deepfake detection on the call. When enabled, audio from the remote
+   * party is streamed to a detection service that analyzes whether the voice is
+   * AI-generated. Results are delivered via the `call.deepfake_detection.result`
+   * webhook.
+   */
+  export interface DeepfakeDetection {
+    /**
+     * Whether deepfake detection is enabled.
+     */
+    enabled: boolean;
+
+    /**
+     * Maximum time in seconds to wait for RTP audio before timing out. If no audio is
+     * received within this window, detection stops with an error.
+     */
+    rtp_timeout?: number;
+
+    /**
+     * Maximum time in seconds to wait for a detection result before timing out.
+     */
+    timeout?: number;
+  }
+
   export interface WebhookRetriesPolicies {
     /**
      * Array of delays in milliseconds between retry attempts. Total sum cannot exceed
@@ -3505,7 +3541,9 @@ export interface ActionTransferParams {
 
   /**
    * Optional configuration parameters to modify 'answering_machine_detection'
-   * performance.
+   * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
+   * parameters are applicable when `premium` is selected as
+   * answering_machine_detection.
    */
   answering_machine_detection_config?: ActionTransferParams.AnsweringMachineDetectionConfig;
 
@@ -3735,7 +3773,9 @@ export interface ActionTransferParams {
 export namespace ActionTransferParams {
   /**
    * Optional configuration parameters to modify 'answering_machine_detection'
-   * performance.
+   * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
+   * parameters are applicable when `premium` is selected as
+   * answering_machine_detection.
    */
   export interface AnsweringMachineDetectionConfig {
     /**

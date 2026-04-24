@@ -1,8 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as RunsAPI from '../assistants/tests/test-suites/runs';
-import { APIPromise } from '../../../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -16,86 +15,87 @@ export class Messages extends APIResource {
    *
    * @example
    * ```ts
-   * const messages =
-   *   await client.ai.conversations.messages.list(
-   *     'conversation_id',
-   *   );
+   * // Automatically fetches more pages as needed.
+   * for await (const messageListResponse of client.ai.conversations.messages.list(
+   *   'conversation_id',
+   * )) {
+   *   // ...
+   * }
    * ```
    */
-  list(conversationID: string, options?: RequestOptions): APIPromise<MessageListResponse> {
-    return this._client.get(path`/ai/conversations/${conversationID}/messages`, options);
+  list(conversationID: string, query: MessageListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessageListResponsesDefaultFlatPagination, MessageListResponse> {
+    return this._client.getAPIList(path`/ai/conversations/${conversationID}/messages`, DefaultFlatPagination<MessageListResponse>, { query, ...options });
   }
 }
 
-export interface MessageListResponse {
-  data: Array<MessageListResponse.Data>;
+export type MessageListResponsesDefaultFlatPagination = DefaultFlatPagination<MessageListResponse>
 
-  meta: RunsAPI.Meta;
+export interface MessageListResponse {
+  /**
+   * The role of the message sender.
+   */
+  role: 'user' | 'assistant' | 'tool';
+
+  /**
+   * The message content. Can be null for tool calls.
+   */
+  text: string;
+
+  /**
+   * The datetime the message was created on the conversation. This does not
+   * necesarily correspond to the time the message was sent. The best field to use to
+   * determine the time the end user experienced the message is `sent_at`.
+   */
+  created_at?: string;
+
+  /**
+   * The datetime the message was sent to the end user.
+   */
+  sent_at?: string;
+
+  /**
+   * Optional tool calls made by the assistant.
+   */
+  tool_calls?: Array<MessageListResponse.ToolCall>;
 }
 
 export namespace MessageListResponse {
-  export interface Data {
+  export interface ToolCall {
     /**
-     * The role of the message sender.
+     * Unique identifier for the tool call.
      */
-    role: 'user' | 'assistant' | 'tool';
+    id: string;
+
+    function: ToolCall.Function;
 
     /**
-     * The message content. Can be null for tool calls.
+     * Type of the tool call.
      */
-    text: string;
-
-    /**
-     * The datetime the message was created on the conversation. This does not
-     * necesarily correspond to the time the message was sent. The best field to use to
-     * determine the time the end user experienced the message is `sent_at`.
-     */
-    created_at?: string;
-
-    /**
-     * The datetime the message was sent to the end user.
-     */
-    sent_at?: string;
-
-    /**
-     * Optional tool calls made by the assistant.
-     */
-    tool_calls?: Array<Data.ToolCall>;
+    type: 'function';
   }
 
-  export namespace Data {
-    export interface ToolCall {
+  export namespace ToolCall {
+    export interface Function {
       /**
-       * Unique identifier for the tool call.
+       * JSON-formatted arguments to pass to the function.
        */
-      id: string;
-
-      function: ToolCall.Function;
+      arguments: string;
 
       /**
-       * Type of the tool call.
+       * Name of the function to call.
        */
-      type: 'function';
-    }
-
-    export namespace ToolCall {
-      export interface Function {
-        /**
-         * JSON-formatted arguments to pass to the function.
-         */
-        arguments: string;
-
-        /**
-         * Name of the function to call.
-         */
-        name: string;
-      }
+      name: string;
     }
   }
+}
+
+export interface MessageListParams extends DefaultFlatPaginationParams {
 }
 
 export declare namespace Messages {
   export {
-    type MessageListResponse as MessageListResponse
+    type MessageListResponse as MessageListResponse,
+    type MessageListResponsesDefaultFlatPagination as MessageListResponsesDefaultFlatPagination,
+    type MessageListParams as MessageListParams
   };
 }

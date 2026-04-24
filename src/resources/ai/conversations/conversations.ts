@@ -4,7 +4,7 @@ import { APIResource } from '../../../core/resource';
 import * as InsightsAPI from './insights';
 import { InsightCreateParams, InsightListParams, InsightTemplate, InsightTemplateDetail, InsightTemplatesDefaultFlatPagination, InsightUpdateParams, Insights } from './insights';
 import * as MessagesAPI from './messages';
-import { MessageListResponse, Messages } from './messages';
+import { MessageListParams, MessageListResponse, MessageListResponsesDefaultFlatPagination, Messages } from './messages';
 import * as InsightGroupsAPI from './insight-groups/insight-groups';
 import { InsightGroupInsightGroupsParams, InsightGroupRetrieveInsightGroupsParams, InsightGroupUpdateParams, InsightGroups, InsightTemplateGroup, InsightTemplateGroupDetail, InsightTemplateGroupsDefaultFlatPagination } from './insight-groups/insight-groups';
 import * as RunsAPI from '../assistants/tests/test-suites/runs';
@@ -348,6 +348,8 @@ export declare namespace Conversations {
 
   export {
     Messages as Messages,
-    type MessageListResponse as MessageListResponse
+    type MessageListResponse as MessageListResponse,
+    type MessageListResponsesDefaultFlatPagination as MessageListResponsesDefaultFlatPagination,
+    type MessageListParams as MessageListParams
   };
 }

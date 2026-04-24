@@ -45,6 +45,7 @@ describe('resource assistants', () => {
     secret_key_ref: 'secret_key_ref',
     status: 'enabled',
   },
+    post_conversation_settings: { enabled: true },
     privacy_settings: { data_retention: true },
     telephony_settings: {
     default_texml_app_id: 'default_texml_app_id',
@@ -57,7 +58,8 @@ describe('resource assistants', () => {
   },
     supports_unauthenticated_web_calls: true,
     time_limit_secs: 30,
-    user_idle_timeout_secs: 30,
+    user_idle_reply_secs: 0,
+    user_idle_timeout_secs: 10,
     voicemail_detection: { on_voicemail_detected: {
     action: 'stop_assistant',
     voicemail_message: {
@@ -104,6 +106,7 @@ describe('resource assistants', () => {
     eager_eot_threshold: 0.3,
     eot_threshold: 0,
     eot_timeout_ms: 0,
+    keyterm: 'keyterm',
     numerals: true,
     smart_format: true,
   },
