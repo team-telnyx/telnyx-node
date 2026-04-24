@@ -4,13 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as GlobalIPAssignmentsAPI from '../global-ip-assignments';
 import * as PublicInternetGatewaysAPI from '../public-internet-gateways';
 import * as DefaultGatewayAPI from './default-gateway';
-import {
-  DefaultGateway,
-  DefaultGatewayCreateParams,
-  DefaultGatewayCreateResponse,
-  DefaultGatewayDeleteResponse,
-  DefaultGatewayRetrieveResponse,
-} from './default-gateway';
+import { DefaultGateway, DefaultGatewayCreateParams, DefaultGatewayCreateResponse, DefaultGatewayDeleteResponse, DefaultGatewayRetrieveResponse } from './default-gateway';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -61,11 +55,7 @@ export class Networks extends APIResource {
    * );
    * ```
    */
-  update(
-    networkID: string,
-    body: NetworkUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<NetworkUpdateResponse> {
+  update(networkID: string, body: NetworkUpdateParams, options?: RequestOptions): APIPromise<NetworkUpdateResponse> {
     return this._client.patch(path`/networks/${networkID}`, { body, ...options });
   }
 
@@ -80,14 +70,8 @@ export class Networks extends APIResource {
    * }
    * ```
    */
-  list(
-    query: NetworkListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NetworkListResponsesDefaultFlatPagination, NetworkListResponse> {
-    return this._client.getAPIList('/networks', DefaultFlatPagination<NetworkListResponse>, {
-      query,
-      ...options,
-    });
+  list(query: NetworkListParams | null | undefined = {}, options?: RequestOptions): PagePromise<NetworkListResponsesDefaultFlatPagination, NetworkListResponse> {
+    return this._client.getAPIList('/networks', DefaultFlatPagination<NetworkListResponse>, { query, ...options });
   }
 
   /**
@@ -117,28 +101,19 @@ export class Networks extends APIResource {
    * }
    * ```
    */
-  listInterfaces(
-    id: string,
-    query: NetworkListInterfacesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NetworkListInterfacesResponsesDefaultFlatPagination, NetworkListInterfacesResponse> {
-    return this._client.getAPIList(
-      path`/networks/${id}/network_interfaces`,
-      DefaultFlatPagination<NetworkListInterfacesResponse>,
-      { query, ...options },
-    );
+  listInterfaces(id: string, query: NetworkListInterfacesParams | null | undefined = {}, options?: RequestOptions): PagePromise<NetworkListInterfacesResponsesDefaultFlatPagination, NetworkListInterfacesResponse> {
+    return this._client.getAPIList(path`/networks/${id}/network_interfaces`, DefaultFlatPagination<NetworkListInterfacesResponse>, { query, ...options });
   }
 }
 
-export type NetworkListResponsesDefaultFlatPagination = DefaultFlatPagination<NetworkListResponse>;
+export type NetworkListResponsesDefaultFlatPagination = DefaultFlatPagination<NetworkListResponse>
 
-export type NetworkListInterfacesResponsesDefaultFlatPagination =
-  DefaultFlatPagination<NetworkListInterfacesResponse>;
+export type NetworkListInterfacesResponsesDefaultFlatPagination = DefaultFlatPagination<NetworkListInterfacesResponse>
 
 /**
  * The current status of the interface deployment.
  */
-export type InterfaceStatus = 'created' | 'provisioning' | 'provisioned' | 'deleting';
+export type InterfaceStatus = 'created' | 'provisioning' | 'provisioned' | 'deleting'
 
 export interface NetworkCreate extends GlobalIPAssignmentsAPI.Record {
   /**
@@ -206,9 +181,7 @@ export namespace NetworkDeleteResponse {
   }
 }
 
-export interface NetworkListInterfacesResponse
-  extends GlobalIPAssignmentsAPI.Record,
-    PublicInternetGatewaysAPI.NetworkInterface {
+export interface NetworkListInterfacesResponse extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
   /**
    * Identifies the type of the resource.
    */
@@ -322,7 +295,7 @@ export declare namespace Networks {
     type NetworkCreateParams as NetworkCreateParams,
     type NetworkUpdateParams as NetworkUpdateParams,
     type NetworkListParams as NetworkListParams,
-    type NetworkListInterfacesParams as NetworkListInterfacesParams,
+    type NetworkListInterfacesParams as NetworkListInterfacesParams
   };
 
   export {
@@ -330,6 +303,6 @@ export declare namespace Networks {
     type DefaultGatewayCreateResponse as DefaultGatewayCreateResponse,
     type DefaultGatewayRetrieveResponse as DefaultGatewayRetrieveResponse,
     type DefaultGatewayDeleteResponse as DefaultGatewayDeleteResponse,
-    type DefaultGatewayCreateParams as DefaultGatewayCreateParams,
+    type DefaultGatewayCreateParams as DefaultGatewayCreateParams
   };
 }

@@ -32,15 +32,8 @@ export class Media extends APIResource {
    * const media = await client.media.update('media_name');
    * ```
    */
-  update(
-    mediaName: string,
-    body: MediaUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<MediaUpdateResponse> {
-    return this._client.put(
-      path`/media/${mediaName}`,
-      maybeMultipartFormRequestOptions({ body, ...options }, this._client),
-    );
+  update(mediaName: string, body: MediaUpdateParams, options?: RequestOptions): APIPromise<MediaUpdateResponse> {
+    return this._client.put(path`/media/${mediaName}`, maybeMultipartFormRequestOptions({ body, ...options }, this._client));
   }
 
   /**
@@ -51,10 +44,7 @@ export class Media extends APIResource {
    * const media = await client.media.list();
    * ```
    */
-  list(
-    query: MediaListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<MediaListResponse> {
+  list(query: MediaListParams | null | undefined = {}, options?: RequestOptions): APIPromise<MediaListResponse> {
     return this._client.get('/media', { query, ...options });
   }
 
@@ -67,10 +57,7 @@ export class Media extends APIResource {
    * ```
    */
   delete(mediaName: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/media/${mediaName}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/media/${mediaName}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
@@ -85,11 +72,7 @@ export class Media extends APIResource {
    * ```
    */
   download(mediaName: string, options?: RequestOptions): APIPromise<Response> {
-    return this._client.get(path`/media/${mediaName}/download`, {
-      ...options,
-      headers: buildHeaders([{ Accept: 'application/octet-stream' }, options?.headers]),
-      __binaryResponse: true,
-    });
+    return this._client.get(path`/media/${mediaName}/download`, { ...options, headers: buildHeaders([{Accept: 'application/octet-stream'}, options?.headers]), __binaryResponse: true });
   }
 
   /**
@@ -215,6 +198,6 @@ export declare namespace Media {
     type MediaUploadResponse as MediaUploadResponse,
     type MediaUpdateParams as MediaUpdateParams,
     type MediaListParams as MediaListParams,
-    type MediaUploadParams as MediaUploadParams,
+    type MediaUploadParams as MediaUploadParams
   };
 }

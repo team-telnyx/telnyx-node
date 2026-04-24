@@ -20,10 +20,7 @@ export class RoomCompositions extends APIResource {
    *   await client.roomCompositions.create();
    * ```
    */
-  create(
-    body: RoomCompositionCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<RoomCompositionCreateResponse> {
+  create(body: RoomCompositionCreateParams, options?: RequestOptions): APIPromise<RoomCompositionCreateResponse> {
     return this._client.post('/room_compositions', { body, ...options });
   }
 
@@ -53,14 +50,8 @@ export class RoomCompositions extends APIResource {
    * }
    * ```
    */
-  list(
-    query: RoomCompositionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<RoomCompositionsDefaultFlatPagination, RoomComposition> {
-    return this._client.getAPIList('/room_compositions', DefaultFlatPagination<RoomComposition>, {
-      query,
-      ...options,
-    });
+  list(query: RoomCompositionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<RoomCompositionsDefaultFlatPagination, RoomComposition> {
+    return this._client.getAPIList('/room_compositions', DefaultFlatPagination<RoomComposition>, { query, ...options });
   }
 
   /**
@@ -74,14 +65,11 @@ export class RoomCompositions extends APIResource {
    * ```
    */
   delete(roomCompositionID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/room_compositions/${roomCompositionID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/room_compositions/${roomCompositionID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
-export type RoomCompositionsDefaultFlatPagination = DefaultFlatPagination<RoomComposition>;
+export type RoomCompositionsDefaultFlatPagination = DefaultFlatPagination<RoomComposition>
 
 export interface RoomComposition {
   /**
@@ -339,6 +327,6 @@ export declare namespace RoomCompositions {
     type RoomCompositionRetrieveResponse as RoomCompositionRetrieveResponse,
     type RoomCompositionsDefaultFlatPagination as RoomCompositionsDefaultFlatPagination,
     type RoomCompositionCreateParams as RoomCompositionCreateParams,
-    type RoomCompositionListParams as RoomCompositionListParams,
+    type RoomCompositionListParams as RoomCompositionListParams
   };
 }

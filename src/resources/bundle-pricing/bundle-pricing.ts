@@ -2,33 +2,9 @@
 
 import { APIResource } from '../../core/resource';
 import * as BillingBundlesAPI from './billing-bundles';
-import {
-  BillingBundleListParams,
-  BillingBundleRetrieveParams,
-  BillingBundleRetrieveResponse,
-  BillingBundleSummariesDefaultFlatPagination,
-  BillingBundleSummary,
-  BillingBundles,
-  PaginationResponse,
-} from './billing-bundles';
+import { BillingBundleListParams, BillingBundleRetrieveParams, BillingBundleRetrieveResponse, BillingBundleSummariesDefaultFlatPagination, BillingBundleSummary, BillingBundles, PaginationResponse } from './billing-bundles';
 import * as UserBundlesAPI from './user-bundles';
-import {
-  UserBundle,
-  UserBundleCreateParams,
-  UserBundleCreateResponse,
-  UserBundleDeactivateParams,
-  UserBundleDeactivateResponse,
-  UserBundleListParams,
-  UserBundleListResourcesParams,
-  UserBundleListResourcesResponse,
-  UserBundleListUnusedParams,
-  UserBundleListUnusedResponse,
-  UserBundleResource,
-  UserBundleRetrieveParams,
-  UserBundleRetrieveResponse,
-  UserBundles,
-  UserBundlesDefaultFlatPagination,
-} from './user-bundles';
+import { UserBundle, UserBundleCreateParams, UserBundleCreateResponse, UserBundleDeactivateParams, UserBundleDeactivateResponse, UserBundleListParams, UserBundleListResourcesParams, UserBundleListResourcesResponse, UserBundleListUnusedParams, UserBundleListUnusedResponse, UserBundleResource, UserBundleRetrieveParams, UserBundleRetrieveResponse, UserBundles, UserBundlesDefaultFlatPagination } from './user-bundles';
 
 export class BundlePricing extends APIResource {
   billingBundles: BillingBundlesAPI.BillingBundles = new BillingBundlesAPI.BillingBundles(this._client);
@@ -46,7 +22,7 @@ export declare namespace BundlePricing {
     type BillingBundleRetrieveResponse as BillingBundleRetrieveResponse,
     type BillingBundleSummariesDefaultFlatPagination as BillingBundleSummariesDefaultFlatPagination,
     type BillingBundleRetrieveParams as BillingBundleRetrieveParams,
-    type BillingBundleListParams as BillingBundleListParams,
+    type BillingBundleListParams as BillingBundleListParams
   };
 
   export {
@@ -64,6 +40,6 @@ export declare namespace BundlePricing {
     type UserBundleListParams as UserBundleListParams,
     type UserBundleDeactivateParams as UserBundleDeactivateParams,
     type UserBundleListResourcesParams as UserBundleListResourcesParams,
-    type UserBundleListUnusedParams as UserBundleListUnusedParams,
+    type UserBundleListUnusedParams as UserBundleListUnusedParams
   };
 }

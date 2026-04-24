@@ -23,20 +23,12 @@ export class BulkSimCardActions extends APIResource {
    * This API lists a paginated collection of bulk SIM card actions. A bulk SIM card
    * action contains details about a collection of individual SIM card actions.
    */
-  list(
-    query: BulkSimCardActionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<BulkSimCardActionListResponsesDefaultFlatPagination, BulkSimCardActionListResponse> {
-    return this._client.getAPIList(
-      '/bulk_sim_card_actions',
-      DefaultFlatPagination<BulkSimCardActionListResponse>,
-      { query, ...options },
-    );
+  list(query: BulkSimCardActionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<BulkSimCardActionListResponsesDefaultFlatPagination, BulkSimCardActionListResponse> {
+    return this._client.getAPIList('/bulk_sim_card_actions', DefaultFlatPagination<BulkSimCardActionListResponse>, { query, ...options });
   }
 }
 
-export type BulkSimCardActionListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<BulkSimCardActionListResponse>;
+export type BulkSimCardActionListResponsesDefaultFlatPagination = DefaultFlatPagination<BulkSimCardActionListResponse>
 
 export interface SimCardActionsSummary {
   count?: number;
@@ -137,6 +129,6 @@ export declare namespace BulkSimCardActions {
     type BulkSimCardActionRetrieveResponse as BulkSimCardActionRetrieveResponse,
     type BulkSimCardActionListResponse as BulkSimCardActionListResponse,
     type BulkSimCardActionListResponsesDefaultFlatPagination as BulkSimCardActionListResponsesDefaultFlatPagination,
-    type BulkSimCardActionListParams as BulkSimCardActionListParams,
+    type BulkSimCardActionListParams as BulkSimCardActionListParams
   };
 }

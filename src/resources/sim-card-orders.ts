@@ -50,18 +50,12 @@ export class SimCardOrders extends APIResource {
    * }
    * ```
    */
-  list(
-    query: SimCardOrderListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<SimCardOrdersDefaultFlatPagination, SimCardOrder> {
-    return this._client.getAPIList('/sim_card_orders', DefaultFlatPagination<SimCardOrder>, {
-      query,
-      ...options,
-    });
+  list(query: SimCardOrderListParams | null | undefined = {}, options?: RequestOptions): PagePromise<SimCardOrdersDefaultFlatPagination, SimCardOrder> {
+    return this._client.getAPIList('/sim_card_orders', DefaultFlatPagination<SimCardOrder>, { query, ...options });
   }
 }
 
-export type SimCardOrdersDefaultFlatPagination = DefaultFlatPagination<SimCardOrder>;
+export type SimCardOrdersDefaultFlatPagination = DefaultFlatPagination<SimCardOrder>
 
 export interface SimCardOrder {
   /**
@@ -306,6 +300,6 @@ export declare namespace SimCardOrders {
     type SimCardOrderRetrieveResponse as SimCardOrderRetrieveResponse,
     type SimCardOrdersDefaultFlatPagination as SimCardOrdersDefaultFlatPagination,
     type SimCardOrderCreateParams as SimCardOrderCreateParams,
-    type SimCardOrderListParams as SimCardOrderListParams,
+    type SimCardOrderListParams as SimCardOrderListParams
   };
 }

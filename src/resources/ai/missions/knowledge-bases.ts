@@ -33,16 +33,9 @@ export class KnowledgeBases extends APIResource {
    * );
    * ```
    */
-  deleteKnowledgeBase(
-    knowledgeBaseID: string,
-    params: KnowledgeBaseDeleteKnowledgeBaseParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { mission_id } = params;
-    return this._client.delete(path`/ai/missions/${mission_id}/knowledge-bases/${knowledgeBaseID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  deleteKnowledgeBase(knowledgeBaseID: string, params: KnowledgeBaseDeleteKnowledgeBaseParams, options?: RequestOptions): APIPromise<void> {
+    const { mission_id } = params
+    return this._client.delete(path`/ai/missions/${mission_id}/knowledge-bases/${knowledgeBaseID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
@@ -57,12 +50,8 @@ export class KnowledgeBases extends APIResource {
    *   );
    * ```
    */
-  getKnowledgeBase(
-    knowledgeBaseID: string,
-    params: KnowledgeBaseGetKnowledgeBaseParams,
-    options?: RequestOptions,
-  ): APIPromise<unknown> {
-    const { mission_id } = params;
+  getKnowledgeBase(knowledgeBaseID: string, params: KnowledgeBaseGetKnowledgeBaseParams, options?: RequestOptions): APIPromise<unknown> {
+    const { mission_id } = params
     return this._client.get(path`/ai/missions/${mission_id}/knowledge-bases/${knowledgeBaseID}`, options);
   }
 
@@ -93,23 +82,19 @@ export class KnowledgeBases extends APIResource {
    *   );
    * ```
    */
-  updateKnowledgeBase(
-    knowledgeBaseID: string,
-    params: KnowledgeBaseUpdateKnowledgeBaseParams,
-    options?: RequestOptions,
-  ): APIPromise<unknown> {
-    const { mission_id } = params;
+  updateKnowledgeBase(knowledgeBaseID: string, params: KnowledgeBaseUpdateKnowledgeBaseParams, options?: RequestOptions): APIPromise<unknown> {
+    const { mission_id } = params
     return this._client.put(path`/ai/missions/${mission_id}/knowledge-bases/${knowledgeBaseID}`, options);
   }
 }
 
-export type KnowledgeBaseCreateKnowledgeBaseResponse = unknown;
+export type KnowledgeBaseCreateKnowledgeBaseResponse = unknown
 
-export type KnowledgeBaseGetKnowledgeBaseResponse = unknown;
+export type KnowledgeBaseGetKnowledgeBaseResponse = unknown
 
-export type KnowledgeBaseListKnowledgeBasesResponse = unknown;
+export type KnowledgeBaseListKnowledgeBasesResponse = unknown
 
-export type KnowledgeBaseUpdateKnowledgeBaseResponse = unknown;
+export type KnowledgeBaseUpdateKnowledgeBaseResponse = unknown
 
 export interface KnowledgeBaseDeleteKnowledgeBaseParams {
   mission_id: string;
@@ -131,6 +116,6 @@ export declare namespace KnowledgeBases {
     type KnowledgeBaseUpdateKnowledgeBaseResponse as KnowledgeBaseUpdateKnowledgeBaseResponse,
     type KnowledgeBaseDeleteKnowledgeBaseParams as KnowledgeBaseDeleteKnowledgeBaseParams,
     type KnowledgeBaseGetKnowledgeBaseParams as KnowledgeBaseGetKnowledgeBaseParams,
-    type KnowledgeBaseUpdateKnowledgeBaseParams as KnowledgeBaseUpdateKnowledgeBaseParams,
+    type KnowledgeBaseUpdateKnowledgeBaseParams as KnowledgeBaseUpdateKnowledgeBaseParams
   };
 }

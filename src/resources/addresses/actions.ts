@@ -22,15 +22,8 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  acceptSuggestions(
-    addressUuid: string,
-    body: ActionAcceptSuggestionsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ActionAcceptSuggestionsResponse> {
-    return this._client.post(path`/addresses/${addressUuid}/actions/accept_suggestions`, {
-      body,
-      ...options,
-    });
+  acceptSuggestions(addressUuid: string, body: ActionAcceptSuggestionsParams | null | undefined = {}, options?: RequestOptions): APIPromise<ActionAcceptSuggestionsResponse> {
+    return this._client.post(path`/addresses/${addressUuid}/actions/accept_suggestions`, { body, ...options });
   }
 
   /**
@@ -132,7 +125,7 @@ export namespace ActionValidateResponse {
        */
       street_address?: string;
 
-      [k: string]: unknown;
+    [k: string]: unknown
     }
   }
 }
@@ -184,6 +177,6 @@ export declare namespace Actions {
     type ActionAcceptSuggestionsResponse as ActionAcceptSuggestionsResponse,
     type ActionValidateResponse as ActionValidateResponse,
     type ActionAcceptSuggestionsParams as ActionAcceptSuggestionsParams,
-    type ActionValidateParams as ActionValidateParams,
+    type ActionValidateParams as ActionValidateParams
   };
 }

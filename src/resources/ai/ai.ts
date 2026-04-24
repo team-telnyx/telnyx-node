@@ -6,128 +6,23 @@ import { Audio, AudioTranscribeParams, AudioTranscribeResponse } from './audio';
 import * as ChatAPI from './chat';
 import { BucketIDs, Chat, ChatCreateCompletionParams, ChatCreateCompletionResponse } from './chat';
 import * as ClustersAPI from './clusters';
-import {
-  ClusterComputeParams,
-  ClusterComputeResponse,
-  ClusterFetchGraphParams,
-  ClusterListParams,
-  ClusterListResponse,
-  ClusterListResponsesDefaultFlatPagination,
-  ClusterRetrieveParams,
-  ClusterRetrieveResponse,
-  Clusters,
-  RecursiveCluster,
-} from './clusters';
+import { ClusterComputeParams, ClusterComputeResponse, ClusterFetchGraphParams, ClusterListParams, ClusterListResponse, ClusterListResponsesDefaultFlatPagination, ClusterRetrieveParams, ClusterRetrieveResponse, Clusters, RecursiveCluster } from './clusters';
 import * as McpServersAPI from './mcp-servers';
-import {
-  McpServerCreateParams,
-  McpServerCreateResponse,
-  McpServerListParams,
-  McpServerListResponse,
-  McpServerListResponsesDefaultFlatPaginationTopLevelArray,
-  McpServerRetrieveResponse,
-  McpServerUpdateParams,
-  McpServerUpdateResponse,
-  McpServers,
-} from './mcp-servers';
+import { McpServerCreateParams, McpServerCreateResponse, McpServerListParams, McpServerListResponse, McpServerListResponsesDefaultFlatPaginationTopLevelArray, McpServerRetrieveResponse, McpServerUpdateParams, McpServerUpdateResponse, McpServers } from './mcp-servers';
 import * as ToolsAPI from './tools';
-import {
-  ToolCreateParams,
-  ToolCreateResponse,
-  ToolDeleteResponse,
-  ToolListParams,
-  ToolListResponse,
-  ToolListResponsesDefaultFlatPagination,
-  ToolRetrieveResponse,
-  ToolUpdateParams,
-  ToolUpdateResponse,
-  Tools,
-} from './tools';
+import { ToolCreateParams, ToolCreateResponse, ToolDeleteResponse, ToolListParams, ToolListResponse, ToolListResponsesDefaultFlatPagination, ToolRetrieveResponse, ToolUpdateParams, ToolUpdateResponse, Tools } from './tools';
 import * as AssistantsAPI from './assistants/assistants';
-import {
-  Assistant,
-  AssistantChatParams,
-  AssistantChatResponse,
-  AssistantCreateParams,
-  AssistantDeleteResponse,
-  AssistantGetTexmlResponse,
-  AssistantImportsParams,
-  AssistantRetrieveParams,
-  AssistantSendSMSParams,
-  AssistantSendSMSResponse,
-  AssistantTool,
-  AssistantUpdateParams,
-  Assistants,
-  AssistantsList,
-  AudioVisualizerConfig,
-  EnabledFeatures,
-  HangupTool,
-  HangupToolParams,
-  ImportMetadata,
-  InferenceEmbedding,
-  InferenceEmbeddingWebhookToolParams,
-  InsightSettings,
-  MessagingSettings,
-  Observability,
-  ObservabilityReq,
-  PrivacySettings,
-  RetrievalTool,
-  TelephonySettings,
-  TranscriptionSettings,
-  TranscriptionSettingsConfig,
-  TransferTool,
-  VoiceSettings,
-  WebhookTool,
-  WidgetSettings,
-} from './assistants/assistants';
+import { Assistant, AssistantChatParams, AssistantChatResponse, AssistantCreateParams, AssistantDeleteResponse, AssistantGetTexmlResponse, AssistantImportsParams, AssistantRetrieveParams, AssistantSendSMSParams, AssistantSendSMSResponse, AssistantTool, AssistantUpdateParams, Assistants, AssistantsList, AudioVisualizerConfig, EnabledFeatures, HangupTool, HangupToolParams, ImportMetadata, InferenceEmbedding, InferenceEmbeddingWebhookToolParams, InsightSettings, MessagingSettings, Observability, ObservabilityReq, PrivacySettings, RetrievalTool, TelephonySettings, TranscriptionSettings, TranscriptionSettingsConfig, TransferTool, VoiceSettings, WebhookTool, WidgetSettings } from './assistants/assistants';
 import * as ConversationsAPI from './conversations/conversations';
-import {
-  Conversation,
-  ConversationAddMessageParams,
-  ConversationCreateParams,
-  ConversationListParams,
-  ConversationListResponse,
-  ConversationRetrieveConversationsInsightsResponse,
-  ConversationRetrieveResponse,
-  ConversationUpdateParams,
-  ConversationUpdateResponse,
-  Conversations,
-} from './conversations/conversations';
+import { Conversation, ConversationAddMessageParams, ConversationCreateParams, ConversationListParams, ConversationListResponse, ConversationRetrieveConversationsInsightsResponse, ConversationRetrieveResponse, ConversationUpdateParams, ConversationUpdateResponse, Conversations } from './conversations/conversations';
 import * as EmbeddingsAPI from './embeddings/embeddings';
-import {
-  BackgroundTaskStatus,
-  EmbeddingCreateParams,
-  EmbeddingListParams,
-  EmbeddingListResponse,
-  EmbeddingResponse,
-  EmbeddingRetrieveResponse,
-  EmbeddingSimilaritySearchParams,
-  EmbeddingSimilaritySearchResponse,
-  EmbeddingURLParams,
-  Embeddings,
-} from './embeddings/embeddings';
+import { BackgroundTaskStatus, EmbeddingCreateParams, EmbeddingListParams, EmbeddingListResponse, EmbeddingResponse, EmbeddingRetrieveResponse, EmbeddingSimilaritySearchParams, EmbeddingSimilaritySearchResponse, EmbeddingURLParams, Embeddings } from './embeddings/embeddings';
 import * as FineTuningAPI from './fine-tuning/fine-tuning';
 import { FineTuning } from './fine-tuning/fine-tuning';
 import * as IntegrationsAPI from './integrations/integrations';
-import {
-  IntegrationListResponse,
-  IntegrationRetrieveResponse,
-  Integrations,
-} from './integrations/integrations';
+import { IntegrationListResponse, IntegrationRetrieveResponse, Integrations } from './integrations/integrations';
 import * as MissionsAPI from './missions/missions';
-import {
-  MissionCloneMissionResponse,
-  MissionCreateParams,
-  MissionCreateResponse,
-  MissionData,
-  MissionDataDefaultFlatPagination,
-  MissionListEventsParams,
-  MissionListParams,
-  MissionRetrieveResponse,
-  MissionUpdateMissionParams,
-  MissionUpdateMissionResponse,
-  Missions,
-} from './missions/missions';
+import { MissionCloneMissionResponse, MissionCreateParams, MissionCreateResponse, MissionData, MissionDataDefaultFlatPagination, MissionListEventsParams, MissionListParams, MissionRetrieveResponse, MissionUpdateMissionParams, MissionUpdateMissionResponse, Missions } from './missions/missions';
 import * as OpenAIAPI from './openai/openai';
 import { OpenAI } from './openai/openai';
 import { APIPromise } from '../../core/api-promise';
@@ -254,7 +149,7 @@ export declare namespace AI {
   export {
     type AIRetrieveModelsResponse as AIRetrieveModelsResponse,
     type AISummarizeResponse as AISummarizeResponse,
-    type AISummarizeParams as AISummarizeParams,
+    type AISummarizeParams as AISummarizeParams
   };
 
   export {
@@ -291,20 +186,20 @@ export declare namespace AI {
     type AssistantUpdateParams as AssistantUpdateParams,
     type AssistantChatParams as AssistantChatParams,
     type AssistantImportsParams as AssistantImportsParams,
-    type AssistantSendSMSParams as AssistantSendSMSParams,
+    type AssistantSendSMSParams as AssistantSendSMSParams
   };
 
   export {
     Audio as Audio,
     type AudioTranscribeResponse as AudioTranscribeResponse,
-    type AudioTranscribeParams as AudioTranscribeParams,
+    type AudioTranscribeParams as AudioTranscribeParams
   };
 
   export {
     Chat as Chat,
     type BucketIDs as BucketIDs,
     type ChatCreateCompletionResponse as ChatCreateCompletionResponse,
-    type ChatCreateCompletionParams as ChatCreateCompletionParams,
+    type ChatCreateCompletionParams as ChatCreateCompletionParams
   };
 
   export {
@@ -317,7 +212,7 @@ export declare namespace AI {
     type ClusterRetrieveParams as ClusterRetrieveParams,
     type ClusterListParams as ClusterListParams,
     type ClusterComputeParams as ClusterComputeParams,
-    type ClusterFetchGraphParams as ClusterFetchGraphParams,
+    type ClusterFetchGraphParams as ClusterFetchGraphParams
   };
 
   export {
@@ -330,7 +225,7 @@ export declare namespace AI {
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
-    type ConversationAddMessageParams as ConversationAddMessageParams,
+    type ConversationAddMessageParams as ConversationAddMessageParams
   };
 
   export {
@@ -343,15 +238,17 @@ export declare namespace AI {
     type EmbeddingCreateParams as EmbeddingCreateParams,
     type EmbeddingListParams as EmbeddingListParams,
     type EmbeddingSimilaritySearchParams as EmbeddingSimilaritySearchParams,
-    type EmbeddingURLParams as EmbeddingURLParams,
+    type EmbeddingURLParams as EmbeddingURLParams
   };
 
-  export { FineTuning as FineTuning };
+  export {
+    FineTuning as FineTuning
+  };
 
   export {
     Integrations as Integrations,
     type IntegrationRetrieveResponse as IntegrationRetrieveResponse,
-    type IntegrationListResponse as IntegrationListResponse,
+    type IntegrationListResponse as IntegrationListResponse
   };
 
   export {
@@ -363,7 +260,7 @@ export declare namespace AI {
     type McpServerListResponsesDefaultFlatPaginationTopLevelArray as McpServerListResponsesDefaultFlatPaginationTopLevelArray,
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerUpdateParams as McpServerUpdateParams,
-    type McpServerListParams as McpServerListParams,
+    type McpServerListParams as McpServerListParams
   };
 
   export {
@@ -377,10 +274,12 @@ export declare namespace AI {
     type MissionCreateParams as MissionCreateParams,
     type MissionListParams as MissionListParams,
     type MissionListEventsParams as MissionListEventsParams,
-    type MissionUpdateMissionParams as MissionUpdateMissionParams,
+    type MissionUpdateMissionParams as MissionUpdateMissionParams
   };
 
-  export { OpenAI as OpenAI };
+  export {
+    OpenAI as OpenAI
+  };
 
   export {
     Tools as Tools,
@@ -392,6 +291,6 @@ export declare namespace AI {
     type ToolListResponsesDefaultFlatPagination as ToolListResponsesDefaultFlatPagination,
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,
-    type ToolListParams as ToolListParams,
+    type ToolListParams as ToolListParams
   };
 }

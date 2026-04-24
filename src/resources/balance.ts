@@ -55,5 +55,7 @@ export namespace BalanceRetrieveResponse {
 }
 
 export declare namespace Balance {
-  export { type BalanceRetrieveResponse as BalanceRetrieveResponse };
+  export {
+    type BalanceRetrieveResponse as BalanceRetrieveResponse
+  };
 }

@@ -23,11 +23,7 @@ export class DefaultGateway extends APIResource {
    *   );
    * ```
    */
-  create(
-    networkIdentifier: string,
-    body: DefaultGatewayCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<DefaultGatewayCreateResponse> {
+  create(networkIdentifier: string, body: DefaultGatewayCreateParams, options?: RequestOptions): APIPromise<DefaultGatewayCreateResponse> {
     return this._client.post(path`/networks/${networkIdentifier}/default_gateway`, { body, ...options });
   }
 
@@ -149,6 +145,6 @@ export declare namespace DefaultGateway {
     type DefaultGatewayCreateResponse as DefaultGatewayCreateResponse,
     type DefaultGatewayRetrieveResponse as DefaultGatewayRetrieveResponse,
     type DefaultGatewayDeleteResponse as DefaultGatewayDeleteResponse,
-    type DefaultGatewayCreateParams as DefaultGatewayCreateParams,
+    type DefaultGatewayCreateParams as DefaultGatewayCreateParams
   };
 }

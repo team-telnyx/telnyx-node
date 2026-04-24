@@ -24,10 +24,7 @@ export class FaxApplications extends APIResource {
    * });
    * ```
    */
-  create(
-    body: FaxApplicationCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<FaxApplicationCreateResponse> {
+  create(body: FaxApplicationCreateParams, options?: RequestOptions): APIPromise<FaxApplicationCreateResponse> {
     return this._client.post('/fax_applications', { body, ...options });
   }
 
@@ -62,11 +59,7 @@ export class FaxApplications extends APIResource {
    * );
    * ```
    */
-  update(
-    id: string,
-    body: FaxApplicationUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<FaxApplicationUpdateResponse> {
+  update(id: string, body: FaxApplicationUpdateParams, options?: RequestOptions): APIPromise<FaxApplicationUpdateResponse> {
     return this._client.patch(path`/fax_applications/${id}`, { body, ...options });
   }
 
@@ -84,14 +77,8 @@ export class FaxApplications extends APIResource {
    * }
    * ```
    */
-  list(
-    query: FaxApplicationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FaxApplicationsDefaultFlatPagination, FaxApplication> {
-    return this._client.getAPIList('/fax_applications', DefaultFlatPagination<FaxApplication>, {
-      query,
-      ...options,
-    });
+  list(query: FaxApplicationListParams | null | undefined = {}, options?: RequestOptions): PagePromise<FaxApplicationsDefaultFlatPagination, FaxApplication> {
+    return this._client.getAPIList('/fax_applications', DefaultFlatPagination<FaxApplication>, { query, ...options });
   }
 
   /**
@@ -110,7 +97,7 @@ export class FaxApplications extends APIResource {
   }
 }
 
-export type FaxApplicationsDefaultFlatPagination = DefaultFlatPagination<FaxApplication>;
+export type FaxApplicationsDefaultFlatPagination = DefaultFlatPagination<FaxApplication>
 
 export interface FaxApplication {
   /**
@@ -477,6 +464,6 @@ export declare namespace FaxApplications {
     type FaxApplicationsDefaultFlatPagination as FaxApplicationsDefaultFlatPagination,
     type FaxApplicationCreateParams as FaxApplicationCreateParams,
     type FaxApplicationUpdateParams as FaxApplicationUpdateParams,
-    type FaxApplicationListParams as FaxApplicationListParams,
+    type FaxApplicationListParams as FaxApplicationListParams
   };
 }

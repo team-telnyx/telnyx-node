@@ -2,10 +2,7 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource callEvents', () => {
   // Mock server tests are disabled
@@ -23,35 +20,32 @@ describe('resource callEvents', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.callEvents.list(
-        {
-          filter: {
-            application_name: { contains: 'contains' },
-            application_session_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            connection_id: 'connection_id',
-            failed: false,
-            from: '+12025550142',
-            leg_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            name: 'name',
-            occurred_at: {
-              eq: '2019-03-29T11:10:00Z',
-              gt: '2019-03-29T11:10:00Z',
-              gte: '2019-03-29T11:10:00Z',
-              lt: '2019-03-29T11:10:00Z',
-              lte: '2019-03-29T11:10:00Z',
-            },
-            'outbound.outbound_voice_profile_id': '1293384261075731499',
-            product: 'texml',
-            status: 'init',
-            to: '+12025550142',
-            type: 'webhook',
-          },
-          'page[number]': 0,
-          'page[size]': 0,
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
+    await expect(client.callEvents.list({
+    filter: {
+    application_name: { contains: 'contains' },
+    application_session_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    connection_id: 'connection_id',
+    failed: false,
+    from: '+12025550142',
+    leg_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    name: 'name',
+    occurred_at: {
+    eq: '2019-03-29T11:10:00Z',
+    gt: '2019-03-29T11:10:00Z',
+    gte: '2019-03-29T11:10:00Z',
+    lt: '2019-03-29T11:10:00Z',
+    lte: '2019-03-29T11:10:00Z',
+  },
+    'outbound.outbound_voice_profile_id': '1293384261075731499',
+    product: 'texml',
+    status: 'init',
+    to: '+12025550142',
+    type: 'webhook',
+  },
+    'page[number]': 0,
+    'page[size]': 0,
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Telnyx.NotFoundError);
   });
 });

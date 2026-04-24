@@ -21,15 +21,8 @@ export class SslCertificateResource extends APIResource {
    *   await client.storage.buckets.sslCertificate.create('');
    * ```
    */
-  create(
-    bucketName: string,
-    body: SslCertificateCreateParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<SslCertificateCreateResponse> {
-    return this._client.put(
-      path`/storage/buckets/${bucketName}/ssl_certificate`,
-      multipartFormRequestOptions({ body, ...options }, this._client),
-    );
+  create(bucketName: string, body: SslCertificateCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<SslCertificateCreateResponse> {
+    return this._client.put(path`/storage/buckets/${bucketName}/ssl_certificate`, multipartFormRequestOptions({ body, ...options }, this._client));
   }
 
   /**
@@ -151,6 +144,6 @@ export declare namespace SslCertificateResource {
     type SslCertificateCreateResponse as SslCertificateCreateResponse,
     type SslCertificateRetrieveResponse as SslCertificateRetrieveResponse,
     type SslCertificateDeleteResponse as SslCertificateDeleteResponse,
-    type SslCertificateCreateParams as SslCertificateCreateParams,
+    type SslCertificateCreateParams as SslCertificateCreateParams
   };
 }

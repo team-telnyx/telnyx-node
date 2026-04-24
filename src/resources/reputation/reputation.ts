@@ -15,6 +15,6 @@ export declare namespace Reputation {
     Numbers as Numbers,
     type NumberRetrieveResponse as NumberRetrieveResponse,
     type NumberRetrieveParams as NumberRetrieveParams,
-    type NumberListParams as NumberListParams,
+    type NumberListParams as NumberListParams
   };
 }

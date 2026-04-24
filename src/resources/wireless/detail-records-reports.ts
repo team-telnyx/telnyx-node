@@ -19,10 +19,7 @@ export class DetailRecordsReports extends APIResource {
    *   await client.wireless.detailRecordsReports.create();
    * ```
    */
-  create(
-    body: DetailRecordsReportCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<DetailRecordsReportCreateResponse> {
+  create(body: DetailRecordsReportCreateParams, options?: RequestOptions): APIPromise<DetailRecordsReportCreateResponse> {
     return this._client.post('/wireless/detail_records_reports', { body, ...options });
   }
 
@@ -50,10 +47,7 @@ export class DetailRecordsReports extends APIResource {
    *   await client.wireless.detailRecordsReports.list();
    * ```
    */
-  list(
-    query: DetailRecordsReportListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<DetailRecordsReportListResponse> {
+  list(query: DetailRecordsReportListParams | null | undefined = {}, options?: RequestOptions): APIPromise<DetailRecordsReportListResponse> {
     return this._client.get('/wireless/detail_records_reports', { query, ...options });
   }
 
@@ -160,6 +154,6 @@ export declare namespace DetailRecordsReports {
     type DetailRecordsReportListResponse as DetailRecordsReportListResponse,
     type DetailRecordsReportDeleteResponse as DetailRecordsReportDeleteResponse,
     type DetailRecordsReportCreateParams as DetailRecordsReportCreateParams,
-    type DetailRecordsReportListParams as DetailRecordsReportListParams,
+    type DetailRecordsReportListParams as DetailRecordsReportListParams
   };
 }

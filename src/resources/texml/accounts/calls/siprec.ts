@@ -22,20 +22,9 @@ export class Siprec extends APIResource {
    *   );
    * ```
    */
-  siprecSidJson(
-    siprecSid: string,
-    params: SiprecSiprecSidJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<SiprecSiprecSidJsonResponse> {
-    const { account_sid, call_sid, ...body } = params;
-    return this._client.post(
-      path`/texml/Accounts/${account_sid}/Calls/${call_sid}/Siprec/${siprecSid}.json`,
-      {
-        body,
-        ...options,
-        headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-      },
-    );
+  siprecSidJson(siprecSid: string, params: SiprecSiprecSidJsonParams, options?: RequestOptions): APIPromise<SiprecSiprecSidJsonResponse> {
+    const { account_sid, call_sid, ...body } = params
+    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${call_sid}/Siprec/${siprecSid}.json`, { body, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
   }
 }
 
@@ -97,6 +86,6 @@ export interface SiprecSiprecSidJsonParams {
 export declare namespace Siprec {
   export {
     type SiprecSiprecSidJsonResponse as SiprecSiprecSidJsonResponse,
-    type SiprecSiprecSidJsonParams as SiprecSiprecSidJsonParams,
+    type SiprecSiprecSidJsonParams as SiprecSiprecSidJsonParams
   };
 }

@@ -23,5 +23,7 @@ export interface ActionRemoveResponse {
 }
 
 export declare namespace Actions {
-  export { type ActionRemoveResponse as ActionRemoveResponse };
+  export {
+    type ActionRemoveResponse as ActionRemoveResponse
+  };
 }

@@ -21,11 +21,7 @@ export class WhatsappMessageTemplates extends APIResource {
   /**
    * Update a Whatsapp message template
    */
-  update(
-    id: string,
-    body: WhatsappMessageTemplateUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<WhatsappMessageTemplateUpdateResponse> {
+  update(id: string, body: WhatsappMessageTemplateUpdateParams, options?: RequestOptions): APIPromise<WhatsappMessageTemplateUpdateResponse> {
     return this._client.patch(path`/v2/whatsapp_message_templates/${id}`, { body, ...options });
   }
 
@@ -33,10 +29,7 @@ export class WhatsappMessageTemplates extends APIResource {
    * Delete a Whatsapp message template
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v2/whatsapp_message_templates/${id}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/v2/whatsapp_message_templates/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
@@ -54,13 +47,7 @@ export interface WhatsappMessageTemplateUpdateParams {
   /**
    * Updated template components. Same structure as the create request.
    */
-  components?: Array<
-    | WhatsappMessageTemplateUpdateParams.Header
-    | WhatsappMessageTemplateUpdateParams.Body
-    | WhatsappMessageTemplateUpdateParams.Footer
-    | WhatsappMessageTemplateUpdateParams.Buttons
-    | WhatsappMessageTemplateUpdateParams.Carousel
-  >;
+  components?: Array<WhatsappMessageTemplateUpdateParams.Header | WhatsappMessageTemplateUpdateParams.Body | WhatsappMessageTemplateUpdateParams.Footer | WhatsappMessageTemplateUpdateParams.Buttons | WhatsappMessageTemplateUpdateParams.Carousel>;
 }
 
 export namespace WhatsappMessageTemplateUpdateParams {
@@ -257,6 +244,6 @@ export declare namespace WhatsappMessageTemplates {
   export {
     type WhatsappMessageTemplateRetrieveResponse as WhatsappMessageTemplateRetrieveResponse,
     type WhatsappMessageTemplateUpdateResponse as WhatsappMessageTemplateUpdateResponse,
-    type WhatsappMessageTemplateUpdateParams as WhatsappMessageTemplateUpdateParams,
+    type WhatsappMessageTemplateUpdateParams as WhatsappMessageTemplateUpdateParams
   };
 }

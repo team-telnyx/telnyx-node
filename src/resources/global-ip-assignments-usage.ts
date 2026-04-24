@@ -11,10 +11,7 @@ export class GlobalIPAssignmentsUsage extends APIResource {
   /**
    * Global IP Assignment Usage Metrics
    */
-  retrieve(
-    query: GlobalIPAssignmentsUsageRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<GlobalIPAssignmentsUsageRetrieveResponse> {
+  retrieve(query: GlobalIPAssignmentsUsageRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<GlobalIPAssignmentsUsageRetrieveResponse> {
     return this._client.get('/global_ip_assignments_usage', { query, ...options });
   }
 }
@@ -157,6 +154,6 @@ export namespace GlobalIPAssignmentsUsageRetrieveParams {
 export declare namespace GlobalIPAssignmentsUsage {
   export {
     type GlobalIPAssignmentsUsageRetrieveResponse as GlobalIPAssignmentsUsageRetrieveResponse,
-    type GlobalIPAssignmentsUsageRetrieveParams as GlobalIPAssignmentsUsageRetrieveParams,
+    type GlobalIPAssignmentsUsageRetrieveParams as GlobalIPAssignmentsUsageRetrieveParams
   };
 }

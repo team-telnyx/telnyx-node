@@ -64,6 +64,6 @@ export interface RegisterCreateParams {
 export declare namespace Register {
   export {
     type RegisterCreateResponse as RegisterCreateResponse,
-    type RegisterCreateParams as RegisterCreateParams,
+    type RegisterCreateParams as RegisterCreateParams
   };
 }

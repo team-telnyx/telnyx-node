@@ -2,45 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
-import {
-  ActionEndConferenceParams,
-  ActionEndConferenceResponse,
-  ActionGatherDtmfAudioParams,
-  ActionGatherDtmfAudioResponse,
-  ActionHoldParams,
-  ActionHoldResponse,
-  ActionJoinParams,
-  ActionJoinResponse,
-  ActionLeaveParams,
-  ActionLeaveResponse,
-  ActionMuteParams,
-  ActionMuteResponse,
-  ActionPlayParams,
-  ActionPlayResponse,
-  ActionRecordPauseParams,
-  ActionRecordPauseResponse,
-  ActionRecordResumeParams,
-  ActionRecordResumeResponse,
-  ActionRecordStartParams,
-  ActionRecordStartResponse,
-  ActionRecordStopParams,
-  ActionRecordStopResponse,
-  ActionSendDtmfParams,
-  ActionSendDtmfResponse,
-  ActionSpeakParams,
-  ActionSpeakResponse,
-  ActionStopParams,
-  ActionStopResponse,
-  ActionUnholdParams,
-  ActionUnholdResponse,
-  ActionUnmuteParams,
-  ActionUnmuteResponse,
-  ActionUpdateParams,
-  ActionUpdateResponse,
-  Actions,
-  ConferenceCommandResult,
-  UpdateConference,
-} from './actions';
+import { ActionEndConferenceParams, ActionEndConferenceResponse, ActionGatherDtmfAudioParams, ActionGatherDtmfAudioResponse, ActionHoldParams, ActionHoldResponse, ActionJoinParams, ActionJoinResponse, ActionLeaveParams, ActionLeaveResponse, ActionMuteParams, ActionMuteResponse, ActionPlayParams, ActionPlayResponse, ActionRecordPauseParams, ActionRecordPauseResponse, ActionRecordResumeParams, ActionRecordResumeResponse, ActionRecordStartParams, ActionRecordStartResponse, ActionRecordStopParams, ActionRecordStopResponse, ActionSendDtmfParams, ActionSendDtmfResponse, ActionSpeakParams, ActionSpeakResponse, ActionStopParams, ActionStopResponse, ActionUnholdParams, ActionUnholdResponse, ActionUnmuteParams, ActionUnmuteResponse, ActionUpdateParams, ActionUpdateResponse, Actions, ConferenceCommandResult, UpdateConference } from './actions';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -89,11 +51,7 @@ export class Conferences extends APIResource {
    * const conference = await client.conferences.retrieve('id');
    * ```
    */
-  retrieve(
-    id: string,
-    query: ConferenceRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ConferenceRetrieveResponse> {
+  retrieve(id: string, query: ConferenceRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<ConferenceRetrieveResponse> {
     return this._client.get(path`/conferences/${id}`, { query, ...options });
   }
 
@@ -111,10 +69,7 @@ export class Conferences extends APIResource {
    * }
    * ```
    */
-  list(
-    query: ConferenceListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ConferencesDefaultFlatPagination, Conference> {
+  list(query: ConferenceListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ConferencesDefaultFlatPagination, Conference> {
     return this._client.getAPIList('/conferences', DefaultFlatPagination<Conference>, { query, ...options });
   }
 
@@ -131,19 +86,8 @@ export class Conferences extends APIResource {
    * }
    * ```
    */
-  listParticipants(
-    conferenceID: string,
-    query: ConferenceListParticipantsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<
-    ConferenceListParticipantsResponsesDefaultFlatPagination,
-    ConferenceListParticipantsResponse
-  > {
-    return this._client.getAPIList(
-      path`/conferences/${conferenceID}/participants`,
-      DefaultFlatPagination<ConferenceListParticipantsResponse>,
-      { query, ...options },
-    );
+  listParticipants(conferenceID: string, query: ConferenceListParticipantsParams | null | undefined = {}, options?: RequestOptions): PagePromise<ConferenceListParticipantsResponsesDefaultFlatPagination, ConferenceListParticipantsResponse> {
+    return this._client.getAPIList(path`/conferences/${conferenceID}/participants`, DefaultFlatPagination<ConferenceListParticipantsResponse>, { query, ...options });
   }
 
   /**
@@ -158,12 +102,8 @@ export class Conferences extends APIResource {
    *   );
    * ```
    */
-  retrieveParticipant(
-    participantID: string,
-    params: ConferenceRetrieveParticipantParams,
-    options?: RequestOptions,
-  ): APIPromise<ConferenceRetrieveParticipantResponse> {
-    const { id } = params;
+  retrieveParticipant(participantID: string, params: ConferenceRetrieveParticipantParams, options?: RequestOptions): APIPromise<ConferenceRetrieveParticipantResponse> {
+    const { id } = params
     return this._client.get(path`/conferences/${id}/participants/${participantID}`, options);
   }
 
@@ -178,20 +118,15 @@ export class Conferences extends APIResource {
    * );
    * ```
    */
-  updateParticipant(
-    participantID: string,
-    params: ConferenceUpdateParticipantParams,
-    options?: RequestOptions,
-  ): APIPromise<ConferenceUpdateParticipantResponse> {
-    const { id, ...body } = params;
+  updateParticipant(participantID: string, params: ConferenceUpdateParticipantParams, options?: RequestOptions): APIPromise<ConferenceUpdateParticipantResponse> {
+    const { id, ...body } = params
     return this._client.patch(path`/conferences/${id}/participants/${participantID}`, { body, ...options });
   }
 }
 
-export type ConferencesDefaultFlatPagination = DefaultFlatPagination<Conference>;
+export type ConferencesDefaultFlatPagination = DefaultFlatPagination<Conference>
 
-export type ConferenceListParticipantsResponsesDefaultFlatPagination =
-  DefaultFlatPagination<ConferenceListParticipantsResponse>;
+export type ConferenceListParticipantsResponsesDefaultFlatPagination = DefaultFlatPagination<ConferenceListParticipantsResponse>
 
 export interface Conference {
   /**
@@ -740,7 +675,7 @@ export declare namespace Conferences {
     type ConferenceListParams as ConferenceListParams,
     type ConferenceListParticipantsParams as ConferenceListParticipantsParams,
     type ConferenceRetrieveParticipantParams as ConferenceRetrieveParticipantParams,
-    type ConferenceUpdateParticipantParams as ConferenceUpdateParticipantParams,
+    type ConferenceUpdateParticipantParams as ConferenceUpdateParticipantParams
   };
 
   export {
@@ -780,6 +715,6 @@ export declare namespace Conferences {
     type ActionSpeakParams as ActionSpeakParams,
     type ActionStopParams as ActionStopParams,
     type ActionUnholdParams as ActionUnholdParams,
-    type ActionUnmuteParams as ActionUnmuteParams,
+    type ActionUnmuteParams as ActionUnmuteParams
   };
 }

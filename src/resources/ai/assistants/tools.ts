@@ -21,7 +21,7 @@ export class Tools extends APIResource {
    * ```
    */
   add(toolID: string, params: ToolAddParams, options?: RequestOptions): APIPromise<unknown> {
-    const { assistant_id } = params;
+    const { assistant_id } = params
     return this._client.put(path`/ai/assistants/${assistant_id}/tools/${toolID}`, options);
   }
 
@@ -37,7 +37,7 @@ export class Tools extends APIResource {
    * ```
    */
   remove(toolID: string, params: ToolRemoveParams, options?: RequestOptions): APIPromise<unknown> {
-    const { assistant_id } = params;
+    const { assistant_id } = params
     return this._client.delete(path`/ai/assistants/${assistant_id}/tools/${toolID}`, options);
   }
 
@@ -53,14 +53,14 @@ export class Tools extends APIResource {
    * ```
    */
   test(toolID: string, params: ToolTestParams, options?: RequestOptions): APIPromise<ToolTestResponse> {
-    const { assistant_id, ...body } = params;
+    const { assistant_id, ...body } = params
     return this._client.post(path`/ai/assistants/${assistant_id}/tools/${toolID}/test`, { body, ...options });
   }
 }
 
-export type ToolAddResponse = unknown;
+export type ToolAddResponse = unknown
 
-export type ToolRemoveResponse = unknown;
+export type ToolRemoveResponse = unknown
 
 /**
  * Response model for webhook tool test results
@@ -121,6 +121,6 @@ export declare namespace Tools {
     type ToolTestResponse as ToolTestResponse,
     type ToolAddParams as ToolAddParams,
     type ToolRemoveParams as ToolRemoveParams,
-    type ToolTestParams as ToolTestParams,
+    type ToolTestParams as ToolTestParams
   };
 }

@@ -48,14 +48,8 @@ export class GlobalIPs extends APIResource {
    * }
    * ```
    */
-  list(
-    query: GlobalIPListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<GlobalIPListResponsesDefaultFlatPagination, GlobalIPListResponse> {
-    return this._client.getAPIList('/global_ips', DefaultFlatPagination<GlobalIPListResponse>, {
-      query,
-      ...options,
-    });
+  list(query: GlobalIPListParams | null | undefined = {}, options?: RequestOptions): PagePromise<GlobalIPListResponsesDefaultFlatPagination, GlobalIPListResponse> {
+    return this._client.getAPIList('/global_ips', DefaultFlatPagination<GlobalIPListResponse>, { query, ...options });
   }
 
   /**
@@ -73,7 +67,7 @@ export class GlobalIPs extends APIResource {
   }
 }
 
-export type GlobalIPListResponsesDefaultFlatPagination = DefaultFlatPagination<GlobalIPListResponse>;
+export type GlobalIPListResponsesDefaultFlatPagination = DefaultFlatPagination<GlobalIPListResponse>
 
 export interface GlobalIPCreateResponse {
   data?: GlobalIPCreateResponse.Data;
@@ -198,7 +192,8 @@ export interface GlobalIPCreateParams {
   ports?: { [key: string]: unknown };
 }
 
-export interface GlobalIPListParams extends DefaultFlatPaginationParams {}
+export interface GlobalIPListParams extends DefaultFlatPaginationParams {
+}
 
 export declare namespace GlobalIPs {
   export {
@@ -208,6 +203,6 @@ export declare namespace GlobalIPs {
     type GlobalIPDeleteResponse as GlobalIPDeleteResponse,
     type GlobalIPListResponsesDefaultFlatPagination as GlobalIPListResponsesDefaultFlatPagination,
     type GlobalIPCreateParams as GlobalIPCreateParams,
-    type GlobalIPListParams as GlobalIPListParams,
+    type GlobalIPListParams as GlobalIPListParams
   };
 }

@@ -13,10 +13,7 @@ export class NotificationProfiles extends APIResource {
   /**
    * Create a notification profile.
    */
-  create(
-    body: NotificationProfileCreateParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<NotificationProfileCreateResponse> {
+  create(body: NotificationProfileCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<NotificationProfileCreateResponse> {
     return this._client.post('/notification_profiles', { body, ...options });
   }
 
@@ -30,25 +27,15 @@ export class NotificationProfiles extends APIResource {
   /**
    * Update a notification profile.
    */
-  update(
-    notificationProfileID: string,
-    body: NotificationProfileUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<NotificationProfileUpdateResponse> {
+  update(notificationProfileID: string, body: NotificationProfileUpdateParams, options?: RequestOptions): APIPromise<NotificationProfileUpdateResponse> {
     return this._client.patch(path`/notification_profiles/${notificationProfileID}`, { body, ...options });
   }
 
   /**
    * Returns a list of your notifications profiles.
    */
-  list(
-    query: NotificationProfileListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NotificationProfilesDefaultFlatPagination, NotificationProfile> {
-    return this._client.getAPIList('/notification_profiles', DefaultFlatPagination<NotificationProfile>, {
-      query,
-      ...options,
-    });
+  list(query: NotificationProfileListParams | null | undefined = {}, options?: RequestOptions): PagePromise<NotificationProfilesDefaultFlatPagination, NotificationProfile> {
+    return this._client.getAPIList('/notification_profiles', DefaultFlatPagination<NotificationProfile>, { query, ...options });
   }
 
   /**
@@ -59,7 +46,7 @@ export class NotificationProfiles extends APIResource {
   }
 }
 
-export type NotificationProfilesDefaultFlatPagination = DefaultFlatPagination<NotificationProfile>;
+export type NotificationProfilesDefaultFlatPagination = DefaultFlatPagination<NotificationProfile>
 
 /**
  * A Collection of Notification Channels
@@ -128,7 +115,8 @@ export interface NotificationProfileUpdateParams {
   name?: string;
 }
 
-export interface NotificationProfileListParams extends DefaultFlatPaginationParams {}
+export interface NotificationProfileListParams extends DefaultFlatPaginationParams {
+}
 
 export declare namespace NotificationProfiles {
   export {
@@ -140,6 +128,6 @@ export declare namespace NotificationProfiles {
     type NotificationProfilesDefaultFlatPagination as NotificationProfilesDefaultFlatPagination,
     type NotificationProfileCreateParams as NotificationProfileCreateParams,
     type NotificationProfileUpdateParams as NotificationProfileUpdateParams,
-    type NotificationProfileListParams as NotificationProfileListParams,
+    type NotificationProfileListParams as NotificationProfileListParams
   };
 }

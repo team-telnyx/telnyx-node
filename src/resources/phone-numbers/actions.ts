@@ -24,11 +24,7 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  changeBundleStatus(
-    id: string,
-    body: ActionChangeBundleStatusParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionChangeBundleStatusResponse> {
+  changeBundleStatus(id: string, body: ActionChangeBundleStatusParams, options?: RequestOptions): APIPromise<ActionChangeBundleStatusResponse> {
     return this._client.patch(path`/phone_numbers/${id}/actions/bundle_status_change`, { body, ...options });
   }
 
@@ -47,11 +43,7 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  enableEmergency(
-    id: string,
-    body: ActionEnableEmergencyParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionEnableEmergencyResponse> {
+  enableEmergency(id: string, body: ActionEnableEmergencyParams, options?: RequestOptions): APIPromise<ActionEnableEmergencyResponse> {
     return this._client.post(path`/phone_numbers/${id}/actions/enable_emergency`, { body, ...options });
   }
 
@@ -67,16 +59,12 @@ export class Actions extends APIResource {
    *   });
    * ```
    */
-  verifyOwnership(
-    body: ActionVerifyOwnershipParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionVerifyOwnershipResponse> {
+  verifyOwnership(body: ActionVerifyOwnershipParams, options?: RequestOptions): APIPromise<ActionVerifyOwnershipResponse> {
     return this._client.post('/phone_numbers/actions/verify_ownership', { body, ...options });
   }
 }
 
-export type PhoneNumberWithVoiceSettingsDefaultFlatPagination =
-  DefaultFlatPagination<PhoneNumberWithVoiceSettings>;
+export type PhoneNumberWithVoiceSettingsDefaultFlatPagination = DefaultFlatPagination<PhoneNumberWithVoiceSettings>
 
 export interface PhoneNumberWithVoiceSettings {
   /**
@@ -261,6 +249,6 @@ export declare namespace Actions {
     type ActionVerifyOwnershipResponse as ActionVerifyOwnershipResponse,
     type ActionChangeBundleStatusParams as ActionChangeBundleStatusParams,
     type ActionEnableEmergencyParams as ActionEnableEmergencyParams,
-    type ActionVerifyOwnershipParams as ActionVerifyOwnershipParams,
+    type ActionVerifyOwnershipParams as ActionVerifyOwnershipParams
   };
 }

@@ -2,10 +2,7 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource rcs', () => {
   // Mock server tests are disabled
@@ -27,10 +24,7 @@ describe('resource rcs', () => {
 
   // Mock server tests are disabled
   test.skip('listBulkCapabilities: only required params', async () => {
-    const responsePromise = client.messaging.rcs.listBulkCapabilities({
-      agent_id: 'TestAgent',
-      phone_numbers: ['+13125551234'],
-    });
+    const responsePromise = client.messaging.rcs.listBulkCapabilities({ agent_id: 'TestAgent', phone_numbers: ['+13125551234'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -42,17 +36,12 @@ describe('resource rcs', () => {
 
   // Mock server tests are disabled
   test.skip('listBulkCapabilities: required and optional params', async () => {
-    const response = await client.messaging.rcs.listBulkCapabilities({
-      agent_id: 'TestAgent',
-      phone_numbers: ['+13125551234'],
-    });
+    const response = await client.messaging.rcs.listBulkCapabilities({ agent_id: 'TestAgent', phone_numbers: ['+13125551234'] });
   });
 
   // Mock server tests are disabled
   test.skip('retrieveCapabilities: only required params', async () => {
-    const responsePromise = client.messaging.rcs.retrieveCapabilities('phone_number', {
-      agent_id: 'agent_id',
-    });
+    const responsePromise = client.messaging.rcs.retrieveCapabilities('phone_number', { agent_id: 'agent_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -64,8 +53,6 @@ describe('resource rcs', () => {
 
   // Mock server tests are disabled
   test.skip('retrieveCapabilities: required and optional params', async () => {
-    const response = await client.messaging.rcs.retrieveCapabilities('phone_number', {
-      agent_id: 'agent_id',
-    });
+    const response = await client.messaging.rcs.retrieveCapabilities('phone_number', { agent_id: 'agent_id' });
   });
 });

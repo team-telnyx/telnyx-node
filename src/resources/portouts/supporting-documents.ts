@@ -20,11 +20,7 @@ export class SupportingDocuments extends APIResource {
    *   );
    * ```
    */
-  create(
-    id: string,
-    body: SupportingDocumentCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<SupportingDocumentCreateResponse> {
+  create(id: string, body: SupportingDocumentCreateParams, options?: RequestOptions): APIPromise<SupportingDocumentCreateResponse> {
     return this._client.post(path`/portouts/${id}/supporting_documents`, { body, ...options });
   }
 
@@ -112,6 +108,6 @@ export declare namespace SupportingDocuments {
     type PortOutSupportingDocument as PortOutSupportingDocument,
     type SupportingDocumentCreateResponse as SupportingDocumentCreateResponse,
     type SupportingDocumentListResponse as SupportingDocumentListResponse,
-    type SupportingDocumentCreateParams as SupportingDocumentCreateParams,
+    type SupportingDocumentCreateParams as SupportingDocumentCreateParams
   };
 }

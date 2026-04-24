@@ -2,14 +2,7 @@
 
 import { APIResource } from '../../../core/resource';
 import * as ExternalVettingAPI from './external-vetting';
-import {
-  ExternalVetting,
-  ExternalVettingImportsParams,
-  ExternalVettingImportsResponse,
-  ExternalVettingListResponse,
-  ExternalVettingOrderParams,
-  ExternalVettingOrderResponse,
-} from './external-vetting';
+import { ExternalVetting, ExternalVettingImportsParams, ExternalVettingImportsResponse, ExternalVettingListResponse, ExternalVettingOrderParams, ExternalVettingOrderResponse } from './external-vetting';
 import { APIPromise } from '../../../core/api-promise';
 import { PagePromise, PerPagePaginationV2, type PerPagePaginationV2Params } from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
@@ -88,14 +81,8 @@ export class Brand extends APIResource {
    * }
    * ```
    */
-  list(
-    query: BrandListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<BrandListResponsesPerPagePaginationV2, BrandListResponse> {
-    return this._client.getAPIList('/10dlc/brand', PerPagePaginationV2<BrandListResponse>, {
-      query,
-      ...options,
-    });
+  list(query: BrandListParams | null | undefined = {}, options?: RequestOptions): PagePromise<BrandListResponsesPerPagePaginationV2, BrandListResponse> {
+    return this._client.getAPIList('/10dlc/brand', PerPagePaginationV2<BrandListResponse>, { query, ...options });
   }
 
   /**
@@ -109,10 +96,7 @@ export class Brand extends APIResource {
    * ```
    */
   delete(brandID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/10dlc/brand/${brandID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/10dlc/brand/${brandID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
@@ -162,11 +146,7 @@ export class Brand extends APIResource {
    *   );
    * ```
    */
-  getSMSOtpByReference(
-    referenceID: string,
-    query: BrandGetSMSOtpByReferenceParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<BrandGetSMSOtpByReferenceResponse> {
+  getSMSOtpByReference(referenceID: string, query: BrandGetSMSOtpByReferenceParams | null | undefined = {}, options?: RequestOptions): APIPromise<BrandGetSMSOtpByReferenceResponse> {
     return this._client.get(path`/10dlc/brand/smsOtp/${referenceID}`, { query, ...options });
   }
 
@@ -179,10 +159,7 @@ export class Brand extends APIResource {
    * ```
    */
   resend2faEmail(brandID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/10dlc/brand/${brandID}/2faEmail`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.post(path`/10dlc/brand/${brandID}/2faEmail`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
@@ -207,10 +184,7 @@ export class Brand extends APIResource {
    *   );
    * ```
    */
-  retrieveSMSOtpStatus(
-    brandID: string,
-    options?: RequestOptions,
-  ): APIPromise<BrandRetrieveSMSOtpStatusResponse> {
+  retrieveSMSOtpStatus(brandID: string, options?: RequestOptions): APIPromise<BrandRetrieveSMSOtpStatusResponse> {
     return this._client.get(path`/10dlc/brand/${brandID}/smsOtp`, options);
   }
 
@@ -262,11 +236,7 @@ export class Brand extends APIResource {
    *   );
    * ```
    */
-  triggerSMSOtp(
-    brandID: string,
-    body: BrandTriggerSMSOtpParams,
-    options?: RequestOptions,
-  ): APIPromise<BrandTriggerSMSOtpResponse> {
+  triggerSMSOtp(brandID: string, body: BrandTriggerSMSOtpParams, options?: RequestOptions): APIPromise<BrandTriggerSMSOtpResponse> {
     return this._client.post(path`/10dlc/brand/${brandID}/smsOtp`, { body, ...options });
   }
 
@@ -299,25 +269,21 @@ export class Brand extends APIResource {
    * ```
    */
   verifySMSOtp(brandID: string, body: BrandVerifySMSOtpParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.put(path`/10dlc/brand/${brandID}/smsOtp`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.put(path`/10dlc/brand/${brandID}/smsOtp`, { body, ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
-export type BrandListResponsesPerPagePaginationV2 = PerPagePaginationV2<BrandListResponse>;
+export type BrandListResponsesPerPagePaginationV2 = PerPagePaginationV2<BrandListResponse>
 
 /**
  * An enumeration.
  */
-export type AltBusinessIDType = 'NONE' | 'DUNS' | 'GIIN' | 'LEI';
+export type AltBusinessIDType = 'NONE' | 'DUNS' | 'GIIN' | 'LEI'
 
 /**
  * The verification status of an active brand
  */
-export type BrandIdentityStatus = 'VERIFIED' | 'UNVERIFIED' | 'SELF_DECLARED' | 'VETTED_VERIFIED';
+export type BrandIdentityStatus = 'VERIFIED' | 'UNVERIFIED' | 'SELF_DECLARED' | 'VETTED_VERIFIED'
 
 export interface BrandOptionalAttributes {
   /**
@@ -329,37 +295,12 @@ export interface BrandOptionalAttributes {
 /**
  * Entity type behind the brand. This is the form of business establishment.
  */
-export type EntityType = 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT' | 'SOLE_PROPRIETOR';
+export type EntityType = 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT' | 'SOLE_PROPRIETOR'
 
 /**
  * (Required for public company) stock exchange.
  */
-export type StockExchange =
-  | 'NONE'
-  | 'NASDAQ'
-  | 'NYSE'
-  | 'AMEX'
-  | 'AMX'
-  | 'ASX'
-  | 'B3'
-  | 'BME'
-  | 'BSE'
-  | 'FRA'
-  | 'ICEX'
-  | 'JPX'
-  | 'JSE'
-  | 'KRX'
-  | 'LON'
-  | 'NSE'
-  | 'OMX'
-  | 'SEHK'
-  | 'SSE'
-  | 'STO'
-  | 'SWX'
-  | 'SZSE'
-  | 'TSX'
-  | 'TWSE'
-  | 'VSE';
+export type StockExchange = 'NONE' | 'NASDAQ' | 'NYSE' | 'AMEX' | 'AMX' | 'ASX' | 'B3' | 'BME' | 'BSE' | 'FRA' | 'ICEX' | 'JPX' | 'JSE' | 'KRX' | 'LON' | 'NSE' | 'OMX' | 'SEHK' | 'SSE' | 'STO' | 'SWX' | 'SZSE' | 'TSX' | 'TWSE' | 'VSE'
 
 /**
  * Telnyx-specific extensions to The Campaign Registry's `Brand` type
@@ -559,30 +500,7 @@ export interface TelnyxBrand {
 /**
  * Vertical or industry segment of the brand or campaign.
  */
-export type Vertical =
-  | 'AGRICULTURE'
-  | 'COMMUNICATION'
-  | 'CONSTRUCTION'
-  | 'EDUCATION'
-  | 'ENERGY'
-  | 'ENTERTAINMENT'
-  | 'FINANCIAL'
-  | 'GAMBLING'
-  | 'GOVERNMENT'
-  | 'HEALTHCARE'
-  | 'HOSPITALITY'
-  | 'HUMAN_RESOURCES'
-  | 'INSURANCE'
-  | 'LEGAL'
-  | 'MANUFACTURING'
-  | 'NGO'
-  | 'POLITICAL'
-  | 'POSTAL'
-  | 'PROFESSIONAL'
-  | 'REAL_ESTATE'
-  | 'RETAIL'
-  | 'TECHNOLOGY'
-  | 'TRANSPORTATION';
+export type Vertical = 'AGRICULTURE' | 'COMMUNICATION' | 'CONSTRUCTION' | 'EDUCATION' | 'ENERGY' | 'ENTERTAINMENT' | 'FINANCIAL' | 'GAMBLING' | 'GOVERNMENT' | 'HEALTHCARE' | 'HOSPITALITY' | 'HUMAN_RESOURCES' | 'INSURANCE' | 'LEGAL' | 'MANUFACTURING' | 'NGO' | 'POLITICAL' | 'POSTAL' | 'PROFESSIONAL' | 'REAL_ESTATE' | 'RETAIL' | 'TECHNOLOGY' | 'TRANSPORTATION'
 
 /**
  * Telnyx-specific extensions to The Campaign Registry's `Brand` type
@@ -1071,21 +989,7 @@ export interface BrandListParams extends PerPagePaginationV2Params {
    * Specifies the sort order for results. If not given, results are sorted by
    * createdAt in descending order.
    */
-  sort?:
-    | 'assignedCampaignsCount'
-    | '-assignedCampaignsCount'
-    | 'brandId'
-    | '-brandId'
-    | 'createdAt'
-    | '-createdAt'
-    | 'displayName'
-    | '-displayName'
-    | 'identityStatus'
-    | '-identityStatus'
-    | 'status'
-    | '-status'
-    | 'tcrBrandId'
-    | '-tcrBrandId';
+  sort?: 'assignedCampaignsCount' | '-assignedCampaignsCount' | 'brandId' | '-brandId' | 'createdAt' | '-createdAt' | 'displayName' | '-displayName' | 'identityStatus' | '-identityStatus' | 'status' | '-status' | 'tcrBrandId' | '-tcrBrandId';
 
   state?: string;
 
@@ -1145,7 +1049,7 @@ export declare namespace Brand {
     type BrandListParams as BrandListParams,
     type BrandGetSMSOtpByReferenceParams as BrandGetSMSOtpByReferenceParams,
     type BrandTriggerSMSOtpParams as BrandTriggerSMSOtpParams,
-    type BrandVerifySMSOtpParams as BrandVerifySMSOtpParams,
+    type BrandVerifySMSOtpParams as BrandVerifySMSOtpParams
   };
 
   export {
@@ -1154,6 +1058,6 @@ export declare namespace Brand {
     type ExternalVettingImportsResponse as ExternalVettingImportsResponse,
     type ExternalVettingOrderResponse as ExternalVettingOrderResponse,
     type ExternalVettingImportsParams as ExternalVettingImportsParams,
-    type ExternalVettingOrderParams as ExternalVettingOrderParams,
+    type ExternalVettingOrderParams as ExternalVettingOrderParams
   };
 }

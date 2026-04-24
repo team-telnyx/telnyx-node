@@ -2,27 +2,11 @@
 
 import { APIResource } from '../../../core/resource';
 import * as PhoneNumbersAPI from './phone-numbers';
-import {
-  PhoneNumberInitializeVerificationParams,
-  PhoneNumberListParams,
-  PhoneNumberListResponse,
-  PhoneNumberListResponsesDefaultFlatPagination,
-  PhoneNumbers,
-} from './phone-numbers';
+import { PhoneNumberInitializeVerificationParams, PhoneNumberListParams, PhoneNumberListResponse, PhoneNumberListResponsesDefaultFlatPagination, PhoneNumbers } from './phone-numbers';
 import * as SettingsAPI from './settings';
-import {
-  SettingRetrieveResponse,
-  SettingUpdateParams,
-  SettingUpdateResponse,
-  Settings,
-  WabaSettings,
-} from './settings';
+import { SettingRetrieveResponse, SettingUpdateParams, SettingUpdateResponse, Settings, WabaSettings } from './settings';
 import { APIPromise } from '../../../core/api-promise';
-import {
-  DefaultFlatPagination,
-  type DefaultFlatPaginationParams,
-  PagePromise,
-} from '../../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -58,15 +42,8 @@ export class BusinessAccounts extends APIResource {
    * }
    * ```
    */
-  list(
-    query: BusinessAccountListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<BusinessAccountListResponsesDefaultFlatPagination, BusinessAccountListResponse> {
-    return this._client.getAPIList(
-      '/v2/whatsapp/business_accounts',
-      DefaultFlatPagination<BusinessAccountListResponse>,
-      { query, ...options },
-    );
+  list(query: BusinessAccountListParams | null | undefined = {}, options?: RequestOptions): PagePromise<BusinessAccountListResponsesDefaultFlatPagination, BusinessAccountListResponse> {
+    return this._client.getAPIList('/v2/whatsapp/business_accounts', DefaultFlatPagination<BusinessAccountListResponse>, { query, ...options });
   }
 
   /**
@@ -78,15 +55,11 @@ export class BusinessAccounts extends APIResource {
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v2/whatsapp/business_accounts/${id}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/v2/whatsapp/business_accounts/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
-export type BusinessAccountListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<BusinessAccountListResponse>;
+export type BusinessAccountListResponsesDefaultFlatPagination = DefaultFlatPagination<BusinessAccountListResponse>
 
 export interface BusinessAccountRetrieveResponse {
   data?: BusinessAccountRetrieveResponse.Data;
@@ -186,7 +159,8 @@ export interface BusinessAccountListResponse {
   waba_id?: string;
 }
 
-export interface BusinessAccountListParams extends DefaultFlatPaginationParams {}
+export interface BusinessAccountListParams extends DefaultFlatPaginationParams {
+}
 
 BusinessAccounts.PhoneNumbers = PhoneNumbers;
 BusinessAccounts.Settings = Settings;
@@ -196,7 +170,7 @@ export declare namespace BusinessAccounts {
     type BusinessAccountRetrieveResponse as BusinessAccountRetrieveResponse,
     type BusinessAccountListResponse as BusinessAccountListResponse,
     type BusinessAccountListResponsesDefaultFlatPagination as BusinessAccountListResponsesDefaultFlatPagination,
-    type BusinessAccountListParams as BusinessAccountListParams,
+    type BusinessAccountListParams as BusinessAccountListParams
   };
 
   export {
@@ -204,7 +178,7 @@ export declare namespace BusinessAccounts {
     type PhoneNumberListResponse as PhoneNumberListResponse,
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
-    type PhoneNumberInitializeVerificationParams as PhoneNumberInitializeVerificationParams,
+    type PhoneNumberInitializeVerificationParams as PhoneNumberInitializeVerificationParams
   };
 
   export {
@@ -212,6 +186,6 @@ export declare namespace BusinessAccounts {
     type WabaSettings as WabaSettings,
     type SettingRetrieveResponse as SettingRetrieveResponse,
     type SettingUpdateResponse as SettingUpdateResponse,
-    type SettingUpdateParams as SettingUpdateParams,
+    type SettingUpdateParams as SettingUpdateParams
   };
 }

@@ -23,17 +23,9 @@ export class RecordingsJson extends APIResource {
    *   );
    * ```
    */
-  recordingsJson(
-    callSid: string,
-    params: RecordingsJsonRecordingsJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<RecordingsJsonRecordingsJsonResponse> {
-    const { account_sid, ...body } = params;
-    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}/Recordings.json`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-    });
+  recordingsJson(callSid: string, params: RecordingsJsonRecordingsJsonParams, options?: RequestOptions): APIPromise<RecordingsJsonRecordingsJsonResponse> {
+    const { account_sid, ...body } = params
+    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}/Recordings.json`, { body, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
   }
 
   /**
@@ -48,12 +40,8 @@ export class RecordingsJson extends APIResource {
    *   );
    * ```
    */
-  retrieveRecordingsJson(
-    callSid: string,
-    params: RecordingsJsonRetrieveRecordingsJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<RecordingsJsonRetrieveRecordingsJsonResponse> {
-    const { account_sid } = params;
+  retrieveRecordingsJson(callSid: string, params: RecordingsJsonRetrieveRecordingsJsonParams, options?: RequestOptions): APIPromise<RecordingsJsonRetrieveRecordingsJsonResponse> {
+    const { account_sid } = params
     return this._client.get(path`/texml/Accounts/${account_sid}/Calls/${callSid}/Recordings.json`, options);
   }
 }
@@ -96,14 +84,7 @@ export interface RecordingsJsonRecordingsJsonResponse {
   /**
    * Defines how the recording was created.
    */
-  source?:
-    | 'StartCallRecordingAPI'
-    | 'StartConferenceRecordingAPI'
-    | 'OutboundAPI'
-    | 'DialVerb'
-    | 'Conference'
-    | 'RecordVerb'
-    | 'Trunking';
+  source?: 'StartCallRecordingAPI' | 'StartConferenceRecordingAPI' | 'OutboundAPI' | 'DialVerb' | 'Conference' | 'RecordVerb' | 'Trunking';
 
   start_time?: string;
 
@@ -219,6 +200,6 @@ export declare namespace RecordingsJson {
     type RecordingsJsonRecordingsJsonResponse as RecordingsJsonRecordingsJsonResponse,
     type RecordingsJsonRetrieveRecordingsJsonResponse as RecordingsJsonRetrieveRecordingsJsonResponse,
     type RecordingsJsonRecordingsJsonParams as RecordingsJsonRecordingsJsonParams,
-    type RecordingsJsonRetrieveRecordingsJsonParams as RecordingsJsonRetrieveRecordingsJsonParams,
+    type RecordingsJsonRetrieveRecordingsJsonParams as RecordingsJsonRetrieveRecordingsJsonParams
   };
 }

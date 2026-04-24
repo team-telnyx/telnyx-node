@@ -302,6 +302,6 @@ export declare namespace Voice {
     type VoiceListResponse as VoiceListResponse,
     type VoiceDeleteResponse as VoiceDeleteResponse,
     type VoiceRetrieveFieldsResponse as VoiceRetrieveFieldsResponse,
-    type VoiceCreateParams as VoiceCreateParams,
+    type VoiceCreateParams as VoiceCreateParams
   };
 }

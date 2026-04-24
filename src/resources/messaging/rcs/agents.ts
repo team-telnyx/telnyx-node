@@ -4,11 +4,7 @@ import { APIResource } from '../../../core/resource';
 import * as RcsAgentsAPI from '../../rcs-agents';
 import { RcsAgentsDefaultFlatPagination } from '../../rcs-agents';
 import { APIPromise } from '../../../core/api-promise';
-import {
-  DefaultFlatPagination,
-  type DefaultFlatPaginationParams,
-  PagePromise,
-} from '../../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -38,11 +34,7 @@ export class Agents extends APIResource {
    *   await client.messaging.rcs.agents.update('id');
    * ```
    */
-  update(
-    id: string,
-    body: AgentUpdateParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<RcsAgentsAPI.RcsAgentResponse> {
+  update(id: string, body: AgentUpdateParams | null | undefined = {}, options?: RequestOptions): APIPromise<RcsAgentsAPI.RcsAgentResponse> {
     return this._client.patch(path`/messaging/rcs/agents/${id}`, { body, ...options });
   }
 
@@ -57,14 +49,8 @@ export class Agents extends APIResource {
    * }
    * ```
    */
-  list(
-    query: AgentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<RcsAgentsDefaultFlatPagination, RcsAgentsAPI.RcsAgent> {
-    return this._client.getAPIList('/messaging/rcs/agents', DefaultFlatPagination<RcsAgentsAPI.RcsAgent>, {
-      query,
-      ...options,
-    });
+  list(query: AgentListParams | null | undefined = {}, options?: RequestOptions): PagePromise<RcsAgentsDefaultFlatPagination, RcsAgentsAPI.RcsAgent> {
+    return this._client.getAPIList('/messaging/rcs/agents', DefaultFlatPagination<RcsAgentsAPI.RcsAgent>, { query, ...options });
   }
 }
 
@@ -85,10 +71,14 @@ export interface AgentUpdateParams {
   webhook_url?: string | null;
 }
 
-export interface AgentListParams extends DefaultFlatPaginationParams {}
-
-export declare namespace Agents {
-  export { type AgentUpdateParams as AgentUpdateParams, type AgentListParams as AgentListParams };
+export interface AgentListParams extends DefaultFlatPaginationParams {
 }
 
-export { type RcsAgentsDefaultFlatPagination };
+export declare namespace Agents {
+  export {
+    type AgentUpdateParams as AgentUpdateParams,
+    type AgentListParams as AgentListParams
+  };
+}
+
+export { type RcsAgentsDefaultFlatPagination }

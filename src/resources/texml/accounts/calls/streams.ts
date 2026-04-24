@@ -22,20 +22,9 @@ export class Streams extends APIResource {
    *   );
    * ```
    */
-  streamingSidJson(
-    streamingSid: string,
-    params: StreamStreamingSidJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<StreamStreamingSidJsonResponse> {
-    const { account_sid, call_sid, ...body } = params;
-    return this._client.post(
-      path`/texml/Accounts/${account_sid}/Calls/${call_sid}/Streams/${streamingSid}.json`,
-      {
-        body,
-        ...options,
-        headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-      },
-    );
+  streamingSidJson(streamingSid: string, params: StreamStreamingSidJsonParams, options?: RequestOptions): APIPromise<StreamStreamingSidJsonResponse> {
+    const { account_sid, call_sid, ...body } = params
+    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${call_sid}/Streams/${streamingSid}.json`, { body, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
   }
 }
 
@@ -82,6 +71,6 @@ export interface StreamStreamingSidJsonParams {
 export declare namespace Streams {
   export {
     type StreamStreamingSidJsonResponse as StreamStreamingSidJsonResponse,
-    type StreamStreamingSidJsonParams as StreamStreamingSidJsonParams,
+    type StreamStreamingSidJsonParams as StreamStreamingSidJsonParams
   };
 }

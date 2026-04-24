@@ -16,11 +16,7 @@ export class ChannelZones extends APIResource {
    * this endpoint to increase or decrease your capacity based on expected call
    * volume.
    */
-  update(
-    channelZoneID: string,
-    body: ChannelZoneUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<ChannelZoneUpdateResponse> {
+  update(channelZoneID: string, body: ChannelZoneUpdateParams, options?: RequestOptions): APIPromise<ChannelZoneUpdateResponse> {
     return this._client.put(path`/channel_zones/${channelZoneID}`, { body, ...options });
   }
 
@@ -31,18 +27,12 @@ export class ChannelZones extends APIResource {
    * Support Articles</a> section for full information and examples of how to utilize
    * Channel Billing.
    */
-  list(
-    query: ChannelZoneListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ChannelZoneListResponsesDefaultFlatPagination, ChannelZoneListResponse> {
-    return this._client.getAPIList('/channel_zones', DefaultFlatPagination<ChannelZoneListResponse>, {
-      query,
-      ...options,
-    });
+  list(query: ChannelZoneListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ChannelZoneListResponsesDefaultFlatPagination, ChannelZoneListResponse> {
+    return this._client.getAPIList('/channel_zones', DefaultFlatPagination<ChannelZoneListResponse>, { query, ...options });
   }
 }
 
-export type ChannelZoneListResponsesDefaultFlatPagination = DefaultFlatPagination<ChannelZoneListResponse>;
+export type ChannelZoneListResponsesDefaultFlatPagination = DefaultFlatPagination<ChannelZoneListResponse>
 
 export interface ChannelZoneUpdateResponse {
   id: string;
@@ -103,7 +93,8 @@ export interface ChannelZoneUpdateParams {
   channels: number;
 }
 
-export interface ChannelZoneListParams extends DefaultFlatPaginationParams {}
+export interface ChannelZoneListParams extends DefaultFlatPaginationParams {
+}
 
 export declare namespace ChannelZones {
   export {
@@ -111,6 +102,6 @@ export declare namespace ChannelZones {
     type ChannelZoneListResponse as ChannelZoneListResponse,
     type ChannelZoneListResponsesDefaultFlatPagination as ChannelZoneListResponsesDefaultFlatPagination,
     type ChannelZoneUpdateParams as ChannelZoneUpdateParams,
-    type ChannelZoneListParams as ChannelZoneListParams,
+    type ChannelZoneListParams as ChannelZoneListParams
   };
 }

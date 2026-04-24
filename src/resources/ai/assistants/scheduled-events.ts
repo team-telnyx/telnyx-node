@@ -2,11 +2,7 @@
 
 import { APIResource } from '../../../core/resource';
 import { APIPromise } from '../../../core/api-promise';
-import {
-  DefaultFlatPagination,
-  type DefaultFlatPaginationParams,
-  PagePromise,
-} from '../../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -33,11 +29,7 @@ export class ScheduledEvents extends APIResource {
    *   );
    * ```
    */
-  create(
-    assistantID: string,
-    body: ScheduledEventCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<ScheduledEventResponse> {
+  create(assistantID: string, body: ScheduledEventCreateParams, options?: RequestOptions): APIPromise<ScheduledEventResponse> {
     return this._client.post(path`/ai/assistants/${assistantID}/scheduled_events`, { body, ...options });
   }
 
@@ -53,12 +45,8 @@ export class ScheduledEvents extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    eventID: string,
-    params: ScheduledEventRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<ScheduledEventResponse> {
-    const { assistant_id } = params;
+  retrieve(eventID: string, params: ScheduledEventRetrieveParams, options?: RequestOptions): APIPromise<ScheduledEventResponse> {
+    const { assistant_id } = params
     return this._client.get(path`/ai/assistants/${assistant_id}/scheduled_events/${eventID}`, options);
   }
 
@@ -75,16 +63,8 @@ export class ScheduledEvents extends APIResource {
    * }
    * ```
    */
-  list(
-    assistantID: string,
-    query: ScheduledEventListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ScheduledEventListResponsesDefaultFlatPagination, ScheduledEventListResponse> {
-    return this._client.getAPIList(
-      path`/ai/assistants/${assistantID}/scheduled_events`,
-      DefaultFlatPagination<ScheduledEventListResponse>,
-      { query, ...options },
-    );
+  list(assistantID: string, query: ScheduledEventListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ScheduledEventListResponsesDefaultFlatPagination, ScheduledEventListResponse> {
+    return this._client.getAPIList(path`/ai/assistants/${assistantID}/scheduled_events`, DefaultFlatPagination<ScheduledEventListResponse>, { query, ...options });
   }
 
   /**
@@ -100,25 +80,21 @@ export class ScheduledEvents extends APIResource {
    * ```
    */
   delete(eventID: string, params: ScheduledEventDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { assistant_id } = params;
-    return this._client.delete(path`/ai/assistants/${assistant_id}/scheduled_events/${eventID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    const { assistant_id } = params
+    return this._client.delete(path`/ai/assistants/${assistant_id}/scheduled_events/${eventID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
-export type ScheduledEventListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<ScheduledEventListResponse>;
+export type ScheduledEventListResponsesDefaultFlatPagination = DefaultFlatPagination<ScheduledEventListResponse>
 
-export type ConversationChannelType = 'phone_call' | 'sms_chat';
+export type ConversationChannelType = 'phone_call' | 'sms_chat'
 
-export type EventStatus = 'pending' | 'in_progress' | 'completed' | 'failed';
+export type EventStatus = 'pending' | 'in_progress' | 'completed' | 'failed'
 
 /**
  * Union type for different scheduled event response types
  */
-export type ScheduledEventResponse = ScheduledPhoneCallEventResponse | ScheduledSMSEventResponse;
+export type ScheduledEventResponse = ScheduledPhoneCallEventResponse | ScheduledSMSEventResponse
 
 export interface ScheduledPhoneCallEventResponse {
   assistant_id: string;
@@ -188,7 +164,7 @@ export interface ScheduledSMSEventResponse {
   status?: EventStatus;
 }
 
-export type ScheduledEventListResponse = ScheduledPhoneCallEventResponse | ScheduledSMSEventResponse;
+export type ScheduledEventListResponse = ScheduledPhoneCallEventResponse | ScheduledSMSEventResponse
 
 export interface ScheduledEventCreateParams {
   /**
@@ -254,6 +230,6 @@ export declare namespace ScheduledEvents {
     type ScheduledEventCreateParams as ScheduledEventCreateParams,
     type ScheduledEventRetrieveParams as ScheduledEventRetrieveParams,
     type ScheduledEventListParams as ScheduledEventListParams,
-    type ScheduledEventDeleteParams as ScheduledEventDeleteParams,
+    type ScheduledEventDeleteParams as ScheduledEventDeleteParams
   };
 }

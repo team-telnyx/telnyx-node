@@ -2,10 +2,7 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource trafficPolicyProfiles', () => {
   // Mock server tests are disabled
@@ -23,12 +20,12 @@ describe('resource trafficPolicyProfiles', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.trafficPolicyProfiles.create({
-      type: 'whitelist',
-      domains: ['www.hbomax.com', 'netflix.com'],
-      ip_ranges: ['10.64.0.0/24', '10.64.0.0/25'],
-      limit_bw_kbps: 512,
-      services: ['service_123', 'service_456'],
-    });
+    type: 'whitelist',
+    domains: ['www.hbomax.com', 'netflix.com'],
+    ip_ranges: ['10.64.0.0/24', '10.64.0.0/25'],
+    limit_bw_kbps: 512,
+    services: ['service_123', 'service_456'],
+  });
   });
 
   // Mock server tests are disabled
@@ -70,18 +67,15 @@ describe('resource trafficPolicyProfiles', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.trafficPolicyProfiles.list(
-        {
-          'filter[service]': 'filter[service]',
-          'filter[type]': 'whitelist',
-          'page[number]': 1,
-          'page[size]': 1,
-          sort: 'service',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
+    await expect(client.trafficPolicyProfiles.list({
+    'filter[service]': 'filter[service]',
+    'filter[type]': 'whitelist',
+    'page[number]': 1,
+    'page[size]': 1,
+    sort: 'service',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -111,16 +105,13 @@ describe('resource trafficPolicyProfiles', () => {
   // Mock server tests are disabled
   test.skip('listServices: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.trafficPolicyProfiles.listServices(
-        {
-          'filter[group]': 'filter[group]',
-          'filter[name]': 'filter[name]',
-          'page[number]': 1,
-          'page[size]': 1,
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
+    await expect(client.trafficPolicyProfiles.listServices({
+    'filter[group]': 'filter[group]',
+    'filter[name]': 'filter[name]',
+    'page[number]': 1,
+    'page[size]': 1,
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Telnyx.NotFoundError);
   });
 });

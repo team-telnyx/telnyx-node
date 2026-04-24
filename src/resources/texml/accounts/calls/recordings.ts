@@ -22,20 +22,9 @@ export class Recordings extends APIResource {
    *   );
    * ```
    */
-  recordingSidJson(
-    recordingSid: string,
-    params: RecordingRecordingSidJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<RecordingRecordingSidJsonResponse> {
-    const { account_sid, call_sid, ...body } = params;
-    return this._client.post(
-      path`/texml/Accounts/${account_sid}/Calls/${call_sid}/Recordings/${recordingSid}.json`,
-      {
-        body,
-        ...options,
-        headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-      },
-    );
+  recordingSidJson(recordingSid: string, params: RecordingRecordingSidJsonParams, options?: RequestOptions): APIPromise<RecordingRecordingSidJsonResponse> {
+    const { account_sid, call_sid, ...body } = params
+    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${call_sid}/Recordings/${recordingSid}.json`, { body, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
   }
 }
 
@@ -77,14 +66,7 @@ export interface RecordingRecordingSidJsonResponse {
   /**
    * Defines how the recording was created.
    */
-  source?:
-    | 'StartCallRecordingAPI'
-    | 'StartConferenceRecordingAPI'
-    | 'OutboundAPI'
-    | 'DialVerb'
-    | 'Conference'
-    | 'RecordVerb'
-    | 'Trunking';
+  source?: 'StartCallRecordingAPI' | 'StartConferenceRecordingAPI' | 'OutboundAPI' | 'DialVerb' | 'Conference' | 'RecordVerb' | 'Trunking';
 
   start_time?: string;
 
@@ -119,6 +101,6 @@ export interface RecordingRecordingSidJsonParams {
 export declare namespace Recordings {
   export {
     type RecordingRecordingSidJsonResponse as RecordingRecordingSidJsonResponse,
-    type RecordingRecordingSidJsonParams as RecordingRecordingSidJsonParams,
+    type RecordingRecordingSidJsonParams as RecordingRecordingSidJsonParams
   };
 }

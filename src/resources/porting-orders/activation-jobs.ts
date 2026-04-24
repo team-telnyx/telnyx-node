@@ -24,12 +24,8 @@ export class ActivationJobs extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    activationJobID: string,
-    params: ActivationJobRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<ActivationJobRetrieveResponse> {
-    const { id } = params;
+  retrieve(activationJobID: string, params: ActivationJobRetrieveParams, options?: RequestOptions): APIPromise<ActivationJobRetrieveResponse> {
+    const { id } = params
     return this._client.get(path`/porting_orders/${id}/activation_jobs/${activationJobID}`, options);
   }
 
@@ -45,16 +41,9 @@ export class ActivationJobs extends APIResource {
    *   );
    * ```
    */
-  update(
-    activationJobID: string,
-    params: ActivationJobUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<ActivationJobUpdateResponse> {
-    const { id, ...body } = params;
-    return this._client.patch(path`/porting_orders/${id}/activation_jobs/${activationJobID}`, {
-      body,
-      ...options,
-    });
+  update(activationJobID: string, params: ActivationJobUpdateParams, options?: RequestOptions): APIPromise<ActivationJobUpdateResponse> {
+    const { id, ...body } = params
+    return this._client.patch(path`/porting_orders/${id}/activation_jobs/${activationJobID}`, { body, ...options });
   }
 
   /**
@@ -70,19 +59,8 @@ export class ActivationJobs extends APIResource {
    * }
    * ```
    */
-  list(
-    id: string,
-    query: ActivationJobListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<
-    PortingOrdersActivationJobsDefaultFlatPagination,
-    PortingOrdersAPI.PortingOrdersActivationJob
-  > {
-    return this._client.getAPIList(
-      path`/porting_orders/${id}/activation_jobs`,
-      DefaultFlatPagination<PortingOrdersAPI.PortingOrdersActivationJob>,
-      { query, ...options },
-    );
+  list(id: string, query: ActivationJobListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PortingOrdersActivationJobsDefaultFlatPagination, PortingOrdersAPI.PortingOrdersActivationJob> {
+    return this._client.getAPIList(path`/porting_orders/${id}/activation_jobs`, DefaultFlatPagination<PortingOrdersAPI.PortingOrdersActivationJob>, { query, ...options });
   }
 }
 
@@ -114,7 +92,8 @@ export interface ActivationJobUpdateParams {
   activate_at?: string;
 }
 
-export interface ActivationJobListParams extends DefaultFlatPaginationParams {}
+export interface ActivationJobListParams extends DefaultFlatPaginationParams {
+}
 
 export declare namespace ActivationJobs {
   export {
@@ -122,8 +101,8 @@ export declare namespace ActivationJobs {
     type ActivationJobUpdateResponse as ActivationJobUpdateResponse,
     type ActivationJobRetrieveParams as ActivationJobRetrieveParams,
     type ActivationJobUpdateParams as ActivationJobUpdateParams,
-    type ActivationJobListParams as ActivationJobListParams,
+    type ActivationJobListParams as ActivationJobListParams
   };
 }
 
-export { type PortingOrdersActivationJobsDefaultFlatPagination };
+export { type PortingOrdersActivationJobsDefaultFlatPagination }

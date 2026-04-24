@@ -23,10 +23,7 @@ export class WirelessBlocklists extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: WirelessBlocklistCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<WirelessBlocklistCreateResponse> {
+  create(body: WirelessBlocklistCreateParams, options?: RequestOptions): APIPromise<WirelessBlocklistCreateResponse> {
     return this._client.post('/wireless_blocklists', { body, ...options });
   }
 
@@ -56,11 +53,7 @@ export class WirelessBlocklists extends APIResource {
    *   );
    * ```
    */
-  update(
-    id: string,
-    body: WirelessBlocklistUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<WirelessBlocklistUpdateResponse> {
+  update(id: string, body: WirelessBlocklistUpdateParams, options?: RequestOptions): APIPromise<WirelessBlocklistUpdateResponse> {
     return this._client.patch(path`/wireless_blocklists/${id}`, { body, ...options });
   }
 
@@ -75,14 +68,8 @@ export class WirelessBlocklists extends APIResource {
    * }
    * ```
    */
-  list(
-    query: WirelessBlocklistListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<WirelessBlocklistsDefaultFlatPagination, WirelessBlocklist> {
-    return this._client.getAPIList('/wireless_blocklists', DefaultFlatPagination<WirelessBlocklist>, {
-      query,
-      ...options,
-    });
+  list(query: WirelessBlocklistListParams | null | undefined = {}, options?: RequestOptions): PagePromise<WirelessBlocklistsDefaultFlatPagination, WirelessBlocklist> {
+    return this._client.getAPIList('/wireless_blocklists', DefaultFlatPagination<WirelessBlocklist>, { query, ...options });
   }
 
   /**
@@ -101,7 +88,7 @@ export class WirelessBlocklists extends APIResource {
   }
 }
 
-export type WirelessBlocklistsDefaultFlatPagination = DefaultFlatPagination<WirelessBlocklist>;
+export type WirelessBlocklistsDefaultFlatPagination = DefaultFlatPagination<WirelessBlocklist>
 
 export interface WirelessBlocklist {
   /**
@@ -209,6 +196,6 @@ export declare namespace WirelessBlocklists {
     type WirelessBlocklistsDefaultFlatPagination as WirelessBlocklistsDefaultFlatPagination,
     type WirelessBlocklistCreateParams as WirelessBlocklistCreateParams,
     type WirelessBlocklistUpdateParams as WirelessBlocklistUpdateParams,
-    type WirelessBlocklistListParams as WirelessBlocklistListParams,
+    type WirelessBlocklistListParams as WirelessBlocklistListParams
   };
 }

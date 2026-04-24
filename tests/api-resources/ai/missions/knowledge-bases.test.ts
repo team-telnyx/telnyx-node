@@ -2,10 +2,7 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource knowledgeBases', () => {
   // Mock server tests are disabled
@@ -22,9 +19,7 @@ describe('resource knowledgeBases', () => {
 
   // Mock server tests are disabled
   test.skip('deleteKnowledgeBase: only required params', async () => {
-    const responsePromise = client.ai.missions.knowledgeBases.deleteKnowledgeBase('knowledge_base_id', {
-      mission_id: 'mission_id',
-    });
+    const responsePromise = client.ai.missions.knowledgeBases.deleteKnowledgeBase('knowledge_base_id', { mission_id: 'mission_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -36,16 +31,12 @@ describe('resource knowledgeBases', () => {
 
   // Mock server tests are disabled
   test.skip('deleteKnowledgeBase: required and optional params', async () => {
-    const response = await client.ai.missions.knowledgeBases.deleteKnowledgeBase('knowledge_base_id', {
-      mission_id: 'mission_id',
-    });
+    const response = await client.ai.missions.knowledgeBases.deleteKnowledgeBase('knowledge_base_id', { mission_id: 'mission_id' });
   });
 
   // Mock server tests are disabled
   test.skip('getKnowledgeBase: only required params', async () => {
-    const responsePromise = client.ai.missions.knowledgeBases.getKnowledgeBase('knowledge_base_id', {
-      mission_id: 'mission_id',
-    });
+    const responsePromise = client.ai.missions.knowledgeBases.getKnowledgeBase('knowledge_base_id', { mission_id: 'mission_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -57,9 +48,7 @@ describe('resource knowledgeBases', () => {
 
   // Mock server tests are disabled
   test.skip('getKnowledgeBase: required and optional params', async () => {
-    const response = await client.ai.missions.knowledgeBases.getKnowledgeBase('knowledge_base_id', {
-      mission_id: 'mission_id',
-    });
+    const response = await client.ai.missions.knowledgeBases.getKnowledgeBase('knowledge_base_id', { mission_id: 'mission_id' });
   });
 
   // Mock server tests are disabled
@@ -76,9 +65,7 @@ describe('resource knowledgeBases', () => {
 
   // Mock server tests are disabled
   test.skip('updateKnowledgeBase: only required params', async () => {
-    const responsePromise = client.ai.missions.knowledgeBases.updateKnowledgeBase('knowledge_base_id', {
-      mission_id: 'mission_id',
-    });
+    const responsePromise = client.ai.missions.knowledgeBases.updateKnowledgeBase('knowledge_base_id', { mission_id: 'mission_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -90,8 +77,6 @@ describe('resource knowledgeBases', () => {
 
   // Mock server tests are disabled
   test.skip('updateKnowledgeBase: required and optional params', async () => {
-    const response = await client.ai.missions.knowledgeBases.updateKnowledgeBase('knowledge_base_id', {
-      mission_id: 'mission_id',
-    });
+    const response = await client.ai.missions.knowledgeBases.updateKnowledgeBase('knowledge_base_id', { mission_id: 'mission_id' });
   });
 });

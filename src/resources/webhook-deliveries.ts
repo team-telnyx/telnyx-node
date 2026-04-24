@@ -22,20 +22,12 @@ export class WebhookDeliveries extends APIResource {
   /**
    * Lists webhook_deliveries for the authenticated user
    */
-  list(
-    query: WebhookDeliveryListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<WebhookDeliveryListResponsesDefaultFlatPagination, WebhookDeliveryListResponse> {
-    return this._client.getAPIList(
-      '/webhook_deliveries',
-      DefaultFlatPagination<WebhookDeliveryListResponse>,
-      { query, ...options },
-    );
+  list(query: WebhookDeliveryListParams | null | undefined = {}, options?: RequestOptions): PagePromise<WebhookDeliveryListResponsesDefaultFlatPagination, WebhookDeliveryListResponse> {
+    return this._client.getAPIList('/webhook_deliveries', DefaultFlatPagination<WebhookDeliveryListResponse>, { query, ...options });
   }
 }
 
-export type WebhookDeliveryListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<WebhookDeliveryListResponse>;
+export type WebhookDeliveryListResponsesDefaultFlatPagination = DefaultFlatPagination<WebhookDeliveryListResponse>
 
 /**
  * Webhook delivery attempt details.
@@ -364,6 +356,6 @@ export declare namespace WebhookDeliveries {
     type WebhookDeliveryRetrieveResponse as WebhookDeliveryRetrieveResponse,
     type WebhookDeliveryListResponse as WebhookDeliveryListResponse,
     type WebhookDeliveryListResponsesDefaultFlatPagination as WebhookDeliveryListResponsesDefaultFlatPagination,
-    type WebhookDeliveryListParams as WebhookDeliveryListParams,
+    type WebhookDeliveryListParams as WebhookDeliveryListParams
   };
 }

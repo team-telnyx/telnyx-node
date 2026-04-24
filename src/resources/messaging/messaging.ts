@@ -2,16 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as RcsAPI from './rcs/rcs';
-import {
-  RcInviteTestNumberParams,
-  RcInviteTestNumberResponse,
-  RcListBulkCapabilitiesParams,
-  RcListBulkCapabilitiesResponse,
-  RcRetrieveCapabilitiesParams,
-  RcRetrieveCapabilitiesResponse,
-  Rcs,
-  RcsCapabilities,
-} from './rcs/rcs';
+import { RcInviteTestNumberParams, RcInviteTestNumberResponse, RcListBulkCapabilitiesParams, RcListBulkCapabilitiesResponse, RcRetrieveCapabilitiesParams, RcRetrieveCapabilitiesResponse, Rcs, RcsCapabilities } from './rcs/rcs';
 
 export class Messaging extends APIResource {
   rcs: RcsAPI.Rcs = new RcsAPI.Rcs(this._client);
@@ -28,6 +19,6 @@ export declare namespace Messaging {
     type RcRetrieveCapabilitiesResponse as RcRetrieveCapabilitiesResponse,
     type RcInviteTestNumberParams as RcInviteTestNumberParams,
     type RcListBulkCapabilitiesParams as RcListBulkCapabilitiesParams,
-    type RcRetrieveCapabilitiesParams as RcRetrieveCapabilitiesParams,
+    type RcRetrieveCapabilitiesParams as RcRetrieveCapabilitiesParams
   };
 }

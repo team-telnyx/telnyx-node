@@ -18,10 +18,7 @@ export class PhoneNumberConfigurations extends APIResource {
    *   await client.portingOrders.phoneNumberConfigurations.create();
    * ```
    */
-  create(
-    body: PhoneNumberConfigurationCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<PhoneNumberConfigurationCreateResponse> {
+  create(body: PhoneNumberConfigurationCreateParams, options?: RequestOptions): APIPromise<PhoneNumberConfigurationCreateResponse> {
     return this._client.post('/porting_orders/phone_number_configurations', { body, ...options });
   }
 
@@ -36,23 +33,12 @@ export class PhoneNumberConfigurations extends APIResource {
    * }
    * ```
    */
-  list(
-    query: PhoneNumberConfigurationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<
-    PhoneNumberConfigurationListResponsesDefaultFlatPagination,
-    PhoneNumberConfigurationListResponse
-  > {
-    return this._client.getAPIList(
-      '/porting_orders/phone_number_configurations',
-      DefaultFlatPagination<PhoneNumberConfigurationListResponse>,
-      { query, ...options },
-    );
+  list(query: PhoneNumberConfigurationListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PhoneNumberConfigurationListResponsesDefaultFlatPagination, PhoneNumberConfigurationListResponse> {
+    return this._client.getAPIList('/porting_orders/phone_number_configurations', DefaultFlatPagination<PhoneNumberConfigurationListResponse>, { query, ...options });
   }
 }
 
-export type PhoneNumberConfigurationListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<PhoneNumberConfigurationListResponse>;
+export type PhoneNumberConfigurationListResponsesDefaultFlatPagination = DefaultFlatPagination<PhoneNumberConfigurationListResponse>
 
 export interface PhoneNumberConfigurationCreateResponse {
   data?: Array<PhoneNumberConfigurationCreateResponse.Data>;
@@ -181,17 +167,7 @@ export namespace PhoneNumberConfigurationListParams {
       /**
        * Filter results by specific porting order statuses
        */
-      status?: Array<
-        | 'activation-in-progress'
-        | 'cancel-pending'
-        | 'cancelled'
-        | 'draft'
-        | 'exception'
-        | 'foc-date-confirmed'
-        | 'in-process'
-        | 'ported'
-        | 'submitted'
-      >;
+      status?: Array<'activation-in-progress' | 'cancel-pending' | 'cancelled' | 'draft' | 'exception' | 'foc-date-confirmed' | 'in-process' | 'ported' | 'submitted'>;
     }
   }
 
@@ -213,6 +189,6 @@ export declare namespace PhoneNumberConfigurations {
     type PhoneNumberConfigurationListResponse as PhoneNumberConfigurationListResponse,
     type PhoneNumberConfigurationListResponsesDefaultFlatPagination as PhoneNumberConfigurationListResponsesDefaultFlatPagination,
     type PhoneNumberConfigurationCreateParams as PhoneNumberConfigurationCreateParams,
-    type PhoneNumberConfigurationListParams as PhoneNumberConfigurationListParams,
+    type PhoneNumberConfigurationListParams as PhoneNumberConfigurationListParams
   };
 }

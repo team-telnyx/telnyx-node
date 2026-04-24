@@ -42,11 +42,7 @@ export class Campaign extends APIResource {
    *   await client.messaging10dlc.campaign.update('campaignId');
    * ```
    */
-  update(
-    campaignID: string,
-    body: CampaignUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<TelnyxCampaignCsp> {
+  update(campaignID: string, body: CampaignUpdateParams, options?: RequestOptions): APIPromise<TelnyxCampaignCsp> {
     return this._client.put(path`/10dlc/campaign/${campaignID}`, { body, ...options });
   }
 
@@ -63,14 +59,8 @@ export class Campaign extends APIResource {
    * }
    * ```
    */
-  list(
-    query: CampaignListParams,
-    options?: RequestOptions,
-  ): PagePromise<CampaignListResponsesPerPagePaginationV2, CampaignListResponse> {
-    return this._client.getAPIList('/10dlc/campaign', PerPagePaginationV2<CampaignListResponse>, {
-      query,
-      ...options,
-    });
+  list(query: CampaignListParams, options?: RequestOptions): PagePromise<CampaignListResponsesPerPagePaginationV2, CampaignListResponse> {
+    return this._client.getAPIList('/10dlc/campaign', PerPagePaginationV2<CampaignListResponse>, { query, ...options });
   }
 
   /**
@@ -129,10 +119,7 @@ export class Campaign extends APIResource {
    *   );
    * ```
    */
-  getOperationStatus(
-    campaignID: string,
-    options?: RequestOptions,
-  ): APIPromise<CampaignGetOperationStatusResponse> {
+  getOperationStatus(campaignID: string, options?: RequestOptions): APIPromise<CampaignGetOperationStatusResponse> {
     return this._client.get(path`/10dlc/campaign/${campaignID}/operationStatus`, options);
   }
 
@@ -147,10 +134,7 @@ export class Campaign extends APIResource {
    *   );
    * ```
    */
-  getSharingStatus(
-    campaignID: string,
-    options?: RequestOptions,
-  ): APIPromise<CampaignGetSharingStatusResponse> {
+  getSharingStatus(campaignID: string, options?: RequestOptions): APIPromise<CampaignGetSharingStatusResponse> {
     return this._client.get(path`/10dlc/campaign/${campaignID}/sharing`, options);
   }
 
@@ -172,16 +156,12 @@ export class Campaign extends APIResource {
    *   );
    * ```
    */
-  submitAppeal(
-    campaignID: string,
-    body: CampaignSubmitAppealParams,
-    options?: RequestOptions,
-  ): APIPromise<CampaignSubmitAppealResponse> {
+  submitAppeal(campaignID: string, body: CampaignSubmitAppealParams, options?: RequestOptions): APIPromise<CampaignSubmitAppealResponse> {
     return this._client.post(path`/10dlc/campaign/${campaignID}/appeal`, { body, ...options });
   }
 }
 
-export type CampaignListResponsesPerPagePaginationV2 = PerPagePaginationV2<CampaignListResponse>;
+export type CampaignListResponsesPerPagePaginationV2 = PerPagePaginationV2<CampaignListResponse>
 
 export interface CampaignSharingStatus {
   downstreamCnpId?: string;
@@ -271,19 +251,7 @@ export interface TelnyxCampaignCsp {
   /**
    * Campaign status
    */
-  campaignStatus?:
-    | 'TCR_PENDING'
-    | 'TCR_SUSPENDED'
-    | 'TCR_EXPIRED'
-    | 'TCR_ACCEPTED'
-    | 'TCR_FAILED'
-    | 'TELNYX_ACCEPTED'
-    | 'TELNYX_FAILED'
-    | 'MNO_PENDING'
-    | 'MNO_ACCEPTED'
-    | 'MNO_REJECTED'
-    | 'MNO_PROVISIONED'
-    | 'MNO_PROVISIONING_FAILED';
+  campaignStatus?: 'TCR_PENDING' | 'TCR_SUSPENDED' | 'TCR_EXPIRED' | 'TCR_ACCEPTED' | 'TCR_FAILED' | 'TELNYX_ACCEPTED' | 'TELNYX_FAILED' | 'MNO_PENDING' | 'MNO_ACCEPTED' | 'MNO_REJECTED' | 'MNO_PROVISIONED' | 'MNO_PROVISIONING_FAILED';
 
   /**
    * Unix timestamp when campaign was created.
@@ -512,19 +480,7 @@ export interface CampaignListResponse {
   /**
    * Campaign status
    */
-  campaignStatus?:
-    | 'TCR_PENDING'
-    | 'TCR_SUSPENDED'
-    | 'TCR_EXPIRED'
-    | 'TCR_ACCEPTED'
-    | 'TCR_FAILED'
-    | 'TELNYX_ACCEPTED'
-    | 'TELNYX_FAILED'
-    | 'MNO_PENDING'
-    | 'MNO_ACCEPTED'
-    | 'MNO_REJECTED'
-    | 'MNO_PROVISIONED'
-    | 'MNO_PROVISIONING_FAILED';
+  campaignStatus?: 'TCR_PENDING' | 'TCR_SUSPENDED' | 'TCR_EXPIRED' | 'TCR_ACCEPTED' | 'TCR_FAILED' | 'TELNYX_ACCEPTED' | 'TELNYX_FAILED' | 'MNO_PENDING' | 'MNO_ACCEPTED' | 'MNO_REJECTED' | 'MNO_PROVISIONED' | 'MNO_PROVISIONING_FAILED';
 
   /**
    * Unix timestamp when campaign was created.
@@ -747,7 +703,7 @@ export interface CampaignListResponse {
   webhookURL?: string;
 }
 
-export type CampaignAcceptSharingResponse = { [key: string]: unknown };
+export type CampaignAcceptSharingResponse = { [key: string]: unknown }
 
 export interface CampaignDeactivateResponse {
   time: number;
@@ -760,7 +716,7 @@ export interface CampaignDeactivateResponse {
 export interface CampaignGetMnoMetadataResponse {
   '10999'?: CampaignGetMnoMetadataResponse._10999;
 
-  [k: string]: unknown;
+[k: string]: unknown
 }
 
 export namespace CampaignGetMnoMetadataResponse {
@@ -787,7 +743,7 @@ export namespace CampaignGetMnoMetadataResponse {
   }
 }
 
-export type CampaignGetOperationStatusResponse = { [key: string]: unknown };
+export type CampaignGetOperationStatusResponse = { [key: string]: unknown }
 
 export interface CampaignGetSharingStatusResponse {
   sharedByMe?: CampaignSharingStatus;
@@ -867,17 +823,7 @@ export interface CampaignListParams extends PerPagePaginationV2Params {
    * Specifies the sort order for results. If not given, results are sorted by
    * createdAt in descending order.
    */
-  sort?:
-    | 'assignedPhoneNumbersCount'
-    | '-assignedPhoneNumbersCount'
-    | 'campaignId'
-    | '-campaignId'
-    | 'createdAt'
-    | '-createdAt'
-    | 'status'
-    | '-status'
-    | 'tcrCampaignId'
-    | '-tcrCampaignId';
+  sort?: 'assignedPhoneNumbersCount' | '-assignedPhoneNumbersCount' | 'campaignId' | '-campaignId' | 'createdAt' | '-createdAt' | 'status' | '-status' | 'tcrCampaignId' | '-tcrCampaignId';
 }
 
 export interface CampaignSubmitAppealParams {
@@ -905,14 +851,17 @@ export declare namespace Campaign {
     type CampaignListResponsesPerPagePaginationV2 as CampaignListResponsesPerPagePaginationV2,
     type CampaignUpdateParams as CampaignUpdateParams,
     type CampaignListParams as CampaignListParams,
-    type CampaignSubmitAppealParams as CampaignSubmitAppealParams,
+    type CampaignSubmitAppealParams as CampaignSubmitAppealParams
   };
 
   export {
     Usecase as Usecase,
     type UsecaseGetCostResponse as UsecaseGetCostResponse,
-    type UsecaseGetCostParams as UsecaseGetCostParams,
+    type UsecaseGetCostParams as UsecaseGetCostParams
   };
 
-  export { Osr as Osr, type OsrGetAttributesResponse as OsrGetAttributesResponse };
+  export {
+    Osr as Osr,
+    type OsrGetAttributesResponse as OsrGetAttributesResponse
+  };
 }

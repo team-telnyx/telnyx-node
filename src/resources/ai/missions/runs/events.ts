@@ -2,11 +2,7 @@
 
 import { APIResource } from '../../../../core/resource';
 import { APIPromise } from '../../../../core/api-promise';
-import {
-  DefaultFlatPagination,
-  type DefaultFlatPaginationParams,
-  PagePromise,
-} from '../../../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../../core/pagination';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
@@ -25,17 +21,9 @@ export class Events extends APIResource {
    * }
    * ```
    */
-  list(
-    runID: string,
-    params: EventListParams,
-    options?: RequestOptions,
-  ): PagePromise<EventDataDefaultFlatPagination, EventData> {
-    const { mission_id, ...query } = params;
-    return this._client.getAPIList(
-      path`/ai/missions/${mission_id}/runs/${runID}/events`,
-      DefaultFlatPagination<EventData>,
-      { query, ...options },
-    );
+  list(runID: string, params: EventListParams, options?: RequestOptions): PagePromise<EventDataDefaultFlatPagination, EventData> {
+    const { mission_id, ...query } = params
+    return this._client.getAPIList(path`/ai/missions/${mission_id}/runs/${runID}/events`, DefaultFlatPagination<EventData>, { query, ...options });
   }
 
   /**
@@ -53,12 +41,8 @@ export class Events extends APIResource {
    *   );
    * ```
    */
-  getEventDetails(
-    eventID: string,
-    params: EventGetEventDetailsParams,
-    options?: RequestOptions,
-  ): APIPromise<EventGetEventDetailsResponse> {
-    const { mission_id, run_id } = params;
+  getEventDetails(eventID: string, params: EventGetEventDetailsParams, options?: RequestOptions): APIPromise<EventGetEventDetailsResponse> {
+    const { mission_id, run_id } = params
     return this._client.get(path`/ai/missions/${mission_id}/runs/${run_id}/events/${eventID}`, options);
   }
 
@@ -78,12 +62,12 @@ export class Events extends APIResource {
    * ```
    */
   log(runID: string, params: EventLogParams, options?: RequestOptions): APIPromise<EventLogResponse> {
-    const { mission_id, ...body } = params;
+    const { mission_id, ...body } = params
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/events`, { body, ...options });
   }
 }
 
-export type EventDataDefaultFlatPagination = DefaultFlatPagination<EventData>;
+export type EventDataDefaultFlatPagination = DefaultFlatPagination<EventData>
 
 export interface EventData {
   event_id: string;
@@ -94,16 +78,7 @@ export interface EventData {
 
   timestamp: string;
 
-  type:
-    | 'status_change'
-    | 'step_started'
-    | 'step_completed'
-    | 'step_failed'
-    | 'tool_call'
-    | 'tool_result'
-    | 'message'
-    | 'error'
-    | 'custom';
+  type: 'status_change' | 'step_started' | 'step_completed' | 'step_failed' | 'tool_call' | 'tool_result' | 'message' | 'error' | 'custom';
 
   agent_id?: string;
 
@@ -164,16 +139,7 @@ export interface EventLogParams {
   /**
    * Body param
    */
-  type:
-    | 'status_change'
-    | 'step_started'
-    | 'step_completed'
-    | 'step_failed'
-    | 'tool_call'
-    | 'tool_result'
-    | 'message'
-    | 'error'
-    | 'custom';
+  type: 'status_change' | 'step_started' | 'step_completed' | 'step_failed' | 'tool_call' | 'tool_result' | 'message' | 'error' | 'custom';
 
   /**
    * Body param
@@ -204,6 +170,6 @@ export declare namespace Events {
     type EventDataDefaultFlatPagination as EventDataDefaultFlatPagination,
     type EventListParams as EventListParams,
     type EventGetEventDetailsParams as EventGetEventDetailsParams,
-    type EventLogParams as EventLogParams,
+    type EventLogParams as EventLogParams
   };
 }

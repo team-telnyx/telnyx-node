@@ -4,11 +4,7 @@ import { APIResource } from '../../../core/resource';
 import * as Shared from '../../shared';
 import { ReputationPhoneNumberWithReputationDataDefaultFlatPagination } from '../../shared';
 import { APIPromise } from '../../../core/api-promise';
-import {
-  DefaultFlatPagination,
-  type DefaultFlatPaginationParams,
-  PagePromise,
-} from '../../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -48,16 +44,9 @@ export class Numbers extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    phoneNumber: string,
-    params: NumberRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<NumberRetrieveResponse> {
-    const { enterprise_id, ...query } = params;
-    return this._client.get(path`/enterprises/${enterprise_id}/reputation/numbers/${phoneNumber}`, {
-      query,
-      ...options,
-    });
+  retrieve(phoneNumber: string, params: NumberRetrieveParams, options?: RequestOptions): APIPromise<NumberRetrieveResponse> {
+    const { enterprise_id, ...query } = params
+    return this._client.get(path`/enterprises/${enterprise_id}/reputation/numbers/${phoneNumber}`, { query, ...options });
   }
 
   /**
@@ -77,19 +66,8 @@ export class Numbers extends APIResource {
    * }
    * ```
    */
-  list(
-    enterpriseID: string,
-    query: NumberListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<
-    ReputationPhoneNumberWithReputationDataDefaultFlatPagination,
-    Shared.ReputationPhoneNumberWithReputationData
-  > {
-    return this._client.getAPIList(
-      path`/enterprises/${enterpriseID}/reputation/numbers`,
-      DefaultFlatPagination<Shared.ReputationPhoneNumberWithReputationData>,
-      { query, ...options },
-    );
+  list(enterpriseID: string, query: NumberListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ReputationPhoneNumberWithReputationDataDefaultFlatPagination, Shared.ReputationPhoneNumberWithReputationData> {
+    return this._client.getAPIList(path`/enterprises/${enterpriseID}/reputation/numbers`, DefaultFlatPagination<Shared.ReputationPhoneNumberWithReputationData>, { query, ...options });
   }
 
   /**
@@ -118,11 +96,7 @@ export class Numbers extends APIResource {
    *   );
    * ```
    */
-  associate(
-    enterpriseID: string,
-    body: NumberAssociateParams,
-    options?: RequestOptions,
-  ): APIPromise<NumberAssociateResponse> {
+  associate(enterpriseID: string, body: NumberAssociateParams, options?: RequestOptions): APIPromise<NumberAssociateResponse> {
     return this._client.post(path`/enterprises/${enterpriseID}/reputation/numbers`, { body, ...options });
   }
 
@@ -140,16 +114,9 @@ export class Numbers extends APIResource {
    * );
    * ```
    */
-  disassociate(
-    phoneNumber: string,
-    params: NumberDisassociateParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { enterprise_id } = params;
-    return this._client.delete(path`/enterprises/${enterprise_id}/reputation/numbers/${phoneNumber}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  disassociate(phoneNumber: string, params: NumberDisassociateParams, options?: RequestOptions): APIPromise<void> {
+    const { enterprise_id } = params
+    return this._client.delete(path`/enterprises/${enterprise_id}/reputation/numbers/${phoneNumber}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
@@ -233,8 +200,8 @@ export declare namespace Numbers {
     type NumberRetrieveParams as NumberRetrieveParams,
     type NumberListParams as NumberListParams,
     type NumberAssociateParams as NumberAssociateParams,
-    type NumberDisassociateParams as NumberDisassociateParams,
+    type NumberDisassociateParams as NumberDisassociateParams
   };
 }
 
-export { type ReputationPhoneNumberWithReputationDataDefaultFlatPagination };
+export { type ReputationPhoneNumberWithReputationDataDefaultFlatPagination }

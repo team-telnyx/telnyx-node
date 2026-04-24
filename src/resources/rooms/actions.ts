@@ -23,11 +23,7 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  generateJoinClientToken(
-    roomID: string,
-    body: ActionGenerateJoinClientTokenParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionGenerateJoinClientTokenResponse> {
+  generateJoinClientToken(roomID: string, body: ActionGenerateJoinClientTokenParams, options?: RequestOptions): APIPromise<ActionGenerateJoinClientTokenResponse> {
     return this._client.post(path`/rooms/${roomID}/actions/generate_join_client_token`, { body, ...options });
   }
 
@@ -47,11 +43,7 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  refreshClientToken(
-    roomID: string,
-    body: ActionRefreshClientTokenParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionRefreshClientTokenResponse> {
+  refreshClientToken(roomID: string, body: ActionRefreshClientTokenParams, options?: RequestOptions): APIPromise<ActionRefreshClientTokenResponse> {
     return this._client.post(path`/rooms/${roomID}/actions/refresh_client_token`, { body, ...options });
   }
 }
@@ -122,6 +114,6 @@ export declare namespace Actions {
     type ActionGenerateJoinClientTokenResponse as ActionGenerateJoinClientTokenResponse,
     type ActionRefreshClientTokenResponse as ActionRefreshClientTokenResponse,
     type ActionGenerateJoinClientTokenParams as ActionGenerateJoinClientTokenParams,
-    type ActionRefreshClientTokenParams as ActionRefreshClientTokenParams,
+    type ActionRefreshClientTokenParams as ActionRefreshClientTokenParams
   };
 }

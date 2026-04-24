@@ -27,15 +27,8 @@ export class AssociatedPhoneNumbers extends APIResource {
    *   );
    * ```
    */
-  create(
-    portingOrderID: string,
-    body: AssociatedPhoneNumberCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<AssociatedPhoneNumberCreateResponse> {
-    return this._client.post(path`/porting_orders/${portingOrderID}/associated_phone_numbers`, {
-      body,
-      ...options,
-    });
+  create(portingOrderID: string, body: AssociatedPhoneNumberCreateParams, options?: RequestOptions): APIPromise<AssociatedPhoneNumberCreateResponse> {
+    return this._client.post(path`/porting_orders/${portingOrderID}/associated_phone_numbers`, { body, ...options });
   }
 
   /**
@@ -53,16 +46,8 @@ export class AssociatedPhoneNumbers extends APIResource {
    * }
    * ```
    */
-  list(
-    portingOrderID: string,
-    query: AssociatedPhoneNumberListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PortingAssociatedPhoneNumbersDefaultFlatPagination, PortingAssociatedPhoneNumber> {
-    return this._client.getAPIList(
-      path`/porting_orders/${portingOrderID}/associated_phone_numbers`,
-      DefaultFlatPagination<PortingAssociatedPhoneNumber>,
-      { query, ...options },
-    );
+  list(portingOrderID: string, query: AssociatedPhoneNumberListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PortingAssociatedPhoneNumbersDefaultFlatPagination, PortingAssociatedPhoneNumber> {
+    return this._client.getAPIList(path`/porting_orders/${portingOrderID}/associated_phone_numbers`, DefaultFlatPagination<PortingAssociatedPhoneNumber>, { query, ...options });
   }
 
   /**
@@ -80,21 +65,13 @@ export class AssociatedPhoneNumbers extends APIResource {
    *   );
    * ```
    */
-  delete(
-    id: string,
-    params: AssociatedPhoneNumberDeleteParams,
-    options?: RequestOptions,
-  ): APIPromise<AssociatedPhoneNumberDeleteResponse> {
-    const { porting_order_id } = params;
-    return this._client.delete(
-      path`/porting_orders/${porting_order_id}/associated_phone_numbers/${id}`,
-      options,
-    );
+  delete(id: string, params: AssociatedPhoneNumberDeleteParams, options?: RequestOptions): APIPromise<AssociatedPhoneNumberDeleteResponse> {
+    const { porting_order_id } = params
+    return this._client.delete(path`/porting_orders/${porting_order_id}/associated_phone_numbers/${id}`, options);
   }
 }
 
-export type PortingAssociatedPhoneNumbersDefaultFlatPagination =
-  DefaultFlatPagination<PortingAssociatedPhoneNumber>;
+export type PortingAssociatedPhoneNumbersDefaultFlatPagination = DefaultFlatPagination<PortingAssociatedPhoneNumber>
 
 export interface PortingAssociatedPhoneNumber {
   /**
@@ -249,6 +226,6 @@ export declare namespace AssociatedPhoneNumbers {
     type PortingAssociatedPhoneNumbersDefaultFlatPagination as PortingAssociatedPhoneNumbersDefaultFlatPagination,
     type AssociatedPhoneNumberCreateParams as AssociatedPhoneNumberCreateParams,
     type AssociatedPhoneNumberListParams as AssociatedPhoneNumberListParams,
-    type AssociatedPhoneNumberDeleteParams as AssociatedPhoneNumberDeleteParams,
+    type AssociatedPhoneNumberDeleteParams as AssociatedPhoneNumberDeleteParams
   };
 }

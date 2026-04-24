@@ -4,11 +4,16 @@ import * as TextToSpeechAPI from './text-to-speech';
 import { Telnyx } from '../../client';
 import { EventEmitter } from '../../core/EventEmitter';
 import { TelnyxError } from '../../core/error';
-import { stringifyQuery } from '../../internal/utils';
+
+import type { RawWebSocketData, ReconnectingEvent, UnsentMessage } from '../../internal/ws';
 
 export type TextToSpeechStreamMessage =
-  | { type: 'connecting' | 'open' | 'closing' | 'close' }
+  | { type: 'connecting' | 'open' | 'closing' }
+  | { type: 'close'; code: number; reason: string; unsent: UnsentMessage<TextToSpeechAPI.StreamClientEvent>[] }
+  | { type: 'reconnecting'; reconnect: ReconnectingEvent }
+  | { type: 'reconnected' }
   | { type: 'message'; message: TextToSpeechAPI.StreamServerEvent }
+  | { type: 'raw'; data: RawWebSocketData }
   | { type: 'error'; error: WebSocketError };
 
 export class WebSocketError extends TelnyxError {
@@ -29,9 +34,13 @@ type Simplify<T> = { [KeyType in keyof T]: T[KeyType] } & {};
 type WebSocketEvents = Simplify<
   {
     event: (event: TextToSpeechAPI.StreamServerEvent) => void;
+    raw: (data: RawWebSocketData) => void;
     error: (error: WebSocketError) => void;
+    close: (code: number, reason: string, unsent: UnsentMessage<TextToSpeechAPI.StreamClientEvent>[]) => void;
+    reconnecting: (event: ReconnectingEvent) => void;
+    reconnected: () => void;
   } & {
-    [EventType in Exclude<NonNullable<TextToSpeechAPI.StreamServerEvent['type']>, 'error'>]: (
+    [EventType in Exclude<NonNullable<TextToSpeechAPI.StreamServerEvent['type']>, 'error'> ]: (
       event: Extract<TextToSpeechAPI.StreamServerEvent, { type?: EventType }>,
     ) => unknown;
   }
@@ -44,17 +53,18 @@ export abstract class TextToSpeechEmitter extends EventEmitter<WebSocketEvents> 
   abstract send(event: TextToSpeechAPI.StreamClientEvent): void;
 
   /**
+   * Send raw data over the WebSocket without JSON serialization.
+   */
+  abstract sendRaw(data: RawWebSocketData): void;
+
+  /**
    * Close the WebSocket connection.
    */
   abstract close(props?: { code: number; reason: string }): void;
 
   protected _onError(event: null, message: string, cause: any): void;
   protected _onError(event: TextToSpeechAPI.StreamServerEvent.ErrorFrame, message?: string | undefined): void;
-  protected _onError(
-    event: TextToSpeechAPI.StreamServerEvent.ErrorFrame | null,
-    message?: string | undefined,
-    cause?: any,
-  ): void {
+  protected _onError(event: TextToSpeechAPI.StreamServerEvent.ErrorFrame | null, message?: string | undefined, cause?: any): void {
     message = message ?? safeJSONStringify(event) ?? 'unknown error';
 
     if (!this._hasListener('error')) {
@@ -77,14 +87,18 @@ export abstract class TextToSpeechEmitter extends EventEmitter<WebSocketEvents> 
   }
 }
 
-export function buildURL(client: Telnyx, query?: object | null): URL {
-  const path = '/text-to-speech/speech';
-  const baseURL = client.baseURL;
-  const url = new URL(baseURL + (baseURL.endsWith('/') ? path.slice(1) : path));
-  if (query) {
-    url.search = stringifyQuery(query);
-  }
-  url.protocol = url.protocol === 'http:' ? 'ws:' : 'wss:';
+export function buildURL(client: Telnyx, parameters: Record<string, unknown>): URL {
+  const { ...query } = parameters ;
+  const endpoint = '/text-to-speech/speech';
+  const url = new URL(
+    client.buildURL(
+      endpoint,
+      query,
+      undefined
+      ,
+    ),
+  );
+  url.protocol = url.protocol === 'http:' || url.protocol === 'ws:' ? 'ws:' : 'wss:';
   return url;
 }
 

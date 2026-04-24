@@ -2,11 +2,7 @@
 
 import { APIResource } from '../../../core/resource';
 import { APIPromise } from '../../../core/api-promise';
-import {
-  DefaultFlatPagination,
-  type DefaultFlatPaginationParams,
-  PagePromise,
-} from '../../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -57,11 +53,7 @@ export class Insights extends APIResource {
    *   );
    * ```
    */
-  update(
-    insightID: string,
-    body: InsightUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<InsightTemplateDetail> {
+  update(insightID: string, body: InsightUpdateParams, options?: RequestOptions): APIPromise<InsightTemplateDetail> {
     return this._client.put(path`/ai/conversations/insights/${insightID}`, { body, ...options });
   }
 
@@ -76,14 +68,8 @@ export class Insights extends APIResource {
    * }
    * ```
    */
-  list(
-    query: InsightListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<InsightTemplatesDefaultFlatPagination, InsightTemplate> {
-    return this._client.getAPIList('/ai/conversations/insights', DefaultFlatPagination<InsightTemplate>, {
-      query,
-      ...options,
-    });
+  list(query: InsightListParams | null | undefined = {}, options?: RequestOptions): PagePromise<InsightTemplatesDefaultFlatPagination, InsightTemplate> {
+    return this._client.getAPIList('/ai/conversations/insights', DefaultFlatPagination<InsightTemplate>, { query, ...options });
   }
 
   /**
@@ -97,14 +83,11 @@ export class Insights extends APIResource {
    * ```
    */
   delete(insightID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/conversations/insights/${insightID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/ai/conversations/insights/${insightID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
-export type InsightTemplatesDefaultFlatPagination = DefaultFlatPagination<InsightTemplate>;
+export type InsightTemplatesDefaultFlatPagination = DefaultFlatPagination<InsightTemplate>
 
 export interface InsightTemplate {
   id: string;
@@ -152,7 +135,8 @@ export interface InsightUpdateParams {
   webhook?: string;
 }
 
-export interface InsightListParams extends DefaultFlatPaginationParams {}
+export interface InsightListParams extends DefaultFlatPaginationParams {
+}
 
 export declare namespace Insights {
   export {
@@ -161,6 +145,6 @@ export declare namespace Insights {
     type InsightTemplatesDefaultFlatPagination as InsightTemplatesDefaultFlatPagination,
     type InsightCreateParams as InsightCreateParams,
     type InsightUpdateParams as InsightUpdateParams,
-    type InsightListParams as InsightListParams,
+    type InsightListParams as InsightListParams
   };
 }

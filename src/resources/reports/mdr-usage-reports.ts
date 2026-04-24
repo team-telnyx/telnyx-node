@@ -25,15 +25,8 @@ export class MdrUsageReports extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: MdrUsageReportCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<MdrUsageReportCreateResponse> {
-    return this._client.post('/reports/mdr_usage_reports', {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': '*/*' }, options?.headers]),
-    });
+  create(body: MdrUsageReportCreateParams, options?: RequestOptions): APIPromise<MdrUsageReportCreateResponse> {
+    return this._client.post('/reports/mdr_usage_reports', { body, ...options, headers: buildHeaders([{'Content-Type': '*/*'}, options?.headers]) });
   }
 
   /**
@@ -63,14 +56,8 @@ export class MdrUsageReports extends APIResource {
    * }
    * ```
    */
-  list(
-    query: MdrUsageReportListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MdrUsageReportsDefaultFlatPagination, MdrUsageReport> {
-    return this._client.getAPIList('/reports/mdr_usage_reports', DefaultFlatPagination<MdrUsageReport>, {
-      query,
-      ...options,
-    });
+  list(query: MdrUsageReportListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MdrUsageReportsDefaultFlatPagination, MdrUsageReport> {
+    return this._client.getAPIList('/reports/mdr_usage_reports', DefaultFlatPagination<MdrUsageReport>, { query, ...options });
   }
 
   /**
@@ -101,15 +88,12 @@ export class MdrUsageReports extends APIResource {
    *   });
    * ```
    */
-  fetchSync(
-    query: MdrUsageReportFetchSyncParams,
-    options?: RequestOptions,
-  ): APIPromise<MdrUsageReportFetchSyncResponse> {
+  fetchSync(query: MdrUsageReportFetchSyncParams, options?: RequestOptions): APIPromise<MdrUsageReportFetchSyncResponse> {
     return this._client.get('/reports/mdr_usage_reports/sync', { query, ...options });
   }
 }
 
-export type MdrUsageReportsDefaultFlatPagination = DefaultFlatPagination<MdrUsageReport>;
+export type MdrUsageReportsDefaultFlatPagination = DefaultFlatPagination<MdrUsageReport>
 
 export interface MdrUsageReport {
   /**
@@ -208,7 +192,8 @@ export interface MdrUsageReportCreateParams {
   profiles?: string;
 }
 
-export interface MdrUsageReportListParams extends DefaultFlatPaginationParams {}
+export interface MdrUsageReportListParams extends DefaultFlatPaginationParams {
+}
 
 export interface MdrUsageReportFetchSyncParams {
   aggregation_type: 'NO_AGGREGATION' | 'PROFILE' | 'TAGS';
@@ -231,6 +216,6 @@ export declare namespace MdrUsageReports {
     type MdrUsageReportsDefaultFlatPagination as MdrUsageReportsDefaultFlatPagination,
     type MdrUsageReportCreateParams as MdrUsageReportCreateParams,
     type MdrUsageReportListParams as MdrUsageReportListParams,
-    type MdrUsageReportFetchSyncParams as MdrUsageReportFetchSyncParams,
+    type MdrUsageReportFetchSyncParams as MdrUsageReportFetchSyncParams
   };
 }

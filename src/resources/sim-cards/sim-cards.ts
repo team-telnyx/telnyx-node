@@ -4,28 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import { SimpleSimCardsDefaultFlatPagination } from '../shared';
 import * as ActionsAPI from './actions';
-import {
-  ActionBulkDisableVoiceParams,
-  ActionBulkDisableVoiceResponse,
-  ActionBulkEnableVoiceParams,
-  ActionBulkEnableVoiceResponse,
-  ActionBulkSetPublicIPsParams,
-  ActionBulkSetPublicIPsResponse,
-  ActionDisableResponse,
-  ActionEnableResponse,
-  ActionListParams,
-  ActionRemovePublicIPResponse,
-  ActionRetrieveResponse,
-  ActionSetPublicIPParams,
-  ActionSetPublicIPResponse,
-  ActionSetStandbyResponse,
-  ActionValidateRegistrationCodesParams,
-  ActionValidateRegistrationCodesResponse,
-  Actions,
-  BulkSimCardAction,
-  SimCardAction,
-  SimCardActionsDefaultFlatPagination,
-} from './actions';
+import { ActionBulkDisableVoiceParams, ActionBulkDisableVoiceResponse, ActionBulkEnableVoiceParams, ActionBulkEnableVoiceResponse, ActionBulkSetPublicIPsParams, ActionBulkSetPublicIPsResponse, ActionDisableResponse, ActionEnableResponse, ActionListParams, ActionRemovePublicIPResponse, ActionRetrieveResponse, ActionSetPublicIPParams, ActionSetPublicIPResponse, ActionSetStandbyResponse, ActionValidateRegistrationCodesParams, ActionValidateRegistrationCodesResponse, Actions, BulkSimCardAction, SimCardAction, SimCardActionsDefaultFlatPagination } from './actions';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -47,11 +26,7 @@ export class SimCards extends APIResource {
    * );
    * ```
    */
-  retrieve(
-    id: string,
-    query: SimCardRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<SimCardRetrieveResponse> {
+  retrieve(id: string, query: SimCardRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<SimCardRetrieveResponse> {
     return this._client.get(path`/sim_cards/${id}`, { query, ...options });
   }
 
@@ -65,11 +40,7 @@ export class SimCards extends APIResource {
    * );
    * ```
    */
-  update(
-    simCardID: string,
-    body: SimCardUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<SimCardUpdateResponse> {
+  update(simCardID: string, body: SimCardUpdateParams, options?: RequestOptions): APIPromise<SimCardUpdateResponse> {
     return this._client.patch(path`/sim_cards/${simCardID}`, { body, ...options });
   }
 
@@ -84,14 +55,8 @@ export class SimCards extends APIResource {
    * }
    * ```
    */
-  list(
-    query: SimCardListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<SimpleSimCardsDefaultFlatPagination, Shared.SimpleSimCard> {
-    return this._client.getAPIList('/sim_cards', DefaultFlatPagination<Shared.SimpleSimCard>, {
-      query,
-      ...options,
-    });
+  list(query: SimCardListParams | null | undefined = {}, options?: RequestOptions): PagePromise<SimpleSimCardsDefaultFlatPagination, Shared.SimpleSimCard> {
+    return this._client.getAPIList('/sim_cards', DefaultFlatPagination<Shared.SimpleSimCard>, { query, ...options });
   }
 
   /**
@@ -110,12 +75,8 @@ export class SimCards extends APIResource {
    * );
    * ```
    */
-  delete(
-    id: string,
-    params: SimCardDeleteParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<SimCardDeleteResponse> {
-    const { report_lost } = params ?? {};
+  delete(id: string, params: SimCardDeleteParams | null | undefined = {}, options?: RequestOptions): APIPromise<SimCardDeleteResponse> {
+    const { report_lost } = params ?? {}
     return this._client.delete(path`/sim_cards/${id}`, { query: { report_lost }, ...options });
   }
 
@@ -177,24 +138,12 @@ export class SimCards extends APIResource {
    * }
    * ```
    */
-  listWirelessConnectivityLogs(
-    id: string,
-    query: SimCardListWirelessConnectivityLogsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<
-    SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination,
-    SimCardListWirelessConnectivityLogsResponse
-  > {
-    return this._client.getAPIList(
-      path`/sim_cards/${id}/wireless_connectivity_logs`,
-      DefaultFlatPagination<SimCardListWirelessConnectivityLogsResponse>,
-      { query, ...options },
-    );
+  listWirelessConnectivityLogs(id: string, query: SimCardListWirelessConnectivityLogsParams | null | undefined = {}, options?: RequestOptions): PagePromise<SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination, SimCardListWirelessConnectivityLogsResponse> {
+    return this._client.getAPIList(path`/sim_cards/${id}/wireless_connectivity_logs`, DefaultFlatPagination<SimCardListWirelessConnectivityLogsResponse>, { query, ...options });
   }
 }
 
-export type SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination =
-  DefaultFlatPagination<SimCardListWirelessConnectivityLogsResponse>;
+export type SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination = DefaultFlatPagination<SimCardListWirelessConnectivityLogsResponse>
 
 export interface SimCard {
   /**
@@ -745,7 +694,8 @@ export interface SimCardDeleteParams {
   report_lost?: boolean;
 }
 
-export interface SimCardListWirelessConnectivityLogsParams extends DefaultFlatPaginationParams {}
+export interface SimCardListWirelessConnectivityLogsParams extends DefaultFlatPaginationParams {
+}
 
 SimCards.Actions = Actions;
 
@@ -764,7 +714,7 @@ export declare namespace SimCards {
     type SimCardUpdateParams as SimCardUpdateParams,
     type SimCardListParams as SimCardListParams,
     type SimCardDeleteParams as SimCardDeleteParams,
-    type SimCardListWirelessConnectivityLogsParams as SimCardListWirelessConnectivityLogsParams,
+    type SimCardListWirelessConnectivityLogsParams as SimCardListWirelessConnectivityLogsParams
   };
 
   export {
@@ -787,8 +737,8 @@ export declare namespace SimCards {
     type ActionBulkEnableVoiceParams as ActionBulkEnableVoiceParams,
     type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
     type ActionSetPublicIPParams as ActionSetPublicIPParams,
-    type ActionValidateRegistrationCodesParams as ActionValidateRegistrationCodesParams,
+    type ActionValidateRegistrationCodesParams as ActionValidateRegistrationCodesParams
   };
 }
 
-export { type SimpleSimCardsDefaultFlatPagination };
+export { type SimpleSimCardsDefaultFlatPagination }

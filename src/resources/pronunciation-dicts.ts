@@ -47,14 +47,8 @@ export class PronunciationDicts extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: PronunciationDictCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<PronunciationDictCreateResponse> {
-    return this._client.post(
-      '/pronunciation_dicts',
-      maybeMultipartFormRequestOptions({ body, ...options }, this._client),
-    );
+  create(body: PronunciationDictCreateParams, options?: RequestOptions): APIPromise<PronunciationDictCreateResponse> {
+    return this._client.post('/pronunciation_dicts', maybeMultipartFormRequestOptions({ body, ...options }, this._client));
   }
 
   /**
@@ -85,11 +79,7 @@ export class PronunciationDicts extends APIResource {
    *   );
    * ```
    */
-  update(
-    id: string,
-    body: PronunciationDictUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<PronunciationDictUpdateResponse> {
+  update(id: string, body: PronunciationDictUpdateParams, options?: RequestOptions): APIPromise<PronunciationDictUpdateResponse> {
     return this._client.patch(path`/pronunciation_dicts/${id}`, { body, ...options });
   }
 
@@ -105,14 +95,8 @@ export class PronunciationDicts extends APIResource {
    * }
    * ```
    */
-  list(
-    query: PronunciationDictListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PronunciationDictDataDefaultFlatPagination, PronunciationDictData> {
-    return this._client.getAPIList('/pronunciation_dicts', DefaultFlatPagination<PronunciationDictData>, {
-      query,
-      ...options,
-    });
+  list(query: PronunciationDictListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PronunciationDictDataDefaultFlatPagination, PronunciationDictData> {
+    return this._client.getAPIList('/pronunciation_dicts', DefaultFlatPagination<PronunciationDictData>, { query, ...options });
   }
 
   /**
@@ -126,14 +110,11 @@ export class PronunciationDicts extends APIResource {
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/pronunciation_dicts/${id}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/pronunciation_dicts/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
-export type PronunciationDictDataDefaultFlatPagination = DefaultFlatPagination<PronunciationDictData>;
+export type PronunciationDictDataDefaultFlatPagination = DefaultFlatPagination<PronunciationDictData>
 
 /**
  * An alias pronunciation item. When the `text` value is found in input, it is
@@ -280,7 +261,8 @@ export interface PronunciationDictUpdateParams {
   name?: string;
 }
 
-export interface PronunciationDictListParams extends DefaultFlatPaginationParams {}
+export interface PronunciationDictListParams extends DefaultFlatPaginationParams {
+}
 
 export declare namespace PronunciationDicts {
   export {
@@ -293,6 +275,6 @@ export declare namespace PronunciationDicts {
     type PronunciationDictDataDefaultFlatPagination as PronunciationDictDataDefaultFlatPagination,
     type PronunciationDictCreateParams as PronunciationDictCreateParams,
     type PronunciationDictUpdateParams as PronunciationDictUpdateParams,
-    type PronunciationDictListParams as PronunciationDictListParams,
+    type PronunciationDictListParams as PronunciationDictListParams
   };
 }

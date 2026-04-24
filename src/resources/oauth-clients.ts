@@ -49,11 +49,7 @@ export class OAuthClients extends APIResource {
    * );
    * ```
    */
-  update(
-    id: string,
-    body: OAuthClientUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<OAuthClientUpdateResponse> {
+  update(id: string, body: OAuthClientUpdateParams, options?: RequestOptions): APIPromise<OAuthClientUpdateResponse> {
     return this._client.put(path`/oauth_clients/${id}`, { body, ...options });
   }
 
@@ -68,14 +64,8 @@ export class OAuthClients extends APIResource {
    * }
    * ```
    */
-  list(
-    query: OAuthClientListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<OAuthClientsDefaultFlatPagination, OAuthClient> {
-    return this._client.getAPIList('/oauth_clients', DefaultFlatPagination<OAuthClient>, {
-      query,
-      ...options,
-    });
+  list(query: OAuthClientListParams | null | undefined = {}, options?: RequestOptions): PagePromise<OAuthClientsDefaultFlatPagination, OAuthClient> {
+    return this._client.getAPIList('/oauth_clients', DefaultFlatPagination<OAuthClient>, { query, ...options });
   }
 
   /**
@@ -89,14 +79,11 @@ export class OAuthClients extends APIResource {
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/oauth_clients/${id}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/oauth_clients/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
-export type OAuthClientsDefaultFlatPagination = DefaultFlatPagination<OAuthClient>;
+export type OAuthClientsDefaultFlatPagination = DefaultFlatPagination<OAuthClient>
 
 export interface OAuthClient {
   /**
@@ -345,6 +332,6 @@ export declare namespace OAuthClients {
     type OAuthClientsDefaultFlatPagination as OAuthClientsDefaultFlatPagination,
     type OAuthClientCreateParams as OAuthClientCreateParams,
     type OAuthClientUpdateParams as OAuthClientUpdateParams,
-    type OAuthClientListParams as OAuthClientListParams,
+    type OAuthClientListParams as OAuthClientListParams
   };
 }

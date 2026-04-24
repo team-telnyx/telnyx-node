@@ -23,10 +23,7 @@ export class SiprecConnectors extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: SiprecConnectorCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<SiprecConnectorCreateResponse> {
+  create(body: SiprecConnectorCreateParams, options?: RequestOptions): APIPromise<SiprecConnectorCreateResponse> {
     return this._client.post('/siprec_connectors', { body, ...options });
   }
 
@@ -56,11 +53,7 @@ export class SiprecConnectors extends APIResource {
    *   });
    * ```
    */
-  update(
-    connectorName: string,
-    body: SiprecConnectorUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<SiprecConnectorUpdateResponse> {
+  update(connectorName: string, body: SiprecConnectorUpdateParams, options?: RequestOptions): APIPromise<SiprecConnectorUpdateResponse> {
     return this._client.put(path`/siprec_connectors/${connectorName}`, { body, ...options });
   }
 
@@ -73,10 +66,7 @@ export class SiprecConnectors extends APIResource {
    * ```
    */
   delete(connectorName: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/siprec_connectors/${connectorName}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/siprec_connectors/${connectorName}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
@@ -250,6 +240,6 @@ export declare namespace SiprecConnectors {
     type SiprecConnectorRetrieveResponse as SiprecConnectorRetrieveResponse,
     type SiprecConnectorUpdateResponse as SiprecConnectorUpdateResponse,
     type SiprecConnectorCreateParams as SiprecConnectorCreateParams,
-    type SiprecConnectorUpdateParams as SiprecConnectorUpdateParams,
+    type SiprecConnectorUpdateParams as SiprecConnectorUpdateParams
   };
 }

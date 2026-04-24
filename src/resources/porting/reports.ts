@@ -50,18 +50,12 @@ export class Reports extends APIResource {
    * }
    * ```
    */
-  list(
-    query: ReportListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PortingReportsDefaultFlatPagination, PortingReport> {
-    return this._client.getAPIList('/porting/reports', DefaultFlatPagination<PortingReport>, {
-      query,
-      ...options,
-    });
+  list(query: ReportListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PortingReportsDefaultFlatPagination, PortingReport> {
+    return this._client.getAPIList('/porting/reports', DefaultFlatPagination<PortingReport>, { query, ...options });
   }
 }
 
-export type PortingReportsDefaultFlatPagination = DefaultFlatPagination<PortingReport>;
+export type PortingReportsDefaultFlatPagination = DefaultFlatPagination<PortingReport>
 
 /**
  * The parameters for generating a porting orders CSV report.
@@ -96,16 +90,7 @@ export namespace ExportPortingOrdersCsvReport {
     /**
      * The status of the porting orders to include in the report.
      */
-    status__in?: Array<
-      | 'draft'
-      | 'in-process'
-      | 'submitted'
-      | 'exception'
-      | 'foc-date-confirmed'
-      | 'cancel-pending'
-      | 'ported'
-      | 'cancelled'
-    >;
+    status__in?: Array<'draft' | 'in-process' | 'submitted' | 'exception' | 'foc-date-confirmed' | 'cancel-pending' | 'ported' | 'cancelled'>;
   }
 }
 
@@ -206,6 +191,6 @@ export declare namespace Reports {
     type ReportRetrieveResponse as ReportRetrieveResponse,
     type PortingReportsDefaultFlatPagination as PortingReportsDefaultFlatPagination,
     type ReportCreateParams as ReportCreateParams,
-    type ReportListParams as ReportListParams,
+    type ReportListParams as ReportListParams
   };
 }

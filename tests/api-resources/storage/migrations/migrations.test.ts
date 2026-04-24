@@ -2,19 +2,16 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource migrations', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.storage.migrations.create({
-      source_id: 'source_id',
-      target_bucket_name: 'target_bucket_name',
-      target_region: 'target_region',
-    });
+    source_id: 'source_id',
+    target_bucket_name: 'target_bucket_name',
+    target_region: 'target_region',
+  });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -27,11 +24,11 @@ describe('resource migrations', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.storage.migrations.create({
-      source_id: 'source_id',
-      target_bucket_name: 'target_bucket_name',
-      target_region: 'target_region',
-      refresh: true,
-    });
+    source_id: 'source_id',
+    target_bucket_name: 'target_bucket_name',
+    target_region: 'target_region',
+    refresh: true,
+  });
   });
 
   // Mock server tests are disabled

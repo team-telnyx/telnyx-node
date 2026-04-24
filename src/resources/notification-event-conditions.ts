@@ -11,23 +11,12 @@ export class NotificationEventConditions extends APIResource {
   /**
    * Returns a list of your notifications events conditions.
    */
-  list(
-    query: NotificationEventConditionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<
-    NotificationEventConditionListResponsesDefaultFlatPagination,
-    NotificationEventConditionListResponse
-  > {
-    return this._client.getAPIList(
-      '/notification_event_conditions',
-      DefaultFlatPagination<NotificationEventConditionListResponse>,
-      { query, ...options },
-    );
+  list(query: NotificationEventConditionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<NotificationEventConditionListResponsesDefaultFlatPagination, NotificationEventConditionListResponse> {
+    return this._client.getAPIList('/notification_event_conditions', DefaultFlatPagination<NotificationEventConditionListResponse>, { query, ...options });
   }
 }
 
-export type NotificationEventConditionListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<NotificationEventConditionListResponse>;
+export type NotificationEventConditionListResponsesDefaultFlatPagination = DefaultFlatPagination<NotificationEventConditionListResponse>
 
 export interface NotificationEventConditionListResponse {
   /**
@@ -155,15 +144,7 @@ export namespace NotificationEventConditionListParams {
       /**
        * The status of a notification setting
        */
-      eq?:
-        | 'enabled'
-        | 'enable-received'
-        | 'enable-pending'
-        | 'enable-submtited'
-        | 'delete-received'
-        | 'delete-pending'
-        | 'delete-submitted'
-        | 'deleted';
+      eq?: 'enabled' | 'enable-received' | 'enable-pending' | 'enable-submtited' | 'delete-received' | 'delete-pending' | 'delete-submitted' | 'deleted';
     }
   }
 }
@@ -172,6 +153,6 @@ export declare namespace NotificationEventConditions {
   export {
     type NotificationEventConditionListResponse as NotificationEventConditionListResponse,
     type NotificationEventConditionListResponsesDefaultFlatPagination as NotificationEventConditionListResponsesDefaultFlatPagination,
-    type NotificationEventConditionListParams as NotificationEventConditionListParams,
+    type NotificationEventConditionListParams as NotificationEventConditionListParams
   };
 }

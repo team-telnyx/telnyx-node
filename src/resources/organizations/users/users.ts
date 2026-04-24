@@ -5,11 +5,7 @@ import * as UsersAPI from './users';
 import * as ActionsAPI from './actions';
 import { ActionRemoveResponse, Actions } from './actions';
 import { APIPromise } from '../../../core/api-promise';
-import {
-  DefaultFlatPagination,
-  type DefaultFlatPaginationParams,
-  PagePromise,
-} from '../../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -23,25 +19,15 @@ export class Users extends APIResource {
   /**
    * Returns a user in your organization.
    */
-  retrieve(
-    id: string,
-    query: UserRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<UserRetrieveResponse> {
+  retrieve(id: string, query: UserRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<UserRetrieveResponse> {
     return this._client.get(path`/organizations/users/${id}`, { query, ...options });
   }
 
   /**
    * Returns a list of the users in your organization.
    */
-  list(
-    query: UserListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<OrganizationUsersDefaultFlatPagination, OrganizationUser> {
-    return this._client.getAPIList('/organizations/users', DefaultFlatPagination<OrganizationUser>, {
-      query,
-      ...options,
-    });
+  list(query: UserListParams | null | undefined = {}, options?: RequestOptions): PagePromise<OrganizationUsersDefaultFlatPagination, OrganizationUser> {
+    return this._client.getAPIList('/organizations/users', DefaultFlatPagination<OrganizationUser>, { query, ...options });
   }
 
   /**
@@ -50,22 +36,13 @@ export class Users extends APIResource {
    * information. The report can be retrieved in JSON or CSV format by sending
    * specific content-type headers.
    */
-  getGroupsReport(
-    params: UserGetGroupsReportParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<UserGetGroupsReportResponse> {
-    const { Accept } = params ?? {};
-    return this._client.get('/organizations/users/users_groups_report', {
-      ...options,
-      headers: buildHeaders([
-        { ...(Accept?.toString() != null ? { Accept: Accept?.toString() } : undefined) },
-        options?.headers,
-      ]),
-    });
+  getGroupsReport(params: UserGetGroupsReportParams | null | undefined = {}, options?: RequestOptions): APIPromise<UserGetGroupsReportResponse> {
+    const { Accept } = params ?? {}
+    return this._client.get('/organizations/users/users_groups_report', { ...options, headers: buildHeaders([{...(Accept?.toString() != null ? { Accept: Accept?.toString() } : undefined)}, options?.headers]) });
   }
 }
 
-export type OrganizationUsersDefaultFlatPagination = DefaultFlatPagination<OrganizationUser>;
+export type OrganizationUsersDefaultFlatPagination = DefaultFlatPagination<OrganizationUser>
 
 export interface OrganizationUser {
   /**
@@ -233,8 +210,11 @@ export declare namespace Users {
     type OrganizationUsersDefaultFlatPagination as OrganizationUsersDefaultFlatPagination,
     type UserRetrieveParams as UserRetrieveParams,
     type UserListParams as UserListParams,
-    type UserGetGroupsReportParams as UserGetGroupsReportParams,
+    type UserGetGroupsReportParams as UserGetGroupsReportParams
   };
 
-  export { Actions as Actions, type ActionRemoveResponse as ActionRemoveResponse };
+  export {
+    Actions as Actions,
+    type ActionRemoveResponse as ActionRemoveResponse
+  };
 }

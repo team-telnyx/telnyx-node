@@ -29,10 +29,7 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
    *   );
    * ```
    */
-  assign(
-    body: PhoneNumberAssignmentByProfileAssignParams,
-    options?: RequestOptions,
-  ): APIPromise<PhoneNumberAssignmentByProfileAssignResponse> {
+  assign(body: PhoneNumberAssignmentByProfileAssignParams, options?: RequestOptions): APIPromise<PhoneNumberAssignmentByProfileAssignResponse> {
     return this._client.post('/10dlc/phoneNumberAssignmentByProfile', { body, ...options });
   }
 
@@ -48,15 +45,8 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
    *   );
    * ```
    */
-  listPhoneNumberStatus(
-    taskID: string,
-    query: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse> {
-    return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}/phoneNumbers`, {
-      query,
-      ...options,
-    });
+  listPhoneNumberStatus(taskID: string, query: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams | null | undefined = {}, options?: RequestOptions): APIPromise<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse> {
+    return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}/phoneNumbers`, { query, ...options });
   }
 
   /**
@@ -71,15 +61,8 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
    *   );
    * ```
    */
-  retrievePhoneNumberStatus(
-    taskID: string,
-    query: PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse> {
-    return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}/phoneNumbers`, {
-      query,
-      ...options,
-    });
+  retrievePhoneNumberStatus(taskID: string, query: PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams | null | undefined = {}, options?: RequestOptions): APIPromise<PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse> {
+    return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}/phoneNumbers`, { query, ...options });
   }
 
   /**
@@ -94,10 +77,7 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
    *   );
    * ```
    */
-  retrieveStatus(
-    taskID: string,
-    options?: RequestOptions,
-  ): APIPromise<PhoneNumberAssignmentByProfileRetrieveStatusResponse> {
+  retrieveStatus(taskID: string, options?: RequestOptions): APIPromise<PhoneNumberAssignmentByProfileRetrieveStatusResponse> {
     return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}`, options);
   }
 }
@@ -119,7 +99,7 @@ export interface ProfileAssignmentPhoneNumbers {
   taskId: string;
 }
 
-export type TaskStatus = 'pending' | 'starting' | 'running' | 'completed' | 'failed';
+export type TaskStatus = 'pending' | 'starting' | 'running' | 'completed' | 'failed'
 
 export interface PhoneNumberAssignmentByProfileAssignResponse {
   /**
@@ -209,6 +189,6 @@ export declare namespace PhoneNumberAssignmentByProfile {
     type PhoneNumberAssignmentByProfileRetrieveStatusResponse as PhoneNumberAssignmentByProfileRetrieveStatusResponse,
     type PhoneNumberAssignmentByProfileAssignParams as PhoneNumberAssignmentByProfileAssignParams,
     type PhoneNumberAssignmentByProfileListPhoneNumberStatusParams as PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
-    type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
+    type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams
   };
 }

@@ -12,10 +12,7 @@ export class AvailablePhoneNumberBlocks extends APIResource {
   /**
    * List available phone number blocks
    */
-  list(
-    query: AvailablePhoneNumberBlockListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<AvailablePhoneNumberBlockListResponse> {
+  list(query: AvailablePhoneNumberBlockListParams | null | undefined = {}, options?: RequestOptions): APIPromise<AvailablePhoneNumberBlockListResponse> {
     return this._client.get('/available_phone_number_blocks', { query, ...options });
   }
 }
@@ -83,6 +80,6 @@ export namespace AvailablePhoneNumberBlockListParams {
 export declare namespace AvailablePhoneNumberBlocks {
   export {
     type AvailablePhoneNumberBlockListResponse as AvailablePhoneNumberBlockListResponse,
-    type AvailablePhoneNumberBlockListParams as AvailablePhoneNumberBlockListParams,
+    type AvailablePhoneNumberBlockListParams as AvailablePhoneNumberBlockListParams
   };
 }

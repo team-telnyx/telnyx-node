@@ -6,23 +6,9 @@ import { RoomParticipantsDefaultFlatPagination } from '../../shared';
 import * as RoomsAPI from '../rooms';
 import { RoomSessionsDefaultFlatPagination } from '../rooms';
 import * as ActionsAPI from './actions';
-import {
-  ActionEndResponse,
-  ActionKickParams,
-  ActionKickResponse,
-  ActionMuteParams,
-  ActionMuteResponse,
-  ActionUnmuteParams,
-  ActionUnmuteResponse,
-  Actions,
-  ActionsParticipantsRequest,
-} from './actions';
+import { ActionEndResponse, ActionKickParams, ActionKickResponse, ActionMuteParams, ActionMuteResponse, ActionUnmuteParams, ActionUnmuteResponse, Actions, ActionsParticipantsRequest } from './actions';
 import { APIPromise } from '../../../core/api-promise';
-import {
-  DefaultFlatPagination,
-  type DefaultFlatPaginationParams,
-  PagePromise,
-} from '../../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -39,11 +25,7 @@ export class Sessions extends APIResource {
    * );
    * ```
    */
-  retrieve(
-    roomSessionID: string,
-    query: SessionRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<SessionRetrieveResponse> {
+  retrieve(roomSessionID: string, query: SessionRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<SessionRetrieveResponse> {
     return this._client.get(path`/room_sessions/${roomSessionID}`, { query, ...options });
   }
 
@@ -58,14 +40,8 @@ export class Sessions extends APIResource {
    * }
    * ```
    */
-  list0(
-    query: SessionList0Params | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<RoomSessionsDefaultFlatPagination, RoomsAPI.RoomSession> {
-    return this._client.getAPIList('/room_sessions', DefaultFlatPagination<RoomsAPI.RoomSession>, {
-      query,
-      ...options,
-    });
+  list0(query: SessionList0Params | null | undefined = {}, options?: RequestOptions): PagePromise<RoomSessionsDefaultFlatPagination, RoomsAPI.RoomSession> {
+    return this._client.getAPIList('/room_sessions', DefaultFlatPagination<RoomsAPI.RoomSession>, { query, ...options });
   }
 
   /**
@@ -81,16 +57,8 @@ export class Sessions extends APIResource {
    * }
    * ```
    */
-  list1(
-    roomID: string,
-    query: SessionList1Params | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<RoomSessionsDefaultFlatPagination, RoomsAPI.RoomSession> {
-    return this._client.getAPIList(
-      path`/rooms/${roomID}/sessions`,
-      DefaultFlatPagination<RoomsAPI.RoomSession>,
-      { query, ...options },
-    );
+  list1(roomID: string, query: SessionList1Params | null | undefined = {}, options?: RequestOptions): PagePromise<RoomSessionsDefaultFlatPagination, RoomsAPI.RoomSession> {
+    return this._client.getAPIList(path`/rooms/${roomID}/sessions`, DefaultFlatPagination<RoomsAPI.RoomSession>, { query, ...options });
   }
 
   /**
@@ -106,16 +74,8 @@ export class Sessions extends APIResource {
    * }
    * ```
    */
-  retrieveParticipants(
-    roomSessionID: string,
-    query: SessionRetrieveParticipantsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<RoomParticipantsDefaultFlatPagination, Shared.RoomParticipant> {
-    return this._client.getAPIList(
-      path`/room_sessions/${roomSessionID}/participants`,
-      DefaultFlatPagination<Shared.RoomParticipant>,
-      { query, ...options },
-    );
+  retrieveParticipants(roomSessionID: string, query: SessionRetrieveParticipantsParams | null | undefined = {}, options?: RequestOptions): PagePromise<RoomParticipantsDefaultFlatPagination, Shared.RoomParticipant> {
+    return this._client.getAPIList(path`/room_sessions/${roomSessionID}/participants`, DefaultFlatPagination<Shared.RoomParticipant>, { query, ...options });
   }
 }
 
@@ -418,7 +378,7 @@ export declare namespace Sessions {
     type SessionRetrieveParams as SessionRetrieveParams,
     type SessionList0Params as SessionList0Params,
     type SessionList1Params as SessionList1Params,
-    type SessionRetrieveParticipantsParams as SessionRetrieveParticipantsParams,
+    type SessionRetrieveParticipantsParams as SessionRetrieveParticipantsParams
   };
 
   export {
@@ -430,8 +390,8 @@ export declare namespace Sessions {
     type ActionUnmuteResponse as ActionUnmuteResponse,
     type ActionKickParams as ActionKickParams,
     type ActionMuteParams as ActionMuteParams,
-    type ActionUnmuteParams as ActionUnmuteParams,
+    type ActionUnmuteParams as ActionUnmuteParams
   };
 }
 
-export { type RoomSessionsDefaultFlatPagination, type RoomParticipantsDefaultFlatPagination };
+export { type RoomSessionsDefaultFlatPagination, type RoomParticipantsDefaultFlatPagination }

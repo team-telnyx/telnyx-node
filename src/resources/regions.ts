@@ -55,5 +55,7 @@ export namespace RegionListResponse {
 }
 
 export declare namespace Regions {
-  export { type RegionListResponse as RegionListResponse };
+  export {
+    type RegionListResponse as RegionListResponse
+  };
 }

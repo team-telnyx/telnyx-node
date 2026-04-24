@@ -91,6 +91,6 @@ export declare namespace Comments {
     type PortoutComment as PortoutComment,
     type CommentCreateResponse as CommentCreateResponse,
     type CommentListResponse as CommentListResponse,
-    type CommentCreateParams as CommentCreateParams,
+    type CommentCreateParams as CommentCreateParams
   };
 }

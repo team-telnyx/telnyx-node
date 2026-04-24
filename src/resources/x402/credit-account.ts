@@ -22,10 +22,7 @@ export class CreditAccount extends APIResource {
    *   });
    * ```
    */
-  createQuote(
-    body: CreditAccountCreateQuoteParams,
-    options?: RequestOptions,
-  ): APIPromise<CreditAccountCreateQuoteResponse> {
+  createQuote(body: CreditAccountCreateQuoteParams, options?: RequestOptions): APIPromise<CreditAccountCreateQuoteResponse> {
     return this._client.post('/v2/x402/credit_account/quote', { body, ...options });
   }
 
@@ -43,23 +40,9 @@ export class CreditAccount extends APIResource {
    * });
    * ```
    */
-  settle(
-    params: CreditAccountSettleParams,
-    options?: RequestOptions,
-  ): APIPromise<CreditAccountSettleResponse> {
-    const { header_payment_signature, ...body } = params;
-    return this._client.post('/v2/x402/credit_account', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        {
-          ...(header_payment_signature != null ?
-            { 'PAYMENT-SIGNATURE': header_payment_signature }
-          : undefined),
-        },
-        options?.headers,
-      ]),
-    });
+  settle(params: CreditAccountSettleParams, options?: RequestOptions): APIPromise<CreditAccountSettleResponse> {
+    const { header_payment_signature, ...body } = params
+    return this._client.post('/v2/x402/credit_account', { body, ...options, headers: buildHeaders([{...(header_payment_signature != null ? { 'PAYMENT-SIGNATURE': header_payment_signature } : undefined)}, options?.headers]) });
   }
 }
 
@@ -287,6 +270,6 @@ export declare namespace CreditAccount {
     type CreditAccountCreateQuoteResponse as CreditAccountCreateQuoteResponse,
     type CreditAccountSettleResponse as CreditAccountSettleResponse,
     type CreditAccountCreateQuoteParams as CreditAccountCreateQuoteParams,
-    type CreditAccountSettleParams as CreditAccountSettleParams,
+    type CreditAccountSettleParams as CreditAccountSettleParams
   };
 }

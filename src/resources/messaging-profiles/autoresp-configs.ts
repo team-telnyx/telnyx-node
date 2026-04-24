@@ -26,11 +26,7 @@ export class AutorespConfigs extends APIResource {
    *   );
    * ```
    */
-  create(
-    profileID: string,
-    body: AutorespConfigCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<AutoRespConfigResponse> {
+  create(profileID: string, body: AutorespConfigCreateParams, options?: RequestOptions): APIPromise<AutoRespConfigResponse> {
     return this._client.post(path`/messaging_profiles/${profileID}/autoresp_configs`, { body, ...options });
   }
 
@@ -46,16 +42,9 @@ export class AutorespConfigs extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    autorespCfgID: string,
-    params: AutorespConfigRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<AutoRespConfigResponse> {
-    const { profile_id } = params;
-    return this._client.get(
-      path`/messaging_profiles/${profile_id}/autoresp_configs/${autorespCfgID}`,
-      options,
-    );
+  retrieve(autorespCfgID: string, params: AutorespConfigRetrieveParams, options?: RequestOptions): APIPromise<AutoRespConfigResponse> {
+    const { profile_id } = params
+    return this._client.get(path`/messaging_profiles/${profile_id}/autoresp_configs/${autorespCfgID}`, options);
   }
 
   /**
@@ -75,16 +64,9 @@ export class AutorespConfigs extends APIResource {
    *   );
    * ```
    */
-  update(
-    autorespCfgID: string,
-    params: AutorespConfigUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<AutoRespConfigResponse> {
-    const { profile_id, ...body } = params;
-    return this._client.put(path`/messaging_profiles/${profile_id}/autoresp_configs/${autorespCfgID}`, {
-      body,
-      ...options,
-    });
+  update(autorespCfgID: string, params: AutorespConfigUpdateParams, options?: RequestOptions): APIPromise<AutoRespConfigResponse> {
+    const { profile_id, ...body } = params
+    return this._client.put(path`/messaging_profiles/${profile_id}/autoresp_configs/${autorespCfgID}`, { body, ...options });
   }
 
   /**
@@ -98,11 +80,7 @@ export class AutorespConfigs extends APIResource {
    *   );
    * ```
    */
-  list(
-    profileID: string,
-    query: AutorespConfigListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<AutorespConfigListResponse> {
+  list(profileID: string, query: AutorespConfigListParams | null | undefined = {}, options?: RequestOptions): APIPromise<AutorespConfigListResponse> {
     return this._client.get(path`/messaging_profiles/${profileID}/autoresp_configs`, { query, ...options });
   }
 
@@ -118,16 +96,9 @@ export class AutorespConfigs extends APIResource {
    *   );
    * ```
    */
-  delete(
-    autorespCfgID: string,
-    params: AutorespConfigDeleteParams,
-    options?: RequestOptions,
-  ): APIPromise<string> {
-    const { profile_id } = params;
-    return this._client.delete(
-      path`/messaging_profiles/${profile_id}/autoresp_configs/${autorespCfgID}`,
-      options,
-    );
+  delete(autorespCfgID: string, params: AutorespConfigDeleteParams, options?: RequestOptions): APIPromise<string> {
+    const { profile_id } = params
+    return this._client.delete(path`/messaging_profiles/${profile_id}/autoresp_configs/${autorespCfgID}`, options);
   }
 }
 
@@ -170,7 +141,7 @@ export interface AutorespConfigListResponse {
   meta: Shared.MessagingPaginationMeta;
 }
 
-export type AutorespConfigDeleteResponse = string;
+export type AutorespConfigDeleteResponse = string
 
 export interface AutorespConfigCreateParams {
   country_code: string;
@@ -266,6 +237,6 @@ export declare namespace AutorespConfigs {
     type AutorespConfigRetrieveParams as AutorespConfigRetrieveParams,
     type AutorespConfigUpdateParams as AutorespConfigUpdateParams,
     type AutorespConfigListParams as AutorespConfigListParams,
-    type AutorespConfigDeleteParams as AutorespConfigDeleteParams,
+    type AutorespConfigDeleteParams as AutorespConfigDeleteParams
   };
 }

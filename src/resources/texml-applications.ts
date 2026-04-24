@@ -23,10 +23,7 @@ export class TexmlApplications extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: TexmlApplicationCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<TexmlApplicationCreateResponse> {
+  create(body: TexmlApplicationCreateParams, options?: RequestOptions): APIPromise<TexmlApplicationCreateResponse> {
     return this._client.post('/texml_applications', { body, ...options });
   }
 
@@ -60,11 +57,7 @@ export class TexmlApplications extends APIResource {
    *   );
    * ```
    */
-  update(
-    id: string,
-    body: TexmlApplicationUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<TexmlApplicationUpdateResponse> {
+  update(id: string, body: TexmlApplicationUpdateParams, options?: RequestOptions): APIPromise<TexmlApplicationUpdateResponse> {
     return this._client.patch(path`/texml_applications/${id}`, { body, ...options });
   }
 
@@ -79,14 +72,8 @@ export class TexmlApplications extends APIResource {
    * }
    * ```
    */
-  list(
-    query: TexmlApplicationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<TexmlApplicationsDefaultFlatPagination, TexmlApplication> {
-    return this._client.getAPIList('/texml_applications', DefaultFlatPagination<TexmlApplication>, {
-      query,
-      ...options,
-    });
+  list(query: TexmlApplicationListParams | null | undefined = {}, options?: RequestOptions): PagePromise<TexmlApplicationsDefaultFlatPagination, TexmlApplication> {
+    return this._client.getAPIList('/texml_applications', DefaultFlatPagination<TexmlApplication>, { query, ...options });
   }
 
   /**
@@ -105,7 +92,7 @@ export class TexmlApplications extends APIResource {
   }
 }
 
-export type TexmlApplicationsDefaultFlatPagination = DefaultFlatPagination<TexmlApplication>;
+export type TexmlApplicationsDefaultFlatPagination = DefaultFlatPagination<TexmlApplication>
 
 export interface TexmlApplication {
   /**
@@ -571,6 +558,6 @@ export declare namespace TexmlApplications {
     type TexmlApplicationsDefaultFlatPagination as TexmlApplicationsDefaultFlatPagination,
     type TexmlApplicationCreateParams as TexmlApplicationCreateParams,
     type TexmlApplicationUpdateParams as TexmlApplicationUpdateParams,
-    type TexmlApplicationListParams as TexmlApplicationListParams,
+    type TexmlApplicationListParams as TexmlApplicationListParams
   };
 }

@@ -2,10 +2,7 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource messagingOptouts', () => {
   // Mock server tests are disabled
@@ -23,17 +20,14 @@ describe('resource messagingOptouts', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messagingOptouts.list(
-        {
-          created_at: { gte: '2019-12-27T18:11:19.117Z', lte: '2019-12-27T18:11:19.117Z' },
-          filter: { from: 'from', messaging_profile_id: 'messaging_profile_id' },
-          'page[number]': 0,
-          'page[size]': 0,
-          redaction_enabled: 'redaction_enabled',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
+    await expect(client.messagingOptouts.list({
+    created_at: { gte: '2019-12-27T18:11:19.117Z', lte: '2019-12-27T18:11:19.117Z' },
+    filter: { from: 'from', messaging_profile_id: 'messaging_profile_id' },
+    'page[number]': 0,
+    'page[size]': 0,
+    redaction_enabled: 'redaction_enabled',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Telnyx.NotFoundError);
   });
 });

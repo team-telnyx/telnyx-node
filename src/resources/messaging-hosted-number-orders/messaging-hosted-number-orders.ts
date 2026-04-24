@@ -25,10 +25,7 @@ export class MessagingHostedNumberOrders extends APIResource {
    *   await client.messagingHostedNumberOrders.create();
    * ```
    */
-  create(
-    body: MessagingHostedNumberOrderCreateParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<MessagingHostedNumberOrderCreateResponse> {
+  create(body: MessagingHostedNumberOrderCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<MessagingHostedNumberOrderCreateResponse> {
     return this._client.post('/messaging_hosted_number_orders', { body, ...options });
   }
 
@@ -56,15 +53,8 @@ export class MessagingHostedNumberOrders extends APIResource {
    * }
    * ```
    */
-  list(
-    query: MessagingHostedNumberOrderListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MessagingHostedNumberOrdersDefaultFlatPagination, Shared.MessagingHostedNumberOrder> {
-    return this._client.getAPIList(
-      '/messaging_hosted_number_orders',
-      DefaultFlatPagination<Shared.MessagingHostedNumberOrder>,
-      { query, ...options },
-    );
+  list(query: MessagingHostedNumberOrderListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessagingHostedNumberOrdersDefaultFlatPagination, Shared.MessagingHostedNumberOrder> {
+    return this._client.getAPIList('/messaging_hosted_number_orders', DefaultFlatPagination<Shared.MessagingHostedNumberOrder>, { query, ...options });
   }
 
   /**
@@ -91,14 +81,8 @@ export class MessagingHostedNumberOrders extends APIResource {
    *   );
    * ```
    */
-  checkEligibility(
-    body: MessagingHostedNumberOrderCheckEligibilityParams,
-    options?: RequestOptions,
-  ): APIPromise<MessagingHostedNumberOrderCheckEligibilityResponse> {
-    return this._client.post('/messaging_hosted_number_orders/eligibility_numbers_check', {
-      body,
-      ...options,
-    });
+  checkEligibility(body: MessagingHostedNumberOrderCheckEligibilityParams, options?: RequestOptions): APIPromise<MessagingHostedNumberOrderCheckEligibilityResponse> {
+    return this._client.post('/messaging_hosted_number_orders/eligibility_numbers_check', { body, ...options });
   }
 
   /**
@@ -117,15 +101,8 @@ export class MessagingHostedNumberOrders extends APIResource {
    *   );
    * ```
    */
-  createVerificationCodes(
-    id: string,
-    body: MessagingHostedNumberOrderCreateVerificationCodesParams,
-    options?: RequestOptions,
-  ): APIPromise<MessagingHostedNumberOrderCreateVerificationCodesResponse> {
-    return this._client.post(path`/messaging_hosted_number_orders/${id}/verification_codes`, {
-      body,
-      ...options,
-    });
+  createVerificationCodes(id: string, body: MessagingHostedNumberOrderCreateVerificationCodesParams, options?: RequestOptions): APIPromise<MessagingHostedNumberOrderCreateVerificationCodesResponse> {
+    return this._client.post(path`/messaging_hosted_number_orders/${id}/verification_codes`, { body, ...options });
   }
 
   /**
@@ -145,15 +122,8 @@ export class MessagingHostedNumberOrders extends APIResource {
    *   );
    * ```
    */
-  validateCodes(
-    id: string,
-    body: MessagingHostedNumberOrderValidateCodesParams,
-    options?: RequestOptions,
-  ): APIPromise<MessagingHostedNumberOrderValidateCodesResponse> {
-    return this._client.post(path`/messaging_hosted_number_orders/${id}/validation_codes`, {
-      body,
-      ...options,
-    });
+  validateCodes(id: string, body: MessagingHostedNumberOrderValidateCodesParams, options?: RequestOptions): APIPromise<MessagingHostedNumberOrderValidateCodesResponse> {
+    return this._client.post(path`/messaging_hosted_number_orders/${id}/validation_codes`, { body, ...options });
   }
 }
 
@@ -191,19 +161,7 @@ export namespace MessagingHostedNumberOrderCheckEligibilityResponse {
     /**
      * The eligibility status of the phone number.
      */
-    eligible_status?:
-      | 'NUMBER_CAN_NOT_BE_REPEATED'
-      | 'NUMBER_CAN_NOT_BE_VALIDATED'
-      | 'NUMBER_CAN_NOT_BE_WIRELESS'
-      | 'NUMBER_CAN_NOT_BE_ACTIVE_IN_YOUR_ACCOUNT'
-      | 'NUMBER_CAN_NOT_HOSTED_WITH_A_TELNYX_SUBSCRIBER'
-      | 'NUMBER_CAN_NOT_BE_IN_TELNYX'
-      | 'NUMBER_IS_NOT_A_US_NUMBER'
-      | 'NUMBER_IS_NOT_A_VALID_ROUTING_NUMBER'
-      | 'NUMBER_IS_NOT_IN_E164_FORMAT'
-      | 'BILLING_ACCOUNT_CHECK_FAILED'
-      | 'BILLING_ACCOUNT_IS_ABOLISHED'
-      | 'ELIGIBLE';
+    eligible_status?: 'NUMBER_CAN_NOT_BE_REPEATED' | 'NUMBER_CAN_NOT_BE_VALIDATED' | 'NUMBER_CAN_NOT_BE_WIRELESS' | 'NUMBER_CAN_NOT_BE_ACTIVE_IN_YOUR_ACCOUNT' | 'NUMBER_CAN_NOT_HOSTED_WITH_A_TELNYX_SUBSCRIBER' | 'NUMBER_CAN_NOT_BE_IN_TELNYX' | 'NUMBER_IS_NOT_A_US_NUMBER' | 'NUMBER_IS_NOT_A_VALID_ROUTING_NUMBER' | 'NUMBER_IS_NOT_IN_E164_FORMAT' | 'BILLING_ACCOUNT_CHECK_FAILED' | 'BILLING_ACCOUNT_IS_ABOLISHED' | 'ELIGIBLE';
 
     /**
      * The phone number in e164 format.
@@ -276,7 +234,8 @@ export interface MessagingHostedNumberOrderCreateParams {
   phone_numbers?: Array<string>;
 }
 
-export interface MessagingHostedNumberOrderListParams extends DefaultFlatPaginationParams {}
+export interface MessagingHostedNumberOrderListParams extends DefaultFlatPaginationParams {
+}
 
 export interface MessagingHostedNumberOrderCheckEligibilityParams {
   /**
@@ -317,14 +276,14 @@ export declare namespace MessagingHostedNumberOrders {
     type MessagingHostedNumberOrderListParams as MessagingHostedNumberOrderListParams,
     type MessagingHostedNumberOrderCheckEligibilityParams as MessagingHostedNumberOrderCheckEligibilityParams,
     type MessagingHostedNumberOrderCreateVerificationCodesParams as MessagingHostedNumberOrderCreateVerificationCodesParams,
-    type MessagingHostedNumberOrderValidateCodesParams as MessagingHostedNumberOrderValidateCodesParams,
+    type MessagingHostedNumberOrderValidateCodesParams as MessagingHostedNumberOrderValidateCodesParams
   };
 
   export {
     Actions as Actions,
     type ActionUploadFileResponse as ActionUploadFileResponse,
-    type ActionUploadFileParams as ActionUploadFileParams,
+    type ActionUploadFileParams as ActionUploadFileParams
   };
 }
 
-export { type MessagingHostedNumberOrdersDefaultFlatPagination };
+export { type MessagingHostedNumberOrdersDefaultFlatPagination }

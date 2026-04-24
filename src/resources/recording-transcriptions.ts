@@ -13,39 +13,26 @@ export class RecordingTranscriptions extends APIResource {
   /**
    * Retrieves the details of an existing recording transcription.
    */
-  retrieve(
-    recordingTranscriptionID: string,
-    options?: RequestOptions,
-  ): APIPromise<RecordingTranscriptionRetrieveResponse> {
+  retrieve(recordingTranscriptionID: string, options?: RequestOptions): APIPromise<RecordingTranscriptionRetrieveResponse> {
     return this._client.get(path`/recording_transcriptions/${recordingTranscriptionID}`, options);
   }
 
   /**
    * Returns a list of your recording transcriptions.
    */
-  list(
-    query: RecordingTranscriptionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<RecordingTranscriptionsDefaultFlatPagination, RecordingTranscription> {
-    return this._client.getAPIList(
-      '/recording_transcriptions',
-      DefaultFlatPagination<RecordingTranscription>,
-      { query, ...options },
-    );
+  list(query: RecordingTranscriptionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<RecordingTranscriptionsDefaultFlatPagination, RecordingTranscription> {
+    return this._client.getAPIList('/recording_transcriptions', DefaultFlatPagination<RecordingTranscription>, { query, ...options });
   }
 
   /**
    * Permanently deletes a recording transcription.
    */
-  delete(
-    recordingTranscriptionID: string,
-    options?: RequestOptions,
-  ): APIPromise<RecordingTranscriptionDeleteResponse> {
+  delete(recordingTranscriptionID: string, options?: RequestOptions): APIPromise<RecordingTranscriptionDeleteResponse> {
     return this._client.delete(path`/recording_transcriptions/${recordingTranscriptionID}`, options);
   }
 }
 
-export type RecordingTranscriptionsDefaultFlatPagination = DefaultFlatPagination<RecordingTranscription>;
+export type RecordingTranscriptionsDefaultFlatPagination = DefaultFlatPagination<RecordingTranscription>
 
 export interface RecordingTranscription {
   /**
@@ -137,6 +124,6 @@ export declare namespace RecordingTranscriptions {
     type RecordingTranscriptionRetrieveResponse as RecordingTranscriptionRetrieveResponse,
     type RecordingTranscriptionDeleteResponse as RecordingTranscriptionDeleteResponse,
     type RecordingTranscriptionsDefaultFlatPagination as RecordingTranscriptionsDefaultFlatPagination,
-    type RecordingTranscriptionListParams as RecordingTranscriptionListParams,
+    type RecordingTranscriptionListParams as RecordingTranscriptionListParams
   };
 }

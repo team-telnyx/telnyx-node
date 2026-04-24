@@ -51,15 +51,8 @@ export class Voice extends APIResource {
    * }
    * ```
    */
-  list(
-    query: VoiceListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PhoneNumberWithVoiceSettingsDefaultFlatPagination, ActionsAPI.PhoneNumberWithVoiceSettings> {
-    return this._client.getAPIList(
-      '/phone_numbers/voice',
-      DefaultFlatPagination<ActionsAPI.PhoneNumberWithVoiceSettings>,
-      { query, ...options },
-    );
+  list(query: VoiceListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PhoneNumberWithVoiceSettingsDefaultFlatPagination, ActionsAPI.PhoneNumberWithVoiceSettings> {
+    return this._client.getAPIList('/phone_numbers/voice', DefaultFlatPagination<ActionsAPI.PhoneNumberWithVoiceSettings>, { query, ...options });
   }
 }
 
@@ -329,8 +322,8 @@ export declare namespace Voice {
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
     type VoiceUpdateResponse as VoiceUpdateResponse,
     type VoiceUpdateParams as VoiceUpdateParams,
-    type VoiceListParams as VoiceListParams,
+    type VoiceListParams as VoiceListParams
   };
 }
 
-export { type PhoneNumberWithVoiceSettingsDefaultFlatPagination };
+export { type PhoneNumberWithVoiceSettingsDefaultFlatPagination }

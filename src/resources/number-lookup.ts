@@ -12,11 +12,7 @@ export class NumberLookup extends APIResource {
   /**
    * Returns information about the provided phone number.
    */
-  retrieve(
-    phoneNumber: string,
-    query: NumberLookupRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<NumberLookupRetrieveResponse> {
+  retrieve(phoneNumber: string, query: NumberLookupRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<NumberLookupRetrieveResponse> {
     return this._client.get(path`/number_lookup/${phoneNumber}`, { query, ...options });
   }
 }
@@ -107,19 +103,7 @@ export namespace NumberLookupRetrieveResponse {
        * A phone number type that identifies the type of service associated with the
        * requested phone number
        */
-      type?:
-        | 'fixed line'
-        | 'mobile'
-        | 'voip'
-        | 'fixed line or mobile'
-        | 'toll free'
-        | 'premium rate'
-        | 'shared cost'
-        | 'personal number'
-        | 'pager'
-        | 'uan'
-        | 'voicemail'
-        | 'unknown';
+      type?: 'fixed line' | 'mobile' | 'voip' | 'fixed line or mobile' | 'toll free' | 'premium rate' | 'shared cost' | 'personal number' | 'pager' | 'uan' | 'voicemail' | 'unknown';
     }
 
     export interface Portability {
@@ -201,6 +185,6 @@ export interface NumberLookupRetrieveParams {
 export declare namespace NumberLookup {
   export {
     type NumberLookupRetrieveResponse as NumberLookupRetrieveResponse,
-    type NumberLookupRetrieveParams as NumberLookupRetrieveParams,
+    type NumberLookupRetrieveParams as NumberLookupRetrieveParams
   };
 }

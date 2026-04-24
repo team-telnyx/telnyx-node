@@ -47,10 +47,7 @@ export class Buckets extends APIResource {
    * ```
    */
   delete(bucketName: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/embeddings/buckets/${bucketName}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/ai/embeddings/buckets/${bucketName}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
@@ -87,6 +84,6 @@ export namespace BucketListResponse {
 export declare namespace Buckets {
   export {
     type BucketRetrieveResponse as BucketRetrieveResponse,
-    type BucketListResponse as BucketListResponse,
+    type BucketListResponse as BucketListResponse
   };
 }

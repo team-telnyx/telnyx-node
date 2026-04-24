@@ -21,10 +21,7 @@ export class LedgerBillingGroupReports extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: LedgerBillingGroupReportCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<LedgerBillingGroupReportCreateResponse> {
+  create(body: LedgerBillingGroupReportCreateParams, options?: RequestOptions): APIPromise<LedgerBillingGroupReportCreateResponse> {
     return this._client.post('/ledger_billing_group_reports', { body, ...options });
   }
 
@@ -106,6 +103,6 @@ export declare namespace LedgerBillingGroupReports {
     type LedgerBillingGroupReport as LedgerBillingGroupReport,
     type LedgerBillingGroupReportCreateResponse as LedgerBillingGroupReportCreateResponse,
     type LedgerBillingGroupReportRetrieveResponse as LedgerBillingGroupReportRetrieveResponse,
-    type LedgerBillingGroupReportCreateParams as LedgerBillingGroupReportCreateParams,
+    type LedgerBillingGroupReportCreateParams as LedgerBillingGroupReportCreateParams
   };
 }

@@ -17,10 +17,7 @@ export class OAuthGrants extends APIResource {
   /**
    * Retrieve a paginated list of OAuth grants for the authenticated user
    */
-  list(
-    query: OAuthGrantListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<OAuthGrantsDefaultFlatPagination, OAuthGrant> {
+  list(query: OAuthGrantListParams | null | undefined = {}, options?: RequestOptions): PagePromise<OAuthGrantsDefaultFlatPagination, OAuthGrant> {
     return this._client.getAPIList('/oauth_grants', DefaultFlatPagination<OAuthGrant>, { query, ...options });
   }
 
@@ -32,7 +29,7 @@ export class OAuthGrants extends APIResource {
   }
 }
 
-export type OAuthGrantsDefaultFlatPagination = DefaultFlatPagination<OAuthGrant>;
+export type OAuthGrantsDefaultFlatPagination = DefaultFlatPagination<OAuthGrant>
 
 export interface OAuthGrant {
   /**
@@ -74,7 +71,8 @@ export interface OAuthGrantDeleteResponse {
   data?: OAuthGrant;
 }
 
-export interface OAuthGrantListParams extends DefaultFlatPaginationParams {}
+export interface OAuthGrantListParams extends DefaultFlatPaginationParams {
+}
 
 export declare namespace OAuthGrants {
   export {
@@ -82,6 +80,6 @@ export declare namespace OAuthGrants {
     type OAuthGrantRetrieveResponse as OAuthGrantRetrieveResponse,
     type OAuthGrantDeleteResponse as OAuthGrantDeleteResponse,
     type OAuthGrantsDefaultFlatPagination as OAuthGrantsDefaultFlatPagination,
-    type OAuthGrantListParams as OAuthGrantListParams,
+    type OAuthGrantListParams as OAuthGrantListParams
   };
 }

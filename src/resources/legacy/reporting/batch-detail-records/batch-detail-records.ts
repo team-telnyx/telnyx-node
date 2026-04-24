@@ -2,37 +2,11 @@
 
 import { APIResource } from '../../../../core/resource';
 import * as MessagingAPI from './messaging';
-import {
-  BatchCsvPaginationMeta,
-  MdrDetailReportResponse,
-  Messaging,
-  MessagingCreateParams,
-  MessagingCreateResponse,
-  MessagingDeleteResponse,
-  MessagingListResponse,
-  MessagingRetrieveResponse,
-} from './messaging';
+import { BatchCsvPaginationMeta, MdrDetailReportResponse, Messaging, MessagingCreateParams, MessagingCreateResponse, MessagingDeleteResponse, MessagingListResponse, MessagingRetrieveResponse } from './messaging';
 import * as SpeechToTextAPI from './speech-to-text';
-import {
-  SpeechToText,
-  SpeechToTextCreateParams,
-  SpeechToTextCreateResponse,
-  SpeechToTextDeleteResponse,
-  SpeechToTextListResponse,
-  SpeechToTextRetrieveResponse,
-  SttDetailReportResponse,
-} from './speech-to-text';
+import { SpeechToText, SpeechToTextCreateParams, SpeechToTextCreateResponse, SpeechToTextDeleteResponse, SpeechToTextListResponse, SpeechToTextRetrieveResponse, SttDetailReportResponse } from './speech-to-text';
 import * as VoiceAPI from './voice';
-import {
-  CdrDetailedReqResponse,
-  Voice,
-  VoiceCreateParams,
-  VoiceCreateResponse,
-  VoiceDeleteResponse,
-  VoiceListResponse,
-  VoiceRetrieveFieldsResponse,
-  VoiceRetrieveResponse,
-} from './voice';
+import { CdrDetailedReqResponse, Voice, VoiceCreateParams, VoiceCreateResponse, VoiceDeleteResponse, VoiceListResponse, VoiceRetrieveFieldsResponse, VoiceRetrieveResponse } from './voice';
 
 export class BatchDetailRecords extends APIResource {
   messaging: MessagingAPI.Messaging = new MessagingAPI.Messaging(this._client);
@@ -86,7 +60,9 @@ BatchDetailRecords.SpeechToText = SpeechToText;
 BatchDetailRecords.Voice = Voice;
 
 export declare namespace BatchDetailRecords {
-  export { type Filter as Filter };
+  export {
+    type Filter as Filter
+  };
 
   export {
     Messaging as Messaging,
@@ -96,7 +72,7 @@ export declare namespace BatchDetailRecords {
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingListResponse as MessagingListResponse,
     type MessagingDeleteResponse as MessagingDeleteResponse,
-    type MessagingCreateParams as MessagingCreateParams,
+    type MessagingCreateParams as MessagingCreateParams
   };
 
   export {
@@ -106,7 +82,7 @@ export declare namespace BatchDetailRecords {
     type SpeechToTextRetrieveResponse as SpeechToTextRetrieveResponse,
     type SpeechToTextListResponse as SpeechToTextListResponse,
     type SpeechToTextDeleteResponse as SpeechToTextDeleteResponse,
-    type SpeechToTextCreateParams as SpeechToTextCreateParams,
+    type SpeechToTextCreateParams as SpeechToTextCreateParams
   };
 
   export {
@@ -117,6 +93,6 @@ export declare namespace BatchDetailRecords {
     type VoiceListResponse as VoiceListResponse,
     type VoiceDeleteResponse as VoiceDeleteResponse,
     type VoiceRetrieveFieldsResponse as VoiceRetrieveFieldsResponse,
-    type VoiceCreateParams as VoiceCreateParams,
+    type VoiceCreateParams as VoiceCreateParams
   };
 }

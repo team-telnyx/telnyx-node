@@ -11,5 +11,7 @@ export class MessagingTollfree extends APIResource {
 MessagingTollfree.Verification = Verification;
 
 export declare namespace MessagingTollfree {
-  export { Verification as Verification };
+  export {
+    Verification as Verification
+  };
 }

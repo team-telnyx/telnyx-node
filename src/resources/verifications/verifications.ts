@@ -43,10 +43,7 @@ export class Verifications extends APIResource {
    *   });
    * ```
    */
-  triggerCall(
-    body: VerificationTriggerCallParams,
-    options?: RequestOptions,
-  ): APIPromise<CreateVerificationResponse> {
+  triggerCall(body: VerificationTriggerCallParams, options?: RequestOptions): APIPromise<CreateVerificationResponse> {
     return this._client.post('/verifications/call', { body, ...options });
   }
 
@@ -63,10 +60,7 @@ export class Verifications extends APIResource {
    *   });
    * ```
    */
-  triggerFlashcall(
-    body: VerificationTriggerFlashcallParams,
-    options?: RequestOptions,
-  ): APIPromise<CreateVerificationResponse> {
+  triggerFlashcall(body: VerificationTriggerFlashcallParams, options?: RequestOptions): APIPromise<CreateVerificationResponse> {
     return this._client.post('/verifications/flashcall', { body, ...options });
   }
 
@@ -83,10 +77,7 @@ export class Verifications extends APIResource {
    *   });
    * ```
    */
-  triggerSMS(
-    body: VerificationTriggerSMSParams,
-    options?: RequestOptions,
-  ): APIPromise<CreateVerificationResponse> {
+  triggerSMS(body: VerificationTriggerSMSParams, options?: RequestOptions): APIPromise<CreateVerificationResponse> {
     return this._client.post('/verifications/sms', { body, ...options });
   }
 
@@ -103,10 +94,7 @@ export class Verifications extends APIResource {
    *   });
    * ```
    */
-  triggerWhatsappVerification(
-    body: VerificationTriggerWhatsappVerificationParams,
-    options?: RequestOptions,
-  ): APIPromise<CreateVerificationResponse> {
+  triggerWhatsappVerification(body: VerificationTriggerWhatsappVerificationParams, options?: RequestOptions): APIPromise<CreateVerificationResponse> {
     return this._client.post('/verifications/whatsapp', { body, ...options });
   }
 }
@@ -264,14 +252,17 @@ export declare namespace Verifications {
     type VerificationTriggerCallParams as VerificationTriggerCallParams,
     type VerificationTriggerFlashcallParams as VerificationTriggerFlashcallParams,
     type VerificationTriggerSMSParams as VerificationTriggerSMSParams,
-    type VerificationTriggerWhatsappVerificationParams as VerificationTriggerWhatsappVerificationParams,
+    type VerificationTriggerWhatsappVerificationParams as VerificationTriggerWhatsappVerificationParams
   };
 
   export {
     ByPhoneNumber as ByPhoneNumber,
     type VerifyMeta as VerifyMeta,
-    type ByPhoneNumberListResponse as ByPhoneNumberListResponse,
+    type ByPhoneNumberListResponse as ByPhoneNumberListResponse
   };
 
-  export { Actions as Actions, type ActionVerifyParams as ActionVerifyParams };
+  export {
+    Actions as Actions,
+    type ActionVerifyParams as ActionVerifyParams
+  };
 }

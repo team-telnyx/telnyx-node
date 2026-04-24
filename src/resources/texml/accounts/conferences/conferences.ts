@@ -3,18 +3,7 @@
 import { APIResource } from '../../../../core/resource';
 import * as AccountsAPI from '../accounts';
 import * as ParticipantsAPI from './participants';
-import {
-  ParticipantDeleteParams,
-  ParticipantParticipantsParams,
-  ParticipantParticipantsResponse,
-  ParticipantRetrieveParams,
-  ParticipantRetrieveParticipantsParams,
-  ParticipantRetrieveParticipantsResponse,
-  ParticipantRetrieveResponse,
-  ParticipantUpdateParams,
-  ParticipantUpdateResponse,
-  Participants,
-} from './participants';
+import { ParticipantDeleteParams, ParticipantParticipantsParams, ParticipantParticipantsResponse, ParticipantRetrieveParams, ParticipantRetrieveParticipantsParams, ParticipantRetrieveParticipantsResponse, ParticipantRetrieveResponse, ParticipantUpdateParams, ParticipantUpdateResponse, Participants } from './participants';
 import { APIPromise } from '../../../../core/api-promise';
 import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
@@ -38,12 +27,8 @@ export class Conferences extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    conferenceSid: string,
-    params: ConferenceRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<ConferenceRetrieveResponse> {
-    const { account_sid } = params;
+  retrieve(conferenceSid: string, params: ConferenceRetrieveParams, options?: RequestOptions): APIPromise<ConferenceRetrieveResponse> {
+    const { account_sid } = params
     return this._client.get(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}`, options);
   }
 
@@ -59,17 +44,9 @@ export class Conferences extends APIResource {
    *   );
    * ```
    */
-  update(
-    conferenceSid: string,
-    params: ConferenceUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<ConferenceUpdateResponse> {
-    const { account_sid, ...body } = params;
-    return this._client.post(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-    });
+  update(conferenceSid: string, params: ConferenceUpdateParams, options?: RequestOptions): APIPromise<ConferenceUpdateResponse> {
+    const { account_sid, ...body } = params
+    return this._client.post(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}`, { body, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
   }
 
   /**
@@ -83,11 +60,7 @@ export class Conferences extends APIResource {
    *   );
    * ```
    */
-  retrieveConferences(
-    accountSid: string,
-    query: ConferenceRetrieveConferencesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ConferenceRetrieveConferencesResponse> {
+  retrieveConferences(accountSid: string, query: ConferenceRetrieveConferencesParams | null | undefined = {}, options?: RequestOptions): APIPromise<ConferenceRetrieveConferencesResponse> {
     return this._client.get(path`/texml/Accounts/${accountSid}/Conferences`, { query, ...options });
   }
 
@@ -103,16 +76,9 @@ export class Conferences extends APIResource {
    *   );
    * ```
    */
-  retrieveRecordings(
-    conferenceSid: string,
-    params: ConferenceRetrieveRecordingsParams,
-    options?: RequestOptions,
-  ): APIPromise<ConferenceRetrieveRecordingsResponse> {
-    const { account_sid } = params;
-    return this._client.get(
-      path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Recordings`,
-      options,
-    );
+  retrieveRecordings(conferenceSid: string, params: ConferenceRetrieveRecordingsParams, options?: RequestOptions): APIPromise<ConferenceRetrieveRecordingsResponse> {
+    const { account_sid } = params
+    return this._client.get(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Recordings`, options);
   }
 
   /**
@@ -127,16 +93,9 @@ export class Conferences extends APIResource {
    *   );
    * ```
    */
-  retrieveRecordingsJson(
-    conferenceSid: string,
-    params: ConferenceRetrieveRecordingsJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<ConferenceRetrieveRecordingsJsonResponse> {
-    const { account_sid } = params;
-    return this._client.get(
-      path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Recordings.json`,
-      options,
-    );
+  retrieveRecordingsJson(conferenceSid: string, params: ConferenceRetrieveRecordingsJsonParams, options?: RequestOptions): APIPromise<ConferenceRetrieveRecordingsJsonResponse> {
+    const { account_sid } = params
+    return this._client.get(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Recordings.json`, options);
   }
 }
 
@@ -175,11 +134,7 @@ export interface ConferenceRetrieveResponse {
    * The reason why a conference ended. When a conference is in progress, will be
    * null.
    */
-  reason_conference_ended?:
-    | 'participant-with-end-conference-on-exit-left'
-    | 'last-participant-left'
-    | 'conference-ended-via-api'
-    | 'time-exceeded';
+  reason_conference_ended?: 'participant-with-end-conference-on-exit-left' | 'last-participant-left' | 'conference-ended-via-api' | 'time-exceeded';
 
   /**
    * A string representing the region where the conference is hosted.
@@ -242,11 +197,7 @@ export interface ConferenceUpdateResponse {
    * The reason why a conference ended. When a conference is in progress, will be
    * null.
    */
-  reason_conference_ended?:
-    | 'participant-with-end-conference-on-exit-left'
-    | 'last-participant-left'
-    | 'conference-ended-via-api'
-    | 'time-exceeded';
+  reason_conference_ended?: 'participant-with-end-conference-on-exit-left' | 'last-participant-left' | 'conference-ended-via-api' | 'time-exceeded';
 
   /**
    * A string representing the region where the conference is hosted.
@@ -349,11 +300,7 @@ export namespace ConferenceRetrieveConferencesResponse {
      * The reason why a conference ended. When a conference is in progress, will be
      * null.
      */
-    reason_conference_ended?:
-      | 'participant-with-end-conference-on-exit-left'
-      | 'last-participant-left'
-      | 'conference-ended-via-api'
-      | 'time-exceeded';
+    reason_conference_ended?: 'participant-with-end-conference-on-exit-left' | 'last-participant-left' | 'conference-ended-via-api' | 'time-exceeded';
 
     /**
      * A string representing the region where the conference is hosted.
@@ -481,14 +428,7 @@ export namespace ConferenceRetrieveRecordingsResponse {
     /**
      * How the recording was started.
      */
-    source?:
-      | 'DialVerb'
-      | 'Conference'
-      | 'OutboundAPI'
-      | 'Trunking'
-      | 'RecordVerb'
-      | 'StartCallRecordingAPI'
-      | 'StartConferenceRecordingAPI';
+    source?: 'DialVerb' | 'Conference' | 'OutboundAPI' | 'Trunking' | 'RecordVerb' | 'StartCallRecordingAPI' | 'StartConferenceRecordingAPI';
 
     /**
      * The timestamp of when the recording was started.
@@ -655,7 +595,7 @@ export declare namespace Conferences {
     type ConferenceUpdateParams as ConferenceUpdateParams,
     type ConferenceRetrieveConferencesParams as ConferenceRetrieveConferencesParams,
     type ConferenceRetrieveRecordingsParams as ConferenceRetrieveRecordingsParams,
-    type ConferenceRetrieveRecordingsJsonParams as ConferenceRetrieveRecordingsJsonParams,
+    type ConferenceRetrieveRecordingsJsonParams as ConferenceRetrieveRecordingsJsonParams
   };
 
   export {
@@ -668,6 +608,6 @@ export declare namespace Conferences {
     type ParticipantUpdateParams as ParticipantUpdateParams,
     type ParticipantDeleteParams as ParticipantDeleteParams,
     type ParticipantParticipantsParams as ParticipantParticipantsParams,
-    type ParticipantRetrieveParticipantsParams as ParticipantRetrieveParticipantsParams,
+    type ParticipantRetrieveParticipantsParams as ParticipantRetrieveParticipantsParams
   };
 }
