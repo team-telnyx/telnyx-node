@@ -860,6 +860,16 @@ export interface InferenceEmbedding {
 
   observability_settings?: Observability;
 
+  /**
+   * Configuration for post-conversation processing. When enabled, the assistant
+   * receives one additional LLM turn after the conversation ends, allowing it to
+   * execute tool calls such as logging to a CRM or sending a summary. The assistant
+   * can execute multiple parallel or sequential tools during this phase.
+   * Telephony-control tools (e.g. hangup, transfer) are unavailable
+   * post-conversation. Beta feature.
+   */
+  post_conversation_settings?: InferenceEmbedding.PostConversationSettings;
+
   privacy_settings?: PrivacySettings;
 
   telephony_settings?: TelephonySettings;
@@ -878,6 +888,25 @@ export interface InferenceEmbedding {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
+}
+
+export namespace InferenceEmbedding {
+  /**
+   * Configuration for post-conversation processing. When enabled, the assistant
+   * receives one additional LLM turn after the conversation ends, allowing it to
+   * execute tool calls such as logging to a CRM or sending a summary. The assistant
+   * can execute multiple parallel or sequential tools during this phase.
+   * Telephony-control tools (e.g. hangup, transfer) are unavailable
+   * post-conversation. Beta feature.
+   */
+  export interface PostConversationSettings {
+    /**
+     * Whether post-conversation processing is enabled. When true, the assistant will
+     * be invoked after the conversation ends to perform any final tool calls. Defaults
+     * to false.
+     */
+    enabled?: boolean;
+  }
 }
 
 export interface InferenceEmbeddingWebhookToolParams {
@@ -1160,6 +1189,13 @@ export interface TelephonySettings {
   time_limit_secs?: number;
 
   /**
+   * Duration in seconds of end user silence before the assistant checks in on the
+   * user. When this limit is reached the assistant will prompt the user to respond.
+   * This is distinct from user_idle_timeout_secs which stops the assistant entirely.
+   */
+  user_idle_reply_secs?: number;
+
+  /**
    * Maximum duration in seconds of end user silence on the call. When this limit is
    * reached the assistant will be stopped. This limit does not apply to portions of
    * a call without an active assistant (for instance, a call transferred to a human
@@ -1328,6 +1364,13 @@ export interface TranscriptionSettingsConfig {
    */
   eot_timeout_ms?: number;
 
+  /**
+   * Available only for deepgram/nova-3 and deepgram/flux. A comma-separated list of
+   * key terms to boost for recognition during transcription. Helps improve accuracy
+   * for domain-specific terminology, proper nouns, or uncommon words.
+   */
+  keyterm?: string;
+
   numerals?: boolean;
 
   smart_format?: boolean;
@@ -1376,7 +1419,11 @@ export interface VoiceSettings {
    * key as an integration secret under the `api_key_ref` field. See
    * [integration secrets documentation](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
    * for details. For Telnyx voices, use `Telnyx.<model_id>.<voice_id>` (e.g.
-   * Telnyx.KokoroTTS.af_heart)
+   * Telnyx.KokoroTTS.af_heart). The voice portion of the identifier supports
+   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+   * using mustache syntax (e.g. `Telnyx.Ultra.{{voice_id}}`). The variable is
+   * resolved at call time from your dynamic variables webhook, allowing you to
+   * select the voice dynamically per call.
    */
   voice: string;
 
@@ -1811,6 +1858,16 @@ export interface AssistantCreateParams {
 
   observability_settings?: ObservabilityReq;
 
+  /**
+   * Configuration for post-conversation processing. When enabled, the assistant
+   * receives one additional LLM turn after the conversation ends, allowing it to
+   * execute tool calls such as logging to a CRM or sending a summary. The assistant
+   * can execute multiple parallel or sequential tools during this phase.
+   * Telephony-control tools (e.g. hangup, transfer) are unavailable
+   * post-conversation. Beta feature.
+   */
+  post_conversation_settings?: AssistantCreateParams.PostConversationSettings;
+
   privacy_settings?: PrivacySettings;
 
   telephony_settings?: TelephonySettings;
@@ -1831,6 +1888,25 @@ export interface AssistantCreateParams {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
+}
+
+export namespace AssistantCreateParams {
+  /**
+   * Configuration for post-conversation processing. When enabled, the assistant
+   * receives one additional LLM turn after the conversation ends, allowing it to
+   * execute tool calls such as logging to a CRM or sending a summary. The assistant
+   * can execute multiple parallel or sequential tools during this phase.
+   * Telephony-control tools (e.g. hangup, transfer) are unavailable
+   * post-conversation. Beta feature.
+   */
+  export interface PostConversationSettings {
+    /**
+     * Whether post-conversation processing is enabled. When true, the assistant will
+     * be invoked after the conversation ends to perform any final tool calls. Defaults
+     * to false.
+     */
+    enabled?: boolean;
+  }
 }
 
 export interface AssistantRetrieveParams {
@@ -1901,6 +1977,16 @@ export interface AssistantUpdateParams {
 
   observability_settings?: ObservabilityReq;
 
+  /**
+   * Configuration for post-conversation processing. When enabled, the assistant
+   * receives one additional LLM turn after the conversation ends, allowing it to
+   * execute tool calls such as logging to a CRM or sending a summary. The assistant
+   * can execute multiple parallel or sequential tools during this phase.
+   * Telephony-control tools (e.g. hangup, transfer) are unavailable
+   * post-conversation. Beta feature.
+   */
+  post_conversation_settings?: AssistantUpdateParams.PostConversationSettings;
+
   privacy_settings?: PrivacySettings;
 
   /**
@@ -1927,6 +2013,25 @@ export interface AssistantUpdateParams {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
+}
+
+export namespace AssistantUpdateParams {
+  /**
+   * Configuration for post-conversation processing. When enabled, the assistant
+   * receives one additional LLM turn after the conversation ends, allowing it to
+   * execute tool calls such as logging to a CRM or sending a summary. The assistant
+   * can execute multiple parallel or sequential tools during this phase.
+   * Telephony-control tools (e.g. hangup, transfer) are unavailable
+   * post-conversation. Beta feature.
+   */
+  export interface PostConversationSettings {
+    /**
+     * Whether post-conversation processing is enabled. When true, the assistant will
+     * be invoked after the conversation ends to perform any final tool calls. Defaults
+     * to false.
+     */
+    enabled?: boolean;
+  }
 }
 
 export interface AssistantChatParams {

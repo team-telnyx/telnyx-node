@@ -291,6 +291,11 @@ describe('Webhooks Resource', () => {
       expect(result.data?.event_type).toBe('call.ai_gather.ended');
     });
 
+    it('should unsafe unwrap without verification', () => {
+      const result = client.webhooks.unsafeUnwrap<CallAIGatherEndedWebhookEvent>(payload);
+      expect(result.data?.event_type).toBe('call.ai_gather.ended');
+    });
+
     it('should reject invalid webhook signature', async () => {
       const timestamp = Math.floor(Date.now() / 1000).toString();
       const headers = {

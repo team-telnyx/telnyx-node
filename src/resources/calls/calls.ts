@@ -119,6 +119,7 @@ export class Calls extends APIResource {
    *
    * - `call.initiated`
    * - `call.answered` or `call.hangup`
+   * - `call.hold` and `call.unhold` if the call is held/unheld
    * - `call.machine.detection.ended` if `answering_machine_detection` was requested
    * - `call.machine.greeting.ended` if `answering_machine_detection` was requested
    *   to detect the end of machine greeting
@@ -126,6 +127,9 @@ export class Calls extends APIResource {
    *   `answering_machine_detection=premium` was requested
    * - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium`
    *   was requested and a beep was detected
+   * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
+   * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an
+   *   error occurred
    * - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url`
    *   was set
    *
@@ -507,7 +511,9 @@ export interface CallDialParams {
 
   /**
    * Optional configuration parameters to modify 'answering_machine_detection'
-   * performance.
+   * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
+   * parameters are applicable when `premium` is selected as
+   * answering_machine_detection.
    */
   answering_machine_detection_config?: CallDialParams.AnsweringMachineDetectionConfig;
 
@@ -565,6 +571,14 @@ export interface CallDialParams {
    * Custom headers to be added to the SIP INVITE.
    */
   custom_headers?: Array<CustomSipHeader>;
+
+  /**
+   * Enables deepfake detection on the call. When enabled, audio from the remote
+   * party is streamed to a detection service that analyzes whether the voice is
+   * AI-generated. Results are delivered via the `call.deepfake_detection.result`
+   * webhook.
+   */
+  deepfake_detection?: CallDialParams.DeepfakeDetection;
 
   dialogflow_config?: DialogflowConfig;
 
@@ -803,6 +817,13 @@ export interface CallDialParams {
   transcription_config?: ActionsAPI.TranscriptionStartRequest;
 
   /**
+   * A map of event types to retry policies. Each retry policy contains an array of
+   * `retries_ms` specifying the delays between retry attempts in milliseconds.
+   * Maximum 5 retries, total delay cannot exceed 60 seconds.
+   */
+  webhook_retries_policies?: { [key: string]: CallDialParams.WebhookRetriesPolicies };
+
+  /**
    * Use this field to override the URL for which Telnyx will send subsequent
    * webhooks to for this call.
    */
@@ -812,12 +833,27 @@ export interface CallDialParams {
    * HTTP request type used for `webhook_url`.
    */
   webhook_url_method?: 'POST' | 'GET';
+
+  /**
+   * A map of event types to webhook URLs. When an event of the specified type
+   * occurs, the webhook URL associated with that event type will be called instead
+   * of the default webhook URL. Events not mapped here will use the default webhook
+   * URL.
+   */
+  webhook_urls?: { [key: string]: string };
+
+  /**
+   * HTTP request method to invoke `webhook_urls`.
+   */
+  webhook_urls_method?: 'POST' | 'GET';
 }
 
 export namespace CallDialParams {
   /**
    * Optional configuration parameters to modify 'answering_machine_detection'
-   * performance.
+   * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
+   * parameters are applicable when `premium` is selected as
+   * answering_machine_detection.
    */
   export interface AnsweringMachineDetectionConfig {
     /**
@@ -973,6 +1009,38 @@ export namespace CallDialParams {
      * only.
      */
     whisper_call_control_ids?: Array<string>;
+  }
+
+  /**
+   * Enables deepfake detection on the call. When enabled, audio from the remote
+   * party is streamed to a detection service that analyzes whether the voice is
+   * AI-generated. Results are delivered via the `call.deepfake_detection.result`
+   * webhook.
+   */
+  export interface DeepfakeDetection {
+    /**
+     * Whether deepfake detection is enabled.
+     */
+    enabled: boolean;
+
+    /**
+     * Maximum time in seconds to wait for RTP audio before timing out. If no audio is
+     * received within this window, detection stops with an error.
+     */
+    rtp_timeout?: number;
+
+    /**
+     * Maximum time in seconds to wait for a detection result before timing out.
+     */
+    timeout?: number;
+  }
+
+  export interface WebhookRetriesPolicies {
+    /**
+     * Array of delays in milliseconds between retry attempts. Total sum cannot exceed
+     * 60000ms.
+     */
+    retries_ms?: Array<number>;
   }
 }
 

@@ -135,11 +135,6 @@ export namespace EventNode {
 export interface SessionAnalysisRetrieveResponse {
   cost: SessionAnalysisRetrieveResponse.Cost;
 
-  /**
-   * When the session started.
-   */
-  created_at: string;
-
   meta: SessionAnalysisRetrieveResponse.Meta;
 
   root: EventNode;
@@ -148,16 +143,6 @@ export interface SessionAnalysisRetrieveResponse {
    * Identifier for the analyzed session.
    */
   session_id: string;
-
-  /**
-   * Analysis status (e.g. "completed").
-   */
-  status: string;
-
-  /**
-   * When the session completed.
-   */
-  completed_at?: string | null;
 }
 
 export namespace SessionAnalysisRetrieveResponse {
@@ -193,7 +178,9 @@ export interface SessionAnalysisRetrieveParams {
   record_type: string;
 
   /**
-   * Query param: ISO 8601 timestamp to narrow index selection for faster lookups.
+   * Query param: ISO 8601 timestamp or date to narrow index selection for faster
+   * lookups. Accepts full datetime (e.g., 2026-03-17T10:00:00Z) or date-only format
+   * (e.g., 2026-03-17).
    */
   date_time?: string;
 

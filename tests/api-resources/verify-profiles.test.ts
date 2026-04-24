@@ -56,8 +56,10 @@ describe('resource verifyProfiles', () => {
       webhook_failover_url: 'http://example.com/webhook/failover',
       webhook_url: 'http://example.com/webhook',
       whatsapp: {
-        app_name: 'Example Secure App',
         default_verification_timeout_secs: 300,
+        sender_phone_number: '+13035551234',
+        template_id: 'authentication_template_name',
+        waba_id: '1234567890',
         whitelisted_destinations: ['US', 'CA'],
       },
     });

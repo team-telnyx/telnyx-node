@@ -97,6 +97,11 @@ describe('resource calls', () => {
         { name: 'head_1', value: 'val_1' },
         { name: 'head_2', value: 'val_2' },
       ],
+      deepfake_detection: {
+        enabled: true,
+        rtp_timeout: 30,
+        timeout: 15,
+      },
       dialogflow_config: { analyze_sentiment: false, partial_automated_agent_reply: false },
       enable_dialogflow: false,
       from_display_name: 'Company Name',
@@ -160,8 +165,14 @@ describe('resource calls', () => {
         },
         transcription_tracks: 'both',
       },
+      webhook_retries_policies: { 'call.hangup': { retries_ms: [1000, 2000, 5000] } },
       webhook_url: 'https://www.example.com/server-b/',
       webhook_url_method: 'POST',
+      webhook_urls: {
+        'call.hangup': 'https://www.example.com/webhooks/hangup',
+        'call.bridge': 'https://www.example.com/webhooks/bridge',
+      },
+      webhook_urls_method: 'POST',
     });
   });
 

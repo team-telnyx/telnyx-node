@@ -1,5 +1,27 @@
 # Changelog
 
+## 6.42.0 (2026-04-24)
+
+Full Changelog: [v6.41.1...v6.42.0](https://github.com/team-telnyx/telnyx-node/compare/v6.41.1...v6.42.0)
+
+### Features
+
+* **api:** manual updates ([756bb5c](https://github.com/team-telnyx/telnyx-node/commit/756bb5c09604d1af961a55033480b3c6998d90a7))
+
+
+### Chores
+
+* **internal:** codegen related update ([ab6c929](https://github.com/team-telnyx/telnyx-node/commit/ab6c9299ef0bc938bcf7d7e197925d031b439726))
+* **internal:** codegen related update ([04cf9e2](https://github.com/team-telnyx/telnyx-node/commit/04cf9e2d0f11b048cdcfdf28c3cf4ea91aaa0143))
+* remove eslint-plugin-prettier from lockfile ([7f58ca5](https://github.com/team-telnyx/telnyx-node/commit/7f58ca593aabf5fbe8d1a70a340bf983f14ac31f))
+* update example date in inference-embedding ([6d95755](https://github.com/team-telnyx/telnyx-node/commit/6d957551520ba45fccea13d69d03673ce88560a0))
+
+
+### Refactors
+
+* move TTS websocket custom code to lib ([0f0c923](https://github.com/team-telnyx/telnyx-node/commit/0f0c9239aa42e2b5f158c23133d79d13b1dee7bc))
+* move webhook unwrap helpers into lib ([9fd2824](https://github.com/team-telnyx/telnyx-node/commit/9fd282412e0ac69edf0e63631b8630a4e9cf2561))
+
 ## 6.41.1 (2026-04-21)
 
 Full Changelog: [v6.41.0...v6.41.1](https://github.com/team-telnyx/telnyx-node/compare/v6.41.0...v6.41.1)

@@ -10,4 +10,5 @@ export {
   type TextToSpeechListVoicesParams,
   type TextToSpeechStreamParams,
 } from './text-to-speech';
-export { TextToSpeechWS } from './ws';
+export { TextToSpeechWS, type TextToSpeechWSClientOptions } from './ws';
+export { type TextToSpeechWSReconnectOptions } from './ws-base';

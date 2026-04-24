@@ -294,12 +294,15 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationInsightsGeneratedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallCostWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallDeepfakeDetectionErrorWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallDeepfakeDetectionResultWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallDtmfReceivedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallEnqueuedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallForkStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallForkStoppedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallGatherEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallHangupWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallHoldWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallInitiatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallLeftQueueWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineDetectionEndedWebhookEvent</a></code>
@@ -322,6 +325,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallStreamingFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallStreamingStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallStreamingStoppedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallUnholdWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ConferenceCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ConferenceEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ConferenceParticipantJoinedWebhookEvent</a></code>
@@ -336,6 +340,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">ConferenceSpeakEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ConferenceSpeakStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">DeliveryUpdateWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">HostedNumberOrderEventWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
@@ -347,12 +352,15 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationInsightsGeneratedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallCostWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallDeepfakeDetectionErrorWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallDeepfakeDetectionResultWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallDtmfReceivedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallEnqueuedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallForkStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallForkStoppedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallGatherEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallHangupWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallHoldWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallInitiatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallLeftQueueWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineDetectionEndedWebhookEvent</a></code>
@@ -375,6 +383,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallStreamingFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallStreamingStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallStreamingStoppedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallUnholdWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ConferenceCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ConferenceEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ConferenceParticipantJoinedWebhookEvent</a></code>
@@ -389,6 +398,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">ConferenceSpeakEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ConferenceSpeakStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">DeliveryUpdateWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">HostedNumberOrderEventWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
@@ -785,7 +795,7 @@ Types:
 
 Methods:
 
-- <code title="get /ai/conversations/{conversation_id}/messages">client.ai.conversations.messages.<a href="./src/resources/ai/conversations/messages.ts">list</a>(conversationID) -> MessageListResponse</code>
+- <code title="get /ai/conversations/{conversation_id}/messages">client.ai.conversations.messages.<a href="./src/resources/ai/conversations/messages.ts">list</a>(conversationID, { ...params }) -> MessageListResponsesDefaultFlatPagination</code>
 
 ## Embeddings
 
