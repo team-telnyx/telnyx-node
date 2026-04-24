@@ -103,7 +103,9 @@ export function codeTool({
       const blockedMatches = blockedMethods.filter((method) => code.includes(method.fullyQualifiedName));
       if (blockedMatches.length > 0) {
         return asErrorResult(
-          `The following methods have been blocked by the MCP server and cannot be used in code execution: ${blockedMatches.map((m) => m.fullyQualifiedName).join(', ')}`,
+          `The following methods have been blocked by the MCP server and cannot be used in code execution: ${blockedMatches
+            .map((m) => m.fullyQualifiedName)
+            .join(', ')}`,
         );
       }
     }
@@ -180,7 +182,9 @@ const remoteStainlessHandler = async ({
       );
     }
     throw new Error(
-      `${res.status}: ${res.statusText} error when trying to contact Code Tool server. Details: ${await res.text()}`,
+      `${res.status}: ${
+        res.statusText
+      } error when trying to contact Code Tool server. Details: ${await res.text()}`,
     );
   }
 

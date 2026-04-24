@@ -42,6 +42,7 @@ npm start
    ```
 
 3. **Configure webhook URL** in Mission Control:
+
    - Go to **Messaging** → **Messaging Profiles**
    - Set webhook URL to: `https://your-ngrok-url.ngrok.io/webhooks/telnyx`
    - Enable webhook signing
