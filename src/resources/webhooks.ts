@@ -1,29 +1,19 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { TelnyxWebhook, TelnyxWebhookVerificationError } from '../lib/webhooks';
+import { type WebhookUnwrapOptions, unsafeUnwrapWebhook, unwrapWebhook } from '../lib/webhooks';
 import * as NumberOrdersAPI from './number-orders';
 import * as Shared from './shared';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
 
 export class Webhooks extends APIResource {
-  async unwrap<T = UnwrapWebhookEvent>(
-    body: string,
-    options?: { headers?: Record<string, string>; key?: string | Uint8Array },
-  ): Promise<T> {
-    if (options?.headers) {
-      const key = options.key || this._client.publicKey;
-      if (!key) {
-        throw new TelnyxWebhookVerificationError('No public key provided for webhook verification');
-      }
+  unsafeUnwrap<T = UnsafeUnwrapWebhookEvent>(body: string): T {
+    return unsafeUnwrapWebhook<T>(body);
+  }
 
-      // Use Telnyx-specific webhook verification following standardwebhooks pattern
-      const webhook = new TelnyxWebhook(key);
-      await webhook.verify(body, options.headers);
-    }
-
-    return JSON.parse(body) as T;
+  async unwrap<T = UnwrapWebhookEvent>(body: string, options?: WebhookUnwrapOptions): Promise<T> {
+    return unwrapWebhook<T>(body, options, this._client.publicKey);
   }
 }
 

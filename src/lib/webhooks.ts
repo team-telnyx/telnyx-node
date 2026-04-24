@@ -30,6 +30,33 @@ export class TelnyxWebhookVerificationError extends TelnyxError {
   }
 }
 
+export interface WebhookUnwrapOptions {
+  headers?: Record<string, string>;
+  key?: string | Uint8Array;
+}
+
+export function unsafeUnwrapWebhook<T>(body: string): T {
+  return JSON.parse(body) as T;
+}
+
+export async function unwrapWebhook<T>(
+  body: string,
+  options: WebhookUnwrapOptions | undefined,
+  clientPublicKey: string | null,
+): Promise<T> {
+  if (options?.headers) {
+    const key = options.key || clientPublicKey;
+    if (!key) {
+      throw new TelnyxWebhookVerificationError('No public key provided for webhook verification');
+    }
+
+    const webhook = new TelnyxWebhook(key);
+    await webhook.verify(body, options.headers);
+  }
+
+  return unsafeUnwrapWebhook<T>(body);
+}
+
 // Type for the SubtleCrypto interface we need
 // Using unknown for key type to avoid CryptoKey dependency
 interface SubtleCryptoLike {
