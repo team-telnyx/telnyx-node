@@ -50,11 +50,7 @@ export class Fqdns extends APIResource {
    * );
    * ```
    */
-  update(
-    id: string,
-    body: FqdnUpdateParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<FqdnUpdateResponse> {
+  update(id: string, body: FqdnUpdateParams | null | undefined = {}, options?: RequestOptions): APIPromise<FqdnUpdateResponse> {
     return this._client.patch(path`/fqdns/${id}`, { body, ...options });
   }
 
@@ -69,10 +65,7 @@ export class Fqdns extends APIResource {
    * }
    * ```
    */
-  list(
-    query: FqdnListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FqdnsDefaultFlatPagination, Fqdn> {
+  list(query: FqdnListParams | null | undefined = {}, options?: RequestOptions): PagePromise<FqdnsDefaultFlatPagination, Fqdn> {
     return this._client.getAPIList('/fqdns', DefaultFlatPagination<Fqdn>, { query, ...options });
   }
 
@@ -91,7 +84,7 @@ export class Fqdns extends APIResource {
   }
 }
 
-export type FqdnsDefaultFlatPagination = DefaultFlatPagination<Fqdn>;
+export type FqdnsDefaultFlatPagination = DefaultFlatPagination<Fqdn>
 
 export interface Fqdn {
   /**
@@ -250,6 +243,6 @@ export declare namespace Fqdns {
     type FqdnsDefaultFlatPagination as FqdnsDefaultFlatPagination,
     type FqdnCreateParams as FqdnCreateParams,
     type FqdnUpdateParams as FqdnUpdateParams,
-    type FqdnListParams as FqdnListParams,
+    type FqdnListParams as FqdnListParams
   };
 }

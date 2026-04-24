@@ -23,12 +23,8 @@ export class PhoneNumbers extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    phoneNumberID: string,
-    params: PhoneNumberRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<PhoneNumberRetrieveResponse> {
-    const { id } = params;
+  retrieve(phoneNumberID: string, params: PhoneNumberRetrieveParams, options?: RequestOptions): APIPromise<PhoneNumberRetrieveResponse> {
+    const { id } = params
     return this._client.get(path`/external_connections/${id}/phone_numbers/${phoneNumberID}`, options);
   }
 
@@ -45,16 +41,9 @@ export class PhoneNumbers extends APIResource {
    *   );
    * ```
    */
-  update(
-    phoneNumberID: string,
-    params: PhoneNumberUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<PhoneNumberUpdateResponse> {
-    const { id, ...body } = params;
-    return this._client.patch(path`/external_connections/${id}/phone_numbers/${phoneNumberID}`, {
-      body,
-      ...options,
-    });
+  update(phoneNumberID: string, params: PhoneNumberUpdateParams, options?: RequestOptions): APIPromise<PhoneNumberUpdateResponse> {
+    const { id, ...body } = params
+    return this._client.patch(path`/external_connections/${id}/phone_numbers/${phoneNumberID}`, { body, ...options });
   }
 
   /**
@@ -71,26 +60,15 @@ export class PhoneNumbers extends APIResource {
    * }
    * ```
    */
-  list(
-    id: string,
-    query: PhoneNumberListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ExternalConnectionPhoneNumbersDefaultFlatPagination, ExternalConnectionPhoneNumber> {
-    return this._client.getAPIList(
-      path`/external_connections/${id}/phone_numbers`,
-      DefaultFlatPagination<ExternalConnectionPhoneNumber>,
-      { query, ...options },
-    );
+  list(id: string, query: PhoneNumberListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ExternalConnectionPhoneNumbersDefaultFlatPagination, ExternalConnectionPhoneNumber> {
+    return this._client.getAPIList(path`/external_connections/${id}/phone_numbers`, DefaultFlatPagination<ExternalConnectionPhoneNumber>, { query, ...options });
   }
 }
 
-export type ExternalConnectionPhoneNumbersDefaultFlatPagination =
-  DefaultFlatPagination<ExternalConnectionPhoneNumber>;
+export type ExternalConnectionPhoneNumbersDefaultFlatPagination = DefaultFlatPagination<ExternalConnectionPhoneNumber>
 
 export interface ExternalConnectionPhoneNumber {
-  acquired_capabilities?: Array<
-    'FirstPartyAppAssignment' | 'InboundCalling' | 'Office365' | 'OutboundCalling' | 'UserAssignment'
-  >;
+  acquired_capabilities?: Array<'FirstPartyAppAssignment' | 'InboundCalling' | 'Office365' | 'OutboundCalling' | 'UserAssignment'>;
 
   /**
    * Identifies the civic address assigned to the phone number.
@@ -209,6 +187,6 @@ export declare namespace PhoneNumbers {
     type ExternalConnectionPhoneNumbersDefaultFlatPagination as ExternalConnectionPhoneNumbersDefaultFlatPagination,
     type PhoneNumberRetrieveParams as PhoneNumberRetrieveParams,
     type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
-    type PhoneNumberListParams as PhoneNumberListParams,
+    type PhoneNumberListParams as PhoneNumberListParams
   };
 }

@@ -22,10 +22,7 @@ export class TrafficPolicyProfiles extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: TrafficPolicyProfileCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<TrafficPolicyProfileCreateResponse> {
+  create(body: TrafficPolicyProfileCreateParams, options?: RequestOptions): APIPromise<TrafficPolicyProfileCreateResponse> {
     return this._client.post('/traffic_policy_profiles', { body, ...options });
   }
 
@@ -55,11 +52,7 @@ export class TrafficPolicyProfiles extends APIResource {
    *   );
    * ```
    */
-  update(
-    id: string,
-    body: TrafficPolicyProfileUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<TrafficPolicyProfileUpdateResponse> {
+  update(id: string, body: TrafficPolicyProfileUpdateParams, options?: RequestOptions): APIPromise<TrafficPolicyProfileUpdateResponse> {
     return this._client.patch(path`/traffic_policy_profiles/${id}`, { body, ...options });
   }
 
@@ -75,14 +68,8 @@ export class TrafficPolicyProfiles extends APIResource {
    * }
    * ```
    */
-  list(
-    query: TrafficPolicyProfileListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<TrafficPolicyProfilesDefaultFlatPagination, TrafficPolicyProfile> {
-    return this._client.getAPIList('/traffic_policy_profiles', DefaultFlatPagination<TrafficPolicyProfile>, {
-      query,
-      ...options,
-    });
+  list(query: TrafficPolicyProfileListParams | null | undefined = {}, options?: RequestOptions): PagePromise<TrafficPolicyProfilesDefaultFlatPagination, TrafficPolicyProfile> {
+    return this._client.getAPIList('/traffic_policy_profiles', DefaultFlatPagination<TrafficPolicyProfile>, { query, ...options });
   }
 
   /**
@@ -111,25 +98,14 @@ export class TrafficPolicyProfiles extends APIResource {
    * }
    * ```
    */
-  listServices(
-    query: TrafficPolicyProfileListServicesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<
-    TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
-    TrafficPolicyProfileListServicesResponse
-  > {
-    return this._client.getAPIList(
-      '/traffic_policy_profiles/services',
-      DefaultFlatPagination<TrafficPolicyProfileListServicesResponse>,
-      { query, ...options },
-    );
+  listServices(query: TrafficPolicyProfileListServicesParams | null | undefined = {}, options?: RequestOptions): PagePromise<TrafficPolicyProfileListServicesResponsesDefaultFlatPagination, TrafficPolicyProfileListServicesResponse> {
+    return this._client.getAPIList('/traffic_policy_profiles/services', DefaultFlatPagination<TrafficPolicyProfileListServicesResponse>, { query, ...options });
   }
 }
 
-export type TrafficPolicyProfilesDefaultFlatPagination = DefaultFlatPagination<TrafficPolicyProfile>;
+export type TrafficPolicyProfilesDefaultFlatPagination = DefaultFlatPagination<TrafficPolicyProfile>
 
-export type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination =
-  DefaultFlatPagination<TrafficPolicyProfileListServicesResponse>;
+export type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination = DefaultFlatPagination<TrafficPolicyProfileListServicesResponse>
 
 export interface TrafficPolicyProfile {
   /**
@@ -316,6 +292,6 @@ export declare namespace TrafficPolicyProfiles {
     type TrafficPolicyProfileCreateParams as TrafficPolicyProfileCreateParams,
     type TrafficPolicyProfileUpdateParams as TrafficPolicyProfileUpdateParams,
     type TrafficPolicyProfileListParams as TrafficPolicyProfileListParams,
-    type TrafficPolicyProfileListServicesParams as TrafficPolicyProfileListServicesParams,
+    type TrafficPolicyProfileListServicesParams as TrafficPolicyProfileListServicesParams
   };
 }

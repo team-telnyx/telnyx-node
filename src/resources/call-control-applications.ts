@@ -22,10 +22,7 @@ export class CallControlApplications extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: CallControlApplicationCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<CallControlApplicationCreateResponse> {
+  create(body: CallControlApplicationCreateParams, options?: RequestOptions): APIPromise<CallControlApplicationCreateResponse> {
     return this._client.post('/call_control_applications', { body, ...options });
   }
 
@@ -59,11 +56,7 @@ export class CallControlApplications extends APIResource {
    *   );
    * ```
    */
-  update(
-    id: string,
-    body: CallControlApplicationUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<CallControlApplicationUpdateResponse> {
+  update(id: string, body: CallControlApplicationUpdateParams, options?: RequestOptions): APIPromise<CallControlApplicationUpdateResponse> {
     return this._client.patch(path`/call_control_applications/${id}`, { body, ...options });
   }
 
@@ -78,15 +71,8 @@ export class CallControlApplications extends APIResource {
    * }
    * ```
    */
-  list(
-    query: CallControlApplicationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<CallControlApplicationsDefaultFlatPagination, CallControlApplication> {
-    return this._client.getAPIList(
-      '/call_control_applications',
-      DefaultFlatPagination<CallControlApplication>,
-      { query, ...options },
-    );
+  list(query: CallControlApplicationListParams | null | undefined = {}, options?: RequestOptions): PagePromise<CallControlApplicationsDefaultFlatPagination, CallControlApplication> {
+    return this._client.getAPIList('/call_control_applications', DefaultFlatPagination<CallControlApplication>, { query, ...options });
   }
 
   /**
@@ -105,7 +91,7 @@ export class CallControlApplications extends APIResource {
   }
 }
 
-export type CallControlApplicationsDefaultFlatPagination = DefaultFlatPagination<CallControlApplication>;
+export type CallControlApplicationsDefaultFlatPagination = DefaultFlatPagination<CallControlApplication>
 
 export interface CallControlApplication {
   id?: string;
@@ -121,16 +107,7 @@ export interface CallControlApplication {
    * using ICMP ping messages. This can be disabled by specifying a site to handle
    * all media.
    */
-  anchorsite_override?:
-    | 'Latency'
-    | 'Chicago, IL'
-    | 'Ashburn, VA'
-    | 'San Jose, CA'
-    | 'London, UK'
-    | 'Chennai, IN'
-    | 'Amsterdam, Netherlands'
-    | 'Toronto, Canada'
-    | 'Sydney, Australia';
+  anchorsite_override?: 'Latency' | 'Chicago, IL' | 'Ashburn, VA' | 'San Jose, CA' | 'London, UK' | 'Chennai, IN' | 'Amsterdam, Netherlands' | 'Toronto, Canada' | 'Sydney, Australia';
 
   /**
    * A user-assigned name to help manage the application.
@@ -290,16 +267,7 @@ export interface CallControlApplicationCreateParams {
    * using ICMP ping messages. This can be disabled by specifying a site to handle
    * all media.
    */
-  anchorsite_override?:
-    | 'Latency'
-    | 'Chicago, IL'
-    | 'Ashburn, VA'
-    | 'San Jose, CA'
-    | 'London, UK'
-    | 'Chennai, IN'
-    | 'Amsterdam, Netherlands'
-    | 'Toronto, Canada'
-    | 'Sydney, Australia';
+  anchorsite_override?: 'Latency' | 'Chicago, IL' | 'Ashburn, VA' | 'San Jose, CA' | 'London, UK' | 'Chennai, IN' | 'Amsterdam, Netherlands' | 'Toronto, Canada' | 'Sydney, Australia';
 
   /**
    * Specifies if call cost webhooks should be sent for this Call Control
@@ -374,16 +342,7 @@ export interface CallControlApplicationUpdateParams {
    * using ICMP ping messages. This can be disabled by specifying a site to handle
    * all media.
    */
-  anchorsite_override?:
-    | 'Latency'
-    | 'Chicago, IL'
-    | 'Ashburn, VA'
-    | 'San Jose, CA'
-    | 'London, UK'
-    | 'Chennai, IN'
-    | 'Amsterdam, Netherlands'
-    | 'Toronto, Canada'
-    | 'Sydney, Australia';
+  anchorsite_override?: 'Latency' | 'Chicago, IL' | 'Ashburn, VA' | 'San Jose, CA' | 'London, UK' | 'Chennai, IN' | 'Amsterdam, Netherlands' | 'Toronto, Canada' | 'Sydney, Australia';
 
   /**
    * Specifies if call cost webhooks should be sent for this Call Control
@@ -603,6 +562,6 @@ export declare namespace CallControlApplications {
     type CallControlApplicationsDefaultFlatPagination as CallControlApplicationsDefaultFlatPagination,
     type CallControlApplicationCreateParams as CallControlApplicationCreateParams,
     type CallControlApplicationUpdateParams as CallControlApplicationUpdateParams,
-    type CallControlApplicationListParams as CallControlApplicationListParams,
+    type CallControlApplicationListParams as CallControlApplicationListParams
   };
 }

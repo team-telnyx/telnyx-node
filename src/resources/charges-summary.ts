@@ -10,10 +10,7 @@ export class ChargesSummary extends APIResource {
    * Retrieve a summary of monthly charges for a specified date range. The date range
    * cannot exceed 31 days.
    */
-  retrieve(
-    query: ChargesSummaryRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<ChargesSummaryRetrieveResponse> {
+  retrieve(query: ChargesSummaryRetrieveParams, options?: RequestOptions): APIPromise<ChargesSummaryRetrieveResponse> {
     return this._client.get('/charges_summary', { query, ...options });
   }
 }
@@ -202,6 +199,6 @@ export declare namespace ChargesSummary {
   export {
     type MonthDetail as MonthDetail,
     type ChargesSummaryRetrieveResponse as ChargesSummaryRetrieveResponse,
-    type ChargesSummaryRetrieveParams as ChargesSummaryRetrieveParams,
+    type ChargesSummaryRetrieveParams as ChargesSummaryRetrieveParams
   };
 }

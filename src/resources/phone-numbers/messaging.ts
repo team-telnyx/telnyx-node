@@ -34,11 +34,7 @@ export class Messaging extends APIResource {
    *   await client.phoneNumbers.messaging.update('id');
    * ```
    */
-  update(
-    id: string,
-    body: MessagingUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<MessagingUpdateResponse> {
+  update(id: string, body: MessagingUpdateParams, options?: RequestOptions): APIPromise<MessagingUpdateResponse> {
     return this._client.patch(path`/phone_numbers/${id}/messaging`, { body, ...options });
   }
 
@@ -53,18 +49,8 @@ export class Messaging extends APIResource {
    * }
    * ```
    */
-  list(
-    query: MessagingListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<
-    PhoneNumberWithMessagingSettingsDefaultFlatPagination,
-    Shared.PhoneNumberWithMessagingSettings
-  > {
-    return this._client.getAPIList(
-      '/phone_numbers/messaging',
-      DefaultFlatPagination<Shared.PhoneNumberWithMessagingSettings>,
-      { query, ...options },
-    );
+  list(query: MessagingListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PhoneNumberWithMessagingSettingsDefaultFlatPagination, Shared.PhoneNumberWithMessagingSettings> {
+    return this._client.getAPIList('/phone_numbers/messaging', DefaultFlatPagination<Shared.PhoneNumberWithMessagingSettings>, { query, ...options });
   }
 }
 
@@ -133,8 +119,8 @@ export declare namespace Messaging {
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingUpdateResponse as MessagingUpdateResponse,
     type MessagingUpdateParams as MessagingUpdateParams,
-    type MessagingListParams as MessagingListParams,
+    type MessagingListParams as MessagingListParams
   };
 }
 
-export { type PhoneNumberWithMessagingSettingsDefaultFlatPagination };
+export { type PhoneNumberWithMessagingSettingsDefaultFlatPagination }

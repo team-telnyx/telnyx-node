@@ -36,15 +36,8 @@ export class CallingSettings extends APIResource {
    *   );
    * ```
    */
-  update(
-    phoneNumber: string,
-    body: CallingSettingUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<CallingSettingUpdateResponse> {
-    return this._client.patch(path`/v2/whatsapp/phone_numbers/${phoneNumber}/calling_settings`, {
-      body,
-      ...options,
-    });
+  update(phoneNumber: string, body: CallingSettingUpdateParams, options?: RequestOptions): APIPromise<CallingSettingUpdateResponse> {
+    return this._client.patch(path`/v2/whatsapp/phone_numbers/${phoneNumber}/calling_settings`, { body, ...options });
   }
 }
 
@@ -81,6 +74,6 @@ export declare namespace CallingSettings {
     type WhatsappCallingSettingsData as WhatsappCallingSettingsData,
     type CallingSettingRetrieveResponse as CallingSettingRetrieveResponse,
     type CallingSettingUpdateResponse as CallingSettingUpdateResponse,
-    type CallingSettingUpdateParams as CallingSettingUpdateParams,
+    type CallingSettingUpdateParams as CallingSettingUpdateParams
   };
 }

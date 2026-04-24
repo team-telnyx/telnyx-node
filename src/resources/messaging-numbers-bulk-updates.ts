@@ -26,10 +26,7 @@ export class MessagingNumbersBulkUpdates extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: MessagingNumbersBulkUpdateCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<MessagingNumbersBulkUpdateCreateResponse> {
+  create(body: MessagingNumbersBulkUpdateCreateParams, options?: RequestOptions): APIPromise<MessagingNumbersBulkUpdateCreateResponse> {
     return this._client.post('/messaging_numbers_bulk_updates', { body, ...options });
   }
 
@@ -44,10 +41,7 @@ export class MessagingNumbersBulkUpdates extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    orderID: string,
-    options?: RequestOptions,
-  ): APIPromise<MessagingNumbersBulkUpdateRetrieveResponse> {
+  retrieve(orderID: string, options?: RequestOptions): APIPromise<MessagingNumbersBulkUpdateRetrieveResponse> {
     return this._client.get(path`/messaging_numbers_bulk_updates/${orderID}`, options);
   }
 }
@@ -114,6 +108,6 @@ export declare namespace MessagingNumbersBulkUpdates {
     type BulkMessagingSettingsUpdatePhoneNumbers as BulkMessagingSettingsUpdatePhoneNumbers,
     type MessagingNumbersBulkUpdateCreateResponse as MessagingNumbersBulkUpdateCreateResponse,
     type MessagingNumbersBulkUpdateRetrieveResponse as MessagingNumbersBulkUpdateRetrieveResponse,
-    type MessagingNumbersBulkUpdateCreateParams as MessagingNumbersBulkUpdateCreateParams,
+    type MessagingNumbersBulkUpdateCreateParams as MessagingNumbersBulkUpdateCreateParams
   };
 }

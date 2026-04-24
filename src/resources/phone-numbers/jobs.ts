@@ -36,14 +36,8 @@ export class Jobs extends APIResource {
    * }
    * ```
    */
-  list(
-    query: JobListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PhoneNumbersJobsDefaultFlatPagination, PhoneNumbersJob> {
-    return this._client.getAPIList('/phone_numbers/jobs', DefaultFlatPagination<PhoneNumbersJob>, {
-      query,
-      ...options,
-    });
+  list(query: JobListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PhoneNumbersJobsDefaultFlatPagination, PhoneNumbersJob> {
+    return this._client.getAPIList('/phone_numbers/jobs', DefaultFlatPagination<PhoneNumbersJob>, { query, ...options });
   }
 
   /**
@@ -88,12 +82,8 @@ export class Jobs extends APIResource {
    * ```
    */
   updateBatch(params: JobUpdateBatchParams, options?: RequestOptions): APIPromise<JobUpdateBatchResponse> {
-    const { filter, ...body } = params;
-    return this._client.post('/phone_numbers/jobs/update_phone_numbers', {
-      query: { filter },
-      body,
-      ...options,
-    });
+    const { filter, ...body } = params
+    return this._client.post('/phone_numbers/jobs/update_phone_numbers', { query: { filter }, body, ...options });
   }
 
   /**
@@ -115,15 +105,12 @@ export class Jobs extends APIResource {
    *   );
    * ```
    */
-  updateEmergencySettingsBatch(
-    body: JobUpdateEmergencySettingsBatchParams,
-    options?: RequestOptions,
-  ): APIPromise<JobUpdateEmergencySettingsBatchResponse> {
+  updateEmergencySettingsBatch(body: JobUpdateEmergencySettingsBatchParams, options?: RequestOptions): APIPromise<JobUpdateEmergencySettingsBatchResponse> {
     return this._client.post('/phone_numbers/jobs/update_emergency_settings', { body, ...options });
   }
 }
 
-export type PhoneNumbersJobsDefaultFlatPagination = DefaultFlatPagination<PhoneNumbersJob>;
+export type PhoneNumbersJobsDefaultFlatPagination = DefaultFlatPagination<PhoneNumbersJob>
 
 export interface PhoneNumbersJob {
   /**
@@ -378,16 +365,7 @@ export namespace JobUpdateBatchParams {
     /**
      * Filter by phone number status.
      */
-    status?:
-      | 'purchase-pending'
-      | 'purchase-failed'
-      | 'port-pending'
-      | 'active'
-      | 'deleted'
-      | 'port-failed'
-      | 'emergency-only'
-      | 'ported-out'
-      | 'port-out-pending';
+    status?: 'purchase-pending' | 'purchase-failed' | 'port-pending' | 'active' | 'deleted' | 'port-failed' | 'emergency-only' | 'ported-out' | 'port-out-pending';
 
     /**
      * Filter by phone number tags.
@@ -460,6 +438,6 @@ export declare namespace Jobs {
     type JobListParams as JobListParams,
     type JobDeleteBatchParams as JobDeleteBatchParams,
     type JobUpdateBatchParams as JobUpdateBatchParams,
-    type JobUpdateEmergencySettingsBatchParams as JobUpdateEmergencySettingsBatchParams,
+    type JobUpdateEmergencySettingsBatchParams as JobUpdateEmergencySettingsBatchParams
   };
 }

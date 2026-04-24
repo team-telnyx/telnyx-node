@@ -37,20 +37,12 @@ export class Comments extends APIResource {
    * }
    * ```
    */
-  list(
-    id: string,
-    query: CommentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<CommentListResponsesDefaultFlatPagination, CommentListResponse> {
-    return this._client.getAPIList(
-      path`/porting_orders/${id}/comments`,
-      DefaultFlatPagination<CommentListResponse>,
-      { query, ...options },
-    );
+  list(id: string, query: CommentListParams | null | undefined = {}, options?: RequestOptions): PagePromise<CommentListResponsesDefaultFlatPagination, CommentListResponse> {
+    return this._client.getAPIList(path`/porting_orders/${id}/comments`, DefaultFlatPagination<CommentListResponse>, { query, ...options });
   }
 }
 
-export type CommentListResponsesDefaultFlatPagination = DefaultFlatPagination<CommentListResponse>;
+export type CommentListResponsesDefaultFlatPagination = DefaultFlatPagination<CommentListResponse>
 
 export interface CommentCreateResponse {
   data?: CommentCreateResponse.Data;
@@ -114,7 +106,8 @@ export interface CommentCreateParams {
   body?: string;
 }
 
-export interface CommentListParams extends DefaultFlatPaginationParams {}
+export interface CommentListParams extends DefaultFlatPaginationParams {
+}
 
 export declare namespace Comments {
   export {
@@ -122,6 +115,6 @@ export declare namespace Comments {
     type CommentListResponse as CommentListResponse,
     type CommentListResponsesDefaultFlatPagination as CommentListResponsesDefaultFlatPagination,
     type CommentCreateParams as CommentCreateParams,
-    type CommentListParams as CommentListParams,
+    type CommentListParams as CommentListParams
   };
 }

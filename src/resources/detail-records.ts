@@ -11,31 +11,18 @@ export class DetailRecords extends APIResource {
   /**
    * Search for any detail record across the Telnyx Platform
    */
-  list(
-    query: DetailRecordListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<DetailRecordListResponsesDefaultFlatPagination, DetailRecordListResponse> {
-    return this._client.getAPIList('/detail_records', DefaultFlatPagination<DetailRecordListResponse>, {
-      query,
-      ...options,
-    });
+  list(query: DetailRecordListParams | null | undefined = {}, options?: RequestOptions): PagePromise<DetailRecordListResponsesDefaultFlatPagination, DetailRecordListResponse> {
+    return this._client.getAPIList('/detail_records', DefaultFlatPagination<DetailRecordListResponse>, { query, ...options });
   }
 }
 
-export type DetailRecordListResponsesDefaultFlatPagination = DefaultFlatPagination<DetailRecordListResponse>;
+export type DetailRecordListResponsesDefaultFlatPagination = DefaultFlatPagination<DetailRecordListResponse>
 
 /**
  * An object following one of the schemas published in
  * https://developers.telnyx.com/docs/api/v2/detail-records
  */
-export type DetailRecordListResponse =
-  | DetailRecordListResponse.MessageDetailRecord
-  | DetailRecordListResponse.ConferenceDetailRecord
-  | DetailRecordListResponse.ConferenceParticipantDetailRecord
-  | DetailRecordListResponse.AmdDetailRecord
-  | DetailRecordListResponse.VerifyDetailRecord
-  | DetailRecordListResponse.SimCardUsageDetailRecord
-  | DetailRecordListResponse.MediaStorageDetailRecord;
+export type DetailRecordListResponse = DetailRecordListResponse.MessageDetailRecord | DetailRecordListResponse.ConferenceDetailRecord | DetailRecordListResponse.ConferenceParticipantDetailRecord | DetailRecordListResponse.AmdDetailRecord | DetailRecordListResponse.VerifyDetailRecord | DetailRecordListResponse.SimCardUsageDetailRecord | DetailRecordListResponse.MediaStorageDetailRecord
 
 export namespace DetailRecordListResponse {
   export interface MessageDetailRecord {
@@ -182,14 +169,7 @@ export namespace DetailRecordListResponse {
     /**
      * Final status of the message after the delivery attempt
      */
-    status?:
-      | 'gw_timeout'
-      | 'delivered'
-      | 'dlr_unconfirmed'
-      | 'dlr_timeout'
-      | 'received'
-      | 'gw_reject'
-      | 'failed';
+    status?: 'gw_timeout' | 'delivered' | 'dlr_unconfirmed' | 'dlr_timeout' | 'received' | 'gw_reject' | 'failed';
 
     /**
      * Comma-separated tags assigned to the Telnyx number associated with the message
@@ -702,45 +682,15 @@ export namespace DetailRecordListParams {
     /**
      * Filter by the given record type.
      */
-    record_type:
-      | 'ai-voice-assistant'
-      | 'amd'
-      | 'call-control'
-      | 'conference'
-      | 'conference-participant'
-      | 'embedding'
-      | 'fax'
-      | 'inference'
-      | 'inference-speech-to-text'
-      | 'media_storage'
-      | 'media-streaming'
-      | 'messaging'
-      | 'noise-suppression'
-      | 'recording'
-      | 'sip-trunking'
-      | 'siprec-client'
-      | 'stt'
-      | 'tts'
-      | 'verify'
-      | 'webrtc'
-      | 'wireless';
+    record_type: 'ai-voice-assistant' | 'amd' | 'call-control' | 'conference' | 'conference-participant' | 'embedding' | 'fax' | 'inference' | 'inference-speech-to-text' | 'media_storage' | 'media-streaming' | 'messaging' | 'noise-suppression' | 'recording' | 'sip-trunking' | 'siprec-client' | 'stt' | 'tts' | 'verify' | 'webrtc' | 'wireless';
 
     /**
      * Filter by the given user-friendly date range. You can specify one of the
      * following enum values, or a dynamic one using this format: last_N_days.
      */
-    date_range?:
-      | 'yesterday'
-      | 'today'
-      | 'tomorrow'
-      | 'last_week'
-      | 'this_week'
-      | 'next_week'
-      | 'last_month'
-      | 'this_month'
-      | 'next_month';
+    date_range?: 'yesterday' | 'today' | 'tomorrow' | 'last_week' | 'this_week' | 'next_week' | 'last_month' | 'this_month' | 'next_month';
 
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 }
 
@@ -748,6 +698,6 @@ export declare namespace DetailRecords {
   export {
     type DetailRecordListResponse as DetailRecordListResponse,
     type DetailRecordListResponsesDefaultFlatPagination as DetailRecordListResponsesDefaultFlatPagination,
-    type DetailRecordListParams as DetailRecordListParams,
+    type DetailRecordListParams as DetailRecordListParams
   };
 }

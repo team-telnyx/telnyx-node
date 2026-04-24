@@ -11,10 +11,7 @@ export class GlobalIPLatency extends APIResource {
   /**
    * Global IP Latency Metrics
    */
-  retrieve(
-    query: GlobalIPLatencyRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<GlobalIPLatencyRetrieveResponse> {
+  retrieve(query: GlobalIPLatencyRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<GlobalIPLatencyRetrieveResponse> {
     return this._client.get('/global_ip_latency', { query, ...options });
   }
 }
@@ -226,6 +223,6 @@ export namespace GlobalIPLatencyRetrieveParams {
 export declare namespace GlobalIPLatency {
   export {
     type GlobalIPLatencyRetrieveResponse as GlobalIPLatencyRetrieveResponse,
-    type GlobalIPLatencyRetrieveParams as GlobalIPLatencyRetrieveParams,
+    type GlobalIPLatencyRetrieveParams as GlobalIPLatencyRetrieveParams
   };
 }

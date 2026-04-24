@@ -11,19 +11,12 @@ export class MessagingOptouts extends APIResource {
   /**
    * Retrieve a list of opt-out blocks.
    */
-  list(
-    query: MessagingOptoutListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MessagingOptoutListResponsesDefaultFlatPagination, MessagingOptoutListResponse> {
-    return this._client.getAPIList('/messaging_optouts', DefaultFlatPagination<MessagingOptoutListResponse>, {
-      query,
-      ...options,
-    });
+  list(query: MessagingOptoutListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessagingOptoutListResponsesDefaultFlatPagination, MessagingOptoutListResponse> {
+    return this._client.getAPIList('/messaging_optouts', DefaultFlatPagination<MessagingOptoutListResponse>, { query, ...options });
   }
 }
 
-export type MessagingOptoutListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<MessagingOptoutListResponse>;
+export type MessagingOptoutListResponsesDefaultFlatPagination = DefaultFlatPagination<MessagingOptoutListResponse>
 
 export interface MessagingOptoutListResponse {
   /**
@@ -111,6 +104,6 @@ export declare namespace MessagingOptouts {
   export {
     type MessagingOptoutListResponse as MessagingOptoutListResponse,
     type MessagingOptoutListResponsesDefaultFlatPagination as MessagingOptoutListResponsesDefaultFlatPagination,
-    type MessagingOptoutListParams as MessagingOptoutListParams,
+    type MessagingOptoutListParams as MessagingOptoutListParams
   };
 }

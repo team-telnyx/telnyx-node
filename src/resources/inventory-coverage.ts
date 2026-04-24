@@ -13,10 +13,7 @@ export class InventoryCoverage extends APIResource {
    * national_destination_code is used in groupBy, and no region or locality filters
    * are used, the whole paginated set is returned.
    */
-  list(
-    query: InventoryCoverageListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<InventoryCoverageListResponse> {
+  list(query: InventoryCoverageListParams | null | undefined = {}, options?: RequestOptions): APIPromise<InventoryCoverageListResponse> {
     return this._client.get('/inventory_coverage', { query, ...options });
   }
 }
@@ -87,43 +84,7 @@ export namespace InventoryCoverageListParams {
     /**
      * Filter by country. Defaults to US
      */
-    country_code?:
-      | 'AT'
-      | 'AU'
-      | 'BE'
-      | 'BG'
-      | 'CA'
-      | 'CH'
-      | 'CN'
-      | 'CY'
-      | 'CZ'
-      | 'DE'
-      | 'DK'
-      | 'EE'
-      | 'ES'
-      | 'FI'
-      | 'FR'
-      | 'GB'
-      | 'GR'
-      | 'HU'
-      | 'HR'
-      | 'IE'
-      | 'IT'
-      | 'LT'
-      | 'LU'
-      | 'LV'
-      | 'NL'
-      | 'NZ'
-      | 'MX'
-      | 'NO'
-      | 'PL'
-      | 'PT'
-      | 'RO'
-      | 'SE'
-      | 'SG'
-      | 'SI'
-      | 'SK'
-      | 'US';
+    country_code?: 'AT' | 'AU' | 'BE' | 'BG' | 'CA' | 'CH' | 'CN' | 'CY' | 'CZ' | 'DE' | 'DK' | 'EE' | 'ES' | 'FI' | 'FR' | 'GB' | 'GR' | 'HU' | 'HR' | 'IE' | 'IT' | 'LT' | 'LU' | 'LV' | 'NL' | 'NZ' | 'MX' | 'NO' | 'PL' | 'PT' | 'RO' | 'SE' | 'SG' | 'SI' | 'SK' | 'US';
 
     /**
      * Filter if the phone number should be used for voice, fax, mms, sms, emergency.
@@ -156,6 +117,6 @@ export namespace InventoryCoverageListParams {
 export declare namespace InventoryCoverage {
   export {
     type InventoryCoverageListResponse as InventoryCoverageListResponse,
-    type InventoryCoverageListParams as InventoryCoverageListParams,
+    type InventoryCoverageListParams as InventoryCoverageListParams
   };
 }

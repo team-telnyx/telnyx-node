@@ -12,19 +12,13 @@ export class WirelessBlocklistValues extends APIResource {
   /**
    * Retrieve all wireless blocklist values for a given blocklist type.
    */
-  list(
-    query: WirelessBlocklistValueListParams,
-    options?: RequestOptions,
-  ): APIPromise<WirelessBlocklistValueListResponse> {
+  list(query: WirelessBlocklistValueListParams, options?: RequestOptions): APIPromise<WirelessBlocklistValueListResponse> {
     return this._client.get('/wireless_blocklist_values', { query, ...options });
   }
 }
 
 export interface WirelessBlocklistValueListResponse {
-  data?:
-    | Array<WirelessBlocklistValueListResponse.Country>
-    | Array<WirelessBlocklistValueListResponse.Mcc>
-    | Array<WirelessBlocklistValueListResponse.Plmn>;
+  data?: Array<WirelessBlocklistValueListResponse.Country> | Array<WirelessBlocklistValueListResponse.Mcc> | Array<WirelessBlocklistValueListResponse.Plmn>;
 
   meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
@@ -78,6 +72,6 @@ export interface WirelessBlocklistValueListParams {
 export declare namespace WirelessBlocklistValues {
   export {
     type WirelessBlocklistValueListResponse as WirelessBlocklistValueListResponse,
-    type WirelessBlocklistValueListParams as WirelessBlocklistValueListParams,
+    type WirelessBlocklistValueListParams as WirelessBlocklistValueListParams
   };
 }

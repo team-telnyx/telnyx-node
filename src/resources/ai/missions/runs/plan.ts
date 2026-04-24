@@ -27,7 +27,7 @@ export class Plan extends APIResource {
    * ```
    */
   create(runID: string, params: PlanCreateParams, options?: RequestOptions): APIPromise<PlanCreateResponse> {
-    const { mission_id, ...body } = params;
+    const { mission_id, ...body } = params
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/plan`, { body, ...options });
   }
 
@@ -42,12 +42,8 @@ export class Plan extends APIResource {
    * );
    * ```
    */
-  retrieve(
-    runID: string,
-    params: PlanRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<PlanRetrieveResponse> {
-    const { mission_id } = params;
+  retrieve(runID: string, params: PlanRetrieveParams, options?: RequestOptions): APIPromise<PlanRetrieveResponse> {
+    const { mission_id } = params
     return this._client.get(path`/ai/missions/${mission_id}/runs/${runID}/plan`, options);
   }
 
@@ -72,12 +68,8 @@ export class Plan extends APIResource {
    *   );
    * ```
    */
-  addStepsToPlan(
-    runID: string,
-    params: PlanAddStepsToPlanParams,
-    options?: RequestOptions,
-  ): APIPromise<PlanAddStepsToPlanResponse> {
-    const { mission_id, ...body } = params;
+  addStepsToPlan(runID: string, params: PlanAddStepsToPlanParams, options?: RequestOptions): APIPromise<PlanAddStepsToPlanResponse> {
+    const { mission_id, ...body } = params
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/plan/steps`, { body, ...options });
   }
 
@@ -96,12 +88,8 @@ export class Plan extends APIResource {
    *   );
    * ```
    */
-  getStepDetails(
-    stepID: string,
-    params: PlanGetStepDetailsParams,
-    options?: RequestOptions,
-  ): APIPromise<PlanGetStepDetailsResponse> {
-    const { mission_id, run_id } = params;
+  getStepDetails(stepID: string, params: PlanGetStepDetailsParams, options?: RequestOptions): APIPromise<PlanGetStepDetailsResponse> {
+    const { mission_id, run_id } = params
     return this._client.get(path`/ai/missions/${mission_id}/runs/${run_id}/plan/steps/${stepID}`, options);
   }
 
@@ -117,16 +105,9 @@ export class Plan extends APIResource {
    *   });
    * ```
    */
-  updateStep(
-    stepID: string,
-    params: PlanUpdateStepParams,
-    options?: RequestOptions,
-  ): APIPromise<PlanUpdateStepResponse> {
-    const { mission_id, run_id, ...body } = params;
-    return this._client.patch(path`/ai/missions/${mission_id}/runs/${run_id}/plan/steps/${stepID}`, {
-      body,
-      ...options,
-    });
+  updateStep(stepID: string, params: PlanUpdateStepParams, options?: RequestOptions): APIPromise<PlanUpdateStepResponse> {
+    const { mission_id, run_id, ...body } = params
+    return this._client.patch(path`/ai/missions/${mission_id}/runs/${run_id}/plan/steps/${stepID}`, { body, ...options });
   }
 }
 
@@ -266,6 +247,6 @@ export declare namespace Plan {
     type PlanRetrieveParams as PlanRetrieveParams,
     type PlanAddStepsToPlanParams as PlanAddStepsToPlanParams,
     type PlanGetStepDetailsParams as PlanGetStepDetailsParams,
-    type PlanUpdateStepParams as PlanUpdateStepParams,
+    type PlanUpdateStepParams as PlanUpdateStepParams
   };
 }

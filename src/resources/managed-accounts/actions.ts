@@ -35,11 +35,7 @@ export class Actions extends APIResource {
    *   await client.managedAccounts.actions.enable('id');
    * ```
    */
-  enable(
-    id: string,
-    body: ActionEnableParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ActionEnableResponse> {
+  enable(id: string, body: ActionEnableParams | null | undefined = {}, options?: RequestOptions): APIPromise<ActionEnableResponse> {
     return this._client.post(path`/managed_accounts/${id}/actions/enable`, { body, ...options });
   }
 }
@@ -65,6 +61,6 @@ export declare namespace Actions {
   export {
     type ActionDisableResponse as ActionDisableResponse,
     type ActionEnableResponse as ActionEnableResponse,
-    type ActionEnableParams as ActionEnableParams,
+    type ActionEnableParams as ActionEnableParams
   };
 }

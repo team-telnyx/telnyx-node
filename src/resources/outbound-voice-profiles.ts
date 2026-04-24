@@ -21,10 +21,7 @@ export class OutboundVoiceProfiles extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: OutboundVoiceProfileCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<OutboundVoiceProfileCreateResponse> {
+  create(body: OutboundVoiceProfileCreateParams, options?: RequestOptions): APIPromise<OutboundVoiceProfileCreateResponse> {
     return this._client.post('/outbound_voice_profiles', { body, ...options });
   }
 
@@ -55,11 +52,7 @@ export class OutboundVoiceProfiles extends APIResource {
    *   );
    * ```
    */
-  update(
-    id: string,
-    body: OutboundVoiceProfileUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<OutboundVoiceProfileUpdateResponse> {
+  update(id: string, body: OutboundVoiceProfileUpdateParams, options?: RequestOptions): APIPromise<OutboundVoiceProfileUpdateResponse> {
     return this._client.patch(path`/outbound_voice_profiles/${id}`, { body, ...options });
   }
 
@@ -75,14 +68,8 @@ export class OutboundVoiceProfiles extends APIResource {
    * }
    * ```
    */
-  list(
-    query: OutboundVoiceProfileListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<OutboundVoiceProfilesDefaultFlatPagination, OutboundVoiceProfile> {
-    return this._client.getAPIList('/outbound_voice_profiles', DefaultFlatPagination<OutboundVoiceProfile>, {
-      query,
-      ...options,
-    });
+  list(query: OutboundVoiceProfileListParams | null | undefined = {}, options?: RequestOptions): PagePromise<OutboundVoiceProfilesDefaultFlatPagination, OutboundVoiceProfile> {
+    return this._client.getAPIList('/outbound_voice_profiles', DefaultFlatPagination<OutboundVoiceProfile>, { query, ...options });
   }
 
   /**
@@ -101,7 +88,7 @@ export class OutboundVoiceProfiles extends APIResource {
   }
 }
 
-export type OutboundVoiceProfilesDefaultFlatPagination = DefaultFlatPagination<OutboundVoiceProfile>;
+export type OutboundVoiceProfilesDefaultFlatPagination = DefaultFlatPagination<OutboundVoiceProfile>
 
 export interface OutboundCallRecording {
   /**
@@ -254,17 +241,17 @@ export namespace OutboundVoiceProfile {
 /**
  * Indicates the coverage of the termination regions.
  */
-export type ServicePlan = 'global';
+export type ServicePlan = 'global'
 
 /**
  * Specifies the type of traffic allowed in this profile.
  */
-export type TrafficType = 'conversational';
+export type TrafficType = 'conversational'
 
 /**
  * Setting for how costs for outbound profile are calculated.
  */
-export type UsagePaymentMethod = 'rate-deck';
+export type UsagePaymentMethod = 'rate-deck'
 
 export interface OutboundVoiceProfileCreateResponse {
   data?: OutboundVoiceProfile;
@@ -503,19 +490,7 @@ export interface OutboundVoiceProfileListParams extends DefaultFlatPaginationPar
    *   </li>
    * </ul> <br/>
    */
-  sort?:
-    | 'enabled'
-    | '-enabled'
-    | 'created_at'
-    | '-created_at'
-    | 'name'
-    | '-name'
-    | 'service_plan'
-    | '-service_plan'
-    | 'traffic_type'
-    | '-traffic_type'
-    | 'usage_payment_method'
-    | '-usage_payment_method';
+  sort?: 'enabled' | '-enabled' | 'created_at' | '-created_at' | 'name' | '-name' | 'service_plan' | '-service_plan' | 'traffic_type' | '-traffic_type' | 'usage_payment_method' | '-usage_payment_method';
 }
 
 export namespace OutboundVoiceProfileListParams {
@@ -557,6 +532,6 @@ export declare namespace OutboundVoiceProfiles {
     type OutboundVoiceProfilesDefaultFlatPagination as OutboundVoiceProfilesDefaultFlatPagination,
     type OutboundVoiceProfileCreateParams as OutboundVoiceProfileCreateParams,
     type OutboundVoiceProfileUpdateParams as OutboundVoiceProfileUpdateParams,
-    type OutboundVoiceProfileListParams as OutboundVoiceProfileListParams,
+    type OutboundVoiceProfileListParams as OutboundVoiceProfileListParams
   };
 }

@@ -111,6 +111,6 @@ export declare namespace Settings {
     type WabaSettings as WabaSettings,
     type SettingRetrieveResponse as SettingRetrieveResponse,
     type SettingUpdateResponse as SettingUpdateResponse,
-    type SettingUpdateParams as SettingUpdateParams,
+    type SettingUpdateParams as SettingUpdateParams
   };
 }

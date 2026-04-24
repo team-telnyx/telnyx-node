@@ -2,10 +2,7 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource oauth', () => {
   // Mock server tests are disabled
@@ -69,10 +66,10 @@ describe('resource oauth', () => {
   // Mock server tests are disabled
   test.skip('retrieveAuthorize: only required params', async () => {
     const responsePromise = client.oauth.retrieveAuthorize({
-      client_id: 'client_id',
-      redirect_uri: 'https://example.com',
-      response_type: 'code',
-    });
+    client_id: 'client_id',
+    redirect_uri: 'https://example.com',
+    response_type: 'code',
+  });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -85,14 +82,14 @@ describe('resource oauth', () => {
   // Mock server tests are disabled
   test.skip('retrieveAuthorize: required and optional params', async () => {
     const response = await client.oauth.retrieveAuthorize({
-      client_id: 'client_id',
-      redirect_uri: 'https://example.com',
-      response_type: 'code',
-      code_challenge: 'code_challenge',
-      code_challenge_method: 'plain',
-      scope: 'scope',
-      state: 'state',
-    });
+    client_id: 'client_id',
+    redirect_uri: 'https://example.com',
+    response_type: 'code',
+    code_challenge: 'code_challenge',
+    code_challenge_method: 'plain',
+    scope: 'scope',
+    state: 'state',
+  });
   });
 
   // Mock server tests are disabled
@@ -122,14 +119,14 @@ describe('resource oauth', () => {
   // Mock server tests are disabled
   test.skip('token: required and optional params', async () => {
     const response = await client.oauth.token({
-      grant_type: 'client_credentials',
-      client_id: 'client_id',
-      client_secret: 'client_secret',
-      code: 'code',
-      code_verifier: 'code_verifier',
-      redirect_uri: 'https://example.com',
-      refresh_token: 'refresh_token',
-      scope: 'admin',
-    });
+    grant_type: 'client_credentials',
+    client_id: 'client_id',
+    client_secret: 'client_secret',
+    code: 'code',
+    code_verifier: 'code_verifier',
+    redirect_uri: 'https://example.com',
+    refresh_token: 'refresh_token',
+    scope: 'admin',
+  });
   });
 });

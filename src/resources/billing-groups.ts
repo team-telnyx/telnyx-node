@@ -49,11 +49,7 @@ export class BillingGroups extends APIResource {
    * );
    * ```
    */
-  update(
-    id: string,
-    body: BillingGroupUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<BillingGroupUpdateResponse> {
+  update(id: string, body: BillingGroupUpdateParams, options?: RequestOptions): APIPromise<BillingGroupUpdateResponse> {
     return this._client.patch(path`/billing_groups/${id}`, { body, ...options });
   }
 
@@ -68,14 +64,8 @@ export class BillingGroups extends APIResource {
    * }
    * ```
    */
-  list(
-    query: BillingGroupListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<BillingGroupsDefaultFlatPagination, BillingGroup> {
-    return this._client.getAPIList('/billing_groups', DefaultFlatPagination<BillingGroup>, {
-      query,
-      ...options,
-    });
+  list(query: BillingGroupListParams | null | undefined = {}, options?: RequestOptions): PagePromise<BillingGroupsDefaultFlatPagination, BillingGroup> {
+    return this._client.getAPIList('/billing_groups', DefaultFlatPagination<BillingGroup>, { query, ...options });
   }
 
   /**
@@ -93,7 +83,7 @@ export class BillingGroups extends APIResource {
   }
 }
 
-export type BillingGroupsDefaultFlatPagination = DefaultFlatPagination<BillingGroup>;
+export type BillingGroupsDefaultFlatPagination = DefaultFlatPagination<BillingGroup>
 
 export interface BillingGroup {
   /**
@@ -162,7 +152,8 @@ export interface BillingGroupUpdateParams {
   name?: string;
 }
 
-export interface BillingGroupListParams extends DefaultFlatPaginationParams {}
+export interface BillingGroupListParams extends DefaultFlatPaginationParams {
+}
 
 export declare namespace BillingGroups {
   export {
@@ -174,6 +165,6 @@ export declare namespace BillingGroups {
     type BillingGroupsDefaultFlatPagination as BillingGroupsDefaultFlatPagination,
     type BillingGroupCreateParams as BillingGroupCreateParams,
     type BillingGroupUpdateParams as BillingGroupUpdateParams,
-    type BillingGroupListParams as BillingGroupListParams,
+    type BillingGroupListParams as BillingGroupListParams
   };
 }

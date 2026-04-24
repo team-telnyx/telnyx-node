@@ -47,7 +47,7 @@ export class Tags extends APIResource {
    * ```
    */
   remove(tag: string, params: TagRemoveParams, options?: RequestOptions): APIPromise<TagRemoveResponse> {
-    const { assistant_id } = params;
+    const { assistant_id } = params
     return this._client.delete(path`/ai/assistants/${assistant_id}/tags/${tag}`, options);
   }
 }
@@ -78,6 +78,6 @@ export declare namespace Tags {
     type TagAddResponse as TagAddResponse,
     type TagRemoveResponse as TagRemoveResponse,
     type TagAddParams as TagAddParams,
-    type TagRemoveParams as TagRemoveParams,
+    type TagRemoveParams as TagRemoveParams
   };
 }

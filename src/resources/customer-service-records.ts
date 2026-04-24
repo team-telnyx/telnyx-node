@@ -21,10 +21,7 @@ export class CustomerServiceRecords extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: CustomerServiceRecordCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<CustomerServiceRecordCreateResponse> {
+  create(body: CustomerServiceRecordCreateParams, options?: RequestOptions): APIPromise<CustomerServiceRecordCreateResponse> {
     return this._client.post('/customer_service_records', { body, ...options });
   }
 
@@ -39,10 +36,7 @@ export class CustomerServiceRecords extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    customerServiceRecordID: string,
-    options?: RequestOptions,
-  ): APIPromise<CustomerServiceRecordRetrieveResponse> {
+  retrieve(customerServiceRecordID: string, options?: RequestOptions): APIPromise<CustomerServiceRecordRetrieveResponse> {
     return this._client.get(path`/customer_service_records/${customerServiceRecordID}`, options);
   }
 
@@ -57,15 +51,8 @@ export class CustomerServiceRecords extends APIResource {
    * }
    * ```
    */
-  list(
-    query: CustomerServiceRecordListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<CustomerServiceRecordsDefaultFlatPagination, CustomerServiceRecord> {
-    return this._client.getAPIList(
-      '/customer_service_records',
-      DefaultFlatPagination<CustomerServiceRecord>,
-      { query, ...options },
-    );
+  list(query: CustomerServiceRecordListParams | null | undefined = {}, options?: RequestOptions): PagePromise<CustomerServiceRecordsDefaultFlatPagination, CustomerServiceRecord> {
+    return this._client.getAPIList('/customer_service_records', DefaultFlatPagination<CustomerServiceRecord>, { query, ...options });
   }
 
   /**
@@ -79,15 +66,12 @@ export class CustomerServiceRecords extends APIResource {
    *   );
    * ```
    */
-  verifyPhoneNumberCoverage(
-    body: CustomerServiceRecordVerifyPhoneNumberCoverageParams,
-    options?: RequestOptions,
-  ): APIPromise<CustomerServiceRecordVerifyPhoneNumberCoverageResponse> {
+  verifyPhoneNumberCoverage(body: CustomerServiceRecordVerifyPhoneNumberCoverageParams, options?: RequestOptions): APIPromise<CustomerServiceRecordVerifyPhoneNumberCoverageResponse> {
     return this._client.post('/customer_service_records/phone_number_coverages', { body, ...options });
   }
 }
 
-export type CustomerServiceRecordsDefaultFlatPagination = DefaultFlatPagination<CustomerServiceRecord>;
+export type CustomerServiceRecordsDefaultFlatPagination = DefaultFlatPagination<CustomerServiceRecord>
 
 export interface CustomerServiceRecord {
   /**
@@ -241,18 +225,7 @@ export namespace CustomerServiceRecordVerifyPhoneNumberCoverageResponse {
      * Additional data required to perform CSR for the phone number. Only returned if
      * `has_csr_coverage` is true.
      */
-    additional_data_required?: Array<
-      | 'name'
-      | 'authorized_person_name'
-      | 'account_number'
-      | 'customer_code'
-      | 'pin'
-      | 'address_line_1'
-      | 'city'
-      | 'state'
-      | 'zip_code'
-      | 'billing_phone_number'
-    >;
+    additional_data_required?: Array<'name' | 'authorized_person_name' | 'account_number' | 'customer_code' | 'pin' | 'address_line_1' | 'city' | 'state' | 'zip_code' | 'billing_phone_number'>;
 
     /**
      * Indicates whether the phone number is covered or not.
@@ -439,6 +412,6 @@ export declare namespace CustomerServiceRecords {
     type CustomerServiceRecordsDefaultFlatPagination as CustomerServiceRecordsDefaultFlatPagination,
     type CustomerServiceRecordCreateParams as CustomerServiceRecordCreateParams,
     type CustomerServiceRecordListParams as CustomerServiceRecordListParams,
-    type CustomerServiceRecordVerifyPhoneNumberCoverageParams as CustomerServiceRecordVerifyPhoneNumberCoverageParams,
+    type CustomerServiceRecordVerifyPhoneNumberCoverageParams as CustomerServiceRecordVerifyPhoneNumberCoverageParams
   };
 }

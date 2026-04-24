@@ -2,15 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as AccountsAPI from './accounts/accounts';
-import {
-  AccountRetrieveRecordingsJsonParams,
-  AccountRetrieveRecordingsJsonResponse,
-  AccountRetrieveTranscriptionsJsonParams,
-  AccountRetrieveTranscriptionsJsonResponse,
-  Accounts,
-  TexmlGetCallRecordingResponseBody,
-  TexmlRecordingSubresourcesUris,
-} from './accounts/accounts';
+import { AccountRetrieveRecordingsJsonParams, AccountRetrieveRecordingsJsonResponse, AccountRetrieveTranscriptionsJsonParams, AccountRetrieveTranscriptionsJsonResponse, Accounts, TexmlGetCallRecordingResponseBody, TexmlRecordingSubresourcesUris } from './accounts/accounts';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -39,16 +31,9 @@ export class Texml extends APIResource {
    * );
    * ```
    */
-  initiateAICall(
-    connectionID: string,
-    params: TexmlInitiateAICallParams,
-    options?: RequestOptions,
-  ): APIPromise<TexmlInitiateAICallResponse> {
-    const { timeout_seconds, ...body } = params;
-    return this._client.post(path`/texml/ai_calls/${connectionID}`, {
-      body: { Timeout: timeout_seconds, ...body },
-      ...options,
-    });
+  initiateAICall(connectionID: string, params: TexmlInitiateAICallParams, options?: RequestOptions): APIPromise<TexmlInitiateAICallResponse> {
+    const { timeout_seconds, ...body } = params
+    return this._client.post(path`/texml/ai_calls/${connectionID}`, { body: { Timeout: timeout_seconds, ...body }, ...options });
   }
 
   /**
@@ -345,7 +330,7 @@ export declare namespace Texml {
     type TexmlInitiateAICallResponse as TexmlInitiateAICallResponse,
     type TexmlSecretsResponse as TexmlSecretsResponse,
     type TexmlInitiateAICallParams as TexmlInitiateAICallParams,
-    type TexmlSecretsParams as TexmlSecretsParams,
+    type TexmlSecretsParams as TexmlSecretsParams
   };
 
   export {
@@ -355,6 +340,6 @@ export declare namespace Texml {
     type AccountRetrieveRecordingsJsonResponse as AccountRetrieveRecordingsJsonResponse,
     type AccountRetrieveTranscriptionsJsonResponse as AccountRetrieveTranscriptionsJsonResponse,
     type AccountRetrieveRecordingsJsonParams as AccountRetrieveRecordingsJsonParams,
-    type AccountRetrieveTranscriptionsJsonParams as AccountRetrieveTranscriptionsJsonParams,
+    type AccountRetrieveTranscriptionsJsonParams as AccountRetrieveTranscriptionsJsonParams
   };
 }

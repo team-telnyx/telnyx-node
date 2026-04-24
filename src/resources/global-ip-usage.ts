@@ -11,10 +11,7 @@ export class GlobalIPUsage extends APIResource {
   /**
    * Global IP Usage Metrics
    */
-  retrieve(
-    query: GlobalIPUsageRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<GlobalIPUsageRetrieveResponse> {
+  retrieve(query: GlobalIPUsageRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<GlobalIPUsageRetrieveResponse> {
     return this._client.get('/global_ip_usage', { query, ...options });
   }
 }
@@ -112,6 +109,6 @@ export namespace GlobalIPUsageRetrieveParams {
 export declare namespace GlobalIPUsage {
   export {
     type GlobalIPUsageRetrieveResponse as GlobalIPUsageRetrieveResponse,
-    type GlobalIPUsageRetrieveParams as GlobalIPUsageRetrieveParams,
+    type GlobalIPUsageRetrieveParams as GlobalIPUsageRetrieveParams
   };
 }

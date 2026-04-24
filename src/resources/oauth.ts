@@ -45,11 +45,7 @@ export class OAuth extends APIResource {
    * ```
    */
   introspect(body: OAuthIntrospectParams, options?: RequestOptions): APIPromise<OAuthIntrospectResponse> {
-    return this._client.post('/oauth/introspect', {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-    });
+    return this._client.post('/oauth/introspect', { body, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
   }
 
   /**
@@ -77,11 +73,7 @@ export class OAuth extends APIResource {
    * ```
    */
   retrieveAuthorize(query: OAuthRetrieveAuthorizeParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.get('/oauth/authorize', {
-      query,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.get('/oauth/authorize', { query, ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
@@ -108,11 +100,7 @@ export class OAuth extends APIResource {
    * ```
    */
   token(body: OAuthTokenParams, options?: RequestOptions): APIPromise<OAuthTokenResponse> {
-    return this._client.post('/oauth/token', {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-    });
+    return this._client.post('/oauth/token', { body, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
   }
 }
 
@@ -498,6 +486,6 @@ export declare namespace OAuth {
     type OAuthIntrospectParams as OAuthIntrospectParams,
     type OAuthRegisterParams as OAuthRegisterParams,
     type OAuthRetrieveAuthorizeParams as OAuthRetrieveAuthorizeParams,
-    type OAuthTokenParams as OAuthTokenParams,
+    type OAuthTokenParams as OAuthTokenParams
   };
 }

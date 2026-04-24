@@ -24,16 +24,8 @@ export class VerificationCodes extends APIResource {
    * }
    * ```
    */
-  list(
-    id: string,
-    query: VerificationCodeListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<VerificationCodeListResponsesDefaultFlatPagination, VerificationCodeListResponse> {
-    return this._client.getAPIList(
-      path`/porting_orders/${id}/verification_codes`,
-      DefaultFlatPagination<VerificationCodeListResponse>,
-      { query, ...options },
-    );
+  list(id: string, query: VerificationCodeListParams | null | undefined = {}, options?: RequestOptions): PagePromise<VerificationCodeListResponsesDefaultFlatPagination, VerificationCodeListResponse> {
+    return this._client.getAPIList(path`/porting_orders/${id}/verification_codes`, DefaultFlatPagination<VerificationCodeListResponse>, { query, ...options });
   }
 
   /**
@@ -46,16 +38,8 @@ export class VerificationCodes extends APIResource {
    * );
    * ```
    */
-  send(
-    id: string,
-    body: VerificationCodeSendParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    return this._client.post(path`/porting_orders/${id}/verification_codes/send`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  send(id: string, body: VerificationCodeSendParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/porting_orders/${id}/verification_codes/send`, { body, ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
@@ -69,17 +53,12 @@ export class VerificationCodes extends APIResource {
    *   );
    * ```
    */
-  verify(
-    id: string,
-    body: VerificationCodeVerifyParams,
-    options?: RequestOptions,
-  ): APIPromise<VerificationCodeVerifyResponse> {
+  verify(id: string, body: VerificationCodeVerifyParams, options?: RequestOptions): APIPromise<VerificationCodeVerifyResponse> {
     return this._client.post(path`/porting_orders/${id}/verification_codes/verify`, { body, ...options });
   }
 }
 
-export type VerificationCodeListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<VerificationCodeListResponse>;
+export type VerificationCodeListResponsesDefaultFlatPagination = DefaultFlatPagination<VerificationCodeListResponse>
 
 export interface VerificationCodeListResponse {
   /**
@@ -221,6 +200,6 @@ export declare namespace VerificationCodes {
     type VerificationCodeListResponsesDefaultFlatPagination as VerificationCodeListResponsesDefaultFlatPagination,
     type VerificationCodeListParams as VerificationCodeListParams,
     type VerificationCodeSendParams as VerificationCodeSendParams,
-    type VerificationCodeVerifyParams as VerificationCodeVerifyParams,
+    type VerificationCodeVerifyParams as VerificationCodeVerifyParams
   };
 }

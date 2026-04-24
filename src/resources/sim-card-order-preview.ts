@@ -19,10 +19,7 @@ export class SimCardOrderPreview extends APIResource {
    * });
    * ```
    */
-  preview(
-    body: SimCardOrderPreviewPreviewParams,
-    options?: RequestOptions,
-  ): APIPromise<SimCardOrderPreviewPreviewResponse> {
+  preview(body: SimCardOrderPreviewPreviewParams, options?: RequestOptions): APIPromise<SimCardOrderPreviewPreviewResponse> {
     return this._client.post('/sim_card_order_preview', { body, ...options });
   }
 }
@@ -105,6 +102,6 @@ export interface SimCardOrderPreviewPreviewParams {
 export declare namespace SimCardOrderPreview {
   export {
     type SimCardOrderPreviewPreviewResponse as SimCardOrderPreviewPreviewResponse,
-    type SimCardOrderPreviewPreviewParams as SimCardOrderPreviewPreviewParams,
+    type SimCardOrderPreviewPreviewParams as SimCardOrderPreviewPreviewParams
   };
 }

@@ -15,18 +15,12 @@ export class CallEvents extends APIResource {
    *
    * **Note**: Only one `filter[occurred_at]` can be passed.
    */
-  list(
-    query: CallEventListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<CallEventListResponsesDefaultFlatPagination, CallEventListResponse> {
-    return this._client.getAPIList('/call_events', DefaultFlatPagination<CallEventListResponse>, {
-      query,
-      ...options,
-    });
+  list(query: CallEventListParams | null | undefined = {}, options?: RequestOptions): PagePromise<CallEventListResponsesDefaultFlatPagination, CallEventListResponse> {
+    return this._client.getAPIList('/call_events', DefaultFlatPagination<CallEventListResponse>, { query, ...options });
   }
 }
 
-export type CallEventListResponsesDefaultFlatPagination = DefaultFlatPagination<CallEventListResponse>;
+export type CallEventListResponsesDefaultFlatPagination = DefaultFlatPagination<CallEventListResponse>
 
 export interface CallEventListResponse {
   /**
@@ -201,6 +195,6 @@ export declare namespace CallEvents {
   export {
     type CallEventListResponse as CallEventListResponse,
     type CallEventListResponsesDefaultFlatPagination as CallEventListResponsesDefaultFlatPagination,
-    type CallEventListParams as CallEventListParams,
+    type CallEventListParams as CallEventListParams
   };
 }

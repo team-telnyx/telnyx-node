@@ -2,10 +2,7 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource conversations', () => {
   // Mock server tests are disabled
@@ -59,25 +56,22 @@ describe('resource conversations', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.ai.conversations.list(
-        {
-          id: 'id',
-          created_at: 'created_at',
-          last_message_at: 'last_message_at',
-          limit: 1,
-          'metadata->assistant_id': 'metadata->assistant_id',
-          'metadata->call_control_id': 'metadata->call_control_id',
-          'metadata->telnyx_agent_target': 'metadata->telnyx_agent_target',
-          'metadata->telnyx_conversation_channel': 'metadata->telnyx_conversation_channel',
-          'metadata->telnyx_end_user_target': 'metadata->telnyx_end_user_target',
-          name: 'name',
-          or: 'or',
-          order: 'order',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
+    await expect(client.ai.conversations.list({
+    id: 'id',
+    created_at: 'created_at',
+    last_message_at: 'last_message_at',
+    limit: 1,
+    'metadata->assistant_id': 'metadata->assistant_id',
+    'metadata->call_control_id': 'metadata->call_control_id',
+    'metadata->telnyx_agent_target': 'metadata->telnyx_agent_target',
+    'metadata->telnyx_conversation_channel': 'metadata->telnyx_conversation_channel',
+    'metadata->telnyx_end_user_target': 'metadata->telnyx_end_user_target',
+    name: 'name',
+    or: 'or',
+    order: 'order',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -94,9 +88,7 @@ describe('resource conversations', () => {
 
   // Mock server tests are disabled
   test.skip('addMessage: only required params', async () => {
-    const responsePromise = client.ai.conversations.addMessage('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      role: 'role',
-    });
+    const responsePromise = client.ai.conversations.addMessage('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { role: 'role' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -109,15 +101,15 @@ describe('resource conversations', () => {
   // Mock server tests are disabled
   test.skip('addMessage: required and optional params', async () => {
     const response = await client.ai.conversations.addMessage('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      role: 'role',
-      content: 'content',
-      metadata: { foo: 'string' },
-      name: 'name',
-      sent_at: '2019-12-27T18:11:19.117Z',
-      tool_call_id: 'tool_call_id',
-      tool_calls: [{ foo: 'bar' }],
-      tool_choice: 'string',
-    });
+    role: 'role',
+    content: 'content',
+    metadata: { foo: 'string' },
+    name: 'name',
+    sent_at: '2019-12-27T18:11:19.117Z',
+    tool_call_id: 'tool_call_id',
+    tool_calls: [{ foo: 'bar' }],
+    tool_choice: 'string',
+  });
   });
 
   // Mock server tests are disabled

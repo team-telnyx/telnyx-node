@@ -23,16 +23,9 @@ export class Versions extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    versionID: string,
-    params: VersionRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<AssistantsAPI.InferenceEmbedding> {
-    const { assistant_id, ...query } = params;
-    return this._client.get(path`/ai/assistants/${assistant_id}/versions/${versionID}`, {
-      query,
-      ...options,
-    });
+  retrieve(versionID: string, params: VersionRetrieveParams, options?: RequestOptions): APIPromise<AssistantsAPI.InferenceEmbedding> {
+    const { assistant_id, ...query } = params
+    return this._client.get(path`/ai/assistants/${assistant_id}/versions/${versionID}`, { query, ...options });
   }
 
   /**
@@ -47,16 +40,9 @@ export class Versions extends APIResource {
    *   });
    * ```
    */
-  update(
-    versionID: string,
-    params: VersionUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<AssistantsAPI.InferenceEmbedding> {
-    const { assistant_id, ...body } = params;
-    return this._client.post(path`/ai/assistants/${assistant_id}/versions/${versionID}`, {
-      body,
-      ...options,
-    });
+  update(versionID: string, params: VersionUpdateParams, options?: RequestOptions): APIPromise<AssistantsAPI.InferenceEmbedding> {
+    const { assistant_id, ...body } = params
+    return this._client.post(path`/ai/assistants/${assistant_id}/versions/${versionID}`, { body, ...options });
   }
 
   /**
@@ -85,11 +71,8 @@ export class Versions extends APIResource {
    * ```
    */
   delete(versionID: string, params: VersionDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { assistant_id } = params;
-    return this._client.delete(path`/ai/assistants/${assistant_id}/versions/${versionID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    const { assistant_id } = params
+    return this._client.delete(path`/ai/assistants/${assistant_id}/versions/${versionID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
@@ -106,12 +89,8 @@ export class Versions extends APIResource {
    *   );
    * ```
    */
-  promote(
-    versionID: string,
-    params: VersionPromoteParams,
-    options?: RequestOptions,
-  ): APIPromise<AssistantsAPI.InferenceEmbedding> {
-    const { assistant_id } = params;
+  promote(versionID: string, params: VersionPromoteParams, options?: RequestOptions): APIPromise<AssistantsAPI.InferenceEmbedding> {
+    const { assistant_id } = params
     return this._client.post(path`/ai/assistants/${assistant_id}/versions/${versionID}/promote`, options);
   }
 }
@@ -340,6 +319,6 @@ export declare namespace Versions {
     type VersionRetrieveParams as VersionRetrieveParams,
     type VersionUpdateParams as VersionUpdateParams,
     type VersionDeleteParams as VersionDeleteParams,
-    type VersionPromoteParams as VersionPromoteParams,
+    type VersionPromoteParams as VersionPromoteParams
   };
 }

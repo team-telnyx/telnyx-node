@@ -48,11 +48,7 @@ export class IPConnections extends APIResource {
    * );
    * ```
    */
-  update(
-    id: string,
-    body: IPConnectionUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<IPConnectionUpdateResponse> {
+  update(id: string, body: IPConnectionUpdateParams, options?: RequestOptions): APIPromise<IPConnectionUpdateResponse> {
     return this._client.patch(path`/ip_connections/${id}`, { body, ...options });
   }
 
@@ -67,14 +63,8 @@ export class IPConnections extends APIResource {
    * }
    * ```
    */
-  list(
-    query: IPConnectionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<IPConnectionsDefaultFlatPagination, IPConnection> {
-    return this._client.getAPIList('/ip_connections', DefaultFlatPagination<IPConnection>, {
-      query,
-      ...options,
-    });
+  list(query: IPConnectionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<IPConnectionsDefaultFlatPagination, IPConnection> {
+    return this._client.getAPIList('/ip_connections', DefaultFlatPagination<IPConnection>, { query, ...options });
   }
 
   /**
@@ -92,7 +82,7 @@ export class IPConnections extends APIResource {
   }
 }
 
-export type IPConnectionsDefaultFlatPagination = DefaultFlatPagination<IPConnection>;
+export type IPConnectionsDefaultFlatPagination = DefaultFlatPagination<IPConnection>
 
 export interface InboundIP {
   /**
@@ -415,13 +405,7 @@ export interface OutboundIP {
    * default, Telnyx will send the re-invite. If set to `customer`, the caller is
    * expected to send the t.38 reinvite.
    */
-  t38_reinvite_source?:
-    | 'telnyx'
-    | 'customer'
-    | 'disabled'
-    | 'passthru'
-    | 'caller-passthru'
-    | 'callee-passthru';
+  t38_reinvite_source?: 'telnyx' | 'customer' | 'disabled' | 'passthru' | 'caller-passthru' | 'callee-passthru';
 
   /**
    * Numerical chars only, exactly 4 characters.
@@ -871,6 +855,6 @@ export declare namespace IPConnections {
     type IPConnectionsDefaultFlatPagination as IPConnectionsDefaultFlatPagination,
     type IPConnectionCreateParams as IPConnectionCreateParams,
     type IPConnectionUpdateParams as IPConnectionUpdateParams,
-    type IPConnectionListParams as IPConnectionListParams,
+    type IPConnectionListParams as IPConnectionListParams
   };
 }

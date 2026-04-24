@@ -2,10 +2,7 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource missions', () => {
   // Mock server tests are disabled
@@ -23,13 +20,13 @@ describe('resource missions', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.ai.missions.create({
-      name: 'name',
-      description: 'description',
-      execution_mode: 'external',
-      instructions: 'instructions',
-      metadata: { foo: 'bar' },
-      model: 'model',
-    });
+    name: 'name',
+    description: 'description',
+    execution_mode: 'external',
+    instructions: 'instructions',
+    metadata: { foo: 'bar' },
+    model: 'model',
+  });
   });
 
   // Mock server tests are disabled
@@ -59,9 +56,9 @@ describe('resource missions', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.ai.missions.list({ 'page[number]': 1, 'page[size]': 1 }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Telnyx.NotFoundError);
+    await expect(client.ai.missions.list({ 'page[number]': 1, 'page[size]': 1 }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -103,16 +100,13 @@ describe('resource missions', () => {
   // Mock server tests are disabled
   test.skip('listEvents: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.ai.missions.listEvents(
-        {
-          'page[number]': 1,
-          'page[size]': 1,
-          type: 'type',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
+    await expect(client.ai.missions.listEvents({
+    'page[number]': 1,
+    'page[size]': 1,
+    type: 'type',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled

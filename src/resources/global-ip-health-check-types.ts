@@ -40,5 +40,7 @@ export namespace GlobalIPHealthCheckTypeListResponse {
 }
 
 export declare namespace GlobalIPHealthCheckTypes {
-  export { type GlobalIPHealthCheckTypeListResponse as GlobalIPHealthCheckTypeListResponse };
+  export {
+    type GlobalIPHealthCheckTypeListResponse as GlobalIPHealthCheckTypeListResponse
+  };
 }

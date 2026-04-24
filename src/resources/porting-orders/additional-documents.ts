@@ -22,11 +22,7 @@ export class AdditionalDocuments extends APIResource {
    *   );
    * ```
    */
-  create(
-    id: string,
-    body: AdditionalDocumentCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<AdditionalDocumentCreateResponse> {
+  create(id: string, body: AdditionalDocumentCreateParams, options?: RequestOptions): APIPromise<AdditionalDocumentCreateResponse> {
     return this._client.post(path`/porting_orders/${id}/additional_documents`, { body, ...options });
   }
 
@@ -43,16 +39,8 @@ export class AdditionalDocuments extends APIResource {
    * }
    * ```
    */
-  list(
-    id: string,
-    query: AdditionalDocumentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AdditionalDocumentListResponsesDefaultFlatPagination, AdditionalDocumentListResponse> {
-    return this._client.getAPIList(
-      path`/porting_orders/${id}/additional_documents`,
-      DefaultFlatPagination<AdditionalDocumentListResponse>,
-      { query, ...options },
-    );
+  list(id: string, query: AdditionalDocumentListParams | null | undefined = {}, options?: RequestOptions): PagePromise<AdditionalDocumentListResponsesDefaultFlatPagination, AdditionalDocumentListResponse> {
+    return this._client.getAPIList(path`/porting_orders/${id}/additional_documents`, DefaultFlatPagination<AdditionalDocumentListResponse>, { query, ...options });
   }
 
   /**
@@ -66,21 +54,13 @@ export class AdditionalDocuments extends APIResource {
    * );
    * ```
    */
-  delete(
-    additionalDocumentID: string,
-    params: AdditionalDocumentDeleteParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { id } = params;
-    return this._client.delete(path`/porting_orders/${id}/additional_documents/${additionalDocumentID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  delete(additionalDocumentID: string, params: AdditionalDocumentDeleteParams, options?: RequestOptions): APIPromise<void> {
+    const { id } = params
+    return this._client.delete(path`/porting_orders/${id}/additional_documents/${additionalDocumentID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
-export type AdditionalDocumentListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<AdditionalDocumentListResponse>;
+export type AdditionalDocumentListResponsesDefaultFlatPagination = DefaultFlatPagination<AdditionalDocumentListResponse>
 
 export interface AdditionalDocumentCreateResponse {
   data?: Array<AdditionalDocumentCreateResponse.Data>;
@@ -251,6 +231,6 @@ export declare namespace AdditionalDocuments {
     type AdditionalDocumentListResponsesDefaultFlatPagination as AdditionalDocumentListResponsesDefaultFlatPagination,
     type AdditionalDocumentCreateParams as AdditionalDocumentCreateParams,
     type AdditionalDocumentListParams as AdditionalDocumentListParams,
-    type AdditionalDocumentDeleteParams as AdditionalDocumentDeleteParams,
+    type AdditionalDocumentDeleteParams as AdditionalDocumentDeleteParams
   };
 }

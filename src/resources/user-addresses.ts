@@ -54,18 +54,12 @@ export class UserAddresses extends APIResource {
    * }
    * ```
    */
-  list(
-    query: UserAddressListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<UserAddressesDefaultFlatPagination, UserAddress> {
-    return this._client.getAPIList('/user_addresses', DefaultFlatPagination<UserAddress>, {
-      query,
-      ...options,
-    });
+  list(query: UserAddressListParams | null | undefined = {}, options?: RequestOptions): PagePromise<UserAddressesDefaultFlatPagination, UserAddress> {
+    return this._client.getAPIList('/user_addresses', DefaultFlatPagination<UserAddress>, { query, ...options });
   }
 }
 
-export type UserAddressesDefaultFlatPagination = DefaultFlatPagination<UserAddress>;
+export type UserAddressesDefaultFlatPagination = DefaultFlatPagination<UserAddress>
 
 export interface UserAddress {
   /**
@@ -342,6 +336,6 @@ export declare namespace UserAddresses {
     type UserAddressRetrieveResponse as UserAddressRetrieveResponse,
     type UserAddressesDefaultFlatPagination as UserAddressesDefaultFlatPagination,
     type UserAddressCreateParams as UserAddressCreateParams,
-    type UserAddressListParams as UserAddressListParams,
+    type UserAddressListParams as UserAddressListParams
   };
 }

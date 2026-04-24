@@ -23,12 +23,8 @@ export class Releases extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    releaseID: string,
-    params: ReleaseRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<ReleaseRetrieveResponse> {
-    const { id } = params;
+  retrieve(releaseID: string, params: ReleaseRetrieveParams, options?: RequestOptions): APIPromise<ReleaseRetrieveResponse> {
+    const { id } = params
     return this._client.get(path`/external_connections/${id}/releases/${releaseID}`, options);
   }
 
@@ -47,20 +43,12 @@ export class Releases extends APIResource {
    * }
    * ```
    */
-  list(
-    id: string,
-    query: ReleaseListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ReleaseListResponsesDefaultFlatPagination, ReleaseListResponse> {
-    return this._client.getAPIList(
-      path`/external_connections/${id}/releases`,
-      DefaultFlatPagination<ReleaseListResponse>,
-      { query, ...options },
-    );
+  list(id: string, query: ReleaseListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ReleaseListResponsesDefaultFlatPagination, ReleaseListResponse> {
+    return this._client.getAPIList(path`/external_connections/${id}/releases`, DefaultFlatPagination<ReleaseListResponse>, { query, ...options });
   }
 }
 
-export type ReleaseListResponsesDefaultFlatPagination = DefaultFlatPagination<ReleaseListResponse>;
+export type ReleaseListResponsesDefaultFlatPagination = DefaultFlatPagination<ReleaseListResponse>
 
 export interface TnReleaseEntry {
   /**
@@ -201,9 +189,7 @@ export namespace ReleaseListParams {
       /**
        * The status of the release to filter by
        */
-      eq?: Array<
-        'pending_upload' | 'pending' | 'in_progress' | 'complete' | 'failed' | 'expired' | 'unknown'
-      >;
+      eq?: Array<'pending_upload' | 'pending' | 'in_progress' | 'complete' | 'failed' | 'expired' | 'unknown'>;
     }
   }
 }
@@ -215,6 +201,6 @@ export declare namespace Releases {
     type ReleaseListResponse as ReleaseListResponse,
     type ReleaseListResponsesDefaultFlatPagination as ReleaseListResponsesDefaultFlatPagination,
     type ReleaseRetrieveParams as ReleaseRetrieveParams,
-    type ReleaseListParams as ReleaseListParams,
+    type ReleaseListParams as ReleaseListParams
   };
 }

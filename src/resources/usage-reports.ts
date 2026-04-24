@@ -13,44 +13,24 @@ export class UsageReports extends APIResource {
   /**
    * Get Telnyx usage data by product, broken out by the specified dimensions
    */
-  list(
-    params: UsageReportListParams,
-    options?: RequestOptions,
-  ): PagePromise<UsageReportListResponsesDefaultFlatPagination, UsageReportListResponse> {
-    const { authorization_bearer, ...query } = params;
-    return this._client.getAPIList('/usage_reports', DefaultFlatPagination<UsageReportListResponse>, {
-      query,
-      ...options,
-      headers: buildHeaders([
-        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
-        options?.headers,
-      ]),
-    });
+  list(params: UsageReportListParams, options?: RequestOptions): PagePromise<UsageReportListResponsesDefaultFlatPagination, UsageReportListResponse> {
+    const { authorization_bearer, ...query } = params
+    return this._client.getAPIList('/usage_reports', DefaultFlatPagination<UsageReportListResponse>, { query, ...options, headers: buildHeaders([{...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined)}, options?.headers]) });
   }
 
   /**
    * Get the Usage Reports options for querying usage, including the products
    * available and their respective metrics and dimensions
    */
-  getOptions(
-    params: UsageReportGetOptionsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<UsageReportGetOptionsResponse> {
-    const { authorization_bearer, ...query } = params ?? {};
-    return this._client.get('/usage_reports/options', {
-      query,
-      ...options,
-      headers: buildHeaders([
-        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
-        options?.headers,
-      ]),
-    });
+  getOptions(params: UsageReportGetOptionsParams | null | undefined = {}, options?: RequestOptions): APIPromise<UsageReportGetOptionsResponse> {
+    const { authorization_bearer, ...query } = params ?? {}
+    return this._client.get('/usage_reports/options', { query, ...options, headers: buildHeaders([{...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined)}, options?.headers]) });
   }
 }
 
-export type UsageReportListResponsesDefaultFlatPagination = DefaultFlatPagination<UsageReportListResponse>;
+export type UsageReportListResponsesDefaultFlatPagination = DefaultFlatPagination<UsageReportListResponse>
 
-export type UsageReportListResponse = { [key: string]: unknown };
+export type UsageReportListResponse = { [key: string]: unknown }
 
 /**
  * An object following one of the schemas published in
@@ -195,6 +175,6 @@ export declare namespace UsageReports {
     type UsageReportGetOptionsResponse as UsageReportGetOptionsResponse,
     type UsageReportListResponsesDefaultFlatPagination as UsageReportListResponsesDefaultFlatPagination,
     type UsageReportListParams as UsageReportListParams,
-    type UsageReportGetOptionsParams as UsageReportGetOptionsParams,
+    type UsageReportGetOptionsParams as UsageReportGetOptionsParams
   };
 }

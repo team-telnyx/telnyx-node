@@ -22,12 +22,8 @@ export class CivicAddresses extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    addressID: string,
-    params: CivicAddressRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<CivicAddressRetrieveResponse> {
-    const { id } = params;
+  retrieve(addressID: string, params: CivicAddressRetrieveParams, options?: RequestOptions): APIPromise<CivicAddressRetrieveResponse> {
+    const { id } = params
     return this._client.get(path`/external_connections/${id}/civic_addresses/${addressID}`, options);
   }
 
@@ -42,11 +38,7 @@ export class CivicAddresses extends APIResource {
    *   );
    * ```
    */
-  list(
-    id: string,
-    query: CivicAddressListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<CivicAddressListResponse> {
+  list(id: string, query: CivicAddressListParams | null | undefined = {}, options?: RequestOptions): APIPromise<CivicAddressListResponse> {
     return this._client.get(path`/external_connections/${id}/civic_addresses`, { query, ...options });
   }
 }
@@ -153,6 +145,6 @@ export declare namespace CivicAddresses {
     type CivicAddressRetrieveResponse as CivicAddressRetrieveResponse,
     type CivicAddressListResponse as CivicAddressListResponse,
     type CivicAddressRetrieveParams as CivicAddressRetrieveParams,
-    type CivicAddressListParams as CivicAddressListParams,
+    type CivicAddressListParams as CivicAddressListParams
   };
 }

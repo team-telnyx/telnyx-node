@@ -56,11 +56,7 @@ export class PhoneNumberCampaigns extends APIResource {
    *   );
    * ```
    */
-  update(
-    campaignPhoneNumber: string,
-    body: PhoneNumberCampaignUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<PhoneNumberCampaign> {
+  update(campaignPhoneNumber: string, body: PhoneNumberCampaignUpdateParams, options?: RequestOptions): APIPromise<PhoneNumberCampaign> {
     return this._client.put(path`/10dlc/phone_number_campaigns/${campaignPhoneNumber}`, { body, ...options });
   }
 
@@ -75,15 +71,8 @@ export class PhoneNumberCampaigns extends APIResource {
    * }
    * ```
    */
-  list(
-    query: PhoneNumberCampaignListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PhoneNumberCampaignsPerPagePaginationV2, PhoneNumberCampaign> {
-    return this._client.getAPIList(
-      '/10dlc/phone_number_campaigns',
-      PerPagePaginationV2<PhoneNumberCampaign>,
-      { query, ...options },
-    );
+  list(query: PhoneNumberCampaignListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PhoneNumberCampaignsPerPagePaginationV2, PhoneNumberCampaign> {
+    return this._client.getAPIList('/10dlc/phone_number_campaigns', PerPagePaginationV2<PhoneNumberCampaign>, { query, ...options });
   }
 
   /**
@@ -103,7 +92,7 @@ export class PhoneNumberCampaigns extends APIResource {
   }
 }
 
-export type PhoneNumberCampaignsPerPagePaginationV2 = PerPagePaginationV2<PhoneNumberCampaign>;
+export type PhoneNumberCampaignsPerPagePaginationV2 = PerPagePaginationV2<PhoneNumberCampaign>
 
 export interface PhoneNumberCampaign {
   /**
@@ -121,12 +110,7 @@ export interface PhoneNumberCampaign {
   /**
    * The assignment status of the number.
    */
-  assignmentStatus?:
-    | 'FAILED_ASSIGNMENT'
-    | 'PENDING_ASSIGNMENT'
-    | 'ASSIGNED'
-    | 'PENDING_UNASSIGNMENT'
-    | 'FAILED_UNASSIGNMENT';
+  assignmentStatus?: 'FAILED_ASSIGNMENT' | 'PENDING_ASSIGNMENT' | 'ASSIGNED' | 'PENDING_UNASSIGNMENT' | 'FAILED_UNASSIGNMENT';
 
   /**
    * Brand ID. Empty if the number is associated to a shared campaign.
@@ -203,13 +187,7 @@ export interface PhoneNumberCampaignListParams extends PerPagePaginationV2Params
    * Specifies the sort order for results. If not given, results are sorted by
    * createdAt in descending order.
    */
-  sort?:
-    | 'assignmentStatus'
-    | '-assignmentStatus'
-    | 'createdAt'
-    | '-createdAt'
-    | 'phoneNumber'
-    | '-phoneNumber';
+  sort?: 'assignmentStatus' | '-assignmentStatus' | 'createdAt' | '-createdAt' | 'phoneNumber' | '-phoneNumber';
 }
 
 export namespace PhoneNumberCampaignListParams {
@@ -248,6 +226,6 @@ export declare namespace PhoneNumberCampaigns {
     type PhoneNumberCampaignsPerPagePaginationV2 as PhoneNumberCampaignsPerPagePaginationV2,
     type PhoneNumberCampaignCreateParams as PhoneNumberCampaignCreateParams,
     type PhoneNumberCampaignUpdateParams as PhoneNumberCampaignUpdateParams,
-    type PhoneNumberCampaignListParams as PhoneNumberCampaignListParams,
+    type PhoneNumberCampaignListParams as PhoneNumberCampaignListParams
   };
 }

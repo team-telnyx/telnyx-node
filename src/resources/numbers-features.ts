@@ -8,10 +8,7 @@ export class NumbersFeatures extends APIResource {
   /**
    * Retrieve the features for a list of numbers
    */
-  create(
-    body: NumbersFeatureCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<NumbersFeatureCreateResponse> {
+  create(body: NumbersFeatureCreateParams, options?: RequestOptions): APIPromise<NumbersFeatureCreateResponse> {
     return this._client.post('/numbers_features', { body, ...options });
   }
 }
@@ -35,6 +32,6 @@ export interface NumbersFeatureCreateParams {
 export declare namespace NumbersFeatures {
   export {
     type NumbersFeatureCreateResponse as NumbersFeatureCreateResponse,
-    type NumbersFeatureCreateParams as NumbersFeatureCreateParams,
+    type NumbersFeatureCreateParams as NumbersFeatureCreateParams
   };
 }

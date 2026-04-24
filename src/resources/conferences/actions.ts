@@ -41,11 +41,7 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  endConference(
-    id: string,
-    body: ActionEndConferenceParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ActionEndConferenceResponse> {
+  endConference(id: string, body: ActionEndConferenceParams | null | undefined = {}, options?: RequestOptions): APIPromise<ActionEndConferenceResponse> {
     return this._client.post(path`/conferences/${id}/actions/end`, { body, ...options });
   }
 
@@ -64,11 +60,7 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  gatherDtmfAudio(
-    id: string,
-    body: ActionGatherDtmfAudioParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionGatherDtmfAudioResponse> {
+  gatherDtmfAudio(id: string, body: ActionGatherDtmfAudioParams, options?: RequestOptions): APIPromise<ActionGatherDtmfAudioResponse> {
     return this._client.post(path`/conferences/${id}/actions/gather_using_audio`, { body, ...options });
   }
 
@@ -171,11 +163,7 @@ export class Actions extends APIResource {
    *   await client.conferences.actions.recordPause('id');
    * ```
    */
-  recordPause(
-    id: string,
-    body: ActionRecordPauseParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionRecordPauseResponse> {
+  recordPause(id: string, body: ActionRecordPauseParams, options?: RequestOptions): APIPromise<ActionRecordPauseResponse> {
     return this._client.post(path`/conferences/${id}/actions/record_pause`, { body, ...options });
   }
 
@@ -188,11 +176,7 @@ export class Actions extends APIResource {
    *   await client.conferences.actions.recordResume('id');
    * ```
    */
-  recordResume(
-    id: string,
-    body: ActionRecordResumeParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionRecordResumeResponse> {
+  recordResume(id: string, body: ActionRecordResumeParams, options?: RequestOptions): APIPromise<ActionRecordResumeResponse> {
     return this._client.post(path`/conferences/${id}/actions/record_resume`, { body, ...options });
   }
 
@@ -212,11 +196,7 @@ export class Actions extends APIResource {
    *   });
    * ```
    */
-  recordStart(
-    id: string,
-    body: ActionRecordStartParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionRecordStartResponse> {
+  recordStart(id: string, body: ActionRecordStartParams, options?: RequestOptions): APIPromise<ActionRecordStartResponse> {
     return this._client.post(path`/conferences/${id}/actions/record_start`, { body, ...options });
   }
 
@@ -233,11 +213,7 @@ export class Actions extends APIResource {
    *   await client.conferences.actions.recordStop('id');
    * ```
    */
-  recordStop(
-    id: string,
-    body: ActionRecordStopParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionRecordStopResponse> {
+  recordStop(id: string, body: ActionRecordStopParams, options?: RequestOptions): APIPromise<ActionRecordStopResponse> {
     return this._client.post(path`/conferences/${id}/actions/record_stop`, { body, ...options });
   }
 
@@ -252,11 +228,7 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  sendDtmf(
-    id: string,
-    body: ActionSendDtmfParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionSendDtmfResponse> {
+  sendDtmf(id: string, body: ActionSendDtmfParams, options?: RequestOptions): APIPromise<ActionSendDtmfResponse> {
     return this._client.post(path`/conferences/${id}/actions/send_dtmf`, { body, ...options });
   }
 
@@ -963,36 +935,7 @@ export interface ActionSpeakParams {
    * The language you want spoken. This parameter is ignored when a `Polly.*` voice
    * is specified.
    */
-  language?:
-    | 'arb'
-    | 'cmn-CN'
-    | 'cy-GB'
-    | 'da-DK'
-    | 'de-DE'
-    | 'en-AU'
-    | 'en-GB'
-    | 'en-GB-WLS'
-    | 'en-IN'
-    | 'en-US'
-    | 'es-ES'
-    | 'es-MX'
-    | 'es-US'
-    | 'fr-CA'
-    | 'fr-FR'
-    | 'hi-IN'
-    | 'is-IS'
-    | 'it-IT'
-    | 'ja-JP'
-    | 'ko-KR'
-    | 'nb-NO'
-    | 'nl-NL'
-    | 'pl-PL'
-    | 'pt-BR'
-    | 'pt-PT'
-    | 'ro-RO'
-    | 'ru-RU'
-    | 'sv-SE'
-    | 'tr-TR';
+  language?: 'arb' | 'cmn-CN' | 'cy-GB' | 'da-DK' | 'de-DE' | 'en-AU' | 'en-GB' | 'en-GB-WLS' | 'en-IN' | 'en-US' | 'es-ES' | 'es-MX' | 'es-US' | 'fr-CA' | 'fr-FR' | 'hi-IN' | 'is-IS' | 'it-IT' | 'ja-JP' | 'ko-KR' | 'nb-NO' | 'nl-NL' | 'pl-PL' | 'pt-BR' | 'pt-PT' | 'ro-RO' | 'ru-RU' | 'sv-SE' | 'tr-TR';
 
   /**
    * The type of the provided payload. The payload can either be plain text, or
@@ -1009,15 +952,7 @@ export interface ActionSpeakParams {
   /**
    * The settings associated with the voice selected
    */
-  voice_settings?:
-    | ActionsAPI.ElevenLabsVoiceSettings
-    | ActionsAPI.TelnyxVoiceSettings
-    | ActionsAPI.AwsVoiceSettings
-    | Shared.MinimaxVoiceSettings
-    | Shared.AzureVoiceSettings
-    | Shared.RimeVoiceSettings
-    | Shared.ResembleVoiceSettings
-    | ActionSpeakParams.InworldVoiceSettings;
+  voice_settings?: ActionsAPI.ElevenLabsVoiceSettings | ActionsAPI.TelnyxVoiceSettings | ActionsAPI.AwsVoiceSettings | Shared.MinimaxVoiceSettings | Shared.AzureVoiceSettings | Shared.RimeVoiceSettings | Shared.ResembleVoiceSettings | ActionSpeakParams.InworldVoiceSettings;
 }
 
 export namespace ActionSpeakParams {
@@ -1108,6 +1043,6 @@ export declare namespace Actions {
     type ActionSpeakParams as ActionSpeakParams,
     type ActionStopParams as ActionStopParams,
     type ActionUnholdParams as ActionUnholdParams,
-    type ActionUnmuteParams as ActionUnmuteParams,
+    type ActionUnmuteParams as ActionUnmuteParams
   };
 }

@@ -28,5 +28,7 @@ export interface ActionRegenerateSecretResponse {
 }
 
 export declare namespace Actions {
-  export { type ActionRegenerateSecretResponse as ActionRegenerateSecretResponse };
+  export {
+    type ActionRegenerateSecretResponse as ActionRegenerateSecretResponse
+  };
 }

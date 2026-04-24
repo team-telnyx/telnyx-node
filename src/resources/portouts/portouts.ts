@@ -2,43 +2,13 @@
 
 import { APIResource } from '../../core/resource';
 import * as CommentsAPI from './comments';
-import {
-  CommentCreateParams,
-  CommentCreateResponse,
-  CommentListResponse,
-  Comments,
-  PortoutComment,
-} from './comments';
+import { CommentCreateParams, CommentCreateResponse, CommentListResponse, Comments, PortoutComment } from './comments';
 import * as EventsAPI from './events';
-import {
-  EventListParams,
-  EventListResponse,
-  EventListResponsesDefaultFlatPagination,
-  EventRetrieveResponse,
-  Events,
-  WebhookPortoutFocDateChanged,
-  WebhookPortoutNewComment,
-  WebhookPortoutStatusChanged,
-} from './events';
+import { EventListParams, EventListResponse, EventListResponsesDefaultFlatPagination, EventRetrieveResponse, Events, WebhookPortoutFocDateChanged, WebhookPortoutNewComment, WebhookPortoutStatusChanged } from './events';
 import * as ReportsAPI from './reports';
-import {
-  ExportPortoutsCsvReport,
-  PortoutReport,
-  PortoutReportsDefaultFlatPagination,
-  ReportCreateParams,
-  ReportCreateResponse,
-  ReportListParams,
-  ReportRetrieveResponse,
-  Reports,
-} from './reports';
+import { ExportPortoutsCsvReport, PortoutReport, PortoutReportsDefaultFlatPagination, ReportCreateParams, ReportCreateResponse, ReportListParams, ReportRetrieveResponse, Reports } from './reports';
 import * as SupportingDocumentsAPI from './supporting-documents';
-import {
-  PortOutSupportingDocument,
-  SupportingDocumentCreateParams,
-  SupportingDocumentCreateResponse,
-  SupportingDocumentListResponse,
-  SupportingDocuments,
-} from './supporting-documents';
+import { PortOutSupportingDocument, SupportingDocumentCreateParams, SupportingDocumentCreateResponse, SupportingDocumentListResponse, SupportingDocuments } from './supporting-documents';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -51,8 +21,7 @@ export class Portouts extends APIResource {
   events: EventsAPI.Events = new EventsAPI.Events(this._client);
   reports: ReportsAPI.Reports = new ReportsAPI.Reports(this._client);
   comments: CommentsAPI.Comments = new CommentsAPI.Comments(this._client);
-  supportingDocuments: SupportingDocumentsAPI.SupportingDocuments =
-    new SupportingDocumentsAPI.SupportingDocuments(this._client);
+  supportingDocuments: SupportingDocumentsAPI.SupportingDocuments = new SupportingDocumentsAPI.SupportingDocuments(this._client);
 
   /**
    * Returns the portout request based on the ID provided
@@ -79,10 +48,7 @@ export class Portouts extends APIResource {
    * }
    * ```
    */
-  list(
-    query: PortoutListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PortoutDetailsDefaultFlatPagination, PortoutDetails> {
+  list(query: PortoutListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PortoutDetailsDefaultFlatPagination, PortoutDetails> {
     return this._client.getAPIList('/portouts', DefaultFlatPagination<PortoutDetails>, { query, ...options });
   }
 
@@ -96,11 +62,7 @@ export class Portouts extends APIResource {
    * );
    * ```
    */
-  listRejectionCodes(
-    portoutID: string,
-    query: PortoutListRejectionCodesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<PortoutListRejectionCodesResponse> {
+  listRejectionCodes(portoutID: string, query: PortoutListRejectionCodesParams | null | undefined = {}, options?: RequestOptions): APIPromise<PortoutListRejectionCodesResponse> {
     return this._client.get(path`/portouts/rejections/${portoutID}`, { query, ...options });
   }
 
@@ -118,17 +80,13 @@ export class Portouts extends APIResource {
    * );
    * ```
    */
-  updateStatus(
-    status: 'authorized' | 'rejected-pending',
-    params: PortoutUpdateStatusParams,
-    options?: RequestOptions,
-  ): APIPromise<PortoutUpdateStatusResponse> {
-    const { id, ...body } = params;
+  updateStatus(status: 'authorized' | 'rejected-pending', params: PortoutUpdateStatusParams, options?: RequestOptions): APIPromise<PortoutUpdateStatusResponse> {
+    const { id, ...body } = params
     return this._client.patch(path`/portouts/${id}/${status}`, { body, ...options });
   }
 }
 
-export type PortoutDetailsDefaultFlatPagination = DefaultFlatPagination<PortoutDetails>;
+export type PortoutDetailsDefaultFlatPagination = DefaultFlatPagination<PortoutDetails>
 
 export interface PortoutDetails {
   id?: string;
@@ -456,7 +414,7 @@ export declare namespace Portouts {
     type PortoutDetailsDefaultFlatPagination as PortoutDetailsDefaultFlatPagination,
     type PortoutListParams as PortoutListParams,
     type PortoutListRejectionCodesParams as PortoutListRejectionCodesParams,
-    type PortoutUpdateStatusParams as PortoutUpdateStatusParams,
+    type PortoutUpdateStatusParams as PortoutUpdateStatusParams
   };
 
   export {
@@ -467,7 +425,7 @@ export declare namespace Portouts {
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
     type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
-    type EventListParams as EventListParams,
+    type EventListParams as EventListParams
   };
 
   export {
@@ -478,7 +436,7 @@ export declare namespace Portouts {
     type ReportRetrieveResponse as ReportRetrieveResponse,
     type PortoutReportsDefaultFlatPagination as PortoutReportsDefaultFlatPagination,
     type ReportCreateParams as ReportCreateParams,
-    type ReportListParams as ReportListParams,
+    type ReportListParams as ReportListParams
   };
 
   export {
@@ -486,7 +444,7 @@ export declare namespace Portouts {
     type PortoutComment as PortoutComment,
     type CommentCreateResponse as CommentCreateResponse,
     type CommentListResponse as CommentListResponse,
-    type CommentCreateParams as CommentCreateParams,
+    type CommentCreateParams as CommentCreateParams
   };
 
   export {
@@ -494,6 +452,6 @@ export declare namespace Portouts {
     type PortOutSupportingDocument as PortOutSupportingDocument,
     type SupportingDocumentCreateResponse as SupportingDocumentCreateResponse,
     type SupportingDocumentListResponse as SupportingDocumentListResponse,
-    type SupportingDocumentCreateParams as SupportingDocumentCreateParams,
+    type SupportingDocumentCreateParams as SupportingDocumentCreateParams
   };
 }

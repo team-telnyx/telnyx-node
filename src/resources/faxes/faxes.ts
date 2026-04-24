@@ -67,10 +67,7 @@ export class Faxes extends APIResource {
    * }
    * ```
    */
-  list(
-    query: FaxListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FaxesDefaultFlatPagination, Fax> {
+  list(query: FaxListParams | null | undefined = {}, options?: RequestOptions): PagePromise<FaxesDefaultFlatPagination, Fax> {
     return this._client.getAPIList('/faxes', DefaultFlatPagination<Fax>, { query, ...options });
   }
 
@@ -85,14 +82,11 @@ export class Faxes extends APIResource {
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/faxes/${id}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/faxes/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
-export type FaxesDefaultFlatPagination = DefaultFlatPagination<Fax>;
+export type FaxesDefaultFlatPagination = DefaultFlatPagination<Fax>
 
 export interface Fax {
   /**
@@ -165,17 +159,7 @@ export interface Fax {
   /**
    * Status of the fax
    */
-  status?:
-    | 'queued'
-    | 'media.processed'
-    | 'originated'
-    | 'sending'
-    | 'delivered'
-    | 'failed'
-    | 'initiated'
-    | 'receiving'
-    | 'media.processing'
-    | 'received';
+  status?: 'queued' | 'media.processed' | 'originated' | 'sending' | 'delivered' | 'failed' | 'initiated' | 'receiving' | 'media.processing' | 'received';
 
   /**
    * Should fax media be stored on temporary URL. It does not support media_name.
@@ -412,12 +396,12 @@ export declare namespace Faxes {
     type FaxRetrieveResponse as FaxRetrieveResponse,
     type FaxesDefaultFlatPagination as FaxesDefaultFlatPagination,
     type FaxCreateParams as FaxCreateParams,
-    type FaxListParams as FaxListParams,
+    type FaxListParams as FaxListParams
   };
 
   export {
     Actions as Actions,
     type ActionCancelResponse as ActionCancelResponse,
-    type ActionRefreshResponse as ActionRefreshResponse,
+    type ActionRefreshResponse as ActionRefreshResponse
   };
 }

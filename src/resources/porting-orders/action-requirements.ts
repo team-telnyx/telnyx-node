@@ -23,16 +23,8 @@ export class ActionRequirements extends APIResource {
    * }
    * ```
    */
-  list(
-    portingOrderID: string,
-    query: ActionRequirementListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ActionRequirementListResponsesDefaultFlatPagination, ActionRequirementListResponse> {
-    return this._client.getAPIList(
-      path`/porting_orders/${portingOrderID}/action_requirements`,
-      DefaultFlatPagination<ActionRequirementListResponse>,
-      { query, ...options },
-    );
+  list(portingOrderID: string, query: ActionRequirementListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ActionRequirementListResponsesDefaultFlatPagination, ActionRequirementListResponse> {
+    return this._client.getAPIList(path`/porting_orders/${portingOrderID}/action_requirements`, DefaultFlatPagination<ActionRequirementListResponse>, { query, ...options });
   }
 
   /**
@@ -50,21 +42,13 @@ export class ActionRequirements extends APIResource {
    *   );
    * ```
    */
-  initiate(
-    id: string,
-    params: ActionRequirementInitiateParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionRequirementInitiateResponse> {
-    const { porting_order_id, ...body } = params;
-    return this._client.post(path`/porting_orders/${porting_order_id}/action_requirements/${id}/initiate`, {
-      body,
-      ...options,
-    });
+  initiate(id: string, params: ActionRequirementInitiateParams, options?: RequestOptions): APIPromise<ActionRequirementInitiateResponse> {
+    const { porting_order_id, ...body } = params
+    return this._client.post(path`/porting_orders/${porting_order_id}/action_requirements/${id}/initiate`, { body, ...options });
   }
 }
 
-export type ActionRequirementListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<ActionRequirementListResponse>;
+export type ActionRequirementListResponsesDefaultFlatPagination = DefaultFlatPagination<ActionRequirementListResponse>
 
 export interface ActionRequirementListResponse {
   /**
@@ -265,6 +249,6 @@ export declare namespace ActionRequirements {
     type ActionRequirementInitiateResponse as ActionRequirementInitiateResponse,
     type ActionRequirementListResponsesDefaultFlatPagination as ActionRequirementListResponsesDefaultFlatPagination,
     type ActionRequirementListParams as ActionRequirementListParams,
-    type ActionRequirementInitiateParams as ActionRequirementInitiateParams,
+    type ActionRequirementInitiateParams as ActionRequirementInitiateParams
   };
 }

@@ -4,13 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as MessagesAPI from './messages';
 import * as Shared from '../shared';
 import * as RcsAPI from './rcs';
-import {
-  RcGenerateDeeplinkParams,
-  RcGenerateDeeplinkResponse,
-  RcSendParams,
-  RcSendResponse,
-  Rcs,
-} from './rcs';
+import { RcGenerateDeeplinkParams, RcGenerateDeeplinkResponse, RcSendParams, RcSendResponse, Rcs } from './rcs';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -61,10 +55,7 @@ export class Messages extends APIResource {
    *   );
    * ```
    */
-  retrieveGroupMessages(
-    messageID: string,
-    options?: RequestOptions,
-  ): APIPromise<MessageRetrieveGroupMessagesResponse> {
+  retrieveGroupMessages(messageID: string, options?: RequestOptions): APIPromise<MessageRetrieveGroupMessagesResponse> {
     return this._client.get(path`/messages/group/${messageID}`, options);
   }
 
@@ -117,10 +108,7 @@ export class Messages extends APIResource {
    * });
    * ```
    */
-  sendGroupMms(
-    body: MessageSendGroupMmsParams,
-    options?: RequestOptions,
-  ): APIPromise<MessageSendGroupMmsResponse> {
+  sendGroupMms(body: MessageSendGroupMmsParams, options?: RequestOptions): APIPromise<MessageSendGroupMmsResponse> {
     return this._client.post('/messages/group_mms', { body, ...options });
   }
 
@@ -135,10 +123,7 @@ export class Messages extends APIResource {
    * });
    * ```
    */
-  sendLongCode(
-    body: MessageSendLongCodeParams,
-    options?: RequestOptions,
-  ): APIPromise<MessageSendLongCodeResponse> {
+  sendLongCode(body: MessageSendLongCodeParams, options?: RequestOptions): APIPromise<MessageSendLongCodeResponse> {
     return this._client.post('/messages/long_code', { body, ...options });
   }
 
@@ -154,10 +139,7 @@ export class Messages extends APIResource {
    * });
    * ```
    */
-  sendNumberPool(
-    body: MessageSendNumberPoolParams,
-    options?: RequestOptions,
-  ): APIPromise<MessageSendNumberPoolResponse> {
+  sendNumberPool(body: MessageSendNumberPoolParams, options?: RequestOptions): APIPromise<MessageSendNumberPoolResponse> {
     return this._client.post('/messages/number_pool', { body, ...options });
   }
 
@@ -172,10 +154,7 @@ export class Messages extends APIResource {
    * });
    * ```
    */
-  sendShortCode(
-    body: MessageSendShortCodeParams,
-    options?: RequestOptions,
-  ): APIPromise<MessageSendShortCodeResponse> {
+  sendShortCode(body: MessageSendShortCodeParams, options?: RequestOptions): APIPromise<MessageSendShortCodeResponse> {
     return this._client.post('/messages/short_code', { body, ...options });
   }
 
@@ -191,10 +170,7 @@ export class Messages extends APIResource {
    * });
    * ```
    */
-  sendWhatsapp(
-    body: MessageSendWhatsappParams,
-    options?: RequestOptions,
-  ): APIPromise<MessageSendWhatsappResponse> {
+  sendWhatsapp(body: MessageSendWhatsappParams, options?: RequestOptions): APIPromise<MessageSendWhatsappResponse> {
     return this._client.post('/messages/whatsapp', { body, ...options });
   }
 
@@ -213,10 +189,7 @@ export class Messages extends APIResource {
    *   });
    * ```
    */
-  sendWithAlphanumericSender(
-    body: MessageSendWithAlphanumericSenderParams,
-    options?: RequestOptions,
-  ): APIPromise<MessageSendWithAlphanumericSenderResponse> {
+  sendWithAlphanumericSender(body: MessageSendWithAlphanumericSenderParams, options?: RequestOptions): APIPromise<MessageSendWithAlphanumericSenderResponse> {
     return this._client.post('/messages/alphanumeric_sender_id', { body, ...options });
   }
 }
@@ -408,14 +381,7 @@ export namespace OutboundMessagePayload {
      */
     phone_number?: string;
 
-    status?:
-      | 'queued'
-      | 'sending'
-      | 'sent'
-      | 'delivered'
-      | 'sending_failed'
-      | 'delivery_failed'
-      | 'delivery_unconfirmed';
+    status?: 'queued' | 'sending' | 'sent' | 'delivered' | 'sending_failed' | 'delivery_failed' | 'delivery_unconfirmed';
   }
 
   export interface Cost {
@@ -524,15 +490,7 @@ export namespace OutboundMessagePayload {
     /**
      * The delivery status of the message.
      */
-    status?:
-      | 'queued'
-      | 'sending'
-      | 'sent'
-      | 'expired'
-      | 'sending_failed'
-      | 'delivery_unconfirmed'
-      | 'delivered'
-      | 'delivery_failed';
+    status?: 'queued' | 'sending' | 'sent' | 'expired' | 'sending_failed' | 'delivery_unconfirmed' | 'delivered' | 'delivery_failed';
   }
 }
 
@@ -1153,18 +1111,7 @@ export interface WhatsappMessageContent {
    */
   text?: WhatsappMessageContent.Text;
 
-  type?:
-    | 'audio'
-    | 'document'
-    | 'image'
-    | 'sticker'
-    | 'video'
-    | 'interactive'
-    | 'location'
-    | 'template'
-    | 'reaction'
-    | 'contacts'
-    | 'text';
+  type?: 'audio' | 'document' | 'image' | 'sticker' | 'video' | 'interactive' | 'location' | 'template' | 'reaction' | 'contacts' | 'text';
 
   video?: WhatsappMedia;
 }
@@ -1415,17 +1362,7 @@ export namespace MessageCancelScheduledResponse {
     /**
      * The delivery status of the message.
      */
-    status?:
-      | 'scheduled'
-      | 'queued'
-      | 'sending'
-      | 'sent'
-      | 'cancelled'
-      | 'expired'
-      | 'sending_failed'
-      | 'delivery_unconfirmed'
-      | 'delivered'
-      | 'delivery_failed';
+    status?: 'scheduled' | 'queued' | 'sending' | 'sent' | 'cancelled' | 'expired' | 'sending_failed' | 'delivery_unconfirmed' | 'delivered' | 'delivery_failed';
   }
 
   export interface Cost {
@@ -1534,17 +1471,7 @@ export namespace MessageCancelScheduledResponse {
     /**
      * The delivery status of the message.
      */
-    status?:
-      | 'scheduled'
-      | 'queued'
-      | 'sending'
-      | 'sent'
-      | 'cancelled'
-      | 'expired'
-      | 'sending_failed'
-      | 'delivery_unconfirmed'
-      | 'delivered'
-      | 'delivery_failed';
+    status?: 'scheduled' | 'queued' | 'sending' | 'sent' | 'cancelled' | 'expired' | 'sending_failed' | 'delivery_unconfirmed' | 'delivered' | 'delivery_failed';
   }
 }
 
@@ -2153,7 +2080,7 @@ export declare namespace Messages {
     type MessageSendNumberPoolParams as MessageSendNumberPoolParams,
     type MessageSendShortCodeParams as MessageSendShortCodeParams,
     type MessageSendWhatsappParams as MessageSendWhatsappParams,
-    type MessageSendWithAlphanumericSenderParams as MessageSendWithAlphanumericSenderParams,
+    type MessageSendWithAlphanumericSenderParams as MessageSendWithAlphanumericSenderParams
   };
 
   export {
@@ -2161,6 +2088,6 @@ export declare namespace Messages {
     type RcGenerateDeeplinkResponse as RcGenerateDeeplinkResponse,
     type RcSendResponse as RcSendResponse,
     type RcGenerateDeeplinkParams as RcGenerateDeeplinkParams,
-    type RcSendParams as RcSendParams,
+    type RcSendParams as RcSendParams
   };
 }

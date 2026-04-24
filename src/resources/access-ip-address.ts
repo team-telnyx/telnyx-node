@@ -27,14 +27,8 @@ export class AccessIPAddress extends APIResource {
   /**
    * List all Access IP Addresses
    */
-  list(
-    query: AccessIPAddressListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AccessIPAddressResponsesDefaultFlatPagination, AccessIPAddressResponse> {
-    return this._client.getAPIList('/access_ip_address', DefaultFlatPagination<AccessIPAddressResponse>, {
-      query,
-      ...options,
-    });
+  list(query: AccessIPAddressListParams | null | undefined = {}, options?: RequestOptions): PagePromise<AccessIPAddressResponsesDefaultFlatPagination, AccessIPAddressResponse> {
+    return this._client.getAPIList('/access_ip_address', DefaultFlatPagination<AccessIPAddressResponse>, { query, ...options });
   }
 
   /**
@@ -45,7 +39,7 @@ export class AccessIPAddress extends APIResource {
   }
 }
 
-export type AccessIPAddressResponsesDefaultFlatPagination = DefaultFlatPagination<AccessIPAddressResponse>;
+export type AccessIPAddressResponsesDefaultFlatPagination = DefaultFlatPagination<AccessIPAddressResponse>
 
 export interface AccessIPAddressResponse {
   id: string;
@@ -71,7 +65,7 @@ export interface AccessIPAddressResponse {
 /**
  * An enumeration.
  */
-export type CloudflareSyncStatus = 'pending' | 'added';
+export type CloudflareSyncStatus = 'pending' | 'added'
 
 export interface PaginationMetaCloudflareIPListSync {
   page_number: number;
@@ -120,7 +114,7 @@ export namespace AccessIPAddressListParams {
      */
     ip_source?: string;
 
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 
   export namespace Filter {
@@ -158,6 +152,6 @@ export declare namespace AccessIPAddress {
     type PaginationMetaCloudflareIPListSync as PaginationMetaCloudflareIPListSync,
     type AccessIPAddressResponsesDefaultFlatPagination as AccessIPAddressResponsesDefaultFlatPagination,
     type AccessIPAddressCreateParams as AccessIPAddressCreateParams,
-    type AccessIPAddressListParams as AccessIPAddressListParams,
+    type AccessIPAddressListParams as AccessIPAddressListParams
   };
 }

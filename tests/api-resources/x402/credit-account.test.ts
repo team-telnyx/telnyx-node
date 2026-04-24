@@ -2,10 +2,7 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource creditAccount', () => {
   // Mock server tests are disabled
@@ -40,9 +37,9 @@ describe('resource creditAccount', () => {
   // Mock server tests are disabled
   test.skip('settle: required and optional params', async () => {
     const response = await client.x402.creditAccount.settle({
-      id: 'quote_abc123',
-      payment_signature: '0xabc123...',
-      header_payment_signature: 'PAYMENT-SIGNATURE',
-    });
+    id: 'quote_abc123',
+    payment_signature: '0xabc123...',
+    header_payment_signature: 'PAYMENT-SIGNATURE',
+  });
   });
 });

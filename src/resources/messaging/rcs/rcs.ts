@@ -25,12 +25,8 @@ export class Rcs extends APIResource {
    *   );
    * ```
    */
-  inviteTestNumber(
-    phoneNumber: string,
-    params: RcInviteTestNumberParams,
-    options?: RequestOptions,
-  ): APIPromise<RcInviteTestNumberResponse> {
-    const { id } = params;
+  inviteTestNumber(phoneNumber: string, params: RcInviteTestNumberParams, options?: RequestOptions): APIPromise<RcInviteTestNumberResponse> {
+    const { id } = params
     return this._client.put(path`/messaging/rcs/test_number_invite/${id}/${phoneNumber}`, options);
   }
 
@@ -46,10 +42,7 @@ export class Rcs extends APIResource {
    *   });
    * ```
    */
-  listBulkCapabilities(
-    body: RcListBulkCapabilitiesParams,
-    options?: RequestOptions,
-  ): APIPromise<RcListBulkCapabilitiesResponse> {
+  listBulkCapabilities(body: RcListBulkCapabilitiesParams, options?: RequestOptions): APIPromise<RcListBulkCapabilitiesResponse> {
     return this._client.post('/messaging/rcs/bulk_capabilities', { body, ...options });
   }
 
@@ -65,12 +58,8 @@ export class Rcs extends APIResource {
    *   );
    * ```
    */
-  retrieveCapabilities(
-    phoneNumber: string,
-    params: RcRetrieveCapabilitiesParams,
-    options?: RequestOptions,
-  ): APIPromise<RcRetrieveCapabilitiesResponse> {
-    const { agent_id } = params;
+  retrieveCapabilities(phoneNumber: string, params: RcRetrieveCapabilitiesParams, options?: RequestOptions): APIPromise<RcRetrieveCapabilitiesResponse> {
+    const { agent_id } = params
     return this._client.get(path`/messaging/rcs/capabilities/${agent_id}/${phoneNumber}`, options);
   }
 }
@@ -174,12 +163,12 @@ export declare namespace Rcs {
     type RcRetrieveCapabilitiesResponse as RcRetrieveCapabilitiesResponse,
     type RcInviteTestNumberParams as RcInviteTestNumberParams,
     type RcListBulkCapabilitiesParams as RcListBulkCapabilitiesParams,
-    type RcRetrieveCapabilitiesParams as RcRetrieveCapabilitiesParams,
+    type RcRetrieveCapabilitiesParams as RcRetrieveCapabilitiesParams
   };
 
   export {
     Agents as Agents,
     type AgentUpdateParams as AgentUpdateParams,
-    type AgentListParams as AgentListParams,
+    type AgentListParams as AgentListParams
   };
 }

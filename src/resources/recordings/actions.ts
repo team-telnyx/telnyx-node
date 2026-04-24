@@ -38,5 +38,8 @@ export interface ActionDeleteParams {
 }
 
 export declare namespace Actions {
-  export { type ActionDeleteResponse as ActionDeleteResponse, type ActionDeleteParams as ActionDeleteParams };
+  export {
+    type ActionDeleteResponse as ActionDeleteResponse,
+    type ActionDeleteParams as ActionDeleteParams
+  };
 }

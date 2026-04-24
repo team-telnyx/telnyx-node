@@ -37,10 +37,7 @@ export class LoaConfigurations extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: LoaConfigurationCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<LoaConfigurationCreateResponse> {
+  create(body: LoaConfigurationCreateParams, options?: RequestOptions): APIPromise<LoaConfigurationCreateResponse> {
     return this._client.post('/porting/loa_configurations', { body, ...options });
   }
 
@@ -88,11 +85,7 @@ export class LoaConfigurations extends APIResource {
    *   );
    * ```
    */
-  update(
-    id: string,
-    body: LoaConfigurationUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<LoaConfigurationUpdateResponse> {
+  update(id: string, body: LoaConfigurationUpdateParams, options?: RequestOptions): APIPromise<LoaConfigurationUpdateResponse> {
     return this._client.patch(path`/porting/loa_configurations/${id}`, { body, ...options });
   }
 
@@ -107,15 +100,8 @@ export class LoaConfigurations extends APIResource {
    * }
    * ```
    */
-  list(
-    query: LoaConfigurationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PortingLoaConfigurationsDefaultFlatPagination, PortingLoaConfiguration> {
-    return this._client.getAPIList(
-      '/porting/loa_configurations',
-      DefaultFlatPagination<PortingLoaConfiguration>,
-      { query, ...options },
-    );
+  list(query: LoaConfigurationListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PortingLoaConfigurationsDefaultFlatPagination, PortingLoaConfiguration> {
+    return this._client.getAPIList('/porting/loa_configurations', DefaultFlatPagination<PortingLoaConfiguration>, { query, ...options });
   }
 
   /**
@@ -129,10 +115,7 @@ export class LoaConfigurations extends APIResource {
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/porting/loa_configurations/${id}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/porting/loa_configurations/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
@@ -166,12 +149,7 @@ export class LoaConfigurations extends APIResource {
    * ```
    */
   preview(body: LoaConfigurationPreviewParams, options?: RequestOptions): APIPromise<Response> {
-    return this._client.post('/porting/loa_configurations/preview', {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: 'application/pdf' }, options?.headers]),
-      __binaryResponse: true,
-    });
+    return this._client.post('/porting/loa_configurations/preview', { body, ...options, headers: buildHeaders([{Accept: 'application/pdf'}, options?.headers]), __binaryResponse: true });
   }
 
   /**
@@ -205,12 +183,7 @@ export class LoaConfigurations extends APIResource {
    * ```
    */
   preview0(body: LoaConfigurationPreview0Params, options?: RequestOptions): APIPromise<Response> {
-    return this._client.post('/porting/loa_configurations/preview', {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: 'application/pdf' }, options?.headers]),
-      __binaryResponse: true,
-    });
+    return this._client.post('/porting/loa_configurations/preview', { body, ...options, headers: buildHeaders([{Accept: 'application/pdf'}, options?.headers]), __binaryResponse: true });
   }
 
   /**
@@ -228,15 +201,11 @@ export class LoaConfigurations extends APIResource {
    * ```
    */
   preview1(id: string, options?: RequestOptions): APIPromise<Response> {
-    return this._client.get(path`/porting/loa_configurations/${id}/preview`, {
-      ...options,
-      headers: buildHeaders([{ Accept: 'application/pdf' }, options?.headers]),
-      __binaryResponse: true,
-    });
+    return this._client.get(path`/porting/loa_configurations/${id}/preview`, { ...options, headers: buildHeaders([{Accept: 'application/pdf'}, options?.headers]), __binaryResponse: true });
   }
 }
 
-export type PortingLoaConfigurationsDefaultFlatPagination = DefaultFlatPagination<PortingLoaConfiguration>;
+export type PortingLoaConfigurationsDefaultFlatPagination = DefaultFlatPagination<PortingLoaConfiguration>
 
 export interface PortingLoaConfiguration {
   /**
@@ -547,7 +516,8 @@ export namespace LoaConfigurationUpdateParams {
   }
 }
 
-export interface LoaConfigurationListParams extends DefaultFlatPaginationParams {}
+export interface LoaConfigurationListParams extends DefaultFlatPaginationParams {
+}
 
 export interface LoaConfigurationPreviewParams {
   /**
@@ -738,6 +708,6 @@ export declare namespace LoaConfigurations {
     type LoaConfigurationUpdateParams as LoaConfigurationUpdateParams,
     type LoaConfigurationListParams as LoaConfigurationListParams,
     type LoaConfigurationPreviewParams as LoaConfigurationPreviewParams,
-    type LoaConfigurationPreview0Params as LoaConfigurationPreview0Params,
+    type LoaConfigurationPreview0Params as LoaConfigurationPreview0Params
   };
 }

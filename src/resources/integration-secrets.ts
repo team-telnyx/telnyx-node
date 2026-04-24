@@ -25,10 +25,7 @@ export class IntegrationSecrets extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: IntegrationSecretCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<IntegrationSecretCreateResponse> {
+  create(body: IntegrationSecretCreateParams, options?: RequestOptions): APIPromise<IntegrationSecretCreateResponse> {
     return this._client.post('/integration_secrets', { body, ...options });
   }
 
@@ -43,14 +40,8 @@ export class IntegrationSecrets extends APIResource {
    * }
    * ```
    */
-  list(
-    query: IntegrationSecretListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<IntegrationSecretsDefaultFlatPagination, IntegrationSecret> {
-    return this._client.getAPIList('/integration_secrets', DefaultFlatPagination<IntegrationSecret>, {
-      query,
-      ...options,
-    });
+  list(query: IntegrationSecretListParams | null | undefined = {}, options?: RequestOptions): PagePromise<IntegrationSecretsDefaultFlatPagination, IntegrationSecret> {
+    return this._client.getAPIList('/integration_secrets', DefaultFlatPagination<IntegrationSecret>, { query, ...options });
   }
 
   /**
@@ -62,14 +53,11 @@ export class IntegrationSecrets extends APIResource {
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/integration_secrets/${id}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/integration_secrets/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
-export type IntegrationSecretsDefaultFlatPagination = DefaultFlatPagination<IntegrationSecret>;
+export type IntegrationSecretsDefaultFlatPagination = DefaultFlatPagination<IntegrationSecret>
 
 export interface IntegrationSecret {
   id: string;
@@ -136,6 +124,6 @@ export declare namespace IntegrationSecrets {
     type IntegrationSecretCreateResponse as IntegrationSecretCreateResponse,
     type IntegrationSecretsDefaultFlatPagination as IntegrationSecretsDefaultFlatPagination,
     type IntegrationSecretCreateParams as IntegrationSecretCreateParams,
-    type IntegrationSecretListParams as IntegrationSecretListParams,
+    type IntegrationSecretListParams as IntegrationSecretListParams
   };
 }

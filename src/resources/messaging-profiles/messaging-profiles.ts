@@ -4,26 +4,11 @@ import { APIResource } from '../../core/resource';
 import * as AlphanumericSenderIDsAPI from '../alphanumeric-sender-ids';
 import { AlphanumericSenderIDsDefaultFlatPagination } from '../alphanumeric-sender-ids';
 import * as Shared from '../shared';
-import {
-  PhoneNumberWithMessagingSettingsDefaultFlatPagination,
-  ShortCodesDefaultFlatPagination,
-} from '../shared';
+import { PhoneNumberWithMessagingSettingsDefaultFlatPagination, ShortCodesDefaultFlatPagination } from '../shared';
 import * as ActionsAPI from './actions';
 import { ActionRegenerateSecretResponse, Actions } from './actions';
 import * as AutorespConfigsAPI from './autoresp-configs';
-import {
-  AutoRespConfig,
-  AutoRespConfigCreate,
-  AutoRespConfigResponse,
-  AutorespConfigCreateParams,
-  AutorespConfigDeleteParams,
-  AutorespConfigDeleteResponse,
-  AutorespConfigListParams,
-  AutorespConfigListResponse,
-  AutorespConfigRetrieveParams,
-  AutorespConfigUpdateParams,
-  AutorespConfigs,
-} from './autoresp-configs';
+import { AutoRespConfig, AutoRespConfigCreate, AutoRespConfigResponse, AutorespConfigCreateParams, AutorespConfigDeleteParams, AutorespConfigDeleteResponse, AutorespConfigListParams, AutorespConfigListResponse, AutorespConfigRetrieveParams, AutorespConfigUpdateParams, AutorespConfigs } from './autoresp-configs';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -45,10 +30,7 @@ export class MessagingProfiles extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: MessagingProfileCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<MessagingProfileCreateResponse> {
+  create(body: MessagingProfileCreateParams, options?: RequestOptions): APIPromise<MessagingProfileCreateResponse> {
     return this._client.post('/messaging_profiles', { body, ...options });
   }
 
@@ -63,10 +45,7 @@ export class MessagingProfiles extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    messagingProfileID: string,
-    options?: RequestOptions,
-  ): APIPromise<MessagingProfileRetrieveResponse> {
+  retrieve(messagingProfileID: string, options?: RequestOptions): APIPromise<MessagingProfileRetrieveResponse> {
     return this._client.get(path`/messaging_profiles/${messagingProfileID}`, options);
   }
 
@@ -81,11 +60,7 @@ export class MessagingProfiles extends APIResource {
    *   );
    * ```
    */
-  update(
-    messagingProfileID: string,
-    body: MessagingProfileUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<MessagingProfileUpdateResponse> {
+  update(messagingProfileID: string, body: MessagingProfileUpdateParams, options?: RequestOptions): APIPromise<MessagingProfileUpdateResponse> {
     return this._client.patch(path`/messaging_profiles/${messagingProfileID}`, { body, ...options });
   }
 
@@ -100,14 +75,8 @@ export class MessagingProfiles extends APIResource {
    * }
    * ```
    */
-  list(
-    query: MessagingProfileListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MessagingProfilesDefaultFlatPagination, MessagingProfile> {
-    return this._client.getAPIList('/messaging_profiles', DefaultFlatPagination<MessagingProfile>, {
-      query,
-      ...options,
-    });
+  list(query: MessagingProfileListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessagingProfilesDefaultFlatPagination, MessagingProfile> {
+    return this._client.getAPIList('/messaging_profiles', DefaultFlatPagination<MessagingProfile>, { query, ...options });
   }
 
   /**
@@ -138,16 +107,8 @@ export class MessagingProfiles extends APIResource {
    * }
    * ```
    */
-  listAlphanumericSenderIDs(
-    id: string,
-    query: MessagingProfileListAlphanumericSenderIDsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AlphanumericSenderIDsDefaultFlatPagination, AlphanumericSenderIDsAPI.AlphanumericSenderID> {
-    return this._client.getAPIList(
-      path`/messaging_profiles/${id}/alphanumeric_sender_ids`,
-      DefaultFlatPagination<AlphanumericSenderIDsAPI.AlphanumericSenderID>,
-      { query, ...options },
-    );
+  listAlphanumericSenderIDs(id: string, query: MessagingProfileListAlphanumericSenderIDsParams | null | undefined = {}, options?: RequestOptions): PagePromise<AlphanumericSenderIDsDefaultFlatPagination, AlphanumericSenderIDsAPI.AlphanumericSenderID> {
+    return this._client.getAPIList(path`/messaging_profiles/${id}/alphanumeric_sender_ids`, DefaultFlatPagination<AlphanumericSenderIDsAPI.AlphanumericSenderID>, { query, ...options });
   }
 
   /**
@@ -163,19 +124,8 @@ export class MessagingProfiles extends APIResource {
    * }
    * ```
    */
-  listPhoneNumbers(
-    messagingProfileID: string,
-    query: MessagingProfileListPhoneNumbersParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<
-    PhoneNumberWithMessagingSettingsDefaultFlatPagination,
-    Shared.PhoneNumberWithMessagingSettings
-  > {
-    return this._client.getAPIList(
-      path`/messaging_profiles/${messagingProfileID}/phone_numbers`,
-      DefaultFlatPagination<Shared.PhoneNumberWithMessagingSettings>,
-      { query, ...options },
-    );
+  listPhoneNumbers(messagingProfileID: string, query: MessagingProfileListPhoneNumbersParams | null | undefined = {}, options?: RequestOptions): PagePromise<PhoneNumberWithMessagingSettingsDefaultFlatPagination, Shared.PhoneNumberWithMessagingSettings> {
+    return this._client.getAPIList(path`/messaging_profiles/${messagingProfileID}/phone_numbers`, DefaultFlatPagination<Shared.PhoneNumberWithMessagingSettings>, { query, ...options });
   }
 
   /**
@@ -191,16 +141,8 @@ export class MessagingProfiles extends APIResource {
    * }
    * ```
    */
-  listShortCodes(
-    messagingProfileID: string,
-    query: MessagingProfileListShortCodesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ShortCodesDefaultFlatPagination, Shared.ShortCode> {
-    return this._client.getAPIList(
-      path`/messaging_profiles/${messagingProfileID}/short_codes`,
-      DefaultFlatPagination<Shared.ShortCode>,
-      { query, ...options },
-    );
+  listShortCodes(messagingProfileID: string, query: MessagingProfileListShortCodesParams | null | undefined = {}, options?: RequestOptions): PagePromise<ShortCodesDefaultFlatPagination, Shared.ShortCode> {
+    return this._client.getAPIList(path`/messaging_profiles/${messagingProfileID}/short_codes`, DefaultFlatPagination<Shared.ShortCode>, { query, ...options });
   }
 
   /**
@@ -215,16 +157,12 @@ export class MessagingProfiles extends APIResource {
    *   );
    * ```
    */
-  retrieveMetrics(
-    id: string,
-    query: MessagingProfileRetrieveMetricsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<MessagingProfileRetrieveMetricsResponse> {
+  retrieveMetrics(id: string, query: MessagingProfileRetrieveMetricsParams | null | undefined = {}, options?: RequestOptions): APIPromise<MessagingProfileRetrieveMetricsResponse> {
     return this._client.get(path`/messaging_profiles/${id}/metrics`, { query, ...options });
   }
 }
 
-export type MessagingProfilesDefaultFlatPagination = DefaultFlatPagination<MessagingProfile>;
+export type MessagingProfilesDefaultFlatPagination = DefaultFlatPagination<MessagingProfile>
 
 export interface MessagingProfile {
   /**
@@ -726,11 +664,14 @@ export namespace MessagingProfileListParams {
   }
 }
 
-export interface MessagingProfileListAlphanumericSenderIDsParams extends DefaultFlatPaginationParams {}
+export interface MessagingProfileListAlphanumericSenderIDsParams extends DefaultFlatPaginationParams {
+}
 
-export interface MessagingProfileListPhoneNumbersParams extends DefaultFlatPaginationParams {}
+export interface MessagingProfileListPhoneNumbersParams extends DefaultFlatPaginationParams {
+}
 
-export interface MessagingProfileListShortCodesParams extends DefaultFlatPaginationParams {}
+export interface MessagingProfileListShortCodesParams extends DefaultFlatPaginationParams {
+}
 
 export interface MessagingProfileRetrieveMetricsParams {
   /**
@@ -759,7 +700,7 @@ export declare namespace MessagingProfiles {
     type MessagingProfileListAlphanumericSenderIDsParams as MessagingProfileListAlphanumericSenderIDsParams,
     type MessagingProfileListPhoneNumbersParams as MessagingProfileListPhoneNumbersParams,
     type MessagingProfileListShortCodesParams as MessagingProfileListShortCodesParams,
-    type MessagingProfileRetrieveMetricsParams as MessagingProfileRetrieveMetricsParams,
+    type MessagingProfileRetrieveMetricsParams as MessagingProfileRetrieveMetricsParams
   };
 
   export {
@@ -773,14 +714,13 @@ export declare namespace MessagingProfiles {
     type AutorespConfigRetrieveParams as AutorespConfigRetrieveParams,
     type AutorespConfigUpdateParams as AutorespConfigUpdateParams,
     type AutorespConfigListParams as AutorespConfigListParams,
-    type AutorespConfigDeleteParams as AutorespConfigDeleteParams,
+    type AutorespConfigDeleteParams as AutorespConfigDeleteParams
   };
 
-  export { Actions as Actions, type ActionRegenerateSecretResponse as ActionRegenerateSecretResponse };
+  export {
+    Actions as Actions,
+    type ActionRegenerateSecretResponse as ActionRegenerateSecretResponse
+  };
 }
 
-export {
-  type AlphanumericSenderIDsDefaultFlatPagination,
-  type PhoneNumberWithMessagingSettingsDefaultFlatPagination,
-  type ShortCodesDefaultFlatPagination,
-};
+export { type AlphanumericSenderIDsDefaultFlatPagination, type PhoneNumberWithMessagingSettingsDefaultFlatPagination, type ShortCodesDefaultFlatPagination }

@@ -36,14 +36,8 @@ export class Events extends APIResource {
    * }
    * ```
    */
-  list(
-    query: EventListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<EventListResponsesDefaultFlatPagination, EventListResponse> {
-    return this._client.getAPIList('/portouts/events', DefaultFlatPagination<EventListResponse>, {
-      query,
-      ...options,
-    });
+  list(query: EventListParams | null | undefined = {}, options?: RequestOptions): PagePromise<EventListResponsesDefaultFlatPagination, EventListResponse> {
+    return this._client.getAPIList('/portouts/events', DefaultFlatPagination<EventListResponse>, { query, ...options });
   }
 
   /**
@@ -57,14 +51,11 @@ export class Events extends APIResource {
    * ```
    */
   republish(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/portouts/events/${id}/republish`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.post(path`/portouts/events/${id}/republish`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 }
 
-export type EventListResponsesDefaultFlatPagination = DefaultFlatPagination<EventListResponse>;
+export type EventListResponsesDefaultFlatPagination = DefaultFlatPagination<EventListResponse>
 
 export interface WebhookPortoutFocDateChanged {
   /**
@@ -313,10 +304,7 @@ export interface EventRetrieveResponse {
   data?: WebhookPortoutStatusChanged | WebhookPortoutNewComment | WebhookPortoutFocDateChanged;
 }
 
-export type EventListResponse =
-  | WebhookPortoutStatusChanged
-  | WebhookPortoutNewComment
-  | WebhookPortoutFocDateChanged;
+export type EventListResponse = WebhookPortoutStatusChanged | WebhookPortoutNewComment | WebhookPortoutFocDateChanged
 
 export interface EventListParams extends DefaultFlatPaginationParams {
   /**
@@ -374,6 +362,6 @@ export declare namespace Events {
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
     type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
-    type EventListParams as EventListParams,
+    type EventListParams as EventListParams
   };
 }

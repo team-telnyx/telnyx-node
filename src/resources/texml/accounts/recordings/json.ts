@@ -22,16 +22,9 @@ export class Json extends APIResource {
    * );
    * ```
    */
-  deleteRecordingSidJson(
-    recordingSid: string,
-    params: JsonDeleteRecordingSidJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { account_sid } = params;
-    return this._client.delete(path`/texml/Accounts/${account_sid}/Recordings/${recordingSid}.json`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  deleteRecordingSidJson(recordingSid: string, params: JsonDeleteRecordingSidJsonParams, options?: RequestOptions): APIPromise<void> {
+    const { account_sid } = params
+    return this._client.delete(path`/texml/Accounts/${account_sid}/Recordings/${recordingSid}.json`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
@@ -46,12 +39,8 @@ export class Json extends APIResource {
    *   );
    * ```
    */
-  retrieveRecordingSidJson(
-    recordingSid: string,
-    params: JsonRetrieveRecordingSidJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<AccountsAPI.TexmlGetCallRecordingResponseBody> {
-    const { account_sid } = params;
+  retrieveRecordingSidJson(recordingSid: string, params: JsonRetrieveRecordingSidJsonParams, options?: RequestOptions): APIPromise<AccountsAPI.TexmlGetCallRecordingResponseBody> {
+    const { account_sid } = params
     return this._client.get(path`/texml/Accounts/${account_sid}/Recordings/${recordingSid}.json`, options);
   }
 }
@@ -73,6 +62,6 @@ export interface JsonRetrieveRecordingSidJsonParams {
 export declare namespace Json {
   export {
     type JsonDeleteRecordingSidJsonParams as JsonDeleteRecordingSidJsonParams,
-    type JsonRetrieveRecordingSidJsonParams as JsonRetrieveRecordingSidJsonParams,
+    type JsonRetrieveRecordingSidJsonParams as JsonRetrieveRecordingSidJsonParams
   };
 }

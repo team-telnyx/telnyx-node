@@ -2,13 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as AutoRechargePrefsAPI from './auto-recharge-prefs';
-import {
-  AutoRechargePref,
-  AutoRechargePrefListResponse,
-  AutoRechargePrefUpdateParams,
-  AutoRechargePrefUpdateResponse,
-  AutoRechargePrefs,
-} from './auto-recharge-prefs';
+import { AutoRechargePref, AutoRechargePrefListResponse, AutoRechargePrefUpdateParams, AutoRechargePrefUpdateResponse, AutoRechargePrefs } from './auto-recharge-prefs';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -16,9 +10,7 @@ import { RequestOptions } from '../../internal/request-options';
  * Operations for managing stored payment transactions.
  */
 export class Payment extends APIResource {
-  autoRechargePrefs: AutoRechargePrefsAPI.AutoRechargePrefs = new AutoRechargePrefsAPI.AutoRechargePrefs(
-    this._client,
-  );
+  autoRechargePrefs: AutoRechargePrefsAPI.AutoRechargePrefs = new AutoRechargePrefsAPI.AutoRechargePrefs(this._client);
 
   /**
    * Create a stored payment transaction
@@ -31,10 +23,7 @@ export class Payment extends APIResource {
    *   });
    * ```
    */
-  createStoredPaymentTransaction(
-    body: PaymentCreateStoredPaymentTransactionParams,
-    options?: RequestOptions,
-  ): APIPromise<PaymentCreateStoredPaymentTransactionResponse> {
+  createStoredPaymentTransaction(body: PaymentCreateStoredPaymentTransactionParams, options?: RequestOptions): APIPromise<PaymentCreateStoredPaymentTransactionResponse> {
     return this._client.post('/v2/payment/stored_payment_transactions', { body, ...options });
   }
 }
@@ -75,7 +64,7 @@ Payment.AutoRechargePrefs = AutoRechargePrefs;
 export declare namespace Payment {
   export {
     type PaymentCreateStoredPaymentTransactionResponse as PaymentCreateStoredPaymentTransactionResponse,
-    type PaymentCreateStoredPaymentTransactionParams as PaymentCreateStoredPaymentTransactionParams,
+    type PaymentCreateStoredPaymentTransactionParams as PaymentCreateStoredPaymentTransactionParams
   };
 
   export {
@@ -83,6 +72,6 @@ export declare namespace Payment {
     type AutoRechargePref as AutoRechargePref,
     type AutoRechargePrefUpdateResponse as AutoRechargePrefUpdateResponse,
     type AutoRechargePrefListResponse as AutoRechargePrefListResponse,
-    type AutoRechargePrefUpdateParams as AutoRechargePrefUpdateParams,
+    type AutoRechargePrefUpdateParams as AutoRechargePrefUpdateParams
   };
 }

@@ -22,14 +22,8 @@ export class RoomParticipants extends APIResource {
   /**
    * View a list of room participants.
    */
-  list(
-    query: RoomParticipantListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<RoomParticipantsDefaultFlatPagination, Shared.RoomParticipant> {
-    return this._client.getAPIList('/room_participants', DefaultFlatPagination<Shared.RoomParticipant>, {
-      query,
-      ...options,
-    });
+  list(query: RoomParticipantListParams | null | undefined = {}, options?: RequestOptions): PagePromise<RoomParticipantsDefaultFlatPagination, Shared.RoomParticipant> {
+    return this._client.getAPIList('/room_participants', DefaultFlatPagination<Shared.RoomParticipant>, { query, ...options });
   }
 }
 
@@ -134,8 +128,8 @@ export namespace RoomParticipantListParams {
 export declare namespace RoomParticipants {
   export {
     type RoomParticipantRetrieveResponse as RoomParticipantRetrieveResponse,
-    type RoomParticipantListParams as RoomParticipantListParams,
+    type RoomParticipantListParams as RoomParticipantListParams
   };
 }
 
-export { type RoomParticipantsDefaultFlatPagination };
+export { type RoomParticipantsDefaultFlatPagination }

@@ -22,11 +22,7 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  submitVerificationCode(
-    phoneNumber: string,
-    body: ActionSubmitVerificationCodeParams,
-    options?: RequestOptions,
-  ): APIPromise<VerifiedNumbersAPI.VerifiedNumberDataWrapper> {
+  submitVerificationCode(phoneNumber: string, body: ActionSubmitVerificationCodeParams, options?: RequestOptions): APIPromise<VerifiedNumbersAPI.VerifiedNumberDataWrapper> {
     return this._client.post(path`/verified_numbers/${phoneNumber}/actions/verify`, { body, ...options });
   }
 }
@@ -36,5 +32,7 @@ export interface ActionSubmitVerificationCodeParams {
 }
 
 export declare namespace Actions {
-  export { type ActionSubmitVerificationCodeParams as ActionSubmitVerificationCodeParams };
+  export {
+    type ActionSubmitVerificationCodeParams as ActionSubmitVerificationCodeParams
+  };
 }

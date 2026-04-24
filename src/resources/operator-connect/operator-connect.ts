@@ -11,5 +11,8 @@ export class OperatorConnect extends APIResource {
 OperatorConnect.Actions = Actions;
 
 export declare namespace OperatorConnect {
-  export { Actions as Actions, type ActionRefreshResponse as ActionRefreshResponse };
+  export {
+    Actions as Actions,
+    type ActionRefreshResponse as ActionRefreshResponse
+  };
 }

@@ -2,17 +2,12 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource brand', () => {
   // Mock server tests are disabled
   test.skip('qualifyByUsecase: only required params', async () => {
-    const responsePromise = client.messaging10dlc.campaignBuilder.brand.qualifyByUsecase('usecase', {
-      brandId: 'brandId',
-    });
+    const responsePromise = client.messaging10dlc.campaignBuilder.brand.qualifyByUsecase('usecase', { brandId: 'brandId' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -24,8 +19,6 @@ describe('resource brand', () => {
 
   // Mock server tests are disabled
   test.skip('qualifyByUsecase: required and optional params', async () => {
-    const response = await client.messaging10dlc.campaignBuilder.brand.qualifyByUsecase('usecase', {
-      brandId: 'brandId',
-    });
+    const response = await client.messaging10dlc.campaignBuilder.brand.qualifyByUsecase('usecase', { brandId: 'brandId' });
   });
 });

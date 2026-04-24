@@ -2,50 +2,11 @@
 
 import { APIResource } from '../../../core/resource';
 import * as QueuesAPI from './queues';
-import {
-  QueueCreateParams,
-  QueueCreateResponse,
-  QueueDeleteParams,
-  QueueListParams,
-  QueueListResponse,
-  QueueListResponsesDefaultPaginationForQueues,
-  QueueRetrieveParams,
-  QueueRetrieveResponse,
-  QueueUpdateParams,
-  QueueUpdateResponse,
-  Queues,
-} from './queues';
+import { QueueCreateParams, QueueCreateResponse, QueueDeleteParams, QueueListParams, QueueListResponse, QueueListResponsesDefaultPaginationForQueues, QueueRetrieveParams, QueueRetrieveResponse, QueueUpdateParams, QueueUpdateResponse, Queues } from './queues';
 import * as CallsAPI from './calls/calls';
-import {
-  CallCallsParams,
-  CallCallsResponse,
-  CallRetrieveCallsParams,
-  CallRetrieveCallsResponse,
-  CallRetrieveParams,
-  CallRetrieveResponse,
-  CallSiprecJsonParams,
-  CallSiprecJsonResponse,
-  CallStreamsJsonParams,
-  CallStreamsJsonResponse,
-  CallUpdateParams,
-  CallUpdateResponse,
-  Calls,
-  UpdateCall,
-} from './calls/calls';
+import { CallCallsParams, CallCallsResponse, CallRetrieveCallsParams, CallRetrieveCallsResponse, CallRetrieveParams, CallRetrieveResponse, CallSiprecJsonParams, CallSiprecJsonResponse, CallStreamsJsonParams, CallStreamsJsonResponse, CallUpdateParams, CallUpdateResponse, Calls, UpdateCall } from './calls/calls';
 import * as ConferencesAPI from './conferences/conferences';
-import {
-  ConferenceRetrieveConferencesParams,
-  ConferenceRetrieveConferencesResponse,
-  ConferenceRetrieveParams,
-  ConferenceRetrieveRecordingsJsonParams,
-  ConferenceRetrieveRecordingsJsonResponse,
-  ConferenceRetrieveRecordingsParams,
-  ConferenceRetrieveRecordingsResponse,
-  ConferenceRetrieveResponse,
-  ConferenceUpdateParams,
-  ConferenceUpdateResponse,
-  Conferences,
-} from './conferences/conferences';
+import { ConferenceRetrieveConferencesParams, ConferenceRetrieveConferencesResponse, ConferenceRetrieveParams, ConferenceRetrieveRecordingsJsonParams, ConferenceRetrieveRecordingsJsonResponse, ConferenceRetrieveRecordingsParams, ConferenceRetrieveRecordingsResponse, ConferenceRetrieveResponse, ConferenceUpdateParams, ConferenceUpdateResponse, Conferences } from './conferences/conferences';
 import * as RecordingsAPI from './recordings/recordings';
 import { Recordings } from './recordings/recordings';
 import * as TranscriptionsAPI from './transcriptions/transcriptions';
@@ -75,11 +36,7 @@ export class Accounts extends APIResource {
    *   );
    * ```
    */
-  retrieveRecordingsJson(
-    accountSid: string,
-    query: AccountRetrieveRecordingsJsonParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<AccountRetrieveRecordingsJsonResponse> {
+  retrieveRecordingsJson(accountSid: string, query: AccountRetrieveRecordingsJsonParams | null | undefined = {}, options?: RequestOptions): APIPromise<AccountRetrieveRecordingsJsonResponse> {
     return this._client.get(path`/texml/Accounts/${accountSid}/Recordings.json`, { query, ...options });
   }
 
@@ -94,11 +51,7 @@ export class Accounts extends APIResource {
    *   );
    * ```
    */
-  retrieveTranscriptionsJson(
-    accountSid: string,
-    query: AccountRetrieveTranscriptionsJsonParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<AccountRetrieveTranscriptionsJsonResponse> {
+  retrieveTranscriptionsJson(accountSid: string, query: AccountRetrieveTranscriptionsJsonParams | null | undefined = {}, options?: RequestOptions): APIPromise<AccountRetrieveTranscriptionsJsonResponse> {
     return this._client.get(path`/texml/Accounts/${accountSid}/Transcriptions.json`, { query, ...options });
   }
 }
@@ -133,14 +86,7 @@ export interface TexmlGetCallRecordingResponseBody {
   /**
    * Defines how the recording was created.
    */
-  source?:
-    | 'StartCallRecordingAPI'
-    | 'StartConferenceRecordingAPI'
-    | 'OutboundAPI'
-    | 'DialVerb'
-    | 'Conference'
-    | 'RecordVerb'
-    | 'Trunking';
+  source?: 'StartCallRecordingAPI' | 'StartConferenceRecordingAPI' | 'OutboundAPI' | 'DialVerb' | 'Conference' | 'RecordVerb' | 'Trunking';
 
   start_time?: string;
 
@@ -345,7 +291,7 @@ export declare namespace Accounts {
     type AccountRetrieveRecordingsJsonResponse as AccountRetrieveRecordingsJsonResponse,
     type AccountRetrieveTranscriptionsJsonResponse as AccountRetrieveTranscriptionsJsonResponse,
     type AccountRetrieveRecordingsJsonParams as AccountRetrieveRecordingsJsonParams,
-    type AccountRetrieveTranscriptionsJsonParams as AccountRetrieveTranscriptionsJsonParams,
+    type AccountRetrieveTranscriptionsJsonParams as AccountRetrieveTranscriptionsJsonParams
   };
 
   export {
@@ -362,7 +308,7 @@ export declare namespace Accounts {
     type CallCallsParams as CallCallsParams,
     type CallRetrieveCallsParams as CallRetrieveCallsParams,
     type CallSiprecJsonParams as CallSiprecJsonParams,
-    type CallStreamsJsonParams as CallStreamsJsonParams,
+    type CallStreamsJsonParams as CallStreamsJsonParams
   };
 
   export {
@@ -376,12 +322,16 @@ export declare namespace Accounts {
     type ConferenceUpdateParams as ConferenceUpdateParams,
     type ConferenceRetrieveConferencesParams as ConferenceRetrieveConferencesParams,
     type ConferenceRetrieveRecordingsParams as ConferenceRetrieveRecordingsParams,
-    type ConferenceRetrieveRecordingsJsonParams as ConferenceRetrieveRecordingsJsonParams,
+    type ConferenceRetrieveRecordingsJsonParams as ConferenceRetrieveRecordingsJsonParams
   };
 
-  export { Recordings as Recordings };
+  export {
+    Recordings as Recordings
+  };
 
-  export { Transcriptions as Transcriptions };
+  export {
+    Transcriptions as Transcriptions
+  };
 
   export {
     Queues as Queues,
@@ -394,6 +344,6 @@ export declare namespace Accounts {
     type QueueRetrieveParams as QueueRetrieveParams,
     type QueueUpdateParams as QueueUpdateParams,
     type QueueListParams as QueueListParams,
-    type QueueDeleteParams as QueueDeleteParams,
+    type QueueDeleteParams as QueueDeleteParams
   };
 }

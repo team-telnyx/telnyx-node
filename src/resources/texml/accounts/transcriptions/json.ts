@@ -21,16 +21,9 @@ export class Json extends APIResource {
    * );
    * ```
    */
-  deleteRecordingTranscriptionSidJson(
-    recordingTranscriptionSid: string,
-    params: JsonDeleteRecordingTranscriptionSidJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { account_sid } = params;
-    return this._client.delete(
-      path`/texml/Accounts/${account_sid}/Transcriptions/${recordingTranscriptionSid}.json`,
-      { ...options, headers: buildHeaders([{ Accept: '*/*' }, options?.headers]) },
-    );
+  deleteRecordingTranscriptionSidJson(recordingTranscriptionSid: string, params: JsonDeleteRecordingTranscriptionSidJsonParams, options?: RequestOptions): APIPromise<void> {
+    const { account_sid } = params
+    return this._client.delete(path`/texml/Accounts/${account_sid}/Transcriptions/${recordingTranscriptionSid}.json`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
@@ -45,16 +38,9 @@ export class Json extends APIResource {
    *   );
    * ```
    */
-  retrieveRecordingTranscriptionSidJson(
-    recordingTranscriptionSid: string,
-    params: JsonRetrieveRecordingTranscriptionSidJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<JsonRetrieveRecordingTranscriptionSidJsonResponse> {
-    const { account_sid } = params;
-    return this._client.get(
-      path`/texml/Accounts/${account_sid}/Transcriptions/${recordingTranscriptionSid}.json`,
-      options,
-    );
+  retrieveRecordingTranscriptionSidJson(recordingTranscriptionSid: string, params: JsonRetrieveRecordingTranscriptionSidJsonParams, options?: RequestOptions): APIPromise<JsonRetrieveRecordingTranscriptionSidJsonResponse> {
+    const { account_sid } = params
+    return this._client.get(path`/texml/Accounts/${account_sid}/Transcriptions/${recordingTranscriptionSid}.json`, options);
   }
 }
 
@@ -122,6 +108,6 @@ export declare namespace Json {
   export {
     type JsonRetrieveRecordingTranscriptionSidJsonResponse as JsonRetrieveRecordingTranscriptionSidJsonResponse,
     type JsonDeleteRecordingTranscriptionSidJsonParams as JsonDeleteRecordingTranscriptionSidJsonParams,
-    type JsonRetrieveRecordingTranscriptionSidJsonParams as JsonRetrieveRecordingTranscriptionSidJsonParams,
+    type JsonRetrieveRecordingTranscriptionSidJsonParams as JsonRetrieveRecordingTranscriptionSidJsonParams
   };
 }

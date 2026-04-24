@@ -24,10 +24,7 @@ export class DynamicEmergencyEndpoints extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: DynamicEmergencyEndpointCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<DynamicEmergencyEndpointCreateResponse> {
+  create(body: DynamicEmergencyEndpointCreateParams, options?: RequestOptions): APIPromise<DynamicEmergencyEndpointCreateResponse> {
     return this._client.post('/dynamic_emergency_endpoints', { body, ...options });
   }
 
@@ -57,15 +54,8 @@ export class DynamicEmergencyEndpoints extends APIResource {
    * }
    * ```
    */
-  list(
-    query: DynamicEmergencyEndpointListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<DynamicEmergencyEndpointsDefaultFlatPagination, DynamicEmergencyEndpoint> {
-    return this._client.getAPIList(
-      '/dynamic_emergency_endpoints',
-      DefaultFlatPagination<DynamicEmergencyEndpoint>,
-      { query, ...options },
-    );
+  list(query: DynamicEmergencyEndpointListParams | null | undefined = {}, options?: RequestOptions): PagePromise<DynamicEmergencyEndpointsDefaultFlatPagination, DynamicEmergencyEndpoint> {
+    return this._client.getAPIList('/dynamic_emergency_endpoints', DefaultFlatPagination<DynamicEmergencyEndpoint>, { query, ...options });
   }
 
   /**
@@ -84,7 +74,7 @@ export class DynamicEmergencyEndpoints extends APIResource {
   }
 }
 
-export type DynamicEmergencyEndpointsDefaultFlatPagination = DefaultFlatPagination<DynamicEmergencyEndpoint>;
+export type DynamicEmergencyEndpointsDefaultFlatPagination = DefaultFlatPagination<DynamicEmergencyEndpoint>
 
 export interface DynamicEmergencyEndpoint {
   callback_number: string;
@@ -178,6 +168,6 @@ export declare namespace DynamicEmergencyEndpoints {
     type DynamicEmergencyEndpointDeleteResponse as DynamicEmergencyEndpointDeleteResponse,
     type DynamicEmergencyEndpointsDefaultFlatPagination as DynamicEmergencyEndpointsDefaultFlatPagination,
     type DynamicEmergencyEndpointCreateParams as DynamicEmergencyEndpointCreateParams,
-    type DynamicEmergencyEndpointListParams as DynamicEmergencyEndpointListParams,
+    type DynamicEmergencyEndpointListParams as DynamicEmergencyEndpointListParams
   };
 }

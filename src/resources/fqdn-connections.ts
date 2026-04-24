@@ -22,10 +22,7 @@ export class FqdnConnections extends APIResource {
    * });
    * ```
    */
-  create(
-    body: FqdnConnectionCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<FqdnConnectionCreateResponse> {
+  create(body: FqdnConnectionCreateParams, options?: RequestOptions): APIPromise<FqdnConnectionCreateResponse> {
     return this._client.post('/fqdn_connections', { body, ...options });
   }
 
@@ -54,11 +51,7 @@ export class FqdnConnections extends APIResource {
    * );
    * ```
    */
-  update(
-    id: string,
-    body: FqdnConnectionUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<FqdnConnectionUpdateResponse> {
+  update(id: string, body: FqdnConnectionUpdateParams, options?: RequestOptions): APIPromise<FqdnConnectionUpdateResponse> {
     return this._client.patch(path`/fqdn_connections/${id}`, { body, ...options });
   }
 
@@ -73,14 +66,8 @@ export class FqdnConnections extends APIResource {
    * }
    * ```
    */
-  list(
-    query: FqdnConnectionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FqdnConnectionsDefaultFlatPagination, FqdnConnection> {
-    return this._client.getAPIList('/fqdn_connections', DefaultFlatPagination<FqdnConnection>, {
-      query,
-      ...options,
-    });
+  list(query: FqdnConnectionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<FqdnConnectionsDefaultFlatPagination, FqdnConnection> {
+    return this._client.getAPIList('/fqdn_connections', DefaultFlatPagination<FqdnConnection>, { query, ...options });
   }
 
   /**
@@ -98,7 +85,7 @@ export class FqdnConnections extends APIResource {
   }
 }
 
-export type FqdnConnectionsDefaultFlatPagination = DefaultFlatPagination<FqdnConnection>;
+export type FqdnConnectionsDefaultFlatPagination = DefaultFlatPagination<FqdnConnection>
 
 export interface FqdnConnection {
   /**
@@ -493,13 +480,7 @@ export interface OutboundFqdn {
    * will send the re-invite. If set to `customer`, the caller is expected to send
    * the t.38 reinvite.
    */
-  t38_reinvite_source?:
-    | 'telnyx'
-    | 'customer'
-    | 'disabled'
-    | 'passthru'
-    | 'caller-passthru'
-    | 'callee-passthru';
+  t38_reinvite_source?: 'telnyx' | 'customer' | 'disabled' | 'passthru' | 'caller-passthru' | 'callee-passthru';
 
   /**
    * Numerical chars only, exactly 4 characters.
@@ -521,12 +502,12 @@ export interface OutboundFqdn {
  * One of UDP, TLS, or TCP. Applies only to connections with IP authentication or
  * FQDN authentication.
  */
-export type TransportProtocol = 'UDP' | 'TCP' | 'TLS';
+export type TransportProtocol = 'UDP' | 'TCP' | 'TLS'
 
 /**
  * Determines which webhook format will be used, Telnyx API v1 or v2.
  */
-export type WebhookAPIVersion = '1' | '2';
+export type WebhookAPIVersion = '1' | '2'
 
 export interface FqdnConnectionCreateResponse {
   data?: FqdnConnection;
@@ -890,6 +871,6 @@ export declare namespace FqdnConnections {
     type FqdnConnectionsDefaultFlatPagination as FqdnConnectionsDefaultFlatPagination,
     type FqdnConnectionCreateParams as FqdnConnectionCreateParams,
     type FqdnConnectionUpdateParams as FqdnConnectionUpdateParams,
-    type FqdnConnectionListParams as FqdnConnectionListParams,
+    type FqdnConnectionListParams as FqdnConnectionListParams
   };
 }

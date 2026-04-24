@@ -16,6 +16,7 @@ export type APIResponseProps = {
 export async function defaultParseResponse<T>(client: Telnyx, props: APIResponseProps): Promise<T> {
   const { response, requestLogID, retryOfRequestLogID, startTime } = props;
   const body = await (async () => {
+
     // fetch refuses to read the body when the status code is 204.
     if (response.status === 204) {
       return null as T;
@@ -42,15 +43,6 @@ export async function defaultParseResponse<T>(client: Telnyx, props: APIResponse
     const text = await response.text();
     return text as unknown as T;
   })();
-  loggerFor(client).debug(
-    `[${requestLogID}] response parsed`,
-    formatRequestDetails({
-      retryOfRequestLogID,
-      url: response.url,
-      status: response.status,
-      body,
-      durationMs: Date.now() - startTime,
-    }),
-  );
+  loggerFor(client).debug(`[${requestLogID}] response parsed`, formatRequestDetails({ retryOfRequestLogID, url: response.url, status: response.status, body, durationMs: Date.now() - startTime }));
   return body;
 }

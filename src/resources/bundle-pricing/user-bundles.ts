@@ -19,15 +19,8 @@ export class UserBundles extends APIResource {
    * ```
    */
   create(params: UserBundleCreateParams, options?: RequestOptions): APIPromise<UserBundleCreateResponse> {
-    const { authorization_bearer, ...body } = params;
-    return this._client.post('/bundle_pricing/user_bundles/bulk', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
-        options?.headers,
-      ]),
-    });
+    const { authorization_bearer, ...body } = params
+    return this._client.post('/bundle_pricing/user_bundles/bulk', { body, ...options, headers: buildHeaders([{...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined)}, options?.headers]) });
   }
 
   /**
@@ -41,19 +34,9 @@ export class UserBundles extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    userBundleID: string,
-    params: UserBundleRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<UserBundleRetrieveResponse> {
-    const { authorization_bearer } = params ?? {};
-    return this._client.get(path`/bundle_pricing/user_bundles/${userBundleID}`, {
-      ...options,
-      headers: buildHeaders([
-        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
-        options?.headers,
-      ]),
-    });
+  retrieve(userBundleID: string, params: UserBundleRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<UserBundleRetrieveResponse> {
+    const { authorization_bearer } = params ?? {}
+    return this._client.get(path`/bundle_pricing/user_bundles/${userBundleID}`, { ...options, headers: buildHeaders([{...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined)}, options?.headers]) });
   }
 
   /**
@@ -67,19 +50,9 @@ export class UserBundles extends APIResource {
    * }
    * ```
    */
-  list(
-    params: UserBundleListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<UserBundlesDefaultFlatPagination, UserBundle> {
-    const { authorization_bearer, ...query } = params ?? {};
-    return this._client.getAPIList('/bundle_pricing/user_bundles', DefaultFlatPagination<UserBundle>, {
-      query,
-      ...options,
-      headers: buildHeaders([
-        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
-        options?.headers,
-      ]),
-    });
+  list(params: UserBundleListParams | null | undefined = {}, options?: RequestOptions): PagePromise<UserBundlesDefaultFlatPagination, UserBundle> {
+    const { authorization_bearer, ...query } = params ?? {}
+    return this._client.getAPIList('/bundle_pricing/user_bundles', DefaultFlatPagination<UserBundle>, { query, ...options, headers: buildHeaders([{...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined)}, options?.headers]) });
   }
 
   /**
@@ -93,19 +66,9 @@ export class UserBundles extends APIResource {
    *   );
    * ```
    */
-  deactivate(
-    userBundleID: string,
-    params: UserBundleDeactivateParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<UserBundleDeactivateResponse> {
-    const { authorization_bearer } = params ?? {};
-    return this._client.delete(path`/bundle_pricing/user_bundles/${userBundleID}`, {
-      ...options,
-      headers: buildHeaders([
-        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
-        options?.headers,
-      ]),
-    });
+  deactivate(userBundleID: string, params: UserBundleDeactivateParams | null | undefined = {}, options?: RequestOptions): APIPromise<UserBundleDeactivateResponse> {
+    const { authorization_bearer } = params ?? {}
+    return this._client.delete(path`/bundle_pricing/user_bundles/${userBundleID}`, { ...options, headers: buildHeaders([{...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined)}, options?.headers]) });
   }
 
   /**
@@ -119,19 +82,9 @@ export class UserBundles extends APIResource {
    *   );
    * ```
    */
-  listResources(
-    userBundleID: string,
-    params: UserBundleListResourcesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<UserBundleListResourcesResponse> {
-    const { authorization_bearer } = params ?? {};
-    return this._client.get(path`/bundle_pricing/user_bundles/${userBundleID}/resources`, {
-      ...options,
-      headers: buildHeaders([
-        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
-        options?.headers,
-      ]),
-    });
+  listResources(userBundleID: string, params: UserBundleListResourcesParams | null | undefined = {}, options?: RequestOptions): APIPromise<UserBundleListResourcesResponse> {
+    const { authorization_bearer } = params ?? {}
+    return this._client.get(path`/bundle_pricing/user_bundles/${userBundleID}/resources`, { ...options, headers: buildHeaders([{...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined)}, options?.headers]) });
   }
 
   /**
@@ -143,23 +96,13 @@ export class UserBundles extends APIResource {
    *   await client.bundlePricing.userBundles.listUnused();
    * ```
    */
-  listUnused(
-    params: UserBundleListUnusedParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<UserBundleListUnusedResponse> {
-    const { authorization_bearer, ...query } = params ?? {};
-    return this._client.get('/bundle_pricing/user_bundles/unused', {
-      query,
-      ...options,
-      headers: buildHeaders([
-        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
-        options?.headers,
-      ]),
-    });
+  listUnused(params: UserBundleListUnusedParams | null | undefined = {}, options?: RequestOptions): APIPromise<UserBundleListUnusedResponse> {
+    const { authorization_bearer, ...query } = params ?? {}
+    return this._client.get('/bundle_pricing/user_bundles/unused', { query, ...options, headers: buildHeaders([{...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined)}, options?.headers]) });
   }
 }
 
-export type UserBundlesDefaultFlatPagination = DefaultFlatPagination<UserBundle>;
+export type UserBundlesDefaultFlatPagination = DefaultFlatPagination<UserBundle>
 
 export interface UserBundle {
   /**
@@ -384,6 +327,6 @@ export declare namespace UserBundles {
     type UserBundleListParams as UserBundleListParams,
     type UserBundleDeactivateParams as UserBundleDeactivateParams,
     type UserBundleListResourcesParams as UserBundleListResourcesParams,
-    type UserBundleListUnusedParams as UserBundleListUnusedParams,
+    type UserBundleListUnusedParams as UserBundleListUnusedParams
   };
 }

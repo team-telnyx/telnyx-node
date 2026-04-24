@@ -3,11 +3,7 @@
 import { APIResource } from '../../../core/resource';
 import * as RequestsAPI from './requests';
 import { APIPromise } from '../../../core/api-promise';
-import {
-  DefaultPaginationForMessagingTollfree,
-  type DefaultPaginationForMessagingTollfreeParams,
-  PagePromise,
-} from '../../../core/pagination';
+import { DefaultPaginationForMessagingTollfree, type DefaultPaginationForMessagingTollfreeParams, PagePromise } from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -105,11 +101,7 @@ export class Requests extends APIResource {
    *   );
    * ```
    */
-  update(
-    id: string,
-    body: RequestUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<VerificationRequestEgress> {
+  update(id: string, body: RequestUpdateParams, options?: RequestOptions): APIPromise<VerificationRequestEgress> {
     return this._client.patch(path`/messaging_tollfree/verification/requests/${id}`, { body, ...options });
   }
 
@@ -126,18 +118,8 @@ export class Requests extends APIResource {
    * }
    * ```
    */
-  list(
-    query: RequestListParams,
-    options?: RequestOptions,
-  ): PagePromise<
-    VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
-    VerificationRequestStatus
-  > {
-    return this._client.getAPIList(
-      '/messaging_tollfree/verification/requests',
-      DefaultPaginationForMessagingTollfree<VerificationRequestStatus>,
-      { query, ...options },
-    );
+  list(query: RequestListParams, options?: RequestOptions): PagePromise<VerificationRequestStatusesDefaultPaginationForMessagingTollfree, VerificationRequestStatus> {
+    return this._client.getAPIList('/messaging_tollfree/verification/requests', DefaultPaginationForMessagingTollfree<VerificationRequestStatus>, { query, ...options });
   }
 
   /**
@@ -157,10 +139,7 @@ export class Requests extends APIResource {
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/messaging_tollfree/verification/requests/${id}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.delete(path`/messaging_tollfree/verification/requests/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
@@ -178,20 +157,12 @@ export class Requests extends APIResource {
    *   );
    * ```
    */
-  retrieveStatusHistory(
-    id: string,
-    query: RequestRetrieveStatusHistoryParams,
-    options?: RequestOptions,
-  ): APIPromise<RequestRetrieveStatusHistoryResponse> {
-    return this._client.get(path`/messaging_tollfree/verification/requests/${id}/status_history`, {
-      query,
-      ...options,
-    });
+  retrieveStatusHistory(id: string, query: RequestRetrieveStatusHistoryParams, options?: RequestOptions): APIPromise<RequestRetrieveStatusHistoryResponse> {
+    return this._client.get(path`/messaging_tollfree/verification/requests/${id}/status_history`, { query, ...options });
   }
 }
 
-export type VerificationRequestStatusesDefaultPaginationForMessagingTollfree =
-  DefaultPaginationForMessagingTollfree<VerificationRequestStatus>;
+export type VerificationRequestStatusesDefaultPaginationForMessagingTollfree = DefaultPaginationForMessagingTollfree<VerificationRequestStatus>
 
 /**
  * A phone number
@@ -385,23 +356,12 @@ export interface TfVerificationRequest {
 /**
  * Tollfree verification status
  */
-export type TfVerificationStatus =
-  | 'Verified'
-  | 'Rejected'
-  | 'Waiting For Vendor'
-  | 'Waiting For Customer'
-  | 'Waiting For Telnyx'
-  | 'In Progress';
+export type TfVerificationStatus = 'Verified' | 'Rejected' | 'Waiting For Vendor' | 'Waiting For Customer' | 'Waiting For Telnyx' | 'In Progress'
 
 /**
  * Business entity classification
  */
-export type TollFreeVerificationEntityType =
-  | 'SOLE_PROPRIETOR'
-  | 'PRIVATE_PROFIT'
-  | 'PUBLIC_PROFIT'
-  | 'NON_PROFIT'
-  | 'GOVERNMENT';
+export type TollFreeVerificationEntityType = 'SOLE_PROPRIETOR' | 'PRIVATE_PROFIT' | 'PUBLIC_PROFIT' | 'NON_PROFIT' | 'GOVERNMENT'
 
 export interface URL {
   url: string;
@@ -410,50 +370,7 @@ export interface URL {
 /**
  * Tollfree usecase categories
  */
-export type UseCaseCategories =
-  | '2FA'
-  | 'App Notifications'
-  | 'Appointments'
-  | 'Auctions'
-  | 'Auto Repair Services'
-  | 'Bank Transfers'
-  | 'Billing'
-  | 'Booking Confirmations'
-  | 'Business Updates'
-  | 'COVID-19 Alerts'
-  | 'Career Training'
-  | 'Chatbot'
-  | 'Conversational / Alerts'
-  | 'Courier Services & Deliveries'
-  | 'Emergency Alerts'
-  | 'Events & Planning'
-  | 'Financial Services'
-  | 'Fraud Alerts'
-  | 'Fundraising'
-  | 'General Marketing'
-  | 'General School Updates'
-  | 'HR / Staffing'
-  | 'Healthcare Alerts'
-  | 'Housing Community Updates'
-  | 'Insurance Services'
-  | 'Job Dispatch'
-  | 'Legal Services'
-  | 'Mixed'
-  | 'Motivational Reminders'
-  | 'Notary Notifications'
-  | 'Order Notifications'
-  | 'Political'
-  | 'Public Works'
-  | 'Real Estate Services'
-  | 'Religious Services'
-  | 'Repair and Diagnostics Alerts'
-  | 'Rewards Program'
-  | 'Surveys'
-  | 'System Alerts'
-  | 'Voting Reminders'
-  | 'Waitlist Alerts'
-  | 'Webinar Reminders'
-  | 'Workshop Alerts';
+export type UseCaseCategories = '2FA' | 'App Notifications' | 'Appointments' | 'Auctions' | 'Auto Repair Services' | 'Bank Transfers' | 'Billing' | 'Booking Confirmations' | 'Business Updates' | 'COVID-19 Alerts' | 'Career Training' | 'Chatbot' | 'Conversational / Alerts' | 'Courier Services & Deliveries' | 'Emergency Alerts' | 'Events & Planning' | 'Financial Services' | 'Fraud Alerts' | 'Fundraising' | 'General Marketing' | 'General School Updates' | 'HR / Staffing' | 'Healthcare Alerts' | 'Housing Community Updates' | 'Insurance Services' | 'Job Dispatch' | 'Legal Services' | 'Mixed' | 'Motivational Reminders' | 'Notary Notifications' | 'Order Notifications' | 'Political' | 'Public Works' | 'Real Estate Services' | 'Religious Services' | 'Repair and Diagnostics Alerts' | 'Rewards Program' | 'Surveys' | 'System Alerts' | 'Voting Reminders' | 'Waitlist Alerts' | 'Webinar Reminders' | 'Workshop Alerts'
 
 /**
  * A verification request as it comes out of the database
@@ -648,18 +565,7 @@ export interface VerificationRequestStatus {
 /**
  * Message Volume Enums
  */
-export type Volume =
-  | '10'
-  | '100'
-  | '1,000'
-  | '10,000'
-  | '100,000'
-  | '250,000'
-  | '500,000'
-  | '750,000'
-  | '1,000,000'
-  | '5,000,000'
-  | '10,000,000+';
+export type Volume = '10' | '100' | '1,000' | '10,000' | '100,000' | '250,000' | '500,000' | '750,000' | '1,000,000' | '5,000,000' | '10,000,000+'
 
 /**
  * A paginated response
@@ -1100,6 +1006,6 @@ export declare namespace Requests {
     type RequestCreateParams as RequestCreateParams,
     type RequestUpdateParams as RequestUpdateParams,
     type RequestListParams as RequestListParams,
-    type RequestRetrieveStatusHistoryParams as RequestRetrieveStatusHistoryParams,
+    type RequestRetrieveStatusHistoryParams as RequestRetrieveStatusHistoryParams
   };
 }

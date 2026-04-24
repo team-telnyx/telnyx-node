@@ -21,11 +21,7 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  verify(
-    verificationID: string,
-    body: ActionVerifyParams,
-    options?: RequestOptions,
-  ): APIPromise<ByPhoneNumberActionsAPI.VerifyVerificationCodeResponse> {
+  verify(verificationID: string, body: ActionVerifyParams, options?: RequestOptions): APIPromise<ByPhoneNumberActionsAPI.VerifyVerificationCodeResponse> {
     return this._client.post(path`/verifications/${verificationID}/actions/verify`, { body, ...options });
   }
 }
@@ -44,5 +40,7 @@ export interface ActionVerifyParams {
 }
 
 export declare namespace Actions {
-  export { type ActionVerifyParams as ActionVerifyParams };
+  export {
+    type ActionVerifyParams as ActionVerifyParams
+  };
 }

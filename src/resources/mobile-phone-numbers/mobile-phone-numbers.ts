@@ -2,13 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as MessagingAPI from './messaging';
-import {
-  Messaging,
-  MessagingListParams,
-  MessagingListResponse,
-  MessagingListResponsesDefaultFlatPagination,
-  MessagingRetrieveResponse,
-} from './messaging';
+import { Messaging, MessagingListParams, MessagingListResponse, MessagingListResponsesDefaultFlatPagination, MessagingRetrieveResponse } from './messaging';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -30,29 +24,19 @@ export class MobilePhoneNumbers extends APIResource {
   /**
    * Update a Mobile Phone Number
    */
-  update(
-    id: string,
-    body: MobilePhoneNumberUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<MobilePhoneNumberUpdateResponse> {
+  update(id: string, body: MobilePhoneNumberUpdateParams, options?: RequestOptions): APIPromise<MobilePhoneNumberUpdateResponse> {
     return this._client.patch(path`/v2/mobile_phone_numbers/${id}`, { body, ...options });
   }
 
   /**
    * List Mobile Phone Numbers
    */
-  list(
-    query: MobilePhoneNumberListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MobilePhoneNumbersDefaultFlatPagination, MobilePhoneNumber> {
-    return this._client.getAPIList('/v2/mobile_phone_numbers', DefaultFlatPagination<MobilePhoneNumber>, {
-      query,
-      ...options,
-    });
+  list(query: MobilePhoneNumberListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MobilePhoneNumbersDefaultFlatPagination, MobilePhoneNumber> {
+    return this._client.getAPIList('/v2/mobile_phone_numbers', DefaultFlatPagination<MobilePhoneNumber>, { query, ...options });
   }
 }
 
-export type MobilePhoneNumbersDefaultFlatPagination = DefaultFlatPagination<MobilePhoneNumber>;
+export type MobilePhoneNumbersDefaultFlatPagination = DefaultFlatPagination<MobilePhoneNumber>
 
 export interface MobilePhoneNumber {
   /**
@@ -271,7 +255,8 @@ export namespace MobilePhoneNumberUpdateParams {
   }
 }
 
-export interface MobilePhoneNumberListParams extends DefaultFlatPaginationParams {}
+export interface MobilePhoneNumberListParams extends DefaultFlatPaginationParams {
+}
 
 MobilePhoneNumbers.Messaging = Messaging;
 
@@ -282,7 +267,7 @@ export declare namespace MobilePhoneNumbers {
     type MobilePhoneNumberUpdateResponse as MobilePhoneNumberUpdateResponse,
     type MobilePhoneNumbersDefaultFlatPagination as MobilePhoneNumbersDefaultFlatPagination,
     type MobilePhoneNumberUpdateParams as MobilePhoneNumberUpdateParams,
-    type MobilePhoneNumberListParams as MobilePhoneNumberListParams,
+    type MobilePhoneNumberListParams as MobilePhoneNumberListParams
   };
 
   export {
@@ -290,6 +275,6 @@ export declare namespace MobilePhoneNumbers {
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingListResponse as MessagingListResponse,
     type MessagingListResponsesDefaultFlatPagination as MessagingListResponsesDefaultFlatPagination,
-    type MessagingListParams as MessagingListParams,
+    type MessagingListParams as MessagingListParams
   };
 }

@@ -2,10 +2,7 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource events', () => {
   // Mock server tests are disabled
@@ -35,20 +32,17 @@ describe('resource events', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.porting.events.list(
-        {
-          filter: {
-            created_at: { gte: '2021-01-01T00:00:00Z', lte: '2021-01-01T00:00:00Z' },
-            porting_order_id: '34dc46a9-53ed-4e01-9454-26227ea13326',
-            type: 'porting_order.deleted',
-          },
-          'page[number]': 0,
-          'page[size]': 0,
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
+    await expect(client.porting.events.list({
+    filter: {
+    created_at: { gte: '2021-01-01T00:00:00Z', lte: '2021-01-01T00:00:00Z' },
+    porting_order_id: '34dc46a9-53ed-4e01-9454-26227ea13326',
+    type: 'porting_order.deleted',
+  },
+    'page[number]': 0,
+    'page[size]': 0,
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled

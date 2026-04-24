@@ -14,6 +14,6 @@ export declare namespace Recordings {
   export {
     Json as Json,
     type JsonDeleteRecordingSidJsonParams as JsonDeleteRecordingSidJsonParams,
-    type JsonRetrieveRecordingSidJsonParams as JsonRetrieveRecordingSidJsonParams,
+    type JsonRetrieveRecordingSidJsonParams as JsonRetrieveRecordingSidJsonParams
   };
 }

@@ -12,10 +12,7 @@ export class Webhooks extends APIResource {
     return JSON.parse(body) as UnsafeUnwrapWebhookEvent;
   }
 
-  unwrap(
-    body: string,
-    { headers, key }: { headers: Record<string, string>; key?: string },
-  ): UnwrapWebhookEvent {
+  unwrap(body: string, { headers, key }: { headers: Record<string, string>; key?: string }): UnwrapWebhookEvent {
     if (headers !== undefined) {
       const keyStr: string | null = key === undefined ? this._client.publicKey : key;
       if (keyStr === null) throw new Error('Webhook key must not be null in order to unwrap');
@@ -1057,16 +1054,7 @@ export namespace CallHangup {
      * `originator_cancel`, `timeout`, `time_limit`, `user_busy`, `not_found`,
      * `no_answer` or `unspecified`).
      */
-    hangup_cause?:
-      | 'call_rejected'
-      | 'normal_clearing'
-      | 'originator_cancel'
-      | 'timeout'
-      | 'time_limit'
-      | 'user_busy'
-      | 'not_found'
-      | 'no_answer'
-      | 'unspecified';
+    hangup_cause?: 'call_rejected' | 'normal_clearing' | 'originator_cancel' | 'timeout' | 'time_limit' | 'user_busy' | 'not_found' | 'no_answer' | 'unspecified';
 
     /**
      * The party who ended the call (`callee`, `caller`, `unknown`).
@@ -1724,14 +1712,7 @@ export namespace CallPlaybackEnded {
     /**
      * Reflects how command ended.
      */
-    status?:
-      | 'file_not_found'
-      | 'call_hangup'
-      | 'unknown'
-      | 'cancelled'
-      | 'cancelled_amd'
-      | 'completed'
-      | 'failed';
+    status?: 'file_not_found' | 'call_hangup' | 'unknown' | 'cancelled' | 'cancelled_amd' | 'completed' | 'failed';
 
     /**
      * Provides details in case of failure.
@@ -1867,11 +1848,7 @@ export namespace CallRecordingError {
     /**
      * Indication that there was a problem recording the call.
      */
-    reason?:
-      | 'Failed to authorize with storage using custom credentials'
-      | 'Invalid credentials json'
-      | 'Unsupported backend'
-      | 'Internal server error';
+    reason?: 'Failed to authorize with storage using custom credentials' | 'Invalid credentials json' | 'Unsupported backend' | 'Internal server error';
   }
 }
 
@@ -2820,15 +2797,7 @@ export interface CampaignStatusUpdate {
    */
   status?: 'ACCEPTED' | 'REJECTED' | 'DORMANT' | 'success' | 'failed';
 
-  type?:
-    | 'TELNYX_EVENT'
-    | 'REGISTRATION'
-    | 'MNO_REVIEW'
-    | 'TELNYX_REVIEW'
-    | 'NUMBER_POOL_PROVISIONED'
-    | 'NUMBER_POOL_DEPROVISIONED'
-    | 'TCR_EVENT'
-    | 'VERIFIED';
+  type?: 'TELNYX_EVENT' | 'REGISTRATION' | 'MNO_REVIEW' | 'TELNYX_REVIEW' | 'NUMBER_POOL_PROVISIONED' | 'NUMBER_POOL_DEPROVISIONED' | 'TCR_EVENT' | 'VERIFIED';
 }
 
 export interface ConferenceCreated {
@@ -5181,131 +5150,9 @@ export interface TranscriptionWebhookEvent {
   data?: Transcription;
 }
 
-export type UnsafeUnwrapWebhookEvent =
-  | CallAIGatherEndedWebhookEvent
-  | CallAIGatherMessageHistoryUpdatedWebhookEvent
-  | CallAIGatherPartialResultsWebhookEvent
-  | CallAnsweredWebhookEvent
-  | CallBridgedWebhookEvent
-  | CallConversationEndedWebhookEvent
-  | CallConversationInsightsGeneratedWebhookEvent
-  | CallCostWebhookEvent
-  | CallDtmfReceivedWebhookEvent
-  | CallEnqueuedWebhookEvent
-  | CallForkStartedWebhookEvent
-  | CallForkStoppedWebhookEvent
-  | CallGatherEndedWebhookEvent
-  | CallHangupWebhookEvent
-  | CallInitiatedWebhookEvent
-  | CallLeftQueueWebhookEvent
-  | CallMachineDetectionEndedWebhookEvent
-  | CallMachineGreetingEndedWebhookEvent
-  | CallMachinePremiumDetectionEndedWebhookEvent
-  | CallMachinePremiumGreetingEndedWebhookEvent
-  | CallPlaybackEndedWebhookEvent
-  | CallPlaybackStartedWebhookEvent
-  | CallRecordingErrorWebhookEvent
-  | CallRecordingSavedWebhookEvent
-  | CallRecordingTranscriptionSavedWebhookEvent
-  | CallReferCompletedWebhookEvent
-  | CallReferFailedWebhookEvent
-  | CallReferStartedWebhookEvent
-  | CallSiprecFailedWebhookEvent
-  | CallSiprecStartedWebhookEvent
-  | CallSiprecStoppedWebhookEvent
-  | CallSpeakEndedWebhookEvent
-  | CallSpeakStartedWebhookEvent
-  | CallStreamingFailedWebhookEvent
-  | CallStreamingStartedWebhookEvent
-  | CallStreamingStoppedWebhookEvent
-  | CampaignStatusUpdate
-  | ConferenceCreatedWebhookEvent
-  | ConferenceEndedWebhookEvent
-  | ConferenceFloorChanged
-  | ConferenceParticipantJoinedWebhookEvent
-  | ConferenceParticipantLeftWebhookEvent
-  | ConferenceParticipantPlaybackEndedWebhookEvent
-  | ConferenceParticipantPlaybackStartedWebhookEvent
-  | ConferenceParticipantSpeakEndedWebhookEvent
-  | ConferenceParticipantSpeakStartedWebhookEvent
-  | ConferencePlaybackEndedWebhookEvent
-  | ConferencePlaybackStartedWebhookEvent
-  | ConferenceRecordingSavedWebhookEvent
-  | ConferenceSpeakEndedWebhookEvent
-  | ConferenceSpeakStartedWebhookEvent
-  | DeliveryUpdateWebhookEvent
-  | FaxDelivered
-  | FaxFailed
-  | FaxMediaProcessed
-  | FaxQueued
-  | FaxSendingStarted
-  | InboundMessageWebhookEvent
-  | NumberOrderStatusUpdate
-  | ReplacedLinkClickWebhookEvent
-  | TranscriptionWebhookEvent;
+export type UnsafeUnwrapWebhookEvent = CallAIGatherEndedWebhookEvent | CallAIGatherMessageHistoryUpdatedWebhookEvent | CallAIGatherPartialResultsWebhookEvent | CallAnsweredWebhookEvent | CallBridgedWebhookEvent | CallConversationEndedWebhookEvent | CallConversationInsightsGeneratedWebhookEvent | CallCostWebhookEvent | CallDtmfReceivedWebhookEvent | CallEnqueuedWebhookEvent | CallForkStartedWebhookEvent | CallForkStoppedWebhookEvent | CallGatherEndedWebhookEvent | CallHangupWebhookEvent | CallInitiatedWebhookEvent | CallLeftQueueWebhookEvent | CallMachineDetectionEndedWebhookEvent | CallMachineGreetingEndedWebhookEvent | CallMachinePremiumDetectionEndedWebhookEvent | CallMachinePremiumGreetingEndedWebhookEvent | CallPlaybackEndedWebhookEvent | CallPlaybackStartedWebhookEvent | CallRecordingErrorWebhookEvent | CallRecordingSavedWebhookEvent | CallRecordingTranscriptionSavedWebhookEvent | CallReferCompletedWebhookEvent | CallReferFailedWebhookEvent | CallReferStartedWebhookEvent | CallSiprecFailedWebhookEvent | CallSiprecStartedWebhookEvent | CallSiprecStoppedWebhookEvent | CallSpeakEndedWebhookEvent | CallSpeakStartedWebhookEvent | CallStreamingFailedWebhookEvent | CallStreamingStartedWebhookEvent | CallStreamingStoppedWebhookEvent | CampaignStatusUpdate | ConferenceCreatedWebhookEvent | ConferenceEndedWebhookEvent | ConferenceFloorChanged | ConferenceParticipantJoinedWebhookEvent | ConferenceParticipantLeftWebhookEvent | ConferenceParticipantPlaybackEndedWebhookEvent | ConferenceParticipantPlaybackStartedWebhookEvent | ConferenceParticipantSpeakEndedWebhookEvent | ConferenceParticipantSpeakStartedWebhookEvent | ConferencePlaybackEndedWebhookEvent | ConferencePlaybackStartedWebhookEvent | ConferenceRecordingSavedWebhookEvent | ConferenceSpeakEndedWebhookEvent | ConferenceSpeakStartedWebhookEvent | DeliveryUpdateWebhookEvent | FaxDelivered | FaxFailed | FaxMediaProcessed | FaxQueued | FaxSendingStarted | InboundMessageWebhookEvent | NumberOrderStatusUpdate | ReplacedLinkClickWebhookEvent | TranscriptionWebhookEvent
 
-export type UnwrapWebhookEvent =
-  | CallAIGatherEndedWebhookEvent
-  | CallAIGatherMessageHistoryUpdatedWebhookEvent
-  | CallAIGatherPartialResultsWebhookEvent
-  | CallAnsweredWebhookEvent
-  | CallBridgedWebhookEvent
-  | CallConversationEndedWebhookEvent
-  | CallConversationInsightsGeneratedWebhookEvent
-  | CallCostWebhookEvent
-  | CallDtmfReceivedWebhookEvent
-  | CallEnqueuedWebhookEvent
-  | CallForkStartedWebhookEvent
-  | CallForkStoppedWebhookEvent
-  | CallGatherEndedWebhookEvent
-  | CallHangupWebhookEvent
-  | CallInitiatedWebhookEvent
-  | CallLeftQueueWebhookEvent
-  | CallMachineDetectionEndedWebhookEvent
-  | CallMachineGreetingEndedWebhookEvent
-  | CallMachinePremiumDetectionEndedWebhookEvent
-  | CallMachinePremiumGreetingEndedWebhookEvent
-  | CallPlaybackEndedWebhookEvent
-  | CallPlaybackStartedWebhookEvent
-  | CallRecordingErrorWebhookEvent
-  | CallRecordingSavedWebhookEvent
-  | CallRecordingTranscriptionSavedWebhookEvent
-  | CallReferCompletedWebhookEvent
-  | CallReferFailedWebhookEvent
-  | CallReferStartedWebhookEvent
-  | CallSiprecFailedWebhookEvent
-  | CallSiprecStartedWebhookEvent
-  | CallSiprecStoppedWebhookEvent
-  | CallSpeakEndedWebhookEvent
-  | CallSpeakStartedWebhookEvent
-  | CallStreamingFailedWebhookEvent
-  | CallStreamingStartedWebhookEvent
-  | CallStreamingStoppedWebhookEvent
-  | CampaignStatusUpdate
-  | ConferenceCreatedWebhookEvent
-  | ConferenceEndedWebhookEvent
-  | ConferenceFloorChanged
-  | ConferenceParticipantJoinedWebhookEvent
-  | ConferenceParticipantLeftWebhookEvent
-  | ConferenceParticipantPlaybackEndedWebhookEvent
-  | ConferenceParticipantPlaybackStartedWebhookEvent
-  | ConferenceParticipantSpeakEndedWebhookEvent
-  | ConferenceParticipantSpeakStartedWebhookEvent
-  | ConferencePlaybackEndedWebhookEvent
-  | ConferencePlaybackStartedWebhookEvent
-  | ConferenceRecordingSavedWebhookEvent
-  | ConferenceSpeakEndedWebhookEvent
-  | ConferenceSpeakStartedWebhookEvent
-  | DeliveryUpdateWebhookEvent
-  | FaxDelivered
-  | FaxFailed
-  | FaxMediaProcessed
-  | FaxQueued
-  | FaxSendingStarted
-  | InboundMessageWebhookEvent
-  | NumberOrderStatusUpdate
-  | ReplacedLinkClickWebhookEvent
-  | TranscriptionWebhookEvent;
+export type UnwrapWebhookEvent = CallAIGatherEndedWebhookEvent | CallAIGatherMessageHistoryUpdatedWebhookEvent | CallAIGatherPartialResultsWebhookEvent | CallAnsweredWebhookEvent | CallBridgedWebhookEvent | CallConversationEndedWebhookEvent | CallConversationInsightsGeneratedWebhookEvent | CallCostWebhookEvent | CallDtmfReceivedWebhookEvent | CallEnqueuedWebhookEvent | CallForkStartedWebhookEvent | CallForkStoppedWebhookEvent | CallGatherEndedWebhookEvent | CallHangupWebhookEvent | CallInitiatedWebhookEvent | CallLeftQueueWebhookEvent | CallMachineDetectionEndedWebhookEvent | CallMachineGreetingEndedWebhookEvent | CallMachinePremiumDetectionEndedWebhookEvent | CallMachinePremiumGreetingEndedWebhookEvent | CallPlaybackEndedWebhookEvent | CallPlaybackStartedWebhookEvent | CallRecordingErrorWebhookEvent | CallRecordingSavedWebhookEvent | CallRecordingTranscriptionSavedWebhookEvent | CallReferCompletedWebhookEvent | CallReferFailedWebhookEvent | CallReferStartedWebhookEvent | CallSiprecFailedWebhookEvent | CallSiprecStartedWebhookEvent | CallSiprecStoppedWebhookEvent | CallSpeakEndedWebhookEvent | CallSpeakStartedWebhookEvent | CallStreamingFailedWebhookEvent | CallStreamingStartedWebhookEvent | CallStreamingStoppedWebhookEvent | CampaignStatusUpdate | ConferenceCreatedWebhookEvent | ConferenceEndedWebhookEvent | ConferenceFloorChanged | ConferenceParticipantJoinedWebhookEvent | ConferenceParticipantLeftWebhookEvent | ConferenceParticipantPlaybackEndedWebhookEvent | ConferenceParticipantPlaybackStartedWebhookEvent | ConferenceParticipantSpeakEndedWebhookEvent | ConferenceParticipantSpeakStartedWebhookEvent | ConferencePlaybackEndedWebhookEvent | ConferencePlaybackStartedWebhookEvent | ConferenceRecordingSavedWebhookEvent | ConferenceSpeakEndedWebhookEvent | ConferenceSpeakStartedWebhookEvent | DeliveryUpdateWebhookEvent | FaxDelivered | FaxFailed | FaxMediaProcessed | FaxQueued | FaxSendingStarted | InboundMessageWebhookEvent | NumberOrderStatusUpdate | ReplacedLinkClickWebhookEvent | TranscriptionWebhookEvent
 
 export declare namespace Webhooks {
   export {
@@ -5423,6 +5270,6 @@ export declare namespace Webhooks {
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type TranscriptionWebhookEvent as TranscriptionWebhookEvent,
     type UnsafeUnwrapWebhookEvent as UnsafeUnwrapWebhookEvent,
-    type UnwrapWebhookEvent as UnwrapWebhookEvent,
+    type UnwrapWebhookEvent as UnwrapWebhookEvent
   };
 }

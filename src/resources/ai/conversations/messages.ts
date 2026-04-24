@@ -95,5 +95,7 @@ export namespace MessageListResponse {
 }
 
 export declare namespace Messages {
-  export { type MessageListResponse as MessageListResponse };
+  export {
+    type MessageListResponse as MessageListResponse
+  };
 }

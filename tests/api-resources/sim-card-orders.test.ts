@@ -2,10 +2,7 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource simCardOrders', () => {
   // Mock server tests are disabled
@@ -52,28 +49,25 @@ describe('resource simCardOrders', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.simCardOrders.list(
-        {
-          filter: {
-            'address.administrative_area': 'TX',
-            'address.country_code': 'US',
-            'address.extended_address': '14th Floor',
-            'address.id': '1293384261075731499',
-            'address.locality': 'Austin',
-            'address.postal_code': '78701',
-            'address.street_address': '600 Congress Avenue',
-            'cost.amount': '2.53',
-            'cost.currency': 'USD',
-            created_at: '2018-02-02T22:25:27.521Z',
-            quantity: 21,
-            updated_at: '2018-02-02T22:25:27.521Z',
-          },
-          'page[number]': 0,
-          'page[size]': 0,
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
+    await expect(client.simCardOrders.list({
+    filter: {
+    'address.administrative_area': 'TX',
+    'address.country_code': 'US',
+    'address.extended_address': '14th Floor',
+    'address.id': '1293384261075731499',
+    'address.locality': 'Austin',
+    'address.postal_code': '78701',
+    'address.street_address': '600 Congress Avenue',
+    'cost.amount': '2.53',
+    'cost.currency': 'USD',
+    created_at: '2018-02-02T22:25:27.521Z',
+    quantity: 21,
+    updated_at: '2018-02-02T22:25:27.521Z',
+  },
+    'page[number]': 0,
+    'page[size]': 0,
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Telnyx.NotFoundError);
   });
 });

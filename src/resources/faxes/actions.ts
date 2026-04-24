@@ -62,6 +62,6 @@ export namespace ActionRefreshResponse {
 export declare namespace Actions {
   export {
     type ActionCancelResponse as ActionCancelResponse,
-    type ActionRefreshResponse as ActionRefreshResponse,
+    type ActionRefreshResponse as ActionRefreshResponse
   };
 }

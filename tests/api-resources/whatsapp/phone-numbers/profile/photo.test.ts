@@ -2,10 +2,7 @@
 
 import Telnyx, { toFile } from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource photo', () => {
   // Mock server tests are disabled
@@ -34,9 +31,7 @@ describe('resource photo', () => {
 
   // Mock server tests are disabled
   test.skip('upload: only required params', async () => {
-    const responsePromise = client.whatsapp.phoneNumbers.profile.photo.upload('phone_number', {
-      file: await toFile(Buffer.from('Example data'), 'README.md'),
-    });
+    const responsePromise = client.whatsapp.phoneNumbers.profile.photo.upload('phone_number', { file: await toFile(Buffer.from('Example data'), 'README.md') });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -48,8 +43,6 @@ describe('resource photo', () => {
 
   // Mock server tests are disabled
   test.skip('upload: required and optional params', async () => {
-    const response = await client.whatsapp.phoneNumbers.profile.photo.upload('phone_number', {
-      file: await toFile(Buffer.from('Example data'), 'README.md'),
-    });
+    const response = await client.whatsapp.phoneNumbers.profile.photo.upload('phone_number', { file: await toFile(Buffer.from('Example data'), 'README.md') });
   });
 });

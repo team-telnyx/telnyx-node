@@ -19,10 +19,7 @@ export class NumberBlockOrders extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: NumberBlockOrderCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<NumberBlockOrderCreateResponse> {
+  create(body: NumberBlockOrderCreateParams, options?: RequestOptions): APIPromise<NumberBlockOrderCreateResponse> {
     return this._client.post('/number_block_orders', { body, ...options });
   }
 
@@ -37,10 +34,7 @@ export class NumberBlockOrders extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    numberBlockOrderID: string,
-    options?: RequestOptions,
-  ): APIPromise<NumberBlockOrderRetrieveResponse> {
+  retrieve(numberBlockOrderID: string, options?: RequestOptions): APIPromise<NumberBlockOrderRetrieveResponse> {
     return this._client.get(path`/number_block_orders/${numberBlockOrderID}`, options);
   }
 
@@ -55,18 +49,12 @@ export class NumberBlockOrders extends APIResource {
    * }
    * ```
    */
-  list(
-    query: NumberBlockOrderListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NumberBlockOrdersDefaultFlatPagination, NumberBlockOrder> {
-    return this._client.getAPIList('/number_block_orders', DefaultFlatPagination<NumberBlockOrder>, {
-      query,
-      ...options,
-    });
+  list(query: NumberBlockOrderListParams | null | undefined = {}, options?: RequestOptions): PagePromise<NumberBlockOrdersDefaultFlatPagination, NumberBlockOrder> {
+    return this._client.getAPIList('/number_block_orders', DefaultFlatPagination<NumberBlockOrder>, { query, ...options });
   }
 }
 
-export type NumberBlockOrdersDefaultFlatPagination = DefaultFlatPagination<NumberBlockOrder>;
+export type NumberBlockOrdersDefaultFlatPagination = DefaultFlatPagination<NumberBlockOrder>
 
 export interface NumberBlockOrder {
   id?: string;
@@ -215,6 +203,6 @@ export declare namespace NumberBlockOrders {
     type NumberBlockOrderRetrieveResponse as NumberBlockOrderRetrieveResponse,
     type NumberBlockOrdersDefaultFlatPagination as NumberBlockOrdersDefaultFlatPagination,
     type NumberBlockOrderCreateParams as NumberBlockOrderCreateParams,
-    type NumberBlockOrderListParams as NumberBlockOrderListParams,
+    type NumberBlockOrderListParams as NumberBlockOrderListParams
   };
 }

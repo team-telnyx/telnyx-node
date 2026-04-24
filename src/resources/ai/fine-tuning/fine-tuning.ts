@@ -15,6 +15,6 @@ export declare namespace FineTuning {
     Jobs as Jobs,
     type FineTuningJob as FineTuningJob,
     type JobListResponse as JobListResponse,
-    type JobCreateParams as JobCreateParams,
+    type JobCreateParams as JobCreateParams
   };
 }

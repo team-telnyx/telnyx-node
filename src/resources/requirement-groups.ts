@@ -48,11 +48,7 @@ export class RequirementGroups extends APIResource {
    *   await client.requirementGroups.update('id');
    * ```
    */
-  update(
-    id: string,
-    body: RequirementGroupUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<RequirementGroup> {
+  update(id: string, body: RequirementGroupUpdateParams, options?: RequestOptions): APIPromise<RequirementGroup> {
     return this._client.patch(path`/requirement_groups/${id}`, { body, ...options });
   }
 
@@ -65,10 +61,7 @@ export class RequirementGroups extends APIResource {
    *   await client.requirementGroups.list();
    * ```
    */
-  list(
-    query: RequirementGroupListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<RequirementGroupListResponse> {
+  list(query: RequirementGroupListParams | null | undefined = {}, options?: RequestOptions): APIPromise<RequirementGroupListResponse> {
     return this._client.get('/requirement_groups', { query, ...options });
   }
 
@@ -137,7 +130,7 @@ export interface UserRequirement {
   updated_at?: string;
 }
 
-export type RequirementGroupListResponse = Array<RequirementGroup>;
+export type RequirementGroupListResponse = Array<RequirementGroup>
 
 export interface RequirementGroupCreateParams {
   action: 'ordering' | 'porting';
@@ -235,6 +228,6 @@ export declare namespace RequirementGroups {
     type RequirementGroupListResponse as RequirementGroupListResponse,
     type RequirementGroupCreateParams as RequirementGroupCreateParams,
     type RequirementGroupUpdateParams as RequirementGroupUpdateParams,
-    type RequirementGroupListParams as RequirementGroupListParams,
+    type RequirementGroupListParams as RequirementGroupListParams
   };
 }

@@ -2,11 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import {
-  DefaultPaginationForLogMessages,
-  type DefaultPaginationForLogMessagesParams,
-  PagePromise,
-} from '../../core/pagination';
+import { DefaultPaginationForLogMessages, type DefaultPaginationForLogMessagesParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -41,15 +37,8 @@ export class LogMessages extends APIResource {
    * }
    * ```
    */
-  list(
-    query: LogMessageListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<LogMessageListResponsesDefaultPaginationForLogMessages, LogMessageListResponse> {
-    return this._client.getAPIList(
-      '/external_connections/log_messages',
-      DefaultPaginationForLogMessages<LogMessageListResponse>,
-      { query, ...options },
-    );
+  list(query: LogMessageListParams | null | undefined = {}, options?: RequestOptions): PagePromise<LogMessageListResponsesDefaultPaginationForLogMessages, LogMessageListResponse> {
+    return this._client.getAPIList('/external_connections/log_messages', DefaultPaginationForLogMessages<LogMessageListResponse>, { query, ...options });
   }
 
   /**
@@ -68,8 +57,7 @@ export class LogMessages extends APIResource {
   }
 }
 
-export type LogMessageListResponsesDefaultPaginationForLogMessages =
-  DefaultPaginationForLogMessages<LogMessageListResponse>;
+export type LogMessageListResponsesDefaultPaginationForLogMessages = DefaultPaginationForLogMessages<LogMessageListResponse>
 
 export interface LogMessageRetrieveResponse {
   log_messages?: Array<LogMessageRetrieveResponse.LogMessage>;
@@ -213,6 +201,6 @@ export declare namespace LogMessages {
     type LogMessageListResponse as LogMessageListResponse,
     type LogMessageDismissResponse as LogMessageDismissResponse,
     type LogMessageListResponsesDefaultPaginationForLogMessages as LogMessageListResponsesDefaultPaginationForLogMessages,
-    type LogMessageListParams as LogMessageListParams,
+    type LogMessageListParams as LogMessageListParams
   };
 }

@@ -4,13 +4,7 @@ import { APIResource } from '../../../../core/resource';
 import * as RecordingsAPI from './recordings';
 import { RecordingRecordingSidJsonParams, RecordingRecordingSidJsonResponse, Recordings } from './recordings';
 import * as RecordingsJsonAPI from './recordings-json';
-import {
-  RecordingsJson,
-  RecordingsJsonRecordingsJsonParams,
-  RecordingsJsonRecordingsJsonResponse,
-  RecordingsJsonRetrieveRecordingsJsonParams,
-  RecordingsJsonRetrieveRecordingsJsonResponse,
-} from './recordings-json';
+import { RecordingsJson, RecordingsJsonRecordingsJsonParams, RecordingsJsonRecordingsJsonResponse, RecordingsJsonRetrieveRecordingsJsonParams, RecordingsJsonRetrieveRecordingsJsonResponse } from './recordings-json';
 import * as SiprecAPI from './siprec';
 import { Siprec, SiprecSiprecSidJsonParams, SiprecSiprecSidJsonResponse } from './siprec';
 import * as StreamsAPI from './streams';
@@ -41,12 +35,8 @@ export class Calls extends APIResource {
    * );
    * ```
    */
-  retrieve(
-    callSid: string,
-    params: CallRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<CallRetrieveResponse> {
-    const { account_sid } = params;
+  retrieve(callSid: string, params: CallRetrieveParams, options?: RequestOptions): APIPromise<CallRetrieveResponse> {
+    const { account_sid } = params
     return this._client.get(path`/texml/Accounts/${account_sid}/Calls/${callSid}`, options);
   }
 
@@ -62,17 +52,9 @@ export class Calls extends APIResource {
    * );
    * ```
    */
-  update(
-    callSid: string,
-    params: CallUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<CallUpdateResponse> {
-    const { account_sid, ...body } = params;
-    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-    });
+  update(callSid: string, params: CallUpdateParams, options?: RequestOptions): APIPromise<CallUpdateResponse> {
+    const { account_sid, ...body } = params
+    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}`, { body, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
   }
 
   /**
@@ -87,12 +69,8 @@ export class Calls extends APIResource {
    * );
    * ```
    */
-  calls(
-    accountSid: string,
-    params: CallCallsParams,
-    options?: RequestOptions,
-  ): APIPromise<CallCallsResponse> {
-    const { params } = params;
+  calls(accountSid: string, params: CallCallsParams, options?: RequestOptions): APIPromise<CallCallsResponse> {
+    const { params } = params
     return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, { body: params, ...options });
   }
 
@@ -108,11 +86,7 @@ export class Calls extends APIResource {
    *   );
    * ```
    */
-  retrieveCalls(
-    accountSid: string,
-    query: CallRetrieveCallsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<CallRetrieveCallsResponse> {
+  retrieveCalls(accountSid: string, query: CallRetrieveCallsParams | null | undefined = {}, options?: RequestOptions): APIPromise<CallRetrieveCallsResponse> {
     return this._client.get(path`/texml/Accounts/${accountSid}/Calls`, { query, ...options });
   }
 
@@ -128,17 +102,9 @@ export class Calls extends APIResource {
    *   });
    * ```
    */
-  siprecJson(
-    callSid: string,
-    params: CallSiprecJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<CallSiprecJsonResponse> {
-    const { account_sid, ...body } = params;
-    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}/Siprec.json`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-    });
+  siprecJson(callSid: string, params: CallSiprecJsonParams, options?: RequestOptions): APIPromise<CallSiprecJsonResponse> {
+    const { account_sid, ...body } = params
+    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}/Siprec.json`, { body, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
   }
 
   /**
@@ -153,17 +119,9 @@ export class Calls extends APIResource {
    *   );
    * ```
    */
-  streamsJson(
-    callSid: string,
-    params: CallStreamsJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<CallStreamsJsonResponse> {
-    const { account_sid, ...body } = params;
-    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}/Streams.json`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-    });
+  streamsJson(callSid: string, params: CallStreamsJsonParams, options?: RequestOptions): APIPromise<CallStreamsJsonResponse> {
+    const { account_sid, ...body } = params
+    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}/Streams.json`, { body, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
   }
 }
 
@@ -1618,7 +1576,7 @@ export declare namespace Calls {
     type CallCallsParams as CallCallsParams,
     type CallRetrieveCallsParams as CallRetrieveCallsParams,
     type CallSiprecJsonParams as CallSiprecJsonParams,
-    type CallStreamsJsonParams as CallStreamsJsonParams,
+    type CallStreamsJsonParams as CallStreamsJsonParams
   };
 
   export {
@@ -1626,24 +1584,24 @@ export declare namespace Calls {
     type RecordingsJsonRecordingsJsonResponse as RecordingsJsonRecordingsJsonResponse,
     type RecordingsJsonRetrieveRecordingsJsonResponse as RecordingsJsonRetrieveRecordingsJsonResponse,
     type RecordingsJsonRecordingsJsonParams as RecordingsJsonRecordingsJsonParams,
-    type RecordingsJsonRetrieveRecordingsJsonParams as RecordingsJsonRetrieveRecordingsJsonParams,
+    type RecordingsJsonRetrieveRecordingsJsonParams as RecordingsJsonRetrieveRecordingsJsonParams
   };
 
   export {
     Recordings as Recordings,
     type RecordingRecordingSidJsonResponse as RecordingRecordingSidJsonResponse,
-    type RecordingRecordingSidJsonParams as RecordingRecordingSidJsonParams,
+    type RecordingRecordingSidJsonParams as RecordingRecordingSidJsonParams
   };
 
   export {
     Siprec as Siprec,
     type SiprecSiprecSidJsonResponse as SiprecSiprecSidJsonResponse,
-    type SiprecSiprecSidJsonParams as SiprecSiprecSidJsonParams,
+    type SiprecSiprecSidJsonParams as SiprecSiprecSidJsonParams
   };
 
   export {
     Streams as Streams,
     type StreamStreamingSidJsonResponse as StreamStreamingSidJsonResponse,
-    type StreamStreamingSidJsonParams as StreamStreamingSidJsonParams,
+    type StreamStreamingSidJsonParams as StreamStreamingSidJsonParams
   };
 }

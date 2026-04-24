@@ -28,10 +28,7 @@ export class VirtualCrossConnects extends APIResource {
    *   });
    * ```
    */
-  create(
-    body: VirtualCrossConnectCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<VirtualCrossConnectCreateResponse> {
+  create(body: VirtualCrossConnectCreateParams, options?: RequestOptions): APIPromise<VirtualCrossConnectCreateResponse> {
     return this._client.post('/virtual_cross_connects', { body, ...options });
   }
 
@@ -67,11 +64,7 @@ export class VirtualCrossConnects extends APIResource {
    *   );
    * ```
    */
-  update(
-    id: string,
-    body: VirtualCrossConnectUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<VirtualCrossConnectUpdateResponse> {
+  update(id: string, body: VirtualCrossConnectUpdateParams, options?: RequestOptions): APIPromise<VirtualCrossConnectUpdateResponse> {
     return this._client.patch(path`/virtual_cross_connects/${id}`, { body, ...options });
   }
 
@@ -86,15 +79,8 @@ export class VirtualCrossConnects extends APIResource {
    * }
    * ```
    */
-  list(
-    query: VirtualCrossConnectListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<VirtualCrossConnectListResponsesDefaultFlatPagination, VirtualCrossConnectListResponse> {
-    return this._client.getAPIList(
-      '/virtual_cross_connects',
-      DefaultFlatPagination<VirtualCrossConnectListResponse>,
-      { query, ...options },
-    );
+  list(query: VirtualCrossConnectListParams | null | undefined = {}, options?: RequestOptions): PagePromise<VirtualCrossConnectListResponsesDefaultFlatPagination, VirtualCrossConnectListResponse> {
+    return this._client.getAPIList('/virtual_cross_connects', DefaultFlatPagination<VirtualCrossConnectListResponse>, { query, ...options });
   }
 
   /**
@@ -113,8 +99,7 @@ export class VirtualCrossConnects extends APIResource {
   }
 }
 
-export type VirtualCrossConnectListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<VirtualCrossConnectListResponse>;
+export type VirtualCrossConnectListResponsesDefaultFlatPagination = DefaultFlatPagination<VirtualCrossConnectListResponse>
 
 export interface VirtualCrossConnectCreateResponse {
   data?: VirtualCrossConnectCreateResponse.Data;
@@ -521,9 +506,7 @@ export namespace VirtualCrossConnectUpdateResponse {
   }
 }
 
-export interface VirtualCrossConnectListResponse
-  extends GlobalIPAssignmentsAPI.Record,
-    PublicInternetGatewaysAPI.NetworkInterface {
+export interface VirtualCrossConnectListResponse extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
   /**
    * The region interface is deployed to.
    */
@@ -952,6 +935,6 @@ export declare namespace VirtualCrossConnects {
     type VirtualCrossConnectListResponsesDefaultFlatPagination as VirtualCrossConnectListResponsesDefaultFlatPagination,
     type VirtualCrossConnectCreateParams as VirtualCrossConnectCreateParams,
     type VirtualCrossConnectUpdateParams as VirtualCrossConnectUpdateParams,
-    type VirtualCrossConnectListParams as VirtualCrossConnectListParams,
+    type VirtualCrossConnectListParams as VirtualCrossConnectListParams
   };
 }

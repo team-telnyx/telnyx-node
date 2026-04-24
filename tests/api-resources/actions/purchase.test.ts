@@ -2,10 +2,7 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource purchase', () => {
   // Mock server tests are disabled
@@ -23,12 +20,12 @@ describe('resource purchase', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.actions.purchase.create({
-      amount: 10,
-      product: 'whitelabel',
-      sim_card_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-      status: 'standby',
-      tags: ['personal', 'customers', 'active-customers'],
-      whitelabel_name: 'Custom SPN',
-    });
+    amount: 10,
+    product: 'whitelabel',
+    sim_card_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+    status: 'standby',
+    tags: ['personal', 'customers', 'active-customers'],
+    whitelabel_name: 'Custom SPN',
+  });
   });
 });
