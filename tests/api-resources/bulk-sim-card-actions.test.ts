@@ -2,7 +2,10 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Telnyx({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource bulkSimCardActions', () => {
   // Mock server tests are disabled
@@ -32,12 +35,15 @@ describe('resource bulkSimCardActions', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.bulkSimCardActions.list({
-    'filter[action_type]': 'bulk_set_public_ips',
-    'page[number]': 1,
-    'page[size]': 1,
-  }, { path: '/_stainless_unknown_path' }))
-      .rejects
-      .toThrow(Telnyx.NotFoundError);
+    await expect(
+      client.bulkSimCardActions.list(
+        {
+          'filter[action_type]': 'bulk_set_public_ips',
+          'page[number]': 1,
+          'page[size]': 1,
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 });

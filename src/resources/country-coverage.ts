@@ -19,7 +19,10 @@ export class CountryCoverageResource extends APIResource {
   /**
    * Get coverage for a specific country
    */
-  retrieveCountry(countryCode: string, options?: RequestOptions): APIPromise<CountryCoverageRetrieveCountryResponse> {
+  retrieveCountry(
+    countryCode: string,
+    options?: RequestOptions,
+  ): APIPromise<CountryCoverageRetrieveCountryResponse> {
     return this._client.get(path`/country_coverage/countries/${countryCode}`, options);
   }
 }
@@ -119,6 +122,6 @@ export declare namespace CountryCoverageResource {
   export {
     type CountryCoverage as CountryCoverage,
     type CountryCoverageRetrieveResponse as CountryCoverageRetrieveResponse,
-    type CountryCoverageRetrieveCountryResponse as CountryCoverageRetrieveCountryResponse
+    type CountryCoverageRetrieveCountryResponse as CountryCoverageRetrieveCountryResponse,
   };
 }

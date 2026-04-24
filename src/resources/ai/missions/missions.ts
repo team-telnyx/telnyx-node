@@ -2,17 +2,66 @@
 
 import { APIResource } from '../../../core/resource';
 import * as KnowledgeBasesAPI from './knowledge-bases';
-import { KnowledgeBaseCreateKnowledgeBaseResponse, KnowledgeBaseDeleteKnowledgeBaseParams, KnowledgeBaseGetKnowledgeBaseParams, KnowledgeBaseGetKnowledgeBaseResponse, KnowledgeBaseListKnowledgeBasesResponse, KnowledgeBaseUpdateKnowledgeBaseParams, KnowledgeBaseUpdateKnowledgeBaseResponse, KnowledgeBases } from './knowledge-bases';
+import {
+  KnowledgeBaseCreateKnowledgeBaseResponse,
+  KnowledgeBaseDeleteKnowledgeBaseParams,
+  KnowledgeBaseGetKnowledgeBaseParams,
+  KnowledgeBaseGetKnowledgeBaseResponse,
+  KnowledgeBaseListKnowledgeBasesResponse,
+  KnowledgeBaseUpdateKnowledgeBaseParams,
+  KnowledgeBaseUpdateKnowledgeBaseResponse,
+  KnowledgeBases,
+} from './knowledge-bases';
 import * as McpServersAPI from './mcp-servers';
-import { McpServerCreateMcpServerResponse, McpServerDeleteMcpServerParams, McpServerGetMcpServerParams, McpServerGetMcpServerResponse, McpServerListMcpServersResponse, McpServerUpdateMcpServerParams, McpServerUpdateMcpServerResponse, McpServers } from './mcp-servers';
+import {
+  McpServerCreateMcpServerResponse,
+  McpServerDeleteMcpServerParams,
+  McpServerGetMcpServerParams,
+  McpServerGetMcpServerResponse,
+  McpServerListMcpServersResponse,
+  McpServerUpdateMcpServerParams,
+  McpServerUpdateMcpServerResponse,
+  McpServers,
+} from './mcp-servers';
 import * as ToolsAPI from './tools';
-import { ToolCreateToolResponse, ToolDeleteToolParams, ToolGetToolParams, ToolGetToolResponse, ToolListToolsResponse, ToolUpdateToolParams, ToolUpdateToolResponse, Tools } from './tools';
+import {
+  ToolCreateToolResponse,
+  ToolDeleteToolParams,
+  ToolGetToolParams,
+  ToolGetToolResponse,
+  ToolListToolsResponse,
+  ToolUpdateToolParams,
+  ToolUpdateToolResponse,
+  Tools,
+} from './tools';
 import * as EventsAPI from './runs/events';
 import { EventDataDefaultFlatPagination } from './runs/events';
 import * as RunsAPI from './runs/runs';
-import { MissionRunData, MissionRunDataDefaultFlatPagination, RunCancelRunParams, RunCancelRunResponse, RunCreateParams, RunCreateResponse, RunListParams, RunListRunsParams, RunPauseRunParams, RunPauseRunResponse, RunResumeRunParams, RunResumeRunResponse, RunRetrieveParams, RunRetrieveResponse, RunUpdateParams, RunUpdateResponse, Runs } from './runs/runs';
+import {
+  MissionRunData,
+  MissionRunDataDefaultFlatPagination,
+  RunCancelRunParams,
+  RunCancelRunResponse,
+  RunCreateParams,
+  RunCreateResponse,
+  RunListParams,
+  RunListRunsParams,
+  RunPauseRunParams,
+  RunPauseRunResponse,
+  RunResumeRunParams,
+  RunResumeRunResponse,
+  RunRetrieveParams,
+  RunRetrieveResponse,
+  RunUpdateParams,
+  RunUpdateResponse,
+  Runs,
+} from './runs/runs';
 import { APIPromise } from '../../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../core/pagination';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -62,7 +111,10 @@ export class Missions extends APIResource {
    * }
    * ```
    */
-  list(query: MissionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MissionDataDefaultFlatPagination, MissionData> {
+  list(
+    query: MissionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MissionDataDefaultFlatPagination, MissionData> {
     return this._client.getAPIList('/ai/missions', DefaultFlatPagination<MissionData>, { query, ...options });
   }
 
@@ -91,7 +143,10 @@ export class Missions extends APIResource {
    * ```
    */
   deleteMission(missionID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/missions/${missionID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/ai/missions/${missionID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -105,8 +160,14 @@ export class Missions extends APIResource {
    * }
    * ```
    */
-  listEvents(query: MissionListEventsParams | null | undefined = {}, options?: RequestOptions): PagePromise<EventDataDefaultFlatPagination, EventsAPI.EventData> {
-    return this._client.getAPIList('/ai/missions/events', DefaultFlatPagination<EventsAPI.EventData>, { query, ...options });
+  listEvents(
+    query: MissionListEventsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<EventDataDefaultFlatPagination, EventsAPI.EventData> {
+    return this._client.getAPIList('/ai/missions/events', DefaultFlatPagination<EventsAPI.EventData>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -119,12 +180,16 @@ export class Missions extends APIResource {
    * );
    * ```
    */
-  updateMission(missionID: string, body: MissionUpdateMissionParams, options?: RequestOptions): APIPromise<MissionUpdateMissionResponse> {
+  updateMission(
+    missionID: string,
+    body: MissionUpdateMissionParams,
+    options?: RequestOptions,
+  ): APIPromise<MissionUpdateMissionResponse> {
     return this._client.put(path`/ai/missions/${missionID}`, { body, ...options });
   }
 }
 
-export type MissionDataDefaultFlatPagination = DefaultFlatPagination<MissionData>
+export type MissionDataDefaultFlatPagination = DefaultFlatPagination<MissionData>;
 
 export interface MissionData {
   created_at: string;
@@ -154,7 +219,7 @@ export interface MissionRetrieveResponse {
   data: MissionData;
 }
 
-export type MissionCloneMissionResponse = unknown
+export type MissionCloneMissionResponse = unknown;
 
 export interface MissionUpdateMissionResponse {
   data: MissionData;
@@ -174,8 +239,7 @@ export interface MissionCreateParams {
   model?: string;
 }
 
-export interface MissionListParams extends DefaultFlatPaginationParams {
-}
+export interface MissionListParams extends DefaultFlatPaginationParams {}
 
 export interface MissionListEventsParams extends DefaultFlatPaginationParams {
   type?: string;
@@ -211,7 +275,7 @@ export declare namespace Missions {
     type MissionCreateParams as MissionCreateParams,
     type MissionListParams as MissionListParams,
     type MissionListEventsParams as MissionListEventsParams,
-    type MissionUpdateMissionParams as MissionUpdateMissionParams
+    type MissionUpdateMissionParams as MissionUpdateMissionParams,
   };
 
   export {
@@ -231,7 +295,7 @@ export declare namespace Missions {
     type RunCancelRunParams as RunCancelRunParams,
     type RunListRunsParams as RunListRunsParams,
     type RunPauseRunParams as RunPauseRunParams,
-    type RunResumeRunParams as RunResumeRunParams
+    type RunResumeRunParams as RunResumeRunParams,
   };
 
   export {
@@ -242,7 +306,7 @@ export declare namespace Missions {
     type KnowledgeBaseUpdateKnowledgeBaseResponse as KnowledgeBaseUpdateKnowledgeBaseResponse,
     type KnowledgeBaseDeleteKnowledgeBaseParams as KnowledgeBaseDeleteKnowledgeBaseParams,
     type KnowledgeBaseGetKnowledgeBaseParams as KnowledgeBaseGetKnowledgeBaseParams,
-    type KnowledgeBaseUpdateKnowledgeBaseParams as KnowledgeBaseUpdateKnowledgeBaseParams
+    type KnowledgeBaseUpdateKnowledgeBaseParams as KnowledgeBaseUpdateKnowledgeBaseParams,
   };
 
   export {
@@ -253,7 +317,7 @@ export declare namespace Missions {
     type McpServerUpdateMcpServerResponse as McpServerUpdateMcpServerResponse,
     type McpServerDeleteMcpServerParams as McpServerDeleteMcpServerParams,
     type McpServerGetMcpServerParams as McpServerGetMcpServerParams,
-    type McpServerUpdateMcpServerParams as McpServerUpdateMcpServerParams
+    type McpServerUpdateMcpServerParams as McpServerUpdateMcpServerParams,
   };
 
   export {
@@ -264,8 +328,8 @@ export declare namespace Missions {
     type ToolUpdateToolResponse as ToolUpdateToolResponse,
     type ToolDeleteToolParams as ToolDeleteToolParams,
     type ToolGetToolParams as ToolGetToolParams,
-    type ToolUpdateToolParams as ToolUpdateToolParams
+    type ToolUpdateToolParams as ToolUpdateToolParams,
   };
 }
 
-export { type EventDataDefaultFlatPagination }
+export { type EventDataDefaultFlatPagination };

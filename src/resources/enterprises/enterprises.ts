@@ -2,7 +2,15 @@
 
 import { APIResource } from '../../core/resource';
 import * as ReputationAPI from './reputation/reputation';
-import { EnterpriseReputationPublic, Reputation, ReputationEnableParams, ReputationEnableResponse, ReputationRetrieveResponse, ReputationUpdateFrequencyParams, ReputationUpdateFrequencyResponse } from './reputation/reputation';
+import {
+  EnterpriseReputationPublic,
+  Reputation,
+  ReputationEnableParams,
+  ReputationEnableResponse,
+  ReputationRetrieveResponse,
+  ReputationUpdateFrequencyParams,
+  ReputationUpdateFrequencyResponse,
+} from './reputation/reputation';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
@@ -98,7 +106,11 @@ export class Enterprises extends APIResource {
    * );
    * ```
    */
-  update(enterpriseID: string, body: EnterpriseUpdateParams, options?: RequestOptions): APIPromise<EnterpriseUpdateResponse> {
+  update(
+    enterpriseID: string,
+    body: EnterpriseUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<EnterpriseUpdateResponse> {
     return this._client.put(path`/enterprises/${enterpriseID}`, { body, ...options });
   }
 
@@ -113,8 +125,14 @@ export class Enterprises extends APIResource {
    * }
    * ```
    */
-  list(query: EnterpriseListParams | null | undefined = {}, options?: RequestOptions): PagePromise<EnterprisePublicsDefaultFlatPagination, EnterprisePublic> {
-    return this._client.getAPIList('/enterprises', DefaultFlatPagination<EnterprisePublic>, { query, ...options });
+  list(
+    query: EnterpriseListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<EnterprisePublicsDefaultFlatPagination, EnterprisePublic> {
+    return this._client.getAPIList('/enterprises', DefaultFlatPagination<EnterprisePublic>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -128,11 +146,14 @@ export class Enterprises extends APIResource {
    * ```
    */
   delete(enterpriseID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/enterprises/${enterpriseID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/enterprises/${enterpriseID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type EnterprisePublicsDefaultFlatPagination = DefaultFlatPagination<EnterprisePublic>
+export type EnterprisePublicsDefaultFlatPagination = DefaultFlatPagination<EnterprisePublic>;
 
 export interface BillingAddress {
   /**
@@ -559,7 +580,7 @@ export declare namespace Enterprises {
     type EnterprisePublicsDefaultFlatPagination as EnterprisePublicsDefaultFlatPagination,
     type EnterpriseCreateParams as EnterpriseCreateParams,
     type EnterpriseUpdateParams as EnterpriseUpdateParams,
-    type EnterpriseListParams as EnterpriseListParams
+    type EnterpriseListParams as EnterpriseListParams,
   };
 
   export {
@@ -569,6 +590,6 @@ export declare namespace Enterprises {
     type ReputationEnableResponse as ReputationEnableResponse,
     type ReputationUpdateFrequencyResponse as ReputationUpdateFrequencyResponse,
     type ReputationEnableParams as ReputationEnableParams,
-    type ReputationUpdateFrequencyParams as ReputationUpdateFrequencyParams
+    type ReputationUpdateFrequencyParams as ReputationUpdateFrequencyParams,
   };
 }

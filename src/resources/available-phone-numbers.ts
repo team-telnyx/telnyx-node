@@ -12,7 +12,10 @@ export class AvailablePhoneNumbers extends APIResource {
   /**
    * List available phone numbers
    */
-  list(query: AvailablePhoneNumberListParams | null | undefined = {}, options?: RequestOptions): APIPromise<AvailablePhoneNumberListResponse> {
+  list(
+    query: AvailablePhoneNumberListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<AvailablePhoneNumberListResponse> {
     return this._client.get('/available_phone_numbers', { query, ...options });
   }
 }
@@ -103,7 +106,9 @@ export namespace AvailablePhoneNumberListParams {
     /**
      * Filter phone numbers with specific features.
      */
-    features?: Array<'sms' | 'mms' | 'voice' | 'fax' | 'emergency' | 'hd_voice' | 'international_sms' | 'local_calling'>;
+    features?: Array<
+      'sms' | 'mms' | 'voice' | 'fax' | 'emergency' | 'hd_voice' | 'international_sms' | 'local_calling'
+    >;
 
     /**
      * Limits the number of results.
@@ -177,6 +182,6 @@ export namespace AvailablePhoneNumberListParams {
 export declare namespace AvailablePhoneNumbers {
   export {
     type AvailablePhoneNumberListResponse as AvailablePhoneNumberListResponse,
-    type AvailablePhoneNumberListParams as AvailablePhoneNumberListParams
+    type AvailablePhoneNumberListParams as AvailablePhoneNumberListParams,
   };
 }

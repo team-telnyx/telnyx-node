@@ -2,7 +2,11 @@
 
 import { APIResource } from '../../../core/resource';
 import { APIPromise } from '../../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../core/pagination';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -21,8 +25,16 @@ export class PhoneNumbers extends APIResource {
    * }
    * ```
    */
-  list(id: string, query: PhoneNumberListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PhoneNumberListResponsesDefaultFlatPagination, PhoneNumberListResponse> {
-    return this._client.getAPIList(path`/v2/whatsapp/business_accounts/${id}/phone_numbers`, DefaultFlatPagination<PhoneNumberListResponse>, { query, ...options });
+  list(
+    id: string,
+    query: PhoneNumberListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PhoneNumberListResponsesDefaultFlatPagination, PhoneNumberListResponse> {
+    return this._client.getAPIList(
+      path`/v2/whatsapp/business_accounts/${id}/phone_numbers`,
+      DefaultFlatPagination<PhoneNumberListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -39,12 +51,20 @@ export class PhoneNumbers extends APIResource {
    * );
    * ```
    */
-  initializeVerification(id: string, body: PhoneNumberInitializeVerificationParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/v2/whatsapp/business_accounts/${id}/phone_numbers`, { body, ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+  initializeVerification(
+    id: string,
+    body: PhoneNumberInitializeVerificationParams,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.post(path`/v2/whatsapp/business_accounts/${id}/phone_numbers`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type PhoneNumberListResponsesDefaultFlatPagination = DefaultFlatPagination<PhoneNumberListResponse>
+export type PhoneNumberListResponsesDefaultFlatPagination = DefaultFlatPagination<PhoneNumberListResponse>;
 
 export interface PhoneNumberListResponse {
   calling_enabled?: boolean;
@@ -85,8 +105,7 @@ export interface PhoneNumberListResponse {
   waba_id?: string;
 }
 
-export interface PhoneNumberListParams extends DefaultFlatPaginationParams {
-}
+export interface PhoneNumberListParams extends DefaultFlatPaginationParams {}
 
 export interface PhoneNumberInitializeVerificationParams {
   display_name: string;
@@ -103,6 +122,6 @@ export declare namespace PhoneNumbers {
     type PhoneNumberListResponse as PhoneNumberListResponse,
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
-    type PhoneNumberInitializeVerificationParams as PhoneNumberInitializeVerificationParams
+    type PhoneNumberInitializeVerificationParams as PhoneNumberInitializeVerificationParams,
   };
 }

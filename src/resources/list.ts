@@ -80,6 +80,6 @@ export namespace ListRetrieveByZoneResponse {
 export declare namespace List {
   export {
     type ListRetrieveAllResponse as ListRetrieveAllResponse,
-    type ListRetrieveByZoneResponse as ListRetrieveByZoneResponse
+    type ListRetrieveByZoneResponse as ListRetrieveByZoneResponse,
   };
 }

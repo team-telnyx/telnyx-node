@@ -3,11 +3,9 @@
 import { APIResource } from '../core/resource';
 import { DefaultFlatPagination } from '../core/pagination';
 
-export class RcsAgents extends APIResource {
+export class RcsAgents extends APIResource {}
 
-}
-
-export type RcsAgentsDefaultFlatPagination = DefaultFlatPagination<RcsAgent>
+export type RcsAgentsDefaultFlatPagination = DefaultFlatPagination<RcsAgent>;
 
 export interface RcsAgent {
   /**
@@ -61,8 +59,5 @@ export interface RcsAgentResponse {
 }
 
 export declare namespace RcsAgents {
-  export {
-    type RcsAgent as RcsAgent,
-    type RcsAgentResponse as RcsAgentResponse
-  };
+  export { type RcsAgent as RcsAgent, type RcsAgentResponse as RcsAgentResponse };
 }

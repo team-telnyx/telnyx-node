@@ -11,12 +11,20 @@ export class NotificationEvents extends APIResource {
   /**
    * Returns a list of your notifications events.
    */
-  list(query: NotificationEventListParams | null | undefined = {}, options?: RequestOptions): PagePromise<NotificationEventListResponsesDefaultFlatPagination, NotificationEventListResponse> {
-    return this._client.getAPIList('/notification_events', DefaultFlatPagination<NotificationEventListResponse>, { query, ...options });
+  list(
+    query: NotificationEventListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NotificationEventListResponsesDefaultFlatPagination, NotificationEventListResponse> {
+    return this._client.getAPIList(
+      '/notification_events',
+      DefaultFlatPagination<NotificationEventListResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export type NotificationEventListResponsesDefaultFlatPagination = DefaultFlatPagination<NotificationEventListResponse>
+export type NotificationEventListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<NotificationEventListResponse>;
 
 /**
  * An object representing the available notifications.
@@ -47,13 +55,12 @@ export interface NotificationEventListResponse {
   updated_at?: string;
 }
 
-export interface NotificationEventListParams extends DefaultFlatPaginationParams {
-}
+export interface NotificationEventListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace NotificationEvents {
   export {
     type NotificationEventListResponse as NotificationEventListResponse,
     type NotificationEventListResponsesDefaultFlatPagination as NotificationEventListResponsesDefaultFlatPagination,
-    type NotificationEventListParams as NotificationEventListParams
+    type NotificationEventListParams as NotificationEventListParams,
   };
 }

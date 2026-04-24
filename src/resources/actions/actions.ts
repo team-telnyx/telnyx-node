@@ -41,19 +41,17 @@ Actions.Purchase = Purchase;
 Actions.Register = Register;
 
 export declare namespace Actions {
-  export {
-    type WirelessError as WirelessError
-  };
+  export { type WirelessError as WirelessError };
 
   export {
     Purchase as Purchase,
     type PurchaseCreateResponse as PurchaseCreateResponse,
-    type PurchaseCreateParams as PurchaseCreateParams
+    type PurchaseCreateParams as PurchaseCreateParams,
   };
 
   export {
     Register as Register,
     type RegisterCreateResponse as RegisterCreateResponse,
-    type RegisterCreateParams as RegisterCreateParams
+    type RegisterCreateParams as RegisterCreateParams,
   };
 }

@@ -47,8 +47,12 @@ export class Uploads extends APIResource {
    *   );
    * ```
    */
-  retrieve(ticketID: string, params: UploadRetrieveParams, options?: RequestOptions): APIPromise<UploadRetrieveResponse> {
-    const { id } = params
+  retrieve(
+    ticketID: string,
+    params: UploadRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<UploadRetrieveResponse> {
+    const { id } = params;
     return this._client.get(path`/external_connections/${id}/uploads/${ticketID}`, options);
   }
 
@@ -65,8 +69,15 @@ export class Uploads extends APIResource {
    * }
    * ```
    */
-  list(id: string, query: UploadListParams | null | undefined = {}, options?: RequestOptions): PagePromise<UploadsDefaultFlatPagination, Upload> {
-    return this._client.getAPIList(path`/external_connections/${id}/uploads`, DefaultFlatPagination<Upload>, { query, ...options });
+  list(
+    id: string,
+    query: UploadListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<UploadsDefaultFlatPagination, Upload> {
+    return this._client.getAPIList(path`/external_connections/${id}/uploads`, DefaultFlatPagination<Upload>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -116,13 +127,17 @@ export class Uploads extends APIResource {
    *   );
    * ```
    */
-  retry(ticketID: string, params: UploadRetryParams, options?: RequestOptions): APIPromise<UploadRetryResponse> {
-    const { id } = params
+  retry(
+    ticketID: string,
+    params: UploadRetryParams,
+    options?: RequestOptions,
+  ): APIPromise<UploadRetryResponse> {
+    const { id } = params;
     return this._client.post(path`/external_connections/${id}/uploads/${ticketID}/retry`, options);
   }
 }
 
-export type UploadsDefaultFlatPagination = DefaultFlatPagination<Upload>
+export type UploadsDefaultFlatPagination = DefaultFlatPagination<Upload>;
 
 export interface TnUploadEntry {
   /**
@@ -134,7 +149,13 @@ export interface TnUploadEntry {
    * A code returned by Microsoft Teams if there is an error with the phone number
    * entry upload.
    */
-  error_code?: 'internal_error' | 'unable_to_retrieve_default_location' | 'unknown_country_code' | 'unable_to_retrieve_location' | 'unable_to_retrieve_partner_info' | 'unable_to_match_geography_entry';
+  error_code?:
+    | 'internal_error'
+    | 'unable_to_retrieve_default_location'
+    | 'unknown_country_code'
+    | 'unable_to_retrieve_location'
+    | 'unable_to_retrieve_partner_info'
+    | 'unable_to_match_geography_entry';
 
   /**
    * A message returned by Microsoft Teams if there is an error with the upload
@@ -145,7 +166,13 @@ export interface TnUploadEntry {
   /**
    * Represents the status of the phone number entry upload on Telnyx.
    */
-  internal_status?: 'pending_assignment' | 'in_progress' | 'all_internal_jobs_completed' | 'release_requested' | 'release_completed' | 'error';
+  internal_status?:
+    | 'pending_assignment'
+    | 'in_progress'
+    | 'all_internal_jobs_completed'
+    | 'release_requested'
+    | 'release_completed'
+    | 'error';
 
   /**
    * Identifies the location assigned to the phone number entry.
@@ -352,6 +379,6 @@ export declare namespace Uploads {
     type UploadCreateParams as UploadCreateParams,
     type UploadRetrieveParams as UploadRetrieveParams,
     type UploadListParams as UploadListParams,
-    type UploadRetryParams as UploadRetryParams
+    type UploadRetryParams as UploadRetryParams,
   };
 }

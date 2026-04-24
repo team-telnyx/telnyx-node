@@ -25,10 +25,8 @@ export class Osr extends APIResource {
   }
 }
 
-export type OsrGetAttributesResponse = { [key: string]: unknown }
+export type OsrGetAttributesResponse = { [key: string]: unknown };
 
 export declare namespace Osr {
-  export {
-    type OsrGetAttributesResponse as OsrGetAttributesResponse
-  };
+  export { type OsrGetAttributesResponse as OsrGetAttributesResponse };
 }

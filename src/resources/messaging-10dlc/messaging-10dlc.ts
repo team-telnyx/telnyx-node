@@ -2,17 +2,83 @@
 
 import { APIResource } from '../../core/resource';
 import * as PartnerCampaignsAPI from './partner-campaigns';
-import { PartnerCampaignListParams, PartnerCampaignListSharedByMeParams, PartnerCampaignListSharedByMeResponse, PartnerCampaignListSharedByMeResponsesPerPagePaginationV2, PartnerCampaignRetrieveSharingStatusResponse, PartnerCampaignUpdateParams, PartnerCampaigns, TelnyxDownstreamCampaign, TelnyxDownstreamCampaignsPerPagePaginationV2 } from './partner-campaigns';
+import {
+  PartnerCampaignListParams,
+  PartnerCampaignListSharedByMeParams,
+  PartnerCampaignListSharedByMeResponse,
+  PartnerCampaignListSharedByMeResponsesPerPagePaginationV2,
+  PartnerCampaignRetrieveSharingStatusResponse,
+  PartnerCampaignUpdateParams,
+  PartnerCampaigns,
+  TelnyxDownstreamCampaign,
+  TelnyxDownstreamCampaignsPerPagePaginationV2,
+} from './partner-campaigns';
 import * as PhoneNumberAssignmentByProfileAPI from './phone-number-assignment-by-profile';
-import { PhoneNumberAssignmentByProfile, PhoneNumberAssignmentByProfileAssignParams, PhoneNumberAssignmentByProfileAssignResponse, PhoneNumberAssignmentByProfileListPhoneNumberStatusParams, PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse, PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams, PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse, PhoneNumberAssignmentByProfileRetrieveStatusResponse, ProfileAssignmentPhoneNumbers, TaskStatus } from './phone-number-assignment-by-profile';
+import {
+  PhoneNumberAssignmentByProfile,
+  PhoneNumberAssignmentByProfileAssignParams,
+  PhoneNumberAssignmentByProfileAssignResponse,
+  PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
+  PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse,
+  PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
+  PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
+  PhoneNumberAssignmentByProfileRetrieveStatusResponse,
+  ProfileAssignmentPhoneNumbers,
+  TaskStatus,
+} from './phone-number-assignment-by-profile';
 import * as PhoneNumberCampaignsAPI from './phone-number-campaigns';
-import { PhoneNumberCampaign, PhoneNumberCampaignCreate, PhoneNumberCampaignCreateParams, PhoneNumberCampaignListParams, PhoneNumberCampaignUpdateParams, PhoneNumberCampaigns, PhoneNumberCampaignsPerPagePaginationV2 } from './phone-number-campaigns';
+import {
+  PhoneNumberCampaign,
+  PhoneNumberCampaignCreate,
+  PhoneNumberCampaignCreateParams,
+  PhoneNumberCampaignListParams,
+  PhoneNumberCampaignUpdateParams,
+  PhoneNumberCampaigns,
+  PhoneNumberCampaignsPerPagePaginationV2,
+} from './phone-number-campaigns';
 import * as BrandAPI from './brand/brand';
-import { AltBusinessIDType, Brand, BrandCreateParams, BrandGetFeedbackResponse, BrandGetSMSOtpByReferenceParams, BrandGetSMSOtpByReferenceResponse, BrandIdentityStatus, BrandListParams, BrandListResponse, BrandListResponsesPerPagePaginationV2, BrandOptionalAttributes, BrandRetrieveResponse, BrandRetrieveSMSOtpStatusResponse, BrandTriggerSMSOtpParams, BrandTriggerSMSOtpResponse, BrandUpdateParams, BrandVerifySMSOtpParams, EntityType, StockExchange, TelnyxBrand, Vertical } from './brand/brand';
+import {
+  AltBusinessIDType,
+  Brand,
+  BrandCreateParams,
+  BrandGetFeedbackResponse,
+  BrandGetSMSOtpByReferenceParams,
+  BrandGetSMSOtpByReferenceResponse,
+  BrandIdentityStatus,
+  BrandListParams,
+  BrandListResponse,
+  BrandListResponsesPerPagePaginationV2,
+  BrandOptionalAttributes,
+  BrandRetrieveResponse,
+  BrandRetrieveSMSOtpStatusResponse,
+  BrandTriggerSMSOtpParams,
+  BrandTriggerSMSOtpResponse,
+  BrandUpdateParams,
+  BrandVerifySMSOtpParams,
+  EntityType,
+  StockExchange,
+  TelnyxBrand,
+  Vertical,
+} from './brand/brand';
 import * as CampaignBuilderAPI from './campaign-builder/campaign-builder';
 import { CampaignBuilder, CampaignBuilderSubmitParams } from './campaign-builder/campaign-builder';
 import * as CampaignAPI from './campaign/campaign';
-import { Campaign, CampaignAcceptSharingResponse, CampaignDeactivateResponse, CampaignGetMnoMetadataResponse, CampaignGetOperationStatusResponse, CampaignGetSharingStatusResponse, CampaignListParams, CampaignListResponse, CampaignListResponsesPerPagePaginationV2, CampaignSharingStatus, CampaignSubmitAppealParams, CampaignSubmitAppealResponse, CampaignUpdateParams, TelnyxCampaignCsp } from './campaign/campaign';
+import {
+  Campaign,
+  CampaignAcceptSharingResponse,
+  CampaignDeactivateResponse,
+  CampaignGetMnoMetadataResponse,
+  CampaignGetOperationStatusResponse,
+  CampaignGetSharingStatusResponse,
+  CampaignListParams,
+  CampaignListResponse,
+  CampaignListResponsesPerPagePaginationV2,
+  CampaignSharingStatus,
+  CampaignSubmitAppealParams,
+  CampaignSubmitAppealResponse,
+  CampaignUpdateParams,
+  TelnyxCampaignCsp,
+} from './campaign/campaign';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -21,9 +87,13 @@ export class Messaging10dlc extends APIResource {
   brand: BrandAPI.Brand = new BrandAPI.Brand(this._client);
   campaign: CampaignAPI.Campaign = new CampaignAPI.Campaign(this._client);
   campaignBuilder: CampaignBuilderAPI.CampaignBuilder = new CampaignBuilderAPI.CampaignBuilder(this._client);
-  partnerCampaigns: PartnerCampaignsAPI.PartnerCampaigns = new PartnerCampaignsAPI.PartnerCampaigns(this._client);
-  phoneNumberCampaigns: PhoneNumberCampaignsAPI.PhoneNumberCampaigns = new PhoneNumberCampaignsAPI.PhoneNumberCampaigns(this._client);
-  phoneNumberAssignmentByProfile: PhoneNumberAssignmentByProfileAPI.PhoneNumberAssignmentByProfile = new PhoneNumberAssignmentByProfileAPI.PhoneNumberAssignmentByProfile(this._client);
+  partnerCampaigns: PartnerCampaignsAPI.PartnerCampaigns = new PartnerCampaignsAPI.PartnerCampaigns(
+    this._client,
+  );
+  phoneNumberCampaigns: PhoneNumberCampaignsAPI.PhoneNumberCampaigns =
+    new PhoneNumberCampaignsAPI.PhoneNumberCampaigns(this._client);
+  phoneNumberAssignmentByProfile: PhoneNumberAssignmentByProfileAPI.PhoneNumberAssignmentByProfile =
+    new PhoneNumberAssignmentByProfileAPI.PhoneNumberAssignmentByProfile(this._client);
 
   /**
    * Get Enum
@@ -33,12 +103,36 @@ export class Messaging10dlc extends APIResource {
    * const response = await client.messaging10dlc.getEnum('mno');
    * ```
    */
-  getEnum(endpoint: 'mno' | 'optionalAttributes' | 'usecase' | 'vertical' | 'altBusinessIdType' | 'brandIdentityStatus' | 'brandRelationship' | 'campaignStatus' | 'entityType' | 'extVettingProvider' | 'vettingStatus' | 'brandStatus' | 'operationStatus' | 'approvedPublicCompany' | 'stockExchange' | 'vettingClass', options?: RequestOptions): APIPromise<Messaging10dlcGetEnumResponse> {
+  getEnum(
+    endpoint:
+      | 'mno'
+      | 'optionalAttributes'
+      | 'usecase'
+      | 'vertical'
+      | 'altBusinessIdType'
+      | 'brandIdentityStatus'
+      | 'brandRelationship'
+      | 'campaignStatus'
+      | 'entityType'
+      | 'extVettingProvider'
+      | 'vettingStatus'
+      | 'brandStatus'
+      | 'operationStatus'
+      | 'approvedPublicCompany'
+      | 'stockExchange'
+      | 'vettingClass',
+    options?: RequestOptions,
+  ): APIPromise<Messaging10dlcGetEnumResponse> {
     return this._client.get(path`/10dlc/enum/${endpoint}`, options);
   }
 }
 
-export type Messaging10dlcGetEnumResponse = Array<string> | Array<{ [key: string]: unknown }> | { [key: string]: unknown } | { [key: string]: unknown } | Messaging10dlcGetEnumResponse.EnumPaginatedResponse
+export type Messaging10dlcGetEnumResponse =
+  | Array<string>
+  | Array<{ [key: string]: unknown }>
+  | { [key: string]: unknown }
+  | { [key: string]: unknown }
+  | Messaging10dlcGetEnumResponse.EnumPaginatedResponse;
 
 export namespace Messaging10dlcGetEnumResponse {
   export interface EnumPaginatedResponse {
@@ -58,9 +152,7 @@ Messaging10dlc.PhoneNumberCampaigns = PhoneNumberCampaigns;
 Messaging10dlc.PhoneNumberAssignmentByProfile = PhoneNumberAssignmentByProfile;
 
 export declare namespace Messaging10dlc {
-  export {
-    type Messaging10dlcGetEnumResponse as Messaging10dlcGetEnumResponse
-  };
+  export { type Messaging10dlcGetEnumResponse as Messaging10dlcGetEnumResponse };
 
   export {
     Brand as Brand,
@@ -83,7 +175,7 @@ export declare namespace Messaging10dlc {
     type BrandListParams as BrandListParams,
     type BrandGetSMSOtpByReferenceParams as BrandGetSMSOtpByReferenceParams,
     type BrandTriggerSMSOtpParams as BrandTriggerSMSOtpParams,
-    type BrandVerifySMSOtpParams as BrandVerifySMSOtpParams
+    type BrandVerifySMSOtpParams as BrandVerifySMSOtpParams,
   };
 
   export {
@@ -100,12 +192,12 @@ export declare namespace Messaging10dlc {
     type CampaignListResponsesPerPagePaginationV2 as CampaignListResponsesPerPagePaginationV2,
     type CampaignUpdateParams as CampaignUpdateParams,
     type CampaignListParams as CampaignListParams,
-    type CampaignSubmitAppealParams as CampaignSubmitAppealParams
+    type CampaignSubmitAppealParams as CampaignSubmitAppealParams,
   };
 
   export {
     CampaignBuilder as CampaignBuilder,
-    type CampaignBuilderSubmitParams as CampaignBuilderSubmitParams
+    type CampaignBuilderSubmitParams as CampaignBuilderSubmitParams,
   };
 
   export {
@@ -117,7 +209,7 @@ export declare namespace Messaging10dlc {
     type PartnerCampaignListSharedByMeResponsesPerPagePaginationV2 as PartnerCampaignListSharedByMeResponsesPerPagePaginationV2,
     type PartnerCampaignUpdateParams as PartnerCampaignUpdateParams,
     type PartnerCampaignListParams as PartnerCampaignListParams,
-    type PartnerCampaignListSharedByMeParams as PartnerCampaignListSharedByMeParams
+    type PartnerCampaignListSharedByMeParams as PartnerCampaignListSharedByMeParams,
   };
 
   export {
@@ -127,7 +219,7 @@ export declare namespace Messaging10dlc {
     type PhoneNumberCampaignsPerPagePaginationV2 as PhoneNumberCampaignsPerPagePaginationV2,
     type PhoneNumberCampaignCreateParams as PhoneNumberCampaignCreateParams,
     type PhoneNumberCampaignUpdateParams as PhoneNumberCampaignUpdateParams,
-    type PhoneNumberCampaignListParams as PhoneNumberCampaignListParams
+    type PhoneNumberCampaignListParams as PhoneNumberCampaignListParams,
   };
 
   export {
@@ -140,6 +232,6 @@ export declare namespace Messaging10dlc {
     type PhoneNumberAssignmentByProfileRetrieveStatusResponse as PhoneNumberAssignmentByProfileRetrieveStatusResponse,
     type PhoneNumberAssignmentByProfileAssignParams as PhoneNumberAssignmentByProfileAssignParams,
     type PhoneNumberAssignmentByProfileListPhoneNumberStatusParams as PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
-    type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams
+    type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
   };
 }

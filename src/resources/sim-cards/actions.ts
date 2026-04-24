@@ -34,8 +34,14 @@ export class Actions extends APIResource {
    * }
    * ```
    */
-  list(query: ActionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<SimCardActionsDefaultFlatPagination, SimCardAction> {
-    return this._client.getAPIList('/sim_card_actions', DefaultFlatPagination<SimCardAction>, { query, ...options });
+  list(
+    query: ActionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<SimCardActionsDefaultFlatPagination, SimCardAction> {
+    return this._client.getAPIList('/sim_card_actions', DefaultFlatPagination<SimCardAction>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -59,7 +65,10 @@ export class Actions extends APIResource {
    *   });
    * ```
    */
-  bulkDisableVoice(body: ActionBulkDisableVoiceParams, options?: RequestOptions): APIPromise<ActionBulkDisableVoiceResponse> {
+  bulkDisableVoice(
+    body: ActionBulkDisableVoiceParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionBulkDisableVoiceResponse> {
     return this._client.post('/sim_cards/actions/bulk_disable_voice', { body, ...options });
   }
 
@@ -84,7 +93,10 @@ export class Actions extends APIResource {
    *   });
    * ```
    */
-  bulkEnableVoice(body: ActionBulkEnableVoiceParams, options?: RequestOptions): APIPromise<ActionBulkEnableVoiceResponse> {
+  bulkEnableVoice(
+    body: ActionBulkEnableVoiceParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionBulkEnableVoiceResponse> {
     return this._client.post('/sim_cards/actions/bulk_enable_voice', { body, ...options });
   }
 
@@ -103,7 +115,10 @@ export class Actions extends APIResource {
    *   });
    * ```
    */
-  bulkSetPublicIPs(body: ActionBulkSetPublicIPsParams, options?: RequestOptions): APIPromise<ActionBulkSetPublicIPsResponse> {
+  bulkSetPublicIPs(
+    body: ActionBulkSetPublicIPsParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionBulkSetPublicIPsResponse> {
     return this._client.post('/sim_cards/actions/bulk_set_public_ips', { body, ...options });
   }
 
@@ -181,9 +196,16 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  setPublicIP(id: string, params: ActionSetPublicIPParams | null | undefined = {}, options?: RequestOptions): APIPromise<ActionSetPublicIPResponse> {
-    const { region_code } = params ?? {}
-    return this._client.post(path`/sim_cards/${id}/actions/set_public_ip`, { query: { region_code }, ...options });
+  setPublicIP(
+    id: string,
+    params: ActionSetPublicIPParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ActionSetPublicIPResponse> {
+    const { region_code } = params ?? {};
+    return this._client.post(path`/sim_cards/${id}/actions/set_public_ip`, {
+      query: { region_code },
+      ...options,
+    });
   }
 
   /**
@@ -216,12 +238,15 @@ export class Actions extends APIResource {
    *   await client.simCards.actions.validateRegistrationCodes();
    * ```
    */
-  validateRegistrationCodes(body: ActionValidateRegistrationCodesParams, options?: RequestOptions): APIPromise<ActionValidateRegistrationCodesResponse> {
+  validateRegistrationCodes(
+    body: ActionValidateRegistrationCodesParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionValidateRegistrationCodesResponse> {
     return this._client.post('/sim_cards/actions/validate_registration_codes', { body, ...options });
   }
 }
 
-export type SimCardActionsDefaultFlatPagination = DefaultFlatPagination<SimCardAction>
+export type SimCardActionsDefaultFlatPagination = DefaultFlatPagination<SimCardAction>;
 
 /**
  * This object represents a bulk SIM card action. It groups SIM card actions
@@ -442,7 +467,13 @@ export namespace ActionListParams {
     /**
      * Filter by action type.
      */
-    action_type?: 'enable' | 'enable_standby_sim_card' | 'disable' | 'set_standby' | 'remove_public_ip' | 'set_public_ip';
+    action_type?:
+      | 'enable'
+      | 'enable_standby_sim_card'
+      | 'disable'
+      | 'set_standby'
+      | 'remove_public_ip'
+      | 'set_public_ip';
 
     /**
      * Filter by a bulk SIM card action ID.
@@ -505,6 +536,6 @@ export declare namespace Actions {
     type ActionBulkEnableVoiceParams as ActionBulkEnableVoiceParams,
     type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
     type ActionSetPublicIPParams as ActionSetPublicIPParams,
-    type ActionValidateRegistrationCodesParams as ActionValidateRegistrationCodesParams
+    type ActionValidateRegistrationCodesParams as ActionValidateRegistrationCodesParams,
   };
 }

@@ -8,15 +8,25 @@ export class WellKnown extends APIResource {
   /**
    * OAuth 2.0 Authorization Server Metadata (RFC 8414)
    */
-  retrieveAuthorizationServerMetadata(options?: RequestOptions): APIPromise<WellKnownRetrieveAuthorizationServerMetadataResponse> {
-    return this._client.get('/.well-known/oauth-authorization-server', { defaultBaseURL: 'https://api.telnyx.com', ...options });
+  retrieveAuthorizationServerMetadata(
+    options?: RequestOptions,
+  ): APIPromise<WellKnownRetrieveAuthorizationServerMetadataResponse> {
+    return this._client.get('/.well-known/oauth-authorization-server', {
+      defaultBaseURL: 'https://api.telnyx.com',
+      ...options,
+    });
   }
 
   /**
    * OAuth 2.0 Protected Resource Metadata for resource discovery
    */
-  retrieveProtectedResourceMetadata(options?: RequestOptions): APIPromise<WellKnownRetrieveProtectedResourceMetadataResponse> {
-    return this._client.get('/.well-known/oauth-protected-resource', { defaultBaseURL: 'https://api.telnyx.com', ...options });
+  retrieveProtectedResourceMetadata(
+    options?: RequestOptions,
+  ): APIPromise<WellKnownRetrieveProtectedResourceMetadataResponse> {
+    return this._client.get('/.well-known/oauth-protected-resource', {
+      defaultBaseURL: 'https://api.telnyx.com',
+      ...options,
+    });
   }
 }
 
@@ -92,6 +102,6 @@ export interface WellKnownRetrieveProtectedResourceMetadataResponse {
 export declare namespace WellKnown {
   export {
     type WellKnownRetrieveAuthorizationServerMetadataResponse as WellKnownRetrieveAuthorizationServerMetadataResponse,
-    type WellKnownRetrieveProtectedResourceMetadataResponse as WellKnownRetrieveProtectedResourceMetadataResponse
+    type WellKnownRetrieveProtectedResourceMetadataResponse as WellKnownRetrieveProtectedResourceMetadataResponse,
   };
 }

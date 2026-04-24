@@ -23,7 +23,11 @@ export class Clusters extends APIResource {
    * );
    * ```
    */
-  retrieve(taskID: string, query: ClusterRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<ClusterRetrieveResponse> {
+  retrieve(
+    taskID: string,
+    query: ClusterRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ClusterRetrieveResponse> {
     return this._client.get(path`/ai/clusters/${taskID}`, { query, ...options });
   }
 
@@ -38,8 +42,14 @@ export class Clusters extends APIResource {
    * }
    * ```
    */
-  list(query: ClusterListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ClusterListResponsesDefaultFlatPagination, ClusterListResponse> {
-    return this._client.getAPIList('/ai/clusters', DefaultFlatPagination<ClusterListResponse>, { query, ...options });
+  list(
+    query: ClusterListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ClusterListResponsesDefaultFlatPagination, ClusterListResponse> {
+    return this._client.getAPIList('/ai/clusters', DefaultFlatPagination<ClusterListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -51,7 +61,10 @@ export class Clusters extends APIResource {
    * ```
    */
   delete(taskID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/clusters/${taskID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/ai/clusters/${taskID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -83,12 +96,21 @@ export class Clusters extends APIResource {
    * console.log(content);
    * ```
    */
-  fetchGraph(taskID: string, query: ClusterFetchGraphParams | null | undefined = {}, options?: RequestOptions): APIPromise<Response> {
-    return this._client.get(path`/ai/clusters/${taskID}/graph`, { query, ...options, headers: buildHeaders([{Accept: 'image/png'}, options?.headers]), __binaryResponse: true });
+  fetchGraph(
+    taskID: string,
+    query: ClusterFetchGraphParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Response> {
+    return this._client.get(path`/ai/clusters/${taskID}/graph`, {
+      query,
+      ...options,
+      headers: buildHeaders([{ Accept: 'image/png' }, options?.headers]),
+      __binaryResponse: true,
+    });
   }
 }
 
-export type ClusterListResponsesDefaultFlatPagination = DefaultFlatPagination<ClusterListResponse>
+export type ClusterListResponsesDefaultFlatPagination = DefaultFlatPagination<ClusterListResponse>;
 
 export interface RecursiveCluster {
   cluster_id: string;
@@ -172,8 +194,7 @@ export interface ClusterRetrieveParams {
   top_n_nodes?: number;
 }
 
-export interface ClusterListParams extends DefaultFlatPaginationParams {
-}
+export interface ClusterListParams extends DefaultFlatPaginationParams {}
 
 export interface ClusterComputeParams {
   /**
@@ -220,6 +241,6 @@ export declare namespace Clusters {
     type ClusterRetrieveParams as ClusterRetrieveParams,
     type ClusterListParams as ClusterListParams,
     type ClusterComputeParams as ClusterComputeParams,
-    type ClusterFetchGraphParams as ClusterFetchGraphParams
+    type ClusterFetchGraphParams as ClusterFetchGraphParams,
   };
 }

@@ -11,7 +11,5 @@ export class Legacy extends APIResource {
 Legacy.Reporting = Reporting;
 
 export declare namespace Legacy {
-  export {
-    Reporting as Reporting
-  };
+  export { Reporting as Reporting };
 }

@@ -2,7 +2,19 @@
 
 import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
-import { ActionListParams, ActionRemovePrivateWirelessGatewayResponse, ActionRemoveWirelessBlocklistResponse, ActionRetrieveResponse, ActionSetPrivateWirelessGatewayParams, ActionSetPrivateWirelessGatewayResponse, ActionSetWirelessBlocklistParams, ActionSetWirelessBlocklistResponse, Actions, SimCardGroupAction, SimCardGroupActionsDefaultFlatPagination } from './actions';
+import {
+  ActionListParams,
+  ActionRemovePrivateWirelessGatewayResponse,
+  ActionRemoveWirelessBlocklistResponse,
+  ActionRetrieveResponse,
+  ActionSetPrivateWirelessGatewayParams,
+  ActionSetPrivateWirelessGatewayResponse,
+  ActionSetWirelessBlocklistParams,
+  ActionSetWirelessBlocklistResponse,
+  Actions,
+  SimCardGroupAction,
+  SimCardGroupActionsDefaultFlatPagination,
+} from './actions';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -38,7 +50,11 @@ export class SimCardGroups extends APIResource {
    * );
    * ```
    */
-  retrieve(id: string, query: SimCardGroupRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<SimCardGroupRetrieveResponse> {
+  retrieve(
+    id: string,
+    query: SimCardGroupRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<SimCardGroupRetrieveResponse> {
     return this._client.get(path`/sim_card_groups/${id}`, { query, ...options });
   }
 
@@ -52,7 +68,11 @@ export class SimCardGroups extends APIResource {
    * );
    * ```
    */
-  update(id: string, body: SimCardGroupUpdateParams, options?: RequestOptions): APIPromise<SimCardGroupUpdateResponse> {
+  update(
+    id: string,
+    body: SimCardGroupUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<SimCardGroupUpdateResponse> {
     return this._client.patch(path`/sim_card_groups/${id}`, { body, ...options });
   }
 
@@ -67,8 +87,14 @@ export class SimCardGroups extends APIResource {
    * }
    * ```
    */
-  list(query: SimCardGroupListParams | null | undefined = {}, options?: RequestOptions): PagePromise<SimCardGroupListResponsesDefaultFlatPagination, SimCardGroupListResponse> {
-    return this._client.getAPIList('/sim_card_groups', DefaultFlatPagination<SimCardGroupListResponse>, { query, ...options });
+  list(
+    query: SimCardGroupListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<SimCardGroupListResponsesDefaultFlatPagination, SimCardGroupListResponse> {
+    return this._client.getAPIList('/sim_card_groups', DefaultFlatPagination<SimCardGroupListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -86,7 +112,7 @@ export class SimCardGroups extends APIResource {
   }
 }
 
-export type SimCardGroupListResponsesDefaultFlatPagination = DefaultFlatPagination<SimCardGroupListResponse>
+export type SimCardGroupListResponsesDefaultFlatPagination = DefaultFlatPagination<SimCardGroupListResponse>;
 
 /**
  * Represents the amount of data consumed.
@@ -331,7 +357,7 @@ export declare namespace SimCardGroups {
     type SimCardGroupCreateParams as SimCardGroupCreateParams,
     type SimCardGroupRetrieveParams as SimCardGroupRetrieveParams,
     type SimCardGroupUpdateParams as SimCardGroupUpdateParams,
-    type SimCardGroupListParams as SimCardGroupListParams
+    type SimCardGroupListParams as SimCardGroupListParams,
   };
 
   export {
@@ -345,6 +371,6 @@ export declare namespace SimCardGroups {
     type SimCardGroupActionsDefaultFlatPagination as SimCardGroupActionsDefaultFlatPagination,
     type ActionListParams as ActionListParams,
     type ActionSetPrivateWirelessGatewayParams as ActionSetPrivateWirelessGatewayParams,
-    type ActionSetWirelessBlocklistParams as ActionSetWirelessBlocklistParams
+    type ActionSetWirelessBlocklistParams as ActionSetWirelessBlocklistParams,
   };
 }

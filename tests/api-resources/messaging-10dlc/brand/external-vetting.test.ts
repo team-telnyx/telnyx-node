@@ -2,7 +2,10 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Telnyx({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource externalVetting', () => {
   // Mock server tests are disabled
@@ -19,7 +22,10 @@ describe('resource externalVetting', () => {
 
   // Mock server tests are disabled
   test.skip('imports: only required params', async () => {
-    const responsePromise = client.messaging10dlc.brand.externalVetting.imports('brandId', { evpId: 'evpId', vettingId: 'vettingId' });
+    const responsePromise = client.messaging10dlc.brand.externalVetting.imports('brandId', {
+      evpId: 'evpId',
+      vettingId: 'vettingId',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -32,15 +38,18 @@ describe('resource externalVetting', () => {
   // Mock server tests are disabled
   test.skip('imports: required and optional params', async () => {
     const response = await client.messaging10dlc.brand.externalVetting.imports('brandId', {
-    evpId: 'evpId',
-    vettingId: 'vettingId',
-    vettingToken: 'vettingToken',
-  });
+      evpId: 'evpId',
+      vettingId: 'vettingId',
+      vettingToken: 'vettingToken',
+    });
   });
 
   // Mock server tests are disabled
   test.skip('order: only required params', async () => {
-    const responsePromise = client.messaging10dlc.brand.externalVetting.order('brandId', { evpId: 'evpId', vettingClass: 'vettingClass' });
+    const responsePromise = client.messaging10dlc.brand.externalVetting.order('brandId', {
+      evpId: 'evpId',
+      vettingClass: 'vettingClass',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -52,6 +61,9 @@ describe('resource externalVetting', () => {
 
   // Mock server tests are disabled
   test.skip('order: required and optional params', async () => {
-    const response = await client.messaging10dlc.brand.externalVetting.order('brandId', { evpId: 'evpId', vettingClass: 'vettingClass' });
+    const response = await client.messaging10dlc.brand.externalVetting.order('brandId', {
+      evpId: 'evpId',
+      vettingClass: 'vettingClass',
+    });
   });
 });

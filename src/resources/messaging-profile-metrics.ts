@@ -10,7 +10,10 @@ export class MessagingProfileMetrics extends APIResource {
    * List high-level metrics for all messaging profiles belonging to the
    * authenticated user.
    */
-  list(query: MessagingProfileMetricListParams | null | undefined = {}, options?: RequestOptions): APIPromise<MessagingProfileMetricListResponse> {
+  list(
+    query: MessagingProfileMetricListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<MessagingProfileMetricListResponse> {
     return this._client.get('/messaging_profile_metrics', { query, ...options });
   }
 }
@@ -31,6 +34,6 @@ export interface MessagingProfileMetricListParams {
 export declare namespace MessagingProfileMetrics {
   export {
     type MessagingProfileMetricListResponse as MessagingProfileMetricListResponse,
-    type MessagingProfileMetricListParams as MessagingProfileMetricListParams
+    type MessagingProfileMetricListParams as MessagingProfileMetricListParams,
   };
 }

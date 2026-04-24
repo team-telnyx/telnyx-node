@@ -23,7 +23,11 @@ export class Messaging extends APIResource {
    * ```
    */
   create(body: MessagingCreateParams, options?: RequestOptions): APIPromise<MessagingCreateResponse> {
-    return this._client.post('/legacy/reporting/usage_reports/messaging', { body, ...options, headers: buildHeaders([{'Content-Type': '*/*'}, options?.headers]) });
+    return this._client.post('/legacy/reporting/usage_reports/messaging', {
+      body,
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -52,8 +56,15 @@ export class Messaging extends APIResource {
    * }
    * ```
    */
-  list(query: MessagingListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MdrUsageReportResponseLegaciesPerPagePagination, MdrUsageReportResponseLegacy> {
-    return this._client.getAPIList('/legacy/reporting/usage_reports/messaging', PerPagePagination<MdrUsageReportResponseLegacy>, { query, ...options });
+  list(
+    query: MessagingListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MdrUsageReportResponseLegaciesPerPagePagination, MdrUsageReportResponseLegacy> {
+    return this._client.getAPIList(
+      '/legacy/reporting/usage_reports/messaging',
+      PerPagePagination<MdrUsageReportResponseLegacy>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -72,7 +83,7 @@ export class Messaging extends APIResource {
   }
 }
 
-export type MdrUsageReportResponseLegaciesPerPagePagination = PerPagePagination<MdrUsageReportResponseLegacy>
+export type MdrUsageReportResponseLegaciesPerPagePagination = PerPagePagination<MdrUsageReportResponseLegacy>;
 
 /**
  * Legacy V2 MDR usage report response
@@ -169,8 +180,7 @@ export interface MessagingCreateParams {
   start_time?: string;
 }
 
-export interface MessagingListParams extends PerPagePaginationParams {
-}
+export interface MessagingListParams extends PerPagePaginationParams {}
 
 export declare namespace Messaging {
   export {
@@ -181,6 +191,6 @@ export declare namespace Messaging {
     type MessagingDeleteResponse as MessagingDeleteResponse,
     type MdrUsageReportResponseLegaciesPerPagePagination as MdrUsageReportResponseLegaciesPerPagePagination,
     type MessagingCreateParams as MessagingCreateParams,
-    type MessagingListParams as MessagingListParams
+    type MessagingListParams as MessagingListParams,
   };
 }

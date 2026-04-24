@@ -2,7 +2,14 @@
 
 import { APIResource } from '../../core/resource';
 import * as MetadataAPI from './metadata';
-import { ChildRelationshipInfo, Metadata, MetadataFieldMapping, MetadataRetrieveRecordTypeResponse, MetadataRetrieveResponse, ParentRelationshipInfo } from './metadata';
+import {
+  ChildRelationshipInfo,
+  Metadata,
+  MetadataFieldMapping,
+  MetadataRetrieveRecordTypeResponse,
+  MetadataRetrieveResponse,
+  ParentRelationshipInfo,
+} from './metadata';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -17,8 +24,12 @@ export class SessionAnalysis extends APIResource {
    * Retrieves a full session analysis tree for a given event, including costs, child
    * events, and product linkages.
    */
-  retrieve(eventID: string, params: SessionAnalysisRetrieveParams, options?: RequestOptions): APIPromise<SessionAnalysisRetrieveResponse> {
-    const { record_type, ...query } = params
+  retrieve(
+    eventID: string,
+    params: SessionAnalysisRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<SessionAnalysisRetrieveResponse> {
+    const { record_type, ...query } = params;
     return this._client.get(path`/session_analysis/${record_type}/${eventID}`, { query, ...options });
   }
 }
@@ -124,11 +135,6 @@ export namespace EventNode {
 export interface SessionAnalysisRetrieveResponse {
   cost: SessionAnalysisRetrieveResponse.Cost;
 
-  /**
-   * When the session started.
-   */
-  created_at: string;
-
   meta: SessionAnalysisRetrieveResponse.Meta;
 
   root: EventNode;
@@ -137,16 +143,6 @@ export interface SessionAnalysisRetrieveResponse {
    * Identifier for the analyzed session.
    */
   session_id: string;
-
-  /**
-   * Analysis status (e.g. "completed").
-   */
-  status: string;
-
-  /**
-   * When the session completed.
-   */
-  completed_at?: string | null;
 }
 
 export namespace SessionAnalysisRetrieveResponse {
@@ -182,7 +178,9 @@ export interface SessionAnalysisRetrieveParams {
   record_type: string;
 
   /**
-   * Query param: ISO 8601 timestamp to narrow index selection for faster lookups.
+   * Query param: ISO 8601 timestamp or date to narrow index selection for faster
+   * lookups. Accepts full datetime (e.g., 2026-03-17T10:00:00Z) or date-only format
+   * (e.g., 2026-03-17).
    */
   date_time?: string;
 
@@ -208,7 +206,7 @@ export declare namespace SessionAnalysis {
   export {
     type EventNode as EventNode,
     type SessionAnalysisRetrieveResponse as SessionAnalysisRetrieveResponse,
-    type SessionAnalysisRetrieveParams as SessionAnalysisRetrieveParams
+    type SessionAnalysisRetrieveParams as SessionAnalysisRetrieveParams,
   };
 
   export {
@@ -217,6 +215,6 @@ export declare namespace SessionAnalysis {
     type MetadataFieldMapping as MetadataFieldMapping,
     type ParentRelationshipInfo as ParentRelationshipInfo,
     type MetadataRetrieveResponse as MetadataRetrieveResponse,
-    type MetadataRetrieveRecordTypeResponse as MetadataRetrieveRecordTypeResponse
+    type MetadataRetrieveRecordTypeResponse as MetadataRetrieveRecordTypeResponse,
   };
 }

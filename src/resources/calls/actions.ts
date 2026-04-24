@@ -23,8 +23,15 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  addAIAssistantMessages(callControlID: string, body: ActionAddAIAssistantMessagesParams, options?: RequestOptions): APIPromise<ActionAddAIAssistantMessagesResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_add_messages`, { body, ...options });
+  addAIAssistantMessages(
+    callControlID: string,
+    body: ActionAddAIAssistantMessagesParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionAddAIAssistantMessagesResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_add_messages`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -34,6 +41,10 @@ export class Actions extends APIResource {
    * **Expected Webhooks:**
    *
    * - `call.answered`
+   * - `call.hold` and `call.unhold` if the call is held/unheld
+   * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
+   * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an
+   *   error occurred
    * - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url`
    *   was set
    *
@@ -47,7 +58,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  answer(callControlID: string, body: ActionAnswerParams, options?: RequestOptions): APIPromise<ActionAnswerResponse> {
+  answer(
+    callControlID: string,
+    body: ActionAnswerParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionAnswerResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/answer`, { body, ...options });
   }
 
@@ -70,9 +85,16 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  bridge(callControlIDToBridge: string, params: ActionBridgeParams, options?: RequestOptions): APIPromise<ActionBridgeResponse> {
-    const { call_control_id_to_bridge_with, ...body } = params
-    return this._client.post(path`/calls/${callControlIDToBridge}/actions/bridge`, { body: { call_control_id: call_control_id_to_bridge_with, ...body }, ...options });
+  bridge(
+    callControlIDToBridge: string,
+    params: ActionBridgeParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionBridgeResponse> {
+    const { call_control_id_to_bridge_with, ...body } = params;
+    return this._client.post(path`/calls/${callControlIDToBridge}/actions/bridge`, {
+      body: { call_control_id: call_control_id_to_bridge_with, ...body },
+      ...options,
+    });
   }
 
   /**
@@ -86,7 +108,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  enqueue(callControlID: string, body: ActionEnqueueParams, options?: RequestOptions): APIPromise<ActionEnqueueResponse> {
+  enqueue(
+    callControlID: string,
+    body: ActionEnqueueParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionEnqueueResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/enqueue`, { body, ...options });
   }
 
@@ -108,7 +134,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  gather(callControlID: string, body: ActionGatherParams, options?: RequestOptions): APIPromise<ActionGatherResponse> {
+  gather(
+    callControlID: string,
+    body: ActionGatherParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionGatherResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/gather`, { body, ...options });
   }
 
@@ -140,7 +170,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  gatherUsingAI(callControlID: string, body: ActionGatherUsingAIParams, options?: RequestOptions): APIPromise<ActionGatherUsingAIResponse> {
+  gatherUsingAI(
+    callControlID: string,
+    body: ActionGatherUsingAIParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionGatherUsingAIResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/gather_using_ai`, { body, ...options });
   }
 
@@ -168,7 +202,11 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  gatherUsingAudio(callControlID: string, body: ActionGatherUsingAudioParams, options?: RequestOptions): APIPromise<ActionGatherUsingAudioResponse> {
+  gatherUsingAudio(
+    callControlID: string,
+    body: ActionGatherUsingAudioParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionGatherUsingAudioResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/gather_using_audio`, { body, ...options });
   }
 
@@ -195,7 +233,11 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  gatherUsingSpeak(callControlID: string, body: ActionGatherUsingSpeakParams, options?: RequestOptions): APIPromise<ActionGatherUsingSpeakResponse> {
+  gatherUsingSpeak(
+    callControlID: string,
+    body: ActionGatherUsingSpeakParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionGatherUsingSpeakResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/gather_using_speak`, { body, ...options });
   }
 
@@ -214,7 +256,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  hangup(callControlID: string, body: ActionHangupParams, options?: RequestOptions): APIPromise<ActionHangupResponse> {
+  hangup(
+    callControlID: string,
+    body: ActionHangupParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionHangupResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/hangup`, { body, ...options });
   }
 
@@ -233,7 +279,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  joinAIAssistant(callControlID: string, body: ActionJoinAIAssistantParams, options?: RequestOptions): APIPromise<ActionJoinAIAssistantResponse> {
+  joinAIAssistant(
+    callControlID: string,
+    body: ActionJoinAIAssistantParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionJoinAIAssistantResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_join`, { body, ...options });
   }
 
@@ -247,7 +297,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  leaveQueue(callControlID: string, body: ActionLeaveQueueParams, options?: RequestOptions): APIPromise<ActionLeaveQueueResponse> {
+  leaveQueue(
+    callControlID: string,
+    body: ActionLeaveQueueParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionLeaveQueueResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/leave_queue`, { body, ...options });
   }
 
@@ -265,7 +319,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  pauseRecording(callControlID: string, body: ActionPauseRecordingParams, options?: RequestOptions): APIPromise<ActionPauseRecordingResponse> {
+  pauseRecording(
+    callControlID: string,
+    body: ActionPauseRecordingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionPauseRecordingResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/record_pause`, { body, ...options });
   }
 
@@ -289,7 +347,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  refer(callControlID: string, body: ActionReferParams, options?: RequestOptions): APIPromise<ActionReferResponse> {
+  refer(
+    callControlID: string,
+    body: ActionReferParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionReferResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/refer`, { body, ...options });
   }
 
@@ -308,7 +370,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  reject(callControlID: string, body: ActionRejectParams, options?: RequestOptions): APIPromise<ActionRejectResponse> {
+  reject(
+    callControlID: string,
+    body: ActionRejectParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionRejectResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/reject`, { body, ...options });
   }
 
@@ -326,7 +392,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  resumeRecording(callControlID: string, body: ActionResumeRecordingParams, options?: RequestOptions): APIPromise<ActionResumeRecordingResponse> {
+  resumeRecording(
+    callControlID: string,
+    body: ActionResumeRecordingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionResumeRecordingResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/record_resume`, { body, ...options });
   }
 
@@ -346,7 +416,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  sendDtmf(callControlID: string, body: ActionSendDtmfParams, options?: RequestOptions): APIPromise<ActionSendDtmfResponse> {
+  sendDtmf(
+    callControlID: string,
+    body: ActionSendDtmfParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionSendDtmfResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/send_dtmf`, { body, ...options });
   }
 
@@ -368,7 +442,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  sendSipInfo(callControlID: string, body: ActionSendSipInfoParams, options?: RequestOptions): APIPromise<ActionSendSipInfoResponse> {
+  sendSipInfo(
+    callControlID: string,
+    body: ActionSendSipInfoParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionSendSipInfoResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/send_sip_info`, { body, ...options });
   }
 
@@ -390,7 +468,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  speak(callControlID: string, body: ActionSpeakParams, options?: RequestOptions): APIPromise<ActionSpeakResponse> {
+  speak(
+    callControlID: string,
+    body: ActionSpeakParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionSpeakResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/speak`, { body, ...options });
   }
 
@@ -410,7 +492,11 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  startAIAssistant(callControlID: string, body: ActionStartAIAssistantParams, options?: RequestOptions): APIPromise<ActionStartAIAssistantResponse> {
+  startAIAssistant(
+    callControlID: string,
+    body: ActionStartAIAssistantParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartAIAssistantResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_start`, { body, ...options });
   }
 
@@ -433,7 +519,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  startForking(callControlID: string, body: ActionStartForkingParams, options?: RequestOptions): APIPromise<ActionStartForkingResponse> {
+  startForking(
+    callControlID: string,
+    body: ActionStartForkingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartForkingResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/fork_start`, { body, ...options });
   }
 
@@ -448,7 +538,11 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  startNoiseSuppression(callControlID: string, body: ActionStartNoiseSuppressionParams, options?: RequestOptions): APIPromise<ActionStartNoiseSuppressionResponse> {
+  startNoiseSuppression(
+    callControlID: string,
+    body: ActionStartNoiseSuppressionParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartNoiseSuppressionResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/suppression_start`, { body, ...options });
   }
 
@@ -474,7 +568,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  startPlayback(callControlID: string, body: ActionStartPlaybackParams, options?: RequestOptions): APIPromise<ActionStartPlaybackResponse> {
+  startPlayback(
+    callControlID: string,
+    body: ActionStartPlaybackParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartPlaybackResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/playback_start`, { body, ...options });
   }
 
@@ -496,7 +594,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  startRecording(callControlID: string, body: ActionStartRecordingParams, options?: RequestOptions): APIPromise<ActionStartRecordingResponse> {
+  startRecording(
+    callControlID: string,
+    body: ActionStartRecordingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartRecordingResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/record_start`, { body, ...options });
   }
 
@@ -516,7 +618,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  startSiprec(callControlID: string, body: ActionStartSiprecParams, options?: RequestOptions): APIPromise<ActionStartSiprecResponse> {
+  startSiprec(
+    callControlID: string,
+    body: ActionStartSiprecParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartSiprecResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/siprec_start`, { body, ...options });
   }
 
@@ -535,7 +641,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  startStreaming(callControlID: string, body: ActionStartStreamingParams, options?: RequestOptions): APIPromise<ActionStartStreamingResponse> {
+  startStreaming(
+    callControlID: string,
+    body: ActionStartStreamingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartStreamingResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/streaming_start`, { body, ...options });
   }
 
@@ -555,7 +665,11 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  startTranscription(callControlID: string, body: ActionStartTranscriptionParams, options?: RequestOptions): APIPromise<ActionStartTranscriptionResponse> {
+  startTranscription(
+    callControlID: string,
+    body: ActionStartTranscriptionParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartTranscriptionResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/transcription_start`, { body, ...options });
   }
 
@@ -569,7 +683,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  stopAIAssistant(callControlID: string, body: ActionStopAIAssistantParams, options?: RequestOptions): APIPromise<ActionStopAIAssistantResponse> {
+  stopAIAssistant(
+    callControlID: string,
+    body: ActionStopAIAssistantParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopAIAssistantResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_stop`, { body, ...options });
   }
 
@@ -587,7 +705,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  stopForking(callControlID: string, body: ActionStopForkingParams, options?: RequestOptions): APIPromise<ActionStopForkingResponse> {
+  stopForking(
+    callControlID: string,
+    body: ActionStopForkingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopForkingResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/fork_stop`, { body, ...options });
   }
 
@@ -605,7 +727,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  stopGather(callControlID: string, body: ActionStopGatherParams, options?: RequestOptions): APIPromise<ActionStopGatherResponse> {
+  stopGather(
+    callControlID: string,
+    body: ActionStopGatherParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopGatherResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/gather_stop`, { body, ...options });
   }
 
@@ -620,7 +746,11 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  stopNoiseSuppression(callControlID: string, body: ActionStopNoiseSuppressionParams, options?: RequestOptions): APIPromise<ActionStopNoiseSuppressionResponse> {
+  stopNoiseSuppression(
+    callControlID: string,
+    body: ActionStopNoiseSuppressionParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopNoiseSuppressionResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/suppression_stop`, { body, ...options });
   }
 
@@ -638,7 +768,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  stopPlayback(callControlID: string, body: ActionStopPlaybackParams, options?: RequestOptions): APIPromise<ActionStopPlaybackResponse> {
+  stopPlayback(
+    callControlID: string,
+    body: ActionStopPlaybackParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopPlaybackResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/playback_stop`, { body, ...options });
   }
 
@@ -656,7 +790,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  stopRecording(callControlID: string, body: ActionStopRecordingParams, options?: RequestOptions): APIPromise<ActionStopRecordingResponse> {
+  stopRecording(
+    callControlID: string,
+    body: ActionStopRecordingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopRecordingResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/record_stop`, { body, ...options });
   }
 
@@ -674,7 +812,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  stopSiprec(callControlID: string, body: ActionStopSiprecParams, options?: RequestOptions): APIPromise<ActionStopSiprecResponse> {
+  stopSiprec(
+    callControlID: string,
+    body: ActionStopSiprecParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopSiprecResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/siprec_stop`, { body, ...options });
   }
 
@@ -692,7 +834,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  stopStreaming(callControlID: string, body: ActionStopStreamingParams, options?: RequestOptions): APIPromise<ActionStopStreamingResponse> {
+  stopStreaming(
+    callControlID: string,
+    body: ActionStopStreamingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopStreamingResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/streaming_stop`, { body, ...options });
   }
 
@@ -707,7 +853,11 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  stopTranscription(callControlID: string, body: ActionStopTranscriptionParams, options?: RequestOptions): APIPromise<ActionStopTranscriptionResponse> {
+  stopTranscription(
+    callControlID: string,
+    body: ActionStopTranscriptionParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopTranscriptionResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/transcription_stop`, { body, ...options });
   }
 
@@ -724,8 +874,15 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  switchSupervisorRole(callControlID: string, body: ActionSwitchSupervisorRoleParams, options?: RequestOptions): APIPromise<ActionSwitchSupervisorRoleResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/switch_supervisor_role`, { body, ...options });
+  switchSupervisorRole(
+    callControlID: string,
+    body: ActionSwitchSupervisorRoleParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionSwitchSupervisorRoleResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/switch_supervisor_role`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -756,7 +913,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  transfer(callControlID: string, body: ActionTransferParams, options?: RequestOptions): APIPromise<ActionTransferResponse> {
+  transfer(
+    callControlID: string,
+    body: ActionTransferParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionTransferResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/transfer`, { body, ...options });
   }
 
@@ -772,7 +933,11 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  updateClientState(callControlID: string, body: ActionUpdateClientStateParams, options?: RequestOptions): APIPromise<ActionUpdateClientStateResponse> {
+  updateClientState(
+    callControlID: string,
+    body: ActionUpdateClientStateParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionUpdateClientStateResponse> {
     return this._client.put(path`/calls/${callControlID}/actions/client_state_update`, { body, ...options });
   }
 }
@@ -783,7 +948,7 @@ export interface AwsVoiceSettings {
    */
   type: 'aws';
 
-[k: string]: unknown
+  [k: string]: unknown;
 }
 
 export interface CallControlCommandResult {
@@ -820,7 +985,51 @@ export interface DeepgramNova2Config {
   /**
    * Language to use for speech recognition with nova-2 model
    */
-  language?: 'bg' | 'ca' | 'zh-CN' | 'zh-Hans' | 'zh-TW' | 'zh-Hant' | 'zh-HK' | 'cs' | 'da-DK' | 'nl-BE' | 'en-US' | 'en-AU' | 'en-GB' | 'en-NZ' | 'en-IN' | 'et' | 'fi' | 'fr' | 'fr-CA' | 'de-CH' | 'el' | 'hi' | 'hu' | 'id' | 'it' | 'ja' | 'ko-KR' | 'lv' | 'lt' | 'ms' | 'no' | 'pl' | 'pt-BR' | 'pt-PT' | 'ro' | 'ru' | 'sk' | 'es-419' | 'sv-SE' | 'th-TH' | 'tr' | 'uk' | 'vi' | 'auto_detect';
+  language?:
+    | 'bg'
+    | 'ca'
+    | 'zh-CN'
+    | 'zh-Hans'
+    | 'zh-TW'
+    | 'zh-Hant'
+    | 'zh-HK'
+    | 'cs'
+    | 'da-DK'
+    | 'nl-BE'
+    | 'en-US'
+    | 'en-AU'
+    | 'en-GB'
+    | 'en-NZ'
+    | 'en-IN'
+    | 'et'
+    | 'fi'
+    | 'fr'
+    | 'fr-CA'
+    | 'de-CH'
+    | 'el'
+    | 'hi'
+    | 'hu'
+    | 'id'
+    | 'it'
+    | 'ja'
+    | 'ko-KR'
+    | 'lv'
+    | 'lt'
+    | 'ms'
+    | 'no'
+    | 'pl'
+    | 'pt-BR'
+    | 'pt-PT'
+    | 'ro'
+    | 'ru'
+    | 'sk'
+    | 'es-419'
+    | 'sv-SE'
+    | 'th-TH'
+    | 'tr'
+    | 'uk'
+    | 'vi'
+    | 'auto_detect';
 
   /**
    * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
@@ -850,7 +1059,23 @@ export interface DeepgramNova3Config {
   /**
    * Language to use for speech recognition with nova-3 model
    */
-  language?: 'en-US' | 'en-AU' | 'en-GB' | 'en-IN' | 'en-NZ' | 'de' | 'nl' | 'sv-SE' | 'da-DK' | 'es' | 'es-419' | 'fr' | 'fr-CA' | 'pt-BR' | 'pt-PT' | 'auto_detect';
+  language?:
+    | 'en-US'
+    | 'en-AU'
+    | 'en-GB'
+    | 'en-IN'
+    | 'en-NZ'
+    | 'de'
+    | 'nl'
+    | 'sv-SE'
+    | 'da-DK'
+    | 'es'
+    | 'es-419'
+    | 'fr'
+    | 'fr-CA'
+    | 'pt-BR'
+    | 'pt-PT'
+    | 'auto_detect';
 
   /**
    * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
@@ -877,7 +1102,87 @@ export interface ElevenLabsVoiceSettings {
 /**
  * Language to use for speech recognition
  */
-export type GoogleTranscriptionLanguage = 'af' | 'sq' | 'am' | 'ar' | 'hy' | 'az' | 'eu' | 'bn' | 'bs' | 'bg' | 'my' | 'ca' | 'yue' | 'zh' | 'hr' | 'cs' | 'da' | 'nl' | 'en' | 'et' | 'fil' | 'fi' | 'fr' | 'gl' | 'ka' | 'de' | 'el' | 'gu' | 'iw' | 'hi' | 'hu' | 'is' | 'id' | 'it' | 'ja' | 'jv' | 'kn' | 'kk' | 'km' | 'ko' | 'lo' | 'lv' | 'lt' | 'mk' | 'ms' | 'ml' | 'mr' | 'mn' | 'ne' | 'no' | 'fa' | 'pl' | 'pt' | 'pa' | 'ro' | 'ru' | 'rw' | 'sr' | 'si' | 'sk' | 'sl' | 'ss' | 'st' | 'es' | 'su' | 'sw' | 'sv' | 'ta' | 'te' | 'th' | 'tn' | 'tr' | 'ts' | 'uk' | 'ur' | 'uz' | 've' | 'vi' | 'xh' | 'zu'
+export type GoogleTranscriptionLanguage =
+  | 'af'
+  | 'sq'
+  | 'am'
+  | 'ar'
+  | 'hy'
+  | 'az'
+  | 'eu'
+  | 'bn'
+  | 'bs'
+  | 'bg'
+  | 'my'
+  | 'ca'
+  | 'yue'
+  | 'zh'
+  | 'hr'
+  | 'cs'
+  | 'da'
+  | 'nl'
+  | 'en'
+  | 'et'
+  | 'fil'
+  | 'fi'
+  | 'fr'
+  | 'gl'
+  | 'ka'
+  | 'de'
+  | 'el'
+  | 'gu'
+  | 'iw'
+  | 'hi'
+  | 'hu'
+  | 'is'
+  | 'id'
+  | 'it'
+  | 'ja'
+  | 'jv'
+  | 'kn'
+  | 'kk'
+  | 'km'
+  | 'ko'
+  | 'lo'
+  | 'lv'
+  | 'lt'
+  | 'mk'
+  | 'ms'
+  | 'ml'
+  | 'mr'
+  | 'mn'
+  | 'ne'
+  | 'no'
+  | 'fa'
+  | 'pl'
+  | 'pt'
+  | 'pa'
+  | 'ro'
+  | 'ru'
+  | 'rw'
+  | 'sr'
+  | 'si'
+  | 'sk'
+  | 'sl'
+  | 'ss'
+  | 'st'
+  | 'es'
+  | 'su'
+  | 'sw'
+  | 'sv'
+  | 'ta'
+  | 'te'
+  | 'th'
+  | 'tn'
+  | 'tr'
+  | 'ts'
+  | 'uk'
+  | 'ur'
+  | 'uz'
+  | 've'
+  | 'vi'
+  | 'xh'
+  | 'zu';
 
 /**
  * Settings for handling user interruptions during assistant speech
@@ -889,7 +1194,7 @@ export interface InterruptionSettings {
   enable?: boolean;
 }
 
-export type Loopcount = string | number
+export type Loopcount = string | number;
 
 export interface StopRecordingRequest {
   /**
@@ -913,7 +1218,107 @@ export interface StopRecordingRequest {
 /**
  * Language to use for speech recognition
  */
-export type TelnyxTranscriptionLanguage = 'en' | 'zh' | 'de' | 'es' | 'ru' | 'ko' | 'fr' | 'ja' | 'pt' | 'tr' | 'pl' | 'ca' | 'nl' | 'ar' | 'sv' | 'it' | 'id' | 'hi' | 'fi' | 'vi' | 'he' | 'uk' | 'el' | 'ms' | 'cs' | 'ro' | 'da' | 'hu' | 'ta' | 'no' | 'th' | 'ur' | 'hr' | 'bg' | 'lt' | 'la' | 'mi' | 'ml' | 'cy' | 'sk' | 'te' | 'fa' | 'lv' | 'bn' | 'sr' | 'az' | 'sl' | 'kn' | 'et' | 'mk' | 'br' | 'eu' | 'is' | 'hy' | 'ne' | 'mn' | 'bs' | 'kk' | 'sq' | 'sw' | 'gl' | 'mr' | 'pa' | 'si' | 'km' | 'sn' | 'yo' | 'so' | 'af' | 'oc' | 'ka' | 'be' | 'tg' | 'sd' | 'gu' | 'am' | 'yi' | 'lo' | 'uz' | 'fo' | 'ht' | 'ps' | 'tk' | 'nn' | 'mt' | 'sa' | 'lb' | 'my' | 'bo' | 'tl' | 'mg' | 'as' | 'tt' | 'haw' | 'ln' | 'ha' | 'ba' | 'jw' | 'su' | 'auto_detect'
+export type TelnyxTranscriptionLanguage =
+  | 'en'
+  | 'zh'
+  | 'de'
+  | 'es'
+  | 'ru'
+  | 'ko'
+  | 'fr'
+  | 'ja'
+  | 'pt'
+  | 'tr'
+  | 'pl'
+  | 'ca'
+  | 'nl'
+  | 'ar'
+  | 'sv'
+  | 'it'
+  | 'id'
+  | 'hi'
+  | 'fi'
+  | 'vi'
+  | 'he'
+  | 'uk'
+  | 'el'
+  | 'ms'
+  | 'cs'
+  | 'ro'
+  | 'da'
+  | 'hu'
+  | 'ta'
+  | 'no'
+  | 'th'
+  | 'ur'
+  | 'hr'
+  | 'bg'
+  | 'lt'
+  | 'la'
+  | 'mi'
+  | 'ml'
+  | 'cy'
+  | 'sk'
+  | 'te'
+  | 'fa'
+  | 'lv'
+  | 'bn'
+  | 'sr'
+  | 'az'
+  | 'sl'
+  | 'kn'
+  | 'et'
+  | 'mk'
+  | 'br'
+  | 'eu'
+  | 'is'
+  | 'hy'
+  | 'ne'
+  | 'mn'
+  | 'bs'
+  | 'kk'
+  | 'sq'
+  | 'sw'
+  | 'gl'
+  | 'mr'
+  | 'pa'
+  | 'si'
+  | 'km'
+  | 'sn'
+  | 'yo'
+  | 'so'
+  | 'af'
+  | 'oc'
+  | 'ka'
+  | 'be'
+  | 'tg'
+  | 'sd'
+  | 'gu'
+  | 'am'
+  | 'yi'
+  | 'lo'
+  | 'uz'
+  | 'fo'
+  | 'ht'
+  | 'ps'
+  | 'tk'
+  | 'nn'
+  | 'mt'
+  | 'sa'
+  | 'lb'
+  | 'my'
+  | 'bo'
+  | 'tl'
+  | 'mg'
+  | 'as'
+  | 'tt'
+  | 'haw'
+  | 'ln'
+  | 'ha'
+  | 'ba'
+  | 'jw'
+  | 'su'
+  | 'auto_detect';
 
 export interface TelnyxVoiceSettings {
   /**
@@ -982,7 +1387,15 @@ export interface TranscriptionEngineAConfig {
   /**
    * The model to use for transcription.
    */
-  model?: 'latest_long' | 'latest_short' | 'command_and_search' | 'phone_call' | 'video' | 'default' | 'medical_conversation' | 'medical_dictation';
+  model?:
+    | 'latest_long'
+    | 'latest_short'
+    | 'command_and_search'
+    | 'phone_call'
+    | 'video'
+    | 'default'
+    | 'medical_conversation'
+    | 'medical_dictation';
 
   /**
    * Enables profanity_filter.
@@ -1038,7 +1451,82 @@ export interface TranscriptionEngineAzureConfig {
   /**
    * Language to use for speech recognition
    */
-  language?: 'af' | 'am' | 'ar' | 'bg' | 'bn' | 'bs' | 'ca' | 'cs' | 'cy' | 'da' | 'de' | 'el' | 'en' | 'es' | 'et' | 'eu' | 'fa' | 'fi' | 'fr' | 'ga' | 'gl' | 'gu' | 'he' | 'hi' | 'hr' | 'hu' | 'hy' | 'id' | 'is' | 'it' | 'ja' | 'ka' | 'kk' | 'km' | 'kn' | 'ko' | 'lo' | 'lt' | 'lv' | 'mk' | 'ml' | 'mn' | 'mr' | 'ms' | 'mt' | 'my' | 'nb' | 'ne' | 'nl' | 'pl' | 'ps' | 'pt' | 'ro' | 'ru' | 'si' | 'sk' | 'sl' | 'so' | 'sq' | 'sr' | 'sv' | 'sw' | 'ta' | 'te' | 'th' | 'tr' | 'uk' | 'ur' | 'uz' | 'vi' | 'wuu' | 'yue' | 'zh' | 'zu' | 'auto';
+  language?:
+    | 'af'
+    | 'am'
+    | 'ar'
+    | 'bg'
+    | 'bn'
+    | 'bs'
+    | 'ca'
+    | 'cs'
+    | 'cy'
+    | 'da'
+    | 'de'
+    | 'el'
+    | 'en'
+    | 'es'
+    | 'et'
+    | 'eu'
+    | 'fa'
+    | 'fi'
+    | 'fr'
+    | 'ga'
+    | 'gl'
+    | 'gu'
+    | 'he'
+    | 'hi'
+    | 'hr'
+    | 'hu'
+    | 'hy'
+    | 'id'
+    | 'is'
+    | 'it'
+    | 'ja'
+    | 'ka'
+    | 'kk'
+    | 'km'
+    | 'kn'
+    | 'ko'
+    | 'lo'
+    | 'lt'
+    | 'lv'
+    | 'mk'
+    | 'ml'
+    | 'mn'
+    | 'mr'
+    | 'ms'
+    | 'mt'
+    | 'my'
+    | 'nb'
+    | 'ne'
+    | 'nl'
+    | 'pl'
+    | 'ps'
+    | 'pt'
+    | 'ro'
+    | 'ru'
+    | 'si'
+    | 'sk'
+    | 'sl'
+    | 'so'
+    | 'sq'
+    | 'sr'
+    | 'sv'
+    | 'sw'
+    | 'ta'
+    | 'te'
+    | 'th'
+    | 'tr'
+    | 'uk'
+    | 'ur'
+    | 'uz'
+    | 'vi'
+    | 'wuu'
+    | 'yue'
+    | 'zh'
+    | 'zu'
+    | 'auto';
 }
 
 export interface TranscriptionEngineBConfig {
@@ -1058,7 +1546,7 @@ export interface TranscriptionEngineBConfig {
   transcription_model?: 'openai/whisper-tiny' | 'openai/whisper-large-v3-turbo';
 }
 
-export type TranscriptionEngineDeepgramConfig = DeepgramNova2Config | DeepgramNova3Config
+export type TranscriptionEngineDeepgramConfig = DeepgramNova2Config | DeepgramNova3Config;
 
 export interface TranscriptionEngineGoogleConfig {
   /**
@@ -1095,7 +1583,15 @@ export interface TranscriptionEngineGoogleConfig {
   /**
    * The model to use for transcription.
    */
-  model?: 'latest_long' | 'latest_short' | 'command_and_search' | 'phone_call' | 'video' | 'default' | 'medical_conversation' | 'medical_dictation';
+  model?:
+    | 'latest_long'
+    | 'latest_short'
+    | 'command_and_search'
+    | 'phone_call'
+    | 'video'
+    | 'default'
+    | 'medical_conversation'
+    | 'medical_dictation';
 
   /**
    * Enables profanity_filter.
@@ -1165,7 +1661,14 @@ export interface TranscriptionStartRequest {
    */
   transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'A' | 'B';
 
-  transcription_engine_config?: TranscriptionEngineGoogleConfig | TranscriptionEngineTelnyxConfig | TranscriptionEngineAzureConfig | TranscriptionEngineAConfig | TranscriptionEngineBConfig | DeepgramNova2Config | DeepgramNova3Config;
+  transcription_engine_config?:
+    | TranscriptionEngineGoogleConfig
+    | TranscriptionEngineTelnyxConfig
+    | TranscriptionEngineAzureConfig
+    | TranscriptionEngineAConfig
+    | TranscriptionEngineBConfig
+    | DeepgramNova2Config
+    | DeepgramNova3Config;
 
   /**
    * Indicates which leg of the call will be transcribed. Use `inbound` for the leg
@@ -1355,7 +1858,13 @@ export interface ActionAddAIAssistantMessagesParams {
   /**
    * The messages to add to the conversation.
    */
-  messages?: Array<ActionAddAIAssistantMessagesParams.UserMessage | ActionAddAIAssistantMessagesParams.AssistantMessage | ActionAddAIAssistantMessagesParams.ToolMessage | ActionAddAIAssistantMessagesParams.SystemMessage | ActionAddAIAssistantMessagesParams.DeveloperMessage>;
+  messages?: Array<
+    | ActionAddAIAssistantMessagesParams.UserMessage
+    | ActionAddAIAssistantMessagesParams.AssistantMessage
+    | ActionAddAIAssistantMessagesParams.ToolMessage
+    | ActionAddAIAssistantMessagesParams.SystemMessage
+    | ActionAddAIAssistantMessagesParams.DeveloperMessage
+  >;
 }
 
 export namespace ActionAddAIAssistantMessagesParams {
@@ -1535,6 +2044,14 @@ export interface ActionAnswerParams {
   custom_headers?: Array<CallsAPI.CustomSipHeader>;
 
   /**
+   * Enables deepfake detection on the call. When enabled, audio from the remote
+   * party is streamed to a detection service that analyzes whether the voice is
+   * AI-generated. Results are delivered via the `call.deepfake_detection.result`
+   * webhook.
+   */
+  deepfake_detection?: ActionAnswerParams.DeepfakeDetection;
+
+  /**
    * The list of comma-separated codecs in a preferred order for the forked media to
    * be received.
    */
@@ -1678,6 +2195,30 @@ export interface ActionAnswerParams {
 }
 
 export namespace ActionAnswerParams {
+  /**
+   * Enables deepfake detection on the call. When enabled, audio from the remote
+   * party is streamed to a detection service that analyzes whether the voice is
+   * AI-generated. Results are delivered via the `call.deepfake_detection.result`
+   * webhook.
+   */
+  export interface DeepfakeDetection {
+    /**
+     * Whether deepfake detection is enabled.
+     */
+    enabled: boolean;
+
+    /**
+     * Maximum time in seconds to wait for RTP audio before timing out. If no audio is
+     * received within this window, detection stops with an error.
+     */
+    rtp_timeout?: number;
+
+    /**
+     * Maximum time in seconds to wait for a detection result before timing out.
+     */
+    timeout?: number;
+  }
+
   export interface WebhookRetriesPolicies {
     /**
      * Array of delays in milliseconds between retry attempts. Total sum cannot exceed
@@ -1801,7 +2342,47 @@ export interface ActionBridgeParams {
    * Specifies which country ringtone to play when `play_ringtone` is set to `true`.
    * If not set, the US ringtone will be played.
    */
-  ringtone?: 'at' | 'au' | 'be' | 'bg' | 'br' | 'ch' | 'cl' | 'cn' | 'cz' | 'de' | 'dk' | 'ee' | 'es' | 'fi' | 'fr' | 'gr' | 'hu' | 'il' | 'in' | 'it' | 'jp' | 'lt' | 'mx' | 'my' | 'nl' | 'no' | 'nz' | 'ph' | 'pl' | 'pt' | 'ru' | 'se' | 'sg' | 'th' | 'tw' | 'uk' | 'us-old' | 'us' | 've' | 'za';
+  ringtone?:
+    | 'at'
+    | 'au'
+    | 'be'
+    | 'bg'
+    | 'br'
+    | 'ch'
+    | 'cl'
+    | 'cn'
+    | 'cz'
+    | 'de'
+    | 'dk'
+    | 'ee'
+    | 'es'
+    | 'fi'
+    | 'fr'
+    | 'gr'
+    | 'hu'
+    | 'il'
+    | 'in'
+    | 'it'
+    | 'jp'
+    | 'lt'
+    | 'mx'
+    | 'my'
+    | 'nl'
+    | 'no'
+    | 'nz'
+    | 'ph'
+    | 'pl'
+    | 'pt'
+    | 'ru'
+    | 'se'
+    | 'sg'
+    | 'th'
+    | 'tw'
+    | 'uk'
+    | 'us-old'
+    | 'us'
+    | 've'
+    | 'za';
 
   /**
    * The additional parameter that will be passed to the video conference. It is a
@@ -2028,7 +2609,13 @@ export interface ActionGatherUsingAIParams {
   /**
    * The settings associated with the voice selected
    */
-  voice_settings?: ElevenLabsVoiceSettings | TelnyxVoiceSettings | AwsVoiceSettings | Shared.AzureVoiceSettings | Shared.RimeVoiceSettings | Shared.ResembleVoiceSettings;
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings;
 }
 
 export namespace ActionGatherUsingAIParams {
@@ -2209,7 +2796,36 @@ export interface ActionGatherUsingSpeakParams {
    * The language you want spoken. This parameter is ignored when a `Polly.*` voice
    * is specified.
    */
-  language?: 'arb' | 'cmn-CN' | 'cy-GB' | 'da-DK' | 'de-DE' | 'en-AU' | 'en-GB' | 'en-GB-WLS' | 'en-IN' | 'en-US' | 'es-ES' | 'es-MX' | 'es-US' | 'fr-CA' | 'fr-FR' | 'hi-IN' | 'is-IS' | 'it-IT' | 'ja-JP' | 'ko-KR' | 'nb-NO' | 'nl-NL' | 'pl-PL' | 'pt-BR' | 'pt-PT' | 'ro-RO' | 'ru-RU' | 'sv-SE' | 'tr-TR';
+  language?:
+    | 'arb'
+    | 'cmn-CN'
+    | 'cy-GB'
+    | 'da-DK'
+    | 'de-DE'
+    | 'en-AU'
+    | 'en-GB'
+    | 'en-GB-WLS'
+    | 'en-IN'
+    | 'en-US'
+    | 'es-ES'
+    | 'es-MX'
+    | 'es-US'
+    | 'fr-CA'
+    | 'fr-FR'
+    | 'hi-IN'
+    | 'is-IS'
+    | 'it-IT'
+    | 'ja-JP'
+    | 'ko-KR'
+    | 'nb-NO'
+    | 'nl-NL'
+    | 'pl-PL'
+    | 'pt-BR'
+    | 'pt-PT'
+    | 'ro-RO'
+    | 'ru-RU'
+    | 'sv-SE'
+    | 'tr-TR';
 
   /**
    * The maximum number of digits to fetch. This parameter has a maximum value
@@ -2260,7 +2876,15 @@ export interface ActionGatherUsingSpeakParams {
   /**
    * The settings associated with the voice selected
    */
-  voice_settings?: ElevenLabsVoiceSettings | TelnyxVoiceSettings | AwsVoiceSettings | Shared.MinimaxVoiceSettings | Shared.AzureVoiceSettings | Shared.RimeVoiceSettings | Shared.ResembleVoiceSettings | ActionGatherUsingSpeakParams.InworldVoiceSettings;
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | Shared.MinimaxVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings
+    | ActionGatherUsingSpeakParams.InworldVoiceSettings;
 }
 
 export namespace ActionGatherUsingSpeakParams {
@@ -2567,7 +3191,36 @@ export interface ActionSpeakParams {
    * The language you want spoken. This parameter is ignored when a `Polly.*` voice
    * is specified.
    */
-  language?: 'arb' | 'cmn-CN' | 'cy-GB' | 'da-DK' | 'de-DE' | 'en-AU' | 'en-GB' | 'en-GB-WLS' | 'en-IN' | 'en-US' | 'es-ES' | 'es-MX' | 'es-US' | 'fr-CA' | 'fr-FR' | 'hi-IN' | 'is-IS' | 'it-IT' | 'ja-JP' | 'ko-KR' | 'nb-NO' | 'nl-NL' | 'pl-PL' | 'pt-BR' | 'pt-PT' | 'ro-RO' | 'ru-RU' | 'sv-SE' | 'tr-TR';
+  language?:
+    | 'arb'
+    | 'cmn-CN'
+    | 'cy-GB'
+    | 'da-DK'
+    | 'de-DE'
+    | 'en-AU'
+    | 'en-GB'
+    | 'en-GB-WLS'
+    | 'en-IN'
+    | 'en-US'
+    | 'es-ES'
+    | 'es-MX'
+    | 'es-US'
+    | 'fr-CA'
+    | 'fr-FR'
+    | 'hi-IN'
+    | 'is-IS'
+    | 'it-IT'
+    | 'ja-JP'
+    | 'ko-KR'
+    | 'nb-NO'
+    | 'nl-NL'
+    | 'pl-PL'
+    | 'pt-BR'
+    | 'pt-PT'
+    | 'ro-RO'
+    | 'ru-RU'
+    | 'sv-SE'
+    | 'tr-TR';
 
   /**
    * The number of times to play the audio file. Use `infinity` to loop indefinitely.
@@ -2603,7 +3256,15 @@ export interface ActionSpeakParams {
   /**
    * The settings associated with the voice selected
    */
-  voice_settings?: ElevenLabsVoiceSettings | TelnyxVoiceSettings | AwsVoiceSettings | Shared.MinimaxVoiceSettings | Shared.AzureVoiceSettings | Shared.RimeVoiceSettings | Shared.ResembleVoiceSettings | ActionSpeakParams.InworldVoiceSettings;
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | Shared.MinimaxVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings
+    | ActionSpeakParams.InworldVoiceSettings;
 }
 
 export namespace ActionSpeakParams {
@@ -2651,7 +3312,13 @@ export interface ActionStartAIAssistantParams {
    * A list of messages to seed the conversation history before the assistant starts.
    * Follows the same message format as the `ai_assistant_add_messages` command.
    */
-  message_history?: Array<ActionStartAIAssistantParams.UserMessage | ActionStartAIAssistantParams.AssistantMessage | ActionStartAIAssistantParams.ToolMessage | ActionStartAIAssistantParams.SystemMessage | ActionStartAIAssistantParams.DeveloperMessage>;
+  message_history?: Array<
+    | ActionStartAIAssistantParams.UserMessage
+    | ActionStartAIAssistantParams.AssistantMessage
+    | ActionStartAIAssistantParams.ToolMessage
+    | ActionStartAIAssistantParams.SystemMessage
+    | ActionStartAIAssistantParams.DeveloperMessage
+  >;
 
   /**
    * A list of participants to add to the conversation when it starts.
@@ -2703,7 +3370,13 @@ export interface ActionStartAIAssistantParams {
   /**
    * The settings associated with the voice selected
    */
-  voice_settings?: ElevenLabsVoiceSettings | TelnyxVoiceSettings | AwsVoiceSettings | Shared.AzureVoiceSettings | Shared.RimeVoiceSettings | Shared.ResembleVoiceSettings;
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings;
 }
 
 export namespace ActionStartAIAssistantParams {
@@ -2969,7 +3642,11 @@ export namespace ActionStartNoiseSuppressionParams {
     /**
      * The Krisp model to use. Only applicable for Krisp.
      */
-    model?: 'krisp-viva-tel-v2.kef' | 'krisp-viva-tel-lite-v1.kef' | 'krisp-viva-pro-v1.kef' | 'krisp-viva-ss-v1.kef';
+    model?:
+      | 'krisp-viva-tel-v2.kef'
+      | 'krisp-viva-tel-lite-v1.kef'
+      | 'krisp-viva-pro-v1.kef'
+      | 'krisp-viva-ss-v1.kef';
 
     /**
      * AiCoustics model size. 's' and 'l' work with both families. 'xs' and 'xxs' are
@@ -3138,7 +3815,252 @@ export interface ActionStartRecordingParams {
    * transcription engines (google, telnyx, deepgram). See engine-specific
    * documentation for supported values.
    */
-  transcription_language?: 'af' | 'af-ZA' | 'am' | 'am-ET' | 'ar' | 'ar-AE' | 'ar-BH' | 'ar-DZ' | 'ar-EG' | 'ar-IL' | 'ar-IQ' | 'ar-JO' | 'ar-KW' | 'ar-LB' | 'ar-MA' | 'ar-MR' | 'ar-OM' | 'ar-PS' | 'ar-QA' | 'ar-SA' | 'ar-TN' | 'ar-YE' | 'as' | 'auto_detect' | 'az' | 'az-AZ' | 'ba' | 'be' | 'bg' | 'bg-BG' | 'bn' | 'bn-BD' | 'bn-IN' | 'bo' | 'br' | 'bs' | 'bs-BA' | 'ca' | 'ca-ES' | 'cs' | 'cs-CZ' | 'cy' | 'da' | 'da-DK' | 'de' | 'de-AT' | 'de-CH' | 'de-DE' | 'el' | 'el-GR' | 'en' | 'en-AU' | 'en-CA' | 'en-GB' | 'en-GH' | 'en-HK' | 'en-IE' | 'en-IN' | 'en-KE' | 'en-NG' | 'en-NZ' | 'en-PH' | 'en-PK' | 'en-SG' | 'en-TZ' | 'en-US' | 'en-ZA' | 'es' | 'es-419' | 'es-AR' | 'es-BO' | 'es-CL' | 'es-CO' | 'es-CR' | 'es-DO' | 'es-EC' | 'es-ES' | 'es-GT' | 'es-HN' | 'es-MX' | 'es-NI' | 'es-PA' | 'es-PE' | 'es-PR' | 'es-PY' | 'es-SV' | 'es-US' | 'es-UY' | 'es-VE' | 'et' | 'et-EE' | 'eu' | 'eu-ES' | 'fa' | 'fa-IR' | 'fi' | 'fi-FI' | 'fil-PH' | 'fo' | 'fr' | 'fr-BE' | 'fr-CA' | 'fr-CH' | 'fr-FR' | 'gl' | 'gl-ES' | 'gu' | 'gu-IN' | 'ha' | 'haw' | 'he' | 'hi' | 'hi-IN' | 'hr' | 'hr-HR' | 'ht' | 'hu' | 'hu-HU' | 'hy' | 'hy-AM' | 'id' | 'id-ID' | 'is' | 'is-IS' | 'it' | 'it-CH' | 'it-IT' | 'iw-IL' | 'ja' | 'ja-JP' | 'jv-ID' | 'jw' | 'ka' | 'ka-GE' | 'kk' | 'kk-KZ' | 'km' | 'km-KH' | 'kn' | 'kn-IN' | 'ko' | 'ko-KR' | 'la' | 'lb' | 'ln' | 'lo' | 'lo-LA' | 'lt' | 'lt-LT' | 'lv' | 'lv-LV' | 'mg' | 'mi' | 'mk' | 'mk-MK' | 'ml' | 'ml-IN' | 'mn' | 'mn-MN' | 'mr' | 'mr-IN' | 'ms' | 'ms-MY' | 'mt' | 'my' | 'my-MM' | 'ne' | 'ne-NP' | 'nl' | 'nl-BE' | 'nl-NL' | 'nn' | 'no' | 'no-NO' | 'oc' | 'pa' | 'pa-Guru-IN' | 'pl' | 'pl-PL' | 'ps' | 'pt' | 'pt-BR' | 'pt-PT' | 'ro' | 'ro-RO' | 'ru' | 'ru-RU' | 'rw-RW' | 'sa' | 'sd' | 'si' | 'si-LK' | 'sk' | 'sk-SK' | 'sl' | 'sl-SI' | 'sn' | 'so' | 'sq' | 'sq-AL' | 'sr' | 'sr-RS' | 'ss-latn-za' | 'st-ZA' | 'su' | 'su-ID' | 'sv' | 'sv-SE' | 'sw' | 'sw-KE' | 'sw-TZ' | 'ta' | 'ta-IN' | 'ta-LK' | 'ta-MY' | 'ta-SG' | 'te' | 'te-IN' | 'tg' | 'th' | 'th-TH' | 'tk' | 'tl' | 'tn-latn-za' | 'tr' | 'tr-TR' | 'ts-ZA' | 'tt' | 'uk' | 'uk-UA' | 'ur' | 'ur-IN' | 'ur-PK' | 'uz' | 'uz-UZ' | 've-ZA' | 'vi' | 'vi-VN' | 'xh-ZA' | 'yi' | 'yo' | 'yue-Hant-HK' | 'zh' | 'zh-TW' | 'zu-ZA';
+  transcription_language?:
+    | 'af'
+    | 'af-ZA'
+    | 'am'
+    | 'am-ET'
+    | 'ar'
+    | 'ar-AE'
+    | 'ar-BH'
+    | 'ar-DZ'
+    | 'ar-EG'
+    | 'ar-IL'
+    | 'ar-IQ'
+    | 'ar-JO'
+    | 'ar-KW'
+    | 'ar-LB'
+    | 'ar-MA'
+    | 'ar-MR'
+    | 'ar-OM'
+    | 'ar-PS'
+    | 'ar-QA'
+    | 'ar-SA'
+    | 'ar-TN'
+    | 'ar-YE'
+    | 'as'
+    | 'auto_detect'
+    | 'az'
+    | 'az-AZ'
+    | 'ba'
+    | 'be'
+    | 'bg'
+    | 'bg-BG'
+    | 'bn'
+    | 'bn-BD'
+    | 'bn-IN'
+    | 'bo'
+    | 'br'
+    | 'bs'
+    | 'bs-BA'
+    | 'ca'
+    | 'ca-ES'
+    | 'cs'
+    | 'cs-CZ'
+    | 'cy'
+    | 'da'
+    | 'da-DK'
+    | 'de'
+    | 'de-AT'
+    | 'de-CH'
+    | 'de-DE'
+    | 'el'
+    | 'el-GR'
+    | 'en'
+    | 'en-AU'
+    | 'en-CA'
+    | 'en-GB'
+    | 'en-GH'
+    | 'en-HK'
+    | 'en-IE'
+    | 'en-IN'
+    | 'en-KE'
+    | 'en-NG'
+    | 'en-NZ'
+    | 'en-PH'
+    | 'en-PK'
+    | 'en-SG'
+    | 'en-TZ'
+    | 'en-US'
+    | 'en-ZA'
+    | 'es'
+    | 'es-419'
+    | 'es-AR'
+    | 'es-BO'
+    | 'es-CL'
+    | 'es-CO'
+    | 'es-CR'
+    | 'es-DO'
+    | 'es-EC'
+    | 'es-ES'
+    | 'es-GT'
+    | 'es-HN'
+    | 'es-MX'
+    | 'es-NI'
+    | 'es-PA'
+    | 'es-PE'
+    | 'es-PR'
+    | 'es-PY'
+    | 'es-SV'
+    | 'es-US'
+    | 'es-UY'
+    | 'es-VE'
+    | 'et'
+    | 'et-EE'
+    | 'eu'
+    | 'eu-ES'
+    | 'fa'
+    | 'fa-IR'
+    | 'fi'
+    | 'fi-FI'
+    | 'fil-PH'
+    | 'fo'
+    | 'fr'
+    | 'fr-BE'
+    | 'fr-CA'
+    | 'fr-CH'
+    | 'fr-FR'
+    | 'gl'
+    | 'gl-ES'
+    | 'gu'
+    | 'gu-IN'
+    | 'ha'
+    | 'haw'
+    | 'he'
+    | 'hi'
+    | 'hi-IN'
+    | 'hr'
+    | 'hr-HR'
+    | 'ht'
+    | 'hu'
+    | 'hu-HU'
+    | 'hy'
+    | 'hy-AM'
+    | 'id'
+    | 'id-ID'
+    | 'is'
+    | 'is-IS'
+    | 'it'
+    | 'it-CH'
+    | 'it-IT'
+    | 'iw-IL'
+    | 'ja'
+    | 'ja-JP'
+    | 'jv-ID'
+    | 'jw'
+    | 'ka'
+    | 'ka-GE'
+    | 'kk'
+    | 'kk-KZ'
+    | 'km'
+    | 'km-KH'
+    | 'kn'
+    | 'kn-IN'
+    | 'ko'
+    | 'ko-KR'
+    | 'la'
+    | 'lb'
+    | 'ln'
+    | 'lo'
+    | 'lo-LA'
+    | 'lt'
+    | 'lt-LT'
+    | 'lv'
+    | 'lv-LV'
+    | 'mg'
+    | 'mi'
+    | 'mk'
+    | 'mk-MK'
+    | 'ml'
+    | 'ml-IN'
+    | 'mn'
+    | 'mn-MN'
+    | 'mr'
+    | 'mr-IN'
+    | 'ms'
+    | 'ms-MY'
+    | 'mt'
+    | 'my'
+    | 'my-MM'
+    | 'ne'
+    | 'ne-NP'
+    | 'nl'
+    | 'nl-BE'
+    | 'nl-NL'
+    | 'nn'
+    | 'no'
+    | 'no-NO'
+    | 'oc'
+    | 'pa'
+    | 'pa-Guru-IN'
+    | 'pl'
+    | 'pl-PL'
+    | 'ps'
+    | 'pt'
+    | 'pt-BR'
+    | 'pt-PT'
+    | 'ro'
+    | 'ro-RO'
+    | 'ru'
+    | 'ru-RU'
+    | 'rw-RW'
+    | 'sa'
+    | 'sd'
+    | 'si'
+    | 'si-LK'
+    | 'sk'
+    | 'sk-SK'
+    | 'sl'
+    | 'sl-SI'
+    | 'sn'
+    | 'so'
+    | 'sq'
+    | 'sq-AL'
+    | 'sr'
+    | 'sr-RS'
+    | 'ss-latn-za'
+    | 'st-ZA'
+    | 'su'
+    | 'su-ID'
+    | 'sv'
+    | 'sv-SE'
+    | 'sw'
+    | 'sw-KE'
+    | 'sw-TZ'
+    | 'ta'
+    | 'ta-IN'
+    | 'ta-LK'
+    | 'ta-MY'
+    | 'ta-SG'
+    | 'te'
+    | 'te-IN'
+    | 'tg'
+    | 'th'
+    | 'th-TH'
+    | 'tk'
+    | 'tl'
+    | 'tn-latn-za'
+    | 'tr'
+    | 'tr-TR'
+    | 'ts-ZA'
+    | 'tt'
+    | 'uk'
+    | 'uk-UA'
+    | 'ur'
+    | 'ur-IN'
+    | 'ur-PK'
+    | 'uz'
+    | 'uz-UZ'
+    | 've-ZA'
+    | 'vi'
+    | 'vi-VN'
+    | 'xh-ZA'
+    | 'yi'
+    | 'yo'
+    | 'yue-Hant-HK'
+    | 'zh'
+    | 'zh-TW'
+    | 'zu-ZA';
 
   /**
    * Defines maximum number of speakers in the conversation. Applies to `google`
@@ -3314,7 +4236,14 @@ export interface ActionStartTranscriptionParams {
    */
   transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'A' | 'B';
 
-  transcription_engine_config?: TranscriptionEngineGoogleConfig | TranscriptionEngineTelnyxConfig | TranscriptionEngineAzureConfig | TranscriptionEngineAConfig | TranscriptionEngineBConfig | DeepgramNova2Config | DeepgramNova3Config;
+  transcription_engine_config?:
+    | TranscriptionEngineGoogleConfig
+    | TranscriptionEngineTelnyxConfig
+    | TranscriptionEngineAzureConfig
+    | TranscriptionEngineAConfig
+    | TranscriptionEngineBConfig
+    | DeepgramNova2Config
+    | DeepgramNova3Config;
 
   /**
    * Indicates which leg of the call will be transcribed. Use `inbound` for the leg
@@ -3501,11 +4430,19 @@ export interface ActionTransferParams {
    * greeting ends with a beep or silence. If `detect_beep` is used, you will only
    * receive 'call.machine.greeting.ended' if a beep is detected.
    */
-  answering_machine_detection?: 'premium' | 'detect' | 'detect_beep' | 'detect_words' | 'greeting_end' | 'disabled';
+  answering_machine_detection?:
+    | 'premium'
+    | 'detect'
+    | 'detect_beep'
+    | 'detect_words'
+    | 'greeting_end'
+    | 'disabled';
 
   /**
    * Optional configuration parameters to modify 'answering_machine_detection'
-   * performance.
+   * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
+   * parameters are applicable when `premium` is selected as
+   * answering_machine_detection.
    */
   answering_machine_detection_config?: ActionTransferParams.AnsweringMachineDetectionConfig;
 
@@ -3735,7 +4672,9 @@ export interface ActionTransferParams {
 export namespace ActionTransferParams {
   /**
    * Optional configuration parameters to modify 'answering_machine_detection'
-   * performance.
+   * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
+   * parameters are applicable when `premium` is selected as
+   * answering_machine_detection.
    */
   export interface AnsweringMachineDetectionConfig {
     /**
@@ -3907,6 +4846,6 @@ export declare namespace Actions {
     type ActionStopTranscriptionParams as ActionStopTranscriptionParams,
     type ActionSwitchSupervisorRoleParams as ActionSwitchSupervisorRoleParams,
     type ActionTransferParams as ActionTransferParams,
-    type ActionUpdateClientStateParams as ActionUpdateClientStateParams
+    type ActionUpdateClientStateParams as ActionUpdateClientStateParams,
   };
 }

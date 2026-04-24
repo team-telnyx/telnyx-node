@@ -33,7 +33,10 @@ export class CampaignBuilder extends APIResource {
    *   });
    * ```
    */
-  submit(body: CampaignBuilderSubmitParams, options?: RequestOptions): APIPromise<CampaignAPI.TelnyxCampaignCsp> {
+  submit(
+    body: CampaignBuilderSubmitParams,
+    options?: RequestOptions,
+  ): APIPromise<CampaignAPI.TelnyxCampaignCsp> {
     return this._client.post('/10dlc/campaignBuilder', { body, ...options });
   }
 }
@@ -226,13 +229,11 @@ export interface CampaignBuilderSubmitParams {
 CampaignBuilder.Brand = Brand;
 
 export declare namespace CampaignBuilder {
-  export {
-    type CampaignBuilderSubmitParams as CampaignBuilderSubmitParams
-  };
+  export { type CampaignBuilderSubmitParams as CampaignBuilderSubmitParams };
 
   export {
     Brand as Brand,
     type BrandQualifyByUsecaseResponse as BrandQualifyByUsecaseResponse,
-    type BrandQualifyByUsecaseParams as BrandQualifyByUsecaseParams
+    type BrandQualifyByUsecaseParams as BrandQualifyByUsecaseParams,
   };
 }

@@ -11,7 +11,10 @@ export class GlobalIPAssignmentHealth extends APIResource {
   /**
    * Global IP Assignment Health Check Metrics
    */
-  retrieve(query: GlobalIPAssignmentHealthRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<GlobalIPAssignmentHealthRetrieveResponse> {
+  retrieve(
+    query: GlobalIPAssignmentHealthRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<GlobalIPAssignmentHealthRetrieveResponse> {
     return this._client.get('/global_ip_assignment_health', { query, ...options });
   }
 }
@@ -140,6 +143,6 @@ export namespace GlobalIPAssignmentHealthRetrieveParams {
 export declare namespace GlobalIPAssignmentHealth {
   export {
     type GlobalIPAssignmentHealthRetrieveResponse as GlobalIPAssignmentHealthRetrieveResponse,
-    type GlobalIPAssignmentHealthRetrieveParams as GlobalIPAssignmentHealthRetrieveParams
+    type GlobalIPAssignmentHealthRetrieveParams as GlobalIPAssignmentHealthRetrieveParams,
   };
 }

@@ -3,7 +3,105 @@
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import * as ActionsAPI from './actions';
-import { ActionAddAIAssistantMessagesParams, ActionAddAIAssistantMessagesResponse, ActionAnswerParams, ActionAnswerResponse, ActionBridgeParams, ActionBridgeResponse, ActionEnqueueParams, ActionEnqueueResponse, ActionGatherParams, ActionGatherResponse, ActionGatherUsingAIParams, ActionGatherUsingAIResponse, ActionGatherUsingAudioParams, ActionGatherUsingAudioResponse, ActionGatherUsingSpeakParams, ActionGatherUsingSpeakResponse, ActionHangupParams, ActionHangupResponse, ActionJoinAIAssistantParams, ActionJoinAIAssistantResponse, ActionLeaveQueueParams, ActionLeaveQueueResponse, ActionPauseRecordingParams, ActionPauseRecordingResponse, ActionReferParams, ActionReferResponse, ActionRejectParams, ActionRejectResponse, ActionResumeRecordingParams, ActionResumeRecordingResponse, ActionSendDtmfParams, ActionSendDtmfResponse, ActionSendSipInfoParams, ActionSendSipInfoResponse, ActionSpeakParams, ActionSpeakResponse, ActionStartAIAssistantParams, ActionStartAIAssistantResponse, ActionStartForkingParams, ActionStartForkingResponse, ActionStartNoiseSuppressionParams, ActionStartNoiseSuppressionResponse, ActionStartPlaybackParams, ActionStartPlaybackResponse, ActionStartRecordingParams, ActionStartRecordingResponse, ActionStartSiprecParams, ActionStartSiprecResponse, ActionStartStreamingParams, ActionStartStreamingResponse, ActionStartTranscriptionParams, ActionStartTranscriptionResponse, ActionStopAIAssistantParams, ActionStopAIAssistantResponse, ActionStopForkingParams, ActionStopForkingResponse, ActionStopGatherParams, ActionStopGatherResponse, ActionStopNoiseSuppressionParams, ActionStopNoiseSuppressionResponse, ActionStopPlaybackParams, ActionStopPlaybackResponse, ActionStopRecordingParams, ActionStopRecordingResponse, ActionStopSiprecParams, ActionStopSiprecResponse, ActionStopStreamingParams, ActionStopStreamingResponse, ActionStopTranscriptionParams, ActionStopTranscriptionResponse, ActionSwitchSupervisorRoleParams, ActionSwitchSupervisorRoleResponse, ActionTransferParams, ActionTransferResponse, ActionUpdateClientStateParams, ActionUpdateClientStateResponse, Actions, AwsVoiceSettings, CallControlCommandResult, CallControlCommandResultWithConversationID, DeepgramNova2Config, DeepgramNova3Config, ElevenLabsVoiceSettings, GoogleTranscriptionLanguage, InterruptionSettings, Loopcount, StopRecordingRequest, TelnyxTranscriptionLanguage, TelnyxVoiceSettings, TranscriptionConfig, TranscriptionEngineAConfig, TranscriptionEngineAzureConfig, TranscriptionEngineBConfig, TranscriptionEngineDeepgramConfig, TranscriptionEngineGoogleConfig, TranscriptionEngineTelnyxConfig, TranscriptionStartRequest } from './actions';
+import {
+  ActionAddAIAssistantMessagesParams,
+  ActionAddAIAssistantMessagesResponse,
+  ActionAnswerParams,
+  ActionAnswerResponse,
+  ActionBridgeParams,
+  ActionBridgeResponse,
+  ActionEnqueueParams,
+  ActionEnqueueResponse,
+  ActionGatherParams,
+  ActionGatherResponse,
+  ActionGatherUsingAIParams,
+  ActionGatherUsingAIResponse,
+  ActionGatherUsingAudioParams,
+  ActionGatherUsingAudioResponse,
+  ActionGatherUsingSpeakParams,
+  ActionGatherUsingSpeakResponse,
+  ActionHangupParams,
+  ActionHangupResponse,
+  ActionJoinAIAssistantParams,
+  ActionJoinAIAssistantResponse,
+  ActionLeaveQueueParams,
+  ActionLeaveQueueResponse,
+  ActionPauseRecordingParams,
+  ActionPauseRecordingResponse,
+  ActionReferParams,
+  ActionReferResponse,
+  ActionRejectParams,
+  ActionRejectResponse,
+  ActionResumeRecordingParams,
+  ActionResumeRecordingResponse,
+  ActionSendDtmfParams,
+  ActionSendDtmfResponse,
+  ActionSendSipInfoParams,
+  ActionSendSipInfoResponse,
+  ActionSpeakParams,
+  ActionSpeakResponse,
+  ActionStartAIAssistantParams,
+  ActionStartAIAssistantResponse,
+  ActionStartForkingParams,
+  ActionStartForkingResponse,
+  ActionStartNoiseSuppressionParams,
+  ActionStartNoiseSuppressionResponse,
+  ActionStartPlaybackParams,
+  ActionStartPlaybackResponse,
+  ActionStartRecordingParams,
+  ActionStartRecordingResponse,
+  ActionStartSiprecParams,
+  ActionStartSiprecResponse,
+  ActionStartStreamingParams,
+  ActionStartStreamingResponse,
+  ActionStartTranscriptionParams,
+  ActionStartTranscriptionResponse,
+  ActionStopAIAssistantParams,
+  ActionStopAIAssistantResponse,
+  ActionStopForkingParams,
+  ActionStopForkingResponse,
+  ActionStopGatherParams,
+  ActionStopGatherResponse,
+  ActionStopNoiseSuppressionParams,
+  ActionStopNoiseSuppressionResponse,
+  ActionStopPlaybackParams,
+  ActionStopPlaybackResponse,
+  ActionStopRecordingParams,
+  ActionStopRecordingResponse,
+  ActionStopSiprecParams,
+  ActionStopSiprecResponse,
+  ActionStopStreamingParams,
+  ActionStopStreamingResponse,
+  ActionStopTranscriptionParams,
+  ActionStopTranscriptionResponse,
+  ActionSwitchSupervisorRoleParams,
+  ActionSwitchSupervisorRoleResponse,
+  ActionTransferParams,
+  ActionTransferResponse,
+  ActionUpdateClientStateParams,
+  ActionUpdateClientStateResponse,
+  Actions,
+  AwsVoiceSettings,
+  CallControlCommandResult,
+  CallControlCommandResultWithConversationID,
+  DeepgramNova2Config,
+  DeepgramNova3Config,
+  ElevenLabsVoiceSettings,
+  GoogleTranscriptionLanguage,
+  InterruptionSettings,
+  Loopcount,
+  StopRecordingRequest,
+  TelnyxTranscriptionLanguage,
+  TelnyxVoiceSettings,
+  TranscriptionConfig,
+  TranscriptionEngineAConfig,
+  TranscriptionEngineAzureConfig,
+  TranscriptionEngineBConfig,
+  TranscriptionEngineDeepgramConfig,
+  TranscriptionEngineGoogleConfig,
+  TranscriptionEngineTelnyxConfig,
+  TranscriptionStartRequest,
+} from './actions';
 import * as AssistantsAPI from '../ai/assistants/assistants';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -21,6 +119,7 @@ export class Calls extends APIResource {
    *
    * - `call.initiated`
    * - `call.answered` or `call.hangup`
+   * - `call.hold` and `call.unhold` if the call is held/unheld
    * - `call.machine.detection.ended` if `answering_machine_detection` was requested
    * - `call.machine.greeting.ended` if `answering_machine_detection` was requested
    *   to detect the end of machine greeting
@@ -28,6 +127,9 @@ export class Calls extends APIResource {
    *   `answering_machine_detection=premium` was requested
    * - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium`
    *   was requested and a beep was detected
+   * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
+   * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an
+   *   error occurred
    * - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url`
    *   was set
    *
@@ -148,7 +250,14 @@ export interface CallAssistantRequest {
    * Inline tool definitions available to the assistant (webhook, retrieval,
    * transfer, hangup, etc.). Overrides the assistant's stored tools if provided.
    */
-  tools?: Array<Shared.BookAppointmentTool | Shared.CheckAvailabilityTool | AssistantsAPI.WebhookTool | AssistantsAPI.HangupTool | AssistantsAPI.TransferTool | Shared.CallControlRetrievalTool>;
+  tools?: Array<
+    | Shared.BookAppointmentTool
+    | Shared.CheckAvailabilityTool
+    | AssistantsAPI.WebhookTool
+    | AssistantsAPI.HangupTool
+    | AssistantsAPI.TransferTool
+    | Shared.CallControlRetrievalTool
+  >;
 }
 
 export interface CustomSipHeader {
@@ -217,28 +326,28 @@ export interface SoundModifications {
  * Indicates codec for bidirectional streaming RTP payloads. Used only with
  * stream_bidirectional_mode=rtp. Case sensitive.
  */
-export type StreamBidirectionalCodec = 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16'
+export type StreamBidirectionalCodec = 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16';
 
 /**
  * Configures method of bidirectional streaming (mp3, rtp).
  */
-export type StreamBidirectionalMode = 'mp3' | 'rtp'
+export type StreamBidirectionalMode = 'mp3' | 'rtp';
 
 /**
  * Audio sampling rate.
  */
-export type StreamBidirectionalSamplingRate = 8000 | 16000 | 22050 | 24000 | 48000
+export type StreamBidirectionalSamplingRate = 8000 | 16000 | 22050 | 24000 | 48000;
 
 /**
  * Specifies which call legs should receive the bidirectional stream audio.
  */
-export type StreamBidirectionalTargetLegs = 'both' | 'self' | 'opposite'
+export type StreamBidirectionalTargetLegs = 'both' | 'self' | 'opposite';
 
 /**
  * Specifies the codec to be used for the streamed audio. When set to 'default' or
  * when transcoding is not possible, the codec from the call will be used.
  */
-export type StreamCodec = 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16' | 'default'
+export type StreamCodec = 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16' | 'default';
 
 export interface CallDialResponse {
   data?: CallDialResponse.Data;
@@ -392,11 +501,19 @@ export interface CallDialParams {
    * greeting ends with a beep or silence. If `detect_beep` is used, you will only
    * receive `call.machine.greeting.ended` if a beep is detected.
    */
-  answering_machine_detection?: 'premium' | 'detect' | 'detect_beep' | 'detect_words' | 'greeting_end' | 'disabled';
+  answering_machine_detection?:
+    | 'premium'
+    | 'detect'
+    | 'detect_beep'
+    | 'detect_words'
+    | 'greeting_end'
+    | 'disabled';
 
   /**
    * Optional configuration parameters to modify 'answering_machine_detection'
-   * performance.
+   * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
+   * parameters are applicable when `premium` is selected as
+   * answering_machine_detection.
    */
   answering_machine_detection_config?: CallDialParams.AnsweringMachineDetectionConfig;
 
@@ -454,6 +571,14 @@ export interface CallDialParams {
    * Custom headers to be added to the SIP INVITE.
    */
   custom_headers?: Array<CustomSipHeader>;
+
+  /**
+   * Enables deepfake detection on the call. When enabled, audio from the remote
+   * party is streamed to a detection service that analyzes whether the voice is
+   * AI-generated. Results are delivered via the `call.deepfake_detection.result`
+   * webhook.
+   */
+  deepfake_detection?: CallDialParams.DeepfakeDetection;
 
   dialogflow_config?: DialogflowConfig;
 
@@ -692,6 +817,13 @@ export interface CallDialParams {
   transcription_config?: ActionsAPI.TranscriptionStartRequest;
 
   /**
+   * A map of event types to retry policies. Each retry policy contains an array of
+   * `retries_ms` specifying the delays between retry attempts in milliseconds.
+   * Maximum 5 retries, total delay cannot exceed 60 seconds.
+   */
+  webhook_retries_policies?: { [key: string]: CallDialParams.WebhookRetriesPolicies };
+
+  /**
    * Use this field to override the URL for which Telnyx will send subsequent
    * webhooks to for this call.
    */
@@ -701,12 +833,27 @@ export interface CallDialParams {
    * HTTP request type used for `webhook_url`.
    */
   webhook_url_method?: 'POST' | 'GET';
+
+  /**
+   * A map of event types to webhook URLs. When an event of the specified type
+   * occurs, the webhook URL associated with that event type will be called instead
+   * of the default webhook URL. Events not mapped here will use the default webhook
+   * URL.
+   */
+  webhook_urls?: { [key: string]: string };
+
+  /**
+   * HTTP request method to invoke `webhook_urls`.
+   */
+  webhook_urls_method?: 'POST' | 'GET';
 }
 
 export namespace CallDialParams {
   /**
    * Optional configuration parameters to modify 'answering_machine_detection'
-   * performance.
+   * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
+   * parameters are applicable when `premium` is selected as
+   * answering_machine_detection.
    */
   export interface AnsweringMachineDetectionConfig {
     /**
@@ -863,6 +1010,38 @@ export namespace CallDialParams {
      */
     whisper_call_control_ids?: Array<string>;
   }
+
+  /**
+   * Enables deepfake detection on the call. When enabled, audio from the remote
+   * party is streamed to a detection service that analyzes whether the voice is
+   * AI-generated. Results are delivered via the `call.deepfake_detection.result`
+   * webhook.
+   */
+  export interface DeepfakeDetection {
+    /**
+     * Whether deepfake detection is enabled.
+     */
+    enabled: boolean;
+
+    /**
+     * Maximum time in seconds to wait for RTP audio before timing out. If no audio is
+     * received within this window, detection stops with an error.
+     */
+    rtp_timeout?: number;
+
+    /**
+     * Maximum time in seconds to wait for a detection result before timing out.
+     */
+    timeout?: number;
+  }
+
+  export interface WebhookRetriesPolicies {
+    /**
+     * Array of delays in milliseconds between retry attempts. Total sum cannot exceed
+     * 60000ms.
+     */
+    retries_ms?: Array<number>;
+  }
 }
 
 Calls.Actions = Actions;
@@ -881,7 +1060,7 @@ export declare namespace Calls {
     type StreamCodec as StreamCodec,
     type CallDialResponse as CallDialResponse,
     type CallRetrieveStatusResponse as CallRetrieveStatusResponse,
-    type CallDialParams as CallDialParams
+    type CallDialParams as CallDialParams,
   };
 
   export {
@@ -981,6 +1160,6 @@ export declare namespace Calls {
     type ActionStopTranscriptionParams as ActionStopTranscriptionParams,
     type ActionSwitchSupervisorRoleParams as ActionSwitchSupervisorRoleParams,
     type ActionTransferParams as ActionTransferParams,
-    type ActionUpdateClientStateParams as ActionUpdateClientStateParams
+    type ActionUpdateClientStateParams as ActionUpdateClientStateParams,
   };
 }

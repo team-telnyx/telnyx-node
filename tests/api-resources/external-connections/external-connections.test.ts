@@ -2,15 +2,18 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Telnyx({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource externalConnections', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.externalConnections.create({
-    external_sip_connection: 'zoom',
-    outbound: {},
-  });
+      external_sip_connection: 'zoom',
+      outbound: {},
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,15 +26,15 @@ describe('resource externalConnections', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.externalConnections.create({
-    external_sip_connection: 'zoom',
-    outbound: { channel_limit: 10, outbound_voice_profile_id: '1911630617284445511' },
-    active: false,
-    inbound: { outbound_voice_profile_id: '12345678-1234-1234-1234-123456789012', channel_limit: 10 },
-    tags: ['tag1', 'tag2'],
-    webhook_event_failover_url: 'https://failover.example.com',
-    webhook_event_url: 'https://example.com',
-    webhook_timeout_secs: 25,
-  });
+      external_sip_connection: 'zoom',
+      outbound: { channel_limit: 10, outbound_voice_profile_id: '1911630617284445511' },
+      active: false,
+      inbound: { outbound_voice_profile_id: '12345678-1234-1234-1234-123456789012', channel_limit: 10 },
+      tags: ['tag1', 'tag2'],
+      webhook_event_failover_url: 'https://failover.example.com',
+      webhook_event_url: 'https://example.com',
+      webhook_timeout_secs: 25,
+    });
   });
 
   // Mock server tests are disabled
@@ -48,7 +51,9 @@ describe('resource externalConnections', () => {
 
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.externalConnections.update('1293384261075731499', { outbound: { outbound_voice_profile_id: '1911630617284445511' } });
+    const responsePromise = client.externalConnections.update('1293384261075731499', {
+      outbound: { outbound_voice_profile_id: '1911630617284445511' },
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -61,14 +66,14 @@ describe('resource externalConnections', () => {
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.externalConnections.update('1293384261075731499', {
-    outbound: { outbound_voice_profile_id: '1911630617284445511', channel_limit: 10 },
-    active: false,
-    inbound: { channel_limit: 10 },
-    tags: ['tag1', 'tag2'],
-    webhook_event_failover_url: 'https://failover.example.com',
-    webhook_event_url: 'https://example.com',
-    webhook_timeout_secs: 25,
-  });
+      outbound: { outbound_voice_profile_id: '1911630617284445511', channel_limit: 10 },
+      active: false,
+      inbound: { channel_limit: 10 },
+      tags: ['tag1', 'tag2'],
+      webhook_event_failover_url: 'https://failover.example.com',
+      webhook_event_url: 'https://example.com',
+      webhook_timeout_secs: 25,
+    });
   });
 
   // Mock server tests are disabled
@@ -86,19 +91,22 @@ describe('resource externalConnections', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.externalConnections.list({
-    filter: {
-    id: '1930241863466354012',
-    connection_name: { contains: 'My Connection' },
-    created_at: '2022-12-31',
-    external_sip_connection: 'zoom',
-    phone_number: { contains: '+15555555555' },
-  },
-    'page[number]': 0,
-    'page[size]': 0,
-  }, { path: '/_stainless_unknown_path' }))
-      .rejects
-      .toThrow(Telnyx.NotFoundError);
+    await expect(
+      client.externalConnections.list(
+        {
+          filter: {
+            id: '1930241863466354012',
+            connection_name: { contains: 'My Connection' },
+            created_at: '2022-12-31',
+            external_sip_connection: 'zoom',
+            phone_number: { contains: '+15555555555' },
+          },
+          'page[number]': 0,
+          'page[size]': 0,
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -115,7 +123,13 @@ describe('resource externalConnections', () => {
 
   // Mock server tests are disabled
   test.skip('updateLocation: only required params', async () => {
-    const responsePromise = client.externalConnections.updateLocation('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', static_emergency_address_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });
+    const responsePromise = client.externalConnections.updateLocation(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      {
+        id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        static_emergency_address_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      },
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -127,6 +141,9 @@ describe('resource externalConnections', () => {
 
   // Mock server tests are disabled
   test.skip('updateLocation: required and optional params', async () => {
-    const response = await client.externalConnections.updateLocation('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', static_emergency_address_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });
+    const response = await client.externalConnections.updateLocation('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      static_emergency_address_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 });

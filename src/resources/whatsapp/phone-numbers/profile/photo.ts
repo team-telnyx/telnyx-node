@@ -39,7 +39,10 @@ export class Photo extends APIResource {
    * ```
    */
   delete(phoneNumber: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v2/whatsapp/phone_numbers/${phoneNumber}/profile/photo`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/v2/whatsapp/phone_numbers/${phoneNumber}/profile/photo`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -54,8 +57,15 @@ export class Photo extends APIResource {
    *   );
    * ```
    */
-  upload(phoneNumber: string, body: PhotoUploadParams, options?: RequestOptions): APIPromise<PhotoUploadResponse> {
-    return this._client.post(path`/v2/whatsapp/phone_numbers/${phoneNumber}/profile/photo`, multipartFormRequestOptions({ body, ...options }, this._client));
+  upload(
+    phoneNumber: string,
+    body: PhotoUploadParams,
+    options?: RequestOptions,
+  ): APIPromise<PhotoUploadResponse> {
+    return this._client.post(
+      path`/v2/whatsapp/phone_numbers/${phoneNumber}/profile/photo`,
+      multipartFormRequestOptions({ body, ...options }, this._client),
+    );
   }
 }
 
@@ -95,6 +105,6 @@ export declare namespace Photo {
   export {
     type PhotoRetrieveResponse as PhotoRetrieveResponse,
     type PhotoUploadResponse as PhotoUploadResponse,
-    type PhotoUploadParams as PhotoUploadParams
+    type PhotoUploadParams as PhotoUploadParams,
   };
 }

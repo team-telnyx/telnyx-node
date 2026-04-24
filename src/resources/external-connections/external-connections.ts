@@ -2,15 +2,61 @@
 
 import { APIResource } from '../../core/resource';
 import * as CivicAddressesAPI from './civic-addresses';
-import { CivicAddress, CivicAddressListParams, CivicAddressListResponse, CivicAddressRetrieveParams, CivicAddressRetrieveResponse, CivicAddresses, Location } from './civic-addresses';
+import {
+  CivicAddress,
+  CivicAddressListParams,
+  CivicAddressListResponse,
+  CivicAddressRetrieveParams,
+  CivicAddressRetrieveResponse,
+  CivicAddresses,
+  Location,
+} from './civic-addresses';
 import * as LogMessagesAPI from './log-messages';
-import { LogMessageDismissResponse, LogMessageListParams, LogMessageListResponse, LogMessageListResponsesDefaultPaginationForLogMessages, LogMessageRetrieveResponse, LogMessages } from './log-messages';
+import {
+  LogMessageDismissResponse,
+  LogMessageListParams,
+  LogMessageListResponse,
+  LogMessageListResponsesDefaultPaginationForLogMessages,
+  LogMessageRetrieveResponse,
+  LogMessages,
+} from './log-messages';
 import * as PhoneNumbersAPI from './phone-numbers';
-import { ExternalConnectionPhoneNumber, ExternalConnectionPhoneNumbersDefaultFlatPagination, PhoneNumberListParams, PhoneNumberRetrieveParams, PhoneNumberRetrieveResponse, PhoneNumberUpdateParams, PhoneNumberUpdateResponse, PhoneNumbers } from './phone-numbers';
+import {
+  ExternalConnectionPhoneNumber,
+  ExternalConnectionPhoneNumbersDefaultFlatPagination,
+  PhoneNumberListParams,
+  PhoneNumberRetrieveParams,
+  PhoneNumberRetrieveResponse,
+  PhoneNumberUpdateParams,
+  PhoneNumberUpdateResponse,
+  PhoneNumbers,
+} from './phone-numbers';
 import * as ReleasesAPI from './releases';
-import { ReleaseListParams, ReleaseListResponse, ReleaseListResponsesDefaultFlatPagination, ReleaseRetrieveParams, ReleaseRetrieveResponse, Releases, TnReleaseEntry } from './releases';
+import {
+  ReleaseListParams,
+  ReleaseListResponse,
+  ReleaseListResponsesDefaultFlatPagination,
+  ReleaseRetrieveParams,
+  ReleaseRetrieveResponse,
+  Releases,
+  TnReleaseEntry,
+} from './releases';
 import * as UploadsAPI from './uploads';
-import { TnUploadEntry, Upload, UploadCreateParams, UploadCreateResponse, UploadListParams, UploadPendingCountResponse, UploadRefreshStatusResponse, UploadRetrieveParams, UploadRetrieveResponse, UploadRetryParams, UploadRetryResponse, Uploads, UploadsDefaultFlatPagination } from './uploads';
+import {
+  TnUploadEntry,
+  Upload,
+  UploadCreateParams,
+  UploadCreateResponse,
+  UploadListParams,
+  UploadPendingCountResponse,
+  UploadRefreshStatusResponse,
+  UploadRetrieveParams,
+  UploadRetrieveResponse,
+  UploadRetryParams,
+  UploadRetryResponse,
+  Uploads,
+  UploadsDefaultFlatPagination,
+} from './uploads';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -41,7 +87,10 @@ export class ExternalConnections extends APIResource {
    *   });
    * ```
    */
-  create(body: ExternalConnectionCreateParams, options?: RequestOptions): APIPromise<ExternalConnectionCreateResponse> {
+  create(
+    body: ExternalConnectionCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<ExternalConnectionCreateResponse> {
     return this._client.post('/external_connections', { body, ...options });
   }
 
@@ -78,7 +127,11 @@ export class ExternalConnections extends APIResource {
    *   );
    * ```
    */
-  update(id: string, body: ExternalConnectionUpdateParams, options?: RequestOptions): APIPromise<ExternalConnectionUpdateResponse> {
+  update(
+    id: string,
+    body: ExternalConnectionUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<ExternalConnectionUpdateResponse> {
     return this._client.patch(path`/external_connections/${id}`, { body, ...options });
   }
 
@@ -96,8 +149,14 @@ export class ExternalConnections extends APIResource {
    * }
    * ```
    */
-  list(query: ExternalConnectionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ExternalConnectionsDefaultFlatPagination, ExternalConnection> {
-    return this._client.getAPIList('/external_connections', DefaultFlatPagination<ExternalConnection>, { query, ...options });
+  list(
+    query: ExternalConnectionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ExternalConnectionsDefaultFlatPagination, ExternalConnection> {
+    return this._client.getAPIList('/external_connections', DefaultFlatPagination<ExternalConnection>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -134,13 +193,20 @@ export class ExternalConnections extends APIResource {
    *   );
    * ```
    */
-  updateLocation(locationID: string, params: ExternalConnectionUpdateLocationParams, options?: RequestOptions): APIPromise<ExternalConnectionUpdateLocationResponse> {
-    const { id, ...body } = params
-    return this._client.patch(path`/external_connections/${id}/locations/${locationID}`, { body, ...options });
+  updateLocation(
+    locationID: string,
+    params: ExternalConnectionUpdateLocationParams,
+    options?: RequestOptions,
+  ): APIPromise<ExternalConnectionUpdateLocationResponse> {
+    const { id, ...body } = params;
+    return this._client.patch(path`/external_connections/${id}/locations/${locationID}`, {
+      body,
+      ...options,
+    });
   }
 }
 
-export type ExternalConnectionsDefaultFlatPagination = DefaultFlatPagination<ExternalConnection>
+export type ExternalConnectionsDefaultFlatPagination = DefaultFlatPagination<ExternalConnection>;
 
 export interface ExternalConnection {
   /**
@@ -491,7 +557,7 @@ export declare namespace ExternalConnections {
     type ExternalConnectionCreateParams as ExternalConnectionCreateParams,
     type ExternalConnectionUpdateParams as ExternalConnectionUpdateParams,
     type ExternalConnectionListParams as ExternalConnectionListParams,
-    type ExternalConnectionUpdateLocationParams as ExternalConnectionUpdateLocationParams
+    type ExternalConnectionUpdateLocationParams as ExternalConnectionUpdateLocationParams,
   };
 
   export {
@@ -500,7 +566,7 @@ export declare namespace ExternalConnections {
     type LogMessageListResponse as LogMessageListResponse,
     type LogMessageDismissResponse as LogMessageDismissResponse,
     type LogMessageListResponsesDefaultPaginationForLogMessages as LogMessageListResponsesDefaultPaginationForLogMessages,
-    type LogMessageListParams as LogMessageListParams
+    type LogMessageListParams as LogMessageListParams,
   };
 
   export {
@@ -510,7 +576,7 @@ export declare namespace ExternalConnections {
     type CivicAddressRetrieveResponse as CivicAddressRetrieveResponse,
     type CivicAddressListResponse as CivicAddressListResponse,
     type CivicAddressRetrieveParams as CivicAddressRetrieveParams,
-    type CivicAddressListParams as CivicAddressListParams
+    type CivicAddressListParams as CivicAddressListParams,
   };
 
   export {
@@ -521,7 +587,7 @@ export declare namespace ExternalConnections {
     type ExternalConnectionPhoneNumbersDefaultFlatPagination as ExternalConnectionPhoneNumbersDefaultFlatPagination,
     type PhoneNumberRetrieveParams as PhoneNumberRetrieveParams,
     type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
-    type PhoneNumberListParams as PhoneNumberListParams
+    type PhoneNumberListParams as PhoneNumberListParams,
   };
 
   export {
@@ -531,7 +597,7 @@ export declare namespace ExternalConnections {
     type ReleaseListResponse as ReleaseListResponse,
     type ReleaseListResponsesDefaultFlatPagination as ReleaseListResponsesDefaultFlatPagination,
     type ReleaseRetrieveParams as ReleaseRetrieveParams,
-    type ReleaseListParams as ReleaseListParams
+    type ReleaseListParams as ReleaseListParams,
   };
 
   export {
@@ -547,6 +613,6 @@ export declare namespace ExternalConnections {
     type UploadCreateParams as UploadCreateParams,
     type UploadRetrieveParams as UploadRetrieveParams,
     type UploadListParams as UploadListParams,
-    type UploadRetryParams as UploadRetryParams
+    type UploadRetryParams as UploadRetryParams,
   };
 }

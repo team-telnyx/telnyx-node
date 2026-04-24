@@ -65,6 +65,6 @@ export interface PortabilityCheckRunParams {
 export declare namespace PortabilityChecks {
   export {
     type PortabilityCheckRunResponse as PortabilityCheckRunResponse,
-    type PortabilityCheckRunParams as PortabilityCheckRunParams
+    type PortabilityCheckRunParams as PortabilityCheckRunParams,
   };
 }

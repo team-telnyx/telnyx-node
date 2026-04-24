@@ -23,7 +23,10 @@ export class NumberReservations extends APIResource {
    *   await client.numberReservations.create();
    * ```
    */
-  create(body: NumberReservationCreateParams, options?: RequestOptions): APIPromise<NumberReservationCreateResponse> {
+  create(
+    body: NumberReservationCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<NumberReservationCreateResponse> {
     return this._client.post('/number_reservations', { body, ...options });
   }
 
@@ -38,7 +41,10 @@ export class NumberReservations extends APIResource {
    *   );
    * ```
    */
-  retrieve(numberReservationID: string, options?: RequestOptions): APIPromise<NumberReservationRetrieveResponse> {
+  retrieve(
+    numberReservationID: string,
+    options?: RequestOptions,
+  ): APIPromise<NumberReservationRetrieveResponse> {
     return this._client.get(path`/number_reservations/${numberReservationID}`, options);
   }
 
@@ -53,12 +59,18 @@ export class NumberReservations extends APIResource {
    * }
    * ```
    */
-  list(query: NumberReservationListParams | null | undefined = {}, options?: RequestOptions): PagePromise<NumberReservationsDefaultFlatPagination, NumberReservation> {
-    return this._client.getAPIList('/number_reservations', DefaultFlatPagination<NumberReservation>, { query, ...options });
+  list(
+    query: NumberReservationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NumberReservationsDefaultFlatPagination, NumberReservation> {
+    return this._client.getAPIList('/number_reservations', DefaultFlatPagination<NumberReservation>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type NumberReservationsDefaultFlatPagination = DefaultFlatPagination<NumberReservation>
+export type NumberReservationsDefaultFlatPagination = DefaultFlatPagination<NumberReservation>;
 
 export interface NumberReservation {
   id?: string;
@@ -211,11 +223,8 @@ export declare namespace NumberReservations {
     type NumberReservationRetrieveResponse as NumberReservationRetrieveResponse,
     type NumberReservationsDefaultFlatPagination as NumberReservationsDefaultFlatPagination,
     type NumberReservationCreateParams as NumberReservationCreateParams,
-    type NumberReservationListParams as NumberReservationListParams
+    type NumberReservationListParams as NumberReservationListParams,
   };
 
-  export {
-    Actions as Actions,
-    type ActionExtendResponse as ActionExtendResponse
-  };
+  export { Actions as Actions, type ActionExtendResponse as ActionExtendResponse };
 }

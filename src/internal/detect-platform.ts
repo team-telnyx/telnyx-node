@@ -25,7 +25,11 @@ function getDetectedPlatform(): DetectedPlatform {
   if (typeof EdgeRuntime !== 'undefined') {
     return 'edge';
   }
-  if (Object.prototype.toString.call(typeof (globalThis as any).process !== 'undefined' ? (globalThis as any).process : 0) === '[object process]') {
+  if (
+    Object.prototype.toString.call(
+      typeof (globalThis as any).process !== 'undefined' ? (globalThis as any).process : 0,
+    ) === '[object process]'
+  ) {
     return 'node';
   }
   return 'unknown';
@@ -63,7 +67,7 @@ const getPlatformProperties = (): PlatformProperties => {
       'X-Stainless-Arch': normalizeArch(Deno.build.arch),
       'X-Stainless-Runtime': 'deno',
       'X-Stainless-Runtime-Version':
-        typeof Deno.version === 'string' ? Deno.version : Deno.version?.deno ?? 'unknown',
+        typeof Deno.version === 'string' ? Deno.version : (Deno.version?.deno ?? 'unknown'),
     };
   }
   if (typeof EdgeRuntime !== 'undefined') {

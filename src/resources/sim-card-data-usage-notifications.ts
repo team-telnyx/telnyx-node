@@ -22,7 +22,10 @@ export class SimCardDataUsageNotifications extends APIResource {
    *   });
    * ```
    */
-  create(body: SimCardDataUsageNotificationCreateParams, options?: RequestOptions): APIPromise<SimCardDataUsageNotificationCreateResponse> {
+  create(
+    body: SimCardDataUsageNotificationCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<SimCardDataUsageNotificationCreateResponse> {
     return this._client.post('/sim_card_data_usage_notifications', { body, ...options });
   }
 
@@ -52,8 +55,15 @@ export class SimCardDataUsageNotifications extends APIResource {
    *   );
    * ```
    */
-  update(simCardDataUsageNotificationID: string, body: SimCardDataUsageNotificationUpdateParams, options?: RequestOptions): APIPromise<SimCardDataUsageNotificationUpdateResponse> {
-    return this._client.patch(path`/sim_card_data_usage_notifications/${simCardDataUsageNotificationID}`, { body, ...options });
+  update(
+    simCardDataUsageNotificationID: string,
+    body: SimCardDataUsageNotificationUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<SimCardDataUsageNotificationUpdateResponse> {
+    return this._client.patch(path`/sim_card_data_usage_notifications/${simCardDataUsageNotificationID}`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -68,8 +78,15 @@ export class SimCardDataUsageNotifications extends APIResource {
    * }
    * ```
    */
-  list(query: SimCardDataUsageNotificationListParams | null | undefined = {}, options?: RequestOptions): PagePromise<SimCardDataUsageNotificationsDefaultFlatPagination, SimCardDataUsageNotification> {
-    return this._client.getAPIList('/sim_card_data_usage_notifications', DefaultFlatPagination<SimCardDataUsageNotification>, { query, ...options });
+  list(
+    query: SimCardDataUsageNotificationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<SimCardDataUsageNotificationsDefaultFlatPagination, SimCardDataUsageNotification> {
+    return this._client.getAPIList(
+      '/sim_card_data_usage_notifications',
+      DefaultFlatPagination<SimCardDataUsageNotification>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -88,7 +105,8 @@ export class SimCardDataUsageNotifications extends APIResource {
   }
 }
 
-export type SimCardDataUsageNotificationsDefaultFlatPagination = DefaultFlatPagination<SimCardDataUsageNotification>
+export type SimCardDataUsageNotificationsDefaultFlatPagination =
+  DefaultFlatPagination<SimCardDataUsageNotification>;
 
 /**
  * The SIM card individual data usage notification information.
@@ -224,6 +242,6 @@ export declare namespace SimCardDataUsageNotifications {
     type SimCardDataUsageNotificationsDefaultFlatPagination as SimCardDataUsageNotificationsDefaultFlatPagination,
     type SimCardDataUsageNotificationCreateParams as SimCardDataUsageNotificationCreateParams,
     type SimCardDataUsageNotificationUpdateParams as SimCardDataUsageNotificationUpdateParams,
-    type SimCardDataUsageNotificationListParams as SimCardDataUsageNotificationListParams
+    type SimCardDataUsageNotificationListParams as SimCardDataUsageNotificationListParams,
   };
 }

@@ -10,19 +10,29 @@ export class Invoices extends APIResource {
   /**
    * Retrieve a single invoice by its unique identifier.
    */
-  retrieve(id: string, query: InvoiceRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<InvoiceRetrieveResponse> {
+  retrieve(
+    id: string,
+    query: InvoiceRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<InvoiceRetrieveResponse> {
     return this._client.get(path`/invoices/${id}`, { query, ...options });
   }
 
   /**
    * Retrieve a paginated list of invoices.
    */
-  list(query: InvoiceListParams | null | undefined = {}, options?: RequestOptions): PagePromise<InvoiceListResponsesDefaultFlatPagination, InvoiceListResponse> {
-    return this._client.getAPIList('/invoices', DefaultFlatPagination<InvoiceListResponse>, { query, ...options });
+  list(
+    query: InvoiceListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<InvoiceListResponsesDefaultFlatPagination, InvoiceListResponse> {
+    return this._client.getAPIList('/invoices', DefaultFlatPagination<InvoiceListResponse>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type InvoiceListResponsesDefaultFlatPagination = DefaultFlatPagination<InvoiceListResponse>
+export type InvoiceListResponsesDefaultFlatPagination = DefaultFlatPagination<InvoiceListResponse>;
 
 export interface InvoiceRetrieveResponse {
   data?: InvoiceRetrieveResponse.Data;
@@ -83,6 +93,6 @@ export declare namespace Invoices {
     type InvoiceListResponse as InvoiceListResponse,
     type InvoiceListResponsesDefaultFlatPagination as InvoiceListResponsesDefaultFlatPagination,
     type InvoiceRetrieveParams as InvoiceRetrieveParams,
-    type InvoiceListParams as InvoiceListParams
+    type InvoiceListParams as InvoiceListParams,
   };
 }

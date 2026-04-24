@@ -31,7 +31,11 @@ export class MessagingHostedNumbers extends APIResource {
    *   await client.messagingHostedNumbers.update('id');
    * ```
    */
-  update(id: string, body: MessagingHostedNumberUpdateParams, options?: RequestOptions): APIPromise<MessagingHostedNumberUpdateResponse> {
+  update(
+    id: string,
+    body: MessagingHostedNumberUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<MessagingHostedNumberUpdateResponse> {
     return this._client.patch(path`/messaging_hosted_numbers/${id}`, { body, ...options });
   }
 
@@ -46,8 +50,18 @@ export class MessagingHostedNumbers extends APIResource {
    * }
    * ```
    */
-  list(query: MessagingHostedNumberListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PhoneNumberWithMessagingSettingsDefaultFlatPagination, Shared.PhoneNumberWithMessagingSettings> {
-    return this._client.getAPIList('/messaging_hosted_numbers', DefaultFlatPagination<Shared.PhoneNumberWithMessagingSettings>, { query, ...options });
+  list(
+    query: MessagingHostedNumberListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<
+    PhoneNumberWithMessagingSettingsDefaultFlatPagination,
+    Shared.PhoneNumberWithMessagingSettings
+  > {
+    return this._client.getAPIList(
+      '/messaging_hosted_numbers',
+      DefaultFlatPagination<Shared.PhoneNumberWithMessagingSettings>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -129,8 +143,8 @@ export declare namespace MessagingHostedNumbers {
     type MessagingHostedNumberUpdateResponse as MessagingHostedNumberUpdateResponse,
     type MessagingHostedNumberDeleteResponse as MessagingHostedNumberDeleteResponse,
     type MessagingHostedNumberUpdateParams as MessagingHostedNumberUpdateParams,
-    type MessagingHostedNumberListParams as MessagingHostedNumberListParams
+    type MessagingHostedNumberListParams as MessagingHostedNumberListParams,
   };
 }
 
-export { type PhoneNumberWithMessagingSettingsDefaultFlatPagination }
+export { type PhoneNumberWithMessagingSettingsDefaultFlatPagination };

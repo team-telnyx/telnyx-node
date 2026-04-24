@@ -35,7 +35,11 @@ export class Documents extends APIResource {
    * );
    * ```
    */
-  update(documentID: string, body: DocumentUpdateParams, options?: RequestOptions): APIPromise<DocumentUpdateResponse> {
+  update(
+    documentID: string,
+    body: DocumentUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<DocumentUpdateResponse> {
     return this._client.patch(path`/documents/${documentID}`, { body, ...options });
   }
 
@@ -50,8 +54,14 @@ export class Documents extends APIResource {
    * }
    * ```
    */
-  list(query: DocumentListParams | null | undefined = {}, options?: RequestOptions): PagePromise<DocServiceDocumentsDefaultFlatPagination, DocServiceDocument> {
-    return this._client.getAPIList('/documents', DefaultFlatPagination<DocServiceDocument>, { query, ...options });
+  list(
+    query: DocumentListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DocServiceDocumentsDefaultFlatPagination, DocServiceDocument> {
+    return this._client.getAPIList('/documents', DefaultFlatPagination<DocServiceDocument>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -84,7 +94,11 @@ export class Documents extends APIResource {
    * ```
    */
   download(id: string, options?: RequestOptions): APIPromise<Response> {
-    return this._client.get(path`/documents/${id}/download`, { ...options, headers: buildHeaders([{Accept: 'application/octet-stream'}, options?.headers]), __binaryResponse: true });
+    return this._client.get(path`/documents/${id}/download`, {
+      ...options,
+      headers: buildHeaders([{ Accept: 'application/octet-stream' }, options?.headers]),
+      __binaryResponse: true,
+    });
   }
 
   /**
@@ -99,7 +113,10 @@ export class Documents extends APIResource {
    *   );
    * ```
    */
-  generateDownloadLink(id: string, options?: RequestOptions): APIPromise<DocumentGenerateDownloadLinkResponse> {
+  generateDownloadLink(
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<DocumentGenerateDownloadLinkResponse> {
     return this._client.get(path`/documents/${id}/download_link`, options);
   }
 
@@ -115,7 +132,7 @@ export class Documents extends APIResource {
    * ```
    */
   upload(params: DocumentUploadParams, options?: RequestOptions): APIPromise<DocumentUploadResponse> {
-    const { document } = params
+    const { document } = params;
     return this._client.post('/documents?content-type=multipart', { body: document, ...options });
   }
 
@@ -130,13 +147,16 @@ export class Documents extends APIResource {
    * });
    * ```
    */
-  uploadJson(params: DocumentUploadJsonParams, options?: RequestOptions): APIPromise<DocumentUploadJsonResponse> {
-    const { document } = params
+  uploadJson(
+    params: DocumentUploadJsonParams,
+    options?: RequestOptions,
+  ): APIPromise<DocumentUploadJsonResponse> {
+    const { document } = params;
     return this._client.post('/documents', { body: document, ...options });
   }
 }
 
-export type DocServiceDocumentsDefaultFlatPagination = DefaultFlatPagination<DocServiceDocument>
+export type DocServiceDocumentsDefaultFlatPagination = DefaultFlatPagination<DocServiceDocument>;
 
 export interface DocServiceDocument {
   /**
@@ -392,6 +412,6 @@ export declare namespace Documents {
     type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentListParams as DocumentListParams,
     type DocumentUploadParams as DocumentUploadParams,
-    type DocumentUploadJsonParams as DocumentUploadJsonParams
+    type DocumentUploadJsonParams as DocumentUploadJsonParams,
   };
 }

@@ -2,16 +2,19 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Telnyx({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource wirelessBlocklists', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.wirelessBlocklists.create({
-    name: 'My Wireless Blocklist',
-    type: 'country',
-    values: ['CA', 'US'],
-  });
+      name: 'My Wireless Blocklist',
+      type: 'country',
+      values: ['CA', 'US'],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -24,10 +27,10 @@ describe('resource wirelessBlocklists', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.wirelessBlocklists.create({
-    name: 'My Wireless Blocklist',
-    type: 'country',
-    values: ['CA', 'US'],
-  });
+      name: 'My Wireless Blocklist',
+      type: 'country',
+      values: ['CA', 'US'],
+    });
   });
 
   // Mock server tests are disabled
@@ -69,15 +72,18 @@ describe('resource wirelessBlocklists', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.wirelessBlocklists.list({
-    'filter[name]': 'filter[name]',
-    'filter[type]': 'filter[type]',
-    'filter[values]': 'filter[values]',
-    'page[number]': 1,
-    'page[size]': 1,
-  }, { path: '/_stainless_unknown_path' }))
-      .rejects
-      .toThrow(Telnyx.NotFoundError);
+    await expect(
+      client.wirelessBlocklists.list(
+        {
+          'filter[name]': 'filter[name]',
+          'filter[type]': 'filter[type]',
+          'filter[values]': 'filter[values]',
+          'page[number]': 1,
+          'page[size]': 1,
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled

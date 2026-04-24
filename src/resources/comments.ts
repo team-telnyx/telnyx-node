@@ -43,7 +43,10 @@ export class Comments extends APIResource {
    * const comments = await client.comments.list();
    * ```
    */
-  list(query: CommentListParams | null | undefined = {}, options?: RequestOptions): APIPromise<CommentListResponse> {
+  list(
+    query: CommentListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<CommentListResponse> {
     return this._client.get('/comments', { query, ...options });
   }
 
@@ -94,8 +97,7 @@ export interface CommentCreateResponse {
 }
 
 export namespace CommentCreateResponse {
-  export interface Data extends CommentsAPI.Comment {
-  }
+  export interface Data extends CommentsAPI.Comment {}
 }
 
 export interface CommentRetrieveResponse {
@@ -103,8 +105,7 @@ export interface CommentRetrieveResponse {
 }
 
 export namespace CommentRetrieveResponse {
-  export interface Data extends CommentsAPI.Comment {
-  }
+  export interface Data extends CommentsAPI.Comment {}
 }
 
 export interface CommentListResponse {
@@ -118,8 +119,7 @@ export interface CommentMarkAsReadResponse {
 }
 
 export namespace CommentMarkAsReadResponse {
-  export interface Data extends CommentsAPI.Comment {
-  }
+  export interface Data extends CommentsAPI.Comment {}
 }
 
 export interface CommentCreateParams {
@@ -164,6 +164,6 @@ export declare namespace Comments {
     type CommentListResponse as CommentListResponse,
     type CommentMarkAsReadResponse as CommentMarkAsReadResponse,
     type CommentCreateParams as CommentCreateParams,
-    type CommentListParams as CommentListParams
+    type CommentListParams as CommentListParams,
   };
 }

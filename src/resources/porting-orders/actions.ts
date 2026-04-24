@@ -170,6 +170,6 @@ export declare namespace Actions {
     type ActionCancelResponse as ActionCancelResponse,
     type ActionConfirmResponse as ActionConfirmResponse,
     type ActionShareResponse as ActionShareResponse,
-    type ActionShareParams as ActionShareParams
+    type ActionShareParams as ActionShareParams,
   };
 }

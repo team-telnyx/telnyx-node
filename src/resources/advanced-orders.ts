@@ -55,8 +55,15 @@ export class AdvancedOrders extends APIResource {
    *   );
    * ```
    */
-  updateRequirementGroup(advancedOrderID: string, body: AdvancedOrderUpdateRequirementGroupParams, options?: RequestOptions): APIPromise<AdvancedOrderUpdateRequirementGroupResponse> {
-    return this._client.patch(path`/advanced_orders/${advancedOrderID}/requirement_group`, { body, ...options });
+  updateRequirementGroup(
+    advancedOrderID: string,
+    body: AdvancedOrderUpdateRequirementGroupParams,
+    options?: RequestOptions,
+  ): APIPromise<AdvancedOrderUpdateRequirementGroupResponse> {
+    return this._client.patch(path`/advanced_orders/${advancedOrderID}/requirement_group`, {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -245,6 +252,6 @@ export declare namespace AdvancedOrders {
     type AdvancedOrderListResponse as AdvancedOrderListResponse,
     type AdvancedOrderUpdateRequirementGroupResponse as AdvancedOrderUpdateRequirementGroupResponse,
     type AdvancedOrderCreateParams as AdvancedOrderCreateParams,
-    type AdvancedOrderUpdateRequirementGroupParams as AdvancedOrderUpdateRequirementGroupParams
+    type AdvancedOrderUpdateRequirementGroupParams as AdvancedOrderUpdateRequirementGroupParams,
   };
 }

@@ -33,7 +33,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  kick(roomSessionID: string, body: ActionKickParams, options?: RequestOptions): APIPromise<ActionKickResponse> {
+  kick(
+    roomSessionID: string,
+    body: ActionKickParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionKickResponse> {
     return this._client.post(path`/room_sessions/${roomSessionID}/actions/kick`, { body, ...options });
   }
 
@@ -47,7 +51,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  mute(roomSessionID: string, body: ActionMuteParams, options?: RequestOptions): APIPromise<ActionMuteResponse> {
+  mute(
+    roomSessionID: string,
+    body: ActionMuteParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionMuteResponse> {
     return this._client.post(path`/room_sessions/${roomSessionID}/actions/mute`, { body, ...options });
   }
 
@@ -61,7 +69,11 @@ export class Actions extends APIResource {
    * );
    * ```
    */
-  unmute(roomSessionID: string, body: ActionUnmuteParams, options?: RequestOptions): APIPromise<ActionUnmuteResponse> {
+  unmute(
+    roomSessionID: string,
+    body: ActionUnmuteParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionUnmuteResponse> {
     return this._client.post(path`/room_sessions/${roomSessionID}/actions/unmute`, { body, ...options });
   }
 }
@@ -167,6 +179,6 @@ export declare namespace Actions {
     type ActionUnmuteResponse as ActionUnmuteResponse,
     type ActionKickParams as ActionKickParams,
     type ActionMuteParams as ActionMuteParams,
-    type ActionUnmuteParams as ActionUnmuteParams
+    type ActionUnmuteParams as ActionUnmuteParams,
   };
 }

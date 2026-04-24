@@ -19,7 +19,10 @@ export class NotificationChannels extends APIResource {
    *   await client.notificationChannels.create();
    * ```
    */
-  create(body: NotificationChannelCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<NotificationChannelCreateResponse> {
+  create(
+    body: NotificationChannelCreateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<NotificationChannelCreateResponse> {
     return this._client.post('/notification_channels', { body, ...options });
   }
 
@@ -49,7 +52,11 @@ export class NotificationChannels extends APIResource {
    *   );
    * ```
    */
-  update(notificationChannelID: string, body: NotificationChannelUpdateParams, options?: RequestOptions): APIPromise<NotificationChannelUpdateResponse> {
+  update(
+    notificationChannelID: string,
+    body: NotificationChannelUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<NotificationChannelUpdateResponse> {
     return this._client.patch(path`/notification_channels/${notificationChannelID}`, { body, ...options });
   }
 
@@ -64,8 +71,14 @@ export class NotificationChannels extends APIResource {
    * }
    * ```
    */
-  list(query: NotificationChannelListParams | null | undefined = {}, options?: RequestOptions): PagePromise<NotificationChannelsDefaultFlatPagination, NotificationChannel> {
-    return this._client.getAPIList('/notification_channels', DefaultFlatPagination<NotificationChannel>, { query, ...options });
+  list(
+    query: NotificationChannelListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NotificationChannelsDefaultFlatPagination, NotificationChannel> {
+    return this._client.getAPIList('/notification_channels', DefaultFlatPagination<NotificationChannel>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -84,7 +97,7 @@ export class NotificationChannels extends APIResource {
   }
 }
 
-export type NotificationChannelsDefaultFlatPagination = DefaultFlatPagination<NotificationChannel>
+export type NotificationChannelsDefaultFlatPagination = DefaultFlatPagination<NotificationChannel>;
 
 /**
  * A Notification Channel
@@ -254,7 +267,15 @@ export namespace NotificationChannelListParams {
       /**
        * The status of a notification setting
        */
-      eq?: 'enabled' | 'enable-received' | 'enable-pending' | 'enable-submtited' | 'delete-received' | 'delete-pending' | 'delete-submitted' | 'deleted';
+      eq?:
+        | 'enabled'
+        | 'enable-received'
+        | 'enable-pending'
+        | 'enable-submtited'
+        | 'delete-received'
+        | 'delete-pending'
+        | 'delete-submitted'
+        | 'deleted';
     }
   }
 }
@@ -269,6 +290,6 @@ export declare namespace NotificationChannels {
     type NotificationChannelsDefaultFlatPagination as NotificationChannelsDefaultFlatPagination,
     type NotificationChannelCreateParams as NotificationChannelCreateParams,
     type NotificationChannelUpdateParams as NotificationChannelUpdateParams,
-    type NotificationChannelListParams as NotificationChannelListParams
+    type NotificationChannelListParams as NotificationChannelListParams,
   };
 }

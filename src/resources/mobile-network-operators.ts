@@ -15,12 +15,20 @@ export class MobileNetworkOperators extends APIResource {
    * for it. Still, it's available so it can be used as a support resource that can
    * be related to other resources or become a configuration option.
    */
-  list(query: MobileNetworkOperatorListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MobileNetworkOperatorListResponsesDefaultFlatPagination, MobileNetworkOperatorListResponse> {
-    return this._client.getAPIList('/mobile_network_operators', DefaultFlatPagination<MobileNetworkOperatorListResponse>, { query, ...options });
+  list(
+    query: MobileNetworkOperatorListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MobileNetworkOperatorListResponsesDefaultFlatPagination, MobileNetworkOperatorListResponse> {
+    return this._client.getAPIList(
+      '/mobile_network_operators',
+      DefaultFlatPagination<MobileNetworkOperatorListResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export type MobileNetworkOperatorListResponsesDefaultFlatPagination = DefaultFlatPagination<MobileNetworkOperatorListResponse>
+export type MobileNetworkOperatorListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<MobileNetworkOperatorListResponse>;
 
 export interface MobileNetworkOperatorListResponse {
   /**
@@ -148,6 +156,6 @@ export declare namespace MobileNetworkOperators {
   export {
     type MobileNetworkOperatorListResponse as MobileNetworkOperatorListResponse,
     type MobileNetworkOperatorListResponsesDefaultFlatPagination as MobileNetworkOperatorListResponsesDefaultFlatPagination,
-    type MobileNetworkOperatorListParams as MobileNetworkOperatorListParams
+    type MobileNetworkOperatorListParams as MobileNetworkOperatorListParams,
   };
 }

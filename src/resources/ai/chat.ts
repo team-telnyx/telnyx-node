@@ -27,7 +27,10 @@ export class Chat extends APIResource {
    * });
    * ```
    */
-  createCompletion(body: ChatCreateCompletionParams, options?: RequestOptions): APIPromise<ChatCreateCompletionResponse> {
+  createCompletion(
+    body: ChatCreateCompletionParams,
+    options?: RequestOptions,
+  ): APIPromise<ChatCreateCompletionResponse> {
     return this._client.post('/ai/chat/completions', { body, ...options });
   }
 }
@@ -46,7 +49,7 @@ export interface BucketIDs {
   max_num_results?: number;
 }
 
-export type ChatCreateCompletionResponse = { [key: string]: unknown }
+export type ChatCreateCompletionResponse = { [key: string]: unknown };
 
 export interface ChatCreateCompletionParams {
   /**
@@ -244,6 +247,6 @@ export declare namespace Chat {
   export {
     type BucketIDs as BucketIDs,
     type ChatCreateCompletionResponse as ChatCreateCompletionResponse,
-    type ChatCreateCompletionParams as ChatCreateCompletionParams
+    type ChatCreateCompletionParams as ChatCreateCompletionParams,
   };
 }

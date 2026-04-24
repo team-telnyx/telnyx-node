@@ -19,7 +19,10 @@ export class NotificationSettings extends APIResource {
    *   await client.notificationSettings.create();
    * ```
    */
-  create(body: NotificationSettingCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<NotificationSettingCreateResponse> {
+  create(
+    body: NotificationSettingCreateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<NotificationSettingCreateResponse> {
     return this._client.post('/notification_settings', { body, ...options });
   }
 
@@ -49,8 +52,14 @@ export class NotificationSettings extends APIResource {
    * }
    * ```
    */
-  list(query: NotificationSettingListParams | null | undefined = {}, options?: RequestOptions): PagePromise<NotificationSettingsDefaultFlatPagination, NotificationSetting> {
-    return this._client.getAPIList('/notification_settings', DefaultFlatPagination<NotificationSetting>, { query, ...options });
+  list(
+    query: NotificationSettingListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NotificationSettingsDefaultFlatPagination, NotificationSetting> {
+    return this._client.getAPIList('/notification_settings', DefaultFlatPagination<NotificationSetting>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -69,7 +78,7 @@ export class NotificationSettings extends APIResource {
   }
 }
 
-export type NotificationSettingsDefaultFlatPagination = DefaultFlatPagination<NotificationSetting>
+export type NotificationSettingsDefaultFlatPagination = DefaultFlatPagination<NotificationSetting>;
 
 export interface NotificationSetting {
   /**
@@ -106,7 +115,15 @@ export interface NotificationSetting {
   /**
    * Most preferences apply immediately; however, other may needs to propagate.
    */
-  status?: 'enabled' | 'enable-received' | 'enable-pending' | 'enable-submtited' | 'delete-received' | 'delete-pending' | 'delete-submitted' | 'deleted';
+  status?:
+    | 'enabled'
+    | 'enable-received'
+    | 'enable-pending'
+    | 'enable-submtited'
+    | 'delete-received'
+    | 'delete-pending'
+    | 'delete-submitted'
+    | 'deleted';
 
   /**
    * ISO 8601 formatted date indicating when the resource was updated.
@@ -232,7 +249,15 @@ export namespace NotificationSettingListParams {
       /**
        * The status of a notification setting
        */
-      eq?: 'enabled' | 'enable-received' | 'enable-pending' | 'enable-submtited' | 'delete-received' | 'delete-pending' | 'delete-submitted' | 'deleted';
+      eq?:
+        | 'enabled'
+        | 'enable-received'
+        | 'enable-pending'
+        | 'enable-submtited'
+        | 'delete-received'
+        | 'delete-pending'
+        | 'delete-submitted'
+        | 'deleted';
     }
   }
 }
@@ -245,6 +270,6 @@ export declare namespace NotificationSettings {
     type NotificationSettingDeleteResponse as NotificationSettingDeleteResponse,
     type NotificationSettingsDefaultFlatPagination as NotificationSettingsDefaultFlatPagination,
     type NotificationSettingCreateParams as NotificationSettingCreateParams,
-    type NotificationSettingListParams as NotificationSettingListParams
+    type NotificationSettingListParams as NotificationSettingListParams,
   };
 }

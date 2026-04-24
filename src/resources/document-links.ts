@@ -11,12 +11,18 @@ export class DocumentLinks extends APIResource {
   /**
    * List all documents links ordered by created_at descending.
    */
-  list(query: DocumentLinkListParams | null | undefined = {}, options?: RequestOptions): PagePromise<DocumentLinkListResponsesDefaultFlatPagination, DocumentLinkListResponse> {
-    return this._client.getAPIList('/document_links', DefaultFlatPagination<DocumentLinkListResponse>, { query, ...options });
+  list(
+    query: DocumentLinkListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DocumentLinkListResponsesDefaultFlatPagination, DocumentLinkListResponse> {
+    return this._client.getAPIList('/document_links', DefaultFlatPagination<DocumentLinkListResponse>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type DocumentLinkListResponsesDefaultFlatPagination = DefaultFlatPagination<DocumentLinkListResponse>
+export type DocumentLinkListResponsesDefaultFlatPagination = DefaultFlatPagination<DocumentLinkListResponse>;
 
 export interface DocumentLinkListResponse {
   /**
@@ -85,6 +91,6 @@ export declare namespace DocumentLinks {
   export {
     type DocumentLinkListResponse as DocumentLinkListResponse,
     type DocumentLinkListResponsesDefaultFlatPagination as DocumentLinkListResponsesDefaultFlatPagination,
-    type DocumentLinkListParams as DocumentLinkListParams
+    type DocumentLinkListParams as DocumentLinkListParams,
   };
 }

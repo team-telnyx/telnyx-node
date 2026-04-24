@@ -17,9 +17,7 @@
     "entry_point": "index.js",
     "mcp_config": {
       "command": "node",
-      "args": [
-        "${__dirname}/index.js"
-      ],
+      "args": ["${__dirname}/index.js"],
       "env": {
         "TELNYX_API_KEY": "${user_config.TELNYX_API_KEY}",
         "TELNYX_PUBLIC_KEY": "${user_config.TELNYX_PUBLIC_KEY}",
@@ -61,7 +59,5 @@
       "node": ">=18.0.0"
     }
   },
-  "keywords": [
-    "api"
-  ]
+  "keywords": ["api"]
 }

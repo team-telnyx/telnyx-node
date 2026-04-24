@@ -29,7 +29,5 @@ export interface ActionStopResponse {
 }
 
 export declare namespace Actions {
-  export {
-    type ActionStopResponse as ActionStopResponse
-  };
+  export { type ActionStopResponse as ActionStopResponse };
 }

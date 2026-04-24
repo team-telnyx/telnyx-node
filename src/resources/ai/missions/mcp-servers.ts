@@ -33,9 +33,16 @@ export class McpServers extends APIResource {
    * );
    * ```
    */
-  deleteMcpServer(mcpServerID: string, params: McpServerDeleteMcpServerParams, options?: RequestOptions): APIPromise<void> {
-    const { mission_id } = params
-    return this._client.delete(path`/ai/missions/${mission_id}/mcp-servers/${mcpServerID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+  deleteMcpServer(
+    mcpServerID: string,
+    params: McpServerDeleteMcpServerParams,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const { mission_id } = params;
+    return this._client.delete(path`/ai/missions/${mission_id}/mcp-servers/${mcpServerID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -50,8 +57,12 @@ export class McpServers extends APIResource {
    *   );
    * ```
    */
-  getMcpServer(mcpServerID: string, params: McpServerGetMcpServerParams, options?: RequestOptions): APIPromise<unknown> {
-    const { mission_id } = params
+  getMcpServer(
+    mcpServerID: string,
+    params: McpServerGetMcpServerParams,
+    options?: RequestOptions,
+  ): APIPromise<unknown> {
+    const { mission_id } = params;
     return this._client.get(path`/ai/missions/${mission_id}/mcp-servers/${mcpServerID}`, options);
   }
 
@@ -82,19 +93,23 @@ export class McpServers extends APIResource {
    *   );
    * ```
    */
-  updateMcpServer(mcpServerID: string, params: McpServerUpdateMcpServerParams, options?: RequestOptions): APIPromise<unknown> {
-    const { mission_id } = params
+  updateMcpServer(
+    mcpServerID: string,
+    params: McpServerUpdateMcpServerParams,
+    options?: RequestOptions,
+  ): APIPromise<unknown> {
+    const { mission_id } = params;
     return this._client.put(path`/ai/missions/${mission_id}/mcp-servers/${mcpServerID}`, options);
   }
 }
 
-export type McpServerCreateMcpServerResponse = unknown
+export type McpServerCreateMcpServerResponse = unknown;
 
-export type McpServerGetMcpServerResponse = unknown
+export type McpServerGetMcpServerResponse = unknown;
 
-export type McpServerListMcpServersResponse = unknown
+export type McpServerListMcpServersResponse = unknown;
 
-export type McpServerUpdateMcpServerResponse = unknown
+export type McpServerUpdateMcpServerResponse = unknown;
 
 export interface McpServerDeleteMcpServerParams {
   mission_id: string;
@@ -116,6 +131,6 @@ export declare namespace McpServers {
     type McpServerUpdateMcpServerResponse as McpServerUpdateMcpServerResponse,
     type McpServerDeleteMcpServerParams as McpServerDeleteMcpServerParams,
     type McpServerGetMcpServerParams as McpServerGetMcpServerParams,
-    type McpServerUpdateMcpServerParams as McpServerUpdateMcpServerParams
+    type McpServerUpdateMcpServerParams as McpServerUpdateMcpServerParams,
   };
 }

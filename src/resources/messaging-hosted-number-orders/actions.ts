@@ -23,8 +23,15 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  uploadFile(id: string, body: ActionUploadFileParams | null | undefined = {}, options?: RequestOptions): APIPromise<ActionUploadFileResponse> {
-    return this._client.post(path`/messaging_hosted_number_orders/${id}/actions/file_upload`, multipartFormRequestOptions({ body, ...options }, this._client));
+  uploadFile(
+    id: string,
+    body: ActionUploadFileParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ActionUploadFileResponse> {
+    return this._client.post(
+      path`/messaging_hosted_number_orders/${id}/actions/file_upload`,
+      multipartFormRequestOptions({ body, ...options }, this._client),
+    );
   }
 }
 
@@ -48,6 +55,6 @@ export interface ActionUploadFileParams {
 export declare namespace Actions {
   export {
     type ActionUploadFileResponse as ActionUploadFileResponse,
-    type ActionUploadFileParams as ActionUploadFileParams
+    type ActionUploadFileParams as ActionUploadFileParams,
   };
 }

@@ -41,6 +41,6 @@ export interface UsecaseGetCostParams {
 export declare namespace Usecase {
   export {
     type UsecaseGetCostResponse as UsecaseGetCostResponse,
-    type UsecaseGetCostParams as UsecaseGetCostParams
+    type UsecaseGetCostParams as UsecaseGetCostParams,
   };
 }

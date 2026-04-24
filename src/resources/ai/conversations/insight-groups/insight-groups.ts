@@ -5,7 +5,11 @@ import * as InsightsAPI from '../insights';
 import * as InsightGroupsInsightsAPI from './insights';
 import { InsightAssignParams, InsightDeleteUnassignParams, Insights } from './insights';
 import { APIPromise } from '../../../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../../core/pagination';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../../core/pagination';
 import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
@@ -42,7 +46,11 @@ export class InsightGroups extends APIResource {
    *   );
    * ```
    */
-  update(groupID: string, body: InsightGroupUpdateParams, options?: RequestOptions): APIPromise<InsightTemplateGroupDetail> {
+  update(
+    groupID: string,
+    body: InsightGroupUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<InsightTemplateGroupDetail> {
     return this._client.put(path`/ai/conversations/insight-groups/${groupID}`, { body, ...options });
   }
 
@@ -57,7 +65,10 @@ export class InsightGroups extends APIResource {
    * ```
    */
   delete(groupID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/conversations/insight-groups/${groupID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/ai/conversations/insight-groups/${groupID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -71,7 +82,10 @@ export class InsightGroups extends APIResource {
    *   );
    * ```
    */
-  insightGroups(body: InsightGroupInsightGroupsParams, options?: RequestOptions): APIPromise<InsightTemplateGroupDetail> {
+  insightGroups(
+    body: InsightGroupInsightGroupsParams,
+    options?: RequestOptions,
+  ): APIPromise<InsightTemplateGroupDetail> {
     return this._client.post('/ai/conversations/insight-groups', { body, ...options });
   }
 
@@ -86,12 +100,19 @@ export class InsightGroups extends APIResource {
    * }
    * ```
    */
-  retrieveInsightGroups(query: InsightGroupRetrieveInsightGroupsParams | null | undefined = {}, options?: RequestOptions): PagePromise<InsightTemplateGroupsDefaultFlatPagination, InsightTemplateGroup> {
-    return this._client.getAPIList('/ai/conversations/insight-groups', DefaultFlatPagination<InsightTemplateGroup>, { query, ...options });
+  retrieveInsightGroups(
+    query: InsightGroupRetrieveInsightGroupsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<InsightTemplateGroupsDefaultFlatPagination, InsightTemplateGroup> {
+    return this._client.getAPIList(
+      '/ai/conversations/insight-groups',
+      DefaultFlatPagination<InsightTemplateGroup>,
+      { query, ...options },
+    );
   }
 }
 
-export type InsightTemplateGroupsDefaultFlatPagination = DefaultFlatPagination<InsightTemplateGroup>
+export type InsightTemplateGroupsDefaultFlatPagination = DefaultFlatPagination<InsightTemplateGroup>;
 
 export interface InsightTemplateGroup {
   id: string;
@@ -127,8 +148,7 @@ export interface InsightGroupInsightGroupsParams {
   webhook?: string;
 }
 
-export interface InsightGroupRetrieveInsightGroupsParams extends DefaultFlatPaginationParams {
-}
+export interface InsightGroupRetrieveInsightGroupsParams extends DefaultFlatPaginationParams {}
 
 InsightGroups.Insights = Insights;
 
@@ -139,12 +159,12 @@ export declare namespace InsightGroups {
     type InsightTemplateGroupsDefaultFlatPagination as InsightTemplateGroupsDefaultFlatPagination,
     type InsightGroupUpdateParams as InsightGroupUpdateParams,
     type InsightGroupInsightGroupsParams as InsightGroupInsightGroupsParams,
-    type InsightGroupRetrieveInsightGroupsParams as InsightGroupRetrieveInsightGroupsParams
+    type InsightGroupRetrieveInsightGroupsParams as InsightGroupRetrieveInsightGroupsParams,
   };
 
   export {
     Insights as Insights,
     type InsightAssignParams as InsightAssignParams,
-    type InsightDeleteUnassignParams as InsightDeleteUnassignParams
+    type InsightDeleteUnassignParams as InsightDeleteUnassignParams,
   };
 }

@@ -18,12 +18,19 @@ export class Messaging extends APIResource {
   /**
    * List mobile phone numbers with messaging settings
    */
-  list(query: MessagingListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessagingListResponsesDefaultFlatPagination, MessagingListResponse> {
-    return this._client.getAPIList('/mobile_phone_numbers/messaging', DefaultFlatPagination<MessagingListResponse>, { query, ...options });
+  list(
+    query: MessagingListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MessagingListResponsesDefaultFlatPagination, MessagingListResponse> {
+    return this._client.getAPIList(
+      '/mobile_phone_numbers/messaging',
+      DefaultFlatPagination<MessagingListResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export type MessagingListResponsesDefaultFlatPagination = DefaultFlatPagination<MessagingListResponse>
+export type MessagingListResponsesDefaultFlatPagination = DefaultFlatPagination<MessagingListResponse>;
 
 export interface MessagingRetrieveResponse {
   data?: MessagingRetrieveResponse.Data;
@@ -181,14 +188,13 @@ export namespace MessagingListResponse {
   }
 }
 
-export interface MessagingListParams extends DefaultFlatPaginationParams {
-}
+export interface MessagingListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace Messaging {
   export {
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingListResponse as MessagingListResponse,
     type MessagingListResponsesDefaultFlatPagination as MessagingListResponsesDefaultFlatPagination,
-    type MessagingListParams as MessagingListParams
+    type MessagingListParams as MessagingListParams,
   };
 }

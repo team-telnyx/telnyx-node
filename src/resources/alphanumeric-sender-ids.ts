@@ -20,7 +20,10 @@ export class AlphanumericSenderIDs extends APIResource {
    *   });
    * ```
    */
-  create(body: AlphanumericSenderIDCreateParams, options?: RequestOptions): APIPromise<AlphanumericSenderIDCreateResponse> {
+  create(
+    body: AlphanumericSenderIDCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<AlphanumericSenderIDCreateResponse> {
     return this._client.post('/alphanumeric_sender_ids', { body, ...options });
   }
 
@@ -48,8 +51,14 @@ export class AlphanumericSenderIDs extends APIResource {
    * }
    * ```
    */
-  list(query: AlphanumericSenderIDListParams | null | undefined = {}, options?: RequestOptions): PagePromise<AlphanumericSenderIDsDefaultFlatPagination, AlphanumericSenderID> {
-    return this._client.getAPIList('/alphanumeric_sender_ids', DefaultFlatPagination<AlphanumericSenderID>, { query, ...options });
+  list(
+    query: AlphanumericSenderIDListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AlphanumericSenderIDsDefaultFlatPagination, AlphanumericSenderID> {
+    return this._client.getAPIList('/alphanumeric_sender_ids', DefaultFlatPagination<AlphanumericSenderID>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -66,7 +75,7 @@ export class AlphanumericSenderIDs extends APIResource {
   }
 }
 
-export type AlphanumericSenderIDsDefaultFlatPagination = DefaultFlatPagination<AlphanumericSenderID>
+export type AlphanumericSenderIDsDefaultFlatPagination = DefaultFlatPagination<AlphanumericSenderID>;
 
 export interface AlphanumericSenderID {
   /**
@@ -141,6 +150,6 @@ export declare namespace AlphanumericSenderIDs {
     type AlphanumericSenderIDDeleteResponse as AlphanumericSenderIDDeleteResponse,
     type AlphanumericSenderIDsDefaultFlatPagination as AlphanumericSenderIDsDefaultFlatPagination,
     type AlphanumericSenderIDCreateParams as AlphanumericSenderIDCreateParams,
-    type AlphanumericSenderIDListParams as AlphanumericSenderIDListParams
+    type AlphanumericSenderIDListParams as AlphanumericSenderIDListParams,
   };
 }

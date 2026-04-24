@@ -26,7 +26,10 @@ export class DynamicEmergencyAddresses extends APIResource {
    *   });
    * ```
    */
-  create(body: DynamicEmergencyAddressCreateParams, options?: RequestOptions): APIPromise<DynamicEmergencyAddressCreateResponse> {
+  create(
+    body: DynamicEmergencyAddressCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<DynamicEmergencyAddressCreateResponse> {
     return this._client.post('/dynamic_emergency_addresses', { body, ...options });
   }
 
@@ -56,8 +59,15 @@ export class DynamicEmergencyAddresses extends APIResource {
    * }
    * ```
    */
-  list(query: DynamicEmergencyAddressListParams | null | undefined = {}, options?: RequestOptions): PagePromise<DynamicEmergencyAddressesDefaultFlatPagination, DynamicEmergencyAddress> {
-    return this._client.getAPIList('/dynamic_emergency_addresses', DefaultFlatPagination<DynamicEmergencyAddress>, { query, ...options });
+  list(
+    query: DynamicEmergencyAddressListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DynamicEmergencyAddressesDefaultFlatPagination, DynamicEmergencyAddress> {
+    return this._client.getAPIList(
+      '/dynamic_emergency_addresses',
+      DefaultFlatPagination<DynamicEmergencyAddress>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -76,7 +86,7 @@ export class DynamicEmergencyAddresses extends APIResource {
   }
 }
 
-export type DynamicEmergencyAddressesDefaultFlatPagination = DefaultFlatPagination<DynamicEmergencyAddress>
+export type DynamicEmergencyAddressesDefaultFlatPagination = DefaultFlatPagination<DynamicEmergencyAddress>;
 
 export interface DynamicEmergencyAddress {
   administrative_area: string;
@@ -200,6 +210,6 @@ export declare namespace DynamicEmergencyAddresses {
     type DynamicEmergencyAddressDeleteResponse as DynamicEmergencyAddressDeleteResponse,
     type DynamicEmergencyAddressesDefaultFlatPagination as DynamicEmergencyAddressesDefaultFlatPagination,
     type DynamicEmergencyAddressCreateParams as DynamicEmergencyAddressCreateParams,
-    type DynamicEmergencyAddressListParams as DynamicEmergencyAddressListParams
+    type DynamicEmergencyAddressListParams as DynamicEmergencyAddressListParams,
   };
 }

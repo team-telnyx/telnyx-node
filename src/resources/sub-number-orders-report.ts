@@ -21,7 +21,10 @@ export class SubNumberOrdersReportResource extends APIResource {
    *   await client.subNumberOrdersReport.create();
    * ```
    */
-  create(body: SubNumberOrdersReportCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<SubNumberOrdersReportCreateResponse> {
+  create(
+    body: SubNumberOrdersReportCreateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<SubNumberOrdersReportCreateResponse> {
     return this._client.post('/sub_number_orders_report', { body, ...options });
   }
 
@@ -53,7 +56,10 @@ export class SubNumberOrdersReportResource extends APIResource {
    * ```
    */
   download(reportID: string, options?: RequestOptions): APIPromise<string> {
-    return this._client.get(path`/sub_number_orders_report/${reportID}/download`, { ...options, headers: buildHeaders([{Accept: 'text/csv'}, options?.headers]) });
+    return this._client.get(path`/sub_number_orders_report/${reportID}/download`, {
+      ...options,
+      headers: buildHeaders([{ Accept: 'text/csv' }, options?.headers]),
+    });
   }
 }
 
@@ -122,7 +128,7 @@ export interface SubNumberOrdersReportRetrieveResponse {
   data?: SubNumberOrdersReport;
 }
 
-export type SubNumberOrdersReportDownloadResponse = Uploadable
+export type SubNumberOrdersReportDownloadResponse = Uploadable;
 
 export interface SubNumberOrdersReportCreateParams {
   /**
@@ -162,6 +168,6 @@ export declare namespace SubNumberOrdersReportResource {
     type SubNumberOrdersReportCreateResponse as SubNumberOrdersReportCreateResponse,
     type SubNumberOrdersReportRetrieveResponse as SubNumberOrdersReportRetrieveResponse,
     type SubNumberOrdersReportDownloadResponse as SubNumberOrdersReportDownloadResponse,
-    type SubNumberOrdersReportCreateParams as SubNumberOrdersReportCreateParams
+    type SubNumberOrdersReportCreateParams as SubNumberOrdersReportCreateParams,
   };
 }

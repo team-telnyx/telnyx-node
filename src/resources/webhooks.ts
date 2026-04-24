@@ -4630,6 +4630,155 @@ export namespace CallCostWebhookEvent {
   }
 }
 
+export interface CallDeepfakeDetectionErrorWebhookEvent {
+  data?: CallDeepfakeDetectionErrorWebhookEvent.Data;
+}
+
+export namespace CallDeepfakeDetectionErrorWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.deepfake_detection.error';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string | null;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * The error that occurred. 'detection_timeout' = no DFD response received,
+       * 'rtp_timeout' = no RTP audio received, 'dfd_connection_error'/'dfd_stream_error'
+       * = service connectivity issues.
+       */
+      error_message?: 'detection_timeout' | 'rtp_timeout' | 'dfd_connection_error' | 'dfd_stream_error';
+    }
+  }
+}
+
+export interface CallDeepfakeDetectionResultWebhookEvent {
+  data?: CallDeepfakeDetectionResultWebhookEvent.Data;
+}
+
+export namespace CallDeepfakeDetectionResultWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.deepfake_detection.result';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string | null;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Percentage (0-100) indicating how consistently the model classified the audio
+       * across frames. High consistency (>90%) means confident classification
+       * throughout; low consistency suggests mixed signals. Null for silence_timeout.
+       */
+      consistency?: number | null;
+
+      /**
+       * Detection outcome. 'real' = human voice, 'fake' = AI-generated voice,
+       * 'silence_timeout' = no analyzable speech detected before timeout.
+       */
+      result?: 'real' | 'fake' | 'silence_timeout';
+
+      /**
+       * Probability that the audio is AI-generated, from 0.0 (likely real) to 1.0
+       * (likely deepfake). Based on the model's aggregated confidence across analyzed
+       * audio frames. Null for silence_timeout.
+       */
+      score?: number | null;
+    }
+  }
+}
+
 export interface CallDtmfReceivedWebhookEvent {
   data?: CallDtmfReceived;
 }
@@ -4652,6 +4801,77 @@ export interface CallGatherEndedWebhookEvent {
 
 export interface CallHangupWebhookEvent {
   data?: CallHangup;
+}
+
+export interface CallHoldWebhookEvent {
+  data?: CallHoldWebhookEvent.Data;
+}
+
+export namespace CallHoldWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.hold';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+  }
 }
 
 export interface CallInitiatedWebhookEvent {
@@ -4742,6 +4962,77 @@ export interface CallStreamingStoppedWebhookEvent {
   data?: CallStreamingStopped;
 }
 
+export interface CallUnholdWebhookEvent {
+  data?: CallUnholdWebhookEvent.Data;
+}
+
+export namespace CallUnholdWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.unhold';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+  }
+}
+
 export interface ConferenceCreatedWebhookEvent {
   data?: ConferenceCreated;
 }
@@ -4811,6 +5102,133 @@ export namespace DeliveryUpdateWebhookEvent {
      * The webhook URL the event was delivered to.
      */
     delivered_to?: string;
+  }
+}
+
+export interface HostedNumberOrderEventWebhookEvent {
+  data?: HostedNumberOrderEventWebhookEvent.Data;
+}
+
+export namespace HostedNumberOrderEventWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier for the event.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered. Internal transfer events are only emitted for
+     * orders where the numbers are already active on another Telnyx account.
+     */
+    event_type?:
+      | 'messaging_hosted_numbers_orders.created'
+      | 'messaging_hosted_numbers_orders.updated'
+      | 'messaging_hosted_numbers_orders.deleted'
+      | 'messaging_hosted_numbers_orders.internal_transfer_detected'
+      | 'messaging_hosted_numbers_orders.internal_transfer_approval_requested'
+      | 'messaging_hosted_numbers_orders.internal_transfer_approved'
+      | 'messaging_hosted_numbers_orders.internal_transfer_rejected'
+      | 'messaging_hosted_numbers_orders.internal_transfer_auto_approved';
+
+    /**
+     * ISO 8601 formatted date indicating when the event was generated.
+     */
+    occurred_at?: string;
+
+    /**
+     * Payload delivered with every messaging*hosted_numbers_orders.\* event.
+     * `approval_deadline` and `decision` are meaningful only for
+     * `internal_transfer*\*` events.
+     */
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    /**
+     * Payload delivered with every messaging*hosted_numbers_orders.\* event.
+     * `approval_deadline` and `decision` are meaningful only for
+     * `internal_transfer*\*` events.
+     */
+    export interface Payload {
+      /**
+       * Unix timestamp (seconds) by which the losing organization must respond before
+       * auto-approval. Populated on internal-transfer events once an approval window has
+       * been issued.
+       */
+      approval_deadline?: number | null;
+
+      /**
+       * Approval decision for the internal transfer. Defaults to `pending` for
+       * non-internal-transfer events.
+       */
+      decision?: 'pending' | 'approved' | 'rejected';
+
+      numbers?: Array<Payload.Number>;
+
+      /**
+       * The ID of the hosted number order.
+       */
+      order_id?: string;
+
+      /**
+       * Current status of the order.
+       */
+      order_status?:
+        | 'pending'
+        | 'provisioning'
+        | 'successful'
+        | 'failed'
+        | 'deleted'
+        | 'carrier_rejected'
+        | 'compliance_review_failed'
+        | 'incomplete_documentation'
+        | 'incorrect_billing_information'
+        | 'ineligible_carrier'
+        | 'loa_file_invalid'
+        | 'loa_file_successful';
+
+      /**
+       * The messaging profile associated with the order.
+       */
+      profile_id?: string;
+
+      /**
+       * The organization that owns the order.
+       */
+      user_id?: string;
+    }
+
+    export namespace Payload {
+      export interface Number {
+        /**
+         * Current status of this phone number within the order.
+         */
+        status?:
+          | 'deleted'
+          | 'failed'
+          | 'failed_activation'
+          | 'failed_carrier_rejected'
+          | 'failed_ineligible_carrier'
+          | 'failed_number_already_hosted'
+          | 'failed_number_not_found'
+          | 'failed_ownership_verification'
+          | 'failed_timeout'
+          | 'ownership_successful'
+          | 'pending'
+          | 'provisioning'
+          | 'successful';
+
+        /**
+         * Phone number in +E.164 format.
+         */
+        value?: string;
+      }
+    }
   }
 }
 
@@ -4976,6 +5394,155 @@ export namespace CallCostWebhookEvent {
   }
 }
 
+export interface CallDeepfakeDetectionErrorWebhookEvent {
+  data?: CallDeepfakeDetectionErrorWebhookEvent.Data;
+}
+
+export namespace CallDeepfakeDetectionErrorWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.deepfake_detection.error';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string | null;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * The error that occurred. 'detection_timeout' = no DFD response received,
+       * 'rtp_timeout' = no RTP audio received, 'dfd_connection_error'/'dfd_stream_error'
+       * = service connectivity issues.
+       */
+      error_message?: 'detection_timeout' | 'rtp_timeout' | 'dfd_connection_error' | 'dfd_stream_error';
+    }
+  }
+}
+
+export interface CallDeepfakeDetectionResultWebhookEvent {
+  data?: CallDeepfakeDetectionResultWebhookEvent.Data;
+}
+
+export namespace CallDeepfakeDetectionResultWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.deepfake_detection.result';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string | null;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Percentage (0-100) indicating how consistently the model classified the audio
+       * across frames. High consistency (>90%) means confident classification
+       * throughout; low consistency suggests mixed signals. Null for silence_timeout.
+       */
+      consistency?: number | null;
+
+      /**
+       * Detection outcome. 'real' = human voice, 'fake' = AI-generated voice,
+       * 'silence_timeout' = no analyzable speech detected before timeout.
+       */
+      result?: 'real' | 'fake' | 'silence_timeout';
+
+      /**
+       * Probability that the audio is AI-generated, from 0.0 (likely real) to 1.0
+       * (likely deepfake). Based on the model's aggregated confidence across analyzed
+       * audio frames. Null for silence_timeout.
+       */
+      score?: number | null;
+    }
+  }
+}
+
 export interface CallDtmfReceivedWebhookEvent {
   data?: CallDtmfReceived;
 }
@@ -4998,6 +5565,77 @@ export interface CallGatherEndedWebhookEvent {
 
 export interface CallHangupWebhookEvent {
   data?: CallHangup;
+}
+
+export interface CallHoldWebhookEvent {
+  data?: CallHoldWebhookEvent.Data;
+}
+
+export namespace CallHoldWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.hold';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+  }
 }
 
 export interface CallInitiatedWebhookEvent {
@@ -5088,6 +5726,77 @@ export interface CallStreamingStoppedWebhookEvent {
   data?: CallStreamingStopped;
 }
 
+export interface CallUnholdWebhookEvent {
+  data?: CallUnholdWebhookEvent.Data;
+}
+
+export namespace CallUnholdWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.unhold';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call and can be used to correlate webhook events.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session and can be used to correlate webhook
+       * events. Call session is a group of related call legs that logically belong to
+       * the same phone call, e.g. an inbound and outbound leg of a transferred call.
+       */
+      call_session_id?: string;
+
+      /**
+       * State received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+  }
+}
+
 export interface ConferenceCreatedWebhookEvent {
   data?: ConferenceCreated;
 }
@@ -5160,6 +5869,133 @@ export namespace DeliveryUpdateWebhookEvent {
   }
 }
 
+export interface HostedNumberOrderEventWebhookEvent {
+  data?: HostedNumberOrderEventWebhookEvent.Data;
+}
+
+export namespace HostedNumberOrderEventWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier for the event.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered. Internal transfer events are only emitted for
+     * orders where the numbers are already active on another Telnyx account.
+     */
+    event_type?:
+      | 'messaging_hosted_numbers_orders.created'
+      | 'messaging_hosted_numbers_orders.updated'
+      | 'messaging_hosted_numbers_orders.deleted'
+      | 'messaging_hosted_numbers_orders.internal_transfer_detected'
+      | 'messaging_hosted_numbers_orders.internal_transfer_approval_requested'
+      | 'messaging_hosted_numbers_orders.internal_transfer_approved'
+      | 'messaging_hosted_numbers_orders.internal_transfer_rejected'
+      | 'messaging_hosted_numbers_orders.internal_transfer_auto_approved';
+
+    /**
+     * ISO 8601 formatted date indicating when the event was generated.
+     */
+    occurred_at?: string;
+
+    /**
+     * Payload delivered with every messaging*hosted_numbers_orders.\* event.
+     * `approval_deadline` and `decision` are meaningful only for
+     * `internal_transfer*\*` events.
+     */
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    /**
+     * Payload delivered with every messaging*hosted_numbers_orders.\* event.
+     * `approval_deadline` and `decision` are meaningful only for
+     * `internal_transfer*\*` events.
+     */
+    export interface Payload {
+      /**
+       * Unix timestamp (seconds) by which the losing organization must respond before
+       * auto-approval. Populated on internal-transfer events once an approval window has
+       * been issued.
+       */
+      approval_deadline?: number | null;
+
+      /**
+       * Approval decision for the internal transfer. Defaults to `pending` for
+       * non-internal-transfer events.
+       */
+      decision?: 'pending' | 'approved' | 'rejected';
+
+      numbers?: Array<Payload.Number>;
+
+      /**
+       * The ID of the hosted number order.
+       */
+      order_id?: string;
+
+      /**
+       * Current status of the order.
+       */
+      order_status?:
+        | 'pending'
+        | 'provisioning'
+        | 'successful'
+        | 'failed'
+        | 'deleted'
+        | 'carrier_rejected'
+        | 'compliance_review_failed'
+        | 'incomplete_documentation'
+        | 'incorrect_billing_information'
+        | 'ineligible_carrier'
+        | 'loa_file_invalid'
+        | 'loa_file_successful';
+
+      /**
+       * The messaging profile associated with the order.
+       */
+      profile_id?: string;
+
+      /**
+       * The organization that owns the order.
+       */
+      user_id?: string;
+    }
+
+    export namespace Payload {
+      export interface Number {
+        /**
+         * Current status of this phone number within the order.
+         */
+        status?:
+          | 'deleted'
+          | 'failed'
+          | 'failed_activation'
+          | 'failed_carrier_rejected'
+          | 'failed_ineligible_carrier'
+          | 'failed_number_already_hosted'
+          | 'failed_number_not_found'
+          | 'failed_ownership_verification'
+          | 'failed_timeout'
+          | 'ownership_successful'
+          | 'pending'
+          | 'provisioning'
+          | 'successful';
+
+        /**
+         * Phone number in +E.164 format.
+         */
+        value?: string;
+      }
+    }
+  }
+}
+
 export interface InboundMessageWebhookEvent {
   data?: InboundMessage;
 }
@@ -5181,12 +6017,15 @@ export type UnsafeUnwrapWebhookEvent =
   | CallConversationEndedWebhookEvent
   | CallConversationInsightsGeneratedWebhookEvent
   | CallCostWebhookEvent
+  | CallDeepfakeDetectionErrorWebhookEvent
+  | CallDeepfakeDetectionResultWebhookEvent
   | CallDtmfReceivedWebhookEvent
   | CallEnqueuedWebhookEvent
   | CallForkStartedWebhookEvent
   | CallForkStoppedWebhookEvent
   | CallGatherEndedWebhookEvent
   | CallHangupWebhookEvent
+  | CallHoldWebhookEvent
   | CallInitiatedWebhookEvent
   | CallLeftQueueWebhookEvent
   | CallMachineDetectionEndedWebhookEvent
@@ -5209,6 +6048,7 @@ export type UnsafeUnwrapWebhookEvent =
   | CallStreamingFailedWebhookEvent
   | CallStreamingStartedWebhookEvent
   | CallStreamingStoppedWebhookEvent
+  | CallUnholdWebhookEvent
   | CampaignStatusUpdate
   | ConferenceCreatedWebhookEvent
   | ConferenceEndedWebhookEvent
@@ -5230,6 +6070,7 @@ export type UnsafeUnwrapWebhookEvent =
   | FaxMediaProcessed
   | FaxQueued
   | FaxSendingStarted
+  | HostedNumberOrderEventWebhookEvent
   | InboundMessageWebhookEvent
   | NumberOrderStatusUpdate
   | ReplacedLinkClickWebhookEvent
@@ -5244,12 +6085,15 @@ export type UnwrapWebhookEvent =
   | CallConversationEndedWebhookEvent
   | CallConversationInsightsGeneratedWebhookEvent
   | CallCostWebhookEvent
+  | CallDeepfakeDetectionErrorWebhookEvent
+  | CallDeepfakeDetectionResultWebhookEvent
   | CallDtmfReceivedWebhookEvent
   | CallEnqueuedWebhookEvent
   | CallForkStartedWebhookEvent
   | CallForkStoppedWebhookEvent
   | CallGatherEndedWebhookEvent
   | CallHangupWebhookEvent
+  | CallHoldWebhookEvent
   | CallInitiatedWebhookEvent
   | CallLeftQueueWebhookEvent
   | CallMachineDetectionEndedWebhookEvent
@@ -5272,6 +6116,7 @@ export type UnwrapWebhookEvent =
   | CallStreamingFailedWebhookEvent
   | CallStreamingStartedWebhookEvent
   | CallStreamingStoppedWebhookEvent
+  | CallUnholdWebhookEvent
   | CampaignStatusUpdate
   | ConferenceCreatedWebhookEvent
   | ConferenceEndedWebhookEvent
@@ -5293,6 +6138,7 @@ export type UnwrapWebhookEvent =
   | FaxMediaProcessed
   | FaxQueued
   | FaxSendingStarted
+  | HostedNumberOrderEventWebhookEvent
   | InboundMessageWebhookEvent
   | NumberOrderStatusUpdate
   | ReplacedLinkClickWebhookEvent
@@ -5368,12 +6214,15 @@ export declare namespace Webhooks {
     type CallConversationEndedWebhookEvent as CallConversationEndedWebhookEvent,
     type CallConversationInsightsGeneratedWebhookEvent as CallConversationInsightsGeneratedWebhookEvent,
     type CallCostWebhookEvent as CallCostWebhookEvent,
+    type CallDeepfakeDetectionErrorWebhookEvent as CallDeepfakeDetectionErrorWebhookEvent,
+    type CallDeepfakeDetectionResultWebhookEvent as CallDeepfakeDetectionResultWebhookEvent,
     type CallDtmfReceivedWebhookEvent as CallDtmfReceivedWebhookEvent,
     type CallEnqueuedWebhookEvent as CallEnqueuedWebhookEvent,
     type CallForkStartedWebhookEvent as CallForkStartedWebhookEvent,
     type CallForkStoppedWebhookEvent as CallForkStoppedWebhookEvent,
     type CallGatherEndedWebhookEvent as CallGatherEndedWebhookEvent,
     type CallHangupWebhookEvent as CallHangupWebhookEvent,
+    type CallHoldWebhookEvent as CallHoldWebhookEvent,
     type CallInitiatedWebhookEvent as CallInitiatedWebhookEvent,
     type CallLeftQueueWebhookEvent as CallLeftQueueWebhookEvent,
     type CallMachineDetectionEndedWebhookEvent as CallMachineDetectionEndedWebhookEvent,
@@ -5396,6 +6245,7 @@ export declare namespace Webhooks {
     type CallStreamingFailedWebhookEvent as CallStreamingFailedWebhookEvent,
     type CallStreamingStartedWebhookEvent as CallStreamingStartedWebhookEvent,
     type CallStreamingStoppedWebhookEvent as CallStreamingStoppedWebhookEvent,
+    type CallUnholdWebhookEvent as CallUnholdWebhookEvent,
     type ConferenceCreatedWebhookEvent as ConferenceCreatedWebhookEvent,
     type ConferenceEndedWebhookEvent as ConferenceEndedWebhookEvent,
     type ConferenceParticipantJoinedWebhookEvent as ConferenceParticipantJoinedWebhookEvent,
@@ -5410,6 +6260,7 @@ export declare namespace Webhooks {
     type ConferenceSpeakEndedWebhookEvent as ConferenceSpeakEndedWebhookEvent,
     type ConferenceSpeakStartedWebhookEvent as ConferenceSpeakStartedWebhookEvent,
     type DeliveryUpdateWebhookEvent as DeliveryUpdateWebhookEvent,
+    type HostedNumberOrderEventWebhookEvent as HostedNumberOrderEventWebhookEvent,
     type InboundMessageWebhookEvent as InboundMessageWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type TranscriptionWebhookEvent as TranscriptionWebhookEvent,

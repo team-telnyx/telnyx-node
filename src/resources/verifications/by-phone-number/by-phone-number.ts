@@ -49,14 +49,11 @@ export interface ByPhoneNumberListResponse {
 ByPhoneNumber.Actions = Actions;
 
 export declare namespace ByPhoneNumber {
-  export {
-    type VerifyMeta as VerifyMeta,
-    type ByPhoneNumberListResponse as ByPhoneNumberListResponse
-  };
+  export { type VerifyMeta as VerifyMeta, type ByPhoneNumberListResponse as ByPhoneNumberListResponse };
 
   export {
     Actions as Actions,
     type VerifyVerificationCodeResponse as VerifyVerificationCodeResponse,
-    type ActionVerifyParams as ActionVerifyParams
+    type ActionVerifyParams as ActionVerifyParams,
   };
 }

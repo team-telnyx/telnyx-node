@@ -2,7 +2,12 @@
 
 import { APIResource } from '../../../../core/resource';
 import * as JsonAPI from './json';
-import { Json, JsonDeleteRecordingTranscriptionSidJsonParams, JsonRetrieveRecordingTranscriptionSidJsonParams, JsonRetrieveRecordingTranscriptionSidJsonResponse } from './json';
+import {
+  Json,
+  JsonDeleteRecordingTranscriptionSidJsonParams,
+  JsonRetrieveRecordingTranscriptionSidJsonParams,
+  JsonRetrieveRecordingTranscriptionSidJsonResponse,
+} from './json';
 
 export class Transcriptions extends APIResource {
   json: JsonAPI.Json = new JsonAPI.Json(this._client);
@@ -15,6 +20,6 @@ export declare namespace Transcriptions {
     Json as Json,
     type JsonRetrieveRecordingTranscriptionSidJsonResponse as JsonRetrieveRecordingTranscriptionSidJsonResponse,
     type JsonDeleteRecordingTranscriptionSidJsonParams as JsonDeleteRecordingTranscriptionSidJsonParams,
-    type JsonRetrieveRecordingTranscriptionSidJsonParams as JsonRetrieveRecordingTranscriptionSidJsonParams
+    type JsonRetrieveRecordingTranscriptionSidJsonParams as JsonRetrieveRecordingTranscriptionSidJsonParams,
   };
 }

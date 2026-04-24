@@ -37,8 +37,14 @@ export class Events extends APIResource {
    * }
    * ```
    */
-  list(query: EventListParams | null | undefined = {}, options?: RequestOptions): PagePromise<EventListResponsesDefaultFlatPagination, EventListResponse> {
-    return this._client.getAPIList('/porting/events', DefaultFlatPagination<EventListResponse>, { query, ...options });
+  list(
+    query: EventListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<EventListResponsesDefaultFlatPagination, EventListResponse> {
+    return this._client.getAPIList('/porting/events', DefaultFlatPagination<EventListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -52,11 +58,14 @@ export class Events extends APIResource {
    * ```
    */
   republish(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/porting/events/${id}/republish`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.post(path`/porting/events/${id}/republish`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type EventListResponsesDefaultFlatPagination = DefaultFlatPagination<EventListResponse>
+export type EventListResponsesDefaultFlatPagination = DefaultFlatPagination<EventListResponse>;
 
 export interface PortingEventDeletedPayload {
   /**
@@ -219,7 +228,14 @@ export namespace PortingEventMessagingChangedPayload {
       /**
        * Indicates the messaging port status of the porting order.
        */
-      messaging_port_status?: 'not_applicable' | 'pending' | 'activating' | 'exception' | 'canceled' | 'partial_port_complete' | 'ported';
+      messaging_port_status?:
+        | 'not_applicable'
+        | 'pending'
+        | 'activating'
+        | 'exception'
+        | 'canceled'
+        | 'partial_port_complete'
+        | 'ported';
     }
   }
 }
@@ -552,10 +568,22 @@ export interface PortingEventWithoutWebhook {
 }
 
 export interface EventRetrieveResponse {
-  data?: PortingEventDeletedPayload | PortingEventMessagingChangedPayload | PortingEventStatusChangedEvent | PortingEventNewCommentEvent | PortingEventSplitEvent | PortingEventWithoutWebhook;
+  data?:
+    | PortingEventDeletedPayload
+    | PortingEventMessagingChangedPayload
+    | PortingEventStatusChangedEvent
+    | PortingEventNewCommentEvent
+    | PortingEventSplitEvent
+    | PortingEventWithoutWebhook;
 }
 
-export type EventListResponse = PortingEventDeletedPayload | PortingEventMessagingChangedPayload | PortingEventStatusChangedEvent | PortingEventNewCommentEvent | PortingEventSplitEvent | PortingEventWithoutWebhook
+export type EventListResponse =
+  | PortingEventDeletedPayload
+  | PortingEventMessagingChangedPayload
+  | PortingEventStatusChangedEvent
+  | PortingEventNewCommentEvent
+  | PortingEventSplitEvent
+  | PortingEventWithoutWebhook;
 
 export interface EventListParams extends DefaultFlatPaginationParams {
   /**
@@ -584,7 +612,14 @@ export namespace EventListParams {
     /**
      * Filter by event type.
      */
-    type?: 'porting_order.deleted' | 'porting_order.loa_updated' | 'porting_order.messaging_changed' | 'porting_order.status_changed' | 'porting_order.sharing_token_expired' | 'porting_order.new_comment' | 'porting_order.split';
+    type?:
+      | 'porting_order.deleted'
+      | 'porting_order.loa_updated'
+      | 'porting_order.messaging_changed'
+      | 'porting_order.status_changed'
+      | 'porting_order.sharing_token_expired'
+      | 'porting_order.new_comment'
+      | 'porting_order.split';
   }
 
   export namespace Filter {
@@ -616,6 +651,6 @@ export declare namespace Events {
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
     type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
-    type EventListParams as EventListParams
+    type EventListParams as EventListParams,
   };
 }

@@ -51,7 +51,11 @@ export class VerifyProfiles extends APIResource {
    *   );
    * ```
    */
-  update(verifyProfileID: string, body: VerifyProfileUpdateParams, options?: RequestOptions): APIPromise<VerifyProfileData> {
+  update(
+    verifyProfileID: string,
+    body: VerifyProfileUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<VerifyProfileData> {
     return this._client.patch(path`/verify_profiles/${verifyProfileID}`, { body, ...options });
   }
 
@@ -66,8 +70,14 @@ export class VerifyProfiles extends APIResource {
    * }
    * ```
    */
-  list(query: VerifyProfileListParams | null | undefined = {}, options?: RequestOptions): PagePromise<VerifyProfilesDefaultFlatPagination, VerifyProfile> {
-    return this._client.getAPIList('/verify_profiles', DefaultFlatPagination<VerifyProfile>, { query, ...options });
+  list(
+    query: VerifyProfileListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<VerifyProfilesDefaultFlatPagination, VerifyProfile> {
+    return this._client.getAPIList('/verify_profiles', DefaultFlatPagination<VerifyProfile>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -96,7 +106,10 @@ export class VerifyProfiles extends APIResource {
    *   });
    * ```
    */
-  createTemplate(body: VerifyProfileCreateTemplateParams, options?: RequestOptions): APIPromise<MessageTemplate> {
+  createTemplate(
+    body: VerifyProfileCreateTemplateParams,
+    options?: RequestOptions,
+  ): APIPromise<MessageTemplate> {
     return this._client.post('/verify_profiles/templates', { body, ...options });
   }
 
@@ -127,12 +140,16 @@ export class VerifyProfiles extends APIResource {
    *   );
    * ```
    */
-  updateTemplate(templateID: string, body: VerifyProfileUpdateTemplateParams, options?: RequestOptions): APIPromise<MessageTemplate> {
+  updateTemplate(
+    templateID: string,
+    body: VerifyProfileUpdateTemplateParams,
+    options?: RequestOptions,
+  ): APIPromise<MessageTemplate> {
     return this._client.patch(path`/verify_profiles/templates/${templateID}`, { body, ...options });
   }
 }
 
-export type VerifyProfilesDefaultFlatPagination = DefaultFlatPagination<VerifyProfile>
+export type VerifyProfilesDefaultFlatPagination = DefaultFlatPagination<VerifyProfile>;
 
 export interface MessageTemplate {
   data?: VerifyProfileMessageTemplateResponse;
@@ -165,6 +182,8 @@ export interface VerifyProfile {
   webhook_failover_url?: string;
 
   webhook_url?: string;
+
+  whatsapp?: VerifyProfile.Whatsapp;
 }
 
 export namespace VerifyProfile {
@@ -196,11 +215,13 @@ export namespace VerifyProfile {
     /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed.
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Flashcall {
@@ -218,7 +239,7 @@ export namespace VerifyProfile {
      */
     default_verification_timeout_secs?: number;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Rcs {
@@ -254,11 +275,13 @@ export namespace VerifyProfile {
     /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed.
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface SMS {
@@ -295,11 +318,65 @@ export namespace VerifyProfile {
     /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed.
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
+  }
+
+  export interface Whatsapp {
+    /**
+     * The name that identifies the application requesting 2fa in the verification
+     * message.
+     */
+    app_name?: string;
+
+    /**
+     * The length of the verify code to generate.
+     */
+    code_length?: number;
+
+    /**
+     * For every request that is initiated via this Verify profile, this sets the
+     * number of seconds before a verification request code expires. Once the
+     * verification request expires, the user cannot use the code to verify their
+     * identity.
+     */
+    default_verification_timeout_secs?: number;
+
+    /**
+     * The message template identifier selected from /verify_profiles/templates
+     */
+    messaging_template_id?: string;
+
+    /**
+     * Phone number registered on the customer WABA to send OTPs from
+     */
+    sender_phone_number?: string | null;
+
+    /**
+     * Customer pre-approved authentication template name registered on Meta
+     */
+    template_id?: string | null;
+
+    /**
+     * Customer Meta WABA ID for Bring-Your-Own-WABA sending
+     */
+    waba_id?: string | null;
+
+    /**
+     * Enabled country destinations to send verification codes. The elements in the
+     * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
+     */
+    whitelisted_destinations?: Array<string>;
+
+    [k: string]: unknown;
   }
 }
 
@@ -369,11 +446,13 @@ export namespace VerifyProfileCreateParams {
     /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed.
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Flashcall {
@@ -394,11 +473,13 @@ export namespace VerifyProfileCreateParams {
     /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed.
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Rcs {
@@ -434,11 +515,13 @@ export namespace VerifyProfileCreateParams {
     /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed.
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface SMS {
@@ -475,20 +558,16 @@ export namespace VerifyProfileCreateParams {
     /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed.
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Whatsapp {
-    /**
-     * The name that identifies the application requesting 2fa in the verification
-     * message.
-     */
-    app_name?: string;
-
     /**
      * For every request that is initiated via this Verify profile, this sets the
      * number of seconds before a verification request code expires. Once the
@@ -498,13 +577,30 @@ export namespace VerifyProfileCreateParams {
     default_verification_timeout_secs?: number;
 
     /**
+     * Phone number registered on the customer WABA to send OTPs from
+     */
+    sender_phone_number?: string | null;
+
+    /**
+     * Customer pre-approved authentication template name registered on Meta
+     */
+    template_id?: string | null;
+
+    /**
+     * Customer Meta WABA ID for Bring-Your-Own-WABA sending
+     */
+    waba_id?: string | null;
+
+    /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed.
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 }
 
@@ -557,11 +653,13 @@ export namespace VerifyProfileUpdateParams {
     /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed.
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Flashcall {
@@ -582,11 +680,13 @@ export namespace VerifyProfileUpdateParams {
     /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed.
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Rcs {
@@ -622,11 +722,13 @@ export namespace VerifyProfileUpdateParams {
     /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed.
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface SMS {
@@ -663,20 +765,16 @@ export namespace VerifyProfileUpdateParams {
     /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed.
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Whatsapp {
-    /**
-     * The name that identifies the application requesting 2fa in the verification
-     * message.
-     */
-    app_name?: string;
-
     /**
      * For every request that is initiated via this Verify profile, this sets the
      * number of seconds before a verification request code expires. Once the
@@ -686,13 +784,30 @@ export namespace VerifyProfileUpdateParams {
     default_verification_timeout_secs?: number;
 
     /**
+     * Phone number registered on the customer WABA to send OTPs from
+     */
+    sender_phone_number?: string | null;
+
+    /**
+     * Customer pre-approved authentication template name registered on Meta
+     */
+    template_id?: string | null;
+
+    /**
+     * Customer Meta WABA ID for Bring-Your-Own-WABA sending
+     */
+    waba_id?: string | null;
+
+    /**
      * Enabled country destinations to send verification codes. The elements in the
      * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed.
+     * destinations will be allowed. **Conditionally required:** this field must be
+     * provided when your organization is configured to require explicit whitelisted
+     * destinations; otherwise it is optional.
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 }
 
@@ -741,6 +856,6 @@ export declare namespace VerifyProfiles {
     type VerifyProfileUpdateParams as VerifyProfileUpdateParams,
     type VerifyProfileListParams as VerifyProfileListParams,
     type VerifyProfileCreateTemplateParams as VerifyProfileCreateTemplateParams,
-    type VerifyProfileUpdateTemplateParams as VerifyProfileUpdateTemplateParams
+    type VerifyProfileUpdateTemplateParams as VerifyProfileUpdateTemplateParams,
   };
 }

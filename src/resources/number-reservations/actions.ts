@@ -31,7 +31,5 @@ export interface ActionExtendResponse {
 }
 
 export declare namespace Actions {
-  export {
-    type ActionExtendResponse as ActionExtendResponse
-  };
+  export { type ActionExtendResponse as ActionExtendResponse };
 }

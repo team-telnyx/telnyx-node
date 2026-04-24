@@ -2,7 +2,16 @@
 
 import { APIResource } from '../../core/resource';
 import * as CallsAPI from './calls';
-import { CallListParams, CallListResponse, CallListResponsesDefaultFlatPagination, CallRemoveParams, CallRetrieveParams, CallRetrieveResponse, CallUpdateParams, Calls } from './calls';
+import {
+  CallListParams,
+  CallListResponse,
+  CallListResponsesDefaultFlatPagination,
+  CallRemoveParams,
+  CallRetrieveParams,
+  CallRetrieveResponse,
+  CallUpdateParams,
+  Calls,
+} from './calls';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
@@ -51,7 +60,11 @@ export class Queues extends APIResource {
    * });
    * ```
    */
-  update(queueName: string, body: QueueUpdateParams, options?: RequestOptions): APIPromise<QueueUpdateResponse> {
+  update(
+    queueName: string,
+    body: QueueUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<QueueUpdateResponse> {
     return this._client.post(path`/queues/${queueName}`, { body, ...options });
   }
 
@@ -66,7 +79,10 @@ export class Queues extends APIResource {
    * }
    * ```
    */
-  list(query: QueueListParams | null | undefined = {}, options?: RequestOptions): PagePromise<QueuesDefaultFlatPagination, Queue> {
+  list(
+    query: QueueListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<QueuesDefaultFlatPagination, Queue> {
     return this._client.getAPIList('/queues', DefaultFlatPagination<Queue>, { query, ...options });
   }
 
@@ -79,11 +95,14 @@ export class Queues extends APIResource {
    * ```
    */
   delete(queueName: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/queues/${queueName}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/queues/${queueName}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type QueuesDefaultFlatPagination = DefaultFlatPagination<Queue>
+export type QueuesDefaultFlatPagination = DefaultFlatPagination<Queue>;
 
 export interface Queue {
   /**
@@ -156,8 +175,7 @@ export interface QueueUpdateParams {
   max_size: number;
 }
 
-export interface QueueListParams extends DefaultFlatPaginationParams {
-}
+export interface QueueListParams extends DefaultFlatPaginationParams {}
 
 Queues.Calls = Calls;
 
@@ -170,7 +188,7 @@ export declare namespace Queues {
     type QueuesDefaultFlatPagination as QueuesDefaultFlatPagination,
     type QueueCreateParams as QueueCreateParams,
     type QueueUpdateParams as QueueUpdateParams,
-    type QueueListParams as QueueListParams
+    type QueueListParams as QueueListParams,
   };
 
   export {
@@ -181,6 +199,6 @@ export declare namespace Queues {
     type CallRetrieveParams as CallRetrieveParams,
     type CallUpdateParams as CallUpdateParams,
     type CallListParams as CallListParams,
-    type CallRemoveParams as CallRemoveParams
+    type CallRemoveParams as CallRemoveParams,
   };
 }

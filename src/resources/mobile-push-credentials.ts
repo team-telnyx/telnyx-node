@@ -14,9 +14,15 @@ export class MobilePushCredentials extends APIResource {
   /**
    * Creates a new mobile push credential
    */
-  create(params: MobilePushCredentialCreateParams, options?: RequestOptions): APIPromise<PushCredentialResponse> {
-    const { createMobilePushCredentialRequest } = params
-    return this._client.post('/mobile_push_credentials', { body: createMobilePushCredentialRequest, ...options });
+  create(
+    params: MobilePushCredentialCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<PushCredentialResponse> {
+    const { createMobilePushCredentialRequest } = params;
+    return this._client.post('/mobile_push_credentials', {
+      body: createMobilePushCredentialRequest,
+      ...options,
+    });
   }
 
   /**
@@ -29,19 +35,28 @@ export class MobilePushCredentials extends APIResource {
   /**
    * List mobile push credentials
    */
-  list(query: MobilePushCredentialListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PushCredentialsDefaultFlatPagination, PushCredential> {
-    return this._client.getAPIList('/mobile_push_credentials', DefaultFlatPagination<PushCredential>, { query, ...options });
+  list(
+    query: MobilePushCredentialListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PushCredentialsDefaultFlatPagination, PushCredential> {
+    return this._client.getAPIList('/mobile_push_credentials', DefaultFlatPagination<PushCredential>, {
+      query,
+      ...options,
+    });
   }
 
   /**
    * Deletes a mobile push credential based on the given `push_credential_id`
    */
   delete(pushCredentialID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/mobile_push_credentials/${pushCredentialID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/mobile_push_credentials/${pushCredentialID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type PushCredentialsDefaultFlatPagination = DefaultFlatPagination<PushCredential>
+export type PushCredentialsDefaultFlatPagination = DefaultFlatPagination<PushCredential>;
 
 export interface PushCredential {
   /**
@@ -96,7 +111,9 @@ export interface PushCredentialResponse {
 }
 
 export interface MobilePushCredentialCreateParams {
-  createMobilePushCredentialRequest: MobilePushCredentialCreateParams.Ios | MobilePushCredentialCreateParams.Android;
+  createMobilePushCredentialRequest:
+    | MobilePushCredentialCreateParams.Ios
+    | MobilePushCredentialCreateParams.Android;
 }
 
 export namespace MobilePushCredentialCreateParams {
@@ -172,6 +189,6 @@ export declare namespace MobilePushCredentials {
     type PushCredentialResponse as PushCredentialResponse,
     type PushCredentialsDefaultFlatPagination as PushCredentialsDefaultFlatPagination,
     type MobilePushCredentialCreateParams as MobilePushCredentialCreateParams,
-    type MobilePushCredentialListParams as MobilePushCredentialListParams
+    type MobilePushCredentialListParams as MobilePushCredentialListParams,
   };
 }

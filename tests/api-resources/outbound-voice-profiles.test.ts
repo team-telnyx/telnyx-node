@@ -2,7 +2,10 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Telnyx({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource outboundVoiceProfiles', () => {
   // Mock server tests are disabled
@@ -20,30 +23,30 @@ describe('resource outboundVoiceProfiles', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.outboundVoiceProfiles.create({
-    name: 'office',
-    billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-    call_recording: {
-    call_recording_caller_phone_numbers: ['+19705555098'],
-    call_recording_channels: 'dual',
-    call_recording_format: 'mp3',
-    call_recording_type: 'by_caller_phone_number',
-  },
-    calling_window: {
-    calls_per_cld: 5,
-    end_time: '20:00:00.00Z',
-    start_time: '08:00:00.00Z',
-  },
-    concurrent_call_limit: 10,
-    daily_spend_limit: '100.00',
-    daily_spend_limit_enabled: true,
-    enabled: true,
-    max_destination_rate: 10,
-    service_plan: 'global',
-    tags: ['office-profile'],
-    traffic_type: 'conversational',
-    usage_payment_method: 'rate-deck',
-    whitelisted_destinations: ['US', 'BR', 'AU'],
-  });
+      name: 'office',
+      billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+      call_recording: {
+        call_recording_caller_phone_numbers: ['+19705555098'],
+        call_recording_channels: 'dual',
+        call_recording_format: 'mp3',
+        call_recording_type: 'by_caller_phone_number',
+      },
+      calling_window: {
+        calls_per_cld: 5,
+        end_time: '20:00:00.00Z',
+        start_time: '08:00:00.00Z',
+      },
+      concurrent_call_limit: 10,
+      daily_spend_limit: '100.00',
+      daily_spend_limit_enabled: true,
+      enabled: true,
+      max_destination_rate: 10,
+      service_plan: 'global',
+      tags: ['office-profile'],
+      traffic_type: 'conversational',
+      usage_payment_method: 'rate-deck',
+      whitelisted_destinations: ['US', 'BR', 'AU'],
+    });
   });
 
   // Mock server tests are disabled
@@ -73,30 +76,30 @@ describe('resource outboundVoiceProfiles', () => {
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.outboundVoiceProfiles.update('1293384261075731499', {
-    name: 'office',
-    billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-    call_recording: {
-    call_recording_caller_phone_numbers: ['+19705555098'],
-    call_recording_channels: 'dual',
-    call_recording_format: 'mp3',
-    call_recording_type: 'by_caller_phone_number',
-  },
-    calling_window: {
-    calls_per_cld: 5,
-    end_time: '20:00:00.00Z',
-    start_time: '08:00:00.00Z',
-  },
-    concurrent_call_limit: 10,
-    daily_spend_limit: '100.00',
-    daily_spend_limit_enabled: true,
-    enabled: true,
-    max_destination_rate: 10,
-    service_plan: 'global',
-    tags: ['office-profile'],
-    traffic_type: 'conversational',
-    usage_payment_method: 'rate-deck',
-    whitelisted_destinations: ['US', 'BR', 'AU'],
-  });
+      name: 'office',
+      billing_group_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+      call_recording: {
+        call_recording_caller_phone_numbers: ['+19705555098'],
+        call_recording_channels: 'dual',
+        call_recording_format: 'mp3',
+        call_recording_type: 'by_caller_phone_number',
+      },
+      calling_window: {
+        calls_per_cld: 5,
+        end_time: '20:00:00.00Z',
+        start_time: '08:00:00.00Z',
+      },
+      concurrent_call_limit: 10,
+      daily_spend_limit: '100.00',
+      daily_spend_limit_enabled: true,
+      enabled: true,
+      max_destination_rate: 10,
+      service_plan: 'global',
+      tags: ['office-profile'],
+      traffic_type: 'conversational',
+      usage_payment_method: 'rate-deck',
+      whitelisted_destinations: ['US', 'BR', 'AU'],
+    });
   });
 
   // Mock server tests are disabled
@@ -114,14 +117,17 @@ describe('resource outboundVoiceProfiles', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.outboundVoiceProfiles.list({
-    filter: { name: { contains: 'office-profile' } },
-    'page[number]': 0,
-    'page[size]': 0,
-    sort: 'name',
-  }, { path: '/_stainless_unknown_path' }))
-      .rejects
-      .toThrow(Telnyx.NotFoundError);
+    await expect(
+      client.outboundVoiceProfiles.list(
+        {
+          filter: { name: { contains: 'office-profile' } },
+          'page[number]': 0,
+          'page[size]': 0,
+          sort: 'name',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled

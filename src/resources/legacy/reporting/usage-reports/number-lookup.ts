@@ -21,7 +21,11 @@ export class NumberLookup extends APIResource {
    * ```
    */
   create(body: NumberLookupCreateParams, options?: RequestOptions): APIPromise<NumberLookupCreateResponse> {
-    return this._client.post('/legacy/reporting/usage_reports/number_lookup', { body, ...options, headers: buildHeaders([{'Content-Type': '*/*'}, options?.headers]) });
+    return this._client.post('/legacy/reporting/usage_reports/number_lookup', {
+      body,
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -63,7 +67,10 @@ export class NumberLookup extends APIResource {
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/legacy/reporting/usage_reports/number_lookup/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/legacy/reporting/usage_reports/number_lookup/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -216,6 +223,6 @@ export declare namespace NumberLookup {
     type NumberLookupCreateResponse as NumberLookupCreateResponse,
     type NumberLookupRetrieveResponse as NumberLookupRetrieveResponse,
     type NumberLookupListResponse as NumberLookupListResponse,
-    type NumberLookupCreateParams as NumberLookupCreateParams
+    type NumberLookupCreateParams as NumberLookupCreateParams,
   };
 }

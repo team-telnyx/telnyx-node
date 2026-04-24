@@ -40,7 +40,11 @@ export class VoiceDesigns extends APIResource {
    * );
    * ```
    */
-  retrieve(id: string, query: VoiceDesignRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<VoiceDesignRetrieveResponse> {
+  retrieve(
+    id: string,
+    query: VoiceDesignRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<VoiceDesignRetrieveResponse> {
     return this._client.get(path`/voice_designs/${id}`, { query, ...options });
   }
 
@@ -56,8 +60,14 @@ export class VoiceDesigns extends APIResource {
    * }
    * ```
    */
-  list(query: VoiceDesignListParams | null | undefined = {}, options?: RequestOptions): PagePromise<VoiceDesignListResponsesDefaultFlatPagination, VoiceDesignListResponse> {
-    return this._client.getAPIList('/voice_designs', DefaultFlatPagination<VoiceDesignListResponse>, { query, ...options });
+  list(
+    query: VoiceDesignListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<VoiceDesignListResponsesDefaultFlatPagination, VoiceDesignListResponse> {
+    return this._client.getAPIList('/voice_designs', DefaultFlatPagination<VoiceDesignListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -70,7 +80,10 @@ export class VoiceDesigns extends APIResource {
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/voice_designs/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/voice_designs/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -82,9 +95,16 @@ export class VoiceDesigns extends APIResource {
    * await client.voiceDesigns.deleteVersion(1, { id: 'id' });
    * ```
    */
-  deleteVersion(version: number, params: VoiceDesignDeleteVersionParams, options?: RequestOptions): APIPromise<void> {
-    const { id } = params
-    return this._client.delete(path`/voice_designs/${id}/versions/${version}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+  deleteVersion(
+    version: number,
+    params: VoiceDesignDeleteVersionParams,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const { id } = params;
+    return this._client.delete(path`/voice_designs/${id}/versions/${version}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -102,8 +122,17 @@ export class VoiceDesigns extends APIResource {
    * console.log(content);
    * ```
    */
-  downloadSample(id: string, query: VoiceDesignDownloadSampleParams | null | undefined = {}, options?: RequestOptions): APIPromise<Response> {
-    return this._client.get(path`/voice_designs/${id}/sample`, { query, ...options, headers: buildHeaders([{Accept: 'audio/wav'}, options?.headers]), __binaryResponse: true });
+  downloadSample(
+    id: string,
+    query: VoiceDesignDownloadSampleParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Response> {
+    return this._client.get(path`/voice_designs/${id}/sample`, {
+      query,
+      ...options,
+      headers: buildHeaders([{ Accept: 'audio/wav' }, options?.headers]),
+      __binaryResponse: true,
+    });
   }
 
   /**
@@ -116,12 +145,16 @@ export class VoiceDesigns extends APIResource {
    * });
    * ```
    */
-  rename(id: string, body: VoiceDesignRenameParams, options?: RequestOptions): APIPromise<VoiceDesignRenameResponse> {
+  rename(
+    id: string,
+    body: VoiceDesignRenameParams,
+    options?: RequestOptions,
+  ): APIPromise<VoiceDesignRenameResponse> {
     return this._client.patch(path`/voice_designs/${id}`, { body, ...options });
   }
 }
 
-export type VoiceDesignListResponsesDefaultFlatPagination = DefaultFlatPagination<VoiceDesignListResponse>
+export type VoiceDesignListResponsesDefaultFlatPagination = DefaultFlatPagination<VoiceDesignListResponse>;
 
 /**
  * A voice design object with full version detail.
@@ -429,6 +462,6 @@ export declare namespace VoiceDesigns {
     type VoiceDesignListParams as VoiceDesignListParams,
     type VoiceDesignDeleteVersionParams as VoiceDesignDeleteVersionParams,
     type VoiceDesignDownloadSampleParams as VoiceDesignDownloadSampleParams,
-    type VoiceDesignRenameParams as VoiceDesignRenameParams
+    type VoiceDesignRenameParams as VoiceDesignRenameParams,
   };
 }

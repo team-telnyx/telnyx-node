@@ -2,9 +2,22 @@
 
 import { APIResource } from '../../../core/resource';
 import * as SslCertificateAPI from './ssl-certificate';
-import { SslCertificate, SslCertificateCreateParams, SslCertificateCreateResponse, SslCertificateDeleteResponse, SslCertificateResource, SslCertificateRetrieveResponse } from './ssl-certificate';
+import {
+  SslCertificate,
+  SslCertificateCreateParams,
+  SslCertificateCreateResponse,
+  SslCertificateDeleteResponse,
+  SslCertificateResource,
+  SslCertificateRetrieveResponse,
+} from './ssl-certificate';
 import * as UsageAPI from './usage';
-import { PaginationMetaSimple, Usage, UsageGetAPIUsageParams, UsageGetAPIUsageResponse, UsageGetBucketUsageResponse } from './usage';
+import {
+  PaginationMetaSimple,
+  Usage,
+  UsageGetAPIUsageParams,
+  UsageGetAPIUsageResponse,
+  UsageGetBucketUsageResponse,
+} from './usage';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -13,7 +26,9 @@ import { path } from '../../../internal/utils/path';
  * Presigned object URL operations
  */
 export class Buckets extends APIResource {
-  sslCertificate: SslCertificateAPI.SslCertificateResource = new SslCertificateAPI.SslCertificateResource(this._client);
+  sslCertificate: SslCertificateAPI.SslCertificateResource = new SslCertificateAPI.SslCertificateResource(
+    this._client,
+  );
   usage: UsageAPI.Usage = new UsageAPI.Usage(this._client);
 
   /**
@@ -32,9 +47,16 @@ export class Buckets extends APIResource {
    *   });
    * ```
    */
-  createPresignedURL(objectName: string, params: BucketCreatePresignedURLParams, options?: RequestOptions): APIPromise<BucketCreatePresignedURLResponse> {
-    const { bucketName, ...body } = params
-    return this._client.post(path`/storage/buckets/${bucketName}/${objectName}/presigned_url`, { body, ...options });
+  createPresignedURL(
+    objectName: string,
+    params: BucketCreatePresignedURLParams,
+    options?: RequestOptions,
+  ): APIPromise<BucketCreatePresignedURLResponse> {
+    const { bucketName, ...body } = params;
+    return this._client.post(path`/storage/buckets/${bucketName}/${objectName}/presigned_url`, {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -79,7 +101,7 @@ Buckets.Usage = Usage;
 export declare namespace Buckets {
   export {
     type BucketCreatePresignedURLResponse as BucketCreatePresignedURLResponse,
-    type BucketCreatePresignedURLParams as BucketCreatePresignedURLParams
+    type BucketCreatePresignedURLParams as BucketCreatePresignedURLParams,
   };
 
   export {
@@ -88,7 +110,7 @@ export declare namespace Buckets {
     type SslCertificateCreateResponse as SslCertificateCreateResponse,
     type SslCertificateRetrieveResponse as SslCertificateRetrieveResponse,
     type SslCertificateDeleteResponse as SslCertificateDeleteResponse,
-    type SslCertificateCreateParams as SslCertificateCreateParams
+    type SslCertificateCreateParams as SslCertificateCreateParams,
   };
 
   export {
@@ -96,6 +118,6 @@ export declare namespace Buckets {
     type PaginationMetaSimple as PaginationMetaSimple,
     type UsageGetAPIUsageResponse as UsageGetAPIUsageResponse,
     type UsageGetBucketUsageResponse as UsageGetBucketUsageResponse,
-    type UsageGetAPIUsageParams as UsageGetAPIUsageParams
+    type UsageGetAPIUsageParams as UsageGetAPIUsageParams,
   };
 }

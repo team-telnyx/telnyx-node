@@ -3,9 +3,22 @@
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import * as ActionsAPI from './actions';
-import { ActionGenerateJoinClientTokenParams, ActionGenerateJoinClientTokenResponse, ActionRefreshClientTokenParams, ActionRefreshClientTokenResponse, Actions } from './actions';
+import {
+  ActionGenerateJoinClientTokenParams,
+  ActionGenerateJoinClientTokenResponse,
+  ActionRefreshClientTokenParams,
+  ActionRefreshClientTokenResponse,
+  Actions,
+} from './actions';
 import * as SessionsAPI from './sessions/sessions';
-import { SessionList0Params, SessionList1Params, SessionRetrieveParams, SessionRetrieveParticipantsParams, SessionRetrieveResponse, Sessions } from './sessions/sessions';
+import {
+  SessionList0Params,
+  SessionList1Params,
+  SessionRetrieveParams,
+  SessionRetrieveParticipantsParams,
+  SessionRetrieveResponse,
+  Sessions,
+} from './sessions/sessions';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
@@ -41,7 +54,11 @@ export class Rooms extends APIResource {
    * );
    * ```
    */
-  retrieve(roomID: string, query: RoomRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<RoomRetrieveResponse> {
+  retrieve(
+    roomID: string,
+    query: RoomRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<RoomRetrieveResponse> {
     return this._client.get(path`/rooms/${roomID}`, { query, ...options });
   }
 
@@ -70,7 +87,10 @@ export class Rooms extends APIResource {
    * }
    * ```
    */
-  list(query: RoomListParams | null | undefined = {}, options?: RequestOptions): PagePromise<RoomsDefaultFlatPagination, Room> {
+  list(
+    query: RoomListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<RoomsDefaultFlatPagination, Room> {
     return this._client.getAPIList('/rooms', DefaultFlatPagination<Room>, { query, ...options });
   }
 
@@ -87,13 +107,16 @@ export class Rooms extends APIResource {
    * ```
    */
   delete(roomID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/rooms/${roomID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/rooms/${roomID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type RoomsDefaultFlatPagination = DefaultFlatPagination<Room>
+export type RoomsDefaultFlatPagination = DefaultFlatPagination<Room>;
 
-export type RoomSessionsDefaultFlatPagination = DefaultFlatPagination<RoomSession>
+export type RoomSessionsDefaultFlatPagination = DefaultFlatPagination<RoomSession>;
 
 export interface Room {
   /**
@@ -362,7 +385,7 @@ export declare namespace Rooms {
     type RoomCreateParams as RoomCreateParams,
     type RoomRetrieveParams as RoomRetrieveParams,
     type RoomUpdateParams as RoomUpdateParams,
-    type RoomListParams as RoomListParams
+    type RoomListParams as RoomListParams,
   };
 
   export {
@@ -370,7 +393,7 @@ export declare namespace Rooms {
     type ActionGenerateJoinClientTokenResponse as ActionGenerateJoinClientTokenResponse,
     type ActionRefreshClientTokenResponse as ActionRefreshClientTokenResponse,
     type ActionGenerateJoinClientTokenParams as ActionGenerateJoinClientTokenParams,
-    type ActionRefreshClientTokenParams as ActionRefreshClientTokenParams
+    type ActionRefreshClientTokenParams as ActionRefreshClientTokenParams,
   };
 
   export {
@@ -379,6 +402,6 @@ export declare namespace Rooms {
     type SessionRetrieveParams as SessionRetrieveParams,
     type SessionList0Params as SessionList0Params,
     type SessionList1Params as SessionList1Params,
-    type SessionRetrieveParticipantsParams as SessionRetrieveParticipantsParams
+    type SessionRetrieveParticipantsParams as SessionRetrieveParticipantsParams,
   };
 }

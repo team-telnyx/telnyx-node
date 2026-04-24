@@ -35,8 +35,14 @@ export class Actions extends APIResource {
    * }
    * ```
    */
-  list(query: ActionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<SimCardGroupActionsDefaultFlatPagination, SimCardGroupAction> {
-    return this._client.getAPIList('/sim_card_group_actions', DefaultFlatPagination<SimCardGroupAction>, { query, ...options });
+  list(
+    query: ActionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<SimCardGroupActionsDefaultFlatPagination, SimCardGroupAction> {
+    return this._client.getAPIList('/sim_card_group_actions', DefaultFlatPagination<SimCardGroupAction>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -53,7 +59,10 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  removePrivateWirelessGateway(id: string, options?: RequestOptions): APIPromise<ActionRemovePrivateWirelessGatewayResponse> {
+  removePrivateWirelessGateway(
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<ActionRemovePrivateWirelessGatewayResponse> {
     return this._client.post(path`/sim_card_groups/${id}/actions/remove_private_wireless_gateway`, options);
   }
 
@@ -69,7 +78,10 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  removeWirelessBlocklist(id: string, options?: RequestOptions): APIPromise<ActionRemoveWirelessBlocklistResponse> {
+  removeWirelessBlocklist(
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<ActionRemoveWirelessBlocklistResponse> {
     return this._client.post(path`/sim_card_groups/${id}/actions/remove_wireless_blocklist`, options);
   }
 
@@ -94,8 +106,15 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  setPrivateWirelessGateway(id: string, body: ActionSetPrivateWirelessGatewayParams, options?: RequestOptions): APIPromise<ActionSetPrivateWirelessGatewayResponse> {
-    return this._client.post(path`/sim_card_groups/${id}/actions/set_private_wireless_gateway`, { body, ...options });
+  setPrivateWirelessGateway(
+    id: string,
+    body: ActionSetPrivateWirelessGatewayParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionSetPrivateWirelessGatewayResponse> {
+    return this._client.post(path`/sim_card_groups/${id}/actions/set_private_wireless_gateway`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -114,12 +133,19 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  setWirelessBlocklist(id: string, body: ActionSetWirelessBlocklistParams, options?: RequestOptions): APIPromise<ActionSetWirelessBlocklistResponse> {
-    return this._client.post(path`/sim_card_groups/${id}/actions/set_wireless_blocklist`, { body, ...options });
+  setWirelessBlocklist(
+    id: string,
+    body: ActionSetWirelessBlocklistParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionSetWirelessBlocklistResponse> {
+    return this._client.post(path`/sim_card_groups/${id}/actions/set_wireless_blocklist`, {
+      body,
+      ...options,
+    });
   }
 }
 
-export type SimCardGroupActionsDefaultFlatPagination = DefaultFlatPagination<SimCardGroupAction>
+export type SimCardGroupActionsDefaultFlatPagination = DefaultFlatPagination<SimCardGroupAction>;
 
 /**
  * This object represents a SIM card group action request. It allows tracking the
@@ -154,7 +180,11 @@ export interface SimCardGroupAction {
   /**
    * Represents the type of the operation requested.
    */
-  type?: 'set_private_wireless_gateway' | 'remove_private_wireless_gateway' | 'set_wireless_blocklist' | 'remove_wireless_blocklist';
+  type?:
+    | 'set_private_wireless_gateway'
+    | 'remove_private_wireless_gateway'
+    | 'set_wireless_blocklist'
+    | 'remove_wireless_blocklist';
 
   /**
    * ISO 8601 formatted date-time indicating when the resource was updated.
@@ -233,7 +263,11 @@ export interface ActionListParams extends DefaultFlatPaginationParams {
   /**
    * Filter by action type.
    */
-  'filter[type]'?: 'set_private_wireless_gateway' | 'remove_private_wireless_gateway' | 'set_wireless_blocklist' | 'remove_wireless_blocklist';
+  'filter[type]'?:
+    | 'set_private_wireless_gateway'
+    | 'remove_private_wireless_gateway'
+    | 'set_wireless_blocklist'
+    | 'remove_wireless_blocklist';
 }
 
 export interface ActionSetPrivateWirelessGatewayParams {
@@ -261,6 +295,6 @@ export declare namespace Actions {
     type SimCardGroupActionsDefaultFlatPagination as SimCardGroupActionsDefaultFlatPagination,
     type ActionListParams as ActionListParams,
     type ActionSetPrivateWirelessGatewayParams as ActionSetPrivateWirelessGatewayParams,
-    type ActionSetWirelessBlocklistParams as ActionSetWirelessBlocklistParams
+    type ActionSetWirelessBlocklistParams as ActionSetWirelessBlocklistParams,
   };
 }

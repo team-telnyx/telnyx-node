@@ -128,6 +128,6 @@ export declare namespace SpeechToText {
     type SpeechToTextRetrieveResponse as SpeechToTextRetrieveResponse,
     type SpeechToTextListResponse as SpeechToTextListResponse,
     type SpeechToTextDeleteResponse as SpeechToTextDeleteResponse,
-    type SpeechToTextCreateParams as SpeechToTextCreateParams
+    type SpeechToTextCreateParams as SpeechToTextCreateParams,
   };
 }

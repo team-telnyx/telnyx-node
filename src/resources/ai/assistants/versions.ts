@@ -23,9 +23,16 @@ export class Versions extends APIResource {
    *   );
    * ```
    */
-  retrieve(versionID: string, params: VersionRetrieveParams, options?: RequestOptions): APIPromise<AssistantsAPI.InferenceEmbedding> {
-    const { assistant_id, ...query } = params
-    return this._client.get(path`/ai/assistants/${assistant_id}/versions/${versionID}`, { query, ...options });
+  retrieve(
+    versionID: string,
+    params: VersionRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<AssistantsAPI.InferenceEmbedding> {
+    const { assistant_id, ...query } = params;
+    return this._client.get(path`/ai/assistants/${assistant_id}/versions/${versionID}`, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -40,9 +47,16 @@ export class Versions extends APIResource {
    *   });
    * ```
    */
-  update(versionID: string, params: VersionUpdateParams, options?: RequestOptions): APIPromise<AssistantsAPI.InferenceEmbedding> {
-    const { assistant_id, ...body } = params
-    return this._client.post(path`/ai/assistants/${assistant_id}/versions/${versionID}`, { body, ...options });
+  update(
+    versionID: string,
+    params: VersionUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<AssistantsAPI.InferenceEmbedding> {
+    const { assistant_id, ...body } = params;
+    return this._client.post(path`/ai/assistants/${assistant_id}/versions/${versionID}`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -71,8 +85,11 @@ export class Versions extends APIResource {
    * ```
    */
   delete(versionID: string, params: VersionDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { assistant_id } = params
-    return this._client.delete(path`/ai/assistants/${assistant_id}/versions/${versionID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    const { assistant_id } = params;
+    return this._client.delete(path`/ai/assistants/${assistant_id}/versions/${versionID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -89,8 +106,12 @@ export class Versions extends APIResource {
    *   );
    * ```
    */
-  promote(versionID: string, params: VersionPromoteParams, options?: RequestOptions): APIPromise<AssistantsAPI.InferenceEmbedding> {
-    const { assistant_id } = params
+  promote(
+    versionID: string,
+    params: VersionPromoteParams,
+    options?: RequestOptions,
+  ): APIPromise<AssistantsAPI.InferenceEmbedding> {
+    const { assistant_id } = params;
     return this._client.post(path`/ai/assistants/${assistant_id}/versions/${versionID}/promote`, options);
   }
 }
@@ -153,6 +174,16 @@ export interface UpdateAssistant {
 
   observability_settings?: AssistantsAPI.ObservabilityReq;
 
+  /**
+   * Configuration for post-conversation processing. When enabled, the assistant
+   * receives one additional LLM turn after the conversation ends, allowing it to
+   * execute tool calls such as logging to a CRM or sending a summary. The assistant
+   * can execute multiple parallel or sequential tools during this phase.
+   * Telephony-control tools (e.g. hangup, transfer) are unavailable
+   * post-conversation. Beta feature.
+   */
+  post_conversation_settings?: UpdateAssistant.PostConversationSettings;
+
   privacy_settings?: AssistantsAPI.PrivacySettings;
 
   telephony_settings?: AssistantsAPI.TelephonySettings;
@@ -173,6 +204,25 @@ export interface UpdateAssistant {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: AssistantsAPI.WidgetSettings;
+}
+
+export namespace UpdateAssistant {
+  /**
+   * Configuration for post-conversation processing. When enabled, the assistant
+   * receives one additional LLM turn after the conversation ends, allowing it to
+   * execute tool calls such as logging to a CRM or sending a summary. The assistant
+   * can execute multiple parallel or sequential tools during this phase.
+   * Telephony-control tools (e.g. hangup, transfer) are unavailable
+   * post-conversation. Beta feature.
+   */
+  export interface PostConversationSettings {
+    /**
+     * Whether post-conversation processing is enabled. When true, the assistant will
+     * be invoked after the conversation ends to perform any final tool calls. Defaults
+     * to false.
+     */
+    enabled?: boolean;
+  }
 }
 
 export interface VersionRetrieveParams {
@@ -269,6 +319,16 @@ export interface VersionUpdateParams {
   observability_settings?: AssistantsAPI.ObservabilityReq;
 
   /**
+   * Body param: Configuration for post-conversation processing. When enabled, the
+   * assistant receives one additional LLM turn after the conversation ends, allowing
+   * it to execute tool calls such as logging to a CRM or sending a summary. The
+   * assistant can execute multiple parallel or sequential tools during this phase.
+   * Telephony-control tools (e.g. hangup, transfer) are unavailable
+   * post-conversation. Beta feature.
+   */
+  post_conversation_settings?: VersionUpdateParams.PostConversationSettings;
+
+  /**
    * Body param
    */
   privacy_settings?: AssistantsAPI.PrivacySettings;
@@ -305,6 +365,25 @@ export interface VersionUpdateParams {
   widget_settings?: AssistantsAPI.WidgetSettings;
 }
 
+export namespace VersionUpdateParams {
+  /**
+   * Configuration for post-conversation processing. When enabled, the assistant
+   * receives one additional LLM turn after the conversation ends, allowing it to
+   * execute tool calls such as logging to a CRM or sending a summary. The assistant
+   * can execute multiple parallel or sequential tools during this phase.
+   * Telephony-control tools (e.g. hangup, transfer) are unavailable
+   * post-conversation. Beta feature.
+   */
+  export interface PostConversationSettings {
+    /**
+     * Whether post-conversation processing is enabled. When true, the assistant will
+     * be invoked after the conversation ends to perform any final tool calls. Defaults
+     * to false.
+     */
+    enabled?: boolean;
+  }
+}
+
 export interface VersionDeleteParams {
   assistant_id: string;
 }
@@ -319,6 +398,6 @@ export declare namespace Versions {
     type VersionRetrieveParams as VersionRetrieveParams,
     type VersionUpdateParams as VersionUpdateParams,
     type VersionDeleteParams as VersionDeleteParams,
-    type VersionPromoteParams as VersionPromoteParams
+    type VersionPromoteParams as VersionPromoteParams,
   };
 }

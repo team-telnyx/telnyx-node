@@ -17,7 +17,10 @@ export class AutoRechargePrefs extends APIResource {
    *   await client.payment.autoRechargePrefs.update();
    * ```
    */
-  update(body: AutoRechargePrefUpdateParams, options?: RequestOptions): APIPromise<AutoRechargePrefUpdateResponse> {
+  update(
+    body: AutoRechargePrefUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<AutoRechargePrefUpdateResponse> {
     return this._client.patch('/payment/auto_recharge_prefs', { body, ...options });
   }
 
@@ -108,6 +111,6 @@ export declare namespace AutoRechargePrefs {
     type AutoRechargePref as AutoRechargePref,
     type AutoRechargePrefUpdateResponse as AutoRechargePrefUpdateResponse,
     type AutoRechargePrefListResponse as AutoRechargePrefListResponse,
-    type AutoRechargePrefUpdateParams as AutoRechargePrefUpdateParams
+    type AutoRechargePrefUpdateParams as AutoRechargePrefUpdateParams,
   };
 }

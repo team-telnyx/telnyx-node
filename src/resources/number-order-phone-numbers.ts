@@ -11,29 +11,46 @@ export class NumberOrderPhoneNumbers extends APIResource {
   /**
    * Get an existing phone number in number order.
    */
-  retrieve(numberOrderPhoneNumberID: string, options?: RequestOptions): APIPromise<NumberOrderPhoneNumberRetrieveResponse> {
+  retrieve(
+    numberOrderPhoneNumberID: string,
+    options?: RequestOptions,
+  ): APIPromise<NumberOrderPhoneNumberRetrieveResponse> {
     return this._client.get(path`/number_order_phone_numbers/${numberOrderPhoneNumberID}`, options);
   }
 
   /**
    * Get a list of phone numbers associated to orders.
    */
-  list(query: NumberOrderPhoneNumberListParams | null | undefined = {}, options?: RequestOptions): APIPromise<NumberOrderPhoneNumberListResponse> {
+  list(
+    query: NumberOrderPhoneNumberListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<NumberOrderPhoneNumberListResponse> {
     return this._client.get('/number_order_phone_numbers', { query, ...options });
   }
 
   /**
    * Update requirement group for a phone number order
    */
-  updateRequirementGroup(id: string, body: NumberOrderPhoneNumberUpdateRequirementGroupParams, options?: RequestOptions): APIPromise<NumberOrderPhoneNumberUpdateRequirementGroupResponse> {
+  updateRequirementGroup(
+    id: string,
+    body: NumberOrderPhoneNumberUpdateRequirementGroupParams,
+    options?: RequestOptions,
+  ): APIPromise<NumberOrderPhoneNumberUpdateRequirementGroupResponse> {
     return this._client.post(path`/number_order_phone_numbers/${id}/requirement_group`, { body, ...options });
   }
 
   /**
    * Updates requirements for a single phone number within a number order.
    */
-  updateRequirements(numberOrderPhoneNumberID: string, body: NumberOrderPhoneNumberUpdateRequirementsParams, options?: RequestOptions): APIPromise<NumberOrderPhoneNumberUpdateRequirementsResponse> {
-    return this._client.patch(path`/number_order_phone_numbers/${numberOrderPhoneNumberID}`, { body, ...options });
+  updateRequirements(
+    numberOrderPhoneNumberID: string,
+    body: NumberOrderPhoneNumberUpdateRequirementsParams,
+    options?: RequestOptions,
+  ): APIPromise<NumberOrderPhoneNumberUpdateRequirementsResponse> {
+    return this._client.patch(path`/number_order_phone_numbers/${numberOrderPhoneNumberID}`, {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -68,7 +85,14 @@ export interface NumberOrderPhoneNumber {
   /**
    * Status of requirements (if applicable)
    */
-  requirements_status?: 'pending' | 'approved' | 'cancelled' | 'deleted' | 'requirement-info-exception' | 'requirement-info-pending' | 'requirement-info-under-review';
+  requirements_status?:
+    | 'pending'
+    | 'approved'
+    | 'cancelled'
+    | 'deleted'
+    | 'requirement-info-exception'
+    | 'requirement-info-pending'
+    | 'requirement-info-under-review';
 
   /**
    * The status of the phone number in the order.
@@ -198,6 +222,6 @@ export declare namespace NumberOrderPhoneNumbers {
     type NumberOrderPhoneNumberUpdateRequirementsResponse as NumberOrderPhoneNumberUpdateRequirementsResponse,
     type NumberOrderPhoneNumberListParams as NumberOrderPhoneNumberListParams,
     type NumberOrderPhoneNumberUpdateRequirementGroupParams as NumberOrderPhoneNumberUpdateRequirementGroupParams,
-    type NumberOrderPhoneNumberUpdateRequirementsParams as NumberOrderPhoneNumberUpdateRequirementsParams
+    type NumberOrderPhoneNumberUpdateRequirementsParams as NumberOrderPhoneNumberUpdateRequirementsParams,
   };
 }

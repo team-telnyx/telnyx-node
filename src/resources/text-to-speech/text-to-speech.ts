@@ -23,13 +23,16 @@ export class TextToSpeech extends APIResource {
    * with provider-specific parameters.
    *
    * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`,
-   * `resemble`, `inworld`.
+   * `resemble`, `xai`.
    *
    * The Telnyx `Ultra` model supports 44 languages with emotion control, speed
    * adjustment, and volume control. Use the `telnyx` provider-specific parameters to
    * configure these features.
    */
-  generate(body: TextToSpeechGenerateParams, options?: RequestOptions): APIPromise<TextToSpeechGenerateResponse> {
+  generate(
+    body: TextToSpeechGenerateParams,
+    options?: RequestOptions,
+  ): APIPromise<TextToSpeechGenerateResponse> {
     return this._client.post('/text-to-speech/speech', { body, ...options });
   }
 
@@ -40,7 +43,10 @@ export class TextToSpeech extends APIResource {
    *
    * Some providers (ElevenLabs, Resemble) require an API key to list voices.
    */
-  listVoices(query: TextToSpeechListVoicesParams | null | undefined = {}, options?: RequestOptions): APIPromise<TextToSpeechListVoicesResponse> {
+  listVoices(
+    query: TextToSpeechListVoicesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TextToSpeechListVoicesResponse> {
     return this._client.get('/text-to-speech/voices', { query, ...options });
   }
 
@@ -139,7 +145,10 @@ export interface StreamClientEvent {
 /**
  * Union of all server-to-client WebSocket events for TTS streaming.
  */
-export type StreamServerEvent = StreamServerEvent.AudioChunkFrame | StreamServerEvent.FinalFrameEvent | StreamServerEvent.ErrorFrame
+export type StreamServerEvent =
+  | StreamServerEvent.AudioChunkFrame
+  | StreamServerEvent.FinalFrameEvent
+  | StreamServerEvent.ErrorFrame;
 
 export namespace StreamServerEvent {
   /**
@@ -272,7 +281,7 @@ export interface TextToSpeechGenerateParams {
   /**
    * TTS provider. Required unless `voice` is provided.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'inworld';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'inworld' | 'xai';
 
   /**
    * Resemble AI provider-specific parameters.
@@ -316,6 +325,11 @@ export interface TextToSpeechGenerateParams {
    * provider-specific parameter objects below.
    */
   voice_settings?: { [key: string]: unknown };
+
+  /**
+   * xAI provider-specific parameters.
+   */
+  xai?: TextToSpeechGenerateParams.Xai;
 }
 
 export namespace TextToSpeechGenerateParams {
@@ -526,6 +540,31 @@ export namespace TextToSpeechGenerateParams {
      */
     volume?: number;
   }
+
+  /**
+   * xAI provider-specific parameters.
+   */
+  export interface Xai {
+    /**
+     * xAI voice identifier.
+     */
+    voice_id: 'eve' | 'ara' | 'rex' | 'sal' | 'leo';
+
+    /**
+     * Language code, or `auto` to detect.
+     */
+    language?: string;
+
+    /**
+     * Audio output format.
+     */
+    output_format?: 'mp3' | 'wav' | 'pcm' | 'mulaw' | 'alaw';
+
+    /**
+     * Audio sample rate in Hz.
+     */
+    sample_rate?: 8000 | 16000 | 22050 | 24000 | 44100 | 48000;
+  }
 }
 
 export interface TextToSpeechListVoicesParams {
@@ -537,7 +576,7 @@ export interface TextToSpeechListVoicesParams {
   /**
    * Filter voices by provider. If omitted, voices from all providers are returned.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'inworld';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'inworld' | 'xai';
 }
 
 export declare namespace TextToSpeech {
@@ -547,7 +586,7 @@ export declare namespace TextToSpeech {
     type StreamClientEvent as StreamClientEvent,
     type StreamServerEvent as StreamServerEvent,
     type TextToSpeechGenerateParams as TextToSpeechGenerateParams,
-    type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams
+    type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
   };
 }
 

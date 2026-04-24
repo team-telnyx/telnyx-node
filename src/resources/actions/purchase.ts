@@ -75,6 +75,6 @@ export interface PurchaseCreateParams {
 export declare namespace Purchase {
   export {
     type PurchaseCreateResponse as PurchaseCreateResponse,
-    type PurchaseCreateParams as PurchaseCreateParams
+    type PurchaseCreateParams as PurchaseCreateParams,
   };
 }

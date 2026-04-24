@@ -27,7 +27,10 @@ export class AuthenticationProviders extends APIResource {
    *   });
    * ```
    */
-  create(body: AuthenticationProviderCreateParams, options?: RequestOptions): APIPromise<AuthenticationProviderCreateResponse> {
+  create(
+    body: AuthenticationProviderCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<AuthenticationProviderCreateResponse> {
     return this._client.post('/authentication_providers', { body, ...options });
   }
 
@@ -66,7 +69,11 @@ export class AuthenticationProviders extends APIResource {
    *   });
    * ```
    */
-  update(id: string, body: AuthenticationProviderUpdateParams, options?: RequestOptions): APIPromise<AuthenticationProviderUpdateResponse> {
+  update(
+    id: string,
+    body: AuthenticationProviderUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<AuthenticationProviderUpdateResponse> {
     return this._client.patch(path`/authentication_providers/${id}`, { body, ...options });
   }
 
@@ -81,8 +88,15 @@ export class AuthenticationProviders extends APIResource {
    * }
    * ```
    */
-  list(query: AuthenticationProviderListParams | null | undefined = {}, options?: RequestOptions): PagePromise<AuthenticationProvidersDefaultFlatPagination, AuthenticationProvider> {
-    return this._client.getAPIList('/authentication_providers', DefaultFlatPagination<AuthenticationProvider>, { query, ...options });
+  list(
+    query: AuthenticationProviderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AuthenticationProvidersDefaultFlatPagination, AuthenticationProvider> {
+    return this._client.getAPIList(
+      '/authentication_providers',
+      DefaultFlatPagination<AuthenticationProvider>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -99,7 +113,7 @@ export class AuthenticationProviders extends APIResource {
   }
 }
 
-export type AuthenticationProvidersDefaultFlatPagination = DefaultFlatPagination<AuthenticationProvider>
+export type AuthenticationProvidersDefaultFlatPagination = DefaultFlatPagination<AuthenticationProvider>;
 
 export interface AuthenticationProvider {
   /**
@@ -352,7 +366,17 @@ export interface AuthenticationProviderListParams extends DefaultFlatPaginationP
    *   </li>
    * </ul><br/>If not given, results are sorted by <code>created_at</code> in descending order.
    */
-  sort?: 'name' | '-name' | 'short_name' | '-short_name' | 'active' | '-active' | 'created_at' | '-created_at' | 'updated_at' | '-updated_at';
+  sort?:
+    | 'name'
+    | '-name'
+    | 'short_name'
+    | '-short_name'
+    | 'active'
+    | '-active'
+    | 'created_at'
+    | '-created_at'
+    | 'updated_at'
+    | '-updated_at';
 }
 
 export declare namespace AuthenticationProviders {
@@ -367,6 +391,6 @@ export declare namespace AuthenticationProviders {
     type AuthenticationProvidersDefaultFlatPagination as AuthenticationProvidersDefaultFlatPagination,
     type AuthenticationProviderCreateParams as AuthenticationProviderCreateParams,
     type AuthenticationProviderUpdateParams as AuthenticationProviderUpdateParams,
-    type AuthenticationProviderListParams as AuthenticationProviderListParams
+    type AuthenticationProviderListParams as AuthenticationProviderListParams,
   };
 }

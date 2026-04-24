@@ -27,8 +27,15 @@ export class PhoneNumberExtensions extends APIResource {
    *   );
    * ```
    */
-  create(portingOrderID: string, body: PhoneNumberExtensionCreateParams, options?: RequestOptions): APIPromise<PhoneNumberExtensionCreateResponse> {
-    return this._client.post(path`/porting_orders/${portingOrderID}/phone_number_extensions`, { body, ...options });
+  create(
+    portingOrderID: string,
+    body: PhoneNumberExtensionCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<PhoneNumberExtensionCreateResponse> {
+    return this._client.post(path`/porting_orders/${portingOrderID}/phone_number_extensions`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -44,8 +51,16 @@ export class PhoneNumberExtensions extends APIResource {
    * }
    * ```
    */
-  list(portingOrderID: string, query: PhoneNumberExtensionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PortingPhoneNumberExtensionsDefaultFlatPagination, PortingPhoneNumberExtension> {
-    return this._client.getAPIList(path`/porting_orders/${portingOrderID}/phone_number_extensions`, DefaultFlatPagination<PortingPhoneNumberExtension>, { query, ...options });
+  list(
+    portingOrderID: string,
+    query: PhoneNumberExtensionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PortingPhoneNumberExtensionsDefaultFlatPagination, PortingPhoneNumberExtension> {
+    return this._client.getAPIList(
+      path`/porting_orders/${portingOrderID}/phone_number_extensions`,
+      DefaultFlatPagination<PortingPhoneNumberExtension>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -63,13 +78,21 @@ export class PhoneNumberExtensions extends APIResource {
    *   );
    * ```
    */
-  delete(id: string, params: PhoneNumberExtensionDeleteParams, options?: RequestOptions): APIPromise<PhoneNumberExtensionDeleteResponse> {
-    const { porting_order_id } = params
-    return this._client.delete(path`/porting_orders/${porting_order_id}/phone_number_extensions/${id}`, options);
+  delete(
+    id: string,
+    params: PhoneNumberExtensionDeleteParams,
+    options?: RequestOptions,
+  ): APIPromise<PhoneNumberExtensionDeleteResponse> {
+    const { porting_order_id } = params;
+    return this._client.delete(
+      path`/porting_orders/${porting_order_id}/phone_number_extensions/${id}`,
+      options,
+    );
   }
 }
 
-export type PortingPhoneNumberExtensionsDefaultFlatPagination = DefaultFlatPagination<PortingPhoneNumberExtension>
+export type PortingPhoneNumberExtensionsDefaultFlatPagination =
+  DefaultFlatPagination<PortingPhoneNumberExtension>;
 
 export interface PortingPhoneNumberExtension {
   /**
@@ -251,6 +274,6 @@ export declare namespace PhoneNumberExtensions {
     type PortingPhoneNumberExtensionsDefaultFlatPagination as PortingPhoneNumberExtensionsDefaultFlatPagination,
     type PhoneNumberExtensionCreateParams as PhoneNumberExtensionCreateParams,
     type PhoneNumberExtensionListParams as PhoneNumberExtensionListParams,
-    type PhoneNumberExtensionDeleteParams as PhoneNumberExtensionDeleteParams
+    type PhoneNumberExtensionDeleteParams as PhoneNumberExtensionDeleteParams,
   };
 }

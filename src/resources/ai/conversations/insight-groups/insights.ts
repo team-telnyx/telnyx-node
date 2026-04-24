@@ -22,8 +22,11 @@ export class Insights extends APIResource {
    * ```
    */
   assign(insightID: string, params: InsightAssignParams, options?: RequestOptions): APIPromise<void> {
-    const { group_id } = params
-    return this._client.post(path`/ai/conversations/insight-groups/${group_id}/insights/${insightID}/assign`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    const { group_id } = params;
+    return this._client.post(
+      path`/ai/conversations/insight-groups/${group_id}/insights/${insightID}/assign`,
+      { ...options, headers: buildHeaders([{ Accept: '*/*' }, options?.headers]) },
+    );
   }
 
   /**
@@ -37,9 +40,16 @@ export class Insights extends APIResource {
    * );
    * ```
    */
-  deleteUnassign(insightID: string, params: InsightDeleteUnassignParams, options?: RequestOptions): APIPromise<void> {
-    const { group_id } = params
-    return this._client.delete(path`/ai/conversations/insight-groups/${group_id}/insights/${insightID}/unassign`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+  deleteUnassign(
+    insightID: string,
+    params: InsightDeleteUnassignParams,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const { group_id } = params;
+    return this._client.delete(
+      path`/ai/conversations/insight-groups/${group_id}/insights/${insightID}/unassign`,
+      { ...options, headers: buildHeaders([{ Accept: '*/*' }, options?.headers]) },
+    );
   }
 }
 
@@ -60,6 +70,6 @@ export interface InsightDeleteUnassignParams {
 export declare namespace Insights {
   export {
     type InsightAssignParams as InsightAssignParams,
-    type InsightDeleteUnassignParams as InsightDeleteUnassignParams
+    type InsightDeleteUnassignParams as InsightDeleteUnassignParams,
   };
 }

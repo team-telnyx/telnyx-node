@@ -208,6 +208,6 @@ export declare namespace Messaging {
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingListResponse as MessagingListResponse,
     type MessagingDeleteResponse as MessagingDeleteResponse,
-    type MessagingCreateParams as MessagingCreateParams
+    type MessagingCreateParams as MessagingCreateParams,
   };
 }

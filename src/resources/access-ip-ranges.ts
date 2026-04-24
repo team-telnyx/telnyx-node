@@ -21,8 +21,14 @@ export class AccessIPRanges extends APIResource {
   /**
    * List all Access IP Ranges
    */
-  list(query: AccessIPRangeListParams | null | undefined = {}, options?: RequestOptions): PagePromise<AccessIPRangesDefaultFlatPagination, AccessIPRange> {
-    return this._client.getAPIList('/access_ip_ranges', DefaultFlatPagination<AccessIPRange>, { query, ...options });
+  list(
+    query: AccessIPRangeListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AccessIPRangesDefaultFlatPagination, AccessIPRange> {
+    return this._client.getAPIList('/access_ip_ranges', DefaultFlatPagination<AccessIPRange>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -33,7 +39,7 @@ export class AccessIPRanges extends APIResource {
   }
 }
 
-export type AccessIPRangesDefaultFlatPagination = DefaultFlatPagination<AccessIPRange>
+export type AccessIPRangesDefaultFlatPagination = DefaultFlatPagination<AccessIPRange>;
 
 export interface AccessIPRange {
   id: string;
@@ -88,7 +94,7 @@ export namespace AccessIPRangeListParams {
      */
     created_at?: string | Filter.DateRangeFilter;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export namespace Filter {
@@ -144,6 +150,6 @@ export declare namespace AccessIPRanges {
     type AccessIPRange as AccessIPRange,
     type AccessIPRangesDefaultFlatPagination as AccessIPRangesDefaultFlatPagination,
     type AccessIPRangeCreateParams as AccessIPRangeCreateParams,
-    type AccessIPRangeListParams as AccessIPRangeListParams
+    type AccessIPRangeListParams as AccessIPRangeListParams,
   };
 }

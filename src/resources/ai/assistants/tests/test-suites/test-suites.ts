@@ -2,7 +2,14 @@
 
 import { APIResource } from '../../../../../core/resource';
 import * as RunsAPI from './runs';
-import { Meta, PaginatedTestRunList, RunListParams, RunTriggerParams, RunTriggerResponse, Runs } from './runs';
+import {
+  Meta,
+  PaginatedTestRunList,
+  RunListParams,
+  RunTriggerParams,
+  RunTriggerResponse,
+  Runs,
+} from './runs';
 import { APIPromise } from '../../../../../core/api-promise';
 import { RequestOptions } from '../../../../../internal/request-options';
 
@@ -42,9 +49,7 @@ export interface TestSuiteListResponse {
 TestSuites.Runs = Runs;
 
 export declare namespace TestSuites {
-  export {
-    type TestSuiteListResponse as TestSuiteListResponse
-  };
+  export { type TestSuiteListResponse as TestSuiteListResponse };
 
   export {
     Runs as Runs,
@@ -52,6 +57,6 @@ export declare namespace TestSuites {
     type PaginatedTestRunList as PaginatedTestRunList,
     type RunTriggerResponse as RunTriggerResponse,
     type RunListParams as RunListParams,
-    type RunTriggerParams as RunTriggerParams
+    type RunTriggerParams as RunTriggerParams,
   };
 }

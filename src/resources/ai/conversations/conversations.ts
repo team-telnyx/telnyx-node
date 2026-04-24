@@ -2,11 +2,32 @@
 
 import { APIResource } from '../../../core/resource';
 import * as InsightsAPI from './insights';
-import { InsightCreateParams, InsightListParams, InsightTemplate, InsightTemplateDetail, InsightTemplatesDefaultFlatPagination, InsightUpdateParams, Insights } from './insights';
+import {
+  InsightCreateParams,
+  InsightListParams,
+  InsightTemplate,
+  InsightTemplateDetail,
+  InsightTemplatesDefaultFlatPagination,
+  InsightUpdateParams,
+  Insights,
+} from './insights';
 import * as MessagesAPI from './messages';
-import { MessageListResponse, Messages } from './messages';
+import {
+  MessageListParams,
+  MessageListResponse,
+  MessageListResponsesDefaultFlatPagination,
+  Messages,
+} from './messages';
 import * as InsightGroupsAPI from './insight-groups/insight-groups';
-import { InsightGroupInsightGroupsParams, InsightGroupRetrieveInsightGroupsParams, InsightGroupUpdateParams, InsightGroups, InsightTemplateGroup, InsightTemplateGroupDetail, InsightTemplateGroupsDefaultFlatPagination } from './insight-groups/insight-groups';
+import {
+  InsightGroupInsightGroupsParams,
+  InsightGroupRetrieveInsightGroupsParams,
+  InsightGroupUpdateParams,
+  InsightGroups,
+  InsightTemplateGroup,
+  InsightTemplateGroupDetail,
+  InsightTemplateGroupsDefaultFlatPagination,
+} from './insight-groups/insight-groups';
 import * as RunsAPI from '../assistants/tests/test-suites/runs';
 import { APIPromise } from '../../../core/api-promise';
 import { buildHeaders } from '../../../internal/headers';
@@ -57,7 +78,11 @@ export class Conversations extends APIResource {
    * );
    * ```
    */
-  update(conversationID: string, body: ConversationUpdateParams, options?: RequestOptions): APIPromise<ConversationUpdateResponse> {
+  update(
+    conversationID: string,
+    body: ConversationUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<ConversationUpdateResponse> {
     return this._client.put(path`/ai/conversations/${conversationID}`, { body, ...options });
   }
 
@@ -73,7 +98,10 @@ export class Conversations extends APIResource {
    * const conversations = await client.ai.conversations.list();
    * ```
    */
-  list(query: ConversationListParams | null | undefined = {}, options?: RequestOptions): APIPromise<ConversationListResponse> {
+  list(
+    query: ConversationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ConversationListResponse> {
     return this._client.get('/ai/conversations', { query, ...options });
   }
 
@@ -86,7 +114,10 @@ export class Conversations extends APIResource {
    * ```
    */
   delete(conversationID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/conversations/${conversationID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/ai/conversations/${conversationID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -101,8 +132,16 @@ export class Conversations extends APIResource {
    * );
    * ```
    */
-  addMessage(conversationID: string, body: ConversationAddMessageParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/ai/conversations/${conversationID}/message`, { body, ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+  addMessage(
+    conversationID: string,
+    body: ConversationAddMessageParams,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.post(path`/ai/conversations/${conversationID}/message`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -116,7 +155,10 @@ export class Conversations extends APIResource {
    *   );
    * ```
    */
-  retrieveConversationsInsights(conversationID: string, options?: RequestOptions): APIPromise<ConversationRetrieveConversationsInsightsResponse> {
+  retrieveConversationsInsights(
+    conversationID: string,
+    options?: RequestOptions,
+  ): APIPromise<ConversationRetrieveConversationsInsightsResponse> {
     return this._client.get(path`/ai/conversations/${conversationID}/conversations-insights`, options);
   }
 }
@@ -323,7 +365,7 @@ export declare namespace Conversations {
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationListParams as ConversationListParams,
-    type ConversationAddMessageParams as ConversationAddMessageParams
+    type ConversationAddMessageParams as ConversationAddMessageParams,
   };
 
   export {
@@ -333,7 +375,7 @@ export declare namespace Conversations {
     type InsightTemplateGroupsDefaultFlatPagination as InsightTemplateGroupsDefaultFlatPagination,
     type InsightGroupUpdateParams as InsightGroupUpdateParams,
     type InsightGroupInsightGroupsParams as InsightGroupInsightGroupsParams,
-    type InsightGroupRetrieveInsightGroupsParams as InsightGroupRetrieveInsightGroupsParams
+    type InsightGroupRetrieveInsightGroupsParams as InsightGroupRetrieveInsightGroupsParams,
   };
 
   export {
@@ -343,11 +385,13 @@ export declare namespace Conversations {
     type InsightTemplatesDefaultFlatPagination as InsightTemplatesDefaultFlatPagination,
     type InsightCreateParams as InsightCreateParams,
     type InsightUpdateParams as InsightUpdateParams,
-    type InsightListParams as InsightListParams
+    type InsightListParams as InsightListParams,
   };
 
   export {
     Messages as Messages,
-    type MessageListResponse as MessageListResponse
+    type MessageListResponse as MessageListResponse,
+    type MessageListResponsesDefaultFlatPagination as MessageListResponsesDefaultFlatPagination,
+    type MessageListParams as MessageListParams,
   };
 }

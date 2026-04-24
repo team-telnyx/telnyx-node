@@ -42,7 +42,11 @@ export class ShortCodes extends APIResource {
    * );
    * ```
    */
-  update(id: string, body: ShortCodeUpdateParams, options?: RequestOptions): APIPromise<ShortCodeUpdateResponse> {
+  update(
+    id: string,
+    body: ShortCodeUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<ShortCodeUpdateResponse> {
     return this._client.patch(path`/short_codes/${id}`, { body, ...options });
   }
 
@@ -57,8 +61,14 @@ export class ShortCodes extends APIResource {
    * }
    * ```
    */
-  list(query: ShortCodeListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ShortCodesDefaultFlatPagination, Shared.ShortCode> {
-    return this._client.getAPIList('/short_codes', DefaultFlatPagination<Shared.ShortCode>, { query, ...options });
+  list(
+    query: ShortCodeListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ShortCodesDefaultFlatPagination, Shared.ShortCode> {
+    return this._client.getAPIList('/short_codes', DefaultFlatPagination<Shared.ShortCode>, {
+      query,
+      ...options,
+    });
   }
 }
 
@@ -107,8 +117,8 @@ export declare namespace ShortCodes {
     type ShortCodeRetrieveResponse as ShortCodeRetrieveResponse,
     type ShortCodeUpdateResponse as ShortCodeUpdateResponse,
     type ShortCodeUpdateParams as ShortCodeUpdateParams,
-    type ShortCodeListParams as ShortCodeListParams
+    type ShortCodeListParams as ShortCodeListParams,
   };
 }
 
-export { type ShortCodesDefaultFlatPagination }
+export { type ShortCodesDefaultFlatPagination };

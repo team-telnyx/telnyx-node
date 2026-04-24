@@ -19,7 +19,10 @@ export class TelephonyCredentials extends APIResource {
    *   });
    * ```
    */
-  create(body: TelephonyCredentialCreateParams, options?: RequestOptions): APIPromise<TelephonyCredentialCreateResponse> {
+  create(
+    body: TelephonyCredentialCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<TelephonyCredentialCreateResponse> {
     return this._client.post('/telephony_credentials', { body, ...options });
   }
 
@@ -45,7 +48,11 @@ export class TelephonyCredentials extends APIResource {
    *   await client.telephonyCredentials.update('id');
    * ```
    */
-  update(id: string, body: TelephonyCredentialUpdateParams, options?: RequestOptions): APIPromise<TelephonyCredentialUpdateResponse> {
+  update(
+    id: string,
+    body: TelephonyCredentialUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<TelephonyCredentialUpdateResponse> {
     return this._client.patch(path`/telephony_credentials/${id}`, { body, ...options });
   }
 
@@ -60,8 +67,14 @@ export class TelephonyCredentials extends APIResource {
    * }
    * ```
    */
-  list(query: TelephonyCredentialListParams | null | undefined = {}, options?: RequestOptions): PagePromise<TelephonyCredentialsDefaultFlatPagination, TelephonyCredential> {
-    return this._client.getAPIList('/telephony_credentials', DefaultFlatPagination<TelephonyCredential>, { query, ...options });
+  list(
+    query: TelephonyCredentialListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<TelephonyCredentialsDefaultFlatPagination, TelephonyCredential> {
+    return this._client.getAPIList('/telephony_credentials', DefaultFlatPagination<TelephonyCredential>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -87,11 +100,14 @@ export class TelephonyCredentials extends APIResource {
    * ```
    */
   createToken(id: string, options?: RequestOptions): APIPromise<string> {
-    return this._client.post(path`/telephony_credentials/${id}/token`, { ...options, headers: buildHeaders([{Accept: 'text/plain'}, options?.headers]) });
+    return this._client.post(path`/telephony_credentials/${id}/token`, {
+      ...options,
+      headers: buildHeaders([{ Accept: 'text/plain' }, options?.headers]),
+    });
   }
 }
 
-export type TelephonyCredentialsDefaultFlatPagination = DefaultFlatPagination<TelephonyCredential>
+export type TelephonyCredentialsDefaultFlatPagination = DefaultFlatPagination<TelephonyCredential>;
 
 export interface TelephonyCredential {
   /**
@@ -163,7 +179,7 @@ export interface TelephonyCredentialDeleteResponse {
   data?: TelephonyCredential;
 }
 
-export type TelephonyCredentialCreateTokenResponse = string
+export type TelephonyCredentialCreateTokenResponse = string;
 
 export interface TelephonyCredentialCreateParams {
   /**
@@ -255,6 +271,6 @@ export declare namespace TelephonyCredentials {
     type TelephonyCredentialsDefaultFlatPagination as TelephonyCredentialsDefaultFlatPagination,
     type TelephonyCredentialCreateParams as TelephonyCredentialCreateParams,
     type TelephonyCredentialUpdateParams as TelephonyCredentialUpdateParams,
-    type TelephonyCredentialListParams as TelephonyCredentialListParams
+    type TelephonyCredentialListParams as TelephonyCredentialListParams,
   };
 }

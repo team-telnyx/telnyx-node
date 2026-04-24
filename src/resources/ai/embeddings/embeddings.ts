@@ -87,7 +87,10 @@ export class Embeddings extends APIResource {
    * const embeddings = await client.ai.embeddings.list();
    * ```
    */
-  list(query: EmbeddingListParams | null | undefined = {}, options?: RequestOptions): APIPromise<EmbeddingListResponse> {
+  list(
+    query: EmbeddingListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<EmbeddingListResponse> {
     return this._client.get('/ai/embeddings', { query, ...options });
   }
 
@@ -115,7 +118,10 @@ export class Embeddings extends APIResource {
    *   });
    * ```
    */
-  similaritySearch(body: EmbeddingSimilaritySearchParams, options?: RequestOptions): APIPromise<EmbeddingSimilaritySearchResponse> {
+  similaritySearch(
+    body: EmbeddingSimilaritySearchParams,
+    options?: RequestOptions,
+  ): APIPromise<EmbeddingSimilaritySearchResponse> {
     return this._client.post('/ai/embeddings/similarity-search', { body, ...options });
   }
 
@@ -144,7 +150,7 @@ export class Embeddings extends APIResource {
 /**
  * Status of an embeddings task.
  */
-export type BackgroundTaskStatus = 'queued' | 'processing' | 'success' | 'failure' | 'partial_success'
+export type BackgroundTaskStatus = 'queued' | 'processing' | 'success' | 'failure' | 'partial_success';
 
 export interface EmbeddingResponse {
   data: EmbeddingResponse.Data;
@@ -307,12 +313,12 @@ export declare namespace Embeddings {
     type EmbeddingCreateParams as EmbeddingCreateParams,
     type EmbeddingListParams as EmbeddingListParams,
     type EmbeddingSimilaritySearchParams as EmbeddingSimilaritySearchParams,
-    type EmbeddingURLParams as EmbeddingURLParams
+    type EmbeddingURLParams as EmbeddingURLParams,
   };
 
   export {
     Buckets as Buckets,
     type BucketRetrieveResponse as BucketRetrieveResponse,
-    type BucketListResponse as BucketListResponse
+    type BucketListResponse as BucketListResponse,
   };
 }

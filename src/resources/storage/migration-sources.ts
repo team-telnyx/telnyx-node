@@ -23,7 +23,10 @@ export class MigrationSources extends APIResource {
    *   });
    * ```
    */
-  create(body: MigrationSourceCreateParams, options?: RequestOptions): APIPromise<MigrationSourceCreateResponse> {
+  create(
+    body: MigrationSourceCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<MigrationSourceCreateResponse> {
     return this._client.post('/storage/migration_sources', { body, ...options });
   }
 
@@ -169,6 +172,6 @@ export declare namespace MigrationSources {
     type MigrationSourceRetrieveResponse as MigrationSourceRetrieveResponse,
     type MigrationSourceListResponse as MigrationSourceListResponse,
     type MigrationSourceDeleteResponse as MigrationSourceDeleteResponse,
-    type MigrationSourceCreateParams as MigrationSourceCreateParams
+    type MigrationSourceCreateParams as MigrationSourceCreateParams,
   };
 }

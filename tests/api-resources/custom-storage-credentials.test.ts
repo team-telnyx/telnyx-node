@@ -2,15 +2,18 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Telnyx({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource customStorageCredentials', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.customStorageCredentials.create('connection_id', {
-    backend: 'gcs',
-    configuration: { backend: 'gcs' },
-  });
+      backend: 'gcs',
+      configuration: { backend: 'gcs' },
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,13 +26,13 @@ describe('resource customStorageCredentials', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.customStorageCredentials.create('connection_id', {
-    backend: 'gcs',
-    configuration: {
-    backend: 'gcs',
-    bucket: 'example-bucket',
-    credentials: 'OPAQUE_CREDENTIALS_TOKEN',
-  },
-  });
+      backend: 'gcs',
+      configuration: {
+        backend: 'gcs',
+        bucket: 'example-bucket',
+        credentials: 'OPAQUE_CREDENTIALS_TOKEN',
+      },
+    });
   });
 
   // Mock server tests are disabled
@@ -47,9 +50,9 @@ describe('resource customStorageCredentials', () => {
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.customStorageCredentials.update('connection_id', {
-    backend: 'gcs',
-    configuration: { backend: 'gcs' },
-  });
+      backend: 'gcs',
+      configuration: { backend: 'gcs' },
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -62,13 +65,13 @@ describe('resource customStorageCredentials', () => {
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.customStorageCredentials.update('connection_id', {
-    backend: 'gcs',
-    configuration: {
-    backend: 'gcs',
-    bucket: 'example-bucket',
-    credentials: 'OPAQUE_CREDENTIALS_TOKEN',
-  },
-  });
+      backend: 'gcs',
+      configuration: {
+        backend: 'gcs',
+        bucket: 'example-bucket',
+        credentials: 'OPAQUE_CREDENTIALS_TOKEN',
+      },
+    });
   });
 
   // Mock server tests are disabled
