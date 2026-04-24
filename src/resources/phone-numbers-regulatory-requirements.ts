@@ -12,7 +12,10 @@ export class PhoneNumbersRegulatoryRequirements extends APIResource {
   /**
    * Retrieve regulatory requirements for a list of phone numbers
    */
-  retrieve(query: PhoneNumbersRegulatoryRequirementRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<PhoneNumbersRegulatoryRequirementRetrieveResponse> {
+  retrieve(
+    query: PhoneNumbersRegulatoryRequirementRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PhoneNumbersRegulatoryRequirementRetrieveResponse> {
     return this._client.get('/phone_numbers_regulatory_requirements', { query, ...options });
   }
 }
@@ -95,6 +98,6 @@ export namespace PhoneNumbersRegulatoryRequirementRetrieveParams {
 export declare namespace PhoneNumbersRegulatoryRequirements {
   export {
     type PhoneNumbersRegulatoryRequirementRetrieveResponse as PhoneNumbersRegulatoryRequirementRetrieveResponse,
-    type PhoneNumbersRegulatoryRequirementRetrieveParams as PhoneNumbersRegulatoryRequirementRetrieveParams
+    type PhoneNumbersRegulatoryRequirementRetrieveParams as PhoneNumbersRegulatoryRequirementRetrieveParams,
   };
 }

@@ -2,7 +2,13 @@
 
 import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
-import { ActionAcceptSuggestionsParams, ActionAcceptSuggestionsResponse, ActionValidateParams, ActionValidateResponse, Actions } from './actions';
+import {
+  ActionAcceptSuggestionsParams,
+  ActionAcceptSuggestionsResponse,
+  ActionValidateParams,
+  ActionValidateResponse,
+  Actions,
+} from './actions';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -56,7 +62,10 @@ export class Addresses extends APIResource {
    * }
    * ```
    */
-  list(query: AddressListParams | null | undefined = {}, options?: RequestOptions): PagePromise<AddressesDefaultFlatPagination, Address> {
+  list(
+    query: AddressListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AddressesDefaultFlatPagination, Address> {
     return this._client.getAPIList('/addresses', DefaultFlatPagination<Address>, { query, ...options });
   }
 
@@ -73,7 +82,7 @@ export class Addresses extends APIResource {
   }
 }
 
-export type AddressesDefaultFlatPagination = DefaultFlatPagination<Address>
+export type AddressesDefaultFlatPagination = DefaultFlatPagination<Address>;
 
 export interface Address {
   /**
@@ -386,7 +395,7 @@ export declare namespace Addresses {
     type AddressDeleteResponse as AddressDeleteResponse,
     type AddressesDefaultFlatPagination as AddressesDefaultFlatPagination,
     type AddressCreateParams as AddressCreateParams,
-    type AddressListParams as AddressListParams
+    type AddressListParams as AddressListParams,
   };
 
   export {
@@ -394,6 +403,6 @@ export declare namespace Addresses {
     type ActionAcceptSuggestionsResponse as ActionAcceptSuggestionsResponse,
     type ActionValidateResponse as ActionValidateResponse,
     type ActionAcceptSuggestionsParams as ActionAcceptSuggestionsParams,
-    type ActionValidateParams as ActionValidateParams
+    type ActionValidateParams as ActionValidateParams,
   };
 }

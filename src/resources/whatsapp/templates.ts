@@ -40,8 +40,15 @@ export class Templates extends APIResource {
    * }
    * ```
    */
-  list(query: TemplateListParams | null | undefined = {}, options?: RequestOptions): PagePromise<WhatsappTemplateDataDefaultFlatPagination, Shared.WhatsappTemplateData> {
-    return this._client.getAPIList('/v2/whatsapp/message_templates', DefaultFlatPagination<Shared.WhatsappTemplateData>, { query, ...options });
+  list(
+    query: TemplateListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<WhatsappTemplateDataDefaultFlatPagination, Shared.WhatsappTemplateData> {
+    return this._client.getAPIList(
+      '/v2/whatsapp/message_templates',
+      DefaultFlatPagination<Shared.WhatsappTemplateData>,
+      { query, ...options },
+    );
   }
 }
 
@@ -60,7 +67,13 @@ export interface TemplateCreateParams {
    * API. Templates with variables must include example values. Supports HEADER,
    * BODY, FOOTER, BUTTONS, CAROUSEL and any future Meta component types.
    */
-  components: Array<TemplateCreateParams.Header | TemplateCreateParams.Body | TemplateCreateParams.Footer | TemplateCreateParams.Buttons | TemplateCreateParams.Carousel>;
+  components: Array<
+    | TemplateCreateParams.Header
+    | TemplateCreateParams.Body
+    | TemplateCreateParams.Footer
+    | TemplateCreateParams.Buttons
+    | TemplateCreateParams.Carousel
+  >;
 
   /**
    * Template language code (e.g. en_US, es, pt_BR).
@@ -294,8 +307,8 @@ export declare namespace Templates {
   export {
     type TemplateCreateResponse as TemplateCreateResponse,
     type TemplateCreateParams as TemplateCreateParams,
-    type TemplateListParams as TemplateListParams
+    type TemplateListParams as TemplateListParams,
   };
 }
 
-export { type WhatsappTemplateDataDefaultFlatPagination }
+export { type WhatsappTemplateDataDefaultFlatPagination };

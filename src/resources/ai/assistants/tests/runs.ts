@@ -2,7 +2,11 @@
 
 import { APIResource } from '../../../../core/resource';
 import { APIPromise } from '../../../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../../core/pagination';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../../core/pagination';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
@@ -22,7 +26,7 @@ export class Runs extends APIResource {
    * ```
    */
   retrieve(runID: string, params: RunRetrieveParams, options?: RequestOptions): APIPromise<TestRunResponse> {
-    const { test_id } = params
+    const { test_id } = params;
     return this._client.get(path`/ai/assistants/tests/${test_id}/runs/${runID}`, options);
   }
 
@@ -40,8 +44,16 @@ export class Runs extends APIResource {
    * }
    * ```
    */
-  list(testID: string, query: RunListParams | null | undefined = {}, options?: RequestOptions): PagePromise<TestRunResponsesDefaultFlatPagination, TestRunResponse> {
-    return this._client.getAPIList(path`/ai/assistants/tests/${testID}/runs`, DefaultFlatPagination<TestRunResponse>, { query, ...options });
+  list(
+    testID: string,
+    query: RunListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<TestRunResponsesDefaultFlatPagination, TestRunResponse> {
+    return this._client.getAPIList(
+      path`/ai/assistants/tests/${testID}/runs`,
+      DefaultFlatPagination<TestRunResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -53,12 +65,16 @@ export class Runs extends APIResource {
    *   await client.ai.assistants.tests.runs.trigger('test_id');
    * ```
    */
-  trigger(testID: string, body: RunTriggerParams | null | undefined = {}, options?: RequestOptions): APIPromise<TestRunResponse> {
+  trigger(
+    testID: string,
+    body: RunTriggerParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TestRunResponse> {
     return this._client.post(path`/ai/assistants/tests/${testID}/runs`, { body, ...options });
   }
 }
 
-export type TestRunResponsesDefaultFlatPagination = DefaultFlatPagination<TestRunResponse>
+export type TestRunResponsesDefaultFlatPagination = DefaultFlatPagination<TestRunResponse>;
 
 export interface TestRunDetailResult {
   name: string;
@@ -163,7 +179,7 @@ export interface TestRunResponse {
  * - 'failed': Test executed but did not pass.
  * - 'error': An error occurred during test execution.
  */
-export type TestStatus = 'pending' | 'starting' | 'running' | 'passed' | 'failed' | 'error'
+export type TestStatus = 'pending' | 'starting' | 'running' | 'passed' | 'failed' | 'error';
 
 export interface RunRetrieveParams {
   test_id: string;
@@ -193,6 +209,6 @@ export declare namespace Runs {
     type TestRunResponsesDefaultFlatPagination as TestRunResponsesDefaultFlatPagination,
     type RunRetrieveParams as RunRetrieveParams,
     type RunListParams as RunListParams,
-    type RunTriggerParams as RunTriggerParams
+    type RunTriggerParams as RunTriggerParams,
   };
 }

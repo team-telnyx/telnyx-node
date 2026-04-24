@@ -11,12 +11,20 @@ export class MessagingURLDomains extends APIResource {
   /**
    * List messaging URL domains
    */
-  list(query: MessagingURLDomainListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessagingURLDomainListResponsesDefaultFlatPagination, MessagingURLDomainListResponse> {
-    return this._client.getAPIList('/messaging_url_domains', DefaultFlatPagination<MessagingURLDomainListResponse>, { query, ...options });
+  list(
+    query: MessagingURLDomainListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MessagingURLDomainListResponsesDefaultFlatPagination, MessagingURLDomainListResponse> {
+    return this._client.getAPIList(
+      '/messaging_url_domains',
+      DefaultFlatPagination<MessagingURLDomainListResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export type MessagingURLDomainListResponsesDefaultFlatPagination = DefaultFlatPagination<MessagingURLDomainListResponse>
+export type MessagingURLDomainListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<MessagingURLDomainListResponse>;
 
 export interface MessagingURLDomainListResponse {
   id?: string;
@@ -28,13 +36,12 @@ export interface MessagingURLDomainListResponse {
   use_case?: string;
 }
 
-export interface MessagingURLDomainListParams extends DefaultFlatPaginationParams {
-}
+export interface MessagingURLDomainListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace MessagingURLDomains {
   export {
     type MessagingURLDomainListResponse as MessagingURLDomainListResponse,
     type MessagingURLDomainListResponsesDefaultFlatPagination as MessagingURLDomainListResponsesDefaultFlatPagination,
-    type MessagingURLDomainListParams as MessagingURLDomainListParams
+    type MessagingURLDomainListParams as MessagingURLDomainListParams,
   };
 }

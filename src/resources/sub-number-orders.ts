@@ -19,7 +19,11 @@ export class SubNumberOrders extends APIResource {
    *   );
    * ```
    */
-  retrieve(subNumberOrderID: string, query: SubNumberOrderRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<SubNumberOrderRetrieveResponse> {
+  retrieve(
+    subNumberOrderID: string,
+    query: SubNumberOrderRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<SubNumberOrderRetrieveResponse> {
     return this._client.get(path`/sub_number_orders/${subNumberOrderID}`, { query, ...options });
   }
 
@@ -33,7 +37,11 @@ export class SubNumberOrders extends APIResource {
    * );
    * ```
    */
-  update(subNumberOrderID: string, body: SubNumberOrderUpdateParams, options?: RequestOptions): APIPromise<SubNumberOrderUpdateResponse> {
+  update(
+    subNumberOrderID: string,
+    body: SubNumberOrderUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<SubNumberOrderUpdateResponse> {
     return this._client.patch(path`/sub_number_orders/${subNumberOrderID}`, { body, ...options });
   }
 
@@ -45,7 +53,10 @@ export class SubNumberOrders extends APIResource {
    * const subNumberOrders = await client.subNumberOrders.list();
    * ```
    */
-  list(query: SubNumberOrderListParams | null | undefined = {}, options?: RequestOptions): APIPromise<SubNumberOrderListResponse> {
+  list(
+    query: SubNumberOrderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<SubNumberOrderListResponse> {
     return this._client.get('/sub_number_orders', { query, ...options });
   }
 
@@ -78,7 +89,11 @@ export class SubNumberOrders extends APIResource {
    *   );
    * ```
    */
-  updateRequirementGroup(id: string, body: SubNumberOrderUpdateRequirementGroupParams, options?: RequestOptions): APIPromise<SubNumberOrderUpdateRequirementGroupResponse> {
+  updateRequirementGroup(
+    id: string,
+    body: SubNumberOrderUpdateRequirementGroupParams,
+    options?: RequestOptions,
+  ): APIPromise<SubNumberOrderUpdateRequirementGroupResponse> {
     return this._client.post(path`/sub_number_orders/${id}/requirement_group`, { body, ...options });
   }
 }
@@ -330,6 +345,6 @@ export declare namespace SubNumberOrders {
     type SubNumberOrderRetrieveParams as SubNumberOrderRetrieveParams,
     type SubNumberOrderUpdateParams as SubNumberOrderUpdateParams,
     type SubNumberOrderListParams as SubNumberOrderListParams,
-    type SubNumberOrderUpdateRequirementGroupParams as SubNumberOrderUpdateRequirementGroupParams
+    type SubNumberOrderUpdateRequirementGroupParams as SubNumberOrderUpdateRequirementGroupParams,
   };
 }

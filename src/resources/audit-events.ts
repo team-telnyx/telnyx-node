@@ -12,12 +12,18 @@ export class AuditEvents extends APIResource {
    * Retrieve a list of audit log entries. Audit logs are a best-effort, eventually
    * consistent record of significant account-related changes.
    */
-  list(query: AuditEventListParams | null | undefined = {}, options?: RequestOptions): PagePromise<AuditEventListResponsesDefaultFlatPagination, AuditEventListResponse> {
-    return this._client.getAPIList('/audit_events', DefaultFlatPagination<AuditEventListResponse>, { query, ...options });
+  list(
+    query: AuditEventListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AuditEventListResponsesDefaultFlatPagination, AuditEventListResponse> {
+    return this._client.getAPIList('/audit_events', DefaultFlatPagination<AuditEventListResponse>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type AuditEventListResponsesDefaultFlatPagination = DefaultFlatPagination<AuditEventListResponse>
+export type AuditEventListResponsesDefaultFlatPagination = DefaultFlatPagination<AuditEventListResponse>;
 
 export interface AuditEventListResponse {
   /**
@@ -134,6 +140,6 @@ export declare namespace AuditEvents {
   export {
     type AuditEventListResponse as AuditEventListResponse,
     type AuditEventListResponsesDefaultFlatPagination as AuditEventListResponsesDefaultFlatPagination,
-    type AuditEventListParams as AuditEventListParams
+    type AuditEventListParams as AuditEventListParams,
   };
 }

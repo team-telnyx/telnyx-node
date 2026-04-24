@@ -14,12 +14,23 @@ export class VirtualCrossConnectsCoverage extends APIResource {
    * cloud regions are available for the `location_code` your Virtual Cross Connect
    * will be provisioned in.
    */
-  list(query: VirtualCrossConnectsCoverageListParams | null | undefined = {}, options?: RequestOptions): PagePromise<VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination, VirtualCrossConnectsCoverageListResponse> {
-    return this._client.getAPIList('/virtual_cross_connects_coverage', DefaultFlatPagination<VirtualCrossConnectsCoverageListResponse>, { query, ...options });
+  list(
+    query: VirtualCrossConnectsCoverageListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<
+    VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination,
+    VirtualCrossConnectsCoverageListResponse
+  > {
+    return this._client.getAPIList(
+      '/virtual_cross_connects_coverage',
+      DefaultFlatPagination<VirtualCrossConnectsCoverageListResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export type VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination = DefaultFlatPagination<VirtualCrossConnectsCoverageListResponse>
+export type VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<VirtualCrossConnectsCoverageListResponse>;
 
 export interface VirtualCrossConnectsCoverageListResponse {
   /**
@@ -130,6 +141,6 @@ export declare namespace VirtualCrossConnectsCoverage {
   export {
     type VirtualCrossConnectsCoverageListResponse as VirtualCrossConnectsCoverageListResponse,
     type VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination as VirtualCrossConnectsCoverageListResponsesDefaultFlatPagination,
-    type VirtualCrossConnectsCoverageListParams as VirtualCrossConnectsCoverageListParams
+    type VirtualCrossConnectsCoverageListParams as VirtualCrossConnectsCoverageListParams,
   };
 }

@@ -24,7 +24,11 @@ export class Voice extends APIResource {
    * ```
    */
   create(body: VoiceCreateParams, options?: RequestOptions): APIPromise<VoiceCreateResponse> {
-    return this._client.post('/legacy/reporting/usage_reports/voice', { body, ...options, headers: buildHeaders([{'Content-Type': '*/*'}, options?.headers]) });
+    return this._client.post('/legacy/reporting/usage_reports/voice', {
+      body,
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -53,8 +57,15 @@ export class Voice extends APIResource {
    * }
    * ```
    */
-  list(query: VoiceListParams | null | undefined = {}, options?: RequestOptions): PagePromise<CdrUsageReportResponseLegaciesPerPagePagination, CdrUsageReportResponseLegacy> {
-    return this._client.getAPIList('/legacy/reporting/usage_reports/voice', PerPagePagination<CdrUsageReportResponseLegacy>, { query, ...options });
+  list(
+    query: VoiceListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<CdrUsageReportResponseLegaciesPerPagePagination, CdrUsageReportResponseLegacy> {
+    return this._client.getAPIList(
+      '/legacy/reporting/usage_reports/voice',
+      PerPagePagination<CdrUsageReportResponseLegacy>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -73,7 +84,7 @@ export class Voice extends APIResource {
   }
 }
 
-export type CdrUsageReportResponseLegaciesPerPagePagination = PerPagePagination<CdrUsageReportResponseLegacy>
+export type CdrUsageReportResponseLegaciesPerPagePagination = PerPagePagination<CdrUsageReportResponseLegacy>;
 
 /**
  * Legacy V2 CDR usage report response
@@ -176,8 +187,7 @@ export interface VoiceCreateParams {
   select_all_managed_accounts?: boolean;
 }
 
-export interface VoiceListParams extends PerPagePaginationParams {
-}
+export interface VoiceListParams extends PerPagePaginationParams {}
 
 export declare namespace Voice {
   export {
@@ -187,6 +197,6 @@ export declare namespace Voice {
     type VoiceDeleteResponse as VoiceDeleteResponse,
     type CdrUsageReportResponseLegaciesPerPagePagination as CdrUsageReportResponseLegaciesPerPagePagination,
     type VoiceCreateParams as VoiceCreateParams,
-    type VoiceListParams as VoiceListParams
+    type VoiceListParams as VoiceListParams,
   };
 }

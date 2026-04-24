@@ -2,11 +2,44 @@
 
 import { APIResource } from '../../core/resource';
 import * as EventsAPI from './events';
-import { EventListParams, EventListResponse, EventListResponsesDefaultFlatPagination, EventRetrieveResponse, Events, PortingEventDeletedPayload, PortingEventMessagingChangedPayload, PortingEventNewCommentEvent, PortingEventSplitEvent, PortingEventStatusChangedEvent, PortingEventWithoutWebhook } from './events';
+import {
+  EventListParams,
+  EventListResponse,
+  EventListResponsesDefaultFlatPagination,
+  EventRetrieveResponse,
+  Events,
+  PortingEventDeletedPayload,
+  PortingEventMessagingChangedPayload,
+  PortingEventNewCommentEvent,
+  PortingEventSplitEvent,
+  PortingEventStatusChangedEvent,
+  PortingEventWithoutWebhook,
+} from './events';
 import * as LoaConfigurationsAPI from './loa-configurations';
-import { LoaConfigurationCreateParams, LoaConfigurationCreateResponse, LoaConfigurationListParams, LoaConfigurationPreview0Params, LoaConfigurationPreviewParams, LoaConfigurationRetrieveResponse, LoaConfigurationUpdateParams, LoaConfigurationUpdateResponse, LoaConfigurations, PortingLoaConfiguration, PortingLoaConfigurationsDefaultFlatPagination } from './loa-configurations';
+import {
+  LoaConfigurationCreateParams,
+  LoaConfigurationCreateResponse,
+  LoaConfigurationListParams,
+  LoaConfigurationPreview0Params,
+  LoaConfigurationPreviewParams,
+  LoaConfigurationRetrieveResponse,
+  LoaConfigurationUpdateParams,
+  LoaConfigurationUpdateResponse,
+  LoaConfigurations,
+  PortingLoaConfiguration,
+  PortingLoaConfigurationsDefaultFlatPagination,
+} from './loa-configurations';
 import * as ReportsAPI from './reports';
-import { ExportPortingOrdersCsvReport, PortingReport, PortingReportsDefaultFlatPagination, ReportCreateParams, ReportCreateResponse, ReportListParams, ReportRetrieveResponse, Reports } from './reports';
+import {
+  ExportPortingOrdersCsvReport,
+  PortingReport,
+  PortingReportsDefaultFlatPagination,
+  ReportCreateParams,
+  ReportCreateResponse,
+  ReportListParams,
+  ReportRetrieveResponse,
+  Reports,
+} from './reports';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -16,7 +49,9 @@ import { RequestOptions } from '../../internal/request-options';
 export class Porting extends APIResource {
   events: EventsAPI.Events = new EventsAPI.Events(this._client);
   reports: ReportsAPI.Reports = new ReportsAPI.Reports(this._client);
-  loaConfigurations: LoaConfigurationsAPI.LoaConfigurations = new LoaConfigurationsAPI.LoaConfigurations(this._client);
+  loaConfigurations: LoaConfigurationsAPI.LoaConfigurations = new LoaConfigurationsAPI.LoaConfigurations(
+    this._client,
+  );
 
   /**
    * List available carriers in the UK.
@@ -80,9 +115,7 @@ Porting.Reports = Reports;
 Porting.LoaConfigurations = LoaConfigurations;
 
 export declare namespace Porting {
-  export {
-    type PortingListUkCarriersResponse as PortingListUkCarriersResponse
-  };
+  export { type PortingListUkCarriersResponse as PortingListUkCarriersResponse };
 
   export {
     Events as Events,
@@ -95,7 +128,7 @@ export declare namespace Porting {
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
     type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
-    type EventListParams as EventListParams
+    type EventListParams as EventListParams,
   };
 
   export {
@@ -106,7 +139,7 @@ export declare namespace Porting {
     type ReportRetrieveResponse as ReportRetrieveResponse,
     type PortingReportsDefaultFlatPagination as PortingReportsDefaultFlatPagination,
     type ReportCreateParams as ReportCreateParams,
-    type ReportListParams as ReportListParams
+    type ReportListParams as ReportListParams,
   };
 
   export {
@@ -120,6 +153,6 @@ export declare namespace Porting {
     type LoaConfigurationUpdateParams as LoaConfigurationUpdateParams,
     type LoaConfigurationListParams as LoaConfigurationListParams,
     type LoaConfigurationPreviewParams as LoaConfigurationPreviewParams,
-    type LoaConfigurationPreview0Params as LoaConfigurationPreview0Params
+    type LoaConfigurationPreview0Params as LoaConfigurationPreview0Params,
   };
 }

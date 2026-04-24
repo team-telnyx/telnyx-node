@@ -22,8 +22,12 @@ export class Brand extends APIResource {
    *   );
    * ```
    */
-  qualifyByUsecase(usecase: string, params: BrandQualifyByUsecaseParams, options?: RequestOptions): APIPromise<BrandQualifyByUsecaseResponse> {
-    const { brandId } = params
+  qualifyByUsecase(
+    usecase: string,
+    params: BrandQualifyByUsecaseParams,
+    options?: RequestOptions,
+  ): APIPromise<BrandQualifyByUsecaseResponse> {
+    const { brandId } = params;
     return this._client.get(path`/10dlc/campaignBuilder/brand/${brandId}/usecase/${usecase}`, options);
   }
 }
@@ -73,6 +77,6 @@ export interface BrandQualifyByUsecaseParams {
 export declare namespace Brand {
   export {
     type BrandQualifyByUsecaseResponse as BrandQualifyByUsecaseResponse,
-    type BrandQualifyByUsecaseParams as BrandQualifyByUsecaseParams
+    type BrandQualifyByUsecaseParams as BrandQualifyByUsecaseParams,
   };
 }

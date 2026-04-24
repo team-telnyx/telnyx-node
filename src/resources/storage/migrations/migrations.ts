@@ -168,11 +168,8 @@ export declare namespace Migrations {
     type MigrationCreateResponse as MigrationCreateResponse,
     type MigrationRetrieveResponse as MigrationRetrieveResponse,
     type MigrationListResponse as MigrationListResponse,
-    type MigrationCreateParams as MigrationCreateParams
+    type MigrationCreateParams as MigrationCreateParams,
   };
 
-  export {
-    Actions as Actions,
-    type ActionStopResponse as ActionStopResponse
-  };
+  export { Actions as Actions, type ActionStopResponse as ActionStopResponse };
 }

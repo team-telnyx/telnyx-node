@@ -87,7 +87,8 @@ export class PagePromise<
     super(
       client,
       request,
-      async (client, props) => new Page(client, props.response, await defaultParseResponse(client, props), props.options)
+      async (client, props) =>
+        new Page(client, props.response, await defaultParseResponse(client, props), props.options),
     );
   }
 
@@ -126,12 +127,20 @@ export interface DefaultFlatPaginationParams {
   'page[size]'?: number;
 }
 
-export class DefaultFlatPagination<Item> extends AbstractPage<Item> implements DefaultFlatPaginationResponse<Item> {
+export class DefaultFlatPagination<Item>
+  extends AbstractPage<Item>
+  implements DefaultFlatPaginationResponse<Item>
+{
   data: Array<Item>;
 
   meta: DefaultFlatPaginationResponse.Meta;
 
-  constructor(client: Telnyx, response: Response, body: DefaultFlatPaginationResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: DefaultFlatPaginationResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.data = body.data || [];
@@ -143,7 +152,7 @@ export class DefaultFlatPagination<Item> extends AbstractPage<Item> implements D
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const currentPage = this.meta?.page_number ?? 1
+    const currentPage = this.meta?.page_number ?? 1;
 
     if (currentPage >= this.meta?.total_pages) {
       return null;
@@ -170,7 +179,12 @@ export interface DefaultFlatPaginationTopLevelArrayParams {
 export class DefaultFlatPaginationTopLevelArray<Item> extends AbstractPage<Item> {
   items: Array<Item>;
 
-  constructor(client: Telnyx, response: Response, body: DefaultFlatPaginationTopLevelArrayResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: DefaultFlatPaginationTopLevelArrayResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.items = body || [];
@@ -214,12 +228,20 @@ export interface DefaultPaginationForLogMessagesParams {
   'page[size]'?: number;
 }
 
-export class DefaultPaginationForLogMessages<Item> extends AbstractPage<Item> implements DefaultPaginationForLogMessagesResponse<Item> {
+export class DefaultPaginationForLogMessages<Item>
+  extends AbstractPage<Item>
+  implements DefaultPaginationForLogMessagesResponse<Item>
+{
   log_messages: Array<Item>;
 
   meta: DefaultPaginationForLogMessagesResponse.Meta;
 
-  constructor(client: Telnyx, response: Response, body: DefaultPaginationForLogMessagesResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: DefaultPaginationForLogMessagesResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.log_messages = body.log_messages || [];
@@ -231,7 +253,7 @@ export class DefaultPaginationForLogMessages<Item> extends AbstractPage<Item> im
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const currentPage = this.meta?.page_number ?? 1
+    const currentPage = this.meta?.page_number ?? 1;
 
     if (currentPage >= this.meta?.total_pages) {
       return null;
@@ -259,12 +281,20 @@ export interface DefaultPaginationForMessagingTollfreeParams {
   page_size?: number;
 }
 
-export class DefaultPaginationForMessagingTollfree<Item> extends AbstractPage<Item> implements DefaultPaginationForMessagingTollfreeResponse<Item> {
+export class DefaultPaginationForMessagingTollfree<Item>
+  extends AbstractPage<Item>
+  implements DefaultPaginationForMessagingTollfreeResponse<Item>
+{
   records: Array<Item>;
 
   total_records: number;
 
-  constructor(client: Telnyx, response: Response, body: DefaultPaginationForMessagingTollfreeResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: DefaultPaginationForMessagingTollfreeResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.records = body.records || [];
@@ -303,10 +333,18 @@ export interface DefaultPaginationForQueuesParams {
   PageSize?: number;
 }
 
-export class DefaultPaginationForQueues<Item> extends AbstractPage<Item> implements DefaultPaginationForQueuesResponse<Item> {
+export class DefaultPaginationForQueues<Item>
+  extends AbstractPage<Item>
+  implements DefaultPaginationForQueuesResponse<Item>
+{
   queues: Array<Item>;
 
-  constructor(client: Telnyx, response: Response, body: DefaultPaginationForQueuesResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: DefaultPaginationForQueuesResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.queues = body.queues || [];
@@ -350,12 +388,20 @@ export interface DefaultFlatPaginationForInexplicitNumberOrdersParams {
   page_size?: number;
 }
 
-export class DefaultFlatPaginationForInexplicitNumberOrders<Item> extends AbstractPage<Item> implements DefaultFlatPaginationForInexplicitNumberOrdersResponse<Item> {
+export class DefaultFlatPaginationForInexplicitNumberOrders<Item>
+  extends AbstractPage<Item>
+  implements DefaultFlatPaginationForInexplicitNumberOrdersResponse<Item>
+{
   data: Array<Item>;
 
   meta: DefaultFlatPaginationForInexplicitNumberOrdersResponse.Meta;
 
-  constructor(client: Telnyx, response: Response, body: DefaultFlatPaginationForInexplicitNumberOrdersResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: DefaultFlatPaginationForInexplicitNumberOrdersResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.data = body.data || [];
@@ -367,7 +413,7 @@ export class DefaultFlatPaginationForInexplicitNumberOrders<Item> extends Abstra
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const currentPage = this.meta?.page_number ?? 1
+    const currentPage = this.meta?.page_number ?? 1;
 
     if (currentPage >= this.meta?.total_pages) {
       return null;
@@ -408,7 +454,12 @@ export class PerPagePagination<Item> extends AbstractPage<Item> implements PerPa
 
   meta: PerPagePaginationResponse.Meta;
 
-  constructor(client: Telnyx, response: Response, body: PerPagePaginationResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: PerPagePaginationResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.data = body.data || [];
@@ -420,7 +471,7 @@ export class PerPagePagination<Item> extends AbstractPage<Item> implements PerPa
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const currentPage = this.meta?.page_number ?? 1
+    const currentPage = this.meta?.page_number ?? 1;
 
     if (currentPage >= this.meta?.total_pages) {
       return null;
@@ -450,14 +501,22 @@ export interface PerPagePaginationV2Params {
   recordsPerPage?: number;
 }
 
-export class PerPagePaginationV2<Item> extends AbstractPage<Item> implements PerPagePaginationV2Response<Item> {
+export class PerPagePaginationV2<Item>
+  extends AbstractPage<Item>
+  implements PerPagePaginationV2Response<Item>
+{
   records: Array<Item>;
 
   page: number;
 
   totalRecords: number;
 
-  constructor(client: Telnyx, response: Response, body: PerPagePaginationV2Response<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: PerPagePaginationV2Response<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.records = body.records || [];
@@ -470,7 +529,7 @@ export class PerPagePaginationV2<Item> extends AbstractPage<Item> implements Per
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const currentPage = this.page
+    const currentPage = this.page;
 
     if (currentPage >= this.totalRecords) {
       return null;

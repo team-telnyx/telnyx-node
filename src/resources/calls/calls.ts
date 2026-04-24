@@ -3,7 +3,105 @@
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import * as ActionsAPI from './actions';
-import { ActionAddAIAssistantMessagesParams, ActionAddAIAssistantMessagesResponse, ActionAnswerParams, ActionAnswerResponse, ActionBridgeParams, ActionBridgeResponse, ActionEnqueueParams, ActionEnqueueResponse, ActionGatherParams, ActionGatherResponse, ActionGatherUsingAIParams, ActionGatherUsingAIResponse, ActionGatherUsingAudioParams, ActionGatherUsingAudioResponse, ActionGatherUsingSpeakParams, ActionGatherUsingSpeakResponse, ActionHangupParams, ActionHangupResponse, ActionJoinAIAssistantParams, ActionJoinAIAssistantResponse, ActionLeaveQueueParams, ActionLeaveQueueResponse, ActionPauseRecordingParams, ActionPauseRecordingResponse, ActionReferParams, ActionReferResponse, ActionRejectParams, ActionRejectResponse, ActionResumeRecordingParams, ActionResumeRecordingResponse, ActionSendDtmfParams, ActionSendDtmfResponse, ActionSendSipInfoParams, ActionSendSipInfoResponse, ActionSpeakParams, ActionSpeakResponse, ActionStartAIAssistantParams, ActionStartAIAssistantResponse, ActionStartForkingParams, ActionStartForkingResponse, ActionStartNoiseSuppressionParams, ActionStartNoiseSuppressionResponse, ActionStartPlaybackParams, ActionStartPlaybackResponse, ActionStartRecordingParams, ActionStartRecordingResponse, ActionStartSiprecParams, ActionStartSiprecResponse, ActionStartStreamingParams, ActionStartStreamingResponse, ActionStartTranscriptionParams, ActionStartTranscriptionResponse, ActionStopAIAssistantParams, ActionStopAIAssistantResponse, ActionStopForkingParams, ActionStopForkingResponse, ActionStopGatherParams, ActionStopGatherResponse, ActionStopNoiseSuppressionParams, ActionStopNoiseSuppressionResponse, ActionStopPlaybackParams, ActionStopPlaybackResponse, ActionStopRecordingParams, ActionStopRecordingResponse, ActionStopSiprecParams, ActionStopSiprecResponse, ActionStopStreamingParams, ActionStopStreamingResponse, ActionStopTranscriptionParams, ActionStopTranscriptionResponse, ActionSwitchSupervisorRoleParams, ActionSwitchSupervisorRoleResponse, ActionTransferParams, ActionTransferResponse, ActionUpdateClientStateParams, ActionUpdateClientStateResponse, Actions, AwsVoiceSettings, CallControlCommandResult, CallControlCommandResultWithConversationID, DeepgramNova2Config, DeepgramNova3Config, ElevenLabsVoiceSettings, GoogleTranscriptionLanguage, InterruptionSettings, Loopcount, StopRecordingRequest, TelnyxTranscriptionLanguage, TelnyxVoiceSettings, TranscriptionConfig, TranscriptionEngineAConfig, TranscriptionEngineAzureConfig, TranscriptionEngineBConfig, TranscriptionEngineDeepgramConfig, TranscriptionEngineGoogleConfig, TranscriptionEngineTelnyxConfig, TranscriptionStartRequest } from './actions';
+import {
+  ActionAddAIAssistantMessagesParams,
+  ActionAddAIAssistantMessagesResponse,
+  ActionAnswerParams,
+  ActionAnswerResponse,
+  ActionBridgeParams,
+  ActionBridgeResponse,
+  ActionEnqueueParams,
+  ActionEnqueueResponse,
+  ActionGatherParams,
+  ActionGatherResponse,
+  ActionGatherUsingAIParams,
+  ActionGatherUsingAIResponse,
+  ActionGatherUsingAudioParams,
+  ActionGatherUsingAudioResponse,
+  ActionGatherUsingSpeakParams,
+  ActionGatherUsingSpeakResponse,
+  ActionHangupParams,
+  ActionHangupResponse,
+  ActionJoinAIAssistantParams,
+  ActionJoinAIAssistantResponse,
+  ActionLeaveQueueParams,
+  ActionLeaveQueueResponse,
+  ActionPauseRecordingParams,
+  ActionPauseRecordingResponse,
+  ActionReferParams,
+  ActionReferResponse,
+  ActionRejectParams,
+  ActionRejectResponse,
+  ActionResumeRecordingParams,
+  ActionResumeRecordingResponse,
+  ActionSendDtmfParams,
+  ActionSendDtmfResponse,
+  ActionSendSipInfoParams,
+  ActionSendSipInfoResponse,
+  ActionSpeakParams,
+  ActionSpeakResponse,
+  ActionStartAIAssistantParams,
+  ActionStartAIAssistantResponse,
+  ActionStartForkingParams,
+  ActionStartForkingResponse,
+  ActionStartNoiseSuppressionParams,
+  ActionStartNoiseSuppressionResponse,
+  ActionStartPlaybackParams,
+  ActionStartPlaybackResponse,
+  ActionStartRecordingParams,
+  ActionStartRecordingResponse,
+  ActionStartSiprecParams,
+  ActionStartSiprecResponse,
+  ActionStartStreamingParams,
+  ActionStartStreamingResponse,
+  ActionStartTranscriptionParams,
+  ActionStartTranscriptionResponse,
+  ActionStopAIAssistantParams,
+  ActionStopAIAssistantResponse,
+  ActionStopForkingParams,
+  ActionStopForkingResponse,
+  ActionStopGatherParams,
+  ActionStopGatherResponse,
+  ActionStopNoiseSuppressionParams,
+  ActionStopNoiseSuppressionResponse,
+  ActionStopPlaybackParams,
+  ActionStopPlaybackResponse,
+  ActionStopRecordingParams,
+  ActionStopRecordingResponse,
+  ActionStopSiprecParams,
+  ActionStopSiprecResponse,
+  ActionStopStreamingParams,
+  ActionStopStreamingResponse,
+  ActionStopTranscriptionParams,
+  ActionStopTranscriptionResponse,
+  ActionSwitchSupervisorRoleParams,
+  ActionSwitchSupervisorRoleResponse,
+  ActionTransferParams,
+  ActionTransferResponse,
+  ActionUpdateClientStateParams,
+  ActionUpdateClientStateResponse,
+  Actions,
+  AwsVoiceSettings,
+  CallControlCommandResult,
+  CallControlCommandResultWithConversationID,
+  DeepgramNova2Config,
+  DeepgramNova3Config,
+  ElevenLabsVoiceSettings,
+  GoogleTranscriptionLanguage,
+  InterruptionSettings,
+  Loopcount,
+  StopRecordingRequest,
+  TelnyxTranscriptionLanguage,
+  TelnyxVoiceSettings,
+  TranscriptionConfig,
+  TranscriptionEngineAConfig,
+  TranscriptionEngineAzureConfig,
+  TranscriptionEngineBConfig,
+  TranscriptionEngineDeepgramConfig,
+  TranscriptionEngineGoogleConfig,
+  TranscriptionEngineTelnyxConfig,
+  TranscriptionStartRequest,
+} from './actions';
 import * as AssistantsAPI from '../ai/assistants/assistants';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -152,7 +250,14 @@ export interface CallAssistantRequest {
    * Inline tool definitions available to the assistant (webhook, retrieval,
    * transfer, hangup, etc.). Overrides the assistant's stored tools if provided.
    */
-  tools?: Array<Shared.BookAppointmentTool | Shared.CheckAvailabilityTool | AssistantsAPI.WebhookTool | AssistantsAPI.HangupTool | AssistantsAPI.TransferTool | Shared.CallControlRetrievalTool>;
+  tools?: Array<
+    | Shared.BookAppointmentTool
+    | Shared.CheckAvailabilityTool
+    | AssistantsAPI.WebhookTool
+    | AssistantsAPI.HangupTool
+    | AssistantsAPI.TransferTool
+    | Shared.CallControlRetrievalTool
+  >;
 }
 
 export interface CustomSipHeader {
@@ -221,28 +326,28 @@ export interface SoundModifications {
  * Indicates codec for bidirectional streaming RTP payloads. Used only with
  * stream_bidirectional_mode=rtp. Case sensitive.
  */
-export type StreamBidirectionalCodec = 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16'
+export type StreamBidirectionalCodec = 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16';
 
 /**
  * Configures method of bidirectional streaming (mp3, rtp).
  */
-export type StreamBidirectionalMode = 'mp3' | 'rtp'
+export type StreamBidirectionalMode = 'mp3' | 'rtp';
 
 /**
  * Audio sampling rate.
  */
-export type StreamBidirectionalSamplingRate = 8000 | 16000 | 22050 | 24000 | 48000
+export type StreamBidirectionalSamplingRate = 8000 | 16000 | 22050 | 24000 | 48000;
 
 /**
  * Specifies which call legs should receive the bidirectional stream audio.
  */
-export type StreamBidirectionalTargetLegs = 'both' | 'self' | 'opposite'
+export type StreamBidirectionalTargetLegs = 'both' | 'self' | 'opposite';
 
 /**
  * Specifies the codec to be used for the streamed audio. When set to 'default' or
  * when transcoding is not possible, the codec from the call will be used.
  */
-export type StreamCodec = 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16' | 'default'
+export type StreamCodec = 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16' | 'default';
 
 export interface CallDialResponse {
   data?: CallDialResponse.Data;
@@ -396,7 +501,13 @@ export interface CallDialParams {
    * greeting ends with a beep or silence. If `detect_beep` is used, you will only
    * receive `call.machine.greeting.ended` if a beep is detected.
    */
-  answering_machine_detection?: 'premium' | 'detect' | 'detect_beep' | 'detect_words' | 'greeting_end' | 'disabled';
+  answering_machine_detection?:
+    | 'premium'
+    | 'detect'
+    | 'detect_beep'
+    | 'detect_words'
+    | 'greeting_end'
+    | 'disabled';
 
   /**
    * Optional configuration parameters to modify 'answering_machine_detection'
@@ -949,7 +1060,7 @@ export declare namespace Calls {
     type StreamCodec as StreamCodec,
     type CallDialResponse as CallDialResponse,
     type CallRetrieveStatusResponse as CallRetrieveStatusResponse,
-    type CallDialParams as CallDialParams
+    type CallDialParams as CallDialParams,
   };
 
   export {
@@ -1049,6 +1160,6 @@ export declare namespace Calls {
     type ActionStopTranscriptionParams as ActionStopTranscriptionParams,
     type ActionSwitchSupervisorRoleParams as ActionSwitchSupervisorRoleParams,
     type ActionTransferParams as ActionTransferParams,
-    type ActionUpdateClientStateParams as ActionUpdateClientStateParams
+    type ActionUpdateClientStateParams as ActionUpdateClientStateParams,
   };
 }

@@ -51,7 +51,11 @@ export class VerifyProfiles extends APIResource {
    *   );
    * ```
    */
-  update(verifyProfileID: string, body: VerifyProfileUpdateParams, options?: RequestOptions): APIPromise<VerifyProfileData> {
+  update(
+    verifyProfileID: string,
+    body: VerifyProfileUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<VerifyProfileData> {
     return this._client.patch(path`/verify_profiles/${verifyProfileID}`, { body, ...options });
   }
 
@@ -66,8 +70,14 @@ export class VerifyProfiles extends APIResource {
    * }
    * ```
    */
-  list(query: VerifyProfileListParams | null | undefined = {}, options?: RequestOptions): PagePromise<VerifyProfilesDefaultFlatPagination, VerifyProfile> {
-    return this._client.getAPIList('/verify_profiles', DefaultFlatPagination<VerifyProfile>, { query, ...options });
+  list(
+    query: VerifyProfileListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<VerifyProfilesDefaultFlatPagination, VerifyProfile> {
+    return this._client.getAPIList('/verify_profiles', DefaultFlatPagination<VerifyProfile>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -96,7 +106,10 @@ export class VerifyProfiles extends APIResource {
    *   });
    * ```
    */
-  createTemplate(body: VerifyProfileCreateTemplateParams, options?: RequestOptions): APIPromise<MessageTemplate> {
+  createTemplate(
+    body: VerifyProfileCreateTemplateParams,
+    options?: RequestOptions,
+  ): APIPromise<MessageTemplate> {
     return this._client.post('/verify_profiles/templates', { body, ...options });
   }
 
@@ -127,12 +140,16 @@ export class VerifyProfiles extends APIResource {
    *   );
    * ```
    */
-  updateTemplate(templateID: string, body: VerifyProfileUpdateTemplateParams, options?: RequestOptions): APIPromise<MessageTemplate> {
+  updateTemplate(
+    templateID: string,
+    body: VerifyProfileUpdateTemplateParams,
+    options?: RequestOptions,
+  ): APIPromise<MessageTemplate> {
     return this._client.patch(path`/verify_profiles/templates/${templateID}`, { body, ...options });
   }
 }
 
-export type VerifyProfilesDefaultFlatPagination = DefaultFlatPagination<VerifyProfile>
+export type VerifyProfilesDefaultFlatPagination = DefaultFlatPagination<VerifyProfile>;
 
 export interface MessageTemplate {
   data?: VerifyProfileMessageTemplateResponse;
@@ -204,7 +221,7 @@ export namespace VerifyProfile {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Flashcall {
@@ -222,7 +239,7 @@ export namespace VerifyProfile {
      */
     default_verification_timeout_secs?: number;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Rcs {
@@ -264,7 +281,7 @@ export namespace VerifyProfile {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface SMS {
@@ -307,7 +324,7 @@ export namespace VerifyProfile {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Whatsapp {
@@ -359,7 +376,7 @@ export namespace VerifyProfile {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 }
 
@@ -435,7 +452,7 @@ export namespace VerifyProfileCreateParams {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Flashcall {
@@ -462,7 +479,7 @@ export namespace VerifyProfileCreateParams {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Rcs {
@@ -504,7 +521,7 @@ export namespace VerifyProfileCreateParams {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface SMS {
@@ -547,7 +564,7 @@ export namespace VerifyProfileCreateParams {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Whatsapp {
@@ -583,7 +600,7 @@ export namespace VerifyProfileCreateParams {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 }
 
@@ -642,7 +659,7 @@ export namespace VerifyProfileUpdateParams {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Flashcall {
@@ -669,7 +686,7 @@ export namespace VerifyProfileUpdateParams {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Rcs {
@@ -711,7 +728,7 @@ export namespace VerifyProfileUpdateParams {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface SMS {
@@ -754,7 +771,7 @@ export namespace VerifyProfileUpdateParams {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   export interface Whatsapp {
@@ -790,7 +807,7 @@ export namespace VerifyProfileUpdateParams {
      */
     whitelisted_destinations?: Array<string>;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 }
 
@@ -839,6 +856,6 @@ export declare namespace VerifyProfiles {
     type VerifyProfileUpdateParams as VerifyProfileUpdateParams,
     type VerifyProfileListParams as VerifyProfileListParams,
     type VerifyProfileCreateTemplateParams as VerifyProfileCreateTemplateParams,
-    type VerifyProfileUpdateTemplateParams as VerifyProfileUpdateTemplateParams
+    type VerifyProfileUpdateTemplateParams as VerifyProfileUpdateTemplateParams,
   };
 }

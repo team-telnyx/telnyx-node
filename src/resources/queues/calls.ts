@@ -22,8 +22,12 @@ export class Calls extends APIResource {
    * );
    * ```
    */
-  retrieve(callControlID: string, params: CallRetrieveParams, options?: RequestOptions): APIPromise<CallRetrieveResponse> {
-    const { queue_name } = params
+  retrieve(
+    callControlID: string,
+    params: CallRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<CallRetrieveResponse> {
+    const { queue_name } = params;
     return this._client.get(path`/queues/${queue_name}/calls/${callControlID}`, options);
   }
 
@@ -38,8 +42,12 @@ export class Calls extends APIResource {
    * ```
    */
   update(callControlID: string, params: CallUpdateParams, options?: RequestOptions): APIPromise<void> {
-    const { queue_name, ...body } = params
-    return this._client.patch(path`/queues/${queue_name}/calls/${callControlID}`, { body, ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    const { queue_name, ...body } = params;
+    return this._client.patch(path`/queues/${queue_name}/calls/${callControlID}`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -55,8 +63,16 @@ export class Calls extends APIResource {
    * }
    * ```
    */
-  list(queueName: string, query: CallListParams | null | undefined = {}, options?: RequestOptions): PagePromise<CallListResponsesDefaultFlatPagination, CallListResponse> {
-    return this._client.getAPIList(path`/queues/${queueName}/calls`, DefaultFlatPagination<CallListResponse>, { query, ...options });
+  list(
+    queueName: string,
+    query: CallListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<CallListResponsesDefaultFlatPagination, CallListResponse> {
+    return this._client.getAPIList(
+      path`/queues/${queueName}/calls`,
+      DefaultFlatPagination<CallListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -71,12 +87,15 @@ export class Calls extends APIResource {
    * ```
    */
   remove(callControlID: string, params: CallRemoveParams, options?: RequestOptions): APIPromise<void> {
-    const { queue_name } = params
-    return this._client.delete(path`/queues/${queue_name}/calls/${callControlID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    const { queue_name } = params;
+    return this._client.delete(path`/queues/${queue_name}/calls/${callControlID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type CallListResponsesDefaultFlatPagination = DefaultFlatPagination<CallListResponse>
+export type CallListResponsesDefaultFlatPagination = DefaultFlatPagination<CallListResponse>;
 
 export interface CallRetrieveResponse {
   data?: CallRetrieveResponse.Data;
@@ -225,8 +244,7 @@ export interface CallUpdateParams {
   keep_after_hangup?: boolean;
 }
 
-export interface CallListParams extends DefaultFlatPaginationParams {
-}
+export interface CallListParams extends DefaultFlatPaginationParams {}
 
 export interface CallRemoveParams {
   /**
@@ -243,6 +261,6 @@ export declare namespace Calls {
     type CallRetrieveParams as CallRetrieveParams,
     type CallUpdateParams as CallUpdateParams,
     type CallListParams as CallListParams,
-    type CallRemoveParams as CallRemoveParams
+    type CallRemoveParams as CallRemoveParams,
   };
 }

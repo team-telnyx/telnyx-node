@@ -2,17 +2,72 @@
 
 import { APIResource } from '../../core/resource';
 import * as ActionsAPI from './actions';
-import { ActionChangeBundleStatusParams, ActionChangeBundleStatusResponse, ActionEnableEmergencyParams, ActionEnableEmergencyResponse, ActionVerifyOwnershipParams, ActionVerifyOwnershipResponse, Actions, PhoneNumberWithVoiceSettings } from './actions';
+import {
+  ActionChangeBundleStatusParams,
+  ActionChangeBundleStatusResponse,
+  ActionEnableEmergencyParams,
+  ActionEnableEmergencyResponse,
+  ActionVerifyOwnershipParams,
+  ActionVerifyOwnershipResponse,
+  Actions,
+  PhoneNumberWithVoiceSettings,
+} from './actions';
 import * as CsvDownloadsAPI from './csv-downloads';
-import { CsvDownload, CsvDownloadCreateParams, CsvDownloadCreateResponse, CsvDownloadListParams, CsvDownloadRetrieveResponse, CsvDownloads, CsvDownloadsDefaultFlatPagination } from './csv-downloads';
+import {
+  CsvDownload,
+  CsvDownloadCreateParams,
+  CsvDownloadCreateResponse,
+  CsvDownloadListParams,
+  CsvDownloadRetrieveResponse,
+  CsvDownloads,
+  CsvDownloadsDefaultFlatPagination,
+} from './csv-downloads';
 import * as JobsAPI from './jobs';
-import { JobDeleteBatchParams, JobDeleteBatchResponse, JobListParams, JobRetrieveResponse, JobUpdateBatchParams, JobUpdateBatchResponse, JobUpdateEmergencySettingsBatchParams, JobUpdateEmergencySettingsBatchResponse, Jobs, PhoneNumbersJob, PhoneNumbersJobsDefaultFlatPagination } from './jobs';
+import {
+  JobDeleteBatchParams,
+  JobDeleteBatchResponse,
+  JobListParams,
+  JobRetrieveResponse,
+  JobUpdateBatchParams,
+  JobUpdateBatchResponse,
+  JobUpdateEmergencySettingsBatchParams,
+  JobUpdateEmergencySettingsBatchResponse,
+  Jobs,
+  PhoneNumbersJob,
+  PhoneNumbersJobsDefaultFlatPagination,
+} from './jobs';
 import * as MessagingAPI from './messaging';
-import { Messaging, MessagingListParams, MessagingRetrieveResponse, MessagingUpdateParams, MessagingUpdateResponse } from './messaging';
+import {
+  Messaging,
+  MessagingListParams,
+  MessagingRetrieveResponse,
+  MessagingUpdateParams,
+  MessagingUpdateResponse,
+} from './messaging';
 import * as VoiceAPI from './voice';
-import { CallForwarding, CallRecording, CnamListing, MediaFeatures, UpdateVoiceSettings, Voice, VoiceListParams, VoiceRetrieveResponse, VoiceUpdateParams, VoiceUpdateResponse } from './voice';
+import {
+  CallForwarding,
+  CallRecording,
+  CnamListing,
+  MediaFeatures,
+  UpdateVoiceSettings,
+  Voice,
+  VoiceListParams,
+  VoiceRetrieveResponse,
+  VoiceUpdateParams,
+  VoiceUpdateResponse,
+} from './voice';
 import * as VoicemailAPI from './voicemail';
-import { Voicemail, VoicemailCreateParams, VoicemailCreateResponse, VoicemailPrefResponse, VoicemailRequest, VoicemailRetrieveResponse, VoicemailUpdateParams, VoicemailUpdateResponse } from './voicemail';
+import {
+  Voicemail,
+  VoicemailCreateParams,
+  VoicemailCreateResponse,
+  VoicemailPrefResponse,
+  VoicemailRequest,
+  VoicemailRetrieveResponse,
+  VoicemailUpdateParams,
+  VoicemailUpdateResponse,
+} from './voicemail';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -53,7 +108,11 @@ export class PhoneNumbers extends APIResource {
    * );
    * ```
    */
-  update(phoneNumberID: string, body: PhoneNumberUpdateParams, options?: RequestOptions): APIPromise<PhoneNumberUpdateResponse> {
+  update(
+    phoneNumberID: string,
+    body: PhoneNumberUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<PhoneNumberUpdateResponse> {
     return this._client.patch(path`/phone_numbers/${phoneNumberID}`, { body, ...options });
   }
 
@@ -68,8 +127,14 @@ export class PhoneNumbers extends APIResource {
    * }
    * ```
    */
-  list(query: PhoneNumberListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PhoneNumberDetailedsDefaultFlatPagination, PhoneNumberDetailed> {
-    return this._client.getAPIList('/phone_numbers', DefaultFlatPagination<PhoneNumberDetailed>, { query, ...options });
+  list(
+    query: PhoneNumberListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PhoneNumberDetailedsDefaultFlatPagination, PhoneNumberDetailed> {
+    return this._client.getAPIList('/phone_numbers', DefaultFlatPagination<PhoneNumberDetailed>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -98,14 +163,22 @@ export class PhoneNumbers extends APIResource {
    * }
    * ```
    */
-  slimList(query: PhoneNumberSlimListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PhoneNumberSlimListResponsesDefaultFlatPagination, PhoneNumberSlimListResponse> {
-    return this._client.getAPIList('/phone_numbers/slim', DefaultFlatPagination<PhoneNumberSlimListResponse>, { query, ...options });
+  slimList(
+    query: PhoneNumberSlimListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PhoneNumberSlimListResponsesDefaultFlatPagination, PhoneNumberSlimListResponse> {
+    return this._client.getAPIList(
+      '/phone_numbers/slim',
+      DefaultFlatPagination<PhoneNumberSlimListResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export type PhoneNumberDetailedsDefaultFlatPagination = DefaultFlatPagination<PhoneNumberDetailed>
+export type PhoneNumberDetailedsDefaultFlatPagination = DefaultFlatPagination<PhoneNumberDetailed>;
 
-export type PhoneNumberSlimListResponsesDefaultFlatPagination = DefaultFlatPagination<PhoneNumberSlimListResponse>
+export type PhoneNumberSlimListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<PhoneNumberSlimListResponse>;
 
 export interface PhoneNumberDetailed {
   /**
@@ -147,7 +220,16 @@ export interface PhoneNumberDetailed {
    * fetching a number's details immediately after a purchase completes, the legacy
    * values `tollfree`, `shortcode` or `longcode` may be returned instead.
    */
-  phone_number_type: 'local' | 'toll_free' | 'mobile' | 'national' | 'shared_cost' | 'landline' | 'tollfree' | 'shortcode' | 'longcode';
+  phone_number_type:
+    | 'local'
+    | 'toll_free'
+    | 'mobile'
+    | 'national'
+    | 'shared_cost'
+    | 'landline'
+    | 'tollfree'
+    | 'shortcode'
+    | 'longcode';
 
   /**
    * ISO 8601 formatted date indicating when the resource was purchased.
@@ -162,7 +244,20 @@ export interface PhoneNumberDetailed {
   /**
    * The phone number's current status.
    */
-  status: 'purchase-pending' | 'purchase-failed' | 'port-pending' | 'port-failed' | 'active' | 'deleted' | 'emergency-only' | 'ported-out' | 'port-out-pending' | 'requirement-info-pending' | 'requirement-info-under-review' | 'requirement-info-exception' | 'provision-pending';
+  status:
+    | 'purchase-pending'
+    | 'purchase-failed'
+    | 'port-pending'
+    | 'port-failed'
+    | 'active'
+    | 'deleted'
+    | 'emergency-only'
+    | 'ported-out'
+    | 'port-out-pending'
+    | 'requirement-info-pending'
+    | 'requirement-info-under-review'
+    | 'requirement-info-exception'
+    | 'provision-pending';
 
   /**
    * A list of user-assigned tags to help manage the phone number.
@@ -401,7 +496,16 @@ export namespace PhoneNumberDeleteResponse {
     /**
      * The phone number's current status.
      */
-    status?: 'purchase-pending' | 'purchase-failed' | 'port-pending' | 'port-failed' | 'active' | 'deleted' | 'emergency-only' | 'ported-out' | 'port-out-pending';
+    status?:
+      | 'purchase-pending'
+      | 'purchase-failed'
+      | 'port-pending'
+      | 'port-failed'
+      | 'active'
+      | 'deleted'
+      | 'emergency-only'
+      | 'ported-out'
+      | 'port-out-pending';
 
     /**
      * Indicates whether T38 Fax Gateway for inbound calls to this number.
@@ -522,7 +626,16 @@ export interface PhoneNumberSlimListResponse {
    * fetching a number's details immediately after a purchase completes, the legacy
    * values `tollfree`, `shortcode` or `longcode` may be returned instead.
    */
-  phone_number_type?: 'local' | 'toll_free' | 'mobile' | 'national' | 'shared_cost' | 'landline' | 'tollfree' | 'shortcode' | 'longcode';
+  phone_number_type?:
+    | 'local'
+    | 'toll_free'
+    | 'mobile'
+    | 'national'
+    | 'shared_cost'
+    | 'landline'
+    | 'tollfree'
+    | 'shortcode'
+    | 'longcode';
 
   /**
    * ISO 8601 formatted date indicating when the resource was purchased.
@@ -537,7 +650,20 @@ export interface PhoneNumberSlimListResponse {
   /**
    * The phone number's current status.
    */
-  status?: 'purchase-pending' | 'purchase-failed' | 'port-pending' | 'port-failed' | 'active' | 'deleted' | 'emergency-only' | 'ported-out' | 'port-out-pending' | 'requirement-info-pending' | 'requirement-info-under-review' | 'requirement-info-exception' | 'provision-pending';
+  status?:
+    | 'purchase-pending'
+    | 'purchase-failed'
+    | 'port-pending'
+    | 'port-failed'
+    | 'active'
+    | 'deleted'
+    | 'emergency-only'
+    | 'ported-out'
+    | 'port-out-pending'
+    | 'requirement-info-pending'
+    | 'requirement-info-under-review'
+    | 'requirement-info-exception'
+    | 'provision-pending';
 
   /**
    * Indicates whether T38 Fax Gateway for inbound calls to this number.
@@ -678,7 +804,16 @@ export namespace PhoneNumberListParams {
     /**
      * Filter by phone number status.
      */
-    status?: 'purchase-pending' | 'purchase-failed' | 'port-pending' | 'active' | 'deleted' | 'port-failed' | 'emergency-only' | 'ported-out' | 'port-out-pending';
+    status?:
+      | 'purchase-pending'
+      | 'purchase-failed'
+      | 'port-pending'
+      | 'active'
+      | 'deleted'
+      | 'port-failed'
+      | 'emergency-only'
+      | 'ported-out'
+      | 'port-out-pending';
 
     /**
      * Filter by phone number tags.
@@ -828,7 +963,16 @@ export namespace PhoneNumberSlimListParams {
     /**
      * Filter by phone number status.
      */
-    status?: 'purchase-pending' | 'purchase-failed' | 'port_pending' | 'active' | 'deleted' | 'port-failed' | 'emergency-only' | 'ported-out' | 'port-out-pending';
+    status?:
+      | 'purchase-pending'
+      | 'purchase-failed'
+      | 'port_pending'
+      | 'active'
+      | 'deleted'
+      | 'port-failed'
+      | 'emergency-only'
+      | 'ported-out'
+      | 'port-out-pending';
 
     /**
      * Filter by phone number tags. (This requires the include_tags param)
@@ -907,7 +1051,7 @@ export declare namespace PhoneNumbers {
     type PhoneNumberSlimListResponsesDefaultFlatPagination as PhoneNumberSlimListResponsesDefaultFlatPagination,
     type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
     type PhoneNumberListParams as PhoneNumberListParams,
-    type PhoneNumberSlimListParams as PhoneNumberSlimListParams
+    type PhoneNumberSlimListParams as PhoneNumberSlimListParams,
   };
 
   export {
@@ -918,7 +1062,7 @@ export declare namespace PhoneNumbers {
     type ActionVerifyOwnershipResponse as ActionVerifyOwnershipResponse,
     type ActionChangeBundleStatusParams as ActionChangeBundleStatusParams,
     type ActionEnableEmergencyParams as ActionEnableEmergencyParams,
-    type ActionVerifyOwnershipParams as ActionVerifyOwnershipParams
+    type ActionVerifyOwnershipParams as ActionVerifyOwnershipParams,
   };
 
   export {
@@ -928,7 +1072,7 @@ export declare namespace PhoneNumbers {
     type CsvDownloadRetrieveResponse as CsvDownloadRetrieveResponse,
     type CsvDownloadsDefaultFlatPagination as CsvDownloadsDefaultFlatPagination,
     type CsvDownloadCreateParams as CsvDownloadCreateParams,
-    type CsvDownloadListParams as CsvDownloadListParams
+    type CsvDownloadListParams as CsvDownloadListParams,
   };
 
   export {
@@ -942,7 +1086,7 @@ export declare namespace PhoneNumbers {
     type JobListParams as JobListParams,
     type JobDeleteBatchParams as JobDeleteBatchParams,
     type JobUpdateBatchParams as JobUpdateBatchParams,
-    type JobUpdateEmergencySettingsBatchParams as JobUpdateEmergencySettingsBatchParams
+    type JobUpdateEmergencySettingsBatchParams as JobUpdateEmergencySettingsBatchParams,
   };
 
   export {
@@ -950,7 +1094,7 @@ export declare namespace PhoneNumbers {
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingUpdateResponse as MessagingUpdateResponse,
     type MessagingUpdateParams as MessagingUpdateParams,
-    type MessagingListParams as MessagingListParams
+    type MessagingListParams as MessagingListParams,
   };
 
   export {
@@ -963,7 +1107,7 @@ export declare namespace PhoneNumbers {
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
     type VoiceUpdateResponse as VoiceUpdateResponse,
     type VoiceUpdateParams as VoiceUpdateParams,
-    type VoiceListParams as VoiceListParams
+    type VoiceListParams as VoiceListParams,
   };
 
   export {
@@ -974,6 +1118,6 @@ export declare namespace PhoneNumbers {
     type VoicemailRetrieveResponse as VoicemailRetrieveResponse,
     type VoicemailUpdateResponse as VoicemailUpdateResponse,
     type VoicemailCreateParams as VoicemailCreateParams,
-    type VoicemailUpdateParams as VoicemailUpdateParams
+    type VoicemailUpdateParams as VoicemailUpdateParams,
   };
 }

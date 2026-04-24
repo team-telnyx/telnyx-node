@@ -2,7 +2,14 @@
 
 import { APIResource } from '../../core/resource';
 import * as MetadataAPI from './metadata';
-import { ChildRelationshipInfo, Metadata, MetadataFieldMapping, MetadataRetrieveRecordTypeResponse, MetadataRetrieveResponse, ParentRelationshipInfo } from './metadata';
+import {
+  ChildRelationshipInfo,
+  Metadata,
+  MetadataFieldMapping,
+  MetadataRetrieveRecordTypeResponse,
+  MetadataRetrieveResponse,
+  ParentRelationshipInfo,
+} from './metadata';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -17,8 +24,12 @@ export class SessionAnalysis extends APIResource {
    * Retrieves a full session analysis tree for a given event, including costs, child
    * events, and product linkages.
    */
-  retrieve(eventID: string, params: SessionAnalysisRetrieveParams, options?: RequestOptions): APIPromise<SessionAnalysisRetrieveResponse> {
-    const { record_type, ...query } = params
+  retrieve(
+    eventID: string,
+    params: SessionAnalysisRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<SessionAnalysisRetrieveResponse> {
+    const { record_type, ...query } = params;
     return this._client.get(path`/session_analysis/${record_type}/${eventID}`, { query, ...options });
   }
 }
@@ -195,7 +206,7 @@ export declare namespace SessionAnalysis {
   export {
     type EventNode as EventNode,
     type SessionAnalysisRetrieveResponse as SessionAnalysisRetrieveResponse,
-    type SessionAnalysisRetrieveParams as SessionAnalysisRetrieveParams
+    type SessionAnalysisRetrieveParams as SessionAnalysisRetrieveParams,
   };
 
   export {
@@ -204,6 +215,6 @@ export declare namespace SessionAnalysis {
     type MetadataFieldMapping as MetadataFieldMapping,
     type ParentRelationshipInfo as ParentRelationshipInfo,
     type MetadataRetrieveResponse as MetadataRetrieveResponse,
-    type MetadataRetrieveRecordTypeResponse as MetadataRetrieveRecordTypeResponse
+    type MetadataRetrieveRecordTypeResponse as MetadataRetrieveRecordTypeResponse,
   };
 }

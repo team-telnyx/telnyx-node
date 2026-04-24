@@ -5,13 +5,13 @@ import * as NumberReputationAPI from './number-reputation';
 import { NumberReputation } from './number-reputation';
 
 export class TermsOfService extends APIResource {
-  numberReputation: NumberReputationAPI.NumberReputation = new NumberReputationAPI.NumberReputation(this._client);
+  numberReputation: NumberReputationAPI.NumberReputation = new NumberReputationAPI.NumberReputation(
+    this._client,
+  );
 }
 
 TermsOfService.NumberReputation = NumberReputation;
 
 export declare namespace TermsOfService {
-  export {
-    NumberReputation as NumberReputation
-  };
+  export { NumberReputation as NumberReputation };
 }

@@ -35,7 +35,10 @@ export class RequirementTypes extends APIResource {
    *   await client.requirementTypes.list();
    * ```
    */
-  list(query: RequirementTypeListParams | null | undefined = {}, options?: RequestOptions): APIPromise<RequirementTypeListResponse> {
+  list(
+    query: RequirementTypeListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<RequirementTypeListResponse> {
     return this._client.get('/requirement_types', { query, ...options });
   }
 }
@@ -87,6 +90,6 @@ export declare namespace RequirementTypes {
   export {
     type RequirementTypeRetrieveResponse as RequirementTypeRetrieveResponse,
     type RequirementTypeListResponse as RequirementTypeListResponse,
-    type RequirementTypeListParams as RequirementTypeListParams
+    type RequirementTypeListParams as RequirementTypeListParams,
   };
 }

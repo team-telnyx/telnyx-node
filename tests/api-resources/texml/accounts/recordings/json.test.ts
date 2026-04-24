@@ -2,12 +2,18 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Telnyx({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource json', () => {
   // Mock server tests are disabled
   test.skip('deleteRecordingSidJson: only required params', async () => {
-    const responsePromise = client.texml.accounts.recordings.json.deleteRecordingSidJson('6a09cdc3-8948-47f0-aa62-74ac943d6c58', { account_sid: 'account_sid' });
+    const responsePromise = client.texml.accounts.recordings.json.deleteRecordingSidJson(
+      '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+      { account_sid: 'account_sid' },
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -19,12 +25,18 @@ describe('resource json', () => {
 
   // Mock server tests are disabled
   test.skip('deleteRecordingSidJson: required and optional params', async () => {
-    const response = await client.texml.accounts.recordings.json.deleteRecordingSidJson('6a09cdc3-8948-47f0-aa62-74ac943d6c58', { account_sid: 'account_sid' });
+    const response = await client.texml.accounts.recordings.json.deleteRecordingSidJson(
+      '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+      { account_sid: 'account_sid' },
+    );
   });
 
   // Mock server tests are disabled
   test.skip('retrieveRecordingSidJson: only required params', async () => {
-    const responsePromise = client.texml.accounts.recordings.json.retrieveRecordingSidJson('6a09cdc3-8948-47f0-aa62-74ac943d6c58', { account_sid: 'account_sid' });
+    const responsePromise = client.texml.accounts.recordings.json.retrieveRecordingSidJson(
+      '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+      { account_sid: 'account_sid' },
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -36,6 +48,9 @@ describe('resource json', () => {
 
   // Mock server tests are disabled
   test.skip('retrieveRecordingSidJson: required and optional params', async () => {
-    const response = await client.texml.accounts.recordings.json.retrieveRecordingSidJson('6a09cdc3-8948-47f0-aa62-74ac943d6c58', { account_sid: 'account_sid' });
+    const response = await client.texml.accounts.recordings.json.retrieveRecordingSidJson(
+      '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+      { account_sid: 'account_sid' },
+    );
   });
 });

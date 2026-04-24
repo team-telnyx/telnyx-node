@@ -4,12 +4,27 @@ import { APIResource } from '../../core/resource';
 import * as TemplatesAPI from './templates';
 import { TemplateCreateParams, TemplateCreateResponse, TemplateListParams, Templates } from './templates';
 import * as BusinessAccountsAPI from './business-accounts/business-accounts';
-import { BusinessAccountListParams, BusinessAccountListResponse, BusinessAccountListResponsesDefaultFlatPagination, BusinessAccountRetrieveResponse, BusinessAccounts } from './business-accounts/business-accounts';
+import {
+  BusinessAccountListParams,
+  BusinessAccountListResponse,
+  BusinessAccountListResponsesDefaultFlatPagination,
+  BusinessAccountRetrieveResponse,
+  BusinessAccounts,
+} from './business-accounts/business-accounts';
 import * as PhoneNumbersAPI from './phone-numbers/phone-numbers';
-import { PhoneNumberListParams, PhoneNumberListResponse, PhoneNumberListResponsesDefaultFlatPagination, PhoneNumberResendVerificationParams, PhoneNumberVerifyParams, PhoneNumbers } from './phone-numbers/phone-numbers';
+import {
+  PhoneNumberListParams,
+  PhoneNumberListResponse,
+  PhoneNumberListResponsesDefaultFlatPagination,
+  PhoneNumberResendVerificationParams,
+  PhoneNumberVerifyParams,
+  PhoneNumbers,
+} from './phone-numbers/phone-numbers';
 
 export class Whatsapp extends APIResource {
-  businessAccounts: BusinessAccountsAPI.BusinessAccounts = new BusinessAccountsAPI.BusinessAccounts(this._client);
+  businessAccounts: BusinessAccountsAPI.BusinessAccounts = new BusinessAccountsAPI.BusinessAccounts(
+    this._client,
+  );
   templates: TemplatesAPI.Templates = new TemplatesAPI.Templates(this._client);
   phoneNumbers: PhoneNumbersAPI.PhoneNumbers = new PhoneNumbersAPI.PhoneNumbers(this._client);
 }
@@ -24,14 +39,14 @@ export declare namespace Whatsapp {
     type BusinessAccountRetrieveResponse as BusinessAccountRetrieveResponse,
     type BusinessAccountListResponse as BusinessAccountListResponse,
     type BusinessAccountListResponsesDefaultFlatPagination as BusinessAccountListResponsesDefaultFlatPagination,
-    type BusinessAccountListParams as BusinessAccountListParams
+    type BusinessAccountListParams as BusinessAccountListParams,
   };
 
   export {
     Templates as Templates,
     type TemplateCreateResponse as TemplateCreateResponse,
     type TemplateCreateParams as TemplateCreateParams,
-    type TemplateListParams as TemplateListParams
+    type TemplateListParams as TemplateListParams,
   };
 
   export {
@@ -40,6 +55,6 @@ export declare namespace Whatsapp {
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,
-    type PhoneNumberVerifyParams as PhoneNumberVerifyParams
+    type PhoneNumberVerifyParams as PhoneNumberVerifyParams,
   };
 }

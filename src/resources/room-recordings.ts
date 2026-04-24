@@ -21,27 +21,43 @@ export class RoomRecordings extends APIResource {
   /**
    * View a list of room recordings.
    */
-  list(query: RoomRecordingListParams | null | undefined = {}, options?: RequestOptions): PagePromise<RoomRecordingListResponsesDefaultFlatPagination, RoomRecordingListResponse> {
-    return this._client.getAPIList('/room_recordings', DefaultFlatPagination<RoomRecordingListResponse>, { query, ...options });
+  list(
+    query: RoomRecordingListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<RoomRecordingListResponsesDefaultFlatPagination, RoomRecordingListResponse> {
+    return this._client.getAPIList('/room_recordings', DefaultFlatPagination<RoomRecordingListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
    * Synchronously delete a Room Recording.
    */
   delete(roomRecordingID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/room_recordings/${roomRecordingID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/room_recordings/${roomRecordingID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
    * Delete several room recordings in a bulk.
    */
-  deleteBulk(params: RoomRecordingDeleteBulkParams | null | undefined = {}, options?: RequestOptions): APIPromise<RoomRecordingDeleteBulkResponse> {
-    const { filter, 'page[number]': pageNumber, 'page[size]': pageSize } = params ?? {}
-    return this._client.delete('/room_recordings', { query: { filter, 'page[number]': pageNumber, 'page[size]': pageSize }, ...options });
+  deleteBulk(
+    params: RoomRecordingDeleteBulkParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<RoomRecordingDeleteBulkResponse> {
+    const { filter, 'page[number]': pageNumber, 'page[size]': pageSize } = params ?? {};
+    return this._client.delete('/room_recordings', {
+      query: { filter, 'page[number]': pageNumber, 'page[size]': pageSize },
+      ...options,
+    });
   }
 }
 
-export type RoomRecordingListResponsesDefaultFlatPagination = DefaultFlatPagination<RoomRecordingListResponse>
+export type RoomRecordingListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<RoomRecordingListResponse>;
 
 export interface RoomRecordingRetrieveResponse {
   data?: RoomRecordingRetrieveResponse.Data;
@@ -419,6 +435,6 @@ export declare namespace RoomRecordings {
     type RoomRecordingDeleteBulkResponse as RoomRecordingDeleteBulkResponse,
     type RoomRecordingListResponsesDefaultFlatPagination as RoomRecordingListResponsesDefaultFlatPagination,
     type RoomRecordingListParams as RoomRecordingListParams,
-    type RoomRecordingDeleteBulkParams as RoomRecordingDeleteBulkParams
+    type RoomRecordingDeleteBulkParams as RoomRecordingDeleteBulkParams,
   };
 }

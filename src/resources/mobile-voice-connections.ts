@@ -13,7 +13,10 @@ export class MobileVoiceConnections extends APIResource {
   /**
    * Create a Mobile Voice Connection
    */
-  create(body: MobileVoiceConnectionCreateParams, options?: RequestOptions): APIPromise<MobileVoiceConnectionCreateResponse> {
+  create(
+    body: MobileVoiceConnectionCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<MobileVoiceConnectionCreateResponse> {
     return this._client.post('/v2/mobile_voice_connections', { body, ...options });
   }
 
@@ -27,15 +30,26 @@ export class MobileVoiceConnections extends APIResource {
   /**
    * Update a Mobile Voice Connection
    */
-  update(id: string, body: MobileVoiceConnectionUpdateParams, options?: RequestOptions): APIPromise<MobileVoiceConnectionUpdateResponse> {
+  update(
+    id: string,
+    body: MobileVoiceConnectionUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<MobileVoiceConnectionUpdateResponse> {
     return this._client.patch(path`/v2/mobile_voice_connections/${id}`, { body, ...options });
   }
 
   /**
    * List Mobile Voice Connections
    */
-  list(query: MobileVoiceConnectionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MobileVoiceConnectionsDefaultFlatPagination, MobileVoiceConnection> {
-    return this._client.getAPIList('/v2/mobile_voice_connections', DefaultFlatPagination<MobileVoiceConnection>, { query, ...options });
+  list(
+    query: MobileVoiceConnectionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MobileVoiceConnectionsDefaultFlatPagination, MobileVoiceConnection> {
+    return this._client.getAPIList(
+      '/v2/mobile_voice_connections',
+      DefaultFlatPagination<MobileVoiceConnection>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -46,7 +60,7 @@ export class MobileVoiceConnections extends APIResource {
   }
 }
 
-export type MobileVoiceConnectionsDefaultFlatPagination = DefaultFlatPagination<MobileVoiceConnection>
+export type MobileVoiceConnectionsDefaultFlatPagination = DefaultFlatPagination<MobileVoiceConnection>;
 
 export interface MobileVoiceConnection {
   /**
@@ -218,6 +232,6 @@ export declare namespace MobileVoiceConnections {
     type MobileVoiceConnectionsDefaultFlatPagination as MobileVoiceConnectionsDefaultFlatPagination,
     type MobileVoiceConnectionCreateParams as MobileVoiceConnectionCreateParams,
     type MobileVoiceConnectionUpdateParams as MobileVoiceConnectionUpdateParams,
-    type MobileVoiceConnectionListParams as MobileVoiceConnectionListParams
+    type MobileVoiceConnectionListParams as MobileVoiceConnectionListParams,
   };
 }

@@ -22,7 +22,10 @@ export class Metadata extends APIResource {
    * Returns detailed metadata for a specific record type, including relationships
    * and examples.
    */
-  retrieveRecordType(recordType: string, options?: RequestOptions): APIPromise<MetadataRetrieveRecordTypeResponse> {
+  retrieveRecordType(
+    recordType: string,
+    options?: RequestOptions,
+  ): APIPromise<MetadataRetrieveRecordTypeResponse> {
     return this._client.get(path`/session_analysis/metadata/${recordType}`, options);
   }
 }
@@ -157,6 +160,6 @@ export declare namespace Metadata {
     type MetadataFieldMapping as MetadataFieldMapping,
     type ParentRelationshipInfo as ParentRelationshipInfo,
     type MetadataRetrieveResponse as MetadataRetrieveResponse,
-    type MetadataRetrieveRecordTypeResponse as MetadataRetrieveRecordTypeResponse
+    type MetadataRetrieveRecordTypeResponse as MetadataRetrieveRecordTypeResponse,
   };
 }

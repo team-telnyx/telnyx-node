@@ -39,8 +39,14 @@ export class Recordings extends APIResource {
    * }
    * ```
    */
-  list(query: RecordingListParams | null | undefined = {}, options?: RequestOptions): PagePromise<RecordingResponseDataDefaultFlatPagination, RecordingResponseData> {
-    return this._client.getAPIList('/recordings', DefaultFlatPagination<RecordingResponseData>, { query, ...options });
+  list(
+    query: RecordingListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<RecordingResponseDataDefaultFlatPagination, RecordingResponseData> {
+    return this._client.getAPIList('/recordings', DefaultFlatPagination<RecordingResponseData>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -58,7 +64,7 @@ export class Recordings extends APIResource {
   }
 }
 
-export type RecordingResponseDataDefaultFlatPagination = DefaultFlatPagination<RecordingResponseData>
+export type RecordingResponseDataDefaultFlatPagination = DefaultFlatPagination<RecordingResponseData>;
 
 export interface RecordingResponseData {
   /**
@@ -308,12 +314,12 @@ export declare namespace Recordings {
     type RecordingRetrieveResponse as RecordingRetrieveResponse,
     type RecordingDeleteResponse as RecordingDeleteResponse,
     type RecordingResponseDataDefaultFlatPagination as RecordingResponseDataDefaultFlatPagination,
-    type RecordingListParams as RecordingListParams
+    type RecordingListParams as RecordingListParams,
   };
 
   export {
     Actions as Actions,
     type ActionDeleteResponse as ActionDeleteResponse,
-    type ActionDeleteParams as ActionDeleteParams
+    type ActionDeleteParams as ActionDeleteParams,
   };
 }

@@ -21,7 +21,11 @@ export class Rcs extends APIResource {
    * );
    * ```
    */
-  generateDeeplink(agentID: string, query: RcGenerateDeeplinkParams | null | undefined = {}, options?: RequestOptions): APIPromise<RcGenerateDeeplinkResponse> {
+  generateDeeplink(
+    agentID: string,
+    query: RcGenerateDeeplinkParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<RcGenerateDeeplinkResponse> {
     return this._client.get(path`/messages/rcs/deeplinks/${agentID}`, { query, ...options });
   }
 
@@ -195,6 +199,6 @@ export declare namespace Rcs {
     type RcGenerateDeeplinkResponse as RcGenerateDeeplinkResponse,
     type RcSendResponse as RcSendResponse,
     type RcGenerateDeeplinkParams as RcGenerateDeeplinkParams,
-    type RcSendParams as RcSendParams
+    type RcSendParams as RcSendParams,
   };
 }

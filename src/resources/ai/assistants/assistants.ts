@@ -4,17 +4,67 @@ import { APIResource } from '../../../core/resource';
 import * as Shared from '../../shared';
 import * as ChatAPI from '../chat';
 import * as CanaryDeploysAPI from './canary-deploys';
-import { CanaryDeploy, CanaryDeployCreateParams, CanaryDeployResponse, CanaryDeployUpdateParams, CanaryDeploys, VersionConfig } from './canary-deploys';
+import {
+  CanaryDeploy,
+  CanaryDeployCreateParams,
+  CanaryDeployResponse,
+  CanaryDeployUpdateParams,
+  CanaryDeploys,
+  VersionConfig,
+} from './canary-deploys';
 import * as ScheduledEventsAPI from './scheduled-events';
-import { ConversationChannelType, EventStatus, ScheduledEventCreateParams, ScheduledEventDeleteParams, ScheduledEventListParams, ScheduledEventListResponse, ScheduledEventListResponsesDefaultFlatPagination, ScheduledEventResponse, ScheduledEventRetrieveParams, ScheduledEvents, ScheduledPhoneCallEventResponse, ScheduledSMSEventResponse } from './scheduled-events';
+import {
+  ConversationChannelType,
+  EventStatus,
+  ScheduledEventCreateParams,
+  ScheduledEventDeleteParams,
+  ScheduledEventListParams,
+  ScheduledEventListResponse,
+  ScheduledEventListResponsesDefaultFlatPagination,
+  ScheduledEventResponse,
+  ScheduledEventRetrieveParams,
+  ScheduledEvents,
+  ScheduledPhoneCallEventResponse,
+  ScheduledSMSEventResponse,
+} from './scheduled-events';
 import * as TagsAPI from './tags';
-import { TagAddParams, TagAddResponse, TagListResponse, TagRemoveParams, TagRemoveResponse, Tags } from './tags';
+import {
+  TagAddParams,
+  TagAddResponse,
+  TagListResponse,
+  TagRemoveParams,
+  TagRemoveResponse,
+  Tags,
+} from './tags';
 import * as ToolsAPI from './tools';
-import { ToolAddParams, ToolAddResponse, ToolRemoveParams, ToolRemoveResponse, ToolTestParams, ToolTestResponse, Tools } from './tools';
+import {
+  ToolAddParams,
+  ToolAddResponse,
+  ToolRemoveParams,
+  ToolRemoveResponse,
+  ToolTestParams,
+  ToolTestResponse,
+  Tools,
+} from './tools';
 import * as VersionsAPI from './versions';
-import { UpdateAssistant, VersionDeleteParams, VersionPromoteParams, VersionRetrieveParams, VersionUpdateParams, Versions } from './versions';
+import {
+  UpdateAssistant,
+  VersionDeleteParams,
+  VersionPromoteParams,
+  VersionRetrieveParams,
+  VersionUpdateParams,
+  Versions,
+} from './versions';
 import * as TestsAPI from './tests/tests';
-import { AssistantTest, AssistantTestsDefaultFlatPagination, TelnyxConversationChannel, TestCreateParams, TestListParams, TestUpdateParams, Tests } from './tests/tests';
+import {
+  AssistantTest,
+  AssistantTestsDefaultFlatPagination,
+  TelnyxConversationChannel,
+  TestCreateParams,
+  TestListParams,
+  TestUpdateParams,
+  Tests,
+} from './tests/tests';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -56,7 +106,11 @@ export class Assistants extends APIResource {
    *   await client.ai.assistants.retrieve('assistant_id');
    * ```
    */
-  retrieve(assistantID: string, query: AssistantRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<InferenceEmbedding> {
+  retrieve(
+    assistantID: string,
+    query: AssistantRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<InferenceEmbedding> {
     return this._client.get(path`/ai/assistants/${assistantID}`, { query, ...options });
   }
 
@@ -69,7 +123,11 @@ export class Assistants extends APIResource {
    *   await client.ai.assistants.update('assistant_id');
    * ```
    */
-  update(assistantID: string, body: AssistantUpdateParams, options?: RequestOptions): APIPromise<InferenceEmbedding> {
+  update(
+    assistantID: string,
+    body: AssistantUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<InferenceEmbedding> {
     return this._client.post(path`/ai/assistants/${assistantID}`, { body, ...options });
   }
 
@@ -120,7 +178,11 @@ export class Assistants extends APIResource {
    * );
    * ```
    */
-  chat(assistantID: string, body: AssistantChatParams, options?: RequestOptions): APIPromise<AssistantChatResponse> {
+  chat(
+    assistantID: string,
+    body: AssistantChatParams,
+    options?: RequestOptions,
+  ): APIPromise<AssistantChatResponse> {
     return this._client.post(path`/ai/assistants/${assistantID}/chat`, { body, ...options });
   }
 
@@ -190,7 +252,11 @@ export class Assistants extends APIResource {
    * );
    * ```
    */
-  sendSMS(assistantID: string, body: AssistantSendSMSParams, options?: RequestOptions): APIPromise<AssistantSendSMSResponse> {
+  sendSMS(
+    assistantID: string,
+    body: AssistantSendSMSParams,
+    options?: RequestOptions,
+  ): APIPromise<AssistantSendSMSResponse> {
     return this._client.post(path`/ai/assistants/${assistantID}/chat/sms`, { body, ...options });
   }
 }
@@ -221,7 +287,14 @@ export interface Assistant {
   /**
    * The tools that the voice assistant can use.
    */
-  tools?: Array<Shared.BookAppointmentTool | Shared.CheckAvailabilityTool | WebhookTool | HangupTool | TransferTool | Shared.CallControlRetrievalTool>;
+  tools?: Array<
+    | Shared.BookAppointmentTool
+    | Shared.CheckAvailabilityTool
+    | WebhookTool
+    | HangupTool
+    | TransferTool
+    | Shared.CallControlRetrievalTool
+  >;
 }
 
 /**
@@ -229,7 +302,17 @@ export interface Assistant {
  * another AI assistant. By default, this will happen transparently to the end
  * user.
  */
-export type AssistantTool = InferenceEmbeddingWebhookToolParams | RetrievalTool | AssistantTool.Handoff | HangupTool | AssistantTool.Transfer | AssistantTool.Invite | AssistantTool.Refer | AssistantTool.SendDtmf | AssistantTool.SendMessage | AssistantTool.SkipTurn
+export type AssistantTool =
+  | InferenceEmbeddingWebhookToolParams
+  | RetrievalTool
+  | AssistantTool.Handoff
+  | HangupTool
+  | AssistantTool.Transfer
+  | AssistantTool.Invite
+  | AssistantTool.Refer
+  | AssistantTool.SendDtmf
+  | AssistantTool.SendMessage
+  | AssistantTool.SkipTurn;
 
 export namespace AssistantTool {
   /**
@@ -645,7 +728,7 @@ export namespace AssistantTool {
        */
       message_template?: string | null;
 
-    [k: string]: unknown
+      [k: string]: unknown;
     }
   }
 
@@ -686,7 +769,7 @@ export interface AudioVisualizerConfig {
  * If `messaging` is enabled, the assistant will be able to send and receive
  * messages.
  */
-export type EnabledFeatures = 'telephony' | 'messaging'
+export type EnabledFeatures = 'telephony' | 'messaging';
 
 export interface HangupTool {
   hangup: HangupToolParams;
@@ -1244,7 +1327,13 @@ export interface TranscriptionSettings {
    * - `deepgram/nova-3` is multi-lingual with automatic language detection but
    *   slightly higher latency.
    */
-  model?: 'deepgram/flux' | 'deepgram/nova-3' | 'deepgram/nova-2' | 'azure/fast' | 'distil-whisper/distil-large-v2' | 'openai/whisper-large-v3-turbo';
+  model?:
+    | 'deepgram/flux'
+    | 'deepgram/nova-3'
+    | 'deepgram/nova-2'
+    | 'azure/fast'
+    | 'distil-whisper/distil-large-v2'
+    | 'openai/whisper-large-v3-turbo';
 
   /**
    * Region on third party cloud providers (currently Azure) if using one of their
@@ -1365,7 +1454,49 @@ export interface VoiceSettings {
    * synthesis. Default is null (no boost). Set to 'auto' for automatic language
    * detection. Only applicable when using MiniMax voices.
    */
-  language_boost?: 'auto' | 'Chinese' | 'Chinese,Yue' | 'English' | 'Arabic' | 'Russian' | 'Spanish' | 'French' | 'Portuguese' | 'German' | 'Turkish' | 'Dutch' | 'Ukrainian' | 'Vietnamese' | 'Indonesian' | 'Japanese' | 'Italian' | 'Korean' | 'Thai' | 'Polish' | 'Romanian' | 'Greek' | 'Czech' | 'Finnish' | 'Hindi' | 'Bulgarian' | 'Danish' | 'Hebrew' | 'Malay' | 'Persian' | 'Slovak' | 'Swedish' | 'Croatian' | 'Filipino' | 'Hungarian' | 'Norwegian' | 'Slovenian' | 'Catalan' | 'Nynorsk' | 'Tamil' | 'Afrikaans' | null;
+  language_boost?:
+    | 'auto'
+    | 'Chinese'
+    | 'Chinese,Yue'
+    | 'English'
+    | 'Arabic'
+    | 'Russian'
+    | 'Spanish'
+    | 'French'
+    | 'Portuguese'
+    | 'German'
+    | 'Turkish'
+    | 'Dutch'
+    | 'Ukrainian'
+    | 'Vietnamese'
+    | 'Indonesian'
+    | 'Japanese'
+    | 'Italian'
+    | 'Korean'
+    | 'Thai'
+    | 'Polish'
+    | 'Romanian'
+    | 'Greek'
+    | 'Czech'
+    | 'Finnish'
+    | 'Hindi'
+    | 'Bulgarian'
+    | 'Danish'
+    | 'Hebrew'
+    | 'Malay'
+    | 'Persian'
+    | 'Slovak'
+    | 'Swedish'
+    | 'Croatian'
+    | 'Filipino'
+    | 'Hungarian'
+    | 'Norwegian'
+    | 'Slovenian'
+    | 'Catalan'
+    | 'Nynorsk'
+    | 'Tamil'
+    | 'Afrikaans'
+    | null;
 
   /**
    * Determines how closely the AI should adhere to the original voice when
@@ -1663,7 +1794,7 @@ export interface AssistantChatResponse {
   content: string;
 }
 
-export type AssistantGetTexmlResponse = string
+export type AssistantGetTexmlResponse = string;
 
 export interface AssistantSendSMSResponse {
   conversation_id?: string;
@@ -1993,7 +2124,7 @@ export declare namespace Assistants {
     type AssistantUpdateParams as AssistantUpdateParams,
     type AssistantChatParams as AssistantChatParams,
     type AssistantImportsParams as AssistantImportsParams,
-    type AssistantSendSMSParams as AssistantSendSMSParams
+    type AssistantSendSMSParams as AssistantSendSMSParams,
   };
 
   export {
@@ -2003,7 +2134,7 @@ export declare namespace Assistants {
     type AssistantTestsDefaultFlatPagination as AssistantTestsDefaultFlatPagination,
     type TestCreateParams as TestCreateParams,
     type TestUpdateParams as TestUpdateParams,
-    type TestListParams as TestListParams
+    type TestListParams as TestListParams,
   };
 
   export {
@@ -2012,7 +2143,7 @@ export declare namespace Assistants {
     type CanaryDeployResponse as CanaryDeployResponse,
     type VersionConfig as VersionConfig,
     type CanaryDeployCreateParams as CanaryDeployCreateParams,
-    type CanaryDeployUpdateParams as CanaryDeployUpdateParams
+    type CanaryDeployUpdateParams as CanaryDeployUpdateParams,
   };
 
   export {
@@ -2027,7 +2158,7 @@ export declare namespace Assistants {
     type ScheduledEventCreateParams as ScheduledEventCreateParams,
     type ScheduledEventRetrieveParams as ScheduledEventRetrieveParams,
     type ScheduledEventListParams as ScheduledEventListParams,
-    type ScheduledEventDeleteParams as ScheduledEventDeleteParams
+    type ScheduledEventDeleteParams as ScheduledEventDeleteParams,
   };
 
   export {
@@ -2037,7 +2168,7 @@ export declare namespace Assistants {
     type ToolTestResponse as ToolTestResponse,
     type ToolAddParams as ToolAddParams,
     type ToolRemoveParams as ToolRemoveParams,
-    type ToolTestParams as ToolTestParams
+    type ToolTestParams as ToolTestParams,
   };
 
   export {
@@ -2046,7 +2177,7 @@ export declare namespace Assistants {
     type VersionRetrieveParams as VersionRetrieveParams,
     type VersionUpdateParams as VersionUpdateParams,
     type VersionDeleteParams as VersionDeleteParams,
-    type VersionPromoteParams as VersionPromoteParams
+    type VersionPromoteParams as VersionPromoteParams,
   };
 
   export {
@@ -2055,6 +2186,6 @@ export declare namespace Assistants {
     type TagAddResponse as TagAddResponse,
     type TagRemoveResponse as TagRemoveResponse,
     type TagAddParams as TagAddParams,
-    type TagRemoveParams as TagRemoveParams
+    type TagRemoveParams as TagRemoveParams,
   };
 }

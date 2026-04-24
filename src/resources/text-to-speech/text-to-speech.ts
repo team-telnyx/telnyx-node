@@ -28,7 +28,10 @@ export class TextToSpeech extends APIResource {
    * adjustment, and volume control. Use the `telnyx` provider-specific parameters to
    * configure these features.
    */
-  generate(body: TextToSpeechGenerateParams, options?: RequestOptions): APIPromise<TextToSpeechGenerateResponse> {
+  generate(
+    body: TextToSpeechGenerateParams,
+    options?: RequestOptions,
+  ): APIPromise<TextToSpeechGenerateResponse> {
     return this._client.post('/text-to-speech/speech', { body, ...options });
   }
 
@@ -39,7 +42,10 @@ export class TextToSpeech extends APIResource {
    *
    * Some providers (ElevenLabs, Resemble) require an API key to list voices.
    */
-  listVoices(query: TextToSpeechListVoicesParams | null | undefined = {}, options?: RequestOptions): APIPromise<TextToSpeechListVoicesResponse> {
+  listVoices(
+    query: TextToSpeechListVoicesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TextToSpeechListVoicesResponse> {
     return this._client.get('/text-to-speech/voices', { query, ...options });
   }
 }
@@ -121,7 +127,10 @@ export interface StreamClientEvent {
 /**
  * Union of all server-to-client WebSocket events for TTS streaming.
  */
-export type StreamServerEvent = StreamServerEvent.AudioChunkFrame | StreamServerEvent.FinalFrameEvent | StreamServerEvent.ErrorFrame
+export type StreamServerEvent =
+  | StreamServerEvent.AudioChunkFrame
+  | StreamServerEvent.FinalFrameEvent
+  | StreamServerEvent.ErrorFrame;
 
 export namespace StreamServerEvent {
   /**
@@ -554,6 +563,6 @@ export declare namespace TextToSpeech {
     type StreamClientEvent as StreamClientEvent,
     type StreamServerEvent as StreamServerEvent,
     type TextToSpeechGenerateParams as TextToSpeechGenerateParams,
-    type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams
+    type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
   };
 }

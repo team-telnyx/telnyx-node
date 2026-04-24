@@ -11,7 +11,10 @@ export class RegulatoryRequirements extends APIResource {
   /**
    * Retrieve regulatory requirements
    */
-  retrieve(query: RegulatoryRequirementRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<RegulatoryRequirementRetrieveResponse> {
+  retrieve(
+    query: RegulatoryRequirementRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<RegulatoryRequirementRetrieveResponse> {
     return this._client.get('/regulatory_requirements', { query, ...options });
   }
 }
@@ -114,6 +117,6 @@ export namespace RegulatoryRequirementRetrieveParams {
 export declare namespace RegulatoryRequirements {
   export {
     type RegulatoryRequirementRetrieveResponse as RegulatoryRequirementRetrieveResponse,
-    type RegulatoryRequirementRetrieveParams as RegulatoryRequirementRetrieveParams
+    type RegulatoryRequirementRetrieveParams as RegulatoryRequirementRetrieveParams,
   };
 }

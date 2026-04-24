@@ -4,7 +4,11 @@ import { APIResource } from '../../../../../core/resource';
 import * as RunsAPI from '../runs';
 import { TestRunResponsesDefaultFlatPagination } from '../runs';
 import { APIPromise } from '../../../../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../../../core/pagination';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../../../core/pagination';
 import { RequestOptions } from '../../../../../internal/request-options';
 import { path } from '../../../../../internal/utils/path';
 
@@ -26,8 +30,16 @@ export class Runs extends APIResource {
    * }
    * ```
    */
-  list(suiteName: string, query: RunListParams | null | undefined = {}, options?: RequestOptions): PagePromise<TestRunResponsesDefaultFlatPagination, RunsAPI.TestRunResponse> {
-    return this._client.getAPIList(path`/ai/assistants/tests/test-suites/${suiteName}/runs`, DefaultFlatPagination<RunsAPI.TestRunResponse>, { query, ...options });
+  list(
+    suiteName: string,
+    query: RunListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<TestRunResponsesDefaultFlatPagination, RunsAPI.TestRunResponse> {
+    return this._client.getAPIList(
+      path`/ai/assistants/tests/test-suites/${suiteName}/runs`,
+      DefaultFlatPagination<RunsAPI.TestRunResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -41,7 +53,11 @@ export class Runs extends APIResource {
    *   );
    * ```
    */
-  trigger(suiteName: string, body: RunTriggerParams | null | undefined = {}, options?: RequestOptions): APIPromise<RunTriggerResponse> {
+  trigger(
+    suiteName: string,
+    body: RunTriggerParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<RunTriggerResponse> {
     return this._client.post(path`/ai/assistants/tests/test-suites/${suiteName}/runs`, { body, ...options });
   }
 }
@@ -74,7 +90,7 @@ export interface PaginatedTestRunList {
   meta: Meta;
 }
 
-export type RunTriggerResponse = Array<RunsAPI.TestRunResponse>
+export type RunTriggerResponse = Array<RunsAPI.TestRunResponse>;
 
 export interface RunListParams extends DefaultFlatPaginationParams {
   /**
@@ -103,8 +119,8 @@ export declare namespace Runs {
     type PaginatedTestRunList as PaginatedTestRunList,
     type RunTriggerResponse as RunTriggerResponse,
     type RunListParams as RunListParams,
-    type RunTriggerParams as RunTriggerParams
+    type RunTriggerParams as RunTriggerParams,
   };
 }
 
-export { type TestRunResponsesDefaultFlatPagination }
+export { type TestRunResponsesDefaultFlatPagination };

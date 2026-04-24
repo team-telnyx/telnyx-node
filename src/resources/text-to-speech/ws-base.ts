@@ -4,7 +4,15 @@ import { TextToSpeechEmitter, TextToSpeechStreamMessage, WebSocketError, buildUR
 import { InternalEventEmitter } from '../../core/EventEmitter';
 import { sleep } from '../../internal/utils/sleep';
 import { type WebSocketLike, ReadyState } from '../../internal/ws-adapter';
-import { SendQueue, flattenRawData, isRecoverableClose, type RawWebSocketData, type ReconnectingEvent, type ReconnectingOverrides, type UnsentMessage } from '../../internal/ws';
+import {
+  SendQueue,
+  flattenRawData,
+  isRecoverableClose,
+  type RawWebSocketData,
+  type ReconnectingEvent,
+  type ReconnectingOverrides,
+  type UnsentMessage,
+} from '../../internal/ws';
 import * as TextToSpeechAPI from './text-to-speech';
 import { Telnyx } from '../../client';
 import { TelnyxError } from '../../core/error';
@@ -14,7 +22,9 @@ export interface TextToSpeechWSReconnectOptions {
    * Called before each reconnect attempt. Return an object with
    * `parameters` to override query parameters for the next connection.
    */
-  onReconnecting(event: ReconnectingEvent<Record<string, unknown>>): ReconnectingOverrides<Record<string, unknown>> | void;
+  onReconnecting(
+    event: ReconnectingEvent<Record<string, unknown>>,
+  ): ReconnectingOverrides<Record<string, unknown>> | void;
 
   /**
    * Maximum number of reconnection attempts. Default: 5.
@@ -73,9 +83,11 @@ export abstract class TextToSpeechWSBase<TSocket extends WebSocketLike> extends 
     close: (code: number, reason: string, unsent: UnsentMessage<TextToSpeechAPI.StreamClientEvent>[]) => void;
   }>();
 
-  constructor(client: Telnyx,
-parameters?: Record<string, unknown> | undefined,
-options?: TextToSpeechWSBaseOptions | undefined) {
+  constructor(
+    client: Telnyx,
+    parameters?: Record<string, unknown> | undefined,
+    options?: TextToSpeechWSBaseOptions | undefined,
+  ) {
     super();
     this._client = client;
     this._parameters = undefined;
@@ -228,7 +240,11 @@ options?: TextToSpeechWSBaseOptions | undefined) {
       }
     };
 
-    const onClose = (code: number, reason: string, unsent: UnsentMessage<TextToSpeechAPI.StreamClientEvent>[]) => {
+    const onClose = (
+      code: number,
+      reason: string,
+      unsent: UnsentMessage<TextToSpeechAPI.StreamClientEvent>[],
+    ) => {
       push({ type: 'close', code, reason, unsent });
       done = true;
       flushResolvers();
@@ -281,7 +297,12 @@ options?: TextToSpeechWSBaseOptions | undefined) {
           push({ type: 'closing' });
           break;
         case ReadyState.CLOSED:
-          push({ type: 'close', code: this._lastCloseCode, reason: this._lastCloseReason, unsent: this._sendQueue.drain() });
+          push({
+            type: 'close',
+            code: this._lastCloseCode,
+            reason: this._lastCloseReason,
+            unsent: this._sendQueue.drain(),
+          });
           done = true;
           cleanup();
           break;
@@ -404,9 +425,16 @@ options?: TextToSpeechWSBaseOptions | undefined) {
       if (!this._canReconnect(closeCode)) {
         this._isReconnecting = false;
         if (!this._intentionallyClosed) {
-          this._onError(null, `WebSocket reconnect aborted: non-recoverable close code ${closeCode}`, undefined);
+          this._onError(
+            null,
+            `WebSocket reconnect aborted: non-recoverable close code ${closeCode}`,
+            undefined,
+          );
         }
-        this._emitPermanentClose(this._intentionallyClosed ? this._closeCode : closeCode, this._intentionallyClosed ? this._closeReason : 'reconnect aborted');
+        this._emitPermanentClose(
+          this._intentionallyClosed ? this._closeCode : closeCode,
+          this._intentionallyClosed ? this._closeReason : 'reconnect aborted',
+        );
         return;
       }
 
@@ -454,9 +482,16 @@ options?: TextToSpeechWSBaseOptions | undefined) {
       if (!this._canReconnect(closeCode)) {
         this._isReconnecting = false;
         if (!this._intentionallyClosed) {
-          this._onError(null, `WebSocket reconnect aborted: non-recoverable close code ${closeCode}`, undefined);
+          this._onError(
+            null,
+            `WebSocket reconnect aborted: non-recoverable close code ${closeCode}`,
+            undefined,
+          );
         }
-        this._emitPermanentClose(this._intentionallyClosed ? this._closeCode : closeCode, this._intentionallyClosed ? this._closeReason : 'reconnect aborted');
+        this._emitPermanentClose(
+          this._intentionallyClosed ? this._closeCode : closeCode,
+          this._intentionallyClosed ? this._closeReason : 'reconnect aborted',
+        );
         return;
       }
 
@@ -465,9 +500,16 @@ options?: TextToSpeechWSBaseOptions | undefined) {
       if (!this._canReconnect(closeCode)) {
         this._isReconnecting = false;
         if (!this._intentionallyClosed) {
-          this._onError(null, `WebSocket reconnect aborted: non-recoverable close code ${closeCode}`, undefined);
+          this._onError(
+            null,
+            `WebSocket reconnect aborted: non-recoverable close code ${closeCode}`,
+            undefined,
+          );
         }
-        this._emitPermanentClose(this._intentionallyClosed ? this._closeCode : closeCode, this._intentionallyClosed ? this._closeReason : 'reconnect aborted');
+        this._emitPermanentClose(
+          this._intentionallyClosed ? this._closeCode : closeCode,
+          this._intentionallyClosed ? this._closeReason : 'reconnect aborted',
+        );
         return;
       }
 
@@ -502,7 +544,11 @@ options?: TextToSpeechWSBaseOptions | undefined) {
     // All retries exhausted — surface an error so consumers can
     // distinguish retry failure from a clean close.
     this._isReconnecting = false;
-    this._onError(null, `WebSocket reconnect failed after ${maxRetries} attempts (close code: ${closeCode})`, undefined);
+    this._onError(
+      null,
+      `WebSocket reconnect failed after ${maxRetries} attempts (close code: ${closeCode})`,
+      undefined,
+    );
     this._emitPermanentClose(closeCode, `reconnect failed after ${maxRetries} attempts`);
   }
 
@@ -562,7 +608,7 @@ options?: TextToSpeechWSBaseOptions | undefined) {
 
   protected _authHeaders(): Record<string, string> {
     if (this._client.apiKey) {
-      return { 'Authorization': `Bearer ${this._client.apiKey}` }
+      return { Authorization: `Bearer ${this._client.apiKey}` };
     }
     return {};
   }

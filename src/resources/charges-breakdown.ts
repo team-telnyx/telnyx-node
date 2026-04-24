@@ -9,7 +9,10 @@ export class ChargesBreakdown extends APIResource {
    * Retrieve a detailed breakdown of monthly charges for phone numbers in a
    * specified date range. The date range cannot exceed 31 days.
    */
-  retrieve(query: ChargesBreakdownRetrieveParams, options?: RequestOptions): APIPromise<ChargesBreakdownRetrieveResponse> {
+  retrieve(
+    query: ChargesBreakdownRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<ChargesBreakdownRetrieveResponse> {
     return this._client.get('/charges_breakdown', { query, ...options });
   }
 }
@@ -123,6 +126,6 @@ export interface ChargesBreakdownRetrieveParams {
 export declare namespace ChargesBreakdown {
   export {
     type ChargesBreakdownRetrieveResponse as ChargesBreakdownRetrieveResponse,
-    type ChargesBreakdownRetrieveParams as ChargesBreakdownRetrieveParams
+    type ChargesBreakdownRetrieveParams as ChargesBreakdownRetrieveParams,
   };
 }

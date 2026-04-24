@@ -33,7 +33,5 @@ export interface ActionRefreshResponse {
 }
 
 export declare namespace Actions {
-  export {
-    type ActionRefreshResponse as ActionRefreshResponse
-  };
+  export { type ActionRefreshResponse as ActionRefreshResponse };
 }

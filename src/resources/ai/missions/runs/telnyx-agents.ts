@@ -19,8 +19,12 @@ export class TelnyxAgents extends APIResource {
    *   );
    * ```
    */
-  list(runID: string, params: TelnyxAgentListParams, options?: RequestOptions): APIPromise<TelnyxAgentListResponse> {
-    const { mission_id } = params
+  list(
+    runID: string,
+    params: TelnyxAgentListParams,
+    options?: RequestOptions,
+  ): APIPromise<TelnyxAgentListResponse> {
+    const { mission_id } = params;
     return this._client.get(path`/ai/missions/${mission_id}/runs/${runID}/telnyx-agents`, options);
   }
 
@@ -39,9 +43,16 @@ export class TelnyxAgents extends APIResource {
    *   );
    * ```
    */
-  link(runID: string, params: TelnyxAgentLinkParams, options?: RequestOptions): APIPromise<TelnyxAgentLinkResponse> {
-    const { mission_id, ...body } = params
-    return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/telnyx-agents`, { body, ...options });
+  link(
+    runID: string,
+    params: TelnyxAgentLinkParams,
+    options?: RequestOptions,
+  ): APIPromise<TelnyxAgentLinkResponse> {
+    const { mission_id, ...body } = params;
+    return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/telnyx-agents`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -59,8 +70,11 @@ export class TelnyxAgents extends APIResource {
    * ```
    */
   unlink(telnyxAgentID: string, params: TelnyxAgentUnlinkParams, options?: RequestOptions): APIPromise<void> {
-    const { mission_id, run_id } = params
-    return this._client.delete(path`/ai/missions/${mission_id}/runs/${run_id}/telnyx-agents/${telnyxAgentID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    const { mission_id, run_id } = params;
+    return this._client.delete(
+      path`/ai/missions/${mission_id}/runs/${run_id}/telnyx-agents/${telnyxAgentID}`,
+      { ...options, headers: buildHeaders([{ Accept: '*/*' }, options?.headers]) },
+    );
   }
 }
 
@@ -109,6 +123,6 @@ export declare namespace TelnyxAgents {
     type TelnyxAgentLinkResponse as TelnyxAgentLinkResponse,
     type TelnyxAgentListParams as TelnyxAgentListParams,
     type TelnyxAgentLinkParams as TelnyxAgentLinkParams,
-    type TelnyxAgentUnlinkParams as TelnyxAgentUnlinkParams
+    type TelnyxAgentUnlinkParams as TelnyxAgentUnlinkParams,
   };
 }

@@ -2,7 +2,10 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Telnyx({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource tools', () => {
   // Mock server tests are disabled
@@ -54,9 +57,9 @@ describe('resource tools', () => {
   // Mock server tests are disabled
   test.skip('test: required and optional params', async () => {
     const response = await client.ai.assistants.tools.test('tool_id', {
-    assistant_id: 'assistant_id',
-    arguments: { foo: 'bar' },
-    dynamic_variables: { foo: 'bar' },
-  });
+      assistant_id: 'assistant_id',
+      arguments: { foo: 'bar' },
+      dynamic_variables: { foo: 'bar' },
+    });
   });
 });

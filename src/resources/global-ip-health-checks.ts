@@ -20,7 +20,10 @@ export class GlobalIPHealthChecks extends APIResource {
    *   await client.globalIPHealthChecks.create();
    * ```
    */
-  create(body: GlobalIPHealthCheckCreateParams, options?: RequestOptions): APIPromise<GlobalIPHealthCheckCreateResponse> {
+  create(
+    body: GlobalIPHealthCheckCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<GlobalIPHealthCheckCreateResponse> {
     return this._client.post('/global_ip_health_checks', { body, ...options });
   }
 
@@ -50,8 +53,15 @@ export class GlobalIPHealthChecks extends APIResource {
    * }
    * ```
    */
-  list(query: GlobalIPHealthCheckListParams | null | undefined = {}, options?: RequestOptions): PagePromise<GlobalIPHealthCheckListResponsesDefaultFlatPagination, GlobalIPHealthCheckListResponse> {
-    return this._client.getAPIList('/global_ip_health_checks', DefaultFlatPagination<GlobalIPHealthCheckListResponse>, { query, ...options });
+  list(
+    query: GlobalIPHealthCheckListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<GlobalIPHealthCheckListResponsesDefaultFlatPagination, GlobalIPHealthCheckListResponse> {
+    return this._client.getAPIList(
+      '/global_ip_health_checks',
+      DefaultFlatPagination<GlobalIPHealthCheckListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -70,7 +80,8 @@ export class GlobalIPHealthChecks extends APIResource {
   }
 }
 
-export type GlobalIPHealthCheckListResponsesDefaultFlatPagination = DefaultFlatPagination<GlobalIPHealthCheckListResponse>
+export type GlobalIPHealthCheckListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<GlobalIPHealthCheckListResponse>;
 
 export interface GlobalIPHealthCheckCreateResponse {
   data?: GlobalIPHealthCheckCreateResponse.Data;
@@ -175,8 +186,7 @@ export interface GlobalIPHealthCheckCreateParams {
   health_check_type?: string;
 }
 
-export interface GlobalIPHealthCheckListParams extends DefaultFlatPaginationParams {
-}
+export interface GlobalIPHealthCheckListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace GlobalIPHealthChecks {
   export {
@@ -186,6 +196,6 @@ export declare namespace GlobalIPHealthChecks {
     type GlobalIPHealthCheckDeleteResponse as GlobalIPHealthCheckDeleteResponse,
     type GlobalIPHealthCheckListResponsesDefaultFlatPagination as GlobalIPHealthCheckListResponsesDefaultFlatPagination,
     type GlobalIPHealthCheckCreateParams as GlobalIPHealthCheckCreateParams,
-    type GlobalIPHealthCheckListParams as GlobalIPHealthCheckListParams
+    type GlobalIPHealthCheckListParams as GlobalIPHealthCheckListParams,
   };
 }

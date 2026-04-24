@@ -2,7 +2,15 @@
 
 import { APIResource } from '../../../core/resource';
 import * as NumbersAPI from './numbers';
-import { NumberAssociateParams, NumberAssociateResponse, NumberDisassociateParams, NumberListParams, NumberRetrieveParams, NumberRetrieveResponse, Numbers } from './numbers';
+import {
+  NumberAssociateParams,
+  NumberAssociateResponse,
+  NumberDisassociateParams,
+  NumberListParams,
+  NumberRetrieveParams,
+  NumberRetrieveResponse,
+  Numbers,
+} from './numbers';
 import { APIPromise } from '../../../core/api-promise';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
@@ -53,7 +61,10 @@ export class Reputation extends APIResource {
    * ```
    */
   disable(enterpriseID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/enterprises/${enterpriseID}/reputation`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/enterprises/${enterpriseID}/reputation`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -91,7 +102,11 @@ export class Reputation extends APIResource {
    * );
    * ```
    */
-  enable(enterpriseID: string, body: ReputationEnableParams, options?: RequestOptions): APIPromise<ReputationEnableResponse> {
+  enable(
+    enterpriseID: string,
+    body: ReputationEnableParams,
+    options?: RequestOptions,
+  ): APIPromise<ReputationEnableResponse> {
     return this._client.post(path`/enterprises/${enterpriseID}/reputation`, { body, ...options });
   }
 
@@ -119,7 +134,11 @@ export class Reputation extends APIResource {
    *   );
    * ```
    */
-  updateFrequency(enterpriseID: string, body: ReputationUpdateFrequencyParams, options?: RequestOptions): APIPromise<ReputationUpdateFrequencyResponse> {
+  updateFrequency(
+    enterpriseID: string,
+    body: ReputationUpdateFrequencyParams,
+    options?: RequestOptions,
+  ): APIPromise<ReputationUpdateFrequencyResponse> {
     return this._client.patch(path`/enterprises/${enterpriseID}/reputation/frequency`, { body, ...options });
   }
 }
@@ -202,7 +221,7 @@ export declare namespace Reputation {
     type ReputationEnableResponse as ReputationEnableResponse,
     type ReputationUpdateFrequencyResponse as ReputationUpdateFrequencyResponse,
     type ReputationEnableParams as ReputationEnableParams,
-    type ReputationUpdateFrequencyParams as ReputationUpdateFrequencyParams
+    type ReputationUpdateFrequencyParams as ReputationUpdateFrequencyParams,
   };
 
   export {
@@ -212,6 +231,6 @@ export declare namespace Reputation {
     type NumberRetrieveParams as NumberRetrieveParams,
     type NumberListParams as NumberListParams,
     type NumberAssociateParams as NumberAssociateParams,
-    type NumberDisassociateParams as NumberDisassociateParams
+    type NumberDisassociateParams as NumberDisassociateParams,
   };
 }

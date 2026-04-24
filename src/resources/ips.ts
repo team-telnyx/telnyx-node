@@ -64,7 +64,10 @@ export class IPs extends APIResource {
    * }
    * ```
    */
-  list(query: IPListParams | null | undefined = {}, options?: RequestOptions): PagePromise<IPsDefaultFlatPagination, IP> {
+  list(
+    query: IPListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<IPsDefaultFlatPagination, IP> {
     return this._client.getAPIList('/ips', DefaultFlatPagination<IP>, { query, ...options });
   }
 
@@ -83,7 +86,7 @@ export class IPs extends APIResource {
   }
 }
 
-export type IPsDefaultFlatPagination = DefaultFlatPagination<IP>
+export type IPsDefaultFlatPagination = DefaultFlatPagination<IP>;
 
 export interface IP {
   /**
@@ -213,6 +216,6 @@ export declare namespace IPs {
     type IPsDefaultFlatPagination as IPsDefaultFlatPagination,
     type IPCreateParams as IPCreateParams,
     type IPUpdateParams as IPUpdateParams,
-    type IPListParams as IPListParams
+    type IPListParams as IPListParams,
   };
 }

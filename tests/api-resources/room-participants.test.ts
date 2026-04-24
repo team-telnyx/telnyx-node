@@ -2,7 +2,10 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Telnyx({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource roomParticipants', () => {
   // Mock server tests are disabled
@@ -32,30 +35,33 @@ describe('resource roomParticipants', () => {
   // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.roomParticipants.list({
-    filter: {
-    context: 'Alice',
-    date_joined_at: {
-    eq: '2021-04-25',
-    gte: '2021-04-25',
-    lte: '2021-04-25',
-  },
-    date_left_at: {
-    eq: '2021-04-25',
-    gte: '2021-04-25',
-    lte: '2021-04-25',
-  },
-    date_updated_at: {
-    eq: '2021-04-25',
-    gte: '2021-04-25',
-    lte: '2021-04-25',
-  },
-    session_id: '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
-  },
-    'page[number]': 0,
-    'page[size]': 0,
-  }, { path: '/_stainless_unknown_path' }))
-      .rejects
-      .toThrow(Telnyx.NotFoundError);
+    await expect(
+      client.roomParticipants.list(
+        {
+          filter: {
+            context: 'Alice',
+            date_joined_at: {
+              eq: '2021-04-25',
+              gte: '2021-04-25',
+              lte: '2021-04-25',
+            },
+            date_left_at: {
+              eq: '2021-04-25',
+              gte: '2021-04-25',
+              lte: '2021-04-25',
+            },
+            date_updated_at: {
+              eq: '2021-04-25',
+              gte: '2021-04-25',
+              lte: '2021-04-25',
+            },
+            session_id: '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
+          },
+          'page[number]': 0,
+          'page[size]': 0,
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 });

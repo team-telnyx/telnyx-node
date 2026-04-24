@@ -16,8 +16,11 @@ export class CsvDownloads extends APIResource {
    *   await client.phoneNumbers.csvDownloads.create();
    * ```
    */
-  create(params: CsvDownloadCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<CsvDownloadCreateResponse> {
-    const { csv_format, filter } = params ?? {}
+  create(
+    params: CsvDownloadCreateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<CsvDownloadCreateResponse> {
+    const { csv_format, filter } = params ?? {};
     return this._client.post('/phone_numbers/csv_downloads', { query: { csv_format, filter }, ...options });
   }
 
@@ -45,12 +48,18 @@ export class CsvDownloads extends APIResource {
    * }
    * ```
    */
-  list(query: CsvDownloadListParams | null | undefined = {}, options?: RequestOptions): PagePromise<CsvDownloadsDefaultFlatPagination, CsvDownload> {
-    return this._client.getAPIList('/phone_numbers/csv_downloads', DefaultFlatPagination<CsvDownload>, { query, ...options });
+  list(
+    query: CsvDownloadListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<CsvDownloadsDefaultFlatPagination, CsvDownload> {
+    return this._client.getAPIList('/phone_numbers/csv_downloads', DefaultFlatPagination<CsvDownload>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type CsvDownloadsDefaultFlatPagination = DefaultFlatPagination<CsvDownload>
+export type CsvDownloadsDefaultFlatPagination = DefaultFlatPagination<CsvDownload>;
 
 export interface CsvDownload {
   /**
@@ -147,7 +156,16 @@ export namespace CsvDownloadCreateParams {
     /**
      * Filter by phone number status.
      */
-    status?: 'purchase-pending' | 'purchase-failed' | 'port-pending' | 'active' | 'deleted' | 'port-failed' | 'emergency-only' | 'ported-out' | 'port-out-pending';
+    status?:
+      | 'purchase-pending'
+      | 'purchase-failed'
+      | 'port-pending'
+      | 'active'
+      | 'deleted'
+      | 'port-failed'
+      | 'emergency-only'
+      | 'ported-out'
+      | 'port-out-pending';
 
     /**
      * Filter by phone number tags.
@@ -193,8 +211,7 @@ export namespace CsvDownloadCreateParams {
   }
 }
 
-export interface CsvDownloadListParams extends DefaultFlatPaginationParams {
-}
+export interface CsvDownloadListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace CsvDownloads {
   export {
@@ -203,6 +220,6 @@ export declare namespace CsvDownloads {
     type CsvDownloadRetrieveResponse as CsvDownloadRetrieveResponse,
     type CsvDownloadsDefaultFlatPagination as CsvDownloadsDefaultFlatPagination,
     type CsvDownloadCreateParams as CsvDownloadCreateParams,
-    type CsvDownloadListParams as CsvDownloadListParams
+    type CsvDownloadListParams as CsvDownloadListParams,
   };
 }

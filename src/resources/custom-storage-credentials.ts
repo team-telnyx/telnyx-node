@@ -25,7 +25,11 @@ export class CustomStorageCredentials extends APIResource {
    *   );
    * ```
    */
-  create(connectionID: string, body: CustomStorageCredentialCreateParams, options?: RequestOptions): APIPromise<CustomStorageCredentialCreateResponse> {
+  create(
+    connectionID: string,
+    body: CustomStorageCredentialCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<CustomStorageCredentialCreateResponse> {
     return this._client.post(path`/custom_storage_credentials/${connectionID}`, { body, ...options });
   }
 
@@ -40,7 +44,10 @@ export class CustomStorageCredentials extends APIResource {
    *   );
    * ```
    */
-  retrieve(connectionID: string, options?: RequestOptions): APIPromise<CustomStorageCredentialRetrieveResponse> {
+  retrieve(
+    connectionID: string,
+    options?: RequestOptions,
+  ): APIPromise<CustomStorageCredentialRetrieveResponse> {
     return this._client.get(path`/custom_storage_credentials/${connectionID}`, options);
   }
 
@@ -59,7 +66,11 @@ export class CustomStorageCredentials extends APIResource {
    *   );
    * ```
    */
-  update(connectionID: string, body: CustomStorageCredentialUpdateParams, options?: RequestOptions): APIPromise<CustomStorageCredentialUpdateResponse> {
+  update(
+    connectionID: string,
+    body: CustomStorageCredentialUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<CustomStorageCredentialUpdateResponse> {
     return this._client.put(path`/custom_storage_credentials/${connectionID}`, { body, ...options });
   }
 
@@ -74,7 +85,10 @@ export class CustomStorageCredentials extends APIResource {
    * ```
    */
   delete(connectionID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/custom_storage_credentials/${connectionID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/custom_storage_credentials/${connectionID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -218,6 +232,6 @@ export declare namespace CustomStorageCredentials {
     type CustomStorageCredentialRetrieveResponse as CustomStorageCredentialRetrieveResponse,
     type CustomStorageCredentialUpdateResponse as CustomStorageCredentialUpdateResponse,
     type CustomStorageCredentialCreateParams as CustomStorageCredentialCreateParams,
-    type CustomStorageCredentialUpdateParams as CustomStorageCredentialUpdateParams
+    type CustomStorageCredentialUpdateParams as CustomStorageCredentialUpdateParams,
   };
 }

@@ -55,7 +55,5 @@ export namespace GlobalIPAllowedPortListResponse {
 }
 
 export declare namespace GlobalIPAllowedPorts {
-  export {
-    type GlobalIPAllowedPortListResponse as GlobalIPAllowedPortListResponse
-  };
+  export { type GlobalIPAllowedPortListResponse as GlobalIPAllowedPortListResponse };
 }

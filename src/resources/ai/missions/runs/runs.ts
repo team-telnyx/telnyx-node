@@ -2,13 +2,47 @@
 
 import { APIResource } from '../../../../core/resource';
 import * as EventsAPI from './events';
-import { EventData, EventDataDefaultFlatPagination, EventGetEventDetailsParams, EventGetEventDetailsResponse, EventListParams, EventLogParams, EventLogResponse, Events } from './events';
+import {
+  EventData,
+  EventDataDefaultFlatPagination,
+  EventGetEventDetailsParams,
+  EventGetEventDetailsResponse,
+  EventListParams,
+  EventLogParams,
+  EventLogResponse,
+  Events,
+} from './events';
 import * as PlanAPI from './plan';
-import { Plan, PlanAddStepsToPlanParams, PlanAddStepsToPlanResponse, PlanCreateParams, PlanCreateResponse, PlanGetStepDetailsParams, PlanGetStepDetailsResponse, PlanRetrieveParams, PlanRetrieveResponse, PlanStepData, PlanUpdateStepParams, PlanUpdateStepResponse } from './plan';
+import {
+  Plan,
+  PlanAddStepsToPlanParams,
+  PlanAddStepsToPlanResponse,
+  PlanCreateParams,
+  PlanCreateResponse,
+  PlanGetStepDetailsParams,
+  PlanGetStepDetailsResponse,
+  PlanRetrieveParams,
+  PlanRetrieveResponse,
+  PlanStepData,
+  PlanUpdateStepParams,
+  PlanUpdateStepResponse,
+} from './plan';
 import * as TelnyxAgentsAPI from './telnyx-agents';
-import { TelnyxAgentData, TelnyxAgentLinkParams, TelnyxAgentLinkResponse, TelnyxAgentListParams, TelnyxAgentListResponse, TelnyxAgentUnlinkParams, TelnyxAgents } from './telnyx-agents';
+import {
+  TelnyxAgentData,
+  TelnyxAgentLinkParams,
+  TelnyxAgentLinkResponse,
+  TelnyxAgentListParams,
+  TelnyxAgentListResponse,
+  TelnyxAgentUnlinkParams,
+  TelnyxAgents,
+} from './telnyx-agents';
 import { APIPromise } from '../../../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../../core/pagination';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../../core/pagination';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
@@ -27,7 +61,11 @@ export class Runs extends APIResource {
    * );
    * ```
    */
-  create(missionID: string, body: RunCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<RunCreateResponse> {
+  create(
+    missionID: string,
+    body: RunCreateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<RunCreateResponse> {
     return this._client.post(path`/ai/missions/${missionID}/runs`, { body, ...options });
   }
 
@@ -42,8 +80,12 @@ export class Runs extends APIResource {
    * );
    * ```
    */
-  retrieve(runID: string, params: RunRetrieveParams, options?: RequestOptions): APIPromise<RunRetrieveResponse> {
-    const { mission_id } = params
+  retrieve(
+    runID: string,
+    params: RunRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<RunRetrieveResponse> {
+    const { mission_id } = params;
     return this._client.get(path`/ai/missions/${mission_id}/runs/${runID}`, options);
   }
 
@@ -59,7 +101,7 @@ export class Runs extends APIResource {
    * ```
    */
   update(runID: string, params: RunUpdateParams, options?: RequestOptions): APIPromise<RunUpdateResponse> {
-    const { mission_id, ...body } = params
+    const { mission_id, ...body } = params;
     return this._client.patch(path`/ai/missions/${mission_id}/runs/${runID}`, { body, ...options });
   }
 
@@ -76,8 +118,16 @@ export class Runs extends APIResource {
    * }
    * ```
    */
-  list(missionID: string, query: RunListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MissionRunDataDefaultFlatPagination, MissionRunData> {
-    return this._client.getAPIList(path`/ai/missions/${missionID}/runs`, DefaultFlatPagination<MissionRunData>, { query, ...options });
+  list(
+    missionID: string,
+    query: RunListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MissionRunDataDefaultFlatPagination, MissionRunData> {
+    return this._client.getAPIList(
+      path`/ai/missions/${missionID}/runs`,
+      DefaultFlatPagination<MissionRunData>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -91,8 +141,12 @@ export class Runs extends APIResource {
    * );
    * ```
    */
-  cancelRun(runID: string, params: RunCancelRunParams, options?: RequestOptions): APIPromise<RunCancelRunResponse> {
-    const { mission_id } = params
+  cancelRun(
+    runID: string,
+    params: RunCancelRunParams,
+    options?: RequestOptions,
+  ): APIPromise<RunCancelRunResponse> {
+    const { mission_id } = params;
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/cancel`, options);
   }
 
@@ -107,8 +161,14 @@ export class Runs extends APIResource {
    * }
    * ```
    */
-  listRuns(query: RunListRunsParams | null | undefined = {}, options?: RequestOptions): PagePromise<MissionRunDataDefaultFlatPagination, MissionRunData> {
-    return this._client.getAPIList('/ai/missions/runs', DefaultFlatPagination<MissionRunData>, { query, ...options });
+  listRuns(
+    query: RunListRunsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MissionRunDataDefaultFlatPagination, MissionRunData> {
+    return this._client.getAPIList('/ai/missions/runs', DefaultFlatPagination<MissionRunData>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -122,8 +182,12 @@ export class Runs extends APIResource {
    * );
    * ```
    */
-  pauseRun(runID: string, params: RunPauseRunParams, options?: RequestOptions): APIPromise<RunPauseRunResponse> {
-    const { mission_id } = params
+  pauseRun(
+    runID: string,
+    params: RunPauseRunParams,
+    options?: RequestOptions,
+  ): APIPromise<RunPauseRunResponse> {
+    const { mission_id } = params;
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/pause`, options);
   }
 
@@ -138,13 +202,17 @@ export class Runs extends APIResource {
    * );
    * ```
    */
-  resumeRun(runID: string, params: RunResumeRunParams, options?: RequestOptions): APIPromise<RunResumeRunResponse> {
-    const { mission_id } = params
+  resumeRun(
+    runID: string,
+    params: RunResumeRunParams,
+    options?: RequestOptions,
+  ): APIPromise<RunResumeRunResponse> {
+    const { mission_id } = params;
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/resume`, options);
   }
 }
 
-export type MissionRunDataDefaultFlatPagination = DefaultFlatPagination<MissionRunData>
+export type MissionRunDataDefaultFlatPagination = DefaultFlatPagination<MissionRunData>;
 
 export interface MissionRunData {
   mission_id: string;
@@ -277,7 +345,7 @@ export declare namespace Runs {
     type RunCancelRunParams as RunCancelRunParams,
     type RunListRunsParams as RunListRunsParams,
     type RunPauseRunParams as RunPauseRunParams,
-    type RunResumeRunParams as RunResumeRunParams
+    type RunResumeRunParams as RunResumeRunParams,
   };
 
   export {
@@ -288,7 +356,7 @@ export declare namespace Runs {
     type EventDataDefaultFlatPagination as EventDataDefaultFlatPagination,
     type EventListParams as EventListParams,
     type EventGetEventDetailsParams as EventGetEventDetailsParams,
-    type EventLogParams as EventLogParams
+    type EventLogParams as EventLogParams,
   };
 
   export {
@@ -303,7 +371,7 @@ export declare namespace Runs {
     type PlanRetrieveParams as PlanRetrieveParams,
     type PlanAddStepsToPlanParams as PlanAddStepsToPlanParams,
     type PlanGetStepDetailsParams as PlanGetStepDetailsParams,
-    type PlanUpdateStepParams as PlanUpdateStepParams
+    type PlanUpdateStepParams as PlanUpdateStepParams,
   };
 
   export {
@@ -313,6 +381,6 @@ export declare namespace Runs {
     type TelnyxAgentLinkResponse as TelnyxAgentLinkResponse,
     type TelnyxAgentListParams as TelnyxAgentListParams,
     type TelnyxAgentLinkParams as TelnyxAgentLinkParams,
-    type TelnyxAgentUnlinkParams as TelnyxAgentUnlinkParams
+    type TelnyxAgentUnlinkParams as TelnyxAgentUnlinkParams,
   };
 }

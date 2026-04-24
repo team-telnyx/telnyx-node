@@ -2,7 +2,24 @@
 
 import { APIResource } from '../../../core/resource';
 import * as RequestsAPI from './requests';
-import { RequestCreateParams, RequestListParams, RequestRetrieveStatusHistoryParams, RequestRetrieveStatusHistoryResponse, RequestUpdateParams, Requests, TfPhoneNumber, TfVerificationRequest, TfVerificationStatus, TollFreeVerificationEntityType, URL, UseCaseCategories, VerificationRequestEgress, VerificationRequestStatus, VerificationRequestStatusesDefaultPaginationForMessagingTollfree, Volume } from './requests';
+import {
+  RequestCreateParams,
+  RequestListParams,
+  RequestRetrieveStatusHistoryParams,
+  RequestRetrieveStatusHistoryResponse,
+  RequestUpdateParams,
+  Requests,
+  TfPhoneNumber,
+  TfVerificationRequest,
+  TfVerificationStatus,
+  TollFreeVerificationEntityType,
+  URL,
+  UseCaseCategories,
+  VerificationRequestEgress,
+  VerificationRequestStatus,
+  VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
+  Volume,
+} from './requests';
 
 export class Verification extends APIResource {
   requests: RequestsAPI.Requests = new RequestsAPI.Requests(this._client);
@@ -27,6 +44,6 @@ export declare namespace Verification {
     type RequestCreateParams as RequestCreateParams,
     type RequestUpdateParams as RequestUpdateParams,
     type RequestListParams as RequestListParams,
-    type RequestRetrieveStatusHistoryParams as RequestRetrieveStatusHistoryParams
+    type RequestRetrieveStatusHistoryParams as RequestRetrieveStatusHistoryParams,
   };
 }

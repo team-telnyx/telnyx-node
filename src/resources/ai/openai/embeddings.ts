@@ -24,7 +24,10 @@ export class Embeddings extends APIResource {
    *   });
    * ```
    */
-  createEmbeddings(body: EmbeddingCreateEmbeddingsParams, options?: RequestOptions): APIPromise<EmbeddingCreateEmbeddingsResponse> {
+  createEmbeddings(
+    body: EmbeddingCreateEmbeddingsParams,
+    options?: RequestOptions,
+  ): APIPromise<EmbeddingCreateEmbeddingsResponse> {
     return this._client.post('/ai/openai/embeddings', { body, ...options });
   }
 
@@ -163,6 +166,6 @@ export declare namespace Embeddings {
   export {
     type EmbeddingCreateEmbeddingsResponse as EmbeddingCreateEmbeddingsResponse,
     type EmbeddingListEmbeddingModelsResponse as EmbeddingListEmbeddingModelsResponse,
-    type EmbeddingCreateEmbeddingsParams as EmbeddingCreateEmbeddingsParams
+    type EmbeddingCreateEmbeddingsParams as EmbeddingCreateEmbeddingsParams,
   };
 }

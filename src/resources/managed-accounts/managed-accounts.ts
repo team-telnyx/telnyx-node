@@ -25,7 +25,10 @@ export class ManagedAccounts extends APIResource {
    * });
    * ```
    */
-  create(body: ManagedAccountCreateParams, options?: RequestOptions): APIPromise<ManagedAccountCreateResponse> {
+  create(
+    body: ManagedAccountCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<ManagedAccountCreateResponse> {
     return this._client.post('/managed_accounts', { body, ...options });
   }
 
@@ -52,7 +55,11 @@ export class ManagedAccounts extends APIResource {
    * );
    * ```
    */
-  update(id: string, body: ManagedAccountUpdateParams, options?: RequestOptions): APIPromise<ManagedAccountUpdateResponse> {
+  update(
+    id: string,
+    body: ManagedAccountUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<ManagedAccountUpdateResponse> {
     return this._client.patch(path`/managed_accounts/${id}`, { body, ...options });
   }
 
@@ -68,8 +75,14 @@ export class ManagedAccounts extends APIResource {
    * }
    * ```
    */
-  list(query: ManagedAccountListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ManagedAccountListResponsesDefaultFlatPagination, ManagedAccountListResponse> {
-    return this._client.getAPIList('/managed_accounts', DefaultFlatPagination<ManagedAccountListResponse>, { query, ...options });
+  list(
+    query: ManagedAccountListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ManagedAccountListResponsesDefaultFlatPagination, ManagedAccountListResponse> {
+    return this._client.getAPIList('/managed_accounts', DefaultFlatPagination<ManagedAccountListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -82,7 +95,9 @@ export class ManagedAccounts extends APIResource {
    *   await client.managedAccounts.getAllocatableGlobalOutboundChannels();
    * ```
    */
-  getAllocatableGlobalOutboundChannels(options?: RequestOptions): APIPromise<ManagedAccountGetAllocatableGlobalOutboundChannelsResponse> {
+  getAllocatableGlobalOutboundChannels(
+    options?: RequestOptions,
+  ): APIPromise<ManagedAccountGetAllocatableGlobalOutboundChannelsResponse> {
     return this._client.get('/managed_accounts/allocatable_global_outbound_channels', options);
   }
 
@@ -98,12 +113,20 @@ export class ManagedAccounts extends APIResource {
    *   );
    * ```
    */
-  updateGlobalChannelLimit(id: string, body: ManagedAccountUpdateGlobalChannelLimitParams, options?: RequestOptions): APIPromise<ManagedAccountUpdateGlobalChannelLimitResponse> {
-    return this._client.patch(path`/managed_accounts/${id}/update_global_channel_limit`, { body, ...options });
+  updateGlobalChannelLimit(
+    id: string,
+    body: ManagedAccountUpdateGlobalChannelLimitParams,
+    options?: RequestOptions,
+  ): APIPromise<ManagedAccountUpdateGlobalChannelLimitResponse> {
+    return this._client.patch(path`/managed_accounts/${id}/update_global_channel_limit`, {
+      body,
+      ...options,
+    });
   }
 }
 
-export type ManagedAccountListResponsesDefaultFlatPagination = DefaultFlatPagination<ManagedAccountListResponse>
+export type ManagedAccountListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<ManagedAccountListResponse>;
 
 export interface ManagedAccount {
   /**
@@ -498,13 +521,13 @@ export declare namespace ManagedAccounts {
     type ManagedAccountCreateParams as ManagedAccountCreateParams,
     type ManagedAccountUpdateParams as ManagedAccountUpdateParams,
     type ManagedAccountListParams as ManagedAccountListParams,
-    type ManagedAccountUpdateGlobalChannelLimitParams as ManagedAccountUpdateGlobalChannelLimitParams
+    type ManagedAccountUpdateGlobalChannelLimitParams as ManagedAccountUpdateGlobalChannelLimitParams,
   };
 
   export {
     Actions as Actions,
     type ActionDisableResponse as ActionDisableResponse,
     type ActionEnableResponse as ActionEnableResponse,
-    type ActionEnableParams as ActionEnableParams
+    type ActionEnableParams as ActionEnableParams,
   };
 }

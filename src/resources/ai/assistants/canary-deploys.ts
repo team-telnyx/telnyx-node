@@ -29,7 +29,11 @@ export class CanaryDeploys extends APIResource {
    *   );
    * ```
    */
-  create(assistantID: string, body: CanaryDeployCreateParams, options?: RequestOptions): APIPromise<CanaryDeployResponse> {
+  create(
+    assistantID: string,
+    body: CanaryDeployCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<CanaryDeployResponse> {
     return this._client.post(path`/ai/assistants/${assistantID}/canary-deploys`, { body, ...options });
   }
 
@@ -71,7 +75,11 @@ export class CanaryDeploys extends APIResource {
    *   );
    * ```
    */
-  update(assistantID: string, body: CanaryDeployUpdateParams, options?: RequestOptions): APIPromise<CanaryDeployResponse> {
+  update(
+    assistantID: string,
+    body: CanaryDeployUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<CanaryDeployResponse> {
     return this._client.put(path`/ai/assistants/${assistantID}/canary-deploys`, { body, ...options });
   }
 
@@ -88,7 +96,10 @@ export class CanaryDeploys extends APIResource {
    * ```
    */
   delete(assistantID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/assistants/${assistantID}/canary-deploys`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/ai/assistants/${assistantID}/canary-deploys`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -150,6 +161,6 @@ export declare namespace CanaryDeploys {
     type CanaryDeployResponse as CanaryDeployResponse,
     type VersionConfig as VersionConfig,
     type CanaryDeployCreateParams as CanaryDeployCreateParams,
-    type CanaryDeployUpdateParams as CanaryDeployUpdateParams
+    type CanaryDeployUpdateParams as CanaryDeployUpdateParams,
   };
 }

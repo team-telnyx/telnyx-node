@@ -2,7 +2,10 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Telnyx({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource reputation', () => {
   // Mock server tests are disabled
@@ -31,7 +34,9 @@ describe('resource reputation', () => {
 
   // Mock server tests are disabled
   test.skip('enable: only required params', async () => {
-    const responsePromise = client.enterprises.reputation.enable('6a09cdc3-8948-47f0-aa62-74ac943d6c58', { loa_document_id: 'doc_01HXYZ1234ABCDEF' });
+    const responsePromise = client.enterprises.reputation.enable('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {
+      loa_document_id: 'doc_01HXYZ1234ABCDEF',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -43,12 +48,18 @@ describe('resource reputation', () => {
 
   // Mock server tests are disabled
   test.skip('enable: required and optional params', async () => {
-    const response = await client.enterprises.reputation.enable('6a09cdc3-8948-47f0-aa62-74ac943d6c58', { loa_document_id: 'doc_01HXYZ1234ABCDEF', check_frequency: 'business_daily' });
+    const response = await client.enterprises.reputation.enable('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {
+      loa_document_id: 'doc_01HXYZ1234ABCDEF',
+      check_frequency: 'business_daily',
+    });
   });
 
   // Mock server tests are disabled
   test.skip('updateFrequency: only required params', async () => {
-    const responsePromise = client.enterprises.reputation.updateFrequency('6a09cdc3-8948-47f0-aa62-74ac943d6c58', { check_frequency: 'business_daily' });
+    const responsePromise = client.enterprises.reputation.updateFrequency(
+      '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+      { check_frequency: 'business_daily' },
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -60,6 +71,9 @@ describe('resource reputation', () => {
 
   // Mock server tests are disabled
   test.skip('updateFrequency: required and optional params', async () => {
-    const response = await client.enterprises.reputation.updateFrequency('6a09cdc3-8948-47f0-aa62-74ac943d6c58', { check_frequency: 'business_daily' });
+    const response = await client.enterprises.reputation.updateFrequency(
+      '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+      { check_frequency: 'business_daily' },
+    );
   });
 });

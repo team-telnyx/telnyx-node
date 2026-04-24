@@ -39,7 +39,11 @@ export class Profile extends APIResource {
    *   );
    * ```
    */
-  update(phoneNumber: string, body: ProfileUpdateParams, options?: RequestOptions): APIPromise<ProfileUpdateResponse> {
+  update(
+    phoneNumber: string,
+    body: ProfileUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<ProfileUpdateResponse> {
     return this._client.patch(path`/v2/whatsapp/phone_numbers/${phoneNumber}/profile`, { body, ...options });
   }
 }
@@ -106,13 +110,13 @@ export declare namespace Profile {
     type WhatsappProfileData as WhatsappProfileData,
     type ProfileRetrieveResponse as ProfileRetrieveResponse,
     type ProfileUpdateResponse as ProfileUpdateResponse,
-    type ProfileUpdateParams as ProfileUpdateParams
+    type ProfileUpdateParams as ProfileUpdateParams,
   };
 
   export {
     Photo as Photo,
     type PhotoRetrieveResponse as PhotoRetrieveResponse,
     type PhotoUploadResponse as PhotoUploadResponse,
-    type PhotoUploadParams as PhotoUploadParams
+    type PhotoUploadParams as PhotoUploadParams,
   };
 }

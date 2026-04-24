@@ -2,12 +2,18 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Telnyx({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource actions', () => {
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.conferences.actions.update('id', { call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg', supervisor_role: 'whisper' });
+    const responsePromise = client.conferences.actions.update('id', {
+      call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+      supervisor_role: 'whisper',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,12 +26,15 @@ describe('resource actions', () => {
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.conferences.actions.update('id', {
-    call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
-    supervisor_role: 'whisper',
-    command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
-    region: 'US',
-    whisper_call_control_ids: ['v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ', 'v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw'],
-  });
+      call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+      supervisor_role: 'whisper',
+      command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
+      region: 'US',
+      whisper_call_control_ids: [
+        'v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ',
+        'v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw',
+      ],
+    });
   });
 
   // Mock server tests are disabled
@@ -43,14 +52,21 @@ describe('resource actions', () => {
   // Mock server tests are disabled
   test.skip('endConference: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.conferences.actions.endConference('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { command_id: '891510ac-f3e4-11e8-af5b-de00688a4901' }, { path: '/_stainless_unknown_path' }))
-      .rejects
-      .toThrow(Telnyx.NotFoundError);
+    await expect(
+      client.conferences.actions.endConference(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        { command_id: '891510ac-f3e4-11e8-af5b-de00688a4901' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled
   test.skip('gatherDtmfAudio: only required params', async () => {
-    const responsePromise = client.conferences.actions.gatherDtmfAudio('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg' });
+    const responsePromise = client.conferences.actions.gatherDtmfAudio(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      { call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg' },
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -62,24 +78,27 @@ describe('resource actions', () => {
 
   // Mock server tests are disabled
   test.skip('gatherDtmfAudio: required and optional params', async () => {
-    const response = await client.conferences.actions.gatherDtmfAudio('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-    call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
-    audio_url: 'http://example.com/gather_prompt.wav',
-    client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
-    gather_id: 'gather_id',
-    initial_timeout_millis: 10000,
-    inter_digit_timeout_millis: 3000,
-    invalid_audio_url: 'invalid_audio_url',
-    invalid_media_name: 'invalid_media_name',
-    maximum_digits: 4,
-    maximum_tries: 3,
-    media_name: 'media_name',
-    minimum_digits: 1,
-    stop_playback_on_dtmf: true,
-    terminating_digit: '#',
-    timeout_millis: 30000,
-    valid_digits: '0123456789',
-  });
+    const response = await client.conferences.actions.gatherDtmfAudio(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      {
+        call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+        audio_url: 'http://example.com/gather_prompt.wav',
+        client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+        gather_id: 'gather_id',
+        initial_timeout_millis: 10000,
+        inter_digit_timeout_millis: 3000,
+        invalid_audio_url: 'invalid_audio_url',
+        invalid_media_name: 'invalid_media_name',
+        maximum_digits: 4,
+        maximum_tries: 3,
+        media_name: 'media_name',
+        minimum_digits: 1,
+        stop_playback_on_dtmf: true,
+        terminating_digit: '#',
+        timeout_millis: 30000,
+        valid_digits: '0123456789',
+      },
+    );
   });
 
   // Mock server tests are disabled
@@ -96,7 +115,9 @@ describe('resource actions', () => {
 
   // Mock server tests are disabled
   test.skip('join: only required params', async () => {
-    const responsePromise = client.conferences.actions.join('id', { call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg' });
+    const responsePromise = client.conferences.actions.join('id', {
+      call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -109,26 +130,31 @@ describe('resource actions', () => {
   // Mock server tests are disabled
   test.skip('join: required and optional params', async () => {
     const response = await client.conferences.actions.join('id', {
-    call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
-    beep_enabled: 'always',
-    client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
-    command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
-    end_conference_on_exit: true,
-    hold: true,
-    hold_audio_url: 'http://www.example.com/audio.wav',
-    hold_media_name: 'my_media_uploaded_to_media_storage_api',
-    mute: true,
-    region: 'US',
-    soft_end_conference_on_exit: true,
-    start_conference_on_enter: true,
-    supervisor_role: 'whisper',
-    whisper_call_control_ids: ['v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ', 'v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw'],
-  });
+      call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+      beep_enabled: 'always',
+      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+      command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
+      end_conference_on_exit: true,
+      hold: true,
+      hold_audio_url: 'http://www.example.com/audio.wav',
+      hold_media_name: 'my_media_uploaded_to_media_storage_api',
+      mute: true,
+      region: 'US',
+      soft_end_conference_on_exit: true,
+      start_conference_on_enter: true,
+      supervisor_role: 'whisper',
+      whisper_call_control_ids: [
+        'v2:Sg1xxxQ_U3ixxxyXT_VDNI3xxxazZdg6Vxxxs4-GNYxxxVaJPOhFMRQ',
+        'v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw',
+      ],
+    });
   });
 
   // Mock server tests are disabled
   test.skip('leave: only required params', async () => {
-    const responsePromise = client.conferences.actions.leave('id', { call_control_id: 'c46e06d7-b78f-4b13-96b6-c576af9640ff' });
+    const responsePromise = client.conferences.actions.leave('id', {
+      call_control_id: 'c46e06d7-b78f-4b13-96b6-c576af9640ff',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -141,11 +167,11 @@ describe('resource actions', () => {
   // Mock server tests are disabled
   test.skip('leave: required and optional params', async () => {
     const response = await client.conferences.actions.leave('id', {
-    call_control_id: 'c46e06d7-b78f-4b13-96b6-c576af9640ff',
-    beep_enabled: 'never',
-    command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
-    region: 'US',
-  });
+      call_control_id: 'c46e06d7-b78f-4b13-96b6-c576af9640ff',
+      beep_enabled: 'never',
+      command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
+      region: 'US',
+    });
   });
 
   // Mock server tests are disabled
@@ -211,14 +237,14 @@ describe('resource actions', () => {
   // Mock server tests are disabled
   test.skip('recordStart: required and optional params', async () => {
     const response = await client.conferences.actions.recordStart('id', {
-    format: 'wav',
-    channels: 'dual',
-    command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
-    custom_file_name: 'my_recording_file_name',
-    play_beep: true,
-    region: 'US',
-    trim: 'trim-silence',
-  });
+      format: 'wav',
+      channels: 'dual',
+      command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
+      custom_file_name: 'my_recording_file_name',
+      play_beep: true,
+      region: 'US',
+      trim: 'trim-silence',
+    });
   });
 
   // Mock server tests are disabled
@@ -235,7 +261,9 @@ describe('resource actions', () => {
 
   // Mock server tests are disabled
   test.skip('sendDtmf: only required params', async () => {
-    const responsePromise = client.conferences.actions.sendDtmf('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { digits: '1234#' });
+    const responsePromise = client.conferences.actions.sendDtmf('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      digits: '1234#',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -248,16 +276,19 @@ describe('resource actions', () => {
   // Mock server tests are disabled
   test.skip('sendDtmf: required and optional params', async () => {
     const response = await client.conferences.actions.sendDtmf('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-    digits: '1234#',
-    call_control_ids: ['v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg'],
-    client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
-    duration_millis: 250,
-  });
+      digits: '1234#',
+      call_control_ids: ['v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg'],
+      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+      duration_millis: 250,
+    });
   });
 
   // Mock server tests are disabled
   test.skip('speak: only required params', async () => {
-    const responsePromise = client.conferences.actions.speak('id', { payload: 'Say this to participants', voice: 'female' });
+    const responsePromise = client.conferences.actions.speak('id', {
+      payload: 'Say this to participants',
+      voice: 'female',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -270,15 +301,15 @@ describe('resource actions', () => {
   // Mock server tests are disabled
   test.skip('speak: required and optional params', async () => {
     const response = await client.conferences.actions.speak('id', {
-    payload: 'Say this to participants',
-    voice: 'female',
-    call_control_ids: ['v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg'],
-    command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
-    language: 'en-US',
-    payload_type: 'text',
-    region: 'US',
-    voice_settings: { type: 'elevenlabs', api_key_ref: 'my_elevenlabs_api_key' },
-  });
+      payload: 'Say this to participants',
+      voice: 'female',
+      call_control_ids: ['v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg'],
+      command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
+      language: 'en-US',
+      payload_type: 'text',
+      region: 'US',
+      voice_settings: { type: 'elevenlabs', api_key_ref: 'my_elevenlabs_api_key' },
+    });
   });
 
   // Mock server tests are disabled
@@ -295,7 +326,9 @@ describe('resource actions', () => {
 
   // Mock server tests are disabled
   test.skip('unhold: only required params', async () => {
-    const responsePromise = client.conferences.actions.unhold('id', { call_control_ids: ['v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg'] });
+    const responsePromise = client.conferences.actions.unhold('id', {
+      call_control_ids: ['v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg'],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -307,7 +340,10 @@ describe('resource actions', () => {
 
   // Mock server tests are disabled
   test.skip('unhold: required and optional params', async () => {
-    const response = await client.conferences.actions.unhold('id', { call_control_ids: ['v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg'], region: 'US' });
+    const response = await client.conferences.actions.unhold('id', {
+      call_control_ids: ['v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg'],
+      region: 'US',
+    });
   });
 
   // Mock server tests are disabled

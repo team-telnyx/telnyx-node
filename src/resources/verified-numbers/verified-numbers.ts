@@ -26,7 +26,10 @@ export class VerifiedNumbers extends APIResource {
    * });
    * ```
    */
-  create(body: VerifiedNumberCreateParams, options?: RequestOptions): APIPromise<VerifiedNumberCreateResponse> {
+  create(
+    body: VerifiedNumberCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<VerifiedNumberCreateResponse> {
     return this._client.post('/verified_numbers', { body, ...options });
   }
 
@@ -54,8 +57,14 @@ export class VerifiedNumbers extends APIResource {
    * }
    * ```
    */
-  list(query: VerifiedNumberListParams | null | undefined = {}, options?: RequestOptions): PagePromise<VerifiedNumbersDefaultFlatPagination, VerifiedNumber> {
-    return this._client.getAPIList('/verified_numbers', DefaultFlatPagination<VerifiedNumber>, { query, ...options });
+  list(
+    query: VerifiedNumberListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<VerifiedNumbersDefaultFlatPagination, VerifiedNumber> {
+    return this._client.getAPIList('/verified_numbers', DefaultFlatPagination<VerifiedNumber>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -72,7 +81,7 @@ export class VerifiedNumbers extends APIResource {
   }
 }
 
-export type VerifiedNumbersDefaultFlatPagination = DefaultFlatPagination<VerifiedNumber>
+export type VerifiedNumbersDefaultFlatPagination = DefaultFlatPagination<VerifiedNumber>;
 
 export interface VerifiedNumber {
   phone_number?: string;
@@ -113,8 +122,7 @@ export interface VerifiedNumberCreateParams {
   extension?: string;
 }
 
-export interface VerifiedNumberListParams extends DefaultFlatPaginationParams {
-}
+export interface VerifiedNumberListParams extends DefaultFlatPaginationParams {}
 
 VerifiedNumbers.Actions = Actions;
 
@@ -125,11 +133,11 @@ export declare namespace VerifiedNumbers {
     type VerifiedNumberCreateResponse as VerifiedNumberCreateResponse,
     type VerifiedNumbersDefaultFlatPagination as VerifiedNumbersDefaultFlatPagination,
     type VerifiedNumberCreateParams as VerifiedNumberCreateParams,
-    type VerifiedNumberListParams as VerifiedNumberListParams
+    type VerifiedNumberListParams as VerifiedNumberListParams,
   };
 
   export {
     Actions as Actions,
-    type ActionSubmitVerificationCodeParams as ActionSubmitVerificationCodeParams
+    type ActionSubmitVerificationCodeParams as ActionSubmitVerificationCodeParams,
   };
 }

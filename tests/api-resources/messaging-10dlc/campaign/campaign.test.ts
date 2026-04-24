@@ -2,7 +2,10 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Telnyx({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource campaign', () => {
   // Mock server tests are disabled
@@ -44,11 +47,11 @@ describe('resource campaign', () => {
   // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.messaging10dlc.campaign.list({
-    brandId: 'brandId',
-    page: 0,
-    recordsPerPage: 0,
-    sort: 'assignedPhoneNumbersCount',
-  });
+      brandId: 'brandId',
+      page: 0,
+      recordsPerPage: 0,
+      sort: 'assignedPhoneNumbersCount',
+    });
   });
 
   // Mock server tests are disabled
@@ -113,7 +116,13 @@ describe('resource campaign', () => {
 
   // Mock server tests are disabled
   test.skip('submitAppeal: only required params', async () => {
-    const responsePromise = client.messaging10dlc.campaign.submitAppeal('5eb13888-32b7-4cab-95e6-d834dde21d64', { appeal_reason: 'The website has been updated to include the required privacy policy and terms of service.' });
+    const responsePromise = client.messaging10dlc.campaign.submitAppeal(
+      '5eb13888-32b7-4cab-95e6-d834dde21d64',
+      {
+        appeal_reason:
+          'The website has been updated to include the required privacy policy and terms of service.',
+      },
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -125,6 +134,12 @@ describe('resource campaign', () => {
 
   // Mock server tests are disabled
   test.skip('submitAppeal: required and optional params', async () => {
-    const response = await client.messaging10dlc.campaign.submitAppeal('5eb13888-32b7-4cab-95e6-d834dde21d64', { appeal_reason: 'The website has been updated to include the required privacy policy and terms of service.' });
+    const response = await client.messaging10dlc.campaign.submitAppeal(
+      '5eb13888-32b7-4cab-95e6-d834dde21d64',
+      {
+        appeal_reason:
+          'The website has been updated to include the required privacy policy and terms of service.',
+      },
+    );
   });
 });

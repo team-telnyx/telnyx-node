@@ -2,7 +2,16 @@
 
 import { APIResource } from '../../core/resource';
 import * as DetailRecordsReportsAPI from './detail-records-reports';
-import { DetailRecordsReportCreateParams, DetailRecordsReportCreateResponse, DetailRecordsReportDeleteResponse, DetailRecordsReportListParams, DetailRecordsReportListResponse, DetailRecordsReportRetrieveResponse, DetailRecordsReports, WdrReport } from './detail-records-reports';
+import {
+  DetailRecordsReportCreateParams,
+  DetailRecordsReportCreateResponse,
+  DetailRecordsReportDeleteResponse,
+  DetailRecordsReportListParams,
+  DetailRecordsReportListResponse,
+  DetailRecordsReportRetrieveResponse,
+  DetailRecordsReports,
+  WdrReport,
+} from './detail-records-reports';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -10,7 +19,8 @@ import { RequestOptions } from '../../internal/request-options';
  * Regions for wireless services
  */
 export class Wireless extends APIResource {
-  detailRecordsReports: DetailRecordsReportsAPI.DetailRecordsReports = new DetailRecordsReportsAPI.DetailRecordsReports(this._client);
+  detailRecordsReports: DetailRecordsReportsAPI.DetailRecordsReports =
+    new DetailRecordsReportsAPI.DetailRecordsReports(this._client);
 
   /**
    * Retrieve all wireless regions for the given product.
@@ -22,7 +32,10 @@ export class Wireless extends APIResource {
    * });
    * ```
    */
-  retrieveRegions(query: WirelessRetrieveRegionsParams, options?: RequestOptions): APIPromise<WirelessRetrieveRegionsResponse> {
+  retrieveRegions(
+    query: WirelessRetrieveRegionsParams,
+    options?: RequestOptions,
+  ): APIPromise<WirelessRetrieveRegionsResponse> {
     return this._client.get('/wireless/regions', { query, ...options });
   }
 }
@@ -68,7 +81,7 @@ Wireless.DetailRecordsReports = DetailRecordsReports;
 export declare namespace Wireless {
   export {
     type WirelessRetrieveRegionsResponse as WirelessRetrieveRegionsResponse,
-    type WirelessRetrieveRegionsParams as WirelessRetrieveRegionsParams
+    type WirelessRetrieveRegionsParams as WirelessRetrieveRegionsParams,
   };
 
   export {
@@ -79,6 +92,6 @@ export declare namespace Wireless {
     type DetailRecordsReportListResponse as DetailRecordsReportListResponse,
     type DetailRecordsReportDeleteResponse as DetailRecordsReportDeleteResponse,
     type DetailRecordsReportCreateParams as DetailRecordsReportCreateParams,
-    type DetailRecordsReportListParams as DetailRecordsReportListParams
+    type DetailRecordsReportListParams as DetailRecordsReportListParams,
   };
 }

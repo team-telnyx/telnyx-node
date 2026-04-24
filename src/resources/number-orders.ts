@@ -48,7 +48,11 @@ export class NumberOrders extends APIResource {
    * );
    * ```
    */
-  update(numberOrderID: string, body: NumberOrderUpdateParams, options?: RequestOptions): APIPromise<NumberOrderUpdateResponse> {
+  update(
+    numberOrderID: string,
+    body: NumberOrderUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<NumberOrderUpdateResponse> {
     return this._client.patch(path`/number_orders/${numberOrderID}`, { body, ...options });
   }
 
@@ -63,12 +67,18 @@ export class NumberOrders extends APIResource {
    * }
    * ```
    */
-  list(query: NumberOrderListParams | null | undefined = {}, options?: RequestOptions): PagePromise<NumberOrderListResponsesDefaultFlatPagination, NumberOrderListResponse> {
-    return this._client.getAPIList('/number_orders', DefaultFlatPagination<NumberOrderListResponse>, { query, ...options });
+  list(
+    query: NumberOrderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NumberOrderListResponsesDefaultFlatPagination, NumberOrderListResponse> {
+    return this._client.getAPIList('/number_orders', DefaultFlatPagination<NumberOrderListResponse>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type NumberOrderListResponsesDefaultFlatPagination = DefaultFlatPagination<NumberOrderListResponse>
+export type NumberOrderListResponsesDefaultFlatPagination = DefaultFlatPagination<NumberOrderListResponse>;
 
 export interface NumberOrderWithPhoneNumbers {
   id?: string;
@@ -159,7 +169,14 @@ export interface PhoneNumber {
   /**
    * Status of document requirements (if applicable)
    */
-  requirements_status?: 'pending' | 'approved' | 'cancelled' | 'deleted' | 'requirement-info-exception' | 'requirement-info-pending' | 'requirement-info-under-review';
+  requirements_status?:
+    | 'pending'
+    | 'approved'
+    | 'cancelled'
+    | 'deleted'
+    | 'requirement-info-exception'
+    | 'requirement-info-pending'
+    | 'requirement-info-under-review';
 
   /**
    * The status of the phone number in the order.
@@ -357,6 +374,6 @@ export declare namespace NumberOrders {
     type NumberOrderListResponsesDefaultFlatPagination as NumberOrderListResponsesDefaultFlatPagination,
     type NumberOrderCreateParams as NumberOrderCreateParams,
     type NumberOrderUpdateParams as NumberOrderUpdateParams,
-    type NumberOrderListParams as NumberOrderListParams
+    type NumberOrderListParams as NumberOrderListParams,
   };
 }

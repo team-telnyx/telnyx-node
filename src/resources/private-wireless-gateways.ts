@@ -24,7 +24,10 @@ export class PrivateWirelessGateways extends APIResource {
    *   });
    * ```
    */
-  create(body: PrivateWirelessGatewayCreateParams, options?: RequestOptions): APIPromise<PrivateWirelessGatewayCreateResponse> {
+  create(
+    body: PrivateWirelessGatewayCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<PrivateWirelessGatewayCreateResponse> {
     return this._client.post('/private_wireless_gateways', { body, ...options });
   }
 
@@ -54,8 +57,15 @@ export class PrivateWirelessGateways extends APIResource {
    * }
    * ```
    */
-  list(query: PrivateWirelessGatewayListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PrivateWirelessGatewaysDefaultFlatPagination, PrivateWirelessGateway> {
-    return this._client.getAPIList('/private_wireless_gateways', DefaultFlatPagination<PrivateWirelessGateway>, { query, ...options });
+  list(
+    query: PrivateWirelessGatewayListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PrivateWirelessGatewaysDefaultFlatPagination, PrivateWirelessGateway> {
+    return this._client.getAPIList(
+      '/private_wireless_gateways',
+      DefaultFlatPagination<PrivateWirelessGateway>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -74,7 +84,7 @@ export class PrivateWirelessGateways extends APIResource {
   }
 }
 
-export type PrivateWirelessGatewaysDefaultFlatPagination = DefaultFlatPagination<PrivateWirelessGateway>
+export type PrivateWirelessGatewaysDefaultFlatPagination = DefaultFlatPagination<PrivateWirelessGateway>;
 
 export interface PrivateWirelessGateway {
   /**
@@ -237,6 +247,6 @@ export declare namespace PrivateWirelessGateways {
     type PrivateWirelessGatewayDeleteResponse as PrivateWirelessGatewayDeleteResponse,
     type PrivateWirelessGatewaysDefaultFlatPagination as PrivateWirelessGatewaysDefaultFlatPagination,
     type PrivateWirelessGatewayCreateParams as PrivateWirelessGatewayCreateParams,
-    type PrivateWirelessGatewayListParams as PrivateWirelessGatewayListParams
+    type PrivateWirelessGatewayListParams as PrivateWirelessGatewayListParams,
   };
 }

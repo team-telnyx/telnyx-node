@@ -19,8 +19,14 @@ export class Connections extends APIResource {
   /**
    * Returns a list of your connections irrespective of type.
    */
-  list(query: ConnectionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ConnectionListResponsesDefaultFlatPagination, ConnectionListResponse> {
-    return this._client.getAPIList('/connections', DefaultFlatPagination<ConnectionListResponse>, { query, ...options });
+  list(
+    query: ConnectionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ConnectionListResponsesDefaultFlatPagination, ConnectionListResponse> {
+    return this._client.getAPIList('/connections', DefaultFlatPagination<ConnectionListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -28,14 +34,23 @@ export class Connections extends APIResource {
    * SIP connections with webhook_url or xml_request_url, call control or texml.
    * Returned results are cursor paginated.
    */
-  listActiveCalls(connectionID: string, query: ConnectionListActiveCallsParams | null | undefined = {}, options?: RequestOptions): PagePromise<ConnectionListActiveCallsResponsesDefaultFlatPagination, ConnectionListActiveCallsResponse> {
-    return this._client.getAPIList(path`/connections/${connectionID}/active_calls`, DefaultFlatPagination<ConnectionListActiveCallsResponse>, { query, ...options });
+  listActiveCalls(
+    connectionID: string,
+    query: ConnectionListActiveCallsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ConnectionListActiveCallsResponsesDefaultFlatPagination, ConnectionListActiveCallsResponse> {
+    return this._client.getAPIList(
+      path`/connections/${connectionID}/active_calls`,
+      DefaultFlatPagination<ConnectionListActiveCallsResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export type ConnectionListResponsesDefaultFlatPagination = DefaultFlatPagination<ConnectionListResponse>
+export type ConnectionListResponsesDefaultFlatPagination = DefaultFlatPagination<ConnectionListResponse>;
 
-export type ConnectionListActiveCallsResponsesDefaultFlatPagination = DefaultFlatPagination<ConnectionListActiveCallsResponse>
+export type ConnectionListActiveCallsResponsesDefaultFlatPagination =
+  DefaultFlatPagination<ConnectionListActiveCallsResponse>;
 
 export interface ConnectionRetrieveResponse {
   data?: ConnectionRetrieveResponse.Data;
@@ -264,8 +279,7 @@ export namespace ConnectionListParams {
   }
 }
 
-export interface ConnectionListActiveCallsParams extends DefaultFlatPaginationParams {
-}
+export interface ConnectionListActiveCallsParams extends DefaultFlatPaginationParams {}
 
 export declare namespace Connections {
   export {
@@ -275,6 +289,6 @@ export declare namespace Connections {
     type ConnectionListResponsesDefaultFlatPagination as ConnectionListResponsesDefaultFlatPagination,
     type ConnectionListActiveCallsResponsesDefaultFlatPagination as ConnectionListActiveCallsResponsesDefaultFlatPagination,
     type ConnectionListParams as ConnectionListParams,
-    type ConnectionListActiveCallsParams as ConnectionListActiveCallsParams
+    type ConnectionListActiveCallsParams as ConnectionListActiveCallsParams,
   };
 }

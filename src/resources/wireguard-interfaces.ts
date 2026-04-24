@@ -24,7 +24,10 @@ export class WireguardInterfaces extends APIResource {
    *   });
    * ```
    */
-  create(body: WireguardInterfaceCreateParams, options?: RequestOptions): APIPromise<WireguardInterfaceCreateResponse> {
+  create(
+    body: WireguardInterfaceCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<WireguardInterfaceCreateResponse> {
     return this._client.post('/wireguard_interfaces', { body, ...options });
   }
 
@@ -54,8 +57,15 @@ export class WireguardInterfaces extends APIResource {
    * }
    * ```
    */
-  list(query: WireguardInterfaceListParams | null | undefined = {}, options?: RequestOptions): PagePromise<WireguardInterfaceListResponsesDefaultFlatPagination, WireguardInterfaceListResponse> {
-    return this._client.getAPIList('/wireguard_interfaces', DefaultFlatPagination<WireguardInterfaceListResponse>, { query, ...options });
+  list(
+    query: WireguardInterfaceListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<WireguardInterfaceListResponsesDefaultFlatPagination, WireguardInterfaceListResponse> {
+    return this._client.getAPIList(
+      '/wireguard_interfaces',
+      DefaultFlatPagination<WireguardInterfaceListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -74,7 +84,8 @@ export class WireguardInterfaces extends APIResource {
   }
 }
 
-export type WireguardInterfaceListResponsesDefaultFlatPagination = DefaultFlatPagination<WireguardInterfaceListResponse>
+export type WireguardInterfaceListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<WireguardInterfaceListResponse>;
 
 export interface WireguardInterfaceCreateResponse {
   data?: WireguardInterfaceCreateResponse.Data;
@@ -174,7 +185,9 @@ export namespace WireguardInterfaceRetrieveResponse {
   }
 }
 
-export interface WireguardInterfaceListResponse extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+export interface WireguardInterfaceListResponse
+  extends GlobalIPAssignmentsAPI.Record,
+    PublicInternetGatewaysAPI.NetworkInterface {
   /**
    * Enable SIP traffic forwarding over VPN interface.
    */
@@ -315,6 +328,6 @@ export declare namespace WireguardInterfaces {
     type WireguardInterfaceDeleteResponse as WireguardInterfaceDeleteResponse,
     type WireguardInterfaceListResponsesDefaultFlatPagination as WireguardInterfaceListResponsesDefaultFlatPagination,
     type WireguardInterfaceCreateParams as WireguardInterfaceCreateParams,
-    type WireguardInterfaceListParams as WireguardInterfaceListParams
+    type WireguardInterfaceListParams as WireguardInterfaceListParams,
   };
 }

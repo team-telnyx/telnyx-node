@@ -1,7 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../core/pagination';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -23,12 +27,20 @@ export class Messages extends APIResource {
    * }
    * ```
    */
-  list(conversationID: string, query: MessageListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessageListResponsesDefaultFlatPagination, MessageListResponse> {
-    return this._client.getAPIList(path`/ai/conversations/${conversationID}/messages`, DefaultFlatPagination<MessageListResponse>, { query, ...options });
+  list(
+    conversationID: string,
+    query: MessageListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MessageListResponsesDefaultFlatPagination, MessageListResponse> {
+    return this._client.getAPIList(
+      path`/ai/conversations/${conversationID}/messages`,
+      DefaultFlatPagination<MessageListResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export type MessageListResponsesDefaultFlatPagination = DefaultFlatPagination<MessageListResponse>
+export type MessageListResponsesDefaultFlatPagination = DefaultFlatPagination<MessageListResponse>;
 
 export interface MessageListResponse {
   /**
@@ -89,13 +101,12 @@ export namespace MessageListResponse {
   }
 }
 
-export interface MessageListParams extends DefaultFlatPaginationParams {
-}
+export interface MessageListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace Messages {
   export {
     type MessageListResponse as MessageListResponse,
     type MessageListResponsesDefaultFlatPagination as MessageListResponsesDefaultFlatPagination,
-    type MessageListParams as MessageListParams
+    type MessageListParams as MessageListParams,
   };
 }

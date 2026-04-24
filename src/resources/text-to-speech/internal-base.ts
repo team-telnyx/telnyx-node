@@ -9,7 +9,12 @@ import type { RawWebSocketData, ReconnectingEvent, UnsentMessage } from '../../i
 
 export type TextToSpeechStreamMessage =
   | { type: 'connecting' | 'open' | 'closing' }
-  | { type: 'close'; code: number; reason: string; unsent: UnsentMessage<TextToSpeechAPI.StreamClientEvent>[] }
+  | {
+      type: 'close';
+      code: number;
+      reason: string;
+      unsent: UnsentMessage<TextToSpeechAPI.StreamClientEvent>[];
+    }
   | { type: 'reconnecting'; reconnect: ReconnectingEvent }
   | { type: 'reconnected' }
   | { type: 'message'; message: TextToSpeechAPI.StreamServerEvent }
@@ -40,7 +45,7 @@ type WebSocketEvents = Simplify<
     reconnecting: (event: ReconnectingEvent) => void;
     reconnected: () => void;
   } & {
-    [EventType in Exclude<NonNullable<TextToSpeechAPI.StreamServerEvent['type']>, 'error'> ]: (
+    [EventType in Exclude<NonNullable<TextToSpeechAPI.StreamServerEvent['type']>, 'error'>]: (
       event: Extract<TextToSpeechAPI.StreamServerEvent, { type?: EventType }>,
     ) => unknown;
   }
@@ -64,7 +69,11 @@ export abstract class TextToSpeechEmitter extends EventEmitter<WebSocketEvents> 
 
   protected _onError(event: null, message: string, cause: any): void;
   protected _onError(event: TextToSpeechAPI.StreamServerEvent.ErrorFrame, message?: string | undefined): void;
-  protected _onError(event: TextToSpeechAPI.StreamServerEvent.ErrorFrame | null, message?: string | undefined, cause?: any): void {
+  protected _onError(
+    event: TextToSpeechAPI.StreamServerEvent.ErrorFrame | null,
+    message?: string | undefined,
+    cause?: any,
+  ): void {
     message = message ?? safeJSONStringify(event) ?? 'unknown error';
 
     if (!this._hasListener('error')) {
@@ -88,16 +97,9 @@ export abstract class TextToSpeechEmitter extends EventEmitter<WebSocketEvents> 
 }
 
 export function buildURL(client: Telnyx, parameters: Record<string, unknown>): URL {
-  const { ...query } = parameters ;
+  const { ...query } = parameters;
   const endpoint = '/text-to-speech/speech';
-  const url = new URL(
-    client.buildURL(
-      endpoint,
-      query,
-      undefined
-      ,
-    ),
-  );
+  const url = new URL(client.buildURL(endpoint, query, undefined));
   url.protocol = url.protocol === 'http:' || url.protocol === 'ws:' ? 'ws:' : 'wss:';
   return url;
 }

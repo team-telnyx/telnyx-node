@@ -22,7 +22,10 @@ export class CdrUsageReports extends APIResource {
    *   });
    * ```
    */
-  fetchSync(query: CdrUsageReportFetchSyncParams, options?: RequestOptions): APIPromise<CdrUsageReportFetchSyncResponse> {
+  fetchSync(
+    query: CdrUsageReportFetchSyncParams,
+    options?: RequestOptions,
+  ): APIPromise<CdrUsageReportFetchSyncResponse> {
     return this._client.get('/reports/cdr_usage_reports/sync', { query, ...options });
   }
 }
@@ -77,6 +80,6 @@ export interface CdrUsageReportFetchSyncParams {
 export declare namespace CdrUsageReports {
   export {
     type CdrUsageReportFetchSyncResponse as CdrUsageReportFetchSyncResponse,
-    type CdrUsageReportFetchSyncParams as CdrUsageReportFetchSyncParams
+    type CdrUsageReportFetchSyncParams as CdrUsageReportFetchSyncParams,
   };
 }

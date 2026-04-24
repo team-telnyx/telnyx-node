@@ -36,7 +36,11 @@ export class DialogflowConnections extends APIResource {
    *   );
    * ```
    */
-  create(connectionID: string, body: DialogflowConnectionCreateParams, options?: RequestOptions): APIPromise<DialogflowConnectionCreateResponse> {
+  create(
+    connectionID: string,
+    body: DialogflowConnectionCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<DialogflowConnectionCreateResponse> {
     return this._client.post(path`/dialogflow_connections/${connectionID}`, { body, ...options });
   }
 
@@ -81,7 +85,11 @@ export class DialogflowConnections extends APIResource {
    *   );
    * ```
    */
-  update(connectionID: string, body: DialogflowConnectionUpdateParams, options?: RequestOptions): APIPromise<DialogflowConnectionUpdateResponse> {
+  update(
+    connectionID: string,
+    body: DialogflowConnectionUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<DialogflowConnectionUpdateResponse> {
     return this._client.put(path`/dialogflow_connections/${connectionID}`, { body, ...options });
   }
 
@@ -94,7 +102,10 @@ export class DialogflowConnections extends APIResource {
    * ```
    */
   delete(connectionID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/dialogflow_connections/${connectionID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/dialogflow_connections/${connectionID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -253,6 +264,6 @@ export declare namespace DialogflowConnections {
     type DialogflowConnectionRetrieveResponse as DialogflowConnectionRetrieveResponse,
     type DialogflowConnectionUpdateResponse as DialogflowConnectionUpdateResponse,
     type DialogflowConnectionCreateParams as DialogflowConnectionCreateParams,
-    type DialogflowConnectionUpdateParams as DialogflowConnectionUpdateParams
+    type DialogflowConnectionUpdateParams as DialogflowConnectionUpdateParams,
   };
 }

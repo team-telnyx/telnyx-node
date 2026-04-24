@@ -2,11 +2,27 @@
 
 import { APIResource } from '../../../core/resource';
 import * as CallingSettingsAPI from './calling-settings';
-import { CallingSettingRetrieveResponse, CallingSettingUpdateParams, CallingSettingUpdateResponse, CallingSettings, WhatsappCallingSettingsData } from './calling-settings';
+import {
+  CallingSettingRetrieveResponse,
+  CallingSettingUpdateParams,
+  CallingSettingUpdateResponse,
+  CallingSettings,
+  WhatsappCallingSettingsData,
+} from './calling-settings';
 import * as ProfileAPI from './profile/profile';
-import { Profile, ProfileRetrieveResponse, ProfileUpdateParams, ProfileUpdateResponse, WhatsappProfileData } from './profile/profile';
+import {
+  Profile,
+  ProfileRetrieveResponse,
+  ProfileUpdateParams,
+  ProfileUpdateResponse,
+  WhatsappProfileData,
+} from './profile/profile';
 import { APIPromise } from '../../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../core/pagination';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -29,8 +45,15 @@ export class PhoneNumbers extends APIResource {
    * }
    * ```
    */
-  list(query: PhoneNumberListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PhoneNumberListResponsesDefaultFlatPagination, PhoneNumberListResponse> {
-    return this._client.getAPIList('/v2/whatsapp/phone_numbers', DefaultFlatPagination<PhoneNumberListResponse>, { query, ...options });
+  list(
+    query: PhoneNumberListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PhoneNumberListResponsesDefaultFlatPagination, PhoneNumberListResponse> {
+    return this._client.getAPIList(
+      '/v2/whatsapp/phone_numbers',
+      DefaultFlatPagination<PhoneNumberListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -42,7 +65,10 @@ export class PhoneNumbers extends APIResource {
    * ```
    */
   delete(phoneNumber: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v2/whatsapp/phone_numbers/${phoneNumber}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/v2/whatsapp/phone_numbers/${phoneNumber}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -55,8 +81,16 @@ export class PhoneNumbers extends APIResource {
    * );
    * ```
    */
-  resendVerification(phoneNumber: string, body: PhoneNumberResendVerificationParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/v2/whatsapp/phone_numbers/${phoneNumber}/resend_verification`, { body, ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+  resendVerification(
+    phoneNumber: string,
+    body: PhoneNumberResendVerificationParams,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.post(path`/v2/whatsapp/phone_numbers/${phoneNumber}/resend_verification`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -70,11 +104,15 @@ export class PhoneNumbers extends APIResource {
    * ```
    */
   verify(phoneNumber: string, body: PhoneNumberVerifyParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/v2/whatsapp/phone_numbers/${phoneNumber}/verify`, { body, ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.post(path`/v2/whatsapp/phone_numbers/${phoneNumber}/verify`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type PhoneNumberListResponsesDefaultFlatPagination = DefaultFlatPagination<PhoneNumberListResponse>
+export type PhoneNumberListResponsesDefaultFlatPagination = DefaultFlatPagination<PhoneNumberListResponse>;
 
 export interface PhoneNumberListResponse {
   calling_enabled?: boolean;
@@ -115,8 +153,7 @@ export interface PhoneNumberListResponse {
   waba_id?: string;
 }
 
-export interface PhoneNumberListParams extends DefaultFlatPaginationParams {
-}
+export interface PhoneNumberListParams extends DefaultFlatPaginationParams {}
 
 export interface PhoneNumberResendVerificationParams {
   verification_method?: 'sms' | 'voice';
@@ -135,7 +172,7 @@ export declare namespace PhoneNumbers {
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,
-    type PhoneNumberVerifyParams as PhoneNumberVerifyParams
+    type PhoneNumberVerifyParams as PhoneNumberVerifyParams,
   };
 
   export {
@@ -143,7 +180,7 @@ export declare namespace PhoneNumbers {
     type WhatsappCallingSettingsData as WhatsappCallingSettingsData,
     type CallingSettingRetrieveResponse as CallingSettingRetrieveResponse,
     type CallingSettingUpdateResponse as CallingSettingUpdateResponse,
-    type CallingSettingUpdateParams as CallingSettingUpdateParams
+    type CallingSettingUpdateParams as CallingSettingUpdateParams,
   };
 
   export {
@@ -151,6 +188,6 @@ export declare namespace PhoneNumbers {
     type WhatsappProfileData as WhatsappProfileData,
     type ProfileRetrieveResponse as ProfileRetrieveResponse,
     type ProfileUpdateResponse as ProfileUpdateResponse,
-    type ProfileUpdateParams as ProfileUpdateParams
+    type ProfileUpdateParams as ProfileUpdateParams,
   };
 }

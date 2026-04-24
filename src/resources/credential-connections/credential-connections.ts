@@ -28,7 +28,10 @@ export class CredentialConnections extends APIResource {
    *   });
    * ```
    */
-  create(body: CredentialConnectionCreateParams, options?: RequestOptions): APIPromise<CredentialConnectionCreateResponse> {
+  create(
+    body: CredentialConnectionCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<CredentialConnectionCreateResponse> {
     return this._client.post('/credential_connections', { body, ...options });
   }
 
@@ -54,7 +57,11 @@ export class CredentialConnections extends APIResource {
    *   await client.credentialConnections.update('id');
    * ```
    */
-  update(id: string, body: CredentialConnectionUpdateParams, options?: RequestOptions): APIPromise<CredentialConnectionUpdateResponse> {
+  update(
+    id: string,
+    body: CredentialConnectionUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<CredentialConnectionUpdateResponse> {
     return this._client.patch(path`/credential_connections/${id}`, { body, ...options });
   }
 
@@ -69,8 +76,14 @@ export class CredentialConnections extends APIResource {
    * }
    * ```
    */
-  list(query: CredentialConnectionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<CredentialConnectionsDefaultFlatPagination, CredentialConnection> {
-    return this._client.getAPIList('/credential_connections', DefaultFlatPagination<CredentialConnection>, { query, ...options });
+  list(
+    query: CredentialConnectionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<CredentialConnectionsDefaultFlatPagination, CredentialConnection> {
+    return this._client.getAPIList('/credential_connections', DefaultFlatPagination<CredentialConnection>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -87,14 +100,24 @@ export class CredentialConnections extends APIResource {
   }
 }
 
-export type CredentialConnectionsDefaultFlatPagination = DefaultFlatPagination<CredentialConnection>
+export type CredentialConnectionsDefaultFlatPagination = DefaultFlatPagination<CredentialConnection>;
 
 /**
  * `Latency` directs Telnyx to route media through the site with the lowest
  * round-trip time to the user's connection. Telnyx calculates this time using ICMP
  * ping messages. This can be disabled by specifying a site to handle all media.
  */
-export type AnchorsiteOverride = 'Latency' | 'Chicago, IL' | 'Ashburn, VA' | 'San Jose, CA' | 'Sydney, Australia' | 'Amsterdam, Netherlands' | 'London, UK' | 'Toronto, Canada' | 'Vancouver, Canada' | 'Frankfurt, Germany'
+export type AnchorsiteOverride =
+  | 'Latency'
+  | 'Chicago, IL'
+  | 'Ashburn, VA'
+  | 'San Jose, CA'
+  | 'Sydney, Australia'
+  | 'Amsterdam, Netherlands'
+  | 'London, UK'
+  | 'Toronto, Canada'
+  | 'Vancouver, Canada'
+  | 'Frankfurt, Germany';
 
 export interface ConnectionRtcpSettings {
   /**
@@ -409,20 +432,26 @@ export interface CredentialOutbound {
    * default, Telnyx will send the re-invite. If set to `customer`, the caller is
    * expected to send the t.38 reinvite.
    */
-  t38_reinvite_source?: 'telnyx' | 'customer' | 'disabled' | 'passthru' | 'caller-passthru' | 'callee-passthru';
+  t38_reinvite_source?:
+    | 'telnyx'
+    | 'customer'
+    | 'disabled'
+    | 'passthru'
+    | 'caller-passthru'
+    | 'callee-passthru';
 }
 
 /**
  * Sets the type of DTMF digits sent from Telnyx to this Connection. Note that DTMF
  * digits sent to Telnyx will be accepted in all formats.
  */
-export type DtmfType = 'RFC 2833' | 'Inband' | 'SIP INFO'
+export type DtmfType = 'RFC 2833' | 'Inband' | 'SIP INFO';
 
 /**
  * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is
  * TLS.
  */
-export type EncryptedMedia = 'SRTP' | null
+export type EncryptedMedia = 'SRTP' | null;
 
 export interface CredentialConnectionCreateResponse {
   data?: CredentialConnection;
@@ -816,11 +845,11 @@ export declare namespace CredentialConnections {
     type CredentialConnectionsDefaultFlatPagination as CredentialConnectionsDefaultFlatPagination,
     type CredentialConnectionCreateParams as CredentialConnectionCreateParams,
     type CredentialConnectionUpdateParams as CredentialConnectionUpdateParams,
-    type CredentialConnectionListParams as CredentialConnectionListParams
+    type CredentialConnectionListParams as CredentialConnectionListParams,
   };
 
   export {
     Actions as Actions,
-    type ActionCheckRegistrationStatusResponse as ActionCheckRegistrationStatusResponse
+    type ActionCheckRegistrationStatusResponse as ActionCheckRegistrationStatusResponse,
   };
 }

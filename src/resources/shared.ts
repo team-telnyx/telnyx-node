@@ -193,7 +193,15 @@ export interface ConnectionNoiseSuppressionDetails {
    * noise suppression capabilities. 'quail_voice_focus' provides Quail-based voice
    * focus noise suppression.
    */
-  engine?: 'denoiser' | 'deep_filter_net' | 'deep_filter_net_large' | 'krisp_viva_tel' | 'krisp_viva_tel_lite' | 'krisp_viva_promodel' | 'krisp_viva_ss' | 'quail_voice_focus';
+  engine?:
+    | 'denoiser'
+    | 'deep_filter_net'
+    | 'deep_filter_net_large'
+    | 'krisp_viva_tel'
+    | 'krisp_viva_tel_lite'
+    | 'krisp_viva_promodel'
+    | 'krisp_viva_ss'
+    | 'quail_voice_focus';
 }
 
 export interface ConnectionsPaginationMeta {
@@ -331,7 +339,19 @@ export interface HostedNumber {
 
   record_type?: string;
 
-  status?: 'deleted' | 'failed' | 'failed_activation' | 'failed_carrier_rejected' | 'failed_ineligible_carrier' | 'failed_number_already_hosted' | 'failed_number_not_found' | 'failed_ownership_verification' | 'failed_timeout' | 'pending' | 'provisioning' | 'successful';
+  status?:
+    | 'deleted'
+    | 'failed'
+    | 'failed_activation'
+    | 'failed_carrier_rejected'
+    | 'failed_ineligible_carrier'
+    | 'failed_number_already_hosted'
+    | 'failed_number_not_found'
+    | 'failed_ownership_verification'
+    | 'failed_timeout'
+    | 'pending'
+    | 'provisioning'
+    | 'successful';
 }
 
 export interface InboundMessagePayload {
@@ -478,7 +498,14 @@ export namespace InboundMessagePayload {
      */
     phone_number?: string;
 
-    status?: 'queued' | 'sending' | 'sent' | 'delivered' | 'sending_failed' | 'delivery_failed' | 'delivery_unconfirmed';
+    status?:
+      | 'queued'
+      | 'sending'
+      | 'sent'
+      | 'delivered'
+      | 'sending_failed'
+      | 'delivery_failed'
+      | 'delivery_unconfirmed';
   }
 
   export interface Cost {
@@ -586,7 +613,15 @@ export namespace InboundMessagePayload {
      */
     phone_number?: string;
 
-    status?: 'queued' | 'sending' | 'sent' | 'delivered' | 'sending_failed' | 'delivery_failed' | 'delivery_unconfirmed' | 'webhook_delivered';
+    status?:
+      | 'queued'
+      | 'sending'
+      | 'sent'
+      | 'delivered'
+      | 'sending_failed'
+      | 'delivery_failed'
+      | 'delivery_unconfirmed'
+      | 'webhook_delivered';
   }
 }
 
@@ -631,7 +666,19 @@ export interface MessagingHostedNumberOrder {
    */
   record_type?: string;
 
-  status?: 'carrier_rejected' | 'compliance_review_failed' | 'deleted' | 'failed' | 'incomplete_documentation' | 'incorrect_billing_information' | 'ineligible_carrier' | 'loa_file_invalid' | 'loa_file_successful' | 'pending' | 'provisioning' | 'successful';
+  status?:
+    | 'carrier_rejected'
+    | 'compliance_review_failed'
+    | 'deleted'
+    | 'failed'
+    | 'incomplete_documentation'
+    | 'incorrect_billing_information'
+    | 'ineligible_carrier'
+    | 'loa_file_invalid'
+    | 'loa_file_successful'
+    | 'pending'
+    | 'provisioning'
+    | 'successful';
 }
 
 export interface MessagingPaginationMeta {
@@ -700,7 +747,49 @@ export interface MinimaxVoiceSettings {
    * synthesis. Default is null (no boost). Set to 'auto' for automatic language
    * detection.
    */
-  language_boost?: 'auto' | 'Chinese' | 'Chinese,Yue' | 'English' | 'Arabic' | 'Russian' | 'Spanish' | 'French' | 'Portuguese' | 'German' | 'Turkish' | 'Dutch' | 'Ukrainian' | 'Vietnamese' | 'Indonesian' | 'Japanese' | 'Italian' | 'Korean' | 'Thai' | 'Polish' | 'Romanian' | 'Greek' | 'Czech' | 'Finnish' | 'Hindi' | 'Bulgarian' | 'Danish' | 'Hebrew' | 'Malay' | 'Persian' | 'Slovak' | 'Swedish' | 'Croatian' | 'Filipino' | 'Hungarian' | 'Norwegian' | 'Slovenian' | 'Catalan' | 'Nynorsk' | 'Tamil' | 'Afrikaans' | null;
+  language_boost?:
+    | 'auto'
+    | 'Chinese'
+    | 'Chinese,Yue'
+    | 'English'
+    | 'Arabic'
+    | 'Russian'
+    | 'Spanish'
+    | 'French'
+    | 'Portuguese'
+    | 'German'
+    | 'Turkish'
+    | 'Dutch'
+    | 'Ukrainian'
+    | 'Vietnamese'
+    | 'Indonesian'
+    | 'Japanese'
+    | 'Italian'
+    | 'Korean'
+    | 'Thai'
+    | 'Polish'
+    | 'Romanian'
+    | 'Greek'
+    | 'Czech'
+    | 'Finnish'
+    | 'Hindi'
+    | 'Bulgarian'
+    | 'Danish'
+    | 'Hebrew'
+    | 'Malay'
+    | 'Persian'
+    | 'Slovak'
+    | 'Swedish'
+    | 'Croatian'
+    | 'Filipino'
+    | 'Hungarian'
+    | 'Norwegian'
+    | 'Slovenian'
+    | 'Catalan'
+    | 'Nynorsk'
+    | 'Tamil'
+    | 'Afrikaans'
+    | null;
 
   /**
    * Voice pitch adjustment. Default is 0.
@@ -886,14 +975,43 @@ export interface PortingOrderStatus {
   /**
    * The current status of the porting order
    */
-  value?: 'draft' | 'in-process' | 'submitted' | 'exception' | 'foc-date-confirmed' | 'ported' | 'cancelled' | 'cancel-pending';
+  value?:
+    | 'draft'
+    | 'in-process'
+    | 'submitted'
+    | 'exception'
+    | 'foc-date-confirmed'
+    | 'ported'
+    | 'cancelled'
+    | 'cancel-pending';
 }
 
 export interface PortingOrdersExceptionType {
   /**
    * Identifier of an exception type
    */
-  code?: 'ACCOUNT_NUMBER_MISMATCH' | 'AUTH_PERSON_MISMATCH' | 'BTN_ATN_MISMATCH' | 'ENTITY_NAME_MISMATCH' | 'FOC_EXPIRED' | 'FOC_REJECTED' | 'LOCATION_MISMATCH' | 'LSR_PENDING' | 'MAIN_BTN_PORTING' | 'OSP_IRRESPONSIVE' | 'OTHER' | 'PASSCODE_PIN_INVALID' | 'PHONE_NUMBER_HAS_SPECIAL_FEATURE' | 'PHONE_NUMBER_MISMATCH' | 'PHONE_NUMBER_NOT_PORTABLE' | 'PORT_TYPE_INCORRECT' | 'PORTING_ORDER_SPLIT_REQUIRED' | 'POSTAL_CODE_MISMATCH' | 'RATE_CENTER_NOT_PORTABLE' | 'SV_CONFLICT' | 'SV_UNKNOWN_FAILURE';
+  code?:
+    | 'ACCOUNT_NUMBER_MISMATCH'
+    | 'AUTH_PERSON_MISMATCH'
+    | 'BTN_ATN_MISMATCH'
+    | 'ENTITY_NAME_MISMATCH'
+    | 'FOC_EXPIRED'
+    | 'FOC_REJECTED'
+    | 'LOCATION_MISMATCH'
+    | 'LSR_PENDING'
+    | 'MAIN_BTN_PORTING'
+    | 'OSP_IRRESPONSIVE'
+    | 'OTHER'
+    | 'PASSCODE_PIN_INVALID'
+    | 'PHONE_NUMBER_HAS_SPECIAL_FEATURE'
+    | 'PHONE_NUMBER_MISMATCH'
+    | 'PHONE_NUMBER_NOT_PORTABLE'
+    | 'PORT_TYPE_INCORRECT'
+    | 'PORTING_ORDER_SPLIT_REQUIRED'
+    | 'POSTAL_CODE_MISMATCH'
+    | 'RATE_CENTER_NOT_PORTABLE'
+    | 'SV_CONFLICT'
+    | 'SV_UNKNOWN_FAILURE';
 
   /**
    * Description of an exception type
@@ -1107,7 +1225,15 @@ export interface SimCardStatus {
    * </ul>
    * Transitioning between the enabled and disabled states may take a period of time.
    */
-  value?: 'registering' | 'enabling' | 'enabled' | 'disabling' | 'disabled' | 'data_limit_exceeded' | 'setting_standby' | 'standby';
+  value?:
+    | 'registering'
+    | 'enabling'
+    | 'enabled'
+    | 'disabling'
+    | 'disabled'
+    | 'data_limit_exceeded'
+    | 'setting_standby'
+    | 'standby';
 }
 
 export interface SimpleSimCard {
@@ -1297,16 +1423,19 @@ export namespace WhatsappTemplateData {
   }
 }
 
-export type MessagingHostedNumberOrdersDefaultFlatPagination = DefaultFlatPagination<MessagingHostedNumberOrder>
+export type MessagingHostedNumberOrdersDefaultFlatPagination =
+  DefaultFlatPagination<MessagingHostedNumberOrder>;
 
-export type PhoneNumberWithMessagingSettingsDefaultFlatPagination = DefaultFlatPagination<PhoneNumberWithMessagingSettings>
+export type PhoneNumberWithMessagingSettingsDefaultFlatPagination =
+  DefaultFlatPagination<PhoneNumberWithMessagingSettings>;
 
-export type ShortCodesDefaultFlatPagination = DefaultFlatPagination<ShortCode>
+export type ShortCodesDefaultFlatPagination = DefaultFlatPagination<ShortCode>;
 
-export type RoomParticipantsDefaultFlatPagination = DefaultFlatPagination<RoomParticipant>
+export type RoomParticipantsDefaultFlatPagination = DefaultFlatPagination<RoomParticipant>;
 
-export type SimpleSimCardsDefaultFlatPagination = DefaultFlatPagination<SimpleSimCard>
+export type SimpleSimCardsDefaultFlatPagination = DefaultFlatPagination<SimpleSimCard>;
 
-export type WhatsappTemplateDataDefaultFlatPagination = DefaultFlatPagination<WhatsappTemplateData>
+export type WhatsappTemplateDataDefaultFlatPagination = DefaultFlatPagination<WhatsappTemplateData>;
 
-export type ReputationPhoneNumberWithReputationDataDefaultFlatPagination = DefaultFlatPagination<ReputationPhoneNumberWithReputationData>
+export type ReputationPhoneNumberWithReputationDataDefaultFlatPagination =
+  DefaultFlatPagination<ReputationPhoneNumberWithReputationData>;

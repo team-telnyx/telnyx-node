@@ -20,7 +20,11 @@ export class Voicemail extends APIResource {
    *   );
    * ```
    */
-  create(phoneNumberID: string, body: VoicemailCreateParams, options?: RequestOptions): APIPromise<VoicemailCreateResponse> {
+  create(
+    phoneNumberID: string,
+    body: VoicemailCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<VoicemailCreateResponse> {
     return this._client.post(path`/phone_numbers/${phoneNumberID}/voicemail`, { body, ...options });
   }
 
@@ -50,7 +54,11 @@ export class Voicemail extends APIResource {
    *   );
    * ```
    */
-  update(phoneNumberID: string, body: VoicemailUpdateParams, options?: RequestOptions): APIPromise<VoicemailUpdateResponse> {
+  update(
+    phoneNumberID: string,
+    body: VoicemailUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<VoicemailUpdateResponse> {
     return this._client.patch(path`/phone_numbers/${phoneNumberID}/voicemail`, { body, ...options });
   }
 }
@@ -123,6 +131,6 @@ export declare namespace Voicemail {
     type VoicemailRetrieveResponse as VoicemailRetrieveResponse,
     type VoicemailUpdateResponse as VoicemailUpdateResponse,
     type VoicemailCreateParams as VoicemailCreateParams,
-    type VoicemailUpdateParams as VoicemailUpdateParams
+    type VoicemailUpdateParams as VoicemailUpdateParams,
   };
 }

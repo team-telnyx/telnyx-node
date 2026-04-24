@@ -11,7 +11,10 @@ export class UserTags extends APIResource {
   /**
    * List all user tags.
    */
-  list(query: UserTagListParams | null | undefined = {}, options?: RequestOptions): APIPromise<UserTagListResponse> {
+  list(
+    query: UserTagListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<UserTagListResponse> {
     return this._client.get('/user_tags', { query, ...options });
   }
 }
@@ -62,8 +65,5 @@ export namespace UserTagListParams {
 }
 
 export declare namespace UserTags {
-  export {
-    type UserTagListResponse as UserTagListResponse,
-    type UserTagListParams as UserTagListParams
-  };
+  export { type UserTagListResponse as UserTagListResponse, type UserTagListParams as UserTagListParams };
 }

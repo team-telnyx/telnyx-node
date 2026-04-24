@@ -2,7 +2,11 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { DefaultFlatPaginationTopLevelArray, type DefaultFlatPaginationTopLevelArrayParams, PagePromise } from '../../core/pagination';
+import {
+  DefaultFlatPaginationTopLevelArray,
+  type DefaultFlatPaginationTopLevelArrayParams,
+  PagePromise,
+} from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -48,7 +52,11 @@ export class McpServers extends APIResource {
    * );
    * ```
    */
-  update(mcpServerID: string, body: McpServerUpdateParams, options?: RequestOptions): APIPromise<McpServerUpdateResponse> {
+  update(
+    mcpServerID: string,
+    body: McpServerUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<McpServerUpdateResponse> {
     return this._client.put(path`/ai/mcp_servers/${mcpServerID}`, { body, ...options });
   }
 
@@ -63,8 +71,15 @@ export class McpServers extends APIResource {
    * }
    * ```
    */
-  list(query: McpServerListParams | null | undefined = {}, options?: RequestOptions): PagePromise<McpServerListResponsesDefaultFlatPaginationTopLevelArray, McpServerListResponse> {
-    return this._client.getAPIList('/ai/mcp_servers', DefaultFlatPaginationTopLevelArray<McpServerListResponse>, { query, ...options });
+  list(
+    query: McpServerListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<McpServerListResponsesDefaultFlatPaginationTopLevelArray, McpServerListResponse> {
+    return this._client.getAPIList(
+      '/ai/mcp_servers',
+      DefaultFlatPaginationTopLevelArray<McpServerListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -76,11 +91,15 @@ export class McpServers extends APIResource {
    * ```
    */
   delete(mcpServerID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/mcp_servers/${mcpServerID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/ai/mcp_servers/${mcpServerID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type McpServerListResponsesDefaultFlatPaginationTopLevelArray = DefaultFlatPaginationTopLevelArray<McpServerListResponse>
+export type McpServerListResponsesDefaultFlatPaginationTopLevelArray =
+  DefaultFlatPaginationTopLevelArray<McpServerListResponse>;
 
 export interface McpServerCreateResponse {
   id: string;
@@ -189,6 +208,6 @@ export declare namespace McpServers {
     type McpServerListResponsesDefaultFlatPaginationTopLevelArray as McpServerListResponsesDefaultFlatPaginationTopLevelArray,
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerUpdateParams as McpServerUpdateParams,
-    type McpServerListParams as McpServerListParams
+    type McpServerListParams as McpServerListParams,
   };
 }

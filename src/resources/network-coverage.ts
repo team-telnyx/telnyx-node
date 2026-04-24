@@ -10,14 +10,21 @@ export class NetworkCoverage extends APIResource {
   /**
    * List all locations and the interfaces that region supports
    */
-  list(query: NetworkCoverageListParams | null | undefined = {}, options?: RequestOptions): PagePromise<NetworkCoverageListResponsesDefaultFlatPagination, NetworkCoverageListResponse> {
-    return this._client.getAPIList('/network_coverage', DefaultFlatPagination<NetworkCoverageListResponse>, { query, ...options });
+  list(
+    query: NetworkCoverageListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NetworkCoverageListResponsesDefaultFlatPagination, NetworkCoverageListResponse> {
+    return this._client.getAPIList('/network_coverage', DefaultFlatPagination<NetworkCoverageListResponse>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type NetworkCoverageListResponsesDefaultFlatPagination = DefaultFlatPagination<NetworkCoverageListResponse>
+export type NetworkCoverageListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<NetworkCoverageListResponse>;
 
-export type AvailableService = 'cloud_vpn' | 'private_wireless_gateway' | 'virtual_cross_connect'
+export type AvailableService = 'cloud_vpn' | 'private_wireless_gateway' | 'virtual_cross_connect';
 
 export interface NetworkCoverageListResponse {
   /**
@@ -105,6 +112,6 @@ export declare namespace NetworkCoverage {
     type AvailableService as AvailableService,
     type NetworkCoverageListResponse as NetworkCoverageListResponse,
     type NetworkCoverageListResponsesDefaultFlatPagination as NetworkCoverageListResponsesDefaultFlatPagination,
-    type NetworkCoverageListParams as NetworkCoverageListParams
+    type NetworkCoverageListParams as NetworkCoverageListParams,
   };
 }

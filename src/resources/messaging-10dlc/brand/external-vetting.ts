@@ -39,7 +39,11 @@ export class ExternalVetting extends APIResource {
    *   );
    * ```
    */
-  imports(brandID: string, body: ExternalVettingImportsParams, options?: RequestOptions): APIPromise<ExternalVettingImportsResponse> {
+  imports(
+    brandID: string,
+    body: ExternalVettingImportsParams,
+    options?: RequestOptions,
+  ): APIPromise<ExternalVettingImportsResponse> {
     return this._client.put(path`/10dlc/brand/${brandID}/externalVetting`, { body, ...options });
   }
 
@@ -55,12 +59,16 @@ export class ExternalVetting extends APIResource {
    *   );
    * ```
    */
-  order(brandID: string, body: ExternalVettingOrderParams, options?: RequestOptions): APIPromise<ExternalVettingOrderResponse> {
+  order(
+    brandID: string,
+    body: ExternalVettingOrderParams,
+    options?: RequestOptions,
+  ): APIPromise<ExternalVettingOrderResponse> {
     return this._client.post(path`/10dlc/brand/${brandID}/externalVetting`, { body, ...options });
   }
 }
 
-export type ExternalVettingListResponse = Array<ExternalVettingListResponse.ExternalVettingListResponseItem>
+export type ExternalVettingListResponse = Array<ExternalVettingListResponse.ExternalVettingListResponseItem>;
 
 export namespace ExternalVettingListResponse {
   export interface ExternalVettingListResponseItem {
@@ -223,6 +231,6 @@ export declare namespace ExternalVetting {
     type ExternalVettingImportsResponse as ExternalVettingImportsResponse,
     type ExternalVettingOrderResponse as ExternalVettingOrderResponse,
     type ExternalVettingImportsParams as ExternalVettingImportsParams,
-    type ExternalVettingOrderParams as ExternalVettingOrderParams
+    type ExternalVettingOrderParams as ExternalVettingOrderParams,
   };
 }

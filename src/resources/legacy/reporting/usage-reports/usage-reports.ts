@@ -2,11 +2,39 @@
 
 import { APIResource } from '../../../../core/resource';
 import * as MessagingAPI from './messaging';
-import { MdrUsageReportResponseLegaciesPerPagePagination, MdrUsageReportResponseLegacy, Messaging, MessagingCreateParams, MessagingCreateResponse, MessagingDeleteResponse, MessagingListParams, MessagingRetrieveResponse, StandardPaginationMeta } from './messaging';
+import {
+  MdrUsageReportResponseLegaciesPerPagePagination,
+  MdrUsageReportResponseLegacy,
+  Messaging,
+  MessagingCreateParams,
+  MessagingCreateResponse,
+  MessagingDeleteResponse,
+  MessagingListParams,
+  MessagingRetrieveResponse,
+  StandardPaginationMeta,
+} from './messaging';
 import * as NumberLookupAPI from './number-lookup';
-import { NumberLookup, NumberLookupCreateParams, NumberLookupCreateResponse, NumberLookupListResponse, NumberLookupRetrieveResponse, TelcoDataAggregation, TelcoDataUsageRecord, TelcoDataUsageReportResponse } from './number-lookup';
+import {
+  NumberLookup,
+  NumberLookupCreateParams,
+  NumberLookupCreateResponse,
+  NumberLookupListResponse,
+  NumberLookupRetrieveResponse,
+  TelcoDataAggregation,
+  TelcoDataUsageRecord,
+  TelcoDataUsageReportResponse,
+} from './number-lookup';
 import * as VoiceAPI from './voice';
-import { CdrUsageReportResponseLegaciesPerPagePagination, CdrUsageReportResponseLegacy, Voice, VoiceCreateParams, VoiceCreateResponse, VoiceDeleteResponse, VoiceListParams, VoiceRetrieveResponse } from './voice';
+import {
+  CdrUsageReportResponseLegaciesPerPagePagination,
+  CdrUsageReportResponseLegacy,
+  Voice,
+  VoiceCreateParams,
+  VoiceCreateResponse,
+  VoiceDeleteResponse,
+  VoiceListParams,
+  VoiceRetrieveResponse,
+} from './voice';
 import { APIPromise } from '../../../../core/api-promise';
 import { RequestOptions } from '../../../../internal/request-options';
 
@@ -28,7 +56,10 @@ export class UsageReports extends APIResource {
    *   await client.legacy.reporting.usageReports.retrieveSpeechToText();
    * ```
    */
-  retrieveSpeechToText(query: UsageReportRetrieveSpeechToTextParams | null | undefined = {}, options?: RequestOptions): APIPromise<UsageReportRetrieveSpeechToTextResponse> {
+  retrieveSpeechToText(
+    query: UsageReportRetrieveSpeechToTextParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<UsageReportRetrieveSpeechToTextResponse> {
     return this._client.get('/legacy/reporting/usage_reports/speech_to_text', { query, ...options });
   }
 }
@@ -50,7 +81,7 @@ UsageReports.Voice = Voice;
 export declare namespace UsageReports {
   export {
     type UsageReportRetrieveSpeechToTextResponse as UsageReportRetrieveSpeechToTextResponse,
-    type UsageReportRetrieveSpeechToTextParams as UsageReportRetrieveSpeechToTextParams
+    type UsageReportRetrieveSpeechToTextParams as UsageReportRetrieveSpeechToTextParams,
   };
 
   export {
@@ -62,7 +93,7 @@ export declare namespace UsageReports {
     type MessagingDeleteResponse as MessagingDeleteResponse,
     type MdrUsageReportResponseLegaciesPerPagePagination as MdrUsageReportResponseLegaciesPerPagePagination,
     type MessagingCreateParams as MessagingCreateParams,
-    type MessagingListParams as MessagingListParams
+    type MessagingListParams as MessagingListParams,
   };
 
   export {
@@ -73,7 +104,7 @@ export declare namespace UsageReports {
     type NumberLookupCreateResponse as NumberLookupCreateResponse,
     type NumberLookupRetrieveResponse as NumberLookupRetrieveResponse,
     type NumberLookupListResponse as NumberLookupListResponse,
-    type NumberLookupCreateParams as NumberLookupCreateParams
+    type NumberLookupCreateParams as NumberLookupCreateParams,
   };
 
   export {
@@ -84,6 +115,6 @@ export declare namespace UsageReports {
     type VoiceDeleteResponse as VoiceDeleteResponse,
     type CdrUsageReportResponseLegaciesPerPagePagination as CdrUsageReportResponseLegaciesPerPagePagination,
     type VoiceCreateParams as VoiceCreateParams,
-    type VoiceListParams as VoiceListParams
+    type VoiceListParams as VoiceListParams,
   };
 }

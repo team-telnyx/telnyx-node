@@ -10,9 +10,7 @@ const config: JestConfigWithTsJest = {
     '^telnyx-mcp$': '<rootDir>/src/index.ts',
     '^telnyx-mcp/(.*)$': '<rootDir>/src/$1',
   },
-  modulePathIgnorePatterns: [
-    '<rootDir>/dist/',
-  ],
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
   testPathIgnorePatterns: ['scripts'],
 };
 

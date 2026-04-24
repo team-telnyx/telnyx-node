@@ -33,8 +33,15 @@ export class PhoneNumberBlocks extends APIResource {
    *   );
    * ```
    */
-  create(portingOrderID: string, body: PhoneNumberBlockCreateParams, options?: RequestOptions): APIPromise<PhoneNumberBlockCreateResponse> {
-    return this._client.post(path`/porting_orders/${portingOrderID}/phone_number_blocks`, { body, ...options });
+  create(
+    portingOrderID: string,
+    body: PhoneNumberBlockCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<PhoneNumberBlockCreateResponse> {
+    return this._client.post(path`/porting_orders/${portingOrderID}/phone_number_blocks`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -50,8 +57,16 @@ export class PhoneNumberBlocks extends APIResource {
    * }
    * ```
    */
-  list(portingOrderID: string, query: PhoneNumberBlockListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PortingPhoneNumberBlocksDefaultFlatPagination, PortingPhoneNumberBlock> {
-    return this._client.getAPIList(path`/porting_orders/${portingOrderID}/phone_number_blocks`, DefaultFlatPagination<PortingPhoneNumberBlock>, { query, ...options });
+  list(
+    portingOrderID: string,
+    query: PhoneNumberBlockListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PortingPhoneNumberBlocksDefaultFlatPagination, PortingPhoneNumberBlock> {
+    return this._client.getAPIList(
+      path`/porting_orders/${portingOrderID}/phone_number_blocks`,
+      DefaultFlatPagination<PortingPhoneNumberBlock>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -69,13 +84,17 @@ export class PhoneNumberBlocks extends APIResource {
    *   );
    * ```
    */
-  delete(id: string, params: PhoneNumberBlockDeleteParams, options?: RequestOptions): APIPromise<PhoneNumberBlockDeleteResponse> {
-    const { porting_order_id } = params
+  delete(
+    id: string,
+    params: PhoneNumberBlockDeleteParams,
+    options?: RequestOptions,
+  ): APIPromise<PhoneNumberBlockDeleteResponse> {
+    const { porting_order_id } = params;
     return this._client.delete(path`/porting_orders/${porting_order_id}/phone_number_blocks/${id}`, options);
   }
 }
 
-export type PortingPhoneNumberBlocksDefaultFlatPagination = DefaultFlatPagination<PortingPhoneNumberBlock>
+export type PortingPhoneNumberBlocksDefaultFlatPagination = DefaultFlatPagination<PortingPhoneNumberBlock>;
 
 export interface PortingPhoneNumberBlock {
   /**
@@ -226,7 +245,20 @@ export namespace PhoneNumberBlockListParams {
     /**
      * Filter results by activation status
      */
-    activation_status?: 'New' | 'Pending' | 'Conflict' | 'Cancel Pending' | 'Failed' | 'Concurred' | 'Activate RDY' | 'Disconnect Pending' | 'Concurrence Sent' | 'Old' | 'Sending' | 'Active' | 'Cancelled';
+    activation_status?:
+      | 'New'
+      | 'Pending'
+      | 'Conflict'
+      | 'Cancel Pending'
+      | 'Failed'
+      | 'Concurred'
+      | 'Activate RDY'
+      | 'Disconnect Pending'
+      | 'Concurrence Sent'
+      | 'Old'
+      | 'Sending'
+      | 'Active'
+      | 'Cancelled';
 
     /**
      * Filter results by a list of phone numbers
@@ -247,7 +279,25 @@ export namespace PhoneNumberBlockListParams {
      * Filter porting orders by status(es). Originally: filter[status],
      * filter[status][in][]
      */
-    status?: 'draft' | 'in-process' | 'submitted' | 'exception' | 'foc-date-confirmed' | 'cancel-pending' | 'ported' | 'cancelled' | Array<'draft' | 'in-process' | 'submitted' | 'exception' | 'foc-date-confirmed' | 'cancel-pending' | 'ported' | 'cancelled'>;
+    status?:
+      | 'draft'
+      | 'in-process'
+      | 'submitted'
+      | 'exception'
+      | 'foc-date-confirmed'
+      | 'cancel-pending'
+      | 'ported'
+      | 'cancelled'
+      | Array<
+          | 'draft'
+          | 'in-process'
+          | 'submitted'
+          | 'exception'
+          | 'foc-date-confirmed'
+          | 'cancel-pending'
+          | 'ported'
+          | 'cancelled'
+        >;
 
     /**
      * Filter results by support key(s). Originally: filter[support_key][eq],
@@ -283,6 +333,6 @@ export declare namespace PhoneNumberBlocks {
     type PortingPhoneNumberBlocksDefaultFlatPagination as PortingPhoneNumberBlocksDefaultFlatPagination,
     type PhoneNumberBlockCreateParams as PhoneNumberBlockCreateParams,
     type PhoneNumberBlockListParams as PhoneNumberBlockListParams,
-    type PhoneNumberBlockDeleteParams as PhoneNumberBlockDeleteParams
+    type PhoneNumberBlockDeleteParams as PhoneNumberBlockDeleteParams,
   };
 }

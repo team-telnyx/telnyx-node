@@ -2,7 +2,12 @@
 
 import { APIResource } from '../../../core/resource';
 import * as EmbeddingsAPI from './embeddings';
-import { EmbeddingCreateEmbeddingsParams, EmbeddingCreateEmbeddingsResponse, EmbeddingListEmbeddingModelsResponse, Embeddings } from './embeddings';
+import {
+  EmbeddingCreateEmbeddingsParams,
+  EmbeddingCreateEmbeddingsResponse,
+  EmbeddingListEmbeddingModelsResponse,
+  Embeddings,
+} from './embeddings';
 
 export class OpenAI extends APIResource {
   embeddings: EmbeddingsAPI.Embeddings = new EmbeddingsAPI.Embeddings(this._client);
@@ -15,6 +20,6 @@ export declare namespace OpenAI {
     Embeddings as Embeddings,
     type EmbeddingCreateEmbeddingsResponse as EmbeddingCreateEmbeddingsResponse,
     type EmbeddingListEmbeddingModelsResponse as EmbeddingListEmbeddingModelsResponse,
-    type EmbeddingCreateEmbeddingsParams as EmbeddingCreateEmbeddingsParams
+    type EmbeddingCreateEmbeddingsParams as EmbeddingCreateEmbeddingsParams,
   };
 }

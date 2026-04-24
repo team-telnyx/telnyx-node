@@ -2,7 +2,11 @@
 
 import { APIResource } from '../../../core/resource';
 import { APIPromise } from '../../../core/api-promise';
-import { DefaultPaginationForQueues, type DefaultPaginationForQueuesParams, PagePromise } from '../../../core/pagination';
+import {
+  DefaultPaginationForQueues,
+  type DefaultPaginationForQueuesParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -21,8 +25,16 @@ export class Queues extends APIResource {
    * );
    * ```
    */
-  create(accountSid: string, body: QueueCreateParams, options?: RequestOptions): APIPromise<QueueCreateResponse> {
-    return this._client.post(path`/texml/Accounts/${accountSid}/Queues`, { body, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
+  create(
+    accountSid: string,
+    body: QueueCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<QueueCreateResponse> {
+    return this._client.post(path`/texml/Accounts/${accountSid}/Queues`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
+    });
   }
 
   /**
@@ -36,8 +48,12 @@ export class Queues extends APIResource {
    * );
    * ```
    */
-  retrieve(queueSid: string, params: QueueRetrieveParams, options?: RequestOptions): APIPromise<QueueRetrieveResponse> {
-    const { account_sid } = params
+  retrieve(
+    queueSid: string,
+    params: QueueRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<QueueRetrieveResponse> {
+    const { account_sid } = params;
     return this._client.get(path`/texml/Accounts/${account_sid}/Queues/${queueSid}`, options);
   }
 
@@ -52,9 +68,17 @@ export class Queues extends APIResource {
    * );
    * ```
    */
-  update(queueSid: string, params: QueueUpdateParams, options?: RequestOptions): APIPromise<QueueUpdateResponse> {
-    const { account_sid, ...body } = params
-    return this._client.post(path`/texml/Accounts/${account_sid}/Queues/${queueSid}`, { body, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
+  update(
+    queueSid: string,
+    params: QueueUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<QueueUpdateResponse> {
+    const { account_sid, ...body } = params;
+    return this._client.post(path`/texml/Accounts/${account_sid}/Queues/${queueSid}`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
+    });
   }
 
   /**
@@ -70,8 +94,16 @@ export class Queues extends APIResource {
    * }
    * ```
    */
-  list(accountSid: string, query: QueueListParams | null | undefined = {}, options?: RequestOptions): PagePromise<QueueListResponsesDefaultPaginationForQueues, QueueListResponse> {
-    return this._client.getAPIList(path`/texml/Accounts/${accountSid}/Queues`, DefaultPaginationForQueues<QueueListResponse>, { query, ...options });
+  list(
+    accountSid: string,
+    query: QueueListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<QueueListResponsesDefaultPaginationForQueues, QueueListResponse> {
+    return this._client.getAPIList(
+      path`/texml/Accounts/${accountSid}/Queues`,
+      DefaultPaginationForQueues<QueueListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -85,12 +117,15 @@ export class Queues extends APIResource {
    * ```
    */
   delete(queueSid: string, params: QueueDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { account_sid } = params
-    return this._client.delete(path`/texml/Accounts/${account_sid}/Queues/${queueSid}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    const { account_sid } = params;
+    return this._client.delete(path`/texml/Accounts/${account_sid}/Queues/${queueSid}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type QueueListResponsesDefaultPaginationForQueues = DefaultPaginationForQueues<QueueListResponse>
+export type QueueListResponsesDefaultPaginationForQueues = DefaultPaginationForQueues<QueueListResponse>;
 
 export interface QueueCreateResponse {
   /**
@@ -348,6 +383,6 @@ export declare namespace Queues {
     type QueueRetrieveParams as QueueRetrieveParams,
     type QueueUpdateParams as QueueUpdateParams,
     type QueueListParams as QueueListParams,
-    type QueueDeleteParams as QueueDeleteParams
+    type QueueDeleteParams as QueueDeleteParams,
   };
 }

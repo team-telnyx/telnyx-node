@@ -2,7 +2,17 @@
 
 import { APIResource } from '../../core/resource';
 import * as UsersAPI from './users/users';
-import { OrganizationUser, OrganizationUsersDefaultFlatPagination, UserGetGroupsReportParams, UserGetGroupsReportResponse, UserGroupReference, UserListParams, UserRetrieveParams, UserRetrieveResponse, Users } from './users/users';
+import {
+  OrganizationUser,
+  OrganizationUsersDefaultFlatPagination,
+  UserGetGroupsReportParams,
+  UserGetGroupsReportResponse,
+  UserGroupReference,
+  UserListParams,
+  UserRetrieveParams,
+  UserRetrieveResponse,
+  Users,
+} from './users/users';
 
 export class Organizations extends APIResource {
   users: UsersAPI.Users = new UsersAPI.Users(this._client);
@@ -20,6 +30,6 @@ export declare namespace Organizations {
     type OrganizationUsersDefaultFlatPagination as OrganizationUsersDefaultFlatPagination,
     type UserRetrieveParams as UserRetrieveParams,
     type UserListParams as UserListParams,
-    type UserGetGroupsReportParams as UserGetGroupsReportParams
+    type UserGetGroupsReportParams as UserGetGroupsReportParams,
   };
 }

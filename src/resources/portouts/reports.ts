@@ -50,12 +50,18 @@ export class Reports extends APIResource {
    * }
    * ```
    */
-  list(query: ReportListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PortoutReportsDefaultFlatPagination, PortoutReport> {
-    return this._client.getAPIList('/portouts/reports', DefaultFlatPagination<PortoutReport>, { query, ...options });
+  list(
+    query: ReportListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PortoutReportsDefaultFlatPagination, PortoutReport> {
+    return this._client.getAPIList('/portouts/reports', DefaultFlatPagination<PortoutReport>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type PortoutReportsDefaultFlatPagination = DefaultFlatPagination<PortoutReport>
+export type PortoutReportsDefaultFlatPagination = DefaultFlatPagination<PortoutReport>;
 
 /**
  * The parameters for generating a port-outs CSV report.
@@ -201,6 +207,6 @@ export declare namespace Reports {
     type ReportRetrieveResponse as ReportRetrieveResponse,
     type PortoutReportsDefaultFlatPagination as PortoutReportsDefaultFlatPagination,
     type ReportCreateParams as ReportCreateParams,
-    type ReportListParams as ReportListParams
+    type ReportListParams as ReportListParams,
   };
 }

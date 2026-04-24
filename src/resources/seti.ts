@@ -11,7 +11,10 @@ export class Seti extends APIResource {
   /**
    * Returns the results of the various black box tests
    */
-  retrieveBlackBoxTestResults(query: SetiRetrieveBlackBoxTestResultsParams | null | undefined = {}, options?: RequestOptions): APIPromise<SetiRetrieveBlackBoxTestResultsResponse> {
+  retrieveBlackBoxTestResults(
+    query: SetiRetrieveBlackBoxTestResultsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<SetiRetrieveBlackBoxTestResultsResponse> {
     return this._client.get('/seti/black_box_test_results', { query, ...options });
   }
 }
@@ -71,6 +74,6 @@ export namespace SetiRetrieveBlackBoxTestResultsParams {
 export declare namespace Seti {
   export {
     type SetiRetrieveBlackBoxTestResultsResponse as SetiRetrieveBlackBoxTestResultsResponse,
-    type SetiRetrieveBlackBoxTestResultsParams as SetiRetrieveBlackBoxTestResultsParams
+    type SetiRetrieveBlackBoxTestResultsParams as SetiRetrieveBlackBoxTestResultsParams,
   };
 }

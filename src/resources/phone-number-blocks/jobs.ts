@@ -36,8 +36,14 @@ export class Jobs extends APIResource {
    * }
    * ```
    */
-  list(query: JobListParams | null | undefined = {}, options?: RequestOptions): PagePromise<JobsDefaultFlatPagination, Job> {
-    return this._client.getAPIList('/phone_number_blocks/jobs', DefaultFlatPagination<Job>, { query, ...options });
+  list(
+    query: JobListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<JobsDefaultFlatPagination, Job> {
+    return this._client.getAPIList('/phone_number_blocks/jobs', DefaultFlatPagination<Job>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -58,12 +64,15 @@ export class Jobs extends APIResource {
    *   );
    * ```
    */
-  deletePhoneNumberBlock(body: JobDeletePhoneNumberBlockParams, options?: RequestOptions): APIPromise<JobDeletePhoneNumberBlockResponse> {
+  deletePhoneNumberBlock(
+    body: JobDeletePhoneNumberBlockParams,
+    options?: RequestOptions,
+  ): APIPromise<JobDeletePhoneNumberBlockResponse> {
     return this._client.post('/phone_number_blocks/jobs/delete_phone_number_block', { body, ...options });
   }
 }
 
-export type JobsDefaultFlatPagination = DefaultFlatPagination<Job>
+export type JobsDefaultFlatPagination = DefaultFlatPagination<Job>;
 
 export interface Job {
   /**
@@ -223,6 +232,6 @@ export declare namespace Jobs {
     type JobDeletePhoneNumberBlockResponse as JobDeletePhoneNumberBlockResponse,
     type JobsDefaultFlatPagination as JobsDefaultFlatPagination,
     type JobListParams as JobListParams,
-    type JobDeletePhoneNumberBlockParams as JobDeletePhoneNumberBlockParams
+    type JobDeletePhoneNumberBlockParams as JobDeletePhoneNumberBlockParams,
   };
 }

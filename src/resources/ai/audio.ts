@@ -20,7 +20,10 @@ export class Audio extends APIResource {
    * ```
    */
   transcribe(body: AudioTranscribeParams, options?: RequestOptions): APIPromise<AudioTranscribeResponse> {
-    return this._client.post('/ai/audio/transcriptions', multipartFormRequestOptions({ body, ...options }, this._client));
+    return this._client.post(
+      '/ai/audio/transcriptions',
+      multipartFormRequestOptions({ body, ...options }, this._client),
+    );
   }
 }
 
@@ -171,6 +174,6 @@ export interface AudioTranscribeParams {
 export declare namespace Audio {
   export {
     type AudioTranscribeResponse as AudioTranscribeResponse,
-    type AudioTranscribeParams as AudioTranscribeParams
+    type AudioTranscribeParams as AudioTranscribeParams,
   };
 }

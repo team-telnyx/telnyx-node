@@ -22,7 +22,10 @@ export class PublicInternetGateways extends APIResource {
    *   await client.publicInternetGateways.create();
    * ```
    */
-  create(body: PublicInternetGatewayCreateParams, options?: RequestOptions): APIPromise<PublicInternetGatewayCreateResponse> {
+  create(
+    body: PublicInternetGatewayCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<PublicInternetGatewayCreateResponse> {
     return this._client.post('/public_internet_gateways', { body, ...options });
   }
 
@@ -52,8 +55,15 @@ export class PublicInternetGateways extends APIResource {
    * }
    * ```
    */
-  list(query: PublicInternetGatewayListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PublicInternetGatewayListResponsesDefaultFlatPagination, PublicInternetGatewayListResponse> {
-    return this._client.getAPIList('/public_internet_gateways', DefaultFlatPagination<PublicInternetGatewayListResponse>, { query, ...options });
+  list(
+    query: PublicInternetGatewayListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PublicInternetGatewayListResponsesDefaultFlatPagination, PublicInternetGatewayListResponse> {
+    return this._client.getAPIList(
+      '/public_internet_gateways',
+      DefaultFlatPagination<PublicInternetGatewayListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -72,7 +82,8 @@ export class PublicInternetGateways extends APIResource {
   }
 }
 
-export type PublicInternetGatewayListResponsesDefaultFlatPagination = DefaultFlatPagination<PublicInternetGatewayListResponse>
+export type PublicInternetGatewayListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<PublicInternetGatewayListResponse>;
 
 export interface NetworkInterface {
   /**
@@ -210,6 +221,6 @@ export declare namespace PublicInternetGateways {
     type PublicInternetGatewayDeleteResponse as PublicInternetGatewayDeleteResponse,
     type PublicInternetGatewayListResponsesDefaultFlatPagination as PublicInternetGatewayListResponsesDefaultFlatPagination,
     type PublicInternetGatewayCreateParams as PublicInternetGatewayCreateParams,
-    type PublicInternetGatewayListParams as PublicInternetGatewayListParams
+    type PublicInternetGatewayListParams as PublicInternetGatewayListParams,
   };
 }

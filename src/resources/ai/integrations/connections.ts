@@ -46,7 +46,10 @@ export class Connections extends APIResource {
    * ```
    */
   delete(userConnectionID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/integrations/connections/${userConnectionID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/ai/integrations/connections/${userConnectionID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -70,6 +73,6 @@ export declare namespace Connections {
   export {
     type IntegrationConnection as IntegrationConnection,
     type ConnectionRetrieveResponse as ConnectionRetrieveResponse,
-    type ConnectionListResponse as ConnectionListResponse
+    type ConnectionListResponse as ConnectionListResponse,
   };
 }

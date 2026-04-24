@@ -22,7 +22,10 @@ export class Actions extends APIResource {
    *   );
    * ```
    */
-  checkRegistrationStatus(id: string, options?: RequestOptions): APIPromise<ActionCheckRegistrationStatusResponse> {
+  checkRegistrationStatus(
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<ActionCheckRegistrationStatusResponse> {
     return this._client.post(path`/credential_connections/${id}/actions/check_registration_status`, options);
   }
 }
@@ -76,7 +79,5 @@ export namespace ActionCheckRegistrationStatusResponse {
 }
 
 export declare namespace Actions {
-  export {
-    type ActionCheckRegistrationStatusResponse as ActionCheckRegistrationStatusResponse
-  };
+  export { type ActionCheckRegistrationStatusResponse as ActionCheckRegistrationStatusResponse };
 }

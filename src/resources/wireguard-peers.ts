@@ -52,7 +52,11 @@ export class WireguardPeers extends APIResource {
    * );
    * ```
    */
-  update(id: string, body: WireguardPeerUpdateParams, options?: RequestOptions): APIPromise<WireguardPeerUpdateResponse> {
+  update(
+    id: string,
+    body: WireguardPeerUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<WireguardPeerUpdateResponse> {
     return this._client.patch(path`/wireguard_peers/${id}`, { body, ...options });
   }
 
@@ -67,8 +71,14 @@ export class WireguardPeers extends APIResource {
    * }
    * ```
    */
-  list(query: WireguardPeerListParams | null | undefined = {}, options?: RequestOptions): PagePromise<WireguardPeerListResponsesDefaultFlatPagination, WireguardPeerListResponse> {
-    return this._client.getAPIList('/wireguard_peers', DefaultFlatPagination<WireguardPeerListResponse>, { query, ...options });
+  list(
+    query: WireguardPeerListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<WireguardPeerListResponsesDefaultFlatPagination, WireguardPeerListResponse> {
+    return this._client.getAPIList('/wireguard_peers', DefaultFlatPagination<WireguardPeerListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -96,11 +106,15 @@ export class WireguardPeers extends APIResource {
    * ```
    */
   retrieveConfig(id: string, options?: RequestOptions): APIPromise<string> {
-    return this._client.get(path`/wireguard_peers/${id}/config`, { ...options, headers: buildHeaders([{Accept: 'text/plain'}, options?.headers]) });
+    return this._client.get(path`/wireguard_peers/${id}/config`, {
+      ...options,
+      headers: buildHeaders([{ Accept: 'text/plain' }, options?.headers]),
+    });
   }
 }
 
-export type WireguardPeerListResponsesDefaultFlatPagination = DefaultFlatPagination<WireguardPeerListResponse>
+export type WireguardPeerListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<WireguardPeerListResponse>;
 
 export interface WireguardPeerPatch {
   /**
@@ -239,7 +253,7 @@ export namespace WireguardPeerDeleteResponse {
   }
 }
 
-export type WireguardPeerRetrieveConfigResponse = string
+export type WireguardPeerRetrieveConfigResponse = string;
 
 export interface WireguardPeerCreateParams {
   /**
@@ -289,6 +303,6 @@ export declare namespace WireguardPeers {
     type WireguardPeerListResponsesDefaultFlatPagination as WireguardPeerListResponsesDefaultFlatPagination,
     type WireguardPeerCreateParams as WireguardPeerCreateParams,
     type WireguardPeerUpdateParams as WireguardPeerUpdateParams,
-    type WireguardPeerListParams as WireguardPeerListParams
+    type WireguardPeerListParams as WireguardPeerListParams,
   };
 }

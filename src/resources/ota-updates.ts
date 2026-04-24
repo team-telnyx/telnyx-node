@@ -20,12 +20,18 @@ export class OtaUpdates extends APIResource {
   /**
    * List OTA updates
    */
-  list(query: OtaUpdateListParams | null | undefined = {}, options?: RequestOptions): PagePromise<OtaUpdateListResponsesDefaultFlatPagination, OtaUpdateListResponse> {
-    return this._client.getAPIList('/ota_updates', DefaultFlatPagination<OtaUpdateListResponse>, { query, ...options });
+  list(
+    query: OtaUpdateListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<OtaUpdateListResponsesDefaultFlatPagination, OtaUpdateListResponse> {
+    return this._client.getAPIList('/ota_updates', DefaultFlatPagination<OtaUpdateListResponse>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type OtaUpdateListResponsesDefaultFlatPagination = DefaultFlatPagination<OtaUpdateListResponse>
+export type OtaUpdateListResponsesDefaultFlatPagination = DefaultFlatPagination<OtaUpdateListResponse>;
 
 export interface OtaUpdateRetrieveResponse {
   /**
@@ -189,6 +195,6 @@ export declare namespace OtaUpdates {
     type OtaUpdateRetrieveResponse as OtaUpdateRetrieveResponse,
     type OtaUpdateListResponse as OtaUpdateListResponse,
     type OtaUpdateListResponsesDefaultFlatPagination as OtaUpdateListResponsesDefaultFlatPagination,
-    type OtaUpdateListParams as OtaUpdateListParams
+    type OtaUpdateListParams as OtaUpdateListParams,
   };
 }

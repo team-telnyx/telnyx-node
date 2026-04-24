@@ -2,7 +2,16 @@
 
 import { APIResource } from '../../core/resource';
 import * as JobsAPI from './jobs';
-import { Job, JobDeletePhoneNumberBlockParams, JobDeletePhoneNumberBlockResponse, JobError, JobListParams, JobRetrieveResponse, Jobs, JobsDefaultFlatPagination } from './jobs';
+import {
+  Job,
+  JobDeletePhoneNumberBlockParams,
+  JobDeletePhoneNumberBlockResponse,
+  JobError,
+  JobListParams,
+  JobRetrieveResponse,
+  Jobs,
+  JobsDefaultFlatPagination,
+} from './jobs';
 
 export class PhoneNumberBlocks extends APIResource {
   jobs: JobsAPI.Jobs = new JobsAPI.Jobs(this._client);
@@ -19,6 +28,6 @@ export declare namespace PhoneNumberBlocks {
     type JobDeletePhoneNumberBlockResponse as JobDeletePhoneNumberBlockResponse,
     type JobsDefaultFlatPagination as JobsDefaultFlatPagination,
     type JobListParams as JobListParams,
-    type JobDeletePhoneNumberBlockParams as JobDeletePhoneNumberBlockParams
+    type JobDeletePhoneNumberBlockParams as JobDeletePhoneNumberBlockParams,
   };
 }

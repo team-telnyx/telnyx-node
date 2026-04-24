@@ -40,7 +40,5 @@ export namespace GlobalIPProtocolListResponse {
 }
 
 export declare namespace GlobalIPProtocols {
-  export {
-    type GlobalIPProtocolListResponse as GlobalIPProtocolListResponse
-  };
+  export { type GlobalIPProtocolListResponse as GlobalIPProtocolListResponse };
 }

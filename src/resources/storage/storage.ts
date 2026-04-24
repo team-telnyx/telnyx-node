@@ -2,12 +2,27 @@
 
 import { APIResource } from '../../core/resource';
 import * as MigrationSourcesAPI from './migration-sources';
-import { MigrationSourceCreateParams, MigrationSourceCreateResponse, MigrationSourceDeleteResponse, MigrationSourceListResponse, MigrationSourceParams, MigrationSourceRetrieveResponse, MigrationSources } from './migration-sources';
+import {
+  MigrationSourceCreateParams,
+  MigrationSourceCreateResponse,
+  MigrationSourceDeleteResponse,
+  MigrationSourceListResponse,
+  MigrationSourceParams,
+  MigrationSourceRetrieveResponse,
+  MigrationSources,
+} from './migration-sources';
 import * as BucketsAPI from './buckets/buckets';
 import { BucketCreatePresignedURLParams, BucketCreatePresignedURLResponse, Buckets } from './buckets/buckets';
 import * as UsageAPI from './buckets/usage';
 import * as MigrationsAPI from './migrations/migrations';
-import { MigrationCreateParams, MigrationCreateResponse, MigrationListResponse, MigrationParams, MigrationRetrieveResponse, Migrations } from './migrations/migrations';
+import {
+  MigrationCreateParams,
+  MigrationCreateResponse,
+  MigrationListResponse,
+  MigrationParams,
+  MigrationRetrieveResponse,
+  Migrations,
+} from './migrations/migrations';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -16,7 +31,9 @@ import { RequestOptions } from '../../internal/request-options';
  */
 export class Storage extends APIResource {
   buckets: BucketsAPI.Buckets = new BucketsAPI.Buckets(this._client);
-  migrationSources: MigrationSourcesAPI.MigrationSources = new MigrationSourcesAPI.MigrationSources(this._client);
+  migrationSources: MigrationSourcesAPI.MigrationSources = new MigrationSourcesAPI.MigrationSources(
+    this._client,
+  );
   migrations: MigrationsAPI.Migrations = new MigrationsAPI.Migrations(this._client);
 
   /**
@@ -28,7 +45,9 @@ export class Storage extends APIResource {
    *   await client.storage.listMigrationSourceCoverage();
    * ```
    */
-  listMigrationSourceCoverage(options?: RequestOptions): APIPromise<StorageListMigrationSourceCoverageResponse> {
+  listMigrationSourceCoverage(
+    options?: RequestOptions,
+  ): APIPromise<StorageListMigrationSourceCoverageResponse> {
     return this._client.get('/storage/migration_source_coverage', options);
   }
 }
@@ -58,14 +77,12 @@ Storage.MigrationSources = MigrationSources;
 Storage.Migrations = Migrations;
 
 export declare namespace Storage {
-  export {
-    type StorageListMigrationSourceCoverageResponse as StorageListMigrationSourceCoverageResponse
-  };
+  export { type StorageListMigrationSourceCoverageResponse as StorageListMigrationSourceCoverageResponse };
 
   export {
     Buckets as Buckets,
     type BucketCreatePresignedURLResponse as BucketCreatePresignedURLResponse,
-    type BucketCreatePresignedURLParams as BucketCreatePresignedURLParams
+    type BucketCreatePresignedURLParams as BucketCreatePresignedURLParams,
   };
 
   export {
@@ -75,7 +92,7 @@ export declare namespace Storage {
     type MigrationSourceRetrieveResponse as MigrationSourceRetrieveResponse,
     type MigrationSourceListResponse as MigrationSourceListResponse,
     type MigrationSourceDeleteResponse as MigrationSourceDeleteResponse,
-    type MigrationSourceCreateParams as MigrationSourceCreateParams
+    type MigrationSourceCreateParams as MigrationSourceCreateParams,
   };
 
   export {
@@ -84,6 +101,6 @@ export declare namespace Storage {
     type MigrationCreateResponse as MigrationCreateResponse,
     type MigrationRetrieveResponse as MigrationRetrieveResponse,
     type MigrationListResponse as MigrationListResponse,
-    type MigrationCreateParams as MigrationCreateParams
+    type MigrationCreateParams as MigrationCreateParams,
   };
 }

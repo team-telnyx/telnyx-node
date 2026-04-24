@@ -20,7 +20,10 @@ export class InboundChannels extends APIResource {
    * });
    * ```
    */
-  update(body: InboundChannelUpdateParams, options?: RequestOptions): APIPromise<InboundChannelUpdateResponse> {
+  update(
+    body: InboundChannelUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<InboundChannelUpdateResponse> {
     return this._client.patch('/inbound_channels', { body, ...options });
   }
 
@@ -88,6 +91,6 @@ export declare namespace InboundChannels {
   export {
     type InboundChannelUpdateResponse as InboundChannelUpdateResponse,
     type InboundChannelListResponse as InboundChannelListResponse,
-    type InboundChannelUpdateParams as InboundChannelUpdateParams
+    type InboundChannelUpdateParams as InboundChannelUpdateParams,
   };
 }

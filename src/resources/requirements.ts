@@ -36,12 +36,18 @@ export class Requirements extends APIResource {
    * }
    * ```
    */
-  list(query: RequirementListParams | null | undefined = {}, options?: RequestOptions): PagePromise<RequirementListResponsesDefaultFlatPagination, RequirementListResponse> {
-    return this._client.getAPIList('/requirements', DefaultFlatPagination<RequirementListResponse>, { query, ...options });
+  list(
+    query: RequirementListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<RequirementListResponsesDefaultFlatPagination, RequirementListResponse> {
+    return this._client.getAPIList('/requirements', DefaultFlatPagination<RequirementListResponse>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type RequirementListResponsesDefaultFlatPagination = DefaultFlatPagination<RequirementListResponse>
+export type RequirementListResponsesDefaultFlatPagination = DefaultFlatPagination<RequirementListResponse>;
 
 export interface RequirementRetrieveResponse {
   data?: RequirementRetrieveResponse.Data;
@@ -158,7 +164,16 @@ export interface RequirementListParams extends DefaultFlatPaginationParams {
    * Consolidated sort parameter for requirements (deepObject style). Originally:
    * sort[]
    */
-  sort?: Array<'created_at' | 'updated_at' | 'country_code' | 'phone_number_type' | '-created_at' | '-updated_at' | '-country_code' | '-phone_number_type'>;
+  sort?: Array<
+    | 'created_at'
+    | 'updated_at'
+    | 'country_code'
+    | 'phone_number_type'
+    | '-created_at'
+    | '-updated_at'
+    | '-country_code'
+    | '-phone_number_type'
+  >;
 }
 
 export namespace RequirementListParams {
@@ -190,6 +205,6 @@ export declare namespace Requirements {
     type RequirementRetrieveResponse as RequirementRetrieveResponse,
     type RequirementListResponse as RequirementListResponse,
     type RequirementListResponsesDefaultFlatPagination as RequirementListResponsesDefaultFlatPagination,
-    type RequirementListParams as RequirementListParams
+    type RequirementListParams as RequirementListParams,
   };
 }

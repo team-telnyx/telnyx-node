@@ -19,9 +19,19 @@ export class BillingBundles extends APIResource {
    *   );
    * ```
    */
-  retrieve(bundleID: string, params: BillingBundleRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<BillingBundleRetrieveResponse> {
-    const { authorization_bearer } = params ?? {}
-    return this._client.get(path`/bundle_pricing/billing_bundles/${bundleID}`, { ...options, headers: buildHeaders([{...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined)}, options?.headers]) });
+  retrieve(
+    bundleID: string,
+    params: BillingBundleRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<BillingBundleRetrieveResponse> {
+    const { authorization_bearer } = params ?? {};
+    return this._client.get(path`/bundle_pricing/billing_bundles/${bundleID}`, {
+      ...options,
+      headers: buildHeaders([
+        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -35,13 +45,27 @@ export class BillingBundles extends APIResource {
    * }
    * ```
    */
-  list(params: BillingBundleListParams | null | undefined = {}, options?: RequestOptions): PagePromise<BillingBundleSummariesDefaultFlatPagination, BillingBundleSummary> {
-    const { authorization_bearer, ...query } = params ?? {}
-    return this._client.getAPIList('/bundle_pricing/billing_bundles', DefaultFlatPagination<BillingBundleSummary>, { query, ...options, headers: buildHeaders([{...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined)}, options?.headers]) });
+  list(
+    params: BillingBundleListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<BillingBundleSummariesDefaultFlatPagination, BillingBundleSummary> {
+    const { authorization_bearer, ...query } = params ?? {};
+    return this._client.getAPIList(
+      '/bundle_pricing/billing_bundles',
+      DefaultFlatPagination<BillingBundleSummary>,
+      {
+        query,
+        ...options,
+        headers: buildHeaders([
+          { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
+          options?.headers,
+        ]),
+      },
+    );
   }
 }
 
-export type BillingBundleSummariesDefaultFlatPagination = DefaultFlatPagination<BillingBundleSummary>
+export type BillingBundleSummariesDefaultFlatPagination = DefaultFlatPagination<BillingBundleSummary>;
 
 export interface BillingBundleSummary {
   /**
@@ -237,6 +261,6 @@ export declare namespace BillingBundles {
     type BillingBundleRetrieveResponse as BillingBundleRetrieveResponse,
     type BillingBundleSummariesDefaultFlatPagination as BillingBundleSummariesDefaultFlatPagination,
     type BillingBundleRetrieveParams as BillingBundleRetrieveParams,
-    type BillingBundleListParams as BillingBundleListParams
+    type BillingBundleListParams as BillingBundleListParams,
   };
 }

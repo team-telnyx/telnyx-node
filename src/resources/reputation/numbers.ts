@@ -19,7 +19,11 @@ export class Numbers extends APIResource {
    *
    * Same response as the enterprise-scoped endpoint. Uses cached data by default.
    */
-  retrieve(phoneNumber: string, query: NumberRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<NumberRetrieveResponse> {
+  retrieve(
+    phoneNumber: string,
+    query: NumberRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<NumberRetrieveResponse> {
     return this._client.get(path`/reputation/numbers/${phoneNumber}`, { query, ...options });
   }
 
@@ -30,8 +34,18 @@ export class Numbers extends APIResource {
    *
    * Supports pagination and filtering by phone number.
    */
-  list(query: NumberListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ReputationPhoneNumberWithReputationDataDefaultFlatPagination, Shared.ReputationPhoneNumberWithReputationData> {
-    return this._client.getAPIList('/reputation/numbers', DefaultFlatPagination<Shared.ReputationPhoneNumberWithReputationData>, { query, ...options });
+  list(
+    query: NumberListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<
+    ReputationPhoneNumberWithReputationDataDefaultFlatPagination,
+    Shared.ReputationPhoneNumberWithReputationData
+  > {
+    return this._client.getAPIList(
+      '/reputation/numbers',
+      DefaultFlatPagination<Shared.ReputationPhoneNumberWithReputationData>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -39,7 +53,10 @@ export class Numbers extends APIResource {
    * `enterprise_id`.
    */
   delete(phoneNumber: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/reputation/numbers/${phoneNumber}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/reputation/numbers/${phoneNumber}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -66,8 +83,8 @@ export declare namespace Numbers {
   export {
     type NumberRetrieveResponse as NumberRetrieveResponse,
     type NumberRetrieveParams as NumberRetrieveParams,
-    type NumberListParams as NumberListParams
+    type NumberListParams as NumberListParams,
   };
 }
 
-export { type ReputationPhoneNumberWithReputationDataDefaultFlatPagination }
+export { type ReputationPhoneNumberWithReputationDataDefaultFlatPagination };

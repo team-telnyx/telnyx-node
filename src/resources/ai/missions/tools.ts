@@ -32,8 +32,11 @@ export class Tools extends APIResource {
    * ```
    */
   deleteTool(toolID: string, params: ToolDeleteToolParams, options?: RequestOptions): APIPromise<void> {
-    const { mission_id } = params
-    return this._client.delete(path`/ai/missions/${mission_id}/tools/${toolID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    const { mission_id } = params;
+    return this._client.delete(path`/ai/missions/${mission_id}/tools/${toolID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -48,7 +51,7 @@ export class Tools extends APIResource {
    * ```
    */
   getTool(toolID: string, params: ToolGetToolParams, options?: RequestOptions): APIPromise<unknown> {
-    const { mission_id } = params
+    const { mission_id } = params;
     return this._client.get(path`/ai/missions/${mission_id}/tools/${toolID}`, options);
   }
 
@@ -78,18 +81,18 @@ export class Tools extends APIResource {
    * ```
    */
   updateTool(toolID: string, params: ToolUpdateToolParams, options?: RequestOptions): APIPromise<unknown> {
-    const { mission_id } = params
+    const { mission_id } = params;
     return this._client.put(path`/ai/missions/${mission_id}/tools/${toolID}`, options);
   }
 }
 
-export type ToolCreateToolResponse = unknown
+export type ToolCreateToolResponse = unknown;
 
-export type ToolGetToolResponse = unknown
+export type ToolGetToolResponse = unknown;
 
-export type ToolListToolsResponse = unknown
+export type ToolListToolsResponse = unknown;
 
-export type ToolUpdateToolResponse = unknown
+export type ToolUpdateToolResponse = unknown;
 
 export interface ToolDeleteToolParams {
   mission_id: string;
@@ -111,6 +114,6 @@ export declare namespace Tools {
     type ToolUpdateToolResponse as ToolUpdateToolResponse,
     type ToolDeleteToolParams as ToolDeleteToolParams,
     type ToolGetToolParams as ToolGetToolParams,
-    type ToolUpdateToolParams as ToolUpdateToolParams
+    type ToolUpdateToolParams as ToolUpdateToolParams,
   };
 }

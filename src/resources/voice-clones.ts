@@ -31,7 +31,7 @@ export class VoiceClones extends APIResource {
    * ```
    */
   create(params: VoiceCloneCreateParams, options?: RequestOptions): APIPromise<VoiceCloneCreateResponse> {
-    const { params } = params
+    const { params } = params;
     return this._client.post('/voice_clones', { body: params, ...options });
   }
 
@@ -46,7 +46,11 @@ export class VoiceClones extends APIResource {
    * );
    * ```
    */
-  update(id: string, body: VoiceCloneUpdateParams, options?: RequestOptions): APIPromise<VoiceCloneUpdateResponse> {
+  update(
+    id: string,
+    body: VoiceCloneUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<VoiceCloneUpdateResponse> {
     return this._client.patch(path`/voice_clones/${id}`, { body, ...options });
   }
 
@@ -61,8 +65,14 @@ export class VoiceClones extends APIResource {
    * }
    * ```
    */
-  list(query: VoiceCloneListParams | null | undefined = {}, options?: RequestOptions): PagePromise<VoiceCloneDataDefaultFlatPagination, VoiceCloneData> {
-    return this._client.getAPIList('/voice_clones', DefaultFlatPagination<VoiceCloneData>, { query, ...options });
+  list(
+    query: VoiceCloneListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<VoiceCloneDataDefaultFlatPagination, VoiceCloneData> {
+    return this._client.getAPIList('/voice_clones', DefaultFlatPagination<VoiceCloneData>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -76,7 +86,10 @@ export class VoiceClones extends APIResource {
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/voice_clones/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/voice_clones/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -97,9 +110,15 @@ export class VoiceClones extends APIResource {
    * });
    * ```
    */
-  createFromUpload(params: VoiceCloneCreateFromUploadParams, options?: RequestOptions): APIPromise<VoiceCloneCreateFromUploadResponse> {
-    const { params } = params
-    return this._client.post('/voice_clones/from_upload', multipartFormRequestOptions({ body: params, ...options }, this._client));
+  createFromUpload(
+    params: VoiceCloneCreateFromUploadParams,
+    options?: RequestOptions,
+  ): APIPromise<VoiceCloneCreateFromUploadResponse> {
+    const { params } = params;
+    return this._client.post(
+      '/voice_clones/from_upload',
+      multipartFormRequestOptions({ body: params, ...options }, this._client),
+    );
   }
 
   /**
@@ -116,11 +135,15 @@ export class VoiceClones extends APIResource {
    * ```
    */
   downloadSample(id: string, options?: RequestOptions): APIPromise<Response> {
-    return this._client.get(path`/voice_clones/${id}/sample`, { ...options, headers: buildHeaders([{Accept: 'audio/wav'}, options?.headers]), __binaryResponse: true });
+    return this._client.get(path`/voice_clones/${id}/sample`, {
+      ...options,
+      headers: buildHeaders([{ Accept: 'audio/wav' }, options?.headers]),
+      __binaryResponse: true,
+    });
   }
 }
 
-export type VoiceCloneDataDefaultFlatPagination = DefaultFlatPagination<VoiceCloneData>
+export type VoiceCloneDataDefaultFlatPagination = DefaultFlatPagination<VoiceCloneData>;
 
 /**
  * A voice clone object.
@@ -344,7 +367,10 @@ export interface VoiceCloneCreateFromUploadParams {
    * Multipart form data for creating a voice clone from a direct audio upload.
    * Maximum file size: 5MB for Telnyx, 20MB for Minimax.
    */
-  params: VoiceCloneCreateFromUploadParams.TelnyxQwen3TtsClone | VoiceCloneCreateFromUploadParams.TelnyxUltraClone | VoiceCloneCreateFromUploadParams.MinimaxClone;
+  params:
+    | VoiceCloneCreateFromUploadParams.TelnyxQwen3TtsClone
+    | VoiceCloneCreateFromUploadParams.TelnyxUltraClone
+    | VoiceCloneCreateFromUploadParams.MinimaxClone;
 }
 
 export namespace VoiceCloneCreateFromUploadParams {
@@ -500,6 +526,6 @@ export declare namespace VoiceClones {
     type VoiceCloneCreateParams as VoiceCloneCreateParams,
     type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
     type VoiceCloneListParams as VoiceCloneListParams,
-    type VoiceCloneCreateFromUploadParams as VoiceCloneCreateFromUploadParams
+    type VoiceCloneCreateFromUploadParams as VoiceCloneCreateFromUploadParams,
   };
 }

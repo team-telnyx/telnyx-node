@@ -25,9 +25,16 @@ export class Participants extends APIResource {
    *   );
    * ```
    */
-  retrieve(callSidOrParticipantLabel: string, params: ParticipantRetrieveParams, options?: RequestOptions): APIPromise<ParticipantRetrieveResponse> {
-    const { account_sid, conference_sid } = params
-    return this._client.get(path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`, options);
+  retrieve(
+    callSidOrParticipantLabel: string,
+    params: ParticipantRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<ParticipantRetrieveResponse> {
+    const { account_sid, conference_sid } = params;
+    return this._client.get(
+      path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`,
+      options,
+    );
   }
 
   /**
@@ -45,9 +52,20 @@ export class Participants extends APIResource {
    *   );
    * ```
    */
-  update(callSidOrParticipantLabel: string, params: ParticipantUpdateParams, options?: RequestOptions): APIPromise<ParticipantUpdateResponse> {
-    const { account_sid, conference_sid, ...body } = params
-    return this._client.post(path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`, { body, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
+  update(
+    callSidOrParticipantLabel: string,
+    params: ParticipantUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<ParticipantUpdateResponse> {
+    const { account_sid, conference_sid, ...body } = params;
+    return this._client.post(
+      path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`,
+      {
+        body,
+        ...options,
+        headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
+      },
+    );
   }
 
   /**
@@ -64,9 +82,16 @@ export class Participants extends APIResource {
    * );
    * ```
    */
-  delete(callSidOrParticipantLabel: string, params: ParticipantDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { account_sid, conference_sid } = params
-    return this._client.delete(path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+  delete(
+    callSidOrParticipantLabel: string,
+    params: ParticipantDeleteParams,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const { account_sid, conference_sid } = params;
+    return this._client.delete(
+      path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`,
+      { ...options, headers: buildHeaders([{ Accept: '*/*' }, options?.headers]) },
+    );
   }
 
   /**
@@ -81,9 +106,17 @@ export class Participants extends APIResource {
    *   );
    * ```
    */
-  participants(conferenceSid: string, params: ParticipantParticipantsParams, options?: RequestOptions): APIPromise<ParticipantParticipantsResponse> {
-    const { account_sid, timeout_seconds, ...body } = params
-    return this._client.post(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Participants`, { body: { Timeout: timeout_seconds, ...body }, ...options, headers: buildHeaders([{'Content-Type': 'application/x-www-form-urlencoded'}, options?.headers]) });
+  participants(
+    conferenceSid: string,
+    params: ParticipantParticipantsParams,
+    options?: RequestOptions,
+  ): APIPromise<ParticipantParticipantsResponse> {
+    const { account_sid, timeout_seconds, ...body } = params;
+    return this._client.post(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Participants`, {
+      body: { Timeout: timeout_seconds, ...body },
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
+    });
   }
 
   /**
@@ -98,9 +131,16 @@ export class Participants extends APIResource {
    *   );
    * ```
    */
-  retrieveParticipants(conferenceSid: string, params: ParticipantRetrieveParticipantsParams, options?: RequestOptions): APIPromise<ParticipantRetrieveParticipantsResponse> {
-    const { account_sid } = params
-    return this._client.get(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Participants`, options);
+  retrieveParticipants(
+    conferenceSid: string,
+    params: ParticipantRetrieveParticipantsParams,
+    options?: RequestOptions,
+  ): APIPromise<ParticipantRetrieveParticipantsResponse> {
+    const { account_sid } = params;
+    return this._client.get(
+      path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Participants`,
+      options,
+    );
   }
 }
 
@@ -860,6 +900,6 @@ export declare namespace Participants {
     type ParticipantUpdateParams as ParticipantUpdateParams,
     type ParticipantDeleteParams as ParticipantDeleteParams,
     type ParticipantParticipantsParams as ParticipantParticipantsParams,
-    type ParticipantRetrieveParticipantsParams as ParticipantRetrieveParticipantsParams
+    type ParticipantRetrieveParticipantsParams as ParticipantRetrieveParticipantsParams,
   };
 }

@@ -2,11 +2,24 @@
 
 import { APIResource } from '../../../../core/resource';
 import * as RunsAPI from './runs';
-import { RunListParams, RunRetrieveParams, RunTriggerParams, Runs, TestRunDetailResult, TestRunResponse, TestRunResponsesDefaultFlatPagination, TestStatus } from './runs';
+import {
+  RunListParams,
+  RunRetrieveParams,
+  RunTriggerParams,
+  Runs,
+  TestRunDetailResult,
+  TestRunResponse,
+  TestRunResponsesDefaultFlatPagination,
+  TestStatus,
+} from './runs';
 import * as TestSuitesAPI from './test-suites/test-suites';
 import { TestSuiteListResponse, TestSuites } from './test-suites/test-suites';
 import { APIPromise } from '../../../../core/api-promise';
-import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../../../core/pagination';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../../core/pagination';
 import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
@@ -85,8 +98,14 @@ export class Tests extends APIResource {
    * }
    * ```
    */
-  list(query: TestListParams | null | undefined = {}, options?: RequestOptions): PagePromise<AssistantTestsDefaultFlatPagination, AssistantTest> {
-    return this._client.getAPIList('/ai/assistants/tests', DefaultFlatPagination<AssistantTest>, { query, ...options });
+  list(
+    query: TestListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AssistantTestsDefaultFlatPagination, AssistantTest> {
+    return this._client.getAPIList('/ai/assistants/tests', DefaultFlatPagination<AssistantTest>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -98,11 +117,14 @@ export class Tests extends APIResource {
    * ```
    */
   delete(testID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/assistants/tests/${testID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/ai/assistants/tests/${testID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type AssistantTestsDefaultFlatPagination = DefaultFlatPagination<AssistantTest>
+export type AssistantTestsDefaultFlatPagination = DefaultFlatPagination<AssistantTest>;
 
 /**
  * Response model containing complete assistant test information.
@@ -178,7 +200,7 @@ export namespace AssistantTest {
   }
 }
 
-export type TelnyxConversationChannel = 'phone_call' | 'web_call' | 'sms_chat' | 'web_chat'
+export type TelnyxConversationChannel = 'phone_call' | 'web_call' | 'sms_chat' | 'web_chat';
 
 export interface TestCreateParams {
   /**
@@ -329,13 +351,10 @@ export declare namespace Tests {
     type AssistantTestsDefaultFlatPagination as AssistantTestsDefaultFlatPagination,
     type TestCreateParams as TestCreateParams,
     type TestUpdateParams as TestUpdateParams,
-    type TestListParams as TestListParams
+    type TestListParams as TestListParams,
   };
 
-  export {
-    TestSuites as TestSuites,
-    type TestSuiteListResponse as TestSuiteListResponse
-  };
+  export { TestSuites as TestSuites, type TestSuiteListResponse as TestSuiteListResponse };
 
   export {
     Runs as Runs,
@@ -345,6 +364,6 @@ export declare namespace Tests {
     type TestRunResponsesDefaultFlatPagination as TestRunResponsesDefaultFlatPagination,
     type RunRetrieveParams as RunRetrieveParams,
     type RunListParams as RunListParams,
-    type RunTriggerParams as RunTriggerParams
+    type RunTriggerParams as RunTriggerParams,
   };
 }

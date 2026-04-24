@@ -60,8 +60,14 @@ export class Tools extends APIResource {
    * }
    * ```
    */
-  list(query: ToolListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ToolListResponsesDefaultFlatPagination, ToolListResponse> {
-    return this._client.getAPIList('/ai/tools', DefaultFlatPagination<ToolListResponse>, { query, ...options });
+  list(
+    query: ToolListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ToolListResponsesDefaultFlatPagination, ToolListResponse> {
+    return this._client.getAPIList('/ai/tools', DefaultFlatPagination<ToolListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -77,7 +83,7 @@ export class Tools extends APIResource {
   }
 }
 
-export type ToolListResponsesDefaultFlatPagination = DefaultFlatPagination<ToolListResponse>
+export type ToolListResponsesDefaultFlatPagination = DefaultFlatPagination<ToolListResponse>;
 
 export interface ToolCreateResponse {
   id: string;
@@ -135,7 +141,7 @@ export interface ToolListResponse {
   timeout_ms?: number;
 }
 
-export type ToolDeleteResponse = unknown
+export type ToolDeleteResponse = unknown;
 
 export interface ToolCreateParams {
   display_name: string;
@@ -154,7 +160,7 @@ export interface ToolCreateParams {
 
   webhook?: { [key: string]: unknown };
 
-[k: string]: unknown
+  [k: string]: unknown;
 }
 
 export interface ToolUpdateParams {
@@ -174,7 +180,7 @@ export interface ToolUpdateParams {
 
   webhook?: { [key: string]: unknown };
 
-[k: string]: unknown
+  [k: string]: unknown;
 }
 
 export interface ToolListParams extends DefaultFlatPaginationParams {
@@ -193,6 +199,6 @@ export declare namespace Tools {
     type ToolListResponsesDefaultFlatPagination as ToolListResponsesDefaultFlatPagination,
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,
-    type ToolListParams as ToolListParams
+    type ToolListParams as ToolListParams,
   };
 }

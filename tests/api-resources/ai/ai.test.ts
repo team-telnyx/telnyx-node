@@ -2,7 +2,10 @@
 
 import Telnyx from 'telnyx';
 
-const client = new Telnyx({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Telnyx({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource ai', () => {
   // Mock server tests are disabled
@@ -32,9 +35,9 @@ describe('resource ai', () => {
   // Mock server tests are disabled
   test.skip('summarize: required and optional params', async () => {
     const response = await client.ai.summarize({
-    bucket: 'bucket',
-    filename: 'filename',
-    system_prompt: 'system_prompt',
-  });
+      bucket: 'bucket',
+      filename: 'filename',
+      system_prompt: 'system_prompt',
+    });
   });
 });

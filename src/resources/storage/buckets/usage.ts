@@ -24,7 +24,11 @@ export class Usage extends APIResource {
    *   });
    * ```
    */
-  getAPIUsage(bucketName: string, query: UsageGetAPIUsageParams, options?: RequestOptions): APIPromise<UsageGetAPIUsageResponse> {
+  getAPIUsage(
+    bucketName: string,
+    query: UsageGetAPIUsageParams,
+    options?: RequestOptions,
+  ): APIPromise<UsageGetAPIUsageResponse> {
     return this._client.get(path`/storage/buckets/${bucketName}/usage/api`, { query, ...options });
   }
 
@@ -83,7 +87,17 @@ export namespace UsageGetAPIUsageResponse {
       /**
        * The category of the bucket operation
        */
-      category?: 'list_bucket' | 'list_buckets' | 'get-bucket_location' | 'create_bucket' | 'stat_bucket' | 'get_bucket_versioning' | 'set_bucket_versioning' | 'get_obj' | 'put_obj' | 'delete_obj';
+      category?:
+        | 'list_bucket'
+        | 'list_buckets'
+        | 'get-bucket_location'
+        | 'create_bucket'
+        | 'stat_bucket'
+        | 'get_bucket_versioning'
+        | 'set_bucket_versioning'
+        | 'get_obj'
+        | 'put_obj'
+        | 'delete_obj';
 
       /**
        * The number of operations
@@ -181,6 +195,6 @@ export declare namespace Usage {
     type PaginationMetaSimple as PaginationMetaSimple,
     type UsageGetAPIUsageResponse as UsageGetAPIUsageResponse,
     type UsageGetBucketUsageResponse as UsageGetBucketUsageResponse,
-    type UsageGetAPIUsageParams as UsageGetAPIUsageParams
+    type UsageGetAPIUsageParams as UsageGetAPIUsageParams,
   };
 }

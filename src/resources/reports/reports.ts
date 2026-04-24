@@ -2,9 +2,25 @@
 
 import { APIResource } from '../../core/resource';
 import * as CdrUsageReportsAPI from './cdr-usage-reports';
-import { CdrUsageReportFetchSyncParams, CdrUsageReportFetchSyncResponse, CdrUsageReports } from './cdr-usage-reports';
+import {
+  CdrUsageReportFetchSyncParams,
+  CdrUsageReportFetchSyncResponse,
+  CdrUsageReports,
+} from './cdr-usage-reports';
 import * as MdrUsageReportsAPI from './mdr-usage-reports';
-import { MdrUsageReport, MdrUsageReportCreateParams, MdrUsageReportCreateResponse, MdrUsageReportDeleteResponse, MdrUsageReportFetchSyncParams, MdrUsageReportFetchSyncResponse, MdrUsageReportListParams, MdrUsageReportRetrieveResponse, MdrUsageReports, MdrUsageReportsDefaultFlatPagination, PaginationMetaReporting } from './mdr-usage-reports';
+import {
+  MdrUsageReport,
+  MdrUsageReportCreateParams,
+  MdrUsageReportCreateResponse,
+  MdrUsageReportDeleteResponse,
+  MdrUsageReportFetchSyncParams,
+  MdrUsageReportFetchSyncResponse,
+  MdrUsageReportListParams,
+  MdrUsageReportRetrieveResponse,
+  MdrUsageReports,
+  MdrUsageReportsDefaultFlatPagination,
+  PaginationMetaReporting,
+} from './mdr-usage-reports';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -21,7 +37,10 @@ export class Reports extends APIResource {
    * const response = await client.reports.listMdrs();
    * ```
    */
-  listMdrs(query: ReportListMdrsParams | null | undefined = {}, options?: RequestOptions): APIPromise<ReportListMdrsResponse> {
+  listMdrs(
+    query: ReportListMdrsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ReportListMdrsResponse> {
     return this._client.get('/reports/mdrs', { query, ...options });
   }
 
@@ -36,12 +55,18 @@ export class Reports extends APIResource {
    * }
    * ```
    */
-  listWdrs(query: ReportListWdrsParams | null | undefined = {}, options?: RequestOptions): PagePromise<ReportListWdrsResponsesDefaultFlatPagination, ReportListWdrsResponse> {
-    return this._client.getAPIList('/reports/wdrs', DefaultFlatPagination<ReportListWdrsResponse>, { query, ...options });
+  listWdrs(
+    query: ReportListWdrsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ReportListWdrsResponsesDefaultFlatPagination, ReportListWdrsResponse> {
+    return this._client.getAPIList('/reports/wdrs', DefaultFlatPagination<ReportListWdrsResponse>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type ReportListWdrsResponsesDefaultFlatPagination = DefaultFlatPagination<ReportListWdrsResponse>
+export type ReportListWdrsResponsesDefaultFlatPagination = DefaultFlatPagination<ReportListWdrsResponse>;
 
 export interface ReportListMdrsResponse {
   data?: Array<ReportListMdrsResponse.Data>;
@@ -113,7 +138,14 @@ export namespace ReportListMdrsResponse {
     /**
      * Message status
      */
-    status?: 'GW_TIMEOUT' | 'DELIVERED' | 'DLR_UNCONFIRMED' | 'DLR_TIMEOUT' | 'RECEIVED' | 'GW_REJECT' | 'FAILED';
+    status?:
+      | 'GW_TIMEOUT'
+      | 'DELIVERED'
+      | 'DLR_UNCONFIRMED'
+      | 'DLR_TIMEOUT'
+      | 'RECEIVED'
+      | 'GW_REJECT'
+      | 'FAILED';
   }
 }
 
@@ -273,7 +305,14 @@ export interface ReportListMdrsParams {
   /**
    * Message status
    */
-  status?: 'GW_TIMEOUT' | 'DELIVERED' | 'DLR_UNCONFIRMED' | 'DLR_TIMEOUT' | 'RECEIVED' | 'GW_REJECT' | 'FAILED';
+  status?:
+    | 'GW_TIMEOUT'
+    | 'DELIVERED'
+    | 'DLR_UNCONFIRMED'
+    | 'DLR_TIMEOUT'
+    | 'RECEIVED'
+    | 'GW_REJECT'
+    | 'FAILED';
 }
 
 export interface ReportListWdrsParams extends DefaultFlatPaginationParams {
@@ -343,13 +382,13 @@ export declare namespace Reports {
     type ReportListWdrsResponse as ReportListWdrsResponse,
     type ReportListWdrsResponsesDefaultFlatPagination as ReportListWdrsResponsesDefaultFlatPagination,
     type ReportListMdrsParams as ReportListMdrsParams,
-    type ReportListWdrsParams as ReportListWdrsParams
+    type ReportListWdrsParams as ReportListWdrsParams,
   };
 
   export {
     CdrUsageReports as CdrUsageReports,
     type CdrUsageReportFetchSyncResponse as CdrUsageReportFetchSyncResponse,
-    type CdrUsageReportFetchSyncParams as CdrUsageReportFetchSyncParams
+    type CdrUsageReportFetchSyncParams as CdrUsageReportFetchSyncParams,
   };
 
   export {
@@ -363,6 +402,6 @@ export declare namespace Reports {
     type MdrUsageReportsDefaultFlatPagination as MdrUsageReportsDefaultFlatPagination,
     type MdrUsageReportCreateParams as MdrUsageReportCreateParams,
     type MdrUsageReportListParams as MdrUsageReportListParams,
-    type MdrUsageReportFetchSyncParams as MdrUsageReportFetchSyncParams
+    type MdrUsageReportFetchSyncParams as MdrUsageReportFetchSyncParams,
   };
 }
