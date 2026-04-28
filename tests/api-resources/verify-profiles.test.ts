@@ -31,20 +31,14 @@ describe('resource verifyProfiles', () => {
         messaging_template_id: '0abb5b4f-459f-445a-bfcd-488998b7572d',
         whitelisted_destinations: ['US', 'CA'],
       },
+      daily_spend_limit: 100,
+      daily_spend_limit_enabled: true,
       flashcall: {
         app_name: 'Example Secure App',
         default_verification_timeout_secs: 300,
         whitelisted_destinations: ['US', 'CA'],
       },
       language: 'en-US',
-      rcs: {
-        app_name: 'Example Secure App',
-        code_length: 6,
-        default_verification_timeout_secs: 300,
-        messaging_template_id: '0abb5b4f-459f-445a-bfcd-488998b7572d',
-        sms_fallback: true,
-        whitelisted_destinations: ['US', 'CA'],
-      },
       sms: {
         alpha_sender: 'sqF',
         app_name: 'Example Secure App',

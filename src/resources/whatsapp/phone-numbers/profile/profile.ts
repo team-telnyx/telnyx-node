@@ -70,6 +70,8 @@ export interface WhatsappProfileData {
    */
   phone_number_id?: string;
 
+  profile_id?: string;
+
   profile_photo_url?: string;
 
   record_type?: string;
@@ -99,6 +101,11 @@ export interface ProfileUpdateParams {
   display_name?: string;
 
   email?: string;
+
+  /**
+   * Messaging profile ID for inbound messages
+   */
+  profile_id?: string;
 
   website?: string;
 }

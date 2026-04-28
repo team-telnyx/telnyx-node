@@ -2071,6 +2071,11 @@ export interface MessageSendWhatsappParams {
   whatsapp_message: WhatsappMessageContent;
 
   /**
+   * Messaging profile ID - required if the 'from' number is not SMS-enabled
+   */
+  messaging_profile_id?: string;
+
+  /**
    * Message type - must be set to "WHATSAPP"
    */
   type?: 'WHATSAPP';

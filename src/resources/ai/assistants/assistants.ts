@@ -833,6 +833,10 @@ export interface InferenceEmbedding {
 
   enabled_features?: Array<EnabledFeatures>;
 
+  external_llm?: InferenceEmbedding.ExternalLlm;
+
+  fallback_config?: InferenceEmbedding.FallbackConfig;
+
   /**
    * Text that the assistant will use to start the conversation. This may be
    * templated with
@@ -891,6 +895,107 @@ export interface InferenceEmbedding {
 }
 
 export namespace InferenceEmbedding {
+  export interface ExternalLlm {
+    /**
+     * Base URL for the external LLM endpoint.
+     */
+    base_url: string;
+
+    /**
+     * Model identifier to use with the external LLM endpoint.
+     */
+    model: string;
+
+    /**
+     * Authentication method used when connecting to the external LLM endpoint.
+     */
+    authentication_method?: 'token' | 'certificate';
+
+    /**
+     * Integration secret identifier for the client certificate used with certificate
+     * authentication.
+     */
+    certificate_ref?: string;
+
+    /**
+     * When enabled, Telnyx forwards the assistant's dynamic variables to the external
+     * LLM endpoint. Defaults to false. The chat completion request includes a
+     * top-level `extra_metadata` object when dynamic variables are available. For
+     * example:
+     * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+     */
+    forward_metadata?: boolean;
+
+    /**
+     * Integration secret identifier for the external LLM API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * URL used to retrieve an access token when certificate authentication is enabled.
+     */
+    token_retrieval_url?: string;
+  }
+
+  export interface FallbackConfig {
+    external_llm?: FallbackConfig.ExternalLlm;
+
+    /**
+     * Integration secret identifier for the fallback model API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * Fallback Telnyx-hosted model to use when the primary LLM provider is
+     * unavailable.
+     */
+    model?: string;
+  }
+
+  export namespace FallbackConfig {
+    export interface ExternalLlm {
+      /**
+       * Base URL for the external LLM endpoint.
+       */
+      base_url: string;
+
+      /**
+       * Model identifier to use with the external LLM endpoint.
+       */
+      model: string;
+
+      /**
+       * Authentication method used when connecting to the external LLM endpoint.
+       */
+      authentication_method?: 'token' | 'certificate';
+
+      /**
+       * Integration secret identifier for the client certificate used with certificate
+       * authentication.
+       */
+      certificate_ref?: string;
+
+      /**
+       * When enabled, Telnyx forwards the assistant's dynamic variables to the external
+       * LLM endpoint. Defaults to false. The chat completion request includes a
+       * top-level `extra_metadata` object when dynamic variables are available. For
+       * example:
+       * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+       */
+      forward_metadata?: boolean;
+
+      /**
+       * Integration secret identifier for the external LLM API key.
+       */
+      llm_api_key_ref?: string;
+
+      /**
+       * URL used to retrieve an access token when certificate authentication is enabled.
+       */
+      token_retrieval_url?: string;
+    }
+  }
+
   /**
    * Configuration for post-conversation processing. When enabled, the assistant
    * receives one additional LLM turn after the conversation ends, allowing it to
@@ -1314,30 +1419,45 @@ export namespace TelephonySettings {
 
 export interface TranscriptionSettings {
   /**
-   * The language of the audio to be transcribed. If not set, of if set to `auto`,
-   * the model will automatically detect the language.
+   * Integration secret identifier for the transcription provider API key. Currently
+   * used for Azure transcription regions that require a customer-provided API key.
+   */
+  api_key_ref?: string;
+
+  /**
+   * The language of the audio to be transcribed. If not set, or if set to `auto`,
+   * supported models will automatically detect the language. For `deepgram/flux`,
+   * supported values are: `auto` (Telnyx language detection controls the language
+   * hint), `multi` (no language hint), and language-specific hints `en`, `es`, `fr`,
+   * `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`.
    */
   language?: string;
 
   /**
-   * The speech to text model to be used by the voice assistant. All the deepgram
-   * models are run on-premise.
+   * The speech to text model to be used by the voice assistant. All Deepgram models
+   * are run on-premise.
    *
-   * - `deepgram/flux` is optimized for turn-taking but is English-only.
-   * - `deepgram/nova-3` is multi-lingual with automatic language detection but
-   *   slightly higher latency.
+   * - `deepgram/flux` is optimized for turn-taking with multilingual language hints.
+   * - `deepgram/nova-3` is multilingual with automatic language detection.
+   * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
+   * - `azure/fast` is a multilingual Azure transcription model.
+   * - `assemblyai/universal-streaming` is a multilingual streaming model with
+   *   configurable turn detection.
+   * - `xai/grok-stt` is a multilingual Grok STT model.
    */
   model?:
     | 'deepgram/flux'
     | 'deepgram/nova-3'
     | 'deepgram/nova-2'
     | 'azure/fast'
+    | 'assemblyai/universal-streaming'
+    | 'xai/grok-stt'
     | 'distil-whisper/distil-large-v2'
     | 'openai/whisper-large-v3-turbo';
 
   /**
    * Region on third party cloud providers (currently Azure) if using one of their
-   * models
+   * models. Some regions require `api_key_ref`.
    */
   region?: string;
 
@@ -1351,6 +1471,13 @@ export interface TranscriptionSettingsConfig {
    * eot_threshold effectively disables eager end of turn.
    */
   eager_eot_threshold?: number;
+
+  /**
+   * Available only for assemblyai/universal-streaming. Confidence level required to
+   * trigger an end of turn. Higher values require more certainty before ending a
+   * turn.
+   */
+  end_of_turn_confidence_threshold?: number;
 
   /**
    * Available only for deepgram/flux. Confidence required to trigger an end of turn.
@@ -1370,6 +1497,19 @@ export interface TranscriptionSettingsConfig {
    * for domain-specific terminology, proper nouns, or uncommon words.
    */
   keyterm?: string;
+
+  /**
+   * Available only for assemblyai/universal-streaming. Maximum duration of silence
+   * in milliseconds before forcing an end of turn.
+   */
+  max_turn_silence?: number;
+
+  /**
+   * Available only for assemblyai/universal-streaming. Minimum duration of silence
+   * in milliseconds before a turn can end. Must be less than or equal to
+   * max_turn_silence.
+   */
+  min_turn_silence?: number;
 
   numerals?: boolean;
 
@@ -1833,6 +1973,10 @@ export interface AssistantCreateParams {
 
   enabled_features?: Array<EnabledFeatures>;
 
+  external_llm?: AssistantCreateParams.ExternalLlm;
+
+  fallback_config?: AssistantCreateParams.FallbackConfig;
+
   /**
    * Text that the assistant will use to start the conversation. This may be
    * templated with
@@ -1891,6 +2035,107 @@ export interface AssistantCreateParams {
 }
 
 export namespace AssistantCreateParams {
+  export interface ExternalLlm {
+    /**
+     * Base URL for the external LLM endpoint.
+     */
+    base_url: string;
+
+    /**
+     * Model identifier to use with the external LLM endpoint.
+     */
+    model: string;
+
+    /**
+     * Authentication method used when connecting to the external LLM endpoint.
+     */
+    authentication_method?: 'token' | 'certificate';
+
+    /**
+     * Integration secret identifier for the client certificate used with certificate
+     * authentication.
+     */
+    certificate_ref?: string;
+
+    /**
+     * When enabled, Telnyx forwards the assistant's dynamic variables to the external
+     * LLM endpoint. Defaults to false. The chat completion request includes a
+     * top-level `extra_metadata` object when dynamic variables are available. For
+     * example:
+     * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+     */
+    forward_metadata?: boolean;
+
+    /**
+     * Integration secret identifier for the external LLM API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * URL used to retrieve an access token when certificate authentication is enabled.
+     */
+    token_retrieval_url?: string;
+  }
+
+  export interface FallbackConfig {
+    external_llm?: FallbackConfig.ExternalLlm;
+
+    /**
+     * Integration secret identifier for the fallback model API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * Fallback Telnyx-hosted model to use when the primary LLM provider is
+     * unavailable.
+     */
+    model?: string;
+  }
+
+  export namespace FallbackConfig {
+    export interface ExternalLlm {
+      /**
+       * Base URL for the external LLM endpoint.
+       */
+      base_url: string;
+
+      /**
+       * Model identifier to use with the external LLM endpoint.
+       */
+      model: string;
+
+      /**
+       * Authentication method used when connecting to the external LLM endpoint.
+       */
+      authentication_method?: 'token' | 'certificate';
+
+      /**
+       * Integration secret identifier for the client certificate used with certificate
+       * authentication.
+       */
+      certificate_ref?: string;
+
+      /**
+       * When enabled, Telnyx forwards the assistant's dynamic variables to the external
+       * LLM endpoint. Defaults to false. The chat completion request includes a
+       * top-level `extra_metadata` object when dynamic variables are available. For
+       * example:
+       * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+       */
+      forward_metadata?: boolean;
+
+      /**
+       * Integration secret identifier for the external LLM API key.
+       */
+      llm_api_key_ref?: string;
+
+      /**
+       * URL used to retrieve an access token when certificate authentication is enabled.
+       */
+      token_retrieval_url?: string;
+    }
+  }
+
   /**
    * Configuration for post-conversation processing. When enabled, the assistant
    * receives one additional LLM turn after the conversation ends, allowing it to
@@ -1936,6 +2181,10 @@ export interface AssistantUpdateParams {
   dynamic_variables_webhook_url?: string;
 
   enabled_features?: Array<EnabledFeatures>;
+
+  external_llm?: AssistantUpdateParams.ExternalLlm;
+
+  fallback_config?: AssistantUpdateParams.FallbackConfig;
 
   /**
    * Text that the assistant will use to start the conversation. This may be
@@ -2016,6 +2265,107 @@ export interface AssistantUpdateParams {
 }
 
 export namespace AssistantUpdateParams {
+  export interface ExternalLlm {
+    /**
+     * Base URL for the external LLM endpoint.
+     */
+    base_url: string;
+
+    /**
+     * Model identifier to use with the external LLM endpoint.
+     */
+    model: string;
+
+    /**
+     * Authentication method used when connecting to the external LLM endpoint.
+     */
+    authentication_method?: 'token' | 'certificate';
+
+    /**
+     * Integration secret identifier for the client certificate used with certificate
+     * authentication.
+     */
+    certificate_ref?: string;
+
+    /**
+     * When enabled, Telnyx forwards the assistant's dynamic variables to the external
+     * LLM endpoint. Defaults to false. The chat completion request includes a
+     * top-level `extra_metadata` object when dynamic variables are available. For
+     * example:
+     * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+     */
+    forward_metadata?: boolean;
+
+    /**
+     * Integration secret identifier for the external LLM API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * URL used to retrieve an access token when certificate authentication is enabled.
+     */
+    token_retrieval_url?: string;
+  }
+
+  export interface FallbackConfig {
+    external_llm?: FallbackConfig.ExternalLlm;
+
+    /**
+     * Integration secret identifier for the fallback model API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * Fallback Telnyx-hosted model to use when the primary LLM provider is
+     * unavailable.
+     */
+    model?: string;
+  }
+
+  export namespace FallbackConfig {
+    export interface ExternalLlm {
+      /**
+       * Base URL for the external LLM endpoint.
+       */
+      base_url: string;
+
+      /**
+       * Model identifier to use with the external LLM endpoint.
+       */
+      model: string;
+
+      /**
+       * Authentication method used when connecting to the external LLM endpoint.
+       */
+      authentication_method?: 'token' | 'certificate';
+
+      /**
+       * Integration secret identifier for the client certificate used with certificate
+       * authentication.
+       */
+      certificate_ref?: string;
+
+      /**
+       * When enabled, Telnyx forwards the assistant's dynamic variables to the external
+       * LLM endpoint. Defaults to false. The chat completion request includes a
+       * top-level `extra_metadata` object when dynamic variables are available. For
+       * example:
+       * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+       */
+      forward_metadata?: boolean;
+
+      /**
+       * Integration secret identifier for the external LLM API key.
+       */
+      llm_api_key_ref?: string;
+
+      /**
+       * URL used to retrieve an access token when certificate authentication is enabled.
+       */
+      token_retrieval_url?: string;
+    }
+  }
+
   /**
    * Configuration for post-conversation processing. When enabled, the assistant
    * receives one additional LLM turn after the conversation ends, allowing it to
