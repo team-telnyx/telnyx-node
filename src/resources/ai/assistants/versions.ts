@@ -134,6 +134,10 @@ export interface UpdateAssistant {
 
   enabled_features?: Array<AssistantsAPI.EnabledFeatures>;
 
+  external_llm?: UpdateAssistant.ExternalLlm;
+
+  fallback_config?: UpdateAssistant.FallbackConfig;
+
   /**
    * Text that the assistant will use to start the conversation. This may be
    * templated with
@@ -207,6 +211,107 @@ export interface UpdateAssistant {
 }
 
 export namespace UpdateAssistant {
+  export interface ExternalLlm {
+    /**
+     * Base URL for the external LLM endpoint.
+     */
+    base_url: string;
+
+    /**
+     * Model identifier to use with the external LLM endpoint.
+     */
+    model: string;
+
+    /**
+     * Authentication method used when connecting to the external LLM endpoint.
+     */
+    authentication_method?: 'token' | 'certificate';
+
+    /**
+     * Integration secret identifier for the client certificate used with certificate
+     * authentication.
+     */
+    certificate_ref?: string;
+
+    /**
+     * When enabled, Telnyx forwards the assistant's dynamic variables to the external
+     * LLM endpoint. Defaults to false. The chat completion request includes a
+     * top-level `extra_metadata` object when dynamic variables are available. For
+     * example:
+     * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+     */
+    forward_metadata?: boolean;
+
+    /**
+     * Integration secret identifier for the external LLM API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * URL used to retrieve an access token when certificate authentication is enabled.
+     */
+    token_retrieval_url?: string;
+  }
+
+  export interface FallbackConfig {
+    external_llm?: FallbackConfig.ExternalLlm;
+
+    /**
+     * Integration secret identifier for the fallback model API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * Fallback Telnyx-hosted model to use when the primary LLM provider is
+     * unavailable.
+     */
+    model?: string;
+  }
+
+  export namespace FallbackConfig {
+    export interface ExternalLlm {
+      /**
+       * Base URL for the external LLM endpoint.
+       */
+      base_url: string;
+
+      /**
+       * Model identifier to use with the external LLM endpoint.
+       */
+      model: string;
+
+      /**
+       * Authentication method used when connecting to the external LLM endpoint.
+       */
+      authentication_method?: 'token' | 'certificate';
+
+      /**
+       * Integration secret identifier for the client certificate used with certificate
+       * authentication.
+       */
+      certificate_ref?: string;
+
+      /**
+       * When enabled, Telnyx forwards the assistant's dynamic variables to the external
+       * LLM endpoint. Defaults to false. The chat completion request includes a
+       * top-level `extra_metadata` object when dynamic variables are available. For
+       * example:
+       * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+       */
+      forward_metadata?: boolean;
+
+      /**
+       * Integration secret identifier for the external LLM API key.
+       */
+      llm_api_key_ref?: string;
+
+      /**
+       * URL used to retrieve an access token when certificate authentication is enabled.
+       */
+      token_retrieval_url?: string;
+    }
+  }
+
   /**
    * Configuration for post-conversation processing. When enabled, the assistant
    * receives one additional LLM turn after the conversation ends, allowing it to
@@ -265,6 +370,16 @@ export interface VersionUpdateParams {
    * Body param
    */
   enabled_features?: Array<AssistantsAPI.EnabledFeatures>;
+
+  /**
+   * Body param
+   */
+  external_llm?: VersionUpdateParams.ExternalLlm;
+
+  /**
+   * Body param
+   */
+  fallback_config?: VersionUpdateParams.FallbackConfig;
 
   /**
    * Body param: Text that the assistant will use to start the conversation. This may
@@ -366,6 +481,107 @@ export interface VersionUpdateParams {
 }
 
 export namespace VersionUpdateParams {
+  export interface ExternalLlm {
+    /**
+     * Base URL for the external LLM endpoint.
+     */
+    base_url: string;
+
+    /**
+     * Model identifier to use with the external LLM endpoint.
+     */
+    model: string;
+
+    /**
+     * Authentication method used when connecting to the external LLM endpoint.
+     */
+    authentication_method?: 'token' | 'certificate';
+
+    /**
+     * Integration secret identifier for the client certificate used with certificate
+     * authentication.
+     */
+    certificate_ref?: string;
+
+    /**
+     * When enabled, Telnyx forwards the assistant's dynamic variables to the external
+     * LLM endpoint. Defaults to false. The chat completion request includes a
+     * top-level `extra_metadata` object when dynamic variables are available. For
+     * example:
+     * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+     */
+    forward_metadata?: boolean;
+
+    /**
+     * Integration secret identifier for the external LLM API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * URL used to retrieve an access token when certificate authentication is enabled.
+     */
+    token_retrieval_url?: string;
+  }
+
+  export interface FallbackConfig {
+    external_llm?: FallbackConfig.ExternalLlm;
+
+    /**
+     * Integration secret identifier for the fallback model API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * Fallback Telnyx-hosted model to use when the primary LLM provider is
+     * unavailable.
+     */
+    model?: string;
+  }
+
+  export namespace FallbackConfig {
+    export interface ExternalLlm {
+      /**
+       * Base URL for the external LLM endpoint.
+       */
+      base_url: string;
+
+      /**
+       * Model identifier to use with the external LLM endpoint.
+       */
+      model: string;
+
+      /**
+       * Authentication method used when connecting to the external LLM endpoint.
+       */
+      authentication_method?: 'token' | 'certificate';
+
+      /**
+       * Integration secret identifier for the client certificate used with certificate
+       * authentication.
+       */
+      certificate_ref?: string;
+
+      /**
+       * When enabled, Telnyx forwards the assistant's dynamic variables to the external
+       * LLM endpoint. Defaults to false. The chat completion request includes a
+       * top-level `extra_metadata` object when dynamic variables are available. For
+       * example:
+       * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+       */
+      forward_metadata?: boolean;
+
+      /**
+       * Integration secret identifier for the external LLM API key.
+       */
+      llm_api_key_ref?: string;
+
+      /**
+       * URL used to retrieve an access token when certificate authentication is enabled.
+       */
+      token_retrieval_url?: string;
+    }
+  }
+
   /**
    * Configuration for post-conversation processing. When enabled, the assistant
    * receives one additional LLM turn after the conversation ends, allowing it to

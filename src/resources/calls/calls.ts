@@ -188,12 +188,12 @@ export interface CallAssistantRequest {
   /**
    * External LLM configuration for bringing your own LLM endpoint.
    */
-  external_llm?: { [key: string]: unknown };
+  external_llm?: CallAssistantRequest.ExternalLlm;
 
   /**
    * Fallback LLM configuration used when the primary LLM provider is unavailable.
    */
-  fallback_config?: { [key: string]: unknown };
+  fallback_config?: CallAssistantRequest.FallbackConfig;
 
   /**
    * Initial greeting text spoken when the assistant starts. Can be plain text for
@@ -258,6 +258,125 @@ export interface CallAssistantRequest {
     | AssistantsAPI.TransferTool
     | Shared.CallControlRetrievalTool
   >;
+}
+
+export namespace CallAssistantRequest {
+  /**
+   * External LLM configuration for bringing your own LLM endpoint.
+   */
+  export interface ExternalLlm {
+    /**
+     * Authentication method used when connecting to the external LLM endpoint.
+     */
+    authentication_method?: 'token' | 'certificate';
+
+    /**
+     * Base URL for the external LLM endpoint.
+     */
+    base_url?: string;
+
+    /**
+     * Integration secret identifier for the client certificate used with certificate
+     * authentication.
+     */
+    certificate_ref?: string;
+
+    /**
+     * When enabled, Telnyx forwards the assistant's dynamic variables to the external
+     * LLM endpoint. Defaults to false. The chat completion request includes a
+     * top-level `extra_metadata` object when dynamic variables are available. For
+     * example:
+     * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+     */
+    forward_metadata?: boolean;
+
+    /**
+     * Integration secret identifier for the external LLM API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * Model identifier to use with the external LLM endpoint.
+     */
+    model?: string;
+
+    /**
+     * URL used to retrieve an access token when certificate authentication is enabled.
+     */
+    token_retrieval_url?: string;
+
+    [k: string]: unknown;
+  }
+
+  /**
+   * Fallback LLM configuration used when the primary LLM provider is unavailable.
+   */
+  export interface FallbackConfig {
+    /**
+     * External LLM fallback configuration.
+     */
+    external_llm?: FallbackConfig.ExternalLlm;
+
+    /**
+     * Integration secret identifier for the fallback model API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * Fallback Telnyx-hosted model to use when the primary LLM provider is
+     * unavailable.
+     */
+    model?: string;
+
+    [k: string]: unknown;
+  }
+
+  export namespace FallbackConfig {
+    /**
+     * External LLM fallback configuration.
+     */
+    export interface ExternalLlm {
+      /**
+       * Authentication method used when connecting to the external LLM endpoint.
+       */
+      authentication_method?: 'token' | 'certificate';
+
+      /**
+       * Base URL for the external LLM endpoint.
+       */
+      base_url?: string;
+
+      /**
+       * Integration secret identifier for the client certificate used with certificate
+       * authentication.
+       */
+      certificate_ref?: string;
+
+      /**
+       * When enabled, Telnyx forwards the assistant's dynamic variables to the external
+       * LLM endpoint. Defaults to false. The chat completion request includes a
+       * top-level `extra_metadata` object when dynamic variables are available. For
+       * example:
+       * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+       */
+      forward_metadata?: boolean;
+
+      /**
+       * Integration secret identifier for the external LLM API key.
+       */
+      llm_api_key_ref?: string;
+
+      /**
+       * Model identifier to use with the external LLM endpoint.
+       */
+      model?: string;
+
+      /**
+       * URL used to retrieve an access token when certificate authentication is enabled.
+       */
+      token_retrieval_url?: string;
+    }
+  }
 }
 
 export interface CustomSipHeader {

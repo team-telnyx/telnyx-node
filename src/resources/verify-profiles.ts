@@ -162,13 +162,21 @@ export interface VerifyProfile {
 
   created_at?: string;
 
+  /**
+   * The maximum daily spend allowed on this verify profile, in USD.
+   */
+  daily_spend_limit?: number;
+
+  /**
+   * Whether the daily spend limit is enforced for this verify profile.
+   */
+  daily_spend_limit_enabled?: boolean;
+
   flashcall?: VerifyProfile.Flashcall;
 
   language?: string;
 
   name?: string;
-
-  rcs?: VerifyProfile.Rcs;
 
   /**
    * The possible verification profile record types.
@@ -238,48 +246,6 @@ export namespace VerifyProfile {
      * identity.
      */
     default_verification_timeout_secs?: number;
-
-    [k: string]: unknown;
-  }
-
-  export interface Rcs {
-    /**
-     * The name that identifies the application requesting 2fa in the verification
-     * message.
-     */
-    app_name?: string;
-
-    /**
-     * The length of the verify code to generate.
-     */
-    code_length?: number;
-
-    /**
-     * For every request that is initiated via this Verify profile, this sets the
-     * number of seconds before a verification request code expires. Once the
-     * verification request expires, the user cannot use the code to verify their
-     * identity.
-     */
-    default_verification_timeout_secs?: number;
-
-    /**
-     * The message template identifier selected from /verify_profiles/templates
-     */
-    messaging_template_id?: string;
-
-    /**
-     * Enable SMS fallback when RCS delivery fails.
-     */
-    sms_fallback?: boolean;
-
-    /**
-     * Enabled country destinations to send verification codes. The elements in the
-     * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed. **Conditionally required:** this field must be
-     * provided when your organization is configured to require explicit whitelisted
-     * destinations; otherwise it is optional.
-     */
-    whitelisted_destinations?: Array<string>;
 
     [k: string]: unknown;
   }
@@ -402,11 +368,19 @@ export interface VerifyProfileCreateParams {
 
   call?: VerifyProfileCreateParams.Call;
 
+  /**
+   * The maximum daily spend allowed on this verify profile, in USD.
+   */
+  daily_spend_limit?: number;
+
+  /**
+   * Whether the daily spend limit is enforced for this verify profile.
+   */
+  daily_spend_limit_enabled?: boolean;
+
   flashcall?: VerifyProfileCreateParams.Flashcall;
 
   language?: string;
-
-  rcs?: VerifyProfileCreateParams.Rcs;
 
   sms?: VerifyProfileCreateParams.SMS;
 
@@ -469,48 +443,6 @@ export namespace VerifyProfileCreateParams {
      * identity.
      */
     default_verification_timeout_secs?: number;
-
-    /**
-     * Enabled country destinations to send verification codes. The elements in the
-     * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed. **Conditionally required:** this field must be
-     * provided when your organization is configured to require explicit whitelisted
-     * destinations; otherwise it is optional.
-     */
-    whitelisted_destinations?: Array<string>;
-
-    [k: string]: unknown;
-  }
-
-  export interface Rcs {
-    /**
-     * The name that identifies the application requesting 2fa in the verification
-     * message.
-     */
-    app_name?: string;
-
-    /**
-     * The length of the verify code to generate.
-     */
-    code_length?: number;
-
-    /**
-     * For every request that is initiated via this Verify profile, this sets the
-     * number of seconds before a verification request code expires. Once the
-     * verification request expires, the user cannot use the code to verify their
-     * identity.
-     */
-    default_verification_timeout_secs?: number;
-
-    /**
-     * The message template identifier selected from /verify_profiles/templates
-     */
-    messaging_template_id?: string;
-
-    /**
-     * Enable SMS fallback when RCS delivery fails.
-     */
-    sms_fallback?: boolean;
 
     /**
      * Enabled country destinations to send verification codes. The elements in the
@@ -607,13 +539,19 @@ export namespace VerifyProfileCreateParams {
 export interface VerifyProfileUpdateParams {
   call?: VerifyProfileUpdateParams.Call;
 
-  flashcall?: VerifyProfileUpdateParams.Flashcall;
+  /**
+   * The maximum daily spend allowed on this verify profile, in USD.
+   */
+  daily_spend_limit?: number;
+
+  /**
+   * Whether the daily spend limit is enforced for this verify profile.
+   */
+  daily_spend_limit_enabled?: boolean;
 
   language?: string;
 
   name?: string;
-
-  rcs?: VerifyProfileUpdateParams.Rcs;
 
   sms?: VerifyProfileUpdateParams.SMS;
 
@@ -649,75 +587,6 @@ export namespace VerifyProfileUpdateParams {
      * The message template identifier selected from /verify_profiles/templates
      */
     messaging_template_id?: string;
-
-    /**
-     * Enabled country destinations to send verification codes. The elements in the
-     * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed. **Conditionally required:** this field must be
-     * provided when your organization is configured to require explicit whitelisted
-     * destinations; otherwise it is optional.
-     */
-    whitelisted_destinations?: Array<string>;
-
-    [k: string]: unknown;
-  }
-
-  export interface Flashcall {
-    /**
-     * The name that identifies the application requesting 2fa in the verification
-     * message.
-     */
-    app_name?: string;
-
-    /**
-     * For every request that is initiated via this Verify profile, this sets the
-     * number of seconds before a verification request code expires. Once the
-     * verification request expires, the user cannot use the code to verify their
-     * identity.
-     */
-    default_verification_timeout_secs?: number;
-
-    /**
-     * Enabled country destinations to send verification codes. The elements in the
-     * list must be valid ISO 3166-1 alpha-2 country codes. If set to `["*"]`, all
-     * destinations will be allowed. **Conditionally required:** this field must be
-     * provided when your organization is configured to require explicit whitelisted
-     * destinations; otherwise it is optional.
-     */
-    whitelisted_destinations?: Array<string>;
-
-    [k: string]: unknown;
-  }
-
-  export interface Rcs {
-    /**
-     * The name that identifies the application requesting 2fa in the verification
-     * message.
-     */
-    app_name?: string;
-
-    /**
-     * The length of the verify code to generate.
-     */
-    code_length?: number;
-
-    /**
-     * For every request that is initiated via this Verify profile, this sets the
-     * number of seconds before a verification request code expires. Once the
-     * verification request expires, the user cannot use the code to verify their
-     * identity.
-     */
-    default_verification_timeout_secs?: number;
-
-    /**
-     * The message template identifier selected from /verify_profiles/templates
-     */
-    messaging_template_id?: string;
-
-    /**
-     * Enable SMS fallback when RCS delivery fails.
-     */
-    sms_fallback?: boolean;
 
     /**
      * Enabled country destinations to send verification codes. The elements in the
