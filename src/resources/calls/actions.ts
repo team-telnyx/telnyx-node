@@ -1659,12 +1659,14 @@ export interface TranscriptionStartRequest {
    * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
    * `Telnyx` are supported for backward compatibility.
    */
-  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'A' | 'B';
+  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'xAI' | 'AssemblyAI' | 'A' | 'B';
 
   transcription_engine_config?:
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
     | TranscriptionEngineAzureConfig
+    | TranscriptionStartRequest.TranscriptionEngineXaiConfig
+    | TranscriptionStartRequest.TranscriptionEngineAssemblyaiConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -1676,6 +1678,74 @@ export interface TranscriptionStartRequest {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace TranscriptionStartRequest {
+  export interface TranscriptionEngineXaiConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Language to use for speech recognition
+     */
+    language?:
+      | 'ar'
+      | 'cs'
+      | 'da'
+      | 'de'
+      | 'en'
+      | 'es'
+      | 'fa'
+      | 'fil'
+      | 'fr'
+      | 'hi'
+      | 'id'
+      | 'it'
+      | 'ja'
+      | 'ko'
+      | 'mk'
+      | 'ms'
+      | 'nl'
+      | 'pl'
+      | 'pt'
+      | 'ro'
+      | 'ru'
+      | 'sv'
+      | 'th'
+      | 'tr'
+      | 'vi';
+
+    /**
+     * Engine identifier for xAI transcription service
+     */
+    transcription_engine?: 'xAI';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'xai/grok-stt';
+  }
+
+  export interface TranscriptionEngineAssemblyaiConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Engine identifier for AssemblyAI transcription service
+     */
+    transcription_engine?: 'AssemblyAI';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'assemblyai/universal-streaming';
+  }
 }
 
 export interface ActionAddAIAssistantMessagesResponse {
@@ -4234,12 +4304,14 @@ export interface ActionStartTranscriptionParams {
    * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
    * `Telnyx` are supported for backward compatibility.
    */
-  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'A' | 'B';
+  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'xAI' | 'AssemblyAI' | 'A' | 'B';
 
   transcription_engine_config?:
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
     | TranscriptionEngineAzureConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineXaiConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineAssemblyaiConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4251,6 +4323,74 @@ export interface ActionStartTranscriptionParams {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace ActionStartTranscriptionParams {
+  export interface TranscriptionEngineXaiConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Language to use for speech recognition
+     */
+    language?:
+      | 'ar'
+      | 'cs'
+      | 'da'
+      | 'de'
+      | 'en'
+      | 'es'
+      | 'fa'
+      | 'fil'
+      | 'fr'
+      | 'hi'
+      | 'id'
+      | 'it'
+      | 'ja'
+      | 'ko'
+      | 'mk'
+      | 'ms'
+      | 'nl'
+      | 'pl'
+      | 'pt'
+      | 'ro'
+      | 'ru'
+      | 'sv'
+      | 'th'
+      | 'tr'
+      | 'vi';
+
+    /**
+     * Engine identifier for xAI transcription service
+     */
+    transcription_engine?: 'xAI';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'xai/grok-stt';
+  }
+
+  export interface TranscriptionEngineAssemblyaiConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Engine identifier for AssemblyAI transcription service
+     */
+    transcription_engine?: 'AssemblyAI';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'assemblyai/universal-streaming';
+  }
 }
 
 export interface ActionStopAIAssistantParams {
