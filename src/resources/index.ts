@@ -1096,17 +1096,6 @@ export {
   type ShortCodeListParams,
 } from './short-codes';
 export {
-  SpeechToText,
-  SpeechToTextWS,
-  WebSocketError as SpeechToTextWebSocketError,
-  type SpeechToTextTranscribeParams,
-  type SpeechToTextStreamParams,
-  type SttClientEvent,
-  type SttServerEvent,
-  type TranscriptFrame,
-  type SttErrorFrame,
-} from './speech-to-text';
-export {
   SimCardDataUsageNotifications,
   type SimCardDataUsageNotification,
   type SimCardDataUsageNotificationCreateResponse,
@@ -1230,13 +1219,13 @@ export {
 } from './texml-applications';
 export {
   TextToSpeech,
-  TextToSpeechWS,
   type TextToSpeechGenerateResponse,
   type TextToSpeechListVoicesResponse,
   type StreamClientEvent,
   type StreamServerEvent,
   type TextToSpeechGenerateParams,
   type TextToSpeechListVoicesParams,
+  type TextToSpeechStreamParams,
 } from './text-to-speech';
 export {
   TrafficPolicyProfiles,
@@ -1428,12 +1417,15 @@ export {
   type CallConversationEndedWebhookEvent,
   type CallConversationInsightsGeneratedWebhookEvent,
   type CallCostWebhookEvent,
+  type CallDeepfakeDetectionErrorWebhookEvent,
+  type CallDeepfakeDetectionResultWebhookEvent,
   type CallDtmfReceivedWebhookEvent,
   type CallEnqueuedWebhookEvent,
   type CallForkStartedWebhookEvent,
   type CallForkStoppedWebhookEvent,
   type CallGatherEndedWebhookEvent,
   type CallHangupWebhookEvent,
+  type CallHoldWebhookEvent,
   type CallInitiatedWebhookEvent,
   type CallLeftQueueWebhookEvent,
   type CallMachineDetectionEndedWebhookEvent,
@@ -1456,6 +1448,7 @@ export {
   type CallStreamingFailedWebhookEvent,
   type CallStreamingStartedWebhookEvent,
   type CallStreamingStoppedWebhookEvent,
+  type CallUnholdWebhookEvent,
   type ConferenceCreatedWebhookEvent,
   type ConferenceEndedWebhookEvent,
   type ConferenceParticipantJoinedWebhookEvent,
@@ -1470,6 +1463,7 @@ export {
   type ConferenceSpeakEndedWebhookEvent,
   type ConferenceSpeakStartedWebhookEvent,
   type DeliveryUpdateWebhookEvent,
+  type HostedNumberOrderEventWebhookEvent,
   type InboundMessageWebhookEvent,
   type ReplacedLinkClickWebhookEvent,
   type TranscriptionWebhookEvent,

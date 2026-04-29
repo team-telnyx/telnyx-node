@@ -983,6 +983,8 @@ import {
   CallConversationInsightsGenerated,
   CallConversationInsightsGeneratedWebhookEvent,
   CallCostWebhookEvent,
+  CallDeepfakeDetectionErrorWebhookEvent,
+  CallDeepfakeDetectionResultWebhookEvent,
   CallDtmfReceived,
   CallDtmfReceivedWebhookEvent,
   CallEnqueued,
@@ -995,6 +997,7 @@ import {
   CallGatherEndedWebhookEvent,
   CallHangup,
   CallHangupWebhookEvent,
+  CallHoldWebhookEvent,
   CallInitiated,
   CallInitiatedWebhookEvent,
   CallLeftQueue,
@@ -1039,6 +1042,7 @@ import {
   CallStreamingStartedWebhookEvent,
   CallStreamingStopped,
   CallStreamingStoppedWebhookEvent,
+  CallUnholdWebhookEvent,
   CampaignStatusUpdate,
   ConferenceCreated,
   ConferenceCreatedWebhookEvent,
@@ -1073,6 +1077,7 @@ import {
   FaxMediaProcessed,
   FaxQueued,
   FaxSendingStarted,
+  HostedNumberOrderEventWebhookEvent,
   InboundMessage,
   InboundMessageWebhookEvent,
   NumberOrderStatusUpdate,
@@ -1722,6 +1727,18 @@ export class Telnyx {
     this.maxRetries = options.maxRetries ?? 2;
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
     this.#encoder = Opts.FallbackEncoder;
+
+    const customHeadersEnv = readEnv('TELNYX_CUSTOM_HEADERS');
+    if (customHeadersEnv) {
+      const parsed: BuiltinRecord<string, string> = {};
+      for (const line of customHeadersEnv.split('\n')) {
+        const colon = line.indexOf(':');
+        if (colon >= 0) {
+          parsed[line.substring(0, colon).trim()] = line.substring(colon + 1).trim();
+        }
+      }
+      options.defaultHeaders = { ...parsed, ...options.defaultHeaders };
+    }
 
     this._options = options;
 
@@ -3250,12 +3267,15 @@ export declare namespace Telnyx {
     type CallConversationEndedWebhookEvent as CallConversationEndedWebhookEvent,
     type CallConversationInsightsGeneratedWebhookEvent as CallConversationInsightsGeneratedWebhookEvent,
     type CallCostWebhookEvent as CallCostWebhookEvent,
+    type CallDeepfakeDetectionErrorWebhookEvent as CallDeepfakeDetectionErrorWebhookEvent,
+    type CallDeepfakeDetectionResultWebhookEvent as CallDeepfakeDetectionResultWebhookEvent,
     type CallDtmfReceivedWebhookEvent as CallDtmfReceivedWebhookEvent,
     type CallEnqueuedWebhookEvent as CallEnqueuedWebhookEvent,
     type CallForkStartedWebhookEvent as CallForkStartedWebhookEvent,
     type CallForkStoppedWebhookEvent as CallForkStoppedWebhookEvent,
     type CallGatherEndedWebhookEvent as CallGatherEndedWebhookEvent,
     type CallHangupWebhookEvent as CallHangupWebhookEvent,
+    type CallHoldWebhookEvent as CallHoldWebhookEvent,
     type CallInitiatedWebhookEvent as CallInitiatedWebhookEvent,
     type CallLeftQueueWebhookEvent as CallLeftQueueWebhookEvent,
     type CallMachineDetectionEndedWebhookEvent as CallMachineDetectionEndedWebhookEvent,
@@ -3278,6 +3298,7 @@ export declare namespace Telnyx {
     type CallStreamingFailedWebhookEvent as CallStreamingFailedWebhookEvent,
     type CallStreamingStartedWebhookEvent as CallStreamingStartedWebhookEvent,
     type CallStreamingStoppedWebhookEvent as CallStreamingStoppedWebhookEvent,
+    type CallUnholdWebhookEvent as CallUnholdWebhookEvent,
     type ConferenceCreatedWebhookEvent as ConferenceCreatedWebhookEvent,
     type ConferenceEndedWebhookEvent as ConferenceEndedWebhookEvent,
     type ConferenceParticipantJoinedWebhookEvent as ConferenceParticipantJoinedWebhookEvent,
@@ -3292,6 +3313,7 @@ export declare namespace Telnyx {
     type ConferenceSpeakEndedWebhookEvent as ConferenceSpeakEndedWebhookEvent,
     type ConferenceSpeakStartedWebhookEvent as ConferenceSpeakStartedWebhookEvent,
     type DeliveryUpdateWebhookEvent as DeliveryUpdateWebhookEvent,
+    type HostedNumberOrderEventWebhookEvent as HostedNumberOrderEventWebhookEvent,
     type InboundMessageWebhookEvent as InboundMessageWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type TranscriptionWebhookEvent as TranscriptionWebhookEvent,

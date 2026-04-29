@@ -30,4 +30,9 @@ export {
   type InsightListParams,
   type InsightTemplatesDefaultFlatPagination,
 } from './insights';
-export { Messages, type MessageListResponse } from './messages';
+export {
+  Messages,
+  type MessageListResponse,
+  type MessageListParams,
+  type MessageListResponsesDefaultFlatPagination,
+} from './messages';

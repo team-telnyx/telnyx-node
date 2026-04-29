@@ -12,7 +12,12 @@ import {
   Insights,
 } from './insights';
 import * as MessagesAPI from './messages';
-import { MessageListResponse, Messages } from './messages';
+import {
+  MessageListParams,
+  MessageListResponse,
+  MessageListResponsesDefaultFlatPagination,
+  Messages,
+} from './messages';
 import * as InsightGroupsAPI from './insight-groups/insight-groups';
 import {
   InsightGroupInsightGroupsParams,
@@ -383,5 +388,10 @@ export declare namespace Conversations {
     type InsightListParams as InsightListParams,
   };
 
-  export { Messages as Messages, type MessageListResponse as MessageListResponse };
+  export {
+    Messages as Messages,
+    type MessageListResponse as MessageListResponse,
+    type MessageListResponsesDefaultFlatPagination as MessageListResponsesDefaultFlatPagination,
+    type MessageListParams as MessageListParams,
+  };
 }

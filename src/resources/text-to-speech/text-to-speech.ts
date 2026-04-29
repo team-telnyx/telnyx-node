@@ -23,7 +23,7 @@ export class TextToSpeech extends APIResource {
    * with provider-specific parameters.
    *
    * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`,
-   * `resemble`, `inworld`.
+   * `resemble`, `xai`.
    *
    * The Telnyx `Ultra` model supports 44 languages with emotion control, speed
    * adjustment, and volume control. Use the `telnyx` provider-specific parameters to
@@ -281,7 +281,7 @@ export interface TextToSpeechGenerateParams {
   /**
    * TTS provider. Required unless `voice` is provided.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'inworld';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'inworld' | 'xai';
 
   /**
    * Resemble AI provider-specific parameters.
@@ -325,6 +325,11 @@ export interface TextToSpeechGenerateParams {
    * provider-specific parameter objects below.
    */
   voice_settings?: { [key: string]: unknown };
+
+  /**
+   * xAI provider-specific parameters.
+   */
+  xai?: TextToSpeechGenerateParams.Xai;
 }
 
 export namespace TextToSpeechGenerateParams {
@@ -535,6 +540,31 @@ export namespace TextToSpeechGenerateParams {
      */
     volume?: number;
   }
+
+  /**
+   * xAI provider-specific parameters.
+   */
+  export interface Xai {
+    /**
+     * xAI voice identifier.
+     */
+    voice_id: 'eve' | 'ara' | 'rex' | 'sal' | 'leo';
+
+    /**
+     * Language code, or `auto` to detect.
+     */
+    language?: string;
+
+    /**
+     * Audio output format.
+     */
+    output_format?: 'mp3' | 'wav' | 'pcm' | 'mulaw' | 'alaw';
+
+    /**
+     * Audio sample rate in Hz.
+     */
+    sample_rate?: 8000 | 16000 | 22050 | 24000 | 44100 | 48000;
+  }
 }
 
 export interface TextToSpeechListVoicesParams {
@@ -546,7 +576,7 @@ export interface TextToSpeechListVoicesParams {
   /**
    * Filter voices by provider. If omitted, voices from all providers are returned.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'inworld';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'inworld' | 'xai';
 }
 
 export declare namespace TextToSpeech {

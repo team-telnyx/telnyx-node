@@ -736,6 +736,24 @@ export namespace CallCallsParams {
     CustomHeaders?: Array<WithURL.CustomHeader>;
 
     /**
+     * Enables Deepfake Detection on the dialed call. When enabled, audio from the
+     * remote party is analyzed to determine whether the voice is AI-generated. Results
+     * are delivered asynchronously via a callback.
+     */
+    DeepfakeDetection?: 'Enable';
+
+    /**
+     * HTTP request type used for `DeepfakeDetectionCallbackUrl`.
+     */
+    DeepfakeDetectionCallbackMethod?: 'GET' | 'POST';
+
+    /**
+     * URL destination for Telnyx to send deepfake detection callback events to for the
+     * call.
+     */
+    DeepfakeDetectionCallbackUrl?: string;
+
+    /**
      * Allows you to chose between Premium and Standard detections.
      */
     DetectionMode?: 'Premium' | 'Regular';
@@ -986,6 +1004,24 @@ export namespace CallCallsParams {
     CustomHeaders?: Array<WithTeXml.CustomHeader>;
 
     /**
+     * Enables Deepfake Detection on the dialed call. When enabled, audio from the
+     * remote party is analyzed to determine whether the voice is AI-generated. Results
+     * are delivered asynchronously via a callback.
+     */
+    DeepfakeDetection?: 'Enable';
+
+    /**
+     * HTTP request type used for `DeepfakeDetectionCallbackUrl`.
+     */
+    DeepfakeDetectionCallbackMethod?: 'GET' | 'POST';
+
+    /**
+     * URL destination for Telnyx to send deepfake detection callback events to for the
+     * call.
+     */
+    DeepfakeDetectionCallbackUrl?: string;
+
+    /**
      * Allows you to chose between Premium and Standard detections.
      */
     DetectionMode?: 'Premium' | 'Regular';
@@ -1228,6 +1264,24 @@ export namespace CallCallsParams {
      * with 'name' and 'value' properties.
      */
     CustomHeaders?: Array<ApplicationDefault.CustomHeader>;
+
+    /**
+     * Enables Deepfake Detection on the dialed call. When enabled, audio from the
+     * remote party is analyzed to determine whether the voice is AI-generated. Results
+     * are delivered asynchronously via a callback.
+     */
+    DeepfakeDetection?: 'Enable';
+
+    /**
+     * HTTP request type used for `DeepfakeDetectionCallbackUrl`.
+     */
+    DeepfakeDetectionCallbackMethod?: 'GET' | 'POST';
+
+    /**
+     * URL destination for Telnyx to send deepfake detection callback events to for the
+     * call.
+     */
+    DeepfakeDetectionCallbackUrl?: string;
 
     /**
      * Allows you to chose between Premium and Standard detections.

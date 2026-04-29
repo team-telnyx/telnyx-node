@@ -46,8 +46,28 @@ describe('resource calls', () => {
       assistant: {
         id: 'id',
         dynamic_variables: { customer_name: 'John', account_id: 'ACC-12345' },
-        external_llm: { foo: 'bar' },
-        fallback_config: { foo: 'bar' },
+        external_llm: {
+          authentication_method: 'token',
+          base_url: 'base_url',
+          certificate_ref: 'certificate_ref',
+          forward_metadata: true,
+          llm_api_key_ref: 'llm_api_key_ref',
+          model: 'model',
+          token_retrieval_url: 'token_retrieval_url',
+        },
+        fallback_config: {
+          external_llm: {
+            authentication_method: 'token',
+            base_url: 'base_url',
+            certificate_ref: 'certificate_ref',
+            forward_metadata: true,
+            llm_api_key_ref: 'llm_api_key_ref',
+            model: 'model',
+            token_retrieval_url: 'token_retrieval_url',
+          },
+          llm_api_key_ref: 'llm_api_key_ref',
+          model: 'model',
+        },
         greeting: 'greeting',
         instructions: 'You are a friendly voice assistant.',
         llm_api_key_ref: 'my_llm_api_key',
@@ -97,6 +117,11 @@ describe('resource calls', () => {
         { name: 'head_1', value: 'val_1' },
         { name: 'head_2', value: 'val_2' },
       ],
+      deepfake_detection: {
+        enabled: true,
+        rtp_timeout: 30,
+        timeout: 15,
+      },
       dialogflow_config: { analyze_sentiment: false, partial_automated_agent_reply: false },
       enable_dialogflow: false,
       from_display_name: 'Company Name',
@@ -160,8 +185,14 @@ describe('resource calls', () => {
         },
         transcription_tracks: 'both',
       },
+      webhook_retries_policies: { 'call.hangup': { retries_ms: [1000, 2000, 5000] } },
       webhook_url: 'https://www.example.com/server-b/',
       webhook_url_method: 'POST',
+      webhook_urls: {
+        'call.hangup': 'https://www.example.com/webhooks/hangup',
+        'call.bridge': 'https://www.example.com/webhooks/bridge',
+      },
+      webhook_urls_method: 'POST',
     });
   });
 

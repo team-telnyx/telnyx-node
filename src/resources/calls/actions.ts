@@ -41,6 +41,10 @@ export class Actions extends APIResource {
    * **Expected Webhooks:**
    *
    * - `call.answered`
+   * - `call.hold` and `call.unhold` if the call is held/unheld
+   * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
+   * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an
+   *   error occurred
    * - `streaming.started`, `streaming.stopped` or `streaming.failed` if `stream_url`
    *   was set
    *
@@ -1655,12 +1659,14 @@ export interface TranscriptionStartRequest {
    * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
    * `Telnyx` are supported for backward compatibility.
    */
-  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'A' | 'B';
+  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'xAI' | 'AssemblyAI' | 'A' | 'B';
 
   transcription_engine_config?:
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
     | TranscriptionEngineAzureConfig
+    | TranscriptionStartRequest.TranscriptionEngineXaiConfig
+    | TranscriptionStartRequest.TranscriptionEngineAssemblyaiConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -1672,6 +1678,74 @@ export interface TranscriptionStartRequest {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace TranscriptionStartRequest {
+  export interface TranscriptionEngineXaiConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Language to use for speech recognition
+     */
+    language?:
+      | 'ar'
+      | 'cs'
+      | 'da'
+      | 'de'
+      | 'en'
+      | 'es'
+      | 'fa'
+      | 'fil'
+      | 'fr'
+      | 'hi'
+      | 'id'
+      | 'it'
+      | 'ja'
+      | 'ko'
+      | 'mk'
+      | 'ms'
+      | 'nl'
+      | 'pl'
+      | 'pt'
+      | 'ro'
+      | 'ru'
+      | 'sv'
+      | 'th'
+      | 'tr'
+      | 'vi';
+
+    /**
+     * Engine identifier for xAI transcription service
+     */
+    transcription_engine?: 'xAI';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'xai/grok-stt';
+  }
+
+  export interface TranscriptionEngineAssemblyaiConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Engine identifier for AssemblyAI transcription service
+     */
+    transcription_engine?: 'AssemblyAI';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'assemblyai/universal-streaming';
+  }
 }
 
 export interface ActionAddAIAssistantMessagesResponse {
@@ -2040,6 +2114,14 @@ export interface ActionAnswerParams {
   custom_headers?: Array<CallsAPI.CustomSipHeader>;
 
   /**
+   * Enables deepfake detection on the call. When enabled, audio from the remote
+   * party is streamed to a detection service that analyzes whether the voice is
+   * AI-generated. Results are delivered via the `call.deepfake_detection.result`
+   * webhook.
+   */
+  deepfake_detection?: ActionAnswerParams.DeepfakeDetection;
+
+  /**
    * The list of comma-separated codecs in a preferred order for the forked media to
    * be received.
    */
@@ -2183,6 +2265,30 @@ export interface ActionAnswerParams {
 }
 
 export namespace ActionAnswerParams {
+  /**
+   * Enables deepfake detection on the call. When enabled, audio from the remote
+   * party is streamed to a detection service that analyzes whether the voice is
+   * AI-generated. Results are delivered via the `call.deepfake_detection.result`
+   * webhook.
+   */
+  export interface DeepfakeDetection {
+    /**
+     * Whether deepfake detection is enabled.
+     */
+    enabled: boolean;
+
+    /**
+     * Maximum time in seconds to wait for RTP audio before timing out. If no audio is
+     * received within this window, detection stops with an error.
+     */
+    rtp_timeout?: number;
+
+    /**
+     * Maximum time in seconds to wait for a detection result before timing out.
+     */
+    timeout?: number;
+  }
+
   export interface WebhookRetriesPolicies {
     /**
      * Array of delays in milliseconds between retry attempts. Total sum cannot exceed
@@ -4198,12 +4304,14 @@ export interface ActionStartTranscriptionParams {
    * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
    * `Telnyx` are supported for backward compatibility.
    */
-  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'A' | 'B';
+  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'xAI' | 'AssemblyAI' | 'A' | 'B';
 
   transcription_engine_config?:
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
     | TranscriptionEngineAzureConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineXaiConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineAssemblyaiConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4215,6 +4323,74 @@ export interface ActionStartTranscriptionParams {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace ActionStartTranscriptionParams {
+  export interface TranscriptionEngineXaiConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Language to use for speech recognition
+     */
+    language?:
+      | 'ar'
+      | 'cs'
+      | 'da'
+      | 'de'
+      | 'en'
+      | 'es'
+      | 'fa'
+      | 'fil'
+      | 'fr'
+      | 'hi'
+      | 'id'
+      | 'it'
+      | 'ja'
+      | 'ko'
+      | 'mk'
+      | 'ms'
+      | 'nl'
+      | 'pl'
+      | 'pt'
+      | 'ro'
+      | 'ru'
+      | 'sv'
+      | 'th'
+      | 'tr'
+      | 'vi';
+
+    /**
+     * Engine identifier for xAI transcription service
+     */
+    transcription_engine?: 'xAI';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'xai/grok-stt';
+  }
+
+  export interface TranscriptionEngineAssemblyaiConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Engine identifier for AssemblyAI transcription service
+     */
+    transcription_engine?: 'AssemblyAI';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'assemblyai/universal-streaming';
+  }
 }
 
 export interface ActionStopAIAssistantParams {
@@ -4404,7 +4580,9 @@ export interface ActionTransferParams {
 
   /**
    * Optional configuration parameters to modify 'answering_machine_detection'
-   * performance.
+   * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
+   * parameters are applicable when `premium` is selected as
+   * answering_machine_detection.
    */
   answering_machine_detection_config?: ActionTransferParams.AnsweringMachineDetectionConfig;
 
@@ -4634,7 +4812,9 @@ export interface ActionTransferParams {
 export namespace ActionTransferParams {
   /**
    * Optional configuration parameters to modify 'answering_machine_detection'
-   * performance.
+   * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
+   * parameters are applicable when `premium` is selected as
+   * answering_machine_detection.
    */
   export interface AnsweringMachineDetectionConfig {
     /**
