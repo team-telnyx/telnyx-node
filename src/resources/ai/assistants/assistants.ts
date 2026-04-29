@@ -88,7 +88,6 @@ export class Assistants extends APIResource {
    * const inferenceEmbedding =
    *   await client.ai.assistants.create({
    *     instructions: 'instructions',
-   *     model: 'model',
    *     name: 'name',
    *   });
    * ```
@@ -808,9 +807,11 @@ export interface InferenceEmbedding {
   instructions: string;
 
   /**
-   * ID of the model to use. You can use the
+   * ID of the model to use when `external_llm` is not set. You can use the
    * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
-   * to see all of your available models,
+   * to see available models. If `external_llm` is provided, the assistant uses
+   * `external_llm` instead of this field. If neither `model` nor `external_llm` is
+   * provided, Telnyx applies the default model.
    */
   model: string;
 
@@ -824,10 +825,22 @@ export interface InferenceEmbedding {
   dynamic_variables?: { [key: string]: unknown };
 
   /**
-   * If the dynamic_variables_webhook_url is set for the assistant, we will send a
-   * request at the start of the conversation. See our
-   * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   * for more information.
+   * Timeout in milliseconds for the dynamic variables webhook. Must be between 1 and
+   * 10000 ms. If the webhook does not respond within this timeout, the call proceeds
+   * with default values. See the
+   * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+   */
+  dynamic_variables_webhook_timeout_ms?: number;
+
+  /**
+   * If `dynamic_variables_webhook_url` is set, Telnyx sends a POST request to this
+   * URL at the start of the conversation to resolve dynamic variables. **Gotcha:**
+   * the webhook response must wrap variables under a top-level `dynamic_variables`
+   * object, e.g. `{"dynamic_variables": {"customer_name": "Jane"}}`. Returning a
+   * flat object will be ignored and variables will fall back to their defaults. See
+   * the
+   * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+   * for the full request/response format and timeout behavior.
    */
   dynamic_variables_webhook_url?: string;
 
@@ -852,13 +865,38 @@ export interface InferenceEmbedding {
   insight_settings?: InsightSettings;
 
   /**
-   * This is only needed when using third-party inference providers. The `identifier`
-   * for an integration secret
+   * Connected integrations attached to the assistant. The catalog of available
+   * integrations is at `/ai/integrations`; the user's connected integrations are at
+   * `/ai/integrations/connections`. Each item references a catalog integration by
+   * `integration_id`.
+   */
+  integrations?: Array<InferenceEmbedding.Integration>;
+
+  /**
+   * Settings for interruptions and how the assistant decides the user has finished
+   * speaking. These timings are most relevant when using non turn-taking
+   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
+   * behavior is controlled by the transcription end-of-turn settings under
+   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * `eager_eot_threshold`).
+   */
+  interruption_settings?: InferenceEmbedding.InterruptionSettings;
+
+  /**
+   * This is only needed when using third-party inference providers selected by
+   * `model`. The `identifier` for an integration secret
    * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
-   * that refers to your LLM provider's API key. Warning: Free plans are unlikely to
-   * work with this integration.
+   * that refers to your LLM provider's API key. For bring-your-own endpoint
+   * authentication, use `external_llm.llm_api_key_ref` instead. Warning: Free plans
+   * are unlikely to work with this integration.
    */
   llm_api_key_ref?: string;
+
+  /**
+   * MCP servers attached to the assistant. Create MCP servers with
+   * `/ai/mcp_servers`, then reference them by `id` here.
+   */
+  mcp_servers?: Array<InferenceEmbedding.McpServer>;
 
   messaging_settings?: MessagingSettings;
 
@@ -876,15 +914,43 @@ export interface InferenceEmbedding {
 
   privacy_settings?: PrivacySettings;
 
+  /**
+   * IDs of missions related to this assistant.
+   */
+  related_mission_ids?: Array<string>;
+
+  /**
+   * Tags associated with the assistant. Tags can also be managed with the assistant
+   * tag endpoints.
+   */
+  tags?: Array<string>;
+
   telephony_settings?: TelephonySettings;
 
   /**
-   * The tools that the assistant can use. These may be templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+   * Deprecated for new integrations. Inline tool definitions available to the
+   * assistant. Prefer `tool_ids` to attach shared tools created with the AI Tools
+   * endpoints.
    */
   tools?: Array<AssistantTool>;
 
   transcription?: TranscriptionSettings;
+
+  /**
+   * Timestamp when this assistant version was created.
+   */
+  version_created_at?: string;
+
+  /**
+   * Identifier for the assistant version returned by version-aware assistant
+   * endpoints.
+   */
+  version_id?: string;
+
+  /**
+   * Human-readable name for the assistant version.
+   */
+  version_name?: string;
 
   voice_settings?: VoiceSettings;
 
@@ -918,11 +984,13 @@ export namespace InferenceEmbedding {
     certificate_ref?: string;
 
     /**
-     * When enabled, Telnyx forwards the assistant's dynamic variables to the external
-     * LLM endpoint. Defaults to false. The chat completion request includes a
-     * top-level `extra_metadata` object when dynamic variables are available. For
-     * example:
-     * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+     * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+     * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+     * request body. Defaults to `false`. Example payload sent to the external
+     * endpoint:
+     * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+     * Distinct from OpenAI's native `metadata` field, which has its own size and type
+     * limits.
      */
     forward_metadata?: boolean;
 
@@ -976,11 +1044,13 @@ export namespace InferenceEmbedding {
       certificate_ref?: string;
 
       /**
-       * When enabled, Telnyx forwards the assistant's dynamic variables to the external
-       * LLM endpoint. Defaults to false. The chat completion request includes a
-       * top-level `extra_metadata` object when dynamic variables are available. For
-       * example:
-       * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+       * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+       * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+       * request body. Defaults to `false`. Example payload sent to the external
+       * endpoint:
+       * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+       * Distinct from OpenAI's native `metadata` field, which has its own size and type
+       * limits.
        */
       forward_metadata?: boolean;
 
@@ -994,6 +1064,118 @@ export namespace InferenceEmbedding {
        */
       token_retrieval_url?: string;
     }
+  }
+
+  /**
+   * Reference to a connected integration attached to an assistant. Discover
+   * available integrations with `/ai/integrations` and connected integrations with
+   * `/ai/integrations/connections`.
+   */
+  export interface Integration {
+    /**
+     * Catalog integration ID to attach. This is the `id` from the integrations catalog
+     * at `/ai/integrations` (the same value also appears as `integration_id` on
+     * entries returned by `/ai/integrations/connections`). It is **not** the
+     * connection-level `id` from `/ai/integrations/connections`.
+     */
+    integration_id: string;
+
+    /**
+     * Optional per-assistant allowlist of integration tool names. When omitted or
+     * empty, all tools allowed by the connected integration are available to the
+     * assistant.
+     */
+    allowed_list?: Array<string>;
+  }
+
+  /**
+   * Settings for interruptions and how the assistant decides the user has finished
+   * speaking. These timings are most relevant when using non turn-taking
+   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
+   * behavior is controlled by the transcription end-of-turn settings under
+   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * `eager_eot_threshold`).
+   */
+  export interface InterruptionSettings {
+    /**
+     * Whether users can interrupt the assistant while it is speaking.
+     */
+    enable?: boolean;
+
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    start_speaking_plan?: InterruptionSettings.StartSpeakingPlan;
+  }
+
+  export namespace InterruptionSettings {
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    export interface StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      transcription_endpointing_plan?: StartSpeakingPlan.TranscriptionEndpointingPlan;
+
+      /**
+       * Minimum seconds to wait before the assistant starts speaking.
+       */
+      wait_seconds?: number;
+    }
+
+    export namespace StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      export interface TranscriptionEndpointingPlan {
+        /**
+         * Seconds to wait after the transcript ends without punctuation.
+         */
+        on_no_punctuation_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with a number.
+         */
+        on_number_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with punctuation.
+         */
+        on_punctuation_seconds?: number;
+      }
+    }
+  }
+
+  /**
+   * Reference to an MCP server attached to an assistant. Create and manage MCP
+   * servers with the `/ai/mcp_servers` endpoints, then attach them to assistants by
+   * ID.
+   */
+  export interface McpServer {
+    /**
+     * ID of the MCP server to attach. This must be the `id` of an MCP server returned
+     * by the `/ai/mcp_servers` endpoints.
+     */
+    id: string;
+
+    /**
+     * Optional per-assistant allowlist of MCP tool names. When omitted, the assistant
+     * uses the MCP server's configured `allowed_tools`.
+     */
+    allowed_tools?: Array<string>;
   }
 
   /**
@@ -1947,13 +2129,6 @@ export interface AssistantCreateParams {
    */
   instructions: string;
 
-  /**
-   * ID of the model to use. You can use the
-   * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
-   * to see all of your available models,
-   */
-  model: string;
-
   name: string;
 
   description?: string;
@@ -1964,10 +2139,22 @@ export interface AssistantCreateParams {
   dynamic_variables?: { [key: string]: unknown };
 
   /**
-   * If the dynamic_variables_webhook_url is set for the assistant, we will send a
-   * request at the start of the conversation. See our
-   * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   * for more information.
+   * Timeout in milliseconds for the dynamic variables webhook. Must be between 1 and
+   * 10000 ms. If the webhook does not respond within this timeout, the call proceeds
+   * with default values. See the
+   * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+   */
+  dynamic_variables_webhook_timeout_ms?: number;
+
+  /**
+   * If `dynamic_variables_webhook_url` is set, Telnyx sends a POST request to this
+   * URL at the start of the conversation to resolve dynamic variables. **Gotcha:**
+   * the webhook response must wrap variables under a top-level `dynamic_variables`
+   * object, e.g. `{"dynamic_variables": {"customer_name": "Jane"}}`. Returning a
+   * flat object will be ignored and variables will fall back to their defaults. See
+   * the
+   * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+   * for the full request/response format and timeout behavior.
    */
   dynamic_variables_webhook_url?: string;
 
@@ -1990,15 +2177,49 @@ export interface AssistantCreateParams {
   insight_settings?: InsightSettings;
 
   /**
-   * This is only needed when using third-party inference providers. The `identifier`
-   * for an integration secret
+   * Connected integrations attached to the assistant. The catalog of available
+   * integrations is at `/ai/integrations`; the user's connected integrations are at
+   * `/ai/integrations/connections`. Each item references a catalog integration by
+   * `integration_id`.
+   */
+  integrations?: Array<AssistantCreateParams.Integration>;
+
+  /**
+   * Settings for interruptions and how the assistant decides the user has finished
+   * speaking. These timings are most relevant when using non turn-taking
+   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
+   * behavior is controlled by the transcription end-of-turn settings under
+   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * `eager_eot_threshold`).
+   */
+  interruption_settings?: AssistantCreateParams.InterruptionSettings;
+
+  /**
+   * This is only needed when using third-party inference providers selected by
+   * `model`. The `identifier` for an integration secret
    * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
-   * that refers to your LLM provider's API key. Warning: Free plans are unlikely to
-   * work with this integration.
+   * that refers to your LLM provider's API key. For bring-your-own endpoint
+   * authentication, use `external_llm.llm_api_key_ref` instead. Warning: Free plans
+   * are unlikely to work with this integration.
    */
   llm_api_key_ref?: string;
 
+  /**
+   * MCP servers attached to the assistant. Create MCP servers with
+   * `/ai/mcp_servers`, then reference them by `id` here.
+   */
+  mcp_servers?: Array<AssistantCreateParams.McpServer>;
+
   messaging_settings?: MessagingSettings;
+
+  /**
+   * ID of the model to use when `external_llm` is not set. You can use the
+   * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
+   * to see available models. If `external_llm` is provided, the assistant uses
+   * `external_llm` instead of this field. If neither `model` nor `external_llm` is
+   * provided, Telnyx applies the default model.
+   */
+  model?: string;
 
   observability_settings?: ObservabilityReq;
 
@@ -2014,13 +2235,24 @@ export interface AssistantCreateParams {
 
   privacy_settings?: PrivacySettings;
 
+  /**
+   * Tags associated with the assistant. Tags can also be managed with the assistant
+   * tag endpoints.
+   */
+  tags?: Array<string>;
+
   telephony_settings?: TelephonySettings;
 
+  /**
+   * IDs of shared tools to attach to the assistant. New integrations should prefer
+   * `tool_ids` over inline `tools`.
+   */
   tool_ids?: Array<string>;
 
   /**
-   * The tools that the assistant can use. These may be templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+   * Deprecated for new integrations. Inline tool definitions available to the
+   * assistant. Prefer `tool_ids` to attach shared tools created with the AI Tools
+   * endpoints.
    */
   tools?: Array<AssistantTool>;
 
@@ -2058,11 +2290,13 @@ export namespace AssistantCreateParams {
     certificate_ref?: string;
 
     /**
-     * When enabled, Telnyx forwards the assistant's dynamic variables to the external
-     * LLM endpoint. Defaults to false. The chat completion request includes a
-     * top-level `extra_metadata` object when dynamic variables are available. For
-     * example:
-     * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+     * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+     * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+     * request body. Defaults to `false`. Example payload sent to the external
+     * endpoint:
+     * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+     * Distinct from OpenAI's native `metadata` field, which has its own size and type
+     * limits.
      */
     forward_metadata?: boolean;
 
@@ -2116,11 +2350,13 @@ export namespace AssistantCreateParams {
       certificate_ref?: string;
 
       /**
-       * When enabled, Telnyx forwards the assistant's dynamic variables to the external
-       * LLM endpoint. Defaults to false. The chat completion request includes a
-       * top-level `extra_metadata` object when dynamic variables are available. For
-       * example:
-       * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+       * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+       * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+       * request body. Defaults to `false`. Example payload sent to the external
+       * endpoint:
+       * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+       * Distinct from OpenAI's native `metadata` field, which has its own size and type
+       * limits.
        */
       forward_metadata?: boolean;
 
@@ -2134,6 +2370,118 @@ export namespace AssistantCreateParams {
        */
       token_retrieval_url?: string;
     }
+  }
+
+  /**
+   * Reference to a connected integration attached to an assistant. Discover
+   * available integrations with `/ai/integrations` and connected integrations with
+   * `/ai/integrations/connections`.
+   */
+  export interface Integration {
+    /**
+     * Catalog integration ID to attach. This is the `id` from the integrations catalog
+     * at `/ai/integrations` (the same value also appears as `integration_id` on
+     * entries returned by `/ai/integrations/connections`). It is **not** the
+     * connection-level `id` from `/ai/integrations/connections`.
+     */
+    integration_id: string;
+
+    /**
+     * Optional per-assistant allowlist of integration tool names. When omitted or
+     * empty, all tools allowed by the connected integration are available to the
+     * assistant.
+     */
+    allowed_list?: Array<string>;
+  }
+
+  /**
+   * Settings for interruptions and how the assistant decides the user has finished
+   * speaking. These timings are most relevant when using non turn-taking
+   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
+   * behavior is controlled by the transcription end-of-turn settings under
+   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * `eager_eot_threshold`).
+   */
+  export interface InterruptionSettings {
+    /**
+     * Whether users can interrupt the assistant while it is speaking.
+     */
+    enable?: boolean;
+
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    start_speaking_plan?: InterruptionSettings.StartSpeakingPlan;
+  }
+
+  export namespace InterruptionSettings {
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    export interface StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      transcription_endpointing_plan?: StartSpeakingPlan.TranscriptionEndpointingPlan;
+
+      /**
+       * Minimum seconds to wait before the assistant starts speaking.
+       */
+      wait_seconds?: number;
+    }
+
+    export namespace StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      export interface TranscriptionEndpointingPlan {
+        /**
+         * Seconds to wait after the transcript ends without punctuation.
+         */
+        on_no_punctuation_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with a number.
+         */
+        on_number_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with punctuation.
+         */
+        on_punctuation_seconds?: number;
+      }
+    }
+  }
+
+  /**
+   * Reference to an MCP server attached to an assistant. Create and manage MCP
+   * servers with the `/ai/mcp_servers` endpoints, then attach them to assistants by
+   * ID.
+   */
+  export interface McpServer {
+    /**
+     * ID of the MCP server to attach. This must be the `id` of an MCP server returned
+     * by the `/ai/mcp_servers` endpoints.
+     */
+    id: string;
+
+    /**
+     * Optional per-assistant allowlist of MCP tool names. When omitted, the assistant
+     * uses the MCP server's configured `allowed_tools`.
+     */
+    allowed_tools?: Array<string>;
   }
 
   /**
@@ -2173,10 +2521,22 @@ export interface AssistantUpdateParams {
   dynamic_variables?: { [key: string]: unknown };
 
   /**
-   * If the dynamic_variables_webhook_url is set for the assistant, we will send a
-   * request at the start of the conversation. See our
-   * [guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
-   * for more information.
+   * Timeout in milliseconds for the dynamic variables webhook. Must be between 1 and
+   * 10000 ms. If the webhook does not respond within this timeout, the call proceeds
+   * with default values. See the
+   * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
+   */
+  dynamic_variables_webhook_timeout_ms?: number;
+
+  /**
+   * If `dynamic_variables_webhook_url` is set, Telnyx sends a POST request to this
+   * URL at the start of the conversation to resolve dynamic variables. **Gotcha:**
+   * the webhook response must wrap variables under a top-level `dynamic_variables`
+   * object, e.g. `{"dynamic_variables": {"customer_name": "Jane"}}`. Returning a
+   * flat object will be ignored and variables will fall back to their defaults. See
+   * the
+   * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+   * for the full request/response format and timeout behavior.
    */
   dynamic_variables_webhook_url?: string;
 
@@ -2205,20 +2565,47 @@ export interface AssistantUpdateParams {
   instructions?: string;
 
   /**
-   * This is only needed when using third-party inference providers. The `identifier`
-   * for an integration secret
+   * Connected integrations attached to the assistant. The catalog of available
+   * integrations is at `/ai/integrations`; the user's connected integrations are at
+   * `/ai/integrations/connections`. Each item references a catalog integration by
+   * `integration_id`.
+   */
+  integrations?: Array<AssistantUpdateParams.Integration>;
+
+  /**
+   * Settings for interruptions and how the assistant decides the user has finished
+   * speaking. These timings are most relevant when using non turn-taking
+   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
+   * behavior is controlled by the transcription end-of-turn settings under
+   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * `eager_eot_threshold`).
+   */
+  interruption_settings?: AssistantUpdateParams.InterruptionSettings;
+
+  /**
+   * This is only needed when using third-party inference providers selected by
+   * `model`. The `identifier` for an integration secret
    * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
-   * that refers to your LLM provider's API key. Warning: Free plans are unlikely to
-   * work with this integration.
+   * that refers to your LLM provider's API key. For bring-your-own endpoint
+   * authentication, use `external_llm.llm_api_key_ref` instead. Warning: Free plans
+   * are unlikely to work with this integration.
    */
   llm_api_key_ref?: string;
+
+  /**
+   * MCP servers attached to the assistant. Create MCP servers with
+   * `/ai/mcp_servers`, then reference them by `id` here.
+   */
+  mcp_servers?: Array<AssistantUpdateParams.McpServer>;
 
   messaging_settings?: MessagingSettings;
 
   /**
-   * ID of the model to use. You can use the
+   * ID of the model to use when `external_llm` is not set. You can use the
    * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
-   * to see all of your available models,
+   * to see available models. If `external_llm` is provided, the assistant uses
+   * `external_llm` instead of this field. If neither `model` nor `external_llm` is
+   * provided, Telnyx applies the default model.
    */
   model?: string;
 
@@ -2244,17 +2631,33 @@ export interface AssistantUpdateParams {
    */
   promote_to_main?: boolean;
 
+  /**
+   * Tags associated with the assistant. Tags can also be managed with the assistant
+   * tag endpoints.
+   */
+  tags?: Array<string>;
+
   telephony_settings?: TelephonySettings;
 
+  /**
+   * IDs of shared tools to attach to the assistant. New integrations should prefer
+   * `tool_ids` over inline `tools`.
+   */
   tool_ids?: Array<string>;
 
   /**
-   * The tools that the assistant can use. These may be templated with
-   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+   * Deprecated for new integrations. Inline tool definitions available to the
+   * assistant. Prefer `tool_ids` to attach shared tools created with the AI Tools
+   * endpoints.
    */
   tools?: Array<AssistantTool>;
 
   transcription?: TranscriptionSettings;
+
+  /**
+   * Human-readable name for the assistant version.
+   */
+  version_name?: string;
 
   voice_settings?: VoiceSettings;
 
@@ -2288,11 +2691,13 @@ export namespace AssistantUpdateParams {
     certificate_ref?: string;
 
     /**
-     * When enabled, Telnyx forwards the assistant's dynamic variables to the external
-     * LLM endpoint. Defaults to false. The chat completion request includes a
-     * top-level `extra_metadata` object when dynamic variables are available. For
-     * example:
-     * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+     * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+     * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+     * request body. Defaults to `false`. Example payload sent to the external
+     * endpoint:
+     * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+     * Distinct from OpenAI's native `metadata` field, which has its own size and type
+     * limits.
      */
     forward_metadata?: boolean;
 
@@ -2346,11 +2751,13 @@ export namespace AssistantUpdateParams {
       certificate_ref?: string;
 
       /**
-       * When enabled, Telnyx forwards the assistant's dynamic variables to the external
-       * LLM endpoint. Defaults to false. The chat completion request includes a
-       * top-level `extra_metadata` object when dynamic variables are available. For
-       * example:
-       * `{"extra_metadata":{"customer_name":"Jane","account_id":"acct_789","telnyx_agent_target":"+13125550100","telnyx_end_user_target":"+13125550123"}}`.
+       * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+       * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+       * request body. Defaults to `false`. Example payload sent to the external
+       * endpoint:
+       * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+       * Distinct from OpenAI's native `metadata` field, which has its own size and type
+       * limits.
        */
       forward_metadata?: boolean;
 
@@ -2364,6 +2771,118 @@ export namespace AssistantUpdateParams {
        */
       token_retrieval_url?: string;
     }
+  }
+
+  /**
+   * Reference to a connected integration attached to an assistant. Discover
+   * available integrations with `/ai/integrations` and connected integrations with
+   * `/ai/integrations/connections`.
+   */
+  export interface Integration {
+    /**
+     * Catalog integration ID to attach. This is the `id` from the integrations catalog
+     * at `/ai/integrations` (the same value also appears as `integration_id` on
+     * entries returned by `/ai/integrations/connections`). It is **not** the
+     * connection-level `id` from `/ai/integrations/connections`.
+     */
+    integration_id: string;
+
+    /**
+     * Optional per-assistant allowlist of integration tool names. When omitted or
+     * empty, all tools allowed by the connected integration are available to the
+     * assistant.
+     */
+    allowed_list?: Array<string>;
+  }
+
+  /**
+   * Settings for interruptions and how the assistant decides the user has finished
+   * speaking. These timings are most relevant when using non turn-taking
+   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
+   * behavior is controlled by the transcription end-of-turn settings under
+   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * `eager_eot_threshold`).
+   */
+  export interface InterruptionSettings {
+    /**
+     * Whether users can interrupt the assistant while it is speaking.
+     */
+    enable?: boolean;
+
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    start_speaking_plan?: InterruptionSettings.StartSpeakingPlan;
+  }
+
+  export namespace InterruptionSettings {
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    export interface StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      transcription_endpointing_plan?: StartSpeakingPlan.TranscriptionEndpointingPlan;
+
+      /**
+       * Minimum seconds to wait before the assistant starts speaking.
+       */
+      wait_seconds?: number;
+    }
+
+    export namespace StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      export interface TranscriptionEndpointingPlan {
+        /**
+         * Seconds to wait after the transcript ends without punctuation.
+         */
+        on_no_punctuation_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with a number.
+         */
+        on_number_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with punctuation.
+         */
+        on_punctuation_seconds?: number;
+      }
+    }
+  }
+
+  /**
+   * Reference to an MCP server attached to an assistant. Create and manage MCP
+   * servers with the `/ai/mcp_servers` endpoints, then attach them to assistants by
+   * ID.
+   */
+  export interface McpServer {
+    /**
+     * ID of the MCP server to attach. This must be the `id` of an MCP server returned
+     * by the `/ai/mcp_servers` endpoints.
+     */
+    id: string;
+
+    /**
+     * Optional per-assistant allowlist of MCP tool names. When omitted, the assistant
+     * uses the MCP server's configured `allowed_tools`.
+     */
+    allowed_tools?: Array<string>;
   }
 
   /**

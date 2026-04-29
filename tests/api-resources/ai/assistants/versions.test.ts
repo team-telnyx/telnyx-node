@@ -50,6 +50,7 @@ describe('resource versions', () => {
       assistant_id: 'assistant_id',
       description: 'description',
       dynamic_variables: { foo: 'bar' },
+      dynamic_variables_webhook_timeout_ms: 1,
       dynamic_variables_webhook_url: 'dynamic_variables_webhook_url',
       enabled_features: ['telephony'],
       external_llm: {
@@ -77,7 +78,20 @@ describe('resource versions', () => {
       greeting: 'greeting',
       insight_settings: { insight_group_id: 'insight_group_id' },
       instructions: 'instructions',
+      integrations: [{ integration_id: 'integration_id', allowed_list: ['string'] }],
+      interruption_settings: {
+        enable: true,
+        start_speaking_plan: {
+          transcription_endpointing_plan: {
+            on_no_punctuation_seconds: 0,
+            on_number_seconds: 0,
+            on_punctuation_seconds: 0,
+          },
+          wait_seconds: 0,
+        },
+      },
       llm_api_key_ref: 'llm_api_key_ref',
+      mcp_servers: [{ id: 'id', allowed_tools: ['string'] }],
       messaging_settings: {
         conversation_inactivity_minutes: 1,
         default_messaging_profile_id: 'default_messaging_profile_id',
@@ -93,6 +107,7 @@ describe('resource versions', () => {
       },
       post_conversation_settings: { enabled: true },
       privacy_settings: { data_retention: true },
+      tags: ['string'],
       telephony_settings: {
         default_texml_app_id: 'default_texml_app_id',
         noise_suppression: 'krisp',
@@ -165,6 +180,7 @@ describe('resource versions', () => {
           smart_format: true,
         },
       },
+      version_name: 'version_name',
       voice_settings: {
         voice: 'voice',
         api_key_ref: 'api_key_ref',

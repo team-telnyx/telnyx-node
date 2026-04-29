@@ -10,11 +10,7 @@ const client = new Telnyx({
 describe('resource assistants', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.ai.assistants.create({
-      instructions: 'instructions',
-      model: 'model',
-      name: 'name',
-    });
+    const responsePromise = client.ai.assistants.create({ instructions: 'instructions', name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -28,10 +24,10 @@ describe('resource assistants', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.ai.assistants.create({
       instructions: 'instructions',
-      model: 'model',
       name: 'name',
       description: 'description',
       dynamic_variables: { foo: 'bar' },
+      dynamic_variables_webhook_timeout_ms: 1,
       dynamic_variables_webhook_url: 'dynamic_variables_webhook_url',
       enabled_features: ['telephony'],
       external_llm: {
@@ -58,12 +54,26 @@ describe('resource assistants', () => {
       },
       greeting: 'greeting',
       insight_settings: { insight_group_id: 'insight_group_id' },
+      integrations: [{ integration_id: 'integration_id', allowed_list: ['string'] }],
+      interruption_settings: {
+        enable: true,
+        start_speaking_plan: {
+          transcription_endpointing_plan: {
+            on_no_punctuation_seconds: 0,
+            on_number_seconds: 0,
+            on_punctuation_seconds: 0,
+          },
+          wait_seconds: 0,
+        },
+      },
       llm_api_key_ref: 'llm_api_key_ref',
+      mcp_servers: [{ id: 'id', allowed_tools: ['string'] }],
       messaging_settings: {
         conversation_inactivity_minutes: 1,
         default_messaging_profile_id: 'default_messaging_profile_id',
         delivery_status_webhook_url: 'delivery_status_webhook_url',
       },
+      model: 'model',
       observability_settings: {
         host: 'host',
         public_key_ref: 'public_key_ref',
@@ -72,6 +82,7 @@ describe('resource assistants', () => {
       },
       post_conversation_settings: { enabled: true },
       privacy_settings: { data_retention: true },
+      tags: ['string'],
       telephony_settings: {
         default_texml_app_id: 'default_texml_app_id',
         noise_suppression: 'krisp',
