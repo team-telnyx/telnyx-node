@@ -565,14 +565,14 @@ export namespace AssistantTool {
   export namespace Invite {
     export interface Invite {
       /**
+       * Number or SIP URI placing the call.
+       */
+      from: string;
+
+      /**
        * Custom headers to be added to the SIP INVITE for the invite command.
        */
       custom_headers?: Array<Invite.CustomHeader>;
-
-      /**
-       * Number or SIP URI placing the call.
-       */
-      from?: string;
 
       /**
        * The different possible targets of the invite. The assistant will be able to
