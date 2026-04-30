@@ -557,17 +557,17 @@ export namespace AssistantTool {
   }
 
   export interface Invite {
-    invite_config: Invite.InviteConfig;
+    invite: Invite.Invite;
 
     type: 'invite';
   }
 
   export namespace Invite {
-    export interface InviteConfig {
+    export interface Invite {
       /**
        * Custom headers to be added to the SIP INVITE for the invite command.
        */
-      custom_headers?: Array<InviteConfig.CustomHeader>;
+      custom_headers?: Array<Invite.CustomHeader>;
 
       /**
        * Number or SIP URI placing the call.
@@ -582,16 +582,16 @@ export namespace AssistantTool {
        * omitted or null, the invite tool can still be configured and targets may be
        * supplied dynamically at runtime.
        */
-      targets?: Array<InviteConfig.UnionMember0> | string | null;
+      targets?: Array<Invite.UnionMember0> | string | null;
 
       /**
        * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
        * invited call.
        */
-      voicemail_detection?: InviteConfig.VoicemailDetection;
+      voicemail_detection?: Invite.VoicemailDetection;
     }
 
-    export namespace InviteConfig {
+    export namespace Invite {
       export interface CustomHeader {
         name?: string;
 
