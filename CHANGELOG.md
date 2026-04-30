@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.44.0 (2026-04-30)
+
+Full Changelog: [v6.43.0...v6.44.0](https://github.com/team-telnyx/telnyx-node/compare/v6.43.0...v6.44.0)
+
+### Features
+
+* AI-2183: Document dynamic variable support for transcription keyterm ([777a4de](https://github.com/team-telnyx/telnyx-node/commit/777a4ded3945c7751dcd17700803a18e81bb55ba))
+
 ## 6.43.0 (2026-04-30)
 
 Full Changelog: [v6.42.0...v6.43.0](https://github.com/team-telnyx/telnyx-node/compare/v6.42.0...v6.43.0)
