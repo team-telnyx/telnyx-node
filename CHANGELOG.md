@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.43.0 (2026-04-30)
+
+Full Changelog: [v6.42.0...v6.43.0](https://github.com/team-telnyx/telnyx-node/compare/v6.42.0...v6.43.0)
+
+### Features
+
+* Assistant tool targets master ([202127e](https://github.com/team-telnyx/telnyx-node/commit/202127e591c9c3f46445baea6fa88e82ecdbfece))
+
 ## 6.42.0 (2026-04-29)
 
 Full Changelog: [v6.41.1...v6.42.0](https://github.com/team-telnyx/telnyx-node/compare/v6.41.1...v6.42.0)
