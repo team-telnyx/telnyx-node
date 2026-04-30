@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.46.0 (2026-04-30)
+
+Full Changelog: [v6.45.0...v6.46.0](https://github.com/team-telnyx/telnyx-node/compare/v6.45.0...v6.46.0)
+
+### Features
+
+* Mark 'from' as required on InviteToolConfig ([c4fe997](https://github.com/team-telnyx/telnyx-node/commit/c4fe997055fea1ac940713e14a469ac781c59bba))
+
 ## 6.45.0 (2026-04-30)
 
 Full Changelog: [v6.44.0...v6.45.0](https://github.com/team-telnyx/telnyx-node/compare/v6.44.0...v6.45.0)
