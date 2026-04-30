@@ -371,9 +371,11 @@ export namespace AssistantTool {
 
       /**
        * The different possible targets of the transfer. The assistant will be able to
-       * choose one of the targets to transfer the call to.
+       * choose one of the targets to transfer the call to. This can also be a dynamic
+       * variable string like `{{ targets }}` where `targets` is returned by the dynamic
+       * variables webhook and resolves to an array of target objects at runtime.
        */
-      targets: Array<Transfer.Target>;
+      targets: Array<Transfer.UnionMember0> | string;
 
       /**
        * Custom headers to be added to the SIP INVITE for the transfer command.
@@ -403,16 +405,16 @@ export namespace AssistantTool {
     }
 
     export namespace Transfer {
-      export interface Target {
+      export interface UnionMember0 {
+        /**
+         * The destination number or SIP URI of the call.
+         */
+        to: string;
+
         /**
          * The name of the target.
          */
         name?: string;
-
-        /**
-         * The destination number or SIP URI of the call.
-         */
-        to?: string;
       }
 
       export interface CustomHeader {
@@ -573,6 +575,16 @@ export namespace AssistantTool {
       from?: string;
 
       /**
+       * The different possible targets of the invite. The assistant will be able to
+       * choose one of the targets to invite to the call. This can also be a dynamic
+       * variable string like `{{ targets }}` where `targets` is returned by the dynamic
+       * variables webhook and resolves to an array of target objects at runtime. If
+       * omitted or null, the invite tool can still be configured and targets may be
+       * supplied dynamically at runtime.
+       */
+      targets?: Array<InviteConfig.UnionMember0> | string | null;
+
+      /**
        * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
        * invited call.
        */
@@ -590,6 +602,18 @@ export namespace AssistantTool {
          * the integration secret.
          */
         value?: string;
+      }
+
+      export interface UnionMember0 {
+        /**
+         * The destination number or SIP URI of the call.
+         */
+        to: string;
+
+        /**
+         * The name of the target.
+         */
+        name?: string;
       }
 
       /**
@@ -1713,22 +1737,24 @@ export namespace TransferTool {
 
     /**
      * The different possible targets of the transfer. The assistant will be able to
-     * choose one of the targets to transfer the call to.
+     * choose one of the targets to transfer the call to. This can also be a dynamic
+     * variable string like `{{ targets }}` where `targets` is returned by the dynamic
+     * variables webhook and resolves to an array of target objects at runtime.
      */
-    targets: Array<Transfer.Target>;
+    targets: Array<Transfer.UnionMember0> | string;
   }
 
   export namespace Transfer {
-    export interface Target {
+    export interface UnionMember0 {
+      /**
+       * The destination number or SIP URI of the call.
+       */
+      to: string;
+
       /**
        * The name of the target.
        */
       name?: string;
-
-      /**
-       * The destination number or SIP URI of the call.
-       */
-      to?: string;
     }
   }
 }
