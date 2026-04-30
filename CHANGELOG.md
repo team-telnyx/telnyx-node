@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.45.0 (2026-04-30)
+
+Full Changelog: [v6.44.0...v6.45.0](https://github.com/team-telnyx/telnyx-node/compare/v6.44.0...v6.45.0)
+
+### Features
+
+* Revert "fix: stainless ([#2371](https://github.com/team-telnyx/telnyx-node/issues/2371))" ([ae594a5](https://github.com/team-telnyx/telnyx-node/commit/ae594a517773e7435ce0e6414ed24d9971224f5b))
+
 ## 6.44.0 (2026-04-30)
 
 Full Changelog: [v6.43.0...v6.44.0](https://github.com/team-telnyx/telnyx-node/compare/v6.43.0...v6.44.0)
