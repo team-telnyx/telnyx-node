@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.47.0 (2026-05-03)
+
+Full Changelog: [v6.46.0...v6.47.0](https://github.com/team-telnyx/telnyx-node/compare/v6.46.0...v6.47.0)
+
+### Features
+
+* Update observability ([995d497](https://github.com/team-telnyx/telnyx-node/commit/995d497276656f595f0e13caf2497b4ff84218e1))
+
 ## 6.46.0 (2026-04-30)
 
 Full Changelog: [v6.45.0...v6.46.0](https://github.com/team-telnyx/telnyx-node/compare/v6.45.0...v6.46.0)
