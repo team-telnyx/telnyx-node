@@ -101,6 +101,10 @@ describe('resource versions', () => {
       name: 'name',
       observability_settings: {
         host: 'host',
+        prompt_label: 'prompt_label',
+        prompt_name: 'prompt_name',
+        prompt_sync: 'enabled',
+        prompt_version: 1,
         public_key_ref: 'public_key_ref',
         secret_key_ref: 'secret_key_ref',
         status: 'enabled',
