@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.48.0 (2026-05-04)
+
+Full Changelog: [v6.47.0...v6.48.0](https://github.com/team-telnyx/telnyx-node/compare/v6.47.0...v6.48.0)
+
+### Features
+
+* Add xAI and missing voice providers to Call Control API ([90e2c83](https://github.com/team-telnyx/telnyx-node/commit/90e2c8373ca296465b033c0df1d4cd308301db15))
+
 ## 6.47.0 (2026-05-03)
 
 Full Changelog: [v6.46.0...v6.47.0](https://github.com/team-telnyx/telnyx-node/compare/v6.46.0...v6.47.0)

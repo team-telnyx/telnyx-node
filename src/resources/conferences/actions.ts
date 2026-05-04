@@ -940,6 +940,8 @@ export interface ActionSpeakParams {
    *   `voice_settings` to configure precision, sample_rate, and format.
    * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
    *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
+   * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
+   *   `ara`, `rex`, `sal`, `leo`.
    *
    * For service_level basic, you may define the gender of the speaker (male or
    * female).
@@ -1017,7 +1019,8 @@ export interface ActionSpeakParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | ActionSpeakParams.InworldVoiceSettings;
+    | ActionSpeakParams.InworldVoiceSettings
+    | ActionSpeakParams.XaiVoiceSettings;
 }
 
 export namespace ActionSpeakParams {
@@ -1026,6 +1029,18 @@ export namespace ActionSpeakParams {
      * Voice settings provider type
      */
     type: 'inworld';
+  }
+
+  export interface XaiVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'xai';
+
+    /**
+     * Language code, or `auto` to detect automatically.
+     */
+    language?: string;
   }
 }
 

@@ -2673,6 +2673,8 @@ export interface ActionGatherUsingAIParams {
    * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
    * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
    *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
+   * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
+   *   `ara`, `rex`, `sal`, `leo`.
    */
   voice?: string;
 
@@ -2685,7 +2687,8 @@ export interface ActionGatherUsingAIParams {
     | AwsVoiceSettings
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
-    | Shared.ResembleVoiceSettings;
+    | Shared.ResembleVoiceSettings
+    | ActionGatherUsingAIParams.XaiVoiceSettings;
 }
 
 export namespace ActionGatherUsingAIParams {
@@ -2699,6 +2702,18 @@ export namespace ActionGatherUsingAIParams {
      * The role of the message sender
      */
     role?: 'assistant' | 'user';
+  }
+
+  export interface XaiVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'xai';
+
+    /**
+     * Language code, or `auto` to detect automatically.
+     */
+    language?: string;
   }
 }
 
@@ -2832,6 +2847,8 @@ export interface ActionGatherUsingSpeakParams {
    *   `voice_settings` to configure precision, sample_rate, and format.
    * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
    *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
+   * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
+   *   `ara`, `rex`, `sal`, `leo`.
    *
    * For service_level basic, you may define the gender of the speaker (male or
    * female).
@@ -2954,7 +2971,8 @@ export interface ActionGatherUsingSpeakParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | ActionGatherUsingSpeakParams.InworldVoiceSettings;
+    | ActionGatherUsingSpeakParams.InworldVoiceSettings
+    | ActionGatherUsingSpeakParams.XaiVoiceSettings;
 }
 
 export namespace ActionGatherUsingSpeakParams {
@@ -2963,6 +2981,18 @@ export namespace ActionGatherUsingSpeakParams {
      * Voice settings provider type
      */
     type: 'inworld';
+  }
+
+  export interface XaiVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'xai';
+
+    /**
+     * Language code, or `auto` to detect automatically.
+     */
+    language?: string;
   }
 }
 
@@ -3239,6 +3269,8 @@ export interface ActionSpeakParams {
    *   `voice_settings` to configure precision, sample_rate, and format.
    * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
    *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
+   * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
+   *   `ara`, `rex`, `sal`, `leo`.
    *
    * For service_level basic, you may define the gender of the speaker (male or
    * female).
@@ -3334,7 +3366,8 @@ export interface ActionSpeakParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | ActionSpeakParams.InworldVoiceSettings;
+    | ActionSpeakParams.InworldVoiceSettings
+    | ActionSpeakParams.XaiVoiceSettings;
 }
 
 export namespace ActionSpeakParams {
@@ -3343,6 +3376,18 @@ export namespace ActionSpeakParams {
      * Voice settings provider type
      */
     type: 'inworld';
+  }
+
+  export interface XaiVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'xai';
+
+    /**
+     * Language code, or `auto` to detect automatically.
+     */
+    language?: string;
   }
 }
 
@@ -3434,6 +3479,8 @@ export interface ActionStartAIAssistantParams {
    * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
    * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
    *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
+   * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
+   *   `ara`, `rex`, `sal`, `leo`.
    */
   voice?: string;
 
@@ -3446,7 +3493,8 @@ export interface ActionStartAIAssistantParams {
     | AwsVoiceSettings
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
-    | Shared.ResembleVoiceSettings;
+    | Shared.ResembleVoiceSettings
+    | ActionStartAIAssistantParams.XaiVoiceSettings;
 }
 
 export namespace ActionStartAIAssistantParams {
@@ -3613,6 +3661,18 @@ export namespace ActionStartAIAssistantParams {
      * Determines what happens to the conversation when this participant hangs up.
      */
     on_hangup?: 'continue_conversation' | 'end_conversation';
+  }
+
+  export interface XaiVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'xai';
+
+    /**
+     * Language code, or `auto` to detect automatically.
+     */
+    language?: string;
   }
 }
 

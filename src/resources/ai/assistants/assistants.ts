@@ -794,6 +794,124 @@ export interface AudioVisualizerConfig {
  */
 export type EnabledFeatures = 'telephony' | 'messaging';
 
+export interface ExternalLlm {
+  /**
+   * Base URL for the external LLM endpoint.
+   */
+  base_url: string;
+
+  /**
+   * Model identifier to use with the external LLM endpoint.
+   */
+  model: string;
+
+  /**
+   * Authentication method used when connecting to the external LLM endpoint.
+   */
+  authentication_method?: 'token' | 'certificate';
+
+  /**
+   * Integration secret identifier for the client certificate used with certificate
+   * authentication.
+   */
+  certificate_ref?: string;
+
+  /**
+   * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+   * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+   * request body. Defaults to `false`. Example payload sent to the external
+   * endpoint:
+   * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+   * Distinct from OpenAI's native `metadata` field, which has its own size and type
+   * limits.
+   */
+  forward_metadata?: boolean;
+
+  /**
+   * Integration secret identifier for the external LLM API key.
+   */
+  llm_api_key_ref?: string;
+
+  /**
+   * URL used to retrieve an access token when certificate authentication is enabled.
+   */
+  token_retrieval_url?: string;
+}
+
+export interface ExternalLlmReq {
+  /**
+   * Base URL for the external LLM endpoint.
+   */
+  base_url: string;
+
+  /**
+   * Model identifier to use with the external LLM endpoint.
+   */
+  model: string;
+
+  /**
+   * Authentication method used when connecting to the external LLM endpoint.
+   */
+  authentication_method?: 'token' | 'certificate';
+
+  /**
+   * Integration secret identifier for the client certificate used with certificate
+   * authentication.
+   */
+  certificate_ref?: string;
+
+  /**
+   * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+   * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+   * request body. Defaults to `false`. Example payload sent to the external
+   * endpoint:
+   * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+   * Distinct from OpenAI's native `metadata` field, which has its own size and type
+   * limits.
+   */
+  forward_metadata?: boolean;
+
+  /**
+   * Integration secret identifier for the external LLM API key.
+   */
+  llm_api_key_ref?: string;
+
+  /**
+   * URL used to retrieve an access token when certificate authentication is enabled.
+   */
+  token_retrieval_url?: string;
+}
+
+export interface FallbackConfig {
+  external_llm?: ExternalLlm;
+
+  /**
+   * Integration secret identifier for the fallback model API key.
+   */
+  llm_api_key_ref?: string;
+
+  /**
+   * Fallback Telnyx-hosted model to use when the primary LLM provider is
+   * unavailable.
+   */
+  model?: string;
+}
+
+export interface FallbackConfigReq {
+  external_llm?: ExternalLlmReq;
+
+  /**
+   * Integration secret identifier for the fallback model API key.
+   */
+  llm_api_key_ref?: string;
+
+  /**
+   * Fallback Telnyx-hosted model to use when the primary LLM provider is
+   * unavailable.
+   */
+  model?: string;
+}
+
 export interface HangupTool {
   hangup: HangupToolParams;
 
@@ -870,9 +988,9 @@ export interface InferenceEmbedding {
 
   enabled_features?: Array<EnabledFeatures>;
 
-  external_llm?: InferenceEmbedding.ExternalLlm;
+  external_llm?: ExternalLlm;
 
-  fallback_config?: InferenceEmbedding.FallbackConfig;
+  fallback_config?: FallbackConfig;
 
   /**
    * Text that the assistant will use to start the conversation. This may be
@@ -934,7 +1052,7 @@ export interface InferenceEmbedding {
    * Telephony-control tools (e.g. hangup, transfer) are unavailable
    * post-conversation. Beta feature.
    */
-  post_conversation_settings?: InferenceEmbedding.PostConversationSettings;
+  post_conversation_settings?: PostConversationSettings;
 
   privacy_settings?: PrivacySettings;
 
@@ -985,111 +1103,6 @@ export interface InferenceEmbedding {
 }
 
 export namespace InferenceEmbedding {
-  export interface ExternalLlm {
-    /**
-     * Base URL for the external LLM endpoint.
-     */
-    base_url: string;
-
-    /**
-     * Model identifier to use with the external LLM endpoint.
-     */
-    model: string;
-
-    /**
-     * Authentication method used when connecting to the external LLM endpoint.
-     */
-    authentication_method?: 'token' | 'certificate';
-
-    /**
-     * Integration secret identifier for the client certificate used with certificate
-     * authentication.
-     */
-    certificate_ref?: string;
-
-    /**
-     * When `true`, Telnyx forwards the assistant's dynamic variables to the external
-     * LLM endpoint as a top-level `extra_metadata` object on the chat completion
-     * request body. Defaults to `false`. Example payload sent to the external
-     * endpoint:
-     * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
-     * Distinct from OpenAI's native `metadata` field, which has its own size and type
-     * limits.
-     */
-    forward_metadata?: boolean;
-
-    /**
-     * Integration secret identifier for the external LLM API key.
-     */
-    llm_api_key_ref?: string;
-
-    /**
-     * URL used to retrieve an access token when certificate authentication is enabled.
-     */
-    token_retrieval_url?: string;
-  }
-
-  export interface FallbackConfig {
-    external_llm?: FallbackConfig.ExternalLlm;
-
-    /**
-     * Integration secret identifier for the fallback model API key.
-     */
-    llm_api_key_ref?: string;
-
-    /**
-     * Fallback Telnyx-hosted model to use when the primary LLM provider is
-     * unavailable.
-     */
-    model?: string;
-  }
-
-  export namespace FallbackConfig {
-    export interface ExternalLlm {
-      /**
-       * Base URL for the external LLM endpoint.
-       */
-      base_url: string;
-
-      /**
-       * Model identifier to use with the external LLM endpoint.
-       */
-      model: string;
-
-      /**
-       * Authentication method used when connecting to the external LLM endpoint.
-       */
-      authentication_method?: 'token' | 'certificate';
-
-      /**
-       * Integration secret identifier for the client certificate used with certificate
-       * authentication.
-       */
-      certificate_ref?: string;
-
-      /**
-       * When `true`, Telnyx forwards the assistant's dynamic variables to the external
-       * LLM endpoint as a top-level `extra_metadata` object on the chat completion
-       * request body. Defaults to `false`. Example payload sent to the external
-       * endpoint:
-       * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
-       * Distinct from OpenAI's native `metadata` field, which has its own size and type
-       * limits.
-       */
-      forward_metadata?: boolean;
-
-      /**
-       * Integration secret identifier for the external LLM API key.
-       */
-      llm_api_key_ref?: string;
-
-      /**
-       * URL used to retrieve an access token when certificate authentication is enabled.
-       */
-      token_retrieval_url?: string;
-    }
-  }
-
   /**
    * Reference to a connected integration attached to an assistant. Discover
    * available integrations with `/ai/integrations` and connected integrations with
@@ -1200,23 +1213,6 @@ export namespace InferenceEmbedding {
      * uses the MCP server's configured `allowed_tools`.
      */
     allowed_tools?: Array<string>;
-  }
-
-  /**
-   * Configuration for post-conversation processing. When enabled, the assistant
-   * receives one additional LLM turn after the conversation ends, allowing it to
-   * execute tool calls such as logging to a CRM or sending a summary. The assistant
-   * can execute multiple parallel or sequential tools during this phase.
-   * Telephony-control tools (e.g. hangup, transfer) are unavailable
-   * post-conversation. Beta feature.
-   */
-  export interface PostConversationSettings {
-    /**
-     * Whether post-conversation processing is enabled. When true, the assistant will
-     * be invoked after the conversation ends to perform any final tool calls. Defaults
-     * to false.
-     */
-    enabled?: boolean;
   }
 }
 
@@ -1470,6 +1466,40 @@ export interface ObservabilityReq {
   secret_key_ref?: string;
 
   status?: 'enabled' | 'disabled';
+}
+
+/**
+ * Configuration for post-conversation processing. When enabled, the assistant
+ * receives one additional LLM turn after the conversation ends, allowing it to
+ * execute tool calls such as logging to a CRM or sending a summary. The assistant
+ * can execute multiple parallel or sequential tools during this phase.
+ * Telephony-control tools (e.g. hangup, transfer) are unavailable
+ * post-conversation. Beta feature.
+ */
+export interface PostConversationSettings {
+  /**
+   * Whether post-conversation processing is enabled. When true, the assistant will
+   * be invoked after the conversation ends to perform any final tool calls. Defaults
+   * to false.
+   */
+  enabled?: boolean;
+}
+
+/**
+ * Configuration for post-conversation processing. When enabled, the assistant
+ * receives one additional LLM turn after the conversation ends, allowing it to
+ * execute tool calls such as logging to a CRM or sending a summary. The assistant
+ * can execute multiple parallel or sequential tools during this phase.
+ * Telephony-control tools (e.g. hangup, transfer) are unavailable
+ * post-conversation. Beta feature.
+ */
+export interface PostConversationSettingsReq {
+  /**
+   * Whether post-conversation processing is enabled. When true, the assistant will
+   * be invoked after the conversation ends to perform any final tool calls. Defaults
+   * to false.
+   */
+  enabled?: boolean;
 }
 
 export interface PrivacySettings {
@@ -2220,9 +2250,9 @@ export interface AssistantCreateParams {
 
   enabled_features?: Array<EnabledFeatures>;
 
-  external_llm?: AssistantCreateParams.ExternalLlm;
+  external_llm?: ExternalLlmReq;
 
-  fallback_config?: AssistantCreateParams.FallbackConfig;
+  fallback_config?: FallbackConfigReq;
 
   /**
    * Text that the assistant will use to start the conversation. This may be
@@ -2291,7 +2321,7 @@ export interface AssistantCreateParams {
    * Telephony-control tools (e.g. hangup, transfer) are unavailable
    * post-conversation. Beta feature.
    */
-  post_conversation_settings?: AssistantCreateParams.PostConversationSettings;
+  post_conversation_settings?: PostConversationSettingsReq;
 
   privacy_settings?: PrivacySettings;
 
@@ -2327,111 +2357,6 @@ export interface AssistantCreateParams {
 }
 
 export namespace AssistantCreateParams {
-  export interface ExternalLlm {
-    /**
-     * Base URL for the external LLM endpoint.
-     */
-    base_url: string;
-
-    /**
-     * Model identifier to use with the external LLM endpoint.
-     */
-    model: string;
-
-    /**
-     * Authentication method used when connecting to the external LLM endpoint.
-     */
-    authentication_method?: 'token' | 'certificate';
-
-    /**
-     * Integration secret identifier for the client certificate used with certificate
-     * authentication.
-     */
-    certificate_ref?: string;
-
-    /**
-     * When `true`, Telnyx forwards the assistant's dynamic variables to the external
-     * LLM endpoint as a top-level `extra_metadata` object on the chat completion
-     * request body. Defaults to `false`. Example payload sent to the external
-     * endpoint:
-     * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
-     * Distinct from OpenAI's native `metadata` field, which has its own size and type
-     * limits.
-     */
-    forward_metadata?: boolean;
-
-    /**
-     * Integration secret identifier for the external LLM API key.
-     */
-    llm_api_key_ref?: string;
-
-    /**
-     * URL used to retrieve an access token when certificate authentication is enabled.
-     */
-    token_retrieval_url?: string;
-  }
-
-  export interface FallbackConfig {
-    external_llm?: FallbackConfig.ExternalLlm;
-
-    /**
-     * Integration secret identifier for the fallback model API key.
-     */
-    llm_api_key_ref?: string;
-
-    /**
-     * Fallback Telnyx-hosted model to use when the primary LLM provider is
-     * unavailable.
-     */
-    model?: string;
-  }
-
-  export namespace FallbackConfig {
-    export interface ExternalLlm {
-      /**
-       * Base URL for the external LLM endpoint.
-       */
-      base_url: string;
-
-      /**
-       * Model identifier to use with the external LLM endpoint.
-       */
-      model: string;
-
-      /**
-       * Authentication method used when connecting to the external LLM endpoint.
-       */
-      authentication_method?: 'token' | 'certificate';
-
-      /**
-       * Integration secret identifier for the client certificate used with certificate
-       * authentication.
-       */
-      certificate_ref?: string;
-
-      /**
-       * When `true`, Telnyx forwards the assistant's dynamic variables to the external
-       * LLM endpoint as a top-level `extra_metadata` object on the chat completion
-       * request body. Defaults to `false`. Example payload sent to the external
-       * endpoint:
-       * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
-       * Distinct from OpenAI's native `metadata` field, which has its own size and type
-       * limits.
-       */
-      forward_metadata?: boolean;
-
-      /**
-       * Integration secret identifier for the external LLM API key.
-       */
-      llm_api_key_ref?: string;
-
-      /**
-       * URL used to retrieve an access token when certificate authentication is enabled.
-       */
-      token_retrieval_url?: string;
-    }
-  }
-
   /**
    * Reference to a connected integration attached to an assistant. Discover
    * available integrations with `/ai/integrations` and connected integrations with
@@ -2543,23 +2468,6 @@ export namespace AssistantCreateParams {
      */
     allowed_tools?: Array<string>;
   }
-
-  /**
-   * Configuration for post-conversation processing. When enabled, the assistant
-   * receives one additional LLM turn after the conversation ends, allowing it to
-   * execute tool calls such as logging to a CRM or sending a summary. The assistant
-   * can execute multiple parallel or sequential tools during this phase.
-   * Telephony-control tools (e.g. hangup, transfer) are unavailable
-   * post-conversation. Beta feature.
-   */
-  export interface PostConversationSettings {
-    /**
-     * Whether post-conversation processing is enabled. When true, the assistant will
-     * be invoked after the conversation ends to perform any final tool calls. Defaults
-     * to false.
-     */
-    enabled?: boolean;
-  }
 }
 
 export interface AssistantRetrieveParams {
@@ -2602,9 +2510,9 @@ export interface AssistantUpdateParams {
 
   enabled_features?: Array<EnabledFeatures>;
 
-  external_llm?: AssistantUpdateParams.ExternalLlm;
+  external_llm?: ExternalLlmReq;
 
-  fallback_config?: AssistantUpdateParams.FallbackConfig;
+  fallback_config?: FallbackConfigReq;
 
   /**
    * Text that the assistant will use to start the conversation. This may be
@@ -2681,7 +2589,7 @@ export interface AssistantUpdateParams {
    * Telephony-control tools (e.g. hangup, transfer) are unavailable
    * post-conversation. Beta feature.
    */
-  post_conversation_settings?: AssistantUpdateParams.PostConversationSettings;
+  post_conversation_settings?: PostConversationSettingsReq;
 
   privacy_settings?: PrivacySettings;
 
@@ -2728,111 +2636,6 @@ export interface AssistantUpdateParams {
 }
 
 export namespace AssistantUpdateParams {
-  export interface ExternalLlm {
-    /**
-     * Base URL for the external LLM endpoint.
-     */
-    base_url: string;
-
-    /**
-     * Model identifier to use with the external LLM endpoint.
-     */
-    model: string;
-
-    /**
-     * Authentication method used when connecting to the external LLM endpoint.
-     */
-    authentication_method?: 'token' | 'certificate';
-
-    /**
-     * Integration secret identifier for the client certificate used with certificate
-     * authentication.
-     */
-    certificate_ref?: string;
-
-    /**
-     * When `true`, Telnyx forwards the assistant's dynamic variables to the external
-     * LLM endpoint as a top-level `extra_metadata` object on the chat completion
-     * request body. Defaults to `false`. Example payload sent to the external
-     * endpoint:
-     * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
-     * Distinct from OpenAI's native `metadata` field, which has its own size and type
-     * limits.
-     */
-    forward_metadata?: boolean;
-
-    /**
-     * Integration secret identifier for the external LLM API key.
-     */
-    llm_api_key_ref?: string;
-
-    /**
-     * URL used to retrieve an access token when certificate authentication is enabled.
-     */
-    token_retrieval_url?: string;
-  }
-
-  export interface FallbackConfig {
-    external_llm?: FallbackConfig.ExternalLlm;
-
-    /**
-     * Integration secret identifier for the fallback model API key.
-     */
-    llm_api_key_ref?: string;
-
-    /**
-     * Fallback Telnyx-hosted model to use when the primary LLM provider is
-     * unavailable.
-     */
-    model?: string;
-  }
-
-  export namespace FallbackConfig {
-    export interface ExternalLlm {
-      /**
-       * Base URL for the external LLM endpoint.
-       */
-      base_url: string;
-
-      /**
-       * Model identifier to use with the external LLM endpoint.
-       */
-      model: string;
-
-      /**
-       * Authentication method used when connecting to the external LLM endpoint.
-       */
-      authentication_method?: 'token' | 'certificate';
-
-      /**
-       * Integration secret identifier for the client certificate used with certificate
-       * authentication.
-       */
-      certificate_ref?: string;
-
-      /**
-       * When `true`, Telnyx forwards the assistant's dynamic variables to the external
-       * LLM endpoint as a top-level `extra_metadata` object on the chat completion
-       * request body. Defaults to `false`. Example payload sent to the external
-       * endpoint:
-       * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
-       * Distinct from OpenAI's native `metadata` field, which has its own size and type
-       * limits.
-       */
-      forward_metadata?: boolean;
-
-      /**
-       * Integration secret identifier for the external LLM API key.
-       */
-      llm_api_key_ref?: string;
-
-      /**
-       * URL used to retrieve an access token when certificate authentication is enabled.
-       */
-      token_retrieval_url?: string;
-    }
-  }
-
   /**
    * Reference to a connected integration attached to an assistant. Discover
    * available integrations with `/ai/integrations` and connected integrations with
@@ -2944,23 +2747,6 @@ export namespace AssistantUpdateParams {
      */
     allowed_tools?: Array<string>;
   }
-
-  /**
-   * Configuration for post-conversation processing. When enabled, the assistant
-   * receives one additional LLM turn after the conversation ends, allowing it to
-   * execute tool calls such as logging to a CRM or sending a summary. The assistant
-   * can execute multiple parallel or sequential tools during this phase.
-   * Telephony-control tools (e.g. hangup, transfer) are unavailable
-   * post-conversation. Beta feature.
-   */
-  export interface PostConversationSettings {
-    /**
-     * Whether post-conversation processing is enabled. When true, the assistant will
-     * be invoked after the conversation ends to perform any final tool calls. Defaults
-     * to false.
-     */
-    enabled?: boolean;
-  }
 }
 
 export interface AssistantChatParams {
@@ -3026,6 +2812,10 @@ export declare namespace Assistants {
     type AssistantsList as AssistantsList,
     type AudioVisualizerConfig as AudioVisualizerConfig,
     type EnabledFeatures as EnabledFeatures,
+    type ExternalLlm as ExternalLlm,
+    type ExternalLlmReq as ExternalLlmReq,
+    type FallbackConfig as FallbackConfig,
+    type FallbackConfigReq as FallbackConfigReq,
     type HangupTool as HangupTool,
     type HangupToolParams as HangupToolParams,
     type ImportMetadata as ImportMetadata,
@@ -3035,6 +2825,8 @@ export declare namespace Assistants {
     type MessagingSettings as MessagingSettings,
     type Observability as Observability,
     type ObservabilityReq as ObservabilityReq,
+    type PostConversationSettings as PostConversationSettings,
+    type PostConversationSettingsReq as PostConversationSettingsReq,
     type PrivacySettings as PrivacySettings,
     type RetrievalTool as RetrievalTool,
     type TelephonySettings as TelephonySettings,
