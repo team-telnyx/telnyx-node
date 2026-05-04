@@ -529,6 +529,10 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantsList</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AudioVisualizerConfig</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">EnabledFeatures</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ExternalLlm</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ExternalLlmReq</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">FallbackConfig</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">FallbackConfigReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ImportMetadata</a></code>
@@ -538,6 +542,8 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">MessagingSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">Observability</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ObservabilityReq</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">PostConversationSettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">PostConversationSettingsReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PrivacySettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">RetrievalTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TelephonySettings</a></code>
