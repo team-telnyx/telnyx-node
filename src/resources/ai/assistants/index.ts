@@ -46,7 +46,6 @@ export {
   CanaryDeploys,
   type CanaryDeploy,
   type CanaryDeployResponse,
-  type VersionConfig,
   type CanaryDeployCreateParams,
   type CanaryDeployUpdateParams,
 } from './canary-deploys';

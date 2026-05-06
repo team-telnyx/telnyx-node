@@ -1,5 +1,21 @@
 # Changelog
 
+## 6.49.0 (2026-05-06)
+
+Full Changelog: [v6.48.0...v6.49.0](https://github.com/team-telnyx/telnyx-node/compare/v6.48.0...v6.49.0)
+
+### Features
+
+* Ai-assistants: support pattern in canary deploy ([5b7f88b](https://github.com/team-telnyx/telnyx-node/commit/5b7f88b04cdc0f4e692bef728e5148a10c28a936))
+
+
+### Documentation
+
+* add UAC connection OpenAPI docs ([097e894](https://github.com/team-telnyx/telnyx-node/commit/097e894f762836811af7777f8b1680276e74fb09))
+* clarify forwards compat behavior ([5967e5f](https://github.com/team-telnyx/telnyx-node/commit/5967e5f68b0d3c3ef882cd841457685039ba4f91))
+* update http mcp docs ([5cbbc1b](https://github.com/team-telnyx/telnyx-node/commit/5cbbc1b22a5aa65b4ce42a7f914effb2888d4f84))
+* update with proxy auth info ([372e1bd](https://github.com/team-telnyx/telnyx-node/commit/372e1bd39929d7cc14c74e8ec178c098157a9549))
+
 ## 6.48.0 (2026-05-04)
 
 Full Changelog: [v6.47.0...v6.48.0](https://github.com/team-telnyx/telnyx-node/compare/v6.47.0...v6.48.0)

@@ -629,7 +629,6 @@ Types:
 
 - <code><a href="./src/resources/ai/assistants/canary-deploys.ts">CanaryDeploy</a></code>
 - <code><a href="./src/resources/ai/assistants/canary-deploys.ts">CanaryDeployResponse</a></code>
-- <code><a href="./src/resources/ai/assistants/canary-deploys.ts">VersionConfig</a></code>
 
 Methods:
 
@@ -4811,3 +4810,31 @@ Methods:
 - <code title="patch /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">update</a>(id, { ...params }) -> PronunciationDictUpdateResponse</code>
 - <code title="get /pronunciation_dicts">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">list</a>({ ...params }) -> PronunciationDictDataDefaultFlatPagination</code>
 - <code title="delete /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">delete</a>(id) -> void</code>
+
+# UacConnections
+
+Types:
+
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionCreateResponse</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionRetrieveResponse</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionUpdateResponse</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionListResponse</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /uac_connections">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">create</a>({ ...params }) -> UacConnectionCreateResponse</code>
+- <code title="get /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">retrieve</a>(id) -> UacConnectionRetrieveResponse</code>
+- <code title="patch /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">update</a>(id, { ...params }) -> UacConnectionUpdateResponse</code>
+- <code title="get /uac_connections">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">list</a>({ ...params }) -> UacConnectionListResponsesDefaultFlatPagination</code>
+- <code title="delete /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">delete</a>(id) -> UacConnectionDeleteResponse</code>
+
+## Actions
+
+Types:
+
+- <code><a href="./src/resources/uac-connections/actions.ts">ActionCheckRegistrationStatusResponse</a></code>
+
+Methods:
+
+- <code title="post /uac_connections/{id}/actions/check_registration_status">client.uacConnections.actions.<a href="./src/resources/uac-connections/actions.ts">checkRegistrationStatus</a>(id) -> ActionCheckRegistrationStatusResponse</code>

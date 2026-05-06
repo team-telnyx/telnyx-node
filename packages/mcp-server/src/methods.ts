@@ -6202,6 +6202,42 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'delete',
     httpPath: '/pronunciation_dicts/{id}',
   },
+  {
+    clientCallName: 'client.uacConnections.create',
+    fullyQualifiedName: 'uacConnections.create',
+    httpMethod: 'post',
+    httpPath: '/uac_connections',
+  },
+  {
+    clientCallName: 'client.uacConnections.retrieve',
+    fullyQualifiedName: 'uacConnections.retrieve',
+    httpMethod: 'get',
+    httpPath: '/uac_connections/{id}',
+  },
+  {
+    clientCallName: 'client.uacConnections.update',
+    fullyQualifiedName: 'uacConnections.update',
+    httpMethod: 'patch',
+    httpPath: '/uac_connections/{id}',
+  },
+  {
+    clientCallName: 'client.uacConnections.list',
+    fullyQualifiedName: 'uacConnections.list',
+    httpMethod: 'get',
+    httpPath: '/uac_connections',
+  },
+  {
+    clientCallName: 'client.uacConnections.delete',
+    fullyQualifiedName: 'uacConnections.delete',
+    httpMethod: 'delete',
+    httpPath: '/uac_connections/{id}',
+  },
+  {
+    clientCallName: 'client.uacConnections.actions.checkRegistrationStatus',
+    fullyQualifiedName: 'uacConnections.actions.checkRegistrationStatus',
+    httpMethod: 'post',
+    httpPath: '/uac_connections/{id}/actions/check_registration_status',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {

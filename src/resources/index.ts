@@ -1243,6 +1243,18 @@ export {
   type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
 } from './traffic-policy-profiles';
 export {
+  UacConnections,
+  type UacConnectionCreateResponse,
+  type UacConnectionRetrieveResponse,
+  type UacConnectionUpdateResponse,
+  type UacConnectionListResponse,
+  type UacConnectionDeleteResponse,
+  type UacConnectionCreateParams,
+  type UacConnectionUpdateParams,
+  type UacConnectionListParams,
+  type UacConnectionListResponsesDefaultFlatPagination,
+} from './uac-connections/uac-connections';
+export {
   UsageReports,
   type UsageReportListResponse,
   type UsageReportGetOptionsResponse,
