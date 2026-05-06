@@ -9,10 +9,8 @@ const client = new Telnyx({
 
 describe('resource canaryDeploys', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.ai.assistants.canaryDeploys.create('assistant_id', {
-      versions: [{ percentage: 1, version_id: 'version_id' }],
-    });
+  test.skip('create', async () => {
+    const responsePromise = client.ai.assistants.canaryDeploys.create('assistant_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,13 +18,6 @@ describe('resource canaryDeploys', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.ai.assistants.canaryDeploys.create('assistant_id', {
-      versions: [{ percentage: 1, version_id: 'version_id' }],
-    });
   });
 
   // Mock server tests are disabled
@@ -42,10 +33,8 @@ describe('resource canaryDeploys', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('update: only required params', async () => {
-    const responsePromise = client.ai.assistants.canaryDeploys.update('assistant_id', {
-      versions: [{ percentage: 1, version_id: 'version_id' }],
-    });
+  test.skip('update', async () => {
+    const responsePromise = client.ai.assistants.canaryDeploys.update('assistant_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -53,13 +42,6 @@ describe('resource canaryDeploys', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('update: required and optional params', async () => {
-    const response = await client.ai.assistants.canaryDeploys.update('assistant_id', {
-      versions: [{ percentage: 1, version_id: 'version_id' }],
-    });
   });
 
   // Mock server tests are disabled
