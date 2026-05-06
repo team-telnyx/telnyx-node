@@ -1532,6 +1532,18 @@ import {
   TextToSpeechListVoicesResponse,
 } from './resources/text-to-speech/text-to-speech';
 import {
+  UacConnectionCreateParams,
+  UacConnectionCreateResponse,
+  UacConnectionDeleteResponse,
+  UacConnectionListParams,
+  UacConnectionListResponse,
+  UacConnectionListResponsesDefaultFlatPagination,
+  UacConnectionRetrieveResponse,
+  UacConnectionUpdateParams,
+  UacConnectionUpdateResponse,
+  UacConnections,
+} from './resources/uac-connections/uac-connections';
+import {
   CreateVerificationResponse,
   Verification,
   VerificationRetrieveResponse,
@@ -2942,6 +2954,10 @@ export class Telnyx {
    * Manage pronunciation dictionaries for text-to-speech synthesis. Dictionaries contain alias items (text replacement) and phoneme items (IPA pronunciation notation) that control how specific words are spoken.
    */
   pronunciationDicts: API.PronunciationDicts = new API.PronunciationDicts(this);
+  /**
+   * UAC connection operations
+   */
+  uacConnections: API.UacConnections = new API.UacConnections(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3107,6 +3123,7 @@ Telnyx.Enterprises = Enterprises;
 Telnyx.Reputation = Reputation;
 Telnyx.TermsOfService = TermsOfService;
 Telnyx.PronunciationDicts = PronunciationDicts;
+Telnyx.UacConnections = UacConnections;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -4865,6 +4882,19 @@ export declare namespace Telnyx {
     type PronunciationDictCreateParams as PronunciationDictCreateParams,
     type PronunciationDictUpdateParams as PronunciationDictUpdateParams,
     type PronunciationDictListParams as PronunciationDictListParams,
+  };
+
+  export {
+    UacConnections as UacConnections,
+    type UacConnectionCreateResponse as UacConnectionCreateResponse,
+    type UacConnectionRetrieveResponse as UacConnectionRetrieveResponse,
+    type UacConnectionUpdateResponse as UacConnectionUpdateResponse,
+    type UacConnectionListResponse as UacConnectionListResponse,
+    type UacConnectionDeleteResponse as UacConnectionDeleteResponse,
+    type UacConnectionListResponsesDefaultFlatPagination as UacConnectionListResponsesDefaultFlatPagination,
+    type UacConnectionCreateParams as UacConnectionCreateParams,
+    type UacConnectionUpdateParams as UacConnectionUpdateParams,
+    type UacConnectionListParams as UacConnectionListParams,
   };
 
   export type APIError = API.APIError;

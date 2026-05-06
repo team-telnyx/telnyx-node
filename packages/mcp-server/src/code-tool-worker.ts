@@ -1142,6 +1142,12 @@ const fuse = new Fuse(
     'client.pronunciationDicts.list',
     'client.pronunciationDicts.retrieve',
     'client.pronunciationDicts.update',
+    'client.uacConnections.create',
+    'client.uacConnections.delete',
+    'client.uacConnections.list',
+    'client.uacConnections.retrieve',
+    'client.uacConnections.update',
+    'client.uacConnections.actions.checkRegistrationStatus',
   ],
   { threshold: 1, shouldSort: true },
 );
