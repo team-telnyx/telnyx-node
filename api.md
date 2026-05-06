@@ -629,7 +629,6 @@ Types:
 
 - <code><a href="./src/resources/ai/assistants/canary-deploys.ts">CanaryDeploy</a></code>
 - <code><a href="./src/resources/ai/assistants/canary-deploys.ts">CanaryDeployResponse</a></code>
-- <code><a href="./src/resources/ai/assistants/canary-deploys.ts">VersionConfig</a></code>
 
 Methods:
 

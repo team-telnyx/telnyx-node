@@ -10,7 +10,6 @@ import {
   CanaryDeployResponse,
   CanaryDeployUpdateParams,
   CanaryDeploys,
-  VersionConfig,
 } from './canary-deploys';
 import * as ScheduledEventsAPI from './scheduled-events';
 import {
@@ -2862,7 +2861,6 @@ export declare namespace Assistants {
     CanaryDeploys as CanaryDeploys,
     type CanaryDeploy as CanaryDeploy,
     type CanaryDeployResponse as CanaryDeployResponse,
-    type VersionConfig as VersionConfig,
     type CanaryDeployCreateParams as CanaryDeployCreateParams,
     type CanaryDeployUpdateParams as CanaryDeployUpdateParams,
   };
