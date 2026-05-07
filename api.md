@@ -1035,6 +1035,14 @@ Methods:
 
 ## OpenAI
 
+Types:
+
+- <code><a href="./src/resources/ai/openai/openai.ts">OpenAIListModelsResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/openai/models">client.ai.openai.<a href="./src/resources/ai/openai/openai.ts">listModels</a>() -> OpenAIListModelsResponse</code>
+
 ### Embeddings
 
 Types:
@@ -1046,6 +1054,16 @@ Methods:
 
 - <code title="post /ai/openai/embeddings">client.ai.openai.embeddings.<a href="./src/resources/ai/openai/embeddings.ts">createEmbeddings</a>({ ...params }) -> EmbeddingCreateEmbeddingsResponse</code>
 - <code title="get /ai/openai/embeddings/models">client.ai.openai.embeddings.<a href="./src/resources/ai/openai/embeddings.ts">listEmbeddingModels</a>() -> EmbeddingListEmbeddingModelsResponse</code>
+
+### Chat
+
+Types:
+
+- <code><a href="./src/resources/ai/openai/chat.ts">ChatCreateCompletionResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/openai/chat/completions">client.ai.openai.chat.<a href="./src/resources/ai/openai/chat.ts">createCompletion</a>({ ...params }) -> ChatCreateCompletionResponse</code>
 
 ## Tools
 

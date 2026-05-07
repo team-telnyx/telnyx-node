@@ -10,22 +10,12 @@ import { RequestOptions } from '../../internal/request-options';
  */
 export class Chat extends APIResource {
   /**
-   * Chat with a language model. This endpoint is consistent with the
+   * **Deprecated**: Use `POST /v2/ai/openai/chat/completions` instead. Chat with a
+   * language model. This endpoint is consistent with the
    * [OpenAI Chat Completions API](https://platform.openai.com/docs/api-reference/chat)
    * and may be used with the OpenAI JS or Python SDK.
    *
-   * @example
-   * ```ts
-   * const response = await client.ai.chat.createCompletion({
-   *   messages: [
-   *     {
-   *       role: 'system',
-   *       content: 'You are a friendly chatbot.',
-   *     },
-   *     { role: 'user', content: 'Hello, world!' },
-   *   ],
-   * });
-   * ```
+   * @deprecated
    */
   createCompletion(
     body: ChatCreateCompletionParams,
@@ -150,6 +140,19 @@ export interface ChatCreateCompletionParams {
    * control over the schema, use `guided_json`.
    */
   response_format?: ChatCreateCompletionParams.ResponseFormat;
+
+  /**
+   * If specified, the system will make a best effort to sample deterministically,
+   * such that repeated requests with the same `seed` and parameters should return
+   * the same result.
+   */
+  seed?: number;
+
+  /**
+   * Up to 4 sequences where the API will stop generating further tokens. The
+   * returned text will not contain the stop sequence.
+   */
+  stop?: string | Array<string>;
 
   /**
    * Whether or not to stream data-only server-sent events as they become available.

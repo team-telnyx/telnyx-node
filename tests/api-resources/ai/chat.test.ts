@@ -48,6 +48,8 @@ describe('resource chat', () => {
       n: 0,
       presence_penalty: 0,
       response_format: { type: 'text' },
+      seed: 0,
+      stop: 'string',
       stream: true,
       temperature: 0,
       tool_choice: 'none',

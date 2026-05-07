@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.50.0 (2026-05-07)
+
+Full Changelog: [v6.49.0...v6.50.0](https://github.com/team-telnyx/telnyx-node/compare/v6.49.0...v6.50.0)
+
+### Features
+
+* inference: expose chat completions and models under /ai/openai ([2ebb416](https://github.com/team-telnyx/telnyx-node/commit/2ebb416937e68756d314ea9d5dc873e1c9582ff2))
+
+
+### Documentation
+
+* update logging docs ([4448b80](https://github.com/team-telnyx/telnyx-node/commit/4448b804fc01592fe8067900434f7d36d7342767))
+
 ## 6.49.0 (2026-05-06)
 
 Full Changelog: [v6.48.0...v6.49.0](https://github.com/team-telnyx/telnyx-node/compare/v6.48.0...v6.49.0)
