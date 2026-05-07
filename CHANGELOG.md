@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.51.0 (2026-05-07)
+
+Full Changelog: [v6.50.0...v6.51.0](https://github.com/team-telnyx/telnyx-node/compare/v6.50.0...v6.51.0)
+
+### Features
+
+* MSG-9000: document duplicate-vetting rejection on order brand external vetting ([6cf1ac7](https://github.com/team-telnyx/telnyx-node/commit/6cf1ac701bd1932cab14aa75f477d4dd421c423a))
+
 ## 6.50.0 (2026-05-07)
 
 Full Changelog: [v6.49.0...v6.50.0](https://github.com/team-telnyx/telnyx-node/compare/v6.49.0...v6.50.0)
