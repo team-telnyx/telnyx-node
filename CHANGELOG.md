@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.53.0 (2026-05-07)
+
+Full Changelog: [v6.52.0...v6.53.0](https://github.com/team-telnyx/telnyx-node/compare/v6.52.0...v6.53.0)
+
+### Features
+
+* **api:** manual updates ([f8c8273](https://github.com/team-telnyx/telnyx-node/commit/f8c82733039f11ce4acc4c80e64e5a7cc22e5c59))
+
+
+### Reverts
+
+* restore stainless.yml from before 9853597 ([44e5d07](https://github.com/team-telnyx/telnyx-node/commit/44e5d07adb5b4c042e17c3cf2192d1df9cbe9229))
+
 ## 6.52.0 (2026-05-07)
 
 Full Changelog: [v6.51.0...v6.52.0](https://github.com/team-telnyx/telnyx-node/compare/v6.51.0...v6.52.0)
