@@ -131,11 +131,28 @@ export interface ScheduledPhoneCallEventResponse {
 
   telnyx_end_user_target: string;
 
+  call_attempts?: Array<ScheduledPhoneCallEventResponse.CallAttempt>;
+
+  /**
+   * Duration of the call in seconds
+   */
+  call_duration?: number;
+
+  /**
+   * Values: busy, canceled, no-answer, ringing, completed, failed, in-progress
+   */
+  call_status?: string;
+
   conversation_id?: string;
 
   conversation_metadata?: { [key: string]: string | number | boolean };
 
   created_at?: string;
+
+  /**
+   * Date time at which call was sent
+   */
+  dispatched_at?: string;
 
   /**
    * A map of dynamic variable names to values. These variables can be referenced in
@@ -145,13 +162,44 @@ export interface ScheduledPhoneCallEventResponse {
 
   errors?: Array<string>;
 
+  /**
+   * Configure number of retries on client errors: busy, no-answer, failed, canceled
+   * (caller hung up before the callee answered)
+   */
+  max_retries_client_errors?: number;
+
   retry_attempts?: number;
 
   retry_count?: number;
 
+  retry_interval_secs?: number;
+
   scheduled_event_id?: string;
 
   status?: EventStatus;
+}
+
+export namespace ScheduledPhoneCallEventResponse {
+  /**
+   * One row in `call_attempts` — captures the terminal outcome of a single dispatch.
+   */
+  export interface CallAttempt {
+    attempt_number: number;
+
+    attempted_at: string;
+
+    /**
+     * Values: busy, canceled, no-answer, ringing, completed, failed, in-progress
+     */
+    call_status: string;
+
+    /**
+     * Duration of the call in seconds
+     */
+    call_duration?: number;
+
+    telnyx_call_control_id?: string;
+  }
 }
 
 export interface ScheduledSMSEventResponse {
@@ -219,6 +267,14 @@ export interface ScheduledEventCreateParams {
    * the assistant's instructions and messages using {{variable_name}} syntax.
    */
   dynamic_variables?: { [key: string]: string };
+
+  /**
+   * Configure number of retries on client errors: busy, no-answer, failed, canceled
+   * (caller hung up before the callee answered)
+   */
+  max_retries_client_errors?: number;
+
+  retry_interval_secs?: number;
 
   /**
    * Required for sms scheduled events. The text to be sent to the end user.
