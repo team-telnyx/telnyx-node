@@ -52,8 +52,6 @@ import {
   AssistantDeleteResponse,
   AssistantGetTexmlResponse,
   AssistantImportsParams,
-  AssistantIntegration,
-  AssistantMcpServer,
   AssistantRetrieveParams,
   AssistantSendSMSParams,
   AssistantSendSMSResponse,
@@ -71,7 +69,6 @@ import {
   HangupToolParams,
   ImportMetadata,
   InferenceEmbedding,
-  InferenceEmbeddingInterruptionSettings,
   InferenceEmbeddingWebhookToolParams,
   InsightSettings,
   MessagingSettings,
@@ -81,9 +78,7 @@ import {
   PostConversationSettingsReq,
   PrivacySettings,
   RetrievalTool,
-  StartSpeakingPlan,
   TelephonySettings,
-  TranscriptionEndpointingPlan,
   TranscriptionSettings,
   TranscriptionSettingsConfig,
   TransferTool,
@@ -200,20 +195,22 @@ export class AI extends APIResource {
   }
 }
 
-export interface ModelMetadata {
-  id: string;
-
-  created: number;
-
-  owned_by: string;
+export interface AIRetrieveModelsResponse {
+  data: Array<AIRetrieveModelsResponse.Data>;
 
   object?: string;
 }
 
-export interface AIRetrieveModelsResponse {
-  data: Array<ModelMetadata>;
+export namespace AIRetrieveModelsResponse {
+  export interface Data {
+    id: string;
 
-  object?: string;
+    created: number;
+
+    owned_by: string;
+
+    object?: string;
+  }
 }
 
 export interface AISummarizeResponse {
@@ -258,7 +255,6 @@ AI.Tools = Tools;
 
 export declare namespace AI {
   export {
-    type ModelMetadata as ModelMetadata,
     type AIRetrieveModelsResponse as AIRetrieveModelsResponse,
     type AISummarizeResponse as AISummarizeResponse,
     type AISummarizeParams as AISummarizeParams,
@@ -267,8 +263,6 @@ export declare namespace AI {
   export {
     Assistants as Assistants,
     type Assistant as Assistant,
-    type AssistantIntegration as AssistantIntegration,
-    type AssistantMcpServer as AssistantMcpServer,
     type AssistantTool as AssistantTool,
     type AssistantsList as AssistantsList,
     type AudioVisualizerConfig as AudioVisualizerConfig,
@@ -281,7 +275,6 @@ export declare namespace AI {
     type HangupToolParams as HangupToolParams,
     type ImportMetadata as ImportMetadata,
     type InferenceEmbedding as InferenceEmbedding,
-    type InferenceEmbeddingInterruptionSettings as InferenceEmbeddingInterruptionSettings,
     type InferenceEmbeddingWebhookToolParams as InferenceEmbeddingWebhookToolParams,
     type InsightSettings as InsightSettings,
     type MessagingSettings as MessagingSettings,
@@ -291,9 +284,7 @@ export declare namespace AI {
     type PostConversationSettingsReq as PostConversationSettingsReq,
     type PrivacySettings as PrivacySettings,
     type RetrievalTool as RetrievalTool,
-    type StartSpeakingPlan as StartSpeakingPlan,
     type TelephonySettings as TelephonySettings,
-    type TranscriptionEndpointingPlan as TranscriptionEndpointingPlan,
     type TranscriptionSettings as TranscriptionSettings,
     type TranscriptionSettingsConfig as TranscriptionSettingsConfig,
     type TransferTool as TransferTool,

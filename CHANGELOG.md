@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.55.0 (2026-05-07)
+
+Full Changelog: [v6.54.0...v6.55.0](https://github.com/team-telnyx/telnyx-node/compare/v6.54.0...v6.55.0)
+
+### Features
+
+* Ai-assistant: update scheduled events api ([8d2df2a](https://github.com/team-telnyx/telnyx-node/commit/8d2df2ae3b975ea546d8655df5e246bc0943c903))
+
 ## 6.54.0 (2026-05-07)
 
 Full Changelog: [v6.53.0...v6.54.0](https://github.com/team-telnyx/telnyx-node/compare/v6.53.0...v6.54.0)
