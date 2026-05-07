@@ -116,7 +116,7 @@ export {
   type MissionUpdateMissionParams,
   type MissionDataDefaultFlatPagination,
 } from './missions/index';
-export { OpenAI } from './openai/index';
+export { OpenAI, type OpenAIListModelsResponse } from './openai/index';
 export {
   Tools,
   type ToolCreateResponse,
