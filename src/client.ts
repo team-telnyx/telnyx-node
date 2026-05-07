@@ -707,8 +707,8 @@ import {
   PublicInternetGatewayCreateResponse,
   PublicInternetGatewayDeleteResponse,
   PublicInternetGatewayListParams,
-  PublicInternetGatewayListResponse,
-  PublicInternetGatewayListResponsesDefaultFlatPagination,
+  PublicInternetGatewayRead,
+  PublicInternetGatewayReadsDefaultFlatPagination,
   PublicInternetGatewayRetrieveResponse,
   PublicInternetGateways,
 } from './resources/public-internet-gateways';
@@ -914,12 +914,12 @@ import {
   VerifyProfilesDefaultFlatPagination,
 } from './resources/verify-profiles';
 import {
+  VirtualCrossConnectCombined,
+  VirtualCrossConnectCombinedsDefaultFlatPagination,
   VirtualCrossConnectCreateParams,
   VirtualCrossConnectCreateResponse,
   VirtualCrossConnectDeleteResponse,
   VirtualCrossConnectListParams,
-  VirtualCrossConnectListResponse,
-  VirtualCrossConnectListResponsesDefaultFlatPagination,
   VirtualCrossConnectRetrieveResponse,
   VirtualCrossConnectUpdateParams,
   VirtualCrossConnectUpdateResponse,
@@ -1106,8 +1106,8 @@ import {
   WireguardInterfaceCreateResponse,
   WireguardInterfaceDeleteResponse,
   WireguardInterfaceListParams,
-  WireguardInterfaceListResponse,
-  WireguardInterfaceListResponsesDefaultFlatPagination,
+  WireguardInterfaceRead,
+  WireguardInterfaceReadsDefaultFlatPagination,
   WireguardInterfaceRetrieveResponse,
   WireguardInterfaces,
 } from './resources/wireguard-interfaces';
@@ -4309,11 +4309,11 @@ export declare namespace Telnyx {
     PublicInternetGateways as PublicInternetGateways,
     type NetworkInterface as NetworkInterface,
     type NetworkInterfaceRegion as NetworkInterfaceRegion,
+    type PublicInternetGatewayRead as PublicInternetGatewayRead,
     type PublicInternetGatewayCreateResponse as PublicInternetGatewayCreateResponse,
     type PublicInternetGatewayRetrieveResponse as PublicInternetGatewayRetrieveResponse,
-    type PublicInternetGatewayListResponse as PublicInternetGatewayListResponse,
     type PublicInternetGatewayDeleteResponse as PublicInternetGatewayDeleteResponse,
-    type PublicInternetGatewayListResponsesDefaultFlatPagination as PublicInternetGatewayListResponsesDefaultFlatPagination,
+    type PublicInternetGatewayReadsDefaultFlatPagination as PublicInternetGatewayReadsDefaultFlatPagination,
     type PublicInternetGatewayCreateParams as PublicInternetGatewayCreateParams,
     type PublicInternetGatewayListParams as PublicInternetGatewayListParams,
   };
@@ -4656,12 +4656,12 @@ export declare namespace Telnyx {
 
   export {
     VirtualCrossConnects as VirtualCrossConnects,
+    type VirtualCrossConnectCombined as VirtualCrossConnectCombined,
     type VirtualCrossConnectCreateResponse as VirtualCrossConnectCreateResponse,
     type VirtualCrossConnectRetrieveResponse as VirtualCrossConnectRetrieveResponse,
     type VirtualCrossConnectUpdateResponse as VirtualCrossConnectUpdateResponse,
-    type VirtualCrossConnectListResponse as VirtualCrossConnectListResponse,
     type VirtualCrossConnectDeleteResponse as VirtualCrossConnectDeleteResponse,
-    type VirtualCrossConnectListResponsesDefaultFlatPagination as VirtualCrossConnectListResponsesDefaultFlatPagination,
+    type VirtualCrossConnectCombinedsDefaultFlatPagination as VirtualCrossConnectCombinedsDefaultFlatPagination,
     type VirtualCrossConnectCreateParams as VirtualCrossConnectCreateParams,
     type VirtualCrossConnectUpdateParams as VirtualCrossConnectUpdateParams,
     type VirtualCrossConnectListParams as VirtualCrossConnectListParams,
@@ -4686,11 +4686,11 @@ export declare namespace Telnyx {
 
   export {
     WireguardInterfaces as WireguardInterfaces,
+    type WireguardInterfaceRead as WireguardInterfaceRead,
     type WireguardInterfaceCreateResponse as WireguardInterfaceCreateResponse,
     type WireguardInterfaceRetrieveResponse as WireguardInterfaceRetrieveResponse,
-    type WireguardInterfaceListResponse as WireguardInterfaceListResponse,
     type WireguardInterfaceDeleteResponse as WireguardInterfaceDeleteResponse,
-    type WireguardInterfaceListResponsesDefaultFlatPagination as WireguardInterfaceListResponsesDefaultFlatPagination,
+    type WireguardInterfaceReadsDefaultFlatPagination as WireguardInterfaceReadsDefaultFlatPagination,
     type WireguardInterfaceCreateParams as WireguardInterfaceCreateParams,
     type WireguardInterfaceListParams as WireguardInterfaceListParams,
   };
