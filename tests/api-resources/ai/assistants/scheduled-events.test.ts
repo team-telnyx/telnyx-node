@@ -34,6 +34,8 @@ describe('resource scheduledEvents', () => {
       telnyx_end_user_target: 'telnyx_end_user_target',
       conversation_metadata: { foo: 'string' },
       dynamic_variables: { foo: 'string' },
+      max_retries_client_errors: 0,
+      retry_interval_secs: 60,
       text: 'text',
     });
   });

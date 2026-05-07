@@ -1,13 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export * from './shared';
-export {
-  AI,
-  type ModelMetadata,
-  type AIRetrieveModelsResponse,
-  type AISummarizeResponse,
-  type AISummarizeParams,
-} from './ai/ai';
+export { AI, type AIRetrieveModelsResponse, type AISummarizeResponse, type AISummarizeParams } from './ai/ai';
 export {
   AccessIPAddress,
   type AccessIPAddressResponse,
@@ -967,13 +961,13 @@ export {
   PublicInternetGateways,
   type NetworkInterface,
   type NetworkInterfaceRegion,
-  type PublicInternetGatewayRead,
   type PublicInternetGatewayCreateResponse,
   type PublicInternetGatewayRetrieveResponse,
+  type PublicInternetGatewayListResponse,
   type PublicInternetGatewayDeleteResponse,
   type PublicInternetGatewayCreateParams,
   type PublicInternetGatewayListParams,
-  type PublicInternetGatewayReadsDefaultFlatPagination,
+  type PublicInternetGatewayListResponsesDefaultFlatPagination,
 } from './public-internet-gateways';
 export {
   Queues,
@@ -1250,19 +1244,15 @@ export {
 } from './traffic-policy-profiles';
 export {
   UacConnections,
-  type UacConnection,
-  type UacExternalSettings,
-  type UacInbound,
-  type UacInternalSettings,
-  type UacOutbound,
   type UacConnectionCreateResponse,
   type UacConnectionRetrieveResponse,
   type UacConnectionUpdateResponse,
+  type UacConnectionListResponse,
   type UacConnectionDeleteResponse,
   type UacConnectionCreateParams,
   type UacConnectionUpdateParams,
   type UacConnectionListParams,
-  type UacConnectionsDefaultFlatPagination,
+  type UacConnectionListResponsesDefaultFlatPagination,
 } from './uac-connections/uac-connections';
 export {
   UsageReports,
@@ -1317,15 +1307,15 @@ export {
 } from './verify-profiles';
 export {
   VirtualCrossConnects,
-  type VirtualCrossConnectCombined,
   type VirtualCrossConnectCreateResponse,
   type VirtualCrossConnectRetrieveResponse,
   type VirtualCrossConnectUpdateResponse,
+  type VirtualCrossConnectListResponse,
   type VirtualCrossConnectDeleteResponse,
   type VirtualCrossConnectCreateParams,
   type VirtualCrossConnectUpdateParams,
   type VirtualCrossConnectListParams,
-  type VirtualCrossConnectCombinedsDefaultFlatPagination,
+  type VirtualCrossConnectListResponsesDefaultFlatPagination,
 } from './virtual-cross-connects';
 export {
   VirtualCrossConnectsCoverage,
@@ -1506,13 +1496,13 @@ export {
 } from './whatsapp-message-templates';
 export {
   WireguardInterfaces,
-  type WireguardInterfaceRead,
   type WireguardInterfaceCreateResponse,
   type WireguardInterfaceRetrieveResponse,
+  type WireguardInterfaceListResponse,
   type WireguardInterfaceDeleteResponse,
   type WireguardInterfaceCreateParams,
   type WireguardInterfaceListParams,
-  type WireguardInterfaceReadsDefaultFlatPagination,
+  type WireguardInterfaceListResponsesDefaultFlatPagination,
 } from './wireguard-interfaces';
 export {
   WireguardPeers,
