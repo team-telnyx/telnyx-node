@@ -1,5 +1,28 @@
 # Changelog
 
+## 6.52.0 (2026-05-07)
+
+Full Changelog: [v6.51.0...v6.52.0](https://github.com/team-telnyx/telnyx-node/compare/v6.51.0...v6.52.0)
+
+### Features
+
+* Add Speechmatics provider to standalone STT spec ([8e848ee](https://github.com/team-telnyx/telnyx-node/commit/8e848ee1ce44d23e80b736b9025cd46284a8167e))
+
+
+### Bug Fixes
+
+* revert stainless.yml changes from ad4f13c ([501d37d](https://github.com/team-telnyx/telnyx-node/commit/501d37d31d21511040bee7e712a7ef57b30b715c))
+
+
+### Chores
+
+* redact api-key headers in debug logs ([3a1e504](https://github.com/team-telnyx/telnyx-node/commit/3a1e50472d50935111cc9d68bb139efca9ef179a))
+
+
+### Documentation
+
+* update gather_using_ai transcription models ([8c5ea6e](https://github.com/team-telnyx/telnyx-node/commit/8c5ea6e15f6e13d677954531ab2806f3b0dbff25))
+
 ## 6.51.0 (2026-05-07)
 
 Full Changelog: [v6.50.0...v6.51.0](https://github.com/team-telnyx/telnyx-node/compare/v6.50.0...v6.51.0)

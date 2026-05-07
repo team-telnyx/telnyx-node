@@ -1341,15 +1341,47 @@ export interface TelnyxVoiceSettings {
  */
 export interface TranscriptionConfig {
   /**
-   * The speech to text model to be used by the voice assistant.
-   *
-   * - `distil-whisper/distil-large-v2` is lower latency but English-only.
-   * - `openai/whisper-large-v3-turbo` is multi-lingual with automatic language
-   *   detection but slightly higher latency.
-   * - `google` is a multi-lingual option, please describe the language in the
-   *   `language` field.
+   * The language of the audio to be transcribed. If not set, or if set to `auto`,
+   * supported models will automatically detect the language. Supported and
+   * meaningful values depend on the selected transcription `model`. For
+   * `deepgram/flux`, supported values are: `auto` (Telnyx language detection
+   * controls the language hint), `multi` (no language hint), and language-specific
+   * hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`.
    */
-  model?: string;
+  language?: string;
+
+  /**
+   * The speech to text model to be used by the voice assistant. Supported models
+   * include:
+   *
+   * - `deepgram/flux` (or `flux`) for live streaming turn-taking.
+   * - `deepgram/nova-3` and `deepgram/nova-2` for live streaming transcription.
+   * - `speechmatics/standard` and `speechmatics/enhanced` for live streaming
+   *   transcription.
+   * - `assemblyai/universal-streaming` for live streaming transcription.
+   * - `xai/grok-stt` for live streaming transcription.
+   * - `azure/fast` and `azure/realtime`; Azure models require `region`, and
+   *   unsupported regions require `api_key_ref`.
+   * - `google/latest_long` for non-streaming multilingual transcription.
+   * - `distil-whisper/distil-large-v2` for lower-latency English-only non-streaming
+   *   transcription.
+   * - `openai/whisper-large-v3-turbo` for multilingual non-streaming transcription
+   *   with automatic language detection.
+   */
+  model?:
+    | 'deepgram/flux'
+    | 'flux'
+    | 'deepgram/nova-3'
+    | 'deepgram/nova-2'
+    | 'speechmatics/standard'
+    | 'speechmatics/enhanced'
+    | 'assemblyai/universal-streaming'
+    | 'xai/grok-stt'
+    | 'azure/fast'
+    | 'azure/realtime'
+    | 'google/latest_long'
+    | 'distil-whisper/distil-large-v2'
+    | 'openai/whisper-large-v3-turbo';
 }
 
 export interface TranscriptionEngineAConfig {
