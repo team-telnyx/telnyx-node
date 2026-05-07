@@ -43,6 +43,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">SimpleSimCard</a></code>
 - <code><a href="./src/resources/shared.ts">SubNumberOrderRegulatoryRequirementWithValue</a></code>
 - <code><a href="./src/resources/shared.ts">WhatsappTemplateData</a></code>
+- <code><a href="./src/resources/shared.ts">XaiVoiceSettings</a></code>
 
 # Legacy
 
@@ -512,6 +513,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/ai.ts">ModelMetadata</a></code>
 - <code><a href="./src/resources/ai/ai.ts">AIRetrieveModelsResponse</a></code>
 - <code><a href="./src/resources/ai/ai.ts">AISummarizeResponse</a></code>
 
@@ -525,6 +527,8 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/ai/assistants/assistants.ts">Assistant</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantIntegration</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantMcpServer</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantsList</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AudioVisualizerConfig</a></code>
@@ -537,6 +541,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ImportMetadata</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbedding</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingInterruptionSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingWebhookToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InsightSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">MessagingSettings</a></code>
@@ -546,7 +551,9 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PostConversationSettingsReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PrivacySettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">RetrievalTool</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">StartSpeakingPlan</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TelephonySettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionEndpointingPlan</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionSettingsConfig</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TransferTool</a></code>
@@ -629,6 +636,11 @@ Types:
 
 - <code><a href="./src/resources/ai/assistants/canary-deploys.ts">CanaryDeploy</a></code>
 - <code><a href="./src/resources/ai/assistants/canary-deploys.ts">CanaryDeployResponse</a></code>
+- <code><a href="./src/resources/ai/assistants/canary-deploys.ts">Clause</a></code>
+- <code><a href="./src/resources/ai/assistants/canary-deploys.ts">RolloutSlot</a></code>
+- <code><a href="./src/resources/ai/assistants/canary-deploys.ts">RuleInput</a></code>
+- <code><a href="./src/resources/ai/assistants/canary-deploys.ts">RuleOutput</a></code>
+- <code><a href="./src/resources/ai/assistants/canary-deploys.ts">Serve</a></code>
 
 Methods:
 
@@ -1280,11 +1292,13 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">TelnyxVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineAConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineAssemblyaiConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineAzureConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineBConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineDeepgramConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineGoogleConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineTelnyxConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineXaiConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionStartRequest</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionAddAIAssistantMessagesResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionAnswerResponse</a></code>
@@ -4833,10 +4847,14 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnection</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacExternalSettings</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacInbound</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacInternalSettings</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacOutbound</a></code>
 - <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionCreateResponse</a></code>
 - <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionRetrieveResponse</a></code>
 - <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionUpdateResponse</a></code>
-- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionListResponse</a></code>
 - <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionDeleteResponse</a></code>
 
 Methods:
@@ -4844,7 +4862,7 @@ Methods:
 - <code title="post /uac_connections">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">create</a>({ ...params }) -> UacConnectionCreateResponse</code>
 - <code title="get /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">retrieve</a>(id) -> UacConnectionRetrieveResponse</code>
 - <code title="patch /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">update</a>(id, { ...params }) -> UacConnectionUpdateResponse</code>
-- <code title="get /uac_connections">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">list</a>({ ...params }) -> UacConnectionListResponsesDefaultFlatPagination</code>
+- <code title="get /uac_connections">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">list</a>({ ...params }) -> UacConnectionsDefaultFlatPagination</code>
 - <code title="delete /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">delete</a>(id) -> UacConnectionDeleteResponse</code>
 
 ## Actions
