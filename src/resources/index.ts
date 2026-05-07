@@ -1,13 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export * from './shared';
-export {
-  AI,
-  type ModelMetadata,
-  type AIRetrieveModelsResponse,
-  type AISummarizeResponse,
-  type AISummarizeParams,
-} from './ai/ai';
+export { AI, type AIRetrieveModelsResponse, type AISummarizeResponse, type AISummarizeParams } from './ai/ai';
 export {
   AccessIPAddress,
   type AccessIPAddressResponse,
@@ -1250,19 +1244,15 @@ export {
 } from './traffic-policy-profiles';
 export {
   UacConnections,
-  type UacConnection,
-  type UacExternalSettings,
-  type UacInbound,
-  type UacInternalSettings,
-  type UacOutbound,
   type UacConnectionCreateResponse,
   type UacConnectionRetrieveResponse,
   type UacConnectionUpdateResponse,
+  type UacConnectionListResponse,
   type UacConnectionDeleteResponse,
   type UacConnectionCreateParams,
   type UacConnectionUpdateParams,
   type UacConnectionListParams,
-  type UacConnectionsDefaultFlatPagination,
+  type UacConnectionListResponsesDefaultFlatPagination,
 } from './uac-connections/uac-connections';
 export {
   UsageReports,

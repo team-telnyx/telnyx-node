@@ -1153,13 +1153,7 @@ import {
   Addresses,
   AddressesDefaultFlatPagination,
 } from './resources/addresses/addresses';
-import {
-  AI,
-  AIRetrieveModelsResponse,
-  AISummarizeParams,
-  AISummarizeResponse,
-  ModelMetadata,
-} from './resources/ai/ai';
+import { AI, AIRetrieveModelsResponse, AISummarizeParams, AISummarizeResponse } from './resources/ai/ai';
 import { BundlePricing } from './resources/bundle-pricing/bundle-pricing';
 import {
   CallAssistantRequest,
@@ -1538,20 +1532,16 @@ import {
   TextToSpeechListVoicesResponse,
 } from './resources/text-to-speech/text-to-speech';
 import {
-  UacConnection,
   UacConnectionCreateParams,
   UacConnectionCreateResponse,
   UacConnectionDeleteResponse,
   UacConnectionListParams,
+  UacConnectionListResponse,
+  UacConnectionListResponsesDefaultFlatPagination,
   UacConnectionRetrieveResponse,
   UacConnectionUpdateParams,
   UacConnectionUpdateResponse,
   UacConnections,
-  UacConnectionsDefaultFlatPagination,
-  UacExternalSettings,
-  UacInbound,
-  UacInternalSettings,
-  UacOutbound,
 } from './resources/uac-connections/uac-connections';
 import {
   CreateVerificationResponse,
@@ -3392,7 +3382,6 @@ export declare namespace Telnyx {
 
   export {
     AI as AI,
-    type ModelMetadata as ModelMetadata,
     type AIRetrieveModelsResponse as AIRetrieveModelsResponse,
     type AISummarizeResponse as AISummarizeResponse,
     type AISummarizeParams as AISummarizeParams,
@@ -4896,16 +4885,12 @@ export declare namespace Telnyx {
 
   export {
     UacConnections as UacConnections,
-    type UacConnection as UacConnection,
-    type UacExternalSettings as UacExternalSettings,
-    type UacInbound as UacInbound,
-    type UacInternalSettings as UacInternalSettings,
-    type UacOutbound as UacOutbound,
     type UacConnectionCreateResponse as UacConnectionCreateResponse,
     type UacConnectionRetrieveResponse as UacConnectionRetrieveResponse,
     type UacConnectionUpdateResponse as UacConnectionUpdateResponse,
+    type UacConnectionListResponse as UacConnectionListResponse,
     type UacConnectionDeleteResponse as UacConnectionDeleteResponse,
-    type UacConnectionsDefaultFlatPagination as UacConnectionsDefaultFlatPagination,
+    type UacConnectionListResponsesDefaultFlatPagination as UacConnectionListResponsesDefaultFlatPagination,
     type UacConnectionCreateParams as UacConnectionCreateParams,
     type UacConnectionUpdateParams as UacConnectionUpdateParams,
     type UacConnectionListParams as UacConnectionListParams,
@@ -4952,5 +4937,4 @@ export declare namespace Telnyx {
   export type SimpleSimCard = API.SimpleSimCard;
   export type SubNumberOrderRegulatoryRequirementWithValue = API.SubNumberOrderRegulatoryRequirementWithValue;
   export type WhatsappTemplateData = API.WhatsappTemplateData;
-  export type XaiVoiceSettings = API.XaiVoiceSettings;
 }
