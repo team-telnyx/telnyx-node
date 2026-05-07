@@ -1165,6 +1165,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/missions/{mission_id}/tools/{tool_id}',
   },
   {
+    clientCallName: 'client.ai.openai.listModels',
+    fullyQualifiedName: 'ai.openai.listModels',
+    httpMethod: 'get',
+    httpPath: '/ai/openai/models',
+  },
+  {
     clientCallName: 'client.ai.openai.embeddings.createEmbeddings',
     fullyQualifiedName: 'ai.openai.embeddings.createEmbeddings',
     httpMethod: 'post',
@@ -1175,6 +1181,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'ai.openai.embeddings.listEmbeddingModels',
     httpMethod: 'get',
     httpPath: '/ai/openai/embeddings/models',
+  },
+  {
+    clientCallName: 'client.ai.openai.chat.createCompletion',
+    fullyQualifiedName: 'ai.openai.chat.createCompletion',
+    httpMethod: 'post',
+    httpPath: '/ai/openai/chat/completions',
   },
   {
     clientCallName: 'client.ai.tools.create',

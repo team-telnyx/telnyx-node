@@ -135,7 +135,7 @@ import {
   Missions,
 } from './missions/missions';
 import * as OpenAIAPI from './openai/openai';
-import { OpenAI } from './openai/openai';
+import { OpenAI, OpenAIListModelsResponse } from './openai/openai';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -157,16 +157,13 @@ export class AI extends APIResource {
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
 
   /**
-   * This endpoint returns a list of Open Source and OpenAI models that are available
-   * for use. <br /><br /> **Note**: Model `id`'s will be in the form
-   * `{source}/{model_name}`. For example `openai/gpt-4` or
-   * `mistralai/Mistral-7B-Instruct-v0.1` consistent with HuggingFace naming
-   * conventions.
+   * **Deprecated**: Use `GET /v2/ai/openai/models` instead. This endpoint returns a
+   * list of Open Source and OpenAI models that are available for use. <br /><br />
+   * **Note**: Model `id`'s will be in the form `{source}/{model_name}`. For example
+   * `openai/gpt-4` or `mistralai/Mistral-7B-Instruct-v0.1` consistent with
+   * HuggingFace naming conventions.
    *
-   * @example
-   * ```ts
-   * const response = await client.ai.retrieveModels();
-   * ```
+   * @deprecated
    */
   retrieveModels(options?: RequestOptions): APIPromise<AIRetrieveModelsResponse> {
     return this._client.get('/ai/models', options);
@@ -392,7 +389,7 @@ export declare namespace AI {
     type MissionUpdateMissionParams as MissionUpdateMissionParams,
   };
 
-  export { OpenAI as OpenAI };
+  export { OpenAI as OpenAI, type OpenAIListModelsResponse as OpenAIListModelsResponse };
 
   export {
     Tools as Tools,
