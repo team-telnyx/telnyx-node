@@ -3,13 +3,17 @@
 export { Actions, type ActionCheckRegistrationStatusResponse } from './actions';
 export {
   UacConnections,
+  type UacConnection,
+  type UacExternalSettings,
+  type UacInbound,
+  type UacInternalSettings,
+  type UacOutbound,
   type UacConnectionCreateResponse,
   type UacConnectionRetrieveResponse,
   type UacConnectionUpdateResponse,
-  type UacConnectionListResponse,
   type UacConnectionDeleteResponse,
   type UacConnectionCreateParams,
   type UacConnectionUpdateParams,
   type UacConnectionListParams,
-  type UacConnectionListResponsesDefaultFlatPagination,
+  type UacConnectionsDefaultFlatPagination,
 } from './uac-connections';
