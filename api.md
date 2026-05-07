@@ -3185,16 +3185,16 @@ Types:
 
 - <code><a href="./src/resources/public-internet-gateways.ts">NetworkInterface</a></code>
 - <code><a href="./src/resources/public-internet-gateways.ts">NetworkInterfaceRegion</a></code>
+- <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGatewayRead</a></code>
 - <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGatewayCreateResponse</a></code>
 - <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGatewayRetrieveResponse</a></code>
-- <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGatewayListResponse</a></code>
 - <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGatewayDeleteResponse</a></code>
 
 Methods:
 
 - <code title="post /public_internet_gateways">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">create</a>({ ...params }) -> PublicInternetGatewayCreateResponse</code>
 - <code title="get /public_internet_gateways/{id}">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">retrieve</a>(id) -> PublicInternetGatewayRetrieveResponse</code>
-- <code title="get /public_internet_gateways">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">list</a>({ ...params }) -> PublicInternetGatewayListResponsesDefaultFlatPagination</code>
+- <code title="get /public_internet_gateways">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">list</a>({ ...params }) -> PublicInternetGatewayReadsDefaultFlatPagination</code>
 - <code title="delete /public_internet_gateways/{id}">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">delete</a>(id) -> PublicInternetGatewayDeleteResponse</code>
 
 # Queues
@@ -4117,10 +4117,10 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectCombined</a></code>
 - <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectCreateResponse</a></code>
 - <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectRetrieveResponse</a></code>
 - <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectUpdateResponse</a></code>
-- <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectListResponse</a></code>
 - <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectDeleteResponse</a></code>
 
 Methods:
@@ -4128,7 +4128,7 @@ Methods:
 - <code title="post /virtual_cross_connects">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">create</a>({ ...params }) -> VirtualCrossConnectCreateResponse</code>
 - <code title="get /virtual_cross_connects/{id}">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">retrieve</a>(id) -> VirtualCrossConnectRetrieveResponse</code>
 - <code title="patch /virtual_cross_connects/{id}">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">update</a>(id, { ...params }) -> VirtualCrossConnectUpdateResponse</code>
-- <code title="get /virtual_cross_connects">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">list</a>({ ...params }) -> VirtualCrossConnectListResponsesDefaultFlatPagination</code>
+- <code title="get /virtual_cross_connects">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">list</a>({ ...params }) -> VirtualCrossConnectCombinedsDefaultFlatPagination</code>
 - <code title="delete /virtual_cross_connects/{id}">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">delete</a>(id) -> VirtualCrossConnectDeleteResponse</code>
 
 # VirtualCrossConnectsCoverage
@@ -4159,16 +4159,16 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterfaceRead</a></code>
 - <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterfaceCreateResponse</a></code>
 - <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterfaceRetrieveResponse</a></code>
-- <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterfaceListResponse</a></code>
 - <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterfaceDeleteResponse</a></code>
 
 Methods:
 
 - <code title="post /wireguard_interfaces">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">create</a>({ ...params }) -> WireguardInterfaceCreateResponse</code>
 - <code title="get /wireguard_interfaces/{id}">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">retrieve</a>(id) -> WireguardInterfaceRetrieveResponse</code>
-- <code title="get /wireguard_interfaces">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">list</a>({ ...params }) -> WireguardInterfaceListResponsesDefaultFlatPagination</code>
+- <code title="get /wireguard_interfaces">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">list</a>({ ...params }) -> WireguardInterfaceReadsDefaultFlatPagination</code>
 - <code title="delete /wireguard_interfaces/{id}">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">delete</a>(id) -> WireguardInterfaceDeleteResponse</code>
 
 # WireguardPeers
