@@ -99,77 +99,7 @@ export class CanaryDeploys extends APIResource {
  * - `rules` — canonical ordered list of routing rules
  */
 export interface CanaryDeploy {
-  rules?: Array<CanaryDeploy.Rule>;
-}
-
-export namespace CanaryDeploy {
-  /**
-   * A targeting rule: `match` clauses (AND) gate `serve`.
-   *
-   * An empty `match` is a catch-all (always fires).
-   */
-  export interface Rule {
-    /**
-     * What a rule serves when matched.
-     *
-     * Exactly one of:
-     *
-     * - `version_id` — serve a specific version
-     * - `rollout` — weighted random across versions; weights must sum to less than
-     *   100, with the leftover routing to the main version
-     */
-    serve: Rule.Serve;
-
-    match?: Array<Rule.Match>;
-  }
-
-  export namespace Rule {
-    /**
-     * What a rule serves when matched.
-     *
-     * Exactly one of:
-     *
-     * - `version_id` — serve a specific version
-     * - `rollout` — weighted random across versions; weights must sum to less than
-     *   100, with the leftover routing to the main version
-     */
-    export interface Serve {
-      rollout?: Array<Serve.Rollout>;
-
-      version_id?: string;
-    }
-
-    export namespace Serve {
-      /**
-       * One slot in a percentage rollout.
-       */
-      export interface Rollout {
-        version_id: string;
-
-        weight: number;
-      }
-    }
-
-    /**
-     * A single attribute/operator/values check.
-     *
-     * A clause matches when the routing context's value for `attribute` satisfies
-     * `operator` against any of `values`.
-     */
-    export interface Match {
-      /**
-       * Attribute name from the routing context
-       */
-      attribute: string;
-
-      /**
-       * Match operator
-       */
-      operator: 'in' | 'not_in' | 'starts_with';
-
-      values: Array<string>;
-    }
-  }
+  rules?: Array<RuleInput>;
 }
 
 /**
@@ -182,233 +112,112 @@ export interface CanaryDeployResponse {
 
   created_at: string;
 
-  rules: Array<CanaryDeployResponse.Rule>;
+  rules: Array<RuleOutput>;
 
   updated_at: string;
 }
 
-export namespace CanaryDeployResponse {
+/**
+ * A single attribute/operator/values check.
+ *
+ * A clause matches when the routing context's value for `attribute` satisfies
+ * `operator` against any of `values`.
+ */
+export interface Clause {
   /**
-   * A targeting rule: `match` clauses (AND) gate `serve`.
-   *
-   * An empty `match` is a catch-all (always fires).
+   * Attribute name from the routing context
    */
-  export interface Rule {
-    /**
-     * What a rule serves when matched.
-     *
-     * Exactly one of:
-     *
-     * - `version_id` — serve a specific version
-     * - `rollout` — weighted random across versions; weights must sum to less than
-     *   100, with the leftover routing to the main version
-     */
-    serve: Rule.Serve;
+  attribute: string;
 
-    match?: Array<Rule.Match>;
-  }
+  /**
+   * Match operator
+   */
+  operator: 'in' | 'not_in' | 'starts_with';
 
-  export namespace Rule {
-    /**
-     * What a rule serves when matched.
-     *
-     * Exactly one of:
-     *
-     * - `version_id` — serve a specific version
-     * - `rollout` — weighted random across versions; weights must sum to less than
-     *   100, with the leftover routing to the main version
-     */
-    export interface Serve {
-      rollout?: Array<Serve.Rollout>;
+  values: Array<string>;
+}
 
-      version_id?: string;
-    }
+/**
+ * One slot in a percentage rollout.
+ */
+export interface RolloutSlot {
+  version_id: string;
 
-    export namespace Serve {
-      /**
-       * One slot in a percentage rollout.
-       */
-      export interface Rollout {
-        version_id: string;
+  weight: number;
+}
 
-        weight: number;
-      }
-    }
+/**
+ * A targeting rule: `match` clauses (AND) gate `serve`.
+ *
+ * An empty `match` is a catch-all (always fires).
+ */
+export interface RuleInput {
+  /**
+   * What a rule serves when matched.
+   *
+   * Exactly one of:
+   *
+   * - `version_id` — serve a specific version
+   * - `rollout` — weighted random across versions; weights must sum to less than
+   *   100, with the leftover routing to the main version
+   */
+  serve: Serve;
 
-    /**
-     * A single attribute/operator/values check.
-     *
-     * A clause matches when the routing context's value for `attribute` satisfies
-     * `operator` against any of `values`.
-     */
-    export interface Match {
-      /**
-       * Attribute name from the routing context
-       */
-      attribute: string;
+  match?: Array<Clause>;
+}
 
-      /**
-       * Match operator
-       */
-      operator: 'in' | 'not_in' | 'starts_with';
+/**
+ * A targeting rule: `match` clauses (AND) gate `serve`.
+ *
+ * An empty `match` is a catch-all (always fires).
+ */
+export interface RuleOutput {
+  /**
+   * What a rule serves when matched.
+   *
+   * Exactly one of:
+   *
+   * - `version_id` — serve a specific version
+   * - `rollout` — weighted random across versions; weights must sum to less than
+   *   100, with the leftover routing to the main version
+   */
+  serve: Serve;
 
-      values: Array<string>;
-    }
-  }
+  match?: Array<Clause>;
+}
+
+/**
+ * What a rule serves when matched.
+ *
+ * Exactly one of:
+ *
+ * - `version_id` — serve a specific version
+ * - `rollout` — weighted random across versions; weights must sum to less than
+ *   100, with the leftover routing to the main version
+ */
+export interface Serve {
+  rollout?: Array<RolloutSlot>;
+
+  version_id?: string;
 }
 
 export interface CanaryDeployCreateParams {
-  rules?: Array<CanaryDeployCreateParams.Rule>;
-}
-
-export namespace CanaryDeployCreateParams {
-  /**
-   * A targeting rule: `match` clauses (AND) gate `serve`.
-   *
-   * An empty `match` is a catch-all (always fires).
-   */
-  export interface Rule {
-    /**
-     * What a rule serves when matched.
-     *
-     * Exactly one of:
-     *
-     * - `version_id` — serve a specific version
-     * - `rollout` — weighted random across versions; weights must sum to less than
-     *   100, with the leftover routing to the main version
-     */
-    serve: Rule.Serve;
-
-    match?: Array<Rule.Match>;
-  }
-
-  export namespace Rule {
-    /**
-     * What a rule serves when matched.
-     *
-     * Exactly one of:
-     *
-     * - `version_id` — serve a specific version
-     * - `rollout` — weighted random across versions; weights must sum to less than
-     *   100, with the leftover routing to the main version
-     */
-    export interface Serve {
-      rollout?: Array<Serve.Rollout>;
-
-      version_id?: string;
-    }
-
-    export namespace Serve {
-      /**
-       * One slot in a percentage rollout.
-       */
-      export interface Rollout {
-        version_id: string;
-
-        weight: number;
-      }
-    }
-
-    /**
-     * A single attribute/operator/values check.
-     *
-     * A clause matches when the routing context's value for `attribute` satisfies
-     * `operator` against any of `values`.
-     */
-    export interface Match {
-      /**
-       * Attribute name from the routing context
-       */
-      attribute: string;
-
-      /**
-       * Match operator
-       */
-      operator: 'in' | 'not_in' | 'starts_with';
-
-      values: Array<string>;
-    }
-  }
+  rules?: Array<RuleInput>;
 }
 
 export interface CanaryDeployUpdateParams {
-  rules?: Array<CanaryDeployUpdateParams.Rule>;
-}
-
-export namespace CanaryDeployUpdateParams {
-  /**
-   * A targeting rule: `match` clauses (AND) gate `serve`.
-   *
-   * An empty `match` is a catch-all (always fires).
-   */
-  export interface Rule {
-    /**
-     * What a rule serves when matched.
-     *
-     * Exactly one of:
-     *
-     * - `version_id` — serve a specific version
-     * - `rollout` — weighted random across versions; weights must sum to less than
-     *   100, with the leftover routing to the main version
-     */
-    serve: Rule.Serve;
-
-    match?: Array<Rule.Match>;
-  }
-
-  export namespace Rule {
-    /**
-     * What a rule serves when matched.
-     *
-     * Exactly one of:
-     *
-     * - `version_id` — serve a specific version
-     * - `rollout` — weighted random across versions; weights must sum to less than
-     *   100, with the leftover routing to the main version
-     */
-    export interface Serve {
-      rollout?: Array<Serve.Rollout>;
-
-      version_id?: string;
-    }
-
-    export namespace Serve {
-      /**
-       * One slot in a percentage rollout.
-       */
-      export interface Rollout {
-        version_id: string;
-
-        weight: number;
-      }
-    }
-
-    /**
-     * A single attribute/operator/values check.
-     *
-     * A clause matches when the routing context's value for `attribute` satisfies
-     * `operator` against any of `values`.
-     */
-    export interface Match {
-      /**
-       * Attribute name from the routing context
-       */
-      attribute: string;
-
-      /**
-       * Match operator
-       */
-      operator: 'in' | 'not_in' | 'starts_with';
-
-      values: Array<string>;
-    }
-  }
+  rules?: Array<RuleInput>;
 }
 
 export declare namespace CanaryDeploys {
   export {
     type CanaryDeploy as CanaryDeploy,
     type CanaryDeployResponse as CanaryDeployResponse,
+    type Clause as Clause,
+    type RolloutSlot as RolloutSlot,
+    type RuleInput as RuleInput,
+    type RuleOutput as RuleOutput,
+    type Serve as Serve,
     type CanaryDeployCreateParams as CanaryDeployCreateParams,
     type CanaryDeployUpdateParams as CanaryDeployUpdateParams,
   };
