@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as AIAPI from '../ai';
 import * as ChatAPI from './chat';
 import { Chat, ChatCreateCompletionParams, ChatCreateCompletionResponse } from './chat';
 import * as EmbeddingsAPI from './embeddings';
@@ -36,9 +35,21 @@ export class OpenAI extends APIResource {
 }
 
 export interface OpenAIListModelsResponse {
-  data: Array<AIAPI.ModelMetadata>;
+  data: Array<OpenAIListModelsResponse.Data>;
 
   object?: string;
+}
+
+export namespace OpenAIListModelsResponse {
+  export interface Data {
+    id: string;
+
+    created: number;
+
+    owned_by: string;
+
+    object?: string;
+  }
 }
 
 OpenAI.Embeddings = Embeddings;

@@ -1,17 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export {
-  AI,
-  type ModelMetadata,
-  type AIRetrieveModelsResponse,
-  type AISummarizeResponse,
-  type AISummarizeParams,
-} from './ai';
+export { AI, type AIRetrieveModelsResponse, type AISummarizeResponse, type AISummarizeParams } from './ai';
 export {
   Assistants,
   type Assistant,
-  type AssistantIntegration,
-  type AssistantMcpServer,
   type AssistantTool,
   type AssistantsList,
   type AudioVisualizerConfig,
@@ -24,7 +16,6 @@ export {
   type HangupToolParams,
   type ImportMetadata,
   type InferenceEmbedding,
-  type InferenceEmbeddingInterruptionSettings,
   type InferenceEmbeddingWebhookToolParams,
   type InsightSettings,
   type MessagingSettings,
@@ -34,9 +25,7 @@ export {
   type PostConversationSettingsReq,
   type PrivacySettings,
   type RetrievalTool,
-  type StartSpeakingPlan,
   type TelephonySettings,
-  type TranscriptionEndpointingPlan,
   type TranscriptionSettings,
   type TranscriptionSettingsConfig,
   type TransferTool,
