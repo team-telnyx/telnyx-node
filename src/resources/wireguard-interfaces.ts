@@ -1,8 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
-import * as PublicInternetGatewaysAPI from './public-internet-gateways';
+import * as NetworksAPI from './networks/networks';
 import { APIPromise } from '../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
@@ -92,7 +91,17 @@ export interface WireguardInterfaceCreateResponse {
 }
 
 export namespace WireguardInterfaceCreateResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was created.
+     */
+    created_at?: string;
+
     /**
      * Enable SIP traffic forwarding over VPN interface.
      */
@@ -104,9 +113,24 @@ export namespace WireguardInterfaceCreateResponse {
     endpoint?: string;
 
     /**
+     * A user specified name for the interface.
+     */
+    name?: string;
+
+    /**
+     * The id of the network associated with the interface.
+     */
+    network_id?: string;
+
+    /**
      * The Telnyx WireGuard peers `Peer.PublicKey`.
      */
     public_key?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
 
     region?: Data.Region;
 
@@ -114,6 +138,16 @@ export namespace WireguardInterfaceCreateResponse {
      * The region interface is deployed to.
      */
     region_code?: string;
+
+    /**
+     * The current status of the interface deployment.
+     */
+    status?: NetworksAPI.InterfaceStatus;
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     */
+    updated_at?: string;
   }
 
   export namespace Data {
@@ -141,7 +175,17 @@ export interface WireguardInterfaceRetrieveResponse {
 }
 
 export namespace WireguardInterfaceRetrieveResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was created.
+     */
+    created_at?: string;
+
     /**
      * Enable SIP traffic forwarding over VPN interface.
      */
@@ -153,9 +197,24 @@ export namespace WireguardInterfaceRetrieveResponse {
     endpoint?: string;
 
     /**
+     * A user specified name for the interface.
+     */
+    name?: string;
+
+    /**
+     * The id of the network associated with the interface.
+     */
+    network_id?: string;
+
+    /**
      * The Telnyx WireGuard peers `Peer.PublicKey`.
      */
     public_key?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
 
     region?: Data.Region;
 
@@ -163,6 +222,16 @@ export namespace WireguardInterfaceRetrieveResponse {
      * The region interface is deployed to.
      */
     region_code?: string;
+
+    /**
+     * The current status of the interface deployment.
+     */
+    status?: NetworksAPI.InterfaceStatus;
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     */
+    updated_at?: string;
   }
 
   export namespace Data {
@@ -185,9 +254,17 @@ export namespace WireguardInterfaceRetrieveResponse {
   }
 }
 
-export interface WireguardInterfaceListResponse
-  extends GlobalIPAssignmentsAPI.Record,
-    PublicInternetGatewaysAPI.NetworkInterface {
+export interface WireguardInterfaceListResponse {
+  /**
+   * Identifies the resource.
+   */
+  id?: string;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was created.
+   */
+  created_at?: string;
+
   /**
    * Enable SIP traffic forwarding over VPN interface.
    */
@@ -199,9 +276,24 @@ export interface WireguardInterfaceListResponse
   endpoint?: string;
 
   /**
+   * A user specified name for the interface.
+   */
+  name?: string;
+
+  /**
+   * The id of the network associated with the interface.
+   */
+  network_id?: string;
+
+  /**
    * The Telnyx WireGuard peers `Peer.PublicKey`.
    */
   public_key?: string;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: string;
 
   region?: WireguardInterfaceListResponse.Region;
 
@@ -209,6 +301,16 @@ export interface WireguardInterfaceListResponse
    * The region interface is deployed to.
    */
   region_code?: string;
+
+  /**
+   * The current status of the interface deployment.
+   */
+  status?: NetworksAPI.InterfaceStatus;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was updated.
+   */
+  updated_at?: string;
 }
 
 export namespace WireguardInterfaceListResponse {
@@ -235,7 +337,17 @@ export interface WireguardInterfaceDeleteResponse {
 }
 
 export namespace WireguardInterfaceDeleteResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was created.
+     */
+    created_at?: string;
+
     /**
      * Enable SIP traffic forwarding over VPN interface.
      */
@@ -247,9 +359,24 @@ export namespace WireguardInterfaceDeleteResponse {
     endpoint?: string;
 
     /**
+     * A user specified name for the interface.
+     */
+    name?: string;
+
+    /**
+     * The id of the network associated with the interface.
+     */
+    network_id?: string;
+
+    /**
      * The Telnyx WireGuard peers `Peer.PublicKey`.
      */
     public_key?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
 
     region?: Data.Region;
 
@@ -257,6 +384,16 @@ export namespace WireguardInterfaceDeleteResponse {
      * The region interface is deployed to.
      */
     region_code?: string;
+
+    /**
+     * The current status of the interface deployment.
+     */
+    status?: NetworksAPI.InterfaceStatus;
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     */
+    updated_at?: string;
   }
 
   export namespace Data {

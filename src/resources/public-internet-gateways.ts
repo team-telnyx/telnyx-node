@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as PublicInternetGatewaysAPI from './public-internet-gateways';
-import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import * as NetworksAPI from './networks/networks';
 import { APIPromise } from '../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
@@ -114,16 +112,51 @@ export interface PublicInternetGatewayCreateResponse {
 }
 
 export namespace PublicInternetGatewayCreateResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * A user specified name for the interface.
+     */
+    name?: string;
+
+    /**
+     * The id of the network associated with the interface.
+     */
+    network_id?: string;
+
     /**
      * The publically accessible ip for this interface.
      */
     public_ip?: string;
 
     /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
      * The region interface is deployed to.
      */
     region_code?: string;
+
+    /**
+     * The current status of the interface deployment.
+     */
+    status?: NetworksAPI.InterfaceStatus;
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     */
+    updated_at?: string;
   }
 }
 
@@ -132,29 +165,99 @@ export interface PublicInternetGatewayRetrieveResponse {
 }
 
 export namespace PublicInternetGatewayRetrieveResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * A user specified name for the interface.
+     */
+    name?: string;
+
+    /**
+     * The id of the network associated with the interface.
+     */
+    network_id?: string;
+
     /**
      * The publically accessible ip for this interface.
      */
     public_ip?: string;
 
     /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
      * The region interface is deployed to.
      */
     region_code?: string;
+
+    /**
+     * The current status of the interface deployment.
+     */
+    status?: NetworksAPI.InterfaceStatus;
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     */
+    updated_at?: string;
   }
 }
 
-export interface PublicInternetGatewayListResponse extends GlobalIPAssignmentsAPI.Record, NetworkInterface {
+export interface PublicInternetGatewayListResponse {
+  /**
+   * Identifies the resource.
+   */
+  id?: string;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was created.
+   */
+  created_at?: string;
+
+  /**
+   * A user specified name for the interface.
+   */
+  name?: string;
+
+  /**
+   * The id of the network associated with the interface.
+   */
+  network_id?: string;
+
   /**
    * The publically accessible ip for this interface.
    */
   public_ip?: string;
 
   /**
+   * Identifies the type of the resource.
+   */
+  record_type?: string;
+
+  /**
    * The region interface is deployed to.
    */
   region_code?: string;
+
+  /**
+   * The current status of the interface deployment.
+   */
+  status?: NetworksAPI.InterfaceStatus;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was updated.
+   */
+  updated_at?: string;
 }
 
 export interface PublicInternetGatewayDeleteResponse {
@@ -162,16 +265,51 @@ export interface PublicInternetGatewayDeleteResponse {
 }
 
 export namespace PublicInternetGatewayDeleteResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+  export interface Data {
+    /**
+     * Identifies the resource.
+     */
+    id?: string;
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * A user specified name for the interface.
+     */
+    name?: string;
+
+    /**
+     * The id of the network associated with the interface.
+     */
+    network_id?: string;
+
     /**
      * The publically accessible ip for this interface.
      */
     public_ip?: string;
 
     /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
      * The region interface is deployed to.
      */
     region_code?: string;
+
+    /**
+     * The current status of the interface deployment.
+     */
+    status?: NetworksAPI.InterfaceStatus;
+
+    /**
+     * ISO 8601 formatted date-time indicating when the resource was updated.
+     */
+    updated_at?: string;
   }
 }
 
