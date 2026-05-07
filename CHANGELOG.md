@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.55.1 (2026-05-07)
+
+Full Changelog: [v6.55.0...v6.55.1](https://github.com/team-telnyx/telnyx-node/compare/v6.55.0...v6.55.1)
+
+### Bug Fixes
+
+* update UAC internal settings URI examples ([5f36a13](https://github.com/team-telnyx/telnyx-node/commit/5f36a13d213fd2fb4b093c939c6dbf740ace3a5d))
+
+
+### Reverts
+
+* restore stainless.yml from before 964956c ([1e6833e](https://github.com/team-telnyx/telnyx-node/commit/1e6833e78e8cc7807560eef29dc38fcd8e6c0bd1))
+
 ## 6.55.0 (2026-05-07)
 
 Full Changelog: [v6.54.0...v6.55.0](https://github.com/team-telnyx/telnyx-node/compare/v6.54.0...v6.55.0)
