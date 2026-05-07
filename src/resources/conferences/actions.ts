@@ -1020,7 +1020,7 @@ export interface ActionSpeakParams {
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | ActionSpeakParams.InworldVoiceSettings
-    | Shared.XaiVoiceSettings;
+    | ActionSpeakParams.XaiVoiceSettings;
 }
 
 export namespace ActionSpeakParams {
@@ -1029,6 +1029,18 @@ export namespace ActionSpeakParams {
      * Voice settings provider type
      */
     type: 'inworld';
+  }
+
+  export interface XaiVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'xai';
+
+    /**
+     * Language code, or `auto` to detect automatically.
+     */
+    language?: string;
   }
 }
 
