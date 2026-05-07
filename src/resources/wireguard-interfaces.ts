@@ -51,7 +51,7 @@ export class WireguardInterfaces extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const wireguardInterfaceListResponse of client.wireguardInterfaces.list()) {
+   * for await (const wireguardInterfaceRead of client.wireguardInterfaces.list()) {
    *   // ...
    * }
    * ```
@@ -59,12 +59,11 @@ export class WireguardInterfaces extends APIResource {
   list(
     query: WireguardInterfaceListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<WireguardInterfaceListResponsesDefaultFlatPagination, WireguardInterfaceListResponse> {
-    return this._client.getAPIList(
-      '/wireguard_interfaces',
-      DefaultFlatPagination<WireguardInterfaceListResponse>,
-      { query, ...options },
-    );
+  ): PagePromise<WireguardInterfaceReadsDefaultFlatPagination, WireguardInterfaceRead> {
+    return this._client.getAPIList('/wireguard_interfaces', DefaultFlatPagination<WireguardInterfaceRead>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -83,178 +82,9 @@ export class WireguardInterfaces extends APIResource {
   }
 }
 
-export type WireguardInterfaceListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<WireguardInterfaceListResponse>;
+export type WireguardInterfaceReadsDefaultFlatPagination = DefaultFlatPagination<WireguardInterfaceRead>;
 
-export interface WireguardInterfaceCreateResponse {
-  data?: WireguardInterfaceCreateResponse.Data;
-}
-
-export namespace WireguardInterfaceCreateResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * Enable SIP traffic forwarding over VPN interface.
-     */
-    enable_sip_trunking?: boolean;
-
-    /**
-     * The Telnyx WireGuard peers `Peer.endpoint` value.
-     */
-    endpoint?: string;
-
-    /**
-     * A user specified name for the interface.
-     */
-    name?: string;
-
-    /**
-     * The id of the network associated with the interface.
-     */
-    network_id?: string;
-
-    /**
-     * The Telnyx WireGuard peers `Peer.PublicKey`.
-     */
-    public_key?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    region?: Data.Region;
-
-    /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
-
-    /**
-     * The current status of the interface deployment.
-     */
-    status?: NetworksAPI.InterfaceStatus;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
-  }
-}
-
-export interface WireguardInterfaceRetrieveResponse {
-  data?: WireguardInterfaceRetrieveResponse.Data;
-}
-
-export namespace WireguardInterfaceRetrieveResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * Enable SIP traffic forwarding over VPN interface.
-     */
-    enable_sip_trunking?: boolean;
-
-    /**
-     * The Telnyx WireGuard peers `Peer.endpoint` value.
-     */
-    endpoint?: string;
-
-    /**
-     * A user specified name for the interface.
-     */
-    name?: string;
-
-    /**
-     * The id of the network associated with the interface.
-     */
-    network_id?: string;
-
-    /**
-     * The Telnyx WireGuard peers `Peer.PublicKey`.
-     */
-    public_key?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    region?: Data.Region;
-
-    /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
-
-    /**
-     * The current status of the interface deployment.
-     */
-    status?: NetworksAPI.InterfaceStatus;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
-  }
-}
-
-export interface WireguardInterfaceListResponse {
+export interface WireguardInterfaceRead {
   /**
    * Identifies the resource.
    */
@@ -295,7 +125,7 @@ export interface WireguardInterfaceListResponse {
    */
   record_type?: string;
 
-  region?: WireguardInterfaceListResponse.Region;
+  region?: WireguardInterfaceRead.Region;
 
   /**
    * The region interface is deployed to.
@@ -313,7 +143,7 @@ export interface WireguardInterfaceListResponse {
   updated_at?: string;
 }
 
-export namespace WireguardInterfaceListResponse {
+export namespace WireguardInterfaceRead {
   export interface Region {
     /**
      * Region code of the interface.
@@ -332,88 +162,16 @@ export namespace WireguardInterfaceListResponse {
   }
 }
 
-export interface WireguardInterfaceDeleteResponse {
-  data?: WireguardInterfaceDeleteResponse.Data;
+export interface WireguardInterfaceCreateResponse {
+  data?: WireguardInterfaceRead;
 }
 
-export namespace WireguardInterfaceDeleteResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
+export interface WireguardInterfaceRetrieveResponse {
+  data?: WireguardInterfaceRead;
+}
 
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * Enable SIP traffic forwarding over VPN interface.
-     */
-    enable_sip_trunking?: boolean;
-
-    /**
-     * The Telnyx WireGuard peers `Peer.endpoint` value.
-     */
-    endpoint?: string;
-
-    /**
-     * A user specified name for the interface.
-     */
-    name?: string;
-
-    /**
-     * The id of the network associated with the interface.
-     */
-    network_id?: string;
-
-    /**
-     * The Telnyx WireGuard peers `Peer.PublicKey`.
-     */
-    public_key?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    region?: Data.Region;
-
-    /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
-
-    /**
-     * The current status of the interface deployment.
-     */
-    status?: NetworksAPI.InterfaceStatus;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
-  }
+export interface WireguardInterfaceDeleteResponse {
+  data?: WireguardInterfaceRead;
 }
 
 export interface WireguardInterfaceCreateParams {
@@ -459,11 +217,11 @@ export namespace WireguardInterfaceListParams {
 
 export declare namespace WireguardInterfaces {
   export {
+    type WireguardInterfaceRead as WireguardInterfaceRead,
     type WireguardInterfaceCreateResponse as WireguardInterfaceCreateResponse,
     type WireguardInterfaceRetrieveResponse as WireguardInterfaceRetrieveResponse,
-    type WireguardInterfaceListResponse as WireguardInterfaceListResponse,
     type WireguardInterfaceDeleteResponse as WireguardInterfaceDeleteResponse,
-    type WireguardInterfaceListResponsesDefaultFlatPagination as WireguardInterfaceListResponsesDefaultFlatPagination,
+    type WireguardInterfaceReadsDefaultFlatPagination as WireguardInterfaceReadsDefaultFlatPagination,
     type WireguardInterfaceCreateParams as WireguardInterfaceCreateParams,
     type WireguardInterfaceListParams as WireguardInterfaceListParams,
   };

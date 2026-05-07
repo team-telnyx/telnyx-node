@@ -48,7 +48,7 @@ export class PublicInternetGateways extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const publicInternetGatewayListResponse of client.publicInternetGateways.list()) {
+   * for await (const publicInternetGatewayRead of client.publicInternetGateways.list()) {
    *   // ...
    * }
    * ```
@@ -56,10 +56,10 @@ export class PublicInternetGateways extends APIResource {
   list(
     query: PublicInternetGatewayListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PublicInternetGatewayListResponsesDefaultFlatPagination, PublicInternetGatewayListResponse> {
+  ): PagePromise<PublicInternetGatewayReadsDefaultFlatPagination, PublicInternetGatewayRead> {
     return this._client.getAPIList(
       '/public_internet_gateways',
-      DefaultFlatPagination<PublicInternetGatewayListResponse>,
+      DefaultFlatPagination<PublicInternetGatewayRead>,
       { query, ...options },
     );
   }
@@ -80,8 +80,8 @@ export class PublicInternetGateways extends APIResource {
   }
 }
 
-export type PublicInternetGatewayListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<PublicInternetGatewayListResponse>;
+export type PublicInternetGatewayReadsDefaultFlatPagination =
+  DefaultFlatPagination<PublicInternetGatewayRead>;
 
 export interface NetworkInterface {
   /**
@@ -107,113 +107,7 @@ export interface NetworkInterfaceRegion {
   region_code?: string;
 }
 
-export interface PublicInternetGatewayCreateResponse {
-  data?: PublicInternetGatewayCreateResponse.Data;
-}
-
-export namespace PublicInternetGatewayCreateResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * A user specified name for the interface.
-     */
-    name?: string;
-
-    /**
-     * The id of the network associated with the interface.
-     */
-    network_id?: string;
-
-    /**
-     * The publically accessible ip for this interface.
-     */
-    public_ip?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
-
-    /**
-     * The current status of the interface deployment.
-     */
-    status?: NetworksAPI.InterfaceStatus;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-}
-
-export interface PublicInternetGatewayRetrieveResponse {
-  data?: PublicInternetGatewayRetrieveResponse.Data;
-}
-
-export namespace PublicInternetGatewayRetrieveResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * A user specified name for the interface.
-     */
-    name?: string;
-
-    /**
-     * The id of the network associated with the interface.
-     */
-    network_id?: string;
-
-    /**
-     * The publically accessible ip for this interface.
-     */
-    public_ip?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
-
-    /**
-     * The current status of the interface deployment.
-     */
-    status?: NetworksAPI.InterfaceStatus;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-}
-
-export interface PublicInternetGatewayListResponse {
+export interface PublicInternetGatewayRead {
   /**
    * Identifies the resource.
    */
@@ -260,57 +154,16 @@ export interface PublicInternetGatewayListResponse {
   updated_at?: string;
 }
 
-export interface PublicInternetGatewayDeleteResponse {
-  data?: PublicInternetGatewayDeleteResponse.Data;
+export interface PublicInternetGatewayCreateResponse {
+  data?: PublicInternetGatewayRead;
 }
 
-export namespace PublicInternetGatewayDeleteResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
+export interface PublicInternetGatewayRetrieveResponse {
+  data?: PublicInternetGatewayRead;
+}
 
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * A user specified name for the interface.
-     */
-    name?: string;
-
-    /**
-     * The id of the network associated with the interface.
-     */
-    network_id?: string;
-
-    /**
-     * The publically accessible ip for this interface.
-     */
-    public_ip?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
-
-    /**
-     * The current status of the interface deployment.
-     */
-    status?: NetworksAPI.InterfaceStatus;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
+export interface PublicInternetGatewayDeleteResponse {
+  data?: PublicInternetGatewayRead;
 }
 
 export interface PublicInternetGatewayCreateParams {
@@ -353,11 +206,11 @@ export declare namespace PublicInternetGateways {
   export {
     type NetworkInterface as NetworkInterface,
     type NetworkInterfaceRegion as NetworkInterfaceRegion,
+    type PublicInternetGatewayRead as PublicInternetGatewayRead,
     type PublicInternetGatewayCreateResponse as PublicInternetGatewayCreateResponse,
     type PublicInternetGatewayRetrieveResponse as PublicInternetGatewayRetrieveResponse,
-    type PublicInternetGatewayListResponse as PublicInternetGatewayListResponse,
     type PublicInternetGatewayDeleteResponse as PublicInternetGatewayDeleteResponse,
-    type PublicInternetGatewayListResponsesDefaultFlatPagination as PublicInternetGatewayListResponsesDefaultFlatPagination,
+    type PublicInternetGatewayReadsDefaultFlatPagination as PublicInternetGatewayReadsDefaultFlatPagination,
     type PublicInternetGatewayCreateParams as PublicInternetGatewayCreateParams,
     type PublicInternetGatewayListParams as PublicInternetGatewayListParams,
   };

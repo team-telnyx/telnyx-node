@@ -80,7 +80,7 @@ export class VirtualCrossConnects extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const virtualCrossConnectListResponse of client.virtualCrossConnects.list()) {
+   * for await (const virtualCrossConnectCombined of client.virtualCrossConnects.list()) {
    *   // ...
    * }
    * ```
@@ -88,10 +88,10 @@ export class VirtualCrossConnects extends APIResource {
   list(
     query: VirtualCrossConnectListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<VirtualCrossConnectListResponsesDefaultFlatPagination, VirtualCrossConnectListResponse> {
+  ): PagePromise<VirtualCrossConnectCombinedsDefaultFlatPagination, VirtualCrossConnectCombined> {
     return this._client.getAPIList(
       '/virtual_cross_connects',
-      DefaultFlatPagination<VirtualCrossConnectListResponse>,
+      DefaultFlatPagination<VirtualCrossConnectCombined>,
       { query, ...options },
     );
   }
@@ -112,373 +112,10 @@ export class VirtualCrossConnects extends APIResource {
   }
 }
 
-export type VirtualCrossConnectListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<VirtualCrossConnectListResponse>;
+export type VirtualCrossConnectCombinedsDefaultFlatPagination =
+  DefaultFlatPagination<VirtualCrossConnectCombined>;
 
-export interface VirtualCrossConnectCreateResponse {
-  data?: VirtualCrossConnectCreateResponse.Data;
-}
-
-export namespace VirtualCrossConnectCreateResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
-
-    /**
-     * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
-     * Connect.
-     */
-    bandwidth_mbps?: number;
-
-    /**
-     * The Border Gateway Protocol (BGP) Autonomous System Number (ASN).
-     */
-    bgp_asn?: number;
-
-    /**
-     * The Virtual Private Cloud with which you would like to establish a cross
-     * connect.
-     */
-    cloud_provider?: 'aws' | 'azure' | 'gce';
-
-    /**
-     * The region where your Virtual Private Cloud hosts are located.
-     */
-    cloud_provider_region?: string;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * A user specified name for the interface.
-     */
-    name?: string;
-
-    /**
-     * The id of the network associated with the interface.
-     */
-    network_id?: string;
-
-    /**
-     * The authentication key for BGP peer configuration.
-     */
-    primary_bgp_key?: string;
-
-    /**
-     * The identifier for your Virtual Private Cloud.
-     */
-    primary_cloud_account_id?: string;
-
-    /**
-     * The IP address assigned for your side of the Virtual Cross Connect.
-     */
-    primary_cloud_ip?: string;
-
-    /**
-     * Indicates whether the primary circuit is enabled.
-     */
-    primary_enabled?: boolean;
-
-    /**
-     * Whether
-     */
-    primary_routing_announcement?: boolean;
-
-    /**
-     * The IP address assigned to the Telnyx side of the Virtual Cross Connect.
-     */
-    primary_telnyx_ip?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    region?: Data.Region;
-
-    /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
-
-    /**
-     * The current status of the interface deployment.
-     */
-    status?: NetworksAPI.InterfaceStatus;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
-  }
-}
-
-export interface VirtualCrossConnectRetrieveResponse {
-  data?: VirtualCrossConnectRetrieveResponse.Data;
-}
-
-export namespace VirtualCrossConnectRetrieveResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
-
-    /**
-     * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
-     * Connect.
-     */
-    bandwidth_mbps?: number;
-
-    /**
-     * The Border Gateway Protocol (BGP) Autonomous System Number (ASN).
-     */
-    bgp_asn?: number;
-
-    /**
-     * The Virtual Private Cloud with which you would like to establish a cross
-     * connect.
-     */
-    cloud_provider?: 'aws' | 'azure' | 'gce';
-
-    /**
-     * The region where your Virtual Private Cloud hosts are located.
-     */
-    cloud_provider_region?: string;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * A user specified name for the interface.
-     */
-    name?: string;
-
-    /**
-     * The id of the network associated with the interface.
-     */
-    network_id?: string;
-
-    /**
-     * The authentication key for BGP peer configuration.
-     */
-    primary_bgp_key?: string;
-
-    /**
-     * The identifier for your Virtual Private Cloud.
-     */
-    primary_cloud_account_id?: string;
-
-    /**
-     * The IP address assigned for your side of the Virtual Cross Connect.
-     */
-    primary_cloud_ip?: string;
-
-    /**
-     * Indicates whether the primary circuit is enabled.
-     */
-    primary_enabled?: boolean;
-
-    /**
-     * Whether
-     */
-    primary_routing_announcement?: boolean;
-
-    /**
-     * The IP address assigned to the Telnyx side of the Virtual Cross Connect.
-     */
-    primary_telnyx_ip?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    region?: Data.Region;
-
-    /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
-
-    /**
-     * The current status of the interface deployment.
-     */
-    status?: NetworksAPI.InterfaceStatus;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
-  }
-}
-
-export interface VirtualCrossConnectUpdateResponse {
-  data?: VirtualCrossConnectUpdateResponse.Data;
-}
-
-export namespace VirtualCrossConnectUpdateResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
-
-    /**
-     * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
-     * Connect.
-     */
-    bandwidth_mbps?: number;
-
-    /**
-     * The Border Gateway Protocol (BGP) Autonomous System Number (ASN).
-     */
-    bgp_asn?: number;
-
-    /**
-     * The Virtual Private Cloud with which you would like to establish a cross
-     * connect.
-     */
-    cloud_provider?: 'aws' | 'azure' | 'gce';
-
-    /**
-     * The region where your Virtual Private Cloud hosts are located.
-     */
-    cloud_provider_region?: string;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * A user specified name for the interface.
-     */
-    name?: string;
-
-    /**
-     * The id of the network associated with the interface.
-     */
-    network_id?: string;
-
-    /**
-     * The authentication key for BGP peer configuration.
-     */
-    primary_bgp_key?: string;
-
-    /**
-     * The identifier for your Virtual Private Cloud.
-     */
-    primary_cloud_account_id?: string;
-
-    /**
-     * The IP address assigned for your side of the Virtual Cross Connect.
-     */
-    primary_cloud_ip?: string;
-
-    /**
-     * Indicates whether the primary circuit is enabled.
-     */
-    primary_enabled?: boolean;
-
-    /**
-     * Whether
-     */
-    primary_routing_announcement?: boolean;
-
-    /**
-     * The IP address assigned to the Telnyx side of the Virtual Cross Connect.
-     */
-    primary_telnyx_ip?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    region?: Data.Region;
-
-    /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
-
-    /**
-     * The current status of the interface deployment.
-     */
-    status?: NetworksAPI.InterfaceStatus;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
-  }
-}
-
-export interface VirtualCrossConnectListResponse {
+export interface VirtualCrossConnectCombined {
   /**
    * Identifies the resource.
    */
@@ -556,7 +193,7 @@ export interface VirtualCrossConnectListResponse {
    */
   record_type?: string;
 
-  region?: VirtualCrossConnectListResponse.Region;
+  region?: VirtualCrossConnectCombined.Region;
 
   /**
    * The region interface is deployed to.
@@ -574,7 +211,7 @@ export interface VirtualCrossConnectListResponse {
   updated_at?: string;
 }
 
-export namespace VirtualCrossConnectListResponse {
+export namespace VirtualCrossConnectCombined {
   export interface Region {
     /**
      * Region code of the interface.
@@ -593,125 +230,20 @@ export namespace VirtualCrossConnectListResponse {
   }
 }
 
-export interface VirtualCrossConnectDeleteResponse {
-  data?: VirtualCrossConnectDeleteResponse.Data;
+export interface VirtualCrossConnectCreateResponse {
+  data?: VirtualCrossConnectCombined;
 }
 
-export namespace VirtualCrossConnectDeleteResponse {
-  export interface Data {
-    /**
-     * Identifies the resource.
-     */
-    id?: string;
+export interface VirtualCrossConnectRetrieveResponse {
+  data?: VirtualCrossConnectCombined;
+}
 
-    /**
-     * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
-     * Connect.
-     */
-    bandwidth_mbps?: number;
+export interface VirtualCrossConnectUpdateResponse {
+  data?: VirtualCrossConnectCombined;
+}
 
-    /**
-     * The Border Gateway Protocol (BGP) Autonomous System Number (ASN).
-     */
-    bgp_asn?: number;
-
-    /**
-     * The Virtual Private Cloud with which you would like to establish a cross
-     * connect.
-     */
-    cloud_provider?: 'aws' | 'azure' | 'gce';
-
-    /**
-     * The region where your Virtual Private Cloud hosts are located.
-     */
-    cloud_provider_region?: string;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * A user specified name for the interface.
-     */
-    name?: string;
-
-    /**
-     * The id of the network associated with the interface.
-     */
-    network_id?: string;
-
-    /**
-     * The authentication key for BGP peer configuration.
-     */
-    primary_bgp_key?: string;
-
-    /**
-     * The identifier for your Virtual Private Cloud.
-     */
-    primary_cloud_account_id?: string;
-
-    /**
-     * The IP address assigned for your side of the Virtual Cross Connect.
-     */
-    primary_cloud_ip?: string;
-
-    /**
-     * Indicates whether the primary circuit is enabled.
-     */
-    primary_enabled?: boolean;
-
-    /**
-     * Whether
-     */
-    primary_routing_announcement?: boolean;
-
-    /**
-     * The IP address assigned to the Telnyx side of the Virtual Cross Connect.
-     */
-    primary_telnyx_ip?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    region?: Data.Region;
-
-    /**
-     * The region interface is deployed to.
-     */
-    region_code?: string;
-
-    /**
-     * The current status of the interface deployment.
-     */
-    status?: NetworksAPI.InterfaceStatus;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
-  }
+export interface VirtualCrossConnectDeleteResponse {
+  data?: VirtualCrossConnectCombined;
 }
 
 export interface VirtualCrossConnectCreateParams {
@@ -871,12 +403,12 @@ export namespace VirtualCrossConnectListParams {
 
 export declare namespace VirtualCrossConnects {
   export {
+    type VirtualCrossConnectCombined as VirtualCrossConnectCombined,
     type VirtualCrossConnectCreateResponse as VirtualCrossConnectCreateResponse,
     type VirtualCrossConnectRetrieveResponse as VirtualCrossConnectRetrieveResponse,
     type VirtualCrossConnectUpdateResponse as VirtualCrossConnectUpdateResponse,
-    type VirtualCrossConnectListResponse as VirtualCrossConnectListResponse,
     type VirtualCrossConnectDeleteResponse as VirtualCrossConnectDeleteResponse,
-    type VirtualCrossConnectListResponsesDefaultFlatPagination as VirtualCrossConnectListResponsesDefaultFlatPagination,
+    type VirtualCrossConnectCombinedsDefaultFlatPagination as VirtualCrossConnectCombinedsDefaultFlatPagination,
     type VirtualCrossConnectCreateParams as VirtualCrossConnectCreateParams,
     type VirtualCrossConnectUpdateParams as VirtualCrossConnectUpdateParams,
     type VirtualCrossConnectListParams as VirtualCrossConnectListParams,

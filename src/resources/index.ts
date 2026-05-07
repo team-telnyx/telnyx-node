@@ -967,13 +967,13 @@ export {
   PublicInternetGateways,
   type NetworkInterface,
   type NetworkInterfaceRegion,
+  type PublicInternetGatewayRead,
   type PublicInternetGatewayCreateResponse,
   type PublicInternetGatewayRetrieveResponse,
-  type PublicInternetGatewayListResponse,
   type PublicInternetGatewayDeleteResponse,
   type PublicInternetGatewayCreateParams,
   type PublicInternetGatewayListParams,
-  type PublicInternetGatewayListResponsesDefaultFlatPagination,
+  type PublicInternetGatewayReadsDefaultFlatPagination,
 } from './public-internet-gateways';
 export {
   Queues,
@@ -1317,15 +1317,15 @@ export {
 } from './verify-profiles';
 export {
   VirtualCrossConnects,
+  type VirtualCrossConnectCombined,
   type VirtualCrossConnectCreateResponse,
   type VirtualCrossConnectRetrieveResponse,
   type VirtualCrossConnectUpdateResponse,
-  type VirtualCrossConnectListResponse,
   type VirtualCrossConnectDeleteResponse,
   type VirtualCrossConnectCreateParams,
   type VirtualCrossConnectUpdateParams,
   type VirtualCrossConnectListParams,
-  type VirtualCrossConnectListResponsesDefaultFlatPagination,
+  type VirtualCrossConnectCombinedsDefaultFlatPagination,
 } from './virtual-cross-connects';
 export {
   VirtualCrossConnectsCoverage,
@@ -1506,13 +1506,13 @@ export {
 } from './whatsapp-message-templates';
 export {
   WireguardInterfaces,
+  type WireguardInterfaceRead,
   type WireguardInterfaceCreateResponse,
   type WireguardInterfaceRetrieveResponse,
-  type WireguardInterfaceListResponse,
   type WireguardInterfaceDeleteResponse,
   type WireguardInterfaceCreateParams,
   type WireguardInterfaceListParams,
-  type WireguardInterfaceListResponsesDefaultFlatPagination,
+  type WireguardInterfaceReadsDefaultFlatPagination,
 } from './wireguard-interfaces';
 export {
   WireguardPeers,
