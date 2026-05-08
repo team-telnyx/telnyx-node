@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.58.0 (2026-05-08)
+
+Full Changelog: [v6.57.0...v6.58.0](https://github.com/team-telnyx/telnyx-node/compare/v6.57.0...v6.58.0)
+
+### Features
+
+* AI-2294: document /ai/openai/models response and refresh LLM examples ([51fe067](https://github.com/team-telnyx/telnyx-node/commit/51fe06706e5ee37572fcc2c71b09a6c9a62fdeea))
+
 ## 6.57.0 (2026-05-08)
 
 Full Changelog: [v6.56.0...v6.57.0](https://github.com/team-telnyx/telnyx-node/compare/v6.56.0...v6.57.0)
