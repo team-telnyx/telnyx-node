@@ -1157,6 +1157,11 @@ export interface InferenceEmbedding {
  */
 export interface InferenceEmbeddingInterruptionSettings {
   /**
+   * When true, disables user interruptions while the assistant greeting is playing.
+   */
+  disable_greeting_interruption?: boolean;
+
+  /**
    * Whether users can interrupt the assistant while it is speaking.
    */
   enable?: boolean;

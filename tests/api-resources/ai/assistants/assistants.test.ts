@@ -56,6 +56,7 @@ describe('resource assistants', () => {
       insight_settings: { insight_group_id: 'insight_group_id' },
       integrations: [{ integration_id: 'integration_id', allowed_list: ['string'] }],
       interruption_settings: {
+        disable_greeting_interruption: true,
         enable: true,
         start_speaking_plan: {
           transcription_endpointing_plan: {
