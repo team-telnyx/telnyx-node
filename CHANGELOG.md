@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.57.0 (2026-05-08)
+
+Full Changelog: [v6.56.0...v6.57.0](https://github.com/team-telnyx/telnyx-node/compare/v6.56.0...v6.57.0)
+
+### Features
+
+* Document per-endpoint media encryption for call control ([b742cb2](https://github.com/team-telnyx/telnyx-node/commit/b742cb20c9d9eb49ad5f10a4df76f6f820b6cf6c))
+
 ## 6.56.0 (2026-05-08)
 
 Full Changelog: [v6.55.1...v6.56.0](https://github.com/team-telnyx/telnyx-node/compare/v6.55.1...v6.56.0)
