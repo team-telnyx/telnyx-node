@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.56.0 (2026-05-08)
+
+Full Changelog: [v6.55.1...v6.56.0](https://github.com/team-telnyx/telnyx-node/compare/v6.55.1...v6.56.0)
+
+### Features
+
+* AI-2289 add disable greeting interruption OpenAPI fields ([5a7bc33](https://github.com/team-telnyx/telnyx-node/commit/5a7bc33068b9e5b93c06c82e708ec71a62db055d))
+
+
+### Chores
+
+* **internal:** version bump ([3e0ccc8](https://github.com/team-telnyx/telnyx-node/commit/3e0ccc8e13a2846b61e7b2fc7d4af7bcdfa2a815))
+
 ## 6.55.1 (2026-05-07)
 
 Full Changelog: [v6.55.0...v6.55.1](https://github.com/team-telnyx/telnyx-node/compare/v6.55.0...v6.55.1)
