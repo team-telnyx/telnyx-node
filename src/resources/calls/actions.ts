@@ -909,7 +909,9 @@ export class Actions extends APIResource {
    * ```ts
    * const response = await client.calls.actions.transfer(
    *   'call_control_id',
-   *   { to: '+18005550100 or sip:username@sip.telnyx.com' },
+   *   {
+   *     to: '+18005550100 or sip:username@sip.telnyx.com;secure=srtp',
+   *   },
    * );
    * ```
    */
@@ -4531,7 +4533,11 @@ export interface ActionSwitchSupervisorRoleParams {
 
 export interface ActionTransferParams {
   /**
-   * The DID or SIP URI to dial out to.
+   * The DID or SIP URI to dial out to. For SIP URI destinations, append
+   * `;secure=true` or `;secure=srtp` to enable SRTP media encryption for that
+   * endpoint, or `;secure=dtls` to enable DTLS media encryption for that endpoint.
+   * If `media_encryption` is set to `SRTP` or `DTLS`, it takes precedence over any
+   * per-endpoint `secure` URI parameter.
    */
   to: string;
 
@@ -4606,7 +4612,11 @@ export interface ActionTransferParams {
   from_display_name?: string;
 
   /**
-   * Defines whether media should be encrypted on the new call leg.
+   * Defines whether media should be encrypted on the new call leg. For SIP URI
+   * destinations, media encryption can also be requested per endpoint with the
+   * `secure` URI parameter: `;secure=true` or `;secure=srtp` enables SRTP, and
+   * `;secure=dtls` enables DTLS. This parameter, when set to `SRTP` or `DTLS`, takes
+   * precedence over the per-endpoint `secure` value.
    */
   media_encryption?: 'disabled' | 'SRTP' | 'DTLS';
 

@@ -13,7 +13,7 @@ describe('resource calls', () => {
     const responsePromise = client.calls.dial({
       connection_id: '7267xxxxxxxxxxxxxx',
       from: '+18005550101',
-      to: '+18005550100 or sip:username@sip.telnyx.com',
+      to: '+18005550100 or sip:username@sip.telnyx.com;secure=srtp',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -29,7 +29,7 @@ describe('resource calls', () => {
     const response = await client.calls.dial({
       connection_id: '7267xxxxxxxxxxxxxx',
       from: '+18005550101',
-      to: '+18005550100 or sip:username@sip.telnyx.com',
+      to: '+18005550100 or sip:username@sip.telnyx.com;secure=srtp',
       answering_machine_detection: 'detect',
       answering_machine_detection_config: {
         after_greeting_silence_millis: 1000,

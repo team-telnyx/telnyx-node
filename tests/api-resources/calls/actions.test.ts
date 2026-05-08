@@ -676,7 +676,7 @@ describe('resource actions', () => {
   // Mock server tests are disabled
   test.skip('transfer: only required params', async () => {
     const responsePromise = client.calls.actions.transfer('call_control_id', {
-      to: '+18005550100 or sip:username@sip.telnyx.com',
+      to: '+18005550100 or sip:username@sip.telnyx.com;secure=srtp',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -690,7 +690,7 @@ describe('resource actions', () => {
   // Mock server tests are disabled
   test.skip('transfer: required and optional params', async () => {
     const response = await client.calls.actions.transfer('call_control_id', {
-      to: '+18005550100 or sip:username@sip.telnyx.com',
+      to: '+18005550100 or sip:username@sip.telnyx.com;secure=srtp',
       answering_machine_detection: 'detect',
       answering_machine_detection_config: {
         after_greeting_silence_millis: 1000,
