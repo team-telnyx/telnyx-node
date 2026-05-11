@@ -514,11 +514,13 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/ai/ai.ts">ModelMetadata</a></code>
+- <code><a href="./src/resources/ai/ai.ts">AICreateResponseResponse</a></code>
 - <code><a href="./src/resources/ai/ai.ts">AIRetrieveModelsResponse</a></code>
 - <code><a href="./src/resources/ai/ai.ts">AISummarizeResponse</a></code>
 
 Methods:
 
+- <code title="post /ai/responses">client.ai.<a href="./src/resources/ai/ai.ts">createResponse</a>({ ...params }) -> AICreateResponseResponse</code>
 - <code title="get /ai/models">client.ai.<a href="./src/resources/ai/ai.ts">retrieveModels</a>() -> AIRetrieveModelsResponse</code>
 - <code title="post /ai/summarize">client.ai.<a href="./src/resources/ai/ai.ts">summarize</a>({ ...params }) -> AISummarizeResponse</code>
 
@@ -1049,10 +1051,12 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/openai/openai.ts">OpenAICreateResponseResponse</a></code>
 - <code><a href="./src/resources/ai/openai/openai.ts">OpenAIListModelsResponse</a></code>
 
 Methods:
 
+- <code title="post /ai/openai/responses">client.ai.openai.<a href="./src/resources/ai/openai/openai.ts">createResponse</a>({ ...params }) -> OpenAICreateResponseResponse</code>
 - <code title="get /ai/openai/models">client.ai.openai.<a href="./src/resources/ai/openai/openai.ts">listModels</a>() -> OpenAIListModelsResponse</code>
 
 ### Embeddings

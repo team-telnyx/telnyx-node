@@ -3,8 +3,10 @@
 export {
   AI,
   type ModelMetadata,
+  type AICreateResponseResponse,
   type AIRetrieveModelsResponse,
   type AISummarizeResponse,
+  type AICreateResponseParams,
   type AISummarizeParams,
 } from './ai';
 export {
@@ -127,7 +129,12 @@ export {
   type MissionUpdateMissionParams,
   type MissionDataDefaultFlatPagination,
 } from './missions/index';
-export { OpenAI, type OpenAIListModelsResponse } from './openai/index';
+export {
+  OpenAI,
+  type OpenAICreateResponseResponse,
+  type OpenAIListModelsResponse,
+  type OpenAICreateResponseParams,
+} from './openai/index';
 export {
   Tools,
   type ToolCreateResponse,
