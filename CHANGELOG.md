@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.61.0 (2026-05-11)
+
+Full Changelog: [v6.60.0...v6.61.0](https://github.com/team-telnyx/telnyx-node/compare/v6.60.0...v6.61.0)
+
+### Features
+
+* Clean up OpenAI responses API docs ([20a51e8](https://github.com/team-telnyx/telnyx-node/commit/20a51e83a101f030be3feaaab38adb66c98db1b1))
+
 ## 6.60.0 (2026-05-11)
 
 Full Changelog: [v6.59.0...v6.60.0](https://github.com/team-telnyx/telnyx-node/compare/v6.59.0...v6.60.0)
