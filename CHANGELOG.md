@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.59.0 (2026-05-11)
+
+Full Changelog: [v6.58.0...v6.59.0](https://github.com/team-telnyx/telnyx-node/compare/v6.58.0...v6.59.0)
+
+### Features
+
+* Responses endpoint ([36f74e3](https://github.com/team-telnyx/telnyx-node/commit/36f74e3256dd83792f5d04d883dffb06f0871da0))
+
 ## 6.58.0 (2026-05-08)
 
 Full Changelog: [v6.57.0...v6.58.0](https://github.com/team-telnyx/telnyx-node/compare/v6.57.0...v6.58.0)
