@@ -206,7 +206,7 @@ export interface UpdateAssistant {
 
   /**
    * ID of the model to use when `external_llm` is not set. You can use the
-   * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
+   * [Get models API](https://developers.telnyx.com/api-reference/openai-chat/get-available-models-openai-compatible)
    * to see available models. If `external_llm` is provided, the assistant uses
    * `external_llm` instead of this field. If neither `model` nor `external_llm` is
    * provided, Telnyx applies the default model.
@@ -391,7 +391,7 @@ export interface VersionUpdateParams {
   /**
    * Body param: ID of the model to use when `external_llm` is not set. You can use
    * the
-   * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
+   * [Get models API](https://developers.telnyx.com/api-reference/openai-chat/get-available-models-openai-compatible)
    * to see available models. If `external_llm` is provided, the assistant uses
    * `external_llm` instead of this field. If neither `model` nor `external_llm` is
    * provided, Telnyx applies the default model.
