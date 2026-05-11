@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.60.0 (2026-05-11)
+
+Full Changelog: [v6.59.0...v6.60.0](https://github.com/team-telnyx/telnyx-node/compare/v6.59.0...v6.60.0)
+
+### Features
+
+* Fix OpenAI chat API reference links ([9598eb4](https://github.com/team-telnyx/telnyx-node/commit/9598eb4e7a1024475636fe6d0e68e6ad7e2f9847))
+
 ## 6.59.0 (2026-05-11)
 
 Full Changelog: [v6.58.0...v6.59.0](https://github.com/team-telnyx/telnyx-node/compare/v6.58.0...v6.59.0)
