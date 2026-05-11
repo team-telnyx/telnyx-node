@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.62.0 (2026-05-11)
+
+Full Changelog: [v6.61.0...v6.62.0](https://github.com/team-telnyx/telnyx-node/compare/v6.61.0...v6.62.0)
+
+### Features
+
+* AI-2312: document currency and unit in /models pricing schema ([6ebe42b](https://github.com/team-telnyx/telnyx-node/commit/6ebe42b683aa918906b7abbdac96fc39ab3a4ffa))
+
 ## 6.61.0 (2026-05-11)
 
 Full Changelog: [v6.60.0...v6.61.0](https://github.com/team-telnyx/telnyx-node/compare/v6.60.0...v6.61.0)
