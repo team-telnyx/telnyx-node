@@ -1155,6 +1155,8 @@ import {
 } from './resources/addresses/addresses';
 import {
   AI,
+  AICreateResponseParams,
+  AICreateResponseResponse,
   AIRetrieveModelsResponse,
   AISummarizeParams,
   AISummarizeResponse,
@@ -3394,8 +3396,10 @@ export declare namespace Telnyx {
   export {
     AI as AI,
     type ModelMetadata as ModelMetadata,
+    type AICreateResponseResponse as AICreateResponseResponse,
     type AIRetrieveModelsResponse as AIRetrieveModelsResponse,
     type AISummarizeResponse as AISummarizeResponse,
+    type AICreateResponseParams as AICreateResponseParams,
     type AISummarizeParams as AISummarizeParams,
   };
 

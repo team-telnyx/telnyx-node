@@ -7,4 +7,9 @@ export {
   type EmbeddingListEmbeddingModelsResponse,
   type EmbeddingCreateEmbeddingsParams,
 } from './embeddings';
-export { OpenAI, type OpenAIListModelsResponse } from './openai';
+export {
+  OpenAI,
+  type OpenAICreateResponseResponse,
+  type OpenAIListModelsResponse,
+  type OpenAICreateResponseParams,
+} from './openai';

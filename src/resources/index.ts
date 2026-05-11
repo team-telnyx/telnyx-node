@@ -4,8 +4,10 @@ export * from './shared';
 export {
   AI,
   type ModelMetadata,
+  type AICreateResponseResponse,
   type AIRetrieveModelsResponse,
   type AISummarizeResponse,
+  type AICreateResponseParams,
   type AISummarizeParams,
 } from './ai/ai';
 export {

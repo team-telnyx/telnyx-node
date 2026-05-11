@@ -373,6 +373,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/advanced_orders/{advanced-order-id}/requirement_group',
   },
   {
+    clientCallName: 'client.ai.createResponse',
+    fullyQualifiedName: 'ai.createResponse',
+    httpMethod: 'post',
+    httpPath: '/ai/responses',
+  },
+  {
     clientCallName: 'client.ai.retrieveModels',
     fullyQualifiedName: 'ai.retrieveModels',
     httpMethod: 'get',
@@ -1163,6 +1169,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'ai.missions.tools.updateTool',
     httpMethod: 'put',
     httpPath: '/ai/missions/{mission_id}/tools/{tool_id}',
+  },
+  {
+    clientCallName: 'client.ai.openai.createResponse',
+    fullyQualifiedName: 'ai.openai.createResponse',
+    httpMethod: 'post',
+    httpPath: '/ai/openai/responses',
   },
   {
     clientCallName: 'client.ai.openai.listModels',

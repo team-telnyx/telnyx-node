@@ -19,6 +19,28 @@ export class OpenAI extends APIResource {
   chat: ChatAPI.Chat = new ChatAPI.Chat(this._client);
 
   /**
+   * Chat with a language model. This endpoint is consistent with the
+   * [OpenAI Chat Completions API](https://developers.openai.com/api/reference/resources/responses)
+   * and may be used with the OpenAI JS or Python SDK. Response id parameter is not
+   * supported at the moment. Use 'conversation' parameter to leverage persistent
+   * conversations feature.
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.openai.createResponse({
+   *   body: { model: 'bar', input: 'bar' },
+   * });
+   * ```
+   */
+  createResponse(
+    params: OpenAICreateResponseParams,
+    options?: RequestOptions,
+  ): APIPromise<OpenAICreateResponseResponse> {
+    const { body } = params;
+    return this._client.post('/ai/openai/responses', { body: body, ...options });
+  }
+
+  /**
    * Lists every model currently available to your account on Telnyx Inference,
    * including SOTA open-source LLMs hosted on Telnyx GPUs (for example
    * `moonshotai/Kimi-K2.6`, `zai-org/GLM-5.1-FP8`, and `MiniMaxAI/MiniMax-M2.7`),
@@ -45,17 +67,27 @@ export class OpenAI extends APIResource {
   }
 }
 
+export type OpenAICreateResponseResponse = { [key: string]: unknown };
+
 export interface OpenAIListModelsResponse {
   data: Array<AIAPI.ModelMetadata>;
 
   object?: string;
 }
 
+export interface OpenAICreateResponseParams {
+  body: { [key: string]: unknown };
+}
+
 OpenAI.Embeddings = Embeddings;
 OpenAI.Chat = Chat;
 
 export declare namespace OpenAI {
-  export { type OpenAIListModelsResponse as OpenAIListModelsResponse };
+  export {
+    type OpenAICreateResponseResponse as OpenAICreateResponseResponse,
+    type OpenAIListModelsResponse as OpenAIListModelsResponse,
+    type OpenAICreateResponseParams as OpenAICreateResponseParams,
+  };
 
   export {
     Embeddings as Embeddings,

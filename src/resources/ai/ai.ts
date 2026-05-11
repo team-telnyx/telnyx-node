@@ -140,7 +140,12 @@ import {
   Missions,
 } from './missions/missions';
 import * as OpenAIAPI from './openai/openai';
-import { OpenAI, OpenAIListModelsResponse } from './openai/openai';
+import {
+  OpenAI,
+  OpenAICreateResponseParams,
+  OpenAICreateResponseResponse,
+  OpenAIListModelsResponse,
+} from './openai/openai';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -160,6 +165,28 @@ export class AI extends APIResource {
   missions: MissionsAPI.Missions = new MissionsAPI.Missions(this._client);
   openai: OpenAIAPI.OpenAI = new OpenAIAPI.OpenAI(this._client);
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
+
+  /**
+   * Chat with a language model. This endpoint is consistent with the
+   * [OpenAI Chat Completions API](https://developers.openai.com/api/reference/resources/responses)
+   * and may be used with the OpenAI JS or Python SDK. Response id parameter is not
+   * supported at the moment. Use 'conversation' parameter to leverage persistent
+   * conversations feature.
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.createResponse({
+   *   body: { model: 'bar', input: 'bar' },
+   * });
+   * ```
+   */
+  createResponse(
+    params: AICreateResponseParams,
+    options?: RequestOptions,
+  ): APIPromise<AICreateResponseResponse> {
+    const { body } = params;
+    return this._client.post('/ai/responses', { body: body, ...options });
+  }
 
   /**
    * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
@@ -330,6 +357,8 @@ export interface ModelMetadata {
   task?: string;
 }
 
+export type AICreateResponseResponse = { [key: string]: unknown };
+
 export interface AIRetrieveModelsResponse {
   data: Array<ModelMetadata>;
 
@@ -344,6 +373,10 @@ export namespace AISummarizeResponse {
   export interface Data {
     summary: string;
   }
+}
+
+export interface AICreateResponseParams {
+  body: { [key: string]: unknown };
 }
 
 export interface AISummarizeParams {
@@ -379,8 +412,10 @@ AI.Tools = Tools;
 export declare namespace AI {
   export {
     type ModelMetadata as ModelMetadata,
+    type AICreateResponseResponse as AICreateResponseResponse,
     type AIRetrieveModelsResponse as AIRetrieveModelsResponse,
     type AISummarizeResponse as AISummarizeResponse,
+    type AICreateResponseParams as AICreateResponseParams,
     type AISummarizeParams as AISummarizeParams,
   };
 
@@ -518,7 +553,12 @@ export declare namespace AI {
     type MissionUpdateMissionParams as MissionUpdateMissionParams,
   };
 
-  export { OpenAI as OpenAI, type OpenAIListModelsResponse as OpenAIListModelsResponse };
+  export {
+    OpenAI as OpenAI,
+    type OpenAICreateResponseResponse as OpenAICreateResponseResponse,
+    type OpenAIListModelsResponse as OpenAIListModelsResponse,
+    type OpenAICreateResponseParams as OpenAICreateResponseParams,
+  };
 
   export {
     Tools as Tools,
