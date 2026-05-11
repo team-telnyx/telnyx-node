@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.63.0 (2026-05-11)
+
+Full Changelog: [v6.62.0...v6.63.0](https://github.com/team-telnyx/telnyx-node/compare/v6.62.0...v6.63.0)
+
+### Features
+
+* Document OpenAI responses conversation flow ([21116f6](https://github.com/team-telnyx/telnyx-node/commit/21116f6b969903a70e45c8bdb7c2843d0599c052))
+
 ## 6.62.0 (2026-05-11)
 
 Full Changelog: [v6.61.0...v6.62.0](https://github.com/team-telnyx/telnyx-node/compare/v6.61.0...v6.62.0)
