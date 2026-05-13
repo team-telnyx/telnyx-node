@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.64.0 (2026-05-13)
+
+Full Changelog: [v6.63.0...v6.64.0](https://github.com/team-telnyx/telnyx-node/compare/v6.63.0...v6.64.0)
+
+### Features
+
+* Document AI call status callback overrides ([ca76a36](https://github.com/team-telnyx/telnyx-node/commit/ca76a369e14b3a15608ef74ed4d094eb99e7d9c0))
+
 ## 6.63.0 (2026-05-11)
 
 Full Changelog: [v6.62.0...v6.63.0](https://github.com/team-telnyx/telnyx-node/compare/v6.62.0...v6.63.0)
