@@ -27,6 +27,17 @@ export class Texml extends APIResource {
    * client state, and calls the dial API. The Twiml, Texml, and Url parameters are
    * not allowed and will result in a 422 error.
    *
+   * **Expected callback events:**
+   *
+   * Status callbacks: `initiated`, `ringing`, `answered`, one terminal status
+   * (`completed`, `no-answer`, `busy`, `canceled`, or `failed`), then `analyzed`
+   * after post-call processing completes.
+   *
+   * Conversation callbacks: `conversation_created` and `conversation_ended`.
+   *
+   * Recording, AMD, transcription, and deepfake detection callbacks are only sent
+   * when those features are enabled.
+   *
    * @example
    * ```ts
    * const response = await client.texml.initiateAICall(
@@ -146,17 +157,19 @@ export interface TexmlInitiateAICallParams {
   CallerId?: string;
 
   /**
-   * URL destination for Telnyx to send conversation callback events to.
+   * URL destination for Telnyx to send AI conversation callback events for this
+   * call. Events include `conversation_created` and `conversation_ended`.
    */
   ConversationCallback?: string;
 
   /**
-   * HTTP request type used for `ConversationCallback`.
+   * HTTP request type used for `ConversationCallback` and `ConversationCallbacks`.
    */
   ConversationCallbackMethod?: 'GET' | 'POST';
 
   /**
-   * An array of URL destinations for conversation callback events.
+   * Array of URL destinations for AI conversation callback events for this call.
+   * Events include `conversation_created` and `conversation_ended`.
    */
   ConversationCallbacks?: Array<string>;
 
@@ -269,25 +282,32 @@ export interface TexmlInitiateAICallParams {
   SipRegion?: 'US' | 'Europe' | 'Canada' | 'Australia' | 'Middle East';
 
   /**
-   * URL destination for Telnyx to send status callback events to for the call.
+   * URL destination for Telnyx to send status callback events for this AI call. When
+   * provided, this per-call value overrides the status callback URL configured on
+   * the TeXML application/connection.
    */
   StatusCallback?: string;
 
   /**
-   * The call events for which Telnyx should send a webhook. Multiple events can be
-   * defined when separated by a space. Valid values: initiated, ringing, answered,
-   * completed.
+   * The status callback events for which Telnyx should send a webhook for this AI
+   * call. Multiple events can be defined when separated by a space. Valid values:
+   * initiated, ringing, answered, completed, no-answer, busy, canceled, failed,
+   * analyzed. When provided, this per-call value overrides the status callback
+   * events configured on the TeXML application/connection.
    */
   StatusCallbackEvent?: string;
 
   /**
-   * HTTP request type used for `StatusCallback`.
+   * HTTP request type used for `StatusCallback` and `StatusCallbacks` for this AI
+   * call. When provided, this per-call value overrides the status callback method
+   * configured on the TeXML application/connection.
    */
   StatusCallbackMethod?: 'GET' | 'POST';
 
   /**
-   * An array of URL destinations for Telnyx to send status callback events to for
-   * the call.
+   * Array of URL destinations for Telnyx to send status callback events for this AI
+   * call. When provided, these per-call values override the status callback URL
+   * configured on the TeXML application/connection.
    */
   StatusCallbacks?: Array<string>;
 
