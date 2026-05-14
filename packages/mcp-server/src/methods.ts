@@ -1537,6 +1537,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/calls/{call_control_id}/actions/ai_assistant_start',
   },
   {
+    clientCallName: 'client.calls.actions.startConversationRelay',
+    fullyQualifiedName: 'calls.actions.startConversationRelay',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/conversation_relay_start',
+  },
+  {
     clientCallName: 'client.calls.actions.startForking',
     fullyQualifiedName: 'calls.actions.startForking',
     httpMethod: 'post',
@@ -1583,6 +1589,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'calls.actions.stopAIAssistant',
     httpMethod: 'post',
     httpPath: '/calls/{call_control_id}/actions/ai_assistant_stop',
+  },
+  {
+    clientCallName: 'client.calls.actions.stopConversationRelay',
+    fullyQualifiedName: 'calls.actions.stopConversationRelay',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/conversation_relay_stop',
   },
   {
     clientCallName: 'client.calls.actions.stopForking',

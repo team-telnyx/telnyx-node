@@ -10,11 +10,6 @@ import {
   CanaryDeployResponse,
   CanaryDeployUpdateParams,
   CanaryDeploys,
-  Clause,
-  RolloutSlot,
-  RuleInput,
-  RuleOutput,
-  Serve,
 } from './canary-deploys';
 import * as ScheduledEventsAPI from './scheduled-events';
 import {
@@ -301,47 +296,6 @@ export interface Assistant {
 }
 
 /**
- * Reference to a connected integration attached to an assistant. Discover
- * available integrations with `/ai/integrations` and connected integrations with
- * `/ai/integrations/connections`.
- */
-export interface AssistantIntegration {
-  /**
-   * Catalog integration ID to attach. This is the `id` from the integrations catalog
-   * at `/ai/integrations` (the same value also appears as `integration_id` on
-   * entries returned by `/ai/integrations/connections`). It is **not** the
-   * connection-level `id` from `/ai/integrations/connections`.
-   */
-  integration_id: string;
-
-  /**
-   * Optional per-assistant allowlist of integration tool names. When omitted or
-   * empty, all tools allowed by the connected integration are available to the
-   * assistant.
-   */
-  allowed_list?: Array<string>;
-}
-
-/**
- * Reference to an MCP server attached to an assistant. Create and manage MCP
- * servers with the `/ai/mcp_servers` endpoints, then attach them to assistants by
- * ID.
- */
-export interface AssistantMcpServer {
-  /**
-   * ID of the MCP server to attach. This must be the `id` of an MCP server returned
-   * by the `/ai/mcp_servers` endpoints.
-   */
-  id: string;
-
-  /**
-   * Optional per-assistant allowlist of MCP tool names. When omitted, the assistant
-   * uses the MCP server's configured `allowed_tools`.
-   */
-  allowed_tools?: Array<string>;
-}
-
-/**
  * The handoff tool allows the assistant to hand off control of the conversation to
  * another AI assistant. By default, this will happen transparently to the end
  * user.
@@ -420,7 +374,7 @@ export namespace AssistantTool {
        * variable string like `{{ targets }}` where `targets` is returned by the dynamic
        * variables webhook and resolves to an array of target objects at runtime.
        */
-      targets: Array<Transfer.TargetsList> | string;
+      targets: Array<Transfer.UnionMember0> | string;
 
       /**
        * Custom headers to be added to the SIP INVITE for the transfer command.
@@ -450,7 +404,7 @@ export namespace AssistantTool {
     }
 
     export namespace Transfer {
-      export interface TargetsList {
+      export interface UnionMember0 {
         /**
          * The destination number or SIP URI of the call.
          */
@@ -627,7 +581,7 @@ export namespace AssistantTool {
        * omitted or null, the invite tool can still be configured and targets may be
        * supplied dynamically at runtime.
        */
-      targets?: Array<Invite.TargetsList> | string | null;
+      targets?: Array<Invite.UnionMember0> | string | null;
 
       /**
        * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
@@ -649,7 +603,7 @@ export namespace AssistantTool {
         value?: string;
       }
 
-      export interface TargetsList {
+      export interface UnionMember0 {
         /**
          * The destination number or SIP URI of the call.
          */
@@ -1057,7 +1011,7 @@ export interface InferenceEmbedding {
    * `/ai/integrations/connections`. Each item references a catalog integration by
    * `integration_id`.
    */
-  integrations?: Array<AssistantIntegration>;
+  integrations?: Array<InferenceEmbedding.Integration>;
 
   /**
    * Settings for interruptions and how the assistant decides the user has finished
@@ -1067,7 +1021,7 @@ export interface InferenceEmbedding {
    * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
    * `eager_eot_threshold`).
    */
-  interruption_settings?: InferenceEmbeddingInterruptionSettings;
+  interruption_settings?: InferenceEmbedding.InterruptionSettings;
 
   /**
    * This is only needed when using third-party inference providers selected by
@@ -1083,7 +1037,7 @@ export interface InferenceEmbedding {
    * MCP servers attached to the assistant. Create MCP servers with
    * `/ai/mcp_servers`, then reference them by `id` here.
    */
-  mcp_servers?: Array<AssistantMcpServer>;
+  mcp_servers?: Array<InferenceEmbedding.McpServer>;
 
   messaging_settings?: MessagingSettings;
 
@@ -1147,32 +1101,123 @@ export interface InferenceEmbedding {
   widget_settings?: WidgetSettings;
 }
 
-/**
- * Settings for interruptions and how the assistant decides the user has finished
- * speaking. These timings are most relevant when using non turn-taking
- * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
- * behavior is controlled by the transcription end-of-turn settings under
- * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
- * `eager_eot_threshold`).
- */
-export interface InferenceEmbeddingInterruptionSettings {
+export namespace InferenceEmbedding {
   /**
-   * When true, disables user interruptions while the assistant greeting is playing.
+   * Reference to a connected integration attached to an assistant. Discover
+   * available integrations with `/ai/integrations` and connected integrations with
+   * `/ai/integrations/connections`.
    */
-  disable_greeting_interruption?: boolean;
+  export interface Integration {
+    /**
+     * Catalog integration ID to attach. This is the `id` from the integrations catalog
+     * at `/ai/integrations` (the same value also appears as `integration_id` on
+     * entries returned by `/ai/integrations/connections`). It is **not** the
+     * connection-level `id` from `/ai/integrations/connections`.
+     */
+    integration_id: string;
+
+    /**
+     * Optional per-assistant allowlist of integration tool names. When omitted or
+     * empty, all tools allowed by the connected integration are available to the
+     * assistant.
+     */
+    allowed_list?: Array<string>;
+  }
 
   /**
-   * Whether users can interrupt the assistant while it is speaking.
+   * Settings for interruptions and how the assistant decides the user has finished
+   * speaking. These timings are most relevant when using non turn-taking
+   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
+   * behavior is controlled by the transcription end-of-turn settings under
+   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * `eager_eot_threshold`).
    */
-  enable?: boolean;
+  export interface InterruptionSettings {
+    /**
+     * When true, disables user interruptions while the assistant greeting is playing.
+     */
+    disable_greeting_interruption?: boolean;
+
+    /**
+     * Whether users can interrupt the assistant while it is speaking.
+     */
+    enable?: boolean;
+
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    start_speaking_plan?: InterruptionSettings.StartSpeakingPlan;
+  }
+
+  export namespace InterruptionSettings {
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    export interface StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      transcription_endpointing_plan?: StartSpeakingPlan.TranscriptionEndpointingPlan;
+
+      /**
+       * Minimum seconds to wait before the assistant starts speaking.
+       */
+      wait_seconds?: number;
+    }
+
+    export namespace StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      export interface TranscriptionEndpointingPlan {
+        /**
+         * Seconds to wait after the transcript ends without punctuation.
+         */
+        on_no_punctuation_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with a number.
+         */
+        on_number_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with punctuation.
+         */
+        on_punctuation_seconds?: number;
+      }
+    }
+  }
 
   /**
-   * Controls when the assistant starts speaking after the user stops. These
-   * thresholds primarily apply to non turn-taking transcription models. For
-   * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
-   * transcription end-of-turn settings under `transcription.settings` instead.
+   * Reference to an MCP server attached to an assistant. Create and manage MCP
+   * servers with the `/ai/mcp_servers` endpoints, then attach them to assistants by
+   * ID.
    */
-  start_speaking_plan?: StartSpeakingPlan;
+  export interface McpServer {
+    /**
+     * ID of the MCP server to attach. This must be the `id` of an MCP server returned
+     * by the `/ai/mcp_servers` endpoints.
+     */
+    id: string;
+
+    /**
+     * Optional per-assistant allowlist of MCP tool names. When omitted, the assistant
+     * uses the MCP server's configured `allowed_tools`.
+     */
+    allowed_tools?: Array<string>;
+  }
 }
 
 export interface InferenceEmbeddingWebhookToolParams {
@@ -1479,27 +1524,6 @@ export interface RetrievalTool {
   type: 'retrieval';
 }
 
-/**
- * Controls when the assistant starts speaking after the user stops. These
- * thresholds primarily apply to non turn-taking transcription models. For
- * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
- * transcription end-of-turn settings under `transcription.settings` instead.
- */
-export interface StartSpeakingPlan {
-  /**
-   * Endpointing thresholds used to decide when the user has finished speaking.
-   * Applies to non turn-taking transcription models. For `deepgram/flux`, use
-   * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
-   * `eager_eot_threshold`.
-   */
-  transcription_endpointing_plan?: TranscriptionEndpointingPlan;
-
-  /**
-   * Minimum seconds to wait before the assistant starts speaking.
-   */
-  wait_seconds?: number;
-}
-
 export interface TelephonySettings {
   /**
    * Default Texml App used for voice calls with your assistant. This will be created
@@ -1663,29 +1687,6 @@ export namespace TelephonySettings {
   }
 }
 
-/**
- * Endpointing thresholds used to decide when the user has finished speaking.
- * Applies to non turn-taking transcription models. For `deepgram/flux`, use
- * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
- * `eager_eot_threshold`.
- */
-export interface TranscriptionEndpointingPlan {
-  /**
-   * Seconds to wait after the transcript ends without punctuation.
-   */
-  on_no_punctuation_seconds?: number;
-
-  /**
-   * Seconds to wait after the transcript ends with a number.
-   */
-  on_number_seconds?: number;
-
-  /**
-   * Seconds to wait after the transcript ends with punctuation.
-   */
-  on_punctuation_seconds?: number;
-}
-
 export interface TranscriptionSettings {
   /**
    * Integration secret identifier for the transcription provider API key. Currently
@@ -1808,11 +1809,11 @@ export namespace TransferTool {
      * variable string like `{{ targets }}` where `targets` is returned by the dynamic
      * variables webhook and resolves to an array of target objects at runtime.
      */
-    targets: Array<Transfer.TargetsList> | string;
+    targets: Array<Transfer.UnionMember0> | string;
   }
 
   export namespace Transfer {
-    export interface TargetsList {
+    export interface UnionMember0 {
       /**
        * The destination number or SIP URI of the call.
        */
@@ -2275,7 +2276,7 @@ export interface AssistantCreateParams {
    * `/ai/integrations/connections`. Each item references a catalog integration by
    * `integration_id`.
    */
-  integrations?: Array<AssistantIntegration>;
+  integrations?: Array<AssistantCreateParams.Integration>;
 
   /**
    * Settings for interruptions and how the assistant decides the user has finished
@@ -2285,7 +2286,7 @@ export interface AssistantCreateParams {
    * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
    * `eager_eot_threshold`).
    */
-  interruption_settings?: InferenceEmbeddingInterruptionSettings;
+  interruption_settings?: AssistantCreateParams.InterruptionSettings;
 
   /**
    * This is only needed when using third-party inference providers selected by
@@ -2301,7 +2302,7 @@ export interface AssistantCreateParams {
    * MCP servers attached to the assistant. Create MCP servers with
    * `/ai/mcp_servers`, then reference them by `id` here.
    */
-  mcp_servers?: Array<AssistantMcpServer>;
+  mcp_servers?: Array<AssistantCreateParams.McpServer>;
 
   messaging_settings?: MessagingSettings;
 
@@ -2357,6 +2358,125 @@ export interface AssistantCreateParams {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
+}
+
+export namespace AssistantCreateParams {
+  /**
+   * Reference to a connected integration attached to an assistant. Discover
+   * available integrations with `/ai/integrations` and connected integrations with
+   * `/ai/integrations/connections`.
+   */
+  export interface Integration {
+    /**
+     * Catalog integration ID to attach. This is the `id` from the integrations catalog
+     * at `/ai/integrations` (the same value also appears as `integration_id` on
+     * entries returned by `/ai/integrations/connections`). It is **not** the
+     * connection-level `id` from `/ai/integrations/connections`.
+     */
+    integration_id: string;
+
+    /**
+     * Optional per-assistant allowlist of integration tool names. When omitted or
+     * empty, all tools allowed by the connected integration are available to the
+     * assistant.
+     */
+    allowed_list?: Array<string>;
+  }
+
+  /**
+   * Settings for interruptions and how the assistant decides the user has finished
+   * speaking. These timings are most relevant when using non turn-taking
+   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
+   * behavior is controlled by the transcription end-of-turn settings under
+   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * `eager_eot_threshold`).
+   */
+  export interface InterruptionSettings {
+    /**
+     * When true, disables user interruptions while the assistant greeting is playing.
+     */
+    disable_greeting_interruption?: boolean;
+
+    /**
+     * Whether users can interrupt the assistant while it is speaking.
+     */
+    enable?: boolean;
+
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    start_speaking_plan?: InterruptionSettings.StartSpeakingPlan;
+  }
+
+  export namespace InterruptionSettings {
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    export interface StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      transcription_endpointing_plan?: StartSpeakingPlan.TranscriptionEndpointingPlan;
+
+      /**
+       * Minimum seconds to wait before the assistant starts speaking.
+       */
+      wait_seconds?: number;
+    }
+
+    export namespace StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      export interface TranscriptionEndpointingPlan {
+        /**
+         * Seconds to wait after the transcript ends without punctuation.
+         */
+        on_no_punctuation_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with a number.
+         */
+        on_number_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with punctuation.
+         */
+        on_punctuation_seconds?: number;
+      }
+    }
+  }
+
+  /**
+   * Reference to an MCP server attached to an assistant. Create and manage MCP
+   * servers with the `/ai/mcp_servers` endpoints, then attach them to assistants by
+   * ID.
+   */
+  export interface McpServer {
+    /**
+     * ID of the MCP server to attach. This must be the `id` of an MCP server returned
+     * by the `/ai/mcp_servers` endpoints.
+     */
+    id: string;
+
+    /**
+     * Optional per-assistant allowlist of MCP tool names. When omitted, the assistant
+     * uses the MCP server's configured `allowed_tools`.
+     */
+    allowed_tools?: Array<string>;
+  }
 }
 
 export interface AssistantRetrieveParams {
@@ -2427,7 +2547,7 @@ export interface AssistantUpdateParams {
    * `/ai/integrations/connections`. Each item references a catalog integration by
    * `integration_id`.
    */
-  integrations?: Array<AssistantIntegration>;
+  integrations?: Array<AssistantUpdateParams.Integration>;
 
   /**
    * Settings for interruptions and how the assistant decides the user has finished
@@ -2437,7 +2557,7 @@ export interface AssistantUpdateParams {
    * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
    * `eager_eot_threshold`).
    */
-  interruption_settings?: InferenceEmbeddingInterruptionSettings;
+  interruption_settings?: AssistantUpdateParams.InterruptionSettings;
 
   /**
    * This is only needed when using third-party inference providers selected by
@@ -2453,7 +2573,7 @@ export interface AssistantUpdateParams {
    * MCP servers attached to the assistant. Create MCP servers with
    * `/ai/mcp_servers`, then reference them by `id` here.
    */
-  mcp_servers?: Array<AssistantMcpServer>;
+  mcp_servers?: Array<AssistantUpdateParams.McpServer>;
 
   messaging_settings?: MessagingSettings;
 
@@ -2524,6 +2644,125 @@ export interface AssistantUpdateParams {
   widget_settings?: WidgetSettings;
 }
 
+export namespace AssistantUpdateParams {
+  /**
+   * Reference to a connected integration attached to an assistant. Discover
+   * available integrations with `/ai/integrations` and connected integrations with
+   * `/ai/integrations/connections`.
+   */
+  export interface Integration {
+    /**
+     * Catalog integration ID to attach. This is the `id` from the integrations catalog
+     * at `/ai/integrations` (the same value also appears as `integration_id` on
+     * entries returned by `/ai/integrations/connections`). It is **not** the
+     * connection-level `id` from `/ai/integrations/connections`.
+     */
+    integration_id: string;
+
+    /**
+     * Optional per-assistant allowlist of integration tool names. When omitted or
+     * empty, all tools allowed by the connected integration are available to the
+     * assistant.
+     */
+    allowed_list?: Array<string>;
+  }
+
+  /**
+   * Settings for interruptions and how the assistant decides the user has finished
+   * speaking. These timings are most relevant when using non turn-taking
+   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
+   * behavior is controlled by the transcription end-of-turn settings under
+   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * `eager_eot_threshold`).
+   */
+  export interface InterruptionSettings {
+    /**
+     * When true, disables user interruptions while the assistant greeting is playing.
+     */
+    disable_greeting_interruption?: boolean;
+
+    /**
+     * Whether users can interrupt the assistant while it is speaking.
+     */
+    enable?: boolean;
+
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    start_speaking_plan?: InterruptionSettings.StartSpeakingPlan;
+  }
+
+  export namespace InterruptionSettings {
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    export interface StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      transcription_endpointing_plan?: StartSpeakingPlan.TranscriptionEndpointingPlan;
+
+      /**
+       * Minimum seconds to wait before the assistant starts speaking.
+       */
+      wait_seconds?: number;
+    }
+
+    export namespace StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      export interface TranscriptionEndpointingPlan {
+        /**
+         * Seconds to wait after the transcript ends without punctuation.
+         */
+        on_no_punctuation_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with a number.
+         */
+        on_number_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with punctuation.
+         */
+        on_punctuation_seconds?: number;
+      }
+    }
+  }
+
+  /**
+   * Reference to an MCP server attached to an assistant. Create and manage MCP
+   * servers with the `/ai/mcp_servers` endpoints, then attach them to assistants by
+   * ID.
+   */
+  export interface McpServer {
+    /**
+     * ID of the MCP server to attach. This must be the `id` of an MCP server returned
+     * by the `/ai/mcp_servers` endpoints.
+     */
+    id: string;
+
+    /**
+     * Optional per-assistant allowlist of MCP tool names. When omitted, the assistant
+     * uses the MCP server's configured `allowed_tools`.
+     */
+    allowed_tools?: Array<string>;
+  }
+}
+
 export interface AssistantChatParams {
   /**
    * The message content sent by the client to the assistant
@@ -2583,8 +2822,6 @@ Assistants.Tags = Tags;
 export declare namespace Assistants {
   export {
     type Assistant as Assistant,
-    type AssistantIntegration as AssistantIntegration,
-    type AssistantMcpServer as AssistantMcpServer,
     type AssistantTool as AssistantTool,
     type AssistantsList as AssistantsList,
     type AudioVisualizerConfig as AudioVisualizerConfig,
@@ -2597,7 +2834,6 @@ export declare namespace Assistants {
     type HangupToolParams as HangupToolParams,
     type ImportMetadata as ImportMetadata,
     type InferenceEmbedding as InferenceEmbedding,
-    type InferenceEmbeddingInterruptionSettings as InferenceEmbeddingInterruptionSettings,
     type InferenceEmbeddingWebhookToolParams as InferenceEmbeddingWebhookToolParams,
     type InsightSettings as InsightSettings,
     type MessagingSettings as MessagingSettings,
@@ -2607,9 +2843,7 @@ export declare namespace Assistants {
     type PostConversationSettingsReq as PostConversationSettingsReq,
     type PrivacySettings as PrivacySettings,
     type RetrievalTool as RetrievalTool,
-    type StartSpeakingPlan as StartSpeakingPlan,
     type TelephonySettings as TelephonySettings,
-    type TranscriptionEndpointingPlan as TranscriptionEndpointingPlan,
     type TranscriptionSettings as TranscriptionSettings,
     type TranscriptionSettingsConfig as TranscriptionSettingsConfig,
     type TransferTool as TransferTool,
@@ -2642,11 +2876,6 @@ export declare namespace Assistants {
     CanaryDeploys as CanaryDeploys,
     type CanaryDeploy as CanaryDeploy,
     type CanaryDeployResponse as CanaryDeployResponse,
-    type Clause as Clause,
-    type RolloutSlot as RolloutSlot,
-    type RuleInput as RuleInput,
-    type RuleOutput as RuleOutput,
-    type Serve as Serve,
     type CanaryDeployCreateParams as CanaryDeployCreateParams,
     type CanaryDeployUpdateParams as CanaryDeployUpdateParams,
   };
