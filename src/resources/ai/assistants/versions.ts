@@ -174,7 +174,7 @@ export interface UpdateAssistant {
    * `/ai/integrations/connections`. Each item references a catalog integration by
    * `integration_id`.
    */
-  integrations?: Array<AssistantsAPI.AssistantIntegration>;
+  integrations?: Array<UpdateAssistant.Integration>;
 
   /**
    * Settings for interruptions and how the assistant decides the user has finished
@@ -184,7 +184,7 @@ export interface UpdateAssistant {
    * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
    * `eager_eot_threshold`).
    */
-  interruption_settings?: AssistantsAPI.InferenceEmbeddingInterruptionSettings;
+  interruption_settings?: UpdateAssistant.InterruptionSettings;
 
   /**
    * This is only needed when using third-party inference providers selected by
@@ -200,7 +200,7 @@ export interface UpdateAssistant {
    * MCP servers attached to the assistant. Create MCP servers with
    * `/ai/mcp_servers`, then reference them by `id` here.
    */
-  mcp_servers?: Array<AssistantsAPI.AssistantMcpServer>;
+  mcp_servers?: Array<UpdateAssistant.McpServer>;
 
   messaging_settings?: AssistantsAPI.MessagingSettings;
 
@@ -263,6 +263,125 @@ export interface UpdateAssistant {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: AssistantsAPI.WidgetSettings;
+}
+
+export namespace UpdateAssistant {
+  /**
+   * Reference to a connected integration attached to an assistant. Discover
+   * available integrations with `/ai/integrations` and connected integrations with
+   * `/ai/integrations/connections`.
+   */
+  export interface Integration {
+    /**
+     * Catalog integration ID to attach. This is the `id` from the integrations catalog
+     * at `/ai/integrations` (the same value also appears as `integration_id` on
+     * entries returned by `/ai/integrations/connections`). It is **not** the
+     * connection-level `id` from `/ai/integrations/connections`.
+     */
+    integration_id: string;
+
+    /**
+     * Optional per-assistant allowlist of integration tool names. When omitted or
+     * empty, all tools allowed by the connected integration are available to the
+     * assistant.
+     */
+    allowed_list?: Array<string>;
+  }
+
+  /**
+   * Settings for interruptions and how the assistant decides the user has finished
+   * speaking. These timings are most relevant when using non turn-taking
+   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
+   * behavior is controlled by the transcription end-of-turn settings under
+   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * `eager_eot_threshold`).
+   */
+  export interface InterruptionSettings {
+    /**
+     * When true, disables user interruptions while the assistant greeting is playing.
+     */
+    disable_greeting_interruption?: boolean;
+
+    /**
+     * Whether users can interrupt the assistant while it is speaking.
+     */
+    enable?: boolean;
+
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    start_speaking_plan?: InterruptionSettings.StartSpeakingPlan;
+  }
+
+  export namespace InterruptionSettings {
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    export interface StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      transcription_endpointing_plan?: StartSpeakingPlan.TranscriptionEndpointingPlan;
+
+      /**
+       * Minimum seconds to wait before the assistant starts speaking.
+       */
+      wait_seconds?: number;
+    }
+
+    export namespace StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      export interface TranscriptionEndpointingPlan {
+        /**
+         * Seconds to wait after the transcript ends without punctuation.
+         */
+        on_no_punctuation_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with a number.
+         */
+        on_number_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with punctuation.
+         */
+        on_punctuation_seconds?: number;
+      }
+    }
+  }
+
+  /**
+   * Reference to an MCP server attached to an assistant. Create and manage MCP
+   * servers with the `/ai/mcp_servers` endpoints, then attach them to assistants by
+   * ID.
+   */
+  export interface McpServer {
+    /**
+     * ID of the MCP server to attach. This must be the `id` of an MCP server returned
+     * by the `/ai/mcp_servers` endpoints.
+     */
+    id: string;
+
+    /**
+     * Optional per-assistant allowlist of MCP tool names. When omitted, the assistant
+     * uses the MCP server's configured `allowed_tools`.
+     */
+    allowed_tools?: Array<string>;
+  }
 }
 
 export interface VersionRetrieveParams {
@@ -355,7 +474,7 @@ export interface VersionUpdateParams {
    * integrations are at `/ai/integrations/connections`. Each item references a
    * catalog integration by `integration_id`.
    */
-  integrations?: Array<AssistantsAPI.AssistantIntegration>;
+  integrations?: Array<VersionUpdateParams.Integration>;
 
   /**
    * Body param: Settings for interruptions and how the assistant decides the user
@@ -365,7 +484,7 @@ export interface VersionUpdateParams {
    * under `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
    * `eager_eot_threshold`).
    */
-  interruption_settings?: AssistantsAPI.InferenceEmbeddingInterruptionSettings;
+  interruption_settings?: VersionUpdateParams.InterruptionSettings;
 
   /**
    * Body param: This is only needed when using third-party inference providers
@@ -381,7 +500,7 @@ export interface VersionUpdateParams {
    * Body param: MCP servers attached to the assistant. Create MCP servers with
    * `/ai/mcp_servers`, then reference them by `id` here.
    */
-  mcp_servers?: Array<AssistantsAPI.AssistantMcpServer>;
+  mcp_servers?: Array<VersionUpdateParams.McpServer>;
 
   /**
    * Body param
@@ -466,6 +585,125 @@ export interface VersionUpdateParams {
    * Body param: Configuration settings for the assistant's web widget.
    */
   widget_settings?: AssistantsAPI.WidgetSettings;
+}
+
+export namespace VersionUpdateParams {
+  /**
+   * Reference to a connected integration attached to an assistant. Discover
+   * available integrations with `/ai/integrations` and connected integrations with
+   * `/ai/integrations/connections`.
+   */
+  export interface Integration {
+    /**
+     * Catalog integration ID to attach. This is the `id` from the integrations catalog
+     * at `/ai/integrations` (the same value also appears as `integration_id` on
+     * entries returned by `/ai/integrations/connections`). It is **not** the
+     * connection-level `id` from `/ai/integrations/connections`.
+     */
+    integration_id: string;
+
+    /**
+     * Optional per-assistant allowlist of integration tool names. When omitted or
+     * empty, all tools allowed by the connected integration are available to the
+     * assistant.
+     */
+    allowed_list?: Array<string>;
+  }
+
+  /**
+   * Settings for interruptions and how the assistant decides the user has finished
+   * speaking. These timings are most relevant when using non turn-taking
+   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
+   * behavior is controlled by the transcription end-of-turn settings under
+   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * `eager_eot_threshold`).
+   */
+  export interface InterruptionSettings {
+    /**
+     * When true, disables user interruptions while the assistant greeting is playing.
+     */
+    disable_greeting_interruption?: boolean;
+
+    /**
+     * Whether users can interrupt the assistant while it is speaking.
+     */
+    enable?: boolean;
+
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    start_speaking_plan?: InterruptionSettings.StartSpeakingPlan;
+  }
+
+  export namespace InterruptionSettings {
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    export interface StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      transcription_endpointing_plan?: StartSpeakingPlan.TranscriptionEndpointingPlan;
+
+      /**
+       * Minimum seconds to wait before the assistant starts speaking.
+       */
+      wait_seconds?: number;
+    }
+
+    export namespace StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      export interface TranscriptionEndpointingPlan {
+        /**
+         * Seconds to wait after the transcript ends without punctuation.
+         */
+        on_no_punctuation_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with a number.
+         */
+        on_number_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with punctuation.
+         */
+        on_punctuation_seconds?: number;
+      }
+    }
+  }
+
+  /**
+   * Reference to an MCP server attached to an assistant. Create and manage MCP
+   * servers with the `/ai/mcp_servers` endpoints, then attach them to assistants by
+   * ID.
+   */
+  export interface McpServer {
+    /**
+     * ID of the MCP server to attach. This must be the `id` of an MCP server returned
+     * by the `/ai/mcp_servers` endpoints.
+     */
+    id: string;
+
+    /**
+     * Optional per-assistant allowlist of MCP tool names. When omitted, the assistant
+     * uses the MCP server's configured `allowed_tools`.
+     */
+    allowed_tools?: Array<string>;
+  }
 }
 
 export interface VersionDeleteParams {
