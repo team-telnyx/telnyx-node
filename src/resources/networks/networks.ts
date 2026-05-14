@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as GlobalIPAssignmentsAPI from '../global-ip-assignments';
+import * as PublicInternetGatewaysAPI from '../public-internet-gateways';
 import * as DefaultGatewayAPI from './default-gateway';
 import {
   DefaultGateway,
@@ -205,27 +206,9 @@ export namespace NetworkDeleteResponse {
   }
 }
 
-export interface NetworkListInterfacesResponse {
-  /**
-   * Identifies the resource.
-   */
-  id?: string;
-
-  /**
-   * ISO 8601 formatted date-time indicating when the resource was created.
-   */
-  created_at?: string;
-
-  /**
-   * A user specified name for the interface.
-   */
-  name?: string;
-
-  /**
-   * The id of the network associated with the interface.
-   */
-  network_id?: string;
-
+export interface NetworkListInterfacesResponse
+  extends GlobalIPAssignmentsAPI.Record,
+    PublicInternetGatewaysAPI.NetworkInterface {
   /**
    * Identifies the type of the resource.
    */
@@ -239,19 +222,9 @@ export interface NetworkListInterfacesResponse {
   region_code?: string;
 
   /**
-   * The current status of the interface deployment.
-   */
-  status?: InterfaceStatus;
-
-  /**
    * Identifies the type of the interface.
    */
   type?: string;
-
-  /**
-   * ISO 8601 formatted date-time indicating when the resource was updated.
-   */
-  updated_at?: string;
 }
 
 export namespace NetworkListInterfacesResponse {

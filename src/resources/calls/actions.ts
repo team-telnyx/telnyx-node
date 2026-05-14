@@ -501,6 +501,40 @@ export class Actions extends APIResource {
   }
 
   /**
+   * Start a Conversation Relay session on an active call. Conversation Relay
+   * connects the call audio to your WebSocket so your application can exchange
+   * realtime messages with the caller while Telnyx handles speech recognition and
+   * text-to-speech. Only one AI Assistant or Conversation Relay session can be
+   * active on a call at a time.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `conversation_relay.disconnected`
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.calls.actions.startConversationRelay(
+   *     'call_control_id',
+   *     {
+   *       conversation_relay_url:
+   *         'wss://example.com/conversation-relay',
+   *     },
+   *   );
+   * ```
+   */
+  startConversationRelay(
+    callControlID: string,
+    body: ActionStartConversationRelayParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartConversationRelayResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/conversation_relay_start`, {
+      body,
+      ...options,
+    });
+  }
+
+  /**
    * Call forking allows you to stream the media from a call to a specific target in
    * realtime. This stream can be used to enable realtime audio analysis to support a
    * variety of use cases, including fraud detection, or the creation of AI-generated
@@ -689,6 +723,28 @@ export class Actions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ActionStopAIAssistantResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_stop`, { body, ...options });
+  }
+
+  /**
+   * Stop the active Conversation Relay session on a call.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.calls.actions.stopConversationRelay(
+   *     'call_control_id',
+   *   );
+   * ```
+   */
+  stopConversationRelay(
+    callControlID: string,
+    body: ActionStopConversationRelayParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopConversationRelayResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/conversation_relay_stop`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -1463,24 +1519,6 @@ export namespace TranscriptionEngineAConfig {
   }
 }
 
-export interface TranscriptionEngineAssemblyaiConfig {
-  /**
-   * Whether to send also interim results. If set to false, only final results will
-   * be sent.
-   */
-  interim_results?: boolean;
-
-  /**
-   * Engine identifier for AssemblyAI transcription service
-   */
-  transcription_engine?: 'AssemblyAI';
-
-  /**
-   * The model to use for transcription.
-   */
-  transcription_model?: 'assemblyai/universal-streaming';
-}
-
 export interface TranscriptionEngineAzureConfig {
   /**
    * Azure region to use for speech recognition
@@ -1694,54 +1732,6 @@ export interface TranscriptionEngineTelnyxConfig {
   transcription_model?: 'openai/whisper-tiny' | 'openai/whisper-large-v3-turbo';
 }
 
-export interface TranscriptionEngineXaiConfig {
-  /**
-   * Whether to send also interim results. If set to false, only final results will
-   * be sent.
-   */
-  interim_results?: boolean;
-
-  /**
-   * Language to use for speech recognition
-   */
-  language?:
-    | 'ar'
-    | 'cs'
-    | 'da'
-    | 'de'
-    | 'en'
-    | 'es'
-    | 'fa'
-    | 'fil'
-    | 'fr'
-    | 'hi'
-    | 'id'
-    | 'it'
-    | 'ja'
-    | 'ko'
-    | 'mk'
-    | 'ms'
-    | 'nl'
-    | 'pl'
-    | 'pt'
-    | 'ro'
-    | 'ru'
-    | 'sv'
-    | 'th'
-    | 'tr'
-    | 'vi';
-
-  /**
-   * Engine identifier for xAI transcription service
-   */
-  transcription_engine?: 'xAI';
-
-  /**
-   * The model to use for transcription.
-   */
-  transcription_model?: 'xai/grok-stt';
-}
-
 export interface TranscriptionStartRequest {
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
@@ -1765,8 +1755,8 @@ export interface TranscriptionStartRequest {
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
     | TranscriptionEngineAzureConfig
-    | TranscriptionEngineXaiConfig
-    | TranscriptionEngineAssemblyaiConfig
+    | TranscriptionStartRequest.TranscriptionEngineXaiConfig
+    | TranscriptionStartRequest.TranscriptionEngineAssemblyaiConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -1778,6 +1768,74 @@ export interface TranscriptionStartRequest {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace TranscriptionStartRequest {
+  export interface TranscriptionEngineXaiConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Language to use for speech recognition
+     */
+    language?:
+      | 'ar'
+      | 'cs'
+      | 'da'
+      | 'de'
+      | 'en'
+      | 'es'
+      | 'fa'
+      | 'fil'
+      | 'fr'
+      | 'hi'
+      | 'id'
+      | 'it'
+      | 'ja'
+      | 'ko'
+      | 'mk'
+      | 'ms'
+      | 'nl'
+      | 'pl'
+      | 'pt'
+      | 'ro'
+      | 'ru'
+      | 'sv'
+      | 'th'
+      | 'tr'
+      | 'vi';
+
+    /**
+     * Engine identifier for xAI transcription service
+     */
+    transcription_engine?: 'xAI';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'xai/grok-stt';
+  }
+
+  export interface TranscriptionEngineAssemblyaiConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Engine identifier for AssemblyAI transcription service
+     */
+    transcription_engine?: 'AssemblyAI';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'assemblyai/universal-streaming';
+  }
 }
 
 export interface ActionAddAIAssistantMessagesResponse {
@@ -1868,6 +1926,21 @@ export interface ActionStartAIAssistantResponse {
   data?: CallControlCommandResultWithConversationID;
 }
 
+export interface ActionStartConversationRelayResponse {
+  data?: ActionStartConversationRelayResponse.Data;
+}
+
+export namespace ActionStartConversationRelayResponse {
+  export interface Data {
+    /**
+     * The ID of the Conversation Relay session created by the command.
+     */
+    conversation_relay_id?: string;
+
+    result?: string;
+  }
+}
+
 export interface ActionStartForkingResponse {
   data?: CallControlCommandResult;
 }
@@ -1897,6 +1970,10 @@ export interface ActionStartTranscriptionResponse {
 }
 
 export interface ActionStopAIAssistantResponse {
+  data?: CallControlCommandResult;
+}
+
+export interface ActionStopConversationRelayResponse {
   data?: CallControlCommandResult;
 }
 
@@ -2720,7 +2797,7 @@ export interface ActionGatherUsingAIParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | Shared.XaiVoiceSettings;
+    | ActionGatherUsingAIParams.XaiVoiceSettings;
 }
 
 export namespace ActionGatherUsingAIParams {
@@ -2734,6 +2811,18 @@ export namespace ActionGatherUsingAIParams {
      * The role of the message sender
      */
     role?: 'assistant' | 'user';
+  }
+
+  export interface XaiVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'xai';
+
+    /**
+     * Language code, or `auto` to detect automatically.
+     */
+    language?: string;
   }
 }
 
@@ -2992,7 +3081,7 @@ export interface ActionGatherUsingSpeakParams {
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | ActionGatherUsingSpeakParams.InworldVoiceSettings
-    | Shared.XaiVoiceSettings;
+    | ActionGatherUsingSpeakParams.XaiVoiceSettings;
 }
 
 export namespace ActionGatherUsingSpeakParams {
@@ -3001,6 +3090,18 @@ export namespace ActionGatherUsingSpeakParams {
      * Voice settings provider type
      */
     type: 'inworld';
+  }
+
+  export interface XaiVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'xai';
+
+    /**
+     * Language code, or `auto` to detect automatically.
+     */
+    language?: string;
   }
 }
 
@@ -3375,7 +3476,7 @@ export interface ActionSpeakParams {
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | ActionSpeakParams.InworldVoiceSettings
-    | Shared.XaiVoiceSettings;
+    | ActionSpeakParams.XaiVoiceSettings;
 }
 
 export namespace ActionSpeakParams {
@@ -3384,6 +3485,18 @@ export namespace ActionSpeakParams {
      * Voice settings provider type
      */
     type: 'inworld';
+  }
+
+  export interface XaiVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'xai';
+
+    /**
+     * Language code, or `auto` to detect automatically.
+     */
+    language?: string;
   }
 }
 
@@ -3490,7 +3603,7 @@ export interface ActionStartAIAssistantParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | Shared.XaiVoiceSettings;
+    | ActionStartAIAssistantParams.XaiVoiceSettings;
 }
 
 export namespace ActionStartAIAssistantParams {
@@ -3657,6 +3770,276 @@ export namespace ActionStartAIAssistantParams {
      * Determines what happens to the conversation when this participant hangs up.
      */
     on_hangup?: 'continue_conversation' | 'end_conversation';
+  }
+
+  export interface XaiVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'xai';
+
+    /**
+     * Language code, or `auto` to detect automatically.
+     */
+    language?: string;
+  }
+}
+
+export interface ActionStartConversationRelayParams {
+  /**
+   * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
+   * `wss://`.
+   */
+  conversation_relay_url: string;
+
+  /**
+   * Custom parameters for the Conversation Relay session. Pass key-value data as
+   * `assistant.dynamic_variables` to make it available to the relay session.
+   */
+  assistant?: ActionStartConversationRelayParams.Assistant;
+
+  /**
+   * Use this field to add state to subsequent webhooks. It must be a valid Base-64
+   * encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * Enable DTMF detection for the relay session.
+   */
+  conversation_relay_dtmf_detection?: boolean;
+
+  /**
+   * Text played when the relay session starts.
+   */
+  greeting?: string;
+
+  /**
+   * Settings for handling caller interruptions during Conversation Relay speech.
+   */
+  interruption_settings?: ActionStartConversationRelayParams.InterruptionSettings;
+
+  /**
+   * Default language for the relay session. This value is used for both
+   * text-to-speech and speech recognition unless `tts_language` or
+   * `transcription_language` are provided.
+   */
+  language?: string;
+
+  /**
+   * Language-specific TTS and transcription settings. Use this when the relay
+   * session needs per-language provider, voice, or speech model configuration.
+   */
+  languages?: Array<ActionStartConversationRelayParams.Language>;
+
+  /**
+   * Participants to add to the conversation.
+   */
+  participants?: Array<ActionStartConversationRelayParams.Participant>;
+
+  /**
+   * When true, sends message history update webhooks.
+   */
+  send_message_history_updates?: boolean;
+
+  /**
+   * Speech-to-text settings for Conversation Relay.
+   */
+  transcription?: ActionStartConversationRelayParams.Transcription;
+
+  /**
+   * Language to use for speech recognition. Overrides `language` for transcription
+   * when provided.
+   */
+  transcription_language?: string;
+
+  /**
+   * Language to use for text-to-speech. Overrides `language` for TTS when provided.
+   */
+  tts_language?: string;
+
+  /**
+   * Time in milliseconds to wait for caller input before timing out.
+   */
+  user_response_timeout_ms?: number;
+
+  /**
+   * The voice to be used by the voice assistant. Currently we support ElevenLabs,
+   * Telnyx and AWS voices.
+   *
+   * **Supported Providers:**
+   *
+   * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural
+   *   voices, which provide more realistic, human-like speech, append `-Neural` to
+   *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
+   *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
+   *   for compatibility.
+   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
+   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
+   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+   * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
+   *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
+   *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
+   *   under `"voice_settings": {"api_key_ref": "<secret_id>"}`. See
+   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   *   for details. Check
+   *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+   * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+   *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
+   * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
+   *   `ara`, `rex`, `sal`, `leo`.
+   */
+  voice?: string;
+
+  /**
+   * The settings associated with the voice selected
+   */
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings
+    | ActionStartConversationRelayParams.XaiVoiceSettings;
+}
+
+export namespace ActionStartConversationRelayParams {
+  /**
+   * Custom parameters for the Conversation Relay session. Pass key-value data as
+   * `assistant.dynamic_variables` to make it available to the relay session.
+   */
+  export interface Assistant {
+    /**
+     * Custom key-value parameters forwarded to the Conversation Relay session.
+     */
+    dynamic_variables?: { [key: string]: string };
+
+    [k: string]: unknown;
+  }
+
+  /**
+   * Settings for handling caller interruptions during Conversation Relay speech.
+   */
+  export interface InterruptionSettings {
+    /**
+     * Legacy boolean form. `true` is equivalent to `interruptible=any`; `false` is
+     * equivalent to `interruptible=none`.
+     */
+    enable?: boolean;
+
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech
+     * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+     * only; `dtmf` allows DTMF only.
+     */
+    interruptible?: 'none' | 'any' | 'speech' | 'dtmf';
+
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech
+     * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+     * only; `dtmf` allows DTMF only.
+     */
+    interruptible_greeting?: 'none' | 'any' | 'speech' | 'dtmf';
+
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech
+     * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+     * only; `dtmf` allows DTMF only.
+     */
+    welcome_greeting_interruptible?: 'none' | 'any' | 'speech' | 'dtmf';
+  }
+
+  /**
+   * Language-specific speech and transcription settings for Conversation Relay.
+   */
+  export interface Language {
+    /**
+     * BCP 47 language code.
+     */
+    code?: string;
+
+    /**
+     * Speech recognition model for this language.
+     */
+    speech_model?: string;
+
+    /**
+     * Speech-to-text provider for this language.
+     */
+    transcription_provider?: string;
+
+    /**
+     * Text-to-speech provider for this language.
+     */
+    tts_provider?: string;
+
+    /**
+     * Voice identifier for this language.
+     */
+    voice?: string;
+  }
+
+  export interface Participant {
+    /**
+     * The call_control_id of the participant to add to the conversation.
+     */
+    id: string;
+
+    /**
+     * The role of the participant in the conversation.
+     */
+    role: 'user';
+
+    /**
+     * Display name for the participant.
+     */
+    name?: string;
+
+    /**
+     * Determines what happens to the conversation when this participant hangs up.
+     */
+    on_hangup?: 'continue_conversation' | 'end_conversation';
+  }
+
+  /**
+   * Speech-to-text settings for Conversation Relay.
+   */
+  export interface Transcription {
+    /**
+     * Transcription language.
+     */
+    language?: string;
+
+    /**
+     * Transcription model to use.
+     */
+    model?: string;
+
+    /**
+     * Transcription provider to use.
+     */
+    provider?: string;
+  }
+
+  export interface XaiVoiceSettings {
+    /**
+     * Voice settings provider type
+     */
+    type: 'xai';
+
+    /**
+     * Language code, or `auto` to detect automatically.
+     */
+    language?: string;
   }
 }
 
@@ -4354,8 +4737,8 @@ export interface ActionStartTranscriptionParams {
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
     | TranscriptionEngineAzureConfig
-    | TranscriptionEngineXaiConfig
-    | TranscriptionEngineAssemblyaiConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineXaiConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineAssemblyaiConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4369,10 +4752,92 @@ export interface ActionStartTranscriptionParams {
   transcription_tracks?: string;
 }
 
+export namespace ActionStartTranscriptionParams {
+  export interface TranscriptionEngineXaiConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Language to use for speech recognition
+     */
+    language?:
+      | 'ar'
+      | 'cs'
+      | 'da'
+      | 'de'
+      | 'en'
+      | 'es'
+      | 'fa'
+      | 'fil'
+      | 'fr'
+      | 'hi'
+      | 'id'
+      | 'it'
+      | 'ja'
+      | 'ko'
+      | 'mk'
+      | 'ms'
+      | 'nl'
+      | 'pl'
+      | 'pt'
+      | 'ro'
+      | 'ru'
+      | 'sv'
+      | 'th'
+      | 'tr'
+      | 'vi';
+
+    /**
+     * Engine identifier for xAI transcription service
+     */
+    transcription_engine?: 'xAI';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'xai/grok-stt';
+  }
+
+  export interface TranscriptionEngineAssemblyaiConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Engine identifier for AssemblyAI transcription service
+     */
+    transcription_engine?: 'AssemblyAI';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'assemblyai/universal-streaming';
+  }
+}
+
 export interface ActionStopAIAssistantParams {
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
    * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+}
+
+export interface ActionStopConversationRelayParams {
+  /**
+   * Use this field to add state to subsequent webhooks. It must be a valid Base-64
+   * encoded string.
    */
   client_state?: string;
 
@@ -4889,13 +5354,11 @@ export declare namespace Actions {
     type TelnyxVoiceSettings as TelnyxVoiceSettings,
     type TranscriptionConfig as TranscriptionConfig,
     type TranscriptionEngineAConfig as TranscriptionEngineAConfig,
-    type TranscriptionEngineAssemblyaiConfig as TranscriptionEngineAssemblyaiConfig,
     type TranscriptionEngineAzureConfig as TranscriptionEngineAzureConfig,
     type TranscriptionEngineBConfig as TranscriptionEngineBConfig,
     type TranscriptionEngineDeepgramConfig as TranscriptionEngineDeepgramConfig,
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
     type TranscriptionEngineTelnyxConfig as TranscriptionEngineTelnyxConfig,
-    type TranscriptionEngineXaiConfig as TranscriptionEngineXaiConfig,
     type TranscriptionStartRequest as TranscriptionStartRequest,
     type ActionAddAIAssistantMessagesResponse as ActionAddAIAssistantMessagesResponse,
     type ActionAnswerResponse as ActionAnswerResponse,
@@ -4916,6 +5379,7 @@ export declare namespace Actions {
     type ActionSendSipInfoResponse as ActionSendSipInfoResponse,
     type ActionSpeakResponse as ActionSpeakResponse,
     type ActionStartAIAssistantResponse as ActionStartAIAssistantResponse,
+    type ActionStartConversationRelayResponse as ActionStartConversationRelayResponse,
     type ActionStartForkingResponse as ActionStartForkingResponse,
     type ActionStartNoiseSuppressionResponse as ActionStartNoiseSuppressionResponse,
     type ActionStartPlaybackResponse as ActionStartPlaybackResponse,
@@ -4924,6 +5388,7 @@ export declare namespace Actions {
     type ActionStartStreamingResponse as ActionStartStreamingResponse,
     type ActionStartTranscriptionResponse as ActionStartTranscriptionResponse,
     type ActionStopAIAssistantResponse as ActionStopAIAssistantResponse,
+    type ActionStopConversationRelayResponse as ActionStopConversationRelayResponse,
     type ActionStopForkingResponse as ActionStopForkingResponse,
     type ActionStopGatherResponse as ActionStopGatherResponse,
     type ActionStopNoiseSuppressionResponse as ActionStopNoiseSuppressionResponse,
@@ -4954,6 +5419,7 @@ export declare namespace Actions {
     type ActionSendSipInfoParams as ActionSendSipInfoParams,
     type ActionSpeakParams as ActionSpeakParams,
     type ActionStartAIAssistantParams as ActionStartAIAssistantParams,
+    type ActionStartConversationRelayParams as ActionStartConversationRelayParams,
     type ActionStartForkingParams as ActionStartForkingParams,
     type ActionStartNoiseSuppressionParams as ActionStartNoiseSuppressionParams,
     type ActionStartPlaybackParams as ActionStartPlaybackParams,
@@ -4962,6 +5428,7 @@ export declare namespace Actions {
     type ActionStartStreamingParams as ActionStartStreamingParams,
     type ActionStartTranscriptionParams as ActionStartTranscriptionParams,
     type ActionStopAIAssistantParams as ActionStopAIAssistantParams,
+    type ActionStopConversationRelayParams as ActionStopConversationRelayParams,
     type ActionStopForkingParams as ActionStopForkingParams,
     type ActionStopGatherParams as ActionStopGatherParams,
     type ActionStopNoiseSuppressionParams as ActionStopNoiseSuppressionParams,

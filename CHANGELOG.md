@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.65.0 (2026-05-14)
+
+Full Changelog: [v6.64.0...v6.65.0](https://github.com/team-telnyx/telnyx-node/compare/v6.64.0...v6.65.0)
+
+### Features
+
+* Document Conversation Relay ([0880021](https://github.com/team-telnyx/telnyx-node/commit/0880021ef1cd0a576661396e867d3add2ef9249f))
+
 ## 6.64.0 (2026-05-13)
 
 Full Changelog: [v6.63.0...v6.64.0](https://github.com/team-telnyx/telnyx-node/compare/v6.63.0...v6.64.0)
