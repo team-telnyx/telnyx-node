@@ -537,6 +537,12 @@ export namespace CallConversationEnded {
     llm_model?: string;
 
     /**
+     * Reason the conversation ended. For Conversation Relay, `customer_disconnect`
+     * indicates that the customer WebSocket disconnected.
+     */
+    reason?: string | null;
+
+    /**
      * The speech-to-text model used in the conversation.
      */
     stt_model?: string;
