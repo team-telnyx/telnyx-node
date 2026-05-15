@@ -21,6 +21,7 @@ export {
   type TranscriptionEngineBConfig,
   type TranscriptionEngineDeepgramConfig,
   type TranscriptionEngineGoogleConfig,
+  type TranscriptionEngineSpeechmaticsConfig,
   type TranscriptionEngineTelnyxConfig,
   type TranscriptionEngineXaiConfig,
   type TranscriptionStartRequest,
