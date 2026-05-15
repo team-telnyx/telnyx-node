@@ -754,9 +754,11 @@ export namespace CallCallsParams {
     DeepfakeDetectionCallbackUrl?: string;
 
     /**
-     * Allows you to chose between Premium and Standard detections.
+     * Allows you to choose between Regular, Premium, and PremiumCallScreening
+     * detections. See
+     * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
      */
-    DetectionMode?: 'Premium' | 'Regular';
+    DetectionMode?: 'Premium' | 'Regular' | 'PremiumCallScreening';
 
     /**
      * A failover URL for which Telnyx will retrieve the TeXML call instructions if the
@@ -774,6 +776,12 @@ export namespace CallCallsParams {
      * Enables Answering Machine Detection.
      */
     MachineDetection?: 'Enable' | 'Disable' | 'DetectMessageEnd';
+
+    /**
+     * Silence duration threshold after a call screening prompt before ending prompt
+     * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+     */
+    MachineDetectionPromptEndTimeout?: number;
 
     /**
      * If initial silence duration is greater than this value, consider it a machine.
@@ -1022,9 +1030,11 @@ export namespace CallCallsParams {
     DeepfakeDetectionCallbackUrl?: string;
 
     /**
-     * Allows you to chose between Premium and Standard detections.
+     * Allows you to choose between Regular, Premium, and PremiumCallScreening
+     * detections. See
+     * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
      */
-    DetectionMode?: 'Premium' | 'Regular';
+    DetectionMode?: 'Premium' | 'Regular' | 'PremiumCallScreening';
 
     /**
      * A failover URL for which Telnyx will retrieve the TeXML call instructions if the
@@ -1042,6 +1052,12 @@ export namespace CallCallsParams {
      * Enables Answering Machine Detection.
      */
     MachineDetection?: 'Enable' | 'Disable' | 'DetectMessageEnd';
+
+    /**
+     * Silence duration threshold after a call screening prompt before ending prompt
+     * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+     */
+    MachineDetectionPromptEndTimeout?: number;
 
     /**
      * If initial silence duration is greater than this value, consider it a machine.
@@ -1284,9 +1300,11 @@ export namespace CallCallsParams {
     DeepfakeDetectionCallbackUrl?: string;
 
     /**
-     * Allows you to chose between Premium and Standard detections.
+     * Allows you to choose between Regular, Premium, and PremiumCallScreening
+     * detections. See
+     * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
      */
-    DetectionMode?: 'Premium' | 'Regular';
+    DetectionMode?: 'Premium' | 'Regular' | 'PremiumCallScreening';
 
     /**
      * A failover URL for which Telnyx will retrieve the TeXML call instructions if the
@@ -1304,6 +1322,12 @@ export namespace CallCallsParams {
      * Enables Answering Machine Detection.
      */
     MachineDetection?: 'Enable' | 'Disable' | 'DetectMessageEnd';
+
+    /**
+     * Silence duration threshold after a call screening prompt before ending prompt
+     * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+     */
+    MachineDetectionPromptEndTimeout?: number;
 
     /**
      * If initial silence duration is greater than this value, consider it a machine.
