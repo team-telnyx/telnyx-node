@@ -518,10 +518,6 @@ export class Actions extends APIResource {
    * const response =
    *   await client.calls.actions.startConversationRelay(
    *     'call_control_id',
-   *     {
-   *       conversation_relay_url:
-   *         'wss://example.com/conversation-relay',
-   *     },
    *   );
    * ```
    */
@@ -3791,12 +3787,6 @@ export namespace ActionStartAIAssistantParams {
 
 export interface ActionStartConversationRelayParams {
   /**
-   * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
-   * `wss://`.
-   */
-  conversation_relay_url: string;
-
-  /**
    * Custom parameters for the Conversation Relay session. Pass key-value data as
    * `assistant.dynamic_variables` to make it available to the relay session.
    */
@@ -3818,6 +3808,22 @@ export interface ActionStartConversationRelayParams {
    * Enable DTMF detection for the relay session.
    */
   conversation_relay_dtmf_detection?: boolean;
+
+  /**
+   * Conversation Relay connection settings. This object is used by TeXML Call
+   * Scripting's `<ConversationRelay>` verb. The `interruptible` and
+   * `interruptible_greeting` fields are shorthand for
+   * `interruption_settings.interruptible` and
+   * `interruption_settings.interruptible_greeting`; use top-level
+   * `interruption_settings` for the full interruption settings shape.
+   */
+  conversation_relay_settings?: ActionStartConversationRelayParams.ConversationRelaySettings;
+
+  /**
+   * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
+   * `wss://`.
+   */
+  conversation_relay_url?: string;
 
   /**
    * Text played when the relay session starts.
@@ -3843,16 +3849,6 @@ export interface ActionStartConversationRelayParams {
   languages?: Array<ActionStartConversationRelayParams.Language>;
 
   /**
-   * Participants to add to the conversation.
-   */
-  participants?: Array<ActionStartConversationRelayParams.Participant>;
-
-  /**
-   * When true, sends message history update webhooks.
-   */
-  send_message_history_updates?: boolean;
-
-  /**
    * Speech-to-text settings for Conversation Relay.
    */
   transcription?: ActionStartConversationRelayParams.Transcription;
@@ -3867,11 +3863,6 @@ export interface ActionStartConversationRelayParams {
    * Language to use for text-to-speech. Overrides `language` for TTS when provided.
    */
   tts_language?: string;
-
-  /**
-   * Time in milliseconds to wait for caller input before timing out.
-   */
-  user_response_timeout_ms?: number;
 
   /**
    * The voice to be used by the voice assistant. Currently we support ElevenLabs,
@@ -3928,6 +3919,78 @@ export namespace ActionStartConversationRelayParams {
     dynamic_variables?: { [key: string]: string };
 
     [k: string]: unknown;
+  }
+
+  /**
+   * Conversation Relay connection settings. This object is used by TeXML Call
+   * Scripting's `<ConversationRelay>` verb. The `interruptible` and
+   * `interruptible_greeting` fields are shorthand for
+   * `interruption_settings.interruptible` and
+   * `interruption_settings.interruptible_greeting`; use top-level
+   * `interruption_settings` for the full interruption settings shape.
+   */
+  export interface ConversationRelaySettings {
+    /**
+     * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
+     * `wss://`.
+     */
+    url: string;
+
+    /**
+     * Whether to enable DTMF detection during the relay session.
+     */
+    dtmf_detection?: boolean;
+
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech
+     * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+     * only; `dtmf` allows DTMF only.
+     */
+    interruptible?: 'none' | 'any' | 'speech' | 'dtmf';
+
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech
+     * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+     * only; `dtmf` allows DTMF only.
+     */
+    interruptible_greeting?: 'none' | 'any' | 'speech' | 'dtmf';
+
+    /**
+     * Language-specific TTS and transcription settings.
+     */
+    languages?: Array<ConversationRelaySettings.Language>;
+  }
+
+  export namespace ConversationRelaySettings {
+    /**
+     * Language-specific speech and transcription settings for Conversation Relay.
+     */
+    export interface Language {
+      /**
+       * BCP 47 language code.
+       */
+      code?: string;
+
+      /**
+       * Speech recognition model for this language.
+       */
+      speech_model?: string;
+
+      /**
+       * Speech-to-text provider for this language.
+       */
+      transcription_provider?: string;
+
+      /**
+       * Text-to-speech provider for this language.
+       */
+      tts_provider?: string;
+
+      /**
+       * Voice identifier for this language.
+       */
+      voice?: string;
+    }
   }
 
   /**
@@ -3990,28 +4053,6 @@ export namespace ActionStartConversationRelayParams {
      * Voice identifier for this language.
      */
     voice?: string;
-  }
-
-  export interface Participant {
-    /**
-     * The call_control_id of the participant to add to the conversation.
-     */
-    id: string;
-
-    /**
-     * The role of the participant in the conversation.
-     */
-    role: 'user';
-
-    /**
-     * Display name for the participant.
-     */
-    name?: string;
-
-    /**
-     * Determines what happens to the conversation when this participant hangs up.
-     */
-    on_hangup?: 'continue_conversation' | 'end_conversation';
   }
 
   /**
