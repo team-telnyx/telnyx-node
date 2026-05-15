@@ -1301,6 +1301,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineBConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineDeepgramConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineGoogleConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineSpeechmaticsConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineTelnyxConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineXaiConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionStartRequest</a></code>

@@ -51,14 +51,14 @@ export class OpenAI extends APIResource {
    * ```ts
    * const response = await client.ai.openai.createResponse({
    *   conversation: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   input: [
-   *     {
+   *   input: {
+   *     '0': {
    *       role: 'user',
    *       content: [
    *         { type: 'input_text', text: 'Hello, world!' },
    *       ],
    *     },
-   *   ],
+   *   },
    *   instructions: 'You are a friendly chatbot.',
    *   model: 'zai-org/GLM-5.1-FP8',
    *   stream: true,
@@ -119,7 +119,7 @@ export interface OpenAICreateResponseParams {
   /**
    * The input items for this turn, using the OpenAI Responses API input format.
    */
-  input?: unknown;
+  input?: { [key: string]: unknown };
 
   /**
    * Optional system/developer instructions for the model. When used with a persisted
