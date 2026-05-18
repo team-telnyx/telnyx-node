@@ -150,10 +150,13 @@ describe('resource assistants', () => {
         region: 'region',
         settings: {
           eager_eot_threshold: 0.3,
+          enable_endpoint_detection: true,
           end_of_turn_confidence_threshold: 0,
           eot_threshold: 0.5,
           eot_timeout_ms: 500,
+          interim_results: true,
           keyterm: 'keyterm',
+          max_endpoint_delay_ms: 500,
           max_turn_silence: 100,
           min_turn_silence: 100,
           numerals: true,

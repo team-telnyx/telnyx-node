@@ -1402,7 +1402,9 @@ export interface TranscriptionConfig {
    * meaningful values depend on the selected transcription `model`. For
    * `deepgram/flux`, supported values are: `auto` (Telnyx language detection
    * controls the language hint), `multi` (no language hint), and language-specific
-   * hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`.
+   * hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`. For
+   * `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect;
+   * ISO 639-1 codes (e.g. `en`, `es`) bias detection toward that language.
    */
   language?: string;
 
@@ -1416,6 +1418,8 @@ export interface TranscriptionConfig {
    *   transcription.
    * - `assemblyai/universal-streaming` for live streaming transcription.
    * - `xai/grok-stt` for live streaming transcription.
+   * - `soniox/stt-rt-v4` for live streaming multilingual transcription with
+   *   automatic language detection.
    * - `azure/fast` and `azure/realtime`; Azure models require `region`, and
    *   unsupported regions require `api_key_ref`.
    * - `google/latest_long` for non-streaming multilingual transcription.
@@ -1433,6 +1437,7 @@ export interface TranscriptionConfig {
     | 'speechmatics/enhanced'
     | 'assemblyai/universal-streaming'
     | 'xai/grok-stt'
+    | 'soniox/stt-rt-v4'
     | 'azure/fast'
     | 'azure/realtime'
     | 'google/latest_long'
@@ -1731,46 +1736,6 @@ export namespace TranscriptionEngineGoogleConfig {
   }
 }
 
-export interface TranscriptionEngineSpeechmaticsConfig {
-  /**
-   * Whether to send also interim results. If set to false, only final results will
-   * be sent.
-   */
-  interim_results?: boolean;
-
-  /**
-   * Language to use for speech recognition
-   */
-  language?:
-    | 'en'
-    | 'ba'
-    | 'eu'
-    | 'gl'
-    | 'ga'
-    | 'mt'
-    | 'mn'
-    | 'sw'
-    | 'ug'
-    | 'cy'
-    | 'ar_en'
-    | 'cmn_en'
-    | 'en_ms'
-    | 'en_ta'
-    | 'tl'
-    | 'es-bilingual-en'
-    | 'cmn_en_ms_ta';
-
-  /**
-   * Engine identifier for Speechmatics transcription service
-   */
-  transcription_engine?: 'Speechmatics';
-
-  /**
-   * The model to use for transcription.
-   */
-  transcription_model?: 'speechmatics/standard';
-}
-
 export interface TranscriptionEngineTelnyxConfig {
   /**
    * Language to use for speech recognition
@@ -1861,6 +1826,7 @@ export interface TranscriptionStartRequest {
     | 'xAI'
     | 'AssemblyAI'
     | 'Speechmatics'
+    | 'Soniox'
     | 'A'
     | 'B';
 
@@ -1870,7 +1836,8 @@ export interface TranscriptionStartRequest {
     | TranscriptionEngineAzureConfig
     | TranscriptionEngineXaiConfig
     | TranscriptionEngineAssemblyaiConfig
-    | TranscriptionEngineSpeechmaticsConfig
+    | TranscriptionStartRequest.TranscriptionEngineSpeechmaticsConfig
+    | TranscriptionStartRequest.TranscriptionEngineSonioxConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -1882,6 +1849,84 @@ export interface TranscriptionStartRequest {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace TranscriptionStartRequest {
+  export interface TranscriptionEngineSpeechmaticsConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Language to use for speech recognition
+     */
+    language?:
+      | 'en'
+      | 'ba'
+      | 'eu'
+      | 'gl'
+      | 'ga'
+      | 'mt'
+      | 'mn'
+      | 'sw'
+      | 'ug'
+      | 'cy'
+      | 'ar_en'
+      | 'cmn_en'
+      | 'en_ms'
+      | 'en_ta'
+      | 'tl'
+      | 'es-bilingual-en'
+      | 'cmn_en_ms_ta';
+
+    /**
+     * Engine identifier for Speechmatics transcription service
+     */
+    transcription_engine?: 'Speechmatics';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'speechmatics/standard';
+  }
+
+  export interface TranscriptionEngineSonioxConfig {
+    /**
+     * Engine identifier for Soniox transcription service
+     */
+    transcription_engine: 'Soniox';
+
+    /**
+     * When true, Soniox emits end-of-utterance events at the cadence configured by
+     * `max_endpoint_delay_ms`.
+     */
+    enable_endpoint_detection?: boolean;
+
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * ISO 639-1 language hint (e.g. `en`, `es`), or `auto` to omit the hint and let
+     * Soniox auto-detect supported languages multilingually.
+     */
+    language?: string;
+
+    /**
+     * Maximum silence (in milliseconds) before Soniox emits an end-of-utterance event.
+     * Only honored when `enable_endpoint_detection` is true. Range: 500-3000 ms.
+     */
+    max_endpoint_delay_ms?: number;
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'soniox/stt-rt-v4';
+  }
 }
 
 export interface ActionAddAIAssistantMessagesResponse {
@@ -4770,6 +4815,7 @@ export interface ActionStartTranscriptionParams {
     | 'xAI'
     | 'AssemblyAI'
     | 'Speechmatics'
+    | 'Soniox'
     | 'A'
     | 'B';
 
@@ -4779,7 +4825,8 @@ export interface ActionStartTranscriptionParams {
     | TranscriptionEngineAzureConfig
     | TranscriptionEngineXaiConfig
     | TranscriptionEngineAssemblyaiConfig
-    | TranscriptionEngineSpeechmaticsConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineSpeechmaticsConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineSonioxConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4791,6 +4838,84 @@ export interface ActionStartTranscriptionParams {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace ActionStartTranscriptionParams {
+  export interface TranscriptionEngineSpeechmaticsConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Language to use for speech recognition
+     */
+    language?:
+      | 'en'
+      | 'ba'
+      | 'eu'
+      | 'gl'
+      | 'ga'
+      | 'mt'
+      | 'mn'
+      | 'sw'
+      | 'ug'
+      | 'cy'
+      | 'ar_en'
+      | 'cmn_en'
+      | 'en_ms'
+      | 'en_ta'
+      | 'tl'
+      | 'es-bilingual-en'
+      | 'cmn_en_ms_ta';
+
+    /**
+     * Engine identifier for Speechmatics transcription service
+     */
+    transcription_engine?: 'Speechmatics';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'speechmatics/standard';
+  }
+
+  export interface TranscriptionEngineSonioxConfig {
+    /**
+     * Engine identifier for Soniox transcription service
+     */
+    transcription_engine: 'Soniox';
+
+    /**
+     * When true, Soniox emits end-of-utterance events at the cadence configured by
+     * `max_endpoint_delay_ms`.
+     */
+    enable_endpoint_detection?: boolean;
+
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * ISO 639-1 language hint (e.g. `en`, `es`), or `auto` to omit the hint and let
+     * Soniox auto-detect supported languages multilingually.
+     */
+    language?: string;
+
+    /**
+     * Maximum silence (in milliseconds) before Soniox emits an end-of-utterance event.
+     * Only honored when `enable_endpoint_detection` is true. Range: 500-3000 ms.
+     */
+    max_endpoint_delay_ms?: number;
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'soniox/stt-rt-v4';
+  }
 }
 
 export interface ActionStopAIAssistantParams {
@@ -5332,7 +5457,6 @@ export declare namespace Actions {
     type TranscriptionEngineBConfig as TranscriptionEngineBConfig,
     type TranscriptionEngineDeepgramConfig as TranscriptionEngineDeepgramConfig,
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
-    type TranscriptionEngineSpeechmaticsConfig as TranscriptionEngineSpeechmaticsConfig,
     type TranscriptionEngineTelnyxConfig as TranscriptionEngineTelnyxConfig,
     type TranscriptionEngineXaiConfig as TranscriptionEngineXaiConfig,
     type TranscriptionStartRequest as TranscriptionStartRequest,
