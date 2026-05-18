@@ -1,6 +1,6 @@
 {
   "name": "telnyx-mcp",
-  "version": "6.66.0",
+  "version": "6.66.1",
   "description": "The official MCP Server for the Telnyx API",
   "author": "Telnyx <support@telnyx.com>",
   "types": "dist/index.d.ts",
@@ -73,7 +73,7 @@
     "ts-jest": "^29.1.0",
     "ts-morph": "^19.0.0",
     "ts-node": "^10.5.0",
-    "tsc-multi": "https://github.com/stainless-api/tsc-multi/releases/download/v1.1.9/tsc-multi.tgz",
+    "tsc-multi": "https://github.com/stainless-api/tsc-multi/releases/download/v1.1.11/tsc-multi.tgz",
     "tsconfig-paths": "^4.0.0"
   },
   "imports": {
