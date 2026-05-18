@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.66.2 (2026-05-18)
+
+Full Changelog: [v6.66.1...v6.66.2](https://github.com/team-telnyx/telnyx-node/compare/v6.66.1...v6.66.2)
+
+### Bug Fixes
+
+* fix nullable total pages accessor ([d2c7032](https://github.com/team-telnyx/telnyx-node/commit/d2c703205d22625fe6ad3688698a730483b99dae))
+
 ## 6.66.1 (2026-05-18)
 
 Full Changelog: [v6.66.0...v6.66.1](https://github.com/team-telnyx/telnyx-node/compare/v6.66.0...v6.66.1)
