@@ -1964,6 +1964,12 @@ export namespace VoiceSettings {
      * The predefined media to use. `silence` disables background audio.
      */
     value: 'silence' | 'office';
+
+    /**
+     * Volume level for the predefined background audio. Supports values from 0.1 to
+     * 1.0 in 0.1 increments.
+     */
+    volume?: number;
   }
 
   export interface MediaURL {

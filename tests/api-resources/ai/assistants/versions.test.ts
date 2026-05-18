@@ -189,7 +189,11 @@ describe('resource versions', () => {
       voice_settings: {
         voice: 'voice',
         api_key_ref: 'api_key_ref',
-        background_audio: { type: 'predefined_media', value: 'silence' },
+        background_audio: {
+          type: 'predefined_media',
+          value: 'silence',
+          volume: 0.1,
+        },
         expressive_mode: true,
         language_boost: 'auto',
         similarity_boost: 0,
