@@ -63,8 +63,8 @@ importers:
         specifier: ^10.5.0
         version: 10.7.0(@swc/core@1.4.16)(@types/node@20.19.11)(typescript@5.8.3)
       tsc-multi:
-        specifier: https://github.com/stainless-api/tsc-multi/releases/download/v1.1.9/tsc-multi.tgz
-        version: https://github.com/stainless-api/tsc-multi/releases/download/v1.1.9/tsc-multi.tgz(typescript@5.8.3)
+        specifier: https://github.com/stainless-api/tsc-multi/releases/download/v1.1.11/tsc-multi.tgz
+        version: https://github.com/stainless-api/tsc-multi/releases/download/v1.1.11/tsc-multi.tgz(typescript@5.8.3)
       tsconfig-paths:
         specifier: ^4.0.0
         version: 4.2.0
@@ -202,8 +202,8 @@ importers:
         specifier: ^10.5.0
         version: 10.7.0(@swc/core@1.4.16)(@types/node@22.19.1)(typescript@5.8.3)
       tsc-multi:
-        specifier: https://github.com/stainless-api/tsc-multi/releases/download/v1.1.9/tsc-multi.tgz
-        version: https://github.com/stainless-api/tsc-multi/releases/download/v1.1.9/tsc-multi.tgz(typescript@5.8.3)
+        specifier: https://github.com/stainless-api/tsc-multi/releases/download/v1.1.11/tsc-multi.tgz
+        version: https://github.com/stainless-api/tsc-multi/releases/download/v1.1.11/tsc-multi.tgz(typescript@5.8.3)
       tsconfig-paths:
         specifier: ^4.0.0
         version: 4.2.0
@@ -4378,13 +4378,13 @@ packages:
       '@swc/wasm':
         optional: true
 
-  tsc-multi@https://github.com/stainless-api/tsc-multi/releases/download/v1.1.9/tsc-multi.tgz:
+  tsc-multi@https://github.com/stainless-api/tsc-multi/releases/download/v1.1.11/tsc-multi.tgz:
     resolution:
       {
-        integrity: sha512-tWyCXnx0WqCkVlo5s+4KMj7HC0/0YrCZY0PustUwX9F2lNwd8Kp07q/Q56uGvV9q80XaSDrhy0YqBmrX5TDNpQ==,
-        tarball: https://github.com/stainless-api/tsc-multi/releases/download/v1.1.9/tsc-multi.tgz,
+        integrity: sha512-LrjLRdfDnJ6UcZPSsxxY8QDnZmS3ZpPyvzgjUlNMjjRoTAUVqeL+IWrIzEU3Z+CwVrpVI97PePRLenEfCtR/UQ==,
+        tarball: https://github.com/stainless-api/tsc-multi/releases/download/v1.1.11/tsc-multi.tgz,
       }
-    version: 1.1.9
+    version: 1.1.11
     engines: { node: '>=14' }
     hasBin: true
     peerDependencies:
@@ -7661,7 +7661,7 @@ snapshots:
     optionalDependencies:
       '@swc/core': 1.4.16
 
-  tsc-multi@https://github.com/stainless-api/tsc-multi/releases/download/v1.1.9/tsc-multi.tgz(typescript@5.8.3):
+  tsc-multi@https://github.com/stainless-api/tsc-multi/releases/download/v1.1.11/tsc-multi.tgz(typescript@5.8.3):
     dependencies:
       debug: 4.4.1
       fast-glob: 3.3.2
