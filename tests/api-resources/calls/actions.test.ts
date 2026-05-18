@@ -439,10 +439,8 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('startConversationRelay: only required params', async () => {
-    const responsePromise = client.calls.actions.startConversationRelay('call_control_id', {
-      conversation_relay_url: 'wss://example.com/conversation-relay',
-    });
+  test.skip('startConversationRelay', async () => {
+    const responsePromise = client.calls.actions.startConversationRelay('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -450,53 +448,6 @@ describe('resource actions', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('startConversationRelay: required and optional params', async () => {
-    const response = await client.calls.actions.startConversationRelay('call_control_id', {
-      conversation_relay_url: 'wss://example.com/conversation-relay',
-      assistant: { dynamic_variables: { customer_id: '12345', tier: 'premium' } },
-      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
-      command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
-      conversation_relay_dtmf_detection: true,
-      greeting: 'Hi! Ask me anything!',
-      interruption_settings: {
-        enable: true,
-        interruptible: 'speech',
-        interruptible_greeting: 'speech',
-        welcome_greeting_interruptible: 'speech',
-      },
-      language: 'en-US',
-      languages: [
-        {
-          code: 'en-US',
-          speech_model: 'nova-2',
-          transcription_provider: 'Deepgram',
-          tts_provider: 'ElevenLabs',
-          voice: 'alice',
-        },
-      ],
-      participants: [
-        {
-          id: 'v3:abc123def456',
-          role: 'user',
-          name: 'John Doe',
-          on_hangup: 'continue_conversation',
-        },
-      ],
-      send_message_history_updates: true,
-      transcription: {
-        language: 'en-US',
-        model: 'nova-2',
-        provider: 'deepgram',
-      },
-      transcription_language: 'en-US',
-      tts_language: 'es',
-      user_response_timeout_ms: 10000,
-      voice: 'Telnyx.KokoroTTS.af',
-      voice_settings: { type: 'elevenlabs', api_key_ref: 'my_elevenlabs_api_key' },
-    });
   });
 
   // Mock server tests are disabled

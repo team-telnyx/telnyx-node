@@ -528,6 +528,12 @@ export namespace CallConversationEnded {
     llm_model?: string;
 
     /**
+     * Reason the conversation ended. For Conversation Relay, `customer_disconnect`
+     * indicates that the customer WebSocket disconnected.
+     */
+    reason?: string | null;
+
+    /**
      * The speech-to-text model used in the conversation.
      */
     stt_model?: string;
@@ -3795,8 +3801,9 @@ export namespace FaxDelivered {
 
       /**
        * The media_name used for the fax's media. Must point to a file previously
-       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-       * and media_url/contents can't be submitted together.
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. Supported
+       * formats: PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, and TXT. media_name and
+       * media_url/contents can't be submitted together.
        */
       media_name?: string;
 
@@ -3912,8 +3919,9 @@ export namespace FaxFailed {
 
       /**
        * The media_name used for the fax's media. Must point to a file previously
-       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-       * and media_url/contents can't be submitted together.
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. Supported
+       * formats: PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, and TXT. media_name and
+       * media_url/contents can't be submitted together.
        */
       media_name?: string;
 
@@ -4019,8 +4027,9 @@ export namespace FaxMediaProcessed {
 
       /**
        * The media_name used for the fax's media. Must point to a file previously
-       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-       * and media_url/contents can't be submitted together.
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. Supported
+       * formats: PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, and TXT. media_name and
+       * media_url/contents can't be submitted together.
        */
       media_name?: string;
 
@@ -4126,8 +4135,9 @@ export namespace FaxQueued {
 
       /**
        * The media_name used for the fax's media. Must point to a file previously
-       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-       * and media_url/contents can't be submitted together.
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. Supported
+       * formats: PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, and TXT. media_name and
+       * media_url/contents can't be submitted together.
        */
       media_name?: string;
 
@@ -4233,8 +4243,9 @@ export namespace FaxSendingStarted {
 
       /**
        * The media_name used for the fax's media. Must point to a file previously
-       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-       * and media_url/contents can't be submitted together.
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. Supported
+       * formats: PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, and TXT. media_name and
+       * media_url/contents can't be submitted together.
        */
       media_name?: string;
 

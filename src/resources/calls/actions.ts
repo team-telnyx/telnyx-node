@@ -509,17 +509,15 @@ export class Actions extends APIResource {
    *
    * **Expected Webhooks:**
    *
-   * - `conversation_relay.disconnected`
+   * - `call.conversation.ended` - Sent when the Conversation Relay session ends. If
+   *   the customer WebSocket disconnects, the webhook payload `reason` is
+   *   `customer_disconnect`.
    *
    * @example
    * ```ts
    * const response =
    *   await client.calls.actions.startConversationRelay(
    *     'call_control_id',
-   *     {
-   *       conversation_relay_url:
-   *         'wss://example.com/conversation-relay',
-   *     },
    *   );
    * ```
    */
@@ -1404,7 +1402,9 @@ export interface TranscriptionConfig {
    * meaningful values depend on the selected transcription `model`. For
    * `deepgram/flux`, supported values are: `auto` (Telnyx language detection
    * controls the language hint), `multi` (no language hint), and language-specific
-   * hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`.
+   * hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`. For
+   * `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect;
+   * ISO 639-1 codes (e.g. `en`, `es`) bias detection toward that language.
    */
   language?: string;
 
@@ -1418,6 +1418,8 @@ export interface TranscriptionConfig {
    *   transcription.
    * - `assemblyai/universal-streaming` for live streaming transcription.
    * - `xai/grok-stt` for live streaming transcription.
+   * - `soniox/stt-rt-v4` for live streaming multilingual transcription with
+   *   automatic language detection.
    * - `azure/fast` and `azure/realtime`; Azure models require `region`, and
    *   unsupported regions require `api_key_ref`.
    * - `google/latest_long` for non-streaming multilingual transcription.
@@ -1435,6 +1437,7 @@ export interface TranscriptionConfig {
     | 'speechmatics/enhanced'
     | 'assemblyai/universal-streaming'
     | 'xai/grok-stt'
+    | 'soniox/stt-rt-v4'
     | 'azure/fast'
     | 'azure/realtime'
     | 'google/latest_long'
@@ -1517,6 +1520,24 @@ export namespace TranscriptionEngineAConfig {
 
     phrases?: Array<string>;
   }
+}
+
+export interface TranscriptionEngineAssemblyaiConfig {
+  /**
+   * Whether to send also interim results. If set to false, only final results will
+   * be sent.
+   */
+  interim_results?: boolean;
+
+  /**
+   * Engine identifier for AssemblyAI transcription service
+   */
+  transcription_engine?: 'AssemblyAI';
+
+  /**
+   * The model to use for transcription.
+   */
+  transcription_model?: 'assemblyai/universal-streaming';
 }
 
 export interface TranscriptionEngineAzureConfig {
@@ -1732,6 +1753,54 @@ export interface TranscriptionEngineTelnyxConfig {
   transcription_model?: 'openai/whisper-tiny' | 'openai/whisper-large-v3-turbo';
 }
 
+export interface TranscriptionEngineXaiConfig {
+  /**
+   * Whether to send also interim results. If set to false, only final results will
+   * be sent.
+   */
+  interim_results?: boolean;
+
+  /**
+   * Language to use for speech recognition
+   */
+  language?:
+    | 'ar'
+    | 'cs'
+    | 'da'
+    | 'de'
+    | 'en'
+    | 'es'
+    | 'fa'
+    | 'fil'
+    | 'fr'
+    | 'hi'
+    | 'id'
+    | 'it'
+    | 'ja'
+    | 'ko'
+    | 'mk'
+    | 'ms'
+    | 'nl'
+    | 'pl'
+    | 'pt'
+    | 'ro'
+    | 'ru'
+    | 'sv'
+    | 'th'
+    | 'tr'
+    | 'vi';
+
+  /**
+   * Engine identifier for xAI transcription service
+   */
+  transcription_engine?: 'xAI';
+
+  /**
+   * The model to use for transcription.
+   */
+  transcription_model?: 'xai/grok-stt';
+}
+
 export interface TranscriptionStartRequest {
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
@@ -1749,14 +1818,26 @@ export interface TranscriptionStartRequest {
    * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
    * `Telnyx` are supported for backward compatibility.
    */
-  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'xAI' | 'AssemblyAI' | 'A' | 'B';
+  transcription_engine?:
+    | 'Google'
+    | 'Telnyx'
+    | 'Deepgram'
+    | 'Azure'
+    | 'xAI'
+    | 'AssemblyAI'
+    | 'Speechmatics'
+    | 'Soniox'
+    | 'A'
+    | 'B';
 
   transcription_engine_config?:
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
     | TranscriptionEngineAzureConfig
-    | TranscriptionStartRequest.TranscriptionEngineXaiConfig
-    | TranscriptionStartRequest.TranscriptionEngineAssemblyaiConfig
+    | TranscriptionEngineXaiConfig
+    | TranscriptionEngineAssemblyaiConfig
+    | TranscriptionStartRequest.TranscriptionEngineSpeechmaticsConfig
+    | TranscriptionStartRequest.TranscriptionEngineSonioxConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -1771,7 +1852,7 @@ export interface TranscriptionStartRequest {
 }
 
 export namespace TranscriptionStartRequest {
-  export interface TranscriptionEngineXaiConfig {
+  export interface TranscriptionEngineSpeechmaticsConfig {
     /**
      * Whether to send also interim results. If set to false, only final results will
      * be sent.
@@ -1782,44 +1863,47 @@ export namespace TranscriptionStartRequest {
      * Language to use for speech recognition
      */
     language?:
-      | 'ar'
-      | 'cs'
-      | 'da'
-      | 'de'
       | 'en'
-      | 'es'
-      | 'fa'
-      | 'fil'
-      | 'fr'
-      | 'hi'
-      | 'id'
-      | 'it'
-      | 'ja'
-      | 'ko'
-      | 'mk'
-      | 'ms'
-      | 'nl'
-      | 'pl'
-      | 'pt'
-      | 'ro'
-      | 'ru'
-      | 'sv'
-      | 'th'
-      | 'tr'
-      | 'vi';
+      | 'ba'
+      | 'eu'
+      | 'gl'
+      | 'ga'
+      | 'mt'
+      | 'mn'
+      | 'sw'
+      | 'ug'
+      | 'cy'
+      | 'ar_en'
+      | 'cmn_en'
+      | 'en_ms'
+      | 'en_ta'
+      | 'tl'
+      | 'es-bilingual-en'
+      | 'cmn_en_ms_ta';
 
     /**
-     * Engine identifier for xAI transcription service
+     * Engine identifier for Speechmatics transcription service
      */
-    transcription_engine?: 'xAI';
+    transcription_engine?: 'Speechmatics';
 
     /**
      * The model to use for transcription.
      */
-    transcription_model?: 'xai/grok-stt';
+    transcription_model?: 'speechmatics/standard';
   }
 
-  export interface TranscriptionEngineAssemblyaiConfig {
+  export interface TranscriptionEngineSonioxConfig {
+    /**
+     * Engine identifier for Soniox transcription service
+     */
+    transcription_engine: 'Soniox';
+
+    /**
+     * When true, Soniox emits end-of-utterance events at the cadence configured by
+     * `max_endpoint_delay_ms`.
+     */
+    enable_endpoint_detection?: boolean;
+
     /**
      * Whether to send also interim results. If set to false, only final results will
      * be sent.
@@ -1827,14 +1911,21 @@ export namespace TranscriptionStartRequest {
     interim_results?: boolean;
 
     /**
-     * Engine identifier for AssemblyAI transcription service
+     * ISO 639-1 language hint (e.g. `en`, `es`), or `auto` to omit the hint and let
+     * Soniox auto-detect supported languages multilingually.
      */
-    transcription_engine?: 'AssemblyAI';
+    language?: string;
+
+    /**
+     * Maximum silence (in milliseconds) before Soniox emits an end-of-utterance event.
+     * Only honored when `enable_endpoint_detection` is true. Range: 500-3000 ms.
+     */
+    max_endpoint_delay_ms?: number;
 
     /**
      * The model to use for transcription.
      */
-    transcription_model?: 'assemblyai/universal-streaming';
+    transcription_model?: 'soniox/stt-rt-v4';
   }
 }
 
@@ -2797,7 +2888,7 @@ export interface ActionGatherUsingAIParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | ActionGatherUsingAIParams.XaiVoiceSettings;
+    | Shared.XaiVoiceSettings;
 }
 
 export namespace ActionGatherUsingAIParams {
@@ -2811,18 +2902,6 @@ export namespace ActionGatherUsingAIParams {
      * The role of the message sender
      */
     role?: 'assistant' | 'user';
-  }
-
-  export interface XaiVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'xai';
-
-    /**
-     * Language code, or `auto` to detect automatically.
-     */
-    language?: string;
   }
 }
 
@@ -3081,7 +3160,7 @@ export interface ActionGatherUsingSpeakParams {
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | ActionGatherUsingSpeakParams.InworldVoiceSettings
-    | ActionGatherUsingSpeakParams.XaiVoiceSettings;
+    | Shared.XaiVoiceSettings;
 }
 
 export namespace ActionGatherUsingSpeakParams {
@@ -3090,18 +3169,6 @@ export namespace ActionGatherUsingSpeakParams {
      * Voice settings provider type
      */
     type: 'inworld';
-  }
-
-  export interface XaiVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'xai';
-
-    /**
-     * Language code, or `auto` to detect automatically.
-     */
-    language?: string;
   }
 }
 
@@ -3476,7 +3543,7 @@ export interface ActionSpeakParams {
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | ActionSpeakParams.InworldVoiceSettings
-    | ActionSpeakParams.XaiVoiceSettings;
+    | Shared.XaiVoiceSettings;
 }
 
 export namespace ActionSpeakParams {
@@ -3485,18 +3552,6 @@ export namespace ActionSpeakParams {
      * Voice settings provider type
      */
     type: 'inworld';
-  }
-
-  export interface XaiVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'xai';
-
-    /**
-     * Language code, or `auto` to detect automatically.
-     */
-    language?: string;
   }
 }
 
@@ -3603,7 +3658,7 @@ export interface ActionStartAIAssistantParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | ActionStartAIAssistantParams.XaiVoiceSettings;
+    | Shared.XaiVoiceSettings;
 }
 
 export namespace ActionStartAIAssistantParams {
@@ -3771,27 +3826,9 @@ export namespace ActionStartAIAssistantParams {
      */
     on_hangup?: 'continue_conversation' | 'end_conversation';
   }
-
-  export interface XaiVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'xai';
-
-    /**
-     * Language code, or `auto` to detect automatically.
-     */
-    language?: string;
-  }
 }
 
 export interface ActionStartConversationRelayParams {
-  /**
-   * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
-   * `wss://`.
-   */
-  conversation_relay_url: string;
-
   /**
    * Custom parameters for the Conversation Relay session. Pass key-value data as
    * `assistant.dynamic_variables` to make it available to the relay session.
@@ -3814,6 +3851,22 @@ export interface ActionStartConversationRelayParams {
    * Enable DTMF detection for the relay session.
    */
   conversation_relay_dtmf_detection?: boolean;
+
+  /**
+   * Conversation Relay connection settings. This object is used by TeXML Call
+   * Scripting's `<ConversationRelay>` verb. The `interruptible` and
+   * `interruptible_greeting` fields are shorthand for
+   * `interruption_settings.interruptible` and
+   * `interruption_settings.interruptible_greeting`; use top-level
+   * `interruption_settings` for the full interruption settings shape.
+   */
+  conversation_relay_settings?: ActionStartConversationRelayParams.ConversationRelaySettings;
+
+  /**
+   * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
+   * `wss://`.
+   */
+  conversation_relay_url?: string;
 
   /**
    * Text played when the relay session starts.
@@ -3839,16 +3892,6 @@ export interface ActionStartConversationRelayParams {
   languages?: Array<ActionStartConversationRelayParams.Language>;
 
   /**
-   * Participants to add to the conversation.
-   */
-  participants?: Array<ActionStartConversationRelayParams.Participant>;
-
-  /**
-   * When true, sends message history update webhooks.
-   */
-  send_message_history_updates?: boolean;
-
-  /**
    * Speech-to-text settings for Conversation Relay.
    */
   transcription?: ActionStartConversationRelayParams.Transcription;
@@ -3863,11 +3906,6 @@ export interface ActionStartConversationRelayParams {
    * Language to use for text-to-speech. Overrides `language` for TTS when provided.
    */
   tts_language?: string;
-
-  /**
-   * Time in milliseconds to wait for caller input before timing out.
-   */
-  user_response_timeout_ms?: number;
 
   /**
    * The voice to be used by the voice assistant. Currently we support ElevenLabs,
@@ -3909,7 +3947,7 @@ export interface ActionStartConversationRelayParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | ActionStartConversationRelayParams.XaiVoiceSettings;
+    | Shared.XaiVoiceSettings;
 }
 
 export namespace ActionStartConversationRelayParams {
@@ -3924,6 +3962,78 @@ export namespace ActionStartConversationRelayParams {
     dynamic_variables?: { [key: string]: string };
 
     [k: string]: unknown;
+  }
+
+  /**
+   * Conversation Relay connection settings. This object is used by TeXML Call
+   * Scripting's `<ConversationRelay>` verb. The `interruptible` and
+   * `interruptible_greeting` fields are shorthand for
+   * `interruption_settings.interruptible` and
+   * `interruption_settings.interruptible_greeting`; use top-level
+   * `interruption_settings` for the full interruption settings shape.
+   */
+  export interface ConversationRelaySettings {
+    /**
+     * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
+     * `wss://`.
+     */
+    url: string;
+
+    /**
+     * Whether to enable DTMF detection during the relay session.
+     */
+    dtmf_detection?: boolean;
+
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech
+     * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+     * only; `dtmf` allows DTMF only.
+     */
+    interruptible?: 'none' | 'any' | 'speech' | 'dtmf';
+
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech
+     * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+     * only; `dtmf` allows DTMF only.
+     */
+    interruptible_greeting?: 'none' | 'any' | 'speech' | 'dtmf';
+
+    /**
+     * Language-specific TTS and transcription settings.
+     */
+    languages?: Array<ConversationRelaySettings.Language>;
+  }
+
+  export namespace ConversationRelaySettings {
+    /**
+     * Language-specific speech and transcription settings for Conversation Relay.
+     */
+    export interface Language {
+      /**
+       * BCP 47 language code.
+       */
+      code?: string;
+
+      /**
+       * Speech recognition model for this language.
+       */
+      speech_model?: string;
+
+      /**
+       * Speech-to-text provider for this language.
+       */
+      transcription_provider?: string;
+
+      /**
+       * Text-to-speech provider for this language.
+       */
+      tts_provider?: string;
+
+      /**
+       * Voice identifier for this language.
+       */
+      voice?: string;
+    }
   }
 
   /**
@@ -3988,28 +4098,6 @@ export namespace ActionStartConversationRelayParams {
     voice?: string;
   }
 
-  export interface Participant {
-    /**
-     * The call_control_id of the participant to add to the conversation.
-     */
-    id: string;
-
-    /**
-     * The role of the participant in the conversation.
-     */
-    role: 'user';
-
-    /**
-     * Display name for the participant.
-     */
-    name?: string;
-
-    /**
-     * Determines what happens to the conversation when this participant hangs up.
-     */
-    on_hangup?: 'continue_conversation' | 'end_conversation';
-  }
-
   /**
    * Speech-to-text settings for Conversation Relay.
    */
@@ -4028,18 +4116,6 @@ export namespace ActionStartConversationRelayParams {
      * Transcription provider to use.
      */
     provider?: string;
-  }
-
-  export interface XaiVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'xai';
-
-    /**
-     * Language code, or `auto` to detect automatically.
-     */
-    language?: string;
   }
 }
 
@@ -4731,14 +4807,26 @@ export interface ActionStartTranscriptionParams {
    * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
    * `Telnyx` are supported for backward compatibility.
    */
-  transcription_engine?: 'Google' | 'Telnyx' | 'Deepgram' | 'Azure' | 'xAI' | 'AssemblyAI' | 'A' | 'B';
+  transcription_engine?:
+    | 'Google'
+    | 'Telnyx'
+    | 'Deepgram'
+    | 'Azure'
+    | 'xAI'
+    | 'AssemblyAI'
+    | 'Speechmatics'
+    | 'Soniox'
+    | 'A'
+    | 'B';
 
   transcription_engine_config?:
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
     | TranscriptionEngineAzureConfig
-    | ActionStartTranscriptionParams.TranscriptionEngineXaiConfig
-    | ActionStartTranscriptionParams.TranscriptionEngineAssemblyaiConfig
+    | TranscriptionEngineXaiConfig
+    | TranscriptionEngineAssemblyaiConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineSpeechmaticsConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineSonioxConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4753,7 +4841,7 @@ export interface ActionStartTranscriptionParams {
 }
 
 export namespace ActionStartTranscriptionParams {
-  export interface TranscriptionEngineXaiConfig {
+  export interface TranscriptionEngineSpeechmaticsConfig {
     /**
      * Whether to send also interim results. If set to false, only final results will
      * be sent.
@@ -4764,44 +4852,47 @@ export namespace ActionStartTranscriptionParams {
      * Language to use for speech recognition
      */
     language?:
-      | 'ar'
-      | 'cs'
-      | 'da'
-      | 'de'
       | 'en'
-      | 'es'
-      | 'fa'
-      | 'fil'
-      | 'fr'
-      | 'hi'
-      | 'id'
-      | 'it'
-      | 'ja'
-      | 'ko'
-      | 'mk'
-      | 'ms'
-      | 'nl'
-      | 'pl'
-      | 'pt'
-      | 'ro'
-      | 'ru'
-      | 'sv'
-      | 'th'
-      | 'tr'
-      | 'vi';
+      | 'ba'
+      | 'eu'
+      | 'gl'
+      | 'ga'
+      | 'mt'
+      | 'mn'
+      | 'sw'
+      | 'ug'
+      | 'cy'
+      | 'ar_en'
+      | 'cmn_en'
+      | 'en_ms'
+      | 'en_ta'
+      | 'tl'
+      | 'es-bilingual-en'
+      | 'cmn_en_ms_ta';
 
     /**
-     * Engine identifier for xAI transcription service
+     * Engine identifier for Speechmatics transcription service
      */
-    transcription_engine?: 'xAI';
+    transcription_engine?: 'Speechmatics';
 
     /**
      * The model to use for transcription.
      */
-    transcription_model?: 'xai/grok-stt';
+    transcription_model?: 'speechmatics/standard';
   }
 
-  export interface TranscriptionEngineAssemblyaiConfig {
+  export interface TranscriptionEngineSonioxConfig {
+    /**
+     * Engine identifier for Soniox transcription service
+     */
+    transcription_engine: 'Soniox';
+
+    /**
+     * When true, Soniox emits end-of-utterance events at the cadence configured by
+     * `max_endpoint_delay_ms`.
+     */
+    enable_endpoint_detection?: boolean;
+
     /**
      * Whether to send also interim results. If set to false, only final results will
      * be sent.
@@ -4809,14 +4900,21 @@ export namespace ActionStartTranscriptionParams {
     interim_results?: boolean;
 
     /**
-     * Engine identifier for AssemblyAI transcription service
+     * ISO 639-1 language hint (e.g. `en`, `es`), or `auto` to omit the hint and let
+     * Soniox auto-detect supported languages multilingually.
      */
-    transcription_engine?: 'AssemblyAI';
+    language?: string;
+
+    /**
+     * Maximum silence (in milliseconds) before Soniox emits an end-of-utterance event.
+     * Only honored when `enable_endpoint_detection` is true. Range: 500-3000 ms.
+     */
+    max_endpoint_delay_ms?: number;
 
     /**
      * The model to use for transcription.
      */
-    transcription_model?: 'assemblyai/universal-streaming';
+    transcription_model?: 'soniox/stt-rt-v4';
   }
 }
 
@@ -5354,11 +5452,13 @@ export declare namespace Actions {
     type TelnyxVoiceSettings as TelnyxVoiceSettings,
     type TranscriptionConfig as TranscriptionConfig,
     type TranscriptionEngineAConfig as TranscriptionEngineAConfig,
+    type TranscriptionEngineAssemblyaiConfig as TranscriptionEngineAssemblyaiConfig,
     type TranscriptionEngineAzureConfig as TranscriptionEngineAzureConfig,
     type TranscriptionEngineBConfig as TranscriptionEngineBConfig,
     type TranscriptionEngineDeepgramConfig as TranscriptionEngineDeepgramConfig,
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
     type TranscriptionEngineTelnyxConfig as TranscriptionEngineTelnyxConfig,
+    type TranscriptionEngineXaiConfig as TranscriptionEngineXaiConfig,
     type TranscriptionStartRequest as TranscriptionStartRequest,
     type ActionAddAIAssistantMessagesResponse as ActionAddAIAssistantMessagesResponse,
     type ActionAnswerResponse as ActionAnswerResponse,
