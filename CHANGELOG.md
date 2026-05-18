@@ -1,5 +1,29 @@
 # Changelog
 
+## 6.66.0 (2026-05-18)
+
+Full Changelog: [v6.65.0...v6.66.0](https://github.com/team-telnyx/telnyx-node/compare/v6.65.0...v6.66.0)
+
+### Features
+
+* Add assistant background audio volume to OpenAPI spec ([b542225](https://github.com/team-telnyx/telnyx-node/commit/b542225fe521b222767001843d5468ac0742fa1f))
+* Add Speechmatics transcription engine to Call Control API ([dc59199](https://github.com/team-telnyx/telnyx-node/commit/dc591995e1c5599313a6942e0916fd13b8744a04))
+* **api:** manual updates ([4871dfd](https://github.com/team-telnyx/telnyx-node/commit/4871dfda110260347b14c361165577417cebf60a))
+* Document PremiumCallScreening detection mode ([fb59634](https://github.com/team-telnyx/telnyx-node/commit/fb596349c3e017adde07904c452668f5d9e2e38f))
+* Fix Conversation Relay expected webhook ([c0b5b52](https://github.com/team-telnyx/telnyx-node/commit/c0b5b52b7e78d8866b718452ffcbb3d85b1ab796))
+* Telapps 101 soniox spec ([0dfb87c](https://github.com/team-telnyx/telnyx-node/commit/0dfb87cc92379b3767b76018e0cc37be99077a2a))
+* Update Conversation Relay start parameters ([0092538](https://github.com/team-telnyx/telnyx-node/commit/00925389db75c99037542dfa73e9cd24f7ff867c))
+
+
+### Chores
+
+* **tests:** remove redundant File import ([71b88db](https://github.com/team-telnyx/telnyx-node/commit/71b88dbd6fc5a2847e53ee36acc36350d4191c10))
+
+
+### Documentation
+
+* add supported file formats to Send Fax endpoint ([1c3465f](https://github.com/team-telnyx/telnyx-node/commit/1c3465fd4da6fae78ab86bdbd803dcc9f10e0d96))
+
 ## 6.65.0 (2026-05-14)
 
 Full Changelog: [v6.64.0...v6.65.0](https://github.com/team-telnyx/telnyx-node/compare/v6.64.0...v6.65.0)
