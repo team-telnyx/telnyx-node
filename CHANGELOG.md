@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.66.1 (2026-05-18)
+
+Full Changelog: [v6.66.0...v6.66.1](https://github.com/team-telnyx/telnyx-node/compare/v6.66.0...v6.66.1)
+
+### Bug Fixes
+
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([a5fde72](https://github.com/team-telnyx/telnyx-node/commit/a5fde72b866db8e0565b3f8f8f10d123193242c7))
+
 ## 6.66.0 (2026-05-18)
 
 Full Changelog: [v6.65.0...v6.66.0](https://github.com/team-telnyx/telnyx-node/compare/v6.65.0...v6.66.0)
