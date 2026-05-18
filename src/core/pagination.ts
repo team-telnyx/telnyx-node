@@ -154,7 +154,7 @@ export class DefaultFlatPagination<Item>
   nextPageRequestOptions(): PageRequestOptions | null {
     const currentPage = this.meta?.page_number ?? 1;
 
-    if (currentPage >= this.meta?.total_pages) {
+    if (currentPage >= this.meta.total_pages) {
       return null;
     }
 
@@ -255,7 +255,7 @@ export class DefaultPaginationForLogMessages<Item>
   nextPageRequestOptions(): PageRequestOptions | null {
     const currentPage = this.meta?.page_number ?? 1;
 
-    if (currentPage >= this.meta?.total_pages) {
+    if (currentPage >= this.meta.total_pages) {
       return null;
     }
 
@@ -415,7 +415,7 @@ export class DefaultFlatPaginationForInexplicitNumberOrders<Item>
   nextPageRequestOptions(): PageRequestOptions | null {
     const currentPage = this.meta?.page_number ?? 1;
 
-    if (currentPage >= this.meta?.total_pages) {
+    if (currentPage >= this.meta.total_pages) {
       return null;
     }
 
@@ -473,7 +473,7 @@ export class PerPagePagination<Item> extends AbstractPage<Item> implements PerPa
   nextPageRequestOptions(): PageRequestOptions | null {
     const currentPage = this.meta?.page_number ?? 1;
 
-    if (currentPage >= this.meta?.total_pages) {
+    if (currentPage >= this.meta.total_pages) {
       return null;
     }
 
