@@ -1698,7 +1698,9 @@ export interface TranscriptionSettings {
    * supported models will automatically detect the language. For `deepgram/flux`,
    * supported values are: `auto` (Telnyx language detection controls the language
    * hint), `multi` (no language hint), and language-specific hints `en`, `es`, `fr`,
-   * `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`.
+   * `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`. For `soniox/stt-rt-v4`, `auto`
+   * omits the language hint and lets Soniox auto-detect; ISO 639-1 codes (e.g. `en`,
+   * `es`) bias detection toward that language.
    */
   language?: string;
 
@@ -1713,6 +1715,8 @@ export interface TranscriptionSettings {
    * - `assemblyai/universal-streaming` is a multilingual streaming model with
    *   configurable turn detection.
    * - `xai/grok-stt` is a multilingual Grok STT model.
+   * - `soniox/stt-rt-v4` is a multilingual streaming model with automatic language
+   *   detection and configurable endpointing.
    */
   model?:
     | 'deepgram/flux'
@@ -1721,6 +1725,7 @@ export interface TranscriptionSettings {
     | 'azure/fast'
     | 'assemblyai/universal-streaming'
     | 'xai/grok-stt'
+    | 'soniox/stt-rt-v4'
     | 'distil-whisper/distil-large-v2'
     | 'openai/whisper-large-v3-turbo';
 
@@ -1742,6 +1747,12 @@ export interface TranscriptionSettingsConfig {
   eager_eot_threshold?: number;
 
   /**
+   * Available only for soniox/stt-rt-v4. When true, Soniox emits end-of-utterance
+   * events at the cadence configured by `max_endpoint_delay_ms`.
+   */
+  enable_endpoint_detection?: boolean;
+
+  /**
    * Available only for assemblyai/universal-streaming. Confidence level required to
    * trigger an end of turn. Higher values require more certainty before ending a
    * turn.
@@ -1761,6 +1772,12 @@ export interface TranscriptionSettingsConfig {
   eot_timeout_ms?: number;
 
   /**
+   * Available only for soniox/stt-rt-v4. When true, Soniox streams interim
+   * (non-final) results in addition to finalized transcripts.
+   */
+  interim_results?: boolean;
+
+  /**
    * Available only for deepgram/nova-3 and deepgram/flux. A comma-separated list of
    * key terms to boost for recognition during transcription. Helps improve accuracy
    * for domain-specific terminology, proper nouns, or uncommon words. This field may
@@ -1770,6 +1787,13 @@ export interface TranscriptionSettingsConfig {
    * resolved at call time before the value is sent to the speech-to-text engine.
    */
   keyterm?: string;
+
+  /**
+   * Available only for soniox/stt-rt-v4. Maximum silence (in milliseconds) before
+   * Soniox emits an end-of-utterance event. Only honored when
+   * `enable_endpoint_detection` is true.
+   */
+  max_endpoint_delay_ms?: number;
 
   /**
    * Available only for assemblyai/universal-streaming. Maximum duration of silence

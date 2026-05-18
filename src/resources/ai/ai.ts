@@ -180,8 +180,8 @@ export class AI extends APIResource {
     params: AICreateResponseParams,
     options?: RequestOptions,
   ): APIPromise<AICreateResponseResponse> {
-    const { params } = params;
-    return this._client.post('/ai/responses', { body: params, ...options });
+    const { body } = params;
+    return this._client.post('/ai/responses', { body: body, ...options });
   }
 
   /**
@@ -374,7 +374,7 @@ export namespace AISummarizeResponse {
 }
 
 export interface AICreateResponseParams {
-  params: { [key: string]: unknown };
+  body: { [key: string]: unknown };
 }
 
 export interface AISummarizeParams {
