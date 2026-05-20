@@ -146,6 +146,7 @@ describe('resource versions', () => {
             name: 'name',
             url: 'https://example.com/api/v1/function',
             async: true,
+            async_timeout_ms: 1,
             body_parameters: {
               properties: { age: 'bar', location: 'bar' },
               required: ['age', 'location'],
