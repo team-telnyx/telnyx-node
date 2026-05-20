@@ -1208,6 +1208,13 @@ export namespace InferenceEmbeddingWebhookToolParams {
     async?: boolean;
 
     /**
+     * Maximum time in milliseconds that the conversation worker waits for an async
+     * webhook response before returning "Submitted" to the LLM. If unset, the platform
+     * default (currently 300ms) is used.
+     */
+    async_timeout_ms?: number;
+
+    /**
      * The body parameters the webhook tool accepts, described as a JSON Schema object.
      * These parameters will be passed to the webhook as the body of the request. See
      * the [JSON Schema reference](https://json-schema.org/understanding-json-schema)
