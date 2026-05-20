@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.67.0 (2026-05-20)
+
+Full Changelog: [v6.66.2...v6.67.0](https://github.com/team-telnyx/telnyx-node/compare/v6.66.2...v6.67.0)
+
+### Features
+
+* TELAPPS-483: Add async webhook timeout to OpenAPI ([9ac3a15](https://github.com/team-telnyx/telnyx-node/commit/9ac3a15e23cc61eae57ccf9b9217fbe53de150ca))
+
 ## 6.66.2 (2026-05-18)
 
 Full Changelog: [v6.66.1...v6.66.2](https://github.com/team-telnyx/telnyx-node/compare/v6.66.1...v6.66.2)
