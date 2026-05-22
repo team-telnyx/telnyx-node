@@ -607,7 +607,12 @@ export interface CallDialParams {
    * `;secure=srtp` to enable SRTP media encryption for that endpoint, or
    * `;secure=dtls` to enable DTLS media encryption for that endpoint. If
    * `media_encryption` is set to `SRTP` or `DTLS`, it takes precedence over any
-   * per-endpoint `secure` URI parameter.
+   * per-endpoint `secure` URI parameter. For a single string destination, you may
+   * append a comma followed by DTMF digits (e.g. `+18004247767,200`) to play those
+   * digits as DTMF once the called party answers — equivalent to setting
+   * `send_digits_on_answer` separately. If both are present, the explicit
+   * `send_digits_on_answer` parameter takes precedence. This shorthand is not
+   * supported when `to` is an array.
    */
   to: string | Array<string>;
 
@@ -823,6 +828,17 @@ export interface CallDialParams {
    * of the recording.
    */
   record_trim?: 'trim-silence';
+
+  /**
+   * DTMF digits to send automatically after the called party answers. Useful for
+   * reaching an extension behind an IVR (e.g. `"200"` to dial extension 200 once the
+   * called party picks up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W`
+   * (1s pause), `*`, `#`. Maximum 64 characters. When omitted, no automatic DTMF is
+   * sent. May also be supplied inline by appending `,<digits>` to `to` (e.g.
+   * `to=+18004247767,200`); if both forms are present, this explicit field takes
+   * precedence.
+   */
+  send_digits_on_answer?: string;
 
   /**
    * Generate silence RTP packets when no transmission available.
