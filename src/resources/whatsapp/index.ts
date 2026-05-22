@@ -21,4 +21,10 @@ export {
   type TemplateCreateParams,
   type TemplateListParams,
 } from './templates';
+export {
+  UserData,
+  type UserDataRetrieveResponse,
+  type UserDataUpdateResponse,
+  type UserDataUpdateParams,
+} from './user-data';
 export { Whatsapp } from './whatsapp';

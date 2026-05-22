@@ -5963,6 +5963,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/profile/photo',
   },
   {
+    clientCallName: 'client.whatsapp.userData.retrieve',
+    fullyQualifiedName: 'whatsapp.userData.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v2/whatsapp/user_data',
+  },
+  {
+    clientCallName: 'client.whatsapp.userData.update',
+    fullyQualifiedName: 'whatsapp.userData.update',
+    httpMethod: 'patch',
+    httpPath: '/v2/whatsapp/user_data',
+  },
+  {
     clientCallName: 'client.whatsappMessageTemplates.retrieve',
     fullyQualifiedName: 'whatsappMessageTemplates.retrieve',
     httpMethod: 'get',
