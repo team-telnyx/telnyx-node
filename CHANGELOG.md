@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.68.0 (2026-05-22)
+
+Full Changelog: [v6.67.0...v6.68.0](https://github.com/team-telnyx/telnyx-node/compare/v6.67.0...v6.68.0)
+
+### Features
+
+* MSG-919: documentation for Whatsapp user data ([27d326e](https://github.com/team-telnyx/telnyx-node/commit/27d326e7ac2b4b0a94d6a5182d44d7f28ad63619))
+* TELAPPS-72: document send_digits_on_answer on Dial + Transfer ([4f599c8](https://github.com/team-telnyx/telnyx-node/commit/4f599c826e6b71018fe349f3126ae1af2ac1826b))
+
 ## 6.67.0 (2026-05-20)
 
 Full Changelog: [v6.66.2...v6.67.0](https://github.com/team-telnyx/telnyx-node/compare/v6.66.2...v6.67.0)
