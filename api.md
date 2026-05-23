@@ -4674,6 +4674,18 @@ Methods:
 - <code title="delete /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">delete</a>(phoneNumber) -> void</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">upload</a>(phoneNumber, { ...params }) -> PhotoUploadResponse</code>
 
+## UserData
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/user-data.ts">UserDataRetrieveResponse</a></code>
+- <code><a href="./src/resources/whatsapp/user-data.ts">UserDataUpdateResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/whatsapp/user_data">client.whatsapp.userData.<a href="./src/resources/whatsapp/user-data.ts">retrieve</a>() -> UserDataRetrieveResponse</code>
+- <code title="patch /v2/whatsapp/user_data">client.whatsapp.userData.<a href="./src/resources/whatsapp/user-data.ts">update</a>({ ...params }) -> UserDataUpdateResponse</code>
+
 # WhatsappMessageTemplates
 
 Types:

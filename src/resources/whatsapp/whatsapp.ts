@@ -3,6 +3,13 @@
 import { APIResource } from '../../core/resource';
 import * as TemplatesAPI from './templates';
 import { TemplateCreateParams, TemplateCreateResponse, TemplateListParams, Templates } from './templates';
+import * as UserDataAPI from './user-data';
+import {
+  UserData,
+  UserDataRetrieveResponse,
+  UserDataUpdateParams,
+  UserDataUpdateResponse,
+} from './user-data';
 import * as BusinessAccountsAPI from './business-accounts/business-accounts';
 import {
   BusinessAccountListParams,
@@ -27,11 +34,13 @@ export class Whatsapp extends APIResource {
   );
   templates: TemplatesAPI.Templates = new TemplatesAPI.Templates(this._client);
   phoneNumbers: PhoneNumbersAPI.PhoneNumbers = new PhoneNumbersAPI.PhoneNumbers(this._client);
+  userData: UserDataAPI.UserData = new UserDataAPI.UserData(this._client);
 }
 
 Whatsapp.BusinessAccounts = BusinessAccounts;
 Whatsapp.Templates = Templates;
 Whatsapp.PhoneNumbers = PhoneNumbers;
+Whatsapp.UserData = UserData;
 
 export declare namespace Whatsapp {
   export {
@@ -56,5 +65,12 @@ export declare namespace Whatsapp {
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,
     type PhoneNumberVerifyParams as PhoneNumberVerifyParams,
+  };
+
+  export {
+    UserData as UserData,
+    type UserDataRetrieveResponse as UserDataRetrieveResponse,
+    type UserDataUpdateResponse as UserDataUpdateResponse,
+    type UserDataUpdateParams as UserDataUpdateParams,
   };
 }
