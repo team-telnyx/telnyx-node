@@ -294,6 +294,11 @@ export interface OutboundMessagePayload {
   messaging_profile_id?: string;
 
   /**
+   * The number of characters in the message text
+   */
+  num_chars?: number;
+
+  /**
    * The id of the organization the messaging profile belongs to.
    */
   organization_id?: string;
@@ -1303,6 +1308,11 @@ export interface MessageCancelScheduledResponse {
    * Unique identifier for a messaging profile.
    */
   messaging_profile_id?: string;
+
+  /**
+   * The number of characters in the message text
+   */
+  num_chars?: number;
 
   /**
    * The id of the organization the messaging profile belongs to.

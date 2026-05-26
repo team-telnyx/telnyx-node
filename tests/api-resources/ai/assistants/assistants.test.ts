@@ -96,6 +96,7 @@ describe('resource assistants', () => {
           channels: 'single',
           enabled: true,
           format: 'wav',
+          stop_on_conversation_end: true,
         },
         supports_unauthenticated_web_calls: true,
         time_limit_secs: 30,

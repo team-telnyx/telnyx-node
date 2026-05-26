@@ -401,6 +401,11 @@ export interface InboundMessagePayload {
   messaging_profile_id?: string;
 
   /**
+   * The number of characters in the message text
+   */
+  num_chars?: number;
+
+  /**
    * Unique identifier for a messaging profile.
    */
   organization_id?: string;
