@@ -373,8 +373,8 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/advanced_orders/{advanced-order-id}/requirement_group',
   },
   {
-    clientCallName: 'client.ai.createResponse',
-    fullyQualifiedName: 'ai.createResponse',
+    clientCallName: 'client.ai.createResponseDeprecated',
+    fullyQualifiedName: 'ai.createResponseDeprecated',
     httpMethod: 'post',
     httpPath: '/ai/responses',
   },
@@ -6285,6 +6285,18 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'uacConnections.actions.checkRegistrationStatus',
     httpMethod: 'post',
     httpPath: '/uac_connections/{id}/actions/check_registration_status',
+  },
+  {
+    clientCallName: 'client.voiceSDKCallReports.retrieve',
+    fullyQualifiedName: 'voiceSDKCallReports.retrieve',
+    httpMethod: 'get',
+    httpPath: '/voice_sdk_call_reports/{call_id}',
+  },
+  {
+    clientCallName: 'client.voiceSDKCallReports.list',
+    fullyQualifiedName: 'voiceSDKCallReports.list',
+    httpMethod: 'get',
+    httpPath: '/voice_sdk_call_reports',
   },
 ];
 
