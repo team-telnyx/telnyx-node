@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.69.0 (2026-05-26)
+
+Full Changelog: [v6.68.0...v6.69.0](https://github.com/team-telnyx/telnyx-node/compare/v6.68.0...v6.69.0)
+
+### Features
+
+* TELAPPS-523: document stop_on_conversation_end on assistant recording_settings ([acd10aa](https://github.com/team-telnyx/telnyx-node/commit/acd10aa1cde1eb47256172895345b2256e2bce4c))
+
 ## 6.68.0 (2026-05-22)
 
 Full Changelog: [v6.67.0...v6.68.0](https://github.com/team-telnyx/telnyx-node/compare/v6.67.0...v6.68.0)

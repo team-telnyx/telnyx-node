@@ -1608,6 +1608,13 @@ export namespace TelephonySettings {
      * The format of the recording file.
      */
     format?: 'wav' | 'mp3';
+
+    /**
+     * When enabled, the call recording will stop when the conversation ends (for
+     * example, when the assistant hangs up or the call is transferred). When disabled,
+     * recording continues until the call itself ends.
+     */
+    stop_on_conversation_end?: boolean;
   }
 
   /**
