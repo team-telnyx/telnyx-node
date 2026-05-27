@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as ActionsAPI from './actions';
 import * as Shared from '../shared';
 import * as CallsAPI from './calls';
 import * as AssistantsAPI from '../ai/assistants/assistants';
@@ -2309,6 +2310,16 @@ export interface ActionAnswerParams {
   command_id?: string;
 
   /**
+   * Starts a Conversation Relay session automatically when the answered/dialed call
+   * is answered. This embedded shape is supported on `answer` and `dial`. It uses
+   * public field names (`url`, `dtmf_detection`, `greeting`, `voice`, `language`,
+   * etc.) and maps them to the underlying Conversation Relay action. `client_state`,
+   * `tts_language`, and `transcription_language` inside this object are ignored; use
+   * the parent command's `client_state` and `command_id` fields instead.
+   */
+  conversation_relay_config?: ActionAnswerParams.ConversationRelayConfig;
+
+  /**
    * Custom headers to be added to the SIP INVITE response.
    */
   custom_headers?: Array<CallsAPI.CustomSipHeader>;
@@ -2465,6 +2476,279 @@ export interface ActionAnswerParams {
 }
 
 export namespace ActionAnswerParams {
+  /**
+   * Starts a Conversation Relay session automatically when the answered/dialed call
+   * is answered. This embedded shape is supported on `answer` and `dial`. It uses
+   * public field names (`url`, `dtmf_detection`, `greeting`, `voice`, `language`,
+   * etc.) and maps them to the underlying Conversation Relay action. `client_state`,
+   * `tts_language`, and `transcription_language` inside this object are ignored; use
+   * the parent command's `client_state` and `command_id` fields instead.
+   */
+  export interface ConversationRelayConfig {
+    /**
+     * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
+     * `wss://`.
+     */
+    url: string;
+
+    /**
+     * Custom key-value parameters forwarded to the relay session as assistant dynamic
+     * variables.
+     */
+    custom_parameters?: { [key: string]: unknown };
+
+    /**
+     * Enable DTMF detection for the relay session.
+     */
+    dtmf_detection?: boolean;
+
+    /**
+     * Text played when the relay session starts.
+     */
+    greeting?: string;
+
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech
+     * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+     * only; `dtmf` allows DTMF only.
+     */
+    interruptible?: 'none' | 'any' | 'speech' | 'dtmf';
+
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech
+     * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+     * only; `dtmf` allows DTMF only.
+     */
+    interruptible_greeting?: 'none' | 'any' | 'speech' | 'dtmf';
+
+    /**
+     * Settings for handling caller interruptions during Conversation Relay speech.
+     */
+    interruption_settings?: ConversationRelayConfig.InterruptionSettings;
+
+    /**
+     * Default language for both text-to-speech and speech recognition.
+     */
+    language?: string;
+
+    /**
+     * Per-language TTS and transcription settings.
+     */
+    languages?: Array<ConversationRelayConfig.Language>;
+
+    /**
+     * Structured voice provider. Must be supplied together with `structured_provider`.
+     */
+    provider?: string;
+
+    /**
+     * Provider-specific structured voice settings. Must be supplied together with
+     * `provider`; Telnyx sends the value as the nested provider configuration for
+     * Conversation Relay.
+     */
+    structured_provider?: { [key: string]: unknown };
+
+    /**
+     * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
+     * `Telnyx` are supported for backward compatibility. For Conversation Relay, use
+     * this field with `transcription_engine_config`; the `transcription` object is not
+     * supported.
+     */
+    transcription_engine?:
+      | 'Google'
+      | 'Telnyx'
+      | 'Deepgram'
+      | 'Azure'
+      | 'xAI'
+      | 'AssemblyAI'
+      | 'Speechmatics'
+      | 'Soniox'
+      | 'A'
+      | 'B';
+
+    /**
+     * Engine-specific transcription settings for Conversation Relay. This accepts the
+     * same provider-specific options used by the Call Transcription Start command,
+     * such as `transcription_model`, without requiring the engine discriminator to be
+     * repeated inside this object.
+     */
+    transcription_engine_config?: { [key: string]: unknown };
+
+    /**
+     * Text-to-speech provider. If omitted, Telnyx derives it from `voice` or
+     * `provider`.
+     */
+    tts_provider?: string;
+
+    /**
+     * The voice to be used by the voice assistant. Currently we support ElevenLabs,
+     * Telnyx and AWS voices.
+     *
+     * **Supported Providers:**
+     *
+     * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural
+     *   voices, which provide more realistic, human-like speech, append `-Neural` to
+     *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
+     *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
+     *   for compatibility.
+     * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
+     *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
+     *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
+     *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+     * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
+     *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
+     *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
+     *   under `"voice_settings": {"api_key_ref": "<secret_id>"}`. See
+     *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+     *   for details. Check
+     *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+     * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+     * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+     *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
+     * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
+     *   `ara`, `rex`, `sal`, `leo`.
+     */
+    voice?: string;
+
+    /**
+     * The settings associated with the voice selected
+     */
+    voice_settings?:
+      | ActionsAPI.ElevenLabsVoiceSettings
+      | ActionsAPI.TelnyxVoiceSettings
+      | ActionsAPI.AwsVoiceSettings
+      | Shared.MinimaxVoiceSettings
+      | Shared.AzureVoiceSettings
+      | Shared.RimeVoiceSettings
+      | Shared.ResembleVoiceSettings
+      | ConversationRelayConfig.InworldVoiceSettings
+      | Shared.XaiVoiceSettings;
+  }
+
+  export namespace ConversationRelayConfig {
+    /**
+     * Settings for handling caller interruptions during Conversation Relay speech.
+     */
+    export interface InterruptionSettings {
+      /**
+       * Legacy boolean form. `true` is equivalent to `interruptible=any`; `false` is
+       * equivalent to `interruptible=none`.
+       */
+      enable?: boolean;
+
+      /**
+       * Controls when caller input can interrupt assistant speech. `any` allows speech
+       * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+       * only; `dtmf` allows DTMF only.
+       */
+      interruptible?: 'none' | 'any' | 'speech' | 'dtmf';
+
+      /**
+       * Controls when caller input can interrupt assistant speech. `any` allows speech
+       * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+       * only; `dtmf` allows DTMF only.
+       */
+      interruptible_greeting?: 'none' | 'any' | 'speech' | 'dtmf';
+
+      /**
+       * Controls when caller input can interrupt assistant speech. `any` allows speech
+       * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+       * only; `dtmf` allows DTMF only.
+       */
+      welcome_greeting_interruptible?: 'none' | 'any' | 'speech' | 'dtmf';
+    }
+
+    /**
+     * Language-specific TTS and transcription settings for Conversation Relay.
+     */
+    export interface Language {
+      /**
+       * BCP 47 language tag for this language configuration.
+       */
+      language: string;
+
+      /**
+       * Conversation Relay speech model. Prefer
+       * `transcription_engine_config.transcription_model` when configuring
+       * speech-to-text.
+       */
+      speech_model?: string;
+
+      /**
+       * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
+       * `Telnyx` are supported for backward compatibility. When provided in a
+       * Conversation Relay language entry, Telnyx derives `transcription_provider` and
+       * `speech_model` for that language.
+       */
+      transcription_engine?:
+        | 'Google'
+        | 'Telnyx'
+        | 'Deepgram'
+        | 'Azure'
+        | 'xAI'
+        | 'AssemblyAI'
+        | 'Speechmatics'
+        | 'Soniox'
+        | 'A'
+        | 'B';
+
+      /**
+       * Engine-specific transcription settings for Conversation Relay. This accepts the
+       * same provider-specific options used by the Call Transcription Start command,
+       * such as `transcription_model`, without requiring the engine discriminator to be
+       * repeated inside this object.
+       */
+      transcription_engine_config?: { [key: string]: unknown };
+
+      /**
+       * Conversation Relay transcription provider name. Prefer `transcription_engine`
+       * when configuring speech-to-text.
+       */
+      transcription_provider?: string;
+
+      /**
+       * Text-to-speech provider for this language. If omitted and `voice` is provided,
+       * Telnyx derives the provider from the voice identifier.
+       */
+      tts_provider?: string;
+
+      /**
+       * Voice identifier for this language.
+       */
+      voice?: string;
+
+      /**
+       * The settings associated with the voice selected
+       */
+      voice_settings?:
+        | ActionsAPI.ElevenLabsVoiceSettings
+        | ActionsAPI.TelnyxVoiceSettings
+        | ActionsAPI.AwsVoiceSettings
+        | Shared.MinimaxVoiceSettings
+        | Shared.AzureVoiceSettings
+        | Shared.RimeVoiceSettings
+        | Shared.ResembleVoiceSettings
+        | Language.InworldVoiceSettings
+        | Shared.XaiVoiceSettings;
+    }
+
+    export namespace Language {
+      export interface InworldVoiceSettings {
+        /**
+         * Voice settings provider type
+         */
+        type: 'inworld';
+      }
+    }
+
+    export interface InworldVoiceSettings {
+      /**
+       * Voice settings provider type
+       */
+      type: 'inworld';
+    }
+  }
+
   /**
    * Enables deepfake detection on the call. When enabled, audio from the remote
    * party is streamed to a detection service that analyzes whether the voice is
@@ -3853,12 +4137,9 @@ export interface ActionStartConversationRelayParams {
   conversation_relay_dtmf_detection?: boolean;
 
   /**
-   * Conversation Relay connection settings. This object is used by TeXML Call
-   * Scripting's `<ConversationRelay>` verb. The `interruptible` and
-   * `interruptible_greeting` fields are shorthand for
-   * `interruption_settings.interruptible` and
-   * `interruption_settings.interruptible_greeting`; use top-level
-   * `interruption_settings` for the full interruption settings shape.
+   * Conversation Relay connection settings. This object can provide `url`,
+   * `dtmf_detection`, `interruptible`, `interruptible_greeting`, and `languages`.
+   * Top-level aliases override nested values when both are present.
    */
   conversation_relay_settings?: ActionStartConversationRelayParams.ConversationRelaySettings;
 
@@ -3869,9 +4150,36 @@ export interface ActionStartConversationRelayParams {
   conversation_relay_url?: string;
 
   /**
+   * Custom key-value parameters forwarded to the relay session as
+   * `assistant.dynamic_variables`. If `assistant.dynamic_variables` is also present,
+   * these values are merged in.
+   */
+  custom_parameters?: { [key: string]: unknown };
+
+  /**
+   * Public alias for `conversation_relay_dtmf_detection`. If both are present, this
+   * value wins.
+   */
+  dtmf_detection?: boolean;
+
+  /**
    * Text played when the relay session starts.
    */
   greeting?: string;
+
+  /**
+   * Controls when caller input can interrupt assistant speech. `any` allows speech
+   * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+   * only; `dtmf` allows DTMF only.
+   */
+  interruptible?: 'none' | 'any' | 'speech' | 'dtmf';
+
+  /**
+   * Controls when caller input can interrupt assistant speech. `any` allows speech
+   * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+   * only; `dtmf` allows DTMF only.
+   */
+  interruptible_greeting?: 'none' | 'any' | 'speech' | 'dtmf';
 
   /**
    * Settings for handling caller interruptions during Conversation Relay speech.
@@ -3880,32 +4188,70 @@ export interface ActionStartConversationRelayParams {
 
   /**
    * Default language for the relay session. This value is used for both
-   * text-to-speech and speech recognition unless `tts_language` or
-   * `transcription_language` are provided.
+   * text-to-speech and speech recognition.
    */
   language?: string;
 
   /**
-   * Language-specific TTS and transcription settings. Use this when the relay
-   * session needs per-language provider, voice, or speech model configuration.
+   * Per-language TTS and transcription settings.
    */
   languages?: Array<ActionStartConversationRelayParams.Language>;
 
   /**
-   * Speech-to-text settings for Conversation Relay.
+   * Structured voice provider. Must be supplied together with `structured_provider`.
    */
-  transcription?: ActionStartConversationRelayParams.Transcription;
+  provider?: string;
 
   /**
-   * Language to use for speech recognition. Overrides `language` for transcription
-   * when provided.
+   * Provider-specific structured voice settings. Must be supplied together with
+   * `provider`; Telnyx sends the value as the nested provider configuration for
+   * Conversation Relay.
    */
-  transcription_language?: string;
+  structured_provider?: { [key: string]: unknown };
 
   /**
-   * Language to use for text-to-speech. Overrides `language` for TTS when provided.
+   * @deprecated Not supported for Conversation Relay start requests. Use
+   * `transcription_engine` and `transcription_engine_config` instead.
    */
-  tts_language?: string;
+  transcription?: { [key: string]: unknown };
+
+  /**
+   * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
+   * `Telnyx` are supported for backward compatibility. For Conversation Relay, use
+   * this field with `transcription_engine_config`; the `transcription` object is not
+   * supported.
+   */
+  transcription_engine?:
+    | 'Google'
+    | 'Telnyx'
+    | 'Deepgram'
+    | 'Azure'
+    | 'xAI'
+    | 'AssemblyAI'
+    | 'Speechmatics'
+    | 'Soniox'
+    | 'A'
+    | 'B';
+
+  /**
+   * Engine-specific transcription settings for Conversation Relay. This accepts the
+   * same provider-specific options used by the Call Transcription Start command,
+   * such as `transcription_model`, without requiring the engine discriminator to be
+   * repeated inside this object.
+   */
+  transcription_engine_config?: { [key: string]: unknown };
+
+  /**
+   * Text-to-speech provider. If omitted, Telnyx derives it from `voice` or
+   * `provider`.
+   */
+  tts_provider?: string;
+
+  /**
+   * Public alias for `conversation_relay_url`. Must start with `ws://` or `wss://`.
+   * If both are present, this value wins.
+   */
+  url?: string;
 
   /**
    * The voice to be used by the voice assistant. Currently we support ElevenLabs,
@@ -3944,9 +4290,11 @@ export interface ActionStartConversationRelayParams {
     | ElevenLabsVoiceSettings
     | TelnyxVoiceSettings
     | AwsVoiceSettings
+    | Shared.MinimaxVoiceSettings
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
+    | ActionStartConversationRelayParams.InworldVoiceSettings
     | Shared.XaiVoiceSettings;
 }
 
@@ -3965,12 +4313,9 @@ export namespace ActionStartConversationRelayParams {
   }
 
   /**
-   * Conversation Relay connection settings. This object is used by TeXML Call
-   * Scripting's `<ConversationRelay>` verb. The `interruptible` and
-   * `interruptible_greeting` fields are shorthand for
-   * `interruption_settings.interruptible` and
-   * `interruption_settings.interruptible_greeting`; use top-level
-   * `interruption_settings` for the full interruption settings shape.
+   * Conversation Relay connection settings. This object can provide `url`,
+   * `dtmf_detection`, `interruptible`, `interruptible_greeting`, and `languages`.
+   * Top-level aliases override nested values when both are present.
    */
   export interface ConversationRelaySettings {
     /**
@@ -4006,26 +4351,56 @@ export namespace ActionStartConversationRelayParams {
 
   export namespace ConversationRelaySettings {
     /**
-     * Language-specific speech and transcription settings for Conversation Relay.
+     * Language-specific TTS and transcription settings for Conversation Relay.
      */
     export interface Language {
       /**
-       * BCP 47 language code.
+       * BCP 47 language tag for this language configuration.
        */
-      code?: string;
+      language: string;
 
       /**
-       * Speech recognition model for this language.
+       * Conversation Relay speech model. Prefer
+       * `transcription_engine_config.transcription_model` when configuring
+       * speech-to-text.
        */
       speech_model?: string;
 
       /**
-       * Speech-to-text provider for this language.
+       * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
+       * `Telnyx` are supported for backward compatibility. When provided in a
+       * Conversation Relay language entry, Telnyx derives `transcription_provider` and
+       * `speech_model` for that language.
+       */
+      transcription_engine?:
+        | 'Google'
+        | 'Telnyx'
+        | 'Deepgram'
+        | 'Azure'
+        | 'xAI'
+        | 'AssemblyAI'
+        | 'Speechmatics'
+        | 'Soniox'
+        | 'A'
+        | 'B';
+
+      /**
+       * Engine-specific transcription settings for Conversation Relay. This accepts the
+       * same provider-specific options used by the Call Transcription Start command,
+       * such as `transcription_model`, without requiring the engine discriminator to be
+       * repeated inside this object.
+       */
+      transcription_engine_config?: { [key: string]: unknown };
+
+      /**
+       * Conversation Relay transcription provider name. Prefer `transcription_engine`
+       * when configuring speech-to-text.
        */
       transcription_provider?: string;
 
       /**
-       * Text-to-speech provider for this language.
+       * Text-to-speech provider for this language. If omitted and `voice` is provided,
+       * Telnyx derives the provider from the voice identifier.
        */
       tts_provider?: string;
 
@@ -4033,6 +4408,29 @@ export namespace ActionStartConversationRelayParams {
        * Voice identifier for this language.
        */
       voice?: string;
+
+      /**
+       * The settings associated with the voice selected
+       */
+      voice_settings?:
+        | ActionsAPI.ElevenLabsVoiceSettings
+        | ActionsAPI.TelnyxVoiceSettings
+        | ActionsAPI.AwsVoiceSettings
+        | Shared.MinimaxVoiceSettings
+        | Shared.AzureVoiceSettings
+        | Shared.RimeVoiceSettings
+        | Shared.ResembleVoiceSettings
+        | Language.InworldVoiceSettings
+        | Shared.XaiVoiceSettings;
+    }
+
+    export namespace Language {
+      export interface InworldVoiceSettings {
+        /**
+         * Voice settings provider type
+         */
+        type: 'inworld';
+      }
     }
   }
 
@@ -4069,26 +4467,56 @@ export namespace ActionStartConversationRelayParams {
   }
 
   /**
-   * Language-specific speech and transcription settings for Conversation Relay.
+   * Language-specific TTS and transcription settings for Conversation Relay.
    */
   export interface Language {
     /**
-     * BCP 47 language code.
+     * BCP 47 language tag for this language configuration.
      */
-    code?: string;
+    language: string;
 
     /**
-     * Speech recognition model for this language.
+     * Conversation Relay speech model. Prefer
+     * `transcription_engine_config.transcription_model` when configuring
+     * speech-to-text.
      */
     speech_model?: string;
 
     /**
-     * Speech-to-text provider for this language.
+     * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
+     * `Telnyx` are supported for backward compatibility. When provided in a
+     * Conversation Relay language entry, Telnyx derives `transcription_provider` and
+     * `speech_model` for that language.
+     */
+    transcription_engine?:
+      | 'Google'
+      | 'Telnyx'
+      | 'Deepgram'
+      | 'Azure'
+      | 'xAI'
+      | 'AssemblyAI'
+      | 'Speechmatics'
+      | 'Soniox'
+      | 'A'
+      | 'B';
+
+    /**
+     * Engine-specific transcription settings for Conversation Relay. This accepts the
+     * same provider-specific options used by the Call Transcription Start command,
+     * such as `transcription_model`, without requiring the engine discriminator to be
+     * repeated inside this object.
+     */
+    transcription_engine_config?: { [key: string]: unknown };
+
+    /**
+     * Conversation Relay transcription provider name. Prefer `transcription_engine`
+     * when configuring speech-to-text.
      */
     transcription_provider?: string;
 
     /**
-     * Text-to-speech provider for this language.
+     * Text-to-speech provider for this language. If omitted and `voice` is provided,
+     * Telnyx derives the provider from the voice identifier.
      */
     tts_provider?: string;
 
@@ -4096,26 +4524,36 @@ export namespace ActionStartConversationRelayParams {
      * Voice identifier for this language.
      */
     voice?: string;
+
+    /**
+     * The settings associated with the voice selected
+     */
+    voice_settings?:
+      | ActionsAPI.ElevenLabsVoiceSettings
+      | ActionsAPI.TelnyxVoiceSettings
+      | ActionsAPI.AwsVoiceSettings
+      | Shared.MinimaxVoiceSettings
+      | Shared.AzureVoiceSettings
+      | Shared.RimeVoiceSettings
+      | Shared.ResembleVoiceSettings
+      | Language.InworldVoiceSettings
+      | Shared.XaiVoiceSettings;
   }
 
-  /**
-   * Speech-to-text settings for Conversation Relay.
-   */
-  export interface Transcription {
-    /**
-     * Transcription language.
-     */
-    language?: string;
+  export namespace Language {
+    export interface InworldVoiceSettings {
+      /**
+       * Voice settings provider type
+       */
+      type: 'inworld';
+    }
+  }
 
+  export interface InworldVoiceSettings {
     /**
-     * Transcription model to use.
+     * Voice settings provider type
      */
-    model?: string;
-
-    /**
-     * Transcription provider to use.
-     */
-    provider?: string;
+    type: 'inworld';
   }
 }
 
