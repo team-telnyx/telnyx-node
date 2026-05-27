@@ -373,8 +373,8 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/advanced_orders/{advanced-order-id}/requirement_group',
   },
   {
-    clientCallName: 'client.ai.createResponseDeprecated',
-    fullyQualifiedName: 'ai.createResponseDeprecated',
+    clientCallName: 'client.ai.createResponse',
+    fullyQualifiedName: 'ai.createResponse',
     httpMethod: 'post',
     httpPath: '/ai/responses',
   },
