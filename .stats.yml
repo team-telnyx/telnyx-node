@@ -1,4 +1,4 @@
-configured_endpoints: 1045
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/telnyx/telnyx-65c4b7caac34918e94079d6e5073f448a34a4e39d82d6a2d2c6e280012819f28.yml
-openapi_spec_hash: 504d65873a9ed56a7147361bb5606411
-config_hash: 292f68f00de272998cbaf069c10e2a93
+configured_endpoints: 1046
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/telnyx/telnyx-10509291e5b844e8a5d45f998d80acb44dae15de16d1718c3262bca691142141.yml
+openapi_spec_hash: 91111be0696f82a3d576ef9a13d7cdc2
+config_hash: 813ec9673b0c5b5a0035cb63dbd80b06

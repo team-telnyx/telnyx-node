@@ -820,6 +820,11 @@ import {
   SiprecConnectors,
 } from './resources/siprec-connectors';
 import {
+  SpeechToText,
+  SpeechToTextListProvidersParams,
+  SpeechToTextListProvidersResponse,
+} from './resources/speech-to-text';
+import {
   SubNumberOrder,
   SubNumberOrderCancelResponse,
   SubNumberOrderListParams,
@@ -2977,6 +2982,10 @@ export class Telnyx {
    */
   uacConnections: API.UacConnections = new API.UacConnections(this);
   /**
+   * Discover available speech-to-text providers, models, and supported languages.
+   */
+  speechToText: API.SpeechToText = new API.SpeechToText(this);
+  /**
    * Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting.
    */
   voiceSDKCallReports: API.VoiceSDKCallReports = new API.VoiceSDKCallReports(this);
@@ -3146,6 +3155,7 @@ Telnyx.Reputation = Reputation;
 Telnyx.TermsOfService = TermsOfService;
 Telnyx.PronunciationDicts = PronunciationDicts;
 Telnyx.UacConnections = UacConnections;
+Telnyx.SpeechToText = SpeechToText;
 Telnyx.VoiceSDKCallReports = VoiceSDKCallReports;
 
 export declare namespace Telnyx {
@@ -4925,6 +4935,12 @@ export declare namespace Telnyx {
     type UacConnectionCreateParams as UacConnectionCreateParams,
     type UacConnectionUpdateParams as UacConnectionUpdateParams,
     type UacConnectionListParams as UacConnectionListParams,
+  };
+
+  export {
+    SpeechToText as SpeechToText,
+    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
+    type SpeechToTextListProvidersParams as SpeechToTextListProvidersParams,
   };
 
   export {
