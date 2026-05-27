@@ -1522,6 +1522,24 @@ export namespace TranscriptionEngineAConfig {
   }
 }
 
+export interface TranscriptionEngineAssemblyaiConfig {
+  /**
+   * Whether to send also interim results. If set to false, only final results will
+   * be sent.
+   */
+  interim_results?: boolean;
+
+  /**
+   * Engine identifier for AssemblyAI transcription service
+   */
+  transcription_engine?: 'AssemblyAI';
+
+  /**
+   * The model to use for transcription.
+   */
+  transcription_model?: 'assemblyai/universal-streaming';
+}
+
 export interface TranscriptionEngineAzureConfig {
   /**
    * Azure region to use for speech recognition
@@ -1735,6 +1753,54 @@ export interface TranscriptionEngineTelnyxConfig {
   transcription_model?: 'openai/whisper-tiny' | 'openai/whisper-large-v3-turbo';
 }
 
+export interface TranscriptionEngineXaiConfig {
+  /**
+   * Whether to send also interim results. If set to false, only final results will
+   * be sent.
+   */
+  interim_results?: boolean;
+
+  /**
+   * Language to use for speech recognition
+   */
+  language?:
+    | 'ar'
+    | 'cs'
+    | 'da'
+    | 'de'
+    | 'en'
+    | 'es'
+    | 'fa'
+    | 'fil'
+    | 'fr'
+    | 'hi'
+    | 'id'
+    | 'it'
+    | 'ja'
+    | 'ko'
+    | 'mk'
+    | 'ms'
+    | 'nl'
+    | 'pl'
+    | 'pt'
+    | 'ro'
+    | 'ru'
+    | 'sv'
+    | 'th'
+    | 'tr'
+    | 'vi';
+
+  /**
+   * Engine identifier for xAI transcription service
+   */
+  transcription_engine?: 'xAI';
+
+  /**
+   * The model to use for transcription.
+   */
+  transcription_model?: 'xai/grok-stt';
+}
+
 export interface TranscriptionStartRequest {
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
@@ -1768,8 +1834,8 @@ export interface TranscriptionStartRequest {
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
     | TranscriptionEngineAzureConfig
-    | TranscriptionStartRequest.TranscriptionEngineXaiConfig
-    | TranscriptionStartRequest.TranscriptionEngineAssemblyaiConfig
+    | TranscriptionEngineXaiConfig
+    | TranscriptionEngineAssemblyaiConfig
     | TranscriptionStartRequest.TranscriptionEngineSpeechmaticsConfig
     | TranscriptionStartRequest.TranscriptionEngineSonioxConfig
     | TranscriptionEngineAConfig
@@ -1786,72 +1852,6 @@ export interface TranscriptionStartRequest {
 }
 
 export namespace TranscriptionStartRequest {
-  export interface TranscriptionEngineXaiConfig {
-    /**
-     * Whether to send also interim results. If set to false, only final results will
-     * be sent.
-     */
-    interim_results?: boolean;
-
-    /**
-     * Language to use for speech recognition
-     */
-    language?:
-      | 'ar'
-      | 'cs'
-      | 'da'
-      | 'de'
-      | 'en'
-      | 'es'
-      | 'fa'
-      | 'fil'
-      | 'fr'
-      | 'hi'
-      | 'id'
-      | 'it'
-      | 'ja'
-      | 'ko'
-      | 'mk'
-      | 'ms'
-      | 'nl'
-      | 'pl'
-      | 'pt'
-      | 'ro'
-      | 'ru'
-      | 'sv'
-      | 'th'
-      | 'tr'
-      | 'vi';
-
-    /**
-     * Engine identifier for xAI transcription service
-     */
-    transcription_engine?: 'xAI';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'xai/grok-stt';
-  }
-
-  export interface TranscriptionEngineAssemblyaiConfig {
-    /**
-     * Whether to send also interim results. If set to false, only final results will
-     * be sent.
-     */
-    interim_results?: boolean;
-
-    /**
-     * Engine identifier for AssemblyAI transcription service
-     */
-    transcription_engine?: 'AssemblyAI';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'assemblyai/universal-streaming';
-  }
-
   export interface TranscriptionEngineSpeechmaticsConfig {
     /**
      * Whether to send also interim results. If set to false, only final results will
@@ -2888,7 +2888,7 @@ export interface ActionGatherUsingAIParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | ActionGatherUsingAIParams.XaiVoiceSettings;
+    | Shared.XaiVoiceSettings;
 }
 
 export namespace ActionGatherUsingAIParams {
@@ -2902,18 +2902,6 @@ export namespace ActionGatherUsingAIParams {
      * The role of the message sender
      */
     role?: 'assistant' | 'user';
-  }
-
-  export interface XaiVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'xai';
-
-    /**
-     * Language code, or `auto` to detect automatically.
-     */
-    language?: string;
   }
 }
 
@@ -3040,8 +3028,8 @@ export interface ActionGatherUsingSpeakParams {
    *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
    *   to configure speed, volume, pitch, and language_boost.
    * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`).
-   *   Supported model_ids: `Arcana`, `Mist`. Use `voice_settings` to configure
-   *   voice_speed.
+   *   Supported model_ids: `Arcana`, `Mist`, `ArcanaV3`, `Coda`. Use
+   *   `voice_settings` to configure voice_speed.
    * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g.,
    *   `Resemble.Turbo.my_voice`). Only `Turbo` model is supported. Use
    *   `voice_settings` to configure precision, sample_rate, and format.
@@ -3172,7 +3160,7 @@ export interface ActionGatherUsingSpeakParams {
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | ActionGatherUsingSpeakParams.InworldVoiceSettings
-    | ActionGatherUsingSpeakParams.XaiVoiceSettings;
+    | Shared.XaiVoiceSettings;
 }
 
 export namespace ActionGatherUsingSpeakParams {
@@ -3181,18 +3169,6 @@ export namespace ActionGatherUsingSpeakParams {
      * Voice settings provider type
      */
     type: 'inworld';
-  }
-
-  export interface XaiVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'xai';
-
-    /**
-     * Language code, or `auto` to detect automatically.
-     */
-    language?: string;
   }
 }
 
@@ -3462,8 +3438,8 @@ export interface ActionSpeakParams {
    *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
    *   to configure speed, volume, pitch, and language_boost.
    * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`).
-   *   Supported model_ids: `Arcana`, `Mist`. Use `voice_settings` to configure
-   *   voice_speed.
+   *   Supported model_ids: `Arcana`, `Mist`, `ArcanaV3`, `Coda`. Use
+   *   `voice_settings` to configure voice_speed.
    * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g.,
    *   `Resemble.Turbo.my_voice`). Only `Turbo` model is supported. Use
    *   `voice_settings` to configure precision, sample_rate, and format.
@@ -3567,7 +3543,7 @@ export interface ActionSpeakParams {
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | ActionSpeakParams.InworldVoiceSettings
-    | ActionSpeakParams.XaiVoiceSettings;
+    | Shared.XaiVoiceSettings;
 }
 
 export namespace ActionSpeakParams {
@@ -3576,18 +3552,6 @@ export namespace ActionSpeakParams {
      * Voice settings provider type
      */
     type: 'inworld';
-  }
-
-  export interface XaiVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'xai';
-
-    /**
-     * Language code, or `auto` to detect automatically.
-     */
-    language?: string;
   }
 }
 
@@ -3694,7 +3658,7 @@ export interface ActionStartAIAssistantParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | ActionStartAIAssistantParams.XaiVoiceSettings;
+    | Shared.XaiVoiceSettings;
 }
 
 export namespace ActionStartAIAssistantParams {
@@ -3862,18 +3826,6 @@ export namespace ActionStartAIAssistantParams {
      */
     on_hangup?: 'continue_conversation' | 'end_conversation';
   }
-
-  export interface XaiVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'xai';
-
-    /**
-     * Language code, or `auto` to detect automatically.
-     */
-    language?: string;
-  }
 }
 
 export interface ActionStartConversationRelayParams {
@@ -3995,7 +3947,7 @@ export interface ActionStartConversationRelayParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | ActionStartConversationRelayParams.XaiVoiceSettings;
+    | Shared.XaiVoiceSettings;
 }
 
 export namespace ActionStartConversationRelayParams {
@@ -4164,18 +4116,6 @@ export namespace ActionStartConversationRelayParams {
      * Transcription provider to use.
      */
     provider?: string;
-  }
-
-  export interface XaiVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'xai';
-
-    /**
-     * Language code, or `auto` to detect automatically.
-     */
-    language?: string;
   }
 }
 
@@ -4883,8 +4823,8 @@ export interface ActionStartTranscriptionParams {
     | TranscriptionEngineGoogleConfig
     | TranscriptionEngineTelnyxConfig
     | TranscriptionEngineAzureConfig
-    | ActionStartTranscriptionParams.TranscriptionEngineXaiConfig
-    | ActionStartTranscriptionParams.TranscriptionEngineAssemblyaiConfig
+    | TranscriptionEngineXaiConfig
+    | TranscriptionEngineAssemblyaiConfig
     | ActionStartTranscriptionParams.TranscriptionEngineSpeechmaticsConfig
     | ActionStartTranscriptionParams.TranscriptionEngineSonioxConfig
     | TranscriptionEngineAConfig
@@ -4901,72 +4841,6 @@ export interface ActionStartTranscriptionParams {
 }
 
 export namespace ActionStartTranscriptionParams {
-  export interface TranscriptionEngineXaiConfig {
-    /**
-     * Whether to send also interim results. If set to false, only final results will
-     * be sent.
-     */
-    interim_results?: boolean;
-
-    /**
-     * Language to use for speech recognition
-     */
-    language?:
-      | 'ar'
-      | 'cs'
-      | 'da'
-      | 'de'
-      | 'en'
-      | 'es'
-      | 'fa'
-      | 'fil'
-      | 'fr'
-      | 'hi'
-      | 'id'
-      | 'it'
-      | 'ja'
-      | 'ko'
-      | 'mk'
-      | 'ms'
-      | 'nl'
-      | 'pl'
-      | 'pt'
-      | 'ro'
-      | 'ru'
-      | 'sv'
-      | 'th'
-      | 'tr'
-      | 'vi';
-
-    /**
-     * Engine identifier for xAI transcription service
-     */
-    transcription_engine?: 'xAI';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'xai/grok-stt';
-  }
-
-  export interface TranscriptionEngineAssemblyaiConfig {
-    /**
-     * Whether to send also interim results. If set to false, only final results will
-     * be sent.
-     */
-    interim_results?: boolean;
-
-    /**
-     * Engine identifier for AssemblyAI transcription service
-     */
-    transcription_engine?: 'AssemblyAI';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'assemblyai/universal-streaming';
-  }
-
   export interface TranscriptionEngineSpeechmaticsConfig {
     /**
      * Whether to send also interim results. If set to false, only final results will
@@ -5593,11 +5467,13 @@ export declare namespace Actions {
     type TelnyxVoiceSettings as TelnyxVoiceSettings,
     type TranscriptionConfig as TranscriptionConfig,
     type TranscriptionEngineAConfig as TranscriptionEngineAConfig,
+    type TranscriptionEngineAssemblyaiConfig as TranscriptionEngineAssemblyaiConfig,
     type TranscriptionEngineAzureConfig as TranscriptionEngineAzureConfig,
     type TranscriptionEngineBConfig as TranscriptionEngineBConfig,
     type TranscriptionEngineDeepgramConfig as TranscriptionEngineDeepgramConfig,
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
     type TranscriptionEngineTelnyxConfig as TranscriptionEngineTelnyxConfig,
+    type TranscriptionEngineXaiConfig as TranscriptionEngineXaiConfig,
     type TranscriptionStartRequest as TranscriptionStartRequest,
     type ActionAddAIAssistantMessagesResponse as ActionAddAIAssistantMessagesResponse,
     type ActionAnswerResponse as ActionAnswerResponse,

@@ -1428,6 +1428,18 @@ export namespace WhatsappTemplateData {
   }
 }
 
+export interface XaiVoiceSettings {
+  /**
+   * Voice settings provider type
+   */
+  type: 'xai';
+
+  /**
+   * Language code, or `auto` to detect automatically.
+   */
+  language?: string;
+}
+
 export type MessagingHostedNumberOrdersDefaultFlatPagination =
   DefaultFlatPagination<MessagingHostedNumberOrder>;
 

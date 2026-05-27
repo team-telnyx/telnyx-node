@@ -170,7 +170,7 @@ const fuse = new Fuse(
     'client.advancedOrders.list',
     'client.advancedOrders.retrieve',
     'client.advancedOrders.updateRequirementGroup',
-    'client.ai.createResponseDeprecated',
+    'client.ai.createResponse',
     'client.ai.retrieveModels',
     'client.ai.summarize',
     'client.ai.assistants.chat',

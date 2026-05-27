@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource ai', () => {
   // Mock server tests are disabled
-  test.skip('createResponseDeprecated: only required params', async () => {
-    const responsePromise = client.ai.createResponseDeprecated({ body: { model: 'bar', input: 'bar' } });
+  test.skip('createResponse: only required params', async () => {
+    const responsePromise = client.ai.createResponse({ body: { model: 'bar', input: 'bar' } });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,8 +21,8 @@ describe('resource ai', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('createResponseDeprecated: required and optional params', async () => {
-    const response = await client.ai.createResponseDeprecated({ body: { model: 'bar', input: 'bar' } });
+  test.skip('createResponse: required and optional params', async () => {
+    const response = await client.ai.createResponse({ body: { model: 'bar', input: 'bar' } });
   });
 
   // Mock server tests are disabled
