@@ -4894,3 +4894,15 @@ Types:
 Methods:
 
 - <code title="post /uac_connections/{id}/actions/check_registration_status">client.uacConnections.actions.<a href="./src/resources/uac-connections/actions.ts">checkRegistrationStatus</a>(id) -> ActionCheckRegistrationStatusResponse</code>
+
+# VoiceSDKCallReports
+
+Types:
+
+- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportRetrieveResponse</a></code>
+- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportListResponse</a></code>
+
+Methods:
+
+- <code title="get /voice_sdk_call_reports/{call_id}">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">retrieve</a>(callID) -> VoiceSDKCallReportRetrieveResponse</code>
+- <code title="get /voice_sdk_call_reports">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">list</a>({ ...params }) -> VoiceSDKCallReportListResponsesDefaultFlatPagination</code>

@@ -1156,6 +1156,8 @@ const fuse = new Fuse(
     'client.uacConnections.retrieve',
     'client.uacConnections.update',
     'client.uacConnections.actions.checkRegistrationStatus',
+    'client.voiceSDKCallReports.list',
+    'client.voiceSDKCallReports.retrieve',
   ],
   { threshold: 1, shouldSort: true },
 );

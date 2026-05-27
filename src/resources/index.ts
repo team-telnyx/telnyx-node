@@ -1363,6 +1363,13 @@ export {
   type VoiceDesignListResponsesDefaultFlatPagination,
 } from './voice-designs';
 export {
+  VoiceSDKCallReports,
+  type VoiceSDKCallReportRetrieveResponse,
+  type VoiceSDKCallReportListResponse,
+  type VoiceSDKCallReportListParams,
+  type VoiceSDKCallReportListResponsesDefaultFlatPagination,
+} from './voice-sdk-call-reports';
+export {
   WebhookDeliveries,
   type Attempt,
   type HTTP,

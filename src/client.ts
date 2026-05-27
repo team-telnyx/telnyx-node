@@ -959,6 +959,13 @@ import {
   VoiceDesigns,
 } from './resources/voice-designs';
 import {
+  VoiceSDKCallReportListParams,
+  VoiceSDKCallReportListResponse,
+  VoiceSDKCallReportListResponsesDefaultFlatPagination,
+  VoiceSDKCallReportRetrieveResponse,
+  VoiceSDKCallReports,
+} from './resources/voice-sdk-call-reports';
+import {
   Attempt,
   HTTP,
   WebhookDeliveries,
@@ -2969,6 +2976,10 @@ export class Telnyx {
    * UAC connection operations
    */
   uacConnections: API.UacConnections = new API.UacConnections(this);
+  /**
+   * Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting.
+   */
+  voiceSDKCallReports: API.VoiceSDKCallReports = new API.VoiceSDKCallReports(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3135,6 +3146,7 @@ Telnyx.Reputation = Reputation;
 Telnyx.TermsOfService = TermsOfService;
 Telnyx.PronunciationDicts = PronunciationDicts;
 Telnyx.UacConnections = UacConnections;
+Telnyx.VoiceSDKCallReports = VoiceSDKCallReports;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -4913,6 +4925,14 @@ export declare namespace Telnyx {
     type UacConnectionCreateParams as UacConnectionCreateParams,
     type UacConnectionUpdateParams as UacConnectionUpdateParams,
     type UacConnectionListParams as UacConnectionListParams,
+  };
+
+  export {
+    VoiceSDKCallReports as VoiceSDKCallReports,
+    type VoiceSDKCallReportRetrieveResponse as VoiceSDKCallReportRetrieveResponse,
+    type VoiceSDKCallReportListResponse as VoiceSDKCallReportListResponse,
+    type VoiceSDKCallReportListResponsesDefaultFlatPagination as VoiceSDKCallReportListResponsesDefaultFlatPagination,
+    type VoiceSDKCallReportListParams as VoiceSDKCallReportListParams,
   };
 
   export type APIError = API.APIError;

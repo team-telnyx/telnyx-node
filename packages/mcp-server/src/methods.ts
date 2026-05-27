@@ -6286,6 +6286,18 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'post',
     httpPath: '/uac_connections/{id}/actions/check_registration_status',
   },
+  {
+    clientCallName: 'client.voiceSDKCallReports.retrieve',
+    fullyQualifiedName: 'voiceSDKCallReports.retrieve',
+    httpMethod: 'get',
+    httpPath: '/voice_sdk_call_reports/{call_id}',
+  },
+  {
+    clientCallName: 'client.voiceSDKCallReports.list',
+    fullyQualifiedName: 'voiceSDKCallReports.list',
+    httpMethod: 'get',
+    httpPath: '/voice_sdk_call_reports',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {
