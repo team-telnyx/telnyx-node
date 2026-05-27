@@ -4895,6 +4895,16 @@ Methods:
 
 - <code title="post /uac_connections/{id}/actions/check_registration_status">client.uacConnections.actions.<a href="./src/resources/uac-connections/actions.ts">checkRegistrationStatus</a>(id) -> ActionCheckRegistrationStatusResponse</code>
 
+# SpeechToText
+
+Types:
+
+- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
+
+Methods:
+
+- <code title="get /speech-to-text/providers">client.speechToText.<a href="./src/resources/speech-to-text.ts">listProviders</a>({ ...params }) -> SpeechToTextListProvidersResponse</code>
+
 # VoiceSDKCallReports
 
 Types:
