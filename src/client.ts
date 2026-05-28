@@ -820,11 +820,6 @@ import {
   SiprecConnectors,
 } from './resources/siprec-connectors';
 import {
-  SpeechToText,
-  SpeechToTextListProvidersParams,
-  SpeechToTextListProvidersResponse,
-} from './resources/speech-to-text';
-import {
   SubNumberOrder,
   SubNumberOrderCancelResponse,
   SubNumberOrderListParams,
@@ -1536,6 +1531,13 @@ import {
   SimCardUpdateResponse,
   SimCards,
 } from './resources/sim-cards/sim-cards';
+import {
+  SpeechToText,
+  SpeechToTextListProvidersParams,
+  SpeechToTextListProvidersResponse,
+  TranscribeClientEvent,
+  TranscribeServerEvent,
+} from './resources/speech-to-text/speech-to-text';
 import { Storage, StorageListMigrationSourceCoverageResponse } from './resources/storage/storage';
 import { TermsOfService } from './resources/terms-of-service/terms-of-service';
 import {
@@ -1549,8 +1551,9 @@ import {
   StreamClientEvent,
   StreamServerEvent,
   TextToSpeech,
-  TextToSpeechGenerateParams,
-  TextToSpeechGenerateResponse,
+  TextToSpeechCreateSpeechParams,
+  TextToSpeechCreateSpeechResponse,
+  TextToSpeechGenerateSpeechParams,
   TextToSpeechListVoicesParams,
   TextToSpeechListVoicesResponse,
 } from './resources/text-to-speech/text-to-speech';
@@ -2792,6 +2795,10 @@ export class Telnyx {
   regulatoryRequirements: API.RegulatoryRequirements = new API.RegulatoryRequirements(this);
   reports: API.Reports = new API.Reports(this);
   /**
+   * Discover available speech-to-text providers, models, and supported languages.
+   */
+  speechToText: API.SpeechToText = new API.SpeechToText(this);
+  /**
    * Requirement Groups
    */
   requirementGroups: API.RequirementGroups = new API.RequirementGroups(this);
@@ -2985,10 +2992,6 @@ export class Telnyx {
    */
   uacConnections: API.UacConnections = new API.UacConnections(this);
   /**
-   * Discover available speech-to-text providers, models, and supported languages.
-   */
-  speechToText: API.SpeechToText = new API.SpeechToText(this);
-  /**
    * Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting.
    */
   voiceSDKCallReports: API.VoiceSDKCallReports = new API.VoiceSDKCallReports(this);
@@ -3102,6 +3105,7 @@ Telnyx.Recordings = Recordings;
 Telnyx.Regions = Regions;
 Telnyx.RegulatoryRequirements = RegulatoryRequirements;
 Telnyx.Reports = Reports;
+Telnyx.SpeechToText = SpeechToText;
 Telnyx.RequirementGroups = RequirementGroups;
 Telnyx.RequirementTypes = RequirementTypes;
 Telnyx.Requirements = Requirements;
@@ -3158,7 +3162,6 @@ Telnyx.Reputation = Reputation;
 Telnyx.TermsOfService = TermsOfService;
 Telnyx.PronunciationDicts = PronunciationDicts;
 Telnyx.UacConnections = UacConnections;
-Telnyx.SpeechToText = SpeechToText;
 Telnyx.VoiceSDKCallReports = VoiceSDKCallReports;
 
 export declare namespace Telnyx {
@@ -4398,6 +4401,14 @@ export declare namespace Telnyx {
   };
 
   export {
+    SpeechToText as SpeechToText,
+    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
+    type TranscribeClientEvent as TranscribeClientEvent,
+    type TranscribeServerEvent as TranscribeServerEvent,
+    type SpeechToTextListProvidersParams as SpeechToTextListProvidersParams,
+  };
+
+  export {
     RequirementGroups as RequirementGroups,
     type RequirementGroup as RequirementGroup,
     type UserRequirement as UserRequirement,
@@ -4615,11 +4626,12 @@ export declare namespace Telnyx {
 
   export {
     TextToSpeech as TextToSpeech,
-    type TextToSpeechGenerateResponse as TextToSpeechGenerateResponse,
+    type TextToSpeechCreateSpeechResponse as TextToSpeechCreateSpeechResponse,
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
     type StreamClientEvent as StreamClientEvent,
     type StreamServerEvent as StreamServerEvent,
-    type TextToSpeechGenerateParams as TextToSpeechGenerateParams,
+    type TextToSpeechCreateSpeechParams as TextToSpeechCreateSpeechParams,
+    type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
   };
 
@@ -4940,12 +4952,6 @@ export declare namespace Telnyx {
     type UacConnectionCreateParams as UacConnectionCreateParams,
     type UacConnectionUpdateParams as UacConnectionUpdateParams,
     type UacConnectionListParams as UacConnectionListParams,
-  };
-
-  export {
-    SpeechToText as SpeechToText,
-    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
-    type SpeechToTextListProvidersParams as SpeechToTextListProvidersParams,
   };
 
   export {

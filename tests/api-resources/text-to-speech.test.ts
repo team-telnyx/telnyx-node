@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource textToSpeech', () => {
   // Mock server tests are disabled
-  test.skip('generate', async () => {
-    const responsePromise = client.textToSpeech.generate({});
+  test.skip('createSpeech', async () => {
+    const responsePromise = client.textToSpeech.createSpeech({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -18,6 +18,37 @@ describe('resource textToSpeech', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('generateSpeech', async () => {
+    const responsePromise = client.textToSpeech.generateSpeech();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('generateSpeech: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.textToSpeech.generateSpeech(
+        {
+          audio_format: 'pcm',
+          disable_cache: true,
+          model_id: 'model_id',
+          provider: 'aws',
+          socket_id: 'socket_id',
+          voice: 'voice',
+          voice_id: 'voice_id',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled

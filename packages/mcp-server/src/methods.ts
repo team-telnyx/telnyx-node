@@ -4171,6 +4171,13 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/reports/mdr_usage_reports/sync',
   },
   {
+    clientCallName: 'client.speechToText.listProviders',
+    fullyQualifiedName: 'speechToText.listProviders',
+    httpMethod: 'get',
+    httpPath: '/speech-to-text/providers',
+  },
+  { clientCallName: 'client.speechToText.transcribe', fullyQualifiedName: 'speechToText.transcribe' },
+  {
     clientCallName: 'client.requirementGroups.create',
     fullyQualifiedName: 'requirementGroups.create',
     httpMethod: 'post',
@@ -5074,9 +5081,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/texml_applications/{id}',
   },
   {
-    clientCallName: 'client.textToSpeech.generate',
-    fullyQualifiedName: 'textToSpeech.generate',
+    clientCallName: 'client.textToSpeech.createSpeech',
+    fullyQualifiedName: 'textToSpeech.createSpeech',
     httpMethod: 'post',
+    httpPath: '/text-to-speech/speech',
+  },
+  {
+    clientCallName: 'client.textToSpeech.generateSpeech',
+    fullyQualifiedName: 'textToSpeech.generateSpeech',
+    httpMethod: 'get',
     httpPath: '/text-to-speech/speech',
   },
   {
@@ -6285,12 +6298,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'uacConnections.actions.checkRegistrationStatus',
     httpMethod: 'post',
     httpPath: '/uac_connections/{id}/actions/check_registration_status',
-  },
-  {
-    clientCallName: 'client.speechToText.listProviders',
-    fullyQualifiedName: 'speechToText.listProviders',
-    httpMethod: 'get',
-    httpPath: '/speech-to-text/providers',
   },
   {
     clientCallName: 'client.voiceSDKCallReports.retrieve',

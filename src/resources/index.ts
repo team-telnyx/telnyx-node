@@ -1174,6 +1174,8 @@ export {
 export {
   SpeechToText,
   type SpeechToTextListProvidersResponse,
+  type TranscribeClientEvent,
+  type TranscribeServerEvent,
   type SpeechToTextListProvidersParams,
 } from './speech-to-text';
 export { Storage, type StorageListMigrationSourceCoverageResponse } from './storage/storage';
@@ -1234,11 +1236,12 @@ export {
 } from './texml-applications';
 export {
   TextToSpeech,
-  type TextToSpeechGenerateResponse,
+  type TextToSpeechCreateSpeechResponse,
   type TextToSpeechListVoicesResponse,
   type StreamClientEvent,
   type StreamServerEvent,
-  type TextToSpeechGenerateParams,
+  type TextToSpeechCreateSpeechParams,
+  type TextToSpeechGenerateSpeechParams,
   type TextToSpeechListVoicesParams,
   type TextToSpeechStreamParams,
 } from './text-to-speech';
