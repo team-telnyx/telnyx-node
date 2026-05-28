@@ -1,5 +1,16 @@
 # Changelog
 
+## 6.71.0 (2026-05-28)
+
+Full Changelog: [v6.70.0...v6.71.0](https://github.com/team-telnyx/telnyx-node/compare/v6.70.0...v6.71.0)
+
+### Features
+
+* **api:** manual updates ([b6879f5](https://github.com/team-telnyx/telnyx-node/commit/b6879f529f446f7dae688e7e09fb1b623a394c35))
+* **api:** manual updates ([e1a3739](https://github.com/team-telnyx/telnyx-node/commit/e1a3739fc72ea8e1f9cf0c3b2a0d2a838e70c363))
+* TELAPPS-406: document GET /speech-to-text/providers endpoint ([7455bd7](https://github.com/team-telnyx/telnyx-node/commit/7455bd75c0b02a4551a4f7b672b2fd8c159ed9c7))
+* TELAPPS-5698 document conversation relay API shape ([8b3ff44](https://github.com/team-telnyx/telnyx-node/commit/8b3ff440b7d7bde70d663e950b4d4015ec4d222f))
+
 ## 6.70.0 (2026-05-27)
 
 Full Changelog: [v6.69.0...v6.70.0](https://github.com/team-telnyx/telnyx-node/compare/v6.69.0...v6.70.0)
