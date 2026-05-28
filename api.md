@@ -3347,6 +3347,18 @@ Methods:
 - <code title="delete /reports/mdr_usage_reports/{id}">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">delete</a>(id) -> MdrUsageReportDeleteResponse</code>
 - <code title="get /reports/mdr_usage_reports/sync">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">fetchSync</a>({ ...params }) -> MdrUsageReportFetchSyncResponse</code>
 
+# SpeechToText
+
+Types:
+
+- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
+- <code><a href="./src/resources/speech-to-text.ts">TranscribeClientEvent</a></code>
+- <code><a href="./src/resources/speech-to-text.ts">TranscribeServerEvent</a></code>
+
+Methods:
+
+- <code title="get /speech-to-text/providers">client.speechToText.<a href="./src/resources/speech-to-text.ts">listProviders</a>({ ...params }) -> SpeechToTextListProvidersResponse</code>
+
 # RequirementGroups
 
 Types:
@@ -3995,14 +4007,15 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechGenerateResponse</a></code>
+- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechCreateSpeechResponse</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">TextToSpeechListVoicesResponse</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">StreamClientEvent</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">StreamServerEvent</a></code>
 
 Methods:
 
-- <code title="post /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">generate</a>({ ...params }) -> TextToSpeechGenerateResponse</code>
+- <code title="post /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">createSpeech</a>({ ...params }) -> TextToSpeechCreateSpeechResponse</code>
+- <code title="get /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">generateSpeech</a>({ ...params }) -> void</code>
 - <code title="get /text-to-speech/voices">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">listVoices</a>({ ...params }) -> TextToSpeechListVoicesResponse</code>
 
 # UsageReports
@@ -4900,16 +4913,6 @@ Types:
 Methods:
 
 - <code title="post /uac_connections/{id}/actions/check_registration_status">client.uacConnections.actions.<a href="./src/resources/uac-connections/actions.ts">checkRegistrationStatus</a>(id) -> ActionCheckRegistrationStatusResponse</code>
-
-# SpeechToText
-
-Types:
-
-- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
-
-Methods:
-
-- <code title="get /speech-to-text/providers">client.speechToText.<a href="./src/resources/speech-to-text.ts">listProviders</a>({ ...params }) -> SpeechToTextListProvidersResponse</code>
 
 # VoiceSDKCallReports
 

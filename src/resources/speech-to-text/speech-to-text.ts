@@ -2,198 +2,172 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { buildHeaders } from '../../internal/headers';
+import { type Uploadable } from '../../core/uploads';
 import { RequestOptions } from '../../internal/request-options';
 
 /**
- * Speech to text streaming operations via WebSocket
+ * Discover available speech-to-text providers, models, and supported languages.
  */
 export class SpeechToText extends APIResource {
   /**
-   * Open a WebSocket connection to stream audio and receive transcriptions in
-   * real-time. Authentication is provided via the standard
-   * `Authorization: Bearer <API_KEY>` header.
+   * Retrieve the canonical list of supported speech-to-text providers, models,
+   * accepted language codes, and the service types each model supports.
    *
-   * Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`.
+   * Service types:
    *
-   * **Connection flow:**
+   * - `streaming` — standalone WebSocket transcription via
+   *   `/speech-to-text/transcription`.
+   * - `file_transcription` — file-based transcription via
+   *   `/ai/audio/transcriptions`.
+   * - `in_call_transcription` — live call transcription via Call Control
+   *   `transcription_start`.
    *
-   * 1. Open WebSocket with query parameters specifying engine, input format, and
-   *    language.
-   * 2. Send binary audio frames (mp3/wav format).
-   * 3. Receive JSON transcript frames with `transcript`, `is_final`, and
-   *    `confidence` fields.
-   * 4. Close connection when done.
+   * Use this endpoint to discover which (provider, model) combinations are available
+   * for the surface you need, and which language codes each accepts. `auto` in a
+   * `languages` array indicates the provider performs language detection.
    */
-  transcribe(query: SpeechToTextTranscribeParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.get('/speech-to-text/transcription', {
+  listProviders(
+    query: SpeechToTextListProvidersParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<SpeechToTextListProvidersResponse> {
+    return this._client.get('/speech-to-text/providers', {
       query,
+      defaultBaseURL: 'https://api.telnyx.com/v2',
       ...options,
-      headers: buildHeaders([
-        { 'Content-Type': 'application/octet-stream', Accept: '*/*' },
-        options?.headers,
-      ]),
     });
   }
 }
 
 /**
- * Parameters for the transcribe REST endpoint.
+ * List of supported STT providers and models.
  */
-export interface SpeechToTextTranscribeParams {
-  /**
-   * The format of input audio stream.
-   */
-  input_format: 'mp3' | 'wav';
+export interface SpeechToTextListProvidersResponse {
+  data: Array<SpeechToTextListProvidersResponse.Data>;
 
-  /**
-   * The transcription engine to use for processing the audio stream.
-   */
-  transcription_engine: 'Azure' | 'Deepgram' | 'Google' | 'Telnyx';
+  meta: SpeechToTextListProvidersResponse.Meta;
+}
 
+export namespace SpeechToTextListProvidersResponse {
   /**
-   * Silence duration (in milliseconds) that triggers end-of-speech detection.
+   * A (provider, model) tuple along with its supported service types and languages.
    */
-  endpointing?: number;
+  export interface Data {
+    /**
+     * Languages this (provider, model) accepts, in the provider's native code format.
+     * `auto` indicates the provider performs language detection.
+     */
+    languages: Array<string>;
 
-  /**
-   * Whether to receive interim transcription results.
-   */
-  interim_results?: boolean;
+    /**
+     * Provider-scoped model name.
+     */
+    model: string;
 
-  /**
-   * A key term to boost in the transcription.
-   */
-  keyterm?: string;
+    /**
+     * STT provider name.
+     */
+    provider: string;
 
-  /**
-   * Comma-separated list of keywords to boost in the transcription.
-   */
-  keywords?: string;
+    /**
+     * Service surfaces this (provider, model) supports.
+     */
+    service_types: Array<'streaming' | 'file_transcription' | 'in_call_transcription'>;
+  }
 
-  /**
-   * The language spoken in the audio stream.
-   */
-  language?: string;
-
-  /**
-   * The specific model to use within the selected transcription engine.
-   */
-  model?:
-    | 'fast'
-    | 'deepgram/nova-2'
-    | 'deepgram/nova-3'
-    | 'latest_long'
-    | 'latest_short'
-    | 'command_and_search'
-    | 'phone_call'
-    | 'video'
-    | 'default'
-    | 'medical_conversation'
-    | 'medical_dictation'
-    | 'openai/whisper-tiny'
-    | 'openai/whisper-large-v3-turbo';
-
-  /**
-   * Enable redaction of sensitive information from transcription results.
-   */
-  redact?: string;
+  export interface Meta {
+    /**
+     * Total number of entries returned.
+     */
+    total: number;
+  }
 }
 
 /**
- * Parameters for establishing a speech-to-text WebSocket connection.
+ * Binary audio data in mp3 or wav format.
  */
-export interface SpeechToTextStreamParams {
-  /**
-   * The transcription engine to use for processing the audio stream.
-   */
-  transcription_engine: 'Azure' | 'Deepgram' | 'Google' | 'Telnyx';
-
-  /**
-   * The format of the input audio stream.
-   */
-  input_format?: 'mp3' | 'wav' | 'raw';
-
-  /**
-   * The language code for transcription (e.g., 'en-US', 'es-ES').
-   */
-  language?: string;
-
-  /**
-   * Whether to return interim (partial) transcription results.
-   */
-  interim_results?: boolean;
-
-  /**
-   * The model to use for transcription (engine-specific).
-   */
-  model?: string;
-}
-
-/**
- * Binary audio data sent from client to server.
- * Send raw audio bytes in mp3 or wav format.
- */
-export type SttClientEvent = ArrayBuffer | Buffer | Uint8Array;
+export type TranscribeClientEvent = Uploadable;
 
 /**
  * Union of all server-to-client WebSocket events for STT streaming.
  */
-export type SttServerEvent = SttServerEvent.TranscriptFrame | SttServerEvent.ErrorFrame;
+export type TranscribeServerEvent =
+  | TranscribeServerEvent.TranscriptFrame
+  | TranscribeServerEvent.SttErrorFrame;
 
-export namespace SttServerEvent {
+export namespace TranscribeServerEvent {
   /**
    * Server-to-client frame containing a transcription result.
    */
   export interface TranscriptFrame {
-    /**
-     * Frame type identifier.
-     */
-    type: 'transcript';
-
     /**
      * The transcribed text from the audio.
      */
     transcript: string;
 
     /**
-     * Whether this is a final transcription result.
-     * When `false`, this is an interim result that may be refined.
+     * Frame type identifier.
      */
-    is_final?: boolean;
+    type: 'transcript';
 
     /**
      * Confidence score of the transcription, ranging from 0 to 1.
      */
     confidence?: number;
+
+    /**
+     * Whether this is a final transcription result. When `false`, this is an interim
+     * result that may be refined.
+     */
+    is_final?: boolean;
   }
 
   /**
-   * Server-to-client frame indicating an error during transcription.
+   * Server-to-client frame indicating an error during transcription. The connection
+   * may be closed shortly after.
    */
-  export interface ErrorFrame {
-    /**
-     * Frame type identifier.
-     */
-    type: 'error';
-
+  export interface SttErrorFrame {
     /**
      * Error message describing what went wrong.
      */
     error: string;
+
+    /**
+     * Frame type identifier.
+     */
+    type: 'error';
   }
 }
 
-/**
- * Transcript frame with transcription result.
- */
-export type TranscriptFrame = SttServerEvent.TranscriptFrame;
+export interface SpeechToTextListProvidersParams {
+  /**
+   * Filter to entries for a specific STT provider. The enum mirrors the providers
+   * advertised across the speech-to-text spec (including `google` and `telnyx`,
+   * which are accepted as WebSocket transcription engines). A provider that has no
+   * models currently registered for any service type will return an empty `data`
+   * array rather than an error.
+   */
+  provider?:
+    | 'deepgram'
+    | 'speechmatics'
+    | 'assemblyai'
+    | 'xai'
+    | 'soniox'
+    | 'azure'
+    | 'openai'
+    | 'google'
+    | 'telnyx';
 
-/**
- * Error frame indicating transcription failure.
- */
-export type SttErrorFrame = SttServerEvent.ErrorFrame;
+  /**
+   * Filter to entries that support the given service type.
+   */
+  service_type?: 'streaming' | 'file_transcription' | 'in_call_transcription';
+}
 
 export declare namespace SpeechToText {
-  export { type SpeechToTextTranscribeParams as SpeechToTextTranscribeParams };
+  export {
+    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
+    type TranscribeClientEvent as TranscribeClientEvent,
+    type TranscribeServerEvent as TranscribeServerEvent,
+    type SpeechToTextListProvidersParams as SpeechToTextListProvidersParams,
+  };
 }

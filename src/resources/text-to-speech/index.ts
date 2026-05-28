@@ -2,11 +2,12 @@
 
 export {
   TextToSpeech,
-  type TextToSpeechGenerateResponse,
+  type TextToSpeechCreateSpeechResponse,
   type TextToSpeechListVoicesResponse,
   type StreamClientEvent,
   type StreamServerEvent,
-  type TextToSpeechGenerateParams,
+  type TextToSpeechCreateSpeechParams,
+  type TextToSpeechGenerateSpeechParams,
   type TextToSpeechListVoicesParams,
   type TextToSpeechStreamParams,
 } from './text-to-speech';

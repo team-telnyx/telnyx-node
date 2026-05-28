@@ -2,13 +2,10 @@
 
 export {
   SpeechToText,
-  type SpeechToTextTranscribeParams,
-  type SpeechToTextStreamParams,
-  type SttClientEvent,
-  type SttServerEvent,
-  type TranscriptFrame,
-  type SttErrorFrame,
+  type SpeechToTextListProvidersResponse,
+  type TranscribeClientEvent,
+  type TranscribeServerEvent,
+  type SpeechToTextListProvidersParams,
 } from './speech-to-text';
-
-export { SpeechToTextWS } from './ws';
-export { WebSocketError } from './internal-base';
+export { type SpeechToTextWSClientOptions } from './ws';
+export { type SpeechToTextWSReconnectOptions } from './ws-base';
