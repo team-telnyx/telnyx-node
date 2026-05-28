@@ -20,6 +20,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">Feature</a></code>
 - <code><a href="./src/resources/shared.ts">HostedNumber</a></code>
 - <code><a href="./src/resources/shared.ts">InboundMessagePayload</a></code>
+- <code><a href="./src/resources/shared.ts">InworldVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingFeatureSet</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingHostedNumberOrder</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingPaginationMeta</a></code>
@@ -1261,6 +1262,8 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/calls/calls.ts">CallAssistantRequest</a></code>
+- <code><a href="./src/resources/calls/calls.ts">ConversationRelayInterruptionSettings</a></code>
+- <code><a href="./src/resources/calls/calls.ts">ConversationRelayLanguage</a></code>
 - <code><a href="./src/resources/calls/calls.ts">CustomSipHeader</a></code>
 - <code><a href="./src/resources/calls/calls.ts">DialogflowConfig</a></code>
 - <code><a href="./src/resources/calls/calls.ts">SipHeader</a></code>
@@ -4678,6 +4681,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/whatsapp/user-data.ts">WhatsappUserData</a></code>
 - <code><a href="./src/resources/whatsapp/user-data.ts">UserDataRetrieveResponse</a></code>
 - <code><a href="./src/resources/whatsapp/user-data.ts">UserDataUpdateResponse</a></code>
 
@@ -4909,6 +4913,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportLogEntry</a></code>
 - <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportRetrieveResponse</a></code>
 - <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportListResponse</a></code>
 

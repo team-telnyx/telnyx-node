@@ -108,6 +108,8 @@ export {
 export {
   Calls,
   type CallAssistantRequest,
+  type ConversationRelayInterruptionSettings,
+  type ConversationRelayLanguage,
   type CustomSipHeader,
   type DialogflowConfig,
   type SipHeader,

@@ -132,6 +132,8 @@ export {
 export {
   Calls,
   type CallAssistantRequest,
+  type ConversationRelayInterruptionSettings,
+  type ConversationRelayLanguage,
   type CustomSipHeader,
   type DialogflowConfig,
   type SipHeader,
@@ -1368,6 +1370,7 @@ export {
 } from './voice-designs';
 export {
   VoiceSDKCallReports,
+  type VoiceSDKCallReportLogEntry,
   type VoiceSDKCallReportRetrieveResponse,
   type VoiceSDKCallReportListResponse,
   type VoiceSDKCallReportListParams,
