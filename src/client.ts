@@ -967,6 +967,7 @@ import {
   VoiceSDKCallReportListParams,
   VoiceSDKCallReportListResponse,
   VoiceSDKCallReportListResponsesDefaultFlatPagination,
+  VoiceSDKCallReportLogEntry,
   VoiceSDKCallReportRetrieveResponse,
   VoiceSDKCallReports,
 } from './resources/voice-sdk-call-reports';
@@ -1181,6 +1182,8 @@ import {
   CallDialResponse,
   CallRetrieveStatusResponse,
   Calls,
+  ConversationRelayInterruptionSettings,
+  ConversationRelayLanguage,
   CustomSipHeader,
   DialogflowConfig,
   SipHeader,
@@ -3509,6 +3512,8 @@ export declare namespace Telnyx {
   export {
     Calls as Calls,
     type CallAssistantRequest as CallAssistantRequest,
+    type ConversationRelayInterruptionSettings as ConversationRelayInterruptionSettings,
+    type ConversationRelayLanguage as ConversationRelayLanguage,
     type CustomSipHeader as CustomSipHeader,
     type DialogflowConfig as DialogflowConfig,
     type SipHeader as SipHeader,
@@ -4945,6 +4950,7 @@ export declare namespace Telnyx {
 
   export {
     VoiceSDKCallReports as VoiceSDKCallReports,
+    type VoiceSDKCallReportLogEntry as VoiceSDKCallReportLogEntry,
     type VoiceSDKCallReportRetrieveResponse as VoiceSDKCallReportRetrieveResponse,
     type VoiceSDKCallReportListResponse as VoiceSDKCallReportListResponse,
     type VoiceSDKCallReportListResponsesDefaultFlatPagination as VoiceSDKCallReportListResponsesDefaultFlatPagination,
@@ -4969,6 +4975,7 @@ export declare namespace Telnyx {
   export type Feature = API.Feature;
   export type HostedNumber = API.HostedNumber;
   export type InboundMessagePayload = API.InboundMessagePayload;
+  export type InworldVoiceSettings = API.InworldVoiceSettings;
   export type MessagingFeatureSet = API.MessagingFeatureSet;
   export type MessagingHostedNumberOrder = API.MessagingHostedNumberOrder;
   export type MessagingPaginationMeta = API.MessagingPaginationMeta;
