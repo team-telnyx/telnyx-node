@@ -6287,6 +6287,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/uac_connections/{id}/actions/check_registration_status',
   },
   {
+    clientCallName: 'client.speechToText.listProviders',
+    fullyQualifiedName: 'speechToText.listProviders',
+    httpMethod: 'get',
+    httpPath: '/speech-to-text/providers',
+  },
+  {
     clientCallName: 'client.voiceSDKCallReports.retrieve',
     fullyQualifiedName: 'voiceSDKCallReports.retrieve',
     httpMethod: 'get',

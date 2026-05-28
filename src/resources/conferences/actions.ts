@@ -1019,17 +1019,8 @@ export interface ActionSpeakParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | ActionSpeakParams.InworldVoiceSettings
+    | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings;
-}
-
-export namespace ActionSpeakParams {
-  export interface InworldVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'inworld';
-  }
 }
 
 export interface ActionStopParams {

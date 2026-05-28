@@ -820,6 +820,11 @@ import {
   SiprecConnectors,
 } from './resources/siprec-connectors';
 import {
+  SpeechToText,
+  SpeechToTextListProvidersParams,
+  SpeechToTextListProvidersResponse,
+} from './resources/speech-to-text';
+import {
   SubNumberOrder,
   SubNumberOrderCancelResponse,
   SubNumberOrderListParams,
@@ -962,6 +967,7 @@ import {
   VoiceSDKCallReportListParams,
   VoiceSDKCallReportListResponse,
   VoiceSDKCallReportListResponsesDefaultFlatPagination,
+  VoiceSDKCallReportLogEntry,
   VoiceSDKCallReportRetrieveResponse,
   VoiceSDKCallReports,
 } from './resources/voice-sdk-call-reports';
@@ -1176,6 +1182,8 @@ import {
   CallDialResponse,
   CallRetrieveStatusResponse,
   Calls,
+  ConversationRelayInterruptionSettings,
+  ConversationRelayLanguage,
   CustomSipHeader,
   DialogflowConfig,
   SipHeader,
@@ -2977,6 +2985,10 @@ export class Telnyx {
    */
   uacConnections: API.UacConnections = new API.UacConnections(this);
   /**
+   * Discover available speech-to-text providers, models, and supported languages.
+   */
+  speechToText: API.SpeechToText = new API.SpeechToText(this);
+  /**
    * Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting.
    */
   voiceSDKCallReports: API.VoiceSDKCallReports = new API.VoiceSDKCallReports(this);
@@ -3146,6 +3158,7 @@ Telnyx.Reputation = Reputation;
 Telnyx.TermsOfService = TermsOfService;
 Telnyx.PronunciationDicts = PronunciationDicts;
 Telnyx.UacConnections = UacConnections;
+Telnyx.SpeechToText = SpeechToText;
 Telnyx.VoiceSDKCallReports = VoiceSDKCallReports;
 
 export declare namespace Telnyx {
@@ -3499,6 +3512,8 @@ export declare namespace Telnyx {
   export {
     Calls as Calls,
     type CallAssistantRequest as CallAssistantRequest,
+    type ConversationRelayInterruptionSettings as ConversationRelayInterruptionSettings,
+    type ConversationRelayLanguage as ConversationRelayLanguage,
     type CustomSipHeader as CustomSipHeader,
     type DialogflowConfig as DialogflowConfig,
     type SipHeader as SipHeader,
@@ -4928,7 +4943,14 @@ export declare namespace Telnyx {
   };
 
   export {
+    SpeechToText as SpeechToText,
+    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
+    type SpeechToTextListProvidersParams as SpeechToTextListProvidersParams,
+  };
+
+  export {
     VoiceSDKCallReports as VoiceSDKCallReports,
+    type VoiceSDKCallReportLogEntry as VoiceSDKCallReportLogEntry,
     type VoiceSDKCallReportRetrieveResponse as VoiceSDKCallReportRetrieveResponse,
     type VoiceSDKCallReportListResponse as VoiceSDKCallReportListResponse,
     type VoiceSDKCallReportListResponsesDefaultFlatPagination as VoiceSDKCallReportListResponsesDefaultFlatPagination,
@@ -4953,6 +4975,7 @@ export declare namespace Telnyx {
   export type Feature = API.Feature;
   export type HostedNumber = API.HostedNumber;
   export type InboundMessagePayload = API.InboundMessagePayload;
+  export type InworldVoiceSettings = API.InworldVoiceSettings;
   export type MessagingFeatureSet = API.MessagingFeatureSet;
   export type MessagingHostedNumberOrder = API.MessagingHostedNumberOrder;
   export type MessagingPaginationMeta = API.MessagingPaginationMeta;

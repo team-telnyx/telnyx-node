@@ -132,6 +132,8 @@ export {
 export {
   Calls,
   type CallAssistantRequest,
+  type ConversationRelayInterruptionSettings,
+  type ConversationRelayLanguage,
   type CustomSipHeader,
   type DialogflowConfig,
   type SipHeader,
@@ -1169,6 +1171,11 @@ export {
   type SiprecConnectorCreateParams,
   type SiprecConnectorUpdateParams,
 } from './siprec-connectors';
+export {
+  SpeechToText,
+  type SpeechToTextListProvidersResponse,
+  type SpeechToTextListProvidersParams,
+} from './speech-to-text';
 export { Storage, type StorageListMigrationSourceCoverageResponse } from './storage/storage';
 export {
   SubNumberOrders,
@@ -1364,6 +1371,7 @@ export {
 } from './voice-designs';
 export {
   VoiceSDKCallReports,
+  type VoiceSDKCallReportLogEntry,
   type VoiceSDKCallReportRetrieveResponse,
   type VoiceSDKCallReportListResponse,
   type VoiceSDKCallReportListParams,
