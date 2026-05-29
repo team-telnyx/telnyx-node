@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.73.0 (2026-05-29)
+
+Full Changelog: [v6.72.0...v6.73.0](https://github.com/team-telnyx/telnyx-node/compare/v6.72.0...v6.73.0)
+
+### Features
+
+* **sip-registration-status:** add OpenAPI spec for /v2/sip_registration_status ([9806972](https://github.com/team-telnyx/telnyx-node/commit/9806972ed28853a837b9e5b52200383192c82b81))
+
 ## 6.72.0 (2026-05-28)
 
 Full Changelog: [v6.71.0...v6.72.0](https://github.com/team-telnyx/telnyx-node/compare/v6.71.0...v6.72.0)
