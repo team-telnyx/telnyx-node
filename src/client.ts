@@ -812,6 +812,11 @@ import {
   SimCardOrdersDefaultFlatPagination,
 } from './resources/sim-card-orders';
 import {
+  SipRegistrationStatus,
+  SipRegistrationStatusRetrieveParams,
+  SipRegistrationStatusRetrieveResponse,
+} from './resources/sip-registration-status';
+import {
   SiprecConnectorCreateParams,
   SiprecConnectorCreateResponse,
   SiprecConnectorRetrieveResponse,
@@ -2996,6 +3001,10 @@ export class Telnyx {
    * Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting.
    */
   voiceSDKCallReports: API.VoiceSDKCallReports = new API.VoiceSDKCallReports(this);
+  /**
+   * Look up SIP registration status across credential types
+   */
+  sipRegistrationStatus: API.SipRegistrationStatus = new API.SipRegistrationStatus(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3164,6 +3173,7 @@ Telnyx.TermsOfService = TermsOfService;
 Telnyx.PronunciationDicts = PronunciationDicts;
 Telnyx.UacConnections = UacConnections;
 Telnyx.VoiceSDKCallReports = VoiceSDKCallReports;
+Telnyx.SipRegistrationStatus = SipRegistrationStatus;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -4962,6 +4972,12 @@ export declare namespace Telnyx {
     type VoiceSDKCallReportListResponse as VoiceSDKCallReportListResponse,
     type VoiceSDKCallReportListResponsesDefaultFlatPagination as VoiceSDKCallReportListResponsesDefaultFlatPagination,
     type VoiceSDKCallReportListParams as VoiceSDKCallReportListParams,
+  };
+
+  export {
+    SipRegistrationStatus as SipRegistrationStatus,
+    type SipRegistrationStatusRetrieveResponse as SipRegistrationStatusRetrieveResponse,
+    type SipRegistrationStatusRetrieveParams as SipRegistrationStatusRetrieveParams,
   };
 
   export type APIError = API.APIError;

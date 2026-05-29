@@ -1161,6 +1161,7 @@ const fuse = new Fuse(
     'client.uacConnections.actions.checkRegistrationStatus',
     'client.voiceSDKCallReports.list',
     'client.voiceSDKCallReports.retrieve',
+    'client.sipRegistrationStatus.retrieve',
   ],
   { threshold: 1, shouldSort: true },
 );

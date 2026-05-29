@@ -1164,6 +1164,11 @@ export {
   type SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination,
 } from './sim-cards/sim-cards';
 export {
+  SipRegistrationStatus,
+  type SipRegistrationStatusRetrieveResponse,
+  type SipRegistrationStatusRetrieveParams,
+} from './sip-registration-status';
+export {
   SiprecConnectors,
   type SiprecConnectorCreateResponse,
   type SiprecConnectorRetrieveResponse,
