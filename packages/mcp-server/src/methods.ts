@@ -6311,6 +6311,12 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/voice_sdk_call_reports',
   },
+  {
+    clientCallName: 'client.sipRegistrationStatus.retrieve',
+    fullyQualifiedName: 'sipRegistrationStatus.retrieve',
+    httpMethod: 'get',
+    httpPath: '/sip_registration_status',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {
