@@ -5,13 +5,13 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
 /**
- * Look up SIP registration status across credential types
+ * Look up the live SIP registration status of a UAC connection.
  */
 export class SipRegistrationStatus extends APIResource {
   /**
-   * Returns the live SIP registration state of a connection or credential. Supports
-   * UAC third-party credentials, telephony credentials, and SIP credential
-   * connections.
+   * Returns the live SIP registration state of a UAC connection: whether it is
+   * currently registered, when it last registered, and the last response Telnyx
+   * received from the registrar. Only `uac_external_credential` is supported today.
    */
   retrieve(
     query: SipRegistrationStatusRetrieveParams,
@@ -23,7 +23,17 @@ export class SipRegistrationStatus extends APIResource {
 
 export interface SipRegistrationStatusRetrieveResponse {
   /**
-   * Identifier of the resource.
+   * Raw external-side registration block reported by the registrar.
+   */
+  b2bua_external?: { [key: string]: unknown };
+
+  /**
+   * Raw internal-side block reported by the registrar.
+   */
+  b2bua_internal?: { [key: string]: unknown };
+
+  /**
+   * Identifier of the UAC connection.
    */
   connection_id?: string;
 
@@ -31,6 +41,16 @@ export interface SipRegistrationStatusRetrieveResponse {
    * Human-readable connection name.
    */
   connection_name?: string;
+
+  /**
+   * The credential type that was looked up.
+   */
+  credential_type?: 'uac_external_credential';
+
+  /**
+   * Registration state on the external (UAC / PBX) side, e.g. REGED.
+   */
+  external_state?: string;
 
   /**
    * Outward-facing SIP settings used for registration. Password is redacted.
@@ -58,7 +78,7 @@ export interface SipRegistrationStatusRetrieveResponse {
   registered?: boolean;
 
   /**
-   * Owner of the resource.
+   * Owner of the connection.
    */
   user_id?: string;
 
@@ -81,6 +101,9 @@ export namespace SipRegistrationStatusRetrieveResponse {
 
     outbound_proxy?: string;
 
+    /**
+     * Always redacted.
+     */
     password?: string;
 
     proxy?: string;
@@ -100,14 +123,15 @@ export namespace SipRegistrationStatusRetrieveResponse {
 
 export interface SipRegistrationStatusRetrieveParams {
   /**
-   * Identifier of the connection or credential to look up.
+   * Identifier of the UAC connection to look up.
    */
   connection_id: string;
 
   /**
-   * The kind of credential to look up.
+   * The kind of credential to look up. Only `uac_external_credential` is supported
+   * today.
    */
-  credential_type: 'uac_external_credential' | 'telephony_credential' | 'sip_credential_connection';
+  credential_type: 'uac_external_credential';
 
   /**
    * Owner of the connection. Used to authorize the lookup.

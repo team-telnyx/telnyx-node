@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.73.1 (2026-06-01)
+
+Full Changelog: [v6.73.0...v6.73.1](https://github.com/team-telnyx/telnyx-node/compare/v6.73.0...v6.73.1)
+
+### Bug Fixes
+
+* **sip-registration-status:** scope to phase 1 uac_third-party_credential ([3f0bbd3](https://github.com/team-telnyx/telnyx-node/commit/3f0bbd3524732240ad56df1a7cfd41a83e73f960))
+
 ## 6.73.0 (2026-05-29)
 
 Full Changelog: [v6.72.0...v6.73.0](https://github.com/team-telnyx/telnyx-node/compare/v6.72.0...v6.73.0)
