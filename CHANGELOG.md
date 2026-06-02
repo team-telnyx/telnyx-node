@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.74.0 (2026-06-02)
+
+Full Changelog: [v6.73.2...v6.74.0](https://github.com/team-telnyx/telnyx-node/compare/v6.73.2...v6.74.0)
+
+### Features
+
+* **sip-registration-status:** finalize phase 1 response shape with status mapping ([398af83](https://github.com/team-telnyx/telnyx-node/commit/398af83d69ab8fb3c5ac5f516d47c6ea4415b553))
+
 ## 6.73.2 (2026-06-02)
 
 Full Changelog: [v6.73.1...v6.73.2](https://github.com/team-telnyx/telnyx-node/compare/v6.73.1...v6.73.2)
