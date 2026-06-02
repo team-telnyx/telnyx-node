@@ -5,7 +5,7 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
 /**
- * Look up the live SIP registration status of a UAC connection.
+ * UAC connection operations
  */
 export class SipRegistrationStatus extends APIResource {
   /**

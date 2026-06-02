@@ -3002,7 +3002,7 @@ export class Telnyx {
    */
   voiceSDKCallReports: API.VoiceSDKCallReports = new API.VoiceSDKCallReports(this);
   /**
-   * Look up the live SIP registration status of a UAC connection.
+   * UAC connection operations
    */
   sipRegistrationStatus: API.SipRegistrationStatus = new API.SipRegistrationStatus(this);
 }
