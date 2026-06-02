@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.74.2 (2026-06-02)
+
+Full Changelog: [v6.74.1...v6.74.2](https://github.com/team-telnyx/telnyx-node/compare/v6.74.1...v6.74.2)
+
+### Bug Fixes
+
+* **sip-registration-status:** move operation under UAC Connections tag ([f72bbcc](https://github.com/team-telnyx/telnyx-node/commit/f72bbcc70a071b03d82475fc6eeaec2f640fc72b))
+
+
+### Documentation
+
+* **sip-registration-status:** rename operation summary to SIP Registration Status ([b774012](https://github.com/team-telnyx/telnyx-node/commit/b7740127ffd3f6f772d95b29dfed9505949a284f))
+
 ## 6.74.1 (2026-06-02)
 
 Full Changelog: [v6.74.0...v6.74.1](https://github.com/team-telnyx/telnyx-node/compare/v6.74.0...v6.74.1)
