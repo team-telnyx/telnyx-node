@@ -98,7 +98,7 @@ export namespace SipRegistrationStatusRetrieveResponse {
     /**
      * SIP URI user@host of the registered contact.
      */
-    sipUriUserHost?: string;
+    sip_uri_user_host?: string;
 
     /**
      * Registration uptime reported by the registrar.
