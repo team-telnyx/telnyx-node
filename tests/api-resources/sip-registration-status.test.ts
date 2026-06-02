@@ -13,7 +13,6 @@ describe('resource sipRegistrationStatus', () => {
     const responsePromise = client.sipRegistrationStatus.retrieve({
       connection_id: 'connection_id',
       credential_type: 'uac_external_credential',
-      user_id: 'user_id',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -29,7 +28,6 @@ describe('resource sipRegistrationStatus', () => {
     const response = await client.sipRegistrationStatus.retrieve({
       connection_id: 'connection_id',
       credential_type: 'uac_external_credential',
-      user_id: 'user_id',
     });
   });
 });

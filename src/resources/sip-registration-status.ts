@@ -132,11 +132,6 @@ export interface SipRegistrationStatusRetrieveParams {
    * today.
    */
   credential_type: 'uac_external_credential';
-
-  /**
-   * Owner of the connection. Used to authorize the lookup.
-   */
-  user_id: string;
 }
 
 export declare namespace SipRegistrationStatus {
