@@ -23,16 +23,6 @@ export class SipRegistrationStatus extends APIResource {
 
 export interface SipRegistrationStatusRetrieveResponse {
   /**
-   * Raw external-side registration block reported by the registrar.
-   */
-  b2bua_external?: { [key: string]: unknown };
-
-  /**
-   * Raw internal-side block reported by the registrar.
-   */
-  b2bua_internal?: { [key: string]: unknown };
-
-  /**
    * Identifier of the UAC connection.
    */
   connection_id?: string;
@@ -48,19 +38,9 @@ export interface SipRegistrationStatusRetrieveResponse {
   credential_type?: 'uac_external_credential';
 
   /**
-   * Registration state on the external (UAC / PBX) side, e.g. REGED.
+   * SIP username used for the registration.
    */
-  external_state?: string;
-
-  /**
-   * Outward-facing SIP settings used for registration. Password is redacted.
-   */
-  external_uac_settings?: SipRegistrationStatusRetrieveResponse.ExternalUacSettings;
-
-  /**
-   * Internal routing target the connection delivers calls to.
-   */
-  internal_uac_settings?: SipRegistrationStatusRetrieveResponse.InternalUacSettings;
+  credential_username?: string;
 
   /**
    * SIP response from the last registration attempt.
@@ -68,56 +48,62 @@ export interface SipRegistrationStatusRetrieveResponse {
   last_registration_response?: string;
 
   /**
-   * Internal pairing state, e.g. ACTIVE or INACTIVE.
-   */
-  pair_state?: string;
-
-  /**
    * True if the endpoint is currently registered.
    */
   registered?: boolean;
 
   /**
-   * Owner of the connection.
+   * Detailed registration information reported by the registrar.
    */
-  user_id?: string;
+  sip_registration_details?: SipRegistrationStatusRetrieveResponse.SipRegistrationDetails;
 
   /**
-   * SIP username used for the registration.
+   * Human-readable registration status derived from the registrar state.
    */
-  username?: string;
+  sip_registration_status?:
+    | 'unregistering'
+    | 'connection_disabled'
+    | 'standby'
+    | 'failed'
+    | 'trying'
+    | 'registered'
+    | 'unknown';
 }
 
 export namespace SipRegistrationStatusRetrieveResponse {
   /**
-   * Outward-facing SIP settings used for registration. Password is redacted.
+   * Detailed registration information reported by the registrar.
    */
-  export interface ExternalUacSettings {
-    auth_username?: string;
-
-    expiration_sec?: number;
-
-    from_user?: string;
-
-    outbound_proxy?: string;
+  export interface SipRegistrationDetails {
+    /**
+     * Number of authentication retries on the last attempt.
+     */
+    auth_retries?: number;
 
     /**
-     * Always redacted.
+     * Unix timestamp when the current registration expires.
      */
-    password?: string;
+    expires?: number;
 
-    proxy?: string;
+    /**
+     * Count of consecutive registration failures.
+     */
+    failures?: number;
 
-    transport?: 'TCP' | 'UDP' | 'TLS';
+    /**
+     * Unix timestamp of the next scheduled registration action.
+     */
+    next_action_at?: number;
 
-    username?: string;
-  }
+    /**
+     * SIP URI user@host of the registered contact.
+     */
+    sipUriUserHost?: string;
 
-  /**
-   * Internal routing target the connection delivers calls to.
-   */
-  export interface InternalUacSettings {
-    destination_uri?: string;
+    /**
+     * Registration uptime reported by the registrar.
+     */
+    uptime?: number;
   }
 }
 
