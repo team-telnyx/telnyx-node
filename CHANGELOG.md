@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.74.1 (2026-06-02)
+
+Full Changelog: [v6.74.0...v6.74.1](https://github.com/team-telnyx/telnyx-node/compare/v6.74.0...v6.74.1)
+
+### Bug Fixes
+
+* **sip-registration-status:** rename detail field to sip_uri_user_host ([bda8022](https://github.com/team-telnyx/telnyx-node/commit/bda802223c3dffd3727623ef4bbaf2d2cedb98a2))
+
 ## 6.74.0 (2026-06-02)
 
 Full Changelog: [v6.73.2...v6.74.0](https://github.com/team-telnyx/telnyx-node/compare/v6.73.2...v6.74.0)
