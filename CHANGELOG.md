@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.73.2 (2026-06-02)
+
+Full Changelog: [v6.73.1...v6.73.2](https://github.com/team-telnyx/telnyx-node/compare/v6.73.1...v6.73.2)
+
+### Bug Fixes
+
+* **sip-registration-status:** drop user_id query param ([09fddf4](https://github.com/team-telnyx/telnyx-node/commit/09fddf4ccc135f4aabb59712c3766f3bc491eee4))
+
 ## 6.73.1 (2026-06-01)
 
 Full Changelog: [v6.73.0...v6.73.1](https://github.com/team-telnyx/telnyx-node/compare/v6.73.0...v6.73.1)
