@@ -33,30 +33,52 @@ export class UserData extends APIResource {
   }
 }
 
-export interface WhatsappUserData {
-  created_at?: string;
-
-  record_type?: string;
-
-  updated_at?: string;
-
-  /**
-   * Failover URL to receive Whatsapp signup events
-   */
-  webhook_failover_url?: string;
-
-  /**
-   * URL to receive Whatsapp signup events
-   */
-  webhook_url?: string;
+export interface UserDataRetrieveResponse {
+  data?: UserDataRetrieveResponse.Data;
 }
 
-export interface UserDataRetrieveResponse {
-  data?: WhatsappUserData;
+export namespace UserDataRetrieveResponse {
+  export interface Data {
+    created_at?: string;
+
+    record_type?: string;
+
+    updated_at?: string;
+
+    /**
+     * Failover URL to receive Whatsapp signup events
+     */
+    webhook_failover_url?: string;
+
+    /**
+     * URL to receive Whatsapp signup events
+     */
+    webhook_url?: string;
+  }
 }
 
 export interface UserDataUpdateResponse {
-  data?: WhatsappUserData;
+  data?: UserDataUpdateResponse.Data;
+}
+
+export namespace UserDataUpdateResponse {
+  export interface Data {
+    created_at?: string;
+
+    record_type?: string;
+
+    updated_at?: string;
+
+    /**
+     * Failover URL to receive Whatsapp signup events
+     */
+    webhook_failover_url?: string;
+
+    /**
+     * URL to receive Whatsapp signup events
+     */
+    webhook_url?: string;
+  }
 }
 
 export interface UserDataUpdateParams {
@@ -73,7 +95,6 @@ export interface UserDataUpdateParams {
 
 export declare namespace UserData {
   export {
-    type WhatsappUserData as WhatsappUserData,
     type UserDataRetrieveResponse as UserDataRetrieveResponse,
     type UserDataUpdateResponse as UserDataUpdateResponse,
     type UserDataUpdateParams as UserDataUpdateParams,

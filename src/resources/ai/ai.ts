@@ -176,12 +176,12 @@ export class AI extends APIResource {
    *
    * @deprecated
    */
-  createResponse(
-    params: AICreateResponseParams,
+  createResponseDeprecated(
+    params: AICreateResponseDeprecatedParams,
     options?: RequestOptions,
-  ): APIPromise<AICreateResponseResponse> {
-    const { input } = params;
-    return this._client.post('/ai/responses', { body: input, ...options });
+  ): APIPromise<AICreateResponseDeprecatedResponse> {
+    const { body } = params;
+    return this._client.post('/ai/responses', { body: body, ...options });
   }
 
   /**
@@ -355,7 +355,7 @@ export interface ModelMetadata {
   task?: string;
 }
 
-export type AICreateResponseResponse = { [key: string]: unknown };
+export type AICreateResponseDeprecatedResponse = { [key: string]: unknown };
 
 export interface AIRetrieveModelsResponse {
   data: Array<ModelMetadata>;
@@ -373,8 +373,8 @@ export namespace AISummarizeResponse {
   }
 }
 
-export interface AICreateResponseParams {
-  input: { [key: string]: unknown };
+export interface AICreateResponseDeprecatedParams {
+  body: { [key: string]: unknown };
 }
 
 export interface AISummarizeParams {
@@ -410,10 +410,10 @@ AI.Tools = Tools;
 export declare namespace AI {
   export {
     type ModelMetadata as ModelMetadata,
-    type AICreateResponseResponse as AICreateResponseResponse,
+    type AICreateResponseDeprecatedResponse as AICreateResponseDeprecatedResponse,
     type AIRetrieveModelsResponse as AIRetrieveModelsResponse,
     type AISummarizeResponse as AISummarizeResponse,
-    type AICreateResponseParams as AICreateResponseParams,
+    type AICreateResponseDeprecatedParams as AICreateResponseDeprecatedParams,
     type AISummarizeParams as AISummarizeParams,
   };
 

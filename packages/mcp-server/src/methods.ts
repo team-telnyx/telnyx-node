@@ -373,8 +373,8 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/advanced_orders/{advanced-order-id}/requirement_group',
   },
   {
-    clientCallName: 'client.ai.createResponse',
-    fullyQualifiedName: 'ai.createResponse',
+    clientCallName: 'client.ai.createResponseDeprecated',
+    fullyQualifiedName: 'ai.createResponseDeprecated',
     httpMethod: 'post',
     httpPath: '/ai/responses',
   },
@@ -4171,13 +4171,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/reports/mdr_usage_reports/sync',
   },
   {
-    clientCallName: 'client.speechToText.listProviders',
-    fullyQualifiedName: 'speechToText.listProviders',
-    httpMethod: 'get',
-    httpPath: '/speech-to-text/providers',
-  },
-  { clientCallName: 'client.speechToText.transcribe', fullyQualifiedName: 'speechToText.transcribe' },
-  {
     clientCallName: 'client.requirementGroups.create',
     fullyQualifiedName: 'requirementGroups.create',
     httpMethod: 'post',
@@ -5081,15 +5074,9 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/texml_applications/{id}',
   },
   {
-    clientCallName: 'client.textToSpeech.createSpeech',
-    fullyQualifiedName: 'textToSpeech.createSpeech',
+    clientCallName: 'client.textToSpeech.generate',
+    fullyQualifiedName: 'textToSpeech.generate',
     httpMethod: 'post',
-    httpPath: '/text-to-speech/speech',
-  },
-  {
-    clientCallName: 'client.textToSpeech.generateSpeech',
-    fullyQualifiedName: 'textToSpeech.generateSpeech',
-    httpMethod: 'get',
     httpPath: '/text-to-speech/speech',
   },
   {
@@ -6300,6 +6287,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/uac_connections/{id}/actions/check_registration_status',
   },
   {
+    clientCallName: 'client.sipRegistrationStatus.retrieve',
+    fullyQualifiedName: 'sipRegistrationStatus.retrieve',
+    httpMethod: 'get',
+    httpPath: '/sip_registration_status',
+  },
+  {
+    clientCallName: 'client.speechToText.listProviders',
+    fullyQualifiedName: 'speechToText.listProviders',
+    httpMethod: 'get',
+    httpPath: '/speech-to-text/providers',
+  },
+  {
     clientCallName: 'client.voiceSDKCallReports.retrieve',
     fullyQualifiedName: 'voiceSDKCallReports.retrieve',
     httpMethod: 'get',
@@ -6310,12 +6309,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'voiceSDKCallReports.list',
     httpMethod: 'get',
     httpPath: '/voice_sdk_call_reports',
-  },
-  {
-    clientCallName: 'client.sipRegistrationStatus.retrieve',
-    fullyQualifiedName: 'sipRegistrationStatus.retrieve',
-    httpMethod: 'get',
-    httpPath: '/sip_registration_status',
   },
 ];
 

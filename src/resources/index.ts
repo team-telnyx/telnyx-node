@@ -4,10 +4,10 @@ export * from './shared';
 export {
   AI,
   type ModelMetadata,
-  type AICreateResponseResponse,
+  type AICreateResponseDeprecatedResponse,
   type AIRetrieveModelsResponse,
   type AISummarizeResponse,
-  type AICreateResponseParams,
+  type AICreateResponseDeprecatedParams,
   type AISummarizeParams,
 } from './ai/ai';
 export {
@@ -132,8 +132,6 @@ export {
 export {
   Calls,
   type CallAssistantRequest,
-  type ConversationRelayInterruptionSettings,
-  type ConversationRelayLanguage,
   type CustomSipHeader,
   type DialogflowConfig,
   type SipHeader,
@@ -1179,8 +1177,6 @@ export {
 export {
   SpeechToText,
   type SpeechToTextListProvidersResponse,
-  type TranscribeClientEvent,
-  type TranscribeServerEvent,
   type SpeechToTextListProvidersParams,
 } from './speech-to-text';
 export { Storage, type StorageListMigrationSourceCoverageResponse } from './storage/storage';
@@ -1241,12 +1237,11 @@ export {
 } from './texml-applications';
 export {
   TextToSpeech,
-  type TextToSpeechCreateSpeechResponse,
+  type TextToSpeechGenerateResponse,
   type TextToSpeechListVoicesResponse,
   type StreamClientEvent,
   type StreamServerEvent,
-  type TextToSpeechCreateSpeechParams,
-  type TextToSpeechGenerateSpeechParams,
+  type TextToSpeechGenerateParams,
   type TextToSpeechListVoicesParams,
 } from './text-to-speech';
 export {
@@ -1378,7 +1373,6 @@ export {
 } from './voice-designs';
 export {
   VoiceSDKCallReports,
-  type VoiceSDKCallReportLogEntry,
   type VoiceSDKCallReportRetrieveResponse,
   type VoiceSDKCallReportListResponse,
   type VoiceSDKCallReportListParams,
