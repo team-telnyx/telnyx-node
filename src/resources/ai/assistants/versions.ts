@@ -489,10 +489,9 @@ export namespace UpdateAssistant {
 
       /**
        * Condition that gates the transition. Discriminated by `type`: `llm`,
-       * `expression`, or `tool_result`. A `tool_result` condition is only valid on an
-       * edge leaving a tool node.
+       * `expression`.
        */
-      condition: Edge.LlmCondition | Edge.ExpressionCondition | Edge.ToolResultCondition;
+      condition: Edge.LlmCondition | Edge.ExpressionCondition;
 
       /**
        * ID of the node this edge transitions away from.
@@ -955,25 +954,6 @@ export namespace UpdateAssistant {
            */
           value: boolean;
         }
-      }
-
-      /**
-       * Edge condition that fires on the outcome of a tool node's execution.
-       *
-       * Only valid on edges leaving a tool node (`type == "tool"`). A tool node runs
-       * exactly one tool as a deliberate flow step; this condition routes on whether
-       * that tool reported `success` or `failure`. Use it to split the happy path from
-       * the error path after a tool runs (e.g. payment succeeded vs. declined). There is
-       * no `tool_id` field — the tool node has a single tool, so the outcome is
-       * unambiguous.
-       */
-      export interface ToolResultCondition {
-        /**
-         * Match either the tool node's success or failure outcome.
-         */
-        outcome: 'success' | 'failure';
-
-        type: 'tool_result';
       }
 
       /**
@@ -1477,10 +1457,9 @@ export namespace VersionUpdateParams {
 
       /**
        * Condition that gates the transition. Discriminated by `type`: `llm`,
-       * `expression`, or `tool_result`. A `tool_result` condition is only valid on an
-       * edge leaving a tool node.
+       * `expression`.
        */
-      condition: Edge.LlmCondition | Edge.ExpressionCondition | Edge.ToolResultCondition;
+      condition: Edge.LlmCondition | Edge.ExpressionCondition;
 
       /**
        * ID of the node this edge transitions away from.
@@ -1943,25 +1922,6 @@ export namespace VersionUpdateParams {
            */
           value: boolean;
         }
-      }
-
-      /**
-       * Edge condition that fires on the outcome of a tool node's execution.
-       *
-       * Only valid on edges leaving a tool node (`type == "tool"`). A tool node runs
-       * exactly one tool as a deliberate flow step; this condition routes on whether
-       * that tool reported `success` or `failure`. Use it to split the happy path from
-       * the error path after a tool runs (e.g. payment succeeded vs. declined). There is
-       * no `tool_id` field — the tool node has a single tool, so the outcome is
-       * unambiguous.
-       */
-      export interface ToolResultCondition {
-        /**
-         * Match either the tool node's success or failure outcome.
-         */
-        outcome: 'success' | 'failure';
-
-        type: 'tool_result';
       }
 
       /**
