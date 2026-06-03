@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as AssistantsAPI from './assistants';
 import * as Shared from '../../shared';
 import * as ChatAPI from '../chat';
 import * as CanaryDeploysAPI from './canary-deploys';
@@ -1004,6 +1005,11 @@ export interface InferenceEmbedding {
 
   name: string;
 
+  /**
+   * Conversation flow as returned by the API.
+   */
+  conversation_flow?: InferenceEmbedding.ConversationFlow;
+
   description?: string;
 
   /**
@@ -1145,6 +1151,781 @@ export interface InferenceEmbedding {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
+}
+
+export namespace InferenceEmbedding {
+  /**
+   * Conversation flow as returned by the API.
+   */
+  export interface ConversationFlow {
+    /**
+     * All nodes in the flow.
+     */
+    nodes: Array<ConversationFlow.FlowNode | ConversationFlow.ToolNode>;
+
+    /**
+     * ID of the node where the conversation begins.
+     */
+    start_node_id: string;
+
+    /**
+     * Directed transitions between nodes.
+     */
+    edges?: Array<ConversationFlow.Edge>;
+  }
+
+  export namespace ConversationFlow {
+    /**
+     * One step in a conversation flow, as returned by the API.
+     */
+    export interface FlowNode {
+      /**
+       * Caller-supplied unique identifier for this node within the flow.
+       */
+      id: string;
+
+      /**
+       * Prompt that drives the LLM while this node is active. Required.
+       */
+      instructions: string;
+
+      /**
+       * Override for `Assistant.external_llm` while this node is active. Use this to
+       * route a node's turns to a different external LLM (different `model`, `base_url`,
+       * credentials). Part of the LLM bundle — see `model` for cascade semantics.
+       * Mutually exclusive with `model` on the node (a single LLM identity per node).
+       */
+      external_llm?: AssistantsAPI.ExternalLlm;
+
+      /**
+       * How `instructions` combine with the assistant-level instructions. `replace`
+       * (default): the node's instructions are used alone. `append`: the node's
+       * instructions are concatenated after the assistant's instructions.
+       */
+      instructions_mode?: 'replace' | 'append';
+
+      /**
+       * Override for `Assistant.llm_api_key_ref` while this node is active. Part of the
+       * LLM bundle — see `model` for cascade semantics.
+       */
+      llm_api_key_ref?: string;
+
+      /**
+       * Override for `Assistant.model` while this node is active. Part of the LLM bundle
+       * (`model` + `llm_api_key_ref` + `external_llm`): when any of the three is set on
+       * the node, all three are taken from the node and the assistant-level LLM identity
+       * is not consulted. When none of the three is set, the assistant's bundle cascades
+       * unchanged.
+       */
+      model?: string;
+
+      /**
+       * Optional human-readable label, displayed in authoring UIs.
+       */
+      name?: string;
+
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      position?: FlowNode.Position;
+
+      /**
+       * IDs of shared (org-level) tools available at this node. Knowledge bases are
+       * attached the same way — via a shared retrieval tool. Tools not listed here are
+       * not callable while this node is active.
+       */
+      shared_tool_ids?: Array<string>;
+
+      /**
+       * Full tool definitions for this node, resolved from `shared_tool_ids`
+       * server-side. Populated on responses so clients can render the flow without a
+       * follow-up fetch per shared tool. Ignored on input — set `shared_tool_ids` to
+       * configure a node's tools.
+       */
+      tools?: Array<Array<AssistantsAPI.AssistantTool>>;
+
+      /**
+       * How `shared_tool_ids` combine with the assistant-level tool set. `replace`
+       * (default): only the node's tools are callable. `append`: the node's tools are
+       * added to the assistant's tools. Ignored when `shared_tool_ids` is null.
+       */
+      tools_mode?: 'replace' | 'append';
+
+      /**
+       * Per-node transcription override (response form).
+       */
+      transcription?: AssistantsAPI.TranscriptionSettings;
+
+      /**
+       * Node kind discriminator. `prompt` is an LLM-driven step.
+       */
+      type?: 'prompt';
+
+      /**
+       * Per-node voice override (response form).
+       */
+      voice_settings?: AssistantsAPI.VoiceSettings;
+    }
+
+    export namespace FlowNode {
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      export interface Position {
+        /**
+         * Horizontal coordinate in the authoring canvas.
+         */
+        x: number;
+
+        /**
+         * Vertical coordinate in the authoring canvas.
+         */
+        y: number;
+      }
+    }
+
+    /**
+     * A standalone tool step in a conversation flow, as returned by the API.
+     */
+    export interface ToolNode {
+      /**
+       * Caller-supplied unique identifier for this node within the flow.
+       */
+      id: string;
+
+      /**
+       * ID of the single shared (org-level) tool this node executes. When the flow
+       * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
+       * `tool_result` edges then route on the outcome. Arguments are filled from the
+       * conversation's dynamic variables by name — a dynamic variable whose name matches
+       * one of the tool's parameters supplies that argument. Cross-validated against the
+       * org's shared tools on write.
+       */
+      shared_tool_id: string;
+
+      /**
+       * Optional human-readable label, displayed in authoring UIs.
+       */
+      name?: string;
+
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      position?: ToolNode.Position;
+
+      /**
+       * Full tool definition resolved from `shared_tool_id` server-side. Populated on
+       * responses so clients can render the node without a follow-up fetch. Ignored on
+       * input — set `shared_tool_id`.
+       */
+      tool?: Array<AssistantsAPI.AssistantTool>;
+
+      /**
+       * Node kind discriminator. Always `tool` for a tool node.
+       */
+      type?: 'tool';
+    }
+
+    export namespace ToolNode {
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      export interface Position {
+        /**
+         * Horizontal coordinate in the authoring canvas.
+         */
+        x: number;
+
+        /**
+         * Vertical coordinate in the authoring canvas.
+         */
+        y: number;
+      }
+    }
+
+    /**
+     * Directed transition from one node to a target, gated by a condition.
+     *
+     * The target is either another node in the same flow (`NodeTarget`) or a different
+     * assistant (`AssistantTarget`). Multiple edges may share a `start_node_id`; the
+     * runtime evaluates them in the order they're declared and takes the first whose
+     * condition is true.
+     */
+    export interface Edge {
+      /**
+       * Caller-supplied unique identifier for this edge within the flow.
+       */
+      id: string;
+
+      /**
+       * Condition that gates the transition. Discriminated by `type`: `llm`,
+       * `expression`, or `tool_result`. A `tool_result` condition is only valid on an
+       * edge leaving a tool node.
+       */
+      condition: Edge.LlmCondition | Edge.ExpressionCondition | Edge.ToolResultCondition;
+
+      /**
+       * ID of the node this edge transitions away from.
+       */
+      start_node_id: string;
+
+      /**
+       * Destination of the transition. Discriminated by `type`: `node` (jump to another
+       * node in this flow) or `assistant` (hand off to a different assistant).
+       */
+      target: Edge.NodeTarget | Edge.AssistantTarget;
+    }
+
+    export namespace Edge {
+      /**
+       * Edge condition evaluated by the LLM from a natural-language prompt.
+       *
+       * The model is asked to judge the prompt against conversation context and returns
+       * true/false. Use this for fuzzy intents that aren't expressible as a
+       * deterministic expression (e.g. 'user wants to escalate to a human').
+       */
+      export interface LlmCondition {
+        /**
+         * Natural-language criterion the LLM judges as true/false.
+         */
+        prompt: string;
+
+        type: 'llm';
+      }
+
+      /**
+       * Edge condition evaluated as a deterministic expression AST.
+       *
+       * The expression is computed against runtime dynamic variables and must evaluate
+       * to a boolean. Prefer this over `LLMCondition` when the rule is a clean function
+       * of known variables — it's cheaper and predictable.
+       */
+      export interface ExpressionCondition {
+        /**
+         * Root of the expression AST. Must evaluate to a boolean.
+         */
+        expression:
+          | ExpressionCondition.ComparisonExpression
+          | ExpressionCondition.BooleanOpExpression
+          | ExpressionCondition.ArithmeticExpression
+          | ExpressionCondition.DynamicVariableExpression
+          | ExpressionCondition.StringLiteralExpression
+          | ExpressionCondition.NumberLiteralExpression
+          | ExpressionCondition.BooleanLiteralExpression;
+
+        type: 'expression';
+      }
+
+      export namespace ExpressionCondition {
+        /**
+         * Compare two sub-expressions with a relational or membership operator.
+         *
+         * Evaluates to a boolean. Used in edge conditions to gate transitions on runtime
+         * values, e.g. `user_age >= 18` or `tier == "gold"`.
+         */
+        export interface ComparisonExpression {
+          /**
+           * Left-hand operand sub-expression.
+           */
+          left:
+            | unknown
+            | ComparisonExpression.DynamicVariableExpression
+            | ComparisonExpression.StringLiteralExpression
+            | ComparisonExpression.NumberLiteralExpression
+            | ComparisonExpression.BooleanLiteralExpression;
+
+          /**
+           * Relational/membership operator. `contains` / `not_contains` apply to strings
+           * (substring) and arrays (membership).
+           */
+          op: '==' | '!=' | '<' | '<=' | '>' | '>=' | 'contains' | 'not_contains';
+
+          /**
+           * Right-hand operand sub-expression.
+           */
+          right:
+            | unknown
+            | ComparisonExpression.DynamicVariableExpression
+            | ComparisonExpression.StringLiteralExpression
+            | ComparisonExpression.NumberLiteralExpression
+            | ComparisonExpression.BooleanLiteralExpression;
+
+          type: 'comparison';
+        }
+
+        export namespace ComparisonExpression {
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+        }
+
+        /**
+         * Combine sub-expressions with a logical operator (`and` / `or` / `not`).
+         *
+         * `and` and `or` accept two or more operands; `not` accepts exactly one.
+         */
+        export interface BooleanOpExpression {
+          /**
+           * Logical operator. `not` is unary; `and`/`or` are n-ary (>=2).
+           */
+          op: 'and' | 'or' | 'not';
+
+          /**
+           * Operand sub-expressions. Length must be exactly 1 for `not` and >= 2 for
+           * `and`/`or`.
+           */
+          operands: Array<
+            | unknown
+            | BooleanOpExpression.DynamicVariableExpression
+            | BooleanOpExpression.StringLiteralExpression
+            | BooleanOpExpression.NumberLiteralExpression
+            | BooleanOpExpression.BooleanLiteralExpression
+          >;
+
+          type: 'bool_op';
+        }
+
+        export namespace BooleanOpExpression {
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+        }
+
+        /**
+         * Numeric expression: applies an arithmetic operator to two sub-expressions.
+         *
+         * Useful for derived numeric checks, e.g. `cart_total + shipping > 50`. Both
+         * operands should resolve to numbers at runtime.
+         */
+        export interface ArithmeticExpression {
+          /**
+           * Left-hand operand sub-expression.
+           */
+          left:
+            | unknown
+            | ArithmeticExpression.DynamicVariableExpression
+            | ArithmeticExpression.StringLiteralExpression
+            | ArithmeticExpression.NumberLiteralExpression
+            | ArithmeticExpression.BooleanLiteralExpression;
+
+          /**
+           * Arithmetic operator applied to `left` and `right`.
+           */
+          op: '+' | '-' | '*' | '/' | '%';
+
+          /**
+           * Right-hand operand sub-expression.
+           */
+          right:
+            | unknown
+            | ArithmeticExpression.DynamicVariableExpression
+            | ArithmeticExpression.StringLiteralExpression
+            | ArithmeticExpression.NumberLiteralExpression
+            | ArithmeticExpression.BooleanLiteralExpression;
+
+          type: 'arithmetic';
+        }
+
+        export namespace ArithmeticExpression {
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+        }
+
+        /**
+         * Reference a dynamic variable by name.
+         *
+         * Resolved at runtime from the assistant's dynamic-variables context (see
+         * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+         */
+        export interface DynamicVariableExpression {
+          /**
+           * Variable name to look up in the runtime context.
+           */
+          name: string;
+
+          type: 'variable';
+        }
+
+        /**
+         * Constant string value.
+         */
+        export interface StringLiteralExpression {
+          type: 'string_literal';
+
+          /**
+           * Literal string value.
+           */
+          value: string;
+        }
+
+        /**
+         * Constant numeric value (float; integers are accepted and stored as float).
+         */
+        export interface NumberLiteralExpression {
+          type: 'number_literal';
+
+          /**
+           * Literal numeric value.
+           */
+          value: number;
+        }
+
+        /**
+         * Constant boolean value. Useful for unconditional ('always') edges.
+         */
+        export interface BooleanLiteralExpression {
+          type: 'bool_literal';
+
+          /**
+           * Literal boolean value.
+           */
+          value: boolean;
+        }
+      }
+
+      /**
+       * Edge condition that fires on the outcome of a tool node's execution.
+       *
+       * Only valid on edges leaving a tool node (`type == "tool"`). A tool node runs
+       * exactly one tool as a deliberate flow step; this condition routes on whether
+       * that tool reported `success` or `failure`. Use it to split the happy path from
+       * the error path after a tool runs (e.g. payment succeeded vs. declined). There is
+       * no `tool_id` field — the tool node has a single tool, so the outcome is
+       * unambiguous.
+       */
+      export interface ToolResultCondition {
+        /**
+         * Match either the tool node's success or failure outcome.
+         */
+        outcome: 'success' | 'failure';
+
+        type: 'tool_result';
+      }
+
+      /**
+       * Edge target referencing another node within the same flow.
+       *
+       * The runtime transitions the active node to `node_id` and continues processing
+       * within the current assistant's flow.
+       */
+      export interface NodeTarget {
+        /**
+         * ID of the node this edge transitions into.
+         */
+        node_id: string;
+
+        type: 'node';
+      }
+
+      /**
+       * Edge target referencing a different assistant.
+       *
+       * When the edge fires, the conversation hands off to `assistant_id`: the active
+       * assistant on the conversation row is rewritten and the new assistant's flow
+       * starts at its own `start_node_id`. The current turn's LLM response is delivered
+       * to the user as-is; subsequent turns route to the new assistant.
+       */
+      export interface AssistantTarget {
+        /**
+         * ID of the assistant the conversation transitions to.
+         */
+        assistant_id: string;
+
+        type: 'assistant';
+
+        /**
+         * Optional canvas coordinates for rendering the target assistant as a node in
+         * authoring UIs. Pure presentation — the runtime ignores it; round-trips so
+         * frontends can persist graph layout across reloads. When multiple edges target
+         * the same assistant, each edge's `position` is independent (frontends typically
+         * use the first non-null one).
+         */
+        position?: AssistantTarget.Position;
+
+        /**
+         * Voice behavior when handing off to the target assistant, mirroring the handoff
+         * tool's `voice_mode`. `unified` (default) keeps the current voice across the
+         * handoff; `distinct` lets the target assistant speak with its own configured
+         * voice. Only applies to assistant targets — node targets override voice via the
+         * node's own `voice_settings`.
+         */
+        voice_mode?: 'unified' | 'distinct';
+      }
+
+      export namespace AssistantTarget {
+        /**
+         * Optional canvas coordinates for rendering the target assistant as a node in
+         * authoring UIs. Pure presentation — the runtime ignores it; round-trips so
+         * frontends can persist graph layout across reloads. When multiple edges target
+         * the same assistant, each edge's `position` is independent (frontends typically
+         * use the first non-null one).
+         */
+        export interface Position {
+          /**
+           * Horizontal coordinate in the authoring canvas.
+           */
+          x: number;
+
+          /**
+           * Vertical coordinate in the authoring canvas.
+           */
+          y: number;
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -2268,6 +3049,15 @@ export interface AssistantCreateParams {
 
   name: string;
 
+  /**
+   * Conversation flow as supplied by API clients (create / update).
+   *
+   * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
+   * unique node/edge IDs, that `start_node_id` references a real node, and that
+   * every edge's endpoints reference real nodes.
+   */
+  conversation_flow?: AssistantCreateParams.ConversationFlow;
+
   description?: string;
 
   /**
@@ -2403,6 +3193,782 @@ export interface AssistantCreateParams {
   widget_settings?: WidgetSettings;
 }
 
+export namespace AssistantCreateParams {
+  /**
+   * Conversation flow as supplied by API clients (create / update).
+   *
+   * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
+   * unique node/edge IDs, that `start_node_id` references a real node, and that
+   * every edge's endpoints reference real nodes.
+   */
+  export interface ConversationFlow {
+    /**
+     * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node
+     * (`type: prompt`) or a tool node (`type: tool`).
+     */
+    nodes: Array<ConversationFlow.FlowNodeReq | ConversationFlow.ToolNodeReq>;
+
+    /**
+     * ID of the node where the conversation begins.
+     */
+    start_node_id: string;
+
+    /**
+     * Directed transitions between nodes. May be empty for a single-node flow.
+     */
+    edges?: Array<ConversationFlow.Edge>;
+  }
+
+  export namespace ConversationFlow {
+    /**
+     * One step in a conversation flow, as supplied by API clients.
+     *
+     * Each node carries the prompt, tool scope, and optional overrides for
+     * model/voice/transcription. Unset overrides cascade from the assistant.
+     */
+    export interface FlowNodeReq {
+      /**
+       * Caller-supplied unique identifier for this node within the flow.
+       */
+      id: string;
+
+      /**
+       * Prompt that drives the LLM while this node is active. Required.
+       */
+      instructions: string;
+
+      /**
+       * Override for `Assistant.external_llm` while this node is active. Use this to
+       * route a node's turns to a different external LLM (different `model`, `base_url`,
+       * credentials). Part of the LLM bundle — see `model` for cascade semantics.
+       * Mutually exclusive with `model` on the node (a single LLM identity per node).
+       */
+      external_llm?: AssistantsAPI.ExternalLlmReq;
+
+      /**
+       * How `instructions` combine with the assistant-level instructions. `replace`
+       * (default): the node's instructions are used alone. `append`: the node's
+       * instructions are concatenated after the assistant's instructions.
+       */
+      instructions_mode?: 'replace' | 'append';
+
+      /**
+       * Override for `Assistant.llm_api_key_ref` while this node is active. Part of the
+       * LLM bundle — see `model` for cascade semantics.
+       */
+      llm_api_key_ref?: string;
+
+      /**
+       * Override for `Assistant.model` while this node is active. Part of the LLM bundle
+       * (`model` + `llm_api_key_ref` + `external_llm`): when any of the three is set on
+       * the node, all three are taken from the node and the assistant-level LLM identity
+       * is not consulted. When none of the three is set, the assistant's bundle cascades
+       * unchanged.
+       */
+      model?: string;
+
+      /**
+       * Optional human-readable label, displayed in authoring UIs.
+       */
+      name?: string;
+
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      position?: FlowNodeReq.Position;
+
+      /**
+       * IDs of shared (org-level) tools available at this node. Knowledge bases are
+       * attached the same way — via a shared retrieval tool. Tools not listed here are
+       * not callable while this node is active.
+       */
+      shared_tool_ids?: Array<string>;
+
+      /**
+       * How `shared_tool_ids` combine with the assistant-level tool set. `replace`
+       * (default): only the node's tools are callable. `append`: the node's tools are
+       * added to the assistant's tools. Ignored when `shared_tool_ids` is null.
+       */
+      tools_mode?: 'replace' | 'append';
+
+      /**
+       * Per-node transcription override (model/language/region). Unset fields cascade
+       * from the assistant-level transcription.
+       */
+      transcription?: AssistantsAPI.TranscriptionSettings;
+
+      /**
+       * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a
+       * standalone tool execution (see `ToolNodeReq`).
+       */
+      type?: 'prompt';
+
+      /**
+       * Per-node voice override. Only fields set here override the assistant-level voice
+       * settings; unset fields cascade.
+       */
+      voice_settings?: AssistantsAPI.VoiceSettings;
+    }
+
+    export namespace FlowNodeReq {
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      export interface Position {
+        /**
+         * Horizontal coordinate in the authoring canvas.
+         */
+        x: number;
+
+        /**
+         * Vertical coordinate in the authoring canvas.
+         */
+        y: number;
+      }
+    }
+
+    /**
+     * A standalone tool step in a conversation flow, as supplied by clients.
+     *
+     * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
+     * turn. Reaching it deterministically runs one shared tool (arguments filled from
+     * matching dynamic variables by name), then routes on the result via outgoing
+     * `tool_result` edges.
+     */
+    export interface ToolNodeReq {
+      /**
+       * Caller-supplied unique identifier for this node within the flow.
+       */
+      id: string;
+
+      /**
+       * ID of the single shared (org-level) tool this node executes. When the flow
+       * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
+       * `tool_result` edges then route on the outcome. Arguments are filled from the
+       * conversation's dynamic variables by name — a dynamic variable whose name matches
+       * one of the tool's parameters supplies that argument. Cross-validated against the
+       * org's shared tools on write.
+       */
+      shared_tool_id: string;
+
+      /**
+       * Optional human-readable label, displayed in authoring UIs.
+       */
+      name?: string;
+
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      position?: ToolNodeReq.Position;
+
+      /**
+       * Node kind discriminator. Always `tool` for a tool node.
+       */
+      type?: 'tool';
+    }
+
+    export namespace ToolNodeReq {
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      export interface Position {
+        /**
+         * Horizontal coordinate in the authoring canvas.
+         */
+        x: number;
+
+        /**
+         * Vertical coordinate in the authoring canvas.
+         */
+        y: number;
+      }
+    }
+
+    /**
+     * Directed transition from one node to a target, gated by a condition.
+     *
+     * The target is either another node in the same flow (`NodeTarget`) or a different
+     * assistant (`AssistantTarget`). Multiple edges may share a `start_node_id`; the
+     * runtime evaluates them in the order they're declared and takes the first whose
+     * condition is true.
+     */
+    export interface Edge {
+      /**
+       * Caller-supplied unique identifier for this edge within the flow.
+       */
+      id: string;
+
+      /**
+       * Condition that gates the transition. Discriminated by `type`: `llm`,
+       * `expression`, or `tool_result`. A `tool_result` condition is only valid on an
+       * edge leaving a tool node.
+       */
+      condition: Edge.LlmCondition | Edge.ExpressionCondition | Edge.ToolResultCondition;
+
+      /**
+       * ID of the node this edge transitions away from.
+       */
+      start_node_id: string;
+
+      /**
+       * Destination of the transition. Discriminated by `type`: `node` (jump to another
+       * node in this flow) or `assistant` (hand off to a different assistant).
+       */
+      target: Edge.NodeTarget | Edge.AssistantTarget;
+    }
+
+    export namespace Edge {
+      /**
+       * Edge condition evaluated by the LLM from a natural-language prompt.
+       *
+       * The model is asked to judge the prompt against conversation context and returns
+       * true/false. Use this for fuzzy intents that aren't expressible as a
+       * deterministic expression (e.g. 'user wants to escalate to a human').
+       */
+      export interface LlmCondition {
+        /**
+         * Natural-language criterion the LLM judges as true/false.
+         */
+        prompt: string;
+
+        type: 'llm';
+      }
+
+      /**
+       * Edge condition evaluated as a deterministic expression AST.
+       *
+       * The expression is computed against runtime dynamic variables and must evaluate
+       * to a boolean. Prefer this over `LLMCondition` when the rule is a clean function
+       * of known variables — it's cheaper and predictable.
+       */
+      export interface ExpressionCondition {
+        /**
+         * Root of the expression AST. Must evaluate to a boolean.
+         */
+        expression:
+          | ExpressionCondition.ComparisonExpression
+          | ExpressionCondition.BooleanOpExpression
+          | ExpressionCondition.ArithmeticExpression
+          | ExpressionCondition.DynamicVariableExpression
+          | ExpressionCondition.StringLiteralExpression
+          | ExpressionCondition.NumberLiteralExpression
+          | ExpressionCondition.BooleanLiteralExpression;
+
+        type: 'expression';
+      }
+
+      export namespace ExpressionCondition {
+        /**
+         * Compare two sub-expressions with a relational or membership operator.
+         *
+         * Evaluates to a boolean. Used in edge conditions to gate transitions on runtime
+         * values, e.g. `user_age >= 18` or `tier == "gold"`.
+         */
+        export interface ComparisonExpression {
+          /**
+           * Left-hand operand sub-expression.
+           */
+          left:
+            | unknown
+            | ComparisonExpression.DynamicVariableExpression
+            | ComparisonExpression.StringLiteralExpression
+            | ComparisonExpression.NumberLiteralExpression
+            | ComparisonExpression.BooleanLiteralExpression;
+
+          /**
+           * Relational/membership operator. `contains` / `not_contains` apply to strings
+           * (substring) and arrays (membership).
+           */
+          op: '==' | '!=' | '<' | '<=' | '>' | '>=' | 'contains' | 'not_contains';
+
+          /**
+           * Right-hand operand sub-expression.
+           */
+          right:
+            | unknown
+            | ComparisonExpression.DynamicVariableExpression
+            | ComparisonExpression.StringLiteralExpression
+            | ComparisonExpression.NumberLiteralExpression
+            | ComparisonExpression.BooleanLiteralExpression;
+
+          type: 'comparison';
+        }
+
+        export namespace ComparisonExpression {
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+        }
+
+        /**
+         * Combine sub-expressions with a logical operator (`and` / `or` / `not`).
+         *
+         * `and` and `or` accept two or more operands; `not` accepts exactly one.
+         */
+        export interface BooleanOpExpression {
+          /**
+           * Logical operator. `not` is unary; `and`/`or` are n-ary (>=2).
+           */
+          op: 'and' | 'or' | 'not';
+
+          /**
+           * Operand sub-expressions. Length must be exactly 1 for `not` and >= 2 for
+           * `and`/`or`.
+           */
+          operands: Array<
+            | unknown
+            | BooleanOpExpression.DynamicVariableExpression
+            | BooleanOpExpression.StringLiteralExpression
+            | BooleanOpExpression.NumberLiteralExpression
+            | BooleanOpExpression.BooleanLiteralExpression
+          >;
+
+          type: 'bool_op';
+        }
+
+        export namespace BooleanOpExpression {
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+        }
+
+        /**
+         * Numeric expression: applies an arithmetic operator to two sub-expressions.
+         *
+         * Useful for derived numeric checks, e.g. `cart_total + shipping > 50`. Both
+         * operands should resolve to numbers at runtime.
+         */
+        export interface ArithmeticExpression {
+          /**
+           * Left-hand operand sub-expression.
+           */
+          left:
+            | unknown
+            | ArithmeticExpression.DynamicVariableExpression
+            | ArithmeticExpression.StringLiteralExpression
+            | ArithmeticExpression.NumberLiteralExpression
+            | ArithmeticExpression.BooleanLiteralExpression;
+
+          /**
+           * Arithmetic operator applied to `left` and `right`.
+           */
+          op: '+' | '-' | '*' | '/' | '%';
+
+          /**
+           * Right-hand operand sub-expression.
+           */
+          right:
+            | unknown
+            | ArithmeticExpression.DynamicVariableExpression
+            | ArithmeticExpression.StringLiteralExpression
+            | ArithmeticExpression.NumberLiteralExpression
+            | ArithmeticExpression.BooleanLiteralExpression;
+
+          type: 'arithmetic';
+        }
+
+        export namespace ArithmeticExpression {
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+        }
+
+        /**
+         * Reference a dynamic variable by name.
+         *
+         * Resolved at runtime from the assistant's dynamic-variables context (see
+         * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+         */
+        export interface DynamicVariableExpression {
+          /**
+           * Variable name to look up in the runtime context.
+           */
+          name: string;
+
+          type: 'variable';
+        }
+
+        /**
+         * Constant string value.
+         */
+        export interface StringLiteralExpression {
+          type: 'string_literal';
+
+          /**
+           * Literal string value.
+           */
+          value: string;
+        }
+
+        /**
+         * Constant numeric value (float; integers are accepted and stored as float).
+         */
+        export interface NumberLiteralExpression {
+          type: 'number_literal';
+
+          /**
+           * Literal numeric value.
+           */
+          value: number;
+        }
+
+        /**
+         * Constant boolean value. Useful for unconditional ('always') edges.
+         */
+        export interface BooleanLiteralExpression {
+          type: 'bool_literal';
+
+          /**
+           * Literal boolean value.
+           */
+          value: boolean;
+        }
+      }
+
+      /**
+       * Edge condition that fires on the outcome of a tool node's execution.
+       *
+       * Only valid on edges leaving a tool node (`type == "tool"`). A tool node runs
+       * exactly one tool as a deliberate flow step; this condition routes on whether
+       * that tool reported `success` or `failure`. Use it to split the happy path from
+       * the error path after a tool runs (e.g. payment succeeded vs. declined). There is
+       * no `tool_id` field — the tool node has a single tool, so the outcome is
+       * unambiguous.
+       */
+      export interface ToolResultCondition {
+        /**
+         * Match either the tool node's success or failure outcome.
+         */
+        outcome: 'success' | 'failure';
+
+        type: 'tool_result';
+      }
+
+      /**
+       * Edge target referencing another node within the same flow.
+       *
+       * The runtime transitions the active node to `node_id` and continues processing
+       * within the current assistant's flow.
+       */
+      export interface NodeTarget {
+        /**
+         * ID of the node this edge transitions into.
+         */
+        node_id: string;
+
+        type: 'node';
+      }
+
+      /**
+       * Edge target referencing a different assistant.
+       *
+       * When the edge fires, the conversation hands off to `assistant_id`: the active
+       * assistant on the conversation row is rewritten and the new assistant's flow
+       * starts at its own `start_node_id`. The current turn's LLM response is delivered
+       * to the user as-is; subsequent turns route to the new assistant.
+       */
+      export interface AssistantTarget {
+        /**
+         * ID of the assistant the conversation transitions to.
+         */
+        assistant_id: string;
+
+        type: 'assistant';
+
+        /**
+         * Optional canvas coordinates for rendering the target assistant as a node in
+         * authoring UIs. Pure presentation — the runtime ignores it; round-trips so
+         * frontends can persist graph layout across reloads. When multiple edges target
+         * the same assistant, each edge's `position` is independent (frontends typically
+         * use the first non-null one).
+         */
+        position?: AssistantTarget.Position;
+
+        /**
+         * Voice behavior when handing off to the target assistant, mirroring the handoff
+         * tool's `voice_mode`. `unified` (default) keeps the current voice across the
+         * handoff; `distinct` lets the target assistant speak with its own configured
+         * voice. Only applies to assistant targets — node targets override voice via the
+         * node's own `voice_settings`.
+         */
+        voice_mode?: 'unified' | 'distinct';
+      }
+
+      export namespace AssistantTarget {
+        /**
+         * Optional canvas coordinates for rendering the target assistant as a node in
+         * authoring UIs. Pure presentation — the runtime ignores it; round-trips so
+         * frontends can persist graph layout across reloads. When multiple edges target
+         * the same assistant, each edge's `position` is independent (frontends typically
+         * use the first non-null one).
+         */
+        export interface Position {
+          /**
+           * Horizontal coordinate in the authoring canvas.
+           */
+          x: number;
+
+          /**
+           * Vertical coordinate in the authoring canvas.
+           */
+          y: number;
+        }
+      }
+    }
+  }
+}
+
 export interface AssistantRetrieveParams {
   call_control_id?: string;
 
@@ -2414,6 +3980,15 @@ export interface AssistantRetrieveParams {
 }
 
 export interface AssistantUpdateParams {
+  /**
+   * Conversation flow as supplied by API clients (create / update).
+   *
+   * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
+   * unique node/edge IDs, that `start_node_id` references a real node, and that
+   * every edge's endpoints reference real nodes.
+   */
+  conversation_flow?: AssistantUpdateParams.ConversationFlow;
+
   description?: string;
 
   /**
@@ -2566,6 +4141,782 @@ export interface AssistantUpdateParams {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
+}
+
+export namespace AssistantUpdateParams {
+  /**
+   * Conversation flow as supplied by API clients (create / update).
+   *
+   * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
+   * unique node/edge IDs, that `start_node_id` references a real node, and that
+   * every edge's endpoints reference real nodes.
+   */
+  export interface ConversationFlow {
+    /**
+     * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node
+     * (`type: prompt`) or a tool node (`type: tool`).
+     */
+    nodes: Array<ConversationFlow.FlowNodeReq | ConversationFlow.ToolNodeReq>;
+
+    /**
+     * ID of the node where the conversation begins.
+     */
+    start_node_id: string;
+
+    /**
+     * Directed transitions between nodes. May be empty for a single-node flow.
+     */
+    edges?: Array<ConversationFlow.Edge>;
+  }
+
+  export namespace ConversationFlow {
+    /**
+     * One step in a conversation flow, as supplied by API clients.
+     *
+     * Each node carries the prompt, tool scope, and optional overrides for
+     * model/voice/transcription. Unset overrides cascade from the assistant.
+     */
+    export interface FlowNodeReq {
+      /**
+       * Caller-supplied unique identifier for this node within the flow.
+       */
+      id: string;
+
+      /**
+       * Prompt that drives the LLM while this node is active. Required.
+       */
+      instructions: string;
+
+      /**
+       * Override for `Assistant.external_llm` while this node is active. Use this to
+       * route a node's turns to a different external LLM (different `model`, `base_url`,
+       * credentials). Part of the LLM bundle — see `model` for cascade semantics.
+       * Mutually exclusive with `model` on the node (a single LLM identity per node).
+       */
+      external_llm?: AssistantsAPI.ExternalLlmReq;
+
+      /**
+       * How `instructions` combine with the assistant-level instructions. `replace`
+       * (default): the node's instructions are used alone. `append`: the node's
+       * instructions are concatenated after the assistant's instructions.
+       */
+      instructions_mode?: 'replace' | 'append';
+
+      /**
+       * Override for `Assistant.llm_api_key_ref` while this node is active. Part of the
+       * LLM bundle — see `model` for cascade semantics.
+       */
+      llm_api_key_ref?: string;
+
+      /**
+       * Override for `Assistant.model` while this node is active. Part of the LLM bundle
+       * (`model` + `llm_api_key_ref` + `external_llm`): when any of the three is set on
+       * the node, all three are taken from the node and the assistant-level LLM identity
+       * is not consulted. When none of the three is set, the assistant's bundle cascades
+       * unchanged.
+       */
+      model?: string;
+
+      /**
+       * Optional human-readable label, displayed in authoring UIs.
+       */
+      name?: string;
+
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      position?: FlowNodeReq.Position;
+
+      /**
+       * IDs of shared (org-level) tools available at this node. Knowledge bases are
+       * attached the same way — via a shared retrieval tool. Tools not listed here are
+       * not callable while this node is active.
+       */
+      shared_tool_ids?: Array<string>;
+
+      /**
+       * How `shared_tool_ids` combine with the assistant-level tool set. `replace`
+       * (default): only the node's tools are callable. `append`: the node's tools are
+       * added to the assistant's tools. Ignored when `shared_tool_ids` is null.
+       */
+      tools_mode?: 'replace' | 'append';
+
+      /**
+       * Per-node transcription override (model/language/region). Unset fields cascade
+       * from the assistant-level transcription.
+       */
+      transcription?: AssistantsAPI.TranscriptionSettings;
+
+      /**
+       * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a
+       * standalone tool execution (see `ToolNodeReq`).
+       */
+      type?: 'prompt';
+
+      /**
+       * Per-node voice override. Only fields set here override the assistant-level voice
+       * settings; unset fields cascade.
+       */
+      voice_settings?: AssistantsAPI.VoiceSettings;
+    }
+
+    export namespace FlowNodeReq {
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      export interface Position {
+        /**
+         * Horizontal coordinate in the authoring canvas.
+         */
+        x: number;
+
+        /**
+         * Vertical coordinate in the authoring canvas.
+         */
+        y: number;
+      }
+    }
+
+    /**
+     * A standalone tool step in a conversation flow, as supplied by clients.
+     *
+     * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
+     * turn. Reaching it deterministically runs one shared tool (arguments filled from
+     * matching dynamic variables by name), then routes on the result via outgoing
+     * `tool_result` edges.
+     */
+    export interface ToolNodeReq {
+      /**
+       * Caller-supplied unique identifier for this node within the flow.
+       */
+      id: string;
+
+      /**
+       * ID of the single shared (org-level) tool this node executes. When the flow
+       * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
+       * `tool_result` edges then route on the outcome. Arguments are filled from the
+       * conversation's dynamic variables by name — a dynamic variable whose name matches
+       * one of the tool's parameters supplies that argument. Cross-validated against the
+       * org's shared tools on write.
+       */
+      shared_tool_id: string;
+
+      /**
+       * Optional human-readable label, displayed in authoring UIs.
+       */
+      name?: string;
+
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      position?: ToolNodeReq.Position;
+
+      /**
+       * Node kind discriminator. Always `tool` for a tool node.
+       */
+      type?: 'tool';
+    }
+
+    export namespace ToolNodeReq {
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      export interface Position {
+        /**
+         * Horizontal coordinate in the authoring canvas.
+         */
+        x: number;
+
+        /**
+         * Vertical coordinate in the authoring canvas.
+         */
+        y: number;
+      }
+    }
+
+    /**
+     * Directed transition from one node to a target, gated by a condition.
+     *
+     * The target is either another node in the same flow (`NodeTarget`) or a different
+     * assistant (`AssistantTarget`). Multiple edges may share a `start_node_id`; the
+     * runtime evaluates them in the order they're declared and takes the first whose
+     * condition is true.
+     */
+    export interface Edge {
+      /**
+       * Caller-supplied unique identifier for this edge within the flow.
+       */
+      id: string;
+
+      /**
+       * Condition that gates the transition. Discriminated by `type`: `llm`,
+       * `expression`, or `tool_result`. A `tool_result` condition is only valid on an
+       * edge leaving a tool node.
+       */
+      condition: Edge.LlmCondition | Edge.ExpressionCondition | Edge.ToolResultCondition;
+
+      /**
+       * ID of the node this edge transitions away from.
+       */
+      start_node_id: string;
+
+      /**
+       * Destination of the transition. Discriminated by `type`: `node` (jump to another
+       * node in this flow) or `assistant` (hand off to a different assistant).
+       */
+      target: Edge.NodeTarget | Edge.AssistantTarget;
+    }
+
+    export namespace Edge {
+      /**
+       * Edge condition evaluated by the LLM from a natural-language prompt.
+       *
+       * The model is asked to judge the prompt against conversation context and returns
+       * true/false. Use this for fuzzy intents that aren't expressible as a
+       * deterministic expression (e.g. 'user wants to escalate to a human').
+       */
+      export interface LlmCondition {
+        /**
+         * Natural-language criterion the LLM judges as true/false.
+         */
+        prompt: string;
+
+        type: 'llm';
+      }
+
+      /**
+       * Edge condition evaluated as a deterministic expression AST.
+       *
+       * The expression is computed against runtime dynamic variables and must evaluate
+       * to a boolean. Prefer this over `LLMCondition` when the rule is a clean function
+       * of known variables — it's cheaper and predictable.
+       */
+      export interface ExpressionCondition {
+        /**
+         * Root of the expression AST. Must evaluate to a boolean.
+         */
+        expression:
+          | ExpressionCondition.ComparisonExpression
+          | ExpressionCondition.BooleanOpExpression
+          | ExpressionCondition.ArithmeticExpression
+          | ExpressionCondition.DynamicVariableExpression
+          | ExpressionCondition.StringLiteralExpression
+          | ExpressionCondition.NumberLiteralExpression
+          | ExpressionCondition.BooleanLiteralExpression;
+
+        type: 'expression';
+      }
+
+      export namespace ExpressionCondition {
+        /**
+         * Compare two sub-expressions with a relational or membership operator.
+         *
+         * Evaluates to a boolean. Used in edge conditions to gate transitions on runtime
+         * values, e.g. `user_age >= 18` or `tier == "gold"`.
+         */
+        export interface ComparisonExpression {
+          /**
+           * Left-hand operand sub-expression.
+           */
+          left:
+            | unknown
+            | ComparisonExpression.DynamicVariableExpression
+            | ComparisonExpression.StringLiteralExpression
+            | ComparisonExpression.NumberLiteralExpression
+            | ComparisonExpression.BooleanLiteralExpression;
+
+          /**
+           * Relational/membership operator. `contains` / `not_contains` apply to strings
+           * (substring) and arrays (membership).
+           */
+          op: '==' | '!=' | '<' | '<=' | '>' | '>=' | 'contains' | 'not_contains';
+
+          /**
+           * Right-hand operand sub-expression.
+           */
+          right:
+            | unknown
+            | ComparisonExpression.DynamicVariableExpression
+            | ComparisonExpression.StringLiteralExpression
+            | ComparisonExpression.NumberLiteralExpression
+            | ComparisonExpression.BooleanLiteralExpression;
+
+          type: 'comparison';
+        }
+
+        export namespace ComparisonExpression {
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+        }
+
+        /**
+         * Combine sub-expressions with a logical operator (`and` / `or` / `not`).
+         *
+         * `and` and `or` accept two or more operands; `not` accepts exactly one.
+         */
+        export interface BooleanOpExpression {
+          /**
+           * Logical operator. `not` is unary; `and`/`or` are n-ary (>=2).
+           */
+          op: 'and' | 'or' | 'not';
+
+          /**
+           * Operand sub-expressions. Length must be exactly 1 for `not` and >= 2 for
+           * `and`/`or`.
+           */
+          operands: Array<
+            | unknown
+            | BooleanOpExpression.DynamicVariableExpression
+            | BooleanOpExpression.StringLiteralExpression
+            | BooleanOpExpression.NumberLiteralExpression
+            | BooleanOpExpression.BooleanLiteralExpression
+          >;
+
+          type: 'bool_op';
+        }
+
+        export namespace BooleanOpExpression {
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+        }
+
+        /**
+         * Numeric expression: applies an arithmetic operator to two sub-expressions.
+         *
+         * Useful for derived numeric checks, e.g. `cart_total + shipping > 50`. Both
+         * operands should resolve to numbers at runtime.
+         */
+        export interface ArithmeticExpression {
+          /**
+           * Left-hand operand sub-expression.
+           */
+          left:
+            | unknown
+            | ArithmeticExpression.DynamicVariableExpression
+            | ArithmeticExpression.StringLiteralExpression
+            | ArithmeticExpression.NumberLiteralExpression
+            | ArithmeticExpression.BooleanLiteralExpression;
+
+          /**
+           * Arithmetic operator applied to `left` and `right`.
+           */
+          op: '+' | '-' | '*' | '/' | '%';
+
+          /**
+           * Right-hand operand sub-expression.
+           */
+          right:
+            | unknown
+            | ArithmeticExpression.DynamicVariableExpression
+            | ArithmeticExpression.StringLiteralExpression
+            | ArithmeticExpression.NumberLiteralExpression
+            | ArithmeticExpression.BooleanLiteralExpression;
+
+          type: 'arithmetic';
+        }
+
+        export namespace ArithmeticExpression {
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+
+          /**
+           * Reference a dynamic variable by name.
+           *
+           * Resolved at runtime from the assistant's dynamic-variables context (see
+           * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+           */
+          export interface DynamicVariableExpression {
+            /**
+             * Variable name to look up in the runtime context.
+             */
+            name: string;
+
+            type: 'variable';
+          }
+
+          /**
+           * Constant string value.
+           */
+          export interface StringLiteralExpression {
+            type: 'string_literal';
+
+            /**
+             * Literal string value.
+             */
+            value: string;
+          }
+
+          /**
+           * Constant numeric value (float; integers are accepted and stored as float).
+           */
+          export interface NumberLiteralExpression {
+            type: 'number_literal';
+
+            /**
+             * Literal numeric value.
+             */
+            value: number;
+          }
+
+          /**
+           * Constant boolean value. Useful for unconditional ('always') edges.
+           */
+          export interface BooleanLiteralExpression {
+            type: 'bool_literal';
+
+            /**
+             * Literal boolean value.
+             */
+            value: boolean;
+          }
+        }
+
+        /**
+         * Reference a dynamic variable by name.
+         *
+         * Resolved at runtime from the assistant's dynamic-variables context (see
+         * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+         */
+        export interface DynamicVariableExpression {
+          /**
+           * Variable name to look up in the runtime context.
+           */
+          name: string;
+
+          type: 'variable';
+        }
+
+        /**
+         * Constant string value.
+         */
+        export interface StringLiteralExpression {
+          type: 'string_literal';
+
+          /**
+           * Literal string value.
+           */
+          value: string;
+        }
+
+        /**
+         * Constant numeric value (float; integers are accepted and stored as float).
+         */
+        export interface NumberLiteralExpression {
+          type: 'number_literal';
+
+          /**
+           * Literal numeric value.
+           */
+          value: number;
+        }
+
+        /**
+         * Constant boolean value. Useful for unconditional ('always') edges.
+         */
+        export interface BooleanLiteralExpression {
+          type: 'bool_literal';
+
+          /**
+           * Literal boolean value.
+           */
+          value: boolean;
+        }
+      }
+
+      /**
+       * Edge condition that fires on the outcome of a tool node's execution.
+       *
+       * Only valid on edges leaving a tool node (`type == "tool"`). A tool node runs
+       * exactly one tool as a deliberate flow step; this condition routes on whether
+       * that tool reported `success` or `failure`. Use it to split the happy path from
+       * the error path after a tool runs (e.g. payment succeeded vs. declined). There is
+       * no `tool_id` field — the tool node has a single tool, so the outcome is
+       * unambiguous.
+       */
+      export interface ToolResultCondition {
+        /**
+         * Match either the tool node's success or failure outcome.
+         */
+        outcome: 'success' | 'failure';
+
+        type: 'tool_result';
+      }
+
+      /**
+       * Edge target referencing another node within the same flow.
+       *
+       * The runtime transitions the active node to `node_id` and continues processing
+       * within the current assistant's flow.
+       */
+      export interface NodeTarget {
+        /**
+         * ID of the node this edge transitions into.
+         */
+        node_id: string;
+
+        type: 'node';
+      }
+
+      /**
+       * Edge target referencing a different assistant.
+       *
+       * When the edge fires, the conversation hands off to `assistant_id`: the active
+       * assistant on the conversation row is rewritten and the new assistant's flow
+       * starts at its own `start_node_id`. The current turn's LLM response is delivered
+       * to the user as-is; subsequent turns route to the new assistant.
+       */
+      export interface AssistantTarget {
+        /**
+         * ID of the assistant the conversation transitions to.
+         */
+        assistant_id: string;
+
+        type: 'assistant';
+
+        /**
+         * Optional canvas coordinates for rendering the target assistant as a node in
+         * authoring UIs. Pure presentation — the runtime ignores it; round-trips so
+         * frontends can persist graph layout across reloads. When multiple edges target
+         * the same assistant, each edge's `position` is independent (frontends typically
+         * use the first non-null one).
+         */
+        position?: AssistantTarget.Position;
+
+        /**
+         * Voice behavior when handing off to the target assistant, mirroring the handoff
+         * tool's `voice_mode`. `unified` (default) keeps the current voice across the
+         * handoff; `distinct` lets the target assistant speak with its own configured
+         * voice. Only applies to assistant targets — node targets override voice via the
+         * node's own `voice_settings`.
+         */
+        voice_mode?: 'unified' | 'distinct';
+      }
+
+      export namespace AssistantTarget {
+        /**
+         * Optional canvas coordinates for rendering the target assistant as a node in
+         * authoring UIs. Pure presentation — the runtime ignores it; round-trips so
+         * frontends can persist graph layout across reloads. When multiple edges target
+         * the same assistant, each edge's `position` is independent (frontends typically
+         * use the first non-null one).
+         */
+        export interface Position {
+          /**
+           * Horizontal coordinate in the authoring canvas.
+           */
+          x: number;
+
+          /**
+           * Vertical coordinate in the authoring canvas.
+           */
+          y: number;
+        }
+      }
+    }
+  }
 }
 
 export interface AssistantChatParams {

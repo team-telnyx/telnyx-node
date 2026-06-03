@@ -21,8 +21,6 @@ export {
   type TranscriptionEngineBConfig,
   type TranscriptionEngineDeepgramConfig,
   type TranscriptionEngineGoogleConfig,
-  type TranscriptionEngineSonioxConfig,
-  type TranscriptionEngineSpeechmaticsConfig,
   type TranscriptionEngineTelnyxConfig,
   type TranscriptionEngineXaiConfig,
   type TranscriptionStartRequest,
@@ -110,8 +108,6 @@ export {
 export {
   Calls,
   type CallAssistantRequest,
-  type ConversationRelayInterruptionSettings,
-  type ConversationRelayLanguage,
   type CustomSipHeader,
   type DialogflowConfig,
   type SipHeader,

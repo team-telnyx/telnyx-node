@@ -630,13 +630,6 @@ export namespace InboundMessagePayload {
   }
 }
 
-export interface InworldVoiceSettings {
-  /**
-   * Voice settings provider type
-   */
-  type: 'inworld';
-}
-
 /**
  * The set of features available for a specific messaging use case (SMS or MMS).
  * Features can vary depending on the characteristics the phone number, as well as

@@ -825,6 +825,11 @@ import {
   SiprecConnectors,
 } from './resources/siprec-connectors';
 import {
+  SpeechToText,
+  SpeechToTextListProvidersParams,
+  SpeechToTextListProvidersResponse,
+} from './resources/speech-to-text';
+import {
   SubNumberOrder,
   SubNumberOrderCancelResponse,
   SubNumberOrderListParams,
@@ -967,7 +972,6 @@ import {
   VoiceSDKCallReportListParams,
   VoiceSDKCallReportListResponse,
   VoiceSDKCallReportListResponsesDefaultFlatPagination,
-  VoiceSDKCallReportLogEntry,
   VoiceSDKCallReportRetrieveResponse,
   VoiceSDKCallReports,
 } from './resources/voice-sdk-call-reports';
@@ -1168,8 +1172,8 @@ import {
 } from './resources/addresses/addresses';
 import {
   AI,
-  AICreateResponseParams,
-  AICreateResponseResponse,
+  AICreateResponseDeprecatedParams,
+  AICreateResponseDeprecatedResponse,
   AIRetrieveModelsResponse,
   AISummarizeParams,
   AISummarizeResponse,
@@ -1182,8 +1186,6 @@ import {
   CallDialResponse,
   CallRetrieveStatusResponse,
   Calls,
-  ConversationRelayInterruptionSettings,
-  ConversationRelayLanguage,
   CustomSipHeader,
   DialogflowConfig,
   SipHeader,
@@ -1536,13 +1538,6 @@ import {
   SimCardUpdateResponse,
   SimCards,
 } from './resources/sim-cards/sim-cards';
-import {
-  SpeechToText,
-  SpeechToTextListProvidersParams,
-  SpeechToTextListProvidersResponse,
-  TranscribeClientEvent,
-  TranscribeServerEvent,
-} from './resources/speech-to-text/speech-to-text';
 import { Storage, StorageListMigrationSourceCoverageResponse } from './resources/storage/storage';
 import { TermsOfService } from './resources/terms-of-service/terms-of-service';
 import {
@@ -1556,9 +1551,8 @@ import {
   StreamClientEvent,
   StreamServerEvent,
   TextToSpeech,
-  TextToSpeechCreateSpeechParams,
-  TextToSpeechCreateSpeechResponse,
-  TextToSpeechGenerateSpeechParams,
+  TextToSpeechGenerateParams,
+  TextToSpeechGenerateResponse,
   TextToSpeechListVoicesParams,
   TextToSpeechListVoicesResponse,
 } from './resources/text-to-speech/text-to-speech';
@@ -2800,10 +2794,6 @@ export class Telnyx {
   regulatoryRequirements: API.RegulatoryRequirements = new API.RegulatoryRequirements(this);
   reports: API.Reports = new API.Reports(this);
   /**
-   * Discover available speech-to-text providers, models, and supported languages.
-   */
-  speechToText: API.SpeechToText = new API.SpeechToText(this);
-  /**
    * Requirement Groups
    */
   requirementGroups: API.RequirementGroups = new API.RequirementGroups(this);
@@ -2997,13 +2987,17 @@ export class Telnyx {
    */
   uacConnections: API.UacConnections = new API.UacConnections(this);
   /**
-   * Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting.
-   */
-  voiceSDKCallReports: API.VoiceSDKCallReports = new API.VoiceSDKCallReports(this);
-  /**
    * UAC connection operations
    */
   sipRegistrationStatus: API.SipRegistrationStatus = new API.SipRegistrationStatus(this);
+  /**
+   * Discover available speech-to-text providers, models, and supported languages.
+   */
+  speechToText: API.SpeechToText = new API.SpeechToText(this);
+  /**
+   * Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting.
+   */
+  voiceSDKCallReports: API.VoiceSDKCallReports = new API.VoiceSDKCallReports(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3114,7 +3108,6 @@ Telnyx.Recordings = Recordings;
 Telnyx.Regions = Regions;
 Telnyx.RegulatoryRequirements = RegulatoryRequirements;
 Telnyx.Reports = Reports;
-Telnyx.SpeechToText = SpeechToText;
 Telnyx.RequirementGroups = RequirementGroups;
 Telnyx.RequirementTypes = RequirementTypes;
 Telnyx.Requirements = Requirements;
@@ -3171,8 +3164,9 @@ Telnyx.Reputation = Reputation;
 Telnyx.TermsOfService = TermsOfService;
 Telnyx.PronunciationDicts = PronunciationDicts;
 Telnyx.UacConnections = UacConnections;
-Telnyx.VoiceSDKCallReports = VoiceSDKCallReports;
 Telnyx.SipRegistrationStatus = SipRegistrationStatus;
+Telnyx.SpeechToText = SpeechToText;
+Telnyx.VoiceSDKCallReports = VoiceSDKCallReports;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3433,10 +3427,10 @@ export declare namespace Telnyx {
   export {
     AI as AI,
     type ModelMetadata as ModelMetadata,
-    type AICreateResponseResponse as AICreateResponseResponse,
+    type AICreateResponseDeprecatedResponse as AICreateResponseDeprecatedResponse,
     type AIRetrieveModelsResponse as AIRetrieveModelsResponse,
     type AISummarizeResponse as AISummarizeResponse,
-    type AICreateResponseParams as AICreateResponseParams,
+    type AICreateResponseDeprecatedParams as AICreateResponseDeprecatedParams,
     type AISummarizeParams as AISummarizeParams,
   };
 
@@ -3525,8 +3519,6 @@ export declare namespace Telnyx {
   export {
     Calls as Calls,
     type CallAssistantRequest as CallAssistantRequest,
-    type ConversationRelayInterruptionSettings as ConversationRelayInterruptionSettings,
-    type ConversationRelayLanguage as ConversationRelayLanguage,
     type CustomSipHeader as CustomSipHeader,
     type DialogflowConfig as DialogflowConfig,
     type SipHeader as SipHeader,
@@ -4411,14 +4403,6 @@ export declare namespace Telnyx {
   };
 
   export {
-    SpeechToText as SpeechToText,
-    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
-    type TranscribeClientEvent as TranscribeClientEvent,
-    type TranscribeServerEvent as TranscribeServerEvent,
-    type SpeechToTextListProvidersParams as SpeechToTextListProvidersParams,
-  };
-
-  export {
     RequirementGroups as RequirementGroups,
     type RequirementGroup as RequirementGroup,
     type UserRequirement as UserRequirement,
@@ -4636,12 +4620,11 @@ export declare namespace Telnyx {
 
   export {
     TextToSpeech as TextToSpeech,
-    type TextToSpeechCreateSpeechResponse as TextToSpeechCreateSpeechResponse,
+    type TextToSpeechGenerateResponse as TextToSpeechGenerateResponse,
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
     type StreamClientEvent as StreamClientEvent,
     type StreamServerEvent as StreamServerEvent,
-    type TextToSpeechCreateSpeechParams as TextToSpeechCreateSpeechParams,
-    type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
+    type TextToSpeechGenerateParams as TextToSpeechGenerateParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
   };
 
@@ -4965,18 +4948,23 @@ export declare namespace Telnyx {
   };
 
   export {
+    SipRegistrationStatus as SipRegistrationStatus,
+    type SipRegistrationStatusRetrieveResponse as SipRegistrationStatusRetrieveResponse,
+    type SipRegistrationStatusRetrieveParams as SipRegistrationStatusRetrieveParams,
+  };
+
+  export {
+    SpeechToText as SpeechToText,
+    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
+    type SpeechToTextListProvidersParams as SpeechToTextListProvidersParams,
+  };
+
+  export {
     VoiceSDKCallReports as VoiceSDKCallReports,
-    type VoiceSDKCallReportLogEntry as VoiceSDKCallReportLogEntry,
     type VoiceSDKCallReportRetrieveResponse as VoiceSDKCallReportRetrieveResponse,
     type VoiceSDKCallReportListResponse as VoiceSDKCallReportListResponse,
     type VoiceSDKCallReportListResponsesDefaultFlatPagination as VoiceSDKCallReportListResponsesDefaultFlatPagination,
     type VoiceSDKCallReportListParams as VoiceSDKCallReportListParams,
-  };
-
-  export {
-    SipRegistrationStatus as SipRegistrationStatus,
-    type SipRegistrationStatusRetrieveResponse as SipRegistrationStatusRetrieveResponse,
-    type SipRegistrationStatusRetrieveParams as SipRegistrationStatusRetrieveParams,
   };
 
   export type APIError = API.APIError;
@@ -4997,7 +4985,6 @@ export declare namespace Telnyx {
   export type Feature = API.Feature;
   export type HostedNumber = API.HostedNumber;
   export type InboundMessagePayload = API.InboundMessagePayload;
-  export type InworldVoiceSettings = API.InworldVoiceSettings;
   export type MessagingFeatureSet = API.MessagingFeatureSet;
   export type MessagingHostedNumberOrder = API.MessagingHostedNumberOrder;
   export type MessagingPaginationMeta = API.MessagingPaginationMeta;

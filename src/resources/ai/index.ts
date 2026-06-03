@@ -3,10 +3,10 @@
 export {
   AI,
   type ModelMetadata,
-  type AICreateResponseResponse,
+  type AICreateResponseDeprecatedResponse,
   type AIRetrieveModelsResponse,
   type AISummarizeResponse,
-  type AICreateResponseParams,
+  type AICreateResponseDeprecatedParams,
   type AISummarizeParams,
 } from './ai';
 export {

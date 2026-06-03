@@ -20,7 +20,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">Feature</a></code>
 - <code><a href="./src/resources/shared.ts">HostedNumber</a></code>
 - <code><a href="./src/resources/shared.ts">InboundMessagePayload</a></code>
-- <code><a href="./src/resources/shared.ts">InworldVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingFeatureSet</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingHostedNumberOrder</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingPaginationMeta</a></code>
@@ -515,13 +514,13 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/ai/ai.ts">ModelMetadata</a></code>
-- <code><a href="./src/resources/ai/ai.ts">AICreateResponseResponse</a></code>
+- <code><a href="./src/resources/ai/ai.ts">AICreateResponseDeprecatedResponse</a></code>
 - <code><a href="./src/resources/ai/ai.ts">AIRetrieveModelsResponse</a></code>
 - <code><a href="./src/resources/ai/ai.ts">AISummarizeResponse</a></code>
 
 Methods:
 
-- <code title="post /ai/responses">client.ai.<a href="./src/resources/ai/ai.ts">createResponse</a>({ ...params }) -> AICreateResponseResponse</code>
+- <code title="post /ai/responses">client.ai.<a href="./src/resources/ai/ai.ts">createResponseDeprecated</a>({ ...params }) -> AICreateResponseDeprecatedResponse</code>
 - <code title="get /ai/models">client.ai.<a href="./src/resources/ai/ai.ts">retrieveModels</a>() -> AIRetrieveModelsResponse</code>
 - <code title="post /ai/summarize">client.ai.<a href="./src/resources/ai/ai.ts">summarize</a>({ ...params }) -> AISummarizeResponse</code>
 
@@ -1262,8 +1261,6 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/calls/calls.ts">CallAssistantRequest</a></code>
-- <code><a href="./src/resources/calls/calls.ts">ConversationRelayInterruptionSettings</a></code>
-- <code><a href="./src/resources/calls/calls.ts">ConversationRelayLanguage</a></code>
 - <code><a href="./src/resources/calls/calls.ts">CustomSipHeader</a></code>
 - <code><a href="./src/resources/calls/calls.ts">DialogflowConfig</a></code>
 - <code><a href="./src/resources/calls/calls.ts">SipHeader</a></code>
@@ -1304,8 +1301,6 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineBConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineDeepgramConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineGoogleConfig</a></code>
-- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineSonioxConfig</a></code>
-- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineSpeechmaticsConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineTelnyxConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineXaiConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionStartRequest</a></code>
@@ -3347,18 +3342,6 @@ Methods:
 - <code title="delete /reports/mdr_usage_reports/{id}">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">delete</a>(id) -> MdrUsageReportDeleteResponse</code>
 - <code title="get /reports/mdr_usage_reports/sync">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">fetchSync</a>({ ...params }) -> MdrUsageReportFetchSyncResponse</code>
 
-# SpeechToText
-
-Types:
-
-- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
-- <code><a href="./src/resources/speech-to-text.ts">TranscribeClientEvent</a></code>
-- <code><a href="./src/resources/speech-to-text.ts">TranscribeServerEvent</a></code>
-
-Methods:
-
-- <code title="get /speech-to-text/providers">client.speechToText.<a href="./src/resources/speech-to-text.ts">listProviders</a>({ ...params }) -> SpeechToTextListProvidersResponse</code>
-
 # RequirementGroups
 
 Types:
@@ -4007,15 +3990,14 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechCreateSpeechResponse</a></code>
+- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechGenerateResponse</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">TextToSpeechListVoicesResponse</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">StreamClientEvent</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">StreamServerEvent</a></code>
 
 Methods:
 
-- <code title="post /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">createSpeech</a>({ ...params }) -> TextToSpeechCreateSpeechResponse</code>
-- <code title="get /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">generateSpeech</a>({ ...params }) -> void</code>
+- <code title="post /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">generate</a>({ ...params }) -> TextToSpeechGenerateResponse</code>
 - <code title="get /text-to-speech/voices">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">listVoices</a>({ ...params }) -> TextToSpeechListVoicesResponse</code>
 
 # UsageReports
@@ -4696,7 +4678,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/whatsapp/user-data.ts">WhatsappUserData</a></code>
 - <code><a href="./src/resources/whatsapp/user-data.ts">UserDataRetrieveResponse</a></code>
 - <code><a href="./src/resources/whatsapp/user-data.ts">UserDataUpdateResponse</a></code>
 
@@ -4914,19 +4895,6 @@ Methods:
 
 - <code title="post /uac_connections/{id}/actions/check_registration_status">client.uacConnections.actions.<a href="./src/resources/uac-connections/actions.ts">checkRegistrationStatus</a>(id) -> ActionCheckRegistrationStatusResponse</code>
 
-# VoiceSDKCallReports
-
-Types:
-
-- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportLogEntry</a></code>
-- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportRetrieveResponse</a></code>
-- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportListResponse</a></code>
-
-Methods:
-
-- <code title="get /voice_sdk_call_reports/{call_id}">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">retrieve</a>(callID) -> VoiceSDKCallReportRetrieveResponse</code>
-- <code title="get /voice_sdk_call_reports">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">list</a>({ ...params }) -> VoiceSDKCallReportListResponsesDefaultFlatPagination</code>
-
 # SipRegistrationStatus
 
 Types:
@@ -4936,3 +4904,25 @@ Types:
 Methods:
 
 - <code title="get /sip_registration_status">client.sipRegistrationStatus.<a href="./src/resources/sip-registration-status.ts">retrieve</a>({ ...params }) -> SipRegistrationStatusRetrieveResponse</code>
+
+# SpeechToText
+
+Types:
+
+- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
+
+Methods:
+
+- <code title="get /speech-to-text/providers">client.speechToText.<a href="./src/resources/speech-to-text.ts">listProviders</a>({ ...params }) -> SpeechToTextListProvidersResponse</code>
+
+# VoiceSDKCallReports
+
+Types:
+
+- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportRetrieveResponse</a></code>
+- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportListResponse</a></code>
+
+Methods:
+
+- <code title="get /voice_sdk_call_reports/{call_id}">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">retrieve</a>(callID) -> VoiceSDKCallReportRetrieveResponse</code>
+- <code title="get /voice_sdk_call_reports">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">list</a>({ ...params }) -> VoiceSDKCallReportListResponsesDefaultFlatPagination</code>
