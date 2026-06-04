@@ -429,6 +429,15 @@ export namespace AssistantTool {
       custom_headers?: Array<Transfer.CustomHeader>;
 
       /**
+       * A description of the transfer tool. By default, Telnyx generates this
+       * automatically based on the configured targets. Typically only set when importing
+       * an assistant from another provider that allowed a custom description; in that
+       * case the provided value is preserved. Most users should leave this empty and let
+       * Telnyx manage it.
+       */
+      description?: string;
+
+      /**
        * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
        * transferred call. Allows the assistant to detect when a voicemail system answers
        * the transferred call and take appropriate action.
