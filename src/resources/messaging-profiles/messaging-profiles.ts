@@ -597,6 +597,11 @@ export interface MessagingProfileCreateParams {
 
 export interface MessagingProfileUpdateParams {
   /**
+   * The ID of the AI assistant associated with this messaging profile.
+   */
+  ai_assistant_id?: string | null;
+
+  /**
    * The alphanumeric sender ID to use when sending to destinations that require an
    * alphanumeric sender ID.
    */
