@@ -10,7 +10,7 @@ const client = new Telnyx({
 describe('resource numbers', () => {
   // Mock server tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.reputation.numbers.retrieve('+16035551234');
+    const responsePromise = client.reputation.numbers.retrieve('+19493253498');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -25,7 +25,7 @@ describe('resource numbers', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.reputation.numbers.retrieve(
-        '+16035551234',
+        '+19493253498',
         { fresh: true },
         { path: '/_stainless_unknown_path' },
       ),
@@ -51,7 +51,7 @@ describe('resource numbers', () => {
       client.reputation.numbers.list(
         {
           'page[number]': 1,
-          'page[size]': 1,
+          'page[size]': 20,
           phone_number: '+16035551234',
         },
         { path: '/_stainless_unknown_path' },
@@ -61,7 +61,7 @@ describe('resource numbers', () => {
 
   // Mock server tests are disabled
   test.skip('delete', async () => {
-    const responsePromise = client.reputation.numbers.delete('+16035551234');
+    const responsePromise = client.reputation.numbers.delete('+19493253498');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

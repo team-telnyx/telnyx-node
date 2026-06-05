@@ -155,9 +155,9 @@ export interface UpdateAssistant {
 
   enabled_features?: Array<AssistantsAPI.EnabledFeatures>;
 
-  external_llm?: AssistantsAPI.ExternalLlmReq;
+  external_llm?: UpdateAssistant.ExternalLlm;
 
-  fallback_config?: AssistantsAPI.FallbackConfigReq;
+  fallback_config?: UpdateAssistant.FallbackConfig;
 
   /**
    * Text that the assistant will use to start the conversation. This may be
@@ -183,7 +183,7 @@ export interface UpdateAssistant {
    * `/ai/integrations/connections`. Each item references a catalog integration by
    * `integration_id`.
    */
-  integrations?: Array<AssistantsAPI.AssistantIntegration>;
+  integrations?: Array<UpdateAssistant.Integration>;
 
   /**
    * Settings for interruptions and how the assistant decides the user has finished
@@ -193,7 +193,7 @@ export interface UpdateAssistant {
    * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
    * `eager_eot_threshold`).
    */
-  interruption_settings?: AssistantsAPI.InferenceEmbeddingInterruptionSettings;
+  interruption_settings?: UpdateAssistant.InterruptionSettings;
 
   /**
    * This is only needed when using third-party inference providers selected by
@@ -209,7 +209,7 @@ export interface UpdateAssistant {
    * MCP servers attached to the assistant. Create MCP servers with
    * `/ai/mcp_servers`, then reference them by `id` here.
    */
-  mcp_servers?: Array<AssistantsAPI.AssistantMcpServer>;
+  mcp_servers?: Array<UpdateAssistant.McpServer>;
 
   messaging_settings?: AssistantsAPI.MessagingSettings;
 
@@ -234,7 +234,7 @@ export interface UpdateAssistant {
    * Telephony-control tools (e.g. hangup, transfer) are unavailable
    * post-conversation. Beta feature.
    */
-  post_conversation_settings?: AssistantsAPI.PostConversationSettingsReq;
+  post_conversation_settings?: UpdateAssistant.PostConversationSettings;
 
   privacy_settings?: AssistantsAPI.PrivacySettings;
 
@@ -324,7 +324,7 @@ export namespace UpdateAssistant {
        * credentials). Part of the LLM bundle — see `model` for cascade semantics.
        * Mutually exclusive with `model` on the node (a single LLM identity per node).
        */
-      external_llm?: AssistantsAPI.ExternalLlmReq;
+      external_llm?: FlowNodeReq.ExternalLlm;
 
       /**
        * How `instructions` combine with the assistant-level instructions. `replace`
@@ -394,6 +394,56 @@ export namespace UpdateAssistant {
     }
 
     export namespace FlowNodeReq {
+      /**
+       * Override for `Assistant.external_llm` while this node is active. Use this to
+       * route a node's turns to a different external LLM (different `model`, `base_url`,
+       * credentials). Part of the LLM bundle — see `model` for cascade semantics.
+       * Mutually exclusive with `model` on the node (a single LLM identity per node).
+       */
+      export interface ExternalLlm {
+        /**
+         * Base URL for the external LLM endpoint.
+         */
+        base_url: string;
+
+        /**
+         * Model identifier to use with the external LLM endpoint.
+         */
+        model: string;
+
+        /**
+         * Authentication method used when connecting to the external LLM endpoint.
+         */
+        authentication_method?: 'token' | 'certificate';
+
+        /**
+         * Integration secret identifier for the client certificate used with certificate
+         * authentication.
+         */
+        certificate_ref?: string;
+
+        /**
+         * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+         * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+         * request body. Defaults to `false`. Example payload sent to the external
+         * endpoint:
+         * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+         * Distinct from OpenAI's native `metadata` field, which has its own size and type
+         * limits.
+         */
+        forward_metadata?: boolean;
+
+        /**
+         * Integration secret identifier for the external LLM API key.
+         */
+        llm_api_key_ref?: string;
+
+        /**
+         * URL used to retrieve an access token when certificate authentication is enabled.
+         */
+        token_retrieval_url?: string;
+      }
+
       /**
        * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
        * by the runtime; round-trips so frontends can persist graph layout across
@@ -750,6 +800,245 @@ export namespace UpdateAssistant {
       }
     }
   }
+
+  export interface ExternalLlm {
+    /**
+     * Base URL for the external LLM endpoint.
+     */
+    base_url: string;
+
+    /**
+     * Model identifier to use with the external LLM endpoint.
+     */
+    model: string;
+
+    /**
+     * Authentication method used when connecting to the external LLM endpoint.
+     */
+    authentication_method?: 'token' | 'certificate';
+
+    /**
+     * Integration secret identifier for the client certificate used with certificate
+     * authentication.
+     */
+    certificate_ref?: string;
+
+    /**
+     * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+     * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+     * request body. Defaults to `false`. Example payload sent to the external
+     * endpoint:
+     * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+     * Distinct from OpenAI's native `metadata` field, which has its own size and type
+     * limits.
+     */
+    forward_metadata?: boolean;
+
+    /**
+     * Integration secret identifier for the external LLM API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * URL used to retrieve an access token when certificate authentication is enabled.
+     */
+    token_retrieval_url?: string;
+  }
+
+  export interface FallbackConfig {
+    external_llm?: FallbackConfig.ExternalLlm;
+
+    /**
+     * Integration secret identifier for the fallback model API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * Fallback Telnyx-hosted model to use when the primary LLM provider is
+     * unavailable.
+     */
+    model?: string;
+  }
+
+  export namespace FallbackConfig {
+    export interface ExternalLlm {
+      /**
+       * Base URL for the external LLM endpoint.
+       */
+      base_url: string;
+
+      /**
+       * Model identifier to use with the external LLM endpoint.
+       */
+      model: string;
+
+      /**
+       * Authentication method used when connecting to the external LLM endpoint.
+       */
+      authentication_method?: 'token' | 'certificate';
+
+      /**
+       * Integration secret identifier for the client certificate used with certificate
+       * authentication.
+       */
+      certificate_ref?: string;
+
+      /**
+       * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+       * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+       * request body. Defaults to `false`. Example payload sent to the external
+       * endpoint:
+       * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+       * Distinct from OpenAI's native `metadata` field, which has its own size and type
+       * limits.
+       */
+      forward_metadata?: boolean;
+
+      /**
+       * Integration secret identifier for the external LLM API key.
+       */
+      llm_api_key_ref?: string;
+
+      /**
+       * URL used to retrieve an access token when certificate authentication is enabled.
+       */
+      token_retrieval_url?: string;
+    }
+  }
+
+  /**
+   * Reference to a connected integration attached to an assistant. Discover
+   * available integrations with `/ai/integrations` and connected integrations with
+   * `/ai/integrations/connections`.
+   */
+  export interface Integration {
+    /**
+     * Catalog integration ID to attach. This is the `id` from the integrations catalog
+     * at `/ai/integrations` (the same value also appears as `integration_id` on
+     * entries returned by `/ai/integrations/connections`). It is **not** the
+     * connection-level `id` from `/ai/integrations/connections`.
+     */
+    integration_id: string;
+
+    /**
+     * Optional per-assistant allowlist of integration tool names. When omitted or
+     * empty, all tools allowed by the connected integration are available to the
+     * assistant.
+     */
+    allowed_list?: Array<string>;
+  }
+
+  /**
+   * Settings for interruptions and how the assistant decides the user has finished
+   * speaking. These timings are most relevant when using non turn-taking
+   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
+   * behavior is controlled by the transcription end-of-turn settings under
+   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * `eager_eot_threshold`).
+   */
+  export interface InterruptionSettings {
+    /**
+     * When true, disables user interruptions while the assistant greeting is playing.
+     */
+    disable_greeting_interruption?: boolean;
+
+    /**
+     * Whether users can interrupt the assistant while it is speaking.
+     */
+    enable?: boolean;
+
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    start_speaking_plan?: InterruptionSettings.StartSpeakingPlan;
+  }
+
+  export namespace InterruptionSettings {
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    export interface StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      transcription_endpointing_plan?: StartSpeakingPlan.TranscriptionEndpointingPlan;
+
+      /**
+       * Minimum seconds to wait before the assistant starts speaking.
+       */
+      wait_seconds?: number;
+    }
+
+    export namespace StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      export interface TranscriptionEndpointingPlan {
+        /**
+         * Seconds to wait after the transcript ends without punctuation.
+         */
+        on_no_punctuation_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with a number.
+         */
+        on_number_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with punctuation.
+         */
+        on_punctuation_seconds?: number;
+      }
+    }
+  }
+
+  /**
+   * Reference to an MCP server attached to an assistant. Create and manage MCP
+   * servers with the `/ai/mcp_servers` endpoints, then attach them to assistants by
+   * ID.
+   */
+  export interface McpServer {
+    /**
+     * ID of the MCP server to attach. This must be the `id` of an MCP server returned
+     * by the `/ai/mcp_servers` endpoints.
+     */
+    id: string;
+
+    /**
+     * Optional per-assistant allowlist of MCP tool names. When omitted, the assistant
+     * uses the MCP server's configured `allowed_tools`.
+     */
+    allowed_tools?: Array<string>;
+  }
+
+  /**
+   * Configuration for post-conversation processing. When enabled, the assistant
+   * receives one additional LLM turn after the conversation ends, allowing it to
+   * execute tool calls such as logging to a CRM or sending a summary. The assistant
+   * can execute multiple parallel or sequential tools during this phase.
+   * Telephony-control tools (e.g. hangup, transfer) are unavailable
+   * post-conversation. Beta feature.
+   */
+  export interface PostConversationSettings {
+    /**
+     * Whether post-conversation processing is enabled. When true, the assistant will
+     * be invoked after the conversation ends to perform any final tool calls. Defaults
+     * to false.
+     */
+    enabled?: boolean;
+  }
 }
 
 export interface VersionRetrieveParams {
@@ -817,12 +1106,12 @@ export interface VersionUpdateParams {
   /**
    * Body param
    */
-  external_llm?: AssistantsAPI.ExternalLlmReq;
+  external_llm?: VersionUpdateParams.ExternalLlm;
 
   /**
    * Body param
    */
-  fallback_config?: AssistantsAPI.FallbackConfigReq;
+  fallback_config?: VersionUpdateParams.FallbackConfig;
 
   /**
    * Body param: Text that the assistant will use to start the conversation. This may
@@ -851,7 +1140,7 @@ export interface VersionUpdateParams {
    * integrations are at `/ai/integrations/connections`. Each item references a
    * catalog integration by `integration_id`.
    */
-  integrations?: Array<AssistantsAPI.AssistantIntegration>;
+  integrations?: Array<VersionUpdateParams.Integration>;
 
   /**
    * Body param: Settings for interruptions and how the assistant decides the user
@@ -861,7 +1150,7 @@ export interface VersionUpdateParams {
    * under `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
    * `eager_eot_threshold`).
    */
-  interruption_settings?: AssistantsAPI.InferenceEmbeddingInterruptionSettings;
+  interruption_settings?: VersionUpdateParams.InterruptionSettings;
 
   /**
    * Body param: This is only needed when using third-party inference providers
@@ -877,7 +1166,7 @@ export interface VersionUpdateParams {
    * Body param: MCP servers attached to the assistant. Create MCP servers with
    * `/ai/mcp_servers`, then reference them by `id` here.
    */
-  mcp_servers?: Array<AssistantsAPI.AssistantMcpServer>;
+  mcp_servers?: Array<VersionUpdateParams.McpServer>;
 
   /**
    * Body param
@@ -912,7 +1201,7 @@ export interface VersionUpdateParams {
    * Telephony-control tools (e.g. hangup, transfer) are unavailable
    * post-conversation. Beta feature.
    */
-  post_conversation_settings?: AssistantsAPI.PostConversationSettingsReq;
+  post_conversation_settings?: VersionUpdateParams.PostConversationSettings;
 
   /**
    * Body param
@@ -1014,7 +1303,7 @@ export namespace VersionUpdateParams {
        * credentials). Part of the LLM bundle — see `model` for cascade semantics.
        * Mutually exclusive with `model` on the node (a single LLM identity per node).
        */
-      external_llm?: AssistantsAPI.ExternalLlmReq;
+      external_llm?: FlowNodeReq.ExternalLlm;
 
       /**
        * How `instructions` combine with the assistant-level instructions. `replace`
@@ -1084,6 +1373,56 @@ export namespace VersionUpdateParams {
     }
 
     export namespace FlowNodeReq {
+      /**
+       * Override for `Assistant.external_llm` while this node is active. Use this to
+       * route a node's turns to a different external LLM (different `model`, `base_url`,
+       * credentials). Part of the LLM bundle — see `model` for cascade semantics.
+       * Mutually exclusive with `model` on the node (a single LLM identity per node).
+       */
+      export interface ExternalLlm {
+        /**
+         * Base URL for the external LLM endpoint.
+         */
+        base_url: string;
+
+        /**
+         * Model identifier to use with the external LLM endpoint.
+         */
+        model: string;
+
+        /**
+         * Authentication method used when connecting to the external LLM endpoint.
+         */
+        authentication_method?: 'token' | 'certificate';
+
+        /**
+         * Integration secret identifier for the client certificate used with certificate
+         * authentication.
+         */
+        certificate_ref?: string;
+
+        /**
+         * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+         * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+         * request body. Defaults to `false`. Example payload sent to the external
+         * endpoint:
+         * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+         * Distinct from OpenAI's native `metadata` field, which has its own size and type
+         * limits.
+         */
+        forward_metadata?: boolean;
+
+        /**
+         * Integration secret identifier for the external LLM API key.
+         */
+        llm_api_key_ref?: string;
+
+        /**
+         * URL used to retrieve an access token when certificate authentication is enabled.
+         */
+        token_retrieval_url?: string;
+      }
+
       /**
        * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
        * by the runtime; round-trips so frontends can persist graph layout across
@@ -1439,6 +1778,245 @@ export namespace VersionUpdateParams {
         }
       }
     }
+  }
+
+  export interface ExternalLlm {
+    /**
+     * Base URL for the external LLM endpoint.
+     */
+    base_url: string;
+
+    /**
+     * Model identifier to use with the external LLM endpoint.
+     */
+    model: string;
+
+    /**
+     * Authentication method used when connecting to the external LLM endpoint.
+     */
+    authentication_method?: 'token' | 'certificate';
+
+    /**
+     * Integration secret identifier for the client certificate used with certificate
+     * authentication.
+     */
+    certificate_ref?: string;
+
+    /**
+     * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+     * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+     * request body. Defaults to `false`. Example payload sent to the external
+     * endpoint:
+     * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+     * Distinct from OpenAI's native `metadata` field, which has its own size and type
+     * limits.
+     */
+    forward_metadata?: boolean;
+
+    /**
+     * Integration secret identifier for the external LLM API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * URL used to retrieve an access token when certificate authentication is enabled.
+     */
+    token_retrieval_url?: string;
+  }
+
+  export interface FallbackConfig {
+    external_llm?: FallbackConfig.ExternalLlm;
+
+    /**
+     * Integration secret identifier for the fallback model API key.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * Fallback Telnyx-hosted model to use when the primary LLM provider is
+     * unavailable.
+     */
+    model?: string;
+  }
+
+  export namespace FallbackConfig {
+    export interface ExternalLlm {
+      /**
+       * Base URL for the external LLM endpoint.
+       */
+      base_url: string;
+
+      /**
+       * Model identifier to use with the external LLM endpoint.
+       */
+      model: string;
+
+      /**
+       * Authentication method used when connecting to the external LLM endpoint.
+       */
+      authentication_method?: 'token' | 'certificate';
+
+      /**
+       * Integration secret identifier for the client certificate used with certificate
+       * authentication.
+       */
+      certificate_ref?: string;
+
+      /**
+       * When `true`, Telnyx forwards the assistant's dynamic variables to the external
+       * LLM endpoint as a top-level `extra_metadata` object on the chat completion
+       * request body. Defaults to `false`. Example payload sent to the external
+       * endpoint:
+       * `{"extra_metadata": {"customer_name": "Jane", "account_id": "acct_789", "telnyx_agent_target": "+13125550100", "telnyx_end_user_target": "+13125550123"}}`.
+       * Distinct from OpenAI's native `metadata` field, which has its own size and type
+       * limits.
+       */
+      forward_metadata?: boolean;
+
+      /**
+       * Integration secret identifier for the external LLM API key.
+       */
+      llm_api_key_ref?: string;
+
+      /**
+       * URL used to retrieve an access token when certificate authentication is enabled.
+       */
+      token_retrieval_url?: string;
+    }
+  }
+
+  /**
+   * Reference to a connected integration attached to an assistant. Discover
+   * available integrations with `/ai/integrations` and connected integrations with
+   * `/ai/integrations/connections`.
+   */
+  export interface Integration {
+    /**
+     * Catalog integration ID to attach. This is the `id` from the integrations catalog
+     * at `/ai/integrations` (the same value also appears as `integration_id` on
+     * entries returned by `/ai/integrations/connections`). It is **not** the
+     * connection-level `id` from `/ai/integrations/connections`.
+     */
+    integration_id: string;
+
+    /**
+     * Optional per-assistant allowlist of integration tool names. When omitted or
+     * empty, all tools allowed by the connected integration are available to the
+     * assistant.
+     */
+    allowed_list?: Array<string>;
+  }
+
+  /**
+   * Settings for interruptions and how the assistant decides the user has finished
+   * speaking. These timings are most relevant when using non turn-taking
+   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
+   * behavior is controlled by the transcription end-of-turn settings under
+   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * `eager_eot_threshold`).
+   */
+  export interface InterruptionSettings {
+    /**
+     * When true, disables user interruptions while the assistant greeting is playing.
+     */
+    disable_greeting_interruption?: boolean;
+
+    /**
+     * Whether users can interrupt the assistant while it is speaking.
+     */
+    enable?: boolean;
+
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    start_speaking_plan?: InterruptionSettings.StartSpeakingPlan;
+  }
+
+  export namespace InterruptionSettings {
+    /**
+     * Controls when the assistant starts speaking after the user stops. These
+     * thresholds primarily apply to non turn-taking transcription models. For
+     * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
+     * transcription end-of-turn settings under `transcription.settings` instead.
+     */
+    export interface StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      transcription_endpointing_plan?: StartSpeakingPlan.TranscriptionEndpointingPlan;
+
+      /**
+       * Minimum seconds to wait before the assistant starts speaking.
+       */
+      wait_seconds?: number;
+    }
+
+    export namespace StartSpeakingPlan {
+      /**
+       * Endpointing thresholds used to decide when the user has finished speaking.
+       * Applies to non turn-taking transcription models. For `deepgram/flux`, use
+       * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
+       * `eager_eot_threshold`.
+       */
+      export interface TranscriptionEndpointingPlan {
+        /**
+         * Seconds to wait after the transcript ends without punctuation.
+         */
+        on_no_punctuation_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with a number.
+         */
+        on_number_seconds?: number;
+
+        /**
+         * Seconds to wait after the transcript ends with punctuation.
+         */
+        on_punctuation_seconds?: number;
+      }
+    }
+  }
+
+  /**
+   * Reference to an MCP server attached to an assistant. Create and manage MCP
+   * servers with the `/ai/mcp_servers` endpoints, then attach them to assistants by
+   * ID.
+   */
+  export interface McpServer {
+    /**
+     * ID of the MCP server to attach. This must be the `id` of an MCP server returned
+     * by the `/ai/mcp_servers` endpoints.
+     */
+    id: string;
+
+    /**
+     * Optional per-assistant allowlist of MCP tool names. When omitted, the assistant
+     * uses the MCP server's configured `allowed_tools`.
+     */
+    allowed_tools?: Array<string>;
+  }
+
+  /**
+   * Configuration for post-conversation processing. When enabled, the assistant
+   * receives one additional LLM turn after the conversation ends, allowing it to
+   * execute tool calls such as logging to a CRM or sending a summary. The assistant
+   * can execute multiple parallel or sequential tools during this phase.
+   * Telephony-control tools (e.g. hangup, transfer) are unavailable
+   * post-conversation. Beta feature.
+   */
+  export interface PostConversationSettings {
+    /**
+     * Whether post-conversation processing is enabled. When true, the assistant will
+     * be invoked after the conversation ends to perform any final tool calls. Defaults
+     * to false.
+     */
+    enabled?: boolean;
   }
 }
 

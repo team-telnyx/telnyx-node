@@ -52,8 +52,6 @@ import {
   AssistantDeleteResponse,
   AssistantGetTexmlResponse,
   AssistantImportsParams,
-  AssistantIntegration,
-  AssistantMcpServer,
   AssistantRetrieveParams,
   AssistantSendSMSParams,
   AssistantSendSMSResponse,
@@ -63,27 +61,18 @@ import {
   AssistantsList,
   AudioVisualizerConfig,
   EnabledFeatures,
-  ExternalLlm,
-  ExternalLlmReq,
-  FallbackConfig,
-  FallbackConfigReq,
   HangupTool,
   HangupToolParams,
   ImportMetadata,
   InferenceEmbedding,
-  InferenceEmbeddingInterruptionSettings,
   InferenceEmbeddingWebhookToolParams,
   InsightSettings,
   MessagingSettings,
   Observability,
   ObservabilityReq,
-  PostConversationSettings,
-  PostConversationSettingsReq,
   PrivacySettings,
   RetrievalTool,
-  StartSpeakingPlan,
   TelephonySettings,
-  TranscriptionEndpointingPlan,
   TranscriptionSettings,
   TranscriptionSettingsConfig,
   TransferTool,
@@ -227,140 +216,142 @@ export class AI extends APIResource {
   }
 }
 
-/**
- * Metadata for a model available on Telnyx Inference. Returned by
- * `GET /v2/ai/openai/models` (and the deprecated `GET /v2/ai/models`). Open-source
- * models live under their Hugging Face organization (e.g. `moonshotai/Kimi-K2.6`,
- * `zai-org/GLM-5.1-FP8`, `MiniMaxAI/MiniMax-M2.7`); fine-tuned models are owned by
- * the Telnyx organization that trained them.
- */
-export interface ModelMetadata {
-  /**
-   * Model identifier. For open-source models, follows the
-   * `{organization}/{model_name}` convention from Hugging Face (e.g.
-   * `moonshotai/Kimi-K2.6`).
-   */
-  id: string;
-
-  /**
-   * Maximum total tokens (prompt + completion) supported by the model in a single
-   * request.
-   */
-  context_length: number;
-
-  /**
-   * Timestamp at which the model was registered on Telnyx Inference (ISO 8601).
-   */
-  created: string;
-
-  /**
-   * ISO language codes the model supports (e.g. `en`, `es`).
-   */
-  languages: Array<string>;
-
-  /**
-   * License the model is distributed under, e.g. `Apache 2.0`, `MIT`,
-   * `Llama 3 Community License`.
-   */
-  license: string;
-
-  /**
-   * Organization that originally published the model, matching the prefix of `id`
-   * for open-source models.
-   */
-  organization: string;
-
-  /**
-   * Owner of the model. `Telnyx` for Telnyx-hosted open-source models, the upstream
-   * provider name for proxied models, or the Telnyx organization id for fine-tuned
-   * models.
-   */
-  owned_by: string;
-
-  /**
-   * Total parameter count of the model.
-   */
-  parameters: number;
-
-  /**
-   * Billing tier the model belongs to. Used together with `pricing` to determine
-   * cost per 1M tokens.
-   */
-  tier: 'small' | 'medium' | 'large' | 'unlisted';
-
-  /**
-   * Base model the fine-tuned model was trained from. Only set for fine-tuned
-   * models.
-   */
-  base_model?: string | null;
-
-  /**
-   * Short, human-readable summary of what the model is best suited for.
-   */
-  description?: string | null;
-
-  /**
-   * Whether the model can be used as a base for a fine-tuning job via
-   * `POST /v2/ai/fine_tuning/jobs`.
-   */
-  is_fine_tunable?: boolean;
-
-  /**
-   * Whether the model accepts image inputs in chat completions (multimodal vision
-   * support).
-   */
-  is_vision_supported?: boolean;
-
-  /**
-   * Maximum number of completion (output) tokens the model will generate per
-   * request. `null` if unconstrained beyond `context_length`.
-   */
-  max_completion_tokens?: number | null;
-
-  /**
-   * Object type. Always `model`.
-   */
-  object?: string;
-
-  /**
-   * Human-readable parameter count, e.g. `1.0T`, `753.9B`, `8B`.
-   */
-  parameters_str?: string | null;
-
-  /**
-   * Mapping of token kind to price, as strings to preserve precision. Typical keys
-   * are `prompt`, `cached_prompt`, and `completion`. When pricing is available the
-   * block also includes `currency` (ISO 4217 code matching the account's configured
-   * billing currency) and `unit` (the denomination the prices are quoted in,
-   * currently always `1M_tokens` for token-priced models).
-   */
-  pricing?: { [key: string]: string };
-
-  /**
-   * Whether Telnyx currently recommends this model as the LLM powering a Telnyx AI
-   * Assistant.
-   */
-  recommended_for_assistants?: boolean;
-
-  /**
-   * Public region names where the model is currently deployed (e.g. `us-central-1`,
-   * `eu-central-1`).
-   */
-  regions?: Array<string>;
-
-  /**
-   * Primary task the model is intended for, e.g. `text-generation`,
-   * `audio-text-to-text`, `feature-extraction` (embeddings).
-   */
-  task?: string;
-}
-
 export type AICreateResponseDeprecatedResponse = { [key: string]: unknown };
 
 export interface AIRetrieveModelsResponse {
-  data: Array<ModelMetadata>;
+  data: Array<AIRetrieveModelsResponse.Data>;
 
   object?: string;
+}
+
+export namespace AIRetrieveModelsResponse {
+  /**
+   * Metadata for a model available on Telnyx Inference. Returned by
+   * `GET /v2/ai/openai/models` (and the deprecated `GET /v2/ai/models`). Open-source
+   * models live under their Hugging Face organization (e.g. `moonshotai/Kimi-K2.6`,
+   * `zai-org/GLM-5.1-FP8`, `MiniMaxAI/MiniMax-M2.7`); fine-tuned models are owned by
+   * the Telnyx organization that trained them.
+   */
+  export interface Data {
+    /**
+     * Model identifier. For open-source models, follows the
+     * `{organization}/{model_name}` convention from Hugging Face (e.g.
+     * `moonshotai/Kimi-K2.6`).
+     */
+    id: string;
+
+    /**
+     * Maximum total tokens (prompt + completion) supported by the model in a single
+     * request.
+     */
+    context_length: number;
+
+    /**
+     * Timestamp at which the model was registered on Telnyx Inference (ISO 8601).
+     */
+    created: string;
+
+    /**
+     * ISO language codes the model supports (e.g. `en`, `es`).
+     */
+    languages: Array<string>;
+
+    /**
+     * License the model is distributed under, e.g. `Apache 2.0`, `MIT`,
+     * `Llama 3 Community License`.
+     */
+    license: string;
+
+    /**
+     * Organization that originally published the model, matching the prefix of `id`
+     * for open-source models.
+     */
+    organization: string;
+
+    /**
+     * Owner of the model. `Telnyx` for Telnyx-hosted open-source models, the upstream
+     * provider name for proxied models, or the Telnyx organization id for fine-tuned
+     * models.
+     */
+    owned_by: string;
+
+    /**
+     * Total parameter count of the model.
+     */
+    parameters: number;
+
+    /**
+     * Billing tier the model belongs to. Used together with `pricing` to determine
+     * cost per 1M tokens.
+     */
+    tier: 'small' | 'medium' | 'large' | 'unlisted';
+
+    /**
+     * Base model the fine-tuned model was trained from. Only set for fine-tuned
+     * models.
+     */
+    base_model?: string | null;
+
+    /**
+     * Short, human-readable summary of what the model is best suited for.
+     */
+    description?: string | null;
+
+    /**
+     * Whether the model can be used as a base for a fine-tuning job via
+     * `POST /v2/ai/fine_tuning/jobs`.
+     */
+    is_fine_tunable?: boolean;
+
+    /**
+     * Whether the model accepts image inputs in chat completions (multimodal vision
+     * support).
+     */
+    is_vision_supported?: boolean;
+
+    /**
+     * Maximum number of completion (output) tokens the model will generate per
+     * request. `null` if unconstrained beyond `context_length`.
+     */
+    max_completion_tokens?: number | null;
+
+    /**
+     * Object type. Always `model`.
+     */
+    object?: string;
+
+    /**
+     * Human-readable parameter count, e.g. `1.0T`, `753.9B`, `8B`.
+     */
+    parameters_str?: string | null;
+
+    /**
+     * Mapping of token kind to price, as strings to preserve precision. Typical keys
+     * are `prompt`, `cached_prompt`, and `completion`. When pricing is available the
+     * block also includes `currency` (ISO 4217 code matching the account's configured
+     * billing currency) and `unit` (the denomination the prices are quoted in,
+     * currently always `1M_tokens` for token-priced models).
+     */
+    pricing?: { [key: string]: string };
+
+    /**
+     * Whether Telnyx currently recommends this model as the LLM powering a Telnyx AI
+     * Assistant.
+     */
+    recommended_for_assistants?: boolean;
+
+    /**
+     * Public region names where the model is currently deployed (e.g. `us-central-1`,
+     * `eu-central-1`).
+     */
+    regions?: Array<string>;
+
+    /**
+     * Primary task the model is intended for, e.g. `text-generation`,
+     * `audio-text-to-text`, `feature-extraction` (embeddings).
+     */
+    task?: string;
+  }
 }
 
 export interface AISummarizeResponse {
@@ -409,7 +400,6 @@ AI.Tools = Tools;
 
 export declare namespace AI {
   export {
-    type ModelMetadata as ModelMetadata,
     type AICreateResponseDeprecatedResponse as AICreateResponseDeprecatedResponse,
     type AIRetrieveModelsResponse as AIRetrieveModelsResponse,
     type AISummarizeResponse as AISummarizeResponse,
@@ -420,33 +410,22 @@ export declare namespace AI {
   export {
     Assistants as Assistants,
     type Assistant as Assistant,
-    type AssistantIntegration as AssistantIntegration,
-    type AssistantMcpServer as AssistantMcpServer,
     type AssistantTool as AssistantTool,
     type AssistantsList as AssistantsList,
     type AudioVisualizerConfig as AudioVisualizerConfig,
     type EnabledFeatures as EnabledFeatures,
-    type ExternalLlm as ExternalLlm,
-    type ExternalLlmReq as ExternalLlmReq,
-    type FallbackConfig as FallbackConfig,
-    type FallbackConfigReq as FallbackConfigReq,
     type HangupTool as HangupTool,
     type HangupToolParams as HangupToolParams,
     type ImportMetadata as ImportMetadata,
     type InferenceEmbedding as InferenceEmbedding,
-    type InferenceEmbeddingInterruptionSettings as InferenceEmbeddingInterruptionSettings,
     type InferenceEmbeddingWebhookToolParams as InferenceEmbeddingWebhookToolParams,
     type InsightSettings as InsightSettings,
     type MessagingSettings as MessagingSettings,
     type Observability as Observability,
     type ObservabilityReq as ObservabilityReq,
-    type PostConversationSettings as PostConversationSettings,
-    type PostConversationSettingsReq as PostConversationSettingsReq,
     type PrivacySettings as PrivacySettings,
     type RetrievalTool as RetrievalTool,
-    type StartSpeakingPlan as StartSpeakingPlan,
     type TelephonySettings as TelephonySettings,
-    type TranscriptionEndpointingPlan as TranscriptionEndpointingPlan,
     type TranscriptionSettings as TranscriptionSettings,
     type TranscriptionSettingsConfig as TranscriptionSettingsConfig,
     type TransferTool as TransferTool,

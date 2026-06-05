@@ -99,13 +99,11 @@ import {
   TelnyxVoiceSettings,
   TranscriptionConfig,
   TranscriptionEngineAConfig,
-  TranscriptionEngineAssemblyaiConfig,
   TranscriptionEngineAzureConfig,
   TranscriptionEngineBConfig,
   TranscriptionEngineDeepgramConfig,
   TranscriptionEngineGoogleConfig,
   TranscriptionEngineTelnyxConfig,
-  TranscriptionEngineXaiConfig,
   TranscriptionStartRequest,
 } from './actions';
 import * as AssistantsAPI from '../ai/assistants/assistants';
@@ -1316,7 +1314,7 @@ export namespace CallDialParams {
       | Shared.RimeVoiceSettings
       | Shared.ResembleVoiceSettings
       | ConversationRelayConfig.InworldVoiceSettings
-      | Shared.XaiVoiceSettings;
+      | ConversationRelayConfig.XaiVoiceSettings;
   }
 
   export namespace ConversationRelayConfig {
@@ -1423,7 +1421,7 @@ export namespace CallDialParams {
         | Shared.RimeVoiceSettings
         | Shared.ResembleVoiceSettings
         | Language.InworldVoiceSettings
-        | Shared.XaiVoiceSettings;
+        | Language.XaiVoiceSettings;
     }
 
     export namespace Language {
@@ -1433,6 +1431,18 @@ export namespace CallDialParams {
          */
         type: 'inworld';
       }
+
+      export interface XaiVoiceSettings {
+        /**
+         * Voice settings provider type
+         */
+        type: 'xai';
+
+        /**
+         * Language code, or `auto` to detect automatically.
+         */
+        language?: string;
+      }
     }
 
     export interface InworldVoiceSettings {
@@ -1440,6 +1450,18 @@ export namespace CallDialParams {
        * Voice settings provider type
        */
       type: 'inworld';
+    }
+
+    export interface XaiVoiceSettings {
+      /**
+       * Voice settings provider type
+       */
+      type: 'xai';
+
+      /**
+       * Language code, or `auto` to detect automatically.
+       */
+      language?: string;
     }
   }
 
@@ -1511,13 +1533,11 @@ export declare namespace Calls {
     type TelnyxVoiceSettings as TelnyxVoiceSettings,
     type TranscriptionConfig as TranscriptionConfig,
     type TranscriptionEngineAConfig as TranscriptionEngineAConfig,
-    type TranscriptionEngineAssemblyaiConfig as TranscriptionEngineAssemblyaiConfig,
     type TranscriptionEngineAzureConfig as TranscriptionEngineAzureConfig,
     type TranscriptionEngineBConfig as TranscriptionEngineBConfig,
     type TranscriptionEngineDeepgramConfig as TranscriptionEngineDeepgramConfig,
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
     type TranscriptionEngineTelnyxConfig as TranscriptionEngineTelnyxConfig,
-    type TranscriptionEngineXaiConfig as TranscriptionEngineXaiConfig,
     type TranscriptionStartRequest as TranscriptionStartRequest,
     type ActionAddAIAssistantMessagesResponse as ActionAddAIAssistantMessagesResponse,
     type ActionAnswerResponse as ActionAnswerResponse,

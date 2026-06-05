@@ -12,41 +12,42 @@ describe('resource enterprises', () => {
   test.skip('create: only required params', async () => {
     const responsePromise = client.enterprises.create({
       billing_address: {
-        administrative_area: 'Illinois',
+        administrative_area: 'IL',
         city: 'Chicago',
-        country: 'United States',
+        country: 'US',
         postal_code: '60601',
-        street_address: '123 Main St',
+        street_address: '100 Main St',
       },
       billing_contact: {
-        email: 'billing@acme.com',
-        first_name: 'John',
-        last_name: 'Doe',
-        phone_number: '15551234568',
+        email: 'billing@run065.example.com',
+        first_name: 'Alex',
+        last_name: 'Bill',
+        phone_number: '+13125550001',
       },
       country_code: 'US',
-      doing_business_as: 'Acme',
+      doing_business_as: 'Run 065 Debug',
       fein: '12-3456789',
       industry: 'technology',
-      legal_name: 'Acme Corp Inc.',
+      jurisdiction_of_incorporation: 'Delaware',
+      legal_name: 'Run 065 Debug Co',
       number_of_employees: '51-200',
       organization_contact: {
-        email: 'jane.smith@acme.com',
-        first_name: 'Jane',
-        job_title: 'VP of Engineering',
-        last_name: 'Smith',
-        phone: '+16035551234',
+        email: 'org@run065.example.com',
+        first_name: 'Sam',
+        job_title: 'Compliance Lead',
+        last_name: 'Org',
+        phone_number: '+13125550000',
       },
-      organization_legal_type: 'corporation',
+      organization_legal_type: 'llc',
       organization_physical_address: {
-        administrative_area: 'Illinois',
+        administrative_area: 'IL',
         city: 'Chicago',
-        country: 'United States',
+        country: 'US',
         postal_code: '60601',
-        street_address: '123 Main St',
+        street_address: '100 Main St',
       },
       organization_type: 'commercial',
-      website: 'https://acme.com',
+      website: 'https://run065.example.com',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -61,47 +62,48 @@ describe('resource enterprises', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.enterprises.create({
       billing_address: {
-        administrative_area: 'Illinois',
+        administrative_area: 'IL',
         city: 'Chicago',
-        country: 'United States',
+        country: 'US',
         postal_code: '60601',
-        street_address: '123 Main St',
-        extended_address: 'Suite 400',
+        street_address: '100 Main St',
+        extended_address: 'Suite 504',
       },
       billing_contact: {
-        email: 'billing@acme.com',
-        first_name: 'John',
-        last_name: 'Doe',
-        phone_number: '15551234568',
+        email: 'billing@run065.example.com',
+        first_name: 'Alex',
+        last_name: 'Bill',
+        phone_number: '+13125550001',
       },
       country_code: 'US',
-      doing_business_as: 'Acme',
+      doing_business_as: 'Run 065 Debug',
       fein: '12-3456789',
       industry: 'technology',
-      legal_name: 'Acme Corp Inc.',
+      jurisdiction_of_incorporation: 'Delaware',
+      legal_name: 'Run 065 Debug Co',
       number_of_employees: '51-200',
       organization_contact: {
-        email: 'jane.smith@acme.com',
-        first_name: 'Jane',
-        job_title: 'VP of Engineering',
-        last_name: 'Smith',
-        phone: '+16035551234',
+        email: 'org@run065.example.com',
+        first_name: 'Sam',
+        job_title: 'Compliance Lead',
+        last_name: 'Org',
+        phone_number: '+13125550000',
       },
-      organization_legal_type: 'corporation',
+      organization_legal_type: 'llc',
       organization_physical_address: {
-        administrative_area: 'Illinois',
+        administrative_area: 'IL',
         city: 'Chicago',
-        country: 'United States',
+        country: 'US',
         postal_code: '60601',
-        street_address: '123 Main St',
-        extended_address: 'Suite 400',
+        street_address: '100 Main St',
+        extended_address: 'Suite 504',
       },
       organization_type: 'commercial',
-      website: 'https://acme.com',
+      website: 'https://run065.example.com',
       corporate_registration_number: 'corporate_registration_number',
-      customer_reference: 'customer_reference',
+      customer_reference: 'internal-id-12345',
       dun_bradstreet_number: 'dun_bradstreet_number',
-      primary_business_domain_sic_code: '7372',
+      primary_business_domain_sic_code: 'primary_business_domain_sic_code',
       professional_license_number: 'professional_license_number',
       role_type: 'enterprise',
     });
@@ -109,7 +111,7 @@ describe('resource enterprises', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.enterprises.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
+    const responsePromise = client.enterprises.retrieve('4a6192a4-573d-446d-b3ce-aff9117272a6');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -121,7 +123,7 @@ describe('resource enterprises', () => {
 
   // Mock server tests are disabled
   test.skip('update', async () => {
-    const responsePromise = client.enterprises.update('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {});
+    const responsePromise = client.enterprises.update('4a6192a4-573d-446d-b3ce-aff9117272a6', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -151,7 +153,7 @@ describe('resource enterprises', () => {
         {
           legal_name: 'Acme',
           'page[number]': 1,
-          'page[size]': 1,
+          'page[size]': 10,
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -160,7 +162,19 @@ describe('resource enterprises', () => {
 
   // Mock server tests are disabled
   test.skip('delete', async () => {
-    const responsePromise = client.enterprises.delete('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
+    const responsePromise = client.enterprises.delete('4a6192a4-573d-446d-b3ce-aff9117272a6');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('activateBrandedCalling', async () => {
+    const responsePromise = client.enterprises.activateBrandedCalling('4a6192a4-573d-446d-b3ce-aff9117272a6');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
