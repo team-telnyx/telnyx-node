@@ -1170,7 +1170,7 @@ export namespace InferenceEmbedding {
     /**
      * All nodes in the flow.
      */
-    nodes: Array<ConversationFlow.FlowNode | ConversationFlow.ToolNode>;
+    nodes: Array<ConversationFlow.FlowNode | ConversationFlow.ToolNode | ConversationFlow.SpeakNode>;
 
     /**
      * ID of the node where the conversation begins.
@@ -1361,6 +1361,62 @@ export namespace InferenceEmbedding {
     }
 
     /**
+     * A standalone scripted-message step in a flow, as returned by the API.
+     */
+    export interface SpeakNode {
+      /**
+       * Caller-supplied unique identifier for this node within the flow.
+       */
+      id: string;
+
+      /**
+       * Message delivered to the user verbatim when the flow reaches this node. No LLM
+       * turn — the text is spoken/sent exactly as written. `{{variable}}` placeholders
+       * are interpolated from the conversation's dynamic variables; an unresolved
+       * placeholder renders as an empty string. After delivering, the flow routes via
+       * the node's outgoing `llm` / `expression` edges (commonly a single unconditional
+       * edge).
+       */
+      message: string;
+
+      /**
+       * Optional human-readable label, displayed in authoring UIs.
+       */
+      name?: string;
+
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      position?: SpeakNode.Position;
+
+      /**
+       * Node kind discriminator. Always `speak` for a speak node.
+       */
+      type?: 'speak';
+    }
+
+    export namespace SpeakNode {
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      export interface Position {
+        /**
+         * Horizontal coordinate in the authoring canvas.
+         */
+        x: number;
+
+        /**
+         * Vertical coordinate in the authoring canvas.
+         */
+        y: number;
+      }
+    }
+
+    /**
      * Directed transition from one node to a target, gated by a condition.
      *
      * The target is either another node in the same flow (`NodeTarget`) or a different
@@ -1378,7 +1434,7 @@ export namespace InferenceEmbedding {
        * Condition that gates the transition. Discriminated by `type`: `llm`,
        * `expression`.
        */
-      condition: Edge.LlmCondition | Edge.ExpressionCondition;
+      condition: Edge.LlmCondition | Edge.ExpressionCondition | Edge.DefaultCondition;
 
       /**
        * ID of the node this edge transitions away from.
@@ -1487,6 +1543,21 @@ export namespace InferenceEmbedding {
            */
           value: boolean;
         }
+      }
+
+      /**
+       * Fallback edge condition: fires only when no other edge's condition is true.
+       *
+       * Evaluated after every conditioned (`llm` / `expression`) edge regardless of
+       * declaration order, so it routes the flow whenever none of the node's other
+       * outgoing edges match. Valid **only** on edges leaving a `tool` or `speak` node,
+       * where the deterministic step auto-advances and must always have somewhere to go.
+       * A tool/speak node with any outgoing edge is required to carry exactly one
+       * `default` edge so it never dead-ends; a tool/speak node with no outgoing edges
+       * is a valid terminal step. Carries no parameters.
+       */
+      export interface DefaultCondition {
+        type: 'default';
       }
 
       /**
@@ -2841,7 +2912,7 @@ export namespace AssistantCreateParams {
      * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node
      * (`type: prompt`) or a tool node (`type: tool`).
      */
-    nodes: Array<ConversationFlow.FlowNodeReq | ConversationFlow.ToolNodeReq>;
+    nodes: Array<ConversationFlow.FlowNodeReq | ConversationFlow.ToolNodeReq | ConversationFlow.SpeakNodeReq>;
 
     /**
      * ID of the node where the conversation begins.
@@ -3028,6 +3099,67 @@ export namespace AssistantCreateParams {
     }
 
     /**
+     * A standalone scripted-message step in a flow, as supplied by clients.
+     *
+     * Unlike a prompt node, a speak node has no instructions or model — it isn't an
+     * LLM turn. Reaching it delivers `message` to the user verbatim (with
+     * `{{variable}}` interpolation), then routes via outgoing `llm` / `expression`
+     * edges.
+     */
+    export interface SpeakNodeReq {
+      /**
+       * Caller-supplied unique identifier for this node within the flow.
+       */
+      id: string;
+
+      /**
+       * Message delivered to the user verbatim when the flow reaches this node. No LLM
+       * turn — the text is spoken/sent exactly as written. `{{variable}}` placeholders
+       * are interpolated from the conversation's dynamic variables; an unresolved
+       * placeholder renders as an empty string. After delivering, the flow routes via
+       * the node's outgoing `llm` / `expression` edges (commonly a single unconditional
+       * edge).
+       */
+      message: string;
+
+      /**
+       * Optional human-readable label, displayed in authoring UIs.
+       */
+      name?: string;
+
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      position?: SpeakNodeReq.Position;
+
+      /**
+       * Node kind discriminator. Always `speak` for a speak node.
+       */
+      type?: 'speak';
+    }
+
+    export namespace SpeakNodeReq {
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      export interface Position {
+        /**
+         * Horizontal coordinate in the authoring canvas.
+         */
+        x: number;
+
+        /**
+         * Vertical coordinate in the authoring canvas.
+         */
+        y: number;
+      }
+    }
+
+    /**
      * Directed transition from one node to a target, gated by a condition.
      *
      * The target is either another node in the same flow (`NodeTarget`) or a different
@@ -3045,7 +3177,7 @@ export namespace AssistantCreateParams {
        * Condition that gates the transition. Discriminated by `type`: `llm`,
        * `expression`.
        */
-      condition: Edge.LlmCondition | Edge.ExpressionCondition;
+      condition: Edge.LlmCondition | Edge.ExpressionCondition | Edge.DefaultCondition;
 
       /**
        * ID of the node this edge transitions away from.
@@ -3154,6 +3286,21 @@ export namespace AssistantCreateParams {
            */
           value: boolean;
         }
+      }
+
+      /**
+       * Fallback edge condition: fires only when no other edge's condition is true.
+       *
+       * Evaluated after every conditioned (`llm` / `expression`) edge regardless of
+       * declaration order, so it routes the flow whenever none of the node's other
+       * outgoing edges match. Valid **only** on edges leaving a `tool` or `speak` node,
+       * where the deterministic step auto-advances and must always have somewhere to go.
+       * A tool/speak node with any outgoing edge is required to carry exactly one
+       * `default` edge so it never dead-ends; a tool/speak node with no outgoing edges
+       * is a valid terminal step. Carries no parameters.
+       */
+      export interface DefaultCondition {
+        type: 'default';
       }
 
       /**
@@ -3417,7 +3564,7 @@ export namespace AssistantUpdateParams {
      * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node
      * (`type: prompt`) or a tool node (`type: tool`).
      */
-    nodes: Array<ConversationFlow.FlowNodeReq | ConversationFlow.ToolNodeReq>;
+    nodes: Array<ConversationFlow.FlowNodeReq | ConversationFlow.ToolNodeReq | ConversationFlow.SpeakNodeReq>;
 
     /**
      * ID of the node where the conversation begins.
@@ -3604,6 +3751,67 @@ export namespace AssistantUpdateParams {
     }
 
     /**
+     * A standalone scripted-message step in a flow, as supplied by clients.
+     *
+     * Unlike a prompt node, a speak node has no instructions or model — it isn't an
+     * LLM turn. Reaching it delivers `message` to the user verbatim (with
+     * `{{variable}}` interpolation), then routes via outgoing `llm` / `expression`
+     * edges.
+     */
+    export interface SpeakNodeReq {
+      /**
+       * Caller-supplied unique identifier for this node within the flow.
+       */
+      id: string;
+
+      /**
+       * Message delivered to the user verbatim when the flow reaches this node. No LLM
+       * turn — the text is spoken/sent exactly as written. `{{variable}}` placeholders
+       * are interpolated from the conversation's dynamic variables; an unresolved
+       * placeholder renders as an empty string. After delivering, the flow routes via
+       * the node's outgoing `llm` / `expression` edges (commonly a single unconditional
+       * edge).
+       */
+      message: string;
+
+      /**
+       * Optional human-readable label, displayed in authoring UIs.
+       */
+      name?: string;
+
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      position?: SpeakNodeReq.Position;
+
+      /**
+       * Node kind discriminator. Always `speak` for a speak node.
+       */
+      type?: 'speak';
+    }
+
+    export namespace SpeakNodeReq {
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      export interface Position {
+        /**
+         * Horizontal coordinate in the authoring canvas.
+         */
+        x: number;
+
+        /**
+         * Vertical coordinate in the authoring canvas.
+         */
+        y: number;
+      }
+    }
+
+    /**
      * Directed transition from one node to a target, gated by a condition.
      *
      * The target is either another node in the same flow (`NodeTarget`) or a different
@@ -3621,7 +3829,7 @@ export namespace AssistantUpdateParams {
        * Condition that gates the transition. Discriminated by `type`: `llm`,
        * `expression`.
        */
-      condition: Edge.LlmCondition | Edge.ExpressionCondition;
+      condition: Edge.LlmCondition | Edge.ExpressionCondition | Edge.DefaultCondition;
 
       /**
        * ID of the node this edge transitions away from.
@@ -3730,6 +3938,21 @@ export namespace AssistantUpdateParams {
            */
           value: boolean;
         }
+      }
+
+      /**
+       * Fallback edge condition: fires only when no other edge's condition is true.
+       *
+       * Evaluated after every conditioned (`llm` / `expression`) edge regardless of
+       * declaration order, so it routes the flow whenever none of the node's other
+       * outgoing edges match. Valid **only** on edges leaving a `tool` or `speak` node,
+       * where the deterministic step auto-advances and must always have somewhere to go.
+       * A tool/speak node with any outgoing edge is required to carry exactly one
+       * `default` edge so it never dead-ends; a tool/speak node with no outgoing edges
+       * is a valid terminal step. Carries no parameters.
+       */
+      export interface DefaultCondition {
+        type: 'default';
       }
 
       /**
