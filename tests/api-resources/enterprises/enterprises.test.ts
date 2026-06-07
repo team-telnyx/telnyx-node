@@ -151,6 +151,7 @@ describe('resource enterprises', () => {
     await expect(
       client.enterprises.list(
         {
+          'filter[legal_name][contains]': 'Acme',
           legal_name: 'Acme',
           'page[number]': 1,
           'page[size]': 10,

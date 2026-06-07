@@ -51,8 +51,12 @@ describe('resource dir', () => {
       client.dir.list(
         {
           enterprise_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          'filter[call_reason][contains]': 'filter[call_reason][contains]',
+          'filter[display_name][contains]': 'filter[display_name][contains]',
+          'filter[enterprise_id]': '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           'filter[expiring_at][gte]': '2019-12-27T18:11:19.117Z',
           'filter[expiring_at][lte]': '2019-12-27T18:11:19.117Z',
+          'filter[status]': 'draft',
           'page[number]': 1,
           'page[size]': 20,
           search: 'search',

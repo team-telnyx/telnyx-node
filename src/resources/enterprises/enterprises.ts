@@ -646,6 +646,11 @@ export interface EnterpriseUpdateParams {
 
 export interface EnterpriseListParams extends DefaultFlatPaginationParams {
   /**
+   * Case-insensitive partial match on legal name.
+   */
+  'filter[legal_name][contains]'?: string;
+
+  /**
    * Filter by legal name (partial match).
    */
   legal_name?: string;

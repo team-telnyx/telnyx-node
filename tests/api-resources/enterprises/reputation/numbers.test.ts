@@ -51,6 +51,8 @@ describe('resource numbers', () => {
       client.enterprises.reputation.numbers.list(
         '4a6192a4-573d-446d-b3ce-aff9117272a6',
         {
+          'filter[phone_number][contains]': '+16035551234',
+          'filter[phone_number][eq]': '+16035551234',
           'page[number]': 1,
           'page[size]': 10,
           phone_number: '+16035551234',

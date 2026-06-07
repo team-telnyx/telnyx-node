@@ -82,14 +82,14 @@ export class Dir extends APIResource {
 
   /**
    * Return the DIRs (Display Identity Records) belonging to a single enterprise.
-   * Pagination is JSON:API style (`page[number]`, `page[size]`, max 250). Filterable
-   * by `status`. Searchable by case-insensitive partial match on `display_name`
-   * (`search=`). Sortable by any of `created_at`, `updated_at`, `display_name`,
-   * `status`, `submitted_at`, `verified_at`, `expiring_at` (prefix `-` for
-   * descending; default `-created_at`). Supports the renewal-window filters
+   * Pagination is JSON:API style (`page[number]`, `page[size]`, max 250). Supports
+   * `filter[]` query params: `filter[status]`, `filter[display_name][contains]`,
+   * `filter[call_reason][contains]`, plus the renewal-window filters
    * `filter[expiring_at][gte]` / `filter[expiring_at][lte]` and the convenience
    * `filter[expiring_within_days]` (mutually exclusive with the explicit gte/lte
-   * form).
+   * form). Sortable by `created_at`, `updated_at`, `display_name`, `status`,
+   * `submitted_at`, `verified_at`, `expiring_at` (prefix `-` for descending; default
+   * `-created_at`).
    *
    * @example
    * ```ts
@@ -461,6 +461,16 @@ export namespace DirCreateParams {
 
 export interface DirListParams extends DefaultFlatPaginationParams {
   /**
+   * Case-insensitive partial match on call reason.
+   */
+  'filter[call_reason][contains]'?: string;
+
+  /**
+   * Case-insensitive partial match on display name.
+   */
+  'filter[display_name][contains]'?: string;
+
+  /**
    * Return only DIRs whose `expiring_at` is at or after this ISO-8601 timestamp.
    */
   'filter[expiring_at][gte]'?: string;
@@ -477,6 +487,21 @@ export interface DirListParams extends DefaultFlatPaginationParams {
    * `[gte]`/`[lte]` filters — combining returns 400.
    */
   'filter[expiring_within_days]'?: number;
+
+  /**
+   * Filter by DIR status.
+   */
+  'filter[status]'?:
+    | 'draft'
+    | 'submitted'
+    | 'in_review'
+    | 'verified'
+    | 'rejected'
+    | 'unsuccessful'
+    | 'suspended'
+    | 'expired'
+    | 'infringement_claimed'
+    | 'permanently_rejected';
 
   /**
    * Case-insensitive partial match on `display_name`.
