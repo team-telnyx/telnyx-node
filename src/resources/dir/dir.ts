@@ -1113,11 +1113,6 @@ export interface DirUpdateParams {
 
 export interface DirListParams extends DefaultFlatPaginationParams {
   /**
-   * Restrict results to a single enterprise.
-   */
-  enterprise_id?: string;
-
-  /**
    * Case-insensitive partial match on call reason.
    */
   'filter[call_reason][contains]'?: string;
@@ -1159,11 +1154,6 @@ export interface DirListParams extends DefaultFlatPaginationParams {
     | 'permanently_rejected';
 
   /**
-   * Case-insensitive partial match on `display_name` or call reason.
-   */
-  search?: string;
-
-  /**
    * Sort field. Allowed values: `created_at`, `updated_at`, `display_name`,
    * `status`. Prefix with `-` for descending. Default `-created_at`.
    */
@@ -1176,21 +1166,6 @@ export interface DirListParams extends DefaultFlatPaginationParams {
     | '-display_name'
     | 'status'
     | '-status';
-
-  /**
-   * Filter by DIR status.
-   */
-  status?:
-    | 'draft'
-    | 'submitted'
-    | 'in_review'
-    | 'verified'
-    | 'rejected'
-    | 'unsuccessful'
-    | 'suspended'
-    | 'expired'
-    | 'infringement_claimed'
-    | 'permanently_rejected';
 }
 
 export interface DirListInfringementClaimsParams extends DefaultFlatPaginationParams {}

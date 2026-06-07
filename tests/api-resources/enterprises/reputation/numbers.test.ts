@@ -55,7 +55,6 @@ describe('resource numbers', () => {
           'filter[phone_number][eq]': '+16035551234',
           'page[number]': 1,
           'page[size]': 10,
-          phone_number: '+16035551234',
         },
         { path: '/_stainless_unknown_path' },
       ),
