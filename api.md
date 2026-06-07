@@ -4855,10 +4855,12 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/terms-of-service/terms-of-service.ts">TermsOfServiceRetrieveInfoResponse</a></code>
 - <code><a href="./src/resources/terms-of-service/terms-of-service.ts">TermsOfServiceStatusResponse</a></code>
 
 Methods:
 
+- <code title="get /terms_of_service/info">client.termsOfService.<a href="./src/resources/terms-of-service/terms-of-service.ts">retrieveInfo</a>({ ...params }) -> TermsOfServiceRetrieveInfoResponse</code>
 - <code title="get /terms_of_service/status">client.termsOfService.<a href="./src/resources/terms-of-service/terms-of-service.ts">status</a>({ ...params }) -> TermsOfServiceStatusResponse</code>
 
 ## NumberReputation

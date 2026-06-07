@@ -6251,6 +6251,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/reputation/numbers/{phone_number}',
   },
   {
+    clientCallName: 'client.termsOfService.retrieveInfo',
+    fullyQualifiedName: 'termsOfService.retrieveInfo',
+    httpMethod: 'get',
+    httpPath: '/terms_of_service/info',
+  },
+  {
     clientCallName: 'client.termsOfService.status',
     fullyQualifiedName: 'termsOfService.status',
     httpMethod: 'get',

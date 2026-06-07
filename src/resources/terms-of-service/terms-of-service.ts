@@ -27,6 +27,18 @@ export class TermsOfService extends APIResource {
   brandedCalling: BrandedCallingAPI.BrandedCalling = new BrandedCallingAPI.BrandedCalling(this._client);
 
   /**
+   * Returns the available Terms of Service agreements (product, current version,
+   * terms URL, effective date). Omit `product_type` to return all products; pass it
+   * to scope to one.
+   */
+  retrieveInfo(
+    query: TermsOfServiceRetrieveInfoParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TermsOfServiceRetrieveInfoResponse> {
+    return this._client.get('/terms_of_service/info', { query, ...options });
+  }
+
+  /**
    * Returns whether the authenticated user has agreed to the current Number
    * Reputation Terms of Service. Used during onboarding to decide whether to prompt
    * the user with the ToS dialog before continuing.
@@ -41,6 +53,27 @@ export class TermsOfService extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TermsOfServiceStatusResponse> {
     return this._client.get('/terms_of_service/status', { query, ...options });
+  }
+}
+
+export interface TermsOfServiceRetrieveInfoResponse {
+  agreements?: Array<TermsOfServiceRetrieveInfoResponse.Agreement>;
+}
+
+export namespace TermsOfServiceRetrieveInfoResponse {
+  export interface Agreement {
+    current_version?: string;
+
+    description?: string;
+
+    effective_date?: string;
+
+    /**
+     * Telnyx product the Terms of Service apply to.
+     */
+    product_type?: 'branded_calling' | 'number_reputation';
+
+    terms_url?: string;
   }
 }
 
@@ -89,6 +122,13 @@ export namespace TermsOfServiceStatusResponse {
   }
 }
 
+export interface TermsOfServiceRetrieveInfoParams {
+  /**
+   * Optional product filter. Omit to return info for all products.
+   */
+  product_type?: 'branded_calling' | 'number_reputation';
+}
+
 export interface TermsOfServiceStatusParams {
   /**
    * Which product's ToS to check. Defaults to `branded_calling`; pass
@@ -103,7 +143,9 @@ TermsOfService.BrandedCalling = BrandedCalling;
 
 export declare namespace TermsOfService {
   export {
+    type TermsOfServiceRetrieveInfoResponse as TermsOfServiceRetrieveInfoResponse,
     type TermsOfServiceStatusResponse as TermsOfServiceStatusResponse,
+    type TermsOfServiceRetrieveInfoParams as TermsOfServiceRetrieveInfoParams,
     type TermsOfServiceStatusParams as TermsOfServiceStatusParams,
   };
 

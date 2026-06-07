@@ -9,6 +9,29 @@ const client = new Telnyx({
 
 describe('resource termsOfService', () => {
   // Mock server tests are disabled
+  test.skip('retrieveInfo', async () => {
+    const responsePromise = client.termsOfService.retrieveInfo();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveInfo: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.termsOfService.retrieveInfo(
+        { product_type: 'branded_calling' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('status', async () => {
     const responsePromise = client.termsOfService.status();
     const rawResponse = await responsePromise.asResponse();

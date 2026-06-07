@@ -1150,6 +1150,7 @@ const fuse = new Fuse(
     'client.reputation.numbers.delete',
     'client.reputation.numbers.list',
     'client.reputation.numbers.retrieve',
+    'client.termsOfService.retrieveInfo',
     'client.termsOfService.status',
     'client.termsOfService.numberReputation.agree',
     'client.termsOfService.agreements.list',
