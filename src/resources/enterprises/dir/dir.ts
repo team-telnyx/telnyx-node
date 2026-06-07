@@ -504,11 +504,6 @@ export interface DirListParams extends DefaultFlatPaginationParams {
     | 'permanently_rejected';
 
   /**
-   * Case-insensitive partial match on `display_name`.
-   */
-  search?: string;
-
-  /**
    * Sort field. Allowed: `created_at`, `updated_at`, `display_name`, `status`,
    * `submitted_at`, `verified_at`, `expiring_at`. Prefix with `-` for descending.
    * Default `-created_at`.
@@ -528,21 +523,6 @@ export interface DirListParams extends DefaultFlatPaginationParams {
     | '-verified_at'
     | 'expiring_at'
     | '-expiring_at';
-
-  /**
-   * Filter by DIR status.
-   */
-  status?:
-    | 'draft'
-    | 'submitted'
-    | 'in_review'
-    | 'verified'
-    | 'rejected'
-    | 'unsuccessful'
-    | 'suspended'
-    | 'expired'
-    | 'infringement_claimed'
-    | 'permanently_rejected';
 }
 
 Dir.Comments = Comments;

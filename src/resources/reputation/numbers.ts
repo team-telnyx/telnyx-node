@@ -122,11 +122,6 @@ export interface NumberListParams extends DefaultFlatPaginationParams {
    * Exact phone-number match (E.164).
    */
   'filter[phone_number][eq]'?: string;
-
-  /**
-   * Filter by specific phone number (E.164 format).
-   */
-  phone_number?: string;
 }
 
 export declare namespace Numbers {

@@ -50,7 +50,6 @@ describe('resource dir', () => {
     await expect(
       client.dir.list(
         {
-          enterprise_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           'filter[call_reason][contains]': 'filter[call_reason][contains]',
           'filter[display_name][contains]': 'filter[display_name][contains]',
           'filter[enterprise_id]': '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -59,9 +58,7 @@ describe('resource dir', () => {
           'filter[status]': 'draft',
           'page[number]': 1,
           'page[size]': 20,
-          search: 'search',
           sort: 'created_at',
-          status: 'draft',
         },
         { path: '/_stainless_unknown_path' },
       ),
