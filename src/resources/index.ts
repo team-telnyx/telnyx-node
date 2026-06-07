@@ -1247,7 +1247,9 @@ export {
 } from './telephony-credentials';
 export {
   TermsOfService,
+  type TermsOfServiceRetrieveInfoResponse,
   type TermsOfServiceStatusResponse,
+  type TermsOfServiceRetrieveInfoParams,
   type TermsOfServiceStatusParams,
 } from './terms-of-service/terms-of-service';
 export {

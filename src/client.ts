@@ -1571,6 +1571,8 @@ import {
 import { Storage, StorageListMigrationSourceCoverageResponse } from './resources/storage/storage';
 import {
   TermsOfService,
+  TermsOfServiceRetrieveInfoParams,
+  TermsOfServiceRetrieveInfoResponse,
   TermsOfServiceStatusParams,
   TermsOfServiceStatusResponse,
 } from './resources/terms-of-service/terms-of-service';
@@ -4961,7 +4963,9 @@ export declare namespace Telnyx {
 
   export {
     TermsOfService as TermsOfService,
+    type TermsOfServiceRetrieveInfoResponse as TermsOfServiceRetrieveInfoResponse,
     type TermsOfServiceStatusResponse as TermsOfServiceStatusResponse,
+    type TermsOfServiceRetrieveInfoParams as TermsOfServiceRetrieveInfoParams,
     type TermsOfServiceStatusParams as TermsOfServiceStatusParams,
   };
 
