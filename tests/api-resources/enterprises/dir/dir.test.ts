@@ -68,9 +68,12 @@ describe('resource dir', () => {
       client.enterprises.dir.list(
         '4a6192a4-573d-446d-b3ce-aff9117272a6',
         {
+          'filter[call_reason][contains]': 'filter[call_reason][contains]',
+          'filter[display_name][contains]': 'filter[display_name][contains]',
           'filter[expiring_at][gte]': '2019-12-27T18:11:19.117Z',
           'filter[expiring_at][lte]': '2019-12-27T18:11:19.117Z',
           'filter[expiring_within_days]': 1,
+          'filter[status]': 'draft',
           'page[number]': 1,
           'page[size]': 20,
           search: 'search',

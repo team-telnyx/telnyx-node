@@ -50,6 +50,9 @@ describe('resource numbers', () => {
     await expect(
       client.reputation.numbers.list(
         {
+          'filter[enterprise_id]': '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          'filter[phone_number][contains]': '+16035551234',
+          'filter[phone_number][eq]': '+16035551234',
           'page[number]': 1,
           'page[size]': 20,
           phone_number: '+16035551234',

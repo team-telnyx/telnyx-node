@@ -109,6 +109,21 @@ export interface NumberRetrieveParams {
 
 export interface NumberListParams extends DefaultFlatPaginationParams {
   /**
+   * Filter by enterprise ID.
+   */
+  'filter[enterprise_id]'?: string;
+
+  /**
+   * Partial match on phone number. Must contain at least 5 digits.
+   */
+  'filter[phone_number][contains]'?: string;
+
+  /**
+   * Exact phone-number match (E.164).
+   */
+  'filter[phone_number][eq]'?: string;
+
+  /**
    * Filter by specific phone number (E.164 format).
    */
   phone_number?: string;

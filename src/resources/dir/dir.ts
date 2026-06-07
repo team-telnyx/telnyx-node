@@ -85,10 +85,14 @@ export class Dir extends APIResource {
   }
 
   /**
-   * Convenience endpoint that returns every DIR you own without scoping to a
-   * specific enterprise. Equivalent to calling
-   * `GET /v2/enterprises/{enterprise_id}/dir` for each enterprise and concatenating
-   * the results, but server-side and paginated as a single list.
+   * Returns every DIR (Display Identity Record) you own, across all of your
+   * enterprises, as a single list. Pagination is JSON:API style (`page[number]`,
+   * `page[size]`, max 250). Supports `filter[]` query params:
+   * `filter[enterprise_id]`, `filter[status]`, `filter[display_name][contains]`,
+   * `filter[call_reason][contains]`, plus the renewal-window filters
+   * `filter[expiring_at][gte]` / `filter[expiring_at][lte]`. Sortable by
+   * `created_at`, `updated_at`, `display_name`, `status` (prefix `-` for descending;
+   * default `-created_at`).
    *
    * @example
    * ```ts
@@ -1114,6 +1118,21 @@ export interface DirListParams extends DefaultFlatPaginationParams {
   enterprise_id?: string;
 
   /**
+   * Case-insensitive partial match on call reason.
+   */
+  'filter[call_reason][contains]'?: string;
+
+  /**
+   * Case-insensitive partial match on display name.
+   */
+  'filter[display_name][contains]'?: string;
+
+  /**
+   * Filter by enterprise ID.
+   */
+  'filter[enterprise_id]'?: string;
+
+  /**
    * Return only DIRs whose `expiring_at` is at or after this ISO-8601 timestamp.
    * Pairs with the `[lte]` variant to build renewal-window dashboards.
    */
@@ -1123,6 +1142,21 @@ export interface DirListParams extends DefaultFlatPaginationParams {
    * Return only DIRs whose `expiring_at` is at or before this ISO-8601 timestamp.
    */
   'filter[expiring_at][lte]'?: string;
+
+  /**
+   * Filter by DIR status.
+   */
+  'filter[status]'?:
+    | 'draft'
+    | 'submitted'
+    | 'in_review'
+    | 'verified'
+    | 'rejected'
+    | 'unsuccessful'
+    | 'suspended'
+    | 'expired'
+    | 'infringement_claimed'
+    | 'permanently_rejected';
 
   /**
    * Case-insensitive partial match on `display_name` or call reason.
