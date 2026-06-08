@@ -1247,6 +1247,7 @@ import {
 } from './resources/credential-connections/credential-connections';
 import {
   Dir,
+  DirCreateLoaParams,
   DirListDocumentTypesResponse,
   DirListInfringementClaimsParams,
   DirListInfringementClaimsResponse,
@@ -5005,6 +5006,7 @@ export declare namespace Telnyx {
     type DirListInfringementClaimsResponsesDefaultFlatPagination as DirListInfringementClaimsResponsesDefaultFlatPagination,
     type DirUpdateParams as DirUpdateParams,
     type DirListParams as DirListParams,
+    type DirCreateLoaParams as DirCreateLoaParams,
     type DirListInfringementClaimsParams as DirListInfringementClaimsParams,
     type DirUpdateInfringementParams as DirUpdateInfringementParams,
   };

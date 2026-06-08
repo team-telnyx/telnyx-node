@@ -1163,6 +1163,7 @@ const fuse = new Fuse(
     'client.pronunciationDicts.update',
     'client.callReasons.list',
     'client.callReasons.validate',
+    'client.dir.createLoa',
     'client.dir.delete',
     'client.dir.list',
     'client.dir.listDocumentTypes',

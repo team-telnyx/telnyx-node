@@ -60,7 +60,7 @@ export class Dir extends APIResource {
 
   /**
    * Edit a DIR. Only DIRs in `draft`, `rejected`, `unsuccessful`, or `suspended` are
-   * editable. PATCH is a pure edit — `status` is never changed by this endpoint. To
+   * editable. PATCH is a pure edit - `status` is never changed by this endpoint. To
    * re-vet after editing, call `POST /v2/dir/{dir_id}/submit` explicitly.
    *
    * @example
@@ -125,6 +125,38 @@ export class Dir extends APIResource {
     return this._client.delete(path`/dir/${dirID}`, {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Generate a pre-filled Letter of Authorization (LOA) PDF for a DIR. Enterprise
+   * identity (legal name, DBA, address, contact, website, tax id) and the DIR
+   * display name are read server-side; the caller supplies the telephone numbers to
+   * authorize, an optional Authorized Agent block, and an optional drawn signature.
+   *
+   * When `signature` is omitted the PDF is returned unsigned so the customer can
+   * sign it externally and upload it via the Documents API. When `signature` is
+   * present the PDF embeds the supplied image, printed name, and signed-at date.
+   *
+   * Returns `application/pdf`.
+   *
+   * @example
+   * ```ts
+   * const response = await client.dir.createLoa(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { phone_numbers: ['+13125550000'] },
+   * );
+   *
+   * const content = await response.blob();
+   * console.log(content);
+   * ```
+   */
+  createLoa(dirID: string, body: DirCreateLoaParams, options?: RequestOptions): APIPromise<Response> {
+    return this._client.post(path`/dir/${dirID}/loa`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: 'application/pdf' }, options?.headers]),
+      __binaryResponse: true,
     });
   }
 
@@ -276,18 +308,18 @@ export namespace DirRetrieveResponse {
     /**
      * DIR lifecycle status.
      *
-     * - `draft` — newly created; editable; not yet submitted.
-     * - `submitted` / `in_review` — Telnyx is reviewing.
-     * - `verified` — approved; phone numbers may be attached.
-     * - `rejected` — Telnyx rejected this submission; `rejection_reasons` is
+     * - `draft` - newly created; editable; not yet submitted.
+     * - `submitted` / `in_review` - Telnyx is reviewing.
+     * - `verified` - approved; phone numbers may be attached.
+     * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
      *   populated; customer can edit and resubmit.
-     * - `unsuccessful` — system-side error during processing; customer can edit and
+     * - `unsuccessful` - system-side error during processing; customer can edit and
      *   resubmit.
-     * - `suspended` — temporarily disabled (e.g. by an active infringement claim).
-     * - `expired` — verification expired; customer must resubmit.
-     * - `infringement_claimed` — a trademark/impersonation claim is open against this
+     * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+     * - `expired` - verification expired; customer must resubmit.
+     * - `infringement_claimed` - a trademark/impersonation claim is open against this
      *   DIR.
-     * - `permanently_rejected` — terminal; cannot be resubmitted.
+     * - `permanently_rejected` - terminal; cannot be resubmitted.
      */
     status?:
       | 'draft'
@@ -406,18 +438,18 @@ export namespace DirUpdateResponse {
     /**
      * DIR lifecycle status.
      *
-     * - `draft` — newly created; editable; not yet submitted.
-     * - `submitted` / `in_review` — Telnyx is reviewing.
-     * - `verified` — approved; phone numbers may be attached.
-     * - `rejected` — Telnyx rejected this submission; `rejection_reasons` is
+     * - `draft` - newly created; editable; not yet submitted.
+     * - `submitted` / `in_review` - Telnyx is reviewing.
+     * - `verified` - approved; phone numbers may be attached.
+     * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
      *   populated; customer can edit and resubmit.
-     * - `unsuccessful` — system-side error during processing; customer can edit and
+     * - `unsuccessful` - system-side error during processing; customer can edit and
      *   resubmit.
-     * - `suspended` — temporarily disabled (e.g. by an active infringement claim).
-     * - `expired` — verification expired; customer must resubmit.
-     * - `infringement_claimed` — a trademark/impersonation claim is open against this
+     * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+     * - `expired` - verification expired; customer must resubmit.
+     * - `infringement_claimed` - a trademark/impersonation claim is open against this
      *   DIR.
-     * - `permanently_rejected` — terminal; cannot be resubmitted.
+     * - `permanently_rejected` - terminal; cannot be resubmitted.
      */
     status?:
       | 'draft'
@@ -531,18 +563,18 @@ export interface DirListResponse {
   /**
    * DIR lifecycle status.
    *
-   * - `draft` — newly created; editable; not yet submitted.
-   * - `submitted` / `in_review` — Telnyx is reviewing.
-   * - `verified` — approved; phone numbers may be attached.
-   * - `rejected` — Telnyx rejected this submission; `rejection_reasons` is
+   * - `draft` - newly created; editable; not yet submitted.
+   * - `submitted` / `in_review` - Telnyx is reviewing.
+   * - `verified` - approved; phone numbers may be attached.
+   * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
    *   populated; customer can edit and resubmit.
-   * - `unsuccessful` — system-side error during processing; customer can edit and
+   * - `unsuccessful` - system-side error during processing; customer can edit and
    *   resubmit.
-   * - `suspended` — temporarily disabled (e.g. by an active infringement claim).
-   * - `expired` — verification expired; customer must resubmit.
-   * - `infringement_claimed` — a trademark/impersonation claim is open against this
+   * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+   * - `expired` - verification expired; customer must resubmit.
+   * - `infringement_claimed` - a trademark/impersonation claim is open against this
    *   DIR.
-   * - `permanently_rejected` — terminal; cannot be resubmitted.
+   * - `permanently_rejected` - terminal; cannot be resubmitted.
    */
   status?:
     | 'draft'
@@ -722,9 +754,9 @@ export interface DirListInfringementClaimsResponse {
   resolution_notes?: string | null;
 
   /**
-   * Lifecycle status. `pending` — newly filed; the DIR is auto-suspended.
-   * `contested` — you have submitted contest evidence; awaiting Telnyx review.
-   * `resolved` — final.
+   * Lifecycle status. `pending` - newly filed; the DIR is auto-suspended.
+   * `contested` - you have submitted contest evidence; awaiting Telnyx review.
+   * `resolved` - final.
    */
   status?: 'pending' | 'contested' | 'resolved';
 
@@ -788,18 +820,18 @@ export namespace DirListInfringementClaimsResponse {
     /**
      * DIR lifecycle status.
      *
-     * - `draft` — newly created; editable; not yet submitted.
-     * - `submitted` / `in_review` — Telnyx is reviewing.
-     * - `verified` — approved; phone numbers may be attached.
-     * - `rejected` — Telnyx rejected this submission; `rejection_reasons` is
+     * - `draft` - newly created; editable; not yet submitted.
+     * - `submitted` / `in_review` - Telnyx is reviewing.
+     * - `verified` - approved; phone numbers may be attached.
+     * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
      *   populated; customer can edit and resubmit.
-     * - `unsuccessful` — system-side error during processing; customer can edit and
+     * - `unsuccessful` - system-side error during processing; customer can edit and
      *   resubmit.
-     * - `suspended` — temporarily disabled (e.g. by an active infringement claim).
-     * - `expired` — verification expired; customer must resubmit.
-     * - `infringement_claimed` — a trademark/impersonation claim is open against this
+     * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+     * - `expired` - verification expired; customer must resubmit.
+     * - `infringement_claimed` - a trademark/impersonation claim is open against this
      *   DIR.
-     * - `permanently_rejected` — terminal; cannot be resubmitted.
+     * - `permanently_rejected` - terminal; cannot be resubmitted.
      */
     status?:
       | 'draft'
@@ -860,18 +892,18 @@ export namespace DirSubmitResponse {
     /**
      * DIR lifecycle status.
      *
-     * - `draft` — newly created; editable; not yet submitted.
-     * - `submitted` / `in_review` — Telnyx is reviewing.
-     * - `verified` — approved; phone numbers may be attached.
-     * - `rejected` — Telnyx rejected this submission; `rejection_reasons` is
+     * - `draft` - newly created; editable; not yet submitted.
+     * - `submitted` / `in_review` - Telnyx is reviewing.
+     * - `verified` - approved; phone numbers may be attached.
+     * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
      *   populated; customer can edit and resubmit.
-     * - `unsuccessful` — system-side error during processing; customer can edit and
+     * - `unsuccessful` - system-side error during processing; customer can edit and
      *   resubmit.
-     * - `suspended` — temporarily disabled (e.g. by an active infringement claim).
-     * - `expired` — verification expired; customer must resubmit.
-     * - `infringement_claimed` — a trademark/impersonation claim is open against this
+     * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+     * - `expired` - verification expired; customer must resubmit.
+     * - `infringement_claimed` - a trademark/impersonation claim is open against this
      *   DIR.
-     * - `permanently_rejected` — terminal; cannot be resubmitted.
+     * - `permanently_rejected` - terminal; cannot be resubmitted.
      */
     status?:
       | 'draft'
@@ -990,18 +1022,18 @@ export namespace DirUpdateInfringementResponse {
     /**
      * DIR lifecycle status.
      *
-     * - `draft` — newly created; editable; not yet submitted.
-     * - `submitted` / `in_review` — Telnyx is reviewing.
-     * - `verified` — approved; phone numbers may be attached.
-     * - `rejected` — Telnyx rejected this submission; `rejection_reasons` is
+     * - `draft` - newly created; editable; not yet submitted.
+     * - `submitted` / `in_review` - Telnyx is reviewing.
+     * - `verified` - approved; phone numbers may be attached.
+     * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
      *   populated; customer can edit and resubmit.
-     * - `unsuccessful` — system-side error during processing; customer can edit and
+     * - `unsuccessful` - system-side error during processing; customer can edit and
      *   resubmit.
-     * - `suspended` — temporarily disabled (e.g. by an active infringement claim).
-     * - `expired` — verification expired; customer must resubmit.
-     * - `infringement_claimed` — a trademark/impersonation claim is open against this
+     * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+     * - `expired` - verification expired; customer must resubmit.
+     * - `infringement_claimed` - a trademark/impersonation claim is open against this
      *   DIR.
-     * - `permanently_rejected` — terminal; cannot be resubmitted.
+     * - `permanently_rejected` - terminal; cannot be resubmitted.
      */
     status?:
       | 'draft'
@@ -1168,6 +1200,77 @@ export interface DirListParams extends DefaultFlatPaginationParams {
     | '-status';
 }
 
+export interface DirCreateLoaParams {
+  /**
+   * Telephone numbers to authorize on the DIR, in `+E164` format (`+` followed by
+   * 10-15 digits). Max 15 per request.
+   */
+  phone_numbers: Array<string>;
+
+  /**
+   * Third-party reseller / partner managing the enterprise's phone numbers. Omit
+   * when the enterprise works directly with Telnyx.
+   */
+  agent?: DirCreateLoaParams.Agent;
+
+  /**
+   * Optional. When provided the rendered PDF embeds the signature image, printed
+   * name, and signed-at date. When absent the PDF is returned unsigned so the
+   * customer can sign externally and upload it via the Documents API.
+   */
+  signature?: DirCreateLoaParams.Signature;
+}
+
+export namespace DirCreateLoaParams {
+  /**
+   * Third-party reseller / partner managing the enterprise's phone numbers. Omit
+   * when the enterprise works directly with Telnyx.
+   */
+  export interface Agent {
+    administrative_area: string;
+
+    city: string;
+
+    contact_email: string;
+
+    contact_name: string;
+
+    contact_phone: string;
+
+    contact_title: string;
+
+    country: string;
+
+    legal_name: string;
+
+    postal_code: string;
+
+    street_address: string;
+
+    dba?: string | null;
+
+    extended_address?: string | null;
+  }
+
+  /**
+   * Optional. When provided the rendered PDF embeds the signature image, printed
+   * name, and signed-at date. When absent the PDF is returned unsigned so the
+   * customer can sign externally and upload it via the Documents API.
+   */
+  export interface Signature {
+    /**
+     * PNG image, base64-encoded.
+     */
+    image_base64: string;
+
+    /**
+     * Optional. When absent the rendered PDF falls back to the enterprise contact's
+     * legal name.
+     */
+    signer_name?: string | null;
+  }
+}
+
 export interface DirListInfringementClaimsParams extends DefaultFlatPaginationParams {}
 
 export interface DirUpdateInfringementParams {
@@ -1260,6 +1363,7 @@ export declare namespace Dir {
     type DirListInfringementClaimsResponsesDefaultFlatPagination as DirListInfringementClaimsResponsesDefaultFlatPagination,
     type DirUpdateParams as DirUpdateParams,
     type DirListParams as DirListParams,
+    type DirCreateLoaParams as DirCreateLoaParams,
     type DirListInfringementClaimsParams as DirListInfringementClaimsParams,
     type DirUpdateInfringementParams as DirUpdateInfringementParams,
   };

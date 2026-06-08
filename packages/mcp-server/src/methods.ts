@@ -6353,6 +6353,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/dir/{dir_id}',
   },
   {
+    clientCallName: 'client.dir.createLoa',
+    fullyQualifiedName: 'dir.createLoa',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/loa',
+  },
+  {
     clientCallName: 'client.dir.listDocumentTypes',
     fullyQualifiedName: 'dir.listDocumentTypes',
     httpMethod: 'get',

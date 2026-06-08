@@ -84,7 +84,7 @@ export namespace CallReasonValidateResponse {
 
     /**
      * Subset of the input that does NOT match the pre-vetted library. The DIR can
-     * still be submitted with these — they will go through manual review.
+     * still be submitted with these - they will go through manual review.
      */
     non_approved_reasons: Array<string>;
 
@@ -101,7 +101,7 @@ export interface CallReasonListParams extends DefaultFlatPaginationParams {}
 
 export interface CallReasonValidateParams {
   /**
-   * **Bare JSON array** of candidate call-reason strings (NOT an object — there is
+   * **Bare JSON array** of candidate call-reason strings (NOT an object - there is
    * no top-level `call_reasons` key on this endpoint). 1–10 strings, each ≤64
    * characters.
    */

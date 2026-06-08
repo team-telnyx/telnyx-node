@@ -1010,7 +1010,7 @@ export interface RegionInformation {
 
 /**
  * Reputation snapshot for a phone number. Each metric is a 0–100 score;
- * `spam_risk` is a coarse bucket. Field set may grow over time — read by key.
+ * `spam_risk` is a coarse bucket. Field set may grow over time - read by key.
  */
 export interface ReputationData {
   connection_score?: number | null;

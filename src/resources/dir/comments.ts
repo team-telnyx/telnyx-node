@@ -105,7 +105,7 @@ export namespace CommentCreateResponse {
     entity_type?: 'dir';
 
     /**
-     * Always `customer` on this endpoint — internal-only comments are filtered out.
+     * Always `customer` on this endpoint - internal-only comments are filtered out.
      */
     visibility?: 'customer';
   }
@@ -148,7 +148,7 @@ export interface CommentListResponse {
   entity_type?: 'dir';
 
   /**
-   * Always `customer` on this endpoint — internal-only comments are filtered out.
+   * Always `customer` on this endpoint - internal-only comments are filtered out.
    */
   visibility?: 'customer';
 }
