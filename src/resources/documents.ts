@@ -96,7 +96,7 @@ export class Documents extends APIResource {
   download(id: string, options?: RequestOptions): APIPromise<Response> {
     return this._client.get(path`/documents/${id}/download`, {
       ...options,
-      headers: buildHeaders([{ Accept: 'application/octet-stream' }, options?.headers]),
+      headers: buildHeaders([{ Accept: '*' }, options?.headers]),
       __binaryResponse: true,
     });
   }
