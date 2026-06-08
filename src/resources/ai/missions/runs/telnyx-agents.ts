@@ -95,12 +95,15 @@ export interface TelnyxAgentLinkResponse {
 }
 
 export interface TelnyxAgentListParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface TelnyxAgentLinkParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the mission.
    */
   mission_id: string;
 
@@ -111,8 +114,14 @@ export interface TelnyxAgentLinkParams {
 }
 
 export interface TelnyxAgentUnlinkParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 
+  /**
+   * Unique identifier of the run.
+   */
   run_id: string;
 }
 

@@ -95,14 +95,23 @@ export type ToolListToolsResponse = unknown;
 export type ToolUpdateToolResponse = unknown;
 
 export interface ToolDeleteToolParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface ToolGetToolParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface ToolUpdateToolParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 

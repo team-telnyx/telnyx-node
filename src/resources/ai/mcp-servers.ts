@@ -194,8 +194,14 @@ export interface McpServerUpdateParams {
 }
 
 export interface McpServerListParams extends DefaultFlatPaginationTopLevelArrayParams {
+  /**
+   * Filter results by type.
+   */
   type?: string;
 
+  /**
+   * Filter results by url.
+   */
   url?: string;
 }
 

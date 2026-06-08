@@ -242,6 +242,9 @@ export interface MissionCreateParams {
 export interface MissionListParams extends DefaultFlatPaginationParams {}
 
 export interface MissionListEventsParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter results by type.
+   */
   type?: string;
 }
 

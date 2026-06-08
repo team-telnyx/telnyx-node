@@ -124,35 +124,41 @@ export interface EventLogResponse {
 
 export interface EventListParams extends DefaultFlatPaginationParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the mission.
    */
   mission_id: string;
 
   /**
-   * Query param
+   * Query param: Filter results by agent id.
    */
   agent_id?: string;
 
   /**
-   * Query param
+   * Query param: Filter results by step id.
    */
   step_id?: string;
 
   /**
-   * Query param
+   * Query param: Filter results by type.
    */
   type?: string;
 }
 
 export interface EventGetEventDetailsParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 
+  /**
+   * Unique identifier of the run.
+   */
   run_id: string;
 }
 
 export interface EventLogParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the mission.
    */
   mission_id: string;
 

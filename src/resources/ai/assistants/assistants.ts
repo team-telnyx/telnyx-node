@@ -3686,12 +3686,24 @@ export namespace AssistantCreateParams {
 }
 
 export interface AssistantRetrieveParams {
+  /**
+   * Filter results by call control id.
+   */
   call_control_id?: string;
 
+  /**
+   * Whether to fetch dynamic variables from the configured webhook.
+   */
   fetch_dynamic_variables_from_webhook?: boolean;
 
+  /**
+   * Start of the filter range.
+   */
   from?: string;
 
+  /**
+   * End of the filter range.
+   */
   to?: string;
 }
 
