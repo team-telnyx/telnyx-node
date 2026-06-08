@@ -17,6 +17,17 @@ import {
   NumberRetrieveResponse,
   Numbers,
 } from './numbers';
+import * as RemediationAPI from './remediation';
+import {
+  Remediation,
+  RemediationCreateParams,
+  RemediationCreateResponse,
+  RemediationListParams,
+  RemediationListResponse,
+  RemediationListResponsesDefaultFlatPagination,
+  RemediationRetrieveParams,
+  RemediationRetrieveResponse,
+} from './remediation';
 import { APIPromise } from '../../../core/api-promise';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
@@ -28,6 +39,7 @@ import { path } from '../../../internal/utils/path';
 export class Reputation extends APIResource {
   numbers: NumbersAPI.Numbers = new NumbersAPI.Numbers(this._client);
   loa: LoaAPI.Loa = new LoaAPI.Loa(this._client);
+  remediation: RemediationAPI.Remediation = new RemediationAPI.Remediation(this._client);
 
   /**
    * Phone Number Reputation tracks how your outbound caller-IDs are perceived (spam
@@ -204,6 +216,7 @@ export interface ReputationUpdateFrequencyParams {
 
 Reputation.Numbers = Numbers;
 Reputation.Loa = Loa;
+Reputation.Remediation = Remediation;
 
 export declare namespace Reputation {
   export {
@@ -234,5 +247,16 @@ export declare namespace Reputation {
     type LoaUpdateResponse as LoaUpdateResponse,
     type LoaUpdateParams as LoaUpdateParams,
     type LoaRenderParams as LoaRenderParams,
+  };
+
+  export {
+    Remediation as Remediation,
+    type RemediationCreateResponse as RemediationCreateResponse,
+    type RemediationRetrieveResponse as RemediationRetrieveResponse,
+    type RemediationListResponse as RemediationListResponse,
+    type RemediationListResponsesDefaultFlatPagination as RemediationListResponsesDefaultFlatPagination,
+    type RemediationCreateParams as RemediationCreateParams,
+    type RemediationRetrieveParams as RemediationRetrieveParams,
+    type RemediationListParams as RemediationListParams,
   };
 }

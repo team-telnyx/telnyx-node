@@ -4816,6 +4816,20 @@ Methods:
 - <code title="patch /enterprises/{enterprise_id}/reputation/loa">client.enterprises.reputation.loa.<a href="./src/resources/enterprises/reputation/loa.ts">update</a>(enterpriseID, { ...params }) -> LoaUpdateResponse</code>
 - <code title="post /enterprises/{enterprise_id}/reputation/loa">client.enterprises.reputation.loa.<a href="./src/resources/enterprises/reputation/loa.ts">render</a>(enterpriseID, { ...params }) -> Response</code>
 
+### Remediation
+
+Types:
+
+- <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationCreateResponse</a></code>
+- <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationRetrieveResponse</a></code>
+- <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationListResponse</a></code>
+
+Methods:
+
+- <code title="post /enterprises/{enterprise_id}/reputation/remediation">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">create</a>(enterpriseID, { ...params }) -> RemediationCreateResponse</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/remediation/{remediation_id}">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">retrieve</a>(remediationID, { ...params }) -> RemediationRetrieveResponse</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/remediation">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">list</a>(enterpriseID, { ...params }) -> RemediationListResponsesDefaultFlatPagination</code>
+
 ## Dir
 
 Types:

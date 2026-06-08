@@ -6221,6 +6221,24 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/enterprises/{enterprise_id}/reputation/loa',
   },
   {
+    clientCallName: 'client.enterprises.reputation.remediation.create',
+    fullyQualifiedName: 'enterprises.reputation.remediation.create',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/reputation/remediation',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.remediation.retrieve',
+    fullyQualifiedName: 'enterprises.reputation.remediation.retrieve',
+    httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}/reputation/remediation/{remediation_id}',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.remediation.list',
+    fullyQualifiedName: 'enterprises.reputation.remediation.list',
+    httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}/reputation/remediation',
+  },
+  {
     clientCallName: 'client.enterprises.dir.create',
     fullyQualifiedName: 'enterprises.dir.create',
     httpMethod: 'post',
