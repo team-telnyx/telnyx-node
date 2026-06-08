@@ -269,12 +269,15 @@ export interface RunCreateParams {
 }
 
 export interface RunRetrieveParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface RunUpdateParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the mission.
    */
   mission_id: string;
 
@@ -305,22 +308,37 @@ export interface RunUpdateParams {
 }
 
 export interface RunListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter results by status.
+   */
   status?: string;
 }
 
 export interface RunCancelRunParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface RunListRunsParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter results by status.
+   */
   status?: string;
 }
 
 export interface RunPauseRunParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface RunResumeRunParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 

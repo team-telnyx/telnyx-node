@@ -184,8 +184,14 @@ export interface ToolUpdateParams {
 }
 
 export interface ToolListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter results by filter name.
+   */
   'filter[name]'?: string;
 
+  /**
+   * Filter results by filter type.
+   */
   'filter[type]'?: string;
 }
 

@@ -263,22 +263,22 @@ export namespace ReportListWdrsResponse {
 
 export interface ReportListMdrsParams {
   /**
-   * Message uuid
+   * Filter results by identifier.
    */
   id?: string;
 
   /**
-   * Destination number
+   * Filter results by cld.
    */
   cld?: string;
 
   /**
-   * Origination number
+   * Filter results by cli.
    */
   cli?: string;
 
   /**
-   * Direction (inbound or outbound)
+   * Filter results by direction.
    */
   direction?: 'INBOUND' | 'OUTBOUND';
 
@@ -288,12 +288,12 @@ export interface ReportListMdrsParams {
   end_date?: string;
 
   /**
-   * Type of message
+   * Filter results by message type.
    */
   message_type?: 'SMS' | 'MMS';
 
   /**
-   * Name of the profile
+   * Filter results by profile.
    */
   profile?: string;
 
@@ -303,7 +303,7 @@ export interface ReportListMdrsParams {
   start_date?: string;
 
   /**
-   * Message status
+   * Filter results by status.
    */
   status?:
     | 'GW_TIMEOUT'
@@ -317,7 +317,7 @@ export interface ReportListMdrsParams {
 
 export interface ReportListWdrsParams extends DefaultFlatPaginationParams {
   /**
-   * WDR uuid
+   * Filter results by identifier.
    */
   id?: string;
 
@@ -327,43 +327,42 @@ export interface ReportListWdrsParams extends DefaultFlatPaginationParams {
   end_date?: string;
 
   /**
-   * International mobile subscriber identity
+   * Filter results by imsi.
    */
   imsi?: string;
 
   /**
-   * Mobile country code
+   * Filter results by mcc.
    */
   mcc?: string;
 
   /**
-   * Mobile network code
+   * Filter results by mnc.
    */
   mnc?: string;
 
   /**
-   * Phone number
+   * Filter results by phone number.
    */
   phone_number?: string;
 
   /**
-   * Sim card unique identifier
+   * Filter results by sim card id.
    */
   sim_card_id?: string;
 
   /**
-   * Sim group unique identifier
+   * Filter results by sim group id.
    */
   sim_group_id?: string;
 
   /**
-   * Sim group name
+   * Filter results by sim group name.
    */
   sim_group_name?: string;
 
   /**
-   * Field used to order the data. If no field is specified, default value is
-   * 'created_at'
+   * Field and direction to sort the results by.
    */
   sort?: Array<string>;
 

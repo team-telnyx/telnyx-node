@@ -35,6 +35,9 @@ export interface UsecaseGetCostResponse {
 }
 
 export interface UsecaseGetCostParams {
+  /**
+   * Filter results by usecase.
+   */
   usecase: string;
 }
 

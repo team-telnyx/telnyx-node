@@ -71,6 +71,9 @@ export interface BrandQualifyByUsecaseResponse {
 }
 
 export interface BrandQualifyByUsecaseParams {
+  /**
+   * Unique identifier of the brand.
+   */
   brandId: string;
 }
 

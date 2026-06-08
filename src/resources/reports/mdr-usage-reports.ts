@@ -211,12 +211,24 @@ export interface MdrUsageReportCreateParams {
 export interface MdrUsageReportListParams extends DefaultFlatPaginationParams {}
 
 export interface MdrUsageReportFetchSyncParams {
+  /**
+   * Type of aggregation to apply to the results.
+   */
   aggregation_type: 'NO_AGGREGATION' | 'PROFILE' | 'TAGS';
 
+  /**
+   * End of the date range filter (inclusive, ISO 8601).
+   */
   end_date?: string;
 
+  /**
+   * Filter results by profile.
+   */
   profiles?: Array<string>;
 
+  /**
+   * Start of the date range filter (inclusive, ISO 8601).
+   */
   start_date?: string;
 }
 

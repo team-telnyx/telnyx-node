@@ -188,14 +188,26 @@ export interface PhoneNumberAssignmentByProfileAssignParams {
 }
 
 export interface PhoneNumberAssignmentByProfileListPhoneNumberStatusParams {
+  /**
+   * Page number to retrieve (1-based).
+   */
   page?: number;
 
+  /**
+   * Number of records to return per page.
+   */
   recordsPerPage?: number;
 }
 
 export interface PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams {
+  /**
+   * Page number to retrieve (1-based).
+   */
   page?: number;
 
+  /**
+   * Number of records to return per page.
+   */
   recordsPerPage?: number;
 }
 

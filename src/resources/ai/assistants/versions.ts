@@ -1043,19 +1043,19 @@ export namespace UpdateAssistant {
 
 export interface VersionRetrieveParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the assistant.
    */
   assistant_id: string;
 
   /**
-   * Query param
+   * Query param: Whether to include MCP servers in the response.
    */
   include_mcp_servers?: boolean;
 }
 
 export interface VersionUpdateParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the assistant.
    */
   assistant_id: string;
 
@@ -2021,10 +2021,16 @@ export namespace VersionUpdateParams {
 }
 
 export interface VersionDeleteParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 
 export interface VersionPromoteParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 

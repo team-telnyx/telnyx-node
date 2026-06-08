@@ -69,6 +69,9 @@ export interface TagAddParams {
 }
 
 export interface TagRemoveParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 

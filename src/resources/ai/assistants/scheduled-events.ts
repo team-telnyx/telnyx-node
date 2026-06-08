@@ -283,18 +283,33 @@ export interface ScheduledEventCreateParams {
 }
 
 export interface ScheduledEventRetrieveParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 
 export interface ScheduledEventListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter results by conversation channel.
+   */
   conversation_channel?: ConversationChannelType;
 
+  /**
+   * Start of the date range filter (inclusive, ISO 8601).
+   */
   from_date?: string;
 
+  /**
+   * End of the date range filter (inclusive, ISO 8601).
+   */
   to_date?: string;
 }
 
 export interface ScheduledEventDeleteParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 
