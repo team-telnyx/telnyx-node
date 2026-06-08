@@ -4944,6 +4944,7 @@ Methods:
 - <code title="patch /dir/{dir_id}">client.dir.<a href="./src/resources/dir/dir.ts">update</a>(dirID, { ...params }) -> DirUpdateResponse</code>
 - <code title="get /dir">client.dir.<a href="./src/resources/dir/dir.ts">list</a>({ ...params }) -> DirListResponsesDefaultFlatPagination</code>
 - <code title="delete /dir/{dir_id}">client.dir.<a href="./src/resources/dir/dir.ts">delete</a>(dirID) -> void</code>
+- <code title="post /dir/{dir_id}/loa">client.dir.<a href="./src/resources/dir/dir.ts">createLoa</a>(dirID, { ...params }) -> Response</code>
 - <code title="get /dir/document_types">client.dir.<a href="./src/resources/dir/dir.ts">listDocumentTypes</a>() -> DirListDocumentTypesResponse</code>
 - <code title="get /dir/{dir_id}/infringement_claims">client.dir.<a href="./src/resources/dir/dir.ts">listInfringementClaims</a>(dirID, { ...params }) -> DirListInfringementClaimsResponsesDefaultFlatPagination</code>
 - <code title="post /dir/{dir_id}/submit">client.dir.<a href="./src/resources/dir/dir.ts">submit</a>(dirID) -> DirSubmitResponse</code>

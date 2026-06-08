@@ -19,6 +19,7 @@ export {
   type DirUpdateInfringementResponse,
   type DirUpdateParams,
   type DirListParams,
+  type DirCreateLoaParams,
   type DirListInfringementClaimsParams,
   type DirUpdateInfringementParams,
   type DirListResponsesDefaultFlatPagination,

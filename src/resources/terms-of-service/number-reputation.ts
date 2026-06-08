@@ -22,7 +22,7 @@ export class NumberReputation extends APIResource {
 export interface NumberReputationAgreeResponse {
   /**
    * A recorded user agreement to a product's Terms of Service. The `user_id` is
-   * intentionally NOT echoed back on this public surface — the caller already knows
+   * intentionally NOT echoed back on this public surface - the caller already knows
    * their own identity.
    */
   data: NumberReputationAgreeResponse.Data;
@@ -31,7 +31,7 @@ export interface NumberReputationAgreeResponse {
 export namespace NumberReputationAgreeResponse {
   /**
    * A recorded user agreement to a product's Terms of Service. The `user_id` is
-   * intentionally NOT echoed back on this public surface — the caller already knows
+   * intentionally NOT echoed back on this public surface - the caller already knows
    * their own identity.
    */
   export interface Data {

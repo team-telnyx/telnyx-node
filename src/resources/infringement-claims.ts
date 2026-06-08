@@ -36,9 +36,9 @@ export class InfringementClaims extends APIResource {
    *
    * Failure modes:
    *
-   * - `400` — the claim is `resolved` (terminal); cannot be contested further.
-   * - `404` — the claim does not exist or is not against a DIR you own.
-   * - `422` — `contest_notes` is too short (< 10 chars), too long (> 2000 chars),
+   * - `400` - the claim is `resolved` (terminal); cannot be contested further.
+   * - `404` - the claim does not exist or is not against a DIR you own.
+   * - `422` - `contest_notes` is too short (< 10 chars), too long (> 2000 chars),
    *   `documents` is > 20 entries, or a `document_id` is duplicated within the same
    *   submission.
    *
@@ -126,9 +126,9 @@ export namespace InfringementClaimRetrieveResponse {
     resolution_notes?: string | null;
 
     /**
-     * Lifecycle status. `pending` — newly filed; the DIR is auto-suspended.
-     * `contested` — you have submitted contest evidence; awaiting Telnyx review.
-     * `resolved` — final.
+     * Lifecycle status. `pending` - newly filed; the DIR is auto-suspended.
+     * `contested` - you have submitted contest evidence; awaiting Telnyx review.
+     * `resolved` - final.
      */
     status?: 'pending' | 'contested' | 'resolved';
 
@@ -192,18 +192,18 @@ export namespace InfringementClaimRetrieveResponse {
       /**
        * DIR lifecycle status.
        *
-       * - `draft` — newly created; editable; not yet submitted.
-       * - `submitted` / `in_review` — Telnyx is reviewing.
-       * - `verified` — approved; phone numbers may be attached.
-       * - `rejected` — Telnyx rejected this submission; `rejection_reasons` is
+       * - `draft` - newly created; editable; not yet submitted.
+       * - `submitted` / `in_review` - Telnyx is reviewing.
+       * - `verified` - approved; phone numbers may be attached.
+       * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
        *   populated; customer can edit and resubmit.
-       * - `unsuccessful` — system-side error during processing; customer can edit and
+       * - `unsuccessful` - system-side error during processing; customer can edit and
        *   resubmit.
-       * - `suspended` — temporarily disabled (e.g. by an active infringement claim).
-       * - `expired` — verification expired; customer must resubmit.
-       * - `infringement_claimed` — a trademark/impersonation claim is open against this
+       * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+       * - `expired` - verification expired; customer must resubmit.
+       * - `infringement_claimed` - a trademark/impersonation claim is open against this
        *   DIR.
-       * - `permanently_rejected` — terminal; cannot be resubmitted.
+       * - `permanently_rejected` - terminal; cannot be resubmitted.
        */
       status?:
         | 'draft'
@@ -277,9 +277,9 @@ export namespace InfringementClaimContestResponse {
     resolution_notes?: string | null;
 
     /**
-     * Lifecycle status. `pending` — newly filed; the DIR is auto-suspended.
-     * `contested` — you have submitted contest evidence; awaiting Telnyx review.
-     * `resolved` — final.
+     * Lifecycle status. `pending` - newly filed; the DIR is auto-suspended.
+     * `contested` - you have submitted contest evidence; awaiting Telnyx review.
+     * `resolved` - final.
      */
     status?: 'pending' | 'contested' | 'resolved';
 
@@ -343,18 +343,18 @@ export namespace InfringementClaimContestResponse {
       /**
        * DIR lifecycle status.
        *
-       * - `draft` — newly created; editable; not yet submitted.
-       * - `submitted` / `in_review` — Telnyx is reviewing.
-       * - `verified` — approved; phone numbers may be attached.
-       * - `rejected` — Telnyx rejected this submission; `rejection_reasons` is
+       * - `draft` - newly created; editable; not yet submitted.
+       * - `submitted` / `in_review` - Telnyx is reviewing.
+       * - `verified` - approved; phone numbers may be attached.
+       * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
        *   populated; customer can edit and resubmit.
-       * - `unsuccessful` — system-side error during processing; customer can edit and
+       * - `unsuccessful` - system-side error during processing; customer can edit and
        *   resubmit.
-       * - `suspended` — temporarily disabled (e.g. by an active infringement claim).
-       * - `expired` — verification expired; customer must resubmit.
-       * - `infringement_claimed` — a trademark/impersonation claim is open against this
+       * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+       * - `expired` - verification expired; customer must resubmit.
+       * - `infringement_claimed` - a trademark/impersonation claim is open against this
        *   DIR.
-       * - `permanently_rejected` — terminal; cannot be resubmitted.
+       * - `permanently_rejected` - terminal; cannot be resubmitted.
        */
       status?:
         | 'draft'

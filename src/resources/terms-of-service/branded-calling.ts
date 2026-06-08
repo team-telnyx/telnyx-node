@@ -10,7 +10,7 @@ import { RequestOptions } from '../../internal/request-options';
 export class BrandedCalling extends APIResource {
   /**
    * Records the authenticated user's agreement to the current Branded Calling ToS.
-   * No body required. Idempotent — re-calling after agreement is a no-op and returns
+   * No body required. Idempotent - re-calling after agreement is a no-op and returns
    * the existing agreement.
    *
    * This is a prerequisite for activating Branded Calling on any enterprise
@@ -25,7 +25,7 @@ export class BrandedCalling extends APIResource {
 export interface BrandedCallingAgreeResponse {
   /**
    * A recorded user agreement to a product's Terms of Service. The `user_id` is
-   * intentionally NOT echoed back on this public surface — the caller already knows
+   * intentionally NOT echoed back on this public surface - the caller already knows
    * their own identity.
    */
   data: BrandedCallingAgreeResponse.Data;
@@ -34,7 +34,7 @@ export interface BrandedCallingAgreeResponse {
 export namespace BrandedCallingAgreeResponse {
   /**
    * A recorded user agreement to a product's Terms of Service. The `user_id` is
-   * intentionally NOT echoed back on this public surface — the caller already knows
+   * intentionally NOT echoed back on this public surface - the caller already knows
    * their own identity.
    */
   export interface Data {

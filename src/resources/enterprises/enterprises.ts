@@ -46,9 +46,9 @@ export class Enterprises extends APIResource {
    *
    * Common failure modes:
    *
-   * - `422` — a required field is missing or malformed (the response
+   * - `422` - a required field is missing or malformed (the response
    *   `errors[].source.pointer` names the field).
-   * - `409` — an enterprise with the same identifying details already exists under
+   * - `409` - an enterprise with the same identifying details already exists under
    *   your account.
    *
    * @example
@@ -201,12 +201,12 @@ export class Enterprises extends APIResource {
    *
    * Failure modes:
    *
-   * - `400` — the enterprise still has dependent resources in a non-deletable state.
+   * - `400` - the enterprise still has dependent resources in a non-deletable state.
    *   Remove those first; the response `detail` identifies what is blocking the
    *   delete.
-   * - `409` — the enterprise has a dependent resource with an unresolved claim.
+   * - `409` - the enterprise has a dependent resource with an unresolved claim.
    *   Resolve it before deleting.
-   * - `404` — the enterprise does not exist or does not belong to your account.
+   * - `404` - the enterprise does not exist or does not belong to your account.
    *
    * @example
    * ```ts
@@ -238,8 +238,8 @@ export class Enterprises extends APIResource {
    *
    * Failure modes:
    *
-   * - `403` — Branded Calling Terms of Service not accepted.
-   * - `404` — enterprise does not exist or does not belong to your account.
+   * - `403` - Branded Calling Terms of Service not accepted.
+   * - `404` - enterprise does not exist or does not belong to your account.
    *
    * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers
    * for current pricing.
@@ -501,12 +501,12 @@ export interface EnterpriseCreateParams {
   /**
    * Legal-entity form. Pick the form that matches your incorporation documents:
    *
-   * - `corporation` — C-corp or S-corp.
-   * - `llc` — limited liability company.
-   * - `partnership` — general/limited partnership.
-   * - `nonprofit` — non-profit corporation, charitable trust, or
+   * - `corporation` - C-corp or S-corp.
+   * - `llc` - limited liability company.
+   * - `partnership` - general/limited partnership.
+   * - `nonprofit` - non-profit corporation, charitable trust, or
    *   501(c)(3)/equivalent.
-   * - `other` — anything else (sole proprietorships, government bodies, DBAs, etc.).
+   * - `other` - anything else (sole proprietorships, government bodies, DBAs, etc.).
    *   You may be asked for additional documents during vetting.
    */
   organization_legal_type: 'corporation' | 'llc' | 'partnership' | 'nonprofit' | 'other';
@@ -516,10 +516,10 @@ export interface EnterpriseCreateParams {
   /**
    * Organization category for vetting purposes:
    *
-   * - `commercial` — for-profit business entities (LLC, corp, partnership, sole
+   * - `commercial` - for-profit business entities (LLC, corp, partnership, sole
    *   proprietorship). Most callers fall here.
-   * - `government` — federal/state/local government bodies.
-   * - `non_profit` — registered 501(c)(3)/equivalent (incl. educational
+   * - `government` - federal/state/local government bodies.
+   * - `non_profit` - registered 501(c)(3)/equivalent (incl. educational
    *   institutions, charities, religious organisations).
    */
   organization_type: 'commercial' | 'government' | 'non_profit';
