@@ -15,6 +15,16 @@ export {
   type NumberListResponsesDefaultFlatPagination,
 } from './numbers';
 export {
+  Remediation,
+  type RemediationCreateResponse,
+  type RemediationRetrieveResponse,
+  type RemediationListResponse,
+  type RemediationCreateParams,
+  type RemediationRetrieveParams,
+  type RemediationListParams,
+  type RemediationListResponsesDefaultFlatPagination,
+} from './remediation';
+export {
   Reputation,
   type EnterpriseReputationPublic,
   type ReputationRetrieveResponse,
