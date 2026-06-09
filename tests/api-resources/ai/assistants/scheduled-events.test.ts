@@ -32,6 +32,7 @@ describe('resource scheduledEvents', () => {
       telnyx_agent_target: 'telnyx_agent_target',
       telnyx_conversation_channel: 'phone_call',
       telnyx_end_user_target: 'telnyx_end_user_target',
+      call_settings: { sip_region: 'US' },
       conversation_metadata: { foo: 'string' },
       dynamic_variables: { foo: 'string' },
       max_retries_client_errors: 0,

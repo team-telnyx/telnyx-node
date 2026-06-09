@@ -139,6 +139,13 @@ export interface ScheduledPhoneCallEventResponse {
   call_duration?: number;
 
   /**
+   * Per-call telephony overrides applied when a scheduled phone-call event
+   * dispatches. Phone-call events only. New per-call dispatch options should be
+   * added here rather than as top-level event fields.
+   */
+  call_settings?: ScheduledPhoneCallEventResponse.CallSettings;
+
+  /**
    * Values: busy, canceled, no-answer, ringing, completed, failed, in-progress
    */
   call_status?: string;
@@ -200,6 +207,20 @@ export namespace ScheduledPhoneCallEventResponse {
 
     telnyx_call_control_id?: string;
   }
+
+  /**
+   * Per-call telephony overrides applied when a scheduled phone-call event
+   * dispatches. Phone-call events only. New per-call dispatch options should be
+   * added here rather than as top-level event fields.
+   */
+  export interface CallSettings {
+    /**
+     * SIP region passed to Telnyx when initiating an outbound call. Values match the
+     * Telnyx TeXML `SipRegion` parameter exactly. Telnyx defaults to `US` when
+     * omitted.
+     */
+    sip_region?: 'US' | 'Europe' | 'Canada' | 'Australia' | 'Middle East';
+  }
 }
 
 export interface ScheduledSMSEventResponse {
@@ -257,6 +278,13 @@ export interface ScheduledEventCreateParams {
   telnyx_end_user_target: string;
 
   /**
+   * Per-call telephony overrides applied when a scheduled phone-call event
+   * dispatches. Phone-call events only. New per-call dispatch options should be
+   * added here rather than as top-level event fields.
+   */
+  call_settings?: ScheduledEventCreateParams.CallSettings;
+
+  /**
    * Metadata associated with the conversation. Telnyx provides several pieces of
    * metadata, but customers can also add their own.
    */
@@ -280,6 +308,22 @@ export interface ScheduledEventCreateParams {
    * Required for sms scheduled events. The text to be sent to the end user.
    */
   text?: string;
+}
+
+export namespace ScheduledEventCreateParams {
+  /**
+   * Per-call telephony overrides applied when a scheduled phone-call event
+   * dispatches. Phone-call events only. New per-call dispatch options should be
+   * added here rather than as top-level event fields.
+   */
+  export interface CallSettings {
+    /**
+     * SIP region passed to Telnyx when initiating an outbound call. Values match the
+     * Telnyx TeXML `SipRegion` parameter exactly. Telnyx defaults to `US` when
+     * omitted.
+     */
+    sip_region?: 'US' | 'Europe' | 'Canada' | 'Australia' | 'Middle East';
+  }
 }
 
 export interface ScheduledEventRetrieveParams {
