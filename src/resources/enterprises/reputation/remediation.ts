@@ -32,8 +32,8 @@ export class Remediation extends APIResource {
    *     {
    *       call_purpose:
    *         'Appointment reminders for our dental clinic.',
-   *       contact_email: 'ops@example.com',
    *       phone_numbers: ['+19493253498', '+12134445566'],
+   *       contact_email: 'ops@example.com',
    *       webhook_url:
    *         'https://example.com/webhooks/remediation',
    *     },
@@ -122,8 +122,6 @@ export namespace RemediationCreateResponse {
 
     call_purpose: string;
 
-    contact_email: string;
-
     created_at: string;
 
     /**
@@ -149,6 +147,8 @@ export namespace RemediationCreateResponse {
     status: 'pending' | 'in_progress' | 'completed' | 'failed' | 'cancelled';
 
     updated_at: string;
+
+    contact_email?: string | null;
 
     /**
      * Per-category buckets. Populated once results are available. Null while the
@@ -198,8 +198,6 @@ export namespace RemediationRetrieveResponse {
 
     call_purpose: string;
 
-    contact_email: string;
-
     created_at: string;
 
     /**
@@ -225,6 +223,8 @@ export namespace RemediationRetrieveResponse {
     status: 'pending' | 'in_progress' | 'completed' | 'failed' | 'cancelled';
 
     updated_at: string;
+
+    contact_email?: string | null;
 
     /**
      * Per-category buckets. Populated once results are available. Null while the
@@ -290,15 +290,15 @@ export interface RemediationCreateParams {
   call_purpose: string;
 
   /**
-   * Contact email for tracking this request.
-   */
-  contact_email: string;
-
-  /**
    * Phone numbers in E.164 format. Each must belong to this enterprise. Maximum
    * 2,000 per request.
    */
   phone_numbers: Array<string>;
+
+  /**
+   * Optional contact email for this remediation request.
+   */
+  contact_email?: string;
 
   /**
    * Optional https:// URL for status notifications.
