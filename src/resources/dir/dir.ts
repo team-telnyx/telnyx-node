@@ -59,9 +59,15 @@ export class Dir extends APIResource {
   }
 
   /**
-   * Edit a DIR. Only DIRs in `draft`, `rejected`, `unsuccessful`, or `suspended` are
-   * editable. PATCH is a pure edit - `status` is never changed by this endpoint. To
-   * re-vet after editing, call `POST /v2/dir/{dir_id}/submit` explicitly.
+   * Edit a DIR. DIRs in `draft`, `rejected`, `unsuccessful`, or `suspended` can be
+   * edited freely: PATCH is a pure edit, `status` is never changed, and you re-vet
+   * by calling `POST /v2/dir/{dir_id}/submit` explicitly. A `verified` DIR can also
+   * be edited in place: a PATCH that changes any value returns the DIR to `draft`
+   * and branded delivery stops until you re-submit and the DIR is approved again,
+   * while a PATCH that changes nothing (an empty body or values identical to the
+   * current ones) leaves the DIR `verified`, so idempotent retries are safe. DIRs in
+   * any other status (`submitted`, `in_review`, `expired`, `infringement_claimed`,
+   * `permanently_rejected`) cannot be edited.
    *
    * @example
    * ```ts
@@ -1127,9 +1133,35 @@ export interface DirUpdateParams {
   call_reasons?: Array<string>;
 
   /**
+   * Certification that the DIR information is accurate. Must be `true` for the DIR
+   * to be submitted for vetting.
+   */
+  certify_brand_is_accurate?: boolean;
+
+  /**
+   * Certification of ownership of any logos/trademarks shown. Must be `true` for the
+   * DIR to be submitted for vetting.
+   */
+  certify_ip_ownership?: boolean;
+
+  /**
+   * Certification that this DIR is not used for SHAFT content (Sex, Hate, Alcohol,
+   * Firearms, Tobacco) where prohibited. Must be `true` for the DIR to be submitted
+   * for vetting.
+   */
+  certify_no_shaft_content?: boolean;
+
+  /**
    * Name shown to call recipients. 1–35 characters, no emoji, not whitespace-only.
    */
   display_name?: string;
+
+  /**
+   * Additional supporting documents to attach. Append-only: existing documents are
+   * never removed or replaced, and an empty or omitted list is a no-op. Each
+   * `document_id` may appear at most once on a DIR.
+   */
+  documents?: Array<DirUpdateParams.Document>;
 
   /**
    * Publicly accessible HTTPS URL (max 128 chars) to a 256x256 BMP logo (max 1 MB).
@@ -1141,6 +1173,38 @@ export interface DirUpdateParams {
    * (BPO/reseller). Updating this triggers re-vetting on next submit.
    */
   reselling?: boolean;
+}
+
+export namespace DirUpdateParams {
+  export interface Document {
+    /**
+     * Id returned by the Telnyx Documents API after you upload the file (upload via
+     * `POST /v2/documents`; see https://developers.telnyx.com/api/documents).
+     */
+    document_id: string;
+
+    /**
+     * Type of supporting document. Pick the closest match to what the file actually
+     * contains; `other` triggers manual vetting and may slow approval. The matching
+     * short_name reference list is at `GET /v2/dir/document_types`.
+     */
+    document_type:
+      | 'letter_of_authorization'
+      | 'business_registration'
+      | 'articles_of_incorporation'
+      | 'tax_document'
+      | 'ein_letter'
+      | 'trademark_registration'
+      | 'website_ownership'
+      | 'business_license'
+      | 'professional_license'
+      | 'government_id'
+      | 'utility_bill'
+      | 'bank_statement'
+      | 'other';
+
+    description?: string;
+  }
 }
 
 export interface DirListParams extends DefaultFlatPaginationParams {
