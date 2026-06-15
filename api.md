@@ -691,6 +691,16 @@ Methods:
 - <code title="post /ai/assistants/{assistant_id}/tags">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">add</a>(assistantID, { ...params }) -> TagAddResponse</code>
 - <code title="delete /ai/assistants/{assistant_id}/tags/{tag}">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">remove</a>(tag, { ...params }) -> TagRemoveResponse</code>
 
+### Instructions
+
+Types:
+
+- <code><a href="./src/resources/ai/assistants/instructions.ts">InstructionEnhanceResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/assistants/{assistant_id}/instructions/enhance">client.ai.assistants.instructions.<a href="./src/resources/ai/assistants/instructions.ts">enhance</a>(assistantID, { ...params }) -> string</code>
+
 ## Audio
 
 Types:

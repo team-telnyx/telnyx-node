@@ -12,6 +12,8 @@ import {
   CanaryDeployUpdateParams,
   CanaryDeploys,
 } from './canary-deploys';
+import * as InstructionsAPI from './instructions';
+import { InstructionEnhanceParams, InstructionEnhanceResponse, Instructions } from './instructions';
 import * as ScheduledEventsAPI from './scheduled-events';
 import {
   ConversationChannelType,
@@ -79,6 +81,7 @@ export class Assistants extends APIResource {
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
   versions: VersionsAPI.Versions = new VersionsAPI.Versions(this._client);
   tags: TagsAPI.Tags = new TagsAPI.Tags(this._client);
+  instructions: InstructionsAPI.Instructions = new InstructionsAPI.Instructions(this._client);
 
   /**
    * Create a new AI Assistant.
@@ -4693,6 +4696,7 @@ Assistants.ScheduledEvents = ScheduledEvents;
 Assistants.Tools = Tools;
 Assistants.Versions = Versions;
 Assistants.Tags = Tags;
+Assistants.Instructions = Instructions;
 
 export declare namespace Assistants {
   export {
@@ -4790,5 +4794,11 @@ export declare namespace Assistants {
     type TagRemoveResponse as TagRemoveResponse,
     type TagAddParams as TagAddParams,
     type TagRemoveParams as TagRemoveParams,
+  };
+
+  export {
+    Instructions as Instructions,
+    type InstructionEnhanceResponse as InstructionEnhanceResponse,
+    type InstructionEnhanceParams as InstructionEnhanceParams,
   };
 }
