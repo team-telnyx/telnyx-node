@@ -631,6 +631,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/{assistant_id}/tags/{tag}',
   },
   {
+    clientCallName: 'client.ai.assistants.instructions.enhance',
+    fullyQualifiedName: 'ai.assistants.instructions.enhance',
+    httpMethod: 'post',
+    httpPath: '/ai/assistants/{assistant_id}/instructions/enhance',
+  },
+  {
     clientCallName: 'client.ai.audio.transcribe',
     fullyQualifiedName: 'ai.audio.transcribe',
     httpMethod: 'post',

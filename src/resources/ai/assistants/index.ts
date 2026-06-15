@@ -43,6 +43,7 @@ export {
   type CanaryDeployCreateParams,
   type CanaryDeployUpdateParams,
 } from './canary-deploys';
+export { Instructions, type InstructionEnhanceResponse, type InstructionEnhanceParams } from './instructions';
 export {
   ScheduledEvents,
   type ConversationChannelType,

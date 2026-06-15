@@ -213,6 +213,7 @@ const fuse = new Fuse(
     'client.ai.assistants.tags.add',
     'client.ai.assistants.tags.list',
     'client.ai.assistants.tags.remove',
+    'client.ai.assistants.instructions.enhance',
     'client.ai.audio.transcribe',
     'client.ai.chat.createCompletion',
     'client.ai.clusters.compute',
