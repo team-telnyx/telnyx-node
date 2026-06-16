@@ -1296,7 +1296,8 @@ export namespace CallDialParams {
      *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
      * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
      * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
-     *   `Inworld.Max.Oliver`). Supported models: `Mini`, `Max`.
+     *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`,
+     *   `Max`, `TTS2`.
      * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
      *   `ara`, `rex`, `sal`, `leo`.
      */
@@ -1430,6 +1431,14 @@ export namespace CallDialParams {
          * Voice settings provider type
          */
         type: 'inworld';
+
+        /**
+         * Controls the expressiveness and consistency of the Inworld `TTS2` model's speech
+         * synthesis. `STABLE` favors consistent, predictable output, `CREATIVE` allows
+         * more expressive variation, and `BALANCED` sits in between. Optional and only
+         * supported by `TTS2`; when omitted, the provider default applies.
+         */
+        delivery_mode?: 'STABLE' | 'BALANCED' | 'CREATIVE';
       }
 
       export interface XaiVoiceSettings {
@@ -1450,6 +1459,14 @@ export namespace CallDialParams {
        * Voice settings provider type
        */
       type: 'inworld';
+
+      /**
+       * Controls the expressiveness and consistency of the Inworld `TTS2` model's speech
+       * synthesis. `STABLE` favors consistent, predictable output, `CREATIVE` allows
+       * more expressive variation, and `BALANCED` sits in between. Optional and only
+       * supported by `TTS2`; when omitted, the provider default applies.
+       */
+      delivery_mode?: 'STABLE' | 'BALANCED' | 'CREATIVE';
     }
 
     export interface XaiVoiceSettings {
