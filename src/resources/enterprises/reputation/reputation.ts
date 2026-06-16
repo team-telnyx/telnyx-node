@@ -20,13 +20,13 @@ import {
 import * as RemediationAPI from './remediation';
 import {
   Remediation,
-  RemediationCreateParams,
-  RemediationCreateResponse,
   RemediationListParams,
   RemediationListResponse,
   RemediationListResponsesDefaultFlatPagination,
   RemediationRetrieveParams,
   RemediationRetrieveResponse,
+  RemediationSubmitParams,
+  RemediationSubmitResponse,
 } from './remediation';
 import { APIPromise } from '../../../core/api-promise';
 import { buildHeaders } from '../../../internal/headers';
@@ -251,12 +251,12 @@ export declare namespace Reputation {
 
   export {
     Remediation as Remediation,
-    type RemediationCreateResponse as RemediationCreateResponse,
     type RemediationRetrieveResponse as RemediationRetrieveResponse,
     type RemediationListResponse as RemediationListResponse,
+    type RemediationSubmitResponse as RemediationSubmitResponse,
     type RemediationListResponsesDefaultFlatPagination as RemediationListResponsesDefaultFlatPagination,
-    type RemediationCreateParams as RemediationCreateParams,
     type RemediationRetrieveParams as RemediationRetrieveParams,
     type RemediationListParams as RemediationListParams,
+    type RemediationSubmitParams as RemediationSubmitParams,
   };
 }

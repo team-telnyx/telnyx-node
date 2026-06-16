@@ -6227,12 +6227,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/enterprises/{enterprise_id}/reputation/loa',
   },
   {
-    clientCallName: 'client.enterprises.reputation.remediation.create',
-    fullyQualifiedName: 'enterprises.reputation.remediation.create',
-    httpMethod: 'post',
-    httpPath: '/enterprises/{enterprise_id}/reputation/remediation',
-  },
-  {
     clientCallName: 'client.enterprises.reputation.remediation.retrieve',
     fullyQualifiedName: 'enterprises.reputation.remediation.retrieve',
     httpMethod: 'get',
@@ -6242,6 +6236,12 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.enterprises.reputation.remediation.list',
     fullyQualifiedName: 'enterprises.reputation.remediation.list',
     httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}/reputation/remediation',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.remediation.submit',
+    fullyQualifiedName: 'enterprises.reputation.remediation.submit',
+    httpMethod: 'post',
     httpPath: '/enterprises/{enterprise_id}/reputation/remediation',
   },
   {
@@ -6275,8 +6275,8 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/reputation/numbers/{phone_number}',
   },
   {
-    clientCallName: 'client.termsOfService.retrieveInfo',
-    fullyQualifiedName: 'termsOfService.retrieveInfo',
+    clientCallName: 'client.termsOfService.info',
+    fullyQualifiedName: 'termsOfService.info',
     httpMethod: 'get',
     httpPath: '/terms_of_service/info',
   },
@@ -6461,6 +6461,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/infringement_claims/{claim_id}/contest',
   },
   {
+    clientCallName: 'client.sipRegistrationStatus.retrieve',
+    fullyQualifiedName: 'sipRegistrationStatus.retrieve',
+    httpMethod: 'get',
+    httpPath: '/sip_registration_status',
+  },
+  {
+    clientCallName: 'client.speechToText.listProviders',
+    fullyQualifiedName: 'speechToText.listProviders',
+    httpMethod: 'get',
+    httpPath: '/speech-to-text/providers',
+  },
+  {
     clientCallName: 'client.uacConnections.create',
     fullyQualifiedName: 'uacConnections.create',
     httpMethod: 'post',
@@ -6495,18 +6507,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'uacConnections.actions.checkRegistrationStatus',
     httpMethod: 'post',
     httpPath: '/uac_connections/{id}/actions/check_registration_status',
-  },
-  {
-    clientCallName: 'client.sipRegistrationStatus.retrieve',
-    fullyQualifiedName: 'sipRegistrationStatus.retrieve',
-    httpMethod: 'get',
-    httpPath: '/sip_registration_status',
-  },
-  {
-    clientCallName: 'client.speechToText.listProviders',
-    fullyQualifiedName: 'speechToText.listProviders',
-    httpMethod: 'get',
-    httpPath: '/speech-to-text/providers',
   },
   {
     clientCallName: 'client.voiceSDKCallReports.retrieve',

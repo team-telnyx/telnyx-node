@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource termsOfService', () => {
   // Mock server tests are disabled
-  test.skip('retrieveInfo', async () => {
-    const responsePromise = client.termsOfService.retrieveInfo();
+  test.skip('info', async () => {
+    const responsePromise = client.termsOfService.info();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,13 +21,10 @@ describe('resource termsOfService', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieveInfo: request options and params are passed correctly', async () => {
+  test.skip('info: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.termsOfService.retrieveInfo(
-        { product_type: 'branded_calling' },
-        { path: '/_stainless_unknown_path' },
-      ),
+      client.termsOfService.info({ product_type: 'branded_calling' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 

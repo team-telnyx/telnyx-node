@@ -1572,8 +1572,8 @@ import {
 import { Storage, StorageListMigrationSourceCoverageResponse } from './resources/storage/storage';
 import {
   TermsOfService,
-  TermsOfServiceRetrieveInfoParams,
-  TermsOfServiceRetrieveInfoResponse,
+  TermsOfServiceInfoParams,
+  TermsOfServiceInfoResponse,
   TermsOfServiceStatusParams,
   TermsOfServiceStatusResponse,
 } from './resources/terms-of-service/terms-of-service';
@@ -3030,15 +3030,15 @@ export class Telnyx {
   /**
    * UAC connection operations
    */
-  uacConnections: API.UacConnections = new API.UacConnections(this);
-  /**
-   * UAC connection operations
-   */
   sipRegistrationStatus: API.SipRegistrationStatus = new API.SipRegistrationStatus(this);
   /**
    * Discover available speech-to-text providers, models, and supported languages.
    */
   speechToText: API.SpeechToText = new API.SpeechToText(this);
+  /**
+   * UAC connection operations
+   */
+  uacConnections: API.UacConnections = new API.UacConnections(this);
   /**
    * Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting.
    */
@@ -3211,9 +3211,9 @@ Telnyx.PronunciationDicts = PronunciationDicts;
 Telnyx.CallReasons = CallReasons;
 Telnyx.Dir = Dir;
 Telnyx.InfringementClaims = InfringementClaims;
-Telnyx.UacConnections = UacConnections;
 Telnyx.SipRegistrationStatus = SipRegistrationStatus;
 Telnyx.SpeechToText = SpeechToText;
+Telnyx.UacConnections = UacConnections;
 Telnyx.VoiceSDKCallReports = VoiceSDKCallReports;
 
 export declare namespace Telnyx {
@@ -4964,9 +4964,9 @@ export declare namespace Telnyx {
 
   export {
     TermsOfService as TermsOfService,
-    type TermsOfServiceRetrieveInfoResponse as TermsOfServiceRetrieveInfoResponse,
+    type TermsOfServiceInfoResponse as TermsOfServiceInfoResponse,
     type TermsOfServiceStatusResponse as TermsOfServiceStatusResponse,
-    type TermsOfServiceRetrieveInfoParams as TermsOfServiceRetrieveInfoParams,
+    type TermsOfServiceInfoParams as TermsOfServiceInfoParams,
     type TermsOfServiceStatusParams as TermsOfServiceStatusParams,
   };
 
@@ -5019,6 +5019,18 @@ export declare namespace Telnyx {
   };
 
   export {
+    SipRegistrationStatus as SipRegistrationStatus,
+    type SipRegistrationStatusRetrieveResponse as SipRegistrationStatusRetrieveResponse,
+    type SipRegistrationStatusRetrieveParams as SipRegistrationStatusRetrieveParams,
+  };
+
+  export {
+    SpeechToText as SpeechToText,
+    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
+    type SpeechToTextListProvidersParams as SpeechToTextListProvidersParams,
+  };
+
+  export {
     UacConnections as UacConnections,
     type UacConnectionCreateResponse as UacConnectionCreateResponse,
     type UacConnectionRetrieveResponse as UacConnectionRetrieveResponse,
@@ -5029,18 +5041,6 @@ export declare namespace Telnyx {
     type UacConnectionCreateParams as UacConnectionCreateParams,
     type UacConnectionUpdateParams as UacConnectionUpdateParams,
     type UacConnectionListParams as UacConnectionListParams,
-  };
-
-  export {
-    SipRegistrationStatus as SipRegistrationStatus,
-    type SipRegistrationStatusRetrieveResponse as SipRegistrationStatusRetrieveResponse,
-    type SipRegistrationStatusRetrieveParams as SipRegistrationStatusRetrieveParams,
-  };
-
-  export {
-    SpeechToText as SpeechToText,
-    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
-    type SpeechToTextListProvidersParams as SpeechToTextListProvidersParams,
   };
 
   export {

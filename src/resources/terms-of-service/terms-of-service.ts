@@ -31,10 +31,10 @@ export class TermsOfService extends APIResource {
    * terms URL, effective date). Omit `product_type` to return all products; pass it
    * to scope to one.
    */
-  retrieveInfo(
-    query: TermsOfServiceRetrieveInfoParams | null | undefined = {},
+  info(
+    query: TermsOfServiceInfoParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<TermsOfServiceRetrieveInfoResponse> {
+  ): APIPromise<TermsOfServiceInfoResponse> {
     return this._client.get('/terms_of_service/info', { query, ...options });
   }
 
@@ -54,11 +54,11 @@ export class TermsOfService extends APIResource {
   }
 }
 
-export interface TermsOfServiceRetrieveInfoResponse {
-  agreements?: Array<TermsOfServiceRetrieveInfoResponse.Agreement>;
+export interface TermsOfServiceInfoResponse {
+  agreements?: Array<TermsOfServiceInfoResponse.Agreement>;
 }
 
-export namespace TermsOfServiceRetrieveInfoResponse {
+export namespace TermsOfServiceInfoResponse {
   export interface Agreement {
     current_version?: string;
 
@@ -120,7 +120,7 @@ export namespace TermsOfServiceStatusResponse {
   }
 }
 
-export interface TermsOfServiceRetrieveInfoParams {
+export interface TermsOfServiceInfoParams {
   /**
    * Optional product filter. Omit to return info for all products.
    */
@@ -140,9 +140,9 @@ TermsOfService.BrandedCalling = BrandedCalling;
 
 export declare namespace TermsOfService {
   export {
-    type TermsOfServiceRetrieveInfoResponse as TermsOfServiceRetrieveInfoResponse,
+    type TermsOfServiceInfoResponse as TermsOfServiceInfoResponse,
     type TermsOfServiceStatusResponse as TermsOfServiceStatusResponse,
-    type TermsOfServiceRetrieveInfoParams as TermsOfServiceRetrieveInfoParams,
+    type TermsOfServiceInfoParams as TermsOfServiceInfoParams,
     type TermsOfServiceStatusParams as TermsOfServiceStatusParams,
   };
 
