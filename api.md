@@ -4830,35 +4830,27 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationCreateResponse</a></code>
 - <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationRetrieveResponse</a></code>
 - <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationListResponse</a></code>
+- <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationSubmitResponse</a></code>
 
 Methods:
 
-- <code title="post /enterprises/{enterprise_id}/reputation/remediation">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">create</a>(enterpriseID, { ...params }) -> RemediationCreateResponse</code>
 - <code title="get /enterprises/{enterprise_id}/reputation/remediation/{remediation_id}">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">retrieve</a>(remediationID, { ...params }) -> RemediationRetrieveResponse</code>
 - <code title="get /enterprises/{enterprise_id}/reputation/remediation">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">list</a>(enterpriseID, { ...params }) -> RemediationListResponsesDefaultFlatPagination</code>
+- <code title="post /enterprises/{enterprise_id}/reputation/remediation">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">submit</a>(enterpriseID, { ...params }) -> RemediationSubmitResponse</code>
 
 ## Dir
 
 Types:
 
-- <code><a href="./src/resources/enterprises/dir/dir.ts">DirCreateResponse</a></code>
-- <code><a href="./src/resources/enterprises/dir/dir.ts">DirListResponse</a></code>
+- <code><a href="./src/resources/enterprises/dir.ts">DirCreateResponse</a></code>
+- <code><a href="./src/resources/enterprises/dir.ts">DirListResponse</a></code>
 
 Methods:
 
-- <code title="post /enterprises/{enterprise_id}/dir">client.enterprises.dir.<a href="./src/resources/enterprises/dir/dir.ts">create</a>(enterpriseID, { ...params }) -> DirCreateResponse</code>
-- <code title="get /enterprises/{enterprise_id}/dir">client.enterprises.dir.<a href="./src/resources/enterprises/dir/dir.ts">list</a>(enterpriseID, { ...params }) -> DirListResponsesDefaultFlatPagination</code>
-
-### Comments
-
-### PhoneNumberBatches
-
-### PhoneNumbers
-
-## Usage
+- <code title="post /enterprises/{enterprise_id}/dir">client.enterprises.dir.<a href="./src/resources/enterprises/dir.ts">create</a>(enterpriseID, { ...params }) -> DirCreateResponse</code>
+- <code title="get /enterprises/{enterprise_id}/dir">client.enterprises.dir.<a href="./src/resources/enterprises/dir.ts">list</a>(enterpriseID, { ...params }) -> DirListResponsesDefaultFlatPagination</code>
 
 # Reputation
 
@@ -4879,12 +4871,12 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/terms-of-service/terms-of-service.ts">TermsOfServiceRetrieveInfoResponse</a></code>
+- <code><a href="./src/resources/terms-of-service/terms-of-service.ts">TermsOfServiceInfoResponse</a></code>
 - <code><a href="./src/resources/terms-of-service/terms-of-service.ts">TermsOfServiceStatusResponse</a></code>
 
 Methods:
 
-- <code title="get /terms_of_service/info">client.termsOfService.<a href="./src/resources/terms-of-service/terms-of-service.ts">retrieveInfo</a>({ ...params }) -> TermsOfServiceRetrieveInfoResponse</code>
+- <code title="get /terms_of_service/info">client.termsOfService.<a href="./src/resources/terms-of-service/terms-of-service.ts">info</a>({ ...params }) -> TermsOfServiceInfoResponse</code>
 - <code title="get /terms_of_service/status">client.termsOfService.<a href="./src/resources/terms-of-service/terms-of-service.ts">status</a>({ ...params }) -> TermsOfServiceStatusResponse</code>
 
 ## NumberReputation
@@ -5024,6 +5016,26 @@ Methods:
 - <code title="get /infringement_claims/{claim_id}">client.infringementClaims.<a href="./src/resources/infringement-claims.ts">retrieve</a>(claimID) -> InfringementClaimRetrieveResponse</code>
 - <code title="post /infringement_claims/{claim_id}/contest">client.infringementClaims.<a href="./src/resources/infringement-claims.ts">contest</a>(claimID, { ...params }) -> InfringementClaimContestResponse</code>
 
+# SipRegistrationStatus
+
+Types:
+
+- <code><a href="./src/resources/sip-registration-status.ts">SipRegistrationStatusRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /sip_registration_status">client.sipRegistrationStatus.<a href="./src/resources/sip-registration-status.ts">retrieve</a>({ ...params }) -> SipRegistrationStatusRetrieveResponse</code>
+
+# SpeechToText
+
+Types:
+
+- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
+
+Methods:
+
+- <code title="get /speech-to-text/providers">client.speechToText.<a href="./src/resources/speech-to-text.ts">listProviders</a>({ ...params }) -> SpeechToTextListProvidersResponse</code>
+
 # UacConnections
 
 Types:
@@ -5051,26 +5063,6 @@ Types:
 Methods:
 
 - <code title="post /uac_connections/{id}/actions/check_registration_status">client.uacConnections.actions.<a href="./src/resources/uac-connections/actions.ts">checkRegistrationStatus</a>(id) -> ActionCheckRegistrationStatusResponse</code>
-
-# SipRegistrationStatus
-
-Types:
-
-- <code><a href="./src/resources/sip-registration-status.ts">SipRegistrationStatusRetrieveResponse</a></code>
-
-Methods:
-
-- <code title="get /sip_registration_status">client.sipRegistrationStatus.<a href="./src/resources/sip-registration-status.ts">retrieve</a>({ ...params }) -> SipRegistrationStatusRetrieveResponse</code>
-
-# SpeechToText
-
-Types:
-
-- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
-
-Methods:
-
-- <code title="get /speech-to-text/providers">client.speechToText.<a href="./src/resources/speech-to-text.ts">listProviders</a>({ ...params }) -> SpeechToTextListProvidersResponse</code>
 
 # VoiceSDKCallReports
 

@@ -7,7 +7,7 @@ export {
   type DirCreateParams,
   type DirListParams,
   type DirListResponsesDefaultFlatPagination,
-} from './dir/index';
+} from './dir';
 export {
   Enterprises,
   type BillingAddress,
@@ -33,4 +33,3 @@ export {
   type ReputationEnableParams,
   type ReputationUpdateFrequencyParams,
 } from './reputation/index';
-export { Usage } from './usage';

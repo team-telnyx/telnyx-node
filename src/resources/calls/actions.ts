@@ -4785,7 +4785,17 @@ export interface ActionStartNoiseSuppressionParams {
    * B, C, and D are also supported, but are deprecated: A - Denoiser B -
    * DeepFilterNet C - Krisp D - AiCoustics
    */
-  noise_suppression_engine?: 'Denoiser' | 'DeepFilterNet' | 'Krisp' | 'AiCoustics';
+  noise_suppression_engine?:
+    | 'Denoiser'
+    | 'DeepFilterNet'
+    | 'Krisp'
+    | 'AiCoustics'
+    | 'aic_l_quail'
+    | 'aic_l_rook'
+    | 'aic_s_quail'
+    | 'aic_s_rook'
+    | 'quail_voice_focus_s'
+    | 'quail_voice_focus_xs';
 
   /**
    * Configuration parameters for noise suppression engines. Different engines

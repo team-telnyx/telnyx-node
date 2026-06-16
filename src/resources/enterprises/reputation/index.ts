@@ -16,12 +16,12 @@ export {
 } from './numbers';
 export {
   Remediation,
-  type RemediationCreateResponse,
   type RemediationRetrieveResponse,
   type RemediationListResponse,
-  type RemediationCreateParams,
+  type RemediationSubmitResponse,
   type RemediationRetrieveParams,
   type RemediationListParams,
+  type RemediationSubmitParams,
   type RemediationListResponsesDefaultFlatPagination,
 } from './remediation';
 export {

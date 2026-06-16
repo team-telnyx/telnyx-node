@@ -11,8 +11,8 @@ export { BrandedCalling, type BrandedCallingAgreeResponse } from './branded-call
 export { NumberReputation, type NumberReputationAgreeResponse } from './number-reputation';
 export {
   TermsOfService,
-  type TermsOfServiceRetrieveInfoResponse,
+  type TermsOfServiceInfoResponse,
   type TermsOfServiceStatusResponse,
-  type TermsOfServiceRetrieveInfoParams,
+  type TermsOfServiceInfoParams,
   type TermsOfServiceStatusParams,
 } from './terms-of-service';

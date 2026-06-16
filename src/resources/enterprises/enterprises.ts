@@ -1,9 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as UsageAPI from './usage';
-import { Usage } from './usage';
-import * as DirAPI from './dir/dir';
+import * as DirAPI from './dir';
 import {
   Dir,
   DirCreateParams,
@@ -11,7 +9,7 @@ import {
   DirListParams,
   DirListResponse,
   DirListResponsesDefaultFlatPagination,
-} from './dir/dir';
+} from './dir';
 import * as ReputationAPI from './reputation/reputation';
 import {
   EnterpriseReputationPublic,
@@ -34,7 +32,6 @@ import { path } from '../../internal/utils/path';
 export class Enterprises extends APIResource {
   reputation: ReputationAPI.Reputation = new ReputationAPI.Reputation(this._client);
   dir: DirAPI.Dir = new DirAPI.Dir(this._client);
-  usage: UsageAPI.Usage = new UsageAPI.Usage(this._client);
 
   /**
    * Create the legal entity (enterprise) that represents your business on the Telnyx
@@ -658,7 +655,6 @@ export interface EnterpriseListParams extends DefaultFlatPaginationParams {
 
 Enterprises.Reputation = Reputation;
 Enterprises.Dir = Dir;
-Enterprises.Usage = Usage;
 
 export declare namespace Enterprises {
   export {
@@ -695,6 +691,4 @@ export declare namespace Enterprises {
     type DirCreateParams as DirCreateParams,
     type DirListParams as DirListParams,
   };
-
-  export { Usage as Usage };
 }
