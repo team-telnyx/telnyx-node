@@ -1,5 +1,39 @@
 # Changelog
 
+## 6.75.0 (2026-06-17)
+
+Full Changelog: [v6.74.2...v6.75.0](https://github.com/team-telnyx/telnyx-node/compare/v6.74.2...v6.75.0)
+
+### Features
+
+* add assistant_id to MessagingProfile and request schemas ([448c8b4](https://github.com/team-telnyx/telnyx-node/commit/448c8b44165440e749e3c43f96d942f6d1ef9b9a))
+* Add sip region to scheduled events ([e4ebd56](https://github.com/team-telnyx/telnyx-node/commit/e4ebd56e30af22c7819cc2f81f9b3ca29dcc1cac))
+* AI-assistants conversation flow ([8787da8](https://github.com/team-telnyx/telnyx-node/commit/8787da875d1199ff5234e6182d90ab50382afc00))
+* branded-calling: drop 'simplified'/'no enterprise_id' framing from DIR endpoints ([1314847](https://github.com/team-telnyx/telnyx-node/commit/1314847bfd2651749b93205da7f3e8627c565b47))
+* branded-calling: sync PATCH /dir/{dir_id} spec with deployed service behavior ([955d23a](https://github.com/team-telnyx/telnyx-node/commit/955d23a9c629d03b642c3fa056112c89582ae36f))
+* **branded-calling:** document LOA (DIR) + reputation remediation endpoints ([9564946](https://github.com/team-telnyx/telnyx-node/commit/95649468161255a27f6a40b20a628bc95f042c59))
+* Conversation flow update ([21a9acd](https://github.com/team-telnyx/telnyx-node/commit/21a9acd9fc0df40d05777d0751c9b0ba78ddc0f0))
+* Document POST /ai/assistants/{assistant_id}/instructions/enhance ([278e530](https://github.com/team-telnyx/telnyx-node/commit/278e5303eef199e15aa94d5a30f24681127eb6bd))
+* ENGDESK-51290: Add Aicoustic NS engines to portal backend ([f8ee6d8](https://github.com/team-telnyx/telnyx-node/commit/f8ee6d8ed6dddc8dbc03d4816e049ba7bf51b151))
+* Fix cross-product leakage: de-dup shared enterprise/ToS endpoints + neutralize descriptions ([c59c473](https://github.com/team-telnyx/telnyx-node/commit/c59c473a9d449886b1cc11f240fbed70bac171ba))
+* **inference:** expose description on transfer tool params ([9845803](https://github.com/team-telnyx/telnyx-node/commit/98458030e880816a0478544d4cc3d5c2af5c4a3b))
+* NUM-6470: Add branded-calling-v2 OpenAPI specs (external + internal) ([257742d](https://github.com/team-telnyx/telnyx-node/commit/257742de2283886bd7570fad5e673a9207aec6e2))
+* **spec:** backfill parameter descriptions to 100% coverage ([207e26e](https://github.com/team-telnyx/telnyx-node/commit/207e26e378c0cb7887260a98af683a1dfe9dd55f))
+* **spec:** inline 2xx response schemas — REST response coverage 41% → 91% (sync of openapi[#199](https://github.com/team-telnyx/telnyx-node/issues/199)) ([7abd803](https://github.com/team-telnyx/telnyx-node/commit/7abd8035fd37b5ac109b84cbd43099cf76381de6))
+* specs: add GET /terms_of_service/info (branded-calling + number-reputation) ([3a35de5](https://github.com/team-telnyx/telnyx-node/commit/3a35de566566069686aeca76f11a5d0820232a52))
+* specs: drop legacy plain filter params (keep filter[] canonical) on list endpoints ([4fcc144](https://github.com/team-telnyx/telnyx-node/commit/4fcc1449a10599afe8f58440e4fbded4fec8fb78))
+* specs: remove em dashes from branded-calling + number-reputation descriptions ([fc18d24](https://github.com/team-telnyx/telnyx-node/commit/fc18d240db49576859f519a1031f45e8502fc89f))
+* TELAPPS-406: nest service_types with per-service languages in STT spec ([f17cc97](https://github.com/team-telnyx/telnyx-node/commit/f17cc976fd6f5314de87621a24a20e0c99edc19d))
+* TELAPPS-719: add Inworld inworld-tts-2 model + delivery_mode to call-control voice settings ([482e055](https://github.com/team-telnyx/telnyx-node/commit/482e055e9bb943b5bb43930af96b276b7d4c1ad1))
+* Update conversation flow ([0b8d83f](https://github.com/team-telnyx/telnyx-node/commit/0b8d83f612095e8b4303ab27da5eba49bce35019))
+
+
+### Bug Fixes
+
+* **client:** send content-type header for requests with an omitted optional body ([7fd3343](https://github.com/team-telnyx/telnyx-node/commit/7fd334331bd89209af749391e31f3e172bd8d660))
+* **inference:** extract recursive expression AST into named Expression schema ([02b46f3](https://github.com/team-telnyx/telnyx-node/commit/02b46f38114c84d734a67741a8eb20eac3a70cab))
+* **number-reputation:** remediation contact_email is optional ([ebc3d0a](https://github.com/team-telnyx/telnyx-node/commit/ebc3d0a8bdab8c4f4157b5be9b0ba35f13e1a5af))
+
 ## 6.74.2 (2026-06-02)
 
 Full Changelog: [v6.74.1...v6.74.2](https://github.com/team-telnyx/telnyx-node/compare/v6.74.1...v6.74.2)
