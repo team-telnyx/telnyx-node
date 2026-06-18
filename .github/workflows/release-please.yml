@@ -21,8 +21,8 @@ name: Release Please
 on:
   push:
     branches:
-      - next      # Phase 1: create release PR
-      - master    # Phase 2: create GitHub release + tag
+      - next # Phase 1: create release PR
+      - master # Phase 2: create GitHub release + tag
 
 permissions:
   contents: write
