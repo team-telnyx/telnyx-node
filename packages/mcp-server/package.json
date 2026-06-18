@@ -8,10 +8,10 @@
   "type": "commonjs",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/team-telnyx/telnyx-node.git",
+    "url": "git+https://github.com/team-telnyx/telnyx-typescript-staging.git",
     "directory": "packages/mcp-server"
   },
-  "homepage": "https://github.com/team-telnyx/telnyx-node/tree/main/packages/mcp-server#readme",
+  "homepage": "https://github.com/team-telnyx/telnyx-typescript-staging/tree/main/packages/mcp-server#readme",
   "license": "MIT",
   "packageManager": "pnpm@10.30.1",
   "private": false,

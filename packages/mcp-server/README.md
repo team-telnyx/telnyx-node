@@ -4,19 +4,34 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Installation
 
-### Direct invocation
+### Building
 
-You can run the MCP Server directly via `npx`:
+Because it's not published yet, clone the repo and build it:
 
 ```sh
+git clone git@github.com:team-telnyx/telnyx-typescript-staging.git
+cd telnyx-typescript-staging
+./scripts/bootstrap
+./scripts/build
+```
+
+### Running
+
+```sh
+# set env vars as needed
 export TELNYX_API_KEY="My API Key"
 export TELNYX_PUBLIC_KEY="My Public Key"
 export TELNYX_CLIENT_ID="My Client ID"
 export TELNYX_CLIENT_SECRET="My Client Secret"
-npx -y telnyx-mcp@latest
+node ./packages/mcp-server/dist/index.js
 ```
 
+> [!NOTE]
+> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npx -y telnyx-mcp`
+
 ### Via MCP Client
+
+[Build the project](#building) as mentioned above.
 
 There is a partial list of existing clients at [modelcontextprotocol.io](https://modelcontextprotocol.io/clients). If you already
 have a client, consult their documentation to install the MCP server.
@@ -27,8 +42,8 @@ For clients with a configuration JSON, it might look something like this:
 {
   "mcpServers": {
     "telnyx_api": {
-      "command": "npx",
-      "args": ["-y", "telnyx-mcp"],
+      "command": "node",
+      "args": ["/path/to/local/telnyx-typescript-staging/packages/mcp-server"],
       "env": {
         "TELNYX_API_KEY": "My API Key",
         "TELNYX_PUBLIC_KEY": "My Public Key",
@@ -38,29 +53,6 @@ For clients with a configuration JSON, it might look something like this:
     }
   }
 }
-```
-
-### Cursor
-
-If you use Cursor, you can install the MCP server by using the button below. You will need to set your environment variables
-in Cursor's `mcp.json`, which can be found in Cursor Settings > Tools & MCP > New MCP Server.
-
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=telnyx-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInRlbG55eC1tY3AiXSwiZW52Ijp7IlRFTE5ZWF9BUElfS0VZIjoiTXkgQVBJIEtleSIsIlRFTE5ZWF9QVUJMSUNfS0VZIjoiTXkgUHVibGljIEtleSIsIlRFTE5ZWF9DTElFTlRfSUQiOiJNeSBDbGllbnQgSUQiLCJURUxOWVhfQ0xJRU5UX1NFQ1JFVCI6Ik15IENsaWVudCBTZWNyZXQifX0)
-
-### VS Code
-
-If you use MCP, you can install the MCP server by clicking the link below. You will need to set your environment variables
-in VS Code's `mcp.json`, which can be found via Command Palette > MCP: Open User Configuration.
-
-[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22telnyx-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22telnyx-mcp%22%5D%2C%22env%22%3A%7B%22TELNYX_API_KEY%22%3A%22My%20API%20Key%22%2C%22TELNYX_PUBLIC_KEY%22%3A%22My%20Public%20Key%22%2C%22TELNYX_CLIENT_ID%22%3A%22My%20Client%20ID%22%2C%22TELNYX_CLIENT_SECRET%22%3A%22My%20Client%20Secret%22%7D%7D)
-
-### Claude Code
-
-If you use Claude Code, you can install the MCP server by running the command below in your terminal. You will need to set your
-environment variables in Claude Code's `.claude.json`, which can be found in your home directory.
-
-```
-claude mcp add telnyx_mcp_api --env TELNYX_API_KEY="My API Key" TELNYX_PUBLIC_KEY="My Public Key" TELNYX_CLIENT_ID="My Client ID" TELNYX_CLIENT_SECRET="My Client Secret" -- npx -y telnyx-mcp
 ```
 
 ## Code Mode

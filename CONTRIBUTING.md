@@ -42,15 +42,15 @@ If you’d like to use the repository from source, you can either install from g
 To install via git:
 
 ```sh
-$ npm install git+ssh://git@github.com:team-telnyx/telnyx-node.git
+$ npm install git+ssh://git@github.com:team-telnyx/telnyx-typescript-staging.git
 ```
 
 Alternatively, to link a local copy of the repo:
 
 ```sh
 # Clone
-$ git clone https://www.github.com/team-telnyx/telnyx-node
-$ cd telnyx-node
+$ git clone https://www.github.com/team-telnyx/telnyx-typescript-staging
+$ cd telnyx-typescript-staging
 
 # With yarn
 $ yarn link
@@ -93,7 +93,7 @@ the changes aren't made through the automated pipeline, you may want to make rel
 
 ### Publish with a GitHub workflow
 
-You can release to package managers by using [the `Publish NPM` GitHub action](https://www.github.com/team-telnyx/telnyx-node/actions/workflows/publish-npm.yml). This requires a setup organization or repository secret to be set up.
+You can release to package managers by using [the `Publish NPM` GitHub action](https://www.github.com/team-telnyx/telnyx-typescript-staging/actions/workflows/publish-npm.yml). This requires a setup organization or repository secret to be set up.
 
 ### Publish manually
 

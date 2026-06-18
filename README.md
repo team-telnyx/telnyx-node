@@ -20,8 +20,11 @@ Use the Telnyx MCP Server to enable AI assistants to interact with this API, all
 ## Installation
 
 ```sh
-npm install telnyx
+npm install git+ssh://git@github.com:team-telnyx/telnyx-typescript-staging.git
 ```
+
+> [!NOTE]
+> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npm install telnyx`
 
 ## Usage
 
@@ -433,7 +436,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/team-telnyx/telnyx-node/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/team-telnyx/telnyx-typescript-staging/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
