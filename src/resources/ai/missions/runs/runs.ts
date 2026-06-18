@@ -6,26 +6,26 @@ import {
   EventData,
   EventDataDefaultFlatPagination,
   EventGetEventDetailsParams,
-  EventGetEventDetailsResponse,
   EventListParams,
   EventLogParams,
-  EventLogResponse,
+  EventResponse,
+  EventType,
   Events,
 } from './events';
 import * as PlanAPI from './plan';
 import {
+  CreatePlanStepRequest,
   Plan,
   PlanAddStepsToPlanParams,
-  PlanAddStepsToPlanResponse,
   PlanCreateParams,
-  PlanCreateResponse,
   PlanGetStepDetailsParams,
-  PlanGetStepDetailsResponse,
   PlanRetrieveParams,
   PlanRetrieveResponse,
   PlanStepData,
+  PlanStepResponse,
+  PlanStepsCreatedResponse,
   PlanUpdateStepParams,
-  PlanUpdateStepResponse,
+  StepStatus,
 } from './plan';
 import * as TelnyxAgentsAPI from './telnyx-agents';
 import {
@@ -37,6 +37,7 @@ import {
   TelnyxAgentUnlinkParams,
   TelnyxAgents,
 } from './telnyx-agents';
+import * as TestSuitesRunsAPI from '../../assistants/tests/test-suites/runs';
 import { APIPromise } from '../../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -56,16 +57,17 @@ export class Runs extends APIResource {
    *
    * @example
    * ```ts
-   * const run = await client.ai.missions.runs.create(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
+   * const missionRunResponse =
+   *   await client.ai.missions.runs.create(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
    * ```
    */
   create(
     missionID: string,
     body: RunCreateParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<RunCreateResponse> {
+  ): APIPromise<MissionRunResponse> {
     return this._client.post(path`/ai/missions/${missionID}/runs`, { body, ...options });
   }
 
@@ -74,17 +76,18 @@ export class Runs extends APIResource {
    *
    * @example
    * ```ts
-   * const run = await client.ai.missions.runs.retrieve(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-   * );
+   * const missionRunResponse =
+   *   await client.ai.missions.runs.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   *   );
    * ```
    */
   retrieve(
     runID: string,
     params: RunRetrieveParams,
     options?: RequestOptions,
-  ): APIPromise<RunRetrieveResponse> {
+  ): APIPromise<MissionRunResponse> {
     const { mission_id } = params;
     return this._client.get(path`/ai/missions/${mission_id}/runs/${runID}`, options);
   }
@@ -94,13 +97,14 @@ export class Runs extends APIResource {
    *
    * @example
    * ```ts
-   * const run = await client.ai.missions.runs.update(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-   * );
+   * const missionRunResponse =
+   *   await client.ai.missions.runs.update(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   *   );
    * ```
    */
-  update(runID: string, params: RunUpdateParams, options?: RequestOptions): APIPromise<RunUpdateResponse> {
+  update(runID: string, params: RunUpdateParams, options?: RequestOptions): APIPromise<MissionRunResponse> {
     const { mission_id, ...body } = params;
     return this._client.patch(path`/ai/missions/${mission_id}/runs/${runID}`, { body, ...options });
   }
@@ -135,17 +139,18 @@ export class Runs extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.ai.missions.runs.cancelRun(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-   * );
+   * const missionRunResponse =
+   *   await client.ai.missions.runs.cancelRun(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   *   );
    * ```
    */
   cancelRun(
     runID: string,
     params: RunCancelRunParams,
     options?: RequestOptions,
-  ): APIPromise<RunCancelRunResponse> {
+  ): APIPromise<MissionRunResponse> {
     const { mission_id } = params;
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/cancel`, options);
   }
@@ -176,17 +181,18 @@ export class Runs extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.ai.missions.runs.pauseRun(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-   * );
+   * const missionRunResponse =
+   *   await client.ai.missions.runs.pauseRun(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   *   );
    * ```
    */
   pauseRun(
     runID: string,
     params: RunPauseRunParams,
     options?: RequestOptions,
-  ): APIPromise<RunPauseRunResponse> {
+  ): APIPromise<MissionRunResponse> {
     const { mission_id } = params;
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/pause`, options);
   }
@@ -196,17 +202,18 @@ export class Runs extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.ai.missions.runs.resumeRun(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-   * );
+   * const missionRunResponse =
+   *   await client.ai.missions.runs.resumeRun(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   *   );
    * ```
    */
   resumeRun(
     runID: string,
     params: RunResumeRunParams,
     options?: RequestOptions,
-  ): APIPromise<RunResumeRunResponse> {
+  ): APIPromise<MissionRunResponse> {
     const { mission_id } = params;
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/resume`, options);
   }
@@ -221,7 +228,7 @@ export interface MissionRunData {
 
   started_at: string;
 
-  status: 'pending' | 'running' | 'paused' | 'succeeded' | 'failed' | 'cancelled';
+  status: RunStatus;
 
   updated_at: string;
 
@@ -238,29 +245,17 @@ export interface MissionRunData {
   result_summary?: string;
 }
 
-export interface RunCreateResponse {
+export interface MissionRunResponse {
   data: MissionRunData;
 }
 
-export interface RunRetrieveResponse {
-  data: MissionRunData;
+export interface MissionRunsListResponse {
+  data: Array<MissionRunData>;
+
+  meta: TestSuitesRunsAPI.Meta;
 }
 
-export interface RunUpdateResponse {
-  data: MissionRunData;
-}
-
-export interface RunCancelRunResponse {
-  data: MissionRunData;
-}
-
-export interface RunPauseRunResponse {
-  data: MissionRunData;
-}
-
-export interface RunResumeRunResponse {
-  data: MissionRunData;
-}
+export type RunStatus = 'pending' | 'running' | 'paused' | 'succeeded' | 'failed' | 'cancelled';
 
 export interface RunCreateParams {
   input?: { [key: string]: unknown };
@@ -269,12 +264,15 @@ export interface RunCreateParams {
 }
 
 export interface RunRetrieveParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface RunUpdateParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the mission.
    */
   mission_id: string;
 
@@ -301,26 +299,41 @@ export interface RunUpdateParams {
   /**
    * Body param
    */
-  status?: 'pending' | 'running' | 'paused' | 'succeeded' | 'failed' | 'cancelled';
+  status?: RunStatus;
 }
 
 export interface RunListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter results by status.
+   */
   status?: string;
 }
 
 export interface RunCancelRunParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface RunListRunsParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter results by status.
+   */
   status?: string;
 }
 
 export interface RunPauseRunParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface RunResumeRunParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
@@ -331,12 +344,9 @@ Runs.TelnyxAgents = TelnyxAgents;
 export declare namespace Runs {
   export {
     type MissionRunData as MissionRunData,
-    type RunCreateResponse as RunCreateResponse,
-    type RunRetrieveResponse as RunRetrieveResponse,
-    type RunUpdateResponse as RunUpdateResponse,
-    type RunCancelRunResponse as RunCancelRunResponse,
-    type RunPauseRunResponse as RunPauseRunResponse,
-    type RunResumeRunResponse as RunResumeRunResponse,
+    type MissionRunResponse as MissionRunResponse,
+    type MissionRunsListResponse as MissionRunsListResponse,
+    type RunStatus as RunStatus,
     type MissionRunDataDefaultFlatPagination as MissionRunDataDefaultFlatPagination,
     type RunCreateParams as RunCreateParams,
     type RunRetrieveParams as RunRetrieveParams,
@@ -351,8 +361,8 @@ export declare namespace Runs {
   export {
     Events as Events,
     type EventData as EventData,
-    type EventGetEventDetailsResponse as EventGetEventDetailsResponse,
-    type EventLogResponse as EventLogResponse,
+    type EventResponse as EventResponse,
+    type EventType as EventType,
     type EventDataDefaultFlatPagination as EventDataDefaultFlatPagination,
     type EventListParams as EventListParams,
     type EventGetEventDetailsParams as EventGetEventDetailsParams,
@@ -361,12 +371,12 @@ export declare namespace Runs {
 
   export {
     Plan as Plan,
+    type CreatePlanStepRequest as CreatePlanStepRequest,
     type PlanStepData as PlanStepData,
-    type PlanCreateResponse as PlanCreateResponse,
+    type PlanStepResponse as PlanStepResponse,
+    type PlanStepsCreatedResponse as PlanStepsCreatedResponse,
+    type StepStatus as StepStatus,
     type PlanRetrieveResponse as PlanRetrieveResponse,
-    type PlanAddStepsToPlanResponse as PlanAddStepsToPlanResponse,
-    type PlanGetStepDetailsResponse as PlanGetStepDetailsResponse,
-    type PlanUpdateStepResponse as PlanUpdateStepResponse,
     type PlanCreateParams as PlanCreateParams,
     type PlanRetrieveParams as PlanRetrieveParams,
     type PlanAddStepsToPlanParams as PlanAddStepsToPlanParams,

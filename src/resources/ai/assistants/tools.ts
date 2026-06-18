@@ -90,16 +90,22 @@ export namespace ToolTestResponse {
 }
 
 export interface ToolAddParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 
 export interface ToolRemoveParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 
 export interface ToolTestParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the assistant.
    */
   assistant_id: string;
 

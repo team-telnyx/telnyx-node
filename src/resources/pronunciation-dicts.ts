@@ -34,7 +34,7 @@ export class PronunciationDicts extends APIResource {
    *
    * @example
    * ```ts
-   * const pronunciationDict =
+   * const pronunciationDictResponse =
    *   await client.pronunciationDicts.create({
    *     items: [
    *       {
@@ -50,7 +50,7 @@ export class PronunciationDicts extends APIResource {
   create(
     body: PronunciationDictCreateParams,
     options?: RequestOptions,
-  ): APIPromise<PronunciationDictCreateResponse> {
+  ): APIPromise<PronunciationDictResponse> {
     return this._client.post(
       '/pronunciation_dicts',
       maybeMultipartFormRequestOptions({ body, ...options }, this._client),
@@ -62,13 +62,13 @@ export class PronunciationDicts extends APIResource {
    *
    * @example
    * ```ts
-   * const pronunciationDict =
+   * const pronunciationDictResponse =
    *   await client.pronunciationDicts.retrieve(
    *     'c215a3e1-be41-4701-97e8-1d3c22f9a5b7',
    *   );
    * ```
    */
-  retrieve(id: string, options?: RequestOptions): APIPromise<PronunciationDictRetrieveResponse> {
+  retrieve(id: string, options?: RequestOptions): APIPromise<PronunciationDictResponse> {
     return this._client.get(path`/pronunciation_dicts/${id}`, options);
   }
 
@@ -79,7 +79,7 @@ export class PronunciationDicts extends APIResource {
    *
    * @example
    * ```ts
-   * const pronunciationDict =
+   * const pronunciationDictResponse =
    *   await client.pronunciationDicts.update(
    *     'c215a3e1-be41-4701-97e8-1d3c22f9a5b7',
    *   );
@@ -89,7 +89,7 @@ export class PronunciationDicts extends APIResource {
     id: string,
     body: PronunciationDictUpdateParams,
     options?: RequestOptions,
-  ): APIPromise<PronunciationDictUpdateResponse> {
+  ): APIPromise<PronunciationDictResponse> {
     return this._client.patch(path`/pronunciation_dicts/${id}`, { body, ...options });
   }
 
@@ -174,7 +174,7 @@ export interface PronunciationDictData {
   /**
    * List of pronunciation items (alias or phoneme type).
    */
-  items?: Array<PronunciationDictAliasItem | PronunciationDictPhonemeItem>;
+  items?: Array<PronunciationDictItem>;
 
   /**
    * Human-readable name for the dictionary. Must be unique within the organization.
@@ -197,6 +197,13 @@ export interface PronunciationDictData {
    */
   version?: number;
 }
+
+/**
+ * A single pronunciation dictionary item. Use type 'alias' to replace matched text
+ * with a spoken alias, or type 'phoneme' to specify exact pronunciation using IPA
+ * notation.
+ */
+export type PronunciationDictItem = PronunciationDictAliasItem | PronunciationDictPhonemeItem;
 
 /**
  * A phoneme pronunciation item. When the `text` value is found in input, it is
@@ -228,27 +235,7 @@ export interface PronunciationDictPhonemeItem {
 /**
  * Response containing a single pronunciation dictionary.
  */
-export interface PronunciationDictCreateResponse {
-  /**
-   * A pronunciation dictionary record.
-   */
-  data?: PronunciationDictData;
-}
-
-/**
- * Response containing a single pronunciation dictionary.
- */
-export interface PronunciationDictRetrieveResponse {
-  /**
-   * A pronunciation dictionary record.
-   */
-  data?: PronunciationDictData;
-}
-
-/**
- * Response containing a single pronunciation dictionary.
- */
-export interface PronunciationDictUpdateResponse {
+export interface PronunciationDictResponse {
   /**
    * A pronunciation dictionary record.
    */
@@ -260,7 +247,7 @@ export interface PronunciationDictCreateParams {
    * List of pronunciation items (alias or phoneme type). At least one item is
    * required.
    */
-  items: Array<PronunciationDictAliasItem | PronunciationDictPhonemeItem>;
+  items: Array<PronunciationDictItem>;
 
   /**
    * Human-readable name. Must be unique within the organization.
@@ -272,7 +259,7 @@ export interface PronunciationDictUpdateParams {
   /**
    * Updated list of pronunciation items (alias or phoneme type).
    */
-  items?: Array<PronunciationDictAliasItem | PronunciationDictPhonemeItem>;
+  items?: Array<PronunciationDictItem>;
 
   /**
    * Updated dictionary name.
@@ -286,10 +273,9 @@ export declare namespace PronunciationDicts {
   export {
     type PronunciationDictAliasItem as PronunciationDictAliasItem,
     type PronunciationDictData as PronunciationDictData,
+    type PronunciationDictItem as PronunciationDictItem,
     type PronunciationDictPhonemeItem as PronunciationDictPhonemeItem,
-    type PronunciationDictCreateResponse as PronunciationDictCreateResponse,
-    type PronunciationDictRetrieveResponse as PronunciationDictRetrieveResponse,
-    type PronunciationDictUpdateResponse as PronunciationDictUpdateResponse,
+    type PronunciationDictResponse as PronunciationDictResponse,
     type PronunciationDictDataDefaultFlatPagination as PronunciationDictDataDefaultFlatPagination,
     type PronunciationDictCreateParams as PronunciationDictCreateParams,
     type PronunciationDictUpdateParams as PronunciationDictUpdateParams,

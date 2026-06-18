@@ -5,6 +5,7 @@ export {
   type AltBusinessIDType,
   type BrandIdentityStatus,
   type BrandOptionalAttributes,
+  type BrandSMSOtpStatus,
   type EntityType,
   type StockExchange,
   type TelnyxBrand,
@@ -12,8 +13,6 @@ export {
   type BrandRetrieveResponse,
   type BrandListResponse,
   type BrandGetFeedbackResponse,
-  type BrandGetSMSOtpByReferenceResponse,
-  type BrandRetrieveSMSOtpStatusResponse,
   type BrandTriggerSMSOtpResponse,
   type BrandCreateParams,
   type BrandUpdateParams,
@@ -24,10 +23,9 @@ export {
   type BrandListResponsesPerPagePaginationV2,
 } from './brand';
 export {
-  ExternalVetting,
+  ExternalVettingResource,
+  type ExternalVetting,
   type ExternalVettingListResponse,
-  type ExternalVettingImportsResponse,
-  type ExternalVettingOrderResponse,
   type ExternalVettingImportsParams,
   type ExternalVettingOrderParams,
 } from './external-vetting';

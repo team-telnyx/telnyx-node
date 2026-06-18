@@ -29,11 +29,25 @@ export class TextToSpeech extends APIResource {
    * adjustment, and volume control. Use the `telnyx` provider-specific parameters to
    * configure these features.
    */
-  createSpeech(
-    body: TextToSpeechCreateSpeechParams,
+  generateSpeech(
+    body: TextToSpeechGenerateSpeechParams,
     options?: RequestOptions,
-  ): APIPromise<TextToSpeechCreateSpeechResponse> {
+  ): APIPromise<TextToSpeechGenerateSpeechResponse> {
     return this._client.post('/text-to-speech/speech', { body, ...options });
+  }
+
+  /**
+   * Retrieve a list of available voices from one or all TTS providers. When
+   * `provider` is specified, returns voices for that provider only. Otherwise,
+   * returns voices from all providers.
+   *
+   * Some providers (ElevenLabs, Resemble) require an API key to list voices.
+   */
+  listVoices(
+    query: TextToSpeechListVoicesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TextToSpeechListVoicesResponse> {
+    return this._client.get('/text-to-speech/voices', { query, ...options });
   }
 
   /**
@@ -61,39 +75,8 @@ export class TextToSpeech extends APIResource {
    * **Note:** The Telnyx `Ultra` model is not available over WebSocket. Use the HTTP
    * POST `/text-to-speech/speech` endpoint instead.
    */
-  generateSpeech(
-    query: TextToSpeechGenerateSpeechParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    return this._client.get('/text-to-speech/speech', {
-      query,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Retrieve a list of available voices from one or all TTS providers. When
-   * `provider` is specified, returns voices for that provider only. Otherwise,
-   * returns voices from all providers.
-   *
-   * Some providers (ElevenLabs, Resemble) require an API key to list voices.
-   */
-  listVoices(
-    query: TextToSpeechListVoicesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<TextToSpeechListVoicesResponse> {
-    return this._client.get('/text-to-speech/voices', { query, ...options });
-  }
-
-  /**
-   * Open a WebSocket connection to stream text and receive synthesized audio in real
-   * time. Authentication is provided via the standard
-   * `Authorization: Bearer <API_KEY>` header. Send JSON frames with text to
-   * synthesize; receive JSON frames containing base64-encoded audio chunks.
-   */
-  stream(
-    query: TextToSpeechStreamParams | null | undefined = {},
+  retrieveSpeech(
+    query: TextToSpeechRetrieveSpeechParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<void> {
     return this._client.get('/text-to-speech/speech', {
@@ -107,7 +90,7 @@ export class TextToSpeech extends APIResource {
 /**
  * Response when `output_type` is `base64_output`.
  */
-export interface TextToSpeechCreateSpeechResponse {
+export interface TextToSpeechGenerateSpeechResponse {
   /**
    * Base64-encoded audio data.
    */
@@ -272,16 +255,16 @@ export namespace StreamServerEvent {
   }
 }
 
-export interface TextToSpeechCreateSpeechParams {
+export interface TextToSpeechGenerateSpeechParams {
   /**
    * AWS Polly provider-specific parameters.
    */
-  aws?: TextToSpeechCreateSpeechParams.Aws;
+  aws?: TextToSpeechGenerateSpeechParams.Aws;
 
   /**
    * Azure Cognitive Services provider-specific parameters.
    */
-  azure?: TextToSpeechCreateSpeechParams.Azure;
+  azure?: TextToSpeechGenerateSpeechParams.Azure;
 
   /**
    * When `true`, bypass the audio cache and generate fresh audio.
@@ -291,12 +274,7 @@ export interface TextToSpeechCreateSpeechParams {
   /**
    * ElevenLabs provider-specific parameters.
    */
-  elevenlabs?: TextToSpeechCreateSpeechParams.Elevenlabs;
-
-  /**
-   * Inworld provider-specific parameters.
-   */
-  inworld?: { [key: string]: unknown };
+  elevenlabs?: TextToSpeechGenerateSpeechParams.Elevenlabs;
 
   /**
    * Language code (e.g. `en-US`). Usage varies by provider.
@@ -306,7 +284,7 @@ export interface TextToSpeechCreateSpeechParams {
   /**
    * Minimax provider-specific parameters.
    */
-  minimax?: TextToSpeechCreateSpeechParams.Minimax;
+  minimax?: TextToSpeechGenerateSpeechParams.Minimax;
 
   /**
    * Determines the response format. `binary_output` returns raw audio bytes,
@@ -317,24 +295,24 @@ export interface TextToSpeechCreateSpeechParams {
   /**
    * TTS provider. Required unless `voice` is provided.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'inworld' | 'xai';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'xai';
 
   /**
    * Resemble AI provider-specific parameters.
    */
-  resemble?: TextToSpeechCreateSpeechParams.Resemble;
+  resemble?: TextToSpeechGenerateSpeechParams.Resemble;
 
   /**
    * Rime provider-specific parameters.
    */
-  rime?: TextToSpeechCreateSpeechParams.Rime;
+  rime?: TextToSpeechGenerateSpeechParams.Rime;
 
   /**
    * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for
    * `Natural` and `NaturalHD` models. For the `Ultra` model, use `voice_speed`,
    * `volume`, and `emotion`.
    */
-  telnyx?: TextToSpeechCreateSpeechParams.Telnyx;
+  telnyx?: TextToSpeechGenerateSpeechParams.Telnyx;
 
   /**
    * The text to convert to speech.
@@ -365,10 +343,10 @@ export interface TextToSpeechCreateSpeechParams {
   /**
    * xAI provider-specific parameters.
    */
-  xai?: TextToSpeechCreateSpeechParams.Xai;
+  xai?: TextToSpeechGenerateSpeechParams.Xai;
 }
 
-export namespace TextToSpeechCreateSpeechParams {
+export namespace TextToSpeechGenerateSpeechParams {
   /**
    * AWS Polly provider-specific parameters.
    */
@@ -603,7 +581,19 @@ export namespace TextToSpeechCreateSpeechParams {
   }
 }
 
-export interface TextToSpeechGenerateSpeechParams {
+export interface TextToSpeechListVoicesParams {
+  /**
+   * API key for providers that require one to list voices (e.g. ElevenLabs).
+   */
+  api_key?: string;
+
+  /**
+   * Filter voices by provider. If omitted, voices from all providers are returned.
+   */
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'xai';
+}
+
+export interface TextToSpeechRetrieveSpeechParams {
   /**
    * Audio output format override. Supported for Telnyx models. `pcm` and `wav` are
    * available for `Natural`/`NaturalHD` models. The `Ultra` model outputs PCM at
@@ -650,75 +640,14 @@ export interface TextToSpeechGenerateSpeechParams {
   voice_id?: string;
 }
 
-export interface TextToSpeechListVoicesParams {
-  /**
-   * API key for providers that require one to list voices (e.g. ElevenLabs).
-   */
-  api_key?: string;
-
-  /**
-   * Filter voices by provider. If omitted, voices from all providers are returned.
-   */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'inworld' | 'xai';
-}
-
 export declare namespace TextToSpeech {
   export {
-    type TextToSpeechCreateSpeechResponse as TextToSpeechCreateSpeechResponse,
+    type TextToSpeechGenerateSpeechResponse as TextToSpeechGenerateSpeechResponse,
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
     type StreamClientEvent as StreamClientEvent,
     type StreamServerEvent as StreamServerEvent,
-    type TextToSpeechCreateSpeechParams as TextToSpeechCreateSpeechParams,
     type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
+    type TextToSpeechRetrieveSpeechParams as TextToSpeechRetrieveSpeechParams,
   };
-}
-
-/**
- * Parameters for establishing a text-to-speech WebSocket connection.
- */
-export interface TextToSpeechStreamParams {
-  /**
-   * Audio output format override. Supported for Telnyx Natural/NaturalHD models only.
-   */
-  audio_format?: 'pcm' | 'wav';
-
-  /**
-   * When true, bypass the audio cache and generate fresh audio.
-   */
-  disable_cache?: boolean;
-
-  /**
-   * Model identifier for the chosen provider.
-   */
-  model_id?: string;
-
-  /**
-   * TTS provider. Defaults to telnyx if not specified.
-   */
-  provider?:
-    | 'aws'
-    | 'telnyx'
-    | 'azure'
-    | 'elevenlabs'
-    | 'minimax'
-    | 'murfai'
-    | 'rime'
-    | 'resemble'
-    | 'inworld';
-
-  /**
-   * Client-provided socket identifier for tracking.
-   */
-  socket_id?: string;
-
-  /**
-   * Voice identifier in format provider.model_id.voice_id or provider.voice_id.
-   */
-  voice?: string;
-
-  /**
-   * Voice identifier for the chosen provider.
-   */
-  voice_id?: string;
 }

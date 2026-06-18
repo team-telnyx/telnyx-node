@@ -4,6 +4,7 @@ export { Actions, type ActionCheckRegistrationStatusResponse } from './actions';
 export {
   CredentialConnections,
   type AnchorsiteOverride,
+  type ConnectionNoiseSuppression,
   type ConnectionRtcpSettings,
   type CredentialConnection,
   type CredentialInbound,

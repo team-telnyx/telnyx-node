@@ -78,6 +78,31 @@ export class MessagingHostedNumbers extends APIResource {
   }
 }
 
+export interface UpdatePhoneNumberMessagingSettingsRequest {
+  /**
+   * Configure the messaging product for this number:
+   *
+   * - Omit this field or set its value to `null` to keep the current value.
+   * - Set this field to a quoted product ID to set this phone number to that product
+   */
+  messaging_product?: string;
+
+  /**
+   * Configure the messaging profile this phone number is assigned to:
+   *
+   * - Omit this field or set its value to `null` to keep the current value.
+   * - Set this field to `""` to unassign the number from its messaging profile
+   * - Set this field to a quoted UUID of a messaging profile to assign this number
+   *   to that messaging profile
+   */
+  messaging_profile_id?: string;
+
+  /**
+   * Tags to set on this phone number.
+   */
+  tags?: Array<string>;
+}
+
 export interface MessagingHostedNumberRetrieveResponse {
   data?: Shared.PhoneNumberWithMessagingSettings;
 }
@@ -139,6 +164,7 @@ export interface MessagingHostedNumberListParams extends DefaultFlatPaginationPa
 
 export declare namespace MessagingHostedNumbers {
   export {
+    type UpdatePhoneNumberMessagingSettingsRequest as UpdatePhoneNumberMessagingSettingsRequest,
     type MessagingHostedNumberRetrieveResponse as MessagingHostedNumberRetrieveResponse,
     type MessagingHostedNumberUpdateResponse as MessagingHostedNumberUpdateResponse,
     type MessagingHostedNumberDeleteResponse as MessagingHostedNumberDeleteResponse,

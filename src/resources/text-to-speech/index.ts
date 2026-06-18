@@ -2,14 +2,13 @@
 
 export {
   TextToSpeech,
-  type TextToSpeechCreateSpeechResponse,
+  type TextToSpeechGenerateSpeechResponse,
   type TextToSpeechListVoicesResponse,
   type StreamClientEvent,
   type StreamServerEvent,
-  type TextToSpeechCreateSpeechParams,
   type TextToSpeechGenerateSpeechParams,
   type TextToSpeechListVoicesParams,
-  type TextToSpeechStreamParams,
+  type TextToSpeechRetrieveSpeechParams,
 } from './text-to-speech';
-export { TextToSpeechWS, type TextToSpeechWSClientOptions } from './ws';
+export { type TextToSpeechWSClientOptions } from './ws';
 export { type TextToSpeechWSReconnectOptions } from './ws-base';

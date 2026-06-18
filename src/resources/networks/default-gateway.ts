@@ -11,7 +11,7 @@ import { path } from '../../internal/utils/path';
 /**
  * Network operations
  */
-export class DefaultGateway extends APIResource {
+export class DefaultGatewayResource extends APIResource {
   /**
    * Create Default Gateway.
    *
@@ -62,79 +62,39 @@ export class DefaultGateway extends APIResource {
   }
 }
 
-export interface DefaultGatewayCreateResponse {
-  data?: Array<DefaultGatewayCreateResponse.Data>;
+export interface DefaultGateway extends GlobalIPAssignmentsAPI.Record {
+  /**
+   * Network ID.
+   */
+  network_id?: string;
 
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
+  /**
+   * The current status of the interface deployment.
+   */
+  status?: NetworksAPI.InterfaceStatus;
+
+  /**
+   * Wireguard peer ID.
+   */
+  wireguard_peer_id?: string;
 }
 
-export namespace DefaultGatewayCreateResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * Network ID.
-     */
-    network_id?: string;
+export interface DefaultGatewayCreateResponse {
+  data?: Array<DefaultGateway>;
 
-    /**
-     * The current status of the interface deployment.
-     */
-    status?: NetworksAPI.InterfaceStatus;
-
-    /**
-     * Wireguard peer ID.
-     */
-    wireguard_peer_id?: string;
-  }
+  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export interface DefaultGatewayRetrieveResponse {
-  data?: Array<DefaultGatewayRetrieveResponse.Data>;
+  data?: Array<DefaultGateway>;
 
   meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
-export namespace DefaultGatewayRetrieveResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * Network ID.
-     */
-    network_id?: string;
-
-    /**
-     * The current status of the interface deployment.
-     */
-    status?: NetworksAPI.InterfaceStatus;
-
-    /**
-     * Wireguard peer ID.
-     */
-    wireguard_peer_id?: string;
-  }
 }
 
 export interface DefaultGatewayDeleteResponse {
-  data?: Array<DefaultGatewayDeleteResponse.Data>;
+  data?: Array<DefaultGateway>;
 
   meta?: AuthenticationProvidersAPI.PaginationMeta;
-}
-
-export namespace DefaultGatewayDeleteResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * Network ID.
-     */
-    network_id?: string;
-
-    /**
-     * The current status of the interface deployment.
-     */
-    status?: NetworksAPI.InterfaceStatus;
-
-    /**
-     * Wireguard peer ID.
-     */
-    wireguard_peer_id?: string;
-  }
 }
 
 export interface DefaultGatewayCreateParams {
@@ -144,8 +104,9 @@ export interface DefaultGatewayCreateParams {
   wireguard_peer_id?: string;
 }
 
-export declare namespace DefaultGateway {
+export declare namespace DefaultGatewayResource {
   export {
+    type DefaultGateway as DefaultGateway,
     type DefaultGatewayCreateResponse as DefaultGatewayCreateResponse,
     type DefaultGatewayRetrieveResponse as DefaultGatewayRetrieveResponse,
     type DefaultGatewayDeleteResponse as DefaultGatewayDeleteResponse,

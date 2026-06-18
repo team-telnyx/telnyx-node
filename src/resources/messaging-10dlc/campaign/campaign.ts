@@ -861,6 +861,9 @@ export interface CampaignUpdateParams {
 }
 
 export interface CampaignListParams extends PerPagePaginationV2Params {
+  /**
+   * Filter results by brand id.
+   */
   brandId: string;
 
   /**

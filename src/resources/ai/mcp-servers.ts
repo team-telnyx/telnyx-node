@@ -24,7 +24,7 @@ export class McpServers extends APIResource {
    * });
    * ```
    */
-  create(body: McpServerCreateParams, options?: RequestOptions): APIPromise<McpServerCreateResponse> {
+  create(body: McpServerCreateParams, options?: RequestOptions): APIPromise<McpServer> {
     return this._client.post('/ai/mcp_servers', { body, ...options });
   }
 
@@ -38,7 +38,7 @@ export class McpServers extends APIResource {
    * );
    * ```
    */
-  retrieve(mcpServerID: string, options?: RequestOptions): APIPromise<McpServerRetrieveResponse> {
+  retrieve(mcpServerID: string, options?: RequestOptions): APIPromise<McpServer> {
     return this._client.get(path`/ai/mcp_servers/${mcpServerID}`, options);
   }
 
@@ -52,11 +52,7 @@ export class McpServers extends APIResource {
    * );
    * ```
    */
-  update(
-    mcpServerID: string,
-    body: McpServerUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<McpServerUpdateResponse> {
+  update(mcpServerID: string, body: McpServerUpdateParams, options?: RequestOptions): APIPromise<McpServer> {
     return this._client.put(path`/ai/mcp_servers/${mcpServerID}`, { body, ...options });
   }
 
@@ -66,7 +62,7 @@ export class McpServers extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const mcpServerListResponse of client.ai.mcpServers.list()) {
+   * for await (const mcpServer of client.ai.mcpServers.list()) {
    *   // ...
    * }
    * ```
@@ -74,12 +70,11 @@ export class McpServers extends APIResource {
   list(
     query: McpServerListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<McpServerListResponsesDefaultFlatPaginationTopLevelArray, McpServerListResponse> {
-    return this._client.getAPIList(
-      '/ai/mcp_servers',
-      DefaultFlatPaginationTopLevelArray<McpServerListResponse>,
-      { query, ...options },
-    );
+  ): PagePromise<McpServersDefaultFlatPaginationTopLevelArray, McpServer> {
+    return this._client.getAPIList('/ai/mcp_servers', DefaultFlatPaginationTopLevelArray<McpServer>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -98,58 +93,9 @@ export class McpServers extends APIResource {
   }
 }
 
-export type McpServerListResponsesDefaultFlatPaginationTopLevelArray =
-  DefaultFlatPaginationTopLevelArray<McpServerListResponse>;
+export type McpServersDefaultFlatPaginationTopLevelArray = DefaultFlatPaginationTopLevelArray<McpServer>;
 
-export interface McpServerCreateResponse {
-  id: string;
-
-  created_at: string;
-
-  name: string;
-
-  type: string;
-
-  url: string;
-
-  allowed_tools?: Array<string> | null;
-
-  api_key_ref?: string | null;
-}
-
-export interface McpServerRetrieveResponse {
-  id: string;
-
-  created_at: string;
-
-  name: string;
-
-  type: string;
-
-  url: string;
-
-  allowed_tools?: Array<string> | null;
-
-  api_key_ref?: string | null;
-}
-
-export interface McpServerUpdateResponse {
-  id: string;
-
-  created_at: string;
-
-  name: string;
-
-  type: string;
-
-  url: string;
-
-  allowed_tools?: Array<string> | null;
-
-  api_key_ref?: string | null;
-}
-
-export interface McpServerListResponse {
+export interface McpServer {
   id: string;
 
   created_at: string;
@@ -194,18 +140,21 @@ export interface McpServerUpdateParams {
 }
 
 export interface McpServerListParams extends DefaultFlatPaginationTopLevelArrayParams {
+  /**
+   * Filter results by type.
+   */
   type?: string;
 
+  /**
+   * Filter results by url.
+   */
   url?: string;
 }
 
 export declare namespace McpServers {
   export {
-    type McpServerCreateResponse as McpServerCreateResponse,
-    type McpServerRetrieveResponse as McpServerRetrieveResponse,
-    type McpServerUpdateResponse as McpServerUpdateResponse,
-    type McpServerListResponse as McpServerListResponse,
-    type McpServerListResponsesDefaultFlatPaginationTopLevelArray as McpServerListResponsesDefaultFlatPaginationTopLevelArray,
+    type McpServer as McpServer,
+    type McpServersDefaultFlatPaginationTopLevelArray as McpServersDefaultFlatPaginationTopLevelArray,
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerUpdateParams as McpServerUpdateParams,
     type McpServerListParams as McpServerListParams,

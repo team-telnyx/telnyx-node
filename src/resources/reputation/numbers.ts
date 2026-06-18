@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as Shared from '../shared';
-import { ReputationPhoneNumberWithReputationDataDefaultFlatPagination } from '../shared';
+import * as ReputationNumbersAPI from '../enterprises/reputation/numbers';
+import { ReputationPhoneNumbersDefaultFlatPagination } from '../enterprises/reputation/numbers';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
@@ -10,47 +10,40 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 /**
- * Associate phone numbers with an enterprise for reputation monitoring and retrieve reputation scores
+ * Phone-number reputation monitoring (spam-score lookup and tracking).
  */
 export class Numbers extends APIResource {
   /**
-   * Get reputation data for a specific phone number without requiring an
-   * `enterprise_id`.
-   *
-   * Same response as the enterprise-scoped endpoint. Uses cached data by default.
+   * Convenience alias for
+   * `GET /v2/enterprises/{enterprise_id}/reputation/numbers/{phone_number}`.
    */
   retrieve(
     phoneNumber: string,
     query: NumberRetrieveParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<NumberRetrieveResponse> {
+  ): APIPromise<ReputationNumbersAPI.ReputationPhoneNumberWithReputation> {
     return this._client.get(path`/reputation/numbers/${phoneNumber}`, { query, ...options });
   }
 
   /**
-   * List all phone numbers enrolled in Number Reputation monitoring for your
-   * account. This is a simplified endpoint that does not require an `enterprise_id`
-   * — it returns numbers across all your enterprises.
-   *
-   * Supports pagination and filtering by phone number.
+   * Convenience alias for `GET /v2/enterprises/{enterprise_id}/reputation/numbers`
+   * that returns numbers across every enterprise you own. Useful when you don't want
+   * to look up the enterprise id first.
    */
   list(
     query: NumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<
-    ReputationPhoneNumberWithReputationDataDefaultFlatPagination,
-    Shared.ReputationPhoneNumberWithReputationData
-  > {
+  ): PagePromise<ReputationPhoneNumbersDefaultFlatPagination, ReputationNumbersAPI.ReputationPhoneNumber> {
     return this._client.getAPIList(
       '/reputation/numbers',
-      DefaultFlatPagination<Shared.ReputationPhoneNumberWithReputationData>,
+      DefaultFlatPagination<ReputationNumbersAPI.ReputationPhoneNumber>,
       { query, ...options },
     );
   }
 
   /**
-   * Remove a phone number from Number Reputation monitoring without requiring an
-   * `enterprise_id`.
+   * Convenience alias for
+   * `DELETE /v2/enterprises/{enterprise_id}/reputation/numbers/{phone_number}`.
    */
   delete(phoneNumber: string, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/reputation/numbers/${phoneNumber}`, {
@@ -60,31 +53,33 @@ export class Numbers extends APIResource {
   }
 }
 
-export interface NumberRetrieveResponse {
-  data?: Shared.ReputationPhoneNumberWithReputationData;
-}
-
 export interface NumberRetrieveParams {
   /**
-   * When true, fetches fresh reputation data (incurs API cost). When false, returns
-   * cached data.
+   * When true, fetches fresh reputation data (incurs API cost). When false
+   * (default), returns cached data.
    */
   fresh?: boolean;
 }
 
 export interface NumberListParams extends DefaultFlatPaginationParams {
   /**
-   * Filter by specific phone number (E.164 format)
+   * Filter by enterprise ID.
    */
-  phone_number?: string;
+  'filter[enterprise_id]'?: string;
+
+  /**
+   * Partial match on phone number. Must contain at least 5 digits.
+   */
+  'filter[phone_number][contains]'?: string;
+
+  /**
+   * Exact phone-number match (E.164).
+   */
+  'filter[phone_number][eq]'?: string;
 }
 
 export declare namespace Numbers {
-  export {
-    type NumberRetrieveResponse as NumberRetrieveResponse,
-    type NumberRetrieveParams as NumberRetrieveParams,
-    type NumberListParams as NumberListParams,
-  };
+  export { type NumberRetrieveParams as NumberRetrieveParams, type NumberListParams as NumberListParams };
 }
 
-export { type ReputationPhoneNumberWithReputationDataDefaultFlatPagination };
+export { type ReputationPhoneNumbersDefaultFlatPagination };

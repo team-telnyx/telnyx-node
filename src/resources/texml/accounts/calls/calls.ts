@@ -2,14 +2,16 @@
 
 import { APIResource } from '../../../../core/resource';
 import * as RecordingsAPI from './recordings';
-import { RecordingRecordingSidJsonParams, RecordingRecordingSidJsonResponse, Recordings } from './recordings';
+import { RecordingRecordingSidJsonParams, Recordings } from './recordings';
 import * as RecordingsJsonAPI from './recordings-json';
 import {
+  RecordingSource,
   RecordingsJson,
   RecordingsJsonRecordingsJsonParams,
-  RecordingsJsonRecordingsJsonResponse,
   RecordingsJsonRetrieveRecordingsJsonParams,
-  RecordingsJsonRetrieveRecordingsJsonResponse,
+  TexmlCreateCallRecordingResponseBody,
+  TexmlGetCallRecordingsResponseBody,
+  TwimlRecordingChannels,
 } from './recordings-json';
 import * as SiprecAPI from './siprec';
 import { Siprec, SiprecSiprecSidJsonParams, SiprecSiprecSidJsonResponse } from './siprec';
@@ -35,17 +37,13 @@ export class Calls extends APIResource {
    *
    * @example
    * ```ts
-   * const call = await client.texml.accounts.calls.retrieve(
-   *   'call_sid',
-   *   { account_sid: 'account_sid' },
-   * );
+   * const callResource =
+   *   await client.texml.accounts.calls.retrieve('call_sid', {
+   *     account_sid: 'account_sid',
+   *   });
    * ```
    */
-  retrieve(
-    callSid: string,
-    params: CallRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<CallRetrieveResponse> {
+  retrieve(callSid: string, params: CallRetrieveParams, options?: RequestOptions): APIPromise<CallResource> {
     const { account_sid } = params;
     return this._client.get(path`/texml/Accounts/${account_sid}/Calls/${callSid}`, options);
   }
@@ -56,17 +54,13 @@ export class Calls extends APIResource {
    *
    * @example
    * ```ts
-   * const call = await client.texml.accounts.calls.update(
-   *   'call_sid',
-   *   { account_sid: 'account_sid' },
-   * );
+   * const callResource =
+   *   await client.texml.accounts.calls.update('call_sid', {
+   *     account_sid: 'account_sid',
+   *   });
    * ```
    */
-  update(
-    callSid: string,
-    params: CallUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<CallUpdateResponse> {
+  update(callSid: string, params: CallUpdateParams, options?: RequestOptions): APIPromise<CallResource> {
     const { account_sid, ...body } = params;
     return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}`, {
       body,
@@ -83,19 +77,20 @@ export class Calls extends APIResource {
    * ```ts
    * const response = await client.texml.accounts.calls.calls(
    *   'account_sid',
-   *   {
-   *     params: {
-   *       ApplicationSid: 'example-app-sid',
-   *       From: '+13120001234',
-   *       To: '+13121230000',
-   *     },
-   *   },
+   *   { Url: 'https://www.example.com/instructions.xml' },
    * );
    * ```
    */
-  calls(accountSid: string, args: CallCallsParams, options?: RequestOptions): APIPromise<CallCallsResponse> {
-    const { params } = args;
-    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, { body: params, ...options });
+  calls(
+    accountSid: string,
+    params: CallCallsParams,
+    options?: RequestOptions,
+  ): APIPromise<CallCallsResponse> {
+    const { timeout_seconds, ...body } = params;
+    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, {
+      body: { Timeout: timeout_seconds, ...body },
+      ...options,
+    });
   }
 
   /**
@@ -169,6 +164,100 @@ export class Calls extends APIResource {
   }
 }
 
+export interface CallResource {
+  /**
+   * The id of the account the resource belongs to.
+   */
+  account_sid?: string;
+
+  /**
+   * The value of the answering machine detection result, if this feature was enabled
+   * for the call.
+   */
+  answered_by?: 'human' | 'machine' | 'not_sure';
+
+  /**
+   * Caller ID, if present.
+   */
+  caller_name?: string;
+
+  /**
+   * The timestamp of when the resource was created.
+   */
+  date_created?: string;
+
+  /**
+   * The timestamp of when the resource was last updated.
+   */
+  date_updated?: string;
+
+  /**
+   * The direction of this call.
+   */
+  direction?: 'inbound' | 'outbound';
+
+  /**
+   * The duration of this call, given in seconds.
+   */
+  duration?: string;
+
+  /**
+   * The end time of this call.
+   */
+  end_time?: string;
+
+  /**
+   * The phone number or SIP address that made this call.
+   */
+  from?: string;
+
+  /**
+   * The from number formatted for display.
+   */
+  from_formatted?: string;
+
+  /**
+   * The price of this call, the currency is specified in the price_unit field. Only
+   * populated when the call cost feature is enabled for the account.
+   */
+  price?: string;
+
+  /**
+   * The unit in which the price is given.
+   */
+  price_unit?: string;
+
+  /**
+   * The identifier of this call.
+   */
+  sid?: string;
+
+  /**
+   * The start time of this call.
+   */
+  start_time?: string;
+
+  /**
+   * The status of this call.
+   */
+  status?: 'ringing' | 'in-progress' | 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
+
+  /**
+   * The phone number or SIP address that received this call.
+   */
+  to?: string;
+
+  /**
+   * The to number formatted for display.
+   */
+  to_formatted?: string;
+
+  /**
+   * The relative URI for this call.
+   */
+  uri?: string;
+}
+
 export interface UpdateCall {
   /**
    * HTTP request type used for `FallbackUrl`.
@@ -214,194 +303,6 @@ export interface UpdateCall {
   Url?: string;
 }
 
-export interface CallRetrieveResponse {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid?: string;
-
-  /**
-   * The value of the answering machine detection result, if this feature was enabled
-   * for the call.
-   */
-  answered_by?: 'human' | 'machine' | 'not_sure';
-
-  /**
-   * Caller ID, if present.
-   */
-  caller_name?: string;
-
-  /**
-   * The timestamp of when the resource was created.
-   */
-  date_created?: string;
-
-  /**
-   * The timestamp of when the resource was last updated.
-   */
-  date_updated?: string;
-
-  /**
-   * The direction of this call.
-   */
-  direction?: 'inbound' | 'outbound';
-
-  /**
-   * The duration of this call, given in seconds.
-   */
-  duration?: string;
-
-  /**
-   * The end time of this call.
-   */
-  end_time?: string;
-
-  /**
-   * The phone number or SIP address that made this call.
-   */
-  from?: string;
-
-  /**
-   * The from number formatted for display.
-   */
-  from_formatted?: string;
-
-  /**
-   * The price of this call, the currency is specified in the price_unit field. Only
-   * populated when the call cost feature is enabled for the account.
-   */
-  price?: string;
-
-  /**
-   * The unit in which the price is given.
-   */
-  price_unit?: string;
-
-  /**
-   * The identifier of this call.
-   */
-  sid?: string;
-
-  /**
-   * The start time of this call.
-   */
-  start_time?: string;
-
-  /**
-   * The status of this call.
-   */
-  status?: 'ringing' | 'in-progress' | 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
-
-  /**
-   * The phone number or SIP address that received this call.
-   */
-  to?: string;
-
-  /**
-   * The to number formatted for display.
-   */
-  to_formatted?: string;
-
-  /**
-   * The relative URI for this call.
-   */
-  uri?: string;
-}
-
-export interface CallUpdateResponse {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid?: string;
-
-  /**
-   * The value of the answering machine detection result, if this feature was enabled
-   * for the call.
-   */
-  answered_by?: 'human' | 'machine' | 'not_sure';
-
-  /**
-   * Caller ID, if present.
-   */
-  caller_name?: string;
-
-  /**
-   * The timestamp of when the resource was created.
-   */
-  date_created?: string;
-
-  /**
-   * The timestamp of when the resource was last updated.
-   */
-  date_updated?: string;
-
-  /**
-   * The direction of this call.
-   */
-  direction?: 'inbound' | 'outbound';
-
-  /**
-   * The duration of this call, given in seconds.
-   */
-  duration?: string;
-
-  /**
-   * The end time of this call.
-   */
-  end_time?: string;
-
-  /**
-   * The phone number or SIP address that made this call.
-   */
-  from?: string;
-
-  /**
-   * The from number formatted for display.
-   */
-  from_formatted?: string;
-
-  /**
-   * The price of this call, the currency is specified in the price_unit field. Only
-   * populated when the call cost feature is enabled for the account.
-   */
-  price?: string;
-
-  /**
-   * The unit in which the price is given.
-   */
-  price_unit?: string;
-
-  /**
-   * The identifier of this call.
-   */
-  sid?: string;
-
-  /**
-   * The start time of this call.
-   */
-  start_time?: string;
-
-  /**
-   * The status of this call.
-   */
-  status?: 'ringing' | 'in-progress' | 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
-
-  /**
-   * The phone number or SIP address that received this call.
-   */
-  to?: string;
-
-  /**
-   * The to number formatted for display.
-   */
-  to_formatted?: string;
-
-  /**
-   * The relative URI for this call.
-   */
-  uri?: string;
-}
-
 export interface CallCallsResponse {
   from?: string;
 
@@ -411,7 +312,7 @@ export interface CallCallsResponse {
 }
 
 export interface CallRetrieveCallsResponse {
-  calls?: Array<CallRetrieveCallsResponse.Call>;
+  calls?: Array<CallResource>;
 
   /**
    * The number of the last element on the page, zero-indexed.
@@ -447,102 +348,6 @@ export interface CallRetrieveCallsResponse {
    * The URI of the current page.
    */
   uri?: string;
-}
-
-export namespace CallRetrieveCallsResponse {
-  export interface Call {
-    /**
-     * The id of the account the resource belongs to.
-     */
-    account_sid?: string;
-
-    /**
-     * The value of the answering machine detection result, if this feature was enabled
-     * for the call.
-     */
-    answered_by?: 'human' | 'machine' | 'not_sure';
-
-    /**
-     * Caller ID, if present.
-     */
-    caller_name?: string;
-
-    /**
-     * The timestamp of when the resource was created.
-     */
-    date_created?: string;
-
-    /**
-     * The timestamp of when the resource was last updated.
-     */
-    date_updated?: string;
-
-    /**
-     * The direction of this call.
-     */
-    direction?: 'inbound' | 'outbound';
-
-    /**
-     * The duration of this call, given in seconds.
-     */
-    duration?: string;
-
-    /**
-     * The end time of this call.
-     */
-    end_time?: string;
-
-    /**
-     * The phone number or SIP address that made this call.
-     */
-    from?: string;
-
-    /**
-     * The from number formatted for display.
-     */
-    from_formatted?: string;
-
-    /**
-     * The price of this call, the currency is specified in the price_unit field. Only
-     * populated when the call cost feature is enabled for the account.
-     */
-    price?: string;
-
-    /**
-     * The unit in which the price is given.
-     */
-    price_unit?: string;
-
-    /**
-     * The identifier of this call.
-     */
-    sid?: string;
-
-    /**
-     * The start time of this call.
-     */
-    start_time?: string;
-
-    /**
-     * The status of this call.
-     */
-    status?: 'ringing' | 'in-progress' | 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
-
-    /**
-     * The phone number or SIP address that received this call.
-     */
-    to?: string;
-
-    /**
-     * The to number formatted for display.
-     */
-    to_formatted?: string;
-
-    /**
-     * The relative URI for this call.
-     */
-    uri?: string;
-  }
 }
 
 export interface CallSiprecJsonResponse {
@@ -683,38 +488,22 @@ export interface CallUpdateParams {
   Url?: string;
 }
 
-export interface CallCallsParams {
-  /**
-   * Initiate a TeXML call. Provide either `Url` (fetches TeXML from URL) or `Texml`
-   * (inline TeXML), or neither (uses the application default). `Url` and `Texml` are
-   * mutually exclusive.
-   */
-  params: CallCallsParams.Params;
-}
+export type CallCallsParams =
+  | CallCallsParams.WithURL
+  | CallCallsParams.WithTeXml
+  | CallCallsParams.ApplicationDefault;
 
-export namespace CallCallsParams {
-  /**
-   * Initiate a TeXML call. Provide either `Url` (fetches TeXML from URL) or `Texml`
-   * (inline TeXML), or neither (uses the application default). `Url` and `Texml` are
-   * mutually exclusive.
-   */
-  export interface Params {
+export declare namespace CallCallsParams {
+  export interface WithURL {
+    /**
+     * The URL from which Telnyx will retrieve the TeXML call instructions.
+     */
+    Url: string;
+
     /**
      * The ID of the TeXML Application.
      */
-    ApplicationSid: string;
-
-    /**
-     * The phone number of the party that initiated the call. Phone numbers are
-     * formatted with a `+` and country code.
-     */
-    From: string;
-
-    /**
-     * The phone number of the called party. Phone numbers are formatted with a `+` and
-     * country code.
-     */
-    To: string;
+    ApplicationSid?: string;
 
     /**
      * Select whether to perform answering machine detection in the background. By
@@ -756,7 +545,7 @@ export namespace CallCallsParams {
      * Custom HTTP headers to be sent with the call. Each header should be an object
      * with 'name' and 'value' properties.
      */
-    CustomHeaders?: Array<Params.CustomHeader>;
+    CustomHeaders?: Array<WithURL.CustomHeader>;
 
     /**
      * Enables Deepfake Detection on the dialed call. When enabled, audio from the
@@ -788,6 +577,288 @@ export namespace CallCallsParams {
      * `Url` is not responding.
      */
     FallbackUrl?: string;
+
+    /**
+     * The phone number of the party that initiated the call. Phone numbers are
+     * formatted with a `+` and country code.
+     */
+    From?: string;
+
+    /**
+     * Enables Answering Machine Detection.
+     */
+    MachineDetection?: 'Enable' | 'Disable' | 'DetectMessageEnd';
+
+    /**
+     * Silence duration threshold after a call screening prompt before ending prompt
+     * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+     */
+    MachineDetectionPromptEndTimeout?: number;
+
+    /**
+     * If initial silence duration is greater than this value, consider it a machine.
+     * Ignored when `premium` detection is used.
+     */
+    MachineDetectionSilenceTimeout?: number;
+
+    /**
+     * Silence duration threshold after a greeting message or voice for it be
+     * considered human. Ignored when `premium` detection is used.
+     */
+    MachineDetectionSpeechEndThreshold?: number;
+
+    /**
+     * Maximum threshold of a human greeting. If greeting longer than this value,
+     * considered machine. Ignored when `premium` detection is used.
+     */
+    MachineDetectionSpeechThreshold?: number;
+
+    /**
+     * Maximum timeout threshold in milliseconds for overall detection.
+     */
+    MachineDetectionTimeout?: number;
+
+    /**
+     * Defines whether media should be encrypted on the call. When set to `SRTP`, the
+     * call will use Secure Real-time Transport Protocol for media encryption. When set
+     * to `DTLS`, the call will use DTLS for media encryption. Only supported for SIP
+     * destinations.
+     */
+    MediaEncryption?: 'disabled' | 'SRTP' | 'DTLS';
+
+    /**
+     * The list of comma-separated codecs to be offered on a call.
+     */
+    PreferredCodecs?: string;
+
+    /**
+     * Whether to record the entire participant's call leg. Defaults to `false`.
+     */
+    Record?: boolean;
+
+    /**
+     * The number of channels in the final recording. Defaults to `mono`.
+     */
+    RecordingChannels?: 'mono' | 'dual';
+
+    /**
+     * The URL the recording callbacks will be sent to.
+     */
+    RecordingStatusCallback?: string;
+
+    /**
+     * The changes to the recording's state that should generate a call to
+     * `RecoridngStatusCallback`. Can be: `in-progress`, `completed` and `absent`.
+     * Separate multiple values with a space. Defaults to `completed`.
+     */
+    RecordingStatusCallbackEvent?: string;
+
+    /**
+     * HTTP request type used for `RecordingStatusCallback`. Defaults to `POST`.
+     */
+    RecordingStatusCallbackMethod?: 'GET' | 'POST';
+
+    /**
+     * The number of seconds that Telnyx will wait for the recording to be stopped if
+     * silence is detected. The timer only starts when the speech is detected. Please
+     * note that the transcription is used to detect silence and the related charge
+     * will be applied. The minimum value is 0. The default value is 0 (infinite)
+     */
+    RecordingTimeout?: number;
+
+    /**
+     * The audio track to record for the call. The default is `both`.
+     */
+    RecordingTrack?: 'inbound' | 'outbound' | 'both';
+
+    /**
+     * Whether to send RecordingUrl in webhooks.
+     */
+    SendRecordingUrl?: boolean;
+
+    /**
+     * The password to use for SIP authentication.
+     */
+    SipAuthPassword?: string;
+
+    /**
+     * The username to use for SIP authentication.
+     */
+    SipAuthUsername?: string;
+
+    /**
+     * Defines the SIP region to be used for the call.
+     */
+    SipRegion?: 'US' | 'Europe' | 'Canada' | 'Australia' | 'Middle East';
+
+    /**
+     * URL destination for Telnyx to send status callback events to for the call.
+     */
+    StatusCallback?: string;
+
+    /**
+     * The call events for which Telnyx should send a webhook. Multiple events can be
+     * defined when separated by a space.
+     */
+    StatusCallbackEvent?: 'initiated' | 'ringing' | 'answered' | 'completed';
+
+    /**
+     * HTTP request type used for `StatusCallback`.
+     */
+    StatusCallbackMethod?: 'GET' | 'POST';
+
+    /**
+     * The call control ID of the existing call to supervise. When provided, the
+     * created leg will be added to the specified call in supervising mode. Status
+     * callbacks and action callbacks will NOT be sent for the supervising leg.
+     */
+    SuperviseCallSid?: string;
+
+    /**
+     * The supervising role for the new leg. Determines the audio behavior: barge (hear
+     * both sides), whisper (only hear supervisor), monitor (hear both sides but
+     * supervisor muted). Default: barge
+     */
+    SupervisingRole?: 'barge' | 'whisper' | 'monitor';
+
+    Texml?: string | null;
+
+    /**
+     * The maximum duration of the call in seconds. The minimum value is 30 and the
+     * maximum value is 14400 (4 hours). Default is 14400 seconds.
+     */
+    TimeLimit?: number;
+
+    /**
+     * The number of seconds to wait for the called party to answer the call before the
+     * call is canceled. The minimum value is 5 and the maximum value is 120. Default
+     * is 30 seconds.
+     */
+    timeout_seconds?: number;
+
+    /**
+     * The phone number of the called party. Phone numbers are formatted with a `+` and
+     * country code.
+     */
+    To?: string;
+
+    /**
+     * Whether to trim any leading and trailing silence from the recording. Defaults to
+     * `trim-silence`.
+     */
+    Trim?: 'trim-silence' | 'do-not-trim';
+
+    /**
+     * HTTP request type used for `Url`. The default value is inherited from TeXML
+     * Application setting.
+     */
+    UrlMethod?: 'GET' | 'POST';
+  }
+
+  export namespace WithURL {
+    export interface CustomHeader {
+      /**
+       * The name of the custom header
+       */
+      name: string;
+
+      /**
+       * The value of the custom header
+       */
+      value: string;
+    }
+  }
+
+  export interface WithTeXml {
+    /**
+     * TeXML to be used as instructions for the call. If provided, the call will
+     * execute these instructions instead of fetching from the Url.
+     */
+    Texml: string;
+
+    /**
+     * The ID of the TeXML Application.
+     */
+    ApplicationSid?: string;
+
+    /**
+     * Select whether to perform answering machine detection in the background. By
+     * default execution is blocked until Answering Machine Detection is completed.
+     */
+    AsyncAmd?: boolean;
+
+    /**
+     * URL destination for Telnyx to send AMD callback events to for the call.
+     */
+    AsyncAmdStatusCallback?: string;
+
+    /**
+     * HTTP request type used for `AsyncAmdStatusCallback`. The default value is
+     * inherited from TeXML Application setting.
+     */
+    AsyncAmdStatusCallbackMethod?: 'GET' | 'POST';
+
+    /**
+     * To be used as the caller id name (SIP From Display Name) presented to the
+     * destination (`To` number). The string should have a maximum of 128 characters,
+     * containing only letters, numbers, spaces, and `-_~!.+` special characters. If
+     * ommited, the display name will be the same as the number in the `From` field.
+     */
+    CallerId?: string;
+
+    /**
+     * Whether to cancel ongoing playback on `greeting ended` detection. Defaults to
+     * `true`.
+     */
+    CancelPlaybackOnDetectMessageEnd?: boolean;
+
+    /**
+     * Whether to cancel ongoing playback on `machine` detection. Defaults to `true`.
+     */
+    CancelPlaybackOnMachineDetection?: boolean;
+
+    /**
+     * Custom HTTP headers to be sent with the call. Each header should be an object
+     * with 'name' and 'value' properties.
+     */
+    CustomHeaders?: Array<WithTeXml.CustomHeader>;
+
+    /**
+     * Enables Deepfake Detection on the dialed call. When enabled, audio from the
+     * remote party is analyzed to determine whether the voice is AI-generated. Results
+     * are delivered asynchronously via a callback.
+     */
+    DeepfakeDetection?: 'Enable';
+
+    /**
+     * HTTP request type used for `DeepfakeDetectionCallbackUrl`.
+     */
+    DeepfakeDetectionCallbackMethod?: 'GET' | 'POST';
+
+    /**
+     * URL destination for Telnyx to send deepfake detection callback events to for the
+     * call.
+     */
+    DeepfakeDetectionCallbackUrl?: string;
+
+    /**
+     * Allows you to choose between Regular, Premium, and PremiumCallScreening
+     * detections. See
+     * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
+     */
+    DetectionMode?: 'Premium' | 'Regular' | 'PremiumCallScreening';
+
+    /**
+     * A failover URL for which Telnyx will retrieve the TeXML call instructions if the
+     * `Url` is not responding.
+     */
+    FallbackUrl?: string;
+
+    /**
+     * The phone number of the party that initiated the call. Phone numbers are
+     * formatted with a `+` and country code.
+     */
+    From?: string;
 
     /**
      * Enables Answering Machine Detection.
@@ -927,10 +998,276 @@ export namespace CallCallsParams {
     SupervisingRole?: 'barge' | 'whisper' | 'monitor';
 
     /**
-     * TeXML to be used as instructions for the call. If provided, the call will
-     * execute these instructions instead of fetching from the Url.
+     * The maximum duration of the call in seconds. The minimum value is 30 and the
+     * maximum value is 14400 (4 hours). Default is 14400 seconds.
      */
-    Texml?: string;
+    TimeLimit?: number;
+
+    /**
+     * The number of seconds to wait for the called party to answer the call before the
+     * call is canceled. The minimum value is 5 and the maximum value is 120. Default
+     * is 30 seconds.
+     */
+    timeout_seconds?: number;
+
+    /**
+     * The phone number of the called party. Phone numbers are formatted with a `+` and
+     * country code.
+     */
+    To?: string;
+
+    /**
+     * Whether to trim any leading and trailing silence from the recording. Defaults to
+     * `trim-silence`.
+     */
+    Trim?: 'trim-silence' | 'do-not-trim';
+
+    Url?: string | null;
+
+    /**
+     * HTTP request type used for `Url`. The default value is inherited from TeXML
+     * Application setting.
+     */
+    UrlMethod?: 'GET' | 'POST';
+  }
+
+  export namespace WithTeXml {
+    export interface CustomHeader {
+      /**
+       * The name of the custom header
+       */
+      name: string;
+
+      /**
+       * The value of the custom header
+       */
+      value: string;
+    }
+  }
+
+  export interface ApplicationDefault {
+    /**
+     * The ID of the TeXML Application.
+     */
+    ApplicationSid?: string;
+
+    /**
+     * Select whether to perform answering machine detection in the background. By
+     * default execution is blocked until Answering Machine Detection is completed.
+     */
+    AsyncAmd?: boolean;
+
+    /**
+     * URL destination for Telnyx to send AMD callback events to for the call.
+     */
+    AsyncAmdStatusCallback?: string;
+
+    /**
+     * HTTP request type used for `AsyncAmdStatusCallback`. The default value is
+     * inherited from TeXML Application setting.
+     */
+    AsyncAmdStatusCallbackMethod?: 'GET' | 'POST';
+
+    /**
+     * To be used as the caller id name (SIP From Display Name) presented to the
+     * destination (`To` number). The string should have a maximum of 128 characters,
+     * containing only letters, numbers, spaces, and `-_~!.+` special characters. If
+     * ommited, the display name will be the same as the number in the `From` field.
+     */
+    CallerId?: string;
+
+    /**
+     * Whether to cancel ongoing playback on `greeting ended` detection. Defaults to
+     * `true`.
+     */
+    CancelPlaybackOnDetectMessageEnd?: boolean;
+
+    /**
+     * Whether to cancel ongoing playback on `machine` detection. Defaults to `true`.
+     */
+    CancelPlaybackOnMachineDetection?: boolean;
+
+    /**
+     * Custom HTTP headers to be sent with the call. Each header should be an object
+     * with 'name' and 'value' properties.
+     */
+    CustomHeaders?: Array<ApplicationDefault.CustomHeader>;
+
+    /**
+     * Enables Deepfake Detection on the dialed call. When enabled, audio from the
+     * remote party is analyzed to determine whether the voice is AI-generated. Results
+     * are delivered asynchronously via a callback.
+     */
+    DeepfakeDetection?: 'Enable';
+
+    /**
+     * HTTP request type used for `DeepfakeDetectionCallbackUrl`.
+     */
+    DeepfakeDetectionCallbackMethod?: 'GET' | 'POST';
+
+    /**
+     * URL destination for Telnyx to send deepfake detection callback events to for the
+     * call.
+     */
+    DeepfakeDetectionCallbackUrl?: string;
+
+    /**
+     * Allows you to choose between Regular, Premium, and PremiumCallScreening
+     * detections. See
+     * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
+     */
+    DetectionMode?: 'Premium' | 'Regular' | 'PremiumCallScreening';
+
+    /**
+     * A failover URL for which Telnyx will retrieve the TeXML call instructions if the
+     * `Url` is not responding.
+     */
+    FallbackUrl?: string;
+
+    /**
+     * The phone number of the party that initiated the call. Phone numbers are
+     * formatted with a `+` and country code.
+     */
+    From?: string;
+
+    /**
+     * Enables Answering Machine Detection.
+     */
+    MachineDetection?: 'Enable' | 'Disable' | 'DetectMessageEnd';
+
+    /**
+     * Silence duration threshold after a call screening prompt before ending prompt
+     * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+     */
+    MachineDetectionPromptEndTimeout?: number;
+
+    /**
+     * If initial silence duration is greater than this value, consider it a machine.
+     * Ignored when `premium` detection is used.
+     */
+    MachineDetectionSilenceTimeout?: number;
+
+    /**
+     * Silence duration threshold after a greeting message or voice for it be
+     * considered human. Ignored when `premium` detection is used.
+     */
+    MachineDetectionSpeechEndThreshold?: number;
+
+    /**
+     * Maximum threshold of a human greeting. If greeting longer than this value,
+     * considered machine. Ignored when `premium` detection is used.
+     */
+    MachineDetectionSpeechThreshold?: number;
+
+    /**
+     * Maximum timeout threshold in milliseconds for overall detection.
+     */
+    MachineDetectionTimeout?: number;
+
+    /**
+     * Defines whether media should be encrypted on the call. When set to `SRTP`, the
+     * call will use Secure Real-time Transport Protocol for media encryption. When set
+     * to `DTLS`, the call will use DTLS for media encryption. Only supported for SIP
+     * destinations.
+     */
+    MediaEncryption?: 'disabled' | 'SRTP' | 'DTLS';
+
+    /**
+     * The list of comma-separated codecs to be offered on a call.
+     */
+    PreferredCodecs?: string;
+
+    /**
+     * Whether to record the entire participant's call leg. Defaults to `false`.
+     */
+    Record?: boolean;
+
+    /**
+     * The number of channels in the final recording. Defaults to `mono`.
+     */
+    RecordingChannels?: 'mono' | 'dual';
+
+    /**
+     * The URL the recording callbacks will be sent to.
+     */
+    RecordingStatusCallback?: string;
+
+    /**
+     * The changes to the recording's state that should generate a call to
+     * `RecoridngStatusCallback`. Can be: `in-progress`, `completed` and `absent`.
+     * Separate multiple values with a space. Defaults to `completed`.
+     */
+    RecordingStatusCallbackEvent?: string;
+
+    /**
+     * HTTP request type used for `RecordingStatusCallback`. Defaults to `POST`.
+     */
+    RecordingStatusCallbackMethod?: 'GET' | 'POST';
+
+    /**
+     * The number of seconds that Telnyx will wait for the recording to be stopped if
+     * silence is detected. The timer only starts when the speech is detected. Please
+     * note that the transcription is used to detect silence and the related charge
+     * will be applied. The minimum value is 0. The default value is 0 (infinite)
+     */
+    RecordingTimeout?: number;
+
+    /**
+     * The audio track to record for the call. The default is `both`.
+     */
+    RecordingTrack?: 'inbound' | 'outbound' | 'both';
+
+    /**
+     * Whether to send RecordingUrl in webhooks.
+     */
+    SendRecordingUrl?: boolean;
+
+    /**
+     * The password to use for SIP authentication.
+     */
+    SipAuthPassword?: string;
+
+    /**
+     * The username to use for SIP authentication.
+     */
+    SipAuthUsername?: string;
+
+    /**
+     * Defines the SIP region to be used for the call.
+     */
+    SipRegion?: 'US' | 'Europe' | 'Canada' | 'Australia' | 'Middle East';
+
+    /**
+     * URL destination for Telnyx to send status callback events to for the call.
+     */
+    StatusCallback?: string;
+
+    /**
+     * The call events for which Telnyx should send a webhook. Multiple events can be
+     * defined when separated by a space.
+     */
+    StatusCallbackEvent?: 'initiated' | 'ringing' | 'answered' | 'completed';
+
+    /**
+     * HTTP request type used for `StatusCallback`.
+     */
+    StatusCallbackMethod?: 'GET' | 'POST';
+
+    /**
+     * The call control ID of the existing call to supervise. When provided, the
+     * created leg will be added to the specified call in supervising mode. Status
+     * callbacks and action callbacks will NOT be sent for the supervising leg.
+     */
+    SuperviseCallSid?: string;
+
+    /**
+     * The supervising role for the new leg. Determines the audio behavior: barge (hear
+     * both sides), whisper (only hear supervisor), monitor (hear both sides but
+     * supervisor muted). Default: barge
+     */
+    SupervisingRole?: 'barge' | 'whisper' | 'monitor';
+
+    Texml?: string | null;
 
     /**
      * The maximum duration of the call in seconds. The minimum value is 30 and the
@@ -943,7 +1280,13 @@ export namespace CallCallsParams {
      * call is canceled. The minimum value is 5 and the maximum value is 120. Default
      * is 30 seconds.
      */
-    Timeout?: number;
+    timeout_seconds?: number;
+
+    /**
+     * The phone number of the called party. Phone numbers are formatted with a `+` and
+     * country code.
+     */
+    To?: string;
 
     /**
      * Whether to trim any leading and trailing silence from the recording. Defaults to
@@ -951,10 +1294,7 @@ export namespace CallCallsParams {
      */
     Trim?: 'trim-silence' | 'do-not-trim';
 
-    /**
-     * The URL from which Telnyx will retrieve the TeXML call instructions.
-     */
-    Url?: string;
+    Url?: string | null;
 
     /**
      * HTTP request type used for `Url`. The default value is inherited from TeXML
@@ -963,7 +1303,7 @@ export namespace CallCallsParams {
     UrlMethod?: 'GET' | 'POST';
   }
 
-  export namespace Params {
+  export namespace ApplicationDefault {
     export interface CustomHeader {
       /**
        * The name of the custom header
@@ -1152,9 +1492,8 @@ Calls.Streams = Streams;
 
 export declare namespace Calls {
   export {
+    type CallResource as CallResource,
     type UpdateCall as UpdateCall,
-    type CallRetrieveResponse as CallRetrieveResponse,
-    type CallUpdateResponse as CallUpdateResponse,
     type CallCallsResponse as CallCallsResponse,
     type CallRetrieveCallsResponse as CallRetrieveCallsResponse,
     type CallSiprecJsonResponse as CallSiprecJsonResponse,
@@ -1169,15 +1508,16 @@ export declare namespace Calls {
 
   export {
     RecordingsJson as RecordingsJson,
-    type RecordingsJsonRecordingsJsonResponse as RecordingsJsonRecordingsJsonResponse,
-    type RecordingsJsonRetrieveRecordingsJsonResponse as RecordingsJsonRetrieveRecordingsJsonResponse,
+    type RecordingSource as RecordingSource,
+    type TexmlCreateCallRecordingResponseBody as TexmlCreateCallRecordingResponseBody,
+    type TexmlGetCallRecordingsResponseBody as TexmlGetCallRecordingsResponseBody,
+    type TwimlRecordingChannels as TwimlRecordingChannels,
     type RecordingsJsonRecordingsJsonParams as RecordingsJsonRecordingsJsonParams,
     type RecordingsJsonRetrieveRecordingsJsonParams as RecordingsJsonRetrieveRecordingsJsonParams,
   };
 
   export {
     Recordings as Recordings,
-    type RecordingRecordingSidJsonResponse as RecordingRecordingSidJsonResponse,
     type RecordingRecordingSidJsonParams as RecordingRecordingSidJsonParams,
   };
 

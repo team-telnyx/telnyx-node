@@ -11,22 +11,27 @@ export class Plan extends APIResource {
    *
    * @example
    * ```ts
-   * const plan = await client.ai.missions.runs.plan.create(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   {
-   *     mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     steps: [
-   *       {
-   *         description: 'description',
-   *         sequence: 0,
-   *         step_id: 'step_id',
-   *       },
-   *     ],
-   *   },
-   * );
+   * const planStepsCreatedResponse =
+   *   await client.ai.missions.runs.plan.create(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *       steps: [
+   *         {
+   *           description: 'description',
+   *           sequence: 0,
+   *           step_id: 'step_id',
+   *         },
+   *       ],
+   *     },
+   *   );
    * ```
    */
-  create(runID: string, params: PlanCreateParams, options?: RequestOptions): APIPromise<PlanCreateResponse> {
+  create(
+    runID: string,
+    params: PlanCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<PlanStepsCreatedResponse> {
     const { mission_id, ...body } = params;
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/plan`, { body, ...options });
   }
@@ -56,7 +61,7 @@ export class Plan extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const planStepsCreatedResponse =
    *   await client.ai.missions.runs.plan.addStepsToPlan(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *     {
@@ -76,7 +81,7 @@ export class Plan extends APIResource {
     runID: string,
     params: PlanAddStepsToPlanParams,
     options?: RequestOptions,
-  ): APIPromise<PlanAddStepsToPlanResponse> {
+  ): APIPromise<PlanStepsCreatedResponse> {
     const { mission_id, ...body } = params;
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/plan/steps`, { body, ...options });
   }
@@ -86,7 +91,7 @@ export class Plan extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const planStepResponse =
    *   await client.ai.missions.runs.plan.getStepDetails(
    *     'step_id',
    *     {
@@ -100,7 +105,7 @@ export class Plan extends APIResource {
     stepID: string,
     params: PlanGetStepDetailsParams,
     options?: RequestOptions,
-  ): APIPromise<PlanGetStepDetailsResponse> {
+  ): APIPromise<PlanStepResponse> {
     const { mission_id, run_id } = params;
     return this._client.get(path`/ai/missions/${mission_id}/runs/${run_id}/plan/steps/${stepID}`, options);
   }
@@ -110,7 +115,7 @@ export class Plan extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const planStepResponse =
    *   await client.ai.missions.runs.plan.updateStep('step_id', {
    *     mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *     run_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -121,13 +126,25 @@ export class Plan extends APIResource {
     stepID: string,
     params: PlanUpdateStepParams,
     options?: RequestOptions,
-  ): APIPromise<PlanUpdateStepResponse> {
+  ): APIPromise<PlanStepResponse> {
     const { mission_id, run_id, ...body } = params;
     return this._client.patch(path`/ai/missions/${mission_id}/runs/${run_id}/plan/steps/${stepID}`, {
       body,
       ...options,
     });
   }
+}
+
+export interface CreatePlanStepRequest {
+  description: string;
+
+  sequence: number;
+
+  step_id: string;
+
+  metadata?: { [key: string]: unknown };
+
+  parent_step_id?: string;
 }
 
 export interface PlanStepData {
@@ -137,7 +154,7 @@ export interface PlanStepData {
 
   sequence: number;
 
-  status: 'pending' | 'in_progress' | 'completed' | 'skipped' | 'failed';
+  status: StepStatus;
 
   step_id: string;
 
@@ -150,96 +167,71 @@ export interface PlanStepData {
   started_at?: string;
 }
 
-export interface PlanCreateResponse {
+export interface PlanStepResponse {
+  data: PlanStepData;
+}
+
+export interface PlanStepsCreatedResponse {
   data: Array<PlanStepData>;
 }
+
+export type StepStatus = 'pending' | 'in_progress' | 'completed' | 'skipped' | 'failed';
 
 export interface PlanRetrieveResponse {
   data: Array<PlanStepData>;
 }
 
-export interface PlanAddStepsToPlanResponse {
-  data: Array<PlanStepData>;
-}
-
-export interface PlanGetStepDetailsResponse {
-  data: PlanStepData;
-}
-
-export interface PlanUpdateStepResponse {
-  data: PlanStepData;
-}
-
 export interface PlanCreateParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the mission.
    */
   mission_id: string;
 
   /**
    * Body param
    */
-  steps: Array<PlanCreateParams.Step>;
-}
-
-export namespace PlanCreateParams {
-  export interface Step {
-    description: string;
-
-    sequence: number;
-
-    step_id: string;
-
-    metadata?: { [key: string]: unknown };
-
-    parent_step_id?: string;
-  }
+  steps: Array<CreatePlanStepRequest>;
 }
 
 export interface PlanRetrieveParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface PlanAddStepsToPlanParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the mission.
    */
   mission_id: string;
 
   /**
    * Body param
    */
-  steps: Array<PlanAddStepsToPlanParams.Step>;
-}
-
-export namespace PlanAddStepsToPlanParams {
-  export interface Step {
-    description: string;
-
-    sequence: number;
-
-    step_id: string;
-
-    metadata?: { [key: string]: unknown };
-
-    parent_step_id?: string;
-  }
+  steps: Array<CreatePlanStepRequest>;
 }
 
 export interface PlanGetStepDetailsParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 
+  /**
+   * Unique identifier of the run.
+   */
   run_id: string;
 }
 
 export interface PlanUpdateStepParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the mission.
    */
   mission_id: string;
 
   /**
-   * Path param
+   * Path param: Unique identifier of the run.
    */
   run_id: string;
 
@@ -251,17 +243,17 @@ export interface PlanUpdateStepParams {
   /**
    * Body param
    */
-  status?: 'pending' | 'in_progress' | 'completed' | 'skipped' | 'failed';
+  status?: StepStatus;
 }
 
 export declare namespace Plan {
   export {
+    type CreatePlanStepRequest as CreatePlanStepRequest,
     type PlanStepData as PlanStepData,
-    type PlanCreateResponse as PlanCreateResponse,
+    type PlanStepResponse as PlanStepResponse,
+    type PlanStepsCreatedResponse as PlanStepsCreatedResponse,
+    type StepStatus as StepStatus,
     type PlanRetrieveResponse as PlanRetrieveResponse,
-    type PlanAddStepsToPlanResponse as PlanAddStepsToPlanResponse,
-    type PlanGetStepDetailsResponse as PlanGetStepDetailsResponse,
-    type PlanUpdateStepResponse as PlanUpdateStepResponse,
     type PlanCreateParams as PlanCreateParams,
     type PlanRetrieveParams as PlanRetrieveParams,
     type PlanAddStepsToPlanParams as PlanAddStepsToPlanParams,

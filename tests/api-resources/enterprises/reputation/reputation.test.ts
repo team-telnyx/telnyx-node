@@ -10,7 +10,7 @@ const client = new Telnyx({
 describe('resource reputation', () => {
   // Mock server tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.enterprises.reputation.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
+    const responsePromise = client.enterprises.reputation.retrieve('4a6192a4-573d-446d-b3ce-aff9117272a6');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource reputation', () => {
 
   // Mock server tests are disabled
   test.skip('disable', async () => {
-    const responsePromise = client.enterprises.reputation.disable('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
+    const responsePromise = client.enterprises.reputation.disable('4a6192a4-573d-446d-b3ce-aff9117272a6');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -34,8 +34,8 @@ describe('resource reputation', () => {
 
   // Mock server tests are disabled
   test.skip('enable: only required params', async () => {
-    const responsePromise = client.enterprises.reputation.enable('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {
-      loa_document_id: 'doc_01HXYZ1234ABCDEF',
+    const responsePromise = client.enterprises.reputation.enable('4a6192a4-573d-446d-b3ce-aff9117272a6', {
+      loa_document_id: '2a7e8337-e803-4057-a4ae-26c40eb0bc6c',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -48,8 +48,8 @@ describe('resource reputation', () => {
 
   // Mock server tests are disabled
   test.skip('enable: required and optional params', async () => {
-    const response = await client.enterprises.reputation.enable('6a09cdc3-8948-47f0-aa62-74ac943d6c58', {
-      loa_document_id: 'doc_01HXYZ1234ABCDEF',
+    const response = await client.enterprises.reputation.enable('4a6192a4-573d-446d-b3ce-aff9117272a6', {
+      loa_document_id: '2a7e8337-e803-4057-a4ae-26c40eb0bc6c',
       check_frequency: 'business_daily',
     });
   });
@@ -57,8 +57,8 @@ describe('resource reputation', () => {
   // Mock server tests are disabled
   test.skip('updateFrequency: only required params', async () => {
     const responsePromise = client.enterprises.reputation.updateFrequency(
-      '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-      { check_frequency: 'business_daily' },
+      '4a6192a4-573d-446d-b3ce-aff9117272a6',
+      { check_frequency: 'weekly' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -72,8 +72,8 @@ describe('resource reputation', () => {
   // Mock server tests are disabled
   test.skip('updateFrequency: required and optional params', async () => {
     const response = await client.enterprises.reputation.updateFrequency(
-      '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-      { check_frequency: 'business_daily' },
+      '4a6192a4-573d-446d-b3ce-aff9117272a6',
+      { check_frequency: 'weekly' },
     );
   });
 });

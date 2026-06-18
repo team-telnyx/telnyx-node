@@ -6,6 +6,7 @@ export {
   type UacConnection,
   type UacExternalSettings,
   type UacInbound,
+  type UacInboundRequest,
   type UacInternalSettings,
   type UacOutbound,
   type UacConnectionCreateResponse,

@@ -12,10 +12,10 @@ import {
 import * as EventsAPI from './events';
 import {
   EventListParams,
-  EventListResponse,
-  EventListResponsesDefaultFlatPagination,
   EventRetrieveResponse,
   Events,
+  PortoutEvent,
+  PortoutEventsDefaultFlatPagination,
   WebhookPortoutFocDateChanged,
   WebhookPortoutNewComment,
   WebhookPortoutStatusChanged,
@@ -461,12 +461,12 @@ export declare namespace Portouts {
 
   export {
     Events as Events,
+    type PortoutEvent as PortoutEvent,
     type WebhookPortoutFocDateChanged as WebhookPortoutFocDateChanged,
     type WebhookPortoutNewComment as WebhookPortoutNewComment,
     type WebhookPortoutStatusChanged as WebhookPortoutStatusChanged,
     type EventRetrieveResponse as EventRetrieveResponse,
-    type EventListResponse as EventListResponse,
-    type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
+    type PortoutEventsDefaultFlatPagination as PortoutEventsDefaultFlatPagination,
     type EventListParams as EventListParams,
   };
 

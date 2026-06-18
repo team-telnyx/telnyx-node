@@ -43,7 +43,7 @@ export class GlobalIPs extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const globalIPListResponse of client.globalIPs.list()) {
+   * for await (const globalIP of client.globalIPs.list()) {
    *   // ...
    * }
    * ```
@@ -51,11 +51,8 @@ export class GlobalIPs extends APIResource {
   list(
     query: GlobalIPListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<GlobalIPListResponsesDefaultFlatPagination, GlobalIPListResponse> {
-    return this._client.getAPIList('/global_ips', DefaultFlatPagination<GlobalIPListResponse>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<GlobalIPsDefaultFlatPagination, GlobalIP> {
+    return this._client.getAPIList('/global_ips', DefaultFlatPagination<GlobalIP>, { query, ...options });
   }
 
   /**
@@ -73,65 +70,9 @@ export class GlobalIPs extends APIResource {
   }
 }
 
-export type GlobalIPListResponsesDefaultFlatPagination = DefaultFlatPagination<GlobalIPListResponse>;
+export type GlobalIPsDefaultFlatPagination = DefaultFlatPagination<GlobalIP>;
 
-export interface GlobalIPCreateResponse {
-  data?: GlobalIPCreateResponse.Data;
-}
-
-export namespace GlobalIPCreateResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * A user specified description for the address.
-     */
-    description?: string;
-
-    /**
-     * The Global IP address.
-     */
-    ip_address?: string;
-
-    /**
-     * A user specified name for the address.
-     */
-    name?: string;
-
-    /**
-     * A Global IP ports grouped by protocol code.
-     */
-    ports?: { [key: string]: unknown };
-  }
-}
-
-export interface GlobalIPRetrieveResponse {
-  data?: GlobalIPRetrieveResponse.Data;
-}
-
-export namespace GlobalIPRetrieveResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * A user specified description for the address.
-     */
-    description?: string;
-
-    /**
-     * The Global IP address.
-     */
-    ip_address?: string;
-
-    /**
-     * A user specified name for the address.
-     */
-    name?: string;
-
-    /**
-     * A Global IP ports grouped by protocol code.
-     */
-    ports?: { [key: string]: unknown };
-  }
-}
-
-export interface GlobalIPListResponse extends GlobalIPAssignmentsAPI.Record {
+export interface GlobalIP extends GlobalIPAssignmentsAPI.Record {
   /**
    * A user specified description for the address.
    */
@@ -153,32 +94,16 @@ export interface GlobalIPListResponse extends GlobalIPAssignmentsAPI.Record {
   ports?: { [key: string]: unknown };
 }
 
-export interface GlobalIPDeleteResponse {
-  data?: GlobalIPDeleteResponse.Data;
+export interface GlobalIPCreateResponse {
+  data?: GlobalIP;
 }
 
-export namespace GlobalIPDeleteResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * A user specified description for the address.
-     */
-    description?: string;
+export interface GlobalIPRetrieveResponse {
+  data?: GlobalIP;
+}
 
-    /**
-     * The Global IP address.
-     */
-    ip_address?: string;
-
-    /**
-     * A user specified name for the address.
-     */
-    name?: string;
-
-    /**
-     * A Global IP ports grouped by protocol code.
-     */
-    ports?: { [key: string]: unknown };
-  }
+export interface GlobalIPDeleteResponse {
+  data?: GlobalIP;
 }
 
 export interface GlobalIPCreateParams {
@@ -202,11 +127,11 @@ export interface GlobalIPListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace GlobalIPs {
   export {
+    type GlobalIP as GlobalIP,
     type GlobalIPCreateResponse as GlobalIPCreateResponse,
     type GlobalIPRetrieveResponse as GlobalIPRetrieveResponse,
-    type GlobalIPListResponse as GlobalIPListResponse,
     type GlobalIPDeleteResponse as GlobalIPDeleteResponse,
-    type GlobalIPListResponsesDefaultFlatPagination as GlobalIPListResponsesDefaultFlatPagination,
+    type GlobalIPsDefaultFlatPagination as GlobalIPsDefaultFlatPagination,
     type GlobalIPCreateParams as GlobalIPCreateParams,
     type GlobalIPListParams as GlobalIPListParams,
   };

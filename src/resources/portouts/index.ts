@@ -9,13 +9,13 @@ export {
 } from './comments';
 export {
   Events,
+  type PortoutEvent,
   type WebhookPortoutFocDateChanged,
   type WebhookPortoutNewComment,
   type WebhookPortoutStatusChanged,
   type EventRetrieveResponse,
-  type EventListResponse,
   type EventListParams,
-  type EventListResponsesDefaultFlatPagination,
+  type PortoutEventsDefaultFlatPagination,
 } from './events';
 export {
   Portouts,

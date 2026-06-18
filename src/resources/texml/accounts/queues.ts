@@ -20,16 +20,11 @@ export class Queues extends APIResource {
    *
    * @example
    * ```ts
-   * const queue = await client.texml.accounts.queues.create(
-   *   'account_sid',
-   * );
+   * const queueResource =
+   *   await client.texml.accounts.queues.create('account_sid');
    * ```
    */
-  create(
-    accountSid: string,
-    body: QueueCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<QueueCreateResponse> {
+  create(accountSid: string, body: QueueCreateParams, options?: RequestOptions): APIPromise<QueueResource> {
     return this._client.post(path`/texml/Accounts/${accountSid}/Queues`, {
       body,
       ...options,
@@ -42,17 +37,17 @@ export class Queues extends APIResource {
    *
    * @example
    * ```ts
-   * const queue = await client.texml.accounts.queues.retrieve(
-   *   'queue_sid',
-   *   { account_sid: 'account_sid' },
-   * );
+   * const queueResource =
+   *   await client.texml.accounts.queues.retrieve('queue_sid', {
+   *     account_sid: 'account_sid',
+   *   });
    * ```
    */
   retrieve(
     queueSid: string,
     params: QueueRetrieveParams,
     options?: RequestOptions,
-  ): APIPromise<QueueRetrieveResponse> {
+  ): APIPromise<QueueResource> {
     const { account_sid } = params;
     return this._client.get(path`/texml/Accounts/${account_sid}/Queues/${queueSid}`, options);
   }
@@ -62,17 +57,13 @@ export class Queues extends APIResource {
    *
    * @example
    * ```ts
-   * const queue = await client.texml.accounts.queues.update(
-   *   'queue_sid',
-   *   { account_sid: 'account_sid' },
-   * );
+   * const queueResource =
+   *   await client.texml.accounts.queues.update('queue_sid', {
+   *     account_sid: 'account_sid',
+   *   });
    * ```
    */
-  update(
-    queueSid: string,
-    params: QueueUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<QueueUpdateResponse> {
+  update(queueSid: string, params: QueueUpdateParams, options?: RequestOptions): APIPromise<QueueResource> {
     const { account_sid, ...body } = params;
     return this._client.post(path`/texml/Accounts/${account_sid}/Queues/${queueSid}`, {
       body,
@@ -87,7 +78,7 @@ export class Queues extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const queueListResponse of client.texml.accounts.queues.list(
+   * for await (const queueResource of client.texml.accounts.queues.list(
    *   'account_sid',
    * )) {
    *   // ...
@@ -98,10 +89,10 @@ export class Queues extends APIResource {
     accountSid: string,
     query: QueueListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<QueueListResponsesDefaultPaginationForQueues, QueueListResponse> {
+  ): PagePromise<QueueResourcesDefaultPaginationForQueues, QueueResource> {
     return this._client.getAPIList(
       path`/texml/Accounts/${accountSid}/Queues`,
-      DefaultPaginationForQueues<QueueListResponse>,
+      DefaultPaginationForQueues<QueueResource>,
       { query, ...options },
     );
   }
@@ -125,150 +116,9 @@ export class Queues extends APIResource {
   }
 }
 
-export type QueueListResponsesDefaultPaginationForQueues = DefaultPaginationForQueues<QueueListResponse>;
+export type QueueResourcesDefaultPaginationForQueues = DefaultPaginationForQueues<QueueResource>;
 
-export interface QueueCreateResponse {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid?: string;
-
-  /**
-   * The average wait time in seconds for members in the queue.
-   */
-  average_wait_time?: number;
-
-  /**
-   * The current number of members in the queue.
-   */
-  current_size?: number;
-
-  /**
-   * The timestamp of when the resource was created.
-   */
-  date_created?: string;
-
-  /**
-   * The timestamp of when the resource was last updated.
-   */
-  date_updated?: string;
-
-  /**
-   * The maximum size of the queue.
-   */
-  max_size?: number;
-
-  /**
-   * The unique identifier of the queue.
-   */
-  sid?: string;
-
-  /**
-   * A list of related resources identified by their relative URIs.
-   */
-  subresource_uris?: { [key: string]: unknown };
-
-  /**
-   * The relative URI for this queue.
-   */
-  uri?: string;
-}
-
-export interface QueueRetrieveResponse {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid?: string;
-
-  /**
-   * The average wait time in seconds for members in the queue.
-   */
-  average_wait_time?: number;
-
-  /**
-   * The current number of members in the queue.
-   */
-  current_size?: number;
-
-  /**
-   * The timestamp of when the resource was created.
-   */
-  date_created?: string;
-
-  /**
-   * The timestamp of when the resource was last updated.
-   */
-  date_updated?: string;
-
-  /**
-   * The maximum size of the queue.
-   */
-  max_size?: number;
-
-  /**
-   * The unique identifier of the queue.
-   */
-  sid?: string;
-
-  /**
-   * A list of related resources identified by their relative URIs.
-   */
-  subresource_uris?: { [key: string]: unknown };
-
-  /**
-   * The relative URI for this queue.
-   */
-  uri?: string;
-}
-
-export interface QueueUpdateResponse {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid?: string;
-
-  /**
-   * The average wait time in seconds for members in the queue.
-   */
-  average_wait_time?: number;
-
-  /**
-   * The current number of members in the queue.
-   */
-  current_size?: number;
-
-  /**
-   * The timestamp of when the resource was created.
-   */
-  date_created?: string;
-
-  /**
-   * The timestamp of when the resource was last updated.
-   */
-  date_updated?: string;
-
-  /**
-   * The maximum size of the queue.
-   */
-  max_size?: number;
-
-  /**
-   * The unique identifier of the queue.
-   */
-  sid?: string;
-
-  /**
-   * A list of related resources identified by their relative URIs.
-   */
-  subresource_uris?: { [key: string]: unknown };
-
-  /**
-   * The relative URI for this queue.
-   */
-  uri?: string;
-}
-
-export interface QueueListResponse {
+export interface QueueResource {
   /**
    * The id of the account the resource belongs to.
    */
@@ -374,11 +224,8 @@ export interface QueueDeleteParams {
 
 export declare namespace Queues {
   export {
-    type QueueCreateResponse as QueueCreateResponse,
-    type QueueRetrieveResponse as QueueRetrieveResponse,
-    type QueueUpdateResponse as QueueUpdateResponse,
-    type QueueListResponse as QueueListResponse,
-    type QueueListResponsesDefaultPaginationForQueues as QueueListResponsesDefaultPaginationForQueues,
+    type QueueResource as QueueResource,
+    type QueueResourcesDefaultPaginationForQueues as QueueResourcesDefaultPaginationForQueues,
     type QueueCreateParams as QueueCreateParams,
     type QueueRetrieveParams as QueueRetrieveParams,
     type QueueUpdateParams as QueueUpdateParams,
