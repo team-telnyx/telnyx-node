@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.0.0](https://github.com/team-telnyx/telnyx-node/compare/v6.83.0...v7.0.0) (2026-06-18)
+
+
+### Bug Fixes
+
+* merge next into release PR to carry code changes to master ([#437](https://github.com/team-telnyx/telnyx-node/issues/437)) ([b59468a](https://github.com/team-telnyx/telnyx-node/commit/b59468a7a2f05330238b6191207609a6537102a0))
+
 ## [6.83.0](https://github.com/team-telnyx/telnyx-node/compare/v6.74.2...v6.83.0) (2026-06-18)
 
 
