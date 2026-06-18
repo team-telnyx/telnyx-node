@@ -8,7 +8,7 @@ echo "==> Running prettier --check"
 ./node_modules/.bin/prettier --check .
 
 echo "==> Running eslint"
-SKIP_GRANULAR_DIFF=true ./node_modules/.bin/eslint .
+./node_modules/.bin/eslint .
 
 echo "==> Building"
 ./scripts/build

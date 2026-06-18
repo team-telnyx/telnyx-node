@@ -116,6 +116,20 @@ export type ConversationChannelType = 'phone_call' | 'sms_chat';
 export type EventStatus = 'pending' | 'in_progress' | 'completed' | 'failed';
 
 /**
+ * Per-call telephony overrides applied when a scheduled phone-call event
+ * dispatches. Phone-call events only. New per-call dispatch options should be
+ * added here rather than as top-level event fields.
+ */
+export interface ScheduledCallSettings {
+  /**
+   * SIP region passed to Telnyx when initiating an outbound call. Values match the
+   * Telnyx TeXML `SipRegion` parameter exactly. Telnyx defaults to `US` when
+   * omitted.
+   */
+  sip_region?: 'US' | 'Europe' | 'Canada' | 'Australia' | 'Middle East';
+}
+
+/**
  * Union type for different scheduled event response types
  */
 export type ScheduledEventResponse = ScheduledPhoneCallEventResponse | ScheduledSMSEventResponse;
@@ -137,6 +151,13 @@ export interface ScheduledPhoneCallEventResponse {
    * Duration of the call in seconds
    */
   call_duration?: number;
+
+  /**
+   * Per-call telephony overrides applied when a scheduled phone-call event
+   * dispatches. Phone-call events only. New per-call dispatch options should be
+   * added here rather than as top-level event fields.
+   */
+  call_settings?: ScheduledCallSettings;
 
   /**
    * Values: busy, canceled, no-answer, ringing, completed, failed, in-progress
@@ -257,6 +278,13 @@ export interface ScheduledEventCreateParams {
   telnyx_end_user_target: string;
 
   /**
+   * Per-call telephony overrides applied when a scheduled phone-call event
+   * dispatches. Phone-call events only. New per-call dispatch options should be
+   * added here rather than as top-level event fields.
+   */
+  call_settings?: ScheduledCallSettings;
+
+  /**
    * Metadata associated with the conversation. Telnyx provides several pieces of
    * metadata, but customers can also add their own.
    */
@@ -283,18 +311,33 @@ export interface ScheduledEventCreateParams {
 }
 
 export interface ScheduledEventRetrieveParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 
 export interface ScheduledEventListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter results by conversation channel.
+   */
   conversation_channel?: ConversationChannelType;
 
+  /**
+   * Start of the date range filter (inclusive, ISO 8601).
+   */
   from_date?: string;
 
+  /**
+   * End of the date range filter (inclusive, ISO 8601).
+   */
   to_date?: string;
 }
 
 export interface ScheduledEventDeleteParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 
@@ -302,6 +345,7 @@ export declare namespace ScheduledEvents {
   export {
     type ConversationChannelType as ConversationChannelType,
     type EventStatus as EventStatus,
+    type ScheduledCallSettings as ScheduledCallSettings,
     type ScheduledEventResponse as ScheduledEventResponse,
     type ScheduledPhoneCallEventResponse as ScheduledPhoneCallEventResponse,
     type ScheduledSMSEventResponse as ScheduledSMSEventResponse,

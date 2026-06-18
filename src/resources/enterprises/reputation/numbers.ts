@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../../core/resource';
 import * as Shared from '../../shared';
-import { ReputationPhoneNumberWithReputationDataDefaultFlatPagination } from '../../shared';
+import * as EnterprisesAPI from '../enterprises';
 import { APIPromise } from '../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -14,36 +14,21 @@ import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
 /**
- * Associate phone numbers with an enterprise for reputation monitoring and retrieve reputation scores
+ * Phone-number reputation monitoring (spam-score lookup and tracking).
  */
 export class Numbers extends APIResource {
   /**
-   * Get detailed reputation data for a specific phone number associated with an
-   * enterprise.
-   *
-   * **Query Parameters:**
-   *
-   * - `fresh` (default: `false`): When `true`, fetches fresh reputation data (incurs
-   *   API cost). When `false`, returns cached data. If no cached data exists, fresh
-   *   data is automatically fetched.
-   *
-   * **Returns:**
-   *
-   * - `spam_risk`: Overall spam risk level (`low`, `medium`, `high`)
-   * - `spam_category`: Spam category classification
-   * - `maturity_score`: Maturity metric (0–100)
-   * - `connection_score`: Connection quality metric (0–100)
-   * - `engagement_score`: Engagement metric (0–100)
-   * - `sentiment_score`: Sentiment metric (0–100)
-   * - `last_refreshed_at`: Timestamp of last data refresh
+   * Retrieve one registered number with its latest reputation snapshot. The
+   * `phone_number` path parameter is in E.164 format and must be URL-encoded (e.g.
+   * `%2B19493253498`).
    *
    * @example
    * ```ts
-   * const number =
+   * const reputationPhoneNumberWithReputation =
    *   await client.enterprises.reputation.numbers.retrieve(
-   *     '+16035551234',
+   *     '+19493253498',
    *     {
-   *       enterprise_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *       enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
    *     },
    *   );
    * ```
@@ -52,7 +37,7 @@ export class Numbers extends APIResource {
     phoneNumber: string,
     params: NumberRetrieveParams,
     options?: RequestOptions,
-  ): APIPromise<NumberRetrieveResponse> {
+  ): APIPromise<ReputationPhoneNumberWithReputation> {
     const { enterprise_id, ...query } = params;
     return this._client.get(path`/enterprises/${enterprise_id}/reputation/numbers/${phoneNumber}`, {
       query,
@@ -61,17 +46,15 @@ export class Numbers extends APIResource {
   }
 
   /**
-   * List all phone numbers associated with an enterprise for Number Reputation
-   * monitoring.
-   *
-   * Returns phone numbers with their cached reputation data (if available). Supports
-   * pagination and filtering by phone number.
+   * Paginated list of phone numbers registered for reputation monitoring under this
+   * enterprise. The response includes the latest reputation snapshot per number
+   * where one has been collected.
    *
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const reputationPhoneNumberWithReputationData of client.enterprises.reputation.numbers.list(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * for await (const reputationPhoneNumber of client.enterprises.reputation.numbers.list(
+   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
    * )) {
    *   // ...
    * }
@@ -81,40 +64,31 @@ export class Numbers extends APIResource {
     enterpriseID: string,
     query: NumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<
-    ReputationPhoneNumberWithReputationDataDefaultFlatPagination,
-    Shared.ReputationPhoneNumberWithReputationData
-  > {
+  ): PagePromise<ReputationPhoneNumbersDefaultFlatPagination, ReputationPhoneNumber> {
     return this._client.getAPIList(
       path`/enterprises/${enterpriseID}/reputation/numbers`,
-      DefaultFlatPagination<Shared.ReputationPhoneNumberWithReputationData>,
+      DefaultFlatPagination<ReputationPhoneNumber>,
       { query, ...options },
     );
   }
 
   /**
-   * Associate one or more phone numbers with an enterprise for Number Reputation
-   * monitoring.
+   * Add up to 100 phone numbers to reputation monitoring on this enterprise. Each
+   * must be in E.164 format (`+1NPANXXXXXX` for US/CA) and belong to your Telnyx
+   * phone-number inventory.
    *
-   * **Validations:**
+   * **Prerequisite**: reputation must already be enabled on this enterprise (see
+   * `POST .../reputation`).
    *
-   * - Phone numbers must be in E.164 format (e.g., `+16035551234`)
-   * - Phone numbers must be in-service and belong to your account (verified via
-   *   Warehouse)
-   * - Phone numbers must be US local numbers
-   * - Phone numbers cannot already be associated with any enterprise
-   *
-   * **Note:** This operation is atomic — if any number fails validation, the entire
-   * request fails.
-   *
-   * **Maximum:** 100 phone numbers per request.
+   * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers
+   * for current pricing.
    *
    * @example
    * ```ts
-   * const response =
+   * const reputationPhoneNumberList =
    *   await client.enterprises.reputation.numbers.associate(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *     { phone_numbers: ['+16035551234'] },
+   *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   *     { phone_numbers: ['+19493253498', '+12134445566'] },
    *   );
    * ```
    */
@@ -122,21 +96,19 @@ export class Numbers extends APIResource {
     enterpriseID: string,
     body: NumberAssociateParams,
     options?: RequestOptions,
-  ): APIPromise<NumberAssociateResponse> {
+  ): APIPromise<ReputationPhoneNumberList> {
     return this._client.post(path`/enterprises/${enterpriseID}/reputation/numbers`, { body, ...options });
   }
 
   /**
-   * Remove a phone number from Number Reputation monitoring for an enterprise.
-   *
-   * The number will no longer be tracked and reputation data will no longer be
-   * refreshed.
+   * Stop tracking the reputation of this phone number. The number itself remains in
+   * your inventory; only the reputation registration is removed.
    *
    * @example
    * ```ts
    * await client.enterprises.reputation.numbers.disassociate(
-   *   '+16035551234',
-   *   { enterprise_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58' },
+   *   '+19493253498',
+   *   { enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6' },
    * );
    * ```
    */
@@ -151,90 +123,182 @@ export class Numbers extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
+
+  /**
+   * Immediately refresh the stored reputation data for the listed numbers. This is
+   * in addition to the periodic refresh determined by `check_frequency`. Up to 100
+   * numbers per call. The response carries the kicked-off jobs; the actual refresh
+   * runs asynchronously.
+   *
+   * **Pricing:** Forcing a refresh performs live reputation lookups, which are
+   * billable. See https://telnyx.com/pricing/numbers for current pricing.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.enterprises.reputation.numbers.refresh(
+   *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   *     { phone_numbers: ['+19493253498'] },
+   *   );
+   * ```
+   */
+  refresh(
+    enterpriseID: string,
+    body: NumberRefreshParams,
+    options?: RequestOptions,
+  ): APIPromise<NumberRefreshResponse> {
+    return this._client.post(path`/enterprises/${enterpriseID}/reputation/numbers/refresh`, {
+      body,
+      ...options,
+    });
+  }
 }
 
-export interface NumberRetrieveResponse {
-  data?: Shared.ReputationPhoneNumberWithReputationData;
+export type ReputationPhoneNumbersDefaultFlatPagination = DefaultFlatPagination<ReputationPhoneNumber>;
+
+export interface ReputationPhoneNumber {
+  id?: string;
+
+  created_at?: string;
+
+  enterprise_id?: string;
+
+  /**
+   * E.164 with leading `+`.
+   */
+  phone_number?: string;
+
+  /**
+   * `null` until the first refresh has been collected for this number.
+   */
+  reputation_data?: Shared.ReputationData | null;
+
+  updated_at?: string;
 }
 
-export interface NumberAssociateResponse {
-  data?: Array<NumberAssociateResponse.Data>;
+export interface ReputationPhoneNumberList {
+  data: Array<ReputationPhoneNumber>;
 
-  meta?: Shared.MetaInfo;
+  /**
+   * JSON:API pagination metadata returned with every paginated list response. Page
+   * numbering is 1-based. `page_size` reports the number of items actually returned
+   * in `data` for this page; the requested size is taken from the `page[size]` query
+   * parameter.
+   */
+  meta: EnterprisesAPI.NumberReputationPaginationMeta;
 }
 
-export namespace NumberAssociateResponse {
+/**
+ * List of reputation-monitored phone numbers, each carrying its current reputation
+ * data.
+ */
+export interface ReputationPhoneNumberListWithReputation {
+  data: Array<ReputationPhoneNumber>;
+
+  /**
+   * JSON:API pagination metadata returned with every paginated list response. Page
+   * numbering is 1-based. `page_size` reports the number of items actually returned
+   * in `data` for this page; the requested size is taken from the `page[size]` query
+   * parameter.
+   */
+  meta: EnterprisesAPI.NumberReputationPaginationMeta;
+}
+
+export interface ReputationPhoneNumberWithReputation {
+  data: ReputationPhoneNumber;
+}
+
+export interface NumberRefreshResponse {
+  data: NumberRefreshResponse.Data;
+}
+
+export namespace NumberRefreshResponse {
   export interface Data {
     /**
-     * Unique identifier
+     * Per-number outcome of the refresh.
      */
-    id?: string;
+    results: Array<Data.Result>;
 
-    /**
-     * When the number was associated
-     */
-    created_at?: string;
+    total_failed: number;
 
-    /**
-     * ID of the associated enterprise
-     */
-    enterprise_id?: string;
+    total_requested: number;
 
-    /**
-     * Phone number in E.164 format
-     */
-    phone_number?: string;
+    total_successful: number;
+  }
 
-    /**
-     * When the record was last updated
-     */
-    updated_at?: string;
+  export namespace Data {
+    export interface Result {
+      phone_number: string;
+
+      success: boolean;
+
+      /**
+       * `null` when `success` is `true`; carries an error message otherwise.
+       */
+      error?: string | null;
+    }
   }
 }
 
 export interface NumberRetrieveParams {
   /**
-   * Path param: Unique identifier of the enterprise (UUID)
+   * Path param: The enterprise id. Lowercase UUID.
    */
   enterprise_id: string;
 
   /**
    * Query param: When true, fetches fresh reputation data (incurs API cost). When
-   * false, returns cached data.
+   * false (default), returns cached data.
    */
   fresh?: boolean;
 }
 
 export interface NumberListParams extends DefaultFlatPaginationParams {
   /**
-   * Filter by specific phone number (E.164 format)
+   * Partial match on phone number. Must contain at least 5 digits.
    */
-  phone_number?: string;
+  'filter[phone_number][contains]'?: string;
+
+  /**
+   * Exact phone-number match (E.164).
+   */
+  'filter[phone_number][eq]'?: string;
 }
 
 export interface NumberAssociateParams {
   /**
-   * List of phone numbers to associate for reputation monitoring (max 100)
+   * 1–100 phone numbers in E.164 format with a leading `+`.
    */
   phone_numbers: Array<string>;
 }
 
 export interface NumberDisassociateParams {
   /**
-   * Unique identifier of the enterprise (UUID)
+   * The enterprise id. Lowercase UUID.
    */
   enterprise_id: string;
 }
 
+export interface NumberRefreshParams {
+  /**
+   * Phone numbers to refresh reputation data for. 1–100 numbers per request, each in
+   * E.164 format. Reputation refreshes are subject to per-enterprise rate limits.
+   */
+  phone_numbers: Array<string>;
+}
+
 export declare namespace Numbers {
   export {
-    type NumberRetrieveResponse as NumberRetrieveResponse,
-    type NumberAssociateResponse as NumberAssociateResponse,
+    type ReputationPhoneNumber as ReputationPhoneNumber,
+    type ReputationPhoneNumberList as ReputationPhoneNumberList,
+    type ReputationPhoneNumberListWithReputation as ReputationPhoneNumberListWithReputation,
+    type ReputationPhoneNumberWithReputation as ReputationPhoneNumberWithReputation,
+    type NumberRefreshResponse as NumberRefreshResponse,
+    type ReputationPhoneNumbersDefaultFlatPagination as ReputationPhoneNumbersDefaultFlatPagination,
     type NumberRetrieveParams as NumberRetrieveParams,
     type NumberListParams as NumberListParams,
     type NumberAssociateParams as NumberAssociateParams,
     type NumberDisassociateParams as NumberDisassociateParams,
+    type NumberRefreshParams as NumberRefreshParams,
   };
 }
-
-export { type ReputationPhoneNumberWithReputationDataDefaultFlatPagination };

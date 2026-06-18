@@ -4,7 +4,6 @@ import { APIResource } from '../../core/resource';
 import * as AccountsAPI from './accounts/accounts';
 import {
   AccountRetrieveRecordingsJsonParams,
-  AccountRetrieveRecordingsJsonResponse,
   AccountRetrieveTranscriptionsJsonParams,
   AccountRetrieveTranscriptionsJsonResponse,
   Accounts,
@@ -380,7 +379,6 @@ export declare namespace Texml {
     Accounts as Accounts,
     type TexmlGetCallRecordingResponseBody as TexmlGetCallRecordingResponseBody,
     type TexmlRecordingSubresourcesUris as TexmlRecordingSubresourcesUris,
-    type AccountRetrieveRecordingsJsonResponse as AccountRetrieveRecordingsJsonResponse,
     type AccountRetrieveTranscriptionsJsonResponse as AccountRetrieveTranscriptionsJsonResponse,
     type AccountRetrieveRecordingsJsonParams as AccountRetrieveRecordingsJsonParams,
     type AccountRetrieveTranscriptionsJsonParams as AccountRetrieveTranscriptionsJsonParams,

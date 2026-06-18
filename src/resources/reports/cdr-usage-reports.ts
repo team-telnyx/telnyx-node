@@ -66,14 +66,29 @@ export namespace CdrUsageReportFetchSyncResponse {
 }
 
 export interface CdrUsageReportFetchSyncParams {
+  /**
+   * Type of aggregation to apply to the results.
+   */
   aggregation_type: 'NO_AGGREGATION' | 'CONNECTION' | 'TAG' | 'BILLING_GROUP';
 
+  /**
+   * Filter results by product breakdown.
+   */
   product_breakdown: 'NO_BREAKDOWN' | 'DID_VS_TOLL_FREE' | 'COUNTRY' | 'DID_VS_TOLL_FREE_PER_COUNTRY';
 
+  /**
+   * Filter results by connection.
+   */
   connections?: Array<number>;
 
+  /**
+   * End of the date range filter (inclusive, ISO 8601).
+   */
   end_date?: string;
 
+  /**
+   * Start of the date range filter (inclusive, ISO 8601).
+   */
   start_date?: string;
 }
 

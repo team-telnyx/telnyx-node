@@ -2,7 +2,17 @@
 
 import { APIResource } from '../../core/resource';
 import * as TemplatesAPI from './templates';
-import { TemplateCreateParams, TemplateCreateResponse, TemplateListParams, Templates } from './templates';
+import {
+  TemplateCreateParams,
+  TemplateCreateResponse,
+  TemplateListParams,
+  Templates,
+  WhatsappTemplateBodyComponent,
+  WhatsappTemplateButtonsComponent,
+  WhatsappTemplateCarouselComponent,
+  WhatsappTemplateFooterComponent,
+  WhatsappTemplateHeaderComponent,
+} from './templates';
 import * as UserDataAPI from './user-data';
 import {
   UserData,
@@ -54,6 +64,11 @@ export declare namespace Whatsapp {
 
   export {
     Templates as Templates,
+    type WhatsappTemplateBodyComponent as WhatsappTemplateBodyComponent,
+    type WhatsappTemplateButtonsComponent as WhatsappTemplateButtonsComponent,
+    type WhatsappTemplateCarouselComponent as WhatsappTemplateCarouselComponent,
+    type WhatsappTemplateFooterComponent as WhatsappTemplateFooterComponent,
+    type WhatsappTemplateHeaderComponent as WhatsappTemplateHeaderComponent,
     type TemplateCreateResponse as TemplateCreateResponse,
     type TemplateCreateParams as TemplateCreateParams,
     type TemplateListParams as TemplateListParams,

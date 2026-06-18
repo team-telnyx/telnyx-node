@@ -1,15 +1,16 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as DirAPI from './dir';
+import { Dir, DirCreateParams, DirListParams } from './dir';
 import * as ReputationAPI from './reputation/reputation';
 import {
   EnterpriseReputationPublic,
+  EnterpriseReputationPublicWrapped,
   Reputation,
+  ReputationCheckFrequency,
   ReputationEnableParams,
-  ReputationEnableResponse,
-  ReputationRetrieveResponse,
   ReputationUpdateFrequencyParams,
-  ReputationUpdateFrequencyResponse,
 } from './reputation/reputation';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
@@ -18,91 +19,140 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 /**
- * Enterprise management for Branded Calling and Number Reputation services
+ * Manage the legal-entity record that owns your DIRs and phone numbers.
  */
 export class Enterprises extends APIResource {
   reputation: ReputationAPI.Reputation = new ReputationAPI.Reputation(this._client);
+  dir: DirAPI.Dir = new DirAPI.Dir(this._client);
 
   /**
-   * Create a new enterprise for Branded Calling / Number Reputation services.
+   * Create the legal entity (enterprise) that represents your business on the Telnyx
+   * platform.
    *
-   * Registers the enterprise in the Branded Calling / Number Reputation services,
-   * enabling it to create Display Identity Records (DIRs) or enroll in Number
-   * Reputation monitoring.
+   * The response carries a server-assigned `id` you use for every subsequent call.
+   * An enterprise is created once and reused; the API collects all required fields
+   * up front.
    *
-   * **Required Fields:** `legal_name`, `doing_business_as`, `organization_type`,
-   * `country_code`, `website`, `fein`, `industry`, `number_of_employees`,
-   * `organization_legal_type`, `organization_contact`, `billing_contact`,
-   * `organization_physical_address`, `billing_address`
+   * Common failure modes:
+   *
+   * - `422` - a required field is missing or malformed (the response
+   *   `errors[].source.pointer` names the field).
+   * - `409` - an enterprise with the same identifying details already exists under
+   *   your account.
    *
    * @example
    * ```ts
-   * const enterprise = await client.enterprises.create({
+   * const enterprisePublicWrapped = await client.enterprises.create({
    *   billing_address: {
-   *     administrative_area: 'Illinois',
+   *     country: 'US',
+   *     administrative_area: 'IL',
    *     city: 'Chicago',
-   *     country: 'United States',
    *     postal_code: '60601',
-   *     street_address: '123 Main St',
+   *     street_address: '100 Main St',
    *   },
    *   billing_contact: {
-   *     email: 'billing@acme.com',
-   *     first_name: 'John',
-   *     last_name: 'Doe',
-   *     phone_number: '15551234568',
+   *     first_name: 'Alex',
+   *     last_name: 'Bill',
+   *     email: 'billing@run065.example.com',
+   *     phone_number: '+13125550001',
    *   },
    *   country_code: 'US',
-   *   doing_business_as: 'Acme',
+   *   doing_business_as: 'Run 065 Debug',
    *   fein: '12-3456789',
    *   industry: 'technology',
-   *   legal_name: 'Acme Corp Inc.',
+   *   jurisdiction_of_incorporation: 'Delaware',
+   *   legal_name: 'Run 065 Debug Co',
    *   number_of_employees: '51-200',
    *   organization_contact: {
-   *     email: 'jane.smith@acme.com',
-   *     first_name: 'Jane',
-   *     job_title: 'VP of Engineering',
-   *     last_name: 'Smith',
-   *     phone: '+16035551234',
+   *     first_name: 'Sam',
+   *     last_name: 'Org',
+   *     email: 'org@run065.example.com',
+   *     job_title: 'Compliance Lead',
+   *     phone_number: '+13125550000',
    *   },
-   *   organization_legal_type: 'corporation',
+   *   organization_legal_type: 'llc',
    *   organization_physical_address: {
-   *     administrative_area: 'Illinois',
+   *     country: 'US',
+   *     administrative_area: 'IL',
    *     city: 'Chicago',
-   *     country: 'United States',
    *     postal_code: '60601',
-   *     street_address: '123 Main St',
+   *     street_address: '100 Main St',
    *   },
    *   organization_type: 'commercial',
-   *   website: 'https://acme.com',
+   *   website: 'https://run065.example.com',
+   *   role_type: 'enterprise',
    * });
    * ```
    */
-  create(body: EnterpriseCreateParams, options?: RequestOptions): APIPromise<EnterpriseCreateResponse> {
+  create(body: EnterpriseCreateParams, options?: RequestOptions): APIPromise<EnterprisePublicWrapped> {
     return this._client.post('/enterprises', { body, ...options });
   }
 
   /**
-   * Retrieve details of a specific enterprise by ID.
+   * Retrieve a single enterprise by id. Returns `404` if the id does not exist or
+   * does not belong to your account.
    *
    * @example
    * ```ts
-   * const enterprise = await client.enterprises.retrieve(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
+   * const enterprisePublicWrapped =
+   *   await client.enterprises.retrieve(
+   *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   *   );
    * ```
    */
-  retrieve(enterpriseID: string, options?: RequestOptions): APIPromise<EnterpriseRetrieveResponse> {
+  retrieve(enterpriseID: string, options?: RequestOptions): APIPromise<EnterprisePublicWrapped> {
     return this._client.get(path`/enterprises/${enterpriseID}`, options);
   }
 
   /**
-   * Update enterprise information. All fields are optional — only the provided
-   * fields will be updated.
+   * Replace the enterprise's mutable fields. Only mutable fields may be sent.
+   * Server-assigned and immutable fields (`id`, `record_type`, `created_at`,
+   * `updated_at`, status fields, `organization_type`, `country_code`, `role_type`)
+   * cannot be changed: including any of them in the body is rejected with
+   * `400 Bad Request` (`Field 'X' is not allowed in this request`).
    *
    * @example
    * ```ts
-   * const enterprise = await client.enterprises.update(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * const enterprisePublicWrapped = await client.enterprises.update(
+   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   *   {
+   *     billing_address: {
+   *       country: 'US',
+   *       administrative_area: 'IL',
+   *       city: 'Chicago',
+   *       postal_code: '60601',
+   *       street_address: '100 Main St',
+   *     },
+   *     billing_contact: {
+   *       first_name: 'Alex',
+   *       last_name: 'Bill',
+   *       email: 'billing@acmeplumbing.example.com',
+   *       phone_number: '+13125550001',
+   *     },
+   *     customer_reference: 'internal-ref-2026Q2',
+   *     doing_business_as: 'Acme Plumbing',
+   *     fein: '12-3456789',
+   *     industry: 'business',
+   *     jurisdiction_of_incorporation: 'Delaware',
+   *     legal_name: 'Acme Plumbing LLC',
+   *     number_of_employees: '51-200',
+   *     organization_contact: {
+   *       first_name: 'Sam',
+   *       last_name: 'Owner',
+   *       email: 'sam@acmeplumbing.example.com',
+   *       job_title: 'Compliance Lead',
+   *       phone_number: '+13125550000',
+   *     },
+   *     organization_legal_type: 'llc',
+   *     organization_physical_address: {
+   *       country: 'US',
+   *       administrative_area: 'IL',
+   *       city: 'Chicago',
+   *       postal_code: '60601',
+   *       street_address: '100 Main St',
+   *     },
+   *     website: 'https://acmeplumbing.example.com',
+   *   },
    * );
    * ```
    */
@@ -110,12 +160,13 @@ export class Enterprises extends APIResource {
     enterpriseID: string,
     body: EnterpriseUpdateParams,
     options?: RequestOptions,
-  ): APIPromise<EnterpriseUpdateResponse> {
+  ): APIPromise<EnterprisePublicWrapped> {
     return this._client.put(path`/enterprises/${enterpriseID}`, { body, ...options });
   }
 
   /**
-   * Retrieve a paginated list of enterprises associated with your account.
+   * Return the enterprises you own, paginated. The default page size is 20; the
+   * maximum is 250.
    *
    * @example
    * ```ts
@@ -136,12 +187,21 @@ export class Enterprises extends APIResource {
   }
 
   /**
-   * Delete an enterprise and all associated resources. This action is irreversible.
+   * Soft-delete an enterprise.
+   *
+   * Failure modes:
+   *
+   * - `400` - the enterprise still has dependent resources in a non-deletable state.
+   *   Remove those first; the response `detail` identifies what is blocking the
+   *   delete.
+   * - `409` - the enterprise has a dependent resource with an unresolved claim.
+   *   Resolve it before deleting.
+   * - `404` - the enterprise does not exist or does not belong to your account.
    *
    * @example
    * ```ts
    * await client.enterprises.delete(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
    * );
    * ```
    */
@@ -151,68 +211,78 @@ export class Enterprises extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
+
+  /**
+   * Branded Calling is a paid product that must be activated on each enterprise.
+   * Activation is idempotent:
+   *
+   * - First call: marks the enterprise as activated and begins onboarding it with
+   *   the Branded Calling platform asynchronously. Returns `200` with
+   *   `branded_calling_enabled: true`.
+   * - Re-call after success: no-op, returns the same enterprise body.
+   * - Re-call after a prior failure: re-queues onboarding, returns `200`.
+   *
+   * Prerequisite: the calling user must have agreed to the Branded Calling Terms of
+   * Service (`POST /terms_of_service/branded_calling/agree`). Without that, this
+   * endpoint returns `403 terms_of_service_not_accepted`.
+   *
+   * Failure modes:
+   *
+   * - `403` - Branded Calling Terms of Service not accepted.
+   * - `404` - enterprise does not exist or does not belong to your account.
+   *
+   * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers
+   * for current pricing.
+   *
+   * @example
+   * ```ts
+   * const enterprisePublicWrapped =
+   *   await client.enterprises.brandedCalling(
+   *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   *   );
+   * ```
+   */
+  brandedCalling(enterpriseID: string, options?: RequestOptions): APIPromise<EnterprisePublicWrapped> {
+    return this._client.post(path`/enterprises/${enterpriseID}/branded_calling`, options);
+  }
 }
 
 export type EnterprisePublicsDefaultFlatPagination = DefaultFlatPagination<EnterprisePublic>;
 
 export interface BillingAddress {
   /**
-   * State or province
+   * State or province code (e.g. `IL`, `ON`).
    */
   administrative_area: string;
 
-  /**
-   * City name
-   */
   city: string;
 
   /**
-   * Country name (e.g., United States)
+   * ISO 3166-1 alpha-2 code (currently `US` or `CA`).
    */
   country: string;
 
-  /**
-   * ZIP or postal code
-   */
   postal_code: string;
 
-  /**
-   * Street address
-   */
   street_address: string;
 
-  /**
-   * Additional address line (suite, apt, etc.)
-   */
   extended_address?: string | null;
 }
 
 export interface BillingContact {
-  /**
-   * Contact's email address
-   */
   email: string;
 
-  /**
-   * Contact's first name
-   */
   first_name: string;
 
-  /**
-   * Contact's last name
-   */
   last_name: string;
 
   /**
-   * Contact's phone number (10-15 digits)
+   * E.164 format with leading `+`.
    */
   phone_number: string;
 }
 
 export interface EnterprisePublic {
-  /**
-   * Unique identifier of the enterprise
-   */
   id?: string;
 
   billing_address?: BillingAddress;
@@ -220,172 +290,136 @@ export interface EnterprisePublic {
   billing_contact?: BillingContact;
 
   /**
-   * Corporate registration number
+   * True once Branded Calling has been activated on this enterprise (see
+   * `POST /enterprises/{id}/branded_calling`).
+   */
+  branded_calling_enabled?: boolean;
+
+  /**
+   * Optional corporate-registration / company-number identifier.
    */
   corporate_registration_number?: string | null;
 
-  /**
-   * ISO 3166-1 alpha-2 country code
-   */
   country_code?: string;
 
-  /**
-   * When the enterprise was created
-   */
   created_at?: string;
 
-  /**
-   * Customer reference identifier
-   */
-  customer_reference?: string | null;
+  customer_reference?: string;
 
-  /**
-   * DBA name
-   */
   doing_business_as?: string;
 
   /**
-   * D-U-N-S Number
+   * Optional D-U-N-S Number issued by Dun & Bradstreet.
    */
   dun_bradstreet_number?: string | null;
 
-  /**
-   * Federal Employer Identification Number
-   */
-  fein?: string | null;
+  fein?: string;
 
-  /**
-   * Industry classification
-   */
-  industry?: string | null;
+  industry?: string;
 
-  /**
-   * Legal name of the enterprise
-   */
+  jurisdiction_of_incorporation?: string;
+
   legal_name?: string;
 
-  /**
-   * Employee count range
-   */
-  number_of_employees?: '1-10' | '11-50' | '51-200' | '201-500' | '501-2000' | '2001-10000' | '10001+' | null;
+  number_of_employees?: string;
 
   /**
-   * Organization contact information. Note: the response returns this object with
-   * the phone field as 'phone' (not 'phone_number').
+   * True once Phone Number Reputation has been enabled on this enterprise (see
+   * `POST /enterprises/{id}/reputation`).
    */
+  number_reputation_enabled?: boolean;
+
   organization_contact?: OrganizationContact;
 
-  /**
-   * Legal structure type
-   */
-  organization_legal_type?: 'corporation' | 'llc' | 'partnership' | 'nonprofit' | 'other' | null;
+  organization_legal_type?: string;
 
   organization_physical_address?: PhysicalAddress;
 
-  /**
-   * Type of organization
-   */
-  organization_type?: 'commercial' | 'government' | 'non_profit';
+  organization_type?: string;
 
   /**
-   * SIC Code
+   * Optional SIC code for the primary line of business.
    */
   primary_business_domain_sic_code?: string | null;
 
   /**
-   * Professional license number
+   * Optional professional-license number for regulated industries.
    */
   professional_license_number?: string | null;
 
-  /**
-   * Role type in Branded Calling / Number Reputation services
-   */
-  role_type?: 'enterprise' | 'bpo';
+  role_type?: string;
 
-  /**
-   * When the enterprise was last updated
-   */
   updated_at?: string;
 
-  /**
-   * Company website URL
-   */
-  website?: string | null;
+  website?: string;
+}
+
+export interface EnterprisePublicWrapped {
+  data?: EnterprisePublic;
 }
 
 /**
- * Organization contact information. Note: the response returns this object with
- * the phone field as 'phone' (not 'phone_number').
+ * JSON:API pagination metadata returned with every paginated list response. Page
+ * numbering is 1-based. `page_size` reports the number of items actually returned
+ * in `data` for this page; the requested size is taken from the `page[size]` query
+ * parameter.
  */
-export interface OrganizationContact {
+export interface NumberReputationPaginationMeta {
   /**
-   * Contact's email address
+   * 1-based index of this page. Echoes the `page[number]` query parameter (default
+   * `1`).
    */
+  page_number: number;
+
+  /**
+   * Number of items returned in this page's `data` array. Capped at 250.
+   */
+  page_size: number;
+
+  /**
+   * Total number of pages available given the current `page_size`.
+   */
+  total_pages: number;
+
+  /**
+   * Total number of items across all pages (excludes soft-deleted rows).
+   */
+  total_results: number;
+}
+
+export interface OrganizationContact {
   email: string;
 
-  /**
-   * Contact's first name
-   */
   first_name: string;
 
-  /**
-   * Contact's job title (required)
-   */
   job_title: string;
 
-  /**
-   * Contact's last name
-   */
   last_name: string;
 
   /**
-   * Contact's phone number in E.164 format
+   * E.164 format with leading `+`.
    */
-  phone: string;
+  phone_number: string;
 }
 
 export interface PhysicalAddress {
   /**
-   * State or province
+   * State or province code (e.g. `IL`, `ON`).
    */
   administrative_area: string;
 
-  /**
-   * City name
-   */
   city: string;
 
   /**
-   * Country name (e.g., United States)
+   * ISO 3166-1 alpha-2 code (currently `US` or `CA`).
    */
   country: string;
 
-  /**
-   * ZIP or postal code
-   */
   postal_code: string;
 
-  /**
-   * Street address
-   */
   street_address: string;
 
-  /**
-   * Additional address line (suite, apt, etc.)
-   */
   extended_address?: string | null;
-}
-
-export interface EnterpriseCreateResponse {
-  data?: EnterprisePublic;
-}
-
-export interface EnterpriseRetrieveResponse {
-  data?: EnterprisePublic;
-}
-
-export interface EnterpriseUpdateResponse {
-  data?: EnterprisePublic;
 }
 
 export interface EnterpriseCreateParams {
@@ -394,92 +428,137 @@ export interface EnterpriseCreateParams {
   billing_contact: BillingContact;
 
   /**
-   * Country code. Currently only 'US' is accepted.
+   * ISO 3166-1 alpha-2 country code. Currently `US` and `CA` are supported.
    */
   country_code: string;
 
-  /**
-   * Primary business name / DBA name
-   */
   doing_business_as: string;
 
   /**
-   * Federal Employer Identification Number. Format: XX-XXXXXXX or 9-digit number
-   * (minimum 9 digits).
+   * US Federal Employer Identification Number (`NN-NNNNNNN`) or Canadian equivalent.
    */
   fein: string;
 
   /**
-   * Industry classification. Case-insensitive. Accepted values: accounting, finance,
-   * billing, collections, business, charity, nonprofit, communications, telecom,
-   * customer service, support, delivery, shipping, logistics, education, financial,
-   * banking, government, public, healthcare, health, pharmacy, medical, insurance,
-   * legal, law, notifications, scheduling, real estate, property, retail, ecommerce,
-   * sales, marketing, software, technology, tech, media, surveys, market research,
-   * travel, hospitality, hotel
+   * Industry classification.
    */
-  industry: string;
+  industry:
+    | 'accounting'
+    | 'finance'
+    | 'billing'
+    | 'collections'
+    | 'business'
+    | 'charity'
+    | 'nonprofit'
+    | 'communications'
+    | 'telecom'
+    | 'customer service'
+    | 'support'
+    | 'delivery'
+    | 'shipping'
+    | 'logistics'
+    | 'education'
+    | 'financial'
+    | 'banking'
+    | 'government'
+    | 'public'
+    | 'healthcare'
+    | 'health'
+    | 'pharmacy'
+    | 'medical'
+    | 'insurance'
+    | 'legal'
+    | 'law'
+    | 'notifications'
+    | 'scheduling'
+    | 'real estate'
+    | 'property'
+    | 'retail'
+    | 'ecommerce'
+    | 'sales'
+    | 'marketing'
+    | 'software'
+    | 'technology'
+    | 'tech'
+    | 'media'
+    | 'surveys'
+    | 'market research'
+    | 'travel'
+    | 'hospitality'
+    | 'hotel';
+
+  jurisdiction_of_incorporation: string;
 
   /**
-   * Legal name of the enterprise
+   * Legal name of the enterprise.
    */
   legal_name: string;
 
   /**
-   * Employee count range
+   * Approximate headcount range. Used for vetting heuristics; pick the bucket that
+   * contains your current employee count.
    */
   number_of_employees: '1-10' | '11-50' | '51-200' | '201-500' | '501-2000' | '2001-10000' | '10001+';
 
-  /**
-   * Organization contact information. Note: the response returns this object with
-   * the phone field as 'phone' (not 'phone_number').
-   */
   organization_contact: OrganizationContact;
 
   /**
-   * Legal structure type
+   * Legal-entity form. Pick the form that matches your incorporation documents:
+   *
+   * - `corporation` - C-corp or S-corp.
+   * - `llc` - limited liability company.
+   * - `partnership` - general/limited partnership.
+   * - `nonprofit` - non-profit corporation, charitable trust, or
+   *   501(c)(3)/equivalent.
+   * - `other` - anything else (sole proprietorships, government bodies, DBAs, etc.).
+   *   You may be asked for additional documents during vetting.
    */
   organization_legal_type: 'corporation' | 'llc' | 'partnership' | 'nonprofit' | 'other';
 
   organization_physical_address: PhysicalAddress;
 
   /**
-   * Type of organization
+   * Organization category for vetting purposes:
+   *
+   * - `commercial` - for-profit business entities (LLC, corp, partnership, sole
+   *   proprietorship). Most callers fall here.
+   * - `government` - federal/state/local government bodies.
+   * - `non_profit` - registered 501(c)(3)/equivalent (incl. educational
+   *   institutions, charities, religious organisations).
    */
   organization_type: 'commercial' | 'government' | 'non_profit';
 
-  /**
-   * Enterprise website URL. Accepts any string — no URL format validation enforced.
-   */
   website: string;
 
   /**
-   * Corporate registration number (optional)
+   * Optional corporate-registration / company-number identifier.
    */
-  corporate_registration_number?: string;
+  corporate_registration_number?: string | null;
 
   /**
-   * Optional customer reference identifier for your own tracking
+   * Optional free-form string the caller can attach for their own bookkeeping.
+   * Telnyx does not interpret it.
    */
   customer_reference?: string;
 
   /**
-   * D-U-N-S Number (optional)
+   * Optional D-U-N-S Number.
    */
-  dun_bradstreet_number?: string;
+  dun_bradstreet_number?: string | null;
 
   /**
-   * SIC Code (optional)
+   * Optional SIC code for the primary line of business.
    */
-  primary_business_domain_sic_code?: string;
+  primary_business_domain_sic_code?: string | null;
 
   /**
-   * Professional license number (optional)
+   * Optional professional-license number for regulated industries.
    */
-  professional_license_number?: string;
+  professional_license_number?: string | null;
 
   /**
-   * Role type in Branded Calling / Number Reputation services
+   * `enterprise` for an organization registering its own DIRs; `bpo` for a Business
+   * Process Outsourcer placing calls on behalf of one or more enterprises.
    */
   role_type?: 'enterprise' | 'bpo';
 }
@@ -489,94 +568,110 @@ export interface EnterpriseUpdateParams {
 
   billing_contact?: BillingContact;
 
-  /**
-   * Corporate registration number
-   */
-  corporate_registration_number?: string;
+  corporate_registration_number?: string | null;
 
-  /**
-   * Customer reference identifier
-   */
   customer_reference?: string;
 
-  /**
-   * DBA name
-   */
   doing_business_as?: string;
 
-  /**
-   * D-U-N-S Number
-   */
-  dun_bradstreet_number?: string;
+  dun_bradstreet_number?: string | null;
 
-  /**
-   * Federal Employer Identification Number. Format: XX-XXXXXXX or XXXXXXXXX
-   */
   fein?: string;
 
-  /**
-   * Industry classification
-   */
-  industry?: string;
+  industry?:
+    | 'accounting'
+    | 'finance'
+    | 'billing'
+    | 'collections'
+    | 'business'
+    | 'charity'
+    | 'nonprofit'
+    | 'communications'
+    | 'telecom'
+    | 'customer service'
+    | 'support'
+    | 'delivery'
+    | 'shipping'
+    | 'logistics'
+    | 'education'
+    | 'financial'
+    | 'banking'
+    | 'government'
+    | 'public'
+    | 'healthcare'
+    | 'health'
+    | 'pharmacy'
+    | 'medical'
+    | 'insurance'
+    | 'legal'
+    | 'law'
+    | 'notifications'
+    | 'scheduling'
+    | 'real estate'
+    | 'property'
+    | 'retail'
+    | 'ecommerce'
+    | 'sales'
+    | 'marketing'
+    | 'software'
+    | 'technology'
+    | 'tech'
+    | 'media'
+    | 'surveys'
+    | 'market research'
+    | 'travel'
+    | 'hospitality'
+    | 'hotel';
 
   /**
-   * Legal name of the enterprise
+   * Updated state/province/country of incorporation. Optional on update.
+   */
+  jurisdiction_of_incorporation?: string;
+
+  /**
+   * Legal name of the enterprise.
    */
   legal_name?: string;
 
-  /**
-   * Employee count range
-   */
-  number_of_employees?: '1-10' | '11-50' | '51-200' | '201-500' | '501-2000' | '2001-10000' | '10001+';
+  number_of_employees?: string;
 
-  /**
-   * Organization contact information. Note: the response returns this object with
-   * the phone field as 'phone' (not 'phone_number').
-   */
   organization_contact?: OrganizationContact;
 
-  /**
-   * Legal structure type
-   */
-  organization_legal_type?: 'corporation' | 'llc' | 'partnership' | 'nonprofit' | 'other';
+  organization_legal_type?: string;
 
   organization_physical_address?: PhysicalAddress;
 
-  /**
-   * SIC Code
-   */
-  primary_business_domain_sic_code?: string;
+  primary_business_domain_sic_code?: string | null;
 
-  /**
-   * Professional license number
-   */
-  professional_license_number?: string;
+  professional_license_number?: string | null;
 
-  /**
-   * Company website URL
-   */
   website?: string;
 }
 
 export interface EnterpriseListParams extends DefaultFlatPaginationParams {
   /**
-   * Filter by legal name (partial match)
+   * Case-insensitive partial match on legal name.
+   */
+  'filter[legal_name][contains]'?: string;
+
+  /**
+   * Filter by legal name (partial match).
    */
   legal_name?: string;
 }
 
 Enterprises.Reputation = Reputation;
+Enterprises.Dir = Dir;
 
 export declare namespace Enterprises {
   export {
     type BillingAddress as BillingAddress,
     type BillingContact as BillingContact,
     type EnterprisePublic as EnterprisePublic,
+    type EnterprisePublicWrapped as EnterprisePublicWrapped,
+    type NumberReputationPaginationMeta as NumberReputationPaginationMeta,
     type OrganizationContact as OrganizationContact,
     type PhysicalAddress as PhysicalAddress,
-    type EnterpriseCreateResponse as EnterpriseCreateResponse,
-    type EnterpriseRetrieveResponse as EnterpriseRetrieveResponse,
-    type EnterpriseUpdateResponse as EnterpriseUpdateResponse,
     type EnterprisePublicsDefaultFlatPagination as EnterprisePublicsDefaultFlatPagination,
     type EnterpriseCreateParams as EnterpriseCreateParams,
     type EnterpriseUpdateParams as EnterpriseUpdateParams,
@@ -586,10 +681,11 @@ export declare namespace Enterprises {
   export {
     Reputation as Reputation,
     type EnterpriseReputationPublic as EnterpriseReputationPublic,
-    type ReputationRetrieveResponse as ReputationRetrieveResponse,
-    type ReputationEnableResponse as ReputationEnableResponse,
-    type ReputationUpdateFrequencyResponse as ReputationUpdateFrequencyResponse,
+    type EnterpriseReputationPublicWrapped as EnterpriseReputationPublicWrapped,
+    type ReputationCheckFrequency as ReputationCheckFrequency,
     type ReputationEnableParams as ReputationEnableParams,
     type ReputationUpdateFrequencyParams as ReputationUpdateFrequencyParams,
   };
+
+  export { Dir as Dir, type DirCreateParams as DirCreateParams, type DirListParams as DirListParams };
 }

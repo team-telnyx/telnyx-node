@@ -182,6 +182,9 @@ export interface TestRunResponse {
 export type TestStatus = 'pending' | 'starting' | 'running' | 'passed' | 'failed' | 'error';
 
 export interface RunRetrieveParams {
+  /**
+   * Unique identifier of the test.
+   */
   test_id: string;
 }
 

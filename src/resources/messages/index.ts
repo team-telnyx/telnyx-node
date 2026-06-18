@@ -2,7 +2,6 @@
 
 export {
   Messages,
-  type MessagingError,
   type OutboundMessagePayload,
   type RcsAgentMessage,
   type RcsCardContent,

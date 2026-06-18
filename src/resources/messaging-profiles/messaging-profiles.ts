@@ -3,6 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as AlphanumericSenderIDsAPI from '../alphanumeric-sender-ids';
 import { AlphanumericSenderIDsDefaultFlatPagination } from '../alphanumeric-sender-ids';
+import * as MessagingProfileMetricsAPI from '../messaging-profile-metrics';
 import * as Shared from '../shared';
 import {
   PhoneNumberWithMessagingSettingsDefaultFlatPagination,
@@ -597,6 +598,11 @@ export interface MessagingProfileCreateParams {
 
 export interface MessagingProfileUpdateParams {
   /**
+   * The ID of the AI assistant associated with this messaging profile.
+   */
+  ai_assistant_id?: string | null;
+
+  /**
    * The alphanumeric sender ID to use when sending to destinations that require an
    * alphanumeric sender ID.
    */
@@ -736,7 +742,7 @@ export interface MessagingProfileRetrieveMetricsParams {
   /**
    * The time frame for metrics.
    */
-  time_frame?: '1h' | '3h' | '24h' | '3d' | '7d' | '30d';
+  time_frame?: MessagingProfileMetricsAPI.MessagingMetricsTimeFrame;
 }
 
 MessagingProfiles.AutorespConfigs = AutorespConfigs;

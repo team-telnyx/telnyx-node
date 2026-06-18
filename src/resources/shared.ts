@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import * as Shared from './shared';
-import * as MessagesAPI from './messages/messages';
 import { DefaultFlatPagination } from '../core/pagination';
 
 export interface APIError {
@@ -389,7 +388,7 @@ export interface InboundMessagePayload {
    * These errors may point at addressees when referring to unsuccessful/unconfirmed
    * delivery statuses.
    */
-  errors?: Array<MessagesAPI.MessagingError>;
+  errors?: Array<MessagingError>;
 
   from?: InboundMessagePayload.From;
 
@@ -635,6 +634,40 @@ export interface InworldVoiceSettings {
    * Voice settings provider type
    */
   type: 'inworld';
+
+  /**
+   * Controls the expressiveness and consistency of the Inworld `TTS2` model's speech
+   * synthesis. `STABLE` favors consistent, predictable output, `CREATIVE` allows
+   * more expressive variation, and `BALANCED` sits in between. Optional and only
+   * supported by `TTS2`; when omitted, the provider default applies.
+   */
+  delivery_mode?: 'STABLE' | 'BALANCED' | 'CREATIVE';
+}
+
+export interface MessagingError {
+  code: string;
+
+  title: string;
+
+  detail?: string;
+
+  meta?: { [key: string]: unknown };
+
+  source?: MessagingError.Source;
+}
+
+export namespace MessagingError {
+  export interface Source {
+    /**
+     * Indicates which query parameter caused the error.
+     */
+    parameter?: string;
+
+    /**
+     * JSON pointer (RFC6901) to the offending entity.
+     */
+    pointer?: string;
+  }
 }
 
 /**
@@ -701,28 +734,6 @@ export interface MessagingPaginationMeta {
   total_pages: number;
 
   total_results: number;
-}
-
-export interface MetaInfo {
-  /**
-   * Current page number
-   */
-  page_number?: number;
-
-  /**
-   * Items per page
-   */
-  page_size?: number;
-
-  /**
-   * Total number of pages
-   */
-  total_pages?: number;
-
-  /**
-   * Total number of results
-   */
-  total_results?: number;
 }
 
 export interface Metadata {
@@ -1038,75 +1049,29 @@ export interface RegionInformation {
 }
 
 /**
- * Reputation metrics
+ * Reputation snapshot for a phone number. Each metric is a 0–100 score;
+ * `spam_risk` is a coarse bucket. Field set may grow over time - read by key.
  */
 export interface ReputationData {
-  /**
-   * Connection quality metric (0–100)
-   */
   connection_score?: number | null;
 
-  /**
-   * Engagement metric (0–100). Higher = more positive engagement
-   */
   engagement_score?: number | null;
 
-  /**
-   * Timestamp of the last reputation data refresh
-   */
   last_refreshed_at?: string | null;
 
-  /**
-   * Maturity metric (0–100). Higher = more established number
-   */
   maturity_score?: number | null;
 
-  /**
-   * Sentiment metric (0–100). Higher = more positive sentiment
-   */
   sentiment_score?: number | null;
 
   /**
-   * Spam category classification (e.g., Telemarketing, Debt Collector)
+   * Category label from the reputation feed when the number is flagged.
    */
   spam_category?: string | null;
 
   /**
-   * Overall spam risk level
+   * Overall spam-risk classification.
    */
   spam_risk?: 'low' | 'medium' | 'high' | null;
-}
-
-export interface ReputationPhoneNumberWithReputationData {
-  /**
-   * Unique identifier
-   */
-  id?: string;
-
-  /**
-   * When the number was associated
-   */
-  created_at?: string;
-
-  /**
-   * ID of the associated enterprise
-   */
-  enterprise_id?: string;
-
-  /**
-   * Phone number in E.164 format
-   */
-  phone_number?: string;
-
-  /**
-   * Reputation metrics
-   */
-  reputation_data?: ReputationData;
-
-  /**
-   * When the record was last updated
-   */
-  updated_at?: string;
 }
 
 export interface ResembleVoiceSettings {
@@ -1460,6 +1425,3 @@ export type RoomParticipantsDefaultFlatPagination = DefaultFlatPagination<RoomPa
 export type SimpleSimCardsDefaultFlatPagination = DefaultFlatPagination<SimpleSimCard>;
 
 export type WhatsappTemplateDataDefaultFlatPagination = DefaultFlatPagination<WhatsappTemplateData>;
-
-export type ReputationPhoneNumberWithReputationDataDefaultFlatPagination =
-  DefaultFlatPagination<ReputationPhoneNumberWithReputationData>;

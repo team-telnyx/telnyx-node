@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as AssistantsAPI from './assistants';
 import * as Shared from '../../shared';
 import * as ChatAPI from '../chat';
 import * as CanaryDeploysAPI from './canary-deploys';
@@ -16,10 +17,13 @@ import {
   RuleOutput,
   Serve,
 } from './canary-deploys';
+import * as InstructionsAPI from './instructions';
+import { InstructionEnhanceParams, InstructionEnhanceResponse, Instructions } from './instructions';
 import * as ScheduledEventsAPI from './scheduled-events';
 import {
   ConversationChannelType,
   EventStatus,
+  ScheduledCallSettings,
   ScheduledEventCreateParams,
   ScheduledEventDeleteParams,
   ScheduledEventListParams,
@@ -32,14 +36,7 @@ import {
   ScheduledSMSEventResponse,
 } from './scheduled-events';
 import * as TagsAPI from './tags';
-import {
-  TagAddParams,
-  TagAddResponse,
-  TagListResponse,
-  TagRemoveParams,
-  TagRemoveResponse,
-  Tags,
-} from './tags';
+import { TagAddParams, TagRemoveParams, Tags, TagsResponse } from './tags';
 import * as ToolsAPI from './tools';
 import {
   ToolAddParams,
@@ -83,6 +80,7 @@ export class Assistants extends APIResource {
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
   versions: VersionsAPI.Versions = new VersionsAPI.Versions(this._client);
   tags: TagsAPI.Tags = new TagsAPI.Tags(this._client);
+  instructions: InstructionsAPI.Instructions = new InstructionsAPI.Instructions(this._client);
 
   /**
    * Create a new AI Assistant.
@@ -265,6 +263,35 @@ export class Assistants extends APIResource {
 }
 
 /**
+ * Numeric expression: applies an arithmetic operator to two sub-expressions.
+ *
+ * Useful for derived numeric checks, e.g. `cart_total + shipping > 50`. Both
+ * operands should resolve to numbers at runtime.
+ */
+export interface ArithmeticExpression {
+  /**
+   * Operand sub-expression (Expression AST node). Typed as free-form JSON to support
+   * arbitrary recursion depth without an uncompilable by-value self-reference; see
+   * the Expression schema for the variant structure.
+   */
+  left: unknown;
+
+  /**
+   * Arithmetic operator applied to `left` and `right`.
+   */
+  op: '+' | '-' | '*' | '/' | '%';
+
+  /**
+   * Operand sub-expression (Expression AST node). Typed as free-form JSON to support
+   * arbitrary recursion depth without an uncompilable by-value self-reference; see
+   * the Expression schema for the variant structure.
+   */
+  right: unknown;
+
+  type: 'arithmetic';
+}
+
+/**
  * Assistant configuration including choice of LLM, custom instructions, and tools.
  */
 export interface Assistant {
@@ -426,6 +453,15 @@ export namespace AssistantTool {
        * Custom headers to be added to the SIP INVITE for the transfer command.
        */
       custom_headers?: Array<Transfer.CustomHeader>;
+
+      /**
+       * A description of the transfer tool. By default, Telnyx generates this
+       * automatically based on the configured targets. Typically only set when importing
+       * an assistant from another provider that allowed a custom description; in that
+       * case the provided value is preserved. Most users should leave this empty and let
+       * Telnyx manage it.
+       */
+      description?: string;
 
       /**
        * Configuration for voicemail detection (AMD - Answering Machine Detection) on the
@@ -833,11 +869,342 @@ export interface AudioVisualizerConfig {
 }
 
 /**
+ * Authentication method used when connecting to the external LLM endpoint.
+ */
+export type AuthenticationMethod = 'token' | 'certificate';
+
+/**
+ * Combine sub-expressions with a logical operator (`and` / `or` / `not`).
+ *
+ * `and` and `or` accept two or more operands; `not` accepts exactly one.
+ */
+export interface BooleanOpExpression {
+  /**
+   * Logical operator. `not` is unary; `and`/`or` are n-ary (>=2).
+   */
+  op: 'and' | 'or' | 'not';
+
+  /**
+   * Operand sub-expressions. Length must be exactly 1 for `not` and >= 2 for
+   * `and`/`or`.
+   */
+  operands: Array<Expression>;
+
+  type: 'bool_op';
+}
+
+/**
+ * Compare two sub-expressions with a relational or membership operator.
+ *
+ * Evaluates to a boolean. Used in edge conditions to gate transitions on runtime
+ * values, e.g. `user_age >= 18` or `tier == "gold"`.
+ */
+export interface ComparisonExpression {
+  /**
+   * Operand sub-expression (Expression AST node). Typed as free-form JSON to support
+   * arbitrary recursion depth without an uncompilable by-value self-reference; see
+   * the Expression schema for the variant structure.
+   */
+  left: unknown;
+
+  /**
+   * Relational/membership operator. `contains` / `not_contains` apply to strings
+   * (substring) and arrays (membership).
+   */
+  op: '==' | '!=' | '<' | '<=' | '>' | '>=' | 'contains' | 'not_contains';
+
+  /**
+   * Operand sub-expression (Expression AST node). Typed as free-form JSON to support
+   * arbitrary recursion depth without an uncompilable by-value self-reference; see
+   * the Expression schema for the variant structure.
+   */
+  right: unknown;
+
+  type: 'comparison';
+}
+
+/**
+ * Conversation flow as supplied by API clients (create / update).
+ *
+ * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
+ * unique node/edge IDs, that `start_node_id` references a real node, and that
+ * every edge's endpoints reference real nodes.
+ */
+export interface ConversationFlowReq {
+  /**
+   * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node
+   * (`type: prompt`) or a tool node (`type: tool`).
+   */
+  nodes: Array<
+    ConversationFlowReq.FlowNodeReq | ConversationFlowReq.ToolNodeReq | ConversationFlowReq.SpeakNodeReq
+  >;
+
+  /**
+   * ID of the node where the conversation begins.
+   */
+  start_node_id: string;
+
+  /**
+   * Directed transitions between nodes. May be empty for a single-node flow.
+   */
+  edges?: Array<FlowEdge>;
+}
+
+export namespace ConversationFlowReq {
+  /**
+   * One step in a conversation flow, as supplied by API clients.
+   *
+   * Each node carries the prompt, tool scope, and optional overrides for
+   * model/voice/transcription. Unset overrides cascade from the assistant.
+   */
+  export interface FlowNodeReq {
+    /**
+     * Caller-supplied unique identifier for this node within the flow.
+     */
+    id: string;
+
+    /**
+     * Prompt that drives the LLM while this node is active. Required.
+     */
+    instructions: string;
+
+    /**
+     * Override for `Assistant.external_llm` while this node is active. Use this to
+     * route a node's turns to a different external LLM (different `model`, `base_url`,
+     * credentials). Part of the LLM bundle — see `model` for cascade semantics.
+     * Mutually exclusive with `model` on the node (a single LLM identity per node).
+     */
+    external_llm?: AssistantsAPI.ExternalLlmReq;
+
+    /**
+     * How `instructions` combine with the assistant-level instructions. `replace`
+     * (default): the node's instructions are used alone. `append`: the node's
+     * instructions are concatenated after the assistant's instructions.
+     */
+    instructions_mode?: 'replace' | 'append';
+
+    /**
+     * Override for `Assistant.llm_api_key_ref` while this node is active. Part of the
+     * LLM bundle — see `model` for cascade semantics.
+     */
+    llm_api_key_ref?: string;
+
+    /**
+     * Override for `Assistant.model` while this node is active. Part of the LLM bundle
+     * (`model` + `llm_api_key_ref` + `external_llm`): when any of the three is set on
+     * the node, all three are taken from the node and the assistant-level LLM identity
+     * is not consulted. When none of the three is set, the assistant's bundle cascades
+     * unchanged.
+     */
+    model?: string;
+
+    /**
+     * Optional human-readable label, displayed in authoring UIs.
+     */
+    name?: string;
+
+    /**
+     * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+     * by the runtime; round-trips so frontends can persist graph layout across
+     * reloads.
+     */
+    position?: AssistantsAPI.NodePosition;
+
+    /**
+     * IDs of shared (org-level) tools available at this node. Knowledge bases are
+     * attached the same way — via a shared retrieval tool. Tools not listed here are
+     * not callable while this node is active.
+     */
+    shared_tool_ids?: Array<string>;
+
+    /**
+     * How `shared_tool_ids` combine with the assistant-level tool set. `replace`
+     * (default): only the node's tools are callable. `append`: the node's tools are
+     * added to the assistant's tools. Ignored when `shared_tool_ids` is null.
+     */
+    tools_mode?: 'replace' | 'append';
+
+    /**
+     * Per-node transcription override (model/language/region). Unset fields cascade
+     * from the assistant-level transcription.
+     */
+    transcription?: AssistantsAPI.TranscriptionSettings;
+
+    /**
+     * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a
+     * standalone tool execution (see `ToolNodeReq`).
+     */
+    type?: 'prompt';
+
+    /**
+     * Per-node voice override. Only fields set here override the assistant-level voice
+     * settings; unset fields cascade.
+     */
+    voice_settings?: AssistantsAPI.VoiceSettings;
+  }
+
+  /**
+   * A standalone tool step in a conversation flow, as supplied by clients.
+   *
+   * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
+   * turn. Reaching it deterministically runs one shared tool (arguments filled from
+   * matching dynamic variables by name), then routes on the result via outgoing
+   * `tool_result` edges.
+   */
+  export interface ToolNodeReq {
+    /**
+     * Caller-supplied unique identifier for this node within the flow.
+     */
+    id: string;
+
+    /**
+     * ID of the single shared (org-level) tool this node executes. When the flow
+     * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
+     * `tool_result` edges then route on the outcome. Arguments are filled from the
+     * conversation's dynamic variables by name — a dynamic variable whose name matches
+     * one of the tool's parameters supplies that argument. Cross-validated against the
+     * org's shared tools on write.
+     */
+    shared_tool_id: string;
+
+    /**
+     * Optional human-readable label, displayed in authoring UIs.
+     */
+    name?: string;
+
+    /**
+     * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+     * by the runtime; round-trips so frontends can persist graph layout across
+     * reloads.
+     */
+    position?: AssistantsAPI.NodePosition;
+
+    /**
+     * Node kind discriminator. Always `tool` for a tool node.
+     */
+    type?: 'tool';
+  }
+
+  /**
+   * A standalone scripted-message step in a flow, as supplied by clients.
+   *
+   * Unlike a prompt node, a speak node has no instructions or model — it isn't an
+   * LLM turn. Reaching it delivers `message` to the user verbatim (with
+   * `{{variable}}` interpolation), then routes via outgoing `llm` / `expression`
+   * edges.
+   */
+  export interface SpeakNodeReq {
+    /**
+     * Caller-supplied unique identifier for this node within the flow.
+     */
+    id: string;
+
+    /**
+     * Message delivered to the user verbatim when the flow reaches this node. No LLM
+     * turn — the text is spoken/sent exactly as written. `{{variable}}` placeholders
+     * are interpolated from the conversation's dynamic variables; an unresolved
+     * placeholder renders as an empty string. After delivering, the flow routes via
+     * the node's outgoing `llm` / `expression` edges (commonly a single unconditional
+     * edge).
+     */
+    message: string;
+
+    /**
+     * Optional human-readable label, displayed in authoring UIs.
+     */
+    name?: string;
+
+    /**
+     * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+     * by the runtime; round-trips so frontends can persist graph layout across
+     * reloads.
+     */
+    position?: AssistantsAPI.NodePosition;
+
+    /**
+     * Node kind discriminator. Always `speak` for a speak node.
+     */
+    type?: 'speak';
+  }
+}
+
+/**
  * If `telephony` is enabled, the assistant will be able to make and receive calls.
  * If `messaging` is enabled, the assistant will be able to send and receive
  * messages.
  */
 export type EnabledFeatures = 'telephony' | 'messaging';
+
+/**
+ * A node in a deterministic expression AST. Exactly one variant is selected by the
+ * `type` discriminator. Terminal variants (`number_literal`, `string_literal`,
+ * `bool_literal`, `variable`) bottom out the recursion; `arithmetic`, `bool_op`,
+ * and `comparison` nest further sub-expressions.
+ *
+ * Extracted into a single named schema so the recursive union is defined once (was
+ * previously inlined at every operand site).
+ */
+export type Expression =
+  | ComparisonExpression
+  | BooleanOpExpression
+  | ArithmeticExpression
+  | Expression.DynamicVariableExpression
+  | Expression.StringLiteralExpression
+  | Expression.NumberLiteralExpression
+  | Expression.BooleanLiteralExpression;
+
+export namespace Expression {
+  /**
+   * Reference a dynamic variable by name.
+   *
+   * Resolved at runtime from the assistant's dynamic-variables context (see
+   * `Assistant.dynamic_variables` and the dynamic-variables webhook).
+   */
+  export interface DynamicVariableExpression {
+    /**
+     * Variable name to look up in the runtime context.
+     */
+    name: string;
+
+    type: 'variable';
+  }
+
+  /**
+   * Constant string value.
+   */
+  export interface StringLiteralExpression {
+    type: 'string_literal';
+
+    /**
+     * Literal string value.
+     */
+    value: string;
+  }
+
+  /**
+   * Constant numeric value (float; integers are accepted and stored as float).
+   */
+  export interface NumberLiteralExpression {
+    type: 'number_literal';
+
+    /**
+     * Literal numeric value.
+     */
+    value: number;
+  }
+
+  /**
+   * Constant boolean value. Useful for unconditional ('always') edges.
+   */
+  export interface BooleanLiteralExpression {
+    type: 'bool_literal';
+
+    /**
+     * Literal boolean value.
+     */
+    value: boolean;
+  }
+}
 
 export interface ExternalLlm {
   /**
@@ -853,7 +1220,7 @@ export interface ExternalLlm {
   /**
    * Authentication method used when connecting to the external LLM endpoint.
    */
-  authentication_method?: 'token' | 'certificate';
+  authentication_method?: AuthenticationMethod;
 
   /**
    * Integration secret identifier for the client certificate used with certificate
@@ -897,7 +1264,7 @@ export interface ExternalLlmReq {
   /**
    * Authentication method used when connecting to the external LLM endpoint.
    */
-  authentication_method?: 'token' | 'certificate';
+  authentication_method?: AuthenticationMethod;
 
   /**
    * Integration secret identifier for the client certificate used with certificate
@@ -957,6 +1324,139 @@ export interface FallbackConfigReq {
   model?: string;
 }
 
+/**
+ * Directed transition from one node to a target, gated by a condition.
+ *
+ * The target is either another node in the same flow (`NodeTarget`) or a different
+ * assistant (`AssistantTarget`). Multiple edges may share a `start_node_id`; the
+ * runtime evaluates them in the order they're declared and takes the first whose
+ * condition is true.
+ */
+export interface FlowEdge {
+  /**
+   * Caller-supplied unique identifier for this edge within the flow.
+   */
+  id: string;
+
+  /**
+   * Condition that gates the transition. Discriminated by `type`: `llm`,
+   * `expression`.
+   */
+  condition: FlowEdge.LlmCondition | FlowEdge.ExpressionCondition | FlowEdge.DefaultCondition;
+
+  /**
+   * ID of the node this edge transitions away from.
+   */
+  start_node_id: string;
+
+  /**
+   * Destination of the transition. Discriminated by `type`: `node` (jump to another
+   * node in this flow) or `assistant` (hand off to a different assistant).
+   */
+  target: FlowEdge.NodeTarget | FlowEdge.AssistantTarget;
+}
+
+export namespace FlowEdge {
+  /**
+   * Edge condition evaluated by the LLM from a natural-language prompt.
+   *
+   * The model is asked to judge the prompt against conversation context and returns
+   * true/false. Use this for fuzzy intents that aren't expressible as a
+   * deterministic expression (e.g. 'user wants to escalate to a human').
+   */
+  export interface LlmCondition {
+    /**
+     * Natural-language criterion the LLM judges as true/false.
+     */
+    prompt: string;
+
+    type: 'llm';
+  }
+
+  /**
+   * Edge condition evaluated as a deterministic expression AST.
+   *
+   * The expression is computed against runtime dynamic variables and must evaluate
+   * to a boolean. Prefer this over `LLMCondition` when the rule is a clean function
+   * of known variables — it's cheaper and predictable.
+   */
+  export interface ExpressionCondition {
+    /**
+     * Root of the expression AST; evaluates to a boolean. Typed as free-form JSON to
+     * avoid an uncompilable by-value self-reference; see the Expression schema for the
+     * variant structure.
+     */
+    expression: unknown;
+
+    type: 'expression';
+  }
+
+  /**
+   * Fallback edge condition: fires only when no other edge's condition is true.
+   *
+   * Evaluated after every conditioned (`llm` / `expression`) edge regardless of
+   * declaration order, so it routes the flow whenever none of the node's other
+   * outgoing edges match. Valid **only** on edges leaving a `tool` or `speak` node,
+   * where the deterministic step auto-advances and must always have somewhere to go.
+   * A tool/speak node with any outgoing edge is required to carry exactly one
+   * `default` edge so it never dead-ends; a tool/speak node with no outgoing edges
+   * is a valid terminal step. Carries no parameters.
+   */
+  export interface DefaultCondition {
+    type: 'default';
+  }
+
+  /**
+   * Edge target referencing another node within the same flow.
+   *
+   * The runtime transitions the active node to `node_id` and continues processing
+   * within the current assistant's flow.
+   */
+  export interface NodeTarget {
+    /**
+     * ID of the node this edge transitions into.
+     */
+    node_id: string;
+
+    type: 'node';
+  }
+
+  /**
+   * Edge target referencing a different assistant.
+   *
+   * When the edge fires, the conversation hands off to `assistant_id`: the active
+   * assistant on the conversation row is rewritten and the new assistant's flow
+   * starts at its own `start_node_id`. The current turn's LLM response is delivered
+   * to the user as-is; subsequent turns route to the new assistant.
+   */
+  export interface AssistantTarget {
+    /**
+     * ID of the assistant the conversation transitions to.
+     */
+    assistant_id: string;
+
+    type: 'assistant';
+
+    /**
+     * Optional canvas coordinates for rendering the target assistant as a node in
+     * authoring UIs. Pure presentation — the runtime ignores it; round-trips so
+     * frontends can persist graph layout across reloads. When multiple edges target
+     * the same assistant, each edge's `position` is independent (frontends typically
+     * use the first non-null one).
+     */
+    position?: AssistantsAPI.NodePosition;
+
+    /**
+     * Voice behavior when handing off to the target assistant, mirroring the handoff
+     * tool's `voice_mode`. `unified` (default) keeps the current voice across the
+     * handoff; `distinct` lets the target assistant speak with its own configured
+     * voice. Only applies to assistant targets — node targets override voice via the
+     * node's own `voice_settings`.
+     */
+    voice_mode?: 'unified' | 'distinct';
+  }
+}
+
 export interface HangupTool {
   hangup: HangupToolParams;
 
@@ -1003,6 +1503,11 @@ export interface InferenceEmbedding {
   model: string;
 
   name: string;
+
+  /**
+   * Conversation flow as returned by the API.
+   */
+  conversation_flow?: InferenceEmbedding.ConversationFlow;
 
   description?: string;
 
@@ -1145,6 +1650,205 @@ export interface InferenceEmbedding {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
+}
+
+export namespace InferenceEmbedding {
+  /**
+   * Conversation flow as returned by the API.
+   */
+  export interface ConversationFlow {
+    /**
+     * All nodes in the flow.
+     */
+    nodes: Array<ConversationFlow.FlowNode | ConversationFlow.ToolNode | ConversationFlow.SpeakNode>;
+
+    /**
+     * ID of the node where the conversation begins.
+     */
+    start_node_id: string;
+
+    /**
+     * Directed transitions between nodes.
+     */
+    edges?: Array<AssistantsAPI.FlowEdge>;
+  }
+
+  export namespace ConversationFlow {
+    /**
+     * One step in a conversation flow, as returned by the API.
+     */
+    export interface FlowNode {
+      /**
+       * Caller-supplied unique identifier for this node within the flow.
+       */
+      id: string;
+
+      /**
+       * Prompt that drives the LLM while this node is active. Required.
+       */
+      instructions: string;
+
+      /**
+       * Override for `Assistant.external_llm` while this node is active. Use this to
+       * route a node's turns to a different external LLM (different `model`, `base_url`,
+       * credentials). Part of the LLM bundle — see `model` for cascade semantics.
+       * Mutually exclusive with `model` on the node (a single LLM identity per node).
+       */
+      external_llm?: AssistantsAPI.ExternalLlm;
+
+      /**
+       * How `instructions` combine with the assistant-level instructions. `replace`
+       * (default): the node's instructions are used alone. `append`: the node's
+       * instructions are concatenated after the assistant's instructions.
+       */
+      instructions_mode?: 'replace' | 'append';
+
+      /**
+       * Override for `Assistant.llm_api_key_ref` while this node is active. Part of the
+       * LLM bundle — see `model` for cascade semantics.
+       */
+      llm_api_key_ref?: string;
+
+      /**
+       * Override for `Assistant.model` while this node is active. Part of the LLM bundle
+       * (`model` + `llm_api_key_ref` + `external_llm`): when any of the three is set on
+       * the node, all three are taken from the node and the assistant-level LLM identity
+       * is not consulted. When none of the three is set, the assistant's bundle cascades
+       * unchanged.
+       */
+      model?: string;
+
+      /**
+       * Optional human-readable label, displayed in authoring UIs.
+       */
+      name?: string;
+
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      position?: AssistantsAPI.NodePosition;
+
+      /**
+       * IDs of shared (org-level) tools available at this node. Knowledge bases are
+       * attached the same way — via a shared retrieval tool. Tools not listed here are
+       * not callable while this node is active.
+       */
+      shared_tool_ids?: Array<string>;
+
+      /**
+       * Full tool definitions for this node, resolved from `shared_tool_ids`
+       * server-side. Populated on responses so clients can render the flow without a
+       * follow-up fetch per shared tool. Ignored on input — set `shared_tool_ids` to
+       * configure a node's tools.
+       */
+      tools?: Array<Array<AssistantsAPI.AssistantTool>>;
+
+      /**
+       * How `shared_tool_ids` combine with the assistant-level tool set. `replace`
+       * (default): only the node's tools are callable. `append`: the node's tools are
+       * added to the assistant's tools. Ignored when `shared_tool_ids` is null.
+       */
+      tools_mode?: 'replace' | 'append';
+
+      /**
+       * Per-node transcription override (response form).
+       */
+      transcription?: AssistantsAPI.TranscriptionSettings;
+
+      /**
+       * Node kind discriminator. `prompt` is an LLM-driven step.
+       */
+      type?: 'prompt';
+
+      /**
+       * Per-node voice override (response form).
+       */
+      voice_settings?: AssistantsAPI.VoiceSettings;
+    }
+
+    /**
+     * A standalone tool step in a conversation flow, as returned by the API.
+     */
+    export interface ToolNode {
+      /**
+       * Caller-supplied unique identifier for this node within the flow.
+       */
+      id: string;
+
+      /**
+       * ID of the single shared (org-level) tool this node executes. When the flow
+       * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
+       * `tool_result` edges then route on the outcome. Arguments are filled from the
+       * conversation's dynamic variables by name — a dynamic variable whose name matches
+       * one of the tool's parameters supplies that argument. Cross-validated against the
+       * org's shared tools on write.
+       */
+      shared_tool_id: string;
+
+      /**
+       * Optional human-readable label, displayed in authoring UIs.
+       */
+      name?: string;
+
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      position?: AssistantsAPI.NodePosition;
+
+      /**
+       * Full tool definition resolved from `shared_tool_id` server-side. Populated on
+       * responses so clients can render the node without a follow-up fetch. Ignored on
+       * input — set `shared_tool_id`.
+       */
+      tool?: Array<AssistantsAPI.AssistantTool>;
+
+      /**
+       * Node kind discriminator. Always `tool` for a tool node.
+       */
+      type?: 'tool';
+    }
+
+    /**
+     * A standalone scripted-message step in a flow, as returned by the API.
+     */
+    export interface SpeakNode {
+      /**
+       * Caller-supplied unique identifier for this node within the flow.
+       */
+      id: string;
+
+      /**
+       * Message delivered to the user verbatim when the flow reaches this node. No LLM
+       * turn — the text is spoken/sent exactly as written. `{{variable}}` placeholders
+       * are interpolated from the conversation's dynamic variables; an unresolved
+       * placeholder renders as an empty string. After delivering, the flow routes via
+       * the node's outgoing `llm` / `expression` edges (commonly a single unconditional
+       * edge).
+       */
+      message: string;
+
+      /**
+       * Optional human-readable label, displayed in authoring UIs.
+       */
+      name?: string;
+
+      /**
+       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+       * by the runtime; round-trips so frontends can persist graph layout across
+       * reloads.
+       */
+      position?: AssistantsAPI.NodePosition;
+
+      /**
+       * Node kind discriminator. Always `speak` for a speak node.
+       */
+      type?: 'speak';
+    }
+  }
 }
 
 /**
@@ -1384,6 +2088,25 @@ export interface MessagingSettings {
   delivery_status_webhook_url?: string;
 }
 
+/**
+ * 2D coordinates for a node, used by authoring UIs to lay out the graph.
+ *
+ * Purely a presentation aid. The runtime ignores `position`; it round-trips
+ * through the API so frontends can persist the graph layout customers arrange in
+ * the editor.
+ */
+export interface NodePosition {
+  /**
+   * Horizontal coordinate in the authoring canvas.
+   */
+  x: number;
+
+  /**
+   * Vertical coordinate in the authoring canvas.
+   */
+  y: number;
+}
+
 export interface Observability {
   host?: string;
 
@@ -1398,7 +2121,7 @@ export interface Observability {
    * `instructions` to Langfuse via create_prompt and stores the returned version in
    * prompt_version.
    */
-  prompt_sync?: 'enabled' | 'disabled';
+  prompt_sync?: PromptSyncStatus;
 
   prompt_version?: number;
 
@@ -1406,7 +2129,7 @@ export interface Observability {
 
   secret_key_ref?: string;
 
-  status?: 'enabled' | 'disabled';
+  status?: ObservabilityStatus;
 }
 
 export interface ObservabilityReq {
@@ -1423,7 +2146,7 @@ export interface ObservabilityReq {
    * `instructions` to Langfuse via create_prompt and stores the returned version in
    * prompt_version.
    */
-  prompt_sync?: 'enabled' | 'disabled';
+  prompt_sync?: PromptSyncStatus;
 
   prompt_version?: number;
 
@@ -1431,8 +2154,10 @@ export interface ObservabilityReq {
 
   secret_key_ref?: string;
 
-  status?: 'enabled' | 'disabled';
+  status?: ObservabilityStatus;
 }
+
+export type ObservabilityStatus = 'enabled' | 'disabled';
 
 /**
  * Configuration for post-conversation processing. When enabled, the assistant
@@ -1479,6 +2204,15 @@ export interface PrivacySettings {
    */
   data_retention?: boolean;
 }
+
+/**
+ * Whether to auto-publish the assistant's instructions as a Langfuse prompt.
+ *
+ * When ENABLED + prompt_name set, every assistant create/update pushes
+ * `instructions` to Langfuse via create_prompt and stores the returned version in
+ * prompt_version.
+ */
+export type PromptSyncStatus = 'enabled' | 'disabled';
 
 export interface RetrievalTool {
   retrieval: ChatAPI.BucketIDs;
@@ -2268,6 +3002,15 @@ export interface AssistantCreateParams {
 
   name: string;
 
+  /**
+   * Conversation flow as supplied by API clients (create / update).
+   *
+   * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
+   * unique node/edge IDs, that `start_node_id` references a real node, and that
+   * every edge's endpoints reference real nodes.
+   */
+  conversation_flow?: ConversationFlowReq;
+
   description?: string;
 
   /**
@@ -2404,16 +3147,37 @@ export interface AssistantCreateParams {
 }
 
 export interface AssistantRetrieveParams {
+  /**
+   * Filter results by call control id.
+   */
   call_control_id?: string;
 
+  /**
+   * Whether to fetch dynamic variables from the configured webhook.
+   */
   fetch_dynamic_variables_from_webhook?: boolean;
 
+  /**
+   * Start of the filter range.
+   */
   from?: string;
 
+  /**
+   * End of the filter range.
+   */
   to?: string;
 }
 
 export interface AssistantUpdateParams {
+  /**
+   * Conversation flow as supplied by API clients (create / update).
+   *
+   * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
+   * unique node/edge IDs, that `start_node_id` references a real node, and that
+   * every edge's endpoints reference real nodes.
+   */
+  conversation_flow?: ConversationFlowReq;
+
   description?: string;
 
   /**
@@ -2623,20 +3387,28 @@ Assistants.ScheduledEvents = ScheduledEvents;
 Assistants.Tools = Tools;
 Assistants.Versions = Versions;
 Assistants.Tags = Tags;
+Assistants.Instructions = Instructions;
 
 export declare namespace Assistants {
   export {
+    type ArithmeticExpression as ArithmeticExpression,
     type Assistant as Assistant,
     type AssistantIntegration as AssistantIntegration,
     type AssistantMcpServer as AssistantMcpServer,
     type AssistantTool as AssistantTool,
     type AssistantsList as AssistantsList,
     type AudioVisualizerConfig as AudioVisualizerConfig,
+    type AuthenticationMethod as AuthenticationMethod,
+    type BooleanOpExpression as BooleanOpExpression,
+    type ComparisonExpression as ComparisonExpression,
+    type ConversationFlowReq as ConversationFlowReq,
     type EnabledFeatures as EnabledFeatures,
+    type Expression as Expression,
     type ExternalLlm as ExternalLlm,
     type ExternalLlmReq as ExternalLlmReq,
     type FallbackConfig as FallbackConfig,
     type FallbackConfigReq as FallbackConfigReq,
+    type FlowEdge as FlowEdge,
     type HangupTool as HangupTool,
     type HangupToolParams as HangupToolParams,
     type ImportMetadata as ImportMetadata,
@@ -2645,11 +3417,14 @@ export declare namespace Assistants {
     type InferenceEmbeddingWebhookToolParams as InferenceEmbeddingWebhookToolParams,
     type InsightSettings as InsightSettings,
     type MessagingSettings as MessagingSettings,
+    type NodePosition as NodePosition,
     type Observability as Observability,
     type ObservabilityReq as ObservabilityReq,
+    type ObservabilityStatus as ObservabilityStatus,
     type PostConversationSettings as PostConversationSettings,
     type PostConversationSettingsReq as PostConversationSettingsReq,
     type PrivacySettings as PrivacySettings,
+    type PromptSyncStatus as PromptSyncStatus,
     type RetrievalTool as RetrievalTool,
     type StartSpeakingPlan as StartSpeakingPlan,
     type TelephonySettings as TelephonySettings,
@@ -2699,6 +3474,7 @@ export declare namespace Assistants {
     ScheduledEvents as ScheduledEvents,
     type ConversationChannelType as ConversationChannelType,
     type EventStatus as EventStatus,
+    type ScheduledCallSettings as ScheduledCallSettings,
     type ScheduledEventResponse as ScheduledEventResponse,
     type ScheduledPhoneCallEventResponse as ScheduledPhoneCallEventResponse,
     type ScheduledSMSEventResponse as ScheduledSMSEventResponse,
@@ -2731,10 +3507,14 @@ export declare namespace Assistants {
 
   export {
     Tags as Tags,
-    type TagListResponse as TagListResponse,
-    type TagAddResponse as TagAddResponse,
-    type TagRemoveResponse as TagRemoveResponse,
+    type TagsResponse as TagsResponse,
     type TagAddParams as TagAddParams,
     type TagRemoveParams as TagRemoveParams,
+  };
+
+  export {
+    Instructions as Instructions,
+    type InstructionEnhanceResponse as InstructionEnhanceResponse,
+    type InstructionEnhanceParams as InstructionEnhanceParams,
   };
 }

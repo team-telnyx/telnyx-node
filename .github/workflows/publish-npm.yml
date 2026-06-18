@@ -1,23 +1,15 @@
-# This workflow is triggered when a GitHub release is created.
-# It can also be run manually to re-publish to NPM in case it failed for some reason.
-# You can run this workflow by navigating to https://www.github.com/team-telnyx/telnyx-node/actions/workflows/publish-npm.yml
+# This workflow publishes the package to NPM.
+# You can run this workflow manually by navigating to https://www.github.com/team-telnyx/telnyx-node/actions/workflows/publish-npm.yml
 name: Publish NPM
 on:
   workflow_dispatch:
-    inputs:
-      path:
-        description: The path to run the release in, e.g. '.' or 'packages/mcp-server'
-        required: true
-
-  release:
-    types: [published]
 
 jobs:
   publish:
     name: publish
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       id-token: write
 
     steps:
@@ -37,19 +29,4 @@ jobs:
 
       - name: Publish to NPM
         run: |
-          if [ -n "$INPUT_PATH" ]; then
-            PATHS_RELEASED='["'"$INPUT_PATH"'"]'
-          else
-            PATHS_RELEASED='[".", "packages/mcp-server"]'
-          fi
-          JSON_ARG=$(jq -n --arg p "$PATHS_RELEASED" '{paths_released: $p}')
-          pnpm tsn scripts/publish-packages.ts "$JSON_ARG"
-        env:
-          INPUT_PATH: ${{ github.event.inputs.path }}
-
-      - name: Upload MCP Server DXT GitHub release asset
-        run: |
-          gh release upload ${{ github.event.release.tag_name }} \
-            packages/mcp-server/telnyx_api.mcpb
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          bash ./bin/publish-npm

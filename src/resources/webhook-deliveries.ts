@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as WebhookDeliveriesAPI from './webhook-deliveries';
 import { APIPromise } from '../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
@@ -25,17 +24,15 @@ export class WebhookDeliveries extends APIResource {
   list(
     query: WebhookDeliveryListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<WebhookDeliveryListResponsesDefaultFlatPagination, WebhookDeliveryListResponse> {
-    return this._client.getAPIList(
-      '/webhook_deliveries',
-      DefaultFlatPagination<WebhookDeliveryListResponse>,
-      { query, ...options },
-    );
+  ): PagePromise<WebhookDeliveriesDefaultFlatPagination, WebhookDelivery> {
+    return this._client.getAPIList('/webhook_deliveries', DefaultFlatPagination<WebhookDelivery>, {
+      query,
+      ...options,
+    });
   }
 }
 
-export type WebhookDeliveryListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<WebhookDeliveryListResponse>;
+export type WebhookDeliveriesDefaultFlatPagination = DefaultFlatPagination<WebhookDelivery>;
 
 /**
  * Webhook delivery attempt details.
@@ -110,94 +107,10 @@ export namespace HTTP {
   }
 }
 
-export interface WebhookDeliveryRetrieveResponse {
-  /**
-   * Record of all attempts to deliver a webhook.
-   */
-  data?: WebhookDeliveryRetrieveResponse.Data;
-}
-
-export namespace WebhookDeliveryRetrieveResponse {
-  /**
-   * Record of all attempts to deliver a webhook.
-   */
-  export interface Data {
-    /**
-     * Uniquely identifies the webhook_delivery record.
-     */
-    id?: string;
-
-    /**
-     * Detailed delivery attempts, ordered by most recent.
-     */
-    attempts?: Array<WebhookDeliveriesAPI.Attempt>;
-
-    /**
-     * ISO 8601 timestamp indicating when the last webhook response has been received.
-     */
-    finished_at?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * ISO 8601 timestamp indicating when the first request attempt was initiated.
-     */
-    started_at?: string;
-
-    /**
-     * Delivery status: 'delivered' when successfuly delivered or 'failed' if all
-     * attempts have failed.
-     */
-    status?: 'delivered' | 'failed';
-
-    /**
-     * Uniquely identifies the user that owns the webhook_delivery record.
-     */
-    user_id?: string;
-
-    /**
-     * Original webhook JSON data. Payload fields vary according to event type.
-     */
-    webhook?: Data.Webhook;
-  }
-
-  export namespace Data {
-    /**
-     * Original webhook JSON data. Payload fields vary according to event type.
-     */
-    export interface Webhook {
-      /**
-       * Identifies the type of resource.
-       */
-      id?: string;
-
-      /**
-       * The type of event being delivered.
-       */
-      event_type?: string;
-
-      /**
-       * ISO 8601 datetime of when the event occurred.
-       */
-      occurred_at?: string;
-
-      payload?: { [key: string]: unknown };
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: 'event';
-    }
-  }
-}
-
 /**
  * Record of all attempts to deliver a webhook.
  */
-export interface WebhookDeliveryListResponse {
+export interface WebhookDelivery {
   /**
    * Uniquely identifies the webhook_delivery record.
    */
@@ -237,10 +150,10 @@ export interface WebhookDeliveryListResponse {
   /**
    * Original webhook JSON data. Payload fields vary according to event type.
    */
-  webhook?: WebhookDeliveryListResponse.Webhook;
+  webhook?: WebhookDelivery.Webhook;
 }
 
-export namespace WebhookDeliveryListResponse {
+export namespace WebhookDelivery {
   /**
    * Original webhook JSON data. Payload fields vary according to event type.
    */
@@ -267,6 +180,13 @@ export namespace WebhookDeliveryListResponse {
      */
     record_type?: 'event';
   }
+}
+
+export interface WebhookDeliveryRetrieveResponse {
+  /**
+   * Record of all attempts to deliver a webhook.
+   */
+  data?: WebhookDelivery;
 }
 
 export interface WebhookDeliveryListParams extends DefaultFlatPaginationParams {
@@ -361,9 +281,9 @@ export declare namespace WebhookDeliveries {
   export {
     type Attempt as Attempt,
     type HTTP as HTTP,
+    type WebhookDelivery as WebhookDelivery,
     type WebhookDeliveryRetrieveResponse as WebhookDeliveryRetrieveResponse,
-    type WebhookDeliveryListResponse as WebhookDeliveryListResponse,
-    type WebhookDeliveryListResponsesDefaultFlatPagination as WebhookDeliveryListResponsesDefaultFlatPagination,
+    type WebhookDeliveriesDefaultFlatPagination as WebhookDeliveriesDefaultFlatPagination,
     type WebhookDeliveryListParams as WebhookDeliveryListParams,
   };
 }

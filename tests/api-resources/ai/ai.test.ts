@@ -9,8 +9,10 @@ const client = new Telnyx({
 
 describe('resource ai', () => {
   // Mock server tests are disabled
-  test.skip('createResponse: only required params', async () => {
-    const responsePromise = client.ai.createResponse({ input: { model: 'bar', input: 'bar' } });
+  test.skip('createResponseDeprecated: only required params', async () => {
+    const responsePromise = client.ai.createResponseDeprecated({
+      response_request: { model: 'bar', input: 'bar' },
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,8 +23,45 @@ describe('resource ai', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('createResponse: required and optional params', async () => {
-    const response = await client.ai.createResponse({ input: { model: 'bar', input: 'bar' } });
+  test.skip('createResponseDeprecated: required and optional params', async () => {
+    const response = await client.ai.createResponseDeprecated({
+      response_request: { model: 'bar', input: 'bar' },
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveConversationHistories: only required params', async () => {
+    const responsePromise = client.ai.retrieveConversationHistories({
+      q: 'customer called about billing issue',
+      record_type: 'voice',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveConversationHistories: required and optional params', async () => {
+    const response = await client.ai.retrieveConversationHistories({
+      q: 'customer called about billing issue',
+      record_type: 'voice',
+      'filter[document_id]': 'doc-789',
+      'filter[ingested_at][gte]': '2026-01-01T00:00:00Z',
+      'filter[ingested_at][lte]': '2026-12-31T23:59:59Z',
+      'filter[record_created_at][gte]': '2026-01-01T00:00:00Z',
+      'filter[record_created_at][lte]': '2026-12-31T23:59:59Z',
+      'filter[record_id]': 'rec-001',
+      'filter[region][in]': 'USA,DEU',
+      'filter[retention]': 'filter[retention]',
+      'filter[user_id]': 'user-123',
+      min_score: 0.5,
+      region: 'USA',
+      top_k: 10,
+    });
   });
 
   // Mock server tests are disabled

@@ -56,7 +56,7 @@ export class Calls extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const callListResponse of client.queues.calls.list(
+   * for await (const queueCall of client.queues.calls.list(
    *   'queue_name',
    * )) {
    *   // ...
@@ -67,12 +67,11 @@ export class Calls extends APIResource {
     queueName: string,
     query: CallListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<CallListResponsesDefaultFlatPagination, CallListResponse> {
-    return this._client.getAPIList(
-      path`/queues/${queueName}/calls`,
-      DefaultFlatPagination<CallListResponse>,
-      { query, ...options },
-    );
+  ): PagePromise<QueueCallsDefaultFlatPagination, QueueCall> {
+    return this._client.getAPIList(path`/queues/${queueName}/calls`, DefaultFlatPagination<QueueCall>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -95,76 +94,9 @@ export class Calls extends APIResource {
   }
 }
 
-export type CallListResponsesDefaultFlatPagination = DefaultFlatPagination<CallListResponse>;
+export type QueueCallsDefaultFlatPagination = DefaultFlatPagination<QueueCall>;
 
-export interface CallRetrieveResponse {
-  data?: CallRetrieveResponse.Data;
-}
-
-export namespace CallRetrieveResponse {
-  export interface Data {
-    /**
-     * Unique identifier and token for controlling the call.
-     */
-    call_control_id: string;
-
-    /**
-     * ID that is unique to the call and can be used to correlate webhook events
-     */
-    call_leg_id: string;
-
-    /**
-     * ID that is unique to the call session and can be used to correlate webhook
-     * events. Call session is a group of related call legs that logically belong to
-     * the same phone call, e.g. an inbound and outbound leg of a transferred call
-     */
-    call_session_id: string;
-
-    /**
-     * Call Control App ID (formerly Telnyx connection ID) used in the call.
-     */
-    connection_id: string;
-
-    /**
-     * ISO 8601 formatted date of when the call was put in the queue
-     */
-    enqueued_at: string;
-
-    /**
-     * Number or SIP URI placing the call.
-     */
-    from: string;
-
-    /**
-     * Unique identifier of the queue the call is in.
-     */
-    queue_id: string;
-
-    /**
-     * Current position of the call in the queue
-     */
-    queue_position: number;
-
-    record_type: 'queue_call';
-
-    /**
-     * Destination number or SIP URI of the call.
-     */
-    to: string;
-
-    /**
-     * The time the call has been waiting in the queue, given in seconds
-     */
-    wait_time_secs: number;
-
-    /**
-     * Indicates whether the call is still active in the queue.
-     */
-    is_alive?: boolean;
-  }
-}
-
-export interface CallListResponse {
+export interface QueueCall {
   /**
    * Unique identifier and token for controlling the call.
    */
@@ -225,6 +157,10 @@ export interface CallListResponse {
   is_alive?: boolean;
 }
 
+export interface CallRetrieveResponse {
+  data?: QueueCall;
+}
+
 export interface CallRetrieveParams {
   /**
    * Uniquely identifies the queue by name
@@ -255,9 +191,9 @@ export interface CallRemoveParams {
 
 export declare namespace Calls {
   export {
+    type QueueCall as QueueCall,
     type CallRetrieveResponse as CallRetrieveResponse,
-    type CallListResponse as CallListResponse,
-    type CallListResponsesDefaultFlatPagination as CallListResponsesDefaultFlatPagination,
+    type QueueCallsDefaultFlatPagination as QueueCallsDefaultFlatPagination,
     type CallRetrieveParams as CallRetrieveParams,
     type CallUpdateParams as CallUpdateParams,
     type CallListParams as CallListParams,

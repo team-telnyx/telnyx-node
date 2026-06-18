@@ -24,8 +24,8 @@ export class RoomRecordings extends APIResource {
   list(
     query: RoomRecordingListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RoomRecordingListResponsesDefaultFlatPagination, RoomRecordingListResponse> {
-    return this._client.getAPIList('/room_recordings', DefaultFlatPagination<RoomRecordingListResponse>, {
+  ): PagePromise<RoomRecordingsDefaultFlatPagination, RoomRecording> {
+    return this._client.getAPIList('/room_recordings', DefaultFlatPagination<RoomRecording>, {
       query,
       ...options,
     });
@@ -56,95 +56,9 @@ export class RoomRecordings extends APIResource {
   }
 }
 
-export type RoomRecordingListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<RoomRecordingListResponse>;
+export type RoomRecordingsDefaultFlatPagination = DefaultFlatPagination<RoomRecording>;
 
-export interface RoomRecordingRetrieveResponse {
-  data?: RoomRecordingRetrieveResponse.Data;
-}
-
-export namespace RoomRecordingRetrieveResponse {
-  export interface Data {
-    /**
-     * A unique identifier for the room recording.
-     */
-    id?: string;
-
-    /**
-     * Shows the codec used for the room recording.
-     */
-    codec?: string;
-
-    /**
-     * ISO 8601 timestamp when the room recording has completed.
-     */
-    completed_at?: string;
-
-    /**
-     * ISO 8601 timestamp when the room recording was created.
-     */
-    created_at?: string;
-
-    /**
-     * Url to download the recording.
-     */
-    download_url?: string;
-
-    /**
-     * Shows the room recording duration in seconds.
-     */
-    duration_secs?: number;
-
-    /**
-     * ISO 8601 timestamp when the room recording has ended.
-     */
-    ended_at?: string;
-
-    /**
-     * Identify the room participant associated with the room recording.
-     */
-    participant_id?: string;
-
-    record_type?: string;
-
-    /**
-     * Identify the room associated with the room recording.
-     */
-    room_id?: string;
-
-    /**
-     * Identify the room session associated with the room recording.
-     */
-    session_id?: string;
-
-    /**
-     * Shows the room recording size in MB.
-     */
-    size_mb?: number;
-
-    /**
-     * ISO 8601 timestamp when the room recording has stated.
-     */
-    started_at?: string;
-
-    /**
-     * Shows the room recording status.
-     */
-    status?: 'completed' | 'processing';
-
-    /**
-     * Shows the room recording type.
-     */
-    type?: 'audio' | 'video';
-
-    /**
-     * ISO 8601 timestamp when the room recording was updated.
-     */
-    updated_at?: string;
-  }
-}
-
-export interface RoomRecordingListResponse {
+export interface RoomRecording {
   /**
    * A unique identifier for the room recording.
    */
@@ -221,6 +135,10 @@ export interface RoomRecordingListResponse {
    * ISO 8601 timestamp when the room recording was updated.
    */
   updated_at?: string;
+}
+
+export interface RoomRecordingRetrieveResponse {
+  data?: RoomRecording;
 }
 
 export interface RoomRecordingDeleteBulkResponse {
@@ -430,10 +348,10 @@ export namespace RoomRecordingDeleteBulkParams {
 
 export declare namespace RoomRecordings {
   export {
+    type RoomRecording as RoomRecording,
     type RoomRecordingRetrieveResponse as RoomRecordingRetrieveResponse,
-    type RoomRecordingListResponse as RoomRecordingListResponse,
     type RoomRecordingDeleteBulkResponse as RoomRecordingDeleteBulkResponse,
-    type RoomRecordingListResponsesDefaultFlatPagination as RoomRecordingListResponsesDefaultFlatPagination,
+    type RoomRecordingsDefaultFlatPagination as RoomRecordingsDefaultFlatPagination,
     type RoomRecordingListParams as RoomRecordingListParams,
     type RoomRecordingDeleteBulkParams as RoomRecordingDeleteBulkParams,
   };

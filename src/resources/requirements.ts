@@ -31,7 +31,7 @@ export class Requirements extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const requirementListResponse of client.requirements.list()) {
+   * for await (const docReqsRequirement of client.requirements.list()) {
    *   // ...
    * }
    * ```
@@ -39,72 +39,17 @@ export class Requirements extends APIResource {
   list(
     query: RequirementListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RequirementListResponsesDefaultFlatPagination, RequirementListResponse> {
-    return this._client.getAPIList('/requirements', DefaultFlatPagination<RequirementListResponse>, {
+  ): PagePromise<DocReqsRequirementsDefaultFlatPagination, DocReqsRequirement> {
+    return this._client.getAPIList('/requirements', DefaultFlatPagination<DocReqsRequirement>, {
       query,
       ...options,
     });
   }
 }
 
-export type RequirementListResponsesDefaultFlatPagination = DefaultFlatPagination<RequirementListResponse>;
+export type DocReqsRequirementsDefaultFlatPagination = DefaultFlatPagination<DocReqsRequirement>;
 
-export interface RequirementRetrieveResponse {
-  data?: RequirementRetrieveResponse.Data;
-}
-
-export namespace RequirementRetrieveResponse {
-  export interface Data {
-    /**
-     * Identifies the associated document
-     */
-    id?: string;
-
-    /**
-     * Indicates whether this requirement applies to branded_calling, ordering,
-     * porting, or both ordering and porting
-     */
-    action?: 'both' | 'branded_calling' | 'ordering' | 'porting';
-
-    /**
-     * The 2-character (ISO 3166-1 alpha-2) country code where this requirement applies
-     */
-    country_code?: string;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * The locality where this requirement applies
-     */
-    locality?: string;
-
-    /**
-     * Indicates the phone_number_type this requirement applies to. Leave blank if this
-     * requirement applies to all number_types.
-     */
-    phone_number_type?: 'local' | 'national' | 'toll_free';
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * Lists the requirement types necessary to fulfill this requirement
-     */
-    requirements_types?: Array<Shared.DocReqsRequirementType>;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was last updated.
-     */
-    updated_at?: string;
-  }
-}
-
-export interface RequirementListResponse {
+export interface DocReqsRequirement {
   /**
    * Identifies the associated document
    */
@@ -151,6 +96,10 @@ export interface RequirementListResponse {
    * ISO 8601 formatted date-time indicating when the resource was last updated.
    */
   updated_at?: string;
+}
+
+export interface RequirementRetrieveResponse {
+  data?: DocReqsRequirement;
 }
 
 export interface RequirementListParams extends DefaultFlatPaginationParams {
@@ -202,9 +151,9 @@ export namespace RequirementListParams {
 
 export declare namespace Requirements {
   export {
+    type DocReqsRequirement as DocReqsRequirement,
     type RequirementRetrieveResponse as RequirementRetrieveResponse,
-    type RequirementListResponse as RequirementListResponse,
-    type RequirementListResponsesDefaultFlatPagination as RequirementListResponsesDefaultFlatPagination,
+    type DocReqsRequirementsDefaultFlatPagination as DocReqsRequirementsDefaultFlatPagination,
     type RequirementListParams as RequirementListParams,
   };
 }

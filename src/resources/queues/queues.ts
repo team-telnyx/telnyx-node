@@ -4,13 +4,13 @@ import { APIResource } from '../../core/resource';
 import * as CallsAPI from './calls';
 import {
   CallListParams,
-  CallListResponse,
-  CallListResponsesDefaultFlatPagination,
   CallRemoveParams,
   CallRetrieveParams,
   CallRetrieveResponse,
   CallUpdateParams,
   Calls,
+  QueueCall,
+  QueueCallsDefaultFlatPagination,
 } from './calls';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
@@ -193,9 +193,9 @@ export declare namespace Queues {
 
   export {
     Calls as Calls,
+    type QueueCall as QueueCall,
     type CallRetrieveResponse as CallRetrieveResponse,
-    type CallListResponse as CallListResponse,
-    type CallListResponsesDefaultFlatPagination as CallListResponsesDefaultFlatPagination,
+    type QueueCallsDefaultFlatPagination as QueueCallsDefaultFlatPagination,
     type CallRetrieveParams as CallRetrieveParams,
     type CallUpdateParams as CallUpdateParams,
     type CallListParams as CallListParams,

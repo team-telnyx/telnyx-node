@@ -6,7 +6,7 @@ import {
   Json,
   JsonDeleteRecordingTranscriptionSidJsonParams,
   JsonRetrieveRecordingTranscriptionSidJsonParams,
-  JsonRetrieveRecordingTranscriptionSidJsonResponse,
+  TexmlRecordingTranscription,
 } from './json';
 
 export class Transcriptions extends APIResource {
@@ -18,7 +18,7 @@ Transcriptions.Json = Json;
 export declare namespace Transcriptions {
   export {
     Json as Json,
-    type JsonRetrieveRecordingTranscriptionSidJsonResponse as JsonRetrieveRecordingTranscriptionSidJsonResponse,
+    type TexmlRecordingTranscription as TexmlRecordingTranscription,
     type JsonDeleteRecordingTranscriptionSidJsonParams as JsonDeleteRecordingTranscriptionSidJsonParams,
     type JsonRetrieveRecordingTranscriptionSidJsonParams as JsonRetrieveRecordingTranscriptionSidJsonParams,
   };

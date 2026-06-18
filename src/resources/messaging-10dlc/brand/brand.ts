@@ -5,10 +5,9 @@ import * as ExternalVettingAPI from './external-vetting';
 import {
   ExternalVetting,
   ExternalVettingImportsParams,
-  ExternalVettingImportsResponse,
   ExternalVettingListResponse,
   ExternalVettingOrderParams,
-  ExternalVettingOrderResponse,
+  ExternalVettingResource,
 } from './external-vetting';
 import { APIPromise } from '../../../core/api-promise';
 import { PagePromise, PerPagePaginationV2, type PerPagePaginationV2Params } from '../../../core/pagination';
@@ -20,7 +19,8 @@ import { path } from '../../../internal/utils/path';
  * Brand operations
  */
 export class Brand extends APIResource {
-  externalVetting: ExternalVettingAPI.ExternalVetting = new ExternalVettingAPI.ExternalVetting(this._client);
+  externalVetting: ExternalVettingAPI.ExternalVettingResource =
+    new ExternalVettingAPI.ExternalVettingResource(this._client);
 
   /**
    * This endpoint is used to create a new brand. A brand is an entity created by The
@@ -156,7 +156,7 @@ export class Brand extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const brandSMSOtpStatus =
    *   await client.messaging10dlc.brand.getSMSOtpByReference(
    *     'OTP4B2001',
    *   );
@@ -166,7 +166,7 @@ export class Brand extends APIResource {
     referenceID: string,
     query: BrandGetSMSOtpByReferenceParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<BrandGetSMSOtpByReferenceResponse> {
+  ): APIPromise<BrandSMSOtpStatus> {
     return this._client.get(path`/10dlc/brand/smsOtp/${referenceID}`, { query, ...options });
   }
 
@@ -201,16 +201,13 @@ export class Brand extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const brandSMSOtpStatus =
    *   await client.messaging10dlc.brand.retrieveSMSOtpStatus(
    *     '4b20019b-043a-78f8-0657-b3be3f4b4002',
    *   );
    * ```
    */
-  retrieveSMSOtpStatus(
-    brandID: string,
-    options?: RequestOptions,
-  ): APIPromise<BrandRetrieveSMSOtpStatusResponse> {
+  retrieveSMSOtpStatus(brandID: string, options?: RequestOptions): APIPromise<BrandSMSOtpStatus> {
     return this._client.get(path`/10dlc/brand/${brandID}/smsOtp`, options);
   }
 
@@ -324,6 +321,52 @@ export interface BrandOptionalAttributes {
    * The tax exempt status of the brand
    */
   taxExemptStatus?: string;
+}
+
+/**
+ * Status information for an SMS OTP sent during Sole Proprietor brand verification
+ */
+export interface BrandSMSOtpStatus {
+  /**
+   * The Brand ID associated with this OTP request
+   */
+  brandId: string;
+
+  /**
+   * The current delivery status of the OTP SMS message. Common values include:
+   * `DELIVERED_HANDSET`, `PENDING`, `FAILED`, `EXPIRED`
+   */
+  deliveryStatus: string;
+
+  /**
+   * The mobile phone number where the OTP was sent, in E.164 format
+   */
+  mobilePhone: string;
+
+  /**
+   * The reference ID for this OTP request, used for status queries
+   */
+  referenceId: string;
+
+  /**
+   * The timestamp when the OTP request was initiated
+   */
+  requestDate: string;
+
+  /**
+   * The timestamp when the delivery status was last updated
+   */
+  deliveryStatusDate?: string;
+
+  /**
+   * Additional details about the delivery status
+   */
+  deliveryStatusDetails?: string;
+
+  /**
+   * The timestamp when the OTP was successfully verified (if applicable)
+   */
+  verifyDate?: string;
 }
 
 /**
@@ -698,98 +741,6 @@ export namespace BrandGetFeedbackResponse {
 }
 
 /**
- * Status information for an SMS OTP sent during Sole Proprietor brand verification
- */
-export interface BrandGetSMSOtpByReferenceResponse {
-  /**
-   * The Brand ID associated with this OTP request
-   */
-  brandId: string;
-
-  /**
-   * The current delivery status of the OTP SMS message. Common values include:
-   * `DELIVERED_HANDSET`, `PENDING`, `FAILED`, `EXPIRED`
-   */
-  deliveryStatus: string;
-
-  /**
-   * The mobile phone number where the OTP was sent, in E.164 format
-   */
-  mobilePhone: string;
-
-  /**
-   * The reference ID for this OTP request, used for status queries
-   */
-  referenceId: string;
-
-  /**
-   * The timestamp when the OTP request was initiated
-   */
-  requestDate: string;
-
-  /**
-   * The timestamp when the delivery status was last updated
-   */
-  deliveryStatusDate?: string;
-
-  /**
-   * Additional details about the delivery status
-   */
-  deliveryStatusDetails?: string;
-
-  /**
-   * The timestamp when the OTP was successfully verified (if applicable)
-   */
-  verifyDate?: string;
-}
-
-/**
- * Status information for an SMS OTP sent during Sole Proprietor brand verification
- */
-export interface BrandRetrieveSMSOtpStatusResponse {
-  /**
-   * The Brand ID associated with this OTP request
-   */
-  brandId: string;
-
-  /**
-   * The current delivery status of the OTP SMS message. Common values include:
-   * `DELIVERED_HANDSET`, `PENDING`, `FAILED`, `EXPIRED`
-   */
-  deliveryStatus: string;
-
-  /**
-   * The mobile phone number where the OTP was sent, in E.164 format
-   */
-  mobilePhone: string;
-
-  /**
-   * The reference ID for this OTP request, used for status queries
-   */
-  referenceId: string;
-
-  /**
-   * The timestamp when the OTP request was initiated
-   */
-  requestDate: string;
-
-  /**
-   * The timestamp when the delivery status was last updated
-   */
-  deliveryStatusDate?: string;
-
-  /**
-   * Additional details about the delivery status
-   */
-  deliveryStatusDetails?: string;
-
-  /**
-   * The timestamp when the OTP was successfully verified (if applicable)
-   */
-  verifyDate?: string;
-}
-
-/**
  * Response after successfully triggering a Brand SMS OTP
  */
 export interface BrandTriggerSMSOtpResponse {
@@ -1061,10 +1012,19 @@ export interface BrandListParams extends PerPagePaginationV2Params {
    */
   brandId?: string;
 
+  /**
+   * Filter results by country.
+   */
   country?: string;
 
+  /**
+   * Filter results by display name.
+   */
   displayName?: string;
 
+  /**
+   * Filter results by entity type.
+   */
   entityType?: string;
 
   /**
@@ -1087,6 +1047,9 @@ export interface BrandListParams extends PerPagePaginationV2Params {
     | 'tcrBrandId'
     | '-tcrBrandId';
 
+  /**
+   * Filter results by state.
+   */
   state?: string;
 
   /**
@@ -1122,13 +1085,14 @@ export interface BrandVerifySMSOtpParams {
   otpPin: string;
 }
 
-Brand.ExternalVetting = ExternalVetting;
+Brand.ExternalVettingResource = ExternalVettingResource;
 
 export declare namespace Brand {
   export {
     type AltBusinessIDType as AltBusinessIDType,
     type BrandIdentityStatus as BrandIdentityStatus,
     type BrandOptionalAttributes as BrandOptionalAttributes,
+    type BrandSMSOtpStatus as BrandSMSOtpStatus,
     type EntityType as EntityType,
     type StockExchange as StockExchange,
     type TelnyxBrand as TelnyxBrand,
@@ -1136,8 +1100,6 @@ export declare namespace Brand {
     type BrandRetrieveResponse as BrandRetrieveResponse,
     type BrandListResponse as BrandListResponse,
     type BrandGetFeedbackResponse as BrandGetFeedbackResponse,
-    type BrandGetSMSOtpByReferenceResponse as BrandGetSMSOtpByReferenceResponse,
-    type BrandRetrieveSMSOtpStatusResponse as BrandRetrieveSMSOtpStatusResponse,
     type BrandTriggerSMSOtpResponse as BrandTriggerSMSOtpResponse,
     type BrandListResponsesPerPagePaginationV2 as BrandListResponsesPerPagePaginationV2,
     type BrandCreateParams as BrandCreateParams,
@@ -1149,10 +1111,9 @@ export declare namespace Brand {
   };
 
   export {
-    ExternalVetting as ExternalVetting,
+    ExternalVettingResource as ExternalVettingResource,
+    type ExternalVetting as ExternalVetting,
     type ExternalVettingListResponse as ExternalVettingListResponse,
-    type ExternalVettingImportsResponse as ExternalVettingImportsResponse,
-    type ExternalVettingOrderResponse as ExternalVettingOrderResponse,
     type ExternalVettingImportsParams as ExternalVettingImportsParams,
     type ExternalVettingOrderParams as ExternalVettingOrderParams,
   };

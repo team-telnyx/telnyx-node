@@ -117,6 +117,15 @@ export class Versions extends APIResource {
 }
 
 export interface UpdateAssistant {
+  /**
+   * Conversation flow as supplied by API clients (create / update).
+   *
+   * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
+   * unique node/edge IDs, that `start_node_id` references a real node, and that
+   * every edge's endpoints reference real nodes.
+   */
+  conversation_flow?: AssistantsAPI.ConversationFlowReq;
+
   description?: string;
 
   /**
@@ -267,21 +276,30 @@ export interface UpdateAssistant {
 
 export interface VersionRetrieveParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the assistant.
    */
   assistant_id: string;
 
   /**
-   * Query param
+   * Query param: Whether to include MCP servers in the response.
    */
   include_mcp_servers?: boolean;
 }
 
 export interface VersionUpdateParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the assistant.
    */
   assistant_id: string;
+
+  /**
+   * Body param: Conversation flow as supplied by API clients (create / update).
+   *
+   * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
+   * unique node/edge IDs, that `start_node_id` references a real node, and that
+   * every edge's endpoints reference real nodes.
+   */
+  conversation_flow?: AssistantsAPI.ConversationFlowReq;
 
   /**
    * Body param
@@ -469,10 +487,16 @@ export interface VersionUpdateParams {
 }
 
 export interface VersionDeleteParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 
 export interface VersionPromoteParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 

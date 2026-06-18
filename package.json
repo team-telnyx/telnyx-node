@@ -1,6 +1,6 @@
 {
   "name": "telnyx",
-  "version": "6.83.0",
+  "version": "7.0.0",
   "description": "Telnyx API SDK for global Voice, SMS, MMS, WhatsApp, Fax, Wireless IoT, SIP Trunking, and Call Control.",
   "author": "Telnyx <support@telnyx.com>",
   "types": "dist/index.d.ts",
@@ -8,7 +8,6 @@
   "type": "commonjs",
   "repository": "github:team-telnyx/telnyx-node",
   "license": "MIT",
-  "mcpName": "io.github.team-telnyx/telnyx",
   "packageManager": "pnpm@10.30.1",
   "files": [
     "**/*"
@@ -68,9 +67,6 @@
   "pnpm": {
     "overrides": {
       "minimatch": "^9.0.5"
-    },
-    "patchedDependencies": {
-      "fast-diff": "patches/fast-diff.patch"
     }
   },
   "resolutions": {

@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.0.0](https://github.com/team-telnyx/telnyx-node/compare/v6.83.0...v7.0.0) (2026-06-18)
+
+
+### Bug Fixes
+
+* merge next into release PR to carry code changes to master ([#437](https://github.com/team-telnyx/telnyx-node/issues/437)) ([b59468a](https://github.com/team-telnyx/telnyx-node/commit/b59468a7a2f05330238b6191207609a6537102a0))
+
 ## [6.83.0](https://github.com/team-telnyx/telnyx-node/compare/v6.74.2...v6.83.0) (2026-06-18)
 
 
@@ -150,12 +157,245 @@ Full Changelog: [v6.65.0...v6.66.0](https://github.com/team-telnyx/telnyx-node/c
 
 ### Chores
 
-* **tests:** remove redundant File import ([71b88db](https://github.com/team-telnyx/telnyx-node/commit/71b88dbd6fc5a2847e53ee36acc36350d4191c10))
+* preserve repo-owned files not part of SDK generation ([b5d6dd3](https://github.com/team-telnyx/telnyx-typescript-staging/commit/b5d6dd31fff7dd07afdcab7809e3d2af313255fa))
+* release typescript 6.83.0 ([29e231f](https://github.com/team-telnyx/telnyx-typescript-staging/commit/29e231f019159c59f82a174ca814d56c387a87db))
+
+## [6.82.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.81.0...v6.82.0) (2026-06-16)
 
 
-### Documentation
+### Chores
 
-* add supported file formats to Send Fax endpoint ([1c3465f](https://github.com/team-telnyx/telnyx-node/commit/1c3465fd4da6fae78ab86bdbd803dcc9f10e0d96))
+* preserve repo-owned files not part of SDK generation ([0841753](https://github.com/team-telnyx/telnyx-typescript-staging/commit/08417535378f1bad4c0a0dc7f9ef440baa74ceb0))
+* release typescript 6.82.0 ([96a85de](https://github.com/team-telnyx/telnyx-typescript-staging/commit/96a85de7b9c6c2cd019888e042ed7022ddc0ebd6))
+
+## [6.81.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.80.0...v6.81.0) (2026-06-16)
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([5b96c4c](https://github.com/team-telnyx/telnyx-typescript-staging/commit/5b96c4cea184860e6ff0eb7da1ffa58033221c94))
+* release typescript 6.81.0 ([f43b544](https://github.com/team-telnyx/telnyx-typescript-staging/commit/f43b544d0bbd2230e9b005131c6d77598bb8960a))
+* sync OpenAPI spec from e44bbbc ([e677e1d](https://github.com/team-telnyx/telnyx-typescript-staging/commit/e677e1d41a2055b5901f045214ac2589a329278c))
+* sync OpenAPI spec from e44bbbc ([6bb2c74](https://github.com/team-telnyx/telnyx-typescript-staging/commit/6bb2c743f31576a43ac8bca1a5f05d70467cd969))
+
+## [6.80.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.79.0...v6.80.0) (2026-06-15)
+
+
+### Bug Fixes
+
+* rename DIR method names to match published SDKs ([ce29596](https://github.com/team-telnyx/telnyx-typescript-staging/commit/ce295969acd1a85b42542d82eea8eed8703b4a30))
+* rename DIR method names to match published SDKs ([44af114](https://github.com/team-telnyx/telnyx-typescript-staging/commit/44af1147867e464ddedd3e05dc760c6015817ae7))
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([b9a2363](https://github.com/team-telnyx/telnyx-typescript-staging/commit/b9a2363b4d0f670854cb44450c447f95501cc027))
+* release typescript 6.80.0 ([6dfe506](https://github.com/team-telnyx/telnyx-typescript-staging/commit/6dfe506fca7141c727bc7e00b474e5df593f676e))
+
+## [6.79.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.78.0...v6.79.0) (2026-06-15)
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([95274ae](https://github.com/team-telnyx/telnyx-typescript-staging/commit/95274ae8fa3d2306149af3494f99c80bb00d7efa))
+* release typescript 6.79.0 ([f08e374](https://github.com/team-telnyx/telnyx-typescript-staging/commit/f08e3744928411f6a3394762b93a6cddd3849c2e))
+* sync OpenAPI spec from 3b5c722 ([8ac410b](https://github.com/team-telnyx/telnyx-typescript-staging/commit/8ac410b3a41d5ca30aec2aafd2e392c2a1f82bf8))
+* sync OpenAPI spec from 3b5c722 ([6bbd6aa](https://github.com/team-telnyx/telnyx-typescript-staging/commit/6bbd6aa7c38593f8d4ca544c714c244069ecc845))
+
+## [6.78.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.77.0...v6.78.0) (2026-06-10)
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([f32ddbd](https://github.com/team-telnyx/telnyx-typescript-staging/commit/f32ddbdc9c9c52c356bf70f54f2400c7d7d3b5a4))
+* release typescript 6.78.0 ([0839e45](https://github.com/team-telnyx/telnyx-typescript-staging/commit/0839e453632873f5ae7057020632301db464c3d6))
+* sync OpenAPI spec from b9f127e ([5acdb2c](https://github.com/team-telnyx/telnyx-typescript-staging/commit/5acdb2ce0e18a87509e8f4978674d68fae071aaf))
+* sync OpenAPI spec from b9f127e ([7f49a09](https://github.com/team-telnyx/telnyx-typescript-staging/commit/7f49a09ec9b4c911acbb39e1be7152b0aca9aea3))
+
+## [6.77.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.76.0...v6.77.0) (2026-06-09)
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([d8fa27a](https://github.com/team-telnyx/telnyx-typescript-staging/commit/d8fa27acb355a7f159df87ab1114d80ed7090617))
+* release typescript 6.77.0 ([61d5270](https://github.com/team-telnyx/telnyx-typescript-staging/commit/61d5270f7847c7309e4245cff591a7c76097abfa))
+* sync OpenAPI spec from 2677196 ([15bf429](https://github.com/team-telnyx/telnyx-typescript-staging/commit/15bf4298ae8cd8ed2a6beb46d352fffbd0abd850))
+* sync OpenAPI spec from 2677196 ([5b830eb](https://github.com/team-telnyx/telnyx-typescript-staging/commit/5b830eb60809babb5480530bd6cca767e2362317))
+
+## [6.76.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.75.0...v6.76.0) (2026-06-09)
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([a2a0b27](https://github.com/team-telnyx/telnyx-typescript-staging/commit/a2a0b27da8870504e2670cb82f36cb8313d3ca9c))
+* release typescript 6.76.0 ([96c411a](https://github.com/team-telnyx/telnyx-typescript-staging/commit/96c411a10ab9f772829d59eaf87ce07fc949173b))
+* sync OpenAPI spec from c319cee ([b89de3f](https://github.com/team-telnyx/telnyx-typescript-staging/commit/b89de3fb98e05c84c4ce548c4cca9de7c2668c52))
+* sync OpenAPI spec from c319cee ([c148d3b](https://github.com/team-telnyx/telnyx-typescript-staging/commit/c148d3bd55b8d8b5f631acccd00e6c5bab768406))
+
+## [6.75.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.74.0...v6.75.0) (2026-06-08)
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([33abb3e](https://github.com/team-telnyx/telnyx-typescript-staging/commit/33abb3e12b79665dd6a59db96e2d3a17c702aadf))
+* release typescript 6.75.0 ([45dfb61](https://github.com/team-telnyx/telnyx-typescript-staging/commit/45dfb613e1bea441521141560c877d65ab6057de))
+* sync OpenAPI spec from aae7c19 ([e3bb4be](https://github.com/team-telnyx/telnyx-typescript-staging/commit/e3bb4beb71ef4c4964b89d620b81c1d1c2a1df64))
+* sync OpenAPI spec from aae7c19 ([3771a2a](https://github.com/team-telnyx/telnyx-typescript-staging/commit/3771a2a2e03fdf01095d07f4098d95c06e1bf4e9))
+
+## [6.74.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.73.0...v6.74.0) (2026-06-08)
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([d96fbc7](https://github.com/team-telnyx/telnyx-typescript-staging/commit/d96fbc76cbb9c67cbed553132c3a40867d528144))
+* release typescript 6.74.0 ([b46aa60](https://github.com/team-telnyx/telnyx-typescript-staging/commit/b46aa60c1f98fd73b1b7ef65b171cd8c74042a8d))
+* sync OpenAPI spec from a13d4b1 ([016ef61](https://github.com/team-telnyx/telnyx-typescript-staging/commit/016ef61649192c531adba9207126c698b0283d48))
+* sync OpenAPI spec from a13d4b1 ([9f5f745](https://github.com/team-telnyx/telnyx-typescript-staging/commit/9f5f745a408cac3f0f26f47ca5c9aa8b860976a0))
+
+## [6.73.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.72.0...v6.73.0) (2026-06-08)
+
+
+### Bug Fixes
+
+* remove stale duplicate Loa export from reputation.ts ([0307ce3](https://github.com/team-telnyx/telnyx-typescript-staging/commit/0307ce312540611f28e22512a84607fe77eb5bf8))
+* rename loa methods patch_all/create → update/render to match upstream ([13c78a8](https://github.com/team-telnyx/telnyx-typescript-staging/commit/13c78a8c35a1ce84d8446e92f7fd43280ec2a7dc))
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([509eda5](https://github.com/team-telnyx/telnyx-typescript-staging/commit/509eda5c5a4652dd2a73ba4709ab81cb0957e042))
+* release typescript 6.73.0 ([591b27e](https://github.com/team-telnyx/telnyx-typescript-staging/commit/591b27e8083fa93e2826228a275f9c780a2ac6ff))
+
+
+### Styles
+
+* format reputation.ts with prettier ([0325ee4](https://github.com/team-telnyx/telnyx-typescript-staging/commit/0325ee4bbfb659be4e9df98146efd40f911c2f07))
+
+## [6.72.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.71.1...v6.72.0) (2026-06-08)
+
+
+### Features
+
+* add text-to-speech-ws-base.ts for WebSocket streaming TTS ([2e47b7a](https://github.com/team-telnyx/telnyx-typescript-staging/commit/2e47b7a9f91cf7be3a00193968e03a2227793eb1))
+* add text-to-speech-ws-internal.ts for WebSocket streaming TTS ([ac2c32c](https://github.com/team-telnyx/telnyx-typescript-staging/commit/ac2c32ca231b04feb66c5b33d9cae744d37eea74))
+* add text-to-speech-ws.ts for WebSocket streaming TTS ([73ab37e](https://github.com/team-telnyx/telnyx-typescript-staging/commit/73ab37e294e746fee264a2eb375397b44e8bf0b3))
+* add WebSocket streaming custom code for TTS ([c902407](https://github.com/team-telnyx/telnyx-typescript-staging/commit/c902407a4d852206851394cf86a5b00865c47ede))
+
+
+### Bug Fixes
+
+* **ci:** pass release-please pr output via env to avoid shell injection ([4619a42](https://github.com/team-telnyx/telnyx-typescript-staging/commit/4619a422e9108e4efd7ecd1c347946e1f0cf9be0))
+* **ci:** pass release-please pr output via env to avoid shell injection ([7239068](https://github.com/team-telnyx/telnyx-typescript-staging/commit/72390685d5a8d754dd59d287644552bc7fa2f07b))
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([9b68079](https://github.com/team-telnyx/telnyx-typescript-staging/commit/9b680791214efc781a7840454bd7af273152181e))
+* release typescript 6.72.0 ([6b63579](https://github.com/team-telnyx/telnyx-typescript-staging/commit/6b63579ee7a3ffc84359e63204686835ab1252fe))
+* sync OpenAPI spec from 6eae6a5 ([5efa8bd](https://github.com/team-telnyx/telnyx-typescript-staging/commit/5efa8bd056bde61d56f762305753107e5fd52a39))
+* sync OpenAPI spec from 6eae6a5 ([af8e7cc](https://github.com/team-telnyx/telnyx-typescript-staging/commit/af8e7ccafab03f24f91ac3035b0f107b48091cd9))
+
+## [6.71.1](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.71.0...v6.71.1) (2026-06-07)
+
+
+### Bug Fixes
+
+* extract PR number from JSON output for auto-merge ([e5bd9da](https://github.com/team-telnyx/telnyx-typescript-staging/commit/e5bd9daabbc26762781705b5c06b8fb4501e75a0))
+* extract PR number from JSON output for auto-merge ([eb557db](https://github.com/team-telnyx/telnyx-typescript-staging/commit/eb557db05aafc633783c9d64803892f5e25d9998))
+* use release-please output directly for auto-merge (avoid race condition) ([d9a9c39](https://github.com/team-telnyx/telnyx-typescript-staging/commit/d9a9c39b054417e14e1db6743a684d5c4646c98f))
+* use release-please output directly for auto-merge (avoid race condition) ([b68a6dc](https://github.com/team-telnyx/telnyx-typescript-staging/commit/b68a6dc3118e83eecba3faab9b08278c21767e20))
+
+## [6.71.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.70.0...v6.71.0) (2026-06-07)
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([f339f6d](https://github.com/team-telnyx/telnyx-typescript-staging/commit/f339f6d0695b6348530ee11066b83dec52af7d47))
+* preserve repo-owned files not part of SDK generation ([e432c90](https://github.com/team-telnyx/telnyx-typescript-staging/commit/e432c90385c5a17ca86c6ecf57e079f84ba9c7e5))
+* release typescript 6.71.0 ([2d1e4ce](https://github.com/team-telnyx/telnyx-typescript-staging/commit/2d1e4ce34b0bbb400a2c944ba0fec8e4d8992fef))
+* release typescript 6.71.0 ([66217f3](https://github.com/team-telnyx/telnyx-typescript-staging/commit/66217f31ae9c4da150b6e1ea6a68149f71d4a520))
+* sync OpenAPI spec from 0193002 ([09550e8](https://github.com/team-telnyx/telnyx-typescript-staging/commit/09550e87a081c464bddded11377228d1efcf2c81))
+* sync OpenAPI spec from 0193002 ([d3d3ee1](https://github.com/team-telnyx/telnyx-typescript-staging/commit/d3d3ee1b7866544b69630533758089a70841790d))
+* sync OpenAPI spec from 8faa4be ([cd40161](https://github.com/team-telnyx/telnyx-typescript-staging/commit/cd40161e8d2dd79131913a0d8491b13ece29eaca))
+* sync OpenAPI spec from 8faa4be ([bd6fb22](https://github.com/team-telnyx/telnyx-typescript-staging/commit/bd6fb22ebcd061071350a0b9936a5475efdcc604))
+
+## [6.70.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.69.0...v6.70.0) (2026-06-07)
+
+
+### Features
+
+* enable GitHub auto-merge on release PRs ([c46856e](https://github.com/team-telnyx/telnyx-typescript-staging/commit/c46856ef0ad0bb4eec560b8c11ae77a2f1937ecf))
+* enable GitHub auto-merge on release PRs ([396b745](https://github.com/team-telnyx/telnyx-typescript-staging/commit/396b74517e35585c744f65b00c0960b204407923))
+
+
+### Bug Fixes
+
+* correct auto-merge output name and PR search pattern ([fedad6a](https://github.com/team-telnyx/telnyx-typescript-staging/commit/fedad6a62b86f6c246fd8bf4dc464f6c9d449f17))
+* correct auto-merge output name and PR search pattern ([d8f848b](https://github.com/team-telnyx/telnyx-typescript-staging/commit/d8f848bd8bdd790d08c23cba9660c979c3f2a22b))
+* restore ${{ }} expressions in release-please workflow ([70612c9](https://github.com/team-telnyx/telnyx-typescript-staging/commit/70612c9afc8ed2cdf8894b8708f8b2f14e7a2d4e))
+* restore ${{ }} expressions in release-please workflow ([b72ad93](https://github.com/team-telnyx/telnyx-typescript-staging/commit/b72ad938745c4f33e1c9918529882c8ec8d32f63))
+
+## [6.69.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.68.0...v6.69.0) (2026-06-07)
+
+
+### Bug Fixes
+
+* remove text_to_speech retrieve_speech mapping ([57851fe](https://github.com/team-telnyx/telnyx-typescript-staging/commit/57851fe2664bfdc48ac047294b239fbba86d1034))
+* use PAT for release-please to trigger CI ([f3256c0](https://github.com/team-telnyx/telnyx-typescript-staging/commit/f3256c0dab9bb721d6aa673277696ddf7fc76b80))
+* use PAT for release-please to trigger CI ([8abb495](https://github.com/team-telnyx/telnyx-typescript-staging/commit/8abb4954cdb1445711ac9902393441e91ea3e31d))
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([3eabbe3](https://github.com/team-telnyx/telnyx-typescript-staging/commit/3eabbe3ae3bed1fbebaca89ac3551b44af67db07))
+* preserve repo-owned files not part of SDK generation ([b421c1a](https://github.com/team-telnyx/telnyx-typescript-staging/commit/b421c1a63eaefcf16fd00c7d3aad6805d0ece875))
+* release typescript 6.69.0 ([ab532ea](https://github.com/team-telnyx/telnyx-typescript-staging/commit/ab532eab707b7249a0b41bf7ee634df68d03becf))
+* release typescript 6.69.0 ([3301c06](https://github.com/team-telnyx/telnyx-typescript-staging/commit/3301c06c5f59fb033ffeda3d385b9af8e6e425dc))
+* sync OpenAPI spec from c46b2c0 ([98c77b4](https://github.com/team-telnyx/telnyx-typescript-staging/commit/98c77b47f9a22ed2c8d0ca962310008bc180064e))
+
+## [6.68.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.67.0...v6.68.0) (2026-06-06)
+
+
+### Bug Fixes
+
+* **ci:** single-quote pull_request in job if-expressions ([c2f12fa](https://github.com/team-telnyx/telnyx-typescript-staging/commit/c2f12fae47bb95a1087ef1f6c10329c4633ba471))
+* **ci:** use single quotes for pull_request in job if-expressions ([0c96732](https://github.com/team-telnyx/telnyx-typescript-staging/commit/0c96732b539e1049dbc18f9f6483fd18397e0ea0))
+* **go:** use model mapping for DirPhoneNumberStatus dedup ([4bb72b4](https://github.com/team-telnyx/telnyx-typescript-staging/commit/4bb72b4277b07765ff8a9f9d9f27d443f32fe50f))
+* **go:** use model mapping for DirPhoneNumberStatus dedup ([953cf98](https://github.com/team-telnyx/telnyx-typescript-staging/commit/953cf985027c38f08517df6448bf1e0d1e5acadb))
+* rename TTS generate → create_speech to fix TypeScript codegen desync ([e968b29](https://github.com/team-telnyx/telnyx-typescript-staging/commit/e968b296b749f4f5907d57a4c7a65bf8d08c7bdd))
+* rename TTS generate → create_speech to fix TypeScript codegen desync ([820960b](https://github.com/team-telnyx/telnyx-typescript-staging/commit/820960b940fed0dcab442737953f2fb6f867e186))
+* run CI build/lint on internal PRs not just forks ([b826194](https://github.com/team-telnyx/telnyx-typescript-staging/commit/b8261942a8a23bfc479227f240ddcfada659e0b7))
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([d36652f](https://github.com/team-telnyx/telnyx-typescript-staging/commit/d36652f975741575da33da44d16f3b5e19a3cb96))
+* preserve repo-owned files not part of SDK generation ([3e4f255](https://github.com/team-telnyx/telnyx-typescript-staging/commit/3e4f255ea6c379b3711173898c7979f1676e89c5))
+* release typescript 6.68.0 ([2a9308f](https://github.com/team-telnyx/telnyx-typescript-staging/commit/2a9308f69acd25b55e6cf9df3a32ebf97a40e332))
+* release typescript 6.68.0 ([b6240a2](https://github.com/team-telnyx/telnyx-typescript-staging/commit/b6240a2e0b3e4284e2e2d40d451bd2154f00fa14))
+
+## [6.67.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.66.0...v6.67.0) (2026-06-04)
+
+
+### Bug Fixes
+
+* update webhook custom code for new unwrap API ([604d060](https://github.com/team-telnyx/telnyx-typescript-staging/commit/604d06000ba51679033d8499053ac47f2d73e024))
+* update webhook custom code for new unwrap API signature ([7546b31](https://github.com/team-telnyx/telnyx-typescript-staging/commit/7546b31badb6eb76efeeebcd121cebefd1265334))
+
+
+### Chores
+
+* preserve repo-owned files not part of SDK generation ([310347a](https://github.com/team-telnyx/telnyx-typescript-staging/commit/310347aaaed3926ba9e7c4e7b2be84cbd32886ad))
+* release typescript 6.67.0 ([613cd4b](https://github.com/team-telnyx/telnyx-typescript-staging/commit/613cd4ba227d95772039405754bc15cfc4241f0e))
+
+## [6.66.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.65.0...v6.66.0) (2026-06-03)
+
+
+### Chores
+
+* release typescript 6.66.0 ([68b50dc](https://github.com/team-telnyx/telnyx-typescript-staging/commit/68b50dc671789c9503525de92ab2efccfa89c622))
+* sync OpenAPI spec from c2d3485 ([00a93b6](https://github.com/team-telnyx/telnyx-typescript-staging/commit/00a93b6e61929ff0dcb3cf2cbeea9dae79cbf6e1))
+* sync OpenAPI spec from c2d3485 ([26e773c](https://github.com/team-telnyx/telnyx-typescript-staging/commit/26e773c9f121677199ecded4bcd4a2d5e71f3db4))
 
 ## 6.65.0 (2026-05-14)
 
