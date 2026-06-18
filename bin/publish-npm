@@ -2,12 +2,7 @@
 
 set -eux
 
-if [[ ${NPM_TOKEN:-} ]]; then
-  npm config set '//registry.npmjs.org/:_authToken' "$NPM_TOKEN"
-elif [[ ! ${ACTIONS_ID_TOKEN_REQUEST_TOKEN:-} ]]; then
-  echo "ERROR: NPM_TOKEN must be set if not running in a Github Action with id-token permission"
-  exit 1
-fi
+npm config set '//registry.npmjs.org/:_authToken' "$NPM_TOKEN"
 
 pnpm build
 cd dist
@@ -62,8 +57,5 @@ else
   TAG="latest"
 fi
 
-# Install OIDC compatible npm version
-npm install --prefix ../oidc/ npm@11.6.2
-
 # Publish with the appropriate tag
-pnpm publish --npm-path "$(cd ../ && pwd)/oidc/node_modules/.bin/npm" --no-git-checks --tag "$TAG"
+pnpm publish --no-git-checks --tag "$TAG"

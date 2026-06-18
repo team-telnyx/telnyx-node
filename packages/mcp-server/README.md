@@ -9,8 +9,8 @@ It is generated with [Stainless](https://www.stainless.com/).
 Because it's not published yet, clone the repo and build it:
 
 ```sh
-git clone git@github.com:team-telnyx/telnyx-typescript-staging.git
-cd telnyx-typescript-staging
+git clone git@github.com:stainless-sdks/telnyx-typescript.git
+cd telnyx-typescript
 ./scripts/bootstrap
 ./scripts/build
 ```
@@ -43,7 +43,7 @@ For clients with a configuration JSON, it might look something like this:
   "mcpServers": {
     "telnyx_api": {
       "command": "node",
-      "args": ["/path/to/local/telnyx-typescript-staging/packages/mcp-server"],
+      "args": ["/path/to/local/telnyx-typescript/packages/mcp-server"],
       "env": {
         "TELNYX_API_KEY": "My API Key",
         "TELNYX_PUBLIC_KEY": "My Public Key",
