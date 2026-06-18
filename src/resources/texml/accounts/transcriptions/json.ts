@@ -38,7 +38,7 @@ export class Json extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const texmlRecordingTranscription =
    *   await client.texml.accounts.transcriptions.json.retrieveRecordingTranscriptionSidJson(
    *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
    *     { account_sid: 'account_sid' },
@@ -49,7 +49,7 @@ export class Json extends APIResource {
     recordingTranscriptionSid: string,
     params: JsonRetrieveRecordingTranscriptionSidJsonParams,
     options?: RequestOptions,
-  ): APIPromise<JsonRetrieveRecordingTranscriptionSidJsonResponse> {
+  ): APIPromise<TexmlRecordingTranscription> {
     const { account_sid } = params;
     return this._client.get(
       path`/texml/Accounts/${account_sid}/Transcriptions/${recordingTranscriptionSid}.json`,
@@ -58,7 +58,7 @@ export class Json extends APIResource {
   }
 }
 
-export interface JsonRetrieveRecordingTranscriptionSidJsonResponse {
+export interface TexmlRecordingTranscription {
   account_sid?: string;
 
   /**
@@ -120,7 +120,7 @@ export interface JsonRetrieveRecordingTranscriptionSidJsonParams {
 
 export declare namespace Json {
   export {
-    type JsonRetrieveRecordingTranscriptionSidJsonResponse as JsonRetrieveRecordingTranscriptionSidJsonResponse,
+    type TexmlRecordingTranscription as TexmlRecordingTranscription,
     type JsonDeleteRecordingTranscriptionSidJsonParams as JsonDeleteRecordingTranscriptionSidJsonParams,
     type JsonRetrieveRecordingTranscriptionSidJsonParams as JsonRetrieveRecordingTranscriptionSidJsonParams,
   };

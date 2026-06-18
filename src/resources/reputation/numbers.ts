@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as Shared from '../shared';
+import * as ReputationNumbersAPI from '../enterprises/reputation/numbers';
+import { ReputationPhoneNumbersDefaultFlatPagination } from '../enterprises/reputation/numbers';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
@@ -20,7 +21,7 @@ export class Numbers extends APIResource {
     phoneNumber: string,
     query: NumberRetrieveParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<NumberRetrieveResponse> {
+  ): APIPromise<ReputationNumbersAPI.ReputationPhoneNumberWithReputation> {
     return this._client.get(path`/reputation/numbers/${phoneNumber}`, { query, ...options });
   }
 
@@ -32,11 +33,12 @@ export class Numbers extends APIResource {
   list(
     query: NumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NumberListResponsesDefaultFlatPagination, NumberListResponse> {
-    return this._client.getAPIList('/reputation/numbers', DefaultFlatPagination<NumberListResponse>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<ReputationPhoneNumbersDefaultFlatPagination, ReputationNumbersAPI.ReputationPhoneNumber> {
+    return this._client.getAPIList(
+      '/reputation/numbers',
+      DefaultFlatPagination<ReputationNumbersAPI.ReputationPhoneNumber>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -49,54 +51,6 @@ export class Numbers extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
-}
-
-export type NumberListResponsesDefaultFlatPagination = DefaultFlatPagination<NumberListResponse>;
-
-export interface NumberRetrieveResponse {
-  data: NumberRetrieveResponse.Data;
-}
-
-export namespace NumberRetrieveResponse {
-  export interface Data {
-    id?: string;
-
-    created_at?: string;
-
-    enterprise_id?: string;
-
-    /**
-     * E.164 with leading `+`.
-     */
-    phone_number?: string;
-
-    /**
-     * `null` until the first refresh has been collected for this number.
-     */
-    reputation_data?: Shared.ReputationData | null;
-
-    updated_at?: string;
-  }
-}
-
-export interface NumberListResponse {
-  id?: string;
-
-  created_at?: string;
-
-  enterprise_id?: string;
-
-  /**
-   * E.164 with leading `+`.
-   */
-  phone_number?: string;
-
-  /**
-   * `null` until the first refresh has been collected for this number.
-   */
-  reputation_data?: Shared.ReputationData | null;
-
-  updated_at?: string;
 }
 
 export interface NumberRetrieveParams {
@@ -125,11 +79,7 @@ export interface NumberListParams extends DefaultFlatPaginationParams {
 }
 
 export declare namespace Numbers {
-  export {
-    type NumberRetrieveResponse as NumberRetrieveResponse,
-    type NumberListResponse as NumberListResponse,
-    type NumberListResponsesDefaultFlatPagination as NumberListResponsesDefaultFlatPagination,
-    type NumberRetrieveParams as NumberRetrieveParams,
-    type NumberListParams as NumberListParams,
-  };
+  export { type NumberRetrieveParams as NumberRetrieveParams, type NumberListParams as NumberListParams };
 }
+
+export { type ReputationPhoneNumbersDefaultFlatPagination };

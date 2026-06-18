@@ -5,9 +5,9 @@ import * as MessagingAPI from './messaging';
 import {
   Messaging,
   MessagingListParams,
-  MessagingListResponse,
-  MessagingListResponsesDefaultFlatPagination,
   MessagingRetrieveResponse,
+  MobilePhoneNumberWithMessagingSettings,
+  MobilePhoneNumberWithMessagingSettingsDefaultFlatPagination,
 } from './messaging';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
@@ -287,9 +287,9 @@ export declare namespace MobilePhoneNumbers {
 
   export {
     Messaging as Messaging,
+    type MobilePhoneNumberWithMessagingSettings as MobilePhoneNumberWithMessagingSettings,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
-    type MessagingListResponse as MessagingListResponse,
-    type MessagingListResponsesDefaultFlatPagination as MessagingListResponsesDefaultFlatPagination,
+    type MobilePhoneNumberWithMessagingSettingsDefaultFlatPagination as MobilePhoneNumberWithMessagingSettingsDefaultFlatPagination,
     type MessagingListParams as MessagingListParams,
   };
 }

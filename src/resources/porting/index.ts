@@ -2,6 +2,7 @@
 
 export {
   Events,
+  type PortingEvent,
   type PortingEventDeletedPayload,
   type PortingEventMessagingChangedPayload,
   type PortingEventNewCommentEvent,
@@ -9,9 +10,8 @@ export {
   type PortingEventStatusChangedEvent,
   type PortingEventWithoutWebhook,
   type EventRetrieveResponse,
-  type EventListResponse,
   type EventListParams,
-  type EventListResponsesDefaultFlatPagination,
+  type PortingEventsDefaultFlatPagination,
 } from './events';
 export {
   LoaConfigurations,

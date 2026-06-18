@@ -2,31 +2,32 @@
 
 import { APIResource } from '../../../core/resource';
 import * as LoaAPI from './loa';
-import { Loa, LoaRenderParams, LoaUpdateParams, LoaUpdateResponse } from './loa';
+import { AgentInput, Loa, LoaRenderParams, LoaUpdateParams } from './loa';
 import * as NumbersAPI from './numbers';
 import {
   NumberAssociateParams,
-  NumberAssociateResponse,
   NumberDisassociateParams,
   NumberListParams,
-  NumberListResponse,
-  NumberListResponsesDefaultFlatPagination,
   NumberRefreshParams,
   NumberRefreshResponse,
   NumberRetrieveParams,
-  NumberRetrieveResponse,
   Numbers,
+  ReputationPhoneNumber,
+  ReputationPhoneNumberList,
+  ReputationPhoneNumberListWithReputation,
+  ReputationPhoneNumberWithReputation,
+  ReputationPhoneNumbersDefaultFlatPagination,
 } from './numbers';
 import * as RemediationAPI from './remediation';
 import {
   Remediation,
+  RemediationCreateParams,
   RemediationListParams,
   RemediationListResponse,
   RemediationListResponsesDefaultFlatPagination,
+  RemediationRequestWrapped,
   RemediationRetrieveParams,
-  RemediationRetrieveResponse,
-  RemediationSubmitParams,
-  RemediationSubmitResponse,
+  RemediationStatus,
 } from './remediation';
 import { APIPromise } from '../../../core/api-promise';
 import { buildHeaders } from '../../../internal/headers';
@@ -51,13 +52,13 @@ export class Reputation extends APIResource {
    *
    * @example
    * ```ts
-   * const reputation =
+   * const enterpriseReputationPublicWrapped =
    *   await client.enterprises.reputation.retrieve(
    *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
    *   );
    * ```
    */
-  retrieve(enterpriseID: string, options?: RequestOptions): APIPromise<ReputationRetrieveResponse> {
+  retrieve(enterpriseID: string, options?: RequestOptions): APIPromise<EnterpriseReputationPublicWrapped> {
     return this._client.get(path`/enterprises/${enterpriseID}/reputation`, options);
   }
 
@@ -101,20 +102,22 @@ export class Reputation extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.enterprises.reputation.enable(
-   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
-   *   {
-   *     loa_document_id: '2a7e8337-e803-4057-a4ae-26c40eb0bc6c',
-   *     check_frequency: 'business_daily',
-   *   },
-   * );
+   * const enterpriseReputationPublicWrapped =
+   *   await client.enterprises.reputation.enable(
+   *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   *     {
+   *       loa_document_id:
+   *         '2a7e8337-e803-4057-a4ae-26c40eb0bc6c',
+   *       check_frequency: 'business_daily',
+   *     },
+   *   );
    * ```
    */
   enable(
     enterpriseID: string,
     body: ReputationEnableParams,
     options?: RequestOptions,
-  ): APIPromise<ReputationEnableResponse> {
+  ): APIPromise<EnterpriseReputationPublicWrapped> {
     return this._client.post(path`/enterprises/${enterpriseID}/reputation`, { body, ...options });
   }
 
@@ -128,7 +131,7 @@ export class Reputation extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const enterpriseReputationPublicWrapped =
    *   await client.enterprises.reputation.updateFrequency(
    *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
    *     { check_frequency: 'weekly' },
@@ -139,7 +142,7 @@ export class Reputation extends APIResource {
     enterpriseID: string,
     body: ReputationUpdateFrequencyParams,
     options?: RequestOptions,
-  ): APIPromise<ReputationUpdateFrequencyResponse> {
+  ): APIPromise<EnterpriseReputationPublicWrapped> {
     return this._client.patch(path`/enterprises/${enterpriseID}/reputation/frequency`, { body, ...options });
   }
 }
@@ -149,7 +152,7 @@ export interface EnterpriseReputationPublic {
    * How often Telnyx refreshes the stored reputation data for this enterprise's
    * registered numbers.
    */
-  check_frequency?: 'business_daily' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'never';
+  check_frequency?: ReputationCheckFrequency;
 
   created_at?: string;
 
@@ -179,17 +182,21 @@ export interface EnterpriseReputationPublic {
   updated_at?: string;
 }
 
-export interface ReputationRetrieveResponse {
+export interface EnterpriseReputationPublicWrapped {
   data: EnterpriseReputationPublic;
 }
 
-export interface ReputationEnableResponse {
-  data: EnterpriseReputationPublic;
-}
-
-export interface ReputationUpdateFrequencyResponse {
-  data: EnterpriseReputationPublic;
-}
+/**
+ * How often Telnyx refreshes the stored reputation data for this enterprise's
+ * registered numbers.
+ */
+export type ReputationCheckFrequency =
+  | 'business_daily'
+  | 'daily'
+  | 'weekly'
+  | 'biweekly'
+  | 'monthly'
+  | 'never';
 
 export interface ReputationEnableParams {
   /**
@@ -203,7 +210,7 @@ export interface ReputationEnableParams {
    * How often Telnyx refreshes the stored reputation data for this enterprise's
    * registered numbers.
    */
-  check_frequency?: 'business_daily' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'never';
+  check_frequency?: ReputationCheckFrequency;
 }
 
 export interface ReputationUpdateFrequencyParams {
@@ -211,7 +218,7 @@ export interface ReputationUpdateFrequencyParams {
    * How often Telnyx refreshes the stored reputation data for this enterprise's
    * registered numbers.
    */
-  check_frequency: 'business_daily' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'never';
+  check_frequency: ReputationCheckFrequency;
 }
 
 Reputation.Numbers = Numbers;
@@ -221,20 +228,20 @@ Reputation.Remediation = Remediation;
 export declare namespace Reputation {
   export {
     type EnterpriseReputationPublic as EnterpriseReputationPublic,
-    type ReputationRetrieveResponse as ReputationRetrieveResponse,
-    type ReputationEnableResponse as ReputationEnableResponse,
-    type ReputationUpdateFrequencyResponse as ReputationUpdateFrequencyResponse,
+    type EnterpriseReputationPublicWrapped as EnterpriseReputationPublicWrapped,
+    type ReputationCheckFrequency as ReputationCheckFrequency,
     type ReputationEnableParams as ReputationEnableParams,
     type ReputationUpdateFrequencyParams as ReputationUpdateFrequencyParams,
   };
 
   export {
     Numbers as Numbers,
-    type NumberRetrieveResponse as NumberRetrieveResponse,
-    type NumberListResponse as NumberListResponse,
-    type NumberAssociateResponse as NumberAssociateResponse,
+    type ReputationPhoneNumber as ReputationPhoneNumber,
+    type ReputationPhoneNumberList as ReputationPhoneNumberList,
+    type ReputationPhoneNumberListWithReputation as ReputationPhoneNumberListWithReputation,
+    type ReputationPhoneNumberWithReputation as ReputationPhoneNumberWithReputation,
     type NumberRefreshResponse as NumberRefreshResponse,
-    type NumberListResponsesDefaultFlatPagination as NumberListResponsesDefaultFlatPagination,
+    type ReputationPhoneNumbersDefaultFlatPagination as ReputationPhoneNumbersDefaultFlatPagination,
     type NumberRetrieveParams as NumberRetrieveParams,
     type NumberListParams as NumberListParams,
     type NumberAssociateParams as NumberAssociateParams,
@@ -244,19 +251,19 @@ export declare namespace Reputation {
 
   export {
     Loa as Loa,
-    type LoaUpdateResponse as LoaUpdateResponse,
+    type AgentInput as AgentInput,
     type LoaUpdateParams as LoaUpdateParams,
     type LoaRenderParams as LoaRenderParams,
   };
 
   export {
     Remediation as Remediation,
-    type RemediationRetrieveResponse as RemediationRetrieveResponse,
+    type RemediationRequestWrapped as RemediationRequestWrapped,
+    type RemediationStatus as RemediationStatus,
     type RemediationListResponse as RemediationListResponse,
-    type RemediationSubmitResponse as RemediationSubmitResponse,
     type RemediationListResponsesDefaultFlatPagination as RemediationListResponsesDefaultFlatPagination,
+    type RemediationCreateParams as RemediationCreateParams,
     type RemediationRetrieveParams as RemediationRetrieveParams,
     type RemediationListParams as RemediationListParams,
-    type RemediationSubmitParams as RemediationSubmitParams,
   };
 }

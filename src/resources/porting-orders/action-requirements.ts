@@ -16,7 +16,7 @@ export class ActionRequirements extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const actionRequirementListResponse of client.portingOrders.actionRequirements.list(
+   * for await (const portingActionRequirement of client.portingOrders.actionRequirements.list(
    *   'porting_order_id',
    * )) {
    *   // ...
@@ -27,10 +27,10 @@ export class ActionRequirements extends APIResource {
     portingOrderID: string,
     query: ActionRequirementListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ActionRequirementListResponsesDefaultFlatPagination, ActionRequirementListResponse> {
+  ): PagePromise<PortingActionRequirementsDefaultFlatPagination, PortingActionRequirement> {
     return this._client.getAPIList(
       path`/porting_orders/${portingOrderID}/action_requirements`,
-      DefaultFlatPagination<ActionRequirementListResponse>,
+      DefaultFlatPagination<PortingActionRequirement>,
       { query, ...options },
     );
   }
@@ -63,10 +63,9 @@ export class ActionRequirements extends APIResource {
   }
 }
 
-export type ActionRequirementListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<ActionRequirementListResponse>;
+export type PortingActionRequirementsDefaultFlatPagination = DefaultFlatPagination<PortingActionRequirement>;
 
-export interface ActionRequirementListResponse {
+export interface PortingActionRequirement {
   /**
    * Identifies the action requirement
    */
@@ -119,61 +118,7 @@ export interface ActionRequirementListResponse {
 }
 
 export interface ActionRequirementInitiateResponse {
-  data?: ActionRequirementInitiateResponse.Data;
-}
-
-export namespace ActionRequirementInitiateResponse {
-  export interface Data {
-    /**
-     * Identifies the action requirement
-     */
-    id?: string;
-
-    /**
-     * The type of action required
-     */
-    action_type?: string;
-
-    /**
-     * Optional URL for the action
-     */
-    action_url?: string | null;
-
-    /**
-     * Reason for cancellation if status is 'cancelled'
-     */
-    cancel_reason?: string | null;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created
-     */
-    created_at?: string;
-
-    /**
-     * The ID of the porting order this action requirement belongs to
-     */
-    porting_order_id?: string;
-
-    /**
-     * Identifies the type of the resource
-     */
-    record_type?: 'porting_action_requirement';
-
-    /**
-     * The ID of the requirement type
-     */
-    requirement_type_id?: string;
-
-    /**
-     * Current status of the action requirement
-     */
-    status?: 'created' | 'pending' | 'completed' | 'cancelled' | 'failed';
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was updated
-     */
-    updated_at?: string;
-  }
+  data?: PortingActionRequirement;
 }
 
 export interface ActionRequirementListParams extends DefaultFlatPaginationParams {
@@ -261,9 +206,9 @@ export namespace ActionRequirementInitiateParams {
 
 export declare namespace ActionRequirements {
   export {
-    type ActionRequirementListResponse as ActionRequirementListResponse,
+    type PortingActionRequirement as PortingActionRequirement,
     type ActionRequirementInitiateResponse as ActionRequirementInitiateResponse,
-    type ActionRequirementListResponsesDefaultFlatPagination as ActionRequirementListResponsesDefaultFlatPagination,
+    type PortingActionRequirementsDefaultFlatPagination as PortingActionRequirementsDefaultFlatPagination,
     type ActionRequirementListParams as ActionRequirementListParams,
     type ActionRequirementInitiateParams as ActionRequirementInitiateParams,
   };

@@ -4,15 +4,16 @@ import { APIResource } from '../../core/resource';
 import * as AgreementsAPI from './agreements';
 import {
   AgreementListParams,
-  AgreementListResponse,
-  AgreementListResponsesDefaultFlatPagination,
-  AgreementRetrieveResponse,
   Agreements,
+  TosAgreement,
+  TosAgreementWrapped,
+  TosAgreementsDefaultFlatPagination,
+  TosProductType,
 } from './agreements';
 import * as BrandedCallingAPI from './branded-calling';
-import { BrandedCalling, BrandedCallingAgreeResponse } from './branded-calling';
+import { BrandedCalling } from './branded-calling';
 import * as NumberReputationAPI from './number-reputation';
-import { NumberReputation, NumberReputationAgreeResponse } from './number-reputation';
+import { NumberReputation } from './number-reputation';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -31,10 +32,10 @@ export class TermsOfService extends APIResource {
    * terms URL, effective date). Omit `product_type` to return all products; pass it
    * to scope to one.
    */
-  info(
-    query: TermsOfServiceInfoParams | null | undefined = {},
+  retrieveInfo(
+    query: TermsOfServiceRetrieveInfoParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<TermsOfServiceInfoResponse> {
+  ): APIPromise<TermsOfServiceRetrieveInfoResponse> {
     return this._client.get('/terms_of_service/info', { query, ...options });
   }
 
@@ -46,19 +47,19 @@ export class TermsOfService extends APIResource {
    * `agreement_required: true` means the user has not yet agreed (or has agreed to
    * an outdated version) and must agree before using that product's endpoints.
    */
-  status(
-    query: TermsOfServiceStatusParams | null | undefined = {},
+  retrieveStatus(
+    query: TermsOfServiceRetrieveStatusParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<TermsOfServiceStatusResponse> {
+  ): APIPromise<TermsOfServiceRetrieveStatusResponse> {
     return this._client.get('/terms_of_service/status', { query, ...options });
   }
 }
 
-export interface TermsOfServiceInfoResponse {
-  agreements?: Array<TermsOfServiceInfoResponse.Agreement>;
+export interface TermsOfServiceRetrieveInfoResponse {
+  agreements?: Array<TermsOfServiceRetrieveInfoResponse.Agreement>;
 }
 
-export namespace TermsOfServiceInfoResponse {
+export namespace TermsOfServiceRetrieveInfoResponse {
   export interface Agreement {
     current_version?: string;
 
@@ -69,21 +70,21 @@ export namespace TermsOfServiceInfoResponse {
     /**
      * Telnyx product the Terms of Service apply to.
      */
-    product_type?: 'branded_calling' | 'number_reputation';
+    product_type?: AgreementsAPI.TosProductType;
 
     terms_url?: string;
   }
 }
 
-export interface TermsOfServiceStatusResponse {
+export interface TermsOfServiceRetrieveStatusResponse {
   /**
    * Whether the calling user has agreed to a product's current Terms of Service. The
    * `user_id` is intentionally omitted on this public surface.
    */
-  data: TermsOfServiceStatusResponse.Data;
+  data: TermsOfServiceRetrieveStatusResponse.Data;
 }
 
-export namespace TermsOfServiceStatusResponse {
+export namespace TermsOfServiceRetrieveStatusResponse {
   /**
    * Whether the calling user has agreed to a product's current Terms of Service. The
    * `user_id` is intentionally omitted on this public surface.
@@ -108,7 +109,7 @@ export namespace TermsOfServiceStatusResponse {
     /**
      * Telnyx product the Terms of Service apply to.
      */
-    product_type: 'branded_calling' | 'number_reputation';
+    product_type: AgreementsAPI.TosProductType;
 
     agreed_at?: string | null;
 
@@ -120,18 +121,18 @@ export namespace TermsOfServiceStatusResponse {
   }
 }
 
-export interface TermsOfServiceInfoParams {
+export interface TermsOfServiceRetrieveInfoParams {
   /**
    * Optional product filter. Omit to return info for all products.
    */
-  product_type?: 'branded_calling' | 'number_reputation';
+  product_type?: AgreementsAPI.TosProductType;
 }
 
-export interface TermsOfServiceStatusParams {
+export interface TermsOfServiceRetrieveStatusParams {
   /**
    * Which product's ToS to check. Defaults to `branded_calling`.
    */
-  product_type?: 'branded_calling' | 'number_reputation';
+  product_type?: AgreementsAPI.TosProductType;
 }
 
 TermsOfService.NumberReputation = NumberReputation;
@@ -140,27 +141,22 @@ TermsOfService.BrandedCalling = BrandedCalling;
 
 export declare namespace TermsOfService {
   export {
-    type TermsOfServiceInfoResponse as TermsOfServiceInfoResponse,
-    type TermsOfServiceStatusResponse as TermsOfServiceStatusResponse,
-    type TermsOfServiceInfoParams as TermsOfServiceInfoParams,
-    type TermsOfServiceStatusParams as TermsOfServiceStatusParams,
+    type TermsOfServiceRetrieveInfoResponse as TermsOfServiceRetrieveInfoResponse,
+    type TermsOfServiceRetrieveStatusResponse as TermsOfServiceRetrieveStatusResponse,
+    type TermsOfServiceRetrieveInfoParams as TermsOfServiceRetrieveInfoParams,
+    type TermsOfServiceRetrieveStatusParams as TermsOfServiceRetrieveStatusParams,
   };
 
-  export {
-    NumberReputation as NumberReputation,
-    type NumberReputationAgreeResponse as NumberReputationAgreeResponse,
-  };
+  export { NumberReputation as NumberReputation };
 
   export {
     Agreements as Agreements,
-    type AgreementRetrieveResponse as AgreementRetrieveResponse,
-    type AgreementListResponse as AgreementListResponse,
-    type AgreementListResponsesDefaultFlatPagination as AgreementListResponsesDefaultFlatPagination,
+    type TosAgreement as TosAgreement,
+    type TosAgreementWrapped as TosAgreementWrapped,
+    type TosProductType as TosProductType,
+    type TosAgreementsDefaultFlatPagination as TosAgreementsDefaultFlatPagination,
     type AgreementListParams as AgreementListParams,
   };
 
-  export {
-    BrandedCalling as BrandedCalling,
-    type BrandedCallingAgreeResponse as BrandedCallingAgreeResponse,
-  };
+  export { BrandedCalling as BrandedCalling };
 }

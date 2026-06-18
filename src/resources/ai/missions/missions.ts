@@ -40,22 +40,20 @@ import * as RunsAPI from './runs/runs';
 import {
   MissionRunData,
   MissionRunDataDefaultFlatPagination,
+  MissionRunResponse,
+  MissionRunsListResponse,
   RunCancelRunParams,
-  RunCancelRunResponse,
   RunCreateParams,
-  RunCreateResponse,
   RunListParams,
   RunListRunsParams,
   RunPauseRunParams,
-  RunPauseRunResponse,
   RunResumeRunParams,
-  RunResumeRunResponse,
   RunRetrieveParams,
-  RunRetrieveResponse,
+  RunStatus,
   RunUpdateParams,
-  RunUpdateResponse,
   Runs,
 } from './runs/runs';
+import * as TestSuitesRunsAPI from '../assistants/tests/test-suites/runs';
 import { APIPromise } from '../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -77,12 +75,12 @@ export class Missions extends APIResource {
    *
    * @example
    * ```ts
-   * const mission = await client.ai.missions.create({
+   * const missionResponse = await client.ai.missions.create({
    *   name: 'name',
    * });
    * ```
    */
-  create(body: MissionCreateParams, options?: RequestOptions): APIPromise<MissionCreateResponse> {
+  create(body: MissionCreateParams, options?: RequestOptions): APIPromise<MissionResponse> {
     return this._client.post('/ai/missions', { body, ...options });
   }
 
@@ -91,12 +89,12 @@ export class Missions extends APIResource {
    *
    * @example
    * ```ts
-   * const mission = await client.ai.missions.retrieve(
+   * const missionResponse = await client.ai.missions.retrieve(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    * );
    * ```
    */
-  retrieve(missionID: string, options?: RequestOptions): APIPromise<MissionRetrieveResponse> {
+  retrieve(missionID: string, options?: RequestOptions): APIPromise<MissionResponse> {
     return this._client.get(path`/ai/missions/${missionID}`, options);
   }
 
@@ -175,26 +173,35 @@ export class Missions extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.ai.missions.updateMission(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
+   * const missionResponse =
+   *   await client.ai.missions.updateMission(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
    * ```
    */
   updateMission(
     missionID: string,
     body: MissionUpdateMissionParams,
     options?: RequestOptions,
-  ): APIPromise<MissionUpdateMissionResponse> {
+  ): APIPromise<MissionResponse> {
     return this._client.put(path`/ai/missions/${missionID}`, { body, ...options });
   }
 }
 
 export type MissionDataDefaultFlatPagination = DefaultFlatPagination<MissionData>;
 
+export interface EventsListResponse {
+  data: Array<EventsAPI.EventData>;
+
+  meta: TestSuitesRunsAPI.Meta;
+}
+
+export type ExecutionMode = 'external' | 'managed';
+
 export interface MissionData {
   created_at: string;
 
-  execution_mode: 'external' | 'managed';
+  execution_mode: ExecutionMode;
 
   mission_id: string;
 
@@ -211,26 +218,18 @@ export interface MissionData {
   model?: string;
 }
 
-export interface MissionCreateResponse {
-  data: MissionData;
-}
-
-export interface MissionRetrieveResponse {
+export interface MissionResponse {
   data: MissionData;
 }
 
 export type MissionCloneMissionResponse = unknown;
-
-export interface MissionUpdateMissionResponse {
-  data: MissionData;
-}
 
 export interface MissionCreateParams {
   name: string;
 
   description?: string;
 
-  execution_mode?: 'external' | 'managed';
+  execution_mode?: ExecutionMode;
 
   instructions?: string;
 
@@ -251,7 +250,7 @@ export interface MissionListEventsParams extends DefaultFlatPaginationParams {
 export interface MissionUpdateMissionParams {
   description?: string;
 
-  execution_mode?: 'external' | 'managed';
+  execution_mode?: ExecutionMode;
 
   instructions?: string;
 
@@ -269,11 +268,11 @@ Missions.Tools = Tools;
 
 export declare namespace Missions {
   export {
+    type EventsListResponse as EventsListResponse,
+    type ExecutionMode as ExecutionMode,
     type MissionData as MissionData,
-    type MissionCreateResponse as MissionCreateResponse,
-    type MissionRetrieveResponse as MissionRetrieveResponse,
+    type MissionResponse as MissionResponse,
     type MissionCloneMissionResponse as MissionCloneMissionResponse,
-    type MissionUpdateMissionResponse as MissionUpdateMissionResponse,
     type MissionDataDefaultFlatPagination as MissionDataDefaultFlatPagination,
     type MissionCreateParams as MissionCreateParams,
     type MissionListParams as MissionListParams,
@@ -284,12 +283,9 @@ export declare namespace Missions {
   export {
     Runs as Runs,
     type MissionRunData as MissionRunData,
-    type RunCreateResponse as RunCreateResponse,
-    type RunRetrieveResponse as RunRetrieveResponse,
-    type RunUpdateResponse as RunUpdateResponse,
-    type RunCancelRunResponse as RunCancelRunResponse,
-    type RunPauseRunResponse as RunPauseRunResponse,
-    type RunResumeRunResponse as RunResumeRunResponse,
+    type MissionRunResponse as MissionRunResponse,
+    type MissionRunsListResponse as MissionRunsListResponse,
+    type RunStatus as RunStatus,
     type MissionRunDataDefaultFlatPagination as MissionRunDataDefaultFlatPagination,
     type RunCreateParams as RunCreateParams,
     type RunRetrieveParams as RunRetrieveParams,

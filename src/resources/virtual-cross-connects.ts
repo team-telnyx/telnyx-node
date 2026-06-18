@@ -3,6 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import * as PublicInternetGatewaysAPI from './public-internet-gateways';
+import * as NetworksAPI from './networks/networks';
 import { APIPromise } from '../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
@@ -81,7 +82,7 @@ export class VirtualCrossConnects extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const virtualCrossConnectListResponse of client.virtualCrossConnects.list()) {
+   * for await (const virtualCrossConnectCombined of client.virtualCrossConnects.list()) {
    *   // ...
    * }
    * ```
@@ -89,10 +90,10 @@ export class VirtualCrossConnects extends APIResource {
   list(
     query: VirtualCrossConnectListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<VirtualCrossConnectListResponsesDefaultFlatPagination, VirtualCrossConnectListResponse> {
+  ): PagePromise<VirtualCrossConnectCombinedsDefaultFlatPagination, VirtualCrossConnectCombined> {
     return this._client.getAPIList(
       '/virtual_cross_connects',
-      DefaultFlatPagination<VirtualCrossConnectListResponse>,
+      DefaultFlatPagination<VirtualCrossConnectCombined>,
       { query, ...options },
     );
   }
@@ -113,419 +114,157 @@ export class VirtualCrossConnects extends APIResource {
   }
 }
 
-export type VirtualCrossConnectListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<VirtualCrossConnectListResponse>;
+export type VirtualCrossConnectCombinedsDefaultFlatPagination =
+  DefaultFlatPagination<VirtualCrossConnectCombined>;
 
-export interface VirtualCrossConnectCreateResponse {
-  data?: VirtualCrossConnectCreateResponse.Data;
+export interface RegionOut {
+  region?: RegionOut.Region;
+
+  /**
+   * The region interface is deployed to.
+   */
+  region_code?: string;
 }
 
-export namespace VirtualCrossConnectCreateResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+export namespace RegionOut {
+  export interface Region {
     /**
-     * The region interface is deployed to.
+     * Region code of the interface.
      */
-    region_code: string;
-
-    /**
-     * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
-     * Connect.<br /><br />The available bandwidths can be found using the
-     * /virtual_cross_connect_regions endpoint.
-     */
-    bandwidth_mbps?: number;
+    code?: string;
 
     /**
-     * The Border Gateway Protocol (BGP) Autonomous System Number (ASN). If null, value
-     * will be assigned by Telnyx.
+     * Region name of the interface.
      */
-    bgp_asn?: number;
+    name?: string;
 
     /**
-     * The Virtual Private Cloud with which you would like to establish a cross
-     * connect.
+     * Identifies the type of the resource.
      */
-    cloud_provider?: 'aws' | 'azure' | 'gce';
-
-    /**
-     * The region where your Virtual Private Cloud hosts are located.<br /><br />The
-     * available regions can be found using the /virtual_cross_connect_regions
-     * endpoint.
-     */
-    cloud_provider_region?: string;
-
-    /**
-     * The authentication key for BGP peer configuration.
-     */
-    primary_bgp_key?: string;
-
-    /**
-     * The identifier for your Virtual Private Cloud. The number will be different
-     * based upon your Cloud provider.
-     */
-    primary_cloud_account_id?: string;
-
-    /**
-     * The IP address assigned for your side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value can not be patched once the VXC has bene provisioned.
-     */
-    primary_cloud_ip?: string;
-
-    /**
-     * Indicates whether the primary circuit is enabled. Setting this to `false` will
-     * disable the circuit.
-     */
-    primary_enabled?: boolean;
-
-    /**
-     * Whether the primary BGP route is being announced.
-     */
-    primary_routing_announcement?: boolean;
-
-    /**
-     * The IP address assigned to the Telnyx side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value should be null for GCE as Google will only inform you
-     * of your assigned IP once the connection has been accepted.
-     */
-    primary_telnyx_ip?: string;
-
-    region?: Data.Region;
-
-    /**
-     * The authentication key for BGP peer configuration.
-     */
-    secondary_bgp_key?: string;
-
-    /**
-     * The identifier for your Virtual Private Cloud. The number will be different
-     * based upon your Cloud provider.<br /><br />This attribute is only necessary for
-     * GCE.
-     */
-    secondary_cloud_account_id?: string;
-
-    /**
-     * The IP address assigned for your side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value can not be patched once the VXC has bene provisioned.
-     */
-    secondary_cloud_ip?: string;
-
-    /**
-     * Indicates whether the secondary circuit is enabled. Setting this to `false` will
-     * disable the circuit.
-     */
-    secondary_enabled?: boolean;
-
-    /**
-     * Whether the secondary BGP route is being announced.
-     */
-    secondary_routing_announcement?: boolean;
-
-    /**
-     * The IP address assigned to the Telnyx side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value should be null for GCE as Google will only inform you
-     * of your assigned IP once the connection has been accepted.
-     */
-    secondary_telnyx_ip?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
+    record_type?: string;
   }
 }
 
-export interface VirtualCrossConnectRetrieveResponse {
-  data?: VirtualCrossConnectRetrieveResponse.Data;
+export interface VirtualCrossConnectCombined {
+  /**
+   * Identifies the resource.
+   */
+  id?: string;
+
+  /**
+   * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
+   * Connect.
+   */
+  bandwidth_mbps?: number;
+
+  /**
+   * The Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+   */
+  bgp_asn?: number;
+
+  /**
+   * The Virtual Private Cloud with which you would like to establish a cross
+   * connect.
+   */
+  cloud_provider?: 'aws' | 'azure' | 'gce';
+
+  /**
+   * The region where your Virtual Private Cloud hosts are located.
+   */
+  cloud_provider_region?: string;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was created.
+   */
+  created_at?: string;
+
+  /**
+   * A user specified name for the interface.
+   */
+  name?: string;
+
+  /**
+   * The id of the network associated with the interface.
+   */
+  network_id?: string;
+
+  /**
+   * The authentication key for BGP peer configuration.
+   */
+  primary_bgp_key?: string;
+
+  /**
+   * The identifier for your Virtual Private Cloud.
+   */
+  primary_cloud_account_id?: string;
+
+  /**
+   * The IP address assigned for your side of the Virtual Cross Connect.
+   */
+  primary_cloud_ip?: string;
+
+  /**
+   * Indicates whether the primary circuit is enabled.
+   */
+  primary_enabled?: boolean;
+
+  /**
+   * Whether
+   */
+  primary_routing_announcement?: boolean;
+
+  /**
+   * The IP address assigned to the Telnyx side of the Virtual Cross Connect.
+   */
+  primary_telnyx_ip?: string;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: string;
+
+  region?: VirtualCrossConnectCombined.Region;
+
+  /**
+   * The region interface is deployed to.
+   */
+  region_code?: string;
+
+  /**
+   * The current status of the interface deployment.
+   */
+  status?: NetworksAPI.InterfaceStatus;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was updated.
+   */
+  updated_at?: string;
 }
 
-export namespace VirtualCrossConnectRetrieveResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
+export namespace VirtualCrossConnectCombined {
+  export interface Region {
     /**
-     * The region interface is deployed to.
+     * Region code of the interface.
      */
-    region_code: string;
-
-    /**
-     * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
-     * Connect.<br /><br />The available bandwidths can be found using the
-     * /virtual_cross_connect_regions endpoint.
-     */
-    bandwidth_mbps?: number;
+    code?: string;
 
     /**
-     * The Border Gateway Protocol (BGP) Autonomous System Number (ASN). If null, value
-     * will be assigned by Telnyx.
+     * Region name of the interface.
      */
-    bgp_asn?: number;
+    name?: string;
 
     /**
-     * The Virtual Private Cloud with which you would like to establish a cross
-     * connect.
+     * Identifies the type of the resource.
      */
-    cloud_provider?: 'aws' | 'azure' | 'gce';
-
-    /**
-     * The region where your Virtual Private Cloud hosts are located.<br /><br />The
-     * available regions can be found using the /virtual_cross_connect_regions
-     * endpoint.
-     */
-    cloud_provider_region?: string;
-
-    /**
-     * The authentication key for BGP peer configuration.
-     */
-    primary_bgp_key?: string;
-
-    /**
-     * The identifier for your Virtual Private Cloud. The number will be different
-     * based upon your Cloud provider.
-     */
-    primary_cloud_account_id?: string;
-
-    /**
-     * The IP address assigned for your side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value can not be patched once the VXC has bene provisioned.
-     */
-    primary_cloud_ip?: string;
-
-    /**
-     * Indicates whether the primary circuit is enabled. Setting this to `false` will
-     * disable the circuit.
-     */
-    primary_enabled?: boolean;
-
-    /**
-     * Whether the primary BGP route is being announced.
-     */
-    primary_routing_announcement?: boolean;
-
-    /**
-     * The IP address assigned to the Telnyx side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value should be null for GCE as Google will only inform you
-     * of your assigned IP once the connection has been accepted.
-     */
-    primary_telnyx_ip?: string;
-
-    region?: Data.Region;
-
-    /**
-     * The authentication key for BGP peer configuration.
-     */
-    secondary_bgp_key?: string;
-
-    /**
-     * The identifier for your Virtual Private Cloud. The number will be different
-     * based upon your Cloud provider.<br /><br />This attribute is only necessary for
-     * GCE.
-     */
-    secondary_cloud_account_id?: string;
-
-    /**
-     * The IP address assigned for your side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value can not be patched once the VXC has bene provisioned.
-     */
-    secondary_cloud_ip?: string;
-
-    /**
-     * Indicates whether the secondary circuit is enabled. Setting this to `false` will
-     * disable the circuit.
-     */
-    secondary_enabled?: boolean;
-
-    /**
-     * Whether the secondary BGP route is being announced.
-     */
-    secondary_routing_announcement?: boolean;
-
-    /**
-     * The IP address assigned to the Telnyx side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value should be null for GCE as Google will only inform you
-     * of your assigned IP once the connection has been accepted.
-     */
-    secondary_telnyx_ip?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
+    record_type?: string;
   }
 }
 
-export interface VirtualCrossConnectUpdateResponse {
-  data?: VirtualCrossConnectUpdateResponse.Data;
-}
-
-export namespace VirtualCrossConnectUpdateResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
-    /**
-     * The region interface is deployed to.
-     */
-    region_code: string;
-
-    /**
-     * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
-     * Connect.<br /><br />The available bandwidths can be found using the
-     * /virtual_cross_connect_regions endpoint.
-     */
-    bandwidth_mbps?: number;
-
-    /**
-     * The Border Gateway Protocol (BGP) Autonomous System Number (ASN). If null, value
-     * will be assigned by Telnyx.
-     */
-    bgp_asn?: number;
-
-    /**
-     * The Virtual Private Cloud with which you would like to establish a cross
-     * connect.
-     */
-    cloud_provider?: 'aws' | 'azure' | 'gce';
-
-    /**
-     * The region where your Virtual Private Cloud hosts are located.<br /><br />The
-     * available regions can be found using the /virtual_cross_connect_regions
-     * endpoint.
-     */
-    cloud_provider_region?: string;
-
-    /**
-     * The authentication key for BGP peer configuration.
-     */
-    primary_bgp_key?: string;
-
-    /**
-     * The identifier for your Virtual Private Cloud. The number will be different
-     * based upon your Cloud provider.
-     */
-    primary_cloud_account_id?: string;
-
-    /**
-     * The IP address assigned for your side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value can not be patched once the VXC has bene provisioned.
-     */
-    primary_cloud_ip?: string;
-
-    /**
-     * Indicates whether the primary circuit is enabled. Setting this to `false` will
-     * disable the circuit.
-     */
-    primary_enabled?: boolean;
-
-    /**
-     * Whether the primary BGP route is being announced.
-     */
-    primary_routing_announcement?: boolean;
-
-    /**
-     * The IP address assigned to the Telnyx side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value should be null for GCE as Google will only inform you
-     * of your assigned IP once the connection has been accepted.
-     */
-    primary_telnyx_ip?: string;
-
-    region?: Data.Region;
-
-    /**
-     * The authentication key for BGP peer configuration.
-     */
-    secondary_bgp_key?: string;
-
-    /**
-     * The identifier for your Virtual Private Cloud. The number will be different
-     * based upon your Cloud provider.<br /><br />This attribute is only necessary for
-     * GCE.
-     */
-    secondary_cloud_account_id?: string;
-
-    /**
-     * The IP address assigned for your side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value can not be patched once the VXC has bene provisioned.
-     */
-    secondary_cloud_ip?: string;
-
-    /**
-     * Indicates whether the secondary circuit is enabled. Setting this to `false` will
-     * disable the circuit.
-     */
-    secondary_enabled?: boolean;
-
-    /**
-     * Whether the secondary BGP route is being announced.
-     */
-    secondary_routing_announcement?: boolean;
-
-    /**
-     * The IP address assigned to the Telnyx side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value should be null for GCE as Google will only inform you
-     * of your assigned IP once the connection has been accepted.
-     */
-    secondary_telnyx_ip?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
-  }
-}
-
-export interface VirtualCrossConnectListResponse
+export interface VirtualCrossConnectCreate
   extends GlobalIPAssignmentsAPI.Record,
     PublicInternetGatewaysAPI.NetworkInterface {
   /**
-   * The region interface is deployed to.
+   * The region the interface should be deployed to.
    */
   region_code: string;
 
@@ -569,6 +308,64 @@ export interface VirtualCrossConnectListResponse
   /**
    * The IP address assigned for your side of the Virtual Cross
    * Connect.<br /><br />If none is provided, one will be generated for
+   * you.<br /><br />This value should be null for GCE as Google will only inform you
+   * of your assigned IP once the connection has been accepted.
+   */
+  primary_cloud_ip?: string;
+
+  /**
+   * Indicates whether the primary circuit is enabled. Setting this to `false` will
+   * disable the circuit.
+   */
+  primary_enabled?: boolean;
+
+  /**
+   * The IP address assigned to the Telnyx side of the Virtual Cross
+   * Connect.<br /><br />If none is provided, one will be generated for
+   * you.<br /><br />This value should be null for GCE as Google will only inform you
+   * of your assigned IP once the connection has been accepted.
+   */
+  primary_telnyx_ip?: string;
+
+  /**
+   * The authentication key for BGP peer configuration.
+   */
+  secondary_bgp_key?: string;
+
+  /**
+   * The identifier for your Virtual Private Cloud. The number will be different
+   * based upon your Cloud provider.<br /><br />This attribute is only necessary for
+   * GCE.
+   */
+  secondary_cloud_account_id?: string;
+
+  /**
+   * The IP address assigned for your side of the Virtual Cross
+   * Connect.<br /><br />If none is provided, one will be generated for
+   * you.<br /><br />This value should be null for GCE as Google will only inform you
+   * of your assigned IP once the connection has been accepted.
+   */
+  secondary_cloud_ip?: string;
+
+  /**
+   * Indicates whether the secondary circuit is enabled. Setting this to `false` will
+   * disable the circuit.
+   */
+  secondary_enabled?: boolean;
+
+  /**
+   * The IP address assigned to the Telnyx side of the Virtual Cross
+   * Connect.<br /><br />If none is provided, one will be generated for
+   * you.<br /><br />This value should be null for GCE as Google will only inform you
+   * of your assigned IP once the connection has been accepted.
+   */
+  secondary_telnyx_ip?: string;
+}
+
+export interface VirtualCrossConnectPatch {
+  /**
+   * The IP address assigned for your side of the Virtual Cross
+   * Connect.<br /><br />If none is provided, one will be generated for
    * you.<br /><br />This value can not be patched once the VXC has bene provisioned.
    */
   primary_cloud_ip?: string;
@@ -583,28 +380,6 @@ export interface VirtualCrossConnectListResponse
    * Whether the primary BGP route is being announced.
    */
   primary_routing_announcement?: boolean;
-
-  /**
-   * The IP address assigned to the Telnyx side of the Virtual Cross
-   * Connect.<br /><br />If none is provided, one will be generated for
-   * you.<br /><br />This value should be null for GCE as Google will only inform you
-   * of your assigned IP once the connection has been accepted.
-   */
-  primary_telnyx_ip?: string;
-
-  region?: VirtualCrossConnectListResponse.Region;
-
-  /**
-   * The authentication key for BGP peer configuration.
-   */
-  secondary_bgp_key?: string;
-
-  /**
-   * The identifier for your Virtual Private Cloud. The number will be different
-   * based upon your Cloud provider.<br /><br />This attribute is only necessary for
-   * GCE.
-   */
-  secondary_cloud_account_id?: string;
 
   /**
    * The IP address assigned for your side of the Virtual Cross
@@ -623,168 +398,22 @@ export interface VirtualCrossConnectListResponse
    * Whether the secondary BGP route is being announced.
    */
   secondary_routing_announcement?: boolean;
-
-  /**
-   * The IP address assigned to the Telnyx side of the Virtual Cross
-   * Connect.<br /><br />If none is provided, one will be generated for
-   * you.<br /><br />This value should be null for GCE as Google will only inform you
-   * of your assigned IP once the connection has been accepted.
-   */
-  secondary_telnyx_ip?: string;
 }
 
-export namespace VirtualCrossConnectListResponse {
-  export interface Region {
-    /**
-     * Region code of the interface.
-     */
-    code?: string;
+export interface VirtualCrossConnectCreateResponse {
+  data?: VirtualCrossConnectCombined;
+}
 
-    /**
-     * Region name of the interface.
-     */
-    name?: string;
+export interface VirtualCrossConnectRetrieveResponse {
+  data?: VirtualCrossConnectCombined;
+}
 
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-  }
+export interface VirtualCrossConnectUpdateResponse {
+  data?: VirtualCrossConnectCombined;
 }
 
 export interface VirtualCrossConnectDeleteResponse {
-  data?: VirtualCrossConnectDeleteResponse.Data;
-}
-
-export namespace VirtualCrossConnectDeleteResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record, PublicInternetGatewaysAPI.NetworkInterface {
-    /**
-     * The region interface is deployed to.
-     */
-    region_code: string;
-
-    /**
-     * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
-     * Connect.<br /><br />The available bandwidths can be found using the
-     * /virtual_cross_connect_regions endpoint.
-     */
-    bandwidth_mbps?: number;
-
-    /**
-     * The Border Gateway Protocol (BGP) Autonomous System Number (ASN). If null, value
-     * will be assigned by Telnyx.
-     */
-    bgp_asn?: number;
-
-    /**
-     * The Virtual Private Cloud with which you would like to establish a cross
-     * connect.
-     */
-    cloud_provider?: 'aws' | 'azure' | 'gce';
-
-    /**
-     * The region where your Virtual Private Cloud hosts are located.<br /><br />The
-     * available regions can be found using the /virtual_cross_connect_regions
-     * endpoint.
-     */
-    cloud_provider_region?: string;
-
-    /**
-     * The authentication key for BGP peer configuration.
-     */
-    primary_bgp_key?: string;
-
-    /**
-     * The identifier for your Virtual Private Cloud. The number will be different
-     * based upon your Cloud provider.
-     */
-    primary_cloud_account_id?: string;
-
-    /**
-     * The IP address assigned for your side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value can not be patched once the VXC has bene provisioned.
-     */
-    primary_cloud_ip?: string;
-
-    /**
-     * Indicates whether the primary circuit is enabled. Setting this to `false` will
-     * disable the circuit.
-     */
-    primary_enabled?: boolean;
-
-    /**
-     * Whether the primary BGP route is being announced.
-     */
-    primary_routing_announcement?: boolean;
-
-    /**
-     * The IP address assigned to the Telnyx side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value should be null for GCE as Google will only inform you
-     * of your assigned IP once the connection has been accepted.
-     */
-    primary_telnyx_ip?: string;
-
-    region?: Data.Region;
-
-    /**
-     * The authentication key for BGP peer configuration.
-     */
-    secondary_bgp_key?: string;
-
-    /**
-     * The identifier for your Virtual Private Cloud. The number will be different
-     * based upon your Cloud provider.<br /><br />This attribute is only necessary for
-     * GCE.
-     */
-    secondary_cloud_account_id?: string;
-
-    /**
-     * The IP address assigned for your side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value can not be patched once the VXC has bene provisioned.
-     */
-    secondary_cloud_ip?: string;
-
-    /**
-     * Indicates whether the secondary circuit is enabled. Setting this to `false` will
-     * disable the circuit.
-     */
-    secondary_enabled?: boolean;
-
-    /**
-     * Whether the secondary BGP route is being announced.
-     */
-    secondary_routing_announcement?: boolean;
-
-    /**
-     * The IP address assigned to the Telnyx side of the Virtual Cross
-     * Connect.<br /><br />If none is provided, one will be generated for
-     * you.<br /><br />This value should be null for GCE as Google will only inform you
-     * of your assigned IP once the connection has been accepted.
-     */
-    secondary_telnyx_ip?: string;
-  }
-
-  export namespace Data {
-    export interface Region {
-      /**
-       * Region code of the interface.
-       */
-      code?: string;
-
-      /**
-       * Region name of the interface.
-       */
-      name?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: string;
-    }
-  }
+  data?: VirtualCrossConnectCombined;
 }
 
 export interface VirtualCrossConnectCreateParams {
@@ -944,12 +573,15 @@ export namespace VirtualCrossConnectListParams {
 
 export declare namespace VirtualCrossConnects {
   export {
+    type RegionOut as RegionOut,
+    type VirtualCrossConnectCombined as VirtualCrossConnectCombined,
+    type VirtualCrossConnectCreate as VirtualCrossConnectCreate,
+    type VirtualCrossConnectPatch as VirtualCrossConnectPatch,
     type VirtualCrossConnectCreateResponse as VirtualCrossConnectCreateResponse,
     type VirtualCrossConnectRetrieveResponse as VirtualCrossConnectRetrieveResponse,
     type VirtualCrossConnectUpdateResponse as VirtualCrossConnectUpdateResponse,
-    type VirtualCrossConnectListResponse as VirtualCrossConnectListResponse,
     type VirtualCrossConnectDeleteResponse as VirtualCrossConnectDeleteResponse,
-    type VirtualCrossConnectListResponsesDefaultFlatPagination as VirtualCrossConnectListResponsesDefaultFlatPagination,
+    type VirtualCrossConnectCombinedsDefaultFlatPagination as VirtualCrossConnectCombinedsDefaultFlatPagination,
     type VirtualCrossConnectCreateParams as VirtualCrossConnectCreateParams,
     type VirtualCrossConnectUpdateParams as VirtualCrossConnectUpdateParams,
     type VirtualCrossConnectListParams as VirtualCrossConnectListParams,

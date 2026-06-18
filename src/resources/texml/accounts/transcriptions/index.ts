@@ -2,7 +2,7 @@
 
 export {
   Json,
-  type JsonRetrieveRecordingTranscriptionSidJsonResponse,
+  type TexmlRecordingTranscription,
   type JsonDeleteRecordingTranscriptionSidJsonParams,
   type JsonRetrieveRecordingTranscriptionSidJsonParams,
 } from './json';

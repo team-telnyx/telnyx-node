@@ -31,7 +31,7 @@ export class PhoneNumberConfigurations extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const phoneNumberConfigurationListResponse of client.portingOrders.phoneNumberConfigurations.list()) {
+   * for await (const portingPhoneNumberConfiguration of client.portingOrders.phoneNumberConfigurations.list()) {
    *   // ...
    * }
    * ```
@@ -39,60 +39,19 @@ export class PhoneNumberConfigurations extends APIResource {
   list(
     query: PhoneNumberConfigurationListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<
-    PhoneNumberConfigurationListResponsesDefaultFlatPagination,
-    PhoneNumberConfigurationListResponse
-  > {
+  ): PagePromise<PortingPhoneNumberConfigurationsDefaultFlatPagination, PortingPhoneNumberConfiguration> {
     return this._client.getAPIList(
       '/porting_orders/phone_number_configurations',
-      DefaultFlatPagination<PhoneNumberConfigurationListResponse>,
+      DefaultFlatPagination<PortingPhoneNumberConfiguration>,
       { query, ...options },
     );
   }
 }
 
-export type PhoneNumberConfigurationListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<PhoneNumberConfigurationListResponse>;
+export type PortingPhoneNumberConfigurationsDefaultFlatPagination =
+  DefaultFlatPagination<PortingPhoneNumberConfiguration>;
 
-export interface PhoneNumberConfigurationCreateResponse {
-  data?: Array<PhoneNumberConfigurationCreateResponse.Data>;
-}
-
-export namespace PhoneNumberConfigurationCreateResponse {
-  export interface Data {
-    /**
-     * Uniquely identifies this phone number configuration
-     */
-    id?: string;
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * Identifies the associated porting phone number
-     */
-    porting_phone_number_id?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was updated.
-     */
-    updated_at?: string;
-
-    /**
-     * Identifies the associated user bundle
-     */
-    user_bundle_id?: string;
-  }
-}
-
-export interface PhoneNumberConfigurationListResponse {
+export interface PortingPhoneNumberConfiguration {
   /**
    * Uniquely identifies this phone number configuration
    */
@@ -122,6 +81,10 @@ export interface PhoneNumberConfigurationListResponse {
    * Identifies the associated user bundle
    */
   user_bundle_id?: string;
+}
+
+export interface PhoneNumberConfigurationCreateResponse {
+  data?: Array<PortingPhoneNumberConfiguration>;
 }
 
 export interface PhoneNumberConfigurationCreateParams {
@@ -209,9 +172,9 @@ export namespace PhoneNumberConfigurationListParams {
 
 export declare namespace PhoneNumberConfigurations {
   export {
+    type PortingPhoneNumberConfiguration as PortingPhoneNumberConfiguration,
     type PhoneNumberConfigurationCreateResponse as PhoneNumberConfigurationCreateResponse,
-    type PhoneNumberConfigurationListResponse as PhoneNumberConfigurationListResponse,
-    type PhoneNumberConfigurationListResponsesDefaultFlatPagination as PhoneNumberConfigurationListResponsesDefaultFlatPagination,
+    type PortingPhoneNumberConfigurationsDefaultFlatPagination as PortingPhoneNumberConfigurationsDefaultFlatPagination,
     type PhoneNumberConfigurationCreateParams as PhoneNumberConfigurationCreateParams,
     type PhoneNumberConfigurationListParams as PhoneNumberConfigurationListParams,
   };

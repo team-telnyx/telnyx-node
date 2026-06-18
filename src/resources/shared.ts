@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import * as Shared from './shared';
-import * as MessagesAPI from './messages/messages';
 import { DefaultFlatPagination } from '../core/pagination';
 
 export interface APIError {
@@ -389,7 +388,7 @@ export interface InboundMessagePayload {
    * These errors may point at addressees when referring to unsuccessful/unconfirmed
    * delivery statuses.
    */
-  errors?: Array<MessagesAPI.MessagingError>;
+  errors?: Array<MessagingError>;
 
   from?: InboundMessagePayload.From;
 
@@ -627,6 +626,47 @@ export namespace InboundMessagePayload {
       | 'delivery_failed'
       | 'delivery_unconfirmed'
       | 'webhook_delivered';
+  }
+}
+
+export interface InworldVoiceSettings {
+  /**
+   * Voice settings provider type
+   */
+  type: 'inworld';
+
+  /**
+   * Controls the expressiveness and consistency of the Inworld `TTS2` model's speech
+   * synthesis. `STABLE` favors consistent, predictable output, `CREATIVE` allows
+   * more expressive variation, and `BALANCED` sits in between. Optional and only
+   * supported by `TTS2`; when omitted, the provider default applies.
+   */
+  delivery_mode?: 'STABLE' | 'BALANCED' | 'CREATIVE';
+}
+
+export interface MessagingError {
+  code: string;
+
+  title: string;
+
+  detail?: string;
+
+  meta?: { [key: string]: unknown };
+
+  source?: MessagingError.Source;
+}
+
+export namespace MessagingError {
+  export interface Source {
+    /**
+     * Indicates which query parameter caused the error.
+     */
+    parameter?: string;
+
+    /**
+     * JSON pointer (RFC6901) to the offending entity.
+     */
+    pointer?: string;
   }
 }
 
@@ -1358,6 +1398,18 @@ export namespace WhatsappTemplateData {
   export interface WhatsappBusinessAccount {
     id?: string;
   }
+}
+
+export interface XaiVoiceSettings {
+  /**
+   * Voice settings provider type
+   */
+  type: 'xai';
+
+  /**
+   * Language code, or `auto` to detect automatically.
+   */
+  language?: string;
 }
 
 export type MessagingHostedNumberOrdersDefaultFlatPagination =
