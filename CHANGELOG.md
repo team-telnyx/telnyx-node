@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.83.0](https://github.com/team-telnyx/telnyx-node/compare/v6.74.2...v6.83.0) (2026-06-18)
+
+
+### Features
+
+* add self-hosted release-please with two-phase trigger ([#435](https://github.com/team-telnyx/telnyx-node/issues/435)) ([a3edd39](https://github.com/team-telnyx/telnyx-node/commit/a3edd39d84139a4a39d0513dae3eeb250a5a6491))
+
 ## 6.74.2 (2026-06-02)
 
 Full Changelog: [v6.74.1...v6.74.2](https://github.com/team-telnyx/telnyx-node/compare/v6.74.1...v6.74.2)
