@@ -1,6 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
+  Dir,
+  type DirCreateResponse,
+  type DirListResponse,
+  type DirCreateParams,
+  type DirListParams,
+  type DirListResponsesDefaultFlatPagination,
+} from './dir';
+export {
   Enterprises,
   type BillingAddress,
   type BillingContact,
@@ -10,6 +18,7 @@ export {
   type EnterpriseCreateResponse,
   type EnterpriseRetrieveResponse,
   type EnterpriseUpdateResponse,
+  type EnterpriseActivateBrandedCallingResponse,
   type EnterpriseCreateParams,
   type EnterpriseUpdateParams,
   type EnterpriseListParams,

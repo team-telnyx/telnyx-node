@@ -1062,24 +1062,35 @@ export interface RequestListParams extends DefaultPaginationForMessagingTollfree
    */
   business_name?: string;
 
+  /**
+   * End of the date range filter (inclusive, ISO 8601).
+   */
   date_end?: string;
 
+  /**
+   * Start of the date range filter (inclusive, ISO 8601).
+   */
   date_start?: string;
 
+  /**
+   * Filter results by phone number.
+   */
   phone_number?: string;
 
   /**
-   * Tollfree verification status
+   * Filter results by status.
    */
   status?: TfVerificationStatus;
 }
 
 export interface RequestRetrieveStatusHistoryParams {
+  /**
+   * Page number to retrieve (1-based).
+   */
   'page[number]': number;
 
   /**
-   * Request this many records per page. This value is automatically clamped if the
-   * provided value is too large.
+   * Number of items to return per page.
    */
   'page[size]': number;
 }

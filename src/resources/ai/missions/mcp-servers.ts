@@ -112,14 +112,23 @@ export type McpServerListMcpServersResponse = unknown;
 export type McpServerUpdateMcpServerResponse = unknown;
 
 export interface McpServerDeleteMcpServerParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface McpServerGetMcpServerParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface McpServerUpdateMcpServerParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 

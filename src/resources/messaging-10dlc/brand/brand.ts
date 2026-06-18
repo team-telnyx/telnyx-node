@@ -1061,10 +1061,19 @@ export interface BrandListParams extends PerPagePaginationV2Params {
    */
   brandId?: string;
 
+  /**
+   * Filter results by country.
+   */
   country?: string;
 
+  /**
+   * Filter results by display name.
+   */
   displayName?: string;
 
+  /**
+   * Filter results by entity type.
+   */
   entityType?: string;
 
   /**
@@ -1087,6 +1096,9 @@ export interface BrandListParams extends PerPagePaginationV2Params {
     | 'tcrBrandId'
     | '-tcrBrandId';
 
+  /**
+   * Filter results by state.
+   */
   state?: string;
 
   /**

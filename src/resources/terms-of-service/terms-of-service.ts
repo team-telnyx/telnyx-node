@@ -1,17 +1,166 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AgreementsAPI from './agreements';
+import {
+  AgreementListParams,
+  AgreementListResponse,
+  AgreementListResponsesDefaultFlatPagination,
+  AgreementRetrieveResponse,
+  Agreements,
+} from './agreements';
+import * as BrandedCallingAPI from './branded-calling';
+import { BrandedCalling, BrandedCallingAgreeResponse } from './branded-calling';
 import * as NumberReputationAPI from './number-reputation';
-import { NumberReputation } from './number-reputation';
+import { NumberReputation, NumberReputationAgreeResponse } from './number-reputation';
+import { APIPromise } from '../../core/api-promise';
+import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * Accept and review the Branded Calling and Phone Number Reputation terms of service.
+ */
 export class TermsOfService extends APIResource {
   numberReputation: NumberReputationAPI.NumberReputation = new NumberReputationAPI.NumberReputation(
     this._client,
   );
+  agreements: AgreementsAPI.Agreements = new AgreementsAPI.Agreements(this._client);
+  brandedCalling: BrandedCallingAPI.BrandedCalling = new BrandedCallingAPI.BrandedCalling(this._client);
+
+  /**
+   * Returns the available Terms of Service agreements (product, current version,
+   * terms URL, effective date). Omit `product_type` to return all products; pass it
+   * to scope to one.
+   */
+  info(
+    query: TermsOfServiceInfoParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TermsOfServiceInfoResponse> {
+    return this._client.get('/terms_of_service/info', { query, ...options });
+  }
+
+  /**
+   * Returns whether the authenticated user has agreed to the current Terms of
+   * Service for the product given by `product_type`. Used during onboarding to
+   * decide whether to prompt the user with the ToS dialog before continuing.
+   *
+   * `agreement_required: true` means the user has not yet agreed (or has agreed to
+   * an outdated version) and must agree before using that product's endpoints.
+   */
+  status(
+    query: TermsOfServiceStatusParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TermsOfServiceStatusResponse> {
+    return this._client.get('/terms_of_service/status', { query, ...options });
+  }
+}
+
+export interface TermsOfServiceInfoResponse {
+  agreements?: Array<TermsOfServiceInfoResponse.Agreement>;
+}
+
+export namespace TermsOfServiceInfoResponse {
+  export interface Agreement {
+    current_version?: string;
+
+    description?: string;
+
+    effective_date?: string;
+
+    /**
+     * Telnyx product the Terms of Service apply to.
+     */
+    product_type?: 'branded_calling' | 'number_reputation';
+
+    terms_url?: string;
+  }
+}
+
+export interface TermsOfServiceStatusResponse {
+  /**
+   * Whether the calling user has agreed to a product's current Terms of Service. The
+   * `user_id` is intentionally omitted on this public surface.
+   */
+  data: TermsOfServiceStatusResponse.Data;
+}
+
+export namespace TermsOfServiceStatusResponse {
+  /**
+   * Whether the calling user has agreed to a product's current Terms of Service. The
+   * `user_id` is intentionally omitted on this public surface.
+   */
+  export interface Data {
+    /**
+     * `true` when the user must agree to the latest version before using the product.
+     * Equivalent to `!has_agreed`.
+     */
+    agreement_required: boolean;
+
+    /**
+     * Latest published version of the ToS for this product.
+     */
+    current_terms_version: string;
+
+    /**
+     * `true` if the user has agreed to the latest version.
+     */
+    has_agreed: boolean;
+
+    /**
+     * Telnyx product the Terms of Service apply to.
+     */
+    product_type: 'branded_calling' | 'number_reputation';
+
+    agreed_at?: string | null;
+
+    /**
+     * Version the user previously agreed to (may be older than
+     * `current_terms_version`). `null` if the user has never agreed.
+     */
+    agreed_version?: string | null;
+  }
+}
+
+export interface TermsOfServiceInfoParams {
+  /**
+   * Optional product filter. Omit to return info for all products.
+   */
+  product_type?: 'branded_calling' | 'number_reputation';
+}
+
+export interface TermsOfServiceStatusParams {
+  /**
+   * Which product's ToS to check. Defaults to `branded_calling`.
+   */
+  product_type?: 'branded_calling' | 'number_reputation';
 }
 
 TermsOfService.NumberReputation = NumberReputation;
+TermsOfService.Agreements = Agreements;
+TermsOfService.BrandedCalling = BrandedCalling;
 
 export declare namespace TermsOfService {
-  export { NumberReputation as NumberReputation };
+  export {
+    type TermsOfServiceInfoResponse as TermsOfServiceInfoResponse,
+    type TermsOfServiceStatusResponse as TermsOfServiceStatusResponse,
+    type TermsOfServiceInfoParams as TermsOfServiceInfoParams,
+    type TermsOfServiceStatusParams as TermsOfServiceStatusParams,
+  };
+
+  export {
+    NumberReputation as NumberReputation,
+    type NumberReputationAgreeResponse as NumberReputationAgreeResponse,
+  };
+
+  export {
+    Agreements as Agreements,
+    type AgreementRetrieveResponse as AgreementRetrieveResponse,
+    type AgreementListResponse as AgreementListResponse,
+    type AgreementListResponsesDefaultFlatPagination as AgreementListResponsesDefaultFlatPagination,
+    type AgreementListParams as AgreementListParams,
+  };
+
+  export {
+    BrandedCalling as BrandedCalling,
+    type BrandedCallingAgreeResponse as BrandedCallingAgreeResponse,
+  };
 }

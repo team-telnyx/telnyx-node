@@ -69,8 +69,14 @@ export interface UsageReportRetrieveSpeechToTextResponse {
 }
 
 export interface UsageReportRetrieveSpeechToTextParams {
+  /**
+   * End of the date range filter (inclusive, ISO 8601).
+   */
   end_date?: string;
 
+  /**
+   * Start of the date range filter (inclusive, ISO 8601).
+   */
   start_date?: string;
 }
 

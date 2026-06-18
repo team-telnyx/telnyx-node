@@ -55,11 +55,7 @@ describe('resource calls', () => {
   // Mock server tests are disabled
   test.skip('calls: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.calls('account_sid', {
-      params: {
-        ApplicationSid: 'example-app-sid',
-        From: '+13120001234',
-        To: '+13121230000',
-      },
+      params: { Url: 'https://www.example.com/texml.xml' },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -74,9 +70,8 @@ describe('resource calls', () => {
   test.skip('calls: required and optional params', async () => {
     const response = await client.texml.accounts.calls.calls('account_sid', {
       params: {
+        Url: 'https://www.example.com/texml.xml',
         ApplicationSid: 'example-app-sid',
-        From: '+13120001234',
-        To: '+13121230000',
         AsyncAmd: true,
         AsyncAmdStatusCallback: 'https://www.example.com/callback',
         AsyncAmdStatusCallbackMethod: 'GET',
@@ -89,6 +84,7 @@ describe('resource calls', () => {
         DeepfakeDetectionCallbackUrl: 'https://www.example.com/deepfake-callback',
         DetectionMode: 'Premium',
         FallbackUrl: 'https://www.example.com/instructions-fallback.xml',
+        From: '+13120001234',
         MachineDetection: 'Enable',
         MachineDetectionPromptEndTimeout: 5000,
         MachineDetectionSilenceTimeout: 2000,
@@ -113,11 +109,11 @@ describe('resource calls', () => {
         StatusCallbackMethod: 'GET',
         SuperviseCallSid: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
         SupervisingRole: 'monitor',
-        Texml: '<?xml version="1.0" encoding="UTF-8"?><Response><Say>Hello</Say></Response>',
+        Texml: 'Texml',
         TimeLimit: 3600,
         Timeout: 60,
+        To: '+13121230000',
         Trim: 'trim-silence',
-        Url: 'https://www.example.com/texml.xml',
         UrlMethod: 'GET',
       },
     });

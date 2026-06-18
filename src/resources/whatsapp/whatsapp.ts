@@ -9,7 +9,6 @@ import {
   UserDataRetrieveResponse,
   UserDataUpdateParams,
   UserDataUpdateResponse,
-  WhatsappUserData,
 } from './user-data';
 import * as BusinessAccountsAPI from './business-accounts/business-accounts';
 import {
@@ -70,7 +69,6 @@ export declare namespace Whatsapp {
 
   export {
     UserData as UserData,
-    type WhatsappUserData as WhatsappUserData,
     type UserDataRetrieveResponse as UserDataRetrieveResponse,
     type UserDataUpdateResponse as UserDataUpdateResponse,
     type UserDataUpdateParams as UserDataUpdateParams,

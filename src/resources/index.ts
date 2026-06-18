@@ -3,11 +3,10 @@
 export * from './shared';
 export {
   AI,
-  type ModelMetadata,
-  type AICreateResponseResponse,
+  type AICreateResponseDeprecatedResponse,
   type AIRetrieveModelsResponse,
   type AISummarizeResponse,
-  type AICreateResponseParams,
+  type AICreateResponseDeprecatedParams,
   type AISummarizeParams,
 } from './ai/ai';
 export {
@@ -130,10 +129,16 @@ export {
   type CallEventListResponsesDefaultFlatPagination,
 } from './call-events';
 export {
+  CallReasons,
+  type CallReasonListResponse,
+  type CallReasonValidateResponse,
+  type CallReasonListParams,
+  type CallReasonValidateParams,
+  type CallReasonListResponsesDefaultFlatPagination,
+} from './call-reasons';
+export {
   Calls,
   type CallAssistantRequest,
-  type ConversationRelayInterruptionSettings,
-  type ConversationRelayLanguage,
   type CustomSipHeader,
   type DialogflowConfig,
   type SipHeader,
@@ -266,6 +271,23 @@ export {
   type DialogflowConnectionUpdateParams,
 } from './dialogflow-connections';
 export {
+  Dir,
+  type DirRetrieveResponse,
+  type DirUpdateResponse,
+  type DirListResponse,
+  type DirListDocumentTypesResponse,
+  type DirListInfringementClaimsResponse,
+  type DirSubmitResponse,
+  type DirUpdateInfringementResponse,
+  type DirUpdateParams,
+  type DirListParams,
+  type DirCreateLoaParams,
+  type DirListInfringementClaimsParams,
+  type DirUpdateInfringementParams,
+  type DirListResponsesDefaultFlatPagination,
+  type DirListInfringementClaimsResponsesDefaultFlatPagination,
+} from './dir/dir';
+export {
   DocumentLinks,
   type DocumentLinkListResponse,
   type DocumentLinkListParams,
@@ -316,6 +338,7 @@ export {
   type EnterpriseCreateResponse,
   type EnterpriseRetrieveResponse,
   type EnterpriseUpdateResponse,
+  type EnterpriseActivateBrandedCallingResponse,
   type EnterpriseCreateParams,
   type EnterpriseUpdateParams,
   type EnterpriseListParams,
@@ -485,6 +508,12 @@ export {
   type InexplicitNumberOrderListParams,
   type InexplicitNumberOrderResponsesDefaultFlatPaginationForInexplicitNumberOrders,
 } from './inexplicit-number-orders';
+export {
+  InfringementClaims,
+  type InfringementClaimRetrieveResponse,
+  type InfringementClaimContestResponse,
+  type InfringementClaimContestParams,
+} from './infringement-claims';
 export {
   IntegrationSecrets,
   type IntegrationSecret,
@@ -971,13 +1000,13 @@ export {
   PublicInternetGateways,
   type NetworkInterface,
   type NetworkInterfaceRegion,
-  type PublicInternetGatewayRead,
   type PublicInternetGatewayCreateResponse,
   type PublicInternetGatewayRetrieveResponse,
+  type PublicInternetGatewayListResponse,
   type PublicInternetGatewayDeleteResponse,
   type PublicInternetGatewayCreateParams,
   type PublicInternetGatewayListParams,
-  type PublicInternetGatewayReadsDefaultFlatPagination,
+  type PublicInternetGatewayListResponsesDefaultFlatPagination,
 } from './public-internet-gateways';
 export {
   Queues,
@@ -1179,8 +1208,6 @@ export {
 export {
   SpeechToText,
   type SpeechToTextListProvidersResponse,
-  type TranscribeClientEvent,
-  type TranscribeServerEvent,
   type SpeechToTextListProvidersParams,
 } from './speech-to-text';
 export { Storage, type StorageListMigrationSourceCoverageResponse } from './storage/storage';
@@ -1219,7 +1246,13 @@ export {
   type TelephonyCredentialListParams,
   type TelephonyCredentialsDefaultFlatPagination,
 } from './telephony-credentials';
-export { TermsOfService } from './terms-of-service/terms-of-service';
+export {
+  TermsOfService,
+  type TermsOfServiceInfoResponse,
+  type TermsOfServiceStatusResponse,
+  type TermsOfServiceInfoParams,
+  type TermsOfServiceStatusParams,
+} from './terms-of-service/terms-of-service';
 export {
   Texml,
   type TexmlInitiateAICallResponse,
@@ -1241,12 +1274,11 @@ export {
 } from './texml-applications';
 export {
   TextToSpeech,
-  type TextToSpeechCreateSpeechResponse,
+  type TextToSpeechGenerateResponse,
   type TextToSpeechListVoicesResponse,
   type StreamClientEvent,
   type StreamServerEvent,
-  type TextToSpeechCreateSpeechParams,
-  type TextToSpeechGenerateSpeechParams,
+  type TextToSpeechGenerateParams,
   type TextToSpeechListVoicesParams,
   type TextToSpeechStreamParams,
 } from './text-to-speech';
@@ -1267,19 +1299,15 @@ export {
 } from './traffic-policy-profiles';
 export {
   UacConnections,
-  type UacConnection,
-  type UacExternalSettings,
-  type UacInbound,
-  type UacInternalSettings,
-  type UacOutbound,
   type UacConnectionCreateResponse,
   type UacConnectionRetrieveResponse,
   type UacConnectionUpdateResponse,
+  type UacConnectionListResponse,
   type UacConnectionDeleteResponse,
   type UacConnectionCreateParams,
   type UacConnectionUpdateParams,
   type UacConnectionListParams,
-  type UacConnectionsDefaultFlatPagination,
+  type UacConnectionListResponsesDefaultFlatPagination,
 } from './uac-connections/uac-connections';
 export {
   UsageReports,
@@ -1334,15 +1362,15 @@ export {
 } from './verify-profiles';
 export {
   VirtualCrossConnects,
-  type VirtualCrossConnectCombined,
   type VirtualCrossConnectCreateResponse,
   type VirtualCrossConnectRetrieveResponse,
   type VirtualCrossConnectUpdateResponse,
+  type VirtualCrossConnectListResponse,
   type VirtualCrossConnectDeleteResponse,
   type VirtualCrossConnectCreateParams,
   type VirtualCrossConnectUpdateParams,
   type VirtualCrossConnectListParams,
-  type VirtualCrossConnectCombinedsDefaultFlatPagination,
+  type VirtualCrossConnectListResponsesDefaultFlatPagination,
 } from './virtual-cross-connects';
 export {
   VirtualCrossConnectsCoverage,
@@ -1379,7 +1407,6 @@ export {
 } from './voice-designs';
 export {
   VoiceSDKCallReports,
-  type VoiceSDKCallReportLogEntry,
   type VoiceSDKCallReportRetrieveResponse,
   type VoiceSDKCallReportListResponse,
   type VoiceSDKCallReportListParams,
@@ -1531,13 +1558,13 @@ export {
 } from './whatsapp-message-templates';
 export {
   WireguardInterfaces,
-  type WireguardInterfaceRead,
   type WireguardInterfaceCreateResponse,
   type WireguardInterfaceRetrieveResponse,
+  type WireguardInterfaceListResponse,
   type WireguardInterfaceDeleteResponse,
   type WireguardInterfaceCreateParams,
   type WireguardInterfaceListParams,
-  type WireguardInterfaceReadsDefaultFlatPagination,
+  type WireguardInterfaceListResponsesDefaultFlatPagination,
 } from './wireguard-interfaces';
 export {
   WireguardPeers,

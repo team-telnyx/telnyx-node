@@ -183,12 +183,15 @@ export interface AutorespConfigCreateParams {
 }
 
 export interface AutorespConfigRetrieveParams {
+  /**
+   * Unique identifier of the profile.
+   */
   profile_id: string;
 }
 
 export interface AutorespConfigUpdateParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the profile.
    */
   profile_id: string;
 
@@ -214,6 +217,9 @@ export interface AutorespConfigUpdateParams {
 }
 
 export interface AutorespConfigListParams {
+  /**
+   * Filter results by country code.
+   */
   country_code?: string;
 
   /**
@@ -252,6 +258,9 @@ export namespace AutorespConfigListParams {
 }
 
 export interface AutorespConfigDeleteParams {
+  /**
+   * Unique identifier of the profile.
+   */
   profile_id: string;
 }
 

@@ -228,6 +228,9 @@ export interface ClusterComputeParams {
 }
 
 export interface ClusterFetchGraphParams {
+  /**
+   * Filter results by cluster id.
+   */
   cluster_id?: number;
 }
 

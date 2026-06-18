@@ -112,14 +112,23 @@ export type KnowledgeBaseListKnowledgeBasesResponse = unknown;
 export type KnowledgeBaseUpdateKnowledgeBaseResponse = unknown;
 
 export interface KnowledgeBaseDeleteKnowledgeBaseParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface KnowledgeBaseGetKnowledgeBaseParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface KnowledgeBaseUpdateKnowledgeBaseParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 

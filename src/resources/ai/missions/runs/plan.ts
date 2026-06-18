@@ -172,7 +172,7 @@ export interface PlanUpdateStepResponse {
 
 export interface PlanCreateParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the mission.
    */
   mission_id: string;
 
@@ -197,12 +197,15 @@ export namespace PlanCreateParams {
 }
 
 export interface PlanRetrieveParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface PlanAddStepsToPlanParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the mission.
    */
   mission_id: string;
 
@@ -227,19 +230,25 @@ export namespace PlanAddStepsToPlanParams {
 }
 
 export interface PlanGetStepDetailsParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 
+  /**
+   * Unique identifier of the run.
+   */
   run_id: string;
 }
 
 export interface PlanUpdateStepParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the mission.
    */
   mission_id: string;
 
   /**
-   * Path param
+   * Path param: Unique identifier of the run.
    */
   run_id: string;
 
