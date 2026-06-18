@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
-  "repository": "github:team-telnyx/telnyx-typescript-staging",
+  "repository": "github:team-telnyx/telnyx-node",
   "license": "MIT",
   "packageManager": "pnpm@10.30.1",
   "files": [

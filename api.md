@@ -512,12 +512,14 @@ Types:
 
 - <code><a href="./src/resources/ai/ai.ts">AICreateResponseDeprecatedResponse</a></code>
 - <code><a href="./src/resources/ai/ai.ts">AIRetrieveModelsResponse</a></code>
+- <code><a href="./src/resources/ai/ai.ts">AISearchConversationHistoriesResponse</a></code>
 - <code><a href="./src/resources/ai/ai.ts">AISummarizeResponse</a></code>
 
 Methods:
 
 - <code title="post /ai/responses">client.ai.<a href="./src/resources/ai/ai.ts">createResponseDeprecated</a>({ ...params }) -> AICreateResponseDeprecatedResponse</code>
 - <code title="get /ai/models">client.ai.<a href="./src/resources/ai/ai.ts">retrieveModels</a>() -> AIRetrieveModelsResponse</code>
+- <code title="get /ai/conversation_histories">client.ai.<a href="./src/resources/ai/ai.ts">searchConversationHistories</a>({ ...params }) -> AISearchConversationHistoriesResponse</code>
 - <code title="post /ai/summarize">client.ai.<a href="./src/resources/ai/ai.ts">summarize</a>({ ...params }) -> AISummarizeResponse</code>
 
 ## Assistants

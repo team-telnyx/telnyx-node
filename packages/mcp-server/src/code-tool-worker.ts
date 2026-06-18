@@ -172,6 +172,7 @@ const fuse = new Fuse(
     'client.advancedOrders.updateRequirementGroup',
     'client.ai.createResponseDeprecated',
     'client.ai.retrieveModels',
+    'client.ai.searchConversationHistories',
     'client.ai.summarize',
     'client.ai.assistants.chat',
     'client.ai.assistants.clone',

@@ -385,6 +385,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/models',
   },
   {
+    clientCallName: 'client.ai.searchConversationHistories',
+    fullyQualifiedName: 'ai.searchConversationHistories',
+    httpMethod: 'get',
+    httpPath: '/ai/conversation_histories',
+  },
+  {
     clientCallName: 'client.ai.summarize',
     fullyQualifiedName: 'ai.summarize',
     httpMethod: 'post',

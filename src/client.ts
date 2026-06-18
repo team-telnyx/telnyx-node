@@ -1189,6 +1189,8 @@ import {
   AICreateResponseDeprecatedParams,
   AICreateResponseDeprecatedResponse,
   AIRetrieveModelsResponse,
+  AISearchConversationHistoriesParams,
+  AISearchConversationHistoriesResponse,
   AISummarizeParams,
   AISummarizeResponse,
 } from './resources/ai/ai';
@@ -2502,9 +2504,6 @@ export class Telnyx {
    */
   addresses: API.Addresses = new API.Addresses(this);
   advancedOrders: API.AdvancedOrders = new API.AdvancedOrders(this);
-  /**
-   * Generate text with LLMs
-   */
   ai: API.AI = new API.AI(this);
   /**
    * Audit log operations.
@@ -3485,8 +3484,10 @@ export declare namespace Telnyx {
     AI as AI,
     type AICreateResponseDeprecatedResponse as AICreateResponseDeprecatedResponse,
     type AIRetrieveModelsResponse as AIRetrieveModelsResponse,
+    type AISearchConversationHistoriesResponse as AISearchConversationHistoriesResponse,
     type AISummarizeResponse as AISummarizeResponse,
     type AICreateResponseDeprecatedParams as AICreateResponseDeprecatedParams,
+    type AISearchConversationHistoriesParams as AISearchConversationHistoriesParams,
     type AISummarizeParams as AISummarizeParams,
   };
 

@@ -9,9 +9,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/team-telnyx/telnyx-typescript-staging.git"
+    "url": "git+https://github.com/team-telnyx/telnyx-node.git"
   },
-  "homepage": "https://github.com/team-telnyx/telnyx-typescript-staging/tree/main/packages/mcp-server#readme",
+  "homepage": "https://github.com/team-telnyx/telnyx-node/tree/main/packages/mcp-server#readme",
   "server": {
     "type": "node",
     "entry_point": "index.js",

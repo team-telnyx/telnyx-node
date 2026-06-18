@@ -4,8 +4,10 @@ export {
   AI,
   type AICreateResponseDeprecatedResponse,
   type AIRetrieveModelsResponse,
+  type AISearchConversationHistoriesResponse,
   type AISummarizeResponse,
   type AICreateResponseDeprecatedParams,
+  type AISearchConversationHistoriesParams,
   type AISummarizeParams,
 } from './ai';
 export {

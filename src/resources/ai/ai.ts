@@ -138,9 +138,6 @@ import {
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
-/**
- * Generate text with LLMs
- */
 export class AI extends APIResource {
   assistants: AssistantsAPI.Assistants = new AssistantsAPI.Assistants(this._client);
   audio: AudioAPI.Audio = new AudioAPI.Audio(this._client);
@@ -188,6 +185,75 @@ export class AI extends APIResource {
    */
   retrieveModels(options?: RequestOptions): APIPromise<AIRetrieveModelsResponse> {
     return this._client.get('/ai/models', options);
+  }
+
+  /**
+   * Performs semantic vector search across conversation history records.
+   *
+   * **How it works:**
+   *
+   * 1. The query text is embedded into a 1024-dimensional vector using the
+   *    multilingual-e5-large model.
+   * 2. The vector is sent to regional OpenSearch clusters for kNN search using HNSW
+   *    cosine similarity.
+   * 3. When no region is specified, all regions are queried in parallel (fan-out)
+   *    and results are merged by score.
+   * 4. Results are ranked by cosine similarity score (descending) and truncated to
+   *    `top_k`.
+   *
+   * **Authentication:** Requires a Telnyx API key via `Authorization: Bearer <key>`.
+   * Results are automatically scoped to the caller's organization —
+   * `organization_id` is injected from the auth token and cannot be overridden.
+   *
+   * **Chunking:** Records are split into chunks of up to 480 tokens with 64-token
+   * overlap at ingestion time. Each search result represents a single chunk, with
+   * `chunk_index` and `chunk_total` indicating its position within the original
+   * record.
+   *
+   * **Filtering:** Use `filter[field][operator]=value` query parameters to narrow
+   * results before vector search.
+   *
+   * Top-level filterable fields: `user_id`, `record_type`, `region`, `document_id`,
+   * `record_id`, `record_created_at`, `ingested_at`, `retention`
+   *
+   * Note: `retention` is filter-only — it can be used to narrow results but is not
+   * returned in the response body.
+   *
+   * Metadata fields: any field not in the list above is resolved to
+   * `data.metadata.<field>` in OpenSearch (e.g., `filter[language]=en` →
+   * `data.metadata.language`).
+   *
+   * Supported filter operators:
+   *
+   * - `eq` — exact match (default when no operator specified)
+   * - `in` — match any of comma-separated values
+   * - `gte`, `gt`, `lte`, `lt` — range comparisons (useful for date filtering)
+   * - `contains` — wildcard substring match
+   *
+   * **Examples:**
+   *
+   * ```
+   * GET /v2/ai/conversation_histories?q=billing+issue&record_type=voice&top_k=10
+   * GET /v2/ai/conversation_histories?q=setup+guide&record_type=knowledge_base&region=USA&min_score=0.5
+   * GET /v2/ai/conversation_histories?q=refund&record_type=voice&filter[record_created_at][gte]=2026-01-01T00:00:00Z
+   * GET /v2/ai/conversation_histories?q=outage&record_type=voice&filter[region][in]=USA,DEU
+   * GET /v2/ai/conversation_histories?q=hold+time&record_type=voice&filter[language]=en
+   * ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.ai.searchConversationHistories({
+   *     q: 'customer called about billing issue',
+   *     record_type: 'voice',
+   *   });
+   * ```
+   */
+  searchConversationHistories(
+    query: AISearchConversationHistoriesParams,
+    options?: RequestOptions,
+  ): APIPromise<AISearchConversationHistoriesResponse> {
+    return this._client.get('/ai/conversation_histories', { query, ...options });
   }
 
   /**
@@ -354,6 +420,133 @@ export namespace AIRetrieveModelsResponse {
   }
 }
 
+/**
+ * Search response following the standard Telnyx V2 API format.
+ */
+export interface AISearchConversationHistoriesResponse {
+  /**
+   * Ranked list of matching text chunks, sorted by cosine similarity score
+   * descending.
+   */
+  data: Array<AISearchConversationHistoriesResponse.Data>;
+
+  /**
+   * Pagination metadata following the standard Telnyx V2 API format.
+   */
+  meta: AISearchConversationHistoriesResponse.Meta;
+}
+
+export namespace AISearchConversationHistoriesResponse {
+  /**
+   * A single search result representing one chunk of a conversation history record.
+   * Records are split into chunks of up to 480 tokens with 64-token overlap at
+   * ingestion time.
+   */
+  export interface Data {
+    /**
+     * Unique chunk identifier.
+     */
+    id: string;
+
+    /**
+     * Zero-based index of this chunk within the parent record.
+     */
+    chunk_index: number;
+
+    /**
+     * Total number of chunks the parent record was split into.
+     */
+    chunk_total: number;
+
+    /**
+     * Document identifier. Present only for knowledge_base records; null for all other
+     * record types.
+     */
+    document_id: string | null;
+
+    /**
+     * When the record was chunked, embedded, and indexed (ISO 8601).
+     */
+    ingested_at: string;
+
+    /**
+     * Identifier of the organization that owns this record.
+     */
+    organization_id: string;
+
+    /**
+     * When the original record was created (ISO 8601).
+     */
+    record_created_at: string;
+
+    /**
+     * Identifier of the parent record. Multiple chunks from the same record share this
+     * ID.
+     */
+    record_id: string;
+
+    /**
+     * Type of the record.
+     */
+    record_type: 'voice' | 'message' | 'ai_pipeline_storage' | 'knowledge_base';
+
+    /**
+     * The region where this record is stored.
+     */
+    region: 'USA' | 'DEU' | 'AUS' | 'UAE';
+
+    /**
+     * Cosine similarity score between the query vector and this chunk's vector. Higher
+     * values indicate greater semantic relevance.
+     */
+    score: number;
+
+    /**
+     * The text content of this chunk (up to 480 tokens).
+     */
+    text: string;
+
+    /**
+     * Identifier of the user who owns this record.
+     */
+    user_id: string;
+
+    /**
+     * Arbitrary metadata attached to the record at ingestion time. Stored as a
+     * flat_object in OpenSearch and filterable via filter[field]=value query
+     * parameters.
+     */
+    metadata?: { [key: string]: unknown };
+  }
+
+  /**
+   * Pagination metadata following the standard Telnyx V2 API format.
+   */
+  export interface Meta {
+    /**
+     * Current page number (always 1 — this API does not support pagination, use top_k
+     * instead).
+     */
+    page_number: number;
+
+    /**
+     * Number of results per page (equals the effective top_k value).
+     */
+    page_size: number;
+
+    /**
+     * Total number of pages.
+     */
+    total_pages: number;
+
+    /**
+     * Total number of matching results across all queried regions (before top_k
+     * truncation).
+     */
+    total_results: number;
+  }
+}
+
 export interface AISummarizeResponse {
   data: AISummarizeResponse.Data;
 }
@@ -366,6 +559,91 @@ export namespace AISummarizeResponse {
 
 export interface AICreateResponseDeprecatedParams {
   body: { [key: string]: unknown };
+}
+
+export interface AISearchConversationHistoriesParams {
+  /**
+   * Natural language search query. The text is embedded into a 1024-dimensional
+   * vector and compared against indexed record chunks using kNN cosine similarity.
+   */
+  q: string;
+
+  /**
+   * The type of records to search. Each record type is stored in a separate vector
+   * index.
+   */
+  record_type: 'voice' | 'message' | 'ai_pipeline_storage' | 'knowledge_base';
+
+  /**
+   * Filter by document identifier (exact match). Populated for knowledge_base
+   * records.
+   */
+  'filter[document_id]'?: string;
+
+  /**
+   * Only include records ingested (chunked, embedded, and indexed) on or after this
+   * ISO 8601 timestamp.
+   */
+  'filter[ingested_at][gte]'?: string;
+
+  /**
+   * Only include records ingested (chunked, embedded, and indexed) on or before this
+   * ISO 8601 timestamp.
+   */
+  'filter[ingested_at][lte]'?: string;
+
+  /**
+   * Only include records whose original creation time is on or after this ISO 8601
+   * timestamp.
+   */
+  'filter[record_created_at][gte]'?: string;
+
+  /**
+   * Only include records whose original creation time is on or before this ISO 8601
+   * timestamp.
+   */
+  'filter[record_created_at][lte]'?: string;
+
+  /**
+   * Filter to chunks belonging to a specific parent record (exact match).
+   */
+  'filter[record_id]'?: string;
+
+  /**
+   * Filter by the region stored on the record. Comma-separated to match multiple
+   * regions (USA, DEU, AUS, UAE). Distinct from the `region` parameter, which
+   * selects which cluster(s) are queried.
+   */
+  'filter[region][in]'?: string;
+
+  /**
+   * Filter by retention policy (exact match). Filter-only: not returned in the
+   * response body.
+   */
+  'filter[retention]'?: string;
+
+  /**
+   * Filter to records owned by a specific user (exact match).
+   */
+  'filter[user_id]'?: string;
+
+  /**
+   * Minimum cosine similarity score threshold (0.0 to 1.0). Results below this
+   * threshold are excluded.
+   */
+  min_score?: number;
+
+  /**
+   * Restrict search to a specific region's OpenSearch cluster. When omitted, all
+   * regions are queried in parallel (fan-out) and results are merged by cosine
+   * similarity score.
+   */
+  region?: 'USA' | 'DEU' | 'AUS' | 'UAE';
+
+  /**
+   * Maximum number of results to return. Defaults to 20, maximum 100.
+   */
+  top_k?: number;
 }
 
 export interface AISummarizeParams {
@@ -402,8 +680,10 @@ export declare namespace AI {
   export {
     type AICreateResponseDeprecatedResponse as AICreateResponseDeprecatedResponse,
     type AIRetrieveModelsResponse as AIRetrieveModelsResponse,
+    type AISearchConversationHistoriesResponse as AISearchConversationHistoriesResponse,
     type AISummarizeResponse as AISummarizeResponse,
     type AICreateResponseDeprecatedParams as AICreateResponseDeprecatedParams,
+    type AISearchConversationHistoriesParams as AISearchConversationHistoriesParams,
     type AISummarizeParams as AISummarizeParams,
   };
 
