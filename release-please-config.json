@@ -5,8 +5,6 @@
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "include-v-in-tag": true,
   "include-component-in-tag": false,
-  "versioning": "prerelease",
-  "prerelease": true,
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": false,
   "pull-request-header": "Automated Release PR",
@@ -60,5 +58,8 @@
     }
   ],
   "release-type": "node",
-  "extra-files": ["src/version.ts", "README.md"]
+  "extra-files": [
+    "src/version.ts",
+    "README.md"
+  ]
 }
