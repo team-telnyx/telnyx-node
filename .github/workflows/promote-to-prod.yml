@@ -11,9 +11,6 @@ name: Promote to Prod
 #   6. Commits with a Release-As footer and pushes to `next`
 #   7. Prod's release-please.yml (triggered on `next` push) creates a release PR
 #      → auto-merge → tag → publish-npm.yml → npm
-#
-# This replaces the Stainless SaaS mirror that previously synced
-# stainless-sdks/telnyx-node → team-telnyx/telnyx-node.
 
 on:
   push:
@@ -100,32 +97,32 @@ jobs:
           # must be preserved as-is.
           #
           # Key differences:
-          #   release-please.yml:      staging = Google Action on `main`;
-          #                            prod = CLI two-phase on `next` → `master`
-          #   ci.yml:                  staging = ubuntu-latest, simple check;
-          #                            prod = depot runner, full test/publish
-          #   publish-npm.yml:         staging = workflow_dispatch only;
-          #                            prod = workflow_dispatch + release trigger,
-          #                            publishes . + packages/mcp-server, uploads MCP DXT
-          #   publish-mcp.yml:         staging = workflow_dispatch only;
-          #                            prod = triggers on release: published
-          #   release-doctor.yml:      staging checks RELEASE_PLEASE_TOKEN;
-          #                            prod does not
-          #   release-please-config.json: staging has prerelease + versioning:prerelease;
-          #                               prod does not, and includes MCP server extra-files
-          #   packages/mcp-server/:   prod-only, entire MCP server package
-          #   patches/:                prod-only, fast-diff patch for build
-          #   pnpm-workspace.yaml:     prod has `packages: ['packages/*']` for MCP;
-          #                            staging doesn't
+          #   release-please.yml:      staging = removed; prod = two-phase on next → master
+          #   ci.yml:                  staging = simple; prod = depot runner, full test
+          #   publish-npm.yml:         staging = workflow_dispatch only; prod = release trigger
+          #   publish-mcp.yml:         staging = workflow_dispatch only; prod = release trigger
+          #   release-doctor.yml:      staging checks secrets; prod does not
+          #   release-please-config.json: staging has prerelease; prod does not
+          #   packages/mcp-server/:    prod-only MCP server package
+          #   patches/:                prod-only fast-diff patch
+          #   pnpm-workspace.yaml:     prod has packages: ['packages/*'] for MCP
           #   .dockerignore:           prod-only
 
-          git checkout next -- \
+          git fetch origin master:refs/remotes/origin/master 2>/dev/null || true
+
+          # Restore release-please files from master (they only exist there)
+          git checkout origin/master -- \
             .github/workflows/release-please.yml \
+            release-please-config.json \
+            .release-please-manifest.json \
+            2>/dev/null || true
+
+          # Restore remaining prod-owned files from next
+          git checkout next -- \
             .github/workflows/ci.yml \
             .github/workflows/publish-npm.yml \
             .github/workflows/publish-mcp.yml \
             .github/workflows/release-doctor.yml \
-            release-please-config.json \
             packages/mcp-server/ \
             patches/ \
             pnpm-workspace.yaml \

@@ -111,6 +111,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
           REPO: ${{ github.repository }}
+          PR_NUM: ${{ steps.release-pr.outputs.pr_number }}
         run: |
           # release-please creates a PR with only version bumps (CHANGELOG,
           # package.json, version.ts, etc). The actual SDK code changes are
@@ -121,9 +122,27 @@ jobs:
           # Without this, master gets version bumps only — the published
           # npm package has the new version number but old code.
 
-          PR_BRANCH=$(gh pr list --repo "$REPO" --state open --label "autorelease: pending" --json headRefName --jq '.[0].headRefName')
+          # Use the PR number from the release-please step directly (avoids
+          # GitHub API eventual-consistency race where gh pr list doesn't see
+          # a PR that was created milliseconds ago).
+          PR_BRANCH=""
+          if [ -n "$PR_NUM" ]; then
+            sleep 3  # brief propagation delay
+            PR_BRANCH=$(gh pr view "$PR_NUM" --repo "$REPO" --json headRefName --jq '.headRefName' 2>/dev/null || true)
+          fi
+
+          # Fallback: query by label with retry
           if [ -z "$PR_BRANCH" ]; then
-            echo "No open release PR found, skipping merge"
+            for i in 1 2 3; do
+              PR_BRANCH=$(gh pr list --repo "$REPO" --state open --label "autorelease: pending" --json headRefName --jq '.[0].headRefName' 2>/dev/null || true)
+              if [ -n "$PR_BRANCH" ]; then break; fi
+              echo "PR not found yet, retrying in 5s (attempt $i)..."
+              sleep 5
+            done
+          fi
+
+          if [ -z "$PR_BRANCH" ]; then
+            echo "::warning::No open release PR found after retries, skipping merge"
             exit 0
           fi
 
