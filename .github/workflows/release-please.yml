@@ -174,7 +174,7 @@ jobs:
             --target-branch master \
             --config-file release-please-config.json \
             --manifest-file .release-please-manifest.json \
-            2>&1 || true
+            2>&1
 
       - name: Enable auto-merge on release PRs
         if: github.ref == 'refs/heads/next' && steps.release-pr.outputs.prs_created == 'true'
