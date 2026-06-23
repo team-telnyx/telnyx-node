@@ -1889,6 +1889,24 @@ export namespace TranscriptionEngineGoogleConfig {
   }
 }
 
+export interface TranscriptionEngineParakeetConfig {
+  /**
+   * Whether to send also interim results. If set to false, only final results will
+   * be sent.
+   */
+  interim_results?: boolean;
+
+  /**
+   * Engine identifier for Parakeet transcription service
+   */
+  transcription_engine?: 'Parakeet';
+
+  /**
+   * The model to use for transcription.
+   */
+  transcription_model?: 'parakeet/tdt-0.6b-v3';
+}
+
 export interface TranscriptionEngineSonioxConfig {
   /**
    * Engine identifier for Soniox transcription service
@@ -2068,7 +2086,7 @@ export interface TranscriptionStartRequest {
     | TranscriptionEngineAssemblyaiConfig
     | TranscriptionEngineSpeechmaticsConfig
     | TranscriptionEngineSonioxConfig
-    | TranscriptionStartRequest.TranscriptionEngineParakeetConfig
+    | TranscriptionEngineParakeetConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -2082,24 +2100,24 @@ export interface TranscriptionStartRequest {
   transcription_tracks?: string;
 }
 
-export namespace TranscriptionStartRequest {
-  export interface TranscriptionEngineParakeetConfig {
-    /**
-     * Whether to send also interim results. If set to false, only final results will
-     * be sent.
-     */
-    interim_results?: boolean;
+/**
+ * Messages sent by an end user
+ */
+export interface UserMessage {
+  /**
+   * The contents of the user message.
+   */
+  content: string;
 
-    /**
-     * Engine identifier for Parakeet transcription service
-     */
-    transcription_engine?: 'Parakeet';
+  /**
+   * The role of the messages author, in this case `user`.
+   */
+  role: 'user';
 
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'parakeet/tdt-0.6b-v3';
-  }
+  /**
+   * Metadata to add to the message
+   */
+  metadata?: { [key: string]: unknown };
 }
 
 /**
@@ -4629,7 +4647,7 @@ export interface ActionStartTranscriptionParams {
     | TranscriptionEngineAssemblyaiConfig
     | TranscriptionEngineSpeechmaticsConfig
     | TranscriptionEngineSonioxConfig
-    | ActionStartTranscriptionParams.TranscriptionEngineParakeetConfig
+    | TranscriptionEngineParakeetConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4641,26 +4659,6 @@ export interface ActionStartTranscriptionParams {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
-}
-
-export namespace ActionStartTranscriptionParams {
-  export interface TranscriptionEngineParakeetConfig {
-    /**
-     * Whether to send also interim results. If set to false, only final results will
-     * be sent.
-     */
-    interim_results?: boolean;
-
-    /**
-     * Engine identifier for Parakeet transcription service
-     */
-    transcription_engine?: 'Parakeet';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'parakeet/tdt-0.6b-v3';
-  }
 }
 
 export interface ActionStopAIAssistantParams {
@@ -5223,6 +5221,7 @@ export declare namespace Actions {
     type TranscriptionEngineBConfig as TranscriptionEngineBConfig,
     type TranscriptionEngineDeepgramConfig as TranscriptionEngineDeepgramConfig,
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
+    type TranscriptionEngineParakeetConfig as TranscriptionEngineParakeetConfig,
     type TranscriptionEngineSonioxConfig as TranscriptionEngineSonioxConfig,
     type TranscriptionEngineSpeechmaticsConfig as TranscriptionEngineSpeechmaticsConfig,
     type TranscriptionEngineTelnyxConfig as TranscriptionEngineTelnyxConfig,
