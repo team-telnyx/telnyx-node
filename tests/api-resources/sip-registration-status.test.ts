@@ -11,7 +11,6 @@ describe('resource sipRegistrationStatus', () => {
   // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.sipRegistrationStatus.retrieve({
-      connection_id: 'connection_id',
       credential_type: 'uac_external_credential',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -26,8 +25,9 @@ describe('resource sipRegistrationStatus', () => {
   // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.sipRegistrationStatus.retrieve({
-      connection_id: 'connection_id',
       credential_type: 'uac_external_credential',
+      connection_id: 'connection_id',
+      username: 'username',
     });
   });
 });
