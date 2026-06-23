@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.84.0](https://github.com/team-telnyx/telnyx-node/compare/v7.0.0...v6.84.0) (2026-06-23)
+
+
+### Bug Fixes
+
+* remove `|| true` from github-release step ([#444](https://github.com/team-telnyx/telnyx-node/issues/444)) ([82a062d](https://github.com/team-telnyx/telnyx-node/commit/82a062d58a5e82c0bdecf8d701e3cc4f8184ac79))
+* remove prerelease config and broken promote-to-prod.yml ([#441](https://github.com/team-telnyx/telnyx-node/issues/441)) ([0c26247](https://github.com/team-telnyx/telnyx-node/commit/0c262478ffc1db19aa48933a70aacc1c465ac72a))
+
 ## [7.0.0](https://github.com/team-telnyx/telnyx-node/compare/v6.83.0...v7.0.0) (2026-06-18)
 
 
