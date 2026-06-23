@@ -2120,26 +2120,6 @@ export interface UserMessage {
   metadata?: { [key: string]: unknown };
 }
 
-/**
- * Messages sent by an end user
- */
-export interface UserMessage {
-  /**
-   * The contents of the user message.
-   */
-  content: string;
-
-  /**
-   * The role of the messages author, in this case `user`.
-   */
-  role: 'user';
-
-  /**
-   * Metadata to add to the message
-   */
-  metadata?: { [key: string]: unknown };
-}
-
 export interface ActionAddAIAssistantMessagesResponse {
   data?: CallControlCommandResult;
 }
