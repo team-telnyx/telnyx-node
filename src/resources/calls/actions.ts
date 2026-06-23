@@ -2056,6 +2056,7 @@ export interface TranscriptionStartRequest {
     | 'AssemblyAI'
     | 'Speechmatics'
     | 'Soniox'
+    | 'Parakeet'
     | 'A'
     | 'B';
 
@@ -2067,6 +2068,7 @@ export interface TranscriptionStartRequest {
     | TranscriptionEngineAssemblyaiConfig
     | TranscriptionEngineSpeechmaticsConfig
     | TranscriptionEngineSonioxConfig
+    | TranscriptionStartRequest.TranscriptionEngineParakeetConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -2078,6 +2080,26 @@ export interface TranscriptionStartRequest {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace TranscriptionStartRequest {
+  export interface TranscriptionEngineParakeetConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Engine identifier for Parakeet transcription service
+     */
+    transcription_engine?: 'Parakeet';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'parakeet/tdt-0.6b-v3';
+  }
 }
 
 /**
@@ -4595,6 +4617,7 @@ export interface ActionStartTranscriptionParams {
     | 'AssemblyAI'
     | 'Speechmatics'
     | 'Soniox'
+    | 'Parakeet'
     | 'A'
     | 'B';
 
@@ -4606,6 +4629,7 @@ export interface ActionStartTranscriptionParams {
     | TranscriptionEngineAssemblyaiConfig
     | TranscriptionEngineSpeechmaticsConfig
     | TranscriptionEngineSonioxConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineParakeetConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4617,6 +4641,26 @@ export interface ActionStartTranscriptionParams {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace ActionStartTranscriptionParams {
+  export interface TranscriptionEngineParakeetConfig {
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Engine identifier for Parakeet transcription service
+     */
+    transcription_engine?: 'Parakeet';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'parakeet/tdt-0.6b-v3';
+  }
 }
 
 export interface ActionStopAIAssistantParams {

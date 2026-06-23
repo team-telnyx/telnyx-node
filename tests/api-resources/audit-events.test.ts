@@ -26,7 +26,7 @@ describe('resource auditEvents', () => {
     await expect(
       client.auditEvents.list(
         {
-          filter: { created_after: '2021-01-02T00:00:00Z', created_before: '2021-01-02T00:00:00Z' },
+          filter: { created_after: '2021-01-03T00:00:00Z', created_before: '2021-01-03T00:00:00Z' },
           'page[number]': 0,
           'page[size]': 0,
           sort: 'desc',
