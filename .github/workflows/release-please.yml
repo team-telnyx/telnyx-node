@@ -49,7 +49,7 @@ jobs:
           node-version: '20'
 
       - name: Install release-please
-        run: npm install release-please@17
+        run: npm install --no-save release-please@17
 
       - name: Read Release-As version from next branch
         if: github.ref == 'refs/heads/next'
