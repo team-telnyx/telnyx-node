@@ -1889,6 +1889,24 @@ export namespace TranscriptionEngineGoogleConfig {
   }
 }
 
+export interface TranscriptionEngineParakeetConfig {
+  /**
+   * Whether to send also interim results. If set to false, only final results will
+   * be sent.
+   */
+  interim_results?: boolean;
+
+  /**
+   * Engine identifier for Parakeet transcription service
+   */
+  transcription_engine?: 'Parakeet';
+
+  /**
+   * The model to use for transcription.
+   */
+  transcription_model?: 'parakeet/tdt-0.6b-v3';
+}
+
 export interface TranscriptionEngineSonioxConfig {
   /**
    * Engine identifier for Soniox transcription service
@@ -2056,6 +2074,7 @@ export interface TranscriptionStartRequest {
     | 'AssemblyAI'
     | 'Speechmatics'
     | 'Soniox'
+    | 'Parakeet'
     | 'A'
     | 'B';
 
@@ -2067,6 +2086,7 @@ export interface TranscriptionStartRequest {
     | TranscriptionEngineAssemblyaiConfig
     | TranscriptionEngineSpeechmaticsConfig
     | TranscriptionEngineSonioxConfig
+    | TranscriptionEngineParakeetConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4595,6 +4615,7 @@ export interface ActionStartTranscriptionParams {
     | 'AssemblyAI'
     | 'Speechmatics'
     | 'Soniox'
+    | 'Parakeet'
     | 'A'
     | 'B';
 
@@ -4606,6 +4627,7 @@ export interface ActionStartTranscriptionParams {
     | TranscriptionEngineAssemblyaiConfig
     | TranscriptionEngineSpeechmaticsConfig
     | TranscriptionEngineSonioxConfig
+    | TranscriptionEngineParakeetConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -5179,6 +5201,7 @@ export declare namespace Actions {
     type TranscriptionEngineBConfig as TranscriptionEngineBConfig,
     type TranscriptionEngineDeepgramConfig as TranscriptionEngineDeepgramConfig,
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
+    type TranscriptionEngineParakeetConfig as TranscriptionEngineParakeetConfig,
     type TranscriptionEngineSonioxConfig as TranscriptionEngineSonioxConfig,
     type TranscriptionEngineSpeechmaticsConfig as TranscriptionEngineSpeechmaticsConfig,
     type TranscriptionEngineTelnyxConfig as TranscriptionEngineTelnyxConfig,
