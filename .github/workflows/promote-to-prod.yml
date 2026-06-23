@@ -121,9 +121,7 @@ jobs:
             release-please-config.json \
             .release-please-manifest.json \
             packages/mcp-server/ \
-            patches/ \
             pnpm-workspace.yaml \
-            .dockerignore \
             2>/dev/null || true
 
           # Restore remaining prod-owned files from next.
