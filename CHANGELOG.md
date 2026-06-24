@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.0](https://github.com/team-telnyx/telnyx-node/compare/v7.1.0...v7.1.0) (2026-06-24)
+
+
+### Bug Fixes
+
+* restore release trigger in publish-npm.yml ([#449](https://github.com/team-telnyx/telnyx-node/issues/449)) ([dfbef53](https://github.com/team-telnyx/telnyx-node/commit/dfbef5388468a38ab6b440c5ce064c46c530f173))
+
 ## [7.1.0](https://github.com/team-telnyx/telnyx-node/compare/v7.0.0...v7.1.0) (2026-06-23)
 
 
