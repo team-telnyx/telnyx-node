@@ -129,7 +129,7 @@ export class Messaging10dlc extends APIResource {
 export type Messaging10dlcGetEnumResponse =
   | Array<string>
   | Array<{ [key: string]: unknown }>
-  | { [key: string]: unknown }
+  | { [key: string]: string }
   | { [key: string]: unknown }
   | Messaging10dlcGetEnumResponse.EnumPaginatedResponse;
 
