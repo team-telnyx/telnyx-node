@@ -37,27 +37,41 @@ jobs:
 
       - name: Read Release-As version from staging history
         id: version
+        env:
+          GH_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
         run: |
+          set -euo pipefail
           VERSION=""
-          # The stlc-generate.yml injects a "Release-As: X.Y.Z" footer
-          # into the generate commit. Find the latest one in main history.
-          for commit in $(git rev-list HEAD --max-count=50); do
-            BODY=$(git log -1 --format=%b "$commit")
-            RA=$(echo "$BODY" | grep -oP 'Release-As:\s*\K[\d.]+' || true)
-            if [ -n "$RA" ]; then
-              VERSION="$RA"
-              break
-            fi
-          done
 
-          # Fallback: read from manifest
-          if [ -z "$VERSION" ]; then
-            VERSION=$(jq -r '.["." ] // empty' .release-please-manifest.json 2>/dev/null || true)
+          # Primary: read the current released version from PROD master's manifest.
+          # This is the source of truth — prod master reflects the last successful
+          # release. We bump minor (X.Y.Z → X.(Y+1).0) to compute the next version.
+          # Staging history can be stale (old Release-As footers persist), leading
+          # to duplicate version collisions.
+          PROD_MANIFEST=$(gh api "repos/team-telnyx/telnyx-node/contents/.release-please-manifest.json?ref=master" --jq '.content' 2>/dev/null | base64 -d 2>/dev/null || true)
+          CUR=$(echo "$PROD_MANIFEST" | jq -r '.["."] // empty' 2>/dev/null || true)
+          if [ -n "$CUR" ] && printf '%s' "$CUR" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            VERSION=$(printf '%s' "$CUR" | awk -F. '{printf "%d.%d.0", $1, $2+1}')
+            echo "Read prod master manifest: $CUR → next (minor bump) $VERSION"
           fi
 
-          # Fallback: read from package.json
+          # Fallback: read Release-As from staging history (last 50 commits)
           if [ -z "$VERSION" ]; then
-            VERSION=$(jq -r '.version // empty' package.json 2>/dev/null || true)
+            for commit in $(git rev-list HEAD --max-count=50); do
+              BODY=$(git log -1 --format=%b "$commit")
+              RA=$(echo "$BODY" | grep -oP 'Release-As:\s*\K[\d.]+' || true)
+              if [ -n "$RA" ]; then
+                VERSION="$RA"
+                break
+              fi
+            done
+            [ -n "$VERSION" ] && echo "Fallback: read Release-As from staging history: $VERSION"
+          fi
+
+          # Fallback: read from staging manifest
+          if [ -z "$VERSION" ]; then
+            VERSION=$(jq -r '.["."] // empty' .release-please-manifest.json 2>/dev/null || true)
+            [ -n "$VERSION" ] && echo "Fallback: read from staging manifest: $VERSION"
           fi
 
           if [ -z "$VERSION" ]; then
