@@ -1,13 +1,16 @@
 # Changelog
 
-## [7.1.0](https://github.com/team-telnyx/telnyx-node/compare/v7.1.0...v7.1.0) (2026-06-24)
+## [7.1.0](https://github.com/team-telnyx/telnyx-node/compare/v7.0.0...v7.1.0) (2026-06-24)
 
 
 ### Bug Fixes
 
 * restore release trigger in publish-npm.yml ([#449](https://github.com/team-telnyx/telnyx-node/issues/449)) ([dfbef53](https://github.com/team-telnyx/telnyx-node/commit/dfbef5388468a38ab6b440c5ce064c46c530f173))
+* remove `|| true` from github-release step ([#444](https://github.com/team-telnyx/telnyx-node/issues/444)) ([82a062d](https://github.com/team-telnyx/telnyx-node/commit/82a062d58a5e82c0bdecf8d701e3cc4f8184ac79))
+* remove prerelease config and broken promote-to-prod.yml ([#441](https://github.com/team-telnyx/telnyx-node/issues/441)) ([0c26247](https://github.com/team-telnyx/telnyx-node/commit/0c262478ffc1db19aa48933a70aacc1c465ac72a))
+* use --no-save for release-please install to avoid dirty worktree ([#446](https://github.com/team-telnyx/telnyx-node/issues/446)) ([517bc3c](https://github.com/team-telnyx/telnyx-node/commit/517bc3ccb93524f10fb86c8d11d48d06578a1879))
 
-## [7.1.0](https://github.com/team-telnyx/telnyx-node/compare/v7.0.0...v7.1.0) (2026-06-23)
+## [7.0.0](https://github.com/team-telnyx/telnyx-node/compare/v7.0.0...v7.1.0) (2026-06-23)
 
 
 ### Bug Fixes
