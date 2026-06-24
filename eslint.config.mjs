@@ -31,7 +31,10 @@ export default tseslint.config(
     },
   },
   {
-    files: ['tests/**', 'examples/**'],
+    // mcp-server is a separate workspace package that depends on `telnyx`
+    // via "workspace:*" — it imports the SDK as a package consumer, not as
+    // internal code that should use relative imports.
+    files: ['tests/**', 'examples/**', 'packages/mcp-server/**'],
     rules: {
       'no-restricted-imports': 'off',
     },
