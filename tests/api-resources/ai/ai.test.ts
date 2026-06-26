@@ -41,7 +41,6 @@ describe('resource ai', () => {
   test.skip('searchConversationHistories: only required params', async () => {
     const responsePromise = client.ai.searchConversationHistories({
       q: 'customer called about billing issue',
-      record_type: 'voice',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -56,8 +55,6 @@ describe('resource ai', () => {
   test.skip('searchConversationHistories: required and optional params', async () => {
     const response = await client.ai.searchConversationHistories({
       q: 'customer called about billing issue',
-      record_type: 'voice',
-      'filter[document_id]': 'doc-789',
       'filter[ingested_at][gte]': '2026-01-01T00:00:00Z',
       'filter[ingested_at][lte]': '2026-12-31T23:59:59Z',
       'filter[record_created_at][gte]': '2026-01-01T00:00:00Z',
@@ -67,8 +64,9 @@ describe('resource ai', () => {
       'filter[retention]': 'filter[retention]',
       'filter[user_id]': 'user-123',
       min_score: 0.5,
+      'page[number]': 1,
+      'page[size]': 10,
       region: 'USA',
-      top_k: 10,
     });
   });
 
