@@ -42,9 +42,9 @@ import {
 import * as VerifyEmailAPI from './verify-email';
 import {
   VerifyEmail,
-  VerifyEmailConfirmCodeParams,
-  VerifyEmailConfirmCodeResponse,
-  VerifyEmailSendCodeResponse,
+  VerifyEmailConfirmParams,
+  VerifyEmailConfirmResponse,
+  VerifyEmailSendResponse,
   VerifyEmailStatusResponse,
 } from './verify-email';
 import { APIPromise } from '../../core/api-promise';
@@ -1493,9 +1493,9 @@ export declare namespace Dir {
 
   export {
     VerifyEmail as VerifyEmail,
-    type VerifyEmailConfirmCodeResponse as VerifyEmailConfirmCodeResponse,
-    type VerifyEmailSendCodeResponse as VerifyEmailSendCodeResponse,
+    type VerifyEmailConfirmResponse as VerifyEmailConfirmResponse,
+    type VerifyEmailSendResponse as VerifyEmailSendResponse,
     type VerifyEmailStatusResponse as VerifyEmailStatusResponse,
-    type VerifyEmailConfirmCodeParams as VerifyEmailConfirmCodeParams,
+    type VerifyEmailConfirmParams as VerifyEmailConfirmParams,
   };
 }

@@ -630,6 +630,21 @@ export namespace InboundMessagePayload {
   }
 }
 
+export interface InworldVoiceSettings {
+  /**
+   * Voice settings provider type
+   */
+  type: 'inworld';
+
+  /**
+   * Controls the expressiveness and consistency of the Inworld `TTS2` model's speech
+   * synthesis. `STABLE` favors consistent, predictable output, `CREATIVE` allows
+   * more expressive variation, and `BALANCED` sits in between. Optional and only
+   * supported by `TTS2`; when omitted, the provider default applies.
+   */
+  delivery_mode?: 'STABLE' | 'BALANCED' | 'CREATIVE';
+}
+
 /**
  * The set of features available for a specific messaging use case (SMS or MMS).
  * Features can vary depending on the characteristics the phone number, as well as
@@ -1358,6 +1373,18 @@ export namespace WhatsappTemplateData {
   export interface WhatsappBusinessAccount {
     id?: string;
   }
+}
+
+export interface XaiVoiceSettings {
+  /**
+   * Voice settings provider type
+   */
+  type: 'xai';
+
+  /**
+   * Language code, or `auto` to detect automatically.
+   */
+  language?: string;
 }
 
 export type MessagingHostedNumberOrdersDefaultFlatPagination =

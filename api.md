@@ -20,6 +20,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">Feature</a></code>
 - <code><a href="./src/resources/shared.ts">HostedNumber</a></code>
 - <code><a href="./src/resources/shared.ts">InboundMessagePayload</a></code>
+- <code><a href="./src/resources/shared.ts">InworldVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingFeatureSet</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingHostedNumberOrder</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingPaginationMeta</a></code>
@@ -41,6 +42,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">SimpleSimCard</a></code>
 - <code><a href="./src/resources/shared.ts">SubNumberOrderRegulatoryRequirementWithValue</a></code>
 - <code><a href="./src/resources/shared.ts">WhatsappTemplateData</a></code>
+- <code><a href="./src/resources/shared.ts">XaiVoiceSettings</a></code>
 
 # Legacy
 
@@ -510,16 +512,17 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/ai/ai.ts">AICreateResponseDeprecatedResponse</a></code>
+- <code><a href="./src/resources/ai/ai.ts">ModelMetadata</a></code>
+- <code><a href="./src/resources/ai/ai.ts">AICreateResponseResponse</a></code>
+- <code><a href="./src/resources/ai/ai.ts">AIListConversationHistoriesResponse</a></code>
 - <code><a href="./src/resources/ai/ai.ts">AIRetrieveModelsResponse</a></code>
-- <code><a href="./src/resources/ai/ai.ts">AISearchConversationHistoriesResponse</a></code>
 - <code><a href="./src/resources/ai/ai.ts">AISummarizeResponse</a></code>
 
 Methods:
 
-- <code title="post /ai/responses">client.ai.<a href="./src/resources/ai/ai.ts">createResponseDeprecated</a>({ ...params }) -> AICreateResponseDeprecatedResponse</code>
+- <code title="post /ai/responses">client.ai.<a href="./src/resources/ai/ai.ts">createResponse</a>({ ...params }) -> AICreateResponseResponse</code>
+- <code title="get /ai/conversation_histories">client.ai.<a href="./src/resources/ai/ai.ts">listConversationHistories</a>({ ...params }) -> AIListConversationHistoriesResponsesDefaultFlatPagination</code>
 - <code title="get /ai/models">client.ai.<a href="./src/resources/ai/ai.ts">retrieveModels</a>() -> AIRetrieveModelsResponse</code>
-- <code title="get /ai/conversation_histories">client.ai.<a href="./src/resources/ai/ai.ts">searchConversationHistories</a>({ ...params }) -> AISearchConversationHistoriesResponse</code>
 - <code title="post /ai/summarize">client.ai.<a href="./src/resources/ai/ai.ts">summarize</a>({ ...params }) -> AISummarizeResponse</code>
 
 ## Assistants
@@ -527,22 +530,33 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/ai/assistants/assistants.ts">Assistant</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantIntegration</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantMcpServer</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantsList</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AudioVisualizerConfig</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">EnabledFeatures</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ExternalLlm</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ExternalLlmReq</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">FallbackConfig</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">FallbackConfigReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ImportMetadata</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbedding</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingInterruptionSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingWebhookToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InsightSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">MessagingSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">Observability</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ObservabilityReq</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">PostConversationSettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">PostConversationSettingsReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PrivacySettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">RetrievalTool</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">StartSpeakingPlan</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TelephonySettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionEndpointingPlan</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionSettingsConfig</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TransferTool</a></code>
@@ -625,6 +639,11 @@ Types:
 
 - <code><a href="./src/resources/ai/assistants/canary-deploys.ts">CanaryDeploy</a></code>
 - <code><a href="./src/resources/ai/assistants/canary-deploys.ts">CanaryDeployResponse</a></code>
+- <code><a href="./src/resources/ai/assistants/canary-deploys.ts">Clause</a></code>
+- <code><a href="./src/resources/ai/assistants/canary-deploys.ts">RolloutSlot</a></code>
+- <code><a href="./src/resources/ai/assistants/canary-deploys.ts">RuleInput</a></code>
+- <code><a href="./src/resources/ai/assistants/canary-deploys.ts">RuleOutput</a></code>
+- <code><a href="./src/resources/ai/assistants/canary-deploys.ts">Serve</a></code>
 
 Methods:
 
@@ -1253,6 +1272,8 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/calls/calls.ts">CallAssistantRequest</a></code>
+- <code><a href="./src/resources/calls/calls.ts">ConversationRelayInterruptionSettings</a></code>
+- <code><a href="./src/resources/calls/calls.ts">ConversationRelayLanguage</a></code>
 - <code><a href="./src/resources/calls/calls.ts">CustomSipHeader</a></code>
 - <code><a href="./src/resources/calls/calls.ts">DialogflowConfig</a></code>
 - <code><a href="./src/resources/calls/calls.ts">SipHeader</a></code>
@@ -1288,11 +1309,15 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">TelnyxVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineAConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineAssemblyaiConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineAzureConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineBConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineDeepgramConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineGoogleConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineSonioxConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineSpeechmaticsConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineTelnyxConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineXaiConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionStartRequest</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionAddAIAssistantMessagesResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionAnswerResponse</a></code>
@@ -3183,16 +3208,16 @@ Types:
 
 - <code><a href="./src/resources/public-internet-gateways.ts">NetworkInterface</a></code>
 - <code><a href="./src/resources/public-internet-gateways.ts">NetworkInterfaceRegion</a></code>
+- <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGatewayRead</a></code>
 - <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGatewayCreateResponse</a></code>
 - <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGatewayRetrieveResponse</a></code>
-- <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGatewayListResponse</a></code>
 - <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGatewayDeleteResponse</a></code>
 
 Methods:
 
 - <code title="post /public_internet_gateways">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">create</a>({ ...params }) -> PublicInternetGatewayCreateResponse</code>
 - <code title="get /public_internet_gateways/{id}">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">retrieve</a>(id) -> PublicInternetGatewayRetrieveResponse</code>
-- <code title="get /public_internet_gateways">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">list</a>({ ...params }) -> PublicInternetGatewayListResponsesDefaultFlatPagination</code>
+- <code title="get /public_internet_gateways">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">list</a>({ ...params }) -> PublicInternetGatewayReadsDefaultFlatPagination</code>
 - <code title="delete /public_internet_gateways/{id}">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">delete</a>(id) -> PublicInternetGatewayDeleteResponse</code>
 
 # Queues
@@ -3331,6 +3356,18 @@ Methods:
 - <code title="get /reports/mdr_usage_reports">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">list</a>({ ...params }) -> MdrUsageReportsDefaultFlatPagination</code>
 - <code title="delete /reports/mdr_usage_reports/{id}">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">delete</a>(id) -> MdrUsageReportDeleteResponse</code>
 - <code title="get /reports/mdr_usage_reports/sync">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">fetchSync</a>({ ...params }) -> MdrUsageReportFetchSyncResponse</code>
+
+# SpeechToText
+
+Types:
+
+- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
+- <code><a href="./src/resources/speech-to-text.ts">TranscribeClientEvent</a></code>
+- <code><a href="./src/resources/speech-to-text.ts">TranscribeServerEvent</a></code>
+
+Methods:
+
+- <code title="get /speech-to-text/providers">client.speechToText.<a href="./src/resources/speech-to-text.ts">listProviders</a>({ ...params }) -> SpeechToTextListProvidersResponse</code>
 
 # RequirementGroups
 
@@ -3980,14 +4017,15 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechGenerateResponse</a></code>
+- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechCreateSpeechResponse</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">TextToSpeechListVoicesResponse</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">StreamClientEvent</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">StreamServerEvent</a></code>
 
 Methods:
 
-- <code title="post /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">generate</a>({ ...params }) -> TextToSpeechGenerateResponse</code>
+- <code title="post /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">createSpeech</a>({ ...params }) -> TextToSpeechCreateSpeechResponse</code>
+- <code title="get /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">generateSpeech</a>({ ...params }) -> void</code>
 - <code title="get /text-to-speech/voices">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">listVoices</a>({ ...params }) -> TextToSpeechListVoicesResponse</code>
 
 # UsageReports
@@ -4115,10 +4153,10 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectCombined</a></code>
 - <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectCreateResponse</a></code>
 - <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectRetrieveResponse</a></code>
 - <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectUpdateResponse</a></code>
-- <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectListResponse</a></code>
 - <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectDeleteResponse</a></code>
 
 Methods:
@@ -4126,7 +4164,7 @@ Methods:
 - <code title="post /virtual_cross_connects">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">create</a>({ ...params }) -> VirtualCrossConnectCreateResponse</code>
 - <code title="get /virtual_cross_connects/{id}">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">retrieve</a>(id) -> VirtualCrossConnectRetrieveResponse</code>
 - <code title="patch /virtual_cross_connects/{id}">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">update</a>(id, { ...params }) -> VirtualCrossConnectUpdateResponse</code>
-- <code title="get /virtual_cross_connects">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">list</a>({ ...params }) -> VirtualCrossConnectListResponsesDefaultFlatPagination</code>
+- <code title="get /virtual_cross_connects">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">list</a>({ ...params }) -> VirtualCrossConnectCombinedsDefaultFlatPagination</code>
 - <code title="delete /virtual_cross_connects/{id}">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">delete</a>(id) -> VirtualCrossConnectDeleteResponse</code>
 
 # VirtualCrossConnectsCoverage
@@ -4157,16 +4195,16 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterfaceRead</a></code>
 - <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterfaceCreateResponse</a></code>
 - <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterfaceRetrieveResponse</a></code>
-- <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterfaceListResponse</a></code>
 - <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterfaceDeleteResponse</a></code>
 
 Methods:
 
 - <code title="post /wireguard_interfaces">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">create</a>({ ...params }) -> WireguardInterfaceCreateResponse</code>
 - <code title="get /wireguard_interfaces/{id}">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">retrieve</a>(id) -> WireguardInterfaceRetrieveResponse</code>
-- <code title="get /wireguard_interfaces">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">list</a>({ ...params }) -> WireguardInterfaceListResponsesDefaultFlatPagination</code>
+- <code title="get /wireguard_interfaces">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">list</a>({ ...params }) -> WireguardInterfaceReadsDefaultFlatPagination</code>
 - <code title="delete /wireguard_interfaces/{id}">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">delete</a>(id) -> WireguardInterfaceDeleteResponse</code>
 
 # WireguardPeers
@@ -4670,6 +4708,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/whatsapp/user-data.ts">WhatsappUserData</a></code>
 - <code><a href="./src/resources/whatsapp/user-data.ts">UserDataRetrieveResponse</a></code>
 - <code><a href="./src/resources/whatsapp/user-data.ts">UserDataUpdateResponse</a></code>
 
@@ -4934,6 +4973,61 @@ Methods:
 - <code title="get /pronunciation_dicts">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">list</a>({ ...params }) -> PronunciationDictDataDefaultFlatPagination</code>
 - <code title="delete /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">delete</a>(id) -> void</code>
 
+# UacConnections
+
+Types:
+
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnection</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacExternalSettings</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacInbound</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacInternalSettings</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacOutbound</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionCreateResponse</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionRetrieveResponse</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionUpdateResponse</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /uac_connections">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">create</a>({ ...params }) -> UacConnectionCreateResponse</code>
+- <code title="get /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">retrieve</a>(id) -> UacConnectionRetrieveResponse</code>
+- <code title="patch /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">update</a>(id, { ...params }) -> UacConnectionUpdateResponse</code>
+- <code title="get /uac_connections">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">list</a>({ ...params }) -> UacConnectionsDefaultFlatPagination</code>
+- <code title="delete /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">delete</a>(id) -> UacConnectionDeleteResponse</code>
+
+## Actions
+
+Types:
+
+- <code><a href="./src/resources/uac-connections/actions.ts">ActionCheckRegistrationStatusResponse</a></code>
+
+Methods:
+
+- <code title="post /uac_connections/{id}/actions/check_registration_status">client.uacConnections.actions.<a href="./src/resources/uac-connections/actions.ts">checkRegistrationStatus</a>(id) -> ActionCheckRegistrationStatusResponse</code>
+
+# VoiceSDKCallReports
+
+Types:
+
+- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportLogEntry</a></code>
+- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportRetrieveResponse</a></code>
+- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportListResponse</a></code>
+
+Methods:
+
+- <code title="get /voice_sdk_call_reports/{call_id}">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">retrieve</a>(callID) -> VoiceSDKCallReportRetrieveResponse</code>
+- <code title="get /voice_sdk_call_reports">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">list</a>({ ...params }) -> VoiceSDKCallReportListResponsesDefaultFlatPagination</code>
+
+# SipRegistrationStatus
+
+Types:
+
+- <code><a href="./src/resources/sip-registration-status.ts">SipRegistrationStatusRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /sip_registration_status">client.sipRegistrationStatus.<a href="./src/resources/sip-registration-status.ts">retrieve</a>({ ...params }) -> SipRegistrationStatusRetrieveResponse</code>
+
 # CallReasons
 
 Types:
@@ -5026,14 +5120,14 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/dir/verify-email.ts">VerifyEmailConfirmCodeResponse</a></code>
-- <code><a href="./src/resources/dir/verify-email.ts">VerifyEmailSendCodeResponse</a></code>
+- <code><a href="./src/resources/dir/verify-email.ts">VerifyEmailConfirmResponse</a></code>
+- <code><a href="./src/resources/dir/verify-email.ts">VerifyEmailSendResponse</a></code>
 - <code><a href="./src/resources/dir/verify-email.ts">VerifyEmailStatusResponse</a></code>
 
 Methods:
 
-- <code title="post /dir/{dir_id}/verify_email/confirm">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">confirmCode</a>(dirID, { ...params }) -> VerifyEmailConfirmCodeResponse</code>
-- <code title="post /dir/{dir_id}/verify_email">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">sendCode</a>(dirID) -> VerifyEmailSendCodeResponse</code>
+- <code title="post /dir/{dir_id}/verify_email/confirm">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">confirm</a>(dirID, { ...params }) -> VerifyEmailConfirmResponse</code>
+- <code title="post /dir/{dir_id}/verify_email">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">send</a>(dirID) -> VerifyEmailSendResponse</code>
 - <code title="get /dir/{dir_id}/verify_email">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">status</a>(dirID) -> VerifyEmailStatusResponse</code>
 
 # InfringementClaims
@@ -5047,63 +5141,3 @@ Methods:
 
 - <code title="get /infringement_claims/{claim_id}">client.infringementClaims.<a href="./src/resources/infringement-claims.ts">retrieve</a>(claimID) -> InfringementClaimRetrieveResponse</code>
 - <code title="post /infringement_claims/{claim_id}/contest">client.infringementClaims.<a href="./src/resources/infringement-claims.ts">contest</a>(claimID, { ...params }) -> InfringementClaimContestResponse</code>
-
-# SipRegistrationStatus
-
-Types:
-
-- <code><a href="./src/resources/sip-registration-status.ts">SipRegistrationStatusRetrieveResponse</a></code>
-
-Methods:
-
-- <code title="get /sip_registration_status">client.sipRegistrationStatus.<a href="./src/resources/sip-registration-status.ts">retrieve</a>({ ...params }) -> SipRegistrationStatusRetrieveResponse</code>
-
-# SpeechToText
-
-Types:
-
-- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
-
-Methods:
-
-- <code title="get /speech-to-text/providers">client.speechToText.<a href="./src/resources/speech-to-text.ts">listProviders</a>({ ...params }) -> SpeechToTextListProvidersResponse</code>
-
-# UacConnections
-
-Types:
-
-- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionCreateResponse</a></code>
-- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionRetrieveResponse</a></code>
-- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionUpdateResponse</a></code>
-- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionListResponse</a></code>
-- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionDeleteResponse</a></code>
-
-Methods:
-
-- <code title="post /uac_connections">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">create</a>({ ...params }) -> UacConnectionCreateResponse</code>
-- <code title="get /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">retrieve</a>(id) -> UacConnectionRetrieveResponse</code>
-- <code title="patch /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">update</a>(id, { ...params }) -> UacConnectionUpdateResponse</code>
-- <code title="get /uac_connections">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">list</a>({ ...params }) -> UacConnectionListResponsesDefaultFlatPagination</code>
-- <code title="delete /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">delete</a>(id) -> UacConnectionDeleteResponse</code>
-
-## Actions
-
-Types:
-
-- <code><a href="./src/resources/uac-connections/actions.ts">ActionCheckRegistrationStatusResponse</a></code>
-
-Methods:
-
-- <code title="post /uac_connections/{id}/actions/check_registration_status">client.uacConnections.actions.<a href="./src/resources/uac-connections/actions.ts">checkRegistrationStatus</a>(id) -> ActionCheckRegistrationStatusResponse</code>
-
-# VoiceSDKCallReports
-
-Types:
-
-- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportRetrieveResponse</a></code>
-- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportListResponse</a></code>
-
-Methods:
-
-- <code title="get /voice_sdk_call_reports/{call_id}">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">retrieve</a>(callID) -> VoiceSDKCallReportRetrieveResponse</code>
-- <code title="get /voice_sdk_call_reports">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">list</a>({ ...params }) -> VoiceSDKCallReportListResponsesDefaultFlatPagination</code>

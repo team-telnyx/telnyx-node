@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as CallsAPI from './calls';
 import * as Shared from '../shared';
 import * as ActionsAPI from './actions';
 import {
@@ -92,18 +93,22 @@ import {
   DeepgramNova3Config,
   ElevenLabsVoiceSettings,
   GoogleTranscriptionLanguage,
-  InterruptionSettings as ActionsAPIInterruptionSettings,
+  InterruptionSettings,
   Loopcount,
   StopRecordingRequest,
   TelnyxTranscriptionLanguage,
   TelnyxVoiceSettings,
   TranscriptionConfig,
   TranscriptionEngineAConfig,
+  TranscriptionEngineAssemblyaiConfig,
   TranscriptionEngineAzureConfig,
   TranscriptionEngineBConfig,
   TranscriptionEngineDeepgramConfig,
   TranscriptionEngineGoogleConfig,
+  TranscriptionEngineSonioxConfig,
+  TranscriptionEngineSpeechmaticsConfig,
   TranscriptionEngineTelnyxConfig,
+  TranscriptionEngineXaiConfig,
   TranscriptionStartRequest,
 } from './actions';
 import * as AssistantsAPI from '../ai/assistants/assistants';
@@ -381,6 +386,112 @@ export namespace CallAssistantRequest {
       token_retrieval_url?: string;
     }
   }
+}
+
+/**
+ * Settings for handling caller interruptions during Conversation Relay speech.
+ */
+export interface ConversationRelayInterruptionSettings {
+  /**
+   * Legacy boolean form. `true` is equivalent to `interruptible=any`; `false` is
+   * equivalent to `interruptible=none`.
+   */
+  enable?: boolean;
+
+  /**
+   * Controls when caller input can interrupt assistant speech. `any` allows speech
+   * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+   * only; `dtmf` allows DTMF only.
+   */
+  interruptible?: 'none' | 'any' | 'speech' | 'dtmf';
+
+  /**
+   * Controls when caller input can interrupt assistant speech. `any` allows speech
+   * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+   * only; `dtmf` allows DTMF only.
+   */
+  interruptible_greeting?: 'none' | 'any' | 'speech' | 'dtmf';
+
+  /**
+   * Controls when caller input can interrupt assistant speech. `any` allows speech
+   * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+   * only; `dtmf` allows DTMF only.
+   */
+  welcome_greeting_interruptible?: 'none' | 'any' | 'speech' | 'dtmf';
+}
+
+/**
+ * Language-specific TTS and transcription settings for Conversation Relay.
+ */
+export interface ConversationRelayLanguage {
+  /**
+   * BCP 47 language tag for this language configuration.
+   */
+  language: string;
+
+  /**
+   * Conversation Relay speech model. Prefer
+   * `transcription_engine_config.transcription_model` when configuring
+   * speech-to-text.
+   */
+  speech_model?: string;
+
+  /**
+   * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
+   * `Telnyx` are supported for backward compatibility. When provided in a
+   * Conversation Relay language entry, Telnyx derives `transcription_provider` and
+   * `speech_model` for that language.
+   */
+  transcription_engine?:
+    | 'Google'
+    | 'Telnyx'
+    | 'Deepgram'
+    | 'Azure'
+    | 'xAI'
+    | 'AssemblyAI'
+    | 'Speechmatics'
+    | 'Soniox'
+    | 'A'
+    | 'B';
+
+  /**
+   * Engine-specific transcription settings for Conversation Relay. This accepts the
+   * same provider-specific options used by the Call Transcription Start command,
+   * such as `transcription_model`, without requiring the engine discriminator to be
+   * repeated inside this object.
+   */
+  transcription_engine_config?: { [key: string]: unknown };
+
+  /**
+   * Conversation Relay transcription provider name. Prefer `transcription_engine`
+   * when configuring speech-to-text.
+   */
+  transcription_provider?: string;
+
+  /**
+   * Text-to-speech provider for this language. If omitted and `voice` is provided,
+   * Telnyx derives the provider from the voice identifier.
+   */
+  tts_provider?: string;
+
+  /**
+   * Voice identifier for this language.
+   */
+  voice?: string;
+
+  /**
+   * The settings associated with the voice selected
+   */
+  voice_settings?:
+    | ActionsAPI.ElevenLabsVoiceSettings
+    | ActionsAPI.TelnyxVoiceSettings
+    | ActionsAPI.AwsVoiceSettings
+    | Shared.MinimaxVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings
+    | Shared.InworldVoiceSettings
+    | Shared.XaiVoiceSettings;
 }
 
 export interface CustomSipHeader {
@@ -1216,7 +1327,7 @@ export namespace CallDialParams {
     /**
      * Settings for handling caller interruptions during Conversation Relay speech.
      */
-    interruption_settings?: ConversationRelayConfig.InterruptionSettings;
+    interruption_settings?: CallsAPI.ConversationRelayInterruptionSettings;
 
     /**
      * Default language for both text-to-speech and speech recognition.
@@ -1226,7 +1337,7 @@ export namespace CallDialParams {
     /**
      * Per-language TTS and transcription settings.
      */
-    languages?: Array<ConversationRelayConfig.Language>;
+    languages?: Array<CallsAPI.ConversationRelayLanguage>;
 
     /**
      * Structured voice provider. Must be supplied together with `structured_provider`.
@@ -1314,172 +1425,8 @@ export namespace CallDialParams {
       | Shared.AzureVoiceSettings
       | Shared.RimeVoiceSettings
       | Shared.ResembleVoiceSettings
-      | ConversationRelayConfig.InworldVoiceSettings
-      | ConversationRelayConfig.XaiVoiceSettings;
-  }
-
-  export namespace ConversationRelayConfig {
-    /**
-     * Settings for handling caller interruptions during Conversation Relay speech.
-     */
-    export interface InterruptionSettings {
-      /**
-       * Legacy boolean form. `true` is equivalent to `interruptible=any`; `false` is
-       * equivalent to `interruptible=none`.
-       */
-      enable?: boolean;
-
-      /**
-       * Controls when caller input can interrupt assistant speech. `any` allows speech
-       * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
-       * only; `dtmf` allows DTMF only.
-       */
-      interruptible?: 'none' | 'any' | 'speech' | 'dtmf';
-
-      /**
-       * Controls when caller input can interrupt assistant speech. `any` allows speech
-       * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
-       * only; `dtmf` allows DTMF only.
-       */
-      interruptible_greeting?: 'none' | 'any' | 'speech' | 'dtmf';
-
-      /**
-       * Controls when caller input can interrupt assistant speech. `any` allows speech
-       * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
-       * only; `dtmf` allows DTMF only.
-       */
-      welcome_greeting_interruptible?: 'none' | 'any' | 'speech' | 'dtmf';
-    }
-
-    /**
-     * Language-specific TTS and transcription settings for Conversation Relay.
-     */
-    export interface Language {
-      /**
-       * BCP 47 language tag for this language configuration.
-       */
-      language: string;
-
-      /**
-       * Conversation Relay speech model. Prefer
-       * `transcription_engine_config.transcription_model` when configuring
-       * speech-to-text.
-       */
-      speech_model?: string;
-
-      /**
-       * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
-       * `Telnyx` are supported for backward compatibility. When provided in a
-       * Conversation Relay language entry, Telnyx derives `transcription_provider` and
-       * `speech_model` for that language.
-       */
-      transcription_engine?:
-        | 'Google'
-        | 'Telnyx'
-        | 'Deepgram'
-        | 'Azure'
-        | 'xAI'
-        | 'AssemblyAI'
-        | 'Speechmatics'
-        | 'Soniox'
-        | 'A'
-        | 'B';
-
-      /**
-       * Engine-specific transcription settings for Conversation Relay. This accepts the
-       * same provider-specific options used by the Call Transcription Start command,
-       * such as `transcription_model`, without requiring the engine discriminator to be
-       * repeated inside this object.
-       */
-      transcription_engine_config?: { [key: string]: unknown };
-
-      /**
-       * Conversation Relay transcription provider name. Prefer `transcription_engine`
-       * when configuring speech-to-text.
-       */
-      transcription_provider?: string;
-
-      /**
-       * Text-to-speech provider for this language. If omitted and `voice` is provided,
-       * Telnyx derives the provider from the voice identifier.
-       */
-      tts_provider?: string;
-
-      /**
-       * Voice identifier for this language.
-       */
-      voice?: string;
-
-      /**
-       * The settings associated with the voice selected
-       */
-      voice_settings?:
-        | ActionsAPI.ElevenLabsVoiceSettings
-        | ActionsAPI.TelnyxVoiceSettings
-        | ActionsAPI.AwsVoiceSettings
-        | Shared.MinimaxVoiceSettings
-        | Shared.AzureVoiceSettings
-        | Shared.RimeVoiceSettings
-        | Shared.ResembleVoiceSettings
-        | Language.InworldVoiceSettings
-        | Language.XaiVoiceSettings;
-    }
-
-    export namespace Language {
-      export interface InworldVoiceSettings {
-        /**
-         * Voice settings provider type
-         */
-        type: 'inworld';
-
-        /**
-         * Controls the expressiveness and consistency of the Inworld `TTS2` model's speech
-         * synthesis. `STABLE` favors consistent, predictable output, `CREATIVE` allows
-         * more expressive variation, and `BALANCED` sits in between. Optional and only
-         * supported by `TTS2`; when omitted, the provider default applies.
-         */
-        delivery_mode?: 'STABLE' | 'BALANCED' | 'CREATIVE';
-      }
-
-      export interface XaiVoiceSettings {
-        /**
-         * Voice settings provider type
-         */
-        type: 'xai';
-
-        /**
-         * Language code, or `auto` to detect automatically.
-         */
-        language?: string;
-      }
-    }
-
-    export interface InworldVoiceSettings {
-      /**
-       * Voice settings provider type
-       */
-      type: 'inworld';
-
-      /**
-       * Controls the expressiveness and consistency of the Inworld `TTS2` model's speech
-       * synthesis. `STABLE` favors consistent, predictable output, `CREATIVE` allows
-       * more expressive variation, and `BALANCED` sits in between. Optional and only
-       * supported by `TTS2`; when omitted, the provider default applies.
-       */
-      delivery_mode?: 'STABLE' | 'BALANCED' | 'CREATIVE';
-    }
-
-    export interface XaiVoiceSettings {
-      /**
-       * Voice settings provider type
-       */
-      type: 'xai';
-
-      /**
-       * Language code, or `auto` to detect automatically.
-       */
-      language?: string;
-    }
+      | Shared.InworldVoiceSettings
+      | Shared.XaiVoiceSettings;
   }
 
   /**
@@ -1520,6 +1467,8 @@ Calls.Actions = Actions;
 export declare namespace Calls {
   export {
     type CallAssistantRequest as CallAssistantRequest,
+    type ConversationRelayInterruptionSettings as ConversationRelayInterruptionSettings,
+    type ConversationRelayLanguage as ConversationRelayLanguage,
     type CustomSipHeader as CustomSipHeader,
     type DialogflowConfig as DialogflowConfig,
     type SipHeader as SipHeader,
@@ -1543,18 +1492,22 @@ export declare namespace Calls {
     type DeepgramNova3Config as DeepgramNova3Config,
     type ElevenLabsVoiceSettings as ElevenLabsVoiceSettings,
     type GoogleTranscriptionLanguage as GoogleTranscriptionLanguage,
-    type ActionsAPIInterruptionSettings as InterruptionSettings,
+    type InterruptionSettings as InterruptionSettings,
     type Loopcount as Loopcount,
     type StopRecordingRequest as StopRecordingRequest,
     type TelnyxTranscriptionLanguage as TelnyxTranscriptionLanguage,
     type TelnyxVoiceSettings as TelnyxVoiceSettings,
     type TranscriptionConfig as TranscriptionConfig,
     type TranscriptionEngineAConfig as TranscriptionEngineAConfig,
+    type TranscriptionEngineAssemblyaiConfig as TranscriptionEngineAssemblyaiConfig,
     type TranscriptionEngineAzureConfig as TranscriptionEngineAzureConfig,
     type TranscriptionEngineBConfig as TranscriptionEngineBConfig,
     type TranscriptionEngineDeepgramConfig as TranscriptionEngineDeepgramConfig,
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
+    type TranscriptionEngineSonioxConfig as TranscriptionEngineSonioxConfig,
+    type TranscriptionEngineSpeechmaticsConfig as TranscriptionEngineSpeechmaticsConfig,
     type TranscriptionEngineTelnyxConfig as TranscriptionEngineTelnyxConfig,
+    type TranscriptionEngineXaiConfig as TranscriptionEngineXaiConfig,
     type TranscriptionStartRequest as TranscriptionStartRequest,
     type ActionAddAIAssistantMessagesResponse as ActionAddAIAssistantMessagesResponse,
     type ActionAnswerResponse as ActionAnswerResponse,

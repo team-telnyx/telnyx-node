@@ -53,8 +53,8 @@ export {
 } from './references';
 export {
   VerifyEmail,
-  type VerifyEmailConfirmCodeResponse,
-  type VerifyEmailSendCodeResponse,
+  type VerifyEmailConfirmResponse,
+  type VerifyEmailSendResponse,
   type VerifyEmailStatusResponse,
-  type VerifyEmailConfirmCodeParams,
+  type VerifyEmailConfirmParams,
 } from './verify-email';

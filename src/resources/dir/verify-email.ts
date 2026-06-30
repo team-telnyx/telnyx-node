@@ -18,17 +18,17 @@ export class VerifyEmail extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.dir.verifyEmail.confirmCode(
+   * const response = await client.dir.verifyEmail.confirm(
    *   '16635d38-75a6-4481-82e8-69af60e05011',
    *   { code: '482915' },
    * );
    * ```
    */
-  confirmCode(
+  confirm(
     dirID: string,
-    body: VerifyEmailConfirmCodeParams,
+    body: VerifyEmailConfirmParams,
     options?: RequestOptions,
-  ): APIPromise<VerifyEmailConfirmCodeResponse> {
+  ): APIPromise<VerifyEmailConfirmResponse> {
     return this._client.post(path`/dir/${dirID}/verify_email/confirm`, { body, ...options });
   }
 
@@ -42,12 +42,12 @@ export class VerifyEmail extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.dir.verifyEmail.sendCode(
+   * const response = await client.dir.verifyEmail.send(
    *   '16635d38-75a6-4481-82e8-69af60e05011',
    * );
    * ```
    */
-  sendCode(dirID: string, options?: RequestOptions): APIPromise<VerifyEmailSendCodeResponse> {
+  send(dirID: string, options?: RequestOptions): APIPromise<VerifyEmailSendResponse> {
     return this._client.post(path`/dir/${dirID}/verify_email`, options);
   }
 
@@ -66,14 +66,14 @@ export class VerifyEmail extends APIResource {
   }
 }
 
-export interface VerifyEmailConfirmCodeResponse {
+export interface VerifyEmailConfirmResponse {
   /**
    * Verification state for a DIR's authorizer email.
    */
-  data: VerifyEmailConfirmCodeResponse.Data;
+  data: VerifyEmailConfirmResponse.Data;
 }
 
-export namespace VerifyEmailConfirmCodeResponse {
+export namespace VerifyEmailConfirmResponse {
   /**
    * Verification state for a DIR's authorizer email.
    */
@@ -96,14 +96,14 @@ export namespace VerifyEmailConfirmCodeResponse {
   }
 }
 
-export interface VerifyEmailSendCodeResponse {
+export interface VerifyEmailSendResponse {
   /**
    * Verification state for a DIR's authorizer email.
    */
-  data: VerifyEmailSendCodeResponse.Data;
+  data: VerifyEmailSendResponse.Data;
 }
 
-export namespace VerifyEmailSendCodeResponse {
+export namespace VerifyEmailSendResponse {
   /**
    * Verification state for a DIR's authorizer email.
    */
@@ -156,7 +156,7 @@ export namespace VerifyEmailStatusResponse {
   }
 }
 
-export interface VerifyEmailConfirmCodeParams {
+export interface VerifyEmailConfirmParams {
   /**
    * The 6-digit code sent to the authorizer email.
    */
@@ -165,9 +165,9 @@ export interface VerifyEmailConfirmCodeParams {
 
 export declare namespace VerifyEmail {
   export {
-    type VerifyEmailConfirmCodeResponse as VerifyEmailConfirmCodeResponse,
-    type VerifyEmailSendCodeResponse as VerifyEmailSendCodeResponse,
+    type VerifyEmailConfirmResponse as VerifyEmailConfirmResponse,
+    type VerifyEmailSendResponse as VerifyEmailSendResponse,
     type VerifyEmailStatusResponse as VerifyEmailStatusResponse,
-    type VerifyEmailConfirmCodeParams as VerifyEmailConfirmCodeParams,
+    type VerifyEmailConfirmParams as VerifyEmailConfirmParams,
   };
 }

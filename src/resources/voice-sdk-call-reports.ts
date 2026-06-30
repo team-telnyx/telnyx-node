@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as VoiceSDKCallReportsAPI from './voice-sdk-call-reports';
 import { APIPromise } from '../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
@@ -38,6 +39,33 @@ export class VoiceSDKCallReports extends APIResource {
 
 export type VoiceSDKCallReportListResponsesDefaultFlatPagination =
   DefaultFlatPagination<VoiceSDKCallReportListResponse>;
+
+/**
+ * A raw Voice SDK log entry. Additional SDK-specific fields may be present.
+ */
+export interface VoiceSDKCallReportLogEntry {
+  /**
+   * Raw structured context attached to the log entry.
+   */
+  context?: { [key: string]: unknown };
+
+  /**
+   * Log level emitted by the SDK.
+   */
+  level?: 'debug' | 'info' | 'warn' | 'error';
+
+  /**
+   * Log message.
+   */
+  message?: string;
+
+  /**
+   * Time when the log entry was emitted.
+   */
+  timestamp?: string;
+
+  [k: string]: unknown;
+}
 
 /**
  * Raw Voice SDK call report stats payloads as stored by voice-sdk-debug.
@@ -80,7 +108,7 @@ export namespace VoiceSDKCallReportRetrieveResponse {
      * payloads are also allowed for compatibility.
      */
     logs?:
-      | Array<VoiceSDKCallReportRetrieveResponseItem.UnionMember0>
+      | Array<VoiceSDKCallReportsAPI.VoiceSDKCallReportLogEntry>
       | VoiceSDKCallReportRetrieveResponseItem.Entries;
 
     /**
@@ -163,33 +191,6 @@ export namespace VoiceSDKCallReportRetrieveResponse {
 
   export namespace VoiceSDKCallReportRetrieveResponseItem {
     /**
-     * A raw Voice SDK log entry. Additional SDK-specific fields may be present.
-     */
-    export interface UnionMember0 {
-      /**
-       * Raw structured context attached to the log entry.
-       */
-      context?: { [key: string]: unknown };
-
-      /**
-       * Log level emitted by the SDK.
-       */
-      level?: 'debug' | 'info' | 'warn' | 'error';
-
-      /**
-       * Log message.
-       */
-      message?: string;
-
-      /**
-       * Time when the log entry was emitted.
-       */
-      timestamp?: string;
-
-      [k: string]: unknown;
-    }
-
-    /**
      * Raw logs object emitted by the Voice SDK when logs are grouped under an entries
      * field.
      */
@@ -197,38 +198,9 @@ export namespace VoiceSDKCallReportRetrieveResponse {
       /**
        * Raw log entries when the SDK groups logs under an entries field.
        */
-      entries?: Array<Entries.Entry>;
+      entries?: Array<VoiceSDKCallReportsAPI.VoiceSDKCallReportLogEntry>;
 
       [k: string]: unknown;
-    }
-
-    export namespace Entries {
-      /**
-       * A raw Voice SDK log entry. Additional SDK-specific fields may be present.
-       */
-      export interface Entry {
-        /**
-         * Raw structured context attached to the log entry.
-         */
-        context?: { [key: string]: unknown };
-
-        /**
-         * Log level emitted by the SDK.
-         */
-        level?: 'debug' | 'info' | 'warn' | 'error';
-
-        /**
-         * Log message.
-         */
-        message?: string;
-
-        /**
-         * Time when the log entry was emitted.
-         */
-        timestamp?: string;
-
-        [k: string]: unknown;
-      }
     }
 
     /**
@@ -297,7 +269,7 @@ export interface VoiceSDKCallReportListResponse {
    * responses commonly return an array of log entries, but object-shaped log
    * payloads are also allowed for compatibility.
    */
-  logs?: Array<VoiceSDKCallReportListResponse.UnionMember0> | VoiceSDKCallReportListResponse.Entries;
+  logs?: Array<VoiceSDKCallReportLogEntry> | VoiceSDKCallReportListResponse.Entries;
 
   /**
    * Organization associated with the stored call report when provided by the Voice
@@ -379,33 +351,6 @@ export interface VoiceSDKCallReportListResponse {
 
 export namespace VoiceSDKCallReportListResponse {
   /**
-   * A raw Voice SDK log entry. Additional SDK-specific fields may be present.
-   */
-  export interface UnionMember0 {
-    /**
-     * Raw structured context attached to the log entry.
-     */
-    context?: { [key: string]: unknown };
-
-    /**
-     * Log level emitted by the SDK.
-     */
-    level?: 'debug' | 'info' | 'warn' | 'error';
-
-    /**
-     * Log message.
-     */
-    message?: string;
-
-    /**
-     * Time when the log entry was emitted.
-     */
-    timestamp?: string;
-
-    [k: string]: unknown;
-  }
-
-  /**
    * Raw logs object emitted by the Voice SDK when logs are grouped under an entries
    * field.
    */
@@ -413,38 +358,9 @@ export namespace VoiceSDKCallReportListResponse {
     /**
      * Raw log entries when the SDK groups logs under an entries field.
      */
-    entries?: Array<Entries.Entry>;
+    entries?: Array<VoiceSDKCallReportsAPI.VoiceSDKCallReportLogEntry>;
 
     [k: string]: unknown;
-  }
-
-  export namespace Entries {
-    /**
-     * A raw Voice SDK log entry. Additional SDK-specific fields may be present.
-     */
-    export interface Entry {
-      /**
-       * Raw structured context attached to the log entry.
-       */
-      context?: { [key: string]: unknown };
-
-      /**
-       * Log level emitted by the SDK.
-       */
-      level?: 'debug' | 'info' | 'warn' | 'error';
-
-      /**
-       * Log message.
-       */
-      message?: string;
-
-      /**
-       * Time when the log entry was emitted.
-       */
-      timestamp?: string;
-
-      [k: string]: unknown;
-    }
   }
 
   /**
@@ -490,6 +406,7 @@ export interface VoiceSDKCallReportListParams extends DefaultFlatPaginationParam
 
 export declare namespace VoiceSDKCallReports {
   export {
+    type VoiceSDKCallReportLogEntry as VoiceSDKCallReportLogEntry,
     type VoiceSDKCallReportRetrieveResponse as VoiceSDKCallReportRetrieveResponse,
     type VoiceSDKCallReportListResponse as VoiceSDKCallReportListResponse,
     type VoiceSDKCallReportListResponsesDefaultFlatPagination as VoiceSDKCallReportListResponsesDefaultFlatPagination,

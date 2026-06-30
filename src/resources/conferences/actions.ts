@@ -1021,37 +1021,8 @@ export interface ActionSpeakParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | ActionSpeakParams.InworldVoiceSettings
-    | ActionSpeakParams.XaiVoiceSettings;
-}
-
-export namespace ActionSpeakParams {
-  export interface InworldVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'inworld';
-
-    /**
-     * Controls the expressiveness and consistency of the Inworld `TTS2` model's speech
-     * synthesis. `STABLE` favors consistent, predictable output, `CREATIVE` allows
-     * more expressive variation, and `BALANCED` sits in between. Optional and only
-     * supported by `TTS2`; when omitted, the provider default applies.
-     */
-    delivery_mode?: 'STABLE' | 'BALANCED' | 'CREATIVE';
-  }
-
-  export interface XaiVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'xai';
-
-    /**
-     * Language code, or `auto` to detect automatically.
-     */
-    language?: string;
-  }
+    | Shared.InworldVoiceSettings
+    | Shared.XaiVoiceSettings;
 }
 
 export interface ActionStopParams {

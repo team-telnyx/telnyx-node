@@ -3,13 +3,15 @@
 export * from './shared';
 export {
   AI,
-  type AICreateResponseDeprecatedResponse,
+  type ModelMetadata,
+  type AICreateResponseResponse,
+  type AIListConversationHistoriesResponse,
   type AIRetrieveModelsResponse,
-  type AISearchConversationHistoriesResponse,
   type AISummarizeResponse,
-  type AICreateResponseDeprecatedParams,
-  type AISearchConversationHistoriesParams,
+  type AICreateResponseParams,
+  type AIListConversationHistoriesParams,
   type AISummarizeParams,
+  type AIListConversationHistoriesResponsesDefaultFlatPagination,
 } from './ai/ai';
 export {
   AccessIPAddress,
@@ -141,6 +143,8 @@ export {
 export {
   Calls,
   type CallAssistantRequest,
+  type ConversationRelayInterruptionSettings,
+  type ConversationRelayLanguage,
   type CustomSipHeader,
   type DialogflowConfig,
   type SipHeader,
@@ -1002,13 +1006,13 @@ export {
   PublicInternetGateways,
   type NetworkInterface,
   type NetworkInterfaceRegion,
+  type PublicInternetGatewayRead,
   type PublicInternetGatewayCreateResponse,
   type PublicInternetGatewayRetrieveResponse,
-  type PublicInternetGatewayListResponse,
   type PublicInternetGatewayDeleteResponse,
   type PublicInternetGatewayCreateParams,
   type PublicInternetGatewayListParams,
-  type PublicInternetGatewayListResponsesDefaultFlatPagination,
+  type PublicInternetGatewayReadsDefaultFlatPagination,
 } from './public-internet-gateways';
 export {
   Queues,
@@ -1210,6 +1214,8 @@ export {
 export {
   SpeechToText,
   type SpeechToTextListProvidersResponse,
+  type TranscribeClientEvent,
+  type TranscribeServerEvent,
   type SpeechToTextListProvidersParams,
 } from './speech-to-text';
 export { Storage, type StorageListMigrationSourceCoverageResponse } from './storage/storage';
@@ -1276,11 +1282,12 @@ export {
 } from './texml-applications';
 export {
   TextToSpeech,
-  type TextToSpeechGenerateResponse,
+  type TextToSpeechCreateSpeechResponse,
   type TextToSpeechListVoicesResponse,
   type StreamClientEvent,
   type StreamServerEvent,
-  type TextToSpeechGenerateParams,
+  type TextToSpeechCreateSpeechParams,
+  type TextToSpeechGenerateSpeechParams,
   type TextToSpeechListVoicesParams,
 } from './text-to-speech';
 export {
@@ -1300,15 +1307,19 @@ export {
 } from './traffic-policy-profiles';
 export {
   UacConnections,
+  type UacConnection,
+  type UacExternalSettings,
+  type UacInbound,
+  type UacInternalSettings,
+  type UacOutbound,
   type UacConnectionCreateResponse,
   type UacConnectionRetrieveResponse,
   type UacConnectionUpdateResponse,
-  type UacConnectionListResponse,
   type UacConnectionDeleteResponse,
   type UacConnectionCreateParams,
   type UacConnectionUpdateParams,
   type UacConnectionListParams,
-  type UacConnectionListResponsesDefaultFlatPagination,
+  type UacConnectionsDefaultFlatPagination,
 } from './uac-connections/uac-connections';
 export {
   UsageReports,
@@ -1363,15 +1374,15 @@ export {
 } from './verify-profiles';
 export {
   VirtualCrossConnects,
+  type VirtualCrossConnectCombined,
   type VirtualCrossConnectCreateResponse,
   type VirtualCrossConnectRetrieveResponse,
   type VirtualCrossConnectUpdateResponse,
-  type VirtualCrossConnectListResponse,
   type VirtualCrossConnectDeleteResponse,
   type VirtualCrossConnectCreateParams,
   type VirtualCrossConnectUpdateParams,
   type VirtualCrossConnectListParams,
-  type VirtualCrossConnectListResponsesDefaultFlatPagination,
+  type VirtualCrossConnectCombinedsDefaultFlatPagination,
 } from './virtual-cross-connects';
 export {
   VirtualCrossConnectsCoverage,
@@ -1408,6 +1419,7 @@ export {
 } from './voice-designs';
 export {
   VoiceSDKCallReports,
+  type VoiceSDKCallReportLogEntry,
   type VoiceSDKCallReportRetrieveResponse,
   type VoiceSDKCallReportListResponse,
   type VoiceSDKCallReportListParams,
@@ -1559,13 +1571,13 @@ export {
 } from './whatsapp-message-templates';
 export {
   WireguardInterfaces,
+  type WireguardInterfaceRead,
   type WireguardInterfaceCreateResponse,
   type WireguardInterfaceRetrieveResponse,
-  type WireguardInterfaceListResponse,
   type WireguardInterfaceDeleteResponse,
   type WireguardInterfaceCreateParams,
   type WireguardInterfaceListParams,
-  type WireguardInterfaceListResponsesDefaultFlatPagination,
+  type WireguardInterfaceReadsDefaultFlatPagination,
 } from './wireguard-interfaces';
 export {
   WireguardPeers,

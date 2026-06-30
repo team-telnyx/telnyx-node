@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource verifyEmail', () => {
   // Mock server tests are disabled
-  test.skip('confirmCode: only required params', async () => {
-    const responsePromise = client.dir.verifyEmail.confirmCode('16635d38-75a6-4481-82e8-69af60e05011', {
+  test.skip('confirm: only required params', async () => {
+    const responsePromise = client.dir.verifyEmail.confirm('16635d38-75a6-4481-82e8-69af60e05011', {
       code: '482915',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -23,15 +23,15 @@ describe('resource verifyEmail', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('confirmCode: required and optional params', async () => {
-    const response = await client.dir.verifyEmail.confirmCode('16635d38-75a6-4481-82e8-69af60e05011', {
+  test.skip('confirm: required and optional params', async () => {
+    const response = await client.dir.verifyEmail.confirm('16635d38-75a6-4481-82e8-69af60e05011', {
       code: '482915',
     });
   });
 
   // Mock server tests are disabled
-  test.skip('sendCode', async () => {
-    const responsePromise = client.dir.verifyEmail.sendCode('16635d38-75a6-4481-82e8-69af60e05011');
+  test.skip('send', async () => {
+    const responsePromise = client.dir.verifyEmail.send('16635d38-75a6-4481-82e8-69af60e05011');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

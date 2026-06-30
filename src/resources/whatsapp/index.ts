@@ -25,6 +25,7 @@ export {
 } from './templates';
 export {
   UserData,
+  type WhatsappUserData,
   type UserDataRetrieveResponse,
   type UserDataUpdateResponse,
   type UserDataUpdateParams,

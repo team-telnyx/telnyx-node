@@ -721,8 +721,8 @@ import {
   PublicInternetGatewayCreateResponse,
   PublicInternetGatewayDeleteResponse,
   PublicInternetGatewayListParams,
-  PublicInternetGatewayListResponse,
-  PublicInternetGatewayListResponsesDefaultFlatPagination,
+  PublicInternetGatewayRead,
+  PublicInternetGatewayReadsDefaultFlatPagination,
   PublicInternetGatewayRetrieveResponse,
   PublicInternetGateways,
 } from './resources/public-internet-gateways';
@@ -839,11 +839,6 @@ import {
   SiprecConnectors,
 } from './resources/siprec-connectors';
 import {
-  SpeechToText,
-  SpeechToTextListProvidersParams,
-  SpeechToTextListProvidersResponse,
-} from './resources/speech-to-text';
-import {
   SubNumberOrder,
   SubNumberOrderCancelResponse,
   SubNumberOrderListParams,
@@ -938,12 +933,12 @@ import {
   VerifyProfilesDefaultFlatPagination,
 } from './resources/verify-profiles';
 import {
+  VirtualCrossConnectCombined,
+  VirtualCrossConnectCombinedsDefaultFlatPagination,
   VirtualCrossConnectCreateParams,
   VirtualCrossConnectCreateResponse,
   VirtualCrossConnectDeleteResponse,
   VirtualCrossConnectListParams,
-  VirtualCrossConnectListResponse,
-  VirtualCrossConnectListResponsesDefaultFlatPagination,
   VirtualCrossConnectRetrieveResponse,
   VirtualCrossConnectUpdateParams,
   VirtualCrossConnectUpdateResponse,
@@ -986,6 +981,7 @@ import {
   VoiceSDKCallReportListParams,
   VoiceSDKCallReportListResponse,
   VoiceSDKCallReportListResponsesDefaultFlatPagination,
+  VoiceSDKCallReportLogEntry,
   VoiceSDKCallReportRetrieveResponse,
   VoiceSDKCallReports,
 } from './resources/voice-sdk-call-reports';
@@ -1137,8 +1133,8 @@ import {
   WireguardInterfaceCreateResponse,
   WireguardInterfaceDeleteResponse,
   WireguardInterfaceListParams,
-  WireguardInterfaceListResponse,
-  WireguardInterfaceListResponsesDefaultFlatPagination,
+  WireguardInterfaceRead,
+  WireguardInterfaceReadsDefaultFlatPagination,
   WireguardInterfaceRetrieveResponse,
   WireguardInterfaces,
 } from './resources/wireguard-interfaces';
@@ -1186,13 +1182,15 @@ import {
 } from './resources/addresses/addresses';
 import {
   AI,
-  AICreateResponseDeprecatedParams,
-  AICreateResponseDeprecatedResponse,
+  AICreateResponseParams,
+  AICreateResponseResponse,
+  AIListConversationHistoriesParams,
+  AIListConversationHistoriesResponse,
+  AIListConversationHistoriesResponsesDefaultFlatPagination,
   AIRetrieveModelsResponse,
-  AISearchConversationHistoriesParams,
-  AISearchConversationHistoriesResponse,
   AISummarizeParams,
   AISummarizeResponse,
+  ModelMetadata,
 } from './resources/ai/ai';
 import { BundlePricing } from './resources/bundle-pricing/bundle-pricing';
 import {
@@ -1201,6 +1199,8 @@ import {
   CallDialResponse,
   CallRetrieveStatusResponse,
   Calls,
+  ConversationRelayInterruptionSettings,
+  ConversationRelayLanguage,
   CustomSipHeader,
   DialogflowConfig,
   SipHeader,
@@ -1571,6 +1571,13 @@ import {
   SimCardUpdateResponse,
   SimCards,
 } from './resources/sim-cards/sim-cards';
+import {
+  SpeechToText,
+  SpeechToTextListProvidersParams,
+  SpeechToTextListProvidersResponse,
+  TranscribeClientEvent,
+  TranscribeServerEvent,
+} from './resources/speech-to-text/speech-to-text';
 import { Storage, StorageListMigrationSourceCoverageResponse } from './resources/storage/storage';
 import {
   TermsOfService,
@@ -1590,22 +1597,27 @@ import {
   StreamClientEvent,
   StreamServerEvent,
   TextToSpeech,
-  TextToSpeechGenerateParams,
-  TextToSpeechGenerateResponse,
+  TextToSpeechCreateSpeechParams,
+  TextToSpeechCreateSpeechResponse,
+  TextToSpeechGenerateSpeechParams,
   TextToSpeechListVoicesParams,
   TextToSpeechListVoicesResponse,
 } from './resources/text-to-speech/text-to-speech';
 import {
+  UacConnection,
   UacConnectionCreateParams,
   UacConnectionCreateResponse,
   UacConnectionDeleteResponse,
   UacConnectionListParams,
-  UacConnectionListResponse,
-  UacConnectionListResponsesDefaultFlatPagination,
   UacConnectionRetrieveResponse,
   UacConnectionUpdateParams,
   UacConnectionUpdateResponse,
   UacConnections,
+  UacConnectionsDefaultFlatPagination,
+  UacExternalSettings,
+  UacInbound,
+  UacInternalSettings,
+  UacOutbound,
 } from './resources/uac-connections/uac-connections';
 import {
   CreateVerificationResponse,
@@ -2835,6 +2847,10 @@ export class Telnyx {
   regulatoryRequirements: API.RegulatoryRequirements = new API.RegulatoryRequirements(this);
   reports: API.Reports = new API.Reports(this);
   /**
+   * Discover available speech-to-text providers, models, and supported languages.
+   */
+  speechToText: API.SpeechToText = new API.SpeechToText(this);
+  /**
    * Requirement Groups
    */
   requirementGroups: API.RequirementGroups = new API.RequirementGroups(this);
@@ -3027,6 +3043,18 @@ export class Telnyx {
    */
   pronunciationDicts: API.PronunciationDicts = new API.PronunciationDicts(this);
   /**
+   * UAC connection operations
+   */
+  uacConnections: API.UacConnections = new API.UacConnections(this);
+  /**
+   * Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting.
+   */
+  voiceSDKCallReports: API.VoiceSDKCallReports = new API.VoiceSDKCallReports(this);
+  /**
+   * UAC connection operations
+   */
+  sipRegistrationStatus: API.SipRegistrationStatus = new API.SipRegistrationStatus(this);
+  /**
    * Static reference values the API accepts: call reasons, document types, rejection types.
    */
   callReasons: API.CallReasons = new API.CallReasons(this);
@@ -3035,22 +3063,6 @@ export class Telnyx {
    * Trademark or impersonation claims filed against your DIR. Customers may contest a claim with supporting evidence.
    */
   infringementClaims: API.InfringementClaims = new API.InfringementClaims(this);
-  /**
-   * UAC connection operations
-   */
-  sipRegistrationStatus: API.SipRegistrationStatus = new API.SipRegistrationStatus(this);
-  /**
-   * Discover available speech-to-text providers, models, and supported languages.
-   */
-  speechToText: API.SpeechToText = new API.SpeechToText(this);
-  /**
-   * UAC connection operations
-   */
-  uacConnections: API.UacConnections = new API.UacConnections(this);
-  /**
-   * Retrieve raw Voice SDK call report stats payloads for WebRTC call troubleshooting.
-   */
-  voiceSDKCallReports: API.VoiceSDKCallReports = new API.VoiceSDKCallReports(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3161,6 +3173,7 @@ Telnyx.Recordings = Recordings;
 Telnyx.Regions = Regions;
 Telnyx.RegulatoryRequirements = RegulatoryRequirements;
 Telnyx.Reports = Reports;
+Telnyx.SpeechToText = SpeechToText;
 Telnyx.RequirementGroups = RequirementGroups;
 Telnyx.RequirementTypes = RequirementTypes;
 Telnyx.Requirements = Requirements;
@@ -3216,13 +3229,12 @@ Telnyx.Enterprises = Enterprises;
 Telnyx.Reputation = Reputation;
 Telnyx.TermsOfService = TermsOfService;
 Telnyx.PronunciationDicts = PronunciationDicts;
+Telnyx.UacConnections = UacConnections;
+Telnyx.VoiceSDKCallReports = VoiceSDKCallReports;
+Telnyx.SipRegistrationStatus = SipRegistrationStatus;
 Telnyx.CallReasons = CallReasons;
 Telnyx.Dir = Dir;
 Telnyx.InfringementClaims = InfringementClaims;
-Telnyx.SipRegistrationStatus = SipRegistrationStatus;
-Telnyx.SpeechToText = SpeechToText;
-Telnyx.UacConnections = UacConnections;
-Telnyx.VoiceSDKCallReports = VoiceSDKCallReports;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3482,12 +3494,14 @@ export declare namespace Telnyx {
 
   export {
     AI as AI,
-    type AICreateResponseDeprecatedResponse as AICreateResponseDeprecatedResponse,
+    type ModelMetadata as ModelMetadata,
+    type AICreateResponseResponse as AICreateResponseResponse,
+    type AIListConversationHistoriesResponse as AIListConversationHistoriesResponse,
     type AIRetrieveModelsResponse as AIRetrieveModelsResponse,
-    type AISearchConversationHistoriesResponse as AISearchConversationHistoriesResponse,
     type AISummarizeResponse as AISummarizeResponse,
-    type AICreateResponseDeprecatedParams as AICreateResponseDeprecatedParams,
-    type AISearchConversationHistoriesParams as AISearchConversationHistoriesParams,
+    type AIListConversationHistoriesResponsesDefaultFlatPagination as AIListConversationHistoriesResponsesDefaultFlatPagination,
+    type AICreateResponseParams as AICreateResponseParams,
+    type AIListConversationHistoriesParams as AIListConversationHistoriesParams,
     type AISummarizeParams as AISummarizeParams,
   };
 
@@ -3576,6 +3590,8 @@ export declare namespace Telnyx {
   export {
     Calls as Calls,
     type CallAssistantRequest as CallAssistantRequest,
+    type ConversationRelayInterruptionSettings as ConversationRelayInterruptionSettings,
+    type ConversationRelayLanguage as ConversationRelayLanguage,
     type CustomSipHeader as CustomSipHeader,
     type DialogflowConfig as DialogflowConfig,
     type SipHeader as SipHeader,
@@ -4401,11 +4417,11 @@ export declare namespace Telnyx {
     PublicInternetGateways as PublicInternetGateways,
     type NetworkInterface as NetworkInterface,
     type NetworkInterfaceRegion as NetworkInterfaceRegion,
+    type PublicInternetGatewayRead as PublicInternetGatewayRead,
     type PublicInternetGatewayCreateResponse as PublicInternetGatewayCreateResponse,
     type PublicInternetGatewayRetrieveResponse as PublicInternetGatewayRetrieveResponse,
-    type PublicInternetGatewayListResponse as PublicInternetGatewayListResponse,
     type PublicInternetGatewayDeleteResponse as PublicInternetGatewayDeleteResponse,
-    type PublicInternetGatewayListResponsesDefaultFlatPagination as PublicInternetGatewayListResponsesDefaultFlatPagination,
+    type PublicInternetGatewayReadsDefaultFlatPagination as PublicInternetGatewayReadsDefaultFlatPagination,
     type PublicInternetGatewayCreateParams as PublicInternetGatewayCreateParams,
     type PublicInternetGatewayListParams as PublicInternetGatewayListParams,
   };
@@ -4457,6 +4473,14 @@ export declare namespace Telnyx {
     type ReportListWdrsResponsesDefaultFlatPagination as ReportListWdrsResponsesDefaultFlatPagination,
     type ReportListMdrsParams as ReportListMdrsParams,
     type ReportListWdrsParams as ReportListWdrsParams,
+  };
+
+  export {
+    SpeechToText as SpeechToText,
+    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
+    type TranscribeClientEvent as TranscribeClientEvent,
+    type TranscribeServerEvent as TranscribeServerEvent,
+    type SpeechToTextListProvidersParams as SpeechToTextListProvidersParams,
   };
 
   export {
@@ -4677,11 +4701,12 @@ export declare namespace Telnyx {
 
   export {
     TextToSpeech as TextToSpeech,
-    type TextToSpeechGenerateResponse as TextToSpeechGenerateResponse,
+    type TextToSpeechCreateSpeechResponse as TextToSpeechCreateSpeechResponse,
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
     type StreamClientEvent as StreamClientEvent,
     type StreamServerEvent as StreamServerEvent,
-    type TextToSpeechGenerateParams as TextToSpeechGenerateParams,
+    type TextToSpeechCreateSpeechParams as TextToSpeechCreateSpeechParams,
+    type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
   };
 
@@ -4748,12 +4773,12 @@ export declare namespace Telnyx {
 
   export {
     VirtualCrossConnects as VirtualCrossConnects,
+    type VirtualCrossConnectCombined as VirtualCrossConnectCombined,
     type VirtualCrossConnectCreateResponse as VirtualCrossConnectCreateResponse,
     type VirtualCrossConnectRetrieveResponse as VirtualCrossConnectRetrieveResponse,
     type VirtualCrossConnectUpdateResponse as VirtualCrossConnectUpdateResponse,
-    type VirtualCrossConnectListResponse as VirtualCrossConnectListResponse,
     type VirtualCrossConnectDeleteResponse as VirtualCrossConnectDeleteResponse,
-    type VirtualCrossConnectListResponsesDefaultFlatPagination as VirtualCrossConnectListResponsesDefaultFlatPagination,
+    type VirtualCrossConnectCombinedsDefaultFlatPagination as VirtualCrossConnectCombinedsDefaultFlatPagination,
     type VirtualCrossConnectCreateParams as VirtualCrossConnectCreateParams,
     type VirtualCrossConnectUpdateParams as VirtualCrossConnectUpdateParams,
     type VirtualCrossConnectListParams as VirtualCrossConnectListParams,
@@ -4778,11 +4803,11 @@ export declare namespace Telnyx {
 
   export {
     WireguardInterfaces as WireguardInterfaces,
+    type WireguardInterfaceRead as WireguardInterfaceRead,
     type WireguardInterfaceCreateResponse as WireguardInterfaceCreateResponse,
     type WireguardInterfaceRetrieveResponse as WireguardInterfaceRetrieveResponse,
-    type WireguardInterfaceListResponse as WireguardInterfaceListResponse,
     type WireguardInterfaceDeleteResponse as WireguardInterfaceDeleteResponse,
-    type WireguardInterfaceListResponsesDefaultFlatPagination as WireguardInterfaceListResponsesDefaultFlatPagination,
+    type WireguardInterfaceReadsDefaultFlatPagination as WireguardInterfaceReadsDefaultFlatPagination,
     type WireguardInterfaceCreateParams as WireguardInterfaceCreateParams,
     type WireguardInterfaceListParams as WireguardInterfaceListParams,
   };
@@ -4995,6 +5020,38 @@ export declare namespace Telnyx {
   };
 
   export {
+    UacConnections as UacConnections,
+    type UacConnection as UacConnection,
+    type UacExternalSettings as UacExternalSettings,
+    type UacInbound as UacInbound,
+    type UacInternalSettings as UacInternalSettings,
+    type UacOutbound as UacOutbound,
+    type UacConnectionCreateResponse as UacConnectionCreateResponse,
+    type UacConnectionRetrieveResponse as UacConnectionRetrieveResponse,
+    type UacConnectionUpdateResponse as UacConnectionUpdateResponse,
+    type UacConnectionDeleteResponse as UacConnectionDeleteResponse,
+    type UacConnectionsDefaultFlatPagination as UacConnectionsDefaultFlatPagination,
+    type UacConnectionCreateParams as UacConnectionCreateParams,
+    type UacConnectionUpdateParams as UacConnectionUpdateParams,
+    type UacConnectionListParams as UacConnectionListParams,
+  };
+
+  export {
+    VoiceSDKCallReports as VoiceSDKCallReports,
+    type VoiceSDKCallReportLogEntry as VoiceSDKCallReportLogEntry,
+    type VoiceSDKCallReportRetrieveResponse as VoiceSDKCallReportRetrieveResponse,
+    type VoiceSDKCallReportListResponse as VoiceSDKCallReportListResponse,
+    type VoiceSDKCallReportListResponsesDefaultFlatPagination as VoiceSDKCallReportListResponsesDefaultFlatPagination,
+    type VoiceSDKCallReportListParams as VoiceSDKCallReportListParams,
+  };
+
+  export {
+    SipRegistrationStatus as SipRegistrationStatus,
+    type SipRegistrationStatusRetrieveResponse as SipRegistrationStatusRetrieveResponse,
+    type SipRegistrationStatusRetrieveParams as SipRegistrationStatusRetrieveParams,
+  };
+
+  export {
     CallReasons as CallReasons,
     type CallReasonListResponse as CallReasonListResponse,
     type CallReasonValidateResponse as CallReasonValidateResponse,
@@ -5028,39 +5085,6 @@ export declare namespace Telnyx {
     type InfringementClaimContestParams as InfringementClaimContestParams,
   };
 
-  export {
-    SipRegistrationStatus as SipRegistrationStatus,
-    type SipRegistrationStatusRetrieveResponse as SipRegistrationStatusRetrieveResponse,
-    type SipRegistrationStatusRetrieveParams as SipRegistrationStatusRetrieveParams,
-  };
-
-  export {
-    SpeechToText as SpeechToText,
-    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
-    type SpeechToTextListProvidersParams as SpeechToTextListProvidersParams,
-  };
-
-  export {
-    UacConnections as UacConnections,
-    type UacConnectionCreateResponse as UacConnectionCreateResponse,
-    type UacConnectionRetrieveResponse as UacConnectionRetrieveResponse,
-    type UacConnectionUpdateResponse as UacConnectionUpdateResponse,
-    type UacConnectionListResponse as UacConnectionListResponse,
-    type UacConnectionDeleteResponse as UacConnectionDeleteResponse,
-    type UacConnectionListResponsesDefaultFlatPagination as UacConnectionListResponsesDefaultFlatPagination,
-    type UacConnectionCreateParams as UacConnectionCreateParams,
-    type UacConnectionUpdateParams as UacConnectionUpdateParams,
-    type UacConnectionListParams as UacConnectionListParams,
-  };
-
-  export {
-    VoiceSDKCallReports as VoiceSDKCallReports,
-    type VoiceSDKCallReportRetrieveResponse as VoiceSDKCallReportRetrieveResponse,
-    type VoiceSDKCallReportListResponse as VoiceSDKCallReportListResponse,
-    type VoiceSDKCallReportListResponsesDefaultFlatPagination as VoiceSDKCallReportListResponsesDefaultFlatPagination,
-    type VoiceSDKCallReportListParams as VoiceSDKCallReportListParams,
-  };
-
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
   export type AzureVoiceSettings = API.AzureVoiceSettings;
@@ -5079,6 +5103,7 @@ export declare namespace Telnyx {
   export type Feature = API.Feature;
   export type HostedNumber = API.HostedNumber;
   export type InboundMessagePayload = API.InboundMessagePayload;
+  export type InworldVoiceSettings = API.InworldVoiceSettings;
   export type MessagingFeatureSet = API.MessagingFeatureSet;
   export type MessagingHostedNumberOrder = API.MessagingHostedNumberOrder;
   export type MessagingPaginationMeta = API.MessagingPaginationMeta;
@@ -5100,4 +5125,5 @@ export declare namespace Telnyx {
   export type SimpleSimCard = API.SimpleSimCard;
   export type SubNumberOrderRegulatoryRequirementWithValue = API.SubNumberOrderRegulatoryRequirementWithValue;
   export type WhatsappTemplateData = API.WhatsappTemplateData;
+  export type XaiVoiceSettings = API.XaiVoiceSettings;
 }
