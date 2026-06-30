@@ -43,3 +43,18 @@ export {
   type PhoneNumberRemoveParams,
   type PhoneNumberListResponsesDefaultFlatPagination,
 } from './phone-numbers';
+export {
+  References,
+  type ReferenceUpdateResponse,
+  type ReferenceListResponse,
+  type ReferenceSubmitResponse,
+  type ReferenceUpdateParams,
+  type ReferenceSubmitParams,
+} from './references';
+export {
+  VerifyEmail,
+  type VerifyEmailConfirmCodeResponse,
+  type VerifyEmailSendCodeResponse,
+  type VerifyEmailStatusResponse,
+  type VerifyEmailConfirmCodeParams,
+} from './verify-email';

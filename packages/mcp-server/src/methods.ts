@@ -6455,6 +6455,42 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/dir/{dir_id}/phone_numbers',
   },
   {
+    clientCallName: 'client.dir.references.update',
+    fullyQualifiedName: 'dir.references.update',
+    httpMethod: 'patch',
+    httpPath: '/dir/{dir_id}/references/{ref_type}/{slot}',
+  },
+  {
+    clientCallName: 'client.dir.references.list',
+    fullyQualifiedName: 'dir.references.list',
+    httpMethod: 'get',
+    httpPath: '/dir/{dir_id}/references',
+  },
+  {
+    clientCallName: 'client.dir.references.submit',
+    fullyQualifiedName: 'dir.references.submit',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/references',
+  },
+  {
+    clientCallName: 'client.dir.verifyEmail.confirmCode',
+    fullyQualifiedName: 'dir.verifyEmail.confirmCode',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/verify_email/confirm',
+  },
+  {
+    clientCallName: 'client.dir.verifyEmail.sendCode',
+    fullyQualifiedName: 'dir.verifyEmail.sendCode',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/verify_email',
+  },
+  {
+    clientCallName: 'client.dir.verifyEmail.status',
+    fullyQualifiedName: 'dir.verifyEmail.status',
+    httpMethod: 'get',
+    httpPath: '/dir/{dir_id}/verify_email',
+  },
+  {
     clientCallName: 'client.infringementClaims.retrieve',
     fullyQualifiedName: 'infringementClaims.retrieve',
     httpMethod: 'get',
